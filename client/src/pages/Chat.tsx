@@ -30,6 +30,9 @@ type Question =
   | 'contact-info' 
   | 'date-selection' 
   | 'group-size-selection'
+  | 'time-slot-selection'
+  | 'boat-selection'
+  | 'package-selection'
   | 'comparison-selection' 
   | 'complete';
 
@@ -60,6 +63,7 @@ interface BookingData {
   selectedCruiseType: CruiseType | null;
   selectedTimeSlot: string;
   selectedPrivatePackage: string | null; // New field for private packages
+  selectedBoat?: string; // Selected boat ID
   selectedDiscoPackage: DiscoPackage | null;
   selectedDiscoTimeSlot: string;
   discoTicketQuantity: number; // Number of disco cruise tickets (1-50)
@@ -145,6 +149,26 @@ const isDateAvailable = (date: Date): boolean => {
   const today = startOfDay(new Date());
   const maxDate = addDays(today, 365);
   return !isBefore(date, today) && !isAfter(date, maxDate);
+};
+
+// Check availability using new calendar system
+const checkAvailabilityForDate = async (date: Date, cruiseType: 'private' | 'disco', groupSize: number) => {
+  try {
+    const response = await fetch(`/api/availability/check?` + new URLSearchParams({
+      date: date.toISOString(),
+      duration: '4', // 4 hour cruises
+      groupSize: groupSize.toString(),
+      type: cruiseType
+    }));
+    
+    if (!response.ok) throw new Error('Failed to check availability');
+    
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('Error checking availability:', error);
+    return { available: false, reason: 'Unable to check availability' };
+  }
 };
 
 // Get alternative dates around the selected date for the same group size
@@ -319,7 +343,25 @@ export default function Chat() {
   const [leadCreated, setLeadCreated] = useState(false);
   const [projectId, setProjectId] = useState<string | null>(null);
   const [leadTrackingEnabled, setLeadTrackingEnabled] = useState(true);
+  const [availabilityCache, setAvailabilityCache] = useState<Map<string, any>>(new Map());
   const { toast } = useToast();
+
+  // Check real-time availability for a date
+  const checkDateAvailability = async (date: Date) => {
+    const cacheKey = date.toISOString().split('T')[0];
+    if (availabilityCache.has(cacheKey)) {
+      return availabilityCache.get(cacheKey);
+    }
+    
+    const availability = await checkAvailabilityForDate(
+      date,
+      formData.selectedCruiseType || 'private',
+      formData.groupSize || 25
+    );
+    
+    setAvailabilityCache(prev => new Map(prev).set(cacheKey, availability));
+    return availability;
+  };
 
   // Fetch private cruise pricing when all required data is available
   useEffect(() => {
@@ -568,7 +610,7 @@ export default function Chat() {
   // Enhanced Navigation functions
   const questionOrder: Question[] = [
     'event-type', 'contact-info', 'date-selection', 'group-size-selection',
-    'comparison-selection', 'complete'
+    'time-slot-selection', 'boat-selection', 'package-selection', 'complete'
   ];
 
   const getQuestionIndex = (question: Question) => questionOrder.indexOf(question);
@@ -997,8 +1039,45 @@ export default function Chat() {
   // Confirm group size and proceed
   const handleGroupSizeConfirm = () => {
     if (formData.groupSize >= GROUP_SIZE_MIN && formData.groupSize <= GROUP_SIZE_MAX) {
-      progressToNextQuestion();
+      // For bachelor/bachelorette, go to time slot selection
+      if (formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') {
+        progressToNextQuestion();
+      } else {
+        // For other events, skip to comparison selection
+        setCurrentQuestion('comparison-selection');
+        updateProgress('comparison-selection');
+      }
     }
+  };
+  
+  // Check availability for a time slot
+  const checkTimeSlotAvailability = async (date: Date, timeSlot: string, groupSize: number) => {
+    try {
+      const response = await fetch(`/api/availability/check?` + new URLSearchParams({
+        date: date.toISOString(),
+        duration: '4',
+        groupSize: groupSize.toString(),
+        type: 'private'
+      }));
+      
+      if (!response.ok) return false;
+      const result = await response.json();
+      return result.available;
+    } catch (error) {
+      console.error('Error checking availability:', error);
+      return false;
+    }
+  };
+  
+  // Calculate package pricing
+  const calculatePackagePricing = (baseHourlyRate: number, packageId: string, duration: number) => {
+    let hourlyRate = baseHourlyRate;
+    if (packageId === 'essentials') {
+      hourlyRate += 50; // +$50/hour
+    } else if (packageId === 'ultimate') {
+      hourlyRate += 75; // +$75/hour
+    }
+    return hourlyRate * duration;
   };
   
   // Private cruise selection handler - allow independent selection
@@ -1506,6 +1585,9 @@ export default function Chat() {
         'contact-info': 'Contact Info', 
         'date-selection': 'Date Selection',
         'group-size-selection': 'Group Size',
+        'time-slot-selection': 'Time Slot',
+        'boat-selection': 'Select Boat',
+        'package-selection': 'Package Options',
         'comparison-selection': 'Cruise Options',
         'complete': 'Complete'
       };
@@ -2075,6 +2157,332 @@ export default function Chat() {
                 <p className="text-sm text-slate-500 dark:text-slate-400">
                   Click on an available date to continue
                 </p>
+              </motion.div>
+            )}
+
+            {/* Time Slot Selection - Bachelor/Bachelorette */}
+            {currentQuestion === 'time-slot-selection' && formData.eventDate && (
+              <motion.div
+                key="time-slot-selection"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="text-center space-y-8"
+              >
+                <div className="space-y-6">
+                  <div className="text-center">
+                    <motion.div
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.2, duration: 0.6 }}
+                      className="w-20 h-20 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-4"
+                    >
+                      <Clock className="h-10 w-10 text-purple-600" />
+                    </motion.div>
+                    <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">Choose Your Time Slot</h2>
+                    <p className="text-slate-600 dark:text-slate-400 text-lg">
+                      Select an available time for {format(formData.eventDate, 'MMMM do, yyyy')}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+                  {getPrivateTimeSlotsForDate(formData.eventDate).map((slot) => (
+                    <motion.button
+                      key={slot.id}
+                      onClick={() => {
+                        setFormData(prev => ({ ...prev, selectedTimeSlot: slot.id }));
+                        addCompletedSelection({
+                          id: 'time-slot',
+                          label: 'Time Slot',
+                          value: slot.label,
+                          icon: 'clock'
+                        });
+                        progressToNextQuestion();
+                      }}
+                      className="p-4 bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl transition-all"
+                      data-testid={`button-time-${slot.id}`}
+                    >
+                      <div className="flex items-center justify-between">
+                        <div className="text-left">
+                          <div className="font-semibold text-slate-800 dark:text-slate-200">
+                            {slot.icon} {slot.label}
+                          </div>
+                          {slot.popular && (
+                            <Badge className="mt-2" variant="secondary">
+                              Popular Choice
+                            </Badge>
+                          )}
+                        </div>
+                        <ChevronRight className="h-5 w-5 text-slate-400" />
+                      </div>
+                    </motion.button>
+                  ))}
+                </div>
+              </motion.div>
+            )}
+
+            {/* Boat Selection */}
+            {currentQuestion === 'boat-selection' && (
+              <motion.div
+                key="boat-selection"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="text-center space-y-8"
+              >
+                <div className="space-y-6">
+                  <div className="text-center">
+                    <motion.div
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.2, duration: 0.6 }}
+                      className="w-20 h-20 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4"
+                    >
+                      <Ship className="h-10 w-10 text-blue-600" />
+                    </motion.div>
+                    <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">Select Your Boat</h2>
+                    <p className="text-slate-600 dark:text-slate-400 text-lg">
+                      Choose the perfect boat for your group of {formData.groupSize} people
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
+                  {/* Boat options will be loaded dynamically */}
+                  <motion.button
+                    onClick={() => {
+                      setFormData(prev => ({ ...prev, selectedBoat: 'luxury-25' }));
+                      addCompletedSelection({
+                        id: 'boat',
+                        label: 'Boat',
+                        value: '25-Person Party Cruiser',
+                        icon: 'ship'
+                      });
+                      progressToNextQuestion();
+                    }}
+                    className="p-6 bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl transition-all"
+                    data-testid="button-boat-luxury-25"
+                  >
+                    <Ship className="h-12 w-12 text-blue-600 mx-auto mb-4" />
+                    <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-2">
+                      25-Person Party Cruiser
+                    </h3>
+                    <p className="text-slate-600 dark:text-slate-400 mb-4">
+                      Perfect for groups up to 25. Premium sound system, spacious deck.
+                    </p>
+                    <div className="text-2xl font-bold text-blue-600">
+                      $300/hour
+                    </div>
+                  </motion.button>
+
+                  <motion.button
+                    onClick={() => {
+                      setFormData(prev => ({ ...prev, selectedBoat: 'party-50' }));
+                      addCompletedSelection({
+                        id: 'boat',
+                        label: 'Boat',
+                        value: '50-Person Party Yacht',
+                        icon: 'ship'
+                      });
+                      progressToNextQuestion();
+                    }}
+                    className="p-6 bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl transition-all"
+                    data-testid="button-boat-party-50"
+                  >
+                    <Ship className="h-12 w-12 text-purple-600 mx-auto mb-4" />
+                    <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-2">
+                      50-Person Party Yacht
+                    </h3>
+                    <p className="text-slate-600 dark:text-slate-400 mb-4">
+                      Luxury yacht for groups up to 50. Two levels, premium amenities.
+                    </p>
+                    <div className="text-2xl font-bold text-purple-600">
+                      $400/hour
+                    </div>
+                  </motion.button>
+                </div>
+              </motion.div>
+            )}
+
+            {/* Package Selection */}
+            {currentQuestion === 'package-selection' && (
+              <motion.div
+                key="package-selection"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="text-center space-y-8"
+              >
+                <div className="space-y-6">
+                  <div className="text-center">
+                    <motion.div
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.2, duration: 0.6 }}
+                      className="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4"
+                    >
+                      <Sparkles className="h-10 w-10 text-white" />
+                    </motion.div>
+                    <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">Choose Your Package</h2>
+                    <p className="text-slate-600 dark:text-slate-400 text-lg">
+                      Select the perfect package for your {formData.eventTypeLabel.toLowerCase()}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                  {/* Standard Package */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.1 }}
+                    className="relative"
+                  >
+                    <button
+                      onClick={() => {
+                        setFormData(prev => ({ ...prev, selectedPrivatePackage: 'standard' }));
+                        addCompletedSelection({
+                          id: 'package',
+                          label: 'Package',
+                          value: 'Standard Package',
+                          icon: 'sparkles'
+                        });
+                        handleSendQuote();
+                      }}
+                      className="w-full p-6 bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl transition-all"
+                      data-testid="button-package-standard"
+                    >
+                      <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-2">
+                        Standard Package
+                      </h3>
+                      <div className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-4">
+                        Base Rate
+                      </div>
+                      <ul className="text-left space-y-2 mb-6">
+                        <li className="flex items-start">
+                          <Check className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>4-hour cruise</span>
+                        </li>
+                        <li className="flex items-start">
+                          <Check className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Captain & crew</span>
+                        </li>
+                        <li className="flex items-start">
+                          <Check className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Basic sound system</span>
+                        </li>
+                        <li className="flex items-start">
+                          <Check className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Coolers with ice</span>
+                        </li>
+                      </ul>
+                    </button>
+                  </motion.div>
+
+                  {/* Essentials Package */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.2 }}
+                    className="relative"
+                  >
+                    <button
+                      onClick={() => {
+                        setFormData(prev => ({ ...prev, selectedPrivatePackage: 'essentials' }));
+                        addCompletedSelection({
+                          id: 'package',
+                          label: 'Package',
+                          value: 'Essentials Package',
+                          icon: 'sparkles'
+                        });
+                        handleSendQuote();
+                      }}
+                      className="w-full p-6 bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl transition-all border-2 border-blue-500"
+                      data-testid="button-package-essentials"
+                    >
+                      <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2" variant="secondary">
+                        Most Popular
+                      </Badge>
+                      <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-2">
+                        Essentials Package
+                      </h3>
+                      <div className="text-3xl font-bold text-blue-600 mb-4">
+                        +$50/hour
+                      </div>
+                      <ul className="text-left space-y-2 mb-6">
+                        <li className="flex items-start">
+                          <Check className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Everything in Standard</span>
+                        </li>
+                        <li className="flex items-start">
+                          <Check className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Party decorations</span>
+                        </li>
+                        <li className="flex items-start">
+                          <Check className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Welcome drinks</span>
+                        </li>
+                        <li className="flex items-start">
+                          <Check className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Photo props</span>
+                        </li>
+                      </ul>
+                    </button>
+                  </motion.div>
+
+                  {/* Ultimate Package */}
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.3 }}
+                    className="relative"
+                  >
+                    <button
+                      onClick={() => {
+                        setFormData(prev => ({ ...prev, selectedPrivatePackage: 'ultimate' }));
+                        addCompletedSelection({
+                          id: 'package',
+                          label: 'Package',
+                          value: 'Ultimate Party Package',
+                          icon: 'sparkles'
+                        });
+                        handleSendQuote();
+                      }}
+                      className="w-full p-6 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl shadow-md hover:shadow-xl transition-all"
+                      data-testid="button-package-ultimate"
+                    >
+                      <Crown className="h-8 w-8 text-purple-600 mx-auto mb-2" />
+                      <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200 mb-2">
+                        Ultimate Party Package
+                      </h3>
+                      <div className="text-3xl font-bold text-purple-600 mb-4">
+                        +$75/hour
+                      </div>
+                      <ul className="text-left space-y-2 mb-6">
+                        <li className="flex items-start">
+                          <Check className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Everything in Essentials</span>
+                        </li>
+                        <li className="flex items-start">
+                          <Check className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Premium sound system</span>
+                        </li>
+                        <li className="flex items-start">
+                          <Check className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Red carpet boarding</span>
+                        </li>
+                        <li className="flex items-start">
+                          <Check className="h-5 w-5 text-green-500 mr-2 flex-shrink-0 mt-0.5" />
+                          <span>Champagne toast</span>
+                        </li>
+                      </ul>
+                    </button>
+                  </motion.div>
+                </div>
               </motion.div>
             )}
 

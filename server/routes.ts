@@ -201,14 +201,62 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const start = startDate ? new Date(startDate as string) : new Date();
       const end = endDate ? new Date(endDate as string) : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
 
-      const availability = await googleSheetsService.getAvailability(start, end);
+      // Use in-memory storage instead of Google Sheets
+      const bookings = await storage.getBookings(start, end);
+      const timeframes = await storage.getTimeframes();
+      const boats = await storage.getActiveBoats();
       
-      let filtered = availability;
-      if (groupSize) {
-        filtered = availability.filter(slot => slot.capacity >= parseInt(groupSize as string));
+      // Generate availability data from timeframes
+      const availability = [];
+      const currentDate = new Date(start);
+      
+      while (currentDate <= end) {
+        const dayOfWeek = currentDate.getDay();
+        const dayTimeframes = timeframes.filter(tf => tf.dayOfWeek === dayOfWeek && tf.type === 'private');
+        
+        for (const tf of dayTimeframes) {
+          const slotDate = new Date(currentDate);
+          const [startHours, startMinutes] = tf.startTime.split(':').map(Number);
+          const [endHours, endMinutes] = tf.endTime.split(':').map(Number);
+          
+          slotDate.setHours(startHours, startMinutes, 0, 0);
+          const slotEnd = new Date(currentDate);
+          slotEnd.setHours(endHours, endMinutes, 0, 0);
+          
+          // Check if this slot is already booked
+          const isBooked = bookings.some(booking => {
+            const bookingStart = booking.startTime;
+            const bookingEnd = booking.endTime;
+            return (
+              (slotDate >= bookingStart && slotDate < bookingEnd) ||
+              (slotEnd > bookingStart && slotEnd <= bookingEnd)
+            );
+          });
+          
+          if (!isBooked) {
+            for (const boat of boats) {
+              if (!groupSize || boat.capacity >= parseInt(groupSize as string)) {
+                availability.push({
+                  date: currentDate.toISOString().split('T')[0],
+                  day: currentDate.toLocaleDateString('en-US', { weekday: 'short' }),
+                  time: `${tf.startTime.replace(':', '')}-${tf.endTime.replace(':', '')}`,
+                  boatType: boat.name,
+                  capacity: boat.capacity,
+                  baseRate: 350, // Base rate per hour
+                  status: 'AVAILABLE',
+                  bookedBy: undefined,
+                  groupSize: undefined,
+                  notes: tf.description
+                });
+              }
+            }
+          }
+        }
+        
+        currentDate.setDate(currentDate.getDate() + 1);
       }
 
-      res.json({ availability: filtered });
+      res.json({ availability });
     } catch (error) {
       console.error("Availability error:", error);
       res.status(500).json({ error: "Failed to fetch availability" });
@@ -223,8 +271,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "date, time, and groupSize required" });
       }
 
-      const available = await googleSheetsService.checkAvailability(date, time, groupSize);
-      res.json({ available });
+      // Use the new availability system instead of Google Sheets
+      const dateObj = new Date(date);
+      const availability = await storage.checkAvailability(dateObj, 4, groupSize, 'private');
+      res.json({ available: availability.available, ...availability });
     } catch (error) {
       console.error("Check availability error:", error);
       res.status(500).json({ error: "Failed to check availability" });
@@ -2429,6 +2479,185 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ==========================================
   // AVAILABILITY ENDPOINTS
   // ==========================================
+  
+  // Initialize default time slots and disco cruise slots
+  app.post("/api/initialize-slots", async (req, res) => {
+    try {
+      console.log("🚀 Initializing default time slots and disco cruise slots...");
+      
+      // Create default timeframes for private cruises
+      const privateTimeframes = [
+        // Monday-Thursday
+        { dayOfWeek: 1, type: 'private' as const, startTime: '10:00', endTime: '14:00', description: 'Monday Morning Cruise' },
+        { dayOfWeek: 1, type: 'private' as const, startTime: '11:00', endTime: '15:00', description: 'Monday Midday Cruise' },
+        { dayOfWeek: 1, type: 'private' as const, startTime: '12:00', endTime: '16:00', description: 'Monday Afternoon Cruise' },
+        { dayOfWeek: 1, type: 'private' as const, startTime: '13:00', endTime: '17:00', description: 'Monday Early Evening' },
+        { dayOfWeek: 1, type: 'private' as const, startTime: '14:00', endTime: '18:00', description: 'Monday Late Afternoon' },
+        { dayOfWeek: 1, type: 'private' as const, startTime: '15:00', endTime: '19:00', description: 'Monday Evening Cruise' },
+        { dayOfWeek: 1, type: 'private' as const, startTime: '16:00', endTime: '20:00', description: 'Monday Sunset Cruise' },
+        { dayOfWeek: 1, type: 'private' as const, startTime: '16:30', endTime: '20:30', description: 'Monday Late Evening' },
+        
+        // Tuesday (same as Monday)
+        { dayOfWeek: 2, type: 'private' as const, startTime: '10:00', endTime: '14:00', description: 'Tuesday Morning Cruise' },
+        { dayOfWeek: 2, type: 'private' as const, startTime: '11:00', endTime: '15:00', description: 'Tuesday Midday Cruise' },
+        { dayOfWeek: 2, type: 'private' as const, startTime: '12:00', endTime: '16:00', description: 'Tuesday Afternoon Cruise' },
+        { dayOfWeek: 2, type: 'private' as const, startTime: '13:00', endTime: '17:00', description: 'Tuesday Early Evening' },
+        { dayOfWeek: 2, type: 'private' as const, startTime: '14:00', endTime: '18:00', description: 'Tuesday Late Afternoon' },
+        { dayOfWeek: 2, type: 'private' as const, startTime: '15:00', endTime: '19:00', description: 'Tuesday Evening Cruise' },
+        { dayOfWeek: 2, type: 'private' as const, startTime: '16:00', endTime: '20:00', description: 'Tuesday Sunset Cruise' },
+        { dayOfWeek: 2, type: 'private' as const, startTime: '16:30', endTime: '20:30', description: 'Tuesday Late Evening' },
+        
+        // Wednesday (same as Monday)
+        { dayOfWeek: 3, type: 'private' as const, startTime: '10:00', endTime: '14:00', description: 'Wednesday Morning Cruise' },
+        { dayOfWeek: 3, type: 'private' as const, startTime: '11:00', endTime: '15:00', description: 'Wednesday Midday Cruise' },
+        { dayOfWeek: 3, type: 'private' as const, startTime: '12:00', endTime: '16:00', description: 'Wednesday Afternoon Cruise' },
+        { dayOfWeek: 3, type: 'private' as const, startTime: '13:00', endTime: '17:00', description: 'Wednesday Early Evening' },
+        { dayOfWeek: 3, type: 'private' as const, startTime: '14:00', endTime: '18:00', description: 'Wednesday Late Afternoon' },
+        { dayOfWeek: 3, type: 'private' as const, startTime: '15:00', endTime: '19:00', description: 'Wednesday Evening Cruise' },
+        { dayOfWeek: 3, type: 'private' as const, startTime: '16:00', endTime: '20:00', description: 'Wednesday Sunset Cruise' },
+        { dayOfWeek: 3, type: 'private' as const, startTime: '16:30', endTime: '20:30', description: 'Wednesday Late Evening' },
+        
+        // Thursday (same as Monday)
+        { dayOfWeek: 4, type: 'private' as const, startTime: '10:00', endTime: '14:00', description: 'Thursday Morning Cruise' },
+        { dayOfWeek: 4, type: 'private' as const, startTime: '11:00', endTime: '15:00', description: 'Thursday Midday Cruise' },
+        { dayOfWeek: 4, type: 'private' as const, startTime: '12:00', endTime: '16:00', description: 'Thursday Afternoon Cruise' },
+        { dayOfWeek: 4, type: 'private' as const, startTime: '13:00', endTime: '17:00', description: 'Thursday Early Evening' },
+        { dayOfWeek: 4, type: 'private' as const, startTime: '14:00', endTime: '18:00', description: 'Thursday Late Afternoon' },
+        { dayOfWeek: 4, type: 'private' as const, startTime: '15:00', endTime: '19:00', description: 'Thursday Evening Cruise' },
+        { dayOfWeek: 4, type: 'private' as const, startTime: '16:00', endTime: '20:00', description: 'Thursday Sunset Cruise' },
+        { dayOfWeek: 4, type: 'private' as const, startTime: '16:30', endTime: '20:30', description: 'Thursday Late Evening' },
+        
+        // Friday
+        { dayOfWeek: 5, type: 'private' as const, startTime: '12:00', endTime: '16:00', description: 'Friday Afternoon Cruise' },
+        { dayOfWeek: 5, type: 'private' as const, startTime: '16:30', endTime: '20:30', description: 'Friday Evening Cruise' },
+        
+        // Saturday
+        { dayOfWeek: 6, type: 'private' as const, startTime: '11:00', endTime: '15:00', description: 'Saturday Morning Cruise' },
+        { dayOfWeek: 6, type: 'private' as const, startTime: '15:30', endTime: '19:30', description: 'Saturday Afternoon Cruise' },
+        
+        // Sunday
+        { dayOfWeek: 0, type: 'private' as const, startTime: '11:00', endTime: '15:00', description: 'Sunday Morning Cruise' },
+        { dayOfWeek: 0, type: 'private' as const, startTime: '15:30', endTime: '19:30', description: 'Sunday Afternoon Cruise' },
+      ];
+      
+      // Create disco cruise timeframes
+      const discoTimeframes = [
+        { dayOfWeek: 5, type: 'disco' as const, startTime: '12:00', endTime: '16:00', description: 'Friday Disco Cruise' },
+        { dayOfWeek: 6, type: 'disco' as const, startTime: '11:00', endTime: '15:00', description: 'Saturday Morning Disco' },
+        { dayOfWeek: 6, type: 'disco' as const, startTime: '15:30', endTime: '19:30', description: 'Saturday Afternoon Disco' },
+      ];
+      
+      // Add all timeframes
+      const createdTimeframes = [];
+      for (const tf of [...privateTimeframes, ...discoTimeframes]) {
+        try {
+          const created = await storage.createTimeframe({
+            ...tf,
+            boatIds: [],
+            active: true
+          });
+          createdTimeframes.push(created);
+        } catch (error) {
+          console.log(`Timeframe already exists or error: ${tf.description}`);
+        }
+      }
+      
+      // Create disco slots for the next 3 months
+      const today = new Date();
+      const endDate = new Date();
+      endDate.setMonth(endDate.getMonth() + 3);
+      
+      const createdDiscoSlots = [];
+      const currentDate = new Date(today);
+      
+      while (currentDate <= endDate) {
+        const dayOfWeek = currentDate.getDay();
+        
+        // Friday disco cruise
+        if (dayOfWeek === 5) {
+          const slotDate = new Date(currentDate);
+          const startTime = new Date(slotDate);
+          startTime.setHours(12, 0, 0, 0);
+          const endTime = new Date(slotDate);
+          endTime.setHours(16, 0, 0, 0);
+          
+          try {
+            const slot = await storage.createDiscoSlot({
+              date: slotDate,
+              startTime,
+              endTime,
+              ticketCap: 100,
+              ticketsSold: 0,
+              status: 'available'
+            });
+            createdDiscoSlots.push(slot);
+          } catch (error) {
+            console.log(`Disco slot already exists for ${slotDate.toDateString()}`);
+          }
+        }
+        
+        // Saturday disco cruises
+        if (dayOfWeek === 6) {
+          // Morning disco
+          const morningDate = new Date(currentDate);
+          const morningStart = new Date(morningDate);
+          morningStart.setHours(11, 0, 0, 0);
+          const morningEnd = new Date(morningDate);
+          morningEnd.setHours(15, 0, 0, 0);
+          
+          try {
+            const morningSlot = await storage.createDiscoSlot({
+              date: morningDate,
+              startTime: morningStart,
+              endTime: morningEnd,
+              ticketCap: 100,
+              ticketsSold: 0,
+              status: 'available'
+            });
+            createdDiscoSlots.push(morningSlot);
+          } catch (error) {
+            console.log(`Morning disco slot already exists for ${morningDate.toDateString()}`);
+          }
+          
+          // Afternoon disco
+          const afternoonDate = new Date(currentDate);
+          const afternoonStart = new Date(afternoonDate);
+          afternoonStart.setHours(15, 30, 0, 0);
+          const afternoonEnd = new Date(afternoonDate);
+          afternoonEnd.setHours(19, 30, 0, 0);
+          
+          try {
+            const afternoonSlot = await storage.createDiscoSlot({
+              date: afternoonDate,
+              startTime: afternoonStart,
+              endTime: afternoonEnd,
+              ticketCap: 100,
+              ticketsSold: 0,
+              status: 'available'
+            });
+            createdDiscoSlots.push(afternoonSlot);
+          } catch (error) {
+            console.log(`Afternoon disco slot already exists for ${afternoonDate.toDateString()}`);
+          }
+        }
+        
+        // Move to next day
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+      
+      console.log(`✅ Created ${createdTimeframes.length} timeframes and ${createdDiscoSlots.length} disco slots`);
+      
+      res.json({
+        success: true,
+        message: `Successfully initialized ${createdTimeframes.length} timeframes and ${createdDiscoSlots.length} disco slots`,
+        timeframes: createdTimeframes.length,
+        discoSlots: createdDiscoSlots.length
+      });
+    } catch (error) {
+      console.error("Initialize slots error:", error);
+      res.status(500).json({ error: "Failed to initialize slots" });
+    }
+  });
   
   // Check availability for quotes
   app.get("/api/availability/check", async (req, res) => {

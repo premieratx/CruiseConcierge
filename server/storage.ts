@@ -131,10 +131,15 @@ export interface IStorage {
 
   // Boat Fleet Management
   getAvailableBoats(date: Date, startTime: string, endTime: string, groupSize: number): Promise<Boat[]>;
+  getBoatsByCapacity(capacity: number): Promise<Boat[]>;
+  assignFlexibleBoat(capacity: number, startTime: Date, endTime: Date, excludeBoatIds?: string[]): Promise<Boat | undefined>;
+  reassignBooking(bookingId: string, newBoatId: string): Promise<Booking>;
+  getBoatAvailabilityByCapacity(date: Date, startTime: string, endTime: string): Promise<Map<number, { total: number; available: number; boats: Boat[] }>>;
 
   // Availability Management
   checkAvailability(date: Date, duration: number, groupSize: number, type: 'private' | 'disco'): Promise<{ available: boolean; boats?: Boat[]; reason?: string }>;
   getMonthlyCalendar(boatId: string, year: number, month: number): Promise<{ date: Date; bookings: Booking[]; available: boolean }[]>;
+  getMonthlyCalendarGrouped(year: number, month: number): Promise<Map<string, { date: Date; bookings: Booking[]; boatsByCapacity: Map<number, { available: Boat[]; booked: Boat[] }> }>>;
 }
 
 export class MemStorage implements IStorage {
@@ -1810,6 +1815,86 @@ export class MemStorage implements IStorage {
     return availableBoats.sort((a, b) => a.capacity - b.capacity);
   }
 
+  async getBoatsByCapacity(capacity: number): Promise<Boat[]> {
+    const activeBoats = await this.getActiveBoats();
+    return activeBoats.filter(boat => boat.capacity === capacity);
+  }
+
+  async assignFlexibleBoat(capacity: number, startTime: Date, endTime: Date, excludeBoatIds: string[] = []): Promise<Boat | undefined> {
+    const boats = await this.getBoatsByCapacity(capacity);
+    
+    for (const boat of boats) {
+      if (excludeBoatIds.includes(boat.id)) continue;
+      
+      const hasConflict = await this.checkBookingConflict(boat.id, startTime, endTime);
+      if (!hasConflict) {
+        return boat;
+      }
+    }
+    
+    return undefined;
+  }
+
+  async reassignBooking(bookingId: string, newBoatId: string): Promise<Booking> {
+    const booking = await this.getBooking(bookingId);
+    if (!booking) throw new Error('Booking not found');
+    
+    const boat = Array.from(this.boats.values()).find(b => b.id === newBoatId);
+    if (!boat) throw new Error('Boat not found');
+    
+    // Check if new boat is available for this time slot
+    const hasConflict = await this.checkBookingConflict(newBoatId, booking.startTime, booking.endTime, bookingId);
+    if (hasConflict) {
+      throw new Error('New boat is not available for this time slot');
+    }
+    
+    // Update the booking
+    return await this.updateBooking(bookingId, { boatId: newBoatId });
+  }
+
+  async getBoatAvailabilityByCapacity(date: Date, startTime: string, endTime: string): Promise<Map<number, { total: number; available: number; boats: Boat[] }>> {
+    const activeBoats = await this.getActiveBoats();
+    const capacityMap = new Map<number, { total: number; available: number; boats: Boat[] }>();
+    
+    // Group boats by capacity
+    const boatsByCapacity = new Map<number, Boat[]>();
+    for (const boat of activeBoats) {
+      const boats = boatsByCapacity.get(boat.capacity) || [];
+      boats.push(boat);
+      boatsByCapacity.set(boat.capacity, boats);
+    }
+    
+    // Parse time strings
+    const [startHours, startMinutes] = startTime.split(':').map(Number);
+    const [endHours, endMinutes] = endTime.split(':').map(Number);
+    
+    const startDateTime = new Date(date);
+    startDateTime.setHours(startHours, startMinutes, 0, 0);
+    
+    const endDateTime = new Date(date);
+    endDateTime.setHours(endHours, endMinutes, 0, 0);
+    
+    // Check availability for each capacity group
+    for (const [capacity, boats] of boatsByCapacity.entries()) {
+      const availableBoats: Boat[] = [];
+      
+      for (const boat of boats) {
+        const hasConflict = await this.checkBookingConflict(boat.id, startDateTime, endDateTime);
+        if (!hasConflict) {
+          availableBoats.push(boat);
+        }
+      }
+      
+      capacityMap.set(capacity, {
+        total: boats.length,
+        available: availableBoats.length,
+        boats: availableBoats
+      });
+    }
+    
+    return capacityMap;
+  }
+
   // Availability Management Methods
   async checkAvailability(
     date: Date, 
@@ -1942,6 +2027,59 @@ export class MemStorage implements IStorage {
     }
     
     return calendar;
+  }
+
+  async getMonthlyCalendarGrouped(year: number, month: number): Promise<Map<string, { date: Date; bookings: Booking[]; boatsByCapacity: Map<number, { available: Boat[]; booked: Boat[] }> }>> {
+    const startDate = new Date(year, month - 1, 1);
+    const endDate = new Date(year, month, 0);
+    endDate.setHours(23, 59, 59, 999);
+    const allBookings = await this.getBookings(startDate, endDate);
+    const activeBoats = await this.getActiveBoats();
+    
+    const calendarMap = new Map<string, { date: Date; bookings: Booking[]; boatsByCapacity: Map<number, { available: Boat[]; booked: Boat[] }> }>();
+    
+    // Group boats by capacity
+    const boatsByCapacity = new Map<number, Boat[]>();
+    for (const boat of activeBoats) {
+      const boats = boatsByCapacity.get(boat.capacity) || [];
+      boats.push(boat);
+      boatsByCapacity.set(boat.capacity, boats);
+    }
+    
+    for (let day = 1; day <= endDate.getDate(); day++) {
+      const date = new Date(year, month - 1, day);
+      const dateStr = date.toISOString().split('T')[0];
+      const dayBookings = allBookings.filter(booking => {
+        const bookingDate = new Date(booking.startTime);
+        return bookingDate.getDate() === day && bookingDate.getMonth() === month - 1;
+      });
+      
+      const capacityAvailability = new Map<number, { available: Boat[]; booked: Boat[] }>();
+      
+      for (const [capacity, boats] of boatsByCapacity.entries()) {
+        const available: Boat[] = [];
+        const booked: Boat[] = [];
+        
+        for (const boat of boats) {
+          const boatBookings = dayBookings.filter(b => b.boatId === boat.id);
+          if (boatBookings.length > 0) {
+            booked.push(boat);
+          } else {
+            available.push(boat);
+          }
+        }
+        
+        capacityAvailability.set(capacity, { available, booked });
+      }
+      
+      calendarMap.set(dateStr, {
+        date,
+        bookings: dayBookings,
+        boatsByCapacity: capacityAvailability
+      });
+    }
+    
+    return calendarMap;
   }
 }
 
