@@ -7,7 +7,7 @@ import { googleSheetsService } from "./services/googleSheets";
 import { mailgunService } from "./services/mailgun";
 import { openRouterService } from "./services/openrouter";
 import { goHighLevelService } from "./services/gohighlevel";
-import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest } from "@shared/schema";
+import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest } from "@shared/schema";
 import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
 
@@ -2021,6 +2021,468 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error("Status check error:", error);
       res.status(500).json({ error: "Failed to check status" });
+    }
+  });
+
+  // ==========================================
+  // BOAT FLEET ENDPOINTS
+  // ==========================================
+  
+  // Get all boats with capacities and crew requirements
+  app.get("/api/boats", async (req, res) => {
+    try {
+      const boats = await storage.getBoats();
+      res.json(boats);
+    } catch (error: any) {
+      console.error("Error fetching boats:", error);
+      res.status(500).json({ error: "Failed to fetch boats" });
+    }
+  });
+
+  // Get specific boat details
+  app.get("/api/boats/:id", async (req, res) => {
+    try {
+      const boats = await storage.getBoats();
+      const boat = boats.find(b => b.id === req.params.id);
+      
+      if (!boat) {
+        return res.status(404).json({ error: "Boat not found" });
+      }
+      
+      res.json(boat);
+    } catch (error: any) {
+      console.error("Error fetching boat:", error);
+      res.status(500).json({ error: "Failed to fetch boat details" });
+    }
+  });
+
+  // ==========================================
+  // CALENDAR/BOOKING ENDPOINTS
+  // ==========================================
+  
+  // Get monthly calendar view with bookings and availability
+  app.get("/api/calendar/month", async (req, res) => {
+    try {
+      const { boatId, year, month } = req.query;
+      
+      if (!boatId || !year || !month) {
+        return res.status(400).json({ error: "boatId, year, and month are required" });
+      }
+      
+      const calendar = await storage.getMonthlyCalendar(
+        boatId as string,
+        parseInt(year as string),
+        parseInt(month as string)
+      );
+      
+      res.json(calendar);
+    } catch (error: any) {
+      console.error("Error fetching monthly calendar:", error);
+      res.status(500).json({ error: "Failed to fetch calendar" });
+    }
+  });
+
+  // Get bookings for date range
+  app.get("/api/bookings", async (req, res) => {
+    try {
+      const { startDate, endDate, boatId } = req.query;
+      
+      if (!startDate || !endDate) {
+        return res.status(400).json({ error: "startDate and endDate are required" });
+      }
+      
+      const bookings = await storage.getBookings(
+        new Date(startDate as string),
+        new Date(endDate as string),
+        boatId as string | undefined
+      );
+      
+      res.json(bookings);
+    } catch (error: any) {
+      console.error("Error fetching bookings:", error);
+      res.status(500).json({ error: "Failed to fetch bookings" });
+    }
+  });
+
+  // Create new booking with validation
+  app.post("/api/bookings", async (req, res) => {
+    try {
+      const validation = insertBookingSchema.safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: "Invalid booking data",
+          details: validation.error.errors 
+        });
+      }
+      
+      // Check for conflicts before creating
+      const conflict = await storage.checkBookingConflict(
+        validation.data.boatId,
+        new Date(validation.data.startTime),
+        new Date(validation.data.endTime)
+      );
+      
+      if (conflict) {
+        return res.status(409).json({ 
+          error: "Booking conflict",
+          message: "This time slot is already booked for the selected boat" 
+        });
+      }
+      
+      const booking = await storage.createBooking(validation.data);
+      res.status(201).json(booking);
+    } catch (error: any) {
+      console.error("Error creating booking:", error);
+      res.status(500).json({ error: "Failed to create booking" });
+    }
+  });
+
+  // Update existing booking
+  app.patch("/api/bookings/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      // Check if booking exists
+      const existing = await storage.getBooking(id);
+      if (!existing) {
+        return res.status(404).json({ error: "Booking not found" });
+      }
+      
+      // If changing time/boat, check for conflicts
+      if (req.body.boatId || req.body.startTime || req.body.endTime) {
+        const boatId = req.body.boatId || existing.boatId;
+        const startTime = req.body.startTime ? new Date(req.body.startTime) : existing.startTime;
+        const endTime = req.body.endTime ? new Date(req.body.endTime) : existing.endTime;
+        
+        const conflict = await storage.checkBookingConflict(
+          boatId,
+          startTime,
+          endTime,
+          id // Exclude current booking from conflict check
+        );
+        
+        if (conflict) {
+          return res.status(409).json({ 
+            error: "Booking conflict",
+            message: "The new time slot conflicts with an existing booking" 
+          });
+        }
+      }
+      
+      const updated = await storage.updateBooking(id, req.body);
+      res.json(updated);
+    } catch (error: any) {
+      console.error("Error updating booking:", error);
+      res.status(500).json({ error: "Failed to update booking" });
+    }
+  });
+
+  // Cancel/delete booking
+  app.delete("/api/bookings/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const existing = await storage.getBooking(id);
+      if (!existing) {
+        return res.status(404).json({ error: "Booking not found" });
+      }
+      
+      const deleted = await storage.deleteBooking(id);
+      
+      if (deleted) {
+        res.json({ success: true, message: "Booking deleted successfully" });
+      } else {
+        res.status(500).json({ error: "Failed to delete booking" });
+      }
+    } catch (error: any) {
+      console.error("Error deleting booking:", error);
+      res.status(500).json({ error: "Failed to delete booking" });
+    }
+  });
+
+  // ==========================================
+  // DISCO CRUISE ENDPOINTS
+  // ==========================================
+  
+  // Get disco slots for a month
+  app.get("/api/disco/slots", async (req, res) => {
+    try {
+      const { year, month } = req.query;
+      
+      if (!year || !month) {
+        return res.status(400).json({ error: "year and month are required" });
+      }
+      
+      const slots = await storage.getDiscoSlots(
+        parseInt(year as string),
+        parseInt(month as string)
+      );
+      
+      res.json(slots);
+    } catch (error: any) {
+      console.error("Error fetching disco slots:", error);
+      res.status(500).json({ error: "Failed to fetch disco slots" });
+    }
+  });
+
+  // Create new disco slot
+  app.post("/api/disco/slots", async (req, res) => {
+    try {
+      const validation = insertDiscoSlotSchema.safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: "Invalid disco slot data",
+          details: validation.error.errors 
+        });
+      }
+      
+      // Check availability before creating
+      const available = await storage.checkDiscoAvailability(
+        new Date(validation.data.date),
+        validation.data.time
+      );
+      
+      if (!available) {
+        return res.status(409).json({ 
+          error: "Slot conflict",
+          message: "A disco cruise is already scheduled for this date and time" 
+        });
+      }
+      
+      const slot = await storage.createDiscoSlot(validation.data);
+      res.status(201).json(slot);
+    } catch (error: any) {
+      console.error("Error creating disco slot:", error);
+      res.status(500).json({ error: "Failed to create disco slot" });
+    }
+  });
+
+  // Purchase tickets for a disco slot
+  app.post("/api/disco/slots/:id/purchase", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { quantity } = req.body;
+      
+      if (!quantity || quantity < 1) {
+        return res.status(400).json({ error: "Valid quantity is required" });
+      }
+      
+      const slot = await storage.getDiscoSlot(id);
+      if (!slot) {
+        return res.status(404).json({ error: "Disco slot not found" });
+      }
+      
+      const remainingCapacity = slot.capacity - slot.soldTickets;
+      if (quantity > remainingCapacity) {
+        return res.status(400).json({ 
+          error: "Insufficient capacity",
+          message: `Only ${remainingCapacity} tickets available` 
+        });
+      }
+      
+      const updated = await storage.purchaseDiscoTickets(id, quantity);
+      res.json(updated);
+    } catch (error: any) {
+      console.error("Error purchasing disco tickets:", error);
+      res.status(500).json({ error: "Failed to purchase tickets" });
+    }
+  });
+
+  // Update disco slot
+  app.patch("/api/disco/slots/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const existing = await storage.getDiscoSlot(id);
+      if (!existing) {
+        return res.status(404).json({ error: "Disco slot not found" });
+      }
+      
+      // If changing date/time, check for conflicts
+      if (req.body.date || req.body.time) {
+        const date = req.body.date ? new Date(req.body.date) : existing.date;
+        const time = req.body.time || existing.time;
+        
+        const available = await storage.checkDiscoAvailability(date, time);
+        
+        if (!available && (date !== existing.date || time !== existing.time)) {
+          return res.status(409).json({ 
+            error: "Slot conflict",
+            message: "Another disco cruise is already scheduled for this date and time" 
+          });
+        }
+      }
+      
+      const updated = await storage.updateDiscoSlot(id, req.body);
+      res.json(updated);
+    } catch (error: any) {
+      console.error("Error updating disco slot:", error);
+      res.status(500).json({ error: "Failed to update disco slot" });
+    }
+  });
+
+  // ==========================================
+  // TIMEFRAME ENDPOINTS
+  // ==========================================
+  
+  // Get recurring timeframe templates
+  app.get("/api/timeframes", async (req, res) => {
+    try {
+      const { dayOfWeek, type } = req.query;
+      
+      const timeframes = await storage.getTimeframes(
+        dayOfWeek ? parseInt(dayOfWeek as string) : undefined,
+        type as string | undefined
+      );
+      
+      res.json(timeframes);
+    } catch (error: any) {
+      console.error("Error fetching timeframes:", error);
+      res.status(500).json({ error: "Failed to fetch timeframes" });
+    }
+  });
+
+  // Create new timeframe
+  app.post("/api/timeframes", async (req, res) => {
+    try {
+      const validation = insertTimeframeSchema.safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: "Invalid timeframe data",
+          details: validation.error.errors 
+        });
+      }
+      
+      const timeframe = await storage.createTimeframe(validation.data);
+      res.status(201).json(timeframe);
+    } catch (error: any) {
+      console.error("Error creating timeframe:", error);
+      res.status(500).json({ error: "Failed to create timeframe" });
+    }
+  });
+
+  // Update timeframe
+  app.put("/api/timeframes/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const existing = await storage.getTimeframe(id);
+      if (!existing) {
+        return res.status(404).json({ error: "Timeframe not found" });
+      }
+      
+      const updated = await storage.updateTimeframe(id, req.body);
+      res.json(updated);
+    } catch (error: any) {
+      console.error("Error updating timeframe:", error);
+      res.status(500).json({ error: "Failed to update timeframe" });
+    }
+  });
+
+  // Delete timeframe
+  app.delete("/api/timeframes/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const existing = await storage.getTimeframe(id);
+      if (!existing) {
+        return res.status(404).json({ error: "Timeframe not found" });
+      }
+      
+      const deleted = await storage.deleteTimeframe(id);
+      
+      if (deleted) {
+        res.json({ success: true, message: "Timeframe deleted successfully" });
+      } else {
+        res.status(500).json({ error: "Failed to delete timeframe" });
+      }
+    } catch (error: any) {
+      console.error("Error deleting timeframe:", error);
+      res.status(500).json({ error: "Failed to delete timeframe" });
+    }
+  });
+
+  // Generate timeframes for a month
+  app.get("/api/timeframes/generate", async (req, res) => {
+    try {
+      const { year, month } = req.query;
+      
+      if (!year || !month) {
+        return res.status(400).json({ error: "year and month are required" });
+      }
+      
+      const timeframes = await storage.generateTimeframesForMonth(
+        parseInt(year as string),
+        parseInt(month as string)
+      );
+      
+      res.json(timeframes);
+    } catch (error: any) {
+      console.error("Error generating timeframes:", error);
+      res.status(500).json({ error: "Failed to generate timeframes" });
+    }
+  });
+
+  // ==========================================
+  // AVAILABILITY ENDPOINTS
+  // ==========================================
+  
+  // Check availability for quotes
+  app.get("/api/availability/check", async (req, res) => {
+    try {
+      const { date, duration, groupSize, type } = req.query;
+      
+      if (!date || !duration || !groupSize || !type) {
+        return res.status(400).json({ 
+          error: "date, duration, groupSize, and type are required" 
+        });
+      }
+      
+      if (type !== 'private' && type !== 'disco') {
+        return res.status(400).json({ 
+          error: "type must be either 'private' or 'disco'" 
+        });
+      }
+      
+      const availability = await storage.checkAvailability(
+        new Date(date as string),
+        parseInt(duration as string),
+        parseInt(groupSize as string),
+        type
+      );
+      
+      res.json(availability);
+    } catch (error: any) {
+      console.error("Error checking availability:", error);
+      res.status(500).json({ error: "Failed to check availability" });
+    }
+  });
+
+  // Get available boats
+  app.get("/api/availability/boats", async (req, res) => {
+    try {
+      const { date, startTime, endTime, groupSize } = req.query;
+      
+      if (!date || !startTime || !endTime || !groupSize) {
+        return res.status(400).json({ 
+          error: "date, startTime, endTime, and groupSize are required" 
+        });
+      }
+      
+      const boats = await storage.getAvailableBoats(
+        new Date(date as string),
+        startTime as string,
+        endTime as string,
+        parseInt(groupSize as string)
+      );
+      
+      res.json(boats);
+    } catch (error: any) {
+      console.error("Error fetching available boats:", error);
+      res.status(500).json({ error: "Failed to fetch available boats" });
     }
   });
 
