@@ -2715,6 +2715,121 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ==========================================
+  // CALENDAR VIEW MANAGEMENT ENDPOINTS
+  // ==========================================
+
+  // Toggle time block availability (quick booking/unbooking)
+  app.post("/api/timeframes/toggle-availability", async (req, res) => {
+    try {
+      const { date, startTime, endTime, boatId, status } = req.body;
+      
+      if (!date || !startTime || !endTime || !boatId || !status) {
+        return res.status(400).json({ 
+          error: "date, startTime, endTime, boatId, and status are required" 
+        });
+      }
+      
+      const startDateTime = new Date(`${date}T${startTime}:00`);
+      const endDateTime = new Date(`${date}T${endTime}:00`);
+      
+      if (status === 'booked') {
+        // Create a quick booking to block the time
+        const booking = await storage.createBooking({
+          boatId,
+          type: 'private',
+          status: 'blocked',
+          startTime: startDateTime,
+          endTime: endDateTime,
+          groupSize: 0,
+          notes: 'Manually blocked time slot'
+        });
+        res.json({ success: true, booking });
+      } else {
+        // Find and remove the blocking booking
+        const bookings = await storage.getBookings(startDateTime, endDateTime, boatId);
+        const blockingBooking = bookings.find(b => 
+          b.status === 'blocked' && 
+          b.startTime.getTime() === startDateTime.getTime() &&
+          b.endTime.getTime() === endDateTime.getTime()
+        );
+        
+        if (blockingBooking) {
+          await storage.deleteBooking(blockingBooking.id);
+          res.json({ success: true, message: 'Time slot unblocked' });
+        } else {
+          res.status(404).json({ error: 'No blocking booking found for this time slot' });
+        }
+      }
+    } catch (error: any) {
+      console.error("Error toggling availability:", error);
+      res.status(500).json({ error: "Failed to toggle availability" });
+    }
+  });
+
+  // Update disco cruise ticket quantity
+  app.post("/api/disco/slots/:id/update-quantity", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { adjustment } = req.body; // positive or negative number
+      
+      if (adjustment === undefined || typeof adjustment !== 'number') {
+        return res.status(400).json({ error: "adjustment must be a number" });
+      }
+      
+      const slot = await storage.getDiscoSlot(id);
+      if (!slot) {
+        return res.status(404).json({ error: "Disco slot not found" });
+      }
+      
+      const newTicketsSold = Math.max(0, Math.min(slot.ticketCap, slot.ticketsSold + adjustment));
+      const updated = await storage.updateDiscoSlot(id, {
+        ticketsSold: newTicketsSold,
+        status: newTicketsSold >= slot.ticketCap ? 'soldout' : 'available'
+      });
+      
+      res.json(updated);
+    } catch (error: any) {
+      console.error("Error updating disco ticket quantity:", error);
+      res.status(500).json({ error: "Failed to update ticket quantity" });
+    }
+  });
+
+  // Reassign booking between identical boats
+  app.post("/api/bookings/:id/reassign", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { newBoatId } = req.body;
+      
+      if (!newBoatId) {
+        return res.status(400).json({ error: "newBoatId is required" });
+      }
+      
+      const booking = await storage.getBooking(id);
+      if (!booking) {
+        return res.status(404).json({ error: "Booking not found" });
+      }
+      
+      // Check if new boat is available for this time
+      const conflict = await storage.checkBookingConflict(
+        newBoatId, 
+        booking.startTime, 
+        booking.endTime,
+        id
+      );
+      
+      if (conflict) {
+        return res.status(409).json({ error: "New boat is not available for this time" });
+      }
+      
+      const updated = await storage.reassignBooking(id, newBoatId);
+      res.json(updated);
+    } catch (error: any) {
+      console.error("Error reassigning booking:", error);
+      res.status(500).json({ error: "Failed to reassign booking" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
