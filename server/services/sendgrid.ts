@@ -49,9 +49,12 @@ export async function sendQuoteEmail(
 ): Promise<boolean> {
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-      <div style="background: linear-gradient(135deg, #3b82f6, #06b6d4); padding: 30px; text-align: center;">
-        <h1 style="color: white; margin: 0;">🚢 Premier Party Cruises</h1>
-        <p style="color: white; margin: 10px 0 0 0;">Your Quote is Ready!</p>
+      <div style="background: linear-gradient(135deg, #0080FF, #FFD700); padding: 30px; text-align: center;">
+        <div style="background: white; display: inline-block; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+          <h2 style="color: #0080FF; margin: 0;">⚓ Premier Party Cruises ⚓</h2>
+        </div>
+        <h1 style="color: white; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">Your Quote is Ready!</h1>
+        <p style="color: white; margin: 10px 0 0 0; font-size: 18px;">🚢 Lake Austin's Premier Party Boat Experience</p>
       </div>
       
       <div style="padding: 30px; background: white;">

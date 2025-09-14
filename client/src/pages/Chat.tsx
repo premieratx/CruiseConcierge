@@ -3,6 +3,7 @@ import { useMutation } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { motion, AnimatePresence } from 'framer-motion';
+import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 import { 
   Ship, ChevronRight, DollarSign, Users, 
   Calendar as CalendarIcon, Clock, Check, X,
@@ -1875,6 +1876,25 @@ export default function Chat() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex flex-col">
+      {/* Header with Logo */}
+      <div className="w-full bg-white dark:bg-slate-800 border-b border-border">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-4">
+              <img 
+                src={logoPath} 
+                alt="Premier Party Cruises" 
+                className="h-12 w-auto object-contain"
+                data-testid="img-chat-logo"
+              />
+              <div>
+                <h1 className="text-lg font-heading font-bold text-primary">Premier Party Cruises</h1>
+                <p className="text-xs text-muted-foreground">Book Your Lake Austin Adventure</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       
       {/* Navigation Bar - Always Visible */}
       {currentQuestion !== 'complete' && <NavigationBar />}

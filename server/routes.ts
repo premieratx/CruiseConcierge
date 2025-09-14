@@ -2076,6 +2076,82 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // ==========================================
+  // PRODUCT ENDPOINTS
+  // ==========================================
+  
+  // Get all products
+  app.get("/api/products", async (req, res) => {
+    try {
+      const products = await storage.getProducts();
+      res.json(products);
+    } catch (error: any) {
+      console.error("Error fetching products:", error);
+      res.status(500).json({ error: "Failed to fetch products" });
+    }
+  });
+
+  // Create new product
+  app.post("/api/products", async (req, res) => {
+    try {
+      const validation = insertProductSchema.safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: "Invalid product data",
+          details: validation.error.errors 
+        });
+      }
+      
+      const product = await storage.createProduct(validation.data);
+      res.status(201).json(product);
+    } catch (error: any) {
+      console.error("Error creating product:", error);
+      res.status(500).json({ error: "Failed to create product" });
+    }
+  });
+
+  // Update product
+  app.put("/api/products/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const existingProduct = await storage.getProduct(id);
+      if (!existingProduct) {
+        return res.status(404).json({ error: "Product not found" });
+      }
+      
+      const updated = await storage.updateProduct(id, req.body);
+      res.json(updated);
+    } catch (error: any) {
+      console.error("Error updating product:", error);
+      res.status(500).json({ error: "Failed to update product" });
+    }
+  });
+
+  // Delete product
+  app.delete("/api/products/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const existingProduct = await storage.getProduct(id);
+      if (!existingProduct) {
+        return res.status(404).json({ error: "Product not found" });
+      }
+      
+      const deleted = await storage.deleteProduct(id);
+      
+      if (deleted) {
+        res.json({ success: true, message: "Product deleted successfully" });
+      } else {
+        res.status(500).json({ error: "Failed to delete product" });
+      }
+    } catch (error: any) {
+      console.error("Error deleting product:", error);
+      res.status(500).json({ error: "Failed to delete product" });
+    }
+  });
+
+  // ==========================================
   // BOAT FLEET ENDPOINTS
   // ==========================================
   

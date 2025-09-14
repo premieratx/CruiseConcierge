@@ -13,6 +13,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Slider } from '@/components/ui/slider';
 import { motion, AnimatePresence } from 'framer-motion';
+import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 import { 
   Ship, Calendar, Clock, MapPin, Phone, Mail, FileText,
   Download, Printer, CheckCircle, AlertCircle, Loader2,
@@ -616,6 +617,21 @@ export default function QuoteViewer() {
       {/* Header */}
       <div className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-b sticky top-0 z-10">
         <div className="max-w-6xl mx-auto px-4 py-4">
+          {/* Logo and Branding */}
+          <div className="flex items-center justify-between mb-4">
+            <div className="flex items-center gap-4">
+              <img 
+                src={logoPath} 
+                alt="Premier Party Cruises" 
+                className="h-12 w-auto object-contain"
+                data-testid="img-quote-logo"
+              />
+              <div>
+                <h1 className="text-lg font-heading font-bold text-primary">Premier Party Cruises</h1>
+                <p className="text-xs text-muted-foreground">Your Custom Quote</p>
+              </div>
+            </div>
+          </div>
           <div className="flex items-center gap-4">
             <Ship className="h-8 w-8 text-blue-600" />
             <div>

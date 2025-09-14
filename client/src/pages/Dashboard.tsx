@@ -1,16 +1,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
-import { ChatWidget } from "@/components/ChatWidget";
-import { ChatBubble } from "@/components/ChatBubble";
-import { AvailabilityGrid } from "@/components/AvailabilityGrid";
-import { QuoteBuilder } from "@/components/QuoteBuilder";
 import { CRMPipeline } from "@/components/CRMPipeline";
 import { Analytics } from "@/components/Analytics";
 import { IntegrationStatus } from "@/components/IntegrationStatus";
@@ -18,66 +15,92 @@ import { CalendarView } from "@/components/CalendarView";
 import Navigation from "@/components/Navigation";
 import { apiRequest } from "@/lib/queryClient";
 import { useLocation } from "wouter";
-import { Ship, User, Send, CreditCard, Mail, MessageSquare, Users, FileText, MessageCircle, Plus, TrendingUp, Calendar, LayoutDashboard } from "lucide-react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { queryClient } from "@/lib/queryClient";
+import logoPath from "@assets/PPC Logo LARGE_1757881944449.png";
+import { 
+  Plus, TrendingUp, Calendar, LayoutDashboard, FileText, 
+  MessageCircle, Package, DollarSign, Tag, Info, Save,
+  ShoppingBag, Anchor, Ship
+} from "lucide-react";
+import type { Product, InsertProduct } from "@shared/schema";
 
 export default function Dashboard() {
-  const [quoteModalOpen, setQuoteModalOpen] = useState(false);
-  const [paymentModalOpen, setPaymentModalOpen] = useState(false);
-  const [selectedQuoteId, setSelectedQuoteId] = useState("quote_demo_1"); // Demo quote ID
-  const [quoteForm, setQuoteForm] = useState({
-    customerName: "Sarah Johnson",
-    customerEmail: "sarah.j@example.com",
-    customerPhone: "+1 (555) 123-4567",
-    delivery: "email" as "email" | "sms",
-    personalMessage: ""
-  });
   const { toast } = useToast();
   const [, setLocation] = useLocation();
+  const [productModalOpen, setProductModalOpen] = useState(false);
+  const [productForm, setProductForm] = useState({
+    name: "",
+    description: "",
+    unitPrice: "",
+    pricingModel: "flat_rate" as "hourly" | "per_person" | "flat_rate",
+    productType: "addon" as "private_cruise" | "disco_cruise" | "addon",
+    taxable: true,
+    active: true
+  });
 
-  const handleSendQuote = async () => {
-    try {
-      // Using the selected quote ID (demo for now)
-      const response = await apiRequest("POST", `/api/quotes/${selectedQuoteId}/send`, {
-        delivery: quoteForm.delivery,
-        customerInfo: {
-          name: quoteForm.customerName,
-          email: quoteForm.customerEmail,
-          phone: quoteForm.customerPhone
-        },
-        personalMessage: quoteForm.personalMessage
+  // Fetch existing products
+  const { data: products = [], isLoading: productsLoading } = useQuery({
+    queryKey: ["/api/products"],
+    queryFn: async () => {
+      const response = await apiRequest("GET", "/api/products");
+      return response.json();
+    }
+  });
+
+  // Create product mutation
+  const createProductMutation = useMutation({
+    mutationFn: async (productData: Partial<InsertProduct>) => {
+      const response = await apiRequest("POST", "/api/products", productData);
+      return response.json();
+    },
+    onSuccess: () => {
+      toast({
+        title: "Product Created! 🎉",
+        description: "Your new product has been added successfully.",
       });
-
-      const result = await response.json();
-      
-      if (result.success) {
-        toast({
-          title: "Quote Sent Successfully! 🚢",
-          description: `Quote delivered via ${quoteForm.delivery} to ${quoteForm.customerName}`,
-        });
-        setQuoteModalOpen(false);
-      }
-    } catch (error) {
-      console.error("Failed to send quote:", error);
+      setProductModalOpen(false);
+      setProductForm({
+        name: "",
+        description: "",
+        unitPrice: "",
+        pricingModel: "flat_rate",
+        productType: "addon",
+        taxable: true,
+        active: true
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/products"] });
+    },
+    onError: (error) => {
       toast({
         title: "Error",
-        description: "Failed to send quote. Please try again.",
+        description: "Failed to create product. Please try again.",
         variant: "destructive",
       });
     }
-  };
+  });
 
-  const handlePaymentDemo = () => {
-    // Simulate payment processing
-    toast({
-      title: "Payment Processing Demo",
-      description: "This would redirect to Stripe checkout for real payment processing.",
+  const handleCreateProduct = () => {
+    if (!productForm.name || !productForm.unitPrice) {
+      toast({
+        title: "Missing Information",
+        description: "Please fill in all required fields.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const priceInCents = Math.round(parseFloat(productForm.unitPrice) * 100);
+    
+    createProductMutation.mutate({
+      name: productForm.name,
+      description: productForm.description || undefined,
+      unitPrice: priceInCents,
+      pricingModel: productForm.pricingModel,
+      productType: productForm.productType,
+      taxable: productForm.taxable,
+      active: productForm.active
     });
-    setPaymentModalOpen(false);
-  };
-
-  const openQuoteModal = (quoteId: string = "quote_demo_1") => {
-    setSelectedQuoteId(quoteId);
-    setQuoteModalOpen(true);
   };
 
   return (
@@ -85,8 +108,34 @@ export default function Dashboard() {
       {/* Navigation Header */}
       <Navigation />
 
+      {/* Company Branding Header */}
+      <div className="container mx-auto px-4 py-6">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-4">
+            <img 
+              src={logoPath} 
+              alt="Premier Party Cruises" 
+              className="h-16 w-auto object-contain"
+              data-testid="img-dashboard-logo"
+            />
+            <div>
+              <h1 className="text-2xl font-heading font-bold text-primary">Dashboard</h1>
+              <p className="text-sm text-muted-foreground">Manage your cruise business</p>
+            </div>
+          </div>
+          <Button 
+            onClick={() => setProductModalOpen(true)}
+            className="bg-primary hover:bg-primary/90"
+            data-testid="button-create-product"
+          >
+            <Plus className="mr-2 h-4 w-4" />
+            Create Product
+          </Button>
+        </div>
+      </div>
+
       {/* Quick Actions Bar */}
-      <div className="container mx-auto px-4 py-4">
+      <div className="container mx-auto px-4 pb-4">
         <div className="bg-card/90 backdrop-blur-sm rounded-lg p-4 shadow-sm border border-border">
           <h2 className="text-sm font-medium text-muted-foreground mb-3">Quick Actions</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
@@ -133,10 +182,14 @@ export default function Dashboard() {
       {/* Main Content Tabs */}
       <div className="container mx-auto px-4 py-6">
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-6">
+          <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-6">
             <TabsTrigger value="overview" className="flex items-center gap-2" data-testid="tab-overview">
               <LayoutDashboard className="h-4 w-4" />
               Overview
+            </TabsTrigger>
+            <TabsTrigger value="products" className="flex items-center gap-2" data-testid="tab-products">
+              <Package className="h-4 w-4" />
+              Products
             </TabsTrigger>
             <TabsTrigger value="calendar" className="flex items-center gap-2" data-testid="tab-calendar">
               <Calendar className="h-4 w-4" />
@@ -146,26 +199,83 @@ export default function Dashboard() {
 
           {/* Overview Tab */}
           <TabsContent value="overview" className="space-y-6">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Left Column: Chat Widget & Controls */}
-              <div className="lg:col-span-1 space-y-6">
-                <ChatWidget isPreview={true} />
-                <ChatBubble isDemo={true} />
-              </div>
-
-              {/* Center Column: Availability & Booking Flow */}
-              <div className="lg:col-span-1 space-y-6">
-                <AvailabilityGrid />
-                <QuoteBuilder />
-              </div>
-
-              {/* Right Column: CRM & Analytics */}
-              <div className="lg:col-span-1 space-y-6">
-                <CRMPipeline />
-                <Analytics />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Analytics & Pipeline */}
+              <Analytics />
+              <CRMPipeline />
+              
+              {/* Integration Status - Full Width */}
+              <div className="lg:col-span-2">
                 <IntegrationStatus />
               </div>
             </div>
+          </TabsContent>
+
+          {/* Products Tab */}
+          <TabsContent value="products" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Package className="h-5 w-5" />
+                  Products & Add-ons
+                </CardTitle>
+                <CardDescription>
+                  Manage your cruise packages and add-on services
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                {productsLoading ? (
+                  <div className="text-center py-8 text-muted-foreground">
+                    Loading products...
+                  </div>
+                ) : products.length === 0 ? (
+                  <div className="text-center py-8">
+                    <Ship className="mx-auto h-12 w-12 text-muted-foreground mb-3" />
+                    <p className="text-muted-foreground mb-4">No products created yet</p>
+                    <Button 
+                      onClick={() => setProductModalOpen(true)}
+                      className="bg-primary hover:bg-primary/90"
+                    >
+                      <Plus className="mr-2 h-4 w-4" />
+                      Create Your First Product
+                    </Button>
+                  </div>
+                ) : (
+                  <div className="grid gap-4">
+                    {products.map((product: Product) => (
+                      <div 
+                        key={product.id} 
+                        className="flex items-center justify-between p-4 border rounded-lg hover:bg-muted/50 transition-colors"
+                        data-testid={`product-card-${product.id}`}
+                      >
+                        <div className="flex-1">
+                          <h3 className="font-medium">{product.name}</h3>
+                          <p className="text-sm text-muted-foreground">{product.description}</p>
+                          <div className="flex gap-4 mt-2">
+                            <span className="text-sm text-primary font-medium">
+                              ${(product.unitPrice / 100).toFixed(2)}
+                            </span>
+                            <span className="text-xs bg-secondary/20 text-secondary-foreground px-2 py-1 rounded">
+                              {product.pricingModel}
+                            </span>
+                            <span className="text-xs bg-primary/20 text-primary px-2 py-1 rounded">
+                              {product.productType}
+                            </span>
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          {product.active ? (
+                            <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded">Active</span>
+                          ) : (
+                            <span className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">Inactive</span>
+                          )}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </CardContent>
+            </Card>
           </TabsContent>
 
           {/* Calendar Tab */}
@@ -175,181 +285,133 @@ export default function Dashboard() {
         </Tabs>
       </div>
 
-      {/* Quote Delivery Modal */}
-      <Dialog open={quoteModalOpen} onOpenChange={setQuoteModalOpen}>
-        <DialogContent className="max-w-md w-full boat-shadow" data-testid="quote-modal">
+      {/* Product Creation Modal */}
+      <Dialog open={productModalOpen} onOpenChange={setProductModalOpen}>
+        <DialogContent className="max-w-md w-full" data-testid="product-modal">
           <DialogHeader>
-            <DialogTitle className="font-heading flex items-center space-x-2">
-              <Send className="w-5 h-5" />
-              <span>Send Quote</span>
+            <DialogTitle className="font-heading flex items-center gap-2">
+              <Package className="w-5 h-5" />
+              Create New Product
             </DialogTitle>
-            <p className="text-sm text-muted-foreground">Choose delivery method</p>
+            <DialogDescription>
+              Add a new cruise package or add-on service to your offerings
+            </DialogDescription>
           </DialogHeader>
           
           <div className="space-y-4">
-            {/* Customer Info */}
+            {/* Product Name */}
             <div>
-              <Label className="text-xs font-medium mb-1">Customer Information</Label>
-              <div className="space-y-2">
-                <Input
-                  type="text"
-                  placeholder="Full Name"
-                  value={quoteForm.customerName}
-                  onChange={(e) => setQuoteForm(prev => ({ ...prev, customerName: e.target.value }))}
-                  data-testid="input-customer-name"
-                />
-                <Input
-                  type="email"
-                  placeholder="Email Address"
-                  value={quoteForm.customerEmail}
-                  onChange={(e) => setQuoteForm(prev => ({ ...prev, customerEmail: e.target.value }))}
-                  data-testid="input-customer-email"
-                />
-                <Input
-                  type="tel"
-                  placeholder="Phone Number"
-                  value={quoteForm.customerPhone}
-                  onChange={(e) => setQuoteForm(prev => ({ ...prev, customerPhone: e.target.value }))}
-                  data-testid="input-customer-phone"
-                />
-              </div>
-            </div>
-            
-            {/* Delivery Options */}
-            <div>
-              <Label className="text-xs font-medium mb-2">Delivery Method</Label>
-              <div className="grid grid-cols-2 gap-2">
-                <Button
-                  variant={quoteForm.delivery === 'email' ? "default" : "outline"}
-                  onClick={() => setQuoteForm(prev => ({ ...prev, delivery: 'email' }))}
-                  className="flex items-center justify-center space-x-2 p-3"
-                  data-testid="button-delivery-email"
-                >
-                  <Mail className="w-4 h-4" />
-                  <span className="text-sm">Email</span>
-                </Button>
-                <Button
-                  variant={quoteForm.delivery === 'sms' ? "default" : "outline"}
-                  onClick={() => setQuoteForm(prev => ({ ...prev, delivery: 'sms' }))}
-                  className="flex items-center justify-center space-x-2 p-3"
-                  data-testid="button-delivery-sms"
-                >
-                  <MessageSquare className="w-4 h-4" />
-                  <span className="text-sm">SMS</span>
-                </Button>
-              </div>
-            </div>
-            
-            {/* Personal Message */}
-            <div>
-              <Label className="text-xs font-medium mb-1">Personal Message (Optional)</Label>
-              <Textarea
-                placeholder="Add a personal note..."
-                value={quoteForm.personalMessage}
-                onChange={(e) => setQuoteForm(prev => ({ ...prev, personalMessage: e.target.value }))}
-                className="h-20 resize-none"
-                data-testid="textarea-personal-message"
+              <Label htmlFor="product-name">Product Name *</Label>
+              <Input
+                id="product-name"
+                type="text"
+                placeholder="e.g., Premium Bar Package"
+                value={productForm.name}
+                onChange={(e) => setProductForm(prev => ({ ...prev, name: e.target.value }))}
+                data-testid="input-product-name"
               />
             </div>
             
+            {/* Description */}
+            <div>
+              <Label htmlFor="product-description">Description</Label>
+              <Textarea
+                id="product-description"
+                placeholder="Describe what's included in this product..."
+                value={productForm.description}
+                onChange={(e) => setProductForm(prev => ({ ...prev, description: e.target.value }))}
+                className="h-20 resize-none"
+                data-testid="textarea-product-description"
+              />
+            </div>
+            
+            {/* Price */}
+            <div>
+              <Label htmlFor="product-price">Price (USD) *</Label>
+              <div className="relative">
+                <DollarSign className="absolute left-3 top-3 h-4 w-4 text-muted-foreground" />
+                <Input
+                  id="product-price"
+                  type="number"
+                  step="0.01"
+                  placeholder="0.00"
+                  className="pl-10"
+                  value={productForm.unitPrice}
+                  onChange={(e) => setProductForm(prev => ({ ...prev, unitPrice: e.target.value }))}
+                  data-testid="input-product-price"
+                />
+              </div>
+            </div>
+            
+            {/* Pricing Model */}
+            <div>
+              <Label htmlFor="pricing-model">Pricing Model</Label>
+              <Select 
+                value={productForm.pricingModel} 
+                onValueChange={(value: "hourly" | "per_person" | "flat_rate") => 
+                  setProductForm(prev => ({ ...prev, pricingModel: value }))
+                }
+              >
+                <SelectTrigger id="pricing-model" data-testid="select-pricing-model">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="flat_rate">Flat Rate</SelectItem>
+                  <SelectItem value="per_person">Per Person</SelectItem>
+                  <SelectItem value="hourly">Hourly</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
+            {/* Product Type */}
+            <div>
+              <Label htmlFor="product-type">Product Type</Label>
+              <Select 
+                value={productForm.productType} 
+                onValueChange={(value: "private_cruise" | "disco_cruise" | "addon") => 
+                  setProductForm(prev => ({ ...prev, productType: value }))
+                }
+              >
+                <SelectTrigger id="product-type" data-testid="select-product-type">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="addon">Add-on Service</SelectItem>
+                  <SelectItem value="private_cruise">Private Cruise</SelectItem>
+                  <SelectItem value="disco_cruise">Disco Cruise</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            
             {/* Actions */}
-            <div className="flex space-x-2 pt-2">
+            <div className="flex gap-2 pt-2">
               <Button
                 variant="outline"
                 className="flex-1"
-                onClick={() => setQuoteModalOpen(false)}
-                data-testid="button-cancel-quote"
+                onClick={() => setProductModalOpen(false)}
+                data-testid="button-cancel-product"
               >
                 Cancel
               </Button>
               <Button
-                className="flex-1"
-                onClick={handleSendQuote}
-                data-testid="button-send-quote"
+                className="flex-1 bg-primary hover:bg-primary/90"
+                onClick={handleCreateProduct}
+                disabled={createProductMutation.isPending}
+                data-testid="button-save-product"
               >
-                Send Quote
+                {createProductMutation.isPending ? (
+                  "Creating..."
+                ) : (
+                  <>
+                    <Save className="mr-2 h-4 w-4" />
+                    Create Product
+                  </>
+                )}
               </Button>
             </div>
           </div>
         </DialogContent>
       </Dialog>
-
-      {/* Payment Modal */}
-      <Dialog open={paymentModalOpen} onOpenChange={setPaymentModalOpen}>
-        <DialogContent className="max-w-md w-full boat-shadow" data-testid="payment-modal">
-          <DialogHeader>
-            <DialogTitle className="font-heading flex items-center space-x-2">
-              <CreditCard className="w-5 h-5" />
-              <span>Secure Payment</span>
-            </DialogTitle>
-            <p className="text-sm text-muted-foreground">Complete your booking</p>
-          </DialogHeader>
-          
-          <div className="space-y-4">
-            {/* Payment Summary */}
-            <div className="bg-muted rounded-lg p-3">
-              <div className="flex justify-between items-center mb-2">
-                <span className="text-sm font-medium">Birthday Party - Disco Boat</span>
-                <span className="text-sm">March 15, 2024</span>
-              </div>
-              <div className="flex justify-between items-center text-lg font-bold">
-                <span>Deposit Required</span>
-                <span className="text-primary">$178.61</span>
-              </div>
-              <p className="text-xs text-muted-foreground mt-1">
-                Remaining $535.84 due 7 days before cruise
-              </p>
-            </div>
-            
-            {/* Demo Notice */}
-            <div className="bg-primary/10 rounded-lg p-3">
-              <p className="text-sm text-primary font-medium">Demo Mode</p>
-              <p className="text-xs text-muted-foreground">
-                This would integrate with Stripe for real payment processing
-              </p>
-            </div>
-            
-            {/* Actions */}
-            <div className="flex space-x-2 pt-2">
-              <Button
-                variant="outline"
-                className="flex-1"
-                onClick={() => setPaymentModalOpen(false)}
-                data-testid="button-cancel-payment"
-              >
-                Cancel
-              </Button>
-              <Button
-                className="flex-1 bg-austin-500 hover:bg-austin-500/90"
-                onClick={handlePaymentDemo}
-                data-testid="button-process-payment"
-              >
-                Process Payment
-              </Button>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* Action Buttons */}
-      <div className="fixed bottom-4 left-4 space-y-2 z-40">
-        <Button
-          onClick={() => openQuoteModal()}
-          className="w-full px-4 py-2 bg-secondary text-secondary-foreground rounded-lg shadow-lg hover:shadow-xl transition-all text-sm"
-          data-testid="button-open-quote-modal"
-        >
-          <Send className="mr-2 h-4 w-4" />
-          Send Quote
-        </Button>
-        <Button
-          onClick={() => setPaymentModalOpen(true)}
-          className="w-full px-4 py-2 bg-austin-500 hover:bg-austin-500/90 text-white rounded-lg shadow-lg hover:shadow-xl transition-all text-sm"
-          data-testid="button-open-payment-modal"
-        >
-          <CreditCard className="mr-2 h-4 w-4" />
-          Process Payment
-        </Button>
-      </div>
     </div>
   );
 }
