@@ -960,29 +960,111 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Stripe Checkout Session endpoint
+  // Secure Stripe Checkout Session endpoint - server-side amount validation
   app.post("/api/checkout/create-session", async (req, res) => {
     try {
       if (!stripe) {
         return res.status(500).json({ error: "Stripe not configured" });
       }
 
-      const { amount, paymentType, quoteData, customerEmail, metadata = {} } = req.body;
+      const { paymentType, customerEmail, metadata = {}, selectionPayload } = req.body;
       
-      if (!amount || !paymentType) {
-        return res.status(400).json({ error: "amount and paymentType required" });
+      if (!paymentType || !selectionPayload) {
+        return res.status(400).json({ error: "paymentType and selectionPayload required" });
       }
 
+      // Validate required selection data
+      const {
+        cruiseType,
+        groupSize,
+        eventDate,
+        timeSlot,
+        discoPackage,
+        discoTimeSlot,
+        discoTicketQuantity,
+        eventType,
+        quoteId
+      } = selectionPayload;
+
+      if (!cruiseType || !groupSize || !eventDate || !eventType) {
+        return res.status(400).json({ error: "Missing required selection data" });
+      }
+
+      // Calculate pricing server-side to prevent tampering
+      let pricing;
+      try {
+        if (cruiseType === 'private') {
+          if (!timeSlot) {
+            return res.status(400).json({ error: "timeSlot required for private cruise" });
+          }
+          
+          pricing = await storage.calculateCruisePricing({
+            groupSize: parseInt(groupSize),
+            eventDate: new Date(eventDate),
+            timeSlot: timeSlot,
+          });
+        } else if (cruiseType === 'disco') {
+          if (!discoPackage || !discoTicketQuantity) {
+            return res.status(400).json({ error: "discoPackage and discoTicketQuantity required for disco cruise" });
+          }
+
+          // Calculate disco pricing using the pricing preview endpoint logic
+          const getDiscoPriceByPackage = (packageId: string): number => {
+            const packagePrices = {
+              'basic': 8500, // $85.00 in cents
+              'disco_queen': 9500, // $95.00 in cents  
+              'platinum': 10500, // $105.00 in cents
+            };
+            return packagePrices[packageId as keyof typeof packagePrices] || 8500;
+          };
+
+          pricing = await storage.calculatePricing({
+            items: [{
+              productId: `disco_${discoPackage}`,
+              qty: parseInt(discoTicketQuantity),
+              unitPrice: getDiscoPriceByPackage(discoPackage),
+            }],
+            groupSize: parseInt(discoTicketQuantity),
+            projectDate: new Date(eventDate),
+          });
+        } else {
+          return res.status(400).json({ error: "Invalid cruise type" });
+        }
+      } catch (pricingError: any) {
+        console.error("Pricing calculation failed:", pricingError);
+        return res.status(400).json({ error: "Unable to calculate pricing: " + pricingError.message });
+      }
+
+      // Determine payment amount based on type
+      let paymentAmount;
+      let productName;
+      if (paymentType === 'deposit') {
+        paymentAmount = pricing.depositAmount;
+        productName = 'Deposit Payment';
+      } else if (paymentType === 'full') {
+        paymentAmount = pricing.total;
+        productName = 'Full Payment';
+      } else {
+        return res.status(400).json({ error: "Invalid payment type. Must be 'deposit' or 'full'" });
+      }
+
+      if (!paymentAmount || paymentAmount <= 0) {
+        return res.status(400).json({ error: "Invalid payment amount calculated" });
+      }
+
+      const cruiseTypeLabel = cruiseType === 'private' ? 'Private' : 'ATX Disco';
+      const eventTypeLabel = eventType.charAt(0).toUpperCase() + eventType.slice(1);
+      
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: [{
           price_data: {
             currency: 'usd',
             product_data: {
-              name: `${paymentType === 'deposit' ? 'Deposit Payment' : 'Full Payment'} - ${quoteData?.eventType || 'Party'} Cruise`,
-              description: `Group Size: ${quoteData?.groupSize || 'TBD'} | Date: ${quoteData?.eventDate ? new Date(quoteData.eventDate).toLocaleDateString() : 'TBD'}`,
+              name: `${productName} - ${eventTypeLabel} ${cruiseTypeLabel} Cruise`,
+              description: `Group Size: ${groupSize} | Date: ${new Date(eventDate).toLocaleDateString()} | ${cruiseType === 'disco' ? `Package: ${discoPackage}` : `Time: ${timeSlot}`}`,
             },
-            unit_amount: Math.round(amount), // amount in cents
+            unit_amount: Math.round(paymentAmount), // Server-validated amount in cents
           },
           quantity: 1,
         }],
@@ -992,9 +1074,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         customer_email: customerEmail,
         metadata: {
           paymentType,
-          eventType: quoteData?.eventType || '',
-          eventDate: quoteData?.eventDate || '',
-          groupSize: quoteData?.groupSize?.toString() || '',
+          eventType,
+          eventDate: eventDate,
+          groupSize: groupSize.toString(),
+          cruiseType,
+          timeSlot: timeSlot || '',
+          discoPackage: discoPackage || '',
+          discoTicketQuantity: discoTicketQuantity?.toString() || '',
+          calculatedAmount: paymentAmount.toString(),
+          quoteId: quoteId || '',
           ...metadata
         }
       });
@@ -1002,7 +1090,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.json({ 
         sessionId: session.id, 
         url: session.url,
-        success: true
+        success: true,
+        calculatedAmount: paymentAmount // Return calculated amount for verification
       });
     } catch (error: any) {
       console.error("Create checkout session error:", error);

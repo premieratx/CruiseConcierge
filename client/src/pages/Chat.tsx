@@ -309,7 +309,7 @@ export default function Chat() {
       const res = await apiRequest('POST', '/api/pricing/preview', {
         items: [{
           productId: `disco_${formData.selectedDiscoPackage}`,
-          quantity: formData.discoTicketQuantity,
+          qty: formData.discoTicketQuantity,
           unitPrice: getDiscoPriceByPackage(formData.selectedDiscoPackage),
         }],
         groupSize: formData.discoTicketQuantity,
@@ -1157,8 +1157,13 @@ export default function Chat() {
   // Payment mutations using Stripe Checkout Sessions
   const createDepositPayment = useMutation({
     mutationFn: async () => {
-      const currentPricing = formData.selectedCruiseType === 'disco' ? discoPricing : privatePricing;
-      if (!currentPricing) throw new Error('No pricing data available');
+      // Enhanced validation for secure payments
+      if (!formData.selectedCruiseType) {
+        throw new Error('Please select a cruise type first');
+      }
+      if (!formData.eventDate) {
+        throw new Error('Please select an event date');
+      }
       if (!formData.firstName || !formData.lastName || !formData.email) {
         throw new Error('Contact information required for payment');
       }
@@ -1169,18 +1174,27 @@ export default function Chat() {
         throw new Error('Please fix pricing errors before proceeding');
       }
       
+      // Validate cruise-specific requirements
+      if (formData.selectedCruiseType === 'private' && !formData.selectedTimeSlot) {
+        throw new Error('Please select a time slot for private cruise');
+      }
+      if (formData.selectedCruiseType === 'disco' && (!formData.selectedDiscoPackage || !formData.discoTicketQuantity)) {
+        throw new Error('Please select disco package and ticket quantity');
+      }
+      
       const res = await apiRequest('POST', '/api/checkout/create-session', {
-        amount: currentPricing.depositAmount, // already in cents
         paymentType: 'deposit',
-        quoteData: {
-          eventType: formData.eventTypeLabel,
-          eventDate: formData.eventDate?.toISOString(),
-          groupSize: formData.groupSize,
-          selectedCruiseType: formData.selectedCruiseType,
-          selectedTimeSlot: formData.selectedTimeSlot,
-          selectedDiscoPackage: formData.selectedDiscoPackage,
-        },
         customerEmail: formData.email,
+        selectionPayload: {
+          cruiseType: formData.selectedCruiseType,
+          groupSize: formData.groupSize,
+          eventDate: formData.eventDate.toISOString(),
+          eventType: formData.eventType,
+          timeSlot: formData.selectedTimeSlot,
+          discoPackage: formData.selectedDiscoPackage,
+          discoTimeSlot: formData.selectedDiscoTimeSlot,
+          discoTicketQuantity: formData.discoTicketQuantity,
+        },
         metadata: {
           customerName: `${formData.firstName} ${formData.lastName}`,
           phone: formData.phone,
@@ -1212,8 +1226,13 @@ export default function Chat() {
 
   const createFullPayment = useMutation({
     mutationFn: async () => {
-      const currentPricing = formData.selectedCruiseType === 'disco' ? discoPricing : privatePricing;
-      if (!currentPricing) throw new Error('No pricing data available');
+      // Enhanced validation for secure payments
+      if (!formData.selectedCruiseType) {
+        throw new Error('Please select a cruise type first');
+      }
+      if (!formData.eventDate) {
+        throw new Error('Please select an event date');
+      }
       if (!formData.firstName || !formData.lastName || !formData.email) {
         throw new Error('Contact information required for payment');
       }
@@ -1224,18 +1243,27 @@ export default function Chat() {
         throw new Error('Please fix pricing errors before proceeding');
       }
       
+      // Validate cruise-specific requirements
+      if (formData.selectedCruiseType === 'private' && !formData.selectedTimeSlot) {
+        throw new Error('Please select a time slot for private cruise');
+      }
+      if (formData.selectedCruiseType === 'disco' && (!formData.selectedDiscoPackage || !formData.discoTicketQuantity)) {
+        throw new Error('Please select disco package and ticket quantity');
+      }
+      
       const res = await apiRequest('POST', '/api/checkout/create-session', {
-        amount: currentPricing.total, // already in cents
         paymentType: 'full',
-        quoteData: {
-          eventType: formData.eventTypeLabel,
-          eventDate: formData.eventDate?.toISOString(),
-          groupSize: formData.groupSize,
-          selectedCruiseType: formData.selectedCruiseType,
-          selectedTimeSlot: formData.selectedTimeSlot,
-          selectedDiscoPackage: formData.selectedDiscoPackage,
-        },
         customerEmail: formData.email,
+        selectionPayload: {
+          cruiseType: formData.selectedCruiseType,
+          groupSize: formData.groupSize,
+          eventDate: formData.eventDate.toISOString(),
+          eventType: formData.eventType,
+          timeSlot: formData.selectedTimeSlot,
+          discoPackage: formData.selectedDiscoPackage,
+          discoTimeSlot: formData.selectedDiscoTimeSlot,
+          discoTicketQuantity: formData.discoTicketQuantity,
+        },
         metadata: {
           customerName: `${formData.firstName} ${formData.lastName}`,
           phone: formData.phone,
