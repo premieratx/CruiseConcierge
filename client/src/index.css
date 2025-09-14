@@ -124,6 +124,86 @@
   }
 }
 
+/* Print Styles for Professional Quote */
+@media print {
+  @page {
+    size: letter;
+    margin: 0.5in;
+  }
+
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Hide interactive elements */
+  button, 
+  input[type="checkbox"],
+  .print\\:hidden {
+    display: none !important;
+  }
+
+  /* Ensure backgrounds print */
+  .bg-gradient-to-r,
+  .bg-gray-50,
+  .bg-blue-50,
+  .bg-green-50 {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+
+  /* Prevent page breaks inside important sections */
+  .print\\:break-inside-avoid {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  /* Ensure proper spacing */
+  .print\\:p-0 {
+    padding: 0 !important;
+  }
+
+  .print\\:p-6 {
+    padding: 1.5rem !important;
+  }
+
+  .print\\:shadow-none {
+    box-shadow: none !important;
+  }
+
+  .print\\:bg-white {
+    background-color: white !important;
+  }
+
+  /* Ensure tables look professional in print */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tbody {
+    display: table-row-group;
+  }
+
+  tr {
+    page-break-inside: avoid;
+  }
+
+  /* Professional text rendering */
+  p, span, div {
+    orphans: 3;
+    widows: 3;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+}
+
 @layer components {
   .boat-shadow {
     box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.2), 0 4px 6px -2px rgba(30, 58, 138, 0.1);
