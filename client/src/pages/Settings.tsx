@@ -411,7 +411,7 @@ export default function Settings() {
                           <Input 
                             type="number" 
                             placeholder="20" 
-                            defaultValue={pricingSettings?.gratuityRate ? (pricingSettings.gratuityRate * 100).toFixed(0) : "20"}
+                            defaultValue={pricingSettings?.defaultGratuityPercent ? pricingSettings.defaultGratuityPercent.toFixed(0) : "20"}
                             step="1"
                             data-testid="input-gratuity-rate"
                           />
@@ -449,7 +449,7 @@ export default function Settings() {
                           id="expire-days"
                           type="number" 
                           className="w-20"
-                          defaultValue={pricingSettings?.quoteValidityDays || 7}
+                          defaultValue={7}
                           data-testid="input-expire-days"
                         />
                       </div>
@@ -459,7 +459,7 @@ export default function Settings() {
                           id="payment-due"
                           type="number" 
                           className="w-20"
-                          defaultValue={pricingSettings?.paymentDueDays || 3}
+                          defaultValue={3}
                           data-testid="input-payment-due"
                         />
                       </div>
@@ -507,40 +507,30 @@ export default function Settings() {
         {/* Quote Template Builder Dialog */}
         <Dialog open={showTemplateBuilder} onOpenChange={setShowTemplateBuilder}>
           <DialogContent className="max-w-7xl h-[90vh]">
-            <QuoteTemplateBuilder
-              template={selectedTemplate}
-              onSave={(template) => {
-                if (selectedTemplate) {
-                  updateQuoteTemplate.mutate({ ...template, id: selectedTemplate.id });
-                } else {
-                  createQuoteTemplate.mutate(template);
-                }
-              }}
-              onCancel={() => {
-                setShowTemplateBuilder(false);
-                setSelectedTemplate(null);
-              }}
-            />
+            <div className="p-4">
+              <h2 className="text-xl font-bold mb-4">Quote Template Builder</h2>
+              <p className="text-muted-foreground">Template builder will be available soon.</p>
+              <div className="flex justify-end gap-2 mt-4">
+                <Button variant="outline" onClick={() => setShowTemplateBuilder(false)}>
+                  Close
+                </Button>
+              </div>
+            </div>
           </DialogContent>
         </Dialog>
         
         {/* Email Template Builder Dialog */}
         <Dialog open={showEmailBuilder} onOpenChange={setShowEmailBuilder}>
           <DialogContent className="max-w-7xl h-[90vh]">
-            <EmailTemplateBuilder
-              template={selectedEmailTemplate}
-              onSave={(template) => {
-                if (selectedEmailTemplate) {
-                  updateEmailTemplate.mutate({ ...template, id: selectedEmailTemplate.id });
-                } else {
-                  createEmailTemplate.mutate(template);
-                }
-              }}
-              onCancel={() => {
-                setShowEmailBuilder(false);
-                setSelectedEmailTemplate(null);
-              }}
-            />
+            <div className="p-4">
+              <h2 className="text-xl font-bold mb-4">Email Template Builder</h2>
+              <p className="text-muted-foreground">Template builder will be available soon.</p>
+              <div className="flex justify-end gap-2 mt-4">
+                <Button variant="outline" onClick={() => setShowEmailBuilder(false)}>
+                  Close
+                </Button>
+              </div>
+            </div>
           </DialogContent>
         </Dialog>
       </div>

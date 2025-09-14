@@ -138,7 +138,7 @@ export default function Dashboard() {
       <div className="container mx-auto px-4 pb-4">
         <div className="bg-card/90 backdrop-blur-sm rounded-lg p-4 shadow-sm border border-border">
           <h2 className="text-sm font-medium text-muted-foreground mb-3">Quick Actions</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
             <Button 
               variant="outline" 
               className="w-full justify-start" 
@@ -174,6 +174,24 @@ export default function Dashboard() {
             >
               <TrendingUp className="mr-2 h-4 w-4" />
               Pipeline
+            </Button>
+            <Button 
+              variant="outline" 
+              className="w-full justify-start bg-primary/10 hover:bg-primary/20 border-primary/20" 
+              data-testid="button-quick-new-product"
+              onClick={() => setProductModalOpen(true)}
+            >
+              <Package className="mr-2 h-4 w-4 text-primary" />
+              <span className="text-primary">New Product</span>
+            </Button>
+            <Button 
+              variant="outline" 
+              className="w-full justify-start" 
+              data-testid="button-quick-manage-products"
+              onClick={() => setLocation("/products")}
+            >
+              <ShoppingBag className="mr-2 h-4 w-4" />
+              Manage Products
             </Button>
           </div>
         </div>

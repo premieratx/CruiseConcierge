@@ -36,8 +36,15 @@ interface DiscoSlotCard {
 }
 
 // Helper function to format time
-const formatTime = (time: string) => {
-  const [hours, minutes] = time.split(':').map(Number);
+const formatTime = (time: string | undefined | null) => {
+  if (!time) return 'N/A';
+  
+  const parts = time.split(':');
+  if (parts.length < 2) return time; // Return as-is if not in expected format
+  
+  const [hours, minutes] = parts.map(Number);
+  if (isNaN(hours) || isNaN(minutes)) return time; // Return as-is if parsing fails
+  
   const period = hours >= 12 ? 'PM' : 'AM';
   const displayHours = hours % 12 || 12;
   return `${displayHours}:${minutes.toString().padStart(2, '0')} ${period}`;
@@ -55,7 +62,7 @@ const generateTimeBlocks = (date: Date, boats: Boat[], bookings: Booking[], time
   boats.forEach(boat => {
     dayTimeframes.forEach(tf => {
       // Check if this timeframe applies to this boat
-      if (tf.boatIds.length === 0 || tf.boatIds.includes(boat.id) || tf.boatIds.includes('any')) {
+      if (!tf.boatIds || tf.boatIds.length === 0 || tf.boatIds.includes(boat.id) || tf.boatIds.includes('any')) {
         const startDateTime = new Date(date);
         const [startHour, startMin] = tf.startTime.split(':').map(Number);
         startDateTime.setHours(startHour, startMin, 0, 0);

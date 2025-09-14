@@ -346,7 +346,7 @@ export default function Products() {
       description: product.description || "",
       unitPrice: (product.unitPrice || 0) / 100,
       taxable: product.taxable ?? true,
-      pricingModel: product.pricingModel || "hourly",
+      pricingModel: (product.pricingModel === "per_person" ? "per_person" : "hourly") as "per_person" | "hourly",
       productType: product.productType as "disco_cruise" | "private_cruise" || "private_cruise",
       categoryType: product.categoryType as "experience" | "addon" || "experience",
       eventTypes: product.eventTypes || [],
@@ -766,6 +766,46 @@ export default function Products() {
                             <SelectItem value="weekend">Weekends Only</SelectItem>
                           </SelectContent>
                         </Select>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <FormField
+                    control={productForm.control}
+                    name="groupSize.min"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Minimum Group Size</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            {...field}
+                            onChange={(e) => field.onChange(parseInt(e.target.value) || 1)}
+                            data-testid="input-min-group-size"
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  
+                  <FormField
+                    control={productForm.control}
+                    name="groupSize.max"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Maximum Group Size</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="number"
+                            {...field}
+                            onChange={(e) => field.onChange(parseInt(e.target.value) || 150)}
+                            data-testid="input-max-group-size"
+                          />
+                        </FormControl>
                         <FormMessage />
                       </FormItem>
                     )}
