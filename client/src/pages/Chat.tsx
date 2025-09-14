@@ -56,11 +56,12 @@ export default function Chat() {
 
   const fetchPricing = async () => {
     try {
-      const response = await apiRequest('/api/pricing/cruise', 'POST', {
+      const res = await apiRequest('POST', '/api/pricing/cruise', {
         groupSize: formData.groupSize,
         eventDate: formData.eventDate,
         timeSlot: formData.preferredTime,
       });
+      const response = await res.json();
       setPricing(response);
     } catch (error) {
       console.error('Failed to fetch pricing:', error);
@@ -78,7 +79,8 @@ export default function Chat() {
         phone: data.phone || undefined,
       };
       
-      const contactResponse = await apiRequest('/api/contacts', 'POST', contact);
+      const contactRes = await apiRequest('POST', '/api/contacts', contact);
+      const contactResponse = await contactRes.json();
       
       // Then create the project with pricing info
       const project: InsertProject = {
@@ -93,7 +95,8 @@ export default function Chat() {
         leadSource: 'chat',
       };
       
-      const projectResponse = await apiRequest('/api/projects', 'POST', project);
+      const projectRes = await apiRequest('POST', '/api/projects', project);
+      const projectResponse = await projectRes.json();
       
       // Create a quote from the pricing calculation
       if (pricing && pricing.breakdown) {
@@ -133,7 +136,14 @@ export default function Chat() {
           validUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Valid for 7 days
         };
         
-        await apiRequest('/api/quotes', 'POST', quote);
+        const quoteRes = await apiRequest('POST', '/api/quotes', quote);
+        const quoteResponse = await quoteRes.json();
+        
+        // Send email and SMS with quote link
+        await apiRequest('POST', '/api/quotes/' + quoteResponse.id + '/send', {
+          email: contact.email,
+          phone: contact.phone,
+        });
       }
       
       return { contact: contactResponse, project: projectResponse };

@@ -19,6 +19,81 @@ const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SEC
   apiVersion: "2025-08-27.basil",
 }) : null;
 
+// Helper functions for sending quotes
+async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: string) {
+  const quote = await storage.getQuote(quoteId);
+  if (!quote) throw new Error("Quote not found");
+  
+  const project = await storage.getProject(quote.projectId);
+  const contact = project ? await storage.getContact(project.contactId) : null;
+  
+  const html = `
+    <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+      <div style="background: linear-gradient(135deg, #3b82f6, #06b6d4); padding: 30px; text-align: center;">
+        <h1 style="color: white; margin: 0;">🚢 Premier Party Cruises</h1>
+        <p style="color: white; margin: 10px 0 0 0;">Your Quote is Ready!</p>
+      </div>
+      
+      <div style="padding: 30px; background: white;">
+        <h2>Hello ${contact?.name || 'Valued Customer'}!</h2>
+        
+        <p>Thank you for your interest in Premier Party Cruises! We've prepared a custom quote for your upcoming event.</p>
+        
+        <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+          <h3 style="margin-top: 0;">Quote Details</h3>
+          <p><strong>Event:</strong> ${project?.eventType || 'Party Cruise'}</p>
+          <p><strong>Group Size:</strong> ${project?.groupSize || 'TBD'}</p>
+          <p><strong>Date:</strong> ${project?.projectDate?.toISOString().split('T')[0] || 'To be confirmed'}</p>
+          <p><strong>Total:</strong> $${(quote.total / 100).toFixed(2)}</p>
+        </div>
+        
+        <div style="text-align: center; margin: 30px 0;">
+          <a href="${process.env.BASE_URL || 'http://localhost:5000'}/quote/${quote.id}" 
+             style="background: #3b82f6; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+            View Full Quote
+          </a>
+        </div>
+        
+        ${personalMessage ? `<p style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin: 20px 0;"><strong>Personal Message:</strong><br>${personalMessage}</p>` : ''}
+        
+        <p>Questions? Reply to this email or call us at (512) 555-BOAT!</p>
+        
+        <p style="margin-top: 30px;">
+          Best regards,<br>
+          <strong>Premier Party Cruises Team</strong><br>
+          Austin, Texas
+        </p>
+      </div>
+      
+      <div style="background: #f1f5f9; padding: 20px; text-align: center; font-size: 12px; color: #64748b;">
+        <p>Premier Party Cruises | Lake Austin, TX | premierpartycruises.com</p>
+      </div>
+    </div>
+  `;
+  
+  return await mailgunService.send({
+    to: email,
+    subject: '🚢 Your Party Cruise Quote is Ready!',
+    html,
+    from: process.env.MAILGUN_FROM || 'quotes@premierpartycruises.com'
+  });
+}
+
+async function sendQuoteSMS(quoteId: string, phone: string) {
+  const quote = await storage.getQuote(quoteId);
+  if (!quote) throw new Error("Quote not found");
+  
+  const project = await storage.getProject(quote.projectId);
+  const contact = project ? await storage.getContact(project.contactId) : null;
+  
+  const message = `Hi ${contact?.name || 'there'}! 🚢 Your Premier Party Cruises quote is ready. Total: $${(quote.total / 100).toFixed(2)}. View details: ${process.env.BASE_URL || 'http://localhost:5000'}/quote/${quote.id}`;
+  
+  return await goHighLevelService.send({
+    to: phone,
+    body: message
+  });
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
   
   // Chat API endpoints
@@ -288,7 +363,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/quotes/:id/send", async (req, res) => {
     try {
+      // Support both formats: simple {email, phone} from chat, or detailed {delivery, customerInfo, personalMessage}
+      let { email, phone } = req.body;
       const { delivery, customerInfo, personalMessage } = req.body;
+      
+      // If using simple format from chat, convert to full format
+      if (!customerInfo && (email || phone)) {
+        const sendEmail = !!email;
+        const sendSMS = !!phone;
+        
+        // Send both email and SMS if both are provided
+        if (sendEmail) {
+          await sendQuoteEmail(req.params.id, email, personalMessage);
+        }
+        if (sendSMS) {
+          await sendQuoteSMS(req.params.id, phone);
+        }
+        
+        return res.json({ success: true, sent: { email: sendEmail, sms: sendSMS } });
+      }
       
       const quote = await storage.getQuote(req.params.id);
       if (!quote) {
@@ -324,7 +417,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               </div>
               
               <div style="text-align: center; margin: 30px 0;">
-                <a href="${process.env.BASE_URL || 'http://localhost:5000'}/public/quote/${quote.id}" 
+                <a href="${process.env.BASE_URL || 'http://localhost:5000'}/quote/${quote.id}" 
                    style="background: #3b82f6; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
                   View Full Quote
                 </a>
@@ -371,6 +464,125 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Send quote error:", error);
       res.status(500).json({ error: "Failed to send quote" });
+    }
+  });
+
+  // Public quote viewing endpoint
+  app.get("/api/quotes/:id/public", async (req, res) => {
+    try {
+      const quote = await storage.getQuote(req.params.id);
+      if (!quote) {
+        return res.status(404).json({ error: "Quote not found" });
+      }
+      
+      const project = await storage.getProject(quote.projectId);
+      const contact = project ? await storage.getContact(project.contactId) : null;
+      
+      // Calculate pricing for display
+      const pricing = await storage.calculateCruisePricing({
+        groupSize: project?.groupSize || 25,
+        eventDate: project?.projectDate || new Date(),
+        timeSlot: project?.preferredTime || 'afternoon',
+      });
+      
+      res.json({
+        ...quote,
+        pricing,
+        project,
+        contact,
+      });
+    } catch (error) {
+      console.error("Get public quote error:", error);
+      res.status(500).json({ error: "Failed to retrieve quote" });
+    }
+  });
+
+  // Recalculate quote with customizations
+  app.post("/api/quotes/:id/recalculate-public", async (req, res) => {
+    try {
+      const { groupSize, options, discountCode } = req.body;
+      const quote = await storage.getQuote(req.params.id);
+      
+      if (!quote) {
+        return res.status(404).json({ error: "Quote not found" });
+      }
+      
+      const project = await storage.getProject(quote.projectId);
+      
+      // Recalculate pricing with new parameters
+      const pricing = await storage.calculateCruisePricing({
+        groupSize: groupSize || project?.groupSize || 25,
+        eventDate: project?.projectDate || new Date(),
+        timeSlot: project?.preferredTime || 'afternoon',
+        discountCode,
+        options,
+      });
+      
+      // Update quote with new pricing
+      await storage.updateQuote(req.params.id, {
+        total: pricing.total,
+        subtotal: pricing.subtotal,
+        tax: pricing.tax,
+        gratuity: pricing.gratuity,
+        discountTotal: pricing.discountTotal,
+      });
+      
+      res.json({ success: true, pricing });
+    } catch (error) {
+      console.error("Recalculate quote error:", error);
+      res.status(500).json({ error: "Failed to recalculate quote" });
+    }
+  });
+
+  // Sign quote and generate invoice
+  app.post("/api/quotes/:id/sign", async (req, res) => {
+    try {
+      const { signature, selectedOptions, specialRequests, discountCode } = req.body;
+      
+      if (!signature) {
+        return res.status(400).json({ error: "Signature required" });
+      }
+      
+      const quote = await storage.getQuote(req.params.id);
+      if (!quote) {
+        return res.status(404).json({ error: "Quote not found" });
+      }
+      
+      // Update quote status
+      await storage.updateQuote(req.params.id, {
+        status: "ACCEPTED",
+        metadata: {
+          signature,
+          signedAt: new Date().toISOString(),
+          selectedOptions,
+          specialRequests,
+          discountCode,
+        } as any,
+      });
+      
+      // Create invoice
+      const invoice = await storage.createInvoice({
+        projectId: quote.projectId,
+        invoiceNumber: `INV-${Date.now()}`,
+        items: quote.items,
+        subtotal: quote.subtotal,
+        tax: quote.tax,
+        discountTotal: quote.discountTotal,
+        total: quote.total,
+        balance: quote.total,
+        dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+        status: "PENDING",
+      });
+      
+      // Update project status
+      await storage.updateProject(quote.projectId, {
+        pipelinePhase: "ph_deposit_pending",
+      });
+      
+      res.json({ success: true, invoiceId: invoice.id });
+    } catch (error) {
+      console.error("Sign quote error:", error);
+      res.status(500).json({ error: "Failed to sign quote" });
     }
   });
 
