@@ -94,6 +94,31 @@ async function sendQuoteSMS(quoteId: string, phone: string) {
   });
 }
 
+async function sendAdminNotificationSMS(quoteId: string) {
+  const adminPhone = process.env.ADMIN_PHONE_NUMBER;
+  if (!adminPhone) {
+    console.log('ADMIN_PHONE_NUMBER not configured. Skipping admin SMS notification.');
+    return true;
+  }
+
+  const quote = await storage.getQuote(quoteId);
+  if (!quote) throw new Error("Quote not found");
+  
+  const project = await storage.getProject(quote.projectId);
+  const contact = project ? await storage.getContact(project.contactId) : null;
+  
+  const eventDate = project?.projectDate ? (typeof project.projectDate === 'string' ? new Date(project.projectDate) : project.projectDate) : null;
+  const formattedDate = eventDate ? eventDate.toLocaleDateString() : 'TBD';
+  const eventType = project?.eventType || 'Party Cruise';
+  
+  const message = `🚢 NEW BOOKING REQUEST!\n\nCustomer: ${contact?.name || 'Unknown'}\nEvent: ${eventType}\nDate: ${formattedDate}\nGroup Size: ${project?.groupSize || 'TBD'}\nTotal: $${(quote.total / 100).toFixed(2)}\n\nView quote: ${process.env.BASE_URL || 'http://localhost:5000'}/quote/${quote.id}`;
+  
+  return await goHighLevelService.send({
+    to: adminPhone,
+    body: message
+  });
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
   
   // Chat API endpoints
@@ -386,7 +411,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
           await sendQuoteSMS(req.params.id, phone);
         }
         
-        return res.json({ success: true, sent: { email: sendEmail, sms: sendSMS } });
+        // Send admin notification SMS for chat-generated quotes
+        try {
+          await sendAdminNotificationSMS(req.params.id);
+          console.log('Admin notification SMS sent for quote:', req.params.id);
+        } catch (error) {
+          console.error('Failed to send admin notification SMS:', error);
+          // Don't fail the request if admin SMS fails
+        }
+        
+        return res.json({ success: true, sent: { email: sendEmail, sms: sendSMS, adminNotification: true } });
       }
       
       const quote = await storage.getQuote(req.params.id);
