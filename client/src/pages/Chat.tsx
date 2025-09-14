@@ -27,6 +27,7 @@ import { format, addDays, isBefore, isAfter, startOfDay, differenceInDays } from
 import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection, QuoteItem } from '@shared/schema';
 
 type Question = 
+  | 'welcome'
   | 'event-type' 
   | 'contact-info' 
   | 'date-selection' 
@@ -308,7 +309,7 @@ const condenseAnimation = {
 };
 
 export default function Chat() {
-  const [currentQuestion, setCurrentQuestion] = useState<Question>('event-type');
+  const [currentQuestion, setCurrentQuestion] = useState<Question>('welcome');
   const [completedSelections, setCompletedSelections] = useState<CompletedSelection[]>([]);
   const [privatePricing, setPrivatePricing] = useState<PricingPreview | null>(null);
   const [discoPricing, setDiscoPricing] = useState<PricingPreview | null>(null);
@@ -336,7 +337,7 @@ export default function Chat() {
     selectedDiscoTimeSlot: '',
     discoTicketQuantity: 1,
   });
-  const [questionHistory, setQuestionHistory] = useState<Question[]>(['event-type']);
+  const [questionHistory, setQuestionHistory] = useState<Question[]>(['welcome']);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [maxProgressIndex, setMaxProgressIndex] = useState(0);
   // Lead tracking state
@@ -610,8 +611,8 @@ export default function Chat() {
 
   // Enhanced Navigation functions
   const questionOrder: Question[] = [
-    'event-type', 'contact-info', 'date-selection', 'group-size-selection',
-    'time-slot-selection', 'boat-selection', 'package-selection', 'complete'
+    'welcome', 'event-type', 'date-selection', 'group-size-selection',
+    'time-slot-selection', 'boat-selection', 'package-selection', 'comparison-selection', 'complete'
   ];
 
   const getQuestionIndex = (question: Question) => questionOrder.indexOf(question);
@@ -833,7 +834,9 @@ export default function Chat() {
       value: label,
       emoji: emoji
     });
-    progressToNextQuestion();
+    // Skip contact info and go directly to date selection
+    setCurrentQuestion('date-selection');
+    updateProgress('date-selection');
   };
 
   // Immediate lead creation mutation - creates lead as soon as contact info is entered
@@ -1950,6 +1953,131 @@ export default function Chat() {
           
           <AnimatePresence mode="wait">
             
+            {/* Professional Welcome Screen */}
+            {currentQuestion === 'welcome' && (
+              <motion.div
+                key="welcome"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="text-center space-y-8 py-8"
+              >
+                {/* Hero Section */}
+                <motion.div
+                  initial={{ scale: 0.8, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.8, ease: "easeOut" }}
+                  className="space-y-6"
+                >
+                  {/* Logo */}
+                  <div className="flex justify-center mb-8">
+                    <motion.img
+                      src={logoPath}
+                      alt="Premier Party Cruises"
+                      className="h-32 w-auto"
+                      initial={{ y: -20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.2, duration: 0.6 }}
+                    />
+                  </div>
+                  
+                  {/* Hero Text */}
+                  <div className="space-y-4">
+                    <motion.h1
+                      className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent"
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.3, duration: 0.6 }}
+                    >
+                      Welcome Aboard!
+                    </motion.h1>
+                    
+                    <motion.p
+                      className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto"
+                      initial={{ y: 20, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.4, duration: 0.6 }}
+                    >
+                      Austin's Premier Lake Travis Party Cruise Experience
+                    </motion.p>
+                  </div>
+                </motion.div>
+                
+                {/* Features Grid */}
+                <motion.div
+                  className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto px-4"
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.6, duration: 0.6 }}
+                >
+                  <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-xl p-6 shadow-lg">
+                    <Ship className="h-10 w-10 text-blue-600 mx-auto mb-3" />
+                    <h3 className="font-semibold text-slate-800 dark:text-slate-200 mb-2">Premium Fleet</h3>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">Luxury boats with modern amenities for groups up to 75</p>
+                  </div>
+                  
+                  <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-xl p-6 shadow-lg">
+                    <Star className="h-10 w-10 text-yellow-500 mx-auto mb-3" />
+                    <h3 className="font-semibold text-slate-800 dark:text-slate-200 mb-2">5-Star Service</h3>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">Professional crew dedicated to making your event unforgettable</p>
+                  </div>
+                  
+                  <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-xl p-6 shadow-lg">
+                    <Sparkles className="h-10 w-10 text-purple-600 mx-auto mb-3" />
+                    <h3 className="font-semibold text-slate-800 dark:text-slate-200 mb-2">Custom Packages</h3>
+                    <p className="text-sm text-slate-600 dark:text-slate-400">Tailored experiences for any celebration or event</p>
+                  </div>
+                </motion.div>
+                
+                {/* CTA Section */}
+                <motion.div
+                  className="space-y-4"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.8, duration: 0.6 }}
+                >
+                  <Button
+                    onClick={() => {
+                      setCurrentQuestion('event-type');
+                      updateProgress('event-type');
+                    }}
+                    className="btn-professional bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-12 py-6 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
+                    data-testid="button-get-started"
+                  >
+                    <Sparkles className="h-5 w-5 mr-2" />
+                    Get Your Custom Quote
+                    <ChevronRight className="h-5 w-5 ml-2" />
+                  </Button>
+                  
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
+                    Takes less than 2 minutes • Instant pricing • No commitment
+                  </p>
+                </motion.div>
+                
+                {/* Trust Badges */}
+                <motion.div
+                  className="flex items-center justify-center gap-8 pt-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 1, duration: 0.6 }}
+                >
+                  <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    <span>Licensed & Insured</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                    <Star className="h-4 w-4 text-yellow-500" />
+                    <span>500+ 5-Star Reviews</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                    <Clock className="h-4 w-4 text-blue-500" />
+                    <span>7 Years of Excellence</span>
+                  </div>
+                </motion.div>
+              </motion.div>
+            )}
+            
             {/* Professional Event Type Selection */}
             {currentQuestion === 'event-type' && (
               <motion.div
@@ -2311,7 +2439,7 @@ export default function Chat() {
               </motion.div>
             )}
 
-            {/* Package Selection */}
+            {/* Package Selection - Two Column Layout */}
             {currentQuestion === 'package-selection' && (
               <motion.div
                 key="package-selection"
@@ -2319,7 +2447,7 @@ export default function Chat() {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="text-center space-y-8"
+                className="space-y-8"
               >
                 <div className="space-y-6">
                   <div className="text-center">
@@ -2327,18 +2455,19 @@ export default function Chat() {
                       initial={{ scale: 0.8, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ delay: 0.2, duration: 0.6 }}
-                      className="w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center mx-auto mb-4"
+                      className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4"
                     >
                       <Sparkles className="h-10 w-10 text-white" />
                     </motion.div>
-                    <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">Choose Your Package</h2>
+                    <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">Choose Your Perfect Package</h2>
                     <p className="text-slate-600 dark:text-slate-400 text-lg">
-                      Select the perfect package for your {formData.eventTypeLabel.toLowerCase()}
+                      Select the ideal experience for your {formData.eventTypeLabel.toLowerCase()}
                     </p>
                   </div>
                 </div>
 
-                <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+                {/* Two Column Layout for All Events */}
+                <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
                   {/* Standard Package */}
                   <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -2355,7 +2484,8 @@ export default function Chat() {
                           value: 'Standard Package',
                           icon: 'sparkles'
                         });
-                        handleSendQuote();
+                        setCurrentQuestion('comparison-selection');
+                        updateProgress('comparison-selection');
                       }}
                       className="w-full p-6 bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl transition-all"
                       data-testid="button-package-standard"
@@ -2403,7 +2533,8 @@ export default function Chat() {
                           value: 'Essentials Package',
                           icon: 'sparkles'
                         });
-                        handleSendQuote();
+                        setCurrentQuestion('comparison-selection');
+                        updateProgress('comparison-selection');
                       }}
                       className="w-full p-6 bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl transition-all border-2 border-blue-500"
                       data-testid="button-package-essentials"
@@ -2454,7 +2585,8 @@ export default function Chat() {
                           value: 'Ultimate Party Package',
                           icon: 'sparkles'
                         });
-                        handleSendQuote();
+                        setCurrentQuestion('comparison-selection');
+                        updateProgress('comparison-selection');
                       }}
                       className="w-full p-6 bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-xl shadow-md hover:shadow-xl transition-all"
                       data-testid="button-package-ultimate"
@@ -2656,6 +2788,102 @@ export default function Chat() {
                         </div>
                       )}
                     </div>
+                  </motion.div>
+                )}
+
+                {/* Contact Form - Embedded at the top of summary */}
+                {(!formData.firstName || !formData.email) && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mb-8"
+                  >
+                    <Card className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-slate-200 dark:border-slate-700 shadow-xl">
+                      <CardHeader className="text-center pb-4">
+                        <CardTitle className="text-2xl text-slate-800 dark:text-slate-200">Your Information</CardTitle>
+                        <CardDescription className="text-slate-600 dark:text-slate-400">
+                          Enter your details to receive your personalized quote
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="pt-2">
+                        <div className="grid md:grid-cols-2 gap-4">
+                          <div className="space-y-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="firstName" className="text-slate-700 dark:text-slate-300">First Name *</Label>
+                              <Input
+                                id="firstName"
+                                value={formData.firstName}
+                                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                                required
+                                placeholder="John"
+                                className="bg-white/50 dark:bg-slate-700/50"
+                                data-testid="input-first-name"
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="lastName" className="text-slate-700 dark:text-slate-300">Last Name *</Label>
+                              <Input
+                                id="lastName"
+                                value={formData.lastName}
+                                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                                required
+                                placeholder="Doe"
+                                className="bg-white/50 dark:bg-slate-700/50"
+                                data-testid="input-last-name"
+                              />
+                            </div>
+                          </div>
+                          <div className="space-y-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="email" className="text-slate-700 dark:text-slate-300">Email Address *</Label>
+                              <Input
+                                id="email"
+                                type="email"
+                                value={formData.email}
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                required
+                                placeholder="john.doe@example.com"
+                                className="bg-white/50 dark:bg-slate-700/50"
+                                data-testid="input-email"
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="phone" className="text-slate-700 dark:text-slate-300">Phone (Optional)</Label>
+                              <Input
+                                id="phone"
+                                type="tel"
+                                value={formData.phone}
+                                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                placeholder="(555) 123-4567"
+                                className="bg-white/50 dark:bg-slate-700/50"
+                                data-testid="input-phone"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        {/* Send Quote Button */}
+                        <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-700">
+                          <Button
+                            onClick={handleSendQuote}
+                            disabled={!formData.firstName || !formData.email || createLead.isPending}
+                            className="w-full h-14 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
+                            data-testid="button-send-quote-summary"
+                          >
+                            {createLead.isPending ? (
+                              <>
+                                <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                                Sending Quote...
+                              </>
+                            ) : (
+                              <>
+                                <FileText className="h-5 w-5 mr-2" />
+                                Send My Detailed Quote
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
                   </motion.div>
                 )}
 
