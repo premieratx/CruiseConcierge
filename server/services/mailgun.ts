@@ -9,8 +9,9 @@ class MailgunService implements EmailService {
   constructor() {
     this.apiKey = process.env.MAILGUN_API_KEY || '';
     
-    // Fix common configuration mistake where domain is set to full API URL
+    // Use the domain directly from environment
     let domain = process.env.MAILGUN_DOMAIN || '';
+    
     if (domain.startsWith('http')) {
       console.warn('⚠️  MAILGUN_DOMAIN configuration issue detected!');
       console.warn('   Current value:', domain);
