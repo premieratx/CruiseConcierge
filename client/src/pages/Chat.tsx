@@ -1197,6 +1197,7 @@ export default function Chat() {
             )?.label || data.selectedDiscoTimeSlot;
             
             quoteItems.push({
+              id: `disco_${selectedPackage.id}_${Date.now()}`,
               type: 'disco_cruise',
               name: `${selectedPackage.name} - ${timeSlotLabel}`,
               description: `ATX Disco Cruise for ${data.groupSize} people on ${data.eventDate ? format(data.eventDate, 'EEEE, MMMM do, yyyy') : 'selected date'}. ${selectedPackage.features.join(', ')}.`,
@@ -1208,6 +1209,7 @@ export default function Chat() {
             // Add personalized event enhancement based on event type
             if (data.eventType === 'bachelor' || data.eventType === 'bachelorette') {
               quoteItems.push({
+                id: `${data.eventType}_enhancement_${Date.now()}`,
                 type: 'addon',
                 name: `${data.eventType === 'bachelor' ? 'Bachelor' : 'Bachelorette'} Party Enhancement`,
                 description: 'Complimentary party decorations and celebration setup included for your special event.',
@@ -1224,6 +1226,7 @@ export default function Chat() {
           )?.label || data.selectedTimeSlot;
           
           quoteItems.push({
+            id: `private_charter_${Date.now()}`,
             type: 'private_cruise',
             name: `Private ${currentPricing.breakdown.boatType} Charter`,
             description: `Exclusive ${currentPricing.breakdown.cruiseDuration}-hour cruise on ${currentPricing.breakdown.dayName}, ${data.eventDate ? format(data.eventDate, 'MMMM do, yyyy') : 'selected date'} from ${timeSlotLabel}. Perfect for your ${data.eventTypeLabel.toLowerCase()}.`,
@@ -1235,6 +1238,7 @@ export default function Chat() {
           // Dynamic crew fee calculation based on actual group size
           if (currentPricing.breakdown.crewFee > 0) {
             quoteItems.push({
+              id: `crew_fee_${Date.now()}`,
               type: 'crew_fee',
               name: 'Additional Crew Service',
               description: `Professional crew service required by Texas law for groups of ${data.groupSize}+ people.`,
@@ -1247,6 +1251,7 @@ export default function Chat() {
           // Add event-specific enhancements based on user selections
           if (data.eventType === 'corporate') {
             quoteItems.push({
+              id: `corporate_package_${Date.now()}`,
               type: 'addon',
               name: 'Corporate Event Package',
               description: 'Professional setup with tables, chairs, and presentation capabilities included.',
@@ -1256,6 +1261,7 @@ export default function Chat() {
             });
           } else if (data.eventType === 'wedding') {
             quoteItems.push({
+              id: `wedding_package_${Date.now()}`,
               type: 'addon',
               name: 'Wedding Celebration Package',
               description: 'Romantic ambiance with special lighting and complimentary champagne toast.',
@@ -1269,6 +1275,7 @@ export default function Chat() {
         // Add special requests as a note item if provided
         if (data.specialRequests && data.specialRequests.trim()) {
           quoteItems.push({
+            id: `special_requests_${Date.now()}`,
             type: 'note',
             name: 'Special Requests',
             description: data.specialRequests,
@@ -1871,18 +1878,20 @@ export default function Chat() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex flex-col">
-      {/* Compact Header with Logo */}
-      <div className="w-full bg-white dark:bg-slate-800 border-b border-border">
-        <div className="container mx-auto px-4 py-1">
+      {/* Professional Header with Logo */}
+      <div className="w-full bg-gradient-to-r from-slate-50 to-blue-50 dark:from-slate-900 dark:to-slate-800 border-b border-slate-200 dark:border-slate-700 shadow-sm">
+        <div className="container mx-auto px-4 py-2">
           <div className="flex items-center gap-3">
             <img 
               src={logoPath} 
               alt="Premier Party Cruises" 
-              className="h-8 w-auto object-contain"
+              className="h-10 w-auto object-contain"
               data-testid="img-chat-logo"
             />
-            <h1 className="text-base font-heading font-bold text-primary">Premier Party Cruises</h1>
-            <span className="text-xs text-muted-foreground hidden sm:inline">• Lake Austin Adventures</span>
+            <div className="flex-1">
+              <h1 className="text-lg font-heading font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Premier Party Cruises</h1>
+              <p className="text-xs text-slate-600 dark:text-slate-400">Lake Austin's Premium Boat Charter Experience</p>
+            </div>
           </div>
         </div>
       </div>
@@ -1935,13 +1944,13 @@ export default function Chat() {
         )}
       </AnimatePresence>
 
-      {/* Main Content Area - Compact */}
-      <div className="flex-1 flex items-start justify-center pt-2 px-4 pb-4">
+      {/* Main Content Area - Professional & Compact */}
+      <div className="flex-1 flex items-start justify-center pt-4 px-4 pb-4 bg-gradient-to-b from-white to-slate-50/50 dark:from-slate-900 dark:to-slate-950/50">
         <div className="w-full max-w-6xl">
           
           <AnimatePresence mode="wait">
             
-            {/* Event Type Selection */}
+            {/* Professional Event Type Selection */}
             {currentQuestion === 'event-type' && (
               <motion.div
                 key="event-type"
@@ -1949,29 +1958,34 @@ export default function Chat() {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="text-center space-y-3"
+                className="text-center space-y-6"
               >
-                <div className="space-y-2">
+                <div className="space-y-3">
                   <motion.div
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.2, duration: 0.6 }}
-                    className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto"
+                    className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg"
                   >
-                    <Ship className="h-6 w-6 text-blue-600" />
+                    <Ship className="h-8 w-8 text-white" />
                   </motion.div>
                   
-                  <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    What type of event are you planning?
-                  </h1>
+                  <div>
+                    <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-2">
+                      What type of event are you planning?
+                    </h1>
+                    <p className="text-slate-600 dark:text-slate-400">
+                      Select the option that best describes your celebration
+                    </p>
+                  </div>
                 </div>
 
                 <motion.div 
-                  className="grid grid-cols-2 md:grid-cols-4 gap-4"
+                  className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto"
                   variants={{
                     visible: {
                       transition: {
-                        staggerChildren: 0.1
+                        staggerChildren: 0.05
                       }
                     }
                   }}
@@ -1980,21 +1994,26 @@ export default function Chat() {
                     <motion.div
                       key={type.id}
                       variants={{
-                        hidden: { opacity: 0, y: 40 },
+                        hidden: { opacity: 0, y: 20 },
                         visible: { opacity: 1, y: 0 }
                       }}
                     >
-                      <Button
-                        variant="outline"
-                        className="h-24 flex flex-col gap-1 hover:scale-105 transition-all hover:border-blue-500 hover:shadow-lg group relative overflow-hidden bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm"
+                      <button
+                        className="w-full h-full p-6 bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-600 group relative overflow-hidden"
                         onClick={() => handleEventTypeSelect(type.id, type.label, type.emoji)}
                         data-testid={`button-event-${type.id}`}
                       >
-                        <div className="absolute inset-0 bg-gradient-to-b from-blue-50/0 to-blue-50/50 group-hover:to-blue-100/50 transition-all" />
-                        <span className="text-2xl">{type.emoji}</span>
-                        <span className="font-semibold text-sm text-slate-700 dark:text-slate-300">{type.label}</span>
-                        <span className="text-xs text-slate-500 dark:text-slate-400">{type.description}</span>
-                      </Button>
+                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-600/0 group-hover:from-blue-500/5 group-hover:to-purple-600/10 transition-all duration-300" />
+                        <div className="relative space-y-3">
+                          <div className="text-4xl mb-2">{type.emoji}</div>
+                          <div className="font-semibold text-base text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                            {type.label}
+                          </div>
+                          <div className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                            {type.description}
+                          </div>
+                        </div>
+                      </button>
                     </motion.div>
                   ))}
                 </motion.div>
