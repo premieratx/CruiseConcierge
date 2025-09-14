@@ -2078,10 +2078,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   app.post("/api/test-sms", async (req, res) => {
     try {
-      const { phone, quoteId, type = "customer" } = req.body;
+      const { phone, to, message, quoteId, type = "customer" } = req.body;
       
-      if (!phone) {
-        return res.status(400).json({ error: "Phone number required" });
+      // Accept both 'phone' and 'to' parameters for flexibility
+      const targetPhone = phone || to;
+      
+      if (!targetPhone) {
+        return res.status(400).json({ error: "Phone number required (use 'phone' or 'to' parameter)" });
+      }
+      
+      // If a custom message is provided, send it directly without creating a quote
+      if (message) {
+        console.log('🧪 Testing SMS functionality with custom message...');
+        console.log('   To:', targetPhone);
+        console.log('   Message:', message);
+        
+        const success = await goHighLevelService.send({
+          to: targetPhone,
+          body: message
+        });
+        
+        return res.json({ 
+          success, 
+          message: success ? 'Test SMS sent successfully' : 'SMS test failed',
+          details: {
+            to: targetPhone,
+            message: message,
+            timestamp: new Date().toISOString()
+          }
+        });
       }
       
       let testQuoteId = quoteId;
@@ -2139,7 +2164,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         result = await sendAdminNotificationSMS(testQuoteId);
       } else {
         // Send customer SMS
-        result = await sendQuoteSMS(testQuoteId, phone);
+        result = await sendQuoteSMS(testQuoteId, targetPhone);
       }
       
       res.json({ 
@@ -3020,6 +3045,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
     });
   });
+
 
   // Reassign booking between identical boats
   app.post("/api/bookings/:id/reassign", async (req, res) => {
