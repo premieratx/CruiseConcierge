@@ -727,6 +727,7 @@ export default function Chat() {
       specialRequests?: string;
       budget?: string;
       notes?: string;
+      projectId?: string;
     }) => {
       if (!leadId) {
         throw new Error('No lead ID available for update');
@@ -761,7 +762,7 @@ export default function Chat() {
         title: `${data.eventTypeLabel} - ${formData.firstName} ${formData.lastName}`,
         groupSize: data.groupSize,
         eventType: data.eventType,
-        projectDate: data.cruiseDate.toISOString(),
+        projectDate: data.cruiseDate,
         preferredTime: data.preferredTime,
         leadSource: 'AI Chatbot Flow',
         orgId: 'org_demo',
