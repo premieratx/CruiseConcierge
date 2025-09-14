@@ -1192,7 +1192,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             await storage.updateInvoice(invoiceId, { balance: newBalance });
             
             // Create payment record
-            await storage.createPayment({
+            const payment = await storage.createPayment({
               invoiceId,
               amount: paymentIntent.amount,
               status: "SUCCEEDED",
@@ -1206,6 +1206,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
             if (project) {
               const newPhase = newBalance === 0 ? "ph_paid" : "ph_deposit_paid";
               await storage.updateProject(project.id, { pipelinePhase: newPhase });
+              
+              // Create booking and convert lead to customer
+              try {
+                await storage.createBookingFromPayment(project.id, payment.id, paymentIntent.amount);
+                console.log(`Booking created for project ${project.id} with payment ${payment.id}`);
+              } catch (error) {
+                console.error("Failed to create booking:", error);
+                // Don't fail the webhook, just log the error
+              }
             }
           }
         }
@@ -1214,7 +1223,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Handle checkout session completed events
       if (type === "checkout.session.completed") {
         const session = data.object;
-        const { paymentType, eventType, eventDate, groupSize } = session.metadata;
+        const { paymentType, eventType, eventDate, groupSize, projectId, quoteId } = session.metadata;
         
         console.log(`Payment successful: ${paymentType} payment for ${eventType} event`, {
           amount: session.amount_total,
@@ -1223,8 +1232,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
           groupSize
         });
         
-        // Here you could update your database with the successful payment
-        // For now, we'll just log it since the booking system doesn't have invoices yet
+        // Create booking if we have project information
+        if (projectId) {
+          try {
+            // Create a simple payment record for now (without invoice)
+            const payment = await storage.createPayment({
+              invoiceId: 'direct_payment_' + session.id,
+              amount: session.amount_total,
+              status: "SUCCEEDED",
+              paidAt: new Date(),
+              method: "card",
+              stripePaymentIntentId: session.payment_intent as string
+            });
+            
+            // Create booking and convert lead to customer
+            await storage.createBookingFromPayment(projectId, payment.id, session.amount_total);
+            console.log(`Direct booking created for project ${projectId}`);
+          } catch (error) {
+            console.error("Failed to create booking from checkout:", error);
+          }
+        }
       }
       
       res.json({ received: true });

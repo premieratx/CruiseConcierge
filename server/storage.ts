@@ -106,12 +106,14 @@ export interface IStorage {
   createProjectFromChatData(contactId: string, extractedData: any): Promise<Project>;
 
   // Booking Management
-  getBookings(startDate: Date, endDate: Date, boatId?: string): Promise<Booking[]>;
+  getBookings(startDate?: Date, endDate?: Date, boatId?: string): Promise<Booking[]>;
   getBooking(id: string): Promise<Booking | undefined>;
   createBooking(booking: InsertBooking): Promise<Booking>;
   updateBooking(id: string, updates: Partial<Booking>): Promise<Booking>;
   deleteBooking(id: string): Promise<boolean>;
   checkBookingConflict(boatId: string, startTime: Date, endTime: Date, excludeBookingId?: string): Promise<boolean>;
+  createBookingFromPayment(projectId: string, paymentId: string, amount: number): Promise<Booking>;
+  convertLeadToCustomer(contactId: string): Promise<Contact>;
 
   // Disco Cruise Management
   getDiscoSlots(year: number, month: number): Promise<DiscoSlot[]>;
@@ -1686,8 +1688,17 @@ export class MemStorage implements IStorage {
   }
 
   // Booking Management Methods
-  async getBookings(startDate: Date, endDate: Date, boatId?: string): Promise<Booking[]> {
+  async getBookings(startDate?: Date, endDate?: Date, boatId?: string): Promise<Booking[]> {
     const bookings = Array.from(this.bookings.values()).filter(booking => {
+      // If no date range specified, return all bookings
+      if (!startDate || !endDate) {
+        // Filter by boat if specified
+        if (boatId) {
+          return booking.boatId === boatId;
+        }
+        return true;
+      }
+      
       const bookingStart = booking.startTime;
       const bookingEnd = booking.endTime;
       
@@ -1807,6 +1818,68 @@ export class MemStorage implements IStorage {
         (startTime <= bookingStart && endTime >= bookingEnd)
       );
     });
+  }
+
+  async createBookingFromPayment(projectId: string, paymentId: string, amount: number): Promise<Booking> {
+    // Get the project details
+    const project = await this.getProject(projectId);
+    if (!project) throw new Error('Project not found');
+    
+    // Get the contact to convert to customer
+    const contact = await this.getContact(project.contactId);
+    if (!contact) throw new Error('Contact not found');
+    
+    // Find an available boat if not specified
+    let boatId = project.availabilitySlotId || '';
+    if (!boatId && project.groupSize) {
+      const boats = await this.getBoatsByCapacity(project.groupSize);
+      if (boats.length > 0) {
+        boatId = boats[0].id;
+      }
+    }
+    
+    // Create the booking
+    const startTime = project.projectDate || new Date();
+    const endTime = new Date(startTime);
+    endTime.setHours(endTime.getHours() + (project.duration || 4)); // Default 4 hour cruise
+    
+    const booking: InsertBooking = {
+      orgId: project.orgId,
+      boatId,
+      type: 'private',
+      status: 'booked',
+      startTime,
+      endTime,
+      partyType: project.eventType || 'cruise',
+      groupSize: project.groupSize || 0,
+      projectId: project.id,
+      notes: `Payment ${paymentId} - Amount: $${(amount / 100).toFixed(2)}`,
+    };
+    
+    const newBooking = await this.createBooking(booking);
+    
+    // Update project status to CLOSED_WON
+    await this.updateProject(projectId, { status: 'CLOSED_WON' });
+    
+    // Convert lead to customer (add customer tag)
+    await this.convertLeadToCustomer(project.contactId);
+    
+    return newBooking;
+  }
+
+  async convertLeadToCustomer(contactId: string): Promise<Contact> {
+    const contact = this.contacts.get(contactId);
+    if (!contact) throw new Error('Contact not found');
+    
+    // Add 'customer' tag if not already present
+    const tags = contact.tags || [];
+    if (!tags.includes('customer')) {
+      tags.push('customer');
+      contact.tags = tags;
+    }
+    
+    this.contacts.set(contactId, contact);
+    return contact;
   }
 
   // Disco Cruise Management Methods
