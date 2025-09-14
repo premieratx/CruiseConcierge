@@ -1,0 +1,672 @@
+/**
+ * Premier Concierge CRM – Single-file API (Express)
+ * -------------------------------------------------
+ * Drop-in backend stub with in-memory stores to let your widget/admin/bot work
+ * immediately. Replace the stores with Prisma later; keep the route contracts.
+ *
+ * ENV (set in Replit "Secrets"):
+ *  - PORT=3000
+ *  - APP_SECRET=change_me (HMAC for open-token)
+ *  - STRIPE_SECRET=sk_test_xxx (optional; mocked if absent)
+ *  - BASE_URL=https://your-repl-url (for email links / tracking pixel)
+ */
+
+const express = require("express");
+const crypto = require("crypto");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+
+// ---- Config
+const PORT = process.env.PORT || 3000;
+const APP_SECRET = process.env.APP_SECRET || "dev_secret";
+const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
+
+// ---- Minimal "email" + "stripe" shims
+const Email = {
+  send: async ({ to, subject, html }) => {
+    console.log(`[EMAIL] to=${to} subject="${subject}"`);
+    console.log(html.slice(0, 200) + "...");
+    return true;
+  },
+};
+const StripeShim = {
+  createCheckoutSession: async ({ invoiceId, amountCents, successUrl, cancelUrl }) => {
+    // In production, call real Stripe. Here we return a fake URL.
+    const url = `${BASE_URL}/mock/checkout?invoiceId=${invoiceId}&amount=${amountCents}`;
+    return { url };
+  },
+  verifyWebhook: (req) => {
+    // In production, verify Stripe signature. Here we trust payload.
+    return { type: req.body.type || "checkout.session.completed", data: req.body.data || {} };
+  },
+};
+
+// ---- In-memory stores (swap for Prisma later)
+const db = {
+  orgs: [{ id: "org_demo", name: "Premier Concierge" }],
+  users: [],
+  contacts: [], // {id, orgId, name, email, phone, tags[]}
+  projects: [], // {id, orgId, contactId, status, projectDate, pipelinePhase, tags[]}
+  boats: [
+    { id: "boat_a", orgId: "org_demo", name: "Disco Boat", capacity: 30, active: true },
+    { id: "boat_b", orgId: "org_demo", name: "Classic Pontoon", capacity: 12, active: true },
+  ],
+  timeslots: [], // {id, orgId, boatId, start, end, status}
+  products: [
+    { id: "prod_charter_2hr", orgId: "org_demo", name: "2-hour Charter", unitPrice: 60000, taxable: true },
+    { id: "prod_cooler_ice", orgId: "org_demo", name: "Cooler + Ice", unitPrice: 1500, taxable: true },
+    { id: "prod_pod_kit", orgId: "org_demo", name: "POD Pre-stock Kit", unitPrice: 9500, taxable: true },
+  ],
+  quotes: [], // {id, orgId, projectId, status, items[], promoCode, discountTotal, breakdown[], totals, version}
+  quoteOpenEvents: [], // {id, quoteId, contactId, projectId, openedAt, ua, ipHash}
+  invoices: [], // {id, orgId, projectId, quoteId, status, subtotal, tax, total, balance, schedule[]}
+  payments: [], // {id, invoiceId, amount, status, paidAt, method}
+  pipelines: [{ id: "pipe_default", orgId: "org_demo", name: "Main", type: "LEAD" }],
+  phases: [
+    { id: "ph_new", pipelineId: "pipe_default", name: "New Lead", order: 1 },
+    { id: "ph_quote_sent", pipelineId: "pipe_default", name: "Quote Sent", order: 2 },
+    { id: "ph_quote_accepted", pipelineId: "pipe_default", name: "Quote Accepted", order: 3 },
+    { id: "ph_deposit_paid", pipelineId: "pipe_default", name: "Deposit Paid", order: 4 },
+    { id: "ph_paid", pipelineId: "pipe_default", name: "Fully Paid", order: 5 },
+  ],
+  promos: [], // {id, orgId, code, active, percentBasis, amountCents, affiliateId, startsAt, endsAt, usageLimit, perContactLimit}
+  discountRules: [], // {id, orgId, name, kind, percentBasis, amountCents, appliesTo, auto, startDate, endDate, minSubtotal, priority, stackable, maxDiscountCents, codeId}
+  promoRedemptions: [], // {id, orgId, promoId, contactId, projectId, quoteId, invoiceId, amountCents, createdAt}
+  pricingRules: [
+    // Default: force full payment if within 30 days
+    {
+      id: "pr_force_full_30",
+      orgId: "org_demo",
+      name: "Force full within 30 days",
+      active: true,
+      priority: 10,
+      condition: { withinDaysOfProjectDate: 30 },
+      action: { depositPolicy: "FULL_ON_ACCEPTANCE" }, // or DEPOSIT_25
+    },
+  ],
+  affiliates: [], // {id, orgId, name, email, defaultCommissionBps, cookieTtlDays, status}
+  affiliateLinks: [], // {id, orgId, affiliateId, slug, landingUrl}
+  affiliateAttributions: [], // {id, orgId, affiliateId, linkId, contactId, projectId, quoteId, invoiceId, source, firstTouchAt, lastTouchAt}
+  affiliateCommissions: [], // {id, orgId, affiliateId, invoiceId, amountCents, percentBps, status}
+  widgetConfigs: [], // {id, orgId, affiliateId?, name, publicKey, config}
+  emails: [], // {id, orgId, projectId?, to, subject, body, sentAt, provider}
+  audit: [],  // {id, kind, meta, at}
+};
+
+// Utilities
+const genId = (p) => `${p}_${crypto.randomBytes(6).toString("hex")}`;
+const nowIso = () => new Date().toISOString();
+const int = (x) => Math.round(Number(x) || 0);
+const inDays = (d) => d * 24 * 3600 * 1000;
+
+// Simple tagging helpers
+function addTagToEntity(arr, id, tag) {
+  const ent = arr.find((e) => e.id === id);
+  if (!ent) return;
+  ent.tags = ent.tags || [];
+  if (!ent.tags.includes(tag)) ent.tags.push(tag);
+}
+
+// Pricing math (integer cents)
+function applyDiscounts({ orgId, items, promoCode, projectDate }) {
+  const orgRules = db.discountRules.filter((r) => r.orgId === orgId && r.auto);
+  const activeAuto = orgRules.filter((r) => {
+    const now = Date.now();
+    const s = r.startDate ? new Date(r.startDate).getTime() : null;
+    const e = r.endDate ? new Date(r.endDate).getTime() : null;
+    if (s && now < s) return false;
+    if (e && now > e) return false;
+    return true;
+  });
+  let subtotal = items.reduce((s, it) => s + int(it.unitPrice) * int(it.qty), 0);
+  let tax = 0; // add your tax rules here if needed
+  let discounts = [];
+  // promo
+  if (promoCode) {
+    const promo = db.promos.find((p) => p.code?.toUpperCase() === promoCode.toUpperCase() && p.active !== false);
+    if (promo) {
+      const within =
+        (!promo.startsAt || Date.now() >= new Date(promo.startsAt).getTime()) &&
+        (!promo.endsAt || Date.now() <= new Date(promo.endsAt).getTime());
+      if (within) {
+        let amt = 0;
+        if (promo.percentBasis) amt = Math.floor((subtotal * promo.percentBasis) / 10000);
+        if (promo.amountCents) amt = Math.min(subtotal, (amt || 0) + promo.amountCents);
+        discounts.push({ source: "PROMO", code: promo.code, amount: amt });
+      }
+    }
+  }
+  // auto rules (priority asc, stackable logic)
+  const sorted = activeAuto.sort((a, b) => (a.priority || 100) - (b.priority || 100));
+  let runningSubtotal = subtotal - discounts.reduce((s, d) => s + d.amount, 0);
+  for (const r of sorted) {
+    if (r.minSubtotal && runningSubtotal < r.minSubtotal) continue;
+    let amt = 0;
+    if (r.kind === "PERCENT") amt = Math.floor((runningSubtotal * (r.percentBasis || 0)) / 10000);
+    if (r.kind === "FIXED") amt = Math.min(runningSubtotal, r.amountCents || 0);
+    if (r.maxDiscountCents) amt = Math.min(amt, r.maxDiscountCents);
+    if (amt > 0) {
+      discounts.push({ source: "AUTO_RULE", ruleId: r.id, amount: amt });
+      runningSubtotal -= amt;
+      if (r.stackable === false) break;
+    }
+  }
+  const discountTotal = discounts.reduce((s, d) => s + d.amount, 0);
+  const total = Math.max(0, subtotal + tax - discountTotal);
+  return { subtotal, discountTotal, tax, total, breakdown: discounts };
+}
+
+// Deposit policy
+function evaluatePricingRules(orgId, projectDateIso) {
+  const rules = db.pricingRules
+    .filter((r) => r.orgId === orgId && r.active)
+    .sort((a, b) => (a.priority || 100) - (b.priority || 100));
+  let policy = { depositType: "DEPOSIT_25", depositDuePercent: 25 }; // default
+  if (!projectDateIso) return policy;
+  const now = new Date();
+  const pdt = new Date(projectDateIso);
+  const daysDiff = Math.ceil((pdt.getTime() - now.getTime()) / (24 * 3600 * 1000));
+  for (const r of rules) {
+    const within = r.condition?.withinDaysOfProjectDate;
+    if (typeof within === "number" && daysDiff <= within) {
+      if (r.action?.depositPolicy === "FULL_ON_ACCEPTANCE") {
+        policy = { depositType: "FULL_ON_ACCEPTANCE", depositDuePercent: 100 };
+        break;
+      }
+    }
+  }
+  return policy;
+}
+
+// HMAC token for quote open pixel
+function signToken(payload) {
+  const data = Buffer.from(JSON.stringify(payload)).toString("base64url");
+  const sig = crypto.createHmac("sha256", APP_SECRET).update(data).digest("base64url");
+  return `${data}.${sig}`;
+}
+function verifyToken(token) {
+  const [data, sig] = token.split(".");
+  const check = crypto.createHmac("sha256", APP_SECRET).update(data).digest("base64url");
+  if (sig !== check) return null;
+  try { return JSON.parse(Buffer.from(data, "base64url").toString("utf8")); } catch { return null; }
+}
+
+// 1x1 transparent GIF
+const PIXEL = Buffer.from(
+  "47494638396101000100800000ffffff00000021f90401000001002c00000000010001000002024401003b",
+  "hex"
+);
+
+// ---- App
+const app = express();
+app.use(cors());
+app.use(bodyParser.json({ type: "*/*" }));
+
+// ---- Availability (stub)
+app.get("/availability", (req, res) => {
+  // For demo, return next 7 days noon slots per boat
+  const out = [];
+  const now = new Date();
+  for (const boat of db.boats) {
+    for (let d = 1; d <= 7; d++) {
+      const start = new Date(now.getTime() + inDays(d)); start.setHours(12, 0, 0, 0);
+      const end = new Date(start.getTime() + 2 * 3600 * 1000);
+      out.push({ boatId: boat.id, start: start.toISOString(), end: end.toISOString(), status: "OPEN" });
+    }
+  }
+  res.json({ slots: out });
+});
+
+// ---- Contacts
+app.post("/contacts", (req, res) => {
+  const { orgId = "org_demo", name, email, phone, tags = [] } = req.body;
+  const id = genId("ct");
+  db.contacts.push({ id, orgId, name, email, phone, tags, createdAt: nowIso() });
+  res.status(201).json({ id, orgId, name, email, phone, tags });
+});
+
+// ---- Projects
+app.post("/projects", (req, res) => {
+  const { orgId = "org_demo", contactId, title, projectDate, tags = [] } = req.body;
+  const id = genId("prj");
+  const status = "NEW";
+  db.projects.push({
+    id, orgId, contactId, title, status, projectDate: projectDate || null, pipelinePhase: "ph_new", tags,
+    createdAt: nowIso()
+  });
+  res.status(201).json({ id, orgId, contactId, title, status, projectDate, tags });
+});
+
+app.patch("/projects/:id", (req, res) => {
+  const p = db.projects.find((x) => x.id === req.params.id);
+  if (!p) return res.status(404).json({ error: "not found" });
+  Object.assign(p, req.body, { updatedAt: nowIso() });
+  res.json(p);
+});
+
+// ---- Products (list)
+app.get("/products", (req, res) => {
+  res.json(db.products);
+});
+
+// ---- PRICING PREVIEW
+app.post("/pricing/preview", (req, res) => {
+  const { orgId = "org_demo", items = [], promoCode, projectDate } = req.body || {};
+  const price = applyDiscounts({ orgId, items, promoCode, projectDate });
+  const policy = evaluatePricingRules(orgId, projectDate);
+  res.json({
+    ...price,
+    depositRequired: policy.depositDuePercent < 100,
+    depositType: policy.depositType,
+    depositDuePercent: policy.depositDuePercent,
+  });
+});
+
+// ---- Quotes
+app.post("/quotes", (req, res) => {
+  const { orgId = "org_demo", projectId, promoCode } = req.body;
+  if (!projectId) return res.status(400).json({ error: "projectId required" });
+  const id = genId("qt");
+  const q = {
+    id, orgId, projectId, status: "DRAFT", items: [], promoCode: promoCode || null,
+    discountTotal: 0, breakdown: [], subtotal: 0, tax: 0, total: 0, version: 1, createdAt: nowIso()
+  };
+  db.quotes.push(q);
+  res.status(201).json(q);
+});
+
+app.put("/quotes/:id", (req, res) => {
+  const q = db.quotes.find((x) => x.id === req.params.id);
+  if (!q) return res.status(404).json({ error: "not found" });
+  if (!["DRAFT", "SENT"].includes(q.status)) return res.status(400).json({ error: "cannot edit in current status" });
+  const { items, promoCode } = req.body;
+  if (Array.isArray(items)) q.items = items.map((it) => ({
+    type: it.type || "STANDARD",
+    name: it.name,
+    productId: it.productId || null,
+    unitPrice: int(it.unitPrice),
+    qty: int(it.qty || 1),
+    clientCanEditQty: !!it.clientCanEditQty,
+    groupId: it.groupId || null,
+    required: !!it.required,
+    order: it.order || 0,
+  }));
+  if (typeof promoCode !== "undefined") q.promoCode = promoCode || null;
+  // Recompute totals
+  const normalizedItems = q.items.map((it) => ({ unitPrice: it.unitPrice, qty: it.qty }));
+  const project = db.projects.find((p) => p.id === q.projectId);
+  const projectDate = project?.projectDate || null;
+  const price = applyDiscounts({ orgId: q.orgId, items: normalizedItems, promoCode: q.promoCode, projectDate });
+  Object.assign(q, {
+    discountTotal: price.discountTotal, breakdown: price.breakdown,
+    subtotal: price.subtotal, tax: price.tax, total: price.total, updatedAt: nowIso()
+  });
+  res.json(q);
+});
+
+app.post("/quotes/:id/send", async (req, res) => {
+  const q = db.quotes.find((x) => x.id === req.params.id);
+  if (!q) return res.status(404).json({ error: "not found" });
+  const project = db.projects.find((p) => p.id === q.projectId);
+  const contact = db.contacts.find((c) => c.id === project?.contactId);
+  const to = req.body?.to || contact?.email;
+  if (!to) return res.status(400).json({ error: "no recipient email" });
+  // create open token
+  const token = signToken({ quoteId: q.id, contactId: contact?.id, projectId: project?.id, ts: Date.now() });
+  const viewUrl = `${BASE_URL}/public/quotes/${q.id}`;
+  const pixelUrl = `${BASE_URL}/quotes/track/open/${token}`;
+  const html = `
+    <p>Your quote is ready.</p>
+    <p><a href="${viewUrl}">View Quote</a></p>
+    <img src="${pixelUrl}" width="1" height="1" alt="" />
+  `;
+  await Email.send({ to, subject: "Your Quote", html });
+  db.emails.push({ id: genId("em"), orgId: q.orgId, projectId: project?.id, to, subject: "Your Quote", body: html, sentAt: nowIso(), provider: "demo" });
+  q.status = "SENT";
+  project.pipelinePhase = "ph_quote_sent";
+  addTagToEntity(db.projects, project.id, "quote-sent");
+  res.json({ ok: true, quoteId: q.id });
+});
+
+// tracking pixel
+app.get("/quotes/track/open/:token", (req, res) => {
+  const payload = verifyToken(req.params.token);
+  if (payload && payload.quoteId) {
+    const q = db.quotes.find((x) => x.id === payload.quoteId);
+    const prj = db.projects.find((p) => p.id === payload.projectId);
+    const contactId = payload.contactId;
+    db.quoteOpenEvents.push({
+      id: genId("qo"), quoteId: q?.id, contactId, projectId: prj?.id,
+      openedAt: nowIso(), ua: req.headers["user-agent"] || "", ipHash: crypto.createHash("sha256").update(req.ip || "").digest("hex")
+    });
+    if (prj) addTagToEntity(db.projects, prj.id, "quote-opened");
+    if (contactId) addTagToEntity(db.contacts, contactId, "quote-opened");
+    // OPTIONAL: notify sales via queue/email here
+  }
+  res.set("Content-Type", "image/gif");
+  res.status(200).send(PIXEL);
+});
+
+// accept quote → generate invoice + deposit policy
+app.post("/quotes/:id/accept", async (req, res) => {
+  const q = db.quotes.find((x) => x.id === req.params.id);
+  if (!q) return res.status(404).json({ error: "not found" });
+  const project = db.projects.find((p) => p.id === q.projectId);
+  if (!project) return res.status(400).json({ error: "project missing" });
+  const policy = evaluatePricingRules(q.orgId, project.projectDate);
+  q.status = "ACCEPTED";
+  addTagToEntity(db.projects, project.id, "quote-accepted");
+  project.pipelinePhase = "ph_quote_accepted";
+  // Create invoice
+  const invId = genId("inv");
+  const subtotal = q.subtotal;
+  const tax = q.tax;
+  const total = q.total;
+  let schedule = [];
+  if (policy.depositDuePercent >= 100) {
+    schedule.push({ line: 1, due: "ON_ACCEPTANCE", percent: 100 });
+  } else {
+    schedule.push({ line: 1, due: "ON_ACCEPTANCE", percent: 25 });
+    schedule.push({ line: 2, due: "BEFORE_PROJECT_DATE", percent: 75, daysBefore: 7 });
+  }
+  const balance = total;
+  db.invoices.push({ id: invId, orgId: q.orgId, projectId: project.id, quoteId: q.id, status: "OPEN", subtotal, tax, total, balance, schedule, createdAt: nowIso() });
+  // Create checkout session for the first due (percent)
+  const firstPercent = schedule[0].percent;
+  const amountCents = Math.floor((total * firstPercent) / 100);
+  const session = await StripeShim.createCheckoutSession({
+    invoiceId: invId,
+    amountCents,
+    successUrl: `${BASE_URL}/public/thanks?invoiceId=${invId}`,
+    cancelUrl: `${BASE_URL}/public/cancel?invoiceId=${invId}`,
+  });
+  res.json({ invoiceId: invId, checkoutUrl: session.url });
+});
+
+// resend quote
+app.post("/quotes/:id/resend", async (req, res) => {
+  const q = db.quotes.find((x) => x.id === req.params.id);
+  if (!q) return res.status(404).json({ error: "not found" });
+  const project = db.projects.find((p) => p.id === q.projectId);
+  const contact = db.contacts.find((c) => c.id === project?.contactId);
+  const to = contact?.email;
+  const token = signToken({ quoteId: q.id, contactId: contact?.id, projectId: project?.id, ts: Date.now() });
+  const viewUrl = `${BASE_URL}/public/quotes/${q.id}`;
+  const pixelUrl = `${BASE_URL}/quotes/track/open/${token}`;
+  const html = `<p>Resending your quote.</p><p><a href="${viewUrl}">View Quote</a></p><img src="${pixelUrl}" width="1" height="1" alt=""/>`;
+  await Email.send({ to, subject: "Your Quote (Resent)", html });
+  db.emails.push({ id: genId("em"), orgId: q.orgId, projectId: project?.id, to, subject: "Your Quote (Resent)", body: html, sentAt: nowIso(), provider: "demo" });
+  res.json({ ok: true });
+});
+
+// ---- Invoices
+app.get("/invoices/:id", (req, res) => {
+  const inv = db.invoices.find((x) => x.id === req.params.id);
+  if (!inv) return res.status(404).json({ error: "not found" });
+  res.json(inv);
+});
+
+app.patch("/invoices/:id", (req, res) => {
+  const inv = db.invoices.find((x) => x.id === req.params.id);
+  if (!inv) return res.status(404).json({ error: "not found" });
+  if (inv.status === "PAID") return res.status(400).json({ error: "invoice locked (paid)" });
+  const { dueDate, lineItems } = req.body || {};
+  if (dueDate) inv.dueDate = dueDate;
+  if (Array.isArray(lineItems)) {
+    const subtotal = lineItems.reduce((s, li) => s + int(li.unitPrice) * int(li.qty || 1), 0);
+    inv.subtotal = subtotal;
+    inv.tax = 0;
+    inv.total = subtotal - 0;
+    inv.balance = inv.total; // naive; in prod subtract payments
+  }
+  inv.updatedAt = nowIso();
+  db.audit.push({ id: genId("au"), kind: "invoice.edit", meta: { id: inv.id }, at: nowIso() });
+  res.json(inv);
+});
+
+app.post("/invoices/:id/resend", async (req, res) => {
+  const inv = db.invoices.find((x) => x.id === req.params.id);
+  if (!inv) return res.status(404).json({ error: "not found" });
+  const project = db.projects.find((p) => p.id === inv.projectId);
+  const contact = db.contacts.find((c) => c.id === project?.contactId);
+  const to = contact?.email;
+  const html = `<p>Your invoice is ready: ${inv.id}. Balance: $${(inv.balance/100).toFixed(2)}</p>`;
+  await Email.send({ to, subject: "Your Invoice", html });
+  db.emails.push({ id: genId("em"), orgId: inv.orgId, projectId: project?.id, to, subject: "Your Invoice", body: html, sentAt: nowIso(), provider: "demo" });
+  res.json({ ok: true });
+});
+
+// ---- Stripe webhook (deposit/remaining)
+app.post("/webhooks/stripe", (req, res) => {
+  const evt = StripeShim.verifyWebhook(req);
+  try {
+    if (evt.type === "checkout.session.completed" || evt.type === "payment_intent.succeeded") {
+      const { invoiceId, amount } = evt.data || {};
+      const inv = db.invoices.find((x) => x.id === invoiceId);
+      if (inv) {
+        const payId = genId("pay");
+        db.payments.push({ id: payId, invoiceId, amount: int(amount), status: "SUCCEEDED", paidAt: nowIso(), method: "card" });
+        inv.balance = Math.max(0, inv.balance - int(amount));
+        addTagToEntity(db.projects, inv.projectId, inv.balance === 0 ? "payment-received" : "deposit-paid");
+        const project = db.projects.find((p) => p.id === inv.projectId);
+        if (project) {
+          project.pipelinePhase = inv.balance === 0 ? "ph_paid" : "ph_deposit_paid";
+        }
+      }
+    }
+  } catch (e) {
+    console.error("webhook error", e);
+  }
+  res.json({ received: true });
+});
+
+// ---- Admin: Pricing Rules
+app.post("/admin/pricing-rules", (req, res) => {
+  const { orgId = "org_demo", name, condition, action, active = true, priority = 100 } = req.body || {};
+  const id = genId("prrule");
+  db.pricingRules.push({ id, orgId, name, condition, action, active, priority, createdAt: nowIso() });
+  res.status(201).json(db.pricingRules.find((r) => r.id === id));
+});
+app.get("/admin/pricing-rules", (req, res) => {
+  res.json(db.pricingRules);
+});
+app.patch("/admin/pricing-rules/:id", (req, res) => {
+  const r = db.pricingRules.find((x) => x.id === req.params.id);
+  if (!r) return res.status(404).json({ error: "not found" });
+  Object.assign(r, req.body, { updatedAt: nowIso() });
+  res.json(r);
+});
+
+// ---- Admin: Promos & Discount Rules
+app.post("/admin/promos", (req, res) => {
+  const { orgId = "org_demo", code, percentBasis, amountCents, affiliateId, startsAt, endsAt, usageLimit, perContactLimit } = req.body || {};
+  const id = genId("promo");
+  db.promos.push({ id, orgId, code, percentBasis: int(percentBasis), amountCents: int(amountCents), affiliateId: affiliateId || null, startsAt, endsAt, usageLimit, perContactLimit, active: true });
+  res.status(201).json(db.promos.find((p) => p.id === id));
+});
+app.get("/admin/promos", (req, res) => res.json(db.promos));
+
+app.post("/admin/discount-rules", (req, res) => {
+  const {
+    orgId = "org_demo", name, kind, percentBasis, amountCents, appliesTo = "ORDER", auto = true,
+    startDate, endDate, minSubtotal, priority = 100, stackable = true, maxDiscountCents, codeId
+  } = req.body || {};
+  const id = genId("drule");
+  db.discountRules.push({
+    id, orgId, name, kind, percentBasis: int(percentBasis), amountCents: int(amountCents),
+    appliesTo, auto, startDate, endDate, minSubtotal: int(minSubtotal), priority, stackable,
+    maxDiscountCents: int(maxDiscountCents), codeId
+  });
+  res.status(201).json(db.discountRules.find((r) => r.id === id));
+});
+app.get("/admin/discount-rules", (req, res) => res.json(db.discountRules));
+
+// ---- Affiliates, links, widgets
+app.post("/admin/affiliates", (req, res) => {
+  const { orgId = "org_demo", name, email, defaultCommissionBps = 1000, cookieTtlDays = 30 } = req.body || {};
+  const id = genId("aff");
+  db.affiliates.push({ id, orgId, name, email, defaultCommissionBps, cookieTtlDays, status: "ACTIVE", createdAt: nowIso() });
+  res.status(201).json(db.affiliates.find((a) => a.id === id));
+});
+app.post("/admin/affiliates/:id/links", (req, res) => {
+  const { orgId = "org_demo", slug, landingUrl } = req.body || {};
+  const id = genId("alnk");
+  db.affiliateLinks.push({ id, orgId, affiliateId: req.params.id, slug, landingUrl });
+  res.status(201).json(db.affiliateLinks.find((l) => l.id === id));
+});
+// Public affiliate link (sets cookie)
+app.get("/a/:slug", (req, res) => {
+  const link = db.affiliateLinks.find((l) => l.slug === req.params.slug);
+  if (!link) return res.status(404).send("Not found");
+  const aff = db.affiliates.find((a) => a.id === link.affiliateId);
+  const ttl = (aff?.cookieTtlDays || 30) * 24 * 3600 * 1000;
+  const cookieVal = signToken({ affiliateId: aff.id, linkId: link.id, ts: Date.now() });
+  res.cookie("aff_attrib", cookieVal, { httpOnly: false, maxAge: ttl });
+  res.redirect(link.landingUrl);
+});
+// Widget configs (for affiliate-embedded booking widgets)
+app.post("/admin/widgets", (req, res) => {
+  const { orgId = "org_demo", affiliateId = null, name, config = {} } = req.body || {};
+  const id = genId("wid");
+  const publicKey = genId("pub");
+  db.widgetConfigs.push({ id, orgId, affiliateId, name, publicKey, config });
+  res.status(201).json(db.widgetConfigs.find((w) => w.id === id));
+});
+app.get("/public/widgets/:publicKey", (req, res) => {
+  const w = db.widgetConfigs.find((x) => x.publicKey === req.params.publicKey);
+  if (!w) return res.status(404).json({ error: "not found" });
+  res.json({ publicKey: w.publicKey, affiliateId: w.affiliateId, config: w.config });
+});
+
+// ---- Leads vs Clients lists & tags
+app.get("/contacts/leads", (req, res) => {
+  const leads = db.contacts.filter((c) => {
+    const projects = db.projects.filter((p) => p.contactId === c.id);
+    const hasClientProject = projects.some((p) => ["ph_deposit_paid", "ph_paid"].includes(p.pipelinePhase));
+    return !hasClientProject;
+  });
+  res.json(filterByQueryTagsSort(leads, req));
+});
+app.get("/contacts/clients", (req, res) => {
+  const clients = db.contacts.filter((c) => {
+    const projects = db.projects.filter((p) => p.contactId === c.id);
+    const hasClientProject = projects.some((p) => ["ph_deposit_paid", "ph_paid"].includes(p.pipelinePhase));
+    return hasClientProject;
+  });
+  res.json(filterByQueryTagsSort(clients, req));
+});
+function filterByQueryTagsSort(list, req) {
+  const q = (req.query.query || "").toString().toLowerCase();
+  const tags = ((req.query.tags || "") + "").split(",").map((t) => t.trim()).filter(Boolean);
+  let out = [...list];
+  if (q) out = out.filter((c) => (c.name || "").toLowerCase().includes(q) || (c.email || "").toLowerCase().includes(q));
+  if (tags.length) out = out.filter((c) => (c.tags || []).some((t) => tags.includes(t)));
+  const sort = (req.query.sort || "createdAt").toString();
+  out.sort((a, b) => ((a[sort] || "") > (b[sort] || "")) ? 1 : -1);
+  return out;
+}
+
+// ---- Chatbot action endpoint (safe, surface-level API for your AI bot)
+app.post("/chatbot/action", (req, res) => {
+  /** Expected payload examples:
+   *  { type: "create_contact", data: { name, email, phone, tags } }
+   *  { type: "draft_quote", data: { projectId, items[], promoCode } }
+   *  { type: "send_quote", data: { quoteId, to, message } }
+   *  { type: "move_pipeline", data: { projectId, phaseId } }
+   */
+  const { type, data } = req.body || {};
+  try {
+    switch (type) {
+      case "create_contact": {
+        const id = genId("ct");
+        const { orgId = "org_demo", name, email, phone, tags = [] } = data || {};
+        db.contacts.push({ id, orgId, name, email, phone, tags, createdAt: nowIso() });
+        return res.json({ ok: true, id });
+      }
+      case "draft_quote": {
+        const { projectId, items = [], promoCode = null } = data || {};
+        const id = genId("qt");
+        const q = { id, orgId: "org_demo", projectId, status: "DRAFT", items, promoCode, discountTotal: 0, breakdown: [], subtotal: 0, tax: 0, total: 0, version: 1, createdAt: nowIso() };
+        // recompute totals
+        const project = db.projects.find((p) => p.id === projectId);
+        const price = applyDiscounts({
+          orgId: "org_demo",
+          items: items.map((it) => ({ unitPrice: int(it.unitPrice), qty: int(it.qty || 1) })),
+          promoCode,
+          projectDate: project?.projectDate || null,
+        });
+        Object.assign(q, { discountTotal: price.discountTotal, breakdown: price.breakdown, subtotal: price.subtotal, tax: price.tax, total: price.total });
+        db.quotes.push(q);
+        return res.json({ ok: true, id });
+      }
+      case "send_quote": {
+        // delegate to the normal endpoint would be ideal; inline simple version here
+        const q = db.quotes.find((x) => x.id === data.quoteId);
+        if (!q) return res.status(404).json({ error: "quote not found" });
+        const project = db.projects.find((p) => p.id === q.projectId);
+        const contact = db.contacts.find((c) => c.id === project?.contactId);
+        const to = data.to || contact?.email;
+        if (!to) return res.status(400).json({ error: "no recipient email" });
+        const token = signToken({ quoteId: q.id, contactId: contact?.id, projectId: project?.id, ts: Date.now() });
+        const viewUrl = `${BASE_URL}/public/quotes/${q.id}`;
+        const pixelUrl = `${BASE_URL}/quotes/track/open/${token}`;
+        const html = `<p>Your quote is ready.</p><p><a href="${viewUrl}">View Quote</a></p><img src="${pixelUrl}" width="1" height="1" alt=""/>`;
+        Email.send({ to, subject: "Your Quote", html });
+        db.emails.push({ id: genId("em"), orgId: q.orgId, projectId: project?.id, to, subject: "Your Quote", body: html, sentAt: nowIso(), provider: "demo" });
+        q.status = "SENT";
+        project.pipelinePhase = "ph_quote_sent";
+        addTagToEntity(db.projects, project.id, "quote-sent");
+        return res.json({ ok: true });
+      }
+      case "move_pipeline": {
+        const pr = db.projects.find((p) => p.id === data.projectId);
+        if (!pr) return res.status(404).json({ error: "project not found" });
+        pr.pipelinePhase = data.phaseId;
+        return res.json({ ok: true });
+      }
+      default:
+        return res.status(400).json({ error: "unsupported action" });
+    }
+  } catch (e) {
+    console.error("chatbot action error", e);
+    return res.status(500).json({ error: "internal" });
+  }
+});
+
+// ---- Mock checkout success trigger (for demo)
+app.get("/mock/checkout", (req, res) => {
+  const { invoiceId, amount } = req.query;
+  // simulate stripe webhook call
+  const evt = { type: "checkout.session.completed", data: { invoiceId, amount: int(amount) } };
+  const req2 = { body: evt };
+  const res2 = { json: (x) => x };
+  StripeShim.verifyWebhook(req2);
+  // call handler inline
+  const inv = db.invoices.find((x) => x.id === invoiceId);
+  if (inv) {
+    const payId = genId("pay");
+    db.payments.push({ id: payId, invoiceId, amount: int(amount), status: "SUCCEEDED", paidAt: nowIso(), method: "card" });
+    inv.balance = Math.max(0, inv.balance - int(amount));
+    const project = db.projects.find((p) => p.id === inv.projectId);
+    if (project) {
+      addTagToEntity(db.projects, project.id, inv.balance === 0 ? "payment-received" : "deposit-paid");
+      project.pipelinePhase = inv.balance === 0 ? "ph_paid" : "ph_deposit_paid";
+    }
+  }
+  res.send(`<html><body><h3>Payment recorded for invoice ${invoiceId}</h3><p>Return to your app.</p></body></html>`);
+});
+
+// ---- Basic health
+app.get("/", (req, res) => res.json({ ok: true, name: "Premier Concierge CRM API", time: nowIso() }));
+
+// ---- Start
+app.listen(PORT, () => {
+  console.log(`API on ${PORT}`);
+  // Seed a sample contact/project for quick testing
+  const ctId = genId("ct");
+  db.contacts.push({ id: ctId, orgId: "org_demo", name: "Sample Lead", email: "lead@example.com", tags: ["lead"], createdAt: nowIso() });
+  const prjId = genId("prj");
+  const pd = new Date(Date.now() + inDays(20)).toISOString(); // within 30 days → full payment
+  db.projects.push({ id: prjId, orgId: "org_demo", contactId: ctId, status: "NEW", projectDate: pd, pipelinePhase: "ph_new", tags: ["lead"], createdAt: nowIso() });
+  console.log("Seeded sample contact/project =>", ctId, prjId);
+});

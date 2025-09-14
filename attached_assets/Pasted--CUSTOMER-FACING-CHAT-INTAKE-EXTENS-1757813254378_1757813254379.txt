@@ -1,0 +1,323 @@
+// ===========================================================
+// CUSTOMER-FACING CHAT/INTAKE EXTENSIONS (paste above app.listen)
+// ===========================================================
+
+// Optional simple API key guard for public-ish endpoints
+const API_KEY = process.env.API_KEY || null;
+function requireKey(req, res, next) {
+  if (!API_KEY) return next(); // no key set → open (dev)
+  const k = req.headers["x-api-key"];
+  if (k !== API_KEY) return res.status(401).json({ error: "unauthorized" });
+  next();
+}
+
+// Helper: find or create contact by email (or name+phone fallback)
+function findOrCreateContact({ orgId = "org_demo", name, email, phone, tags = [] }) {
+  let contact = null;
+  if (email) contact = db.contacts.find(c => c.orgId === orgId && (c.email || "").toLowerCase() === email.toLowerCase());
+  if (!contact && phone) contact = db.contacts.find(c => c.orgId === orgId && (c.phone || "") === phone);
+  if (!contact && name) contact = db.contacts.find(c => c.orgId === orgId && (c.name || "").toLowerCase() === name.toLowerCase());
+
+  if (!contact) {
+    const id = genId("ct");
+    contact = { id, orgId, name, email, phone, tags: Array.isArray(tags) ? [...new Set(tags)] : [], createdAt: nowIso() };
+    db.contacts.push(contact);
+  } else if (tags?.length) {
+    contact.tags = Array.from(new Set([...(contact.tags || []), ...tags]));
+  }
+  return contact;
+}
+
+// Helper: find or create a project (upsert by contact + projectDate day)
+function findOrCreateProject({ orgId = "org_demo", contactId, projectDate, eventType, groupSize, averageAge, tags = [] }) {
+  let sameDay = null;
+  const targetDay = projectDate ? new Date(projectDate).toISOString().slice(0,10) : null;
+  if (contactId && targetDay) {
+    sameDay = db.projects.find(p => p.orgId === orgId && p.contactId === contactId &&
+      (p.projectDate || "").slice(0,10) === targetDay);
+  }
+  if (!sameDay) {
+    const id = genId("prj");
+    sameDay = {
+      id, orgId, contactId,
+      status: "NEW",
+      projectDate: projectDate || null,
+      pipelinePhase: "ph_new",
+      tags: Array.isArray(tags) ? [...new Set(tags)] : [],
+      meta: { eventType: eventType || null, groupSize: groupSize || null, averageAge: averageAge || null },
+      createdAt: nowIso()
+    };
+    db.projects.push(sameDay);
+  } else {
+    // merge updates
+    if (projectDate) sameDay.projectDate = projectDate;
+    sameDay.tags = Array.from(new Set([...(sameDay.tags || []), ...(tags || [])]));
+    sameDay.meta = { ...(sameDay.meta || {}), eventType: eventType ?? sameDay.meta?.eventType, groupSize: groupSize ?? sameDay.meta?.groupSize, averageAge: averageAge ?? sameDay.meta?.averageAge };
+  }
+  return sameDay;
+}
+
+// Helper: compute a simple hourly rate from items (fallback if not provided)
+function computeHourlyRateFromItems(items = [], durationHours = 2) {
+  const subtotal = items.reduce((s, it) => s + int(it.unitPrice) * int(it.qty || 1), 0);
+  if (!durationHours || durationHours <= 0) return subtotal;
+  return Math.round(subtotal / durationHours);
+}
+
+// Suggest availability by boat for a chosen date window & group size
+function suggestAvailability({ dateIso, groupSize }) {
+  const slots = [];
+  const date = dateIso ? new Date(dateIso) : new Date(Date.now() + inDays(1));
+  const dayStart = new Date(date); dayStart.setHours(8, 0, 0, 0);
+  const candidateStarts = [12, 15, 18]; // noon, 3pm, 6pm
+  for (const boat of db.boats) {
+    if (!boat.active) continue;
+    if (groupSize && boat.capacity < groupSize) continue; // capacity gate
+    for (const hr of candidateStarts) {
+      const start = new Date(dayStart); start.setHours(hr, 0, 0, 0);
+      const end = new Date(start.getTime() + 2 * 3600 * 1000);
+      slots.push({ boatId: boat.id, boatName: boat.name, start: start.toISOString(), end: end.toISOString(), status: "OPEN" });
+    }
+  }
+  return slots;
+}
+
+// Normalize incoming intake payload
+function normalizeIntakePayload(body = {}) {
+  const {
+    orgId = "org_demo",
+    source = "chat", // "zap" | "form" | "chat" | "admin"
+    contact = {},    // { name, email, phone }
+    event = {},      // { date, groupSize, eventType, averageAge }
+    items = [],      // quote line-items (same shape as /quotes PUT items)
+    promoCode = null,
+    tags = []
+  } = body;
+
+  const projectDate = event.date ? new Date(event.date).toISOString() : null;
+  return {
+    orgId, source,
+    contact: {
+      name: contact.name || body.name || null,
+      email: contact.email || body.email || null,
+      phone: contact.phone || body.phone || null,
+      tags
+    },
+    event: {
+      projectDate,
+      groupSize: event.groupSize != null ? int(event.groupSize) : (body.groupSize != null ? int(body.groupSize) : null),
+      eventType: event.eventType || body.eventType || null,
+      averageAge: event.averageAge != null ? int(event.averageAge) : (body.averageAge != null ? int(body.averageAge) : null)
+    },
+    items: Array.isArray(items) ? items : [],
+    promoCode
+  };
+}
+
+// 1) Intake + upsert: create/update Contact + Project; return pricing/availability preview for chat
+app.post("/intake/upsert", requireKey, (req, res) => {
+  try {
+    const payload = normalizeIntakePayload(req.body);
+    const { orgId, contact: c, event: e, items, promoCode } = payload;
+
+    const contact = findOrCreateContact({ orgId, name: c.name, email: c.email, phone: c.phone, tags: c.tags });
+    const project = findOrCreateProject({
+      orgId, contactId: contact.id,
+      projectDate: e.projectDate, eventType: e.eventType, groupSize: e.groupSize, averageAge: e.averageAge, tags: c.tags
+    });
+
+    // Pricing preview (total, hourly, deposit policy)
+    const price = applyDiscounts({
+      orgId,
+      items: items.map(it => ({ unitPrice: int(it.unitPrice), qty: int(it.qty || 1) })),
+      promoCode,
+      projectDate: project.projectDate
+    });
+    const policy = evaluatePricingRules(orgId, project.projectDate);
+    const hourly = computeHourlyRateFromItems(items, 2); // assume 2h default (adjust if you pass duration)
+
+    // Availability suggestions (capacity-aware)
+    const avail = suggestAvailability({ dateIso: project.projectDate, groupSize: e.groupSize });
+
+    // Tag based on source for segmentation
+    addTagToEntity(db.contacts, contact.id, `src:${payload.source}`);
+    addTagToEntity(db.projects, project.id, `src:${payload.source}`);
+
+    return res.status(200).json({
+      ok: true,
+      contactId: contact.id,
+      projectId: project.id,
+      projectDate: project.projectDate,
+      eventType: project.meta?.eventType,
+      groupSize: project.meta?.groupSize,
+      averageAge: project.meta?.averageAge,
+      availability: avail,
+      pricing: {
+        subtotal: price.subtotal,
+        discountTotal: price.discountTotal,
+        tax: price.tax,
+        total: price.total,
+        hourlyRateEstimate: hourly,
+        depositRequired: policy.depositDuePercent < 100,
+        depositType: policy.depositType,
+        depositDuePercent: policy.depositDuePercent,
+        breakdown: price.breakdown
+      }
+    });
+  } catch (e) {
+    console.error("intake/upsert error", e);
+    return res.status(500).json({ error: "internal" });
+  }
+});
+
+// 2) Chat-friendly quote preview (without persisting a Quote)
+app.post("/chatbot/quote/preview", requireKey, (req, res) => {
+  const { orgId = "org_demo", projectId, projectDate, items = [], promoCode } = req.body || {};
+  const prj = projectId ? db.projects.find(p => p.id === projectId) : null;
+  const pd = projectDate || prj?.projectDate || null;
+  const price = applyDiscounts({
+    orgId,
+    items: items.map(it => ({ unitPrice: int(it.unitPrice), qty: int(it.qty || 1) })),
+    promoCode,
+    projectDate: pd
+  });
+  const policy = evaluatePricingRules(orgId, pd);
+  const hourly = computeHourlyRateFromItems(items, 2);
+  return res.json({
+    subtotal: price.subtotal,
+    discountTotal: price.discountTotal,
+    tax: price.tax,
+    total: price.total,
+    hourlyRateEstimate: hourly,
+    depositRequired: policy.depositDuePercent < 100,
+    depositType: policy.depositType,
+    depositDuePercent: policy.depositDuePercent,
+    breakdown: price.breakdown
+  });
+});
+
+// 3) Chat-friendly quote create + (optionally) send
+app.post("/chatbot/quote/offer", requireKey, async (req, res) => {
+  const {
+    orgId = "org_demo", projectId, items = [], promoCode,
+    send = false, to = null, message = "Your quote is ready!"
+  } = req.body || {};
+  if (!projectId) return res.status(400).json({ error: "projectId required" });
+  // Create draft quote via same logic as /quotes + /quotes/:id (compute totals)
+  const qId = genId("qt");
+  const q = { id: qId, orgId, projectId, status: "DRAFT", items: [], promoCode: promoCode || null,
+    discountTotal: 0, breakdown: [], subtotal: 0, tax: 0, total: 0, version: 1, createdAt: nowIso() };
+  db.quotes.push(q);
+
+  // set items and recompute
+  q.items = items.map(it => ({
+    type: it.type || "STANDARD",
+    name: it.name, productId: it.productId || null,
+    unitPrice: int(it.unitPrice), qty: int(it.qty || 1),
+    clientCanEditQty: !!it.clientCanEditQty,
+    groupId: it.groupId || null, required: !!it.required, order: it.order || 0
+  }));
+  const project = db.projects.find(p => p.id === projectId);
+  const price = applyDiscounts({
+    orgId, items: q.items.map(it => ({ unitPrice: it.unitPrice, qty: it.qty })), promoCode: q.promoCode, projectDate: project?.projectDate
+  });
+  Object.assign(q, { discountTotal: price.discountTotal, breakdown: price.breakdown, subtotal: price.subtotal, tax: price.tax, total: price.total });
+
+  // optionally send now (reuses /quotes/:id/send logic)
+  if (send) {
+    const contact = db.contacts.find(c => c.id === project?.contactId);
+    const recipient = to || contact?.email;
+    if (!recipient) return res.status(400).json({ error: "no recipient email to send" });
+    const token = signToken({ quoteId: q.id, contactId: contact?.id, projectId: project?.id, ts: Date.now() });
+    const viewUrl = `${BASE_URL}/public/quotes/${q.id}`;
+    const pixelUrl = `${BASE_URL}/quotes/track/open/${token}`;
+    const html = `<p>${message}</p><p><a href="${viewUrl}">View Quote</a></p><img src="${pixelUrl}" width="1" height="1" alt=""/>`;
+    await Email.send({ to: recipient, subject: "Your Quote", html });
+    db.emails.push({ id: genId("em"), orgId, projectId: project?.id, to: recipient, subject: "Your Quote", body: html, sentAt: nowIso(), provider: "demo" });
+    q.status = "SENT";
+    project.pipelinePhase = "ph_quote_sent";
+    addTagToEntity(db.projects, project.id, "quote-sent");
+  }
+
+  return res.status(201).json({
+    quoteId: q.id,
+    totals: { subtotal: q.subtotal, discountTotal: q.discountTotal, tax: q.tax, total: q.total }
+  });
+});
+
+// 4) Chat-friendly accept (proxy to normal accept flow)
+app.post("/chatbot/quote/accept", requireKey, async (req, res) => {
+  const { quoteId } = req.body || {};
+  if (!quoteId) return res.status(400).json({ error: "quoteId required" });
+  // Delegate by calling the same handler logic (inline here for simplicity)
+  const q = db.quotes.find(x => x.id === quoteId);
+  if (!q) return res.status(404).json({ error: "quote not found" });
+  const project = db.projects.find(p => p.id === q.projectId);
+  if (!project) return res.status(400).json({ error: "project missing" });
+  const policy = evaluatePricingRules(q.orgId, project.projectDate);
+  q.status = "ACCEPTED";
+  addTagToEntity(db.projects, project.id, "quote-accepted");
+  project.pipelinePhase = "ph_quote_accepted";
+  const invId = genId("inv");
+  const subtotal = q.subtotal, tax = q.tax, total = q.total;
+  let schedule = [];
+  if (policy.depositDuePercent >= 100) {
+    schedule.push({ line: 1, due: "ON_ACCEPTANCE", percent: 100 });
+  } else {
+    schedule.push({ line: 1, due: "ON_ACCEPTANCE", percent: 25 });
+    schedule.push({ line: 2, due: "BEFORE_PROJECT_DATE", percent: 75, daysBefore: 7 });
+  }
+  db.invoices.push({ id: invId, orgId: q.orgId, projectId: project.id, quoteId: q.id, status: "OPEN",
+    subtotal, tax, total, balance: total, schedule, createdAt: nowIso() });
+  const amountCents = Math.floor((total * schedule[0].percent) / 100);
+  const session = await StripeShim.createCheckoutSession({
+    invoiceId: invId, amountCents, successUrl: `${BASE_URL}/public/thanks?invoiceId=${invId}`,
+    cancelUrl: `${BASE_URL}/public/cancel?invoiceId=${invId}`,
+  });
+  return res.json({ invoiceId: invId, checkoutUrl: session.url });
+});
+
+// 5) Chat status summary: “what’s available / total / hourly / paid / owed”
+app.get("/chatbot/status/:projectId", requireKey, (req, res) => {
+  const prj = db.projects.find(p => p.id === req.params.projectId);
+  if (!prj) return res.status(404).json({ error: "project not found" });
+  const quotes = db.quotes.filter(q => q.projectId === prj.id);
+  const latestQuote = quotes.sort((a,b) => (b.createdAt || "") > (a.createdAt || "") ? 1 : -1)[0] || null;
+  const invoices = db.invoices.filter(i => i.projectId === prj.id);
+  const totalInvoiced = invoices.reduce((s, i) => s + int(i.total), 0);
+  const totalPaid = db.payments
+    .filter(p => invoices.some(i => i.id === p.invoiceId))
+    .reduce((s, p) => s + int(p.amount), 0);
+  const balance = Math.max(0, totalInvoiced - totalPaid);
+  const items = latestQuote ? latestQuote.items : [];
+  const hourly = computeHourlyRateFromItems(items, 2);
+  const avail = suggestAvailability({ dateIso: prj.projectDate, groupSize: prj.meta?.groupSize });
+
+  return res.json({
+    projectId: prj.id,
+    projectDate: prj.projectDate,
+    eventType: prj.meta?.eventType,
+    groupSize: prj.meta?.groupSize,
+    averageAge: prj.meta?.averageAge,
+    availability: avail,
+    quote: latestQuote ? {
+      id: latestQuote.id,
+      status: latestQuote.status,
+      subtotal: latestQuote.subtotal,
+      discountTotal: latestQuote.discountTotal,
+      tax: latestQuote.tax,
+      total: latestQuote.total,
+      hourlyRateEstimate: hourly
+    } : null,
+    invoices: invoices.map(i => ({ id: i.id, status: i.status, total: i.total, balance: i.balance })),
+    payments: db.payments.filter(p => invoices.some(i => i.id === p.invoiceId)),
+    totals: { invoiced: totalInvoiced, paid: totalPaid, owed: balance }
+  });
+});
+
+// 6) Generic “intake” endpoint for Zaps/forms/chat/admin (alias)
+app.post("/intake", requireKey, (req, res) => {
+  // alias to /intake/upsert to keep Zapier clean
+  req.body.source = req.body.source || "zap";
+  return app._router.handle(req, res, () => {}, "/intake/upsert");
+});
