@@ -59,6 +59,7 @@ interface BookingData {
   // New comparison fields
   selectedCruiseType: CruiseType | null;
   selectedTimeSlot: string;
+  selectedPrivatePackage: string | null; // New field for private packages
   selectedDiscoPackage: DiscoPackage | null;
   selectedDiscoTimeSlot: string;
   discoTicketQuantity: number; // Number of disco cruise tickets (1-50)
@@ -198,6 +199,26 @@ const getAlternativeDates = (selectedDate: Date, groupSize: number, daysRange: n
     .slice(0, 6);
 };
 
+// Private cruise packages
+const privatePackages = [
+  {
+    id: 'essentials',
+    name: 'Essentials Package',
+    hourlyRate: 50, // per hour
+    description: 'Perfect for intimate celebrations',
+    features: ['4-hour cruise', 'Captain & crew', 'Basic sound system', 'Coolers with ice'],
+    popular: false
+  },
+  {
+    id: 'ultimate',
+    name: 'Ultimate Party Package', 
+    hourlyRate: 75, // per hour
+    description: 'Premium party experience',
+    features: ['4-hour cruise', 'Captain & crew', 'Premium sound system', 'Coolers with ice', 'Party decorations', 'Red carpet boarding'],
+    popular: true
+  },
+];
+
 // Disco cruise packages
 const discoPackages = [
   { 
@@ -285,6 +306,7 @@ export default function Chat() {
     budget: '',
     selectedCruiseType: null,
     selectedTimeSlot: '',
+    selectedPrivatePackage: null,
     selectedDiscoPackage: null,
     selectedDiscoTimeSlot: '',
     discoTicketQuantity: 1,
@@ -301,10 +323,50 @@ export default function Chat() {
 
   // Fetch private cruise pricing when all required data is available
   useEffect(() => {
-    if (formData.eventDate && formData.selectedTimeSlot && formData.groupSize) {
+    if (formData.eventDate && formData.selectedTimeSlot && formData.selectedPrivatePackage && formData.groupSize) {
       fetchPrivatePricing();
     }
-  }, [formData.eventDate, formData.selectedTimeSlot, formData.groupSize]);
+  }, [formData.eventDate, formData.selectedTimeSlot, formData.selectedPrivatePackage, formData.groupSize]);
+  
+  // Auto-select default options when reaching comparison page for immediate pricing display
+  useEffect(() => {
+    if (currentQuestion === 'comparison-selection' && formData.eventDate && 
+        (formData.eventType === 'bachelor' || formData.eventType === 'bachelorette')) {
+      
+      // Auto-select private cruise defaults if not already selected
+      if (!formData.selectedTimeSlot || !formData.selectedPrivatePackage) {
+        const availableTimeSlots = getPrivateTimeSlotsForDate(formData.eventDate);
+        const defaultTimeSlot = availableTimeSlots.find(slot => slot.popular) || availableTimeSlots[0];
+        const defaultPrivatePackage = privatePackages.find(pkg => pkg.popular) || privatePackages[0];
+        
+        if (defaultTimeSlot && defaultPrivatePackage) {
+          setFormData(prev => ({
+            ...prev,
+            selectedCruiseType: 'private',
+            selectedTimeSlot: defaultTimeSlot.id,
+            selectedPrivatePackage: defaultPrivatePackage.id,
+          }));
+        }
+      }
+      
+      // Auto-select disco cruise defaults if available and not already selected
+      if (isDiscoAvailableForDate(formData.eventDate) && 
+          (!formData.selectedDiscoPackage || !formData.selectedDiscoTimeSlot)) {
+        const availableDiscoSlots = getDiscoTimeSlotsForDate(formData.eventDate);
+        const defaultDiscoSlot = availableDiscoSlots[0];
+        const defaultDiscoPackage = discoPackages[0]; // Basic package
+        
+        if (defaultDiscoSlot && defaultDiscoPackage) {
+          setFormData(prev => ({
+            ...prev,
+            selectedDiscoPackage: defaultDiscoPackage.id as DiscoPackage,
+            selectedDiscoTimeSlot: defaultDiscoSlot.id,
+            discoTicketQuantity: Math.min(prev.groupSize, 10), // Default to group size or 10
+          }));
+        }
+      }
+    }
+  }, [currentQuestion, formData.eventDate, formData.eventType]);
   
   // Fetch disco pricing when all required disco data is available
   useEffect(() => {
@@ -323,40 +385,95 @@ export default function Chat() {
 
   // Fetch private cruise pricing with loading state
   const fetchPrivatePricing = async () => {
+    if (!formData.selectedPrivatePackage) {
+      calculatePrivatePricing();
+      return;
+    }
+    
     setPricingLoading(true);
     setPricingError(null);
     try {
+      const selectedPackage = privatePackages.find(pkg => pkg.id === formData.selectedPrivatePackage);
+      if (!selectedPackage) {
+        throw new Error('Selected package not found');
+      }
+      
       const res = await apiRequest('POST', '/api/pricing/cruise', {
-        groupSize: formData.groupSize, // Fix: pass as number, not string
+        groupSize: formData.groupSize,
         eventDate: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : '',
         timeSlot: formData.selectedTimeSlot,
         eventType: formData.eventType,
         cruiseType: 'private',
+        packageType: selectedPackage.id,
+        hourlyRate: selectedPackage.hourlyRate,
       });
       
       if (!res.ok) {
-        throw new Error(`API error: ${res.status} ${res.statusText}`);
+        console.warn('API pricing failed, using local calculation');
+        calculatePrivatePricing();
+        return;
       }
       
       const response = await res.json();
       if (!response || typeof response.total !== 'number') {
-        throw new Error('Invalid pricing response from server');
+        console.warn('Invalid API response, using local calculation');
+        calculatePrivatePricing();
+        return;
       }
       
       setPrivatePricing(response);
       setPricingError(null);
     } catch (error: any) {
-      console.error('Failed to fetch private pricing:', error);
-      setPricingError(error.message || 'Failed to load pricing. Please try again.');
-      setPrivatePricing(null);
-      toast({
-        title: 'Pricing Error',
-        description: 'Unable to load pricing. Please check your selections and try again.',
-        variant: 'destructive',
-      });
+      console.warn('Failed to fetch private pricing via API, using local calculation:', error);
+      calculatePrivatePricing();
     } finally {
       setPricingLoading(false);
     }
+  };
+  
+  // Fallback private cruise pricing calculation (used when API fails)
+  const calculatePrivatePricing = () => {
+    if (!formData.selectedPrivatePackage) return;
+    
+    const selectedPackage = privatePackages.find(pkg => pkg.id === formData.selectedPrivatePackage);
+    if (!selectedPackage) return;
+    
+    const cruiseDuration = 4; // 4 hours
+    const baseCost = selectedPackage.hourlyRate * cruiseDuration;
+    const crewFee = formData.groupSize > 20 ? 200 : 0; // Additional crew for larger groups
+    const subtotal = baseCost + crewFee;
+    const tax = Math.round(subtotal * 0.0825); // 8.25% tax
+    const gratuity = Math.round(subtotal * 0.20); // 20% gratuity
+    const total = subtotal + tax + gratuity;
+    
+    setPrivatePricing({
+      subtotal: subtotal * 100, // Convert to cents
+      tax: tax * 100,
+      total: total * 100,
+      perPersonCost: Math.round((total / formData.groupSize) * 100),
+      discountTotal: 0,
+      gratuity: gratuity * 100,
+      depositRequired: true,
+      depositPercent: 25,
+      depositAmount: Math.round(total * 0.25) * 100,
+      paymentSchedule: [],
+      appliedDiscounts: [],
+      breakdown: {
+        boatType: selectedPackage.name,
+        dayName: formData.eventDate ? format(formData.eventDate, 'EEEE') : '',
+        baseHourlyRate: selectedPackage.hourlyRate,
+        cruiseDuration,
+        baseCruiseCost: baseCost,
+        crewFee,
+        subtotalBeforeTax: subtotal,
+        gratuityAmount: gratuity,
+        taxAmount: tax,
+        grandTotal: total,
+        perPerson: Math.round(total / formData.groupSize),
+        deposit: Math.round(total * 0.25),
+        balanceDue: total - Math.round(total * 0.25),
+      }
+    });
   };
   
   // Fetch disco cruise pricing using API for consistency
@@ -519,6 +636,7 @@ export default function Chat() {
         eventDate: undefined,
         selectedCruiseType: null,
         selectedTimeSlot: '',
+        selectedPrivatePackage: null,
         selectedDiscoPackage: null,
         selectedDiscoTimeSlot: '',
         discoTicketQuantity: 1,
@@ -533,6 +651,7 @@ export default function Chat() {
         eventDate: undefined,
         selectedCruiseType: null,
         selectedTimeSlot: '',
+        selectedPrivatePackage: null,
         selectedDiscoPackage: null,
         selectedDiscoTimeSlot: '',
         discoTicketQuantity: 1,
@@ -543,6 +662,7 @@ export default function Chat() {
         eventDate: undefined,
         selectedCruiseType: null,
         selectedTimeSlot: '',
+        selectedPrivatePackage: null,
         selectedDiscoPackage: null,
         selectedDiscoTimeSlot: '',
         discoTicketQuantity: 1,
@@ -552,6 +672,7 @@ export default function Chat() {
         ...prev,
         selectedCruiseType: null,
         selectedTimeSlot: '',
+        selectedPrivatePackage: null,
         selectedDiscoPackage: null,
         selectedDiscoTimeSlot: '',
         discoTicketQuantity: 1,
@@ -882,10 +1003,28 @@ export default function Chat() {
   
   // Private cruise selection handler - allow independent selection
   const handlePrivateCruiseSelect = (timeSlot: string) => {
-    setFormData({ 
-      ...formData, 
-      selectedTimeSlot: timeSlot
-    });
+    setFormData(prev => ({
+      ...prev,
+      selectedCruiseType: 'private' as CruiseType,
+      selectedTimeSlot: timeSlot,
+    }));
+    
+    // Update lead progress
+    if (leadId) {
+      updateLeadProgress.mutate({
+        boatType: 'private',
+        timeSlot: timeSlot,
+        status: 'OPTIONS_SELECTED',
+        progress: 'private_selected'
+      });
+    }
+  };
+  
+  const handlePrivatePackageSelect = (packageId: string) => {
+    setFormData(prev => ({
+      ...prev,
+      selectedPrivatePackage: packageId,
+    }));
   };
   
   // Disco cruise selection handler - allow independent selection
@@ -1450,6 +1589,7 @@ export default function Chat() {
                       budget: '',
                       selectedCruiseType: null,
                       selectedTimeSlot: '',
+                      selectedPrivatePackage: null,
                       selectedDiscoPackage: null,
                       selectedDiscoTimeSlot: '',
                       discoTicketQuantity: 1,
@@ -2026,76 +2166,75 @@ export default function Chat() {
                 exit="exit"
                 className="space-y-8"
               >
-                <div className="text-center mb-6">
-                  <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3">
-                    Choose Your Experience
-                  </h2>
-                  <div className="flex items-center justify-center gap-4 text-slate-600 dark:text-slate-400 mb-3">
-                    <span className="font-medium">{format(formData.eventDate, 'EEEE, MMMM d')}</span>
-                    <span>•</span>
-                    <span>{formData.groupSize} {formData.groupSize === 1 ? 'person' : 'people'}</span>
+                {/* Condensed Header with Selections Summary */}
+                <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20 rounded-xl p-4 mb-6">
+                  <div className="flex items-center justify-between mb-2">
+                    <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                      Choose Your Experience
+                    </h2>
+                    {/* Completed selections summary */}
+                    <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
+                      <span>{formData.eventTypeLabel}</span>
+                      <span>•</span>
+                      <span>{format(formData.eventDate, 'MMM d')}</span>
+                      <span>•</span>
+                      <span>{formData.groupSize} people</span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Side-by-Side Pricing Comparison for Bachelor/Bachelorette */}
+                {/* Compact Pricing Comparison - Always Visible for Bachelor/Bachelorette */}
                 {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') && 
-                 formData.selectedTimeSlot && privatePricing && 
-                 formData.selectedDiscoPackage && formData.selectedDiscoTimeSlot && discoPricing && (
+                 (privatePricing || discoPricing) && (
                   <motion.div
-                    initial={{ opacity: 0, y: 20 }}
+                    initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="mb-8"
+                    className="mb-4"
                   >
-                    <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20 rounded-2xl p-6 border border-blue-200 dark:border-blue-800">
-                      <h3 className="text-2xl font-bold text-center mb-6 text-slate-800 dark:text-slate-200">
+                    <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20 rounded-xl p-3 border border-blue-200 dark:border-blue-800">
+                      <h3 className="text-lg font-bold text-center mb-3 text-slate-800 dark:text-slate-200">
                         💰 Price Comparison
                       </h3>
-                      <div className="grid md:grid-cols-2 gap-6">
+                      <div className="grid md:grid-cols-2 gap-3">
                         {/* Private Cruise Total */}
-                        <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border-2 border-blue-300 dark:border-blue-600">
+                        <div className="bg-white dark:bg-slate-800 rounded-lg p-3 border border-blue-300 dark:border-blue-600">
                           <div className="text-center">
-                            <h4 className="font-semibold text-blue-600 dark:text-blue-400 mb-2">🚢 Private Cruise</h4>
-                            <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">
-                              {formatCurrency(privatePricing.total)}
+                            <h4 className="font-medium text-blue-600 dark:text-blue-400 mb-1 text-sm">🚢 Private Cruise</h4>
+                            <div className="text-xl font-bold text-blue-600 dark:text-blue-400">
+                              {privatePricing ? formatCurrency(privatePricing.total) : '---'}
                             </div>
-                            <div className="text-sm text-slate-600 dark:text-slate-400">
-                              {formatCurrency(privatePricing.total / formData.groupSize)} per person
-                            </div>
-                            <div className="text-xs text-slate-500 dark:text-slate-500 mt-2">
-                              Includes tax & tip • Exclusive boat
+                            <div className="text-xs text-slate-600 dark:text-slate-400">
+                              {privatePricing ? formatCurrency(privatePricing.total / formData.groupSize) + ' per person' : 'Select options'}
                             </div>
                           </div>
                         </div>
                         
                         {/* Disco Cruise Total */}
-                        <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border-2 border-purple-300 dark:border-purple-600">
+                        <div className="bg-white dark:bg-slate-800 rounded-lg p-3 border border-purple-300 dark:border-purple-600">
                           <div className="text-center">
-                            <h4 className="font-semibold text-purple-600 dark:text-purple-400 mb-2">🎵 Disco Cruise</h4>
-                            <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-1">
-                              {formatCurrency(discoPricing.total)}
+                            <h4 className="font-medium text-purple-600 dark:text-purple-400 mb-1 text-sm">🎵 Disco Cruise</h4>
+                            <div className="text-xl font-bold text-purple-600 dark:text-purple-400">
+                              {discoPricing ? formatCurrency(discoPricing.total) : '---'}
                             </div>
-                            <div className="text-sm text-slate-600 dark:text-slate-400">
-                              {formatCurrency(discoPricing.total / formData.discoTicketQuantity)} per person
-                            </div>
-                            <div className="text-xs text-slate-500 dark:text-slate-500 mt-2">
-                              {formData.discoTicketQuantity} {formData.discoTicketQuantity === 1 ? 'ticket' : 'tickets'} • Party with others
+                            <div className="text-xs text-slate-600 dark:text-slate-400">
+                              {discoPricing ? formatCurrency(discoPricing.total / formData.discoTicketQuantity) + ' per person' : 'Select options'}
                             </div>
                           </div>
                         </div>
                       </div>
                       
-                      {/* Savings Indicator */}
-                      {privatePricing.total !== discoPricing.total && (
-                        <div className="text-center mt-4">
+                      {/* Compact Savings Indicator */}
+                      {privatePricing && discoPricing && privatePricing.total !== discoPricing.total && (
+                        <div className="text-center mt-2">
                           {discoPricing.total < privatePricing.total ? (
-                            <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-4 py-2 rounded-full text-sm font-medium">
+                            <div className="inline-flex items-center gap-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-3 py-1 rounded-full text-xs font-medium">
                               <span>💡</span>
-                              <span>Save {formatCurrency(privatePricing.total - discoPricing.total)} with Disco Cruise!</span>
+                              <span>Save {formatCurrency(privatePricing.total - discoPricing.total)} with Disco!</span>
                             </div>
                           ) : (
-                            <div className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-4 py-2 rounded-full text-sm font-medium">
+                            <div className="inline-flex items-center gap-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-medium">
                               <span>⭐</span>
-                              <span>Private Cruise offers exclusive experience for {formatCurrency(discoPricing.total - privatePricing.total)} more</span>
+                              <span>Private exclusive for {formatCurrency(discoPricing.total - privatePricing.total)} more</span>
                             </div>
                           )}
                         </div>
@@ -2126,24 +2265,34 @@ export default function Chat() {
                       </div>
                     </div>
                     
+                    {/* Private Cruise Packages */}
                     <div className="space-y-4">
-                      <h4 className="font-medium text-slate-700 dark:text-slate-300">Available Time Slots</h4>
+                      <h4 className="font-medium text-slate-700 dark:text-slate-300">Choose Your Package</h4>
                       <RadioGroup 
-                        value={formData.selectedTimeSlot}
-                        onValueChange={(value) => handlePrivateCruiseSelect(value)}
-                        data-testid="radio-private-time-slots"
+                        value={formData.selectedPrivatePackage || ''}
+                        onValueChange={(packageId) => handlePrivatePackageSelect(packageId)}
+                        data-testid="radio-private-packages"
                       >
-                        {getPrivateTimeSlotsForDate(formData.eventDate).map((slot) => (
-                          <div key={slot.id} className="flex items-center space-x-2">
-                            <RadioGroupItem value={slot.id} id={`private-${slot.id}`} />
+                        {privatePackages.map((pkg) => (
+                          <div key={pkg.id} className="flex items-center space-x-2">
+                            <RadioGroupItem value={pkg.id} id={`private-pkg-${pkg.id}`} />
                             <Label 
-                              htmlFor={`private-${slot.id}`} 
-                              className="flex-1 flex items-center justify-between cursor-pointer py-2"
+                              htmlFor={`private-pkg-${pkg.id}`} 
+                              className="flex-1 cursor-pointer py-3 px-3 rounded-lg border hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
                             >
-                              <div className="flex items-center gap-2">
-                                <span className="text-lg">{slot.icon}</span>
-                                <span>{slot.label}</span>
-                                {slot.popular && <Badge variant="secondary" className="text-xs">Popular</Badge>}
+                              <div className="flex justify-between items-start">
+                                <div>
+                                  <div className="font-medium text-slate-800 dark:text-slate-200">{pkg.name}</div>
+                                  <div className="text-sm text-slate-600 dark:text-slate-400">{pkg.description}</div>
+                                  <div className="text-xs text-slate-500 dark:text-slate-500 mt-1">
+                                    {pkg.features.join(' • ')}
+                                  </div>
+                                </div>
+                                <div className="text-right">
+                                  <div className="font-bold text-blue-600">${pkg.hourlyRate}/hr</div>
+                                  <div className="text-xs text-slate-500">4-hour cruise</div>
+                                  {pkg.popular && <Badge variant="secondary" className="text-xs mt-1">Popular</Badge>}
+                                </div>
                               </div>
                             </Label>
                           </div>
@@ -2151,81 +2300,95 @@ export default function Chat() {
                       </RadioGroup>
                     </div>
                     
+                    {/* Private Cruise Time Slots */}
+                    {formData.selectedPrivatePackage && (
+                      <div className="space-y-4">
+                        <h4 className="font-medium text-slate-700 dark:text-slate-300">Available Time Slots</h4>
+                        <RadioGroup 
+                          value={formData.selectedTimeSlot}
+                          onValueChange={(value) => handlePrivateCruiseSelect(value)}
+                          data-testid="radio-private-time-slots"
+                        >
+                          {getPrivateTimeSlotsForDate(formData.eventDate).map((slot) => (
+                            <div key={slot.id} className="flex items-center space-x-2">
+                              <RadioGroupItem value={slot.id} id={`private-${slot.id}`} />
+                              <Label 
+                                htmlFor={`private-${slot.id}`} 
+                                className="flex-1 flex items-center justify-between cursor-pointer py-2"
+                              >
+                                <div className="flex items-center gap-2">
+                                  <span className="text-lg">{slot.icon}</span>
+                                  <span>{slot.label}</span>
+                                  {slot.popular && <Badge variant="secondary" className="text-xs">Popular</Badge>}
+                                </div>
+                              </Label>
+                            </div>
+                          ))}
+                        </RadioGroup>
+                      </div>
+                    )}
+                    
                     {/* Enhanced Private Cruise Pricing */}
-                    {formData.selectedTimeSlot && privatePricing && (
+                    {formData.selectedTimeSlot && formData.selectedPrivatePackage && privatePricing && (
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="mt-6 space-y-6"
+                        className="mt-6 space-y-4"
                       >
-                        {/* Detailed Pricing Breakdown */}
-                        <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-xl p-6">
-                          <h4 className="font-semibold text-slate-800 dark:text-slate-200 mb-4 text-center">Investment Breakdown</h4>
+                        {/* Compact Pricing Summary */}
+                        <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-xl p-4">
+                          <h4 className="font-semibold text-slate-800 dark:text-slate-200 mb-3 text-center">Pricing Summary</h4>
                           
-                          <div className="space-y-3">
-                            <div className="flex justify-between items-center">
-                              <span className="text-slate-600 dark:text-slate-400">Base Cruise Cost:</span>
+                          <div className="space-y-2">
+                            <div className="flex justify-between items-center text-sm">
+                              <span className="text-slate-600 dark:text-slate-400">Base Cost:</span>
                               <span className="font-medium">{formatCurrency(privatePricing.subtotal)}</span>
                             </div>
-                            <div className="flex justify-between items-center">
-                              <span className="text-slate-600 dark:text-slate-400">Sales Tax (8.25%):</span>
-                              <span className="font-medium">{formatCurrency(privatePricing.tax)}</span>
+                            <div className="flex justify-between items-center text-sm">
+                              <span className="text-slate-600 dark:text-slate-400">Tax & Tip:</span>
+                              <span className="font-medium">{formatCurrency(privatePricing.tax + (privatePricing.gratuity || 0))}</span>
                             </div>
-                            <div className="flex justify-between items-center">
-                              <span className="text-slate-600 dark:text-slate-400">Tip for the Captain and Crew (20%):</span>
-                              <span className="font-medium">{formatCurrency(privatePricing.gratuity || Math.round(privatePricing.subtotal * 0.20))}</span>
-                            </div>
-                            <div className="border-t border-slate-200 dark:border-slate-700 pt-3">
-                              <div className="flex justify-between items-center text-lg font-bold">
-                                <span className="text-slate-800 dark:text-slate-200">Total Price:</span>
+                            <div className="border-t border-slate-200 dark:border-slate-700 pt-2">
+                              <div className="flex justify-between items-center font-bold">
+                                <span className="text-slate-800 dark:text-slate-200">Total:</span>
                                 <span className="text-blue-600 dark:text-blue-400">{formatCurrency(privatePricing.total)}</span>
                               </div>
-                              <div className="flex justify-between items-center text-sm mt-1">
-                                <span className="text-slate-500 dark:text-slate-400">Per person:</span>
-                                <span className="text-slate-600 dark:text-slate-300">{formatCurrency(privatePricing.total / formData.groupSize)}</span>
+                              <div className="flex justify-between items-center text-xs text-slate-500 dark:text-slate-400">
+                                <span>Per person:</span>
+                                <span>{formatCurrency(privatePricing.total / formData.groupSize)}</span>
                               </div>
                             </div>
                           </div>
                         </div>
                         
-                        {/* Payment Options */}
-                        <div className="space-y-4">
-                          <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
-                            <div className="flex justify-between items-center mb-3">
-                              <span className="font-medium text-slate-700 dark:text-slate-300">Secure Your Booking:</span>
-                              <span className="text-sm text-green-600 dark:text-green-400 font-medium">25% Deposit</span>
-                            </div>
-                            <div className="flex justify-between items-center mb-4">
-                              <span className="text-slate-600 dark:text-slate-400">Deposit Amount:</span>
-                              <span className="text-xl font-bold text-green-600 dark:text-green-400">{formatCurrency(privatePricing.depositAmount)}</span>
-                            </div>
-                            <div className="grid grid-cols-2 gap-3">
-                              <Button
-                                onClick={() => createDepositPayment.mutate()}
-                                disabled={createDepositPayment.isPending}
-                                className="bg-green-600 hover:bg-green-700 text-white h-12"
-                                data-testid="button-pay-deposit-private"
-                              >
-                                {createDepositPayment.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                                <CreditCard className="h-4 w-4 mr-2" />
-                                Pay Deposit
-                              </Button>
-                              <Button
-                                onClick={() => createFullPayment.mutate()}
-                                disabled={createFullPayment.isPending}
-                                variant="outline"
-                                className="border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 h-12"
-                                data-testid="button-pay-full-private"
-                              >
-                                {createFullPayment.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                                <Sparkles className="h-4 w-4 mr-2" />
-                                Pay in Full
-                              </Button>
-                            </div>
-                            <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-2">
-                              Balance due: {formatCurrency(privatePricing.total - privatePricing.depositAmount)}
-                            </p>
+                        {/* Compact Payment Options */}
+                        <div className="bg-white dark:bg-slate-800 rounded-xl p-3 border border-slate-200 dark:border-slate-700">
+                          <div className="grid grid-cols-2 gap-2">
+                            <Button
+                              onClick={() => createDepositPayment.mutate()}
+                              disabled={createDepositPayment.isPending}
+                              className="bg-green-600 hover:bg-green-700 text-white h-10 text-sm"
+                              data-testid="button-pay-deposit-private"
+                            >
+                              {createDepositPayment.isPending && <Loader2 className="h-3 w-3 mr-1 animate-spin" />}
+                              <CreditCard className="h-3 w-3 mr-1" />
+                              Pay Deposit
+                            </Button>
+                            <Button
+                              onClick={() => createFullPayment.mutate()}
+                              disabled={createFullPayment.isPending}
+                              variant="outline"
+                              className="border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 h-10 text-sm"
+                              data-testid="button-pay-full-private"
+                            >
+                              {createFullPayment.isPending && <Loader2 className="h-3 w-3 mr-1 animate-spin" />}
+                              <Sparkles className="h-3 w-3 mr-1" />
+                              Pay in Full
+                            </Button>
                           </div>
+                          <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-2">
+                            Deposit: {formatCurrency(privatePricing.depositAmount)} • Balance: {formatCurrency(privatePricing.total - privatePricing.depositAmount)}
+                          </p>
                         </div>
                       </motion.div>
                     )}
