@@ -891,7 +891,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.log("Pricing preview request:", { items, groupSize, projectDate, promoCode, templateId });
       
       // Validate items structure for proper pricing calculation
-      const validatedItems = items.map(item => ({
+      const validatedItems = items.map((item: any) => ({
         ...item,
         unitPrice: Number(item.unitPrice) || 0,
         qty: Number(item.qty) || 1,
@@ -1581,10 +1581,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.post("/api/projects/from-chat-data", async (req, res) => {
     try {
-      const { contactId, extractedData } = req.body;
+      // Debug log for request body structure
+      console.log("📋 Request body keys:", Object.keys(req.body));
+      
+      const { contactId, sessionId, messageId } = req.body;
       
       if (!contactId) {
         return res.status(400).json({ error: "Contact ID is required" });
+      }
+
+      // Retrieve extracted data robustly - try multiple sources
+      let extractedData = req.body.extractedData || req.body.data || req.body.extracted || null;
+      
+      // If no extractedData provided, use the request body itself (excluding system fields)
+      if (!extractedData) {
+        const { contactId: _, sessionId: __, messageId: ___, ...restData } = req.body;
+        extractedData = restData;
+        console.log("📋 Using request body as extractedData:", Object.keys(extractedData));
       }
 
       const project = await storage.createProjectFromChatData(contactId, extractedData);

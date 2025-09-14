@@ -1382,18 +1382,20 @@ export class MemStorage implements IStorage {
   }
 
   async createProjectFromChatData(contactId: string, extractedData: any): Promise<Project> {
-    const projectDate = extractedData.date ? new Date(extractedData.date) : null;
+    // Add null-safety and support legacy date field
+    const projectDateStr = extractedData?.projectDate ?? extractedData?.date;
+    const projectDate = projectDateStr ? new Date(projectDateStr) : null;
     
     return await this.createProject({
       contactId,
-      title: extractedData.eventType ? `${extractedData.eventType} Event` : "New Event",
-      eventType: extractedData.eventType || null,
-      groupSize: extractedData.groupSize || null,
+      title: extractedData?.eventType ? `${extractedData.eventType} Event` : "New Event",
+      eventType: extractedData?.eventType || null,
+      groupSize: extractedData?.groupSize || null,
       projectDate,
-      duration: extractedData.duration || null,
-      specialRequests: extractedData.specialRequests || null,
-      preferredTime: extractedData.preferredTime || null,
-      budget: extractedData.budget || null,
+      duration: extractedData?.duration || null,
+      specialRequests: extractedData?.specialRequests || null,
+      preferredTime: extractedData?.preferredTime || extractedData?.timePreference || null,
+      budget: extractedData?.budget || null,
       leadSource: "chat",
       tags: ["chatbot"],
     });
