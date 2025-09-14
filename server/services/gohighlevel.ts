@@ -6,8 +6,14 @@ class GoHighLevelService implements SMSService {
   private baseUrl: string;
 
   constructor() {
+    // Use regular API key from Settings > API Key in GoHighLevel dashboard
+    // Or create a Private Integration for better security
     this.apiKey = process.env.GOHIGHLEVEL_API_KEY || '';
+    
+    // Location ID is found in your GoHighLevel URL when viewing a sub-account
+    // Example: https://app.gohighlevel.com/v2/location/YOUR_LOCATION_ID_HERE/
     this.locationId = process.env.GOHIGHLEVEL_LOCATION_ID || '';
+    
     this.baseUrl = 'https://rest.gohighlevel.com/v1';
   }
 
