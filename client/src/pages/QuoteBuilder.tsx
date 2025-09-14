@@ -25,9 +25,10 @@ import { Separator } from '@/components/ui/separator';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Save, Send, Plus, Trash2, DollarSign, Calendar, Users, Ship, Percent, AlertCircle, CheckCircle2, Settings } from 'lucide-react';
+import { ArrowLeft, Save, Send, Plus, Trash2, DollarSign, Calendar, Users, Ship, Percent, AlertCircle, CheckCircle2, Settings, ShoppingCart, ChevronDown, ChevronUp, Eye, EyeOff, Lock, Unlock, Package } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Layout from '@/components/Layout';
+import ProductPicker from '@/components/ProductPicker';
 
 // Extended schema for form with all fields
 const quoteFormSchema = insertQuoteSchema.extend({
@@ -67,6 +68,18 @@ const quoteFormSchema = insertQuoteSchema.extend({
   discountTotal: z.number().min(0).default(0),
   depositAmount: z.number().min(0),
   notes: z.string().optional(),
+}).refine((data) => {
+  // Validate that all required radio sections have a selectedOptionId
+  const requiredSections = data.radioSections.filter(section => section.required);
+  for (const section of requiredSections) {
+    if (!section.selectedOptionId) {
+      return false;
+    }
+  }
+  return true;
+}, {
+  message: 'All required option groups must have a selection',
+  path: ['radioSections'],
 });
 
 type QuoteFormData = z.infer<typeof quoteFormSchema>;
@@ -77,6 +90,8 @@ export default function QuoteBuilder() {
   const { toast } = useToast();
   const quoteId = params?.id;
   const isEditMode = quoteId && quoteId !== 'new';
+  const [showProductPicker, setShowProductPicker] = useState(false);
+  const [expandedItems, setExpandedItems] = useState<{ [key: number]: boolean }>({});
 
   // Fetch existing quote if editing
   const { data: existingQuote } = useQuery({
@@ -98,6 +113,7 @@ export default function QuoteBuilder() {
   const { data: pricingSettings } = useQuery({
     queryKey: ['/api/pricing-settings'],
   });
+
 
   const form = useForm<QuoteFormData>({
     resolver: zodResolver(quoteFormSchema),
@@ -129,7 +145,7 @@ export default function QuoteBuilder() {
     if (existingQuote) {
       form.reset({
         ...existingQuote,
-        validUntil: existingQuote.validUntil.split('T')[0],
+        expiresAt: existingQuote.expiresAt ? new Date(existingQuote.expiresAt) : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
       });
     }
   }, [existingQuote, form]);
@@ -250,7 +266,46 @@ export default function QuoteBuilder() {
       qty: 1,
       clientCanEditQty: false,
       required: false,
+      description: '',
+      category: 'service',
     }]);
+  };
+
+  // Add product from catalog
+  const addProductFromCatalog = (product: Product) => {
+    const currentItems = form.getValues('items');
+    const newItem = {
+      type: 'line_item',
+      name: product.name,
+      productId: product.id,
+      unitPrice: product.unitPrice,
+      qty: 1,
+      clientCanEditQty: false,
+      required: false,
+      description: product.description || '',
+      category: product.productType || 'service',
+    };
+    form.setValue('items', [...currentItems, newItem]);
+    toast({
+      title: 'Product Added',
+      description: `${product.name} has been added to the quote.`,
+    });
+  };
+
+  // Toggle item expansion
+  const toggleItemExpansion = (index: number) => {
+    setExpandedItems(prev => ({
+      ...prev,
+      [index]: !prev[index]
+    }));
+  };
+
+  // Get selected product IDs for the picker
+  const getSelectedProductIds = () => {
+    return watchItems
+      .filter(item => item.productId)
+      .map(item => item.productId!)
+      .filter(Boolean);
   };
 
   // Remove item
@@ -462,123 +517,327 @@ export default function QuoteBuilder() {
               {/* Line Items Section */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <DollarSign className="w-5 h-5" />
-                    Line Items
+                  <CardTitle className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <DollarSign className="w-5 h-5" />
+                      Line Items
+                    </div>
+                    <div className="flex gap-2">
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={() => setShowProductPicker(true)}
+                        data-testid="button-add-from-products"
+                      >
+                        <Package className="w-4 h-4 mr-2" />
+                        Add from Products
+                      </Button>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        size="sm"
+                        onClick={addItem}
+                        data-testid="button-add-custom-item"
+                      >
+                        <Plus className="w-4 h-4 mr-2" />
+                        Add Custom Item
+                      </Button>
+                    </div>
                   </CardTitle>
-                  <CardDescription>Standard services and pricing (quantities allowed)</CardDescription>
+                  <CardDescription>
+                    Add products from your catalog or create custom line items. All prices and quantities are fully editable.
+                  </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="space-y-3">
-                    {watchItems.map((item, index) => (
-                      <div key={index} className="grid grid-cols-12 gap-3 items-end p-4 border rounded-lg">
-                        <div className="col-span-5">
-                          <FormField
-                            control={form.control}
-                            name={`items.${index}.name`}
-                            render={({ field }) => (
-                              <FormItem>
-                                {index === 0 && <FormLabel>Service Description</FormLabel>}
-                                <FormControl>
-                                  <Input 
-                                    {...field} 
-                                    placeholder="Enter service description"
-                                    data-testid={`input-item-name-${index}`}
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                        
-                        <div className="col-span-2">
-                          <FormField
-                            control={form.control}
-                            name={`items.${index}.qty`}
-                            render={({ field }) => (
-                              <FormItem>
-                                {index === 0 && <FormLabel>Quantity</FormLabel>}
-                                <FormControl>
-                                  <Input 
-                                    {...field}
-                                    type="number"
-                                    min="1"
-                                    onChange={(e) => {
-                                      const qty = parseInt(e.target.value) || 1;
-                                      field.onChange(qty);
-                                    }}
-                                    data-testid={`input-item-qty-${index}`}
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                        
-                        <div className="col-span-2">
-                          <FormField
-                            control={form.control}
-                            name={`items.${index}.unitPrice`}
-                            render={({ field }) => (
-                              <FormItem>
-                                {index === 0 && <FormLabel>Unit Price</FormLabel>}
-                                <FormControl>
-                                  <Input 
-                                    type="number"
-                                    step="0.01"
-                                    min="0"
-                                    onChange={(e) => {
-                                      const price = parseFloat(e.target.value) || 0;
-                                      const cents = Math.round(price * 100);
-                                      field.onChange(cents);
-                                    }}
-                                    value={field.value ? (field.value / 100).toFixed(2) : '0.00'}
-                                    data-testid={`input-item-price-${index}`}
-                                  />
-                                </FormControl>
-                                <FormMessage />
-                              </FormItem>
-                            )}
-                          />
-                        </div>
-                        
-                        <div className="col-span-2">
-                          {index === 0 && <FormLabel>Total</FormLabel>}
-                          <div className="h-10 px-3 py-2 bg-muted rounded-md flex items-center justify-end font-medium">
-                            ${((watchItems[index]?.qty || 0) * (watchItems[index]?.unitPrice || 0) / 100).toFixed(2)}
-                          </div>
-                        </div>
-                        
-                        <div className="col-span-1">
-                          {index === 0 && <div className="h-6" />}
-                          <Button
-                            type="button"
-                            variant="ghost"
-                            size="icon"
-                            onClick={() => removeItem(index)}
-                            disabled={watchItems.length === 1}
-                            data-testid={`button-remove-item-${index}`}
-                            className="text-red-500 hover:text-red-700 hover:bg-red-50"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
-                        </div>
+                  {watchItems.length === 0 ? (
+                    <div className="text-center py-12 border-2 border-dashed rounded-lg">
+                      <ShoppingCart className="w-12 h-12 mx-auto mb-4 text-muted-foreground opacity-50" />
+                      <h3 className="font-semibold mb-2">No items yet</h3>
+                      <p className="text-sm text-muted-foreground mb-6">
+                        Add products from your catalog or create custom line items to get started.
+                      </p>
+                      <div className="flex gap-2 justify-center">
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={() => setShowProductPicker(true)}
+                          data-testid="button-add-from-products-empty"
+                        >
+                          <Package className="w-4 h-4 mr-2" />
+                          Add from Products
+                        </Button>
+                        <Button
+                          type="button"
+                          onClick={addItem}
+                          data-testid="button-add-custom-item-empty"
+                        >
+                          <Plus className="w-4 h-4 mr-2" />
+                          Add Custom Item
+                        </Button>
                       </div>
-                    ))}
-                  </div>
-                  
-                  <Button
-                    type="button"
-                    variant="outline"
-                    onClick={addItem}
-                    className="w-full"
-                    data-testid="button-add-item"
-                  >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add Line Item
-                  </Button>
+                    </div>
+                  ) : (
+                    <div className="space-y-4">
+                      {watchItems.map((item, index) => {
+                        const isExpanded = expandedItems[index];
+                        return (
+                          <Card key={index} className={cn(
+                            "border-2 transition-all",
+                            item.required ? "border-orange-200 bg-orange-50/50" : "border-gray-200",
+                            item.productId ? "bg-blue-50/30" : ""
+                          )}>
+                            <CardContent className="p-4">
+                              {/* Main Item Row */}
+                              <div className="grid grid-cols-12 gap-3 items-start">
+                                {/* Item Name with Status Indicators */}
+                                <div className="col-span-5">
+                                  <div className="space-y-2">
+                                    {index === 0 && <FormLabel>Service Description</FormLabel>}
+                                    <div className="flex items-center gap-2">
+                                      <FormField
+                                        control={form.control}
+                                        name={`items.${index}.name`}
+                                        render={({ field }) => (
+                                          <FormItem className="flex-1">
+                                            <FormControl>
+                                              <Input 
+                                                {...field} 
+                                                placeholder="Enter service description"
+                                                data-testid={`input-item-name-${index}`}
+                                                className="font-medium"
+                                              />
+                                            </FormControl>
+                                            <FormMessage />
+                                          </FormItem>
+                                        )}
+                                      />
+                                      <div className="flex items-center gap-1">
+                                        {item.productId && (
+                                          <Badge variant="secondary" className="text-xs">
+                                            <Package className="w-3 h-3 mr-1" />
+                                            Product
+                                          </Badge>
+                                        )}
+                                        {item.required && (
+                                          <Badge variant="destructive" className="text-xs">
+                                            <Lock className="w-3 h-3 mr-1" />
+                                            Required
+                                          </Badge>
+                                        )}
+                                        {item.clientCanEditQty && (
+                                          <Badge variant="outline" className="text-xs">
+                                            <Unlock className="w-3 h-3 mr-1" />
+                                            Client Editable
+                                          </Badge>
+                                        )}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                
+                                {/* Quantity */}
+                                <div className="col-span-2">
+                                  <FormField
+                                    control={form.control}
+                                    name={`items.${index}.qty`}
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        {index === 0 && <FormLabel>Quantity</FormLabel>}
+                                        <FormControl>
+                                          <Input 
+                                            {...field}
+                                            type="number"
+                                            min="1"
+                                            onChange={(e) => {
+                                              const qty = parseInt(e.target.value) || 1;
+                                              field.onChange(qty);
+                                            }}
+                                            data-testid={`input-item-qty-${index}`}
+                                            className="font-medium"
+                                          />
+                                        </FormControl>
+                                        <FormMessage />
+                                      </FormItem>
+                                    )}
+                                  />
+                                </div>
+                                
+                                {/* Unit Price */}
+                                <div className="col-span-2">
+                                  <FormField
+                                    control={form.control}
+                                    name={`items.${index}.unitPrice`}
+                                    render={({ field }) => (
+                                      <FormItem>
+                                        {index === 0 && <FormLabel>Unit Price</FormLabel>}
+                                        <FormControl>
+                                          <div className="relative">
+                                            <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                                            <Input 
+                                              type="number"
+                                              step="0.01"
+                                              min="0"
+                                              onChange={(e) => {
+                                                const price = parseFloat(e.target.value) || 0;
+                                                const cents = Math.round(price * 100);
+                                                field.onChange(cents);
+                                              }}
+                                              value={field.value ? (field.value / 100).toFixed(2) : '0.00'}
+                                              data-testid={`input-item-price-${index}`}
+                                              className="pl-8 font-medium"
+                                            />
+                                          </div>
+                                        </FormControl>
+                                        <FormMessage />
+                                      </FormItem>
+                                    )}
+                                  />
+                                </div>
+                                
+                                {/* Total */}
+                                <div className="col-span-2">
+                                  {index === 0 && <FormLabel>Total</FormLabel>}
+                                  <div className="h-10 px-3 py-2 bg-muted rounded-md flex items-center justify-end font-bold text-green-600">
+                                    ${((watchItems[index]?.qty || 0) * (watchItems[index]?.unitPrice || 0) / 100).toFixed(2)}
+                                  </div>
+                                </div>
+                                
+                                {/* Actions */}
+                                <div className="col-span-1 flex items-center justify-end gap-1">
+                                  {index === 0 && <div className="h-6" />}
+                                  <Button
+                                    type="button"
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => toggleItemExpansion(index)}
+                                    data-testid={`button-expand-item-${index}`}
+                                  >
+                                    {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+                                  </Button>
+                                  <Button
+                                    type="button"
+                                    variant="ghost"
+                                    size="icon"
+                                    onClick={() => removeItem(index)}
+                                    disabled={watchItems.length === 1}
+                                    data-testid={`button-remove-item-${index}`}
+                                    className="text-red-500 hover:text-red-700 hover:bg-red-50"
+                                  >
+                                    <Trash2 className="w-4 h-4" />
+                                  </Button>
+                                </div>
+                              </div>
+                              
+                              {/* Expandable Settings Section */}
+                              {isExpanded && (
+                                <div className="mt-4 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border-t">
+                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    {/* Description */}
+                                    <FormField
+                                      control={form.control}
+                                      name={`items.${index}.description`}
+                                      render={({ field }) => (
+                                        <FormItem>
+                                          <FormLabel>Description</FormLabel>
+                                          <FormControl>
+                                            <Textarea 
+                                              {...field}
+                                              placeholder="Optional detailed description"
+                                              rows={2}
+                                              data-testid={`textarea-item-description-${index}`}
+                                            />
+                                          </FormControl>
+                                          <FormMessage />
+                                        </FormItem>
+                                      )}
+                                    />
+                                    
+                                    {/* Category */}
+                                    <FormField
+                                      control={form.control}
+                                      name={`items.${index}.category`}
+                                      render={({ field }) => (
+                                        <FormItem>
+                                          <FormLabel>Category</FormLabel>
+                                          <Select onValueChange={field.onChange} value={field.value || 'service'}>
+                                            <FormControl>
+                                              <SelectTrigger data-testid={`select-item-category-${index}`}>
+                                                <SelectValue />
+                                              </SelectTrigger>
+                                            </FormControl>
+                                            <SelectContent>
+                                              <SelectItem value="service">Service</SelectItem>
+                                              <SelectItem value="addon">Add-on</SelectItem>
+                                              <SelectItem value="equipment">Equipment</SelectItem>
+                                              <SelectItem value="food">Food & Beverage</SelectItem>
+                                              <SelectItem value="misc">Miscellaneous</SelectItem>
+                                            </SelectContent>
+                                          </Select>
+                                          <FormMessage />
+                                        </FormItem>
+                                      )}
+                                    />
+                                  </div>
+                                  
+                                  {/* Control Toggles */}
+                                  <div className="mt-4 flex gap-6">
+                                    <FormField
+                                      control={form.control}
+                                      name={`items.${index}.required`}
+                                      render={({ field }) => (
+                                        <FormItem className="flex items-center space-x-2">
+                                          <FormControl>
+                                            <input
+                                              type="checkbox"
+                                              checked={field.value || false}
+                                              onChange={field.onChange}
+                                              className="rounded"
+                                              data-testid={`checkbox-item-required-${index}`}
+                                            />
+                                          </FormControl>
+                                          <FormLabel className="text-sm font-medium cursor-pointer">
+                                            Required Item
+                                          </FormLabel>
+                                          <FormDescription className="text-xs text-muted-foreground ml-2">
+                                            Client cannot remove this item
+                                          </FormDescription>
+                                        </FormItem>
+                                      )}
+                                    />
+                                    
+                                    <FormField
+                                      control={form.control}
+                                      name={`items.${index}.clientCanEditQty`}
+                                      render={({ field }) => (
+                                        <FormItem className="flex items-center space-x-2">
+                                          <FormControl>
+                                            <input
+                                              type="checkbox"
+                                              checked={field.value || false}
+                                              onChange={field.onChange}
+                                              className="rounded"
+                                              data-testid={`checkbox-item-client-editable-${index}`}
+                                            />
+                                          </FormControl>
+                                          <FormLabel className="text-sm font-medium cursor-pointer">
+                                            Client Can Edit Quantity
+                                          </FormLabel>
+                                          <FormDescription className="text-xs text-muted-foreground ml-2">
+                                            Allow clients to adjust the quantity
+                                          </FormDescription>
+                                        </FormItem>
+                                      )}
+                                    />
+                                  </div>
+                                </div>
+                              )}
+                            </CardContent>
+                          </Card>
+                        );
+                      })}
+                    </div>
+                  )}
                 </CardContent>
               </Card>
 
@@ -982,6 +1241,14 @@ export default function QuoteBuilder() {
         </form>
       </Form>
     </div>
+    
+    {/* Product Picker Modal */}
+    <ProductPicker
+      open={showProductPicker}
+      onOpenChange={setShowProductPicker}
+      onProductSelect={addProductFromCatalog}
+      selectedProductIds={getSelectedProductIds()}
+    />
     </Layout>
   );
 }
