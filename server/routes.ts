@@ -275,7 +275,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Use the new availability system instead of Google Sheets
       const dateObj = new Date(date);
       const availability = await storage.checkAvailability(dateObj, 4, groupSize, 'private');
-      res.json({ available: availability.available, ...availability });
+      res.json(availability);
     } catch (error) {
       console.error("Check availability error:", error);
       res.status(500).json({ error: "Failed to check availability" });

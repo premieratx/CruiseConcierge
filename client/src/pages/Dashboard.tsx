@@ -11,7 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { CRMPipeline } from "@/components/CRMPipeline";
 import { Analytics } from "@/components/Analytics";
 import { IntegrationStatus } from "@/components/IntegrationStatus";
-import { CalendarView } from "@/components/CalendarView";
+import CalendarView from "@/components/CalendarView";
 import Navigation from "@/components/Navigation";
 import { apiRequest } from "@/lib/queryClient";
 import { useLocation } from "wouter";

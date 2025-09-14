@@ -89,7 +89,7 @@ const generateTimeBlocks = (date: Date, boats: Boat[], bookings: Booking[], time
   return blocks;
 };
 
-export function CalendarView() {
+function CalendarView() {
   const [selectedWeek, setSelectedWeek] = useState<Date>(new Date());
   const [selectedTab, setSelectedTab] = useState<string>("all");
   const [viewMode, setViewMode] = useState<'week' | 'day'>('week');
@@ -611,3 +611,5 @@ export function CalendarView() {
     </div>
   );
 }
+
+export default CalendarView;

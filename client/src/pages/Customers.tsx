@@ -116,6 +116,7 @@ export default function Customers() {
       .sort((a, b) => {
         const dateA = typeof a === 'string' ? new Date(a) : a;
         const dateB = typeof b === 'string' ? new Date(b) : b;
+        if (!dateA || !dateB) return 0;
         return dateB.getTime() - dateA.getTime();
       })[0];
     

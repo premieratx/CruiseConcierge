@@ -47,8 +47,8 @@ const StatusBadge = ({ status }: { status: string }) => {
   const statusConfig = {
     NEW: { label: "New", variant: "secondary" as const },
     SCHEDULED: { label: "Scheduled", variant: "default" as const },
-    CONFIRMED: { label: "Confirmed", variant: "success" as const },
-    IN_PROGRESS: { label: "In Progress", variant: "warning" as const },
+    CONFIRMED: { label: "Confirmed", variant: "default" as const },
+    IN_PROGRESS: { label: "In Progress", variant: "secondary" as const },
     COMPLETED: { label: "Completed", variant: "outline" as const },
     CANCELLED: { label: "Cancelled", variant: "destructive" as const },
   };
