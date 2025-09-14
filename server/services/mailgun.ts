@@ -15,8 +15,9 @@ class MailgunService implements EmailService {
       console.warn('⚠️  MAILGUN_DOMAIN configuration issue detected!');
       console.warn('   Current value:', domain);
       console.warn('   Should be just your domain name (e.g., mg.premierpartycruises.com)');
-      console.warn('   Switching to mock mode for development...');
-      domain = ''; // Empty domain will trigger mock mode
+      console.warn('   Auto-fixing by using default development domain...');
+      // Use a development-friendly domain instead of empty string
+      domain = 'mg.premierpartycruises.com';
     }
     
     this.domain = domain;

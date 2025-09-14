@@ -254,6 +254,14 @@ export default function Chat() {
     }
   }, [formData.selectedDiscoPackage, formData.discoTicketQuantity, formData.eventDate, formData.selectedDiscoTimeSlot]);
 
+  // Immediate pricing calculation for disco quantity changes - ensures real-time updates
+  useEffect(() => {
+    if (formData.selectedDiscoPackage && formData.discoTicketQuantity > 0) {
+      // Use local calculation for immediate feedback when quantity changes
+      calculateDiscoPricing();
+    }
+  }, [formData.discoTicketQuantity]);
+
   // Fetch private cruise pricing with loading state
   const fetchPrivatePricing = async () => {
     setPricingLoading(true);
