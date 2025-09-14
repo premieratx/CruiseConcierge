@@ -2026,17 +2026,83 @@ export default function Chat() {
                 exit="exit"
                 className="space-y-8"
               >
-                <div className="text-center">
-                  <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-4">
-                    Choose Your Cruise Experience
+                <div className="text-center mb-6">
+                  <h2 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-3">
+                    Choose Your Experience
                   </h2>
-                  <p className="text-slate-600 dark:text-slate-400 text-xl mb-2">
-                    {format(formData.eventDate, 'EEEE, MMMM d')} • {formData.groupSize} {formData.groupSize === 1 ? 'person' : 'people'}
-                  </p>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">
-                    Select your preferred option and book instantly or request a detailed quote
-                  </p>
+                  <div className="flex items-center justify-center gap-4 text-slate-600 dark:text-slate-400 mb-3">
+                    <span className="font-medium">{format(formData.eventDate, 'EEEE, MMMM d')}</span>
+                    <span>•</span>
+                    <span>{formData.groupSize} {formData.groupSize === 1 ? 'person' : 'people'}</span>
+                  </div>
                 </div>
+
+                {/* Side-by-Side Pricing Comparison for Bachelor/Bachelorette */}
+                {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') && 
+                 formData.selectedTimeSlot && privatePricing && 
+                 formData.selectedDiscoPackage && formData.selectedDiscoTimeSlot && discoPricing && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mb-8"
+                  >
+                    <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20 rounded-2xl p-6 border border-blue-200 dark:border-blue-800">
+                      <h3 className="text-2xl font-bold text-center mb-6 text-slate-800 dark:text-slate-200">
+                        💰 Price Comparison
+                      </h3>
+                      <div className="grid md:grid-cols-2 gap-6">
+                        {/* Private Cruise Total */}
+                        <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border-2 border-blue-300 dark:border-blue-600">
+                          <div className="text-center">
+                            <h4 className="font-semibold text-blue-600 dark:text-blue-400 mb-2">🚢 Private Cruise</h4>
+                            <div className="text-3xl font-bold text-blue-600 dark:text-blue-400 mb-1">
+                              {formatCurrency(privatePricing.total)}
+                            </div>
+                            <div className="text-sm text-slate-600 dark:text-slate-400">
+                              {formatCurrency(privatePricing.total / formData.groupSize)} per person
+                            </div>
+                            <div className="text-xs text-slate-500 dark:text-slate-500 mt-2">
+                              Includes tax & tip • Exclusive boat
+                            </div>
+                          </div>
+                        </div>
+                        
+                        {/* Disco Cruise Total */}
+                        <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border-2 border-purple-300 dark:border-purple-600">
+                          <div className="text-center">
+                            <h4 className="font-semibold text-purple-600 dark:text-purple-400 mb-2">🎵 Disco Cruise</h4>
+                            <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-1">
+                              {formatCurrency(discoPricing.total)}
+                            </div>
+                            <div className="text-sm text-slate-600 dark:text-slate-400">
+                              {formatCurrency(discoPricing.total / formData.discoTicketQuantity)} per person
+                            </div>
+                            <div className="text-xs text-slate-500 dark:text-slate-500 mt-2">
+                              {formData.discoTicketQuantity} {formData.discoTicketQuantity === 1 ? 'ticket' : 'tickets'} • Party with others
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      {/* Savings Indicator */}
+                      {privatePricing.total !== discoPricing.total && (
+                        <div className="text-center mt-4">
+                          {discoPricing.total < privatePricing.total ? (
+                            <div className="inline-flex items-center gap-2 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-4 py-2 rounded-full text-sm font-medium">
+                              <span>💡</span>
+                              <span>Save {formatCurrency(privatePricing.total - discoPricing.total)} with Disco Cruise!</span>
+                            </div>
+                          ) : (
+                            <div className="inline-flex items-center gap-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-4 py-2 rounded-full text-sm font-medium">
+                              <span>⭐</span>
+                              <span>Private Cruise offers exclusive experience for {formatCurrency(discoPricing.total - privatePricing.total)} more</span>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
 
                 {/* Dynamic Grid Layout - Two columns for all groups */}
                 <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
