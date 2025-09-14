@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest, queryClient } from '@/lib/queryClient';
+import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Ship, ChevronRight, ArrowLeft, DollarSign, Users, 
-  Calendar as CalendarIcon, Clock, Check, X, ChevronLeft, 
+  Ship, ChevronRight, DollarSign, Users, 
+  Calendar as CalendarIcon, Clock, Check, X,
   User, Mail, Phone, MapPin, Star, Sparkles, CreditCard 
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -12,19 +13,25 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Separator } from '@/components/ui/separator';
 import { Calendar } from '@/components/ui/calendar';
 import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
 import { cn } from '@/lib/utils';
 import { format, addDays, isBefore, isAfter, startOfDay } from 'date-fns';
 import type { InsertContact, InsertProject, PricingPreview } from '@shared/schema';
 
-type ChatStep = 'welcome' | 'contact-info' | 'date-selection' | 'event-details' | 'complete';
+type Question = 
+  | 'event-type' 
+  | 'contact-info' 
+  | 'date-selection' 
+  | 'time-selection' 
+  | 'group-size' 
+  | 'final-review' 
+  | 'complete';
 
 interface BookingData {
   eventType: string;
   eventTypeLabel: string;
+  eventEmoji: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -33,8 +40,17 @@ interface BookingData {
   preferredTime: string;
   preferredTimeLabel: string;
   groupSize: string;
+  groupSizeLabel: string;
   specialRequests: string;
   budget: string;
+}
+
+interface CompletedSelection {
+  id: string;
+  label: string;
+  value: string;
+  icon?: string;
+  emoji?: string;
 }
 
 const eventTypes = [
@@ -48,9 +64,8 @@ const eventTypes = [
   { id: 'other', label: 'Other Event', emoji: '🎊', description: 'Custom celebration' },
 ];
 
-// Dynamic time slots based on day of week
 const getTimeSlotsForDate = (date: Date) => {
-  const dayOfWeek = date.getDay(); // 0 = Sunday, 1 = Monday, etc.
+  const dayOfWeek = date.getDay();
   
   if (dayOfWeek >= 1 && dayOfWeek <= 4) { // Monday-Thursday
     return [
@@ -85,12 +100,47 @@ const groupSizeOptions = [
   { value: '75', label: '51-75', description: 'Grand event' },
 ];
 
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 60 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.6, ease: "easeOut" }
+  },
+  exit: { 
+    opacity: 0, 
+    y: -60,
+    transition: { duration: 0.4, ease: "easeIn" }
+  }
+};
+
+const slideUp = {
+  hidden: { opacity: 0, y: 100 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.5, ease: "easeOut" }
+  }
+};
+
+const condenseAnimation = {
+  initial: { scale: 1, opacity: 1 },
+  condensed: { 
+    scale: 0.8, 
+    opacity: 0.9,
+    transition: { duration: 0.4, ease: "easeInOut" }
+  }
+};
+
 export default function Chat() {
-  const [currentStep, setCurrentStep] = useState<ChatStep>('welcome');
+  const [currentQuestion, setCurrentQuestion] = useState<Question>('event-type');
+  const [completedSelections, setCompletedSelections] = useState<CompletedSelection[]>([]);
   const [pricing, setPricing] = useState<PricingPreview | null>(null);
   const [formData, setFormData] = useState<BookingData>({
     eventType: '',
     eventTypeLabel: '',
+    eventEmoji: '',
     firstName: '',
     lastName: '',
     email: '',
@@ -99,22 +149,13 @@ export default function Chat() {
     preferredTime: '',
     preferredTimeLabel: '',
     groupSize: '',
+    groupSizeLabel: '',
     specialRequests: '',
     budget: '',
   });
   const { toast } = useToast();
 
-  const steps = [
-    { id: 'welcome', label: 'Event Type', number: 1 },
-    { id: 'contact-info', label: 'Contact', number: 2 },
-    { id: 'date-selection', label: 'Date', number: 3 },
-    { id: 'event-details', label: 'Details & Booking', number: 4 },
-  ];
-
-  const currentStepNumber = steps.find(s => s.id === currentStep)?.number || 1;
-  const progress = (currentStepNumber / steps.length) * 100;
-
-  // Fetch pricing when date, time, and group size are selected
+  // Fetch pricing when all required data is available
   useEffect(() => {
     if (formData.eventDate && formData.preferredTime && formData.groupSize) {
       fetchPricing();
@@ -136,45 +177,104 @@ export default function Chat() {
     }
   };
 
-  // Check if a date is available (not in the past, not blocked)
   const isDateAvailable = (date: Date) => {
     const today = startOfDay(new Date());
     const maxDate = addDays(today, 365);
     return !isBefore(date, today) && !isAfter(date, maxDate);
   };
 
-  // Create deposit payment mutation
-  const createDepositPayment = useMutation({
-    mutationFn: async () => {
-      if (!pricing) throw new Error('No pricing data available');
-      
-      const res = await apiRequest('POST', '/api/create-payment-intent', {
-        amount: pricing.depositAmount,
-        metadata: {
-          type: 'deposit',
-          eventType: formData.eventType,
-          eventDate: formData.eventDate?.toISOString(),
-          groupSize: formData.groupSize,
-        }
+  const formatCurrency = (cents: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(cents / 100);
+  };
+
+  const addCompletedSelection = (selection: CompletedSelection) => {
+    setCompletedSelections(prev => [...prev, selection]);
+  };
+
+  const progressToNextQuestion = () => {
+    const questionOrder: Question[] = [
+      'event-type', 'contact-info', 'date-selection', 
+      'time-selection', 'group-size', 'final-review'
+    ];
+    
+    const currentIndex = questionOrder.indexOf(currentQuestion);
+    if (currentIndex < questionOrder.length - 1) {
+      setTimeout(() => {
+        setCurrentQuestion(questionOrder[currentIndex + 1]);
+      }, 600); // Delay for animation
+    }
+  };
+
+  // Event Type Selection Handler
+  const handleEventTypeSelect = (eventType: string, label: string, emoji: string) => {
+    setFormData({ ...formData, eventType, eventTypeLabel: label, eventEmoji: emoji });
+    addCompletedSelection({
+      id: 'event-type',
+      label: 'Event Type',
+      value: label,
+      emoji: emoji
+    });
+    progressToNextQuestion();
+  };
+
+  // Contact Info Handler
+  const handleContactSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (formData.firstName && formData.lastName && formData.email) {
+      addCompletedSelection({
+        id: 'contact-info',
+        label: 'Contact',
+        value: `${formData.firstName} ${formData.lastName}`,
+        icon: 'user'
       });
-      const { clientSecret } = await res.json();
-      
-      // Redirect to Stripe checkout or handle payment
-      window.location.href = `/checkout?client_secret=${clientSecret}&return_url=${encodeURIComponent(window.location.origin + '/booking-confirmed')}`;
-    },
-    onError: () => {
-      toast({ 
-        title: 'Payment Error', 
-        description: 'Unable to process payment. Please try again.',
-        variant: 'destructive',
+      progressToNextQuestion();
+    }
+  };
+
+  // Date Selection Handler
+  const handleDateSelect = (date: Date | undefined) => {
+    if (date && isDateAvailable(date)) {
+      setFormData({ ...formData, eventDate: date });
+      addCompletedSelection({
+        id: 'date',
+        label: 'Date',
+        value: format(date, 'MMM dd, yyyy'),
+        icon: 'calendar'
       });
-    },
-  });
+      progressToNextQuestion();
+    }
+  };
+
+  // Time Selection Handler
+  const handleTimeSelect = (timeId: string, timeLabel: string, timeIcon: string) => {
+    setFormData({ ...formData, preferredTime: timeId, preferredTimeLabel: timeLabel });
+    addCompletedSelection({
+      id: 'time',
+      label: 'Time',
+      value: timeLabel,
+      emoji: timeIcon
+    });
+    progressToNextQuestion();
+  };
+
+  // Group Size Handler
+  const handleGroupSizeSelect = (size: string, label: string, description: string) => {
+    setFormData({ ...formData, groupSize: size, groupSizeLabel: label });
+    addCompletedSelection({
+      id: 'group-size',
+      label: 'Group Size',
+      value: `${label} people`,
+      icon: 'users'
+    });
+    progressToNextQuestion();
+  };
 
   // Create lead mutation
   const createLead = useMutation({
     mutationFn: async (data: BookingData) => {
-      // First create the contact
       const contact: InsertContact = {
         name: `${data.firstName} ${data.lastName}`,
         email: data.email,
@@ -184,7 +284,6 @@ export default function Chat() {
       const contactRes = await apiRequest('POST', '/api/contacts', contact);
       const contactResponse = await contactRes.json();
       
-      // Then create the project with pricing info (without date first due to validation issues)
       const project: InsertProject = {
         contactId: contactResponse.id,
         title: `${data.eventTypeLabel} - ${data.firstName} ${data.lastName}`,
@@ -203,25 +302,22 @@ export default function Chat() {
       const projectRes = await apiRequest('POST', '/api/projects', project);
       const projectResponse = await projectRes.json();
       
-      // Update project with date separately to work around validation issue
       if (data.eventDate) {
         await apiRequest('PATCH', `/api/projects/${projectResponse.id}`, {
           projectDate: data.eventDate.toISOString(),
         });
       }
       
-      // Create a quote from the pricing calculation
       if (pricing && pricing.breakdown) {
         const quoteItems = [
           {
             name: `${pricing.breakdown.boatType} - ${pricing.breakdown.dayName} ${pricing.breakdown.cruiseDuration}-Hour Cruise`,
-            unitPrice: pricing.breakdown.baseCruiseCost * 100, // Convert to cents
+            unitPrice: pricing.breakdown.baseCruiseCost * 100,
             qty: 1,
             taxable: true,
           }
         ];
         
-        // Add crew fee as separate line item if applicable
         if (pricing.breakdown.crewFee > 0) {
           quoteItems.push({
             name: 'Additional Crew (Texas Law Requirement)',
@@ -245,13 +341,12 @@ export default function Chat() {
           depositAmount: pricing.depositAmount,
           paymentSchedule: pricing.paymentSchedule,
           status: 'DRAFT',
-          validUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Valid for 7 days
+          validUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
         };
         
         const quoteRes = await apiRequest('POST', '/api/quotes', quote);
         const quoteResponse = await quoteRes.json();
         
-        // Send email and SMS with quote link
         await apiRequest('POST', '/api/quotes/' + quoteResponse.id + '/send', {
           email: contact.email,
           phone: contact.phone,
@@ -263,7 +358,7 @@ export default function Chat() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/contacts'] });
       queryClient.invalidateQueries({ queryKey: ['/api/projects'] });
-      setCurrentStep('complete');
+      setCurrentQuestion('complete');
       toast({ 
         title: 'Quote Sent Successfully!',
         description: "Check your email and text message for the full interactive quote.",
@@ -278,29 +373,37 @@ export default function Chat() {
     },
   });
 
-  const handleEventTypeSelect = (eventType: string, label: string) => {
-    setFormData({ ...formData, eventType, eventTypeLabel: label });
-    setCurrentStep('contact-info');
-  };
-
-  const handleContactSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (formData.firstName && formData.lastName && formData.email) {
-      setCurrentStep('date-selection');
-    }
-  };
-
   const handleSendQuote = () => {
     createLead.mutate(formData);
   };
 
-  const handleEventDetailsSubmit = () => {
-    if (formData.eventDate && formData.preferredTime && formData.groupSize) {
-      handleSendQuote();
-    }
-  };
+  // Payment mutations
+  const createDepositPayment = useMutation({
+    mutationFn: async () => {
+      if (!pricing) throw new Error('No pricing data available');
+      
+      const res = await apiRequest('POST', '/api/create-payment-intent', {
+        amount: pricing.depositAmount,
+        metadata: {
+          type: 'deposit',
+          eventType: formData.eventType,
+          eventDate: formData.eventDate?.toISOString(),
+          groupSize: formData.groupSize,
+        }
+      });
+      const { clientSecret } = await res.json();
+      
+      window.location.href = `/checkout?client_secret=${clientSecret}&return_url=${encodeURIComponent(window.location.origin + '/booking-confirmed')}`;
+    },
+    onError: () => {
+      toast({ 
+        title: 'Payment Error', 
+        description: 'Unable to process payment. Please try again.',
+        variant: 'destructive',
+      });
+    },
+  });
 
-  // Create full payment mutation
   const createFullPayment = useMutation({
     mutationFn: async () => {
       if (!pricing) throw new Error('No pricing data available');
@@ -316,7 +419,6 @@ export default function Chat() {
       });
       const { clientSecret } = await res.json();
       
-      // Redirect to Stripe checkout or handle payment
       window.location.href = `/checkout?client_secret=${clientSecret}&return_url=${encodeURIComponent(window.location.origin + '/booking-confirmed')}`;
     },
     onError: () => {
@@ -328,781 +430,541 @@ export default function Chat() {
     },
   });
 
-  const handleDateSelect = (date: Date | undefined) => {
-    if (date && isDateAvailable(date)) {
-      setFormData({ ...formData, eventDate: date });
-      // Auto-progress to next step when date is selected
-      setCurrentStep('event-details');
+  const getIconComponent = (iconType: string, size = 16) => {
+    const iconProps = { className: `h-${size/4} w-${size/4}` };
+    switch (iconType) {
+      case 'user': return <User {...iconProps} />;
+      case 'calendar': return <CalendarIcon {...iconProps} />;
+      case 'clock': return <Clock {...iconProps} />;
+      case 'users': return <Users {...iconProps} />;
+      default: return null;
     }
   };
 
-  const handleTimeSelect = (timeId: string, timeLabel: string, time: string) => {
-    setFormData({ ...formData, preferredTime: timeId, preferredTimeLabel: `${timeLabel} (${time})` });
-  };
-
-  const formatCurrency = (cents: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(cents / 100);
-  };
-
   return (
-    <div className="min-h-screen bg-gradient-to-b from-background via-background to-muted/20">
-      {/* Persistent Summary Bar */}
-      {currentStep !== 'welcome' && currentStep !== 'complete' && (
-        <div className="sticky top-0 z-40 bg-background/95 backdrop-blur-md border-b shadow-sm">
-          <div className="max-w-6xl mx-auto px-4 py-3">
-            {/* Progress Bar */}
-            <div className="mb-3">
-              <div className="flex items-center justify-between mb-2">
-                <div className="flex items-center gap-2">
-                  <Ship className="h-5 w-5 text-primary" />
-                  <h3 className="text-sm font-semibold">Cruise Booking</h3>
-                </div>
-                <span className="text-sm text-muted-foreground">
-                  Step {currentStepNumber} of {steps.length}: {steps.find(s => s.id === currentStep)?.label}
-                </span>
-              </div>
-              <Progress value={progress} className="h-2" />
-            </div>
-
-            {/* Summary Info */}
-            <div className="flex flex-wrap gap-3 text-sm">
-              {formData.eventTypeLabel && (
-                <Badge variant="secondary" className="flex items-center gap-1.5 py-1 px-2">
-                  <span>{eventTypes.find(t => t.id === formData.eventType)?.emoji}</span>
-                  <span>{formData.eventTypeLabel}</span>
-                </Badge>
-              )}
-              
-              {formData.firstName && formData.lastName && (
-                <Badge variant="outline" className="flex items-center gap-1.5 py-1 px-2">
-                  <User className="h-3.5 w-3.5" />
-                  <span>{formData.firstName} {formData.lastName}</span>
-                </Badge>
-              )}
-              
-              {formData.email && (
-                <Badge variant="outline" className="flex items-center gap-1.5 py-1 px-2">
-                  <Mail className="h-3.5 w-3.5" />
-                  <span className="truncate max-w-[200px]">{formData.email}</span>
-                </Badge>
-              )}
-              
-              {formData.eventDate && (
-                <Badge variant="outline" className="flex items-center gap-1.5 py-1 px-2">
-                  <CalendarIcon className="h-3.5 w-3.5" />
-                  <span>{format(formData.eventDate, 'MMM dd, yyyy')}</span>
-                </Badge>
-              )}
-              
-              {formData.preferredTimeLabel && (
-                <Badge variant="outline" className="flex items-center gap-1.5 py-1 px-2">
-                  <Clock className="h-3.5 w-3.5" />
-                  <span>{formData.preferredTimeLabel}</span>
-                </Badge>
-              )}
-              
-              {formData.groupSize && (
-                <Badge variant="outline" className="flex items-center gap-1.5 py-1 px-2">
-                  <Users className="h-3.5 w-3.5" />
-                  <span>{formData.groupSize} guests</span>
-                </Badge>
-              )}
-              
-              {pricing && (
-                <Badge className="ml-auto flex items-center gap-1.5 py-1 px-3 bg-primary">
-                  <DollarSign className="h-3.5 w-3.5" />
-                  <span className="font-bold">
-                    {formatCurrency(pricing.total)}
-                  </span>
-                </Badge>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-
-
-      {/* Main Content */}
-      <div className={cn(
-        "flex items-center justify-center p-4",
-        currentStep === 'welcome' || currentStep === 'complete' ? "min-h-screen" : "min-h-[calc(100vh-100px)]"
-      )}>
-        {/* Welcome Step - Full Screen Event Selection */}
-        {currentStep === 'welcome' && (
-          <div className="w-full max-w-6xl">
-            <div className="text-center mb-8">
-              <div className="flex justify-center mb-6">
-                <div className="w-24 h-24 bg-primary/10 rounded-full flex items-center justify-center animate-pulse">
-                  <Ship className="h-12 w-12 text-primary" />
-                </div>
-              </div>
-              <h1 className="text-5xl font-bold bg-gradient-to-r from-primary to-primary/60 bg-clip-text text-transparent mb-3">
-                AI Cruise Booking Assistant
-              </h1>
-              <p className="text-xl text-muted-foreground">
-                Let's plan your perfect cruise experience
-              </p>
-            </div>
-
-            <div className="space-y-6">
-              <div className="text-center">
-                <h2 className="text-2xl font-semibold mb-2">What type of event are you planning?</h2>
-                <p className="text-muted-foreground">Select the option that best describes your celebration</p>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex flex-col">
+      
+      {/* Condensed Header - Shows completed selections */}
+      <AnimatePresence>
+        {completedSelections.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: 'auto' }}
+            className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 shadow-sm"
+          >
+            <div className="max-w-4xl mx-auto px-6 py-4">
+              <div className="flex items-center gap-2 mb-3">
+                <Ship className="h-5 w-5 text-blue-600" />
+                <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">Cruise Booking Progress</h3>
               </div>
               
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {eventTypes.map((type) => (
-                  <Button
-                    key={type.id}
-                    variant="outline"
-                    className="h-32 flex flex-col gap-2 hover:scale-105 transition-all hover:border-primary hover:shadow-lg group relative overflow-hidden"
-                    onClick={() => handleEventTypeSelect(type.id, type.label)}
-                    data-testid={`button-event-${type.id}`}
+              <div className="flex flex-wrap gap-3">
+                <AnimatePresence>
+                  {completedSelections.map((selection, index) => (
+                    <motion.div
+                      key={selection.id}
+                      initial={{ opacity: 0, scale: 0.8, y: 20 }}
+                      animate={{ opacity: 1, scale: 1, y: 0 }}
+                      transition={{ delay: index * 0.1, duration: 0.4 }}
+                    >
+                      <Badge 
+                        variant="secondary" 
+                        className="flex items-center gap-2 py-2 px-3 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300"
+                      >
+                        {selection.emoji && <span className="text-sm">{selection.emoji}</span>}
+                        {selection.icon && getIconComponent(selection.icon, 14)}
+                        <span className="font-medium">{selection.label}:</span>
+                        <span>{selection.value}</span>
+                      </Badge>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+                
+                {pricing && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: 0.3 }}
                   >
-                    <div className="absolute inset-0 bg-gradient-to-b from-primary/0 to-primary/5 group-hover:to-primary/10 transition-all" />
-                    <span className="text-3xl mb-1">{type.emoji}</span>
-                    <span className="font-semibold">{type.label}</span>
-                    <span className="text-xs text-muted-foreground">{type.description}</span>
-                  </Button>
-                ))}
+                    <Badge className="ml-auto flex items-center gap-2 py-2 px-4 bg-green-600 dark:bg-green-700">
+                      <DollarSign className="h-4 w-4" />
+                      <span className="font-bold">{formatCurrency(pricing.total)}</span>
+                    </Badge>
+                  </motion.div>
+                )}
               </div>
             </div>
-          </div>
+          </motion.div>
         )}
+      </AnimatePresence>
 
-        {/* Contact Info Step */}
-        {currentStep === 'contact-info' && (
-          <Card className="w-full max-w-2xl">
-            <CardHeader>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setCurrentStep('welcome')}
-                className="w-fit mb-2"
-                data-testid="button-back"
+      {/* Main Content Area - Centered */}
+      <div className="flex-1 flex items-center justify-center p-6">
+        <div className="w-full max-w-4xl">
+          
+          <AnimatePresence mode="wait">
+            
+            {/* Event Type Selection */}
+            {currentQuestion === 'event-type' && (
+              <motion.div
+                key="event-type"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="text-center space-y-8"
               >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
-              </Button>
-              <CardTitle className="text-2xl">Let's get to know you</CardTitle>
-              <CardDescription>We'll use this information to send you your quote</CardDescription>
-            </CardHeader>
-            <CardContent>
-              <form onSubmit={handleContactSubmit} className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div className="space-y-2">
-                    <Label htmlFor="firstName">First Name *</Label>
-                    <Input
-                      id="firstName"
-                      value={formData.firstName}
-                      onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                      required
-                      placeholder="John"
-                      data-testid="input-first-name"
-                    />
-                  </div>
-                  <div className="space-y-2">
-                    <Label htmlFor="lastName">Last Name *</Label>
-                    <Input
-                      id="lastName"
-                      value={formData.lastName}
-                      onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                      required
-                      placeholder="Doe"
-                      data-testid="input-last-name"
-                    />
-                  </div>
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email">Email Address *</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    required
-                    placeholder="john.doe@example.com"
-                    data-testid="input-email"
-                  />
-                </div>
-                <div className="space-y-2">
-                  <Label htmlFor="phone">Phone Number (Optional)</Label>
-                  <Input
-                    id="phone"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    placeholder="(555) 123-4567"
-                    data-testid="input-phone"
-                  />
-                  <p className="text-xs text-muted-foreground">We'll text you updates about your booking</p>
-                </div>
-                <Button type="submit" className="w-full" size="lg" data-testid="button-continue">
-                  Continue
-                  <ChevronRight className="h-4 w-4 ml-2" />
-                </Button>
-              </form>
-            </CardContent>
-          </Card>
-        )}
-
-        {/* Date Selection Step */}
-        {currentStep === 'date-selection' && (
-          <div className="w-full max-w-5xl">
-            <div className="text-center mb-8">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setCurrentStep('contact-info')}
-                className="mb-4"
-                data-testid="button-back-date"
-              >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
-              </Button>
-              <h2 className="text-3xl font-bold mb-2">Select Your Cruise Date</h2>
-              <p className="text-muted-foreground text-lg">Choose an available date for your event</p>
-            </div>
-
-            <div className="flex items-center justify-center">
-              <div className="w-full max-w-3xl">
-                <Calendar
-                  mode="single"
-                  selected={formData.eventDate}
-                  onSelect={handleDateSelect}
-                  disabled={(date) => !isDateAvailable(date)}
-                  className="rounded-lg border shadow-lg p-8 bg-card scale-110 transform mx-auto"
-                  classNames={{
-                    months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
-                    month: "space-y-4",
-                    caption: "flex justify-center pt-1 relative items-center text-lg font-semibold",
-                    caption_label: "text-lg font-semibold",
-                    nav: "space-x-1 flex items-center",
-                    nav_button: "h-9 w-9 bg-transparent p-0 opacity-50 hover:opacity-100",
-                    nav_button_previous: "absolute left-1",
-                    nav_button_next: "absolute right-1",
-                    table: "w-full border-collapse space-y-1",
-                    head_row: "flex",
-                    head_cell: "text-muted-foreground rounded-md w-14 font-normal text-sm",
-                    row: "flex w-full mt-2",
-                    cell: "h-14 w-14 text-center text-sm p-0 relative",
-                    day: "h-14 w-14 p-0 font-normal aria-selected:opacity-100 hover:bg-accent hover:text-accent-foreground",
-                    day_selected: "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground focus:bg-primary focus:text-primary-foreground",
-                    day_today: "bg-accent text-accent-foreground font-bold",
-                    day_outside: "text-muted-foreground opacity-50",
-                    day_disabled: "text-muted-foreground opacity-50 cursor-not-allowed",
-                    day_hidden: "invisible",
-                  }}
-                />
-                <div className="mt-6 text-center space-y-2">
-                  <p className="text-sm text-muted-foreground">
-                    Available dates are highlighted. Select a date to continue.
+                <div className="space-y-4">
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.6 }}
+                    className="w-20 h-20 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto"
+                  >
+                    <Ship className="h-10 w-10 text-blue-600" />
+                  </motion.div>
+                  
+                  <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    AI Cruise Booking
+                  </h1>
+                  <p className="text-xl text-slate-600 dark:text-slate-400">
+                    What type of event are you planning?
                   </p>
-                  {formData.eventDate && (
-                    <p className="text-lg font-medium text-primary">
-                      Selected: {format(formData.eventDate, 'EEEE, MMMM d, yyyy')}
-                    </p>
-                  )}
                 </div>
-              </div>
-            </div>
-          </div>
-        )}
 
-        {/* Event Details & Booking Step */}
-        {currentStep === 'event-details' && (
-          <div className="w-full max-w-6xl space-y-6">
-            <div className="text-center">
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={() => setCurrentStep('date-selection')}
-                className="mb-4"
-                data-testid="button-back-details"
+                <motion.div 
+                  className="grid grid-cols-2 md:grid-cols-4 gap-4"
+                  variants={{
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.1
+                      }
+                    }
+                  }}
+                >
+                  {eventTypes.map((type, index) => (
+                    <motion.div
+                      key={type.id}
+                      variants={{
+                        hidden: { opacity: 0, y: 40 },
+                        visible: { opacity: 1, y: 0 }
+                      }}
+                    >
+                      <Button
+                        variant="outline"
+                        className="h-32 flex flex-col gap-3 hover:scale-105 transition-all hover:border-blue-500 hover:shadow-lg group relative overflow-hidden bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm"
+                        onClick={() => handleEventTypeSelect(type.id, type.label, type.emoji)}
+                        data-testid={`button-event-${type.id}`}
+                      >
+                        <div className="absolute inset-0 bg-gradient-to-b from-blue-50/0 to-blue-50/50 group-hover:to-blue-100/50 transition-all" />
+                        <span className="text-3xl mb-1">{type.emoji}</span>
+                        <span className="font-semibold text-slate-700 dark:text-slate-300">{type.label}</span>
+                        <span className="text-xs text-slate-500 dark:text-slate-400">{type.description}</span>
+                      </Button>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </motion.div>
+            )}
+
+            {/* Contact Information */}
+            {currentQuestion === 'contact-info' && (
+              <motion.div
+                key="contact-info"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="max-w-2xl mx-auto"
               >
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back
-              </Button>
-              <h2 className="text-3xl font-bold mb-2">Complete Your Booking</h2>
-              <p className="text-muted-foreground text-lg">Select your preferences and book your cruise</p>
-            </div>
-
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-              {/* Left Column - Time Slots & Group Size */}
-              <div className="lg:col-span-2 space-y-6">
-                {/* Time Selection Based on Day of Week */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-xl">Select Your Time Slot</CardTitle>
-                    <CardDescription>
-                      Available slots for {formData.eventDate ? format(formData.eventDate, 'EEEE, MMMM d') : 'your selected date'}
+                <Card className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-slate-200 dark:border-slate-700 shadow-xl">
+                  <CardHeader className="text-center">
+                    <CardTitle className="text-2xl text-slate-800 dark:text-slate-200">Let's get to know you</CardTitle>
+                    <CardDescription className="text-slate-600 dark:text-slate-400">
+                      We'll use this information to send you your quote
                     </CardDescription>
                   </CardHeader>
                   <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      {formData.eventDate && getTimeSlotsForDate(formData.eventDate).map((slot) => (
-                        <Button
-                          key={slot.id}
-                          type="button"
-                          variant={formData.preferredTime === slot.id ? "default" : "outline"}
-                          className={cn(
-                            "h-20 flex flex-col items-center justify-center gap-1 relative",
-                            slot.popular && "border-primary"
-                          )}
-                          onClick={() => {
-                            setFormData({ ...formData, preferredTime: slot.id, preferredTimeLabel: slot.label });
-                          }}
-                          data-testid={`button-time-${slot.id}`}
-                        >
-                          {slot.popular && (
-                            <Badge className="absolute top-1 right-1 text-xs" variant="secondary">
-                              Popular
-                            </Badge>
-                          )}
-                          <span className="text-2xl">{slot.icon}</span>
-                          <span className="font-medium">{slot.label}</span>
-                          <span className="text-xs text-muted-foreground">{slot.time}</span>
-                        </Button>
-                      ))}
-                    </div>
+                    <form onSubmit={handleContactSubmit} className="space-y-4">
+                      <div className="grid grid-cols-2 gap-4">
+                        <div className="space-y-2">
+                          <Label htmlFor="firstName" className="text-slate-700 dark:text-slate-300">First Name *</Label>
+                          <Input
+                            id="firstName"
+                            value={formData.firstName}
+                            onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                            required
+                            placeholder="John"
+                            className="bg-white/50 dark:bg-slate-700/50"
+                            data-testid="input-first-name"
+                          />
+                        </div>
+                        <div className="space-y-2">
+                          <Label htmlFor="lastName" className="text-slate-700 dark:text-slate-300">Last Name *</Label>
+                          <Input
+                            id="lastName"
+                            value={formData.lastName}
+                            onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                            required
+                            placeholder="Doe"
+                            className="bg-white/50 dark:bg-slate-700/50"
+                            data-testid="input-last-name"
+                          />
+                        </div>
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="email" className="text-slate-700 dark:text-slate-300">Email Address *</Label>
+                        <Input
+                          id="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          required
+                          placeholder="john.doe@example.com"
+                          className="bg-white/50 dark:bg-slate-700/50"
+                          data-testid="input-email"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label htmlFor="phone" className="text-slate-700 dark:text-slate-300">Phone Number (Optional)</Label>
+                        <Input
+                          id="phone"
+                          type="tel"
+                          value={formData.phone}
+                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          placeholder="(555) 123-4567"
+                          className="bg-white/50 dark:bg-slate-700/50"
+                          data-testid="input-phone"
+                        />
+                        <p className="text-xs text-slate-500 dark:text-slate-400">We'll text you updates about your booking</p>
+                      </div>
+                      <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700" size="lg" data-testid="button-continue">
+                        Continue
+                        <ChevronRight className="h-4 w-4 ml-2" />
+                      </Button>
+                    </form>
                   </CardContent>
                 </Card>
+              </motion.div>
+            )}
 
-                {/* Group Size Selection */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-xl">How Many Guests?</CardTitle>
-                    <CardDescription>Select the size of your party</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-                      {groupSizeOptions.map((option) => (
-                        <Button
-                          key={option.value}
-                          type="button"
-                          variant={formData.groupSize === option.value ? "default" : "outline"}
-                          className="h-20 flex flex-col items-center justify-center gap-1"
-                          onClick={() => setFormData({ ...formData, groupSize: option.value })}
-                          data-testid={`button-size-${option.value}`}
-                        >
-                          <span className="text-lg font-bold">{option.label}</span>
-                          <span className="text-xs text-muted-foreground">{option.description}</span>
-                        </Button>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
+            {/* Date Selection */}
+            {currentQuestion === 'date-selection' && (
+              <motion.div
+                key="date-selection"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="text-center space-y-8"
+              >
+                <div>
+                  <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">Select Your Cruise Date</h2>
+                  <p className="text-slate-600 dark:text-slate-400 text-lg">Choose an available date for your event</p>
+                </div>
 
-                {/* Special Requests */}
-                <Card>
-                  <CardHeader>
-                    <CardTitle className="text-xl">Special Requests</CardTitle>
-                    <CardDescription>Optional - Let us know about any special needs</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <Textarea
-                      value={formData.specialRequests}
-                      onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
-                      placeholder="Tell us about any special requirements, dietary restrictions, or celebration details..."
-                      rows={3}
-                      className="resize-none"
-                      data-testid="textarea-special-requests"
+                <div className="flex justify-center">
+                  <motion.div
+                    initial={{ scale: 0.9, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                    className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-xl p-6"
+                  >
+                    <Calendar
+                      mode="single"
+                      selected={formData.eventDate}
+                      onSelect={handleDateSelect}
+                      disabled={(date) => !isDateAvailable(date)}
+                      className="mx-auto"
+                      classNames={{
+                        months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
+                        month: "space-y-4",
+                        caption: "flex justify-center pt-1 relative items-center text-lg font-semibold",
+                        caption_label: "text-lg font-semibold",
+                        nav: "space-x-1 flex items-center",
+                        nav_button: "h-9 w-9 bg-transparent p-0 opacity-50 hover:opacity-100",
+                        nav_button_previous: "absolute left-1",
+                        nav_button_next: "absolute right-1",
+                        table: "w-full border-collapse space-y-1",
+                        head_row: "flex",
+                        head_cell: "text-slate-500 dark:text-slate-400 rounded-md w-12 font-normal text-sm",
+                        row: "flex w-full mt-2",
+                        cell: "h-12 w-12 text-center text-sm p-0 relative",
+                        day: "h-12 w-12 p-0 font-normal aria-selected:opacity-100 hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-blue-800 dark:hover:text-blue-200 rounded-md transition-colors",
+                        day_selected: "bg-blue-600 text-white hover:bg-blue-700 hover:text-white focus:bg-blue-600 focus:text-white",
+                        day_today: "bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold",
+                        day_outside: "text-slate-400 dark:text-slate-600 opacity-50",
+                        day_disabled: "text-slate-300 dark:text-slate-700 opacity-50 cursor-not-allowed",
+                        day_hidden: "invisible",
+                      }}
                     />
-                  </CardContent>
-                </Card>
-              </div>
+                  </motion.div>
+                </div>
+                
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  Click on an available date to continue
+                </p>
+              </motion.div>
+            )}
 
-              {/* Right Column - Pricing & Booking */}
-              <div className="space-y-6">
-                {/* Live Pricing Display */}
-                {pricing && pricing.breakdown && (
-                  <Card className="sticky top-24">
-                    <CardHeader>
-                      <CardTitle className="text-xl flex items-center gap-2">
-                        <Sparkles className="h-5 w-5 text-primary" />
-                        Your Quote
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="space-y-2 text-sm">
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Vessel:</span>
-                          <span className="font-medium">{pricing.breakdown.boatType}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Duration:</span>
-                          <span className="font-medium">{pricing.breakdown.cruiseDuration} hours</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Base Price:</span>
-                          <span>{formatCurrency(pricing.breakdown.baseCruiseCost * 100)}</span>
-                        </div>
-                        {pricing.breakdown.crewFee > 0 && (
-                          <div className="flex justify-between">
-                            <span className="text-muted-foreground">Crew Fee:</span>
-                            <span>{formatCurrency(pricing.breakdown.crewFee * 100)}</span>
-                          </div>
+            {/* Time Selection */}
+            {currentQuestion === 'time-selection' && formData.eventDate && (
+              <motion.div
+                key="time-selection"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="text-center space-y-8"
+              >
+                <div>
+                  <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">Select Your Time Slot</h2>
+                  <p className="text-slate-600 dark:text-slate-400 text-lg">
+                    Available times for {format(formData.eventDate, 'EEEE, MMMM d')}
+                  </p>
+                </div>
+
+                <motion.div 
+                  className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto"
+                  variants={{
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.1
+                      }
+                    }
+                  }}
+                >
+                  {getTimeSlotsForDate(formData.eventDate).map((slot, index) => (
+                    <motion.div
+                      key={slot.id}
+                      variants={{
+                        hidden: { opacity: 0, y: 40 },
+                        visible: { opacity: 1, y: 0 }
+                      }}
+                    >
+                      <Button
+                        variant="outline"
+                        className={cn(
+                          "h-20 flex flex-col items-center justify-center gap-2 relative bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm hover:scale-105 transition-all",
+                          slot.popular && "border-blue-500 bg-blue-50/70 dark:bg-blue-900/30"
                         )}
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Gratuity (20%):</span>
-                          <span>{formatCurrency(pricing.breakdown.gratuityAmount * 100)}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span className="text-muted-foreground">Tax (8.25%):</span>
-                          <span>{formatCurrency(pricing.breakdown.taxAmount * 100)}</span>
-                        </div>
-                      </div>
+                        onClick={() => handleTimeSelect(slot.id, slot.label, slot.icon)}
+                        data-testid={`button-time-${slot.id}`}
+                      >
+                        {slot.popular && (
+                          <Badge className="absolute top-2 right-2 text-xs bg-blue-600" variant="default">
+                            Popular
+                          </Badge>
+                        )}
+                        <span className="text-2xl">{slot.icon}</span>
+                        <span className="font-semibold text-slate-700 dark:text-slate-300">{slot.label}</span>
+                      </Button>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </motion.div>
+            )}
 
-                      <Separator />
+            {/* Group Size Selection */}
+            {currentQuestion === 'group-size' && (
+              <motion.div
+                key="group-size"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="text-center space-y-8"
+              >
+                <div>
+                  <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">How many guests?</h2>
+                  <p className="text-slate-600 dark:text-slate-400 text-lg">Select your group size</p>
+                </div>
 
-                      <div className="text-center space-y-2">
-                        <p className="text-2xl font-bold">{formatCurrency(pricing.total)}</p>
-                        <p className="text-sm text-muted-foreground">
-                          {formatCurrency(pricing.perPersonCost)} per person
+                <motion.div 
+                  className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto"
+                  variants={{
+                    visible: {
+                      transition: {
+                        staggerChildren: 0.1
+                      }
+                    }
+                  }}
+                >
+                  {groupSizeOptions.map((option, index) => (
+                    <motion.div
+                      key={option.value}
+                      variants={{
+                        hidden: { opacity: 0, y: 40 },
+                        visible: { opacity: 1, y: 0 }
+                      }}
+                    >
+                      <Button
+                        variant="outline"
+                        className="h-24 flex flex-col items-center justify-center gap-2 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm hover:scale-105 transition-all hover:border-blue-500 hover:shadow-lg"
+                        onClick={() => handleGroupSizeSelect(option.value, option.label, option.description)}
+                        data-testid={`button-group-${option.value}`}
+                      >
+                        <Users className="h-6 w-6 text-blue-600" />
+                        <span className="font-semibold text-slate-700 dark:text-slate-300">{option.label}</span>
+                        <span className="text-xs text-slate-500 dark:text-slate-400">{option.description}</span>
+                      </Button>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </motion.div>
+            )}
+
+            {/* Final Review & Booking */}
+            {currentQuestion === 'final-review' && pricing && (
+              <motion.div
+                key="final-review"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="max-w-3xl mx-auto space-y-8"
+              >
+                <div className="text-center">
+                  <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">Your Cruise Details</h2>
+                  <p className="text-slate-600 dark:text-slate-400 text-lg">Review and book your perfect cruise experience</p>
+                </div>
+
+                <Card className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-slate-200 dark:border-slate-700 shadow-xl">
+                  <CardContent className="p-8">
+                    
+                    {/* Pricing Breakdown */}
+                    <div className="space-y-6">
+                      <div className="text-center p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-xl">
+                        <div className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">
+                          {formatCurrency(pricing.total)}
+                        </div>
+                        <p className="text-slate-600 dark:text-slate-400">
+                          Total Cost • {formatCurrency(pricing.perPersonCost)} per person
                         </p>
-                        <Badge variant="secondary">
-                          {pricing.depositPercent}% Deposit: {formatCurrency(pricing.depositAmount)}
-                        </Badge>
                       </div>
 
-                      {pricing.urgencyMessage && (
-                        <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-3">
-                          <p className="text-sm text-amber-600 dark:text-amber-400">
-                            {pricing.urgencyMessage}
+                      {/* Special Requests */}
+                      <div className="space-y-3">
+                        <Label htmlFor="specialRequests" className="text-slate-700 dark:text-slate-300">
+                          Special Requests (Optional)
+                        </Label>
+                        <Textarea
+                          id="specialRequests"
+                          value={formData.specialRequests}
+                          onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
+                          placeholder="Any special requirements, dietary restrictions, or requests..."
+                          className="bg-white/50 dark:bg-slate-700/50 resize-none"
+                          rows={3}
+                          data-testid="textarea-special-requests"
+                        />
+                      </div>
+
+                      {/* Action Buttons */}
+                      <div className="space-y-4">
+                        <div className="text-center">
+                          <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                            Choose how you'd like to proceed
                           </p>
                         </div>
-                      )}
-
-                      <div className="space-y-3">
-                        {/* Dual Payment Buttons */}
-                        <div className="grid grid-cols-2 gap-2">
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                          <Button
+                            onClick={handleSendQuote}
+                            disabled={createLead.isPending}
+                            className="h-16 flex flex-col gap-1 bg-blue-600 hover:bg-blue-700"
+                            data-testid="button-send-quote"
+                          >
+                            <Mail className="h-5 w-5" />
+                            <span className="font-semibold">Send My Quote</span>
+                            <span className="text-xs opacity-90">Get detailed quote</span>
+                          </Button>
+                          
                           <Button
                             onClick={() => createDepositPayment.mutate()}
-                            disabled={!formData.eventDate || !formData.preferredTime || !formData.groupSize || createDepositPayment.isPending}
-                            className="text-xs"
+                            disabled={createDepositPayment.isPending}
+                            variant="outline"
+                            className="h-16 flex flex-col gap-1 bg-green-50 dark:bg-green-900/30 border-green-300 dark:border-green-700 hover:bg-green-100 dark:hover:bg-green-900/50"
                             data-testid="button-pay-deposit"
                           >
-                            {createDepositPayment.isPending ? 'Processing...' : `Pay Deposit`}
+                            <CreditCard className="h-5 w-5" />
+                            <span className="font-semibold">Pay Deposit</span>
+                            <span className="text-xs opacity-90">{formatCurrency(pricing.depositAmount)}</span>
                           </Button>
+                          
                           <Button
                             onClick={() => createFullPayment.mutate()}
-                            disabled={!formData.eventDate || !formData.preferredTime || !formData.groupSize || createFullPayment.isPending}
+                            disabled={createFullPayment.isPending}
                             variant="outline"
-                            className="text-xs"
+                            className="h-16 flex flex-col gap-1 bg-purple-50 dark:bg-purple-900/30 border-purple-300 dark:border-purple-700 hover:bg-purple-100 dark:hover:bg-purple-900/50"
                             data-testid="button-pay-full"
                           >
-                            {createFullPayment.isPending ? 'Processing...' : 'Pay in Full'}
+                            <Sparkles className="h-5 w-5" />
+                            <span className="font-semibold">Pay in Full</span>
+                            <span className="text-xs opacity-90">{formatCurrency(pricing.total)}</span>
                           </Button>
                         </div>
-
-                        <Separator />
-
-                        {/* Send Quote Button */}
-                        <Button
-                          onClick={handleSendQuote}
-                          disabled={!formData.eventDate || !formData.preferredTime || !formData.groupSize || createLead.isPending}
-                          className="w-full"
-                          variant="default"
-                          data-testid="button-send-quote"
-                        >
-                          {createLead.isPending ? (
-                            <span className="animate-pulse">Sending Quote...</span>
-                          ) : (
-                            <>Send My Quote</>  
-                          )}
-                        </Button>
+                        
+                        <p className="text-xs text-center text-slate-500 dark:text-slate-400">
+                          Secure payment powered by Stripe • Full refund if cancelled 48+ hours in advance
+                        </p>
                       </div>
-                    </CardContent>
-                  </Card>
-                )}
-
-                {!pricing && formData.eventDate && formData.preferredTime && formData.groupSize && (
-                  <Card>
-                    <CardContent className="pt-6">
-                      <div className="text-center space-y-2">
-                        <div className="animate-pulse">
-                          <div className="h-4 bg-muted rounded w-3/4 mx-auto mb-2"></div>
-                          <div className="h-8 bg-muted rounded w-1/2 mx-auto"></div>
-                        </div>
-                        <p className="text-sm text-muted-foreground">Calculating pricing...</p>
-                      </div>
-                    </CardContent>
-                  </Card>
-                )}
-              </div>
-            </div>
-          </div>
-
-        )}
-
-
-        {/* Confirmation Step */}
-        {currentStep === 'complete' && (
-          <div className="w-full max-w-5xl space-y-8">
-            {/* Large Success Header */}
-            <div className="text-center space-y-6">
-              <div className="w-24 h-24 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto">
-                <Check className="h-12 w-12 text-green-600" />
-              </div>
-              
-              <div className="space-y-3">
-                <h1 className="text-4xl font-bold text-center">We Have Sent You Your Quote Via Email And Text</h1>
-                <p className="text-lg text-muted-foreground">
-                  Check your inbox and messages for the complete interactive quote with booking link.
-                </p>
-              </div>
-
-              <div className="flex items-center justify-center gap-4 text-sm">
-                <Badge variant="secondary" className="gap-1 py-2 px-3">
-                  <Mail className="h-4 w-4" />
-                  Email sent to {formData.email}
-                </Badge>
-                {formData.phone && (
-                  <Badge variant="secondary" className="gap-1 py-2 px-3">
-                    <Phone className="h-4 w-4" />
-                    SMS sent to {formData.phone}
-                  </Badge>
-                )}
-              </div>
-            </div>
-
-            {/* Complete Booking Summary */}
-            <div className="grid md:grid-cols-3 gap-6">
-              {/* Event Details */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    <CalendarIcon className="h-5 w-5" />
-                    Event Details
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Event</span>
-                    <span className="font-medium">{formData.eventTypeLabel}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Date</span>
-                    <span className="font-medium">
-                      {formData.eventDate ? format(formData.eventDate, 'MMM dd, yyyy') : 'TBD'}
-                    </span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Time</span>
-                    <span className="font-medium">{formData.preferredTimeLabel}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Guests</span>
-                    <span className="font-medium">{formData.groupSize}</span>
-                  </div>
-                  {formData.specialRequests && (
-                    <div className="pt-2 border-t">
-                      <span className="text-muted-foreground text-sm">Special Requests</span>
-                      <p className="text-sm mt-1">{formData.specialRequests}</p>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-
-              {/* Contact Info */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg flex items-center gap-2">
-                    <User className="h-5 w-5" />
-                    Contact Info
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-3">
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Name</span>
-                    <span className="font-medium">{formData.firstName} {formData.lastName}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-muted-foreground">Email</span>
-                    <span className="font-medium text-xs">{formData.email}</span>
-                  </div>
-                  {formData.phone && (
-                    <div className="flex justify-between">
-                      <span className="text-muted-foreground">Phone</span>
-                      <span className="font-medium">{formData.phone}</span>
-                    </div>
-                  )}
-                </CardContent>
-              </Card>
-
-              {/* Pricing Summary */}
-              {pricing && (
-                <Card className="bg-gradient-to-r from-primary/5 to-blue-500/5 border-primary/20">
-                  <CardHeader>
-                    <CardTitle className="text-lg flex items-center gap-2">
-                      <DollarSign className="h-5 w-5" />
-                      Pricing Summary
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="space-y-3">
-                      <div className="flex justify-between text-lg">
-                        <span>Total</span>
-                        <span className="font-bold">{formatCurrency(pricing.total)}</span>
-                      </div>
-                      <div className="flex justify-between text-primary font-semibold">
-                        <span>Deposit Required ({pricing.depositPercent}%)</span>
-                        <span>{formatCurrency(pricing.depositAmount)}</span>
-                      </div>
-                      <div className="flex justify-between text-muted-foreground">
-                        <span>Remaining Balance</span>
-                        <span>{formatCurrency(pricing.total - pricing.depositAmount)}</span>
-                      </div>
-                      
-                      {pricing.breakdown && (
-                        <div className="pt-4 border-t space-y-2 text-sm">
-                          <div className="flex justify-between">
-                            <span>Base Cruise Cost</span>
-                            <span>{formatCurrency(pricing.breakdown.baseCruiseCost * 100)}</span>
-                          </div>
-                          {pricing.breakdown.crewFee > 0 && (
-                            <div className="flex justify-between">
-                              <span>Additional Crew Fee</span>
-                              <span>{formatCurrency(pricing.breakdown.crewFee * 100)}</span>
-                            </div>
-                          )}
-                          <div className="flex justify-between">
-                            <span>Tax</span>
-                            <span>{formatCurrency(pricing.tax)}</span>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>Gratuity</span>
-                            <span>{formatCurrency(pricing.gratuity)}</span>
-                          </div>
-                        </div>
-                      )}
                     </div>
                   </CardContent>
                 </Card>
-              )}
-            </div>
+              </motion.div>
+            )}
 
-            {/* Dual Payment Buttons Section */}
-            <div className="text-center space-y-4">
-              <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
-                <Button
-                  onClick={() => createDepositPayment.mutate()}
-                  size="lg"
-                  className="h-14 text-sm font-semibold"
-                  disabled={createDepositPayment.isPending}
-                  data-testid="button-book-deposit"
+            {/* Success/Complete State */}
+            {currentQuestion === 'complete' && (
+              <motion.div
+                key="complete"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+                className="text-center space-y-8 max-w-2xl mx-auto"
+              >
+                <motion.div
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  transition={{ delay: 0.3, type: "spring", stiffness: 200 }}
+                  className="w-24 h-24 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mx-auto"
                 >
-                  {createDepositPayment.isPending ? (
-                    <>Processing...</>
-                  ) : (
-                    <>
-                      <CreditCard className="h-4 w-4 mr-2" />
-                      Pay Deposit
-                      {pricing && (
-                        <span className="text-xs block">{formatCurrency(pricing.depositAmount)}</span>
-                      )}
-                    </>
-                  )}
-                </Button>
+                  <Check className="h-12 w-12 text-green-600" />
+                </motion.div>
                 
-                <Button
-                  onClick={() => createFullPayment.mutate()}
-                  size="lg"
-                  variant="outline"
-                  className="h-14 text-sm font-semibold"
-                  disabled={createFullPayment.isPending}
-                  data-testid="button-book-full"
-                >
-                  {createFullPayment.isPending ? (
-                    <>Processing...</>
-                  ) : (
-                    <>
-                      <CreditCard className="h-4 w-4 mr-2" />
-                      Pay in Full
-                      {pricing && (
-                        <span className="text-xs block">{formatCurrency(pricing.total)}</span>
-                      )}
-                    </>
-                  )}
-                </Button>
-              </div>
-              
-              <p className="text-sm text-muted-foreground max-w-md mx-auto">
-                Secure your booking immediately with payment, or we'll send you a detailed quote to review first.
-              </p>
-            </div>
+                <div>
+                  <h1 className="text-4xl font-bold text-slate-800 dark:text-slate-200 mb-4">
+                    Quote Sent Successfully!
+                  </h1>
+                  <p className="text-xl text-slate-600 dark:text-slate-400 mb-6">
+                    Check your email and text messages for your interactive quote with all the details.
+                  </p>
+                  
+                  <Card className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-slate-200 dark:border-slate-700 shadow-lg">
+                    <CardContent className="p-6">
+                      <h3 className="font-semibold text-slate-800 dark:text-slate-200 mb-3">What's Next?</h3>
+                      <ul className="text-left space-y-2 text-slate-600 dark:text-slate-400">
+                        <li className="flex items-center gap-3">
+                          <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                          You'll receive a detailed quote via email and SMS
+                        </li>
+                        <li className="flex items-center gap-3">
+                          <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                          Our team will contact you within 24 hours
+                        </li>
+                        <li className="flex items-center gap-3">
+                          <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                          You can modify or confirm your booking anytime
+                        </li>
+                      </ul>
+                    </CardContent>
+                  </Card>
+                </div>
+              </motion.div>
+            )}
 
-            {/* What Happens Next */}
-            <Card className="bg-muted/30">
-              <CardHeader>
-                <CardTitle className="text-lg flex items-center gap-2">
-                  <Clock className="h-5 w-5" />
-                  What Happens Next?
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <ol className="space-y-3 text-sm">
-                  <li className="flex gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold">1</span>
-                    <span>Our team will confirm your availability within 24 hours and reach out with any questions</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold">2</span>
-                    <span>If you book now, we'll secure your date immediately with the deposit payment</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold">3</span>
-                    <span>We'll work with you to plan every detail of your perfect cruise experience</span>
-                  </li>
-                  <li className="flex gap-3">
-                    <span className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold">4</span>
-                    <span>The remaining balance is due 2 weeks before your event</span>
-                  </li>
-                </ol>
-              </CardContent>
-            </Card>
-
-            {/* Action Buttons */}
-            <div className="flex gap-3 pt-4">
-              <Button
-                variant="outline"
-                onClick={() => {
-                  setCurrentStep('welcome');
-                  setPricing(null);
-                  setFormData({
-                    eventType: '',
-                    eventTypeLabel: '',
-                    firstName: '',
-                    lastName: '',
-                    email: '',
-                    phone: '',
-                    eventDate: undefined,
-                    preferredTime: '',
-                    preferredTimeLabel: '',
-                    groupSize: '',
-                    specialRequests: '',
-                    budget: '',
-                  });
-                }}
-                className="flex-1"
-                data-testid="button-start-over"
-              >
-                Book Another Cruise
-              </Button>
-              <Button
-                onClick={() => window.location.href = '/'}
-                variant="outline"
-                className="flex-1"
-                data-testid="button-go-home"
-              >
-                Go to Dashboard
-              </Button>
-            </div>
-          </div>
-        )}
+          </AnimatePresence>
+        </div>
       </div>
     </div>
   );
