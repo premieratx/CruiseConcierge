@@ -1,14 +1,15 @@
-import { useState } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useState, useEffect } from 'react';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest, queryClient } from '@/lib/queryClient';
-import { Ship, ChevronRight, ArrowLeft } from 'lucide-react';
+import { Ship, ChevronRight, ArrowLeft, DollarSign, Users, Calendar, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import type { InsertContact, InsertProject } from '@shared/schema';
+import { Separator } from '@/components/ui/separator';
+import type { InsertContact, InsertProject, PricingPreview } from '@shared/schema';
 
 type ChatStep = 'welcome' | 'contact-info' | 'event-details' | 'complete';
 
@@ -31,6 +32,7 @@ const timeSlots = [
 
 export default function Chat() {
   const [currentStep, setCurrentStep] = useState<ChatStep>('welcome');
+  const [pricing, setPricing] = useState<PricingPreview | null>(null);
   const [formData, setFormData] = useState({
     eventType: '',
     firstName: '',
@@ -45,6 +47,27 @@ export default function Chat() {
   });
   const { toast } = useToast();
 
+  // Fetch pricing when date, time, and group size are selected
+  useEffect(() => {
+    if (formData.eventDate && formData.preferredTime && formData.groupSize) {
+      fetchPricing();
+    }
+  }, [formData.eventDate, formData.preferredTime, formData.groupSize]);
+
+  const fetchPricing = async () => {
+    try {
+      const response = await apiRequest('/api/pricing/cruise', 'POST', {
+        groupSize: formData.groupSize,
+        eventDate: formData.eventDate,
+        timeSlot: formData.preferredTime,
+      });
+      setPricing(response);
+    } catch (error) {
+      console.error('Failed to fetch pricing:', error);
+      setPricing(null);
+    }
+  };
+
   // Create lead mutation
   const createLead = useMutation({
     mutationFn: async (data: typeof formData) => {
@@ -57,7 +80,7 @@ export default function Chat() {
       
       const contactResponse = await apiRequest('/api/contacts', 'POST', contact);
       
-      // Then create the project
+      // Then create the project with pricing info
       const project: InsertProject = {
         contactId: contactResponse.id,
         title: `${data.eventType} Party - ${data.firstName} ${data.lastName}`,
@@ -66,7 +89,7 @@ export default function Chat() {
         eventType: data.eventType,
         specialRequests: data.specialRequests || undefined,
         preferredTime: data.preferredTime || undefined,
-        budget: data.budget ? Math.round(parseFloat(data.budget) * 100) : undefined,
+        budget: pricing?.total || (data.budget ? Math.round(parseFloat(data.budget) * 100) : undefined),
         leadSource: 'chat',
       };
       
@@ -109,9 +132,16 @@ export default function Chat() {
     createLead.mutate(formData);
   };
 
+  const formatCurrency = (cents: number) => {
+    return new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+    }).format(cents / 100);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20 flex items-center justify-center p-4">
-      <Card className="w-full max-w-2xl">
+      <Card className="w-full max-w-3xl">
         <CardHeader className="text-center pb-8">
           <div className="flex justify-center mb-4">
             <div className="w-20 h-20 bg-primary/10 rounded-full flex items-center justify-center">
@@ -248,15 +278,16 @@ export default function Chat() {
                       value={formData.groupSize}
                       onChange={(e) => setFormData({ ...formData, groupSize: e.target.value })}
                       required
-                      min="10"
-                      max="150"
-                      placeholder="10-150 guests"
+                      min="1"
+                      max="75"
+                      placeholder="1-75 guests"
                       data-testid="input-group-size"
                     />
                   </div>
                 </div>
+                
                 <div className="space-y-2">
-                  <Label>Preferred Time</Label>
+                  <Label>Preferred Time *</Label>
                   <div className="grid grid-cols-2 gap-2">
                     {timeSlots.map((slot) => (
                       <Button
@@ -273,17 +304,93 @@ export default function Chat() {
                     ))}
                   </div>
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="budget">Estimated Budget (Optional)</Label>
-                  <Input
-                    id="budget"
-                    type="number"
-                    value={formData.budget}
-                    onChange={(e) => setFormData({ ...formData, budget: e.target.value })}
-                    placeholder="Enter amount in dollars"
-                    data-testid="input-budget"
-                  />
-                </div>
+
+                {/* Pricing Display */}
+                {pricing && pricing.breakdown && (
+                  <Card className="bg-primary/5 border-primary/20">
+                    <CardHeader className="pb-3">
+                      <CardTitle className="text-lg flex items-center gap-2">
+                        <DollarSign className="h-5 w-5" />
+                        Your Quote
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      {/* Boat Info */}
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">Vessel:</span>
+                        <span className="font-medium">{pricing.breakdown.boatType}</span>
+                      </div>
+                      
+                      {/* Date & Time */}
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">{pricing.breakdown.dayName}, 4-hour cruise:</span>
+                        <span>{formatCurrency(pricing.breakdown.baseCruiseCost * 100)}</span>
+                      </div>
+
+                      {/* Crew Fee if applicable */}
+                      {pricing.breakdown.crewFee > 0 && (
+                        <div className="flex items-center justify-between text-sm">
+                          <span className="text-muted-foreground">Additional Crew (Texas Law):</span>
+                          <span>{formatCurrency(pricing.breakdown.crewFee * 100)}</span>
+                        </div>
+                      )}
+
+                      <Separator />
+
+                      {/* Subtotal */}
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">Subtotal:</span>
+                        <span>{formatCurrency(pricing.breakdown.subtotalBeforeTax * 100)}</span>
+                      </div>
+
+                      {/* Gratuity */}
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">20% Gratuity:</span>
+                        <span>{formatCurrency(pricing.breakdown.gratuityAmount * 100)}</span>
+                      </div>
+
+                      {/* Tax */}
+                      <div className="flex items-center justify-between text-sm">
+                        <span className="text-muted-foreground">8.25% Texas Sales Tax:</span>
+                        <span>{formatCurrency(pricing.breakdown.taxAmount * 100)}</span>
+                      </div>
+
+                      <Separator />
+
+                      {/* Total */}
+                      <div className="flex items-center justify-between font-bold">
+                        <span>Total:</span>
+                        <span className="text-lg">{formatCurrency(pricing.breakdown.grandTotal * 100)}</span>
+                      </div>
+
+                      {/* Per Person */}
+                      <div className="flex items-center justify-between text-sm text-muted-foreground">
+                        <span>Per Person ({formData.groupSize} guests):</span>
+                        <span>{formatCurrency(pricing.breakdown.perPerson * 100)}</span>
+                      </div>
+
+                      {/* Deposit */}
+                      <div className="bg-background/50 rounded-lg p-3 space-y-2">
+                        <div className="flex items-center justify-between text-sm">
+                          <span>Deposit Due ({pricing.depositPercent}%):</span>
+                          <span className="font-medium">{formatCurrency(pricing.breakdown.deposit * 100)}</span>
+                        </div>
+                        {pricing.depositPercent < 100 && (
+                          <div className="flex items-center justify-between text-sm text-muted-foreground">
+                            <span>Balance Due (30 days before):</span>
+                            <span>{formatCurrency(pricing.breakdown.balanceDue * 100)}</span>
+                          </div>
+                        )}
+                        {pricing.urgencyMessage && (
+                          <p className="text-sm text-amber-600 dark:text-amber-400 mt-2">
+                            {pricing.urgencyMessage}
+                          </p>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
                 <div className="space-y-2">
                   <Label htmlFor="specialRequests">Special Requests (Optional)</Label>
                   <Textarea
@@ -295,13 +402,14 @@ export default function Chat() {
                     data-testid="textarea-special-requests"
                   />
                 </div>
+                
                 <Button 
                   type="submit" 
                   className="w-full" 
-                  disabled={createLead.isPending}
+                  disabled={createLead.isPending || !pricing}
                   data-testid="button-submit"
                 >
-                  {createLead.isPending ? 'Submitting...' : 'Submit Booking Request'}
+                  {createLead.isPending ? 'Submitting...' : `Submit Booking Request${pricing ? ` - ${formatCurrency(pricing.total)}` : ''}`}
                 </Button>
               </form>
             </div>
@@ -316,20 +424,22 @@ export default function Chat() {
               <div className="space-y-2">
                 <h3 className="text-2xl font-bold">Thank You!</h3>
                 <p className="text-muted-foreground">
-                  We've received your booking request. Our team will contact you within 24 hours with availability and pricing.
+                  We've received your booking request. Our team will contact you within 24 hours with availability and final confirmation.
                 </p>
               </div>
               <div className="pt-4 space-y-2">
                 <p className="text-sm font-medium">What happens next?</p>
                 <ul className="text-sm text-muted-foreground space-y-1">
-                  <li>• We'll check availability for your date</li>
-                  <li>• Send you a custom quote</li>
+                  <li>• We'll confirm availability for your date</li>
+                  <li>• Send you a formal quote via email</li>
+                  <li>• Process your {pricing?.depositPercent || 25}% deposit to secure your booking</li>
                   <li>• Help you plan the perfect event</li>
                 </ul>
               </div>
               <Button
                 onClick={() => {
                   setCurrentStep('welcome');
+                  setPricing(null);
                   setFormData({
                     eventType: '',
                     firstName: '',
