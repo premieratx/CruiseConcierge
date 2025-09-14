@@ -6,6 +6,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import Dashboard from "./pages/Dashboard";
 import Checkout from "./pages/Checkout";
 import Chat from "./pages/Chat";
+import QuoteBuilder from "./pages/QuoteBuilder";
+import Leads from "./pages/Leads";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -13,6 +15,10 @@ function Router() {
     <Switch>
       <Route path="/" component={Dashboard} />
       <Route path="/chat" component={Chat} />
+      <Route path="/leads" component={Leads} />
+      <Route path="/quotes" component={QuoteBuilder} />
+      <Route path="/quotes/new" component={QuoteBuilder} />
+      <Route path="/quotes/:id" component={QuoteBuilder} />
       <Route path="/checkout" component={Checkout} />
       <Route path="/checkout/:quoteId" component={Checkout} />
       <Route component={NotFound} />

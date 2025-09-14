@@ -13,12 +13,15 @@ import { QuoteBuilder } from "@/components/QuoteBuilder";
 import { CRMPipeline } from "@/components/CRMPipeline";
 import { Analytics } from "@/components/Analytics";
 import { IntegrationStatus } from "@/components/IntegrationStatus";
+import Navigation from "@/components/Navigation";
 import { apiRequest } from "@/lib/queryClient";
-import { Ship, User, Send, CreditCard, Mail, MessageSquare } from "lucide-react";
+import { useLocation } from "wouter";
+import { Ship, User, Send, CreditCard, Mail, MessageSquare, Users, FileText, MessageCircle, Plus, TrendingUp } from "lucide-react";
 
 export default function Dashboard() {
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
   const [paymentModalOpen, setPaymentModalOpen] = useState(false);
+  const [selectedQuoteId, setSelectedQuoteId] = useState("quote_demo_1"); // Demo quote ID
   const [quoteForm, setQuoteForm] = useState({
     customerName: "Sarah Johnson",
     customerEmail: "sarah.j@example.com",
@@ -27,13 +30,12 @@ export default function Dashboard() {
     personalMessage: ""
   });
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
 
   const handleSendQuote = async () => {
     try {
-      // In a real implementation, you would have a selected quote ID
-      const mockQuoteId = "quote_demo";
-      
-      const response = await apiRequest("POST", `/api/quotes/${mockQuoteId}/send`, {
+      // Using the selected quote ID (demo for now)
+      const response = await apiRequest("POST", `/api/quotes/${selectedQuoteId}/send`, {
         delivery: quoteForm.delivery,
         customerInfo: {
           name: quoteForm.customerName,
@@ -71,36 +73,60 @@ export default function Dashboard() {
     setPaymentModalOpen(false);
   };
 
+  const openQuoteModal = (quoteId: string = "quote_demo_1") => {
+    setSelectedQuoteId(quoteId);
+    setQuoteModalOpen(true);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-marine-50 via-background to-marine-100">
-      {/* Header */}
-      <header className="bg-card/80 backdrop-blur-sm border-b border-border sticky top-0 z-40">
-        <div className="container mx-auto px-4 py-3">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
-                <Ship className="text-primary-foreground text-xl" />
-              </div>
-              <div>
-                <h1 className="font-heading font-bold text-xl text-foreground" data-testid="text-app-title">
-                  Premier Party Cruises
-                </h1>
-                <p className="text-xs text-muted-foreground" data-testid="text-app-subtitle">
-                  Austin, Texas
-                </p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-4">
-              <span className="text-sm text-muted-foreground hidden md:block">
-                CRM Dashboard
-              </span>
-              <div className="w-8 h-8 bg-austin-500 rounded-full flex items-center justify-center">
-                <User className="text-white text-sm" />
-              </div>
-            </div>
+      {/* Navigation Header */}
+      <Navigation />
+
+      {/* Quick Actions Bar */}
+      <div className="container mx-auto px-4 py-4">
+        <div className="bg-card/90 backdrop-blur-sm rounded-lg p-4 shadow-sm border border-border">
+          <h2 className="text-sm font-medium text-muted-foreground mb-3">Quick Actions</h2>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <Button 
+              variant="outline" 
+              className="w-full justify-start" 
+              data-testid="button-quick-new-lead"
+              onClick={() => setLocation("/leads?action=new")}
+            >
+              <Plus className="mr-2 h-4 w-4" />
+              New Lead
+            </Button>
+            <Button 
+              variant="outline" 
+              className="w-full justify-start" 
+              data-testid="button-quick-create-quote"
+              onClick={() => setLocation("/quotes/new")}
+            >
+              <FileText className="mr-2 h-4 w-4" />
+              Create Quote
+            </Button>
+            <Button 
+              variant="outline" 
+              className="w-full justify-start" 
+              data-testid="button-quick-chat"
+              onClick={() => setLocation("/chat")}
+            >
+              <MessageCircle className="mr-2 h-4 w-4" />
+              Chat Assistant
+            </Button>
+            <Button 
+              variant="outline" 
+              className="w-full justify-start" 
+              data-testid="button-quick-pipeline"
+              onClick={() => setLocation("/leads")}
+            >
+              <TrendingUp className="mr-2 h-4 w-4" />
+              Pipeline
+            </Button>
           </div>
         </div>
-      </header>
+      </div>
 
       {/* Main Content Grid */}
       <div className="container mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -284,7 +310,7 @@ export default function Dashboard() {
       {/* Action Buttons */}
       <div className="fixed bottom-4 left-4 space-y-2 z-40">
         <Button
-          onClick={() => setQuoteModalOpen(true)}
+          onClick={() => openQuoteModal()}
           className="w-full px-4 py-2 bg-secondary text-secondary-foreground rounded-lg shadow-lg hover:shadow-xl transition-all text-sm"
           data-testid="button-open-quote-modal"
         >

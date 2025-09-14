@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { Link } from "wouter";
 import { TrendingUp, Clock, DollarSign, Users, Circle } from "lucide-react";
 
 interface PipelineSummary {
@@ -161,49 +162,57 @@ export function CRMPipeline() {
         {/* Pipeline Stages */}
         {pipeline && (
           <div className="space-y-3 mb-6">
-            <div className="flex items-center justify-between p-2 bg-blue-50 dark:bg-blue-950/20 rounded-lg">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                <span className="text-sm font-medium">New Leads</span>
-                <Users className="w-3 h-3 text-blue-500" />
+            <Link href="/leads?status=new">
+              <div className="flex items-center justify-between p-2 bg-blue-50 dark:bg-blue-950/20 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-900/30 transition-colors cursor-pointer" data-testid="pipeline-card-new-leads">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                  <span className="text-sm font-medium">New Leads</span>
+                  <Users className="w-3 h-3 text-blue-500" />
+                </div>
+                <Badge variant="secondary" className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200" data-testid="badge-new-leads">
+                  {pipeline.newLeads}
+                </Badge>
               </div>
-              <Badge variant="secondary" className="bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200" data-testid="badge-new-leads">
-                {pipeline.newLeads}
-              </Badge>
-            </div>
+            </Link>
 
-            <div className="flex items-center justify-between p-2 bg-yellow-50 dark:bg-yellow-950/20 rounded-lg">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
-                <span className="text-sm font-medium">Quote Sent</span>
-                <DollarSign className="w-3 h-3 text-yellow-500" />
+            <Link href="/leads?status=quote-sent">
+              <div className="flex items-center justify-between p-2 bg-yellow-50 dark:bg-yellow-950/20 rounded-lg hover:bg-yellow-100 dark:hover:bg-yellow-900/30 transition-colors cursor-pointer" data-testid="pipeline-card-quote-sent">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-yellow-500 rounded-full"></div>
+                  <span className="text-sm font-medium">Quote Sent</span>
+                  <DollarSign className="w-3 h-3 text-yellow-500" />
+                </div>
+                <Badge variant="secondary" className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200" data-testid="badge-quote-sent">
+                  {pipeline.quoteSent}
+                </Badge>
               </div>
-              <Badge variant="secondary" className="bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200" data-testid="badge-quote-sent">
-                {pipeline.quoteSent}
-              </Badge>
-            </div>
+            </Link>
 
-            <div className="flex items-center justify-between p-2 bg-green-50 dark:bg-green-950/20 rounded-lg">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                <span className="text-sm font-medium">Deposit Paid</span>
-                <TrendingUp className="w-3 h-3 text-green-500" />
+            <Link href="/leads?status=deposit-paid">
+              <div className="flex items-center justify-between p-2 bg-green-50 dark:bg-green-950/20 rounded-lg hover:bg-green-100 dark:hover:bg-green-900/30 transition-colors cursor-pointer" data-testid="pipeline-card-deposit-paid">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                  <span className="text-sm font-medium">Deposit Paid</span>
+                  <TrendingUp className="w-3 h-3 text-green-500" />
+                </div>
+                <Badge variant="secondary" className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200" data-testid="badge-deposit-paid">
+                  {pipeline.depositPaid}
+                </Badge>
               </div>
-              <Badge variant="secondary" className="bg-green-100 dark:bg-green-900 text-green-800 dark:text-green-200" data-testid="badge-deposit-paid">
-                {pipeline.depositPaid}
-              </Badge>
-            </div>
+            </Link>
 
-            <div className="flex items-center justify-between p-2 bg-purple-50 dark:bg-purple-950/20 rounded-lg">
-              <div className="flex items-center space-x-2">
-                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                <span className="text-sm font-medium">Fully Paid</span>
-                <DollarSign className="w-3 h-3 text-purple-500" />
+            <Link href="/leads?status=fully-paid">
+              <div className="flex items-center justify-between p-2 bg-purple-50 dark:bg-purple-950/20 rounded-lg hover:bg-purple-100 dark:hover:bg-purple-900/30 transition-colors cursor-pointer" data-testid="pipeline-card-fully-paid">
+                <div className="flex items-center space-x-2">
+                  <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                  <span className="text-sm font-medium">Fully Paid</span>
+                  <DollarSign className="w-3 h-3 text-purple-500" />
+                </div>
+                <Badge variant="secondary" className="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200" data-testid="badge-fully-paid">
+                  {pipeline.fullyPaid}
+                </Badge>
               </div>
-              <Badge variant="secondary" className="bg-purple-100 dark:bg-purple-900 text-purple-800 dark:text-purple-200" data-testid="badge-fully-paid">
-                {pipeline.fullyPaid}
-              </Badge>
-            </div>
+            </Link>
           </div>
         )}
 
