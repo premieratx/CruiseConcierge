@@ -514,8 +514,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         groupSize: groupSize || project?.groupSize || 25,
         eventDate: project?.projectDate || new Date(),
         timeSlot: project?.preferredTime || 'afternoon',
-        discountCode,
-        options,
+        promoCode: discountCode,
       });
       
       // Update quote with new pricing
@@ -551,26 +550,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Update quote status
       await storage.updateQuote(req.params.id, {
         status: "ACCEPTED",
-        metadata: {
-          signature,
-          signedAt: new Date().toISOString(),
-          selectedOptions,
-          specialRequests,
-          discountCode,
-        } as any,
       });
+      
+      // Store signature and customization details separately if needed
+      // For now, we'll just update the status
       
       // Create invoice
       const invoice = await storage.createInvoice({
         projectId: quote.projectId,
-        invoiceNumber: `INV-${Date.now()}`,
-        items: quote.items,
+        quoteId: quote.id,
+        items: quote.items || [],
         subtotal: quote.subtotal,
         tax: quote.tax,
         discountTotal: quote.discountTotal,
         total: quote.total,
         balance: quote.total,
-        dueDate: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+        schedule: quote.paymentSchedule,
         status: "PENDING",
       });
       
