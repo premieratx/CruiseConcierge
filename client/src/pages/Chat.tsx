@@ -93,9 +93,50 @@ export default function Chat() {
         leadSource: 'chat',
       };
       
-      await apiRequest('/api/projects', 'POST', project);
+      const projectResponse = await apiRequest('/api/projects', 'POST', project);
       
-      return { contact: contactResponse, project };
+      // Create a quote from the pricing calculation
+      if (pricing && pricing.breakdown) {
+        const quoteItems = [
+          {
+            name: `${pricing.breakdown.boatType} - ${pricing.breakdown.dayName} ${pricing.breakdown.cruiseDuration}-Hour Cruise`,
+            unitPrice: pricing.breakdown.baseCruiseCost * 100, // Convert to cents
+            qty: 1,
+            taxable: true,
+          }
+        ];
+        
+        // Add crew fee as separate line item if applicable
+        if (pricing.breakdown.crewFee > 0) {
+          quoteItems.push({
+            name: 'Additional Crew (Texas Law Requirement)',
+            unitPrice: pricing.breakdown.crewFee * 100,
+            qty: 1,
+            taxable: true,
+          });
+        }
+        
+        const quote = {
+          projectId: projectResponse.id,
+          items: quoteItems,
+          subtotal: pricing.subtotal,
+          discountTotal: pricing.discountTotal,
+          tax: pricing.tax,
+          gratuity: pricing.gratuity,
+          total: pricing.total,
+          perPersonCost: pricing.perPersonCost,
+          depositRequired: pricing.depositRequired,
+          depositPercent: pricing.depositPercent,
+          depositAmount: pricing.depositAmount,
+          paymentSchedule: pricing.paymentSchedule,
+          status: 'DRAFT',
+          validUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // Valid for 7 days
+        };
+        
+        await apiRequest('/api/quotes', 'POST', quote);
+      }
+      
+      return { contact: contactResponse, project: projectResponse };
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/contacts'] });
