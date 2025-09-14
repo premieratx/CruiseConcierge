@@ -2,10 +2,11 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import Stripe from "stripe";
 import { storage } from "./storage";
-import { processChatMessage, generateQuoteDescription } from "./services/openai";
+import { generateQuoteDescription } from "./services/openai";
 import { googleSheetsService } from "./services/googleSheets";
-import { sendQuoteEmail } from "./services/sendgrid";
-import { twilioService } from "./services/twilio";
+import { mailgunService } from "./services/mailgun";
+import { openRouterService } from "./services/openrouter";
+import { goHighLevelService } from "./services/gohighlevel";
 import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema } from "@shared/schema";
 import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
@@ -37,7 +38,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }));
 
       // Process message with AI
-      const aiResponse = await processChatMessage(message, conversationHistory);
+      const typedHistory = conversationHistory.map(msg => ({
+        role: msg.role as "user" | "system" | "assistant",
+        content: msg.content
+      }));
+      const aiResponse = await openRouterService.processMessage(typedHistory.concat([{
+        role: "user" as const,
+        content: message
+      }]), { referer: req.get('referer') || 'https://premierpartycruises.com' });
 
       // Save user message
       await storage.createChatMessage({
@@ -53,19 +61,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         sessionId,
         contactId: contactId || null,
         role: "assistant", 
-        content: aiResponse.message,
+        content: aiResponse.response,
         metadata: {
-          intent: aiResponse.intent,
-          extractedData: aiResponse.extractedData || {},
-          suggestedActions: aiResponse.suggestedActions || []
+          intent: "general",
+          extractedData: aiResponse.extractedData || {} as any,
+          suggestedActions: aiResponse.suggestedActions || [] as any
         }
       });
 
       res.json({
-        message: aiResponse.message,
-        intent: aiResponse.intent,
-        extractedData: aiResponse.extractedData,
-        suggestedActions: aiResponse.suggestedActions
+        response: aiResponse.response,
+        message: aiResponse.response, // Keep for backward compatibility
+        intent: "general", // Default intent since openRouterService doesn't provide it
+        extractedData: aiResponse.extractedData || {},
+        suggestedActions: aiResponse.suggestedActions || []
       });
 
     } catch (error: any) {
@@ -241,24 +250,63 @@ export async function registerRoutes(app: Express): Promise<Server> {
       let success = false;
       
       if (delivery === 'email' && customerInfo.email) {
-        success = await sendQuoteEmail(
-          customerInfo.email,
-          customerInfo.name || 'Valued Customer',
-          quote.id,
-          {
-            eventType: project.eventType,
-            groupSize: project.groupSize,
-            date: project.projectDate?.toISOString().split('T')[0],
-            total: quote.total
-          }
-        );
+        const html = `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <div style="background: linear-gradient(135deg, #3b82f6, #06b6d4); padding: 30px; text-align: center;">
+              <h1 style="color: white; margin: 0;">🚢 Premier Party Cruises</h1>
+              <p style="color: white; margin: 10px 0 0 0;">Your Quote is Ready!</p>
+            </div>
+            
+            <div style="padding: 30px; background: white;">
+              <h2>Hello ${customerInfo.name || 'Valued Customer'}!</h2>
+              
+              <p>Thank you for your interest in Premier Party Cruises! We've prepared a custom quote for your upcoming event.</p>
+              
+              <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h3 style="margin-top: 0;">Quote Details</h3>
+                <p><strong>Event:</strong> ${project.eventType || 'Party Cruise'}</p>
+                <p><strong>Group Size:</strong> ${project.groupSize || 'TBD'}</p>
+                <p><strong>Date:</strong> ${project.projectDate?.toISOString().split('T')[0] || 'To be confirmed'}</p>
+                <p><strong>Total:</strong> $${(quote.total / 100).toFixed(2)}</p>
+              </div>
+              
+              <div style="text-align: center; margin: 30px 0;">
+                <a href="${process.env.BASE_URL || 'http://localhost:5000'}/public/quote/${quote.id}" 
+                   style="background: #3b82f6; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
+                  View Full Quote
+                </a>
+              </div>
+              
+              ${personalMessage ? `<p style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin: 20px 0;"><strong>Personal Message:</strong><br>${personalMessage}</p>` : ''}
+              
+              <p>Questions? Reply to this email or call us at (512) 555-BOAT!</p>
+              
+              <p style="margin-top: 30px;">
+                Best regards,<br>
+                <strong>Premier Party Cruises Team</strong><br>
+                Austin, Texas
+              </p>
+            </div>
+            
+            <div style="background: #f1f5f9; padding: 20px; text-align: center; font-size: 12px; color: #64748b;">
+              <p>Premier Party Cruises | Lake Austin, TX | premierpartycruises.com</p>
+            </div>
+          </div>
+        `;
+        
+        success = await mailgunService.send({
+          to: customerInfo.email,
+          subject: '🚢 Your Party Cruise Quote is Ready!',
+          html,
+          from: process.env.MAILGUN_FROM || 'quotes@premierpartycruises.com'
+        });
       } else if (delivery === 'sms' && customerInfo.phone) {
-        success = await twilioService.sendQuoteSMS(
-          customerInfo.phone,
-          customerInfo.name || 'Valued Customer',
-          quote.id,
-          quote.total
-        );
+        const message = `Hi ${customerInfo.name || 'Valued Customer'}! 🚢 Your Premier Party Cruises quote is ready. Total: $${(quote.total / 100).toFixed(2)}. View details: ${process.env.BASE_URL || 'http://localhost:5000'}/public/quote/${quote.id}`;
+        
+        success = await goHighLevelService.send({
+          to: customerInfo.phone,
+          body: message
+        });
       }
 
       if (success) {
