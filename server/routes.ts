@@ -43,7 +43,7 @@ async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: 
           <h3 style="margin-top: 0;">Quote Details</h3>
           <p><strong>Event:</strong> ${project?.eventType || 'Party Cruise'}</p>
           <p><strong>Group Size:</strong> ${project?.groupSize || 'TBD'}</p>
-          <p><strong>Date:</strong> ${project?.projectDate?.toISOString().split('T')[0] || 'To be confirmed'}</p>
+          <p><strong>Date:</strong> ${project?.projectDate ? (typeof project.projectDate === 'string' ? new Date(project.projectDate).toISOString().split('T')[0] : project.projectDate.toISOString().split('T')[0]) : 'To be confirmed'}</p>
           <p><strong>Total:</strong> $${(quote.total / 100).toFixed(2)}</p>
         </div>
         
