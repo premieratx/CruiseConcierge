@@ -9,7 +9,7 @@ import {
   User, Mail, Phone, MapPin, Star, Sparkles, CreditCard,
   FileText, AlertCircle, Loader2, ChevronLeft, Edit2,
   Music, Anchor, Crown, Zap, Calendar, ArrowRight, ArrowLeft,
-  RotateCcw, CheckCircle, Settings
+  RotateCcw, CheckCircle, Settings, Plus, Minus
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -61,6 +61,7 @@ interface BookingData {
   selectedTimeSlot: string;
   selectedDiscoPackage: DiscoPackage | null;
   selectedDiscoTimeSlot: string;
+  discoTicketQuantity: number; // Number of disco cruise tickets (1-50)
   // Additional labels for display
   preferredTimeLabel?: string;
   groupSizeLabel?: string;
@@ -227,6 +228,7 @@ export default function Chat() {
     selectedTimeSlot: '',
     selectedDiscoPackage: null,
     selectedDiscoTimeSlot: '',
+    discoTicketQuantity: 1,
   });
   const [questionHistory, setQuestionHistory] = useState<Question[]>(['event-type']);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -247,10 +249,10 @@ export default function Chat() {
   
   // Fetch disco pricing when all required disco data is available
   useEffect(() => {
-    if (formData.selectedDiscoPackage && formData.groupSize && formData.eventDate && formData.selectedDiscoTimeSlot) {
+    if (formData.selectedDiscoPackage && formData.discoTicketQuantity && formData.eventDate && formData.selectedDiscoTimeSlot) {
       fetchDiscoPricing();
     }
-  }, [formData.selectedDiscoPackage, formData.groupSize, formData.eventDate, formData.selectedDiscoTimeSlot]);
+  }, [formData.selectedDiscoPackage, formData.discoTicketQuantity, formData.eventDate, formData.selectedDiscoTimeSlot]);
 
   // Fetch private cruise pricing with loading state
   const fetchPrivatePricing = async () => {
@@ -299,10 +301,10 @@ export default function Chat() {
       const res = await apiRequest('POST', '/api/pricing/preview', {
         items: [{
           productId: `disco_${formData.selectedDiscoPackage}`,
-          quantity: formData.groupSize,
+          quantity: formData.discoTicketQuantity,
           unitPrice: getDiscoPriceByPackage(formData.selectedDiscoPackage),
         }],
-        groupSize: formData.groupSize,
+        groupSize: formData.discoTicketQuantity,
         projectDate: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : '',
       });
       
@@ -343,7 +345,7 @@ export default function Chat() {
     const selectedPackage = discoPackages.find(pkg => pkg.id === formData.selectedDiscoPackage);
     if (!selectedPackage) return;
     
-    const subtotal = selectedPackage.price * formData.groupSize;
+    const subtotal = selectedPackage.price * formData.discoTicketQuantity;
     const gratuity = Math.round(subtotal * 0.20); // 20% gratuity (FIXED: was missing)
     const tax = Math.round(subtotal * 0.0825); // 8.25% tax
     const total = subtotal + gratuity + tax; // Fix: include gratuity in total
@@ -452,6 +454,7 @@ export default function Chat() {
         selectedTimeSlot: '',
         selectedDiscoPackage: null,
         selectedDiscoTimeSlot: '',
+        discoTicketQuantity: 1,
       }));
     } else if (fromSelectionId === 'contact-info') {
       setFormData(prev => ({
@@ -465,6 +468,7 @@ export default function Chat() {
         selectedTimeSlot: '',
         selectedDiscoPackage: null,
         selectedDiscoTimeSlot: '',
+        discoTicketQuantity: 1,
       }));
     } else if (fromSelectionId === 'date') {
       setFormData(prev => ({
@@ -474,6 +478,7 @@ export default function Chat() {
         selectedTimeSlot: '',
         selectedDiscoPackage: null,
         selectedDiscoTimeSlot: '',
+        discoTicketQuantity: 1,
       }));
     } else if (fromSelectionId === 'group-size') {
       setFormData(prev => ({
@@ -482,6 +487,7 @@ export default function Chat() {
         selectedTimeSlot: '',
         selectedDiscoPackage: null,
         selectedDiscoTimeSlot: '',
+        discoTicketQuantity: 1,
       }));
     }
     
@@ -759,7 +765,8 @@ export default function Chat() {
         selectedCruiseType: null,
         selectedTimeSlot: '',
         selectedDiscoPackage: null,
-        selectedDiscoTimeSlot: ''
+        selectedDiscoTimeSlot: '',
+        discoTicketQuantity: 1
       });
       
       // Update lead with cruise date
@@ -1355,6 +1362,7 @@ export default function Chat() {
                       selectedTimeSlot: '',
                       selectedDiscoPackage: null,
                       selectedDiscoTimeSlot: '',
+                      discoTicketQuantity: 1,
                     });
                     setPrivatePricing(null);
                     setDiscoPricing(null);
@@ -2159,6 +2167,68 @@ export default function Chat() {
                           </RadioGroup>
                         </div>
                         
+                        {/* Disco Ticket Quantity Selector */}
+                        {formData.selectedDiscoPackage && formData.selectedDiscoTimeSlot && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="mt-6 space-y-4"
+                          >
+                            <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+                              <h4 className="font-medium text-slate-700 dark:text-slate-300 mb-3">Number of Tickets</h4>
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => {
+                                      if (formData.discoTicketQuantity > 1) {
+                                        setFormData({...formData, discoTicketQuantity: formData.discoTicketQuantity - 1});
+                                      }
+                                    }}
+                                    disabled={formData.discoTicketQuantity <= 1}
+                                    className="h-8 w-8 p-0"
+                                    data-testid="button-decrease-quantity"
+                                  >
+                                    <Minus className="h-4 w-4" />
+                                  </Button>
+                                  <div className="flex flex-col items-center">
+                                    <span className="text-xl font-bold text-slate-800 dark:text-slate-200" data-testid="text-ticket-quantity">
+                                      {formData.discoTicketQuantity}
+                                    </span>
+                                    <span className="text-xs text-slate-500 dark:text-slate-400">
+                                      {formData.discoTicketQuantity === 1 ? 'ticket' : 'tickets'}
+                                    </span>
+                                  </div>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => {
+                                      if (formData.discoTicketQuantity < 50) {
+                                        setFormData({...formData, discoTicketQuantity: formData.discoTicketQuantity + 1});
+                                      }
+                                    }}
+                                    disabled={formData.discoTicketQuantity >= 50}
+                                    className="h-8 w-8 p-0"
+                                    data-testid="button-increase-quantity"
+                                  >
+                                    <Plus className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                                <div className="text-right">
+                                  <div className="text-sm text-slate-600 dark:text-slate-400">Total per package:</div>
+                                  <div className="font-bold text-purple-600">
+                                    ${(discoPackages.find(pkg => pkg.id === formData.selectedDiscoPackage)?.price || 0) * formData.discoTicketQuantity}
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="mt-3 text-xs text-slate-500 dark:text-slate-400 text-center">
+                                Select 1-50 tickets for your group • All tickets must be from the same package
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+                        
                         {/* Enhanced Disco Cruise Pricing */}
                         {formData.selectedDiscoPackage && formData.selectedDiscoTimeSlot && discoPricing && (
                           <motion.div
@@ -2172,7 +2242,7 @@ export default function Chat() {
                               
                               <div className="space-y-3">
                                 <div className="flex justify-between items-center">
-                                  <span className="text-slate-600 dark:text-slate-400">Package Cost ({formData.groupSize} people):</span>
+                                  <span className="text-slate-600 dark:text-slate-400">Package Cost ({formData.discoTicketQuantity} {formData.discoTicketQuantity === 1 ? 'ticket' : 'tickets'}):</span>
                                   <span className="font-medium">{formatCurrency(discoPricing.subtotal)}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
@@ -2190,7 +2260,7 @@ export default function Chat() {
                                   </div>
                                   <div className="flex justify-between items-center text-sm mt-1">
                                     <span className="text-slate-500 dark:text-slate-400">Per person:</span>
-                                    <span className="text-slate-600 dark:text-slate-300">{formatCurrency(discoPricing.total / formData.groupSize)}</span>
+                                    <span className="text-slate-600 dark:text-slate-300">{formatCurrency(discoPricing.total / formData.discoTicketQuantity)}</span>
                                   </div>
                                 </div>
                               </div>
