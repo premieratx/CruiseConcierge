@@ -6,7 +6,8 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Ship, ChevronRight, DollarSign, Users, 
   Calendar as CalendarIcon, Clock, Check, X,
-  User, Mail, Phone, MapPin, Star, Sparkles, CreditCard 
+  User, Mail, Phone, MapPin, Star, Sparkles, CreditCard,
+  FileText, AlertCircle, Loader2
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -15,8 +16,9 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Calendar } from '@/components/ui/calendar';
 import { Badge } from '@/components/ui/badge';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
-import { format, addDays, isBefore, isAfter, startOfDay } from 'date-fns';
+import { format, addDays, isBefore, isAfter, startOfDay, differenceInDays } from 'date-fns';
 import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection } from '@shared/schema';
 
 type Question = 
@@ -138,6 +140,8 @@ export default function Chat() {
   const [completedSelections, setCompletedSelections] = useState<CompletedSelection[]>([]);
   const [pricing, setPricing] = useState<PricingPreview | null>(null);
   const [generatedQuoteId, setGeneratedQuoteId] = useState<string | null>(null);
+  const [showPaymentModal, setShowPaymentModal] = useState(false);
+  const [selectedPaymentOption, setSelectedPaymentOption] = useState<'deposit' | 'full'>('deposit');
   const [formData, setFormData] = useState<BookingData>({
     eventType: '',
     eventTypeLabel: '',
@@ -189,6 +193,42 @@ export default function Chat() {
       style: 'currency',
       currency: 'USD',
     }).format(cents / 100);
+  };
+
+  // Calculate if event is within 30 days
+  const isWithin30Days = () => {
+    if (!formData.eventDate) return false;
+    const today = startOfDay(new Date());
+    const eventDate = startOfDay(formData.eventDate);
+    return differenceInDays(eventDate, today) <= 30;
+  };
+
+  // Get payment options based on date
+  const getPaymentOptions = () => {
+    if (!pricing) return [];
+    
+    const within30Days = isWithin30Days();
+    const options = [];
+    
+    if (!within30Days) {
+      options.push({
+        id: 'deposit',
+        label: 'Pay Deposit',
+        amount: pricing.depositAmount,
+        description: `${pricing.depositPercent}% deposit to secure your booking`,
+        popular: true
+      });
+    }
+    
+    options.push({
+      id: 'full',
+      label: within30Days ? 'Pay in Full (Required)' : 'Pay in Full',
+      amount: pricing.total,
+      description: within30Days ? 'Full payment required - event is within 30 days' : 'Complete payment now',
+      popular: within30Days
+    });
+    
+    return options;
   };
 
   const addCompletedSelection = (selection: CompletedSelection) => {
@@ -475,6 +515,175 @@ export default function Chat() {
       const quoteUrl = `${window.location.origin}/quote/${generatedQuoteId}`;
       window.open(quoteUrl, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
     }
+  };
+
+  // Handle payment option selection and processing
+  const handlePayment = async (paymentType: 'deposit' | 'full') => {
+    try {
+      if (paymentType === 'deposit') {
+        createDepositPayment.mutate();
+      } else {
+        createFullPayment.mutate();
+      }
+    } catch (error) {
+      console.error('Payment error:', error);
+      toast({
+        title: 'Payment Error',
+        description: 'Unable to process payment. Please try again.',
+        variant: 'destructive',
+      });
+    }
+  };
+
+  // Payment Modal Component
+  const PaymentModal = () => {
+    const paymentOptions = getPaymentOptions();
+    const within30Days = isWithin30Days();
+    
+    return (
+      <Dialog open={showPaymentModal} onOpenChange={setShowPaymentModal}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <CreditCard className="h-5 w-5" />
+              Complete Your Booking
+            </DialogTitle>
+            <DialogDescription>
+              Choose your payment option to secure your cruise booking
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-6">
+            {/* Booking Summary */}
+            <div className="bg-slate-50 dark:bg-slate-800 rounded-lg p-4">
+              <h3 className="font-medium text-slate-800 dark:text-slate-200 mb-3">Booking Summary</h3>
+              <div className="space-y-2 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-slate-600 dark:text-slate-400">Event:</span>
+                  <span className="font-medium">{formData.eventTypeLabel}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-600 dark:text-slate-400">Date:</span>
+                  <span className="font-medium">
+                    {formData.eventDate ? format(formData.eventDate, 'MMM dd, yyyy') : 'TBD'}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-600 dark:text-slate-400">Time:</span>
+                  <span className="font-medium">{formData.preferredTimeLabel}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-slate-600 dark:text-slate-400">Group Size:</span>
+                  <span className="font-medium">{formData.groupSizeLabel} people</span>
+                </div>
+                {pricing && (
+                  <div className="border-t border-slate-200 dark:border-slate-700 pt-2 mt-2">
+                    <div className="flex justify-between font-semibold">
+                      <span>Total:</span>
+                      <span>{formatCurrency(pricing.total)}</span>
+                    </div>
+                  </div>
+                )}
+              </div>
+            </div>
+            
+            {/* Date Warning */}
+            {within30Days && (
+              <div className="bg-amber-50 dark:bg-amber-900/30 border border-amber-200 dark:border-amber-800 rounded-lg p-4">
+                <div className="flex items-start gap-3">
+                  <AlertCircle className="h-5 w-5 text-amber-600 dark:text-amber-400 mt-0.5" />
+                  <div>
+                    <h4 className="font-medium text-amber-800 dark:text-amber-200">Full Payment Required</h4>
+                    <p className="text-sm text-amber-700 dark:text-amber-300 mt-1">
+                      Your event is within 30 days, so full payment is required to secure your booking.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {/* Payment Options */}
+            <div className="space-y-3">
+              <h3 className="font-medium text-slate-800 dark:text-slate-200">Payment Options</h3>
+              {paymentOptions.map((option) => (
+                <div key={option.id} className="relative">
+                  <div
+                    className={cn(
+                      "border rounded-lg p-4 cursor-pointer transition-all",
+                      selectedPaymentOption === option.id
+                        ? "border-blue-500 bg-blue-50 dark:bg-blue-900/30"
+                        : "border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600"
+                    )}
+                    onClick={() => setSelectedPaymentOption(option.id as 'deposit' | 'full')}
+                  >
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div
+                          className={cn(
+                            "w-4 h-4 rounded-full border-2 transition-colors",
+                            selectedPaymentOption === option.id
+                              ? "border-blue-500 bg-blue-500"
+                              : "border-slate-300 dark:border-slate-600"
+                          )}
+                        >
+                          {selectedPaymentOption === option.id && (
+                            <div className="w-full h-full rounded-full bg-white scale-50" />
+                          )}
+                        </div>
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="font-medium text-slate-800 dark:text-slate-200">
+                              {option.label}
+                            </span>
+                            {option.popular && (
+                              <Badge variant="secondary" className="text-xs">Recommended</Badge>
+                            )}
+                          </div>
+                          <p className="text-sm text-slate-600 dark:text-slate-400">
+                            {option.description}
+                          </p>
+                        </div>
+                      </div>
+                      <div className="text-right">
+                        <div className="font-bold text-lg text-slate-800 dark:text-slate-200">
+                          {formatCurrency(option.amount)}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            
+            {/* Payment Buttons */}
+            <div className="flex gap-3 pt-4">
+              <Button
+                variant="outline"
+                onClick={() => setShowPaymentModal(false)}
+                className="flex-1"
+                data-testid="button-cancel-payment"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={() => {
+                  setShowPaymentModal(false);
+                  handlePayment(selectedPaymentOption);
+                }}
+                disabled={createDepositPayment.isPending || createFullPayment.isPending}
+                className="flex-1 bg-blue-600 hover:bg-blue-700"
+                data-testid="button-confirm-payment"
+              >
+                {(createDepositPayment.isPending || createFullPayment.isPending) && (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                )}
+                {selectedPaymentOption === 'deposit' ? 'Pay Deposit' : 'Pay in Full'}
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
+    );
   };
 
   return (
@@ -976,26 +1185,53 @@ export default function Chat() {
                     Check your email and text messages for your interactive quote with all the details.
                   </p>
                   
-                  {/* View My Quote Button */}
+                  {/* Action Buttons */}
                   {generatedQuoteId && (
                     <motion.div
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
                       transition={{ delay: 0.5, duration: 0.6 }}
-                      className="mb-6"
+                      className="mb-6 space-y-4"
                     >
+                      {/* View Interactive Quote Button */}
                       <Button
                         onClick={openQuoteInNewWindow}
                         size="lg"
-                        className="h-14 px-8 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                        className="h-14 px-8 w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                         data-testid="button-view-quote"
                       >
                         <FileText className="h-5 w-5 mr-3" />
-                        View My Quote
+                        View Interactive Quote
                         <ChevronRight className="h-5 w-5 ml-3" />
                       </Button>
-                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
-                        Opens in a new window for easy viewing and printing
+                      
+                      {/* Pay & Book Online Button */}
+                      {pricing && (
+                        <Button
+                          onClick={() => setShowPaymentModal(true)}
+                          size="lg"
+                          className="h-14 px-8 w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                          data-testid="button-pay-book"
+                        >
+                          <CreditCard className="h-5 w-5 mr-3" />
+                          Pay & Book Online
+                          {isWithin30Days() ? (
+                            <span className="ml-3 text-sm font-normal opacity-90">
+                              ({formatCurrency(pricing.total)})
+                            </span>
+                          ) : (
+                            <span className="ml-3 text-sm font-normal opacity-90">
+                              (from {formatCurrency(pricing.depositAmount)})
+                            </span>
+                          )}
+                        </Button>
+                      )}
+                      
+                      <p className="text-sm text-slate-500 dark:text-slate-400 text-center">
+                        {isWithin30Days() 
+                          ? "Full payment required - event is within 30 days"
+                          : "Secure your booking with a deposit or pay in full"
+                        }
                       </p>
                     </motion.div>
                   )}
@@ -1030,6 +1266,9 @@ export default function Chat() {
           </AnimatePresence>
         </div>
       </div>
+      
+      {/* Payment Modal */}
+      <PaymentModal />
     </div>
   );
 }
