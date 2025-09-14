@@ -244,6 +244,24 @@ export default function Navigation() {
                       </Link>
                     </NavigationMenuLink>
                   </li>
+                  <li className="col-span-2">
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/settings"
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground bg-muted"
+                      >
+                        <div className="flex items-center gap-2">
+                          <Settings className="h-4 w-4" />
+                          <div>
+                            <div className="text-sm font-medium leading-none">Template Manager</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Manage quote templates, email templates, and global settings
+                            </p>
+                          </div>
+                        </div>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
@@ -292,7 +310,7 @@ export default function Navigation() {
                 <CreditCard className="mr-2 h-4 w-4" />
                 <span>Billing</span>
               </DropdownMenuItem>
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setLocation('/settings')}>
                 <Settings className="mr-2 h-4 w-4" />
                 <span>Settings</span>
               </DropdownMenuItem>

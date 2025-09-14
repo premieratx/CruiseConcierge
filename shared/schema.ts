@@ -257,8 +257,39 @@ export const timeframes = pgTable("timeframes", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// Email Templates - for customizable email communications
+export const emailTemplates = pgTable("email_templates", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  name: text("name").notNull(),
+  description: text("description"),
+  templateType: varchar("template_type").notNull(), // 'quote_delivery', 'payment_confirmation', 'booking_confirmation', 'follow_up', 'reminder'
+  subject: text("subject").notNull(),
+  components: jsonb("components").$type<TemplateComponent[]>().default([]),
+  variables: jsonb("variables").$type<string[]>().default([]), // {{contact.name}}, {{quote.total}}, etc.
+  active: boolean("active").notNull().default(true),
+  isDefault: boolean("is_default").notNull().default(false),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Master Templates - base structure for all quote templates
+export const masterTemplates = pgTable("master_templates", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  name: text("name").notNull(),
+  description: text("description"),
+  components: jsonb("components").$type<TemplateComponent[]>().default([]),
+  styles: jsonb("styles").$type<TemplateStyles>().default({}),
+  active: boolean("active").notNull().default(true),
+  isDefault: boolean("is_default").notNull().default(false),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
 // Type definitions
 export type QuoteItem = {
+  id: string;
   type: string;
   name: string;
   productId?: string;
@@ -267,6 +298,7 @@ export type QuoteItem = {
   clientCanEditQty?: boolean;
   groupId?: string;
   required?: boolean;
+  isOptional?: boolean;
   order?: number;
   description?: string;
   category?: string;
@@ -288,6 +320,7 @@ export type RadioSection = {
   required: boolean;
   options: RadioOption[];
   selectedOptionId?: string;
+  selectedValue?: string;
   allowCustomInput?: boolean;
   customInputLabel?: string;
   order?: number;
@@ -360,6 +393,34 @@ export type ChatbotFlow = {
   buttons?: ChatbotButton[];
   nextStep?: string;
   actions?: string[]; // action types to execute
+};
+
+// Template Component types for drag-and-drop builders
+export type TemplateComponent = {
+  id: string;
+  type: 'text' | 'line_items' | 'radio_group' | 'checkbox_group' | 'quantity_selector' | 
+        'info_box' | 'divider' | 'pricing_breakdown' | 'terms' | 'header' | 'footer' |
+        'button' | 'image' | 'table' | 'quote_summary';
+  properties: Record<string, any>;
+  children?: TemplateComponent[];
+  order: number;
+  conditions?: ComponentCondition[];
+};
+
+export type ComponentCondition = {
+  field: string;
+  operator: 'equals' | 'not_equals' | 'contains' | 'greater_than' | 'less_than';
+  value: any;
+};
+
+export type TemplateStyles = {
+  primaryColor?: string;
+  secondaryColor?: string;
+  fontFamily?: string;
+  fontSize?: string;
+  headerStyle?: Record<string, any>;
+  bodyStyle?: Record<string, any>;
+  footerStyle?: Record<string, any>;
 };
 
 // Insert schemas
@@ -474,6 +535,18 @@ export const insertTimeframeSchema = createInsertSchema(timeframes).omit({
   active: z.boolean().default(true),
 });
 
+export const insertEmailTemplateSchema = createInsertSchema(emailTemplates).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertMasterTemplateSchema = createInsertSchema(masterTemplates).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 // Select types
 export type Contact = typeof contacts.$inferSelect;
 export type Project = typeof projects.$inferSelect;
@@ -492,6 +565,8 @@ export type Affiliate = typeof affiliates.$inferSelect;
 export type Booking = typeof bookings.$inferSelect;
 export type DiscoSlot = typeof discoSlots.$inferSelect;
 export type Timeframe = typeof timeframes.$inferSelect;
+export type EmailTemplate = typeof emailTemplates.$inferSelect;
+export type MasterTemplate = typeof masterTemplates.$inferSelect;
 
 // Insert types
 export type InsertContact = z.infer<typeof insertContactSchema>;
@@ -508,6 +583,8 @@ export type InsertAffiliate = z.infer<typeof insertAffiliateSchema>;
 export type InsertBooking = z.infer<typeof insertBookingSchema>;
 export type InsertDiscoSlot = z.infer<typeof insertDiscoSlotSchema>;
 export type InsertTimeframe = z.infer<typeof insertTimeframeSchema>;
+export type InsertEmailTemplate = z.infer<typeof insertEmailTemplateSchema>;
+export type InsertMasterTemplate = z.infer<typeof insertMasterTemplateSchema>;
 
 // Lead tracking types for Google Sheets integration
 export type LeadProgressStage = 'started' | 'contact_complete' | 'date_selected' | 'size_selected' | 'options_selected' | 'complete';

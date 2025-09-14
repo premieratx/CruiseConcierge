@@ -1536,6 +1536,89 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ error: "Failed to update pricing settings" });
     }
   });
+  
+  // Email Template Routes
+  app.get("/api/email-templates", async (req, res) => {
+    try {
+      const templates = await storage.getEmailTemplates();
+      res.json(templates);
+    } catch (error: any) {
+      console.error("Error fetching email templates:", error);
+      res.status(500).json({ error: "Failed to fetch email templates" });
+    }
+  });
+  
+  app.get("/api/email-templates/:id", async (req, res) => {
+    try {
+      const template = await storage.getEmailTemplate(req.params.id);
+      if (!template) return res.status(404).json({ error: "Template not found" });
+      res.json(template);
+    } catch (error: any) {
+      console.error("Error fetching email template:", error);
+      res.status(500).json({ error: "Failed to fetch email template" });
+    }
+  });
+  
+  app.post("/api/email-templates", async (req, res) => {
+    try {
+      const template = await storage.createEmailTemplate(req.body);
+      res.status(201).json(template);
+    } catch (error: any) {
+      console.error("Error creating email template:", error);
+      res.status(500).json({ error: "Failed to create email template" });
+    }
+  });
+  
+  app.patch("/api/email-templates/:id", async (req, res) => {
+    try {
+      const template = await storage.updateEmailTemplate(req.params.id, req.body);
+      res.json(template);
+    } catch (error: any) {
+      console.error("Error updating email template:", error);
+      res.status(500).json({ error: "Failed to update email template" });
+    }
+  });
+  
+  app.delete("/api/email-templates/:id", async (req, res) => {
+    try {
+      await storage.deleteEmailTemplate(req.params.id);
+      res.status(204).send();
+    } catch (error: any) {
+      console.error("Error deleting email template:", error);
+      res.status(500).json({ error: "Failed to delete email template" });
+    }
+  });
+  
+  // Master Template Routes
+  app.get("/api/master-template", async (req, res) => {
+    try {
+      const template = await storage.getDefaultMasterTemplate();
+      res.json(template || {});
+    } catch (error: any) {
+      console.error("Error fetching master template:", error);
+      res.status(500).json({ error: "Failed to fetch master template" });
+    }
+  });
+  
+  app.patch("/api/master-template", async (req, res) => {
+    try {
+      let template = await storage.getDefaultMasterTemplate();
+      if (template) {
+        template = await storage.updateMasterTemplate(template.id, req.body);
+      } else {
+        // Create default master template if it doesn't exist
+        template = await storage.createMasterTemplate({
+          ...req.body,
+          name: "Default Master Template",
+          isDefault: true,
+        });
+      }
+      res.json(template);
+    } catch (error: any) {
+      console.error("Error updating master template:", error);
+      res.status(500).json({ error: "Failed to update master template" });
+    }
+  });
 
   // Affiliate endpoints
   app.get("/api/affiliates", async (req, res) => {

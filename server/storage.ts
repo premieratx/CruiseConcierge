@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -142,6 +142,22 @@ export interface IStorage {
   checkAvailability(date: Date, duration: number, groupSize: number, type: 'private' | 'disco'): Promise<{ available: boolean; boats?: Boat[]; reason?: string }>;
   getMonthlyCalendar(boatId: string, year: number, month: number): Promise<{ date: Date; bookings: Booking[]; available: boolean }[]>;
   getMonthlyCalendarGrouped(year: number, month: number): Promise<Map<string, { date: Date; bookings: Booking[]; boatsByCapacity: Map<number, { available: Boat[]; booked: Boat[] }> }>>;
+  
+  // Email Template Management
+  getEmailTemplate(id: string): Promise<EmailTemplate | undefined>;
+  getEmailTemplates(): Promise<EmailTemplate[]>;
+  getEmailTemplateByType(templateType: string): Promise<EmailTemplate | undefined>;
+  createEmailTemplate(template: InsertEmailTemplate): Promise<EmailTemplate>;
+  updateEmailTemplate(id: string, updates: Partial<EmailTemplate>): Promise<EmailTemplate>;
+  deleteEmailTemplate(id: string): Promise<boolean>;
+  
+  // Master Template Management
+  getMasterTemplate(id: string): Promise<MasterTemplate | undefined>;
+  getMasterTemplates(): Promise<MasterTemplate[]>;
+  getDefaultMasterTemplate(): Promise<MasterTemplate | undefined>;
+  createMasterTemplate(template: InsertMasterTemplate): Promise<MasterTemplate>;
+  updateMasterTemplate(id: string, updates: Partial<MasterTemplate>): Promise<MasterTemplate>;
+  deleteMasterTemplate(id: string): Promise<boolean>;
 }
 
 export class MemStorage implements IStorage {
@@ -162,6 +178,8 @@ export class MemStorage implements IStorage {
   private bookings: Map<string, Booking> = new Map();
   private discoSlots: Map<string, DiscoSlot> = new Map();
   private timeframes: Map<string, Timeframe> = new Map();
+  private emailTemplates: Map<string, EmailTemplate> = new Map();
+  private masterTemplates: Map<string, MasterTemplate> = new Map();
 
   constructor() {
     this.seedData();
@@ -737,6 +755,194 @@ export class MemStorage implements IStorage {
       }
     }
     discoSlotsData.forEach(slot => this.discoSlots.set(slot.id, slot));
+    
+    // Seed default master template
+    const masterTemplate: MasterTemplate = {
+      id: "master_default",
+      orgId: "org_demo",
+      name: "Default Master Template",
+      components: [
+        {
+          id: "header",
+          type: "header",
+          properties: {
+            companyName: "Premier Party Cruises",
+            logoUrl: "/logo.png",
+            showContactInfo: true,
+          },
+          order: 0
+        },
+        {
+          id: "event_details",
+          type: "event_details",
+          properties: {
+            title: "Event Details",
+            showDate: true,
+            showTime: true,
+            showGroupSize: true,
+            showEventType: true,
+          },
+          order: 1
+        },
+        {
+          id: "items_section",
+          type: "items_section",
+          properties: {
+            title: "Your Selection",
+          },
+          order: 2
+        },
+        {
+          id: "pricing_breakdown",
+          type: "pricing_breakdown",
+          properties: {
+            showSubtotal: true,
+            showTax: true,
+            showGratuity: true,
+            showDiscounts: true,
+            showTotal: true,
+          },
+          order: 3
+        },
+        {
+          id: "terms",
+          type: "terms_conditions",
+          properties: {
+            title: "Terms & Conditions",
+            showPaymentTerms: true,
+            showCancellationPolicy: true,
+          },
+          order: 4
+        },
+        {
+          id: "footer",
+          type: "footer",
+          properties: {
+            showContactInfo: true,
+            showSocialLinks: true,
+          },
+          order: 5
+        }
+      ],
+      styling: {
+        primaryColor: "#0066cc",
+        secondaryColor: "#f0f0f0",
+        fontFamily: "Inter, sans-serif",
+        fontSize: "14px",
+      },
+      isDefault: true,
+      createdAt: new Date(),
+    };
+    this.masterTemplates.set(masterTemplate.id, masterTemplate);
+    
+    // Seed default email templates
+    const emailTemplates: EmailTemplate[] = [
+      {
+        id: "email_quote_delivery",
+        orgId: "org_demo",
+        name: "Quote Delivery",
+        templateType: "quote_delivery",
+        subject: "Your Quote from Premier Party Cruises - {{eventType}} on {{eventDate}}",
+        htmlContent: `
+          <h2>Your Custom Quote is Ready!</h2>
+          <p>Hi {{contactName}},</p>
+          <p>Thank you for considering Premier Party Cruises for your {{eventType}}. We're excited to help make your event unforgettable!</p>
+          <p>Your personalized quote is attached below. Here's a quick summary:</p>
+          <ul>
+            <li>Event Date: {{eventDate}}</li>
+            <li>Group Size: {{groupSize}} guests</li>
+            <li>Total: {{totalAmount}}</li>
+          </ul>
+          <p><a href="{{quoteLink}}" style="background: #0066cc; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">View Your Quote</a></p>
+        `,
+        active: true,
+        createdAt: new Date(),
+      },
+      {
+        id: "email_payment_confirmation",
+        orgId: "org_demo",
+        name: "Payment Confirmation",
+        templateType: "payment_confirmation",
+        subject: "Payment Received - Thank You!",
+        htmlContent: `
+          <h2>Payment Confirmation</h2>
+          <p>Hi {{contactName}},</p>
+          <p>We've received your payment of {{paymentAmount}}. Thank you!</p>
+          <p>Your booking is confirmed for {{eventDate}}.</p>
+          <p>We'll send you a final confirmation with all details 48 hours before your event.</p>
+        `,
+        active: true,
+        createdAt: new Date(),
+      },
+      {
+        id: "email_booking_confirmation",
+        orgId: "org_demo",
+        name: "Booking Confirmation",
+        templateType: "booking_confirmation",
+        subject: "Your Cruise is Confirmed! - {{eventDate}}",
+        htmlContent: `
+          <h2>Booking Confirmed!</h2>
+          <p>Hi {{contactName}},</p>
+          <p>Your {{eventType}} cruise is all set for {{eventDate}}!</p>
+          <h3>Event Details:</h3>
+          <ul>
+            <li>Date: {{eventDate}}</li>
+            <li>Time: {{eventTime}}</li>
+            <li>Boat: {{boatName}}</li>
+            <li>Group Size: {{groupSize}} guests</li>
+          </ul>
+          <p>We can't wait to see you!</p>
+        `,
+        active: true,
+        createdAt: new Date(),
+      },
+    ];
+    emailTemplates.forEach(template => this.emailTemplates.set(template.id, template));
+    
+    // Seed quote templates with example configurations
+    const quoteTemplates: QuoteTemplate[] = [
+      {
+        id: "qt_bachelor_party",
+        orgId: "org_demo",
+        name: "Bachelor Party Template",
+        eventType: "Bachelor Party",
+        masterTemplateId: "master_default",
+        components: [],
+        isDefault: true,
+        createdAt: new Date(),
+      },
+      {
+        id: "qt_bachelorette_party",
+        orgId: "org_demo",
+        name: "Bachelorette Party Template",
+        eventType: "Bachelorette Party",
+        masterTemplateId: "master_default",
+        components: [],
+        isDefault: false,
+        createdAt: new Date(),
+      },
+      {
+        id: "qt_birthday_party",
+        orgId: "org_demo",
+        name: "Birthday Party Template",
+        eventType: "Birthday Party",
+        masterTemplateId: "master_default",
+        components: [],
+        isDefault: false,
+        createdAt: new Date(),
+      },
+      {
+        id: "qt_corporate_event",
+        orgId: "org_demo",
+        name: "Corporate Event Template",
+        eventType: "Corporate Event",
+        masterTemplateId: "master_default",
+        components: [],
+        isDefault: false,
+        createdAt: new Date(),
+      },
+    ];
+    quoteTemplates.forEach(template => this.quoteTemplates.set(template.id, template));
   }
 
   async getContact(id: string): Promise<Contact | undefined> {
@@ -2364,6 +2570,94 @@ export class MemStorage implements IStorage {
     }
     
     return calendarMap;
+  }
+  
+  // Email Template Management
+  async getEmailTemplate(id: string): Promise<EmailTemplate | undefined> {
+    return this.emailTemplates.get(id);
+  }
+  
+  async getEmailTemplates(): Promise<EmailTemplate[]> {
+    return Array.from(this.emailTemplates.values());
+  }
+  
+  async getEmailTemplateByType(templateType: string): Promise<EmailTemplate | undefined> {
+    return Array.from(this.emailTemplates.values())
+      .find(t => t.templateType === templateType && t.active);
+  }
+  
+  async createEmailTemplate(template: InsertEmailTemplate): Promise<EmailTemplate> {
+    const emailTemplate: EmailTemplate = {
+      id: randomUUID(),
+      orgId: template.orgId || "org_demo",
+      name: template.name,
+      description: template.description || null,
+      templateType: template.templateType,
+      subject: template.subject,
+      components: template.components || [],
+      variables: template.variables || [],
+      active: template.active !== undefined ? template.active : true,
+      isDefault: template.isDefault || false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    this.emailTemplates.set(emailTemplate.id, emailTemplate);
+    return emailTemplate;
+  }
+  
+  async updateEmailTemplate(id: string, updates: Partial<EmailTemplate>): Promise<EmailTemplate> {
+    const template = this.emailTemplates.get(id);
+    if (!template) throw new Error("Email template not found");
+    const updated = { ...template, ...updates, updatedAt: new Date() };
+    this.emailTemplates.set(id, updated);
+    return updated;
+  }
+  
+  async deleteEmailTemplate(id: string): Promise<boolean> {
+    return this.emailTemplates.delete(id);
+  }
+  
+  // Master Template Management
+  async getMasterTemplate(id: string): Promise<MasterTemplate | undefined> {
+    return this.masterTemplates.get(id);
+  }
+  
+  async getMasterTemplates(): Promise<MasterTemplate[]> {
+    return Array.from(this.masterTemplates.values());
+  }
+  
+  async getDefaultMasterTemplate(): Promise<MasterTemplate | undefined> {
+    return Array.from(this.masterTemplates.values())
+      .find(t => t.isDefault && t.active);
+  }
+  
+  async createMasterTemplate(template: InsertMasterTemplate): Promise<MasterTemplate> {
+    const masterTemplate: MasterTemplate = {
+      id: randomUUID(),
+      orgId: template.orgId || "org_demo",
+      name: template.name,
+      description: template.description || null,
+      components: template.components || [],
+      styles: template.styles || {},
+      active: template.active !== undefined ? template.active : true,
+      isDefault: template.isDefault || false,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    this.masterTemplates.set(masterTemplate.id, masterTemplate);
+    return masterTemplate;
+  }
+  
+  async updateMasterTemplate(id: string, updates: Partial<MasterTemplate>): Promise<MasterTemplate> {
+    const template = this.masterTemplates.get(id);
+    if (!template) throw new Error("Master template not found");
+    const updated = { ...template, ...updates, updatedAt: new Date() };
+    this.masterTemplates.set(id, updated);
+    return updated;
+  }
+  
+  async deleteMasterTemplate(id: string): Promise<boolean> {
+    return this.masterTemplates.delete(id);
   }
 }
 
