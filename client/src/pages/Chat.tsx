@@ -5,7 +5,7 @@ import { apiRequest, queryClient } from '@/lib/queryClient';
 import { 
   Ship, ChevronRight, ArrowLeft, DollarSign, Users, 
   Calendar as CalendarIcon, Clock, Check, X, ChevronLeft, 
-  User, Mail, Phone, MapPin, Star, Sparkles 
+  User, Mail, Phone, MapPin, Star, Sparkles, CreditCard 
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -123,6 +123,34 @@ export default function Chat() {
     return !isBefore(date, today) && !isAfter(date, maxDate);
   };
 
+  // Create deposit payment mutation
+  const createDepositPayment = useMutation({
+    mutationFn: async () => {
+      if (!pricing) throw new Error('No pricing data available');
+      
+      const res = await apiRequest('POST', '/api/create-payment-intent', {
+        amount: pricing.depositAmount,
+        metadata: {
+          type: 'deposit',
+          eventType: formData.eventType,
+          eventDate: formData.eventDate?.toISOString(),
+          groupSize: formData.groupSize,
+        }
+      });
+      const { clientSecret } = await res.json();
+      
+      // Redirect to Stripe checkout or handle payment
+      window.location.href = `/checkout?client_secret=${clientSecret}&return_url=${encodeURIComponent(window.location.origin + '/booking-confirmed')}`;
+    },
+    onError: () => {
+      toast({ 
+        title: 'Payment Error', 
+        description: 'Unable to process payment. Please try again.',
+        variant: 'destructive',
+      });
+    },
+  });
+
   // Create lead mutation
   const createLead = useMutation({
     mutationFn: async (data: BookingData) => {
@@ -136,21 +164,31 @@ export default function Chat() {
       const contactRes = await apiRequest('POST', '/api/contacts', contact);
       const contactResponse = await contactRes.json();
       
-      // Then create the project with pricing info
+      // Then create the project with pricing info (without date first due to validation issues)
       const project: InsertProject = {
         contactId: contactResponse.id,
         title: `${data.eventTypeLabel} - ${data.firstName} ${data.lastName}`,
-        projectDate: data.eventDate || new Date(),
         groupSize: parseInt(data.groupSize) || undefined,
         eventType: data.eventType,
         specialRequests: data.specialRequests || undefined,
         preferredTime: data.preferredTime || undefined,
         budget: pricing?.total || (data.budget ? Math.round(parseFloat(data.budget) * 100) : undefined),
         leadSource: 'chat',
+        orgId: 'org_demo',
+        status: 'NEW',
+        pipelinePhase: 'ph_new',
+        tags: [],
       };
       
       const projectRes = await apiRequest('POST', '/api/projects', project);
       const projectResponse = await projectRes.json();
+      
+      // Update project with date separately to work around validation issue
+      if (data.eventDate) {
+        await apiRequest('PATCH', `/api/projects/${projectResponse.id}`, {
+          projectDate: data.eventDate.toISOString(),
+        });
+      }
       
       // Create a quote from the pricing calculation
       if (pricing && pricing.breakdown) {
@@ -207,8 +245,8 @@ export default function Chat() {
       queryClient.invalidateQueries({ queryKey: ['/api/projects'] });
       setCurrentStep('complete');
       toast({ 
-        title: 'Booking Request Submitted!',
-        description: "We've sent your quote via email. Check your inbox!",
+        title: 'Quote Sent Successfully!',
+        description: "Check your email and text message for the full interactive quote.",
       });
     },
     onError: () => {
@@ -880,84 +918,202 @@ export default function Chat() {
           </Card>
         )}
 
-        {/* Complete Step */}
+        {/* Confirmation Step */}
         {currentStep === 'complete' && (
-          <Card className="w-full max-w-2xl">
-            <CardContent className="pt-12 pb-8">
-              <div className="text-center space-y-6">
-                <div className="w-24 h-24 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto">
-                  <Check className="h-12 w-12 text-green-600" />
+          <Card className="w-full max-w-4xl">
+            <CardContent className="pt-8 pb-6">
+              <div className="space-y-8">
+                {/* Success Header */}
+                <div className="text-center space-y-4">
+                  <div className="w-20 h-20 bg-green-100 dark:bg-green-900/20 rounded-full flex items-center justify-center mx-auto">
+                    <Check className="h-10 w-10 text-green-600" />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <h2 className="text-2xl font-bold">Quote Sent Successfully!</h2>
+                    <p className="text-muted-foreground">
+                      Check your email and text message for the full interactive quote.
+                    </p>
+                  </div>
+
+                  <div className="flex items-center justify-center gap-4 text-sm">
+                    <Badge variant="secondary" className="gap-1">
+                      <Mail className="h-3 w-3" />
+                      Email sent to {formData.email}
+                    </Badge>
+                    {formData.phone && (
+                      <Badge variant="secondary" className="gap-1">
+                        <Phone className="h-3 w-3" />
+                        SMS sent
+                      </Badge>
+                    )}
+                  </div>
                 </div>
-                
-                <div className="space-y-2">
-                  <h2 className="text-3xl font-bold">Booking Request Submitted!</h2>
-                  <p className="text-lg text-muted-foreground">
-                    Thank you for choosing us for your special event
+
+                {/* Booking Details */}
+                <div className="grid md:grid-cols-2 gap-6">
+                  {/* Event Details */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg">Event Details</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Event Type</span>
+                        <span className="font-medium">{formData.eventTypeLabel}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Date</span>
+                        <span className="font-medium">
+                          {formData.eventDate ? format(formData.eventDate, 'EEEE, MMMM d, yyyy') : 'TBD'}
+                        </span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Time</span>
+                        <span className="font-medium">{formData.preferredTimeLabel}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Group Size</span>
+                        <span className="font-medium">{formData.groupSize} guests</span>
+                      </div>
+                      {formData.specialRequests && (
+                        <div className="pt-2 border-t">
+                          <span className="text-muted-foreground text-sm">Special Requests</span>
+                          <p className="text-sm mt-1">{formData.specialRequests}</p>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+
+                  {/* Contact Info */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="text-lg">Contact Information</CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-3">
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Name</span>
+                        <span className="font-medium">{formData.firstName} {formData.lastName}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Email</span>
+                        <span className="font-medium">{formData.email}</span>
+                      </div>
+                      {formData.phone && (
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Phone</span>
+                          <span className="font-medium">{formData.phone}</span>
+                        </div>
+                      )}
+                    </CardContent>
+                  </Card>
+                </div>
+
+                {/* Pricing Summary */}
+                {pricing && (
+                  <Card className="bg-gradient-to-r from-primary/5 to-blue-500/5 border-primary/20">
+                    <CardHeader>
+                      <CardTitle className="text-xl text-center">Pricing Summary</CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                      <div className="space-y-3">
+                        <div className="flex justify-between text-lg">
+                          <span>Total</span>
+                          <span className="font-bold">{formatCurrency(pricing.total)}</span>
+                        </div>
+                        <div className="flex justify-between text-primary font-semibold">
+                          <span>Deposit Required ({pricing.depositPercent}%)</span>
+                          <span>{formatCurrency(pricing.depositAmount)}</span>
+                        </div>
+                        <div className="flex justify-between text-muted-foreground">
+                          <span>Remaining Balance</span>
+                          <span>{formatCurrency(pricing.total - pricing.depositAmount)}</span>
+                        </div>
+                        
+                        {pricing.breakdown && (
+                          <div className="pt-4 border-t space-y-2 text-sm">
+                            <div className="flex justify-between">
+                              <span>Base Cruise Cost</span>
+                              <span>{formatCurrency(pricing.breakdown.baseCruiseCost * 100)}</span>
+                            </div>
+                            {pricing.breakdown.crewFee > 0 && (
+                              <div className="flex justify-between">
+                                <span>Additional Crew Fee</span>
+                                <span>{formatCurrency(pricing.breakdown.crewFee * 100)}</span>
+                              </div>
+                            )}
+                            <div className="flex justify-between">
+                              <span>Tax</span>
+                              <span>{formatCurrency(pricing.tax)}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>Gratuity</span>
+                              <span>{formatCurrency(pricing.gratuity)}</span>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                )}
+
+                {/* Book Now Section */}
+                <div className="text-center space-y-4">
+                  <Button
+                    onClick={() => createDepositPayment.mutate()}
+                    size="lg"
+                    className="w-full max-w-md h-14 text-lg font-semibold"
+                    disabled={createDepositPayment.isPending}
+                    data-testid="button-book-deposit"
+                  >
+                    {createDepositPayment.isPending ? (
+                      <>Processing...</>
+                    ) : (
+                      <>
+                        <CreditCard className="h-5 w-5 mr-2" />
+                        Book Now - Pay {pricing?.depositPercent || 25}% Deposit
+                        <span className="ml-2 text-base">({pricing && formatCurrency(pricing.depositAmount)})</span>
+                      </>
+                    )}
+                  </Button>
+                  
+                  <p className="text-sm text-muted-foreground max-w-md mx-auto">
+                    Secure your booking today! Pay the remaining balance closer to your event date.
                   </p>
                 </div>
 
-                <Card className="bg-primary/5 border-primary/20">
-                  <CardContent className="pt-6">
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <span className="font-medium">Confirmation Email</span>
-                        <Badge variant="secondary">
-                          <Mail className="h-3 w-3 mr-1" />
-                          Sent to {formData.email}
-                        </Badge>
-                      </div>
-                      
-                      {formData.phone && (
-                        <div className="flex items-center justify-between">
-                          <span className="font-medium">SMS Updates</span>
-                          <Badge variant="secondary">
-                            <Phone className="h-3 w-3 mr-1" />
-                            Enabled
-                          </Badge>
-                        </div>
-                      )}
-                      
-                      <Separator />
-                      
-                      <div className="text-center">
-                        <p className="font-semibold text-lg mb-1">Your Quote Total</p>
-                        <p className="text-3xl font-bold text-primary">
-                          {pricing && formatCurrency(pricing.total)}
-                        </p>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          Deposit: {pricing && formatCurrency(pricing.depositAmount)}
-                        </p>
-                      </div>
-                    </div>
+                {/* What Happens Next */}
+                <Card className="bg-muted/30">
+                  <CardHeader>
+                    <CardTitle className="text-lg flex items-center gap-2">
+                      <Clock className="h-5 w-5" />
+                      What Happens Next?
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ol className="space-y-3 text-sm">
+                      <li className="flex gap-3">
+                        <span className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold">1</span>
+                        <span>Our team will confirm your availability within 24 hours and reach out with any questions</span>
+                      </li>
+                      <li className="flex gap-3">
+                        <span className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold">2</span>
+                        <span>If you book now, we'll secure your date immediately with the deposit payment</span>
+                      </li>
+                      <li className="flex gap-3">
+                        <span className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold">3</span>
+                        <span>We'll work with you to plan every detail of your perfect cruise experience</span>
+                      </li>
+                      <li className="flex gap-3">
+                        <span className="flex-shrink-0 w-6 h-6 bg-primary text-primary-foreground rounded-full flex items-center justify-center text-xs font-bold">4</span>
+                        <span>The remaining balance is due 2 weeks before your event</span>
+                      </li>
+                    </ol>
                   </CardContent>
                 </Card>
 
-                <div className="bg-muted/50 rounded-lg p-6 text-left space-y-3">
-                  <h3 className="font-semibold flex items-center gap-2">
-                    <Clock className="h-4 w-4" />
-                    Next Steps
-                  </h3>
-                  <ol className="space-y-2 text-sm text-muted-foreground">
-                    <li className="flex gap-2">
-                      <span className="font-semibold">1.</span>
-                      <span>Check your email for your personalized quote and booking link</span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="font-semibold">2.</span>
-                      <span>Our team will confirm availability within 24 hours</span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="font-semibold">3.</span>
-                      <span>Secure your date with a {pricing?.depositPercent || 25}% deposit</span>
-                    </li>
-                    <li className="flex gap-2">
-                      <span className="font-semibold">4.</span>
-                      <span>We'll contact you to finalize all the exciting details</span>
-                    </li>
-                  </ol>
-                </div>
-
-                <div className="flex gap-3">
+                {/* Action Buttons */}
+                <div className="flex gap-3 pt-4">
                   <Button
                     variant="outline"
                     onClick={() => {
@@ -985,6 +1141,7 @@ export default function Chat() {
                   </Button>
                   <Button
                     onClick={() => window.location.href = '/'}
+                    variant="outline"
                     className="flex-1"
                     data-testid="button-go-home"
                   >

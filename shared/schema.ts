@@ -301,6 +301,14 @@ export const insertContactSchema = createInsertSchema(contacts).omit({
 export const insertProjectSchema = createInsertSchema(projects).omit({
   id: true,
   createdAt: true,
+}).partial({
+  orgId: true,
+  status: true,
+  pipelinePhase: true,
+  leadSource: true,
+  tags: true,
+}).extend({
+  projectDate: z.string().datetime().transform(str => new Date(str)).optional(),
 });
 
 export const insertQuoteSchema = createInsertSchema(quotes).omit({

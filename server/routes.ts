@@ -245,6 +245,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
   app.post("/api/projects", async (req, res) => {
     try {
       const projectData = insertProjectSchema.parse(req.body);
+      
+      // Convert projectDate string to Date if needed
+      if (projectData.projectDate && typeof projectData.projectDate === 'string') {
+        projectData.projectDate = new Date(projectData.projectDate);
+      }
+      
       const project = await storage.createProject(projectData);
       res.status(201).json(project);
     } catch (error: any) {
