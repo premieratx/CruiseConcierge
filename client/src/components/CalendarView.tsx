@@ -613,3 +613,4 @@ function CalendarView() {
 }
 
 export default CalendarView;
+export { CalendarView };
