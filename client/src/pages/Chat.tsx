@@ -139,6 +139,58 @@ const isDiscoAvailableForDate = (date: Date) => {
   return dayOfWeek === 5 || dayOfWeek === 6; // Friday or Saturday only
 };
 
+// Get alternative dates around the selected date for the same group size
+const getAlternativeDates = (selectedDate: Date, groupSize: number, daysRange: number = 14): Array<{
+  date: Date;
+  dayName: string;
+  dayNumber: number;
+  monthName: string;
+  isAvailable: boolean;
+  isSelected: boolean;
+  timeSlotsAvailable: number;
+}> => {
+  if (!selectedDate) return [];
+  
+  const alternatives: Array<{
+    date: Date;
+    dayName: string;
+    dayNumber: number;
+    monthName: string;
+    isAvailable: boolean;
+    isSelected: boolean;
+    timeSlotsAvailable: number;
+  }> = [];
+  
+  // Get dates from 7 days before to 7 days after the selected date
+  for (let i = -daysRange/2; i <= daysRange/2; i++) {
+    if (i === 0) continue; // Skip the selected date itself
+    
+    const date = new Date(selectedDate);
+    date.setDate(selectedDate.getDate() + i);
+    
+    // Skip dates in the past
+    if (date < new Date()) continue;
+    
+    const isAvailable = isDateAvailable(date);
+    const timeSlots = isAvailable ? getPrivateTimeSlotsForDate(date) : [];
+    
+    alternatives.push({
+      date,
+      dayName: format(date, 'EEE'),
+      dayNumber: date.getDate(),
+      monthName: format(date, 'MMM'),
+      isAvailable,
+      isSelected: false,
+      timeSlotsAvailable: timeSlots.length,
+    });
+  }
+  
+  // Sort by date and limit to next 6 dates
+  return alternatives
+    .sort((a, b) => a.date.getTime() - b.date.getTime())
+    .slice(0, 6);
+};
+
 // Disco cruise packages
 const discoPackages = [
   { 
@@ -1984,13 +2036,8 @@ export default function Chat() {
                   </p>
                 </div>
 
-                {/* Dynamic Grid Layout - Two columns for bachelor/bachelorette, single column for others */}
-                <div className={cn(
-                  "gap-8 max-w-6xl mx-auto",
-                  (formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') 
-                    ? "grid lg:grid-cols-2" 
-                    : "flex justify-center"
-                )}>
+                {/* Dynamic Grid Layout - Two columns for all groups */}
+                <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
                   {/* Private Cruise Options */}
                   <motion.div
                     initial={{ scale: 0.95, opacity: 0 }}
@@ -2116,244 +2163,344 @@ export default function Chat() {
                     )}
                   </motion.div>
 
-                  {/* ATX Disco Cruise Options */}
-                  <motion.div
-                    initial={{ scale: 0.95, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: 0.4, duration: 0.5 }}
-                    className={cn(
-                      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-xl p-6 border-2 transition-all w-full",
-                      formData.selectedCruiseType === 'disco' ? "border-purple-500 ring-2 ring-purple-200 dark:ring-purple-800" : "border-slate-200 dark:border-slate-700",
-                      !isDiscoAvailableForDate(formData.eventDate) && "opacity-50"
-                    )}
-                  >
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                        <Music className="h-6 w-6 text-purple-600" />
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-200">ATX Disco Cruise</h3>
-                        <p className="text-slate-600 dark:text-slate-400">Party with others</p>
-                      </div>
-                    </div>
-                    
-                    {isDiscoAvailableForDate(formData.eventDate) ? (
-                      <>
-                        {/* Disco Time Slots */}
-                        <div className="space-y-4 mb-6">
-                          <h4 className="font-medium text-slate-700 dark:text-slate-300">Available Times</h4>
-                          <RadioGroup 
-                            value={formData.selectedDiscoTimeSlot}
-                            onValueChange={(timeSlot) => {
-                              if (formData.selectedDiscoPackage) {
-                                handleDiscoCruiseSelect(formData.selectedDiscoPackage, timeSlot);
-                              }
-                            }}
-                            data-testid="radio-disco-time-slots"
-                          >
-                            {getDiscoTimeSlotsForDate(formData.eventDate).map((slot) => (
-                              <div key={slot.id} className="flex items-center space-x-2">
-                                <RadioGroupItem value={slot.id} id={`disco-time-${slot.id}`} />
-                                <Label 
-                                  htmlFor={`disco-time-${slot.id}`} 
-                                  className="flex-1 flex items-center gap-2 cursor-pointer py-2"
-                                >
-                                  <span className="text-lg">{slot.icon}</span>
-                                  <span>{slot.label}</span>
-                                </Label>
-                              </div>
-                            ))}
-                          </RadioGroup>
+                  {/* Right Column: ATX Disco Cruise for bachelor/bachelorette OR Alternative Dates for others */}
+                  {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') ? (
+                    /* ATX Disco Cruise Options for Bachelor/Bachelorette */
+                    <motion.div
+                      initial={{ scale: 0.95, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.4, duration: 0.5 }}
+                      className={cn(
+                        "bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-xl p-6 border-2 transition-all w-full",
+                        formData.selectedCruiseType === 'disco' ? "border-purple-500 ring-2 ring-purple-200 dark:ring-purple-800" : "border-slate-200 dark:border-slate-700",
+                        !isDiscoAvailableForDate(formData.eventDate) && "opacity-50"
+                      )}
+                    >
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                          <Music className="h-6 w-6 text-purple-600" />
                         </div>
-                        
-                        {/* Disco Packages */}
-                        <div className="space-y-4">
-                          <h4 className="font-medium text-slate-700 dark:text-slate-300">Choose Your Package</h4>
-                          <RadioGroup 
-                            value={formData.selectedDiscoPackage || ''}
-                            onValueChange={(packageId) => {
-                              const timeSlot = formData.selectedDiscoTimeSlot || (formData.eventDate ? getDiscoTimeSlotsForDate(formData.eventDate)[0]?.id : '') || '';
-                              handleDiscoCruiseSelect(packageId, timeSlot);
-                            }}
-                            data-testid="radio-disco-packages"
-                          >
-                            {discoPackages.map((pkg) => (
-                              <div key={pkg.id} className="flex items-center space-x-2">
-                                <RadioGroupItem value={pkg.id} id={`disco-${pkg.id}`} />
-                                <Label 
-                                  htmlFor={`disco-${pkg.id}`} 
-                                  className="flex-1 cursor-pointer py-3 px-3 rounded-lg border hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
-                                >
-                                  <div className="flex justify-between items-start">
-                                    <div>
-                                      <div className="font-medium text-slate-800 dark:text-slate-200">{pkg.name}</div>
-                                      <div className="text-sm text-slate-600 dark:text-slate-400">{pkg.description}</div>
-                                      <div className="text-xs text-slate-500 dark:text-slate-500 mt-1">
-                                        {pkg.features.join(' • ')}
+                        <div>
+                          <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-200">ATX Disco Cruise</h3>
+                          <p className="text-slate-600 dark:text-slate-400">Party with others</p>
+                        </div>
+                      </div>
+                      
+                      {isDiscoAvailableForDate(formData.eventDate) ? (
+                        <>
+                          {/* Disco Time Slots */}
+                          <div className="space-y-4 mb-6">
+                            <h4 className="font-medium text-slate-700 dark:text-slate-300">Available Times</h4>
+                            <RadioGroup 
+                              value={formData.selectedDiscoTimeSlot}
+                              onValueChange={(timeSlot) => {
+                                if (formData.selectedDiscoPackage) {
+                                  handleDiscoCruiseSelect(formData.selectedDiscoPackage, timeSlot);
+                                }
+                              }}
+                              data-testid="radio-disco-time-slots"
+                            >
+                              {getDiscoTimeSlotsForDate(formData.eventDate).map((slot) => (
+                                <div key={slot.id} className="flex items-center space-x-2">
+                                  <RadioGroupItem value={slot.id} id={`disco-time-${slot.id}`} />
+                                  <Label 
+                                    htmlFor={`disco-time-${slot.id}`} 
+                                    className="flex-1 flex items-center gap-2 cursor-pointer py-2"
+                                  >
+                                    <span className="text-lg">{slot.icon}</span>
+                                    <span>{slot.label}</span>
+                                  </Label>
+                                </div>
+                              ))}
+                            </RadioGroup>
+                          </div>
+                          
+                          {/* Disco Packages */}
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-slate-700 dark:text-slate-300">Choose Your Package</h4>
+                            <RadioGroup 
+                              value={formData.selectedDiscoPackage || ''}
+                              onValueChange={(packageId) => {
+                                const timeSlot = formData.selectedDiscoTimeSlot || (formData.eventDate ? getDiscoTimeSlotsForDate(formData.eventDate)[0]?.id : '') || '';
+                                handleDiscoCruiseSelect(packageId, timeSlot);
+                              }}
+                              data-testid="radio-disco-packages"
+                            >
+                              {discoPackages.map((pkg) => (
+                                <div key={pkg.id} className="flex items-center space-x-2">
+                                  <RadioGroupItem value={pkg.id} id={`disco-${pkg.id}`} />
+                                  <Label 
+                                    htmlFor={`disco-${pkg.id}`} 
+                                    className="flex-1 cursor-pointer py-3 px-3 rounded-lg border hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                                  >
+                                    <div className="flex justify-between items-start">
+                                      <div>
+                                        <div className="font-medium text-slate-800 dark:text-slate-200">{pkg.name}</div>
+                                        <div className="text-sm text-slate-600 dark:text-slate-400">{pkg.description}</div>
+                                        <div className="text-xs text-slate-500 dark:text-slate-500 mt-1">
+                                          {pkg.features.join(' • ')}
+                                        </div>
+                                      </div>
+                                      <div className="text-right">
+                                        <div className="font-bold text-purple-600">${pkg.price}</div>
+                                        <div className="text-xs text-slate-500">per person</div>
                                       </div>
                                     </div>
-                                    <div className="text-right">
-                                      <div className="font-bold text-purple-600">${pkg.price}</div>
-                                      <div className="text-xs text-slate-500">per person</div>
+                                  </Label>
+                                </div>
+                              ))}
+                            </RadioGroup>
+                          </div>
+                          
+                          {/* Disco Ticket Quantity Selector */}
+                          {formData.selectedDiscoPackage && formData.selectedDiscoTimeSlot && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="mt-6 space-y-4"
+                            >
+                              <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+                                <h4 className="font-medium text-slate-700 dark:text-slate-300 mb-3">Number of Tickets</h4>
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-3">
+                                    <Button
+                                      variant="outline"
+                                      size="sm"
+                                      onClick={() => {
+                                        if (formData.discoTicketQuantity > 1) {
+                                          setFormData({...formData, discoTicketQuantity: formData.discoTicketQuantity - 1});
+                                        }
+                                      }}
+                                      disabled={formData.discoTicketQuantity <= 1}
+                                      className="h-8 w-8 p-0"
+                                      data-testid="button-decrease-quantity"
+                                    >
+                                      <Minus className="h-4 w-4" />
+                                    </Button>
+                                    <div className="flex flex-col items-center">
+                                      <span className="text-xl font-bold text-slate-800 dark:text-slate-200" data-testid="text-ticket-quantity">
+                                        {formData.discoTicketQuantity}
+                                      </span>
+                                      <span className="text-xs text-slate-500 dark:text-slate-400">
+                                        {formData.discoTicketQuantity === 1 ? 'ticket' : 'tickets'}
+                                      </span>
+                                    </div>
+                                    <Button
+                                      variant="outline"
+                                      size="sm"
+                                      onClick={() => {
+                                        if (formData.discoTicketQuantity < 50) {
+                                          setFormData({...formData, discoTicketQuantity: formData.discoTicketQuantity + 1});
+                                        }
+                                      }}
+                                      disabled={formData.discoTicketQuantity >= 50}
+                                      className="h-8 w-8 p-0"
+                                      data-testid="button-increase-quantity"
+                                    >
+                                      <Plus className="h-4 w-4" />
+                                    </Button>
+                                  </div>
+                                  <div className="text-right">
+                                    <div className="text-sm text-slate-600 dark:text-slate-400">Total per package:</div>
+                                    <div className="font-bold text-purple-600">
+                                      ${(discoPackages.find(pkg => pkg.id === formData.selectedDiscoPackage)?.price || 0) * formData.discoTicketQuantity}
                                     </div>
                                   </div>
-                                </Label>
+                                </div>
+                                <div className="mt-3 text-xs text-slate-500 dark:text-slate-400 text-center">
+                                  Select 1-50 tickets for your group • All tickets must be from the same package
+                                </div>
                               </div>
-                            ))}
-                          </RadioGroup>
-                        </div>
-                        
-                        {/* Disco Ticket Quantity Selector */}
-                        {formData.selectedDiscoPackage && formData.selectedDiscoTimeSlot && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="mt-6 space-y-4"
-                          >
-                            <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
-                              <h4 className="font-medium text-slate-700 dark:text-slate-300 mb-3">Number of Tickets</h4>
-                              <div className="flex items-center justify-between">
-                                <div className="flex items-center gap-3">
-                                  <Button
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() => {
-                                      if (formData.discoTicketQuantity > 1) {
-                                        setFormData({...formData, discoTicketQuantity: formData.discoTicketQuantity - 1});
-                                      }
-                                    }}
-                                    disabled={formData.discoTicketQuantity <= 1}
-                                    className="h-8 w-8 p-0"
-                                    data-testid="button-decrease-quantity"
-                                  >
-                                    <Minus className="h-4 w-4" />
-                                  </Button>
-                                  <div className="flex flex-col items-center">
-                                    <span className="text-xl font-bold text-slate-800 dark:text-slate-200" data-testid="text-ticket-quantity">
-                                      {formData.discoTicketQuantity}
-                                    </span>
-                                    <span className="text-xs text-slate-500 dark:text-slate-400">
-                                      {formData.discoTicketQuantity === 1 ? 'ticket' : 'tickets'}
-                                    </span>
+                            </motion.div>
+                          )}
+                          
+                          {/* Enhanced Disco Cruise Pricing */}
+                          {formData.selectedDiscoPackage && formData.selectedDiscoTimeSlot && discoPricing && (
+                            <motion.div
+                              initial={{ opacity: 0, y: 20 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              className="mt-6 space-y-6"
+                            >
+                              {/* Detailed Pricing Breakdown */}
+                              <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 rounded-xl p-6">
+                                <h4 className="font-semibold text-slate-800 dark:text-slate-200 mb-4 text-center">Investment Breakdown</h4>
+                                
+                                <div className="space-y-3">
+                                  <div className="flex justify-between items-center">
+                                    <span className="text-slate-600 dark:text-slate-400">Package Cost ({formData.discoTicketQuantity} {formData.discoTicketQuantity === 1 ? 'ticket' : 'tickets'}):</span>
+                                    <span className="font-medium">{formatCurrency(discoPricing.subtotal)}</span>
                                   </div>
-                                  <Button
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() => {
-                                      if (formData.discoTicketQuantity < 50) {
-                                        setFormData({...formData, discoTicketQuantity: formData.discoTicketQuantity + 1});
-                                      }
-                                    }}
-                                    disabled={formData.discoTicketQuantity >= 50}
-                                    className="h-8 w-8 p-0"
-                                    data-testid="button-increase-quantity"
-                                  >
-                                    <Plus className="h-4 w-4" />
-                                  </Button>
+                                  <div className="flex justify-between items-center">
+                                    <span className="text-slate-600 dark:text-slate-400">Sales Tax (8.25%):</span>
+                                    <span className="font-medium">{formatCurrency(discoPricing.tax)}</span>
+                                  </div>
+                                  <div className="flex justify-between items-center">
+                                    <span className="text-slate-600 dark:text-slate-400">Tip for the Captain and Crew (20%):</span>
+                                    <span className="font-medium">{formatCurrency(discoPricing.gratuity || Math.round(discoPricing.subtotal * 0.20))}</span>
+                                  </div>
+                                  <div className="border-t border-slate-200 dark:border-slate-700 pt-3">
+                                    <div className="flex justify-between items-center text-lg font-bold">
+                                      <span className="text-slate-800 dark:text-slate-200">Total Price:</span>
+                                      <span className="text-purple-600 dark:text-purple-400">{formatCurrency(discoPricing.total)}</span>
+                                    </div>
+                                    <div className="flex justify-between items-center text-sm mt-1">
+                                      <span className="text-slate-500 dark:text-slate-400">Per person:</span>
+                                      <span className="text-slate-600 dark:text-slate-300">{formatCurrency(discoPricing.total / formData.discoTicketQuantity)}</span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              {/* Payment Options */}
+                              <div className="space-y-4">
+                                <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
+                                  <div className="flex justify-between items-center mb-3">
+                                    <span className="font-medium text-slate-700 dark:text-slate-300">Secure Your Booking:</span>
+                                    <span className="text-sm text-green-600 dark:text-green-400 font-medium">25% Deposit</span>
+                                  </div>
+                                  <div className="flex justify-between items-center mb-4">
+                                    <span className="text-slate-600 dark:text-slate-400">Deposit Amount:</span>
+                                    <span className="text-xl font-bold text-green-600 dark:text-green-400">{formatCurrency(discoPricing.depositAmount)}</span>
+                                  </div>
+                                  <div className="grid grid-cols-2 gap-3">
+                                    <Button
+                                      onClick={() => createDepositPayment.mutate()}
+                                      disabled={createDepositPayment.isPending}
+                                      className="bg-green-600 hover:bg-green-700 text-white h-12"
+                                      data-testid="button-pay-deposit-disco"
+                                    >
+                                      {createDepositPayment.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                                      <CreditCard className="h-4 w-4 mr-2" />
+                                      Pay Deposit
+                                    </Button>
+                                    <Button
+                                      onClick={() => createFullPayment.mutate()}
+                                      disabled={createFullPayment.isPending}
+                                      variant="outline"
+                                      className="border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 h-12"
+                                      data-testid="button-pay-full-disco"
+                                    >
+                                      {createFullPayment.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
+                                      <Sparkles className="h-4 w-4 mr-2" />
+                                      Pay in Full
+                                    </Button>
+                                  </div>
+                                  <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-2">
+                                    Balance due: {formatCurrency(discoPricing.total - discoPricing.depositAmount)}
+                                  </p>
+                                </div>
+                              </div>
+                            </motion.div>
+                          )}
+                        </>
+                      ) : (
+                        <div className="text-center py-8">
+                          <AlertCircle className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+                          <h4 className="font-medium text-slate-600 dark:text-slate-400 mb-2">Not Available</h4>
+                          <p className="text-sm text-slate-500 dark:text-slate-500">
+                            ATX Disco Cruises are only available on Fridays and Saturdays
+                          </p>
+                        </div>
+                      )}
+                    </motion.div>
+                  ) : (
+                    /* Alternative Dates for Non-Bachelor/Bachelorette Groups */
+                    <motion.div
+                      initial={{ scale: 0.95, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.4, duration: 0.5 }}
+                      className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-xl p-6 border-2 border-slate-200 dark:border-slate-700 w-full"
+                    >
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                          <Calendar className="h-6 w-6 text-green-600" />
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-200">Alternative Dates</h3>
+                          <p className="text-slate-600 dark:text-slate-400">Consider nearby dates for {formData.groupSize} people</p>
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        <div className="bg-blue-50 dark:bg-blue-900/30 rounded-lg p-3 mb-4">
+                          <div className="flex items-center gap-2 text-blue-700 dark:text-blue-300 text-sm">
+                            <span className="font-medium">Selected:</span>
+                            <span>{format(formData.eventDate, 'EEEE, MMMM d, yyyy')}</span>
+                          </div>
+                        </div>
+
+                        <h4 className="font-medium text-slate-700 dark:text-slate-300">Nearby Available Dates</h4>
+                        <div className="grid grid-cols-2 gap-3">
+                          {getAlternativeDates(formData.eventDate, formData.groupSize).map((alt, index) => (
+                            <button
+                              key={index}
+                              onClick={() => {
+                                if (alt.isAvailable) {
+                                  setFormData(prev => ({ 
+                                    ...prev, 
+                                    eventDate: alt.date,
+                                    selectedTimeSlot: '', // Reset time slot when date changes
+                                    selectedCruiseType: null // Reset cruise type selection
+                                  }));
+                                  setCurrentQuestion('comparison-selection'); // Stay on this page
+                                }
+                              }}
+                              disabled={!alt.isAvailable}
+                              className={cn(
+                                "p-3 rounded-lg border-2 transition-all text-left",
+                                alt.isAvailable 
+                                  ? "border-slate-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-600 hover:bg-blue-50 dark:hover:bg-blue-900/20 cursor-pointer" 
+                                  : "border-slate-100 dark:border-slate-800 opacity-50 cursor-not-allowed",
+                              )}
+                              data-testid={`button-alt-date-${index}`}
+                            >
+                              <div className="flex items-center justify-between">
+                                <div>
+                                  <div className="font-medium text-slate-800 dark:text-slate-200">
+                                    {alt.dayName} {alt.dayNumber}
+                                  </div>
+                                  <div className="text-xs text-slate-500 dark:text-slate-400">
+                                    {alt.monthName}
+                                  </div>
                                 </div>
                                 <div className="text-right">
-                                  <div className="text-sm text-slate-600 dark:text-slate-400">Total per package:</div>
-                                  <div className="font-bold text-purple-600">
-                                    ${(discoPackages.find(pkg => pkg.id === formData.selectedDiscoPackage)?.price || 0) * formData.discoTicketQuantity}
-                                  </div>
+                                  {alt.isAvailable ? (
+                                    <div className="text-xs text-green-600 dark:text-green-400">
+                                      {alt.timeSlotsAvailable} slots
+                                    </div>
+                                  ) : (
+                                    <div className="text-xs text-red-500 dark:text-red-400">
+                                      Unavailable
+                                    </div>
+                                  )}
                                 </div>
                               </div>
-                              <div className="mt-3 text-xs text-slate-500 dark:text-slate-400 text-center">
-                                Select 1-50 tickets for your group • All tickets must be from the same package
-                              </div>
+                            </button>
+                          ))}
+                        </div>
+
+                        <div className="mt-6 p-4 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/30 dark:to-blue-900/30 rounded-xl">
+                          <div className="text-center">
+                            <h4 className="font-semibold text-slate-800 dark:text-slate-200 mb-2">
+                              Why Consider Alternative Dates?
+                            </h4>
+                            <div className="text-sm text-slate-600 dark:text-slate-400 space-y-1">
+                              <p>• Better availability and time slot options</p>
+                              <p>• Potential weekday discounts</p>
+                              <p>• Less crowded lake conditions</p>
+                              <p>• More flexible scheduling</p>
                             </div>
-                          </motion.div>
-                        )}
-                        
-                        {/* Enhanced Disco Cruise Pricing */}
-                        {formData.selectedDiscoPackage && formData.selectedDiscoTimeSlot && discoPricing && (
-                          <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            className="mt-6 space-y-6"
-                          >
-                            {/* Detailed Pricing Breakdown */}
-                            <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 rounded-xl p-6">
-                              <h4 className="font-semibold text-slate-800 dark:text-slate-200 mb-4 text-center">Investment Breakdown</h4>
-                              
-                              <div className="space-y-3">
-                                <div className="flex justify-between items-center">
-                                  <span className="text-slate-600 dark:text-slate-400">Package Cost ({formData.discoTicketQuantity} {formData.discoTicketQuantity === 1 ? 'ticket' : 'tickets'}):</span>
-                                  <span className="font-medium">{formatCurrency(discoPricing.subtotal)}</span>
-                                </div>
-                                <div className="flex justify-between items-center">
-                                  <span className="text-slate-600 dark:text-slate-400">Sales Tax (8.25%):</span>
-                                  <span className="font-medium">{formatCurrency(discoPricing.tax)}</span>
-                                </div>
-                                <div className="flex justify-between items-center">
-                                  <span className="text-slate-600 dark:text-slate-400">Tip for the Captain and Crew (20%):</span>
-                                  <span className="font-medium">{formatCurrency(discoPricing.gratuity || Math.round(discoPricing.subtotal * 0.20))}</span>
-                                </div>
-                                <div className="border-t border-slate-200 dark:border-slate-700 pt-3">
-                                  <div className="flex justify-between items-center text-lg font-bold">
-                                    <span className="text-slate-800 dark:text-slate-200">Total Price:</span>
-                                    <span className="text-purple-600 dark:text-purple-400">{formatCurrency(discoPricing.total)}</span>
-                                  </div>
-                                  <div className="flex justify-between items-center text-sm mt-1">
-                                    <span className="text-slate-500 dark:text-slate-400">Per person:</span>
-                                    <span className="text-slate-600 dark:text-slate-300">{formatCurrency(discoPricing.total / formData.discoTicketQuantity)}</span>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                            
-                            {/* Payment Options */}
-                            <div className="space-y-4">
-                              <div className="bg-white dark:bg-slate-800 rounded-xl p-4 border border-slate-200 dark:border-slate-700">
-                                <div className="flex justify-between items-center mb-3">
-                                  <span className="font-medium text-slate-700 dark:text-slate-300">Secure Your Booking:</span>
-                                  <span className="text-sm text-green-600 dark:text-green-400 font-medium">25% Deposit</span>
-                                </div>
-                                <div className="flex justify-between items-center mb-4">
-                                  <span className="text-slate-600 dark:text-slate-400">Deposit Amount:</span>
-                                  <span className="text-xl font-bold text-green-600 dark:text-green-400">{formatCurrency(discoPricing.depositAmount)}</span>
-                                </div>
-                                <div className="grid grid-cols-2 gap-3">
-                                  <Button
-                                    onClick={() => createDepositPayment.mutate()}
-                                    disabled={createDepositPayment.isPending}
-                                    className="bg-green-600 hover:bg-green-700 text-white h-12"
-                                    data-testid="button-pay-deposit-disco"
-                                  >
-                                    {createDepositPayment.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                                    <CreditCard className="h-4 w-4 mr-2" />
-                                    Pay Deposit
-                                  </Button>
-                                  <Button
-                                    onClick={() => createFullPayment.mutate()}
-                                    disabled={createFullPayment.isPending}
-                                    variant="outline"
-                                    className="border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 h-12"
-                                    data-testid="button-pay-full-disco"
-                                  >
-                                    {createFullPayment.isPending && <Loader2 className="h-4 w-4 mr-2 animate-spin" />}
-                                    <Sparkles className="h-4 w-4 mr-2" />
-                                    Pay in Full
-                                  </Button>
-                                </div>
-                                <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-2">
-                                  Balance due: {formatCurrency(discoPricing.total - discoPricing.depositAmount)}
-                                </p>
-                              </div>
-                            </div>
-                          </motion.div>
-                        )}
-                      </>
-                    ) : (
-                      <div className="text-center py-8">
-                        <AlertCircle className="h-12 w-12 text-slate-400 mx-auto mb-4" />
-                        <h4 className="font-medium text-slate-600 dark:text-slate-400 mb-2">Not Available</h4>
-                        <p className="text-sm text-slate-500 dark:text-slate-500">
-                          ATX Disco Cruises are only available on Fridays and Saturdays
-                        </p>
+                          </div>
+                        </div>
+
+                        <div className="text-center pt-4">
+                          <p className="text-xs text-slate-500 dark:text-slate-400">
+                            Click any available date to update your selection
+                          </p>
+                        </div>
                       </div>
-                    )}
-                  </motion.div>
+                    </motion.div>
+                  )}
                 </div>
                 
                 {/* Send Me My Quote Option - Always Available */}
