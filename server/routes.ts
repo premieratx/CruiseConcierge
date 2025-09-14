@@ -7,7 +7,7 @@ import { googleSheetsService } from "./services/googleSheets";
 import { mailgunService } from "./services/mailgun";
 import { openRouterService } from "./services/openrouter";
 import { goHighLevelService } from "./services/gohighlevel";
-import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema } from "@shared/schema";
+import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest } from "@shared/schema";
 import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
 
@@ -292,6 +292,196 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Get clients error:", error);
       res.status(500).json({ error: "Failed to fetch clients" });
+    }
+  });
+
+  // Lead tracking endpoints
+  app.post("/api/leads", async (req, res) => {
+    try {
+      const { leadId, name, email, phone, eventType, eventTypeLabel, source } = req.body;
+
+      if (!leadId || !name || !email) {
+        return res.status(400).json({ error: "leadId, name, and email are required" });
+      }
+
+      const success = await googleSheetsService.createLead({
+        leadId,
+        name,
+        email,
+        phone,
+        eventType,
+        eventTypeLabel,
+        source: source || "AI Chatbot Flow"
+      });
+
+      if (success) {
+        console.log("✅ Lead created successfully:", leadId);
+        res.status(201).json({ 
+          success: true, 
+          leadId,
+          message: "Lead created successfully" 
+        });
+      } else {
+        console.error("❌ Failed to create lead:", leadId);
+        res.status(500).json({ 
+          success: false, 
+          error: "Failed to create lead in tracking system" 
+        });
+      }
+    } catch (error: any) {
+      console.error("Create lead error:", error);
+      res.status(500).json({ 
+        success: false, 
+        error: "Failed to create lead",
+        details: error.message 
+      });
+    }
+  });
+
+  app.patch("/api/leads/:leadId", async (req, res) => {
+    try {
+      const { leadId } = req.params;
+      const updates = req.body as LeadUpdateData;
+
+      if (!leadId) {
+        return res.status(400).json({ error: "leadId is required" });
+      }
+
+      const success = await googleSheetsService.updateLead(leadId, updates);
+
+      if (success) {
+        console.log("✅ Lead updated successfully:", leadId, updates);
+        res.json({ 
+          success: true, 
+          leadId,
+          message: "Lead updated successfully",
+          updates 
+        });
+      } else {
+        console.error("❌ Failed to update lead:", leadId);
+        res.status(500).json({ 
+          success: false, 
+          error: "Failed to update lead in tracking system" 
+        });
+      }
+    } catch (error: any) {
+      console.error("Update lead error:", error);
+      res.status(500).json({ 
+        success: false, 
+        error: "Failed to update lead",
+        details: error.message 
+      });
+    }
+  });
+
+  app.get("/api/leads/:leadId", async (req, res) => {
+    try {
+      const { leadId } = req.params;
+
+      if (!leadId) {
+        return res.status(400).json({ error: "leadId is required" });
+      }
+
+      const lead = await googleSheetsService.getLead(leadId);
+
+      if (lead) {
+        res.json({ success: true, lead });
+      } else {
+        res.status(404).json({ 
+          success: false, 
+          error: "Lead not found" 
+        });
+      }
+    } catch (error: any) {
+      console.error("Get lead error:", error);
+      res.status(500).json({ 
+        success: false, 
+        error: "Failed to fetch lead",
+        details: error.message 
+      });
+    }
+  });
+
+  app.get("/api/leads", async (req, res) => {
+    try {
+      const leads = await googleSheetsService.getAllLeads();
+      res.json({ success: true, leads, count: leads.length });
+    } catch (error: any) {
+      console.error("Get all leads error:", error);
+      res.status(500).json({ 
+        success: false, 
+        error: "Failed to fetch leads",
+        details: error.message 
+      });
+    }
+  });
+
+  // Enhanced lead tracking endpoint for immediate lead creation with contact info
+  app.post("/api/leads/immediate", async (req, res) => {
+    try {
+      const { name, email, phone, eventType, eventTypeLabel, sessionId } = req.body;
+
+      if (!name || !email) {
+        return res.status(400).json({ error: "name and email are required for immediate lead creation" });
+      }
+
+      // Generate unique lead ID using timestamp and session
+      const leadId = `lead_${Date.now()}_${sessionId || Math.random().toString(36).substr(2, 9)}`;
+
+      // Create lead in Google Sheets immediately
+      const leadSuccess = await googleSheetsService.createLead({
+        leadId,
+        name,
+        email,
+        phone,
+        eventType,
+        eventTypeLabel,
+        source: "AI Chatbot Flow - Immediate"
+      });
+
+      // Also create contact in local storage for the application
+      let contact = null;
+      try {
+        contact = await storage.createContact({
+          name,
+          email,
+          phone: phone || null,
+          tags: ["chatbot_lead", "immediate_tracking"]
+        });
+        console.log("✅ Contact created in local storage:", contact.id);
+      } catch (contactError) {
+        // Contact might already exist, try to find it
+        try {
+          contact = await storage.getContactByEmail(email);
+          console.log("📝 Found existing contact:", contact?.id);
+        } catch (findError) {
+          console.error("Failed to create or find contact:", findError);
+        }
+      }
+
+      if (leadSuccess) {
+        console.log("✅ Immediate lead created successfully:", leadId);
+        res.status(201).json({ 
+          success: true, 
+          leadId,
+          contactId: contact?.id,
+          message: "Lead created immediately with contact info",
+          trackingActive: true
+        });
+      } else {
+        console.error("❌ Failed to create immediate lead:", leadId);
+        res.status(500).json({ 
+          success: false, 
+          error: "Failed to create immediate lead in tracking system" 
+        });
+      }
+    } catch (error: any) {
+      console.error("Immediate lead creation error:", error);
+      res.status(500).json({ 
+        success: false, 
+        error: "Failed to create immediate lead",
+        details: error.message 
+      });
     }
   });
 

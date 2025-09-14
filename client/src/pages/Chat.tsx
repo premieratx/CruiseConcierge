@@ -236,6 +236,11 @@ export default function Chat() {
   const [questionHistory, setQuestionHistory] = useState<Question[]>(['event-type']);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [maxProgressIndex, setMaxProgressIndex] = useState(0);
+  // Lead tracking state
+  const [leadId, setLeadId] = useState<string | null>(null);
+  const [leadCreated, setLeadCreated] = useState(false);
+  const [projectId, setProjectId] = useState<string | null>(null);
+  const [leadTrackingEnabled, setLeadTrackingEnabled] = useState(true);
   const { toast } = useToast();
 
   // Fetch pricing when all required data is available
@@ -611,10 +616,140 @@ export default function Chat() {
     progressToNextQuestion();
   };
 
+  // Immediate lead creation mutation - creates lead as soon as contact info is entered
+  const createImmediateLead = useMutation({
+    mutationFn: async (data: {
+      name: string;
+      email: string;
+      phone?: string;
+      eventType?: string;
+      eventTypeLabel?: string;
+    }) => {
+      const sessionId = Date.now().toString(); // Use timestamp as session ID
+      const response = await apiRequest('POST', '/api/leads/immediate', {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        eventType: data.eventType,
+        eventTypeLabel: data.eventTypeLabel,
+        sessionId: sessionId
+      });
+      return response.json();
+    },
+    onSuccess: (response) => {
+      if (response.success) {
+        setLeadId(response.leadId);
+        setLeadCreated(true);
+        console.log('✅ Immediate lead created:', response.leadId);
+        toast({
+          title: 'Lead Tracked',
+          description: 'Your information has been saved and is being tracked.',
+          variant: 'default',
+        });
+      }
+    },
+    onError: (error: any) => {
+      console.error('❌ Failed to create immediate lead:', error);
+      toast({
+        title: 'Tracking Warning',
+        description: 'Unable to save tracking information, but you can continue.',
+        variant: 'destructive',
+      });
+    }
+  });
+
+  // Progressive lead update mutation - updates lead as user progresses through flow
+  const updateLeadProgress = useMutation({
+    mutationFn: async (updates: {
+      cruiseDate?: string;
+      groupSize?: number;
+      boatType?: string;
+      discoPackage?: string;
+      timeSlot?: string;
+      status?: string;
+      progress?: string;
+      specialRequests?: string;
+      budget?: string;
+      notes?: string;
+    }) => {
+      if (!leadId) {
+        throw new Error('No lead ID available for update');
+      }
+      
+      const response = await apiRequest('PATCH', `/api/leads/${leadId}`, updates);
+      return response.json();
+    },
+    onSuccess: (response) => {
+      if (response.success) {
+        console.log('✅ Lead updated:', response.leadId, response.updates);
+      }
+    },
+    onError: (error: any) => {
+      console.error('❌ Failed to update lead:', error);
+      // Don't show error toast for updates to avoid interrupting user experience
+    }
+  });
+
+  // Project creation mutation - automatically creates project when cruise date is selected
+  const createProjectForLead = useMutation({
+    mutationFn: async (data: {
+      contactId: string;
+      cruiseDate: Date;
+      eventType: string;
+      eventTypeLabel: string;
+      groupSize: number;
+      preferredTime?: string;
+    }) => {
+      const project: InsertProject = {
+        contactId: data.contactId,
+        title: `${data.eventTypeLabel} - ${formData.firstName} ${formData.lastName}`,
+        groupSize: data.groupSize,
+        eventType: data.eventType,
+        projectDate: data.cruiseDate.toISOString(),
+        preferredTime: data.preferredTime,
+        leadSource: 'AI Chatbot Flow',
+        orgId: 'org_demo',
+        status: 'NEW',
+        pipelinePhase: 'ph_new',
+        tags: ['chatbot_lead', 'immediate_tracking']
+      };
+      
+      const response = await apiRequest('POST', '/api/projects', project);
+      return response.json();
+    },
+    onSuccess: (project) => {
+      setProjectId(project.id);
+      console.log('✅ Project created for lead:', project.id);
+      
+      // Update lead with project ID
+      if (leadId) {
+        updateLeadProgress.mutate({
+          projectId: project.id,
+          status: 'DATE_SELECTED',
+          progress: 'date_selected'
+        });
+      }
+    },
+    onError: (error: any) => {
+      console.error('❌ Failed to create project:', error);
+    }
+  });
+
   // Contact Info Handler
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (formData.firstName && formData.lastName && formData.email) {
+      // Create lead immediately when contact info is provided
+      if (!leadCreated && leadTrackingEnabled) {
+        createImmediateLead.mutate({
+          name: `${formData.firstName} ${formData.lastName}`,
+          email: formData.email,
+          phone: formData.phone,
+          eventType: formData.eventType,
+          eventTypeLabel: formData.eventTypeLabel
+        });
+      }
+      
       addCompletedSelection({
         id: 'contact-info',
         label: 'Contact',
@@ -637,6 +772,16 @@ export default function Chat() {
         selectedDiscoPackage: null,
         selectedDiscoTimeSlot: ''
       });
+      
+      // Update lead with cruise date
+      if (leadId && leadCreated) {
+        updateLeadProgress.mutate({
+          cruiseDate: format(date, 'yyyy-MM-dd'),
+          status: 'DATE_SELECTED',
+          progress: 'date_selected'
+        });
+      }
+      
       addCompletedSelection({
         id: 'date',
         label: 'Date',
@@ -651,6 +796,16 @@ export default function Chat() {
   const handleGroupSizeChange = (value: number[]) => {
     const newSize = value[0];
     setFormData({ ...formData, groupSize: newSize });
+    
+    // Update lead with group size
+    if (leadId && leadCreated) {
+      updateLeadProgress.mutate({
+        groupSize: newSize,
+        status: 'OPTIONS_SELECTED',
+        progress: 'size_selected'
+      });
+    }
+    
     // Update the completed selection in real-time
     addCompletedSelection({
       id: 'group-size',
@@ -695,6 +850,17 @@ export default function Chat() {
       const cruiseLabel = formData.selectedCruiseType === 'private' 
         ? `Private Cruise - ${formData.selectedTimeSlot}`
         : `${discoPackages.find(p => p.id === formData.selectedDiscoPackage)?.name} - ${formData.selectedDiscoTimeSlot}`;
+      
+      // Update lead with final selections
+      if (leadId && leadCreated) {
+        updateLeadProgress.mutate({
+          boatType: formData.selectedCruiseType === 'private' ? 'Private Charter' : 'ATX Disco Cruise',
+          discoPackage: formData.selectedDiscoPackage || undefined,
+          timeSlot: formData.selectedCruiseType === 'private' ? formData.selectedTimeSlot : formData.selectedDiscoTimeSlot,
+          status: 'OPTIONS_SELECTED',
+          progress: 'options_selected'
+        });
+      }
         
       addCompletedSelection({
         id: 'comparison',

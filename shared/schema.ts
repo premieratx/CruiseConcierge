@@ -422,6 +422,62 @@ export type InsertProduct = z.infer<typeof insertProductSchema>;
 export type InsertBoat = z.infer<typeof insertBoatSchema>;
 export type InsertAffiliate = z.infer<typeof insertAffiliateSchema>;
 
+// Lead tracking types for Google Sheets integration
+export type LeadProgressStage = 'started' | 'contact_complete' | 'date_selected' | 'size_selected' | 'options_selected' | 'complete';
+export type LeadStatus = 'NEW' | 'CONTACT_INFO' | 'DATE_SELECTED' | 'OPTIONS_SELECTED' | 'QUOTED' | 'BOOKED' | 'LOST';
+
+export interface LeadData {
+  leadId: string;
+  createdDate: string;
+  name: string;
+  email: string;
+  phone?: string;
+  eventType?: string;
+  eventTypeLabel?: string;
+  cruiseDate?: string;
+  groupSize?: number;
+  boatType?: string;
+  discoPackage?: string;
+  timeSlot?: string;
+  status: LeadStatus;
+  progress: LeadProgressStage;
+  lastUpdated: string;
+  source: string;
+  specialRequests?: string;
+  budget?: string;
+  projectId?: string;
+  notes?: string;
+}
+
+export interface LeadUpdateData {
+  name?: string;
+  email?: string;
+  phone?: string;
+  eventType?: string;
+  eventTypeLabel?: string;
+  cruiseDate?: string;
+  groupSize?: number;
+  boatType?: string;
+  discoPackage?: string;
+  timeSlot?: string;
+  status?: LeadStatus;
+  progress?: LeadProgressStage;
+  specialRequests?: string;
+  budget?: string;
+  projectId?: string;
+  notes?: string;
+}
+
+export interface CreateLeadRequest {
+  leadId: string;
+  name: string;
+  email: string;
+  phone?: string;
+  eventType?: string;
+  eventTypeLabel?: string;
+  source?: string;
+}
+
 // Enhanced pricing response type
 export type PricingPreview = {
   subtotal: number;
