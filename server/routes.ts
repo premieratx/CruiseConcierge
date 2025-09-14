@@ -820,6 +820,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get a single quote by ID
+  app.get("/api/quotes/:id", async (req, res) => {
+    try {
+      const quote = await storage.getQuote(req.params.id);
+      if (!quote) {
+        return res.status(404).json({ error: "Quote not found" });
+      }
+      res.json(quote);
+    } catch (error) {
+      console.error("Get quote error:", error);
+      res.status(500).json({ error: "Failed to retrieve quote" });
+    }
+  });
+
+  // Get quotes by project
+  app.get("/api/projects/:projectId/quotes", async (req, res) => {
+    try {
+      const quotes = await storage.getQuotesByProject(req.params.projectId);
+      res.json(quotes);
+    } catch (error) {
+      console.error("Get project quotes error:", error);
+      res.status(500).json({ error: "Failed to retrieve quotes" });
+    }
+  });
+
   // Public quote viewing endpoint
   app.get("/api/quotes/:id/public", async (req, res) => {
     try {

@@ -524,6 +524,201 @@ export class MemStorage implements IStorage {
       },
     ];
     affiliates.forEach(affiliate => this.affiliates.set(affiliate.id, affiliate));
+
+    // Seed timeframes for regular operations
+    const timeframeData: Timeframe[] = [
+      // Weekday timeframes (Monday-Thursday)
+      ...[1, 2, 3, 4].flatMap(dayOfWeek => [
+        {
+          id: `tf_weekday_morning_${dayOfWeek}`,
+          orgId: "org_demo",
+          dayOfWeek,
+          startTime: "10:00",
+          endTime: "14:00",
+          type: "private" as const,
+          boatIds: [], // All boats available
+          active: true,
+        },
+        {
+          id: `tf_weekday_afternoon_${dayOfWeek}`,
+          orgId: "org_demo",
+          dayOfWeek,
+          startTime: "14:30",
+          endTime: "18:30",
+          type: "private" as const,
+          boatIds: [], // All boats available
+          active: true,
+        },
+        {
+          id: `tf_weekday_evening_${dayOfWeek}`,
+          orgId: "org_demo",
+          dayOfWeek,
+          startTime: "19:00",
+          endTime: "23:00",
+          type: "private" as const,
+          boatIds: [], // All boats available
+          active: true,
+        },
+      ]),
+      // Friday timeframes (Disco cruise in afternoon)
+      {
+        id: "tf_friday_morning",
+        orgId: "org_demo",
+        dayOfWeek: 5,
+        startTime: "10:00",
+        endTime: "11:30",
+        type: "private" as const,
+        boatIds: [], 
+        active: true,
+      },
+      {
+        id: "tf_friday_disco",
+        orgId: "org_demo",
+        dayOfWeek: 5,
+        startTime: "12:00",
+        endTime: "16:00",
+        type: "disco" as const,
+        boatIds: ["boat_clever_girl"], // Clever Girl for disco cruises
+        active: true,
+      },
+      {
+        id: "tf_friday_evening",
+        orgId: "org_demo",
+        dayOfWeek: 5,
+        startTime: "17:00",
+        endTime: "23:00",
+        type: "private" as const,
+        boatIds: [], 
+        active: true,
+      },
+      // Saturday timeframes (Two disco cruises)
+      {
+        id: "tf_saturday_morning",
+        orgId: "org_demo",
+        dayOfWeek: 6,
+        startTime: "09:00",
+        endTime: "10:30",
+        type: "private" as const,
+        boatIds: [], 
+        active: true,
+      },
+      {
+        id: "tf_saturday_disco_1",
+        orgId: "org_demo",
+        dayOfWeek: 6,
+        startTime: "11:00",
+        endTime: "15:00",
+        type: "disco" as const,
+        boatIds: ["boat_clever_girl"],
+        active: true,
+      },
+      {
+        id: "tf_saturday_disco_2",
+        orgId: "org_demo",
+        dayOfWeek: 6,
+        startTime: "15:30",
+        endTime: "19:30",
+        type: "disco" as const,
+        boatIds: ["boat_clever_girl"],
+        active: true,
+      },
+      {
+        id: "tf_saturday_evening",
+        orgId: "org_demo",
+        dayOfWeek: 6,
+        startTime: "20:00",
+        endTime: "23:00",
+        type: "private" as const,
+        boatIds: [], 
+        active: true,
+      },
+      // Sunday timeframes
+      {
+        id: "tf_sunday_morning",
+        orgId: "org_demo",
+        dayOfWeek: 0,
+        startTime: "10:00",
+        endTime: "14:00",
+        type: "private" as const,
+        boatIds: [], 
+        active: true,
+      },
+      {
+        id: "tf_sunday_afternoon",
+        orgId: "org_demo",
+        dayOfWeek: 0,
+        startTime: "14:30",
+        endTime: "18:30",
+        type: "private" as const,
+        boatIds: [], 
+        active: true,
+      },
+      {
+        id: "tf_sunday_evening",
+        orgId: "org_demo",
+        dayOfWeek: 0,
+        startTime: "19:00",
+        endTime: "23:00",
+        type: "private" as const,
+        boatIds: [], 
+        active: true,
+      },
+    ];
+    timeframeData.forEach(tf => this.timeframes.set(tf.id, tf));
+
+    // Seed disco slots for the next 3 months
+    const today = new Date();
+    const discoSlotsData: DiscoSlot[] = [];
+    
+    for (let monthOffset = 0; monthOffset < 3; monthOffset++) {
+      const targetDate = new Date(today.getFullYear(), today.getMonth() + monthOffset, 1);
+      const daysInMonth = new Date(targetDate.getFullYear(), targetDate.getMonth() + 1, 0).getDate();
+      
+      for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(targetDate.getFullYear(), targetDate.getMonth(), day);
+        const dayOfWeek = date.getDay();
+        
+        // Friday disco cruise (12-4pm)
+        if (dayOfWeek === 5) {
+          discoSlotsData.push({
+            id: `disco_${date.toISOString().split('T')[0]}_12`,
+            orgId: "org_demo",
+            date,
+            startTime: "12:00",
+            endTime: "16:00",
+            ticketsSold: Math.floor(Math.random() * 30), // Random initial data
+            ticketCap: 75,
+            status: "available" as const,
+          });
+        }
+        
+        // Saturday disco cruises (11-3pm and 3:30-7:30pm)
+        if (dayOfWeek === 6) {
+          discoSlotsData.push({
+            id: `disco_${date.toISOString().split('T')[0]}_11`,
+            orgId: "org_demo",
+            date,
+            startTime: "11:00",
+            endTime: "15:00",
+            ticketsSold: Math.floor(Math.random() * 50),
+            ticketCap: 75,
+            status: "available" as const,
+          });
+          
+          discoSlotsData.push({
+            id: `disco_${date.toISOString().split('T')[0]}_1530`,
+            orgId: "org_demo",
+            date,
+            startTime: "15:30",
+            endTime: "19:30",
+            ticketsSold: Math.floor(Math.random() * 40),
+            ticketCap: 75,
+            status: "available" as const,
+          });
+        }
+      }
+    }
+    discoSlotsData.forEach(slot => this.discoSlots.set(slot.id, slot));
   }
 
   async getContact(id: string): Promise<Contact | undefined> {

@@ -8,12 +8,14 @@ import Checkout from "./pages/Checkout";
 import Chat from "./pages/Chat";
 import QuoteBuilder from "./pages/QuoteBuilder";
 import Leads from "./pages/Leads";
+import Projects from "./pages/Projects";
 import Templates from "./pages/Templates";
 import Products from "./pages/Products";
 import Discounts from "./pages/Discounts";
 import Affiliates from "./pages/Affiliates";
 import Documentation from "./pages/Documentation";
 import QuoteViewer from "./pages/QuoteViewer";
+import CalendarView from "@/components/CalendarView";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -22,6 +24,8 @@ function Router() {
       <Route path="/" component={Dashboard} />
       <Route path="/chat" component={Chat} />
       <Route path="/leads" component={Leads} />
+      <Route path="/projects" component={Projects} />
+      <Route path="/calendar" component={CalendarView} />
       <Route path="/quotes" component={QuoteBuilder} />
       <Route path="/quotes/new" component={QuoteBuilder} />
       <Route path="/quotes/:id" component={QuoteBuilder} />
