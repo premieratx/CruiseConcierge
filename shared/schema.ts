@@ -57,6 +57,7 @@ export const quotes = pgTable("quotes", {
   templateId: varchar("template_id"), // reference to quote template
   status: varchar("status").notNull().default("DRAFT"),
   items: jsonb("items").$type<QuoteItem[]>().default([]),
+  radioSections: jsonb("radio_sections").$type<RadioSection[]>().default([]),
   promoCode: text("promo_code"),
   discountTotal: integer("discount_total").notNull().default(0),
   subtotal: integer("subtotal").notNull().default(0),
@@ -124,6 +125,7 @@ export const quoteTemplates = pgTable("quote_templates", {
   description: text("description"),
   eventType: text("event_type").notNull(),
   defaultItems: jsonb("default_items").$type<QuoteItem[]>().default([]),
+  defaultRadioSections: jsonb("default_radio_sections").$type<RadioSection[]>().default([]),
   minGroupSize: integer("min_group_size"),
   maxGroupSize: integer("max_group_size"),
   basePricePerPerson: integer("base_price_per_person"), // in cents
@@ -221,6 +223,27 @@ export type QuoteItem = {
   order?: number;
   description?: string;
   category?: string;
+};
+
+export type RadioOption = {
+  id: string;
+  name: string;
+  description?: string;
+  price: number; // in cents
+  isDefault?: boolean;
+  metadata?: Record<string, any>;
+};
+
+export type RadioSection = {
+  id: string;
+  title: string;
+  description?: string;
+  required: boolean;
+  options: RadioOption[];
+  selectedOptionId?: string;
+  allowCustomInput?: boolean;
+  customInputLabel?: string;
+  order?: number;
 };
 
 export type PaymentSchedule = {
@@ -351,10 +374,11 @@ export const insertBoatSchema = createInsertSchema(boats).omit({
 
 export const insertAffiliateSchema = createInsertSchema(affiliates).omit({
   id: true,
-  totalLeads: true,
-  totalQuotes: true,
+  totalReferrals: true,
   totalRevenue: true,
   totalCommission: true,
+  pendingCommission: true,
+  lastReferralDate: true,
   createdAt: true,
 });
 

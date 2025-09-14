@@ -17,7 +17,7 @@ import { Calendar } from '@/components/ui/calendar';
 import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import { format, addDays, isBefore, isAfter, startOfDay } from 'date-fns';
-import type { InsertContact, InsertProject, PricingPreview } from '@shared/schema';
+import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection } from '@shared/schema';
 
 type Question = 
   | 'event-type' 
@@ -137,6 +137,7 @@ export default function Chat() {
   const [currentQuestion, setCurrentQuestion] = useState<Question>('event-type');
   const [completedSelections, setCompletedSelections] = useState<CompletedSelection[]>([]);
   const [pricing, setPricing] = useState<PricingPreview | null>(null);
+  const [generatedQuoteId, setGeneratedQuoteId] = useState<string | null>(null);
   const [formData, setFormData] = useState<BookingData>({
     eventType: '',
     eventTypeLabel: '',
@@ -326,10 +327,34 @@ export default function Chat() {
             taxable: true,
           });
         }
+
+        // Create radio sections for time slot selection
+        const radioSections: RadioSection[] = [];
         
-        const quote = {
+        if (data.eventDate && data.preferredTime) {
+          const availableTimeSlots = getTimeSlotsForDate(data.eventDate);
+          const timeSlotOptions = availableTimeSlots.map(slot => ({
+            id: slot.id,
+            name: slot.label,
+            description: slot.popular ? 'Popular choice' : 'Available',
+            price: 0, // Time slots are included in base price
+            selected: slot.id === data.preferredTime,
+          }));
+
+          radioSections.push({
+            id: 'time-slot-selection',
+            title: 'Cruise Time Options',
+            description: 'Choose your preferred cruise time',
+            required: true,
+            options: timeSlotOptions,
+            order: 0,
+          });
+        }
+        
+        const quote: InsertQuote = {
           projectId: projectResponse.id,
           items: quoteItems,
+          radioSections: radioSections,
           subtotal: pricing.subtotal,
           discountTotal: pricing.discountTotal,
           tax: pricing.tax,
@@ -346,6 +371,9 @@ export default function Chat() {
         
         const quoteRes = await apiRequest('POST', '/api/quotes', quote);
         const quoteResponse = await quoteRes.json();
+        
+        // Store the quote ID for the "View My Quote" button
+        setGeneratedQuoteId(quoteResponse.id);
         
         await apiRequest('POST', '/api/quotes/' + quoteResponse.id + '/send', {
           email: contact.email,
@@ -438,6 +466,14 @@ export default function Chat() {
       case 'clock': return <Clock {...iconProps} />;
       case 'users': return <Users {...iconProps} />;
       default: return null;
+    }
+  };
+
+  // Function to open quote in separate window
+  const openQuoteInNewWindow = () => {
+    if (generatedQuoteId) {
+      const quoteUrl = `${window.location.origin}/quote/${generatedQuoteId}`;
+      window.open(quoteUrl, '_blank', 'width=1200,height=800,scrollbars=yes,resizable=yes');
     }
   };
 
@@ -940,6 +976,30 @@ export default function Chat() {
                     Check your email and text messages for your interactive quote with all the details.
                   </p>
                   
+                  {/* View My Quote Button */}
+                  {generatedQuoteId && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5, duration: 0.6 }}
+                      className="mb-6"
+                    >
+                      <Button
+                        onClick={openQuoteInNewWindow}
+                        size="lg"
+                        className="h-14 px-8 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                        data-testid="button-view-quote"
+                      >
+                        <FileText className="h-5 w-5 mr-3" />
+                        View My Quote
+                        <ChevronRight className="h-5 w-5 ml-3" />
+                      </Button>
+                      <p className="text-sm text-slate-500 dark:text-slate-400 mt-2">
+                        Opens in a new window for easy viewing and printing
+                      </p>
+                    </motion.div>
+                  )}
+                  
                   <Card className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-slate-200 dark:border-slate-700 shadow-lg">
                     <CardContent className="p-6">
                       <h3 className="font-semibold text-slate-800 dark:text-slate-200 mb-3">What's Next?</h3>
@@ -947,6 +1007,10 @@ export default function Chat() {
                         <li className="flex items-center gap-3">
                           <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
                           You'll receive a detailed quote via email and SMS
+                        </li>
+                        <li className="flex items-center gap-3">
+                          <div className="w-2 h-2 bg-blue-600 rounded-full"></div>
+                          Review your interactive quote using the button above
                         </li>
                         <li className="flex items-center gap-3">
                           <div className="w-2 h-2 bg-blue-600 rounded-full"></div>

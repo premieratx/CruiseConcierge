@@ -15,7 +15,7 @@ import {
   Download, Printer, CheckCircle, AlertCircle, Loader2
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import type { Quote, PricingPreview, Project, Contact } from '@shared/schema';
+import type { Quote, PricingPreview, Project, Contact, QuoteItem, RadioSection } from '@shared/schema';
 
 type QuoteWithDetails = Quote & {
   pricing?: PricingPreview;
@@ -46,7 +46,7 @@ export default function QuoteViewer() {
         throw new Error('Please complete all required fields');
       }
       
-      return apiRequest(`/api/quotes/${quoteId}/sign`, 'POST', {
+      return apiRequest('POST', `/api/quotes/${quoteId}/sign`, {
         signature,
         printName,
         signatureDate,
@@ -286,6 +286,7 @@ export default function QuoteViewer() {
                     </tr>
                   </thead>
                   <tbody>
+                    {/* Base Cruise Service */}
                     <tr className="border-b" data-testid="row-cruise">
                       <td className="py-3 px-4">
                         <div>
@@ -307,6 +308,7 @@ export default function QuoteViewer() {
                       </td>
                     </tr>
                     
+                    {/* Additional Crew Fee */}
                     {quote.pricing?.breakdown?.crewFee && quote.pricing.breakdown.crewFee > 0 && (
                       <tr className="border-b bg-gray-50" data-testid="row-crew">
                         <td className="py-3 px-4">
@@ -325,6 +327,41 @@ export default function QuoteViewer() {
                       </tr>
                     )}
 
+                    {/* Radio Section Selections */}
+                    {quote.radioSections?.map((section, sectionIndex) => {
+                      const selectedOption = section.options.find(opt => opt.selected);
+                      if (!selectedOption) return null;
+                      
+                      return (
+                        <tr
+                          key={`radio-${section.id}-${sectionIndex}`}
+                          className={cn("border-b", "bg-blue-50")}
+                          data-testid={`row-radio-${sectionIndex}`}
+                        >
+                          <td className="py-3 px-4">
+                            <div>
+                              <p className="font-medium">{selectedOption.name}</p>
+                              <p className="text-sm text-gray-500">
+                                <span className="inline-flex items-center gap-1">
+                                  <span className="w-2 h-2 bg-blue-600 rounded-full"></span>
+                                  {section.title}
+                                </span>
+                                {selectedOption.description && ` - ${selectedOption.description}`}
+                              </p>
+                            </div>
+                          </td>
+                          <td className="text-center py-3 px-4">1</td>
+                          <td className="text-right py-3 px-4">
+                            {formatCurrency(selectedOption.price)}
+                          </td>
+                          <td className="text-right py-3 px-4 font-medium">
+                            {formatCurrency(selectedOption.price)}
+                          </td>
+                        </tr>
+                      );
+                    })}
+
+                    {/* Line Items */}
                     {quote.items?.map((item, index) => (
                       <tr 
                         key={item.productId || index} 
@@ -350,6 +387,25 @@ export default function QuoteViewer() {
                 </table>
               </div>
             </div>
+
+            {/* Radio Sections Summary (if any unselected) */}
+            {quote.radioSections?.some(section => !section.options.some(opt => opt.selected)) && (
+              <div className="mb-8 p-4 bg-amber-50 border border-amber-200 rounded-lg">
+                <h4 className="font-medium text-amber-800 mb-2">Pending Selections</h4>
+                <p className="text-sm text-amber-700">
+                  Some option groups still require a selection before finalizing this quote.
+                </p>
+                <div className="mt-3 space-y-2">
+                  {quote.radioSections
+                    .filter(section => !section.options.some(opt => opt.selected))
+                    .map(section => (
+                      <div key={section.id} className="text-sm text-amber-700">
+                        • {section.title}: {section.options.map(opt => opt.name).join(', ')}
+                      </div>
+                    ))}
+                </div>
+              </div>
+            )}
 
             {/* Pricing Summary */}
             <div className="flex justify-end mb-8">

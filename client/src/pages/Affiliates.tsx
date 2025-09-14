@@ -60,7 +60,7 @@ export default function Affiliates() {
   });
 
   const createMutation = useMutation({
-    mutationFn: (data: InsertAffiliate) => apiRequest("/api/affiliates", "POST", data),
+    mutationFn: (data: InsertAffiliate) => apiRequest("POST", "/api/affiliates", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/affiliates"] });
       toast({ title: "Affiliate created successfully" });
@@ -74,7 +74,7 @@ export default function Affiliates() {
 
   const updateMutation = useMutation({
     mutationFn: ({ id, data }: { id: string; data: Partial<Affiliate> }) =>
-      apiRequest(`/api/affiliates/${id}`, "PUT", data),
+      apiRequest("PUT", `/api/affiliates/${id}`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/affiliates"] });
       toast({ title: "Affiliate updated successfully" });
@@ -88,7 +88,7 @@ export default function Affiliates() {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id: string) => apiRequest(`/api/affiliates/${id}`, "DELETE"),
+    mutationFn: (id: string) => apiRequest("DELETE", `/api/affiliates/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/affiliates"] });
       toast({ title: "Affiliate deleted successfully" });
@@ -99,7 +99,7 @@ export default function Affiliates() {
   });
 
   const updateStatsMutation = useMutation({
-    mutationFn: (id: string) => apiRequest(`/api/affiliates/${id}/update-stats`, "POST", {}),
+    mutationFn: (id: string) => apiRequest("POST", `/api/affiliates/${id}/update-stats`, {}),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/affiliates"] });
       toast({ title: "Stats updated successfully" });

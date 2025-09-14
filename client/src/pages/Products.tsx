@@ -104,7 +104,7 @@ export default function Products() {
   });
 
   const createProductMutation = useMutation({
-    mutationFn: (data: InsertProduct) => apiRequest("/api/products", "POST", data),
+    mutationFn: (data: InsertProduct) => apiRequest("POST", "/api/products", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/products"] });
       toast({ title: "Product created successfully" });
@@ -118,7 +118,7 @@ export default function Products() {
 
   const updateProductMutation = useMutation({
     mutationFn: ({ id, data }: { id: string; data: Partial<Product> }) =>
-      apiRequest(`/api/products/${id}`, "PUT", data),
+      apiRequest("PUT", `/api/products/${id}`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/products"] });
       toast({ title: "Product updated successfully" });
@@ -132,7 +132,7 @@ export default function Products() {
   });
 
   const deleteProductMutation = useMutation({
-    mutationFn: (id: string) => apiRequest(`/api/products/${id}`, "DELETE"),
+    mutationFn: (id: string) => apiRequest("DELETE", `/api/products/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/products"] });
       toast({ title: "Product deleted successfully" });
@@ -144,7 +144,7 @@ export default function Products() {
 
   const updatePricingSettingsMutation = useMutation({
     mutationFn: (data: Partial<PricingSettings>) =>
-      apiRequest("/api/pricing-settings", "PUT", data),
+      apiRequest("PUT", "/api/pricing-settings", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/pricing-settings"] });
       toast({ title: "Pricing settings updated successfully" });
@@ -476,7 +476,7 @@ export default function Products() {
                         <FormField
                           key={day}
                           control={pricingForm.control}
-                          name={`dayOfWeekMultipliers.${day as any}`}
+                          name={`dayOfWeekMultipliers.${day}` as any}
                           render={({ field }) => (
                             <FormItem>
                               <FormLabel className="capitalize">{day}</FormLabel>
@@ -487,7 +487,7 @@ export default function Products() {
                                   step="0.1"
                                   placeholder="1.0"
                                   onChange={e => field.onChange(e.target.value ? Number(e.target.value) : undefined)}
-                                  value={field.value || ''}
+                                  value={field.value?.toString() || ''}
                                   data-testid={`input-multiplier-${day}`}
                                 />
                               </FormControl>

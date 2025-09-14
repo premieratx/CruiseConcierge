@@ -65,7 +65,7 @@ export default function Discounts() {
   });
 
   const createMutation = useMutation({
-    mutationFn: (data: InsertDiscountRule) => apiRequest("/api/discount-rules", "POST", data),
+    mutationFn: (data: InsertDiscountRule) => apiRequest("POST", "/api/discount-rules", data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/discount-rules"] });
       toast({ title: "Discount created successfully" });
@@ -79,7 +79,7 @@ export default function Discounts() {
 
   const updateMutation = useMutation({
     mutationFn: ({ id, data }: { id: string; data: Partial<DiscountRule> }) =>
-      apiRequest(`/api/discount-rules/${id}`, "PUT", data),
+      apiRequest("PUT", `/api/discount-rules/${id}`, data),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/discount-rules"] });
       toast({ title: "Discount updated successfully" });
@@ -93,7 +93,7 @@ export default function Discounts() {
   });
 
   const deleteMutation = useMutation({
-    mutationFn: (id: string) => apiRequest(`/api/discount-rules/${id}`, "DELETE"),
+    mutationFn: (id: string) => apiRequest("DELETE", `/api/discount-rules/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/discount-rules"] });
       toast({ title: "Discount deleted successfully" });
