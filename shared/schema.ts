@@ -341,6 +341,8 @@ export const insertProjectSchema = createInsertSchema(projects).omit({
 export const insertQuoteSchema = createInsertSchema(quotes).omit({
   id: true,
   createdAt: true,
+}).extend({
+  expiresAt: z.string().datetime().transform(str => new Date(str)).optional(),
 });
 
 export const insertChatMessageSchema = createInsertSchema(chatMessages).omit({

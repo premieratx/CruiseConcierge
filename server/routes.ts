@@ -432,11 +432,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Quote endpoints
   app.post("/api/quotes", async (req, res) => {
     try {
+      console.log("Quote creation request body:", JSON.stringify(req.body, null, 2));
+      
       const quoteData = insertQuoteSchema.parse(req.body);
+      console.log("Quote data after validation:", JSON.stringify(quoteData, null, 2));
+      
       const quote = await storage.createQuote(quoteData);
+      console.log("Quote created successfully:", quote.id);
+      
       res.status(201).json(quote);
     } catch (error: any) {
       if (error instanceof z.ZodError) {
+        console.error("Quote validation errors:", JSON.stringify(error.errors, null, 2));
         return res.status(400).json({ error: "Invalid quote data", details: error.errors });
       }
       console.error("Create quote error:", error);
@@ -690,15 +697,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { items = [], promoCode, projectDate, groupSize, templateId } = req.body;
       
+      // Enhanced logging for debugging
+      console.log("Pricing preview request:", { items, groupSize, projectDate, promoCode, templateId });
+      
+      // Validate items structure for proper pricing calculation
+      const validatedItems = items.map(item => ({
+        ...item,
+        unitPrice: Number(item.unitPrice) || 0,
+        qty: Number(item.qty) || 1,
+      }));
+      
       const pricing = await storage.calculatePricing({
-        items,
+        items: validatedItems,
         groupSize,
         projectDate: projectDate ? new Date(projectDate) : undefined,
         promoCode,
         templateId,
       });
 
-      res.json(pricing);
+      // Ensure all pricing values are valid numbers, not null
+      const validatedPricing = {
+        subtotal: Number(pricing.subtotal) || 0,
+        discountTotal: Number(pricing.discountTotal) || 0,
+        tax: Number(pricing.tax) || 0,
+        gratuity: Number(pricing.gratuity) || 0,
+        total: Number(pricing.total) || 0,
+        perPersonCost: Number(pricing.perPersonCost) || 0,
+        depositRequired: Boolean(pricing.depositRequired),
+        depositPercent: Number(pricing.depositPercent) || 25,
+        depositAmount: Number(pricing.depositAmount) || 0,
+        paymentSchedule: pricing.paymentSchedule || [],
+        expiresAt: pricing.expiresAt,
+        breakdown: pricing.breakdown || {},
+        displaySettings: pricing.displaySettings || {},
+        urgencyMessage: pricing.urgencyMessage || null,
+      };
+      
+      console.log("Pricing preview response:", validatedPricing);
+      res.json(validatedPricing);
     } catch (error) {
       console.error("Pricing preview error:", error);
       res.status(500).json({ error: "Failed to calculate pricing" });
@@ -731,6 +767,56 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error("Create payment intent error:", error);
       res.status(500).json({ error: "Error creating payment intent: " + error.message });
+    }
+  });
+
+  // Stripe Checkout Session endpoint
+  app.post("/api/checkout/create-session", async (req, res) => {
+    try {
+      if (!stripe) {
+        return res.status(500).json({ error: "Stripe not configured" });
+      }
+
+      const { amount, paymentType, quoteData, customerEmail, metadata = {} } = req.body;
+      
+      if (!amount || !paymentType) {
+        return res.status(400).json({ error: "amount and paymentType required" });
+      }
+
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: [{
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: `${paymentType === 'deposit' ? 'Deposit Payment' : 'Full Payment'} - ${quoteData?.eventType || 'Party'} Cruise`,
+              description: `Group Size: ${quoteData?.groupSize || 'TBD'} | Date: ${quoteData?.eventDate ? new Date(quoteData.eventDate).toLocaleDateString() : 'TBD'}`,
+            },
+            unit_amount: Math.round(amount), // amount in cents
+          },
+          quantity: 1,
+        }],
+        mode: 'payment',
+        success_url: `${req.get('origin') || 'http://localhost:5000'}/booking-success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.get('origin') || 'http://localhost:5000'}/chat`,
+        customer_email: customerEmail,
+        metadata: {
+          paymentType,
+          eventType: quoteData?.eventType || '',
+          eventDate: quoteData?.eventDate || '',
+          groupSize: quoteData?.groupSize?.toString() || '',
+          ...metadata
+        }
+      });
+
+      res.json({ 
+        sessionId: session.id, 
+        url: session.url,
+        success: true
+      });
+    } catch (error: any) {
+      console.error("Create checkout session error:", error);
+      res.status(500).json({ error: "Error creating checkout session: " + error.message });
     }
   });
 
@@ -768,6 +854,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
             }
           }
         }
+      }
+      
+      // Handle checkout session completed events
+      if (type === "checkout.session.completed") {
+        const session = data.object;
+        const { paymentType, eventType, eventDate, groupSize } = session.metadata;
+        
+        console.log(`Payment successful: ${paymentType} payment for ${eventType} event`, {
+          amount: session.amount_total,
+          customerEmail: session.customer_email,
+          eventDate,
+          groupSize
+        });
+        
+        // Here you could update your database with the successful payment
+        // For now, we'll just log it since the booking system doesn't have invoices yet
       }
       
       res.json({ received: true });
