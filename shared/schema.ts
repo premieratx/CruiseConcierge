@@ -181,7 +181,26 @@ export const pricingSettings = pgTable("pricing_settings", {
   currency: varchar("currency").notNull().default("USD"),
   timezone: varchar("timezone").notNull().default("America/Chicago"),
   priceDisplayMode: varchar("price_display_mode").notNull().default("total"), // 'total', 'per_person', 'both'
+  dayOfWeekMultipliers: jsonb("day_of_week_multipliers").$type<DayOfWeekMultipliers>().default({}),
+  seasonalAdjustments: jsonb("seasonal_adjustments").$type<SeasonalAdjustment[]>().default([]),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Affiliates - for commission tracking and referral programs
+export const affiliates = pgTable("affiliates", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  name: text("name").notNull(),
+  email: text("email").notNull(),
+  code: varchar("code").notNull(), // unique referral code
+  commissionType: varchar("commission_type").notNull().default("percentage"), // 'percentage' or 'flat'
+  commissionAmount: integer("commission_amount").notNull(), // percentage (0-100) or cents
+  totalLeads: integer("total_leads").notNull().default(0),
+  totalQuotes: integer("total_quotes").notNull().default(0),
+  totalRevenue: integer("total_revenue").notNull().default(0), // in cents
+  totalCommission: integer("total_commission").notNull().default(0), // in cents
+  active: boolean("active").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
 // Type definitions
@@ -232,6 +251,24 @@ export type DiscountCondition = {
   field: string;
   operator: string;
   value: any;
+};
+
+export type DayOfWeekMultipliers = {
+  monday?: number;
+  tuesday?: number;
+  wednesday?: number;
+  thursday?: number;
+  friday?: number;
+  saturday?: number;
+  sunday?: number;
+};
+
+export type SeasonalAdjustment = {
+  name: string;
+  startDate: string; // MM-DD format
+  endDate: string; // MM-DD format
+  multiplier: number; // 1.0 = no change, 1.5 = 50% increase
+  description?: string;
 };
 
 export type ChatbotButton = {
@@ -288,6 +325,24 @@ export const insertDiscountRuleSchema = createInsertSchema(discountRules).omit({
 
 export const insertPricingSettingsSchema = createInsertSchema(pricingSettings).omit({
   id: true,
+  updatedAt: true,
+});
+
+export const insertProductSchema = createInsertSchema(products).omit({
+  id: true,
+});
+
+export const insertBoatSchema = createInsertSchema(boats).omit({
+  id: true,
+});
+
+export const insertAffiliateSchema = createInsertSchema(affiliates).omit({
+  id: true,
+  totalLeads: true,
+  totalQuotes: true,
+  totalRevenue: true,
+  totalCommission: true,
+  createdAt: true,
 });
 
 // Select types
@@ -304,6 +359,7 @@ export type QuoteTemplate = typeof quoteTemplates.$inferSelect;
 export type TemplateRule = typeof templateRules.$inferSelect;
 export type DiscountRule = typeof discountRules.$inferSelect;
 export type PricingSettings = typeof pricingSettings.$inferSelect;
+export type Affiliate = typeof affiliates.$inferSelect;
 
 // Insert types
 export type InsertContact = z.infer<typeof insertContactSchema>;
@@ -314,6 +370,9 @@ export type InsertQuoteTemplate = z.infer<typeof insertQuoteTemplateSchema>;
 export type InsertTemplateRule = z.infer<typeof insertTemplateRuleSchema>;
 export type InsertDiscountRule = z.infer<typeof insertDiscountRuleSchema>;
 export type InsertPricingSettings = z.infer<typeof insertPricingSettingsSchema>;
+export type InsertProduct = z.infer<typeof insertProductSchema>;
+export type InsertBoat = z.infer<typeof insertBoatSchema>;
+export type InsertAffiliate = z.infer<typeof insertAffiliateSchema>;
 
 // Enhanced pricing response type
 export type PricingPreview = {
