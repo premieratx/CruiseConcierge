@@ -89,6 +89,12 @@ export interface IStorage {
   updatePricingSettings(settings: Partial<PricingSettings>, orgId?: string): Promise<PricingSettings>;
 
   // Enhanced pricing operations
+  calculateCruisePricing(params: {
+    groupSize: number;
+    eventDate: Date;
+    timeSlot: string;
+    promoCode?: string;
+  }): Promise<PricingPreview>;
   calculatePricing(params: {
     items: any[];
     groupSize?: number;
@@ -818,6 +824,161 @@ export class MemStorage implements IStorage {
       pendingCommission,
       lastReferralDate,
     });
+  }
+
+  // Calculate cruise-specific pricing
+  async calculateCruisePricing(params: {
+    groupSize: number;
+    eventDate: Date;
+    timeSlot: string;
+    promoCode?: string;
+  }): Promise<PricingPreview> {
+    const { groupSize, eventDate, timeSlot, promoCode } = params;
+    
+    // Determine boat based on group size
+    let boatType: string;
+    let boatCapacity: number;
+    if (groupSize <= 14) {
+      boatType = "14-Person Luxury Yacht";
+      boatCapacity = 14;
+    } else if (groupSize <= 30) {
+      boatType = "25-Person Party Cruiser";
+      boatCapacity = 25;
+    } else if (groupSize <= 75) {
+      boatType = "50-Person Charter Yacht";
+      boatCapacity = 50;
+    } else {
+      throw new Error("Group size exceeds maximum capacity of 75 people");
+    }
+
+    // Get day of week
+    const dayOfWeek = eventDate.getDay(); // 0 = Sunday, 1 = Monday, etc.
+    const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayName = dayNames[dayOfWeek];
+
+    // Determine base hourly rate based on boat and day
+    let baseHourlyRate = 0;
+    const isWeekday = dayOfWeek >= 1 && dayOfWeek <= 4; // Monday-Thursday
+    const isFriday = dayOfWeek === 5;
+    const isSaturday = dayOfWeek === 6;
+    const isSunday = dayOfWeek === 0;
+
+    if (boatCapacity === 14) {
+      if (isWeekday) baseHourlyRate = 20000; // $200/hour in cents
+      else if (isFriday) baseHourlyRate = 25000; // $250/hour
+      else if (isSaturday || isSunday) baseHourlyRate = 30000; // $300/hour
+    } else if (boatCapacity === 25) {
+      if (isWeekday) baseHourlyRate = 25000; // $250/hour
+      else if (isFriday) baseHourlyRate = 30000; // $300/hour
+      else if (isSaturday || isSunday) baseHourlyRate = 35000; // $350/hour
+    } else if (boatCapacity === 50) {
+      if (isWeekday) baseHourlyRate = 30000; // $300/hour
+      else if (isFriday) baseHourlyRate = 35000; // $350/hour
+      else if (isSaturday || isSunday) baseHourlyRate = 40000; // $400/hour
+    }
+
+    // Calculate base cruise cost (4 hours)
+    const cruiseDuration = 4;
+    const baseCruiseCost = baseHourlyRate * cruiseDuration;
+
+    // Calculate crew fees based on Texas law
+    let crewFee = 0;
+    if (groupSize >= 26 && groupSize <= 30) {
+      crewFee = 5000 * cruiseDuration; // $50/hour * 4 hours
+    } else if (groupSize >= 51 && groupSize <= 75) {
+      crewFee = 10000 * cruiseDuration; // $100/hour * 4 hours
+    }
+
+    // Calculate subtotal before tax
+    const subtotalBeforeTax = baseCruiseCost + crewFee;
+
+    // Calculate mandatory 20% gratuity
+    const gratuity = Math.floor(subtotalBeforeTax * 0.20);
+
+    // Subtotal with gratuity
+    const subtotalWithGratuity = subtotalBeforeTax + gratuity;
+
+    // Calculate 8.25% Texas sales tax
+    const tax = Math.floor(subtotalWithGratuity * 0.0825);
+
+    // Grand total
+    const total = subtotalWithGratuity + tax;
+
+    // Calculate deposit (25% if more than 30 days away, 100% if less)
+    const daysUntil = Math.ceil((eventDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+    const depositPercent = daysUntil > 30 ? 25 : 100;
+    const depositAmount = Math.floor(total * depositPercent / 100);
+
+    // Calculate per-person cost
+    const perPersonCost = Math.floor(total / groupSize);
+
+    // Generate urgency message
+    let urgencyMessage: string | undefined;
+    if (daysUntil <= 7) {
+      urgencyMessage = "⚡ Last-minute booking - limited availability!";
+    } else if (daysUntil <= 30) {
+      urgencyMessage = "📅 Full payment required - event is less than 30 days away!";
+    }
+
+    // Payment schedule
+    const paymentSchedule: PaymentSchedule[] = [];
+    if (depositPercent < 100) {
+      paymentSchedule.push({
+        line: 1,
+        due: "booking",
+        percent: 25,
+        daysBefore: 0,
+      });
+      paymentSchedule.push({
+        line: 2,
+        due: "final",
+        percent: 75,
+        daysBefore: 30,
+      });
+    } else {
+      paymentSchedule.push({
+        line: 1,
+        due: "full",
+        percent: 100,
+        daysBefore: 0,
+      });
+    }
+
+    return {
+      subtotal: baseCruiseCost,
+      discountTotal: 0,
+      tax,
+      gratuity,
+      total,
+      perPersonCost,
+      depositAmount,
+      depositPercent,
+      depositRequired: true,
+      paymentSchedule,
+      appliedDiscounts: [],
+      urgencyMessage,
+      displaySettings: {
+        showPerPerson: true,
+        showDeposit: true,
+        showPaymentSchedule: true,
+        showUrgency: !!urgencyMessage,
+      },
+      breakdown: {
+        boatType,
+        dayName,
+        baseHourlyRate: baseHourlyRate / 100, // Convert back to dollars for display
+        cruiseDuration,
+        baseCruiseCost: baseCruiseCost / 100,
+        crewFee: crewFee / 100,
+        subtotalBeforeTax: subtotalBeforeTax / 100,
+        gratuityAmount: gratuity / 100,
+        taxAmount: tax / 100,
+        grandTotal: total / 100,
+        perPerson: perPersonCost / 100,
+        deposit: depositAmount / 100,
+        balanceDue: (total - depositAmount) / 100,
+      }
+    };
   }
 
   // Enhanced pricing calculation

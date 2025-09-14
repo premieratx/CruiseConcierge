@@ -1004,6 +1004,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Cruise-specific pricing endpoint
+  app.post("/api/pricing/cruise", async (req, res) => {
+    try {
+      const { groupSize, eventDate, timeSlot, promoCode } = req.body;
+      
+      if (!groupSize || !eventDate || !timeSlot) {
+        return res.status(400).json({ 
+          error: "Group size, event date, and time slot are required" 
+        });
+      }
+
+      const pricing = await storage.calculateCruisePricing({
+        groupSize: parseInt(groupSize),
+        eventDate: new Date(eventDate),
+        timeSlot,
+        promoCode,
+      });
+
+      res.json(pricing);
+    } catch (error: any) {
+      console.error("Calculate cruise pricing error:", error);
+      res.status(400).json({ error: error.message || "Failed to calculate pricing" });
+    }
+  });
+
   // Invoice Generation endpoints
   app.post("/api/quotes/:id/generate-invoice", async (req, res) => {
     try {

@@ -394,4 +394,25 @@ export type PricingPreview = {
   appliedDiscounts: string[];
   paymentSchedule: PaymentSchedule[];
   expiresAt?: Date;
+  displaySettings?: {
+    showPerPerson: boolean;
+    showDeposit: boolean;
+    showPaymentSchedule: boolean;
+    showUrgency: boolean;
+  };
+  breakdown?: {
+    boatType: string;
+    dayName: string;
+    baseHourlyRate: number;
+    cruiseDuration: number;
+    baseCruiseCost: number;
+    crewFee: number;
+    subtotalBeforeTax: number;
+    gratuityAmount: number;
+    taxAmount: number;
+    grandTotal: number;
+    perPerson: number;
+    deposit: number;
+    balanceDue: number;
+  };
 };

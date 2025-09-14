@@ -1,0 +1,100 @@
+Here's a comprehensive summary of the cruise booking system we built:
+
+🚢 Cruise Booking Widget - Complete System Summary
+Vessel Fleet & Capacity
+14-Person Luxury Yacht: 1-14 people
+25-Person Party Cruiser: 15-30 people
+50-Person Charter Yacht: 31-75 people
+Pricing Structure
+Base Hourly Rates by Day of Week:
+Monday-Thursday (Weekdays):
+
+14-person: $200/hour
+25-person: $250/hour
+50-person: $300/hour
+Friday:
+
+14-person: $250/hour
+25-person: $300/hour
+50-person: $350/hour
+Saturday (Premium):
+
+14-person: $300/hour
+25-person: $350/hour
+50-person: $400/hour
+Sunday:
+
+14-person: $300/hour
+25-person: $350/hour
+50-person: $400/hour
+Texas Crew Law Requirements
+26-30 people: +$50/hour additional crew fee
+51-75 people: +$100/hour additional crew fee
+1-25 people: No additional crew required
+31-50 people: No additional crew required
+Available Time Slots by Day
+Friday & Sunday:
+12:00 PM - 4:00 PM (4 hours)
+4:30 PM - 8:30 PM (4 hours)
+Saturday:
+11:00 AM - 3:00 PM (4 hours)
+3:30 PM - 7:30 PM (4 hours)
+Monday-Thursday:
+10:00 AM - 2:00 PM (4 hours)
+10:30 AM - 2:30 PM (4 hours)
+11:00 AM - 3:00 PM (4 hours)
+11:30 AM - 3:30 PM (4 hours)
+12:00 PM - 4:00 PM (4 hours)
+12:30 PM - 4:30 PM (4 hours)
+Quote Calculation Formula
+Base Cruise Cost = Base Rate × Duration (4 hours)
+Crew Fee = Additional crew fee (if applicable) × Duration
+Subtotal Before Tax = Base Cruise Cost + Crew Fee
+Mandatory Gratuity = Subtotal Before Tax × 20%
+Subtotal = Subtotal Before Tax + Gratuity
+Sales Tax = Subtotal × 8.25% (Texas rate)
+Grand Total = Subtotal + Sales Tax
+Deposit = Grand Total × 25%
+Balance Due = Grand Total - Deposit
+Payment Terms
+Deposit: 25% of total due at booking
+Balance Due: 30 days before event date
+Per Person Price: Grand Total ÷ Number of People
+Event Types Supported
+Bachelor Parties
+Bachelorette Parties
+Corporate Events
+Wedding Celebrations
+Birthday Parties
+Graduation Parties
+Booking Flow
+Event Type Selection → Choose celebration type
+Group Size → Slider from 1-75 people
+Date Selection → Calendar with past dates disabled
+Time Slot Selection → Radio buttons with boat images and pricing
+Final Quote → Complete breakdown with deposit option
+Technical Features
+Real-time pricing based on date and group size
+Automatic boat recommendation based on capacity
+Texas crew law compliance with automatic fee calculation
+Mobile responsive design
+Progress tracking with editable selections
+Professional quote generation with all fees itemized
+Quote Display Includes
+Recommended vessel with image
+Base cruise cost breakdown
+Crew fees (if applicable)
+Mandatory 20% gratuity
+Texas sales tax (8.25%)
+Grand total
+Per-person pricing
+25% deposit amount
+Remaining balance
+Balance due date
+Business Rules
+Minimum booking: 1 person
+Maximum capacity: 75 people
+Quote validity: 7 days (can be customized)
+Advance booking: No past dates allowed
+Crew requirements: Automatically enforced per Texas maritime law
+This system provides a complete, professional cruise booking experience with transparent pricing and compliance with all applicable regulations.
