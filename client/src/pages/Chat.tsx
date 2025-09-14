@@ -36,11 +36,6 @@ type Question =
 type CruiseType = 'private' | 'disco';
 type DiscoPackage = 'basic' | 'disco_queen' | 'platinum';
 
-interface DiscoPricing {
-  basic: number; // per person
-  disco_queen: number; // per person
-  platinum: number; // per person
-}
 
 interface ComparisonSelection {
   cruiseType: CruiseType;
@@ -209,8 +204,8 @@ const condenseAnimation = {
 export default function Chat() {
   const [currentQuestion, setCurrentQuestion] = useState<Question>('event-type');
   const [completedSelections, setCompletedSelections] = useState<CompletedSelection[]>([]);
-  const [pricing, setPricing] = useState<PricingPreview | null>(null);
-  const [discoPricing, setDiscoPricing] = useState<DiscoPricing | null>(null);
+  const [privatePricing, setPrivatePricing] = useState<PricingPreview | null>(null);
+  const [discoPricing, setDiscoPricing] = useState<PricingPreview | null>(null);
   const [generatedQuoteId, setGeneratedQuoteId] = useState<string | null>(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [selectedPaymentOption, setSelectedPaymentOption] = useState<'deposit' | 'full'>('deposit');
@@ -243,19 +238,19 @@ export default function Chat() {
   const [leadTrackingEnabled, setLeadTrackingEnabled] = useState(true);
   const { toast } = useToast();
 
-  // Fetch pricing when all required data is available
+  // Fetch private cruise pricing when all required data is available
   useEffect(() => {
-    if (formData.eventDate && formData.selectedTimeSlot && formData.groupSize && formData.selectedCruiseType === 'private') {
+    if (formData.eventDate && formData.selectedTimeSlot && formData.groupSize) {
       fetchPrivatePricing();
     }
-  }, [formData.eventDate, formData.selectedTimeSlot, formData.groupSize, formData.selectedCruiseType]);
+  }, [formData.eventDate, formData.selectedTimeSlot, formData.groupSize]);
   
-  // Fetch disco pricing when relevant data changes (now uses API for consistency)
+  // Fetch disco pricing when all required disco data is available
   useEffect(() => {
-    if (formData.selectedCruiseType === 'disco' && formData.selectedDiscoPackage && formData.groupSize && formData.eventDate && formData.selectedDiscoTimeSlot) {
+    if (formData.selectedDiscoPackage && formData.groupSize && formData.eventDate && formData.selectedDiscoTimeSlot) {
       fetchDiscoPricing();
     }
-  }, [formData.selectedDiscoPackage, formData.groupSize, formData.selectedCruiseType, formData.eventDate, formData.selectedDiscoTimeSlot]);
+  }, [formData.selectedDiscoPackage, formData.groupSize, formData.eventDate, formData.selectedDiscoTimeSlot]);
 
   // Fetch private cruise pricing with loading state
   const fetchPrivatePricing = async () => {
@@ -279,12 +274,12 @@ export default function Chat() {
         throw new Error('Invalid pricing response from server');
       }
       
-      setPricing(response);
+      setPrivatePricing(response);
       setPricingError(null);
     } catch (error: any) {
       console.error('Failed to fetch private pricing:', error);
       setPricingError(error.message || 'Failed to load pricing. Please try again.');
-      setPricing(null);
+      setPrivatePricing(null);
       toast({
         title: 'Pricing Error',
         description: 'Unable to load pricing. Please check your selections and try again.',
@@ -320,7 +315,7 @@ export default function Chat() {
         throw new Error('Invalid response, using fallback calculation');
       }
       
-      setPricing(response);
+      setDiscoPricing(response);
       setPricingError(null);
     } catch (error: any) {
       console.warn('API pricing failed, using local calculation:', error.message);
@@ -353,14 +348,8 @@ export default function Chat() {
     const tax = Math.round(subtotal * 0.0825); // 8.25% tax
     const total = subtotal + gratuity + tax; // Fix: include gratuity in total
     
-    setDiscoPricing({
-      basic: discoPackages[0].price,
-      disco_queen: discoPackages[1].price,
-      platinum: discoPackages[2].price,
-    });
-    
     // Store calculated totals for the selected package
-    setPricing({
+    setDiscoPricing({
       subtotal: subtotal * 100, // Convert to cents
       tax: tax * 100,
       total: total * 100, // Now includes gratuity
@@ -498,7 +487,7 @@ export default function Chat() {
     
     // Clear pricing when relevant
     if (['date', 'group-size', 'comparison'].includes(fromSelectionId)) {
-      setPricing(null);
+      setPrivatePricing(null);
       setDiscoPricing(null);
     }
     
@@ -551,9 +540,9 @@ export default function Chat() {
     return differenceInDays(eventDate, today) <= 30;
   };
 
-  // Get payment options based on date
-  const getPaymentOptions = () => {
-    if (!pricing) return [];
+  // Get payment options based on date and selected cruise type
+  const getPaymentOptions = (pricingData: PricingPreview | null) => {
+    if (!pricingData) return [];
     
     const within30Days = isWithin30Days();
     const options = [];
@@ -562,8 +551,8 @@ export default function Chat() {
       options.push({
         id: 'deposit',
         label: 'Pay Deposit',
-        amount: pricing.depositAmount,
-        description: `${pricing.depositPercent}% deposit to secure your booking`,
+        amount: pricingData.depositAmount,
+        description: `${pricingData.depositPercent}% deposit to secure your booking`,
         popular: true
       });
     }
@@ -571,7 +560,7 @@ export default function Chat() {
     options.push({
       id: 'full',
       label: within30Days ? 'Pay in Full (Required)' : 'Pay in Full',
-      amount: pricing.total,
+      amount: pricingData.total,
       description: within30Days ? 'Full payment required - event is within 30 days' : 'Complete payment now',
       popular: within30Days
     });
@@ -822,20 +811,18 @@ export default function Chat() {
     }
   };
   
-  // Private cruise selection handler
+  // Private cruise selection handler - allow independent selection
   const handlePrivateCruiseSelect = (timeSlot: string) => {
     setFormData({ 
       ...formData, 
-      selectedCruiseType: 'private',
       selectedTimeSlot: timeSlot
     });
   };
   
-  // Disco cruise selection handler
+  // Disco cruise selection handler - allow independent selection
   const handleDiscoCruiseSelect = (packageId: string, timeSlot: string) => {
     setFormData({ 
       ...formData, 
-      selectedCruiseType: 'disco',
       selectedDiscoPackage: packageId as DiscoPackage,
       selectedDiscoTimeSlot: timeSlot
     });
@@ -891,7 +878,7 @@ export default function Chat() {
         eventType: data.eventType,
         specialRequests: data.specialRequests || undefined,
         preferredTime: data.selectedCruiseType === 'private' ? data.selectedTimeSlot : data.selectedDiscoTimeSlot,
-        budget: pricing?.total || (data.budget ? Math.round(parseFloat(data.budget) * 100) : undefined),
+        budget: (data.selectedCruiseType === 'private' ? privatePricing?.total : discoPricing?.total) || (data.budget ? Math.round(parseFloat(data.budget) * 100) : undefined),
         leadSource: 'chat',
         orgId: 'org_demo',
         status: 'NEW',
@@ -908,7 +895,8 @@ export default function Chat() {
         });
       }
       
-      if (pricing && pricing.breakdown) {
+      const currentPricing = data.selectedCruiseType === 'private' ? privatePricing : discoPricing;
+      if (currentPricing && currentPricing.breakdown) {
         // Enhanced dynamic quote item generation based on real-time user inputs
         const quoteItems: QuoteItem[] = [];
         
@@ -949,20 +937,20 @@ export default function Chat() {
           
           quoteItems.push({
             type: 'private_cruise',
-            name: `Private ${pricing.breakdown.boatType} Charter`,
-            description: `Exclusive ${pricing.breakdown.cruiseDuration}-hour cruise on ${pricing.breakdown.dayName}, ${data.eventDate ? format(data.eventDate, 'MMMM do, yyyy') : 'selected date'} from ${timeSlotLabel}. Perfect for your ${data.eventTypeLabel.toLowerCase()}.`,
-            unitPrice: pricing.breakdown.baseCruiseCost * 100,
+            name: `Private ${currentPricing.breakdown.boatType} Charter`,
+            description: `Exclusive ${currentPricing.breakdown.cruiseDuration}-hour cruise on ${currentPricing.breakdown.dayName}, ${data.eventDate ? format(data.eventDate, 'MMMM do, yyyy') : 'selected date'} from ${timeSlotLabel}. Perfect for your ${data.eventTypeLabel.toLowerCase()}.`,
+            unitPrice: currentPricing.breakdown.baseCruiseCost * 100,
             qty: 1,
             category: 'cruise_charter'
           });
           
           // Dynamic crew fee calculation based on actual group size
-          if (pricing.breakdown.crewFee > 0) {
+          if (currentPricing.breakdown.crewFee > 0) {
             quoteItems.push({
               type: 'crew_fee',
               name: 'Additional Crew Service',
               description: `Professional crew service required by Texas law for groups of ${data.groupSize}+ people.`,
-              unitPrice: pricing.breakdown.crewFee * 100,
+              unitPrice: currentPricing.breakdown.crewFee * 100,
               qty: 1,
               category: 'service_fee'
             });
@@ -1102,16 +1090,16 @@ export default function Chat() {
           projectId: projectResponse.id,
           items: quoteItems,
           radioSections: radioSections,
-          subtotal: pricing.subtotal,
-          discountTotal: pricing.discountTotal,
-          tax: pricing.tax,
-          gratuity: pricing.gratuity,
-          total: pricing.total,
-          perPersonCost: pricing.perPersonCost,
-          depositRequired: pricing.depositRequired,
-          depositPercent: pricing.depositPercent,
-          depositAmount: pricing.depositAmount,
-          paymentSchedule: pricing.paymentSchedule,
+          subtotal: currentPricing.subtotal,
+          discountTotal: currentPricing.discountTotal,
+          tax: currentPricing.tax,
+          gratuity: currentPricing.gratuity,
+          total: currentPricing.total,
+          perPersonCost: currentPricing.perPersonCost,
+          depositRequired: currentPricing.depositRequired,
+          depositPercent: currentPricing.depositPercent,
+          depositAmount: currentPricing.depositAmount,
+          paymentSchedule: currentPricing.paymentSchedule,
           status: 'DRAFT',
           expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
         };
@@ -1154,7 +1142,8 @@ export default function Chat() {
   // Payment mutations using Stripe Checkout Sessions
   const createDepositPayment = useMutation({
     mutationFn: async () => {
-      if (!pricing) throw new Error('No pricing data available');
+      const currentPricing = formData.selectedCruiseType === 'disco' ? discoPricing : privatePricing;
+      if (!currentPricing) throw new Error('No pricing data available');
       if (!formData.firstName || !formData.lastName || !formData.email) {
         throw new Error('Contact information required for payment');
       }
@@ -1166,7 +1155,7 @@ export default function Chat() {
       }
       
       const res = await apiRequest('POST', '/api/checkout/create-session', {
-        amount: pricing.depositAmount, // already in cents
+        amount: currentPricing.depositAmount, // already in cents
         paymentType: 'deposit',
         quoteData: {
           eventType: formData.eventTypeLabel,
@@ -1208,7 +1197,8 @@ export default function Chat() {
 
   const createFullPayment = useMutation({
     mutationFn: async () => {
-      if (!pricing) throw new Error('No pricing data available');
+      const currentPricing = formData.selectedCruiseType === 'disco' ? discoPricing : privatePricing;
+      if (!currentPricing) throw new Error('No pricing data available');
       if (!formData.firstName || !formData.lastName || !formData.email) {
         throw new Error('Contact information required for payment');
       }
@@ -1220,7 +1210,7 @@ export default function Chat() {
       }
       
       const res = await apiRequest('POST', '/api/checkout/create-session', {
-        amount: pricing.total, // already in cents
+        amount: currentPricing.total, // already in cents
         paymentType: 'full',
         quoteData: {
           eventType: formData.eventTypeLabel,
@@ -1366,7 +1356,7 @@ export default function Chat() {
                       selectedDiscoPackage: null,
                       selectedDiscoTimeSlot: '',
                     });
-                    setPricing(null);
+                    setPrivatePricing(null);
                     setDiscoPricing(null);
                   }}
                   variant="ghost"
@@ -1413,7 +1403,8 @@ export default function Chat() {
 
   // Payment Modal Component
   const PaymentModal = () => {
-    const paymentOptions = getPaymentOptions();
+    const currentPricing = formData.selectedCruiseType === 'disco' ? discoPricing : privatePricing;
+    const paymentOptions = getPaymentOptions(currentPricing);
     const within30Days = isWithin30Days();
     
     return (
@@ -1452,11 +1443,11 @@ export default function Chat() {
                   <span className="text-slate-600 dark:text-slate-400">Group Size:</span>
                   <span className="font-medium">{formData.groupSizeLabel} people</span>
                 </div>
-                {pricing && (
+                {currentPricing && (
                   <div className="border-t border-slate-200 dark:border-slate-700 pt-2 mt-2">
                     <div className="flex justify-between font-semibold">
                       <span>Total:</span>
-                      <span>{formatCurrency(pricing.total)}</span>
+                      <span>{formatCurrency(currentPricing.total)}</span>
                     </div>
                   </div>
                 )}
@@ -1616,7 +1607,7 @@ export default function Chat() {
                   ))}
                 </AnimatePresence>
                 
-                {pricing && (
+                {(privatePricing || discoPricing) && (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -1624,7 +1615,9 @@ export default function Chat() {
                   >
                     <Badge className="ml-auto flex items-center gap-2 py-2 px-4 bg-green-600 dark:bg-green-700">
                       <DollarSign className="h-4 w-4" />
-                      <span className="font-bold">{formatCurrency(pricing.total)}</span>
+                      <span className="font-bold">
+                        {formatCurrency((formData.selectedCruiseType === 'disco' ? discoPricing : privatePricing)?.total || 0)}
+                      </span>
                     </Badge>
                   </motion.div>
                 )}
@@ -1977,7 +1970,7 @@ export default function Chat() {
                     <div className="space-y-4">
                       <h4 className="font-medium text-slate-700 dark:text-slate-300">Available Time Slots</h4>
                       <RadioGroup 
-                        value={formData.selectedCruiseType === 'private' ? formData.selectedTimeSlot : ''}
+                        value={formData.selectedTimeSlot}
                         onValueChange={(value) => handlePrivateCruiseSelect(value)}
                         data-testid="radio-private-time-slots"
                       >
@@ -2000,7 +1993,7 @@ export default function Chat() {
                     </div>
                     
                     {/* Enhanced Private Cruise Pricing */}
-                    {formData.selectedCruiseType === 'private' && formData.selectedTimeSlot && pricing && (
+                    {formData.selectedTimeSlot && privatePricing && (
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
@@ -2013,24 +2006,24 @@ export default function Chat() {
                           <div className="space-y-3">
                             <div className="flex justify-between items-center">
                               <span className="text-slate-600 dark:text-slate-400">Base Cruise Cost:</span>
-                              <span className="font-medium">{formatCurrency(pricing.subtotal)}</span>
+                              <span className="font-medium">{formatCurrency(privatePricing.subtotal)}</span>
                             </div>
                             <div className="flex justify-between items-center">
                               <span className="text-slate-600 dark:text-slate-400">Sales Tax (8.25%):</span>
-                              <span className="font-medium">{formatCurrency(pricing.tax)}</span>
+                              <span className="font-medium">{formatCurrency(privatePricing.tax)}</span>
                             </div>
                             <div className="flex justify-between items-center">
-                              <span className="text-slate-600 dark:text-slate-400">Service Gratuity (20%):</span>
-                              <span className="font-medium">{formatCurrency(pricing.gratuity || Math.round(pricing.subtotal * 0.20))}</span>
+                              <span className="text-slate-600 dark:text-slate-400">Tip for the Captain and Crew (20%):</span>
+                              <span className="font-medium">{formatCurrency(privatePricing.gratuity || Math.round(privatePricing.subtotal * 0.20))}</span>
                             </div>
                             <div className="border-t border-slate-200 dark:border-slate-700 pt-3">
                               <div className="flex justify-between items-center text-lg font-bold">
-                                <span className="text-slate-800 dark:text-slate-200">Total Investment:</span>
-                                <span className="text-blue-600 dark:text-blue-400">{formatCurrency(pricing.total + (pricing.gratuity || Math.round(pricing.subtotal * 0.20)))}</span>
+                                <span className="text-slate-800 dark:text-slate-200">Total Price:</span>
+                                <span className="text-blue-600 dark:text-blue-400">{formatCurrency(privatePricing.total)}</span>
                               </div>
                               <div className="flex justify-between items-center text-sm mt-1">
                                 <span className="text-slate-500 dark:text-slate-400">Per person:</span>
-                                <span className="text-slate-600 dark:text-slate-300">{formatCurrency((pricing.total + (pricing.gratuity || Math.round(pricing.subtotal * 0.20))) / formData.groupSize)}</span>
+                                <span className="text-slate-600 dark:text-slate-300">{formatCurrency(privatePricing.total / formData.groupSize)}</span>
                               </div>
                             </div>
                           </div>
@@ -2045,7 +2038,7 @@ export default function Chat() {
                             </div>
                             <div className="flex justify-between items-center mb-4">
                               <span className="text-slate-600 dark:text-slate-400">Deposit Amount:</span>
-                              <span className="text-xl font-bold text-green-600 dark:text-green-400">{formatCurrency(pricing.depositAmount)}</span>
+                              <span className="text-xl font-bold text-green-600 dark:text-green-400">{formatCurrency(privatePricing.depositAmount)}</span>
                             </div>
                             <div className="grid grid-cols-2 gap-3">
                               <Button
@@ -2071,7 +2064,7 @@ export default function Chat() {
                               </Button>
                             </div>
                             <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-2">
-                              Balance due: {formatCurrency((pricing.total + (pricing.gratuity || Math.round(pricing.subtotal * 0.20))) - pricing.depositAmount)}
+                              Balance due: {formatCurrency(privatePricing.total - privatePricing.depositAmount)}
                             </p>
                           </div>
                         </div>
@@ -2106,7 +2099,7 @@ export default function Chat() {
                         <div className="space-y-4 mb-6">
                           <h4 className="font-medium text-slate-700 dark:text-slate-300">Available Times</h4>
                           <RadioGroup 
-                            value={formData.selectedCruiseType === 'disco' ? formData.selectedDiscoTimeSlot : ''}
+                            value={formData.selectedDiscoTimeSlot}
                             onValueChange={(timeSlot) => {
                               if (formData.selectedDiscoPackage) {
                                 handleDiscoCruiseSelect(formData.selectedDiscoPackage, timeSlot);
@@ -2133,7 +2126,7 @@ export default function Chat() {
                         <div className="space-y-4">
                           <h4 className="font-medium text-slate-700 dark:text-slate-300">Choose Your Package</h4>
                           <RadioGroup 
-                            value={formData.selectedCruiseType === 'disco' ? formData.selectedDiscoPackage || '' : ''}
+                            value={formData.selectedDiscoPackage || ''}
                             onValueChange={(packageId) => {
                               const timeSlot = formData.selectedDiscoTimeSlot || (formData.eventDate ? getDiscoTimeSlotsForDate(formData.eventDate)[0]?.id : '') || '';
                               handleDiscoCruiseSelect(packageId, timeSlot);
@@ -2167,7 +2160,7 @@ export default function Chat() {
                         </div>
                         
                         {/* Enhanced Disco Cruise Pricing */}
-                        {formData.selectedCruiseType === 'disco' && formData.selectedDiscoPackage && pricing && (
+                        {formData.selectedDiscoPackage && formData.selectedDiscoTimeSlot && discoPricing && (
                           <motion.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
@@ -2180,24 +2173,24 @@ export default function Chat() {
                               <div className="space-y-3">
                                 <div className="flex justify-between items-center">
                                   <span className="text-slate-600 dark:text-slate-400">Package Cost ({formData.groupSize} people):</span>
-                                  <span className="font-medium">{formatCurrency(pricing.subtotal)}</span>
+                                  <span className="font-medium">{formatCurrency(discoPricing.subtotal)}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
                                   <span className="text-slate-600 dark:text-slate-400">Sales Tax (8.25%):</span>
-                                  <span className="font-medium">{formatCurrency(pricing.tax)}</span>
+                                  <span className="font-medium">{formatCurrency(discoPricing.tax)}</span>
                                 </div>
                                 <div className="flex justify-between items-center">
-                                  <span className="text-slate-600 dark:text-slate-400">Service Gratuity (20%):</span>
-                                  <span className="font-medium">{formatCurrency(pricing.gratuity || Math.round(pricing.subtotal * 0.20))}</span>
+                                  <span className="text-slate-600 dark:text-slate-400">Tip for the Captain and Crew (20%):</span>
+                                  <span className="font-medium">{formatCurrency(discoPricing.gratuity || Math.round(discoPricing.subtotal * 0.20))}</span>
                                 </div>
                                 <div className="border-t border-slate-200 dark:border-slate-700 pt-3">
                                   <div className="flex justify-between items-center text-lg font-bold">
-                                    <span className="text-slate-800 dark:text-slate-200">Total Investment:</span>
-                                    <span className="text-purple-600 dark:text-purple-400">{formatCurrency(pricing.total + (pricing.gratuity || Math.round(pricing.subtotal * 0.20)))}</span>
+                                    <span className="text-slate-800 dark:text-slate-200">Total Price:</span>
+                                    <span className="text-purple-600 dark:text-purple-400">{formatCurrency(discoPricing.total)}</span>
                                   </div>
                                   <div className="flex justify-between items-center text-sm mt-1">
                                     <span className="text-slate-500 dark:text-slate-400">Per person:</span>
-                                    <span className="text-slate-600 dark:text-slate-300">{formatCurrency((pricing.total + (pricing.gratuity || Math.round(pricing.subtotal * 0.20))) / formData.groupSize)}</span>
+                                    <span className="text-slate-600 dark:text-slate-300">{formatCurrency(discoPricing.total / formData.groupSize)}</span>
                                   </div>
                                 </div>
                               </div>
@@ -2212,7 +2205,7 @@ export default function Chat() {
                                 </div>
                                 <div className="flex justify-between items-center mb-4">
                                   <span className="text-slate-600 dark:text-slate-400">Deposit Amount:</span>
-                                  <span className="text-xl font-bold text-green-600 dark:text-green-400">{formatCurrency(pricing.depositAmount)}</span>
+                                  <span className="text-xl font-bold text-green-600 dark:text-green-400">{formatCurrency(discoPricing.depositAmount)}</span>
                                 </div>
                                 <div className="grid grid-cols-2 gap-3">
                                   <Button
@@ -2238,7 +2231,7 @@ export default function Chat() {
                                   </Button>
                                 </div>
                                 <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-2">
-                                  Balance due: {formatCurrency((pricing.total + (pricing.gratuity || Math.round(pricing.subtotal * 0.20))) - pricing.depositAmount)}
+                                  Balance due: {formatCurrency(discoPricing.total - discoPricing.depositAmount)}
                                 </p>
                               </div>
                             </div>
@@ -2373,26 +2366,29 @@ export default function Chat() {
                       </Button>
                       
                       {/* Pay & Book Online Button */}
-                      {pricing && (
-                        <Button
-                          onClick={() => setShowPaymentModal(true)}
-                          size="lg"
-                          className="h-14 px-8 w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
-                          data-testid="button-pay-book"
-                        >
-                          <CreditCard className="h-5 w-5 mr-3" />
-                          Pay & Book Online
-                          {isWithin30Days() ? (
-                            <span className="ml-3 text-sm font-normal opacity-90">
-                              ({formatCurrency(pricing.total)})
-                            </span>
-                          ) : (
-                            <span className="ml-3 text-sm font-normal opacity-90">
-                              (from {formatCurrency(pricing.depositAmount)})
-                            </span>
-                          )}
-                        </Button>
-                      )}
+                      {(privatePricing || discoPricing) && (() => {
+                        const currentPricing = formData.selectedCruiseType === 'disco' ? discoPricing : privatePricing;
+                        return currentPricing && (
+                          <Button
+                            onClick={() => setShowPaymentModal(true)}
+                            size="lg"
+                            className="h-14 px-8 w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+                            data-testid="button-pay-book"
+                          >
+                            <CreditCard className="h-5 w-5 mr-3" />
+                            Pay & Book Online
+                            {isWithin30Days() ? (
+                              <span className="ml-3 text-sm font-normal opacity-90">
+                                ({formatCurrency(currentPricing.total)})
+                              </span>
+                            ) : (
+                              <span className="ml-3 text-sm font-normal opacity-90">
+                                (from {formatCurrency(currentPricing.depositAmount)})
+                              </span>
+                            )}
+                          </Button>
+                        );
+                      })()}
                       
                       <p className="text-sm text-slate-500 dark:text-slate-400 text-center">
                         {isWithin30Days() 
