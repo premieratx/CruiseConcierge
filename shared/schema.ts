@@ -45,6 +45,7 @@ export const products = pgTable("products", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   orgId: varchar("org_id").notNull().default("org_demo"),
   name: text("name").notNull(),
+  description: text("description"),
   unitPrice: integer("unit_price").notNull(), // in cents
   taxable: boolean("taxable").notNull().default(true),
 });

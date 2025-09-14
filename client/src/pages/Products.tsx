@@ -20,6 +20,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDes
 
 const productFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
+  description: z.string().optional(),
   unitPrice: z.number().min(0, "Price must be positive"),
   taxable: z.boolean(),
 });
@@ -71,6 +72,7 @@ export default function Products() {
     resolver: zodResolver(productFormSchema),
     defaultValues: {
       name: "",
+      description: "",
       unitPrice: 0,
       taxable: true,
     },
@@ -173,6 +175,7 @@ export default function Products() {
     setEditingProduct(product);
     productForm.reset({
       name: product.name,
+      description: product.description || "",
       unitPrice: product.unitPrice / 100,
       taxable: product.taxable,
     });
@@ -269,6 +272,19 @@ export default function Products() {
                                 data-testid="input-product-price"
                               />
                             </div>
+                          </FormControl>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    <FormField
+                      control={productForm.control}
+                      name="description"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Description</FormLabel>
+                          <FormControl>
+                            <Input {...field} placeholder="Optional product description" data-testid="input-product-description" />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
