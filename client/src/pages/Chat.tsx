@@ -23,7 +23,7 @@ import { Slider } from '@/components/ui/slider';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
 import { format, addDays, isBefore, isAfter, startOfDay, differenceInDays } from 'date-fns';
-import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection } from '@shared/schema';
+import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection, QuoteItem } from '@shared/schema';
 
 type Question = 
   | 'event-type' 
@@ -66,6 +66,9 @@ interface BookingData {
   selectedTimeSlot: string;
   selectedDiscoPackage: DiscoPackage | null;
   selectedDiscoTimeSlot: string;
+  // Additional labels for display
+  preferredTimeLabel?: string;
+  groupSizeLabel?: string;
 }
 
 interface CompletedSelection {
@@ -294,12 +297,21 @@ export default function Chat() {
       depositPercent: 25,
       depositAmount: Math.round(total * 0.25) * 100,
       paymentSchedule: [],
+      appliedDiscounts: [],
       breakdown: {
         boatType: selectedPackage.name,
         dayName: formData.eventDate ? format(formData.eventDate, 'EEEE') : '',
+        baseHourlyRate: Math.round(selectedPackage.price / 4), // Hourly rate for 4-hour cruise
         cruiseDuration: 4,
         baseCruiseCost: selectedPackage.price,
         crewFee: 0,
+        subtotalBeforeTax: subtotal,
+        gratuityAmount: 0,
+        taxAmount: tax,
+        grandTotal: total,
+        perPerson: selectedPackage.price,
+        deposit: Math.round(total * 0.25),
+        balanceDue: total - Math.round(total * 0.25),
       }
     });
   };
@@ -662,38 +674,135 @@ export default function Chat() {
       }
       
       if (pricing && pricing.breakdown) {
-        const quoteItems = [];
+        // Enhanced dynamic quote item generation based on real-time user inputs
+        const quoteItems: QuoteItem[] = [];
         
         if (data.selectedCruiseType === 'disco' && data.selectedDiscoPackage) {
           const selectedPackage = discoPackages.find(pkg => pkg.id === data.selectedDiscoPackage);
           if (selectedPackage) {
+            // Dynamic disco cruise item with personalized details
+            const timeSlotLabel = getDiscoTimeSlotsForDate(data.eventDate!).find(slot => 
+              slot.id === data.selectedDiscoTimeSlot
+            )?.label || data.selectedDiscoTimeSlot;
+            
             quoteItems.push({
-              name: `${selectedPackage.name} - ${data.groupSize} people`,
+              type: 'disco_cruise',
+              name: `${selectedPackage.name} - ${timeSlotLabel}`,
+              description: `ATX Disco Cruise for ${data.groupSize} people on ${data.eventDate ? format(data.eventDate, 'EEEE, MMMM do, yyyy') : 'selected date'}. ${selectedPackage.features.join(', ')}.`,
               unitPrice: selectedPackage.price * 100,
               qty: data.groupSize,
-              taxable: true,
+              category: 'cruise_package'
             });
+            
+            // Add personalized event enhancement based on event type
+            if (data.eventType === 'bachelor' || data.eventType === 'bachelorette') {
+              quoteItems.push({
+                type: 'addon',
+                name: `${data.eventType === 'bachelor' ? 'Bachelor' : 'Bachelorette'} Party Enhancement`,
+                description: 'Complimentary party decorations and celebration setup included for your special event.',
+                unitPrice: 0,
+                qty: 1,
+                category: 'enhancement'
+              });
+            }
           }
         } else {
+          // Enhanced private cruise item generation
+          const timeSlotLabel = getPrivateTimeSlotsForDate(data.eventDate!).find(slot => 
+            slot.id === data.selectedTimeSlot
+          )?.label || data.selectedTimeSlot;
+          
           quoteItems.push({
-            name: `${pricing.breakdown.boatType} - ${pricing.breakdown.dayName} ${pricing.breakdown.cruiseDuration}-Hour Cruise`,
+            type: 'private_cruise',
+            name: `Private ${pricing.breakdown.boatType} Charter`,
+            description: `Exclusive ${pricing.breakdown.cruiseDuration}-hour cruise on ${pricing.breakdown.dayName}, ${data.eventDate ? format(data.eventDate, 'MMMM do, yyyy') : 'selected date'} from ${timeSlotLabel}. Perfect for your ${data.eventTypeLabel.toLowerCase()}.`,
             unitPrice: pricing.breakdown.baseCruiseCost * 100,
             qty: 1,
-            taxable: true,
+            category: 'cruise_charter'
           });
           
+          // Dynamic crew fee calculation based on actual group size
           if (pricing.breakdown.crewFee > 0) {
             quoteItems.push({
-              name: 'Additional Crew (Texas Law Requirement)',
+              type: 'crew_fee',
+              name: 'Additional Crew Service',
+              description: `Professional crew service required by Texas law for groups of ${data.groupSize}+ people.`,
               unitPrice: pricing.breakdown.crewFee * 100,
               qty: 1,
-              taxable: true,
+              category: 'service_fee'
+            });
+          }
+          
+          // Add event-specific enhancements based on user selections
+          if (data.eventType === 'corporate') {
+            quoteItems.push({
+              type: 'addon',
+              name: 'Corporate Event Package',
+              description: 'Professional setup with tables, chairs, and presentation capabilities included.',
+              unitPrice: 0,
+              qty: 1,
+              category: 'enhancement'
+            });
+          } else if (data.eventType === 'wedding') {
+            quoteItems.push({
+              type: 'addon',
+              name: 'Wedding Celebration Package',
+              description: 'Romantic ambiance with special lighting and complimentary champagne toast.',
+              unitPrice: 0,
+              qty: 1,
+              category: 'enhancement'
             });
           }
         }
+        
+        // Add special requests as a note item if provided
+        if (data.specialRequests && data.specialRequests.trim()) {
+          quoteItems.push({
+            type: 'note',
+            name: 'Special Requests',
+            description: data.specialRequests,
+            unitPrice: 0,
+            qty: 1,
+            category: 'customer_notes'
+          });
+        }
 
-        // Create radio sections based on cruise type
+        // Enhanced radio sections with dynamic options based on user flow
         const radioSections: RadioSection[] = [];
+        
+        // Add dynamic upgrade options based on selected cruise type
+        if (data.selectedCruiseType === 'private') {
+          const upgradeOptions = [
+            {
+              id: 'no_upgrades',
+              name: 'Standard Package',
+              description: 'Everything included as quoted',
+              price: 0,
+              isDefault: true
+            },
+            {
+              id: 'premium_bar',
+              name: 'Premium Bar Package',
+              description: 'Upgrade to premium spirits and craft beer selection',
+              price: data.groupSize * 15 * 100 // $15 per person in cents
+            },
+            {
+              id: 'catering_upgrade',
+              name: 'Gourmet Catering',
+              description: 'Add premium appetizers and hors d\'oeuvres',
+              price: data.groupSize * 25 * 100 // $25 per person in cents
+            }
+          ];
+          
+          radioSections.push({
+            id: 'upgrade-options',
+            title: 'Optional Upgrades',
+            description: `Enhance your ${data.eventTypeLabel.toLowerCase()} with these premium options`,
+            required: false,
+            options: upgradeOptions,
+            order: 0
+          });
+        }
         
         if (data.eventDate && data.selectedCruiseType === 'private' && data.selectedTimeSlot) {
           const availableTimeSlots = getPrivateTimeSlotsForDate(data.eventDate);
@@ -752,6 +861,7 @@ export default function Chat() {
           }
         }
         
+        // Enhanced quote object with personalized messaging
         const quote: InsertQuote = {
           projectId: projectResponse.id,
           items: quoteItems,
@@ -767,7 +877,7 @@ export default function Chat() {
           depositAmount: pricing.depositAmount,
           paymentSchedule: pricing.paymentSchedule,
           status: 'DRAFT',
-          validUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+          expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
         };
         
         const quoteRes = await apiRequest('POST', '/api/quotes', quote);
@@ -1456,7 +1566,7 @@ export default function Chat() {
                     transition={{ delay: 0.2, duration: 0.5 }}
                     className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-xl p-6"
                   >
-                    <Calendar
+                    <CalendarComponent
                       mode="single"
                       selected={formData.eventDate}
                       onSelect={handleDateSelect}
@@ -1634,7 +1744,7 @@ export default function Chat() {
                           <RadioGroup 
                             value={formData.selectedCruiseType === 'disco' ? formData.selectedDiscoPackage || '' : ''}
                             onValueChange={(packageId) => {
-                              const timeSlot = formData.selectedDiscoTimeSlot || getDiscoTimeSlotsForDate(formData.eventDate)[0]?.id || '';
+                              const timeSlot = formData.selectedDiscoTimeSlot || (formData.eventDate ? getDiscoTimeSlotsForDate(formData.eventDate)[0]?.id : '') || '';
                               handleDiscoCruiseSelect(packageId, timeSlot);
                             }}
                             data-testid="radio-disco-packages"
@@ -1732,97 +1842,15 @@ export default function Chat() {
               >
                 <div className="text-center">
                   <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">
-                    {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') && pricing.showBothOptions 
-                      ? 'Choose Your Perfect Experience' 
-                      : 'Your Cruise Details'}
+                    Your Cruise Details
                   </h2>
                   <p className="text-slate-600 dark:text-slate-400 text-lg">
-                    {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') && pricing.showBothOptions 
-                      ? 'Select between our private cruise and disco cruise experiences'
-                      : 'Review and book your perfect cruise experience'}
+                    Review and book your perfect cruise experience
                   </p>
                 </div>
 
-                {/* Show both cruise options for bachelor/bachelorette parties */}
-                {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') && pricing.showBothOptions ? (
-                  <div className="grid md:grid-cols-2 gap-6">
-                    {/* Private Cruise Option */}
-                    <Card className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-slate-200 dark:border-slate-700 shadow-xl relative">
-                      <CardContent className="p-6">
-                        <div className="text-center mb-4">
-                          <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-3">
-                            <Ship className="h-8 w-8 text-blue-600" />
-                          </div>
-                          <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200">Private Cruise</h3>
-                          <p className="text-sm text-slate-600 dark:text-slate-400">Your own private boat experience</p>
-                        </div>
-                        
-                        <div className="text-center p-4 bg-gradient-to-r from-blue-50 to-slate-50 dark:from-blue-900/30 dark:to-slate-900/30 rounded-xl mb-4">
-                          <div className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-1">
-                            {formatCurrency(pricing.privateCruise.total)}
-                          </div>
-                          <p className="text-sm text-slate-600 dark:text-slate-400">
-                            {formatCurrency(pricing.privateCruise.perPersonCost)} per person
-                          </p>
-                        </div>
-
-                        <Button 
-                          onClick={() => {
-                            setPricing(pricing.privateCruise);
-                            // Continue with private cruise booking
-                          }}
-                          className="w-full h-12 bg-blue-600 hover:bg-blue-700"
-                          data-testid="button-select-private-cruise"
-                        >
-                          Choose Private Cruise
-                        </Button>
-                      </CardContent>
-                    </Card>
-
-                    {/* Disco Cruise Options */}
-                    <Card className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-slate-200 dark:border-slate-700 shadow-xl relative">
-                      <CardContent className="p-6">
-                        <div className="text-center mb-4">
-                          <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-3">
-                            <Sparkles className="h-8 w-8 text-purple-600" />
-                          </div>
-                          <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200">ATX Disco Cruise</h3>
-                          <p className="text-sm text-slate-600 dark:text-slate-400">Dance the night away on Lake Austin</p>
-                        </div>
-                        
-                        <div className="space-y-3 mb-4">
-                          {pricing.discoCruise.options.map((option, index) => (
-                            <div key={option.id} 
-                                 className="p-3 border border-slate-200 dark:border-slate-600 rounded-lg hover:border-purple-300 dark:hover:border-purple-700 cursor-pointer transition-colors"
-                                 onClick={() => {
-                                   // Create pricing object for disco cruise
-                                   const discoPricing = {
-                                     total: option.totalPrice,
-                                     perPersonCost: option.pricePerPerson,
-                                     depositAmount: Math.round(option.totalPrice * 0.25),
-                                     depositPercent: 25,
-                                     showBothOptions: false
-                                   };
-                                   setPricing(discoPricing);
-                                 }}
-                            >
-                              <div className="flex justify-between items-center">
-                                <div>
-                                  <h4 className="font-semibold text-sm text-slate-800 dark:text-slate-200">{option.name}</h4>
-                                  <p className="text-xs text-slate-600 dark:text-slate-400">{formatCurrency(option.pricePerPerson)} per person</p>
-                                </div>
-                                <div className="text-right">
-                                  <div className="font-bold text-slate-800 dark:text-slate-200">{formatCurrency(option.totalPrice)}</div>
-                                  <div className="text-xs text-slate-500">total</div>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </div>
-                ) : (
+                {/* Single cruise option for all events */}
+                {true && (
                   /* Single cruise option for all other events */
                   <Card className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-slate-200 dark:border-slate-700 shadow-xl">
                     <CardContent className="p-8">
