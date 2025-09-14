@@ -71,11 +71,11 @@ async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: 
     </div>
   `;
   
+  // Remove unsafe from override - let service use its safe default
   return await mailgunService.send({
     to: email,
     subject: '🚢 Your Party Cruise Quote is Ready!',
-    html,
-    from: process.env.MAILGUN_FROM || 'quotes@premierpartycruises.com'
+    html
   });
 }
 

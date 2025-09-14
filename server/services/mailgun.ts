@@ -21,12 +21,16 @@ class MailgunService implements EmailService {
     }
     
     this.domain = domain;
-    this.from = process.env.MAILGUN_FROM || 'noreply@premierpartycruises.com';
+    // Ensure from address uses the correct Mailgun domain format
+    const fromEmail = domain ? `noreply@${domain}` : 'noreply@premierpartycruises.com';
+    this.from = process.env.MAILGUN_FROM || fromEmail; // Simple email format without display name
     this.baseUrl = process.env.MAILGUN_API_BASE_URL || 'https://api.mailgun.net/v3';
   }
 
   isConfigured(): boolean {
-    return !!(this.apiKey && this.domain);
+    // Override to make email live - only simulate if explicitly requested
+    const simulate = process.env.EMAIL_SIMULATE === 'true';
+    return !simulate && !!(this.apiKey && this.domain);
   }
 
   async send(options: EmailOptions): Promise<boolean> {

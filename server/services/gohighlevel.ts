@@ -19,7 +19,9 @@ class GoHighLevelService implements SMSService {
   }
 
   isConfigured(): boolean {
-    return !!(this.apiKey && this.locationId);
+    // Override to make SMS live - only simulate if explicitly requested
+    const simulate = process.env.SMS_SIMULATE === 'true';
+    return !simulate && !!(this.apiKey && this.locationId);
   }
 
   async send(options: SMSOptions): Promise<boolean> {
