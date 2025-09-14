@@ -444,7 +444,7 @@ export default function Chat() {
     }
   };
   
-  const isDateAvailable = (date: Date) => {
+  const isDateAvailable = (date: Date): boolean => {
     const today = startOfDay(new Date());
     const maxDate = addDays(today, 365);
     return !isBefore(date, today) && !isAfter(date, maxDate);
@@ -1460,7 +1460,7 @@ export default function Chat() {
                       mode="single"
                       selected={formData.eventDate}
                       onSelect={handleDateSelect}
-                      disabled={(date) => !isDateAvailable(date)}
+                      disabled={(date: Date) => !isDateAvailable(date)}
                       className="mx-auto"
                       classNames={{
                         months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",

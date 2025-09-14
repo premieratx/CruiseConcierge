@@ -361,7 +361,7 @@ export class GoogleSheetsService {
       });
 
       const sheets = spreadsheet.data.sheets || [];
-      const availabilitySheet = sheets.find(sheet => sheet.properties?.title === 'Availability');
+      const availabilitySheet = sheets.find((sheet: any) => sheet.properties?.title === 'Availability');
 
       if (!availabilitySheet) {
         console.log("Creating 'Availability' sheet...");

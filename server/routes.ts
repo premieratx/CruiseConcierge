@@ -164,9 +164,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         content: aiResponse.response,
         metadata: {
           intent: "general",
-          extractedData: aiResponse.extractedData || {} as any,
-          suggestedActions: aiResponse.suggestedActions || [] as any
-        }
+          extractedData: aiResponse.extractedData || {},
+          suggestedActions: aiResponse.suggestedActions || []
+        } as Record<string, any>
       });
 
       res.json({
@@ -662,12 +662,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Create invoice
       const invoice = await storage.createInvoice({
+        orgId: quote.orgId,
         projectId: quote.projectId,
         quoteId: quote.id,
-        items: quote.items || [],
         subtotal: quote.subtotal,
         tax: quote.tax,
-        discountTotal: quote.discountTotal,
         total: quote.total,
         balance: quote.total,
         schedule: quote.paymentSchedule,
@@ -1235,7 +1234,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Create quote from template
-      const items = template.defaultItems.map(item => ({
+      const items = (template.defaultItems || []).map(item => ({
         ...item,
         ...customizations.items?.[item.productId || item.name] || {},
       }));
@@ -1415,6 +1414,194 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Generate invoice error:", error);
       res.status(500).json({ error: "Failed to generate invoice" });
+    }
+  });
+
+  // Test endpoints for messaging systems
+  app.post("/api/test-email", async (req, res) => {
+    try {
+      const { email, quoteId } = req.body;
+      
+      if (!email) {
+        return res.status(400).json({ error: "Email address required" });
+      }
+      
+      let testQuoteId = quoteId;
+      
+      // If no quote ID provided, create a test quote
+      if (!testQuoteId) {
+        // Create a test contact first
+        const testContact = await storage.createContact({
+          name: "Test Customer",
+          email,
+          phone: "+15125551234"
+        });
+        
+        // Create a test project
+        const testProject = await storage.createProject({
+          contactId: testContact.id,
+          title: "Test Party Cruise",
+          eventType: "birthday",
+          groupSize: 20,
+          projectDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days from now
+          specialRequests: "This is a test booking request",
+          budget: 250000 // $2500 in cents
+        });
+        
+        // Create a test quote
+        const testQuote = await storage.createQuote({
+          projectId: testProject.id,
+          items: [
+            {
+              name: "Private Party Cruise",
+              type: "service",
+              unitPrice: 200000, // $2000 in cents
+              qty: 1,
+              description: "4-hour private cruise for up to 25 people"
+            },
+            {
+              name: "Captain & Crew Fee",
+              type: "service",
+              unitPrice: 50000, // $500 in cents
+              qty: 1,
+              description: "Professional captain and crew services"
+            }
+          ],
+          subtotal: 250000,
+          tax: 20000,
+          total: 270000,
+          depositAmount: 67500,
+          depositPercent: 25
+        });
+        
+        testQuoteId = testQuote.id;
+      }
+      
+      // Send test email
+      const result = await sendQuoteEmail(testQuoteId, email, "This is a test email to verify our quote delivery system is working properly.");
+      
+      res.json({ 
+        success: true, 
+        message: "Test email sent successfully",
+        quoteId: testQuoteId,
+        result
+      });
+      
+    } catch (error: any) {
+      console.error("Test email error:", error);
+      res.status(500).json({ 
+        error: "Failed to send test email",
+        details: error.message 
+      });
+    }
+  });
+  
+  app.post("/api/test-sms", async (req, res) => {
+    try {
+      const { phone, quoteId, type = "customer" } = req.body;
+      
+      if (!phone) {
+        return res.status(400).json({ error: "Phone number required" });
+      }
+      
+      let testQuoteId = quoteId;
+      
+      // If no quote ID provided, create a test quote (similar logic as email test)
+      if (!testQuoteId) {
+        const testContact = await storage.createContact({
+          name: "Test SMS Customer",
+          email: "test@example.com",
+          phone
+        });
+        
+        const testProject = await storage.createProject({
+          contactId: testContact.id,
+          title: "Test SMS Cruise",
+          eventType: "bachelor",
+          groupSize: 15,
+          projectDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 14 days from now
+          specialRequests: "This is a test SMS booking",
+          budget: 180000 // $1800 in cents
+        });
+        
+        const testQuote = await storage.createQuote({
+          projectId: testProject.id,
+          items: [
+            {
+              name: "Bachelor Party Cruise",
+              type: "service",
+              unitPrice: 150000, // $1500 in cents
+              qty: 1,
+              description: "3-hour bachelor party cruise"
+            },
+            {
+              name: "Party Package",
+              type: "addon",
+              unitPrice: 30000, // $300 in cents
+              qty: 1,
+              description: "Sound system and party decorations"
+            }
+          ],
+          subtotal: 180000,
+          tax: 14400,
+          total: 194400,
+          depositAmount: 48600,
+          depositPercent: 25
+        });
+        
+        testQuoteId = testQuote.id;
+      }
+      
+      let result;
+      
+      if (type === "admin") {
+        // Send admin notification SMS
+        result = await sendAdminNotificationSMS(testQuoteId);
+      } else {
+        // Send customer SMS
+        result = await sendQuoteSMS(testQuoteId, phone);
+      }
+      
+      res.json({ 
+        success: true, 
+        message: `Test ${type} SMS sent successfully`,
+        quoteId: testQuoteId,
+        result
+      });
+      
+    } catch (error: any) {
+      console.error("Test SMS error:", error);
+      res.status(500).json({ 
+        error: "Failed to send test SMS",
+        details: error.message 
+      });
+    }
+  });
+  
+  // Test endpoint to check messaging services status
+  app.get("/api/test-messaging-status", async (req, res) => {
+    try {
+      const status = {
+        mailgun: {
+          configured: !!process.env.MAILGUN_API_KEY && !!process.env.MAILGUN_DOMAIN,
+          domain: process.env.MAILGUN_DOMAIN || 'Not configured',
+          from: process.env.MAILGUN_FROM || 'Not configured'
+        },
+        gohighlevel: {
+          configured: !!process.env.GOHIGHLEVEL_API_KEY && !!process.env.GOHIGHLEVEL_LOCATION_ID,
+          locationId: process.env.GOHIGHLEVEL_LOCATION_ID || 'Not configured'
+        },
+        admin: {
+          phoneConfigured: !!process.env.ADMIN_PHONE_NUMBER,
+          phone: process.env.ADMIN_PHONE_NUMBER ? `${process.env.ADMIN_PHONE_NUMBER.substring(0, 6)}***` : 'Not configured'
+        },
+        baseUrl: process.env.BASE_URL || 'http://localhost:5000'
+      };
+      
+      res.json({ status, timestamp: new Date().toISOString() });
+    } catch (error: any) {
+      console.error("Status check error:", error);
+      res.status(500).json({ error: "Failed to check status" });
     }
   });
 
