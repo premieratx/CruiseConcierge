@@ -10,6 +10,7 @@ import { goHighLevelService } from "./services/gohighlevel";
 import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest } from "@shared/schema";
 import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
+import { getFullUrl, getPublicUrl } from "./utils";
 
 if (!process.env.STRIPE_SECRET_KEY) {
   console.warn('STRIPE_SECRET_KEY not configured. Payment functionality will be mocked.');
@@ -48,7 +49,7 @@ async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: 
         </div>
         
         <div style="text-align: center; margin: 30px 0;">
-          <a href="${process.env.BASE_URL || 'http://localhost:5000'}/quote/${quote.id}" 
+          <a href="${getFullUrl(`/quote/${quote.id}`)}" 
              style="background: #3b82f6; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
             View Full Quote
           </a>
@@ -86,7 +87,7 @@ async function sendQuoteSMS(quoteId: string, phone: string) {
   const project = await storage.getProject(quote.projectId);
   const contact = project ? await storage.getContact(project.contactId) : null;
   
-  const message = `Hi ${contact?.name || 'there'}! 🚢 Your Premier Party Cruises quote is ready. Total: $${(quote.total / 100).toFixed(2)}. View details: ${process.env.BASE_URL || 'http://localhost:5000'}/quote/${quote.id}`;
+  const message = `Hi ${contact?.name || 'there'}! 🚢 Your Premier Party Cruises quote is ready. Total: $${(quote.total / 100).toFixed(2)}. View details: ${getFullUrl(`/quote/${quote.id}`)}`;
   
   return await goHighLevelService.send({
     to: phone,
@@ -111,7 +112,7 @@ async function sendAdminNotificationSMS(quoteId: string) {
   const formattedDate = eventDate ? eventDate.toLocaleDateString() : 'TBD';
   const eventType = project?.eventType || 'Party Cruise';
   
-  const message = `🚢 NEW BOOKING REQUEST!\n\nCustomer: ${contact?.name || 'Unknown'}\nEvent: ${eventType}\nDate: ${formattedDate}\nGroup Size: ${project?.groupSize || 'TBD'}\nTotal: $${(quote.total / 100).toFixed(2)}\n\nView quote: ${process.env.BASE_URL || 'http://localhost:5000'}/quote/${quote.id}`;
+  const message = `🚢 NEW BOOKING REQUEST!\n\nCustomer: ${contact?.name || 'Unknown'}\nEvent: ${eventType}\nDate: ${formattedDate}\nGroup Size: ${project?.groupSize || 'TBD'}\nTotal: $${(quote.total / 100).toFixed(2)}\n\nView quote: ${getFullUrl(`/quote/${quote.id}`)}`;
   
   return await goHighLevelService.send({
     to: adminPhone,
@@ -769,7 +770,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               </div>
               
               <div style="text-align: center; margin: 30px 0;">
-                <a href="${process.env.BASE_URL || 'http://localhost:5000'}/quote/${quote.id}" 
+                <a href="${getFullUrl(`/quote/${quote.id}`)}" 
                    style="background: #3b82f6; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
                   View Full Quote
                 </a>
@@ -799,7 +800,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           from: process.env.MAILGUN_FROM || 'quotes@premierpartycruises.com'
         });
       } else if (delivery === 'sms' && customerInfo.phone) {
-        const message = `Hi ${customerInfo.name || 'Valued Customer'}! 🚢 Your Premier Party Cruises quote is ready. Total: $${(quote.total / 100).toFixed(2)}. View details: ${process.env.BASE_URL || 'http://localhost:5000'}/public/quote/${quote.id}`;
+        const message = `Hi ${customerInfo.name || 'Valued Customer'}! 🚢 Your Premier Party Cruises quote is ready. Total: $${(quote.total / 100).toFixed(2)}. View details: ${getFullUrl(`/public/quote/${quote.id}`)}`;
         
         success = await goHighLevelService.send({
           to: customerInfo.phone,
@@ -1119,8 +1120,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           quantity: 1,
         }],
         mode: 'payment',
-        success_url: `${req.get('origin') || 'http://localhost:5000'}/booking-success?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: `${req.get('origin') || 'http://localhost:5000'}/chat`,
+        success_url: `${getFullUrl('/booking-success?session_id={CHECKOUT_SESSION_ID}')}`,
+        cancel_url: `${getFullUrl('/chat')}`,
         customer_email: customerEmail,
         metadata: {
           paymentType,
@@ -2064,7 +2065,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           phoneConfigured: !!process.env.ADMIN_PHONE_NUMBER,
           phone: process.env.ADMIN_PHONE_NUMBER ? `${process.env.ADMIN_PHONE_NUMBER.substring(0, 6)}***` : 'Not configured'
         },
-        baseUrl: process.env.BASE_URL || 'http://localhost:5000'
+        baseUrl: getPublicUrl()
       };
       
       res.json({ status, timestamp: new Date().toISOString() });
@@ -2793,6 +2794,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
       console.error("Error updating disco ticket quantity:", error);
       res.status(500).json({ error: "Failed to update ticket quantity" });
     }
+  });
+
+  // Test endpoint to verify URL generation
+  app.get("/api/test-url", async (req, res) => {
+    res.json({
+      publicUrl: getPublicUrl(),
+      fullQuoteUrl: getFullUrl('/quote/test-123'),
+      fullChatUrl: getFullUrl('/chat'),
+      environment: {
+        REPLIT_DEV_DOMAIN: process.env.REPLIT_DEV_DOMAIN || 'not set',
+        REPLIT_DOMAINS: process.env.REPLIT_DOMAINS || 'not set',
+        BASE_URL: process.env.BASE_URL || 'not set'
+      }
+    });
   });
 
   // Reassign booking between identical boats

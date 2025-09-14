@@ -1,4 +1,5 @@
 import { MailService } from '@sendgrid/mail';
+import { getFullUrl } from '../utils';
 
 if (!process.env.SENDGRID_API_KEY) {
   console.warn("SENDGRID_API_KEY not configured. Email functionality will be mocked.");
@@ -67,7 +68,7 @@ export async function sendQuoteEmail(
         </div>
         
         <div style="text-align: center; margin: 30px 0;">
-          <a href="${process.env.BASE_URL || 'http://localhost:5000'}/public/quote/${quoteId}" 
+          <a href="${getFullUrl(`/public/quote/${quoteId}`)}" 
              style="background: #3b82f6; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
             View Full Quote
           </a>
