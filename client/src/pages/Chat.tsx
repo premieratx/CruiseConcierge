@@ -7,16 +7,19 @@ import {
   Ship, ChevronRight, DollarSign, Users, 
   Calendar as CalendarIcon, Clock, Check, X,
   User, Mail, Phone, MapPin, Star, Sparkles, CreditCard,
-  FileText, AlertCircle, Loader2
+  FileText, AlertCircle, Loader2, ChevronLeft, Edit2,
+  Music, Anchor, Crown, Zap, Calendar
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { Calendar } from '@/components/ui/calendar';
+import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Slider } from '@/components/ui/slider';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
 import { format, addDays, isBefore, isAfter, startOfDay, differenceInDays } from 'date-fns';
 import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection } from '@shared/schema';
@@ -25,10 +28,25 @@ type Question =
   | 'event-type' 
   | 'contact-info' 
   | 'date-selection' 
-  | 'time-selection' 
-  | 'group-size' 
+  | 'comparison-selection' 
   | 'final-review' 
   | 'complete';
+
+type CruiseType = 'private' | 'disco';
+type DiscoPackage = 'basic' | 'disco_queen' | 'platinum';
+
+interface DiscoPricing {
+  basic: number; // per person
+  disco_queen: number; // per person
+  platinum: number; // per person
+}
+
+interface ComparisonSelection {
+  cruiseType: CruiseType;
+  timeSlot?: string;
+  discoPackage?: DiscoPackage;
+  discoTimeSlot?: string;
+}
 
 interface BookingData {
   eventType: string;
@@ -39,12 +57,14 @@ interface BookingData {
   email: string;
   phone: string;
   eventDate: Date | undefined;
-  preferredTime: string;
-  preferredTimeLabel: string;
-  groupSize: string;
-  groupSizeLabel: string;
+  groupSize: number; // Changed from string to number for slider
   specialRequests: string;
   budget: string;
+  // New comparison fields
+  selectedCruiseType: CruiseType | null;
+  selectedTimeSlot: string;
+  selectedDiscoPackage: DiscoPackage | null;
+  selectedDiscoTimeSlot: string;
 }
 
 interface CompletedSelection {
@@ -53,6 +73,8 @@ interface CompletedSelection {
   value: string;
   icon?: string;
   emoji?: string;
+  editable?: boolean;
+  onEdit?: () => void;
 }
 
 const eventTypes = [
@@ -66,7 +88,7 @@ const eventTypes = [
   { id: 'other', label: 'Other Event', emoji: '🎊', description: 'Custom celebration' },
 ];
 
-const getTimeSlotsForDate = (date: Date) => {
+const getPrivateTimeSlotsForDate = (date: Date) => {
   const dayOfWeek = date.getDay();
   
   if (dayOfWeek >= 1 && dayOfWeek <= 4) { // Monday-Thursday
@@ -93,14 +115,59 @@ const getTimeSlotsForDate = (date: Date) => {
   }
 };
 
-const groupSizeOptions = [
-  { value: '10', label: '1-10', description: 'Intimate gathering' },
-  { value: '20', label: '11-20', description: 'Small party' },
-  { value: '30', label: '21-30', description: 'Medium group' },
-  { value: '40', label: '31-40', description: 'Large party' },
-  { value: '50', label: '41-50', description: 'Big celebration' },
-  { value: '75', label: '51-75', description: 'Grand event' },
+// ATX Disco Cruise specific time slots
+const getDiscoTimeSlotsForDate = (date: Date) => {
+  const dayOfWeek = date.getDay();
+  
+  if (dayOfWeek === 5) { // Friday
+    return [
+      { id: 'disco-fri-12pm-4pm', label: '12:00 PM - 4:00 PM', time: '12pm-4pm', icon: '🕛', popular: true },
+    ];
+  } else if (dayOfWeek === 6) { // Saturday
+    return [
+      { id: 'disco-sat-11am-3pm', label: '11:00 AM - 3:00 PM', time: '11am-3pm', icon: '🕚', popular: true },
+      { id: 'disco-sat-3:30pm-7:30pm', label: '3:30 PM - 7:30 PM', time: '3:30pm-7:30pm', icon: '🕞', popular: true },
+    ];
+  } else {
+    return []; // No disco cruises on other days
+  }
+};
+
+// Check if disco cruise is available for date
+const isDiscoAvailableForDate = (date: Date) => {
+  const dayOfWeek = date.getDay();
+  return dayOfWeek === 5 || dayOfWeek === 6; // Friday or Saturday only
+};
+
+// Disco cruise packages
+const discoPackages = [
+  { 
+    id: 'basic', 
+    name: 'Basic Bach Package', 
+    price: 85, // per person
+    description: 'Essential disco cruise experience',
+    features: ['4-hour cruise', 'DJ & dancing', 'Party atmosphere', 'Cash bar']
+  },
+  { 
+    id: 'disco_queen', 
+    name: 'Disco Queen Package', 
+    price: 95, // per person
+    description: 'Enhanced party experience',
+    features: ['4-hour cruise', 'Premium DJ', 'Welcome drink', 'Party favors', 'Cash bar']
+  },
+  { 
+    id: 'platinum', 
+    name: 'Supabase Platinum Disco Package', 
+    price: 105, // per person
+    description: 'Ultimate disco cruise luxury',
+    features: ['4-hour cruise', 'Premium DJ', '2 Welcome drinks', 'VIP area access', 'Party favors', 'Priority boarding']
+  },
 ];
+
+// Group size constraints
+const GROUP_SIZE_MIN = 8;
+const GROUP_SIZE_MAX = 75;
+const GROUP_SIZE_DEFAULT = 20;
 
 // Animation variants
 const fadeInUp = {
@@ -139,6 +206,7 @@ export default function Chat() {
   const [currentQuestion, setCurrentQuestion] = useState<Question>('event-type');
   const [completedSelections, setCompletedSelections] = useState<CompletedSelection[]>([]);
   const [pricing, setPricing] = useState<PricingPreview | null>(null);
+  const [discoPricing, setDiscoPricing] = useState<DiscoPricing | null>(null);
   const [generatedQuoteId, setGeneratedQuoteId] = useState<string | null>(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [selectedPaymentOption, setSelectedPaymentOption] = useState<'deposit' | 'full'>('deposit');
@@ -151,44 +219,133 @@ export default function Chat() {
     email: '',
     phone: '',
     eventDate: undefined,
-    preferredTime: '',
-    preferredTimeLabel: '',
-    groupSize: '',
-    groupSizeLabel: '',
+    groupSize: GROUP_SIZE_DEFAULT,
     specialRequests: '',
     budget: '',
+    selectedCruiseType: null,
+    selectedTimeSlot: '',
+    selectedDiscoPackage: null,
+    selectedDiscoTimeSlot: '',
   });
+  const [questionHistory, setQuestionHistory] = useState<Question[]>(['event-type']);
   const { toast } = useToast();
 
   // Fetch pricing when all required data is available
   useEffect(() => {
-    if (formData.eventDate && formData.preferredTime && formData.groupSize) {
-      fetchPricing();
+    if (formData.eventDate && formData.selectedTimeSlot && formData.groupSize && formData.selectedCruiseType === 'private') {
+      fetchPrivatePricing();
     }
-  }, [formData.eventDate, formData.preferredTime, formData.groupSize]);
+  }, [formData.eventDate, formData.selectedTimeSlot, formData.groupSize, formData.selectedCruiseType]);
+  
+  // Calculate disco pricing when relevant data changes
+  useEffect(() => {
+    if (formData.selectedCruiseType === 'disco' && formData.selectedDiscoPackage && formData.groupSize) {
+      calculateDiscoPricing();
+    }
+  }, [formData.selectedDiscoPackage, formData.groupSize, formData.selectedCruiseType]);
 
-  const fetchPricing = async () => {
+  // Fetch private cruise pricing
+  const fetchPrivatePricing = async () => {
     try {
-      // Determine cruise type based on event type
-      const cruiseType = (formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') 
-        ? 'both' // Show both disco and private cruise options
-        : 'private'; // Show only private cruise options
-        
       const res = await apiRequest('POST', '/api/pricing/cruise', {
-        groupSize: formData.groupSize,
+        groupSize: formData.groupSize.toString(),
         eventDate: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : '',
-        timeSlot: formData.preferredTime,
+        timeSlot: formData.selectedTimeSlot,
         eventType: formData.eventType,
-        cruiseType: cruiseType,
+        cruiseType: 'private',
       });
       const response = await res.json();
       setPricing(response);
     } catch (error) {
-      console.error('Failed to fetch pricing:', error);
+      console.error('Failed to fetch private pricing:', error);
       setPricing(null);
     }
   };
+  
+  // Calculate disco cruise pricing
+  const calculateDiscoPricing = () => {
+    if (!formData.selectedDiscoPackage) return;
+    
+    const selectedPackage = discoPackages.find(pkg => pkg.id === formData.selectedDiscoPackage);
+    if (!selectedPackage) return;
+    
+    const subtotal = selectedPackage.price * formData.groupSize;
+    const tax = Math.round(subtotal * 0.0825); // 8.25% tax
+    const total = subtotal + tax;
+    
+    setDiscoPricing({
+      basic: discoPackages[0].price,
+      disco_queen: discoPackages[1].price,
+      platinum: discoPackages[2].price,
+    });
+    
+    // Store calculated totals for the selected package
+    setPricing({
+      subtotal: subtotal * 100, // Convert to cents
+      tax: tax * 100,
+      total: total * 100,
+      perPersonCost: selectedPackage.price * 100,
+      discountTotal: 0,
+      gratuity: 0,
+      depositRequired: true,
+      depositPercent: 25,
+      depositAmount: Math.round(total * 0.25) * 100,
+      paymentSchedule: [],
+      breakdown: {
+        boatType: selectedPackage.name,
+        dayName: formData.eventDate ? format(formData.eventDate, 'EEEE') : '',
+        cruiseDuration: 4,
+        baseCruiseCost: selectedPackage.price,
+        crewFee: 0,
+      }
+    });
+  };
 
+  // Navigation functions
+  const goBack = () => {
+    if (questionHistory.length > 1) {
+      const newHistory = [...questionHistory];
+      newHistory.pop();
+      const previousQuestion = newHistory[newHistory.length - 1];
+      setQuestionHistory(newHistory);
+      setCurrentQuestion(previousQuestion);
+    }
+  };
+  
+  const goToQuestion = (question: Question) => {
+    setCurrentQuestion(question);
+    // Update history to include path to this question
+    if (!questionHistory.includes(question)) {
+      setQuestionHistory([...questionHistory, question]);
+    }
+  };
+  
+  // Edit functionality for completed selections
+  const editSelection = (selectionId: string) => {
+    // Remove this and subsequent selections
+    const index = completedSelections.findIndex(s => s.id === selectionId);
+    if (index !== -1) {
+      const newSelections = completedSelections.slice(0, index);
+      setCompletedSelections(newSelections);
+      
+      // Navigate to the appropriate question
+      switch (selectionId) {
+        case 'event-type':
+          goToQuestion('event-type');
+          break;
+        case 'contact-info':
+          goToQuestion('contact-info');
+          break;
+        case 'date':
+          goToQuestion('date-selection');
+          break;
+        case 'comparison':
+          goToQuestion('comparison-selection');
+          break;
+      }
+    }
+  };
+  
   const isDateAvailable = (date: Date) => {
     const today = startOfDay(new Date());
     const maxDate = addDays(today, 365);
@@ -239,19 +396,31 @@ export default function Chat() {
   };
 
   const addCompletedSelection = (selection: CompletedSelection) => {
-    setCompletedSelections(prev => [...prev, selection]);
+    // Add edit functionality to selections
+    const editableSelection = {
+      ...selection,
+      editable: true,
+      onEdit: () => editSelection(selection.id)
+    };
+    setCompletedSelections(prev => {
+      // Replace existing selection with same id, or add new one
+      const filtered = prev.filter(s => s.id !== selection.id);
+      return [...filtered, editableSelection];
+    });
   };
 
   const progressToNextQuestion = () => {
     const questionOrder: Question[] = [
       'event-type', 'contact-info', 'date-selection', 
-      'time-selection', 'group-size', 'final-review'
+      'comparison-selection', 'final-review'
     ];
     
     const currentIndex = questionOrder.indexOf(currentQuestion);
     if (currentIndex < questionOrder.length - 1) {
+      const nextQuestion = questionOrder[currentIndex + 1];
+      setQuestionHistory([...questionHistory, nextQuestion]);
       setTimeout(() => {
-        setCurrentQuestion(questionOrder[currentIndex + 1]);
+        setCurrentQuestion(nextQuestion);
       }, 600); // Delay for animation
     }
   };
@@ -285,7 +454,15 @@ export default function Chat() {
   // Date Selection Handler
   const handleDateSelect = (date: Date | undefined) => {
     if (date && isDateAvailable(date)) {
-      setFormData({ ...formData, eventDate: date });
+      setFormData({ 
+        ...formData, 
+        eventDate: date,
+        // Reset selections when date changes
+        selectedCruiseType: null,
+        selectedTimeSlot: '',
+        selectedDiscoPackage: null,
+        selectedDiscoTimeSlot: ''
+      });
       addCompletedSelection({
         id: 'date',
         label: 'Date',
@@ -296,31 +473,59 @@ export default function Chat() {
     }
   };
 
-  // Time Selection Handler
-  const handleTimeSelect = (timeId: string, timeLabel: string, timeIcon: string) => {
-    setFormData({ ...formData, preferredTime: timeId, preferredTimeLabel: timeLabel });
-    addCompletedSelection({
-      id: 'time',
-      label: 'Time',
-      value: timeLabel,
-      emoji: timeIcon
-    });
-    progressToNextQuestion();
-  };
-
-  // Group Size Handler
-  const handleGroupSizeSelect = (size: string, label: string, description: string) => {
-    setFormData({ ...formData, groupSize: size, groupSizeLabel: label });
+  // Group Size Handler (now uses slider)
+  const handleGroupSizeChange = (value: number[]) => {
+    const newSize = value[0];
+    setFormData({ ...formData, groupSize: newSize });
+    // Update the completed selection in real-time
     addCompletedSelection({
       id: 'group-size',
       label: 'Group Size',
-      value: `${label} people`,
+      value: `${newSize} people`,
       icon: 'users'
     });
-    progressToNextQuestion();
+  };
+  
+  // Private cruise selection handler
+  const handlePrivateCruiseSelect = (timeSlot: string) => {
+    setFormData({ 
+      ...formData, 
+      selectedCruiseType: 'private',
+      selectedTimeSlot: timeSlot
+    });
+  };
+  
+  // Disco cruise selection handler
+  const handleDiscoCruiseSelect = (packageId: string, timeSlot: string) => {
+    setFormData({ 
+      ...formData, 
+      selectedCruiseType: 'disco',
+      selectedDiscoPackage: packageId as DiscoPackage,
+      selectedDiscoTimeSlot: timeSlot
+    });
+  };
+  
+  // Complete comparison selection
+  const handleComparisonComplete = () => {
+    if (formData.selectedCruiseType && 
+        ((formData.selectedCruiseType === 'private' && formData.selectedTimeSlot) ||
+         (formData.selectedCruiseType === 'disco' && formData.selectedDiscoPackage && formData.selectedDiscoTimeSlot))) {
+      
+      const cruiseLabel = formData.selectedCruiseType === 'private' 
+        ? `Private Cruise - ${formData.selectedTimeSlot}`
+        : `${discoPackages.find(p => p.id === formData.selectedDiscoPackage)?.name} - ${formData.selectedDiscoTimeSlot}`;
+        
+      addCompletedSelection({
+        id: 'comparison',
+        label: 'Cruise Selection',
+        value: cruiseLabel,
+        icon: 'ship'
+      });
+      progressToNextQuestion();
+    }
   };
 
-  // Create lead mutation
+  // Create lead mutation (updated for new structure)
   const createLead = useMutation({
     mutationFn: async (data: BookingData) => {
       const contact: InsertContact = {
@@ -335,16 +540,16 @@ export default function Chat() {
       const project: InsertProject = {
         contactId: contactResponse.id,
         title: `${data.eventTypeLabel} - ${data.firstName} ${data.lastName}`,
-        groupSize: parseInt(data.groupSize) || undefined,
+        groupSize: data.groupSize,
         eventType: data.eventType,
         specialRequests: data.specialRequests || undefined,
-        preferredTime: data.preferredTime || undefined,
+        preferredTime: data.selectedCruiseType === 'private' ? data.selectedTimeSlot : data.selectedDiscoTimeSlot,
         budget: pricing?.total || (data.budget ? Math.round(parseFloat(data.budget) * 100) : undefined),
         leadSource: 'chat',
         orgId: 'org_demo',
         status: 'NEW',
         pipelinePhase: 'ph_new',
-        tags: [],
+        tags: data.selectedCruiseType === 'disco' ? ['disco_cruise'] : ['private_cruise'],
       };
       
       const projectRes = await apiRequest('POST', '/api/projects', project);
@@ -357,45 +562,94 @@ export default function Chat() {
       }
       
       if (pricing && pricing.breakdown) {
-        const quoteItems = [
-          {
+        const quoteItems = [];
+        
+        if (data.selectedCruiseType === 'disco' && data.selectedDiscoPackage) {
+          const selectedPackage = discoPackages.find(pkg => pkg.id === data.selectedDiscoPackage);
+          if (selectedPackage) {
+            quoteItems.push({
+              name: `${selectedPackage.name} - ${data.groupSize} people`,
+              unitPrice: selectedPackage.price * 100,
+              qty: data.groupSize,
+              taxable: true,
+            });
+          }
+        } else {
+          quoteItems.push({
             name: `${pricing.breakdown.boatType} - ${pricing.breakdown.dayName} ${pricing.breakdown.cruiseDuration}-Hour Cruise`,
             unitPrice: pricing.breakdown.baseCruiseCost * 100,
             qty: 1,
             taxable: true,
-          }
-        ];
-        
-        if (pricing.breakdown.crewFee > 0) {
-          quoteItems.push({
-            name: 'Additional Crew (Texas Law Requirement)',
-            unitPrice: pricing.breakdown.crewFee * 100,
-            qty: 1,
-            taxable: true,
           });
+          
+          if (pricing.breakdown.crewFee > 0) {
+            quoteItems.push({
+              name: 'Additional Crew (Texas Law Requirement)',
+              unitPrice: pricing.breakdown.crewFee * 100,
+              qty: 1,
+              taxable: true,
+            });
+          }
         }
 
-        // Create radio sections for time slot selection
+        // Create radio sections based on cruise type
         const radioSections: RadioSection[] = [];
         
-        if (data.eventDate && data.preferredTime) {
-          const availableTimeSlots = getTimeSlotsForDate(data.eventDate);
+        if (data.eventDate && data.selectedCruiseType === 'private' && data.selectedTimeSlot) {
+          const availableTimeSlots = getPrivateTimeSlotsForDate(data.eventDate);
           const timeSlotOptions = availableTimeSlots.map(slot => ({
             id: slot.id,
             name: slot.label,
             description: slot.popular ? 'Popular choice' : 'Available',
-            price: 0, // Time slots are included in base price
-            selected: slot.id === data.preferredTime,
+            price: 0,
+            selected: slot.id === data.selectedTimeSlot,
           }));
 
           radioSections.push({
             id: 'time-slot-selection',
-            title: 'Cruise Time Options',
+            title: 'Private Cruise Time Options',
             description: 'Choose your preferred cruise time',
             required: true,
             options: timeSlotOptions,
             order: 0,
           });
+        } else if (data.eventDate && data.selectedCruiseType === 'disco') {
+          const discoTimeSlots = getDiscoTimeSlotsForDate(data.eventDate);
+          const packageOptions = discoPackages.map(pkg => ({
+            id: pkg.id,
+            name: pkg.name,
+            description: `$${pkg.price} per person - ${pkg.description}`,
+            price: pkg.price * 100,
+            selected: pkg.id === data.selectedDiscoPackage,
+          }));
+          
+          radioSections.push({
+            id: 'disco-package-selection',
+            title: 'Disco Cruise Package',
+            description: 'Choose your disco cruise experience',
+            required: true,
+            options: packageOptions,
+            order: 0,
+          });
+          
+          if (discoTimeSlots.length > 0) {
+            const timeOptions = discoTimeSlots.map(slot => ({
+              id: slot.id,
+              name: slot.label,
+              description: 'Available',
+              price: 0,
+              selected: slot.id === data.selectedDiscoTimeSlot,
+            }));
+            
+            radioSections.push({
+              id: 'disco-time-selection',
+              title: 'Disco Cruise Time',
+              description: 'Choose your preferred time slot',
+              required: true,
+              options: timeOptions,
+              order: 1,
+            });
+          }
         }
         
         const quote: InsertQuote = {
@@ -419,7 +673,6 @@ export default function Chat() {
         const quoteRes = await apiRequest('POST', '/api/quotes', quote);
         const quoteResponse = await quoteRes.json();
         
-        // Store the quote ID for the "View My Quote" button
         setGeneratedQuoteId(quoteResponse.id);
         
         await apiRequest('POST', '/api/quotes/' + quoteResponse.id + '/send', {
@@ -696,7 +949,7 @@ export default function Chat() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex flex-col">
       
-      {/* Condensed Header - Shows completed selections */}
+      {/* Enhanced Header with Navigation and Editable Selections */}
       <AnimatePresence>
         {completedSelections.length > 0 && (
           <motion.div
@@ -704,10 +957,26 @@ export default function Chat() {
             animate={{ opacity: 1, height: 'auto' }}
             className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 shadow-sm"
           >
-            <div className="max-w-4xl mx-auto px-6 py-4">
-              <div className="flex items-center gap-2 mb-3">
-                <Ship className="h-5 w-5 text-blue-600" />
-                <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">Cruise Booking Progress</h3>
+            <div className="max-w-6xl mx-auto px-6 py-4">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <Ship className="h-5 w-5 text-blue-600" />
+                  <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">Cruise Booking Progress</h3>
+                </div>
+                
+                {/* Back Button */}
+                {questionHistory.length > 1 && (
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    onClick={goBack}
+                    className="flex items-center gap-2"
+                    data-testid="button-back"
+                  >
+                    <ChevronLeft className="h-4 w-4" />
+                    Back
+                  </Button>
+                )}
               </div>
               
               <div className="flex flex-wrap gap-3">
@@ -721,12 +990,18 @@ export default function Chat() {
                     >
                       <Badge 
                         variant="secondary" 
-                        className="flex items-center gap-2 py-2 px-3 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300"
+                        className={cn(
+                          "flex items-center gap-2 py-2 px-3 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300",
+                          selection.editable && "cursor-pointer hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+                        )}
+                        onClick={selection.editable ? selection.onEdit : undefined}
+                        data-testid={`badge-${selection.id}`}
                       >
                         {selection.emoji && <span className="text-sm">{selection.emoji}</span>}
                         {selection.icon && getIconComponent(selection.icon, 14)}
                         <span className="font-medium">{selection.label}:</span>
                         <span>{selection.value}</span>
+                        {selection.editable && <Edit2 className="h-3 w-3 ml-1" />}
                       </Badge>
                     </motion.div>
                   ))}
@@ -750,9 +1025,9 @@ export default function Chat() {
         )}
       </AnimatePresence>
 
-      {/* Main Content Area - Centered */}
+      {/* Main Content Area - Enhanced */}
       <div className="flex-1 flex items-center justify-center p-6">
-        <div className="w-full max-w-4xl">
+        <div className="w-full max-w-6xl">
           
           <AnimatePresence mode="wait">
             
@@ -959,110 +1234,230 @@ export default function Chat() {
               </motion.div>
             )}
 
-            {/* Time Selection */}
-            {currentQuestion === 'time-selection' && formData.eventDate && (
+            {/* Side-by-Side Comparison - Core Feature */}
+            {currentQuestion === 'comparison-selection' && formData.eventDate && (
               <motion.div
-                key="time-selection"
+                key="comparison-selection"
                 variants={fadeInUp}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="text-center space-y-8"
+                className="space-y-8"
               >
-                <div>
-                  <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">Select Your Time Slot</h2>
+                <div className="text-center">
+                  <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">Choose Your Cruise Experience</h2>
                   <p className="text-slate-600 dark:text-slate-400 text-lg">
-                    Available times for {format(formData.eventDate, 'EEEE, MMMM d')}
+                    {format(formData.eventDate, 'EEEE, MMMM d')} • {formData.groupSize} {formData.groupSize === 1 ? 'person' : 'people'}
                   </p>
                 </div>
 
-                <motion.div 
-                  className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto"
-                  variants={{
-                    visible: {
-                      transition: {
-                        staggerChildren: 0.1
-                      }
-                    }
-                  }}
-                >
-                  {getTimeSlotsForDate(formData.eventDate).map((slot, index) => (
-                    <motion.div
-                      key={slot.id}
-                      variants={{
-                        hidden: { opacity: 0, y: 40 },
-                        visible: { opacity: 1, y: 0 }
-                      }}
-                    >
-                      <Button
-                        variant="outline"
-                        className={cn(
-                          "h-20 flex flex-col items-center justify-center gap-2 relative bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm hover:scale-105 transition-all",
-                          slot.popular && "border-blue-500 bg-blue-50/70 dark:bg-blue-900/30"
-                        )}
-                        onClick={() => handleTimeSelect(slot.id, slot.label, slot.icon)}
-                        data-testid={`button-time-${slot.id}`}
+                <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                  {/* Private Cruise Options */}
+                  <motion.div
+                    initial={{ scale: 0.95, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.5 }}
+                    className={cn(
+                      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-xl p-6 border-2 transition-all",
+                      formData.selectedCruiseType === 'private' ? "border-blue-500 ring-2 ring-blue-200 dark:ring-blue-800" : "border-slate-200 dark:border-slate-700"
+                    )}
+                  >
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                        <Anchor className="h-6 w-6 text-blue-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-200">Private Cruise</h3>
+                        <p className="text-slate-600 dark:text-slate-400">Exclusive boat rental</p>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <h4 className="font-medium text-slate-700 dark:text-slate-300">Available Time Slots</h4>
+                      <RadioGroup 
+                        value={formData.selectedCruiseType === 'private' ? formData.selectedTimeSlot : ''}
+                        onValueChange={(value) => handlePrivateCruiseSelect(value)}
+                        data-testid="radio-private-time-slots"
                       >
-                        {slot.popular && (
-                          <Badge className="absolute top-2 right-2 text-xs bg-blue-600" variant="default">
-                            Popular
-                          </Badge>
-                        )}
-                        <span className="text-2xl">{slot.icon}</span>
-                        <span className="font-semibold text-slate-700 dark:text-slate-300">{slot.label}</span>
-                      </Button>
-                    </motion.div>
-                  ))}
-                </motion.div>
-              </motion.div>
-            )}
+                        {getPrivateTimeSlotsForDate(formData.eventDate).map((slot) => (
+                          <div key={slot.id} className="flex items-center space-x-2">
+                            <RadioGroupItem value={slot.id} id={`private-${slot.id}`} />
+                            <Label 
+                              htmlFor={`private-${slot.id}`} 
+                              className="flex-1 flex items-center justify-between cursor-pointer py-2"
+                            >
+                              <div className="flex items-center gap-2">
+                                <span className="text-lg">{slot.icon}</span>
+                                <span>{slot.label}</span>
+                                {slot.popular && <Badge variant="secondary" className="text-xs">Popular</Badge>}
+                              </div>
+                            </Label>
+                          </div>
+                        ))}
+                      </RadioGroup>
+                    </div>
+                    
+                    {/* Private Cruise Pricing */}
+                    {formData.selectedCruiseType === 'private' && formData.selectedTimeSlot && pricing && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="mt-6 p-4 bg-slate-50 dark:bg-slate-700 rounded-lg"
+                      >
+                        <div className="text-center">
+                          <div className="text-3xl font-bold text-green-600 mb-2">
+                            {formatCurrency(pricing.total)}
+                          </div>
+                          <div className="text-sm text-slate-600 dark:text-slate-400">
+                            {formatCurrency(pricing.perPersonCost)} per person
+                          </div>
+                          <div className="text-xs text-slate-500 dark:text-slate-500 mt-2">
+                            Subtotal: {formatCurrency(pricing.subtotal)} + Tax: {formatCurrency(pricing.tax)}
+                          </div>
+                        </div>
+                      </motion.div>
+                    )}
+                  </motion.div>
 
-            {/* Group Size Selection */}
-            {currentQuestion === 'group-size' && (
-              <motion.div
-                key="group-size"
-                variants={fadeInUp}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="text-center space-y-8"
-              >
-                <div>
-                  <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">How many guests?</h2>
-                  <p className="text-slate-600 dark:text-slate-400 text-lg">Select your group size</p>
+                  {/* ATX Disco Cruise Options */}
+                  <motion.div
+                    initial={{ scale: 0.95, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.4, duration: 0.5 }}
+                    className={cn(
+                      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-xl p-6 border-2 transition-all",
+                      formData.selectedCruiseType === 'disco' ? "border-purple-500 ring-2 ring-purple-200 dark:ring-purple-800" : "border-slate-200 dark:border-slate-700",
+                      !isDiscoAvailableForDate(formData.eventDate) && "opacity-50"
+                    )}
+                  >
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                        <Music className="h-6 w-6 text-purple-600" />
+                      </div>
+                      <div>
+                        <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-200">ATX Disco Cruise</h3>
+                        <p className="text-slate-600 dark:text-slate-400">Party with others</p>
+                      </div>
+                    </div>
+                    
+                    {isDiscoAvailableForDate(formData.eventDate) ? (
+                      <>
+                        {/* Disco Time Slots */}
+                        <div className="space-y-4 mb-6">
+                          <h4 className="font-medium text-slate-700 dark:text-slate-300">Available Times</h4>
+                          <RadioGroup 
+                            value={formData.selectedCruiseType === 'disco' ? formData.selectedDiscoTimeSlot : ''}
+                            onValueChange={(timeSlot) => {
+                              if (formData.selectedDiscoPackage) {
+                                handleDiscoCruiseSelect(formData.selectedDiscoPackage, timeSlot);
+                              }
+                            }}
+                            data-testid="radio-disco-time-slots"
+                          >
+                            {getDiscoTimeSlotsForDate(formData.eventDate).map((slot) => (
+                              <div key={slot.id} className="flex items-center space-x-2">
+                                <RadioGroupItem value={slot.id} id={`disco-time-${slot.id}`} />
+                                <Label 
+                                  htmlFor={`disco-time-${slot.id}`} 
+                                  className="flex-1 flex items-center gap-2 cursor-pointer py-2"
+                                >
+                                  <span className="text-lg">{slot.icon}</span>
+                                  <span>{slot.label}</span>
+                                </Label>
+                              </div>
+                            ))}
+                          </RadioGroup>
+                        </div>
+                        
+                        {/* Disco Packages */}
+                        <div className="space-y-4">
+                          <h4 className="font-medium text-slate-700 dark:text-slate-300">Choose Your Package</h4>
+                          <RadioGroup 
+                            value={formData.selectedCruiseType === 'disco' ? formData.selectedDiscoPackage || '' : ''}
+                            onValueChange={(packageId) => {
+                              const timeSlot = formData.selectedDiscoTimeSlot || getDiscoTimeSlotsForDate(formData.eventDate)[0]?.id || '';
+                              handleDiscoCruiseSelect(packageId, timeSlot);
+                            }}
+                            data-testid="radio-disco-packages"
+                          >
+                            {discoPackages.map((pkg) => (
+                              <div key={pkg.id} className="flex items-center space-x-2">
+                                <RadioGroupItem value={pkg.id} id={`disco-${pkg.id}`} />
+                                <Label 
+                                  htmlFor={`disco-${pkg.id}`} 
+                                  className="flex-1 cursor-pointer py-3 px-3 rounded-lg border hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                                >
+                                  <div className="flex justify-between items-start">
+                                    <div>
+                                      <div className="font-medium text-slate-800 dark:text-slate-200">{pkg.name}</div>
+                                      <div className="text-sm text-slate-600 dark:text-slate-400">{pkg.description}</div>
+                                      <div className="text-xs text-slate-500 dark:text-slate-500 mt-1">
+                                        {pkg.features.join(' • ')}
+                                      </div>
+                                    </div>
+                                    <div className="text-right">
+                                      <div className="font-bold text-purple-600">${pkg.price}</div>
+                                      <div className="text-xs text-slate-500">per person</div>
+                                    </div>
+                                  </div>
+                                </Label>
+                              </div>
+                            ))}
+                          </RadioGroup>
+                        </div>
+                        
+                        {/* Disco Cruise Pricing */}
+                        {formData.selectedCruiseType === 'disco' && formData.selectedDiscoPackage && (
+                          <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="mt-6 p-4 bg-slate-50 dark:bg-slate-700 rounded-lg"
+                          >
+                            <div className="text-center">
+                              <div className="text-3xl font-bold text-green-600 mb-2">
+                                {pricing && formatCurrency(pricing.total)}
+                              </div>
+                              <div className="text-sm text-slate-600 dark:text-slate-400">
+                                {pricing && formatCurrency(pricing.perPersonCost)} per person
+                              </div>
+                              <div className="text-xs text-slate-500 dark:text-slate-500 mt-2">
+                                Subtotal: {pricing && formatCurrency(pricing.subtotal)} + Tax: {pricing && formatCurrency(pricing.tax)}
+                              </div>
+                            </div>
+                          </motion.div>
+                        )}
+                      </>
+                    ) : (
+                      <div className="text-center py-8">
+                        <AlertCircle className="h-12 w-12 text-slate-400 mx-auto mb-4" />
+                        <h4 className="font-medium text-slate-600 dark:text-slate-400 mb-2">Not Available</h4>
+                        <p className="text-sm text-slate-500 dark:text-slate-500">
+                          ATX Disco Cruises are only available on Fridays and Saturdays
+                        </p>
+                      </div>
+                    )}
+                  </motion.div>
                 </div>
-
-                <motion.div 
-                  className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-4xl mx-auto"
-                  variants={{
-                    visible: {
-                      transition: {
-                        staggerChildren: 0.1
-                      }
-                    }
-                  }}
-                >
-                  {groupSizeOptions.map((option, index) => (
-                    <motion.div
-                      key={option.value}
-                      variants={{
-                        hidden: { opacity: 0, y: 40 },
-                        visible: { opacity: 1, y: 0 }
-                      }}
+                
+                {/* Continue Button */}
+                {((formData.selectedCruiseType === 'private' && formData.selectedTimeSlot) ||
+                  (formData.selectedCruiseType === 'disco' && formData.selectedDiscoPackage && formData.selectedDiscoTimeSlot)) && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-center mt-8"
+                  >
+                    <Button 
+                      onClick={handleComparisonComplete}
+                      className="bg-blue-600 hover:bg-blue-700" 
+                      size="lg"
+                      data-testid="button-continue-to-review"
                     >
-                      <Button
-                        variant="outline"
-                        className="h-24 flex flex-col items-center justify-center gap-2 bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm hover:scale-105 transition-all hover:border-blue-500 hover:shadow-lg"
-                        onClick={() => handleGroupSizeSelect(option.value, option.label, option.description)}
-                        data-testid={`button-group-${option.value}`}
-                      >
-                        <Users className="h-6 w-6 text-blue-600" />
-                        <span className="font-semibold text-slate-700 dark:text-slate-300">{option.label}</span>
-                        <span className="text-xs text-slate-500 dark:text-slate-400">{option.description}</span>
-                      </Button>
-                    </motion.div>
-                  ))}
-                </motion.div>
+                      Continue to Review
+                      <ChevronRight className="h-4 w-4 ml-2" />
+                    </Button>
+                  </motion.div>
+                )}
               </motion.div>
             )}
 
