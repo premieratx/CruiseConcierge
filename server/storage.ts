@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -104,6 +104,37 @@ export interface IStorage {
   }): Promise<PricingPreview>;
   findOrCreateContact(email: string, name?: string, phone?: string): Promise<Contact>;
   createProjectFromChatData(contactId: string, extractedData: any): Promise<Project>;
+
+  // Booking Management
+  getBookings(startDate: Date, endDate: Date, boatId?: string): Promise<Booking[]>;
+  getBooking(id: string): Promise<Booking | undefined>;
+  createBooking(booking: InsertBooking): Promise<Booking>;
+  updateBooking(id: string, updates: Partial<Booking>): Promise<Booking>;
+  deleteBooking(id: string): Promise<boolean>;
+  checkBookingConflict(boatId: string, startTime: Date, endTime: Date, excludeBookingId?: string): Promise<boolean>;
+
+  // Disco Cruise Management
+  getDiscoSlots(year: number, month: number): Promise<DiscoSlot[]>;
+  getDiscoSlot(id: string): Promise<DiscoSlot | undefined>;
+  createDiscoSlot(slot: InsertDiscoSlot): Promise<DiscoSlot>;
+  purchaseDiscoTickets(slotId: string, quantity: number): Promise<DiscoSlot>;
+  updateDiscoSlot(id: string, updates: Partial<DiscoSlot>): Promise<DiscoSlot>;
+  checkDiscoAvailability(date: Date, time: string): Promise<boolean>;
+
+  // Timeframe Management
+  getTimeframes(dayOfWeek?: number, type?: string): Promise<Timeframe[]>;
+  getTimeframe(id: string): Promise<Timeframe | undefined>;
+  createTimeframe(timeframe: InsertTimeframe): Promise<Timeframe>;
+  updateTimeframe(id: string, updates: Partial<Timeframe>): Promise<Timeframe>;
+  deleteTimeframe(id: string): Promise<boolean>;
+  generateTimeframesForMonth(year: number, month: number): Promise<{ date: Date; timeframes: Timeframe[] }[]>;
+
+  // Boat Fleet Management
+  getAvailableBoats(date: Date, startTime: string, endTime: string, groupSize: number): Promise<Boat[]>;
+
+  // Availability Management
+  checkAvailability(date: Date, duration: number, groupSize: number, type: 'private' | 'disco'): Promise<{ available: boolean; boats?: Boat[]; reason?: string }>;
+  getMonthlyCalendar(boatId: string, year: number, month: number): Promise<{ date: Date; bookings: Booking[]; available: boolean }[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -121,16 +152,53 @@ export class MemStorage implements IStorage {
   private discountRules: Map<string, DiscountRule> = new Map();
   private pricingSettings: Map<string, PricingSettings> = new Map();
   private affiliates: Map<string, Affiliate> = new Map();
+  private bookings: Map<string, Booking> = new Map();
+  private discoSlots: Map<string, DiscoSlot> = new Map();
+  private timeframes: Map<string, Timeframe> = new Map();
 
   constructor() {
     this.seedData();
   }
 
   private seedData() {
-    // Seed boats
+    // Seed boats with full fleet data
     const boats = [
-      { id: "boat_disco", orgId: "org_demo", name: "Disco Boat", capacity: 30, active: true },
-      { id: "boat_pontoon", orgId: "org_demo", name: "Classic Pontoon", capacity: 12, active: true },
+      { 
+        id: "boat_day_tripper", 
+        orgId: "org_demo", 
+        name: "Day Tripper", 
+        capacity: 14, 
+        maxCapacity: 14,
+        extraCrewThreshold: null, // no extra crew needed
+        active: true 
+      },
+      { 
+        id: "boat_meeseeks", 
+        orgId: "org_demo", 
+        name: "Meeseeks", 
+        capacity: 25, 
+        maxCapacity: 30,
+        extraCrewThreshold: 25, // extra crew needed at 25+
+        active: true 
+      },
+      { 
+        id: "boat_the_irony", 
+        orgId: "org_demo", 
+        name: "The Irony", 
+        capacity: 25, 
+        maxCapacity: 30,
+        extraCrewThreshold: 25, // extra crew needed at 25+
+        active: true 
+      },
+      { 
+        id: "boat_clever_girl", 
+        orgId: "org_demo", 
+        name: "Clever Girl", 
+        capacity: 50, 
+        maxCapacity: 75,
+        extraCrewThreshold: 50, // extra crew needed at 50+
+        active: true 
+      },
     ];
     boats.forEach(boat => this.boats.set(boat.id, boat));
 
@@ -1399,6 +1467,481 @@ export class MemStorage implements IStorage {
       leadSource: "chat",
       tags: ["chatbot"],
     });
+  }
+
+  // Booking Management Methods
+  async getBookings(startDate: Date, endDate: Date, boatId?: string): Promise<Booking[]> {
+    const bookings = Array.from(this.bookings.values()).filter(booking => {
+      const bookingStart = booking.startTime;
+      const bookingEnd = booking.endTime;
+      
+      // Check if booking overlaps with date range
+      const overlaps = bookingStart <= endDate && bookingEnd >= startDate;
+      
+      // Filter by boat if specified
+      if (boatId) {
+        return overlaps && booking.boatId === boatId;
+      }
+      
+      return overlaps;
+    });
+    
+    // Sort by start time
+    return bookings.sort((a, b) => a.startTime.getTime() - b.startTime.getTime());
+  }
+
+  async getBooking(id: string): Promise<Booking | undefined> {
+    return this.bookings.get(id);
+  }
+
+  async createBooking(insertBooking: InsertBooking): Promise<Booking> {
+    // Validate no conflict exists
+    if (insertBooking.boatId) {
+      const hasConflict = await this.checkBookingConflict(
+        insertBooking.boatId,
+        insertBooking.startTime,
+        insertBooking.endTime
+      );
+      
+      if (hasConflict) {
+        throw new Error("Booking conflicts with existing reservation");
+      }
+    }
+    
+    // Check boat capacity if private booking
+    if (insertBooking.type === "private" && insertBooking.boatId) {
+      const boat = await this.boats.get(insertBooking.boatId);
+      if (boat && insertBooking.groupSize > boat.maxCapacity) {
+        throw new Error(`Group size ${insertBooking.groupSize} exceeds boat capacity ${boat.maxCapacity}`);
+      }
+    }
+    
+    const id = randomUUID();
+    const booking: Booking = {
+      ...insertBooking,
+      orgId: insertBooking.orgId || "org_demo",
+      status: insertBooking.status || "booked",
+      notes: insertBooking.notes || null,
+      projectId: insertBooking.projectId || null,
+      partyType: insertBooking.partyType || null,
+      boatId: insertBooking.boatId || null,
+      id,
+      createdAt: new Date(),
+    };
+    
+    this.bookings.set(id, booking);
+    return booking;
+  }
+
+  async updateBooking(id: string, updates: Partial<Booking>): Promise<Booking> {
+    const booking = this.bookings.get(id);
+    if (!booking) throw new Error("Booking not found");
+    
+    // If changing time or boat, check for conflicts
+    if ((updates.startTime || updates.endTime || updates.boatId) && booking.boatId) {
+      const newStartTime = updates.startTime || booking.startTime;
+      const newEndTime = updates.endTime || booking.endTime;
+      const newBoatId = updates.boatId || booking.boatId;
+      
+      const hasConflict = await this.checkBookingConflict(
+        newBoatId,
+        newStartTime,
+        newEndTime,
+        id // Exclude this booking from conflict check
+      );
+      
+      if (hasConflict) {
+        throw new Error("Updated booking would conflict with existing reservation");
+      }
+    }
+    
+    const updated = { ...booking, ...updates };
+    this.bookings.set(id, updated);
+    return updated;
+  }
+
+  async deleteBooking(id: string): Promise<boolean> {
+    return this.bookings.delete(id);
+  }
+
+  async checkBookingConflict(
+    boatId: string, 
+    startTime: Date, 
+    endTime: Date, 
+    excludeBookingId?: string
+  ): Promise<boolean> {
+    const bookings = Array.from(this.bookings.values());
+    
+    return bookings.some(booking => {
+      // Skip if this is the booking we're updating
+      if (excludeBookingId && booking.id === excludeBookingId) return false;
+      
+      // Skip if different boat or canceled
+      if (booking.boatId !== boatId || booking.status === "canceled") return false;
+      
+      // Check for time overlap
+      const bookingStart = booking.startTime;
+      const bookingEnd = booking.endTime;
+      
+      // Overlaps if: start is during existing booking OR end is during existing booking 
+      // OR new booking completely contains existing booking
+      return (
+        (startTime >= bookingStart && startTime < bookingEnd) ||
+        (endTime > bookingStart && endTime <= bookingEnd) ||
+        (startTime <= bookingStart && endTime >= bookingEnd)
+      );
+    });
+  }
+
+  // Disco Cruise Management Methods
+  async getDiscoSlots(year: number, month: number): Promise<DiscoSlot[]> {
+    const startDate = new Date(year, month - 1, 1);
+    const endDate = new Date(year, month, 0);
+    
+    const slots = Array.from(this.discoSlots.values()).filter(slot => {
+      const slotDate = slot.date;
+      return slotDate >= startDate && slotDate <= endDate;
+    });
+    
+    return slots.sort((a, b) => a.date.getTime() - b.date.getTime());
+  }
+
+  async getDiscoSlot(id: string): Promise<DiscoSlot | undefined> {
+    return this.discoSlots.get(id);
+  }
+
+  async createDiscoSlot(insertSlot: InsertDiscoSlot): Promise<DiscoSlot> {
+    const id = randomUUID();
+    const slot: DiscoSlot = {
+      ...insertSlot,
+      status: insertSlot.status || "available",
+      ticketCap: insertSlot.ticketCap || 100,
+      ticketsSold: insertSlot.ticketsSold || 0,
+      id,
+      createdAt: new Date(),
+    };
+    
+    this.discoSlots.set(id, slot);
+    return slot;
+  }
+
+  async purchaseDiscoTickets(slotId: string, quantity: number): Promise<DiscoSlot> {
+    const slot = this.discoSlots.get(slotId);
+    if (!slot) throw new Error("Disco slot not found");
+    
+    if (slot.status !== "available") {
+      throw new Error("Disco slot is not available for purchase");
+    }
+    
+    // Atomic operation to prevent overselling
+    const newTicketsSold = slot.ticketsSold + quantity;
+    
+    if (newTicketsSold > slot.ticketCap) {
+      throw new Error(`Only ${slot.ticketCap - slot.ticketsSold} tickets remaining`);
+    }
+    
+    const updated = {
+      ...slot,
+      ticketsSold: newTicketsSold,
+      status: newTicketsSold >= slot.ticketCap ? "soldout" as const : "available" as const,
+    };
+    
+    this.discoSlots.set(slotId, updated);
+    return updated;
+  }
+
+  async updateDiscoSlot(id: string, updates: Partial<DiscoSlot>): Promise<DiscoSlot> {
+    const slot = this.discoSlots.get(id);
+    if (!slot) throw new Error("Disco slot not found");
+    
+    const updated = { ...slot, ...updates };
+    
+    // Update status based on tickets sold
+    if (updated.ticketsSold >= updated.ticketCap) {
+      updated.status = "soldout";
+    } else if (updated.status === "soldout" && updated.ticketsSold < updated.ticketCap) {
+      updated.status = "available";
+    }
+    
+    this.discoSlots.set(id, updated);
+    return updated;
+  }
+
+  async checkDiscoAvailability(date: Date, time: string): Promise<boolean> {
+    const slots = Array.from(this.discoSlots.values());
+    
+    // Parse time string (HH:MM format)
+    const [hours, minutes] = time.split(':').map(Number);
+    const checkDateTime = new Date(date);
+    checkDateTime.setHours(hours, minutes, 0, 0);
+    
+    const slot = slots.find(s => {
+      const slotStart = s.startTime;
+      const slotEnd = s.endTime;
+      
+      return checkDateTime >= slotStart && checkDateTime < slotEnd;
+    });
+    
+    if (!slot) return false;
+    
+    return slot.status === "available" && slot.ticketsSold < slot.ticketCap;
+  }
+
+  // Timeframe Management Methods
+  async getTimeframes(dayOfWeek?: number, type?: string): Promise<Timeframe[]> {
+    let timeframes = Array.from(this.timeframes.values()).filter(tf => tf.active);
+    
+    if (dayOfWeek !== undefined) {
+      timeframes = timeframes.filter(tf => tf.dayOfWeek === dayOfWeek);
+    }
+    
+    if (type) {
+      timeframes = timeframes.filter(tf => tf.type === type);
+    }
+    
+    return timeframes.sort((a, b) => {
+      // Sort by day of week, then by start time
+      if (a.dayOfWeek !== b.dayOfWeek) {
+        return a.dayOfWeek - b.dayOfWeek;
+      }
+      return a.startTime.localeCompare(b.startTime);
+    });
+  }
+
+  async getTimeframe(id: string): Promise<Timeframe | undefined> {
+    return this.timeframes.get(id);
+  }
+
+  async createTimeframe(insertTimeframe: InsertTimeframe): Promise<Timeframe> {
+    const id = randomUUID();
+    const timeframe: Timeframe = {
+      ...insertTimeframe,
+      boatIds: insertTimeframe.boatIds || [],
+      active: insertTimeframe.active !== undefined ? insertTimeframe.active : true,
+      description: insertTimeframe.description || null,
+      id,
+      createdAt: new Date(),
+    };
+    
+    this.timeframes.set(id, timeframe);
+    return timeframe;
+  }
+
+  async updateTimeframe(id: string, updates: Partial<Timeframe>): Promise<Timeframe> {
+    const timeframe = this.timeframes.get(id);
+    if (!timeframe) throw new Error("Timeframe not found");
+    
+    const updated = { ...timeframe, ...updates };
+    this.timeframes.set(id, updated);
+    return updated;
+  }
+
+  async deleteTimeframe(id: string): Promise<boolean> {
+    return this.timeframes.delete(id);
+  }
+
+  async generateTimeframesForMonth(year: number, month: number): Promise<{ date: Date; timeframes: Timeframe[] }[]> {
+    const timeframes = await this.getTimeframes();
+    const result: { date: Date; timeframes: Timeframe[] }[] = [];
+    
+    // Get all days in the month
+    const firstDay = new Date(year, month - 1, 1);
+    const lastDay = new Date(year, month, 0);
+    
+    for (let day = 1; day <= lastDay.getDate(); day++) {
+      const date = new Date(year, month - 1, day);
+      const dayOfWeek = date.getDay();
+      
+      // Find timeframes for this day of week
+      const dayTimeframes = timeframes.filter(tf => tf.dayOfWeek === dayOfWeek);
+      
+      if (dayTimeframes.length > 0) {
+        result.push({
+          date,
+          timeframes: dayTimeframes,
+        });
+      }
+    }
+    
+    return result;
+  }
+
+  // Boat Fleet Management Methods
+  async getAvailableBoats(
+    date: Date, 
+    startTime: string, 
+    endTime: string, 
+    groupSize: number
+  ): Promise<Boat[]> {
+    // Get all active boats that can accommodate the group size
+    const boats = await this.getActiveBoats();
+    const suitableBoats = boats.filter(boat => boat.maxCapacity >= groupSize);
+    
+    if (suitableBoats.length === 0) {
+      return [];
+    }
+    
+    // Parse time strings and create full datetime objects
+    const [startHours, startMinutes] = startTime.split(':').map(Number);
+    const [endHours, endMinutes] = endTime.split(':').map(Number);
+    
+    const startDateTime = new Date(date);
+    startDateTime.setHours(startHours, startMinutes, 0, 0);
+    
+    const endDateTime = new Date(date);
+    endDateTime.setHours(endHours, endMinutes, 0, 0);
+    
+    // Check each boat for conflicts
+    const availableBoats: Boat[] = [];
+    
+    for (const boat of suitableBoats) {
+      const hasConflict = await this.checkBookingConflict(
+        boat.id,
+        startDateTime,
+        endDateTime
+      );
+      
+      if (!hasConflict) {
+        availableBoats.push(boat);
+      }
+    }
+    
+    // Sort by capacity (smallest suitable boat first)
+    return availableBoats.sort((a, b) => a.capacity - b.capacity);
+  }
+
+  // Availability Management Methods
+  async checkAvailability(
+    date: Date, 
+    duration: number, 
+    groupSize: number, 
+    type: 'private' | 'disco'
+  ): Promise<{ available: boolean; boats?: Boat[]; reason?: string }> {
+    if (type === 'disco') {
+      // For disco cruises, check if there's a slot on this date
+      const slots = await this.getDiscoSlots(date.getFullYear(), date.getMonth() + 1);
+      const daySlots = slots.filter(slot => {
+        const slotDate = new Date(slot.date);
+        return slotDate.toDateString() === date.toDateString();
+      });
+      
+      if (daySlots.length === 0) {
+        return { available: false, reason: "No disco cruise scheduled for this date" };
+      }
+      
+      const availableSlot = daySlots.find(slot => 
+        slot.status === "available" && 
+        (slot.ticketCap - slot.ticketsSold) >= groupSize
+      );
+      
+      if (!availableSlot) {
+        return { available: false, reason: "Not enough tickets available for your group size" };
+      }
+      
+      return { available: true };
+    }
+    
+    // For private cruises, check boat availability
+    const dayOfWeek = date.getDay();
+    const timeframes = await this.getTimeframes(dayOfWeek, 'private');
+    
+    if (timeframes.length === 0) {
+      return { available: false, reason: "No private cruises available on this day" };
+    }
+    
+    // Try each timeframe to find available boats
+    for (const timeframe of timeframes) {
+      const availableBoats = await this.getAvailableBoats(
+        date,
+        timeframe.startTime,
+        timeframe.endTime,
+        groupSize
+      );
+      
+      if (availableBoats.length > 0) {
+        return { available: true, boats: availableBoats };
+      }
+    }
+    
+    return { available: false, reason: "All boats are booked for this date" };
+  }
+
+  async getMonthlyCalendar(
+    boatId: string, 
+    year: number, 
+    month: number
+  ): Promise<{ date: Date; bookings: Booking[]; available: boolean }[]> {
+    const calendar: { date: Date; bookings: Booking[]; available: boolean }[] = [];
+    
+    // Get all bookings for the month
+    const firstDay = new Date(year, month - 1, 1);
+    const lastDay = new Date(year, month, 0);
+    lastDay.setHours(23, 59, 59, 999);
+    
+    const monthBookings = await this.getBookings(firstDay, lastDay, boatId);
+    
+    // Create calendar entries for each day
+    for (let day = 1; day <= lastDay.getDate(); day++) {
+      const date = new Date(year, month - 1, day);
+      
+      // Find bookings for this specific day
+      const dayBookings = monthBookings.filter(booking => {
+        const bookingDate = new Date(booking.startTime);
+        return bookingDate.toDateString() === date.toDateString();
+      });
+      
+      // Check if there are any available slots on this day
+      const dayOfWeek = date.getDay();
+      const timeframes = await this.getTimeframes(dayOfWeek);
+      
+      // A day is available if it has timeframes and not all slots are booked
+      let available = false;
+      
+      if (timeframes.length > 0) {
+        // Check if the boat is in any of the timeframe boat lists
+        const boatTimeframes = timeframes.filter(tf => 
+          tf.boatIds.length === 0 || 
+          tf.boatIds.includes('any') || 
+          tf.boatIds.includes(boatId)
+        );
+        
+        if (boatTimeframes.length > 0) {
+          // Check if all timeframes are booked
+          const allBooked = boatTimeframes.every(tf => {
+            const [startHours, startMinutes] = tf.startTime.split(':').map(Number);
+            const [endHours, endMinutes] = tf.endTime.split(':').map(Number);
+            
+            const slotStart = new Date(date);
+            slotStart.setHours(startHours, startMinutes, 0, 0);
+            
+            const slotEnd = new Date(date);
+            slotEnd.setHours(endHours, endMinutes, 0, 0);
+            
+            // Check if this timeframe overlaps with any booking
+            return dayBookings.some(booking => {
+              const bookingStart = booking.startTime;
+              const bookingEnd = booking.endTime;
+              
+              return (
+                (slotStart >= bookingStart && slotStart < bookingEnd) ||
+                (slotEnd > bookingStart && slotEnd <= bookingEnd) ||
+                (slotStart <= bookingStart && slotEnd >= bookingEnd)
+              );
+            });
+          });
+          
+          available = !allBooked;
+        }
+      }
+      
+      calendar.push({
+        date,
+        bookings: dayBookings,
+        available,
+      });
+    }
+    
+    return calendar;
   }
 }
 

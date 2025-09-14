@@ -37,7 +37,9 @@ export const boats = pgTable("boats", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   orgId: varchar("org_id").notNull().default("org_demo"),
   name: text("name").notNull(),
-  capacity: integer("capacity").notNull(),
+  capacity: integer("capacity").notNull(), // standard capacity
+  maxCapacity: integer("max_capacity").notNull(), // maximum capacity with additional crew
+  extraCrewThreshold: integer("extra_crew_threshold"), // group size requiring extra crew
   active: boolean("active").notNull().default(true),
 });
 
@@ -214,6 +216,47 @@ export const affiliates = pgTable("affiliates", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// Bookings - for tracking both private and disco cruise bookings
+export const bookings = pgTable("bookings", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  boatId: varchar("boat_id"), // nullable for disco cruises which may use multiple boats
+  type: varchar("type").notNull(), // 'private' or 'disco'
+  status: varchar("status").notNull().default("booked"), // 'booked', 'hold', 'blocked', 'canceled'
+  startTime: timestamp("start_time").notNull(),
+  endTime: timestamp("end_time").notNull(),
+  partyType: text("party_type"), // e.g., 'wedding', 'birthday', 'corporate', etc.
+  groupSize: integer("group_size").notNull(),
+  projectId: varchar("project_id"), // reference to project/lead if applicable
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Disco Slots - for managing disco cruise availability
+export const discoSlots = pgTable("disco_slots", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  date: timestamp("date").notNull(),
+  startTime: timestamp("start_time").notNull(),
+  endTime: timestamp("end_time").notNull(),
+  ticketCap: integer("ticket_cap").notNull().default(100),
+  ticketsSold: integer("tickets_sold").notNull().default(0),
+  status: varchar("status").notNull().default("available"), // 'available', 'soldout', 'canceled'
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Timeframes - for recurring booking templates
+export const timeframes = pgTable("timeframes", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  dayOfWeek: integer("day_of_week").notNull(), // 0-6 (Sunday-Saturday)
+  type: varchar("type").notNull(), // 'private' or 'disco'
+  startTime: text("start_time").notNull(), // HH:MM format
+  endTime: text("end_time").notNull(), // HH:MM format
+  boatIds: jsonb("boat_ids").$type<string[]>().default([]), // array of boat IDs, or ['any'] for flexible
+  active: boolean("active").notNull().default(true),
+  description: text("description"), // e.g., "Friday Evening Cruise"
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // Type definitions
 export type QuoteItem = {
   type: string;
@@ -381,6 +424,9 @@ export const insertProductSchema = createInsertSchema(products).omit({
 
 export const insertBoatSchema = createInsertSchema(boats).omit({
   id: true,
+}).extend({
+  maxCapacity: z.number().min(1),
+  extraCrewThreshold: z.number().optional(),
 });
 
 export const insertAffiliateSchema = createInsertSchema(affiliates).omit({
@@ -391,6 +437,41 @@ export const insertAffiliateSchema = createInsertSchema(affiliates).omit({
   pendingCommission: true,
   lastReferralDate: true,
   createdAt: true,
+});
+
+export const insertBookingSchema = createInsertSchema(bookings).omit({
+  id: true,
+  createdAt: true,
+}).extend({
+  type: z.enum(["private", "disco"]),
+  status: z.enum(["booked", "hold", "blocked", "canceled"]).default("booked"),
+  startTime: z.string().datetime().transform(str => new Date(str)),
+  endTime: z.string().datetime().transform(str => new Date(str)),
+  groupSize: z.number().min(1),
+});
+
+export const insertDiscoSlotSchema = createInsertSchema(discoSlots).omit({
+  id: true,
+  createdAt: true,
+}).extend({
+  date: z.string().datetime().transform(str => new Date(str)),
+  startTime: z.string().datetime().transform(str => new Date(str)),
+  endTime: z.string().datetime().transform(str => new Date(str)),
+  status: z.enum(["available", "soldout", "canceled"]).default("available"),
+  ticketCap: z.number().min(1).default(100),
+  ticketsSold: z.number().min(0).default(0),
+});
+
+export const insertTimeframeSchema = createInsertSchema(timeframes).omit({
+  id: true,
+  createdAt: true,
+}).extend({
+  dayOfWeek: z.number().min(0).max(6), // 0-6 for Sunday-Saturday
+  type: z.enum(["private", "disco"]),
+  startTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/), // HH:MM format
+  endTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/), // HH:MM format
+  boatIds: z.array(z.string()).default([]),
+  active: z.boolean().default(true),
 });
 
 // Select types
@@ -408,6 +489,9 @@ export type TemplateRule = typeof templateRules.$inferSelect;
 export type DiscountRule = typeof discountRules.$inferSelect;
 export type PricingSettings = typeof pricingSettings.$inferSelect;
 export type Affiliate = typeof affiliates.$inferSelect;
+export type Booking = typeof bookings.$inferSelect;
+export type DiscoSlot = typeof discoSlots.$inferSelect;
+export type Timeframe = typeof timeframes.$inferSelect;
 
 // Insert types
 export type InsertContact = z.infer<typeof insertContactSchema>;
@@ -421,6 +505,9 @@ export type InsertPricingSettings = z.infer<typeof insertPricingSettingsSchema>;
 export type InsertProduct = z.infer<typeof insertProductSchema>;
 export type InsertBoat = z.infer<typeof insertBoatSchema>;
 export type InsertAffiliate = z.infer<typeof insertAffiliateSchema>;
+export type InsertBooking = z.infer<typeof insertBookingSchema>;
+export type InsertDiscoSlot = z.infer<typeof insertDiscoSlotSchema>;
+export type InsertTimeframe = z.infer<typeof insertTimeframeSchema>;
 
 // Lead tracking types for Google Sheets integration
 export type LeadProgressStage = 'started' | 'contact_complete' | 'date_selected' | 'size_selected' | 'options_selected' | 'complete';
