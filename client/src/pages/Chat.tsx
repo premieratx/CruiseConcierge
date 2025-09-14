@@ -29,6 +29,7 @@ type Question =
   | 'event-type' 
   | 'contact-info' 
   | 'date-selection' 
+  | 'group-size-selection'
   | 'comparison-selection' 
   | 'final-review' 
   | 'complete';
@@ -318,7 +319,7 @@ export default function Chat() {
 
   // Enhanced Navigation functions
   const questionOrder: Question[] = [
-    'event-type', 'contact-info', 'date-selection', 
+    'event-type', 'contact-info', 'date-selection', 'group-size-selection',
     'comparison-selection', 'final-review', 'complete'
   ];
 
@@ -446,7 +447,7 @@ export default function Chat() {
       'event-type': 'event-type',
       'contact-info': 'contact-info',
       'date': 'date-selection',
-      'group-size': 'date-selection', // Group size is set on date selection page
+      'group-size': 'group-size-selection', // Group size is now on separate page
       'comparison': 'comparison-selection',
     };
     
@@ -986,7 +987,8 @@ export default function Chat() {
       const stepNames: Record<Question, string> = {
         'event-type': 'Event Type',
         'contact-info': 'Contact Info', 
-        'date-selection': 'Date & Group',
+        'date-selection': 'Date Selection',
+        'group-size-selection': 'Group Size',
         'comparison-selection': 'Cruise Options',
         'final-review': 'Review & Book',
         'complete': 'Complete'
@@ -1492,7 +1494,7 @@ export default function Chat() {
               </motion.div>
             )}
 
-            {/* Date Selection */}
+            {/* Date Selection - Calendar Only */}
             {currentQuestion === 'date-selection' && (
               <motion.div
                 key="date-selection"
@@ -1505,58 +1507,8 @@ export default function Chat() {
                 <div className="space-y-6">
                   <div className="text-center">
                     <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">Select Your Cruise Date</h2>
-                    <p className="text-slate-600 dark:text-slate-400 text-lg">Choose an available date for your event</p>
+                    <p className="text-slate-600 dark:text-slate-400 text-lg">Choose an available date for your {formData.eventTypeLabel.toLowerCase()}</p>
                   </div>
-                  
-                  {/* Group Size Slider - Moved to Date Selection */}
-                  {formData.eventDate && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-lg p-6 max-w-md mx-auto"
-                    >
-                      <div className="space-y-4">
-                        <div className="text-center">
-                          <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2">Group Size</h3>
-                          <p className="text-sm text-slate-600 dark:text-slate-400">How many people will be joining?</p>
-                        </div>
-                        
-                        <div className="space-y-3">
-                          <div className="flex items-center justify-between">
-                            <Label className="text-sm font-medium text-slate-700 dark:text-slate-300">Number of People</Label>
-                            <Badge variant="secondary" className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300">
-                              {formData.groupSize} {formData.groupSize === 1 ? 'person' : 'people'}
-                            </Badge>
-                          </div>
-                          
-                          <Slider
-                            value={[formData.groupSize]}
-                            onValueChange={handleGroupSizeChange}
-                            min={GROUP_SIZE_MIN}
-                            max={GROUP_SIZE_MAX}
-                            step={1}
-                            className="w-full"
-                            data-testid="slider-group-size"
-                          />
-                          
-                          <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
-                            <span>Min: {GROUP_SIZE_MIN}</span>
-                            <span>Max: {GROUP_SIZE_MAX}</span>
-                          </div>
-                        </div>
-                        
-                        <Button 
-                          onClick={handleGroupSizeConfirm}
-                          disabled={formData.groupSize < GROUP_SIZE_MIN || formData.groupSize > GROUP_SIZE_MAX}
-                          className="w-full bg-blue-600 hover:bg-blue-700"
-                          data-testid="button-confirm-group-size"
-                        >
-                          Continue with {formData.groupSize} {formData.groupSize === 1 ? 'person' : 'people'}
-                          <ChevronRight className="h-4 w-4 ml-2" />
-                        </Button>
-                      </div>
-                    </motion.div>
-                  )}
                 </div>
 
                 <div className="flex justify-center">
@@ -1599,6 +1551,86 @@ export default function Chat() {
                 
                 <p className="text-sm text-slate-500 dark:text-slate-400">
                   Click on an available date to continue
+                </p>
+              </motion.div>
+            )}
+
+            {/* Group Size Selection - Dedicated Page */}
+            {currentQuestion === 'group-size-selection' && (
+              <motion.div
+                key="group-size-selection"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="text-center space-y-8"
+              >
+                <div className="space-y-6">
+                  <div className="text-center">
+                    <motion.div
+                      initial={{ scale: 0.8, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.2, duration: 0.6 }}
+                      className="w-20 h-20 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-4"
+                    >
+                      <Users className="h-10 w-10 text-blue-600" />
+                    </motion.div>
+                    <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">How many people will join?</h2>
+                    <p className="text-slate-600 dark:text-slate-400 text-lg">
+                      Select the group size for your {formData.eventTypeLabel.toLowerCase()} on {formData.eventDate ? format(formData.eventDate, 'MMMM do, yyyy') : 'selected date'}
+                    </p>
+                  </div>
+                </div>
+
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ delay: 0.3, duration: 0.5 }}
+                  className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-xl p-8 max-w-2xl mx-auto"
+                >
+                  <div className="space-y-6">
+                    <div className="text-center">
+                      <div className="text-6xl font-bold text-blue-600 mb-2">
+                        {formData.groupSize}
+                      </div>
+                      <div className="text-lg text-slate-600 dark:text-slate-400 mb-6">
+                        {formData.groupSize === 1 ? 'person' : 'people'}
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-4">
+                      <Slider
+                        value={[formData.groupSize]}
+                        onValueChange={handleGroupSizeChange}
+                        min={GROUP_SIZE_MIN}
+                        max={GROUP_SIZE_MAX}
+                        step={1}
+                        className="w-full"
+                        data-testid="slider-group-size"
+                      />
+                      
+                      <div className="flex justify-between text-sm text-slate-500 dark:text-slate-400">
+                        <span>Min: {GROUP_SIZE_MIN}</span>
+                        <span>Max: {GROUP_SIZE_MAX}</span>
+                      </div>
+                    </div>
+                    
+                    <div className="pt-4">
+                      <Button 
+                        onClick={handleGroupSizeConfirm}
+                        disabled={formData.groupSize < GROUP_SIZE_MIN || formData.groupSize > GROUP_SIZE_MAX}
+                        className="w-full bg-blue-600 hover:bg-blue-700 h-14 text-lg"
+                        data-testid="button-confirm-group-size"
+                      >
+                        Continue with {formData.groupSize} {formData.groupSize === 1 ? 'person' : 'people'}
+                        <ChevronRight className="h-4 w-4 ml-2" />
+                      </Button>
+                    </div>
+                  </div>
+                </motion.div>
+                
+                <p className="text-sm text-slate-500 dark:text-slate-400">
+                  You can change this later if needed
                 </p>
               </motion.div>
             )}
