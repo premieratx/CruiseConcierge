@@ -74,13 +74,17 @@ const quickActions = [
 ];
 
 export default function Navigation() {
-  const [location] = useLocation();
+  const [location, setLocation] = useLocation();
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <>
+    <header className="fixed top-0 left-0 right-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
-        {/* Logo */}
-        <div className="mr-8 flex items-center space-x-2">
+        {/* Logo - clickable to go back to dashboard */}
+        <div 
+          className="mr-8 flex items-center space-x-2 cursor-pointer"
+          onClick={() => setLocation('/')}
+        >
           <Ship className="h-6 w-6 text-primary" />
           <span className="hidden font-bold text-xl lg:inline-block">
             Premier CRM
@@ -316,5 +320,6 @@ export default function Navigation() {
         </div>
       )}
     </header>
+    </>
   );
 }

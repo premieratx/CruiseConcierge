@@ -24,6 +24,7 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { useToast } from '@/hooks/use-toast';
 import { ArrowLeft, Save, Send, Plus, Trash2, DollarSign, Calendar, Users, Ship, Percent, AlertCircle } from 'lucide-react';
+import Layout from '@/components/Layout';
 
 // Extended schema for form with all fields
 const quoteFormSchema = insertQuoteSchema.extend({
@@ -216,6 +217,7 @@ export default function QuoteBuilder() {
   };
 
   return (
+    <Layout>
     <div className="container max-w-6xl mx-auto p-6">
       {/* Header */}
       <div className="mb-6">
@@ -624,5 +626,6 @@ export default function QuoteBuilder() {
         </form>
       </Form>
     </div>
+    </Layout>
   );
 }

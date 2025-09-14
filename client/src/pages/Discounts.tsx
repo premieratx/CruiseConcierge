@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Plus, Edit2, Trash2, Copy, Tag, Calendar, Users, DollarSign } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Layout from "@/components/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -184,6 +185,7 @@ export default function Discounts() {
   }
 
   return (
+    <Layout>
     <div className="container mx-auto p-6">
       <div className="flex justify-between items-center mb-6">
         <div>
@@ -588,5 +590,6 @@ export default function Discounts() {
         )}
       </div>
     </div>
+    </Layout>
   );
 }
