@@ -12,6 +12,8 @@ import Templates from "./pages/Templates";
 import Products from "./pages/Products";
 import Discounts from "./pages/Discounts";
 import Affiliates from "./pages/Affiliates";
+import Documentation from "./pages/Documentation";
+import QuoteViewer from "./pages/QuoteViewer";
 import NotFound from "@/pages/not-found";
 
 function Router() {
@@ -27,8 +29,10 @@ function Router() {
       <Route path="/products" component={Products} />
       <Route path="/discounts" component={Discounts} />
       <Route path="/affiliates" component={Affiliates} />
+      <Route path="/documentation" component={Documentation} />
       <Route path="/checkout" component={Checkout} />
       <Route path="/checkout/:quoteId" component={Checkout} />
+      <Route path="/quote/:quoteId" component={QuoteViewer} />
       <Route component={NotFound} />
     </Switch>
   );
