@@ -231,6 +231,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.post("/api/populate-sheets", async (req, res) => {
+    try {
+      console.log("🚀 Starting Google Sheets population process...");
+      const success = await googleSheetsService.populateSpreadsheet();
+      
+      if (success) {
+        console.log("✅ Successfully populated Google Sheets with 3 months of availability data");
+        res.json({ 
+          success: true, 
+          message: "Successfully populated Google Sheets with 3 months of availability data",
+          timestamp: new Date().toISOString()
+        });
+      } else {
+        console.error("❌ Failed to populate Google Sheets");
+        res.status(500).json({ 
+          success: false, 
+          error: "Failed to populate Google Sheets. Check server logs for details." 
+        });
+      }
+    } catch (error) {
+      console.error("❌ Populate sheets endpoint error:", error);
+      res.status(500).json({ 
+        success: false, 
+        error: "An error occurred while populating Google Sheets",
+        details: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
   // Contact endpoints
   app.post("/api/contacts", async (req, res) => {
     try {
