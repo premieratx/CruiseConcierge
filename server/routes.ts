@@ -1869,6 +1869,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
     }
   });
+
+  // Populate Google Sheets with availability data
+  app.post("/api/populate-availability", async (req, res) => {
+    try {
+      console.log("🚀 Starting Google Sheets availability population...");
+      const result = await googleSheetsService.populateSpreadsheet();
+      
+      if (result) {
+        res.json({ 
+          success: true, 
+          message: "Successfully populated Google Sheets with 3 months of availability data"
+        });
+      } else {
+        res.status(500).json({ 
+          error: "Failed to populate availability data"
+        });
+      }
+    } catch (error: any) {
+      console.error("Populate availability error:", error);
+      res.status(500).json({ 
+        error: "Failed to populate availability data",
+        details: error.message 
+      });
+    }
+  });
   
   // Test endpoint to check messaging services status
   app.get("/api/test-messaging-status", async (req, res) => {
