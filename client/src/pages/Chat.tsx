@@ -139,6 +139,13 @@ const isDiscoAvailableForDate = (date: Date) => {
   return dayOfWeek === 5 || dayOfWeek === 6; // Friday or Saturday only
 };
 
+// Date availability validation function
+const isDateAvailable = (date: Date): boolean => {
+  const today = startOfDay(new Date());
+  const maxDate = addDays(today, 365);
+  return !isBefore(date, today) && !isAfter(date, maxDate);
+};
+
 // Get alternative dates around the selected date for the same group size
 const getAlternativeDates = (selectedDate: Date, groupSize: number, daysRange: number = 14): Array<{
   date: Date;
@@ -585,12 +592,6 @@ export default function Chat() {
     }
   };
   
-  const isDateAvailable = (date: Date): boolean => {
-    const today = startOfDay(new Date());
-    const maxDate = addDays(today, 365);
-    return !isBefore(date, today) && !isAfter(date, maxDate);
-  };
-
   const formatCurrency = (cents: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
