@@ -7,10 +7,13 @@ import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { queryClient, apiRequest } from "@/lib/queryClient";
-import type { Project, Contact, Quote, Booking } from "@shared/schema";
+import type { Project, Contact, Quote, Booking, InsertProject } from "@shared/schema";
 import { 
   Calendar, Clock, Users, Ship, DollarSign, MapPin, 
   CheckCircle, AlertCircle, Phone, Mail, FileText, 
@@ -18,7 +21,7 @@ import {
   Download, Send, Star, TrendingUp, User, Briefcase, Plus
 } from "lucide-react";
 import { format } from "date-fns";
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 
 // Helper function to format currency
 const formatCurrency = (amount: number) => {
@@ -90,7 +93,21 @@ export default function Projects() {
   const [statusFilter, setStatusFilter] = useState("all");
   const [eventTypeFilter, setEventTypeFilter] = useState("all");
   const [selectedTab, setSelectedTab] = useState("active");
+  const [showNewProjectDialog, setShowNewProjectDialog] = useState(false);
+  const [showPostCreateDialog, setShowPostCreateDialog] = useState(false);
+  const [createdProjectId, setCreatedProjectId] = useState<string | null>(null);
+  const [newProjectData, setNewProjectData] = useState({
+    contactName: "",
+    contactEmail: "",
+    contactPhone: "",
+    eventType: "",
+    projectDate: "",
+    groupSize: "",
+    title: "",
+    specialRequests: "",
+  });
   const { toast } = useToast();
+  const [, setLocation] = useLocation();
 
   // Fetch projects
   const { data: projects = [], isLoading: projectsLoading } = useQuery<Project[]>({
@@ -124,6 +141,63 @@ export default function Projects() {
 
   // Create contact map for quick lookups
   const contactMap = new Map(clients.map(c => [c.id, c]));
+
+  // Create project mutation
+  const createProjectMutation = useMutation({
+    mutationFn: async () => {
+      // First, find or create the contact
+      const contactResponse = await apiRequest("POST", "/api/contacts/find-or-create", {
+        email: newProjectData.contactEmail,
+        name: newProjectData.contactName,
+        phone: newProjectData.contactPhone,
+      });
+      const contact = await contactResponse.json();
+
+      // Then create the project
+      const projectData: Partial<InsertProject> = {
+        contactId: contact.id,
+        title: newProjectData.title || `${newProjectData.eventType} - ${newProjectData.contactName}`,
+        eventType: newProjectData.eventType,
+        projectDate: newProjectData.projectDate ? new Date(newProjectData.projectDate).toISOString() : undefined,
+        groupSize: newProjectData.groupSize ? parseInt(newProjectData.groupSize) : undefined,
+        specialRequests: newProjectData.specialRequests || undefined,
+        status: "NEW",
+        pipelinePhase: "ph_new",
+      };
+
+      const response = await apiRequest("POST", "/api/projects", projectData);
+      return response.json();
+    },
+    onSuccess: (project) => {
+      toast({
+        title: "Success",
+        description: "Project created successfully",
+      });
+      queryClient.invalidateQueries({ queryKey: ["/api/projects"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/contacts/clients"] });
+      setCreatedProjectId(project.id);
+      setShowNewProjectDialog(false);
+      setShowPostCreateDialog(true);
+      // Reset form
+      setNewProjectData({
+        contactName: "",
+        contactEmail: "",
+        contactPhone: "",
+        eventType: "",
+        projectDate: "",
+        groupSize: "",
+        title: "",
+        specialRequests: "",
+      });
+    },
+    onError: (error) => {
+      toast({
+        title: "Error",
+        description: "Failed to create project",
+        variant: "destructive",
+      });
+    },
+  });
 
   // Filter projects based on search and filters
   const filteredProjects = projects.filter(project => {
@@ -295,12 +369,13 @@ export default function Projects() {
             </p>
           </div>
           <div className="flex items-center gap-2">
-            <Link href="/quotes/new">
-              <Button data-testid="button-new-project">
-                <Plus className="mr-2 h-4 w-4" />
-                New Project
-              </Button>
-            </Link>
+            <Button 
+              onClick={() => setShowNewProjectDialog(true)}
+              data-testid="button-new-project"
+            >
+              <Plus className="mr-2 h-4 w-4" />
+              New Project
+            </Button>
           </div>
         </div>
 
@@ -515,6 +590,151 @@ export default function Projects() {
           </CardContent>
         </Card>
       </div>
+
+      {/* New Project Dialog */}
+      <Dialog open={showNewProjectDialog} onOpenChange={setShowNewProjectDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Create New Project</DialogTitle>
+            <DialogDescription>
+              Enter the project details to get started
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="grid gap-2">
+              <Label htmlFor="contact-name">Customer Name *</Label>
+              <Input
+                id="contact-name"
+                value={newProjectData.contactName}
+                onChange={(e) => setNewProjectData({ ...newProjectData, contactName: e.target.value })}
+                placeholder="John Doe"
+                data-testid="input-contact-name"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="contact-email">Email *</Label>
+              <Input
+                id="contact-email"
+                type="email"
+                value={newProjectData.contactEmail}
+                onChange={(e) => setNewProjectData({ ...newProjectData, contactEmail: e.target.value })}
+                placeholder="john@example.com"
+                data-testid="input-contact-email"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="contact-phone">Phone</Label>
+              <Input
+                id="contact-phone"
+                value={newProjectData.contactPhone}
+                onChange={(e) => setNewProjectData({ ...newProjectData, contactPhone: e.target.value })}
+                placeholder="(555) 123-4567"
+                data-testid="input-contact-phone"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="event-type">Event Type *</Label>
+              <Select 
+                value={newProjectData.eventType}
+                onValueChange={(value) => setNewProjectData({ ...newProjectData, eventType: value })}
+              >
+                <SelectTrigger id="event-type" data-testid="select-event-type">
+                  <SelectValue placeholder="Select event type" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="wedding">Wedding</SelectItem>
+                  <SelectItem value="corporate">Corporate</SelectItem>
+                  <SelectItem value="birthday">Birthday</SelectItem>
+                  <SelectItem value="bachelor">Bachelor</SelectItem>
+                  <SelectItem value="bachelorette">Bachelorette</SelectItem>
+                  <SelectItem value="graduation">Graduation</SelectItem>
+                  <SelectItem value="anniversary">Anniversary</SelectItem>
+                  <SelectItem value="other">Other</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="project-date">Event Date</Label>
+              <Input
+                id="project-date"
+                type="date"
+                value={newProjectData.projectDate}
+                onChange={(e) => setNewProjectData({ ...newProjectData, projectDate: e.target.value })}
+                data-testid="input-project-date"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="group-size">Group Size</Label>
+              <Input
+                id="group-size"
+                type="number"
+                value={newProjectData.groupSize}
+                onChange={(e) => setNewProjectData({ ...newProjectData, groupSize: e.target.value })}
+                placeholder="25"
+                data-testid="input-group-size"
+              />
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="special-requests">Special Requests</Label>
+              <Textarea
+                id="special-requests"
+                value={newProjectData.specialRequests}
+                onChange={(e) => setNewProjectData({ ...newProjectData, specialRequests: e.target.value })}
+                placeholder="Any special requirements or requests..."
+                data-testid="input-special-requests"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => setShowNewProjectDialog(false)}>
+              Cancel
+            </Button>
+            <Button 
+              onClick={() => createProjectMutation.mutate()}
+              disabled={!newProjectData.contactName || !newProjectData.contactEmail || !newProjectData.eventType || createProjectMutation.isPending}
+              data-testid="button-create-project"
+            >
+              {createProjectMutation.isPending ? "Creating..." : "Create Project"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Post-Create Dialog */}
+      <Dialog open={showPostCreateDialog} onOpenChange={setShowPostCreateDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Project Created Successfully!</DialogTitle>
+            <DialogDescription>
+              What would you like to do next?
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex flex-col gap-3">
+            <Button 
+              onClick={() => {
+                setShowPostCreateDialog(false);
+                setLocation(`/quotes/builder?projectId=${createdProjectId}`);
+              }}
+              className="w-full"
+              data-testid="button-create-quote"
+            >
+              <FileText className="mr-2 h-4 w-4" />
+              Create Quote
+            </Button>
+            <Button 
+              variant="outline"
+              onClick={() => {
+                setShowPostCreateDialog(false);
+              }}
+              className="w-full"
+              data-testid="button-view-project"
+            >
+              <Eye className="mr-2 h-4 w-4" />
+              View Project
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </Layout>
   );
 }

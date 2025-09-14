@@ -52,6 +52,10 @@ export const products = pgTable("products", {
   taxable: boolean("taxable").notNull().default(true),
   pricingModel: varchar("pricing_model").notNull().default("hourly"), // 'hourly', 'per_person', 'flat_rate'
   productType: varchar("product_type").notNull().default("private_cruise"), // 'private_cruise', 'disco_cruise', 'addon'
+  dayType: varchar("day_type"), // 'weekday', 'friday', 'saturday', 'sunday' (for private cruises)
+  groupSize: integer("group_size"), // 14, 25, 30, 50, 75 (for private cruises)
+  imageUrl: text("image_url"), // Background image for photo-centric cards
+  categoryType: varchar("category_type").notNull().default("experience"), // 'experience', 'addon'
   eventTypes: jsonb("event_types").$type<string[]>().default([]), // which event types this product applies to
   active: boolean("active").notNull().default(true),
 });
@@ -137,6 +141,7 @@ export const quoteTemplates = pgTable("quote_templates", {
   basePricePerPerson: integer("base_price_per_person"), // in cents
   duration: integer("duration").notNull(), // in hours
   active: boolean("active").notNull().default(true),
+  isDefault: boolean("is_default").notNull().default(false), // Added isDefault field
   displayOrder: integer("display_order").notNull().default(0),
   visualTheme: jsonb("visual_theme").$type<TemplateVisual>().default({}),
   automationRules: jsonb("automation_rules").$type<string[]>().default([]), // rule IDs
@@ -402,7 +407,7 @@ export type TemplateComponent = {
         'info_box' | 'divider' | 'pricing_breakdown' | 'terms' | 'header' | 'footer' |
         'button' | 'image' | 'table' | 'quote_summary';
   properties: Record<string, any>;
-  children?: TemplateComponent[];
+  children?: any[]; // Changed from TemplateComponent[] to avoid circular reference
   order: number;
   conditions?: ComponentCondition[];
 };
@@ -479,6 +484,10 @@ export const insertProductSchema = createInsertSchema(products).omit({
 }).extend({
   pricingModel: z.enum(["hourly", "per_person", "flat_rate"]).default("hourly"),
   productType: z.enum(["private_cruise", "disco_cruise", "addon"]).default("private_cruise"),
+  dayType: z.enum(["weekday", "friday", "saturday", "sunday"]).optional(),
+  groupSize: z.number().optional(),
+  imageUrl: z.string().optional(),
+  categoryType: z.enum(["experience", "addon"]).default("experience"),
   eventTypes: z.array(z.string()).default([]),
   active: z.boolean().default(true),
 });

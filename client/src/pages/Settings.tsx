@@ -17,9 +17,8 @@ import {
   Settings as SettingsIcon, Mail, FileText, Palette, Save, Plus, Edit2, Trash2, 
   Copy, Eye, EyeOff, ChevronRight, Grid, List, Code
 } from 'lucide-react';
-import QuoteTemplateBuilder from '@/components/QuoteTemplateBuilder';
-import EmailTemplateBuilder from '@/components/EmailTemplateBuilder';
-import type { QuoteTemplate, EmailTemplate, MasterTemplate, PricingSettings } from '@shared/schema';
+// Template builder components will be shown in dialogs
+import type { QuoteTemplate, EmailTemplate, PricingSettings } from '@shared/schema';
 
 export default function Settings() {
   const { toast } = useToast();
@@ -39,10 +38,6 @@ export default function Settings() {
     queryKey: ['/api/email-templates']
   });
   
-  // Fetch master template
-  const { data: masterTemplate, isLoading: loadingMaster } = useQuery<MasterTemplate>({
-    queryKey: ['/api/master-template']
-  });
   
   // Fetch pricing settings
   const { data: pricingSettings, isLoading: loadingSettings } = useQuery<PricingSettings>({
@@ -146,16 +141,16 @@ export default function Settings() {
     }
   });
   
-  // Update master template mutation
-  const updateMasterTemplate = useMutation({
-    mutationFn: async (data: Partial<MasterTemplate>) => {
-      const res = await apiRequest('PATCH', '/api/master-template', data);
-      if (!res.ok) throw new Error('Failed to update master template');
+  // Set default template mutation
+  const setDefaultTemplate = useMutation({
+    mutationFn: async (id: string) => {
+      const res = await apiRequest('PATCH', `/api/quote-templates/${id}/set-default`, {});
+      if (!res.ok) throw new Error('Failed to set default template');
       return res.json();
     },
     onSuccess: () => {
-      toast({ title: 'Success', description: 'Master template updated successfully' });
-      queryClient.invalidateQueries({ queryKey: ['/api/master-template'] });
+      toast({ title: 'Success', description: 'Default template updated successfully' });
+      queryClient.invalidateQueries({ queryKey: ['/api/quote-templates'] });
     }
   });
   
@@ -204,10 +199,6 @@ export default function Settings() {
               <Mail className="h-4 w-4 mr-2" />
               Email Templates
             </TabsTrigger>
-            <TabsTrigger value="master-template">
-              <Palette className="h-4 w-4 mr-2" />
-              Master Template
-            </TabsTrigger>
             <TabsTrigger value="global-settings">
               <SettingsIcon className="h-4 w-4 mr-2" />
               Global Settings
@@ -243,6 +234,11 @@ export default function Settings() {
                       <div className="flex-1">
                         <div className="flex items-center gap-2 mb-1">
                           <h3 className="font-semibold">{template.name}</h3>
+                          {template.isDefault && (
+                            <Badge variant="default">
+                              Default
+                            </Badge>
+                          )}
                           <Badge variant={template.active ? 'default' : 'secondary'}>
                             {template.active ? 'Active' : 'Inactive'}
                           </Badge>
@@ -272,17 +268,28 @@ export default function Settings() {
                           onClick={() => {
                             // Create a copy of the template
                             const copy = { ...template, name: `${template.name} (Copy)` };
-                            delete copy.id;
-                            createQuoteTemplate.mutate(copy);
+                            const { id, ...copyData } = copy;
+                            createQuoteTemplate.mutate(copyData);
                           }}
                           data-testid={`button-copy-template-${template.id}`}
                         >
                           <Copy className="h-4 w-4" />
                         </Button>
+                        {!template.isDefault && (
+                          <Button 
+                            variant="outline" 
+                            size="sm"
+                            onClick={() => setDefaultTemplate.mutate(template.id)}
+                            data-testid={`button-set-default-${template.id}`}
+                          >
+                            Set Default
+                          </Button>
+                        )}
                         <Button 
                           variant="outline" 
                           size="sm"
                           onClick={() => deleteQuoteTemplate.mutate(template.id)}
+                          disabled={template.isDefault}
                           data-testid={`button-delete-template-${template.id}`}
                         >
                           <Trash2 className="h-4 w-4" />
@@ -367,100 +374,6 @@ export default function Settings() {
                       No email templates yet. Create your first template to get started.
                     </div>
                   )}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-          
-          <TabsContent value="master-template" className="space-y-4">
-            <Card>
-              <CardHeader>
-                <CardTitle>Master Template</CardTitle>
-                <CardDescription>
-                  Define the base structure and styling that all quotes inherit from
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-6">
-                  <div>
-                    <h3 className="text-lg font-semibold mb-3">Template Structure</h3>
-                    <p className="text-sm text-gray-600 mb-4">
-                      The master template defines the standard sections that appear in all quotes.
-                    </p>
-                    <Button 
-                      onClick={() => {
-                        // Open master template editor
-                        setShowTemplateBuilder(true);
-                      }}
-                      data-testid="button-edit-master"
-                    >
-                      <Edit2 className="h-4 w-4 mr-2" />
-                      Edit Master Template
-                    </Button>
-                  </div>
-                  
-                  <Separator />
-                  
-                  <div>
-                    <h3 className="text-lg font-semibold mb-3">Brand Styling</h3>
-                    <div className="grid gap-4 max-w-md">
-                      <div>
-                        <Label>Primary Color</Label>
-                        <div className="flex gap-2 mt-1">
-                          <Input 
-                            type="color" 
-                            className="w-20 h-10"
-                            defaultValue="#3B82F6"
-                            data-testid="input-primary-color"
-                          />
-                          <Input 
-                            placeholder="#3B82F6" 
-                            defaultValue="#3B82F6"
-                            className="flex-1"
-                            data-testid="input-primary-hex"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <Label>Secondary Color</Label>
-                        <div className="flex gap-2 mt-1">
-                          <Input 
-                            type="color" 
-                            className="w-20 h-10"
-                            defaultValue="#10B981"
-                            data-testid="input-secondary-color"
-                          />
-                          <Input 
-                            placeholder="#10B981" 
-                            defaultValue="#10B981"
-                            className="flex-1"
-                            data-testid="input-secondary-hex"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <Label>Font Family</Label>
-                        <Input 
-                          placeholder="Inter, sans-serif" 
-                          defaultValue="Inter, sans-serif"
-                          data-testid="input-font-family"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  
-                  <div className="flex justify-end">
-                    <Button 
-                      onClick={() => {
-                        // Save master template settings
-                        updateMasterTemplate.mutate({});
-                      }}
-                      data-testid="button-save-master"
-                    >
-                      <Save className="h-4 w-4 mr-2" />
-                      Save Changes
-                    </Button>
-                  </div>
                 </div>
               </CardContent>
             </Card>

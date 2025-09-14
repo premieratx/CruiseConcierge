@@ -227,9 +227,9 @@ export class MemStorage implements IStorage {
     ];
     boats.forEach(boat => this.boats.set(boat.id, boat));
 
-    // Seed products
+    // Seed products with comprehensive pricing
     const products = [
-      // Existing products (now marked as addons)
+      // ===== ADD-ON PRODUCTS =====
       { 
         id: "prod_cooler_ice", 
         orgId: "org_demo", 
@@ -239,6 +239,10 @@ export class MemStorage implements IStorage {
         taxable: true,
         pricingModel: "flat_rate",
         productType: "addon",
+        dayType: null,
+        groupSize: null,
+        categoryType: "addon",
+        imageUrl: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
         eventTypes: [],
         active: true,
       },
@@ -251,149 +255,389 @@ export class MemStorage implements IStorage {
         taxable: true,
         pricingModel: "flat_rate",
         productType: "addon",
+        dayType: null,
+        groupSize: null,
+        categoryType: "addon",
+        imageUrl: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
         eventTypes: [],
         active: true,
       },
 
-      // ATX Disco Cruise Products (per-person pricing)
+      // ===== DISCO CRUISE PRODUCTS (Shared Cruise) =====
       {
         id: "disco_basic_bach",
         orgId: "org_demo",
-        name: "Basic Bach Package",
-        description: "Essential disco cruise experience with DJ, dance floor, and party atmosphere. Perfect for bachelor parties looking for a fun night on the water!",
-        unitPrice: 8500, // $85 per person
+        name: "Basic Bach Disco Package",
+        description: "Essential disco cruise experience with DJ, dance floor, and party atmosphere.",
+        unitPrice: 7500, // $75 per person
         taxable: true,
         pricingModel: "per_person",
         productType: "disco_cruise",
+        dayType: null,
+        groupSize: null,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
         eventTypes: ["bachelor", "bachelorette"],
         active: true,
       },
       {
         id: "disco_queen",
         orgId: "org_demo",
-        name: "Disco Queen Package",
-        description: "Premium disco cruise with upgraded sound system, disco lights, premium bar setup, and party favors. The ultimate bachelorette experience!",
+        name: "Disco Queen Disco Package",
+        description: "Premium disco cruise with upgraded sound system, disco lights, and party favors.",
         unitPrice: 9500, // $95 per person
         taxable: true,
         pricingModel: "per_person",
         productType: "disco_cruise",
+        dayType: null,
+        groupSize: null,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
         eventTypes: ["bachelor", "bachelorette"],
         active: true,
       },
       {
         id: "disco_platinum",
         orgId: "org_demo",
-        name: "Supabase Platinum Disco Package",
-        description: "The most exclusive disco cruise experience with VIP service, premium cocktails, gourmet snacks, professional photographer, and luxury amenities. Database-level awesome!",
-        unitPrice: 10500, // $105 per person
+        name: "Super Sparkle Platinum Disco Package",
+        description: "The most exclusive disco cruise with VIP service, premium cocktails, and luxury amenities.",
+        unitPrice: 12500, // $125 per person
         taxable: true,
         pricingModel: "per_person",
         productType: "disco_cruise",
+        dayType: null,
+        groupSize: null,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
         eventTypes: ["bachelor", "bachelorette"],
         active: true,
       },
 
-      // Private Cruise Products (hourly pricing with day variations)
-      // Thursday pricing (lowest rates)
+      // ===== PRIVATE CRUISE PRODUCTS =====
+      // Monday-Thursday pricing
       {
-        id: "private_cruise_thu_14_30",
+        id: "private_weekday_14",
         orgId: "org_demo",
-        name: "Thursday Private Cruise (14-30 guests)",
-        description: "Private boat charter for Thursday events with professional captain and crew. Perfect for smaller gatherings.",
-        unitPrice: 45000, // $450/hour base rate for Thursday
+        name: "Private Cruise - Monday-Thursday - 14 Guests",
+        description: "Premium private boat charter for up to 14 guests",
+        unitPrice: 45000,
         taxable: true,
         pricingModel: "hourly",
         productType: "private_cruise",
+        dayType: "weekday",
+        groupSize: 14,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #3c8dbc 0%, #4fc3f7 100%)",
         eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
         active: true,
       },
       {
-        id: "private_cruise_thu_31_50",
+        id: "private_weekday_25",
         orgId: "org_demo",
-        name: "Thursday Private Cruise (31-50 guests)",
-        description: "Private boat charter for Thursday events accommodating larger groups with full amenities.",
-        unitPrice: 55000, // $550/hour for larger groups on Thursday
+        name: "Private Cruise - Monday-Thursday - 25 Guests",
+        description: "Premium private boat charter for up to 25 guests",
+        unitPrice: 65000,
         taxable: true,
         pricingModel: "hourly",
         productType: "private_cruise",
+        dayType: "weekday",
+        groupSize: 25,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+      {
+        id: "private_weekday_30",
+        orgId: "org_demo",
+        name: "Private Cruise - Monday-Thursday - 30 Guests",
+        description: "Premium private boat charter for up to 30 guests",
+        unitPrice: 75000,
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        dayType: "weekday",
+        groupSize: 30,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+      {
+        id: "private_weekday_50",
+        orgId: "org_demo",
+        name: "Private Cruise - Monday-Thursday - 50 Guests",
+        description: "Premium private boat charter for up to 50 guests",
+        unitPrice: 95000,
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        dayType: "weekday",
+        groupSize: 50,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #30cfd0 0%, #330867 100%)",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+      {
+        id: "private_weekday_75",
+        orgId: "org_demo",
+        name: "Private Cruise - Monday-Thursday - 75 Guests",
+        description: "Premium private boat charter for up to 75 guests",
+        unitPrice: 135000,
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        dayType: "weekday",
+        groupSize: 75,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #2af598 0%, #009efd 100%)",
         eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
         active: true,
       },
 
-      // Friday pricing (moderate rates)
+      // Friday pricing
       {
-        id: "private_cruise_fri_14_30",
+        id: "private_friday_14",
         orgId: "org_demo",
-        name: "Friday Private Cruise (14-30 guests)",
-        description: "Private boat charter for Friday events with professional captain and crew. Popular choice for corporate events.",
-        unitPrice: 54000, // $540/hour (20% markup)
+        name: "Private Cruise - Friday - 14 Guests",
+        description: "Premium private boat charter for up to 14 guests",
+        unitPrice: 55000,
         taxable: true,
         pricingModel: "hourly",
         productType: "private_cruise",
+        dayType: "friday",
+        groupSize: 14,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #f77062 0%, #fe5196 100%)",
         eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
         active: true,
       },
       {
-        id: "private_cruise_fri_31_50",
+        id: "private_friday_25",
         orgId: "org_demo",
-        name: "Friday Private Cruise (31-50 guests)",
-        description: "Private boat charter for Friday events accommodating larger groups with premium service.",
-        unitPrice: 66000, // $660/hour for larger groups on Friday
+        name: "Private Cruise - Friday - 25 Guests",
+        description: "Premium private boat charter for up to 25 guests",
+        unitPrice: 75000,
         taxable: true,
         pricingModel: "hourly",
         productType: "private_cruise",
+        dayType: "friday",
+        groupSize: 25,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+      {
+        id: "private_friday_30",
+        orgId: "org_demo",
+        name: "Private Cruise - Friday - 30 Guests",
+        description: "Premium private boat charter for up to 30 guests",
+        unitPrice: 85000,
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        dayType: "friday",
+        groupSize: 30,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%)",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+      {
+        id: "private_friday_50",
+        orgId: "org_demo",
+        name: "Private Cruise - Friday - 50 Guests",
+        description: "Premium private boat charter for up to 50 guests",
+        unitPrice: 105000,
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        dayType: "friday",
+        groupSize: 50,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #fdcbf1 0%, #e6dee9 100%)",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+      {
+        id: "private_friday_75",
+        orgId: "org_demo",
+        name: "Private Cruise - Friday - 75 Guests",
+        description: "Premium private boat charter for up to 75 guests",
+        unitPrice: 155000,
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        dayType: "friday",
+        groupSize: 75,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%)",
         eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
         active: true,
       },
 
-      // Saturday pricing (premium rates)
+      // Saturday pricing
       {
-        id: "private_cruise_sat_14_30",
+        id: "private_saturday_14",
         orgId: "org_demo",
-        name: "Saturday Private Cruise (14-30 guests)",
-        description: "Premium Saturday private boat charter with professional captain and crew. Perfect for weddings and special celebrations.",
-        unitPrice: 67500, // $675/hour (50% markup)
+        name: "Private Cruise - Saturday - 14 Guests",
+        description: "Premium private boat charter for up to 14 guests",
+        unitPrice: 65000,
         taxable: true,
         pricingModel: "hourly",
         productType: "private_cruise",
+        dayType: "saturday",
+        groupSize: 14,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #ff6e7f 0%, #bfe9ff 100%)",
         eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
         active: true,
       },
       {
-        id: "private_cruise_sat_31_50",
+        id: "private_saturday_25",
         orgId: "org_demo",
-        name: "Saturday Private Cruise (31-50 guests)",
-        description: "Premium Saturday charter for larger groups with luxury amenities and full service.",
-        unitPrice: 82500, // $825/hour for larger groups on Saturday
+        name: "Private Cruise - Saturday - 25 Guests",
+        description: "Premium private boat charter for up to 25 guests",
+        unitPrice: 85000,
         taxable: true,
         pricingModel: "hourly",
         productType: "private_cruise",
+        dayType: "saturday",
+        groupSize: 25,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%)",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+      {
+        id: "private_saturday_30",
+        orgId: "org_demo",
+        name: "Private Cruise - Saturday - 30 Guests",
+        description: "Premium private boat charter for up to 30 guests",
+        unitPrice: 95000,
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        dayType: "saturday",
+        groupSize: 30,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #f794a4 0%, #fdd6bd 100%)",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+      {
+        id: "private_saturday_50",
+        orgId: "org_demo",
+        name: "Private Cruise - Saturday - 50 Guests",
+        description: "Premium private boat charter for up to 50 guests",
+        unitPrice: 120000,
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        dayType: "saturday",
+        groupSize: 50,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #96e6a1 0%, #d4fc79 100%)",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+      {
+        id: "private_saturday_75",
+        orgId: "org_demo",
+        name: "Private Cruise - Saturday - 75 Guests",
+        description: "Premium private boat charter for up to 75 guests",
+        unitPrice: 175000,
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        dayType: "saturday",
+        groupSize: 75,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #ffeaa7 0%, #fdcb6e 100%)",
         eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
         active: true,
       },
 
-      // Sunday pricing (high rates)
+      // Sunday pricing
       {
-        id: "private_cruise_sun_14_30",
+        id: "private_sunday_14",
         orgId: "org_demo",
-        name: "Sunday Private Cruise (14-30 guests)",
-        description: "Sunday private boat charter with professional captain and crew. Great for family gatherings and celebrations.",
-        unitPrice: 58500, // $585/hour (30% markup)
+        name: "Private Cruise - Sunday - 14 Guests",
+        description: "Premium private boat charter for up to 14 guests",
+        unitPrice: 60000,
         taxable: true,
         pricingModel: "hourly",
         productType: "private_cruise",
+        dayType: "sunday",
+        groupSize: 14,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #dfe9f3 0%, #ffffff 100%)",
         eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
         active: true,
       },
       {
-        id: "private_cruise_sun_31_50",
+        id: "private_sunday_25",
         orgId: "org_demo",
-        name: "Sunday Private Cruise (31-50 guests)",
-        description: "Sunday charter for larger groups with comprehensive amenities and premium service.",
-        unitPrice: 71500, // $715/hour for larger groups on Sunday
+        name: "Private Cruise - Sunday - 25 Guests",
+        description: "Premium private boat charter for up to 25 guests",
+        unitPrice: 80000,
         taxable: true,
         pricingModel: "hourly",
         productType: "private_cruise",
+        dayType: "sunday",
+        groupSize: 25,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #cfd9df 0%, #e2ebf0 100%)",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+      {
+        id: "private_sunday_30",
+        orgId: "org_demo",
+        name: "Private Cruise - Sunday - 30 Guests",
+        description: "Premium private boat charter for up to 30 guests",
+        unitPrice: 90000,
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        dayType: "sunday",
+        groupSize: 30,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+      {
+        id: "private_sunday_50",
+        orgId: "org_demo",
+        name: "Private Cruise - Sunday - 50 Guests",
+        description: "Premium private boat charter for up to 50 guests",
+        unitPrice: 110000,
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        dayType: "sunday",
+        groupSize: 50,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #a8caba 0%, #5d4157 100%)",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+      {
+        id: "private_sunday_75",
+        orgId: "org_demo",
+        name: "Private Cruise - Sunday - 75 Guests",
+        description: "Premium private boat charter for up to 75 guests",
+        unitPrice: 165000,
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        dayType: "sunday",
+        groupSize: 75,
+        categoryType: "experience",
+        imageUrl: "linear-gradient(135deg, #89f7fe 0%, #66a6ff 100%)",
         eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
         active: true,
       },
@@ -435,9 +679,9 @@ export class MemStorage implements IStorage {
         description: "Perfect for birthday celebrations with decorations and fun activities",
         eventType: "birthday",
         defaultItems: [
-          { type: "service", name: "2-hour Charter", productId: "prod_charter_2hr", unitPrice: 60000, qty: 1, required: true, order: 1 },
-          { type: "addon", name: "Cooler + Ice", productId: "prod_cooler_ice", unitPrice: 1500, qty: 1, clientCanEditQty: true, order: 2 },
-          { type: "addon", name: "Birthday Decorations", unitPrice: 2500, qty: 1, clientCanEditQty: true, order: 3 },
+          { id: "item_1", type: "service", name: "2-hour Charter", productId: "prod_charter_2hr", unitPrice: 60000, qty: 1, required: true, order: 1 },
+          { id: "item_2", type: "addon", name: "Cooler + Ice", productId: "prod_cooler_ice", unitPrice: 1500, qty: 1, clientCanEditQty: true, order: 2 },
+          { id: "item_3", type: "addon", name: "Birthday Decorations", unitPrice: 2500, qty: 1, clientCanEditQty: true, order: 3 },
         ],
         minGroupSize: 8,
         maxGroupSize: 30,
@@ -457,9 +701,9 @@ export class MemStorage implements IStorage {
         description: "Professional package for business events and team building",
         eventType: "corporate",
         defaultItems: [
-          { type: "service", name: "3-hour Charter", unitPrice: 90000, qty: 1, required: true, order: 1 },
-          { type: "addon", name: "Catering Setup", unitPrice: 5000, qty: 1, order: 2 },
-          { type: "addon", name: "Professional Sound System", unitPrice: 3000, qty: 1, order: 3 },
+          { id: "item_4", type: "service", name: "3-hour Charter", unitPrice: 90000, qty: 1, required: true, order: 1 },
+          { id: "item_5", type: "addon", name: "Catering Setup", unitPrice: 5000, qty: 1, order: 2 },
+          { id: "item_6", type: "addon", name: "Professional Sound System", unitPrice: 3000, qty: 1, order: 3 },
         ],
         minGroupSize: 15,
         maxGroupSize: 30,
@@ -526,10 +770,14 @@ export class MemStorage implements IStorage {
         code: "AUSTIN15",
         commissionType: "percentage",
         commissionRate: 15,
-        totalLeads: 42,
-        totalQuotes: 18,
+        totalReferrals: 42,
         totalRevenue: 450000,
         totalCommission: 67500,
+        pendingCommission: 0,
+        lastReferralDate: null,
+        phone: null,
+        companyName: null,
+        notes: null,
         active: true,
         createdAt: new Date(),
       },
@@ -541,10 +789,14 @@ export class MemStorage implements IStorage {
         code: "WEDDING10",
         commissionType: "percentage",
         commissionRate: 10,
-        totalLeads: 28,
-        totalQuotes: 12,
+        totalReferrals: 28,
         totalRevenue: 320000,
         totalCommission: 32000,
+        pendingCommission: 0,
+        lastReferralDate: null,
+        phone: null,
+        companyName: null,
+        notes: null,
         active: true,
         createdAt: new Date(),
       },
@@ -722,8 +974,8 @@ export class MemStorage implements IStorage {
           discoSlotsData.push({
             id: `disco_${date.toISOString().split('T')[0]}_12`,
             date,
-            startTime: "12:00",
-            endTime: "16:00",
+            startTime: new Date(date.getFullYear(), date.getMonth(), date.getDate(), 12, 0),
+            endTime: new Date(date.getFullYear(), date.getMonth(), date.getDate(), 16, 0),
             ticketsSold: Math.floor(Math.random() * 30), // Random initial data
             ticketCap: 75,
             status: "available" as const,
@@ -735,8 +987,8 @@ export class MemStorage implements IStorage {
           discoSlotsData.push({
             id: `disco_${date.toISOString().split('T')[0]}_11`,
             date,
-            startTime: "11:00",
-            endTime: "15:00",
+            startTime: new Date(date.getFullYear(), date.getMonth(), date.getDate(), 11, 0),
+            endTime: new Date(date.getFullYear(), date.getMonth(), date.getDate(), 15, 0),
             ticketsSold: Math.floor(Math.random() * 50),
             ticketCap: 75,
             status: "available" as const,
@@ -745,8 +997,8 @@ export class MemStorage implements IStorage {
           discoSlotsData.push({
             id: `disco_${date.toISOString().split('T')[0]}_1530`,
             date,
-            startTime: "15:30",
-            endTime: "19:30",
+            startTime: new Date(date.getFullYear(), date.getMonth(), date.getDate(), 15, 30),
+            endTime: new Date(date.getFullYear(), date.getMonth(), date.getDate(), 19, 30),
             ticketsSold: Math.floor(Math.random() * 40),
             ticketCap: 75,
             status: "available" as const,
@@ -756,84 +1008,7 @@ export class MemStorage implements IStorage {
     }
     discoSlotsData.forEach(slot => this.discoSlots.set(slot.id, slot));
     
-    // Seed default master template
-    const masterTemplate: MasterTemplate = {
-      id: "master_default",
-      orgId: "org_demo",
-      name: "Default Master Template",
-      components: [
-        {
-          id: "header",
-          type: "header",
-          properties: {
-            companyName: "Premier Party Cruises",
-            logoUrl: "/logo.png",
-            showContactInfo: true,
-          },
-          order: 0
-        },
-        {
-          id: "event_details",
-          type: "event_details",
-          properties: {
-            title: "Event Details",
-            showDate: true,
-            showTime: true,
-            showGroupSize: true,
-            showEventType: true,
-          },
-          order: 1
-        },
-        {
-          id: "items_section",
-          type: "items_section",
-          properties: {
-            title: "Your Selection",
-          },
-          order: 2
-        },
-        {
-          id: "pricing_breakdown",
-          type: "pricing_breakdown",
-          properties: {
-            showSubtotal: true,
-            showTax: true,
-            showGratuity: true,
-            showDiscounts: true,
-            showTotal: true,
-          },
-          order: 3
-        },
-        {
-          id: "terms",
-          type: "terms_conditions",
-          properties: {
-            title: "Terms & Conditions",
-            showPaymentTerms: true,
-            showCancellationPolicy: true,
-          },
-          order: 4
-        },
-        {
-          id: "footer",
-          type: "footer",
-          properties: {
-            showContactInfo: true,
-            showSocialLinks: true,
-          },
-          order: 5
-        }
-      ],
-      styling: {
-        primaryColor: "#0066cc",
-        secondaryColor: "#f0f0f0",
-        fontFamily: "Inter, sans-serif",
-        fontSize: "14px",
-      },
-      isDefault: true,
-      createdAt: new Date(),
-    };
-    this.masterTemplates.set(masterTemplate.id, masterTemplate);
+    // Master templates removed - using isDefault on quote templates instead
     
     // Seed default email templates
     const emailTemplates: EmailTemplate[] = [
@@ -843,18 +1018,26 @@ export class MemStorage implements IStorage {
         name: "Quote Delivery",
         templateType: "quote_delivery",
         subject: "Your Quote from Premier Party Cruises - {{eventType}} on {{eventDate}}",
-        htmlContent: `
-          <h2>Your Custom Quote is Ready!</h2>
-          <p>Hi {{contactName}},</p>
-          <p>Thank you for considering Premier Party Cruises for your {{eventType}}. We're excited to help make your event unforgettable!</p>
-          <p>Your personalized quote is attached below. Here's a quick summary:</p>
-          <ul>
-            <li>Event Date: {{eventDate}}</li>
-            <li>Group Size: {{groupSize}} guests</li>
-            <li>Total: {{totalAmount}}</li>
-          </ul>
-          <p><a href="{{quoteLink}}" style="background: #0066cc; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">View Your Quote</a></p>
-        `,
+        components: [
+          {
+            id: "email_header",
+            type: "header",
+            properties: {
+              title: "Your Custom Quote is Ready!",
+              greeting: "Hi {{contactName}},"
+            },
+            order: 0
+          },
+          {
+            id: "email_content",
+            type: "text",
+            properties: {
+              content: "Thank you for considering Premier Party Cruises for your {{eventType}}. We're excited to help make your event unforgettable! Your personalized quote is attached below."
+            },
+            order: 1
+          }
+        ],
+        variables: ["contactName", "eventType", "eventDate", "groupSize", "totalAmount", "quoteLink"],
         active: true,
         createdAt: new Date(),
       },
@@ -864,13 +1047,26 @@ export class MemStorage implements IStorage {
         name: "Payment Confirmation",
         templateType: "payment_confirmation",
         subject: "Payment Received - Thank You!",
-        htmlContent: `
-          <h2>Payment Confirmation</h2>
-          <p>Hi {{contactName}},</p>
-          <p>We've received your payment of {{paymentAmount}}. Thank you!</p>
-          <p>Your booking is confirmed for {{eventDate}}.</p>
-          <p>We'll send you a final confirmation with all details 48 hours before your event.</p>
-        `,
+        components: [
+          {
+            id: "payment_header",
+            type: "header",
+            properties: {
+              title: "Payment Confirmation",
+              greeting: "Hi {{contactName}},"
+            },
+            order: 0
+          },
+          {
+            id: "payment_content",
+            type: "text",
+            properties: {
+              content: "We've received your payment of {{paymentAmount}}. Thank you! Your booking is confirmed for {{eventDate}}. We'll send you a final confirmation with all details 48 hours before your event."
+            },
+            order: 1
+          }
+        ],
+        variables: ["contactName", "paymentAmount", "eventDate"],
         active: true,
         createdAt: new Date(),
       },
@@ -880,19 +1076,26 @@ export class MemStorage implements IStorage {
         name: "Booking Confirmation",
         templateType: "booking_confirmation",
         subject: "Your Cruise is Confirmed! - {{eventDate}}",
-        htmlContent: `
-          <h2>Booking Confirmed!</h2>
-          <p>Hi {{contactName}},</p>
-          <p>Your {{eventType}} cruise is all set for {{eventDate}}!</p>
-          <h3>Event Details:</h3>
-          <ul>
-            <li>Date: {{eventDate}}</li>
-            <li>Time: {{eventTime}}</li>
-            <li>Boat: {{boatName}}</li>
-            <li>Group Size: {{groupSize}} guests</li>
-          </ul>
-          <p>We can't wait to see you!</p>
-        `,
+        components: [
+          {
+            id: "booking_header",
+            type: "header",
+            properties: {
+              title: "Booking Confirmed!",
+              greeting: "Hi {{contactName}},"
+            },
+            order: 0
+          },
+          {
+            id: "booking_content",
+            type: "text",
+            properties: {
+              content: "Your {{eventType}} cruise is all set for {{eventDate}}! Event Details: Date: {{eventDate}}, Time: {{eventTime}}, Boat: {{boatName}}, Group Size: {{groupSize}} guests. We can't wait to see you!"
+            },
+            order: 1
+          }
+        ],
+        variables: ["contactName", "eventType", "eventDate", "eventTime", "boatName", "groupSize"],
         active: true,
         createdAt: new Date(),
       },
@@ -905,40 +1108,76 @@ export class MemStorage implements IStorage {
         id: "qt_bachelor_party",
         orgId: "org_demo",
         name: "Bachelor Party Template",
-        eventType: "Bachelor Party",
-        masterTemplateId: "master_default",
-        components: [],
+        description: "Perfect for unforgettable bachelor party celebrations",
+        eventType: "bachelor",
+        defaultItems: [],
+        defaultRadioSections: null,
+        minGroupSize: 10,
+        maxGroupSize: 30,
+        basePricePerPerson: null,
+        duration: 3,
+        active: true,
         isDefault: true,
+        displayOrder: 3,
+        visualTheme: { primaryColor: "#FF7F50", accentColor: "#4169E1", theme: "bachelor" },
+        automationRules: [],
         createdAt: new Date(),
       },
       {
         id: "qt_bachelorette_party",
         orgId: "org_demo",
         name: "Bachelorette Party Template",
-        eventType: "Bachelorette Party",
-        masterTemplateId: "master_default",
-        components: [],
+        description: "Elegant and fun bachelorette party packages",
+        eventType: "bachelorette",
+        defaultItems: [],
+        defaultRadioSections: null,
+        minGroupSize: 10,
+        maxGroupSize: 30,
+        basePricePerPerson: null,
+        duration: 3,
+        active: true,
         isDefault: false,
+        displayOrder: 4,
+        visualTheme: { primaryColor: "#FFB6C1", accentColor: "#FF69B4", theme: "bachelorette" },
+        automationRules: [],
         createdAt: new Date(),
       },
       {
         id: "qt_birthday_party",
         orgId: "org_demo",
         name: "Birthday Party Template",
-        eventType: "Birthday Party",
-        masterTemplateId: "master_default",
-        components: [],
+        description: "Fun birthday celebration packages for all ages",
+        eventType: "birthday",
+        defaultItems: [],
+        defaultRadioSections: null,
+        minGroupSize: 8,
+        maxGroupSize: 30,
+        basePricePerPerson: null,
+        duration: 2,
+        active: true,
         isDefault: false,
+        displayOrder: 5,
+        visualTheme: { primaryColor: "#FF6B9D", accentColor: "#F7DC6F", theme: "birthday" },
+        automationRules: [],
         createdAt: new Date(),
       },
       {
         id: "qt_corporate_event",
         orgId: "org_demo",
         name: "Corporate Event Template",
-        eventType: "Corporate Event",
-        masterTemplateId: "master_default",
-        components: [],
+        description: "Professional corporate event and team building packages",
+        eventType: "corporate",
+        defaultItems: [],
+        defaultRadioSections: null,
+        minGroupSize: 15,
+        maxGroupSize: 50,
+        basePricePerPerson: null,
+        duration: 3,
+        active: true,
         isDefault: false,
+        displayOrder: 6,
+        visualTheme: { primaryColor: "#2E86AB", accentColor: "#A23B72", theme: "professional" },
+        automationRules: [],
         createdAt: new Date(),
       },
     ];
