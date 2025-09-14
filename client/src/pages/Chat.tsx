@@ -2712,11 +2712,11 @@ export default function Chat() {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="space-y-8"
+                className="space-y-6"
               >
                 {/* Condensed Header with Selections Summary */}
-                <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20 rounded-xl p-4 mb-6">
-                  <div className="flex items-center justify-between mb-2">
+                <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20 rounded-xl p-4">
+                  <div className="flex items-center justify-between">
                     <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                       Choose Your Experience
                     </h2>
@@ -2731,163 +2731,7 @@ export default function Chat() {
                   </div>
                 </div>
 
-                {/* Compact Pricing Comparison - Always Visible for Bachelor/Bachelorette */}
-                {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') && 
-                 (privatePricing || discoPricing) && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mb-4"
-                  >
-                    <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20 rounded-xl p-3 border border-blue-200 dark:border-blue-800">
-                      <h3 className="text-lg font-bold text-center mb-3 text-slate-800 dark:text-slate-200">
-                        💰 Price Comparison
-                      </h3>
-                      <div className="grid md:grid-cols-2 gap-3">
-                        {/* Private Cruise Total */}
-                        <div className="bg-white dark:bg-slate-800 rounded-lg p-3 border border-blue-300 dark:border-blue-600">
-                          <div className="text-center">
-                            <h4 className="font-medium text-blue-600 dark:text-blue-400 mb-1 text-sm">🚢 Private Cruise</h4>
-                            <div className="text-xl font-bold text-blue-600 dark:text-blue-400">
-                              {privatePricing ? formatCurrency(privatePricing.total) : '---'}
-                            </div>
-                            <div className="text-xs text-slate-600 dark:text-slate-400">
-                              {privatePricing ? formatCurrency(privatePricing.total / formData.groupSize) + ' per person' : 'Select options'}
-                            </div>
-                          </div>
-                        </div>
-                        
-                        {/* Disco Cruise Total */}
-                        <div className="bg-white dark:bg-slate-800 rounded-lg p-3 border border-purple-300 dark:border-purple-600">
-                          <div className="text-center">
-                            <h4 className="font-medium text-purple-600 dark:text-purple-400 mb-1 text-sm">🎵 Disco Cruise</h4>
-                            <div className="text-xl font-bold text-purple-600 dark:text-purple-400">
-                              {discoPricing ? formatCurrency(discoPricing.total) : '---'}
-                            </div>
-                            <div className="text-xs text-slate-600 dark:text-slate-400">
-                              {discoPricing ? formatCurrency(discoPricing.total / formData.discoTicketQuantity) + ' per person' : 'Select options'}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      
-                      {/* Compact Savings Indicator */}
-                      {privatePricing && discoPricing && privatePricing.total !== discoPricing.total && (
-                        <div className="text-center mt-2">
-                          {discoPricing.total < privatePricing.total ? (
-                            <div className="inline-flex items-center gap-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 px-3 py-1 rounded-full text-xs font-medium">
-                              <span>💡</span>
-                              <span>Save {formatCurrency(privatePricing.total - discoPricing.total)} with Disco!</span>
-                            </div>
-                          ) : (
-                            <div className="inline-flex items-center gap-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-medium">
-                              <span>⭐</span>
-                              <span>Private exclusive for {formatCurrency(discoPricing.total - privatePricing.total)} more</span>
-                            </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  </motion.div>
-                )}
-
-                {/* Contact Form - Embedded at the top of summary */}
-                {(!formData.firstName || !formData.email) && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    className="mb-8"
-                  >
-                    <Card className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-slate-200 dark:border-slate-700 shadow-xl">
-                      <CardHeader className="text-center pb-4">
-                        <CardTitle className="text-2xl text-slate-800 dark:text-slate-200">Your Information</CardTitle>
-                        <CardDescription className="text-slate-600 dark:text-slate-400">
-                          Enter your details to receive your personalized quote
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent className="pt-2">
-                        <div className="grid md:grid-cols-2 gap-4">
-                          <div className="space-y-4">
-                            <div className="space-y-2">
-                              <Label htmlFor="firstName" className="text-slate-700 dark:text-slate-300">First Name *</Label>
-                              <Input
-                                id="firstName"
-                                value={formData.firstName}
-                                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
-                                required
-                                placeholder="John"
-                                className="bg-white/50 dark:bg-slate-700/50"
-                                data-testid="input-first-name"
-                              />
-                            </div>
-                            <div className="space-y-2">
-                              <Label htmlFor="lastName" className="text-slate-700 dark:text-slate-300">Last Name *</Label>
-                              <Input
-                                id="lastName"
-                                value={formData.lastName}
-                                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
-                                required
-                                placeholder="Doe"
-                                className="bg-white/50 dark:bg-slate-700/50"
-                                data-testid="input-last-name"
-                              />
-                            </div>
-                          </div>
-                          <div className="space-y-4">
-                            <div className="space-y-2">
-                              <Label htmlFor="email" className="text-slate-700 dark:text-slate-300">Email Address *</Label>
-                              <Input
-                                id="email"
-                                type="email"
-                                value={formData.email}
-                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                required
-                                placeholder="john.doe@example.com"
-                                className="bg-white/50 dark:bg-slate-700/50"
-                                data-testid="input-email"
-                              />
-                            </div>
-                            <div className="space-y-2">
-                              <Label htmlFor="phone" className="text-slate-700 dark:text-slate-300">Phone (Optional)</Label>
-                              <Input
-                                id="phone"
-                                type="tel"
-                                value={formData.phone}
-                                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                                placeholder="(555) 123-4567"
-                                className="bg-white/50 dark:bg-slate-700/50"
-                                data-testid="input-phone"
-                              />
-                            </div>
-                          </div>
-                        </div>
-                        {/* Send Quote Button */}
-                        <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-700">
-                          <Button
-                            onClick={handleSendQuote}
-                            disabled={!formData.firstName || !formData.email || createLead.isPending}
-                            className="w-full h-14 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
-                            data-testid="button-send-quote-summary"
-                          >
-                            {createLead.isPending ? (
-                              <>
-                                <Loader2 className="h-5 w-5 mr-2 animate-spin" />
-                                Sending Quote...
-                              </>
-                            ) : (
-                              <>
-                                <FileText className="h-5 w-5 mr-2" />
-                                Send My Detailed Quote
-                              </>
-                            )}
-                          </Button>
-                        </div>
-                      </CardContent>
-                    </Card>
-                  </motion.div>
-                )}
-
-                {/* Dynamic Grid Layout - Two columns for all groups */}
+                {/* Dynamic Grid Layout - Two columns for all groups - MOVED TO TOP */}
                 <div className="grid lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
                   {/* Private Cruise Options */}
                   <motion.div
@@ -2903,10 +2747,17 @@ export default function Chat() {
                       <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
                         <Anchor className="h-6 w-6 text-blue-600" />
                       </div>
-                      <div>
+                      <div className="flex-1">
                         <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-200">Private Cruise</h3>
                         <p className="text-slate-600 dark:text-slate-400">Exclusive boat rental</p>
                       </div>
+                      {/* Integrated Total Price Display */}
+                      {privatePricing && (
+                        <div className="text-right">
+                          <div className="text-2xl font-bold text-blue-600">{formatCurrency(privatePricing.total)}</div>
+                          <div className="text-xs text-slate-500">total</div>
+                        </div>
+                      )}
                     </div>
                     
                     {/* Private Cruise Packages */}
@@ -3040,7 +2891,345 @@ export default function Chat() {
 
                   {/* Right Column: ATX Disco Cruise for bachelor/bachelorette OR Alternative Dates for others */}
                   {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') ? (
-                    /* ATX Disco Cruise Options for Bachelor/Bachelorette */
+                    <motion.div
+                      initial={{ scale: 0.95, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.4, duration: 0.5 }}
+                      className={cn(
+                        "bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-xl p-6 border-2 transition-all w-full",
+                        formData.selectedCruiseType === 'disco' ? "border-purple-500 ring-2 ring-purple-200 dark:ring-purple-800" : "border-slate-200 dark:border-slate-700",
+                        !isDiscoAvailableForDate(formData.eventDate) && "opacity-50"
+                      )}
+                    >
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                          <Music className="h-6 w-6 text-purple-600" />
+                        </div>
+                        <div className="flex-1">
+                          <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-200">ATX Disco Cruise</h3>
+                          <p className="text-slate-600 dark:text-slate-400">Party with others</p>
+                        </div>
+                        {/* Integrated Total Price Display */}
+                        {discoPricing && (
+                          <div className="text-right">
+                            <div className="text-2xl font-bold text-purple-600">{formatCurrency(discoPricing.total)}</div>
+                            <div className="text-xs text-slate-500">{formatCurrency(discoPricing.perPersonCost)} pp</div>
+                          </div>
+                        )}
+                      </div>
+                      
+                      {isDiscoAvailableForDate(formData.eventDate) ? (
+                        <>
+                          {/* Disco Time Slots */}
+                          <div className="space-y-4 mb-6">
+                            <h4 className="font-medium text-slate-700 dark:text-slate-300">Available Times</h4>
+                            <RadioGroup 
+                              value={formData.selectedDiscoTimeSlot}
+                              onValueChange={(timeSlot) => {
+                                if (formData.selectedDiscoPackage) {
+                                  handleDiscoCruiseSelect(formData.selectedDiscoPackage, timeSlot);
+                                }
+                              }}
+                              data-testid="radio-disco-time-slots"
+                            >
+                              {getDiscoTimeSlotsForDate(formData.eventDate).map((slot) => (
+                                <div key={slot.id} className="flex items-center space-x-2">
+                                  <RadioGroupItem value={slot.id} id={`disco-slot-${slot.id}`} />
+                                  <Label 
+                                    htmlFor={`disco-slot-${slot.id}`} 
+                                    className="flex-1 flex items-center justify-between cursor-pointer py-2"
+                                  >
+                                    <div className="flex items-center gap-2">
+                                      <span className="text-lg">{slot.icon}</span>
+                                      <span>{slot.label}</span>
+                                      {slot.popular && <Badge variant="secondary" className="text-xs">Popular</Badge>}
+                                    </div>
+                                  </Label>
+                                </div>
+                              ))}
+                            </RadioGroup>
+                          </div>
+                          
+                          {/* Disco Packages */}
+                          <div className="space-y-4">
+                            <h4 className="font-medium text-slate-700 dark:text-slate-300">Choose Your Package</h4>
+                            <RadioGroup 
+                              value={formData.selectedDiscoPackage || ''}
+                              onValueChange={(packageId) => {
+                                const timeSlot = formData.selectedDiscoTimeSlot || getDiscoTimeSlotsForDate(formData.eventDate)[0]?.id;
+                                handleDiscoCruiseSelect(packageId as DiscoPackage, timeSlot);
+                              }}
+                              data-testid="radio-disco-packages"
+                            >
+                              {discoPackages.map((pkg) => (
+                                <div key={pkg.id} className="flex items-center space-x-2">
+                                  <RadioGroupItem value={pkg.id} id={`disco-pkg-${pkg.id}`} />
+                                  <Label 
+                                    htmlFor={`disco-pkg-${pkg.id}`} 
+                                    className="flex-1 cursor-pointer py-3 px-3 rounded-lg border hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
+                                  >
+                                    <div className="flex justify-between items-start">
+                                      <div>
+                                        <div className="font-medium text-slate-800 dark:text-slate-200">{pkg.name}</div>
+                                        <div className="text-sm text-slate-600 dark:text-slate-400">{pkg.description}</div>
+                                        <div className="text-xs text-slate-500 dark:text-slate-500 mt-1">
+                                          {pkg.features.join(' • ')}
+                                        </div>
+                                      </div>
+                                      <div className="text-right">
+                                        <div className="font-bold text-purple-600">${pkg.price}</div>
+                                        <div className="text-xs text-slate-500">per person</div>
+                                      </div>
+                                    </div>
+                                  </Label>
+                                </div>
+                              ))}
+                            </RadioGroup>
+                          </div>
+                          
+                          {/* Ticket Quantity Selector */}
+                          {formData.selectedDiscoPackage && (
+                            <div className="mt-6 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                              <Label className="text-slate-700 dark:text-slate-300 mb-2 block">Number of Tickets</Label>
+                              <div className="flex items-center gap-4">
+                                <Button
+                                  onClick={() => setFormData(prev => ({ 
+                                    ...prev, 
+                                    discoTicketQuantity: Math.max(1, prev.discoTicketQuantity - 1) 
+                                  }))}
+                                  size="sm"
+                                  variant="outline"
+                                  className="h-8 w-8 p-0"
+                                  data-testid="button-disco-tickets-minus"
+                                >
+                                  <Minus className="h-4 w-4" />
+                                </Button>
+                                <div className="flex-1 text-center">
+                                  <div className="text-2xl font-bold text-purple-600">{formData.discoTicketQuantity}</div>
+                                  <div className="text-xs text-slate-500 dark:text-slate-400">tickets</div>
+                                </div>
+                                <Button
+                                  onClick={() => setFormData(prev => ({ 
+                                    ...prev, 
+                                    discoTicketQuantity: Math.min(50, prev.discoTicketQuantity + 1) 
+                                  }))}
+                                  size="sm"
+                                  variant="outline"
+                                  className="h-8 w-8 p-0"
+                                  data-testid="button-disco-tickets-plus"
+                                >
+                                  <Plus className="h-4 w-4" />
+                                </Button>
+                              </div>
+                              {discoPricing && (
+                                <div className="mt-3 pt-3 border-t border-purple-200 dark:border-purple-800">
+                                  <div className="flex justify-between text-sm">
+                                    <span className="text-slate-600 dark:text-slate-400">Subtotal:</span>
+                                    <span className="font-medium">{formatCurrency(discoPricing.subtotal)}</span>
+                                  </div>
+                                  <div className="flex justify-between text-sm">
+                                    <span className="text-slate-600 dark:text-slate-400">Tax & Tip:</span>
+                                    <span className="font-medium">{formatCurrency(discoPricing.tax + (discoPricing.gratuity || 0))}</span>
+                                  </div>
+                                  <div className="flex justify-between text-lg font-bold mt-2">
+                                    <span className="text-slate-800 dark:text-slate-200">Total:</span>
+                                    <span className="text-purple-600">{formatCurrency(discoPricing.total)}</span>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                          
+                          {/* Payment Options for Disco */}
+                          {formData.selectedDiscoPackage && discoPricing && (
+                            <div className="mt-4 bg-white dark:bg-slate-800 rounded-xl p-3 border border-slate-200 dark:border-slate-700">
+                              <div className="grid grid-cols-2 gap-2">
+                                <Button
+                                  onClick={() => createDiscoDepositPayment.mutate()}
+                                  disabled={createDiscoDepositPayment.isPending}
+                                  className="bg-purple-600 hover:bg-purple-700 text-white h-10 text-sm"
+                                  data-testid="button-pay-deposit-disco"
+                                >
+                                  {createDiscoDepositPayment.isPending && <Loader2 className="h-3 w-3 mr-1 animate-spin" />}
+                                  <CreditCard className="h-3 w-3 mr-1" />
+                                  Pay Deposit
+                                </Button>
+                                <Button
+                                  onClick={() => createDiscoFullPayment.mutate()}
+                                  disabled={createDiscoFullPayment.isPending}
+                                  variant="outline"
+                                  className="border-purple-600 text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-900/20 h-10 text-sm"
+                                  data-testid="button-pay-full-disco"
+                                >
+                                  {createDiscoFullPayment.isPending && <Loader2 className="h-3 w-3 mr-1 animate-spin" />}
+                                  <Sparkles className="h-3 w-3 mr-1" />
+                                  Pay in Full
+                                </Button>
+                              </div>
+                              <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-2">
+                                Deposit: {formatCurrency(discoPricing.depositAmount)} • Balance: {formatCurrency(discoPricing.total - discoPricing.depositAmount)}
+                              </p>
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <div className="text-center py-8 text-slate-600 dark:text-slate-400">
+                          <Music className="h-12 w-12 mx-auto mb-4 text-slate-400" />
+                          <p>Disco cruises are only available on Fridays and Saturdays</p>
+                          <p className="text-sm mt-2">Please select a different date to see disco cruise options</p>
+                        </div>
+                      )}
+                    </motion.div>
+                  ) : (
+                    <motion.div
+                      initial={{ scale: 0.95, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ delay: 0.4, duration: 0.5 }}
+                      className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-xl p-6 border-2 border-slate-200 dark:border-slate-700"
+                    >
+                      <div className="flex items-center gap-3 mb-6">
+                        <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-lg flex items-center justify-center">
+                          <Calendar className="h-6 w-6 text-green-600" />
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-200">Alternative Dates</h3>
+                          <p className="text-slate-600 dark:text-slate-400">Similar availability nearby</p>
+                        </div>
+                      </div>
+                      
+                      <div className="space-y-3">
+                        {getAlternativeDates(formData.eventDate, formData.groupSize).map((altDate) => (
+                          <Button
+                            key={altDate.date.toISOString()}
+                            onClick={() => {
+                              setFormData(prev => ({ ...prev, eventDate: altDate.date }));
+                              resetDependentSelections('date');
+                            }}
+                            variant="outline"
+                            className="w-full justify-between p-4 h-auto hover:bg-slate-50 dark:hover:bg-slate-700"
+                            disabled={!altDate.isAvailable}
+                            data-testid={`button-alt-date-${altDate.date.toISOString()}`}
+                          >
+                            <div className="flex items-center gap-3">
+                              <div className="text-left">
+                                <div className="font-medium">{altDate.dayName}, {altDate.monthName} {altDate.dayNumber}</div>
+                                <div className="text-sm text-slate-500">
+                                  {altDate.timeSlotsAvailable} time slots available
+                                </div>
+                              </div>
+                            </div>
+                            <ChevronRight className="h-4 w-4" />
+                          </Button>
+                        ))}
+                      </div>
+                      
+                      <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                        <h4 className="font-medium text-blue-700 dark:text-blue-300 mb-2">💡 Pro Tip</h4>
+                        <p className="text-sm text-blue-600 dark:text-blue-400">
+                          Weekday cruises often have better availability and special rates. Consider adjusting your date for the best experience!
+                        </p>
+                      </div>
+                    </motion.div>
+                  )}
+                </div>
+
+                {/* Contact Form - Moved after Two-Column Layout */}
+                {(!formData.firstName || !formData.email) && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="mb-8"
+                  >
+                    <Card className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm border-slate-200 dark:border-slate-700 shadow-xl">
+                      <CardHeader className="text-center pb-4">
+                        <CardTitle className="text-2xl text-slate-800 dark:text-slate-200">Your Information</CardTitle>
+                        <CardDescription className="text-slate-600 dark:text-slate-400">
+                          Enter your details to receive your personalized quote
+                        </CardDescription>
+                      </CardHeader>
+                      <CardContent className="pt-2">
+                        <div className="grid md:grid-cols-2 gap-4">
+                          <div className="space-y-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="firstName" className="text-slate-700 dark:text-slate-300">First Name *</Label>
+                              <Input
+                                id="firstName"
+                                value={formData.firstName}
+                                onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                                required
+                                placeholder="John"
+                                className="bg-white/50 dark:bg-slate-700/50"
+                                data-testid="input-first-name"
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="lastName" className="text-slate-700 dark:text-slate-300">Last Name *</Label>
+                              <Input
+                                id="lastName"
+                                value={formData.lastName}
+                                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                                required
+                                placeholder="Doe"
+                                className="bg-white/50 dark:bg-slate-700/50"
+                                data-testid="input-last-name"
+                              />
+                            </div>
+                          </div>
+                          <div className="space-y-4">
+                            <div className="space-y-2">
+                              <Label htmlFor="email" className="text-slate-700 dark:text-slate-300">Email Address *</Label>
+                              <Input
+                                id="email"
+                                type="email"
+                                value={formData.email}
+                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                required
+                                placeholder="john.doe@example.com"
+                                className="bg-white/50 dark:bg-slate-700/50"
+                                data-testid="input-email"
+                              />
+                            </div>
+                            <div className="space-y-2">
+                              <Label htmlFor="phone" className="text-slate-700 dark:text-slate-300">Phone (Optional)</Label>
+                              <Input
+                                id="phone"
+                                type="tel"
+                                value={formData.phone}
+                                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                placeholder="(555) 123-4567"
+                                className="bg-white/50 dark:bg-slate-700/50"
+                                data-testid="input-phone"
+                              />
+                            </div>
+                          </div>
+                        </div>
+                        {/* Send Quote Button */}
+                        <div className="mt-6 pt-4 border-t border-slate-200 dark:border-slate-700">
+                          <Button
+                            onClick={handleSendQuote}
+                            disabled={!formData.firstName || !formData.email || createLead.isPending}
+                            className="w-full h-14 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
+                            data-testid="button-send-quote-summary"
+                          >
+                            {createLead.isPending ? (
+                              <>
+                                <Loader2 className="h-5 w-5 mr-2 animate-spin" />
+                                Sending Quote...
+                              </>
+                            ) : (
+                              <>
+                                <FileText className="h-5 w-5 mr-2" />
+                                Send My Detailed Quote
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                )}
+
+                {/* Final Send Quote Button - Keep at bottom */}
                     <motion.div
                       initial={{ scale: 0.95, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
@@ -3375,8 +3564,7 @@ export default function Chat() {
                         </div>
                       </div>
                     </motion.div>
-                  )}
-                </div>
+                  )
                 
                 {/* Send Me My Quote Option - Always Available */}
                 <motion.div
