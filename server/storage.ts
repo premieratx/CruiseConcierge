@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type Product, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -20,7 +20,20 @@ export interface IStorage {
   getActiveBoats(): Promise<Boat[]>;
 
   // Products
+  getProduct(id: string): Promise<Product | undefined>;
   getProducts(): Promise<Product[]>;
+  createProduct(product: InsertProduct): Promise<Product>;
+  updateProduct(id: string, updates: Partial<Product>): Promise<Product>;
+  deleteProduct(id: string): Promise<boolean>;
+
+  // Affiliates
+  getAffiliate(id: string): Promise<Affiliate | undefined>;
+  getAffiliates(): Promise<Affiliate[]>;
+  getAffiliateByCode(code: string): Promise<Affiliate | undefined>;
+  createAffiliate(affiliate: InsertAffiliate): Promise<Affiliate>;
+  updateAffiliate(id: string, updates: Partial<Affiliate>): Promise<Affiliate>;
+  deleteAffiliate(id: string): Promise<boolean>;
+  updateAffiliateStats(affiliateId: string): Promise<Affiliate>;
 
   // Quotes
   getQuote(id: string): Promise<Quote | undefined>;
@@ -101,6 +114,7 @@ export class MemStorage implements IStorage {
   private templateRules: Map<string, TemplateRule> = new Map();
   private discountRules: Map<string, DiscountRule> = new Map();
   private pricingSettings: Map<string, PricingSettings> = new Map();
+  private affiliates: Map<string, Affiliate> = new Map();
 
   constructor() {
     this.seedData();
@@ -135,6 +149,15 @@ export class MemStorage implements IStorage {
       currency: "USD",
       timezone: "America/Chicago",
       priceDisplayMode: "both",
+      dayOfWeekMultipliers: {
+        friday: 1.2,
+        saturday: 1.5,
+        sunday: 1.3,
+      },
+      seasonalAdjustments: [
+        { name: "Summer Peak", startDate: "06-01", endDate: "08-31", multiplier: 1.25, description: "Peak summer season" },
+        { name: "Holiday Season", startDate: "12-15", endDate: "01-05", multiplier: 1.4, description: "Holiday premium" },
+      ],
       updatedAt: new Date(),
     };
     this.pricingSettings.set(pricingSettings.id, pricingSettings);
@@ -224,6 +247,41 @@ export class MemStorage implements IStorage {
       },
     ];
     discountRules.forEach(rule => this.discountRules.set(rule.id, rule));
+
+    // Seed affiliates
+    const affiliates: Affiliate[] = [
+      {
+        id: "aff_austin_events",
+        orgId: "org_demo",
+        name: "Austin Events Co",
+        email: "partner@austinevents.com",
+        code: "AUSTIN15",
+        commissionType: "percentage",
+        commissionAmount: 15,
+        totalLeads: 42,
+        totalQuotes: 18,
+        totalRevenue: 450000,
+        totalCommission: 67500,
+        active: true,
+        createdAt: new Date(),
+      },
+      {
+        id: "aff_wedding_planner",
+        orgId: "org_demo",
+        name: "Lake Travis Weddings",
+        email: "info@laketravisweddings.com",
+        code: "WEDDING10",
+        commissionType: "percentage",
+        commissionAmount: 10,
+        totalLeads: 28,
+        totalQuotes: 12,
+        totalRevenue: 320000,
+        totalCommission: 32000,
+        active: true,
+        createdAt: new Date(),
+      },
+    ];
+    affiliates.forEach(affiliate => this.affiliates.set(affiliate.id, affiliate));
   }
 
   async getContact(id: string): Promise<Contact | undefined> {
@@ -320,8 +378,36 @@ export class MemStorage implements IStorage {
     return Array.from(this.boats.values()).filter(b => b.active);
   }
 
+  async getProduct(id: string): Promise<Product | undefined> {
+    return this.products.get(id);
+  }
+
   async getProducts(): Promise<Product[]> {
     return Array.from(this.products.values());
+  }
+
+  async createProduct(insertProduct: InsertProduct): Promise<Product> {
+    const id = randomUUID();
+    const product: Product = {
+      ...insertProduct,
+      orgId: insertProduct.orgId || "org_demo",
+      id,
+    };
+    this.products.set(id, product);
+    return product;
+  }
+
+  async updateProduct(id: string, updates: Partial<Product>): Promise<Product> {
+    const product = this.products.get(id);
+    if (!product) throw new Error("Product not found");
+    
+    const updated = { ...product, ...updates };
+    this.products.set(id, updated);
+    return updated;
+  }
+
+  async deleteProduct(id: string): Promise<boolean> {
+    return this.products.delete(id);
   }
 
   async getQuote(id: string): Promise<Quote | undefined> {
@@ -631,6 +717,90 @@ export class MemStorage implements IStorage {
     const updated = { ...existing, ...updates, updatedAt: new Date() };
     this.pricingSettings.set(id, updated);
     return updated;
+  }
+
+  // Affiliates
+  async getAffiliate(id: string): Promise<Affiliate | undefined> {
+    return this.affiliates.get(id);
+  }
+
+  async getAffiliates(): Promise<Affiliate[]> {
+    return Array.from(this.affiliates.values())
+      .filter(a => a.active)
+      .sort((a, b) => b.totalRevenue - a.totalRevenue);
+  }
+
+  async getAffiliateByCode(code: string): Promise<Affiliate | undefined> {
+    return Array.from(this.affiliates.values())
+      .find(a => a.code === code && a.active);
+  }
+
+  async createAffiliate(insertAffiliate: InsertAffiliate): Promise<Affiliate> {
+    const id = randomUUID();
+    const affiliate: Affiliate = {
+      ...insertAffiliate,
+      orgId: insertAffiliate.orgId || "org_demo",
+      totalLeads: 0,
+      totalQuotes: 0,
+      totalRevenue: 0,
+      totalCommission: 0,
+      active: insertAffiliate.active !== undefined ? insertAffiliate.active : true,
+      id,
+      createdAt: new Date(),
+    };
+    this.affiliates.set(id, affiliate);
+    return affiliate;
+  }
+
+  async updateAffiliate(id: string, updates: Partial<Affiliate>): Promise<Affiliate> {
+    const affiliate = this.affiliates.get(id);
+    if (!affiliate) throw new Error("Affiliate not found");
+    
+    const updated = { ...affiliate, ...updates };
+    this.affiliates.set(id, updated);
+    return updated;
+  }
+
+  async deleteAffiliate(id: string): Promise<boolean> {
+    return this.affiliates.delete(id);
+  }
+
+  async updateAffiliateStats(affiliateId: string): Promise<Affiliate> {
+    const affiliate = await this.getAffiliate(affiliateId);
+    if (!affiliate) throw new Error("Affiliate not found");
+
+    // Calculate stats based on projects and quotes with the affiliate's code as leadSource
+    const allProjects = Array.from(this.projects.values());
+    const affiliateProjects = allProjects.filter(p => p.leadSource === affiliate.code);
+    
+    let totalQuotes = 0;
+    let totalRevenue = 0;
+    let totalCommission = 0;
+
+    for (const project of affiliateProjects) {
+      const quotes = await this.getQuotesByProject(project.id);
+      totalQuotes += quotes.length;
+      
+      for (const quote of quotes) {
+        if (quote.status === "ACCEPTED" || quote.status === "PAID") {
+          totalRevenue += quote.total;
+          
+          // Calculate commission
+          if (affiliate.commissionType === "percentage") {
+            totalCommission += Math.floor(quote.total * affiliate.commissionAmount / 100);
+          } else {
+            totalCommission += affiliate.commissionAmount;
+          }
+        }
+      }
+    }
+
+    return await this.updateAffiliate(affiliateId, {
+      totalLeads: affiliateProjects.length,
+      totalQuotes,
+      totalRevenue,
+      totalCommission,
+    });
   }
 
   // Enhanced pricing calculation
