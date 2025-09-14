@@ -1600,56 +1600,52 @@ export default function Chat() {
     
     return (
       <motion.div
-        initial={{ opacity: 0, y: -20 }}
+        initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 sticky top-0 z-10"
       >
-        <div className="max-w-6xl mx-auto px-6 py-4">
-          {/* Progress Bar */}
-          <div className="mb-4">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
-                Step {currentStepNumber} of {totalSteps}
-              </span>
-              <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
-                {getStepName(currentQuestion)}
+        <div className="max-w-6xl mx-auto px-6 py-1">
+          {/* Compact Progress Bar */}
+          <div className="flex items-center justify-between gap-3">
+            <div className="flex-1 flex items-center gap-2">
+              <div className="flex-1">
+                <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-1">
+                  <div 
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 h-1 rounded-full transition-all duration-500 ease-out"
+                    style={{ width: `${(currentStepNumber / totalSteps) * 100}%` }}
+                  />
+                </div>
+              </div>
+              <span className="text-xs font-medium text-slate-600 dark:text-slate-400 whitespace-nowrap">
+                Step {currentStepNumber}/{totalSteps}: {getStepName(currentQuestion)}
               </span>
             </div>
-            <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
-              <div 
-                className="bg-gradient-to-r from-blue-600 to-purple-600 h-2 rounded-full transition-all duration-500 ease-out"
-                style={{ width: `${(currentStepNumber / totalSteps) * 100}%` }}
-              />
-            </div>
-          </div>
-          
-          {/* Navigation Buttons */}
-          <div className="flex items-center justify-between">
-            <Button
-              onClick={goBack}
-              disabled={!canGoBack()}
-              variant="outline"
-              size="sm"
-              className="flex items-center gap-2"
-              data-testid="button-nav-back"
-            >
-              <ArrowLeft className="h-4 w-4" />
-              Back
-            </Button>
             
-            <div className="flex items-center gap-2">
+            {/* Navigation Buttons */}
+            <div className="flex items-center gap-1">
+              <Button
+                onClick={goBack}
+                disabled={!canGoBack()}
+                variant="ghost"
+                size="sm"
+                className="p-1 h-6"
+                data-testid="button-nav-back"
+              >
+                <ArrowLeft className="h-3 w-3" />
+              </Button>
+              
               {canGoForward() && (
                 <Button
                   onClick={goForward}
-                  variant="outline"
+                  variant="ghost"
                   size="sm"
-                  className="flex items-center gap-2"
+                  className="p-1 h-6"
                   data-testid="button-nav-forward"
                 >
-                  Forward
-                  <ArrowRight className="h-4 w-4" />
+                  <ArrowRight className="h-3 w-3" />
                 </Button>
               )}
+              
               {currentQuestion !== 'event-type' && currentQuestion !== 'complete' && (
                 <Button
                   onClick={() => {
@@ -1682,11 +1678,10 @@ export default function Chat() {
                   }}
                   variant="ghost"
                   size="sm"
-                  className="flex items-center gap-2 text-slate-500 hover:text-slate-700"
+                  className="p-1 h-6"
                   data-testid="button-nav-restart"
                 >
-                  <RotateCcw className="h-4 w-4" />
-                  Start Over
+                  <RotateCcw className="h-3 w-3" />
                 </Button>
               )}
             </div>
@@ -1876,22 +1871,18 @@ export default function Chat() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex flex-col">
-      {/* Header with Logo */}
+      {/* Compact Header with Logo */}
       <div className="w-full bg-white dark:bg-slate-800 border-b border-border">
-        <div className="container mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-4">
-              <img 
-                src={logoPath} 
-                alt="Premier Party Cruises" 
-                className="h-12 w-auto object-contain"
-                data-testid="img-chat-logo"
-              />
-              <div>
-                <h1 className="text-lg font-heading font-bold text-primary">Premier Party Cruises</h1>
-                <p className="text-xs text-muted-foreground">Book Your Lake Austin Adventure</p>
-              </div>
-            </div>
+        <div className="container mx-auto px-4 py-1">
+          <div className="flex items-center gap-3">
+            <img 
+              src={logoPath} 
+              alt="Premier Party Cruises" 
+              className="h-8 w-auto object-contain"
+              data-testid="img-chat-logo"
+            />
+            <h1 className="text-base font-heading font-bold text-primary">Premier Party Cruises</h1>
+            <span className="text-xs text-muted-foreground hidden sm:inline">• Lake Austin Adventures</span>
           </div>
         </div>
       </div>
@@ -1899,7 +1890,7 @@ export default function Chat() {
       {/* Navigation Bar - Always Visible */}
       {currentQuestion !== 'complete' && <NavigationBar />}
       
-      {/* Completed Selections Header - Enhanced */}
+      {/* Compact Selections Bar */}
       <AnimatePresence>
         {completedSelections.length > 0 && currentQuestion !== 'complete' && (
           <motion.div
@@ -1908,58 +1899,35 @@ export default function Chat() {
             exit={{ opacity: 0, height: 0 }}
             className="bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700"
           >
-            <div className="max-w-6xl mx-auto px-6 py-4">
-              <div className="flex items-center justify-between mb-3">
-                <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-2">
-                  <CheckCircle className="h-5 w-5 text-green-600" />
-                  Your Selections
-                </h3>
-                <div className="text-sm text-slate-500 dark:text-slate-400">
-                  Click any item to edit
-                </div>
-              </div>
-              
-              <div className="flex flex-wrap gap-3">
-                <AnimatePresence>
-                  {completedSelections.map((selection, index) => (
-                    <motion.div
-                      key={selection.id}
-                      initial={{ opacity: 0, scale: 0.8, y: 20 }}
-                      animate={{ opacity: 1, scale: 1, y: 0 }}
-                      transition={{ delay: index * 0.1, duration: 0.4 }}
-                    >
-                      <Badge 
-                        variant="secondary" 
-                        className={cn(
-                          "flex items-center gap-2 py-2 px-3 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300",
-                          selection.editable && "cursor-pointer hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
-                        )}
-                        onClick={selection.editable ? selection.onEdit : undefined}
-                        data-testid={`badge-${selection.id}`}
-                      >
-                        {selection.emoji && <span className="text-sm">{selection.emoji}</span>}
-                        {selection.icon && getIconComponent(selection.icon, 14)}
-                        <span className="font-medium">{selection.label}:</span>
-                        <span>{selection.value}</span>
-                        {selection.editable && <Edit2 className="h-3 w-3 ml-1" />}
-                      </Badge>
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
+            <div className="max-w-6xl mx-auto px-6 py-1">
+              <div className="flex items-center gap-2 overflow-x-auto">
+                <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0" />
+                {completedSelections.map((selection) => (
+                  <Badge
+                    key={selection.id}
+                    variant="secondary" 
+                    className={cn(
+                      "flex items-center gap-1 py-0.5 px-2 text-xs bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 whitespace-nowrap",
+                      selection.editable && "cursor-pointer hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+                    )}
+                    onClick={selection.editable ? selection.onEdit : undefined}
+                    data-testid={`badge-${selection.id}`}
+                  >
+                    {selection.emoji && <span className="text-xs">{selection.emoji}</span>}
+                    {selection.icon && getIconComponent(selection.icon, 10)}
+                    <span className="font-medium">{selection.label}:</span>
+                    <span>{selection.value}</span>
+                    {selection.editable && <Edit2 className="h-2.5 w-2.5 ml-0.5" />}
+                  </Badge>
+                ))}
                 
                 {(privatePricing || discoPricing) && (
-                  <motion.div
-                    initial={{ opacity: 0, scale: 0.8 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 0.3 }}
-                  >
-                    <Badge className="ml-auto flex items-center gap-2 py-2 px-4 bg-green-600 dark:bg-green-700">
-                      <DollarSign className="h-4 w-4" />
-                      <span className="font-bold">
-                        {formatCurrency((formData.selectedCruiseType === 'disco' ? discoPricing : privatePricing)?.total || 0)}
-                      </span>
-                    </Badge>
-                  </motion.div>
+                  <Badge className="ml-auto flex items-center gap-1 py-0.5 px-2 text-xs bg-green-600 dark:bg-green-700">
+                    <DollarSign className="h-3 w-3" />
+                    <span className="font-bold">
+                      {formatCurrency((formData.selectedCruiseType === 'disco' ? discoPricing : privatePricing)?.total || 0)}
+                    </span>
+                  </Badge>
                 )}
               </div>
             </div>
@@ -1967,8 +1935,8 @@ export default function Chat() {
         )}
       </AnimatePresence>
 
-      {/* Main Content Area - Enhanced */}
-      <div className="flex-1 flex items-center justify-center p-6">
+      {/* Main Content Area - Compact */}
+      <div className="flex-1 flex items-start justify-center pt-2 px-4 pb-4">
         <div className="w-full max-w-6xl">
           
           <AnimatePresence mode="wait">
@@ -1981,24 +1949,21 @@ export default function Chat() {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="text-center space-y-8"
+                className="text-center space-y-3"
               >
-                <div className="space-y-4">
+                <div className="space-y-2">
                   <motion.div
                     initial={{ scale: 0.8, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.2, duration: 0.6 }}
-                    className="w-20 h-20 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto"
+                    className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto"
                   >
-                    <Ship className="h-10 w-10 text-blue-600" />
+                    <Ship className="h-6 w-6 text-blue-600" />
                   </motion.div>
                   
-                  <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                    AI Cruise Booking
-                  </h1>
-                  <p className="text-xl text-slate-600 dark:text-slate-400">
+                  <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                     What type of event are you planning?
-                  </p>
+                  </h1>
                 </div>
 
                 <motion.div 
@@ -2021,13 +1986,13 @@ export default function Chat() {
                     >
                       <Button
                         variant="outline"
-                        className="h-32 flex flex-col gap-3 hover:scale-105 transition-all hover:border-blue-500 hover:shadow-lg group relative overflow-hidden bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm"
+                        className="h-24 flex flex-col gap-1 hover:scale-105 transition-all hover:border-blue-500 hover:shadow-lg group relative overflow-hidden bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm"
                         onClick={() => handleEventTypeSelect(type.id, type.label, type.emoji)}
                         data-testid={`button-event-${type.id}`}
                       >
                         <div className="absolute inset-0 bg-gradient-to-b from-blue-50/0 to-blue-50/50 group-hover:to-blue-100/50 transition-all" />
-                        <span className="text-3xl mb-1">{type.emoji}</span>
-                        <span className="font-semibold text-slate-700 dark:text-slate-300">{type.label}</span>
+                        <span className="text-2xl">{type.emoji}</span>
+                        <span className="font-semibold text-sm text-slate-700 dark:text-slate-300">{type.label}</span>
                         <span className="text-xs text-slate-500 dark:text-slate-400">{type.description}</span>
                       </Button>
                     </motion.div>
@@ -2047,13 +2012,13 @@ export default function Chat() {
                 className="max-w-2xl mx-auto"
               >
                 <Card className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm border-slate-200 dark:border-slate-700 shadow-xl">
-                  <CardHeader className="text-center">
-                    <CardTitle className="text-2xl text-slate-800 dark:text-slate-200">Let's get to know you</CardTitle>
-                    <CardDescription className="text-slate-600 dark:text-slate-400">
+                  <CardHeader className="text-center py-3">
+                    <CardTitle className="text-xl text-slate-800 dark:text-slate-200">Let's get to know you</CardTitle>
+                    <CardDescription className="text-sm text-slate-600 dark:text-slate-400">
                       We'll use this information to send you your quote
                     </CardDescription>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="pt-2">
                     <form onSubmit={handleContactSubmit} className="space-y-4">
                       <div className="grid grid-cols-2 gap-4">
                         <div className="space-y-2">
