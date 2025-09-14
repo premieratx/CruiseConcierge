@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import { ChatWidget } from "@/components/ChatWidget";
 import { ChatBubble } from "@/components/ChatBubble";
@@ -13,10 +14,11 @@ import { QuoteBuilder } from "@/components/QuoteBuilder";
 import { CRMPipeline } from "@/components/CRMPipeline";
 import { Analytics } from "@/components/Analytics";
 import { IntegrationStatus } from "@/components/IntegrationStatus";
+import { CalendarView } from "@/components/CalendarView";
 import Navigation from "@/components/Navigation";
 import { apiRequest } from "@/lib/queryClient";
 import { useLocation } from "wouter";
-import { Ship, User, Send, CreditCard, Mail, MessageSquare, Users, FileText, MessageCircle, Plus, TrendingUp } from "lucide-react";
+import { Ship, User, Send, CreditCard, Mail, MessageSquare, Users, FileText, MessageCircle, Plus, TrendingUp, Calendar, LayoutDashboard } from "lucide-react";
 
 export default function Dashboard() {
   const [quoteModalOpen, setQuoteModalOpen] = useState(false);
@@ -128,27 +130,49 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* Main Content Grid */}
-      <div className="container mx-auto px-4 py-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
-        
-        {/* Left Column: Chat Widget & Controls */}
-        <div className="lg:col-span-1 space-y-6">
-          <ChatWidget isPreview={true} />
-          <ChatBubble isDemo={true} />
-        </div>
+      {/* Main Content Tabs */}
+      <div className="container mx-auto px-4 py-6">
+        <Tabs defaultValue="overview" className="w-full">
+          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-6">
+            <TabsTrigger value="overview" className="flex items-center gap-2" data-testid="tab-overview">
+              <LayoutDashboard className="h-4 w-4" />
+              Overview
+            </TabsTrigger>
+            <TabsTrigger value="calendar" className="flex items-center gap-2" data-testid="tab-calendar">
+              <Calendar className="h-4 w-4" />
+              Calendar
+            </TabsTrigger>
+          </TabsList>
 
-        {/* Center Column: Availability & Booking Flow */}
-        <div className="lg:col-span-1 space-y-6">
-          <AvailabilityGrid />
-          <QuoteBuilder />
-        </div>
+          {/* Overview Tab */}
+          <TabsContent value="overview" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+              {/* Left Column: Chat Widget & Controls */}
+              <div className="lg:col-span-1 space-y-6">
+                <ChatWidget isPreview={true} />
+                <ChatBubble isDemo={true} />
+              </div>
 
-        {/* Right Column: CRM & Analytics */}
-        <div className="lg:col-span-1 space-y-6">
-          <CRMPipeline />
-          <Analytics />
-          <IntegrationStatus />
-        </div>
+              {/* Center Column: Availability & Booking Flow */}
+              <div className="lg:col-span-1 space-y-6">
+                <AvailabilityGrid />
+                <QuoteBuilder />
+              </div>
+
+              {/* Right Column: CRM & Analytics */}
+              <div className="lg:col-span-1 space-y-6">
+                <CRMPipeline />
+                <Analytics />
+                <IntegrationStatus />
+              </div>
+            </div>
+          </TabsContent>
+
+          {/* Calendar Tab */}
+          <TabsContent value="calendar" className="space-y-6">
+            <CalendarView />
+          </TabsContent>
+        </Tabs>
       </div>
 
       {/* Quote Delivery Modal */}
