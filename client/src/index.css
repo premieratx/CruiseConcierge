@@ -1,0 +1,248 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: hsl(220 40% 98%);
+  --foreground: hsl(220 10% 15%);
+  --card: hsl(0 0% 100%);
+  --card-foreground: hsl(220 10% 15%);
+  --popover: hsl(0 0% 100%);
+  --popover-foreground: hsl(220 10% 15%);
+  --primary: hsl(220 90% 55%);
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(186 85% 55%);
+  --secondary-foreground: hsl(0 0% 100%);
+  --muted: hsl(220 20% 95%);
+  --muted-foreground: hsl(220 10% 45%);
+  --accent: hsl(20 95% 60%);
+  --accent-foreground: hsl(0 0% 100%);
+  --destructive: hsl(0 84% 60%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(220 15% 85%);
+  --input: hsl(220 15% 85%);
+  --ring: hsl(220 90% 55%);
+  --chart-1: hsl(220 90% 55%);
+  --chart-2: hsl(186 85% 55%);
+  --chart-3: hsl(20 95% 60%);
+  --chart-4: hsl(45 95% 60%);
+  --chart-5: hsl(341 75% 51%);
+  --sidebar: hsl(0 0% 100%);
+  --sidebar-foreground: hsl(220 10% 15%);
+  --sidebar-primary: hsl(220 90% 55%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(220 20% 95%);
+  --sidebar-accent-foreground: hsl(220 90% 55%);
+  --sidebar-border: hsl(220 15% 85%);
+  --sidebar-ring: hsl(220 90% 55%);
+  --font-sans: "Inter", system-ui, sans-serif;
+  --font-serif: Georgia, serif;
+  --font-mono: Menlo, monospace;
+  --font-heading: "Nunito", system-ui, sans-serif;
+  --radius: 12px;
+  --shadow-2xs: 0px 2px 0px 0px hsl(220 90% 55% / 0.00);
+  --shadow-xs: 0px 2px 0px 0px hsl(220 90% 55% / 0.00);
+  --shadow-sm: 0px 2px 0px 0px hsl(220 90% 55% / 0.00), 0px 1px 2px -1px hsl(220 90% 55% / 0.00);
+  --shadow: 0px 2px 0px 0px hsl(220 90% 55% / 0.00), 0px 1px 2px -1px hsl(220 90% 55% / 0.00);
+  --shadow-md: 0px 2px 0px 0px hsl(220 90% 55% / 0.00), 0px 2px 4px -1px hsl(220 90% 55% / 0.00);
+  --shadow-lg: 0px 2px 0px 0px hsl(220 90% 55% / 0.00), 0px 4px 6px -1px hsl(220 90% 55% / 0.00);
+  --shadow-xl: 0px 2px 0px 0px hsl(220 90% 55% / 0.00), 0px 8px 10px -1px hsl(220 90% 55% / 0.00);
+  --shadow-2xl: 0px 2px 0px 0px hsl(220 90% 55% / 0.00);
+  --tracking-normal: 0em;
+  --spacing: 0.25rem;
+  
+  /* Premier Party Cruises Custom Colors */
+  --marine-50: hsl(220 40% 98%);
+  --marine-100: hsl(220 30% 95%);
+  --marine-500: hsl(220 85% 65%);
+  --marine-600: hsl(220 90% 55%);
+  --marine-900: hsl(220 100% 25%);
+  --coral-400: hsl(20 90% 65%);
+  --coral-500: hsl(20 95% 60%);
+  --coral-600: hsl(20 100% 55%);
+  --austin-400: hsl(45 90% 65%);
+  --austin-500: hsl(45 95% 60%);
+}
+
+.dark {
+  --background: hsl(220 20% 8%);
+  --foreground: hsl(220 5% 92%);
+  --card: hsl(220 20% 10%);
+  --card-foreground: hsl(220 5% 85%);
+  --popover: hsl(220 20% 8%);
+  --popover-foreground: hsl(220 5% 92%);
+  --primary: hsl(220 90% 55%);
+  --primary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(186 85% 55%);
+  --secondary-foreground: hsl(0 0% 100%);
+  --muted: hsl(220 15% 15%);
+  --muted-foreground: hsl(220 5% 65%);
+  --accent: hsl(20 95% 60%);
+  --accent-foreground: hsl(0 0% 100%);
+  --destructive: hsl(0 84% 60%);
+  --destructive-foreground: hsl(0 0% 100%);
+  --border: hsl(220 15% 20%);
+  --input: hsl(220 15% 20%);
+  --ring: hsl(220 90% 55%);
+  --chart-1: hsl(220 90% 55%);
+  --chart-2: hsl(186 85% 55%);
+  --chart-3: hsl(20 95% 60%);
+  --chart-4: hsl(45 95% 60%);
+  --chart-5: hsl(341 75% 51%);
+  --sidebar: hsl(220 20% 10%);
+  --sidebar-foreground: hsl(220 5% 85%);
+  --sidebar-primary: hsl(220 90% 55%);
+  --sidebar-primary-foreground: hsl(0 0% 100%);
+  --sidebar-accent: hsl(220 15% 15%);
+  --sidebar-accent-foreground: hsl(220 90% 55%);
+  --sidebar-border: hsl(220 15% 20%);
+  --sidebar-ring: hsl(220 90% 55%);
+  --marine-50: hsl(220 20% 12%);
+  --marine-100: hsl(220 15% 18%);
+  --marine-500: hsl(220 85% 65%);
+  --marine-600: hsl(220 90% 55%);
+  --marine-900: hsl(220 100% 25%);
+  --coral-400: hsl(20 90% 65%);
+  --coral-500: hsl(20 95% 60%);
+  --coral-600: hsl(20 100% 55%);
+  --austin-400: hsl(45 90% 65%);
+  --austin-500: hsl(45 95% 60%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-heading;
+  }
+}
+
+@layer components {
+  .boat-shadow {
+    box-shadow: 0 10px 25px -5px rgba(30, 58, 138, 0.2), 0 4px 6px -2px rgba(30, 58, 138, 0.1);
+  }
+  
+  .chat-bubble-enter {
+    animation: chatBubbleEnter 0.3s ease-out;
+  }
+  
+  .wave-pattern {
+    background: linear-gradient(45deg, 
+      transparent 40%, 
+      rgba(6, 182, 212, 0.1) 50%, 
+      transparent 60%);
+    background-size: 20px 20px;
+  }
+}
+
+@layer utilities {
+  .marine-50 {
+    color: hsl(var(--marine-50));
+  }
+  
+  .bg-marine-50 {
+    background-color: hsl(var(--marine-50));
+  }
+  
+  .marine-100 {
+    color: hsl(var(--marine-100));
+  }
+  
+  .bg-marine-100 {
+    background-color: hsl(var(--marine-100));
+  }
+  
+  .marine-500 {
+    color: hsl(var(--marine-500));
+  }
+  
+  .bg-marine-500 {
+    background-color: hsl(var(--marine-500));
+  }
+  
+  .marine-600 {
+    color: hsl(var(--marine-600));
+  }
+  
+  .bg-marine-600 {
+    background-color: hsl(var(--marine-600));
+  }
+  
+  .marine-900 {
+    color: hsl(var(--marine-900));
+  }
+  
+  .bg-marine-900 {
+    background-color: hsl(var(--marine-900));
+  }
+  
+  .coral-400 {
+    color: hsl(var(--coral-400));
+  }
+  
+  .bg-coral-400 {
+    background-color: hsl(var(--coral-400));
+  }
+  
+  .coral-500 {
+    color: hsl(var(--coral-500));
+  }
+  
+  .bg-coral-500 {
+    background-color: hsl(var(--coral-500));
+  }
+  
+  .coral-600 {
+    color: hsl(var(--coral-600));
+  }
+  
+  .bg-coral-600 {
+    background-color: hsl(var(--coral-600));
+  }
+  
+  .austin-400 {
+    color: hsl(var(--austin-400));
+  }
+  
+  .bg-austin-400 {
+    background-color: hsl(var(--austin-400));
+  }
+  
+  .austin-500 {
+    color: hsl(var(--austin-500));
+  }
+  
+  .bg-austin-500 {
+    background-color: hsl(var(--austin-500));
+  }
+  
+  .hover\:bg-austin-500\/90:hover {
+    background-color: hsl(var(--austin-500) / 0.9);
+  }
+  
+  .text-austin-700 {
+    color: hsl(45 95% 35%);
+  }
+  
+  .dark .text-austin-700 {
+    color: hsl(45 95% 75%);
+  }
+}
+
+@keyframes chatBubbleEnter {
+  from { 
+    opacity: 0; 
+    transform: translateY(10px) scale(0.95); 
+  }
+  to { 
+    opacity: 1; 
+    transform: translateY(0) scale(1); 
+  }
+}
