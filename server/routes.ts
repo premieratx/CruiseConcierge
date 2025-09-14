@@ -7,7 +7,7 @@ import { googleSheetsService } from "./services/googleSheets";
 import { mailgunService } from "./services/mailgun";
 import { openRouterService } from "./services/openrouter";
 import { goHighLevelService } from "./services/gohighlevel";
-import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema } from "@shared/schema";
+import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema } from "@shared/schema";
 import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
 
@@ -202,6 +202,59 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Get products error:", error);
       res.status(500).json({ error: "Failed to fetch products" });
+    }
+  });
+
+  app.get("/api/products/:id", async (req, res) => {
+    try {
+      const product = await storage.getProduct(req.params.id);
+      if (!product) {
+        return res.status(404).json({ error: "Product not found" });
+      }
+      res.json(product);
+    } catch (error) {
+      console.error("Get product error:", error);
+      res.status(500).json({ error: "Failed to fetch product" });
+    }
+  });
+
+  app.post("/api/products", async (req, res) => {
+    try {
+      const productData = insertProductSchema.parse(req.body);
+      const product = await storage.createProduct(productData);
+      res.status(201).json(product);
+    } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ error: "Invalid product data", details: error.errors });
+      }
+      console.error("Create product error:", error);
+      res.status(500).json({ error: "Failed to create product" });
+    }
+  });
+
+  app.put("/api/products/:id", async (req, res) => {
+    try {
+      const product = await storage.updateProduct(req.params.id, req.body);
+      res.json(product);
+    } catch (error: any) {
+      if (error.message === "Product not found") {
+        return res.status(404).json({ error: "Product not found" });
+      }
+      console.error("Update product error:", error);
+      res.status(500).json({ error: "Failed to update product" });
+    }
+  });
+
+  app.delete("/api/products/:id", async (req, res) => {
+    try {
+      const deleted = await storage.deleteProduct(req.params.id);
+      if (!deleted) {
+        return res.status(404).json({ error: "Product not found" });
+      }
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Delete product error:", error);
+      res.status(500).json({ error: "Failed to delete product" });
     }
   });
 
@@ -686,6 +739,83 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Update pricing settings error:", error);
       res.status(500).json({ error: "Failed to update pricing settings" });
+    }
+  });
+
+  // Affiliate endpoints
+  app.get("/api/affiliates", async (req, res) => {
+    try {
+      const affiliates = await storage.getAffiliates();
+      res.json(affiliates);
+    } catch (error) {
+      console.error("Get affiliates error:", error);
+      res.status(500).json({ error: "Failed to fetch affiliates" });
+    }
+  });
+
+  app.get("/api/affiliates/:id", async (req, res) => {
+    try {
+      const affiliate = await storage.getAffiliate(req.params.id);
+      if (!affiliate) {
+        return res.status(404).json({ error: "Affiliate not found" });
+      }
+      res.json(affiliate);
+    } catch (error) {
+      console.error("Get affiliate error:", error);
+      res.status(500).json({ error: "Failed to fetch affiliate" });
+    }
+  });
+
+  app.post("/api/affiliates", async (req, res) => {
+    try {
+      const affiliateData = insertAffiliateSchema.parse(req.body);
+      const affiliate = await storage.createAffiliate(affiliateData);
+      res.status(201).json(affiliate);
+    } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ error: "Invalid affiliate data", details: error.errors });
+      }
+      console.error("Create affiliate error:", error);
+      res.status(500).json({ error: "Failed to create affiliate" });
+    }
+  });
+
+  app.put("/api/affiliates/:id", async (req, res) => {
+    try {
+      const affiliate = await storage.updateAffiliate(req.params.id, req.body);
+      res.json(affiliate);
+    } catch (error: any) {
+      if (error.message === "Affiliate not found") {
+        return res.status(404).json({ error: "Affiliate not found" });
+      }
+      console.error("Update affiliate error:", error);
+      res.status(500).json({ error: "Failed to update affiliate" });
+    }
+  });
+
+  app.delete("/api/affiliates/:id", async (req, res) => {
+    try {
+      const deleted = await storage.deleteAffiliate(req.params.id);
+      if (!deleted) {
+        return res.status(404).json({ error: "Affiliate not found" });
+      }
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Delete affiliate error:", error);
+      res.status(500).json({ error: "Failed to delete affiliate" });
+    }
+  });
+
+  app.post("/api/affiliates/:id/update-stats", async (req, res) => {
+    try {
+      const affiliate = await storage.updateAffiliateStats(req.params.id);
+      res.json(affiliate);
+    } catch (error: any) {
+      if (error.message === "Affiliate not found") {
+        return res.status(404).json({ error: "Affiliate not found" });
+      }
+      console.error("Update affiliate stats error:", error);
+      res.status(500).json({ error: "Failed to update affiliate stats" });
     }
   });
 
