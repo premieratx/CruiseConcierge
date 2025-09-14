@@ -13,8 +13,8 @@ export class GoogleSheetsService {
   private spreadsheetId: string;
 
   constructor() {
-    this.apiKey = process.env.GOOGLE_SHEETS_API_KEY || "";
-    this.spreadsheetId = process.env.GOOGLE_SHEETS_ID || "";
+    this.apiKey = process.env.GOOGLE_SHEETS_CREDENTIALS || "";
+    this.spreadsheetId = process.env.SHEET_ID || "";
     
     if (!this.apiKey || !this.spreadsheetId) {
       console.warn("Google Sheets credentials not configured. Using mock data.");
