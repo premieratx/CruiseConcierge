@@ -8,7 +8,8 @@ import {
   Calendar as CalendarIcon, Clock, Check, X,
   User, Mail, Phone, MapPin, Star, Sparkles, CreditCard,
   FileText, AlertCircle, Loader2, ChevronLeft, Edit2,
-  Music, Anchor, Crown, Zap, Calendar
+  Music, Anchor, Crown, Zap, Calendar, ArrowRight, ArrowLeft,
+  RotateCcw, CheckCircle, Settings
 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -228,6 +229,8 @@ export default function Chat() {
     selectedDiscoTimeSlot: '',
   });
   const [questionHistory, setQuestionHistory] = useState<Question[]>(['event-type']);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [maxProgressIndex, setMaxProgressIndex] = useState(0);
   const { toast } = useToast();
 
   // Fetch pricing when all required data is available
@@ -301,48 +304,143 @@ export default function Chat() {
     });
   };
 
-  // Navigation functions
+  // Enhanced Navigation functions
+  const questionOrder: Question[] = [
+    'event-type', 'contact-info', 'date-selection', 
+    'comparison-selection', 'final-review', 'complete'
+  ];
+
+  const getQuestionIndex = (question: Question) => questionOrder.indexOf(question);
+  
+  const canGoBack = () => currentQuestionIndex > 0;
+  
+  const canGoForward = () => currentQuestionIndex < maxProgressIndex;
+  
   const goBack = () => {
-    if (questionHistory.length > 1) {
-      const newHistory = [...questionHistory];
-      newHistory.pop();
-      const previousQuestion = newHistory[newHistory.length - 1];
-      setQuestionHistory(newHistory);
+    if (canGoBack()) {
+      const newIndex = currentQuestionIndex - 1;
+      const previousQuestion = questionOrder[newIndex];
+      setCurrentQuestionIndex(newIndex);
       setCurrentQuestion(previousQuestion);
     }
   };
   
-  const goToQuestion = (question: Question) => {
-    setCurrentQuestion(question);
-    // Update history to include path to this question
-    if (!questionHistory.includes(question)) {
-      setQuestionHistory([...questionHistory, question]);
+  const goForward = () => {
+    if (canGoForward()) {
+      const newIndex = currentQuestionIndex + 1;
+      const nextQuestion = questionOrder[newIndex];
+      setCurrentQuestionIndex(newIndex);
+      setCurrentQuestion(nextQuestion);
     }
   };
   
-  // Edit functionality for completed selections
+  const goToQuestion = (question: Question) => {
+    const questionIndex = getQuestionIndex(question);
+    if (questionIndex !== -1 && questionIndex <= maxProgressIndex) {
+      setCurrentQuestion(question);
+      setCurrentQuestionIndex(questionIndex);
+    }
+  };
+  
+  const updateProgress = (question: Question) => {
+    const questionIndex = getQuestionIndex(question);
+    if (questionIndex > maxProgressIndex) {
+      setMaxProgressIndex(questionIndex);
+    }
+    setCurrentQuestionIndex(questionIndex);
+  };
+  
+  // Enhanced edit functionality for all completed selections
+  const resetDependentSelections = (fromSelectionId: string) => {
+    const resetMap: Record<string, string[]> = {
+      'event-type': ['contact-info', 'date', 'group-size', 'comparison'],
+      'contact-info': ['date', 'group-size', 'comparison'],
+      'date': ['group-size', 'comparison'],
+      'group-size': ['comparison'],
+    };
+    
+    const toReset = resetMap[fromSelectionId] || [];
+    
+    // Clear dependent form data
+    if (fromSelectionId === 'event-type') {
+      setFormData(prev => ({
+        ...prev,
+        eventType: '',
+        eventTypeLabel: '',
+        eventEmoji: '',
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        eventDate: undefined,
+        selectedCruiseType: null,
+        selectedTimeSlot: '',
+        selectedDiscoPackage: null,
+        selectedDiscoTimeSlot: '',
+      }));
+    } else if (fromSelectionId === 'contact-info') {
+      setFormData(prev => ({
+        ...prev,
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: '',
+        eventDate: undefined,
+        selectedCruiseType: null,
+        selectedTimeSlot: '',
+        selectedDiscoPackage: null,
+        selectedDiscoTimeSlot: '',
+      }));
+    } else if (fromSelectionId === 'date') {
+      setFormData(prev => ({
+        ...prev,
+        eventDate: undefined,
+        selectedCruiseType: null,
+        selectedTimeSlot: '',
+        selectedDiscoPackage: null,
+        selectedDiscoTimeSlot: '',
+      }));
+    } else if (fromSelectionId === 'group-size') {
+      setFormData(prev => ({
+        ...prev,
+        selectedCruiseType: null,
+        selectedTimeSlot: '',
+        selectedDiscoPackage: null,
+        selectedDiscoTimeSlot: '',
+      }));
+    }
+    
+    // Clear pricing when relevant
+    if (['date', 'group-size', 'comparison'].includes(fromSelectionId)) {
+      setPricing(null);
+      setDiscoPricing(null);
+    }
+    
+    // Remove dependent selections from completed list
+    setCompletedSelections(prev => 
+      prev.filter(selection => !toReset.includes(selection.id))
+    );
+  };
+
   const editSelection = (selectionId: string) => {
-    // Remove this and subsequent selections
-    const index = completedSelections.findIndex(s => s.id === selectionId);
-    if (index !== -1) {
-      const newSelections = completedSelections.slice(0, index);
-      setCompletedSelections(newSelections);
-      
-      // Navigate to the appropriate question
-      switch (selectionId) {
-        case 'event-type':
-          goToQuestion('event-type');
-          break;
-        case 'contact-info':
-          goToQuestion('contact-info');
-          break;
-        case 'date':
-          goToQuestion('date-selection');
-          break;
-        case 'comparison':
-          goToQuestion('comparison-selection');
-          break;
-      }
+    // Reset dependent selections
+    resetDependentSelections(selectionId);
+    
+    // Remove this selection from completed list
+    setCompletedSelections(prev => prev.filter(s => s.id !== selectionId));
+    
+    // Navigate to the appropriate question
+    const questionMap: Record<string, Question> = {
+      'event-type': 'event-type',
+      'contact-info': 'contact-info',
+      'date': 'date-selection',
+      'group-size': 'date-selection', // Group size is set on date selection page
+      'comparison': 'comparison-selection',
+    };
+    
+    const targetQuestion = questionMap[selectionId];
+    if (targetQuestion) {
+      goToQuestion(targetQuestion);
     }
   };
   
@@ -410,17 +508,12 @@ export default function Chat() {
   };
 
   const progressToNextQuestion = () => {
-    const questionOrder: Question[] = [
-      'event-type', 'contact-info', 'date-selection', 
-      'comparison-selection', 'final-review'
-    ];
-    
-    const currentIndex = questionOrder.indexOf(currentQuestion);
-    if (currentIndex < questionOrder.length - 1) {
+    const currentIndex = getQuestionIndex(currentQuestion);
+    if (currentIndex < questionOrder.length - 2) { // -2 to exclude 'complete'
       const nextQuestion = questionOrder[currentIndex + 1];
-      setQuestionHistory([...questionHistory, nextQuestion]);
       setTimeout(() => {
         setCurrentQuestion(nextQuestion);
+        updateProgress(nextQuestion);
       }, 600); // Delay for animation
     }
   };
@@ -484,6 +577,13 @@ export default function Chat() {
       value: `${newSize} people`,
       icon: 'users'
     });
+  };
+  
+  // Confirm group size and proceed
+  const handleGroupSizeConfirm = () => {
+    if (formData.groupSize >= GROUP_SIZE_MIN && formData.groupSize <= GROUP_SIZE_MAX) {
+      progressToNextQuestion();
+    }
   };
   
   // Private cruise selection handler
@@ -765,8 +865,122 @@ export default function Chat() {
       case 'calendar': return <CalendarIcon {...iconProps} />;
       case 'clock': return <Clock {...iconProps} />;
       case 'users': return <Users {...iconProps} />;
+      case 'ship': return <Ship {...iconProps} />;
       default: return null;
     }
+  };
+  
+  // Navigation Bar Component
+  const NavigationBar = () => {
+    const getStepName = (question: Question) => {
+      const stepNames: Record<Question, string> = {
+        'event-type': 'Event Type',
+        'contact-info': 'Contact Info', 
+        'date-selection': 'Date & Group',
+        'comparison-selection': 'Cruise Options',
+        'final-review': 'Review & Book',
+        'complete': 'Complete'
+      };
+      return stepNames[question] || 'Unknown';
+    };
+    
+    const currentStepNumber = currentQuestionIndex + 1;
+    const totalSteps = questionOrder.length - 1; // Exclude 'complete'
+    
+    return (
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700 sticky top-0 z-10"
+      >
+        <div className="max-w-6xl mx-auto px-6 py-4">
+          {/* Progress Bar */}
+          <div className="mb-4">
+            <div className="flex items-center justify-between mb-2">
+              <span className="text-sm font-medium text-slate-600 dark:text-slate-400">
+                Step {currentStepNumber} of {totalSteps}
+              </span>
+              <span className="text-sm font-medium text-slate-800 dark:text-slate-200">
+                {getStepName(currentQuestion)}
+              </span>
+            </div>
+            <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
+              <div 
+                className="bg-gradient-to-r from-blue-600 to-purple-600 h-2 rounded-full transition-all duration-500 ease-out"
+                style={{ width: `${(currentStepNumber / totalSteps) * 100}%` }}
+              />
+            </div>
+          </div>
+          
+          {/* Navigation Buttons */}
+          <div className="flex items-center justify-between">
+            <Button
+              onClick={goBack}
+              disabled={!canGoBack()}
+              variant="outline"
+              size="sm"
+              className="flex items-center gap-2"
+              data-testid="button-nav-back"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              Back
+            </Button>
+            
+            <div className="flex items-center gap-2">
+              {canGoForward() && (
+                <Button
+                  onClick={goForward}
+                  variant="outline"
+                  size="sm"
+                  className="flex items-center gap-2"
+                  data-testid="button-nav-forward"
+                >
+                  Forward
+                  <ArrowRight className="h-4 w-4" />
+                </Button>
+              )}
+              {currentQuestion !== 'event-type' && currentQuestion !== 'complete' && (
+                <Button
+                  onClick={() => {
+                    // Reset to beginning
+                    setCurrentQuestion('event-type');
+                    setCurrentQuestionIndex(0);
+                    setMaxProgressIndex(0);
+                    setCompletedSelections([]);
+                    setFormData({
+                      eventType: '',
+                      eventTypeLabel: '',
+                      eventEmoji: '',
+                      firstName: '',
+                      lastName: '',
+                      email: '',
+                      phone: '',
+                      eventDate: undefined,
+                      groupSize: GROUP_SIZE_DEFAULT,
+                      specialRequests: '',
+                      budget: '',
+                      selectedCruiseType: null,
+                      selectedTimeSlot: '',
+                      selectedDiscoPackage: null,
+                      selectedDiscoTimeSlot: '',
+                    });
+                    setPricing(null);
+                    setDiscoPricing(null);
+                  }}
+                  variant="ghost"
+                  size="sm"
+                  className="flex items-center gap-2 text-slate-500 hover:text-slate-700"
+                  data-testid="button-nav-restart"
+                >
+                  <RotateCcw className="h-4 w-4" />
+                  Start Over
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    );
   };
 
   // Function to open quote in separate window
@@ -949,34 +1163,27 @@ export default function Chat() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900 flex flex-col">
       
-      {/* Enhanced Header with Navigation and Editable Selections */}
+      {/* Navigation Bar - Always Visible */}
+      {currentQuestion !== 'complete' && <NavigationBar />}
+      
+      {/* Completed Selections Header - Enhanced */}
       <AnimatePresence>
-        {completedSelections.length > 0 && (
+        {completedSelections.length > 0 && currentQuestion !== 'complete' && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
-            className="bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border-b border-slate-200 dark:border-slate-700 shadow-sm"
+            exit={{ opacity: 0, height: 0 }}
+            className="bg-slate-50/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-slate-200 dark:border-slate-700"
           >
             <div className="max-w-6xl mx-auto px-6 py-4">
               <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center gap-2">
-                  <Ship className="h-5 w-5 text-blue-600" />
-                  <h3 className="text-sm font-semibold text-slate-700 dark:text-slate-300">Cruise Booking Progress</h3>
+                <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200 flex items-center gap-2">
+                  <CheckCircle className="h-5 w-5 text-green-600" />
+                  Your Selections
+                </h3>
+                <div className="text-sm text-slate-500 dark:text-slate-400">
+                  Click any item to edit
                 </div>
-                
-                {/* Back Button */}
-                {questionHistory.length > 1 && (
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    onClick={goBack}
-                    className="flex items-center gap-2"
-                    data-testid="button-back"
-                  >
-                    <ChevronLeft className="h-4 w-4" />
-                    Back
-                  </Button>
-                )}
               </div>
               
               <div className="flex flex-wrap gap-3">
@@ -1185,9 +1392,61 @@ export default function Chat() {
                 exit="exit"
                 className="text-center space-y-8"
               >
-                <div>
-                  <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">Select Your Cruise Date</h2>
-                  <p className="text-slate-600 dark:text-slate-400 text-lg">Choose an available date for your event</p>
+                <div className="space-y-6">
+                  <div className="text-center">
+                    <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">Select Your Cruise Date</h2>
+                    <p className="text-slate-600 dark:text-slate-400 text-lg">Choose an available date for your event</p>
+                  </div>
+                  
+                  {/* Group Size Slider - Moved to Date Selection */}
+                  {formData.eventDate && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-lg p-6 max-w-md mx-auto"
+                    >
+                      <div className="space-y-4">
+                        <div className="text-center">
+                          <h3 className="text-lg font-semibold text-slate-800 dark:text-slate-200 mb-2">Group Size</h3>
+                          <p className="text-sm text-slate-600 dark:text-slate-400">How many people will be joining?</p>
+                        </div>
+                        
+                        <div className="space-y-3">
+                          <div className="flex items-center justify-between">
+                            <Label className="text-sm font-medium text-slate-700 dark:text-slate-300">Number of People</Label>
+                            <Badge variant="secondary" className="bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300">
+                              {formData.groupSize} {formData.groupSize === 1 ? 'person' : 'people'}
+                            </Badge>
+                          </div>
+                          
+                          <Slider
+                            value={[formData.groupSize]}
+                            onValueChange={handleGroupSizeChange}
+                            min={GROUP_SIZE_MIN}
+                            max={GROUP_SIZE_MAX}
+                            step={1}
+                            className="w-full"
+                            data-testid="slider-group-size"
+                          />
+                          
+                          <div className="flex justify-between text-xs text-slate-500 dark:text-slate-400">
+                            <span>Min: {GROUP_SIZE_MIN}</span>
+                            <span>Max: {GROUP_SIZE_MAX}</span>
+                          </div>
+                        </div>
+                        
+                        <Button 
+                          onClick={handleGroupSizeConfirm}
+                          disabled={formData.groupSize < GROUP_SIZE_MIN || formData.groupSize > GROUP_SIZE_MAX}
+                          className="w-full bg-blue-600 hover:bg-blue-700"
+                          data-testid="button-confirm-group-size"
+                        >
+                          Continue with {formData.groupSize} {formData.groupSize === 1 ? 'person' : 'people'}
+                          <ChevronRight className="h-4 w-4 ml-2" />
+                        </Button>
+                      </div>
+                    </motion.div>
+                  )}
                 </div>
 
                 <div className="flex justify-center">
