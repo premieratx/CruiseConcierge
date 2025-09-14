@@ -169,10 +169,17 @@ export default function Chat() {
 
   const fetchPricing = async () => {
     try {
+      // Determine cruise type based on event type
+      const cruiseType = (formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') 
+        ? 'both' // Show both disco and private cruise options
+        : 'private'; // Show only private cruise options
+        
       const res = await apiRequest('POST', '/api/pricing/cruise', {
         groupSize: formData.groupSize,
         eventDate: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : '',
         timeSlot: formData.preferredTime,
+        eventType: formData.eventType,
+        cruiseType: cruiseType,
       });
       const response = await res.json();
       setPricing(response);
@@ -1067,28 +1074,117 @@ export default function Chat() {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="max-w-3xl mx-auto space-y-8"
+                className="max-w-4xl mx-auto space-y-8"
               >
                 <div className="text-center">
-                  <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">Your Cruise Details</h2>
-                  <p className="text-slate-600 dark:text-slate-400 text-lg">Review and book your perfect cruise experience</p>
+                  <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">
+                    {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') && pricing.showBothOptions 
+                      ? 'Choose Your Perfect Experience' 
+                      : 'Your Cruise Details'}
+                  </h2>
+                  <p className="text-slate-600 dark:text-slate-400 text-lg">
+                    {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') && pricing.showBothOptions 
+                      ? 'Select between our private cruise and disco cruise experiences'
+                      : 'Review and book your perfect cruise experience'}
+                  </p>
                 </div>
 
-                <Card className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-slate-200 dark:border-slate-700 shadow-xl">
-                  <CardContent className="p-8">
-                    
-                    {/* Pricing Breakdown */}
-                    <div className="space-y-6">
-                      <div className="text-center p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-xl">
-                        <div className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">
-                          {formatCurrency(pricing.total)}
+                {/* Show both cruise options for bachelor/bachelorette parties */}
+                {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') && pricing.showBothOptions ? (
+                  <div className="grid md:grid-cols-2 gap-6">
+                    {/* Private Cruise Option */}
+                    <Card className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-slate-200 dark:border-slate-700 shadow-xl relative">
+                      <CardContent className="p-6">
+                        <div className="text-center mb-4">
+                          <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <Ship className="h-8 w-8 text-blue-600" />
+                          </div>
+                          <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200">Private Cruise</h3>
+                          <p className="text-sm text-slate-600 dark:text-slate-400">Your own private boat experience</p>
                         </div>
-                        <p className="text-slate-600 dark:text-slate-400">
-                          Total Cost • {formatCurrency(pricing.perPersonCost)} per person
-                        </p>
-                      </div>
+                        
+                        <div className="text-center p-4 bg-gradient-to-r from-blue-50 to-slate-50 dark:from-blue-900/30 dark:to-slate-900/30 rounded-xl mb-4">
+                          <div className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-1">
+                            {formatCurrency(pricing.privateCruise.total)}
+                          </div>
+                          <p className="text-sm text-slate-600 dark:text-slate-400">
+                            {formatCurrency(pricing.privateCruise.perPersonCost)} per person
+                          </p>
+                        </div>
 
-                      {/* Special Requests */}
+                        <Button 
+                          onClick={() => {
+                            setPricing(pricing.privateCruise);
+                            // Continue with private cruise booking
+                          }}
+                          className="w-full h-12 bg-blue-600 hover:bg-blue-700"
+                          data-testid="button-select-private-cruise"
+                        >
+                          Choose Private Cruise
+                        </Button>
+                      </CardContent>
+                    </Card>
+
+                    {/* Disco Cruise Options */}
+                    <Card className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-slate-200 dark:border-slate-700 shadow-xl relative">
+                      <CardContent className="p-6">
+                        <div className="text-center mb-4">
+                          <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-3">
+                            <Sparkles className="h-8 w-8 text-purple-600" />
+                          </div>
+                          <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200">ATX Disco Cruise</h3>
+                          <p className="text-sm text-slate-600 dark:text-slate-400">Dance the night away on Lake Austin</p>
+                        </div>
+                        
+                        <div className="space-y-3 mb-4">
+                          {pricing.discoCruise.options.map((option, index) => (
+                            <div key={option.id} 
+                                 className="p-3 border border-slate-200 dark:border-slate-600 rounded-lg hover:border-purple-300 dark:hover:border-purple-700 cursor-pointer transition-colors"
+                                 onClick={() => {
+                                   // Create pricing object for disco cruise
+                                   const discoPricing = {
+                                     total: option.totalPrice,
+                                     perPersonCost: option.pricePerPerson,
+                                     depositAmount: Math.round(option.totalPrice * 0.25),
+                                     depositPercent: 25,
+                                     showBothOptions: false
+                                   };
+                                   setPricing(discoPricing);
+                                 }}
+                            >
+                              <div className="flex justify-between items-center">
+                                <div>
+                                  <h4 className="font-semibold text-sm text-slate-800 dark:text-slate-200">{option.name}</h4>
+                                  <p className="text-xs text-slate-600 dark:text-slate-400">{formatCurrency(option.pricePerPerson)} per person</p>
+                                </div>
+                                <div className="text-right">
+                                  <div className="font-bold text-slate-800 dark:text-slate-200">{formatCurrency(option.totalPrice)}</div>
+                                  <div className="text-xs text-slate-500">total</div>
+                                </div>
+                              </div>
+                            </div>
+                          ))}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                ) : (
+                  /* Single cruise option for all other events */
+                  <Card className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm border-slate-200 dark:border-slate-700 shadow-xl">
+                    <CardContent className="p-8">
+                      
+                      {/* Pricing Breakdown */}
+                      <div className="space-y-6">
+                        <div className="text-center p-6 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-xl">
+                          <div className="text-3xl font-bold text-slate-800 dark:text-slate-200 mb-2">
+                            {formatCurrency(pricing.total)}
+                          </div>
+                          <p className="text-slate-600 dark:text-slate-400">
+                            Total Cost • {formatCurrency(pricing.perPersonCost)} per person
+                          </p>
+                        </div>
+
+                        {/* Special Requests */}
                       <div className="space-y-3">
                         <Label htmlFor="specialRequests" className="text-slate-700 dark:text-slate-300">
                           Special Requests (Optional)
@@ -1156,6 +1252,7 @@ export default function Chat() {
                     </div>
                   </CardContent>
                 </Card>
+                )}
               </motion.div>
             )}
 

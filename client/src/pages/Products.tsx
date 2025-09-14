@@ -10,6 +10,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Switch } from "@/components/ui/switch";
 import { Badge } from "@/components/ui/badge";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import type { Product, InsertProduct, PricingSettings } from "@shared/schema";
@@ -23,6 +25,10 @@ const productFormSchema = z.object({
   description: z.string().optional(),
   unitPrice: z.number().min(0, "Price must be positive"),
   taxable: z.boolean(),
+  pricingModel: z.enum(["per_person", "hourly"]),
+  productType: z.enum(["disco_cruise", "private_cruise"]),
+  eventTypes: z.array(z.string()).min(1, "At least one event type required"),
+  active: z.boolean(),
 });
 
 const pricingSettingsSchema = z.object({
@@ -75,6 +81,10 @@ export default function Products() {
       description: "",
       unitPrice: 0,
       taxable: true,
+      pricingModel: "hourly",
+      productType: "private_cruise",
+      eventTypes: [],
+      active: true,
     },
   });
 
@@ -178,6 +188,10 @@ export default function Products() {
       description: product.description || "",
       unitPrice: product.unitPrice / 100,
       taxable: product.taxable,
+      pricingModel: product.pricingModel || "hourly",
+      productType: product.productType || "private_cruise",
+      eventTypes: product.eventTypes || [],
+      active: product.active ?? true,
     });
     setIsProductDialogOpen(true);
   };
@@ -311,6 +325,105 @@ export default function Products() {
                         </FormItem>
                       )}
                     />
+                    
+                    <FormField
+                      control={productForm.control}
+                      name="productType"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Product Type</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger data-testid="select-product-type">
+                                <SelectValue placeholder="Select product type" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="private_cruise">Private Cruise</SelectItem>
+                              <SelectItem value="disco_cruise">Disco Cruise</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={productForm.control}
+                      name="pricingModel"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Pricing Model</FormLabel>
+                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <FormControl>
+                              <SelectTrigger data-testid="select-pricing-model">
+                                <SelectValue placeholder="Select pricing model" />
+                              </SelectTrigger>
+                            </FormControl>
+                            <SelectContent>
+                              <SelectItem value="hourly">Hourly Rate</SelectItem>
+                              <SelectItem value="per_person">Per Person</SelectItem>
+                            </SelectContent>
+                          </Select>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={productForm.control}
+                      name="eventTypes"
+                      render={({ field }) => (
+                        <FormItem>
+                          <FormLabel>Event Types</FormLabel>
+                          <FormDescription>Select which event types this product is available for</FormDescription>
+                          <div className="grid grid-cols-2 gap-2">
+                            {['bachelor', 'bachelorette', 'corporate', 'wedding', 'birthday', 'graduation', 'anniversary', 'other'].map((eventType) => (
+                              <div key={eventType} className="flex items-center space-x-2">
+                                <Checkbox
+                                  id={eventType}
+                                  checked={field.value.includes(eventType)}
+                                  onCheckedChange={(checked) => {
+                                    if (checked) {
+                                      field.onChange([...field.value, eventType]);
+                                    } else {
+                                      field.onChange(field.value.filter((type: string) => type !== eventType));
+                                    }
+                                  }}
+                                  data-testid={`checkbox-${eventType}`}
+                                />
+                                <Label htmlFor={eventType} className="text-sm capitalize">
+                                  {eventType === 'other' ? 'Other Events' : eventType.replace('_', ' ')}
+                                </Label>
+                              </div>
+                            ))}
+                          </div>
+                          <FormMessage />
+                        </FormItem>
+                      )}
+                    />
+                    
+                    <FormField
+                      control={productForm.control}
+                      name="active"
+                      render={({ field }) => (
+                        <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+                          <div className="space-y-0.5">
+                            <FormLabel className="text-base">Active</FormLabel>
+                            <FormDescription>
+                              Whether this product is available for booking
+                            </FormDescription>
+                          </div>
+                          <FormControl>
+                            <Switch
+                              checked={field.value}
+                              onCheckedChange={field.onChange}
+                              data-testid="switch-active"
+                            />
+                          </FormControl>
+                        </FormItem>
+                      )}
+                    />
                     <div className="flex justify-end gap-2">
                       <Button
                         type="button"
@@ -336,19 +449,48 @@ export default function Products() {
 
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
             {filteredProducts.map((product) => (
-              <Card key={product.id} data-testid={`card-product-${product.id}`}>
+              <Card key={product.id} data-testid={`card-product-${product.id}`} className={`${!product.active ? 'opacity-60' : ''}`}>
                 <CardHeader>
                   <div className="flex justify-between items-start">
-                    <div>
+                    <div className="flex-1">
                       <CardTitle className="text-lg">{product.name}</CardTitle>
                       <CardDescription className="text-2xl font-bold mt-2">
                         ${(product.unitPrice / 100).toFixed(2)}
+                        <span className="text-sm font-normal text-muted-foreground ml-2">
+                          {product.pricingModel === 'per_person' ? 'per person' : 'per hour'}
+                        </span>
                       </CardDescription>
+                      <div className="flex gap-2 mt-3">
+                        <Badge variant={product.productType === 'disco_cruise' ? "destructive" : "default"}>
+                          {product.productType === 'disco_cruise' ? 'Disco Cruise' : 'Private Cruise'}
+                        </Badge>
+                        <Badge variant={product.taxable ? "outline" : "secondary"}>
+                          {product.taxable ? "Taxable" : "Tax-free"}
+                        </Badge>
+                        {!product.active && (
+                          <Badge variant="secondary">Inactive</Badge>
+                        )}
+                      </div>
                     </div>
-                    <Badge variant={product.taxable ? "default" : "secondary"}>
-                      {product.taxable ? "Taxable" : "Non-taxable"}
-                    </Badge>
                   </div>
+                  
+                  {product.eventTypes && product.eventTypes.length > 0 && (
+                    <div className="mt-3">
+                      <p className="text-xs text-muted-foreground mb-2">Available for:</p>
+                      <div className="flex flex-wrap gap-1">
+                        {product.eventTypes.slice(0, 3).map((eventType) => (
+                          <Badge key={eventType} variant="outline" className="text-xs">
+                            {eventType === 'other' ? 'Other' : eventType.charAt(0).toUpperCase() + eventType.slice(1)}
+                          </Badge>
+                        ))}
+                        {product.eventTypes.length > 3 && (
+                          <Badge variant="outline" className="text-xs">
+                            +{product.eventTypes.length - 3} more
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+                  )}
                 </CardHeader>
                 <CardContent>
                   <div className="flex gap-2">

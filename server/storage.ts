@@ -136,9 +136,172 @@ export class MemStorage implements IStorage {
 
     // Seed products
     const products = [
-      { id: "prod_charter_2hr", orgId: "org_demo", name: "2-hour Charter", unitPrice: 60000, taxable: true },
-      { id: "prod_cooler_ice", orgId: "org_demo", name: "Cooler + Ice", unitPrice: 1500, taxable: true },
-      { id: "prod_pod_kit", orgId: "org_demo", name: "POD Pre-stock Kit", unitPrice: 9500, taxable: true },
+      // Existing products (now marked as addons)
+      { 
+        id: "prod_cooler_ice", 
+        orgId: "org_demo", 
+        name: "Cooler + Ice", 
+        unitPrice: 1500, 
+        taxable: true,
+        pricingModel: "flat_rate",
+        productType: "addon",
+        eventTypes: [],
+        active: true,
+      },
+      { 
+        id: "prod_pod_kit", 
+        orgId: "org_demo", 
+        name: "POD Pre-stock Kit", 
+        unitPrice: 9500, 
+        taxable: true,
+        pricingModel: "flat_rate",
+        productType: "addon",
+        eventTypes: [],
+        active: true,
+      },
+
+      // ATX Disco Cruise Products (per-person pricing)
+      {
+        id: "disco_basic_bach",
+        orgId: "org_demo",
+        name: "Basic Bach Package",
+        description: "Essential disco cruise experience with DJ, dance floor, and party atmosphere. Perfect for bachelor parties looking for a fun night on the water!",
+        unitPrice: 8500, // $85 per person
+        taxable: true,
+        pricingModel: "per_person",
+        productType: "disco_cruise",
+        eventTypes: ["bachelor", "bachelorette"],
+        active: true,
+      },
+      {
+        id: "disco_queen",
+        orgId: "org_demo",
+        name: "Disco Queen Package",
+        description: "Premium disco cruise with upgraded sound system, disco lights, premium bar setup, and party favors. The ultimate bachelorette experience!",
+        unitPrice: 9500, // $95 per person
+        taxable: true,
+        pricingModel: "per_person",
+        productType: "disco_cruise",
+        eventTypes: ["bachelor", "bachelorette"],
+        active: true,
+      },
+      {
+        id: "disco_platinum",
+        orgId: "org_demo",
+        name: "Supabase Platinum Disco Package",
+        description: "The most exclusive disco cruise experience with VIP service, premium cocktails, gourmet snacks, professional photographer, and luxury amenities. Database-level awesome!",
+        unitPrice: 10500, // $105 per person
+        taxable: true,
+        pricingModel: "per_person",
+        productType: "disco_cruise",
+        eventTypes: ["bachelor", "bachelorette"],
+        active: true,
+      },
+
+      // Private Cruise Products (hourly pricing with day variations)
+      // Thursday pricing (lowest rates)
+      {
+        id: "private_cruise_thu_14_30",
+        orgId: "org_demo",
+        name: "Thursday Private Cruise (14-30 guests)",
+        description: "Private boat charter for Thursday events with professional captain and crew. Perfect for smaller gatherings.",
+        unitPrice: 45000, // $450/hour base rate for Thursday
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+      {
+        id: "private_cruise_thu_31_50",
+        orgId: "org_demo",
+        name: "Thursday Private Cruise (31-50 guests)",
+        description: "Private boat charter for Thursday events accommodating larger groups with full amenities.",
+        unitPrice: 55000, // $550/hour for larger groups on Thursday
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+
+      // Friday pricing (moderate rates)
+      {
+        id: "private_cruise_fri_14_30",
+        orgId: "org_demo",
+        name: "Friday Private Cruise (14-30 guests)",
+        description: "Private boat charter for Friday events with professional captain and crew. Popular choice for corporate events.",
+        unitPrice: 54000, // $540/hour (20% markup)
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+      {
+        id: "private_cruise_fri_31_50",
+        orgId: "org_demo",
+        name: "Friday Private Cruise (31-50 guests)",
+        description: "Private boat charter for Friday events accommodating larger groups with premium service.",
+        unitPrice: 66000, // $660/hour for larger groups on Friday
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+
+      // Saturday pricing (premium rates)
+      {
+        id: "private_cruise_sat_14_30",
+        orgId: "org_demo",
+        name: "Saturday Private Cruise (14-30 guests)",
+        description: "Premium Saturday private boat charter with professional captain and crew. Perfect for weddings and special celebrations.",
+        unitPrice: 67500, // $675/hour (50% markup)
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+      {
+        id: "private_cruise_sat_31_50",
+        orgId: "org_demo",
+        name: "Saturday Private Cruise (31-50 guests)",
+        description: "Premium Saturday charter for larger groups with luxury amenities and full service.",
+        unitPrice: 82500, // $825/hour for larger groups on Saturday
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+
+      // Sunday pricing (high rates)
+      {
+        id: "private_cruise_sun_14_30",
+        orgId: "org_demo",
+        name: "Sunday Private Cruise (14-30 guests)",
+        description: "Sunday private boat charter with professional captain and crew. Great for family gatherings and celebrations.",
+        unitPrice: 58500, // $585/hour (30% markup)
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
+      {
+        id: "private_cruise_sun_31_50",
+        orgId: "org_demo",
+        name: "Sunday Private Cruise (31-50 guests)",
+        description: "Sunday charter for larger groups with comprehensive amenities and premium service.",
+        unitPrice: 71500, // $715/hour for larger groups on Sunday
+        taxable: true,
+        pricingModel: "hourly",
+        productType: "private_cruise",
+        eventTypes: ["corporate", "wedding", "birthday", "graduation", "anniversary", "other"],
+        active: true,
+      },
     ];
     products.forEach(product => this.products.set(product.id, product));
 
@@ -392,11 +555,33 @@ export class MemStorage implements IStorage {
     return Array.from(this.products.values());
   }
 
+  async getProductsByType(productType: string): Promise<Product[]> {
+    return Array.from(this.products.values()).filter(p => p.productType === productType && p.active);
+  }
+
+  async getProductsByEventType(eventType: string): Promise<Product[]> {
+    return Array.from(this.products.values()).filter(p => 
+      p.active && (p.eventTypes.length === 0 || p.eventTypes.includes(eventType))
+    );
+  }
+
+  async getDiscoCruiseProducts(): Promise<Product[]> {
+    return this.getProductsByType("disco_cruise");
+  }
+
+  async getPrivateCruiseProducts(): Promise<Product[]> {
+    return this.getProductsByType("private_cruise");
+  }
+
   async createProduct(insertProduct: InsertProduct): Promise<Product> {
     const id = randomUUID();
     const product: Product = {
       ...insertProduct,
       orgId: insertProduct.orgId || "org_demo",
+      pricingModel: insertProduct.pricingModel || "hourly",
+      productType: insertProduct.productType || "private_cruise",
+      eventTypes: insertProduct.eventTypes || [],
+      active: insertProduct.active !== undefined ? insertProduct.active : true,
       id,
     };
     this.products.set(id, product);

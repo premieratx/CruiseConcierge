@@ -48,6 +48,10 @@ export const products = pgTable("products", {
   description: text("description"),
   unitPrice: integer("unit_price").notNull(), // in cents
   taxable: boolean("taxable").notNull().default(true),
+  pricingModel: varchar("pricing_model").notNull().default("hourly"), // 'hourly', 'per_person', 'flat_rate'
+  productType: varchar("product_type").notNull().default("private_cruise"), // 'private_cruise', 'disco_cruise', 'addon'
+  eventTypes: jsonb("event_types").$type<string[]>().default([]), // which event types this product applies to
+  active: boolean("active").notNull().default(true),
 });
 
 export const quotes = pgTable("quotes", {
@@ -366,6 +370,11 @@ export const insertPricingSettingsSchema = createInsertSchema(pricingSettings).o
 
 export const insertProductSchema = createInsertSchema(products).omit({
   id: true,
+}).extend({
+  pricingModel: z.enum(["hourly", "per_person", "flat_rate"]).default("hourly"),
+  productType: z.enum(["private_cruise", "disco_cruise", "addon"]).default("private_cruise"),
+  eventTypes: z.array(z.string()).default([]),
+  active: z.boolean().default(true),
 });
 
 export const insertBoatSchema = createInsertSchema(boats).omit({

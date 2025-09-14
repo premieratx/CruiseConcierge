@@ -364,6 +364,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Disco Cruise specific endpoints
+  app.get("/api/products/disco-cruise", async (req, res) => {
+    try {
+      const discoCruiseProducts = await storage.getDiscoCruiseProducts();
+      console.log("Disco cruise products found:", discoCruiseProducts.length);
+      if (discoCruiseProducts.length === 0) {
+        return res.status(404).json({ error: "Product not found" });
+      }
+      res.json(discoCruiseProducts);
+    } catch (error) {
+      console.error("Get disco cruise products error:", error);
+      res.status(500).json({ error: "Failed to fetch disco cruise products" });
+    }
+  });
+
+  app.get("/api/products/private-cruise", async (req, res) => {
+    try {
+      const privateCruiseProducts = await storage.getPrivateCruiseProducts();
+      res.json(privateCruiseProducts);
+    } catch (error) {
+      console.error("Get private cruise products error:", error);
+      res.status(500).json({ error: "Failed to fetch private cruise products" });
+    }
+  });
+
+  app.get("/api/products/by-event/:eventType", async (req, res) => {
+    try {
+      const eventType = req.params.eventType;
+      const products = await storage.getProductsByEventType(eventType);
+      res.json(products);
+    } catch (error) {
+      console.error("Get products by event type error:", error);
+      res.status(500).json({ error: "Failed to fetch products for event type" });
+    }
+  });
+
   // Quote endpoints
   app.post("/api/quotes", async (req, res) => {
     try {
@@ -1251,10 +1287,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Cruise-specific pricing endpoint
+  // Enhanced cruise pricing endpoint with disco cruise support
   app.post("/api/pricing/cruise", async (req, res) => {
     try {
-      const { groupSize, eventDate, timeSlot, promoCode } = req.body;
+      const { groupSize, eventDate, timeSlot, promoCode, eventType, cruiseType } = req.body;
       
       if (!groupSize || !eventDate || !timeSlot) {
         return res.status(400).json({ 
@@ -1262,14 +1298,52 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      const pricing = await storage.calculateCruisePricing({
-        groupSize: parseInt(groupSize),
-        eventDate: new Date(eventDate),
-        timeSlot,
-        promoCode,
-      });
+      // For bachelor/bachelorette parties, return both pricing options
+      if ((eventType === 'bachelor' || eventType === 'bachelorette') && cruiseType === 'both') {
+        const discoCruiseProducts = await storage.getDiscoCruiseProducts();
+        const privateCruisePricing = await storage.calculateCruisePricing({
+          groupSize: parseInt(groupSize),
+          eventDate: new Date(eventDate),
+          timeSlot,
+          promoCode,
+        });
 
-      res.json(pricing);
+        // Calculate disco cruise pricing (per-person)
+        const discoCruiseOptions = discoCruiseProducts.map(product => ({
+          id: product.id,
+          name: product.name,
+          description: product.description,
+          pricePerPerson: product.unitPrice,
+          totalPrice: product.unitPrice * parseInt(groupSize),
+          pricingModel: 'per_person',
+          productType: 'disco_cruise'
+        }));
+
+        res.json({
+          privateCruise: privateCruisePricing,
+          discoCruise: {
+            options: discoCruiseOptions,
+            groupSize: parseInt(groupSize),
+            pricingModel: 'per_person'
+          },
+          showBothOptions: true,
+          eventType: eventType
+        });
+      } else {
+        // Regular private cruise pricing for all other events
+        const pricing = await storage.calculateCruisePricing({
+          groupSize: parseInt(groupSize),
+          eventDate: new Date(eventDate),
+          timeSlot,
+          promoCode,
+        });
+
+        res.json({
+          ...pricing,
+          showBothOptions: false,
+          eventType: eventType || 'other'
+        });
+      }
     } catch (error: any) {
       console.error("Calculate cruise pricing error:", error);
       res.status(400).json({ error: error.message || "Failed to calculate pricing" });
