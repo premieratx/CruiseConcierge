@@ -23,6 +23,12 @@ export const projects = pgTable("projects", {
   pipelinePhase: varchar("pipeline_phase").notNull().default("ph_new"),
   groupSize: integer("group_size"),
   eventType: text("event_type"),
+  duration: integer("duration"), // in hours
+  specialRequests: text("special_requests"),
+  preferredTime: text("preferred_time"),
+  budget: integer("budget"), // in cents
+  leadSource: varchar("lead_source").default("chat"),
+  availabilitySlotId: varchar("availability_slot_id"), // reference to booked slot
   tags: jsonb("tags").$type<string[]>().default([]),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
@@ -47,13 +53,21 @@ export const quotes = pgTable("quotes", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   orgId: varchar("org_id").notNull().default("org_demo"),
   projectId: varchar("project_id").notNull(),
+  templateId: varchar("template_id"), // reference to quote template
   status: varchar("status").notNull().default("DRAFT"),
   items: jsonb("items").$type<QuoteItem[]>().default([]),
   promoCode: text("promo_code"),
   discountTotal: integer("discount_total").notNull().default(0),
   subtotal: integer("subtotal").notNull().default(0),
   tax: integer("tax").notNull().default(0),
+  gratuity: integer("gratuity").notNull().default(0),
   total: integer("total").notNull().default(0),
+  perPersonCost: integer("per_person_cost").notNull().default(0),
+  depositRequired: boolean("deposit_required").notNull().default(true),
+  depositPercent: integer("deposit_percent").notNull().default(25),
+  depositAmount: integer("deposit_amount").notNull().default(0),
+  paymentSchedule: jsonb("payment_schedule").$type<PaymentSchedule[]>().default([]),
+  expiresAt: timestamp("expires_at"),
   version: integer("version").notNull().default(1),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
@@ -101,6 +115,75 @@ export const availabilitySlots = pgTable("availability_slots", {
   projectId: varchar("project_id"), // if booked
 });
 
+// Quote Templates - for reusable quote configurations
+export const quoteTemplates = pgTable("quote_templates", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  name: text("name").notNull(),
+  description: text("description"),
+  eventType: text("event_type").notNull(),
+  defaultItems: jsonb("default_items").$type<QuoteItem[]>().default([]),
+  minGroupSize: integer("min_group_size"),
+  maxGroupSize: integer("max_group_size"),
+  basePricePerPerson: integer("base_price_per_person"), // in cents
+  duration: integer("duration").notNull(), // in hours
+  active: boolean("active").notNull().default(true),
+  displayOrder: integer("display_order").notNull().default(0),
+  visualTheme: jsonb("visual_theme").$type<TemplateVisual>().default({}),
+  automationRules: jsonb("automation_rules").$type<string[]>().default([]), // rule IDs
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Template Rules - for dynamic behavior based on conditions
+export const templateRules = pgTable("template_rules", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  name: text("name").notNull(),
+  description: text("description"),
+  ruleType: varchar("rule_type").notNull(), // 'pricing', 'availability', 'items', 'messaging'
+  conditions: jsonb("conditions").$type<RuleCondition[]>().default([]),
+  actions: jsonb("actions").$type<RuleAction[]>().default([]),
+  priority: integer("priority").notNull().default(0),
+  active: boolean("active").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Discount Rules - for automated discount applications
+export const discountRules = pgTable("discount_rules", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  name: text("name").notNull(),
+  code: text("code"), // promo code, if applicable
+  discountType: varchar("discount_type").notNull(), // 'percentage', 'fixed_amount', 'per_person'
+  discountValue: integer("discount_value").notNull(), // percentage (0-100) or amount in cents
+  minGroupSize: integer("min_group_size"),
+  maxGroupSize: integer("max_group_size"),
+  minSubtotal: integer("min_subtotal"), // minimum order value in cents
+  validFrom: timestamp("valid_from"),
+  validUntil: timestamp("valid_until"),
+  usageLimit: integer("usage_limit"),
+  usageCount: integer("usage_count").notNull().default(0),
+  active: boolean("active").notNull().default(true),
+  conditions: jsonb("conditions").$type<DiscountCondition[]>().default([]),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Pricing Settings - for organization-wide pricing configuration
+export const pricingSettings = pgTable("pricing_settings", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  taxRate: integer("tax_rate").notNull().default(825), // 8.25% as 825 basis points
+  defaultGratuityPercent: integer("default_gratuity_percent").notNull().default(18),
+  gratuityIncluded: boolean("gratuity_included").notNull().default(false),
+  defaultDepositPercent: integer("default_deposit_percent").notNull().default(25),
+  urgencyThresholdDays: integer("urgency_threshold_days").notNull().default(30),
+  fullPaymentThresholdDays: integer("full_payment_threshold_days").notNull().default(14),
+  currency: varchar("currency").notNull().default("USD"),
+  timezone: varchar("timezone").notNull().default("America/Chicago"),
+  priceDisplayMode: varchar("price_display_mode").notNull().default("total"), // 'total', 'per_person', 'both'
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
 // Type definitions
 export type QuoteItem = {
   type: string;
@@ -112,6 +195,8 @@ export type QuoteItem = {
   groupId?: string;
   required?: boolean;
   order?: number;
+  description?: string;
+  category?: string;
 };
 
 export type PaymentSchedule = {
@@ -119,6 +204,50 @@ export type PaymentSchedule = {
   due: string;
   percent: number;
   daysBefore?: number;
+};
+
+export type TemplateVisual = {
+  primaryColor?: string;
+  accentColor?: string;
+  headerImage?: string;
+  logoUrl?: string;
+  theme?: string;
+};
+
+export type RuleCondition = {
+  field: string; // 'groupSize', 'eventType', 'projectDate', 'daysBefore', etc.
+  operator: string; // 'equals', 'greater_than', 'less_than', 'contains', etc.
+  value: any;
+  logicalOperator?: 'AND' | 'OR'; // for combining conditions
+};
+
+export type RuleAction = {
+  actionType: string; // 'add_item', 'modify_price', 'set_message', 'require_deposit', etc.
+  target?: string;
+  value: any;
+  parameters?: Record<string, any>;
+};
+
+export type DiscountCondition = {
+  field: string;
+  operator: string;
+  value: any;
+};
+
+export type ChatbotButton = {
+  id: string;
+  text: string;
+  value: string;
+  style?: 'primary' | 'secondary' | 'outline';
+  metadata?: Record<string, any>;
+};
+
+export type ChatbotFlow = {
+  stepId: string;
+  message: string;
+  buttons?: ChatbotButton[];
+  nextStep?: string;
+  actions?: string[]; // action types to execute
 };
 
 // Insert schemas
@@ -142,6 +271,25 @@ export const insertChatMessageSchema = createInsertSchema(chatMessages).omit({
   createdAt: true,
 });
 
+export const insertQuoteTemplateSchema = createInsertSchema(quoteTemplates).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertTemplateRuleSchema = createInsertSchema(templateRules).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertDiscountRuleSchema = createInsertSchema(discountRules).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertPricingSettingsSchema = createInsertSchema(pricingSettings).omit({
+  id: true,
+});
+
 // Select types
 export type Contact = typeof contacts.$inferSelect;
 export type Project = typeof projects.$inferSelect;
@@ -152,9 +300,34 @@ export type Invoice = typeof invoices.$inferSelect;
 export type Payment = typeof payments.$inferSelect;
 export type ChatMessage = typeof chatMessages.$inferSelect;
 export type AvailabilitySlot = typeof availabilitySlots.$inferSelect;
+export type QuoteTemplate = typeof quoteTemplates.$inferSelect;
+export type TemplateRule = typeof templateRules.$inferSelect;
+export type DiscountRule = typeof discountRules.$inferSelect;
+export type PricingSettings = typeof pricingSettings.$inferSelect;
 
 // Insert types
 export type InsertContact = z.infer<typeof insertContactSchema>;
 export type InsertProject = z.infer<typeof insertProjectSchema>;
 export type InsertQuote = z.infer<typeof insertQuoteSchema>;
 export type InsertChatMessage = z.infer<typeof insertChatMessageSchema>;
+export type InsertQuoteTemplate = z.infer<typeof insertQuoteTemplateSchema>;
+export type InsertTemplateRule = z.infer<typeof insertTemplateRuleSchema>;
+export type InsertDiscountRule = z.infer<typeof insertDiscountRuleSchema>;
+export type InsertPricingSettings = z.infer<typeof insertPricingSettingsSchema>;
+
+// Enhanced pricing response type
+export type PricingPreview = {
+  subtotal: number;
+  discountTotal: number;
+  tax: number;
+  gratuity: number;
+  total: number;
+  perPersonCost: number;
+  depositRequired: boolean;
+  depositPercent: number;
+  depositAmount: number;
+  urgencyMessage?: string;
+  appliedDiscounts: string[];
+  paymentSchedule: PaymentSchedule[];
+  expiresAt?: Date;
+};

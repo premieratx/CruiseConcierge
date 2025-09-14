@@ -5,9 +5,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { Calculator, Gift, DollarSign, Percent } from "lucide-react";
+import { Calculator, Gift, DollarSign, Percent, Users, Clock, AlertTriangle, Edit, Wand2 } from "lucide-react";
 
 interface QuoteItem {
   id: string;
@@ -20,13 +22,39 @@ interface PricingPreview {
   subtotal: number;
   discountTotal: number;
   tax: number;
+  gratuity: number;
   total: number;
+  perPersonCost: number;
   depositRequired: boolean;
   depositPercent: number;
   depositAmount: number;
+  paymentSchedule?: any[];
+  expiresAt?: string;
+  urgencyMessage?: string;
 }
 
-export function QuoteBuilder() {
+interface QuoteTemplate {
+  id: string;
+  name: string;
+  eventType: string;
+  description: string;
+  minGroupSize: number;
+  maxGroupSize: number;
+  basePricePerPerson?: number;
+  defaultItems: QuoteItem[];
+  isActive: boolean;
+}
+
+interface QuoteBuilderProps {
+  projectId?: string;
+  templateId?: string;
+  groupSize?: number;
+  onQuoteChange?: (quote: any) => void;
+}
+
+export function QuoteBuilder({ projectId, templateId, groupSize, onQuoteChange }: QuoteBuilderProps = {}) {
+  const [templates, setTemplates] = useState<QuoteTemplate[]>([]);
+  const [selectedTemplate, setSelectedTemplate] = useState<string>(templateId || "");
   const [items, setItems] = useState<QuoteItem[]>([
     { id: "prod_charter_2hr", name: "2-hour Charter", unitPrice: 60000, qty: 1 },
     { id: "prod_cooler_ice", name: "Cooler + Ice", unitPrice: 1500, qty: 1 },
@@ -36,6 +64,8 @@ export function QuoteBuilder() {
   const [appliedPromo, setAppliedPromo] = useState("");
   const [pricing, setPricing] = useState<PricingPreview | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isEditMode, setIsEditMode] = useState(false);
+  const [currentGroupSize, setCurrentGroupSize] = useState<number>(groupSize || 15);
   const [projectDate] = useState(new Date(Date.now() + 20 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]);
   const { toast } = useToast();
 

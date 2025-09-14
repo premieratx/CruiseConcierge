@@ -10,26 +10,44 @@ import { useToast } from "@/hooks/use-toast";
 import { Calendar, Clock, Users } from "lucide-react";
 
 interface AvailabilitySlot {
+  id?: string;
   date: string;
   time: string;
   boat: string;
   status: 'AVAILABLE' | 'BOOKED' | 'MAINTENANCE';
   capacity: number;
   bookedBy?: string;
+  slotReference?: string;
+  pricePerPerson?: number;
+  basePrice?: number;
 }
 
-export function AvailabilityGrid() {
+interface AvailabilityGridProps {
+  onSlotSelect?: (slot: AvailabilitySlot) => void;
+  selectedQuoteId?: string;
+  groupSize?: number;
+}
+
+export function AvailabilityGrid({ onSlotSelect, selectedQuoteId, groupSize: propGroupSize }: AvailabilityGridProps) {
   const [availability, setAvailability] = useState<AvailabilitySlot[]>([]);
-  const [groupSize, setGroupSize] = useState("15");
+  const [groupSize, setGroupSize] = useState(propGroupSize?.toString() || "15");
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split('T')[0]
   );
+  const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [showPricing, setShowPricing] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
     loadAvailability();
   }, [selectedDate, groupSize]);
+
+  useEffect(() => {
+    if (propGroupSize) {
+      setGroupSize(propGroupSize.toString());
+    }
+  }, [propGroupSize]);
 
   const loadAvailability = async () => {
     setIsLoading(true);
@@ -76,6 +94,32 @@ export function AvailabilityGrid() {
     return acc;
   }, {} as Record<string, AvailabilitySlot[]>);
 
+  const handleSlotSelect = (slot: AvailabilitySlot, time: string) => {
+    if (slot.status !== 'AVAILABLE' || slot.capacity < groupSizeNum) return;
+    
+    const fullSlot = {
+      ...slot,
+      time,
+      slotReference: `${slot.date}-${time}-${slot.boat}`,
+    };
+    
+    const slotId = `${slot.date}-${time}-${slot.boat}`;
+    setSelectedSlot(slotId);
+    
+    if (onSlotSelect) {
+      onSlotSelect(fullSlot);
+    }
+    
+    toast({
+      title: "Slot Selected",
+      description: `${slot.boat} on ${new Date(slot.date).toLocaleDateString()} at ${time}`,
+    });
+  };
+  
+  const togglePricingDisplay = () => {
+    setShowPricing(!showPricing);
+  };
+
   const groupSizeNum = parseInt(groupSize);
 
   return (
@@ -92,8 +136,9 @@ export function AvailabilityGrid() {
 
       <CardContent className="p-4">
         {/* Search Filters */}
-        <div className="grid grid-cols-2 gap-3 mb-4">
-          <div>
+        <div className="space-y-3 mb-4">
+          <div className="grid grid-cols-2 gap-3">
+            <div>
             <Label className="text-xs font-medium mb-1" htmlFor="group-size">
               Group Size
             </Label>
@@ -124,6 +169,38 @@ export function AvailabilityGrid() {
               data-testid="input-date-picker"
             />
           </div>
+          </div>
+          
+          {/* Additional Controls */}
+          <div className="flex items-center justify-between">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={togglePricingDisplay}
+              className="text-xs"
+              data-testid="button-toggle-pricing"
+            >
+              {showPricing ? 'Hide' : 'Show'} Pricing
+            </Button>
+            
+            {selectedSlot && (
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => setSelectedSlot(null)}
+                className="text-xs"
+                data-testid="button-clear-selection"
+              >
+                Clear Selection
+              </Button>
+            )}
+            
+            {selectedQuoteId && (
+              <Badge variant="secondary" className="text-xs">
+                Quote: {selectedQuoteId}
+              </Badge>
+            )}
+          </div>
         </div>
 
         {/* Loading State */}
@@ -137,10 +214,34 @@ export function AvailabilityGrid() {
         {/* Available Boats */}
         {!isLoading && (
           <div className="space-y-3">
+            {selectedSlot && (
+              <div className="mb-4 p-3 bg-primary/5 border border-primary/20 rounded-lg">
+                <div className="flex items-center space-x-2 mb-2">
+                  <Badge variant="default">Selected Slot</Badge>
+                  <span className="text-sm font-medium">Ready for Quote Match</span>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  Slot Reference: <code className="bg-muted px-1 rounded">{selectedSlot}</code>
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  This slot will be automatically referenced in your quote
+                </p>
+              </div>
+            )}
+            
             {Object.keys(groupedByBoat).length === 0 ? (
               <div className="text-center py-8 text-muted-foreground" data-testid="no-availability">
                 <Calendar className="w-8 h-8 mx-auto mb-2 opacity-50" />
                 <p>No availability found for selected criteria</p>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  onClick={loadAvailability}
+                  className="mt-2 text-xs"
+                  data-testid="button-reload-availability"
+                >
+                  Reload Availability
+                </Button>
               </div>
             ) : (
               Object.entries(groupedByBoat).map(([boatName, slots]) => {
@@ -180,20 +281,41 @@ export function AvailabilityGrid() {
                     
                     <div className="grid grid-cols-3 gap-2 text-xs">
                       {['12:00', '15:00', '18:00'].map(time => {
-                        const slot = slots.find(s => s.time === time);
+                        const slot = slots.find(s => s.time === time) || {
+                          date: selectedDate,
+                          time,
+                          boat: boatName,
+                          status: 'AVAILABLE' as const,
+                          capacity: boat.capacity,
+                          pricePerPerson: 2500, // $25 per person base price
+                          basePrice: 60000, // $600 base price
+                        };
                         const isAvailable = slot && slot.status === 'AVAILABLE' && slot.capacity >= groupSizeNum;
+                        
+                        const slotId = `${slot?.date}-${time}-${boatName}`;
+                        const isSelected = selectedSlot === slotId;
                         
                         return (
                           <Button
                             key={time}
-                            variant={isAvailable ? "default" : "outline"}
+                            variant={isSelected ? "default" : isAvailable ? "outline" : "secondary"}
                             size="sm"
                             disabled={!isAvailable}
-                            className="h-8 text-xs"
+                            className={`h-8 text-xs relative ${
+                              isSelected ? 'ring-2 ring-primary' : ''
+                            } ${
+                              isAvailable ? 'hover:bg-primary/10' : ''
+                            }`}
+                            onClick={() => handleSlotSelect(slot!, time)}
                             data-testid={`button-time-slot-${time.replace(':', '')}-${boatName.toLowerCase().replace(/\s+/g, '-')}`}
                           >
                             <Clock className="w-3 h-3 mr-1" />
                             {time} {time >= '12:00' ? 'PM' : 'AM'}
+                            {slot?.pricePerPerson && showPricing && (
+                              <span className="absolute -top-1 -right-1 bg-green-500 text-white text-xs rounded-full px-1">
+                                ${(slot.pricePerPerson / 100).toFixed(0)}
+                              </span>
+                            )}
                           </Button>
                         );
                       })}

@@ -6,7 +6,8 @@ import { processChatMessage, generateQuoteDescription } from "./services/openai"
 import { googleSheetsService } from "./services/googleSheets";
 import { sendQuoteEmail } from "./services/sendgrid";
 import { twilioService } from "./services/twilio";
-import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema } from "@shared/schema";
+import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema } from "@shared/schema";
+import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
 
 if (!process.env.STRIPE_SECRET_KEY) {
@@ -272,47 +273,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Pricing preview endpoint
-  app.post("/api/pricing/preview", (req, res) => {
+  // Enhanced pricing preview endpoint
+  app.post("/api/pricing/preview", async (req, res) => {
     try {
-      const { items = [], promoCode, projectDate } = req.body;
+      const { items = [], promoCode, projectDate, groupSize, templateId } = req.body;
       
-      // Simple pricing calculation
-      let subtotal = items.reduce((sum: number, item: any) => 
-        sum + (item.unitPrice * item.qty), 0);
-      
-      let discountTotal = 0;
-      if (promoCode) {
-        // Apply 10% discount for demo
-        discountTotal = Math.floor(subtotal * 0.1);
-      }
-      
-      const tax = Math.floor((subtotal - discountTotal) * 0.0825); // 8.25% Austin tax
-      const total = subtotal - discountTotal + tax;
-      
-      // Determine deposit policy
-      let depositRequired = true;
-      let depositPercent = 25;
-      
-      if (projectDate) {
-        const projectDateObj = new Date(projectDate);
-        const now = new Date();
-        const daysUntil = Math.ceil((projectDateObj.getTime() - now.getTime()) / (1000 * 60 * 60 * 24));
-        
-        if (daysUntil <= 30) {
-          depositPercent = 100; // Full payment required within 30 days
-        }
-      }
-
-      res.json({
-        subtotal,
-        discountTotal,
-        tax,
-        total,
-        depositRequired,
-        depositPercent,
-        depositAmount: Math.floor(total * depositPercent / 100)
+      const pricing = await storage.calculatePricing({
+        items,
+        groupSize,
+        projectDate: projectDate ? new Date(projectDate) : undefined,
+        promoCode,
+        templateId,
       });
+
+      res.json(pricing);
     } catch (error) {
       console.error("Pricing preview error:", error);
       res.status(500).json({ error: "Failed to calculate pricing" });
@@ -435,6 +409,459 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Pipeline summary error:", error);
       res.status(500).json({ error: "Failed to fetch pipeline summary" });
+    }
+  });
+
+  // Quote Templates endpoints
+  app.get("/api/quote-templates", async (req, res) => {
+    try {
+      const { eventType } = req.query;
+      let templates;
+      
+      if (eventType) {
+        templates = await storage.getQuoteTemplatesByEventType(eventType as string);
+      } else {
+        templates = await storage.getQuoteTemplates();
+      }
+      
+      res.json(templates);
+    } catch (error) {
+      console.error("Get quote templates error:", error);
+      res.status(500).json({ error: "Failed to fetch quote templates" });
+    }
+  });
+
+  app.get("/api/quote-templates/:id", async (req, res) => {
+    try {
+      const template = await storage.getQuoteTemplate(req.params.id);
+      if (!template) {
+        return res.status(404).json({ error: "Quote template not found" });
+      }
+      res.json(template);
+    } catch (error) {
+      console.error("Get quote template error:", error);
+      res.status(500).json({ error: "Failed to fetch quote template" });
+    }
+  });
+
+  app.post("/api/quote-templates", async (req, res) => {
+    try {
+      const templateData = insertQuoteTemplateSchema.parse(req.body);
+      const template = await storage.createQuoteTemplate(templateData);
+      res.status(201).json(template);
+    } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ error: "Invalid template data", details: error.errors });
+      }
+      console.error("Create quote template error:", error);
+      res.status(500).json({ error: "Failed to create quote template" });
+    }
+  });
+
+  app.put("/api/quote-templates/:id", async (req, res) => {
+    try {
+      const template = await storage.updateQuoteTemplate(req.params.id, req.body);
+      res.json(template);
+    } catch (error: any) {
+      if (error.message === "Quote template not found") {
+        return res.status(404).json({ error: "Quote template not found" });
+      }
+      console.error("Update quote template error:", error);
+      res.status(500).json({ error: "Failed to update quote template" });
+    }
+  });
+
+  app.delete("/api/quote-templates/:id", async (req, res) => {
+    try {
+      const success = await storage.deleteQuoteTemplate(req.params.id);
+      if (!success) {
+        return res.status(404).json({ error: "Quote template not found" });
+      }
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Delete quote template error:", error);
+      res.status(500).json({ error: "Failed to delete quote template" });
+    }
+  });
+
+  // Template Rules endpoints
+  app.get("/api/template-rules", async (req, res) => {
+    try {
+      const { ruleType } = req.query;
+      let rules;
+      
+      if (ruleType) {
+        rules = await storage.getTemplateRulesByType(ruleType as string);
+      } else {
+        rules = await storage.getTemplateRules();
+      }
+      
+      res.json(rules);
+    } catch (error) {
+      console.error("Get template rules error:", error);
+      res.status(500).json({ error: "Failed to fetch template rules" });
+    }
+  });
+
+  app.post("/api/template-rules", async (req, res) => {
+    try {
+      const ruleData = insertTemplateRuleSchema.parse(req.body);
+      const rule = await storage.createTemplateRule(ruleData);
+      res.status(201).json(rule);
+    } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ error: "Invalid rule data", details: error.errors });
+      }
+      console.error("Create template rule error:", error);
+      res.status(500).json({ error: "Failed to create template rule" });
+    }
+  });
+
+  app.put("/api/template-rules/:id", async (req, res) => {
+    try {
+      const rule = await storage.updateTemplateRule(req.params.id, req.body);
+      res.json(rule);
+    } catch (error: any) {
+      if (error.message === "Template rule not found") {
+        return res.status(404).json({ error: "Template rule not found" });
+      }
+      console.error("Update template rule error:", error);
+      res.status(500).json({ error: "Failed to update template rule" });
+    }
+  });
+
+  app.delete("/api/template-rules/:id", async (req, res) => {
+    try {
+      const success = await storage.deleteTemplateRule(req.params.id);
+      if (!success) {
+        return res.status(404).json({ error: "Template rule not found" });
+      }
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Delete template rule error:", error);
+      res.status(500).json({ error: "Failed to delete template rule" });
+    }
+  });
+
+  // Discount Rules endpoints
+  app.get("/api/discount-rules", async (req, res) => {
+    try {
+      const { active } = req.query;
+      let rules;
+      
+      if (active === 'true') {
+        rules = await storage.getActiveDiscountRules();
+      } else {
+        rules = await storage.getDiscountRules();
+      }
+      
+      res.json(rules);
+    } catch (error) {
+      console.error("Get discount rules error:", error);
+      res.status(500).json({ error: "Failed to fetch discount rules" });
+    }
+  });
+
+  app.get("/api/discount-rules/by-code/:code", async (req, res) => {
+    try {
+      const rule = await storage.getDiscountRuleByCode(req.params.code);
+      if (!rule) {
+        return res.status(404).json({ error: "Discount rule not found" });
+      }
+      res.json(rule);
+    } catch (error) {
+      console.error("Get discount rule by code error:", error);
+      res.status(500).json({ error: "Failed to fetch discount rule" });
+    }
+  });
+
+  app.post("/api/discount-rules", async (req, res) => {
+    try {
+      const ruleData = insertDiscountRuleSchema.parse(req.body);
+      const rule = await storage.createDiscountRule(ruleData);
+      res.status(201).json(rule);
+    } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ error: "Invalid discount rule data", details: error.errors });
+      }
+      console.error("Create discount rule error:", error);
+      res.status(500).json({ error: "Failed to create discount rule" });
+    }
+  });
+
+  app.put("/api/discount-rules/:id", async (req, res) => {
+    try {
+      const rule = await storage.updateDiscountRule(req.params.id, req.body);
+      res.json(rule);
+    } catch (error: any) {
+      if (error.message === "Discount rule not found") {
+        return res.status(404).json({ error: "Discount rule not found" });
+      }
+      console.error("Update discount rule error:", error);
+      res.status(500).json({ error: "Failed to update discount rule" });
+    }
+  });
+
+  app.delete("/api/discount-rules/:id", async (req, res) => {
+    try {
+      const success = await storage.deleteDiscountRule(req.params.id);
+      if (!success) {
+        return res.status(404).json({ error: "Discount rule not found" });
+      }
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Delete discount rule error:", error);
+      res.status(500).json({ error: "Failed to delete discount rule" });
+    }
+  });
+
+  // Pricing Settings endpoints
+  app.get("/api/pricing-settings", async (req, res) => {
+    try {
+      const { orgId } = req.query;
+      const settings = await storage.getPricingSettings(orgId as string);
+      if (!settings) {
+        return res.status(404).json({ error: "Pricing settings not found" });
+      }
+      res.json(settings);
+    } catch (error) {
+      console.error("Get pricing settings error:", error);
+      res.status(500).json({ error: "Failed to fetch pricing settings" });
+    }
+  });
+
+  app.put("/api/pricing-settings", async (req, res) => {
+    try {
+      const { orgId, ...updates } = req.body;
+      const settings = await storage.updatePricingSettings(updates, orgId);
+      res.json(settings);
+    } catch (error) {
+      console.error("Update pricing settings error:", error);
+      res.status(500).json({ error: "Failed to update pricing settings" });
+    }
+  });
+
+  // Template Rendering endpoints
+  app.get("/api/quotes/:id/render", async (req, res) => {
+    try {
+      const { format = 'html' } = req.query;
+      const rendered = await templateRenderer.renderQuote(
+        req.params.id, 
+        format as 'html' | 'text' | 'json' | 'pdf'
+      );
+      
+      if (format === 'html') {
+        res.set('Content-Type', 'text/html');
+      } else if (format === 'json') {
+        res.set('Content-Type', 'application/json');
+      } else {
+        res.set('Content-Type', 'text/plain');
+      }
+      
+      res.send(rendered.content);
+    } catch (error) {
+      console.error("Render quote error:", error);
+      res.status(500).json({ error: "Failed to render quote" });
+    }
+  });
+
+  app.post("/api/quotes/:id/apply-rules", async (req, res) => {
+    try {
+      const quote = await storage.getQuote(req.params.id);
+      if (!quote) {
+        return res.status(404).json({ error: "Quote not found" });
+      }
+
+      const project = await storage.getProject(quote.projectId);
+      if (!project) {
+        return res.status(404).json({ error: "Project not found" });
+      }
+
+      const result = await templateRenderer.applyTemplateRules(quote, project);
+      
+      // Update quote with modified items
+      const updatedQuote = await storage.updateQuote(quote.id, { items: result.items });
+      
+      res.json({
+        quote: updatedQuote,
+        messages: result.messages,
+      });
+    } catch (error) {
+      console.error("Apply template rules error:", error);
+      res.status(500).json({ error: "Failed to apply template rules" });
+    }
+  });
+
+  // Automated Contact/Project Creation endpoints
+  app.post("/api/contacts/find-or-create", async (req, res) => {
+    try {
+      const { email, name, phone } = req.body;
+      
+      if (!email) {
+        return res.status(400).json({ error: "Email is required" });
+      }
+
+      const contact = await storage.findOrCreateContact(email, name, phone);
+      res.json(contact);
+    } catch (error) {
+      console.error("Find or create contact error:", error);
+      res.status(500).json({ error: "Failed to find or create contact" });
+    }
+  });
+
+  app.post("/api/projects/from-chat-data", async (req, res) => {
+    try {
+      const { contactId, extractedData } = req.body;
+      
+      if (!contactId) {
+        return res.status(400).json({ error: "Contact ID is required" });
+      }
+
+      const project = await storage.createProjectFromChatData(contactId, extractedData);
+      res.status(201).json(project);
+    } catch (error) {
+      console.error("Create project from chat data error:", error);
+      res.status(500).json({ error: "Failed to create project from chat data" });
+    }
+  });
+
+  // Enhanced Quote Management endpoints
+  app.post("/api/quotes/from-template", async (req, res) => {
+    try {
+      const { templateId, projectId, customizations = {} } = req.body;
+      
+      if (!templateId || !projectId) {
+        return res.status(400).json({ error: "Template ID and Project ID are required" });
+      }
+
+      const template = await storage.getQuoteTemplate(templateId);
+      if (!template) {
+        return res.status(404).json({ error: "Quote template not found" });
+      }
+
+      const project = await storage.getProject(projectId);
+      if (!project) {
+        return res.status(404).json({ error: "Project not found" });
+      }
+
+      // Create quote from template
+      const items = template.defaultItems.map(item => ({
+        ...item,
+        ...customizations.items?.[item.productId || item.name] || {},
+      }));
+
+      const pricing = await storage.calculatePricing({
+        items,
+        groupSize: project.groupSize || undefined,
+        projectDate: project.projectDate || undefined,
+        templateId: template.id,
+      });
+
+      const quote = await storage.createQuote({
+        projectId: project.id,
+        templateId: template.id,
+        items,
+        subtotal: pricing.subtotal,
+        discountTotal: pricing.discountTotal,
+        tax: pricing.tax,
+        gratuity: pricing.gratuity,
+        total: pricing.total,
+        perPersonCost: pricing.perPersonCost,
+        depositRequired: pricing.depositRequired,
+        depositPercent: pricing.depositPercent,
+        depositAmount: pricing.depositAmount,
+        paymentSchedule: pricing.paymentSchedule,
+        expiresAt: pricing.expiresAt,
+      });
+
+      res.status(201).json({ quote, pricing });
+    } catch (error) {
+      console.error("Create quote from template error:", error);
+      res.status(500).json({ error: "Failed to create quote from template" });
+    }
+  });
+
+  app.post("/api/quotes/:id/recalculate", async (req, res) => {
+    try {
+      const { items, promoCode } = req.body;
+      
+      const quote = await storage.getQuote(req.params.id);
+      if (!quote) {
+        return res.status(404).json({ error: "Quote not found" });
+      }
+
+      const project = await storage.getProject(quote.projectId);
+      if (!project) {
+        return res.status(404).json({ error: "Project not found" });
+      }
+
+      const pricing = await storage.calculatePricing({
+        items: items || quote.items,
+        groupSize: project.groupSize || undefined,
+        projectDate: project.projectDate || undefined,
+        promoCode: promoCode !== undefined ? promoCode : quote.promoCode,
+        templateId: quote.templateId || undefined,
+      });
+
+      const updatedQuote = await storage.updateQuote(quote.id, {
+        items: items || quote.items,
+        promoCode: promoCode !== undefined ? promoCode : quote.promoCode,
+        subtotal: pricing.subtotal,
+        discountTotal: pricing.discountTotal,
+        tax: pricing.tax,
+        gratuity: pricing.gratuity,
+        total: pricing.total,
+        perPersonCost: pricing.perPersonCost,
+        depositRequired: pricing.depositRequired,
+        depositPercent: pricing.depositPercent,
+        depositAmount: pricing.depositAmount,
+        paymentSchedule: pricing.paymentSchedule,
+        expiresAt: pricing.expiresAt,
+      });
+
+      res.json({ quote: updatedQuote, pricing });
+    } catch (error) {
+      console.error("Recalculate quote error:", error);
+      res.status(500).json({ error: "Failed to recalculate quote" });
+    }
+  });
+
+  // Invoice Generation endpoints
+  app.post("/api/quotes/:id/generate-invoice", async (req, res) => {
+    try {
+      const quote = await storage.getQuote(req.params.id);
+      if (!quote) {
+        return res.status(404).json({ error: "Quote not found" });
+      }
+
+      const project = await storage.getProject(quote.projectId);
+      if (!project) {
+        return res.status(404).json({ error: "Project not found" });
+      }
+
+      // Create invoice from quote
+      const invoice = await storage.createInvoice({
+        orgId: quote.orgId,
+        projectId: quote.projectId,
+        quoteId: quote.id,
+        status: "OPEN",
+        subtotal: quote.subtotal,
+        tax: quote.tax,
+        total: quote.total,
+        balance: quote.total, // Full amount initially
+        schedule: quote.paymentSchedule,
+      });
+
+      // Update quote status
+      await storage.updateQuote(quote.id, { status: "INVOICED" });
+      
+      // Update project phase
+      await storage.updateProject(project.id, { pipelinePhase: "ph_invoice_sent" });
+
+      res.status(201).json(invoice);
+    } catch (error) {
+      console.error("Generate invoice error:", error);
+      res.status(500).json({ error: "Failed to generate invoice" });
     }
   });
 

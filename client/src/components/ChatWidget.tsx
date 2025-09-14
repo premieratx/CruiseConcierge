@@ -12,7 +12,15 @@ interface Message {
   role: 'user' | 'assistant';
   content: string;
   timestamp: Date;
+  buttons?: ChatbotButton[];
   metadata?: any;
+}
+
+interface ChatbotButton {
+  id: string;
+  text: string;
+  value: string;
+  style: 'primary' | 'secondary' | 'outline';
 }
 
 interface ChatWidgetProps {
@@ -114,10 +122,13 @@ export function ChatWidget({ sessionId, contactId, isPreview = false }: ChatWidg
         role: 'assistant',
         content: result.message,
         timestamp: new Date(),
+        buttons: result.buttons,
         metadata: {
           intent: result.intent,
           extractedData: result.extractedData,
-          suggestedActions: result.suggestedActions
+          suggestedActions: result.suggestedActions,
+          flowStep: result.flowStep,
+          automatedActions: result.automatedActions
         }
       };
 
@@ -145,6 +156,94 @@ export function ChatWidget({ sessionId, contactId, isPreview = false }: ChatWidg
       e.preventDefault();
       sendMessage();
     }
+  };
+
+  const handleButtonClick = async (button: ChatbotButton) => {
+    if (isPreview) return;
+    
+    // Send button click as a message
+    await sendButtonMessage(button.text, button.value);
+  };
+
+  const sendButtonMessage = async (buttonText: string, buttonValue: string) => {
+    const userMessage: Message = {
+      id: `btn_${Date.now()}`,
+      role: 'user',
+      content: buttonText,
+      timestamp: new Date(),
+      metadata: { buttonValue }
+    };
+
+    setMessages(prev => [...prev, userMessage]);
+    setIsLoading(true);
+
+    try {
+      const response = await apiRequest("POST", "/api/chat/message", {
+        sessionId: currentSessionId,
+        contactId,
+        message: `${buttonText} [${buttonValue}]`
+      });
+
+      const result = await response.json();
+      
+      const assistantMessage: Message = {
+        id: `response_${Date.now()}`,
+        role: 'assistant',
+        content: result.message,
+        timestamp: new Date(),
+        buttons: result.buttons,
+        metadata: {
+          intent: result.intent,
+          extractedData: result.extractedData,
+          suggestedActions: result.suggestedActions,
+          flowStep: result.flowStep,
+          automatedActions: result.automatedActions
+        }
+      };
+
+      setMessages(prev => [...prev, assistantMessage]);
+
+      // Handle automation results
+      if (result.automatedActions) {
+        console.log("Automated actions completed:", result.automatedActions);
+        if (result.automatedActions.quoteId) {
+          toast({
+            title: "Quote Created!",
+            description: "Your personalized quote has been generated.",
+          });
+        }
+      }
+
+    } catch (error) {
+      console.error("Button message error:", error);
+      toast({
+        title: "Error",
+        description: "Failed to process selection. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const ChatButton = ({ button }: { button: ChatbotButton }) => {
+    const variants = {
+      primary: "default",
+      secondary: "secondary", 
+      outline: "outline"
+    } as const;
+    
+    return (
+      <Button
+        variant={variants[button.style]}
+        size="sm"
+        onClick={() => handleButtonClick(button)}
+        className="text-xs h-8 transition-colors"
+        data-testid={`button-chat-${button.id}`}
+      >
+        {button.text}
+      </Button>
+    );
   };
 
   const QuickReplyButton = ({ text, onClick }: { text: string; onClick: () => void }) => (
@@ -195,6 +294,15 @@ export function ChatWidget({ sessionId, contactId, isPreview = false }: ChatWidg
                   <p className="text-sm" data-testid={`text-message-content-${message.id}`}>
                     {message.content}
                   </p>
+                  
+                  {/* Render buttons for assistant messages */}
+                  {message.role === 'assistant' && message.buttons && message.buttons.length > 0 && (
+                    <div className="mt-2 space-y-1">
+                      {message.buttons.map((button) => (
+                        <ChatButton key={button.id} button={button} />
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 {message.role === 'user' && (

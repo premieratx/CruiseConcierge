@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type Product, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type Product, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -45,6 +45,46 @@ export interface IStorage {
   getAvailabilitySlots(startDate: Date, endDate: Date): Promise<AvailabilitySlot[]>;
   createAvailabilitySlot(slot: Omit<AvailabilitySlot, 'id'>): Promise<AvailabilitySlot>;
   bookAvailabilitySlot(slotId: string, projectId: string): Promise<AvailabilitySlot>;
+
+  // Quote Templates
+  getQuoteTemplate(id: string): Promise<QuoteTemplate | undefined>;
+  getQuoteTemplates(): Promise<QuoteTemplate[]>;
+  getQuoteTemplatesByEventType(eventType: string): Promise<QuoteTemplate[]>;
+  createQuoteTemplate(template: InsertQuoteTemplate): Promise<QuoteTemplate>;
+  updateQuoteTemplate(id: string, updates: Partial<QuoteTemplate>): Promise<QuoteTemplate>;
+  deleteQuoteTemplate(id: string): Promise<boolean>;
+
+  // Template Rules
+  getTemplateRule(id: string): Promise<TemplateRule | undefined>;
+  getTemplateRules(): Promise<TemplateRule[]>;
+  getTemplateRulesByType(ruleType: string): Promise<TemplateRule[]>;
+  createTemplateRule(rule: InsertTemplateRule): Promise<TemplateRule>;
+  updateTemplateRule(id: string, updates: Partial<TemplateRule>): Promise<TemplateRule>;
+  deleteTemplateRule(id: string): Promise<boolean>;
+
+  // Discount Rules
+  getDiscountRule(id: string): Promise<DiscountRule | undefined>;
+  getDiscountRules(): Promise<DiscountRule[]>;
+  getActiveDiscountRules(): Promise<DiscountRule[]>;
+  getDiscountRuleByCode(code: string): Promise<DiscountRule | undefined>;
+  createDiscountRule(rule: InsertDiscountRule): Promise<DiscountRule>;
+  updateDiscountRule(id: string, updates: Partial<DiscountRule>): Promise<DiscountRule>;
+  deleteDiscountRule(id: string): Promise<boolean>;
+
+  // Pricing Settings
+  getPricingSettings(orgId?: string): Promise<PricingSettings | undefined>;
+  updatePricingSettings(settings: Partial<PricingSettings>, orgId?: string): Promise<PricingSettings>;
+
+  // Enhanced pricing operations
+  calculatePricing(params: {
+    items: any[];
+    groupSize?: number;
+    projectDate?: Date;
+    promoCode?: string;
+    templateId?: string;
+  }): Promise<PricingPreview>;
+  findOrCreateContact(email: string, name?: string, phone?: string): Promise<Contact>;
+  createProjectFromChatData(contactId: string, extractedData: any): Promise<Project>;
 }
 
 export class MemStorage implements IStorage {
@@ -57,6 +97,10 @@ export class MemStorage implements IStorage {
   private payments: Map<string, Payment> = new Map();
   private chatMessages: Map<string, ChatMessage> = new Map();
   private availabilitySlots: Map<string, AvailabilitySlot> = new Map();
+  private quoteTemplates: Map<string, QuoteTemplate> = new Map();
+  private templateRules: Map<string, TemplateRule> = new Map();
+  private discountRules: Map<string, DiscountRule> = new Map();
+  private pricingSettings: Map<string, PricingSettings> = new Map();
 
   constructor() {
     this.seedData();
@@ -77,6 +121,109 @@ export class MemStorage implements IStorage {
       { id: "prod_pod_kit", orgId: "org_demo", name: "POD Pre-stock Kit", unitPrice: 9500, taxable: true },
     ];
     products.forEach(product => this.products.set(product.id, product));
+
+    // Seed pricing settings
+    const pricingSettings: PricingSettings = {
+      id: "pricing_org_demo",
+      orgId: "org_demo",
+      taxRate: 825, // 8.25%
+      defaultGratuityPercent: 18,
+      gratuityIncluded: false,
+      defaultDepositPercent: 25,
+      urgencyThresholdDays: 30,
+      fullPaymentThresholdDays: 14,
+      currency: "USD",
+      timezone: "America/Chicago",
+      priceDisplayMode: "both",
+      updatedAt: new Date(),
+    };
+    this.pricingSettings.set(pricingSettings.id, pricingSettings);
+
+    // Seed quote templates
+    const templates: QuoteTemplate[] = [
+      {
+        id: "tmpl_birthday_party",
+        orgId: "org_demo",
+        name: "Birthday Party Package",
+        description: "Perfect for birthday celebrations with decorations and fun activities",
+        eventType: "birthday",
+        defaultItems: [
+          { type: "service", name: "2-hour Charter", productId: "prod_charter_2hr", unitPrice: 60000, qty: 1, required: true, order: 1 },
+          { type: "addon", name: "Cooler + Ice", productId: "prod_cooler_ice", unitPrice: 1500, qty: 1, clientCanEditQty: true, order: 2 },
+          { type: "addon", name: "Birthday Decorations", unitPrice: 2500, qty: 1, clientCanEditQty: true, order: 3 },
+        ],
+        minGroupSize: 8,
+        maxGroupSize: 30,
+        basePricePerPerson: 0,
+        duration: 2,
+        active: true,
+        displayOrder: 1,
+        visualTheme: { primaryColor: "#FF6B9D", accentColor: "#F7DC6F", theme: "celebration" },
+        automationRules: [],
+        createdAt: new Date(),
+      },
+      {
+        id: "tmpl_corporate_event",
+        orgId: "org_demo",
+        name: "Corporate Event Package",
+        description: "Professional package for business events and team building",
+        eventType: "corporate",
+        defaultItems: [
+          { type: "service", name: "3-hour Charter", unitPrice: 90000, qty: 1, required: true, order: 1 },
+          { type: "addon", name: "Catering Setup", unitPrice: 5000, qty: 1, order: 2 },
+          { type: "addon", name: "Professional Sound System", unitPrice: 3000, qty: 1, order: 3 },
+        ],
+        minGroupSize: 15,
+        maxGroupSize: 30,
+        basePricePerPerson: 2500,
+        duration: 3,
+        active: true,
+        displayOrder: 2,
+        visualTheme: { primaryColor: "#2E86AB", accentColor: "#A23B72", theme: "professional" },
+        automationRules: [],
+        createdAt: new Date(),
+      },
+    ];
+    templates.forEach(template => this.quoteTemplates.set(template.id, template));
+
+    // Seed discount rules
+    const discountRules: DiscountRule[] = [
+      {
+        id: "disc_early_bird",
+        orgId: "org_demo",
+        name: "Early Bird Discount",
+        code: "EARLY10",
+        discountType: "percentage",
+        discountValue: 10,
+        minGroupSize: 10,
+        minSubtotal: 50000,
+        validFrom: new Date(),
+        validUntil: new Date(Date.now() + 365 * 24 * 60 * 60 * 1000),
+        usageLimit: 100,
+        usageCount: 0,
+        active: true,
+        conditions: [{ field: "daysBefore", operator: "greater_than", value: 30 }],
+        createdAt: new Date(),
+      },
+      {
+        id: "disc_large_group",
+        orgId: "org_demo",
+        name: "Large Group Discount",
+        code: null,
+        discountType: "percentage",
+        discountValue: 15,
+        minGroupSize: 25,
+        minSubtotal: 100000,
+        validFrom: new Date(),
+        validUntil: null,
+        usageLimit: null,
+        usageCount: 0,
+        active: true,
+        conditions: [],
+        createdAt: new Date(),
+      },
+    ];
+    discountRules.forEach(rule => this.discountRules.set(rule.id, rule));
   }
 
   async getContact(id: string): Promise<Contact | undefined> {
@@ -293,6 +440,424 @@ export class MemStorage implements IStorage {
     const updated = { ...slot, status: "BOOKED", projectId };
     this.availabilitySlots.set(slotId, updated);
     return updated;
+  }
+
+  // Quote Templates
+  async getQuoteTemplate(id: string): Promise<QuoteTemplate | undefined> {
+    return this.quoteTemplates.get(id);
+  }
+
+  async getQuoteTemplates(): Promise<QuoteTemplate[]> {
+    return Array.from(this.quoteTemplates.values())
+      .filter(t => t.active)
+      .sort((a, b) => a.displayOrder - b.displayOrder);
+  }
+
+  async getQuoteTemplatesByEventType(eventType: string): Promise<QuoteTemplate[]> {
+    return Array.from(this.quoteTemplates.values())
+      .filter(t => t.active && t.eventType === eventType)
+      .sort((a, b) => a.displayOrder - b.displayOrder);
+  }
+
+  async createQuoteTemplate(insertTemplate: InsertQuoteTemplate): Promise<QuoteTemplate> {
+    const id = randomUUID();
+    const template: QuoteTemplate = {
+      ...insertTemplate,
+      orgId: insertTemplate.orgId || "org_demo",
+      defaultItems: insertTemplate.defaultItems || [],
+      minGroupSize: insertTemplate.minGroupSize || null,
+      maxGroupSize: insertTemplate.maxGroupSize || null,
+      basePricePerPerson: insertTemplate.basePricePerPerson || null,
+      active: insertTemplate.active !== undefined ? insertTemplate.active : true,
+      displayOrder: insertTemplate.displayOrder || 0,
+      visualTheme: insertTemplate.visualTheme || {},
+      automationRules: insertTemplate.automationRules || [],
+      id,
+      createdAt: new Date(),
+    };
+    this.quoteTemplates.set(id, template);
+    return template;
+  }
+
+  async updateQuoteTemplate(id: string, updates: Partial<QuoteTemplate>): Promise<QuoteTemplate> {
+    const template = this.quoteTemplates.get(id);
+    if (!template) throw new Error("Quote template not found");
+    
+    const updated = { ...template, ...updates };
+    this.quoteTemplates.set(id, updated);
+    return updated;
+  }
+
+  async deleteQuoteTemplate(id: string): Promise<boolean> {
+    return this.quoteTemplates.delete(id);
+  }
+
+  // Template Rules
+  async getTemplateRule(id: string): Promise<TemplateRule | undefined> {
+    return this.templateRules.get(id);
+  }
+
+  async getTemplateRules(): Promise<TemplateRule[]> {
+    return Array.from(this.templateRules.values())
+      .filter(r => r.active)
+      .sort((a, b) => b.priority - a.priority);
+  }
+
+  async getTemplateRulesByType(ruleType: string): Promise<TemplateRule[]> {
+    return Array.from(this.templateRules.values())
+      .filter(r => r.active && r.ruleType === ruleType)
+      .sort((a, b) => b.priority - a.priority);
+  }
+
+  async createTemplateRule(insertRule: InsertTemplateRule): Promise<TemplateRule> {
+    const id = randomUUID();
+    const rule: TemplateRule = {
+      ...insertRule,
+      orgId: insertRule.orgId || "org_demo",
+      conditions: insertRule.conditions || [],
+      actions: insertRule.actions || [],
+      priority: insertRule.priority || 0,
+      active: insertRule.active !== undefined ? insertRule.active : true,
+      id,
+      createdAt: new Date(),
+    };
+    this.templateRules.set(id, rule);
+    return rule;
+  }
+
+  async updateTemplateRule(id: string, updates: Partial<TemplateRule>): Promise<TemplateRule> {
+    const rule = this.templateRules.get(id);
+    if (!rule) throw new Error("Template rule not found");
+    
+    const updated = { ...rule, ...updates };
+    this.templateRules.set(id, updated);
+    return updated;
+  }
+
+  async deleteTemplateRule(id: string): Promise<boolean> {
+    return this.templateRules.delete(id);
+  }
+
+  // Discount Rules
+  async getDiscountRule(id: string): Promise<DiscountRule | undefined> {
+    return this.discountRules.get(id);
+  }
+
+  async getDiscountRules(): Promise<DiscountRule[]> {
+    return Array.from(this.discountRules.values());
+  }
+
+  async getActiveDiscountRules(): Promise<DiscountRule[]> {
+    const now = new Date();
+    return Array.from(this.discountRules.values())
+      .filter(r => 
+        r.active && 
+        (!r.validFrom || r.validFrom <= now) &&
+        (!r.validUntil || r.validUntil >= now) &&
+        (!r.usageLimit || r.usageCount < r.usageLimit)
+      );
+  }
+
+  async getDiscountRuleByCode(code: string): Promise<DiscountRule | undefined> {
+    return Array.from(this.discountRules.values())
+      .find(r => r.code === code && r.active);
+  }
+
+  async createDiscountRule(insertRule: InsertDiscountRule): Promise<DiscountRule> {
+    const id = randomUUID();
+    const rule: DiscountRule = {
+      ...insertRule,
+      orgId: insertRule.orgId || "org_demo",
+      minGroupSize: insertRule.minGroupSize || null,
+      maxGroupSize: insertRule.maxGroupSize || null,
+      minSubtotal: insertRule.minSubtotal || null,
+      validFrom: insertRule.validFrom || null,
+      validUntil: insertRule.validUntil || null,
+      usageLimit: insertRule.usageLimit || null,
+      usageCount: insertRule.usageCount || 0,
+      active: insertRule.active !== undefined ? insertRule.active : true,
+      conditions: insertRule.conditions || [],
+      id,
+      createdAt: new Date(),
+    };
+    this.discountRules.set(id, rule);
+    return rule;
+  }
+
+  async updateDiscountRule(id: string, updates: Partial<DiscountRule>): Promise<DiscountRule> {
+    const rule = this.discountRules.get(id);
+    if (!rule) throw new Error("Discount rule not found");
+    
+    const updated = { ...rule, ...updates };
+    this.discountRules.set(id, updated);
+    return updated;
+  }
+
+  async deleteDiscountRule(id: string): Promise<boolean> {
+    return this.discountRules.delete(id);
+  }
+
+  // Pricing Settings
+  async getPricingSettings(orgId?: string): Promise<PricingSettings | undefined> {
+    const id = `pricing_${orgId || "org_demo"}`;
+    return this.pricingSettings.get(id);
+  }
+
+  async updatePricingSettings(updates: Partial<PricingSettings>, orgId?: string): Promise<PricingSettings> {
+    const id = `pricing_${orgId || "org_demo"}`;
+    const existing = this.pricingSettings.get(id);
+    
+    if (!existing) {
+      // Create new settings if none exist
+      const newSettings: PricingSettings = {
+        id,
+        orgId: orgId || "org_demo",
+        taxRate: 825,
+        defaultGratuityPercent: 18,
+        gratuityIncluded: false,
+        defaultDepositPercent: 25,
+        urgencyThresholdDays: 30,
+        fullPaymentThresholdDays: 14,
+        currency: "USD",
+        timezone: "America/Chicago",
+        priceDisplayMode: "both",
+        updatedAt: new Date(),
+        ...updates,
+      };
+      this.pricingSettings.set(id, newSettings);
+      return newSettings;
+    }
+    
+    const updated = { ...existing, ...updates, updatedAt: new Date() };
+    this.pricingSettings.set(id, updated);
+    return updated;
+  }
+
+  // Enhanced pricing calculation
+  async calculatePricing(params: {
+    items: any[];
+    groupSize?: number;
+    projectDate?: Date;
+    promoCode?: string;
+    templateId?: string;
+  }): Promise<PricingPreview> {
+    const { items, groupSize, projectDate, promoCode, templateId } = params;
+    const settings = await this.getPricingSettings();
+    
+    if (!settings) {
+      throw new Error("Pricing settings not found");
+    }
+
+    // Calculate subtotal
+    let subtotal = items.reduce((sum, item) => sum + (item.unitPrice * item.qty), 0);
+
+    // Apply template-specific pricing if templateId provided
+    if (templateId) {
+      const template = await this.getQuoteTemplate(templateId);
+      if (template && template.basePricePerPerson && groupSize) {
+        subtotal += template.basePricePerPerson * groupSize;
+      }
+    }
+
+    // Apply discounts
+    let discountTotal = 0;
+    let appliedDiscounts: string[] = [];
+
+    if (promoCode) {
+      const discountRule = await this.getDiscountRuleByCode(promoCode);
+      if (discountRule && this.validateDiscountRule(discountRule, { subtotal, groupSize, projectDate })) {
+        discountTotal = this.calculateDiscount(discountRule, subtotal, groupSize);
+        appliedDiscounts.push(discountRule.name);
+      }
+    }
+
+    // Check for automatic discounts
+    const activeDiscounts = await this.getActiveDiscountRules();
+    for (const discount of activeDiscounts) {
+      if (!discount.code && this.validateDiscountRule(discount, { subtotal, groupSize, projectDate })) {
+        const additionalDiscount = this.calculateDiscount(discount, subtotal, groupSize);
+        if (additionalDiscount > discountTotal) {
+          discountTotal = additionalDiscount;
+          appliedDiscounts = [discount.name];
+        }
+      }
+    }
+
+    const discountedSubtotal = subtotal - discountTotal;
+
+    // Calculate tax
+    const tax = Math.floor(discountedSubtotal * settings.taxRate / 10000);
+
+    // Calculate gratuity
+    const gratuity = settings.gratuityIncluded 
+      ? Math.floor(discountedSubtotal * settings.defaultGratuityPercent / 100)
+      : 0;
+
+    const total = discountedSubtotal + tax + gratuity;
+
+    // Calculate per-person cost
+    const perPersonCost = groupSize ? Math.floor(total / groupSize) : 0;
+
+    // Determine deposit requirements
+    let depositPercent = settings.defaultDepositPercent;
+    let depositRequired = true;
+
+    if (projectDate) {
+      const daysUntil = Math.ceil((projectDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+      
+      if (daysUntil <= settings.fullPaymentThresholdDays) {
+        depositPercent = 100; // Full payment required
+      }
+    }
+
+    const depositAmount = Math.floor(total * depositPercent / 100);
+
+    // Generate urgency message
+    let urgencyMessage: string | undefined;
+    if (projectDate) {
+      const daysUntil = Math.ceil((projectDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+      
+      if (daysUntil <= settings.urgencyThresholdDays) {
+        urgencyMessage = daysUntil <= 7 
+          ? "⚡ Last-minute booking - limited availability!"
+          : "📅 Book soon - less than 30 days away!";
+      }
+    }
+
+    // Generate payment schedule
+    const paymentSchedule: PaymentSchedule[] = [];
+    if (depositPercent < 100) {
+      paymentSchedule.push({
+        line: 1,
+        due: "booking",
+        percent: depositPercent,
+        daysBefore: 0,
+      });
+      paymentSchedule.push({
+        line: 2,
+        due: "final",
+        percent: 100 - depositPercent,
+        daysBefore: 3,
+      });
+    } else {
+      paymentSchedule.push({
+        line: 1,
+        due: "full",
+        percent: 100,
+        daysBefore: 0,
+      });
+    }
+
+    // Set expiration date (7 days from now)
+    const expiresAt = new Date();
+    expiresAt.setDate(expiresAt.getDate() + 7);
+
+    return {
+      subtotal,
+      discountTotal,
+      tax,
+      gratuity,
+      total,
+      perPersonCost,
+      depositRequired,
+      depositPercent,
+      depositAmount,
+      urgencyMessage,
+      appliedDiscounts,
+      paymentSchedule,
+      expiresAt,
+    };
+  }
+
+  private validateDiscountRule(rule: DiscountRule, context: { subtotal: number; groupSize?: number; projectDate?: Date }): boolean {
+    const { subtotal, groupSize, projectDate } = context;
+
+    // Check group size
+    if (rule.minGroupSize && (!groupSize || groupSize < rule.minGroupSize)) return false;
+    if (rule.maxGroupSize && groupSize && groupSize > rule.maxGroupSize) return false;
+
+    // Check minimum subtotal
+    if (rule.minSubtotal && subtotal < rule.minSubtotal) return false;
+
+    // Check conditions
+    for (const condition of rule.conditions) {
+      if (!this.evaluateCondition(condition, context)) return false;
+    }
+
+    return true;
+  }
+
+  private evaluateCondition(condition: DiscountCondition, context: any): boolean {
+    const { field, operator, value } = condition;
+    
+    let contextValue: any;
+    if (field === "daysBefore" && context.projectDate) {
+      contextValue = Math.ceil((context.projectDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+    } else {
+      contextValue = context[field];
+    }
+
+    switch (operator) {
+      case "equals":
+        return contextValue === value;
+      case "greater_than":
+        return contextValue > value;
+      case "less_than":
+        return contextValue < value;
+      case "greater_than_or_equal":
+        return contextValue >= value;
+      case "less_than_or_equal":
+        return contextValue <= value;
+      default:
+        return false;
+    }
+  }
+
+  private calculateDiscount(rule: DiscountRule, subtotal: number, groupSize?: number): number {
+    switch (rule.discountType) {
+      case "percentage":
+        return Math.floor(subtotal * rule.discountValue / 100);
+      case "fixed_amount":
+        return rule.discountValue;
+      case "per_person":
+        return groupSize ? rule.discountValue * groupSize : 0;
+      default:
+        return 0;
+    }
+  }
+
+  // Helper methods for automated contact/project creation
+  async findOrCreateContact(email: string, name?: string, phone?: string): Promise<Contact> {
+    let contact = await this.getContactByEmail(email);
+    
+    if (!contact) {
+      contact = await this.createContact({
+        name: name || email.split('@')[0],
+        email,
+        phone: phone || null,
+        tags: ["chatbot"],
+      });
+    }
+    
+    return contact;
+  }
+
+  async createProjectFromChatData(contactId: string, extractedData: any): Promise<Project> {
+    const projectDate = extractedData.date ? new Date(extractedData.date) : null;
+    
+    return await this.createProject({
+      contactId,
+      title: extractedData.eventType ? `${extractedData.eventType} Event` : "New Event",
+      eventType: extractedData.eventType || null,
+      groupSize: extractedData.groupSize || null,
+      projectDate,
+      duration: extractedData.duration || null,
+      specialRequests: extractedData.specialRequests || null,
+      preferredTime: extractedData.preferredTime || null,
+      budget: extractedData.budget || null,
+      leadSource: "chat",
+      tags: ["chatbot"],
+    });
   }
 }
 
