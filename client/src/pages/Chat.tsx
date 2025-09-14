@@ -777,7 +777,7 @@ export default function Chat() {
       setTimeout(() => {
         setCurrentQuestion(nextQuestion);
         updateProgress(nextQuestion);
-      }, 600); // Delay for animation
+      }, 150); // Reduced delay by 75% for faster transitions
     }
   };
 
@@ -2005,10 +2005,12 @@ export default function Chat() {
                         />
                         <p className="text-xs text-slate-500 dark:text-slate-400">We'll text you updates about your booking</p>
                       </div>
-                      <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700" size="lg" data-testid="button-continue">
-                        Continue
-                        <ChevronRight className="h-4 w-4 ml-2" />
-                      </Button>
+                      <div className="btn-center">
+                        <Button type="submit" className="btn-professional w-full bg-primary hover:bg-primary/90 text-primary-foreground" size="lg" data-testid="button-continue">
+                          Continue
+                          <ChevronRight className="h-4 w-4 ml-2" />
+                        </Button>
+                      </div>
                     </form>
                   </CardContent>
                 </Card>
@@ -2111,7 +2113,7 @@ export default function Chat() {
                 >
                   <div className="space-y-6">
                     <div className="text-center">
-                      <div className="text-6xl font-bold text-blue-600 mb-2">
+                      <div className="text-6xl font-bold text-primary mb-2">
                         {formData.groupSize}
                       </div>
                       <div className="text-lg text-slate-600 dark:text-slate-400 mb-6">
@@ -2137,15 +2139,17 @@ export default function Chat() {
                     </div>
                     
                     <div className="pt-4">
-                      <Button 
-                        onClick={handleGroupSizeConfirm}
-                        disabled={formData.groupSize < GROUP_SIZE_MIN || formData.groupSize > GROUP_SIZE_MAX}
-                        className="w-full bg-blue-600 hover:bg-blue-700 h-14 text-lg"
-                        data-testid="button-confirm-group-size"
-                      >
-                        Continue with {formData.groupSize} {formData.groupSize === 1 ? 'person' : 'people'}
-                        <ChevronRight className="h-4 w-4 ml-2" />
-                      </Button>
+                      <div className="btn-center">
+                        <Button 
+                          onClick={handleGroupSizeConfirm}
+                          disabled={formData.groupSize < GROUP_SIZE_MIN || formData.groupSize > GROUP_SIZE_MAX}
+                          className="btn-professional w-full bg-primary hover:bg-primary/90 text-primary-foreground h-14 text-lg disabled:opacity-50"
+                          data-testid="button-confirm-group-size"
+                        >
+                          Continue with {formData.groupSize} {formData.groupSize === 1 ? 'person' : 'people'}
+                          <ChevronRight className="h-4 w-4 ml-2" />
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </motion.div>

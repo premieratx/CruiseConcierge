@@ -10,32 +10,32 @@
   --card-foreground: hsl(220 10% 15%);
   --popover: hsl(0 0% 100%);
   --popover-foreground: hsl(220 10% 15%);
-  --primary: hsl(220 90% 55%);
+  --primary: hsl(208 100% 50%); /* Bright blue #0080FF */
   --primary-foreground: hsl(0 0% 100%);
-  --secondary: hsl(186 85% 55%);
-  --secondary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(51 100% 50%); /* Bright yellow #FFD700 */
+  --secondary-foreground: hsl(220 10% 15%);
   --muted: hsl(220 20% 95%);
   --muted-foreground: hsl(220 10% 45%);
-  --accent: hsl(20 95% 60%);
-  --accent-foreground: hsl(0 0% 100%);
+  --accent: hsl(51 100% 50%); /* Bright yellow accent */
+  --accent-foreground: hsl(220 10% 15%);
   --destructive: hsl(0 84% 60%);
   --destructive-foreground: hsl(0 0% 100%);
   --border: hsl(220 15% 85%);
   --input: hsl(220 15% 85%);
-  --ring: hsl(220 90% 55%);
-  --chart-1: hsl(220 90% 55%);
-  --chart-2: hsl(186 85% 55%);
-  --chart-3: hsl(20 95% 60%);
-  --chart-4: hsl(45 95% 60%);
-  --chart-5: hsl(341 75% 51%);
+  --ring: hsl(208 100% 50%);
+  --chart-1: hsl(208 100% 50%);
+  --chart-2: hsl(51 100% 50%);
+  --chart-3: hsl(208 90% 60%);
+  --chart-4: hsl(51 95% 60%);
+  --chart-5: hsl(208 80% 70%);
   --sidebar: hsl(0 0% 100%);
   --sidebar-foreground: hsl(220 10% 15%);
-  --sidebar-primary: hsl(220 90% 55%);
+  --sidebar-primary: hsl(208 100% 50%);
   --sidebar-primary-foreground: hsl(0 0% 100%);
-  --sidebar-accent: hsl(220 20% 95%);
-  --sidebar-accent-foreground: hsl(220 90% 55%);
+  --sidebar-accent: hsl(51 100% 95%);
+  --sidebar-accent-foreground: hsl(208 100% 50%);
   --sidebar-border: hsl(220 15% 85%);
-  --sidebar-ring: hsl(220 90% 55%);
+  --sidebar-ring: hsl(208 100% 50%);
   --font-sans: "Inter", system-ui, sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: Menlo, monospace;
@@ -52,17 +52,23 @@
   --tracking-normal: 0em;
   --spacing: 0.25rem;
   
-  /* Premier Party Cruises Custom Colors */
-  --marine-50: hsl(220 40% 98%);
-  --marine-100: hsl(220 30% 95%);
-  --marine-500: hsl(220 85% 65%);
-  --marine-600: hsl(220 90% 55%);
-  --marine-900: hsl(220 100% 25%);
-  --coral-400: hsl(20 90% 65%);
-  --coral-500: hsl(20 95% 60%);
-  --coral-600: hsl(20 100% 55%);
-  --austin-400: hsl(45 90% 65%);
-  --austin-500: hsl(45 95% 60%);
+  /* Premier Party Cruises Custom Colors - Bright Blue & Yellow Branding */
+  --brand-blue: hsl(208 100% 50%); /* Bright blue #0080FF */
+  --brand-blue-light: hsl(208 100% 95%);
+  --brand-blue-dark: hsl(208 100% 35%);
+  --brand-yellow: hsl(51 100% 50%); /* Bright yellow #FFD700 */
+  --brand-yellow-light: hsl(51 100% 95%);
+  --brand-yellow-dark: hsl(51 100% 35%);
+  --marine-50: hsl(208 100% 98%);
+  --marine-100: hsl(208 100% 95%);
+  --marine-500: hsl(208 100% 65%);
+  --marine-600: hsl(208 100% 50%);
+  --marine-900: hsl(208 100% 25%);
+  --coral-400: hsl(51 100% 65%);
+  --coral-500: hsl(51 100% 50%);
+  --coral-600: hsl(51 100% 45%);
+  --austin-400: hsl(51 100% 65%);
+  --austin-500: hsl(51 100% 50%);
 }
 
 .dark {
@@ -72,42 +78,48 @@
   --card-foreground: hsl(220 5% 85%);
   --popover: hsl(220 20% 8%);
   --popover-foreground: hsl(220 5% 92%);
-  --primary: hsl(220 90% 55%);
+  --primary: hsl(208 100% 60%); /* Brighter blue for dark mode */
   --primary-foreground: hsl(0 0% 100%);
-  --secondary: hsl(186 85% 55%);
-  --secondary-foreground: hsl(0 0% 100%);
+  --secondary: hsl(51 100% 60%); /* Bright yellow for dark mode */
+  --secondary-foreground: hsl(220 10% 15%);
   --muted: hsl(220 15% 15%);
   --muted-foreground: hsl(220 5% 65%);
-  --accent: hsl(20 95% 60%);
-  --accent-foreground: hsl(0 0% 100%);
+  --accent: hsl(51 100% 60%); /* Bright yellow accent */
+  --accent-foreground: hsl(220 10% 15%);
   --destructive: hsl(0 84% 60%);
   --destructive-foreground: hsl(0 0% 100%);
   --border: hsl(220 15% 20%);
   --input: hsl(220 15% 20%);
-  --ring: hsl(220 90% 55%);
-  --chart-1: hsl(220 90% 55%);
-  --chart-2: hsl(186 85% 55%);
-  --chart-3: hsl(20 95% 60%);
-  --chart-4: hsl(45 95% 60%);
-  --chart-5: hsl(341 75% 51%);
+  --ring: hsl(208 100% 60%);
+  --chart-1: hsl(208 100% 60%);
+  --chart-2: hsl(51 100% 60%);
+  --chart-3: hsl(208 90% 70%);
+  --chart-4: hsl(51 95% 70%);
+  --chart-5: hsl(208 80% 80%);
   --sidebar: hsl(220 20% 10%);
   --sidebar-foreground: hsl(220 5% 85%);
-  --sidebar-primary: hsl(220 90% 55%);
+  --sidebar-primary: hsl(208 100% 60%);
   --sidebar-primary-foreground: hsl(0 0% 100%);
   --sidebar-accent: hsl(220 15% 15%);
-  --sidebar-accent-foreground: hsl(220 90% 55%);
+  --sidebar-accent-foreground: hsl(208 100% 60%);
   --sidebar-border: hsl(220 15% 20%);
-  --sidebar-ring: hsl(220 90% 55%);
-  --marine-50: hsl(220 20% 12%);
-  --marine-100: hsl(220 15% 18%);
-  --marine-500: hsl(220 85% 65%);
-  --marine-600: hsl(220 90% 55%);
-  --marine-900: hsl(220 100% 25%);
-  --coral-400: hsl(20 90% 65%);
-  --coral-500: hsl(20 95% 60%);
-  --coral-600: hsl(20 100% 55%);
-  --austin-400: hsl(45 90% 65%);
-  --austin-500: hsl(45 95% 60%);
+  --sidebar-ring: hsl(208 100% 60%);
+  --brand-blue: hsl(208 100% 60%);
+  --brand-blue-light: hsl(208 100% 20%);
+  --brand-blue-dark: hsl(208 100% 80%);
+  --brand-yellow: hsl(51 100% 60%);
+  --brand-yellow-light: hsl(51 100% 20%);
+  --brand-yellow-dark: hsl(51 100% 80%);
+  --marine-50: hsl(208 100% 12%);
+  --marine-100: hsl(208 100% 18%);
+  --marine-500: hsl(208 100% 65%);
+  --marine-600: hsl(208 100% 60%);
+  --marine-900: hsl(208 100% 80%);
+  --coral-400: hsl(51 100% 65%);
+  --coral-500: hsl(51 100% 60%);
+  --coral-600: hsl(51 100% 55%);
+  --austin-400: hsl(51 100% 65%);
+  --austin-500: hsl(51 100% 60%);
 }
 
 @layer base {
@@ -120,7 +132,60 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading;
+    @apply font-heading font-bold;
+  }
+  
+  /* Make all text bold for professional appearance */
+  p, span, div, label, button {
+    @apply font-semibold;
+  }
+  
+  /* Professional button centering and styling */
+  .btn-center {
+    @apply mx-auto flex justify-center;
+  }
+  
+  .btn-professional {
+    @apply font-bold text-center shadow-lg transition-all duration-200 hover:scale-105;
+  }
+  
+  /* Brand-specific utility classes */
+  .brand-blue {
+    color: hsl(var(--brand-blue));
+  }
+  
+  .bg-brand-blue {
+    background-color: hsl(var(--brand-blue));
+  }
+  
+  .brand-yellow {
+    color: hsl(var(--brand-yellow));
+  }
+  
+  .bg-brand-yellow {
+    background-color: hsl(var(--brand-yellow));
+  }
+  
+  .text-brand-blue {
+    color: hsl(var(--brand-blue));
+  }
+  
+  .text-brand-yellow {
+    color: hsl(var(--brand-yellow));
+  }
+  
+  /* Professional card styling */
+  .card-professional {
+    @apply bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-xl shadow-xl border border-primary/20 dark:border-primary/40;
+  }
+  
+  /* Gradient backgrounds with brand colors */
+  .bg-brand-gradient {
+    background: linear-gradient(135deg, hsl(var(--brand-blue)) 0%, hsl(var(--brand-yellow)) 100%);
+  }
+  
+  .bg-brand-gradient-light {
+    background: linear-gradient(135deg, hsl(var(--brand-blue-light)) 0%, hsl(var(--brand-yellow-light)) 100%);
   }
 }
 
