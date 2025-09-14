@@ -1020,6 +1020,12 @@ export class MemStorage implements IStorage {
   }): Promise<PricingPreview> {
     const { groupSize, eventDate, timeSlot, promoCode } = params;
     
+    // Ensure eventDate is a proper Date object
+    const eventDateObj = eventDate instanceof Date ? eventDate : new Date(eventDate);
+    if (isNaN(eventDateObj.getTime())) {
+      throw new Error("Invalid event date provided");
+    }
+    
     // Determine boat based on group size
     let boatType: string;
     let boatCapacity: number;
@@ -1037,7 +1043,7 @@ export class MemStorage implements IStorage {
     }
 
     // Get day of week
-    const dayOfWeek = eventDate.getDay(); // 0 = Sunday, 1 = Monday, etc.
+    const dayOfWeek = eventDateObj.getDay(); // 0 = Sunday, 1 = Monday, etc.
     const dayNames = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dayName = dayNames[dayOfWeek];
 
@@ -1090,7 +1096,7 @@ export class MemStorage implements IStorage {
     const total = subtotalWithGratuity + tax;
 
     // Calculate deposit (25% if more than 30 days away, 100% if less)
-    const daysUntil = Math.ceil((eventDate.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+    const daysUntil = Math.ceil((eventDateObj.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
     const depositPercent = daysUntil > 30 ? 25 : 100;
     const depositAmount = Math.floor(total * depositPercent / 100);
 
