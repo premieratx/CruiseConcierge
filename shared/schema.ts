@@ -191,14 +191,18 @@ export const affiliates = pgTable("affiliates", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   orgId: varchar("org_id").notNull().default("org_demo"),
   name: text("name").notNull(),
-  email: text("email").notNull(),
+  email: text("email"),
+  phone: text("phone"),
+  companyName: text("company_name"),
   code: varchar("code").notNull(), // unique referral code
-  commissionType: varchar("commission_type").notNull().default("percentage"), // 'percentage' or 'flat'
-  commissionAmount: integer("commission_amount").notNull(), // percentage (0-100) or cents
-  totalLeads: integer("total_leads").notNull().default(0),
-  totalQuotes: integer("total_quotes").notNull().default(0),
+  commissionType: varchar("commission_type").notNull().default("percentage"), // 'percentage' or 'flat_fee'
+  commissionRate: integer("commission_rate").notNull(), // percentage (0-100) or cents for flat fee
+  totalReferrals: integer("total_referrals").notNull().default(0),
   totalRevenue: integer("total_revenue").notNull().default(0), // in cents
   totalCommission: integer("total_commission").notNull().default(0), // in cents
+  pendingCommission: integer("pending_commission").notNull().default(0), // in cents
+  lastReferralDate: timestamp("last_referral_date"),
+  notes: text("notes"),
   active: boolean("active").notNull().default(true),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });

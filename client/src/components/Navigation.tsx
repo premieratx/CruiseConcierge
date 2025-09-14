@@ -140,6 +140,90 @@ export default function Navigation() {
                 </Link>
               </NavigationMenuItem>
             ))}
+
+            {/* Settings Dropdown */}
+            <NavigationMenuItem>
+              <NavigationMenuTrigger>
+                <Settings className="mr-2 h-4 w-4" />
+                Settings
+              </NavigationMenuTrigger>
+              <NavigationMenuContent>
+                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/templates"
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      >
+                        <div className="flex items-center gap-2">
+                          <FileText className="h-4 w-4" />
+                          <div>
+                            <div className="text-sm font-medium leading-none">Templates</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Quote templates
+                            </p>
+                          </div>
+                        </div>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/products"
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      >
+                        <div className="flex items-center gap-2">
+                          <DollarSign className="h-4 w-4" />
+                          <div>
+                            <div className="text-sm font-medium leading-none">Products & Pricing</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Product catalog
+                            </p>
+                          </div>
+                        </div>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/discounts"
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      >
+                        <div className="flex items-center gap-2">
+                          <Star className="h-4 w-4" />
+                          <div>
+                            <div className="text-sm font-medium leading-none">Discount Codes</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Promo codes
+                            </p>
+                          </div>
+                        </div>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/affiliates"
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      >
+                        <div className="flex items-center gap-2">
+                          <Users className="h-4 w-4" />
+                          <div>
+                            <div className="text-sm font-medium leading-none">Affiliates</div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                              Referral partners
+                            </p>
+                          </div>
+                        </div>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                </ul>
+              </NavigationMenuContent>
+            </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
 

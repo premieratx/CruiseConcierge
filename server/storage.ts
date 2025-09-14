@@ -740,10 +740,15 @@ export class MemStorage implements IStorage {
     const affiliate: Affiliate = {
       ...insertAffiliate,
       orgId: insertAffiliate.orgId || "org_demo",
-      totalLeads: 0,
-      totalQuotes: 0,
+      email: insertAffiliate.email || null,
+      phone: insertAffiliate.phone || null,
+      companyName: insertAffiliate.companyName || null,
+      totalReferrals: 0,
       totalRevenue: 0,
       totalCommission: 0,
+      pendingCommission: 0,
+      lastReferralDate: null,
+      notes: insertAffiliate.notes || null,
       active: insertAffiliate.active !== undefined ? insertAffiliate.active : true,
       id,
       createdAt: new Date(),
@@ -773,33 +778,45 @@ export class MemStorage implements IStorage {
     const allProjects = Array.from(this.projects.values());
     const affiliateProjects = allProjects.filter(p => p.leadSource === affiliate.code);
     
-    let totalQuotes = 0;
     let totalRevenue = 0;
     let totalCommission = 0;
+    let pendingCommission = 0;
+    let lastReferralDate = null;
 
     for (const project of affiliateProjects) {
       const quotes = await this.getQuotesByProject(project.id);
-      totalQuotes += quotes.length;
+      
+      if (project.createdAt && (!lastReferralDate || project.createdAt > lastReferralDate)) {
+        lastReferralDate = project.createdAt;
+      }
       
       for (const quote of quotes) {
-        if (quote.status === "ACCEPTED" || quote.status === "PAID") {
+        if (quote.status === "ACCEPTED" || quote.status === "PAID" || quote.status === "INVOICED") {
           totalRevenue += quote.total;
           
           // Calculate commission
+          let commission = 0;
           if (affiliate.commissionType === "percentage") {
-            totalCommission += Math.floor(quote.total * affiliate.commissionAmount / 100);
+            commission = Math.floor(quote.total * affiliate.commissionRate / 100);
           } else {
-            totalCommission += affiliate.commissionAmount;
+            commission = affiliate.commissionRate;
+          }
+          
+          if (quote.status === "PAID") {
+            totalCommission += commission;
+          } else {
+            pendingCommission += commission;
           }
         }
       }
     }
 
     return await this.updateAffiliate(affiliateId, {
-      totalLeads: affiliateProjects.length,
-      totalQuotes,
+      totalReferrals: affiliateProjects.length,
       totalRevenue,
       totalCommission,
+      pendingCommission,
+      lastReferralDate,
     });
   }
 

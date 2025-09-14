@@ -111,7 +111,7 @@ export default function Affiliates() {
   const handleSubmit = (data: AffiliateFormData) => {
     const affiliateData = {
       ...data,
-      email: data.email || null,
+      email: data.email || undefined,
       commissionRate: data.commissionType === "flat_fee" 
         ? Math.round(data.commissionRate * 100) 
         : data.commissionRate,
