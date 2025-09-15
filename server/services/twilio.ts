@@ -43,7 +43,7 @@ export class TwilioService {
   }
 
   async sendQuoteSMS(phoneNumber: string, customerName: string, quoteId: string, total: number): Promise<boolean> {
-    const message = `Hi ${customerName}! 🚢 Your Premier Party Cruises quote is ready. Total: $${(total / 100).toFixed(2)}. View details: ${process.env.BASE_URL || 'http://localhost:5000'}/public/quote/${quoteId}`;
+    const message = `Hi ${customerName}! 🚢 Your Premier Party Cruises quote is ready. Total: $${(total / 100).toFixed(2)}. View details: ${process.env.BASE_URL || 'http://localhost:5000'}/quote/${quoteId}`;
     
     return await this.sendSMS(phoneNumber, message);
   }

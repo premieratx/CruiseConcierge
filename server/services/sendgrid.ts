@@ -71,7 +71,7 @@ export async function sendQuoteEmail(
         </div>
         
         <div style="text-align: center; margin: 30px 0;">
-          <a href="${getFullUrl(`/public/quote/${quoteId}`)}" 
+          <a href="${getFullUrl(`/quote/${quoteId}`)}" 
              style="background: #3b82f6; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
             View Full Quote
           </a>

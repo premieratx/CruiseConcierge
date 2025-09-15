@@ -40,11 +40,11 @@ async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: 
     day: 'numeric' 
   }) : 'To be confirmed';
   
-  // Extract cruise type and package info from project data
-  const cruiseType = project?.data?.cruiseType || 'private';
-  const timeSlot = project?.preferredTime || project?.data?.timeSlot || 'TBD';
-  const packageName = project?.data?.packageName || (cruiseType === 'disco' ? project?.data?.discoPackage : 'Custom Package');
-  const boatType = project?.data?.boatType || cruiseType;
+  // Extract cruise type and package info from project
+  const cruiseType = 'private'; // Default to private cruise
+  const timeSlot = project?.preferredTime || 'TBD';
+  const packageName = 'Custom Package';
+  const boatType = cruiseType;
   
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
@@ -64,7 +64,7 @@ async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: 
           <p><strong>Date:</strong> ${formattedDate}</p>
           <p><strong>Time:</strong> ${timeSlot}</p>
           <p><strong>Group Size:</strong> ${project?.groupSize || 'TBD'} guests</p>
-          <p><strong>Cruise Type:</strong> ${cruiseType === 'disco' ? 'Disco Cruise' : 'Private Charter'}</p>
+          <p><strong>Cruise Type:</strong> Private Charter</p>
           ${packageName && packageName !== 'Custom Package' ? `<p><strong>Package:</strong> ${packageName}</p>` : ''}
         </div>
         
@@ -126,7 +126,7 @@ async function sendQuoteSMS(quoteId: string, phone: string) {
   // Get event details for more informative SMS
   const eventDate = project?.projectDate ? (typeof project.projectDate === 'string' ? new Date(project.projectDate) : project.projectDate) : null;
   const formattedDate = eventDate ? eventDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'TBD';
-  const cruiseType = project?.data?.cruiseType || 'private';
+  const cruiseType = 'private'; // Default to private cruise
   const eventType = project?.eventType || 'event';
   
   const message = `Hi ${contact?.name || 'there'}! 🚢 Your ${eventType} cruise quote (${formattedDate}) is ready: $${(quote.total / 100).toFixed(2)}. View & book: ${getFullUrl(`/quote/${quote.id}`)}`;
@@ -1620,7 +1620,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           from: process.env.MAILGUN_FROM || 'quotes@premierpartycruises.com'
         });
       } else if (delivery === 'sms' && customerInfo.phone) {
-        const message = `Hi ${customerInfo.name || 'Valued Customer'}! 🚢 Your Premier Party Cruises quote is ready. Total: $${(quote.total / 100).toFixed(2)}. View details: ${getFullUrl(`/public/quote/${quote.id}`)}`;
+        const message = `Hi ${customerInfo.name || 'Valued Customer'}! 🚢 Your Premier Party Cruises quote is ready. Total: $${(quote.total / 100).toFixed(2)}. View details: ${getFullUrl(`/quote/${quote.id}`)}`;
         
         success = await goHighLevelService.send({
           to: customerInfo.phone,
@@ -2148,9 +2148,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           discoPackage: discoPackage || '',
           discoTicketQuantity: discoTicketQuantity?.toString() || '',
           // New pricing fields for private cruises
-          baseHourlyRate: cruiseType === 'private' ? pricing.baseHourlyRate?.toString() || '300' : '',
-          totalHourlyRate: cruiseType === 'private' ? pricing.hourlyRate?.toString() || '300' : '',
-          duration: cruiseType === 'private' ? pricing.duration?.toString() || '3' : '',
+          baseHourlyRate: cruiseType === 'private' ? pricing.breakdown?.baseHourlyRate?.toString() || '300' : '',
+          totalHourlyRate: cruiseType === 'private' ? pricing.breakdown?.baseHourlyRate?.toString() || '300' : '',
+          duration: cruiseType === 'private' ? pricing.breakdown?.cruiseDuration?.toString() || '3' : '',
           calculatedAmount: paymentAmount.toString(),
           quoteId: quoteId || '',
           ...metadata
@@ -3879,9 +3879,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const date = req.body.date ? new Date(req.body.date) : existing.date;
         const timeString = req.body.startTime ? new Date(req.body.startTime).toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }) : new Date(existing.startTime).toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' });
         
-        const available = await storage.checkDiscoAvailability(date, time);
+        const available = await storage.checkDiscoAvailability(date, timeString);
         
-        if (!available && (date !== existing.date || time !== existing.time)) {
+        if (!available && (date !== existing.date || timeString !== new Date(existing.startTime).toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }))) {
           return res.status(409).json({ 
             error: "Slot conflict",
             message: "Another disco cruise is already scheduled for this date and time" 
