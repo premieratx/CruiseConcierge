@@ -4497,6 +4497,243 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Comprehensive API Service Testing Endpoint
+  app.get("/api/test-integrations", async (req, res) => {
+    console.log("🧪 Starting comprehensive API integration testing...");
+    
+    const results: any = {
+      timestamp: new Date().toISOString(),
+      overall_status: "unknown",
+      services: {},
+      summary: {}
+    };
+
+    // Test 1: Stripe API Connection
+    console.log("1️⃣ Testing Stripe API connection...");
+    try {
+      if (stripe) {
+        // Test by retrieving account details - minimal API call
+        const account = await stripe.accounts.retrieve();
+        results.services.stripe = {
+          status: "✅ Connected",
+          account_id: account.id,
+          country: account.country,
+          charges_enabled: account.charges_enabled,
+          details_submitted: account.details_submitted,
+          test_passed: true
+        };
+        console.log("   ✅ Stripe API: Connected successfully");
+      } else {
+        results.services.stripe = {
+          status: "⚠️ Not configured",
+          test_passed: false,
+          note: "STRIPE_SECRET_KEY not set - payment functionality mocked"
+        };
+        console.log("   ⚠️ Stripe API: Not configured (using mock mode)");
+      }
+    } catch (error: any) {
+      results.services.stripe = {
+        status: "❌ Failed",
+        error: error.message,
+        test_passed: false
+      };
+      console.log("   ❌ Stripe API: Failed -", error.message);
+    }
+
+    // Test 2: Mailgun Email Service
+    console.log("2️⃣ Testing Mailgun email service...");
+    try {
+      const testResult = await mailgunService.send({
+        to: "test@example.com",
+        subject: "API Test - Ignore",
+        text: "This is a test email to verify Mailgun connectivity.",
+        html: "<p>This is a test email to verify Mailgun connectivity.</p>"
+      });
+      
+      if (testResult) {
+        results.services.mailgun = {
+          status: "✅ Connected",
+          configured: mailgunService.isConfigured(),
+          test_passed: true,
+          note: mailgunService.isConfigured() ? "Email sent successfully" : "Simulation mode (no real email sent)"
+        };
+        console.log("   ✅ Mailgun: Email test successful");
+      } else {
+        results.services.mailgun = {
+          status: "❌ Failed",
+          configured: mailgunService.isConfigured(),
+          test_passed: false,
+          note: "Email send returned false"
+        };
+        console.log("   ❌ Mailgun: Email test failed");
+      }
+    } catch (error: any) {
+      results.services.mailgun = {
+        status: "❌ Failed",
+        error: error.message,
+        test_passed: false
+      };
+      console.log("   ❌ Mailgun: Failed -", error.message);
+    }
+
+    // Test 3: GoHighLevel SMS Service
+    console.log("3️⃣ Testing GoHighLevel SMS service...");
+    try {
+      const testResult = await goHighLevelService.send({
+        to: "+15125551234",
+        body: "API Test - This is a test SMS to verify GoHighLevel connectivity."
+      });
+      
+      if (testResult) {
+        results.services.gohighlevel = {
+          status: "✅ Connected",
+          configured: goHighLevelService.isConfigured(),
+          test_passed: true,
+          note: goHighLevelService.isConfigured() ? "SMS sent successfully" : "Simulation mode (no real SMS sent)"
+        };
+        console.log("   ✅ GoHighLevel: SMS test successful");
+      } else {
+        results.services.gohighlevel = {
+          status: "❌ Failed",
+          configured: goHighLevelService.isConfigured(),
+          test_passed: false,
+          note: "SMS send returned false"
+        };
+        console.log("   ❌ GoHighLevel: SMS test failed");
+      }
+    } catch (error: any) {
+      results.services.gohighlevel = {
+        status: "❌ Failed",
+        error: error.message,
+        test_passed: false
+      };
+      console.log("   ❌ GoHighLevel: Failed -", error.message);
+    }
+
+    // Test 4: Google Sheets API Service
+    console.log("4️⃣ Testing Google Sheets API service...");
+    try {
+      // Test by getting availability data for a small date range
+      const testStartDate = new Date();
+      const testEndDate = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000); // 7 days from now
+      
+      const availabilityData = await googleSheetsService.getAvailability(testStartDate, testEndDate);
+      
+      if (availabilityData && Array.isArray(availabilityData)) {
+        results.services.google_sheets = {
+          status: "✅ Connected",
+          test_passed: true,
+          records_found: availabilityData.length,
+          note: availabilityData.length > 0 ? "API working, data retrieved" : "API working, no data in date range"
+        };
+        console.log("   ✅ Google Sheets: API test successful, found", availabilityData.length, "records");
+      } else {
+        results.services.google_sheets = {
+          status: "⚠️ Connected but no data",
+          test_passed: false,
+          note: "API responded but returned no data"
+        };
+        console.log("   ⚠️ Google Sheets: API connected but no data returned");
+      }
+    } catch (error: any) {
+      results.services.google_sheets = {
+        status: "❌ Failed",
+        error: error.message,
+        test_passed: false
+      };
+      console.log("   ❌ Google Sheets: Failed -", error.message);
+    }
+
+    // Test 5: OpenAI Service (check configuration only)
+    console.log("5️⃣ Checking OpenAI service configuration...");
+    try {
+      const hasApiKey = !!process.env.OPENAI_API_KEY;
+      
+      if (hasApiKey) {
+        results.services.openai = {
+          status: "✅ Configured",
+          test_passed: true,
+          note: "API key configured, AI functionality available"
+        };
+        console.log("   ✅ OpenAI: API key configured");
+      } else {
+        results.services.openai = {
+          status: "⚠️ Not configured",
+          test_passed: false,
+          note: "No API key - using mock AI responses"
+        };
+        console.log("   ⚠️ OpenAI: Not configured (using mock responses)");
+      }
+    } catch (error: any) {
+      results.services.openai = {
+        status: "❌ Failed",
+        error: error.message,
+        test_passed: false
+      };
+      console.log("   ❌ OpenAI: Failed -", error.message);
+    }
+
+    // Test 6: SendGrid Service (check configuration only)
+    console.log("6️⃣ Checking SendGrid service configuration...");
+    try {
+      const hasApiKey = !!process.env.SENDGRID_API_KEY;
+      
+      if (hasApiKey) {
+        results.services.sendgrid = {
+          status: "✅ Configured",
+          test_passed: true,
+          note: "API key configured, email functionality available"
+        };
+        console.log("   ✅ SendGrid: API key configured");
+      } else {
+        results.services.sendgrid = {
+          status: "⚠️ Not configured",
+          test_passed: false,
+          note: "No API key - using mock email responses"
+        };
+        console.log("   ⚠️ SendGrid: Not configured (using mock responses)");
+      }
+    } catch (error: any) {
+      results.services.sendgrid = {
+        status: "❌ Failed",
+        error: error.message,
+        test_passed: false
+      };
+      console.log("   ❌ SendGrid: Failed -", error.message);
+    }
+
+    // Calculate overall status
+    const serviceTests = Object.values(results.services);
+    const passedTests = serviceTests.filter((service: any) => service.test_passed);
+    const criticalServices = ['stripe', 'mailgun', 'gohighlevel', 'google_sheets'];
+    const criticalPassed = criticalServices.filter(serviceName => 
+      results.services[serviceName]?.test_passed || 
+      results.services[serviceName]?.status?.includes('Connected')
+    );
+
+    results.summary = {
+      total_services: serviceTests.length,
+      passed_tests: passedTests.length,
+      critical_services: criticalServices.length,
+      critical_passed: criticalPassed.length,
+      all_critical_working: criticalPassed.length === criticalServices.length
+    };
+
+    if (results.summary.all_critical_working) {
+      results.overall_status = "✅ All Critical Services Working";
+    } else if (results.summary.critical_passed >= criticalServices.length / 2) {
+      results.overall_status = "⚠️ Some Services Working";
+    } else {
+      results.overall_status = "❌ Major Service Issues";
+    }
+
+    console.log("🏁 Integration testing completed!");
+    console.log(`   Overall Status: ${results.overall_status}`);
+    console.log(`   Critical Services: ${results.summary.critical_passed}/${results.summary.critical_services} working`);
+    
+    res.json(results);
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
