@@ -334,8 +334,9 @@ export default function Chat() {
     }
   };
   
-  const proceedToComparison = () => {
-    if (formData.eventDate) {
+  const proceedToComparison = (selectedDate?: Date) => {
+    const eventDate = selectedDate || formData.eventDate;
+    if (eventDate) {
       setCurrentStep('comparison-selection');
       setEventTypeCollapsed(false);
       setShowGroupSize(false);
@@ -344,7 +345,7 @@ export default function Chat() {
       addCompletedSelection({
         id: 'date',
         label: 'Date',
-        value: format(formData.eventDate, 'MMM dd, yyyy'),
+        value: format(eventDate, 'MMM dd, yyyy'),
         icon: 'calendar',
         editable: true,
         onEdit: () => {
@@ -687,20 +688,11 @@ export default function Chat() {
     if (date && isDateAvailable(date)) {
       setFormData(prev => ({ 
         ...prev, 
-        eventDate: date,
-        eventType: '',
-        eventTypeLabel: '',
-        eventEmoji: '',
-        groupSize: GROUP_SIZE_DEFAULT,
-        selectedCruiseType: null,
-        selectedTimeSlot: '',
-        selectedPrivatePackage: null,
-        selectedDiscoPackage: null,
-        selectedDiscoTimeSlot: '',
-        discoTicketQuantity: 1
+        eventDate: date
+        // Preserve all other form data - don't reset user selections
       }));
       
-      proceedToComparison();
+      proceedToComparison(date);
     }
   };
 
@@ -923,12 +915,57 @@ export default function Chat() {
       }
 
       setGeneratedQuoteId(quoteResult.quote.id);
+      
+      // Show delivery status feedback to user
+      if (quoteResult.delivery) {
+        const { emailSent, smsSent, hasContact } = quoteResult.delivery;
+        
+        if (hasContact) {
+          if (emailSent && smsSent) {
+            toast({
+              title: "Quote Sent Successfully! ✅",
+              description: "We've sent your quote via email and text message. Check your inbox!",
+            });
+          } else if (emailSent && !smsSent) {
+            toast({
+              title: "Quote Sent via Email! 📧",
+              description: "We've emailed your quote. SMS delivery encountered an issue - we'll follow up personally.",
+              variant: "default",
+            });
+          } else if (!emailSent && smsSent) {
+            toast({
+              title: "Quote Sent via Text! 📱", 
+              description: "We've texted your quote. Email delivery encountered an issue - we'll follow up personally.",
+              variant: "default",
+            });
+          } else if (!emailSent && !smsSent) {
+            toast({
+              title: "Quote Ready! 📋",
+              description: "Your quote is ready! We'll contact you directly to share the details.",
+              variant: "default",
+            });
+          }
+        } else {
+          toast({
+            title: "Quote Generated! 🎉",
+            description: "Your quote is ready! We'll reach out to you with the details.",
+            variant: "default",
+          });
+        }
+      } else {
+        // Fallback toast for older backend responses
+        toast({
+          title: "Quote Created! 🎉",
+          description: quoteResult.message || "Your personalized quote is ready!",
+        });
+      }
 
       return { 
         contact: leadResult.contact, 
         project: leadResult.project,
         quote: quoteResult.quote,
-        quoteUrl: quoteResult.quoteUrl
+        quoteUrl: quoteResult.quoteUrl,
+        delivery: quoteResult.delivery
       };
       
       /* Remove old client-side quote generation - now handled by backend

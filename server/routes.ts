@@ -107,10 +107,10 @@ async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: 
     </div>
   `;
   
-  // Use the imported SendGrid function directly
-  return await sendgridEmail({
+  // Use Mailgun service (which is configured with valid credentials)
+  return await mailgunService.send({
     to: email,
-    from: process.env.SENDGRID_FROM_EMAIL || 'quotes@premierpartycruises.com',
+    from: process.env.MAILGUN_FROM || 'quotes@premierpartycruises.com',
     subject: '🚢 Your Party Cruise Quote is Ready!',
     html
   });
@@ -847,17 +847,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
           expiresAt: pricing.expiresAt
         });
         
-        // Send quote via email
+        // Send quote via email with error handling
         const contact = await storage.getContact(project.contactId);
+        let emailSent = false;
+        let smsSent = false;
+        
         if (contact?.email) {
-          await sendQuoteEmail(quote.id, contact.email, 
-            "Thank you for choosing Premier Party Cruises! Your custom quote is ready."
-          );
+          try {
+            emailSent = await sendQuoteEmail(quote.id, contact.email, 
+              "Thank you for choosing Premier Party Cruises! Your custom quote is ready."
+            );
+            console.log(`✅ Quote email sent successfully to ${contact.email}`);
+          } catch (emailError) {
+            console.error("❌ Failed to send quote email:", emailError);
+            // Continue processing even if email fails
+          }
+        } else {
+          console.warn("⚠️ No email address available for contact");
         }
         
-        // Send SMS with quote link
+        // Send SMS with quote link with error handling
         if (contact?.phone) {
-          await sendQuoteSMS(quote.id, contact.phone);
+          try {
+            smsSent = await sendQuoteSMS(quote.id, contact.phone);
+            console.log(`✅ Quote SMS sent successfully to ${contact.phone}`);
+          } catch (smsError) {
+            console.error("❌ Failed to send quote SMS:", smsError);
+            // Continue processing even if SMS fails
+          }
+        } else {
+          console.warn("⚠️ No phone number available for contact");
+        }
+        
+        // Create delivery status message
+        let deliveryMessage = "Quote generated successfully!";
+        if (emailSent && smsSent) {
+          deliveryMessage = "Quote generated and sent via email & SMS!";
+        } else if (emailSent && !smsSent) {
+          deliveryMessage = "Quote generated and sent via email! SMS delivery failed - we'll follow up.";
+        } else if (!emailSent && smsSent) {
+          deliveryMessage = "Quote generated and sent via SMS! Email delivery failed - we'll follow up.";
+        } else if (!emailSent && !smsSent) {
+          deliveryMessage = "Quote generated! We'll contact you directly to share the details.";
         }
         
         res.json({
@@ -865,7 +896,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
           quote,
           pricing,
           quoteUrl: `/quote/${quote.id}`,
-          message: "Quote generated and sent successfully!"
+          delivery: {
+            emailSent,
+            smsSent,
+            hasContact: !!(contact?.email || contact?.phone)
+          },
+          message: deliveryMessage
         });
         
       } else {
