@@ -92,7 +92,7 @@ export function RecentQuotes() {
   });
 
   const getStatusBadge = (status: Quote['status']) => {
-    const variants: Record<Quote['status'], { variant: any; icon: any; label: string }> = {
+    const variants: Record<string, { variant: any; icon: any; label: string }> = {
       draft: { variant: 'secondary', icon: Clock, label: 'Draft' },
       sent: { variant: 'default', icon: Send, label: 'Sent' },
       viewed: { variant: 'outline', icon: Eye, label: 'Viewed' },
@@ -100,7 +100,10 @@ export function RecentQuotes() {
       expired: { variant: 'destructive', icon: AlertCircle, label: 'Expired' },
     };
     
-    const { variant, icon: Icon, label } = variants[status];
+    // Normalize status to lowercase and provide fallback
+    const normalizedStatus = status ? status.toLowerCase() : 'draft';
+    const statusConfig = variants[normalizedStatus] || variants.draft;
+    const { variant, icon: Icon, label } = statusConfig;
     return (
       <Badge variant={variant} className="flex items-center gap-1">
         <Icon className="h-3 w-3" />
