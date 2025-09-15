@@ -125,14 +125,41 @@ export default function Dashboard() {
               <p className="text-sm text-muted-foreground">Manage your cruise business</p>
             </div>
           </div>
-          <Button 
-            onClick={() => setProductModalOpen(true)}
-            className="bg-primary hover:bg-primary/90"
-            data-testid="button-create-product"
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            Create Product
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              onClick={async () => {
+                try {
+                  const response = await apiRequest("POST", "/api/seed-sample-data");
+                  const data = await response.json();
+                  toast({
+                    title: "Sample Data Created! 🎉",
+                    description: `Created ${data.data.contacts} contacts, ${data.data.projects} projects, ${data.data.quotes} quotes`,
+                  });
+                  // Refresh the page to show new data
+                  window.location.reload();
+                } catch (error) {
+                  toast({
+                    title: "Error",
+                    description: "Failed to create sample data",
+                    variant: "destructive",
+                  });
+                }
+              }}
+              variant="outline"
+              data-testid="button-seed-data"
+            >
+              <Save className="mr-2 h-4 w-4" />
+              Load Sample Data
+            </Button>
+            <Button 
+              onClick={() => setProductModalOpen(true)}
+              className="bg-primary hover:bg-primary/90"
+              data-testid="button-create-product"
+            >
+              <Plus className="mr-2 h-4 w-4" />
+              Create Product
+            </Button>
+          </div>
         </div>
       </div>
 

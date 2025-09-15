@@ -122,6 +122,302 @@ async function sendAdminNotificationSMS(quoteId: string) {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   
+  // Analytics API endpoints
+  app.get("/api/analytics/metrics", async (req, res) => {
+    try {
+      const leads = await storage.getLeads();
+      const clients = await storage.getClients();
+      const quotes: any[] = [];
+      const messages: any[] = [];
+      
+      // Get all quotes from projects
+      const projects = await storage.getProjectsByContact('');
+      for (const project of projects) {
+        const projectQuotes = await storage.getQuotesByProject(project.id);
+        quotes.push(...projectQuotes);
+      }
+      
+      // Get messages from recent sessions (last 100 sessions)
+      const sessionIds = new Set<string>();
+      const allMessages = await storage.getChatMessages('');
+      allMessages.forEach((msg: any) => sessionIds.add(msg.sessionId));
+      const recentSessions = Array.from(sessionIds).slice(-100);
+      for (const sessionId of recentSessions) {
+        const sessionMessages = await storage.getChatMessages(sessionId);
+        messages.push(...sessionMessages);
+      }
+      
+      // Calculate metrics
+      const totalLeads = leads.length;
+      const totalClients = clients.length;
+      const conversionRate = totalLeads > 0 ? Math.round((totalClients / totalLeads) * 100) : 0;
+      
+      // Calculate average booking value from accepted quotes
+      const acceptedQuotes = quotes.filter((q: any) => q.status === 'accepted');
+      const avgBookingValue = acceptedQuotes.length > 0
+        ? Math.round(acceptedQuotes.reduce((sum: number, q: any) => sum + q.total, 0) / acceptedQuotes.length / 100)
+        : 0;
+      
+      // Count today's messages
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      const messagesToday = messages.filter((m: any) => {
+        const msgDate = new Date(m.timestamp || m.createdAt);
+        msgDate.setHours(0, 0, 0, 0);
+        return msgDate.getTime() === today.getTime();
+      }).length;
+      
+      // Count leads generated today
+      const leadsToday = leads.filter((l: any) => {
+        const leadDate = new Date(l.createdAt);
+        leadDate.setHours(0, 0, 0, 0);
+        return leadDate.getTime() === today.getTime();
+      }).length;
+      
+      res.json({
+        conversionRate,
+        avgBookingValue,
+        totalLeads,
+        totalClients,
+        messagesToday,
+        leadsGenerated: leadsToday,
+        responseTime: "< 1m"
+      });
+    } catch (error: any) {
+      console.error("Analytics metrics error:", error);
+      res.status(500).json({ error: "Failed to load analytics metrics" });
+    }
+  });
+
+  // Pipeline API endpoints
+  app.get("/api/pipeline/summary", async (req, res) => {
+    try {
+      const projects = await storage.getProjectsByContact('');
+      
+      // Count projects by pipeline phase
+      const newLeads = projects.filter((p: any) => p.pipelinePhase === 'ph_new').length;
+      const quoteSent = projects.filter((p: any) => p.pipelinePhase === 'ph_quote_sent').length;
+      const depositPaid = projects.filter((p: any) => p.pipelinePhase === 'ph_deposit_paid').length;
+      const fullyPaid = projects.filter((p: any) => p.pipelinePhase === 'ph_fully_paid').length;
+      
+      res.json({
+        newLeads,
+        quoteSent,
+        depositPaid,
+        fullyPaid
+      });
+    } catch (error: any) {
+      console.error("Pipeline summary error:", error);
+      res.status(500).json({ error: "Failed to load pipeline summary" });
+    }
+  });
+
+  // Recent quotes endpoint
+  app.get("/api/quotes/recent", async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 5;
+      const allQuotes: any[] = [];
+      
+      // Get all projects and their quotes
+      const projects = await storage.getProjectsByContact('');
+      for (const project of projects) {
+        const quotes = await storage.getQuotesByProject(project.id);
+        for (const quote of quotes) {
+          const contact = await storage.getContact(project.contactId);
+          allQuotes.push({
+            id: quote.id,
+            quoteNumber: `Q-${quote.id.slice(0, 8).toUpperCase()}`,
+            customerName: contact?.name || 'Unknown',
+            customerEmail: contact?.email || '',
+            eventDate: project.projectDate,
+            totalAmount: quote.total,
+            status: quote.status || 'draft',
+            createdAt: quote.createdAt,
+            sentAt: quote.sentAt,
+            viewedAt: quote.viewedAt,
+            expiresAt: quote.expiresAt
+          });
+        }
+      }
+      
+      // Sort by creation date and limit
+      allQuotes.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      const recentQuotes = allQuotes.slice(0, limit);
+      
+      res.json(recentQuotes);
+    } catch (error: any) {
+      console.error("Recent quotes error:", error);
+      res.status(500).json({ error: "Failed to load recent quotes" });
+    }
+  });
+
+  // Recent invoices endpoint
+  app.get("/api/invoices/recent", async (req, res) => {
+    try {
+      const limit = parseInt(req.query.limit as string) || 5;
+      const allInvoices: any[] = [];
+      
+      // Get all quotes that are accepted (they would have invoices)
+      const projects = await storage.getProjectsByContact('');
+      for (const project of projects) {
+        const quotes = await storage.getQuotesByProject(project.id);
+        for (const quote of quotes) {
+          if (quote.status === 'accepted') {
+            const invoice = await storage.getInvoice(quote.id);
+            if (invoice) {
+              const contact = await storage.getContact(project.contactId);
+              
+              allInvoices.push({
+                id: invoice.id,
+                invoiceNumber: `INV-${invoice.id.slice(0, 8).toUpperCase()}`,
+                customerName: contact?.name || 'Unknown',
+                customerEmail: contact?.email || '',
+                dueDate: invoice.dueDate,
+                totalAmount: invoice.amount,
+                paidAmount: invoice.status === 'paid' ? invoice.amount : 0,
+                status: invoice.status,
+                createdAt: invoice.createdAt,
+                sentAt: invoice.createdAt,
+                paidAt: invoice.status === 'paid' ? invoice.createdAt : null
+              });
+            }
+          }
+        }
+      }
+      
+      // Sort by creation date and limit
+      allInvoices.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+      const recentInvoices = allInvoices.slice(0, limit);
+      
+      res.json(recentInvoices);
+    } catch (error: any) {
+      console.error("Recent invoices error:", error);
+      res.status(500).json({ error: "Failed to load recent invoices" });
+    }
+  });
+
+  // Seed sample data endpoint (for testing)
+  app.post("/api/seed-sample-data", async (req, res) => {
+    try {
+      // Create sample contacts
+      const contacts = [];
+      const contactData = [
+        { name: "Sarah Johnson", email: "sarah@example.com", phone: "+15125551234" },
+        { name: "Mike Rodriguez", email: "mike@example.com", phone: "+15125555678" },
+        { name: "Jennifer Martinez", email: "jennifer@example.com", phone: "+15125559012" },
+        { name: "David Chen", email: "david@example.com", phone: "+15125553456" },
+        { name: "Emily Wilson", email: "emily@example.com", phone: "+15125557890" }
+      ];
+      
+      for (const data of contactData) {
+        const contact = await storage.createContact({
+          name: data.name,
+          email: data.email,
+          phone: data.phone,
+          tags: ["lead"]
+        });
+        contacts.push(contact);
+      }
+      
+      // Create sample projects with different pipeline phases
+      const projects = [];
+      const projectData = [
+        { contactIndex: 0, phase: "ph_new", eventType: "birthday", groupSize: 25, title: "Sarah's Birthday Cruise" },
+        { contactIndex: 1, phase: "ph_quote_sent", eventType: "corporate", groupSize: 40, title: "Tech Company Team Building" },
+        { contactIndex: 2, phase: "ph_deposit_paid", eventType: "bachelorette", groupSize: 15, title: "Jennifer's Bachelorette Party" },
+        { contactIndex: 3, phase: "ph_fully_paid", eventType: "wedding", groupSize: 50, title: "Chen Wedding Reception" },
+        { contactIndex: 4, phase: "ph_new", eventType: "graduation", groupSize: 30, title: "Emily's Graduation Party" }
+      ];
+      
+      for (const data of projectData) {
+        const eventDate = new Date();
+        eventDate.setDate(eventDate.getDate() + Math.floor(Math.random() * 60) + 30); // 30-90 days from now
+        
+        const project = await storage.createProject({
+          contactId: contacts[data.contactIndex].id,
+          title: data.title,
+          status: "active",
+          projectDate: eventDate,
+          pipelinePhase: data.phase,
+          groupSize: data.groupSize,
+          eventType: data.eventType,
+          duration: 3,
+          preferredTime: "afternoon",
+          budget: Math.floor(Math.random() * 5000 + 2000) * 100, // $2000-7000
+          leadSource: "chat",
+          tags: []
+        });
+        projects.push(project);
+      }
+      
+      // Create sample quotes for some projects
+      const quotes = [];
+      for (let i = 0; i < 3; i++) {
+        const project = projects[i];
+        const quoteItems = [
+          { description: "Private Cruise (3 hours)", quantity: 1, unitPrice: 150000 },
+          { description: "Cooler + Ice", quantity: 1, unitPrice: 1500 },
+          { description: "Sound System Upgrade", quantity: 1, unitPrice: 5000 }
+        ];
+        
+        const quote = await storage.createQuote({
+          projectId: project.id,
+          items: quoteItems,
+          subtotal: quoteItems.reduce((sum, item) => sum + (item.quantity * item.unitPrice), 0),
+          tax: Math.floor(quoteItems.reduce((sum, item) => sum + (item.quantity * item.unitPrice), 0) * 0.0825),
+          total: Math.floor(quoteItems.reduce((sum, item) => sum + (item.quantity * item.unitPrice), 0) * 1.0825),
+          status: i === 0 ? "draft" : i === 1 ? "sent" : "accepted",
+          sentAt: i > 0 ? new Date() : undefined,
+          viewedAt: i > 0 ? new Date() : undefined,
+          expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
+        });
+        quotes.push(quote);
+      }
+      
+      // Create sample invoices for accepted quotes
+      const acceptedQuote = quotes[2];
+      const invoice = await storage.createInvoice({
+        quoteId: acceptedQuote.id,
+        amount: acceptedQuote.total,
+        dueDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000), // 14 days
+        status: "sent"
+      });
+      
+      // Create sample chat messages
+      const sessionId = "sample-session-" + Date.now();
+      await storage.createChatMessage({
+        sessionId,
+        contactId: contacts[0].id,
+        role: "user",
+        content: "Hi, I'm interested in booking a birthday party cruise",
+        metadata: {}
+      });
+      
+      await storage.createChatMessage({
+        sessionId,
+        contactId: contacts[0].id,
+        role: "assistant",
+        content: "Hello! I'd be happy to help you plan an amazing birthday party cruise. How many guests are you expecting?",
+        metadata: {}
+      });
+      
+      res.json({
+        success: true,
+        message: "Sample data created successfully",
+        data: {
+          contacts: contacts.length,
+          projects: projects.length,
+          quotes: quotes.length,
+          invoices: 1,
+          messages: 2
+        }
+      });
+    } catch (error: any) {
+      console.error("Seed sample data error:", error);
+      res.status(500).json({ error: "Failed to seed sample data" });
+    }
+  });
+
   // Chat API endpoints
   app.post("/api/chat/message", async (req, res) => {
     try {

@@ -60,42 +60,68 @@ export function CRMPipeline() {
     }
   };
 
-  const loadRecentActivity = () => {
-    // Mock recent activity for demo - in production would come from API
-    const mockActivities: ActivityItem[] = [
-      {
-        id: '1',
-        type: 'payment',
-        message: 'Sarah J. paid deposit',
-        timestamp: new Date(Date.now() - 2 * 60 * 1000), // 2m ago
-      },
-      {
-        id: '2', 
-        type: 'lead',
-        message: 'New lead from chat',
-        timestamp: new Date(Date.now() - 5 * 60 * 1000), // 5m ago
-      },
-      {
-        id: '3',
-        type: 'quote',
-        message: 'Quote sent to Mike R.',
-        timestamp: new Date(Date.now() - 12 * 60 * 1000), // 12m ago
-      },
-      {
-        id: '4',
-        type: 'lead',
-        message: 'New inquiry for birthday party',
-        timestamp: new Date(Date.now() - 25 * 60 * 1000), // 25m ago
-      },
-      {
-        id: '5',
-        type: 'payment',
-        message: 'Jennifer M. completed payment',
-        timestamp: new Date(Date.now() - 45 * 60 * 1000), // 45m ago
+  const loadRecentActivity = async () => {
+    try {
+      // Fetch recent quotes to generate activity items
+      const quotesResponse = await apiRequest("GET", "/api/quotes/recent?limit=10");
+      const quotes = await quotesResponse.json();
+      
+      // Convert quotes to activity items
+      const quoteActivities: ActivityItem[] = quotes.map((quote: any) => ({
+        id: `quote-${quote.id}`,
+        type: 'quote' as const,
+        message: `Quote sent to ${quote.customerName}`,
+        timestamp: new Date(quote.createdAt)
+      }));
+      
+      // Fetch pipeline data to get recent leads
+      const pipelineResponse = await apiRequest("GET", "/api/pipeline/summary");
+      const pipelineData = await pipelineResponse.json();
+      
+      // Create lead activity items based on pipeline phases
+      const leadActivities: ActivityItem[] = [];
+      if (pipelineData.newLeads > 0) {
+        leadActivities.push({
+          id: 'new-leads',
+          type: 'lead' as const,
+          message: `${pipelineData.newLeads} new lead${pipelineData.newLeads > 1 ? 's' : ''} in pipeline`,
+          timestamp: new Date()
+        });
       }
-    ];
-    
-    setActivities(mockActivities);
+      
+      if (pipelineData.depositPaid > 0) {
+        leadActivities.push({
+          id: 'deposits',
+          type: 'payment' as const,
+          message: `${pipelineData.depositPaid} deposit${pipelineData.depositPaid > 1 ? 's' : ''} paid`,
+          timestamp: new Date(Date.now() - 30 * 60 * 1000) // 30m ago
+        });
+      }
+      
+      // Combine and sort all activities by timestamp
+      const allActivities = [...quoteActivities, ...leadActivities]
+        .sort((a, b) => b.timestamp.getTime() - a.timestamp.getTime())
+        .slice(0, 5); // Keep only the 5 most recent
+      
+      setActivities(allActivities.length > 0 ? allActivities : [
+        // Fallback to show at least one activity if no data
+        {
+          id: 'welcome',
+          type: 'lead' as const,
+          message: 'Click "Load Sample Data" to populate dashboard',
+          timestamp: new Date()
+        }
+      ]);
+    } catch (error) {
+      console.error("Failed to load recent activity:", error);
+      // Show helpful message if no data
+      setActivities([{
+        id: 'no-data',
+        type: 'lead' as const,
+        message: 'No recent activity. Load sample data to get started.',
+        timestamp: new Date()
+      }]);
+    }
   };
 
   const getActivityIcon = (type: ActivityItem['type']) => {

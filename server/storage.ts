@@ -1267,6 +1267,10 @@ export class MemStorage implements IStorage {
   }
 
   async getProjectsByContact(contactId: string): Promise<Project[]> {
+    // If contactId is empty, return all projects
+    if (!contactId) {
+      return Array.from(this.projects.values());
+    }
     return Array.from(this.projects.values()).filter(p => p.contactId === contactId);
   }
 
@@ -1421,6 +1425,11 @@ export class MemStorage implements IStorage {
   }
 
   async getChatMessages(sessionId: string): Promise<ChatMessage[]> {
+    // If sessionId is empty, return all messages
+    if (!sessionId) {
+      return Array.from(this.chatMessages.values())
+        .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+    }
     return Array.from(this.chatMessages.values())
       .filter(m => m.sessionId === sessionId)
       .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
