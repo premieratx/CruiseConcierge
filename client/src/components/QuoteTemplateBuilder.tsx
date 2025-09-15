@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useEffect } from 'react';
 import {
   DndContext,
   DragEndEvent,
@@ -32,12 +32,15 @@ import { Textarea } from '@/components/ui/textarea';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { useToast } from '@/hooks/use-toast';
 import { 
   Type, List, RadioIcon, CheckSquare, Hash, Info, Minus, 
   DollarSign, FileText, Image, Table, Grid, GripVertical,
   Plus, Trash2, Copy, Eye, Settings, X, AlertCircle, CheckCircle,
   AlertTriangle, XCircle
 } from 'lucide-react';
+import { z } from 'zod';
 import type { QuoteTemplate, TemplateComponent } from '@shared/schema';
 
 interface QuoteTemplateBuilderProps {
@@ -45,6 +48,54 @@ interface QuoteTemplateBuilderProps {
   onSave: (template: Partial<QuoteTemplate>) => void;
   onCancel: () => void;
 }
+
+// Validation schemas
+const templateValidationSchema = z.object({
+  name: z.string()
+    .min(1, "Template name is required")
+    .max(100, "Template name cannot exceed 100 characters")
+    .regex(/^[a-zA-Z0-9\s\-_,()]+$/, "Template name contains invalid characters"),
+  description: z.string()
+    .max(500, "Description cannot exceed 500 characters")
+    .optional(),
+  eventType: z.string()
+    .min(1, "Event type is required"),
+  duration: z.number()
+    .min(1, "Duration must be at least 1 hour")
+    .max(12, "Duration cannot exceed 12 hours")
+    .int("Duration must be a whole number"),
+  minGroupSize: z.number()
+    .min(1, "Minimum group size must be at least 1")
+    .max(1000, "Minimum group size cannot exceed 1000")
+    .int("Group size must be a whole number")
+    .optional(),
+  maxGroupSize: z.number()
+    .min(1, "Maximum group size must be at least 1")
+    .max(1000, "Maximum group size cannot exceed 1000")
+    .int("Group size must be a whole number")
+    .optional(),
+}).refine((data) => {
+  if (data.minGroupSize && data.maxGroupSize) {
+    return data.minGroupSize <= data.maxGroupSize;
+  }
+  return true;
+}, {
+  message: "Minimum group size cannot be greater than maximum group size",
+  path: ["maxGroupSize"],
+});
+
+const componentValidationSchema = z.object({
+  title: z.string().min(1, "Component title is required"),
+  options: z.array(z.string()).optional().refine((options) => {
+    if (options && options.length > 0) {
+      return options.every(option => option.trim().length > 0);
+    }
+    return true;
+  }, "All options must be non-empty"),
+});
+
+type ValidationErrors = Record<string, string>;
+type ComponentValidationErrors = Record<string, Record<string, string>>;
 
 // Component types available in the builder
 const COMPONENT_TYPES = [
@@ -526,6 +577,10 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
   const [selectedComponent, setSelectedComponent] = useState<string | null>(null);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [showPreview, setShowPreview] = useState(false);
+  const [validationErrors, setValidationErrors] = useState<ValidationErrors>({});
+  const [componentErrors, setComponentErrors] = useState<ComponentValidationErrors>({});
+  const [isValidating, setIsValidating] = useState(false);
+  const { toast } = useToast();
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -533,6 +588,120 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
       coordinateGetter: sortableKeyboardCoordinates,
     })
   );
+
+  // Validation functions
+  const validateTemplate = useCallback(() => {
+    const templateData = {
+      name,
+      description,
+      eventType,
+      duration,
+      minGroupSize: minGroupSize || undefined,
+      maxGroupSize: maxGroupSize || undefined,
+    };
+
+    try {
+      templateValidationSchema.parse(templateData);
+      setValidationErrors({});
+      return { valid: true, errors: {} };
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const errors: ValidationErrors = {};
+        error.errors.forEach(err => {
+          const path = err.path.join('.');
+          errors[path] = err.message;
+        });
+        setValidationErrors(errors);
+        return { valid: false, errors };
+      }
+      return { valid: false, errors: { general: "Validation failed" } };
+    }
+  }, [name, description, eventType, duration, minGroupSize, maxGroupSize]);
+
+  const validateComponent = useCallback((component: TemplateComponent) => {
+    const errors: Record<string, string> = {};
+    
+    if (!component.properties.title) {
+      errors.title = "Component title is required";
+    }
+    
+    // Validate specific component types
+    if (component.type === 'radio_group' || component.type === 'checkbox_group') {
+      if (!component.properties.options || component.properties.options.length === 0) {
+        errors.options = "At least one option is required";
+      } else if (component.properties.options.some((opt: string) => !opt.trim())) {
+        errors.options = "All options must be non-empty";
+      }
+    }
+    
+    if (component.type === 'line_items') {
+      if (component.properties.items) {
+        component.properties.items.forEach((item: any, index: number) => {
+          if (!item.name) {
+            errors[`item_${index}_name`] = `Item ${index + 1} name is required`;
+          }
+          if (item.price && (isNaN(item.price) || item.price < 0)) {
+            errors[`item_${index}_price`] = `Item ${index + 1} price must be a non-negative number`;
+          }
+        });
+      }
+    }
+    
+    return errors;
+  }, []);
+
+  const validateAllComponents = useCallback(() => {
+    const allErrors: ComponentValidationErrors = {};
+    
+    components.forEach(component => {
+      const componentErrors = validateComponent(component);
+      if (Object.keys(componentErrors).length > 0) {
+        allErrors[component.id] = componentErrors;
+      }
+    });
+    
+    setComponentErrors(allErrors);
+    return Object.keys(allErrors).length === 0;
+  }, [components, validateComponent]);
+
+  // Real-time validation effect
+  useEffect(() => {
+    const timeoutId = setTimeout(() => {
+      validateTemplate();
+      validateAllComponents();
+    }, 300); // Debounce validation
+    
+    return () => clearTimeout(timeoutId);
+  }, [validateTemplate, validateAllComponents]);
+
+  // Validation error display component
+  const ValidationError = ({ field, className = "" }: { field: string; className?: string }) => {
+    const error = validationErrors[field];
+    if (!error) return null;
+    
+    return (
+      <p className={`text-sm text-red-500 mt-1 flex items-center gap-1 ${className}`} data-testid={`validation-error-${field}`}>
+        <AlertCircle className="h-3 w-3" />
+        {error}
+      </p>
+    );
+  };
+
+  // Component validation error display
+  const ComponentValidationError = ({ componentId, field }: { componentId: string; field: string }) => {
+    const error = componentErrors[componentId]?.[field];
+    if (!error) return null;
+    
+    return (
+      <p className="text-sm text-red-500 mt-1 flex items-center gap-1" data-testid={`component-error-${componentId}-${field}`}>
+        <AlertCircle className="h-3 w-3" />
+        {error}
+      </p>
+    );
+  };
+
+  // Check if template is valid
+  const isTemplateValid = Object.keys(validationErrors).length === 0 && Object.keys(componentErrors).length === 0;
 
   const handleDragStart = (event: DragStartEvent) => {
     setActiveId(event.active.id as string);
@@ -624,36 +793,87 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
         ? { ...c, properties: { ...c.properties, [property]: value } }
         : c
     ));
+    
+    // Clear component-specific validation errors when user makes changes
+    if (componentErrors[id]) {
+      setComponentErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[id];
+        return newErrors;
+      });
+    }
   };
 
   const handleSave = () => {
-    // Store full components structure to preserve all data
-    const templateData: Partial<QuoteTemplate> = {
-      name,
-      description,
-      eventType,
-      duration,
-      minGroupSize,
-      maxGroupSize,
-      // Store full components array in new components field
-      components: components,
-      // For backward compatibility, properly map components to legacy fields
-      defaultItems: components
-        .filter(c => c.type === 'line_items')
-        .map(c => c.properties as any),
-      defaultRadioSections: components
-        .filter(c => c.type === 'radio_group')
-        .map(c => ({
-          id: c.id,
-          title: c.properties.title || '',
-          description: c.properties.description || '',
-          required: c.properties.required || false,
-          options: c.properties.options || [],
-          order: c.order,
-        })),
-      active: true,
-    };
-    onSave(templateData);
+    setIsValidating(true);
+    
+    // Validate template and components before saving
+    const templateValidation = validateTemplate();
+    const componentsValid = validateAllComponents();
+    
+    if (!templateValidation.valid || !componentsValid) {
+      setIsValidating(false);
+      
+      // Show validation error toast
+      const errorCount = Object.keys(validationErrors).length + Object.keys(componentErrors).length;
+      toast({
+        title: "Validation Failed",
+        description: `Please fix ${errorCount} error${errorCount !== 1 ? 's' : ''} before saving the template.`,
+        variant: "destructive",
+      });
+      
+      // Scroll to first error
+      const firstErrorElement = document.querySelector('[data-testid^="validation-error-"], [data-testid^="component-error-"]');
+      if (firstErrorElement) {
+        firstErrorElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+      
+      return;
+    }
+    
+    // Validation passed, proceed with save
+    try {
+      const templateData: Partial<QuoteTemplate> = {
+        name: name.trim(),
+        description: description?.trim() || undefined,
+        eventType,
+        duration,
+        minGroupSize: minGroupSize || undefined,
+        maxGroupSize: maxGroupSize || undefined,
+        // Store full components array in new components field
+        components: components,
+        // For backward compatibility, properly map components to legacy fields
+        defaultItems: components
+          .filter(c => c.type === 'line_items')
+          .map(c => c.properties as any),
+        defaultRadioSections: components
+          .filter(c => c.type === 'radio_group')
+          .map(c => ({
+            id: c.id,
+            title: c.properties.title || '',
+            description: c.properties.description || '',
+            required: c.properties.required || false,
+            options: c.properties.options || [],
+            order: c.order,
+          })),
+        active: true,
+      };
+      
+      onSave(templateData);
+      
+      toast({
+        title: "Template Saved",
+        description: "Quote template has been saved successfully.",
+      });
+    } catch (error) {
+      toast({
+        title: "Save Failed",
+        description: "An error occurred while saving the template. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsValidating(false);
+    }
   };
 
   const selectedComponentData = components.find(c => c.id === selectedComponent);
@@ -677,8 +897,12 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
               <Eye className="h-4 w-4 mr-2" />
               {showPreview ? 'Hide' : 'Show'} Preview
             </Button>
-            <Button onClick={handleSave} data-testid="button-save-template">
-              Save Template
+            <Button 
+              onClick={handleSave} 
+              disabled={!isTemplateValid || isValidating}
+              data-testid="button-save-template"
+            >
+              {isValidating ? "Validating..." : "Save Template"}
             </Button>
             <Button variant="outline" onClick={onCancel} data-testid="button-cancel">
               Cancel
@@ -722,19 +946,24 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
               <CardContent className="grid gap-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Label>Template Name</Label>
+                    <Label>Template Name *</Label>
                     <Input
                       value={name}
                       onChange={(e) => setName(e.target.value)}
                       placeholder="e.g., Bachelor Party - 25 Guests"
+                      className={validationErrors.name ? "border-red-500 focus:border-red-500" : ""}
                       data-testid="input-template-name"
                     />
+                    <ValidationError field="name" />
                   </div>
                   <div>
-                    <Label>Event Type</Label>
+                    <Label>Event Type *</Label>
                     <Select value={eventType} onValueChange={setEventType}>
-                      <SelectTrigger data-testid="select-event-type">
-                        <SelectValue />
+                      <SelectTrigger 
+                        className={validationErrors.eventType ? "border-red-500 focus:border-red-500" : ""}
+                        data-testid="select-event-type"
+                      >
+                        <SelectValue placeholder="Select event type" />
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="bachelor">Bachelor Party</SelectItem>
@@ -745,6 +974,7 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                         <SelectItem value="other">Other</SelectItem>
                       </SelectContent>
                     </Select>
+                    <ValidationError field="eventType" />
                   </div>
                 </div>
                 <div>
@@ -753,20 +983,24 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Describe this template..."
+                    className={validationErrors.description ? "border-red-500 focus:border-red-500" : ""}
                     data-testid="textarea-description"
                   />
+                  <ValidationError field="description" />
                 </div>
                 <div className="grid grid-cols-3 gap-4">
                   <div>
-                    <Label>Duration (hours)</Label>
+                    <Label>Duration (hours) *</Label>
                     <Input
                       type="number"
                       value={duration}
                       onChange={(e) => setDuration(Number(e.target.value))}
                       min={1}
                       max={12}
+                      className={validationErrors.duration ? "border-red-500 focus:border-red-500" : ""}
                       data-testid="input-duration"
                     />
+                    <ValidationError field="duration" />
                   </div>
                   <div>
                     <Label>Min Group Size</Label>
@@ -775,8 +1009,10 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                       value={minGroupSize}
                       onChange={(e) => setMinGroupSize(Number(e.target.value))}
                       min={1}
+                      className={validationErrors.minGroupSize ? "border-red-500 focus:border-red-500" : ""}
                       data-testid="input-min-group"
                     />
+                    <ValidationError field="minGroupSize" />
                   </div>
                   <div>
                     <Label>Max Group Size</Label>
@@ -785,8 +1021,10 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                       value={maxGroupSize}
                       onChange={(e) => setMaxGroupSize(Number(e.target.value))}
                       min={1}
+                      className={validationErrors.maxGroupSize ? "border-red-500 focus:border-red-500" : ""}
                       data-testid="input-max-group"
                     />
+                    <ValidationError field="maxGroupSize" />
                   </div>
                 </div>
               </CardContent>
@@ -885,12 +1123,14 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
             <ScrollArea className="h-full">
               <div className="space-y-4 pr-4">
                 <div>
-                  <Label>Title</Label>
+                  <Label>Title *</Label>
                   <Input
                     value={selectedComponentData.properties?.title || ''}
                     onChange={(e) => updateComponentProperty(selectedComponentData.id, 'title', e.target.value)}
+                    className={componentErrors[selectedComponentData.id]?.title ? "border-red-500 focus:border-red-500" : ""}
                     data-testid="input-component-title"
                   />
+                  <ComponentValidationError componentId={selectedComponentData.id} field="title" />
                 </div>
                 
                 {selectedComponentData.type === 'text' && (
@@ -968,14 +1208,16 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                 {selectedComponentData.type === 'radio_group' && (
                   <>
                     <div>
-                      <Label>Options</Label>
+                      <Label>Options *</Label>
                       <Textarea
                         value={selectedComponentData.properties?.options?.join('\n') || ''}
                         onChange={(e) => updateComponentProperty(selectedComponentData.id, 'options', e.target.value.split('\n').filter(Boolean))}
                         rows={4}
                         placeholder="One option per line"
+                        className={componentErrors[selectedComponentData.id]?.options ? "border-red-500 focus:border-red-500" : ""}
                         data-testid="textarea-radio-options"
                       />
+                      <ComponentValidationError componentId={selectedComponentData.id} field="options" />
                     </div>
                     <div className="flex items-center justify-between">
                       <Label>Required</Label>
@@ -991,14 +1233,16 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                 {selectedComponentData.type === 'checkbox_group' && (
                   <>
                     <div>
-                      <Label>Options</Label>
+                      <Label>Options *</Label>
                       <Textarea
                         value={selectedComponentData.properties?.options?.join('\n') || ''}
                         onChange={(e) => updateComponentProperty(selectedComponentData.id, 'options', e.target.value.split('\n').filter(Boolean))}
                         rows={4}
                         placeholder="One option per line"
+                        className={componentErrors[selectedComponentData.id]?.options ? "border-red-500 focus:border-red-500" : ""}
                         data-testid="textarea-checkbox-options"
                       />
+                      <ComponentValidationError componentId={selectedComponentData.id} field="options" />
                     </div>
                     <div>
                       <Label>Description</Label>
