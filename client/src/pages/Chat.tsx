@@ -28,7 +28,6 @@ import { format, addDays, isBefore, isAfter, startOfDay, differenceInDays } from
 import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection, QuoteItem } from '@shared/schema';
 
 type Question = 
-  | 'welcome'
   | 'event-type' 
   | 'group-size-selection'
   | 'comparison-selection'
@@ -310,7 +309,7 @@ const condenseAnimation = {
 };
 
 export default function Chat() {
-  const [currentQuestion, setCurrentQuestion] = useState<Question>('welcome');
+  const [currentQuestion, setCurrentQuestion] = useState<Question>('event-type');
   const [completedSelections, setCompletedSelections] = useState<CompletedSelection[]>([]);
   const [privatePricing, setPrivatePricing] = useState<PricingPreview | null>(null);
   const [discoPricing, setDiscoPricing] = useState<PricingPreview | null>(null);
@@ -338,7 +337,7 @@ export default function Chat() {
     selectedDiscoTimeSlot: '',
     discoTicketQuantity: 1,
   });
-  const [questionHistory, setQuestionHistory] = useState<Question[]>(['welcome']);
+  const [questionHistory, setQuestionHistory] = useState<Question[]>(['event-type']);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [maxProgressIndex, setMaxProgressIndex] = useState(0);
   // Lead tracking state
@@ -611,7 +610,7 @@ export default function Chat() {
 
   // Enhanced Navigation functions - RESTRUCTURED FLOW for early pricing
   const questionOrder: Question[] = [
-    'welcome', 'event-type', 'group-size-selection', 'date-selection', 
+    'event-type', 'group-size-selection', 'date-selection', 
     'comparison-selection', 'contact-info', 'complete'
   ];
 
@@ -1958,132 +1957,7 @@ export default function Chat() {
           
           <AnimatePresence mode="wait">
             
-            {/* Professional Welcome Screen */}
-            {currentQuestion === 'welcome' && (
-              <motion.div
-                key="welcome"
-                variants={fadeInUp}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="text-center space-y-8 py-8"
-              >
-                {/* Hero Section */}
-                <motion.div
-                  initial={{ scale: 0.8, opacity: 0 }}
-                  animate={{ scale: 1, opacity: 1 }}
-                  transition={{ duration: 0.8, ease: "easeOut" }}
-                  className="space-y-6"
-                >
-                  {/* Logo */}
-                  <div className="flex justify-center mb-8">
-                    <motion.img
-                      src={logoPath}
-                      alt="Premier Party Cruises"
-                      className="h-32 w-auto"
-                      initial={{ y: -20, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.2, duration: 0.6 }}
-                    />
-                  </div>
-                  
-                  {/* Hero Text */}
-                  <div className="space-y-4">
-                    <motion.h1
-                      className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent"
-                      initial={{ y: 20, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.3, duration: 0.6 }}
-                    >
-                      Welcome Aboard!
-                    </motion.h1>
-                    
-                    <motion.p
-                      className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 max-w-3xl mx-auto"
-                      initial={{ y: 20, opacity: 0 }}
-                      animate={{ y: 0, opacity: 1 }}
-                      transition={{ delay: 0.4, duration: 0.6 }}
-                    >
-                      Austin's Premier Lake Travis Party Cruise Experience
-                    </motion.p>
-                  </div>
-                </motion.div>
-                
-                {/* Features Grid */}
-                <motion.div
-                  className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto px-4"
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.6, duration: 0.6 }}
-                >
-                  <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-xl p-6 shadow-lg">
-                    <Ship className="h-10 w-10 text-blue-600 mx-auto mb-3" />
-                    <h3 className="font-semibold text-slate-800 dark:text-slate-200 mb-2">Premium Fleet</h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">Luxury boats with modern amenities for groups up to 75</p>
-                  </div>
-                  
-                  <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-xl p-6 shadow-lg">
-                    <Star className="h-10 w-10 text-yellow-500 mx-auto mb-3" />
-                    <h3 className="font-semibold text-slate-800 dark:text-slate-200 mb-2">5-Star Service</h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">Professional crew dedicated to making your event unforgettable</p>
-                  </div>
-                  
-                  <div className="bg-white/70 dark:bg-slate-800/70 backdrop-blur-sm rounded-xl p-6 shadow-lg">
-                    <Sparkles className="h-10 w-10 text-purple-600 mx-auto mb-3" />
-                    <h3 className="font-semibold text-slate-800 dark:text-slate-200 mb-2">Custom Packages</h3>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">Tailored experiences for any celebration or event</p>
-                  </div>
-                </motion.div>
-                
-                {/* CTA Section */}
-                <motion.div
-                  className="space-y-4"
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.8, duration: 0.6 }}
-                >
-                  <Button
-                    onClick={() => {
-                      setCurrentQuestion('event-type');
-                      updateProgress('event-type');
-                    }}
-                    className="btn-professional bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-12 py-6 text-lg font-semibold shadow-xl hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
-                    data-testid="button-get-started"
-                  >
-                    <Sparkles className="h-5 w-5 mr-2" />
-                    Get Your Custom Quote
-                    <ChevronRight className="h-5 w-5 ml-2" />
-                  </Button>
-                  
-                  <p className="text-sm text-slate-500 dark:text-slate-400">
-                    Takes less than 2 minutes • Instant pricing • No commitment
-                  </p>
-                </motion.div>
-                
-                {/* Trust Badges */}
-                <motion.div
-                  className="flex items-center justify-center gap-8 pt-8"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 1, duration: 0.6 }}
-                >
-                  <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-                    <CheckCircle className="h-4 w-4 text-green-500" />
-                    <span>Licensed & Insured</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-                    <Star className="h-4 w-4 text-yellow-500" />
-                    <span>500+ 5-Star Reviews</span>
-                  </div>
-                  <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-                    <Clock className="h-4 w-4 text-blue-500" />
-                    <span>7 Years of Excellence</span>
-                  </div>
-                </motion.div>
-              </motion.div>
-            )}
-            
-            {/* Professional Event Type Selection */}
+            {/* Unified Welcome & Event Type Selection */}
             {currentQuestion === 'event-type' && (
               <motion.div
                 key="event-type"
@@ -2091,64 +1965,132 @@ export default function Chat() {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="text-center space-y-6"
+                className="text-center space-y-6 py-4"
               >
-                <div className="space-y-3">
-                  <motion.div
-                    initial={{ scale: 0.8, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ delay: 0.2, duration: 0.6 }}
-                    className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto shadow-lg"
-                  >
-                    <Ship className="h-8 w-8 text-white" />
-                  </motion.div>
+                {/* Compact Welcome Header */}
+                <motion.div
+                  initial={{ scale: 0.9, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ duration: 0.6, ease: "easeOut" }}
+                  className="space-y-3"
+                >
+                  {/* Logo */}
+                  <div className="flex justify-center mb-4">
+                    <motion.img
+                      src={logoPath}
+                      alt="Premier Party Cruises"
+                      className="h-20 w-auto"
+                      initial={{ y: -10, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.1, duration: 0.5 }}
+                    />
+                  </div>
                   
+                  {/* Compact Hero Text */}
+                  <div className="space-y-2">
+                    <motion.h1
+                      className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-blue-600 bg-clip-text text-transparent"
+                      initial={{ y: 10, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.2, duration: 0.5 }}
+                    >
+                      Welcome Aboard!
+                    </motion.h1>
+                    
+                    <motion.p
+                      className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
+                      initial={{ y: 10, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ delay: 0.3, duration: 0.5 }}
+                    >
+                      Lake Austin's Premium Boat Charter Experience
+                    </motion.p>
+                  </div>
+                </motion.div>
+                
+                {/* Compact Features Row */}
+                <motion.div
+                  className="flex items-center justify-center gap-6 md:gap-8 flex-wrap text-sm"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: 0.4, duration: 0.5 }}
+                >
+                  <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                    <Ship className="h-4 w-4 text-blue-600" />
+                    <span>Premium Fleet</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                    <Star className="h-4 w-4 text-yellow-500" />
+                    <span>500+ Reviews</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                    <CheckCircle className="h-4 w-4 text-green-500" />
+                    <span>Licensed & Insured</span>
+                  </div>
+                  <div className="flex items-center gap-2 text-slate-600 dark:text-slate-400">
+                    <Clock className="h-4 w-4 text-purple-600" />
+                    <span>7 Years Excellence</span>
+                  </div>
+                </motion.div>
+
+                {/* Divider Line */}
+                <div className="flex items-center justify-center">
+                  <div className="w-32 h-0.5 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-600 to-transparent"></div>
+                </div>
+                
+                {/* Event Selection Section */}
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.5, duration: 0.5 }}
+                  className="space-y-4"
+                >
                   <div>
-                    <h1 className="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white mb-2">
+                    <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2">
                       What type of event are you planning?
-                    </h1>
-                    <p className="text-slate-600 dark:text-slate-400">
+                    </h2>
+                    <p className="text-slate-600 dark:text-slate-400 text-sm">
                       Select the option that best describes your celebration
                     </p>
                   </div>
-                </div>
 
-                <motion.div 
-                  className="grid grid-cols-2 lg:grid-cols-4 gap-4 max-w-5xl mx-auto"
-                  variants={{
-                    visible: {
-                      transition: {
-                        staggerChildren: 0.05
+                  <motion.div 
+                    className="grid grid-cols-2 lg:grid-cols-4 gap-3 max-w-5xl mx-auto"
+                    variants={{
+                      visible: {
+                        transition: {
+                          staggerChildren: 0.03
+                        }
                       }
-                    }
-                  }}
-                >
-                  {eventTypes.map((type, index) => (
-                    <motion.div
-                      key={type.id}
-                      variants={{
-                        hidden: { opacity: 0, y: 20 },
-                        visible: { opacity: 1, y: 0 }
-                      }}
-                    >
-                      <button
-                        className="w-full h-full p-6 bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-600 group relative overflow-hidden"
-                        onClick={() => handleEventTypeSelect(type.id, type.label, type.emoji)}
-                        data-testid={`button-event-${type.id}`}
+                    }}
+                  >
+                    {eventTypes.map((type, index) => (
+                      <motion.div
+                        key={type.id}
+                        variants={{
+                          hidden: { opacity: 0, y: 15 },
+                          visible: { opacity: 1, y: 0 }
+                        }}
                       >
-                        <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-600/0 group-hover:from-blue-500/5 group-hover:to-purple-600/10 transition-all duration-300" />
-                        <div className="relative space-y-3">
-                          <div className="text-4xl mb-2">{type.emoji}</div>
-                          <div className="font-semibold text-base text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                            {type.label}
+                        <button
+                          className="w-full h-full p-5 bg-white dark:bg-slate-800 rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 border border-slate-200 dark:border-slate-700 hover:border-blue-400 dark:hover:border-blue-600 group relative overflow-hidden"
+                          onClick={() => handleEventTypeSelect(type.id, type.label, type.emoji)}
+                          data-testid={`button-event-${type.id}`}
+                        >
+                          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-purple-600/0 group-hover:from-blue-500/5 group-hover:to-purple-600/10 transition-all duration-300" />
+                          <div className="relative space-y-2">
+                            <div className="text-3xl mb-1">{type.emoji}</div>
+                            <div className="font-semibold text-sm text-slate-800 dark:text-slate-200 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                              {type.label}
+                            </div>
+                            <div className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                              {type.description}
+                            </div>
                           </div>
-                          <div className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
-                            {type.description}
-                          </div>
-                        </div>
-                      </button>
-                    </motion.div>
-                  ))}
+                        </button>
+                      </motion.div>
+                    ))}
+                  </motion.div>
                 </motion.div>
               </motion.div>
             )}
