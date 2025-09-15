@@ -11,6 +11,7 @@ import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChat
 import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
 import { getFullUrl, getPublicUrl } from "./utils";
+import { seedQuoteTemplates } from "./seedTemplates";
 
 if (!process.env.STRIPE_SECRET_KEY) {
   console.warn('STRIPE_SECRET_KEY not configured. Payment functionality will be mocked.');
@@ -72,8 +73,9 @@ async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: 
     </div>
   `;
   
-  // Remove unsafe from override - let service use its safe default
-  return await mailgunService.send({
+  // Use SendGrid for email delivery
+  const sendgrid = await import('./services/sendgrid');
+  return await sendgrid.sendgridService.send({
     to: email,
     subject: '🚢 Your Party Cruise Quote is Ready!',
     html
@@ -932,6 +934,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Contact endpoints
+  app.get("/api/contacts/:id", async (req, res) => {
+    try {
+      const contact = await storage.getContact(req.params.id);
+      if (!contact) {
+        return res.status(404).json({ error: "Contact not found" });
+      }
+      res.json(contact);
+    } catch (error) {
+      console.error("Get contact error:", error);
+      res.status(500).json({ error: "Failed to fetch contact" });
+    }
+  });
+
   app.post("/api/contacts", async (req, res) => {
     try {
       const contactData = insertContactSchema.parse(req.body);
@@ -1584,6 +1599,70 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Clone quote
+  app.post("/api/quotes/:id/clone", async (req, res) => {
+    try {
+      const { projectId, title } = req.body;
+      const originalQuote = await storage.getQuote(req.params.id);
+      
+      if (!originalQuote) {
+        return res.status(404).json({ error: "Quote not found" });
+      }
+      
+      // Create new quote with same items but new project
+      const clonedQuote = await storage.createQuote({
+        projectId: projectId || originalQuote.projectId,
+        items: originalQuote.items,
+        radioSections: originalQuote.radioSections || [],
+        subtotal: originalQuote.subtotal,
+        tax: originalQuote.tax,
+        discountTotal: originalQuote.discountTotal || 0,
+        total: originalQuote.total,
+        depositAmount: originalQuote.depositAmount,
+        status: 'DRAFT',
+        expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days from now
+        notes: originalQuote.notes,
+      });
+      
+      res.json(clonedQuote);
+    } catch (error) {
+      console.error("Clone quote error:", error);
+      res.status(500).json({ error: "Failed to clone quote" });
+    }
+  });
+
+  // Check and update expired quotes
+  app.post("/api/quotes/check-expiration", async (req, res) => {
+    try {
+      const allQuotes = [];
+      const projects = await storage.getProjectsByContact(''); // Get all projects
+      
+      for (const project of projects) {
+        const quotes = await storage.getQuotesByProject(project.id);
+        allQuotes.push(...quotes);
+      }
+      
+      const now = new Date();
+      let expiredCount = 0;
+      
+      for (const quote of allQuotes) {
+        if (quote.status === 'SENT' && quote.expiresAt && new Date(quote.expiresAt) < now) {
+          await storage.updateQuote(quote.id, { status: 'EXPIRED' });
+          expiredCount++;
+        }
+      }
+      
+      res.json({ 
+        success: true, 
+        message: `Updated ${expiredCount} expired quotes`,
+        expiredCount 
+      });
+    } catch (error) {
+      console.error("Check expiration error:", error);
+      res.status(500).json({ error: "Failed to check quote expiration" });
+    }
+  });
+
   // Recalculate quote with customizations
   app.post("/api/quotes/:id/recalculate-public", async (req, res) => {
     try {
@@ -2047,6 +2126,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Pipeline summary error:", error);
       res.status(500).json({ error: "Failed to fetch pipeline summary" });
+    }
+  });
+
+  // Seed Quote Templates endpoint
+  app.post("/api/quote-templates/seed", async (req, res) => {
+    try {
+      const success = await seedQuoteTemplates();
+      if (success) {
+        res.json({ success: true, message: "Quote templates seeded successfully" });
+      } else {
+        res.status(500).json({ error: "Failed to seed quote templates" });
+      }
+    } catch (error) {
+      console.error("Seed quote templates error:", error);
+      res.status(500).json({ error: "Failed to seed quote templates" });
+    }
+  });
+
+  // Test Quote System endpoint
+  app.post("/api/test-quote-system", async (req, res) => {
+    try {
+      const { testQuoteSystem } = await import("./testQuoteSystem");
+      const result = await testQuoteSystem();
+      
+      if (result.success) {
+        res.json({
+          success: true,
+          message: "Quote system test completed successfully",
+          testData: result,
+        });
+      } else {
+        res.status(500).json({
+          success: false,
+          error: result.error || "Quote system test failed",
+        });
+      }
+    } catch (error) {
+      console.error("Test quote system error:", error);
+      res.status(500).json({ error: "Failed to test quote system" });
     }
   });
 

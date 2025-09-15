@@ -114,6 +114,14 @@ export default function QuoteBuilder() {
     queryKey: ['/api/pricing-settings'],
   });
 
+  // Fetch contact for selected project
+  const selectedProjectId = form.watch('projectId');
+  const selectedProject = projects?.find((p: Project) => p.id === selectedProjectId);
+  const { data: projectContact } = useQuery({
+    queryKey: ['/api/contacts', selectedProject?.contactId],
+    enabled: !!selectedProject?.contactId,
+  });
+
 
   const form = useForm<QuoteFormData>({
     resolver: zodResolver(quoteFormSchema),
@@ -219,11 +227,20 @@ export default function QuoteBuilder() {
   // Send quote mutation
   const sendQuote = useMutation({
     mutationFn: async (quoteId: string) => {
-      return apiRequest('POST', `/api/quotes/${quoteId}/send`, {
+      const sendData: any = {
         method: 'email',
         recipientEmail: getContactEmail(),
         personalMessage: 'Thank you for choosing Premier Party Cruises! Please review your quote below.',
-      });
+      };
+      
+      // Add phone if available for SMS
+      const phone = getContactPhone();
+      if (phone) {
+        sendData.recipientPhone = phone;
+        sendData.sendSms = true;
+      }
+      
+      return apiRequest('POST', `/api/quotes/${quoteId}/send`, sendData);
     },
     onSuccess: () => {
       toast({
@@ -371,10 +388,12 @@ export default function QuoteBuilder() {
 
   // Get contact email for sending
   const getContactEmail = () => {
-    const projectId = form.watch('projectId');
-    const project = projects?.find((p: Project) => p.id === projectId);
-    // This would need to fetch the contact's email based on project.contactId
-    return 'customer@example.com'; // Placeholder
+    return projectContact?.email || 'customer@example.com';
+  };
+
+  // Get contact phone for SMS
+  const getContactPhone = () => {
+    return projectContact?.phone || '';
   };
 
   const onSubmit = (data: QuoteFormData) => {
