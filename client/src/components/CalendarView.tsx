@@ -7,9 +7,12 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Ship, Anchor, Users, Plus, Minus, AlertCircle } from "lucide-react";
-import type { Boat, Booking, DiscoSlot, Timeframe } from "@shared/schema";
-import { format } from "date-fns";
+import type { Boat, Booking, DiscoSlot, Timeframe, Product } from "@shared/schema";
+import { format, startOfWeek, addWeeks, subWeeks, isToday } from "date-fns";
 import { cn } from "@/lib/utils";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { Input } from "@/components/ui/input";
 
 interface TimeBlock {
   id: string;
@@ -50,46 +53,102 @@ const formatTime = (time: string | undefined | null) => {
   return `${displayHours}:${minutes.toString().padStart(2, '0')} ${period}`;
 };
 
-// Helper function to generate time blocks for a date
-const generateTimeBlocks = (date: Date, boats: Boat[], bookings: Booking[], timeframes: Timeframe[]): TimeBlock[] => {
+// Helper function to generate time blocks based on products and day of week
+const generateTimeBlocks = (date: Date, boats: Boat[], bookings: Booking[], products: Product[]): TimeBlock[] => {
   const dayOfWeek = date.getDay();
   const blocks: TimeBlock[] = [];
+  const dayName = ['sunday', 'saturday', 'sunday', 'weekday', 'weekday', 'weekday', 'weekday'][dayOfWeek] || 'weekday';
+  const dayNameMap: {[key: string]: string} = {
+    '0': 'sunday',
+    '1': 'weekday',
+    '2': 'weekday', 
+    '3': 'weekday',
+    '4': 'weekday',
+    '5': 'friday',
+    '6': 'saturday'
+  };
+  const actualDayType = dayNameMap[dayOfWeek.toString()];
   
-  // Get timeframes for this day of week
-  const dayTimeframes = timeframes.filter(tf => tf.dayOfWeek === dayOfWeek && tf.type === 'private');
+  // Get private cruise products for this day
+  const dayProducts = products.filter(p => 
+    p.productType === 'private_cruise' && 
+    p.active &&
+    (!p.dayType || p.dayType === 'any' || p.dayType === actualDayType)
+  );
   
-  // Generate blocks for each boat based on timeframes
+  // Extract unique time slots from product names/descriptions
+  const timeSlotPatterns = [
+    { pattern: /10am-2pm|10:00.*2:00/i, startTime: '10:00', endTime: '14:00' },
+    { pattern: /11am-3pm|11:00.*3:00/i, startTime: '11:00', endTime: '15:00' },
+    { pattern: /12pm-4pm|12:00.*4:00/i, startTime: '12:00', endTime: '16:00' },
+    { pattern: /1pm-5pm|1:00.*5:00/i, startTime: '13:00', endTime: '17:00' },
+    { pattern: /2pm-6pm|2:00.*6:00/i, startTime: '14:00', endTime: '18:00' },
+    { pattern: /3pm-7pm|3:00.*7:00/i, startTime: '15:00', endTime: '19:00' },
+    { pattern: /3:30pm-7:30pm|3:30.*7:30/i, startTime: '15:30', endTime: '19:30' },
+    { pattern: /4pm-8pm|4:00.*8:00/i, startTime: '16:00', endTime: '20:00' },
+    { pattern: /4:30pm-8:30pm|4:30.*8:30/i, startTime: '16:30', endTime: '20:30' },
+  ];
+  
+  // Generate available time slots based on day of week
+  const availableTimeSlots: Array<{startTime: string, endTime: string}> = [];
+  
+  if (dayOfWeek >= 1 && dayOfWeek <= 4) { // Monday-Thursday
+    availableTimeSlots.push(
+      { startTime: '10:00', endTime: '14:00' },
+      { startTime: '11:00', endTime: '15:00' },
+      { startTime: '12:00', endTime: '16:00' },
+      { startTime: '13:00', endTime: '17:00' },
+      { startTime: '14:00', endTime: '18:00' },
+      { startTime: '15:00', endTime: '19:00' },
+      { startTime: '16:00', endTime: '20:00' },
+      { startTime: '16:30', endTime: '20:30' }
+    );
+  } else if (dayOfWeek === 5) { // Friday
+    availableTimeSlots.push(
+      { startTime: '12:00', endTime: '16:00' },
+      { startTime: '16:30', endTime: '20:30' }
+    );
+  } else { // Saturday/Sunday
+    availableTimeSlots.push(
+      { startTime: '11:00', endTime: '15:00' },
+      { startTime: '15:30', endTime: '19:30' }
+    );
+  }
+  
+  // Generate blocks for each boat and time slot
   boats.forEach(boat => {
-    dayTimeframes.forEach(tf => {
-      // Check if this timeframe applies to this boat
-      if (!tf.boatIds || tf.boatIds.length === 0 || tf.boatIds.includes(boat.id) || tf.boatIds.includes('any')) {
-        const startDateTime = new Date(date);
-        const [startHour, startMin] = tf.startTime.split(':').map(Number);
-        startDateTime.setHours(startHour, startMin, 0, 0);
-        
-        const endDateTime = new Date(date);
-        const [endHour, endMin] = tf.endTime.split(':').map(Number);
-        endDateTime.setHours(endHour, endMin, 0, 0);
-        
-        // Check if there's a booking for this time slot
-        const booking = bookings.find(b => 
-          b.boatId === boat.id &&
-          b.startTime.getTime() === startDateTime.getTime() &&
-          b.endTime.getTime() === endDateTime.getTime()
-        );
-        
-        blocks.push({
-          id: `${boat.id}_${tf.startTime}_${tf.endTime}`,
-          date,
-          startTime: tf.startTime,
-          endTime: tf.endTime,
-          boatId: boat.id,
-          boatName: boat.name,
-          status: booking ? (booking.status === 'blocked' ? 'blocked' : 'booked') : 'available',
-          booking,
-          capacity: boat.capacity
-        });
-      }
+    availableTimeSlots.forEach(slot => {
+      const startDateTime = new Date(date);
+      const [startHour, startMin] = slot.startTime.split(':').map(Number);
+      startDateTime.setHours(startHour, startMin, 0, 0);
+      
+      const endDateTime = new Date(date);
+      const [endHour, endMin] = slot.endTime.split(':').map(Number);
+      endDateTime.setHours(endHour, endMin, 0, 0);
+      
+      // Check if there's a booking for this time slot
+      const booking = bookings.find(b => 
+        b.boatId === boat.id &&
+        new Date(b.startTime).getTime() === startDateTime.getTime() &&
+        new Date(b.endTime).getTime() === endDateTime.getTime()
+      );
+      
+      // Find matching product for pricing
+      const matchingProduct = dayProducts.find(p => 
+        (!p.groupSize || (boat.capacity >= (p.groupSize - 5) && boat.capacity <= (p.groupSize + 20)))
+      );
+      
+      blocks.push({
+        id: `${boat.id}_${slot.startTime}_${slot.endTime}`,
+        date,
+        startTime: slot.startTime,
+        endTime: slot.endTime,
+        boatId: boat.id,
+        boatName: boat.name,
+        status: booking ? (booking.status === 'blocked' ? 'blocked' : 'booked') : 'available',
+        booking,
+        capacity: boat.capacity
+      });
     });
   });
   
@@ -98,28 +157,37 @@ const generateTimeBlocks = (date: Date, boats: Boat[], bookings: Booking[], time
 
 function CalendarView() {
   const [selectedWeek, setSelectedWeek] = useState<Date>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [selectedTab, setSelectedTab] = useState<string>("all");
   const [viewMode, setViewMode] = useState<'week' | 'day'>('week');
+  const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const { toast } = useToast();
 
   // Get the start of the week (Sunday)
-  const getWeekStart = (date: Date) => {
-    const d = new Date(date);
-    const day = d.getDay();
-    const diff = d.getDate() - day;
-    return new Date(d.setDate(diff));
-  };
-
-  const weekStart = getWeekStart(selectedWeek);
+  const weekStart = startOfWeek(selectedWeek, { weekStartsOn: 0 });
   const weekDates = Array.from({ length: 7 }, (_, i) => {
     const date = new Date(weekStart);
     date.setDate(weekStart.getDate() + i);
     return date;
   });
 
+  // When date picker selects a date, update the week view
+  const handleDateSelect = (date: Date | undefined) => {
+    if (date) {
+      setSelectedDate(date);
+      setSelectedWeek(date);
+      setIsDatePickerOpen(false);
+    }
+  };
+
   // Fetch boats
   const { data: boats = [] } = useQuery<Boat[]>({
     queryKey: ["/api/boats"],
+  });
+
+  // Fetch products
+  const { data: products = [] } = useQuery<Product[]>({
+    queryKey: ["/api/products"],
   });
 
   // Fetch timeframes
@@ -216,9 +284,9 @@ function CalendarView() {
   // Group boats by capacity for tabs
   const boatGroups = {
     all: boats,
-    dayTripper: boats.filter(b => b.capacity === 14),
-    medium: boats.filter(b => b.capacity === 25 || b.capacity === 30),
-    large: boats.filter(b => b.capacity === 50)
+    dayTripper: boats.filter(b => b.capacity <= 15),
+    medium: boats.filter(b => b.capacity >= 20 && b.capacity <= 35),
+    large: boats.filter(b => b.capacity >= 40)
   };
 
   // Count available boats for 25-person group
@@ -409,32 +477,66 @@ function CalendarView() {
           <h2 className="text-2xl font-bold">Boat Calendar</h2>
           <p className="text-muted-foreground">Manage boat availability and bookings</p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-2 items-center">
+          {/* Week Navigation */}
           <Button
             variant="outline"
-            onClick={() => {
-              const newWeek = new Date(selectedWeek);
-              newWeek.setDate(newWeek.getDate() - 7);
-              setSelectedWeek(newWeek);
-            }}
+            onClick={() => setSelectedWeek(subWeeks(selectedWeek, 1))}
             data-testid="week-prev"
           >
             <ChevronLeft className="h-4 w-4" />
           </Button>
+          
+          {/* Date Input and Picker */}
+          <div className="flex gap-1">
+            <Input
+              type="text"
+              value={format(selectedDate, 'MMM dd, yyyy')}
+              readOnly
+              className="w-32 text-center cursor-pointer"
+              onClick={() => setIsDatePickerOpen(true)}
+              data-testid="date-input"
+            />
+            <Popover open={isDatePickerOpen} onOpenChange={setIsDatePickerOpen}>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  data-testid="calendar-picker-button"
+                >
+                  <CalendarIcon className="h-4 w-4" />
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0" align="start">
+                <Calendar
+                  mode="single"
+                  selected={selectedDate}
+                  onSelect={handleDateSelect}
+                  initialFocus
+                  fromDate={new Date()}
+                  toDate={new Date(new Date().setFullYear(new Date().getFullYear() + 1))}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+          
+          {/* Today Button */}
           <Button
             variant="outline"
-            onClick={() => setSelectedWeek(new Date())}
+            onClick={() => {
+              const today = new Date();
+              setSelectedWeek(today);
+              setSelectedDate(today);
+            }}
             data-testid="week-today"
           >
             Today
           </Button>
+          
+          {/* Next Week */}
           <Button
             variant="outline"
-            onClick={() => {
-              const newWeek = new Date(selectedWeek);
-              newWeek.setDate(newWeek.getDate() + 7);
-              setSelectedWeek(newWeek);
-            }}
+            onClick={() => setSelectedWeek(addWeeks(selectedWeek, 1))}
             data-testid="week-next"
           >
             <ChevronRight className="h-4 w-4" />
@@ -476,7 +578,7 @@ function CalendarView() {
                     date,
                     selectedTab === 'all' ? boats : boatGroups[selectedTab as keyof typeof boatGroups],
                     bookings,
-                    timeframes
+                    products
                   );
                   const dayDiscoSlots = discoSlots.filter(slot => {
                     const slotDate = new Date(slot.date);
@@ -505,6 +607,11 @@ function CalendarView() {
                         <div className="text-sm text-muted-foreground">
                           {format(date, 'MMM d')}
                         </div>
+                        {isToday && (
+                          <Badge variant="secondary" className="mt-1 text-xs">
+                            Today
+                          </Badge>
+                        )}
                       </div>
 
                       {/* Regular time blocks or grouped view */}
