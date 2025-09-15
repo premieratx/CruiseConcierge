@@ -1312,8 +1312,68 @@ export default function Chat() {
                           </div>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          {privatePricing && (
-                            <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-lg p-4">
+                          {/* Step 1: Time Slot Selection */}
+                          <div className="space-y-3">
+                            <Label className="flex items-center gap-2">
+                              <Clock className="h-4 w-4" />
+                              Select Time Slot
+                            </Label>
+                            <RadioGroup
+                              value={formData.selectedTimeSlot || ''}
+                              onValueChange={handlePrivateCruiseSelect}
+                            >
+                              {getPrivateTimeSlotsForDate(formData.eventDate!).map((slot) => (
+                                <div key={slot.id} className="flex items-center space-x-2">
+                                  <RadioGroupItem value={slot.id} id={`private-${slot.id}`} />
+                                  <Label htmlFor={`private-${slot.id}`} className="flex-1 cursor-pointer">
+                                    <div className="flex items-center justify-between">
+                                      <div className="flex items-center gap-2">
+                                        <span>{slot.icon}</span>
+                                        <span>{slot.label}</span>
+                                        {slot.popular && <Badge variant="secondary" className="text-xs">Popular</Badge>}
+                                      </div>
+                                      <span className="text-sm text-slate-600 dark:text-slate-400">{slot.duration}hrs</span>
+                                    </div>
+                                  </Label>
+                                </div>
+                              ))}
+                            </RadioGroup>
+                          </div>
+
+                          {/* Step 2: Package Selection - Only show if time slot selected */}
+                          {formData.selectedTimeSlot && (
+                            <div className="space-y-3 border-t pt-4">
+                              <Label className="flex items-center gap-2">
+                                <Ship className="h-4 w-4" />
+                                Select Package
+                              </Label>
+                              <RadioGroup
+                                value={formData.selectedPrivatePackage || ''}
+                                onValueChange={handlePrivatePackageSelect}
+                              >
+                                {privatePackages.map((pkg) => (
+                                  <div key={pkg.id} className="flex items-center space-x-2">
+                                    <RadioGroupItem value={pkg.id} id={pkg.id} />
+                                    <Label htmlFor={pkg.id} className="flex-1 cursor-pointer">
+                                      <div className="space-y-1">
+                                        <div className="flex justify-between items-center">
+                                          <span className="font-medium">{pkg.name}</span>
+                                          <span className="font-bold text-blue-600">${pkg.hourlyRate}/hr</span>
+                                        </div>
+                                        <div className="text-sm text-slate-600 dark:text-slate-400">
+                                          {pkg.description}
+                                        </div>
+                                      </div>
+                                    </Label>
+                                  </div>
+                                ))}
+                              </RadioGroup>
+                            </div>
+                          )}
+
+                          {/* Step 3: Pricing Details - Only show if both time slot AND package selected */}
+                          {formData.selectedTimeSlot && formData.selectedPrivatePackage && privatePricing && (
+                            <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-lg p-4 border-t">
                               <div className="text-center mb-4">
                                 <div className="text-3xl font-bold text-blue-600">
                                   {formatCurrency(privatePricing.total)}
@@ -1352,26 +1412,6 @@ export default function Chat() {
                               </div>
                             </div>
                           )}
-                          
-                          <div className="space-y-3">
-                            <Label>Select Package</Label>
-                            <RadioGroup
-                              value={formData.selectedPrivatePackage || ''}
-                              onValueChange={handlePrivatePackageSelect}
-                            >
-                              {privatePackages.map((pkg) => (
-                                <div key={pkg.id} className="flex items-center space-x-2">
-                                  <RadioGroupItem value={pkg.id} id={pkg.id} />
-                                  <Label htmlFor={pkg.id} className="flex-1 cursor-pointer">
-                                    <div className="flex justify-between">
-                                      <span>{pkg.name}</span>
-                                      <span className="font-bold">${pkg.hourlyRate}/hr</span>
-                                    </div>
-                                  </Label>
-                                </div>
-                              ))}
-                            </RadioGroup>
-                          </div>
                           
                           {/* Payment Buttons */}
                           <div className="space-y-2">
@@ -1438,8 +1478,112 @@ export default function Chat() {
                             </div>
                           </CardHeader>
                           <CardContent className="space-y-4">
-                            {discoPricing && (
-                              <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 rounded-lg p-4">
+                            {/* Step 1: Time Slot Selection */}
+                            <div className="space-y-3">
+                              <Label className="flex items-center gap-2">
+                                <Clock className="h-4 w-4" />
+                                Select Time Slot
+                              </Label>
+                              <RadioGroup
+                                value={formData.selectedDiscoTimeSlot || ''}
+                                onValueChange={(timeSlot) => {
+                                  setFormData(prev => ({
+                                    ...prev,
+                                    selectedDiscoTimeSlot: timeSlot,
+                                  }));
+                                }}
+                              >
+                                {getDiscoTimeSlotsForDate(formData.eventDate!).map((slot) => (
+                                  <div key={slot.id} className="flex items-center space-x-2">
+                                    <RadioGroupItem value={slot.id} id={`disco-time-${slot.id}`} />
+                                    <Label htmlFor={`disco-time-${slot.id}`} className="flex-1 cursor-pointer">
+                                      <div className="flex items-center justify-between">
+                                        <div className="flex items-center gap-2">
+                                          <span>{slot.icon}</span>
+                                          <span>{slot.label}</span>
+                                          {slot.popular && <Badge variant="secondary" className="text-xs">Popular</Badge>}
+                                        </div>
+                                        <span className="text-sm text-slate-600 dark:text-slate-400">{slot.duration}hrs</span>
+                                      </div>
+                                    </Label>
+                                  </div>
+                                ))}
+                              </RadioGroup>
+                            </div>
+
+                            {/* Step 2: Package Selection - Only show if time slot selected */}
+                            {formData.selectedDiscoTimeSlot && (
+                              <div className="space-y-3 border-t pt-4">
+                                <Label className="flex items-center gap-2">
+                                  <Music className="h-4 w-4" />
+                                  Select Package
+                                </Label>
+                                <RadioGroup
+                                  value={formData.selectedDiscoPackage || ''}
+                                  onValueChange={(packageId) => {
+                                    setFormData(prev => ({
+                                      ...prev,
+                                      selectedDiscoPackage: packageId as DiscoPackage,
+                                    }));
+                                  }}
+                                >
+                                  {discoPackages.map((pkg) => (
+                                    <div key={pkg.id} className="flex items-center space-x-2">
+                                      <RadioGroupItem value={pkg.id} id={`disco-${pkg.id}`} />
+                                      <Label htmlFor={`disco-${pkg.id}`} className="flex-1 cursor-pointer">
+                                        <div className="space-y-1">
+                                          <div className="flex justify-between items-center">
+                                            <span className="font-medium">{pkg.name}</span>
+                                            <span className="font-bold text-purple-600">${pkg.price}/person</span>
+                                          </div>
+                                          <div className="text-sm text-slate-600 dark:text-slate-400">
+                                            {pkg.description}
+                                          </div>
+                                        </div>
+                                      </Label>
+                                    </div>
+                                  ))}
+                                </RadioGroup>
+                              </div>
+                            )}
+                            
+                            {/* Ticket Quantity - Show if package selected */}
+                            {formData.selectedDiscoPackage && (
+                              <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                <Label className="mb-2 block">Number of Tickets</Label>
+                                <div className="flex items-center gap-4">
+                                  <Button
+                                    onClick={() => setFormData(prev => ({ 
+                                      ...prev, 
+                                      discoTicketQuantity: Math.max(1, prev.discoTicketQuantity - 1) 
+                                    }))}
+                                    size="sm"
+                                    variant="outline"
+                                    className="h-8 w-8 p-0"
+                                  >
+                                    <Minus className="h-4 w-4" />
+                                  </Button>
+                                  <div className="flex-1 text-center">
+                                    <div className="text-2xl font-bold text-purple-600">{formData.discoTicketQuantity}</div>
+                                  </div>
+                                  <Button
+                                    onClick={() => setFormData(prev => ({ 
+                                      ...prev, 
+                                      discoTicketQuantity: Math.min(50, prev.discoTicketQuantity + 1) 
+                                    }))}
+                                    size="sm"
+                                    variant="outline"
+                                    className="h-8 w-8 p-0"
+                                  >
+                                    <Plus className="h-4 w-4" />
+                                  </Button>
+                                </div>
+                              </div>
+                            )}
+
+                            {/* Step 3: Pricing Details - Only show if both time slot AND package selected */}
+                            {formData.selectedDiscoTimeSlot && formData.selectedDiscoPackage && discoPricing && (
+                              <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 rounded-lg p-4 border-t">
                                 <div className="text-center mb-4">
                                   <div className="text-3xl font-bold text-purple-600">
                                     {formatCurrency(discoPricing.total)}
@@ -1475,62 +1619,6 @@ export default function Chat() {
                                     <span>Balance Due:</span>
                                     <span>{formatCurrency(discoPricing.total - discoPricing.depositAmount)}</span>
                                   </div>
-                                </div>
-                              </div>
-                            )}
-                            
-                            <div className="space-y-3">
-                              <Label>Select Package</Label>
-                              <RadioGroup
-                                value={formData.selectedDiscoPackage || ''}
-                                onValueChange={(packageId) => {
-                                  const timeSlot = formData.selectedDiscoTimeSlot || getDiscoTimeSlotsForDate(formData.eventDate!)[0]?.id;
-                                  handleDiscoCruiseSelect(packageId as DiscoPackage, timeSlot);
-                                }}
-                              >
-                                {discoPackages.map((pkg) => (
-                                  <div key={pkg.id} className="flex items-center space-x-2">
-                                    <RadioGroupItem value={pkg.id} id={`disco-${pkg.id}`} />
-                                    <Label htmlFor={`disco-${pkg.id}`} className="flex-1 cursor-pointer">
-                                      <div className="flex justify-between">
-                                        <span>{pkg.name}</span>
-                                        <span className="font-bold">${pkg.price}/person</span>
-                                      </div>
-                                    </Label>
-                                  </div>
-                                ))}
-                              </RadioGroup>
-                            </div>
-                            
-                            {formData.selectedDiscoPackage && (
-                              <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                                <Label className="mb-2 block">Number of Tickets</Label>
-                                <div className="flex items-center gap-4">
-                                  <Button
-                                    onClick={() => setFormData(prev => ({ 
-                                      ...prev, 
-                                      discoTicketQuantity: Math.max(1, prev.discoTicketQuantity - 1) 
-                                    }))}
-                                    size="sm"
-                                    variant="outline"
-                                    className="h-8 w-8 p-0"
-                                  >
-                                    <Minus className="h-4 w-4" />
-                                  </Button>
-                                  <div className="flex-1 text-center">
-                                    <div className="text-2xl font-bold text-purple-600">{formData.discoTicketQuantity}</div>
-                                  </div>
-                                  <Button
-                                    onClick={() => setFormData(prev => ({ 
-                                      ...prev, 
-                                      discoTicketQuantity: Math.min(50, prev.discoTicketQuantity + 1) 
-                                    }))}
-                                    size="sm"
-                                    variant="outline"
-                                    className="h-8 w-8 p-0"
-                                  >
-                                    <Plus className="h-4 w-4" />
-                                  </Button>
                                 </div>
                               </div>
                             )}
