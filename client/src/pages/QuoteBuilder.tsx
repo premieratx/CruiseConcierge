@@ -93,36 +93,7 @@ export default function QuoteBuilder() {
   const [showProductPicker, setShowProductPicker] = useState(false);
   const [expandedItems, setExpandedItems] = useState<{ [key: number]: boolean }>({});
 
-  // Fetch existing quote if editing
-  const { data: existingQuote } = useQuery({
-    queryKey: ['/api/quotes', quoteId],
-    enabled: !!isEditMode,
-  });
-
-  // Fetch projects for dropdown
-  const { data: projects } = useQuery({
-    queryKey: ['/api/projects'],
-  });
-
-  // Fetch templates
-  const { data: templates } = useQuery({
-    queryKey: ['/api/quote-templates'],
-  });
-
-  // Fetch pricing settings
-  const { data: pricingSettings } = useQuery({
-    queryKey: ['/api/pricing-settings'],
-  });
-
-  // Fetch contact for selected project
-  const selectedProjectId = form.watch('projectId');
-  const selectedProject = projects?.find((p: Project) => p.id === selectedProjectId);
-  const { data: projectContact } = useQuery({
-    queryKey: ['/api/contacts', selectedProject?.contactId],
-    enabled: !!selectedProject?.contactId,
-  });
-
-
+  // Initialize form first
   const form = useForm<QuoteFormData>({
     resolver: zodResolver(quoteFormSchema),
     defaultValues: {
@@ -146,6 +117,35 @@ export default function QuoteBuilder() {
       expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
       notes: '',
     },
+  });
+
+  // Fetch existing quote if editing
+  const { data: existingQuote } = useQuery({
+    queryKey: ['/api/quotes', quoteId],
+    enabled: !!isEditMode,
+  });
+
+  // Fetch projects for dropdown
+  const { data: projects } = useQuery({
+    queryKey: ['/api/projects'],
+  });
+
+  // Fetch templates
+  const { data: templates } = useQuery({
+    queryKey: ['/api/quote-templates'],
+  });
+
+  // Fetch pricing settings
+  const { data: pricingSettings } = useQuery({
+    queryKey: ['/api/pricing-settings'],
+  });
+
+  // Fetch contact for selected project (now after form initialization)
+  const selectedProjectId = form.watch('projectId');
+  const selectedProject = projects?.find((p: Project) => p.id === selectedProjectId);
+  const { data: projectContact } = useQuery({
+    queryKey: ['/api/contacts', selectedProject?.contactId],
+    enabled: !!selectedProject?.contactId,
   });
 
   // Load existing quote data
