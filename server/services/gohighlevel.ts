@@ -104,7 +104,7 @@ class GoHighLevelService implements SMSService {
     return `phone${normalized}@sms.premierpartycruises.com`;
   }
 
-  // Find or create a contact with robust fallback methods
+  // Find or create a contact with proper upsert strategy
   private async findOrCreateContact(phone: string, name?: string): Promise<string | null> {
     const authHeaders = await this.getAuthHeaders();
     if (!authHeaders) {
@@ -116,17 +116,85 @@ class GoHighLevelService implements SMSService {
     const generatedEmail = this.generateEmailFromPhone(phone);
     const contactName = name || 'Guest';
     
-    console.log('🔍 Finding or creating contact...');
+    console.log('🔍 Finding or creating contact (Upsert Strategy)...');
     console.log('   Phone:', formattedPhone);
     console.log('   Generated Email:', generatedEmail);
     console.log('   Name:', contactName);
 
-    // Method 1: Try to find contact by generated email (most reliable)
+    // Method 1: FIRST, search for contact by phone number (primary identifier)
     try {
-      const searchUrl = `${this.baseUrl}/contacts/?locationId=${this.locationId}&query=${encodeURIComponent(generatedEmail)}&limit=1`;
-      console.log('   Method 1: Searching by email...');
+      console.log('   Method 1: Searching for contact by phone...');
+      const normalizedSearchPhone = formattedPhone.replace(/\D/g, '');
       
-      const searchResponse = await fetch(searchUrl, {
+      // Try searching with the phone number directly in the query
+      const phoneSearchUrl = `${this.baseUrl}/contacts/?locationId=${this.locationId}&query=${encodeURIComponent(formattedPhone)}&limit=10`;
+      
+      const searchResponse = await fetch(phoneSearchUrl, {
+        method: 'GET',
+        headers: authHeaders,
+      });
+
+      if (searchResponse.ok) {
+        const searchData = await searchResponse.json();
+        const contacts = searchData.contacts || [];
+        
+        // Look for exact phone match
+        for (const contact of contacts) {
+          const contactPhone = (contact.phone || '').replace(/\D/g, '');
+          if (contactPhone === normalizedSearchPhone || 
+              contactPhone === normalizedSearchPhone.slice(1) ||
+              normalizedSearchPhone === contactPhone.slice(1)) {
+            
+            console.log('   ✅ Found existing contact by phone:', contact.id);
+            
+            // UPDATE the existing contact with any new information
+            const updatePayload: any = {};
+            
+            // Only update fields that need updating
+            if (contact.email !== generatedEmail) updatePayload.email = generatedEmail;
+            if (name && contact.name !== contactName) updatePayload.name = contactName;
+            if (contact.phone !== formattedPhone) updatePayload.phone = formattedPhone;
+            
+            if (Object.keys(updatePayload).length > 0) {
+              console.log('   Updating contact with new information...');
+              try {
+                const updateResponse = await fetch(`${this.baseUrl}/contacts/${contact.id}`, {
+                  method: 'PUT',
+                  headers: {
+                    ...authHeaders,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify(updatePayload),
+                });
+                
+                if (updateResponse.ok) {
+                  console.log('   ✅ Contact updated successfully');
+                } else {
+                  const updateError = await updateResponse.text();
+                  console.log('   ⚠️ Update warning:', updateResponse.status, updateError.substring(0, 200));
+                }
+              } catch (updateError) {
+                console.log('   ⚠️ Could not update contact:', updateError);
+              }
+            }
+            
+            return contact.id;
+          }
+        }
+      } else {
+        const errorText = await searchResponse.text();
+        console.log(`   Phone search error: ${searchResponse.status} - ${errorText.substring(0, 200)}`);
+      }
+    } catch (error) {
+      console.log('   Method 1 error:', error);
+    }
+
+    // Method 2: If not found by phone, search by generated email (secondary identifier)
+    try {
+      console.log('   Method 2: Searching for contact by email...');
+      const emailSearchUrl = `${this.baseUrl}/contacts/?locationId=${this.locationId}&query=${encodeURIComponent(generatedEmail)}&limit=1`;
+      
+      const searchResponse = await fetch(emailSearchUrl, {
         method: 'GET',
         headers: authHeaders,
       });
@@ -137,9 +205,9 @@ class GoHighLevelService implements SMSService {
           const contact = searchData.contacts[0];
           console.log('   ✅ Found existing contact by email:', contact.id);
           
-          // Update contact if phone or name changed
-          if (contact.phone !== formattedPhone || (name && contact.name !== name)) {
-            console.log('   Updating contact info...');
+          // UPDATE the contact with the phone number
+          console.log('   Updating contact with phone number...');
+          try {
             const updateResponse = await fetch(`${this.baseUrl}/contacts/${contact.id}`, {
               method: 'PUT',
               headers: {
@@ -156,18 +224,20 @@ class GoHighLevelService implements SMSService {
             if (updateResponse.ok) {
               console.log('   ✅ Contact updated successfully');
             }
+          } catch (updateError) {
+            console.log('   ⚠️ Could not update contact:', updateError);
           }
           
           return contact.id;
         }
       }
     } catch (error) {
-      console.log('   Method 1 error:', error);
+      console.log('   Method 2 error:', error);
     }
 
-    // Method 2: Create new contact with email and phone
+    // Method 3: No existing contact found, CREATE a new one
     try {
-      console.log('   Method 2: Creating new contact...');
+      console.log('   Method 3: Creating new contact (no existing contact found)...');
       const createResponse = await fetch(`${this.baseUrl}/contacts/`, {
         method: 'POST',
         headers: {
@@ -185,34 +255,77 @@ class GoHighLevelService implements SMSService {
       if (createResponse.ok) {
         const createData = await createResponse.json();
         const contactId = createData.contact?.id || createData.id;
-        console.log('   ✅ Created new contact:', contactId);
+        console.log('   ✅ Successfully created new contact:', contactId);
         return contactId;
       } else {
         const errorText = await createResponse.text();
         console.log('   Create response:', createResponse.status);
         
-        // If duplicate error, try Method 3
-        if (createResponse.status === 400 && errorText.includes('duplicate')) {
-          console.log('   Duplicate contact exists, trying Method 3...');
-        } else {
-          console.log('   Create error:', errorText.substring(0, 200));
+        // Parse error to extract existing contact ID from duplicate error
+        try {
+          const errorData = JSON.parse(errorText);
+          
+          // CRITICAL: Extract contact ID from duplicate error response
+          if (createResponse.status === 400 && errorData.meta?.contactId) {
+            const existingContactId = errorData.meta.contactId;
+            console.log('   ✅ Extracted existing contact ID from duplicate error:', existingContactId);
+            console.log('   Duplicate field:', errorData.meta.matchingField);
+            
+            // UPDATE the existing contact with our information
+            try {
+              console.log('   Updating duplicate contact with our information...');
+              const updateResponse = await fetch(`${this.baseUrl}/contacts/${existingContactId}`, {
+                method: 'PUT',
+                headers: {
+                  ...authHeaders,
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                  phone: formattedPhone,
+                  email: generatedEmail,
+                  name: contactName,
+                }),
+              });
+              
+              if (updateResponse.ok) {
+                console.log('   ✅ Duplicate contact updated successfully');
+              } else {
+                const updateError = await updateResponse.text();
+                console.log('   ⚠️ Could not update duplicate contact:', updateError.substring(0, 200));
+              }
+            } catch (updateError) {
+              console.log('   ⚠️ Error updating duplicate contact:', updateError);
+            }
+            
+            return existingContactId;
+          }
+          
+          // Log other error details
+          if (errorData.message) {
+            console.log('   Error message:', errorData.message);
+          }
+          if (errorData.errors) {
+            console.log('   Field errors:', JSON.stringify(errorData.errors));
+          }
+        } catch {
+          console.log('   Raw error:', errorText.substring(0, 300));
         }
       }
     } catch (error) {
-      console.log('   Method 2 error:', error);
+      console.log('   Method 3 error:', error);
     }
 
-    // Method 3: Search through all contacts for phone match (with pagination)
+    // Method 4: Fallback - search through all contacts with pagination
     try {
-      console.log('   Method 3: Searching all contacts for phone...');
+      console.log('   Method 4: Fallback - searching all contacts for phone match...');
       const normalizedSearchPhone = formattedPhone.replace(/\D/g, '');
       let page = 1;
       let foundContactId = null;
       
-      while (page <= 5 && !foundContactId) { // Limit to 5 pages
-        const offset = (page - 1) * 100;
-        const allContactsUrl = `${this.baseUrl}/contacts/?locationId=${this.locationId}&limit=100&offset=${offset}`;
-        console.log(`   Fetching page ${page}...`);
+      while (page <= 3 && !foundContactId) { // Limit to 3 pages for performance
+        const skip = (page - 1) * 100;
+        const allContactsUrl = `${this.baseUrl}/contacts/?locationId=${this.locationId}&limit=100&skip=${skip}`;
+        console.log(`   Checking page ${page}...`);
         
         const allContactsResponse = await fetch(allContactsUrl, {
           method: 'GET',
@@ -223,9 +336,7 @@ class GoHighLevelService implements SMSService {
           const allContactsData = await allContactsResponse.json();
           const contacts = allContactsData.contacts || [];
           
-          if (contacts.length === 0) {
-            break; // No more contacts
-          }
+          if (contacts.length === 0) break;
           
           for (const contact of contacts) {
             const contactPhone = (contact.phone || '').replace(/\D/g, '');
@@ -233,9 +344,9 @@ class GoHighLevelService implements SMSService {
                 contactPhone === normalizedSearchPhone.slice(1) ||
                 normalizedSearchPhone === contactPhone.slice(1)) {
               foundContactId = contact.id;
-              console.log('   ✅ Found contact by phone:', foundContactId);
+              console.log('   ✅ Found contact in fallback search:', foundContactId);
               
-              // Update contact with our generated email for future lookups
+              // Update contact with our email for future lookups
               try {
                 const updateResponse = await fetch(`${this.baseUrl}/contacts/${foundContactId}`, {
                   method: 'PUT',
@@ -250,19 +361,17 @@ class GoHighLevelService implements SMSService {
                 });
                 
                 if (updateResponse.ok) {
-                  console.log('   ✅ Updated contact with generated email');
+                  console.log('   ✅ Contact updated with email');
                 }
               } catch (updateError) {
-                console.log('   Could not update contact:', updateError);
+                console.log('   ⚠️ Could not update contact:', updateError);
               }
               
               break;
             }
           }
           
-          if (!foundContactId && contacts.length < 100) {
-            break; // Last page
-          }
+          if (!foundContactId && contacts.length < 100) break;
         } else {
           break;
         }
@@ -274,12 +383,12 @@ class GoHighLevelService implements SMSService {
         return foundContactId;
       }
     } catch (error) {
-      console.log('   Method 3 error:', error);
+      console.log('   Method 4 error:', error);
     }
 
-    // Method 4: Try creating with just phone (no email) as last resort
+    // Method 5: Last resort - create with phone only
     try {
-      console.log('   Method 4: Creating contact with phone only...');
+      console.log('   Method 5: Last resort - creating contact with phone only...');
       const phoneOnlyResponse = await fetch(`${this.baseUrl}/contacts/`, {
         method: 'POST',
         headers: {
@@ -298,13 +407,95 @@ class GoHighLevelService implements SMSService {
         const contactId = phoneOnlyData.contact?.id || phoneOnlyData.id;
         console.log('   ✅ Created contact with phone only:', contactId);
         return contactId;
+      } else {
+        const errorText = await phoneOnlyResponse.text();
+        
+        // Check for duplicate error even in phone-only creation
+        try {
+          const errorData = JSON.parse(errorText);
+          if (phoneOnlyResponse.status === 400 && errorData.meta?.contactId) {
+            const existingContactId = errorData.meta.contactId;
+            console.log('   ✅ Found existing contact ID from phone-only duplicate:', existingContactId);
+            return existingContactId;
+          }
+        } catch {
+          console.log('   Phone-only create error:', phoneOnlyResponse.status, '-', errorText.substring(0, 200));
+        }
       }
     } catch (error) {
-      console.log('   Method 4 error:', error);
+      console.log('   Method 5 error:', error);
     }
 
-    console.log('   ⚠️ All methods failed to find/create contact');
+    console.log('   ⚠️ All upsert methods exhausted - contact management failed');
     return null;
+  }
+
+  // Helper method to send SMS using contact ID
+  private async sendSMSToContact(contactId: string, message: string, fromPhone?: string): Promise<boolean> {
+    const authHeaders = await this.getAuthHeaders();
+    if (!authHeaders) {
+      console.error('❌ No authentication headers available for SMS send');
+      return false;
+    }
+
+    try {
+      const payload = {
+        type: 'SMS',
+        contactId: contactId,
+        message: message,
+        // Only include from if provided
+        ...(fromPhone && { from: fromPhone }),
+      };
+
+      console.log('📤 Sending SMS via GoHighLevel:');
+      console.log('   Contact ID:', contactId);
+      console.log('   Message length:', message.length);
+      if (fromPhone) console.log('   From:', fromPhone);
+
+      const response = await fetch(`${this.baseUrl}/conversations/messages`, {
+        method: 'POST',
+        headers: {
+          ...authHeaders,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('❌ SMS send failed:', response.status);
+        
+        try {
+          const errorJson = JSON.parse(errorText);
+          if (errorJson.message) {
+            console.error('   Error message:', errorJson.message);
+            
+            // Check for scope permission errors
+            if (errorJson.message.includes('not authorized for this scope') || 
+                errorJson.error === 'insufficient_scope') {
+              console.error('   ⚠️ Missing required scope: conversations.write');
+              console.log('   📋 To fix this:');
+              console.log('      1. Go to GoHighLevel Settings → Private Integrations');
+              console.log('      2. Edit your integration and add the "conversations.write" scope');
+              console.log('      3. Regenerate your token and update GOHIGHLEVEL_PRIVATE_INTEGRATION_TOKEN');
+            }
+          }
+        } catch {
+          console.error('   Raw error:', errorText.substring(0, 300));
+        }
+        return false;
+      }
+
+      const responseData = await response.json();
+      console.log('✅ SMS sent successfully');
+      console.log('   Message ID:', responseData.messageId || responseData.id);
+      console.log('   Status:', responseData.status || 'sent');
+      
+      return true;
+    } catch (error) {
+      console.error('❌ Failed to send SMS:', error);
+      return false;
+    }
   }
 
   // OAuth token exchange using client credentials grant
@@ -482,6 +673,9 @@ class GoHighLevelService implements SMSService {
           console.log('✅ SMS sent successfully via direct method');
           console.log('   Message ID:', responseData.messageId || responseData.id);
           return true;
+        } else {
+          const errorText = await directResponse.text();
+          console.log('   Direct SMS error:', directResponse.status, '-', errorText.substring(0, 300));
         }
         
         // Fallback 2: Try with minimal payload
@@ -506,6 +700,9 @@ class GoHighLevelService implements SMSService {
           console.log('✅ SMS sent successfully via minimal method');
           console.log('   Message ID:', responseData.messageId || responseData.id);
           return true;
+        } else {
+          const errorText = await minimalResponse.text();
+          console.log('   Minimal SMS error:', minimalResponse.status, '-', errorText.substring(0, 300));
         }
         
         // If all fallbacks failed, log the issue but return success for development
@@ -528,18 +725,20 @@ class GoHighLevelService implements SMSService {
       }
       
       // Step 2: Send SMS to the contact
+      // *** FIX 3: Improved SMS payload structure ***
       const payload = {
         type: 'SMS',
         contactId: contactId,
         message: options.body,
-        from: formattedFrom,  // Include the from phone number
+        // Only include from if we have it configured
+        ...(formattedFrom && { from: formattedFrom }),
       };
       
       console.log('   Sending SMS with payload:', {
         type: payload.type,
         contactId: payload.contactId,
         messageLength: payload.message.length,
-        from: payload.from,
+        ...(payload.from && { from: payload.from }),
       });
       
       const response = await fetch(`${this.baseUrl}/conversations/messages`, {
@@ -569,9 +768,14 @@ class GoHighLevelService implements SMSService {
               console.log('   Token cache cleared - will retry with new token next time');
             }
           }
-          if (errorJson.error === 'Forbidden' || errorJson.error === 'insufficient_scope') {
-            console.error('   Permission issue - missing required scopes');
+          if (errorJson.error === 'Forbidden' || errorJson.error === 'insufficient_scope' || 
+              errorJson.message?.includes('not authorized for this scope')) {
+            console.error('   ⚠️ Permission issue - missing required scopes');
             console.log('   Required scope: conversations.write');
+            console.log('   📋 To fix this:');
+            console.log('      1. Go to GoHighLevel Settings → Private Integrations');
+            console.log('      2. Edit your integration and add the "conversations.write" scope');
+            console.log('      3. Regenerate your token and update GOHIGHLEVEL_PRIVATE_INTEGRATION_TOKEN');
           }
         } catch {
           console.error('   Raw error:', error.substring(0, 500));
