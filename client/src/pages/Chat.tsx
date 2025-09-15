@@ -57,7 +57,7 @@ interface BookingData {
   budget: string;
   selectedCruiseType: CruiseType | null;
   selectedTimeSlot: string;
-  selectedPrivatePackage: string | null;
+  selectedAddOnPackages: string[];
   selectedBoat?: string;
   selectedDiscoPackage: DiscoPackage | null;
   selectedDiscoTimeSlot: string;
@@ -194,21 +194,25 @@ const getAlternativeDates = (selectedDate: Date, groupSize: number, daysRange: n
     .slice(0, 6);
 };
 
-const privatePackages = [
+// Base hourly rate for private cruises (before add-ons)
+const BASE_PRIVATE_HOURLY_RATE = 300;
+
+// Optional add-on packages that enhance the base cruise
+const addOnPackages = [
   {
     id: 'essentials',
     name: 'Essentials Package',
-    hourlyRate: 50,
-    description: 'Perfect for intimate celebrations',
-    features: ['4-hour cruise', 'Captain & crew', 'Basic sound system', 'Coolers with ice'],
+    hourlyRate: 50, // Additional rate on top of base
+    description: 'Enhanced experience with premium amenities',
+    features: ['Premium sound system', 'Coolers with ice', 'Party decorations'],
     popular: false
   },
   {
     id: 'ultimate',
     name: 'Ultimate Party Package', 
-    hourlyRate: 75,
-    description: 'Premium party experience',
-    features: ['4-hour cruise', 'Captain & crew', 'Premium sound system', 'Coolers with ice', 'Party decorations', 'Red carpet boarding'],
+    hourlyRate: 75, // Additional rate on top of base
+    description: 'All-inclusive luxury experience',
+    features: ['Premium sound system', 'Coolers with ice', 'Party decorations', 'Red carpet boarding', 'Professional photography'],
     popular: true
   },
 ];
@@ -311,7 +315,7 @@ export default function Chat() {
     budget: '',
     selectedCruiseType: null,
     selectedTimeSlot: '',
-    selectedPrivatePackage: null,
+    selectedAddOnPackages: [],
     selectedDiscoPackage: null,
     selectedDiscoTimeSlot: '',
     discoTicketQuantity: 1,
@@ -389,17 +393,16 @@ export default function Chat() {
     if (currentStep === 'comparison-selection' && formData.groupSize > 0 && formData.eventType && showComparison) {
       
       // Auto-select private cruise defaults if not already selected
-      if (!formData.selectedTimeSlot || !formData.selectedPrivatePackage) {
+      if (!formData.selectedTimeSlot) {
         const availableTimeSlots = getPrivateTimeSlotsForDate(formData.eventDate!);
         const defaultTimeSlot = availableTimeSlots.find(slot => slot.popular) || availableTimeSlots[0];
-        const defaultPrivatePackage = privatePackages.find(pkg => pkg.popular) || privatePackages[0];
         
-        if (defaultTimeSlot && defaultPrivatePackage) {
+        if (defaultTimeSlot) {
           setFormData(prev => ({
             ...prev,
             selectedCruiseType: 'private',
             selectedTimeSlot: defaultTimeSlot.id,
-            selectedPrivatePackage: defaultPrivatePackage.id,
+            selectedAddOnPackages: [], // Start with no add-ons selected
           }));
         }
       }
@@ -442,12 +445,12 @@ export default function Chat() {
     }
   }, [currentStep, formData.groupSize, formData.eventType, showComparison, formData.eventDate]);
 
-  // Fetch private cruise pricing when package and group size are available
+  // Fetch private cruise pricing when time slot and group size are available
   useEffect(() => {
-    if (formData.selectedPrivatePackage && formData.groupSize) {
+    if (formData.selectedTimeSlot && formData.groupSize) {
       fetchPrivatePricing();
     }
-  }, [formData.selectedPrivatePackage, formData.groupSize]);
+  }, [formData.selectedTimeSlot, formData.selectedAddOnPackages, formData.groupSize]);
   
   // Fetch disco pricing when package and quantity are available
   useEffect(() => {
@@ -458,13 +461,17 @@ export default function Chat() {
 
   // Fetch private cruise pricing with loading state
   const fetchPrivatePricing = async () => {
-    if (!formData.selectedPrivatePackage) return;
+    if (!formData.selectedTimeSlot) return;
     
     setPricingLoading(true);
     setPricingError(null);
     try {
-      const selectedPackage = privatePackages.find(pkg => pkg.id === formData.selectedPrivatePackage);
-      if (!selectedPackage) return;
+      // Calculate total hourly rate (base + add-ons)
+      const totalHourlyRate = BASE_PRIVATE_HOURLY_RATE + 
+        formData.selectedAddOnPackages.reduce((sum, addOnId) => {
+          const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
+          return sum + (addOn?.hourlyRate || 0);
+        }, 0);
       
       const res = await apiRequest('POST', '/api/pricing/cruise', {
         groupSize: formData.groupSize,
@@ -472,8 +479,8 @@ export default function Chat() {
         timeSlot: formData.selectedTimeSlot,
         eventType: formData.eventType,
         cruiseType: 'private',
-        packageType: selectedPackage.id,
-        hourlyRate: selectedPackage.hourlyRate,
+        packageType: formData.selectedAddOnPackages.join(','), // Send selected add-ons
+        hourlyRate: totalHourlyRate,
       });
       
       if (!res.ok) {
@@ -499,13 +506,17 @@ export default function Chat() {
 
   // Fallback private cruise pricing calculation
   const calculatePrivatePricing = () => {
-    if (!formData.selectedPrivatePackage) return;
+    if (!formData.selectedTimeSlot) return;
     
-    const selectedPackage = privatePackages.find(pkg => pkg.id === formData.selectedPrivatePackage);
-    if (!selectedPackage) return;
+    // Calculate total hourly rate (base + add-ons)
+    const totalHourlyRate = BASE_PRIVATE_HOURLY_RATE + 
+      formData.selectedAddOnPackages.reduce((sum, addOnId) => {
+        const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
+        return sum + (addOn?.hourlyRate || 0);
+      }, 0);
     
     const cruiseDuration = getCruiseDuration(formData.eventDate);
-    const baseCost = selectedPackage.hourlyRate * cruiseDuration;
+    const baseCost = totalHourlyRate * cruiseDuration;
     const crewFee = formData.groupSize > 20 ? 200 : 0;
     const subtotal = baseCost + crewFee;
     const tax = Math.round(subtotal * 0.0825);
@@ -518,6 +529,12 @@ export default function Chat() {
     const daysUntilEvent = differenceInDays(eventDate, today);
     const depositPercent = daysUntilEvent >= 30 ? 25 : 100;
     const depositAmount = Math.round(total * (depositPercent / 100));
+    
+    // Get selected add-on names for display
+    const selectedAddOnNames = formData.selectedAddOnPackages
+      .map(addOnId => addOnPackages.find(pkg => pkg.id === addOnId)?.name)
+      .filter(Boolean)
+      .join(', ') || 'Standard Private Cruise';
     
     setPrivatePricing({
       subtotal: subtotal * 100,
@@ -532,9 +549,9 @@ export default function Chat() {
       paymentSchedule: [],
       appliedDiscounts: [],
       breakdown: {
-        boatType: selectedPackage.name,
+        boatType: selectedAddOnNames,
         dayName: formData.eventDate ? format(formData.eventDate, 'EEEE') : '',
-        baseHourlyRate: selectedPackage.hourlyRate,
+        baseHourlyRate: totalHourlyRate,
         cruiseDuration,
         baseCruiseCost: baseCost,
         crewFee,
@@ -645,7 +662,7 @@ export default function Chat() {
       eventEmoji: eventEmoji,
       selectedCruiseType: null,
       selectedTimeSlot: '',
-      selectedPrivatePackage: null,
+      selectedAddOnPackages: [],
       selectedDiscoPackage: null,
       selectedDiscoTimeSlot: '',
       discoTicketQuantity: 1,
@@ -666,7 +683,7 @@ export default function Chat() {
           groupSize: GROUP_SIZE_DEFAULT,
           selectedCruiseType: null,
           selectedTimeSlot: '',
-          selectedPrivatePackage: null,
+          selectedAddOnPackages: [],
           selectedDiscoPackage: null,
           selectedDiscoTimeSlot: '',
           discoTicketQuantity: 1,
@@ -704,7 +721,7 @@ export default function Chat() {
       groupSize: newSize,
       selectedCruiseType: null,
       selectedTimeSlot: '',
-      selectedPrivatePackage: null,
+      selectedAddOnPackages: [],
       selectedDiscoPackage: null,
       selectedDiscoTimeSlot: '',
       discoTicketQuantity: Math.min(newSize, 10),
@@ -726,7 +743,7 @@ export default function Chat() {
             groupSize: GROUP_SIZE_DEFAULT,
             selectedCruiseType: null,
             selectedTimeSlot: '',
-            selectedPrivatePackage: null,
+            selectedAddOnPackages: [],
             selectedDiscoPackage: null,
             selectedDiscoTimeSlot: '',
             discoTicketQuantity: 1,
@@ -739,12 +756,11 @@ export default function Chat() {
       
       setShowComparison(true);
       
-      const defaultPrivatePackage = privatePackages.find(pkg => pkg.popular) || privatePackages[0];
       const defaultDiscoPackage = discoPackages[0];
       
       setFormData(prev => ({
         ...prev,
-        selectedPrivatePackage: defaultPrivatePackage.id,
+        selectedAddOnPackages: [], // Start with no add-ons selected
         selectedDiscoPackage: defaultDiscoPackage.id as DiscoPackage,
         discoTicketQuantity: Math.min(prev.groupSize, 10),
       }));
@@ -760,11 +776,18 @@ export default function Chat() {
     }));
   };
   
-  const handlePrivatePackageSelect = (packageId: string) => {
-    setFormData(prev => ({
-      ...prev,
-      selectedPrivatePackage: packageId,
-    }));
+  const handleAddOnPackageToggle = (packageId: string) => {
+    setFormData(prev => {
+      const currentAddOns = prev.selectedAddOnPackages;
+      const isSelected = currentAddOns.includes(packageId);
+      
+      return {
+        ...prev,
+        selectedAddOnPackages: isSelected
+          ? currentAddOns.filter(id => id !== packageId)
+          : [...currentAddOns, packageId]
+      };
+    });
   };
   
   // Disco cruise selection handler
@@ -780,7 +803,7 @@ export default function Chat() {
   const handlePayment = async (paymentType: 'deposit' | 'full', cruiseType: 'private' | 'disco') => {
     try {
       // Validate required data based on cruise type
-      if (cruiseType === 'private' && (!formData.selectedTimeSlot || !formData.selectedPrivatePackage)) {
+      if (cruiseType === 'private' && !formData.selectedTimeSlot) {
         toast({
           title: "Incomplete Selection",
           description: "Please select a time slot and package before proceeding to payment.",
@@ -808,7 +831,7 @@ export default function Chat() {
         eventEmoji: formData.eventEmoji,
         // For private cruises
         selectedTimeSlot: formData.selectedTimeSlot,
-        selectedPrivatePackage: formData.selectedPrivatePackage,
+        selectedAddOnPackages: formData.selectedAddOnPackages,
         // For disco cruises  
         selectedDiscoPackage: formData.selectedDiscoPackage,
         selectedDiscoTimeSlot: formData.selectedDiscoTimeSlot,
@@ -1450,39 +1473,47 @@ export default function Chat() {
                             </RadioGroup>
                           </div>
 
-                          {/* Step 2: Package Selection - Only show if time slot selected */}
+                          {/* Step 2: Package Add-Ons - Only show if time slot selected */}
                           {formData.selectedTimeSlot && (
                             <div className="space-y-3 border-t pt-4">
                               <Label className="flex items-center gap-2">
-                                <Ship className="h-4 w-4" />
-                                Select Package
+                                <Crown className="h-4 w-4" />
+                                Enhance Your Experience (Optional)
                               </Label>
-                              <RadioGroup
-                                value={formData.selectedPrivatePackage || ''}
-                                onValueChange={handlePrivatePackageSelect}
-                              >
-                                {privatePackages.map((pkg) => (
-                                  <div key={pkg.id} className="flex items-center space-x-2">
-                                    <RadioGroupItem value={pkg.id} id={pkg.id} />
-                                    <Label htmlFor={pkg.id} className="flex-1 cursor-pointer">
+                              <div className="space-y-3">
+                                {addOnPackages.map((pkg) => (
+                                  <div key={pkg.id} className="flex items-start space-x-3 p-3 border rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50">
+                                    <input
+                                      type="checkbox"
+                                      id={`addon-${pkg.id}`}
+                                      checked={formData.selectedAddOnPackages.includes(pkg.id)}
+                                      onChange={() => handleAddOnPackageToggle(pkg.id)}
+                                      className="mt-1"
+                                    />
+                                    <Label htmlFor={`addon-${pkg.id}`} className="flex-1 cursor-pointer">
                                       <div className="space-y-1">
                                         <div className="flex justify-between items-center">
                                           <span className="font-medium">{pkg.name}</span>
-                                          <span className="font-bold text-blue-600">${pkg.hourlyRate}/hr</span>
+                                          <span className="font-bold text-green-600">+${pkg.hourlyRate}/hr</span>
                                         </div>
                                         <div className="text-sm text-slate-600 dark:text-slate-400">
                                           {pkg.description}
+                                        </div>
+                                        <div className="flex flex-wrap gap-1 mt-1">
+                                          {pkg.features.map((feature, index) => (
+                                            <Badge key={index} variant="outline" className="text-xs">{feature}</Badge>
+                                          ))}
                                         </div>
                                       </div>
                                     </Label>
                                   </div>
                                 ))}
-                              </RadioGroup>
+                              </div>
                             </div>
                           )}
 
-                          {/* Step 3: Pricing Details - Only show if both time slot AND package selected */}
-                          {formData.selectedTimeSlot && formData.selectedPrivatePackage && (
+                          {/* Step 3: Pricing Details - Only show if time slot selected */}
+                          {formData.selectedTimeSlot && (
                             <div className="border-t pt-4">
                               {pricingLoading ? (
                                 <div className="flex items-center justify-center py-8">
@@ -1507,17 +1538,36 @@ export default function Chat() {
                                   <span className="font-bold text-blue-600">{getCruiseDuration(formData.eventDate)} hours</span>
                                 </div>
                                 <div className="flex items-center justify-between mb-2">
-                                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Hourly Rate:</span>
-                                  <span className="font-bold text-blue-600">${privatePackages.find(pkg => pkg.id === formData.selectedPrivatePackage)?.hourlyRate || 0}/hour</span>
+                                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Base Rate:</span>
+                                  <span className="font-bold text-blue-600">${BASE_PRIVATE_HOURLY_RATE}/hour</span>
+                                </div>
+                                {formData.selectedAddOnPackages.length > 0 && (
+                                  <div className="flex items-center justify-between mb-2">
+                                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Add-ons:</span>
+                                    <span className="font-bold text-green-600">+${formData.selectedAddOnPackages.reduce((sum, addOnId) => {
+                                      const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
+                                      return sum + (addOn?.hourlyRate || 0);
+                                    }, 0)}/hour</span>
+                                  </div>
+                                )}
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Total Rate:</span>
+                                  <span className="font-bold text-purple-600">${BASE_PRIVATE_HOURLY_RATE + formData.selectedAddOnPackages.reduce((sum, addOnId) => {
+                                    const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
+                                    return sum + (addOn?.hourlyRate || 0);
+                                  }, 0)}/hour</span>
                                 </div>
                                 <div className="flex items-center justify-between border-t pt-2">
-                                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Base Cost:</span>
+                                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Total Cost:</span>
                                   <span className="font-bold text-blue-600">
                                     {(() => {
-                                      const hourlyRate = privatePackages.find(pkg => pkg.id === formData.selectedPrivatePackage)?.hourlyRate || 0;
+                                      const totalHourlyRate = BASE_PRIVATE_HOURLY_RATE + formData.selectedAddOnPackages.reduce((sum, addOnId) => {
+                                        const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
+                                        return sum + (addOn?.hourlyRate || 0);
+                                      }, 0);
                                       const duration = getCruiseDuration(formData.eventDate);
-                                      const baseCostCents = hourlyRate * duration * 100;
-                                      return `$${hourlyRate} × ${duration} hours = ${formatCurrency(baseCostCents)}`;
+                                      const totalCostCents = totalHourlyRate * duration * 100;
+                                      return `$${totalHourlyRate} × ${duration} hours = ${formatCurrency(totalCostCents)}`;
                                     })()}
                                   </span>
                                 </div>
@@ -1575,7 +1625,7 @@ export default function Chat() {
                                 setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
                                 handlePayment('deposit', 'private');
                               }}
-                              disabled={!formData.selectedPrivatePackage || !privatePricing}
+                              disabled={!formData.selectedTimeSlot || !privatePricing}
                               className="w-full bg-green-600 hover:bg-green-700"
                               data-testid="button-private-deposit"
                             >
@@ -1588,7 +1638,7 @@ export default function Chat() {
                                 setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
                                 handlePayment('full', 'private');
                               }}
-                              disabled={!formData.selectedPrivatePackage || !privatePricing}
+                              disabled={!formData.selectedTimeSlot || !privatePricing}
                               className="w-full bg-blue-600 hover:bg-blue-700"
                               data-testid="button-private-full"
                             >
@@ -1601,7 +1651,7 @@ export default function Chat() {
                                 setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
                                 goToStep('contact-form');
                               }}
-                              disabled={!formData.selectedPrivatePackage}
+                              disabled={!formData.selectedTimeSlot}
                               variant="outline"
                               className="w-full"
                               data-testid="button-private-quote"

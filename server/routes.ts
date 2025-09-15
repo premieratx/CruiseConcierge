@@ -162,6 +162,26 @@ async function sendAdminNotificationSMS(quoteId: string) {
   });
 }
 
+// Helper function to parse time strings like "12pm", "11am" into 24-hour format
+function parseTimeString(timeStr: string): number {
+  const cleanTime = timeStr.toLowerCase().trim();
+  const isAM = cleanTime.includes('am');
+  const isPM = cleanTime.includes('pm');
+  
+  // Extract the number part
+  const numberPart = cleanTime.replace(/[ap]m/g, '');
+  let hour = parseInt(numberPart);
+  
+  // Convert to 24-hour format
+  if (isPM && hour !== 12) {
+    hour += 12;
+  } else if (isAM && hour === 12) {
+    hour = 0;
+  }
+  
+  return hour;
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
   
   // Analytics API endpoints
@@ -1951,6 +1971,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         groupSize,
         eventDate,
         timeSlot,
+        selectedTimeSlot,
+        selectedAddOnPackages,
         discoPackage,
         discoTimeSlot,
         discoTicketQuantity,
@@ -1966,15 +1988,71 @@ export async function registerRoutes(app: Express): Promise<Server> {
       let pricing;
       try {
         if (cruiseType === 'private') {
-          if (!timeSlot) {
+          const effectiveTimeSlot = selectedTimeSlot || timeSlot;
+          if (!effectiveTimeSlot) {
             return res.status(400).json({ error: "timeSlot required for private cruise" });
           }
           
-          pricing = await storage.calculateCruisePricing({
-            groupSize: parseInt(groupSize),
-            eventDate: new Date(eventDate),
-            timeSlot: timeSlot,
-          });
+          // Use new pricing logic with add-on packages
+          const baseHourlyRate = 300;
+          const selectedAddOns = selectedAddOnPackages || [];
+          
+          // Define available add-on packages (server-side validation)
+          const addOnPackages = [
+            { id: 'essentials', name: 'Essentials Package', hourlyRate: 50 },
+            { id: 'ultimate', name: 'Ultimate Party Package', hourlyRate: 75 }
+          ];
+          
+          // Calculate total hourly rate server-side
+          let serverCalculatedHourlyRate = baseHourlyRate;
+          const appliedAddOns = [];
+          
+          for (const addOnId of selectedAddOns) {
+            const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
+            if (addOn) {
+              serverCalculatedHourlyRate += addOn.hourlyRate;
+              appliedAddOns.push(addOn);
+            }
+          }
+          
+          // Calculate time slot duration and total cost
+          const date = new Date(eventDate);
+          const dayOfWeek = date.getDay();
+          
+          let duration = 3; // Default 3 hours for weekdays
+          if (dayOfWeek === 5) { // Friday
+            duration = 4;
+          } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
+            duration = 4;
+          }
+          
+          const subtotalCents = serverCalculatedHourlyRate * duration * 100; // Convert to cents
+          const taxRate = 0.0825; // 8.25% tax
+          const taxCents = Math.round(subtotalCents * taxRate);
+          const gratuityRate = 0.20; // 20% gratuity
+          const gratuityCents = Math.round(subtotalCents * gratuityRate);
+          const totalCents = subtotalCents + taxCents + gratuityCents;
+          
+          // Calculate deposit (50% of total)
+          const depositCents = Math.round(totalCents * 0.5);
+          
+          pricing = {
+            subtotal: subtotalCents,
+            tax: taxCents,
+            gratuity: gratuityCents,
+            total: totalCents,
+            depositRequired: true,
+            depositAmount: depositCents,
+            depositPercent: 50,
+            duration: duration,
+            hourlyRate: serverCalculatedHourlyRate,
+            baseHourlyRate: baseHourlyRate,
+            selectedAddOns: appliedAddOns,
+            timeSlot: effectiveTimeSlot,
+            pricingModel: 'hourly',
+            discountTotal: 0,
+            perPersonCost: Math.round(totalCents / parseInt(groupSize))
+          };
         } else if (cruiseType === 'disco') {
           if (!discoPackage || !discoTicketQuantity) {
             return res.status(400).json({ error: "discoPackage and discoTicketQuantity required for disco cruise" });
@@ -2027,6 +2105,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const cruiseTypeLabel = cruiseType === 'private' ? 'Private' : 'ATX Disco';
       const eventTypeLabel = eventType.charAt(0).toUpperCase() + eventType.slice(1);
       
+      // Build description based on cruise type
+      let description;
+      if (cruiseType === 'private') {
+        const effectiveTimeSlot = selectedTimeSlot || timeSlot;
+        const addOnsText = selectedAddOnPackages && selectedAddOnPackages.length > 0 
+          ? ` | Add-ons: ${selectedAddOnPackages.join(', ')}` 
+          : '';
+        description = `Group Size: ${groupSize} | Date: ${new Date(eventDate).toLocaleDateString()} | Time: ${effectiveTimeSlot}${addOnsText}`;
+      } else {
+        description = `Group Size: ${groupSize} | Date: ${new Date(eventDate).toLocaleDateString()} | Package: ${discoPackage}`;
+      }
+      
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ['card'],
         line_items: [{
@@ -2034,7 +2124,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             currency: 'usd',
             product_data: {
               name: `${productName} - ${eventTypeLabel} ${cruiseTypeLabel} Cruise`,
-              description: `Group Size: ${groupSize} | Date: ${new Date(eventDate).toLocaleDateString()} | ${cruiseType === 'disco' ? `Package: ${discoPackage}` : `Time: ${timeSlot}`}`,
+              description: description,
             },
             unit_amount: Math.round(paymentAmount), // Server-validated amount in cents
           },
@@ -2050,9 +2140,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
           eventDate: eventDate,
           groupSize: groupSize.toString(),
           cruiseType,
-          timeSlot: timeSlot || '',
+          // Handle both old and new field names for backward compatibility
+          timeSlot: selectedTimeSlot || timeSlot || '',
+          selectedTimeSlot: selectedTimeSlot || timeSlot || '',
+          selectedAddOnPackages: selectedAddOnPackages ? JSON.stringify(selectedAddOnPackages) : '',
+          // Disco cruise fields
           discoPackage: discoPackage || '',
           discoTicketQuantity: discoTicketQuantity?.toString() || '',
+          // New pricing fields for private cruises
+          baseHourlyRate: cruiseType === 'private' ? pricing.baseHourlyRate?.toString() || '300' : '',
+          totalHourlyRate: cruiseType === 'private' ? pricing.hourlyRate?.toString() || '300' : '',
+          duration: cruiseType === 'private' ? pricing.duration?.toString() || '3' : '',
           calculatedAmount: paymentAmount.toString(),
           quoteId: quoteId || '',
           ...metadata
@@ -2119,34 +2217,122 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Handle checkout session completed events
       if (type === "checkout.session.completed") {
         const session = data.object;
-        const { paymentType, eventType, eventDate, groupSize, projectId, quoteId } = session.metadata;
+        const { 
+          paymentType, 
+          eventType, 
+          eventTypeLabel,
+          eventEmoji,
+          eventDate, 
+          groupSize, 
+          cruiseType,
+          selectedTimeSlot,
+          selectedAddOnPackages,
+          baseHourlyRate,
+          totalHourlyRate,
+          duration,
+          discoPackage,
+          discoTicketQuantity,
+          projectId, 
+          quoteId 
+        } = session.metadata;
         
         console.log(`Payment successful: ${paymentType} payment for ${eventType} event`, {
           amount: session.amount_total,
           customerEmail: session.customer_email,
           eventDate,
-          groupSize
+          groupSize,
+          cruiseType,
+          selectedTimeSlot,
+          selectedAddOnPackages
         });
         
-        // Create booking if we have project information
-        if (projectId) {
-          try {
-            // Create a simple payment record for now (without invoice)
-            const payment = await storage.createPayment({
-              invoiceId: 'direct_payment_' + session.id,
-              amount: session.amount_total,
-              status: "SUCCEEDED",
-              paidAt: new Date(),
-              method: "card",
-              stripePaymentIntentId: session.payment_intent as string
-            });
-            
-            // Create booking and convert lead to customer
+        try {
+          // Create a payment record
+          const payment = await storage.createPayment({
+            invoiceId: 'direct_payment_' + session.id,
+            amount: session.amount_total,
+            status: "SUCCEEDED",
+            paidAt: new Date(),
+            method: "card",
+            stripePaymentIntentId: session.payment_intent as string
+          });
+          
+          // Create booking directly from payment metadata (new streamlined flow)
+          if (projectId) {
+            // Existing project flow
             await storage.createBookingFromPayment(projectId, payment.id, session.amount_total);
             console.log(`Direct booking created for project ${projectId}`);
-          } catch (error) {
-            console.error("Failed to create booking from checkout:", error);
+          } else {
+            // New direct booking flow from chat
+            console.log('Creating direct booking from payment metadata...');
+            
+            // Create a temporary contact if we have customer email
+            let contactId = '';
+            if (session.customer_email) {
+              try {
+                const contact = await storage.createContact({
+                  name: session.customer_details?.name || 'New Customer',
+                  email: session.customer_email,
+                  phone: session.customer_details?.phone || '',
+                  tags: ['customer', 'direct_booking']
+                });
+                contactId = contact.id;
+              } catch (error) {
+                console.error('Failed to create contact:', error);
+              }
+            }
+            
+            // Parse the event date
+            const bookingDate = new Date(eventDate);
+            const bookingDuration = parseInt(duration || '4');
+            const bookingGroupSize = parseInt(groupSize);
+            
+            // Find an appropriate boat for the group size
+            const boats = await storage.getBoatsByCapacity(bookingGroupSize);
+            const boatId = boats.length > 0 ? boats[0].id : '';
+            
+            // Calculate start and end times from time slot
+            const timeSlot = selectedTimeSlot || '';
+            let startTime = new Date(bookingDate);
+            let endTime = new Date(bookingDate);
+            
+            // Parse time slot (e.g., "12pm-4pm", "11am-3pm")
+            if (timeSlot.includes('-')) {
+              const [startStr, endStr] = timeSlot.split('-');
+              const startHour = parseTimeString(startStr);
+              const endHour = parseTimeString(endStr);
+              
+              startTime.setHours(startHour, 0, 0, 0);
+              endTime.setHours(endHour, 0, 0, 0);
+            } else {
+              // Default to time based on duration
+              startTime.setHours(12, 0, 0, 0); // Default noon start
+              endTime.setHours(12 + bookingDuration, 0, 0, 0);
+            }
+            
+            // Create booking
+            const booking = await storage.createBooking({
+              orgId: '',
+              boatId,
+              type: cruiseType === 'disco' ? 'disco' : 'private',
+              status: 'booked',
+              startTime,
+              endTime,
+              partyType: eventType || 'cruise',
+              groupSize: bookingGroupSize,
+              notes: `Direct booking from chat - Payment: ${payment.id} - Amount: $${(session.amount_total / 100).toFixed(2)}${selectedAddOnPackages ? ` - Add-ons: ${selectedAddOnPackages}` : ''}`,
+              projectId: null // No project for direct bookings
+            });
+            
+            console.log(`Direct booking created: ${booking.id} for ${eventType} cruise on ${bookingDate.toLocaleDateString()}`);
+            
+            // Convert contact to customer if we created one
+            if (contactId) {
+              await storage.convertLeadToCustomer(contactId);
+            }
           }
+        } catch (error) {
+          console.error("Failed to create booking from checkout:", error);
         }
       }
       
@@ -2866,7 +3052,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Enhanced cruise pricing endpoint with disco cruise support
   app.post("/api/pricing/cruise", async (req, res) => {
     try {
-      const { groupSize, eventDate, timeSlot, promoCode, eventType, cruiseType } = req.body;
+      const { groupSize, eventDate, timeSlot, promoCode, eventType, cruiseType, packageType, hourlyRate } = req.body;
       
       if (!groupSize || !eventDate || !timeSlot) {
         return res.status(400).json({ 
@@ -2905,8 +3091,82 @@ export async function registerRoutes(app: Express): Promise<Server> {
           showBothOptions: true,
           eventType: eventType
         });
+      } else if (cruiseType === 'private') {
+        // New private cruise pricing with time slot + add-on packages structure
+        const baseHourlyRate = 300; // Base rate for private cruises
+        
+        // Parse selected add-on packages
+        const selectedAddOns = packageType ? packageType.split(',').filter(Boolean) : [];
+        
+        // Define available add-on packages (server-side validation)
+        const addOnPackages = [
+          { id: 'essentials', name: 'Essentials Package', hourlyRate: 50 },
+          { id: 'ultimate', name: 'Ultimate Party Package', hourlyRate: 75 }
+        ];
+        
+        // Calculate total hourly rate server-side to prevent tampering
+        let serverCalculatedHourlyRate = baseHourlyRate;
+        const appliedAddOns = [];
+        
+        for (const addOnId of selectedAddOns) {
+          const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
+          if (addOn) {
+            serverCalculatedHourlyRate += addOn.hourlyRate;
+            appliedAddOns.push(addOn);
+          }
+        }
+        
+        // Validate client's hourly rate matches server calculation (security check)
+        if (hourlyRate && Math.abs(hourlyRate - serverCalculatedHourlyRate) > 0.01) {
+          console.warn(`Client hourly rate (${hourlyRate}) doesn't match server calculation (${serverCalculatedHourlyRate})`);
+        }
+        
+        // Calculate time slot duration and total cost
+        const date = new Date(eventDate);
+        const dayOfWeek = date.getDay();
+        
+        let duration = 3; // Default 3 hours for weekdays
+        if (dayOfWeek === 5) { // Friday
+          duration = 4;
+        } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
+          duration = 4;
+        }
+        
+        const subtotalCents = serverCalculatedHourlyRate * duration * 100; // Convert to cents
+        const taxRate = 0.0825; // 8.25% tax
+        const taxCents = Math.round(subtotalCents * taxRate);
+        const gratuityRate = 0.20; // 20% gratuity
+        const gratuityCents = Math.round(subtotalCents * gratuityRate);
+        const totalCents = subtotalCents + taxCents + gratuityCents;
+        
+        // Calculate deposit (50% of total)
+        const depositCents = Math.round(totalCents * 0.5);
+        
+        const pricing = {
+          subtotal: subtotalCents,
+          tax: taxCents,
+          gratuity: gratuityCents,
+          total: totalCents,
+          depositRequired: true,
+          depositAmount: depositCents,
+          depositPercent: 50,
+          duration: duration,
+          hourlyRate: serverCalculatedHourlyRate,
+          baseHourlyRate: baseHourlyRate,
+          selectedAddOns: appliedAddOns,
+          timeSlot: timeSlot,
+          pricingModel: 'hourly',
+          discountTotal: 0,
+          perPersonCost: Math.round(totalCents / parseInt(groupSize))
+        };
+        
+        res.json({
+          ...pricing,
+          showBothOptions: false,
+          eventType: eventType || 'other'
+        });
       } else {
-        // Regular private cruise pricing for all other events
+        // Regular private cruise pricing for all other events (backward compatibility)
         const pricing = await storage.calculateCruisePricing({
           groupSize: parseInt(groupSize),
           eventDate: new Date(eventDate),
