@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest, queryClient } from '@/lib/queryClient';
@@ -298,6 +298,8 @@ export default function Chat() {
   const [selectedPaymentOption, setSelectedPaymentOption] = useState<'deposit' | 'full'>('deposit');
   const [pricingLoading, setPricingLoading] = useState(false);
   const [pricingError, setPricingError] = useState<string | null>(null);
+  const [paymentProcessing, setPaymentProcessing] = useState(false);
+  const [formSubmitting, setFormSubmitting] = useState(false);
   const [eventTypeCollapsed, setEventTypeCollapsed] = useState(false);
   const [showGroupSize, setShowGroupSize] = useState(false);
   const [showComparison, setShowComparison] = useState(false);
@@ -388,102 +390,174 @@ export default function Chat() {
     });
   };
 
+  // Refs to prevent infinite loops in auto-selection
+  const autoSelectionRef = useRef({
+    lastEventType: '',
+    lastGroupSize: 0,
+    lastEventDate: null as Date | null,
+    hasAutoSelected: false
+  });
+
   // Auto-select default options when group size is selected on comparison page
   useEffect(() => {
-    if (currentStep === 'comparison-selection' && formData.groupSize > 0 && formData.eventType && formData.eventDate) {
+    // Guard against unnecessary re-runs
+    if (currentStep !== 'comparison-selection' || 
+        !formData.groupSize || 
+        !formData.eventType || 
+        !formData.eventDate) {
+      return;
+    }
+
+    // Check if we've already auto-selected for this combination
+    const current = autoSelectionRef.current;
+    const hasChanged = (
+      current.lastEventType !== formData.eventType ||
+      current.lastGroupSize !== formData.groupSize ||
+      current.lastEventDate?.getTime() !== formData.eventDate.getTime()
+    );
+
+    if (!hasChanged && current.hasAutoSelected) {
+      return; // Skip if already processed this combination
+    }
+
+    // Update tracking
+    current.lastEventType = formData.eventType;
+    current.lastGroupSize = formData.groupSize;
+    current.lastEventDate = formData.eventDate;
+    current.hasAutoSelected = true;
+
+    // Batch all auto-selections together to prevent multiple renders
+    const updates: Partial<BookingData> = {};
+    
+    // Auto-select private cruise defaults if not already selected
+    if (!formData.selectedTimeSlot) {
+      const availableTimeSlots = getPrivateTimeSlotsForDate(formData.eventDate);
+      const defaultTimeSlot = availableTimeSlots.find(slot => slot.popular) || availableTimeSlots[0];
       
-      // Auto-select private cruise defaults if not already selected
-      if (!formData.selectedTimeSlot) {
-        const availableTimeSlots = getPrivateTimeSlotsForDate(formData.eventDate!);
-        const defaultTimeSlot = availableTimeSlots.find(slot => slot.popular) || availableTimeSlots[0];
-        
-        if (defaultTimeSlot) {
-          setFormData(prev => ({
-            ...prev,
-            selectedCruiseType: 'private',
-            selectedTimeSlot: defaultTimeSlot.id,
-            selectedAddOnPackages: [], // Start with no add-ons selected
-          }));
-        }
-      }
-      
-      // Auto-select disco cruise defaults if available and not already selected
-      if ((formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') &&
-          formData.eventDate && isDiscoAvailableForDate(formData.eventDate) && 
-          (!formData.selectedDiscoPackage || !formData.selectedDiscoTimeSlot)) {
-        const availableDiscoSlots = getDiscoTimeSlotsForDate(formData.eventDate);
-        const defaultDiscoSlot = availableDiscoSlots[0];
-        const defaultDiscoPackage = discoPackages[0];
-        
-        if (defaultDiscoSlot && defaultDiscoPackage) {
-          setFormData(prev => ({
-            ...prev,
-            selectedDiscoPackage: defaultDiscoPackage.id as DiscoPackage,
-            selectedDiscoTimeSlot: defaultDiscoSlot.id,
-            discoTicketQuantity: prev.groupSize, // Set disco quantity = group size for bachelor/bachelorette
-          }));
-        }
-      }
-      
-      // For all other event types with disco available, use minimum quantity
-      if ((formData.eventType !== 'bachelor' && formData.eventType !== 'bachelorette') &&
-          formData.eventDate && isDiscoAvailableForDate(formData.eventDate) && 
-          (!formData.selectedDiscoPackage || !formData.selectedDiscoTimeSlot)) {
-        const availableDiscoSlots = getDiscoTimeSlotsForDate(formData.eventDate);
-        const defaultDiscoSlot = availableDiscoSlots[0];
-        const defaultDiscoPackage = discoPackages[0];
-        
-        if (defaultDiscoSlot && defaultDiscoPackage) {
-          setFormData(prev => ({
-            ...prev,
-            selectedDiscoPackage: defaultDiscoPackage.id as DiscoPackage,
-            selectedDiscoTimeSlot: defaultDiscoSlot.id,
-            discoTicketQuantity: Math.min(prev.groupSize, 10),
-          }));
-        }
+      if (defaultTimeSlot) {
+        updates.selectedCruiseType = 'private';
+        updates.selectedTimeSlot = defaultTimeSlot.id;
+        updates.selectedAddOnPackages = [];
       }
     }
-  }, [currentStep, formData.groupSize, formData.eventType, showComparison, formData.eventDate]);
-
-  // Fetch private cruise pricing when time slot and group size are available
-  useEffect(() => {
-    if (formData.selectedTimeSlot && formData.groupSize && formData.eventDate) {
-      console.log('🚢 useEffect triggering fetchPrivatePricing');
-      fetchPrivatePricing();
-    } else {
-      console.log('🚢 useEffect NOT triggering fetchPrivatePricing - missing:', {
-        selectedTimeSlot: formData.selectedTimeSlot,
-        groupSize: formData.groupSize,
-        eventDate: formData.eventDate
-      });
+    
+    // Auto-select disco cruise defaults if available and not already selected
+    if ((formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') &&
+        isDiscoAvailableForDate(formData.eventDate) && 
+        (!formData.selectedDiscoPackage || !formData.selectedDiscoTimeSlot)) {
+      const availableDiscoSlots = getDiscoTimeSlotsForDate(formData.eventDate);
+      const defaultDiscoSlot = availableDiscoSlots[0];
+      const defaultDiscoPackage = discoPackages[0];
       
-      // Fallback: If we have partial data, try to calculate basic pricing
-      if (formData.selectedTimeSlot && formData.groupSize) {
-        console.log('🚢 Triggering fallback calculatePrivatePricing');
+      if (defaultDiscoSlot && defaultDiscoPackage) {
+        updates.selectedDiscoPackage = defaultDiscoPackage.id as DiscoPackage;
+        updates.selectedDiscoTimeSlot = defaultDiscoSlot.id;
+        updates.discoTicketQuantity = formData.groupSize;
+      }
+    }
+    
+    // For all other event types with disco available, use minimum quantity
+    else if (isDiscoAvailableForDate(formData.eventDate) && 
+             (!formData.selectedDiscoPackage || !formData.selectedDiscoTimeSlot)) {
+      const availableDiscoSlots = getDiscoTimeSlotsForDate(formData.eventDate);
+      const defaultDiscoSlot = availableDiscoSlots[0];
+      const defaultDiscoPackage = discoPackages[0];
+      
+      if (defaultDiscoSlot && defaultDiscoPackage) {
+        updates.selectedDiscoPackage = defaultDiscoPackage.id as DiscoPackage;
+        updates.selectedDiscoTimeSlot = defaultDiscoSlot.id;
+        updates.discoTicketQuantity = Math.min(formData.groupSize, 10);
+      }
+    }
+
+    // Apply all updates in a single setState call
+    if (Object.keys(updates).length > 0) {
+      setFormData(prev => ({ ...prev, ...updates }));
+    }
+  }, [currentStep, formData.groupSize, formData.eventType, formData.eventDate?.getTime(), formData.selectedTimeSlot, formData.selectedDiscoPackage, formData.selectedDiscoTimeSlot]);
+
+  // Debounced pricing fetch refs to prevent excessive API calls
+  const pricingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const lastPricingParamsRef = useRef<string>('');
+
+  // Fetch private cruise pricing with debouncing and duplicate prevention
+  useEffect(() => {
+    // Clear any existing timeout
+    if (pricingTimeoutRef.current) {
+      clearTimeout(pricingTimeoutRef.current);
+    }
+
+    // Guard: Skip if missing required data
+    if (!formData.selectedTimeSlot || !formData.groupSize) {
+      setPrivatePricing(null);
+      return;
+    }
+
+    // Create a unique key for current pricing parameters
+    const pricingKey = JSON.stringify({
+      timeSlot: formData.selectedTimeSlot,
+      addOns: formData.selectedAddOnPackages.sort(),
+      groupSize: formData.groupSize,
+      eventDate: formData.eventDate?.toISOString(),
+    });
+
+    // Skip if we already fetched pricing for these exact parameters
+    if (pricingKey === lastPricingParamsRef.current) {
+      return;
+    }
+
+    // Debounce pricing calculation to avoid rapid API calls
+    pricingTimeoutRef.current = setTimeout(() => {
+      lastPricingParamsRef.current = pricingKey;
+      
+      if (formData.eventDate) {
+        console.log('🚢 Debounced fetchPrivatePricing triggered');
+        fetchPrivatePricing();
+      } else {
+        console.log('🚢 Fallback calculatePrivatePricing triggered');
         calculatePrivatePricing();
       }
-    }
-  }, [formData.selectedTimeSlot, formData.selectedAddOnPackages, formData.groupSize, formData.eventDate]);
+    }, 300); // 300ms debounce
+  }, [formData.selectedTimeSlot, formData.selectedAddOnPackages, formData.groupSize, formData.eventDate?.getTime()]);
   
-  // Fetch disco pricing when package and quantity are available
+  // Fetch disco pricing with debouncing and duplicate prevention
   useEffect(() => {
-    if (formData.selectedDiscoPackage && formData.discoTicketQuantity && formData.eventDate) {
-      console.log('🎵 useEffect triggering fetchDiscoPricing');
-      fetchDiscoPricing();
-    } else {
-      console.log('🎵 useEffect NOT triggering fetchDiscoPricing - missing:', {
-        selectedDiscoPackage: formData.selectedDiscoPackage,
-        discoTicketQuantity: formData.discoTicketQuantity,
-        eventDate: formData.eventDate
-      });
+    // Guard: Skip if missing required data
+    if (!formData.selectedDiscoPackage || formData.discoTicketQuantity <= 0) {
+      setDiscoPricing(null);
+      return;
+    }
+
+    // Create a unique key for current disco pricing parameters
+    const discoPricingKey = JSON.stringify({
+      package: formData.selectedDiscoPackage,
+      quantity: formData.discoTicketQuantity,
+      eventDate: formData.eventDate?.toISOString(),
+    });
+
+    // Skip if we already calculated pricing for these exact parameters
+    const lastDiscoKey = `disco_${discoPricingKey}`;
+    if (lastDiscoKey === lastPricingParamsRef.current) {
+      return;
+    }
+
+    // Debounce disco pricing calculation
+    if (pricingTimeoutRef.current) {
+      clearTimeout(pricingTimeoutRef.current);
+    }
+
+    pricingTimeoutRef.current = setTimeout(() => {
+      lastPricingParamsRef.current = lastDiscoKey;
       
-      // Fallback: If we have partial data, try to calculate basic pricing
-      if (formData.selectedDiscoPackage && formData.discoTicketQuantity > 0) {
-        console.log('🎵 Triggering fallback calculateDiscoPricing');
+      if (formData.eventDate) {
+        console.log('🎵 Debounced fetchDiscoPricing triggered');
+        fetchDiscoPricing();
+      } else {
+        console.log('🎵 Fallback calculateDiscoPricing triggered');
         calculateDiscoPricing();
       }
-    }
-  }, [formData.selectedDiscoPackage, formData.discoTicketQuantity, formData.eventDate]);
+    }, 300); // 300ms debounce
+  }, [formData.selectedDiscoPackage, formData.discoTicketQuantity, formData.eventDate?.getTime()]);
 
   // Fetch private cruise pricing with loading state
   const fetchPrivatePricing = async () => {
@@ -720,28 +794,32 @@ export default function Chat() {
     });
   };
 
-  // Event Type Selection Handler for comparison page
-  const handleEventTypeSelect = (eventId: string, eventLabel: string, eventEmoji: string) => {
-    setFormData(prev => ({ 
-      ...prev, 
+  // Event Type Selection Handler for comparison page - optimized to prevent race conditions
+  const handleEventTypeSelect = useCallback((eventId: string, eventLabel: string, eventEmoji: string) => {
+    // Reset auto-selection tracking when event type changes
+    autoSelectionRef.current.hasAutoSelected = false;
+    
+    // Batch all state updates together to prevent race conditions
+    const formDataUpdates = {
       eventType: eventId,
       eventTypeLabel: eventLabel,
       eventEmoji: eventEmoji,
-      selectedCruiseType: null,
+      selectedCruiseType: null as CruiseType | null,
       selectedTimeSlot: '',
       selectedAddOnPackages: [],
-      selectedDiscoPackage: null,
+      selectedDiscoPackage: null as DiscoPackage | null,
       selectedDiscoTimeSlot: '',
       discoTicketQuantity: 1,
-    }));
+    };
     
-    addCompletedSelection({
+    const selectionToAdd = {
       id: 'event-type',
       label: 'Event',
       value: eventLabel,
       emoji: eventEmoji,
       editable: true,
       onEdit: () => {
+        autoSelectionRef.current.hasAutoSelected = false;
         setFormData(prev => ({
           ...prev,
           eventType: '',
@@ -760,12 +838,15 @@ export default function Chat() {
         setShowComparison(false);
         setCompletedSelections(prev => prev.filter(s => s.id !== 'event-type' && s.id !== 'group-size'));
       }
-    });
+    };
     
+    // Apply all updates in one batch to prevent race conditions
+    setFormData(prev => ({ ...prev, ...formDataUpdates }));
+    addCompletedSelection(selectionToAdd);
     setEventTypeCollapsed(true);
     setShowGroupSize(true);
     setShowComparison(false);
-  };
+  }, []);
 
   // Date Selection Handler for intro page
   const handleDateSelect = (date: Date | undefined) => {
@@ -780,9 +861,19 @@ export default function Chat() {
     }
   };
 
-  // Group Size Handler for comparison page
-  const handleGroupSizeChange = (value: number[]) => {
+  // Group Size Handler for comparison page - debounced to prevent rapid state changes
+  const handleGroupSizeChange = useCallback((value: number[]) => {
     const newSize = value[0];
+    
+    // Validate group size range
+    if (newSize < GROUP_SIZE_MIN || newSize > GROUP_SIZE_MAX) {
+      return;
+    }
+    
+    // Reset auto-selection tracking when group size changes
+    autoSelectionRef.current.hasAutoSelected = false;
+    
+    // Batch updates to prevent race conditions
     setFormData(prev => ({ 
       ...prev, 
       groupSize: newSize,
@@ -793,49 +884,67 @@ export default function Chat() {
       selectedDiscoTimeSlot: '',
       discoTicketQuantity: Math.min(newSize, 10),
     }));
-  };
+  }, []);
   
-  // Confirm group size and show comparison
-  const handleGroupSizeConfirm = () => {
-    if (formData.groupSize >= GROUP_SIZE_MIN && formData.groupSize <= GROUP_SIZE_MAX) {
-      addCompletedSelection({
-        id: 'group-size',
-        label: 'Group Size',
-        value: `${formData.groupSize} people`,
-        icon: 'users',
-        editable: true,
-        onEdit: () => {
-          setFormData(prev => ({
-            ...prev,
-            groupSize: GROUP_SIZE_DEFAULT,
-            selectedCruiseType: null,
-            selectedTimeSlot: '',
-            selectedAddOnPackages: [],
-            selectedDiscoPackage: null,
-            selectedDiscoTimeSlot: '',
-            discoTicketQuantity: 1,
-          }));
-          setShowGroupSize(false);
-          setShowComparison(false);
-          setCompletedSelections(prev => prev.filter(s => s.id !== 'group-size'));
-        }
+  // Confirm group size and show comparison - with enhanced validation
+  const handleGroupSizeConfirm = useCallback(() => {
+    // Comprehensive validation
+    if (formData.groupSize < GROUP_SIZE_MIN || formData.groupSize > GROUP_SIZE_MAX) {
+      toast({
+        title: "Invalid Group Size",
+        description: `Group size must be between ${GROUP_SIZE_MIN} and ${GROUP_SIZE_MAX} people.`,
+        variant: "destructive",
       });
-      
-      setShowComparison(true);
-      
-      const defaultDiscoPackage = discoPackages[0];
-      
-      setFormData(prev => ({
-        ...prev,
-        selectedAddOnPackages: [], // Start with no add-ons selected
-        selectedDiscoPackage: defaultDiscoPackage.id as DiscoPackage,
-        discoTicketQuantity: Math.min(prev.groupSize, 10),
-      }));
+      return;
     }
-  };
+    
+    const defaultDiscoPackage = discoPackages[0];
+    
+    // Batch all state updates together
+    const selectionToAdd = {
+      id: 'group-size',
+      label: 'Group Size',
+      value: `${formData.groupSize} people`,
+      icon: 'users',
+      editable: true,
+      onEdit: () => {
+        autoSelectionRef.current.hasAutoSelected = false;
+        setFormData(prev => ({
+          ...prev,
+          groupSize: GROUP_SIZE_DEFAULT,
+          selectedCruiseType: null,
+          selectedTimeSlot: '',
+          selectedAddOnPackages: [],
+          selectedDiscoPackage: null,
+          selectedDiscoTimeSlot: '',
+          discoTicketQuantity: 1,
+        }));
+        setShowGroupSize(false);
+        setShowComparison(false);
+        setCompletedSelections(prev => prev.filter(s => s.id !== 'group-size'));
+      }
+    };
+    
+    const formDataUpdates = {
+      selectedAddOnPackages: [], // Start with no add-ons selected
+      selectedDiscoPackage: defaultDiscoPackage.id as DiscoPackage,
+      discoTicketQuantity: Math.min(formData.groupSize, 10),
+    };
+    
+    // Apply all updates in one batch
+    addCompletedSelection(selectionToAdd);
+    setShowComparison(true);
+    setFormData(prev => ({ ...prev, ...formDataUpdates }));
+  }, [formData.groupSize, toast]);
 
-  // Private cruise selection handlers
-  const handlePrivateCruiseSelect = (timeSlot: string) => {
+  // Private cruise selection handlers with loading state protection
+  const handlePrivateCruiseSelect = useCallback((timeSlot: string) => {
+    // Prevent interactions during loading states
+    if (pricingLoading || paymentProcessing || formSubmitting) {
+      console.log('🚢 Ignoring selection - system is busy');
+      return;
+    }
+    
     console.log('🚢 handlePrivateCruiseSelect called with timeSlot:', timeSlot);
     setFormData(prev => {
       const newData = {
@@ -846,9 +955,14 @@ export default function Chat() {
       console.log('🚢 Setting form data to:', newData);
       return newData;
     });
-  };
+  }, [pricingLoading, paymentProcessing, formSubmitting]);
   
-  const handleAddOnPackageToggle = (packageId: string) => {
+  const handleAddOnPackageToggle = useCallback((packageId: string) => {
+    // Prevent interactions during loading states
+    if (pricingLoading || paymentProcessing || formSubmitting) {
+      return;
+    }
+    
     setFormData(prev => {
       const currentAddOns = prev.selectedAddOnPackages;
       const isSelected = currentAddOns.includes(packageId);
@@ -860,49 +974,127 @@ export default function Chat() {
           : [...currentAddOns, packageId]
       };
     });
-  };
+  }, [pricingLoading, paymentProcessing, formSubmitting]);
   
-  // Disco cruise selection handler
-  const handleDiscoCruiseSelect = (packageId: string, timeSlot: string) => {
+  // Disco cruise selection handler with loading state protection
+  const handleDiscoCruiseSelect = useCallback((packageId: string, timeSlot: string) => {
+    // Prevent interactions during loading states
+    if (pricingLoading || paymentProcessing || formSubmitting) {
+      console.log('🎵 Ignoring selection - system is busy');
+      return;
+    }
+    
     console.log('🎵 handleDiscoCruiseSelect called with package:', packageId, 'timeSlot:', timeSlot);
-    const newData = { 
-      ...formData, 
+    setFormData(prev => ({
+      ...prev, 
       selectedCruiseType: 'disco' as CruiseType,
       selectedDiscoPackage: packageId as DiscoPackage,
       selectedDiscoTimeSlot: timeSlot
-    };
-    console.log('🎵 Setting form data to:', newData);
-    setFormData(newData);
-  };
+    }));
+  }, [pricingLoading, paymentProcessing, formSubmitting]);
 
-  // Payment handler function
-  const handlePayment = async (paymentType: 'deposit' | 'full', cruiseType: 'private' | 'disco') => {
+  // Comprehensive validation function
+  const validateBookingData = useCallback((data: BookingData, cruiseType: 'private' | 'disco') => {
+    const errors: string[] = [];
+    
+    // Basic required fields
+    if (!data.eventType) errors.push('Please select an event type');
+    if (!data.eventDate) errors.push('Please select an event date');
+    if (data.groupSize < GROUP_SIZE_MIN || data.groupSize > GROUP_SIZE_MAX) {
+      errors.push(`Group size must be between ${GROUP_SIZE_MIN} and ${GROUP_SIZE_MAX} people`);
+    }
+    
+    // Date validation
+    if (data.eventDate) {
+      const today = startOfDay(new Date());
+      if (isBefore(data.eventDate, today)) {
+        errors.push('Event date cannot be in the past');
+      }
+      const maxDate = addDays(today, 365);
+      if (isAfter(data.eventDate, maxDate)) {
+        errors.push('Event date cannot be more than 1 year in advance');
+      }
+    }
+    
+    // Cruise type specific validation
+    if (cruiseType === 'private') {
+      if (!data.selectedTimeSlot) errors.push('Please select a time slot for private cruise');
+      if (data.eventDate && !getPrivateTimeSlotsForDate(data.eventDate).find(slot => slot.id === data.selectedTimeSlot)) {
+        errors.push('Selected time slot is not available for the chosen date');
+      }
+    }
+    
+    if (cruiseType === 'disco') {
+      if (!data.selectedDiscoPackage) errors.push('Please select a disco package');
+      if (!data.selectedDiscoTimeSlot) errors.push('Please select a disco time slot');
+      if (data.discoTicketQuantity <= 0) errors.push('Disco ticket quantity must be at least 1');
+      if (data.eventDate && !isDiscoAvailableForDate(data.eventDate)) {
+        errors.push('Disco cruises are only available on Friday, Saturday, and Sunday');
+      }
+      if (data.eventDate && data.selectedDiscoTimeSlot && 
+          !getDiscoTimeSlotsForDate(data.eventDate).find(slot => slot.id === data.selectedDiscoTimeSlot)) {
+        errors.push('Selected disco time slot is not available for the chosen date');
+      }
+    }
+    
+    return {
+      isValid: errors.length === 0,
+      errors
+    };
+  }, []);
+
+  // Enhanced payment handler with comprehensive validation and loading protection
+  const handlePayment = useCallback(async (paymentType: 'deposit' | 'full', cruiseType: 'private' | 'disco') => {
     console.log('💳 handlePayment called with:', { paymentType, cruiseType });
-    console.log('💳 Current formData:', formData);
-    console.log('💳 Current privatePricing:', privatePricing);
-    console.log('💳 Current discoPricing:', discoPricing);
+    
+    // Prevent double submissions and interactions during loading
+    if (pricingLoading || paymentProcessing || formSubmitting) {
+      toast({
+        title: "Please Wait",
+        description: "Processing in progress. Please wait.",
+        variant: "default",
+      });
+      return;
+    }
+    
+    // Comprehensive validation
+    const validation = validateBookingData(formData, cruiseType);
+    if (!validation.isValid) {
+      console.log('💳 Validation failed:', validation.errors);
+      toast({
+        title: "Incomplete Information",
+        description: validation.errors[0], // Show first error
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Verify pricing is available
+    const relevantPricing = cruiseType === 'private' ? privatePricing : discoPricing;
+    if (!relevantPricing) {
+      console.log('💳 Validation failed: missing pricing data');
+      toast({
+        title: "Pricing Unavailable",
+        description: "Please wait for pricing to load before proceeding.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Validate pricing amount is reasonable
+    if (relevantPricing.total <= 0) {
+      console.log('💳 Validation failed: invalid pricing amount');
+      toast({
+        title: "Pricing Error",
+        description: "Invalid pricing detected. Please refresh and try again.",
+        variant: "destructive",
+      });
+      return;
+    }
     
     try {
-      // Validate required data based on cruise type
-      if (cruiseType === 'private' && !formData.selectedTimeSlot) {
-        console.log('💳 Validation failed: missing selectedTimeSlot for private cruise');
-        toast({
-          title: "Incomplete Selection",
-          description: "Please select a time slot and package before proceeding to payment.",
-          variant: "destructive",
-        });
-        return;
-      }
-      
-      if (cruiseType === 'disco' && (!formData.selectedDiscoPackage || !formData.selectedDiscoTimeSlot)) {
-        console.log('💳 Validation failed: missing disco package or time slot');
-        toast({
-          title: "Incomplete Selection", 
-          description: "Please select a disco package and time slot before proceeding to payment.",
-          variant: "destructive",
-        });
-        return;
-      }
+      setPaymentProcessing(true); // Set payment loading state
+      setPricingError(null); // Clear any previous errors
 
       // Create selection payload with all form data
       const selectionPayload = {
@@ -956,13 +1148,48 @@ export default function Chat() {
         description: "Failed to start payment process. Please try again.",
         variant: "destructive",
       });
+    } finally {
+      setPaymentProcessing(false); // Reset payment loading state
     }
-  };
+  }, [formData, privatePricing, discoPricing, pricingLoading, validateBookingData, toast]);
 
-  // Contact form submission
-  const handleContactSubmit = (e: React.FormEvent) => {
+  // Contact form submission with loading protection
+  const handleContactSubmit = useCallback((e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.firstName && formData.lastName && formData.email) {
+    
+    // Prevent submission during loading states
+    if (formSubmitting || pricingLoading || paymentProcessing) {
+      toast({
+        title: "Please Wait",
+        description: "Processing in progress. Please wait.",
+        variant: "default",
+      });
+      return;
+    }
+    
+    // Validate required contact fields
+    if (!formData.firstName?.trim() || !formData.lastName?.trim() || !formData.email?.trim()) {
+      toast({
+        title: "Required Information Missing",
+        description: "Please fill in your first name, last name, and email address.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    // Basic email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email.trim())) {
+      toast({
+        title: "Invalid Email",
+        description: "Please enter a valid email address.",
+        variant: "destructive",
+      });
+      return;
+    }
+    
+    try {
+      setFormSubmitting(true);
       addCompletedSelection({
         id: 'contact-info',
         label: 'Contact',
@@ -970,8 +1197,17 @@ export default function Chat() {
         icon: 'user'
       });
       handleSendQuote();
+    } catch (error) {
+      console.error('Contact form submission error:', error);
+      toast({
+        title: "Submission Error",
+        description: "Failed to submit contact information. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setFormSubmitting(false);
     }
-  };
+  }, [formData, formSubmitting, pricingLoading, paymentProcessing, toast]);
 
   // Create lead mutation
   const createLead = useMutation({
