@@ -41,19 +41,19 @@ class GoHighLevelService implements SMSService {
 
   constructor() {
     // OAuth credentials (for marketplace apps)
-    this.clientId = process.env.GOHIGHLEVEL_CLIENT_ID || '';
-    this.clientSecret = process.env.GOHIGHLEVEL_CLIENT_SECRET || '';
+    this.clientId = (process.env.GOHIGHLEVEL_CLIENT_ID || '').trim();
+    this.clientSecret = (process.env.GOHIGHLEVEL_CLIENT_SECRET || '').trim();
     
     // Private Integration Token (preferred for private apps - works without client ID)
     // This is what you get from Settings → Private Integrations in GoHighLevel
-    this.apiKey = process.env.GOHIGHLEVEL_PRIVATE_INTEGRATION_TOKEN || process.env.GOHIGHLEVEL_API_KEY || '';
+    this.apiKey = (process.env.GOHIGHLEVEL_PRIVATE_INTEGRATION_TOKEN || process.env.GOHIGHLEVEL_API_KEY || '').trim();
     
     // Location ID is found in your GoHighLevel URL when viewing a sub-account
     // Example: https://app.gohighlevel.com/v2/location/YOUR_LOCATION_ID_HERE/
-    this.locationId = process.env.GOHIGHLEVEL_LOCATION_ID || '';
+    this.locationId = (process.env.GOHIGHLEVEL_LOCATION_ID || '').trim();
     
     // From phone number for sending SMS (without +1 prefix)
-    this.fromPhone = process.env.FROM_PHONE || '5124885892';
+    this.fromPhone = (process.env.FROM_PHONE || '5124885892').trim();
     
     // Using the services endpoint for Private Integration Tokens
     this.baseUrl = this.apiKey ? 'https://services.leadconnectorhq.com' : 'https://rest.gohighlevel.com/v2';
@@ -575,16 +575,18 @@ class GoHighLevelService implements SMSService {
         return null;
       }
       return {
-        'Authorization': `Bearer ${token}`,
+        'Authorization': `Bearer ${token.trim()}`,
         'Accept': 'application/json',
         'Version': '2021-07-28',
+        'LocationId': this.locationId,
       };
     } else if (this.authMethod === 'apikey') {
-      // Private Integration Token headers
+      // Private Integration Token headers - MUST include LocationId for services API
       return {
-        'Authorization': `Bearer ${this.apiKey}`,
+        'Authorization': `Bearer ${this.apiKey.trim()}`,
         'Accept': 'application/json',
         'Version': '2021-07-28',
+        'LocationId': this.locationId,
       };
     }
     return null;
