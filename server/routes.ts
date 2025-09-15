@@ -6,7 +6,7 @@ import { generateQuoteDescription } from "./services/openai";
 import { googleSheetsService } from "./services/googleSheets";
 import { mailgunService } from "./services/mailgun";
 import { openRouterService } from "./services/openrouter";
-import { goHighLevelService } from "./services/gohighlevel";
+import { goHighLevelService, type LeadWebhookPayload } from "./services/gohighlevel";
 import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest } from "@shared/schema";
 import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
@@ -316,6 +316,34 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const contactData = insertContactSchema.parse(req.body);
       const contact = await storage.createContact(contactData);
+      
+      // Send webhook to GoHighLevel if additional data is provided
+      if (req.body.eventDate || req.body.eventType || req.body.groupSize || req.body.quoteId) {
+        const webhookPayload: LeadWebhookPayload = {
+          name: contact.name,
+          email: contact.email,
+          phone: contact.phone || "",
+          requested_cruise_date: req.body.eventDate || "",
+          type_of_cruise: req.body.eventType || "",
+          max_number_of_people: req.body.groupSize || 0,
+          quote_link: req.body.quoteId ? getFullUrl(`/quote/${req.body.quoteId}`) : "",
+          created_at: new Date().toISOString()
+        };
+        
+        // Fire and forget - don't wait for webhook response
+        goHighLevelService.sendLeadWebhook(webhookPayload)
+          .then(success => {
+            if (success) {
+              console.log('✅ Lead webhook sent for contact:', contact.id);
+            } else {
+              console.log('⚠️ Lead webhook failed for contact:', contact.id);
+            }
+          })
+          .catch(error => {
+            console.error('❌ Lead webhook error for contact:', contact.id, error);
+          });
+      }
+      
       res.status(201).json(contact);
     } catch (error: any) {
       if (error instanceof z.ZodError) {
@@ -2076,6 +2104,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Test webhook endpoint for GoHighLevel
+  app.post("/api/webhook/test", async (req, res) => {
+    try {
+      const { 
+        name = "Test Customer",
+        email = "test@example.com",
+        phone = "+15125551234",
+        eventDate = new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        eventType = "Bachelor Party",
+        groupSize = 25,
+        quoteId = "test-quote-123"
+      } = req.body;
+
+      const webhookPayload: LeadWebhookPayload = {
+        name,
+        email,
+        phone,
+        requested_cruise_date: eventDate,
+        type_of_cruise: eventType,
+        max_number_of_people: groupSize,
+        quote_link: getFullUrl(`/quote/${quoteId}`),
+        created_at: new Date().toISOString()
+      };
+
+      console.log('📧 Testing GoHighLevel webhook with payload:', webhookPayload);
+      
+      const success = await goHighLevelService.sendLeadWebhook(webhookPayload);
+      
+      if (success) {
+        res.json({ 
+          success: true, 
+          message: "Webhook test sent successfully",
+          payload: webhookPayload 
+        });
+      } else {
+        res.status(500).json({ 
+          success: false,
+          error: "Failed to send webhook",
+          payload: webhookPayload
+        });
+      }
+    } catch (error: any) {
+      console.error("Webhook test error:", error);
+      res.status(500).json({ 
+        success: false,
+        error: "Failed to test webhook", 
+        details: error.message 
+      });
+    }
+  });
+
   app.post("/api/test-sms", async (req, res) => {
     try {
       const { phone, to, message, quoteId, type = "customer" } = req.body;

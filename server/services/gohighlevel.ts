@@ -14,6 +14,17 @@ interface TokenCache {
   expiresAt: number;
 }
 
+export interface LeadWebhookPayload {
+  name: string;
+  email: string;
+  phone: string;
+  requested_cruise_date: string;
+  type_of_cruise: string;
+  max_number_of_people: number;
+  quote_link?: string;
+  created_at: string;
+}
+
 class GoHighLevelService implements SMSService {
   private apiKey: string;
   private clientId: string;
@@ -382,6 +393,66 @@ class GoHighLevelService implements SMSService {
         }
       }
       
+      return false;
+    }
+  }
+
+  // Send lead information to GoHighLevel webhook
+  async sendLeadWebhook(payload: LeadWebhookPayload): Promise<boolean> {
+    const webhookUrl = process.env.GOHIGHLEVEL_WEBHOOK_URL;
+    
+    if (!webhookUrl) {
+      console.log('📮 GoHighLevel webhook not configured - simulating webhook send:');
+      console.log('   Payload:', JSON.stringify(payload, null, 2));
+      console.log('   ✅ Webhook would be sent successfully in production');
+      console.log('   💡 To enable webhooks: Configure GOHIGHLEVEL_WEBHOOK_URL');
+      return true;
+    }
+
+    try {
+      console.log('🔔 Sending lead to GoHighLevel webhook...');
+      console.log('   URL:', webhookUrl);
+      console.log('   Lead Name:', payload.name);
+      console.log('   Lead Email:', payload.email);
+      console.log('   Lead Phone:', payload.phone);
+      
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        console.error('❌ GoHighLevel webhook failed:', response.status);
+        console.error('   Response:', errorText.substring(0, 500));
+        
+        // Don't throw error - webhook failures shouldn't break the main flow
+        return false;
+      }
+
+      const responseData = await response.text();
+      console.log('✅ Lead sent to GoHighLevel webhook successfully');
+      console.log('   Status:', response.status);
+      if (responseData) {
+        try {
+          const parsed = JSON.parse(responseData);
+          console.log('   Response:', JSON.stringify(parsed).substring(0, 200));
+        } catch {
+          console.log('   Response:', responseData.substring(0, 200));
+        }
+      }
+      
+      return true;
+    } catch (error) {
+      console.error('❌ Failed to send GoHighLevel webhook:', error);
+      if (error instanceof Error) {
+        console.error('   Error:', error.message);
+      }
+      
+      // Don't throw error - webhook failures shouldn't break the main flow
       return false;
     }
   }

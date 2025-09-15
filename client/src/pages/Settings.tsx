@@ -15,7 +15,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { 
   Settings as SettingsIcon, Mail, FileText, Palette, Save, Plus, Edit2, Trash2, 
-  Copy, Eye, EyeOff, ChevronRight, Grid, List, Code
+  Copy, Eye, EyeOff, ChevronRight, Grid, List, Code, Webhook, Send, CheckCircle, AlertCircle, Loader2
 } from 'lucide-react';
 // Template builder components will be shown in dialogs
 import type { QuoteTemplate, EmailTemplate, PricingSettings } from '@shared/schema';
@@ -27,6 +27,8 @@ export default function Settings() {
   const [selectedEmailTemplate, setSelectedEmailTemplate] = useState<EmailTemplate | null>(null);
   const [showTemplateBuilder, setShowTemplateBuilder] = useState(false);
   const [showEmailBuilder, setShowEmailBuilder] = useState(false);
+  const [testingWebhook, setTestingWebhook] = useState(false);
+  const [webhookTestResult, setWebhookTestResult] = useState<{ success: boolean; message: string } | null>(null);
   
   // Fetch quote templates
   const { data: quoteTemplates = [], isLoading: loadingQuoteTemplates } = useQuery<QuoteTemplate[]>({
@@ -163,6 +165,48 @@ export default function Settings() {
     setSelectedEmailTemplate(template);
     setShowEmailBuilder(true);
   };
+  
+  // Test webhook function
+  const testWebhook = useMutation({
+    mutationFn: async () => {
+      const res = await apiRequest('POST', '/api/webhook/test', {
+        name: "Test Customer",
+        email: "test@example.com", 
+        phone: "+15125551234",
+        eventDate: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+        eventType: "Bachelor Party",
+        groupSize: 25,
+        quoteId: "test-quote-123"
+      });
+      
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.message || 'Failed to test webhook');
+      }
+      return res.json();
+    },
+    onSuccess: (data) => {
+      setWebhookTestResult({ 
+        success: true, 
+        message: 'Webhook test sent successfully! Check the server logs for details.' 
+      });
+      toast({ 
+        title: 'Success', 
+        description: 'Webhook test sent successfully!'
+      });
+    },
+    onError: (error: any) => {
+      setWebhookTestResult({ 
+        success: false, 
+        message: error.message || 'Failed to test webhook'
+      });
+      toast({ 
+        title: 'Error', 
+        description: error.message || 'Failed to test webhook',
+        variant: 'destructive'
+      });
+    }
+  });
   
   const eventTypes = [
     { value: 'bachelor', label: 'Bachelor Party' },
@@ -482,6 +526,99 @@ export default function Settings() {
                       <div className="flex items-center justify-between">
                         <Label htmlFor="auto-reminders">Automatic reminders</Label>
                         <Switch id="auto-reminders" defaultChecked data-testid="switch-auto-reminders" />
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <Separator />
+                  
+                  <div>
+                    <h3 className="text-lg font-semibold mb-3">GoHighLevel Webhook</h3>
+                    <div className="space-y-4">
+                      <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-lg">
+                        <div className="flex items-start gap-2">
+                          <Webhook className="h-5 w-5 text-blue-600 dark:text-blue-400 mt-0.5" />
+                          <div className="flex-1">
+                            <p className="text-sm font-medium text-blue-900 dark:text-blue-100">Webhook Configuration</p>
+                            <p className="text-sm text-blue-700 dark:text-blue-300 mt-1">
+                              When leads are created, their information will be automatically sent to your GoHighLevel webhook.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <Label>Webhook URL</Label>
+                        <p className="text-sm text-gray-500 mb-2">
+                          Configure the webhook URL via the GOHIGHLEVEL_WEBHOOK_URL environment variable
+                        </p>
+                        <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-md font-mono text-sm">
+                          {import.meta.env.VITE_GOHIGHLEVEL_WEBHOOK_URL || 'Not configured'}
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <Label>Test Webhook</Label>
+                        <p className="text-sm text-gray-500 mb-2">
+                          Send a test payload to verify your webhook is working correctly
+                        </p>
+                        <div className="space-y-3">
+                          <Button 
+                            onClick={() => {
+                              setWebhookTestResult(null);
+                              testWebhook.mutate();
+                            }}
+                            disabled={testWebhook.isPending}
+                            variant="outline"
+                            data-testid="button-test-webhook"
+                          >
+                            {testWebhook.isPending ? (
+                              <>
+                                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                                Testing...
+                              </>
+                            ) : (
+                              <>
+                                <Send className="h-4 w-4 mr-2" />
+                                Test Webhook
+                              </>
+                            )}
+                          </Button>
+                          
+                          {webhookTestResult && (
+                            <div className={`p-3 rounded-md ${webhookTestResult.success ? 'bg-green-50 dark:bg-green-950' : 'bg-red-50 dark:bg-red-950'}`}>
+                              <div className="flex items-start gap-2">
+                                {webhookTestResult.success ? (
+                                  <CheckCircle className="h-5 w-5 text-green-600 dark:text-green-400 mt-0.5" />
+                                ) : (
+                                  <AlertCircle className="h-5 w-5 text-red-600 dark:text-red-400 mt-0.5" />
+                                )}
+                                <p className={`text-sm ${webhookTestResult.success ? 'text-green-700 dark:text-green-300' : 'text-red-700 dark:text-red-300'}`}>
+                                  {webhookTestResult.message}
+                                </p>
+                              </div>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      
+                      <div>
+                        <Label>Sample Payload</Label>
+                        <p className="text-sm text-gray-500 mb-2">
+                          This is an example of the data sent to your webhook
+                        </p>
+                        <pre className="bg-gray-50 dark:bg-gray-800 p-3 rounded-md text-xs overflow-x-auto">
+{JSON.stringify({
+  name: "John Doe",
+  email: "john@example.com",
+  phone: "+15125551234",
+  requested_cruise_date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+  type_of_cruise: "Bachelor Party",
+  max_number_of_people: 25,
+  quote_link: "https://app.premierpartycruises.com/quote/abc123",
+  created_at: new Date().toISOString()
+}, null, 2)}
+                        </pre>
                       </div>
                     </div>
                   </div>
