@@ -947,7 +947,7 @@ export default function Chat() {
   }, [pricingLoading, paymentProcessing, formSubmitting]);
 
   // Comprehensive validation function
-  const validateBookingData = useCallback((data: BookingData, cruiseType: 'private' | 'disco') => {
+  const validateBookingData = useCallback((data: BookingData, cruiseType: 'private' | 'disco', requireContactInfo: boolean = false) => {
     const errors: string[] = [];
     
     // Basic required fields
@@ -955,6 +955,21 @@ export default function Chat() {
     if (!data.eventDate) errors.push('Please select an event date');
     if (data.groupSize < GROUP_SIZE_MIN || data.groupSize > GROUP_SIZE_MAX) {
       errors.push(`Group size must be between ${GROUP_SIZE_MIN} and ${GROUP_SIZE_MAX} people`);
+    }
+    
+    // Contact information validation (required for payment)
+    if (requireContactInfo) {
+      if (!data.firstName?.trim()) errors.push('Please enter your first name');
+      if (!data.lastName?.trim()) errors.push('Please enter your last name');
+      if (!data.email?.trim()) errors.push('Please enter your email address');
+      
+      // Email format validation
+      if (data.email?.trim()) {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(data.email.trim())) {
+          errors.push('Please enter a valid email address');
+        }
+      }
     }
     
     // Date validation
@@ -1010,8 +1025,8 @@ export default function Chat() {
       return;
     }
     
-    // Comprehensive validation
-    const validation = validateBookingData(formData, cruiseType);
+    // Comprehensive validation including contact information (required for payment)
+    const validation = validateBookingData(formData, cruiseType, true);
     if (!validation.isValid) {
       console.log('💳 Validation failed:', validation.errors);
       toast({
@@ -1073,7 +1088,7 @@ export default function Chat() {
 
       const response = await apiRequest("POST", "/api/checkout/create-session", {
         paymentType,
-        customerEmail: '', // Will be handled by Stripe checkout
+        customerEmail: formData.email.trim(), // Pass actual customer email
         selectionPayload,
       });
 
