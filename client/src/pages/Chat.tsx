@@ -448,20 +448,40 @@ export default function Chat() {
   // Fetch private cruise pricing when time slot and group size are available
   useEffect(() => {
     if (formData.selectedTimeSlot && formData.groupSize) {
+      console.log('🚢 useEffect triggering fetchPrivatePricing');
       fetchPrivatePricing();
+    } else {
+      console.log('🚢 useEffect NOT triggering fetchPrivatePricing - missing:', {
+        selectedTimeSlot: formData.selectedTimeSlot,
+        groupSize: formData.groupSize
+      });
     }
   }, [formData.selectedTimeSlot, formData.selectedAddOnPackages, formData.groupSize]);
   
   // Fetch disco pricing when package and quantity are available
   useEffect(() => {
     if (formData.selectedDiscoPackage && formData.discoTicketQuantity) {
+      console.log('🎵 useEffect triggering fetchDiscoPricing');
       fetchDiscoPricing();
+    } else {
+      console.log('🎵 useEffect NOT triggering fetchDiscoPricing - missing:', {
+        selectedDiscoPackage: formData.selectedDiscoPackage,
+        discoTicketQuantity: formData.discoTicketQuantity
+      });
     }
   }, [formData.selectedDiscoPackage, formData.discoTicketQuantity]);
 
   // Fetch private cruise pricing with loading state
   const fetchPrivatePricing = async () => {
     if (!formData.selectedTimeSlot) return;
+    
+    console.log('🚢 fetchPrivatePricing called with:', {
+      selectedTimeSlot: formData.selectedTimeSlot,
+      groupSize: formData.groupSize,
+      eventDate: formData.eventDate,
+      eventType: formData.eventType,
+      selectedAddOnPackages: formData.selectedAddOnPackages
+    });
     
     setPricingLoading(true);
     setPricingError(null);
@@ -473,7 +493,7 @@ export default function Chat() {
           return sum + (addOn?.hourlyRate || 0);
         }, 0);
       
-      const res = await apiRequest('POST', '/api/pricing/cruise', {
+      const pricingPayload = {
         groupSize: formData.groupSize,
         eventDate: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : '',
         timeSlot: formData.selectedTimeSlot,
@@ -481,16 +501,24 @@ export default function Chat() {
         cruiseType: 'private',
         packageType: formData.selectedAddOnPackages.join(','), // Send selected add-ons
         hourlyRate: totalHourlyRate,
-      });
+      };
+      
+      console.log('🚢 Making API call to /api/pricing/cruise with:', pricingPayload);
+      
+      const res = await apiRequest('POST', '/api/pricing/cruise', pricingPayload);
       
       if (!res.ok) {
+        const errorText = await res.text();
+        console.log('🚢 API call failed:', res.status, errorText);
         calculatePrivatePricing();
         return;
       }
       
       const response = await res.json();
+      console.log('🚢 API call successful, setting privatePricing:', response);
       setPrivatePricing(response);
     } catch (error: any) {
+      console.log('🚢 Exception in fetchPrivatePricing:', error);
       calculatePrivatePricing();
     } finally {
       setPricingLoading(false);
@@ -506,7 +534,11 @@ export default function Chat() {
 
   // Fallback private cruise pricing calculation
   const calculatePrivatePricing = () => {
-    if (!formData.selectedTimeSlot) return;
+    console.log('🚢 calculatePrivatePricing called as fallback');
+    if (!formData.selectedTimeSlot) {
+      console.log('🚢 calculatePrivatePricing early return - no timeSlot');
+      return;
+    }
     
     // Calculate total hourly rate (base + add-ons)
     const totalHourlyRate = BASE_PRIVATE_HOURLY_RATE + 
@@ -536,7 +568,7 @@ export default function Chat() {
       .filter(Boolean)
       .join(', ') || 'Standard Private Cruise';
     
-    setPrivatePricing({
+    const privatePricingData = {
       subtotal: subtotal * 100,
       tax: tax * 100,
       total: total * 100,
@@ -563,15 +595,24 @@ export default function Chat() {
         deposit: depositAmount,
         balanceDue: total - depositAmount,
       }
-    });
+    };
+    
+    console.log('🚢 Setting privatePricing:', privatePricingData);
+    setPrivatePricing(privatePricingData);
   };
   
   // Fetch disco cruise pricing
   const fetchDiscoPricing = async () => {
+    console.log('🎵 fetchDiscoPricing called with:', {
+      selectedDiscoPackage: formData.selectedDiscoPackage,
+      discoTicketQuantity: formData.discoTicketQuantity,
+      eventDate: formData.eventDate
+    });
+    
     setPricingLoading(true);
     setPricingError(null);
     try {
-      const res = await apiRequest('POST', '/api/pricing/preview', {
+      const discoPayload = {
         items: [{
           productId: `disco_${formData.selectedDiscoPackage}`,
           qty: formData.discoTicketQuantity,
@@ -579,16 +620,24 @@ export default function Chat() {
         }],
         groupSize: formData.discoTicketQuantity,
         projectDate: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : '',
-      });
+      };
+      
+      console.log('🎵 Making API call to /api/pricing/preview with:', discoPayload);
+      
+      const res = await apiRequest('POST', '/api/pricing/preview', discoPayload);
       
       if (!res.ok) {
+        const errorText = await res.text();
+        console.log('🎵 API call failed:', res.status, errorText);
         calculateDiscoPricing();
         return;
       }
       
       const response = await res.json();
+      console.log('🎵 API call successful, setting discoPricing:', response);
       setDiscoPricing(response);
     } catch (error: any) {
+      console.log('🎵 Exception in fetchDiscoPricing:', error);
       calculateDiscoPricing();
     } finally {
       setPricingLoading(false);
@@ -605,7 +654,11 @@ export default function Chat() {
   };
   
   const calculateDiscoPricing = () => {
-    if (!formData.selectedDiscoPackage) return;
+    console.log('🎵 calculateDiscoPricing called as fallback');
+    if (!formData.selectedDiscoPackage) {
+      console.log('🎵 calculateDiscoPricing early return - no disco package');
+      return;
+    }
     
     const selectedPackage = discoPackages.find(pkg => pkg.id === formData.selectedDiscoPackage);
     if (!selectedPackage) return;
@@ -769,11 +822,16 @@ export default function Chat() {
 
   // Private cruise selection handlers
   const handlePrivateCruiseSelect = (timeSlot: string) => {
-    setFormData(prev => ({
-      ...prev,
-      selectedCruiseType: 'private' as CruiseType,
-      selectedTimeSlot: timeSlot,
-    }));
+    console.log('🚢 handlePrivateCruiseSelect called with timeSlot:', timeSlot);
+    setFormData(prev => {
+      const newData = {
+        ...prev,
+        selectedCruiseType: 'private' as CruiseType,
+        selectedTimeSlot: timeSlot,
+      };
+      console.log('🚢 Setting form data to:', newData);
+      return newData;
+    });
   };
   
   const handleAddOnPackageToggle = (packageId: string) => {
@@ -792,18 +850,28 @@ export default function Chat() {
   
   // Disco cruise selection handler
   const handleDiscoCruiseSelect = (packageId: string, timeSlot: string) => {
-    setFormData({ 
+    console.log('🎵 handleDiscoCruiseSelect called with package:', packageId, 'timeSlot:', timeSlot);
+    const newData = { 
       ...formData, 
+      selectedCruiseType: 'disco' as CruiseType,
       selectedDiscoPackage: packageId as DiscoPackage,
       selectedDiscoTimeSlot: timeSlot
-    });
+    };
+    console.log('🎵 Setting form data to:', newData);
+    setFormData(newData);
   };
 
   // Payment handler function
   const handlePayment = async (paymentType: 'deposit' | 'full', cruiseType: 'private' | 'disco') => {
+    console.log('💳 handlePayment called with:', { paymentType, cruiseType });
+    console.log('💳 Current formData:', formData);
+    console.log('💳 Current privatePricing:', privatePricing);
+    console.log('💳 Current discoPricing:', discoPricing);
+    
     try {
       // Validate required data based on cruise type
       if (cruiseType === 'private' && !formData.selectedTimeSlot) {
+        console.log('💳 Validation failed: missing selectedTimeSlot for private cruise');
         toast({
           title: "Incomplete Selection",
           description: "Please select a time slot and package before proceeding to payment.",
@@ -813,6 +881,7 @@ export default function Chat() {
       }
       
       if (cruiseType === 'disco' && (!formData.selectedDiscoPackage || !formData.selectedDiscoTimeSlot)) {
+        console.log('💳 Validation failed: missing disco package or time slot');
         toast({
           title: "Incomplete Selection", 
           description: "Please select a disco package and time slot before proceeding to payment.",
@@ -838,24 +907,36 @@ export default function Chat() {
         discoTicketQuantity: formData.discoTicketQuantity,
       };
 
+      console.log('💳 Making API call to /api/checkout/create-session with payload:', {
+        paymentType,
+        selectionPayload
+      });
+
       const response = await apiRequest("POST", "/api/checkout/create-session", {
         paymentType,
         customerEmail: '', // Will be handled by Stripe checkout
         selectionPayload,
       });
 
+      console.log('💳 API response status:', response.status);
+
       if (!response.ok) {
-        throw new Error('Failed to create checkout session');
+        const errorText = await response.text();
+        console.log('💳 API error response:', errorText);
+        throw new Error('Failed to create checkout session: ' + errorText);
       }
 
       const data = await response.json();
+      console.log('💳 API response data:', data);
+      
       if (data.url) {
+        console.log('💳 Redirecting to:', data.url);
         window.location.href = data.url; // Redirect to Stripe checkout
       } else {
         throw new Error('No checkout URL received');
       }
     } catch (error: any) {
-      console.error('Payment error:', error);
+      console.error('💳 Payment error:', error);
       toast({
         title: "Payment Error",
         description: "Failed to start payment process. Please try again.",
