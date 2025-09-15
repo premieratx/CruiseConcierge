@@ -26,6 +26,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
 import { format, addDays, isBefore, isAfter, startOfDay, differenceInDays } from 'date-fns';
 import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection, QuoteItem } from '@shared/schema';
+import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, isDiscoAvailableForDate } from '@shared/timeSlots';
 
 type ChatFlowStep = 
   | 'intro' // Intro + Calendar combined
@@ -86,59 +87,11 @@ const eventTypes = [
   { id: 'other', label: 'Other', emoji: '🎊', description: 'Custom event' },
 ];
 
-const getPrivateTimeSlotsForDate = (date: Date) => {
-  const dayOfWeek = date.getDay();
-  
-  if (dayOfWeek >= 1 && dayOfWeek <= 4) { // Monday-Thursday (3-hour slots)
-    return [
-      { id: '10am-1pm', label: '10am-1pm', time: '10am-1pm', icon: '🌅', popular: false, duration: 3 },
-      { id: '11am-2pm', label: '11am-2pm', time: '11am-2pm', icon: '🌞', popular: false, duration: 3 },
-      { id: '12pm-3pm', label: '12pm-3pm', time: '12pm-3pm', icon: '☀️', popular: true, duration: 3 },
-      { id: '1pm-4pm', label: '1pm-4pm', time: '1pm-4pm', icon: '☀️', popular: true, duration: 3 },
-      { id: '2pm-5pm', label: '2pm-5pm', time: '2pm-5pm', icon: '🌆', popular: true, duration: 3 },
-      { id: '3pm-6pm', label: '3pm-6pm', time: '3pm-6pm', icon: '🌆', popular: true, duration: 3 },
-      { id: '4pm-7pm', label: '4pm-7pm', time: '4pm-7pm', icon: '🌅', popular: false, duration: 3 },
-      { id: '5pm-8pm', label: '5pm-8pm', time: '5pm-8pm', icon: '🌙', popular: false, duration: 3 },
-    ];
-  } else if (dayOfWeek === 5) { // Friday (4-hour slots)
-    return [
-      { id: '12pm-4pm', label: '12pm-4pm', time: '12pm-4pm', icon: '☀️', popular: true, duration: 4 },
-      { id: '4:30pm-8:30pm', label: '4:30pm-8:30pm', time: '4:30pm-8:30pm', icon: '🌙', popular: true, duration: 4 },
-    ];
-  } else { // Saturday/Sunday (4-hour slots)
-    return [
-      { id: '11am-3pm', label: '11am-3pm', time: '11am-3pm', icon: '☀️', popular: true, duration: 4 },
-      { id: '3:30pm-7:30pm', label: '3:30pm-7:30pm', time: '3:30pm-7:30pm', icon: '🌆', popular: true, duration: 4 },
-    ];
-  }
-};
+// Use centralized time slot configuration - remove local implementation
 
-const getDiscoTimeSlotsForDate = (date: Date) => {
-  const dayOfWeek = date.getDay();
-  
-  if (dayOfWeek === 5) { // Friday (4-hour slots)
-    return [
-      { id: 'disco-fri-12pm-4pm', label: '12:00 PM - 4:00 PM', time: '12pm-4pm', icon: '🕛', popular: true, duration: 4 },
-    ];
-  } else if (dayOfWeek === 6) { // Saturday (4-hour slots)
-    return [
-      { id: 'disco-sat-11am-3pm', label: '11:00 AM - 3:00 PM', time: '11am-3pm', icon: '🕚', popular: true, duration: 4 },
-      { id: 'disco-sat-3:30pm-7:30pm', label: '3:30 PM - 7:30 PM', time: '3:30pm-7:30pm', icon: '🕞', popular: true, duration: 4 },
-    ];
-  } else if (dayOfWeek === 0) { // Sunday (4-hour slots)
-    return [
-      { id: 'disco-sun-11am-3pm', label: '11:00 AM - 3:00 PM', time: '11am-3pm', icon: '🕚', popular: true, duration: 4 },
-      { id: 'disco-sun-3:30pm-7:30pm', label: '3:30 PM - 7:30 PM', time: '3:30pm-7:30pm', icon: '🕞', popular: true, duration: 4 },
-    ];
-  } else {
-    return [];
-  }
-};
+// Use centralized disco time slot configuration - remove local implementation
 
-const isDiscoAvailableForDate = (date: Date) => {
-  const dayOfWeek = date.getDay();
-  return dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0; // Friday, Saturday, Sunday
-};
+// Use centralized disco availability check - remove local implementation
 
 const isDateAvailable = (date: Date): boolean => {
   const today = startOfDay(new Date());
