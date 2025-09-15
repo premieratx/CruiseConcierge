@@ -748,36 +748,49 @@ export default function Chat() {
   // Create lead mutation
   const createLead = useMutation({
     mutationFn: async (data: BookingData) => {
-      const contact: InsertContact = {
-        name: `${data.firstName} ${data.lastName}`,
-        email: data.email,
-        phone: data.phone || undefined,
-      };
+      // Step 1: Create lead and project using the new booking endpoint
+      const leadResponse = await apiRequest('/api/chat/booking', {
+        method: 'POST',
+        body: JSON.stringify({
+          sessionId: `chat_${Date.now()}`,
+          step: 'create-lead',
+          email: data.email,
+          name: `${data.firstName} ${data.lastName}`,
+          phone: data.phone,
+          eventType: data.eventType,
+          eventDate: data.eventDate?.toISOString(),
+          groupSize: data.groupSize,
+          specialRequests: data.specialRequests,
+          cruiseType: data.selectedCruiseType,
+          timeSlot: data.selectedCruiseType === 'private' ? data.selectedTimeSlot : data.selectedDiscoTimeSlot,
+          discoPackage: data.selectedDiscoPackage,
+          budget: (data.selectedCruiseType === 'private' ? privatePricing?.total : discoPricing?.total)?.toString(),
+          data: {
+            eventTypeLabel: data.eventTypeLabel,
+            discoTicketQuantity: data.discoTicketQuantity
+          }
+        })
+      });
+
+      if (!leadResponse.success) {
+        throw new Error('Failed to create lead');
+      }
+
+      const projectId = leadResponse.project.id;
+      const contactId = leadResponse.contact.id;
       
-      const contactRes = await apiRequest('POST', '/api/contacts', contact);
-      const contactResponse = await contactRes.json();
-      
-      const project: InsertProject = {
-        contactId: contactResponse.id,
-        title: `${data.eventTypeLabel} - ${data.firstName} ${data.lastName}`,
-        groupSize: data.groupSize,
-        eventType: data.eventType,
-        specialRequests: data.specialRequests || undefined,
-        preferredTime: data.selectedCruiseType === 'private' ? data.selectedTimeSlot : data.selectedDiscoTimeSlot,
-        budget: (data.selectedCruiseType === 'private' ? privatePricing?.total : discoPricing?.total) || undefined,
-        leadSource: 'chat',
-        orgId: 'org_demo',
-        status: 'NEW',
-        pipelinePhase: 'ph_new',
-        tags: data.selectedCruiseType === 'disco' ? ['disco_cruise'] : ['private_cruise'],
-      };
-      
-      const projectRes = await apiRequest('POST', '/api/projects', project);
-      const projectResponse = await projectRes.json();
-      
+      // Step 2: Check availability
       if (data.eventDate) {
-        await apiRequest('PATCH', `/api/projects/${projectResponse.id}`, {
-          projectDate: data.eventDate.toISOString(),
+        await apiRequest('/api/chat/booking', {
+          method: 'POST',
+          body: JSON.stringify({
+            sessionId: `chat_${Date.now()}`,
+            step: 'check-availability',
+            data: {
+              date: data.eventDate.toISOString().split('T')[0],
+              groupSize: data.groupSize
+            }
+          })
         });
       }
       

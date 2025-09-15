@@ -53,65 +53,39 @@ const formatTime = (time: string | undefined | null) => {
   return `${displayHours}:${minutes.toString().padStart(2, '0')} ${period}`;
 };
 
-// Helper function to generate time blocks based on products and day of week
+// Helper function to generate time blocks based on day of week (3-hour blocks)
 const generateTimeBlocks = (date: Date, boats: Boat[], bookings: Booking[], products: Product[]): TimeBlock[] => {
   const dayOfWeek = date.getDay();
   const blocks: TimeBlock[] = [];
-  const dayName = ['sunday', 'saturday', 'sunday', 'weekday', 'weekday', 'weekday', 'weekday'][dayOfWeek] || 'weekday';
-  const dayNameMap: {[key: string]: string} = {
-    '0': 'sunday',
-    '1': 'weekday',
-    '2': 'weekday', 
-    '3': 'weekday',
-    '4': 'weekday',
-    '5': 'friday',
-    '6': 'saturday'
-  };
-  const actualDayType = dayNameMap[dayOfWeek.toString()];
   
-  // Get private cruise products for this day
-  const dayProducts = products.filter(p => 
-    p.productType === 'private_cruise' && 
-    p.active &&
-    (!p.dayType || p.dayType === 'any' || p.dayType === actualDayType)
-  );
-  
-  // Extract unique time slots from product names/descriptions
-  const timeSlotPatterns = [
-    { pattern: /10am-2pm|10:00.*2:00/i, startTime: '10:00', endTime: '14:00' },
-    { pattern: /11am-3pm|11:00.*3:00/i, startTime: '11:00', endTime: '15:00' },
-    { pattern: /12pm-4pm|12:00.*4:00/i, startTime: '12:00', endTime: '16:00' },
-    { pattern: /1pm-5pm|1:00.*5:00/i, startTime: '13:00', endTime: '17:00' },
-    { pattern: /2pm-6pm|2:00.*6:00/i, startTime: '14:00', endTime: '18:00' },
-    { pattern: /3pm-7pm|3:00.*7:00/i, startTime: '15:00', endTime: '19:00' },
-    { pattern: /3:30pm-7:30pm|3:30.*7:30/i, startTime: '15:30', endTime: '19:30' },
-    { pattern: /4pm-8pm|4:00.*8:00/i, startTime: '16:00', endTime: '20:00' },
-    { pattern: /4:30pm-8:30pm|4:30.*8:30/i, startTime: '16:30', endTime: '20:30' },
-  ];
-  
-  // Generate available time slots based on day of week
-  const availableTimeSlots: Array<{startTime: string, endTime: string}> = [];
+  // Generate available time slots based on day of week (3-hour blocks)
+  const availableTimeSlots: Array<{startTime: string, endTime: string, label: string}> = [];
   
   if (dayOfWeek >= 1 && dayOfWeek <= 4) { // Monday-Thursday
     availableTimeSlots.push(
-      { startTime: '10:00', endTime: '14:00' },
-      { startTime: '11:00', endTime: '15:00' },
-      { startTime: '12:00', endTime: '16:00' },
-      { startTime: '13:00', endTime: '17:00' },
-      { startTime: '14:00', endTime: '18:00' },
-      { startTime: '15:00', endTime: '19:00' },
-      { startTime: '16:00', endTime: '20:00' },
-      { startTime: '16:30', endTime: '20:30' }
+      { startTime: '10:00', endTime: '13:00', label: 'Morning (10AM-1PM)' },
+      { startTime: '14:00', endTime: '17:00', label: 'Afternoon (2PM-5PM)' },
+      { startTime: '18:00', endTime: '21:00', label: 'Evening (6PM-9PM)' }
     );
   } else if (dayOfWeek === 5) { // Friday
     availableTimeSlots.push(
-      { startTime: '12:00', endTime: '16:00' },
-      { startTime: '16:30', endTime: '20:30' }
+      { startTime: '10:00', endTime: '13:00', label: 'Morning (10AM-1PM)' },
+      { startTime: '14:00', endTime: '17:00', label: 'Afternoon (2PM-5PM)' },
+      { startTime: '18:00', endTime: '21:00', label: 'Evening (6PM-9PM)' },
+      { startTime: '22:00', endTime: '01:00', label: 'Night (10PM-1AM)' }
     );
-  } else { // Saturday/Sunday
+  } else if (dayOfWeek === 6) { // Saturday
     availableTimeSlots.push(
-      { startTime: '11:00', endTime: '15:00' },
-      { startTime: '15:30', endTime: '19:30' }
+      { startTime: '10:00', endTime: '13:00', label: 'Morning (10AM-1PM)' },
+      { startTime: '14:00', endTime: '17:00', label: 'Afternoon (2PM-5PM)' },
+      { startTime: '18:00', endTime: '21:00', label: 'Evening (6PM-9PM)' },
+      { startTime: '22:00', endTime: '01:00', label: 'Night (10PM-1AM)' }
+    );
+  } else { // Sunday
+    availableTimeSlots.push(
+      { startTime: '10:00', endTime: '13:00', label: 'Morning (10AM-1PM)' },
+      { startTime: '14:00', endTime: '17:00', label: 'Afternoon (2PM-5PM)' },
+      { startTime: '18:00', endTime: '21:00', label: 'Evening (6PM-9PM)' }
     );
   }
   
@@ -120,22 +94,30 @@ const generateTimeBlocks = (date: Date, boats: Boat[], bookings: Booking[], prod
     availableTimeSlots.forEach(slot => {
       const startDateTime = new Date(date);
       const [startHour, startMin] = slot.startTime.split(':').map(Number);
-      startDateTime.setHours(startHour, startMin, 0, 0);
+      
+      // Handle next day for night slots
+      if (slot.endTime === '01:00' && startHour === 22) {
+        startDateTime.setHours(startHour, startMin, 0, 0);
+      } else {
+        startDateTime.setHours(startHour, startMin, 0, 0);
+      }
       
       const endDateTime = new Date(date);
       const [endHour, endMin] = slot.endTime.split(':').map(Number);
-      endDateTime.setHours(endHour, endMin, 0, 0);
+      
+      // Handle next day for night slots (10PM-1AM)
+      if (slot.endTime === '01:00' && startHour === 22) {
+        endDateTime.setDate(endDateTime.getDate() + 1);
+        endDateTime.setHours(endHour, endMin, 0, 0);
+      } else {
+        endDateTime.setHours(endHour, endMin, 0, 0);
+      }
       
       // Check if there's a booking for this time slot
       const booking = bookings.find(b => 
         b.boatId === boat.id &&
         new Date(b.startTime).getTime() === startDateTime.getTime() &&
         new Date(b.endTime).getTime() === endDateTime.getTime()
-      );
-      
-      // Find matching product for pricing
-      const matchingProduct = dayProducts.find(p => 
-        (!p.groupSize || (boat.capacity >= (p.groupSize - 5) && boat.capacity <= (p.groupSize + 20)))
       );
       
       blocks.push({
@@ -326,23 +308,23 @@ function CalendarView() {
         className={cn(
           "p-3 rounded-lg border-2 cursor-pointer transition-all hover:shadow-md",
           block.status === 'available' 
-            ? "bg-blue-50 border-blue-200 hover:bg-blue-100" 
+            ? "bg-green-100 border-green-400 hover:bg-green-200" 
             : block.status === 'blocked'
-            ? "bg-gray-100 border-gray-300"
-            : "bg-blue-500 text-white border-blue-600 hover:bg-blue-600"
+            ? "bg-gray-200 border-gray-400"
+            : "bg-red-100 border-red-400 hover:bg-red-200"
         )}
         onClick={handleToggle}
         data-testid={`time-block-${block.id}`}
       >
-        <div className="font-semibold text-sm">
+        <div className="font-bold text-sm text-gray-800">
           {formatTime(block.startTime)} - {formatTime(block.endTime)}
         </div>
-        <div className="text-xs mt-1">
+        <div className="text-xs mt-1 font-semibold text-gray-700">
           <Ship className="inline w-3 h-3 mr-1" />
           {block.boatName}
         </div>
         {block.capacity && (
-          <div className="text-xs mt-1 opacity-75">
+          <div className="text-xs mt-1 text-gray-600">
             Capacity: {block.capacity}
           </div>
         )}
@@ -361,8 +343,8 @@ function CalendarView() {
           className={cn(
             "p-3 rounded-lg border-2 transition-all",
             available > 0 
-              ? "bg-blue-50 border-blue-200" 
-              : "bg-blue-500 text-white border-blue-600"
+              ? "bg-green-100 border-green-400" 
+              : "bg-red-100 border-red-400"
           )}
         >
           <div className="font-semibold text-sm">
@@ -391,10 +373,10 @@ function CalendarView() {
               <div
                 key={boat.id}
                 className={cn(
-                  "text-xs px-2 py-1 rounded cursor-pointer transition-all",
+                  "text-xs px-2 py-1 rounded cursor-pointer transition-all font-medium",
                   isBooked 
-                    ? "bg-blue-500 text-white" 
-                    : "bg-blue-100 hover:bg-blue-200"
+                    ? "bg-red-200 text-red-800 border border-red-400" 
+                    : "bg-green-100 text-green-800 hover:bg-green-200 border border-green-400"
                 )}
                 onClick={() => {
                   toggleAvailabilityMutation.mutate({
@@ -597,8 +579,8 @@ function CalendarView() {
                     <div
                       key={date.toISOString()}
                       className={cn(
-                        "border rounded-lg p-3",
-                        isToday && "bg-blue-50 border-blue-300"
+                        "border-2 rounded-lg p-3",
+                        isToday && "bg-yellow-50 border-yellow-400"
                       )}
                       data-testid={`day-${date.toISOString()}`}
                     >
@@ -669,16 +651,16 @@ function CalendarView() {
         <CardContent>
           <div className="flex gap-4 text-sm">
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-blue-50 border-2 border-blue-200 rounded"></div>
-              <span>Available</span>
+              <div className="w-4 h-4 bg-green-100 border-2 border-green-400 rounded"></div>
+              <span className="font-medium text-gray-700">Available</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-blue-500 border-2 border-blue-600 rounded"></div>
-              <span>Booked</span>
+              <div className="w-4 h-4 bg-red-100 border-2 border-red-400 rounded"></div>
+              <span className="font-medium text-gray-700">Booked</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 bg-gray-100 border-2 border-gray-300 rounded"></div>
-              <span>Blocked</span>
+              <div className="w-4 h-4 bg-gray-200 border-2 border-gray-400 rounded"></div>
+              <span className="font-medium text-gray-700">Blocked</span>
             </div>
             <div className="flex items-center gap-2">
               <Anchor className="w-4 h-4 text-purple-500" />

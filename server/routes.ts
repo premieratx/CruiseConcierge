@@ -480,6 +480,204 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // New endpoint for chat booking flow
+  app.post("/api/chat/booking", async (req, res) => {
+    try {
+      const { 
+        sessionId, 
+        step, 
+        data,
+        email,
+        phone,
+        name,
+        eventType,
+        eventDate,
+        groupSize,
+        specialRequests,
+        cruiseType,
+        timeSlot,
+        discoPackage,
+        budget
+      } = req.body;
+      
+      console.log("🚢 Chat booking endpoint called:", { step, sessionId });
+
+      // Handle different steps in the booking flow
+      if (step === "create-lead") {
+        // Create or update contact
+        const contact = await storage.findOrCreateContact(
+          email || data?.email,
+          name || data?.name,
+          phone || data?.phone
+        );
+        
+        // Create lead in Google Sheets
+        const leadId = `lead_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+        await googleSheetsService.createLead({
+          leadId,
+          name: contact.name,
+          email: contact.email,
+          phone: contact.phone,
+          eventType: eventType || data?.eventType,
+          eventTypeLabel: data?.eventTypeLabel,
+          source: "AI Chat Widget"
+        });
+        
+        // Create project
+        const projectData = {
+          contactId: contact.id,
+          title: `${eventType || data?.eventType || 'Party'} Cruise for ${name || contact.name}`,
+          status: "NEW" as const,
+          projectDate: eventDate ? new Date(eventDate) : data?.eventDate ? new Date(data.eventDate) : undefined,
+          groupSize: groupSize || data?.groupSize,
+          eventType: eventType || data?.eventType,
+          specialRequests: specialRequests || data?.specialRequests,
+          preferredTime: timeSlot || data?.timeSlot,
+          budget: budget ? parseInt(budget) * 100 : data?.budget ? parseInt(data.budget) * 100 : undefined,
+          leadSource: "chat" as const
+        };
+        
+        const project = await storage.createProject(projectData);
+        
+        // Update lead with project ID
+        await googleSheetsService.updateLead(leadId, {
+          projectId: project.id,
+          cruiseDate: eventDate || data?.eventDate,
+          groupSize: groupSize || data?.groupSize,
+          boatType: cruiseType || data?.cruiseType,
+          discoPackage: discoPackage || data?.discoPackage,
+          timeSlot: timeSlot || data?.timeSlot,
+          status: "CONTACT_INFO",
+          progress: "contact_complete"
+        });
+        
+        // Send SMS notification to customer
+        if (contact.phone) {
+          try {
+            await goHighLevelService.send({
+              to: contact.phone,
+              body: `Hi ${contact.name}! 🚢 Thanks for your interest in Premier Party Cruises! We're reviewing your request for a ${eventType || data?.eventType || 'party'} cruise. We'll send you a quote shortly. Questions? Call us at (512) 555-BOAT!`
+            });
+            console.log("✅ SMS sent to customer:", contact.phone);
+          } catch (smsError) {
+            console.error("SMS send error:", smsError);
+            // Continue even if SMS fails
+          }
+        }
+        
+        // Send admin notification
+        const adminPhone = process.env.ADMIN_PHONE_NUMBER;
+        if (adminPhone) {
+          try {
+            await goHighLevelService.send({
+              to: adminPhone,
+              body: `🚨 New lead from chat! ${contact.name} (${contact.email}) - ${eventType || 'Party'} for ${groupSize || 'TBD'} people on ${eventDate || 'TBD'}. Check CRM for details.`
+            });
+            console.log("✅ Admin SMS notification sent");
+          } catch (adminSmsError) {
+            console.error("Admin SMS error:", adminSmsError);
+          }
+        }
+        
+        res.json({
+          success: true,
+          contact,
+          project,
+          leadId,
+          message: "Lead created successfully!"
+        });
+        
+      } else if (step === "check-availability") {
+        // Check availability from Google Sheets
+        const { date, groupSize: size } = data || {};
+        
+        if (!date) {
+          return res.status(400).json({ error: "Date is required for availability check" });
+        }
+        
+        const availableBoats = await googleSheetsService.getAvailableBoats(
+          date,
+          size || 20
+        );
+        
+        res.json({
+          success: true,
+          available: availableBoats.length > 0,
+          boats: availableBoats,
+          message: availableBoats.length > 0 
+            ? "Great news! We have availability!"
+            : "This date appears to be booked. Let me show you alternative dates."
+        });
+        
+      } else if (step === "generate-quote") {
+        // Generate a quote for the lead
+        const { projectId, items } = data || {};
+        
+        if (!projectId) {
+          return res.status(400).json({ error: "Project ID is required for quote generation" });
+        }
+        
+        const project = await storage.getProject(projectId);
+        if (!project) {
+          return res.status(404).json({ error: "Project not found" });
+        }
+        
+        // Calculate pricing
+        const pricing = await storage.calculateCruisePricing({
+          groupSize: project.groupSize || 20,
+          eventDate: project.projectDate || new Date(),
+          timeSlot: project.preferredTime || "2pm-6pm",
+          promoCode: data?.promoCode
+        });
+        
+        // Create quote
+        const quote = await storage.createQuote({
+          projectId: project.id,
+          items: pricing.items,
+          subtotal: pricing.subtotal,
+          discountTotal: pricing.discountTotal,
+          tax: pricing.tax,
+          gratuity: pricing.gratuity,
+          total: pricing.total,
+          perPersonCost: pricing.perPersonCost,
+          depositRequired: pricing.depositRequired,
+          depositPercent: pricing.depositPercent,
+          depositAmount: pricing.depositAmount,
+          paymentSchedule: pricing.paymentSchedule,
+          expiresAt: pricing.expiresAt
+        });
+        
+        // Send quote via email
+        const contact = await storage.getContact(project.contactId);
+        if (contact?.email) {
+          await sendQuoteEmail(quote.id, contact.email, 
+            "Thank you for choosing Premier Party Cruises! Your custom quote is ready."
+          );
+        }
+        
+        // Send SMS with quote link
+        if (contact?.phone) {
+          await sendQuoteSMS(quote.id, contact.phone);
+        }
+        
+        res.json({
+          success: true,
+          quote,
+          pricing,
+          quoteUrl: `/quote/${quote.id}`,
+          message: "Quote generated and sent successfully!"
+        });
+        
+      } else {
+        res.status(400).json({ error: "Invalid step" });
+      }
+      
+    } catch (error: any) {
+      console.error("Chat booking error:", error);
+      res.status(500).json({ error: "Failed to process booking step", details: error.message });
+    }
+  });
+
   app.get("/api/chat/history/:sessionId", async (req, res) => {
     try {
       const messages = await storage.getChatMessages(req.params.sessionId);
