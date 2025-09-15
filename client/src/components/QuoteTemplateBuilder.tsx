@@ -134,15 +134,48 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
   const [duration, setDuration] = useState(template?.duration || 4);
   const [minGroupSize, setMinGroupSize] = useState(template?.minGroupSize || 1);
   const [maxGroupSize, setMaxGroupSize] = useState(template?.maxGroupSize || 100);
-  const [components, setComponents] = useState<TemplateComponent[]>(
-    template?.defaultItems?.map((item, index) => ({
-      id: `item-${index}`,
-      type: 'line_items',
-      properties: item,
-      order: index,
-      children: [],
-    })) || []
-  );
+  const [components, setComponents] = useState<TemplateComponent[]>(() => {
+    // Load from new components field if available (preferred)
+    if (template?.components && template.components.length > 0) {
+      return template.components;
+    }
+    
+    // Fall back to reconstructing from legacy fields for backward compatibility
+    const reconstructedComponents: TemplateComponent[] = [];
+    
+    // Reconstruct line_items components from defaultItems
+    if (template?.defaultItems && template.defaultItems.length > 0) {
+      template.defaultItems.forEach((item, index) => {
+        reconstructedComponents.push({
+          id: `item-${index}`,
+          type: 'line_items',
+          properties: item,
+          order: reconstructedComponents.length,
+          children: [],
+        });
+      });
+    }
+    
+    // Reconstruct radio_group components from defaultRadioSections
+    if (template?.defaultRadioSections && template.defaultRadioSections.length > 0) {
+      template.defaultRadioSections.forEach((section, index) => {
+        reconstructedComponents.push({
+          id: `radio-${index}`,
+          type: 'radio_group',
+          properties: {
+            title: section.title,
+            description: section.description,
+            required: section.required,
+            options: section.options,
+          },
+          order: reconstructedComponents.length,
+          children: [],
+        });
+      });
+    }
+    
+    return reconstructedComponents;
+  });
   const [selectedComponent, setSelectedComponent] = useState<string | null>(null);
   const [activeId, setActiveId] = useState<string | null>(null);
   const [showPreview, setShowPreview] = useState(false);
@@ -223,6 +256,7 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
   };
 
   const handleSave = () => {
+    // Store full components structure to preserve all data
     const templateData: Partial<QuoteTemplate> = {
       name,
       description,
@@ -230,7 +264,22 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
       duration,
       minGroupSize,
       maxGroupSize,
-      defaultItems: components.map(c => c.properties),
+      // Store full components array in new components field
+      components: components,
+      // For backward compatibility, properly map components to legacy fields
+      defaultItems: components
+        .filter(c => c.type === 'line_items')
+        .map(c => c.properties as any),
+      defaultRadioSections: components
+        .filter(c => c.type === 'radio_group')
+        .map(c => ({
+          id: c.id,
+          title: c.properties.title || '',
+          description: c.properties.description || '',
+          required: c.properties.required || false,
+          options: c.properties.options || [],
+          order: c.order,
+        })),
       active: true,
     };
     onSave(templateData);

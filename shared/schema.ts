@@ -136,6 +136,7 @@ export const quoteTemplates = pgTable("quote_templates", {
   eventType: text("event_type").notNull(),
   defaultItems: jsonb("default_items").$type<QuoteItem[]>().default([]),
   defaultRadioSections: jsonb("default_radio_sections").$type<RadioSection[]>().default([]),
+  components: jsonb("components").$type<TemplateComponent[]>().default([]), // Added for visual template builder
   minGroupSize: integer("min_group_size"),
   maxGroupSize: integer("max_group_size"),
   basePricePerPerson: integer("base_price_per_person"), // in cents
