@@ -7,6 +7,7 @@ import { googleSheetsService } from "./services/googleSheets";
 import { mailgunService } from "./services/mailgun";
 import { openRouterService } from "./services/openrouter";
 import { goHighLevelService, type LeadWebhookPayload } from "./services/gohighlevel";
+import { sendEmail as sendgridEmail, sendQuoteEmail as sendgridQuoteEmail } from "./services/sendgrid";
 import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest } from "@shared/schema";
 import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
@@ -30,6 +31,21 @@ async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: 
   const project = await storage.getProject(quote.projectId);
   const contact = project ? await storage.getContact(project.contactId) : null;
   
+  // Get detailed pricing breakdown for the email
+  const eventDate = project?.projectDate ? (typeof project.projectDate === 'string' ? new Date(project.projectDate) : project.projectDate) : null;
+  const formattedDate = eventDate ? eventDate.toLocaleDateString('en-US', { 
+    weekday: 'long', 
+    year: 'numeric', 
+    month: 'long', 
+    day: 'numeric' 
+  }) : 'To be confirmed';
+  
+  // Extract cruise type and package info from project data
+  const cruiseType = project?.data?.cruiseType || 'private';
+  const timeSlot = project?.preferredTime || project?.data?.timeSlot || 'TBD';
+  const packageName = project?.data?.packageName || (cruiseType === 'disco' ? project?.data?.discoPackage : 'Custom Package');
+  const boatType = project?.data?.boatType || cruiseType;
+  
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <div style="background: linear-gradient(135deg, #3b82f6, #06b6d4); padding: 30px; text-align: center;">
@@ -43,23 +59,40 @@ async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: 
         <p>Thank you for your interest in Premier Party Cruises! We've prepared a custom quote for your upcoming event.</p>
         
         <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <h3 style="margin-top: 0;">Quote Details</h3>
+          <h3 style="margin-top: 0; color: #1e40af;">📋 Quote Details</h3>
           <p><strong>Event:</strong> ${project?.eventType || 'Party Cruise'}</p>
-          <p><strong>Group Size:</strong> ${project?.groupSize || 'TBD'}</p>
-          <p><strong>Date:</strong> ${project?.projectDate ? (typeof project.projectDate === 'string' ? new Date(project.projectDate).toISOString().split('T')[0] : project.projectDate.toISOString().split('T')[0]) : 'To be confirmed'}</p>
-          <p><strong>Total:</strong> $${(quote.total / 100).toFixed(2)}</p>
+          <p><strong>Date:</strong> ${formattedDate}</p>
+          <p><strong>Time:</strong> ${timeSlot}</p>
+          <p><strong>Group Size:</strong> ${project?.groupSize || 'TBD'} guests</p>
+          <p><strong>Cruise Type:</strong> ${cruiseType === 'disco' ? 'Disco Cruise' : 'Private Charter'}</p>
+          ${packageName && packageName !== 'Custom Package' ? `<p><strong>Package:</strong> ${packageName}</p>` : ''}
+        </div>
+        
+        <div style="background: #f0f9ff; padding: 20px; border-radius: 8px; margin: 20px 0; text-align: center;">
+          <h3 style="margin-top: 0; color: #1e40af;">💰 Pricing Breakdown</h3>
+          <p style="font-size: 18px;"><strong>Subtotal:</strong> $${(quote.subtotal / 100).toFixed(2)}</p>
+          ${quote.discountTotal > 0 ? `<p style="color: #dc2626;"><strong>Discount:</strong> -$${(quote.discountTotal / 100).toFixed(2)}</p>` : ''}
+          ${quote.tax > 0 ? `<p><strong>Tax:</strong> $${(quote.tax / 100).toFixed(2)}</p>` : ''}
+          ${quote.gratuity > 0 ? `<p><strong>Gratuity:</strong> $${(quote.gratuity / 100).toFixed(2)}</p>` : ''}
+          <hr style="margin: 15px 0;">
+          <p style="font-size: 24px; color: #1e40af;"><strong>Total: $${(quote.total / 100).toFixed(2)}</strong></p>
+          ${quote.depositRequired ? `<p style="color: #059669;"><strong>Deposit Required:</strong> $${(quote.depositAmount / 100).toFixed(2)}</p>` : ''}
         </div>
         
         <div style="text-align: center; margin: 30px 0;">
           <a href="${getFullUrl(`/quote/${quote.id}`)}" 
-             style="background: #3b82f6; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
-            View Full Quote
+             style="background: #3b82f6; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; margin: 10px;">
+            🚢 View Full Quote & Book
           </a>
         </div>
         
         ${personalMessage ? `<p style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin: 20px 0;"><strong>Personal Message:</strong><br>${personalMessage}</p>` : ''}
         
-        <p>Questions? Reply to this email or call us at (512) 555-BOAT!</p>
+        <div style="background: #fef3c7; padding: 15px; border-radius: 8px; margin: 20px 0;">
+          <p style="margin: 0;"><strong>🎉 Ready to book?</strong> Click the link above to secure your date with a deposit, or reply to this email with any questions!</p>
+        </div>
+        
+        <p><strong>Questions?</strong> Reply to this email or call us at <strong>(512) 555-BOAT</strong>!</p>
         
         <p style="margin-top: 30px;">
           Best regards,<br>
@@ -74,9 +107,8 @@ async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: 
     </div>
   `;
   
-  // Use SendGrid for email delivery
-  const sendgrid = await import('./services/sendgrid');
-  return await sendgrid.sendEmail({
+  // Use the imported SendGrid function directly
+  return await sendgridEmail({
     to: email,
     from: process.env.SENDGRID_FROM_EMAIL || 'quotes@premierpartycruises.com',
     subject: '🚢 Your Party Cruise Quote is Ready!',
@@ -91,7 +123,13 @@ async function sendQuoteSMS(quoteId: string, phone: string) {
   const project = await storage.getProject(quote.projectId);
   const contact = project ? await storage.getContact(project.contactId) : null;
   
-  const message = `Hi ${contact?.name || 'there'}! 🚢 Your Premier Party Cruises quote is ready. Total: $${(quote.total / 100).toFixed(2)}. View details: ${getFullUrl(`/quote/${quote.id}`)}`;
+  // Get event details for more informative SMS
+  const eventDate = project?.projectDate ? (typeof project.projectDate === 'string' ? new Date(project.projectDate) : project.projectDate) : null;
+  const formattedDate = eventDate ? eventDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : 'TBD';
+  const cruiseType = project?.data?.cruiseType || 'private';
+  const eventType = project?.eventType || 'event';
+  
+  const message = `Hi ${contact?.name || 'there'}! 🚢 Your ${eventType} cruise quote (${formattedDate}) is ready: $${(quote.total / 100).toFixed(2)}. View & book: ${getFullUrl(`/quote/${quote.id}`)}`;
   
   return await goHighLevelService.send({
     to: phone,
@@ -655,7 +693,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           source: "AI Chat Widget"
         });
         
-        // Create project
+        // Create project with comprehensive comparison screen data
         const projectData = {
           contactId: contact.id,
           title: `${eventType || data?.eventType || 'Party'} Cruise for ${name || contact.name}`,
@@ -666,7 +704,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
           specialRequests: specialRequests || data?.specialRequests,
           preferredTime: timeSlot || data?.timeSlot,
           budget: budget ? parseInt(budget) * 100 : data?.budget ? parseInt(data.budget) * 100 : undefined,
-          leadSource: "chat" as const
+          leadSource: "chat" as const,
+          // Store all comparison screen data in the data field
+          data: {
+            // Cruise selection data
+            cruiseType: cruiseType || data?.cruiseType,
+            timeSlot: timeSlot || data?.timeSlot,
+            discoPackage: discoPackage || data?.discoPackage,
+            discoTimeSlot: data?.discoTimeSlot,
+            discoTicketQuantity: data?.discoTicketQuantity,
+            
+            // Private cruise data
+            selectedPrivatePackage: data?.selectedPrivatePackage,
+            selectedBoat: data?.selectedBoat,
+            preferredTimeLabel: data?.preferredTimeLabel,
+            groupSizeLabel: data?.groupSizeLabel,
+            
+            // Event details from form
+            eventTypeLabel: data?.eventTypeLabel,
+            eventEmoji: data?.eventEmoji,
+            firstName: data?.firstName,
+            lastName: data?.lastName,
+            
+            // Pricing data (will be populated when quote is generated)
+            privatePricing: data?.privatePricing,
+            discoPricing: data?.discoPricing,
+            
+            // Additional metadata
+            sessionId: sessionId,
+            chatSource: true,
+            flowStep: "lead_created"
+          }
         };
         
         const project = await storage.createProject(projectData);
