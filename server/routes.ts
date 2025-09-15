@@ -873,6 +873,38 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Test SMS endpoint
+  app.post("/api/sms/test", async (req, res) => {
+    try {
+      const { phone, message } = req.body;
+      
+      // Default test message if none provided
+      const testMessage = message || 
+        "🚢 Premier Party Cruises Test\n\n" +
+        "This is a test message from your CRM system. " +
+        "GoHighLevel SMS integration is working correctly!\n\n" +
+        "- SMS delivery: ✅\n" +
+        "- Integration status: Active\n" +
+        "- System ready for production\n\n" +
+        "Reply STOP to opt out.";
+      
+      const success = await goHighLevelService.send({
+        to: phone || '5125767975',  // Default to user's phone if not specified
+        body: testMessage
+      });
+      
+      res.json({ 
+        success, 
+        message: success ? 'Test SMS sent successfully!' : 'SMS send failed - check logs for details',
+        phone: phone || '5125767975',
+        timestamp: new Date().toISOString()
+      });
+    } catch (error) {
+      console.error("Test SMS error:", error);
+      res.status(500).json({ error: "Failed to send test SMS" });
+    }
+  });
+
   // Public quote viewing endpoint
   app.get("/api/quotes/:id/public", async (req, res) => {
     try {
