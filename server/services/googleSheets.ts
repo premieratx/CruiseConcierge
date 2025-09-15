@@ -233,7 +233,7 @@ export class GoogleSheetsService {
             availability.push({
               date: current.toISOString().split('T')[0],
               day: dayName,
-              time: "12:00",
+              time: "12:00 PM - 4:00 PM",
               boatType: boat.name,
               capacity: boat.capacity,
               baseRate: boat.fridayRate,
@@ -241,7 +241,7 @@ export class GoogleSheetsService {
               notes: "Disco Packages Available"
             });
           } else if (dayOfWeek === 6) { // Saturday
-            ["11:00", "15:30"].forEach(time => {
+            ["11:00 AM - 3:00 PM", "3:30 PM - 7:30 PM"].forEach(time => {
               availability.push({
                 date: current.toISOString().split('T')[0],
                 day: dayName,
@@ -784,7 +784,7 @@ export class GoogleSheetsService {
             availability.push({
               date: current.toISOString().split('T')[0],
               day: dayName,
-              time: "12:00",
+              time: "12:00 PM - 4:00 PM",
               boatType: boat.name,
               capacity: boat.capacity,
               baseRate: boat.fridayRate,
@@ -792,7 +792,7 @@ export class GoogleSheetsService {
               notes: "Disco Packages Available"
             });
           } else if (dayOfWeek === 6) { // Saturday
-            ["11:00", "15:30"].forEach(time => {
+            ["11:00 AM - 3:00 PM", "3:30 PM - 7:30 PM"].forEach(time => {
               availability.push({
                 date: current.toISOString().split('T')[0],
                 day: dayName,
