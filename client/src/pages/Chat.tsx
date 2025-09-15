@@ -12,6 +12,7 @@ import {
   Music, Anchor, Crown, Zap, Calendar, ArrowRight, ArrowLeft,
   RotateCcw, CheckCircle, Settings, Plus, Minus
 } from 'lucide-react';
+import { AlternativeDates } from '@/components/AlternativeDates';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -29,13 +30,13 @@ import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSe
 type Question = 
   | 'welcome'
   | 'event-type' 
+  | 'group-size-selection'
+  | 'comparison-selection'
   | 'contact-info' 
   | 'date-selection' 
-  | 'group-size-selection'
   | 'time-slot-selection'
   | 'boat-selection'
   | 'package-selection'
-  | 'comparison-selection' 
   | 'complete';
 
 type CruiseType = 'private' | 'disco';
@@ -365,17 +366,16 @@ export default function Chat() {
     return availability;
   };
 
-  // Fetch private cruise pricing when all required data is available
+  // Fetch private cruise pricing when package and group size are available (date optional for early pricing)
   useEffect(() => {
-    if (formData.eventDate && formData.selectedTimeSlot && formData.selectedPrivatePackage && formData.groupSize) {
+    if (formData.selectedPrivatePackage && formData.groupSize) {
       fetchPrivatePricing();
     }
-  }, [formData.eventDate, formData.selectedTimeSlot, formData.selectedPrivatePackage, formData.groupSize]);
+  }, [formData.selectedPrivatePackage, formData.groupSize]);
   
   // Auto-select default options when reaching comparison page for immediate pricing display
   useEffect(() => {
-    if (currentQuestion === 'comparison-selection' && formData.eventDate && 
-        (formData.eventType === 'bachelor' || formData.eventType === 'bachelorette')) {
+    if (currentQuestion === 'comparison-selection' && formData.groupSize > 0) {
       
       // Auto-select private cruise defaults if not already selected
       if (!formData.selectedTimeSlot || !formData.selectedPrivatePackage) {
@@ -412,12 +412,12 @@ export default function Chat() {
     }
   }, [currentQuestion, formData.eventDate, formData.eventType]);
   
-  // Fetch disco pricing when all required disco data is available
+  // Fetch disco pricing when package and quantity are available (date optional for early pricing)
   useEffect(() => {
-    if (formData.selectedDiscoPackage && formData.discoTicketQuantity && formData.eventDate && formData.selectedDiscoTimeSlot) {
+    if (formData.selectedDiscoPackage && formData.discoTicketQuantity) {
       fetchDiscoPricing();
     }
-  }, [formData.selectedDiscoPackage, formData.discoTicketQuantity, formData.eventDate, formData.selectedDiscoTimeSlot]);
+  }, [formData.selectedDiscoPackage, formData.discoTicketQuantity]);
 
   // Immediate pricing calculation for disco quantity changes - ensures real-time updates
   useEffect(() => {
@@ -609,10 +609,10 @@ export default function Chat() {
     });
   };
 
-  // Enhanced Navigation functions
+  // Enhanced Navigation functions - RESTRUCTURED FLOW for early pricing
   const questionOrder: Question[] = [
-    'welcome', 'event-type', 'date-selection', 'group-size-selection',
-    'time-slot-selection', 'boat-selection', 'package-selection', 'comparison-selection', 'complete'
+    'welcome', 'event-type', 'group-size-selection', 'date-selection', 
+    'comparison-selection', 'contact-info', 'complete'
   ];
 
   const getQuestionIndex = (question: Question) => questionOrder.indexOf(question);
@@ -1043,14 +1043,20 @@ export default function Chat() {
   // Confirm group size and proceed
   const handleGroupSizeConfirm = () => {
     if (formData.groupSize >= GROUP_SIZE_MIN && formData.groupSize <= GROUP_SIZE_MAX) {
-      // For bachelor/bachelorette, go to time slot selection
-      if (formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') {
-        progressToNextQuestion();
-      } else {
-        // For other events, skip to comparison selection
-        setCurrentQuestion('comparison-selection');
-        updateProgress('comparison-selection');
-      }
+      // IMMEDIATELY show pricing comparison after group size
+      setCurrentQuestion('comparison-selection');
+      updateProgress('comparison-selection');
+      
+      // Auto-select default packages for immediate pricing display
+      const defaultPrivatePackage = privatePackages.find(pkg => pkg.popular) || privatePackages[0];
+      const defaultDiscoPackage = discoPackages[0];
+      
+      setFormData(prev => ({
+        ...prev,
+        selectedPrivatePackage: defaultPrivatePackage.id,
+        selectedDiscoPackage: defaultDiscoPackage.id as DiscoPackage,
+        discoTicketQuantity: Math.min(prev.groupSize, 10),
+      }));
     }
   };
   
@@ -1596,7 +1602,6 @@ export default function Chat() {
         'contact-info': 'Contact Info', 
         'date-selection': 'Date Selection',
         'group-size-selection': 'Group Size',
-        'time-slot-selection': 'Time Slot',
         'boat-selection': 'Select Boat',
         'package-selection': 'Package Options',
         'comparison-selection': 'Cruise Options',
@@ -2704,8 +2709,8 @@ export default function Chat() {
               </motion.div>
             )}
 
-            {/* Enhanced Comparison & Booking - Core Feature */}
-            {currentQuestion === 'comparison-selection' && formData.eventDate && (
+            {/* Enhanced Comparison & Booking - SHOWS IMMEDIATELY AFTER GROUP SIZE */}
+            {currentQuestion === 'comparison-selection' && (
               <motion.div
                 key="comparison-selection"
                 variants={fadeInUp}
@@ -2714,21 +2719,32 @@ export default function Chat() {
                 exit="exit"
                 className="space-y-6"
               >
-                {/* Condensed Header with Selections Summary */}
-                <div className="bg-gradient-to-r from-blue-50 via-purple-50 to-pink-50 dark:from-blue-900/20 dark:via-purple-900/20 dark:to-pink-900/20 rounded-xl p-4">
-                  <div className="flex items-center justify-between">
-                    <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                      Choose Your Experience
-                    </h2>
-                    {/* Completed selections summary */}
-                    <div className="flex items-center gap-2 text-sm text-slate-600 dark:text-slate-400">
-                      <span>{formData.eventTypeLabel}</span>
-                      <span>•</span>
-                      <span>{format(formData.eventDate, 'MMM d')}</span>
-                      <span>•</span>
-                      <span>{formData.groupSize} people</span>
-                    </div>
+                {/* Professional Header with Pricing Focus */}
+                <div className="text-center space-y-4 mb-8">
+                  <motion.div
+                    initial={{ scale: 0.8, opacity: 0 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ delay: 0.1, duration: 0.6 }}
+                    className="w-20 h-20 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg"
+                  >
+                    <DollarSign className="h-10 w-10 text-white" />
+                  </motion.div>
+                  <h2 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                    Compare Your Options
+                  </h2>
+                  <div className="flex items-center justify-center gap-3 text-lg text-slate-600 dark:text-slate-400">
+                    <Badge variant="secondary" className="px-3 py-1">
+                      <span className="text-2xl mr-2">{formData.eventEmoji}</span>
+                      {formData.eventTypeLabel}
+                    </Badge>
+                    <Badge variant="secondary" className="px-3 py-1">
+                      <Users className="h-4 w-4 mr-2 inline" />
+                      {formData.groupSize} {formData.groupSize === 1 ? 'Person' : 'People'}
+                    </Badge>
                   </div>
+                  <p className="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+                    Select your preferred cruise experience. Pricing is calculated for your group size.
+                  </p>
                 </div>
 
                 {/* Dynamic Grid Layout - Two columns for all groups - MOVED TO TOP */}
@@ -2739,23 +2755,34 @@ export default function Chat() {
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ delay: 0.2, duration: 0.5 }}
                     className={cn(
-                      "bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-xl p-6 border-2 transition-all w-full",
+                      "bg-gradient-to-b from-white to-blue-50/30 dark:from-slate-800 dark:to-blue-900/20 backdrop-blur-sm rounded-2xl shadow-2xl p-6 border-2 transition-all w-full hover:shadow-3xl",
                       formData.selectedCruiseType === 'private' ? "border-blue-500 ring-2 ring-blue-200 dark:ring-blue-800" : "border-slate-200 dark:border-slate-700"
                     )}
                   >
-                    <div className="flex items-center gap-3 mb-6">
-                      <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                        <Anchor className="h-6 w-6 text-blue-600" />
+                    {/* Enhanced Header with Prominent Pricing */}
+                    <div className="text-center mb-6">
+                      <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-full mb-4 shadow-lg">
+                        <Anchor className="h-8 w-8 text-white" />
                       </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-200">Private Cruise</h3>
-                        <p className="text-slate-600 dark:text-slate-400">Exclusive boat rental</p>
-                      </div>
-                      {/* Integrated Total Price Display */}
-                      {privatePricing && (
-                        <div className="text-right">
-                          <div className="text-2xl font-bold text-blue-600">{formatCurrency(privatePricing.total)}</div>
-                          <div className="text-xs text-slate-500">total</div>
+                      <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-2">Private Cruise</h3>
+                      <p className="text-slate-600 dark:text-slate-400 mb-4">Exclusive boat for your group</p>
+                      
+                      {/* PROMINENT PRICING DISPLAY */}
+                      {privatePricing ? (
+                        <div className="bg-gradient-to-r from-blue-100 to-purple-100 dark:from-blue-900/40 dark:to-purple-900/40 rounded-xl p-4">
+                          <div className="text-4xl font-bold text-blue-600 dark:text-blue-400">
+                            {formatCurrency(privatePricing.total)}
+                          </div>
+                          <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                            Total for {formData.groupSize} people
+                          </div>
+                          <div className="text-lg font-semibold text-slate-700 dark:text-slate-300 mt-2">
+                            {formatCurrency(privatePricing.total / formData.groupSize)} per person
+                          </div>
+                        </div>
+                      ) : (
+                        <div className="animate-pulse bg-slate-100 dark:bg-slate-700 rounded-xl h-32 flex items-center justify-center">
+                          <Loader2 className="h-6 w-6 animate-spin text-blue-600" />
                         </div>
                       )}
                     </div>
@@ -2795,13 +2822,18 @@ export default function Chat() {
                       </RadioGroup>
                     </div>
                     
-                    {/* Private Cruise Time Slots */}
-                    {formData.selectedPrivatePackage && (
-                      <div className="space-y-4">
-                        <h4 className="font-medium text-slate-700 dark:text-slate-300">Available Time Slots</h4>
+                    {/* Private Cruise Time Slots - Show All Available Times */}
+                    <div className="space-y-4 mt-6">
+                      <h4 className="font-medium text-slate-700 dark:text-slate-300">Available Time Slots</h4>
+                      {formData.eventDate ? (
                         <RadioGroup 
                           value={formData.selectedTimeSlot}
-                          onValueChange={(value) => handlePrivateCruiseSelect(value)}
+                          onValueChange={(value) => {
+                            setFormData(prev => ({ ...prev, selectedTimeSlot: value }));
+                            if (formData.selectedPrivatePackage) {
+                              handlePrivateCruiseSelect(value);
+                            }
+                          }}
                           data-testid="radio-private-time-slots"
                         >
                           {getPrivateTimeSlotsForDate(formData.eventDate).map((slot) => (
@@ -2809,19 +2841,28 @@ export default function Chat() {
                               <RadioGroupItem value={slot.id} id={`private-${slot.id}`} />
                               <Label 
                                 htmlFor={`private-${slot.id}`} 
-                                className="flex-1 flex items-center justify-between cursor-pointer py-2"
+                                className="flex-1 cursor-pointer py-3 px-3 rounded-lg border hover:bg-slate-50 dark:hover:bg-slate-700 transition-colors"
                               >
-                                <div className="flex items-center gap-2">
-                                  <span className="text-lg">{slot.icon}</span>
-                                  <span>{slot.label}</span>
-                                  {slot.popular && <Badge variant="secondary" className="text-xs">Popular</Badge>}
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-2">
+                                    <span className="text-lg">{slot.icon}</span>
+                                    <span className="font-medium">{slot.label}</span>
+                                    {slot.popular && <Badge variant="secondary" className="text-xs ml-2">Popular</Badge>}
+                                  </div>
+                                  {privatePricing && formData.selectedPrivatePackage && (
+                                    <span className="text-sm font-semibold text-blue-600">
+                                      {formatCurrency(privatePricing.total)}
+                                    </span>
+                                  )}
                                 </div>
                               </Label>
                             </div>
                           ))}
                         </RadioGroup>
-                      </div>
-                    )}
+                      ) : (
+                        <p className="text-sm text-slate-500 dark:text-slate-400 italic">Select a date to see available times</p>
+                      )}
+                    </div>
                     
                     {/* Enhanced Private Cruise Pricing */}
                     {formData.selectedTimeSlot && formData.selectedPrivatePackage && privatePricing && (
@@ -2856,64 +2897,90 @@ export default function Chat() {
                           </div>
                         </div>
                         
-                        {/* Compact Payment Options */}
-                        <div className="bg-white dark:bg-slate-800 rounded-xl p-3 border border-slate-200 dark:border-slate-700">
-                          <div className="grid grid-cols-2 gap-2">
-                            <Button
-                              onClick={() => createDepositPayment.mutate()}
-                              disabled={createDepositPayment.isPending}
-                              className="bg-green-600 hover:bg-green-700 text-white h-10 text-sm"
-                              data-testid="button-pay-deposit-private"
-                            >
-                              {createDepositPayment.isPending && <Loader2 className="h-3 w-3 mr-1 animate-spin" />}
-                              <CreditCard className="h-3 w-3 mr-1" />
-                              Pay Deposit
-                            </Button>
-                            <Button
-                              onClick={() => createFullPayment.mutate()}
-                              disabled={createFullPayment.isPending}
-                              variant="outline"
-                              className="border-green-600 text-green-600 hover:bg-green-50 dark:hover:bg-green-900/20 h-10 text-sm"
-                              data-testid="button-pay-full-private"
-                            >
-                              {createFullPayment.isPending && <Loader2 className="h-3 w-3 mr-1 animate-spin" />}
-                              <Sparkles className="h-3 w-3 mr-1" />
-                              Pay in Full
-                            </Button>
-                          </div>
-                          <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-2">
-                            Deposit: {formatCurrency(privatePricing.depositAmount)} • Balance: {formatCurrency(privatePricing.total - privatePricing.depositAmount)}
-                          </p>
-                        </div>
+                        {/* Selection Button for Private Cruise */}
+                        <Button
+                          onClick={() => {
+                            setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
+                            addCompletedSelection({
+                              id: 'cruise-type',
+                              label: 'Selected Option',
+                              value: `Private Cruise - ${formatCurrency(privatePricing.total)}`,
+                              icon: 'anchor'
+                            });
+                            setCurrentQuestion('contact-info');
+                            updateProgress('contact-info');
+                          }}
+                          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white h-14 text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
+                          data-testid="button-select-private"
+                        >
+                          <CheckCircle className="h-5 w-5 mr-2" />
+                          Choose Private Cruise
+                        </Button>
+                        <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-2">
+                          25% deposit required • Pay remainder 30 days before
+                        </p>
                       </motion.div>
                     )}
                   </motion.div>
 
-                  {/* Right Column: ATX Disco Cruise for bachelor/bachelorette OR Alternative Dates for others */}
-                  {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') ? (
+                  {/* Right Column: Alternative Dates for bachelor/bachelorette OR Disco Cruise for others */}
+                  {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') && formData.eventDate ? (
+                    <AlternativeDates
+                      selectedDate={formData.eventDate}
+                      groupSize={formData.groupSize}
+                      onSelectDate={(date, timeSlot) => {
+                        setFormData(prev => ({
+                          ...prev,
+                          eventDate: date,
+                          selectedTimeSlot: timeSlot,
+                        }));
+                        // Update completed selections
+                        addCompletedSelection({
+                          id: 'date',
+                          label: 'Event Date',
+                          value: format(date, 'EEEE, MMMM d, yyyy'),
+                          icon: 'calendar'
+                        });
+                      }}
+                      getTimeSlotsForDate={getPrivateTimeSlotsForDate}
+                      formatCurrency={formatCurrency}
+                      basePrice={privatePricing?.total || 0}
+                    />
+                  ) : isDiscoAvailableForDate(formData.eventDate) ? (
                     <motion.div
                       initial={{ scale: 0.95, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ delay: 0.4, duration: 0.5 }}
                       className={cn(
-                        "bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-xl p-6 border-2 transition-all w-full",
+                        "bg-gradient-to-b from-white to-blue-50/30 dark:from-slate-800 dark:to-blue-900/20 backdrop-blur-sm rounded-2xl shadow-2xl p-6 border-2 transition-all w-full hover:shadow-3xl",
                         formData.selectedCruiseType === 'disco' ? "border-purple-500 ring-2 ring-purple-200 dark:ring-purple-800" : "border-slate-200 dark:border-slate-700",
                         !isDiscoAvailableForDate(formData.eventDate) && "opacity-50"
                       )}
                     >
-                      <div className="flex items-center gap-3 mb-6">
-                        <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                          <Music className="h-6 w-6 text-purple-600" />
+                      {/* Enhanced Header with Prominent Pricing */}
+                      <div className="text-center mb-6">
+                        <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full mb-4 shadow-lg">
+                          <Music className="h-8 w-8 text-white" />
                         </div>
-                        <div className="flex-1">
-                          <h3 className="text-xl font-semibold text-slate-800 dark:text-slate-200">ATX Disco Cruise</h3>
-                          <p className="text-slate-600 dark:text-slate-400">Party with others</p>
-                        </div>
-                        {/* Integrated Total Price Display */}
-                        {discoPricing && (
-                          <div className="text-right">
-                            <div className="text-2xl font-bold text-purple-600">{formatCurrency(discoPricing.total)}</div>
-                            <div className="text-xs text-slate-500">{formatCurrency(discoPricing.perPersonCost)} pp</div>
+                        <h3 className="text-2xl font-bold text-slate-800 dark:text-slate-200 mb-2">ATX Disco Cruise</h3>
+                        <p className="text-slate-600 dark:text-slate-400 mb-4">Party with other groups</p>
+                        
+                        {/* PROMINENT PRICING DISPLAY */}
+                        {discoPricing ? (
+                          <div className="bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/40 dark:to-pink-900/40 rounded-xl p-4">
+                            <div className="text-4xl font-bold text-purple-600 dark:text-purple-400">
+                              {formatCurrency(discoPricing.total)}
+                            </div>
+                            <div className="text-sm text-slate-600 dark:text-slate-400 mt-1">
+                              {formData.discoTicketQuantity} tickets × {formatCurrency(discoPricing.perPersonCost)}
+                            </div>
+                            <div className="text-lg font-semibold text-slate-700 dark:text-slate-300 mt-2">
+                              {formatCurrency(discoPricing.perPersonCost)} per person
+                            </div>
+                          </div>
+                        ) : (
+                          <div className="animate-pulse bg-slate-100 dark:bg-slate-700 rounded-xl h-32 flex items-center justify-center">
+                            <Loader2 className="h-6 w-6 animate-spin text-purple-600" />
                           </div>
                         )}
                       </div>
@@ -3040,34 +3107,29 @@ export default function Chat() {
                             </div>
                           )}
                           
-                          {/* Payment Options for Disco */}
+                          {/* Selection Button for Disco Cruise */}
                           {formData.selectedDiscoPackage && discoPricing && (
-                            <div className="mt-4 bg-white dark:bg-slate-800 rounded-xl p-3 border border-slate-200 dark:border-slate-700">
-                              <div className="grid grid-cols-2 gap-2">
-                                <Button
-                                  onClick={() => createDiscoDepositPayment.mutate()}
-                                  disabled={createDiscoDepositPayment.isPending}
-                                  className="bg-purple-600 hover:bg-purple-700 text-white h-10 text-sm"
-                                  data-testid="button-pay-deposit-disco"
-                                >
-                                  {createDiscoDepositPayment.isPending && <Loader2 className="h-3 w-3 mr-1 animate-spin" />}
-                                  <CreditCard className="h-3 w-3 mr-1" />
-                                  Pay Deposit
-                                </Button>
-                                <Button
-                                  onClick={() => createDiscoFullPayment.mutate()}
-                                  disabled={createDiscoFullPayment.isPending}
-                                  variant="outline"
-                                  className="border-purple-600 text-purple-600 hover:bg-purple-50 dark:hover:bg-purple-900/20 h-10 text-sm"
-                                  data-testid="button-pay-full-disco"
-                                >
-                                  {createDiscoFullPayment.isPending && <Loader2 className="h-3 w-3 mr-1 animate-spin" />}
-                                  <Sparkles className="h-3 w-3 mr-1" />
-                                  Pay in Full
-                                </Button>
-                              </div>
+                            <div className="mt-4">
+                              <Button
+                                onClick={() => {
+                                  setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
+                                  addCompletedSelection({
+                                    id: 'cruise-type',
+                                    label: 'Selected Option',
+                                    value: `ATX Disco Cruise - ${formatCurrency(discoPricing.total)}`,
+                                    icon: 'music'
+                                  });
+                                  setCurrentQuestion('contact-info');
+                                  updateProgress('contact-info');
+                                }}
+                                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white h-14 text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
+                                data-testid="button-select-disco"
+                              >
+                                <CheckCircle className="h-5 w-5 mr-2" />
+                                Choose Disco Cruise
+                              </Button>
                               <p className="text-xs text-slate-500 dark:text-slate-400 text-center mt-2">
-                                Deposit: {formatCurrency(discoPricing.depositAmount)} • Balance: {formatCurrency(discoPricing.total - discoPricing.depositAmount)}
+                                25% deposit required • Balance due 30 days before
                               </p>
                             </div>
                           )}
@@ -3235,7 +3297,7 @@ export default function Chat() {
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ delay: 0.4, duration: 0.5 }}
                       className={cn(
-                        "bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-xl p-6 border-2 transition-all w-full",
+                        "bg-gradient-to-b from-white to-blue-50/30 dark:from-slate-800 dark:to-blue-900/20 backdrop-blur-sm rounded-2xl shadow-2xl p-6 border-2 transition-all w-full hover:shadow-3xl",
                         formData.selectedCruiseType === 'disco' ? "border-purple-500 ring-2 ring-purple-200 dark:ring-purple-800" : "border-slate-200 dark:border-slate-700",
                         !isDiscoAvailableForDate(formData.eventDate) && "opacity-50"
                       )}

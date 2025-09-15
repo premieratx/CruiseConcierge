@@ -13,6 +13,8 @@ import { Analytics } from "@/components/Analytics";
 import { IntegrationStatus } from "@/components/IntegrationStatus";
 import CalendarView from "@/components/CalendarView";
 import Navigation from "@/components/Navigation";
+import { RecentQuotes } from "@/components/RecentQuotes";
+import { RecentInvoices } from "@/components/RecentInvoices";
 import { apiRequest } from "@/lib/queryClient";
 import { useLocation } from "wouter";
 import { useMutation, useQuery } from "@tanstack/react-query";
@@ -21,7 +23,7 @@ import logoPath from "@assets/PPC Logo LARGE_1757881944449.png";
 import { 
   Plus, TrendingUp, Calendar, LayoutDashboard, FileText, 
   MessageCircle, Package, DollarSign, Tag, Info, Save,
-  ShoppingBag, Anchor, Ship
+  ShoppingBag, Anchor, Ship, CreditCard, Users, BarChart3
 } from "lucide-react";
 import type { Product, InsertProduct } from "@shared/schema";
 
@@ -200,10 +202,14 @@ export default function Dashboard() {
       {/* Main Content Tabs */}
       <div className="container mx-auto px-4 py-6">
         <Tabs defaultValue="overview" className="w-full">
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-3 mb-6">
+          <TabsList className="grid w-full max-w-lg mx-auto grid-cols-4 mb-6">
             <TabsTrigger value="overview" className="flex items-center gap-2" data-testid="tab-overview">
               <LayoutDashboard className="h-4 w-4" />
               Overview
+            </TabsTrigger>
+            <TabsTrigger value="quotes" className="flex items-center gap-2" data-testid="tab-quotes">
+              <FileText className="h-4 w-4" />
+              Quotes
             </TabsTrigger>
             <TabsTrigger value="products" className="flex items-center gap-2" data-testid="tab-products">
               <Package className="h-4 w-4" />
@@ -222,10 +228,123 @@ export default function Dashboard() {
               <Analytics />
               <CRMPipeline />
               
+              {/* Recent Quotes and Invoices */}
+              <RecentQuotes />
+              <RecentInvoices />
+              
+              {/* Customer Stats Card */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <Users className="h-5 w-5" />
+                    Customer Overview
+                  </CardTitle>
+                  <CardDescription>
+                    Your customer base at a glance
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-3 gap-4">
+                    <div className="text-center p-4 border rounded-lg">
+                      <p className="text-2xl font-bold text-primary">152</p>
+                      <p className="text-xs text-muted-foreground">Total Customers</p>
+                    </div>
+                    <div className="text-center p-4 border rounded-lg">
+                      <p className="text-2xl font-bold text-green-600">23</p>
+                      <p className="text-xs text-muted-foreground">Active This Month</p>
+                    </div>
+                    <div className="text-center p-4 border rounded-lg">
+                      <p className="text-2xl font-bold text-blue-600">8</p>
+                      <p className="text-xs text-muted-foreground">New This Week</p>
+                    </div>
+                  </div>
+                  <Button variant="link" className="w-full mt-4" onClick={() => setLocation("/leads")}>
+                    View All Customers →
+                  </Button>
+                </CardContent>
+              </Card>
+              
+              {/* Product Performance Card */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <BarChart3 className="h-5 w-5" />
+                    Top Products
+                  </CardTitle>
+                  <CardDescription>
+                    Most quoted products this month
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {[
+                      { name: "Private Cruise - Ultimate Package", quotes: 18, revenue: 45000 },
+                      { name: "ATX Disco Cruise - Basic", quotes: 14, revenue: 11900 },
+                      { name: "Bar Package Premium", quotes: 12, revenue: 3600 },
+                      { name: "Photography Service", quotes: 8, revenue: 4000 },
+                    ].map((product, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 border rounded-lg">
+                        <div>
+                          <p className="text-sm font-medium">{product.name}</p>
+                          <p className="text-xs text-muted-foreground">{product.quotes} quotes</p>
+                        </div>
+                        <p className="text-sm font-semibold text-primary">
+                          ${(product.revenue / 100).toLocaleString()}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                  <Button variant="link" className="w-full mt-4" onClick={() => setLocation("/products")}>
+                    View All Products →
+                  </Button>
+                </CardContent>
+              </Card>
+              
               {/* Integration Status - Full Width */}
               <div className="lg:col-span-2">
                 <IntegrationStatus />
               </div>
+            </div>
+          </TabsContent>
+
+          {/* Quotes Tab */}
+          <TabsContent value="quotes" className="space-y-6">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <RecentQuotes />
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2">
+                    <FileText className="h-5 w-5" />
+                    Quote Templates
+                  </CardTitle>
+                  <CardDescription>
+                    Most used templates this month
+                  </CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    {[
+                      { name: "Bachelor Party Standard", uses: 24 },
+                      { name: "Corporate Event Premium", uses: 18 },
+                      { name: "Wedding Reception Deluxe", uses: 15 },
+                      { name: "Birthday Celebration", uses: 12 },
+                    ].map((template, index) => (
+                      <div key={index} className="flex items-center justify-between p-3 border rounded-lg hover:bg-muted/50 transition-colors">
+                        <div>
+                          <p className="text-sm font-medium">{template.name}</p>
+                          <p className="text-xs text-muted-foreground">Used {template.uses} times</p>
+                        </div>
+                        <Button size="sm" variant="outline" onClick={() => setLocation("/templates")}>
+                          Edit
+                        </Button>
+                      </div>
+                    ))}
+                  </div>
+                  <Button variant="link" className="w-full mt-4" onClick={() => setLocation("/templates")}>
+                    Manage All Templates →
+                  </Button>
+                </CardContent>
+              </Card>
             </div>
           </TabsContent>
 
