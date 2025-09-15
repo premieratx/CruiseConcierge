@@ -1,22 +1,26 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { Plus, Edit2, Trash2, Copy, Eye, EyeOff, FileText } from "lucide-react";
+import { Plus, Edit2, Trash2, Copy, Eye, EyeOff, FileText, Download } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import type { QuoteTemplate, InsertQuoteTemplate } from "@shared/schema";
 import QuoteTemplateBuilder from "@/components/QuoteTemplateBuilder";
+import { ExportButton, ExportTemplateButton, ImportButton } from "@/components/TemplateExportImport";
 
 
 export default function Templates() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [editingTemplate, setEditingTemplate] = useState<QuoteTemplate | null>(null);
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedTemplates, setSelectedTemplates] = useState<Set<string>>(new Set());
+  const [selectAll, setSelectAll] = useState(false);
   const { toast } = useToast();
 
   const { data: templates = [], isLoading } = useQuery<QuoteTemplate[]>({
@@ -109,6 +113,31 @@ export default function Templates() {
     setIsDialogOpen(true);
   };
 
+  const handleSelectTemplate = (templateId: string, checked: boolean) => {
+    const newSelected = new Set(selectedTemplates);
+    if (checked) {
+      newSelected.add(templateId);
+    } else {
+      newSelected.delete(templateId);
+      setSelectAll(false);
+    }
+    setSelectedTemplates(newSelected);
+  };
+
+  const handleSelectAll = (checked: boolean) => {
+    if (checked) {
+      setSelectedTemplates(new Set(filteredTemplates.map(t => t.id)));
+      setSelectAll(true);
+    } else {
+      setSelectedTemplates(new Set());
+      setSelectAll(false);
+    }
+  };
+
+  const getSelectedTemplateObjects = () => {
+    return filteredTemplates.filter(t => selectedTemplates.has(t.id));
+  };
+
 
   const filteredTemplates = templates.filter(template =>
     template.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -131,40 +160,71 @@ export default function Templates() {
         <div>
           <h1 className="text-3xl font-bold">Quote Templates</h1>
           <p className="text-muted-foreground mt-1">Manage reusable quote templates for different event types</p>
+          {selectedTemplates.size > 0 && (
+            <p className="text-sm text-primary mt-1">
+              {selectedTemplates.size} template{selectedTemplates.size === 1 ? '' : 's'} selected
+            </p>
+          )}
         </div>
-        <Dialog open={isDialogOpen} onOpenChange={(open) => {
-          setIsDialogOpen(open);
-          if (!open) {
-            setEditingTemplate(null);
-          }
-        }}>
-          <DialogTrigger asChild>
-            <Button data-testid="button-new-template">
-              <Plus className="h-4 w-4 mr-2" />
-              New Template
-            </Button>
-          </DialogTrigger>
-          <DialogContent className="max-w-[95vw] max-h-[95vh] w-full p-0">
-            <QuoteTemplateBuilder
-              template={editingTemplate}
-              onSave={handleTemplateSave}
-              onCancel={() => {
-                setIsDialogOpen(false);
-                setEditingTemplate(null);
-              }}
-            />
-          </DialogContent>
-        </Dialog>
+        <div className="flex gap-2">
+          <ImportButton 
+            onImportComplete={() => {
+              setSelectedTemplates(new Set());
+              setSelectAll(false);
+            }}
+          />
+          <ExportButton 
+            templates={filteredTemplates} 
+            selectedTemplates={getSelectedTemplateObjects()}
+          />
+          <Dialog open={isDialogOpen} onOpenChange={(open) => {
+            setIsDialogOpen(open);
+            if (!open) {
+              setEditingTemplate(null);
+            }
+          }}>
+            <DialogTrigger asChild>
+              <Button data-testid="button-new-template">
+                <Plus className="h-4 w-4 mr-2" />
+                New Template
+              </Button>
+            </DialogTrigger>
+            <DialogContent className="max-w-[95vw] max-h-[95vh] w-full p-0">
+              <QuoteTemplateBuilder
+                template={editingTemplate}
+                onSave={handleTemplateSave}
+                onCancel={() => {
+                  setIsDialogOpen(false);
+                  setEditingTemplate(null);
+                }}
+              />
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
 
       <div className="mb-6">
-        <Input
-          placeholder="Search templates..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="max-w-md"
-          data-testid="input-search"
-        />
+        <div className="flex items-center gap-4">
+          <Input
+            placeholder="Search templates..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="max-w-md"
+            data-testid="input-search"
+          />
+          {filteredTemplates.length > 0 && (
+            <div className="flex items-center gap-2">
+              <Checkbox
+                checked={selectAll}
+                onCheckedChange={handleSelectAll}
+                data-testid="checkbox-select-all"
+              />
+              <span className="text-sm text-muted-foreground">
+                Select all {filteredTemplates.length} templates
+              </span>
+            </div>
+          )}
+        </div>
       </div>
 
       <div className="grid gap-4">
@@ -176,8 +236,15 @@ export default function Templates() {
           filteredTemplates.map((template) => (
             <Card key={template.id} className="p-6" data-testid={`card-template-${template.id}`}>
               <div className="flex items-start justify-between">
-                <div className="flex-1">
-                  <div className="flex items-center gap-3 mb-2">
+                <div className="flex items-start gap-3">
+                  <Checkbox
+                    checked={selectedTemplates.has(template.id)}
+                    onCheckedChange={(checked) => handleSelectTemplate(template.id, checked as boolean)}
+                    data-testid={`checkbox-select-${template.id}`}
+                    className="mt-1"
+                  />
+                  <div className="flex-1">
+                    <div className="flex items-center gap-3 mb-2">
                     <h3 className="text-xl font-semibold">{template.name}</h3>
                     <Badge variant={template.active ? "default" : "secondary"}>
                       {template.active ? "Active" : "Inactive"}
@@ -197,9 +264,11 @@ export default function Templates() {
                     {template.defaultItems.length > 0 && (
                       <span>{template.defaultItems.length} default items</span>
                     )}
+                    </div>
                   </div>
                 </div>
                 <div className="flex items-center gap-2">
+                  <ExportTemplateButton template={template} />
                   <Button
                     variant="ghost"
                     size="icon"
