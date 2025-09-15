@@ -9,6 +9,8 @@ import {
   PointerSensor,
   useSensor,
   useSensors,
+  useDraggable,
+  useDroppable,
 } from '@dnd-kit/core';
 import {
   arrayMove,
@@ -33,7 +35,8 @@ import { Badge } from '@/components/ui/badge';
 import { 
   Type, List, RadioIcon, CheckSquare, Hash, Info, Minus, 
   DollarSign, FileText, Image, Table, Grid, GripVertical,
-  Plus, Trash2, Copy, Eye, Settings, X
+  Plus, Trash2, Copy, Eye, Settings, X, AlertCircle, CheckCircle,
+  AlertTriangle, XCircle
 } from 'lucide-react';
 import type { QuoteTemplate, TemplateComponent } from '@shared/schema';
 
@@ -59,6 +62,350 @@ const COMPONENT_TYPES = [
   { type: 'table', label: 'Table', icon: Table, description: 'Data table' },
   { type: 'quote_summary', label: 'Quote Summary', icon: Grid, description: 'Summary section' },
 ];
+
+// Component renderer for preview mode
+function ComponentRenderer({ component }: { component: TemplateComponent }) {
+  const { type, properties } = component;
+
+  switch (type) {
+    case 'header':
+      return (
+        <div className="text-center border-b pb-4 mb-6">
+          <h1 className="text-3xl font-bold text-gray-800">
+            {properties.title || 'Quote Header'}
+          </h1>
+          {properties.subtitle && (
+            <p className="text-lg text-gray-600 mt-2">{properties.subtitle}</p>
+          )}
+        </div>
+      );
+
+    case 'text':
+      return (
+        <div className="prose max-w-none">
+          <h3 className="text-lg font-semibold mb-2">{properties.title}</h3>
+          {properties.content && (
+            <div className="text-gray-700 whitespace-pre-wrap">{properties.content}</div>
+          )}
+        </div>
+      );
+
+    case 'line_items':
+      return (
+        <div className="border rounded-lg p-4">
+          <h3 className="text-lg font-semibold mb-3">{properties.title || 'Services'}</h3>
+          <div className="space-y-2">
+            {properties.items ? properties.items.map((item: any, idx: number) => (
+              <div key={idx} className="flex justify-between items-center py-2 border-b last:border-b-0">
+                <div className="flex-1">
+                  <span className="font-medium">{item.name}</span>
+                  {item.description && (
+                    <p className="text-sm text-gray-600">{item.description}</p>
+                  )}
+                </div>
+                <div className="text-right">
+                  <span className="font-semibold">${item.price || 0}</span>
+                  {item.quantity && item.quantity > 1 && (
+                    <p className="text-xs text-gray-500">qty: {item.quantity}</p>
+                  )}
+                </div>
+              </div>
+            )) : (
+              <div className="text-gray-500 italic">No items configured</div>
+            )}
+          </div>
+        </div>
+      );
+
+    case 'radio_group':
+      return (
+        <div className="border rounded-lg p-4">
+          <h3 className="text-lg font-semibold mb-3">
+            {properties.title}
+            {properties.required && <span className="text-red-500 ml-1">*</span>}
+          </h3>
+          {properties.description && (
+            <p className="text-gray-600 mb-3">{properties.description}</p>
+          )}
+          <div className="space-y-2">
+            {properties.options ? properties.options.map((option: string, idx: number) => (
+              <label key={idx} className="flex items-center gap-3 cursor-pointer">
+                <input type="radio" name={component.id} className="text-blue-600" />
+                <span>{option}</span>
+              </label>
+            )) : (
+              <div className="text-gray-500 italic">No options configured</div>
+            )}
+          </div>
+        </div>
+      );
+
+    case 'checkbox_group':
+      return (
+        <div className="border rounded-lg p-4">
+          <h3 className="text-lg font-semibold mb-3">{properties.title}</h3>
+          {properties.description && (
+            <p className="text-gray-600 mb-3">{properties.description}</p>
+          )}
+          <div className="space-y-2">
+            {properties.options ? properties.options.map((option: string, idx: number) => (
+              <label key={idx} className="flex items-center gap-3 cursor-pointer">
+                <input type="checkbox" className="text-blue-600" />
+                <span>{option}</span>
+              </label>
+            )) : (
+              <div className="text-gray-500 italic">No options configured</div>
+            )}
+          </div>
+        </div>
+      );
+
+    case 'quantity_selector':
+      return (
+        <div className="border rounded-lg p-4">
+          <h3 className="text-lg font-semibold mb-3">{properties.title}</h3>
+          <div className="flex items-center gap-3">
+            <Button variant="outline" size="sm">-</Button>
+            <span className="w-12 text-center font-medium">1</span>
+            <Button variant="outline" size="sm">+</Button>
+          </div>
+        </div>
+      );
+
+    case 'info_box':
+      const boxTypeStyles = {
+        info: 'bg-blue-50 border-blue-200 text-blue-800',
+        warning: 'bg-yellow-50 border-yellow-200 text-yellow-800',
+        success: 'bg-green-50 border-green-200 text-green-800',
+        error: 'bg-red-50 border-red-200 text-red-800',
+      };
+      const iconMap = {
+        info: Info,
+        warning: AlertTriangle,
+        success: CheckCircle,
+        error: XCircle,
+      };
+      const boxType = properties.boxType || 'info';
+      const IconComponent = iconMap[boxType as keyof typeof iconMap];
+      
+      return (
+        <div className={`border rounded-lg p-4 ${boxTypeStyles[boxType as keyof typeof boxTypeStyles]}`}>
+          <div className="flex items-start gap-3">
+            <IconComponent className="h-5 w-5 flex-shrink-0 mt-0.5" />
+            <div>
+              <h3 className="font-semibold mb-1">{properties.title}</h3>
+              {properties.message && (
+                <p className="text-sm">{properties.message}</p>
+              )}
+            </div>
+          </div>
+        </div>
+      );
+
+    case 'divider':
+      return <hr className="border-gray-300 my-6" />;
+
+    case 'pricing_breakdown':
+      return (
+        <div className="border rounded-lg p-4 bg-gray-50">
+          <h3 className="text-lg font-semibold mb-3">{properties.title || 'Pricing Summary'}</h3>
+          <div className="space-y-2">
+            <div className="flex justify-between">
+              <span>Subtotal:</span>
+              <span>$0.00</span>
+            </div>
+            {properties.showDeposit && (
+              <div className="flex justify-between">
+                <span>Deposit Required:</span>
+                <span>$0.00</span>
+              </div>
+            )}
+            <div className="border-t pt-2 flex justify-between font-semibold">
+              <span>Total:</span>
+              <span>$0.00</span>
+            </div>
+            {properties.showPerPerson && (
+              <div className="text-sm text-gray-600">
+                Per person: $0.00
+              </div>
+            )}
+          </div>
+        </div>
+      );
+
+    case 'terms':
+      return (
+        <div className="border rounded-lg p-4">
+          <h3 className="text-lg font-semibold mb-3">{properties.title || 'Terms & Conditions'}</h3>
+          <div className="text-sm text-gray-700 space-y-2">
+            <p>• Payment is due within 30 days of booking confirmation</p>
+            <p>• Cancellations require 48-hour notice</p>
+            <p>• Additional charges may apply for special requests</p>
+          </div>
+        </div>
+      );
+
+    case 'image':
+      return (
+        <div className="border rounded-lg p-4 text-center">
+          <div className="bg-gray-100 rounded-lg h-48 flex items-center justify-center">
+            <div className="text-gray-500">
+              <Image className="h-12 w-12 mx-auto mb-2" />
+              <p>{properties.title || 'Image Placeholder'}</p>
+            </div>
+          </div>
+        </div>
+      );
+
+    case 'table':
+      return (
+        <div className="border rounded-lg p-4">
+          <h3 className="text-lg font-semibold mb-3">{properties.title || 'Data Table'}</h3>
+          <div className="overflow-x-auto">
+            <table className="w-full border-collapse border border-gray-300">
+              <thead>
+                <tr className="bg-gray-100">
+                  <th className="border border-gray-300 p-2 text-left">Item</th>
+                  <th className="border border-gray-300 p-2 text-left">Description</th>
+                  <th className="border border-gray-300 p-2 text-right">Price</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td className="border border-gray-300 p-2">Sample Item</td>
+                  <td className="border border-gray-300 p-2">Sample description</td>
+                  <td className="border border-gray-300 p-2 text-right">$0.00</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      );
+
+    case 'quote_summary':
+      return (
+        <div className="border-2 border-gray-300 rounded-lg p-6 bg-gray-50">
+          <h2 className="text-xl font-bold mb-4">{properties.title || 'Quote Summary'}</h2>
+          <div className="grid grid-cols-2 gap-4 text-sm">
+            <div>
+              <p><strong>Event Type:</strong> Bachelor Party</p>
+              <p><strong>Duration:</strong> 4 hours</p>
+              <p><strong>Group Size:</strong> 25 people</p>
+            </div>
+            <div>
+              <p><strong>Total Cost:</strong> $0.00</p>
+              <p><strong>Deposit:</strong> $0.00</p>
+              <p><strong>Balance:</strong> $0.00</p>
+            </div>
+          </div>
+        </div>
+      );
+
+    default:
+      return (
+        <div className="border rounded-lg p-4 bg-gray-50">
+          <h3 className="font-semibold text-gray-600">{properties.title || type}</h3>
+          <p className="text-sm text-gray-500">Component preview not available</p>
+        </div>
+      );
+  }
+}
+
+// Template preview component
+function TemplatePreview({ template, components }: { 
+  template: { name: string; description: string; eventType: string; duration: number; minGroupSize: number; maxGroupSize: number }; 
+  components: TemplateComponent[] 
+}) {
+  return (
+    <div className="max-w-4xl mx-auto">
+      <Card>
+        <CardHeader>
+          <div className="flex justify-between items-start">
+            <div>
+              <CardTitle className="text-2xl">{template.name || 'Untitled Template'}</CardTitle>
+              <CardDescription className="mt-2">{template.description}</CardDescription>
+            </div>
+            <Badge variant="secondary">{template.eventType}</Badge>
+          </div>
+          <div className="flex gap-4 text-sm text-gray-600 mt-4">
+            <span>Duration: {template.duration}h</span>
+            <span>Group: {template.minGroupSize}-{template.maxGroupSize} people</span>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-6" data-testid="template-preview-content">
+            {components.length > 0 ? (
+              components
+                .sort((a, b) => a.order - b.order)
+                .map((component) => (
+                  <ComponentRenderer key={component.id} component={component} />
+                ))
+            ) : (
+              <div className="text-center py-12 text-gray-500">
+                <Grid className="h-12 w-12 mx-auto mb-3 text-gray-300" />
+                <p className="text-lg font-medium mb-1">No components in template</p>
+                <p className="text-sm">Add components to see them in the preview</p>
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
+// Draggable library component
+function DraggableLibraryComponent({ component, onAddComponent }: { 
+  component: typeof COMPONENT_TYPES[0];
+  onAddComponent: (type: string) => void;
+}) {
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id: `library-${component.type}`,
+    data: {
+      type: 'library-component',
+      componentType: component.type,
+    },
+  });
+
+  const style = {
+    transform: CSS.Translate.toString(transform),
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      {...attributes}
+      className="bg-white border rounded-lg p-3 cursor-grab active:cursor-grabbing hover:shadow-md transition-shadow"
+      onClick={() => onAddComponent(component.type)}
+      data-testid={`component-library-${component.type}`}
+    >
+      <div className="flex items-center gap-2 mb-1">
+        <component.icon className="h-4 w-4 text-gray-500" />
+        <span className="font-medium text-sm">{component.label}</span>
+      </div>
+      <p className="text-xs text-gray-500">{component.description}</p>
+    </div>
+  );
+}
+
+// Droppable canvas area
+function DroppableCanvas({ children, onDrop }: { children: React.ReactNode; onDrop?: () => void }) {
+  const { setNodeRef, isOver } = useDroppable({
+    id: 'canvas-dropzone',
+  });
+
+  return (
+    <div
+      ref={setNodeRef}
+      className={`transition-colors ${isOver ? 'bg-blue-50 border-blue-200' : ''}`}
+    >
+      {children}
+    </div>
+  );
+}
 
 // Sortable component wrapper
 function SortableComponent({ component, onEdit, onDelete }: {
@@ -194,29 +541,53 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
     
-    if (!over) return;
+    if (!over) {
+      setActiveId(null);
+      return;
+    }
 
     // If dragging from component library to canvas
     if (active.id.toString().startsWith('library-')) {
       const componentType = active.id.toString().replace('library-', '');
+      
+      // Calculate insertion position based on drop target
+      let insertIndex = components.length; // Default to end
+      
+      if (over.id && over.id !== 'canvas-dropzone') {
+        // Find position of target component
+        const targetIndex = components.findIndex(c => c.id === over.id);
+        if (targetIndex !== -1) {
+          insertIndex = targetIndex + 1; // Insert after target
+        }
+      }
+      
       const newComponent: TemplateComponent = {
         id: `component-${Date.now()}`,
         type: componentType as any,
         properties: {
           title: COMPONENT_TYPES.find(t => t.type === componentType)?.label || componentType,
         },
-        order: components.length,
+        order: insertIndex,
         children: [],
       };
-      setComponents([...components, newComponent]);
+      
+      // Insert component at calculated position
+      const newComponents = [...components];
+      newComponents.splice(insertIndex, 0, newComponent);
+      // Reorder all components to maintain proper order values
+      setComponents(newComponents.map((item, index) => ({ ...item, order: index })));
     }
     // If reordering existing components
-    else if (active.id !== over.id) {
+    else if (active.id !== over.id && !active.id.toString().startsWith('library-')) {
       setComponents((items) => {
         const oldIndex = items.findIndex(i => i.id === active.id);
         const newIndex = items.findIndex(i => i.id === over.id);
-        const reordered = arrayMove(items, oldIndex, newIndex);
-        return reordered.map((item, index) => ({ ...item, order: index }));
+        
+        if (oldIndex !== -1 && newIndex !== -1) {
+          const reordered = arrayMove(items, oldIndex, newIndex);
+          return reordered.map((item, index) => ({ ...item, order: index }));
+        }
+        return items;
       });
     }
     
@@ -320,28 +691,28 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
         {/* Component Library */}
         <div className="w-64 border-r bg-gray-50 p-4">
           <h3 className="font-semibold mb-3">Components</h3>
+          <p className="text-xs text-gray-600 mb-3">Drag to canvas or click to add</p>
           <ScrollArea className="h-full">
             <div className="space-y-2 pr-4">
               {COMPONENT_TYPES.map(component => (
-                <div
+                <DraggableLibraryComponent
                   key={component.type}
-                  className="bg-white border rounded-lg p-3 cursor-pointer hover:shadow-md transition-shadow"
-                  onClick={() => handleAddComponent(component.type)}
-                  data-testid={`component-library-${component.type}`}
-                >
-                  <div className="flex items-center gap-2 mb-1">
-                    <component.icon className="h-4 w-4 text-gray-500" />
-                    <span className="font-medium text-sm">{component.label}</span>
-                  </div>
-                  <p className="text-xs text-gray-500">{component.description}</p>
-                </div>
+                  component={component}
+                  onAddComponent={handleAddComponent}
+                />
               ))}
             </div>
           </ScrollArea>
         </div>
 
-        {/* Canvas */}
+        {/* Canvas / Preview */}
         <div className="flex-1 p-6 overflow-auto">
+          {showPreview ? (
+            <TemplatePreview
+              template={{ name, description, eventType, duration, minGroupSize, maxGroupSize }}
+              components={components}
+            />
+          ) : (
           <div className="max-w-4xl mx-auto">
             {/* Template Info */}
             <Card className="mb-6">
@@ -436,37 +807,69 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                   onDragStart={handleDragStart}
                   onDragEnd={handleDragEnd}
                 >
-                  <SortableContext
-                    items={components.map(c => c.id)}
-                    strategy={verticalListSortingStrategy}
-                  >
-                    {components.length > 0 ? (
-                      <div>
-                        {components.map(component => (
-                          <SortableComponent
-                            key={component.id}
-                            component={component}
-                            onEdit={handleEditComponent}
-                            onDelete={handleDeleteComponent}
-                          />
-                        ))}
+                  <DroppableCanvas>
+                    <SortableContext
+                      items={components.map(c => c.id)}
+                      strategy={verticalListSortingStrategy}
+                    >
+                      {components.length > 0 ? (
+                        <div className="space-y-2" data-testid="template-components-list">
+                          {components
+                            .sort((a, b) => a.order - b.order)
+                            .map(component => (
+                              <SortableComponent
+                                key={component.id}
+                                component={component}
+                                onEdit={handleEditComponent}
+                                onDelete={handleDeleteComponent}
+                              />
+                            ))}
+                        </div>
+                      ) : (
+                        <div className="text-center py-12 text-gray-500 border-2 border-dashed rounded-lg" data-testid="empty-canvas">
+                          <Grid className="h-12 w-12 mx-auto mb-3 text-gray-300" />
+                          <p className="text-lg font-medium mb-1">No components yet</p>
+                          <p className="text-sm">Drag or click components from the library to add them here</p>
+                        </div>
+                      )}
+                    </SortableContext>
+                  </DroppableCanvas>
+                  <DragOverlay>
+                    {activeId ? (
+                      <div className="bg-white border rounded-lg p-4 shadow-lg">
+                        {activeId.startsWith('library-') ? (
+                          <div className="flex items-center gap-2">
+                            {(() => {
+                              const componentType = activeId.replace('library-', '');
+                              const ComponentIcon = COMPONENT_TYPES.find(t => t.type === componentType)?.icon || Type;
+                              return (
+                                <>
+                                  <ComponentIcon className="h-4 w-4 text-gray-500" />
+                                  <span className="font-medium text-sm">
+                                    {COMPONENT_TYPES.find(t => t.type === componentType)?.label || componentType}
+                                  </span>
+                                </>
+                              );
+                            })()}
+                          </div>
+                        ) : (
+                          <div className="flex items-center gap-2">
+                            <GripVertical className="h-4 w-4 text-gray-400" />
+                            <span className="font-medium text-sm">Moving Component</span>
+                          </div>
+                        )}
                       </div>
-                    ) : (
-                      <div className="text-center py-12 text-gray-500 border-2 border-dashed rounded-lg">
-                        <Grid className="h-12 w-12 mx-auto mb-3 text-gray-300" />
-                        <p className="text-lg font-medium mb-1">No components yet</p>
-                        <p className="text-sm">Click components in the library to add them here</p>
-                      </div>
-                    )}
-                  </SortableContext>
+                    ) : null}
+                  </DragOverlay>
                 </DndContext>
               </CardContent>
             </Card>
           </div>
+          )}
         </div>
 
         {/* Properties Panel */}
-        {selectedComponentData && (
+        {selectedComponent && selectedComponentData ? (
           <div className="w-80 border-l bg-white p-4">
             <div className="flex justify-between items-center mb-4">
               <h3 className="font-semibold">Component Properties</h3>
@@ -484,7 +887,7 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                 <div>
                   <Label>Title</Label>
                   <Input
-                    value={selectedComponentData.properties.title || ''}
+                    value={selectedComponentData.properties?.title || ''}
                     onChange={(e) => updateComponentProperty(selectedComponentData.id, 'title', e.target.value)}
                     data-testid="input-component-title"
                   />
@@ -494,7 +897,7 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                   <div>
                     <Label>Content</Label>
                     <Textarea
-                      value={selectedComponentData.properties.content || ''}
+                      value={selectedComponentData.properties?.content || ''}
                       onChange={(e) => updateComponentProperty(selectedComponentData.id, 'content', e.target.value)}
                       rows={6}
                       data-testid="textarea-component-content"
@@ -507,7 +910,7 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                     <div>
                       <Label>Message</Label>
                       <Textarea
-                        value={selectedComponentData.properties.message || ''}
+                        value={selectedComponentData.properties?.message || ''}
                         onChange={(e) => updateComponentProperty(selectedComponentData.id, 'message', e.target.value)}
                         rows={3}
                         data-testid="textarea-info-message"
@@ -516,7 +919,7 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                     <div>
                       <Label>Type</Label>
                       <Select
-                        value={selectedComponentData.properties.boxType || 'info'}
+                        value={selectedComponentData.properties?.boxType || 'info'}
                         onValueChange={(value) => updateComponentProperty(selectedComponentData.id, 'boxType', value)}
                       >
                         <SelectTrigger data-testid="select-box-type">
@@ -538,7 +941,7 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                     <div className="flex items-center justify-between mb-2">
                       <Label>Show Breakdown</Label>
                       <Switch
-                        checked={selectedComponentData.properties.showBreakdown || false}
+                        checked={selectedComponentData.properties?.showBreakdown || false}
                         onCheckedChange={(checked) => updateComponentProperty(selectedComponentData.id, 'showBreakdown', checked)}
                         data-testid="switch-show-breakdown"
                       />
@@ -546,7 +949,7 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                     <div className="flex items-center justify-between mb-2">
                       <Label>Show Per Person</Label>
                       <Switch
-                        checked={selectedComponentData.properties.showPerPerson || false}
+                        checked={selectedComponentData.properties?.showPerPerson || false}
                         onCheckedChange={(checked) => updateComponentProperty(selectedComponentData.id, 'showPerPerson', checked)}
                         data-testid="switch-show-per-person"
                       />
@@ -554,7 +957,7 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                     <div className="flex items-center justify-between">
                       <Label>Show Deposit</Label>
                       <Switch
-                        checked={selectedComponentData.properties.showDeposit || false}
+                        checked={selectedComponentData.properties?.showDeposit || false}
                         onCheckedChange={(checked) => updateComponentProperty(selectedComponentData.id, 'showDeposit', checked)}
                         data-testid="switch-show-deposit"
                       />
@@ -567,7 +970,7 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                     <div>
                       <Label>Options</Label>
                       <Textarea
-                        value={selectedComponentData.properties.options?.join('\n') || ''}
+                        value={selectedComponentData.properties?.options?.join('\n') || ''}
                         onChange={(e) => updateComponentProperty(selectedComponentData.id, 'options', e.target.value.split('\n').filter(Boolean))}
                         rows={4}
                         placeholder="One option per line"
@@ -577,9 +980,34 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                     <div className="flex items-center justify-between">
                       <Label>Required</Label>
                       <Switch
-                        checked={selectedComponentData.properties.required || false}
+                        checked={selectedComponentData.properties?.required || false}
                         onCheckedChange={(checked) => updateComponentProperty(selectedComponentData.id, 'required', checked)}
                         data-testid="switch-required"
+                      />
+                    </div>
+                  </>
+                )}
+                
+                {selectedComponentData.type === 'checkbox_group' && (
+                  <>
+                    <div>
+                      <Label>Options</Label>
+                      <Textarea
+                        value={selectedComponentData.properties?.options?.join('\n') || ''}
+                        onChange={(e) => updateComponentProperty(selectedComponentData.id, 'options', e.target.value.split('\n').filter(Boolean))}
+                        rows={4}
+                        placeholder="One option per line"
+                        data-testid="textarea-checkbox-options"
+                      />
+                    </div>
+                    <div>
+                      <Label>Description</Label>
+                      <Textarea
+                        value={selectedComponentData.properties?.description || ''}
+                        onChange={(e) => updateComponentProperty(selectedComponentData.id, 'description', e.target.value)}
+                        rows={2}
+                        placeholder="Optional description"
+                        data-testid="textarea-checkbox-description"
                       />
                     </div>
                   </>
@@ -590,7 +1018,7 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                 <div>
                   <Label>Visibility Condition</Label>
                   <Select
-                    value={selectedComponentData.properties.visibilityCondition || 'always'}
+                    value={selectedComponentData.properties?.visibilityCondition || 'always'}
                     onValueChange={(value) => updateComponentProperty(selectedComponentData.id, 'visibilityCondition', value)}
                   >
                     <SelectTrigger data-testid="select-visibility">
@@ -607,6 +1035,14 @@ export default function QuoteTemplateBuilder({ template, onSave, onCancel }: Quo
                 </div>
               </div>
             </ScrollArea>
+          </div>
+        ) : (
+          <div className="w-80 border-l bg-gray-50 p-4 flex items-center justify-center">
+            <div className="text-center text-gray-500">
+              <Settings className="h-8 w-8 mx-auto mb-2 text-gray-300" />
+              <p className="text-sm font-medium mb-1">No Component Selected</p>
+              <p className="text-xs">Click on a component to edit its properties</p>
+            </div>
           </div>
         )}
       </div>
