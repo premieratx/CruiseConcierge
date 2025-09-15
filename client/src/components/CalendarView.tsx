@@ -13,6 +13,7 @@ import { cn } from "@/lib/utils";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
+import { BookingsTable } from "@/components/BookingsTable";
 
 interface TimeBlock {
   id: string;
@@ -641,6 +642,13 @@ function CalendarView() {
           </Tabs>
         </CardContent>
       </Card>
+
+      {/* Comprehensive Bookings Table */}
+      <BookingsTable 
+        startDate={weekStart} 
+        endDate={new Date(weekStart.getTime() + 7 * 24 * 60 * 60 * 1000)}
+        className="mt-6"
+      />
 
       {/* Legend */}
       <Card>

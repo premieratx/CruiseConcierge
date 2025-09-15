@@ -3993,6 +3993,100 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get comprehensive booking data with joins for BookingsTable
+  app.get("/api/bookings/comprehensive", async (req, res) => {
+    try {
+      const { startDate, endDate } = req.query;
+      
+      // Default to current week if no dates provided
+      const start = startDate ? new Date(startDate as string) : new Date();
+      const end = endDate ? new Date(endDate as string) : new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+      
+      // Get bookings for the date range
+      const bookings = await storage.getBookings(start, end);
+      
+      // Fetch all related data we'll need
+      const boats = await storage.getBoats();
+      const projects = await storage.getProjectsByContact(''); // Get all projects
+      const leads = await storage.getLeads();
+      const clients = await storage.getClients();
+      const contacts = leads.concat(clients);
+      
+      // Build comprehensive booking data
+      const comprehensiveBookings = [];
+      
+      for (const booking of bookings) {
+        // Find related project
+        const project = booking.projectId ? projects.find(p => p.id === booking.projectId) : null;
+        
+        // Find contact through project
+        const contact = project ? contacts.find(c => c.id === project.contactId) : null;
+        
+        // Find boat details
+        const boat = booking.boatId ? boats.find(b => b.id === booking.boatId) : null;
+        
+        // Get quotes for this project
+        let quote = null;
+        let totalAmount = 0;
+        if (project) {
+          const quotes = await storage.getQuotesByProject(project.id);
+          quote = quotes.find(q => q.status === 'accepted') || quotes[0]; // Get accepted quote or latest
+          totalAmount = quote?.total || 0;
+        }
+        
+        // Get payment information
+        let amountPaid = 0;
+        let paymentStatus = 'Unpaid';
+        if (quote) {
+          try {
+            const invoice = await storage.getInvoice(quote.id); // May not exist
+            if (invoice) {
+              amountPaid = invoice.balance ? totalAmount - invoice.balance : totalAmount;
+            }
+          } catch (error) {
+            // Invoice may not exist, that's ok
+          }
+        }
+        
+        // Calculate payment status
+        if (amountPaid === 0) {
+          paymentStatus = 'Unpaid';
+        } else if (amountPaid >= totalAmount) {
+          paymentStatus = 'Paid';
+        } else {
+          paymentStatus = 'Partial';
+        }
+        
+        comprehensiveBookings.push({
+          id: booking.id,
+          cruiseDate: booking.startTime,
+          contactName: contact?.name || 'Unknown Contact',
+          contactEmail: contact?.email || '',
+          partySize: booking.groupSize || project?.groupSize || 0,
+          boatAssigned: boat?.name || 'No Boat Assigned',
+          totalAmount,
+          amountPaid,
+          amountOwed: Math.max(0, totalAmount - amountPaid),
+          paymentStatus,
+          bookingStatus: booking.status || 'confirmed',
+          eventType: project?.eventType || booking.partyType || 'Private Cruise',
+          startTime: booking.startTime,
+          endTime: booking.endTime,
+          projectId: booking.projectId,
+          quoteId: quote?.id
+        });
+      }
+      
+      // Sort by cruise date (most recent first)
+      comprehensiveBookings.sort((a, b) => new Date(b.cruiseDate).getTime() - new Date(a.cruiseDate).getTime());
+      
+      res.json(comprehensiveBookings);
+    } catch (error: any) {
+      console.error("Error fetching comprehensive booking data:", error);
+      res.status(500).json({ error: "Failed to fetch booking data" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
