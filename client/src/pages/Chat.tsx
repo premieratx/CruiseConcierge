@@ -794,6 +794,33 @@ export default function Chat() {
         });
       }
       
+      // Step 3: Generate and send quote using backend
+      const quoteResponse = await apiRequest('/api/chat/booking', {
+        method: 'POST',
+        body: JSON.stringify({
+          sessionId: `chat_${Date.now()}`,
+          step: 'generate-quote',
+          data: {
+            projectId: projectId,
+            promoCode: undefined
+          }
+        })
+      });
+
+      if (!quoteResponse.success) {
+        throw new Error('Failed to generate quote');
+      }
+
+      setGeneratedQuoteId(quoteResponse.quote.id);
+
+      return { 
+        contact: leadResponse.contact, 
+        project: leadResponse.project,
+        quote: quoteResponse.quote,
+        quoteUrl: quoteResponse.quoteUrl
+      };
+      
+      /* Remove old client-side quote generation - now handled by backend
       const currentPricing = data.selectedCruiseType === 'private' ? privatePricing : discoPricing;
       if (currentPricing && currentPricing.breakdown) {
         const quoteItems: QuoteItem[] = [];
@@ -888,6 +915,7 @@ export default function Chat() {
       }
       
       return { contact: contactResponse, project: projectResponse };
+      */
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/contacts'] });

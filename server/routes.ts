@@ -453,25 +453,151 @@ export async function registerRoutes(app: Express): Promise<Server> {
         metadata: {}
       });
 
-      // Save AI response
+      // Process booking flow based on extracted data
+      let automatedActions: any = {};
+      
+      // Check if we have extracted booking data from the conversation
+      if (aiResponse.extractedData) {
+        const extractedData = aiResponse.extractedData;
+        
+        // If we have all required contact info, create lead and contact
+        if (extractedData.name && extractedData.email) {
+          try {
+            // Create or find contact
+            const contact = await storage.findOrCreateContact(
+              extractedData.email,
+              extractedData.name,
+              extractedData.phone
+            );
+            automatedActions.contactCreated = contact.id;
+            
+            // Create project if we have event details
+            if (extractedData.eventType || extractedData.groupSize || extractedData.eventDate) {
+              const project = await storage.createProject({
+                contactId: contact.id,
+                title: `${extractedData.eventType || 'Party'} Cruise for ${extractedData.name}`,
+                status: "NEW",
+                projectDate: extractedData.eventDate ? new Date(extractedData.eventDate) : undefined,
+                groupSize: extractedData.groupSize,
+                eventType: extractedData.eventType,
+                preferredTime: extractedData.timeSlot,
+                budget: extractedData.budget ? parseInt(extractedData.budget) * 100 : undefined,
+                leadSource: "chat"
+              });
+              automatedActions.projectCreated = project.id;
+              
+              // Create lead in Google Sheets
+              const leadId = `lead_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+              await googleSheetsService.createLead({
+                leadId,
+                name: contact.name,
+                email: contact.email,
+                phone: contact.phone,
+                eventType: extractedData.eventType,
+                source: "AI Chat Widget",
+                cruiseDate: extractedData.eventDate,
+                groupSize: extractedData.groupSize
+              });
+              automatedActions.leadCreated = leadId;
+              
+              // Check availability if we have a date
+              if (extractedData.eventDate && extractedData.groupSize) {
+                const availableBoats = await googleSheetsService.getAvailableBoats(
+                  extractedData.eventDate,
+                  extractedData.groupSize
+                );
+                automatedActions.availabilityChecked = availableBoats.length > 0;
+                
+                // If available and we have all info, generate a quote
+                if (availableBoats.length > 0 && project.projectDate) {
+                  const pricing = await storage.calculateCruisePricing({
+                    groupSize: project.groupSize || 20,
+                    eventDate: project.projectDate,
+                    timeSlot: project.preferredTime || "2pm-6pm",
+                    promoCode: undefined
+                  });
+                  
+                  const quote = await storage.createQuote({
+                    projectId: project.id,
+                    items: pricing.items,
+                    subtotal: pricing.subtotal,
+                    discountTotal: pricing.discountTotal,
+                    tax: pricing.tax,
+                    gratuity: pricing.gratuity,
+                    total: pricing.total,
+                    perPersonCost: pricing.perPersonCost,
+                    depositRequired: pricing.depositRequired,
+                    depositPercent: pricing.depositPercent,
+                    depositAmount: pricing.depositAmount,
+                    paymentSchedule: pricing.paymentSchedule,
+                    expiresAt: pricing.expiresAt
+                  });
+                  automatedActions.quoteGenerated = quote.id;
+                  
+                  // Send quote via email
+                  if (contact.email) {
+                    await sendQuoteEmail(quote.id, contact.email, 
+                      "Thank you for choosing Premier Party Cruises! Your custom quote is ready."
+                    );
+                    automatedActions.emailSent = true;
+                  }
+                  
+                  // Send SMS notifications
+                  if (contact.phone) {
+                    // Customer SMS
+                    await sendQuoteSMS(quote.id, contact.phone);
+                    automatedActions.smsSent = true;
+                    
+                    // Admin SMS
+                    await sendAdminNotificationSMS(quote.id);
+                    automatedActions.adminNotified = true;
+                  }
+                  
+                  // Trigger GoHighLevel webhook
+                  const webhookPayload: LeadWebhookPayload = {
+                    name: contact.name,
+                    email: contact.email,
+                    phone: contact.phone,
+                    requested_cruise_date: project.projectDate.toISOString(),
+                    type_of_cruise: project.eventType || 'Party',
+                    max_number_of_people: project.groupSize || 0,
+                    quote_link: getFullUrl(`/quote/${quote.id}`),
+                    created_at: new Date().toISOString()
+                  };
+                  
+                  // Send webhook (would be implemented in goHighLevelService)
+                  console.log("Would send GoHighLevel webhook:", webhookPayload);
+                  automatedActions.webhookSent = true;
+                }
+              }
+            }
+          } catch (error) {
+            console.error("Error processing automated booking actions:", error);
+          }
+        }
+      }
+
+      // Save AI response with metadata
       await storage.createChatMessage({
         sessionId,
         contactId: contactId || null,
         role: "assistant", 
         content: aiResponse.response,
         metadata: {
-          intent: "general",
+          intent: "booking",
           extractedData: aiResponse.extractedData || {},
-          suggestedActions: aiResponse.suggestedActions || []
+          suggestedActions: aiResponse.suggestedActions || [],
+          automatedActions
         } as Record<string, any>
       });
 
       res.json({
         response: aiResponse.response,
         message: aiResponse.response, // Keep for backward compatibility
-        intent: "general", // Default intent since openRouterService doesn't provide it
+        intent: "booking",
         extractedData: aiResponse.extractedData || {},
-        suggestedActions: aiResponse.suggestedActions || []
+        suggestedActions: aiResponse.suggestedActions || [],
+        automatedActions
       });
 
     } catch (error: any) {

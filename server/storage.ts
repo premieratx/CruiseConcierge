@@ -1875,7 +1875,35 @@ export class MemStorage implements IStorage {
       });
     }
 
+    // Generate quote items
+    const items: QuoteItem[] = [];
+    
+    // Add main cruise charter
+    items.push({
+      id: `cruise_${Date.now()}`,
+      type: 'cruise_charter',
+      name: `Private ${boatType} Charter`,
+      description: `Exclusive ${cruiseDuration}-hour cruise on ${dayName} from ${timeSlot}`,
+      unitPrice: baseCruiseCost,
+      qty: 1,
+      category: 'cruise_package'
+    });
+    
+    // Add crew fee if applicable
+    if (crewFee > 0) {
+      items.push({
+        id: `crew_${Date.now()}`,
+        type: 'crew_fee',
+        name: 'Additional Crew Service',
+        description: `Professional crew service required for groups of ${groupSize}+ people`,
+        unitPrice: crewFee,
+        qty: 1,
+        category: 'service_fee'
+      });
+    }
+
     return {
+      items,
       subtotal: baseCruiseCost,
       discountTotal: 0,
       tax,
@@ -1888,6 +1916,7 @@ export class MemStorage implements IStorage {
       paymentSchedule,
       appliedDiscounts: [],
       urgencyMessage,
+      expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
       displaySettings: {
         showPerPerson: true,
         showDeposit: true,
