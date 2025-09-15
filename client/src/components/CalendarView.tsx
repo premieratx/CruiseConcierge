@@ -58,34 +58,33 @@ const generateTimeBlocks = (date: Date, boats: Boat[], bookings: Booking[], prod
   const dayOfWeek = date.getDay();
   const blocks: TimeBlock[] = [];
   
-  // Generate available time slots based on day of week (3-hour blocks)
+  // Generate available time slots based on day of week per user requirements
   const availableTimeSlots: Array<{startTime: string, endTime: string, label: string}> = [];
   
-  if (dayOfWeek >= 1 && dayOfWeek <= 4) { // Monday-Thursday
+  if (dayOfWeek >= 1 && dayOfWeek <= 4) { // Monday-Thursday: any 4-hour frame between 10 AM-8 PM
     availableTimeSlots.push(
-      { startTime: '10:00', endTime: '13:00', label: 'Morning (10AM-1PM)' },
-      { startTime: '14:00', endTime: '17:00', label: 'Afternoon (2PM-5PM)' },
-      { startTime: '18:00', endTime: '21:00', label: 'Evening (6PM-9PM)' }
+      { startTime: '10:00', endTime: '14:00', label: 'Morning (10AM-2PM)' },
+      { startTime: '11:00', endTime: '15:00', label: 'Mid-Morning (11AM-3PM)' },
+      { startTime: '12:00', endTime: '16:00', label: 'Afternoon (12PM-4PM)' },
+      { startTime: '13:00', endTime: '17:00', label: 'Late Afternoon (1PM-5PM)' },
+      { startTime: '14:00', endTime: '18:00', label: 'Evening (2PM-6PM)' },
+      { startTime: '15:00', endTime: '19:00', label: 'Late Evening (3PM-7PM)' },
+      { startTime: '16:00', endTime: '20:00', label: 'Sunset (4PM-8PM)' }
     );
-  } else if (dayOfWeek === 5) { // Friday
+  } else if (dayOfWeek === 5) { // Friday: 12-4 and 4:30-8:30
     availableTimeSlots.push(
-      { startTime: '10:00', endTime: '13:00', label: 'Morning (10AM-1PM)' },
-      { startTime: '14:00', endTime: '17:00', label: 'Afternoon (2PM-5PM)' },
-      { startTime: '18:00', endTime: '21:00', label: 'Evening (6PM-9PM)' },
-      { startTime: '22:00', endTime: '01:00', label: 'Night (10PM-1AM)' }
+      { startTime: '12:00', endTime: '16:00', label: 'Afternoon (12PM-4PM)' },
+      { startTime: '16:30', endTime: '20:30', label: 'Evening (4:30PM-8:30PM)' }
     );
-  } else if (dayOfWeek === 6) { // Saturday
+  } else if (dayOfWeek === 6) { // Saturday: 11-3 and 3:30-7:30
     availableTimeSlots.push(
-      { startTime: '10:00', endTime: '13:00', label: 'Morning (10AM-1PM)' },
-      { startTime: '14:00', endTime: '17:00', label: 'Afternoon (2PM-5PM)' },
-      { startTime: '18:00', endTime: '21:00', label: 'Evening (6PM-9PM)' },
-      { startTime: '22:00', endTime: '01:00', label: 'Night (10PM-1AM)' }
+      { startTime: '11:00', endTime: '15:00', label: 'Afternoon (11AM-3PM)' },
+      { startTime: '15:30', endTime: '19:30', label: 'Evening (3:30PM-7:30PM)' }
     );
-  } else { // Sunday
+  } else { // Sunday: 11-3 and 3:30-7:30
     availableTimeSlots.push(
-      { startTime: '10:00', endTime: '13:00', label: 'Morning (10AM-1PM)' },
-      { startTime: '14:00', endTime: '17:00', label: 'Afternoon (2PM-5PM)' },
-      { startTime: '18:00', endTime: '21:00', label: 'Evening (6PM-9PM)' }
+      { startTime: '11:00', endTime: '15:00', label: 'Afternoon (11AM-3PM)' },
+      { startTime: '15:30', endTime: '19:30', label: 'Evening (3:30PM-7:30PM)' }
     );
   }
   
