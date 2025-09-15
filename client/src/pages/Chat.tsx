@@ -784,6 +784,71 @@ export default function Chat() {
     });
   };
 
+  // Payment handler function
+  const handlePayment = async (paymentType: 'deposit' | 'full', cruiseType: 'private' | 'disco') => {
+    try {
+      // Validate required data based on cruise type
+      if (cruiseType === 'private' && (!formData.selectedTimeSlot || !formData.selectedPrivatePackage)) {
+        toast({
+          title: "Incomplete Selection",
+          description: "Please select a time slot and package before proceeding to payment.",
+          variant: "destructive",
+        });
+        return;
+      }
+      
+      if (cruiseType === 'disco' && (!formData.selectedDiscoPackage || !formData.selectedDiscoTimeSlot)) {
+        toast({
+          title: "Incomplete Selection", 
+          description: "Please select a disco package and time slot before proceeding to payment.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Create selection payload with all form data
+      const selectionPayload = {
+        cruiseType,
+        groupSize: formData.groupSize,
+        eventDate: formData.eventDate ? formData.eventDate.toISOString() : null,
+        eventType: formData.eventType,
+        eventTypeLabel: formData.eventTypeLabel,
+        eventEmoji: formData.eventEmoji,
+        // For private cruises
+        selectedTimeSlot: formData.selectedTimeSlot,
+        selectedPrivatePackage: formData.selectedPrivatePackage,
+        // For disco cruises  
+        selectedDiscoPackage: formData.selectedDiscoPackage,
+        selectedDiscoTimeSlot: formData.selectedDiscoTimeSlot,
+        discoTicketQuantity: formData.discoTicketQuantity,
+      };
+
+      const response = await apiRequest("POST", "/api/checkout/create-session", {
+        paymentType,
+        customerEmail: '', // Will be handled by Stripe checkout
+        selectionPayload,
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to create checkout session');
+      }
+
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url; // Redirect to Stripe checkout
+      } else {
+        throw new Error('No checkout URL received');
+      }
+    } catch (error: any) {
+      console.error('Payment error:', error);
+      toast({
+        title: "Payment Error",
+        description: "Failed to start payment process. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
   // Contact form submission
   const handleContactSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -1471,8 +1536,7 @@ export default function Chat() {
                             <Button
                               onClick={() => {
                                 setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
-                                setSelectedPaymentOption('deposit');
-                                goToStep('contact-form');
+                                handlePayment('deposit', 'private');
                               }}
                               disabled={!formData.selectedPrivatePackage || !privatePricing}
                               className="w-full bg-green-600 hover:bg-green-700"
@@ -1485,8 +1549,7 @@ export default function Chat() {
                             <Button
                               onClick={() => {
                                 setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
-                                setSelectedPaymentOption('full');
-                                goToStep('contact-form');
+                                handlePayment('full', 'private');
                               }}
                               disabled={!formData.selectedPrivatePackage || !privatePricing}
                               className="w-full bg-blue-600 hover:bg-blue-700"
@@ -1681,8 +1744,7 @@ export default function Chat() {
                               <Button
                                 onClick={() => {
                                   setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
-                                  setSelectedPaymentOption('deposit');
-                                  goToStep('contact-form');
+                                  handlePayment('deposit', 'disco');
                                 }}
                                 disabled={!formData.selectedDiscoPackage || !discoPricing}
                                 className="w-full bg-green-600 hover:bg-green-700"
@@ -1695,8 +1757,7 @@ export default function Chat() {
                               <Button
                                 onClick={() => {
                                   setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
-                                  setSelectedPaymentOption('full');
-                                  goToStep('contact-form');
+                                  handlePayment('full', 'disco');
                                 }}
                                 disabled={!formData.selectedDiscoPackage || !discoPricing}
                                 className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
