@@ -262,6 +262,14 @@ const formatCurrency = (cents: number) => {
   }).format(cents / 100);
 };
 
+// Helper function to determine boat capacity based on group size - rounds UP to appropriate boat size
+const getBoatCapacityForGroup = (groupSize: number): number => {
+  if (groupSize <= 15) return 15;  // small dayTripper boats
+  if (groupSize <= 25) return 25;  // medium boats
+  if (groupSize <= 50) return 50;  // large boats
+  return 75;  // extra large boats (up to GROUP_SIZE_MAX)
+};
+
 const getIconComponent = (iconName: string, size: number = 14) => {
   const iconMap: Record<string, any> = {
     'user': User,
@@ -1306,8 +1314,8 @@ export default function Chat() {
                               <Ship className="h-6 w-6 text-blue-600" />
                             </div>
                             <div>
-                              <CardTitle>Private Cruise</CardTitle>
-                              <CardDescription>Exclusive boat for your group</CardDescription>
+                              <CardTitle>Private Cruise (Fits {getBoatCapacityForGroup(formData.groupSize)} People)</CardTitle>
+                              <CardDescription>Exclusive boat for your group • {getCruiseDuration(formData.eventDate)} hour cruise</CardDescription>
                             </div>
                           </div>
                         </CardHeader>
@@ -1372,7 +1380,14 @@ export default function Chat() {
                           )}
 
                           {/* Step 3: Pricing Details - Only show if both time slot AND package selected */}
-                          {formData.selectedTimeSlot && formData.selectedPrivatePackage && privatePricing && (
+                          {formData.selectedTimeSlot && formData.selectedPrivatePackage && (
+                            <div className="border-t pt-4">
+                              {pricingLoading ? (
+                                <div className="flex items-center justify-center py-8">
+                                  <Loader2 className="h-6 w-6 animate-spin text-blue-600 mr-2" />
+                                  <span className="text-slate-600 dark:text-slate-400">Calculating pricing...</span>
+                                </div>
+                              ) : privatePricing ? (
                             <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-lg p-4 border-t">
                               <div className="text-center mb-4">
                                 <div className="text-3xl font-bold text-blue-600">
@@ -1383,10 +1398,39 @@ export default function Chat() {
                                 </div>
                               </div>
                               
+                              {/* Duration & Rate Display */}
+                              <div className="mb-4 p-3 bg-white/50 dark:bg-slate-800/50 rounded-lg">
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Duration:</span>
+                                  <span className="font-bold text-blue-600">{getCruiseDuration(formData.eventDate)} hours</span>
+                                </div>
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Hourly Rate:</span>
+                                  <span className="font-bold text-blue-600">${privatePackages.find(pkg => pkg.id === formData.selectedPrivatePackage)?.hourlyRate || 0}/hour</span>
+                                </div>
+                                <div className="flex items-center justify-between border-t pt-2">
+                                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Base Cost:</span>
+                                  <span className="font-bold text-blue-600">
+                                    {(() => {
+                                      const hourlyRate = privatePackages.find(pkg => pkg.id === formData.selectedPrivatePackage)?.hourlyRate || 0;
+                                      const duration = getCruiseDuration(formData.eventDate);
+                                      const baseCostCents = hourlyRate * duration * 100;
+                                      return `$${hourlyRate} × ${duration} hours = ${formatCurrency(baseCostCents)}`;
+                                    })()}
+                                  </span>
+                                </div>
+                                {privatePricing?.breakdown?.crewFee && privatePricing.breakdown.crewFee > 0 && (
+                                  <div className="flex items-center justify-between mt-1">
+                                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Extra Crew Fee:</span>
+                                    <span className="font-medium text-slate-600">+${privatePricing.breakdown.crewFee}</span>
+                                  </div>
+                                )}
+                              </div>
+                              
                               {/* Detailed Pricing Breakdown */}
                               <div className="space-y-2 text-sm border-t pt-3">
                                 <div className="flex justify-between">
-                                  <span>Subtotal ({getCruiseDuration(formData.eventDate)}hr cruise):</span>
+                                  <span>Cruise Subtotal:</span>
                                   <span>{formatCurrency(privatePricing.subtotal)}</span>
                                 </div>
                                 <div className="flex justify-between">
@@ -1410,6 +1454,15 @@ export default function Chat() {
                                   <span>{formatCurrency(privatePricing.total - privatePricing.depositAmount)}</span>
                                 </div>
                               </div>
+                            </div>
+                              ) : (
+                                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+                                  <div className="flex items-center gap-2 text-red-700 dark:text-red-400">
+                                    <AlertCircle className="h-4 w-4" />
+                                    <span className="text-sm font-medium">Pricing temporarily unavailable</span>
+                                  </div>
+                                </div>
+                              )}
                             </div>
                           )}
                           
