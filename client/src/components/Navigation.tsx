@@ -6,7 +6,7 @@ import {
   LayoutDashboard, Users, FileText, MessageSquare, Calendar,
   DollarSign, Settings, Ship, TrendingUp, Mail, Phone,
   ChevronDown, Plus, Search, Bell, User, LogOut, Building,
-  CreditCard, Briefcase, Star, FileBarChart, Database
+  CreditCard, Briefcase, Star, FileBarChart, Database, ArrowLeft, Home
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -80,15 +80,33 @@ export default function Navigation() {
     <>
     <header className="fixed top-0 left-0 right-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
-        {/* Logo - clickable to go back to dashboard */}
-        <div 
-          className="mr-8 flex items-center space-x-2 cursor-pointer"
-          onClick={() => setLocation('/')}
-        >
-          <Ship className="h-6 w-6 text-primary" />
-          <span className="hidden font-bold text-xl lg:inline-block">
-            Premier CRM
-          </span>
+        {/* Back Button and Logo */}
+        <div className="mr-8 flex items-center space-x-3">
+          {/* Visible Back Button */}
+          {location !== '/' && (
+            <Button 
+              variant="ghost" 
+              size="sm"
+              onClick={() => setLocation('/')}
+              className="flex items-center gap-2 text-muted-foreground hover:text-foreground"
+              data-testid="button-back-dashboard"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              <span className="hidden sm:inline-block">Back</span>
+            </Button>
+          )}
+          
+          {/* Logo - also clickable to go back to dashboard */}
+          <div 
+            className="flex items-center space-x-2 cursor-pointer"
+            onClick={() => setLocation('/')}
+            data-testid="link-logo-dashboard"
+          >
+            <Ship className="h-6 w-6 text-primary" />
+            <span className="hidden font-bold text-xl lg:inline-block">
+              Premier CRM
+            </span>
+          </div>
         </div>
 
         {/* Main Navigation */}
