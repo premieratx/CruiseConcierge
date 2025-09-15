@@ -89,26 +89,26 @@ const eventTypes = [
 const getPrivateTimeSlotsForDate = (date: Date) => {
   const dayOfWeek = date.getDay();
   
-  if (dayOfWeek >= 1 && dayOfWeek <= 4) { // Monday-Thursday
+  if (dayOfWeek >= 1 && dayOfWeek <= 4) { // Monday-Thursday (3-hour slots)
     return [
-      { id: '10am-2pm', label: '10am-2pm', time: '10am-2pm', icon: '🌅', popular: false },
-      { id: '11am-3pm', label: '11am-3pm', time: '11am-3pm', icon: '🌞', popular: false },
-      { id: '12pm-4pm', label: '12pm-4pm', time: '12pm-4pm', icon: '☀️', popular: true },
-      { id: '1pm-5pm', label: '1pm-5pm', time: '1pm-5pm', icon: '☀️', popular: true },
-      { id: '2pm-6pm', label: '2pm-6pm', time: '2pm-6pm', icon: '🌆', popular: true },
-      { id: '3pm-7pm', label: '3pm-7pm', time: '3pm-7pm', icon: '🌆', popular: true },
-      { id: '4pm-8pm', label: '4pm-8pm', time: '4pm-8pm', icon: '🌅', popular: false },
-      { id: '4:30pm-8:30pm', label: '4:30pm-8:30pm', time: '4:30pm-8:30pm', icon: '🌙', popular: false },
+      { id: '10am-1pm', label: '10am-1pm', time: '10am-1pm', icon: '🌅', popular: false, duration: 3 },
+      { id: '11am-2pm', label: '11am-2pm', time: '11am-2pm', icon: '🌞', popular: false, duration: 3 },
+      { id: '12pm-3pm', label: '12pm-3pm', time: '12pm-3pm', icon: '☀️', popular: true, duration: 3 },
+      { id: '1pm-4pm', label: '1pm-4pm', time: '1pm-4pm', icon: '☀️', popular: true, duration: 3 },
+      { id: '2pm-5pm', label: '2pm-5pm', time: '2pm-5pm', icon: '🌆', popular: true, duration: 3 },
+      { id: '3pm-6pm', label: '3pm-6pm', time: '3pm-6pm', icon: '🌆', popular: true, duration: 3 },
+      { id: '4pm-7pm', label: '4pm-7pm', time: '4pm-7pm', icon: '🌅', popular: false, duration: 3 },
+      { id: '5pm-8pm', label: '5pm-8pm', time: '5pm-8pm', icon: '🌙', popular: false, duration: 3 },
     ];
-  } else if (dayOfWeek === 5) { // Friday
+  } else if (dayOfWeek === 5) { // Friday (4-hour slots)
     return [
-      { id: '12pm-4pm', label: '12pm-4pm', time: '12pm-4pm', icon: '☀️', popular: true },
-      { id: '4:30pm-8:30pm', label: '4:30pm-8:30pm', time: '4:30pm-8:30pm', icon: '🌙', popular: true },
+      { id: '12pm-4pm', label: '12pm-4pm', time: '12pm-4pm', icon: '☀️', popular: true, duration: 4 },
+      { id: '4:30pm-8:30pm', label: '4:30pm-8:30pm', time: '4:30pm-8:30pm', icon: '🌙', popular: true, duration: 4 },
     ];
-  } else { // Saturday/Sunday
+  } else { // Saturday/Sunday (4-hour slots)
     return [
-      { id: '11am-3pm', label: '11am-3pm', time: '11am-3pm', icon: '☀️', popular: true },
-      { id: '3:30pm-7:30pm', label: '3:30pm-7:30pm', time: '3:30pm-7:30pm', icon: '🌆', popular: true },
+      { id: '11am-3pm', label: '11am-3pm', time: '11am-3pm', icon: '☀️', popular: true, duration: 4 },
+      { id: '3:30pm-7:30pm', label: '3:30pm-7:30pm', time: '3:30pm-7:30pm', icon: '🌆', popular: true, duration: 4 },
     ];
   }
 };
@@ -116,14 +116,19 @@ const getPrivateTimeSlotsForDate = (date: Date) => {
 const getDiscoTimeSlotsForDate = (date: Date) => {
   const dayOfWeek = date.getDay();
   
-  if (dayOfWeek === 5) { // Friday
+  if (dayOfWeek === 5) { // Friday (4-hour slots)
     return [
-      { id: 'disco-fri-12pm-4pm', label: '12:00 PM - 4:00 PM', time: '12pm-4pm', icon: '🕛', popular: true },
+      { id: 'disco-fri-12pm-4pm', label: '12:00 PM - 4:00 PM', time: '12pm-4pm', icon: '🕛', popular: true, duration: 4 },
     ];
-  } else if (dayOfWeek === 6) { // Saturday
+  } else if (dayOfWeek === 6) { // Saturday (4-hour slots)
     return [
-      { id: 'disco-sat-11am-3pm', label: '11:00 AM - 3:00 PM', time: '11am-3pm', icon: '🕚', popular: true },
-      { id: 'disco-sat-3:30pm-7:30pm', label: '3:30 PM - 7:30 PM', time: '3:30pm-7:30pm', icon: '🕞', popular: true },
+      { id: 'disco-sat-11am-3pm', label: '11:00 AM - 3:00 PM', time: '11am-3pm', icon: '🕚', popular: true, duration: 4 },
+      { id: 'disco-sat-3:30pm-7:30pm', label: '3:30 PM - 7:30 PM', time: '3:30pm-7:30pm', icon: '🕞', popular: true, duration: 4 },
+    ];
+  } else if (dayOfWeek === 0) { // Sunday (4-hour slots)
+    return [
+      { id: 'disco-sun-11am-3pm', label: '11:00 AM - 3:00 PM', time: '11am-3pm', icon: '🕚', popular: true, duration: 4 },
+      { id: 'disco-sun-3:30pm-7:30pm', label: '3:30 PM - 7:30 PM', time: '3:30pm-7:30pm', icon: '🕞', popular: true, duration: 4 },
     ];
   } else {
     return [];
@@ -132,7 +137,7 @@ const getDiscoTimeSlotsForDate = (date: Date) => {
 
 const isDiscoAvailableForDate = (date: Date) => {
   const dayOfWeek = date.getDay();
-  return dayOfWeek === 5 || dayOfWeek === 6;
+  return dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0; // Friday, Saturday, Sunday
 };
 
 const isDateAvailable = (date: Date): boolean => {
@@ -403,6 +408,24 @@ export default function Chat() {
             ...prev,
             selectedDiscoPackage: defaultDiscoPackage.id as DiscoPackage,
             selectedDiscoTimeSlot: defaultDiscoSlot.id,
+            discoTicketQuantity: prev.groupSize, // Set disco quantity = group size for bachelor/bachelorette
+          }));
+        }
+      }
+      
+      // For all other event types with disco available, use minimum quantity
+      if ((formData.eventType !== 'bachelor' && formData.eventType !== 'bachelorette') &&
+          formData.eventDate && isDiscoAvailableForDate(formData.eventDate) && 
+          (!formData.selectedDiscoPackage || !formData.selectedDiscoTimeSlot)) {
+        const availableDiscoSlots = getDiscoTimeSlotsForDate(formData.eventDate);
+        const defaultDiscoSlot = availableDiscoSlots[0];
+        const defaultDiscoPackage = discoPackages[0];
+        
+        if (defaultDiscoSlot && defaultDiscoPackage) {
+          setFormData(prev => ({
+            ...prev,
+            selectedDiscoPackage: defaultDiscoPackage.id as DiscoPackage,
+            selectedDiscoTimeSlot: defaultDiscoSlot.id,
             discoTicketQuantity: Math.min(prev.groupSize, 10),
           }));
         }
@@ -458,6 +481,13 @@ export default function Chat() {
     }
   };
   
+  // Helper function to get cruise duration based on date
+  const getCruiseDuration = (date: Date | undefined) => {
+    if (!date) return 4; // Default to 4 hours
+    const dayOfWeek = date.getDay();
+    return (dayOfWeek >= 1 && dayOfWeek <= 4) ? 3 : 4; // 3 hours Mon-Thu, 4 hours Fri-Sun
+  };
+
   // Fallback private cruise pricing calculation
   const calculatePrivatePricing = () => {
     if (!formData.selectedPrivatePackage) return;
@@ -465,13 +495,20 @@ export default function Chat() {
     const selectedPackage = privatePackages.find(pkg => pkg.id === formData.selectedPrivatePackage);
     if (!selectedPackage) return;
     
-    const cruiseDuration = 4;
+    const cruiseDuration = getCruiseDuration(formData.eventDate);
     const baseCost = selectedPackage.hourlyRate * cruiseDuration;
     const crewFee = formData.groupSize > 20 ? 200 : 0;
     const subtotal = baseCost + crewFee;
     const tax = Math.round(subtotal * 0.0825);
     const gratuity = Math.round(subtotal * 0.20);
     const total = subtotal + tax + gratuity;
+    
+    // Calculate deposit based on event date (30-day rule)
+    const today = new Date();
+    const eventDate = formData.eventDate || new Date();
+    const daysUntilEvent = differenceInDays(eventDate, today);
+    const depositPercent = daysUntilEvent >= 30 ? 25 : 100;
+    const depositAmount = Math.round(total * (depositPercent / 100));
     
     setPrivatePricing({
       subtotal: subtotal * 100,
@@ -481,8 +518,8 @@ export default function Chat() {
       discountTotal: 0,
       gratuity: gratuity * 100,
       depositRequired: true,
-      depositPercent: 25,
-      depositAmount: Math.round(total * 0.25) * 100,
+      depositPercent,
+      depositAmount: depositAmount * 100,
       paymentSchedule: [],
       appliedDiscounts: [],
       breakdown: {
@@ -497,8 +534,8 @@ export default function Chat() {
         taxAmount: tax,
         grandTotal: total,
         perPerson: Math.round(total / formData.groupSize),
-        deposit: Math.round(total * 0.25),
-        balanceDue: total - Math.round(total * 0.25),
+        deposit: depositAmount,
+        balanceDue: total - depositAmount,
       }
     });
   };
@@ -547,10 +584,18 @@ export default function Chat() {
     const selectedPackage = discoPackages.find(pkg => pkg.id === formData.selectedDiscoPackage);
     if (!selectedPackage) return;
     
+    const cruiseDuration = getCruiseDuration(formData.eventDate);
     const subtotal = selectedPackage.price * formData.discoTicketQuantity;
     const gratuity = Math.round(subtotal * 0.20);
     const tax = Math.round(subtotal * 0.0825);
     const total = subtotal + gratuity + tax;
+    
+    // Calculate deposit based on event date (30-day rule)
+    const today = new Date();
+    const eventDate = formData.eventDate || new Date();
+    const daysUntilEvent = differenceInDays(eventDate, today);
+    const depositPercent = daysUntilEvent >= 30 ? 25 : 100;
+    const depositAmount = Math.round(total * (depositPercent / 100));
     
     setDiscoPricing({
       subtotal: subtotal * 100,
@@ -560,24 +605,24 @@ export default function Chat() {
       discountTotal: 0,
       gratuity: gratuity * 100,
       depositRequired: true,
-      depositPercent: 25,
-      depositAmount: Math.round(total * 0.25) * 100,
+      depositPercent,
+      depositAmount: depositAmount * 100,
       paymentSchedule: [],
       appliedDiscounts: [],
       breakdown: {
         boatType: selectedPackage.name,
         dayName: formData.eventDate ? format(formData.eventDate, 'EEEE') : '',
-        baseHourlyRate: Math.round(selectedPackage.price / 4),
-        cruiseDuration: 4,
-        baseCruiseCost: selectedPackage.price,
+        baseHourlyRate: Math.round(selectedPackage.price / cruiseDuration),
+        cruiseDuration,
+        baseCruiseCost: selectedPackage.price * formData.discoTicketQuantity,
         crewFee: 0,
         subtotalBeforeTax: subtotal,
         gratuityAmount: gratuity,
         taxAmount: tax,
         grandTotal: total,
         perPerson: selectedPackage.price,
-        deposit: Math.round(total * 0.25),
-        balanceDue: total - Math.round(total * 0.25),
+        deposit: depositAmount,
+        balanceDue: total - depositAmount,
       }
     });
   };
@@ -749,75 +794,68 @@ export default function Chat() {
   const createLead = useMutation({
     mutationFn: async (data: BookingData) => {
       // Step 1: Create lead and project using the new booking endpoint
-      const leadResponse = await apiRequest('/api/chat/booking', {
-        method: 'POST',
-        body: JSON.stringify({
-          sessionId: `chat_${Date.now()}`,
-          step: 'create-lead',
-          email: data.email,
-          name: `${data.firstName} ${data.lastName}`,
-          phone: data.phone,
-          eventType: data.eventType,
-          eventDate: data.eventDate?.toISOString(),
-          groupSize: data.groupSize,
-          specialRequests: data.specialRequests,
-          cruiseType: data.selectedCruiseType,
-          timeSlot: data.selectedCruiseType === 'private' ? data.selectedTimeSlot : data.selectedDiscoTimeSlot,
-          discoPackage: data.selectedDiscoPackage,
-          budget: (data.selectedCruiseType === 'private' ? privatePricing?.total : discoPricing?.total)?.toString(),
-          data: {
-            eventTypeLabel: data.eventTypeLabel,
-            discoTicketQuantity: data.discoTicketQuantity
-          }
-        })
+      const leadResponse = await apiRequest('POST', '/api/chat/booking', {
+        sessionId: `chat_${Date.now()}`,
+        step: 'create-lead',
+        email: data.email,
+        name: `${data.firstName} ${data.lastName}`,
+        phone: data.phone,
+        eventType: data.eventType,
+        eventDate: data.eventDate?.toISOString(),
+        groupSize: data.groupSize,
+        specialRequests: data.specialRequests,
+        cruiseType: data.selectedCruiseType,
+        timeSlot: data.selectedCruiseType === 'private' ? data.selectedTimeSlot : data.selectedDiscoTimeSlot,
+        discoPackage: data.selectedDiscoPackage,
+        budget: (data.selectedCruiseType === 'private' ? privatePricing?.total : discoPricing?.total)?.toString(),
+        data: {
+          eventTypeLabel: data.eventTypeLabel,
+          discoTicketQuantity: data.discoTicketQuantity
+        }
       });
+      const leadResult = await leadResponse.json();
 
-      if (!leadResponse.success) {
+      if (!leadResult.success) {
         throw new Error('Failed to create lead');
       }
 
-      const projectId = leadResponse.project.id;
-      const contactId = leadResponse.contact.id;
+      const projectId = leadResult.project.id;
+      const contactId = leadResult.contact.id;
       
       // Step 2: Check availability
       if (data.eventDate) {
-        await apiRequest('/api/chat/booking', {
-          method: 'POST',
-          body: JSON.stringify({
-            sessionId: `chat_${Date.now()}`,
-            step: 'check-availability',
-            data: {
-              date: data.eventDate.toISOString().split('T')[0],
-              groupSize: data.groupSize
-            }
-          })
+        await apiRequest('POST', '/api/chat/booking', {
+          sessionId: `chat_${Date.now()}`,
+          step: 'check-availability',
+          data: {
+            date: data.eventDate.toISOString().split('T')[0],
+            groupSize: data.groupSize
+          }
         });
       }
       
       // Step 3: Generate and send quote using backend
-      const quoteResponse = await apiRequest('/api/chat/booking', {
-        method: 'POST',
-        body: JSON.stringify({
-          sessionId: `chat_${Date.now()}`,
-          step: 'generate-quote',
-          data: {
-            projectId: projectId,
-            promoCode: undefined
-          }
-        })
+      const quoteResponse = await apiRequest('POST', '/api/chat/booking', {
+        sessionId: `chat_${Date.now()}`,
+        step: 'generate-quote',
+        data: {
+          projectId: projectId,
+          promoCode: undefined
+        }
       });
+      const quoteResult = await quoteResponse.json();
 
-      if (!quoteResponse.success) {
+      if (!quoteResult.success) {
         throw new Error('Failed to generate quote');
       }
 
-      setGeneratedQuoteId(quoteResponse.quote.id);
+      setGeneratedQuoteId(quoteResult.quote.id);
 
       return { 
-        contact: leadResponse.contact, 
-        project: leadResponse.project,
-        quote: quoteResponse.quote,
-        quoteUrl: quoteResponse.quoteUrl
+        contact: leadResult.contact, 
+        project: leadResult.project,
+        quote: quoteResult.quote,
+        quoteUrl: quoteResult.quoteUrl
       };
       
       /* Remove old client-side quote generation - now handled by backend
@@ -1276,11 +1314,41 @@ export default function Chat() {
                         <CardContent className="space-y-4">
                           {privatePricing && (
                             <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-lg p-4">
-                              <div className="text-3xl font-bold text-blue-600">
-                                {formatCurrency(privatePricing.total)}
+                              <div className="text-center mb-4">
+                                <div className="text-3xl font-bold text-blue-600">
+                                  {formatCurrency(privatePricing.total)}
+                                </div>
+                                <div className="text-sm text-slate-600 dark:text-slate-400">
+                                  {formatCurrency(privatePricing.perPersonCost)} per person
+                                </div>
                               </div>
-                              <div className="text-sm text-slate-600 dark:text-slate-400">
-                                {formatCurrency(privatePricing.perPersonCost)} per person
+                              
+                              {/* Detailed Pricing Breakdown */}
+                              <div className="space-y-2 text-sm border-t pt-3">
+                                <div className="flex justify-between">
+                                  <span>Subtotal ({getCruiseDuration(formData.eventDate)}hr cruise):</span>
+                                  <span>{formatCurrency(privatePricing.subtotal)}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span>Tax (8.25%):</span>
+                                  <span>{formatCurrency(privatePricing.tax)}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span>Gratuity (20%):</span>
+                                  <span>{formatCurrency(privatePricing.gratuity)}</span>
+                                </div>
+                                <div className="flex justify-between font-bold border-t pt-2">
+                                  <span>Grand Total:</span>
+                                  <span>{formatCurrency(privatePricing.total)}</span>
+                                </div>
+                                <div className="flex justify-between text-green-600">
+                                  <span>Deposit ({privatePricing.depositPercent}%):</span>
+                                  <span>{formatCurrency(privatePricing.depositAmount)}</span>
+                                </div>
+                                <div className="flex justify-between text-slate-600">
+                                  <span>Balance Due:</span>
+                                  <span>{formatCurrency(privatePricing.total - privatePricing.depositAmount)}</span>
+                                </div>
                               </div>
                             </div>
                           )}
@@ -1305,17 +1373,50 @@ export default function Chat() {
                             </RadioGroup>
                           </div>
                           
-                          <Button
-                            onClick={() => {
-                              setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
-                              goToStep('contact-form');
-                            }}
-                            disabled={!formData.selectedPrivatePackage}
-                            className="w-full"
-                            data-testid="button-select-private"
-                          >
-                            Choose Private Cruise
-                          </Button>
+                          {/* Payment Buttons */}
+                          <div className="space-y-2">
+                            <Button
+                              onClick={() => {
+                                setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
+                                setSelectedPaymentOption('deposit');
+                                goToStep('contact-form');
+                              }}
+                              disabled={!formData.selectedPrivatePackage || !privatePricing}
+                              className="w-full bg-green-600 hover:bg-green-700"
+                              data-testid="button-private-deposit"
+                            >
+                              <CreditCard className="h-4 w-4 mr-2" />
+                              Pay {privatePricing?.depositPercent || 25}% Deposit ({privatePricing ? formatCurrency(privatePricing.depositAmount) : '$0'})
+                            </Button>
+                            
+                            <Button
+                              onClick={() => {
+                                setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
+                                setSelectedPaymentOption('full');
+                                goToStep('contact-form');
+                              }}
+                              disabled={!formData.selectedPrivatePackage || !privatePricing}
+                              className="w-full bg-blue-600 hover:bg-blue-700"
+                              data-testid="button-private-full"
+                            >
+                              <CreditCard className="h-4 w-4 mr-2" />
+                              Pay in Full ({privatePricing ? formatCurrency(privatePricing.total) : '$0'})
+                            </Button>
+                            
+                            <Button
+                              onClick={() => {
+                                setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
+                                goToStep('contact-form');
+                              }}
+                              disabled={!formData.selectedPrivatePackage}
+                              variant="outline"
+                              className="w-full"
+                              data-testid="button-private-quote"
+                            >
+                              <FileText className="h-4 w-4 mr-2" />
+                              Send Me My Quote
+                            </Button>
+                          </div>
                         </CardContent>
                       </Card>
 
@@ -1339,11 +1440,41 @@ export default function Chat() {
                           <CardContent className="space-y-4">
                             {discoPricing && (
                               <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 rounded-lg p-4">
-                                <div className="text-3xl font-bold text-purple-600">
-                                  {formatCurrency(discoPricing.total)}
+                                <div className="text-center mb-4">
+                                  <div className="text-3xl font-bold text-purple-600">
+                                    {formatCurrency(discoPricing.total)}
+                                  </div>
+                                  <div className="text-sm text-slate-600 dark:text-slate-400">
+                                    {formData.discoTicketQuantity} tickets × {formatCurrency(discoPricing.perPersonCost)}
+                                  </div>
                                 </div>
-                                <div className="text-sm text-slate-600 dark:text-slate-400">
-                                  {formData.discoTicketQuantity} tickets × {formatCurrency(discoPricing.perPersonCost)}
+                                
+                                {/* Detailed Pricing Breakdown */}
+                                <div className="space-y-2 text-sm border-t pt-3">
+                                  <div className="flex justify-between">
+                                    <span>Subtotal ({getCruiseDuration(formData.eventDate)}hr cruise):</span>
+                                    <span>{formatCurrency(discoPricing.subtotal)}</span>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span>Tax (8.25%):</span>
+                                    <span>{formatCurrency(discoPricing.tax)}</span>
+                                  </div>
+                                  <div className="flex justify-between">
+                                    <span>Gratuity (20%):</span>
+                                    <span>{formatCurrency(discoPricing.gratuity)}</span>
+                                  </div>
+                                  <div className="flex justify-between font-bold border-t pt-2">
+                                    <span>Grand Total:</span>
+                                    <span>{formatCurrency(discoPricing.total)}</span>
+                                  </div>
+                                  <div className="flex justify-between text-green-600">
+                                    <span>Deposit ({discoPricing.depositPercent}%):</span>
+                                    <span>{formatCurrency(discoPricing.depositAmount)}</span>
+                                  </div>
+                                  <div className="flex justify-between text-slate-600">
+                                    <span>Balance Due:</span>
+                                    <span>{formatCurrency(discoPricing.total - discoPricing.depositAmount)}</span>
+                                  </div>
                                 </div>
                               </div>
                             )}
@@ -1404,17 +1535,50 @@ export default function Chat() {
                               </div>
                             )}
                             
-                            <Button
-                              onClick={() => {
-                                setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
-                                goToStep('contact-form');
-                              }}
-                              disabled={!formData.selectedDiscoPackage}
-                              className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
-                              data-testid="button-select-disco"
-                            >
-                              Choose Disco Cruise
-                            </Button>
+                            {/* Payment Buttons */}
+                            <div className="space-y-2">
+                              <Button
+                                onClick={() => {
+                                  setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
+                                  setSelectedPaymentOption('deposit');
+                                  goToStep('contact-form');
+                                }}
+                                disabled={!formData.selectedDiscoPackage || !discoPricing}
+                                className="w-full bg-green-600 hover:bg-green-700"
+                                data-testid="button-disco-deposit"
+                              >
+                                <CreditCard className="h-4 w-4 mr-2" />
+                                Pay {discoPricing?.depositPercent || 25}% Deposit ({discoPricing ? formatCurrency(discoPricing.depositAmount) : '$0'})
+                              </Button>
+                              
+                              <Button
+                                onClick={() => {
+                                  setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
+                                  setSelectedPaymentOption('full');
+                                  goToStep('contact-form');
+                                }}
+                                disabled={!formData.selectedDiscoPackage || !discoPricing}
+                                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
+                                data-testid="button-disco-full"
+                              >
+                                <CreditCard className="h-4 w-4 mr-2" />
+                                Pay in Full ({discoPricing ? formatCurrency(discoPricing.total) : '$0'})
+                              </Button>
+                              
+                              <Button
+                                onClick={() => {
+                                  setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
+                                  goToStep('contact-form');
+                                }}
+                                disabled={!formData.selectedDiscoPackage}
+                                variant="outline"
+                                className="w-full"
+                                data-testid="button-disco-quote"
+                              >
+                                <FileText className="h-4 w-4 mr-2" />
+                                Send Me My Quote
+                              </Button>
+                            </div>
                           </CardContent>
                         </Card>
                       ) : (
