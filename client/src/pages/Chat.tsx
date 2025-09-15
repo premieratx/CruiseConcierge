@@ -390,7 +390,7 @@ export default function Chat() {
 
   // Auto-select default options when group size is selected on comparison page
   useEffect(() => {
-    if (currentStep === 'comparison-selection' && formData.groupSize > 0 && formData.eventType && showComparison) {
+    if (currentStep === 'comparison-selection' && formData.groupSize > 0 && formData.eventType && formData.eventDate) {
       
       // Auto-select private cruise defaults if not already selected
       if (!formData.selectedTimeSlot) {
@@ -447,29 +447,43 @@ export default function Chat() {
 
   // Fetch private cruise pricing when time slot and group size are available
   useEffect(() => {
-    if (formData.selectedTimeSlot && formData.groupSize) {
+    if (formData.selectedTimeSlot && formData.groupSize && formData.eventDate) {
       console.log('🚢 useEffect triggering fetchPrivatePricing');
       fetchPrivatePricing();
     } else {
       console.log('🚢 useEffect NOT triggering fetchPrivatePricing - missing:', {
         selectedTimeSlot: formData.selectedTimeSlot,
-        groupSize: formData.groupSize
+        groupSize: formData.groupSize,
+        eventDate: formData.eventDate
       });
+      
+      // Fallback: If we have partial data, try to calculate basic pricing
+      if (formData.selectedTimeSlot && formData.groupSize) {
+        console.log('🚢 Triggering fallback calculatePrivatePricing');
+        calculatePrivatePricing();
+      }
     }
-  }, [formData.selectedTimeSlot, formData.selectedAddOnPackages, formData.groupSize]);
+  }, [formData.selectedTimeSlot, formData.selectedAddOnPackages, formData.groupSize, formData.eventDate]);
   
   // Fetch disco pricing when package and quantity are available
   useEffect(() => {
-    if (formData.selectedDiscoPackage && formData.discoTicketQuantity) {
+    if (formData.selectedDiscoPackage && formData.discoTicketQuantity && formData.eventDate) {
       console.log('🎵 useEffect triggering fetchDiscoPricing');
       fetchDiscoPricing();
     } else {
       console.log('🎵 useEffect NOT triggering fetchDiscoPricing - missing:', {
         selectedDiscoPackage: formData.selectedDiscoPackage,
-        discoTicketQuantity: formData.discoTicketQuantity
+        discoTicketQuantity: formData.discoTicketQuantity,
+        eventDate: formData.eventDate
       });
+      
+      // Fallback: If we have partial data, try to calculate basic pricing
+      if (formData.selectedDiscoPackage && formData.discoTicketQuantity > 0) {
+        console.log('🎵 Triggering fallback calculateDiscoPricing');
+        calculateDiscoPricing();
+      }
     }
-  }, [formData.selectedDiscoPackage, formData.discoTicketQuantity]);
+  }, [formData.selectedDiscoPackage, formData.discoTicketQuantity, formData.eventDate]);
 
   // Fetch private cruise pricing with loading state
   const fetchPrivatePricing = async () => {
