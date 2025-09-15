@@ -15,6 +15,7 @@ import Discounts from "./pages/Discounts";
 import Affiliates from "./pages/Affiliates";
 import Documentation from "./pages/Documentation";
 import QuoteViewer from "./pages/QuoteViewer";
+import InvoiceViewer from "./pages/InvoiceViewer";
 import CalendarView from "@/components/CalendarView";
 import Settings from "./pages/Settings";
 import NotFound from "@/pages/not-found";
@@ -39,6 +40,7 @@ function Router() {
       <Route path="/checkout" component={Checkout} />
       <Route path="/checkout/:quoteId" component={Checkout} />
       <Route path="/quote/:quoteId" component={QuoteViewer} />
+      <Route path="/invoice/:invoiceId" component={InvoiceViewer} />
       <Route component={NotFound} />
     </Switch>
   );

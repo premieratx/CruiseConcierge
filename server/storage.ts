@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -43,6 +43,7 @@ export interface IStorage {
 
   // Invoices
   getInvoice(id: string): Promise<Invoice | undefined>;
+  getInvoiceByQuoteId(quoteId: string): Promise<Invoice | undefined>;
   createInvoice(invoice: Omit<Invoice, 'id' | 'createdAt'>): Promise<Invoice>;
   updateInvoice(id: string, updates: Partial<Invoice>): Promise<Invoice>;
 
@@ -688,6 +689,7 @@ export class MemStorage implements IStorage {
         basePricePerPerson: 0,
         duration: 2,
         active: true,
+        isDefault: true,
         displayOrder: 1,
         visualTheme: { primaryColor: "#FF6B9D", accentColor: "#F7DC6F", theme: "celebration" },
         automationRules: [],
@@ -710,6 +712,7 @@ export class MemStorage implements IStorage {
         basePricePerPerson: 2500,
         duration: 3,
         active: true,
+        isDefault: false,
         displayOrder: 2,
         visualTheme: { primaryColor: "#2E86AB", accentColor: "#A23B72", theme: "professional" },
         automationRules: [],
@@ -979,6 +982,7 @@ export class MemStorage implements IStorage {
             ticketsSold: Math.floor(Math.random() * 30), // Random initial data
             ticketCap: 75,
             status: "available" as const,
+            createdAt: new Date(),
           });
         }
         
@@ -992,6 +996,7 @@ export class MemStorage implements IStorage {
             ticketsSold: Math.floor(Math.random() * 50),
             ticketCap: 75,
             status: "available" as const,
+            createdAt: new Date(),
           });
           
           discoSlotsData.push({
@@ -1002,6 +1007,7 @@ export class MemStorage implements IStorage {
             ticketsSold: Math.floor(Math.random() * 40),
             ticketCap: 75,
             status: "available" as const,
+            createdAt: new Date(),
           });
         }
       }
@@ -1038,8 +1044,11 @@ export class MemStorage implements IStorage {
           }
         ],
         variables: ["contactName", "eventType", "eventDate", "groupSize", "totalAmount", "quoteLink"],
+        description: "Template for delivering quotes to potential customers",
+        isDefault: true,
         active: true,
         createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: "email_payment_confirmation",
@@ -1067,8 +1076,11 @@ export class MemStorage implements IStorage {
           }
         ],
         variables: ["contactName", "paymentAmount", "eventDate"],
+        description: "Template for confirming payment receipt",
+        isDefault: false,
         active: true,
         createdAt: new Date(),
+        updatedAt: new Date(),
       },
       {
         id: "email_booking_confirmation",
@@ -1096,8 +1108,11 @@ export class MemStorage implements IStorage {
           }
         ],
         variables: ["contactName", "eventType", "eventDate", "eventTime", "boatName", "groupSize"],
+        description: "Template for sending final booking confirmation",
+        isDefault: false,
         active: true,
         createdAt: new Date(),
+        updatedAt: new Date(),
       },
     ];
     emailTemplates.forEach(template => this.emailTemplates.set(template.id, template));
@@ -1198,7 +1213,7 @@ export class MemStorage implements IStorage {
       ...insertContact,
       orgId: insertContact.orgId || "org_demo",
       phone: insertContact.phone || null,
-      tags: insertContact.tags || [],
+      tags: insertContact.tags ? [...insertContact.tags] : [],
       id,
       createdAt: new Date(),
     };
@@ -1249,7 +1264,13 @@ export class MemStorage implements IStorage {
       projectDate: insertProject.projectDate || null,
       groupSize: insertProject.groupSize || null,
       eventType: insertProject.eventType || null,
-      tags: insertProject.tags || [],
+      duration: insertProject.duration ?? null,
+      specialRequests: insertProject.specialRequests ?? null,
+      preferredTime: insertProject.preferredTime ?? null,
+      budget: insertProject.budget ?? null,
+      leadSource: insertProject.leadSource ?? "chat",
+      availabilitySlotId: insertProject.availabilitySlotId ?? null,
+      tags: insertProject.tags ? [...insertProject.tags] : [],
       id,
       createdAt: new Date(),
     };
@@ -1296,7 +1317,7 @@ export class MemStorage implements IStorage {
 
   async getProductsByEventType(eventType: string): Promise<Product[]> {
     return Array.from(this.products.values()).filter(p => 
-      p.active && (p.eventTypes.length === 0 || p.eventTypes.includes(eventType))
+      p.active && ((p.eventTypes && p.eventTypes.length === 0) || (p.eventTypes && p.eventTypes.includes(eventType)))
     );
   }
 
@@ -1313,8 +1334,15 @@ export class MemStorage implements IStorage {
     const product: Product = {
       ...insertProduct,
       orgId: insertProduct.orgId || "org_demo",
+      description: insertProduct.description ?? null,
+      unitPrice: insertProduct.unitPrice,
+      taxable: insertProduct.taxable ?? true,
       pricingModel: insertProduct.pricingModel || "hourly",
       productType: insertProduct.productType || "private_cruise",
+      dayType: insertProduct.dayType ?? null,
+      groupSize: insertProduct.groupSize ?? null,
+      imageUrl: insertProduct.imageUrl ?? null,
+      categoryType: insertProduct.categoryType || "experience",
       eventTypes: insertProduct.eventTypes || [],
       active: insertProduct.active !== undefined ? insertProduct.active : true,
       id,
@@ -1346,7 +1374,7 @@ export class MemStorage implements IStorage {
       ...insertQuote,
       orgId: insertQuote.orgId || "org_demo",
       status: insertQuote.status || "DRAFT",
-      items: insertQuote.items || [],
+      items: insertQuote.items ? [...insertQuote.items] : [],
       promoCode: insertQuote.promoCode || null,
       discountTotal: insertQuote.discountTotal || 0,
       subtotal: insertQuote.subtotal || 0,
@@ -1375,6 +1403,15 @@ export class MemStorage implements IStorage {
 
   async getInvoice(id: string): Promise<Invoice | undefined> {
     return this.invoices.get(id);
+  }
+
+  async getInvoiceByQuoteId(quoteId: string): Promise<Invoice | undefined> {
+    for (const invoice of Array.from(this.invoices.values())) {
+      if (invoice.quoteId === quoteId) {
+        return invoice;
+      }
+    }
+    return undefined;
   }
 
   async createInvoice(invoice: Omit<Invoice, 'id' | 'createdAt'>): Promise<Invoice> {
@@ -1481,14 +1518,14 @@ export class MemStorage implements IStorage {
     const template: QuoteTemplate = {
       ...insertTemplate,
       orgId: insertTemplate.orgId || "org_demo",
-      defaultItems: insertTemplate.defaultItems || [],
+      defaultItems: insertTemplate.defaultItems ? [...insertTemplate.defaultItems] : [],
       minGroupSize: insertTemplate.minGroupSize || null,
       maxGroupSize: insertTemplate.maxGroupSize || null,
       basePricePerPerson: insertTemplate.basePricePerPerson || null,
       active: insertTemplate.active !== undefined ? insertTemplate.active : true,
       displayOrder: insertTemplate.displayOrder || 0,
-      visualTheme: insertTemplate.visualTheme || {},
-      automationRules: insertTemplate.automationRules || [],
+      visualTheme: insertTemplate.visualTheme ? { ...insertTemplate.visualTheme } : {},
+      automationRules: insertTemplate.automationRules ? [...insertTemplate.automationRules] : [],
       id,
       createdAt: new Date(),
     };
@@ -1531,8 +1568,8 @@ export class MemStorage implements IStorage {
     const rule: TemplateRule = {
       ...insertRule,
       orgId: insertRule.orgId || "org_demo",
-      conditions: insertRule.conditions || [],
-      actions: insertRule.actions || [],
+      conditions: insertRule.conditions ? [...insertRule.conditions] : [],
+      actions: insertRule.actions ? [...insertRule.actions] : [],
       priority: insertRule.priority || 0,
       active: insertRule.active !== undefined ? insertRule.active : true,
       id,
@@ -1593,7 +1630,7 @@ export class MemStorage implements IStorage {
       usageLimit: insertRule.usageLimit || null,
       usageCount: insertRule.usageCount || 0,
       active: insertRule.active !== undefined ? insertRule.active : true,
-      conditions: insertRule.conditions || [],
+      conditions: insertRule.conditions ? [...insertRule.conditions] : [],
       id,
       createdAt: new Date(),
     };
@@ -1638,6 +1675,8 @@ export class MemStorage implements IStorage {
         currency: "USD",
         timezone: "America/Chicago",
         priceDisplayMode: "both",
+        dayOfWeekMultipliers: null,
+        seasonalAdjustments: [],
         updatedAt: new Date(),
         ...updates,
       };
@@ -1674,6 +1713,7 @@ export class MemStorage implements IStorage {
       email: insertAffiliate.email || null,
       phone: insertAffiliate.phone || null,
       companyName: insertAffiliate.companyName || null,
+      commissionType: insertAffiliate.commissionType || "percentage",
       totalReferrals: 0,
       totalRevenue: 0,
       totalCommission: 0,
@@ -1903,7 +1943,7 @@ export class MemStorage implements IStorage {
     }
 
     return {
-      items,
+      // items,  // Removed - not part of PricingPreview type
       subtotal: baseCruiseCost,
       discountTotal: 0,
       tax,
@@ -2088,8 +2128,10 @@ export class MemStorage implements IStorage {
     if (rule.minSubtotal && subtotal < rule.minSubtotal) return false;
 
     // Check conditions
-    for (const condition of rule.conditions) {
-      if (!this.evaluateCondition(condition, context)) return false;
+    if (rule.conditions) {
+      for (const condition of rule.conditions) {
+        if (!this.evaluateCondition(condition, context)) return false;
+      }
     }
 
     return true;
@@ -2642,7 +2684,7 @@ export class MemStorage implements IStorage {
     endDateTime.setHours(endHours, endMinutes, 0, 0);
     
     // Check availability for each capacity group
-    for (const [capacity, boats] of boatsByCapacity.entries()) {
+    for (const [capacity, boats] of Array.from(boatsByCapacity.entries())) {
       const availableBoats: Boat[] = [];
       
       for (const boat of boats) {
@@ -2752,7 +2794,7 @@ export class MemStorage implements IStorage {
       if (timeframes.length > 0) {
         // Check if the boat is in any of the timeframe boat lists
         const boatTimeframes = timeframes.filter(tf => 
-          tf.boatIds.length === 0 || 
+          !tf.boatIds || tf.boatIds.length === 0 || 
           tf.boatIds.includes('any') || 
           tf.boatIds.includes(boatId)
         );

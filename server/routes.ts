@@ -325,7 +325,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const quotes = await storage.getQuotesByProject(project.id);
         for (const quote of quotes) {
           if (quote.status === 'accepted') {
-            const invoice = await storage.getInvoice(quote.id);
+            const invoice = await storage.getInvoiceByQuoteId(quote.id);
             if (invoice) {
               const contact = await storage.getContact(project.contactId);
               
@@ -355,6 +355,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error("Recent invoices error:", error);
       res.status(500).json({ error: "Failed to load recent invoices" });
+    }
+  });
+
+  // Get individual invoice endpoint
+  app.get("/api/invoices/:id", async (req, res) => {
+    try {
+      console.log("🎯 Invoice API endpoint hit for ID:", req.params.id);
+      const invoiceId = req.params.id;
+      const invoice = await storage.getInvoice(invoiceId);
+      
+      console.log("🎯 Found invoice:", invoice ? "YES" : "NO");
+      
+      if (!invoice) {
+        console.log("🎯 Invoice not found, returning 404");
+        return res.status(404).json({ error: "Invoice not found" });
+      }
+      
+      // Get related project and contact data
+      const project = await storage.getProject(invoice.projectId);
+      const contact = project ? await storage.getContact(project.contactId) : null;
+      
+      console.log("🎯 Returning invoice with details");
+      
+      // Return invoice with related data
+      const invoiceWithDetails = {
+        ...invoice,
+        project,
+        contact
+      };
+      
+      res.json(invoiceWithDetails);
+    } catch (error: any) {
+      console.error("Get invoice error:", error);
+      res.status(500).json({ error: "Failed to fetch invoice" });
     }
   });
 
