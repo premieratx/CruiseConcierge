@@ -1185,6 +1185,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // Project endpoints
+  app.get("/api/projects", async (req, res) => {
+    try {
+      const { contactId, pipelinePhase, status } = req.query;
+      
+      // Get all projects
+      let projects = await storage.getProjectsByContact('');
+      
+      // Filter by contactId if provided
+      if (contactId) {
+        projects = projects.filter(p => p.contactId === contactId);
+      }
+      
+      // Filter by pipelinePhase if provided
+      if (pipelinePhase) {
+        projects = projects.filter(p => p.pipelinePhase === pipelinePhase);
+      }
+      
+      // Filter by status if provided
+      if (status) {
+        projects = projects.filter(p => p.status === status);
+      }
+      
+      res.json(projects);
+    } catch (error) {
+      console.error("Get projects error:", error);
+      res.status(500).json({ error: "Failed to fetch projects" });
+    }
+  });
+
   app.post("/api/projects", async (req, res) => {
     try {
       const projectData = insertProjectSchema.parse(req.body);
@@ -1972,15 +2001,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Pipeline data
   app.get("/api/pipeline/summary", async (req, res) => {
     try {
-      const leads = await storage.getLeads();
-      const clients = await storage.getClients();
+      // Get all projects
+      const projects = await storage.getProjectsByContact('');
       
-      // In production, you would query for actual pipeline counts
+      // Count projects by pipeline phase
+      const pipelinePhases = {
+        ph_new: 0,
+        ph_quote_sent: 0,
+        ph_deposit_paid: 0,
+        ph_fully_paid: 0,
+        ph_event_complete: 0
+      };
+      
+      projects.forEach(project => {
+        if (project.pipelinePhase && pipelinePhases.hasOwnProperty(project.pipelinePhase)) {
+          pipelinePhases[project.pipelinePhase as keyof typeof pipelinePhases]++;
+        } else if (!project.pipelinePhase || project.pipelinePhase === 'ph_new') {
+          pipelinePhases.ph_new++;
+        }
+      });
+      
+      // Get contacts without projects (also new leads)
+      const contacts = await storage.getLeads();
+      const contactsWithProjects = new Set(projects.map(p => p.contactId));
+      const contactsWithoutProjects = contacts.filter(c => !contactsWithProjects.has(c.id));
+      
+      // Add contacts without projects to new leads count
+      pipelinePhases.ph_new += contactsWithoutProjects.length;
+      
+      // Calculate conversion rate
+      const totalLeads = contacts.length;
+      const converted = pipelinePhases.ph_fully_paid + pipelinePhases.ph_event_complete;
+      const conversionRate = totalLeads > 0 ? (converted / totalLeads) * 100 : 0;
+      
       res.json({
-        newLeads: leads.length,
-        quoteSent: Math.floor(leads.length * 0.6),
-        depositPaid: Math.floor(clients.length * 0.3),
-        fullyPaid: Math.floor(clients.length * 0.7)
+        newLeads: pipelinePhases.ph_new,
+        quoteSent: pipelinePhases.ph_quote_sent,
+        depositPaid: pipelinePhases.ph_deposit_paid,
+        fullyPaid: pipelinePhases.ph_fully_paid,
+        eventComplete: pipelinePhases.ph_event_complete,
+        conversionRate: Math.round(conversionRate),
+        totalLeads,
+        totalPipelineValue: 0 // Could calculate from quotes if needed
       });
     } catch (error) {
       console.error("Pipeline summary error:", error);

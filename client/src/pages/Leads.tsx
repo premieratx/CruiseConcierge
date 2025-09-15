@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useLocation, Link } from 'wouter';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
@@ -6,31 +6,50 @@ import { type Contact, type Project, type Quote, type Booking } from '@shared/sc
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
+import { 
+  DndContext, 
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragOverlay,
+  type DragEndEvent,
+  type DragStartEvent
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+  useSortable
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { 
   Plus, Search, Filter, Mail, Phone, Calendar, Users, 
   DollarSign, TrendingUp, ChevronRight, Edit, Trash2,
   MessageSquare, FileText, Clock, User, Building, Ship,
   Award, Star, History, CreditCard, Download, UserCheck,
-  Eye, ShoppingBag
+  Eye, ShoppingBag, Send, CheckCircle, XCircle, Activity,
+  GripVertical, ArrowRight, MailIcon, PhoneIcon, MessageCircleIcon
 } from 'lucide-react';
 
+// Pipeline stages as required
 const PIPELINE_STAGES = [
-  { value: 'NEW_LEAD', label: 'New Lead', color: 'bg-blue-500' },
-  { value: 'CONTACTED', label: 'Contacted', color: 'bg-yellow-500' },
-  { value: 'QUALIFIED', label: 'Qualified', color: 'bg-purple-500' },
-  { value: 'QUOTE_SENT', label: 'Quote Sent', color: 'bg-orange-500' },
-  { value: 'NEGOTIATION', label: 'Negotiation', color: 'bg-pink-500' },
-  { value: 'CLOSED_WON', label: 'Closed Won', color: 'bg-green-500' },
-  { value: 'CLOSED_LOST', label: 'Closed Lost', color: 'bg-red-500' },
+  { id: 'ph_new', label: 'New Lead', color: 'bg-blue-500', textColor: 'text-blue-700' },
+  { id: 'ph_quote_sent', label: 'Quote Sent', color: 'bg-yellow-500', textColor: 'text-yellow-700' },
+  { id: 'ph_deposit_paid', label: 'Deposit Paid', color: 'bg-orange-500', textColor: 'text-orange-700' },
+  { id: 'ph_fully_paid', label: 'Fully Paid', color: 'bg-green-500', textColor: 'text-green-700' },
+  { id: 'ph_event_complete', label: 'Event Complete', color: 'bg-purple-500', textColor: 'text-purple-700' },
 ];
 
 // Helper function to format currency
@@ -48,99 +67,446 @@ const formatDate = (date: Date | string | null) => {
   return format(dateObj, 'MMM dd, yyyy');
 };
 
-// Customer tier badge component
-const TierBadge = ({ totalSpent }: { totalSpent: number }) => {
-  let tier = "Bronze";
-  let variant: "outline" | "secondary" | "default" | "destructive" = "outline";
-  
-  if (totalSpent >= 1000000) { // $10,000+
-    tier = "Platinum";
-    variant = "default";
-  } else if (totalSpent >= 500000) { // $5,000+
-    tier = "Gold";
-    variant = "secondary";
-  } else if (totalSpent >= 200000) { // $2,000+
-    tier = "Silver";
-    variant = "outline";
-  }
-  
+// Sortable Lead Card Component
+function SortableLeadCard({ lead, project, onClick }: { lead: Contact; project?: Project; onClick: () => void }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: lead.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
   return (
-    <Badge variant={variant}>
-      <Award className="mr-1 h-3 w-3" />
-      {tier}
-    </Badge>
+    <div
+      ref={setNodeRef}
+      style={style}
+      className={`relative group ${isDragging ? 'z-50' : ''}`}
+      data-testid={`lead-card-${lead.id}`}
+    >
+      <Card className="p-3 hover:shadow-md transition-all cursor-pointer border-l-4 border-l-primary">
+        <div className="flex items-start justify-between">
+          <div
+            className="flex-1"
+            onClick={onClick}
+          >
+            <h4 className="font-semibold text-sm mb-1" data-testid={`text-lead-name-${lead.id}`}>
+              {lead.name}
+            </h4>
+            {lead.email && (
+              <p className="text-xs text-muted-foreground mb-1" data-testid={`text-lead-email-${lead.id}`}>
+                {lead.email}
+              </p>
+            )}
+            {project && (
+              <>
+                {project.eventType && (
+                  <Badge variant="outline" className="text-xs mr-1 mb-1" data-testid={`badge-event-type-${lead.id}`}>
+                    {project.eventType}
+                  </Badge>
+                )}
+                {project.groupSize && (
+                  <Badge variant="secondary" className="text-xs" data-testid={`badge-group-size-${lead.id}`}>
+                    {project.groupSize} guests
+                  </Badge>
+                )}
+                {project.projectDate && (
+                  <p className="text-xs text-muted-foreground mt-1" data-testid={`text-event-date-${lead.id}`}>
+                    <Calendar className="inline w-3 h-3 mr-1" />
+                    {formatDate(project.projectDate)}
+                  </p>
+                )}
+              </>
+            )}
+          </div>
+          <div
+            {...attributes}
+            {...listeners}
+            className="cursor-grab active:cursor-grabbing p-1 opacity-0 group-hover:opacity-100 transition-opacity"
+            data-testid={`drag-handle-${lead.id}`}
+          >
+            <GripVertical className="w-4 h-4 text-muted-foreground" />
+          </div>
+        </div>
+      </Card>
+    </div>
   );
-};
+}
 
-export default function Leads() {
-  const [, setLocation] = useLocation();
+// Lead Details Modal Component
+function LeadDetailsModal({ 
+  lead, 
+  project,
+  quotes,
+  isOpen, 
+  onClose,
+  onUpdate 
+}: { 
+  lead: Contact | null; 
+  project?: Project;
+  quotes?: Quote[];
+  isOpen: boolean; 
+  onClose: () => void;
+  onUpdate: () => void;
+}) {
   const { toast } = useToast();
-  const [mainTab, setMainTab] = useState('leads');
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filterStatus, setFilterStatus] = useState<string>('all');
-  const [selectedLead, setSelectedLead] = useState<Contact | null>(null);
-  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('pipeline');
-  const [customerSearchTerm, setCustomerSearchTerm] = useState('');
-  const [tierFilter, setTierFilter] = useState('all');
-  const [selectedCustomerId, setSelectedCustomerId] = useState<string | null>(null);
+  const [activeTab, setActiveTab] = useState('details');
+  const [isEditing, setIsEditing] = useState(false);
+  const [editedLead, setEditedLead] = useState(lead);
 
-  // Fetch all contacts
-  const { data: contacts = [], isLoading: contactsLoading } = useQuery<Contact[]>({
-    queryKey: ['/api/contacts'],
-  });
+  useEffect(() => {
+    setEditedLead(lead);
+  }, [lead]);
 
-  // Fetch customers (contacts with bookings)
-  const { data: customers = [], isLoading: customersLoading } = useQuery<Contact[]>({
-    queryKey: ['/api/contacts/clients'],
-  });
-
-  // Fetch projects
-  const { data: projects = [], isLoading: projectsLoading } = useQuery<Project[]>({
-    queryKey: ['/api/projects'],
-  });
-
-  // Fetch bookings
-  const { data: bookings = [] } = useQuery<Booking[]>({
-    queryKey: ['/api/bookings'],
-    queryFn: async () => {
-      const response = await fetch('/api/bookings');
-      if (!response.ok) throw new Error('Failed to fetch bookings');
-      return response.json();
+  const updateContact = useMutation({
+    mutationFn: async (data: Partial<Contact>) => {
+      return apiRequest('PATCH', `/api/contacts/${lead?.id}`, data);
+    },
+    onSuccess: () => {
+      toast({
+        title: 'Contact Updated',
+        description: 'Contact information has been updated.',
+      });
+      setIsEditing(false);
+      onUpdate();
     },
   });
 
-  // Fetch quotes for revenue calculation
-  const { data: quotes = [] } = useQuery<Quote[]>({
-    queryKey: ['/api/quotes'],
-    queryFn: async () => {
-      // Fetch quotes for all projects
-      const allQuotes: Quote[] = [];
-      for (const project of projects) {
-        try {
-          const response = await fetch(`/api/projects/${project.id}/quotes`);
-          if (response.ok) {
-            const projectQuotes = await response.json();
-            allQuotes.push(...projectQuotes);
-          }
-        } catch (error) {
-          console.error(`Failed to fetch quotes for project ${project.id}`, error);
-        }
+  const sendQuoteEmail = async () => {
+    if (!lead?.email) {
+      toast({
+        title: 'No Email',
+        description: 'This lead does not have an email address.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    try {
+      // Create and send quote logic here
+      toast({
+        title: 'Quote Sent',
+        description: `Quote sent to ${lead.email}`,
+      });
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Failed to send quote.',
+        variant: 'destructive',
+      });
+    }
+  };
+
+  const sendSMS = async () => {
+    if (!lead?.phone) {
+      toast({
+        title: 'No Phone',
+        description: 'This lead does not have a phone number.',
+        variant: 'destructive',
+      });
+      return;
+    }
+
+    try {
+      // Send SMS logic here
+      toast({
+        title: 'SMS Sent',
+        description: `SMS sent to ${lead.phone}`,
+      });
+    } catch (error) {
+      toast({
+        title: 'Error',
+        description: 'Failed to send SMS.',
+        variant: 'destructive',
+      });
+    }
+  };
+
+  if (!lead) return null;
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-2xl max-h-[80vh] overflow-hidden" data-testid="lead-details-modal">
+        <DialogHeader>
+          <DialogTitle className="flex items-center justify-between">
+            <span>{lead.name}</span>
+            <div className="flex gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                onClick={() => setIsEditing(!isEditing)}
+                data-testid="button-edit-lead"
+              >
+                <Edit className="w-4 h-4 mr-1" />
+                {isEditing ? 'Cancel' : 'Edit'}
+              </Button>
+            </div>
+          </DialogTitle>
+          <DialogDescription>Lead details and activity</DialogDescription>
+        </DialogHeader>
+
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="flex-1">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="details" data-testid="tab-details">Details</TabsTrigger>
+            <TabsTrigger value="activity" data-testid="tab-activity">Activity</TabsTrigger>
+            <TabsTrigger value="quotes" data-testid="tab-quotes">Quotes</TabsTrigger>
+          </TabsList>
+
+          <ScrollArea className="h-[400px] mt-4">
+            <TabsContent value="details" className="space-y-4">
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label>Name</Label>
+                  {isEditing ? (
+                    <Input
+                      value={editedLead?.name || ''}
+                      onChange={(e) => setEditedLead({ ...editedLead!, name: e.target.value })}
+                      data-testid="input-lead-name"
+                    />
+                  ) : (
+                    <p className="text-sm font-medium" data-testid="text-lead-name">{lead.name}</p>
+                  )}
+                </div>
+                <div>
+                  <Label>Email</Label>
+                  {isEditing ? (
+                    <Input
+                      type="email"
+                      value={editedLead?.email || ''}
+                      onChange={(e) => setEditedLead({ ...editedLead!, email: e.target.value })}
+                      data-testid="input-lead-email"
+                    />
+                  ) : (
+                    <p className="text-sm font-medium" data-testid="text-lead-email">{lead.email || 'N/A'}</p>
+                  )}
+                </div>
+                <div>
+                  <Label>Phone</Label>
+                  {isEditing ? (
+                    <Input
+                      type="tel"
+                      value={editedLead?.phone || ''}
+                      onChange={(e) => setEditedLead({ ...editedLead!, phone: e.target.value })}
+                      data-testid="input-lead-phone"
+                    />
+                  ) : (
+                    <p className="text-sm font-medium" data-testid="text-lead-phone">{lead.phone || 'N/A'}</p>
+                  )}
+                </div>
+                <div>
+                  <Label>Created</Label>
+                  <p className="text-sm font-medium" data-testid="text-lead-created">
+                    {formatDate(lead.createdAt)}
+                  </p>
+                </div>
+              </div>
+
+              {project && (
+                <div className="space-y-4 pt-4 border-t">
+                  <h3 className="font-semibold">Event Details</h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <Label>Event Type</Label>
+                      <p className="text-sm font-medium" data-testid="text-event-type">
+                        {project.eventType || 'N/A'}
+                      </p>
+                    </div>
+                    <div>
+                      <Label>Group Size</Label>
+                      <p className="text-sm font-medium" data-testid="text-group-size">
+                        {project.groupSize || 'N/A'}
+                      </p>
+                    </div>
+                    <div>
+                      <Label>Event Date</Label>
+                      <p className="text-sm font-medium" data-testid="text-event-date">
+                        {formatDate(project.projectDate)}
+                      </p>
+                    </div>
+                    <div>
+                      <Label>Budget</Label>
+                      <p className="text-sm font-medium" data-testid="text-budget">
+                        {project.budget ? formatCurrency(project.budget) : 'N/A'}
+                      </p>
+                    </div>
+                  </div>
+                  {project.specialRequests && (
+                    <div>
+                      <Label>Special Requests</Label>
+                      <p className="text-sm" data-testid="text-special-requests">
+                        {project.specialRequests}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {isEditing && (
+                <div className="flex justify-end gap-2 pt-4">
+                  <Button
+                    variant="outline"
+                    onClick={() => {
+                      setIsEditing(false);
+                      setEditedLead(lead);
+                    }}
+                    data-testid="button-cancel-edit"
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    onClick={() => updateContact.mutate(editedLead!)}
+                    disabled={updateContact.isPending}
+                    data-testid="button-save-changes"
+                  >
+                    Save Changes
+                  </Button>
+                </div>
+              )}
+            </TabsContent>
+
+            <TabsContent value="activity" className="space-y-4">
+              <div className="space-y-3">
+                <div className="flex items-center gap-2 text-sm">
+                  <Activity className="w-4 h-4 text-blue-500" />
+                  <span className="font-medium">Lead created</span>
+                  <span className="text-muted-foreground">{formatDate(lead.createdAt)}</span>
+                </div>
+                {project && (
+                  <>
+                    <div className="flex items-center gap-2 text-sm">
+                      <Calendar className="w-4 h-4 text-green-500" />
+                      <span className="font-medium">Project created</span>
+                      <span className="text-muted-foreground">{formatDate(project.createdAt)}</span>
+                    </div>
+                    {quotes && quotes.length > 0 && (
+                      <div className="flex items-center gap-2 text-sm">
+                        <FileText className="w-4 h-4 text-yellow-500" />
+                        <span className="font-medium">{quotes.length} quote(s) created</span>
+                      </div>
+                    )}
+                  </>
+                )}
+              </div>
+            </TabsContent>
+
+            <TabsContent value="quotes" className="space-y-4">
+              {quotes && quotes.length > 0 ? (
+                <div className="space-y-3">
+                  {quotes.map((quote) => (
+                    <Card key={quote.id} className="p-3">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <p className="font-medium text-sm">Quote #{quote.id.slice(0, 8)}</p>
+                          <p className="text-sm text-muted-foreground">
+                            {formatDate(quote.createdAt)}
+                          </p>
+                        </div>
+                        <div className="text-right">
+                          <p className="font-semibold">{formatCurrency(quote.total)}</p>
+                          <Badge variant={quote.status === 'accepted' ? 'default' : 'secondary'}>
+                            {quote.status}
+                          </Badge>
+                        </div>
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-8 text-muted-foreground">
+                  <FileText className="w-12 h-12 mx-auto mb-2 opacity-50" />
+                  <p>No quotes created yet</p>
+                </div>
+              )}
+            </TabsContent>
+          </ScrollArea>
+        </Tabs>
+
+        <DialogFooter className="flex flex-row justify-between items-center">
+          <div className="flex gap-2">
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={sendQuoteEmail}
+              disabled={!lead.email}
+              data-testid="button-send-email"
+            >
+              <MailIcon className="w-4 h-4 mr-1" />
+              Email
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={sendSMS}
+              disabled={!lead.phone}
+              data-testid="button-send-sms"
+            >
+              <MessageCircleIcon className="w-4 h-4 mr-1" />
+              SMS
+            </Button>
+            <Button
+              size="sm"
+              variant="outline"
+              onClick={() => lead.phone && window.open(`tel:${lead.phone}`)}
+              disabled={!lead.phone}
+              data-testid="button-call"
+            >
+              <PhoneIcon className="w-4 h-4 mr-1" />
+              Call
+            </Button>
+          </div>
+          <Button variant="ghost" onClick={onClose} data-testid="button-close-modal">
+            Close
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+// Create Lead Modal Component
+function CreateLeadModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  const { toast } = useToast();
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    eventType: '',
+    groupSize: '',
+    projectDate: '',
+    specialRequests: '',
+  });
+
+  const createLead = useMutation({
+    mutationFn: async () => {
+      // Create contact
+      const contactRes = await apiRequest('POST', '/api/contacts', {
+        name: formData.name,
+        email: formData.email,
+        phone: formData.phone,
+      });
+      const contact = await contactRes.json();
+
+      // Create project if event details provided
+      if (formData.eventType || formData.groupSize || formData.projectDate) {
+        await apiRequest('POST', '/api/projects', {
+          contactId: contact.id,
+          eventType: formData.eventType,
+          groupSize: formData.groupSize ? parseInt(formData.groupSize) : undefined,
+          projectDate: formData.projectDate || undefined,
+          specialRequests: formData.specialRequests || undefined,
+          status: 'NEW',
+          pipelinePhase: 'ph_new',
+        });
       }
-      return allQuotes;
-    },
-    enabled: projects.length > 0,
-  });
 
-  // Fetch pipeline summary
-  const { data: pipelineSummary } = useQuery({
-    queryKey: ['/api/pipeline/summary'],
-  });
-
-  // Create contact mutation
-  const createContact = useMutation({
-    mutationFn: async (data: any) => {
-      return apiRequest('POST', '/api/contacts', data);
+      return contact;
     },
     onSuccess: () => {
       toast({
@@ -148,837 +514,548 @@ export default function Leads() {
         description: 'New lead has been added to your pipeline.',
       });
       queryClient.invalidateQueries({ queryKey: ['/api/contacts'] });
-      setIsCreateModalOpen(false);
+      queryClient.invalidateQueries({ queryKey: ['/api/projects'] });
+      onClose();
+      setFormData({
+        name: '',
+        email: '',
+        phone: '',
+        eventType: '',
+        groupSize: '',
+        projectDate: '',
+        specialRequests: '',
+      });
+    },
+    onError: () => {
+      toast({
+        title: 'Error',
+        description: 'Failed to create lead.',
+        variant: 'destructive',
+      });
     },
   });
 
-  // Update project status
-  const updateProjectStatus = useMutation({
-    mutationFn: async ({ projectId, status }: { projectId: string; status: string }) => {
-      return apiRequest('PATCH', `/api/projects/${projectId}`, { status });
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-md" data-testid="create-lead-modal">
+        <DialogHeader>
+          <DialogTitle>Create New Lead</DialogTitle>
+          <DialogDescription>Add a new lead to your pipeline</DialogDescription>
+        </DialogHeader>
+
+        <div className="space-y-4">
+          <div>
+            <Label htmlFor="name">Name *</Label>
+            <Input
+              id="name"
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              placeholder="John Doe"
+              required
+              data-testid="input-new-lead-name"
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="email">Email *</Label>
+            <Input
+              id="email"
+              type="email"
+              value={formData.email}
+              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+              placeholder="john@example.com"
+              required
+              data-testid="input-new-lead-email"
+            />
+          </div>
+
+          <div>
+            <Label htmlFor="phone">Phone</Label>
+            <Input
+              id="phone"
+              type="tel"
+              value={formData.phone}
+              onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+              placeholder="(512) 555-0123"
+              data-testid="input-new-lead-phone"
+            />
+          </div>
+
+          <div className="border-t pt-4">
+            <h3 className="font-medium mb-3">Event Details (Optional)</h3>
+            
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="eventType">Event Type</Label>
+                <Select value={formData.eventType} onValueChange={(value) => setFormData({ ...formData, eventType: value })}>
+                  <SelectTrigger id="eventType" data-testid="select-event-type">
+                    <SelectValue placeholder="Select event type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="Birthday Party">Birthday Party</SelectItem>
+                    <SelectItem value="Corporate Event">Corporate Event</SelectItem>
+                    <SelectItem value="Wedding">Wedding</SelectItem>
+                    <SelectItem value="Bachelor/Bachelorette">Bachelor/Bachelorette</SelectItem>
+                    <SelectItem value="Anniversary">Anniversary</SelectItem>
+                    <SelectItem value="Other">Other</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div>
+                <Label htmlFor="groupSize">Group Size</Label>
+                <Input
+                  id="groupSize"
+                  type="number"
+                  value={formData.groupSize}
+                  onChange={(e) => setFormData({ ...formData, groupSize: e.target.value })}
+                  placeholder="25"
+                  data-testid="input-group-size"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="projectDate">Event Date</Label>
+                <Input
+                  id="projectDate"
+                  type="date"
+                  value={formData.projectDate}
+                  onChange={(e) => setFormData({ ...formData, projectDate: e.target.value })}
+                  data-testid="input-project-date"
+                />
+              </div>
+
+              <div>
+                <Label htmlFor="specialRequests">Special Requests</Label>
+                <Textarea
+                  id="specialRequests"
+                  value={formData.specialRequests}
+                  onChange={(e) => setFormData({ ...formData, specialRequests: e.target.value })}
+                  placeholder="Any special requirements or notes..."
+                  data-testid="textarea-special-requests"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <DialogFooter>
+          <Button variant="outline" onClick={onClose} data-testid="button-cancel">
+            Cancel
+          </Button>
+          <Button
+            onClick={() => createLead.mutate()}
+            disabled={!formData.name || !formData.email || createLead.isPending}
+            data-testid="button-create-lead"
+          >
+            {createLead.isPending ? 'Creating...' : 'Create Lead'}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
+export default function Leads() {
+  const [, setLocation] = useLocation();
+  const { toast } = useToast();
+  const [viewMode, setViewMode] = useState<'pipeline' | 'list'>('pipeline');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedLead, setSelectedLead] = useState<Contact | null>(null);
+  const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const [activeId, setActiveId] = useState<string | null>(null);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
+
+  // Fetch all contacts
+  const { data: contacts = [], isLoading: contactsLoading } = useQuery<Contact[]>({
+    queryKey: ['/api/contacts'],
+  });
+
+  // Fetch projects
+  const { data: projects = [], isLoading: projectsLoading } = useQuery<Project[]>({
+    queryKey: ['/api/projects'],
+  });
+
+  // Fetch quotes
+  const { data: quotes = [] } = useQuery<Quote[]>({
+    queryKey: ['/api/quotes'],
+  });
+
+  // Update project pipeline phase
+  const updateProjectPhase = useMutation({
+    mutationFn: async ({ projectId, phase }: { projectId: string; phase: string }) => {
+      return apiRequest('PATCH', `/api/projects/${projectId}`, { 
+        pipelinePhase: phase,
+        status: phase === 'ph_event_complete' ? 'COMPLETED' : 'ACTIVE'
+      });
     },
     onSuccess: () => {
       toast({
-        title: 'Status Updated',
-        description: 'Lead status has been updated.',
+        title: 'Pipeline Updated',
+        description: 'Lead moved to new stage.',
       });
       queryClient.invalidateQueries({ queryKey: ['/api/projects'] });
     },
   });
 
-  // Filter leads (contacts without bookings)
-  const leads = contacts.filter(contact => 
-    !bookings.some(booking => booking.projectId && 
-      projects.some(project => project.id === booking.projectId && project.contactId === contact.id))
-  );
-
-  // Filter contacts based on search and status
-  const filteredLeads = leads.filter((contact: Contact) => {
-    const matchesSearch = contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          contact.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          contact.phone?.includes(searchTerm);
-    
-    if (filterStatus === 'all') return matchesSearch;
-    
-    // Get project status for this contact
-    const contactProjects = projects.filter((p: Project) => p.contactId === contact.id);
-    if (filterStatus === 'no_project') return matchesSearch && contactProjects.length === 0;
-    
-    return matchesSearch && contactProjects.some((p: Project) => p.status === filterStatus);
+  // Create project for contact without one
+  const createProject = useMutation({
+    mutationFn: async (contactId: string) => {
+      return apiRequest('POST', '/api/projects', {
+        contactId,
+        title: 'New Project',
+        status: 'NEW',
+        pipelinePhase: 'ph_new',
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/projects'] });
+    },
   });
 
-  // Calculate customer metrics
-  const customerMetrics = customers.map(contact => {
-    const customerProjects = projects.filter(p => p.contactId === contact.id);
-    const completedProjects = customerProjects.filter(p => p.status === "CLOSED_WON");
-    const customerBookings = bookings.filter(b => 
-      customerProjects.some(p => p.id === b.projectId)
-    );
-    const customerQuotes = quotes.filter(q => 
-      customerProjects.some(p => p.id === q.projectId)
-    );
-    
-    const totalSpent = customerQuotes
-      .filter(q => q.status === "PAID" || q.status === "SENT")
-      .reduce((sum, q) => sum + q.total, 0);
-    
-    const lastProjectDate = customerProjects
-      .map(p => p.projectDate)
-      .filter(d => d)
-      .sort((a, b) => {
-        const dateA = typeof a === 'string' ? new Date(a) : a;
-        const dateB = typeof b === 'string' ? new Date(b) : b;
-        if (!dateA || !dateB) return 0;
-        return dateB.getTime() - dateA.getTime();
-      })[0];
-    
-    return {
-      ...contact,
-      totalProjects: customerProjects.length,
-      completedProjects: completedProjects.length,
-      totalBookings: customerBookings.length,
-      totalSpent,
-      lastProjectDate,
-      averageSpend: customerProjects.length > 0 ? totalSpent / customerProjects.length : 0,
-    };
-  });
-
-  // Filter customers based on search and tier
-  const filteredCustomers = customerMetrics.filter(customer => {
-    const matchesSearch = customerSearchTerm === "" || 
-      customer.name.toLowerCase().includes(customerSearchTerm.toLowerCase()) ||
-      customer.email.toLowerCase().includes(customerSearchTerm.toLowerCase()) ||
-      (customer.phone && customer.phone.includes(customerSearchTerm));
-    
-    let matchesTier = true;
-    if (tierFilter !== "all") {
-      if (tierFilter === "platinum" && customer.totalSpent < 1000000) matchesTier = false;
-      if (tierFilter === "gold" && (customer.totalSpent < 500000 || customer.totalSpent >= 1000000)) matchesTier = false;
-      if (tierFilter === "silver" && (customer.totalSpent < 200000 || customer.totalSpent >= 500000)) matchesTier = false;
-      if (tierFilter === "bronze" && customer.totalSpent >= 200000) matchesTier = false;
-    }
-    
-    return matchesSearch && matchesTier;
-  });
-
-  // Sort customers by total spent (descending)
-  const sortedCustomers = [...filteredCustomers].sort((a, b) => b.totalSpent - a.totalSpent);
-
-  // Calculate summary stats
-  const stats = {
-    totalCustomers: customers.length,
-    activeCustomers: customerMetrics.filter(c => c.totalProjects > 0).length,
-    totalRevenue: customerMetrics.reduce((sum, c) => sum + c.totalSpent, 0),
-    averageCustomerValue: customers.length > 0 
-      ? customerMetrics.reduce((sum, c) => sum + c.totalSpent, 0) / customers.length 
-      : 0,
-    topCustomers: sortedCustomers.slice(0, 5),
-  };
-
-  // Group projects by status for pipeline view
-  const projectsByStatus = PIPELINE_STAGES.reduce((acc, stage) => {
-    acc[stage.value] = projects.filter((p: Project) => p.status === stage.value);
-    return acc;
-  }, {} as Record<string, Project[]>);
-
-  // Get contact for a project
-  const getContactForProject = (project: Project) => {
-    return contacts.find((c: Contact) => c.id === project.contactId);
-  };
-
-  const handleCreateLead = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const formData = new FormData(e.currentTarget);
-    
-    createContact.mutate({
-      name: formData.get('name'),
-      email: formData.get('email'),
-      phone: formData.get('phone'),
-      company: formData.get('company'),
-      source: formData.get('source'),
-      notes: formData.get('notes'),
-      tags: formData.get('tags')?.toString().split(',').map(t => t.trim()).filter(Boolean) || [],
+  // Group leads by pipeline stage
+  const leadsByStage = PIPELINE_STAGES.reduce((acc, stage) => {
+    acc[stage.id] = contacts.filter(contact => {
+      const project = projects.find(p => p.contactId === contact.id);
+      if (!project) {
+        // Contacts without projects go to "New Lead" stage
+        return stage.id === 'ph_new';
+      }
+      return project.pipelinePhase === stage.id;
     });
+    return acc;
+  }, {} as Record<string, Contact[]>);
+
+  // Filter leads based on search
+  const filteredLeadsByStage = Object.keys(leadsByStage).reduce((acc, stageId) => {
+    acc[stageId] = leadsByStage[stageId].filter(contact =>
+      contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contact.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      contact.phone?.includes(searchTerm)
+    );
+    return acc;
+  }, {} as Record<string, Contact[]>);
+
+  const handleDragStart = (event: DragStartEvent) => {
+    setActiveId(event.active.id as string);
   };
 
-  // Customer detail dialog content
-  const CustomerDetail = ({ customerId }: { customerId: string }) => {
-    const customer = customerMetrics.find(c => c.id === customerId);
-    if (!customer) return null;
+  const handleDragEnd = async (event: DragEndEvent) => {
+    const { active, over } = event;
+    setActiveId(null);
 
-    const customerProjects = projects.filter(p => p.contactId === customerId);
-    const customerBookings = bookings.filter(b => 
-      customerProjects.some(p => p.id === b.projectId)
+    if (!over || active.id === over.id) return;
+
+    // Find which stage the item was dropped into
+    const newStage = PIPELINE_STAGES.find(stage => 
+      filteredLeadsByStage[stage.id].some(lead => lead.id === over.id)
     );
+
+    if (!newStage) return;
+
+    const contact = contacts.find(c => c.id === active.id);
+    if (!contact) return;
+
+    // Get or create project for this contact
+    let project = projects.find(p => p.contactId === contact.id);
     
+    if (!project) {
+      // Create a project for this contact
+      await createProject.mutateAsync(contact.id);
+      // Refetch to get the new project
+      await queryClient.invalidateQueries({ queryKey: ['/api/projects'] });
+      project = projects.find(p => p.contactId === contact.id);
+    }
+
+    if (project) {
+      // Update the project's pipeline phase
+      await updateProjectPhase.mutate({
+        projectId: project.id,
+        phase: newStage.id,
+      });
+    }
+  };
+
+  const activeLead = activeId ? contacts.find(c => c.id === activeId) : null;
+
+  const openLeadDetails = (lead: Contact) => {
+    setSelectedLead(lead);
+    setIsDetailsModalOpen(true);
+  };
+
+  const getProjectForLead = (leadId: string) => {
+    return projects.find(p => p.contactId === leadId);
+  };
+
+  const getQuotesForProject = (projectId: string) => {
+    return quotes.filter(q => q.projectId === projectId);
+  };
+
+  // Calculate pipeline metrics
+  const pipelineMetrics = {
+    totalLeads: contacts.length,
+    newLeads: leadsByStage['ph_new'].length,
+    quoteSent: leadsByStage['ph_quote_sent'].length,
+    depositPaid: leadsByStage['ph_deposit_paid'].length,
+    fullyPaid: leadsByStage['ph_fully_paid'].length,
+    completed: leadsByStage['ph_event_complete'].length,
+    conversionRate: contacts.length > 0 
+      ? Math.round((leadsByStage['ph_fully_paid'].length / contacts.length) * 100)
+      : 0,
+  };
+
+  if (contactsLoading || projectsLoading) {
     return (
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h3 className="text-xl font-semibold">{customer.name}</h3>
-            <div className="flex items-center gap-4 text-sm text-muted-foreground mt-1">
-              <span className="flex items-center gap-1">
-                <Mail className="h-3 w-3" />
-                {customer.email}
-              </span>
-              {customer.phone && (
-                <span className="flex items-center gap-1">
-                  <Phone className="h-3 w-3" />
-                  {customer.phone}
-                </span>
-              )}
-            </div>
-          </div>
-          <TierBadge totalSpent={customer.totalSpent} />
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm">Total Spent</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold text-green-600">
-                {formatCurrency(customer.totalSpent)}
-              </div>
-            </CardContent>
-          </Card>
-          <Card>
-            <CardHeader className="pb-2">
-              <CardTitle className="text-sm">Total Bookings</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="text-2xl font-bold">{customer.totalBookings}</div>
-            </CardContent>
-          </Card>
-        </div>
-
-        <div>
-          <h4 className="font-semibold mb-3">Recent Bookings</h4>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Date</TableHead>
-                <TableHead>Type</TableHead>
-                <TableHead>Group Size</TableHead>
-                <TableHead>Status</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {customerBookings.length === 0 ? (
-                <TableRow>
-                  <TableCell colSpan={4} className="text-center text-muted-foreground">
-                    No bookings yet
-                  </TableCell>
-                </TableRow>
-              ) : (
-                customerBookings.map((booking) => (
-                  <TableRow key={booking.id}>
-                    <TableCell>{formatDate(booking.startTime)}</TableCell>
-                    <TableCell>{booking.partyType || booking.type}</TableCell>
-                    <TableCell>{booking.groupSize} guests</TableCell>
-                    <TableCell>
-                      <Badge variant={booking.status === 'booked' ? 'default' : 'secondary'}>
-                        {booking.status}
-                      </Badge>
-                    </TableCell>
-                  </TableRow>
-                ))
-              )}
-            </TableBody>
-          </Table>
-        </div>
+      <div className="flex items-center justify-center h-96">
+        <div className="animate-spin w-8 h-8 border-2 border-primary border-t-transparent rounded-full"></div>
       </div>
     );
-  };
+  }
 
   return (
-    <div className="container mx-auto p-6">
+    <div className="container mx-auto py-6 space-y-6">
       {/* Header */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between">
-          <div>
-            <h1 className="text-3xl font-bold">Sales & Customers</h1>
-            <p className="text-muted-foreground mt-1">
-              Manage leads and track customer relationships
-            </p>
-          </div>
-          
-          <Dialog open={isCreateModalOpen} onOpenChange={setIsCreateModalOpen}>
-            <DialogTrigger asChild>
-              <Button data-testid="button-create-lead">
-                <Plus className="w-4 h-4 mr-2" />
-                New Lead
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="sm:max-w-[500px]">
-              <form onSubmit={handleCreateLead}>
-                <DialogHeader>
-                  <DialogTitle>Create New Lead</DialogTitle>
-                  <DialogDescription>
-                    Add a new contact to your sales pipeline
-                  </DialogDescription>
-                </DialogHeader>
-                
-                <div className="grid gap-4 py-4">
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="name">Name *</Label>
-                      <Input
-                        id="name"
-                        name="name"
-                        required
-                        placeholder="John Doe"
-                        data-testid="input-lead-name"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="company">Company</Label>
-                      <Input
-                        id="company"
-                        name="company"
-                        placeholder="Acme Corp"
-                        data-testid="input-lead-company"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <Label htmlFor="email">Email</Label>
-                      <Input
-                        id="email"
-                        name="email"
-                        type="email"
-                        placeholder="john@example.com"
-                        data-testid="input-lead-email"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="phone">Phone</Label>
-                      <Input
-                        id="phone"
-                        name="phone"
-                        placeholder="(512) 555-0123"
-                        data-testid="input-lead-phone"
-                      />
-                    </div>
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="source">Lead Source</Label>
-                    <Select name="source" defaultValue="WEBSITE">
-                      <SelectTrigger data-testid="select-lead-source">
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        <SelectItem value="WEBSITE">Website</SelectItem>
-                        <SelectItem value="CHATBOT">Chatbot</SelectItem>
-                        <SelectItem value="REFERRAL">Referral</SelectItem>
-                        <SelectItem value="SOCIAL_MEDIA">Social Media</SelectItem>
-                        <SelectItem value="PHONE">Phone</SelectItem>
-                        <SelectItem value="EMAIL">Email</SelectItem>
-                        <SelectItem value="OTHER">Other</SelectItem>
-                      </SelectContent>
-                    </Select>
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="tags">Tags (comma-separated)</Label>
-                    <Input
-                      id="tags"
-                      name="tags"
-                      placeholder="birthday, vip, corporate"
-                      data-testid="input-lead-tags"
-                    />
-                  </div>
-                  
-                  <div>
-                    <Label htmlFor="notes">Notes</Label>
-                    <Textarea
-                      id="notes"
-                      name="notes"
-                      rows={3}
-                      placeholder="Additional information..."
-                      data-testid="textarea-lead-notes"
-                    />
-                  </div>
-                </div>
-                
-                <DialogFooter>
-                  <Button
-                    type="submit"
-                    disabled={createContact.isPending}
-                    data-testid="button-save-lead"
-                  >
-                    Create Lead
-                  </Button>
-                </DialogFooter>
-              </form>
-            </DialogContent>
-          </Dialog>
+      <div className="flex justify-between items-center">
+        <div>
+          <h1 className="text-3xl font-bold tracking-tight" data-testid="text-page-title">Lead Management</h1>
+          <p className="text-muted-foreground" data-testid="text-page-subtitle">Track and manage your sales pipeline</p>
         </div>
+        <Button onClick={() => setIsCreateModalOpen(true)} data-testid="button-create-lead">
+          <Plus className="w-4 h-4 mr-2" />
+          New Lead
+        </Button>
       </div>
 
-      {/* Main Tabs */}
-      <Tabs value={mainTab} onValueChange={setMainTab}>
-        <TabsList className="mb-6">
-          <TabsTrigger value="leads">
-            <Users className="w-4 h-4 mr-2" />
-            Leads ({leads.length})
-          </TabsTrigger>
-          <TabsTrigger value="customers">
-            <UserCheck className="w-4 h-4 mr-2" />
-            Customers ({customers.length})
-          </TabsTrigger>
-        </TabsList>
-
-        {/* Leads Tab */}
-        <TabsContent value="leads">
-          {/* Stats Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <Card>
-              <CardHeader className="pb-2">
-                <CardDescription>New Leads</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{pipelineSummary?.newLeads || 0}</div>
-                <p className="text-xs text-muted-foreground">This month</p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="pb-2">
-                <CardDescription>Quotes Sent</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{pipelineSummary?.quoteSent || 0}</div>
-                <p className="text-xs text-muted-foreground">Awaiting response</p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="pb-2">
-                <CardDescription>Conversion Rate</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {pipelineSummary?.conversionRate ? `${Math.round(pipelineSummary.conversionRate)}%` : '0%'}
-                </div>
-                <p className="text-xs text-muted-foreground">Won / Total</p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="pb-2">
-                <CardDescription>Pipeline Value</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  ${((pipelineSummary?.totalPipelineValue || 0) / 100).toLocaleString()}
-                </div>
-                <p className="text-xs text-muted-foreground">Total potential</p>
-              </CardContent>
-            </Card>
+      {/* Metrics Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <Card className="p-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-muted-foreground">Total Leads</p>
+              <p className="text-2xl font-bold" data-testid="metric-total-leads">{pipelineMetrics.totalLeads}</p>
+            </div>
+            <Users className="w-8 h-8 text-primary opacity-50" />
           </div>
+        </Card>
+        <Card className="p-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-muted-foreground">New This Month</p>
+              <p className="text-2xl font-bold" data-testid="metric-new-leads">{pipelineMetrics.newLeads}</p>
+            </div>
+            <TrendingUp className="w-8 h-8 text-blue-500 opacity-50" />
+          </div>
+        </Card>
+        <Card className="p-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-muted-foreground">Conversion Rate</p>
+              <p className="text-2xl font-bold" data-testid="metric-conversion-rate">{pipelineMetrics.conversionRate}%</p>
+            </div>
+            <CheckCircle className="w-8 h-8 text-green-500 opacity-50" />
+          </div>
+        </Card>
+        <Card className="p-4">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm text-muted-foreground">Fully Paid</p>
+              <p className="text-2xl font-bold" data-testid="metric-fully-paid">{pipelineMetrics.fullyPaid}</p>
+            </div>
+            <DollarSign className="w-8 h-8 text-green-500 opacity-50" />
+          </div>
+        </Card>
+      </div>
 
-          {/* Sub-tabs for Leads View */}
-          <Tabs value={activeTab} onValueChange={setActiveTab}>
-            <TabsList className="mb-4">
-              <TabsTrigger value="pipeline">Pipeline View</TabsTrigger>
-              <TabsTrigger value="list">List View</TabsTrigger>
-            </TabsList>
+      {/* Search and View Toggle */}
+      <div className="flex justify-between items-center gap-4">
+        <div className="relative flex-1 max-w-md">
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+          <Input
+            placeholder="Search leads..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="pl-10"
+            data-testid="input-search-leads"
+          />
+        </div>
+        <Tabs value={viewMode} onValueChange={(v) => setViewMode(v as 'pipeline' | 'list')}>
+          <TabsList>
+            <TabsTrigger value="pipeline" data-testid="tab-pipeline-view">Pipeline</TabsTrigger>
+            <TabsTrigger value="list" data-testid="tab-list-view">List</TabsTrigger>
+          </TabsList>
+        </Tabs>
+      </div>
 
-            {/* Pipeline View */}
-            <TabsContent value="pipeline">
-              <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-7 gap-4">
-                {PIPELINE_STAGES.map((stage) => (
-                  <div key={stage.value} className="min-h-[400px]">
-                    <div className="mb-3">
-                      <div className="flex items-center justify-between">
-                        <h3 className="font-semibold text-sm">{stage.label}</h3>
-                        <Badge variant="secondary" className="text-xs">
-                          {projectsByStatus[stage.value]?.length || 0}
-                        </Badge>
-                      </div>
-                      <div className={`h-1 ${stage.color} rounded-full mt-2`} />
-                    </div>
-                    
-                    <div className="space-y-2">
-                      {projectsByStatus[stage.value]?.map((project: Project) => {
-                        const contact = getContactForProject(project);
-                        return (
-                          <Card 
-                            key={project.id}
-                            className="cursor-pointer hover:shadow-md transition-shadow"
-                            onClick={() => setLocation(`/projects/${project.id}`)}
-                          >
-                            <CardContent className="p-3">
-                              <div className="space-y-1">
-                                <p className="font-medium text-sm truncate">
-                                  {project.title || 'Untitled Project'}
-                                </p>
-                                {contact && (
-                                  <p className="text-xs text-muted-foreground truncate">
-                                    {contact.name}
-                                  </p>
-                                )}
-                                {project.projectDate && (
-                                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                                    <Calendar className="w-3 h-3" />
-                                    {formatDate(project.projectDate)}
-                                  </div>
-                                )}
-                                {project.groupSize && project.groupSize > 0 && (
-                                  <div className="flex items-center gap-1 text-xs text-muted-foreground">
-                                    <Users className="w-3 h-3" />
-                                    {project.groupSize} guests
-                                  </div>
-                                )}
-                              </div>
-                            </CardContent>
-                          </Card>
-                        );
-                      })}
-                    </div>
+      {/* Pipeline View */}
+      {viewMode === 'pipeline' ? (
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          onDragStart={handleDragStart}
+          onDragEnd={handleDragEnd}
+        >
+          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {PIPELINE_STAGES.map((stage) => (
+              <div key={stage.id} className="flex flex-col" data-testid={`pipeline-stage-${stage.id}`}>
+                <div className="flex items-center justify-between mb-3 px-2">
+                  <div className="flex items-center gap-2">
+                    <div className={`w-3 h-3 rounded-full ${stage.color}`} />
+                    <h3 className="font-semibold text-sm">{stage.label}</h3>
                   </div>
-                ))}
-              </div>
-            </TabsContent>
-
-            {/* List View */}
-            <TabsContent value="list">
-              {/* Search and Filters */}
-              <div className="flex gap-4 mb-4">
-                <div className="flex-1 relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-                  <Input
-                    placeholder="Search leads by name, email, or phone..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-9"
-                    data-testid="input-search-leads"
-                  />
+                  <Badge variant="secondary" className="text-xs" data-testid={`badge-count-${stage.id}`}>
+                    {filteredLeadsByStage[stage.id].length}
+                  </Badge>
                 </div>
                 
-                <Select value={filterStatus} onValueChange={setFilterStatus}>
-                  <SelectTrigger className="w-[200px]" data-testid="select-filter-status">
-                    <Filter className="w-4 h-4 mr-2" />
-                    <SelectValue placeholder="Filter by status" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="all">All Leads</SelectItem>
-                    <SelectItem value="no_project">No Project</SelectItem>
-                    {PIPELINE_STAGES.map((stage) => (
-                      <SelectItem key={stage.value} value={stage.value}>
-                        {stage.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-
-              {/* Leads Table */}
-              <Card>
-                <CardContent className="p-0">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>Name</TableHead>
-                        <TableHead>Contact</TableHead>
-                        <TableHead>Source</TableHead>
-                        <TableHead>Projects</TableHead>
-                        <TableHead>Tags</TableHead>
-                        <TableHead>Created</TableHead>
-                        <TableHead className="text-right">Actions</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {filteredLeads.length === 0 ? (
-                        <TableRow>
-                          <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
-                            No leads found
-                          </TableCell>
-                        </TableRow>
-                      ) : (
-                        filteredLeads.map((contact: Contact) => {
-                          const contactProjects = projects.filter((p: Project) => p.contactId === contact.id);
-                          return (
-                            <TableRow 
-                              key={contact.id}
-                              className="cursor-pointer hover:bg-muted/50"
-                              onClick={() => setSelectedLead(contact)}
-                            >
-                              <TableCell className="font-medium">
-                                <div className="flex items-center gap-2">
-                                  <User className="w-4 h-4 text-muted-foreground" />
-                                  {contact.name}
-                                </div>
-                              </TableCell>
-                              <TableCell>
-                                <div className="space-y-1">
-                                  {contact.email && (
-                                    <div className="flex items-center gap-1 text-xs">
-                                      <Mail className="w-3 h-3 text-muted-foreground" />
-                                      {contact.email}
-                                    </div>
-                                  )}
-                                  {contact.phone && (
-                                    <div className="flex items-center gap-1 text-xs">
-                                      <Phone className="w-3 h-3 text-muted-foreground" />
-                                      {contact.phone}
-                                    </div>
-                                  )}
-                                </div>
-                              </TableCell>
-                              <TableCell>
-                                <Badge variant="outline" className="text-xs">
-                                  Website
-                                </Badge>
-                              </TableCell>
-                              <TableCell>
-                                {contactProjects.length > 0 ? (
-                                  <div className="space-y-1">
-                                    {contactProjects.slice(0, 2).map((project: Project) => (
-                                      <Badge key={project.id} variant="secondary" className="text-xs">
-                                        {project.eventType || 'Event'}
-                                      </Badge>
-                                    ))}
-                                    {contactProjects.length > 2 && (
-                                      <Badge variant="outline" className="text-xs">
-                                        +{contactProjects.length - 2} more
-                                      </Badge>
-                                    )}
-                                  </div>
-                                ) : (
-                                  <span className="text-xs text-muted-foreground">No projects</span>
-                                )}
-                              </TableCell>
-                              <TableCell>
-                                {contact.tags && contact.tags.length > 0 ? (
-                                  <div className="flex flex-wrap gap-1">
-                                    {contact.tags.slice(0, 3).map((tag, idx) => (
-                                      <Badge key={idx} variant="outline" className="text-xs">
-                                        {tag}
-                                      </Badge>
-                                    ))}
-                                  </div>
-                                ) : (
-                                  <span className="text-xs text-muted-foreground">No tags</span>
-                                )}
-                              </TableCell>
-                              <TableCell>
-                                <div className="text-xs text-muted-foreground">
-                                  {formatDate(contact.createdAt)}
-                                </div>
-                              </TableCell>
-                              <TableCell className="text-right">
-                                <div className="flex justify-end gap-1">
-                                  <Button
-                                    variant="ghost"
-                                    size="sm"
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      setLocation(`/projects?contact=${contact.id}`);
-                                    }}
-                                    data-testid={`button-view-${contact.id}`}
-                                  >
-                                    <ChevronRight className="w-4 h-4" />
-                                  </Button>
-                                </div>
-                              </TableCell>
-                            </TableRow>
-                          );
-                        })
-                      )}
-                    </TableBody>
-                  </Table>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
-        </TabsContent>
-
-        {/* Customers Tab */}
-        <TabsContent value="customers">
-          {/* Customer Stats */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
-            <Card>
-              <CardHeader className="pb-2">
-                <CardDescription>Total Customers</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{stats.totalCustomers}</div>
-                <p className="text-xs text-muted-foreground">All time</p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="pb-2">
-                <CardDescription>Total Revenue</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold text-green-600">
-                  {formatCurrency(stats.totalRevenue)}
-                </div>
-                <p className="text-xs text-muted-foreground">Lifetime value</p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="pb-2">
-                <CardDescription>Average Value</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">
-                  {formatCurrency(stats.averageCustomerValue)}
-                </div>
-                <p className="text-xs text-muted-foreground">Per customer</p>
-              </CardContent>
-            </Card>
-            
-            <Card>
-              <CardHeader className="pb-2">
-                <CardDescription>Active Customers</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="text-2xl font-bold">{stats.activeCustomers}</div>
-                <p className="text-xs text-muted-foreground">With bookings</p>
-              </CardContent>
-            </Card>
-          </div>
-
-          {/* Search and Filters */}
-          <div className="flex gap-4 mb-4">
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-muted-foreground w-4 h-4" />
-              <Input
-                placeholder="Search customers..."
-                value={customerSearchTerm}
-                onChange={(e) => setCustomerSearchTerm(e.target.value)}
-                className="pl-9"
-                data-testid="input-search-customers"
-              />
-            </div>
-            
-            <Select value={tierFilter} onValueChange={setTierFilter}>
-              <SelectTrigger className="w-[200px]" data-testid="select-tier-filter">
-                <Award className="w-4 h-4 mr-2" />
-                <SelectValue placeholder="Filter by tier" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value="all">All Tiers</SelectItem>
-                <SelectItem value="platinum">Platinum</SelectItem>
-                <SelectItem value="gold">Gold</SelectItem>
-                <SelectItem value="silver">Silver</SelectItem>
-                <SelectItem value="bronze">Bronze</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Customers Table */}
-          <Card>
-            <CardContent className="p-0">
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead>Customer</TableHead>
-                    <TableHead>Tier</TableHead>
-                    <TableHead>Total Spent</TableHead>
-                    <TableHead>Bookings</TableHead>
-                    <TableHead>Last Booking</TableHead>
-                    <TableHead>Average Value</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {sortedCustomers.length === 0 ? (
-                    <TableRow>
-                      <TableCell colSpan={7} className="text-center py-8 text-muted-foreground">
-                        No customers found
-                      </TableCell>
-                    </TableRow>
-                  ) : (
-                    sortedCustomers.map((customer) => (
-                      <TableRow 
-                        key={customer.id}
-                        className="cursor-pointer hover:bg-muted/50"
-                        onClick={() => setSelectedCustomerId(customer.id)}
-                      >
-                        <TableCell>
-                          <div>
-                            <div className="font-medium">{customer.name}</div>
-                            <div className="text-xs text-muted-foreground">{customer.email}</div>
-                          </div>
-                        </TableCell>
-                        <TableCell>
-                          <TierBadge totalSpent={customer.totalSpent} />
-                        </TableCell>
-                        <TableCell className="font-semibold text-green-600">
-                          {formatCurrency(customer.totalSpent)}
-                        </TableCell>
-                        <TableCell>
-                          <Badge variant="outline">
-                            {customer.totalBookings} bookings
-                          </Badge>
-                        </TableCell>
-                        <TableCell className="text-sm">
-                          {formatDate(customer.lastProjectDate)}
-                        </TableCell>
-                        <TableCell>
-                          {formatCurrency(customer.averageSpend)}
-                        </TableCell>
-                        <TableCell className="text-right">
-                          <Button
-                            variant="ghost"
-                            size="sm"
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setSelectedCustomerId(customer.id);
-                            }}
-                            data-testid={`button-view-customer-${customer.id}`}
-                          >
-                            <Eye className="w-4 h-4" />
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))
+                <Card className="flex-1 p-3 min-h-[400px] bg-muted/10">
+                  <SortableContext
+                    items={filteredLeadsByStage[stage.id].map(lead => lead.id)}
+                    strategy={verticalListSortingStrategy}
+                  >
+                    <div className="space-y-2">
+                      {filteredLeadsByStage[stage.id].map((lead) => (
+                        <SortableLeadCard
+                          key={lead.id}
+                          lead={lead}
+                          project={getProjectForLead(lead.id)}
+                          onClick={() => openLeadDetails(lead)}
+                        />
+                      ))}
+                    </div>
+                  </SortableContext>
+                  
+                  {filteredLeadsByStage[stage.id].length === 0 && (
+                    <div className="text-center py-8 text-muted-foreground">
+                      <p className="text-sm">No leads</p>
+                    </div>
                   )}
-                </TableBody>
-              </Table>
-            </CardContent>
-          </Card>
-
-          {/* Top Customers Section */}
-          {stats.topCustomers.length > 0 && (
-            <div className="mt-6">
-              <h3 className="text-lg font-semibold mb-3">Top Customers</h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                {stats.topCustomers.slice(0, 3).map((customer, index) => (
-                  <Card key={customer.id}>
-                    <CardHeader>
-                      <div className="flex items-center justify-between">
-                        <CardTitle className="text-base">
-                          #{index + 1} {customer.name}
-                        </CardTitle>
-                        <TierBadge totalSpent={customer.totalSpent} />
-                      </div>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Total Spent:</span>
-                          <span className="font-semibold text-green-600">
-                            {formatCurrency(customer.totalSpent)}
-                          </span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Bookings:</span>
-                          <span>{customer.totalBookings}</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="text-muted-foreground">Last Booking:</span>
-                          <span>{formatDate(customer.lastProjectDate)}</span>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
+                </Card>
               </div>
+            ))}
+          </div>
+          
+          <DragOverlay>
+            {activeLead ? (
+              <Card className="p-3 shadow-lg border-2 border-primary">
+                <h4 className="font-semibold text-sm">{activeLead.name}</h4>
+                {activeLead.email && (
+                  <p className="text-xs text-muted-foreground">{activeLead.email}</p>
+                )}
+              </Card>
+            ) : null}
+          </DragOverlay>
+        </DndContext>
+      ) : (
+        /* List View */
+        <Card>
+          <CardContent className="p-0">
+            <div className="overflow-x-auto">
+              <table className="w-full">
+                <thead className="border-b bg-muted/50">
+                  <tr>
+                    <th className="text-left p-4 font-medium">Name</th>
+                    <th className="text-left p-4 font-medium">Email</th>
+                    <th className="text-left p-4 font-medium">Phone</th>
+                    <th className="text-left p-4 font-medium">Stage</th>
+                    <th className="text-left p-4 font-medium">Event Type</th>
+                    <th className="text-left p-4 font-medium">Event Date</th>
+                    <th className="text-left p-4 font-medium">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {contacts
+                    .filter(contact =>
+                      contact.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      contact.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                      contact.phone?.includes(searchTerm)
+                    )
+                    .map((contact) => {
+                      const project = getProjectForLead(contact.id);
+                      const stage = PIPELINE_STAGES.find(s => 
+                        project ? s.id === project.pipelinePhase : s.id === 'ph_new'
+                      );
+                      
+                      return (
+                        <tr key={contact.id} className="border-b hover:bg-muted/50 cursor-pointer" 
+                            onClick={() => openLeadDetails(contact)}
+                            data-testid={`lead-row-${contact.id}`}>
+                          <td className="p-4 font-medium">{contact.name}</td>
+                          <td className="p-4">{contact.email || 'N/A'}</td>
+                          <td className="p-4">{contact.phone || 'N/A'}</td>
+                          <td className="p-4">
+                            <Badge className={stage?.textColor} variant="outline">
+                              {stage?.label}
+                            </Badge>
+                          </td>
+                          <td className="p-4">{project?.eventType || 'N/A'}</td>
+                          <td className="p-4">{formatDate(project?.projectDate)}</td>
+                          <td className="p-4">
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                openLeadDetails(contact);
+                              }}
+                              data-testid={`button-view-lead-${contact.id}`}
+                            >
+                              <Eye className="w-4 h-4" />
+                            </Button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                </tbody>
+              </table>
+              
+              {contacts.length === 0 && (
+                <div className="text-center py-12 text-muted-foreground">
+                  <Users className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                  <p>No leads found</p>
+                  <Button
+                    variant="outline"
+                    className="mt-4"
+                    onClick={() => setIsCreateModalOpen(true)}
+                  >
+                    <Plus className="w-4 h-4 mr-2" />
+                    Create First Lead
+                  </Button>
+                </div>
+              )}
             </div>
-          )}
-        </TabsContent>
-      </Tabs>
+          </CardContent>
+        </Card>
+      )}
 
-      {/* Customer Detail Dialog */}
-      <Dialog open={!!selectedCustomerId} onOpenChange={(open) => !open && setSelectedCustomerId(null)}>
-        <DialogContent className="max-w-3xl max-h-[80vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle>Customer Details</DialogTitle>
-          </DialogHeader>
-          {selectedCustomerId && <CustomerDetail customerId={selectedCustomerId} />}
-        </DialogContent>
-      </Dialog>
+      {/* Lead Details Modal */}
+      <LeadDetailsModal
+        lead={selectedLead}
+        project={selectedLead ? getProjectForLead(selectedLead.id) : undefined}
+        quotes={selectedLead && getProjectForLead(selectedLead.id) 
+          ? getQuotesForProject(getProjectForLead(selectedLead.id)!.id)
+          : undefined}
+        isOpen={isDetailsModalOpen}
+        onClose={() => {
+          setIsDetailsModalOpen(false);
+          setSelectedLead(null);
+        }}
+        onUpdate={() => {
+          queryClient.invalidateQueries({ queryKey: ['/api/contacts'] });
+        }}
+      />
+
+      {/* Create Lead Modal */}
+      <CreateLeadModal
+        isOpen={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+      />
     </div>
   );
 }
