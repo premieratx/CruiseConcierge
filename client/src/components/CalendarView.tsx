@@ -305,7 +305,7 @@ function CalendarView() {
     return (
       <div
         className={cn(
-          "p-3 rounded-lg border-2 cursor-pointer transition-all hover:shadow-md",
+          "p-1.5 rounded-md border cursor-pointer transition-all hover:shadow-sm",
           block.status === 'available' 
             ? "bg-green-100 border-green-400 hover:bg-green-200" 
             : block.status === 'blocked'
@@ -315,16 +315,16 @@ function CalendarView() {
         onClick={handleToggle}
         data-testid={`time-block-${block.id}`}
       >
-        <div className="font-bold text-sm text-gray-800">
+        <div className="font-semibold text-xs text-gray-800">
           {formatTime(block.startTime)} - {formatTime(block.endTime)}
         </div>
-        <div className="text-xs mt-1 font-semibold text-gray-700">
-          <Ship className="inline w-3 h-3 mr-1" />
+        <div className="text-xs font-medium text-gray-700">
+          <Ship className="inline w-2.5 h-2.5 mr-1" />
           {block.boatName}
         </div>
         {block.capacity && (
-          <div className="text-xs mt-1 text-gray-600">
-            Capacity: {block.capacity}
+          <div className="text-xs text-gray-600">
+            Cap: {block.capacity}
           </div>
         )}
       </div>
@@ -340,19 +340,19 @@ function CalendarView() {
       <div className="space-y-2">
         <div
           className={cn(
-            "p-3 rounded-lg border-2 transition-all",
+            "p-2 rounded-md border transition-all",
             available > 0 
               ? "bg-green-100 border-green-400" 
               : "bg-red-100 border-red-400"
           )}
         >
-          <div className="font-semibold text-sm">
+          <div className="font-semibold text-xs">
             {formatTime(startTime)} - {formatTime(endTime)}
           </div>
-          <div className="text-sm mt-1 font-medium">
+          <div className="text-xs mt-1 font-medium">
             {available} of {total} boats available
           </div>
-          <div className="text-xs mt-1 opacity-75">
+          <div className="text-xs opacity-75">
             25-person boats
           </div>
         </div>
@@ -372,7 +372,7 @@ function CalendarView() {
               <div
                 key={boat.id}
                 className={cn(
-                  "text-xs px-2 py-1 rounded cursor-pointer transition-all font-medium",
+                  "text-xs px-1.5 py-0.5 rounded cursor-pointer transition-all font-medium",
                   isBooked 
                     ? "bg-red-200 text-red-800 border border-red-400" 
                     : "bg-green-100 text-green-800 hover:bg-green-200 border border-green-400"
@@ -402,15 +402,15 @@ function CalendarView() {
     const available = slot.ticketCap - slot.ticketsSold;
     
     return (
-      <Card className="mb-2">
-        <CardContent className="p-4">
+      <Card className="mb-1">
+        <CardContent className="p-2">
           <div className="flex items-center justify-between">
             <div>
-              <div className="font-semibold">
+              <div className="font-semibold text-xs">
                 {formatTime(new Date(slot.startTime).toTimeString().slice(0, 5))} - 
                 {formatTime(new Date(slot.endTime).toTimeString().slice(0, 5))}
               </div>
-              <div className="text-sm text-muted-foreground">
+              <div className="text-xs text-muted-foreground">
                 Disco Cruise
               </div>
             </div>
@@ -424,8 +424,8 @@ function CalendarView() {
               >
                 <Minus className="h-4 w-4" />
               </Button>
-              <div className="text-center min-w-[100px]">
-                <div className="font-bold">{available} of {slot.ticketCap}</div>
+              <div className="text-center min-w-[80px]">
+                <div className="font-bold text-xs">{available} of {slot.ticketCap}</div>
                 <div className="text-xs text-muted-foreground">available</div>
               </div>
               <Button
@@ -596,7 +596,7 @@ function CalendarView() {
                       </div>
 
                       {/* Regular time blocks or grouped view */}
-                      <div className="space-y-2 max-h-96 overflow-y-auto">
+                      <div className="space-y-1 max-h-[600px] overflow-y-auto">
                         {selectedTab === 'medium' ? (
                           // Show grouped view for 25-person boats
                           <>
