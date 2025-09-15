@@ -54,7 +54,7 @@ export async function sendQuoteEmail(
           <h2 style="color: #0080FF; margin: 0;">⚓ Premier Party Cruises ⚓</h2>
         </div>
         <h1 style="color: white; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">Your Quote is Ready!</h1>
-        <p style="color: white; margin: 10px 0 0 0; font-size: 18px;">🚢 Lake Austin's Premier Party Boat Experience</p>
+        <p style="color: white; margin: 10px 0 0 0; font-size: 18px;">🚢 Lake Travis's Premier Party Boat Experience</p>
       </div>
       
       <div style="padding: 30px; background: white;">
@@ -87,7 +87,7 @@ export async function sendQuoteEmail(
       </div>
       
       <div style="background: #f1f5f9; padding: 20px; text-align: center; font-size: 12px; color: #64748b;">
-        <p>Premier Party Cruises | Lake Austin, TX | premierpartycruises.com</p>
+        <p>Premier Party Cruises | Lake Travis, TX | premierpartycruises.com</p>
       </div>
     </div>
   `;

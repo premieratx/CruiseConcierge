@@ -46,7 +46,7 @@ export function ChatWidget({ sessionId, contactId, isPreview = false }: ChatWidg
         {
           id: '1',
           role: 'assistant',
-          content: "Welcome to Premier Party Cruises! 🚢 I'm here to help you plan the perfect party on Lake Austin. What type of event are you planning?",
+          content: "Welcome to Premier Party Cruises! 🚢 I'm here to help you plan the perfect party on Lake Travis. What type of event are you planning?",
           timestamp: new Date(),
         },
         {

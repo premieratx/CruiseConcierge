@@ -49,7 +49,7 @@ export async function processChatMessage(
     const eventTypes = templates.map(t => t.eventType).filter((type, index, self) => self.indexOf(type) === index);
     
     const systemPrompt = `You are an intelligent AI assistant for Premier Party Cruises in Austin, Texas.
-    You help customers book memorable party boat cruises on beautiful Lake Austin.
+    You help customers book memorable party boat cruises on beautiful Lake Travis.
     
     AVAILABLE EVENT TYPES AND TEMPLATES:
     ${templates.map(t => `- ${t.eventType}: ${t.name} (${t.minGroupSize}-${t.maxGroupSize} people, $${(t.basePricePerPerson || 0) / 100}/person base)`).join('\n    ')}
@@ -65,7 +65,7 @@ export async function processChatMessage(
     ${conversationHistory.length > 0 ? 'Previous messages: ' + conversationHistory.slice(-3).map(m => `${m.role}: ${m.content}`).join('; ') : 'This is the start of conversation'}
     
     RESPONSE INSTRUCTIONS:
-    - Always be warm, professional, and enthusiastic about Lake Austin cruises
+    - Always be warm, professional, and enthusiastic about Lake Travis cruises
     - Use buttons for event type selection and common choices
     - Extract ALL customer data from messages (name, email, phone, group size, date, etc.)
     - When you have enough info, automatically create contact and project
@@ -145,7 +145,7 @@ async function handleMockFlow(
     }));
 
     return {
-      message: "🚢 Welcome to Premier Party Cruises! I'm here to help you plan the perfect celebration on beautiful Lake Austin. What type of event are you planning?",
+      message: "🚢 Welcome to Premier Party Cruises! I'm here to help you plan the perfect celebration on beautiful Lake Travis. What type of event are you planning?",
       intent: "greeting",
       buttons: eventButtons,
       flowStep: "event_selection",
@@ -318,7 +318,7 @@ export async function generateQuoteDescription(
 ): Promise<string> {
   try {
     if (!openai) {
-      return `Get ready for an unforgettable ${eventType} cruise on beautiful Lake Austin for ${groupSize} people!`;
+      return `Get ready for an unforgettable ${eventType} cruise on beautiful Lake Travis for ${groupSize} people!`;
     }
     const prompt = `Generate a friendly, professional quote description for a ${eventType} for ${groupSize} people with these services: ${selectedServices.join(", ")}. 
     Make it personalized and exciting for a party boat cruise in Austin, Texas.`;
@@ -332,6 +332,6 @@ export async function generateQuoteDescription(
     return response.choices[0].message.content || "Your amazing party cruise awaits!";
   } catch (error) {
     console.error("Error generating quote description:", error);
-    return "Get ready for an unforgettable party cruise experience on beautiful Lake Austin!";
+    return "Get ready for an unforgettable party cruise experience on beautiful Lake Travis!";
   }
 }

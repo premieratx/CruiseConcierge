@@ -1897,7 +1897,7 @@ export default function Chat() {
             />
             <div className="flex-1">
               <h1 className="text-lg font-heading font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Premier Party Cruises</h1>
-              <p className="text-xs text-slate-600 dark:text-slate-400">Lake Austin's Premium Boat Charter Experience</p>
+              <p className="text-xs text-slate-600 dark:text-slate-400">Lake Travis's Premium Boat Charter Experience</p>
             </div>
           </div>
         </div>
@@ -2003,7 +2003,7 @@ export default function Chat() {
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.3, duration: 0.5 }}
                     >
-                      Lake Austin's Premium Boat Charter Experience
+                      Lake Travis's Premium Boat Charter Experience
                     </motion.p>
                   </div>
                 </motion.div>

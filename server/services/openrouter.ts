@@ -32,7 +32,7 @@ class OpenRouterService implements ChatService {
     try {
       const systemMessage: ChatMessage = {
         role: 'system',
-        content: `You are a helpful booking assistant for Premier Party Cruises on Lake Austin. 
+        content: `You are a helpful booking assistant for Premier Party Cruises on Lake Travis. 
         Extract key information from conversations including:
         - Name, email, phone
         - Event type (Birthday, Bachelor/ette, Corporate, Wedding, Graduation)
@@ -85,7 +85,7 @@ class OpenRouterService implements ChatService {
   private getMockResponse(messages: ChatMessage[]) {
     const lastMessage = messages[messages.length - 1].content.toLowerCase();
     
-    let response = "I'd be happy to help you plan your perfect event on Lake Austin!";
+    let response = "I'd be happy to help you plan your perfect event on Lake Travis!";
     let extractedData: any = {};
     let suggestedActions: any[] = [];
 

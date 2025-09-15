@@ -67,7 +67,7 @@ async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: 
       </div>
       
       <div style="background: #f1f5f9; padding: 20px; text-align: center; font-size: 12px; color: #64748b;">
-        <p>Premier Party Cruises | Lake Austin, TX | premierpartycruises.com</p>
+        <p>Premier Party Cruises | Lake Travis, TX | premierpartycruises.com</p>
       </div>
     </div>
   `;
@@ -788,7 +788,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             </div>
             
             <div style="background: #f1f5f9; padding: 20px; text-align: center; font-size: 12px; color: #64748b;">
-              <p>Premier Party Cruises | Lake Austin, TX | premierpartycruises.com</p>
+              <p>Premier Party Cruises | Lake Travis, TX | premierpartycruises.com</p>
             </div>
           </div>
         `;
