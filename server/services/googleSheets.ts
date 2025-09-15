@@ -588,7 +588,7 @@ export class GoogleSheetsService {
       });
       
       const rows = response.data.values || [];
-      const leadRow = rows.find(row => row[0] === leadId);
+      const leadRow = rows.find((row: any[]) => row[0] === leadId);
       
       if (!leadRow) {
         return null;
@@ -614,7 +614,7 @@ export class GoogleSheetsService {
       });
       
       const rows = response.data.values || [];
-      return rows.map(row => this.mapRowToLeadData(row)).filter(lead => lead !== null) as LeadData[];
+      return rows.map((row: any[]) => this.mapRowToLeadData(row)).filter((lead: LeadData | null) => lead !== null) as LeadData[];
     } catch (error) {
       console.error("Error fetching leads from Google Sheets:", error);
       return this.getMockLeads();
