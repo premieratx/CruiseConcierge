@@ -36,12 +36,13 @@ class GoHighLevelService implements SMSService {
   private authMethod: 'oauth' | 'apikey' | 'none' = 'none';
 
   constructor() {
-    // OAuth credentials (preferred for production)
+    // OAuth credentials (for marketplace apps)
     this.clientId = process.env.GOHIGHLEVEL_CLIENT_ID || '';
     this.clientSecret = process.env.GOHIGHLEVEL_CLIENT_SECRET || '';
     
-    // Legacy API key authentication (fallback)
-    this.apiKey = process.env.GOHIGHLEVEL_API_KEY || '';
+    // Private Integration Token (preferred for private apps - works without client ID)
+    // This is what you get from Settings → Private Integrations in GoHighLevel
+    this.apiKey = process.env.GOHIGHLEVEL_PRIVATE_INTEGRATION_TOKEN || process.env.GOHIGHLEVEL_API_KEY || '';
     
     // Location ID is found in your GoHighLevel URL when viewing a sub-account
     // Example: https://app.gohighlevel.com/v2/location/YOUR_LOCATION_ID_HERE/
@@ -50,16 +51,17 @@ class GoHighLevelService implements SMSService {
     // From phone number for sending SMS (without +1 prefix)
     this.fromPhone = process.env.FROM_PHONE || '5124885892';
     
-    // Updated to use the newer v2 API endpoint
-    this.baseUrl = 'https://rest.gohighlevel.com/v2';
+    // Using the services endpoint for Private Integration Tokens
+    this.baseUrl = this.apiKey ? 'https://services.leadconnectorhq.com' : 'https://rest.gohighlevel.com/v2';
     
     // Determine authentication method
-    if (this.clientId && this.clientSecret) {
-      this.authMethod = 'oauth';
-      console.log('🔐 GoHighLevel: Using OAuth authentication (Private App)');
-    } else if (this.apiKey) {
+    if (this.apiKey) {
       this.authMethod = 'apikey';
-      console.log('🔑 GoHighLevel: Using API Key authentication (Legacy)');
+      console.log('🔑 GoHighLevel: Using Private Integration Token authentication');
+      console.log('   ✅ This works WITHOUT a client ID - you can use SMS now!');
+    } else if (this.clientId && this.clientSecret) {
+      this.authMethod = 'oauth';
+      console.log('🔐 GoHighLevel: Using OAuth authentication (Marketplace App)');
     } else {
       console.log('⚠️ GoHighLevel: No authentication credentials configured');
     }
@@ -166,12 +168,15 @@ class GoHighLevelService implements SMSService {
       }
       return {
         'Authorization': `Bearer ${token}`,
-        'Version': '2021-04-15',
+        'Accept': 'application/json',
+        'Version': '2021-07-28',
       };
     } else if (this.authMethod === 'apikey') {
+      // Private Integration Token headers
       return {
         'Authorization': `Bearer ${this.apiKey}`,
-        'Version': '2021-04-15',
+        'Accept': 'application/json',
+        'Version': '2021-07-28',
       };
     }
     return null;
@@ -196,8 +201,10 @@ class GoHighLevelService implements SMSService {
       console.log('   Message:', options.body);
       console.log('   ✅ SMS would be sent successfully in production');
       console.log('   💡 To enable real SMS:');
-      console.log('      Option 1 (Recommended): Configure GOHIGHLEVEL_CLIENT_ID and GOHIGHLEVEL_CLIENT_SECRET for OAuth');
-      console.log('      Option 2 (Legacy): Configure GOHIGHLEVEL_API_KEY');
+      console.log('      Option 1 (Recommended): Configure GOHIGHLEVEL_PRIVATE_INTEGRATION_TOKEN');
+      console.log('         - Get this from Settings → Private Integrations in GoHighLevel');
+      console.log('         - No client ID needed!');
+      console.log('      Option 2 (Marketplace): Configure GOHIGHLEVEL_CLIENT_ID and GOHIGHLEVEL_CLIENT_SECRET');
       console.log('      Both options require GOHIGHLEVEL_LOCATION_ID');
       return true;
     }
