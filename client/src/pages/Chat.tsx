@@ -1544,40 +1544,40 @@ export default function Chat() {
                                     </div>
                                   ))}
                                 </RadioGroup>
-                              </div>
-                            )}
-                            
-                            {/* Ticket Quantity - Show if package selected */}
-                            {formData.selectedDiscoPackage && (
-                              <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                                <Label className="mb-2 block">Number of Tickets</Label>
-                                <div className="flex items-center gap-4">
-                                  <Button
-                                    onClick={() => setFormData(prev => ({ 
-                                      ...prev, 
-                                      discoTicketQuantity: Math.max(1, prev.discoTicketQuantity - 1) 
-                                    }))}
-                                    size="sm"
-                                    variant="outline"
-                                    className="h-8 w-8 p-0"
-                                  >
-                                    <Minus className="h-4 w-4" />
-                                  </Button>
-                                  <div className="flex-1 text-center">
-                                    <div className="text-2xl font-bold text-purple-600">{formData.discoTicketQuantity}</div>
+                                
+                                {/* Ticket Quantity - Show if package selected */}
+                                {formData.selectedDiscoPackage && (
+                                  <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg mt-4">
+                                    <Label className="mb-2 block">Number of Tickets</Label>
+                                    <div className="flex items-center gap-4">
+                                      <Button
+                                        onClick={() => setFormData(prev => ({ 
+                                          ...prev, 
+                                          discoTicketQuantity: Math.max(1, prev.discoTicketQuantity - 1) 
+                                        }))}
+                                        size="sm"
+                                        variant="outline"
+                                        className="h-8 w-8 p-0"
+                                      >
+                                        <Minus className="h-4 w-4" />
+                                      </Button>
+                                      <div className="flex-1 text-center">
+                                        <div className="text-2xl font-bold text-purple-600">{formData.discoTicketQuantity}</div>
+                                      </div>
+                                      <Button
+                                        onClick={() => setFormData(prev => ({ 
+                                          ...prev, 
+                                          discoTicketQuantity: Math.min(50, prev.discoTicketQuantity + 1) 
+                                        }))}
+                                        size="sm"
+                                        variant="outline"
+                                        className="h-8 w-8 p-0"
+                                      >
+                                        <Plus className="h-4 w-4" />
+                                      </Button>
+                                    </div>
                                   </div>
-                                  <Button
-                                    onClick={() => setFormData(prev => ({ 
-                                      ...prev, 
-                                      discoTicketQuantity: Math.min(50, prev.discoTicketQuantity + 1) 
-                                    }))}
-                                    size="sm"
-                                    variant="outline"
-                                    className="h-8 w-8 p-0"
-                                  >
-                                    <Plus className="h-4 w-4" />
-                                  </Button>
-                                </div>
+                                )}
                               </div>
                             )}
 
@@ -1589,7 +1589,7 @@ export default function Chat() {
                                     {formatCurrency(discoPricing.total)}
                                   </div>
                                   <div className="text-sm text-slate-600 dark:text-slate-400">
-                                    {formData.discoTicketQuantity} tickets × {formatCurrency(discoPricing.perPersonCost)}
+                                    {formatCurrency(discoPricing.perPersonCost)} per person
                                   </div>
                                 </div>
                                 
