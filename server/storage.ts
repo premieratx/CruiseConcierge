@@ -2311,9 +2311,13 @@ export class MemStorage implements IStorage {
     let contact = await this.getContactByEmail(email);
     
     if (!contact) {
+      // Ensure we have a valid email before processing
+      const validEmail = email || `guest_${Date.now()}@temp.com`;
+      const defaultName = name || (validEmail.includes('@') ? validEmail.split('@')[0] : 'Guest');
+      
       contact = await this.createContact({
-        name: name || email.split('@')[0],
-        email,
+        name: defaultName,
+        email: validEmail,
         phone: phone || null,
         tags: ["chatbot"],
       });
