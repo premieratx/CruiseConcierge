@@ -126,8 +126,16 @@ export const availabilitySlots = pgTable("availability_slots", {
   boatId: varchar("boat_id").notNull(),
   startTime: timestamp("start_time").notNull(),
   endTime: timestamp("end_time").notNull(),
-  status: varchar("status").notNull().default("AVAILABLE"),
+  status: varchar("status").notNull().default("AVAILABLE"), // 'AVAILABLE', 'BOOKED', 'BLOCKED', 'MAINTENANCE'
   projectId: varchar("project_id"), // if booked
+  bookingId: varchar("booking_id"), // reference to booking if booked
+  blockReason: text("block_reason"), // reason for blocking (admin notes)
+  blockedBy: varchar("blocked_by"), // admin user who blocked this slot
+  blockedAt: timestamp("blocked_at"), // when slot was blocked
+  notes: text("notes"), // general notes about this slot
+  isRecurring: boolean("is_recurring").default(false), // part of recurring pattern
+  recurringId: varchar("recurring_id"), // reference to recurring pattern
+  createdAt: timestamp("created_at").defaultNow(),
 });
 
 // Quote Templates - for reusable quote configurations
@@ -231,12 +239,25 @@ export const bookings = pgTable("bookings", {
   orgId: varchar("org_id").notNull().default("org_demo"),
   boatId: varchar("boat_id"), // nullable for disco cruises which may use multiple boats
   type: varchar("type").notNull(), // 'private' or 'disco'
-  status: varchar("status").notNull().default("booked"), // 'booked', 'hold', 'blocked', 'canceled'
+  status: varchar("status").notNull().default("booked"), // 'booked', 'hold', 'blocked', 'canceled', 'confirmed'
   startTime: timestamp("start_time").notNull(),
   endTime: timestamp("end_time").notNull(),
   partyType: text("party_type"), // e.g., 'wedding', 'birthday', 'corporate', etc.
   groupSize: integer("group_size").notNull(),
   projectId: varchar("project_id"), // reference to project/lead if applicable
+  productId: varchar("product_id"), // reference to product for pricing and package details
+  quoteId: varchar("quote_id"), // reference to generated quote
+  paymentStatus: varchar("payment_status").default("pending"), // 'pending', 'deposit_paid', 'fully_paid'
+  amountPaid: integer("amount_paid").default(0), // in cents
+  totalAmount: integer("total_amount").default(0), // in cents
+  contactName: text("contact_name"),
+  contactEmail: text("contact_email"),
+  contactPhone: text("contact_phone"),
+  specialRequests: text("special_requests"),
+  adminNotes: text("admin_notes"), // private admin-only notes
+  blockedReason: text("blocked_reason"), // reason if status is 'blocked'
+  lastModifiedBy: varchar("last_modified_by"), // admin user who last modified
+  lastModifiedAt: timestamp("last_modified_at").defaultNow(),
   notes: text("notes"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
@@ -516,12 +537,16 @@ export const insertAffiliateSchema = createInsertSchema(affiliates).omit({
 export const insertBookingSchema = createInsertSchema(bookings).omit({
   id: true,
   createdAt: true,
+  lastModifiedAt: true,
 }).extend({
   type: z.enum(["private", "disco"]),
-  status: z.enum(["booked", "hold", "blocked", "canceled"]).default("booked"),
+  status: z.enum(["booked", "hold", "blocked", "canceled", "confirmed"]).default("booked"),
+  paymentStatus: z.enum(["pending", "deposit_paid", "fully_paid"]).default("pending"),
   startTime: z.string().datetime().transform(str => new Date(str)),
   endTime: z.string().datetime().transform(str => new Date(str)),
   groupSize: z.number().min(1),
+  amountPaid: z.number().min(0).default(0),
+  totalAmount: z.number().min(0).default(0),
 });
 
 export const insertDiscoSlotSchema = createInsertSchema(discoSlots).omit({
@@ -691,4 +716,111 @@ export type PricingPreview = {
     deposit: number;
     balanceDue: number;
   };
+};
+
+// Admin calendar-specific types for enhanced management
+export type AdminCalendarSlot = {
+  id: string;
+  boatId: string;
+  boatName: string;
+  startTime: Date;
+  endTime: Date;
+  status: 'available' | 'booked' | 'blocked' | 'maintenance';
+  booking?: AdminBookingInfo;
+  blockReason?: string;
+  blockedBy?: string;
+  blockedAt?: Date;
+  notes?: string;
+  isRecurring: boolean;
+  capacity: number;
+  bookedCount: number;
+  availableSpots: number;
+};
+
+export type AdminBookingInfo = {
+  id: string;
+  type: 'private' | 'disco';
+  status: 'booked' | 'hold' | 'blocked' | 'canceled' | 'confirmed';
+  contactName: string;
+  contactEmail: string;
+  contactPhone?: string;
+  groupSize: number;
+  partyType?: string;
+  paymentStatus: 'pending' | 'deposit_paid' | 'fully_paid';
+  amountPaid: number;
+  totalAmount: number;
+  specialRequests?: string;
+  adminNotes?: string;
+  lastModifiedBy?: string;
+  lastModifiedAt?: Date;
+};
+
+export type CalendarSlotAction = 
+  | { type: 'block'; slotId: string; reason?: string }
+  | { type: 'unblock'; slotId: string }
+  | { type: 'create_booking'; slotId: string; bookingData: Partial<AdminBookingInfo> }
+  | { type: 'edit_booking'; bookingId: string; updates: Partial<AdminBookingInfo> }
+  | { type: 'cancel_booking'; bookingId: string; reason?: string }
+  | { type: 'move_booking'; bookingId: string; newSlotId: string };
+
+export type BatchSlotOperation = {
+  action: 'block' | 'unblock' | 'maintenance';
+  slotIds: string[];
+  reason?: string;
+  notes?: string;
+};
+
+export type RecurringPattern = {
+  type: 'weekly' | 'monthly' | 'custom';
+  startDate: Date;
+  endDate?: Date;
+  daysOfWeek?: number[]; // 0-6 for Sunday-Saturday
+  timeSlots: Array<{
+    startTime: string; // HH:MM format
+    endTime: string;   // HH:MM format
+  }>;
+  boatIds: string[];
+  excludeDates?: Date[]; // specific dates to exclude
+};
+
+export type CalendarViewMode = 'week' | 'day' | 'month';
+
+export type AdminCalendarFilters = {
+  boatIds?: string[];
+  status?: ('available' | 'booked' | 'blocked' | 'maintenance')[];
+  paymentStatus?: ('pending' | 'deposit_paid' | 'fully_paid')[];
+  bookingType?: ('private' | 'disco')[];
+  dateRange?: {
+    start: Date;
+    end: Date;
+  };
+  search?: string; // search contact name/email
+};
+
+// Comprehensive booking data for admin table views
+export type ComprehensiveAdminBooking = {
+  id: string;
+  cruiseDate: Date;
+  contactName: string;
+  contactEmail: string;
+  contactPhone?: string;
+  partySize: number;
+  partyType?: string;
+  boatAssigned: string;
+  boatName: string;
+  totalAmount: number;
+  amountPaid: number;
+  amountOwed: number;
+  paymentStatus: 'Paid' | 'Partial' | 'Unpaid';
+  bookingStatus: string;
+  eventType: string;
+  startTime: Date;
+  endTime: Date;
+  projectId?: string;
+  quoteId?: string;
+  specialRequests?: string;
+  adminNotes?: string;
+  lastModifiedBy?: string;
+  lastModifiedAt?: Date;
+  createdAt: Date;
 };

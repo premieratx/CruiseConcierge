@@ -15,6 +15,159 @@ import { randomUUID } from "crypto";
 import { getFullUrl, getPublicUrl } from "./utils";
 import { seedQuoteTemplates } from "./seedTemplates";
 
+// ==========================================
+// ADMIN AUTHENTICATION AND AUTHORIZATION
+// ==========================================
+
+interface AdminUser {
+  id: string;
+  name: string;
+  email: string;
+  permissions: ('read' | 'edit' | 'full')[];
+}
+
+// Mock admin session validation - replace with real authentication
+const validateAdminSession = (req: any): AdminUser | null => {
+  // Check for admin session or token
+  const authHeader = req.headers.authorization;
+  const sessionAdmin = req.session?.admin;
+  
+  // For development, allow a test admin token
+  if (authHeader === 'Bearer admin-dev-token' || process.env.ADMIN_DEV_MODE === 'true') {
+    return {
+      id: 'admin-dev',
+      name: 'Development Admin',
+      email: 'admin@premierpartycruises.com',
+      permissions: ['read', 'edit', 'full']
+    };
+  }
+  
+  // Check for valid session admin
+  if (sessionAdmin && sessionAdmin.id && sessionAdmin.email) {
+    return {
+      id: sessionAdmin.id,
+      name: sessionAdmin.name || 'Admin User',
+      email: sessionAdmin.email,
+      permissions: sessionAdmin.permissions || ['read', 'edit']
+    };
+  }
+  
+  return null;
+};
+
+// Authentication middleware for admin routes
+const requireAdminAuth = (req: any, res: any, next: any) => {
+  const adminUser = validateAdminSession(req);
+  
+  if (!adminUser) {
+    return res.status(401).json({ 
+      error: "Admin authentication required",
+      details: "Please authenticate with valid admin credentials"
+    });
+  }
+  
+  // Attach verified admin identity to request
+  req.adminUser = adminUser;
+  next();
+};
+
+// Permission check middleware
+const requirePermission = (permission: 'read' | 'edit' | 'full') => {
+  return (req: any, res: any, next: any) => {
+    if (!req.adminUser || !req.adminUser.permissions.includes(permission)) {
+      return res.status(403).json({ 
+        error: "Insufficient permissions",
+        required: permission,
+        current: req.adminUser?.permissions || []
+      });
+    }
+    next();
+  };
+};
+
+// ==========================================
+// ADMIN ENDPOINT VALIDATION SCHEMAS
+// ==========================================
+
+// Timezone normalization for America/Chicago
+const normalizeToChicagoTime = (dateString: string): Date => {
+  // If it's just a date (YYYY-MM-DD), treat as Chicago timezone
+  if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+    return new Date(dateString + 'T00:00:00-06:00'); // CST/CDT
+  }
+  
+  // If it includes time but no timezone, assume Chicago
+  if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/.test(dateString)) {
+    return new Date(dateString + '-06:00');
+  }
+  
+  // Otherwise parse as-is
+  return new Date(dateString);
+};
+
+const adminCalendarQuerySchema = z.object({
+  startDate: z.string().transform(normalizeToChicagoTime),
+  endDate: z.string().transform(normalizeToChicagoTime),
+  boatId: z.string().optional()
+});
+
+const blockSlotSchema = z.object({
+  boatId: z.string().min(1, "Boat ID is required"),
+  startTime: z.string().transform(normalizeToChicagoTime),
+  endTime: z.string().transform(normalizeToChicagoTime),
+  reason: z.string().optional()
+});
+
+const unblockSlotSchema = z.object({
+  boatId: z.string().min(1, "Boat ID is required"),
+  startTime: z.string().transform(normalizeToChicagoTime),
+  endTime: z.string().transform(normalizeToChicagoTime)
+});
+
+const batchSlotOperationSchema = z.object({
+  operation: z.object({
+    type: z.enum(['block', 'unblock']),
+    slotIds: z.array(z.string()),
+    reason: z.string().optional(),
+    boatId: z.string().optional(),
+    startTime: z.string().transform(normalizeToChicagoTime).optional(),
+    endTime: z.string().transform(normalizeToChicagoTime).optional()
+  })
+});
+
+const adminBookingCreateSchema = insertBookingSchema.extend({
+  startTime: z.string().transform(normalizeToChicagoTime),
+  endTime: z.string().transform(normalizeToChicagoTime)
+});
+
+const adminBookingUpdateSchema = adminBookingCreateSchema.partial();
+
+const moveBookingSchema = z.object({
+  newStartTime: z.string().transform(normalizeToChicagoTime),
+  newEndTime: z.string().transform(normalizeToChicagoTime),
+  newBoatId: z.string().optional()
+});
+
+const recurringPatternSchema = z.object({
+  startDate: z.string().transform(normalizeToChicagoTime),
+  endDate: z.string().transform(normalizeToChicagoTime).optional(),
+  timeSlots: z.array(z.object({
+    startTime: z.string(),
+    endTime: z.string()
+  })),
+  boatIds: z.array(z.string()),
+  daysOfWeek: z.array(z.number().min(0).max(6)).optional(),
+  reason: z.string().optional()
+});
+
+const cancelBookingSchema = z.object({
+  reason: z.string().optional()
+});
+
+const calendarOverviewSchema = z.object({
+  date: z.string().transform(normalizeToChicagoTime)
+});
+
 if (!process.env.STRIPE_SECRET_KEY) {
   console.warn('STRIPE_SECRET_KEY not configured. Payment functionality will be mocked.');
 }
@@ -2477,6 +2630,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
               endTime,
               partyType: eventType || 'cruise',
               groupSize: bookingGroupSize,
+              paymentStatus: 'fully_paid',
+              amountPaid: session.amount_total || 0,
+              totalAmount: session.amount_total || 0,
               notes: `Direct booking from chat - Payment: ${payment.id} - Amount: $${(session.amount_total / 100).toFixed(2)}${selectedAddOnPackages ? ` - Add-ons: ${selectedAddOnPackages}` : ''}`,
               projectId: null // No project for direct bookings
             });
@@ -4423,6 +4579,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
           startTime: startDateTime,
           endTime: endDateTime,
           groupSize: 0,
+          paymentStatus: 'pending',
+          amountPaid: 0,
+          totalAmount: 0,
           notes: 'Manually blocked time slot'
         });
         res.json({ success: true, booking });
@@ -4617,6 +4776,413 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error("Error fetching comprehensive booking data:", error);
       res.status(500).json({ error: "Failed to fetch booking data" });
+    }
+  });
+
+  // ==========================================
+  // ADMIN CALENDAR MANAGEMENT ENDPOINTS
+  // ==========================================
+
+  // Get admin calendar slots with comprehensive data
+  app.get("/api/admin/calendar/slots", requireAdminAuth, requirePermission('read'), async (req, res) => {
+    try {
+      const validation = adminCalendarQuerySchema.safeParse(req.query);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: "Invalid query parameters",
+          details: validation.error.errors 
+        });
+      }
+      
+      const { startDate, endDate, boatId } = validation.data;
+      
+      const slots = await storage.getAdminCalendarSlots(
+        startDate,
+        endDate,
+        boatId
+      );
+      
+      // Log admin access
+      await storage.logAdminAction('view_calendar_slots', {
+        startDate: startDate.toISOString(),
+        endDate: endDate.toISOString(),
+        boatId
+      }, req.adminUser.id);
+      
+      res.json(slots);
+    } catch (error: any) {
+      console.error("Error fetching admin calendar slots:", error);
+      res.status(500).json({ error: "Failed to fetch admin calendar slots" });
+    }
+  });
+
+  // Block time slot
+  app.post("/api/admin/calendar/block", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const validation = blockSlotSchema.safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: "Invalid block slot request",
+          details: validation.error.errors 
+        });
+      }
+      
+      const { boatId, startTime, endTime, reason } = validation.data;
+      
+      const slot = await storage.blockTimeSlot(
+        boatId,
+        startTime,
+        endTime,
+        reason,
+        req.adminUser.id // Use authenticated admin identity
+      );
+      
+      // Log admin action
+      await storage.logAdminAction('block_time_slot', {
+        boatId,
+        startTime: startTime.toISOString(),
+        endTime: endTime.toISOString(),
+        reason
+      }, req.adminUser.id);
+      
+      res.json(slot);
+    } catch (error: any) {
+      console.error("Error blocking time slot:", error);
+      res.status(500).json({ error: "Failed to block time slot" });
+    }
+  });
+
+  // Unblock time slot
+  app.delete("/api/admin/calendar/block", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const validation = unblockSlotSchema.safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: "Invalid unblock slot request",
+          details: validation.error.errors 
+        });
+      }
+      
+      const { boatId, startTime, endTime } = validation.data;
+      
+      const success = await storage.unblockTimeSlot(
+        boatId,
+        startTime,
+        endTime
+      );
+      
+      // Log admin action
+      await storage.logAdminAction('unblock_time_slot', {
+        boatId,
+        startTime: startTime.toISOString(),
+        endTime: endTime.toISOString()
+      }, req.adminUser.id);
+      
+      if (success) {
+        res.json({ success: true, message: "Time slot unblocked" });
+      } else {
+        res.status(404).json({ error: "Time slot not found or not blocked" });
+      }
+    } catch (error: any) {
+      console.error("Error unblocking time slot:", error);
+      res.status(500).json({ error: "Failed to unblock time slot" });
+    }
+  });
+
+  // Batch slot operations
+  app.post("/api/admin/calendar/batch-slots", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const validation = batchSlotOperationSchema.safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: "Invalid batch operation request",
+          details: validation.error.errors 
+        });
+      }
+      
+      const { operation } = validation.data;
+      
+      const updatedSlots = await storage.batchBlockSlots(operation, req.adminUser.id);
+      
+      // Log admin action
+      await storage.logAdminAction('batch_slot_operation', {
+        operationType: operation.type,
+        slotCount: operation.slotIds.length,
+        operation
+      }, req.adminUser.id);
+      
+      res.json({ success: true, updatedSlots, count: updatedSlots.length });
+    } catch (error: any) {
+      console.error("Error performing batch slot operation:", error);
+      res.status(500).json({ error: "Failed to perform batch slot operation" });
+    }
+  });
+
+  // Create admin booking with validation
+  app.post("/api/admin/bookings", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const validation = adminBookingCreateSchema.safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: "Invalid booking data",
+          details: validation.error.errors 
+        });
+      }
+      
+      const booking = await storage.createBookingWithValidation(validation.data, req.adminUser.id);
+      
+      // Log admin action
+      await storage.logAdminAction('create_booking', {
+        bookingId: booking.id,
+        boatId: booking.boatId,
+        startTime: booking.startTime.toISOString(),
+        endTime: booking.endTime.toISOString()
+      }, req.adminUser.id);
+      
+      res.status(201).json(booking);
+    } catch (error: any) {
+      console.error("Error creating admin booking:", error);
+      res.status(500).json({ error: error.message || "Failed to create booking" });
+    }
+  });
+
+  // Update admin booking with validation
+  app.patch("/api/admin/bookings/:id", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const validation = adminBookingUpdateSchema.safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: "Invalid booking update data",
+          details: validation.error.errors 
+        });
+      }
+      
+      // Check if booking exists
+      const existing = await storage.getBooking(id);
+      if (!existing) {
+        return res.status(404).json({ error: "Booking not found" });
+      }
+      
+      const booking = await storage.updateBookingWithValidation(id, validation.data, req.adminUser.id);
+      
+      // Log admin action
+      await storage.logAdminAction('update_booking', {
+        bookingId: id,
+        changes: validation.data
+      }, req.adminUser.id);
+      
+      res.json(booking);
+    } catch (error: any) {
+      console.error("Error updating admin booking:", error);
+      res.status(500).json({ error: error.message || "Failed to update booking" });
+    }
+  });
+
+  // Cancel booking with cleanup
+  app.delete("/api/admin/bookings/:id", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const validation = cancelBookingSchema.safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: "Invalid cancellation request",
+          details: validation.error.errors 
+        });
+      }
+      
+      const { reason } = validation.data;
+      
+      const canceledBooking = await storage.cancelBookingWithCleanup(id, reason, req.adminUser.id);
+      
+      // Log admin action
+      await storage.logAdminAction('cancel_booking', {
+        bookingId: id,
+        reason
+      }, req.adminUser.id);
+      
+      res.json(canceledBooking);
+    } catch (error: any) {
+      console.error("Error canceling booking:", error);
+      res.status(500).json({ error: error.message || "Failed to cancel booking" });
+    }
+  });
+
+  // Move booking to new slot
+  app.patch("/api/admin/bookings/:id/move", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const validation = moveBookingSchema.safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: "Invalid move booking request",
+          details: validation.error.errors 
+        });
+      }
+      
+      const { newStartTime, newEndTime, newBoatId } = validation.data;
+      
+      const booking = await storage.moveBookingToSlot(
+        id,
+        newStartTime,
+        newEndTime,
+        newBoatId
+      );
+      
+      // Log admin action
+      await storage.logAdminAction('move_booking', {
+        bookingId: id,
+        newStartTime: newStartTime.toISOString(),
+        newEndTime: newEndTime.toISOString(),
+        newBoatId
+      }, req.adminUser.id);
+      
+      res.json(booking);
+    } catch (error: any) {
+      console.error("Error moving booking:", error);
+      res.status(500).json({ error: error.message || "Failed to move booking" });
+    }
+  });
+
+  // Get comprehensive booking data for admin
+  app.get("/api/admin/bookings/comprehensive", requireAdminAuth, requirePermission('read'), async (req, res) => {
+    try {
+      const { startDate, endDate, ...filters } = req.query;
+      
+      const bookings = await storage.getComprehensiveBookings(
+        startDate ? normalizeToChicagoTime(startDate as string) : undefined,
+        endDate ? normalizeToChicagoTime(endDate as string) : undefined,
+        filters
+      );
+      
+      // Log admin access
+      await storage.logAdminAction('view_comprehensive_bookings', {
+        startDate: startDate as string,
+        endDate: endDate as string,
+        filters
+      }, req.adminUser.id);
+      
+      res.json(bookings);
+    } catch (error: any) {
+      console.error("Error fetching comprehensive admin bookings:", error);
+      res.status(500).json({ error: "Failed to fetch comprehensive booking data" });
+    }
+  });
+
+  // Get availability overview for a specific date
+  app.get("/api/admin/calendar/overview", requireAdminAuth, requirePermission('read'), async (req, res) => {
+    try {
+      const validation = calendarOverviewSchema.safeParse(req.query);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: "Invalid overview request",
+          details: validation.error.errors 
+        });
+      }
+      
+      const { date } = validation.data;
+      
+      const overview = await storage.getAdminAvailabilityOverview(date);
+      
+      // Log admin access
+      await storage.logAdminAction('view_availability_overview', {
+        date: date.toISOString()
+      }, req.adminUser.id);
+      
+      res.json(overview);
+    } catch (error: any) {
+      console.error("Error fetching availability overview:", error);
+      res.status(500).json({ error: "Failed to fetch availability overview" });
+    }
+  });
+
+  // Create recurring availability pattern
+  app.post("/api/admin/calendar/recurring", requireAdminAuth, requirePermission('full'), async (req, res) => {
+    try {
+      const validation = recurringPatternSchema.safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: "Invalid recurring pattern request",
+          details: validation.error.errors 
+        });
+      }
+      
+      const pattern = validation.data;
+      
+      const slots = await storage.createRecurringAvailability(pattern);
+      
+      // Log admin action
+      await storage.logAdminAction('create_recurring_availability', {
+        pattern,
+        createdSlots: slots.length
+      }, req.adminUser.id);
+      
+      res.json({ success: true, createdSlots: slots.length, slots });
+    } catch (error: any) {
+      console.error("Error creating recurring availability:", error);
+      res.status(500).json({ error: "Failed to create recurring availability" });
+    }
+  });
+
+  // Get booking history and audit trail
+  app.get("/api/admin/bookings/:id/history", requireAdminAuth, requirePermission('read'), async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      if (!id || typeof id !== 'string') {
+        return res.status(400).json({ error: "Valid booking ID is required" });
+      }
+      
+      const history = await storage.getBookingHistory(id);
+      
+      // Log admin access
+      await storage.logAdminAction('view_booking_history', {
+        bookingId: id
+      }, req.adminUser.id);
+      
+      res.json(history);
+    } catch (error: any) {
+      console.error("Error fetching booking history:", error);
+      res.status(500).json({ error: "Failed to fetch booking history" });
+    }
+  });
+
+  // Validate booking request
+  app.post("/api/admin/bookings/validate", requireAdminAuth, requirePermission('read'), async (req, res) => {
+    try {
+      const validation = adminBookingCreateSchema.safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: "Invalid booking data format",
+          details: validation.error.errors 
+        });
+      }
+      
+      const result = await storage.validateBookingRequest(validation.data);
+      
+      // Log admin access
+      await storage.logAdminAction('validate_booking_request', {
+        requestData: validation.data
+      }, req.adminUser.id);
+      
+      res.json(result);
+    } catch (error: any) {
+      console.error("Error validating booking request:", error);
+      res.status(500).json({ error: "Failed to validate booking request" });
     }
   });
 

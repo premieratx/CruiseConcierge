@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -159,6 +159,33 @@ export interface IStorage {
   createMasterTemplate(template: InsertMasterTemplate): Promise<MasterTemplate>;
   updateMasterTemplate(id: string, updates: Partial<MasterTemplate>): Promise<MasterTemplate>;
   deleteMasterTemplate(id: string): Promise<boolean>;
+
+  // Admin Calendar Management - Enhanced availability and booking operations
+  getAdminCalendarSlots(startDate: Date, endDate: Date, boatId?: string): Promise<AdminCalendarSlot[]>;
+  blockTimeSlot(boatId: string, startTime: Date, endTime: Date, reason?: string, adminUser?: string): Promise<AvailabilitySlot>;
+  unblockTimeSlot(boatId: string, startTime: Date, endTime: Date): Promise<boolean>;
+  batchBlockSlots(operation: BatchSlotOperation, adminUser?: string): Promise<AvailabilitySlot[]>;
+  createBookingWithValidation(booking: InsertBooking, adminUser?: string): Promise<Booking>;
+  updateBookingWithValidation(id: string, updates: Partial<Booking>, adminUser?: string): Promise<Booking>;
+  cancelBookingWithCleanup(id: string, reason?: string, adminUser?: string): Promise<Booking>;
+  moveBookingToSlot(bookingId: string, newStartTime: Date, newEndTime: Date, newBoatId?: string): Promise<Booking>;
+  
+  // Comprehensive admin data for calendar views
+  getComprehensiveBookings(startDate?: Date, endDate?: Date, filters?: AdminCalendarFilters): Promise<ComprehensiveAdminBooking[]>;
+  getAdminAvailabilityOverview(date: Date): Promise<{ boatId: string; boatName: string; slots: AdminCalendarSlot[] }[]>;
+  
+  // Recurring pattern management
+  createRecurringAvailability(pattern: RecurringPattern): Promise<AvailabilitySlot[]>;
+  updateRecurringAvailability(recurringId: string, pattern: Partial<RecurringPattern>): Promise<AvailabilitySlot[]>;
+  deleteRecurringAvailability(recurringId: string): Promise<boolean>;
+  
+  // Enhanced conflict checking and validation
+  validateBookingRequest(booking: InsertBooking): Promise<{ valid: boolean; conflicts: string[]; warnings: string[] }>;
+  getBookingConflicts(boatId: string, startTime: Date, endTime: Date, excludeBookingId?: string): Promise<Booking[]>;
+  
+  // Audit and tracking
+  getBookingHistory(bookingId: string): Promise<Array<{ action: string; timestamp: Date; adminUser?: string; details: any }>>;
+  logAdminAction(action: string, details: any, adminUser?: string): Promise<void>;
 }
 
 export class MemStorage implements IStorage {
@@ -181,6 +208,10 @@ export class MemStorage implements IStorage {
   private timeframes: Map<string, Timeframe> = new Map();
   private emailTemplates: Map<string, EmailTemplate> = new Map();
   private masterTemplates: Map<string, MasterTemplate> = new Map();
+  
+  // Admin audit logs for tracking changes
+  private adminLogs: Array<{ id: string; action: string; timestamp: Date; adminUser?: string; details: any }> = [];
+  private bookingHistory: Map<string, Array<{ action: string; timestamp: Date; adminUser?: string; details: any }>> = new Map();
 
   constructor() {
     this.seedData();
@@ -691,6 +722,7 @@ export class MemStorage implements IStorage {
         active: true,
         isDefault: true,
         displayOrder: 1,
+        components: [],
         visualTheme: { primaryColor: "#FF6B9D", accentColor: "#F7DC6F", theme: "celebration" },
         automationRules: [],
         defaultRadioSections: null,
@@ -714,6 +746,7 @@ export class MemStorage implements IStorage {
         active: true,
         isDefault: false,
         displayOrder: 2,
+        components: [],
         visualTheme: { primaryColor: "#2E86AB", accentColor: "#A23B72", theme: "professional" },
         automationRules: [],
         defaultRadioSections: null,
@@ -1134,6 +1167,7 @@ export class MemStorage implements IStorage {
         active: true,
         isDefault: true,
         displayOrder: 3,
+        components: [],
         visualTheme: { primaryColor: "#FF7F50", accentColor: "#4169E1", theme: "bachelor" },
         automationRules: [],
         createdAt: new Date(),
@@ -1153,6 +1187,7 @@ export class MemStorage implements IStorage {
         active: true,
         isDefault: false,
         displayOrder: 4,
+        components: [],
         visualTheme: { primaryColor: "#FFB6C1", accentColor: "#FF69B4", theme: "bachelorette" },
         automationRules: [],
         createdAt: new Date(),
@@ -1172,6 +1207,7 @@ export class MemStorage implements IStorage {
         active: true,
         isDefault: false,
         displayOrder: 5,
+        components: [],
         visualTheme: { primaryColor: "#FF6B9D", accentColor: "#F7DC6F", theme: "birthday" },
         automationRules: [],
         createdAt: new Date(),
@@ -1191,6 +1227,7 @@ export class MemStorage implements IStorage {
         active: true,
         isDefault: false,
         displayOrder: 6,
+        components: [],
         visualTheme: { primaryColor: "#2E86AB", accentColor: "#A23B72", theme: "professional" },
         automationRules: [],
         createdAt: new Date(),
@@ -1374,7 +1411,7 @@ export class MemStorage implements IStorage {
       ...insertQuote,
       orgId: insertQuote.orgId || "org_demo",
       status: insertQuote.status || "DRAFT",
-      items: insertQuote.items ? [...insertQuote.items] : [],
+      items: insertQuote.items ? [...insertQuote.items] as QuoteItem[] : [],
       promoCode: insertQuote.promoCode || null,
       discountTotal: insertQuote.discountTotal || 0,
       subtotal: insertQuote.subtotal || 0,
@@ -1518,13 +1555,13 @@ export class MemStorage implements IStorage {
     const template: QuoteTemplate = {
       ...insertTemplate,
       orgId: insertTemplate.orgId || "org_demo",
-      defaultItems: insertTemplate.defaultItems ? [...insertTemplate.defaultItems] : [],
+      defaultItems: insertTemplate.defaultItems ? [...insertTemplate.defaultItems] as QuoteItem[] : [],
       minGroupSize: insertTemplate.minGroupSize || null,
       maxGroupSize: insertTemplate.maxGroupSize || null,
       basePricePerPerson: insertTemplate.basePricePerPerson || null,
       active: insertTemplate.active !== undefined ? insertTemplate.active : true,
       displayOrder: insertTemplate.displayOrder || 0,
-      visualTheme: insertTemplate.visualTheme ? { ...insertTemplate.visualTheme } : {},
+      visualTheme: insertTemplate.visualTheme ? { ...insertTemplate.visualTheme } as TemplateVisual : {},
       automationRules: insertTemplate.automationRules ? [...insertTemplate.automationRules] : [],
       id,
       createdAt: new Date(),
@@ -1568,8 +1605,8 @@ export class MemStorage implements IStorage {
     const rule: TemplateRule = {
       ...insertRule,
       orgId: insertRule.orgId || "org_demo",
-      conditions: insertRule.conditions ? [...insertRule.conditions] : [],
-      actions: insertRule.actions ? [...insertRule.actions] : [],
+      conditions: insertRule.conditions ? [...insertRule.conditions] as RuleCondition[] : [],
+      actions: insertRule.actions ? [...insertRule.actions] as RuleAction[] : [],
       priority: insertRule.priority || 0,
       active: insertRule.active !== undefined ? insertRule.active : true,
       id,
@@ -1621,6 +1658,7 @@ export class MemStorage implements IStorage {
     const id = randomUUID();
     const rule: DiscountRule = {
       ...insertRule,
+      code: insertRule.code ?? null,
       orgId: insertRule.orgId || "org_demo",
       minGroupSize: insertRule.minGroupSize || null,
       maxGroupSize: insertRule.maxGroupSize || null,
@@ -2277,6 +2315,10 @@ export class MemStorage implements IStorage {
       projectId: insertBooking.projectId || null,
       partyType: insertBooking.partyType || null,
       boatId: insertBooking.boatId || null,
+      paymentStatus: insertBooking.paymentStatus || "pending",
+      amountPaid: insertBooking.amountPaid || 0,
+      totalAmount: insertBooking.totalAmount || 0,
+      lastModifiedAt: new Date(),
       id,
       createdAt: new Date(),
     };
@@ -2378,6 +2420,9 @@ export class MemStorage implements IStorage {
       partyType: project.eventType || 'cruise',
       groupSize: project.groupSize || 0,
       projectId: project.id,
+      paymentStatus: 'deposit_paid',
+      amountPaid: amount,
+      totalAmount: amount,
       notes: `Payment ${paymentId} - Amount: $${(amount / 100).toFixed(2)}`,
     };
     
@@ -2865,7 +2910,7 @@ export class MemStorage implements IStorage {
       
       const capacityAvailability = new Map<number, { available: Boat[]; booked: Boat[] }>();
       
-      for (const [capacity, boats] of boatsByCapacity.entries()) {
+      for (const [capacity, boats] of Array.from(boatsByCapacity.entries())) {
         const available: Boat[] = [];
         const booked: Boat[] = [];
         
@@ -2977,6 +3022,626 @@ export class MemStorage implements IStorage {
   
   async deleteMasterTemplate(id: string): Promise<boolean> {
     return this.masterTemplates.delete(id);
+  }
+
+  // ===== ADMIN CALENDAR MANAGEMENT METHODS =====
+
+  async getAdminCalendarSlots(startDate: Date, endDate: Date, boatId?: string): Promise<AdminCalendarSlot[]> {
+    const boats = boatId ? [await this.boats.get(boatId)].filter(Boolean) : Array.from(this.boats.values());
+    const bookings = await this.getBookings(startDate, endDate, boatId);
+    const availabilitySlots = Array.from(this.availabilitySlots.values())
+      .filter(slot => slot.startTime >= startDate && slot.startTime <= endDate)
+      .filter(slot => !boatId || slot.boatId === boatId);
+
+    const adminSlots: AdminCalendarSlot[] = [];
+
+    for (const boat of boats) {
+      if (!boat) continue;
+
+      // Find all relevant slots for this boat
+      const boatAvailabilitySlots = availabilitySlots.filter(slot => slot.boatId === boat.id);
+      const boatBookings = bookings.filter(booking => booking.boatId === boat.id);
+
+      // Create admin slots based on availability slots
+      for (const slot of boatAvailabilitySlots) {
+        const booking = boatBookings.find(b => 
+          b.startTime.getTime() === slot.startTime.getTime() && 
+          b.endTime.getTime() === slot.endTime.getTime()
+        );
+
+        const adminSlot: AdminCalendarSlot = {
+          id: slot.id,
+          boatId: boat.id,
+          boatName: boat.name,
+          startTime: slot.startTime,
+          endTime: slot.endTime,
+          status: booking ? 'booked' : (slot.status.toLowerCase() as any),
+          capacity: boat.capacity,
+          bookedCount: booking ? booking.groupSize : 0,
+          availableSpots: boat.capacity - (booking ? booking.groupSize : 0),
+          isRecurring: slot.isRecurring || false,
+          blockReason: slot.blockReason || undefined,
+          blockedBy: slot.blockedBy || undefined,
+          blockedAt: slot.blockedAt || undefined,
+          notes: slot.notes || undefined,
+        };
+
+        if (booking) {
+          adminSlot.booking = {
+            id: booking.id,
+            type: booking.type as 'private' | 'disco',
+            status: booking.status as any,
+            contactName: booking.contactName || 'Unknown',
+            contactEmail: booking.contactEmail || 'unknown@example.com',
+            contactPhone: booking.contactPhone || undefined,
+            groupSize: booking.groupSize,
+            partyType: booking.partyType || undefined,
+            paymentStatus: booking.paymentStatus as any || 'pending',
+            amountPaid: booking.amountPaid || 0,
+            totalAmount: booking.totalAmount || 0,
+            specialRequests: booking.specialRequests || undefined,
+            adminNotes: booking.adminNotes || undefined,
+            lastModifiedBy: booking.lastModifiedBy || undefined,
+            lastModifiedAt: booking.lastModifiedAt || undefined,
+          };
+        }
+
+        adminSlots.push(adminSlot);
+      }
+    }
+
+    return adminSlots.sort((a, b) => a.startTime.getTime() - b.startTime.getTime());
+  }
+
+  async blockTimeSlot(boatId: string, startTime: Date, endTime: Date, reason?: string, adminUser?: string): Promise<AvailabilitySlot> {
+    // Check if there's an existing slot to update
+    let slot = Array.from(this.availabilitySlots.values())
+      .find(s => s.boatId === boatId && s.startTime.getTime() === startTime.getTime() && s.endTime.getTime() === endTime.getTime());
+
+    if (slot) {
+      // Update existing slot to blocked
+      const updated: AvailabilitySlot = {
+        ...slot,
+        status: 'BLOCKED',
+        blockReason: reason || null,
+        blockedBy: adminUser || null,
+        blockedAt: new Date(),
+      };
+      this.availabilitySlots.set(slot.id, updated);
+      
+      // Log admin action
+      await this.logAdminAction('block_slot', { slotId: slot.id, boatId, startTime, endTime, reason }, adminUser);
+      
+      return updated;
+    } else {
+      // Create new blocked slot
+      const newSlot: AvailabilitySlot = {
+        id: randomUUID(),
+        boatId,
+        startTime,
+        endTime,
+        status: 'BLOCKED',
+        projectId: null,
+        bookingId: null,
+        blockReason: reason || null,
+        blockedBy: adminUser || null,
+        blockedAt: new Date(),
+        notes: null,
+        isRecurring: false,
+        recurringId: null,
+        createdAt: new Date(),
+      };
+      
+      this.availabilitySlots.set(newSlot.id, newSlot);
+      
+      // Log admin action
+      await this.logAdminAction('create_blocked_slot', { slotId: newSlot.id, boatId, startTime, endTime, reason }, adminUser);
+      
+      return newSlot;
+    }
+  }
+
+  async unblockTimeSlot(boatId: string, startTime: Date, endTime: Date): Promise<boolean> {
+    const slot = Array.from(this.availabilitySlots.values())
+      .find(s => s.boatId === boatId && s.startTime.getTime() === startTime.getTime() && s.endTime.getTime() === endTime.getTime());
+
+    if (!slot) return false;
+
+    if (slot.status === 'BLOCKED') {
+      const updated: AvailabilitySlot = {
+        ...slot,
+        status: 'AVAILABLE',
+        blockReason: null,
+        blockedBy: null,
+        blockedAt: null,
+      };
+      this.availabilitySlots.set(slot.id, updated);
+      
+      // Log admin action
+      await this.logAdminAction('unblock_slot', { slotId: slot.id, boatId, startTime, endTime }, undefined);
+      
+      return true;
+    }
+
+    return false;
+  }
+
+  async batchBlockSlots(operation: BatchSlotOperation, adminUser?: string): Promise<AvailabilitySlot[]> {
+    const updatedSlots: AvailabilitySlot[] = [];
+
+    for (const slotId of operation.slotIds) {
+      const slot = this.availabilitySlots.get(slotId);
+      if (!slot) continue;
+
+      let newStatus: string;
+      switch (operation.action) {
+        case 'block':
+          newStatus = 'BLOCKED';
+          break;
+        case 'unblock':
+          newStatus = 'AVAILABLE';
+          break;
+        case 'maintenance':
+          newStatus = 'MAINTENANCE';
+          break;
+        default:
+          continue;
+      }
+
+      const updated: AvailabilitySlot = {
+        ...slot,
+        status: newStatus,
+        blockReason: operation.action === 'block' ? operation.reason || null : null,
+        blockedBy: operation.action === 'block' ? adminUser || null : null,
+        blockedAt: operation.action === 'block' ? new Date() : null,
+        notes: operation.notes || slot.notes,
+      };
+
+      this.availabilitySlots.set(slotId, updated);
+      updatedSlots.push(updated);
+    }
+
+    // Log batch admin action
+    await this.logAdminAction('batch_slot_operation', { action: operation.action, slotCount: updatedSlots.length, reason: operation.reason }, adminUser);
+
+    return updatedSlots;
+  }
+
+  async createBookingWithValidation(booking: InsertBooking, adminUser?: string): Promise<Booking> {
+    // Enhanced validation for admin bookings
+    const validation = await this.validateBookingRequest(booking);
+    if (!validation.valid) {
+      throw new Error(`Booking validation failed: ${validation.conflicts.join(', ')}`);
+    }
+
+    // Create the booking with admin tracking
+    const newBooking = await this.createBooking(booking);
+    
+    // Update availability slot if it exists
+    if (booking.boatId) {
+      const slot = Array.from(this.availabilitySlots.values())
+        .find(s => s.boatId === booking.boatId && 
+                   s.startTime.getTime() === booking.startTime.getTime() && 
+                   s.endTime.getTime() === booking.endTime.getTime());
+      
+      if (slot) {
+        const updated: AvailabilitySlot = {
+          ...slot,
+          status: 'BOOKED',
+          bookingId: newBooking.id,
+          projectId: booking.projectId || null,
+        };
+        this.availabilitySlots.set(slot.id, updated);
+      }
+    }
+
+    // Log booking history
+    await this.logBookingAction(newBooking.id, 'created', { booking: newBooking }, adminUser);
+
+    return newBooking;
+  }
+
+  async updateBookingWithValidation(id: string, updates: Partial<Booking>, adminUser?: string): Promise<Booking> {
+    const existingBooking = await this.getBooking(id);
+    if (!existingBooking) throw new Error('Booking not found');
+
+    // Create a temporary booking object for validation
+    const testBooking = { ...existingBooking, ...updates };
+    
+    // Validate if changes affect time or boat
+    if (updates.startTime || updates.endTime || updates.boatId) {
+      const validation = await this.validateBookingRequest({
+        ...testBooking,
+        startTime: testBooking.startTime,
+        endTime: testBooking.endTime,
+        type: testBooking.type as any,
+        groupSize: testBooking.groupSize,
+        paymentStatus: testBooking.paymentStatus as any,
+        amountPaid: testBooking.amountPaid || 0,
+        totalAmount: testBooking.totalAmount || 0,
+      });
+      
+      if (!validation.valid) {
+        throw new Error(`Booking update validation failed: ${validation.conflicts.join(', ')}`);
+      }
+    }
+
+    // Update booking with admin tracking
+    const updatedBooking = await this.updateBooking(id, {
+      ...updates,
+      lastModifiedBy: adminUser,
+      lastModifiedAt: new Date(),
+    });
+
+    // Log booking history
+    await this.logBookingAction(id, 'updated', { updates, adminUser }, adminUser);
+
+    return updatedBooking;
+  }
+
+  async cancelBookingWithCleanup(id: string, reason?: string, adminUser?: string): Promise<Booking> {
+    const booking = await this.getBooking(id);
+    if (!booking) throw new Error('Booking not found');
+
+    // Update booking status
+    const canceledBooking = await this.updateBooking(id, {
+      status: 'canceled',
+      adminNotes: reason ? `Canceled: ${reason}` : 'Canceled by admin',
+      lastModifiedBy: adminUser,
+      lastModifiedAt: new Date(),
+    });
+
+    // Free up availability slot
+    if (booking.boatId) {
+      const slot = Array.from(this.availabilitySlots.values())
+        .find(s => s.bookingId === id);
+      
+      if (slot) {
+        const updated: AvailabilitySlot = {
+          ...slot,
+          status: 'AVAILABLE',
+          bookingId: null,
+          projectId: null,
+        };
+        this.availabilitySlots.set(slot.id, updated);
+      }
+    }
+
+    // Log booking history
+    await this.logBookingAction(id, 'canceled', { reason, adminUser }, adminUser);
+
+    return canceledBooking;
+  }
+
+  async moveBookingToSlot(bookingId: string, newStartTime: Date, newEndTime: Date, newBoatId?: string): Promise<Booking> {
+    const booking = await this.getBooking(bookingId);
+    if (!booking) throw new Error('Booking not found');
+
+    const updates: Partial<Booking> = {
+      startTime: newStartTime,
+      endTime: newEndTime,
+    };
+
+    if (newBoatId) {
+      updates.boatId = newBoatId;
+    }
+
+    return this.updateBookingWithValidation(bookingId, updates);
+  }
+
+  async getComprehensiveBookings(startDate?: Date, endDate?: Date, filters?: AdminCalendarFilters): Promise<ComprehensiveAdminBooking[]> {
+    let bookings = await this.getBookings(startDate, endDate);
+
+    // Apply filters if provided
+    if (filters) {
+      if (filters.boatIds && filters.boatIds.length > 0) {
+        bookings = bookings.filter(b => b.boatId && filters.boatIds!.includes(b.boatId));
+      }
+
+      if (filters.status && filters.status.length > 0) {
+        // Map admin calendar statuses to booking statuses
+        const statusMap: Record<string, string[]> = {
+          available: [], // No bookings for available slots
+          booked: ['booked', 'confirmed'],
+          blocked: ['blocked'],
+          maintenance: ['blocked'], // Maintenance is a type of block
+        };
+        
+        const allowedStatuses = filters.status.flatMap(s => statusMap[s] || [s]);
+        bookings = bookings.filter(b => allowedStatuses.includes(b.status));
+      }
+
+      if (filters.paymentStatus && filters.paymentStatus.length > 0) {
+        bookings = bookings.filter(b => b.paymentStatus && filters.paymentStatus!.includes(b.paymentStatus as any));
+      }
+
+      if (filters.bookingType && filters.bookingType.length > 0) {
+        bookings = bookings.filter(b => filters.bookingType!.includes(b.type as any));
+      }
+
+      if (filters.search) {
+        const searchTerm = filters.search.toLowerCase();
+        bookings = bookings.filter(b => 
+          b.contactName?.toLowerCase().includes(searchTerm) ||
+          b.contactEmail?.toLowerCase().includes(searchTerm)
+        );
+      }
+    }
+
+    // Convert to comprehensive admin booking format
+    const comprehensiveBookings: ComprehensiveAdminBooking[] = [];
+    
+    for (const booking of bookings) {
+      const boat = booking.boatId ? this.boats.get(booking.boatId) : null;
+      
+      const comprehensive: ComprehensiveAdminBooking = {
+        id: booking.id,
+        cruiseDate: booking.startTime,
+        contactName: booking.contactName || 'Unknown',
+        contactEmail: booking.contactEmail || 'unknown@example.com',
+        contactPhone: booking.contactPhone || undefined,
+        partySize: booking.groupSize,
+        partyType: booking.partyType || undefined,
+        boatAssigned: booking.boatId || 'Unassigned',
+        boatName: boat?.name || 'Unknown Boat',
+        totalAmount: booking.totalAmount || 0,
+        amountPaid: booking.amountPaid || 0,
+        amountOwed: (booking.totalAmount || 0) - (booking.amountPaid || 0),
+        paymentStatus: this.getPaymentStatusLabel(booking.paymentStatus, booking.amountPaid || 0, booking.totalAmount || 0),
+        bookingStatus: booking.status,
+        eventType: booking.partyType || 'Cruise',
+        startTime: booking.startTime,
+        endTime: booking.endTime,
+        projectId: booking.projectId || undefined,
+        quoteId: booking.quoteId || undefined,
+        specialRequests: booking.specialRequests || undefined,
+        adminNotes: booking.adminNotes || undefined,
+        lastModifiedBy: booking.lastModifiedBy || undefined,
+        lastModifiedAt: booking.lastModifiedAt || undefined,
+        createdAt: booking.createdAt,
+      };
+
+      comprehensiveBookings.push(comprehensive);
+    }
+
+    return comprehensiveBookings.sort((a, b) => a.cruiseDate.getTime() - b.cruiseDate.getTime());
+  }
+
+  private getPaymentStatusLabel(paymentStatus?: string, amountPaid: number = 0, totalAmount: number = 0): 'Paid' | 'Partial' | 'Unpaid' {
+    if (paymentStatus === 'fully_paid' || (totalAmount > 0 && amountPaid >= totalAmount)) {
+      return 'Paid';
+    } else if (paymentStatus === 'deposit_paid' || amountPaid > 0) {
+      return 'Partial';
+    } else {
+      return 'Unpaid';
+    }
+  }
+
+  async getAdminAvailabilityOverview(date: Date): Promise<{ boatId: string; boatName: string; slots: AdminCalendarSlot[] }[]> {
+    const startOfDay = new Date(date);
+    startOfDay.setHours(0, 0, 0, 0);
+    const endOfDay = new Date(date);
+    endOfDay.setHours(23, 59, 59, 999);
+
+    const boats = await this.getActiveBoats();
+    const overview: { boatId: string; boatName: string; slots: AdminCalendarSlot[] }[] = [];
+
+    for (const boat of boats) {
+      const slots = await this.getAdminCalendarSlots(startOfDay, endOfDay, boat.id);
+      overview.push({
+        boatId: boat.id,
+        boatName: boat.name,
+        slots,
+      });
+    }
+
+    return overview.sort((a, b) => a.boatName.localeCompare(b.boatName));
+  }
+
+  async createRecurringAvailability(pattern: RecurringPattern): Promise<AvailabilitySlot[]> {
+    const createdSlots: AvailabilitySlot[] = [];
+    const recurringId = randomUUID();
+
+    // Generate slots based on pattern
+    let currentDate = new Date(pattern.startDate);
+    const endDate = pattern.endDate || new Date(pattern.startDate.getFullYear() + 1, pattern.startDate.getMonth(), pattern.startDate.getDate());
+
+    while (currentDate <= endDate) {
+      // Check if this date matches the pattern
+      const shouldCreateSlot = pattern.type === 'weekly' ? 
+        (pattern.daysOfWeek?.includes(currentDate.getDay()) || false) :
+        pattern.type === 'monthly' ? 
+        (currentDate.getDate() === pattern.startDate.getDate()) :
+        true; // custom pattern - create for all dates
+
+      if (shouldCreateSlot && !pattern.excludeDates?.some(d => d.getTime() === currentDate.getTime())) {
+        // Create slots for each time slot in the pattern
+        for (const timeSlot of pattern.timeSlots) {
+          for (const boatId of pattern.boatIds) {
+            const [startHours, startMinutes] = timeSlot.startTime.split(':').map(Number);
+            const [endHours, endMinutes] = timeSlot.endTime.split(':').map(Number);
+
+            const startTime = new Date(currentDate);
+            startTime.setHours(startHours, startMinutes, 0, 0);
+            
+            const endTime = new Date(currentDate);
+            endTime.setHours(endHours, endMinutes, 0, 0);
+
+            // Check if slot already exists
+            const existingSlot = Array.from(this.availabilitySlots.values())
+              .find(s => s.boatId === boatId && 
+                         s.startTime.getTime() === startTime.getTime() && 
+                         s.endTime.getTime() === endTime.getTime());
+
+            if (!existingSlot) {
+              const slot: AvailabilitySlot = {
+                id: randomUUID(),
+                boatId,
+                startTime,
+                endTime,
+                status: 'AVAILABLE',
+                projectId: null,
+                bookingId: null,
+                blockReason: null,
+                blockedBy: null,
+                blockedAt: null,
+                notes: null,
+                isRecurring: true,
+                recurringId,
+                createdAt: new Date(),
+              };
+
+              this.availabilitySlots.set(slot.id, slot);
+              createdSlots.push(slot);
+            }
+          }
+        }
+      }
+
+      // Move to next day
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+
+    // Log admin action
+    await this.logAdminAction('create_recurring_availability', { pattern, createdCount: createdSlots.length, recurringId }, undefined);
+
+    return createdSlots;
+  }
+
+  async updateRecurringAvailability(recurringId: string, pattern: Partial<RecurringPattern>): Promise<AvailabilitySlot[]> {
+    // For now, we'll implement this as delete + recreate
+    await this.deleteRecurringAvailability(recurringId);
+    
+    if (pattern.startDate) {
+      return this.createRecurringAvailability(pattern as RecurringPattern);
+    }
+
+    return [];
+  }
+
+  async deleteRecurringAvailability(recurringId: string): Promise<boolean> {
+    const slotsToDelete = Array.from(this.availabilitySlots.values())
+      .filter(s => s.recurringId === recurringId);
+
+    for (const slot of slotsToDelete) {
+      // Only delete if not booked
+      if (slot.status !== 'BOOKED') {
+        this.availabilitySlots.delete(slot.id);
+      }
+    }
+
+    // Log admin action
+    await this.logAdminAction('delete_recurring_availability', { recurringId, deletedCount: slotsToDelete.length }, undefined);
+
+    return true;
+  }
+
+  async validateBookingRequest(booking: InsertBooking): Promise<{ valid: boolean; conflicts: string[]; warnings: string[] }> {
+    const conflicts: string[] = [];
+    const warnings: string[] = [];
+
+    // Check boat capacity
+    if (booking.boatId) {
+      const boat = this.boats.get(booking.boatId);
+      if (boat) {
+        if (booking.groupSize > boat.maxCapacity) {
+          conflicts.push(`Group size ${booking.groupSize} exceeds boat maximum capacity of ${boat.maxCapacity}`);
+        }
+        if (booking.groupSize > boat.capacity) {
+          warnings.push(`Group size ${booking.groupSize} exceeds standard capacity of ${boat.capacity}. Extra crew may be required.`);
+        }
+      }
+    }
+
+    // Check for booking conflicts
+    if (booking.boatId) {
+      const hasConflict = await this.checkBookingConflict(
+        booking.boatId,
+        booking.startTime,
+        booking.endTime
+      );
+      
+      if (hasConflict) {
+        conflicts.push('Time slot conflicts with existing booking');
+      }
+    }
+
+    // Check if slot is blocked
+    const slot = Array.from(this.availabilitySlots.values())
+      .find(s => s.boatId === booking.boatId && 
+                 s.startTime.getTime() === booking.startTime.getTime() && 
+                 s.endTime.getTime() === booking.endTime.getTime());
+
+    if (slot && (slot.status === 'BLOCKED' || slot.status === 'MAINTENANCE')) {
+      conflicts.push(`Time slot is ${slot.status.toLowerCase()}: ${slot.blockReason || 'No reason provided'}`);
+    }
+
+    return {
+      valid: conflicts.length === 0,
+      conflicts,
+      warnings,
+    };
+  }
+
+  async getBookingConflicts(boatId: string, startTime: Date, endTime: Date, excludeBookingId?: string): Promise<Booking[]> {
+    const bookings = Array.from(this.bookings.values());
+    
+    return bookings.filter(booking => {
+      // Skip if this is the booking we're updating
+      if (excludeBookingId && booking.id === excludeBookingId) return false;
+      
+      // Skip if different boat or canceled
+      if (booking.boatId !== boatId || booking.status === "canceled") return false;
+      
+      // Check for time overlap
+      const bookingStart = booking.startTime;
+      const bookingEnd = booking.endTime;
+      
+      // Return true if there's an overlap
+      return (
+        (startTime >= bookingStart && startTime < bookingEnd) ||
+        (endTime > bookingStart && endTime <= bookingEnd) ||
+        (startTime <= bookingStart && endTime >= bookingEnd)
+      );
+    });
+  }
+
+  async getBookingHistory(bookingId: string): Promise<Array<{ action: string; timestamp: Date; adminUser?: string; details: any }>> {
+    return this.bookingHistory.get(bookingId) || [];
+  }
+
+  async logAdminAction(action: string, details: any, adminUser?: string): Promise<void> {
+    const logEntry = {
+      id: randomUUID(),
+      action,
+      timestamp: new Date(),
+      adminUser,
+      details,
+    };
+    
+    this.adminLogs.push(logEntry);
+    
+    // Keep only last 1000 log entries to prevent memory issues
+    if (this.adminLogs.length > 1000) {
+      this.adminLogs = this.adminLogs.slice(-1000);
+    }
+  }
+
+  private async logBookingAction(bookingId: string, action: string, details: any, adminUser?: string): Promise<void> {
+    const history = this.bookingHistory.get(bookingId) || [];
+    history.push({
+      action,
+      timestamp: new Date(),
+      adminUser,
+      details,
+    });
+    
+    // Keep only last 50 history entries per booking
+    if (history.length > 50) {
+      history.splice(0, history.length - 50);
+    }
+    
+    this.bookingHistory.set(bookingId, history);
   }
 }
 
