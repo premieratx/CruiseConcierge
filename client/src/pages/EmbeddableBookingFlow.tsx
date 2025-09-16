@@ -2096,7 +2096,19 @@ export default function EmbeddableBookingFlow() {
                                   key={altDate.date.toISOString()}
                                   onClick={() => {
                                     setFormData(prev => ({ ...prev, eventDate: altDate.date }));
-                                    proceedToComparison(altDate.date);
+                                    // Update the completed selection with the new date
+                                    addCompletedSelection({
+                                      id: 'date',
+                                      label: 'Date',
+                                      value: format(altDate.date, 'MMM dd, yyyy'),
+                                      icon: 'calendar',
+                                      editable: true,
+                                      onEdit: () => {
+                                        setFormData(prev => ({ ...prev, eventDate: undefined }));
+                                        goToStep('intro');
+                                        setCompletedSelections(prev => prev.filter(s => s.id !== 'date'));
+                                      }
+                                    });
                                   }}
                                   variant="outline"
                                   className="w-full justify-start h-auto p-3"
