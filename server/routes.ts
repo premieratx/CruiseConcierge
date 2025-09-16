@@ -4426,9 +4426,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         
         const subtotalCents = serverCalculatedHourlyRate * duration * 100; // Convert to cents
         const items = [{ quantity: 1, unitPrice: subtotalCents, name: 'Private Cruise', type: 'cruise' }];
-        const pricing = await calculateInvoiceTotalsWithPricingSettings(items);
-        const taxCents = pricing.tax;
-        const gratuityCents = pricing.gratuity;
+        const calculatedPricing = await calculateInvoiceTotalsWithPricingSettings(items);
+        const taxCents = calculatedPricing.tax;
+        const gratuityCents = calculatedPricing.gratuity;
         const totalCents = subtotalCents + taxCents + gratuityCents;
         
         // Calculate deposit (50% of total)
