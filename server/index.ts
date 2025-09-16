@@ -40,6 +40,29 @@ app.use((req, res, next) => {
   next();
 });
 
+// Add iframe embedding headers for embed routes
+app.use('/embed', (req, res, next) => {
+  // Remove X-Frame-Options to allow iframe embedding
+  res.removeHeader('X-Frame-Options');
+  
+  // Set CSP to allow embedding from any origin for embed routes
+  // In production, you should limit this to specific domains
+  res.setHeader('Content-Security-Policy', 
+    "frame-ancestors 'self' *; " +
+    "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https:; " +
+    "connect-src 'self' https: wss: ws:; " +
+    "img-src 'self' data: https:; " +
+    "style-src 'self' 'unsafe-inline' https:; " +
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;"
+  );
+  
+  // Additional headers for iframe compatibility
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Referrer-Policy', 'origin-when-cross-origin');
+  
+  next();
+});
+
 (async () => {
   const server = await registerRoutes(app);
 
