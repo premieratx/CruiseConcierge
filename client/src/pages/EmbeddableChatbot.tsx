@@ -217,6 +217,256 @@ export default function EmbeddableChatbot() {
   
   const { toast } = useToast();
 
+  // Fetch private cruise pricing with identical API calls as main Chat.tsx
+  const fetchPrivatePricing = async () => {
+    if (!formData.selectedTimeSlot) return;
+    
+    console.log('🚢 EmbedChatbot fetchPrivatePricing called with:', {
+      selectedTimeSlot: formData.selectedTimeSlot,
+      groupSize: formData.groupSize,
+      eventDate: formData.eventDate,
+      eventType: formData.eventType,
+      selectedAddOnPackages: formData.selectedAddOnPackages
+    });
+    
+    setPricingLoading(true);
+    setPricingError(null);
+    try {
+      // Calculate total hourly rate (base + add-ons) - identical to main Chat.tsx
+      const totalHourlyRate = BASE_PRIVATE_HOURLY_RATE + 
+        formData.selectedAddOnPackages.reduce((sum, addOnId) => {
+          const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
+          return sum + (addOn?.hourlyRate || 0);
+        }, 0);
+      
+      const pricingPayload = {
+        groupSize: formData.groupSize,
+        eventDate: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : '',
+        timeSlot: formData.selectedTimeSlot,
+        eventType: formData.eventType,
+        cruiseType: 'private',
+        packageType: formData.selectedAddOnPackages.join(','),
+        hourlyRate: totalHourlyRate,
+      };
+      
+      console.log('🚢 EmbedChatbot making API call to /api/pricing/cruise with:', pricingPayload);
+      
+      const res = await apiRequest('POST', '/api/pricing/cruise', pricingPayload);
+      
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.log('🚢 EmbedChatbot API call failed:', res.status, errorText);
+        calculatePrivatePricing();
+        return;
+      }
+      
+      const response = await res.json();
+      console.log('🚢 EmbedChatbot API call successful, setting privatePricing:', response);
+      setPrivatePricing(response);
+    } catch (error: any) {
+      console.log('🚢 EmbedChatbot exception in fetchPrivatePricing:', error);
+      calculatePrivatePricing();
+    } finally {
+      setPricingLoading(false);
+    }
+  };
+
+  // Helper function to get cruise duration - identical to main Chat.tsx
+  const getCruiseDuration = (date: Date | undefined) => {
+    if (!date) return 4;
+    const dayOfWeek = date.getDay();
+    return (dayOfWeek >= 1 && dayOfWeek <= 4) ? 3 : 4;
+  };
+
+  // Fallback private cruise pricing calculation - identical to main Chat.tsx
+  const calculatePrivatePricing = () => {
+    console.log('🚢 EmbedChatbot calculatePrivatePricing called as fallback');
+    if (!formData.selectedTimeSlot) {
+      console.log('🚢 EmbedChatbot calculatePrivatePricing early return - no timeSlot');
+      return;
+    }
+    
+    // Calculate total hourly rate (base + add-ons)
+    const totalHourlyRate = BASE_PRIVATE_HOURLY_RATE + 
+      formData.selectedAddOnPackages.reduce((sum, addOnId) => {
+        const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
+        return sum + (addOn?.hourlyRate || 0);
+      }, 0);
+    
+    const cruiseDuration = getCruiseDuration(formData.eventDate);
+    const baseCost = totalHourlyRate * cruiseDuration;
+    const crewFee = formData.groupSize > 20 ? 200 : 0;
+    const subtotal = baseCost + crewFee;
+    const tax = Math.round(subtotal * 0.0825);
+    const gratuity = Math.round(subtotal * 0.20);
+    const total = subtotal + tax + gratuity;
+    
+    // Calculate deposit based on event date (30-day rule)
+    const today = new Date();
+    const eventDate = formData.eventDate || new Date();
+    const daysUntilEvent = differenceInDays(eventDate, today);
+    const depositPercent = daysUntilEvent >= 30 ? 25 : 100;
+    const depositAmount = Math.round(total * (depositPercent / 100));
+    
+    const privatePricingData = {
+      subtotal: subtotal * 100,
+      tax: tax * 100,
+      total: total * 100,
+      perPersonCost: Math.round((total / formData.groupSize) * 100),
+      discountTotal: 0,
+      gratuity: gratuity * 100,
+      depositRequired: true,
+      depositPercent,
+      depositAmount: depositAmount * 100,
+      paymentSchedule: [],
+      appliedDiscounts: [],
+      breakdown: {
+        boatType: `${formData.groupSize}-person capacity`,
+        dayName: formData.eventDate ? format(formData.eventDate, 'EEEE') : '',
+        baseHourlyRate: BASE_PRIVATE_HOURLY_RATE,
+        cruiseDuration: cruiseDuration,
+        baseCruiseCost: baseCost * 100,
+        crewFee: crewFee * 100,
+        subtotalBeforeTax: subtotal * 100,
+        gratuityAmount: gratuity * 100,
+        taxAmount: tax * 100,
+        grandTotal: total * 100,
+        perPerson: Math.round((total / formData.groupSize) * 100),
+        deposit: depositAmount * 100,
+        balanceDue: (total - depositAmount) * 100,
+      }
+    };
+    
+    console.log('🚢 EmbedChatbot setting privatePricing:', privatePricingData);
+    setPrivatePricing(privatePricingData);
+  };
+
+  // Fetch disco cruise pricing - identical to main Chat.tsx
+  const fetchDiscoPricing = async () => {
+    console.log('🎵 EmbedChatbot fetchDiscoPricing called with:', {
+      selectedDiscoPackage: formData.selectedDiscoPackage,
+      discoTicketQuantity: formData.discoTicketQuantity,
+      eventDate: formData.eventDate
+    });
+    
+    setPricingLoading(true);
+    setPricingError(null);
+    try {
+      const discoPayload = {
+        items: [{
+          productId: `disco_${formData.selectedDiscoPackage}`,
+          qty: formData.discoTicketQuantity,
+          unitPrice: getDiscoPriceByPackage(formData.selectedDiscoPackage),
+        }],
+        groupSize: formData.discoTicketQuantity,
+        projectDate: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : '',
+      };
+      
+      console.log('🎵 EmbedChatbot making API call to /api/pricing/preview with:', discoPayload);
+      
+      const res = await apiRequest('POST', '/api/pricing/preview', discoPayload);
+      
+      if (!res.ok) {
+        const errorText = await res.text();
+        console.log('🎵 EmbedChatbot API call failed:', res.status, errorText);
+        calculateDiscoPricing();
+        return;
+      }
+      
+      const response = await res.json();
+      console.log('🎵 EmbedChatbot API call successful, setting discoPricing:', response);
+      setDiscoPricing(response);
+    } catch (error: any) {
+      console.log('🎵 EmbedChatbot exception in fetchDiscoPricing:', error);
+      calculateDiscoPricing();
+    } finally {
+      setPricingLoading(false);
+    }
+  };
+  
+  const getDiscoPriceByPackage = (packageId: string | null): number => {
+    const packagePrices = {
+      'basic': 8500,
+      'disco_queen': 9500,
+      'platinum': 10500,
+    };
+    return packagePrices[packageId as keyof typeof packagePrices] || 8500;
+  };
+  
+  const calculateDiscoPricing = () => {
+    console.log('🎵 EmbedChatbot calculateDiscoPricing called as fallback');
+    if (!formData.selectedDiscoPackage) {
+      console.log('🎵 EmbedChatbot calculateDiscoPricing early return - no disco package');
+      return;
+    }
+    
+    const selectedPackage = discoPackages.find(pkg => pkg.id === formData.selectedDiscoPackage);
+    if (!selectedPackage) return;
+    
+    const cruiseDuration = getCruiseDuration(formData.eventDate);
+    const subtotal = selectedPackage.price * formData.discoTicketQuantity;
+    const gratuity = Math.round(subtotal * 0.20);
+    const tax = Math.round(subtotal * 0.0825);
+    const total = subtotal + gratuity + tax;
+    
+    // Calculate deposit based on event date (30-day rule)
+    const today = new Date();
+    const eventDate = formData.eventDate || new Date();
+    const daysUntilEvent = differenceInDays(eventDate, today);
+    const depositPercent = daysUntilEvent >= 30 ? 25 : 100;
+    const depositAmount = Math.round(total * (depositPercent / 100));
+    
+    setDiscoPricing({
+      subtotal: subtotal * 100,
+      tax: tax * 100,
+      total: total * 100,
+      perPersonCost: selectedPackage.price * 100,
+      discountTotal: 0,
+      gratuity: gratuity * 100,
+      depositRequired: true,
+      depositPercent,
+      depositAmount: depositAmount * 100,
+      paymentSchedule: [],
+      appliedDiscounts: [],
+      breakdown: {
+        boatType: selectedPackage.name,
+        dayName: formData.eventDate ? format(formData.eventDate, 'EEEE') : '',
+        baseHourlyRate: Math.round(selectedPackage.price / cruiseDuration),
+        cruiseDuration: cruiseDuration,
+        baseCruiseCost: subtotal * 100,
+        crewFee: 0,
+        subtotalBeforeTax: subtotal * 100,
+        gratuityAmount: gratuity * 100,
+        taxAmount: tax * 100,
+        grandTotal: total * 100,
+        perPerson: selectedPackage.price * 100,
+        deposit: depositAmount * 100,
+        balanceDue: (total - depositAmount) * 100,
+      }
+    });
+  };
+
+  // Trigger pricing calculations when relevant data changes - identical to main Chat.tsx
+  useEffect(() => {
+    if (formData.selectedCruiseType === 'private' && formData.selectedTimeSlot) {
+      const debouncedTimer = setTimeout(() => {
+        console.log('🚢 EmbedChatbot debounced fetchPrivatePricing triggered');
+        fetchPrivatePricing();
+      }, 300);
+      return () => clearTimeout(debouncedTimer);
+    }
+  }, [formData.selectedTimeSlot, formData.selectedAddOnPackages, formData.groupSize, formData.eventDate?.getTime()]);
+
+  useEffect(() => {
+    if (formData.selectedCruiseType === 'disco' && formData.selectedDiscoPackage) {
+      const debouncedTimer = setTimeout(() => {
+        console.log('🎵 EmbedChatbot debounced fetchDiscoPricing triggered');
+        fetchDiscoPricing();
+      }, 300);
+      return () => clearTimeout(debouncedTimer);
+    }
+  }, [formData.selectedDiscoPackage, formData.discoTicketQuantity, formData.eventDate?.getTime()]);
+
   // Compact design with minimal header for embed
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900 p-2">

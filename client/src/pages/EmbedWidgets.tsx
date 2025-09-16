@@ -301,36 +301,62 @@ export default function EmbedWidgets() {
                 </CardHeader>
                 <CardContent>
                   <div className={cn(
-                    "border-2 border-dashed border-gray-300 dark:border-gray-600 p-4 rounded-lg",
+                    "border-2 border-dashed border-gray-300 dark:border-gray-600 p-0 rounded-lg overflow-hidden",
                     previewMode === 'mobile' ? 'max-w-sm mx-auto' : 'w-full'
                   )}>
-                    <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 text-center">
-                      <div className="space-y-2">
-                        <MessageSquare className="h-8 w-8 mx-auto text-blue-500" />
-                        <p className="text-sm text-gray-600 dark:text-gray-300">
-                          AI Chatbot Widget Preview
-                        </p>
-                        <p className="text-xs text-gray-500">
-                          {chatbotConfig.responsive ? 'Responsive' : `${chatbotConfig.width}x${chatbotConfig.height}`}
-                        </p>
+                    {/* Live Preview */}
+                    <div 
+                      className="relative"
+                      style={{
+                        height: previewMode === 'mobile' ? '400px' : '600px',
+                        width: previewMode === 'mobile' ? '320px' : (chatbotConfig.responsive ? '100%' : `${chatbotConfig.width}px`),
+                        maxWidth: '100%',
+                        margin: previewMode === 'mobile' ? '0 auto' : '0',
+                        borderRadius: `${chatbotConfig.borderRadius}px`,
+                        boxShadow: chatbotConfig.showShadow ? '0 4px 12px rgba(0,0,0,0.15)' : 'none'
+                      }}
+                    >
+                      <iframe
+                        src={`/embed/chatbot?theme=${chatbotConfig.theme}&preview=true`}
+                        width="100%"
+                        height="100%"
+                        frameBorder="0"
+                        title="Chatbot Preview"
+                        className="rounded-lg"
+                        style={{ borderRadius: `${chatbotConfig.borderRadius}px` }}
+                      />
+                      
+                      {/* Preview Overlay with Controls */}
+                      <div className="absolute top-2 right-2 flex items-center gap-2">
+                        <Badge variant="secondary" className="text-xs">
+                          {previewMode === 'mobile' ? 'Mobile' : 'Desktop'}
+                        </Badge>
                         <Dialog>
                           <DialogTrigger asChild>
-                            <Button size="sm" data-testid="button-preview-chatbot">
+                            <Button size="sm" variant="outline" data-testid="button-preview-chatbot">
                               <ExternalLink className="h-4 w-4 mr-2" />
-                              Open Preview
+                              Full Preview
                             </Button>
                           </DialogTrigger>
-                          <DialogContent className="max-w-md">
+                          <DialogContent className="max-w-lg">
                             <DialogHeader>
-                              <DialogTitle>Chatbot Widget Preview</DialogTitle>
+                              <DialogTitle>Chatbot Widget Full Preview</DialogTitle>
                             </DialogHeader>
-                            <div className="w-full h-96 border rounded-lg overflow-hidden">
+                            <div 
+                              className="w-full border rounded-lg overflow-hidden"
+                              style={{
+                                height: '600px',
+                                borderRadius: `${chatbotConfig.borderRadius}px`,
+                                boxShadow: chatbotConfig.showShadow ? '0 4px 12px rgba(0,0,0,0.15)' : 'none'
+                              }}
+                            >
                               <iframe
-                                src="/embed/chatbot"
+                                src={`/embed/chatbot?theme=${chatbotConfig.theme}&preview=true&fullscreen=true`}
                                 width="100%"
                                 height="100%"
                                 frameBorder="0"
-                                title="Chatbot Preview"
+                                title="Chatbot Full Preview"
+                                style={{ borderRadius: `${chatbotConfig.borderRadius}px` }}
                               />
                             </div>
                           </DialogContent>
@@ -518,36 +544,62 @@ export default function EmbedWidgets() {
                 </CardHeader>
                 <CardContent>
                   <div className={cn(
-                    "border-2 border-dashed border-gray-300 dark:border-gray-600 p-4 rounded-lg",
+                    "border-2 border-dashed border-gray-300 dark:border-gray-600 p-0 rounded-lg overflow-hidden",
                     previewMode === 'mobile' ? 'max-w-sm mx-auto' : 'w-full'
                   )}>
-                    <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-4 text-center">
-                      <div className="space-y-2">
-                        <Calendar className="h-8 w-8 mx-auto text-green-500" />
-                        <p className="text-sm text-gray-600 dark:text-gray-300">
-                          Booking Widget Preview
-                        </p>
-                        <p className="text-xs text-gray-500">
-                          {bookingConfig.responsive ? 'Responsive' : `${bookingConfig.width}x${bookingConfig.height}`}
-                        </p>
+                    {/* Live Preview */}
+                    <div 
+                      className="relative"
+                      style={{
+                        height: previewMode === 'mobile' ? '500px' : '800px',
+                        width: previewMode === 'mobile' ? '320px' : (bookingConfig.responsive ? '100%' : `${bookingConfig.width}px`),
+                        maxWidth: '100%',
+                        margin: previewMode === 'mobile' ? '0 auto' : '0',
+                        borderRadius: `${bookingConfig.borderRadius}px`,
+                        boxShadow: bookingConfig.showShadow ? '0 4px 12px rgba(0,0,0,0.15)' : 'none'
+                      }}
+                    >
+                      <iframe
+                        src={`/embed/booking?theme=${bookingConfig.theme}&preview=true`}
+                        width="100%"
+                        height="100%"
+                        frameBorder="0"
+                        title="Booking Preview"
+                        className="rounded-lg"
+                        style={{ borderRadius: `${bookingConfig.borderRadius}px` }}
+                      />
+                      
+                      {/* Preview Overlay with Controls */}
+                      <div className="absolute top-2 right-2 flex items-center gap-2">
+                        <Badge variant="secondary" className="text-xs">
+                          {previewMode === 'mobile' ? 'Mobile' : 'Desktop'}
+                        </Badge>
                         <Dialog>
                           <DialogTrigger asChild>
-                            <Button size="sm" data-testid="button-preview-booking">
+                            <Button size="sm" variant="outline" data-testid="button-preview-booking">
                               <ExternalLink className="h-4 w-4 mr-2" />
-                              Open Preview
+                              Full Preview
                             </Button>
                           </DialogTrigger>
-                          <DialogContent className="max-w-4xl max-h-[80vh]">
+                          <DialogContent className="max-w-5xl max-h-[90vh]">
                             <DialogHeader>
-                              <DialogTitle>Booking Widget Preview</DialogTitle>
+                              <DialogTitle>Booking Widget Full Preview</DialogTitle>
                             </DialogHeader>
-                            <div className="w-full h-96 border rounded-lg overflow-hidden">
+                            <div 
+                              className="w-full border rounded-lg overflow-hidden"
+                              style={{
+                                height: '700px',
+                                borderRadius: `${bookingConfig.borderRadius}px`,
+                                boxShadow: bookingConfig.showShadow ? '0 4px 12px rgba(0,0,0,0.15)' : 'none'
+                              }}
+                            >
                               <iframe
-                                src="/embed/booking"
+                                src={`/embed/booking?theme=${bookingConfig.theme}&preview=true&fullscreen=true`}
                                 width="100%"
                                 height="100%"
                                 frameBorder="0"
-                                title="Booking Preview"
+                                title="Booking Full Preview"
+                                style={{ borderRadius: `${bookingConfig.borderRadius}px` }}
                               />
                             </div>
                           </DialogContent>
