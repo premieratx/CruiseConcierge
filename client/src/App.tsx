@@ -18,11 +18,15 @@ import QuoteViewer from "./pages/QuoteViewer";
 import InvoiceViewer from "./pages/InvoiceViewer";
 import CalendarView from "@/components/CalendarView";
 import Settings from "./pages/Settings";
+import PublicCalendar from "./pages/PublicCalendar";
+import BookingFlow from "./pages/BookingFlow";
+import BookingSuccess from "./pages/BookingSuccess";
 import NotFound from "@/pages/not-found";
 
 function Router() {
   return (
     <Switch>
+      {/* Admin Dashboard Routes */}
       <Route path="/" component={Dashboard} />
       <Route path="/chat" component={Chat} />
       <Route path="/leads" component={Leads} />
@@ -41,6 +45,14 @@ function Router() {
       <Route path="/checkout/:quoteId" component={Checkout} />
       <Route path="/quote/:quoteId" component={QuoteViewer} />
       <Route path="/invoice/:invoiceId" component={InvoiceViewer} />
+      
+      {/* Public Customer Routes */}
+      <Route path="/book" component={PublicCalendar} />
+      <Route path="/availability" component={PublicCalendar} />
+      <Route path="/book/:slotId" component={BookingFlow} />
+      <Route path="/booking-success" component={BookingSuccess} />
+      
+      {/* 404 Fallback */}
       <Route component={NotFound} />
     </Switch>
   );

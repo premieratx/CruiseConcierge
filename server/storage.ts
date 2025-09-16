@@ -2373,17 +2373,14 @@ export class MemStorage implements IStorage {
       // Skip if different boat or canceled
       if (booking.boatId !== boatId || booking.status === "canceled") return false;
       
-      // Check for time overlap
+      // Check for time overlap using proper interval overlap logic
       const bookingStart = booking.startTime;
       const bookingEnd = booking.endTime;
       
-      // Overlaps if: start is during existing booking OR end is during existing booking 
-      // OR new booking completely contains existing booking
-      return (
-        (startTime >= bookingStart && startTime < bookingEnd) ||
-        (endTime > bookingStart && endTime <= bookingEnd) ||
-        (startTime <= bookingStart && endTime >= bookingEnd)
-      );
+      // Two time intervals [startTime, endTime) and [bookingStart, bookingEnd) overlap if:
+      // startTime < bookingEnd AND endTime > bookingStart
+      // This handles all overlap cases including partial overlaps, containment, and exact matches
+      return startTime < bookingEnd && endTime > bookingStart;
     });
   }
 
@@ -2400,8 +2397,24 @@ export class MemStorage implements IStorage {
     let boatId = project.availabilitySlotId || '';
     if (!boatId && project.groupSize) {
       const boats = await this.getBoatsByCapacity(project.groupSize);
-      if (boats.length > 0) {
-        boatId = boats[0].id;
+      
+      // Check each boat for conflicts and select the first available one
+      for (const boat of boats) {
+        const hasConflict = await this.checkBookingConflict(
+          boat.id,
+          project.projectDate || new Date(),
+          new Date((project.projectDate || new Date()).getTime() + (project.durationHours || 4) * 60 * 60 * 1000)
+        );
+        
+        if (!hasConflict) {
+          boatId = boat.id;
+          break;
+        }
+      }
+      
+      // If no available boat found, throw error to prevent double-booking
+      if (!boatId) {
+        throw new Error('No available boats for the requested time slot. Please choose a different time.');
       }
     }
     
@@ -3593,16 +3606,14 @@ export class MemStorage implements IStorage {
       // Skip if different boat or canceled
       if (booking.boatId !== boatId || booking.status === "canceled") return false;
       
-      // Check for time overlap
+      // Check for time overlap using proper interval overlap logic
       const bookingStart = booking.startTime;
       const bookingEnd = booking.endTime;
       
-      // Return true if there's an overlap
-      return (
-        (startTime >= bookingStart && startTime < bookingEnd) ||
-        (endTime > bookingStart && endTime <= bookingEnd) ||
-        (startTime <= bookingStart && endTime >= bookingEnd)
-      );
+      // Two time intervals [startTime, endTime) and [bookingStart, bookingEnd) overlap if:
+      // startTime < bookingEnd AND endTime > bookingStart
+      // This handles all overlap cases including partial overlaps, containment, and exact matches
+      return startTime < bookingEnd && endTime > bookingStart;
     });
   }
 

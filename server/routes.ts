@@ -2479,6 +2479,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get Stripe session details for booking confirmation
+  app.get("/api/stripe/session/:sessionId", async (req, res) => {
+    try {
+      if (!stripe) {
+        return res.status(500).json({ error: "Stripe not configured" });
+      }
+
+      const { sessionId } = req.params;
+      
+      if (!sessionId) {
+        return res.status(400).json({ error: "Session ID required" });
+      }
+
+      const session = await stripe.checkout.sessions.retrieve(sessionId);
+      
+      if (!session) {
+        return res.status(404).json({ error: "Session not found" });
+      }
+
+      // Return relevant session data for booking confirmation
+      res.json({
+        id: session.id,
+        payment_status: session.payment_status,
+        amount_total: session.amount_total,
+        currency: session.currency,
+        customer_email: session.customer_email,
+        metadata: session.metadata,
+        created: session.created,
+        expires_at: session.expires_at,
+        payment_intent: session.payment_intent,
+        status: session.status
+      });
+    } catch (error: any) {
+      console.error("Get Stripe session error:", error);
+      res.status(500).json({ error: "Error retrieving session: " + error.message });
+    }
+  });
+
   // Webhook for payment confirmations
   app.post("/api/webhooks/stripe", async (req, res) => {
     try {
@@ -2597,9 +2635,29 @@ export async function registerRoutes(app: Express): Promise<Server> {
             const bookingDuration = parseInt(duration || '4');
             const bookingGroupSize = parseInt(groupSize);
             
-            // Find an appropriate boat for the group size
+            // Find an appropriate boat for the group size with conflict checking
             const boats = await storage.getBoatsByCapacity(bookingGroupSize);
-            const boatId = boats.length > 0 ? boats[0].id : '';
+            let boatId = '';
+            
+            // Check each boat for conflicts and select the first available one
+            for (const boat of boats) {
+              const hasConflict = await storage.checkBookingConflict(
+                boat.id,
+                startTime,
+                endTime
+              );
+              
+              if (!hasConflict) {
+                boatId = boat.id;
+                break;
+              }
+            }
+            
+            // If no available boat found, log error but continue (will be handled in booking creation)
+            if (!boatId && boats.length > 0) {
+              console.warn(`No available boats for direct booking at ${eventDate} ${timeSlot}. Using first boat with conflict handling.`);
+              boatId = boats[0].id; // Fallback - createBooking will handle the conflict
+            }
             
             // Calculate start and end times from time slot
             const timeSlot = selectedTimeSlot || '';
@@ -4210,6 +4268,128 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get individual disco slot by ID  
+  app.get("/api/disco/slots/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const slot = await storage.getDiscoSlot(id);
+      if (!slot) {
+        return res.status(404).json({ error: "Disco slot not found" });
+      }
+      
+      // Add ticket pricing information for booking flow
+      const slotWithPricing = {
+        ...slot,
+        ticketPrice: 8500, // $85 default ticket price in cents
+        availableTickets: slot.ticketCap - slot.ticketsSold
+      };
+      
+      res.json(slotWithPricing);
+    } catch (error: any) {
+      console.error("Error fetching disco slot:", error);
+      res.status(500).json({ error: "Failed to fetch disco slot" });
+    }
+  });
+
+  // Get slot details for availability slot endpoint (used by booking flow)
+  app.get("/api/availability/slot", async (req, res) => {
+    try {
+      const { slotId } = req.query;
+      
+      if (!slotId && !boatId) {
+        return res.status(400).json({ error: "slotId or boatId parameter is required" });
+      }
+      
+      // Parse slot ID to determine type and return appropriate data
+      if (typeof slotId === 'string' && slotId.startsWith('disco_')) {
+        // Disco slot: disco_{id}
+        const discoSlotId = slotId.replace('disco_', '');
+        const slot = await storage.getDiscoSlot(discoSlotId);
+        
+        if (!slot) {
+          return res.status(404).json({ error: "Disco slot not found" });
+        }
+        
+        res.json({
+          id: slotId,
+          type: 'disco',
+          date: slot.date.toISOString().split('T')[0],
+          startTime: new Date(slot.startTime).toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }),
+          endTime: new Date(slot.endTime).toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute: '2-digit' }),
+          ticketPrice: 8500, // $85 default
+          availableTickets: slot.ticketCap - slot.ticketsSold,
+          description: 'ATX Disco Cruise'
+        });
+        
+      } else if (typeof slotId === 'string' && slotId.startsWith('private_')) {
+        // Private slot: private_{boatId}_{date}_{startTime}_{endTime}
+        const parts = slotId.split('_');
+        if (parts.length !== 5) {
+          return res.status(400).json({ error: "Invalid private slot ID format" });
+        }
+        
+        const [, boatId, dateStr, startTime, endTime] = parts;
+        
+        // Fetch boat details
+        const boats = await storage.getActiveBoats();
+        const boat = boats.find(b => b.id === boatId);
+        
+        if (!boat) {
+          return res.status(404).json({ error: "Boat not found" });
+        }
+        
+        // Calculate duration
+        const startHour = parseInt(startTime.split(':')[0]);
+        const endHour = parseInt(endTime.split(':')[0]);
+        const duration = endHour - startHour;
+        
+        // Calculate base pricing based on boat capacity and day type
+        const eventDate = new Date(dateStr);
+        const dayOfWeek = eventDate.getDay();
+        
+        let baseHourlyRate = 45000; // $450/hour weekday default
+        if (dayOfWeek === 5) { // Friday
+          baseHourlyRate = 55000; // $550/hour
+        } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
+          baseHourlyRate = 65000; // $650/hour
+        }
+        
+        // Adjust rate based on boat capacity
+        if (boat.capacity >= 50) {
+          baseHourlyRate = Math.round(baseHourlyRate * 1.5); // 50% premium for large boats
+        } else if (boat.capacity <= 15) {
+          baseHourlyRate = Math.round(baseHourlyRate * 0.7); // 30% discount for small boats
+        }
+        
+        const totalPrice = baseHourlyRate * duration;
+        
+        res.json({
+          id: slotId,
+          type: 'private',
+          date: dateStr,
+          startTime,
+          endTime,
+          duration,
+          boatId,
+          boatName: boat.name,
+          boatType: boat.capacity <= 15 ? 'dayTripper' : boat.capacity >= 50 ? 'luxury' : 'standard',
+          capacity: boat.capacity,
+          baseHourlyRate,
+          totalPrice,
+          description: `${duration}-hour ${boat.name} cruise`
+        });
+        
+      } else {
+        return res.status(400).json({ error: "Invalid slot ID format" });
+      }
+      
+    } catch (error: any) {
+      console.error("Error fetching availability slot:", error);
+      res.status(500).json({ error: "Failed to fetch availability slot" });
+    }
+  });
+
   // ==========================================
   // TIMEFRAME ENDPOINTS
   // ==========================================
@@ -5421,6 +5601,547 @@ export async function registerRoutes(app: Express): Promise<Server> {
     console.log(`   Critical Services: ${results.summary.critical_passed}/${results.summary.critical_services} working`);
     
     res.json(results);
+  });
+
+  // ==========================================
+  // PUBLIC CUSTOMER API ENDPOINTS
+  // ==========================================
+
+  // Simple rate limiting for public endpoints
+  const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
+  
+  const checkRateLimit = (req: Request, maxRequests: number = 100, windowMs: number = 15 * 60 * 1000): boolean => {
+    const now = Date.now();
+    // Use req.ip which respects trust proxy setting for correct IP detection
+    const clientIP = req.ip || req.connection.remoteAddress || 'unknown';
+    const client = rateLimitStore.get(clientIP);
+    
+    if (!client || now > client.resetTime) {
+      rateLimitStore.set(clientIP, { count: 1, resetTime: now + windowMs });
+      return true;
+    }
+    
+    if (client.count >= maxRequests) {
+      return false;
+    }
+    
+    client.count++;
+    return true;
+  };
+
+  // Rate limiting middleware for public endpoints
+  const publicRateLimit = (maxRequests: number = 100) => {
+    return (req: any, res: any, next: any) => {
+      const clientIP = req.ip || req.connection.remoteAddress || 'unknown';
+      
+      if (!checkRateLimit(clientIP, maxRequests)) {
+        return res.status(429).json({
+          error: "Too many requests",
+          details: "Please wait before making more requests",
+          retryAfter: 900 // 15 minutes
+        });
+      }
+      
+      next();
+    };
+  };
+
+  // Enhanced validation with custom error messages
+  const publicAvailabilitySchema = z.object({
+    startDate: z.string().transform(normalizeToChicagoTime),
+    endDate: z.string().transform(normalizeToChicagoTime),
+    boatType: z.string().optional(),
+    groupSize: z.number().min(8, "Group size must be at least 8").max(75, "Group size cannot exceed 75").optional(),
+    eventType: z.string().optional()
+  });
+
+  app.get("/api/availability/public", publicRateLimit(50), async (req, res) => {
+    try {
+      const { startDate, endDate, boatType, groupSize, eventType } = publicAvailabilitySchema.parse(req.query);
+      
+      // Get all boats (filter by type if specified)
+      const boats = await storage.getActiveBoats();
+      const filteredBoats = boatType 
+        ? boats.filter(b => b.boatType === boatType)
+        : boats;
+      
+      // Get bookings for the date range
+      const bookings = await storage.getBookingsInRange(startDate, endDate);
+      
+      // Calculate available slots
+      const availableSlots = [];
+      const currentDate = new Date(startDate);
+      const end = new Date(endDate);
+      
+      while (currentDate <= end) {
+        // Get time slots for this date
+        const timeSlots = getPrivateTimeSlotsForDate(currentDate);
+        
+        for (const timeSlot of timeSlots) {
+          for (const boat of filteredBoats) {
+            // Skip if group size filter and boat doesn't fit
+            if (groupSize && boat.capacity < groupSize) continue;
+            
+            // Parse time slot into full dates
+            const slotStartTime = parseTimeToDate(currentDate, timeSlot.startTime);
+            const slotEndTime = parseTimeToDate(currentDate, timeSlot.endTime);
+            
+            // Check if this slot is booked
+            const isBooked = bookings.some(booking => 
+              booking.boatId === boat.id &&
+              booking.status !== 'canceled' &&
+              booking.startTime.getTime() === slotStartTime.getTime() &&
+              booking.endTime.getTime() === slotEndTime.getTime()
+            );
+            
+            if (!isBooked) {
+              // Calculate pricing for this slot
+              const pricing = await storage.calculateCruisePricing({
+                groupSize: groupSize || 20,
+                duration: timeSlot.duration,
+                date: currentDate,
+                cruiseType: 'private',
+                boatType: boat.boatType || 'standard',
+                selectedAddOnPackages: []
+              });
+              
+              availableSlots.push({
+                id: `${boat.id}_${currentDate.toISOString().split('T')[0]}_${timeSlot.startTime}_${timeSlot.endTime}`,
+                date: currentDate.toISOString().split('T')[0],
+                startTime: timeSlot.startTime,
+                endTime: timeSlot.endTime,
+                duration: timeSlot.duration,
+                boatId: boat.id,
+                boatName: boat.name,
+                boatType: boat.boatType,
+                capacity: boat.capacity,
+                availableSpots: boat.capacity,
+                baseHourlyRate: pricing.baseRate,
+                totalPrice: pricing.subtotal,
+                icon: timeSlot.icon,
+                popular: timeSlot.popular,
+                description: timeSlot.description,
+                status: 'available'
+              });
+            }
+          }
+        }
+        
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+      
+      res.json({
+        slots: availableSlots,
+        totalCount: availableSlots.length
+      });
+      
+    } catch (error: any) {
+      console.error("Public availability error:", error);
+      res.status(400).json({ 
+        error: "Failed to get availability",
+        details: error.message 
+      });
+    }
+  });
+
+  // Public disco availability
+  app.get("/api/disco/availability/public", publicRateLimit(50), async (req, res) => {
+    try {
+      const { startDate, endDate } = publicAvailabilitySchema.parse(req.query);
+      
+      // Get disco slots for the date range
+      const discoSlots = await storage.getDiscoSlotsInRange(startDate, endDate);
+      
+      // Filter for available slots and format for public consumption
+      const availableSlots = discoSlots
+        .filter(slot => slot.status === 'available' && slot.ticketsSold < slot.ticketCap)
+        .map(slot => ({
+          id: slot.id,
+          date: slot.date.toISOString().split('T')[0],
+          startTime: slot.startTime,
+          endTime: slot.endTime,
+          ticketPrice: slot.ticketPrice,
+          availableTickets: slot.ticketCap - slot.ticketsSold,
+          totalCapacity: slot.ticketCap,
+          status: 'available',
+          type: 'disco'
+        }));
+      
+      res.json({
+        slots: availableSlots,
+        totalCount: availableSlots.length
+      });
+      
+    } catch (error: any) {
+      console.error("Public disco availability error:", error);
+      res.status(400).json({ 
+        error: "Failed to get disco availability",
+        details: error.message 
+      });
+    }
+  });
+
+  // Public pricing calculation
+  const publicPricingSchema = z.object({
+    date: z.string().transform(normalizeToChicagoTime),
+    timeSlotId: z.string(),
+    groupSize: z.number().min(8).max(75),
+    cruiseType: z.enum(['private', 'disco']),
+    selectedAddOnPackages: z.array(z.string()).optional(),
+    discoTicketQuantity: z.number().min(1).optional()
+  });
+
+  app.post("/api/pricing/public", publicRateLimit(30), async (req, res) => {
+    try {
+      const { date, timeSlotId, groupSize, cruiseType, selectedAddOnPackages = [], discoTicketQuantity } = publicPricingSchema.parse(req.body);
+      
+      if (cruiseType === 'private') {
+        // Get time slot details
+        const timeSlot = getTimeSlotById(date, timeSlotId);
+        if (!timeSlot) {
+          return res.status(404).json({ error: "Time slot not found" });
+        }
+        
+        // Calculate pricing
+        const pricing = await storage.calculateCruisePricing({
+          groupSize,
+          duration: timeSlot.duration,
+          date,
+          cruiseType: 'private',
+          boatType: 'standard', // Default for pricing
+          selectedAddOnPackages
+        });
+        
+        res.json({
+          type: 'private',
+          subtotal: pricing.subtotal,
+          tax: pricing.tax,
+          gratuity: pricing.gratuity,
+          total: pricing.total,
+          depositAmount: Math.round(pricing.total * 0.25), // 25% deposit
+          breakdown: pricing.breakdown
+        });
+        
+      } else if (cruiseType === 'disco') {
+        // Get disco slot details
+        const discoSlot = await storage.getDiscoSlot(timeSlotId);
+        if (!discoSlot) {
+          return res.status(404).json({ error: "Disco slot not found" });
+        }
+        
+        const quantity = discoTicketQuantity || 1;
+        const subtotal = discoSlot.ticketPrice * quantity;
+        const tax = Math.round(subtotal * 0.0825); // Texas sales tax
+        const total = subtotal + tax;
+        
+        res.json({
+          type: 'disco',
+          ticketPrice: discoSlot.ticketPrice,
+          quantity,
+          subtotal,
+          tax,
+          total,
+          depositAmount: total, // Full payment for disco cruises
+          breakdown: {
+            tickets: `${quantity} × $${discoSlot.ticketPrice}`,
+            tax: `${(0.0825 * 100).toFixed(2)}% Texas Sales Tax`
+          }
+        });
+      }
+      
+    } catch (error: any) {
+      console.error("Public pricing error:", error);
+      res.status(400).json({ 
+        error: "Failed to calculate pricing",
+        details: error.message 
+      });
+    }
+  });
+
+  // Public booking creation
+  const publicBookingSchema = z.object({
+    slotId: z.string().min(1),
+    cruiseType: z.enum(['private', 'disco']),
+    contactInfo: z.object({
+      name: z.string().min(2).max(100),
+      email: z.string().email(),
+      phone: z.string().min(10).max(20)
+    }),
+    eventDetails: z.object({
+      eventType: z.string().min(1),
+      groupSize: z.number().min(8).max(75).optional(),
+      specialRequests: z.string().max(500).optional(),
+      discoTicketQuantity: z.number().min(1).optional()
+    }),
+    selectedProducts: z.array(z.string()).optional(),
+    captchaToken: z.string().optional() // For future CAPTCHA integration
+  });
+
+  app.post("/api/bookings/public", publicRateLimit(10), async (req, res) => {
+    try {
+      const validated = publicBookingSchema.parse(req.body);
+      const { slotId, cruiseType, contactInfo, eventDetails, selectedProducts = [] } = validated;
+      
+      // Additional security logging
+      const clientIP = req.ip || req.connection.remoteAddress || 'unknown';
+      console.log(`[PUBLIC BOOKING] ${new Date().toISOString()} - IP: ${clientIP} - Slot: ${slotId} - Type: ${cruiseType}`);
+      
+      // Basic honeypot field check (hidden field to catch bots)
+      if (req.body.website || req.body.url) {
+        console.log(`[SECURITY] Potential bot detected from IP: ${clientIP}`);
+        return res.status(400).json({ 
+          error: "Invalid submission",
+          details: "Please try again"
+        });
+      }
+      
+      if (cruiseType === 'private') {
+        // Parse slot ID to get booking details
+        const [boatId, dateStr, startTime, endTime] = slotId.split('_');
+        const date = new Date(dateStr);
+        const startDateTime = parseTimeToDate(date, startTime);
+        const endDateTime = parseTimeToDate(date, endTime);
+        
+        // Verify slot is still available
+        const hasConflict = await storage.checkBookingConflict(boatId, startDateTime, endDateTime);
+        if (hasConflict) {
+          return res.status(409).json({ 
+            error: "Time slot no longer available",
+            details: "This slot has been booked by another customer"
+          });
+        }
+        
+        // Create contact
+        const contact = await storage.createContact({
+          name: contactInfo.name,
+          email: contactInfo.email,
+          phone: contactInfo.phone,
+          tags: ['public-booking', 'website-lead']
+        });
+        
+        // Create project
+        const project = await storage.createProject({
+          contactId: contact.id,
+          title: `${eventDetails.eventType} - ${contactInfo.name}`,
+          status: 'NEW',
+          projectDate: date,
+          groupSize: eventDetails.groupSize || 20,
+          eventType: eventDetails.eventType,
+          specialRequests: eventDetails.specialRequests,
+          preferredTime: `${startTime}-${endTime}`,
+          leadSource: 'public-calendar',
+          pipelinePhase: 'ph_new'
+        });
+        
+        // Calculate final pricing
+        const timeSlot = getTimeSlotById(date, `${startTime}-${endTime}`) || 
+                        { duration: Math.round((endDateTime.getTime() - startDateTime.getTime()) / (1000 * 60 * 60)) };
+        
+        const pricing = await storage.calculateCruisePricing({
+          groupSize: eventDetails.groupSize || 20,
+          duration: timeSlot.duration,
+          date,
+          cruiseType: 'private',
+          boatType: 'standard',
+          selectedAddOnPackages: selectedProducts
+        });
+        
+        // Create quote
+        const quote = await storage.createQuote({
+          projectId: project.id,
+          subtotal: pricing.subtotal,
+          discountTotal: 0,
+          tax: pricing.tax,
+          gratuity: pricing.gratuity,
+          total: pricing.total,
+          depositRequired: true,
+          depositAmount: Math.round(pricing.total * 0.25),
+          validUntil: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+          items: [
+            {
+              id: randomUUID(),
+              name: `Private Cruise - ${timeSlot.duration} hours`,
+              description: `${eventDetails.eventType} cruise for ${eventDetails.groupSize} guests`,
+              quantity: 1,
+              unitPrice: pricing.subtotal,
+              total: pricing.subtotal
+            }
+          ]
+        });
+        
+        // Create Stripe checkout session
+        if (stripe) {
+          const checkoutSession = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [{
+              price_data: {
+                currency: 'usd',
+                product_data: {
+                  name: `Private Cruise Deposit - ${contactInfo.name}`,
+                  description: `${eventDetails.eventType} on ${date.toLocaleDateString()}`
+                },
+                unit_amount: Math.round(pricing.total * 0.25)
+              },
+              quantity: 1
+            }],
+            mode: 'payment',
+            success_url: `${getFullUrl('/booking-success')}?session_id={CHECKOUT_SESSION_ID}&quote_id=${quote.id}`,
+            cancel_url: `${getFullUrl('/book')}?cancelled=true`,
+            customer_email: contactInfo.email,
+            metadata: {
+              quoteId: quote.id,
+              projectId: project.id,
+              contactId: contact.id,
+              boatId,
+              startTime: startDateTime.toISOString(),
+              endTime: endDateTime.toISOString(),
+              source: 'public-calendar'
+            }
+          });
+          
+          res.json({
+            bookingId: project.id,
+            quoteId: quote.id,
+            quoteUrl: getPublicUrl(`/quote/${quote.id}`),
+            checkoutUrl: checkoutSession.url,
+            total: pricing.total,
+            depositRequired: Math.round(pricing.total * 0.25),
+            depositPercentage: 25
+          });
+        } else {
+          // Mock response for development
+          res.json({
+            bookingId: project.id,
+            quoteId: quote.id,
+            quoteUrl: getPublicUrl(`/quote/${quote.id}`),
+            checkoutUrl: '/mock-payment',
+            total: pricing.total,
+            depositRequired: Math.round(pricing.total * 0.25),
+            depositPercentage: 25
+          });
+        }
+        
+      } else if (cruiseType === 'disco') {
+        // Handle disco cruise booking
+        const discoSlot = await storage.getDiscoSlot(slotId);
+        if (!discoSlot) {
+          return res.status(404).json({ error: "Disco slot not found" });
+        }
+        
+        const ticketQuantity = eventDetails.discoTicketQuantity || 1;
+        
+        // Check availability
+        if (discoSlot.ticketsSold + ticketQuantity > discoSlot.ticketCap) {
+          return res.status(409).json({ 
+            error: "Not enough tickets available",
+            details: `Only ${discoSlot.ticketCap - discoSlot.ticketsSold} tickets remaining`
+          });
+        }
+        
+        // Create contact and project for disco booking
+        const contact = await storage.createContact({
+          name: contactInfo.name,
+          email: contactInfo.email,
+          phone: contactInfo.phone,
+          tags: ['disco-cruise', 'public-booking']
+        });
+        
+        const project = await storage.createProject({
+          contactId: contact.id,
+          title: `Disco Cruise - ${contactInfo.name}`,
+          status: 'NEW',
+          projectDate: discoSlot.date,
+          groupSize: ticketQuantity,
+          eventType: 'disco',
+          leadSource: 'public-calendar',
+          pipelinePhase: 'ph_new'
+        });
+        
+        const subtotal = discoSlot.ticketPrice * ticketQuantity;
+        const tax = Math.round(subtotal * 0.0825);
+        const total = subtotal + tax;
+        
+        // Create quote for disco cruise
+        const quote = await storage.createQuote({
+          projectId: project.id,
+          subtotal,
+          discountTotal: 0,
+          tax,
+          gratuity: 0,
+          total,
+          depositRequired: false, // Full payment for disco
+          depositAmount: total,
+          validUntil: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+          items: [
+            {
+              id: randomUUID(),
+              name: `Disco Cruise Tickets`,
+              description: `${ticketQuantity} tickets for disco cruise`,
+              quantity: ticketQuantity,
+              unitPrice: discoSlot.ticketPrice,
+              total: subtotal
+            }
+          ]
+        });
+        
+        // Create Stripe checkout for disco cruise
+        if (stripe) {
+          const checkoutSession = await stripe.checkout.sessions.create({
+            payment_method_types: ['card'],
+            line_items: [{
+              price_data: {
+                currency: 'usd',
+                product_data: {
+                  name: `Disco Cruise Tickets - ${contactInfo.name}`,
+                  description: `${ticketQuantity} tickets for ${discoSlot.date.toLocaleDateString()}`
+                },
+                unit_amount: discoSlot.ticketPrice
+              },
+              quantity: ticketQuantity
+            }],
+            mode: 'payment',
+            success_url: `${getFullUrl('/booking-success')}?session_id={CHECKOUT_SESSION_ID}&quote_id=${quote.id}`,
+            cancel_url: `${getFullUrl('/book')}?cancelled=true`,
+            customer_email: contactInfo.email,
+            metadata: {
+              quoteId: quote.id,
+              projectId: project.id,
+              contactId: contact.id,
+              discoSlotId: slotId,
+              ticketQuantity: ticketQuantity.toString(),
+              source: 'public-calendar'
+            }
+          });
+          
+          res.json({
+            bookingId: project.id,
+            quoteId: quote.id,
+            quoteUrl: getPublicUrl(`/quote/${quote.id}`),
+            checkoutUrl: checkoutSession.url,
+            total,
+            depositRequired: total,
+            ticketQuantity
+          });
+        } else {
+          res.json({
+            bookingId: project.id,
+            quoteId: quote.id,
+            quoteUrl: getPublicUrl(`/quote/${quote.id}`),
+            checkoutUrl: '/mock-payment',
+            total,
+            depositRequired: total,
+            ticketQuantity
+          });
+        }
+      }
+      
+    } catch (error: any) {
+      console.error("Public booking error:", error);
+      res.status(400).json({ 
+        error: "Failed to create booking",
+        details: error.message 
+      });
+    }
   });
 
   const httpServer = createServer(app);
