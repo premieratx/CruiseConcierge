@@ -7,6 +7,7 @@ import Dashboard from "./pages/Dashboard";
 import Checkout from "./pages/Checkout";
 import Chat from "./pages/Chat";
 import QuoteBuilder from "./pages/QuoteBuilder";
+import QuotesManagement from "./pages/QuotesManagement";
 import Leads from "./pages/Leads";
 import PartialLeads from "./pages/PartialLeads";
 import CustomerProfile from "./pages/CustomerProfile";
@@ -50,7 +51,7 @@ function Router() {
       <Route path="/partial-leads" component={PartialLeads} />
       <Route path="/projects" component={Projects} />
       <Route path="/calendar" component={CalendarView} />
-      <Route path="/quotes" component={QuoteBuilder} />
+      <Route path="/quotes" component={QuotesManagement} />
       <Route path="/quotes/new" component={QuoteBuilder} />
       <Route path="/quotes/:id" component={QuoteBuilder} />
       <Route path="/templates" component={Templates} />

@@ -7,7 +7,7 @@ import {
   DollarSign, Settings, Ship, TrendingUp, Mail, Phone,
   ChevronDown, Plus, Search, Bell, User, LogOut, Building,
   CreditCard, Briefcase, Star, FileBarChart, Database, ArrowLeft, Home,
-  AlertCircle, Code
+  AlertCircle, Code, UserCheck, FolderOpen
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -37,55 +37,20 @@ const mainNavItems = [
     title: 'Leads',
     href: '/leads',
     icon: Users,
-    description: 'Manage your sales pipeline',
-    badge: 'New',
-  },
-  {
-    title: 'Partial Leads',
-    href: '/partial-leads',
-    icon: AlertCircle,
-    description: 'Follow up abandoned leads',
-    badgeCount: true, // This will be populated with actual count
-  },
-  {
-    title: 'Projects',
-    href: '/projects',
-    icon: Briefcase,
-    description: 'Active bookings and events',
-  },
-  {
-    title: 'Quotes',
-    href: '/quotes',
-    icon: FileText,
-    description: 'Create and manage quotes',
+    description: 'Customer management and pipeline',
   },
   {
     title: 'Calendar',
     href: '/calendar',
     icon: Calendar,
-    description: 'Availability and schedule',
+    description: 'Bookings and availability',
   },
   {
-    title: 'Chat',
-    href: '/chat',
-    icon: MessageSquare,
-    description: 'AI booking assistant',
-    badge: 'Live',
+    title: 'Quotes',
+    href: '/quotes',
+    icon: FileText,
+    description: 'Quote management and templates',
   },
-  {
-    title: 'Embed Widgets',
-    href: '/embed-widgets',
-    icon: Code,
-    description: 'Embeddable chatbot and booking widgets',
-    badge: 'New',
-  },
-];
-
-const quickActions = [
-  { label: 'New Lead', icon: Plus, href: '/leads?action=new' },
-  { label: 'Create Quote', icon: FileText, href: '/quotes/new' },
-  { label: 'Check Availability', icon: Calendar, href: '/calendar' },
-  { label: 'View Reports', icon: FileBarChart, href: '/reports' },
 ];
 
 export default function Navigation() {
@@ -127,35 +92,6 @@ export default function Navigation() {
         {/* Main Navigation */}
         <NavigationMenu className="mr-auto">
           <NavigationMenuList>
-            {/* Quick Actions Dropdown */}
-            <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-primary text-primary-foreground hover:bg-primary/90">
-                <Plus className="mr-2 h-4 w-4" />
-                Create
-              </NavigationMenuTrigger>
-              <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
-                  {quickActions.map((action) => (
-                    <li key={action.label}>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          href={action.href}
-                          className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                        >
-                          <div className="flex items-center gap-2">
-                            <action.icon className="h-4 w-4" />
-                            <div className="text-sm font-medium leading-none">
-                              {action.label}
-                            </div>
-                          </div>
-                        </Link>
-                      </NavigationMenuLink>
-                    </li>
-                  ))}
-                </ul>
-              </NavigationMenuContent>
-            </NavigationMenuItem>
-
             {/* Main Nav Items */}
             {mainNavItems.map((item) => (
               <NavigationMenuItem key={item.href}>
@@ -169,11 +105,6 @@ export default function Navigation() {
                   >
                     <item.icon className="mr-2 h-4 w-4" />
                     {item.title}
-                    {item.badge && (
-                      <Badge variant="secondary" className="ml-2 h-5 px-1.5 text-xs">
-                        {item.badge}
-                      </Badge>
-                    )}
                   </Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>
@@ -186,39 +117,16 @@ export default function Navigation() {
                 Settings
               </NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
-                  <li>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        href="/templates"
-                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                      >
-                        <div className="flex items-center gap-2">
-                          <FileText className="h-4 w-4" />
-                          <div>
-                            <div className="text-sm font-medium leading-none">Templates</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Quote templates
-                            </p>
-                          </div>
-                        </div>
-                      </Link>
-                    </NavigationMenuLink>
-                  </li>
+                <ul className="grid w-[300px] gap-2 p-3">
                   <li>
                     <NavigationMenuLink asChild>
                       <Link
                         href="/products"
-                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                        className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                       >
                         <div className="flex items-center gap-2">
                           <DollarSign className="h-4 w-4" />
-                          <div>
-                            <div className="text-sm font-medium leading-none">Products & Pricing</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Product catalog
-                            </p>
-                          </div>
+                          <div className="text-sm font-medium">Products & Pricing</div>
                         </div>
                       </Link>
                     </NavigationMenuLink>
@@ -226,17 +134,12 @@ export default function Navigation() {
                   <li>
                     <NavigationMenuLink asChild>
                       <Link
-                        href="/discounts"
-                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                        href="/embed-widgets"
+                        className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                       >
                         <div className="flex items-center gap-2">
-                          <Star className="h-4 w-4" />
-                          <div>
-                            <div className="text-sm font-medium leading-none">Discount Codes</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Promo codes
-                            </p>
-                          </div>
+                          <Code className="h-4 w-4" />
+                          <div className="text-sm font-medium">Embed Widgets</div>
                         </div>
                       </Link>
                     </NavigationMenuLink>
@@ -244,17 +147,12 @@ export default function Navigation() {
                   <li>
                     <NavigationMenuLink asChild>
                       <Link
-                        href="/affiliates"
-                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                        href="/chat"
+                        className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                       >
                         <div className="flex items-center gap-2">
-                          <Users className="h-4 w-4" />
-                          <div>
-                            <div className="text-sm font-medium leading-none">Affiliates</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Referral partners
-                            </p>
-                          </div>
+                          <MessageSquare className="h-4 w-4" />
+                          <div className="text-sm font-medium">AI Chat Assistant</div>
                         </div>
                       </Link>
                     </NavigationMenuLink>
@@ -262,35 +160,51 @@ export default function Navigation() {
                   <li>
                     <NavigationMenuLink asChild>
                       <Link
-                        href="/documentation"
-                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                        href="/projects"
+                        className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                       >
                         <div className="flex items-center gap-2">
-                          <FileText className="h-4 w-4" />
-                          <div>
-                            <div className="text-sm font-medium leading-none">Documentation</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Pricing rules & workflow
-                            </p>
-                          </div>
+                          <FolderOpen className="h-4 w-4" />
+                          <div className="text-sm font-medium">Projects Overview</div>
                         </div>
                       </Link>
                     </NavigationMenuLink>
                   </li>
-                  <li className="col-span-2">
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/partial-leads"
+                        className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      >
+                        <div className="flex items-center gap-2">
+                          <UserCheck className="h-4 w-4" />
+                          <div className="text-sm font-medium">Partial Leads</div>
+                        </div>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/book"
+                        className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800"
+                      >
+                        <div className="flex items-center gap-2">
+                          <Calendar className="h-4 w-4 text-blue-600 dark:text-blue-400" />
+                          <div className="text-sm font-medium text-blue-700 dark:text-blue-300">Public Booking Page</div>
+                        </div>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
                     <NavigationMenuLink asChild>
                       <Link
                         href="/settings"
-                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground bg-muted"
+                        className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                       >
                         <div className="flex items-center gap-2">
                           <Settings className="h-4 w-4" />
-                          <div>
-                            <div className="text-sm font-medium leading-none">Template Manager</div>
-                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                              Manage quote templates, email templates, and global settings
-                            </p>
-                          </div>
+                          <div className="text-sm font-medium">Admin Settings</div>
                         </div>
                       </Link>
                     </NavigationMenuLink>
@@ -302,20 +216,7 @@ export default function Navigation() {
         </NavigationMenu>
 
         {/* Right side actions */}
-        <div className="flex items-center space-x-4">
-          {/* Search */}
-          <Button variant="ghost" size="icon" className="relative">
-            <Search className="h-5 w-5" />
-            <span className="sr-only">Search</span>
-          </Button>
-
-          {/* Notifications */}
-          <Button variant="ghost" size="icon" className="relative">
-            <Bell className="h-5 w-5" />
-            <span className="absolute right-0 top-0 h-2 w-2 rounded-full bg-red-500" />
-            <span className="sr-only">Notifications</span>
-          </Button>
-
+        <div className="flex items-center space-x-3">
           {/* User Menu */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
@@ -335,26 +236,9 @@ export default function Navigation() {
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <User className="mr-2 h-4 w-4" />
-                <span>Profile</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <CreditCard className="mr-2 h-4 w-4" />
-                <span>Billing</span>
-              </DropdownMenuItem>
               <DropdownMenuItem onClick={() => setLocation('/settings')}>
                 <Settings className="mr-2 h-4 w-4" />
-                <span>Settings</span>
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <Building className="mr-2 h-4 w-4" />
-                <span>Organization</span>
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <Database className="mr-2 h-4 w-4" />
-                <span>Integrations</span>
+                <span>Admin Settings</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>
@@ -365,30 +249,6 @@ export default function Navigation() {
           </DropdownMenu>
         </div>
       </div>
-
-      {/* Sub-navigation based on current page */}
-      {location === '/leads' && (
-        <div className="border-t">
-          <div className="container flex h-12 items-center space-x-4">
-            <Button variant="ghost" size="sm">
-              <Users className="mr-2 h-4 w-4" />
-              All Leads
-            </Button>
-            <Button variant="ghost" size="sm">
-              <TrendingUp className="mr-2 h-4 w-4" />
-              Pipeline
-            </Button>
-            <Button variant="ghost" size="sm">
-              <Star className="mr-2 h-4 w-4" />
-              Hot Leads
-            </Button>
-            <Button variant="ghost" size="sm">
-              <FileBarChart className="mr-2 h-4 w-4" />
-              Reports
-            </Button>
-          </div>
-        </div>
-      )}
     </header>
     </>
   );
