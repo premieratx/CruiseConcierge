@@ -2310,6 +2310,25 @@ export default function EmbeddableBookingFlow() {
                   </CardContent>
                 </Card>
 
+                {generatedQuoteId && (
+                  <div className="space-y-4 text-center">
+                    <p className="text-slate-600 dark:text-slate-400">
+                      Quote ID: <span className="font-mono font-bold">{generatedQuoteId}</span>
+                    </p>
+                    
+                    <Button
+                      onClick={() => window.location.href = `/quote/${generatedQuoteId}`}
+                      size="lg"
+                      className="bg-gradient-to-r from-blue-600 to-purple-600"
+                      data-testid="button-view-quote"
+                    >
+                      <FileText className="h-4 w-4 mr-2" />
+                      View Your Quote
+                      <ArrowRight className="h-4 w-4 ml-2" />
+                    </Button>
+                  </div>
+                )}
+
                 <div className="flex justify-center space-x-4">
                   <Button
                     onClick={() => {

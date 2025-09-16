@@ -339,7 +339,7 @@ async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: 
         </div>
         
         <div style="text-align: center; margin: 30px 0;">
-          <a href="${getFullUrl(`/quote/${quote.id}`)}" 
+          <a href="${quoteTokenService.generateSecureQuoteUrl(quote.id, quoteTokenService.generateSecureToken(quote.id))}" 
              style="background: #3b82f6; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; margin: 10px;">
             🚢 View Full Quote & Book
           </a>
@@ -388,7 +388,11 @@ async function sendQuoteSMS(quoteId: string, phone: string) {
   const cruiseType = 'private'; // Default to private cruise
   const eventType = project?.eventType || 'event';
   
-  const message = `Hi ${contact?.name || 'there'}! 🚢 Your ${eventType} cruise quote (${formattedDate}) is ready: $${(quote.total / 100).toFixed(2)}. View & book: ${getFullUrl(`/quote/${quote.id}`)}`;
+  // Generate secure tokenized URL
+  const secureToken = quoteTokenService.generateSecureToken(quote.id);
+  const secureQuoteUrl = quoteTokenService.generateSecureQuoteUrl(quote.id, secureToken);
+  
+  const message = `Hi ${contact?.name || 'there'}! 🚢 Your ${eventType} cruise quote (${formattedDate}) is ready: $${(quote.total / 100).toFixed(2)}. View & book: ${secureQuoteUrl}`;
   
   return await goHighLevelService.send({
     to: phone,
@@ -413,7 +417,11 @@ async function sendAdminNotificationSMS(quoteId: string) {
   const formattedDate = eventDate ? eventDate.toLocaleDateString() : 'TBD';
   const eventType = project?.eventType || 'Party Cruise';
   
-  const message = `🚢 NEW BOOKING REQUEST!\n\nCustomer: ${contact?.name || 'Unknown'}\nEvent: ${eventType}\nDate: ${formattedDate}\nGroup Size: ${project?.groupSize || 'TBD'}\nTotal: $${(quote.total / 100).toFixed(2)}\n\nView quote: ${getFullUrl(`/quote/${quote.id}`)}`;
+  // Generate secure tokenized URL for admin
+  const adminSecureToken = quoteTokenService.generateSecureToken(quote.id);
+  const adminSecureQuoteUrl = quoteTokenService.generateSecureQuoteUrl(quote.id, adminSecureToken);
+  
+  const message = `🚢 NEW BOOKING REQUEST!\n\nCustomer: ${contact?.name || 'Unknown'}\nEvent: ${eventType}\nDate: ${formattedDate}\nGroup Size: ${project?.groupSize || 'TBD'}\nTotal: $${(quote.total / 100).toFixed(2)}\n\nView quote: ${adminSecureQuoteUrl}`;
   
   return await goHighLevelService.send({
     to: adminPhone,
@@ -1659,11 +1667,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
           deliveryMessage = "Quote generated! We'll contact you directly to share the details.";
         }
         
+        // Generate secure tokenized URL for frontend use
+        const secureToken = quoteTokenService.generateSecureToken(quote.id);
+        const secureQuoteUrl = quoteTokenService.generateSecureQuoteUrl(quote.id, secureToken);
+        
         res.json({
           success: true,
           quote,
           pricing,
-          quoteUrl: `/quote/${quote.id}`,
+          quoteUrl: secureQuoteUrl,
           delivery: {
             emailSent,
             smsSent,

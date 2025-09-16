@@ -33,6 +33,10 @@ export default function QuoteViewer() {
   const quoteId = params.quoteId as string;
   const { toast } = useToast();
   
+  // Extract token from URL query parameters  
+  const urlParams = new URLSearchParams(window.location.search);
+  const token = urlParams.get('token');
+  
   // State for interactive elements
   const [selectedPackage, setSelectedPackage] = useState<string>('standard');
   const [discoTickets, setDiscoTickets] = useState<number>(0);
@@ -40,12 +44,24 @@ export default function QuoteViewer() {
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [signature, setSignature] = useState('');
   
-  // Fetch quote details
+  // Fetch quote details with token
   const { data: quote, isLoading, error: quoteError } = useQuery<QuoteWithDetails>({
-    queryKey: [`/api/quotes/${quoteId}/public`],
+    queryKey: [`/api/quotes/${quoteId}/public`, token],
+    queryFn: async () => {
+      const url = token 
+        ? `/api/quotes/${quoteId}/public?token=${encodeURIComponent(token)}`
+        : `/api/quotes/${quoteId}/public`;
+      const res = await apiRequest('GET', url);
+      if (!res.ok) {
+        const error = await res.json();
+        throw new Error(error.error || 'Failed to fetch quote');
+      }
+      return res.json();
+    },
     enabled: !!quoteId,
     retry: (failureCount, error: any) => {
-      if (error?.status === 404) return false;
+      if (error?.message?.includes('Invalid access token') || error?.message?.includes('Access token required')) return false;
+      if (error?.status === 401 || error?.status === 404) return false;
       return failureCount < 2;
     },
   });
