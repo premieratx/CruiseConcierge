@@ -1761,6 +1761,129 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Update quote selections (public endpoint for customer interactions)
+  app.patch("/api/quotes/:id/selections", async (req, res) => {
+    try {
+      const { selectedPackage, discoTickets, selectedAddOns, signature } = req.body;
+      
+      // Validate request body
+      const selectionsSchema = z.object({
+        selectedPackage: z.string().optional(),
+        discoTickets: z.number().min(0).optional(),
+        selectedAddOns: z.array(z.string()).optional(),
+        signature: z.string().nullable().optional(),
+      });
+      
+      const validatedData = selectionsSchema.parse(req.body);
+      
+      const quote = await storage.getQuote(req.params.id);
+      if (!quote) {
+        return res.status(404).json({ error: "Quote not found" });
+      }
+      
+      // Check if quote is expired
+      if (quote.expiresAt && new Date(quote.expiresAt) < new Date()) {
+        return res.status(400).json({ error: "Quote has expired and cannot be modified" });
+      }
+      
+      // Get existing radioSections or create empty array
+      let radioSections = quote.radioSections || [];
+      
+      // Update package selection
+      if (validatedData.selectedPackage !== undefined) {
+        const packageSectionIndex = radioSections.findIndex(section => section.id === 'package_selection');
+        if (packageSectionIndex >= 0) {
+          radioSections[packageSectionIndex].selectedValue = validatedData.selectedPackage;
+        } else {
+          radioSections.push({
+            id: 'package_selection',
+            title: 'Package Selection',
+            required: true,
+            options: [],
+            selectedValue: validatedData.selectedPackage,
+          });
+        }
+      }
+      
+      // Update disco tickets selection
+      if (validatedData.discoTickets !== undefined) {
+        const discoSectionIndex = radioSections.findIndex(section => section.id === 'disco_tickets');
+        if (discoSectionIndex >= 0) {
+          radioSections[discoSectionIndex].selectedValue = validatedData.discoTickets.toString();
+        } else {
+          radioSections.push({
+            id: 'disco_tickets',
+            title: 'Disco Tickets',
+            required: false,
+            options: [],
+            selectedValue: validatedData.discoTickets.toString(),
+          });
+        }
+      }
+      
+      // Update add-ons selection
+      if (validatedData.selectedAddOns !== undefined) {
+        const addOnsSectionIndex = radioSections.findIndex(section => section.id === 'selected_addons');
+        if (addOnsSectionIndex >= 0) {
+          radioSections[addOnsSectionIndex].selectedValue = JSON.stringify(validatedData.selectedAddOns);
+        } else {
+          radioSections.push({
+            id: 'selected_addons',
+            title: 'Selected Add-ons',
+            required: false,
+            options: [],
+            selectedValue: JSON.stringify(validatedData.selectedAddOns),
+          });
+        }
+      }
+      
+      // Update signature
+      if (validatedData.signature !== undefined) {
+        const signatureSectionIndex = radioSections.findIndex(section => section.id === 'customer_signature');
+        if (signatureSectionIndex >= 0) {
+          radioSections[signatureSectionIndex].selectedValue = validatedData.signature || undefined;
+        } else if (validatedData.signature) {
+          radioSections.push({
+            id: 'customer_signature',
+            title: 'Customer Signature',
+            required: false,
+            options: [],
+            selectedValue: validatedData.signature,
+          });
+        }
+      }
+      
+      // Update the quote with new radioSections
+      const updatedQuote = await storage.updateQuote(req.params.id, {
+        radioSections,
+      });
+      
+      console.log(`Quote ${req.params.id} selections updated:`, {
+        selectedPackage: validatedData.selectedPackage,
+        discoTickets: validatedData.discoTickets,
+        selectedAddOnsCount: validatedData.selectedAddOns?.length || 0,
+        hasSignature: !!validatedData.signature,
+      });
+      
+      res.json({ 
+        success: true, 
+        message: "Selections saved successfully",
+        quote: updatedQuote 
+      });
+    } catch (error) {
+      console.error("Update quote selections error:", error);
+      
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ 
+          error: "Invalid request data", 
+          details: error.errors 
+        });
+      }
+      
+      res.status(500).json({ error: "Failed to save selections" });
+    }
+  });
+
   // Clone quote
   app.post("/api/quotes/:id/clone", async (req, res) => {
     try {
