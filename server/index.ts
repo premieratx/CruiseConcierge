@@ -1,6 +1,7 @@
 import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
+import { setupEmbedRouting, hasEmbedBuild } from "./embedServer";
 
 const app = express();
 
@@ -74,10 +75,19 @@ app.use('/embed', (req, res, next) => {
     throw err;
   });
 
+  // Setup embed production routing first (if available)
+  // This must come before Vite dev middleware to take precedence
+  const embedConfigured = setupEmbedRouting(app);
+  
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
   if (app.get("env") === "development") {
+    if (embedConfigured) {
+      log("Embed routes configured for production, main app will use development mode", "hybrid");
+    } else {
+      log("No embed build found, all routes will use development mode", "dev");
+    }
     await setupVite(app, server);
   } else {
     serveStatic(app);
