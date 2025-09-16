@@ -33,6 +33,11 @@ import PortalInvoices from "./pages/PortalInvoices";
 import PortalBookings from "./pages/PortalBookings";
 import PortalProfile from "./pages/PortalProfile";
 
+// Embeddable Widget Pages
+import EmbeddableChatbot from "./pages/EmbeddableChatbot";
+import EmbeddableBooking from "./pages/EmbeddableBooking";
+import EmbedWidgets from "./pages/EmbedWidgets";
+
 function Router() {
   return (
     <Switch>
@@ -52,6 +57,7 @@ function Router() {
       <Route path="/affiliates" component={Affiliates} />
       <Route path="/documentation" component={Documentation} />
       <Route path="/settings" component={Settings} />
+      <Route path="/embed-widgets" component={EmbedWidgets} />
       <Route path="/checkout" component={Checkout} />
       <Route path="/checkout/:quoteId" component={Checkout} />
       <Route path="/quote/:quoteId" component={QuoteViewer} />
@@ -62,6 +68,10 @@ function Router() {
       <Route path="/availability" component={PublicCalendar} />
       <Route path="/book/:slotId" component={BookingFlow} />
       <Route path="/booking-success" component={BookingSuccess} />
+      
+      {/* Embeddable Widget Routes */}
+      <Route path="/embed/chatbot" component={EmbeddableChatbot} />
+      <Route path="/embed/booking" component={EmbeddableBooking} />
       
       {/* Customer Portal Routes */}
       <Route path="/portal" component={PortalLogin} />

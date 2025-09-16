@@ -7,7 +7,7 @@ import {
   DollarSign, Settings, Ship, TrendingUp, Mail, Phone,
   ChevronDown, Plus, Search, Bell, User, LogOut, Building,
   CreditCard, Briefcase, Star, FileBarChart, Database, ArrowLeft, Home,
-  AlertCircle
+  AlertCircle, Code
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -71,6 +71,13 @@ const mainNavItems = [
     icon: MessageSquare,
     description: 'AI booking assistant',
     badge: 'Live',
+  },
+  {
+    title: 'Embed Widgets',
+    href: '/embed-widgets',
+    icon: Code,
+    description: 'Embeddable chatbot and booking widgets',
+    badge: 'New',
   },
 ];
 
