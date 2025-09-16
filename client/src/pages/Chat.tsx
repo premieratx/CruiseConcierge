@@ -509,19 +509,18 @@ export default function Chat() {
       }
     }
     
-    // Auto-select disco cruise defaults if available and not already selected
+    // For bachelor/bachelorette parties, ensure disco options are available but don't auto-select
+    // Let users choose between disco and private options in the comparison view
     if ((formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') &&
-        isDiscoAvailableForDate(formData.eventDate) && 
-        (!formData.selectedDiscoPackage || !formData.selectedDiscoTimeSlot)) {
-      const availableDiscoSlots = getDiscoTimeSlotsForDate(formData.eventDate);
-      const defaultDiscoSlot = availableDiscoSlots[0];
-      const defaultDiscoPackage = discoPackages[0];
-      
-      if (defaultDiscoSlot && defaultDiscoPackage) {
-        updates.selectedDiscoPackage = defaultDiscoPackage.id as DiscoPackage;
-        updates.selectedDiscoTimeSlot = defaultDiscoSlot.id;
-        updates.discoTicketQuantity = formData.groupSize;
+        isDiscoAvailableForDate(formData.eventDate)) {
+      // Reset any previous disco selections to force user choice in comparison view
+      updates.selectedDiscoPackage = null;
+      updates.selectedDiscoTimeSlot = '';
+      // Don't auto-select cruise type - let user choose between disco and private
+      if (formData.selectedCruiseType === 'disco') {
+        updates.selectedCruiseType = null;
       }
+      updates.discoTicketQuantity = Math.min(formData.groupSize, 10); // Set reasonable default quantity
     }
     
     // For all other event types with disco available, use minimum quantity

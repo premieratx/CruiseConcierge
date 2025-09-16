@@ -213,6 +213,44 @@ export default function EmbeddableChatbot() {
   
   const { toast } = useToast();
 
+  // Parse URL query parameters for theme and preview mode
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    const theme = urlParams.get('theme');
+    const preview = urlParams.get('preview');
+    const fullscreen = urlParams.get('fullscreen');
+    
+    // Apply theme to document root
+    if (theme) {
+      const htmlElement = document.documentElement;
+      htmlElement.classList.remove('light', 'dark');
+      if (theme === 'dark') {
+        htmlElement.classList.add('dark');
+      } else if (theme === 'light') {
+        htmlElement.classList.add('light');
+      } else if (theme === 'auto') {
+        // Use system preference
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        htmlElement.classList.add(prefersDark ? 'dark' : 'light');
+      }
+    }
+
+    // Add preview mode class if needed
+    if (preview === 'true') {
+      document.body.classList.add('embed-preview-mode');
+    }
+
+    // Add fullscreen class if needed
+    if (fullscreen === 'true') {
+      document.body.classList.add('embed-fullscreen');
+    }
+
+    // Cleanup function
+    return () => {
+      document.body.classList.remove('embed-preview-mode', 'embed-fullscreen');
+    };
+  }, []);
+
   // Fetch private cruise pricing with identical API calls as main Chat.tsx
   const fetchPrivatePricing = async () => {
     if (!formData.selectedTimeSlot) return;

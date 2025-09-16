@@ -18,6 +18,7 @@ import { mailgunService } from "./services/mailgun";
 import { openRouterService } from "./services/openrouter";
 import { goHighLevelService, type LeadWebhookPayload } from "./services/gohighlevel";
 import { sendEmail as sendgridEmail, sendQuoteEmail as sendgridQuoteEmail } from "./services/sendgrid";
+import { ComprehensiveLeadService } from "./services/comprehensiveLeadService";
 import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters } from "@shared/schema";
 import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate } from "@shared/timeSlots";
 import { templateRenderer } from "./services/templateRenderer";
@@ -26,6 +27,9 @@ import { randomUUID, randomInt } from "crypto";
 import { getFullUrl, getPublicUrl } from "./utils";
 import { quoteTokenService } from "./services/quoteTokenService";
 import { seedQuoteTemplates } from "./seedTemplates";
+
+// Initialize comprehensive lead service
+const comprehensiveLeadService = new ComprehensiveLeadService();
 
 // ==========================================
 // ADMIN AUTHENTICATION AND AUTHORIZATION
@@ -240,8 +244,15 @@ const sendInvoiceSchema = z.object({
 async function calculateInvoiceTotalsWithPricingSettings(items: any[], quoteId?: string) {
   // Get PricingSettings for consistent tax rates
   const settings = await storage.getPricingSettings();
-  const taxRate = settings?.taxRate || 0.0825;
-  const gratuityRate = settings?.gratuityRate || 0.20;
+  
+  // Handle tax rate - if it's in basis points (like 825), convert to decimal (0.0825)
+  let taxRate = settings?.taxRate || 0.0825;
+  if (taxRate > 1) {
+    // Tax rate is in basis points, convert to decimal
+    taxRate = taxRate / 10000;
+  }
+  
+  const gratuityRate = (settings?.defaultGratuityPercent || 20) / 100;
 
   // Calculate subtotal from validated items
   const subtotal = items.reduce((sum, item) => sum + (item.quantity * item.unitPrice), 0);
@@ -430,24 +441,7 @@ function parseTimeString(timeStr: string): number {
   return hour;
 }
 
-// Helper function to parse time string to date object
-function parseTimeToDate(date: Date, timeStr: string): Date {
-  const resultDate = new Date(date);
-  
-  if (timeStr.includes(':')) {
-    // Handle "HH:MM" format
-    const [hourStr, minuteStr] = timeStr.split(':');
-    const hour = parseInt(hourStr);
-    const minute = parseInt(minuteStr);
-    resultDate.setHours(hour, minute, 0, 0);
-  } else {
-    // Handle "12pm", "11am" format
-    const hour = parseTimeString(timeStr);
-    resultDate.setHours(hour, 0, 0, 0);
-  }
-  
-  return resultDate;
-}
+// Note: parseTimeToDate is now imported from shared/timeSlots.ts for consistency
 
 // Helper function to get time slot by ID
 function getTimeSlotById(date: Date, timeSlotId: string): any {
@@ -1171,12 +1165,54 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 
                 // If available and we have all info, generate a quote
                 if (availableBoats.length > 0 && project.projectDate) {
-                  const pricing = await storage.calculateCruisePricing({
-                    groupSize: project.groupSize || 20,
-                    eventDate: project.projectDate,
+                  // Use chatbot pricing logic for consistency
+                  const baseHourlyRate = 300; // Base rate for private cruises
+                  const dayOfWeek = project.projectDate.getDay();
+                  
+                  let duration = 3; // Default 3 hours for weekdays
+                  if (dayOfWeek === 5) { // Friday
+                    duration = 4;
+                  } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
+                    duration = 4;
+                  }
+                  
+                  const subtotalCents = baseHourlyRate * duration * 100; // Convert to cents
+                  const items = [{ quantity: 1, unitPrice: subtotalCents, name: 'Private Cruise', type: 'cruise' }];
+                  const calculatedPricing = await calculateInvoiceTotalsWithPricingSettings(items);
+                  const taxCents = calculatedPricing.tax;
+                  const gratuityCents = calculatedPricing.gratuity;
+                  const totalCents = subtotalCents + taxCents + gratuityCents;
+                  
+                  // Calculate deposit (50% of total)
+                  const depositCents = Math.round(totalCents * 0.5);
+                  
+                  const pricing = {
+                    subtotal: subtotalCents,
+                    tax: taxCents,
+                    gratuity: gratuityCents,
+                    total: totalCents,
+                    depositRequired: true,
+                    depositAmount: depositCents,
+                    depositPercent: 50,
+                    duration: duration,
+                    hourlyRate: baseHourlyRate,
                     timeSlot: project.preferredTime || "2pm-6pm",
-                    promoCode: undefined
-                  });
+                    pricingModel: 'hourly',
+                    discountTotal: 0,
+                    perPersonCost: Math.round(totalCents / (project.groupSize || 20)),
+                    paymentSchedule: [{
+                      line: 1,
+                      due: "booking",
+                      percent: 50,
+                      daysBefore: 0,
+                    }, {
+                      line: 2,
+                      due: "final",
+                      percent: 50,
+                      daysBefore: 14,
+                    }],
+                    expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+                  };
                   
                   const quote = await storage.createQuote({
                     projectId: project.id,
@@ -1439,13 +1475,128 @@ export async function registerRoutes(app: Express): Promise<Server> {
           return res.status(404).json({ error: "Project not found" });
         }
         
-        // Calculate pricing
-        const pricing = await storage.calculateCruisePricing({
-          groupSize: project.groupSize || 20,
-          eventDate: project.projectDate || new Date(),
-          timeSlot: project.preferredTime || "2pm-6pm",
-          promoCode: data?.promoCode
-        });
+        // Calculate pricing using the same logic as chatbot display
+        // Extract cruise selection data from project
+        const projectData = project.data as any || {};
+        
+        let pricing;
+        if (projectData.cruiseType === 'disco' || data?.cruiseType === 'disco') {
+          // For disco cruises, use per-person pricing
+          const discoPackageId = projectData.discoPackage || data?.discoPackage || 'basic';
+          const discoCruiseProducts = await storage.getDiscoCruiseProducts();
+          const selectedPackage = discoCruiseProducts.find(p => p.id === discoPackageId);
+          
+          if (selectedPackage) {
+            const groupSize = project.groupSize || 20;
+            const perPersonPrice = selectedPackage.unitPrice;
+            const subtotalCents = perPersonPrice * groupSize;
+            
+            const items = [{ quantity: groupSize, unitPrice: perPersonPrice, name: selectedPackage.name, type: 'disco_cruise' }];
+            const calculatedPricing = await calculateInvoiceTotalsWithPricingSettings(items);
+            
+            pricing = {
+              subtotal: subtotalCents,
+              tax: calculatedPricing.tax,
+              gratuity: calculatedPricing.gratuity,
+              total: subtotalCents + calculatedPricing.tax + calculatedPricing.gratuity,
+              depositRequired: true,
+              depositAmount: Math.round((subtotalCents + calculatedPricing.tax + calculatedPricing.gratuity) * 0.5),
+              depositPercent: 50,
+              perPersonCost: perPersonPrice,
+              discountTotal: 0,
+              paymentSchedule: [{
+                line: 1,
+                due: "booking",
+                percent: 50,
+                daysBefore: 0,
+              }, {
+                line: 2,
+                due: "final", 
+                percent: 50,
+                daysBefore: 14,
+              }],
+              expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+            };
+          } else {
+            throw new Error('Disco package not found');
+          }
+        } else {
+          // For private cruises, use the same logic as chatbot
+          const baseHourlyRate = 300; // Base rate for private cruises
+          
+          // Extract selected add-on packages from project data
+          const selectedAddOns = projectData.selectedPrivatePackage ? 
+            projectData.selectedPrivatePackage.split(',').filter(Boolean) : [];
+          
+          // Define available add-on packages (server-side validation)
+          const addOnPackages = [
+            { id: 'essentials', name: 'Essentials Package', hourlyRate: 50 },
+            { id: 'ultimate', name: 'Ultimate Party Package', hourlyRate: 75 }
+          ];
+          
+          // Calculate total hourly rate server-side
+          let serverCalculatedHourlyRate = baseHourlyRate;
+          const appliedAddOns = [];
+          
+          for (const addOnId of selectedAddOns) {
+            const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
+            if (addOn) {
+              serverCalculatedHourlyRate += addOn.hourlyRate;
+              appliedAddOns.push(addOn);
+            }
+          }
+          
+          // Calculate time slot duration
+          const eventDate = project.projectDate || new Date();
+          const dayOfWeek = eventDate.getDay();
+          
+          let duration = 3; // Default 3 hours for weekdays
+          if (dayOfWeek === 5) { // Friday
+            duration = 4;
+          } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
+            duration = 4;
+          }
+          
+          const subtotalCents = serverCalculatedHourlyRate * duration * 100; // Convert to cents
+          const items = [{ quantity: 1, unitPrice: subtotalCents, name: 'Private Cruise', type: 'cruise' }];
+          const calculatedPricing = await calculateInvoiceTotalsWithPricingSettings(items);
+          const taxCents = calculatedPricing.tax;
+          const gratuityCents = calculatedPricing.gratuity;
+          const totalCents = subtotalCents + taxCents + gratuityCents;
+          
+          // Calculate deposit (50% of total)
+          const depositCents = Math.round(totalCents * 0.5);
+          
+          pricing = {
+            subtotal: subtotalCents,
+            tax: taxCents,
+            gratuity: gratuityCents,
+            total: totalCents,
+            depositRequired: true,
+            depositAmount: depositCents,
+            depositPercent: 50,
+            duration: duration,
+            hourlyRate: serverCalculatedHourlyRate,
+            baseHourlyRate: baseHourlyRate,
+            selectedAddOns: appliedAddOns,
+            timeSlot: project.preferredTime || "2pm-6pm",
+            pricingModel: 'hourly',
+            discountTotal: 0,
+            perPersonCost: Math.round(totalCents / (project.groupSize || 20)),
+            paymentSchedule: [{
+              line: 1,
+              due: "booking",
+              percent: 50,
+              daysBefore: 0,
+            }, {
+              line: 2,
+              due: "final",
+              percent: 50,
+              daysBefore: 14,
+            }],
+            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+          };
+        }
         
         // Create quote
         const quote = await storage.createQuote({
@@ -2802,12 +2953,55 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const project = await storage.getProject(quote.projectId);
       const contact = project ? await storage.getContact(project.contactId) : null;
       
-      // Calculate pricing for display
-      const pricing = await storage.calculateCruisePricing({
-        groupSize: project?.groupSize || 25,
-        eventDate: project?.projectDate || new Date(),
+      // Calculate pricing for display using chatbot logic for consistency
+      const eventDate = project?.projectDate || new Date();
+      const baseHourlyRate = 300; // Base rate for private cruises
+      const dayOfWeek = eventDate.getDay();
+      
+      let duration = 3; // Default 3 hours for weekdays
+      if (dayOfWeek === 5) { // Friday
+        duration = 4;
+      } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
+        duration = 4;
+      }
+      
+      const subtotalCents = baseHourlyRate * duration * 100; // Convert to cents
+      const items = [{ quantity: 1, unitPrice: subtotalCents, name: 'Private Cruise', type: 'cruise' }];
+      const calculatedPricing = await calculateInvoiceTotalsWithPricingSettings(items);
+      const taxCents = calculatedPricing.tax;
+      const gratuityCents = calculatedPricing.gratuity;
+      const totalCents = subtotalCents + taxCents + gratuityCents;
+      
+      // Calculate deposit (50% of total)
+      const depositCents = Math.round(totalCents * 0.5);
+      
+      const pricing = {
+        subtotal: subtotalCents,
+        tax: taxCents,
+        gratuity: gratuityCents,
+        total: totalCents,
+        depositRequired: true,
+        depositAmount: depositCents,
+        depositPercent: 50,
+        duration: duration,
+        hourlyRate: baseHourlyRate,
         timeSlot: project?.preferredTime || 'afternoon',
-      });
+        pricingModel: 'hourly',
+        discountTotal: 0,
+        perPersonCost: Math.round(totalCents / (project?.groupSize || 25)),
+        paymentSchedule: [{
+          line: 1,
+          due: "booking",
+          percent: 50,
+          daysBefore: 0,
+        }, {
+          line: 2,
+          due: "final",
+          percent: 50,
+          daysBefore: 14,
+        }],
+        expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+      };
       
       console.log('✅ Secure quote access granted:', {
         quoteId,
@@ -3034,13 +3228,40 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const project = await storage.getProject(quote.projectId);
       
-      // Recalculate pricing with new parameters
-      const pricing = await storage.calculateCruisePricing({
-        groupSize: groupSize || project?.groupSize || 25,
-        eventDate: project?.projectDate || new Date(),
+      // Recalculate pricing with new parameters using chatbot logic for consistency
+      const eventDate = project?.projectDate || new Date();
+      const baseHourlyRate = 300; // Base rate for private cruises
+      const dayOfWeek = eventDate.getDay();
+      
+      let duration = 3; // Default 3 hours for weekdays
+      if (dayOfWeek === 5) { // Friday
+        duration = 4;
+      } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
+        duration = 4;
+      }
+      
+      const subtotalCents = baseHourlyRate * duration * 100; // Convert to cents
+      const items = [{ quantity: 1, unitPrice: subtotalCents, name: 'Private Cruise', type: 'cruise' }];
+      const calculatedPricing = await calculateInvoiceTotalsWithPricingSettings(items);
+      const taxCents = calculatedPricing.tax;
+      const gratuityCents = calculatedPricing.gratuity;
+      const totalCents = subtotalCents + taxCents + gratuityCents;
+      
+      const pricing = {
+        subtotal: subtotalCents,
+        tax: taxCents,
+        gratuity: gratuityCents,
+        total: totalCents,
+        depositRequired: true,
+        depositAmount: Math.round(totalCents * 0.5),
+        depositPercent: 50,
+        duration: duration,
+        hourlyRate: baseHourlyRate,
         timeSlot: project?.preferredTime || 'afternoon',
-        promoCode: discountCode,
-      });
+        pricingModel: 'hourly',
+        discountTotal: 0,
+        perPersonCost: Math.round(totalCents / (groupSize || project?.groupSize || 25))
+      };
       
       // Update quote with new pricing
       await storage.updateQuote(req.params.id, {
@@ -4355,12 +4576,57 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // For bachelor/bachelorette parties, return both pricing options
       if ((eventType === 'bachelor' || eventType === 'bachelorette') && cruiseType === 'both') {
         const discoCruiseProducts = await storage.getDiscoCruiseProducts();
-        const privateCruisePricing = await storage.calculateCruisePricing({
-          groupSize: parseInt(groupSize),
-          eventDate: new Date(eventDate),
-          timeSlot,
-          promoCode,
-        });
+        
+        // Calculate private cruise pricing using consistent chatbot logic
+        const baseHourlyRate = 300; // Base rate for private cruises
+        const date = new Date(eventDate);
+        const dayOfWeek = date.getDay();
+        
+        let duration = 3; // Default 3 hours for weekdays
+        if (dayOfWeek === 5) { // Friday
+          duration = 4;
+        } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
+          duration = 4;
+        }
+        
+        const subtotalCents = baseHourlyRate * duration * 100; // Convert to cents
+        const items = [{ quantity: 1, unitPrice: subtotalCents, name: 'Private Cruise', type: 'cruise' }];
+        const calculatedPricing = await calculateInvoiceTotalsWithPricingSettings(items);
+        const taxCents = calculatedPricing.tax;
+        const gratuityCents = calculatedPricing.gratuity;
+        const totalCents = subtotalCents + taxCents + gratuityCents;
+        
+        // Calculate deposit (50% of total)
+        const depositCents = Math.round(totalCents * 0.5);
+        
+        const privateCruisePricing = {
+          subtotal: subtotalCents,
+          tax: taxCents,
+          gratuity: gratuityCents,
+          total: totalCents,
+          depositRequired: true,
+          depositAmount: depositCents,
+          depositPercent: 50,
+          duration: duration,
+          hourlyRate: baseHourlyRate,
+          baseHourlyRate: baseHourlyRate,
+          timeSlot: timeSlot,
+          pricingModel: 'hourly',
+          discountTotal: 0,
+          perPersonCost: Math.round(totalCents / parseInt(groupSize)),
+          paymentSchedule: [{
+            line: 1,
+            due: "booking", 
+            percent: 50,
+            daysBefore: 0,
+          }, {
+            line: 2,
+            due: "final",
+            percent: 50,
+            daysBefore: 14,
+          }],
+          expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+        };
 
         // Calculate disco cruise pricing (per-person)
         const discoCruiseOptions = discoCruiseProducts.map(product => ({
@@ -4458,13 +4724,53 @@ export async function registerRoutes(app: Express): Promise<Server> {
           eventType: eventType || 'other'
         });
       } else {
-        // Regular private cruise pricing for all other events (backward compatibility)
-        const pricing = await storage.calculateCruisePricing({
-          groupSize: parseInt(groupSize),
-          eventDate: new Date(eventDate),
-          timeSlot,
-          promoCode,
-        });
+        // Regular private cruise pricing for all other events using consistent chatbot logic
+        const baseHourlyRate = 300; // Base rate for private cruises
+        const date = new Date(eventDate);
+        const dayOfWeek = date.getDay();
+        
+        let duration = 3; // Default 3 hours for weekdays
+        if (dayOfWeek === 5) { // Friday
+          duration = 4;
+        } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
+          duration = 4;
+        }
+        
+        const subtotalCents = baseHourlyRate * duration * 100; // Convert to cents
+        const items = [{ quantity: 1, unitPrice: subtotalCents, name: 'Private Cruise', type: 'cruise' }];
+        const calculatedPricing = await calculateInvoiceTotalsWithPricingSettings(items);
+        const taxCents = calculatedPricing.tax;
+        const gratuityCents = calculatedPricing.gratuity;
+        const totalCents = subtotalCents + taxCents + gratuityCents;
+        
+        const pricing = {
+          subtotal: subtotalCents,
+          tax: taxCents,
+          gratuity: gratuityCents,
+          total: totalCents,
+          depositRequired: true,
+          depositAmount: Math.round(totalCents * 0.5),
+          depositPercent: 50,
+          duration: duration,
+          hourlyRate: baseHourlyRate,
+          baseHourlyRate: baseHourlyRate,
+          timeSlot: timeSlot,
+          pricingModel: 'hourly',
+          discountTotal: 0,
+          perPersonCost: Math.round(totalCents / parseInt(groupSize)),
+          paymentSchedule: [{
+            line: 1,
+            due: "booking",
+            percent: 50,
+            daysBefore: 0,
+          }, {
+            line: 2,
+            due: "final", 
+            percent: 50,
+            daysBefore: 14,
+          }],
+          expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
+        };
 
         res.json({
           ...pricing,
@@ -7224,12 +7530,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
           return res.status(404).json({ error: "Time slot not found" });
         }
         
-        // Calculate pricing
-        const pricing = await storage.calculateCruisePricing({
-          groupSize,
-          eventDate: date,
-          timeSlot: timeSlotId
-        });
+        // Calculate pricing using consistent chatbot logic
+        const baseHourlyRate = 300; // Base rate for private cruises
+        const dayOfWeek = date.getDay();
+        
+        let duration = 3; // Default 3 hours for weekdays
+        if (dayOfWeek === 5) { // Friday
+          duration = 4;
+        } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
+          duration = 4;
+        }
+        
+        const subtotalCents = baseHourlyRate * duration * 100; // Convert to cents
+        const items = [{ quantity: 1, unitPrice: subtotalCents, name: 'Private Cruise', type: 'cruise' }];
+        const calculatedPricing = await calculateInvoiceTotalsWithPricingSettings(items);
+        const taxCents = calculatedPricing.tax;
+        const gratuityCents = calculatedPricing.gratuity;
+        const totalCents = subtotalCents + taxCents + gratuityCents;
+        
+        const pricing = {
+          subtotal: subtotalCents,
+          tax: taxCents,
+          gratuity: gratuityCents,
+          total: totalCents,
+          depositRequired: true,
+          depositAmount: Math.round(totalCents * 0.25), // 25% deposit for public
+          depositPercent: 25,
+          duration: duration,
+          hourlyRate: baseHourlyRate,
+          breakdown: {
+            baseRate: baseHourlyRate,
+            duration: duration,
+            subtotal: subtotalCents / 100,
+            tax: taxCents / 100,
+            gratuity: gratuityCents / 100,
+            total: totalCents / 100
+          }
+        };
         
         res.json({
           type: 'private',
@@ -7358,11 +7695,36 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const timeSlot = getTimeSlotById(date, `${startTime}-${endTime}`) || 
                         { duration: Math.round((endDateTime.getTime() - startDateTime.getTime()) / (1000 * 60 * 60)) };
         
-        const pricing = await storage.calculateCruisePricing({
-          groupSize: eventDetails.groupSize || 20,
-          eventDate: date,
-          timeSlot: `${startTime}-${endTime}`
-        });
+        // Calculate pricing using consistent chatbot logic
+        const baseHourlyRate = 300; // Base rate for private cruises
+        const dayOfWeek = date.getDay();
+        
+        let duration = 3; // Default 3 hours for weekdays
+        if (dayOfWeek === 5) { // Friday
+          duration = 4;
+        } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
+          duration = 4;
+        }
+        
+        const subtotalCents = baseHourlyRate * duration * 100; // Convert to cents
+        const items = [{ quantity: 1, unitPrice: subtotalCents, name: 'Private Cruise', type: 'cruise' }];
+        const calculatedPricing = await calculateInvoiceTotalsWithPricingSettings(items);
+        const taxCents = calculatedPricing.tax;
+        const gratuityCents = calculatedPricing.gratuity;
+        const totalCents = subtotalCents + taxCents + gratuityCents;
+        
+        const pricing = {
+          subtotal: subtotalCents,
+          tax: taxCents,
+          gratuity: gratuityCents,
+          total: totalCents,
+          depositRequired: true,
+          depositAmount: Math.round(totalCents * 0.25), // 25% deposit
+          depositPercent: 25,
+          duration: duration,
+          hourlyRate: baseHourlyRate,
+          perPersonCost: Math.round(totalCents / (eventDetails.groupSize || 20))
+        };
         
         // Create quote
         const quote = await storage.createQuote({
