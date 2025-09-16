@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters } from "@shared/schema";
 import { randomUUID } from "crypto";
 
 export interface IStorage {
@@ -222,6 +222,18 @@ export interface IStorage {
   getVerificationAttempts(phoneNumber: string, sessionId: string): Promise<CustomerVerificationAttempts | undefined>;
   resetVerificationAttempts(phoneNumber: string, sessionId: string): Promise<boolean>;
   cleanupExpiredVerificationAttempts(): Promise<number>;
+
+  // Partial Lead Management - Abandoned lead capture system
+  createPartialLead(data: InsertPartialLead): Promise<PartialLead>;
+  updatePartialLead(sessionId: string, updates: Partial<PartialLead>): Promise<PartialLead>;
+  getPartialLead(sessionId: string): Promise<PartialLead | undefined>;
+  getPartialLeads(filters?: PartialLeadFilters): Promise<PartialLead[]>;
+  getPartialLeadById(id: string): Promise<PartialLead | undefined>;
+  convertPartialLeadToContact(partialLeadId: string): Promise<Contact>;
+  markPartialLeadAsContacted(partialLeadId: string, method: string): Promise<PartialLead>;
+  markPartialLeadAsAbandoned(sessionId: string): Promise<PartialLead | undefined>;
+  getPartialLeadStats(): Promise<{ total: number; today: number; thisWeek: number; thisMonth: number }>;
+  cleanupOldPartialLeads(daysOld: number): Promise<number>;
   
   // Customer Portal - Customer Lookup
   searchCustomersByPhone(phoneNumber: string): Promise<Contact[]>;
@@ -267,6 +279,10 @@ export class MemStorage implements IStorage {
   private portalActivityLogs: Map<string, PortalActivityLog> = new Map();
   private phoneRateLimits: Map<string, PhoneRateLimit> = new Map();
   private customerVerificationAttempts: Map<string, CustomerVerificationAttempts> = new Map();
+  
+  // Partial Lead Storage - abandoned lead capture system
+  private partialLeads: Map<string, PartialLead> = new Map(); // key: sessionId
+  private partialLeadsById: Map<string, PartialLead> = new Map(); // key: id
   
   // Admin audit logs for tracking changes
   private adminLogs: Array<{ id: string; action: string; timestamp: Date; adminUser?: string; details: any }> = [];
@@ -4253,6 +4269,192 @@ export class MemStorage implements IStorage {
     return Array.from(this.contacts.values()).filter(contact => 
       contact.email.toLowerCase().includes(searchTerm)
     );
+  }
+
+  // ==========================================
+  // PARTIAL LEAD MANAGEMENT - ABANDONED LEAD CAPTURE
+  // ==========================================
+
+  async createPartialLead(data: InsertPartialLead): Promise<PartialLead> {
+    const id = randomUUID();
+    const now = new Date();
+    
+    const partialLead: PartialLead = {
+      id,
+      sessionId: data.sessionId,
+      name: data.name || null,
+      email: data.email || null,
+      phone: data.phone || null,
+      eventType: data.eventType || null,
+      eventTypeLabel: data.eventTypeLabel || null,
+      groupSize: data.groupSize || null,
+      preferredDate: data.preferredDate || null,
+      chatbotData: data.chatbotData || {},
+      quoteId: null,
+      status: data.status || 'partial',
+      source: data.source || 'chat',
+      createdAt: now,
+      lastUpdated: now,
+      abandonedAt: null,
+      convertedToContactId: null,
+      followUpCount: 0,
+      lastContactedAt: null,
+      contactMethod: null,
+      adminNotes: null,
+    };
+
+    this.partialLeads.set(data.sessionId, partialLead);
+    this.partialLeadsById.set(id, partialLead);
+    
+    return partialLead;
+  }
+
+  async updatePartialLead(sessionId: string, updates: Partial<PartialLead>): Promise<PartialLead> {
+    const existing = this.partialLeads.get(sessionId);
+    if (!existing) {
+      throw new Error(`Partial lead not found for session: ${sessionId}`);
+    }
+
+    const updated: PartialLead = {
+      ...existing,
+      ...updates,
+      lastUpdated: new Date(),
+    };
+
+    this.partialLeads.set(sessionId, updated);
+    this.partialLeadsById.set(updated.id, updated);
+    
+    return updated;
+  }
+
+  async getPartialLead(sessionId: string): Promise<PartialLead | undefined> {
+    return this.partialLeads.get(sessionId);
+  }
+
+  async getPartialLeadById(id: string): Promise<PartialLead | undefined> {
+    return this.partialLeadsById.get(id);
+  }
+
+  async getPartialLeads(filters?: PartialLeadFilters): Promise<PartialLead[]> {
+    let leads = Array.from(this.partialLeads.values());
+
+    if (filters) {
+      if (filters.status) {
+        leads = leads.filter(lead => lead.status === filters.status);
+      }
+      
+      if (filters.dateFrom) {
+        leads = leads.filter(lead => lead.createdAt >= filters.dateFrom!);
+      }
+      
+      if (filters.dateTo) {
+        leads = leads.filter(lead => lead.createdAt <= filters.dateTo!);
+      }
+      
+      if (filters.hasEmail) {
+        leads = leads.filter(lead => !!lead.email);
+      }
+      
+      if (filters.hasPhone) {
+        leads = leads.filter(lead => !!lead.phone);
+      }
+      
+      if (filters.eventType) {
+        leads = leads.filter(lead => lead.eventType === filters.eventType);
+      }
+    }
+
+    // Sort by most recent first
+    leads.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    
+    return leads;
+  }
+
+  async convertPartialLeadToContact(partialLeadId: string): Promise<Contact> {
+    const partialLead = this.partialLeadsById.get(partialLeadId);
+    if (!partialLead) {
+      throw new Error(`Partial lead not found: ${partialLeadId}`);
+    }
+
+    if (!partialLead.email && !partialLead.phone) {
+      throw new Error('Cannot convert partial lead without email or phone');
+    }
+
+    // Create contact from partial lead data
+    const contact = await this.createContact({
+      name: partialLead.name || 'Unknown',
+      email: partialLead.email || '',
+      phone: partialLead.phone || '',
+      tags: ['converted_from_partial_lead'],
+    });
+
+    // Update partial lead to mark as converted
+    await this.updatePartialLead(partialLead.sessionId, {
+      status: 'converted',
+      convertedToContactId: contact.id,
+    });
+
+    return contact;
+  }
+
+  async markPartialLeadAsContacted(partialLeadId: string, method: string): Promise<PartialLead> {
+    const partialLead = this.partialLeadsById.get(partialLeadId);
+    if (!partialLead) {
+      throw new Error(`Partial lead not found: ${partialLeadId}`);
+    }
+
+    const updated = await this.updatePartialLead(partialLead.sessionId, {
+      status: 'contacted',
+      lastContactedAt: new Date(),
+      contactMethod: method,
+      followUpCount: (partialLead.followUpCount || 0) + 1,
+    });
+
+    return updated;
+  }
+
+  async markPartialLeadAsAbandoned(sessionId: string): Promise<PartialLead | undefined> {
+    const partialLead = this.partialLeads.get(sessionId);
+    if (!partialLead) {
+      return undefined;
+    }
+
+    const updated = await this.updatePartialLead(sessionId, {
+      status: 'abandoned',
+      abandonedAt: new Date(),
+    });
+
+    return updated;
+  }
+
+  async getPartialLeadStats(): Promise<{ total: number; today: number; thisWeek: number; thisMonth: number }> {
+    const leads = Array.from(this.partialLeads.values());
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+    const thisWeek = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+    const thisMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+
+    return {
+      total: leads.length,
+      today: leads.filter(lead => lead.createdAt >= today).length,
+      thisWeek: leads.filter(lead => lead.createdAt >= thisWeek).length,
+      thisMonth: leads.filter(lead => lead.createdAt >= thisMonth).length,
+    };
+  }
+
+  async cleanupOldPartialLeads(daysOld: number): Promise<number> {
+    const cutoffDate = new Date(Date.now() - daysOld * 24 * 60 * 60 * 1000);
+    let deletedCount = 0;
+
+    for (const [sessionId, lead] of this.partialLeads.entries()) {
+      if (lead.createdAt < cutoffDate && lead.status === 'partial') {
+        this.partialLeads.delete(sessionId);
+        this.partialLeadsById.delete(lead.id);
+        deletedCount++;
+      }
+    }
+
+    return deletedCount;
   }
 
   async getCustomerDataById(contactId: string): Promise<{

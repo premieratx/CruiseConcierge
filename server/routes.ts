@@ -17,7 +17,7 @@ import { mailgunService } from "./services/mailgun";
 import { openRouterService } from "./services/openrouter";
 import { goHighLevelService, type LeadWebhookPayload } from "./services/gohighlevel";
 import { sendEmail as sendgridEmail, sendQuoteEmail as sendgridQuoteEmail } from "./services/sendgrid";
-import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest } from "@shared/schema";
+import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters } from "@shared/schema";
 import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
 import { randomUUID, randomInt } from "crypto";
@@ -385,6 +385,20 @@ function getTimeSlotById(date: Date, timeSlotId: string): any {
   };
 }
 
+// Helper function to format time ago for display
+function getTimeAgo(date: Date): string {
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / (1000 * 60));
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffMins < 1) return 'Just now';
+  if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
+  if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+  return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+}
+
 export async function registerRoutes(app: Express): Promise<Server> {
   
   // Analytics API endpoints
@@ -558,6 +572,286 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error("Recent invoices error:", error);
       res.status(500).json({ error: "Failed to load recent invoices" });
+    }
+  });
+
+  // ==========================================
+  // PARTIAL LEAD MANAGEMENT API ENDPOINTS
+  // ==========================================
+
+  // Save partial lead data in real-time (as users type)
+  app.post("/api/partial-leads/save", async (req, res) => {
+    try {
+      const data = insertPartialLeadSchema.parse(req.body);
+      
+      // Check if partial lead already exists for this session
+      const existing = await storage.getPartialLead(data.sessionId);
+      
+      let partialLead;
+      if (existing) {
+        // Update existing partial lead
+        partialLead = await storage.updatePartialLead(data.sessionId, data);
+      } else {
+        // Create new partial lead
+        partialLead = await storage.createPartialLead(data);
+      }
+
+      // If we have email or phone, try to auto-generate a quote
+      if ((data.email || data.phone) && data.eventType && !partialLead.quoteId) {
+        try {
+          // Create a minimal contact to generate quote
+          const contact = await storage.findOrCreateContact(
+            data.email || `temp-${data.sessionId}@temp.com`,
+            data.name || 'Unknown',
+            data.phone
+          );
+
+          // Create project for quote generation
+          const project = await storage.createProject({
+            contactId: contact.id,
+            title: `${data.eventTypeLabel || data.eventType || 'Event'} - Auto-Generated`,
+            status: 'NEW',
+            eventType: data.eventType,
+            groupSize: data.groupSize || 20,
+            leadSource: 'chat_partial',
+            pipelinePhase: 'ph_new',
+            projectDate: data.preferredDate,
+          });
+
+          // Generate quote with appropriate template
+          const templates = await storage.getQuoteTemplatesByEventType(data.eventType || 'birthday');
+          const template = templates.find(t => t.isDefault) || templates[0];
+
+          if (template) {
+            const quote = await storage.createQuote({
+              projectId: project.id,
+              templateId: template.id,
+              items: template.defaultItems || [],
+              radioSections: template.defaultRadioSections || [],
+              subtotal: template.basePricePerPerson ? (template.basePricePerPerson * (data.groupSize || 20)) : 300000,
+              total: template.basePricePerPerson ? (template.basePricePerPerson * (data.groupSize || 20)) : 300000,
+              perPersonCost: template.basePricePerPerson || 15000,
+              accessToken: randomUUID().replace(/-/g, ''),
+            });
+
+            // Update partial lead with quote ID
+            partialLead = await storage.updatePartialLead(data.sessionId, {
+              quoteId: quote.id,
+            });
+          }
+        } catch (quoteError) {
+          console.error('Error auto-generating quote for partial lead:', quoteError);
+          // Don't fail the partial lead save if quote generation fails
+        }
+      }
+
+      // Save to Google Sheets
+      try {
+        await googleSheetsService.createPartialLead({
+          leadId: `PARTIAL_${partialLead.id.slice(0, 8)}`,
+          sessionId: partialLead.sessionId,
+          name: partialLead.name || '',
+          email: partialLead.email || '',
+          phone: partialLead.phone || '',
+          eventType: partialLead.eventType || '',
+          eventTypeLabel: partialLead.eventTypeLabel || '',
+          groupSize: partialLead.groupSize || 0,
+          preferredDate: partialLead.preferredDate,
+          status: 'PARTIAL_LEAD',
+          progress: 'abandoned_contact_info',
+          source: 'chat_partial',
+          quoteId: partialLead.quoteId,
+          createdAt: partialLead.createdAt,
+          lastUpdated: partialLead.lastUpdated,
+        });
+      } catch (sheetsError) {
+        console.error('Error saving partial lead to Google Sheets:', sheetsError);
+        // Don't fail the API call if Google Sheets fails
+      }
+
+      res.json(partialLead);
+    } catch (error: any) {
+      console.error("Save partial lead error:", error);
+      res.status(400).json({ error: error.message || "Failed to save partial lead" });
+    }
+  });
+
+  // Get partial leads for admin dashboard
+  app.get("/api/admin/partial-leads", requireAdminAuth, async (req, res) => {
+    try {
+      const filters: PartialLeadFilters = {};
+      
+      if (req.query.status) {
+        filters.status = req.query.status as any;
+      }
+      
+      if (req.query.hasEmail) {
+        filters.hasEmail = req.query.hasEmail === 'true';
+      }
+      
+      if (req.query.hasPhone) {
+        filters.hasPhone = req.query.hasPhone === 'true';
+      }
+      
+      if (req.query.eventType) {
+        filters.eventType = req.query.eventType as string;
+      }
+      
+      if (req.query.dateFrom) {
+        filters.dateFrom = new Date(req.query.dateFrom as string);
+      }
+      
+      if (req.query.dateTo) {
+        filters.dateTo = new Date(req.query.dateTo as string);
+      }
+
+      const partialLeads = await storage.getPartialLeads(filters);
+      
+      // Enrich with quote URLs
+      const enrichedLeads = await Promise.all(partialLeads.map(async (lead) => {
+        let quoteUrl = null;
+        if (lead.quoteId) {
+          const quote = await storage.getQuote(lead.quoteId);
+          if (quote && quote.accessToken) {
+            quoteUrl = `${getPublicUrl()}/quotes/${quote.id}?token=${quote.accessToken}`;
+          }
+        }
+        
+        return {
+          ...lead,
+          quoteUrl,
+          timeAgo: getTimeAgo(lead.lastUpdated),
+          isRecent: (new Date().getTime() - lead.lastUpdated.getTime()) < (24 * 60 * 60 * 1000), // within 24 hours
+        };
+      }));
+
+      res.json(enrichedLeads);
+    } catch (error: any) {
+      console.error("Get partial leads error:", error);
+      res.status(500).json({ error: "Failed to fetch partial leads" });
+    }
+  });
+
+  // Get partial lead statistics
+  app.get("/api/admin/partial-leads/stats", requireAdminAuth, async (req, res) => {
+    try {
+      const stats = await storage.getPartialLeadStats();
+      res.json(stats);
+    } catch (error: any) {
+      console.error("Get partial lead stats error:", error);
+      res.status(500).json({ error: "Failed to fetch partial lead statistics" });
+    }
+  });
+
+  // Send quote to partial lead
+  app.post("/api/admin/partial-leads/:id/send-quote", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { method, customMessage } = req.body;
+      
+      if (!['email', 'sms'].includes(method)) {
+        return res.status(400).json({ error: "Method must be 'email' or 'sms'" });
+      }
+
+      const partialLead = await storage.getPartialLeadById(id);
+      if (!partialLead) {
+        return res.status(404).json({ error: "Partial lead not found" });
+      }
+
+      if (!partialLead.quoteId) {
+        return res.status(400).json({ error: "No quote available for this partial lead" });
+      }
+
+      // Get the quote and ensure it has access token
+      const quote = await storage.getQuote(partialLead.quoteId);
+      if (!quote) {
+        return res.status(404).json({ error: "Quote not found" });
+      }
+
+      // Generate access token if needed
+      if (!quote.accessToken) {
+        await storage.updateQuote(quote.id, {
+          accessToken: randomUUID().replace(/-/g, ''),
+        });
+      }
+
+      const quoteUrl = `${getPublicUrl()}/quotes/${quote.id}?token=${quote.accessToken}`;
+
+      if (method === 'email' && partialLead.email) {
+        await sendQuoteEmail(quote.id, partialLead.email, customMessage);
+      } else if (method === 'sms' && partialLead.phone) {
+        // SMS sending would go here - for now we'll just log it
+        console.log(`SMS quote delivery to ${partialLead.phone}: ${quoteUrl}`);
+        console.log(`Custom message: ${customMessage || 'None'}`);
+      } else {
+        return res.status(400).json({ 
+          error: `Missing ${method === 'email' ? 'email' : 'phone'} for ${method} delivery` 
+        });
+      }
+
+      // Mark as contacted
+      await storage.markPartialLeadAsContacted(id, method);
+
+      res.json({ 
+        success: true, 
+        message: `Quote sent via ${method}`,
+        quoteUrl 
+      });
+    } catch (error: any) {
+      console.error("Send quote to partial lead error:", error);
+      res.status(500).json({ error: "Failed to send quote" });
+    }
+  });
+
+  // Update partial lead status
+  app.patch("/api/admin/partial-leads/:id/status", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { status, notes } = req.body;
+      
+      if (!['contacted', 'converted', 'dismissed'].includes(status)) {
+        return res.status(400).json({ error: "Invalid status" });
+      }
+
+      const partialLead = await storage.getPartialLeadById(id);
+      if (!partialLead) {
+        return res.status(404).json({ error: "Partial lead not found" });
+      }
+
+      let updatedLead;
+      if (status === 'converted') {
+        // Convert to full contact
+        const contact = await storage.convertPartialLeadToContact(id);
+        updatedLead = await storage.getPartialLeadById(id);
+      } else {
+        updatedLead = await storage.updatePartialLead(partialLead.sessionId, {
+          status,
+          adminNotes: notes,
+        });
+      }
+
+      res.json(updatedLead);
+    } catch (error: any) {
+      console.error("Update partial lead status error:", error);
+      res.status(500).json({ error: "Failed to update partial lead status" });
+    }
+  });
+
+  // Mark partial lead as abandoned (called when user leaves chatbot)
+  app.post("/api/partial-leads/:sessionId/abandon", async (req, res) => {
+    try {
+      const { sessionId } = req.params;
+      
+      const partialLead = await storage.markPartialLeadAsAbandoned(sessionId);
+      
+      if (!partialLead) {
+        return res.status(404).json({ error: "Partial lead not found" });
+      }
+
+      res.json({ success: true, abandonedLead: partialLead });
+    } catch (error: any) {
+      console.error("Mark partial lead as abandoned error:", error);
+      res.status(500).json({ error: "Failed to mark as abandoned" });
     }
   });
 

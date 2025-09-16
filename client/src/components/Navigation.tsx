@@ -6,7 +6,8 @@ import {
   LayoutDashboard, Users, FileText, MessageSquare, Calendar,
   DollarSign, Settings, Ship, TrendingUp, Mail, Phone,
   ChevronDown, Plus, Search, Bell, User, LogOut, Building,
-  CreditCard, Briefcase, Star, FileBarChart, Database, ArrowLeft, Home
+  CreditCard, Briefcase, Star, FileBarChart, Database, ArrowLeft, Home,
+  AlertCircle
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -38,6 +39,13 @@ const mainNavItems = [
     icon: Users,
     description: 'Manage your sales pipeline',
     badge: 'New',
+  },
+  {
+    title: 'Partial Leads',
+    href: '/partial-leads',
+    icon: AlertCircle,
+    description: 'Follow up abandoned leads',
+    badgeCount: true, // This will be populated with actual count
   },
   {
     title: 'Projects',

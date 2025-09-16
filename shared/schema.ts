@@ -402,6 +402,46 @@ export const customerVerificationAttempts = pgTable("customer_verification_attem
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
+// Partial Leads - for capturing abandoned contact information
+export const partialLeads = pgTable("partial_leads", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  sessionId: varchar("session_id").notNull().unique(),
+  name: text("name"),
+  email: text("email"),
+  phone: text("phone"),
+  eventType: text("event_type"),
+  eventTypeLabel: text("event_type_label"),
+  groupSize: integer("group_size"),
+  preferredDate: timestamp("preferred_date"),
+  chatbotData: jsonb("chatbot_data").$type<Record<string, any>>().default({}),
+  quoteId: varchar("quote_id"), // reference to auto-generated quote
+  status: varchar("status").notNull().default("partial"), // 'partial', 'abandoned', 'converted', 'contacted'
+  source: varchar("source").notNull().default("chat"), // tracking source
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  lastUpdated: timestamp("last_updated").notNull().defaultNow(),
+  abandonedAt: timestamp("abandoned_at"),
+  convertedToContactId: varchar("converted_to_contact_id"), // reference to contacts table if converted
+  followUpCount: integer("follow_up_count").notNull().default(0),
+  lastContactedAt: timestamp("last_contacted_at"),
+  contactMethod: varchar("contact_method"), // 'email', 'sms', 'phone' for last contact
+  adminNotes: text("admin_notes"),
+});
+
+// Type definitions for partial leads
+export type PartialLead = typeof partialLeads.$inferSelect;
+export type InsertPartialLead = typeof partialLeads.$inferInsert;
+
+export type PartialLeadStatus = 'partial' | 'abandoned' | 'converted' | 'contacted' | 'dismissed';
+
+export type PartialLeadFilters = {
+  status?: PartialLeadStatus;
+  dateFrom?: Date;
+  dateTo?: Date;
+  hasEmail?: boolean;
+  hasPhone?: boolean;
+  eventType?: string;
+};
+
 // Type definitions
 export type QuoteItem = {
   id: string;
@@ -735,6 +775,23 @@ export const insertCustomerVerificationAttemptsSchema = createInsertSchema(custo
   lockoutCount: z.number().min(0).default(0),
 });
 
+export const insertPartialLeadSchema = createInsertSchema(partialLeads).omit({
+  id: true,
+  createdAt: true,
+  lastUpdated: true,
+}).extend({
+  sessionId: z.string().min(1, "Session ID is required"),
+  name: z.string().optional(),
+  email: z.string().email().optional(),
+  phone: z.string().optional(),
+  eventType: z.string().optional(),
+  eventTypeLabel: z.string().optional(),
+  groupSize: z.number().min(1).optional(),
+  preferredDate: z.string().datetime().transform(str => new Date(str)).optional(),
+  chatbotData: z.record(z.any()).default({}),
+  status: z.enum(['partial', 'abandoned', 'converted', 'contacted', 'dismissed']).default('partial'),
+});
+
 // Select types
 export type Contact = typeof contacts.$inferSelect;
 export type Project = typeof projects.$inferSelect;
@@ -780,6 +837,9 @@ export type InsertDiscoSlot = z.infer<typeof insertDiscoSlotSchema>;
 export type InsertTimeframe = z.infer<typeof insertTimeframeSchema>;
 export type InsertEmailTemplate = z.infer<typeof insertEmailTemplateSchema>;
 export type InsertMasterTemplate = z.infer<typeof insertMasterTemplateSchema>;
+
+// Partial Lead Insert Types
+export type InsertPartialLead = z.infer<typeof insertPartialLeadSchema>;
 
 // Customer Portal Insert Types
 export type InsertSmsAuthToken = z.infer<typeof insertSmsAuthTokenSchema>;

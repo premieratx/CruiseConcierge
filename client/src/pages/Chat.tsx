@@ -281,7 +281,126 @@ export default function Chat() {
   const [projectId, setProjectId] = useState<string | null>(null);
   const [leadTrackingEnabled, setLeadTrackingEnabled] = useState(true);
   const [availabilityCache, setAvailabilityCache] = useState<Map<string, any>>(new Map());
+  
+  // Partial lead capture system
+  const [chatSessionId] = useState<string>(() => `chat_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
+  const [partialLeadSaved, setPartialLeadSaved] = useState(false);
+  const partialLeadTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  
   const { toast } = useToast();
+
+  // Debounced function to save partial lead data in real-time
+  const debouncedSavePartialLead = useCallback(
+    (contactData: { firstName?: string; lastName?: string; email?: string; phone?: string }) => {
+      // Clear existing timeout
+      if (partialLeadTimeoutRef.current) {
+        clearTimeout(partialLeadTimeoutRef.current);
+      }
+
+      // Set new timeout for debounced save
+      partialLeadTimeoutRef.current = setTimeout(async () => {
+        // Only save if we have some contact information
+        const hasContactInfo = contactData.firstName?.trim() || 
+                              contactData.lastName?.trim() || 
+                              contactData.email?.trim() || 
+                              contactData.phone?.trim();
+
+        if (hasContactInfo) {
+          try {
+            await apiRequest('POST', '/api/partial-leads/save', {
+              sessionId: chatSessionId,
+              name: [contactData.firstName?.trim(), contactData.lastName?.trim()]
+                .filter(Boolean).join(' ') || undefined,
+              email: contactData.email?.trim() || undefined,
+              phone: contactData.phone?.trim() || undefined,
+              eventType: formData.eventType || undefined,
+              eventTypeLabel: formData.eventTypeLabel || undefined,
+              groupSize: formData.groupSize || undefined,
+              preferredDate: formData.eventDate?.toISOString() || undefined,
+              chatbotData: {
+                currentStep,
+                completedSelections,
+                selectedCruiseType: formData.selectedCruiseType,
+                selectedTimeSlot: formData.selectedTimeSlot,
+                selectedDiscoPackage: formData.selectedDiscoPackage,
+                selectedAddOnPackages: formData.selectedAddOnPackages,
+                budget: formData.budget,
+                specialRequests: formData.specialRequests,
+              },
+            });
+            
+            if (!partialLeadSaved) {
+              setPartialLeadSaved(true);
+              console.log('Partial lead saved for session:', chatSessionId);
+            }
+          } catch (error) {
+            console.error('Failed to save partial lead:', error);
+            // Don't show error toast as this is a background operation
+          }
+        }
+      }, 2000); // 2 second debounce
+    },
+    [chatSessionId, formData, currentStep, completedSelections, partialLeadSaved]
+  );
+
+  // Enhanced form data setter that triggers partial lead save
+  const updateFormDataWithAutoSave = useCallback(
+    (updates: Partial<BookingData>) => {
+      const newFormData = { ...formData, ...updates };
+      setFormData(newFormData);
+      
+      // Trigger partial lead save for contact fields
+      if ('firstName' in updates || 'lastName' in updates || 'email' in updates || 'phone' in updates) {
+        debouncedSavePartialLead({
+          firstName: newFormData.firstName,
+          lastName: newFormData.lastName,
+          email: newFormData.email,
+          phone: newFormData.phone,
+        });
+      }
+    },
+    [formData, debouncedSavePartialLead]
+  );
+
+  // Cleanup function to mark lead as abandoned when user leaves
+  useEffect(() => {
+    const handleBeforeUnload = () => {
+      if (partialLeadSaved && chatSessionId) {
+        // Use sendBeacon for reliable abandonment tracking
+        navigator.sendBeacon(
+          `${window.location.origin}/api/partial-leads/${chatSessionId}/abandon`,
+          JSON.stringify({})
+        );
+      }
+    };
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === 'hidden' && partialLeadSaved && chatSessionId) {
+        // User switched tabs or minimized - potential abandonment
+        setTimeout(() => {
+          if (document.visibilityState === 'hidden') {
+            navigator.sendBeacon(
+              `${window.location.origin}/api/partial-leads/${chatSessionId}/abandon`,
+              JSON.stringify({})
+            );
+          }
+        }, 30000); // Mark as abandoned after 30 seconds of inactivity
+      }
+    };
+
+    window.addEventListener('beforeunload', handleBeforeUnload);
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      window.removeEventListener('beforeunload', handleBeforeUnload);
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+      
+      // Clear timeout on unmount
+      if (partialLeadTimeoutRef.current) {
+        clearTimeout(partialLeadTimeoutRef.current);
+      }
+    };
+  }, [partialLeadSaved, chatSessionId]);
 
   // Navigation functions for the new 2-step flow
   const goToStep = (step: ChatFlowStep) => {
@@ -2249,7 +2368,7 @@ export default function Chat() {
                           <Input
                             id="firstName"
                             value={formData.firstName}
-                            onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                            onChange={(e) => updateFormDataWithAutoSave({ firstName: e.target.value })}
                             required
                             data-testid="input-first-name"
                           />
@@ -2259,7 +2378,7 @@ export default function Chat() {
                           <Input
                             id="lastName"
                             value={formData.lastName}
-                            onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                            onChange={(e) => updateFormDataWithAutoSave({ lastName: e.target.value })}
                             required
                             data-testid="input-last-name"
                           />
@@ -2272,7 +2391,7 @@ export default function Chat() {
                           id="email"
                           type="email"
                           value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                          onChange={(e) => updateFormDataWithAutoSave({ email: e.target.value })}
                           required
                           data-testid="input-email"
                         />
@@ -2284,7 +2403,7 @@ export default function Chat() {
                           id="phone"
                           type="tel"
                           value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                          onChange={(e) => updateFormDataWithAutoSave({ phone: e.target.value })}
                           data-testid="input-phone"
                         />
                       </div>

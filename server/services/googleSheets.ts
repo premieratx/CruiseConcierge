@@ -41,6 +41,29 @@ export interface LeadData {
   quoteId?: string;
 }
 
+// Google Sheets API integration for partial lead tracking
+export interface PartialLeadData {
+  partialLeadId: string;
+  sessionId: string;
+  createdDate: string;
+  name?: string;
+  email?: string;
+  phone?: string;
+  eventType?: string;
+  eventTypeLabel?: string;
+  preferredDate?: string;
+  groupSize?: number;
+  chatbotData?: any;
+  quoteId?: string;
+  status: 'partial' | 'abandoned' | 'contacted' | 'converted';
+  lastUpdated: string;
+  abandonedAt?: string;
+  convertedToContactId?: string;
+  source: string;
+  notes?: string;
+  quoteUrl?: string;
+}
+
 export type LeadProgressStage = 'started' | 'contact_complete' | 'date_selected' | 'size_selected' | 'options_selected' | 'complete';
 export type LeadStatus = 'NEW' | 'CONTACT_INFO' | 'DATE_SELECTED' | 'OPTIONS_SELECTED' | 'QUOTED' | 'BOOKED' | 'LOST';
 
@@ -834,6 +857,215 @@ export class GoogleSheetsService {
     }
     
     return availability;
+  }
+
+  // Partial Lead tracking methods
+  async createPartialLead(partialLeadData: {
+    partialLeadId: string;
+    sessionId: string;
+    name?: string;
+    email?: string;
+    phone?: string;
+    eventType?: string;
+    eventTypeLabel?: string;
+    preferredDate?: string;
+    groupSize?: number;
+    chatbotData?: any;
+    status?: 'partial' | 'abandoned' | 'contacted' | 'converted';
+  }): Promise<boolean> {
+    try {
+      if (!this.sheets || !this.spreadsheetId) {
+        console.log("Would create partial lead in Google Sheets:", partialLeadData);
+        return true;
+      }
+
+      // Ensure the Partial Leads sheet exists
+      await this.ensurePartialLeadsSheetExists();
+
+      const now = new Date().toISOString();
+      const partialLeadRow = [
+        partialLeadData.partialLeadId,
+        partialLeadData.sessionId,
+        now, // createdDate
+        partialLeadData.name || '',
+        partialLeadData.email || '',
+        partialLeadData.phone || '',
+        partialLeadData.eventType || '',
+        partialLeadData.eventTypeLabel || '',
+        partialLeadData.preferredDate || '',
+        partialLeadData.groupSize?.toString() || '',
+        JSON.stringify(partialLeadData.chatbotData || {}),
+        '', // quoteId
+        partialLeadData.status || 'partial',
+        now, // lastUpdated
+        '', // abandonedAt
+        '', // convertedToContactId
+        'AI Chatbot Flow - Partial Lead',
+        '', // notes
+        '' // quoteUrl
+      ];
+
+      await this.sheets.spreadsheets.values.append({
+        spreadsheetId: this.spreadsheetId,
+        range: 'PartialLeads!A:S',
+        valueInputOption: 'RAW',
+        resource: {
+          values: [partialLeadRow]
+        }
+      });
+
+      console.log("Successfully created partial lead in Google Sheets:", partialLeadData.partialLeadId);
+      return true;
+    } catch (error) {
+      console.error("Error creating partial lead in Google Sheets:", error);
+      return false;
+    }
+  }
+
+  async updatePartialLead(partialLeadId: string, updates: {
+    name?: string;
+    email?: string;
+    phone?: string;
+    eventType?: string;
+    eventTypeLabel?: string;
+    preferredDate?: string;
+    groupSize?: number;
+    chatbotData?: any;
+    quoteId?: string;
+    status?: 'partial' | 'abandoned' | 'contacted' | 'converted';
+    abandonedAt?: string;
+    convertedToContactId?: string;
+    notes?: string;
+    quoteUrl?: string;
+  }): Promise<boolean> {
+    try {
+      if (!this.sheets || !this.spreadsheetId) {
+        console.log("Would update partial lead in Google Sheets:", { partialLeadId, updates });
+        return true;
+      }
+
+      // Find the partial lead row
+      const range = 'PartialLeads!A2:S1000';
+      const response = await this.sheets.spreadsheets.values.get({
+        spreadsheetId: this.spreadsheetId,
+        range: range,
+      });
+      
+      const rows = response.data.values || [];
+      let rowIndex = -1;
+      
+      for (let i = 0; i < rows.length; i++) {
+        if (rows[i][0] === partialLeadId) {
+          rowIndex = i + 2; // +2 because we're 0-indexed and skipping header
+          break;
+        }
+      }
+
+      if (rowIndex === -1) {
+        console.log("Partial lead not found in Google Sheets:", partialLeadId);
+        return false;
+      }
+
+      const existingRow = rows[rowIndex - 2];
+      const now = new Date().toISOString();
+      
+      // Update fields that are provided
+      const updatedRow = [
+        existingRow[0], // partialLeadId
+        existingRow[1], // sessionId
+        existingRow[2], // createdDate
+        updates.name !== undefined ? updates.name : existingRow[3],
+        updates.email !== undefined ? updates.email : existingRow[4],
+        updates.phone !== undefined ? updates.phone : existingRow[5],
+        updates.eventType !== undefined ? updates.eventType : existingRow[6],
+        updates.eventTypeLabel !== undefined ? updates.eventTypeLabel : existingRow[7],
+        updates.preferredDate !== undefined ? updates.preferredDate : existingRow[8],
+        updates.groupSize !== undefined ? updates.groupSize.toString() : existingRow[9],
+        updates.chatbotData !== undefined ? JSON.stringify(updates.chatbotData) : existingRow[10],
+        updates.quoteId !== undefined ? updates.quoteId : existingRow[11],
+        updates.status !== undefined ? updates.status : existingRow[12],
+        now, // lastUpdated
+        updates.abandonedAt !== undefined ? updates.abandonedAt : existingRow[14],
+        updates.convertedToContactId !== undefined ? updates.convertedToContactId : existingRow[15],
+        existingRow[16], // source
+        updates.notes !== undefined ? updates.notes : existingRow[17],
+        updates.quoteUrl !== undefined ? updates.quoteUrl : existingRow[18]
+      ];
+
+      await this.sheets.spreadsheets.values.update({
+        spreadsheetId: this.spreadsheetId,
+        range: `PartialLeads!A${rowIndex}:S${rowIndex}`,
+        valueInputOption: 'RAW',
+        resource: {
+          values: [updatedRow]
+        }
+      });
+
+      console.log("Successfully updated partial lead in Google Sheets:", partialLeadId);
+      return true;
+    } catch (error) {
+      console.error("Error updating partial lead in Google Sheets:", error);
+      return false;
+    }
+  }
+
+  // Helper method to ensure the Partial Leads sheet exists
+  private async ensurePartialLeadsSheetExists(): Promise<void> {
+    try {
+      // Get spreadsheet metadata to check existing sheets
+      const spreadsheet = await this.sheets.spreadsheets.get({
+        spreadsheetId: this.spreadsheetId
+      });
+
+      const sheets = spreadsheet.data.sheets || [];
+      const partialLeadsSheet = sheets.find((sheet: any) => sheet.properties?.title === 'PartialLeads');
+
+      if (!partialLeadsSheet) {
+        console.log("Creating 'PartialLeads' sheet...");
+        
+        // Create the PartialLeads sheet
+        await this.sheets.spreadsheets.batchUpdate({
+          spreadsheetId: this.spreadsheetId,
+          resource: {
+            requests: [{
+              addSheet: {
+                properties: {
+                  title: 'PartialLeads',
+                  gridProperties: {
+                    rowCount: 1000,
+                    columnCount: 19
+                  }
+                }
+              }
+            }]
+          }
+        });
+
+        // Add headers
+        const headers = [
+          'Partial Lead ID', 'Session ID', 'Created Date', 'Name', 'Email', 'Phone',
+          'Event Type', 'Event Type Label', 'Preferred Date', 'Group Size', 'Chatbot Data',
+          'Quote ID', 'Status', 'Last Updated', 'Abandoned At', 'Converted To Contact ID',
+          'Source', 'Notes', 'Quote URL'
+        ];
+
+        await this.sheets.spreadsheets.values.update({
+          spreadsheetId: this.spreadsheetId,
+          range: 'PartialLeads!A1:S1',
+          valueInputOption: 'RAW',
+          resource: {
+            values: [headers]
+          }
+        });
+        
+        console.log("✅ Successfully created 'PartialLeads' sheet with headers");
+      } else {
+        console.log("✅ 'PartialLeads' sheet already exists");
+      }
+    } catch (error) {
+      console.error("Error ensuring PartialLeads sheet exists:", error);
+      throw error;
+    }
   }
 }
 
