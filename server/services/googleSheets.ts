@@ -37,6 +37,8 @@ export interface LeadData {
   budget?: string;
   projectId?: string;
   notes?: string;
+  quoteUrl?: string;
+  quoteId?: string;
 }
 
 export type LeadProgressStage = 'started' | 'contact_complete' | 'date_selected' | 'size_selected' | 'options_selected' | 'complete';
@@ -59,6 +61,8 @@ export interface LeadUpdateData {
   budget?: string;
   projectId?: string;
   notes?: string;
+  quoteUrl?: string;
+  quoteId?: string;
 }
 
 export class GoogleSheetsService {
@@ -480,12 +484,14 @@ export class GoogleSheetsService {
         '', // specialRequests
         '', // budget
         '', // projectId
-        '' // notes
+        '', // notes
+        '', // quoteUrl
+        '' // quoteId
       ];
 
       await this.sheets.spreadsheets.values.append({
         spreadsheetId: this.spreadsheetId,
-        range: 'Leads!A:T',
+        range: 'Leads!A:V',
         valueInputOption: 'RAW',
         resource: {
           values: [leadRow]

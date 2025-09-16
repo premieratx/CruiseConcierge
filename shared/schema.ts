@@ -79,6 +79,9 @@ export const quotes = pgTable("quotes", {
   depositPercent: integer("deposit_percent").notNull().default(25),
   depositAmount: integer("deposit_amount").notNull().default(0),
   paymentSchedule: jsonb("payment_schedule").$type<PaymentSchedule[]>().default([]),
+  accessToken: varchar("access_token"), // nullable 128-bit secure token for public access
+  accessTokenCreatedAt: timestamp("access_token_created_at"), // when token was generated
+  accessTokenRevokedAt: timestamp("access_token_revoked_at"), // optional revocation timestamp
   expiresAt: timestamp("expires_at"),
   version: integer("version").notNull().default(1),
   createdAt: timestamp("created_at").notNull().defaultNow(),
