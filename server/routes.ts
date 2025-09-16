@@ -6,8 +6,9 @@ import Stripe from "stripe";
 declare module 'express-serve-static-core' {
   interface Request {
     adminUser?: AdminUser;
-    ip?: string;
-    connection?: any;
+    session?: any;
+    customerId?: string;
+    customerSession?: any;
   }
 }
 import { storage } from "./storage";

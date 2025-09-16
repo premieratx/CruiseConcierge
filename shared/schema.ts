@@ -838,8 +838,6 @@ export type InsertTimeframe = z.infer<typeof insertTimeframeSchema>;
 export type InsertEmailTemplate = z.infer<typeof insertEmailTemplateSchema>;
 export type InsertMasterTemplate = z.infer<typeof insertMasterTemplateSchema>;
 
-// Partial Lead Insert Types
-export type InsertPartialLead = z.infer<typeof insertPartialLeadSchema>;
 
 // Customer Portal Insert Types
 export type InsertSmsAuthToken = z.infer<typeof insertSmsAuthTokenSchema>;
