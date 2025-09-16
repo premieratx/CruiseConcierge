@@ -260,6 +260,89 @@ export interface IStorage {
   getCustomerInvoices(contactId: string): Promise<Invoice[]>;
   getCustomerBookings(contactId: string): Promise<Booking[]>;
   updateCustomerProfile(contactId: string, updates: Partial<Contact>): Promise<Contact>;
+
+  // Enhanced Customer Tracking - Quote Analytics
+  createQuoteAnalytics(analytics: InsertQuoteAnalytics): Promise<QuoteAnalytics>;
+  getQuoteAnalytics(quoteId: string): Promise<QuoteAnalytics[]>;
+  getQuoteAnalyticsByContact(contactId: string): Promise<QuoteAnalytics[]>;
+  trackQuoteView(quoteId: string, contactId?: string, sessionId?: string, metadata?: Record<string, any>): Promise<QuoteAnalytics>;
+  getQuoteViewStats(quoteId: string): Promise<{ views: number; uniqueViews: number; totalDuration: number; lastViewed?: Date }>;
+
+  // Enhanced Customer Tracking - File Send Tracking
+  createFileSend(fileSend: InsertFileSend): Promise<FileSend>;
+  getFileSends(contactId: string): Promise<FileSend[]>;
+  getFileSendsByProject(projectId: string): Promise<FileSend[]>;
+  trackFileAccess(fileSendId: string): Promise<FileSend>;
+  updateFileSendStatus(fileSendId: string, status: 'delivered' | 'accessed'): Promise<FileSend>;
+
+  // Enhanced Customer Tracking - Email Tracking
+  createEmailTracking(emailTracking: InsertEmailTracking): Promise<EmailTracking>;
+  getEmailTracking(contactId: string): Promise<EmailTracking[]>;
+  trackEmailOpen(emailId: string): Promise<EmailTracking>;
+  trackEmailClick(emailId: string): Promise<EmailTracking>;
+  updateEmailDeliveryStatus(emailId: string, status: 'delivered' | 'bounced', metadata?: Record<string, any>): Promise<EmailTracking>;
+  findEmailTrackingByMessageId(messageId: string, provider: string): Promise<EmailTracking | undefined>;
+  updateEmailUnsubscribeStatus(emailId: string, metadata?: Record<string, any>): Promise<EmailTracking>;
+
+  // Enhanced Customer Tracking - Customer Lifecycle
+  createCustomerLifecycle(lifecycle: InsertCustomerLifecycle): Promise<CustomerLifecycle>;
+  getCustomerLifecycle(contactId: string): Promise<CustomerLifecycle | undefined>;
+  updateCustomerLifecycleStage(contactId: string, newStage: LifecycleStage, notes?: string): Promise<CustomerLifecycle>;
+  calculateCustomerLifecycleMetrics(contactId: string): Promise<{
+    daysInCurrentStage: number;
+    totalDays: number;
+    conversionProbability: number;
+    nextActionRequired?: string;
+    nextActionDue?: Date;
+  }>;
+
+  // Enhanced Customer Tracking - Customer Activity
+  createCustomerActivity(activity: InsertCustomerActivity): Promise<CustomerActivity>;
+  getCustomerActivity(contactId: string, limit?: number): Promise<CustomerActivity[]>;
+  getCustomerActivityByType(contactId: string, activityType: ActivityType): Promise<CustomerActivity[]>;
+  getCustomerActivityStats(contactId: string): Promise<{
+    totalActivities: number;
+    lastActivity?: Date;
+    daysSinceLastContact: number;
+    totalTouchpoints: number;
+    activitiesByType: Record<string, number>;
+  }>;
+
+  // Enhanced Customer Tracking - Comprehensive Profile
+  getComprehensiveCustomerProfile(contactId: string): Promise<CustomerProfile | undefined>;
+  getCustomerChatHistory(contactId: string): Promise<{
+    messages: ChatMessage[];
+    sessionCount: number;
+    totalMessages: number;
+    firstContact?: Date;
+    lastContact?: Date;
+  }>;
+  getCustomerFileHistory(contactId: string): Promise<{
+    files: FileSend[];
+    totalFiles: number;
+    deliveredFiles: number;
+    accessedFiles: number;
+  }>;
+  getCustomerQuoteHistory(contactId: string): Promise<{
+    quotes: Quote[];
+    analytics: QuoteAnalytics[];
+    totalViews: number;
+    acceptedQuotes: number;
+    pendingQuotes: number;
+  }>;
+  getCustomerPaymentSummary(contactId: string): Promise<{
+    totalValue: number;
+    totalPaid: number;
+    balance: number;
+    payments: Payment[];
+    paymentHistory: Array<{
+      date: Date;
+      amount: number;
+      method: string;
+      status: string;
+      invoiceId?: string;
+    }>;
+  }>;
 }
 
 export class MemStorage implements IStorage {
@@ -293,6 +376,13 @@ export class MemStorage implements IStorage {
   // Partial Lead Storage - abandoned lead capture system
   private partialLeads: Map<string, PartialLead> = new Map(); // key: sessionId
   private partialLeadsById: Map<string, PartialLead> = new Map(); // key: id
+  
+  // Enhanced Customer Tracking Storage
+  private quoteAnalytics: Map<string, QuoteAnalytics> = new Map();
+  private fileSends: Map<string, FileSend> = new Map();
+  private emailTracking: Map<string, EmailTracking> = new Map();
+  private customerLifecycle: Map<string, CustomerLifecycle> = new Map(); // key: contactId
+  private customerActivity: Map<string, CustomerActivity> = new Map();
   
   // Admin audit logs for tracking changes
   private adminLogs: Array<{ id: string; action: string; timestamp: Date; adminUser?: string; details: any }> = [];
@@ -4644,6 +4734,617 @@ export class MemStorage implements IStorage {
 
     this.contacts.set(contactId, updatedContact);
     return updatedContact;
+  }
+
+  // ===== ENHANCED CUSTOMER TRACKING METHODS =====
+
+  // Quote Analytics Methods
+  async createQuoteAnalytics(analytics: InsertQuoteAnalytics): Promise<QuoteAnalytics> {
+    const id = randomUUID();
+    const newAnalytics: QuoteAnalytics = {
+      ...analytics,
+      id,
+      contactId: analytics.contactId || null,
+      sessionId: analytics.sessionId || null,
+      viewDuration: analytics.viewDuration || null,
+      ipAddress: analytics.ipAddress || null,
+      userAgent: analytics.userAgent || null,
+      referrer: analytics.referrer || null,
+      deviceInfo: analytics.deviceInfo || {},
+      metadata: analytics.metadata || {},
+      createdAt: new Date(),
+    };
+    this.quoteAnalytics.set(id, newAnalytics);
+    return newAnalytics;
+  }
+
+  async getQuoteAnalytics(quoteId: string): Promise<QuoteAnalytics[]> {
+    return Array.from(this.quoteAnalytics.values())
+      .filter(qa => qa.quoteId === quoteId)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  async getQuoteAnalyticsByContact(contactId: string): Promise<QuoteAnalytics[]> {
+    return Array.from(this.quoteAnalytics.values())
+      .filter(qa => qa.contactId === contactId)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  async trackQuoteView(quoteId: string, contactId?: string, sessionId?: string, metadata?: Record<string, any>): Promise<QuoteAnalytics> {
+    return this.createQuoteAnalytics({
+      quoteId,
+      contactId,
+      sessionId,
+      action: 'view',
+      metadata: metadata || {},
+    });
+  }
+
+  async getQuoteViewStats(quoteId: string): Promise<{ views: number; uniqueViews: number; totalDuration: number; lastViewed?: Date }> {
+    const analytics = await this.getQuoteAnalytics(quoteId);
+    const views = analytics.filter(qa => qa.action === 'view');
+    const uniqueViews = new Set(views.map(v => v.contactId || v.sessionId || v.ipAddress).filter(Boolean)).size;
+    const totalDuration = views.reduce((total, view) => total + (view.viewDuration || 0), 0);
+    const lastViewed = views.length > 0 ? views[0].createdAt : undefined;
+
+    return {
+      views: views.length,
+      uniqueViews,
+      totalDuration,
+      lastViewed,
+    };
+  }
+
+  // File Send Tracking Methods
+  async createFileSend(fileSend: InsertFileSend): Promise<FileSend> {
+    const id = randomUUID();
+    const newFileSend: FileSend = {
+      ...fileSend,
+      id,
+      projectId: fileSend.projectId || null,
+      quoteId: fileSend.quoteId || null,
+      fileUrl: fileSend.fileUrl || null,
+      fileSize: fileSend.fileSize || null,
+      emailId: fileSend.emailId || null,
+      sentBy: fileSend.sentBy || null,
+      delivered: fileSend.delivered || false,
+      deliveredAt: fileSend.deliveredAt || null,
+      accessed: fileSend.accessed || false,
+      accessedAt: fileSend.accessedAt || null,
+      downloadCount: fileSend.downloadCount || 0,
+      lastAccessedAt: fileSend.lastAccessedAt || null,
+      expiresAt: fileSend.expiresAt || null,
+      metadata: fileSend.metadata || {},
+      createdAt: new Date(),
+    };
+    this.fileSends.set(id, newFileSend);
+    return newFileSend;
+  }
+
+  async getFileSends(contactId: string): Promise<FileSend[]> {
+    return Array.from(this.fileSends.values())
+      .filter(fs => fs.contactId === contactId)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  async getFileSendsByProject(projectId: string): Promise<FileSend[]> {
+    return Array.from(this.fileSends.values())
+      .filter(fs => fs.projectId === projectId)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  async trackFileAccess(fileSendId: string): Promise<FileSend> {
+    const fileSend = this.fileSends.get(fileSendId);
+    if (!fileSend) {
+      throw new Error('File send not found');
+    }
+
+    const updated: FileSend = {
+      ...fileSend,
+      accessed: true,
+      accessedAt: new Date(),
+      downloadCount: fileSend.downloadCount + 1,
+      lastAccessedAt: new Date(),
+    };
+
+    this.fileSends.set(fileSendId, updated);
+    return updated;
+  }
+
+  async updateFileSendStatus(fileSendId: string, status: 'delivered' | 'accessed'): Promise<FileSend> {
+    const fileSend = this.fileSends.get(fileSendId);
+    if (!fileSend) {
+      throw new Error('File send not found');
+    }
+
+    const now = new Date();
+    const updated: FileSend = {
+      ...fileSend,
+      delivered: status === 'delivered' ? true : fileSend.delivered,
+      deliveredAt: status === 'delivered' ? now : fileSend.deliveredAt,
+      accessed: status === 'accessed' ? true : fileSend.accessed,
+      accessedAt: status === 'accessed' ? now : fileSend.accessedAt,
+    };
+
+    this.fileSends.set(fileSendId, updated);
+    return updated;
+  }
+
+  // Email Tracking Methods
+  async createEmailTracking(emailTracking: InsertEmailTracking): Promise<EmailTracking> {
+    const id = randomUUID();
+    const newEmailTracking: EmailTracking = {
+      ...emailTracking,
+      id,
+      projectId: emailTracking.projectId || null,
+      quoteId: emailTracking.quoteId || null,
+      emailProvider: emailTracking.emailProvider || 'sendgrid',
+      providerMessageId: emailTracking.providerMessageId || null,
+      sentAt: emailTracking.sentAt || new Date(),
+      delivered: emailTracking.delivered || false,
+      deliveredAt: emailTracking.deliveredAt || null,
+      opened: emailTracking.opened || false,
+      firstOpenedAt: emailTracking.firstOpenedAt || null,
+      openCount: emailTracking.openCount || 0,
+      lastOpenedAt: emailTracking.lastOpenedAt || null,
+      clicked: emailTracking.clicked || false,
+      firstClickedAt: emailTracking.firstClickedAt || null,
+      clickCount: emailTracking.clickCount || 0,
+      lastClickedAt: emailTracking.lastClickedAt || null,
+      bounced: emailTracking.bounced || false,
+      bouncedAt: emailTracking.bouncedAt || null,
+      bounceReason: emailTracking.bounceReason || null,
+      unsubscribed: emailTracking.unsubscribed || false,
+      unsubscribedAt: emailTracking.unsubscribedAt || null,
+      metadata: emailTracking.metadata || {},
+    };
+    this.emailTracking.set(id, newEmailTracking);
+    return newEmailTracking;
+  }
+
+  async getEmailTracking(contactId: string): Promise<EmailTracking[]> {
+    return Array.from(this.emailTracking.values())
+      .filter(et => et.contactId === contactId)
+      .sort((a, b) => b.sentAt.getTime() - a.sentAt.getTime());
+  }
+
+  async trackEmailOpen(emailId: string): Promise<EmailTracking> {
+    const emailTracking = this.emailTracking.get(emailId);
+    if (!emailTracking) {
+      throw new Error('Email tracking not found');
+    }
+
+    const now = new Date();
+    const updated: EmailTracking = {
+      ...emailTracking,
+      opened: true,
+      firstOpenedAt: emailTracking.firstOpenedAt || now,
+      openCount: emailTracking.openCount + 1,
+      lastOpenedAt: now,
+    };
+
+    this.emailTracking.set(emailId, updated);
+    return updated;
+  }
+
+  async trackEmailClick(emailId: string): Promise<EmailTracking> {
+    const emailTracking = this.emailTracking.get(emailId);
+    if (!emailTracking) {
+      throw new Error('Email tracking not found');
+    }
+
+    const now = new Date();
+    const updated: EmailTracking = {
+      ...emailTracking,
+      clicked: true,
+      firstClickedAt: emailTracking.firstClickedAt || now,
+      clickCount: emailTracking.clickCount + 1,
+      lastClickedAt: now,
+    };
+
+    this.emailTracking.set(emailId, updated);
+    return updated;
+  }
+
+  async updateEmailDeliveryStatus(emailId: string, status: 'delivered' | 'bounced', metadata?: Record<string, any>): Promise<EmailTracking> {
+    const emailTracking = this.emailTracking.get(emailId);
+    if (!emailTracking) {
+      throw new Error('Email tracking not found');
+    }
+
+    const now = new Date();
+    const updated: EmailTracking = {
+      ...emailTracking,
+      delivered: status === 'delivered',
+      deliveredAt: status === 'delivered' ? now : emailTracking.deliveredAt,
+      bounced: status === 'bounced',
+      bouncedAt: status === 'bounced' ? now : emailTracking.bouncedAt,
+      bounceReason: status === 'bounced' ? metadata?.reason || 'Unknown' : emailTracking.bounceReason,
+      metadata: { ...emailTracking.metadata, ...metadata },
+    };
+
+    this.emailTracking.set(emailId, updated);
+    return updated;
+  }
+
+  async findEmailTrackingByMessageId(messageId: string, provider: string): Promise<EmailTracking | undefined> {
+    return Array.from(this.emailTracking.values())
+      .find(et => et.providerMessageId === messageId && et.emailProvider === provider);
+  }
+
+  async updateEmailUnsubscribeStatus(emailId: string, metadata?: Record<string, any>): Promise<EmailTracking> {
+    const emailTracking = this.emailTracking.get(emailId);
+    if (!emailTracking) {
+      throw new Error('Email tracking not found');
+    }
+
+    const now = new Date();
+    const updated: EmailTracking = {
+      ...emailTracking,
+      unsubscribed: true,
+      unsubscribedAt: now,
+      metadata: { ...emailTracking.metadata, ...metadata },
+    };
+
+    this.emailTracking.set(emailId, updated);
+    return updated;
+  }
+
+  // Customer Lifecycle Methods
+  async createCustomerLifecycle(lifecycle: InsertCustomerLifecycle): Promise<CustomerLifecycle> {
+    const id = randomUUID();
+    const now = new Date();
+    const newLifecycle: CustomerLifecycle = {
+      ...lifecycle,
+      id,
+      projectId: lifecycle.projectId || null,
+      currentStage: lifecycle.currentStage || 'initial_contact',
+      previousStage: lifecycle.previousStage || null,
+      stageEnteredAt: lifecycle.stageEnteredAt || now,
+      stageHistory: lifecycle.stageHistory || [],
+      nextActionRequired: lifecycle.nextActionRequired || null,
+      nextActionDue: lifecycle.nextActionDue || null,
+      totalValue: lifecycle.totalValue || 0,
+      probabilityScore: lifecycle.probabilityScore || 50,
+      lastTouchpoint: lifecycle.lastTouchpoint || null,
+      lastTouchpointType: lifecycle.lastTouchpointType || null,
+      daysSinceLastContact: lifecycle.daysSinceLastContact || 0,
+      totalTouchpoints: lifecycle.totalTouchpoints || 0,
+      conversionDate: lifecycle.conversionDate || null,
+      completionDate: lifecycle.completionDate || null,
+      adminNotes: lifecycle.adminNotes || null,
+      systemNotes: lifecycle.systemNotes || null,
+      updatedAt: now,
+      createdAt: now,
+    };
+    this.customerLifecycle.set(lifecycle.contactId, newLifecycle);
+    return newLifecycle;
+  }
+
+  async getCustomerLifecycle(contactId: string): Promise<CustomerLifecycle | undefined> {
+    return this.customerLifecycle.get(contactId);
+  }
+
+  async updateCustomerLifecycleStage(contactId: string, newStage: LifecycleStage, notes?: string): Promise<CustomerLifecycle> {
+    let lifecycle = this.customerLifecycle.get(contactId);
+    const now = new Date();
+
+    if (!lifecycle) {
+      // Create new lifecycle if it doesn't exist
+      lifecycle = await this.createCustomerLifecycle({
+        contactId,
+        currentStage: newStage,
+        systemNotes: notes || `Initial stage: ${newStage}`,
+      });
+    } else {
+      // Calculate time in previous stage
+      const timeInPreviousStage = now.getTime() - lifecycle.stageEnteredAt.getTime();
+      const minutesInStage = Math.floor(timeInPreviousStage / (1000 * 60));
+
+      // Update stage history
+      const newStageHistory = [
+        ...lifecycle.stageHistory,
+        {
+          stage: lifecycle.currentStage,
+          enteredAt: lifecycle.stageEnteredAt.toISOString(),
+          duration: minutesInStage,
+          notes: notes || '',
+        },
+      ];
+
+      const updated: CustomerLifecycle = {
+        ...lifecycle,
+        previousStage: lifecycle.currentStage,
+        currentStage: newStage,
+        stageEnteredAt: now,
+        stageHistory: newStageHistory,
+        updatedAt: now,
+        systemNotes: `${lifecycle.systemNotes || ''}\n${now.toISOString()}: Moved to ${newStage}${notes ? ` - ${notes}` : ''}`.trim(),
+      };
+
+      this.customerLifecycle.set(contactId, updated);
+      lifecycle = updated;
+    }
+
+    return lifecycle;
+  }
+
+  async calculateCustomerLifecycleMetrics(contactId: string): Promise<{
+    daysInCurrentStage: number;
+    totalDays: number;
+    conversionProbability: number;
+    nextActionRequired?: string;
+    nextActionDue?: Date;
+  }> {
+    const lifecycle = this.customerLifecycle.get(contactId);
+    if (!lifecycle) {
+      return {
+        daysInCurrentStage: 0,
+        totalDays: 0,
+        conversionProbability: 50,
+      };
+    }
+
+    const now = new Date();
+    const daysInCurrentStage = Math.floor((now.getTime() - lifecycle.stageEnteredAt.getTime()) / (1000 * 60 * 60 * 24));
+    const totalDays = Math.floor((now.getTime() - lifecycle.createdAt.getTime()) / (1000 * 60 * 60 * 24));
+
+    return {
+      daysInCurrentStage,
+      totalDays,
+      conversionProbability: lifecycle.probabilityScore,
+      nextActionRequired: lifecycle.nextActionRequired || undefined,
+      nextActionDue: lifecycle.nextActionDue || undefined,
+    };
+  }
+
+  // Customer Activity Methods
+  async createCustomerActivity(activity: InsertCustomerActivity): Promise<CustomerActivity> {
+    const id = randomUUID();
+    const newActivity: CustomerActivity = {
+      ...activity,
+      id,
+      projectId: activity.projectId || null,
+      activitySubtype: activity.activitySubtype || null,
+      value: activity.value || null,
+      duration: activity.duration || null,
+      source: activity.source || 'system',
+      sourceId: activity.sourceId || null,
+      initiatedBy: activity.initiatedBy || null,
+      adminUserId: activity.adminUserId || null,
+      ipAddress: activity.ipAddress || null,
+      userAgent: activity.userAgent || null,
+      deviceInfo: activity.deviceInfo || {},
+      metadata: activity.metadata || {},
+      importance: activity.importance || 'normal',
+      isAutomated: activity.isAutomated || false,
+      createdAt: new Date(),
+    };
+    this.customerActivity.set(id, newActivity);
+    return newActivity;
+  }
+
+  async getCustomerActivity(contactId: string, limit?: number): Promise<CustomerActivity[]> {
+    let activities = Array.from(this.customerActivity.values())
+      .filter(ca => ca.contactId === contactId)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+
+    if (limit) {
+      activities = activities.slice(0, limit);
+    }
+
+    return activities;
+  }
+
+  async getCustomerActivityByType(contactId: string, activityType: ActivityType): Promise<CustomerActivity[]> {
+    return Array.from(this.customerActivity.values())
+      .filter(ca => ca.contactId === contactId && ca.activityType === activityType)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  async getCustomerActivityStats(contactId: string): Promise<{
+    totalActivities: number;
+    lastActivity?: Date;
+    daysSinceLastContact: number;
+    totalTouchpoints: number;
+    activitiesByType: Record<string, number>;
+  }> {
+    const activities = await this.getCustomerActivity(contactId);
+    const activitiesByType: Record<string, number> = {};
+
+    activities.forEach(activity => {
+      activitiesByType[activity.activityType] = (activitiesByType[activity.activityType] || 0) + 1;
+    });
+
+    const lastActivity = activities.length > 0 ? activities[0].createdAt : undefined;
+    const daysSinceLastContact = lastActivity
+      ? Math.floor((new Date().getTime() - lastActivity.getTime()) / (1000 * 60 * 60 * 24))
+      : 0;
+
+    return {
+      totalActivities: activities.length,
+      lastActivity,
+      daysSinceLastContact,
+      totalTouchpoints: activities.length,
+      activitiesByType,
+    };
+  }
+
+  // Comprehensive Profile Methods
+  async getComprehensiveCustomerProfile(contactId: string): Promise<CustomerProfile | undefined> {
+    const contact = this.contacts.get(contactId);
+    if (!contact) return undefined;
+
+    const [
+      projects,
+      quotes,
+      lifecycle,
+      chatHistory,
+      quoteAnalytics,
+      fileSends,
+      emailTracking,
+      customerActivity,
+      payments,
+      bookings,
+    ] = await Promise.all([
+      this.getProjectsByContact(contactId),
+      this.getCustomerQuotesWithAccess(contactId),
+      this.getCustomerLifecycle(contactId),
+      this.getCustomerChatHistory(contactId),
+      this.getQuoteAnalyticsByContact(contactId),
+      this.getFileSends(contactId),
+      this.getEmailTracking(contactId),
+      this.getCustomerActivity(contactId),
+      this.getPaymentsByCustomer(contactId),
+      this.getCustomerBookings(contactId),
+    ]);
+
+    const paymentSummary = await this.getCustomerPaymentSummary(contactId);
+    const lifecycleMetrics = await this.calculateCustomerLifecycleMetrics(contactId);
+
+    return {
+      contact,
+      projects,
+      quotes,
+      lifecycle: lifecycle || await this.createCustomerLifecycle({ contactId }),
+      chatHistory: chatHistory.messages,
+      quoteAnalytics,
+      fileSends,
+      emailTracking,
+      customerActivity,
+      payments,
+      bookings,
+      totalValue: paymentSummary.totalValue,
+      totalPaid: paymentSummary.totalPaid,
+      balance: paymentSummary.balance,
+      lastActivity: chatHistory.lastContact || null,
+      daysInCurrentStage: lifecycleMetrics.daysInCurrentStage,
+      conversionProbability: lifecycleMetrics.conversionProbability,
+      nextActionRequired: lifecycleMetrics.nextActionRequired || null,
+      nextActionDue: lifecycleMetrics.nextActionDue || null,
+    };
+  }
+
+  async getCustomerChatHistory(contactId: string): Promise<{
+    messages: ChatMessage[];
+    sessionCount: number;
+    totalMessages: number;
+    firstContact?: Date;
+    lastContact?: Date;
+  }> {
+    const allMessages = Array.from(this.chatMessages.values())
+      .filter(msg => msg.contactId === contactId)
+      .sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+
+    const sessionIds = new Set(allMessages.map(msg => msg.sessionId));
+    const firstContact = allMessages.length > 0 ? allMessages[0].createdAt : undefined;
+    const lastContact = allMessages.length > 0 ? allMessages[allMessages.length - 1].createdAt : undefined;
+
+    return {
+      messages: allMessages,
+      sessionCount: sessionIds.size,
+      totalMessages: allMessages.length,
+      firstContact,
+      lastContact,
+    };
+  }
+
+  async getCustomerFileHistory(contactId: string): Promise<{
+    files: FileSend[];
+    totalFiles: number;
+    deliveredFiles: number;
+    accessedFiles: number;
+  }> {
+    const files = await this.getFileSends(contactId);
+    const deliveredFiles = files.filter(f => f.delivered).length;
+    const accessedFiles = files.filter(f => f.accessed).length;
+
+    return {
+      files,
+      totalFiles: files.length,
+      deliveredFiles,
+      accessedFiles,
+    };
+  }
+
+  async getCustomerQuoteHistory(contactId: string): Promise<{
+    quotes: Quote[];
+    analytics: QuoteAnalytics[];
+    totalViews: number;
+    acceptedQuotes: number;
+    pendingQuotes: number;
+  }> {
+    const quotes = await this.getCustomerQuotesWithAccess(contactId);
+    const analytics = await this.getQuoteAnalyticsByContact(contactId);
+    const totalViews = analytics.filter(qa => qa.action === 'view').length;
+    const acceptedQuotes = quotes.filter(q => q.status === 'ACCEPTED').length;
+    const pendingQuotes = quotes.filter(q => q.status === 'DRAFT' || q.status === 'SENT').length;
+
+    return {
+      quotes,
+      analytics,
+      totalViews,
+      acceptedQuotes,
+      pendingQuotes,
+    };
+  }
+
+  async getCustomerPaymentSummary(contactId: string): Promise<{
+    totalValue: number;
+    totalPaid: number;
+    balance: number;
+    payments: Payment[];
+    paymentHistory: Array<{
+      date: Date;
+      amount: number;
+      method: string;
+      status: string;
+      invoiceId?: string;
+    }>;
+  }> {
+    const projects = await this.getProjectsByContact(contactId);
+    const projectIds = projects.map(p => p.id);
+    
+    const invoices = Array.from(this.invoices.values())
+      .filter(i => projectIds.includes(i.projectId));
+    
+    const allPayments = Array.from(this.payments.values())
+      .filter(p => invoices.some(i => i.id === p.invoiceId));
+
+    const totalValue = invoices.reduce((sum, invoice) => sum + invoice.total, 0);
+    const totalPaid = allPayments
+      .filter(p => p.status === 'paid')
+      .reduce((sum, payment) => sum + payment.amount, 0);
+    const balance = totalValue - totalPaid;
+
+    const paymentHistory = allPayments.map(payment => ({
+      date: payment.paidAt || new Date(),
+      amount: payment.amount,
+      method: payment.method,
+      status: payment.status,
+      invoiceId: payment.invoiceId,
+    })).sort((a, b) => b.date.getTime() - a.date.getTime());
+
+    return {
+      totalValue,
+      totalPaid,
+      balance,
+      payments: allPayments,
+      paymentHistory,
+    };
+  }
+
+  // Helper method for getting payments by customer
+  private async getPaymentsByCustomer(contactId: string): Promise<Payment[]> {
+    const projects = await this.getProjectsByContact(contactId);
+    const projectIds = projects.map(p => p.id);
+    
+    const invoices = Array.from(this.invoices.values())
+      .filter(i => projectIds.includes(i.projectId));
+    
+    return Array.from(this.payments.values())
+      .filter(p => invoices.some(i => i.id === p.invoiceId))
+      .sort((a, b) => (b.paidAt || new Date()).getTime() - (a.paidAt || new Date()).getTime());
   }
 }
 

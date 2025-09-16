@@ -7402,6 +7402,572 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ===== ENHANCED CUSTOMER TRACKING API ENDPOINTS =====
+
+  // GET /api/customers/:id/profile - Get comprehensive customer profile
+  app.get("/api/customers/:id/profile", requireAdminAuth, requirePermission('read'), async (req, res) => {
+    const { id: contactId } = req.params;
+    
+    try {
+      const profile = await storage.getComprehensiveCustomerProfile(contactId);
+      
+      if (!profile) {
+        return res.status(404).json({
+          success: false,
+          error: "Customer not found"
+        });
+      }
+      
+      res.json({
+        success: true,
+        profile
+      });
+    } catch (error) {
+      console.error('Error fetching customer profile:', error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to fetch customer profile"
+      });
+    }
+  });
+
+  // GET /api/customers/:id/chat-history - Get complete chat conversation history
+  app.get("/api/customers/:id/chat-history", requireAdminAuth, requirePermission('read'), async (req, res) => {
+    const { id: contactId } = req.params;
+    
+    try {
+      const chatHistory = await storage.getCustomerChatHistory(contactId);
+      
+      res.json({
+        success: true,
+        chatHistory
+      });
+    } catch (error) {
+      console.error('Error fetching chat history:', error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to fetch chat history"
+      });
+    }
+  });
+
+  // GET /api/customers/:id/files - Get files and documents sent to customer
+  app.get("/api/customers/:id/files", requireAdminAuth, requirePermission('read'), async (req, res) => {
+    const { id: contactId } = req.params;
+    
+    try {
+      const fileHistory = await storage.getCustomerFileHistory(contactId);
+      
+      res.json({
+        success: true,
+        fileHistory
+      });
+    } catch (error) {
+      console.error('Error fetching file history:', error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to fetch file history"
+      });
+    }
+  });
+
+  // GET /api/customers/:id/quote-analytics - Get quote viewing analytics
+  app.get("/api/customers/:id/quote-analytics", requireAdminAuth, requirePermission('read'), async (req, res) => {
+    const { id: contactId } = req.params;
+    
+    try {
+      const quoteHistory = await storage.getCustomerQuoteHistory(contactId);
+      
+      res.json({
+        success: true,
+        quoteHistory
+      });
+    } catch (error) {
+      console.error('Error fetching quote analytics:', error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to fetch quote analytics"
+      });
+    }
+  });
+
+  // GET /api/customers/:id/payments - Get payment history and status
+  app.get("/api/customers/:id/payments", requireAdminAuth, requirePermission('read'), async (req, res) => {
+    const { id: contactId } = req.params;
+    
+    try {
+      const paymentSummary = await storage.getCustomerPaymentSummary(contactId);
+      
+      res.json({
+        success: true,
+        paymentSummary
+      });
+    } catch (error) {
+      console.error('Error fetching payment history:', error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to fetch payment history"
+      });
+    }
+  });
+
+  // GET /api/customers/:id/activity - Get customer activity and touchpoints
+  app.get("/api/customers/:id/activity", requireAdminAuth, requirePermission('read'), async (req, res) => {
+    const { id: contactId } = req.params;
+    const { limit } = req.query;
+    
+    try {
+      const [activities, stats] = await Promise.all([
+        storage.getCustomerActivity(contactId, limit ? parseInt(limit as string) : undefined),
+        storage.getCustomerActivityStats(contactId)
+      ]);
+      
+      res.json({
+        success: true,
+        activities,
+        stats
+      });
+    } catch (error) {
+      console.error('Error fetching customer activity:', error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to fetch customer activity"
+      });
+    }
+  });
+
+  // GET /api/customers/:id/lifecycle - Get customer lifecycle status
+  app.get("/api/customers/:id/lifecycle", requireAdminAuth, requirePermission('read'), async (req, res) => {
+    const { id: contactId } = req.params;
+    
+    try {
+      const [lifecycle, metrics] = await Promise.all([
+        storage.getCustomerLifecycle(contactId),
+        storage.calculateCustomerLifecycleMetrics(contactId)
+      ]);
+      
+      res.json({
+        success: true,
+        lifecycle,
+        metrics
+      });
+    } catch (error) {
+      console.error('Error fetching lifecycle status:', error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to fetch lifecycle status"
+      });
+    }
+  });
+
+  // PUT /api/customers/:id/lifecycle/stage - Update customer lifecycle stage
+  app.put("/api/customers/:id/lifecycle/stage", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    const { id: contactId } = req.params;
+    const { stage, notes } = req.body;
+    
+    try {
+      const updatedLifecycle = await storage.updateCustomerLifecycleStage(contactId, stage, notes);
+      
+      // Track this as an admin activity
+      await storage.createCustomerActivity({
+        contactId,
+        activityType: 'call',
+        description: `Lifecycle stage updated to: ${stage}`,
+        source: 'admin',
+        initiatedBy: 'admin',
+        adminUserId: req.adminUser?.id,
+        metadata: { 
+          newStage: stage, 
+          notes,
+          adminUser: req.adminUser?.name
+        }
+      });
+      
+      res.json({
+        success: true,
+        lifecycle: updatedLifecycle
+      });
+    } catch (error) {
+      console.error('Error updating lifecycle stage:', error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to update lifecycle stage"
+      });
+    }
+  });
+
+  // POST /api/customers/:id/activity - Create customer activity record
+  app.post("/api/customers/:id/activity", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    const { id: contactId } = req.params;
+    const activityData = req.body;
+    
+    try {
+      const activity = await storage.createCustomerActivity({
+        ...activityData,
+        contactId,
+        source: 'admin',
+        initiatedBy: 'admin',
+        adminUserId: req.adminUser?.id
+      });
+      
+      res.json({
+        success: true,
+        activity
+      });
+    } catch (error) {
+      console.error('Error creating customer activity:', error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to create customer activity"
+      });
+    }
+  });
+
+  // POST /api/quotes/:id/track-view - Track quote view (can be public)
+  app.post("/api/quotes/:id/track-view", async (req, res) => {
+    const { id: quoteId } = req.params;
+    const { contactId, sessionId, viewDuration, metadata } = req.body;
+    
+    try {
+      const analytics = await storage.trackQuoteView(
+        quoteId, 
+        contactId, 
+        sessionId || req.session?.id, 
+        {
+          ...metadata,
+          userAgent: req.headers['user-agent'],
+          ipAddress: req.ip,
+          referrer: req.headers.referer
+        }
+      );
+      
+      res.json({
+        success: true,
+        analytics
+      });
+    } catch (error) {
+      console.error('Error tracking quote view:', error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to track quote view"
+      });
+    }
+  });
+
+  // GET /api/quotes/:id/analytics - Get quote view analytics (admin only)
+  app.get("/api/quotes/:id/analytics", requireAdminAuth, requirePermission('read'), async (req, res) => {
+    const { id: quoteId } = req.params;
+    
+    try {
+      const [analytics, stats] = await Promise.all([
+        storage.getQuoteAnalytics(quoteId),
+        storage.getQuoteViewStats(quoteId)
+      ]);
+      
+      res.json({
+        success: true,
+        analytics,
+        stats
+      });
+    } catch (error) {
+      console.error('Error fetching quote analytics:', error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to fetch quote analytics"
+      });
+    }
+  });
+
+  // POST /api/files/track-access/:id - Track file access
+  app.post("/api/files/track-access/:id", async (req, res) => {
+    const { id: fileSendId } = req.params;
+    
+    try {
+      const fileSend = await storage.trackFileAccess(fileSendId);
+      
+      res.json({
+        success: true,
+        fileSend
+      });
+    } catch (error) {
+      console.error('Error tracking file access:', error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to track file access"
+      });
+    }
+  });
+
+  // POST /api/emails/track-open/:id - Track email open
+  app.post("/api/emails/track-open/:id", async (req, res) => {
+    const { id: emailId } = req.params;
+    
+    try {
+      const emailTracking = await storage.trackEmailOpen(emailId);
+      
+      res.json({
+        success: true,
+        emailTracking
+      });
+    } catch (error) {
+      console.error('Error tracking email open:', error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to track email open"
+      });
+    }
+  });
+
+  // POST /api/emails/track-click/:id - Track email click
+  app.post("/api/emails/track-click/:id", async (req, res) => {
+    const { id: emailId } = req.params;
+    
+    try {
+      const emailTracking = await storage.trackEmailClick(emailId);
+      
+      res.json({
+        success: true,
+        emailTracking
+      });
+    } catch (error) {
+      console.error('Error tracking email click:', error);
+      res.status(500).json({
+        success: false,
+        error: "Failed to track email click"
+      });
+    }
+  });
+
+  // ==========================================
+  // EMAIL PROVIDER WEBHOOKS
+  // ==========================================
+
+  // POST /api/webhooks/sendgrid - SendGrid webhook for email events
+  app.post("/api/webhooks/sendgrid", async (req, res) => {
+    try {
+      const events = req.body;
+      
+      if (!Array.isArray(events)) {
+        return res.status(400).json({ error: "Invalid payload format" });
+      }
+
+      console.log(`Processing ${events.length} SendGrid webhook events`);
+      
+      for (const event of events) {
+        const { event: eventType, sg_message_id, timestamp, email, url } = event;
+        
+        try {
+          // Find email tracking record by provider message ID
+          const emailRecord = await storage.findEmailTrackingByMessageId(sg_message_id, 'sendgrid');
+          
+          if (!emailRecord) {
+            console.warn(`Email tracking record not found for SendGrid message: ${sg_message_id}`);
+            continue;
+          }
+
+          // Process different event types
+          switch (eventType) {
+            case 'delivered':
+              await storage.updateEmailDeliveryStatus(emailRecord.id, 'delivered', {
+                deliveredAt: new Date(timestamp * 1000),
+                provider: 'sendgrid'
+              });
+              break;
+              
+            case 'open':
+              await storage.trackEmailOpen(emailRecord.id);
+              // Create customer activity record
+              if (emailRecord.contactId) {
+                await storage.createCustomerActivity({
+                  contactId: emailRecord.contactId,
+                  projectId: emailRecord.projectId || null,
+                  activityType: 'email_open',
+                  activitySubtype: emailRecord.emailType,
+                  description: `Opened email: ${emailRecord.emailSubject}`,
+                  source: 'sendgrid_webhook',
+                  sourceId: emailRecord.id,
+                  initiatedBy: 'customer',
+                  metadata: { 
+                    messageId: sg_message_id,
+                    timestamp: timestamp,
+                    provider: 'sendgrid'
+                  },
+                  importance: 'normal',
+                  isAutomated: false
+                });
+              }
+              break;
+              
+            case 'click':
+              await storage.trackEmailClick(emailRecord.id);
+              // Create customer activity record
+              if (emailRecord.contactId) {
+                await storage.createCustomerActivity({
+                  contactId: emailRecord.contactId,
+                  projectId: emailRecord.projectId || null,
+                  activityType: 'email_click',
+                  activitySubtype: emailRecord.emailType,
+                  description: `Clicked link in email: ${emailRecord.emailSubject}`,
+                  source: 'sendgrid_webhook',
+                  sourceId: emailRecord.id,
+                  initiatedBy: 'customer',
+                  metadata: { 
+                    messageId: sg_message_id,
+                    timestamp: timestamp,
+                    url: url,
+                    provider: 'sendgrid'
+                  },
+                  importance: 'normal',
+                  isAutomated: false
+                });
+              }
+              break;
+              
+            case 'bounce':
+            case 'dropped':
+              await storage.updateEmailDeliveryStatus(emailRecord.id, 'bounced', {
+                bounceReason: event.reason || eventType,
+                bouncedAt: new Date(timestamp * 1000),
+                provider: 'sendgrid'
+              });
+              break;
+              
+            case 'unsubscribe':
+              await storage.updateEmailUnsubscribeStatus(emailRecord.id, {
+                unsubscribedAt: new Date(timestamp * 1000),
+                provider: 'sendgrid'
+              });
+              break;
+          }
+          
+          console.log(`Processed SendGrid ${eventType} event for message: ${sg_message_id}`);
+          
+        } catch (eventError) {
+          console.error(`Error processing SendGrid event:`, eventError);
+          // Continue processing other events
+        }
+      }
+      
+      res.status(200).send('OK');
+      
+    } catch (error) {
+      console.error('SendGrid webhook error:', error);
+      res.status(500).json({ 
+        error: "Failed to process SendGrid webhook",
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // POST /api/webhooks/mailgun - Mailgun webhook for email events  
+  app.post("/api/webhooks/mailgun", async (req, res) => {
+    try {
+      const { event, message, recipient, timestamp, url } = req.body;
+      const messageId = message?.headers?.['message-id'];
+      
+      if (!messageId) {
+        return res.status(400).json({ error: "Message ID not found in webhook data" });
+      }
+
+      console.log(`Processing Mailgun webhook event: ${event} for message: ${messageId}`);
+      
+      // Find email tracking record by provider message ID
+      const emailRecord = await storage.findEmailTrackingByMessageId(messageId, 'mailgun');
+      
+      if (!emailRecord) {
+        console.warn(`Email tracking record not found for Mailgun message: ${messageId}`);
+        return res.status(200).send('OK'); // Still return success to avoid retries
+      }
+
+      // Process different event types
+      switch (event) {
+        case 'delivered':
+          await storage.updateEmailDeliveryStatus(emailRecord.id, 'delivered', {
+            deliveredAt: new Date(timestamp * 1000),
+            provider: 'mailgun'
+          });
+          break;
+          
+        case 'opened':
+          await storage.trackEmailOpen(emailRecord.id);
+          // Create customer activity record
+          if (emailRecord.contactId) {
+            await storage.createCustomerActivity({
+              contactId: emailRecord.contactId,
+              projectId: emailRecord.projectId || null,
+              activityType: 'email_open',
+              activitySubtype: emailRecord.emailType,
+              description: `Opened email: ${emailRecord.emailSubject}`,
+              source: 'mailgun_webhook',
+              sourceId: emailRecord.id,
+              initiatedBy: 'customer',
+              metadata: { 
+                messageId: messageId,
+                timestamp: timestamp,
+                provider: 'mailgun',
+                recipient: recipient
+              },
+              importance: 'normal',
+              isAutomated: false
+            });
+          }
+          break;
+          
+        case 'clicked':
+          await storage.trackEmailClick(emailRecord.id);
+          // Create customer activity record
+          if (emailRecord.contactId) {
+            await storage.createCustomerActivity({
+              contactId: emailRecord.contactId,
+              projectId: emailRecord.projectId || null,
+              activityType: 'email_click',
+              activitySubtype: emailRecord.emailType,
+              description: `Clicked link in email: ${emailRecord.emailSubject}`,
+              source: 'mailgun_webhook',
+              sourceId: emailRecord.id,
+              initiatedBy: 'customer',
+              metadata: { 
+                messageId: messageId,
+                timestamp: timestamp,
+                url: url,
+                provider: 'mailgun',
+                recipient: recipient
+              },
+              importance: 'normal',
+              isAutomated: false
+            });
+          }
+          break;
+          
+        case 'bounced':
+        case 'failed':
+          await storage.updateEmailDeliveryStatus(emailRecord.id, 'bounced', {
+            bounceReason: req.body.reason || event,
+            bouncedAt: new Date(timestamp * 1000),
+            provider: 'mailgun'
+          });
+          break;
+          
+        case 'unsubscribed':
+          await storage.updateEmailUnsubscribeStatus(emailRecord.id, {
+            unsubscribedAt: new Date(timestamp * 1000),
+            provider: 'mailgun'
+          });
+          break;
+      }
+      
+      console.log(`Processed Mailgun ${event} event for message: ${messageId}`);
+      res.status(200).send('OK');
+      
+    } catch (error) {
+      console.error('Mailgun webhook error:', error);
+      res.status(500).json({ 
+        error: "Failed to process Mailgun webhook",
+        details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }

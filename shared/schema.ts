@@ -427,6 +427,139 @@ export const partialLeads = pgTable("partial_leads", {
   adminNotes: text("admin_notes"),
 });
 
+// Quote Analytics - for tracking quote views and interactions
+export const quoteAnalytics = pgTable("quote_analytics", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  quoteId: varchar("quote_id").notNull(),
+  contactId: varchar("contact_id"),
+  sessionId: varchar("session_id"),
+  action: varchar("action").notNull(), // 'view', 'download', 'accept', 'decline', 'share'
+  viewDuration: integer("view_duration"), // seconds spent viewing
+  ipAddress: varchar("ip_address"),
+  userAgent: text("user_agent"),
+  referrer: text("referrer"),
+  deviceInfo: jsonb("device_info").$type<{
+    browser?: string;
+    os?: string;
+    mobile?: boolean;
+    screen?: string;
+  }>().default({}),
+  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// File Tracking - for documents sent to customers
+export const fileSends = pgTable("file_sends", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  contactId: varchar("contact_id").notNull(),
+  projectId: varchar("project_id"),
+  quoteId: varchar("quote_id"),
+  fileType: varchar("file_type").notNull(), // 'quote', 'invoice', 'contract', 'confirmation', 'other'
+  fileName: text("file_name").notNull(),
+  fileUrl: text("file_url"),
+  fileSize: integer("file_size"), // in bytes
+  deliveryMethod: varchar("delivery_method").notNull(), // 'email', 'sms', 'portal', 'download'
+  emailId: varchar("email_id"), // reference to email tracking
+  sentBy: varchar("sent_by"), // admin user who sent
+  delivered: boolean("delivered").notNull().default(false),
+  deliveredAt: timestamp("delivered_at"),
+  accessed: boolean("accessed").notNull().default(false),
+  accessedAt: timestamp("accessed_at"),
+  downloadCount: integer("download_count").notNull().default(0),
+  lastAccessedAt: timestamp("last_accessed_at"),
+  expiresAt: timestamp("expires_at"),
+  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Email Tracking - for tracking email opens and clicks
+export const emailTracking = pgTable("email_tracking", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  contactId: varchar("contact_id").notNull(),
+  projectId: varchar("project_id"),
+  quoteId: varchar("quote_id"),
+  emailType: varchar("email_type").notNull(), // 'quote_delivery', 'payment_confirmation', 'booking_confirmation', 'reminder', 'follow_up'
+  emailSubject: text("email_subject").notNull(),
+  recipientEmail: text("recipient_email").notNull(),
+  senderEmail: text("sender_email").notNull(),
+  emailProvider: varchar("email_provider").notNull().default("sendgrid"), // 'sendgrid', 'mailgun'
+  providerMessageId: text("provider_message_id"), // provider's unique message ID
+  sentAt: timestamp("sent_at").notNull().defaultNow(),
+  delivered: boolean("delivered").notNull().default(false),
+  deliveredAt: timestamp("delivered_at"),
+  opened: boolean("opened").notNull().default(false),
+  firstOpenedAt: timestamp("first_opened_at"),
+  openCount: integer("open_count").notNull().default(0),
+  lastOpenedAt: timestamp("last_opened_at"),
+  clicked: boolean("clicked").notNull().default(false),
+  firstClickedAt: timestamp("first_clicked_at"),
+  clickCount: integer("click_count").notNull().default(0),
+  lastClickedAt: timestamp("last_clicked_at"),
+  bounced: boolean("bounced").notNull().default(false),
+  bouncedAt: timestamp("bounced_at"),
+  bounceReason: text("bounce_reason"),
+  unsubscribed: boolean("unsubscribed").notNull().default(false),
+  unsubscribedAt: timestamp("unsubscribed_at"),
+  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
+});
+
+// Customer Lifecycle Status - for tracking customer journey progress
+export const customerLifecycle = pgTable("customer_lifecycle", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  contactId: varchar("contact_id").notNull().unique(),
+  projectId: varchar("project_id"),
+  currentStage: varchar("current_stage").notNull().default("initial_contact"), // 'initial_contact', 'quote_sent', 'quote_viewed', 'quote_accepted', 'deposit_paid', 'fully_paid', 'confirmed', 'completed', 'cancelled'
+  previousStage: varchar("previous_stage"),
+  stageEnteredAt: timestamp("stage_entered_at").notNull().defaultNow(),
+  stageHistory: jsonb("stage_history").$type<{
+    stage: string;
+    enteredAt: string;
+    duration?: number; // minutes in this stage
+    notes?: string;
+  }[]>().default([]),
+  nextActionRequired: varchar("next_action_required"), // 'send_quote', 'follow_up', 'collect_deposit', 'confirm_booking', 'send_reminder'
+  nextActionDue: timestamp("next_action_due"),
+  totalValue: integer("total_value").notNull().default(0), // estimated/actual total value in cents
+  probabilityScore: integer("probability_score").notNull().default(50), // 0-100 likelihood of conversion
+  lastTouchpoint: timestamp("last_touchpoint"),
+  lastTouchpointType: varchar("last_touchpoint_type"), // 'email', 'call', 'text', 'chat', 'quote_view'
+  daysSinceLastContact: integer("days_since_last_contact").notNull().default(0),
+  totalTouchpoints: integer("total_touchpoints").notNull().default(0),
+  conversionDate: timestamp("conversion_date"), // when they became a paying customer
+  completionDate: timestamp("completion_date"), // when service was delivered
+  adminNotes: text("admin_notes"),
+  systemNotes: text("system_notes"), // automated system notes
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Enhanced Activity Tracking - for comprehensive customer interaction tracking
+export const customerActivity = pgTable("customer_activity", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  contactId: varchar("contact_id").notNull(),
+  projectId: varchar("project_id"),
+  activityType: varchar("activity_type").notNull(), // 'chat', 'email_open', 'quote_view', 'file_download', 'payment', 'booking', 'call', 'meeting'
+  activitySubtype: varchar("activity_subtype"), // 'message_sent', 'quote_opened', 'pdf_downloaded', 'deposit_paid', etc.
+  description: text("description").notNull(),
+  value: integer("value"), // monetary value if applicable (in cents)
+  duration: integer("duration"), // duration in seconds if applicable
+  source: varchar("source").notNull().default("system"), // 'system', 'admin', 'customer', 'automation'
+  sourceId: varchar("source_id"), // ID of source record (chat message, email, etc.)
+  initiatedBy: varchar("initiated_by"), // 'customer', 'admin', 'system'
+  adminUserId: varchar("admin_user_id"), // if action taken by admin
+  ipAddress: varchar("ip_address"),
+  userAgent: text("user_agent"),
+  deviceInfo: jsonb("device_info").$type<{
+    browser?: string;
+    os?: string;
+    mobile?: boolean;
+  }>().default({}),
+  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
+  importance: varchar("importance").notNull().default("normal"), // 'low', 'normal', 'high', 'critical'
+  isAutomated: boolean("is_automated").notNull().default(false),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // Type definitions for partial leads
 export type PartialLead = typeof partialLeads.$inferSelect;
 export type InsertPartialLead = typeof partialLeads.$inferInsert;
@@ -1045,4 +1178,68 @@ export type ComprehensiveAdminBooking = {
   lastModifiedBy?: string;
   lastModifiedAt?: Date;
   createdAt: Date;
+};
+
+// Type definitions for customer tracking tables
+export type QuoteAnalytics = typeof quoteAnalytics.$inferSelect;
+export type InsertQuoteAnalytics = typeof quoteAnalytics.$inferInsert;
+
+export type FileSend = typeof fileSends.$inferSelect;
+export type InsertFileSend = typeof fileSends.$inferInsert;
+
+export type EmailTracking = typeof emailTracking.$inferSelect;
+export type InsertEmailTracking = typeof emailTracking.$inferInsert;
+
+export type CustomerLifecycle = typeof customerLifecycle.$inferSelect;
+export type InsertCustomerLifecycle = typeof customerLifecycle.$inferInsert;
+
+export type CustomerActivity = typeof customerActivity.$inferSelect;
+export type InsertCustomerActivity = typeof customerActivity.$inferInsert;
+
+// Customer lifecycle stage definitions
+export type LifecycleStage = 
+  | 'initial_contact'
+  | 'quote_sent'
+  | 'quote_viewed'
+  | 'quote_accepted'
+  | 'deposit_paid'
+  | 'fully_paid'
+  | 'confirmed'
+  | 'completed'
+  | 'cancelled';
+
+// Customer activity types
+export type ActivityType = 
+  | 'chat'
+  | 'email_open'
+  | 'quote_view'
+  | 'file_download'
+  | 'payment'
+  | 'booking'
+  | 'call'
+  | 'meeting'
+  | 'email_send'
+  | 'sms_send';
+
+// Comprehensive customer profile data structure
+export type CustomerProfile = {
+  contact: Contact;
+  projects: Project[];
+  quotes: Quote[];
+  lifecycle: CustomerLifecycle;
+  chatHistory: ChatMessage[];
+  quoteAnalytics: QuoteAnalytics[];
+  fileSends: FileSend[];
+  emailTracking: EmailTracking[];
+  customerActivity: CustomerActivity[];
+  payments: Payment[];
+  bookings: Booking[];
+  totalValue: number;
+  totalPaid: number;
+  balance: number;
+  lastActivity: Date | null;
+  daysInCurrentStage: number;
+  conversionProbability: number;
+  nextActionRequired: string | null;
+  nextActionDue: Date | null;
 };

@@ -49,6 +49,39 @@ export default function QuoteViewer() {
       return failureCount < 2;
     },
   });
+
+  // Track quote view when quote is loaded
+  const trackView = useMutation({
+    mutationFn: async (metadata: any) => {
+      const res = await apiRequest('POST', `/api/quotes/${quoteId}/track-view`, {
+        contactId: quote?.contact?.id,
+        viewDuration: null, // Will be calculated on page unload
+        metadata: {
+          ...metadata,
+          viewedAt: new Date().toISOString(),
+          source: 'quote_viewer'
+        }
+      });
+      if (!res.ok) throw new Error('Failed to track view');
+      return res.json();
+    },
+    onError: (error) => {
+      // Silent fail for analytics - don't disrupt user experience
+      console.warn('Failed to track quote view:', error);
+    }
+  });
+
+  // Track view when quote loads
+  useEffect(() => {
+    if (quote && !isLoading && !quoteError) {
+      trackView.mutate({
+        quoteTotal: quote.total,
+        quoteStatus: quote.status,
+        projectId: quote.projectId,
+        hasContact: !!quote.contact
+      });
+    }
+  }, [quote, isLoading, quoteError]);
   
   // Save selections mutation
   const saveSelections = useMutation({

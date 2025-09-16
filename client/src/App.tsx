@@ -9,6 +9,7 @@ import Chat from "./pages/Chat";
 import QuoteBuilder from "./pages/QuoteBuilder";
 import Leads from "./pages/Leads";
 import PartialLeads from "./pages/PartialLeads";
+import CustomerProfile from "./pages/CustomerProfile";
 import Projects from "./pages/Projects";
 import Templates from "./pages/Templates";
 import Products from "./pages/Products";
@@ -45,6 +46,7 @@ function Router() {
       <Route path="/" component={Dashboard} />
       <Route path="/chat" component={Chat} />
       <Route path="/leads" component={Leads} />
+      <Route path="/customers/:id" component={CustomerProfile} />
       <Route path="/partial-leads" component={PartialLeads} />
       <Route path="/projects" component={Projects} />
       <Route path="/calendar" component={CalendarView} />

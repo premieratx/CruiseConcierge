@@ -69,6 +69,8 @@ const formatDate = (date: Date | string | null) => {
 
 // Sortable Lead Card Component
 function SortableLeadCard({ lead, project, onClick }: { lead: Contact; project?: Project; onClick: () => void }) {
+  const [, setLocation] = useLocation();
+  
   const {
     attributes,
     listeners,
@@ -82,6 +84,11 @@ function SortableLeadCard({ lead, project, onClick }: { lead: Contact; project?:
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
+  };
+
+  const handleViewProfile = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setLocation(`/customers/${lead.id}`);
   };
 
   return (
@@ -126,13 +133,25 @@ function SortableLeadCard({ lead, project, onClick }: { lead: Contact; project?:
               </>
             )}
           </div>
-          <div
-            {...attributes}
-            {...listeners}
-            className="cursor-grab active:cursor-grabbing p-1 opacity-0 group-hover:opacity-100 transition-opacity"
-            data-testid={`drag-handle-${lead.id}`}
-          >
-            <GripVertical className="w-4 h-4 text-muted-foreground" />
+          <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="h-6 w-6 p-0"
+              onClick={handleViewProfile}
+              data-testid={`button-view-profile-${lead.id}`}
+              title="View Customer Profile"
+            >
+              <User className="h-3 w-3" />
+            </Button>
+            <div
+              {...attributes}
+              {...listeners}
+              className="cursor-grab active:cursor-grabbing p-1"
+              data-testid={`drag-handle-${lead.id}`}
+            >
+              <GripVertical className="w-4 h-4 text-muted-foreground" />
+            </div>
           </div>
         </div>
       </Card>
