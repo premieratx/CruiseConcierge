@@ -40,6 +40,7 @@ import PortalProfile from "./pages/PortalProfile";
 // Embeddable Widget Pages
 import EmbeddableChatbot from "./pages/EmbeddableChatbot";
 import EmbeddableBooking from "./pages/EmbeddableBooking";
+import EmbeddableBookingTest from "./pages/EmbeddableBookingTest";
 import EmbedWidgets from "./pages/EmbedWidgets";
 
 function Router() {
@@ -80,7 +81,7 @@ function Router() {
       
       {/* Embeddable Widget Routes */}
       <Route path="/embed/chatbot" component={EmbeddableChatbot} />
-      <Route path="/embed/booking" component={EmbeddableBooking} />
+      <Route path="/embed/booking" component={EmbeddableBookingTest} />
       
       {/* Customer Portal Routes */}
       <Route path="/portal" component={PortalLogin} />

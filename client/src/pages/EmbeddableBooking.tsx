@@ -23,8 +23,7 @@ import {
 import { cn } from "@/lib/utils";
 import { format, addDays, addWeeks, subWeeks, isToday, isSameMonth, startOfWeek, endOfWeek } from "date-fns";
 import type { TimeSlot, DiscoTimeSlot } from "@shared/timeSlots";
-import { formatTimeForDisplay, getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, isDiscoAvailableForDate } from "@shared/timeSlots";
-import { formatCurrency, formatDate, formatLongDate, formatTimeRange, formatBoatCapacity, formatEventDuration, formatGroupSize } from "@shared/formatters";
+import { formatCurrency } from "@shared/formatters";
 import { EVENT_TYPES, CRUISE_TYPES, DISCO_PACKAGES } from "@shared/constants";
 
 interface PublicAvailabilitySlot {
