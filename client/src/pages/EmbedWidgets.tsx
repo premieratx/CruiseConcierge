@@ -66,13 +66,18 @@ export default function EmbedWidgets() {
 
   // Generate embed code
   const generateEmbedCode = (type: 'chatbot' | 'booking', config: EmbedConfig): string => {
-    const url = `${baseUrl}/embed/${type}`;
+    const params = new URLSearchParams({
+      theme: config.theme,
+      embed: 'true'
+    });
+    const url = `${baseUrl}/embed/${type}?${params.toString()}`;
     const width = config.responsive ? '100%' : `${config.width}px`;
     const height = `${config.height}px`;
     const styles = [
       `border-radius: ${config.borderRadius}px`,
       config.showShadow ? 'box-shadow: 0 4px 12px rgba(0,0,0,0.15)' : '',
       config.responsive ? 'min-width: 320px' : '',
+      'border: none',
     ].filter(Boolean).join('; ');
 
     return `<iframe 
@@ -80,7 +85,10 @@ export default function EmbedWidgets() {
   width="${width}" 
   height="${height}" 
   frameborder="0"
-  style="${styles}">
+  allow="clipboard-write"
+  style="${styles}"
+  title="${type === 'chatbot' ? 'AI Booking Assistant' : 'Booking Widget'}"
+  loading="lazy">
 </iframe>`;
   };
 
@@ -405,12 +413,12 @@ export default function EmbedWidgets() {
                 <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                   <Badge variant="secondary">Direct URL</Badge>
                   <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
-                    {baseUrl}/embed/chatbot
+                    {baseUrl}/embed/chatbot?theme={chatbotConfig.theme}&embed=true
                   </code>
                   <Button
                     size="sm"
                     variant="ghost"
-                    onClick={() => copyToClipboard(`${baseUrl}/embed/chatbot`, 'chatbot-url')}
+                    onClick={() => copyToClipboard(`${baseUrl}/embed/chatbot?theme=${chatbotConfig.theme}&embed=true`, 'chatbot-url')}
                   >
                     {copiedStates['chatbot-url'] ? (
                       <Check className="h-3 w-3" />
@@ -648,12 +656,12 @@ export default function EmbedWidgets() {
                 <div className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
                   <Badge variant="secondary">Direct URL</Badge>
                   <code className="text-xs bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded">
-                    {baseUrl}/embed/booking
+                    {baseUrl}/embed/booking?theme={bookingConfig.theme}&embed=true
                   </code>
                   <Button
                     size="sm"
                     variant="ghost"
-                    onClick={() => copyToClipboard(`${baseUrl}/embed/booking`, 'booking-url')}
+                    onClick={() => copyToClipboard(`${baseUrl}/embed/booking?theme=${bookingConfig.theme}&embed=true`, 'booking-url')}
                   >
                     {copiedStates['booking-url'] ? (
                       <Check className="h-3 w-3" />
