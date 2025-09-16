@@ -5997,7 +5997,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     startDate: z.string().transform(normalizeToChicagoTime),
     endDate: z.string().transform(normalizeToChicagoTime),
     boatType: z.string().optional(),
-    groupSize: z.number().min(8, "Group size must be at least 8").max(75, "Group size cannot exceed 75").optional(),
+    groupSize: z.string().optional().transform(val => val ? parseInt(val) : undefined).pipe(z.number().min(8, "Group size must be at least 8").max(75, "Group size cannot exceed 75").optional()),
     eventType: z.string().optional()
   });
 

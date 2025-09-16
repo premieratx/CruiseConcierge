@@ -313,7 +313,7 @@ export default function PublicCalendar() {
                       <SelectValue placeholder="Select event type" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="" data-testid="option-event-all">All Events</SelectItem>
+                      <SelectItem value="all" data-testid="option-event-all">All Events</SelectItem>
                       {eventTypes.map(event => (
                         <SelectItem key={event.id} value={event.id} data-testid={`option-event-${event.id}`}>
                           {event.emoji} {event.label}
