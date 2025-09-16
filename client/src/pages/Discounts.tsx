@@ -19,6 +19,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from "@/components/ui/form";
 import { format } from "date-fns";
+import { formatCurrency, formatDate, formatDateTime, formatPercentage } from '@shared/formatters';
+import { ACTION_LABELS, VALIDATION_MESSAGES } from '@shared/constants';
 
 const discountFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -160,9 +162,9 @@ export default function Discounts() {
       case "percentage":
         return `${discount.discountValue}% OFF`;
       case "fixed_amount":
-        return `$${(discount.discountValue / 100).toFixed(2)} OFF`;
+        return `${formatCurrency(discount.discountValue)} OFF`;
       case "per_person":
-        return `$${(discount.discountValue / 100).toFixed(2)} OFF per person`;
+        return `${formatCurrency(discount.discountValue)} OFF per person`;
       default:
         return "";
     }

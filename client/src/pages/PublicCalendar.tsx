@@ -24,6 +24,8 @@ import { cn } from "@/lib/utils";
 import { format, addDays, addWeeks, subWeeks, isToday, isSameMonth, startOfWeek, endOfWeek } from "date-fns";
 import type { TimeSlot, DiscoTimeSlot } from "@shared/timeSlots";
 import { formatTimeForDisplay, getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, isDiscoAvailableForDate } from "@shared/timeSlots";
+import { formatCurrency, formatDate, formatLongDate, formatTimeRange, formatBoatCapacity, formatEventDuration, formatGroupSize } from '@shared/formatters';
+import { EVENT_TYPES, CRUISE_TYPES, DISCO_PACKAGES } from '@shared/constants';
 
 interface PublicAvailabilitySlot {
   id: string;
@@ -61,22 +63,27 @@ interface BookingModalData {
   date: Date;
 }
 
-const eventTypes = [
-  { id: 'birthday', label: 'Birthday Party', emoji: '🎂', color: 'bg-pink-500' },
-  { id: 'bachelor', label: 'Bachelor Party', emoji: '🎉', color: 'bg-blue-500' },
-  { id: 'bachelorette', label: 'Bachelorette Party', emoji: '💃', color: 'bg-purple-500' },
-  { id: 'corporate', label: 'Corporate Event', emoji: '💼', color: 'bg-gray-500' },
-  { id: 'wedding', label: 'Wedding', emoji: '💒', color: 'bg-rose-500' },
-  { id: 'graduation', label: 'Graduation', emoji: '🎓', color: 'bg-green-500' },
-  { id: 'other', label: 'Other Celebration', emoji: '🎊', color: 'bg-yellow-500' },
-];
+// Use EVENT_TYPES from shared constants with local color mapping
+const eventTypeColors = {
+  birthday: 'bg-pink-500',
+  bachelor: 'bg-blue-500',
+  bachelorette: 'bg-purple-500', 
+  corporate: 'bg-gray-500',
+  wedding: 'bg-rose-500',
+  graduation: 'bg-green-500',
+  anniversary: 'bg-rose-400',
+  reunion: 'bg-indigo-500',
+  other: 'bg-yellow-500',
+} as const;
 
-const formatCurrency = (cents: number) => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(cents / 100);
-};
+const eventTypes = Object.entries(EVENT_TYPES).map(([id, config]) => ({
+  id,
+  label: config.label,
+  emoji: config.emoji,
+  color: eventTypeColors[id as keyof typeof eventTypeColors] || 'bg-gray-500',
+}));
+
+// Use shared formatCurrency from formatters
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 20 },

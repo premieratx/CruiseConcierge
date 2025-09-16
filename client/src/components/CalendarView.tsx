@@ -11,6 +11,8 @@ import type { Boat, Booking, DiscoSlot, Timeframe, Product } from "@shared/schem
 import { getPrivateTimeSlotsForDate, timeSlotToCalendarFormat } from "@shared/timeSlots";
 import { format, startOfWeek, addWeeks, subWeeks, isToday } from "date-fns";
 import { cn } from "@/lib/utils";
+import { formatCurrency, formatDate, formatDateTime, formatTimeForDisplay, formatTimeRange, formatCustomerName, formatPhoneNumber } from '@shared/formatters';
+import { BOOKING_STATUSES, PAYMENT_STATUSES, STATUS_COLORS } from '@shared/constants';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
@@ -40,20 +42,8 @@ interface DiscoSlotCard {
   status: 'available' | 'soldout' | 'canceled';
 }
 
-// Helper function to format time
-const formatTime = (time: string | undefined | null) => {
-  if (!time) return 'N/A';
-  
-  const parts = time.split(':');
-  if (parts.length < 2) return time; // Return as-is if not in expected format
-  
-  const [hours, minutes] = parts.map(Number);
-  if (isNaN(hours) || isNaN(minutes)) return time; // Return as-is if parsing fails
-  
-  const period = hours >= 12 ? 'PM' : 'AM';
-  const displayHours = hours % 12 || 12;
-  return `${displayHours}:${minutes.toString().padStart(2, '0')} ${period}`;
-};
+// Use shared formatTimeForDisplay from formatters
+const formatTime = formatTimeForDisplay;
 
 // Helper function to generate time blocks based on day of week using shared configuration
 const generateTimeBlocks = (date: Date, boats: Boat[], bookings: Booking[], products: Product[]): TimeBlock[] => {

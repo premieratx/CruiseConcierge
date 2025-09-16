@@ -9,6 +9,8 @@ import { useToast } from "@/hooks/use-toast";
 import { ChevronUp, ChevronDown, Calendar, DollarSign, Users, Ship, Clock } from "lucide-react";
 import { format } from "date-fns";
 import { cn } from "@/lib/utils";
+import { formatCurrency, formatDateTime, formatCustomerName, formatPhoneNumber } from '@shared/formatters';
+import { BOOKING_STATUSES, PAYMENT_STATUSES, STATUS_COLORS } from '@shared/constants';
 
 // TypeScript interface for comprehensive booking data from API
 export interface ComprehensiveBooking {
@@ -45,45 +47,39 @@ interface BookingsTableProps {
   className?: string;
 }
 
-// Helper function to format currency
-const formatCurrency = (amount: number) => {
-  return `$${(amount / 100).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-};
+// Use shared formatting utilities and status colors
 
-// Helper function to format date and time
-const formatDateTime = (date: string | Date) => {
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
-  return format(dateObj, 'MMM dd, yyyy h:mm a');
-};
-
-// Helper function to get payment status color
+// Helper function to get payment status color using shared constants
 const getPaymentStatusColor = (status: string) => {
-  switch (status) {
-    case 'Paid':
-      return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
-    case 'Partial':
-      return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200';
-    case 'Unpaid':
-      return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
+  const normalizedStatus = status.toLowerCase();
+  switch (normalizedStatus) {
+    case 'paid':
+      return STATUS_COLORS.SUCCESS;
+    case 'partial':
+      return STATUS_COLORS.WARNING;
+    case 'unpaid':
+      return STATUS_COLORS.DANGER;
     default:
-      return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+      return STATUS_COLORS.NEUTRAL;
   }
 };
 
-// Helper function to get booking status color
+// Helper function to get booking status color using shared constants
 const getBookingStatusColor = (status: string) => {
-  switch (status.toLowerCase()) {
+  const normalizedStatus = status.toLowerCase();
+  switch (normalizedStatus) {
     case 'confirmed':
     case 'booked':
-      return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
+      return STATUS_COLORS.INFO;
     case 'hold':
-      return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
+      return STATUS_COLORS.WARNING;
     case 'blocked':
-      return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+      return STATUS_COLORS.NEUTRAL;
     case 'canceled':
-      return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
+    case 'cancelled':
+      return STATUS_COLORS.DANGER;
     default:
-      return 'bg-gray-100 text-gray-800 dark:bg-gray-900 dark:text-gray-200';
+      return STATUS_COLORS.NEUTRAL;
   }
 };
 

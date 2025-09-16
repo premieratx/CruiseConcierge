@@ -7,6 +7,8 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { format, addDays, isSameDay } from 'date-fns';
 import { cn } from '@/lib/utils';
+import { formatCurrency, formatLongDate, formatTimeForDisplay, formatTimeRange } from '@shared/formatters';
+import { EVENT_TYPES, CRUISE_TYPES } from '@shared/constants';
 
 interface TimeSlot {
   id: string;
@@ -102,7 +104,7 @@ export function AlternativeDates({
             <CardHeader className="pb-3">
               <div className="flex items-center justify-between">
                 <CardTitle className="text-lg">
-                  {format(altDate.date, 'EEEE, MMM d')}
+                  {formatLongDate(altDate.date)}
                 </CardTitle>
                 <div className="flex gap-2">
                   {altDate.isWeekend && (

@@ -19,6 +19,8 @@ import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { format } from 'date-fns';
 import { useLocation } from 'wouter';
+import { formatCurrency, formatDate, formatDateTime, formatCustomerName } from '@shared/formatters';
+import { INVOICE_STATUSES, BADGE_VARIANTS, STATUS_COLORS } from '@shared/constants';
 
 interface Invoice {
   id: string;
@@ -92,30 +94,29 @@ export function RecentInvoices() {
   });
 
   const getStatusBadge = (status: Invoice['status']) => {
-    const variants: Record<Invoice['status'], { variant: any; icon: any; label: string; className?: string }> = {
-      draft: { variant: 'secondary', icon: Clock, label: 'Draft' },
-      sent: { variant: 'outline', icon: Send, label: 'Sent' },
-      paid: { variant: 'default', icon: CheckCircle, label: 'Paid', className: 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' },
-      partial: { variant: 'secondary', icon: DollarSign, label: 'Partial' },
-      overdue: { variant: 'destructive', icon: AlertCircle, label: 'Overdue' },
-      cancelled: { variant: 'secondary', icon: Receipt, label: 'Cancelled' },
+    const statusIcons = {
+      draft: Clock,
+      sent: Send, 
+      paid: CheckCircle,
+      partial: DollarSign,
+      overdue: AlertCircle,
+      cancelled: Receipt,
     };
     
-    const { variant, icon: Icon, label, className } = variants[status];
+    const Icon = statusIcons[status];
+    const label = INVOICE_STATUSES[status] || status;
+    const variant = BADGE_VARIANTS.INVOICE[status] || 'secondary';
+    const className = status === 'paid' ? STATUS_COLORS.SUCCESS : '';
+    
     return (
-      <Badge variant={variant} className={`flex items-center gap-1 ${className || ''}`}>
+      <Badge variant={variant} className={`flex items-center gap-1 ${className}`}>
         <Icon className="h-3 w-3" />
         {label}
       </Badge>
     );
   };
 
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(amount / 100);
-  };
+  // Use shared formatCurrency from formatters
 
   const calculateProgress = (invoice: Invoice) => {
     if (invoice.totalAmount === 0) return 0;

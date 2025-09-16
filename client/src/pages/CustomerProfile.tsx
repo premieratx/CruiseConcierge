@@ -17,32 +17,14 @@ import {
   Phone, DollarSign, TrendingUp, Activity, Download,
   Eye, Send, Star
 } from 'lucide-react';
+import { formatCurrency, formatDate, formatDateTime, formatRelativeTime, formatCustomerName, formatPhoneNumber, formatEmail } from '@shared/formatters';
+import { LEAD_STATUSES, BADGE_VARIANTS, ACTION_LABELS } from '@shared/constants';
 
 interface CustomerProfilePageProps {
   params: { id: string };
 }
 
-// Helper function to format currency
-const formatCurrency = (amount: number) => {
-  return new Intl.NumberFormat('en-US', { 
-    style: 'currency', 
-    currency: 'USD' 
-  }).format(amount / 100);
-};
-
-// Helper function to format date
-const formatDate = (date: Date | string | null) => {
-  if (!date) return "N/A";
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
-  return format(dateObj, 'MMM dd, yyyy');
-};
-
-// Helper function to format date with time
-const formatDateTime = (date: Date | string | null) => {
-  if (!date) return "N/A";
-  const dateObj = typeof date === 'string' ? new Date(date) : date;
-  return format(dateObj, 'MMM dd, yyyy - HH:mm');
-};
+// Use shared formatting utilities from shared/formatters.ts
 
 // Status badge component
 function StatusBadge({ stage }: { stage: string }) {

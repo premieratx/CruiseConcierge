@@ -27,6 +27,8 @@ import { cn } from '@/lib/utils';
 import { format, addDays, isBefore, isAfter, startOfDay, differenceInDays } from 'date-fns';
 import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection, QuoteItem } from '@shared/schema';
 import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, isDiscoAvailableForDate } from '@shared/timeSlots';
+import { formatCurrency, formatDate, formatLongDate, formatTimeForDisplay, formatTimeRange, formatPhoneNumber, formatCustomerName, formatBoatCapacity, formatEventDuration, formatGroupSize } from '@shared/formatters';
+import { EVENT_TYPES, CRUISE_TYPES, DISCO_PACKAGES, PRICING_DEFAULTS } from '@shared/constants';
 
 type ChatFlowStep = 
   | 'intro' // Intro + Calendar combined
@@ -77,15 +79,13 @@ interface CompletedSelection {
   onEdit?: () => void;
 }
 
-const eventTypes = [
-  { id: 'birthday', label: 'Birthday', emoji: '🎂', description: 'Make it memorable' },
-  { id: 'bachelor', label: 'Bachelor', emoji: '🎉', description: 'Last sail before the veil' },
-  { id: 'bachelorette', label: 'Bachelorette', emoji: '💃', description: 'Party with the bride' },
-  { id: 'corporate', label: 'Corporate', emoji: '💼', description: 'Team building' },
-  { id: 'wedding', label: 'Wedding', emoji: '💒', description: 'Special day' },
-  { id: 'graduation', label: 'Graduation', emoji: '🎓', description: 'Celebrate success' },
-  { id: 'other', label: 'Other', emoji: '🎊', description: 'Custom event' },
-];
+// Use EVENT_TYPES from shared constants
+const eventTypes = Object.entries(EVENT_TYPES).map(([id, config]) => ({
+  id,
+  label: config.label,
+  emoji: config.emoji,
+  description: config.description,
+}));
 
 // Use centralized time slot configuration - remove local implementation
 
@@ -147,8 +147,8 @@ const getAlternativeDates = (selectedDate: Date, groupSize: number, daysRange: n
     .slice(0, 6);
 };
 
-// Base hourly rate for private cruises (before add-ons)
-const BASE_PRIVATE_HOURLY_RATE = 300;
+// Use pricing defaults from shared constants
+const BASE_PRIVATE_HOURLY_RATE = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100; // Convert from cents to dollars
 
 // Optional add-on packages that enhance the base cruise
 const addOnPackages = [
@@ -170,6 +170,7 @@ const addOnPackages = [
   },
 ];
 
+// Use disco packages from shared constants (keep local features for now)
 const discoPackages = [
   { 
     id: 'basic', 
@@ -212,12 +213,7 @@ const fadeInUp = {
   }
 };
 
-const formatCurrency = (cents: number) => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(cents / 100);
-};
+// Use shared formatCurrency from formatters
 
 // Helper function to determine boat capacity based on group size - rounds UP to appropriate boat size
 const getBoatCapacityForGroup = (groupSize: number): number => {

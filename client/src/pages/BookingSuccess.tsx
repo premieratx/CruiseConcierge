@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { formatTimeForDisplay } from "@shared/timeSlots";
+import { formatCurrency, formatDate, formatDateTime, formatLongDate } from '@shared/formatters';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -23,12 +24,7 @@ const fadeInUp = {
   }
 };
 
-const formatCurrency = (cents: number) => {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-  }).format(cents / 100);
-};
+// Use shared formatCurrency from formatters
 
 export default function BookingSuccess() {
   const [, params] = useRoute("/booking-success");
