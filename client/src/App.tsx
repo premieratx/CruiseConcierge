@@ -23,6 +23,15 @@ import BookingFlow from "./pages/BookingFlow";
 import BookingSuccess from "./pages/BookingSuccess";
 import NotFound from "@/pages/not-found";
 
+// Customer Portal Pages
+import PortalLogin from "./pages/PortalLogin";
+import PortalVerify from "./pages/PortalVerify";
+import PortalDashboard from "./pages/PortalDashboard";
+import PortalQuotes from "./pages/PortalQuotes";
+import PortalInvoices from "./pages/PortalInvoices";
+import PortalBookings from "./pages/PortalBookings";
+import PortalProfile from "./pages/PortalProfile";
+
 function Router() {
   return (
     <Switch>
@@ -51,6 +60,16 @@ function Router() {
       <Route path="/availability" component={PublicCalendar} />
       <Route path="/book/:slotId" component={BookingFlow} />
       <Route path="/booking-success" component={BookingSuccess} />
+      
+      {/* Customer Portal Routes */}
+      <Route path="/portal" component={PortalLogin} />
+      <Route path="/portal/login" component={PortalLogin} />
+      <Route path="/portal/verify" component={PortalVerify} />
+      <Route path="/portal/dashboard" component={PortalDashboard} />
+      <Route path="/portal/quotes" component={PortalQuotes} />
+      <Route path="/portal/invoices" component={PortalInvoices} />
+      <Route path="/portal/bookings" component={PortalBookings} />
+      <Route path="/portal/profile" component={PortalProfile} />
       
       {/* 404 Fallback */}
       <Route component={NotFound} />

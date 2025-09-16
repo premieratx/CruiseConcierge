@@ -317,6 +317,91 @@ export const masterTemplates = pgTable("master_templates", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
+// Customer Portal - SMS Authentication Tokens
+export const smsAuthTokens = pgTable("sms_auth_tokens", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  phoneNumber: text("phone_number").notNull(), // normalized phone number
+  code: varchar("code", { length: 6 }).notNull(), // 6-digit verification code
+  token: varchar("token", { length: 128 }), // longer secure token for magic links
+  purpose: varchar("purpose").notNull().default("login"), // 'login', 'password_reset', etc.
+  attempts: integer("attempts").notNull().default(0), // failed verification attempts
+  maxAttempts: integer("max_attempts").notNull().default(3),
+  used: boolean("used").notNull().default(false),
+  expiresAt: timestamp("expires_at").notNull(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  usedAt: timestamp("used_at"),
+  ipAddress: varchar("ip_address"),
+  userAgent: text("user_agent"),
+});
+
+// Customer Portal - Active Sessions
+export const customerSessions = pgTable("customer_sessions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  sessionId: varchar("session_id").notNull().unique(), // Express session ID
+  contactId: varchar("contact_id").notNull(), // links to contacts table
+  phoneNumber: text("phone_number").notNull(),
+  isAuthenticated: boolean("is_authenticated").notNull().default(true),
+  loginTime: timestamp("login_time").notNull().defaultNow(),
+  lastActivity: timestamp("last_activity").notNull().defaultNow(),
+  expiresAt: timestamp("expires_at").notNull(),
+  ipAddress: varchar("ip_address"),
+  userAgent: text("user_agent"),
+  deviceInfo: jsonb("device_info").$type<{
+    browser?: string;
+    os?: string;
+    mobile?: boolean;
+    screen?: string;
+  }>().default({}),
+  loggedOut: boolean("logged_out").notNull().default(false),
+  loggedOutAt: timestamp("logged_out_at"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Customer Portal - Activity Logging
+export const portalActivityLog = pgTable("portal_activity_log", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  sessionId: varchar("session_id"), // links to customer_sessions
+  contactId: varchar("contact_id"), // links to contacts table
+  phoneNumber: text("phone_number"),
+  action: varchar("action").notNull(), // 'login', 'view_quote', 'download_invoice', 'update_profile', etc.
+  resource: varchar("resource"), // 'quote', 'invoice', 'booking', 'profile', etc.
+  resourceId: varchar("resource_id"), // ID of the resource being accessed
+  details: jsonb("details").$type<Record<string, any>>().default({}), // additional context
+  success: boolean("success").notNull().default(true),
+  errorMessage: text("error_message"),
+  ipAddress: varchar("ip_address"),
+  userAgent: text("user_agent"),
+  duration: integer("duration"), // request duration in milliseconds
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Customer Portal - Phone Number Rate Limiting
+export const phoneRateLimit = pgTable("phone_rate_limit", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  phoneNumber: text("phone_number").notNull().unique(),
+  requestCount: integer("request_count").notNull().default(1),
+  windowStart: timestamp("window_start").notNull().defaultNow(),
+  lastRequest: timestamp("last_request").notNull().defaultNow(),
+  blocked: boolean("blocked").notNull().default(false),
+  blockedUntil: timestamp("blocked_until"),
+  resetAt: timestamp("reset_at").notNull(), // when the rate limit window resets
+});
+
+// Customer Portal - Verification Attempt Tracking
+export const customerVerificationAttempts = pgTable("customer_verification_attempts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  phoneNumber: text("phone_number").notNull(),
+  sessionId: varchar("session_id").notNull(),
+  attemptCount: integer("attempt_count").notNull().default(1),
+  lastAttempt: timestamp("last_attempt").notNull().defaultNow(),
+  lockedUntil: timestamp("locked_until"),
+  lockoutCount: integer("lockout_count").notNull().default(0), // tracks escalating lockouts
+  ipAddress: varchar("ip_address"),
+  userAgent: text("user_agent"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
 // Type definitions
 export type QuoteItem = {
   id: string;
@@ -585,6 +670,71 @@ export const insertMasterTemplateSchema = createInsertSchema(masterTemplates).om
   updatedAt: true,
 });
 
+// Customer Portal Insert Schemas
+export const insertSmsAuthTokenSchema = createInsertSchema(smsAuthTokens).omit({
+  id: true,
+  createdAt: true,
+  usedAt: true,
+}).extend({
+  phoneNumber: z.string().min(1, "Phone number is required"),
+  code: z.string().length(6, "Code must be 6 digits"),
+  token: z.string().min(32, "Token must be at least 32 characters").optional(),
+  purpose: z.enum(["login", "password_reset", "verification"]).default("login"),
+  expiresAt: z.string().datetime().transform(str => new Date(str)),
+  attempts: z.number().min(0).default(0),
+  maxAttempts: z.number().min(1).default(3),
+  used: z.boolean().default(false),
+});
+
+export const insertCustomerSessionSchema = createInsertSchema(customerSessions).omit({
+  id: true,
+  createdAt: true,
+  loggedOutAt: true,
+}).extend({
+  sessionId: z.string().min(1, "Session ID is required"),
+  contactId: z.string().min(1, "Contact ID is required"),
+  phoneNumber: z.string().min(1, "Phone number is required"),
+  isAuthenticated: z.boolean().default(true),
+  loginTime: z.string().datetime().transform(str => new Date(str)).optional(),
+  lastActivity: z.string().datetime().transform(str => new Date(str)).optional(),
+  expiresAt: z.string().datetime().transform(str => new Date(str)),
+  loggedOut: z.boolean().default(false),
+});
+
+export const insertPortalActivityLogSchema = createInsertSchema(portalActivityLog).omit({
+  id: true,
+  createdAt: true,
+}).extend({
+  action: z.string().min(1, "Action is required"),
+  success: z.boolean().default(true),
+  duration: z.number().min(0).optional(),
+});
+
+export const insertPhoneRateLimitSchema = createInsertSchema(phoneRateLimit).omit({
+  id: true,
+}).extend({
+  phoneNumber: z.string().min(1, "Phone number is required"),
+  requestCount: z.number().min(1).default(1),
+  windowStart: z.string().datetime().transform(str => new Date(str)).optional(),
+  lastRequest: z.string().datetime().transform(str => new Date(str)).optional(),
+  resetAt: z.string().datetime().transform(str => new Date(str)),
+  blocked: z.boolean().default(false),
+  blockedUntil: z.string().datetime().transform(str => new Date(str)).optional(),
+});
+
+export const insertCustomerVerificationAttemptsSchema = createInsertSchema(customerVerificationAttempts).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+}).extend({
+  phoneNumber: z.string().min(1, "Phone number is required"),
+  sessionId: z.string().min(1, "Session ID is required"),
+  attemptCount: z.number().min(1).default(1),
+  lastAttempt: z.string().datetime().transform(str => new Date(str)).optional(),
+  lockedUntil: z.string().datetime().transform(str => new Date(str)).optional(),
+  lockoutCount: z.number().min(0).default(0),
+});
+
 // Select types
 export type Contact = typeof contacts.$inferSelect;
 export type Project = typeof projects.$inferSelect;
@@ -606,6 +756,13 @@ export type Timeframe = typeof timeframes.$inferSelect;
 export type EmailTemplate = typeof emailTemplates.$inferSelect;
 export type MasterTemplate = typeof masterTemplates.$inferSelect;
 
+// Customer Portal Types
+export type SmsAuthToken = typeof smsAuthTokens.$inferSelect;
+export type CustomerSession = typeof customerSessions.$inferSelect;
+export type PortalActivityLog = typeof portalActivityLog.$inferSelect;
+export type PhoneRateLimit = typeof phoneRateLimit.$inferSelect;
+export type CustomerVerificationAttempts = typeof customerVerificationAttempts.$inferSelect;
+
 // Insert types
 export type InsertContact = z.infer<typeof insertContactSchema>;
 export type InsertProject = z.infer<typeof insertProjectSchema>;
@@ -623,6 +780,13 @@ export type InsertDiscoSlot = z.infer<typeof insertDiscoSlotSchema>;
 export type InsertTimeframe = z.infer<typeof insertTimeframeSchema>;
 export type InsertEmailTemplate = z.infer<typeof insertEmailTemplateSchema>;
 export type InsertMasterTemplate = z.infer<typeof insertMasterTemplateSchema>;
+
+// Customer Portal Insert Types
+export type InsertSmsAuthToken = z.infer<typeof insertSmsAuthTokenSchema>;
+export type InsertCustomerSession = z.infer<typeof insertCustomerSessionSchema>;
+export type InsertPortalActivityLog = z.infer<typeof insertPortalActivityLogSchema>;
+export type InsertPhoneRateLimit = z.infer<typeof insertPhoneRateLimitSchema>;
+export type InsertCustomerVerificationAttempts = z.infer<typeof insertCustomerVerificationAttemptsSchema>;
 
 // Lead tracking types for Google Sheets integration
 export type LeadProgressStage = 'started' | 'contact_complete' | 'date_selected' | 'size_selected' | 'options_selected' | 'complete';

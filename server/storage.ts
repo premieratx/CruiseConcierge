@@ -190,6 +190,54 @@ export interface IStorage {
   // Additional methods for specific date range queries
   getBookingsInRange(startDate: Date, endDate: Date): Promise<Booking[]>;
   getDiscoSlotsInRange(startDate: Date, endDate: Date): Promise<DiscoSlot[]>;
+
+  // Customer Portal - SMS Authentication
+  createSmsAuthToken(token: InsertSmsAuthToken): Promise<SmsAuthToken>;
+  getSmsAuthToken(phoneNumber: string, code: string): Promise<SmsAuthToken | undefined>;
+  getSmsAuthTokenByToken(token: string): Promise<SmsAuthToken | undefined>;
+  markTokenAsUsed(tokenId: string): Promise<SmsAuthToken>;
+  incrementTokenAttempts(tokenId: string): Promise<SmsAuthToken>;
+  cleanupExpiredTokens(): Promise<number>;
+  
+  // Customer Portal - Session Management
+  createCustomerSession(session: InsertCustomerSession): Promise<CustomerSession>;
+  getCustomerSession(sessionId: string): Promise<CustomerSession | undefined>;
+  getCustomerSessionByContact(contactId: string): Promise<CustomerSession | undefined>;
+  updateCustomerSessionActivity(sessionId: string): Promise<CustomerSession>;
+  endCustomerSession(sessionId: string): Promise<CustomerSession>;
+  cleanupExpiredSessions(): Promise<number>;
+  
+  // Customer Portal - Activity Logging
+  logPortalActivity(activity: InsertPortalActivityLog): Promise<PortalActivityLog>;
+  getCustomerActivityLog(contactId: string, limit?: number): Promise<PortalActivityLog[]>;
+  
+  // Customer Portal - Rate Limiting
+  checkPhoneRateLimit(phoneNumber: string): Promise<{ allowed: boolean; resetIn?: number; requestCount: number }>;
+  updatePhoneRateLimit(phoneNumber: string): Promise<PhoneRateLimit>;
+  resetPhoneRateLimit(phoneNumber: string): Promise<boolean>;
+  
+  // Customer Portal - Verification Attempt Tracking (SECURITY)
+  trackVerificationAttempt(phoneNumber: string, sessionId: string, ipAddress?: string, userAgent?: string): Promise<CustomerVerificationAttempts>;
+  isVerificationLocked(phoneNumber: string, sessionId: string): Promise<{ locked: boolean; lockedUntil?: Date; attemptCount: number }>;
+  getVerificationAttempts(phoneNumber: string, sessionId: string): Promise<CustomerVerificationAttempts | undefined>;
+  resetVerificationAttempts(phoneNumber: string, sessionId: string): Promise<boolean>;
+  cleanupExpiredVerificationAttempts(): Promise<number>;
+  
+  // Customer Portal - Customer Lookup
+  searchCustomersByPhone(phoneNumber: string): Promise<Contact[]>;
+  searchCustomersByName(query: string): Promise<Contact[]>;
+  searchCustomersByEmail(email: string): Promise<Contact[]>;
+  getCustomerDataById(contactId: string): Promise<{
+    contact: Contact;
+    projects: Project[];
+    quotes: Quote[];
+    invoices: Invoice[];
+    bookings: Booking[];
+  } | undefined>;
+  getCustomerQuotesWithAccess(contactId: string): Promise<Quote[]>;
+  getCustomerInvoices(contactId: string): Promise<Invoice[]>;
+  getCustomerBookings(contactId: string): Promise<Booking[]>;
+  updateCustomerProfile(contactId: string, updates: Partial<Contact>): Promise<Contact>;
 }
 
 export class MemStorage implements IStorage {
@@ -212,6 +260,13 @@ export class MemStorage implements IStorage {
   private timeframes: Map<string, Timeframe> = new Map();
   private emailTemplates: Map<string, EmailTemplate> = new Map();
   private masterTemplates: Map<string, MasterTemplate> = new Map();
+  
+  // Customer Portal Storage
+  private smsAuthTokens: Map<string, SmsAuthToken> = new Map();
+  private customerSessions: Map<string, CustomerSession> = new Map();
+  private portalActivityLogs: Map<string, PortalActivityLog> = new Map();
+  private phoneRateLimits: Map<string, PhoneRateLimit> = new Map();
+  private customerVerificationAttempts: Map<string, CustomerVerificationAttempts> = new Map();
   
   // Admin audit logs for tracking changes
   private adminLogs: Array<{ id: string; action: string; timestamp: Date; adminUser?: string; details: any }> = [];
@@ -3679,6 +3734,607 @@ export class MemStorage implements IStorage {
       const slotDate = new Date(slot.date);
       return slotDate >= startDate && slotDate <= endDate;
     });
+  }
+
+  // ==========================================
+  // CUSTOMER PORTAL - SMS AUTHENTICATION
+  // ==========================================
+
+  async createSmsAuthToken(token: InsertSmsAuthToken): Promise<SmsAuthToken> {
+    const id = randomUUID();
+    const now = new Date();
+    
+    const newToken: SmsAuthToken = {
+      id,
+      phoneNumber: token.phoneNumber,
+      code: token.code,
+      token: token.token,
+      purpose: token.purpose || 'login',
+      attempts: token.attempts || 0,
+      maxAttempts: token.maxAttempts || 3,
+      used: false,
+      expiresAt: token.expiresAt,
+      createdAt: now,
+      usedAt: null,
+      ipAddress: token.ipAddress,
+      userAgent: token.userAgent,
+    };
+
+    this.smsAuthTokens.set(id, newToken);
+    
+    // Clean up old tokens for this phone number (keep only the latest)
+    const phoneTokens = Array.from(this.smsAuthTokens.values())
+      .filter(t => t.phoneNumber === token.phoneNumber && t.id !== id)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+    
+    // Remove all but the most recent 2 tokens for this phone
+    phoneTokens.slice(2).forEach(t => this.smsAuthTokens.delete(t.id));
+    
+    return newToken;
+  }
+
+  async getSmsAuthToken(phoneNumber: string, code: string): Promise<SmsAuthToken | undefined> {
+    const now = new Date();
+    
+    return Array.from(this.smsAuthTokens.values()).find(token => 
+      token.phoneNumber === phoneNumber && 
+      token.code === code && 
+      !token.used && 
+      token.expiresAt > now &&
+      token.attempts < token.maxAttempts
+    );
+  }
+
+  async getSmsAuthTokenByToken(token: string): Promise<SmsAuthToken | undefined> {
+    const now = new Date();
+    
+    return Array.from(this.smsAuthTokens.values()).find(authToken => 
+      authToken.token === token && 
+      !authToken.used && 
+      authToken.expiresAt > now &&
+      authToken.attempts < authToken.maxAttempts
+    );
+  }
+
+  async markTokenAsUsed(tokenId: string): Promise<SmsAuthToken> {
+    const token = this.smsAuthTokens.get(tokenId);
+    if (!token) {
+      throw new Error('Token not found');
+    }
+
+    const updatedToken = {
+      ...token,
+      used: true,
+      usedAt: new Date(),
+    };
+
+    this.smsAuthTokens.set(tokenId, updatedToken);
+    return updatedToken;
+  }
+
+  async incrementTokenAttempts(tokenId: string): Promise<SmsAuthToken> {
+    const token = this.smsAuthTokens.get(tokenId);
+    if (!token) {
+      throw new Error('Token not found');
+    }
+
+    const updatedToken = {
+      ...token,
+      attempts: token.attempts + 1,
+    };
+
+    this.smsAuthTokens.set(tokenId, updatedToken);
+    return updatedToken;
+  }
+
+  async cleanupExpiredTokens(): Promise<number> {
+    const now = new Date();
+    const expiredTokens = Array.from(this.smsAuthTokens.entries())
+      .filter(([_, token]) => token.expiresAt <= now || token.used);
+
+    expiredTokens.forEach(([id, _]) => this.smsAuthTokens.delete(id));
+    
+    return expiredTokens.length;
+  }
+
+  // ==========================================
+  // CUSTOMER PORTAL - SESSION MANAGEMENT
+  // ==========================================
+
+  async createCustomerSession(session: InsertCustomerSession): Promise<CustomerSession> {
+    const id = randomUUID();
+    const now = new Date();
+    
+    const newSession: CustomerSession = {
+      id,
+      sessionId: session.sessionId,
+      contactId: session.contactId,
+      phoneNumber: session.phoneNumber,
+      isAuthenticated: session.isAuthenticated !== undefined ? session.isAuthenticated : true,
+      loginTime: session.loginTime ? new Date(session.loginTime) : now,
+      lastActivity: session.lastActivity ? new Date(session.lastActivity) : now,
+      expiresAt: new Date(session.expiresAt),
+      ipAddress: session.ipAddress,
+      userAgent: session.userAgent,
+      deviceInfo: session.deviceInfo || {},
+      loggedOut: false,
+      loggedOutAt: null,
+      createdAt: now,
+    };
+
+    this.customerSessions.set(id, newSession);
+    
+    // Clean up any existing sessions for this contact (only allow one active session per customer)
+    const existingSessions = Array.from(this.customerSessions.entries())
+      .filter(([sessionId, s]) => s.contactId === session.contactId && sessionId !== id && !s.loggedOut);
+    
+    existingSessions.forEach(([sessionId, s]) => {
+      this.customerSessions.set(sessionId, { ...s, loggedOut: true, loggedOutAt: now });
+    });
+    
+    return newSession;
+  }
+
+  async getCustomerSession(sessionId: string): Promise<CustomerSession | undefined> {
+    const now = new Date();
+    
+    return Array.from(this.customerSessions.values()).find(session => 
+      session.sessionId === sessionId && 
+      !session.loggedOut && 
+      session.expiresAt > now
+    );
+  }
+
+  async getCustomerSessionByContact(contactId: string): Promise<CustomerSession | undefined> {
+    const now = new Date();
+    
+    return Array.from(this.customerSessions.values()).find(session => 
+      session.contactId === contactId && 
+      !session.loggedOut && 
+      session.expiresAt > now
+    );
+  }
+
+  async updateCustomerSessionActivity(sessionId: string): Promise<CustomerSession> {
+    const session = Array.from(this.customerSessions.values())
+      .find(s => s.sessionId === sessionId);
+    
+    if (!session) {
+      throw new Error('Session not found');
+    }
+
+    const now = new Date();
+    const updatedSession = {
+      ...session,
+      lastActivity: now,
+      expiresAt: new Date(now.getTime() + 2 * 60 * 60 * 1000), // Extend by 2 hours
+    };
+
+    this.customerSessions.set(session.id, updatedSession);
+    return updatedSession;
+  }
+
+  async endCustomerSession(sessionId: string): Promise<CustomerSession> {
+    const session = Array.from(this.customerSessions.values())
+      .find(s => s.sessionId === sessionId);
+    
+    if (!session) {
+      throw new Error('Session not found');
+    }
+
+    const now = new Date();
+    const updatedSession = {
+      ...session,
+      loggedOut: true,
+      loggedOutAt: now,
+    };
+
+    this.customerSessions.set(session.id, updatedSession);
+    return updatedSession;
+  }
+
+  async cleanupExpiredSessions(): Promise<number> {
+    const now = new Date();
+    const expiredSessions = Array.from(this.customerSessions.entries())
+      .filter(([_, session]) => session.expiresAt <= now && !session.loggedOut);
+
+    expiredSessions.forEach(([id, session]) => {
+      this.customerSessions.set(id, { ...session, loggedOut: true, loggedOutAt: now });
+    });
+    
+    return expiredSessions.length;
+  }
+
+  // ==========================================
+  // CUSTOMER PORTAL - ACTIVITY LOGGING
+  // ==========================================
+
+  async logPortalActivity(activity: InsertPortalActivityLog): Promise<PortalActivityLog> {
+    const id = randomUUID();
+    const now = new Date();
+    
+    const newActivity: PortalActivityLog = {
+      id,
+      sessionId: activity.sessionId,
+      contactId: activity.contactId,
+      phoneNumber: activity.phoneNumber,
+      action: activity.action,
+      resource: activity.resource,
+      resourceId: activity.resourceId,
+      details: activity.details || {},
+      success: activity.success !== undefined ? activity.success : true,
+      errorMessage: activity.errorMessage,
+      ipAddress: activity.ipAddress,
+      userAgent: activity.userAgent,
+      duration: activity.duration,
+      createdAt: now,
+    };
+
+    this.portalActivityLogs.set(id, newActivity);
+    
+    // Keep only the last 1000 activity logs to prevent memory issues
+    const allLogs = Array.from(this.portalActivityLogs.entries())
+      .sort(([_, a], [__, b]) => b.createdAt.getTime() - a.createdAt.getTime());
+    
+    if (allLogs.length > 1000) {
+      const toDelete = allLogs.slice(1000);
+      toDelete.forEach(([logId, _]) => this.portalActivityLogs.delete(logId));
+    }
+    
+    return newActivity;
+  }
+
+  async getCustomerActivityLog(contactId: string, limit: number = 50): Promise<PortalActivityLog[]> {
+    const customerLogs = Array.from(this.portalActivityLogs.values())
+      .filter(log => log.contactId === contactId)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+      .slice(0, limit);
+    
+    return customerLogs;
+  }
+
+  // ==========================================
+  // CUSTOMER PORTAL - RATE LIMITING
+  // ==========================================
+
+  async checkPhoneRateLimit(phoneNumber: string): Promise<{ allowed: boolean; resetIn?: number; requestCount: number }> {
+    const now = new Date();
+    const hourAgo = new Date(now.getTime() - 60 * 60 * 1000);
+    
+    let rateLimit = this.phoneRateLimits.get(phoneNumber);
+    
+    // Create new rate limit entry if doesn't exist
+    if (!rateLimit) {
+      rateLimit = {
+        id: randomUUID(),
+        phoneNumber,
+        requestCount: 0,
+        windowStart: now,
+        lastRequest: now,
+        blocked: false,
+        blockedUntil: null,
+        resetAt: new Date(now.getTime() + 60 * 60 * 1000), // 1 hour window
+      };
+      this.phoneRateLimits.set(phoneNumber, rateLimit);
+    }
+    
+    // Check if currently blocked
+    if (rateLimit.blocked && rateLimit.blockedUntil && now < rateLimit.blockedUntil) {
+      return {
+        allowed: false,
+        resetIn: Math.ceil((rateLimit.blockedUntil.getTime() - now.getTime()) / 1000),
+        requestCount: rateLimit.requestCount,
+      };
+    }
+    
+    // Reset window if it's been more than an hour
+    if (now >= rateLimit.resetAt) {
+      rateLimit.requestCount = 0;
+      rateLimit.windowStart = now;
+      rateLimit.resetAt = new Date(now.getTime() + 60 * 60 * 1000);
+      rateLimit.blocked = false;
+      rateLimit.blockedUntil = null;
+    }
+    
+    // Check if exceeded limit (3 per hour)
+    if (rateLimit.requestCount >= 3) {
+      rateLimit.blocked = true;
+      rateLimit.blockedUntil = rateLimit.resetAt;
+      this.phoneRateLimits.set(phoneNumber, rateLimit);
+      
+      return {
+        allowed: false,
+        resetIn: Math.ceil((rateLimit.resetAt.getTime() - now.getTime()) / 1000),
+        requestCount: rateLimit.requestCount,
+      };
+    }
+    
+    return {
+      allowed: true,
+      requestCount: rateLimit.requestCount,
+    };
+  }
+
+  async updatePhoneRateLimit(phoneNumber: string): Promise<PhoneRateLimit> {
+    const now = new Date();
+    let rateLimit = this.phoneRateLimits.get(phoneNumber);
+    
+    if (!rateLimit) {
+      rateLimit = {
+        id: randomUUID(),
+        phoneNumber,
+        requestCount: 1,
+        windowStart: now,
+        lastRequest: now,
+        blocked: false,
+        blockedUntil: null,
+        resetAt: new Date(now.getTime() + 60 * 60 * 1000),
+      };
+    } else {
+      rateLimit = {
+        ...rateLimit,
+        requestCount: rateLimit.requestCount + 1,
+        lastRequest: now,
+      };
+    }
+    
+    this.phoneRateLimits.set(phoneNumber, rateLimit);
+    return rateLimit;
+  }
+
+  async resetPhoneRateLimit(phoneNumber: string): Promise<boolean> {
+    const rateLimit = this.phoneRateLimits.get(phoneNumber);
+    if (!rateLimit) return false;
+    
+    const now = new Date();
+    const resetLimit = {
+      ...rateLimit,
+      requestCount: 0,
+      windowStart: now,
+      resetAt: new Date(now.getTime() + 60 * 60 * 1000),
+      blocked: false,
+      blockedUntil: null,
+    };
+    
+    this.phoneRateLimits.set(phoneNumber, resetLimit);
+    return true;
+  }
+
+  // ==========================================
+  // CUSTOMER PORTAL - VERIFICATION ATTEMPT TRACKING (SECURITY)
+  // ==========================================
+
+  async trackVerificationAttempt(phoneNumber: string, sessionId: string, ipAddress?: string, userAgent?: string): Promise<CustomerVerificationAttempts> {
+    const now = new Date();
+    const key = `${phoneNumber}:${sessionId}`;
+    
+    let attempts = this.customerVerificationAttempts.get(key);
+    
+    if (!attempts) {
+      attempts = {
+        id: randomUUID(),
+        phoneNumber,
+        sessionId,
+        attemptCount: 1,
+        lastAttempt: now,
+        lockedUntil: null,
+        lockoutCount: 0,
+        ipAddress: ipAddress || null,
+        userAgent: userAgent || null,
+        createdAt: now,
+        updatedAt: now,
+      };
+    } else {
+      const newAttemptCount = attempts.attemptCount + 1;
+      let lockedUntil = attempts.lockedUntil;
+      let lockoutCount = attempts.lockoutCount;
+      
+      // Implement escalating lockout logic
+      if (newAttemptCount >= 6) {
+        lockoutCount = attempts.lockoutCount + 1;
+        
+        // Escalating lockout periods
+        if (lockoutCount === 1) {
+          lockedUntil = new Date(now.getTime() + 10 * 60 * 1000); // 10 minutes
+        } else if (lockoutCount === 2) {
+          lockedUntil = new Date(now.getTime() + 30 * 60 * 1000); // 30 minutes
+        } else {
+          lockedUntil = new Date(now.getTime() + 60 * 60 * 1000); // 1 hour
+        }
+      } else if (newAttemptCount >= 4) {
+        // Add 30-second delay for attempts 4-5
+        lockedUntil = new Date(now.getTime() + 30 * 1000); // 30 seconds
+      }
+      
+      attempts = {
+        ...attempts,
+        attemptCount: newAttemptCount,
+        lastAttempt: now,
+        lockedUntil,
+        lockoutCount,
+        updatedAt: now,
+      };
+    }
+    
+    this.customerVerificationAttempts.set(key, attempts);
+    
+    // Cleanup old attempts periodically
+    if (Math.random() < 0.1) { // 10% chance to cleanup
+      await this.cleanupExpiredVerificationAttempts();
+    }
+    
+    return attempts;
+  }
+
+  async isVerificationLocked(phoneNumber: string, sessionId: string): Promise<{ locked: boolean; lockedUntil?: Date; attemptCount: number }> {
+    const now = new Date();
+    const key = `${phoneNumber}:${sessionId}`;
+    const attempts = this.customerVerificationAttempts.get(key);
+    
+    if (!attempts) {
+      return { locked: false, attemptCount: 0 };
+    }
+    
+    // Check if locked and lockout period hasn't expired
+    if (attempts.lockedUntil && now < attempts.lockedUntil) {
+      return { 
+        locked: true, 
+        lockedUntil: attempts.lockedUntil, 
+        attemptCount: attempts.attemptCount 
+      };
+    }
+    
+    return { 
+      locked: false, 
+      attemptCount: attempts.attemptCount 
+    };
+  }
+
+  async getVerificationAttempts(phoneNumber: string, sessionId: string): Promise<CustomerVerificationAttempts | undefined> {
+    const key = `${phoneNumber}:${sessionId}`;
+    return this.customerVerificationAttempts.get(key);
+  }
+
+  async resetVerificationAttempts(phoneNumber: string, sessionId: string): Promise<boolean> {
+    const key = `${phoneNumber}:${sessionId}`;
+    const deleted = this.customerVerificationAttempts.delete(key);
+    return deleted;
+  }
+
+  async cleanupExpiredVerificationAttempts(): Promise<number> {
+    const now = new Date();
+    const expiredCutoff = new Date(now.getTime() - 24 * 60 * 60 * 1000); // 24 hours old
+    let deletedCount = 0;
+    
+    for (const [key, attempts] of this.customerVerificationAttempts.entries()) {
+      // Delete if expired lockout and old, or if very old
+      const shouldDelete = (
+        (attempts.lockedUntil && now > attempts.lockedUntil && attempts.lastAttempt < expiredCutoff) ||
+        (attempts.lastAttempt < expiredCutoff)
+      );
+      
+      if (shouldDelete) {
+        this.customerVerificationAttempts.delete(key);
+        deletedCount++;
+      }
+    }
+    
+    return deletedCount;
+  }
+
+  // ==========================================
+  // CUSTOMER PORTAL - CUSTOMER LOOKUP
+  // ==========================================
+
+  async searchCustomersByPhone(phoneNumber: string): Promise<Contact[]> {
+    // Normalize phone number for search
+    const normalized = phoneNumber.replace(/\D/g, '');
+    
+    return Array.from(this.contacts.values()).filter(contact => {
+      if (!contact.phone) return false;
+      const contactPhone = contact.phone.replace(/\D/g, '');
+      return contactPhone.includes(normalized) || normalized.includes(contactPhone);
+    });
+  }
+
+  async searchCustomersByName(query: string): Promise<Contact[]> {
+    const searchTerm = query.toLowerCase().trim();
+    
+    return Array.from(this.contacts.values()).filter(contact => {
+      const name = contact.name.toLowerCase();
+      return name.includes(searchTerm) || 
+             name.split(' ').some(part => part.startsWith(searchTerm));
+    });
+  }
+
+  async searchCustomersByEmail(email: string): Promise<Contact[]> {
+    const searchTerm = email.toLowerCase().trim();
+    
+    return Array.from(this.contacts.values()).filter(contact => 
+      contact.email.toLowerCase().includes(searchTerm)
+    );
+  }
+
+  async getCustomerDataById(contactId: string): Promise<{
+    contact: Contact;
+    projects: Project[];
+    quotes: Quote[];
+    invoices: Invoice[];
+    bookings: Booking[];
+  } | undefined> {
+    const contact = this.contacts.get(contactId);
+    if (!contact) return undefined;
+    
+    const projects = Array.from(this.projects.values())
+      .filter(p => p.contactId === contactId);
+    
+    const projectIds = projects.map(p => p.id);
+    
+    const quotes = Array.from(this.quotes.values())
+      .filter(q => projectIds.includes(q.projectId));
+    
+    const invoices = Array.from(this.invoices.values())
+      .filter(i => projectIds.includes(i.projectId));
+    
+    const bookings = Array.from(this.bookings.values())
+      .filter(b => b.projectId && projectIds.includes(b.projectId));
+    
+    return {
+      contact,
+      projects,
+      quotes,
+      invoices,
+      bookings,
+    };
+  }
+
+  async getCustomerQuotesWithAccess(contactId: string): Promise<Quote[]> {
+    const projects = Array.from(this.projects.values())
+      .filter(p => p.contactId === contactId);
+    
+    const projectIds = projects.map(p => p.id);
+    
+    return Array.from(this.quotes.values())
+      .filter(q => projectIds.includes(q.projectId))
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  async getCustomerInvoices(contactId: string): Promise<Invoice[]> {
+    const projects = Array.from(this.projects.values())
+      .filter(p => p.contactId === contactId);
+    
+    const projectIds = projects.map(p => p.id);
+    
+    return Array.from(this.invoices.values())
+      .filter(i => projectIds.includes(i.projectId))
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  async getCustomerBookings(contactId: string): Promise<Booking[]> {
+    const projects = Array.from(this.projects.values())
+      .filter(p => p.contactId === contactId);
+    
+    const projectIds = projects.map(p => p.id);
+    
+    return Array.from(this.bookings.values())
+      .filter(b => b.projectId && projectIds.includes(b.projectId))
+      .sort((a, b) => b.startTime.getTime() - a.startTime.getTime());
+  }
+
+  async updateCustomerProfile(contactId: string, updates: Partial<Contact>): Promise<Contact> {
+    const contact = this.contacts.get(contactId);
+    if (!contact) {
+      throw new Error('Contact not found');
+    }
+
+    const updatedContact = {
+      ...contact,
+      ...updates,
+      id: contactId, // Ensure ID doesn't change
+    };
+
+    this.contacts.set(contactId, updatedContact);
+    return updatedContact;
   }
 }
 

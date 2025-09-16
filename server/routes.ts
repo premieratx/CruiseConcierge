@@ -17,10 +17,10 @@ import { mailgunService } from "./services/mailgun";
 import { openRouterService } from "./services/openrouter";
 import { goHighLevelService, type LeadWebhookPayload } from "./services/gohighlevel";
 import { sendEmail as sendgridEmail, sendQuoteEmail as sendgridQuoteEmail } from "./services/sendgrid";
-import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest } from "@shared/schema";
+import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest } from "@shared/schema";
 import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
-import { randomUUID } from "crypto";
+import { randomUUID, randomInt } from "crypto";
 import { getFullUrl, getPublicUrl } from "./utils";
 import { seedQuoteTemplates } from "./seedTemplates";
 
@@ -6192,6 +6192,803 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(400).json({ 
         error: "Failed to create booking",
         details: error.message 
+      });
+    }
+  });
+
+  // ==========================================
+  // CUSTOMER PORTAL - AUTHENTICATION SYSTEM
+  // ==========================================
+
+  // Customer authentication middleware
+  const requireCustomerAuth = async (req: any, res: any, next: any) => {
+    try {
+      const sessionId = req.session?.id;
+      if (!sessionId) {
+        return res.status(401).json({ 
+          error: "Authentication required",
+          code: "NO_SESSION"
+        });
+      }
+
+      const customerSession = await storage.getCustomerSession(sessionId);
+      if (!customerSession) {
+        return res.status(401).json({ 
+          error: "Invalid or expired session",
+          code: "INVALID_SESSION"
+        });
+      }
+
+      // Update last activity
+      await storage.updateCustomerSessionActivity(sessionId);
+
+      // Attach customer info to request
+      req.customerSession = customerSession;
+      req.customerId = customerSession.contactId;
+
+      next();
+    } catch (error) {
+      console.error('Customer auth middleware error:', error);
+      res.status(500).json({ 
+        error: "Authentication error",
+        code: "AUTH_ERROR"
+      });
+    }
+  };
+
+  // Helper function to normalize phone numbers
+  const normalizePhoneNumber = (phone: string): string => {
+    // Remove all non-digit characters
+    const cleaned = phone.replace(/\D/g, '');
+    
+    // Add +1 if it's a 10-digit US number
+    if (cleaned.length === 10) {
+      return `+1${cleaned}`;
+    }
+    
+    // Add + if it's an 11-digit number starting with 1
+    if (cleaned.length === 11 && cleaned.startsWith('1')) {
+      return `+${cleaned}`;
+    }
+    
+    return `+${cleaned}`;
+  };
+
+  // Generate secure random codes
+  const generateAuthCode = (): string => {
+    return randomInt(0, 1_000_000).toString().padStart(6, '0');
+  };
+
+  const generateSecureToken = (): string => {
+    return randomUUID().replace(/-/g, '') + randomUUID().replace(/-/g, '');
+  };
+
+  // Request SMS authentication code
+  app.post('/api/portal/auth/request-code', async (req, res) => {
+    const startTime = Date.now();
+    
+    try {
+      const { phoneNumber, name } = req.body;
+      
+      if (!phoneNumber) {
+        return res.status(400).json({ 
+          error: "Phone number is required",
+          code: "MISSING_PHONE"
+        });
+      }
+
+      const normalizedPhone = normalizePhoneNumber(phoneNumber);
+      
+      // Rate limiting check
+      const rateLimit = await storage.checkPhoneRateLimit(normalizedPhone);
+      if (!rateLimit.allowed) {
+        return res.status(429).json({ 
+          error: "Too many requests. Please try again later.",
+          code: "RATE_LIMITED",
+          resetIn: rateLimit.resetIn,
+          requestCount: rateLimit.requestCount
+        });
+      }
+
+      // Update rate limit
+      await storage.updatePhoneRateLimit(normalizedPhone);
+
+      // Generate authentication code and secure token
+      const authCode = generateAuthCode();
+      const secureToken = generateSecureToken();
+      const expiresAt = new Date(Date.now() + 15 * 60 * 1000); // 15 minutes
+
+      // Create SMS auth token
+      await storage.createSmsAuthToken({
+        phoneNumber: normalizedPhone,
+        code: authCode,
+        token: secureToken,
+        purpose: 'login',
+        expiresAt,
+        ipAddress: req.ip,
+        userAgent: req.get('User-Agent'),
+      });
+
+      // Send SMS with both code and magic link
+      const magicLink = `${getFullUrl('/portal/verify')}?token=${secureToken}`;
+      const message = `Premier Party Cruises Portal Access:\n\nCode: ${authCode}\nOr click: ${magicLink}\n\nValid for 15 minutes.`;
+
+      let smsSuccess = false;
+      let smsError = null;
+
+      try {
+        await goHighLevelService.send(normalizedPhone, message, { name });
+        smsSuccess = true;
+        console.log(`SMS sent successfully to ${normalizedPhone}`);
+      } catch (error: any) {
+        console.error('SMS sending failed:', error);
+        smsError = error.message;
+        smsSuccess = false;
+      }
+
+      const duration = Date.now() - startTime;
+
+      // Log portal activity
+      await storage.logPortalActivity({
+        phoneNumber: normalizedPhone,
+        action: 'request_auth_code',
+        details: { 
+          smsSuccess, 
+          smsError: smsError || undefined,
+          hasName: !!name 
+        },
+        success: smsSuccess,
+        errorMessage: smsError || undefined,
+        ipAddress: req.ip,
+        userAgent: req.get('User-Agent'),
+        duration,
+      });
+
+      if (smsSuccess) {
+        res.json({
+          success: true,
+          message: "Authentication code sent via SMS",
+          phoneNumber: normalizedPhone,
+          expiresIn: 900, // 15 minutes in seconds
+          rateLimitRemaining: Math.max(0, 3 - rateLimit.requestCount - 1)
+        });
+      } else {
+        // Return success even if SMS fails to avoid information leakage
+        // But log the error for admin review
+        res.json({
+          success: true,
+          message: "If this phone number is in our system, an authentication code has been sent",
+          phoneNumber: normalizedPhone,
+          expiresIn: 900,
+          warning: "SMS delivery may be delayed"
+        });
+      }
+
+    } catch (error: any) {
+      console.error('Request auth code error:', error);
+      
+      await storage.logPortalActivity({
+        phoneNumber: req.body.phoneNumber,
+        action: 'request_auth_code',
+        details: { error: error.message },
+        success: false,
+        errorMessage: error.message,
+        ipAddress: req.ip,
+        userAgent: req.get('User-Agent'),
+        duration: Date.now() - startTime,
+      });
+
+      res.status(500).json({ 
+        error: "Failed to send authentication code",
+        code: "SMS_ERROR"
+      });
+    }
+  });
+
+  // Verify SMS authentication code
+  app.post('/api/portal/auth/verify-code', async (req, res) => {
+    const startTime = Date.now();
+    
+    try {
+      const { phoneNumber, code, token } = req.body;
+
+      if (!phoneNumber && !token) {
+        return res.status(400).json({ 
+          error: "Phone number or token is required",
+          code: "MISSING_CREDENTIALS"
+        });
+      }
+
+      let authToken;
+      let normalizedPhone;
+      const sessionId = req.session.id;
+
+      // Verify by token (magic link) or by phone + code
+      if (token) {
+        authToken = await storage.getSmsAuthTokenByToken(token);
+        if (authToken) {
+          normalizedPhone = authToken.phoneNumber;
+        }
+      } else if (phoneNumber && code) {
+        normalizedPhone = normalizePhoneNumber(phoneNumber);
+        
+        // SECURITY: Check if verification is locked before attempting
+        const lockStatus = await storage.isVerificationLocked(normalizedPhone, sessionId);
+        if (lockStatus.locked) {
+          const lockRemainingMs = lockStatus.lockedUntil ? lockStatus.lockedUntil.getTime() - Date.now() : 0;
+          const lockRemainingMin = Math.ceil(lockRemainingMs / (60 * 1000));
+          
+          await storage.logPortalActivity({
+            phoneNumber: normalizedPhone,
+            action: 'verify_code_blocked',
+            details: { 
+              reason: 'verification_locked',
+              attemptCount: lockStatus.attemptCount,
+              lockRemainingMin
+            },
+            success: false,
+            errorMessage: 'Verification locked due to too many attempts',
+            ipAddress: req.ip,
+            userAgent: req.get('User-Agent'),
+            duration: Date.now() - startTime,
+          });
+
+          return res.status(429).json({ 
+            error: `Too many failed verification attempts. Please wait ${lockRemainingMin} minute(s) before trying again.`,
+            code: "VERIFICATION_LOCKED",
+            retryAfter: lockRemainingMs,
+            attemptCount: lockStatus.attemptCount
+          });
+        }
+        
+        authToken = await storage.getSmsAuthToken(normalizedPhone, code);
+      }
+
+      if (!authToken) {
+        // SECURITY: Track failed verification attempt to prevent brute force
+        if (normalizedPhone || phoneNumber) {
+          const phoneToTrack = normalizedPhone || normalizePhoneNumber(phoneNumber);
+          await storage.trackVerificationAttempt(phoneToTrack, sessionId, req.ip, req.get('User-Agent'));
+          
+          // Check if this attempt caused a lockout
+          const lockStatus = await storage.isVerificationLocked(phoneToTrack, sessionId);
+          
+          await storage.logPortalActivity({
+            phoneNumber: phoneToTrack,
+            action: 'verify_code_failed',
+            details: { 
+              hasToken: !!token, 
+              hasCode: !!code,
+              hasPhone: !!phoneNumber,
+              attemptCount: lockStatus.attemptCount,
+              nowLocked: lockStatus.locked
+            },
+            success: false,
+            errorMessage: 'Invalid or expired code',
+            ipAddress: req.ip,
+            userAgent: req.get('User-Agent'),
+            duration: Date.now() - startTime,
+          });
+
+          if (lockStatus.locked && lockStatus.lockedUntil) {
+            const lockRemainingMs = lockStatus.lockedUntil.getTime() - Date.now();
+            const lockRemainingMin = Math.ceil(lockRemainingMs / (60 * 1000));
+            
+            return res.status(429).json({ 
+              error: `Too many failed attempts. Account locked for ${lockRemainingMin} minute(s).`,
+              code: "VERIFICATION_LOCKED",
+              retryAfter: lockRemainingMs,
+              attemptCount: lockStatus.attemptCount
+            });
+          }
+        }
+
+        return res.status(401).json({ 
+          error: "Invalid or expired authentication code",
+          code: "INVALID_CODE"
+        });
+      }
+
+      // SECURITY: Reset verification attempts on successful authentication
+      await storage.resetVerificationAttempts(authToken.phoneNumber, sessionId);
+
+      // Mark token as used
+      await storage.markTokenAsUsed(authToken.id);
+
+      // Find or create customer contact
+      const existingCustomers = await storage.searchCustomersByPhone(authToken.phoneNumber);
+      let customer;
+
+      if (existingCustomers.length > 0) {
+        customer = existingCustomers[0]; // Use the first match
+      } else {
+        // Create new customer if not found
+        customer = await storage.createContact({
+          name: req.body.name || 'Portal User',
+          email: req.body.email || `${authToken.phoneNumber.replace(/\D/g, '')}@temp.portal`,
+          phone: authToken.phoneNumber,
+          tags: ['portal-user']
+        });
+      }
+
+      // Create customer session
+      const sessionExpiry = new Date(Date.now() + 2 * 60 * 60 * 1000); // 2 hours
+      const customerSession = await storage.createCustomerSession({
+        sessionId: req.session.id,
+        contactId: customer.id,
+        phoneNumber: authToken.phoneNumber,
+        expiresAt: sessionExpiry,
+        ipAddress: req.ip,
+        userAgent: req.get('User-Agent'),
+        deviceInfo: {
+          mobile: /Mobile|Android|iPhone|iPad/.test(req.get('User-Agent') || ''),
+          browser: req.get('User-Agent')?.split(' ')[0]
+        }
+      });
+
+      // Store customer session in Express session
+      req.session.customerId = customer.id;
+      req.session.customerPhone = authToken.phoneNumber;
+      req.session.authenticated = true;
+
+      const duration = Date.now() - startTime;
+
+      // Log successful authentication
+      await storage.logPortalActivity({
+        sessionId: req.session.id,
+        contactId: customer.id,
+        phoneNumber: authToken.phoneNumber,
+        action: 'login_success',
+        details: { 
+          method: token ? 'magic_link' : 'sms_code',
+          customerId: customer.id,
+          customerName: customer.name
+        },
+        success: true,
+        ipAddress: req.ip,
+        userAgent: req.get('User-Agent'),
+        duration,
+      });
+
+      // Clean up expired tokens
+      await storage.cleanupExpiredTokens();
+
+      res.json({
+        success: true,
+        message: "Authentication successful",
+        customer: {
+          id: customer.id,
+          name: customer.name,
+          email: customer.email,
+          phone: customer.phone
+        },
+        session: {
+          expiresAt: sessionExpiry,
+          expiresIn: 7200 // 2 hours in seconds
+        }
+      });
+
+    } catch (error: any) {
+      console.error('Verify code error:', error);
+      
+      await storage.logPortalActivity({
+        phoneNumber: req.body.phoneNumber,
+        action: 'verify_code_error',
+        details: { error: error.message },
+        success: false,
+        errorMessage: error.message,
+        ipAddress: req.ip,
+        userAgent: req.get('User-Agent'),
+        duration: Date.now() - startTime,
+      });
+
+      res.status(500).json({ 
+        error: "Verification failed",
+        code: "VERIFY_ERROR"
+      });
+    }
+  });
+
+  // Check authentication status
+  app.get('/api/portal/auth/status', async (req, res) => {
+    try {
+      const sessionId = req.session?.id;
+      
+      if (!sessionId || !req.session.authenticated) {
+        return res.json({
+          authenticated: false,
+          session: null
+        });
+      }
+
+      const customerSession = await storage.getCustomerSession(sessionId);
+      
+      if (!customerSession) {
+        // Clear invalid session
+        req.session.destroy((err) => {
+          if (err) console.error('Session destruction error:', err);
+        });
+        
+        return res.json({
+          authenticated: false,
+          session: null,
+          message: "Session expired"
+        });
+      }
+
+      const customer = await storage.getContact(customerSession.contactId);
+      
+      res.json({
+        authenticated: true,
+        customer: customer ? {
+          id: customer.id,
+          name: customer.name,
+          email: customer.email,
+          phone: customer.phone
+        } : null,
+        session: {
+          loginTime: customerSession.loginTime,
+          lastActivity: customerSession.lastActivity,
+          expiresAt: customerSession.expiresAt
+        }
+      });
+
+    } catch (error: any) {
+      console.error('Auth status error:', error);
+      res.status(500).json({ 
+        error: "Failed to check authentication status",
+        code: "STATUS_ERROR"
+      });
+    }
+  });
+
+  // Customer logout
+  app.post('/api/portal/auth/logout', async (req, res) => {
+    try {
+      const sessionId = req.session?.id;
+      const customerId = req.session?.customerId;
+      
+      if (sessionId) {
+        // End customer session in storage
+        try {
+          await storage.endCustomerSession(sessionId);
+        } catch (error) {
+          console.error('Error ending customer session:', error);
+        }
+
+        // Log logout activity
+        if (customerId) {
+          await storage.logPortalActivity({
+            sessionId,
+            contactId: customerId,
+            phoneNumber: req.session.customerPhone,
+            action: 'logout',
+            details: { manual: true },
+            success: true,
+            ipAddress: req.ip,
+            userAgent: req.get('User-Agent'),
+          });
+        }
+      }
+
+      // Destroy Express session
+      req.session.destroy((err) => {
+        if (err) {
+          console.error('Session destruction error:', err);
+          return res.status(500).json({ 
+            error: "Logout failed",
+            code: "LOGOUT_ERROR"
+          });
+        }
+
+        res.json({
+          success: true,
+          message: "Logged out successfully"
+        });
+      });
+
+    } catch (error: any) {
+      console.error('Logout error:', error);
+      res.status(500).json({ 
+        error: "Logout failed",
+        code: "LOGOUT_ERROR"
+      });
+    }
+  });
+
+  // ==========================================
+  // CUSTOMER PORTAL - DATA ACCESS ENDPOINTS
+  // ==========================================
+
+  // Get customer profile
+  app.get('/api/portal/customer/profile', requireCustomerAuth, async (req, res) => {
+    try {
+      const customer = await storage.getContact(req.customerId);
+      
+      if (!customer) {
+        return res.status(404).json({ 
+          error: "Customer profile not found",
+          code: "PROFILE_NOT_FOUND"
+        });
+      }
+
+      await storage.logPortalActivity({
+        sessionId: req.session.id,
+        contactId: req.customerId,
+        phoneNumber: req.customerSession.phoneNumber,
+        action: 'view_profile',
+        resource: 'profile',
+        resourceId: customer.id,
+        success: true,
+        ipAddress: req.ip,
+        userAgent: req.get('User-Agent'),
+      });
+
+      res.json({
+        customer: {
+          id: customer.id,
+          name: customer.name,
+          email: customer.email,
+          phone: customer.phone,
+          tags: customer.tags,
+          createdAt: customer.createdAt
+        }
+      });
+
+    } catch (error: any) {
+      console.error('Get customer profile error:', error);
+      res.status(500).json({ 
+        error: "Failed to load profile",
+        code: "PROFILE_ERROR"
+      });
+    }
+  });
+
+  // Get customer quotes
+  app.get('/api/portal/customer/quotes', requireCustomerAuth, async (req, res) => {
+    try {
+      const quotes = await storage.getCustomerQuotesWithAccess(req.customerId);
+
+      await storage.logPortalActivity({
+        sessionId: req.session.id,
+        contactId: req.customerId,
+        phoneNumber: req.customerSession.phoneNumber,
+        action: 'view_quotes',
+        resource: 'quotes',
+        details: { count: quotes.length },
+        success: true,
+        ipAddress: req.ip,
+        userAgent: req.get('User-Agent'),
+      });
+
+      res.json({
+        quotes: quotes.map(quote => ({
+          id: quote.id,
+          status: quote.status,
+          total: quote.total,
+          subtotal: quote.subtotal,
+          tax: quote.tax,
+          gratuity: quote.gratuity,
+          depositRequired: quote.depositRequired,
+          depositAmount: quote.depositAmount,
+          items: quote.items,
+          radioSections: quote.radioSections,
+          expiresAt: quote.expiresAt,
+          createdAt: quote.createdAt,
+          version: quote.version,
+          accessToken: quote.accessToken // For public viewing
+        }))
+      });
+
+    } catch (error: any) {
+      console.error('Get customer quotes error:', error);
+      res.status(500).json({ 
+        error: "Failed to load quotes",
+        code: "QUOTES_ERROR"
+      });
+    }
+  });
+
+  // Get customer invoices
+  app.get('/api/portal/customer/invoices', requireCustomerAuth, async (req, res) => {
+    try {
+      const invoices = await storage.getCustomerInvoices(req.customerId);
+
+      await storage.logPortalActivity({
+        sessionId: req.session.id,
+        contactId: req.customerId,
+        phoneNumber: req.customerSession.phoneNumber,
+        action: 'view_invoices',
+        resource: 'invoices',
+        details: { count: invoices.length },
+        success: true,
+        ipAddress: req.ip,
+        userAgent: req.get('User-Agent'),
+      });
+
+      res.json({
+        invoices: invoices.map(invoice => ({
+          id: invoice.id,
+          status: invoice.status,
+          subtotal: invoice.subtotal,
+          tax: invoice.tax,
+          total: invoice.total,
+          balance: invoice.balance,
+          schedule: invoice.schedule,
+          createdAt: invoice.createdAt
+        }))
+      });
+
+    } catch (error: any) {
+      console.error('Get customer invoices error:', error);
+      res.status(500).json({ 
+        error: "Failed to load invoices",
+        code: "INVOICES_ERROR"
+      });
+    }
+  });
+
+  // Get customer bookings
+  app.get('/api/portal/customer/bookings', requireCustomerAuth, async (req, res) => {
+    try {
+      const bookings = await storage.getCustomerBookings(req.customerId);
+
+      await storage.logPortalActivity({
+        sessionId: req.session.id,
+        contactId: req.customerId,
+        phoneNumber: req.customerSession.phoneNumber,
+        action: 'view_bookings',
+        resource: 'bookings',
+        details: { count: bookings.length },
+        success: true,
+        ipAddress: req.ip,
+        userAgent: req.get('User-Agent'),
+      });
+
+      res.json({
+        bookings: bookings.map(booking => ({
+          id: booking.id,
+          type: booking.type,
+          status: booking.status,
+          startTime: booking.startTime,
+          endTime: booking.endTime,
+          groupSize: booking.groupSize,
+          partyType: booking.partyType,
+          paymentStatus: booking.paymentStatus,
+          amountPaid: booking.amountPaid,
+          totalAmount: booking.totalAmount,
+          contactName: booking.contactName,
+          contactEmail: booking.contactEmail,
+          contactPhone: booking.contactPhone,
+          specialRequests: booking.specialRequests,
+          createdAt: booking.createdAt
+        }))
+      });
+
+    } catch (error: any) {
+      console.error('Get customer bookings error:', error);
+      res.status(500).json({ 
+        error: "Failed to load bookings",
+        code: "BOOKINGS_ERROR"
+      });
+    }
+  });
+
+  // Update customer profile
+  app.put('/api/portal/customer/profile', requireCustomerAuth, async (req, res) => {
+    try {
+      const { name, email } = req.body;
+      
+      const updates: any = {};
+      if (name && name.trim()) updates.name = name.trim();
+      if (email && email.trim()) updates.email = email.trim();
+
+      if (Object.keys(updates).length === 0) {
+        return res.status(400).json({ 
+          error: "No valid updates provided",
+          code: "NO_UPDATES"
+        });
+      }
+
+      const updatedCustomer = await storage.updateCustomerProfile(req.customerId, updates);
+
+      await storage.logPortalActivity({
+        sessionId: req.session.id,
+        contactId: req.customerId,
+        phoneNumber: req.customerSession.phoneNumber,
+        action: 'update_profile',
+        resource: 'profile',
+        resourceId: req.customerId,
+        details: { updates: Object.keys(updates) },
+        success: true,
+        ipAddress: req.ip,
+        userAgent: req.get('User-Agent'),
+      });
+
+      res.json({
+        success: true,
+        message: "Profile updated successfully",
+        customer: {
+          id: updatedCustomer.id,
+          name: updatedCustomer.name,
+          email: updatedCustomer.email,
+          phone: updatedCustomer.phone
+        }
+      });
+
+    } catch (error: any) {
+      console.error('Update customer profile error:', error);
+      res.status(500).json({ 
+        error: "Failed to update profile",
+        code: "UPDATE_ERROR"
+      });
+    }
+  });
+
+  // Get comprehensive customer data
+  app.get('/api/portal/customer/dashboard', requireCustomerAuth, async (req, res) => {
+    try {
+      const customerData = await storage.getCustomerDataById(req.customerId);
+      
+      if (!customerData) {
+        return res.status(404).json({ 
+          error: "Customer data not found",
+          code: "DATA_NOT_FOUND"
+        });
+      }
+
+      await storage.logPortalActivity({
+        sessionId: req.session.id,
+        contactId: req.customerId,
+        phoneNumber: req.customerSession.phoneNumber,
+        action: 'view_dashboard',
+        resource: 'dashboard',
+        resourceId: req.customerId,
+        details: { 
+          quotesCount: customerData.quotes.length,
+          invoicesCount: customerData.invoices.length,
+          bookingsCount: customerData.bookings.length,
+          projectsCount: customerData.projects.length
+        },
+        success: true,
+        ipAddress: req.ip,
+        userAgent: req.get('User-Agent'),
+      });
+
+      res.json({
+        customer: {
+          id: customerData.contact.id,
+          name: customerData.contact.name,
+          email: customerData.contact.email,
+          phone: customerData.contact.phone,
+          createdAt: customerData.contact.createdAt
+        },
+        summary: {
+          totalQuotes: customerData.quotes.length,
+          totalInvoices: customerData.invoices.length,
+          totalBookings: customerData.bookings.length,
+          upcomingBookings: customerData.bookings.filter(b => 
+            new Date(b.startTime) > new Date() && b.status !== 'canceled'
+          ).length,
+          pendingInvoices: customerData.invoices.filter(i => 
+            i.status === 'OPEN' && i.balance > 0
+          ).length,
+          activeQuotes: customerData.quotes.filter(q => 
+            q.status === 'SENT' && (!q.expiresAt || new Date(q.expiresAt) > new Date())
+          ).length
+        },
+        recentActivity: {
+          quotes: customerData.quotes.slice(0, 3),
+          invoices: customerData.invoices.slice(0, 3),
+          bookings: customerData.bookings.slice(0, 3)
+        }
+      });
+
+    } catch (error: any) {
+      console.error('Get customer dashboard error:', error);
+      res.status(500).json({ 
+        error: "Failed to load dashboard",
+        code: "DASHBOARD_ERROR"
       });
     }
   });
