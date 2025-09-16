@@ -1,5 +1,6 @@
 import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts } from "@shared/schema";
 import { randomUUID } from "crypto";
+import { quoteTokenService } from "./services/quoteTokenService";
 
 export interface IStorage {
   // Contacts
@@ -1582,7 +1583,21 @@ export class MemStorage implements IStorage {
 
   async createQuote(insertQuote: InsertQuote): Promise<Quote> {
     const id = randomUUID();
-    const accessToken = randomUUID(); // Generate secure access token for public access
+    
+    // Generate secure, time-limited access token for public access
+    const accessToken = quoteTokenService.generateSecureToken(id, {
+      scope: 'quote:view',
+      expiresIn: 30 * 24 * 60 * 60 * 1000, // 30 days
+      audience: 'customer'
+    });
+    
+    console.log('🔐 Created quote with secure token:', {
+      quoteId: id,
+      tokenLength: accessToken.length,
+      hasSecureToken: accessToken.includes('.'),
+      expiresIn: '30 days'
+    });
+    
     const quote: Quote = {
       ...insertQuote,
       templateId: insertQuote.templateId ?? null,
@@ -1595,7 +1610,7 @@ export class MemStorage implements IStorage {
       tax: insertQuote.tax || 0,
       total: insertQuote.total || 0,
       version: insertQuote.version || 1,
-      accessToken, // Set the access token for public access
+      accessToken, // Set the secure access token for public access
       accessTokenCreatedAt: new Date(), // Record when token was created
       accessTokenRevokedAt: null, // Initially not revoked
       id,
@@ -1610,6 +1625,25 @@ export class MemStorage implements IStorage {
     if (!quote) throw new Error("Quote not found");
     
     const updated = { ...quote, ...updates };
+    
+    // If quote is being updated, optionally refresh the access token for extended access
+    if (updates.status && (updates.status === 'SENT' || updates.status === 'VIEWED')) {
+      console.log('🔄 Refreshing quote access token due to status update:', {
+        quoteId: id,
+        oldStatus: quote.status,
+        newStatus: updates.status
+      });
+      
+      const refreshResult = quoteTokenService.refreshToken(quote.accessToken, {
+        expiresIn: 60 * 24 * 60 * 60 * 1000 // 60 days for sent quotes
+      });
+      
+      if (refreshResult.success && refreshResult.token) {
+        updated.accessToken = refreshResult.token;
+        updated.accessTokenCreatedAt = new Date();
+      }
+    }
+    
     this.quotes.set(id, updated);
     return updated;
   }

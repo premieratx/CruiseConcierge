@@ -51,6 +51,9 @@ class GoHighLevelService implements SMSService {
   private fromPhone: string;
   private tokenCache: TokenCache | null = null;
   private authMethod: 'oauth' | 'apikey' | 'none' = 'none';
+  private maxRetries: number = 3;
+  private baseDelay: number = 1000; // 1 second
+  private customFieldCache: Map<string, string> = new Map(); // name -> id mapping
 
   constructor() {
     // OAuth credentials (for marketplace apps)
@@ -82,6 +85,230 @@ class GoHighLevelService implements SMSService {
     } else {
       console.log('⚠️ GoHighLevel: No authentication credentials configured');
     }
+  }
+
+  // Enhanced retry mechanism with exponential backoff for GoHighLevel API calls
+  private async withRetry<T>(
+    operation: () => Promise<T>,
+    operationName: string,
+    maxRetries: number = this.maxRetries
+  ): Promise<T> {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        const result = await operation();
+        if (attempt > 1) {
+          console.log(`✅ ${operationName} succeeded on attempt ${attempt}`);
+        }
+        return result;
+      } catch (error: any) {
+        console.error(`❌ ${operationName} failed on attempt ${attempt}:`, error.message);
+        
+        if (attempt === maxRetries) {
+          console.error(`💥 ${operationName} failed after ${maxRetries} attempts`);
+          throw error;
+        }
+        
+        // Check if it's a retryable error
+        const isRetryable = this.isRetryableError(error);
+        if (!isRetryable) {
+          console.error(`🚫 ${operationName} encountered non-retryable error, giving up`);
+          throw error;
+        }
+        
+        // Exponential backoff with jitter
+        const delay = this.baseDelay * Math.pow(2, attempt - 1) + Math.random() * 1000;
+        console.log(`⏱️ Retrying ${operationName} in ${Math.round(delay)}ms...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+    }
+    throw new Error(`Max retries exceeded for ${operationName}`);
+  }
+
+  // Check if GoHighLevel error is retryable
+  private isRetryableError(error: any): boolean {
+    if (!error.status && !error.code) return true; // Unknown errors are retryable
+    
+    // HTTP status codes that are retryable
+    const retryableStatuses = [408, 429, 500, 502, 503, 504];
+    if (error.status && retryableStatuses.includes(error.status)) {
+      return true;
+    }
+    
+    // GoHighLevel specific error codes that are retryable
+    const retryableCodes = ['RATE_LIMITED', 'INTERNAL_ERROR', 'SERVICE_UNAVAILABLE'];
+    if (error.code && retryableCodes.includes(error.code)) {
+      return true;
+    }
+    
+    return false;
+  }
+
+  // Get custom field ID by name, with caching
+  private async getCustomFieldId(fieldName: string): Promise<string | null> {
+    // Check cache first
+    if (this.customFieldCache.has(fieldName)) {
+      return this.customFieldCache.get(fieldName) || null;
+    }
+
+    try {
+      const authHeaders = await this.getAuthHeaders();
+      if (!authHeaders) {
+        console.error('❌ No authentication headers available for custom fields');
+        return null;
+      }
+
+      console.log(`🔍 Fetching custom field ID for "${fieldName}"...`);
+
+      // Fetch all custom fields for the location
+      const response = await this.withRetry(
+        () => fetch(`${this.baseUrl}/locations/${this.locationId}/customFields`, {
+          headers: authHeaders,
+        }),
+        `Fetch custom fields for location ${this.locationId}`
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Custom fields fetch failed: ${errorText.substring(0, 200)}`);
+      }
+
+      const data = await response.json();
+      const customFields = data.customFields || data.fields || [];
+
+      console.log(`📋 Found ${customFields.length} custom fields in GoHighLevel`);
+
+      // Cache all custom fields for future use
+      customFields.forEach((field: any) => {
+        const name = field.name || field.fieldKey || field.label;
+        const id = field.id || field.fieldId;
+        if (name && id) {
+          this.customFieldCache.set(name, id);
+          console.log(`📝 Cached custom field: "${name}" -> ${id}`);
+        }
+      });
+
+      const fieldId = this.customFieldCache.get(fieldName);
+      if (fieldId) {
+        console.log(`✅ Found custom field ID for "${fieldName}": ${fieldId}`);
+        return fieldId;
+      } else {
+        console.warn(`⚠️ Custom field "${fieldName}" not found. Available fields:`, 
+          customFields.map((f: any) => f.name || f.fieldKey || f.label));
+        return null;
+      }
+    } catch (error: any) {
+      console.error(`❌ Error fetching custom field ID for "${fieldName}":`, error.message);
+      return null;
+    }
+  }
+
+  // Create custom field if it doesn't exist - FEATURE FLAG CONTROLLED
+  private async createCustomField(fieldName: string, fieldType: string = 'TEXTBOX'): Promise<string | null> {
+    // FEATURE FLAG: Disable auto-creation to prevent 401 failures
+    const autoCreateEnabled = process.env.FEATURE_GHL_AUTOCREATE === 'true';
+    
+    if (!autoCreateEnabled) {
+      console.log(`⚠️ GoHighLevel custom field auto-creation disabled for "${fieldName}"`);
+      console.log('   Please manually create this field in GoHighLevel admin panel');
+      console.log(`   Field Name: "${fieldName}", Type: ${fieldType}`);
+      return null;
+    }
+
+    try {
+      const authHeaders = await this.getAuthHeaders();
+      if (!authHeaders) {
+        console.error('❌ No authentication headers available for custom field creation');
+        return null;
+      }
+
+      console.log(`🆕 Creating custom field "${fieldName}" of type ${fieldType}...`);
+
+      const response = await this.withRetry(
+        () => fetch(`${this.baseUrl}/locations/${this.locationId}/customFields`, {
+          method: 'POST',
+          headers: {
+            ...authHeaders,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: fieldName,
+            dataType: fieldType,
+            fieldKey: fieldName.toLowerCase().replace(/\s+/g, '_'),
+            position: 0,
+            isRequired: false,
+            placeholder: `Enter ${fieldName.toLowerCase()}`
+          }),
+        }),
+        `Create custom field "${fieldName}"`
+      );
+
+      if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`Custom field creation failed: ${errorText.substring(0, 200)}`);
+      }
+
+      const data = await response.json();
+      const fieldId = data.id || data.fieldId;
+
+      if (fieldId) {
+        this.customFieldCache.set(fieldName, fieldId);
+        console.log(`✅ Created custom field "${fieldName}" with ID: ${fieldId}`);
+        return fieldId;
+      } else {
+        console.error(`❌ Failed to get field ID from creation response:`, data);
+        return null;
+      }
+    } catch (error: any) {
+      // Enhanced error handling for permissions
+      if (error.message.includes('401') || error.message.includes('not authorized') || error.message.includes('Unauthorized')) {
+        console.warn(`⚠️ GoHighLevel token lacks custom field creation permission for "${fieldName}"`);
+        console.warn('   Consider setting FEATURE_GHL_AUTOCREATE=false and manually creating fields');
+        return null;
+      }
+      console.error(`❌ Error creating custom field "${fieldName}":`, error.message);
+      return null;
+    }
+  }
+
+  // Get or create custom field ID - Enhanced with graceful fallback
+  private async getOrCreateCustomFieldId(fieldName: string): Promise<string | null> {
+    let fieldId = await this.getCustomFieldId(fieldName);
+    
+    if (!fieldId) {
+      console.log(`🔧 Custom field "${fieldName}" not found, attempting to create it...`);
+      fieldId = await this.createCustomField(fieldName);
+      
+      // BUSINESS READINESS: Don't fail contact creation if custom fields can't be created
+      if (!fieldId) {
+        console.log(`⚠️ Custom field "${fieldName}" creation failed, but continuing with contact creation`);
+        console.log('   Business Impact: Contact will be created without this custom field');
+        console.log('   Recommendation: Manually create custom fields in GoHighLevel admin panel');
+      }
+    }
+    
+    return fieldId;
+  }
+
+  // Convert custom field names to IDs in the payload - FIXED: Return array format for GoHighLevel API
+  private async resolveCustomFieldsToArray(customFields: Record<string, any>): Promise<Array<{id: string, field_value: string}>> {
+    const customFieldArray: Array<{id: string, field_value: string}> = [];
+    
+    for (const [fieldName, value] of Object.entries(customFields)) {
+      const fieldId = await this.getOrCreateCustomFieldId(fieldName);
+      
+      if (fieldId) {
+        customFieldArray.push({
+          id: fieldId,
+          field_value: String(value)
+        });
+        console.log(`🔀 Resolved "${fieldName}" -> ${fieldId}: ${value}`);
+      } else {
+        console.warn(`⚠️ Could not resolve custom field "${fieldName}", skipping`);
+      }
+    }
+    
+    console.log(`✅ Custom fields array format:`, customFieldArray);
+    return customFieldArray;
   }
 
   // Helper function to format phone numbers to E.164 format
@@ -920,11 +1147,12 @@ class GoHighLevelService implements SMSService {
 
       console.log('✅ Contact ready for lead creation:', contactId);
 
-      // Create or update custom fields for the contact
+      // Create or update custom fields for the contact with enhanced mapping
       const customFields: any = {};
       
       if (leadData.quoteLink) {
         customFields['Quote Link'] = leadData.quoteLink;
+        console.log(`🔗 Quote Link mapped: ${leadData.quoteLink}`);
       }
       if (leadData.eventType) {
         customFields['Event Type'] = leadData.eventTypeLabel || leadData.eventType;
@@ -942,63 +1170,71 @@ class GoHighLevelService implements SMSService {
         customFields['System Lead ID'] = leadData.leadId;
       }
 
-      // Update contact with custom fields
+      // Update contact with custom fields using retry mechanism - FIXED: Use array format
       if (Object.keys(customFields).length > 0) {
-        console.log('📝 Updating contact with custom fields:', customFields);
-        
-        const updateResponse = await fetch(`${this.baseUrl}/contacts/${contactId}`, {
-          method: 'PUT',
-          headers: {
-            ...authHeaders,
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            customFields
-          }),
+        console.log('📝 Updating GoHighLevel contact with custom fields:', {
+          contactId,
+          customFields,
+          hasQuoteLink: !!leadData.quoteLink
         });
+        
+        try {
+          // Convert to array format with field IDs
+          const customFieldArray = await this.resolveCustomFieldsToArray(customFields);
+          
+          if (customFieldArray.length > 0) {
+            await this.withRetry(
+              async () => {
+                const updateResponse = await fetch(`${this.baseUrl}/contacts/${contactId}`, {
+                  method: 'PUT',
+                  headers: {
+                    ...authHeaders,
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({
+                    customFields: customFieldArray
+                  }),
+                });
 
-        if (updateResponse.ok) {
-          console.log('✅ Contact updated with custom fields successfully');
-        } else {
-          const updateError = await updateResponse.text();
-          console.log('⚠️ Warning: Could not update custom fields:', updateError.substring(0, 200));
+                if (!updateResponse.ok) {
+                  const updateError = await updateResponse.text();
+                  throw new Error(`Custom field update failed: ${updateError.substring(0, 200)}`);
+                }
+
+                const responseData = await updateResponse.json();
+                return responseData;
+              },
+              `Update GoHighLevel contact ${contactId} with custom fields`
+            );
+
+            console.log('✅ GoHighLevel contact updated with custom fields successfully:', {
+              contactId,
+              quoteLink: leadData.quoteLink,
+              customFieldCount: customFieldArray.length,
+              message: 'Quote link automatically populated in GoHighLevel!'
+            });
+          } else {
+            console.warn('⚠️ No custom fields could be resolved, skipping update');
+          }
+        } catch (error: any) {
+          console.error('❌ Failed to update GoHighLevel contact with custom fields:', {
+            contactId,
+            error: error.message,
+            customFields,
+            quoteLink: leadData.quoteLink
+          });
           // Continue with lead creation even if custom fields fail
         }
       }
 
-      // Create or update opportunity (lead) record
-      const opportunityData = {
-        pipelineId: process.env.GOHIGHLEVEL_PIPELINE_ID || 'default',
-        pipelineStageId: process.env.GOHIGHLEVEL_STAGE_ID || 'new_lead',
-        name: `${leadData.eventTypeLabel || leadData.eventType || 'Cruise'} - ${leadData.name}`,
-        contactId: contactId,
-        monetaryValue: 0, // Will be updated when quote is accepted
-        assignedTo: process.env.GOHIGHLEVEL_ASSIGNED_USER_ID,
-        status: 'open',
-        source: leadData.source || 'Website Lead'
-      };
-
-      console.log('🎯 Creating opportunity/lead in pipeline...');
-      const opportunityResponse = await fetch(`${this.baseUrl}/opportunities/`, {
-        method: 'POST',
-        headers: {
-          ...authHeaders,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(opportunityData),
-      });
-
-      if (opportunityResponse.ok) {
-        const opportunityResult = await opportunityResponse.json();
-        const opportunityId = opportunityResult.opportunity?.id || opportunityResult.id;
-        console.log('✅ GoHighLevel lead/opportunity created successfully:', opportunityId);
-        return opportunityId;
-      } else {
-        const errorText = await opportunityResponse.text();
-        console.log('⚠️ Opportunity creation failed, but contact exists:', errorText.substring(0, 200));
-        // Return contact ID even if opportunity creation fails
-        return contactId;
-      }
+      // REMOVED: Opportunity/pipeline creation - causing 401 errors with Private Integration Token
+      // Pipeline/opportunity operations require additional permissions that may not be available
+      // with Private Integration Tokens. Focusing on contact and custom fields integration only.
+      console.log('💡 Skipping opportunity/pipeline creation to avoid token scope issues');
+      console.log('   ✅ Contact creation and custom fields are sufficient for lead tracking');
+      
+      // Return contact ID as successful lead creation
+      return contactId;
 
     } catch (error) {
       console.error('❌ Error creating GoHighLevel lead:', error);
@@ -1039,6 +1275,156 @@ class GoHighLevelService implements SMSService {
       return false;
     }
   }
+
+  // VERIFICATION METHOD: Get contact data to verify quote link custom field population
+  async getContactForVerification(phone: string): Promise<{
+    found: boolean;
+    contactId?: string;
+    customFields?: Record<string, any>;
+    quoteLink?: string;
+    error?: string;
+  }> {
+    console.log(`🔍 Verifying contact with phone ${phone} in GoHighLevel...`);
+    
+    try {
+      const contactId = await this.withRetry(
+        () => this.findOrCreateContact(phone),
+        `Find contact ${phone} for verification`,
+        2 // Reduce retries for verification
+      );
+
+      if (!contactId) {
+        return {
+          found: false,
+          error: 'Contact not found in GoHighLevel'
+        };
+      }
+
+      // Get contact details with custom fields
+      const authHeaders = await this.getAuthHeaders();
+      if (!authHeaders) {
+        return {
+          found: false,
+          error: 'No authentication headers available'
+        };
+      }
+
+      const contactData = await this.withRetry(
+        async () => {
+          const response = await fetch(`${this.baseUrl}/contacts/${contactId}`, {
+            method: 'GET',
+            headers: authHeaders,
+          });
+
+          if (!response.ok) {
+            throw new Error(`Failed to get contact data: ${response.status}`);
+          }
+
+          return await response.json();
+        },
+        `Get contact ${contactId} details for verification`
+      );
+
+      const contact = contactData.contact || contactData;
+      const customFields = contact.customFields || {};
+      const quoteLink = customFields['Quote Link'] || customFields['quote_link'];
+
+      console.log(`✅ Contact ${contactId} verification complete:`, {
+        found: true,
+        hasCustomFields: Object.keys(customFields).length > 0,
+        hasQuoteLink: !!quoteLink,
+        quoteLink: quoteLink,
+        customFields: Object.keys(customFields)
+      });
+
+      return {
+        found: true,
+        contactId,
+        customFields,
+        quoteLink
+      };
+    } catch (error: any) {
+      console.error(`❌ Error verifying contact ${phone}:`, error.message);
+      return {
+        found: false,
+        error: error.message
+      };
+    }
+  }
+
+  // ENHANCED METHOD: Update existing contact with quote link custom field
+  async updateContactWithQuoteLink(phone: string, quoteUrl: string, leadId: string): Promise<boolean> {
+    console.log(`📝 Updating contact with phone ${phone} with quote link in GoHighLevel...`);
+    
+    try {
+      const contactId = await this.withRetry(
+        () => this.findOrCreateContact(phone),
+        `Find contact ${phone} for quote link update`
+      );
+
+      if (!contactId) {
+        console.error(`❌ Contact with phone ${phone} not found for quote link update`);
+        return false;
+      }
+
+      const authHeaders = await this.getAuthHeaders();
+      if (!authHeaders) {
+        console.error('❌ No authentication headers available');
+        return false;
+      }
+
+      const customFields = {
+        'Quote Link': quoteUrl,
+        'System Lead ID': leadId,
+        'Last Quote Update': new Date().toISOString()
+      };
+
+      // Resolve custom field names to IDs - FIXED: Use array format
+      const customFieldArray = await this.resolveCustomFieldsToArray(customFields);
+
+      console.log(`📝 Updating GoHighLevel contact ${contactId} with quote link:`, {
+        originalFields: customFields,
+        customFieldArrayCount: customFieldArray.length,
+        quoteUrl
+      });
+
+      if (customFieldArray.length === 0) {
+        console.warn('⚠️ No custom fields could be resolved for quote link update');
+        return false;
+      }
+
+      await this.withRetry(
+        async () => {
+          const updateResponse = await fetch(`${this.baseUrl}/contacts/${contactId}`, {
+            method: 'PUT',
+            headers: {
+              ...authHeaders,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              customFields: customFieldArray
+            }),
+          });
+
+          if (!updateResponse.ok) {
+            const updateError = await updateResponse.text();
+            throw new Error(`Quote link update failed: ${updateError.substring(0, 200)}`);
+          }
+
+          return await updateResponse.json();
+        },
+        `Update quote link for contact ${contactId}`
+      );
+      
+      console.log(`✅ Successfully updated GoHighLevel contact ${contactId} with quote link`);
+      return true;
+    } catch (error: any) {
+      console.error(`❌ Error updating contact ${phone} with quote link:`, error.message);
+      return false;
+    }
+  }
+
 }
 
+// Export singleton instance
 export const goHighLevelService = new GoHighLevelService();

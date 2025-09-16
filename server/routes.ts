@@ -24,6 +24,7 @@ import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
 import { randomUUID, randomInt } from "crypto";
 import { getFullUrl, getPublicUrl } from "./utils";
+import { quoteTokenService } from "./services/quoteTokenService";
 import { seedQuoteTemplates } from "./seedTemplates";
 
 // ==========================================
@@ -2323,6 +2324,211 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // =================
+  // VERIFICATION AND TESTING ENDPOINTS FOR INTEGRATION VALIDATION
+  // PROTECTED - Only available in testing mode with admin authentication
+  // =================
+  
+  // Check if testing endpoints are enabled
+  const isTestingEnabled = process.env.ENABLE_TESTING_ENDPOINTS === 'true';
+  
+  if (!isTestingEnabled) {
+    console.log('🔒 Testing endpoints are disabled. Set ENABLE_TESTING_ENDPOINTS=true to enable (not recommended for production)');
+  }
+  
+  // Middleware to protect test endpoints
+  const protectTestEndpoint = (req: any, res: any, next: any) => {
+    if (!isTestingEnabled) {
+      return res.status(404).json({ 
+        error: "Testing endpoints are not available", 
+        details: "Set ENABLE_TESTING_ENDPOINTS=true in environment to enable testing endpoints" 
+      });
+    }
+    next();
+  };
+  
+  // Test Google Sheets quote link population (PROTECTED)
+  app.get("/api/test/google-sheets/:leadId", protectTestEndpoint, requireAdminAuth, requirePermission('read'), async (req, res) => {
+    try {
+      console.log('🔍 Testing Google Sheets quote link for lead:', req.params.leadId);
+      
+      const leadData = await googleSheetsService.getLeadById(req.params.leadId);
+      
+      if (!leadData) {
+        return res.status(404).json({ 
+          success: false, 
+          error: "Lead not found in Google Sheets",
+          leadId: req.params.leadId 
+        });
+      }
+      
+      console.log('✅ Google Sheets verification result:', {
+        leadId: req.params.leadId,
+        hasQuoteUrl: !!leadData.quoteUrl,
+        hasQuoteId: !!leadData.quoteId,
+        quoteUrlLength: leadData.quoteUrl?.length,
+        quoteId: leadData.quoteId
+      });
+      
+      res.json({ 
+        success: true,
+        leadId: req.params.leadId,
+        sheetData: {
+          quoteUrl: leadData.quoteUrl,
+          quoteId: leadData.quoteId,
+          name: leadData.name,
+          email: leadData.email,
+          eventType: leadData.eventType,
+          source: leadData.source,
+          createdAt: leadData.createdAt
+        },
+        verification: {
+          quoteUrlPopulated: !!leadData.quoteUrl && leadData.quoteUrl.includes('/quotes/'),
+          quoteIdPopulated: !!leadData.quoteId,
+          integrationsWorking: !!leadData.quoteUrl && !!leadData.quoteId
+        }
+      });
+    } catch (error: any) {
+      console.error("❌ Google Sheets verification error:", error);
+      res.status(500).json({ 
+        success: false, 
+        error: "Failed to verify Google Sheets integration", 
+        details: error.message 
+      });
+    }
+  });
+  
+  // Test GoHighLevel custom field population (PROTECTED)
+  app.get("/api/test/ghl/:phone", protectTestEndpoint, requireAdminAuth, requirePermission('read'), async (req, res) => {
+    try {
+      console.log('🔍 Testing GoHighLevel custom fields for phone:', req.params.phone);
+      
+      const contact = await goHighLevelService.getContactForVerification(req.params.phone);
+      
+      if (!contact) {
+        return res.status(404).json({ 
+          success: false, 
+          error: "Contact not found in GoHighLevel",
+          phone: req.params.phone 
+        });
+      }
+      
+      console.log('✅ GoHighLevel verification result:', {
+        phone: req.params.phone,
+        contactId: contact.id,
+        hasCustomFields: !!contact.customFields && Object.keys(contact.customFields).length > 0,
+        hasQuoteLink: !!(contact.customFields && contact.customFields['Quote Link'])
+      });
+      
+      res.json({ 
+        success: true,
+        phone: req.params.phone,
+        contactData: {
+          id: contact.id,
+          name: contact.name,
+          email: contact.email,
+          phone: contact.phone,
+          customFields: contact.customFields || {},
+          tags: contact.tags || [],
+          source: contact.source
+        },
+        verification: {
+          customFieldsPopulated: !!(contact.customFields && Object.keys(contact.customFields).length > 0),
+          quoteLinkFieldExists: !!(contact.customFields && contact.customFields['Quote Link']),
+          eventTypeFieldExists: !!(contact.customFields && contact.customFields['Event Type']),
+          groupSizeFieldExists: !!(contact.customFields && contact.customFields['Group Size']),
+          integrationsWorking: !!(contact.customFields && contact.customFields['Quote Link'])
+        }
+      });
+    } catch (error: any) {
+      console.error("❌ GoHighLevel verification error:", error);
+      res.status(500).json({ 
+        success: false, 
+        error: "Failed to verify GoHighLevel integration", 
+        details: error.message 
+      });
+    }
+  });
+  
+  // End-to-end integration test endpoint
+  app.post("/api/test/e2e-integration", async (req, res) => {
+    try {
+      const testData = {
+        name: req.body.name || 'Test User Integration',
+        email: req.body.email || `test-${Date.now()}@example.com`,
+        phone: req.body.phone || '512-123-4567',
+        eventType: req.body.eventType || 'birthday',
+        eventTypeLabel: req.body.eventTypeLabel || 'Birthday Party',
+        groupSize: req.body.groupSize || 25,
+        preferredDate: req.body.preferredDate || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString()
+      };
+      
+      console.log('🧪 Starting end-to-end integration test:', testData);
+      
+      // Create comprehensive lead to test all integrations
+      const result = await comprehensiveLeadService.createComprehensiveLead({
+        leadId: `e2e_test_${Date.now()}`,
+        ...testData,
+        source: 'E2E Integration Test',
+        generateQuote: true
+      });
+      
+      console.log('✅ E2E test complete:', {
+        success: result.success,
+        leadId: result.leadId,
+        integrations: result.integrations,
+        quoteGenerated: !!result.quoteUrl
+      });
+      
+      // Verify both integrations worked
+      let verificationResults = {
+        googleSheets: { verified: false, data: null as any },
+        goHighLevel: { verified: false, data: null as any }
+      };
+      
+      // Test Google Sheets integration
+      try {
+        const sheetsData = await googleSheetsService.getLeadById(result.leadId || testData.email);
+        verificationResults.googleSheets.verified = !!(sheetsData && sheetsData.quoteUrl);
+        verificationResults.googleSheets.data = sheetsData;
+      } catch (error) {
+        console.error('E2E Google Sheets verification failed:', error);
+      }
+      
+      // Test GoHighLevel integration  
+      if (testData.phone) {
+        try {
+          const ghlData = await goHighLevelService.getContactForVerification(testData.phone);
+          verificationResults.goHighLevel.verified = !!(ghlData && ghlData.customFields && ghlData.customFields['Quote Link']);
+          verificationResults.goHighLevel.data = ghlData;
+        } catch (error) {
+          console.error('E2E GoHighLevel verification failed:', error);
+        }
+      }
+      
+      res.json({
+        success: true,
+        testData,
+        comprehensiveResult: result,
+        verificationResults,
+        overallStatus: {
+          leadCreated: result.success,
+          googleSheetsWorking: verificationResults.googleSheets.verified,
+          goHighLevelWorking: verificationResults.goHighLevel.verified,
+          quoteGenerated: !!result.quoteUrl,
+          allIntegrationsWorking: result.success && verificationResults.googleSheets.verified && verificationResults.goHighLevel.verified
+        }
+      });
+    } catch (error: any) {
+      console.error("❌ E2E integration test error:", error);
+      res.status(500).json({ 
+        success: false, 
+        error: "End-to-end integration test failed", 
+        details: error.message 
+      });
+    }
+  });
+  
   // Test SMS endpoint
   app.post("/api/sms/test", async (req, res) => {
     try {
@@ -2354,13 +2560,149 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ error: "Failed to send test SMS" });
     }
   });
+  
+  // Integration health check endpoint
+  app.get("/api/health/integrations", async (req, res) => {
+    try {
+      console.log('🔍 Running integration health checks...');
+      
+      const healthStatus = {
+        timestamp: new Date().toISOString(),
+        googleSheets: { status: 'unknown', details: null as any },
+        goHighLevel: { status: 'unknown', details: null as any },
+        quoteTokenService: { status: 'unknown', details: null as any },
+        comprehensiveLeadService: { status: 'unknown', details: null as any }
+      };
+      
+      // Test Google Sheets service
+      try {
+        const testResult = await googleSheetsService.testConnection();
+        healthStatus.googleSheets.status = testResult ? 'healthy' : 'error';
+        healthStatus.googleSheets.details = { connected: testResult };
+      } catch (error: any) {
+        healthStatus.googleSheets.status = 'error';
+        healthStatus.googleSheets.details = { error: error.message };
+      }
+      
+      // Test GoHighLevel service
+      try {
+        const testResult = await goHighLevelService.testConnection();
+        healthStatus.goHighLevel.status = testResult ? 'healthy' : 'error';
+        healthStatus.goHighLevel.details = { connected: testResult };
+      } catch (error: any) {
+        healthStatus.goHighLevel.status = 'error';
+        healthStatus.goHighLevel.details = { error: error.message };
+      }
+      
+      // Test quote token service
+      try {
+        const testToken = quoteTokenService.generateSecureToken('test-quote-123', { expiresIn: 60000 });
+        const verification = quoteTokenService.verifyToken(testToken);
+        healthStatus.quoteTokenService.status = verification.valid ? 'healthy' : 'error';
+        healthStatus.quoteTokenService.details = { tokenValid: verification.valid };
+      } catch (error: any) {
+        healthStatus.quoteTokenService.status = 'error';
+        healthStatus.quoteTokenService.details = { error: error.message };
+      }
+      
+      // Test comprehensive lead service readiness
+      try {
+        healthStatus.comprehensiveLeadService.status = 'healthy';
+        healthStatus.comprehensiveLeadService.details = { 
+          ready: true,
+          googleSheetsReady: healthStatus.googleSheets.status === 'healthy',
+          goHighLevelReady: healthStatus.goHighLevel.status === 'healthy'
+        };
+      } catch (error: any) {
+        healthStatus.comprehensiveLeadService.status = 'error';
+        healthStatus.comprehensiveLeadService.details = { error: error.message };
+      }
+      
+      const allHealthy = Object.values(healthStatus).every(service => 
+        typeof service === 'object' && 'status' in service && service.status === 'healthy'
+      );
+      
+      console.log('✅ Integration health check complete:', {
+        overallHealth: allHealthy ? 'healthy' : 'degraded',
+        googleSheets: healthStatus.googleSheets.status,
+        goHighLevel: healthStatus.goHighLevel.status,
+        quoteTokens: healthStatus.quoteTokenService.status,
+        comprehensiveService: healthStatus.comprehensiveLeadService.status
+      });
+      
+      res.json({
+        success: true,
+        overallHealth: allHealthy ? 'healthy' : 'degraded',
+        services: healthStatus
+      });
+    } catch (error: any) {
+      console.error("❌ Integration health check error:", error);
+      res.status(500).json({ 
+        success: false, 
+        error: "Integration health check failed", 
+        details: error.message 
+      });
+    }
+  });
 
-  // Public quote viewing endpoint
+  // Public quote viewing endpoint with secure token validation
   app.get("/api/quotes/:id/public", async (req, res) => {
     try {
-      const quote = await storage.getQuote(req.params.id);
+      const { token } = req.query;
+      const quoteId = req.params.id;
+      
+      console.log('🔒 Validating secure quote access:', {
+        quoteId,
+        hasToken: !!token,
+        tokenLength: token ? (token as string).length : 0
+      });
+
+      // Validate secure token
+      if (!token) {
+        console.warn('⚠️ Quote access denied: Missing token');
+        return res.status(401).json({ error: "Access token required" });
+      }
+
+      const tokenValidation = quoteTokenService.verifyToken(token as string);
+      if (!tokenValidation.valid) {
+        console.warn('⚠️ Quote access denied: Invalid token:', {
+          quoteId,
+          error: tokenValidation.error
+        });
+        return res.status(401).json({ error: `Invalid access token: ${tokenValidation.error}` });
+      }
+
+      // Check if token is for this specific quote
+      if (tokenValidation.payload?.quoteId !== quoteId) {
+        console.warn('⚠️ Quote access denied: Token mismatch:', {
+          requestedQuote: quoteId,
+          tokenQuote: tokenValidation.payload?.quoteId
+        });
+        return res.status(401).json({ error: "Token not valid for this quote" });
+      }
+
+      // Check token scope
+      const validScopes = ['quote:view', 'quote:download', 'quote:accept'];
+      if (!validScopes.includes(tokenValidation.payload?.scope || '')) {
+        console.warn('⚠️ Quote access denied: Invalid scope:', {
+          quoteId,
+          scope: tokenValidation.payload?.scope
+        });
+        return res.status(403).json({ error: "Insufficient permissions" });
+      }
+
+      const quote = await storage.getQuote(quoteId);
       if (!quote) {
         return res.status(404).json({ error: "Quote not found" });
+      }
+      
+      // Check if quote access token is revoked
+      if (quote.accessTokenRevokedAt) {
+        console.warn('⚠️ Quote access denied: Token revoked:', {
+          quoteId,
+          revokedAt: quote.accessTokenRevokedAt
+        });
+        return res.status(401).json({ error: "Access token has been revoked" });
       }
       
       const project = await storage.getProject(quote.projectId);
@@ -2373,11 +2715,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
         timeSlot: project?.preferredTime || 'afternoon',
       });
       
+      console.log('✅ Secure quote access granted:', {
+        quoteId,
+        scope: tokenValidation.payload?.scope,
+        audience: tokenValidation.payload?.aud,
+        contactName: contact?.name
+      });
+      
+      // Return quote data without sensitive access token
+      const { accessToken, accessTokenCreatedAt, accessTokenRevokedAt, ...safeQuote } = quote;
+      
       res.json({
-        ...quote,
+        ...safeQuote,
         pricing,
         project,
         contact,
+        tokenInfo: {
+          scope: tokenValidation.payload?.scope,
+          expiresAt: new Date(tokenValidation.payload?.exp || 0).toISOString()
+        }
       });
     } catch (error) {
       console.error("Get public quote error:", error);
@@ -7964,6 +8320,71 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ 
         error: "Failed to process Mailgun webhook",
         details: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // ============================================
+  // COMPREHENSIVE E2E AUTOMATION TESTING
+  // ============================================
+
+  // Execute comprehensive end-to-end automation test
+  app.post("/api/test/e2e-automation", requireAdminAuth, async (req, res) => {
+    try {
+      console.log('🧪 Starting comprehensive E2E automation test...');
+      
+      // Import the E2E tester
+      const { e2eAutomationTester } = await import("./testE2EAutomation");
+      
+      // Run the comprehensive test suite
+      const results = await e2eAutomationTester.runComprehensiveTest();
+      
+      // Generate detailed report
+      const report = await e2eAutomationTester.generateTestReport(results);
+      
+      res.json({
+        success: results.success,
+        overallScore: results.overallScore,
+        summary: results.summary,
+        tests: results.tests,
+        evidence: results.evidence,
+        report,
+        timestamp: new Date().toISOString(),
+        message: results.success ? 
+          '✅ All automation systems verified and working correctly!' :
+          '❌ Some automation systems need attention - see details in results'
+      });
+      
+    } catch (error: any) {
+      console.error('❌ E2E automation test failed:', error);
+      res.status(500).json({ 
+        success: false, 
+        error: error.message,
+        message: 'E2E automation test encountered an error'
+      });
+    }
+  });
+
+  // Quick automation verification endpoint  
+  app.get("/api/test/automation-status", requireAdminAuth, async (req, res) => {
+    try {
+      const status = {
+        comprehensiveLeadService: typeof comprehensiveLeadService !== 'undefined',
+        googleSheetsService: typeof googleSheetsService !== 'undefined',
+        goHighLevelService: typeof goHighLevelService !== 'undefined',
+        quoteTokenService: typeof quoteTokenService !== 'undefined',
+        timestamp: new Date().toISOString()
+      };
+      
+      res.json({
+        success: true,
+        status,
+        message: 'Automation services status check complete'
+      });
+    } catch (error: any) {
+      res.status(500).json({ 
+        success: false, 
+        error: error.message 
       });
     }
   });

@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import { storage } from "../storage";
+import { comprehensiveLeadService } from "./comprehensiveLeadService";
 import { type ChatbotButton, type ChatbotFlow } from "@shared/schema";
 
 if (!process.env.OPENAI_API_KEY) {
@@ -229,7 +230,7 @@ async function handleMockFlow(
 }
 
 /**
- * Process automated actions based on chatbot response
+ * Process automated actions based on chatbot response using comprehensive lead service
  */
 async function processAutomatedActions(
   response: ChatbotResponse, 
@@ -238,65 +239,159 @@ async function processAutomatedActions(
   const automatedActions: any = {};
 
   try {
-    // Auto-create contact if we have email and no existing contact
-    if (response.extractedData?.email && !existingContactId) {
-      const contact = await storage.findOrCreateContact(
-        response.extractedData.email,
-        response.extractedData.name,
-        response.extractedData.phone
-      );
-      automatedActions.contactId = contact.id;
-      existingContactId = contact.id;
-    }
+    // Check if we have sufficient data for comprehensive lead creation
+    const hasContactInfo = response.extractedData?.email && response.extractedData?.name && response.extractedData?.phone;
+    const shouldCreateLead = hasContactInfo && !existingContactId && (
+      response.suggestedActions?.includes("create_contact") ||
+      response.suggestedActions?.includes("create_project") ||
+      response.suggestedActions?.includes("generate_quote")
+    );
 
-    // Auto-create project if we have sufficient data
-    if (existingContactId && response.suggestedActions?.includes("create_project")) {
-      const hasRequiredData = response.extractedData?.eventType || response.extractedData?.groupSize;
+    if (shouldCreateLead) {
+      console.log('🤖 Triggering comprehensive lead creation from chatbot interaction...');
       
-      if (hasRequiredData) {
-        const project = await storage.createProjectFromChatData(existingContactId, response.extractedData);
-        automatedActions.projectId = project.id;
+      // Use comprehensive lead service for complete integration
+      const leadResult = await comprehensiveLeadService.createLeadFromChatbot({
+        name: response.extractedData?.name || '',
+        email: response.extractedData?.email || '',
+        phone: response.extractedData?.phone || '',
+        eventType: response.extractedData?.eventType,
+        eventTypeLabel: response.extractedData?.eventType, // Use eventType as label if not provided
+        groupSize: response.extractedData?.groupSize,
+        preferredDate: response.extractedData?.preferredDate,
+        extractedData: response.extractedData
+      });
 
-        // Auto-generate quote if we have a project and template info
-        if (response.extractedData?.eventType && response.suggestedActions?.includes("generate_quote")) {
-          const templates = await storage.getQuoteTemplatesByEventType(response.extractedData.eventType);
-          
-          if (templates.length > 0) {
-            const template = templates[0];
-            const pricing = await storage.calculatePricing({
-              items: template.defaultItems,
-              groupSize: response.extractedData.groupSize,
-              projectDate: response.extractedData.preferredDate ? new Date(response.extractedData.preferredDate) : undefined,
-              templateId: template.id,
-            });
+      if (leadResult.success) {
+        console.log('✅ Comprehensive lead creation successful!');
+        
+        // Update automated actions with results
+        automatedActions.contactId = leadResult.leadId;
+        automatedActions.projectId = leadResult.projectId;
+        automatedActions.quoteId = leadResult.quoteId;
+        automatedActions.quoteUrl = leadResult.quoteUrl;
+        
+        // Enhanced response with quote information and integration status
+        if (leadResult.quoteId && leadResult.quoteUrl) {
+          // Get pricing info for enhanced message
+          try {
+            const quote = await storage.getQuote(leadResult.quoteId);
+            if (quote) {
+              response.message += `\n\n💰 I've created a personalized quote for you! Your ${response.extractedData?.eventType || 'cruise'} celebration will be approximately ${quote.perPersonCost > 0 ? `$${(quote.perPersonCost / 100).toFixed(2)} per person` : `$${(quote.total / 100).toFixed(2)} total`}.`;
+              
+              response.message += `\n\n📧 I'm sending you the complete details now with all the inclusions! You'll also receive an SMS with your quote link.`;
+              
+              // Add quote link for immediate access
+              response.message += `\n\n🔗 View your quote here: ${leadResult.quoteUrl}`;
+            }
+          } catch (error) {
+            console.log('Warning: Could not enhance message with quote details:', error);
+          }
+        }
 
-            const quote = await storage.createQuote({
-              projectId: project.id,
-              templateId: template.id,
-              items: template.defaultItems,
-              subtotal: pricing.subtotal,
-              discountTotal: pricing.discountTotal,
-              tax: pricing.tax,
-              gratuity: pricing.gratuity,
-              total: pricing.total,
-              perPersonCost: pricing.perPersonCost,
-              depositRequired: pricing.depositRequired,
-              depositPercent: pricing.depositPercent,
-              depositAmount: pricing.depositAmount,
-              paymentSchedule: pricing.paymentSchedule,
-              expiresAt: pricing.expiresAt,
-            });
+        // Add integration status message (for development)
+        const integrationSummary = [
+          leadResult.integrations.googleSheets.success ? '✅ Google Sheets' : '❌ Google Sheets',
+          leadResult.integrations.goHighLevel.success ? '✅ GoHighLevel' : '❌ GoHighLevel',
+          leadResult.integrations.emailNotification.success ? '✅ Email' : '❌ Email'
+        ].join(' | ');
+        
+        console.log('📊 Integration Results:', integrationSummary);
+        
+        // Add subtle integration confirmation to response
+        if (leadResult.integrations.googleSheets.success || leadResult.integrations.goHighLevel.success) {
+          response.message += `\n\n✨ Your information has been securely saved and our team will follow up with you shortly!`;
+        }
 
-            automatedActions.quoteId = quote.id;
+        // Log any errors but don't break the flow
+        if (leadResult.errors.length > 0) {
+          console.log('⚠️ Some integrations had issues:', leadResult.errors);
+        }
+      } else {
+        console.log('❌ Comprehensive lead creation failed, falling back to basic contact creation');
+        
+        // Fallback: create basic contact if comprehensive lead fails
+        try {
+          const contact = await storage.findOrCreateContact(
+            response.extractedData?.email || '',
+            response.extractedData?.name,
+            response.extractedData?.phone
+          );
+          automatedActions.contactId = contact.id;
+          response.message += `\n\n📝 I've saved your contact information and our team will reach out to you soon!`;
+        } catch (error) {
+          console.error('❌ Fallback contact creation also failed:', error);
+        }
+      }
+    } 
+    // Handle existing contact scenario with potential project/quote creation
+    else if (existingContactId && (response.suggestedActions?.includes("create_project") || response.suggestedActions?.includes("generate_quote"))) {
+      console.log('📋 Creating project and quote for existing contact:', existingContactId);
+      
+      try {
+        // Create project if we have sufficient data
+        if (response.extractedData?.eventType || response.extractedData?.groupSize) {
+          const project = await storage.createProjectFromChatData(existingContactId, response.extractedData || {});
+          automatedActions.projectId = project.id;
 
-            // Enhance response with quote information
-            response.message += `\n\n💰 I've created a personalized quote for you! Your ${response.extractedData.eventType} celebration will be approximately ${pricing.perPersonCost > 0 ? `$${(pricing.perPersonCost / 100).toFixed(2)} per person` : `$${(pricing.total / 100).toFixed(2)} total`}. I'll send you the complete details with all the inclusions.`;
+          // Generate quote if we have event type
+          if (response.extractedData?.eventType && response.suggestedActions?.includes("generate_quote")) {
+            const templates = await storage.getQuoteTemplatesByEventType(response.extractedData.eventType);
             
-            if (pricing.urgencyMessage) {
-              response.message += `\n\n${pricing.urgencyMessage}`;
+            if (templates.length > 0) {
+              const template = templates[0];
+              const pricing = await storage.calculatePricing({
+                items: template.defaultItems || [],
+                groupSize: response.extractedData?.groupSize,
+                projectDate: response.extractedData?.preferredDate ? new Date(response.extractedData.preferredDate) : undefined,
+                templateId: template.id,
+              });
+
+              const quote = await storage.createQuote({
+                projectId: project.id,
+                templateId: template.id,
+                items: template.defaultItems,
+                subtotal: pricing.subtotal,
+                discountTotal: pricing.discountTotal,
+                tax: pricing.tax,
+                gratuity: pricing.gratuity,
+                total: pricing.total,
+                perPersonCost: pricing.perPersonCost,
+                depositRequired: pricing.depositRequired,
+                depositPercent: pricing.depositPercent,
+                depositAmount: pricing.depositAmount,
+                paymentSchedule: pricing.paymentSchedule,
+                expiresAt: pricing.expiresAt,
+              });
+
+              automatedActions.quoteId = quote.id;
+
+              // Update existing lead with new quote information
+              const contact = await storage.getContact(existingContactId);
+              if (contact?.email) {
+                const quoteUrl = `${process.env.PUBLIC_URL || 'https://your-domain.com'}/quotes/${quote.id}?token=${quote.accessToken}`;
+                
+                // Update Google Sheets and GoHighLevel with quote info
+                await comprehensiveLeadService.updateLeadWithQuote(existingContactId, {
+                  quoteId: quote.id,
+                  quoteUrl: quoteUrl,
+                  projectId: project.id,
+                  pricing: pricing
+                });
+              }
+
+              // Enhance response with quote information
+              response.message += `\n\n💰 I've created a personalized quote for you! Your ${response.extractedData.eventType} celebration will be approximately ${pricing.perPersonCost > 0 ? `$${(pricing.perPersonCost / 100).toFixed(2)} per person` : `$${(pricing.total / 100).toFixed(2)} total`}. I'll send you the complete details with all the inclusions.`;
+              
+              if (pricing.urgencyMessage) {
+                response.message += `\n\n${pricing.urgencyMessage}`;
+              }
             }
           }
         }
+      } catch (error) {
+        console.error('❌ Error creating project/quote for existing contact:', error);
+        // Continue without failing the entire response
       }
     }
 
@@ -306,7 +401,7 @@ async function processAutomatedActions(
     };
 
   } catch (error) {
-    console.error("Error processing automated actions:", error);
+    console.error("💥 Critical error in processAutomatedActions:", error);
     return response; // Return original response if automation fails
   }
 }

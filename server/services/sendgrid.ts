@@ -45,8 +45,20 @@ export async function sendQuoteEmail(
   customerEmail: string,
   customerName: string,
   quoteId: string,
-  quoteDetails: any
+  quoteDetails: any,
+  quoteUrl?: string
 ): Promise<boolean> {
+  // Use secure URL if provided, otherwise fallback to basic URL for backward compatibility
+  const quoteLink = quoteUrl || getFullUrl(`/quote/${quoteId}`);
+  
+  console.log('📧 SendGrid: Sending quote email with URL consistency check', {
+    quoteId,
+    hasSecureUrl: !!quoteUrl,
+    urlType: quoteUrl ? 'secure tokenized' : 'basic fallback',
+    urlLength: quoteLink.length,
+    isTokenized: quoteLink.includes('token=')
+  });
+
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <div style="background: linear-gradient(135deg, #0080FF, #FFD700); padding: 30px; text-align: center;">
@@ -71,7 +83,7 @@ export async function sendQuoteEmail(
         </div>
         
         <div style="text-align: center; margin: 30px 0;">
-          <a href="${getFullUrl(`/quote/${quoteId}`)}" 
+          <a href="${quoteLink}" 
              style="background: #3b82f6; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
             View Full Quote
           </a>

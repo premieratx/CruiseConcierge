@@ -93,6 +93,8 @@ export class GoogleSheetsService {
   private sheets: any = null;
   private spreadsheetId: string;
   private serviceAccountCredentials: any = null;
+  private maxRetries: number = 3;
+  private baseDelay: number = 1000; // 1 second
 
   constructor() {
     this.spreadsheetId = process.env.SHEET_ID || "";
@@ -111,6 +113,62 @@ export class GoogleSheetsService {
     if (!this.serviceAccountCredentials || !this.spreadsheetId) {
       console.warn("Google Sheets credentials not properly configured. Using mock data.");
     }
+  }
+
+  // Enhanced retry mechanism with exponential backoff
+  private async withRetry<T>(
+    operation: () => Promise<T>,
+    operationName: string,
+    maxRetries: number = this.maxRetries
+  ): Promise<T> {
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        const result = await operation();
+        if (attempt > 1) {
+          console.log(`✅ ${operationName} succeeded on attempt ${attempt}`);
+        }
+        return result;
+      } catch (error: any) {
+        console.error(`❌ ${operationName} failed on attempt ${attempt}:`, error.message);
+        
+        if (attempt === maxRetries) {
+          console.error(`💥 ${operationName} failed after ${maxRetries} attempts`);
+          throw error;
+        }
+        
+        // Check if it's a retryable error
+        const isRetryable = this.isRetryableError(error);
+        if (!isRetryable) {
+          console.error(`🚫 ${operationName} encountered non-retryable error, giving up`);
+          throw error;
+        }
+        
+        // Exponential backoff with jitter
+        const delay = this.baseDelay * Math.pow(2, attempt - 1) + Math.random() * 1000;
+        console.log(`⏱️ Retrying ${operationName} in ${Math.round(delay)}ms...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      }
+    }
+    throw new Error(`Max retries exceeded for ${operationName}`);
+  }
+
+  // Check if error is retryable
+  private isRetryableError(error: any): boolean {
+    if (!error.code && !error.status) return true; // Unknown errors are retryable
+    
+    // HTTP status codes that are retryable
+    const retryableStatuses = [408, 429, 500, 502, 503, 504];
+    if (error.status && retryableStatuses.includes(error.status)) {
+      return true;
+    }
+    
+    // Google API specific error codes that are retryable
+    const retryableCodes = ['RATE_LIMIT_EXCEEDED', 'INTERNAL_ERROR', 'BACKEND_ERROR'];
+    if (error.code && retryableCodes.includes(error.code)) {
+      return true;
+    }
+    
+    return false;
   }
 
   private async initializeAuth() {
@@ -467,7 +525,7 @@ export class GoogleSheetsService {
     }
   }
 
-  // Lead tracking methods
+  // Lead tracking methods with enhanced retry and logging
   async createLead(leadData: {
     leadId: string;
     name: string;
@@ -481,54 +539,96 @@ export class GoogleSheetsService {
     cruiseDate?: string;
     groupSize?: number;
   }): Promise<boolean> {
+    console.log('📊 Creating lead in Google Sheets...', {
+      leadId: leadData.leadId,
+      name: leadData.name,
+      email: leadData.email,
+      hasQuoteUrl: !!leadData.quoteUrl,
+      hasQuoteId: !!leadData.quoteId,
+      source: leadData.source
+    });
+
     try {
       if (!this.sheets || !this.spreadsheetId) {
-        console.log("Would create lead in Google Sheets:", leadData);
+        console.log("📊 Google Sheets not configured - simulating lead creation:", {
+          leadId: leadData.leadId,
+          quoteUrl: leadData.quoteUrl,
+          quoteId: leadData.quoteId
+        });
         return true;
       }
 
-      // Ensure the Leads sheet exists
-      await this.ensureLeadsSheetExists();
+      // Ensure the Leads sheet exists with retry
+      await this.withRetry(
+        () => this.ensureLeadsSheetExists(),
+        'Ensure Leads sheet exists'
+      );
 
       const now = new Date().toISOString();
       const leadRow = [
-        leadData.leadId,
-        now, // createdDate
-        leadData.name,
-        leadData.email,
-        leadData.phone || '',
-        leadData.eventType || '',
-        leadData.eventTypeLabel || '',
-        leadData.cruiseDate || '', // cruiseDate
-        leadData.groupSize ? leadData.groupSize.toString() : '', // groupSize
-        '', // boatType
-        '', // discoPackage
-        '', // timeSlot
-        'NEW', // status
-        'started', // progress
-        now, // lastUpdated
-        leadData.source || 'AI Chatbot Flow',
-        '', // specialRequests
-        '', // budget
-        '', // projectId
-        '', // notes
-        leadData.quoteUrl || '', // quoteUrl - NEW: Auto-populated Quote Link
-        leadData.quoteId || '' // quoteId - NEW: Auto-populated Quote ID
+        leadData.leadId, // A: Lead ID
+        now, // B: Created Date
+        leadData.name, // C: Name
+        leadData.email, // D: Email
+        leadData.phone || '', // E: Phone
+        leadData.eventType || '', // F: Event Type
+        leadData.eventTypeLabel || '', // G: Event Type Label
+        leadData.cruiseDate || '', // H: Cruise Date
+        leadData.groupSize ? leadData.groupSize.toString() : '', // I: Group Size
+        '', // J: Boat Type (filled later)
+        '', // K: Disco Package (filled later)
+        '', // L: Time Slot (filled later)
+        'NEW', // M: Status
+        'started', // N: Progress
+        now, // O: Last Updated
+        leadData.source || 'AI Chatbot Flow', // P: Source
+        '', // Q: Special Requests (filled later)
+        '', // R: Budget (filled later)
+        '', // S: Project ID (filled later)
+        '', // T: Notes (filled later)
+        leadData.quoteUrl || '', // U: Quote URL - CRITICAL FOR AUTOMATION
+        leadData.quoteId || '' // V: Quote ID - CRITICAL FOR AUTOMATION
       ];
 
-      await this.sheets.spreadsheets.values.append({
-        spreadsheetId: this.spreadsheetId,
-        range: 'Leads!A:V',
-        valueInputOption: 'RAW',
-        resource: {
-          values: [leadRow]
-        }
+      console.log('📊 Writing lead row to Google Sheets:', {
+        leadId: leadData.leadId,
+        rowLength: leadRow.length,
+        quoteUrlColumn: leadRow[20], // Column U (index 20)
+        quoteIdColumn: leadRow[21],  // Column V (index 21)
+        range: 'Leads!A:V'
       });
 
-      console.log("Successfully created lead in Google Sheets:", leadData.leadId);
+      // Write lead with retry mechanism
+      await this.withRetry(
+        async () => {
+          const response = await this.sheets.spreadsheets.values.append({
+            spreadsheetId: this.spreadsheetId,
+            range: 'Leads!A:V',
+            valueInputOption: 'RAW',
+            resource: {
+              values: [leadRow]
+            }
+          });
+          return response;
+        },
+        `Create lead ${leadData.leadId} in Google Sheets`
+      );
+
+      console.log('✅ Successfully created lead in Google Sheets:', {
+        leadId: leadData.leadId,
+        quoteUrl: leadData.quoteUrl,
+        quoteId: leadData.quoteId,
+        message: 'Quote link automatically populated in Google Sheets!'
+      });
+      
       return true;
-    } catch (error) {
-      console.error("Error creating lead in Google Sheets:", error);
+    } catch (error: any) {
+      console.error('❌ Error creating lead in Google Sheets:', {
+        leadId: leadData.leadId,
+        error: error.message,
+        quoteUrl: leadData.quoteUrl,
+        quoteId: leadData.quoteId
+      });
       return false;
     }
   }
@@ -760,7 +860,7 @@ export class GoogleSheetsService {
                   title: 'Leads',
                   gridProperties: {
                     rowCount: 1000,
-                    columnCount: 20
+                    columnCount: 22
                   }
                 }
               }
@@ -772,12 +872,13 @@ export class GoogleSheetsService {
         const headers = [
           'Lead ID', 'Created Date', 'Name', 'Email', 'Phone', 'Event Type', 'Event Type Label',
           'Cruise Date', 'Group Size', 'Boat Type', 'Disco Package', 'Time Slot', 'Status',
-          'Progress', 'Last Updated', 'Source', 'Special Requests', 'Budget', 'Project ID', 'Notes'
+          'Progress', 'Last Updated', 'Source', 'Special Requests', 'Budget', 'Project ID', 'Notes',
+          'Quote URL', 'Quote ID'
         ];
         
         await this.sheets.spreadsheets.values.update({
           spreadsheetId: this.spreadsheetId,
-          range: 'Leads!A1:T1',
+          range: 'Leads!A1:V1',
           valueInputOption: 'RAW',
           resource: {
             values: [headers]
@@ -791,6 +892,156 @@ export class GoogleSheetsService {
     } catch (error) {
       console.error("Error ensuring Leads sheet exists:", error);
       throw error;
+    }
+  }
+
+  // VERIFICATION METHOD: Get lead data by ID to verify quote link population
+  async getLeadForVerification(leadId: string): Promise<{
+    found: boolean;
+    leadData?: any;
+    quoteUrl?: string;
+    quoteId?: string;
+    error?: string;
+  }> {
+    console.log(`🔍 Verifying lead ${leadId} in Google Sheets...`);
+    
+    try {
+      if (!this.sheets || !this.spreadsheetId) {
+        return {
+          found: false,
+          error: 'Google Sheets not configured'
+        };
+      }
+
+      const range = 'Leads!A2:V1000';
+      const response = await this.withRetry(
+        () => this.sheets.spreadsheets.values.get({
+          spreadsheetId: this.spreadsheetId,
+          range: range
+        }),
+        `Get lead ${leadId} for verification`
+      );
+      
+      const rows = response.data.values || [];
+      const leadRow = rows.find((row: any[]) => row[0] === leadId);
+      
+      if (!leadRow) {
+        console.log(`❌ Lead ${leadId} not found in Google Sheets`);
+        return {
+          found: false,
+          error: 'Lead not found in Google Sheets'
+        };
+      }
+
+      const leadData = {
+        leadId: leadRow[0],
+        createdDate: leadRow[1],
+        name: leadRow[2],
+        email: leadRow[3],
+        phone: leadRow[4],
+        eventType: leadRow[5],
+        eventTypeLabel: leadRow[6],
+        cruiseDate: leadRow[7],
+        groupSize: leadRow[8],
+        status: leadRow[12],
+        progress: leadRow[13],
+        source: leadRow[15],
+        quoteUrl: leadRow[20], // Column U
+        quoteId: leadRow[21]   // Column V
+      };
+
+      console.log(`✅ Lead ${leadId} verification complete:`, {
+        found: true,
+        hasQuoteUrl: !!leadData.quoteUrl,
+        hasQuoteId: !!leadData.quoteId,
+        quoteUrl: leadData.quoteUrl,
+        quoteId: leadData.quoteId
+      });
+
+      return {
+        found: true,
+        leadData,
+        quoteUrl: leadData.quoteUrl,
+        quoteId: leadData.quoteId
+      };
+    } catch (error: any) {
+      console.error(`❌ Error verifying lead ${leadId}:`, error.message);
+      return {
+        found: false,
+        error: error.message
+      };
+    }
+  }
+
+  // ENHANCED METHOD: Update existing lead with quote link information
+  async updateLeadWithQuoteLink(leadId: string, quoteUrl: string, quoteId: string): Promise<boolean> {
+    console.log(`📝 Updating lead ${leadId} with quote link in Google Sheets...`);
+    
+    try {
+      if (!this.sheets || !this.spreadsheetId) {
+        console.log("📝 Google Sheets not configured - simulating quote link update:", {
+          leadId,
+          quoteUrl,
+          quoteId
+        });
+        return true;
+      }
+
+      // Find the lead row
+      const range = 'Leads!A2:V1000';
+      const response = await this.withRetry(
+        () => this.sheets.spreadsheets.values.get({
+          spreadsheetId: this.spreadsheetId,
+          range: range
+        }),
+        `Find lead ${leadId} for quote link update`
+      );
+      
+      const rows = response.data.values || [];
+      let rowIndex = -1;
+      
+      for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        if (row[0] === leadId) {
+          rowIndex = i + 2; // Add 2 because arrays are 0-indexed and we start from A2
+          break;
+        }
+      }
+      
+      if (rowIndex === -1) {
+        console.error(`❌ Lead ${leadId} not found for quote link update`);
+        return false;
+      }
+
+      console.log(`📝 Updating Google Sheets row ${rowIndex} with quote link:`, {
+        quoteUrlCell: `U${rowIndex}`,
+        quoteIdCell: `V${rowIndex}`,
+        quoteUrl,
+        quoteId
+      });
+
+      // Update both Quote URL (U) and Quote ID (V) columns
+      await this.withRetry(
+        () => this.sheets.spreadsheets.values.batchUpdate({
+          spreadsheetId: this.spreadsheetId,
+          resource: {
+            valueInputOption: 'RAW',
+            data: [
+              {
+                range: `Leads!U${rowIndex}:V${rowIndex}`,
+                values: [[quoteUrl, quoteId]]
+              }
+            ]
+          }
+        }),
+        `Update quote link for lead ${leadId}`
+      );
+      
+      console.log(`✅ Successfully updated Google Sheets row ${rowIndex} with quote link`);
+      return true;
+    } catch (error: any) {
+      console.error(`❌ Error updating lead ${leadId} with quote link:`, error.message);
+      return false;
     }
   }
 
