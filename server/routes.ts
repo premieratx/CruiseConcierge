@@ -2313,6 +2313,37 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Get all quotes with search, filter, and sort functionality for admin dashboard
+  app.get("/api/quotes", requireAdminAuth, requirePermission('read'), async (req, res) => {
+    try {
+      const { search: searchTerm, status: statusFilter, sortBy, sortOrder } = req.query;
+      
+      console.log('📋 Fetching quotes with filters:', {
+        searchTerm,
+        statusFilter,
+        sortBy,
+        sortOrder
+      });
+      
+      const quotes = await storage.getQuotes({
+        searchTerm: searchTerm as string,
+        statusFilter: statusFilter as string,
+        sortBy: sortBy as string || 'createdAt',
+        sortOrder: sortOrder as 'asc' | 'desc' || 'desc'
+      });
+      
+      console.log('✅ Retrieved quotes for admin dashboard:', {
+        totalCount: quotes.length,
+        filteredBy: { searchTerm, statusFilter, sortBy, sortOrder }
+      });
+      
+      res.json(quotes);
+    } catch (error) {
+      console.error("Get quotes error:", error);
+      res.status(500).json({ error: "Failed to retrieve quotes" });
+    }
+  });
+
   // Get quotes by project
   app.get("/api/projects/:projectId/quotes", async (req, res) => {
     try {

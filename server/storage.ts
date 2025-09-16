@@ -1652,6 +1652,114 @@ export class MemStorage implements IStorage {
     return Array.from(this.quotes.values()).filter(q => q.projectId === projectId);
   }
 
+  // Enhanced quote retrieval with search, filter, and sorting for admin dashboard
+  async getQuotes(filters: {
+    searchTerm?: string;
+    statusFilter?: string;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+  } = {}): Promise<any[]> {
+    const { searchTerm, statusFilter, sortBy = 'createdAt', sortOrder = 'desc' } = filters;
+    const allQuotes: any[] = [];
+    
+    console.log('🔍 Starting quote retrieval with filters:', filters);
+    
+    // FIXED: Direct quote enumeration instead of broken getProjectsByContact('')
+    // Get ALL quotes directly from quotes store to ensure chatbot quotes are included
+    const allQuoteEntries = Array.from(this.quotes.values());
+    console.log('📊 Found total quotes in storage:', allQuoteEntries.length);
+    
+    for (const quote of allQuoteEntries) {
+      // Get project and contact data for each quote
+      const project = quote.projectId ? this.projects.get(quote.projectId) : null;
+      const contact = project?.contactId ? this.contacts.get(project.contactId) : null;
+      
+      console.log('🔄 Processing quote:', {
+        quoteId: quote.id,
+        hasProject: !!project,
+        hasContact: !!contact,
+        projectId: quote.projectId
+      });
+      
+      // Build quote data with proper field mapping
+      const quoteData = {
+        id: quote.id,
+        quoteNumber: quote.quoteNumber || `Q-${quote.id.slice(0, 8).toUpperCase()}`,
+        customerName: contact?.name || project?.contactName || 'Unknown Customer',
+        customerEmail: contact?.email || project?.contactEmail || '',
+        eventDate: project?.projectDate?.toISOString() || '',
+        totalAmount: quote.total || 0,
+        status: quote.status?.toLowerCase() || 'draft',
+        createdAt: quote.createdAt?.toISOString() || new Date().toISOString(),
+        // FIXED: Proper sentAt/viewedAt mapping instead of using createdAt
+        sentAt: quote.sentAt?.toISOString() || (quote.status === 'SENT' ? quote.updatedAt?.toISOString() : null),
+        viewedAt: quote.viewedAt?.toISOString() || (quote.status === 'VIEWED' ? quote.updatedAt?.toISOString() : null),
+        expiresAt: quote.expiresAt?.toISOString() || null,
+        projectId: quote.projectId,
+        contactId: contact?.id,
+        eventType: project?.eventType || 'Unknown',
+        groupSize: project?.groupSize || null
+      };
+      allQuotes.push(quoteData);
+    }
+    
+    console.log('✅ Total quotes processed:', allQuotes.length);
+    
+    // Apply search filter
+    let filteredQuotes = allQuotes;
+    if (searchTerm) {
+      const search = searchTerm.toLowerCase();
+      filteredQuotes = allQuotes.filter(quote => 
+        quote.quoteNumber.toLowerCase().includes(search) ||
+        quote.customerName.toLowerCase().includes(search) ||
+        quote.customerEmail.toLowerCase().includes(search)
+      );
+      console.log('🔍 After search filter:', filteredQuotes.length);
+    }
+    
+    // Apply status filter
+    if (statusFilter && statusFilter !== 'all') {
+      filteredQuotes = filteredQuotes.filter(quote => 
+        quote.status === statusFilter.toLowerCase()
+      );
+      console.log('🏷️ After status filter:', filteredQuotes.length);
+    }
+    
+    // Apply sorting
+    filteredQuotes.sort((a, b) => {
+      let aValue = a[sortBy];
+      let bValue = b[sortBy];
+      
+      // Handle date sorting
+      if (sortBy === 'createdAt' || sortBy === 'eventDate') {
+        aValue = new Date(aValue || 0).getTime();
+        bValue = new Date(bValue || 0).getTime();
+      }
+      
+      // Handle numeric sorting
+      if (sortBy === 'totalAmount') {
+        aValue = Number(aValue) || 0;
+        bValue = Number(bValue) || 0;
+      }
+      
+      // Handle string sorting
+      if (typeof aValue === 'string' && typeof bValue === 'string') {
+        aValue = aValue.toLowerCase();
+        bValue = bValue.toLowerCase();
+      }
+      
+      if (sortOrder === 'desc') {
+        return bValue > aValue ? 1 : bValue < aValue ? -1 : 0;
+      } else {
+        return aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
+      }
+    });
+    
+    console.log('📈 Final filtered and sorted quotes:', filteredQuotes.length);
+    
+    return filteredQuotes;
+  }
+
   async getInvoice(id: string): Promise<Invoice | undefined> {
     return this.invoices.get(id);
   }
