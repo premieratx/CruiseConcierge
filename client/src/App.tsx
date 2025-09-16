@@ -8,6 +8,8 @@ import Checkout from "./pages/Checkout";
 import Chat from "./pages/Chat";
 import QuoteBuilder from "./pages/QuoteBuilder";
 import QuotesManagement from "./pages/QuotesManagement";
+import InvoiceManagement from "./pages/InvoiceManagement";
+import QuoteEditor from "./pages/QuoteEditor";
 import Leads from "./pages/Leads";
 import PartialLeads from "./pages/PartialLeads";
 import CustomerProfile from "./pages/CustomerProfile";
@@ -54,6 +56,10 @@ function Router() {
       <Route path="/quotes" component={QuotesManagement} />
       <Route path="/quotes/new" component={QuoteBuilder} />
       <Route path="/quotes/:id" component={QuoteBuilder} />
+      <Route path="/quotes/:id/edit" component={QuoteEditor} />
+      <Route path="/invoices" component={InvoiceManagement} />
+      <Route path="/invoices/new" component={InvoiceManagement} />
+      <Route path="/invoices/:id" component={InvoiceManagement} />
       <Route path="/templates" component={Templates} />
       <Route path="/products" component={Products} />
       <Route path="/discounts" component={Discounts} />

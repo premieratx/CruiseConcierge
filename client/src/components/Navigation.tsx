@@ -7,7 +7,7 @@ import {
   DollarSign, Settings, Ship, TrendingUp, Mail, Phone,
   ChevronDown, Plus, Search, Bell, User, LogOut, Building,
   CreditCard, Briefcase, Star, FileBarChart, Database, ArrowLeft, Home,
-  AlertCircle, Code, UserCheck, FolderOpen
+  AlertCircle, Code, UserCheck, FolderOpen, Receipt
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -50,6 +50,12 @@ const mainNavItems = [
     href: '/quotes',
     icon: FileText,
     description: 'Quote management and templates',
+  },
+  {
+    title: 'Invoices',
+    href: '/invoices',
+    icon: Receipt,
+    description: 'Invoice management and payments',
   },
 ];
 

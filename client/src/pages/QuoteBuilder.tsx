@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
-import { insertQuoteSchema, type Quote, type Project, type Contact, type QuoteTemplate, type RadioSection, type RadioOption } from '@shared/schema';
+import { insertQuoteSchema, type Quote, type Project, type Contact, type QuoteTemplate, type RadioSection, type RadioOption, type Product, type PricingSettings } from '@shared/schema';
 import {
   Form,
   FormControl,
@@ -120,30 +120,30 @@ export default function QuoteBuilder() {
   });
 
   // Fetch existing quote if editing
-  const { data: existingQuote } = useQuery({
+  const { data: existingQuote } = useQuery<Quote>({
     queryKey: ['/api/quotes', quoteId],
     enabled: !!isEditMode,
   });
 
   // Fetch projects for dropdown
-  const { data: projects } = useQuery({
+  const { data: projects } = useQuery<Project[]>({
     queryKey: ['/api/projects'],
   });
 
   // Fetch templates
-  const { data: templates } = useQuery({
+  const { data: templates } = useQuery<QuoteTemplate[]>({
     queryKey: ['/api/quote-templates'],
   });
 
   // Fetch pricing settings
-  const { data: pricingSettings } = useQuery({
+  const { data: pricingSettings } = useQuery<PricingSettings>({
     queryKey: ['/api/pricing-settings'],
   });
 
   // Fetch contact for selected project (now after form initialization)
   const selectedProjectId = form.watch('projectId');
   const selectedProject = projects?.find((p: Project) => p.id === selectedProjectId);
-  const { data: projectContact } = useQuery({
+  const { data: projectContact } = useQuery<Contact>({
     queryKey: ['/api/contacts', selectedProject?.contactId],
     enabled: !!selectedProject?.contactId,
   });
@@ -153,6 +153,13 @@ export default function QuoteBuilder() {
     if (existingQuote) {
       form.reset({
         ...existingQuote,
+        templateId: existingQuote.templateId || undefined,
+        items: existingQuote.items?.map(item => ({
+          ...item,
+          clientCanEditQty: item.clientCanEditQty || false,
+          required: item.required || false,
+        })) || [],
+        radioSections: existingQuote.radioSections || [],
         expiresAt: existingQuote.expiresAt ? new Date(existingQuote.expiresAt) : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
       });
     }
@@ -200,14 +207,15 @@ export default function QuoteBuilder() {
   }, [watchItems, watchRadioSections, watchDiscountTotal, form, projects, pricingSettings]);
 
   // Save quote mutation
-  const saveQuote = useMutation({
+  const saveQuote = useMutation<Quote, Error, QuoteFormData>({
     mutationFn: async (data: QuoteFormData) => {
       const url = isEditMode ? `/api/quotes/${quoteId}` : '/api/quotes';
       const method = isEditMode ? 'PATCH' : 'POST';
       
-      return apiRequest(method, url, data);
+      const response = await apiRequest(method, url, data);
+      return response.json();
     },
-    onSuccess: (data) => {
+    onSuccess: (data: Quote) => {
       toast({
         title: isEditMode ? 'Quote Updated' : 'Quote Created',
         description: `Quote #${data.id} has been saved successfully.`,
@@ -263,7 +271,12 @@ export default function QuoteBuilder() {
   const applyTemplate = (templateId: string) => {
     const template = templates?.find((t: QuoteTemplate) => t.id === templateId);
     if (template) {
-      form.setValue('items', template.defaultItems || []);
+      const templateItems = template.defaultItems?.map(item => ({
+        ...item,
+        clientCanEditQty: item.clientCanEditQty || false,
+        required: item.required || false,
+      })) || [];
+      form.setValue('items', templateItems);
       form.setValue('radioSections', template.defaultRadioSections || []);
       form.setValue('notes', template.description || '');
       toast({
@@ -1139,14 +1152,14 @@ export default function QuoteBuilder() {
                       <div className="flex justify-between text-sm">
                         <span>Subtotal</span>
                         <span className="font-medium">
-                          ${(form.watch('subtotal') / 100).toFixed(2)}
+                          ${((form.watch('subtotal') || 0) / 100).toFixed(2)}
                         </span>
                       </div>
                       
                       <div className="flex justify-between text-sm">
                         <span>Tax ({((pricingSettings?.taxRate || 825) / 100).toFixed(2)}%)</span>
                         <span className="font-medium">
-                          ${(form.watch('tax') / 100).toFixed(2)}
+                          ${((form.watch('tax') || 0) / 100).toFixed(2)}
                         </span>
                       </div>
                       
@@ -1173,7 +1186,7 @@ export default function QuoteBuilder() {
                       <div className="flex justify-between font-semibold text-lg">
                         <span>Total</span>
                         <span className="text-primary">
-                          ${(form.watch('total') / 100).toFixed(2)}
+                          ${((form.watch('total') || 0) / 100).toFixed(2)}
                         </span>
                       </div>
                       
@@ -1193,7 +1206,7 @@ export default function QuoteBuilder() {
                     <div className="flex items-start gap-2">
                       <AlertCircle className="w-4 h-4 text-blue-600 mt-0.5" />
                       <div className="text-xs text-blue-600 dark:text-blue-400">
-                        {form.watch('depositAmount') === form.watch('totalAmount')
+                        {form.watch('depositAmount') === form.watch('total')
                           ? 'Full payment required (event within 30 days)'
                           : '25% deposit required (event more than 30 days out)'}
                       </div>

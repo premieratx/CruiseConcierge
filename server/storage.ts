@@ -45,6 +45,14 @@ export interface IStorage {
   // Invoices
   getInvoice(id: string): Promise<Invoice | undefined>;
   getInvoiceByQuoteId(quoteId: string): Promise<Invoice | undefined>;
+  getAllInvoices(): Promise<Invoice[]>;
+  getInvoices(filters?: {
+    search?: string;
+    status?: string;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+    limit?: number;
+  }): Promise<any[]>;
   createInvoice(invoice: Omit<Invoice, 'id' | 'createdAt'>): Promise<Invoice>;
   updateInvoice(id: string, updates: Partial<Invoice>): Promise<Invoice>;
 
@@ -1771,6 +1779,113 @@ export class MemStorage implements IStorage {
       }
     }
     return undefined;
+  }
+
+  async getAllInvoices(): Promise<Invoice[]> {
+    return Array.from(this.invoices.values());
+  }
+
+  async getInvoices(filters?: {
+    search?: string;
+    status?: string;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+    limit?: number;
+  }): Promise<any[]> {
+    const allInvoices = Array.from(this.invoices.values());
+    const results: any[] = [];
+    
+    console.log('📊 Found total invoices in storage:', allInvoices.length);
+    
+    for (const invoice of allInvoices) {
+      // Get project and contact data for each invoice
+      const project = invoice.projectId ? this.projects.get(invoice.projectId) : null;
+      const contact = project?.contactId ? this.contacts.get(project.contactId) : null;
+      
+      if (project && contact) {
+        const invoiceData = {
+          id: invoice.id,
+          invoiceNumber: invoice.invoiceNumber || `INV-${invoice.id.slice(-8)}`,
+          customerName: contact.name,
+          customerEmail: contact.email,
+          projectId: project.id,
+          projectTitle: project.title,
+          eventType: project.eventType,
+          eventDate: project.projectDate,
+          totalAmount: invoice.total,
+          paidAmount: invoice.paidAmount || 0,
+          status: invoice.status,
+          dueDate: invoice.dueDate,
+          createdAt: invoice.createdAt,
+          sentAt: invoice.sentAt,
+          subtotal: invoice.subtotal,
+          tax: invoice.tax,
+          gratuity: invoice.gratuity,
+          items: invoice.items || []
+        };
+        
+        // Apply search filter
+        if (filters?.search) {
+          const search = filters.search.toLowerCase();
+          const matchesSearch = (
+            contact.name.toLowerCase().includes(search) ||
+            contact.email.toLowerCase().includes(search) ||
+            (project.title?.toLowerCase().includes(search)) ||
+            (invoice.invoiceNumber?.toLowerCase().includes(search)) ||
+            (invoice.id.toLowerCase().includes(search))
+          );
+          if (!matchesSearch) continue;
+        }
+        
+        // Apply status filter
+        if (filters?.status && invoice.status !== filters.status) {
+          continue;
+        }
+        
+        results.push(invoiceData);
+      }
+    }
+    
+    // Apply sorting
+    if (filters?.sortBy) {
+      const sortBy = filters.sortBy;
+      const order = filters.sortOrder === 'desc' ? -1 : 1;
+      
+      results.sort((a, b) => {
+        let aVal = a[sortBy];
+        let bVal = b[sortBy];
+        
+        if (sortBy === 'createdAt' || sortBy === 'eventDate' || sortBy === 'dueDate') {
+          aVal = new Date(aVal || 0).getTime();
+          bVal = new Date(bVal || 0).getTime();
+        } else if (sortBy === 'totalAmount' || sortBy === 'paidAmount') {
+          aVal = Number(aVal) || 0;
+          bVal = Number(bVal) || 0;
+        } else {
+          aVal = String(aVal || '').toLowerCase();
+          bVal = String(bVal || '').toLowerCase();
+        }
+        
+        if (aVal < bVal) return -1 * order;
+        if (aVal > bVal) return 1 * order;
+        return 0;
+      });
+    } else {
+      // Default sort by creation date, newest first
+      results.sort((a, b) => {
+        const aDate = new Date(a.createdAt || 0).getTime();
+        const bDate = new Date(b.createdAt || 0).getTime();
+        return bDate - aDate;
+      });
+    }
+    
+    // Apply limit
+    if (filters?.limit && filters.limit > 0) {
+      return results.slice(0, filters.limit);
+    }
+    
+    console.log('📋 Returning invoice results:', results.length);
+    return results;
   }
 
   async createInvoice(invoice: Omit<Invoice, 'id' | 'createdAt'>): Promise<Invoice> {
