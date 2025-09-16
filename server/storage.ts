@@ -186,6 +186,10 @@ export interface IStorage {
   // Audit and tracking
   getBookingHistory(bookingId: string): Promise<Array<{ action: string; timestamp: Date; adminUser?: string; details: any }>>;
   logAdminAction(action: string, details: any, adminUser?: string): Promise<void>;
+  
+  // Additional methods for specific date range queries
+  getBookingsInRange(startDate: Date, endDate: Date): Promise<Booking[]>;
+  getDiscoSlotsInRange(startDate: Date, endDate: Date): Promise<DiscoSlot[]>;
 }
 
 export class MemStorage implements IStorage {
@@ -1407,8 +1411,10 @@ export class MemStorage implements IStorage {
 
   async createQuote(insertQuote: InsertQuote): Promise<Quote> {
     const id = randomUUID();
+    const accessToken = randomUUID(); // Generate secure access token for public access
     const quote: Quote = {
       ...insertQuote,
+      templateId: insertQuote.templateId ?? null,
       orgId: insertQuote.orgId || "org_demo",
       status: insertQuote.status || "DRAFT",
       items: insertQuote.items ? [...insertQuote.items] as QuoteItem[] : [],
@@ -1418,6 +1424,9 @@ export class MemStorage implements IStorage {
       tax: insertQuote.tax || 0,
       total: insertQuote.total || 0,
       version: insertQuote.version || 1,
+      accessToken, // Set the access token for public access
+      accessTokenCreatedAt: new Date(), // Record when token was created
+      accessTokenRevokedAt: null, // Initially not revoked
       id,
       createdAt: new Date(),
     };
@@ -1554,6 +1563,7 @@ export class MemStorage implements IStorage {
     const id = randomUUID();
     const template: QuoteTemplate = {
       ...insertTemplate,
+      description: insertTemplate.description ?? null,
       orgId: insertTemplate.orgId || "org_demo",
       defaultItems: insertTemplate.defaultItems ? [...insertTemplate.defaultItems] as QuoteItem[] : [],
       minGroupSize: insertTemplate.minGroupSize || null,
@@ -1604,6 +1614,7 @@ export class MemStorage implements IStorage {
     const id = randomUUID();
     const rule: TemplateRule = {
       ...insertRule,
+      description: insertRule.description ?? null,
       orgId: insertRule.orgId || "org_demo",
       conditions: insertRule.conditions ? [...insertRule.conditions] as RuleCondition[] : [],
       actions: insertRule.actions ? [...insertRule.actions] as RuleAction[] : [],
@@ -2240,7 +2251,7 @@ export class MemStorage implements IStorage {
       title: extractedData?.eventType ? `${extractedData.eventType} Event` : "New Event",
       eventType: extractedData?.eventType || null,
       groupSize: extractedData?.groupSize || null,
-      projectDate,
+      projectDate: projectDate || undefined,
       duration: extractedData?.duration || null,
       specialRequests: extractedData?.specialRequests || null,
       preferredTime: extractedData?.preferredTime || extractedData?.timePreference || null,
@@ -2309,6 +2320,7 @@ export class MemStorage implements IStorage {
     const id = randomUUID();
     const booking: Booking = {
       ...insertBooking,
+      specialRequests: insertBooking.specialRequests ?? null,
       orgId: insertBooking.orgId || "org_demo",
       status: insertBooking.status || "booked",
       notes: insertBooking.notes || null,
@@ -2403,7 +2415,7 @@ export class MemStorage implements IStorage {
         const hasConflict = await this.checkBookingConflict(
           boat.id,
           project.projectDate || new Date(),
-          new Date((project.projectDate || new Date()).getTime() + (project.durationHours || 4) * 60 * 60 * 1000)
+          new Date((project.projectDate || new Date()).getTime() + (project.duration || 4) * 60 * 60 * 1000)
         );
         
         if (!hasConflict) {
@@ -3653,6 +3665,20 @@ export class MemStorage implements IStorage {
     }
     
     this.bookingHistory.set(bookingId, history);
+  }
+
+  async getBookingsInRange(startDate: Date, endDate: Date): Promise<Booking[]> {
+    return Array.from(this.bookings.values()).filter(booking => {
+      const bookingDate = new Date(booking.startTime);
+      return bookingDate >= startDate && bookingDate <= endDate;
+    });
+  }
+
+  async getDiscoSlotsInRange(startDate: Date, endDate: Date): Promise<DiscoSlot[]> {
+    return Array.from(this.discoSlots.values()).filter(slot => {
+      const slotDate = new Date(slot.date);
+      return slotDate >= startDate && slotDate <= endDate;
+    });
   }
 }
 

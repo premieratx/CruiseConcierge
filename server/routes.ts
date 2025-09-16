@@ -1,6 +1,15 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import Stripe from "stripe";
+
+// Augment Express Request type to include our custom properties
+declare module 'express-serve-static-core' {
+  interface Request {
+    adminUser?: AdminUser;
+    ip?: string;
+    connection?: any;
+  }
+}
 import { storage } from "./storage";
 import { generateQuoteDescription } from "./services/openai";
 import { googleSheetsService } from "./services/googleSheets";
@@ -333,6 +342,47 @@ function parseTimeString(timeStr: string): number {
   }
   
   return hour;
+}
+
+// Helper function to parse time string to date object
+function parseTimeToDate(date: Date, timeStr: string): Date {
+  const resultDate = new Date(date);
+  
+  if (timeStr.includes(':')) {
+    // Handle "HH:MM" format
+    const [hourStr, minuteStr] = timeStr.split(':');
+    const hour = parseInt(hourStr);
+    const minute = parseInt(minuteStr);
+    resultDate.setHours(hour, minute, 0, 0);
+  } else {
+    // Handle "12pm", "11am" format
+    const hour = parseTimeString(timeStr);
+    resultDate.setHours(hour, 0, 0, 0);
+  }
+  
+  return resultDate;
+}
+
+// Helper function to get time slot by ID
+function getTimeSlotById(date: Date, timeSlotId: string): any {
+  // Parse timeSlotId format like "12pm-4pm" or "11am-3pm"
+  if (timeSlotId.includes('-')) {
+    const [startStr, endStr] = timeSlotId.split('-');
+    return {
+      id: timeSlotId,
+      startTime: startStr,
+      endTime: endStr,
+      date: date
+    };
+  }
+  
+  // Default fallback
+  return {
+    id: timeSlotId,
+    startTime: '12pm',
+    endTime: '4pm',
+    date: date
+  };
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
@@ -2635,6 +2685,25 @@ export async function registerRoutes(app: Express): Promise<Server> {
             const bookingDuration = parseInt(duration || '4');
             const bookingGroupSize = parseInt(groupSize);
             
+            // Calculate start and end times from time slot first
+            const timeSlot = selectedTimeSlot || '';
+            let startTime = new Date(bookingDate);
+            let endTime = new Date(bookingDate);
+            
+            // Parse time slot (e.g., "12pm-4pm", "11am-3pm")
+            if (timeSlot.includes('-')) {
+              const [startStr, endStr] = timeSlot.split('-');
+              const startHour = parseTimeString(startStr);
+              const endHour = parseTimeString(endStr);
+              
+              startTime.setHours(startHour, 0, 0, 0);
+              endTime.setHours(endHour, 0, 0, 0);
+            } else {
+              // Default to time based on duration
+              startTime.setHours(12, 0, 0, 0); // Default noon start
+              endTime.setHours(12 + bookingDuration, 0, 0, 0);
+            }
+            
             // Find an appropriate boat for the group size with conflict checking
             const boats = await storage.getBoatsByCapacity(bookingGroupSize);
             let boatId = '';
@@ -2657,25 +2726,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
             if (!boatId && boats.length > 0) {
               console.warn(`No available boats for direct booking at ${eventDate} ${timeSlot}. Using first boat with conflict handling.`);
               boatId = boats[0].id; // Fallback - createBooking will handle the conflict
-            }
-            
-            // Calculate start and end times from time slot
-            const timeSlot = selectedTimeSlot || '';
-            let startTime = new Date(bookingDate);
-            let endTime = new Date(bookingDate);
-            
-            // Parse time slot (e.g., "12pm-4pm", "11am-3pm")
-            if (timeSlot.includes('-')) {
-              const [startStr, endStr] = timeSlot.split('-');
-              const startHour = parseTimeString(startStr);
-              const endHour = parseTimeString(endStr);
-              
-              startTime.setHours(startHour, 0, 0, 0);
-              endTime.setHours(endHour, 0, 0, 0);
-            } else {
-              // Default to time based on duration
-              startTime.setHours(12, 0, 0, 0); // Default noon start
-              endTime.setHours(12 + bookingDuration, 0, 0, 0);
             }
             
             // Create booking
@@ -4297,7 +4347,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const { slotId } = req.query;
       
-      if (!slotId && !boatId) {
+      if (!slotId) {
         return res.status(400).json({ error: "slotId or boatId parameter is required" });
       }
       
@@ -5086,14 +5136,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const { operation } = validation.data;
       
-      const updatedSlots = await storage.batchBlockSlots(operation, req.adminUser.id);
+      const operationWithAction = { ...operation, action: 'block' as const };
+      const updatedSlots = await storage.batchBlockSlots(operationWithAction, req.adminUser!.id);
       
       // Log admin action
       await storage.logAdminAction('batch_slot_operation', {
         operationType: operation.type,
         slotCount: operation.slotIds.length,
         operation
-      }, req.adminUser.id);
+      }, req.adminUser!.id);
       
       res.json({ success: true, updatedSlots, count: updatedSlots.length });
     } catch (error: any) {
@@ -5114,7 +5165,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
       
-      const booking = await storage.createBookingWithValidation(validation.data, req.adminUser.id);
+      const booking = await storage.createBookingWithValidation(validation.data, req.adminUser!.id);
       
       // Log admin action
       await storage.logAdminAction('create_booking', {
@@ -5302,7 +5353,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       const pattern = validation.data;
       
-      const slots = await storage.createRecurringAvailability(pattern);
+      const patternWithType = { ...pattern, type: 'weekly' as const };
+      const slots = await storage.createRecurringAvailability(patternWithType);
       
       // Log admin action
       await storage.logAdminAction('create_recurring_availability', {
@@ -5613,7 +5665,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const checkRateLimit = (req: Request, maxRequests: number = 100, windowMs: number = 15 * 60 * 1000): boolean => {
     const now = Date.now();
     // Use req.ip which respects trust proxy setting for correct IP detection
-    const clientIP = req.ip || req.connection.remoteAddress || 'unknown';
+    const clientIP = (req as any).ip || (req as any).connection?.remoteAddress || 'unknown';
     const client = rateLimitStore.get(clientIP);
     
     if (!client || now > client.resetTime) {
@@ -5632,7 +5684,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Rate limiting middleware for public endpoints
   const publicRateLimit = (maxRequests: number = 100) => {
     return (req: any, res: any, next: any) => {
-      const clientIP = req.ip || req.connection.remoteAddress || 'unknown';
+      const clientIP = (req as any).ip || (req as any).connection?.remoteAddress || 'unknown';
       
       if (!checkRateLimit(clientIP, maxRequests)) {
         return res.status(429).json({
@@ -5883,7 +5935,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { slotId, cruiseType, contactInfo, eventDetails, selectedProducts = [] } = validated;
       
       // Additional security logging
-      const clientIP = req.ip || req.connection.remoteAddress || 'unknown';
+      const clientIP = (req as any).ip || (req as any).connection?.remoteAddress || 'unknown';
       console.log(`[PUBLIC BOOKING] ${new Date().toISOString()} - IP: ${clientIP} - Slot: ${slotId} - Type: ${cruiseType}`);
       
       // Basic honeypot field check (hidden field to catch bots)
