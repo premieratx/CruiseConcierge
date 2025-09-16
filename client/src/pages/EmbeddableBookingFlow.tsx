@@ -243,6 +243,7 @@ export default function EmbeddableBookingFlow() {
   const [privatePricing, setPrivatePricing] = useState<PricingPreview | null>(null);
   const [discoPricing, setDiscoPricing] = useState<PricingPreview | null>(null);
   const [generatedQuoteId, setGeneratedQuoteId] = useState<string | null>(null);
+  const [secureQuoteUrl, setSecureQuoteUrl] = useState<string | null>(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [selectedPaymentOption, setSelectedPaymentOption] = useState<'deposit' | 'full'>('deposit');
   const [pricingLoading, setPricingLoading] = useState(false);
@@ -1322,6 +1323,7 @@ export default function EmbeddableBookingFlow() {
       }
 
       setGeneratedQuoteId(quoteResult.quote.id);
+      setSecureQuoteUrl(quoteResult.quoteUrl);
       
       // Show delivery status feedback to user
       if (quoteResult.delivery) {
@@ -2317,7 +2319,7 @@ export default function EmbeddableBookingFlow() {
                     </p>
                     
                     <Button
-                      onClick={() => window.location.href = `/quote/${generatedQuoteId}`}
+                      onClick={() => window.location.href = secureQuoteUrl || `/quote/${generatedQuoteId}`}
                       size="lg"
                       className="bg-gradient-to-r from-blue-600 to-purple-600"
                       data-testid="button-view-quote"
