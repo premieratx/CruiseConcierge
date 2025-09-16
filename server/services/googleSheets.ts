@@ -476,6 +476,10 @@ export class GoogleSheetsService {
     eventType?: string;
     eventTypeLabel?: string;
     source?: string;
+    quoteUrl?: string;
+    quoteId?: string;
+    cruiseDate?: string;
+    groupSize?: number;
   }): Promise<boolean> {
     try {
       if (!this.sheets || !this.spreadsheetId) {
@@ -495,8 +499,8 @@ export class GoogleSheetsService {
         leadData.phone || '',
         leadData.eventType || '',
         leadData.eventTypeLabel || '',
-        '', // cruiseDate
-        '', // groupSize
+        leadData.cruiseDate || '', // cruiseDate
+        leadData.groupSize ? leadData.groupSize.toString() : '', // groupSize
         '', // boatType
         '', // discoPackage
         '', // timeSlot
@@ -508,8 +512,8 @@ export class GoogleSheetsService {
         '', // budget
         '', // projectId
         '', // notes
-        '', // quoteUrl
-        '' // quoteId
+        leadData.quoteUrl || '', // quoteUrl - NEW: Auto-populated Quote Link
+        leadData.quoteId || '' // quoteId - NEW: Auto-populated Quote ID
       ];
 
       await this.sheets.spreadsheets.values.append({
@@ -583,12 +587,14 @@ export class GoogleSheetsService {
         updates.specialRequests !== undefined ? updates.specialRequests : (currentRow[16] || ''), // Q: specialRequests
         updates.budget !== undefined ? updates.budget : (currentRow[17] || ''), // R: budget
         updates.projectId !== undefined ? updates.projectId : (currentRow[18] || ''), // S: projectId
-        updates.notes !== undefined ? updates.notes : (currentRow[19] || '') // T: notes
+        updates.notes !== undefined ? updates.notes : (currentRow[19] || ''), // T: notes
+        updates.quoteUrl !== undefined ? updates.quoteUrl : (currentRow[20] || ''), // U: quoteUrl - NEW
+        updates.quoteId !== undefined ? updates.quoteId : (currentRow[21] || '') // V: quoteId - NEW
       ];
 
       await this.sheets.spreadsheets.values.update({
         spreadsheetId: this.spreadsheetId,
-        range: `Leads!A${rowIndex}:T${rowIndex}`,
+        range: `Leads!A${rowIndex}:V${rowIndex}`,
         valueInputOption: 'RAW',
         resource: {
           values: [updatedRow]
@@ -610,7 +616,7 @@ export class GoogleSheetsService {
         return this.getMockLead(leadId);
       }
 
-      const range = 'Leads!A2:T1000';
+      const range = 'Leads!A2:V1000';
       const response = await this.sheets.spreadsheets.values.get({
         spreadsheetId: this.spreadsheetId,
         range: range,
@@ -636,7 +642,7 @@ export class GoogleSheetsService {
         return this.getMockLeads();
       }
 
-      const range = 'Leads!A2:T1000';
+      const range = 'Leads!A2:V1000';
       const response = await this.sheets.spreadsheets.values.get({
         spreadsheetId: this.spreadsheetId,
         range: range,
@@ -673,7 +679,9 @@ export class GoogleSheetsService {
       specialRequests: row[16] || undefined,
       budget: row[17] || undefined,
       projectId: row[18] || undefined,
-      notes: row[19] || undefined
+      notes: row[19] || undefined,
+      quoteUrl: row[20] || undefined,
+      quoteId: row[21] || undefined
     };
   }
 

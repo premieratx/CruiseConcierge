@@ -29,6 +29,19 @@ export interface LeadWebhookPayload {
   created_at: string;
 }
 
+export interface CreateLeadRequest {
+  name: string;
+  email?: string;
+  phone: string;
+  eventType?: string;
+  eventTypeLabel?: string;
+  groupSize?: number;
+  cruiseDate?: string;
+  source?: string;
+  quoteLink?: string;
+  leadId?: string;
+}
+
 class GoHighLevelService implements SMSService {
   private apiKey: string;
   private clientId: string;
@@ -874,6 +887,155 @@ class GoHighLevelService implements SMSService {
       }
       
       // Don't throw error - webhook failures shouldn't break the main flow
+      return false;
+    }
+  }
+
+  // Create a lead in GoHighLevel with quote link custom field
+  async createLeadWithQuoteLink(leadData: CreateLeadRequest): Promise<string | null> {
+    console.log('🔗 Creating GoHighLevel lead with quote link...', {
+      name: leadData.name,
+      phone: leadData.phone,
+      quoteLink: leadData.quoteLink,
+      leadId: leadData.leadId
+    });
+
+    const authHeaders = await this.getAuthHeaders();
+    if (!authHeaders) {
+      console.error('❌ No authentication headers available for lead creation');
+      return null;
+    }
+
+    try {
+      // Find or create contact first
+      const contactId = await this.findOrCreateContact(
+        leadData.phone,
+        leadData.name
+      );
+
+      if (!contactId) {
+        console.error('❌ Failed to find or create contact for lead creation');
+        return null;
+      }
+
+      console.log('✅ Contact ready for lead creation:', contactId);
+
+      // Create or update custom fields for the contact
+      const customFields: any = {};
+      
+      if (leadData.quoteLink) {
+        customFields['Quote Link'] = leadData.quoteLink;
+      }
+      if (leadData.eventType) {
+        customFields['Event Type'] = leadData.eventTypeLabel || leadData.eventType;
+      }
+      if (leadData.groupSize) {
+        customFields['Group Size'] = leadData.groupSize.toString();
+      }
+      if (leadData.cruiseDate) {
+        customFields['Requested Cruise Date'] = leadData.cruiseDate;
+      }
+      if (leadData.source) {
+        customFields['Lead Source'] = leadData.source;
+      }
+      if (leadData.leadId) {
+        customFields['System Lead ID'] = leadData.leadId;
+      }
+
+      // Update contact with custom fields
+      if (Object.keys(customFields).length > 0) {
+        console.log('📝 Updating contact with custom fields:', customFields);
+        
+        const updateResponse = await fetch(`${this.baseUrl}/contacts/${contactId}`, {
+          method: 'PUT',
+          headers: {
+            ...authHeaders,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            customFields
+          }),
+        });
+
+        if (updateResponse.ok) {
+          console.log('✅ Contact updated with custom fields successfully');
+        } else {
+          const updateError = await updateResponse.text();
+          console.log('⚠️ Warning: Could not update custom fields:', updateError.substring(0, 200));
+          // Continue with lead creation even if custom fields fail
+        }
+      }
+
+      // Create or update opportunity (lead) record
+      const opportunityData = {
+        pipelineId: process.env.GOHIGHLEVEL_PIPELINE_ID || 'default',
+        pipelineStageId: process.env.GOHIGHLEVEL_STAGE_ID || 'new_lead',
+        name: `${leadData.eventTypeLabel || leadData.eventType || 'Cruise'} - ${leadData.name}`,
+        contactId: contactId,
+        monetaryValue: 0, // Will be updated when quote is accepted
+        assignedTo: process.env.GOHIGHLEVEL_ASSIGNED_USER_ID,
+        status: 'open',
+        source: leadData.source || 'Website Lead'
+      };
+
+      console.log('🎯 Creating opportunity/lead in pipeline...');
+      const opportunityResponse = await fetch(`${this.baseUrl}/opportunities/`, {
+        method: 'POST',
+        headers: {
+          ...authHeaders,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(opportunityData),
+      });
+
+      if (opportunityResponse.ok) {
+        const opportunityResult = await opportunityResponse.json();
+        const opportunityId = opportunityResult.opportunity?.id || opportunityResult.id;
+        console.log('✅ GoHighLevel lead/opportunity created successfully:', opportunityId);
+        return opportunityId;
+      } else {
+        const errorText = await opportunityResponse.text();
+        console.log('⚠️ Opportunity creation failed, but contact exists:', errorText.substring(0, 200));
+        // Return contact ID even if opportunity creation fails
+        return contactId;
+      }
+
+    } catch (error) {
+      console.error('❌ Error creating GoHighLevel lead:', error);
+      return null;
+    }
+  }
+
+  // Create lead with webhook-compatible data structure
+  async createLead(leadData: {
+    leadId: string;
+    name: string;
+    email?: string;
+    phone: string;
+    eventType?: string;
+    eventTypeLabel?: string;
+    cruiseDate?: string;
+    groupSize?: number;
+    source?: string;
+    quoteLink?: string;
+  }): Promise<boolean> {
+    try {
+      const result = await this.createLeadWithQuoteLink({
+        name: leadData.name,
+        email: leadData.email,
+        phone: leadData.phone,
+        eventType: leadData.eventType,
+        eventTypeLabel: leadData.eventTypeLabel,
+        groupSize: leadData.groupSize,
+        cruiseDate: leadData.cruiseDate,
+        source: leadData.source || 'Website Lead',
+        quoteLink: leadData.quoteLink,
+        leadId: leadData.leadId
+      });
+
+      return result !== null;
+    } catch (error) {
+      console.error('❌ Error in createLead wrapper:', error);
       return false;
     }
   }

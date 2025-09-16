@@ -191,6 +191,16 @@ export interface IStorage {
   getBookingsInRange(startDate: Date, endDate: Date): Promise<Booking[]>;
   getDiscoSlotsInRange(startDate: Date, endDate: Date): Promise<DiscoSlot[]>;
 
+  // Automatic Quote Generation for Lead Creation
+  generateAutomaticQuote(contact: Contact, project: Project, eventType?: string): Promise<Quote>;
+  generateQuoteForLead(leadData: {
+    contactId: string;
+    eventType?: string;
+    groupSize?: number;
+    projectDate?: Date;
+    projectId?: string;
+  }): Promise<Quote>;
+
   // Customer Portal - SMS Authentication
   createSmsAuthToken(token: InsertSmsAuthToken): Promise<SmsAuthToken>;
   getSmsAuthToken(phoneNumber: string, code: string): Promise<SmsAuthToken | undefined>;
@@ -2310,6 +2320,99 @@ export class MemStorage implements IStorage {
     }
     
     return contact;
+  }
+
+  // Automatic Quote Generation Methods
+  async generateAutomaticQuote(contact: Contact, project: Project, eventType?: string): Promise<Quote> {
+    const finalEventType = eventType || project.eventType || 'general';
+    
+    // Get appropriate template
+    let templates = await this.getQuoteTemplatesByEventType(finalEventType);
+    
+    // If no templates for specific event type, try general
+    if (templates.length === 0 && finalEventType !== 'general') {
+      templates = await this.getQuoteTemplatesByEventType('general');
+    }
+    
+    // If still no templates, use default template
+    if (templates.length === 0) {
+      templates = Array.from(this.quoteTemplates.values()).filter(t => t.active && t.isDefault);
+    }
+    
+    // If still no templates, use the first active template
+    if (templates.length === 0) {
+      templates = Array.from(this.quoteTemplates.values()).filter(t => t.active).slice(0, 1);
+    }
+    
+    if (templates.length === 0) {
+      throw new Error('No quote templates available for automatic quote generation');
+    }
+    
+    const template = templates[0];
+    
+    // Calculate pricing
+    const pricing = await this.calculatePricing({
+      items: template.defaultItems,
+      groupSize: project.groupSize || template.minGroupSize || 1,
+      projectDate: project.projectDate || undefined,
+      templateId: template.id,
+    });
+
+    // Create the quote
+    const quote = await this.createQuote({
+      projectId: project.id,
+      templateId: template.id,
+      items: template.defaultItems,
+      radioSections: template.defaultRadioSections || [],
+      subtotal: pricing.subtotal,
+      discountTotal: pricing.discountTotal,
+      tax: pricing.tax,
+      gratuity: pricing.gratuity,
+      total: pricing.total,
+      perPersonCost: pricing.perPersonCost,
+      depositRequired: pricing.depositRequired,
+      depositPercent: pricing.depositPercent,
+      depositAmount: pricing.depositAmount,
+      paymentSchedule: pricing.paymentSchedule,
+      expiresAt: pricing.expiresAt,
+      status: 'DRAFT'
+    });
+
+    return quote;
+  }
+
+  async generateQuoteForLead(leadData: {
+    contactId: string;
+    eventType?: string;
+    groupSize?: number;
+    projectDate?: Date;
+    projectId?: string;
+  }): Promise<Quote> {
+    const contact = await this.getContact(leadData.contactId);
+    if (!contact) {
+      throw new Error('Contact not found for quote generation');
+    }
+
+    let project;
+    if (leadData.projectId) {
+      project = await this.getProject(leadData.projectId);
+      if (!project) {
+        throw new Error('Project not found for quote generation');
+      }
+    } else {
+      // Create a new project for this lead
+      project = await this.createProject({
+        contactId: leadData.contactId,
+        title: `${leadData.eventType || 'General'} Event - Auto-Generated`,
+        eventType: leadData.eventType || null,
+        groupSize: leadData.groupSize || null,
+        projectDate: leadData.projectDate || null,
+        leadSource: 'auto_quote_generation',
+        tags: ['auto_generated'],
+      });
+    }
+
+    return await this.generateAutomaticQuote(contact, project, leadData.eventType);
   }
 
   async createProjectFromChatData(contactId: string, extractedData: any): Promise<Project> {
