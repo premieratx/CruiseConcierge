@@ -287,6 +287,22 @@ export const timeframes = pgTable("timeframes", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// Slot Holds - for temporary reservation of availability slots
+export const slotHolds = pgTable("slot_holds", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  slotId: varchar("slot_id").notNull(), // normalized slot identifier
+  boatId: varchar("boat_id"), // specific boat if assigned
+  cruiseType: varchar("cruise_type").notNull(), // 'private' or 'disco'
+  dateISO: varchar("date_iso").notNull(), // YYYY-MM-DD format
+  startTime: varchar("start_time").notNull(), // HH:MM format
+  endTime: varchar("end_time").notNull(), // HH:MM format
+  sessionId: varchar("session_id"), // client session for tracking
+  groupSize: integer("group_size"), // requested group size
+  expiresAt: timestamp("expires_at").notNull(), // TTL for automatic cleanup
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // Email Templates - for customizable email communications
 export const emailTemplates = pgTable("email_templates", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
@@ -1195,6 +1211,34 @@ export type InsertCustomerLifecycle = typeof customerLifecycle.$inferInsert;
 
 export type CustomerActivity = typeof customerActivity.$inferSelect;
 export type InsertCustomerActivity = typeof customerActivity.$inferInsert;
+
+// Unified Availability Data Models
+
+// Slot Hold types
+export type SlotHold = typeof slotHolds.$inferSelect;
+export type InsertSlotHold = typeof slotHolds.$inferInsert;
+
+// Create insert schema for slot holds
+export const insertSlotHoldSchema = createInsertSchema(slotHolds);
+export type InsertSlotHoldType = z.infer<typeof insertSlotHoldSchema>;
+
+// Normalized slot interface for unified availability system
+export interface NormalizedSlot {
+  id: string; // unique identifier for the slot (date + time + cruiseType combination)
+  cruiseType: 'private' | 'disco'; // type of cruise offering
+  dateISO: string; // YYYY-MM-DD format for the cruise date
+  startTime: string; // HH:MM format start time
+  endTime: string; // HH:MM format end time  
+  label: string; // human-readable time display (e.g., "11am-3pm")
+  duration: number; // duration in hours
+  capacity: number; // maximum group size for this slot
+  availableCount: number; // how many boats/tickets are available
+  price: number; // base price in cents for this slot/group size
+  boatCandidates: string[]; // array of boat IDs that could serve this slot
+  bookable: boolean; // whether this slot can be booked (available and not held)
+  held?: boolean; // whether this slot is currently held by someone
+  holdExpiresAt?: Date; // when the current hold expires
+}
 
 // Customer lifecycle stage definitions
 export type LifecycleStage = 

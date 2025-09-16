@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -25,8 +25,9 @@ import { Slider } from '@/components/ui/slider';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
 import { format, addDays, isBefore, isAfter, startOfDay, differenceInDays } from 'date-fns';
-import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection, QuoteItem } from '@shared/schema';
-import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, isDiscoAvailableForDate } from '@shared/timeSlots';
+import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection, QuoteItem, NormalizedSlot } from '@shared/schema';
+import { useAvailabilityForDate, useAvailabilityForDateRange, formatDateForAvailability } from '@/hooks/use-availability';
+import { TimeSlotList } from '@/components/TimeSlotList';
 import { formatCurrency, formatDate, formatLongDate, formatTimeForDisplay, formatTimeRange, formatPhoneNumber, formatCustomerName, formatBoatCapacity, formatEventDuration, formatGroupSize } from '@shared/formatters';
 import { EVENT_TYPES, CRUISE_TYPES, DISCO_PACKAGES, PRICING_DEFAULTS } from '@shared/constants';
 
@@ -41,9 +42,8 @@ type DiscoPackage = 'basic' | 'disco_queen' | 'platinum';
 
 interface ComparisonSelection {
   cruiseType: CruiseType;
-  timeSlot?: string;
+  selectedSlot?: NormalizedSlot;
   discoPackage?: DiscoPackage;
-  discoTimeSlot?: string;
 }
 
 interface BookingData {
@@ -59,11 +59,10 @@ interface BookingData {
   specialRequests: string;
   budget: string;
   selectedCruiseType: CruiseType | null;
-  selectedTimeSlot: string;
+  selectedSlot: NormalizedSlot | null;
   selectedAddOnPackages: string[];
   selectedBoat?: string;
   selectedDiscoPackage: DiscoPackage | null;
-  selectedDiscoTimeSlot: string;
   discoTicketQuantity: number;
   preferredTimeLabel?: string;
   groupSizeLabel?: string;
@@ -87,11 +86,7 @@ const eventTypes = Object.entries(EVENT_TYPES).map(([id, config]) => ({
   description: config.description,
 }));
 
-// Use centralized time slot configuration - remove local implementation
-
-// Use centralized disco time slot configuration - remove local implementation
-
-// Use centralized disco availability check - remove local implementation
+// Now using unified availability system with useAvailability hook
 
 const isDateAvailable = (date: Date): boolean => {
   const today = startOfDay(new Date());
@@ -99,52 +94,79 @@ const isDateAvailable = (date: Date): boolean => {
   return !isBefore(date, today) && !isAfter(date, maxDate);
 };
 
-const getAlternativeDates = (selectedDate: Date, groupSize: number, daysRange: number = 14): Array<{
-  date: Date;
-  dayName: string;
-  dayNumber: number;
-  monthName: string;
-  isAvailable: boolean;
-  isSelected: boolean;
-  timeSlotsAvailable: number;
-}> => {
-  if (!selectedDate) return [];
+// Hook for getting alternative dates with real availability data
+const useAlternativeDates = (selectedDate: Date | undefined, groupSize: number, daysRange: number = 14) => {
+  // Generate date range for alternative dates
+  const dateRange = useMemo(() => {
+    if (!selectedDate) return { startDate: '', endDate: '', dates: [] };
+    
+    const dates: Date[] = [];
+    for (let i = -daysRange/2; i <= daysRange/2; i++) {
+      if (i === 0) continue;
+      
+      const date = new Date(selectedDate);
+      date.setDate(selectedDate.getDate() + i);
+      
+      if (date >= new Date()) {
+        dates.push(date);
+      }
+    }
+    
+    const sortedDates = dates.sort((a, b) => a.getTime() - b.getTime()).slice(0, 6);
+    
+    return {
+      startDate: sortedDates.length > 0 ? formatDateForAvailability(sortedDates[0]) : '',
+      endDate: sortedDates.length > 0 ? formatDateForAvailability(sortedDates[sortedDates.length - 1]) : '',
+      dates: sortedDates
+    };
+  }, [selectedDate, daysRange]);
   
-  const alternatives: Array<{
-    date: Date;
-    dayName: string;
-    dayNumber: number;
-    monthName: string;
-    isAvailable: boolean;
-    isSelected: boolean;
-    timeSlotsAvailable: number;
-  }> = [];
+  // Fetch availability for the date range
+  const { data: availabilityData } = useAvailabilityForDateRange(
+    dateRange.startDate,
+    dateRange.endDate,
+    undefined, // both private and disco
+    groupSize,
+    {
+      enabled: Boolean(dateRange.startDate && dateRange.endDate && dateRange.dates.length > 0),
+      staleTime: 1000 * 60 * 2, // 2 minutes
+    }
+  );
   
-  for (let i = -daysRange/2; i <= daysRange/2; i++) {
-    if (i === 0) continue;
-    
-    const date = new Date(selectedDate);
-    date.setDate(selectedDate.getDate() + i);
-    
-    if (date < new Date()) continue;
-    
-    const isAvailable = isDateAvailable(date);
-    const timeSlots = isAvailable ? getPrivateTimeSlotsForDate(date) : [];
-    
-    alternatives.push({
-      date,
-      dayName: format(date, 'EEE'),
-      dayNumber: date.getDate(),
-      monthName: format(date, 'MMM'),
-      isAvailable,
-      isSelected: false,
-      timeSlotsAvailable: timeSlots.length,
-    });
-  }
+  // Group slots by date
+  const slotsByDate = useMemo(() => {
+    if (!availabilityData?.slots) return {};
+    return availabilityData.slots.reduce((groups, slot) => {
+      const date = slot.dateISO;
+      if (!groups[date]) {
+        groups[date] = [];
+      }
+      groups[date].push(slot);
+      return groups;
+    }, {} as Record<string, NormalizedSlot[]>);
+  }, [availabilityData]);
   
-  return alternatives
-    .sort((a, b) => a.date.getTime() - b.date.getTime())
-    .slice(0, 6);
+  // Generate alternative dates with real availability counts
+  const alternativeDates = useMemo(() => {
+    return dateRange.dates.map(date => {
+      const dateISO = formatDateForAvailability(date);
+      const slots = slotsByDate[dateISO] || [];
+      const availableSlots = slots.filter(slot => slot.bookable && !slot.held);
+      
+      return {
+        date,
+        dayName: format(date, 'EEE'),
+        dayNumber: date.getDate(),
+        monthName: format(date, 'MMM'),
+        isAvailable: availableSlots.length > 0,
+        isSelected: false,
+        timeSlotsAvailable: availableSlots.length,
+        slots: availableSlots
+      };
+    }).filter(alt => alt.timeSlotsAvailable > 0); // Only show dates with available slots
+  }, [dateRange.dates, slotsByDate]);
+  
+  return alternativeDates;
 };
 
 // Use pricing defaults from shared constants
@@ -265,12 +287,29 @@ export default function Chat() {
     specialRequests: '',
     budget: '',
     selectedCruiseType: null,
-    selectedTimeSlot: '',
+    selectedSlot: null,
     selectedAddOnPackages: [],
     selectedDiscoPackage: null,
-    selectedDiscoTimeSlot: '',
     discoTicketQuantity: 1,
   });
+  
+  // Fetch available slots for the selected date
+  const { data: availabilityData, isLoading: availabilityLoading, error: availabilityError } = useAvailabilityForDate(
+    formData.eventDate ? formatDateForAvailability(formData.eventDate) : '',
+    undefined, // both private and disco
+    formData.groupSize,
+    {
+      enabled: Boolean(formData.eventDate),
+      staleTime: 1000 * 60 * 2, // 2 minutes
+    }
+  );
+  
+  const availableSlots = availabilityData?.slots || [];
+  const privateSlots = availableSlots.filter(slot => slot.cruiseType === 'private');
+  const discoSlots = availableSlots.filter(slot => slot.cruiseType === 'disco');
+  
+  // Get alternative dates with real availability data
+  const alternativeDates = useAlternativeDates(formData.eventDate, formData.groupSize);
 
   const [leadId, setLeadId] = useState<string | null>(null);
   const [leadCreated, setLeadCreated] = useState(false);
@@ -317,7 +356,7 @@ export default function Chat() {
                 currentStep,
                 completedSelections,
                 selectedCruiseType: formData.selectedCruiseType,
-                selectedTimeSlot: formData.selectedTimeSlot,
+                selectedSlot: formData.selectedSlot,
                 selectedDiscoPackage: formData.selectedDiscoPackage,
                 selectedAddOnPackages: formData.selectedAddOnPackages,
                 budget: formData.budget,
@@ -498,13 +537,12 @@ export default function Chat() {
     const updates: Partial<BookingData> = {};
     
     // Auto-select private cruise defaults if not already selected
-    if (!formData.selectedTimeSlot) {
-      const availableTimeSlots = getPrivateTimeSlotsForDate(formData.eventDate);
-      const defaultTimeSlot = availableTimeSlots.find(slot => slot.popular) || availableTimeSlots[0];
+    if (!formData.selectedSlot) {
+      const defaultSlot = privateSlots.find(slot => slot.label.includes('12pm') || slot.label.includes('1pm')) || privateSlots[0];
       
-      if (defaultTimeSlot) {
+      if (defaultSlot) {
         updates.selectedCruiseType = 'private';
-        updates.selectedTimeSlot = defaultTimeSlot.id;
+        updates.selectedSlot = defaultSlot;
         updates.selectedAddOnPackages = [];
       }
     }
@@ -512,27 +550,24 @@ export default function Chat() {
     // For bachelor/bachelorette parties, ensure disco options are available but don't auto-select
     // Let users choose between disco and private options in the comparison view
     if ((formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') &&
-        isDiscoAvailableForDate(formData.eventDate)) {
+        discoSlots.length > 0) {
       // Reset any previous disco selections to force user choice in comparison view
       updates.selectedDiscoPackage = null;
-      updates.selectedDiscoTimeSlot = '';
       // Don't auto-select cruise type - let user choose between disco and private
       if (formData.selectedCruiseType === 'disco') {
         updates.selectedCruiseType = null;
+        updates.selectedSlot = null;
       }
       updates.discoTicketQuantity = Math.min(formData.groupSize, 10); // Set reasonable default quantity
     }
     
     // For all other event types with disco available, use minimum quantity
-    else if (isDiscoAvailableForDate(formData.eventDate) && 
-             (!formData.selectedDiscoPackage || !formData.selectedDiscoTimeSlot)) {
-      const availableDiscoSlots = getDiscoTimeSlotsForDate(formData.eventDate);
-      const defaultDiscoSlot = availableDiscoSlots[0];
+    else if (discoSlots.length > 0 && !formData.selectedDiscoPackage) {
+      const defaultDiscoSlot = discoSlots[0];
       const defaultDiscoPackage = discoPackages[0];
       
       if (defaultDiscoSlot && defaultDiscoPackage) {
         updates.selectedDiscoPackage = defaultDiscoPackage.id as DiscoPackage;
-        updates.selectedDiscoTimeSlot = defaultDiscoSlot.id;
         updates.discoTicketQuantity = Math.min(formData.groupSize, 10);
       }
     }
@@ -541,7 +576,7 @@ export default function Chat() {
     if (Object.keys(updates).length > 0) {
       setFormData(prev => ({ ...prev, ...updates }));
     }
-  }, [currentStep, formData.groupSize, formData.eventType, formData.eventDate?.getTime(), formData.selectedTimeSlot, formData.selectedDiscoPackage, formData.selectedDiscoTimeSlot]);
+  }, [currentStep, formData.groupSize, formData.eventType, formData.eventDate?.getTime(), formData.selectedSlot, formData.selectedDiscoPackage, privateSlots, discoSlots]);
 
   // Debounced pricing fetch refs to prevent excessive API calls
   const pricingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -555,14 +590,14 @@ export default function Chat() {
     }
 
     // Guard: Skip if missing required data
-    if (!formData.selectedTimeSlot || !formData.groupSize) {
+    if (!formData.selectedSlot || !formData.groupSize) {
       setPrivatePricing(null);
       return;
     }
 
     // Create a unique key for current pricing parameters
     const pricingKey = JSON.stringify({
-      timeSlot: formData.selectedTimeSlot,
+      slotId: formData.selectedSlot.id,
       addOns: formData.selectedAddOnPackages.sort(),
       groupSize: formData.groupSize,
       eventDate: formData.eventDate?.toISOString(),
@@ -585,7 +620,7 @@ export default function Chat() {
         calculatePrivatePricing();
       }
     }, 300); // 300ms debounce
-  }, [formData.selectedTimeSlot, formData.selectedAddOnPackages, formData.groupSize, formData.eventDate?.getTime()]);
+  }, [formData.selectedSlot?.id, formData.selectedAddOnPackages, formData.groupSize, formData.eventDate?.getTime()]);
   
   // Fetch disco pricing with debouncing and duplicate prevention
   useEffect(() => {
@@ -628,10 +663,10 @@ export default function Chat() {
 
   // Fetch private cruise pricing with loading state
   const fetchPrivatePricing = async () => {
-    if (!formData.selectedTimeSlot) return;
+    if (!formData.selectedSlot) return;
     
     console.log('🚢 fetchPrivatePricing called with:', {
-      selectedTimeSlot: formData.selectedTimeSlot,
+      selectedSlot: formData.selectedSlot,
       groupSize: formData.groupSize,
       eventDate: formData.eventDate,
       eventType: formData.eventType,
@@ -651,7 +686,7 @@ export default function Chat() {
       const pricingPayload = {
         groupSize: formData.groupSize,
         eventDate: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : '',
-        timeSlot: formData.selectedTimeSlot,
+        timeSlot: formData.selectedSlot.id,
         eventType: formData.eventType,
         cruiseType: 'private',
         packageType: formData.selectedAddOnPackages.join(','), // Send selected add-ons
@@ -690,8 +725,8 @@ export default function Chat() {
   // Fallback private cruise pricing calculation
   const calculatePrivatePricing = () => {
     console.log('🚢 calculatePrivatePricing called as fallback');
-    if (!formData.selectedTimeSlot) {
-      console.log('🚢 calculatePrivatePricing early return - no timeSlot');
+    if (!formData.selectedSlot) {
+      console.log('🚢 calculatePrivatePricing early return - no slot selected');
       return;
     }
     
@@ -872,10 +907,9 @@ export default function Chat() {
       eventTypeLabel: eventLabel,
       eventEmoji: eventEmoji,
       selectedCruiseType: null as CruiseType | null,
-      selectedTimeSlot: '',
+      selectedSlot: null,
       selectedAddOnPackages: [],
       selectedDiscoPackage: null as DiscoPackage | null,
-      selectedDiscoTimeSlot: '',
       discoTicketQuantity: 1,
     };
     
@@ -894,10 +928,9 @@ export default function Chat() {
           eventEmoji: '',
           groupSize: GROUP_SIZE_DEFAULT,
           selectedCruiseType: null,
-          selectedTimeSlot: '',
+          selectedSlot: null,
           selectedAddOnPackages: [],
           selectedDiscoPackage: null,
-          selectedDiscoTimeSlot: '',
           discoTicketQuantity: 1,
         }));
         setEventTypeCollapsed(false);
@@ -945,10 +978,9 @@ export default function Chat() {
       ...prev, 
       groupSize: newSize,
       selectedCruiseType: null,
-      selectedTimeSlot: '',
+      selectedSlot: null,
       selectedAddOnPackages: [],
       selectedDiscoPackage: null,
-      selectedDiscoTimeSlot: '',
       discoTicketQuantity: Math.min(newSize, 10),
     }));
   }, []);
@@ -980,10 +1012,9 @@ export default function Chat() {
           ...prev,
           groupSize: GROUP_SIZE_DEFAULT,
           selectedCruiseType: null,
-          selectedTimeSlot: '',
+          selectedSlot: null,
           selectedAddOnPackages: [],
           selectedDiscoPackage: null,
-          selectedDiscoTimeSlot: '',
           discoTicketQuantity: 1,
         }));
         setShowGroupSize(false);
@@ -1005,19 +1036,19 @@ export default function Chat() {
   }, [formData.groupSize, toast]);
 
   // Private cruise selection handlers with loading state protection
-  const handlePrivateCruiseSelect = useCallback((timeSlot: string) => {
+  const handlePrivateCruiseSelect = useCallback((slot: NormalizedSlot) => {
     // Prevent interactions during loading states
     if (pricingLoading || paymentProcessing || formSubmitting) {
       console.log('🚢 Ignoring selection - system is busy');
       return;
     }
     
-    console.log('🚢 handlePrivateCruiseSelect called with timeSlot:', timeSlot);
+    console.log('🚢 handlePrivateCruiseSelect called with slot:', slot);
     setFormData(prev => {
       const newData = {
         ...prev,
         selectedCruiseType: 'private' as CruiseType,
-        selectedTimeSlot: timeSlot,
+        selectedSlot: slot,
       };
       console.log('🚢 Setting form data to:', newData);
       return newData;
@@ -1044,19 +1075,19 @@ export default function Chat() {
   }, [pricingLoading, paymentProcessing, formSubmitting]);
   
   // Disco cruise selection handler with loading state protection
-  const handleDiscoCruiseSelect = useCallback((packageId: string, timeSlot: string) => {
+  const handleDiscoCruiseSelect = useCallback((slot: NormalizedSlot, packageId: string) => {
     // Prevent interactions during loading states
     if (pricingLoading || paymentProcessing || formSubmitting) {
       console.log('🎵 Ignoring selection - system is busy');
       return;
     }
     
-    console.log('🎵 handleDiscoCruiseSelect called with package:', packageId, 'timeSlot:', timeSlot);
+    console.log('🎵 handleDiscoCruiseSelect called with slot:', slot, 'package:', packageId);
     setFormData(prev => ({
       ...prev, 
       selectedCruiseType: 'disco' as CruiseType,
+      selectedSlot: slot,
       selectedDiscoPackage: packageId as DiscoPackage,
-      selectedDiscoTimeSlot: timeSlot
     }));
   }, [pricingLoading, paymentProcessing, formSubmitting]);
 
@@ -1100,22 +1131,18 @@ export default function Chat() {
     
     // Cruise type specific validation
     if (cruiseType === 'private') {
-      if (!data.selectedTimeSlot) errors.push('Please select a time slot for private cruise');
-      if (data.eventDate && !getPrivateTimeSlotsForDate(data.eventDate).find(slot => slot.id === data.selectedTimeSlot)) {
-        errors.push('Selected time slot is not available for the chosen date');
+      if (!data.selectedSlot) errors.push('Please select a time slot for private cruise');
+      if (data.selectedSlot && data.selectedSlot.cruiseType !== 'private') {
+        errors.push('Selected slot is not for a private cruise');
       }
     }
     
     if (cruiseType === 'disco') {
       if (!data.selectedDiscoPackage) errors.push('Please select a disco package');
-      if (!data.selectedDiscoTimeSlot) errors.push('Please select a disco time slot');
+      if (!data.selectedSlot) errors.push('Please select a disco time slot');
       if (data.discoTicketQuantity <= 0) errors.push('Disco ticket quantity must be at least 1');
-      if (data.eventDate && !isDiscoAvailableForDate(data.eventDate)) {
-        errors.push('Disco cruises are only available on Friday, Saturday, and Sunday');
-      }
-      if (data.eventDate && data.selectedDiscoTimeSlot && 
-          !getDiscoTimeSlotsForDate(data.eventDate).find(slot => slot.id === data.selectedDiscoTimeSlot)) {
-        errors.push('Selected disco time slot is not available for the chosen date');
+      if (data.selectedSlot && data.selectedSlot.cruiseType !== 'disco') {
+        errors.push('Selected slot is not for a disco cruise');
       }
     }
     
@@ -1186,12 +1213,12 @@ export default function Chat() {
         eventType: formData.eventType,
         eventTypeLabel: formData.eventTypeLabel,
         eventEmoji: formData.eventEmoji,
-        // For private cruises
-        selectedTimeSlot: formData.selectedTimeSlot,
+        // Send both formats for backward compatibility
+        selectedSlot: formData.selectedSlot,
+        selectedTimeSlot: formData.selectedSlot ? formData.selectedSlot.label : '',
         selectedAddOnPackages: formData.selectedAddOnPackages,
         // For disco cruises  
         selectedDiscoPackage: formData.selectedDiscoPackage,
-        selectedDiscoTimeSlot: formData.selectedDiscoTimeSlot,
         discoTicketQuantity: formData.discoTicketQuantity,
       };
 
@@ -1306,7 +1333,7 @@ export default function Chat() {
         groupSize: data.groupSize,
         specialRequests: data.specialRequests,
         cruiseType: data.selectedCruiseType,
-        timeSlot: data.selectedCruiseType === 'private' ? data.selectedTimeSlot : data.selectedDiscoTimeSlot,
+        timeSlot: data.selectedSlot?.id || '',
         discoPackage: data.selectedDiscoPackage,
         budget: (data.selectedCruiseType === 'private' ? privatePricing?.total : discoPricing?.total)?.toString(),
         data: {
@@ -1412,9 +1439,7 @@ export default function Chat() {
         if (data.selectedCruiseType === 'disco' && data.selectedDiscoPackage) {
           const selectedPackage = discoPackages.find(pkg => pkg.id === data.selectedDiscoPackage);
           if (selectedPackage) {
-            const timeSlotLabel = getDiscoTimeSlotsForDate(data.eventDate!).find(slot => 
-              slot.id === data.selectedDiscoTimeSlot
-            )?.label || data.selectedDiscoTimeSlot;
+            const timeSlotLabel = data.selectedSlot?.label || 'Unknown time';
             
             quoteItems.push({
               id: `disco_${selectedPackage.id}_${Date.now()}`,
@@ -1427,9 +1452,7 @@ export default function Chat() {
             });
           }
         } else {
-          const timeSlotLabel = getPrivateTimeSlotsForDate(data.eventDate!).find(slot => 
-            slot.id === data.selectedTimeSlot
-          )?.label || data.selectedTimeSlot;
+          const timeSlotLabel = data.selectedSlot?.label || 'Unknown time';
           
           quoteItems.push({
             id: `private_charter_${Date.now()}`,
@@ -1864,26 +1887,15 @@ export default function Chat() {
                               <Clock className="h-4 w-4" />
                               Select Time Slot
                             </Label>
-                            <RadioGroup
-                              value={formData.selectedTimeSlot || ''}
-                              onValueChange={handlePrivateCruiseSelect}
-                            >
-                              {getPrivateTimeSlotsForDate(formData.eventDate!).map((slot) => (
-                                <div key={slot.id} className="flex items-center space-x-2">
-                                  <RadioGroupItem value={slot.id} id={`private-${slot.id}`} />
-                                  <Label htmlFor={`private-${slot.id}`} className="flex-1 cursor-pointer">
-                                    <div className="flex items-center justify-between">
-                                      <div className="flex items-center gap-2">
-                                        <span>{slot.icon}</span>
-                                        <span>{slot.label}</span>
-                                        {slot.popular && <Badge variant="secondary" className="text-xs">Popular</Badge>}
-                                      </div>
-                                      <span className="text-sm text-slate-600 dark:text-slate-400">{slot.duration}hrs</span>
-                                    </div>
-                                  </Label>
-                                </div>
-                              ))}
-                            </RadioGroup>
+                            <TimeSlotList
+                              slots={privateSlots}
+                              onSlotSelect={handlePrivateCruiseSelect}
+                              selectedSlotId={formData.selectedSlot?.id}
+                              showDate={false}
+                              variant="compact"
+                              groupSize={formData.groupSize}
+                              data-testid="private-timeslot-list"
+                            />
                           </div>
 
                           {/* Step 2: Package Add-Ons - Only show if time slot selected */}
@@ -2198,7 +2210,7 @@ export default function Chat() {
                             )}
 
                             {/* Step 3: Pricing Details - Only show if both time slot AND package selected */}
-                            {formData.selectedDiscoTimeSlot && formData.selectedDiscoPackage && discoPricing && (
+                            {formData.selectedSlot && formData.selectedSlot.cruiseType === 'disco' && formData.selectedDiscoPackage && discoPricing && (
                               <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 rounded-lg p-4 border-t">
                                 <div className="text-center mb-4">
                                   <div className="text-3xl font-bold text-purple-600">
@@ -2297,7 +2309,7 @@ export default function Chat() {
                             </div>
                           </CardHeader>
                           <CardContent className="space-y-3">
-                            {getAlternativeDates(formData.eventDate!, formData.groupSize).map((altDate) => (
+                            {alternativeDates.map((altDate) => (
                               <Button
                                 key={altDate.date.toISOString()}
                                 onClick={() => {

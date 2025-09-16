@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts, quoteAnalytics, fileSends, emailTracking, customerLifecycle, customerActivity } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts, quoteAnalytics, fileSends, emailTracking, customerLifecycle, customerActivity } from "@shared/schema";
 import { randomUUID } from "crypto";
 import { quoteTokenService } from "./services/quoteTokenService";
 
@@ -353,11 +353,52 @@ export interface IStorage {
       invoiceId?: string;
     }>;
   }>;
+
+  // Unified Availability Service
+  searchNormalizedSlots(filters: {
+    startDate: Date;
+    endDate: Date;
+    cruiseType?: 'private' | 'disco';
+    groupSize?: number;
+    minDuration?: number;
+    maxDuration?: number;
+  }): Promise<NormalizedSlot[]>;
+  
+  createSlotHold(hold: {
+    slotId: string;
+    boatId?: string;
+    cruiseType: 'private' | 'disco';
+    dateISO: string;
+    startTime: string;
+    endTime: string;
+    sessionId?: string;
+    groupSize?: number;
+    ttlMinutes?: number;
+  }): Promise<SlotHold>;
+  
+  releaseSlotHold(holdId: string): Promise<boolean>;
+  releaseSlotHoldBySlot(slotId: string, sessionId?: string): Promise<boolean>;
+  
+  isSlotAvailable(slotId: string, groupSize?: number): Promise<{ available: boolean; reason?: string; heldUntil?: Date }>;
+  
+  normalizeAvailabilityData(startDate: Date, endDate: Date): Promise<NormalizedSlot[]>;
+  
+  cleanupExpiredHolds(): Promise<number>;
+  
+  // Slot Hold Management
+  getSlotHold(holdId: string): Promise<SlotHold | undefined>;
+  getSlotHoldsBySession(sessionId: string): Promise<SlotHold[]>;
+  getActiveSlotHolds(): Promise<SlotHold[]>;
 }
 
 export class MemStorage implements IStorage {
   // Concurrency protection for booking operations
   private pendingBookingOperations = new Map<string, Promise<Booking>>();
+  
+  // Unified availability service - concurrency protection and slot holds
+  private slotHoldLocks = new Map<string, Promise<SlotHold>>();
+  private slotHolds: Map<string, SlotHold> = new Map();
+  
   private contacts: Map<string, Contact> = new Map();
   private projects: Map<string, Project> = new Map();
   private boats: Map<string, Boat> = new Map();
@@ -5799,6 +5840,306 @@ export class MemStorage implements IStorage {
     return Array.from(this.payments.values())
       .filter(p => invoices.some(i => i.id === p.invoiceId))
       .sort((a, b) => (b.paidAt || new Date()).getTime() - (a.paidAt || new Date()).getTime());
+  }
+
+  // ==========================================
+  // UNIFIED AVAILABILITY SERVICE
+  // ==========================================
+
+  async searchNormalizedSlots(filters: {
+    startDate: Date;
+    endDate: Date;
+    cruiseType?: 'private' | 'disco';
+    groupSize?: number;
+    minDuration?: number;
+    maxDuration?: number;
+  }): Promise<NormalizedSlot[]> {
+    // Clean up expired holds first
+    await this.cleanupExpiredHolds();
+    
+    // Get normalized availability data
+    const allSlots = await this.normalizeAvailabilityData(filters.startDate, filters.endDate);
+    
+    // Apply filters
+    let filteredSlots = allSlots;
+    
+    if (filters.cruiseType) {
+      filteredSlots = filteredSlots.filter(slot => slot.cruiseType === filters.cruiseType);
+    }
+    
+    if (filters.groupSize) {
+      filteredSlots = filteredSlots.filter(slot => slot.capacity >= filters.groupSize);
+    }
+    
+    if (filters.minDuration) {
+      filteredSlots = filteredSlots.filter(slot => slot.duration >= filters.minDuration);
+    }
+    
+    if (filters.maxDuration) {
+      filteredSlots = filteredSlots.filter(slot => slot.duration <= filters.maxDuration);
+    }
+    
+    // Filter out non-bookable slots
+    return filteredSlots.filter(slot => slot.bookable);
+  }
+
+  async createSlotHold(hold: {
+    slotId: string;
+    boatId?: string;
+    cruiseType: 'private' | 'disco';
+    dateISO: string;
+    startTime: string;
+    endTime: string;
+    sessionId?: string;
+    groupSize?: number;
+    ttlMinutes?: number;
+  }): Promise<SlotHold> {
+    const slotKey = hold.slotId;
+    
+    // Use locking to prevent race conditions
+    if (this.slotHoldLocks.has(slotKey)) {
+      await this.slotHoldLocks.get(slotKey);
+    }
+    
+    const lockPromise = this.executeSlotHold(hold);
+    this.slotHoldLocks.set(slotKey, lockPromise);
+    
+    try {
+      const result = await lockPromise;
+      return result;
+    } finally {
+      this.slotHoldLocks.delete(slotKey);
+    }
+  }
+
+  private async executeSlotHold(hold: {
+    slotId: string;
+    boatId?: string;
+    cruiseType: 'private' | 'disco';
+    dateISO: string;
+    startTime: string;
+    endTime: string;
+    sessionId?: string;
+    groupSize?: number;
+    ttlMinutes?: number;
+  }): Promise<SlotHold> {
+    // Check if slot is available
+    const availability = await this.isSlotAvailable(hold.slotId, hold.groupSize);
+    if (!availability.available) {
+      throw new Error(`Slot not available: ${availability.reason}`);
+    }
+    
+    // Calculate expiration (default 15 minutes)
+    const ttlMinutes = hold.ttlMinutes || 15;
+    const expiresAt = new Date(Date.now() + ttlMinutes * 60 * 1000);
+    
+    // Create slot hold
+    const slotHold: SlotHold = {
+      id: randomUUID(),
+      orgId: "org_demo",
+      slotId: hold.slotId,
+      boatId: hold.boatId || null,
+      cruiseType: hold.cruiseType,
+      dateISO: hold.dateISO,
+      startTime: hold.startTime,
+      endTime: hold.endTime,
+      sessionId: hold.sessionId || null,
+      groupSize: hold.groupSize || null,
+      expiresAt,
+      createdAt: new Date(),
+    };
+    
+    this.slotHolds.set(slotHold.id, slotHold);
+    return slotHold;
+  }
+
+  async releaseSlotHold(holdId: string): Promise<boolean> {
+    return this.slotHolds.delete(holdId);
+  }
+
+  async releaseSlotHoldBySlot(slotId: string, sessionId?: string): Promise<boolean> {
+    const holds = Array.from(this.slotHolds.values()).filter(hold => {
+      if (hold.slotId !== slotId) return false;
+      if (sessionId && hold.sessionId !== sessionId) return false;
+      return true;
+    });
+    
+    let releasedCount = 0;
+    for (const hold of holds) {
+      if (this.slotHolds.delete(hold.id)) {
+        releasedCount++;
+      }
+    }
+    
+    return releasedCount > 0;
+  }
+
+  async isSlotAvailable(slotId: string, groupSize?: number): Promise<{ available: boolean; reason?: string; heldUntil?: Date }> {
+    // Clean up expired holds first
+    await this.cleanupExpiredHolds();
+    
+    // Check for active holds on this slot
+    const activeHolds = Array.from(this.slotHolds.values()).filter(hold => 
+      hold.slotId === slotId && hold.expiresAt > new Date()
+    );
+    
+    if (activeHolds.length > 0) {
+      return {
+        available: false,
+        reason: 'Slot is currently held by another session',
+        heldUntil: activeHolds[0].expiresAt
+      };
+    }
+    
+    // Parse slot components
+    const [cruiseType, dateISO, timeRange] = slotId.split('_');
+    if (!cruiseType || !dateISO || !timeRange) {
+      return { available: false, reason: 'Invalid slot ID format' };
+    }
+    
+    const slotDate = new Date(dateISO + 'T00:00:00-06:00'); // Chicago timezone
+    const [startTime, endTime] = timeRange.split('-');
+    
+    // Check basic availability through existing methods
+    const basicAvailability = await this.checkAvailability(
+      slotDate, 
+      this.calculateDurationFromTimes(startTime, endTime), 
+      groupSize || 1, 
+      cruiseType as 'private' | 'disco'
+    );
+    
+    if (!basicAvailability.available) {
+      return { available: false, reason: basicAvailability.reason };
+    }
+    
+    return { available: true };
+  }
+
+  private calculateDurationFromTimes(startTime: string, endTime: string): number {
+    const start = this.parseTimeToMinutes(startTime);
+    const end = this.parseTimeToMinutes(endTime);
+    return (end - start) / 60; // Convert to hours
+  }
+
+  private parseTimeToMinutes(time: string): number {
+    const [hours, minutes] = time.split(':').map(Number);
+    return hours * 60 + (minutes || 0);
+  }
+
+  async normalizeAvailabilityData(startDate: Date, endDate: Date): Promise<NormalizedSlot[]> {
+    const slots: NormalizedSlot[] = [];
+    
+    // Import time slot functions
+    const { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate } = await import('@shared/timeSlots');
+    
+    // Iterate through each date in the range
+    const currentDate = new Date(startDate);
+    while (currentDate <= endDate) {
+      const dateISO = currentDate.toISOString().split('T')[0];
+      
+      // Get private cruise slots for this date
+      const privateSlots = getPrivateTimeSlotsForDate(currentDate);
+      for (const timeSlot of privateSlots) {
+        const slotId = `private_${dateISO}_${timeSlot.startTime}-${timeSlot.endTime}`;
+        const availableBoats = await this.getAvailableBoats(currentDate, timeSlot.startTime, timeSlot.endTime, 1);
+        
+        const normalizedSlot: NormalizedSlot = {
+          id: slotId,
+          cruiseType: 'private',
+          dateISO,
+          startTime: timeSlot.startTime,
+          endTime: timeSlot.endTime,
+          label: timeSlot.label,
+          duration: timeSlot.duration,
+          capacity: availableBoats.length > 0 ? Math.max(...availableBoats.map(b => b.maxCapacity)) : 0,
+          availableCount: availableBoats.length,
+          price: await this.calculateSlotPrice(currentDate, timeSlot, 'private'),
+          boatCandidates: availableBoats.map(b => b.id),
+          bookable: availableBoats.length > 0,
+          held: await this.isSlotHeld(slotId),
+        };
+        
+        if (normalizedSlot.held) {
+          const hold = Array.from(this.slotHolds.values()).find(h => h.slotId === slotId);
+          normalizedSlot.holdExpiresAt = hold?.expiresAt;
+        }
+        
+        slots.push(normalizedSlot);
+      }
+      
+      // Get disco cruise slots for this date
+      const discoSlots = getDiscoTimeSlotsForDate(currentDate);
+      for (const timeSlot of discoSlots) {
+        const slotId = `disco_${dateISO}_${timeSlot.startTime}-${timeSlot.endTime}`;
+        const discoAvailable = await this.checkDiscoAvailability(currentDate, timeSlot.startTime);
+        
+        const normalizedSlot: NormalizedSlot = {
+          id: slotId,
+          cruiseType: 'disco',
+          dateISO,
+          startTime: timeSlot.startTime,
+          endTime: timeSlot.endTime,
+          label: timeSlot.label,
+          duration: timeSlot.duration,
+          capacity: timeSlot.maxCapacity || 50,
+          availableCount: discoAvailable ? 1 : 0,
+          price: (timeSlot.ticketPrice || 85) * 100, // Convert to cents
+          boatCandidates: discoAvailable ? ['disco'] : [],
+          bookable: discoAvailable,
+          held: await this.isSlotHeld(slotId),
+        };
+        
+        if (normalizedSlot.held) {
+          const hold = Array.from(this.slotHolds.values()).find(h => h.slotId === slotId);
+          normalizedSlot.holdExpiresAt = hold?.expiresAt;
+        }
+        
+        slots.push(normalizedSlot);
+      }
+      
+      // Move to next date
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    
+    return slots;
+  }
+
+  private async isSlotHeld(slotId: string): Promise<boolean> {
+    const activeHolds = Array.from(this.slotHolds.values()).filter(hold => 
+      hold.slotId === slotId && hold.expiresAt > new Date()
+    );
+    return activeHolds.length > 0;
+  }
+
+  private async calculateSlotPrice(date: Date, timeSlot: any, cruiseType: 'private' | 'disco'): Promise<number> {
+    // This is a simplified pricing calculation
+    // In a real implementation, this would integrate with the pricing system
+    const basePrice = cruiseType === 'private' ? 50000 : 8500; // $500 or $85 in cents
+    return basePrice;
+  }
+
+  async cleanupExpiredHolds(): Promise<number> {
+    const now = new Date();
+    const expiredHolds = Array.from(this.slotHolds.entries()).filter(([, hold]) => hold.expiresAt <= now);
+    
+    for (const [holdId] of expiredHolds) {
+      this.slotHolds.delete(holdId);
+    }
+    
+    return expiredHolds.length;
+  }
+
+  async getSlotHold(holdId: string): Promise<SlotHold | undefined> {
+    return this.slotHolds.get(holdId);
+  }
+
+  async getSlotHoldsBySession(sessionId: string): Promise<SlotHold[]> {
+    return Array.from(this.slotHolds.values()).filter(hold => hold.sessionId === sessionId);
+  }
+
+  async getActiveSlotHolds(): Promise<SlotHold[]> {
+    const now = new Date();
+    return Array.from(this.slotHolds.values()).filter(hold => hold.expiresAt > now);
   }
 }
 

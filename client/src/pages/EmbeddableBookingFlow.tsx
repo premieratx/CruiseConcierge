@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -25,8 +25,9 @@ import { Slider } from '@/components/ui/slider';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
 import { format, addDays, isBefore, isAfter, startOfDay, differenceInDays } from 'date-fns';
-import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection, QuoteItem } from '@shared/schema';
-import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, isDiscoAvailableForDate } from '@shared/timeSlots';
+import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection, QuoteItem, NormalizedSlot } from '@shared/schema';
+import { useAvailabilityForDate, formatDateForAvailability } from '@/hooks/use-availability';
+import { TimeSlotList } from '@/components/TimeSlotList';
 import { formatCurrency, formatDate, formatLongDate, formatTimeForDisplay, formatTimeRange, formatPhoneNumber, formatCustomerName, formatBoatCapacity, formatEventDuration, formatGroupSize } from '@shared/formatters';
 import { EVENT_TYPES, CRUISE_TYPES, DISCO_PACKAGES, PRICING_DEFAULTS } from '@shared/constants';
 
@@ -41,9 +42,8 @@ type DiscoPackage = 'basic' | 'disco_queen' | 'platinum';
 
 interface ComparisonSelection {
   cruiseType: CruiseType;
-  timeSlot?: string;
+  selectedSlot?: NormalizedSlot;
   discoPackage?: DiscoPackage;
-  discoTimeSlot?: string;
 }
 
 interface BookingData {
@@ -59,11 +59,10 @@ interface BookingData {
   specialRequests: string;
   budget: string;
   selectedCruiseType: CruiseType | null;
-  selectedTimeSlot: string;
+  selectedSlot: NormalizedSlot | null;
   selectedAddOnPackages: string[];
   selectedBoat?: string;
   selectedDiscoPackage: DiscoPackage | null;
-  selectedDiscoTimeSlot: string;
   discoTicketQuantity: number;
   preferredTimeLabel?: string;
   groupSizeLabel?: string;
@@ -87,11 +86,7 @@ const eventTypes = Object.entries(EVENT_TYPES).map(([id, config]) => ({
   description: config.description,
 }));
 
-// Use centralized time slot configuration - remove local implementation
-
-// Use centralized disco time slot configuration - remove local implementation
-
-// Use centralized disco availability check - remove local implementation
+// Now using unified availability system with useAvailability hook
 
 const isDateAvailable = (date: Date): boolean => {
   const today = startOfDay(new Date());
@@ -129,7 +124,7 @@ const getAlternativeDates = (selectedDate: Date, groupSize: number, daysRange: n
     if (date < new Date()) continue;
     
     const isAvailable = isDateAvailable(date);
-    const timeSlots = isAvailable ? getPrivateTimeSlotsForDate(date) : [];
+    const timeSlotsAvailable = isAvailable ? 8 : 0; // Placeholder - will be replaced by real availability
     
     alternatives.push({
       date,
@@ -266,10 +261,9 @@ export default function EmbeddableBookingFlow() {
     specialRequests: '',
     budget: '',
     selectedCruiseType: null,
-    selectedTimeSlot: '',
+    selectedSlot: null,
     selectedAddOnPackages: [],
     selectedDiscoPackage: null,
-    selectedDiscoTimeSlot: '',
     discoTicketQuantity: 1,
   });
 
@@ -903,10 +897,9 @@ export default function EmbeddableBookingFlow() {
             eventTypeLabel: '',
             eventEmoji: '',
             selectedCruiseType: null,
-            selectedTimeSlot: '',
+            selectedSlot: null,
             selectedAddOnPackages: [],
             selectedDiscoPackage: null,
-            selectedDiscoTimeSlot: '',
             discoTicketQuantity: 1,
           }));
           setEventTypeCollapsed(false);
@@ -948,10 +941,9 @@ export default function EmbeddableBookingFlow() {
           ...prev,
           groupSize: GROUP_SIZE_DEFAULT,
           selectedCruiseType: null,
-          selectedTimeSlot: '',
+          selectedSlot: null,
           selectedAddOnPackages: [],
           selectedDiscoPackage: null,
-          selectedDiscoTimeSlot: '',
           discoTicketQuantity: 1,
         }));
         setShowGroupSize(false);
@@ -1158,12 +1150,12 @@ export default function EmbeddableBookingFlow() {
         eventType: formData.eventType,
         eventTypeLabel: formData.eventTypeLabel,
         eventEmoji: formData.eventEmoji,
-        // For private cruises
-        selectedTimeSlot: formData.selectedTimeSlot,
+        // Send both formats for backward compatibility
+        selectedSlot: formData.selectedSlot,
+        selectedTimeSlot: formData.selectedSlot ? formData.selectedSlot.label : (formData.selectedTimeSlot || formData.selectedDiscoTimeSlot || ''),
         selectedAddOnPackages: formData.selectedAddOnPackages,
         // For disco cruises  
         selectedDiscoPackage: formData.selectedDiscoPackage,
-        selectedDiscoTimeSlot: formData.selectedDiscoTimeSlot,
         discoTicketQuantity: formData.discoTicketQuantity,
       };
 
@@ -1652,26 +1644,19 @@ export default function EmbeddableBookingFlow() {
                                 <Clock className="h-4 w-4" />
                                 Select Time Slot
                               </Label>
-                              <RadioGroup
-                                value={formData.selectedTimeSlot || ''}
-                                onValueChange={handlePrivateCruiseSelect}
-                              >
-                                {getPrivateTimeSlotsForDate(formData.eventDate!).map((slot) => (
-                                  <div key={slot.id} className="flex items-center space-x-2">
-                                    <RadioGroupItem value={slot.id} id={`private-${slot.id}`} />
-                                    <Label htmlFor={`private-${slot.id}`} className="flex-1 cursor-pointer">
-                                      <div className="flex items-center justify-between">
-                                        <div className="flex items-center gap-2">
-                                          <span>{slot.icon}</span>
-                                          <span>{slot.label}</span>
-                                          {slot.popular && <Badge variant="secondary" className="text-xs">Popular</Badge>}
-                                        </div>
-                                        <span className="text-sm text-slate-600 dark:text-slate-400">{slot.duration}hrs</span>
-                                      </div>
-                                    </Label>
-                                  </div>
-                                ))}
-                              </RadioGroup>
+                              {availabilityLoading ? (
+                                <div className="text-center py-4 text-muted-foreground">Loading available time slots...</div>
+                              ) : (
+                                <TimeSlotList
+                                  slots={privateSlots}
+                                  onSlotSelect={(slot) => handlePrivateCruiseSelect(slot)}
+                                  selectedSlotId={formData.selectedSlot?.id}
+                                  showDate={false}
+                                  variant="compact"
+                                  groupSize={formData.groupSize}
+                                  data-testid="embeddable-private-timeslot-list"
+                                />
+                              )}
                             </div>
 
                             {/* Step 2: Add-On Packages - Only show if time slot selected */}

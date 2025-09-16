@@ -32,6 +32,259 @@ import { seedQuoteTemplates } from "./seedTemplates";
 const comprehensiveLeadService = new ComprehensiveLeadService();
 
 // ==========================================
+// SLOT HOLD VALIDATION FOR ATOMIC CHECKOUT
+// ==========================================
+
+/**
+ * Validates that a slot hold matches the selection payload to prevent tampering
+ * This is critical for preventing double-booking through payload manipulation
+ */
+function validateHoldMatchesSelection(
+  slotHold: any, 
+  selectionPayload: any
+): { valid: boolean; errors: string[] } {
+  const errors: string[] = [];
+  
+  // Validate cruise type matches
+  if (slotHold.cruiseType !== selectionPayload.cruiseType) {
+    errors.push(`Cruise type mismatch: hold has ${slotHold.cruiseType}, payload has ${selectionPayload.cruiseType}`);
+  }
+  
+  // Validate date matches (ISO format comparison)
+  const holdDate = slotHold.dateISO;
+  const payloadDate = new Date(selectionPayload.eventDate).toISOString().split('T')[0];
+  if (holdDate !== payloadDate) {
+    errors.push(`Date mismatch: hold has ${holdDate}, payload has ${payloadDate}`);
+  }
+  
+  // Validate time slot matches - handle both NormalizedSlot object and string formats
+  let expectedStartTime: string | null = null;
+  let expectedEndTime: string | null = null;
+  
+  // Check if we have a NormalizedSlot object first (preferred format)
+  if (selectionPayload.selectedSlot && typeof selectionPayload.selectedSlot === 'object') {
+    const slot = selectionPayload.selectedSlot;
+    expectedStartTime = slot.startTime;
+    expectedEndTime = slot.endTime;
+  } else {
+    // Fall back to string parsing for backward compatibility
+    const effectiveTimeSlot = selectionPayload.selectedTimeSlot || selectionPayload.timeSlot;
+    if (effectiveTimeSlot) {
+      // Extract time range from effective time slot for comparison
+      const timeMatch = effectiveTimeSlot.match(/(\d{1,2}:\d{2}\s*(?:AM|PM))\s*-\s*(\d{1,2}:\d{2}\s*(?:AM|PM))/i);
+      if (timeMatch) {
+        const [, startTimeStr, endTimeStr] = timeMatch;
+        
+        // Convert to 24-hour format for comparison
+        const convertTo24Hour = (timeStr: string): string => {
+          const [time, period] = timeStr.trim().split(/\s+/);
+          const [hours, minutes] = time.split(':');
+          let hour24 = parseInt(hours);
+          
+          if (period.toUpperCase() === 'PM' && hour24 !== 12) {
+            hour24 += 12;
+          } else if (period.toUpperCase() === 'AM' && hour24 === 12) {
+            hour24 = 0;
+          }
+          
+          return `${hour24.toString().padStart(2, '0')}:${minutes}`;
+        };
+        
+        expectedStartTime = convertTo24Hour(startTimeStr);
+        expectedEndTime = convertTo24Hour(endTimeStr);
+      }
+    }
+  }
+  
+  // Validate the extracted times against the hold
+  if (expectedStartTime && expectedEndTime) {
+    if (slotHold.startTime !== expectedStartTime) {
+      errors.push(`Start time mismatch: hold has ${slotHold.startTime}, payload expects ${expectedStartTime}`);
+    }
+    
+    if (slotHold.endTime !== expectedEndTime) {
+      errors.push(`End time mismatch: hold has ${slotHold.endTime}, payload expects ${expectedEndTime}`);
+    }
+  }
+  
+  // Validate group size is within reasonable bounds of the hold
+  if (slotHold.groupSize && selectionPayload.groupSize) {
+    const holdGroupSize = parseInt(slotHold.groupSize);
+    const payloadGroupSize = parseInt(selectionPayload.groupSize);
+    
+    // Allow some flexibility for group size changes, but flag major discrepancies
+    if (Math.abs(holdGroupSize - payloadGroupSize) > 5) {
+      errors.push(`Group size significant change: hold has ${holdGroupSize}, payload has ${payloadGroupSize}`);
+    }
+  }
+  
+  return {
+    valid: errors.length === 0,
+    errors
+  };
+}
+
+/**
+ * Creates a booking atomically from a validated slot hold
+ * This is the core security function that prevents double-booking
+ */
+async function createBookingFromHoldAtomic(params: {
+  holdId: string;
+  projectId: string;
+  paymentId: string;
+  paymentAmount: number;
+  paymentIntentMetadata: any;
+}): Promise<void> {
+  const { holdId, projectId, paymentId, paymentAmount, paymentIntentMetadata } = params;
+  
+  console.log(`🔒 Starting atomic booking creation from hold ${holdId}`);
+  
+  // CRITICAL: Validate hold still exists and hasn't expired
+  const slotHold = await storage.getSlotHold(holdId);
+  if (!slotHold) {
+    const error = new Error('HOLD_NOT_FOUND: Slot hold no longer exists');
+    (error as any).code = 'HOLD_NOT_FOUND';
+    throw error;
+  }
+  
+  // CRITICAL: Check if hold has expired
+  if (slotHold.expiresAt <= new Date()) {
+    // Clean up expired hold
+    await storage.releaseSlotHold(holdId);
+    const error = new Error('HOLD_EXPIRED: Slot hold has expired during payment processing');
+    (error as any).code = 'HOLD_EXPIRED';
+    throw error;
+  }
+  
+  // CRITICAL: Verify slot is still available (double-check for race conditions)
+  const availability = await storage.isSlotAvailable(slotHold.slotId, slotHold.groupSize);
+  if (!availability.available) {
+    // Release the hold since slot is no longer available
+    await storage.releaseSlotHold(holdId);
+    const error = new Error(`SLOT_UNAVAILABLE: Slot is no longer available - ${availability.reason}`);
+    (error as any).code = 'SLOT_UNAVAILABLE';
+    throw error;
+  }
+  
+  try {
+    // Get project details
+    const project = await storage.getProject(projectId);
+    if (!project) {
+      throw new Error('Project not found for booking creation');
+    }
+    
+    // Convert hold time information to Date objects for booking
+    const eventDate = new Date(paymentIntentMetadata.eventDate);
+    const [startHours, startMinutes] = slotHold.startTime.split(':');
+    const [endHours, endMinutes] = slotHold.endTime.split(':');
+    
+    const startTime = new Date(eventDate);
+    startTime.setHours(parseInt(startHours), parseInt(startMinutes), 0, 0);
+    
+    const endTime = new Date(eventDate);
+    endTime.setHours(parseInt(endHours), parseInt(endMinutes), 0, 0);
+    
+    // CRITICAL: Final conflict check with the specific boat and time
+    const boatId = slotHold.boatId || await findAvailableBoat(slotHold, project.groupSize || 1);
+    if (!boatId) {
+      await storage.releaseSlotHold(holdId);
+      const error = new Error('NO_BOATS_AVAILABLE: No boats available for the time slot');
+      (error as any).code = 'NO_BOATS_AVAILABLE';
+      throw error;
+    }
+    
+    const hasConflict = await storage.checkBookingConflict(boatId, startTime, endTime);
+    if (hasConflict) {
+      await storage.releaseSlotHold(holdId);
+      const error = new Error('BOOKING_CONFLICT: Slot conflict detected during atomic booking creation');
+      (error as any).code = 'BOOKING_CONFLICT';
+      throw error;
+    }
+    
+    // Create the booking with validated slot information
+    const booking = {
+      orgId: project.orgId,
+      boatId,
+      type: slotHold.cruiseType as 'private' | 'disco',
+      status: 'booked' as const,
+      startTime,
+      endTime,
+      partyType: project.eventType || 'cruise',
+      groupSize: slotHold.groupSize || project.groupSize || 1,
+      projectId,
+      paymentStatus: 'deposit_paid' as const,
+      amountPaid: paymentAmount,
+      totalAmount: paymentAmount,
+      notes: `Atomic booking from hold ${holdId} - Payment ${paymentId} - Amount: $${(paymentAmount / 100).toFixed(2)}`,
+    };
+    
+    // ATOMIC OPERATION: Create booking and release hold in sequence
+    const newBooking = await storage.createBooking(booking);
+    console.log(`✅ Booking created successfully: ${newBooking.id}`);
+    
+    // CRITICAL: Release the hold only after successful booking creation
+    const holdReleased = await storage.releaseSlotHold(holdId);
+    if (holdReleased) {
+      console.log(`✅ Hold ${holdId} released after successful booking creation`);
+    } else {
+      console.warn(`⚠️ Hold ${holdId} was already released or not found`);
+    }
+    
+    // Convert lead to customer
+    await storage.convertLeadToCustomer(project.contactId);
+    
+    console.log(`🎉 Atomic booking creation completed successfully for hold ${holdId}`);
+    
+  } catch (error: any) {
+    console.error(`❌ Atomic booking creation failed for hold ${holdId}:`, error);
+    
+    // CRITICAL: Ensure hold is released on any failure
+    try {
+      await storage.releaseSlotHold(holdId);
+      console.log(`🧹 Hold ${holdId} released due to booking creation failure`);
+    } catch (releaseError) {
+      console.error(`❌ Failed to release hold ${holdId} after booking failure:`, releaseError);
+    }
+    
+    throw error;
+  }
+}
+
+/**
+ * Helper function to find an available boat for the slot
+ */
+async function findAvailableBoat(slotHold: any, groupSize: number): Promise<string | null> {
+  if (slotHold.boatId) {
+    return slotHold.boatId;
+  }
+  
+  // Find boats that can accommodate the group size
+  const boats = await storage.getActiveBoats();
+  const suitableBoats = boats.filter(boat => boat.capacity >= groupSize);
+  
+  // Convert hold time to Date objects for conflict checking
+  const eventDate = new Date(slotHold.dateISO);
+  const [startHours, startMinutes] = slotHold.startTime.split(':');
+  const [endHours, endMinutes] = slotHold.endTime.split(':');
+  
+  const startTime = new Date(eventDate);
+  startTime.setHours(parseInt(startHours), parseInt(startMinutes), 0, 0);
+  
+  const endTime = new Date(eventDate);
+  endTime.setHours(parseInt(endHours), parseInt(endMinutes), 0, 0);
+  
+  // Check each suitable boat for conflicts
+  for (const boat of suitableBoats) {
+    const hasConflict = await storage.checkBookingConflict(boat.id, startTime, endTime);
+    if (!hasConflict) {
+      return boat.id;
+    }
+  }
+  
+  return null;
+}
+
+// ==========================================
 // ADMIN AUTHENTICATION AND AUTHORIZATION
 // ==========================================
 
@@ -1750,7 +2003,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 availability.push({
                   date: currentDate.toISOString().split('T')[0],
                   day: currentDate.toLocaleDateString('en-US', { weekday: 'short' }),
-                  time: `${tf.startTime.replace(':', '')}-${tf.endTime.replace(':', '')}`,
+                  time: `${tf.startTime}-${tf.endTime}`, // Keep HH:mm format consistent
                   boatType: boat.name,
                   capacity: boat.capacity,
                   baseRate: 350, // Base rate per hour
@@ -1817,6 +2070,181 @@ export async function registerRoutes(app: Express): Promise<Server> {
         success: false, 
         error: "An error occurred while populating Google Sheets",
         details: error instanceof Error ? error.message : "Unknown error"
+      });
+    }
+  });
+
+  // ==========================================
+  // UNIFIED AVAILABILITY SERVICE ENDPOINTS
+  // ==========================================
+
+  // Search available slots with filters
+  app.get("/api/availability/search", async (req, res) => {
+    try {
+      console.log("🔍 Availability search request:", req.query);
+      
+      // Parse and validate query parameters
+      const querySchema = z.object({
+        startDate: z.string().transform(normalizeToChicagoTime),
+        endDate: z.string().transform(normalizeToChicagoTime),
+        cruiseType: z.enum(['private', 'disco']).optional(),
+        groupSize: z.string().transform(val => parseInt(val)).optional(),
+        minDuration: z.string().transform(val => parseInt(val)).optional(),
+        maxDuration: z.string().transform(val => parseInt(val)).optional(),
+      });
+
+      const filters = querySchema.parse(req.query);
+      
+      // Search normalized slots using the unified availability service
+      const slots = await storage.searchNormalizedSlots(filters);
+      
+      console.log(`✅ Found ${slots.length} available slots for search:`, {
+        dateRange: `${filters.startDate.toISOString().split('T')[0]} to ${filters.endDate.toISOString().split('T')[0]}`,
+        cruiseType: filters.cruiseType || 'all',
+        groupSize: filters.groupSize || 'any'
+      });
+      
+      res.json({
+        success: true,
+        slots,
+        count: slots.length,
+        filters: {
+          startDate: filters.startDate.toISOString().split('T')[0],
+          endDate: filters.endDate.toISOString().split('T')[0],
+          cruiseType: filters.cruiseType,
+          groupSize: filters.groupSize,
+          minDuration: filters.minDuration,
+          maxDuration: filters.maxDuration
+        }
+      });
+    } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        console.error("❌ Availability search validation error:", error.errors);
+        return res.status(400).json({ 
+          error: "Invalid search parameters", 
+          details: error.errors 
+        });
+      }
+      console.error("❌ Availability search error:", error);
+      res.status(500).json({ 
+        error: "Failed to search availability", 
+        details: error.message 
+      });
+    }
+  });
+
+  // Create a slot hold with TTL
+  app.post("/api/availability/hold", async (req, res) => {
+    try {
+      console.log("🔒 Slot hold request:", req.body);
+      
+      // Parse and validate request body
+      const holdSchema = z.object({
+        slotId: z.string().min(1, "Slot ID is required"),
+        boatId: z.string().optional(),
+        cruiseType: z.enum(['private', 'disco']),
+        dateISO: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Date must be in YYYY-MM-DD format"),
+        startTime: z.string().regex(/^\d{2}:\d{2}$/, "Start time must be in HH:MM format"),
+        endTime: z.string().regex(/^\d{2}:\d{2}$/, "End time must be in HH:MM format"),
+        sessionId: z.string().optional(),
+        groupSize: z.number().min(1).optional(),
+        ttlMinutes: z.number().min(1).max(60).default(15), // Default 15 minutes, max 60 minutes
+      });
+
+      const holdData = holdSchema.parse(req.body);
+      
+      // Create slot hold using the unified availability service
+      const slotHold = await storage.createSlotHold(holdData);
+      
+      console.log(`✅ Slot hold created:`, {
+        holdId: slotHold.id,
+        slotId: slotHold.slotId,
+        expiresAt: slotHold.expiresAt,
+        sessionId: slotHold.sessionId
+      });
+      
+      res.status(201).json({
+        success: true,
+        hold: slotHold,
+        message: `Slot held for ${holdData.ttlMinutes} minutes`
+      });
+    } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        console.error("❌ Slot hold validation error:", error.errors);
+        return res.status(400).json({ 
+          error: "Invalid hold request", 
+          details: error.errors 
+        });
+      }
+      if (error.message.includes('not available')) {
+        console.error("❌ Slot not available:", error.message);
+        return res.status(409).json({ 
+          error: "Slot not available", 
+          details: error.message 
+        });
+      }
+      console.error("❌ Slot hold error:", error);
+      res.status(500).json({ 
+        error: "Failed to create slot hold", 
+        details: error.message 
+      });
+    }
+  });
+
+  // Release a slot hold
+  app.post("/api/availability/release", async (req, res) => {
+    try {
+      console.log("🔓 Slot release request:", req.body);
+      
+      // Parse and validate request body
+      const releaseSchema = z.object({
+        holdId: z.string().optional(),
+        slotId: z.string().optional(),
+        sessionId: z.string().optional(),
+      }).refine(data => data.holdId || (data.slotId && data.sessionId), {
+        message: "Either holdId or both slotId and sessionId must be provided"
+      });
+
+      const releaseData = releaseSchema.parse(req.body);
+      
+      let released = false;
+      let method = "";
+      
+      if (releaseData.holdId) {
+        // Release specific hold by ID
+        released = await storage.releaseSlotHold(releaseData.holdId);
+        method = "by holdId";
+      } else if (releaseData.slotId && releaseData.sessionId) {
+        // Release hold by slot and session
+        released = await storage.releaseSlotHoldBySlot(releaseData.slotId, releaseData.sessionId);
+        method = "by slotId and sessionId";
+      }
+      
+      if (released) {
+        console.log(`✅ Slot hold released ${method}:`, releaseData);
+        res.json({
+          success: true,
+          message: `Slot hold released successfully ${method}`
+        });
+      } else {
+        console.log(`⚠️ No slot hold found to release ${method}:`, releaseData);
+        res.status(404).json({
+          error: "No slot hold found to release",
+          details: `No active hold found ${method}`
+        });
+      }
+    } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        console.error("❌ Slot release validation error:", error.errors);
+        return res.status(400).json({ 
+          error: "Invalid release request", 
+          details: error.errors 
+        });
+      }
+      console.error("❌ Slot release error:", error);
+      res.status(500).json({ 
+        error: "Failed to release slot hold", 
+        details: error.message 
       });
     }
   });
@@ -3416,17 +3844,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Secure Stripe Checkout Session endpoint - server-side amount validation
+  // Secure Stripe Checkout Session endpoint - server-side amount validation with atomic slot holds
   app.post("/api/checkout/create-session", async (req, res) => {
     try {
       if (!stripe) {
         return res.status(500).json({ error: "Stripe not configured" });
       }
 
-      const { paymentType, customerEmail, metadata = {}, selectionPayload } = req.body;
+      const { paymentType, customerEmail, metadata = {}, selectionPayload, holdId } = req.body;
       
       if (!paymentType || !selectionPayload) {
         return res.status(400).json({ error: "paymentType and selectionPayload required" });
+      }
+
+      // CRITICAL: Require valid slot hold for checkout to prevent double-booking
+      if (!holdId) {
+        return res.status(400).json({ 
+          error: "holdId is required for secure checkout",
+          code: "HOLD_ID_REQUIRED"
+        });
+      }
+
+      // Validate that the hold exists and hasn't expired
+      const slotHold = await storage.getSlotHold(holdId);
+      if (!slotHold) {
+        return res.status(400).json({ 
+          error: "Invalid or expired slot hold", 
+          code: "INVALID_HOLD"
+        });
+      }
+
+      // Check if hold has expired
+      if (slotHold.expiresAt <= new Date()) {
+        // Clean up expired hold
+        await storage.releaseSlotHold(holdId);
+        return res.status(400).json({ 
+          error: "Slot hold has expired. Please select a new time slot", 
+          code: "HOLD_EXPIRED"
+        });
       }
 
       // Validate required selection data
@@ -3446,6 +3901,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       if (!cruiseType || !groupSize || !eventDate || !eventType) {
         return res.status(400).json({ error: "Missing required selection data" });
+      }
+
+      // CRITICAL: Validate that hold matches the booking details to prevent tampering
+      const holdValidation = validateHoldMatchesSelection(slotHold, selectionPayload);
+      if (!holdValidation.valid) {
+        await storage.releaseSlotHold(holdId);
+        return res.status(400).json({ 
+          error: `Hold validation failed: ${holdValidation.errors.join(', ')}`,
+          code: "HOLD_MISMATCH",
+          details: holdValidation.errors
+        });
       }
 
       // Calculate pricing server-side to prevent tampering
@@ -3617,6 +4083,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
           duration: cruiseType === 'private' ? pricing.breakdown?.cruiseDuration?.toString() || '3' : '',
           calculatedAmount: paymentAmount.toString(),
           quoteId: quoteId || '',
+          // CRITICAL: Include hold information for webhook processing
+          holdId: holdId,
+          slotId: slotHold.slotId,
+          boatId: slotHold.boatId || '',
+          holdExpiresAt: slotHold.expiresAt.toISOString(),
           ...metadata
         }
       });
@@ -3678,7 +4149,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       if (type === "payment_intent.succeeded") {
         const paymentIntent = data.object;
-        const { quoteId, invoiceId } = paymentIntent.metadata;
+        const { quoteId, invoiceId, holdId } = paymentIntent.metadata;
+        
+        console.log(`🔄 Processing payment_intent.succeeded for holdId: ${holdId}`);
         
         if (invoiceId) {
           // Update invoice
@@ -3703,10 +4176,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
               const newPhase = newBalance === 0 ? "ph_paid" : "ph_deposit_paid";
               await storage.updateProject(project.id, { pipelinePhase: newPhase });
               
-              // Create booking and convert lead to customer
+              // CRITICAL: Create booking atomically from validated hold
               try {
-                await storage.createBookingFromPayment(project.id, payment.id, paymentIntent.amount);
-                console.log(`✅ Booking created for project ${project.id} with payment ${payment.id}`);
+                await createBookingFromHoldAtomic({
+                  holdId,
+                  projectId: project.id,
+                  paymentId: payment.id,
+                  paymentAmount: paymentIntent.amount,
+                  paymentIntentMetadata: paymentIntent.metadata
+                });
+                console.log(`✅ Booking created atomically from hold ${holdId} for project ${project.id}`);
               } catch (error: any) {
                 console.error("❌ Failed to create booking:", error);
                 
@@ -3824,8 +4303,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
           discoPackage,
           discoTicketQuantity,
           projectId, 
-          quoteId 
+          quoteId,
+          holdId 
         } = session.metadata;
+        
+        console.log(`🔄 Processing checkout.session.completed for holdId: ${holdId}`);
         
         console.log(`Payment successful: ${paymentType} payment for ${eventType} event`, {
           amount: session.amount_total,
@@ -3848,13 +4330,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
             stripePaymentIntentId: session.payment_intent as string
           });
           
-          // Create booking directly from payment metadata (new streamlined flow)
+          // CRITICAL: Create booking atomically from validated hold
           if (projectId) {
-            // Existing project flow - with enhanced conflict handling
-            try {
-              await storage.createBookingFromPayment(projectId, payment.id, session.amount_total);
-              console.log(`✅ Direct booking created for project ${projectId}`);
-            } catch (error: any) {
+            if (holdId) {
+              // NEW SECURE FLOW: Atomic booking creation from hold
+              try {
+                await createBookingFromHoldAtomic({
+                  holdId,
+                  projectId,
+                  paymentId: payment.id,
+                  paymentAmount: session.amount_total,
+                  paymentIntentMetadata: {
+                    ...session.metadata,
+                    customerEmail: session.customer_email,
+                    customerName: session.customer_details?.name || 'Customer'
+                  }
+                });
+                console.log(`✅ Atomic booking created from hold ${holdId} for project ${projectId}`);
+              } catch (error: any) {
               console.error(`❌ Direct booking failed for project ${projectId}:`, error);
               
               if (error.code === 'BOOKING_CONFLICT') {
@@ -3891,6 +4384,48 @@ export async function registerRoutes(app: Express): Promise<Server> {
                     status: 'CONFLICT_REFUND_FAILED'
                   });
                 }
+              }
+            }
+            } else {
+              // CRITICAL SECURITY FIX: Reject bookings without hold validation to prevent double-booking
+              console.error(`❌ BOOKING REJECTED: No holdId provided for project ${projectId}`);
+              console.error(`🚨 This booking attempt lacks proper hold validation and poses a double-booking risk`);
+              
+              // Update payment status to indicate validation failure
+              await storage.updatePayment(payment.id, {
+                status: 'VALIDATION_FAILED'
+              });
+              
+              // Create a refund for the invalid booking attempt
+              try {
+                const stripe = (await import('stripe')).default;
+                const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY!, {
+                  apiVersion: '2024-06-20',
+                });
+                
+                const refund = await stripeInstance.refunds.create({
+                  payment_intent: session.payment_intent as string,
+                  reason: 'requested_by_customer',
+                  metadata: {
+                    reason: 'missing_hold_validation',
+                    sessionId: session.id,
+                    projectId: projectId,
+                    security_note: 'Booking rejected due to missing hold validation'
+                  }
+                });
+                
+                console.log(`✅ Security refund issued for invalid booking attempt: ${refund.id}`);
+                
+                await storage.updatePayment(payment.id, {
+                  status: 'REFUNDED'
+                });
+                
+              } catch (refundError) {
+                console.error(`❌ Security refund failed:`, refundError);
+                
+                await storage.updatePayment(payment.id, {
+                  status: 'SECURITY_REFUND_FAILED'
+                });
               }
             }
           } else {

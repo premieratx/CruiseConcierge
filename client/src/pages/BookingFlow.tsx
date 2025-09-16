@@ -171,14 +171,44 @@ export default function BookingFlow() {
     },
   });
 
-  // Fetch real slot details from API
+  // Fetch real slot details from API using unified availability system
   const { data: slotDetails, isLoading: slotLoading } = useQuery<SlotDetails | null>({
     queryKey: ["/api/availability/slot", slotId],
     queryFn: async () => {
       if (!slotId) return null;
       
       try {
-        // Parse slot ID to determine type and get details
+        // First try to fetch from unified availability API
+        const unifiedResponse = await fetch(`/api/availability/slot?slotId=${encodeURIComponent(slotId)}`);
+        if (unifiedResponse.ok) {
+          const slotData = await unifiedResponse.json();
+          
+          // Convert unified slot data to SlotDetails format
+          return {
+            id: slotData.id,
+            date: slotData.dateISO,
+            startTime: slotData.startTime,
+            endTime: slotData.endTime,
+            duration: slotData.duration,
+            type: slotData.cruiseType,
+            boatName: slotData.boatName,
+            boatType: slotData.capacity <= 15 ? 'dayTripper' : slotData.capacity >= 50 ? 'luxury' : 'standard',
+            capacity: slotData.capacity,
+            baseHourlyRate: slotData.basePrice || 30000,
+            totalPrice: slotData.totalPrice || slotData.basePrice * slotData.duration,
+            ticketPrice: slotData.ticketPrice,
+            availableTickets: slotData.availableTickets,
+            icon: slotData.cruiseType === 'disco' ? '✨' : 
+                  slotData.capacity <= 15 ? '🚤' : 
+                  slotData.capacity >= 50 ? '🛥️' : '⛵',
+            description: slotData.cruiseType === 'disco' ? 'ATX Disco Cruise' : 
+                        `${slotData.duration}-hour ${slotData.boatName || 'cruise'} cruise`
+          };
+        }
+        
+        // Fall back to legacy parsing for backward compatibility
+        console.log('Unified API not available, falling back to legacy parsing for slot:', slotId);
+        
         if (slotId.startsWith('disco_')) {
           // Disco slot: disco_{id}
           const discoSlotId = slotId.replace('disco_', '');
@@ -199,7 +229,18 @@ export default function BookingFlow() {
           };
         } else if (slotId.startsWith('private_')) {
           // Private slot: private_{boatId}_{date}_{startTime}_{endTime}
-          const [, boatId, dateStr, startTime, endTime] = slotId.split('_');
+          // Add robust error handling for malformed slot IDs
+          const parts = slotId.split('_');
+          if (parts.length < 5) {
+            throw new Error(`Invalid private slot ID format: ${slotId}. Expected format: private_{boatId}_{date}_{startTime}_{endTime}`);
+          }
+          
+          const [, boatId, dateStr, startTime, endTime] = parts;
+          
+          // Validate required parts
+          if (!boatId || !dateStr || !startTime || !endTime) {
+            throw new Error(`Missing required parts in slot ID: ${slotId}`);
+          }
           
           // Fetch boat details
           const boatResponse = await fetch('/api/boats');
@@ -207,12 +248,25 @@ export default function BookingFlow() {
           const boats = await boatResponse.json();
           const boat = boats.find((b: any) => b.id === boatId);
           
-          if (!boat) throw new Error('Boat not found');
+          if (!boat) throw new Error(`Boat not found: ${boatId}`);
           
-          // Calculate duration
-          const startHour = parseInt(startTime.split(':')[0]);
-          const endHour = parseInt(endTime.split(':')[0]);
+          // Calculate duration with error handling
+          const startTimeParts = startTime.split(':');
+          const endTimeParts = endTime.split(':');
+          if (startTimeParts.length < 2 || endTimeParts.length < 2) {
+            throw new Error(`Invalid time format in slot ID: ${slotId}`);
+          }
+          
+          const startHour = parseInt(startTimeParts[0]);
+          const endHour = parseInt(endTimeParts[0]);
+          if (isNaN(startHour) || isNaN(endHour)) {
+            throw new Error(`Invalid time values in slot ID: ${slotId}`);
+          }
+          
           const duration = endHour - startHour;
+          if (duration <= 0) {
+            throw new Error(`Invalid duration calculated from slot ID: ${slotId}`);
+          }
           
           // Calculate base pricing
           const baseHourlyRate = 30000; // $300 in cents
@@ -233,7 +287,7 @@ export default function BookingFlow() {
             description: `${duration}-hour ${boat.name} cruise`
           };
         } else {
-          throw new Error('Invalid slot ID format');
+          throw new Error(`Invalid slot ID format: ${slotId}. Must start with 'disco_' or 'private_'`);
         }
       } catch (error) {
         console.error('Failed to fetch slot details:', error);

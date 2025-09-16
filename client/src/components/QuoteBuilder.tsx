@@ -14,7 +14,9 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import type { Product, QuoteTemplate, Project, Contact, Quote, InsertQuote } from "@shared/schema";
+import type { Product, QuoteTemplate, Project, Contact, Quote, InsertQuote, NormalizedSlot } from "@shared/schema";
+import { useAvailabilityForDate, formatDateForAvailability } from "@/hooks/use-availability";
+import { TimeSlotList } from "@/components/TimeSlotList";
 import { 
   Calculator, Gift, DollarSign, Percent, Users, Clock, AlertTriangle, Edit, Wand2,
   Save, FileText, Package, Eye, ChevronRight, Sparkles, Copy, Plus, Trash2,
@@ -70,6 +72,20 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
   const [newTemplateName, setNewTemplateName] = useState("");
   const [newTemplateDescription, setNewTemplateDescription] = useState("");
   const [selectedEventType, setSelectedEventType] = useState("wedding");
+  const [selectedSlot, setSelectedSlot] = useState<NormalizedSlot | null>(null);
+  
+  // Fetch available slots for the project date
+  const { data: availabilityData } = useAvailabilityForDate(
+    projectDate,
+    undefined, // both private and disco
+    currentGroupSize,
+    {
+      enabled: Boolean(projectDate),
+      staleTime: 1000 * 60 * 2, // 2 minutes
+    }
+  );
+  
+  const availableSlots = availabilityData?.slots || [];
   const { toast } = useToast();
 
   // Fetch data
@@ -387,6 +403,35 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
                 data-testid="input-event-date"
               />
             </div>
+
+            {/* Time Slot Selection */}
+            {projectDate && (
+              <div className="space-y-2">
+                <Label>Available Time Slots</Label>
+                <div className="rounded-lg border p-4">
+                  {availableSlots.length > 0 ? (
+                    <TimeSlotList
+                      slots={availableSlots}
+                      selectedSlot={selectedSlot}
+                      onSlotSelect={(slot) => {
+                        setSelectedSlot(slot);
+                        console.log('Selected slot:', slot);
+                      }}
+                      groupSize={currentGroupSize}
+                      cruiseType={undefined} // Show all types
+                      showFilters={false}
+                      data-testid="timeslot-list"
+                    />
+                  ) : (
+                    <div className="text-center py-6 text-muted-foreground">
+                      <Clock className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                      <p>No time slots available for this date.</p>
+                      <p className="text-sm">Try selecting a different date.</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
 
             <Separator />
 

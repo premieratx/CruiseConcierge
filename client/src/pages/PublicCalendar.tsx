@@ -22,44 +22,14 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format, addDays, addWeeks, subWeeks, isToday, isSameMonth, startOfWeek, endOfWeek } from "date-fns";
-import type { TimeSlot, DiscoTimeSlot } from "@shared/timeSlots";
-import { formatTimeForDisplay, getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, isDiscoAvailableForDate } from "@shared/timeSlots";
+import type { NormalizedSlot } from "@shared/schema";
+import { useAvailability } from "@/hooks/use-availability";
+import { TimeSlotList } from "@/components/TimeSlotList";
 import { formatCurrency, formatDate, formatLongDate, formatTimeRange, formatBoatCapacity, formatEventDuration, formatGroupSize } from '@shared/formatters';
 import { EVENT_TYPES, CRUISE_TYPES, DISCO_PACKAGES } from '@shared/constants';
 
-interface PublicAvailabilitySlot {
-  id: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  duration: number;
-  boatId: string;
-  boatName: string;
-  boatType: string;
-  capacity: number;
-  availableSpots: number;
-  baseHourlyRate: number;
-  totalPrice: number;
-  icon?: string;
-  popular?: boolean;
-  description?: string;
-  status: 'available';
-}
-
-interface DiscoAvailabilitySlot {
-  id: string;
-  date: string;
-  startTime: string;
-  endTime: string;
-  ticketPrice: number;
-  availableTickets: number;
-  totalCapacity: number;
-  status: 'available';
-  type: 'disco';
-}
-
 interface BookingModalData {
-  slot: PublicAvailabilitySlot | DiscoAvailabilitySlot;
+  slot: NormalizedSlot;
   date: Date;
 }
 
@@ -124,7 +94,7 @@ export default function PublicCalendar() {
   });
 
   // Fetch availability for private cruises
-  const { data: privateSlots = [], isLoading: privateLoading } = useQuery<PublicAvailabilitySlot[]>({
+  const { data: privateSlots = [], isLoading: privateLoading } = useQuery<NormalizedSlot[]>({
     queryKey: ["/api/availability/public", weekStart.toISOString(), weekEnd.toISOString(), groupSize, selectedEventType],
     queryFn: async () => {
       const params = new URLSearchParams({
@@ -143,7 +113,7 @@ export default function PublicCalendar() {
   });
 
   // Fetch availability for disco cruises
-  const { data: discoSlots = [], isLoading: discoLoading } = useQuery<DiscoAvailabilitySlot[]>({
+  const { data: discoSlots = [], isLoading: discoLoading } = useQuery<NormalizedSlot[]>({
     queryKey: ["/api/disco/availability/public", weekStart.toISOString(), weekEnd.toISOString()],
     queryFn: async () => {
       const params = new URLSearchParams({
