@@ -77,6 +77,7 @@ app.use('/embed', (req, res, next) => {
 
   // Setup embed production routing first (if available)
   // This must come before Vite dev middleware to take precedence
+  // Add guard to prevent embed routing from intercepting API calls
   const embedConfigured = setupEmbedRouting(app);
   
   // importantly only setup vite in development and after

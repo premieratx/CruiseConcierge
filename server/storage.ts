@@ -58,6 +58,7 @@ export interface IStorage {
 
   // Payments
   createPayment(payment: Omit<Payment, 'id'>): Promise<Payment>;
+  updatePayment(id: string, updates: Partial<Payment>): Promise<Payment>;
   getPaymentsByInvoice(invoiceId: string): Promise<Payment[]>;
 
   // Chat Messages
@@ -355,6 +356,8 @@ export interface IStorage {
 }
 
 export class MemStorage implements IStorage {
+  // Concurrency protection for booking operations
+  private pendingBookingOperations = new Map<string, Promise<Booking>>();
   private contacts: Map<string, Contact> = new Map();
   private projects: Map<string, Project> = new Map();
   private boats: Map<string, Boat> = new Map();
@@ -1918,6 +1921,15 @@ export class MemStorage implements IStorage {
     return newPayment;
   }
 
+  async updatePayment(id: string, updates: Partial<Payment>): Promise<Payment> {
+    const payment = this.payments.get(id);
+    if (!payment) throw new Error('Payment not found');
+    
+    const updated = { ...payment, ...updates };
+    this.payments.set(id, updated);
+    return updated;
+  }
+
   async getPaymentsByInvoice(invoiceId: string): Promise<Payment[]> {
     return Array.from(this.payments.values()).filter(p => p.invoiceId === invoiceId);
   }
@@ -2922,6 +2934,35 @@ export class MemStorage implements IStorage {
   }
 
   async createBookingFromPayment(projectId: string, paymentId: string, amount: number): Promise<Booking> {
+    // CONCURRENCY PROTECTION: Add timestamp-based idempotent check
+    const operationKey = `booking_${projectId}_${paymentId}`;
+    const existingOperation = this.pendingBookingOperations.get(operationKey);
+    if (existingOperation) {
+      // Wait for existing operation to complete or throw if it failed
+      try {
+        return await existingOperation;
+      } catch (error) {
+        // If existing operation failed, remove it and try again
+        this.pendingBookingOperations.delete(operationKey);
+        throw error;
+      }
+    }
+
+    // Create promise for this operation to prevent concurrent executions
+    const operationPromise = this._executeBookingFromPayment(projectId, paymentId, amount);
+    this.pendingBookingOperations.set(operationKey, operationPromise);
+
+    try {
+      const result = await operationPromise;
+      this.pendingBookingOperations.delete(operationKey);
+      return result;
+    } catch (error) {
+      this.pendingBookingOperations.delete(operationKey);
+      throw error;
+    }
+  }
+
+  private async _executeBookingFromPayment(projectId: string, paymentId: string, amount: number): Promise<Booking> {
     // Get the project details
     const project = await this.getProject(projectId);
     if (!project) throw new Error('Project not found');
@@ -2930,18 +2971,46 @@ export class MemStorage implements IStorage {
     const contact = await this.getContact(project.contactId);
     if (!contact) throw new Error('Contact not found');
     
+    // NORMALIZE CHICAGO TIME: Ensure project date is properly normalized
+    let normalizedProjectDate: Date;
+    if (project.projectDate) {
+      normalizedProjectDate = this.normalizeToChicagoTime(project.projectDate);
+    } else {
+      throw new Error('Project date is required for booking creation');
+    }
+
+    // Parse time slot from preferredTime if available
+    let startTime: Date, endTime: Date;
+    if (project.preferredTime) {
+      const timeSlot = this.parseTimeSlot(project.preferredTime, normalizedProjectDate);
+      startTime = timeSlot.startTime;
+      endTime = timeSlot.endTime;
+    } else {
+      // Default to project date with 4-hour duration
+      startTime = normalizedProjectDate;
+      endTime = new Date(startTime.getTime() + (project.duration || 4) * 60 * 60 * 1000);
+    }
+    
     // Find an available boat if not specified
     let boatId = project.availabilitySlotId || '';
+    
+    // CRITICAL FIX: Always perform conflict checking, even with pre-selected boatId
+    if (boatId) {
+      // Verify the pre-selected boat is still available
+      const hasConflict = await this.checkBookingConflict(boatId, startTime, endTime);
+      if (hasConflict) {
+        // Clear the conflicted boat and find a new one
+        boatId = '';
+        console.warn(`Pre-selected boat ${boatId} has conflicts, finding alternative`);
+      }
+    }
+    
     if (!boatId && project.groupSize) {
       const boats = await this.getBoatsByCapacity(project.groupSize);
       
       // Check each boat for conflicts and select the first available one
       for (const boat of boats) {
-        const hasConflict = await this.checkBookingConflict(
-          boat.id,
-          project.projectDate || new Date(),
-          new Date((project.projectDate || new Date()).getTime() + (project.duration || 4) * 60 * 60 * 1000)
-        );
+        const hasConflict = await this.checkBookingConflict(boat.id, startTime, endTime);
         
         if (!hasConflict) {
           boatId = boat.id;
@@ -2949,16 +3018,25 @@ export class MemStorage implements IStorage {
         }
       }
       
-      // If no available boat found, throw error to prevent double-booking
+      // If no available boat found, throw specific error for booking conflicts
       if (!boatId) {
-        throw new Error('No available boats for the requested time slot. Please choose a different time.');
+        const error = new Error('BOOKING_CONFLICT: No available boats for the requested time slot. All boats are booked.');
+        (error as any).code = 'BOOKING_CONFLICT';
+        (error as any).details = {
+          projectId,
+          paymentId,
+          requestedTime: { startTime, endTime },
+          groupSize: project.groupSize
+        };
+        throw error;
       }
     }
-    
-    // Create the booking
-    const startTime = project.projectDate || new Date();
-    const endTime = new Date(startTime);
-    endTime.setHours(endTime.getHours() + (project.duration || 4)); // Default 4 hour cruise
+
+    if (!boatId) {
+      const error = new Error('BOOKING_CONFLICT: Unable to assign boat for booking');
+      (error as any).code = 'BOOKING_CONFLICT';
+      throw error;
+    }
     
     const booking: InsertBooking = {
       orgId: project.orgId,
@@ -2976,7 +3054,16 @@ export class MemStorage implements IStorage {
       notes: `Payment ${paymentId} - Amount: $${(amount / 100).toFixed(2)}`,
     };
     
+    // Create the booking with built-in conflict checking
     const newBooking = await this.createBooking(booking);
+    
+    // GOOGLE SHEETS INTEGRATION: Update availability after successful booking
+    try {
+      await this.updateGoogleSheetsAfterBooking(newBooking, project, contact);
+    } catch (error) {
+      console.error('Failed to update Google Sheets after booking:', error);
+      // Don't fail the booking creation, just log the error
+    }
     
     // Update project status to CLOSED_WON
     await this.updateProject(projectId, { status: 'CLOSED_WON' });
@@ -2985,6 +3072,116 @@ export class MemStorage implements IStorage {
     await this.convertLeadToCustomer(project.contactId);
     
     return newBooking;
+  }
+
+  // HELPER METHODS FOR ENHANCED BOOKING CREATION
+  
+  private normalizeToChicagoTime(date: Date | string): Date {
+    // Chicago timezone offset: CST is UTC-6, CDT is UTC-5
+    // For simplicity, we'll assume CST (UTC-6) - in production, use a proper timezone library
+    if (typeof date === 'string') {
+      // If it's just a date (YYYY-MM-DD), treat as Chicago timezone
+      if (/^\d{4}-\d{2}-\d{2}$/.test(date)) {
+        return new Date(date + 'T00:00:00-06:00'); // CST
+      }
+      
+      // If it includes time but no timezone, assume Chicago
+      if (/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/.test(date)) {
+        return new Date(date + '-06:00');
+      }
+      
+      // Otherwise parse as-is
+      return new Date(date);
+    }
+    
+    return date;
+  }
+  
+  private parseTimeSlot(timeSlot: string, baseDate: Date): { startTime: Date; endTime: Date } {
+    // Parse time slots like "11am-2pm", "2pm-6pm", "6pm-10pm"
+    const timeSlotPattern = /^(\d{1,2})(am|pm)-(\d{1,2})(am|pm)$/i;
+    const match = timeSlot.match(timeSlotPattern);
+    
+    if (!match) {
+      // Fallback to 4-hour duration from base date
+      const startTime = new Date(baseDate);
+      const endTime = new Date(startTime.getTime() + 4 * 60 * 60 * 1000);
+      return { startTime, endTime };
+    }
+    
+    const [, startHourStr, startPeriod, endHourStr, endPeriod] = match;
+    
+    let startHour = parseInt(startHourStr);
+    let endHour = parseInt(endHourStr);
+    
+    // Convert to 24-hour format
+    if (startPeriod.toLowerCase() === 'pm' && startHour !== 12) {
+      startHour += 12;
+    } else if (startPeriod.toLowerCase() === 'am' && startHour === 12) {
+      startHour = 0;
+    }
+    
+    if (endPeriod.toLowerCase() === 'pm' && endHour !== 12) {
+      endHour += 12;
+    } else if (endPeriod.toLowerCase() === 'am' && endHour === 12) {
+      endHour = 0;
+    }
+    
+    const startTime = new Date(baseDate);
+    startTime.setHours(startHour, 0, 0, 0);
+    
+    const endTime = new Date(baseDate);
+    endTime.setHours(endHour, 0, 0, 0);
+    
+    return { startTime, endTime };
+  }
+  
+  private async updateGoogleSheetsAfterBooking(
+    booking: Booking, 
+    project: Project, 
+    contact: Contact
+  ): Promise<void> {
+    try {
+      // Import the Google Sheets service
+      const { googleSheetsService } = await import('./services/googleSheets');
+      
+      // Update availability status to BOOKED
+      const boat = await this.boats.get(booking.boatId);
+      if (!boat) return;
+      
+      // Format the booking data for Google Sheets
+      const availabilityData = {
+        date: booking.startTime.toISOString().split('T')[0],
+        day: booking.startTime.toLocaleDateString('en-US', { weekday: 'long' }),
+        time: `${booking.startTime.toTimeString().slice(0, 5)}-${booking.endTime.toTimeString().slice(0, 5)}`,
+        boatType: boat.name,
+        capacity: boat.capacity,
+        baseRate: 0, // Will be calculated based on pricing rules
+        status: 'BOOKED' as const,
+        bookedBy: contact.name,
+        groupSize: booking.groupSize,
+        notes: `Booking ID: ${booking.id}, Project: ${project.title || 'Private Cruise'}, Payment: $${(booking.amountPaid / 100).toFixed(2)}`
+      };
+      
+      // Update Google Sheets availability
+      await googleSheetsService.updateAvailabilityStatus(
+        booking.startTime,
+        booking.endTime,
+        boat.name,
+        'BOOKED',
+        {
+          bookedBy: contact.name,
+          groupSize: booking.groupSize,
+          bookingId: booking.id
+        }
+      );
+      
+      console.log(`✅ Google Sheets updated for booking ${booking.id}`);
+      
+    } catch (error) {
+      console.error('❌ Failed to update Google Sheets after booking:', error);
+      // Don't throw - this is a non-critical operation
+    }
   }
 
   async convertLeadToCustomer(contactId: string): Promise<Contact> {

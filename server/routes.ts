@@ -3706,10 +3706,99 @@ export async function registerRoutes(app: Express): Promise<Server> {
               // Create booking and convert lead to customer
               try {
                 await storage.createBookingFromPayment(project.id, payment.id, paymentIntent.amount);
-                console.log(`Booking created for project ${project.id} with payment ${payment.id}`);
-              } catch (error) {
-                console.error("Failed to create booking:", error);
-                // Don't fail the webhook, just log the error
+                console.log(`✅ Booking created for project ${project.id} with payment ${payment.id}`);
+              } catch (error: any) {
+                console.error("❌ Failed to create booking:", error);
+                
+                // Handle booking conflicts with automatic refund/void
+                if (error.code === 'BOOKING_CONFLICT') {
+                  console.log(`🚨 BOOKING CONFLICT detected for project ${project.id}, initiating refund...`);
+                  
+                  try {
+                    // Import Stripe instance
+                    const stripe = (await import('stripe')).default;
+                    const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY!, {
+                      apiVersion: '2024-06-20',
+                    });
+                    
+                    // Attempt to void the payment intent if possible (uncaptured), otherwise refund
+                    const paymentIntentStatus = paymentIntent.status;
+                    
+                    if (paymentIntentStatus === 'requires_capture' || paymentIntentStatus === 'processing') {
+                      // Cancel/void the payment intent if not yet captured
+                      await stripeInstance.paymentIntents.cancel(paymentIntent.id);
+                      console.log(`✅ Payment intent ${paymentIntent.id} voided due to booking conflict`);
+                      
+                      // Update payment record status
+                      await storage.updatePayment(payment.id, {
+                        status: 'VOIDED'
+                      });
+                      
+                      // Revert project pipeline phase
+                      await storage.updateProject(project.id, { 
+                        pipelinePhase: 'ph_quoted',
+                        notes: `Booking failed due to conflict - payment voided. ${error.message}` 
+                      });
+                      
+                    } else if (paymentIntentStatus === 'succeeded') {
+                      // Create refund for captured payment
+                      const refund = await stripeInstance.refunds.create({
+                        payment_intent: paymentIntent.id,
+                        reason: 'requested_by_customer',
+                        metadata: {
+                          reason: 'booking_conflict',
+                          projectId: project.id,
+                          originalError: error.message
+                        }
+                      });
+                      
+                      console.log(`✅ Refund ${refund.id} created for payment intent ${paymentIntent.id}`);
+                      
+                      // Update payment record with refund info
+                      await storage.updatePayment(payment.id, {
+                        status: 'REFUNDED'
+                      });
+                      
+                      // Revert project pipeline phase and add notes
+                      await storage.updateProject(project.id, { 
+                        pipelinePhase: 'ph_quoted',
+                        notes: `Booking failed due to conflict - payment refunded. Refund ID: ${refund.id}` 
+                      });
+                    }
+                    
+                    // Revert invoice balance
+                    await storage.updateInvoice(invoiceId, { 
+                      balance: invoice.total // Reset to full balance
+                    });
+                    
+                    console.log(`✅ Successfully handled booking conflict for project ${project.id}`);
+                    
+                  } catch (refundError: any) {
+                    console.error(`❌ Failed to process refund/void for payment ${paymentIntent.id}:`, refundError);
+                    
+                    // Update payment with error status
+                    await storage.updatePayment(payment.id, {
+                      status: 'CONFLICT_REFUND_FAILED'
+                    });
+                    
+                    // Mark project for manual review
+                    await storage.updateProject(project.id, {
+                      pipelinePhase: 'ph_manual_review',
+                      notes: `URGENT: Booking conflict + refund failure. Manual intervention required. Error: ${refundError.message}`
+                    });
+                  }
+                } else {
+                  // Handle other booking creation errors
+                  console.error(`❌ Non-conflict booking error for project ${project.id}:`, error.message);
+                  
+                  // Update project with error status for manual review
+                  await storage.updateProject(project.id, {
+                    pipelinePhase: 'ph_manual_review', 
+                    notes: `Booking creation failed: ${error.message}`
+                  });
+                }
+                
+                // Don't fail the webhook - we've handled the error appropriately
               }
             }
           }
@@ -3761,9 +3850,49 @@ export async function registerRoutes(app: Express): Promise<Server> {
           
           // Create booking directly from payment metadata (new streamlined flow)
           if (projectId) {
-            // Existing project flow
-            await storage.createBookingFromPayment(projectId, payment.id, session.amount_total);
-            console.log(`Direct booking created for project ${projectId}`);
+            // Existing project flow - with enhanced conflict handling
+            try {
+              await storage.createBookingFromPayment(projectId, payment.id, session.amount_total);
+              console.log(`✅ Direct booking created for project ${projectId}`);
+            } catch (error: any) {
+              console.error(`❌ Direct booking failed for project ${projectId}:`, error);
+              
+              if (error.code === 'BOOKING_CONFLICT') {
+                console.log(`🚨 BOOKING CONFLICT in direct booking for project ${projectId}`);
+                
+                // For direct bookings, we need to refund since payment was already captured
+                try {
+                  const stripe = (await import('stripe')).default;
+                  const stripeInstance = new stripe(process.env.STRIPE_SECRET_KEY!, {
+                    apiVersion: '2024-06-20',
+                  });
+                  
+                  const refund = await stripeInstance.refunds.create({
+                    payment_intent: session.payment_intent as string,
+                    reason: 'requested_by_customer',
+                    metadata: {
+                      reason: 'booking_conflict',
+                      sessionId: session.id,
+                      projectId: projectId
+                    }
+                  });
+                  
+                  console.log(`✅ Direct booking refunded: ${refund.id}`);
+                  
+                  // Update payment status
+                  await storage.updatePayment(payment.id, {
+                    status: 'REFUNDED'
+                  });
+                  
+                } catch (refundError) {
+                  console.error(`❌ Direct booking refund failed:`, refundError);
+                  
+                  await storage.updatePayment(payment.id, {
+                    status: 'CONFLICT_REFUND_FAILED'
+                  });
+                }
+              }
+            }
           } else {
             // New direct booking flow from chat
             console.log('Creating direct booking from payment metadata...');

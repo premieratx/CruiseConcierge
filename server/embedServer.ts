@@ -14,6 +14,19 @@ export function setupEmbedRouting(app: Express) {
     return false;
   }
 
+  // CRITICAL: Add middleware to prevent embed routing from intercepting API calls
+  app.use((req, res, next) => {
+    // Never let embed routing handle API paths
+    if (req.path.startsWith('/api/')) {
+      return next();
+    }
+    // Skip embed routing for non-GET requests to prevent interference with API endpoints
+    if (req.method !== 'GET' && !req.path.startsWith('/embed/')) {
+      return next();
+    }
+    next();
+  });
+
   // Handle the specific problematic image asset with exact path matching
   app.get('/embed-PPC*', (req, res) => {
     const imagePath = path.resolve(embedDistPath, 'embed-PPC Logo LARGE_1757881944449.png');
@@ -46,8 +59,8 @@ export function setupEmbedRouting(app: Express) {
     res.sendFile(path.resolve(embedDistPath, 'embed.js'));
   });
   
-  // Handle ALL variations of the embed.js request to prevent Vite from intercepting
-  app.get(['/embed.js', '/embed.js*', '*/embed.js*'], (req, res) => {
+  // Handle specific embed.js variations (avoid broad wildcards that could catch API routes)
+  app.get(['/embed.js', '/embed.js*'], (req, res) => {
     res.setHeader('Content-Type', 'application/javascript');
     res.setHeader('Cache-Control', 'public, max-age=31536000');
     res.sendFile(path.resolve(embedDistPath, 'embed.js'));
@@ -59,15 +72,16 @@ export function setupEmbedRouting(app: Express) {
     res.sendFile(path.resolve(embedDistPath, 'embed-style.css'));
   });
   
-  // Handle ALL variations of the embed-style.css request to prevent Vite from intercepting
-  app.get(['/embed-style.css', '/embed-style.css*', '*/embed-style.css*'], (req, res) => {
+  // Handle specific embed-style.css variations (avoid broad wildcards that could catch API routes)
+  app.get(['/embed-style.css', '/embed-style.css*'], (req, res) => {
     res.setHeader('Content-Type', 'text/css');
     res.setHeader('Cache-Control', 'public, max-age=31536000');
     res.sendFile(path.resolve(embedDistPath, 'embed-style.css'));
   });
 
   // Catch any Vite proxy attempts that sneak through with query params
-  app.get('*', (req, res, next) => {
+  // ONLY for specific asset-related routes to avoid intercepting API calls
+  app.get('/embed-*', (req, res, next) => {
     const url = req.originalUrl;
     if (url.includes('embed-style.css') && url.includes('html-proxy')) {
       // This is Vite trying to process our CSS - redirect to direct file
