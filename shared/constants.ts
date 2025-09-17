@@ -156,11 +156,52 @@ export const BOAT_TYPES = {
  */
 export const PRICING_DEFAULTS = {
   TAX_RATE_BASIS_POINTS: 825, // 8.25%
-  GRATUITY_PERCENT: 18,
+  GRATUITY_PERCENT: 20, // Updated to 20% as per requirements
   DEPOSIT_PERCENT: 25,
   URGENCY_THRESHOLD_DAYS: 30,
   FULL_PAYMENT_THRESHOLD_DAYS: 14,
-  BASE_HOURLY_RATE: 30000, // $300.00 in cents
+  BASE_HOURLY_RATE: 40000, // $400.00 in cents (minimum rate)
+  EXTRA_CREW_FEE: 20000, // $200.00 in cents for groups >20 people
+} as const;
+
+/**
+ * Premier Party Cruises Hourly Rate Structure
+ * All rates in cents (multiply by 100)
+ */
+export const HOURLY_RATES = {
+  // Capacity-based rates for Monday-Thursday (3 hours)
+  WEEKDAY: {
+    14: 40000,  // $400/hour for ≤14 people
+    25: 45000,  // $450/hour for ≤25 people
+    30: 50000,  // $500/hour for ≤30 people
+    50: 55000,  // $550/hour for ≤50 people
+    75: 60000,  // $600/hour for ≤75 people
+  },
+  // Capacity-based rates for Friday-Sunday (4 hours)
+  WEEKEND: {
+    14: 50000,  // $500/hour for ≤14 people
+    25: 55000,  // $550/hour for ≤25 people
+    30: 60000,  // $600/hour for ≤30 people
+    50: 65000,  // $650/hour for ≤50 people
+    75: 70000,  // $700/hour for ≤75 people
+  }
+} as const;
+
+/**
+ * Cruise duration by day type (in hours)
+ */
+export const CRUISE_DURATIONS = {
+  WEEKDAY: 3, // Monday-Thursday: 3 hours
+  WEEKEND: 4, // Friday-Sunday: 4 hours
+} as const;
+
+/**
+ * Disco cruise pricing per person (in cents)
+ */
+export const DISCO_PRICING = {
+  basic: 8500,       // $85.00 per person
+  disco_queen: 9500, // $95.00 per person
+  platinum: 10500,   // $105.00 per person
 } as const;
 
 /**

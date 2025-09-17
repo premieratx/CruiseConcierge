@@ -14,7 +14,8 @@ import {
   Star, Quote, Play, Search, Phone, Mail, Calendar, 
   Users, Ship, PartyPopper, Building2, Heart, Trophy,
   Shield, Clock, MapPin, Camera, MessageSquare,
-  ExternalLink, CheckCircle, ArrowRight, Sparkles
+  ExternalLink, CheckCircle, ArrowRight, Sparkles,
+  DollarSign, Calculator
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 
@@ -201,7 +202,8 @@ const faqCategories = {
   },
   pricing: {
     title: 'Pricing & Packages',
-    icon: Users,
+    icon: DollarSign,
+    pricingTables: true, // Flag to show pricing tables
     faqs: [
       {
         question: 'What does the cruise price include?',
@@ -209,19 +211,31 @@ const faqCategories = {
       },
       {
         question: 'Are there any additional costs I should know about?',
-        answer: 'The main additional costs are gratuity for the crew (15-20% recommended), food and beverages (you can bring your own), and any special add-ons like professional photography ($300), decorations setup ($150), or extended hours ($200/hour). We\'re transparent about all pricing upfront.'
+        answer: 'The main additional costs are gratuity for the crew (20% recommended), food and beverages (you can bring your own), and any special add-ons like professional photography ($300), decorations setup ($150), or extended hours ($200/hour). We\'re transparent about all pricing upfront.'
       },
       {
-        question: 'What are your rates for private charters?',
-        answer: 'Private charter rates vary by boat size, day of week, and season. Weekday rates start at $1,800 for our 14-person boat, while weekend rates start at $2,500. Our 50-person boats range from $4,000-$6,000 depending on the package. All rates include captain, crew, and standard amenities.'
+        question: 'What are your private charter rates?',
+        answer: 'Our private charter rates are based on boat capacity and day of week, as shown in the pricing tables above. Weekday rates (Monday-Thursday) include 3-hour cruises, while weekend rates (Friday-Sunday) include 4-hour cruises. All rates include captain, crew, and standard amenities.'
       },
       {
         question: 'How much do ATX Disco Cruise tickets cost?',
-        answer: 'ATX Disco Cruise tickets are $85 per person and include the 3-hour party cruise experience with DJ, dancing, and all onboard amenities. VIP packages are available for $150 per person and include priority boarding, reserved seating, and complimentary drinks.'
+        answer: 'ATX Disco Cruise tickets are $85 per person for the Basic Package, $95 per person for the Disco Queen Package, and $105 per person for the Platinum Package. All packages include the 4-hour party cruise experience with DJ, dancing, and all onboard amenities.'
       },
       {
         question: 'Do you have special pricing for bachelor/bachelorette parties?',
-        answer: 'Yes! Our bachelor/bachelorette packages start at $85 per person for the ATX Disco Cruise experience, or you can book a private charter with special pricing for wedding parties. We also offer photography packages and custom decorations for these special celebrations.'
+        answer: 'Yes! Our bachelor/bachelorette packages start at $85 per person for the ATX Disco Cruise experience, or you can book a private charter using our capacity-based pricing shown above. We also offer photography packages and custom decorations for these special celebrations.'
+      },
+      {
+        question: 'When is the crew fee required?',
+        answer: 'An additional crew fee of $200 is added for groups with more than 20 people. This ensures we have adequate staffing for larger groups to maintain our high service standards and safety protocols.'
+      },
+      {
+        question: 'How are taxes and gratuity calculated?',
+        answer: 'Texas sales tax of 8.25% is applied to the subtotal (base cruise cost + crew fee if applicable). Gratuity of 20% is calculated on the same subtotal. These amounts are clearly itemized in your quote and final invoice.'
+      },
+      {
+        question: 'What deposit is required?',
+        answer: 'A 25% deposit is required for bookings made more than 30 days in advance. For bookings within 30 days of the event date, 100% payment is required at the time of booking. All deposits are fully refundable with 7+ days notice.'
       }
     ]
   },
@@ -783,6 +797,163 @@ export default function TestimonialsFaq() {
                         Everything you need to know about {category.title.toLowerCase()}.
                       </p>
                     </div>
+
+                    {/* Pricing Tables for Pricing Tab */}
+                    {key === 'pricing' && (
+                      <div className="mb-12 space-y-8">
+                        {/* Private Cruise Pricing Table */}
+                        <Card className="bg-white dark:bg-gray-800 border-2 border-brand-blue/20">
+                          <CardHeader className="text-center">
+                            <CardTitle className="flex items-center justify-center text-2xl font-bold text-gray-900 dark:text-white">
+                              <Ship className="h-6 w-6 mr-3 text-brand-blue" />
+                              Private Cruise Hourly Rates
+                            </CardTitle>
+                            <p className="text-gray-600 dark:text-gray-300">
+                              Exclusive boat charter with captain, crew, and all amenities included
+                            </p>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="overflow-x-auto">
+                              <table className="w-full text-sm" data-testid="table-private-cruise-pricing">
+                                <thead>
+                                  <tr className="border-b border-gray-200 dark:border-gray-700">
+                                    <th className="text-left py-3 px-4 font-semibold text-gray-900 dark:text-white">Boat Capacity</th>
+                                    <th className="text-center py-3 px-4 font-semibold text-gray-900 dark:text-white">Monday-Thursday<br /><span className="text-xs font-normal text-gray-500">(3 hours)</span></th>
+                                    <th className="text-center py-3 px-4 font-semibold text-gray-900 dark:text-white">Friday-Sunday<br /><span className="text-xs font-normal text-gray-500">(4 hours)</span></th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                                    <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Up to 14 guests</td>
+                                    <td className="text-center py-4 px-4">
+                                      <div className="text-lg font-bold text-brand-blue">$400/hour</div>
+                                      <div className="text-sm text-gray-500">$1,200 total</div>
+                                    </td>
+                                    <td className="text-center py-4 px-4">
+                                      <div className="text-lg font-bold text-brand-blue">$500/hour</div>
+                                      <div className="text-sm text-gray-500">$2,000 total</div>
+                                    </td>
+                                  </tr>
+                                  <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                                    <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Up to 25 guests</td>
+                                    <td className="text-center py-4 px-4">
+                                      <div className="text-lg font-bold text-brand-blue">$450/hour</div>
+                                      <div className="text-sm text-gray-500">$1,350 total</div>
+                                    </td>
+                                    <td className="text-center py-4 px-4">
+                                      <div className="text-lg font-bold text-brand-blue">$550/hour</div>
+                                      <div className="text-sm text-gray-500">$2,200 total</div>
+                                    </td>
+                                  </tr>
+                                  <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                                    <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Up to 30 guests</td>
+                                    <td className="text-center py-4 px-4">
+                                      <div className="text-lg font-bold text-brand-blue">$500/hour</div>
+                                      <div className="text-sm text-gray-500">$1,500 total</div>
+                                    </td>
+                                    <td className="text-center py-4 px-4">
+                                      <div className="text-lg font-bold text-brand-blue">$600/hour</div>
+                                      <div className="text-sm text-gray-500">$2,400 total</div>
+                                    </td>
+                                  </tr>
+                                  <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                                    <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Up to 50 guests</td>
+                                    <td className="text-center py-4 px-4">
+                                      <div className="text-lg font-bold text-brand-blue">$550/hour</div>
+                                      <div className="text-sm text-gray-500">$1,650 total</div>
+                                    </td>
+                                    <td className="text-center py-4 px-4">
+                                      <div className="text-lg font-bold text-brand-blue">$650/hour</div>
+                                      <div className="text-sm text-gray-500">$2,600 total</div>
+                                    </td>
+                                  </tr>
+                                  <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                                    <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Up to 75 guests</td>
+                                    <td className="text-center py-4 px-4">
+                                      <div className="text-lg font-bold text-brand-blue">$600/hour</div>
+                                      <div className="text-sm text-gray-500">$1,800 total</div>
+                                    </td>
+                                    <td className="text-center py-4 px-4">
+                                      <div className="text-lg font-bold text-brand-blue">$700/hour</div>
+                                      <div className="text-sm text-gray-500">$2,800 total</div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                              <h4 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
+                                <Calculator className="h-4 w-4 mr-2 text-brand-blue" />
+                                Additional Fees
+                              </h4>
+                              <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
+                                <li>• <strong>Extra Crew Fee:</strong> $200 for groups with more than 20 people</li>
+                                <li>• <strong>Tax:</strong> 8.25% applied to subtotal (base cost + crew fee)</li>
+                                <li>• <strong>Gratuity:</strong> 20% applied to subtotal (recommended)</li>
+                                <li>• <strong>Deposit:</strong> 25% if booked 30+ days ahead, 100% if within 30 days</li>
+                              </ul>
+                            </div>
+                          </CardContent>
+                        </Card>
+
+                        {/* ATX Disco Cruise Pricing Table */}
+                        <Card className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 border-2 border-purple-200 dark:border-purple-700">
+                          <CardHeader className="text-center">
+                            <CardTitle className="flex items-center justify-center text-2xl font-bold text-gray-900 dark:text-white">
+                              <PartyPopper className="h-6 w-6 mr-3 text-purple-600" />
+                              ATX Disco Cruise Packages
+                            </CardTitle>
+                            <p className="text-gray-600 dark:text-gray-300">
+                              Join our public party cruise with DJ, dancing, and amazing vibes
+                            </p>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="grid md:grid-cols-3 gap-6">
+                              <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md" data-testid="card-disco-basic">
+                                <div className="text-3xl font-bold text-purple-600 mb-2">$85</div>
+                                <div className="text-sm text-gray-500 mb-4">per person</div>
+                                <h4 className="font-bold text-gray-900 dark:text-white mb-3">Basic Package</h4>
+                                <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                                  <li>• 4-hour party cruise</li>
+                                  <li>• DJ and dance floor</li>
+                                  <li>• All standard amenities</li>
+                                  <li>• Lake Travis experience</li>
+                                </ul>
+                              </div>
+                              <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border-2 border-purple-300 relative" data-testid="card-disco-queen">
+                                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-purple-600 hover:bg-purple-700">Most Popular</Badge>
+                                <div className="text-3xl font-bold text-purple-600 mb-2">$95</div>
+                                <div className="text-sm text-gray-500 mb-4">per person</div>
+                                <h4 className="font-bold text-gray-900 dark:text-white mb-3">Disco Queen Package</h4>
+                                <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                                  <li>• Everything in Basic</li>
+                                  <li>• Premium sound system</li>
+                                  <li>• Enhanced disco lights</li>
+                                  <li>• Party favors included</li>
+                                </ul>
+                              </div>
+                              <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md" data-testid="card-disco-platinum">
+                                <div className="text-3xl font-bold text-purple-600 mb-2">$105</div>
+                                <div className="text-sm text-gray-500 mb-4">per person</div>
+                                <h4 className="font-bold text-gray-900 dark:text-white mb-3">Platinum Package</h4>
+                                <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-2">
+                                  <li>• Everything in Disco Queen</li>
+                                  <li>• VIP service experience</li>
+                                  <li>• Premium cocktail options</li>
+                                  <li>• Luxury amenities</li>
+                                </ul>
+                              </div>
+                            </div>
+                            <div className="mt-6 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg text-center">
+                              <p className="text-sm text-gray-600 dark:text-gray-300">
+                                <strong>Schedule:</strong> Friday & Saturday evenings, 4-hour duration<br />
+                                <strong>Includes:</strong> Tax and gratuity already included in ticket price
+                              </p>
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    )}
 
                     <Accordion type="single" collapsible className="space-y-4">
                       {category.faqs.map((faq, faqIndex) => (

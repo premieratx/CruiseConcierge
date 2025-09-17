@@ -754,7 +754,7 @@ export class DatabaseStorage implements IStorage {
         id: "pricing_org_demo",
         orgId: "org_demo",
         taxRate: 825, // 8.25%
-        defaultGratuityPercent: 18,
+        defaultGratuityPercent: 20, // Updated to 20% as per requirements
         gratuityIncluded: false,
         defaultDepositPercent: 25,
         urgencyThresholdDays: 30,
@@ -798,7 +798,7 @@ export class DatabaseStorage implements IStorage {
           orgId: "org_demo",
           name: "Basic Bach Disco Package",
           description: "Essential disco cruise experience with DJ, dance floor, and party atmosphere.",
-          unitPrice: 7500, // $75 per person
+          unitPrice: 8500, // $85 per person
           taxable: true,
           pricingModel: "per_person" as const,
           productType: "disco_cruise" as const,
@@ -830,7 +830,7 @@ export class DatabaseStorage implements IStorage {
           orgId: "org_demo",
           name: "Super Sparkle Platinum Package",
           description: "The most exclusive disco cruise with VIP service, premium cocktails, and luxury amenities.",
-          unitPrice: 12500, // $125 per person
+          unitPrice: 10500, // $105 per person
           taxable: true,
           pricingModel: "per_person" as const,
           productType: "disco_cruise" as const,
@@ -839,6 +839,335 @@ export class DatabaseStorage implements IStorage {
           categoryType: "experience" as const,
           imageUrl: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
           eventTypes: ["bachelor", "bachelorette"],
+          active: true,
+        },
+
+        // ===== PRIVATE CRUISE PRODUCTS =====
+        // Weekday Private Cruises (Monday-Thursday, 3 hours)
+        {
+          id: "private_cruise_weekday_14",
+          orgId: "org_demo",
+          name: "Weekday Private Cruise (Up to 14 Guests)",
+          description: "Private weekday cruise for intimate groups, includes captain and crew. 3-hour duration.",
+          unitPrice: 40000, // $400/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "weekday",
+          groupSize: 14,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+        {
+          id: "private_cruise_weekday_25",
+          orgId: "org_demo",
+          name: "Weekday Private Cruise (Up to 25 Guests)",
+          description: "Private weekday cruise for medium groups, includes captain and crew. 3-hour duration.",
+          unitPrice: 45000, // $450/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "weekday",
+          groupSize: 25,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+        {
+          id: "private_cruise_weekday_30",
+          orgId: "org_demo",
+          name: "Weekday Private Cruise (Up to 30 Guests)",
+          description: "Private weekday cruise for medium-large groups, includes captain and crew. 3-hour duration.",
+          unitPrice: 50000, // $500/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "weekday",
+          groupSize: 30,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+        {
+          id: "private_cruise_weekday_50",
+          orgId: "org_demo",
+          name: "Weekday Private Cruise (Up to 50 Guests)",
+          description: "Private weekday cruise for large groups, includes captain and crew. 3-hour duration.",
+          unitPrice: 55000, // $550/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "weekday",
+          groupSize: 50,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+        {
+          id: "private_cruise_weekday_75",
+          orgId: "org_demo",
+          name: "Weekday Private Cruise (Up to 75 Guests)",
+          description: "Private weekday cruise for very large groups, includes captain and crew. 3-hour duration.",
+          unitPrice: 60000, // $600/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "weekday",
+          groupSize: 75,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+
+        // Weekend Private Cruises (Friday-Sunday, 4 hours)
+        {
+          id: "private_cruise_friday_14",
+          orgId: "org_demo",
+          name: "Friday Private Cruise (Up to 14 Guests)",
+          description: "Private Friday cruise for intimate groups, includes captain and crew. 4-hour duration.",
+          unitPrice: 50000, // $500/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "friday",
+          groupSize: 14,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+        {
+          id: "private_cruise_friday_25",
+          orgId: "org_demo",
+          name: "Friday Private Cruise (Up to 25 Guests)",
+          description: "Private Friday cruise for medium groups, includes captain and crew. 4-hour duration.",
+          unitPrice: 55000, // $550/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "friday",
+          groupSize: 25,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+        {
+          id: "private_cruise_friday_30",
+          orgId: "org_demo",
+          name: "Friday Private Cruise (Up to 30 Guests)",
+          description: "Private Friday cruise for medium-large groups, includes captain and crew. 4-hour duration.",
+          unitPrice: 60000, // $600/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "friday",
+          groupSize: 30,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+        {
+          id: "private_cruise_friday_50",
+          orgId: "org_demo",
+          name: "Friday Private Cruise (Up to 50 Guests)",
+          description: "Private Friday cruise for large groups, includes captain and crew. 4-hour duration.",
+          unitPrice: 65000, // $650/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "friday",
+          groupSize: 50,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+        {
+          id: "private_cruise_friday_75",
+          orgId: "org_demo",
+          name: "Friday Private Cruise (Up to 75 Guests)",
+          description: "Private Friday cruise for very large groups, includes captain and crew. 4-hour duration.",
+          unitPrice: 70000, // $700/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "friday",
+          groupSize: 75,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #fa709a 0%, #fee140 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+
+        // Saturday Private Cruises (Premium Weekend)
+        {
+          id: "private_cruise_saturday_14",
+          orgId: "org_demo",
+          name: "Saturday Private Cruise (Up to 14 Guests)",
+          description: "Premium Saturday private cruise for intimate groups, includes captain and crew. 4-hour duration.",
+          unitPrice: 50000, // $500/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "saturday",
+          groupSize: 14,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+        {
+          id: "private_cruise_saturday_25",
+          orgId: "org_demo",
+          name: "Saturday Private Cruise (Up to 25 Guests)",
+          description: "Premium Saturday private cruise for medium groups, includes captain and crew. 4-hour duration.",
+          unitPrice: 55000, // $550/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "saturday",
+          groupSize: 25,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+        {
+          id: "private_cruise_saturday_30",
+          orgId: "org_demo",
+          name: "Saturday Private Cruise (Up to 30 Guests)",
+          description: "Premium Saturday private cruise for medium-large groups, includes captain and crew. 4-hour duration.",
+          unitPrice: 60000, // $600/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "saturday",
+          groupSize: 30,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+        {
+          id: "private_cruise_saturday_50",
+          orgId: "org_demo",
+          name: "Saturday Private Cruise (Up to 50 Guests)",
+          description: "Premium Saturday private cruise for large groups, includes captain and crew. 4-hour duration.",
+          unitPrice: 65000, // $650/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "saturday",
+          groupSize: 50,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+        {
+          id: "private_cruise_saturday_75",
+          orgId: "org_demo",
+          name: "Saturday Private Cruise (Up to 75 Guests)",
+          description: "Premium Saturday private cruise for very large groups, includes captain and crew. 4-hour duration.",
+          unitPrice: 70000, // $700/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "saturday",
+          groupSize: 75,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+
+        // Sunday Private Cruises
+        {
+          id: "private_cruise_sunday_14",
+          orgId: "org_demo",
+          name: "Sunday Private Cruise (Up to 14 Guests)",
+          description: "Sunday private cruise for intimate groups, includes captain and crew. 4-hour duration.",
+          unitPrice: 50000, // $500/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "sunday",
+          groupSize: 14,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+        {
+          id: "private_cruise_sunday_25",
+          orgId: "org_demo",
+          name: "Sunday Private Cruise (Up to 25 Guests)",
+          description: "Sunday private cruise for medium groups, includes captain and crew. 4-hour duration.",
+          unitPrice: 55000, // $550/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "sunday",
+          groupSize: 25,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+        {
+          id: "private_cruise_sunday_30",
+          orgId: "org_demo",
+          name: "Sunday Private Cruise (Up to 30 Guests)",
+          description: "Sunday private cruise for medium-large groups, includes captain and crew. 4-hour duration.",
+          unitPrice: 60000, // $600/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "sunday",
+          groupSize: 30,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+        {
+          id: "private_cruise_sunday_50",
+          orgId: "org_demo",
+          name: "Sunday Private Cruise (Up to 50 Guests)",
+          description: "Sunday private cruise for large groups, includes captain and crew. 4-hour duration.",
+          unitPrice: 65000, // $650/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "sunday",
+          groupSize: 50,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
+          active: true,
+        },
+        {
+          id: "private_cruise_sunday_75",
+          orgId: "org_demo",
+          name: "Sunday Private Cruise (Up to 75 Guests)",
+          description: "Sunday private cruise for very large groups, includes captain and crew. 4-hour duration.",
+          unitPrice: 70000, // $700/hour
+          taxable: true,
+          pricingModel: "hourly" as const,
+          productType: "private_cruise" as const,
+          dayType: "sunday",
+          groupSize: 75,
+          categoryType: "experience" as const,
+          imageUrl: "linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%)",
+          eventTypes: ["birthday", "anniversary", "corporate", "general"],
           active: true,
         },
 
@@ -1352,14 +1681,49 @@ export class DatabaseStorage implements IStorage {
     timeSlot: string;
     promoCode?: string;
   }): Promise<PricingPreview> {
-    // TODO: Implement full pricing calculation logic
     const { groupSize, eventDate } = params;
     
-    const basePrice = 50000; // $500 base
-    const subtotal = basePrice;
-    const tax = Math.floor(subtotal * 0.0825);
-    const gratuity = Math.floor(subtotal * 0.18);
+    // Import pricing constants
+    const { HOURLY_RATES, CRUISE_DURATIONS, PRICING_DEFAULTS } = await import('@shared/constants');
+    
+    // Determine boat capacity tier based on group size
+    let capacityTier: number;
+    if (groupSize <= 14) capacityTier = 14;
+    else if (groupSize <= 25) capacityTier = 25;
+    else if (groupSize <= 30) capacityTier = 30;
+    else if (groupSize <= 50) capacityTier = 50;
+    else capacityTier = 75;
+    
+    // Determine if it's weekend (Friday=5, Saturday=6, Sunday=0) or weekday
+    const dayOfWeek = eventDate.getDay();
+    const isWeekend = dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6; // Sun, Fri, Sat
+    
+    // Get hourly rate and duration
+    const hourlyRate = isWeekend ? HOURLY_RATES.WEEKEND[capacityTier] : HOURLY_RATES.WEEKDAY[capacityTier];
+    const duration = isWeekend ? CRUISE_DURATIONS.WEEKEND : CRUISE_DURATIONS.WEEKDAY;
+    
+    // Calculate base cruise cost
+    const baseCruiseCost = hourlyRate * duration;
+    
+    // Add crew fee for groups >20 people
+    const crewFee = groupSize > 20 ? PRICING_DEFAULTS.EXTRA_CREW_FEE : 0;
+    
+    // Calculate subtotal (base + crew fee)
+    const subtotal = baseCruiseCost + crewFee;
+    
+    // Calculate tax and gratuity on subtotal
+    const tax = Math.floor(subtotal * (PRICING_DEFAULTS.TAX_RATE_BASIS_POINTS / 10000));
+    const gratuity = Math.floor(subtotal * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100));
+    
+    // Calculate total
     const total = subtotal + tax + gratuity;
+    
+    // Calculate deposit based on event date (30-day rule)
+    const today = new Date();
+    const daysUntilEvent = Math.ceil((eventDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    const depositPercent = daysUntilEvent >= PRICING_DEFAULTS.URGENCY_THRESHOLD_DAYS ? 
+      PRICING_DEFAULTS.DEPOSIT_PERCENT : 100;
+    const depositAmount = Math.floor(total * (depositPercent / 100));
     
     return {
       subtotal,
@@ -1368,8 +1732,8 @@ export class DatabaseStorage implements IStorage {
       gratuity,
       total,
       perPersonCost: Math.floor(total / groupSize),
-      depositAmount: Math.floor(total * 0.25),
-      depositPercent: 25,
+      depositAmount,
+      depositPercent,
       depositRequired: true,
       paymentSchedule: [],
       appliedDiscounts: [],
@@ -1384,24 +1748,68 @@ export class DatabaseStorage implements IStorage {
     promoCode?: string;
     templateId?: string;
   }): Promise<PricingPreview> {
-    // TODO: Implement full pricing calculation logic
-    const subtotal = params.items.reduce((sum, item) => sum + (item.unitPrice * item.qty), 0);
-    const tax = Math.floor(subtotal * 0.0825);
-    const gratuity = Math.floor(subtotal * 0.18);
-    const total = subtotal + tax + gratuity;
+    const { items, groupSize, projectDate } = params;
+    
+    // Import pricing constants
+    const { PRICING_DEFAULTS } = await import('@shared/constants');
+    
+    // Calculate subtotal from items
+    const subtotal = items.reduce((sum, item) => {
+      const itemTotal = (item.unitPrice || 0) * (item.qty || item.quantity || 1);
+      return sum + itemTotal;
+    }, 0);
+    
+    // Apply discount logic if promo code provided
+    let discountTotal = 0;
+    if (params.promoCode) {
+      const discountRule = await this.getDiscountRuleByCode(params.promoCode);
+      if (discountRule && discountRule.active) {
+        if (discountRule.discountType === 'percentage') {
+          discountTotal = Math.floor(subtotal * (discountRule.discountValue / 100));
+        } else if (discountRule.discountType === 'fixed_amount') {
+          discountTotal = Math.min(discountRule.discountValue * 100, subtotal); // Convert to cents and cap at subtotal
+        }
+      }
+    }
+    
+    // Calculate adjusted subtotal after discount
+    const adjustedSubtotal = subtotal - discountTotal;
+    
+    // Calculate tax and gratuity on adjusted subtotal
+    const tax = Math.floor(adjustedSubtotal * (PRICING_DEFAULTS.TAX_RATE_BASIS_POINTS / 10000));
+    const gratuity = Math.floor(adjustedSubtotal * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100));
+    
+    // Calculate total
+    const total = adjustedSubtotal + tax + gratuity;
+    
+    // Calculate deposit based on project date (30-day rule)
+    let depositPercent = PRICING_DEFAULTS.DEPOSIT_PERCENT;
+    let depositAmount = Math.floor(total * (depositPercent / 100));
+    
+    if (projectDate) {
+      const today = new Date();
+      const daysUntilEvent = Math.ceil((projectDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+      depositPercent = daysUntilEvent >= PRICING_DEFAULTS.URGENCY_THRESHOLD_DAYS ? 
+        PRICING_DEFAULTS.DEPOSIT_PERCENT : 100;
+      depositAmount = Math.floor(total * (depositPercent / 100));
+    }
     
     return {
-      subtotal,
-      discountTotal: 0,
+      subtotal: adjustedSubtotal,
+      discountTotal,
       tax,
       gratuity,
       total,
-      perPersonCost: params.groupSize ? Math.floor(total / params.groupSize) : 0,
-      depositAmount: Math.floor(total * 0.25),
-      depositPercent: 25,
+      perPersonCost: groupSize ? Math.floor(total / groupSize) : 0,
+      depositAmount,
+      depositPercent,
       depositRequired: true,
       paymentSchedule: [],
-      appliedDiscounts: [],
+      appliedDiscounts: params.promoCode ? [{
+        code: params.promoCode,
+        discountAmount: discountTotal,
+        description: `Discount applied: ${params.promoCode}`
+      }] : [],
       expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
     };
   }
@@ -2362,7 +2770,7 @@ export class DatabaseStorage implements IStorage {
     };
   }
 
-  // Availability operations - stub implementations for now
+  // ===== AVAILABILITY SEARCH - CORE BUSINESS LOGIC =====
   async searchNormalizedSlots(filters: {
     startDate: Date;
     endDate: Date;
@@ -2371,7 +2779,169 @@ export class DatabaseStorage implements IStorage {
     minDuration?: number;
     maxDuration?: number;
   }): Promise<NormalizedSlot[]> {
-    return [];
+    const { startDate, endDate, cruiseType, groupSize, minDuration, maxDuration } = filters;
+    const slots: NormalizedSlot[] = [];
+    
+    // Import the time slot functions dynamically to avoid circular dependency
+    const { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate } = await import('@shared/timeSlots');
+    
+    // Get all available boats
+    const allBoats = await this.getActiveBoats();
+    
+    // Get all products for pricing
+    const allProducts = await this.getProducts();
+    
+    // Generate slots for each date in the range
+    const currentDate = new Date(startDate);
+    while (currentDate <= endDate) {
+      const dateISO = currentDate.toISOString().split('T')[0];
+      
+      // Generate private cruise slots if requested
+      if (!cruiseType || cruiseType === 'private') {
+        const privateTimeSlots = getPrivateTimeSlotsForDate(currentDate);
+        
+        for (const timeSlot of privateTimeSlots) {
+          // Filter by duration if specified
+          if (minDuration && timeSlot.duration < minDuration) continue;
+          if (maxDuration && timeSlot.duration > maxDuration) continue;
+          
+          // Find suitable boats for the group size
+          const suitableBoats = allBoats.filter(boat => {
+            return !groupSize || boat.maxCapacity >= groupSize;
+          });
+          
+          // Find appropriate private cruise product for pricing
+          const dayOfWeek = currentDate.getDay();
+          let dayType = 'weekday';
+          if (dayOfWeek === 5) dayType = 'friday';
+          else if (dayOfWeek === 6) dayType = 'saturday';
+          else if (dayOfWeek === 0) dayType = 'sunday';
+          
+          // Find products that match the day type and group size
+          const matchingProducts = allProducts.filter(product => 
+            product.productType === 'private_cruise' &&
+            product.dayType === dayType &&
+            (!groupSize || !product.groupSize || product.groupSize >= groupSize) &&
+            product.active
+          );
+          
+          // Calculate pricing (use first matching product or default)
+          const baseProduct = matchingProducts[0];
+          const basePrice = baseProduct ? baseProduct.unitPrice * timeSlot.duration : 50000; // Default $500/hour
+          
+          // Create slot for each suitable boat
+          for (const boat of suitableBoats) {
+            const slotId = `private-${dateISO}-${timeSlot.startTime}-${timeSlot.endTime}-${boat.id}`;
+            
+            // Check if slot is already booked (simplified for now)
+            const existingBookings = await db.select().from(bookings).where(
+              and(
+                eq(bookings.boatId, boat.id),
+                eq(bookings.eventDate, currentDate),
+                eq(bookings.status, 'confirmed')
+              )
+            );
+            
+            const isBooked = existingBookings.some(booking => {
+              const bookingStart = booking.startTime?.getHours() || 0;
+              const bookingEnd = booking.endTime?.getHours() || 0;
+              const slotStart = parseInt(timeSlot.startTime.split(':')[0]);
+              const slotEnd = parseInt(timeSlot.endTime.split(':')[0]);
+              
+              // Check for time overlap
+              return (slotStart < bookingEnd && slotEnd > bookingStart);
+            });
+            
+            if (!isBooked) {
+              slots.push({
+                id: slotId,
+                cruiseType: 'private',
+                dateISO,
+                startTime: timeSlot.startTime,
+                endTime: timeSlot.endTime,
+                label: timeSlot.label,
+                duration: timeSlot.duration,
+                capacity: boat.maxCapacity,
+                availableCount: 1, // One boat slot
+                price: basePrice,
+                boatCandidates: [boat.id],
+                bookable: true,
+                held: false
+              });
+            }
+          }
+        }
+      }
+      
+      // Generate disco cruise slots if requested
+      if (!cruiseType || cruiseType === 'disco') {
+        const discoTimeSlots = getDiscoTimeSlotsForDate(currentDate);
+        
+        for (const timeSlot of discoTimeSlots) {
+          // Filter by duration if specified
+          if (minDuration && timeSlot.duration < minDuration) continue;
+          if (maxDuration && timeSlot.duration > maxDuration) continue;
+          
+          // Find disco cruise products for pricing
+          const discoProducts = allProducts.filter(product => 
+            product.productType === 'disco_cruise' && product.active
+          );
+          
+          const discoPrice = discoProducts[0]?.unitPrice || 8500; // Default $85 per person
+          
+          // Find boats suitable for disco cruises (typically larger boats)
+          const discoBoats = allBoats.filter(boat => boat.capacity >= 25); // Disco needs bigger boats
+          
+          if (discoBoats.length > 0) {
+            const slotId = `disco-${dateISO}-${timeSlot.startTime}-${timeSlot.endTime}`;
+            
+            // Simplified availability check for disco
+            const maxCapacity = Math.max(...discoBoats.map(b => b.maxCapacity));
+            const availableTickets = groupSize ? Math.max(0, maxCapacity - (groupSize || 0)) : maxCapacity;
+            
+            slots.push({
+              id: slotId,
+              cruiseType: 'disco',
+              dateISO,
+              startTime: timeSlot.startTime,
+              endTime: timeSlot.endTime,
+              label: timeSlot.label,
+              duration: timeSlot.duration,
+              capacity: maxCapacity,
+              availableCount: availableTickets,
+              price: discoPrice,
+              boatCandidates: discoBoats.map(b => b.id),
+              bookable: availableTickets > 0,
+              held: false
+            });
+          }
+        }
+      }
+      
+      // Move to next date
+      currentDate.setDate(currentDate.getDate() + 1);
+    }
+    
+    // Apply additional filtering by group size
+    const filteredSlots = slots.filter(slot => {
+      if (groupSize && slot.cruiseType === 'private') {
+        return slot.capacity >= groupSize;
+      }
+      if (groupSize && slot.cruiseType === 'disco') {
+        return slot.availableCount >= groupSize;
+      }
+      return true;
+    });
+    
+    console.log(`🎯 Generated ${filteredSlots.length} normalized slots for search:`, {
+      dateRange: `${startDate.toISOString().split('T')[0]} to ${endDate.toISOString().split('T')[0]}`,
+      cruiseType: cruiseType || 'all',
+      groupSize: groupSize || 'any',
+      privateSlots: filteredSlots.filter(s => s.cruiseType === 'private').length,
+      discoSlots: filteredSlots.filter(s => s.cruiseType === 'disco').length
+    });
+    
+    return filteredSlots;
   }
 
   async holdSlot(slotId: string, sessionId: string, duration: number = 15): Promise<SlotHold> {
