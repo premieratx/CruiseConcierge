@@ -46,6 +46,72 @@ interface DiscoSlotCard {
 // Use shared formatTimeForDisplay from formatters
 const formatTime = formatTimeForDisplay;
 
+// Boat color mapping system
+const getBoatColor = (boatName: string): string => {
+  const name = boatName.toLowerCase();
+  if (name.includes('day tripper')) return 'purple';
+  if (name.includes('meeseeks') || name.includes('the irony')) return 'red';
+  if (name.includes('clever girl')) return 'orange';
+  if (name.includes('big papa') || name.includes('large')) return 'blue';
+  return 'gray';
+};
+
+// Tab color mapping
+const TAB_COLORS = {
+  all: 'gray',
+  dayTripper: 'purple',
+  medium: 'red',
+  large: 'orange',
+  disco: 'yellow'
+};
+
+// Color utility functions
+const getColorClasses = (color: string, variant: 'tab' | 'card' | 'disco') => {
+  if (variant === 'tab') {
+    switch (color) {
+      case 'purple':
+        return 'data-[state=active]:bg-purple-100 data-[state=active]:border-purple-500 data-[state=active]:text-purple-700 hover:bg-purple-50';
+      case 'red':
+        return 'data-[state=active]:bg-red-100 data-[state=active]:border-red-500 data-[state=active]:text-red-700 hover:bg-red-50';
+      case 'orange':
+        return 'data-[state=active]:bg-orange-100 data-[state=active]:border-orange-500 data-[state=active]:text-orange-700 hover:bg-orange-50';
+      case 'blue':
+        return 'data-[state=active]:bg-blue-100 data-[state=active]:border-blue-500 data-[state=active]:text-blue-700 hover:bg-blue-50';
+      case 'yellow':
+        return 'data-[state=active]:bg-yellow-100 data-[state=active]:border-yellow-500 data-[state=active]:text-yellow-700 hover:bg-yellow-50';
+      default:
+        return '';
+    }
+  } else if (variant === 'card') {
+    switch (color) {
+      case 'purple':
+        return 'border-l-4 border-l-purple-500';
+      case 'red':
+        return 'border-l-4 border-l-red-500';
+      case 'orange':
+        return 'border-l-4 border-l-orange-500';
+      case 'blue':
+        return 'border-l-4 border-l-blue-500';
+      default:
+        return 'border-l-4 border-l-gray-400';
+    }
+  } else if (variant === 'disco') {
+    return 'bg-yellow-50 border-yellow-400 hover:bg-yellow-100';
+  }
+  return '';
+};
+
+const getBoatTextColor = (boatName: string): string => {
+  const color = getBoatColor(boatName);
+  switch (color) {
+    case 'purple': return 'text-purple-700';
+    case 'red': return 'text-red-700';
+    case 'orange': return 'text-orange-700';
+    case 'blue': return 'text-blue-700';
+    default: return 'text-gray-700';
+  }
+};
+
 // Helper function to check if two time intervals overlap
 // Intervals [a1, a2] and [b1, b2] overlap if a1 < b2 AND a2 > b1
 const intervalsOverlap = (a1: Date, a2: Date, b1: Date, b2: Date): boolean => {
@@ -137,10 +203,11 @@ const generateTimeBlocks = (date: Date, boats: Boat[], bookings: Booking[], prod
 function CalendarView() {
   const [selectedWeek, setSelectedWeek] = useState<Date>(new Date());
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [selectedTab, setSelectedTab] = useState<string>("all");
+  const [selectedTab, setSelectedTab] = useState<string>("dayTripper"); // Default to Day Tripper
   const [viewMode, setViewMode] = useState<'week' | 'day'>('week');
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [selectedCapacity, setSelectedCapacity] = useState<number>(1); // Default to show all boats
+  const [flashDayTripper, setFlashDayTripper] = useState(true);
   const { toast } = useToast();
 
   // Get the start of the week (Sunday)
@@ -150,6 +217,14 @@ function CalendarView() {
     date.setDate(weekStart.getDate() + i);
     return date;
   });
+
+  // Flash Day Tripper tab on component mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFlashDayTripper(false);
+    }, 2000); // Flash for 2 seconds
+    return () => clearTimeout(timer);
+  }, []);
 
   // When date picker selects a date, update the week view
   const handleDateSelect = (date: Date | undefined) => {
@@ -310,10 +385,15 @@ function CalendarView() {
       });
     };
 
+    const boatColor = getBoatColor(block.boatName);
+    const boatColorClasses = getColorClasses(boatColor, 'card');
+    const boatTextColor = getBoatTextColor(block.boatName);
+
     return (
       <div
         className={cn(
           "p-1.5 rounded-md border cursor-pointer transition-all hover:shadow-sm",
+          boatColorClasses, // Add boat-specific left border
           block.status === 'available' 
             ? "bg-green-100 border-green-400 hover:bg-green-200" 
             : block.status === 'blocked'
@@ -326,7 +406,7 @@ function CalendarView() {
         <div className="font-semibold text-xs text-gray-800">
           {formatTime(block.startTime)} - {formatTime(block.endTime)}
         </div>
-        <div className="text-xs font-medium text-gray-700">
+        <div className={cn("text-xs font-medium", boatTextColor)}>
           <Ship className="inline w-2.5 h-2.5 mr-1" />
           {block.boatName}
         </div>
@@ -381,6 +461,7 @@ function CalendarView() {
                 key={boat.id}
                 className={cn(
                   "text-xs px-1.5 py-0.5 rounded cursor-pointer transition-all font-medium",
+                  getColorClasses(getBoatColor(boat.name), 'card'), // Add boat color border
                   isBooked 
                     ? "bg-red-200 text-red-800 border border-red-400" 
                     : "bg-green-100 text-green-800 hover:bg-green-200 border border-green-400"
@@ -396,7 +477,7 @@ function CalendarView() {
                 }}
                 data-testid={`boat-toggle-${boat.id}-${startTime}`}
               >
-                {boat.name}: {isBooked ? 'Booked' : 'Available'}
+                <span className={getBoatTextColor(boat.name)}>{boat.name}</span>: {isBooked ? 'Booked' : 'Available'}
               </div>
             );
           })}
@@ -410,15 +491,16 @@ function CalendarView() {
     const available = slot.ticketCap - slot.ticketsSold;
     
     return (
-      <Card className="mb-1">
+      <Card className={cn("mb-1 border-l-4 border-l-yellow-500", getColorClasses('yellow', 'disco'))}>
         <CardContent className="p-2">
           <div className="flex items-center justify-between">
             <div>
-              <div className="font-semibold text-xs">
+              <div className="font-semibold text-xs text-yellow-800">
                 {formatTime(new Date(slot.startTime).toTimeString().slice(0, 5))} - 
                 {formatTime(new Date(slot.endTime).toTimeString().slice(0, 5))}
               </div>
-              <div className="text-xs text-muted-foreground">
+              <div className="text-xs text-yellow-700">
+                <Anchor className="inline w-2.5 h-2.5 mr-1" />
                 Disco Cruise
               </div>
             </div>
@@ -433,8 +515,8 @@ function CalendarView() {
                 <Minus className="h-4 w-4" />
               </Button>
               <div className="text-center min-w-[80px]">
-                <div className="font-bold text-xs">{available} of {slot.ticketCap}</div>
-                <div className="text-xs text-muted-foreground">available</div>
+                <div className="font-bold text-xs text-yellow-800">{available} of {slot.ticketCap}</div>
+                <div className="text-xs text-yellow-700">available</div>
               </div>
               <Button
                 variant="outline"
@@ -611,16 +693,31 @@ function CalendarView() {
         <CardContent>
           <Tabs value={selectedTab} onValueChange={setSelectedTab}>
             <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="all" data-testid="tab-all">
+              <TabsTrigger value="all" data-testid="tab-all" className="">
                 All Boats
               </TabsTrigger>
-              <TabsTrigger value="dayTripper" data-testid="tab-daytripper">
+              <TabsTrigger 
+                value="dayTripper" 
+                data-testid="tab-daytripper"
+                className={cn(
+                  getColorClasses(TAB_COLORS.dayTripper, 'tab'),
+                  flashDayTripper && "animate-pulse"
+                )}
+              >
                 Day Tripper (14)
               </TabsTrigger>
-              <TabsTrigger value="medium" data-testid="tab-medium">
+              <TabsTrigger 
+                value="medium" 
+                data-testid="tab-medium"
+                className={getColorClasses(TAB_COLORS.medium, 'tab')}
+              >
                 25-Person Boats
               </TabsTrigger>
-              <TabsTrigger value="large" data-testid="tab-large">
+              <TabsTrigger 
+                value="large" 
+                data-testid="tab-large"
+                className={getColorClasses(TAB_COLORS.large, 'tab')}
+              >
                 Clever Girl (50)
               </TabsTrigger>
             </TabsList>
