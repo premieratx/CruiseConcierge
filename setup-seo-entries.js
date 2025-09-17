@@ -52,7 +52,7 @@ const seoEntries = [
         "@type": "LocalBusiness",
         "name": "Premier Party Cruises",
         "url": "https://premierpartycruises.com",
-        "telephone": "+1-512-123-4567",
+        "telephone": "+1-512-488-5892",
         "address": {
           "@type": "PostalAddress",
           "addressLocality": "Austin",

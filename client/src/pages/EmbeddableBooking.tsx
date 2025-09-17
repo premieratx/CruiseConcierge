@@ -282,7 +282,7 @@ export default function EmbeddableBooking() {
             <div className="hidden sm:flex items-center space-x-4 text-xs text-gray-600 dark:text-gray-300">
               <div className="flex items-center space-x-1">
                 <Phone className="h-3 w-3" />
-                <span data-testid="text-phone">(512) 555-BOAT</span>
+                <span data-testid="text-phone">(512) 488-5892</span>
               </div>
             </div>
           </div>

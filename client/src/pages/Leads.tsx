@@ -595,7 +595,7 @@ function CreateLeadModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
               type="tel"
               value={formData.phone}
               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-              placeholder="(512) 555-0123"
+              placeholder="(512) 488-5892"
               data-testid="input-new-lead-phone"
             />
           </div>

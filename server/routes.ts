@@ -604,7 +604,7 @@ async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: 
           <p style="margin: 0;"><strong>🎉 Ready to book?</strong> Click the link above to secure your date with a deposit, or reply to this email with any questions!</p>
         </div>
         
-        <p><strong>Questions?</strong> Reply to this email or call us at <strong>(512) 555-BOAT</strong>!</p>
+        <p><strong>Questions?</strong> Reply to this email or call us at <strong>(512) 488-5892</strong>!</p>
         
         <p style="margin-top: 30px;">
           Best regards,<br>
@@ -622,7 +622,7 @@ async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: 
   // Use Mailgun service (which is configured with valid credentials)
   return await mailgunService.send({
     to: email,
-    from: process.env.MAILGUN_FROM || 'quotes@premierpartycruises.com',
+    from: process.env.MAILGUN_FROM || 'clientservices@premierpartycruises.com',
     subject: '🚢 Your Party Cruise Quote is Ready!',
     html
   });
@@ -1216,7 +1216,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         {
           customerName: "Mikayla Hermenau",
           email: "mikayla.hermenau@email.com",
-          phone: "+1-512-555-0101",
+          phone: "+1-512-488-5892",
           cruiseDate: "2025-09-19",
           startTime: "12:00",
           endTime: "16:00",
@@ -1231,7 +1231,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         {
           customerName: "Jenna Steininger", 
           email: "jenna.steininger@email.com",
-          phone: "+1-512-555-0102",
+          phone: "+1-512-488-5892",
           cruiseDate: "2025-09-19",
           startTime: "12:00",
           endTime: "16:00", 
@@ -1246,7 +1246,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         {
           customerName: "James Harrison",
           email: "james.harrison@email.com", 
-          phone: "+1-512-555-0103",
+          phone: "+1-512-488-5892",
           cruiseDate: "2025-09-19",
           startTime: "12:00",
           endTime: "16:00",
@@ -1261,7 +1261,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         {
           customerName: "Robert",
           email: "robert@email.com",
-          phone: "+1-512-555-0104", 
+          phone: "+1-512-488-5892", 
           cruiseDate: "2025-09-19",
           startTime: "12:00",
           endTime: "16:00",
@@ -1276,7 +1276,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         {
           customerName: "Shawnette Ruffins",
           email: "shawnette.ruffins@email.com",
-          phone: "+1-512-555-0105",
+          phone: "+1-512-488-5892",
           cruiseDate: "2025-09-19", 
           startTime: "12:00",
           endTime: "16:00",
@@ -1291,7 +1291,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         {
           customerName: "Abbie Ralston",
           email: "abbie.ralston@email.com",
-          phone: "+1-512-555-0106",
+          phone: "+1-512-488-5892",
           cruiseDate: "2025-09-19",
           startTime: "16:30", 
           endTime: "20:30",
@@ -1306,7 +1306,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         {
           customerName: "Austin Lindquist",
           email: "austin.lindquist@email.com",
-          phone: "+1-512-555-0107",
+          phone: "+1-512-488-5892",
           cruiseDate: "2025-09-19",
           startTime: "12:00",
           endTime: "16:00",
@@ -1321,7 +1321,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         {
           customerName: "Casey Dwyer",
           email: "casey.dwyer@email.com",
-          phone: "+1-512-555-0108",
+          phone: "+1-512-488-5892",
           cruiseDate: "2025-09-19",
           startTime: "12:00", 
           endTime: "16:00",
@@ -1922,7 +1922,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           try {
             await goHighLevelService.send({
               to: contact.phone,
-              body: `Hi ${contact.name}! 🚢 Thanks for your interest in Premier Party Cruises! We're reviewing your request for a ${eventType || data?.eventType || 'party'} cruise. We'll send you a quote shortly. Questions? Call us at (512) 555-BOAT!`
+              body: `Hi ${contact.name}! 🚢 Thanks for your interest in Premier Party Cruises! We're reviewing your request for a ${eventType || data?.eventType || 'party'} cruise. We'll send you a quote shortly. Questions? Call us at (512) 488-5892!`
             });
             console.log("✅ SMS sent to customer:", contact.phone);
           } catch (smsError) {
@@ -3186,7 +3186,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               
               ${personalMessage ? `<p style="background: #f0f9ff; padding: 15px; border-radius: 8px; margin: 20px 0;"><strong>Personal Message:</strong><br>${personalMessage}</p>` : ''}
               
-              <p>Questions? Reply to this email or call us at (512) 555-BOAT!</p>
+              <p>Questions? Reply to this email or call us at (512) 488-5892!</p>
               
               <p style="margin-top: 30px;">
                 Best regards,<br>
@@ -3205,7 +3205,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           to: customerInfo.email,
           subject: '🚢 Your Party Cruise Quote is Ready!',
           html,
-          from: process.env.MAILGUN_FROM || 'quotes@premierpartycruises.com'
+          from: process.env.MAILGUN_FROM || 'clientservices@premierpartycruises.com'
         });
       } else if (delivery === 'sms' && customerInfo.phone) {
         const message = `Hi ${customerInfo.name || 'Valued Customer'}! 🚢 Your Premier Party Cruises quote is ready. Total: $${(quote.total / 100).toFixed(2)}. View details: ${getFullUrl(`/quote/${quote.id}`)}`;
@@ -3416,7 +3416,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const testData = {
         name: req.body.name || 'Test User Integration',
         email: req.body.email || `test-${Date.now()}@example.com`,
-        phone: req.body.phone || '512-123-4567',
+        phone: req.body.phone || '512-488-5892',
         eventType: req.body.eventType || 'birthday',
         eventTypeLabel: req.body.eventTypeLabel || 'Birthday Party',
         groupSize: req.body.groupSize || 25,

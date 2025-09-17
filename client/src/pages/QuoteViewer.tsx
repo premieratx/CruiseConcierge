@@ -272,8 +272,8 @@ export default function QuoteViewer() {
                 <p className="font-semibold text-gray-900">Premier Party Cruises</p>
                 <p className="text-gray-600">1112 S Lakeshore Blvd</p>
                 <p className="text-gray-600">Austin, TX 78741</p>
-                <p className="text-gray-600">(512) 565-6209</p>
-                <p className="text-gray-600">info@premierpartycruises.com</p>
+                <p className="text-gray-600">(512) 488-5892</p>
+                <p className="text-gray-600">clientservices@premierpartycruises.com</p>
               </div>
             </div>
             
@@ -674,7 +674,7 @@ export default function QuoteViewer() {
         {/* Footer */}
         <div className="mt-12 pt-6 border-t text-center text-sm text-gray-500">
           <p>Thank you for choosing Premier Party Cruises!</p>
-          <p>Questions? Call us at (512) 565-6209 or email info@premierpartycruises.com</p>
+          <p>Questions? Call us at (512) 488-5892 or email clientservices@premierpartycruises.com</p>
         </div>
       </div>
     </div>

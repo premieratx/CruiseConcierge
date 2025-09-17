@@ -871,7 +871,7 @@ export default function EmbeddableChatbot() {
                     </Button>
                     
                     <p className="text-xs text-gray-500">
-                      Questions? Call us at (512) 555-BOAT
+                      Questions? Call us at (512) 488-5892
                     </p>
                   </div>
                 </motion.div>

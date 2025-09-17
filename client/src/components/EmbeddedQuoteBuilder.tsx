@@ -169,7 +169,7 @@ export function EmbeddedQuoteBuilder({ pageContext, className }: EmbeddedQuoteBu
       console.error('Chat error:', error);
       toast({
         title: 'Connection Error',
-        description: 'Please try again or call us at (512) 555-BOAT',
+        description: 'Please try again or call us at (512) 488-5892',
         variant: 'destructive',
       });
     } finally {

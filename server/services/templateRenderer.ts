@@ -363,7 +363,7 @@ export class TemplateRenderer {
         </div>
 
         <div class="footer">
-            <p>Questions? Call us at (512) 555-BOAT or email info@premiercruises.com</p>
+            <p>Questions? Call us at (512) 488-5892 or email clientservices@premierpartycruises.com</p>
             <p>This quote is valid for 7 days and subject to availability.</p>
         </div>
     </div>
@@ -416,7 +416,7 @@ ${pricing.paymentSchedule.length > 1 ? `Final Payment: ${this.formatCurrency(pri
 ${pricing.urgencyMessage ? `⚡ ${pricing.urgencyMessage}` : ''}
 
 Book now: [BOOKING_LINK]
-Questions? Call (512) 555-BOAT
+Questions? Call (512) 488-5892
 
 Quote expires: ${pricing.expiresAt ? this.formatDate(pricing.expiresAt) : '7 days from now'}
     `.trim();

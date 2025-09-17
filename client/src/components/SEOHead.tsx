@@ -84,7 +84,7 @@ export default function SEOHead({
           "name": "Premier Party Cruises",
           "description": "Austin's premier boat rental and party cruise experience on Lake Travis",
           "url": baseUrl,
-          "telephone": "+1-512-123-4567",
+          "telephone": "+1-512-488-5892",
           "address": {
             "@type": "PostalAddress",
             "addressLocality": "Austin",
@@ -355,8 +355,8 @@ export function generateBusinessSchema() {
     "alternateName": "PPC Austin",
     "description": "Austin's premier boat rental and party cruise experience on Lake Travis. We specialize in private charters, disco cruises, bachelor parties, and corporate events.",
     "url": "https://premierppartycruises.com",
-    "telephone": "+1-512-123-4567",
-    "email": "info@premierppartycruises.com",
+    "telephone": "+1-512-488-5892",
+    "email": "clientservices@premierpartycruises.com",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "123 Lake Travis Blvd",

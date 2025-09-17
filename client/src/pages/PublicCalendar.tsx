@@ -218,11 +218,11 @@ export default function PublicCalendar() {
             <div className="hidden lg:flex items-center space-x-6 text-sm text-gray-600 dark:text-gray-300">
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4" />
-                <span data-testid="text-phone">(512) 555-BOAT</span>
+                <span data-testid="text-phone">(512) 488-5892</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4" />
-                <span data-testid="text-email">hello@premierpartycruises.com</span>
+                <span data-testid="text-email">clientservices@premierpartycruises.com</span>
               </div>
             </div>
           </div>
@@ -637,11 +637,11 @@ export default function PublicCalendar() {
               <div className="space-y-2 text-gray-300">
                 <div className="flex items-center gap-2">
                   <Phone className="h-4 w-4" />
-                  <span data-testid="text-footer-phone">(512) 555-BOAT</span>
+                  <span data-testid="text-footer-phone">(512) 488-5892</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="h-4 w-4" />
-                  <span data-testid="text-footer-email">hello@premierpartycruises.com</span>
+                  <span data-testid="text-footer-email">clientservices@premierpartycruises.com</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin className="h-4 w-4" />

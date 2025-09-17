@@ -502,11 +502,11 @@ export default function BookingSuccess() {
               <div className="flex flex-wrap justify-center gap-6 text-sm">
                 <div className="flex items-center gap-2">
                   <Phone className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                  <span data-testid="text-contact-phone">(512) 555-BOAT</span>
+                  <span data-testid="text-contact-phone">(512) 488-5892</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <Mail className="h-4 w-4 text-blue-600 dark:text-blue-400" />
-                  <span data-testid="text-contact-email">hello@premierpartycruises.com</span>
+                  <span data-testid="text-contact-email">clientservices@premierpartycruises.com</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-blue-600 dark:text-blue-400" />

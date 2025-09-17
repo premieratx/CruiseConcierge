@@ -311,7 +311,7 @@ export default function BachelorParty() {
     } catch (error) {
       toast({
         title: "Something went wrong",
-        description: "Please try again or call us directly at (512) 555-0123",
+        description: "Please try again or call us directly at (512) 488-5892",
         variant: "destructive"
       });
     }
@@ -865,7 +865,7 @@ export default function BachelorParty() {
               <div className="mt-8 space-y-2">
                 <p className="text-lg">
                   <Phone className="inline h-5 w-5 mr-2" />
-                  Call now: <span className="font-bold">(512) 555-0123</span>
+                  Call now: <span className="font-bold">(512) 488-5892</span>
                 </p>
                 <p className="text-base text-gray-200">
                   Available Friday & Saturday • Up to 50 People • Starting $85/person
@@ -908,7 +908,7 @@ export default function BachelorParty() {
                   type="tel"
                   value={contactForm.phone}
                   onChange={(e) => setContactForm(prev => ({ ...prev, phone: e.target.value }))}
-                  placeholder="(512) 555-0123"
+                  placeholder="(512) 488-5892"
                   required
                   data-testid="input-contact-phone"
                 />

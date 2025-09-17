@@ -2368,7 +2368,7 @@ export default function EmbeddableBookingFlow() {
                 </div>
 
                 <div className="text-sm text-slate-500 dark:text-slate-500">
-                  Questions? Call us at <a href="tel:+15127737117" className="text-blue-600 hover:underline">(512) 773-7117</a>
+                  Questions? Call us at <a href="tel:+15124885892" className="text-blue-600 hover:underline">(512) 488-5892</a>
                 </div>
               </motion.div>
             )}

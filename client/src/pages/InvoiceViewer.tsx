@@ -171,8 +171,8 @@ export default function InvoiceViewer() {
                 <p className="font-semibold text-gray-900">Premier Party Cruises</p>
                 <p className="text-gray-600">1112 S Lakeshore Blvd</p>
                 <p className="text-gray-600">Austin, TX 78741</p>
-                <p className="text-gray-600">(512) 565-6209</p>
-                <p className="text-gray-600">info@premierpartycruises.com</p>
+                <p className="text-gray-600">(512) 488-5892</p>
+                <p className="text-gray-600">clientservices@premierpartycruises.com</p>
               </div>
             </div>
             
@@ -389,7 +389,7 @@ export default function InvoiceViewer() {
         
         {/* Footer */}
         <div className="text-center text-sm text-gray-500 pt-8 border-t">
-          <p>Questions about this invoice? Contact us at info@premierpartycruises.com or (512) 565-6209</p>
+          <p>Questions about this invoice? Contact us at clientservices@premierpartycruises.com or (512) 488-5892</p>
           <p className="mt-2">Premier Party Cruises | Lake Travis, Texas</p>
         </div>
       </div>

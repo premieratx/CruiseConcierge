@@ -900,7 +900,7 @@ export default function BookingFlow() {
                               <FormItem>
                                 <FormLabel data-testid="label-phone">Phone Number</FormLabel>
                                 <FormControl>
-                                  <Input type="tel" placeholder="+1 (512) 555-0123" {...field} data-testid="input-phone" />
+                                  <Input type="tel" placeholder="+1 (512) 488-5892" {...field} data-testid="input-phone" />
                                 </FormControl>
                                 <FormDescription>
                                   For booking confirmations and day-of coordination
@@ -1366,11 +1366,11 @@ export default function BookingFlow() {
                   <div className="space-y-2 text-sm text-gray-600 dark:text-gray-300">
                     <div className="flex items-center gap-2">
                       <Phone className="h-4 w-4" />
-                      <span data-testid="text-help-phone">(512) 555-BOAT</span>
+                      <span data-testid="text-help-phone">(512) 488-5892</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Mail className="h-4 w-4" />
-                      <span data-testid="text-help-email">hello@premierpartycruises.com</span>
+                      <span data-testid="text-help-email">clientservices@premierpartycruises.com</span>
                     </div>
                   </div>
                 </CardContent>

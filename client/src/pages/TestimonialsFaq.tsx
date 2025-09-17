@@ -179,7 +179,7 @@ const faqCategories = {
     faqs: [
       {
         question: 'How do I book a cruise with Premier Party Cruises?',
-        answer: 'Booking is easy! You can book online through our website, call us at (512) 123-4567, or fill out our contact form. We\'ll work with you to customize the perfect experience for your group. For private charters, we recommend booking at least 2-3 weeks in advance, especially during peak season (March-October).'
+        answer: 'Booking is easy! You can book online through our website, call us at (512) 488-5892, or fill out our contact form. We\'ll work with you to customize the perfect experience for your group. For private charters, we recommend booking at least 2-3 weeks in advance, especially during peak season (March-October).'
       },
       {
         question: 'What deposit is required to secure my reservation?',
@@ -825,11 +825,11 @@ export default function TestimonialsFaq() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <div className="flex items-center text-gray-700 dark:text-gray-300">
                   <Phone className="h-4 w-4 mr-2 text-brand-blue" />
-                  <span className="font-semibold">(512) 123-4567</span>
+                  <span className="font-semibold">(512) 488-5892</span>
                 </div>
                 <div className="flex items-center text-gray-700 dark:text-gray-300">
                   <Mail className="h-4 w-4 mr-2 text-brand-blue" />
-                  <span className="font-semibold">info@premierppartycruises.com</span>
+                  <span className="font-semibold">clientservices@premierpartycruises.com</span>
                 </div>
                 <Button 
                   onClick={handleGetQuote}

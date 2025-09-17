@@ -370,7 +370,7 @@ export default function BacheloretteParty() {
     } catch (error) {
       toast({
         title: "Something went wrong",
-        description: "Please try again or call us directly at (512) 555-0123",
+        description: "Please try again or call us directly at (512) 488-5892",
         variant: "destructive"
       });
     }
@@ -1060,7 +1060,7 @@ export default function BacheloretteParty() {
                         type="tel"
                         value={contactForm.phone}
                         onChange={(e) => setContactForm({...contactForm, phone: e.target.value})}
-                        placeholder="(512) 555-0123"
+                        placeholder="(512) 488-5892"
                         className="mt-2"
                         data-testid="input-phone"
                         required
@@ -1134,11 +1134,11 @@ export default function BacheloretteParty() {
             <div className="flex flex-col sm:flex-row gap-8 justify-center items-center text-brand-black">
               <div className="flex items-center gap-2" data-testid="contact-phone">
                 <Phone className="w-6 h-6" />
-                <span className="text-lg font-bold">(512) 555-0123</span>
+                <span className="text-lg font-bold">(512) 488-5892</span>
               </div>
               <div className="flex items-center gap-2" data-testid="contact-email">
                 <Mail className="w-6 h-6" />
-                <span className="text-lg font-bold">hello@premierpantycruises.com</span>
+                <span className="text-lg font-bold">clientservices@premierpartycruises.com</span>
               </div>
             </div>
             <p className="mt-4 text-brand-black">

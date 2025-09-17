@@ -269,7 +269,7 @@ export default function Home() {
     } catch (error) {
       toast({
         title: "Something went wrong",
-        description: "Please try again or call us directly at (512) 555-0123",
+        description: "Please try again or call us directly at (512) 488-5892",
         variant: "destructive"
       });
     }
@@ -933,7 +933,7 @@ export default function Home() {
                     <Phone className="h-8 w-8 text-brand-blue flex-shrink-0" />
                     <div>
                       <h4 className="font-bold text-lg tracking-wide">Call Us</h4>
-                      <p className="text-gray-600 dark:text-gray-300">(512) 555-0123</p>
+                      <p className="text-gray-600 dark:text-gray-300">(512) 488-5892</p>
                       <p className="text-sm text-gray-500">Available 7 days a week</p>
                     </div>
                   </CardContent>
@@ -944,7 +944,7 @@ export default function Home() {
                     <Mail className="h-8 w-8 text-brand-blue flex-shrink-0" />
                     <div>
                       <h4 className="font-bold text-lg tracking-wide">Email Us</h4>
-                      <p className="text-gray-600 dark:text-gray-300">info@premierpartycruises.com</p>
+                      <p className="text-gray-600 dark:text-gray-300">clientservices@premierpartycruises.com</p>
                       <p className="text-sm text-gray-500">Response within 24 hours</p>
                     </div>
                   </CardContent>

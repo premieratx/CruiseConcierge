@@ -618,7 +618,7 @@ export default function Projects() {
                 type="email"
                 value={newProjectData.contactEmail}
                 onChange={(e) => setNewProjectData({ ...newProjectData, contactEmail: e.target.value })}
-                placeholder="john@example.com"
+                placeholder="customer@example.com"
                 data-testid="input-contact-email"
               />
             </div>
@@ -628,7 +628,7 @@ export default function Projects() {
                 id="contact-phone"
                 value={newProjectData.contactPhone}
                 onChange={(e) => setNewProjectData({ ...newProjectData, contactPhone: e.target.value })}
-                placeholder="(555) 123-4567"
+                placeholder="(512) 488-5892"
                 data-testid="input-contact-phone"
               />
             </div>

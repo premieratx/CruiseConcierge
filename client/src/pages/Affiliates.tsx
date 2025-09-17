@@ -255,7 +255,7 @@ export default function Affiliates() {
                       <FormItem>
                         <FormLabel>Phone</FormLabel>
                         <FormControl>
-                          <Input {...field} placeholder="(512) 555-0123" data-testid="input-phone" />
+                          <Input {...field} placeholder="(512) 488-5892" data-testid="input-phone" />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

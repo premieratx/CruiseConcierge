@@ -23,7 +23,7 @@ class MailgunService implements EmailService {
     
     this.domain = domain;
     // Ensure from address uses the correct Mailgun domain format
-    const fromEmail = domain ? `noreply@${domain}` : 'noreply@premierpartycruises.com';
+    const fromEmail = domain ? `noreply@${domain}` : 'clientservices@premierpartycruises.com';
     this.from = process.env.MAILGUN_FROM || fromEmail; // Simple email format without display name
     this.baseUrl = process.env.MAILGUN_API_BASE_URL || 'https://api.mailgun.net/v3';
   }

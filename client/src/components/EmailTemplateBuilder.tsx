@@ -214,7 +214,7 @@ export default function EmailTemplateBuilder({ template, onSave, onCancel }: Ema
     } else if (type === 'footer') {
       newComponent.properties = {
         ...newComponent.properties,
-        content: 'Premier Party Cruises | (512) 565-6209 | info@premierpartycruises.com',
+        content: 'Premier Party Cruises | (512) 488-5892 | clientservices@premierpartycruises.com',
         backgroundColor: '#F3F4F6',
         textColor: '#6B7280',
       };

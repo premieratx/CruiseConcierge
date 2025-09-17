@@ -89,7 +89,7 @@ export async function sendQuoteEmail(
           </a>
         </div>
         
-        <p>Questions? Reply to this email or call us at (512) 555-BOAT!</p>
+        <p>Questions? Reply to this email or call us at (512) 488-5892!</p>
         
         <p style="margin-top: 30px;">
           Best regards,<br>
@@ -106,7 +106,7 @@ export async function sendQuoteEmail(
 
   return await sendEmail({
     to: customerEmail,
-    from: process.env.SENDGRID_FROM_EMAIL || 'quotes@premierpartycruises.com',
+    from: process.env.SENDGRID_FROM_EMAIL || 'clientservices@premierpartycruises.com',
     subject: '🚢 Your Party Cruise Quote is Ready!',
     html
   });

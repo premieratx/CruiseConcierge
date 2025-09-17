@@ -577,11 +577,11 @@ export function CorporateBookingDialog({
                   <div className="flex items-center justify-center gap-4 mt-2 text-xs text-gray-500">
                     <div className="flex items-center gap-1">
                       <Phone className="h-3 w-3" />
-                      (512) 123-4567
+                      (512) 488-5892
                     </div>
                     <div className="flex items-center gap-1">
                       <Mail className="h-3 w-3" />
-                      corporate@premierpartycruises.com
+                      clientservices@premierpartycruises.com
                     </div>
                   </div>
                 </motion.div>
