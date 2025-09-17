@@ -135,6 +135,9 @@ function Router() {
       {/* Admin SEO Routes */}
       <Route path="/admin/seo" component={SEOManagement} />
       
+      {/* AI Media Library */}
+      <Route path="/admin/media" component={lazy(() => import('./pages/admin/MediaLibrary'))} />
+      
       {/* Public Blog Routes - Specific routes must come before generic ones */}
       <Route path="/blog" component={Blog} />
       <Route path="/blog/category/:slug" component={BlogCategory} />

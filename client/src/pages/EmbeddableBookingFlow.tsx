@@ -1103,12 +1103,12 @@ export default function EmbeddableBookingFlow() {
       return;
     }
     
-    // Comprehensive validation including contact information (required for payment)
-    const validation = validateBookingData(formData, cruiseType, true);
+    // Streamlined validation - ONLY check essential booking details, NOT contact info
+    const validation = validateBookingData(formData, cruiseType, false); // false = no contact info required!
     if (!validation.isValid) {
-      console.log('💳 Validation failed:', validation.errors);
+      console.log('💳 Basic validation failed:', validation.errors);
       toast({
-        title: "Incomplete Information",
+        title: "Please Complete Selection",
         description: validation.errors[0], // Show first error
         variant: "destructive",
       });
@@ -1472,31 +1472,54 @@ export default function EmbeddableBookingFlow() {
                   </div>
                 </div>
 
-                {/* Calendar Selection */}
-                <Card className="max-w-md mx-auto bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm">
-                  <CardHeader className="text-center">
-                    <CardTitle className="flex items-center justify-center gap-2">
-                      <CalendarIcon className="h-5 w-5 text-blue-600" />
-                      When's your event?
-                    </CardTitle>
-                    <CardDescription>Select your preferred date</CardDescription>
-                  </CardHeader>
-                  <CardContent>
-                    <CalendarComponent
-                      mode="single"
-                      selected={formData.eventDate}
-                      onSelect={(date) => {
-                        if (date) {
-                          setFormData(prev => ({ ...prev, eventDate: date }));
-                          proceedToComparison(date);
-                        }
-                      }}
-                      disabled={(date) => !isDateAvailable(date)}
-                      className="rounded-md border-0"
-                      data-testid="calendar-selector"
-                    />
-                  </CardContent>
-                </Card>
+                {/* Calendar Selection - Enhanced Responsive Design */}
+                <div className="w-full max-w-lg mx-auto px-2 sm:px-4">
+                  <Card className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm w-full">
+                    <CardHeader className="text-center">
+                      <CardTitle className="flex items-center justify-center gap-2">
+                        <CalendarIcon className="h-5 w-5 text-blue-600" />
+                        When's your event?
+                      </CardTitle>
+                      <CardDescription>Select your preferred date</CardDescription>
+                    </CardHeader>
+                    <CardContent className="p-3 sm:p-6">
+                      <CalendarComponent
+                        mode="single"
+                        selected={formData.eventDate}
+                        onSelect={(date) => {
+                          if (date) {
+                            setFormData(prev => ({ ...prev, eventDate: date }));
+                            proceedToComparison(date);
+                          }
+                        }}
+                        disabled={(date) => !isDateAvailable(date)}
+                        className="mx-auto w-full"
+                        classNames={{
+                          months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 w-full",
+                          month: "space-y-4 w-full flex-1",
+                          caption: "flex justify-center pt-1 relative items-center text-lg font-semibold mb-2",
+                          caption_label: "text-base sm:text-lg font-semibold",
+                          nav: "space-x-1 flex items-center",
+                          nav_button: "h-8 w-8 sm:h-9 sm:w-9 bg-transparent p-0 opacity-50 hover:opacity-100",
+                          nav_button_previous: "absolute left-1",
+                          nav_button_next: "absolute right-1",
+                          table: "w-full border-collapse space-y-1",
+                          head_row: "flex w-full",
+                          head_cell: "text-slate-500 dark:text-slate-400 rounded-md flex-1 font-normal text-xs sm:text-sm text-center py-2",
+                          row: "flex w-full mt-1 sm:mt-2",
+                          cell: "flex-1 text-center text-sm p-0 relative aspect-square",
+                          day: "w-full h-full min-h-[44px] sm:min-h-[48px] p-0 font-normal aria-selected:opacity-100 hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-blue-800 dark:hover:text-blue-200 rounded-md transition-colors text-xs sm:text-sm",
+                          day_selected: "bg-blue-600 text-white hover:bg-blue-700 hover:text-white focus:bg-blue-600 focus:text-white",
+                          day_today: "bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold",
+                          day_outside: "text-slate-400 dark:text-slate-600 opacity-50",
+                          day_disabled: "text-slate-300 dark:text-slate-700 opacity-50 cursor-not-allowed",
+                          day_hidden: "invisible",
+                        }}
+                        data-testid="calendar-selector"
+                      />
+                    </CardContent>
+                  </Card>
+                </div>
               </motion.div>
             )}
 

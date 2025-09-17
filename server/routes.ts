@@ -25,6 +25,8 @@ import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate }
 import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
 import { randomUUID, randomInt } from "crypto";
+import multer from 'multer';
+import { mediaLibraryService } from './services/mediaLibrary';
 import { getFullUrl, getPublicUrl } from "./utils";
 import { quoteTokenService } from "./services/quoteTokenService";
 import { seedQuoteTemplates } from "./seedTemplates";
@@ -5622,11 +5624,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      // For bachelor/bachelorette parties, return both pricing options
+      // For bachelor/bachelorette parties, return both pricing options as clear separate choices
       if ((eventType === 'bachelor' || eventType === 'bachelorette') && cruiseType === 'both') {
         const discoCruiseProducts = await storage.getDiscoCruiseProducts();
         
-        // Calculate private cruise pricing using consistent chatbot logic
+        // OPTION A: Private Cruise with Standard/Essential/Ultimate packages
         const baseHourlyRate = 300; // Base rate for private cruises
         const date = new Date(eventDate);
         const dayOfWeek = date.getDay();
@@ -5638,65 +5640,109 @@ export async function registerRoutes(app: Express): Promise<Server> {
           duration = 4;
         }
         
-        const subtotalCents = baseHourlyRate * duration * 100; // Convert to cents
-        const items = [{ quantity: 1, unitPrice: subtotalCents, name: 'Private Cruise', type: 'cruise' }];
-        const calculatedPricing = await calculateInvoiceTotalsWithPricingSettings(items);
-        const taxCents = calculatedPricing.tax;
-        const gratuityCents = calculatedPricing.gratuity;
-        const totalCents = subtotalCents + taxCents + gratuityCents;
+        // Available private cruise packages
+        const privateCruisePackages = [
+          {
+            id: 'standard',
+            name: 'Standard Private Cruise',
+            hourlyRate: baseHourlyRate,
+            description: 'Private boat rental with captain and fuel',
+            features: ['Private boat rental', 'Licensed captain', 'Fuel included', 'Sound system']
+          },
+          {
+            id: 'essentials', 
+            name: 'Essentials Package',
+            hourlyRate: baseHourlyRate + 50,
+            description: 'Standard cruise plus party essentials',
+            features: ['Everything in Standard', 'Premium sound system', 'Coolers with ice', 'Party decorations']
+          },
+          {
+            id: 'ultimate',
+            name: 'Ultimate Party Package',
+            hourlyRate: baseHourlyRate + 75,
+            description: 'All-inclusive luxury experience', 
+            features: ['Everything in Essentials', 'Red carpet boarding', 'Professional photography', 'VIP service']
+          }
+        ];
         
-        // Calculate deposit (50% of total)
-        const depositCents = Math.round(totalCents * 0.5);
-        
-        const privateCruisePricing = {
-          subtotal: subtotalCents,
-          tax: taxCents,
-          gratuity: gratuityCents,
-          total: totalCents,
-          depositRequired: true,
-          depositAmount: depositCents,
-          depositPercent: 50,
-          duration: duration,
-          hourlyRate: baseHourlyRate,
-          baseHourlyRate: baseHourlyRate,
-          timeSlot: timeSlot,
-          pricingModel: 'hourly',
-          discountTotal: 0,
-          perPersonCost: Math.round(totalCents / parseInt(groupSize)),
-          paymentSchedule: [{
-            line: 1,
-            due: "booking", 
-            percent: 50,
-            daysBefore: 0,
-          }, {
-            line: 2,
-            due: "final",
-            percent: 50,
-            daysBefore: 14,
-          }],
-          expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
-        };
+        // Calculate pricing for each private package option
+        const privateCruiseOptions = privateCruisePackages.map(pkg => {
+          const subtotalCents = pkg.hourlyRate * duration * 100;
+          const items = [{ quantity: 1, unitPrice: subtotalCents, name: pkg.name, type: 'cruise' }];
+          
+          // Simple tax calculation for preview (8.25%)
+          const taxCents = Math.round(subtotalCents * 0.0825);
+          const gratuityCents = Math.round(subtotalCents * 0.20);
+          const totalCents = subtotalCents + taxCents + gratuityCents;
+          const depositCents = Math.round(totalCents * 0.5);
+          
+          return {
+            id: pkg.id,
+            name: pkg.name,
+            description: pkg.description,
+            features: pkg.features,
+            duration: duration,
+            hourlyRate: pkg.hourlyRate,
+            subtotal: subtotalCents,
+            tax: taxCents,
+            gratuity: gratuityCents,
+            total: totalCents,
+            depositAmount: depositCents,
+            depositPercent: 50,
+            perPersonCost: Math.round(totalCents / parseInt(groupSize)),
+            pricingModel: 'hourly'
+          };
+        });
 
-        // Calculate disco cruise pricing (per-person)
-        const discoCruiseOptions = discoCruiseProducts.map(product => ({
-          id: product.id,
-          name: product.name,
-          description: product.description,
-          pricePerPerson: product.unitPrice,
-          totalPrice: product.unitPrice * parseInt(groupSize),
-          pricingModel: 'per_person',
-          productType: 'disco_cruise'
-        }));
+        // OPTION B: ATX Disco Cruise with Basic/Disco Queen/Sparkle packages
+        const discoCruiseOptions = discoCruiseProducts.map(product => {
+          const pricePerPersonCents = product.unitPrice; // Already in cents
+          const totalCents = pricePerPersonCents * parseInt(groupSize);
+          
+          return {
+            id: product.id,
+            name: product.name,
+            description: product.description,
+            pricePerPerson: pricePerPersonCents,
+            totalPrice: totalCents,
+            groupSize: parseInt(groupSize),
+            depositAmount: Math.round(totalCents * 0.25), // 25% deposit for disco
+            depositPercent: 25,
+            pricingModel: 'per_person',
+            productType: 'disco_cruise',
+            features: product.features || ['4-hour disco cruise', 'DJ & dancing', 'Party atmosphere', 'Cash bar']
+          };
+        });
 
         res.json({
-          privateCruise: privateCruisePricing,
+          showBothOptions: true,
+          eventType: eventType,
+          optionA: {
+            title: 'Private Cruise Experience',
+            subtitle: 'Your own private boat with captain',
+            type: 'private',
+            pricingModel: 'hourly',
+            description: `${duration}-hour private cruise on Lake Travis`,
+            packages: privateCruiseOptions
+          },
+          optionB: {
+            title: 'ATX Disco Cruise Experience', 
+            subtitle: 'Join our signature disco party cruise',
+            type: 'disco',
+            pricingModel: 'per_person',
+            description: '4-hour disco party cruise with DJ and dancing',
+            packages: discoCruiseOptions
+          },
+          // Legacy fields for backward compatibility
+          privateCruise: {
+            packages: privateCruiseOptions,
+            pricingModel: 'hourly'
+          },
           discoCruise: {
             options: discoCruiseOptions,
             groupSize: parseInt(groupSize),
             pricingModel: 'per_person'
-          },
-          showBothOptions: true,
-          eventType: eventType
+          }
         });
       } else if (cruiseType === 'private') {
         // New private cruise pricing with time slot + add-on packages structure
@@ -11790,6 +11836,127 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ==========================================
   // END SEO MANAGEMENT API ENDPOINTS
   // ==========================================
+
+  // ==========================================
+  // AI MEDIA LIBRARY ROUTES
+  // ==========================================
+  
+  // Configure multer for file uploads
+  const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: { fileSize: 50 * 1024 * 1024 }, // 50MB limit
+    fileFilter: (req: any, file: any, cb: any) => {
+      // Allow images and videos
+      if (file.mimetype.startsWith('image/') || file.mimetype.startsWith('video/')) {
+        cb(null, true);
+      } else {
+        cb(new Error('Only image and video files allowed'), false);
+      }
+    }
+  });
+
+  // Upload media files
+  app.post('/api/media/upload', upload.single('file'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+      }
+
+      const userId = req.body.userId || 'admin';
+      const mediaItem = await mediaLibraryService.uploadMedia(req.file, userId);
+      
+      res.json({ success: true, mediaItem });
+    } catch (error) {
+      console.error('Upload error:', error);
+      res.status(500).json({ error: 'Upload failed' });
+    }
+  });
+
+  // Get media library
+  app.get('/api/media/library', async (req, res) => {
+    try {
+      const page = parseInt(req.query.page as string) || 1;
+      const limit = parseInt(req.query.limit as string) || 20;
+      const filter = req.query.filter as string;
+      
+      const items = await mediaLibraryService.getMediaLibrary(page, limit, filter);
+      res.json({ success: true, items });
+    } catch (error) {
+      console.error('Library fetch error:', error);
+      res.status(500).json({ error: 'Failed to fetch media library' });
+    }
+  });
+
+  // Edit photo with Nano Banana
+  app.post('/api/media/edit-photo', async (req, res) => {
+    try {
+      const { photoId, editType, editPrompt } = req.body;
+      const userId = req.body.userId || 'admin';
+      
+      if (!photoId || !editType) {
+        return res.status(400).json({ error: 'Photo ID and edit type required' });
+      }
+
+      const editedPhoto = await mediaLibraryService.editPhoto(
+        photoId, 
+        editType, 
+        editPrompt || '', 
+        userId
+      );
+      
+      res.json({ success: true, editedPhoto });
+    } catch (error) {
+      console.error('Photo edit error:', error);
+      res.status(500).json({ error: 'Photo editing failed' });
+    }
+  });
+
+  // Generate image with Nano Banana
+  app.post('/api/media/generate-image', async (req, res) => {
+    try {
+      const { prompt } = req.body;
+      const userId = req.body.userId || 'admin';
+      
+      if (!prompt) {
+        return res.status(400).json({ error: 'Prompt required' });
+      }
+
+      const generatedPhoto = await mediaLibraryService.generateImage(prompt, userId);
+      res.json({ success: true, generatedPhoto });
+    } catch (error) {
+      console.error('Image generation error:', error);
+      res.status(500).json({ error: 'Image generation failed' });
+    }
+  });
+
+  // Publish to website
+  app.post('/api/media/publish', async (req, res) => {
+    try {
+      const { mediaIds, targetSection } = req.body;
+      
+      if (!mediaIds || !Array.isArray(mediaIds) || !targetSection) {
+        return res.status(400).json({ error: 'Media IDs array and target section required' });
+      }
+
+      const result = await mediaLibraryService.publishToWebsite(mediaIds, targetSection);
+      res.json(result);
+    } catch (error) {
+      console.error('Publish error:', error);
+      res.status(500).json({ error: 'Publishing failed' });
+    }
+  });
+
+  // Get AI suggestions for section
+  app.get('/api/media/suggestions/:section', async (req, res) => {
+    try {
+      const { section } = req.params;
+      const suggestions = await mediaLibraryService.getAISuggestions(section);
+      res.json({ success: true, suggestions });
+    } catch (error) {
+      console.error('AI suggestions error:', error);
+      res.status(500).json({ error: 'Failed to get AI suggestions' });
+    }
+  });
 
   const httpServer = createServer(app);
   return httpServer;

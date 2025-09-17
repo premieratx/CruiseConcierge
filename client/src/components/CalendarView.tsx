@@ -226,6 +226,20 @@ function CalendarView() {
     return () => clearTimeout(timer);
   }, []);
 
+  // Auto-select appropriate tab when slider changes
+  useEffect(() => {
+    if (boatGroups.dayTripper.length > 0 && selectedCapacity <= 15) {
+      setSelectedTab('dayTripper');
+    } else if (boatGroups.medium.length > 0 && selectedCapacity <= 35) {
+      setSelectedTab('medium');
+    } else if (boatGroups.large.length > 0) {
+      setSelectedTab('large');
+    } else {
+      // If no boats match, default to all
+      setSelectedTab('all');
+    }
+  }, [selectedCapacity, boats]);
+
   // When date picker selects a date, update the week view
   const handleDateSelect = (date: Date | undefined) => {
     if (date) {
@@ -336,15 +350,23 @@ function CalendarView() {
     },
   });
 
-  // Filter boats based on selected capacity - show boats that can accommodate the group size
-  const filteredBoats = boats.filter(boat => boat.capacity >= selectedCapacity);
+  // Smart boat filtering based on group size
+  const getBoatsForGroupSize = (groupSize: number) => {
+    return boats.filter(boat => {
+      // Show boats that can accommodate the group size
+      // But don't show boats that are unnecessarily large (more than 2x capacity)
+      return boat.capacity >= groupSize && boat.capacity <= Math.max(groupSize * 2, 75);
+    });
+  };
 
-  // Group filtered boats by capacity for tabs
+  const filteredBoats = getBoatsForGroupSize(selectedCapacity);
+
+  // Group filtered boats by capacity for tabs - only include boats that match group size
   const boatGroups = {
     all: filteredBoats,
     dayTripper: filteredBoats.filter(b => b.capacity <= 15),
-    medium: filteredBoats.filter(b => b.capacity >= 20 && b.capacity <= 35),
-    large: filteredBoats.filter(b => b.capacity >= 40)
+    medium: filteredBoats.filter(b => b.capacity > 15 && b.capacity <= 35),
+    large: filteredBoats.filter(b => b.capacity > 35)
   };
 
   // Capacity selector handlers
@@ -352,9 +374,6 @@ function CalendarView() {
     setSelectedCapacity(value[0]);
   };
 
-  const handleQuickSelect = (capacity: number) => {
-    setSelectedCapacity(capacity);
-  };
 
   // Count available boats for 25-person group using proper time overlap logic
   const count25PersonBoats = (date: Date, time: string) => {
@@ -643,43 +662,6 @@ function CalendarView() {
             />
           </div>
 
-          {/* Quick Select Buttons */}
-          <div className="flex gap-2 flex-wrap">
-            <span className="text-sm font-medium self-center mr-2">Quick Select:</span>
-            {[14, 25, 30, 50, 75].map((capacity) => {
-              const availableBoats = boats.filter(b => b.capacity >= capacity).length;
-              return (
-                <Button
-                  key={capacity}
-                  variant={selectedCapacity === capacity ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => handleQuickSelect(capacity)}
-                  disabled={availableBoats === 0}
-                  className={cn(
-                    "relative",
-                    selectedCapacity === capacity && "ring-2 ring-primary"
-                  )}
-                  data-testid={`capacity-button-${capacity}`}
-                >
-                  {capacity}
-                  {availableBoats === 0 && (
-                    <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
-                  )}
-                </Button>
-              );
-            })}
-            <Button
-              variant={selectedCapacity === 1 ? "default" : "outline"}
-              size="sm"
-              onClick={() => handleQuickSelect(1)}
-              className={cn(
-                selectedCapacity === 1 && "ring-2 ring-primary"
-              )}
-              data-testid="capacity-button-all"
-            >
-              All Sizes
-            </Button>
-          </div>
         </CardContent>
       </Card>
 
@@ -692,34 +674,48 @@ function CalendarView() {
         </CardHeader>
         <CardContent>
           <Tabs value={selectedTab} onValueChange={setSelectedTab}>
-            <TabsList className="grid w-full grid-cols-4">
-              <TabsTrigger value="all" data-testid="tab-all" className="">
-                All Boats
-              </TabsTrigger>
-              <TabsTrigger 
-                value="dayTripper" 
-                data-testid="tab-daytripper"
-                className={cn(
-                  getColorClasses(TAB_COLORS.dayTripper, 'tab'),
-                  flashDayTripper && "animate-pulse"
-                )}
-              >
-                Day Tripper (14)
-              </TabsTrigger>
-              <TabsTrigger 
-                value="medium" 
-                data-testid="tab-medium"
-                className={getColorClasses(TAB_COLORS.medium, 'tab')}
-              >
-                25-Person Boats
-              </TabsTrigger>
-              <TabsTrigger 
-                value="large" 
-                data-testid="tab-large"
-                className={getColorClasses(TAB_COLORS.large, 'tab')}
-              >
-                Clever Girl (50)
-              </TabsTrigger>
+            <TabsList className={cn(
+              "grid w-full",
+              // Dynamic grid columns based on available tabs
+              boatGroups.dayTripper.length > 0 && boatGroups.medium.length > 0 && boatGroups.large.length > 0 ? "grid-cols-4" :
+              (boatGroups.dayTripper.length > 0 && boatGroups.medium.length > 0) || (boatGroups.medium.length > 0 && boatGroups.large.length > 0) || (boatGroups.dayTripper.length > 0 && boatGroups.large.length > 0) ? "grid-cols-3" :
+              "grid-cols-2"
+            )}>
+              {filteredBoats.length > 0 && (
+                <TabsTrigger value="all" data-testid="tab-all" className="">
+                  All Boats ({filteredBoats.length})
+                </TabsTrigger>
+              )}
+              {boatGroups.dayTripper.length > 0 && (
+                <TabsTrigger 
+                  value="dayTripper" 
+                  data-testid="tab-daytripper"
+                  className={cn(
+                    getColorClasses(TAB_COLORS.dayTripper, 'tab'),
+                    flashDayTripper && "animate-pulse"
+                  )}
+                >
+                  Day Tripper ({boatGroups.dayTripper.length})
+                </TabsTrigger>
+              )}
+              {boatGroups.medium.length > 0 && (
+                <TabsTrigger 
+                  value="medium" 
+                  data-testid="tab-medium"
+                  className={getColorClasses(TAB_COLORS.medium, 'tab')}
+                >
+                  25-Person ({boatGroups.medium.length})
+                </TabsTrigger>
+              )}
+              {boatGroups.large.length > 0 && (
+                <TabsTrigger 
+                  value="large" 
+                  data-testid="tab-large"
+                  className={getColorClasses(TAB_COLORS.large, 'tab')}
+                >
+                  Large Boats ({boatGroups.large.length})
+                </TabsTrigger>
+              )}
             </TabsList>
 
             <div className="mt-6">

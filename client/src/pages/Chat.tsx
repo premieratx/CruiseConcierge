@@ -1248,7 +1248,7 @@ export default function Chat() {
     };
   }, []);
 
-  // Enhanced payment handler with comprehensive validation and loading protection
+  // Enhanced payment handler with streamlined validation - NO NAME REQUIRED
   const handlePayment = useCallback(async (paymentType: 'deposit' | 'full', cruiseType: 'private' | 'disco') => {
     console.log('💳 handlePayment called with:', { paymentType, cruiseType });
     
@@ -1262,12 +1262,12 @@ export default function Chat() {
       return;
     }
     
-    // Comprehensive validation including contact information (required for payment)
-    const validation = validateBookingData(formData, cruiseType, true);
+    // Streamlined validation - ONLY check essential booking details, NOT contact info
+    const validation = validateBookingData(formData, cruiseType, false); // false = no contact info required!
     if (!validation.isValid) {
-      console.log('💳 Validation failed:', validation.errors);
+      console.log('💳 Basic validation failed:', validation.errors);
       toast({
-        title: "Incomplete Information",
+        title: "Please Complete Selection",
         description: validation.errors[0], // Show first error
         variant: "destructive",
       });
@@ -1860,34 +1860,34 @@ export default function Chat() {
                     </p>
                   </div>
 
-                  <div className="flex justify-center">
+                  <div className="w-full max-w-lg mx-auto px-2 sm:px-4">
                     <motion.div
                       initial={{ scale: 0.9, opacity: 0 }}
                       animate={{ scale: 1, opacity: 1 }}
                       transition={{ delay: 0.6, duration: 0.5 }}
-                      className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-xl p-8"
+                      className="bg-white/80 dark:bg-slate-800/80 backdrop-blur-sm rounded-xl shadow-xl p-3 sm:p-6 lg:p-8 w-full"
                     >
                       <CalendarComponent
                         mode="single"
                         selected={formData.eventDate}
                         onSelect={handleDateSelect}
                         disabled={(date: Date) => !isDateAvailable(date)}
-                        className="mx-auto"
+                        className="mx-auto w-full"
                         classNames={{
-                          months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0",
-                          month: "space-y-4",
-                          caption: "flex justify-center pt-1 relative items-center text-lg font-semibold",
-                          caption_label: "text-lg font-semibold",
+                          months: "flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0 w-full",
+                          month: "space-y-4 w-full flex-1",
+                          caption: "flex justify-center pt-1 relative items-center text-lg font-semibold mb-2",
+                          caption_label: "text-base sm:text-lg font-semibold",
                           nav: "space-x-1 flex items-center",
-                          nav_button: "h-9 w-9 bg-transparent p-0 opacity-50 hover:opacity-100",
+                          nav_button: "h-8 w-8 sm:h-9 sm:w-9 bg-transparent p-0 opacity-50 hover:opacity-100",
                           nav_button_previous: "absolute left-1",
                           nav_button_next: "absolute right-1",
                           table: "w-full border-collapse space-y-1",
-                          head_row: "flex",
-                          head_cell: "text-slate-500 dark:text-slate-400 rounded-md w-12 font-normal text-sm",
-                          row: "flex w-full mt-2",
-                          cell: "h-12 w-12 text-center text-sm p-0 relative",
-                          day: "h-12 w-12 p-0 font-normal aria-selected:opacity-100 hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-blue-800 dark:hover:text-blue-200 rounded-md transition-colors",
+                          head_row: "flex w-full",
+                          head_cell: "text-slate-500 dark:text-slate-400 rounded-md flex-1 font-normal text-xs sm:text-sm text-center py-2",
+                          row: "flex w-full mt-1 sm:mt-2",
+                          cell: "flex-1 text-center text-sm p-0 relative aspect-square",
+                          day: "w-full h-full min-h-[44px] sm:min-h-[48px] p-0 font-normal aria-selected:opacity-100 hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-blue-800 dark:hover:text-blue-200 rounded-md transition-colors text-xs sm:text-sm",
                           day_selected: "bg-blue-600 text-white hover:bg-blue-700 hover:text-white focus:bg-blue-600 focus:text-white",
                           day_today: "bg-slate-100 dark:bg-slate-700 text-slate-900 dark:text-slate-100 font-bold",
                           day_outside: "text-slate-400 dark:text-slate-600 opacity-50",
@@ -2262,64 +2262,100 @@ export default function Chat() {
                         </CardContent>
                       </Card>
 
-                      {/* Disco Cruise or Alternative Dates */}
+                      {/* Bachelor/Bachelorette: Show clear choice between Private vs Disco */}
                       {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') && isDiscoAvailableForDate(formData.eventDate!) ? (
-                        <Card className={cn(
-                          "bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm cursor-pointer transition-all",
-                          formData.selectedCruiseType === 'disco' && "ring-2 ring-purple-600"
-                        )}>
-                          <CardHeader>
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                                <Music className="h-6 w-6 text-purple-600" />
-                              </div>
-                              <div>
-                                <CardTitle>ATX Disco Cruise</CardTitle>
-                                <CardDescription>Join the party cruise</CardDescription>
-                              </div>
-                            </div>
+                        <Card className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 backdrop-blur-sm">
+                          <CardHeader className="text-center">
+                            <CardTitle className="text-2xl">Choose Your Experience</CardTitle>
+                            <CardDescription>Two amazing options for your {formData.eventTypeLabel.toLowerCase()}</CardDescription>
                           </CardHeader>
-                          <CardContent className="space-y-4">
-                            {/* Step 1: Time Slot Selection */}
-                            <div className="space-y-3">
-                              <Label className="flex items-center gap-2">
-                                <Clock className="h-4 w-4" />
-                                Select Time Slot
-                              </Label>
-                              <RadioGroup
-                                value={formData.selectedDiscoTimeSlot || ''}
-                                onValueChange={(timeSlot) => {
-                                  setFormData(prev => ({
-                                    ...prev,
-                                    selectedDiscoTimeSlot: timeSlot,
+                          
+                          <CardContent className="space-y-6">
+                            {/* Option Selection */}
+                            <div className="grid md:grid-cols-2 gap-4">
+                              {/* Option A: Private Cruise */}
+                              <Card 
+                                className={cn(
+                                  "cursor-pointer transition-all hover:shadow-lg",
+                                  formData.selectedCruiseType === 'private' 
+                                    ? "ring-2 ring-blue-600 bg-blue-50 dark:bg-blue-900/20" 
+                                    : "bg-white dark:bg-slate-800"
+                                )}
+                                onClick={() => {
+                                  setFormData(prev => ({ 
+                                    ...prev, 
+                                    selectedCruiseType: 'private',
+                                    selectedDiscoPackage: null,
+                                    selectedDiscoTimeSlot: ''
                                   }));
                                 }}
                               >
-                                {getDiscoTimeSlotsForDate(formData.eventDate!).map((slot) => (
-                                  <div key={slot.id} className="flex items-center space-x-2">
-                                    <RadioGroupItem value={slot.id} id={`disco-time-${slot.id}`} />
-                                    <Label htmlFor={`disco-time-${slot.id}`} className="flex-1 cursor-pointer">
-                                      <div className="flex items-center justify-between">
-                                        <div className="flex items-center gap-2">
-                                          <span>{slot.icon}</span>
-                                          <span>{slot.label}</span>
-                                          {slot.popular && <Badge variant="secondary" className="text-xs">Popular</Badge>}
-                                        </div>
-                                        <span className="text-sm text-slate-600 dark:text-slate-400">{slot.duration}hrs</span>
-                                      </div>
-                                    </Label>
+                                <CardContent className="p-4 text-center">
+                                  <div className="w-16 h-16 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <Ship className="h-8 w-8 text-blue-600" />
                                   </div>
-                                ))}
-                              </RadioGroup>
+                                  <h3 className="font-bold text-lg mb-2">Private Cruise</h3>
+                                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                                    Your own private boat with captain
+                                  </p>
+                                  <div className="text-xs text-slate-500">
+                                    From $300/hour • 3-4 hour cruises
+                                  </div>
+                                  {formData.selectedCruiseType === 'private' && (
+                                    <div className="mt-3">
+                                      <Badge className="bg-blue-600">Selected</Badge>
+                                    </div>
+                                  )}
+                                </CardContent>
+                              </Card>
+
+                              {/* Option B: Disco Cruise */}
+                              <Card 
+                                className={cn(
+                                  "cursor-pointer transition-all hover:shadow-lg",
+                                  formData.selectedCruiseType === 'disco' 
+                                    ? "ring-2 ring-purple-600 bg-purple-50 dark:bg-purple-900/20" 
+                                    : "bg-white dark:bg-slate-800"
+                                )}
+                                onClick={() => {
+                                  setFormData(prev => ({ 
+                                    ...prev, 
+                                    selectedCruiseType: 'disco',
+                                    selectedSlot: null,
+                                    selectedAddOnPackages: []
+                                  }));
+                                }}
+                              >
+                                <CardContent className="p-4 text-center">
+                                  <div className="w-16 h-16 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mx-auto mb-3">
+                                    <Music className="h-8 w-8 text-purple-600" />
+                                  </div>
+                                  <h3 className="font-bold text-lg mb-2">ATX Disco Cruise</h3>
+                                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-3">
+                                    Join our signature party cruise
+                                  </p>
+                                  <div className="text-xs text-slate-500">
+                                    From $85/person • 4 hour cruise
+                                  </div>
+                                  {formData.selectedCruiseType === 'disco' && (
+                                    <div className="mt-3">
+                                      <Badge className="bg-purple-600">Selected</Badge>
+                                    </div>
+                                  )}
+                                </CardContent>
+                              </Card>
                             </div>
 
-                            {/* Step 2: Package Selection - Only show if time slot selected */}
-                            {formData.selectedDiscoTimeSlot && (
-                              <div className="space-y-3 border-t pt-4">
-                                <Label className="flex items-center gap-2">
-                                  <Music className="h-4 w-4" />
-                                  Select Package
-                                </Label>
+                            {/* Show packages for selected cruise type */}
+                            {formData.selectedCruiseType === 'disco' && (
+                              <motion.div
+                                initial={{ opacity: 0, y: 20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.3 }}
+                                className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 rounded-lg p-4 border"
+                              >
+                                <h4 className="font-bold text-lg mb-4 text-center">Select Your Disco Package</h4>
+                                
                                 <RadioGroup
                                   value={formData.selectedDiscoPackage || ''}
                                   onValueChange={(packageId) => {
@@ -2330,28 +2366,40 @@ export default function Chat() {
                                   }}
                                 >
                                   {discoPackages.map((pkg) => (
-                                    <div key={pkg.id} className="flex items-center space-x-2">
-                                      <RadioGroupItem value={pkg.id} id={`disco-${pkg.id}`} />
-                                      <Label htmlFor={`disco-${pkg.id}`} className="flex-1 cursor-pointer">
-                                        <div className="space-y-1">
-                                          <div className="flex justify-between items-center">
-                                            <span className="font-medium">{pkg.name}</span>
-                                            <span className="font-bold text-purple-600">${pkg.price}/person</span>
-                                          </div>
-                                          <div className="text-sm text-slate-600 dark:text-slate-400">
-                                            {pkg.description}
-                                          </div>
+                                    <Card key={pkg.id} className={cn(
+                                      "transition-all cursor-pointer",
+                                      formData.selectedDiscoPackage === pkg.id && "ring-2 ring-purple-600"
+                                    )}>
+                                      <CardContent className="p-4">
+                                        <div className="flex items-center space-x-3">
+                                          <RadioGroupItem value={pkg.id} id={`disco-${pkg.id}`} />
+                                          <Label htmlFor={`disco-${pkg.id}`} className="flex-1 cursor-pointer">
+                                            <div className="flex justify-between items-start">
+                                              <div className="space-y-1">
+                                                <div className="font-bold text-lg">{pkg.name}</div>
+                                                <div className="text-sm text-slate-600 dark:text-slate-400">{pkg.description}</div>
+                                                <div className="flex flex-wrap gap-1 mt-2">
+                                                  {pkg.features.map((feature) => (
+                                                    <Badge key={feature} variant="secondary" className="text-xs">{feature}</Badge>
+                                                  ))}
+                                                </div>
+                                              </div>
+                                              <div className="text-right ml-4">
+                                                <div className="font-bold text-xl text-purple-600">${pkg.price}</div>
+                                                <div className="text-sm text-slate-600">per person</div>
+                                              </div>
+                                            </div>
+                                          </Label>
                                         </div>
-                                      </Label>
-                                    </div>
+                                      </CardContent>
+                                    </Card>
                                   ))}
                                 </RadioGroup>
-                                
-                                {/* Ticket Quantity - Show if package selected */}
+
                                 {formData.selectedDiscoPackage && (
-                                  <div className="p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg mt-4">
-                                    <Label className="mb-2 block">Number of Tickets</Label>
-                                    <div className="flex items-center gap-4">
+                                  <div className="mt-4 p-4 bg-white/50 dark:bg-slate-800/50 rounded-lg">
+                                    <Label className="mb-2 block font-medium">Number of Tickets</Label>
+                                    <div className="flex items-center gap-4 justify-center">
                                       <Button
                                         onClick={() => setFormData(prev => ({ 
                                           ...prev, 
@@ -2359,12 +2407,13 @@ export default function Chat() {
                                         }))}
                                         size="sm"
                                         variant="outline"
-                                        className="h-8 w-8 p-0"
+                                        className="h-10 w-10 p-0"
                                       >
                                         <Minus className="h-4 w-4" />
                                       </Button>
-                                      <div className="flex-1 text-center">
-                                        <div className="text-2xl font-bold text-purple-600">{formData.discoTicketQuantity}</div>
+                                      <div className="text-center min-w-[80px]">
+                                        <div className="text-3xl font-bold text-purple-600">{formData.discoTicketQuantity}</div>
+                                        <div className="text-sm text-slate-600">tickets</div>
                                       </div>
                                       <Button
                                         onClick={() => setFormData(prev => ({ 
@@ -2373,100 +2422,35 @@ export default function Chat() {
                                         }))}
                                         size="sm"
                                         variant="outline"
-                                        className="h-8 w-8 p-0"
+                                        className="h-10 w-10 p-0"
                                       >
                                         <Plus className="h-4 w-4" />
                                       </Button>
                                     </div>
                                   </div>
                                 )}
-                              </div>
-                            )}
 
-                            {/* Step 3: Pricing Details - Only show if both time slot AND package selected */}
-                            {formData.selectedSlot && formData.selectedSlot.cruiseType === 'disco' && formData.selectedDiscoPackage && discoPricing && (
-                              <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 rounded-lg p-4 border-t">
-                                <div className="text-center mb-4">
-                                  <div className="text-3xl font-bold text-purple-600">
-                                    {formatCurrency(discoPricing.total)}
+                                {/* Disco Payment Buttons */}
+                                {formData.selectedDiscoPackage && (
+                                  <div className="space-y-3 mt-6">
+                                    <div className="text-center mb-4">
+                                      <div className="text-2xl font-bold text-purple-600">
+                                        Total: {formatCurrency((discoPackages.find(p => p.id === formData.selectedDiscoPackage)?.price || 0) * formData.discoTicketQuantity * 100)}
+                                      </div>
+                                    </div>
+                                    
+                                    <Button
+                                      onClick={() => goToStep('contact-form')}
+                                      className="w-full bg-purple-600 hover:bg-purple-700"
+                                      data-testid="button-disco-quote"
+                                    >
+                                      <FileText className="h-4 w-4 mr-2" />
+                                      Get My Quote & Book
+                                    </Button>
                                   </div>
-                                  <div className="text-sm text-slate-600 dark:text-slate-400">
-                                    {formatCurrency(discoPricing.perPersonCost)} per person
-                                  </div>
-                                </div>
-                                
-                                {/* Detailed Pricing Breakdown */}
-                                <div className="space-y-2 text-sm border-t pt-3">
-                                  <div className="flex justify-between">
-                                    <span>Subtotal ({getCruiseDuration(formData.eventDate)}hr cruise):</span>
-                                    <span>{formatCurrency(discoPricing.subtotal)}</span>
-                                  </div>
-                                  <div className="flex justify-between">
-                                    <span>Tax (8.25%):</span>
-                                    <span>{formatCurrency(discoPricing.tax)}</span>
-                                  </div>
-                                  <div className="flex justify-between">
-                                    <span>Gratuity (20%):</span>
-                                    <span>{formatCurrency(discoPricing.gratuity)}</span>
-                                  </div>
-                                  <div className="flex justify-between font-bold border-t pt-2">
-                                    <span>Grand Total:</span>
-                                    <span>{formatCurrency(discoPricing.total)}</span>
-                                  </div>
-                                  <div className="flex justify-between text-green-600">
-                                    <span>Deposit ({discoPricing.depositPercent}%):</span>
-                                    <span>{formatCurrency(discoPricing.depositAmount)}</span>
-                                  </div>
-                                  <div className="flex justify-between text-slate-600">
-                                    <span>Balance Due:</span>
-                                    <span>{formatCurrency(discoPricing.total - discoPricing.depositAmount)}</span>
-                                  </div>
-                                </div>
-                              </div>
+                                )}
+                              </motion.div>
                             )}
-                            
-                            {/* Payment Buttons */}
-                            <div className="space-y-2">
-                              <Button
-                                onClick={() => {
-                                  setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
-                                  handlePayment('deposit', 'disco');
-                                }}
-                                disabled={!formData.selectedDiscoPackage || !discoPricing}
-                                className="w-full bg-green-600 hover:bg-green-700"
-                                data-testid="button-disco-deposit"
-                              >
-                                <CreditCard className="h-4 w-4 mr-2" />
-                                Pay {discoPricing?.depositPercent || 25}% Deposit ({discoPricing ? formatCurrency(discoPricing.depositAmount) : '$0'})
-                              </Button>
-                              
-                              <Button
-                                onClick={() => {
-                                  setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
-                                  handlePayment('full', 'disco');
-                                }}
-                                disabled={!formData.selectedDiscoPackage || !discoPricing}
-                                className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700"
-                                data-testid="button-disco-full"
-                              >
-                                <CreditCard className="h-4 w-4 mr-2" />
-                                Pay in Full ({discoPricing ? formatCurrency(discoPricing.total) : '$0'})
-                              </Button>
-                              
-                              <Button
-                                onClick={() => {
-                                  setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
-                                  goToStep('contact-form');
-                                }}
-                                disabled={!formData.selectedDiscoPackage}
-                                variant="outline"
-                                className="w-full"
-                                data-testid="button-disco-quote"
-                              >
-                                <FileText className="h-4 w-4 mr-2" />
-                                Send Me My Quote
-                              </Button>
-                            </div>
                           </CardContent>
                         </Card>
                       ) : (

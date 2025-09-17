@@ -1897,3 +1897,61 @@ export type SEOBulkOperation = {
   pageRoutes: string[];
   parameters?: Record<string, any>;
 };
+
+// AI Media Library Tables
+export const mediaItems = pgTable('media_items', {
+  id: varchar('id', { length: 255 }).primaryKey().default(sql`gen_random_uuid()`),
+  filename: varchar('filename', { length: 500 }).notNull(),
+  originalName: varchar('original_name', { length: 500 }),
+  fileType: varchar('file_type', { length: 50 }).notNull(), // 'photo', 'video', 'generated_video', 'edited_photo'
+  filePath: varchar('file_path', { length: 1000 }).notNull(),
+  fileSize: integer('file_size'),
+  mimeType: varchar('mime_type', { length: 100 }),
+  uploadDate: timestamp('upload_date').defaultNow(),
+  
+  // AI Analysis
+  aiAnalyzed: boolean('ai_analyzed').default(false),
+  aiAnalysis: jsonb('ai_analysis'),
+  autoTags: jsonb('auto_tags'),
+  manualTags: jsonb('manual_tags'),
+  qualityScore: integer('quality_score'),
+  ugcPotential: integer('ugc_potential'),
+  
+  // Editing
+  originalPhotoId: varchar('original_photo_id', { length: 255 }),
+  editHistory: jsonb('edit_history'),
+  
+  // Management
+  status: varchar('status', { length: 50 }).default('draft'),
+  publishedLocations: jsonb('published_locations'),
+  createdBy: varchar('created_by', { length: 255 }),
+  lastModified: timestamp('last_modified').defaultNow()
+});
+
+export const photoEdits = pgTable('photo_edits', {
+  id: varchar('id', { length: 255 }).primaryKey().default(sql`gen_random_uuid()`),
+  originalPhotoId: varchar('original_photo_id', { length: 255 }),
+  editedPhotoId: varchar('edited_photo_id', { length: 255 }),
+  editType: varchar('edit_type', { length: 100 }),
+  editPrompt: text('edit_prompt'),
+  nanoBananaJobId: varchar('nanobanan_job_id', { length: 500 }),
+  editCost: integer('edit_cost'),
+  status: varchar('status', { length: 50 }).default('processing'),
+  createdAt: timestamp('created_at').defaultNow()
+});
+
+export const insertMediaItemSchema = createInsertSchema(mediaItems).omit({
+  id: true,
+  uploadDate: true,
+  lastModified: true,
+});
+
+export const insertPhotoEditSchema = createInsertSchema(photoEdits).omit({
+  id: true,
+  createdAt: true,
+});
+
+export type InsertMediaItem = z.infer<typeof insertMediaItemSchema>;
+export type MediaItem = typeof mediaItems.$inferSelect;
+export type InsertPhotoEdit = z.infer<typeof insertPhotoEditSchema>;
+export type PhotoEdit = typeof photoEdits.$inferSelect;

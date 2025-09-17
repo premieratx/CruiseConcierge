@@ -59,6 +59,77 @@ export async function sendQuoteEmail(
     isTokenized: quoteLink.includes('token=')
   });
 
+  // Check if this is a bachelor/bachelorette party that should show both options
+  const isBachelorBachelorette = 
+    quoteDetails.eventType?.toLowerCase().includes('bachelor') || 
+    quoteDetails.eventType?.toLowerCase().includes('bachelorette');
+  
+  const showBothOptions = isBachelorBachelorette && quoteDetails.optionA && quoteDetails.optionB;
+
+  let quoteDetailsHtml = '';
+  
+  if (showBothOptions) {
+    // Bachelor/Bachelorette: Show both Private and Disco options
+    quoteDetailsHtml = `
+      <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3 style="margin-top: 0; color: #9333ea;">🎉 Two Amazing Options for Your ${quoteDetails.eventType}!</h3>
+        <p><strong>Event:</strong> ${quoteDetails.eventType || 'Bachelor/Bachelorette Party'}</p>
+        <p><strong>Group Size:</strong> ${quoteDetails.groupSize || 'TBD'}</p>
+        <p><strong>Date:</strong> ${quoteDetails.date || 'To be confirmed'}</p>
+        
+        <!-- Option A: Private Cruise -->
+        <div style="border: 2px solid #3b82f6; border-radius: 8px; padding: 15px; margin: 15px 0; background: #eff6ff;">
+          <h4 style="color: #1d4ed8; margin: 0 0 10px 0;">🚢 Option A: Private Cruise Experience</h4>
+          <p style="margin: 5px 0; color: #374151;"><em>Your own private boat with captain</em></p>
+          
+          ${(quoteDetails.optionA?.packages || []).map((pkg: any) => `
+            <div style="margin: 8px 0; padding: 8px; background: white; border-radius: 4px;">
+              <strong>${pkg.name}</strong> - $${(pkg.total / 100).toFixed(2)}
+              <div style="font-size: 12px; color: #6b7280;">${pkg.description}</div>
+            </div>
+          `).join('')}
+          
+          <p style="margin: 10px 0 5px 0; font-weight: bold; color: #1d4ed8;">
+            Private Cruise Options: From $${quoteDetails.optionA?.packages?.[0] ? (quoteDetails.optionA.packages[0].total / 100).toFixed(2) : '1,200'}
+          </p>
+        </div>
+        
+        <!-- Option B: Disco Cruise -->
+        <div style="border: 2px solid #9333ea; border-radius: 8px; padding: 15px; margin: 15px 0; background: #faf5ff;">
+          <h4 style="color: #7c3aed; margin: 0 0 10px 0;">🎵 Option B: ATX Disco Cruise Experience</h4>
+          <p style="margin: 5px 0; color: #374151;"><em>Join our signature party cruise</em></p>
+          
+          ${(quoteDetails.optionB?.packages || []).map((pkg: any) => `
+            <div style="margin: 8px 0; padding: 8px; background: white; border-radius: 4px;">
+              <strong>${pkg.name}</strong> - $${((pkg.pricePerPerson || 8500) / 100).toFixed(2)}/person
+              <div style="font-size: 12px; color: #6b7280;">4-hour disco cruise with DJ and dancing</div>
+            </div>
+          `).join('')}
+          
+          <p style="margin: 10px 0 5px 0; font-weight: bold; color: #7c3aed;">
+            Disco Cruise Options: From $${quoteDetails.optionB?.packages?.[0] ? ((quoteDetails.optionB.packages[0].pricePerPerson || 8500) / 100).toFixed(2) : '85'} per person
+          </p>
+        </div>
+        
+        <div style="text-align: center; margin: 15px 0; padding: 15px; background: #f0fdf4; border-radius: 8px;">
+          <p style="margin: 0; color: #166534; font-weight: bold;">✨ Choose the perfect experience for your celebration! ✨</p>
+          <p style="margin: 5px 0 0 0; font-size: 14px; color: #374151;">Click below to view full details and secure your preferred option</p>
+        </div>
+      </div>
+    `;
+  } else {
+    // Standard single option quote
+    quoteDetailsHtml = `
+      <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+        <h3 style="margin-top: 0;">Quote Details</h3>
+        <p><strong>Event:</strong> ${quoteDetails.eventType || 'Party Cruise'}</p>
+        <p><strong>Group Size:</strong> ${quoteDetails.groupSize || 'TBD'}</p>
+        <p><strong>Date:</strong> ${quoteDetails.date || 'To be confirmed'}</p>
+        <p><strong>Total:</strong> $${(quoteDetails.total / 100).toFixed(2)}</p>
+      </div>
+    `;
+  }
+
   const html = `
     <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
       <div style="background: linear-gradient(135deg, #0080FF, #FFD700); padding: 30px; text-align: center;">
@@ -74,18 +145,12 @@ export async function sendQuoteEmail(
         
         <p>Thank you for your interest in Premier Party Cruises! We've prepared a custom quote for your upcoming event.</p>
         
-        <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
-          <h3 style="margin-top: 0;">Quote Details</h3>
-          <p><strong>Event:</strong> ${quoteDetails.eventType || 'Party Cruise'}</p>
-          <p><strong>Group Size:</strong> ${quoteDetails.groupSize || 'TBD'}</p>
-          <p><strong>Date:</strong> ${quoteDetails.date || 'To be confirmed'}</p>
-          <p><strong>Total:</strong> $${(quoteDetails.total / 100).toFixed(2)}</p>
-        </div>
+        ${quoteDetailsHtml}
         
         <div style="text-align: center; margin: 30px 0;">
           <a href="${quoteLink}" 
              style="background: #3b82f6; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold;">
-            View Full Quote
+            ${showBothOptions ? 'View Both Options & Choose' : 'View Full Quote'}
           </a>
         </div>
         
@@ -107,7 +172,9 @@ export async function sendQuoteEmail(
   return await sendEmail({
     to: customerEmail,
     from: process.env.SENDGRID_FROM_EMAIL || 'clientservices@premierpartycruises.com',
-    subject: '🚢 Your Party Cruise Quote is Ready!',
+    subject: showBothOptions ? 
+      '🎉 Two Amazing Options for Your Party!' : 
+      '🚢 Your Party Cruise Quote is Ready!',
     html
   });
 }

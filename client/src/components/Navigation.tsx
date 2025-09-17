@@ -7,7 +7,7 @@ import {
   DollarSign, Settings, Ship, TrendingUp, Mail, Phone,
   ChevronDown, Plus, Search, Bell, User, LogOut, Building,
   CreditCard, Briefcase, Star, FileBarChart, Database, ArrowLeft, Home,
-  AlertCircle, Code, UserCheck, FolderOpen, Receipt, BookOpen
+  AlertCircle, Code, UserCheck, FolderOpen, Receipt, BookOpen, Image
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -73,6 +73,12 @@ const mainNavItems = [
     href: '/admin/seo',
     icon: Search,
     description: 'SEO management and optimization',
+  },
+  {
+    title: 'Media Library',
+    href: '/admin/media',
+    icon: Image,
+    description: 'AI-powered photo studio and media management',
   },
 ];
 
