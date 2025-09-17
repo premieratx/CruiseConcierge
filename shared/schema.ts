@@ -191,6 +191,14 @@ export const discountRules = pgTable("discount_rules", {
   usageCount: integer("usage_count").notNull().default(0),
   active: boolean("active").notNull().default(true),
   conditions: jsonb("conditions").$type<DiscountCondition[]>().default([]),
+  // Phase 1 extensions
+  triggerOn: varchar("trigger_on").notNull().default("event"), // 'event', 'inquiry', 'both'
+  inquiryStartDate: timestamp("inquiry_start_date"), // When discount applies to inquiry period
+  inquiryEndDate: timestamp("inquiry_end_date"), // When discount stops applying to inquiry period
+  autoApply: boolean("auto_apply").notNull().default(false), // Apply automatically without code
+  requiresCode: boolean("requires_code").notNull().default(true), // Whether a code is required
+  scopeType: varchar("scope_type").notNull().default("global"), // 'global', 'boat', 'product', 'category'
+  scopeId: varchar("scope_id"), // nullable when scopeType is 'global'
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
@@ -947,6 +955,23 @@ export const insertTemplateRuleSchema = createInsertSchema(templateRules).omit({
 export const insertDiscountRuleSchema = createInsertSchema(discountRules).omit({
   id: true,
   createdAt: true,
+}).extend({
+  name: z.string().min(1, "Discount name is required"),
+  discountType: z.enum(["percentage", "fixed_amount", "per_person"]),
+  discountValue: z.number().min(0, "Discount value must be positive"),
+  triggerOn: z.enum(["event", "inquiry", "both"]).default("event"),
+  inquiryStartDate: z.string().datetime().transform(str => new Date(str)).optional(),
+  inquiryEndDate: z.string().datetime().transform(str => new Date(str)).optional(),
+  autoApply: z.boolean().default(false),
+  requiresCode: z.boolean().default(true),
+  scopeType: z.enum(["global", "boat", "product", "category"]).default("global"),
+  validFrom: z.string().datetime().transform(str => new Date(str)).optional(),
+  validUntil: z.string().datetime().transform(str => new Date(str)).optional(),
+  minGroupSize: z.number().min(1).optional(),
+  maxGroupSize: z.number().min(1).optional(),
+  minSubtotal: z.number().min(0).optional(),
+  usageLimit: z.number().min(1).optional(),
+  active: z.boolean().default(true),
 });
 
 export const insertPricingSettingsSchema = createInsertSchema(pricingSettings).omit({
@@ -1955,3 +1980,55 @@ export type InsertMediaItem = z.infer<typeof insertMediaItemSchema>;
 export type MediaItem = typeof mediaItems.$inferSelect;
 export type InsertPhotoEdit = z.infer<typeof insertPhotoEditSchema>;
 export type PhotoEdit = typeof photoEdits.$inferSelect;
+
+// Pricing Adjustments - for dynamic pricing modifications (Phase 1)
+export const pricingAdjustments = pgTable("pricing_adjustments", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  name: text("name").notNull(),
+  description: text("description"),
+  scopeType: varchar("scope_type").notNull(), // 'global', 'boat', 'product', 'category'
+  scopeId: varchar("scope_id"), // nullable when scopeType is 'global'
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date").notNull(),
+  daysOfWeek: jsonb("days_of_week").$type<number[]>().default([]), // 0-6 for Sunday-Saturday
+  adjustmentType: varchar("adjustment_type").notNull(), // 'amount', 'percent', 'override'
+  amountCents: integer("amount_cents").notNull().default(0), // Fixed amount in cents
+  percentBps: integer("percent_bps").notNull().default(0), // Percentage in basis points (0-10000)
+  operation: varchar("operation").notNull().default("increase"), // 'increase', 'decrease'
+  priority: integer("priority").notNull().default(0), // Lower number = higher priority
+  stackable: boolean("stackable").notNull().default(true), // Can be combined with other adjustments
+  isDateOfInterest: boolean("is_date_of_interest").notNull().default(false), // Special date highlighting
+  interestLabel: text("interest_label"), // Label for special dates (e.g., "New Year's Eve")
+  interestColor: varchar("interest_color"), // Color code for calendar highlighting
+  recurrence: varchar("recurrence").notNull().default("none"), // 'none', 'annual'
+  active: boolean("active").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Pricing Adjustments Insert Schema
+export const insertPricingAdjustmentSchema = createInsertSchema(pricingAdjustments).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+}).extend({
+  name: z.string().min(1, "Adjustment name is required"),
+  scopeType: z.enum(["global", "boat", "product", "category"]),
+  startDate: z.string().datetime().transform(str => new Date(str)),
+  endDate: z.string().datetime().transform(str => new Date(str)),
+  daysOfWeek: z.array(z.number().min(0).max(6)).default([]),
+  adjustmentType: z.enum(["amount", "percent", "override"]),
+  amountCents: z.number().min(0).default(0),
+  percentBps: z.number().min(0).max(10000).default(0), // 0-10000 basis points (0-100%)
+  operation: z.enum(["increase", "decrease"]).default("increase"),
+  priority: z.number().default(0),
+  stackable: z.boolean().default(true),
+  isDateOfInterest: z.boolean().default(false),
+  recurrence: z.enum(["none", "annual"]).default("none"),
+  active: z.boolean().default(true),
+});
+
+// Type definitions for Pricing Adjustments
+export type PricingAdjustment = typeof pricingAdjustments.$inferSelect;
+export type InsertPricingAdjustment = z.infer<typeof insertPricingAdjustmentSchema>;

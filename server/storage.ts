@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, contacts, projects, boats, products, quotes, invoices, payments, chatMessages, availabilitySlots, quoteTemplates, templateRules, discountRules, pricingSettings, affiliates, bookings, discoSlots, timeframes, emailTemplates, masterTemplates, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts, quoteAnalytics, fileSends, emailTracking, customerLifecycle, customerActivity, slotHolds, partialLeads, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, blogComments, blogAnalytics, seoPages, seoAuditLog, seoCompetitors, seoSettings } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, contacts, projects, boats, products, quotes, invoices, payments, chatMessages, availabilitySlots, quoteTemplates, templateRules, discountRules, pricingSettings, pricingAdjustments, affiliates, bookings, discoSlots, timeframes, emailTemplates, masterTemplates, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts, quoteAnalytics, fileSends, emailTracking, customerLifecycle, customerActivity, slotHolds, partialLeads, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, blogComments, blogAnalytics, seoPages, seoAuditLog, seoCompetitors, seoSettings } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, gte, lte, desc, asc, isNull, isNotNull, or, inArray, sql, count, sum, between } from "drizzle-orm";
 import { randomUUID } from "crypto";
@@ -96,6 +96,16 @@ export interface IStorage {
   createDiscountRule(rule: InsertDiscountRule): Promise<DiscountRule>;
   updateDiscountRule(id: string, updates: Partial<DiscountRule>): Promise<DiscountRule>;
   deleteDiscountRule(id: string): Promise<boolean>;
+
+  // Pricing Adjustments (Phase 1)
+  getPricingAdjustment(id: string): Promise<PricingAdjustment | undefined>;
+  getPricingAdjustments(): Promise<PricingAdjustment[]>;
+  getActivePricingAdjustments(): Promise<PricingAdjustment[]>;
+  getPricingAdjustmentsByScope(scopeType: string, scopeId?: string): Promise<PricingAdjustment[]>;
+  createPricingAdjustment(adjustment: InsertPricingAdjustment): Promise<PricingAdjustment>;
+  updatePricingAdjustment(id: string, updates: Partial<PricingAdjustment>): Promise<PricingAdjustment>;
+  deletePricingAdjustment(id: string): Promise<boolean>;
+  getEffectiveAdjustments(eventDate: Date, scopeType: string, scopeId?: string): Promise<PricingAdjustment[]>;
 
   // Pricing Settings
   getPricingSettings(orgId?: string): Promise<PricingSettings | undefined>;
@@ -1709,14 +1719,82 @@ export class DatabaseStorage implements IStorage {
     const crewFee = groupSize > 20 ? PRICING_DEFAULTS.EXTRA_CREW_FEE : 0;
     
     // Calculate subtotal (base + crew fee)
-    const subtotal = baseCruiseCost + crewFee;
+    let subtotal = baseCruiseCost + crewFee;
     
-    // Calculate tax and gratuity on subtotal
-    const tax = Math.floor(subtotal * (PRICING_DEFAULTS.TAX_RATE_BASIS_POINTS / 10000));
-    const gratuity = Math.floor(subtotal * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100));
+    // PHASE 1: Apply pricing adjustments
+    let adjustmentTotal = 0;
+    const appliedAdjustments: string[] = [];
+    
+    // Fetch effective pricing adjustments for this event date and boat capacity tier
+    const boatId = `capacity_${capacityTier}`; // Use capacity tier as boat identifier for adjustments
+    const globalAdjustments = await this.getEffectiveAdjustments(eventDate, 'global');
+    const boatAdjustments = await this.getEffectiveAdjustments(eventDate, 'boat', boatId);
+    
+    // Combine and sort all adjustments by priority
+    const allAdjustments = [...globalAdjustments, ...boatAdjustments]
+      .sort((a, b) => a.priority - b.priority);
+    
+    // Apply adjustments in priority order
+    let adjustedSubtotal = subtotal;
+    let amountAdjustments = 0; // Track cumulative amount adjustments for stacking
+    let percentAdjustments = 0; // Track cumulative percent adjustments for stacking
+    
+    for (const adjustment of allAdjustments) {
+      let adjustmentValue = 0;
+      
+      if (adjustment.adjustmentType === 'override') {
+        // Override adjustments replace the entire subtotal
+        adjustedSubtotal = adjustment.amountCents;
+        adjustmentValue = adjustment.amountCents - subtotal;
+        appliedAdjustments.push(`${adjustment.name} (override: $${(adjustment.amountCents / 100).toFixed(2)})`);
+        break; // Override stops further adjustments
+      } else if (adjustment.adjustmentType === 'amount') {
+        // Fixed amount adjustments
+        const amount = adjustment.operation === 'increase' 
+          ? adjustment.amountCents 
+          : -adjustment.amountCents;
+        
+        if (adjustment.stackable) {
+          amountAdjustments += amount;
+        } else {
+          // Non-stackable amount adjustment replaces previous amounts
+          amountAdjustments = amount;
+        }
+        
+        appliedAdjustments.push(`${adjustment.name} (${adjustment.operation === 'increase' ? '+' : '-'}$${(Math.abs(adjustment.amountCents) / 100).toFixed(2)})`);
+      } else if (adjustment.adjustmentType === 'percent') {
+        // Percentage adjustments (basis points to percentage)
+        const percentValue = adjustment.percentBps / 100; // Convert basis points to percentage
+        const amount = Math.floor(subtotal * (percentValue / 100));
+        const finalAmount = adjustment.operation === 'increase' ? amount : -amount;
+        
+        if (adjustment.stackable) {
+          percentAdjustments += finalAmount;
+        } else {
+          // Non-stackable percentage adjustment replaces previous percentages
+          percentAdjustments = finalAmount;
+        }
+        
+        appliedAdjustments.push(`${adjustment.name} (${adjustment.operation === 'increase' ? '+' : '-'}${(adjustment.percentBps / 100).toFixed(1)}%)`);
+      }
+    }
+    
+    // Apply stacked adjustments: amounts first, then percentages
+    adjustedSubtotal = subtotal + amountAdjustments + percentAdjustments;
+    adjustmentTotal = amountAdjustments + percentAdjustments;
+    
+    // Ensure adjusted subtotal doesn't go below zero
+    if (adjustedSubtotal < 0) {
+      adjustedSubtotal = 0;
+      adjustmentTotal = -subtotal;
+    }
+    
+    // Calculate tax and gratuity on adjusted subtotal
+    const tax = Math.floor(adjustedSubtotal * (PRICING_DEFAULTS.TAX_RATE_BASIS_POINTS / 10000));
+    const gratuity = Math.floor(adjustedSubtotal * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100));
     
     // Calculate total
-    const total = subtotal + tax + gratuity;
+    const total = adjustedSubtotal + tax + gratuity;
     
     // Calculate deposit based on event date (30-day rule)
     const today = new Date();
@@ -1726,8 +1804,8 @@ export class DatabaseStorage implements IStorage {
     const depositAmount = Math.floor(total * (depositPercent / 100));
     
     return {
-      subtotal,
-      discountTotal: 0,
+      subtotal: adjustedSubtotal, // Return adjusted subtotal
+      discountTotal: Math.abs(adjustmentTotal), // Total adjustment amount
       tax,
       gratuity,
       total,
@@ -1736,8 +1814,33 @@ export class DatabaseStorage implements IStorage {
       depositPercent,
       depositRequired: true,
       paymentSchedule: [],
-      appliedDiscounts: [],
+      appliedDiscounts: appliedAdjustments, // Include applied adjustments
       expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
+      // Phase 1 additions
+      adjustmentTotal,
+      originalSubtotal: subtotal, // Keep track of original subtotal before adjustments
+      breakdown: {
+        boatType: `${capacityTier}-person boat`,
+        dayName: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dayOfWeek],
+        baseHourlyRate: hourlyRate,
+        cruiseDuration: duration,
+        baseCruiseCost,
+        crewFee,
+        subtotalBeforeTax: adjustedSubtotal,
+        adjustments: allAdjustments.map(adj => ({
+          name: adj.name,
+          type: adj.adjustmentType,
+          operation: adj.operation,
+          value: adj.adjustmentType === 'percent' ? `${(adj.percentBps / 100).toFixed(1)}%` : `$${(adj.amountCents / 100).toFixed(2)}`,
+          priority: adj.priority
+        })),
+        gratuityAmount: gratuity,
+        taxAmount: tax,
+        grandTotal: total,
+        perPerson: Math.floor(total / groupSize),
+        deposit: depositAmount,
+        balanceDue: total - depositAmount,
+      },
     };
   }
 
@@ -1966,6 +2069,137 @@ export class DatabaseStorage implements IStorage {
   async deleteDiscountRule(id: string): Promise<boolean> {
     const result = await db.delete(discountRules).where(eq(discountRules.id, id));
     return result.rowCount > 0;
+  }
+
+  // ===== PRICING ADJUSTMENTS OPERATIONS (Phase 1) =====
+
+  async getPricingAdjustment(id: string): Promise<PricingAdjustment | undefined> {
+    const result = await db.select().from(pricingAdjustments).where(eq(pricingAdjustments.id, id)).limit(1);
+    return result[0];
+  }
+
+  async getPricingAdjustments(): Promise<PricingAdjustment[]> {
+    return await db.select().from(pricingAdjustments);
+  }
+
+  async getActivePricingAdjustments(): Promise<PricingAdjustment[]> {
+    const now = new Date();
+    return await db.select().from(pricingAdjustments).where(
+      and(
+        eq(pricingAdjustments.active, true),
+        lte(pricingAdjustments.startDate, now),
+        gte(pricingAdjustments.endDate, now)
+      )
+    );
+  }
+
+  async getPricingAdjustmentsByScope(scopeType: string, scopeId?: string): Promise<PricingAdjustment[]> {
+    const now = new Date();
+    let conditions = [
+      eq(pricingAdjustments.active, true),
+      eq(pricingAdjustments.scopeType, scopeType),
+      lte(pricingAdjustments.startDate, now),
+      gte(pricingAdjustments.endDate, now)
+    ];
+
+    if (scopeId && scopeType !== 'global') {
+      conditions.push(eq(pricingAdjustments.scopeId, scopeId));
+    }
+
+    return await db.select().from(pricingAdjustments).where(and(...conditions));
+  }
+
+  async createPricingAdjustment(adjustment: InsertPricingAdjustment): Promise<PricingAdjustment> {
+    const result = await db.insert(pricingAdjustments).values({
+      ...adjustment,
+      orgId: adjustment.orgId || "org_demo",
+      scopeId: adjustment.scopeType === 'global' ? null : adjustment.scopeId,
+      daysOfWeek: adjustment.daysOfWeek || [],
+      amountCents: adjustment.amountCents || 0,
+      percentBps: adjustment.percentBps || 0,
+      operation: adjustment.operation || 'increase',
+      priority: adjustment.priority || 0,
+      stackable: adjustment.stackable !== undefined ? adjustment.stackable : true,
+      isDateOfInterest: adjustment.isDateOfInterest || false,
+      recurrence: adjustment.recurrence || 'none',
+      active: adjustment.active !== undefined ? adjustment.active : true,
+    }).returning();
+    return result[0];
+  }
+
+  async updatePricingAdjustment(id: string, updates: Partial<PricingAdjustment>): Promise<PricingAdjustment> {
+    const updateData = { ...updates };
+    if (updateData.updatedAt === undefined) {
+      updateData.updatedAt = new Date();
+    }
+    const result = await db.update(pricingAdjustments).set(updateData).where(eq(pricingAdjustments.id, id)).returning();
+    if (result.length === 0) throw new Error("Pricing adjustment not found");
+    return result[0];
+  }
+
+  async deletePricingAdjustment(id: string): Promise<boolean> {
+    const result = await db.delete(pricingAdjustments).where(eq(pricingAdjustments.id, id));
+    return result.rowCount > 0;
+  }
+
+  async getEffectiveAdjustments(eventDate: Date, scopeType: string, scopeId?: string): Promise<PricingAdjustment[]> {
+    const dayOfWeek = eventDate.getDay(); // 0 = Sunday, 6 = Saturday
+    
+    // Get all applicable adjustments based on scope and date range
+    let scopeConditions = [
+      eq(pricingAdjustments.active, true),
+      lte(pricingAdjustments.startDate, eventDate),
+      gte(pricingAdjustments.endDate, eventDate)
+    ];
+
+    // Include global adjustments and specific scope adjustments
+    let scopeFilters = [eq(pricingAdjustments.scopeType, 'global')];
+    if (scopeType && scopeType !== 'global') {
+      if (scopeId) {
+        scopeFilters.push(
+          and(
+            eq(pricingAdjustments.scopeType, scopeType),
+            eq(pricingAdjustments.scopeId, scopeId)
+          )
+        );
+      } else {
+        scopeFilters.push(eq(pricingAdjustments.scopeType, scopeType));
+      }
+    }
+
+    const allAdjustments = await db.select().from(pricingAdjustments).where(
+      and(
+        ...scopeConditions,
+        or(...scopeFilters)
+      )
+    );
+
+    // Filter by day of week and recurrence rules
+    const effectiveAdjustments = allAdjustments.filter(adjustment => {
+      // Check if adjustment applies to this day of week
+      if (adjustment.daysOfWeek && adjustment.daysOfWeek.length > 0) {
+        if (!adjustment.daysOfWeek.includes(dayOfWeek)) {
+          return false;
+        }
+      }
+
+      // Handle annual recurrence
+      if (adjustment.recurrence === 'annual') {
+        const adjustmentStartDate = new Date(adjustment.startDate);
+        const eventMonth = eventDate.getMonth();
+        const eventDay = eventDate.getDate();
+        const adjustmentMonth = adjustmentStartDate.getMonth();
+        const adjustmentDay = adjustmentStartDate.getDate();
+        
+        // For annual recurrence, check if the month and day match
+        return eventMonth === adjustmentMonth && eventDay === adjustmentDay;
+      }
+
+      return true;
+    });
+
+    // Sort by priority (lower number = higher priority)
+    return effectiveAdjustments.sort((a, b) => a.priority - b.priority);
   }
 
   // ===== AFFILIATE OPERATIONS =====

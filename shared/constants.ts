@@ -160,7 +160,7 @@ export const PRICING_DEFAULTS = {
   DEPOSIT_PERCENT: 25,
   URGENCY_THRESHOLD_DAYS: 30,
   FULL_PAYMENT_THRESHOLD_DAYS: 14,
-  BASE_HOURLY_RATE: 40000, // $400.00 in cents (minimum rate)
+  BASE_HOURLY_RATE: 20000, // $200.00 in cents (minimum rate)
   EXTRA_CREW_FEE: 20000, // $200.00 in cents for groups >20 people
 } as const;
 
@@ -171,19 +171,19 @@ export const PRICING_DEFAULTS = {
 export const HOURLY_RATES = {
   // Capacity-based rates for Monday-Thursday (3 hours)
   WEEKDAY: {
-    14: 40000,  // $400/hour for ≤14 people
-    25: 45000,  // $450/hour for ≤25 people
-    30: 50000,  // $500/hour for ≤30 people
-    50: 55000,  // $550/hour for ≤50 people
-    75: 60000,  // $600/hour for ≤75 people
+    14: 20000,  // $200/hour for ≤14 people
+    25: 25000,  // $250/hour for ≤25 people
+    30: 30000,  // $300/hour for ≤30 people
+    50: 32500,  // $325/hour for ≤50 people
+    75: 35000,  // $350/hour for ≤75 people
   },
   // Capacity-based rates for Friday-Sunday (4 hours)
   WEEKEND: {
-    14: 50000,  // $500/hour for ≤14 people
-    25: 55000,  // $550/hour for ≤25 people
-    30: 60000,  // $600/hour for ≤30 people
-    50: 65000,  // $650/hour for ≤50 people
-    75: 70000,  // $700/hour for ≤75 people
+    14: 25000,  // $250/hour for ≤14 people
+    25: 30000,  // $300/hour for ≤25 people
+    30: 35000,  // $350/hour for ≤30 people
+    50: 37500,  // $375/hour for ≤50 people
+    75: 40000,  // $400/hour for ≤75 people
   }
 } as const;
 
