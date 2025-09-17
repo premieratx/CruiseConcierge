@@ -46,10 +46,7 @@ export default function QuoteViewer() {
     tokenLength: token?.length || 0
   });
   
-  // State for interactive elements
-  const [selectedPackage, setSelectedPackage] = useState<string>('standard');
-  const [discoTickets, setDiscoTickets] = useState<number>(0);
-  const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
+  // State for interactive elements (now minimal as this is display-only)
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [signature, setSignature] = useState('');
   
@@ -144,91 +141,51 @@ export default function QuoteViewer() {
     }
   }, [quote, isLoading, quoteError]);
   
-  // Save selections mutation
-  const saveSelections = useMutation({
+  // Save acceptance mutation (only for terms acceptance)
+  const saveAcceptance = useMutation({
     mutationFn: async () => {
-      const res = await apiRequest('PATCH', `/api/quotes/${quoteId}/selections`, {
-        selectedPackage,
-        discoTickets,
-        selectedAddOns,
+      const res = await apiRequest('PATCH', `/api/quotes/${quoteId}/acceptance`, {
         signature: acceptTerms ? signature : null,
+        acceptedAt: acceptTerms ? new Date().toISOString() : null,
       });
-      if (!res.ok) throw new Error('Failed to save selections');
+      if (!res.ok) throw new Error('Failed to save acceptance');
       return res.json();
     },
     onSuccess: () => {
       toast({ 
-        title: 'Selections Saved', 
-        description: 'Your quote selections have been updated.',
+        title: 'Terms Accepted', 
+        description: 'Your acceptance has been recorded.',
       });
       queryClient.invalidateQueries({ queryKey: [`/api/quotes/${quoteId}/public`] });
     },
     onError: (error: any) => {
       toast({ 
         title: 'Error', 
-        description: error.message || 'Failed to save selections',
+        description: error.message || 'Failed to save acceptance',
         variant: 'destructive',
       });
     },
   });
   
-  // Initialize selections from quote data
+  // Load acceptance state from quote data
   useEffect(() => {
     if (quote?.radioSections) {
-      // Load saved selections from radioSections
-      const packageSection = quote.radioSections.find(s => s.id === 'package_selection');
-      if (packageSection?.selectedValue) {
-        setSelectedPackage(packageSection.selectedValue);
-      }
-      
-      // Load disco tickets if present
-      const discoItem = quote.items?.find(item => item.name?.includes('Disco'));
-      if (discoItem?.qty) {
-        setDiscoTickets(discoItem.qty);
-      }
-      
-      // Load selected add-ons
-      const addOnItems = quote.items?.filter(item => item.isOptional && item.qty > 0);
-      if (addOnItems) {
-        setSelectedAddOns(addOnItems.map(item => item.id));
+      // Check if terms have been accepted
+      const acceptanceSection = quote.radioSections.find(s => s.id === 'terms_acceptance');
+      if (acceptanceSection?.selectedValue === 'accepted') {
+        setAcceptTerms(true);
+        setSignature(acceptanceSection.metadata?.signature || '');
       }
     }
   }, [quote]);
   
-  // Calculate pricing based on selections
-  const calculateTotal = () => {
-    if (!quote) return { subtotal: 0, tax: 0, gratuity: 0, total: 0 };
-    
-    let subtotal = quote.subtotal || 0;
-    
-    // Add package upgrade cost
-    if (selectedPackage === 'essentials') {
-      subtotal += 5000; // $50/hr upgrade
-    } else if (selectedPackage === 'ultimate') {
-      subtotal += 7500; // $75/hr upgrade  
-    }
-    
-    // Add disco tickets
-    if (discoTickets > 0) {
-      subtotal += discoTickets * 8500; // $85 per ticket
-    }
-    
-    // Add selected add-ons
-    selectedAddOns.forEach(addOnId => {
-      const addOn = quote.items?.find(item => item.id === addOnId);
-      if (addOn) {
-        subtotal += addOn.unitPrice * (addOn.qty || 1);
-      }
-    });
-    
-    const tax = Math.round(subtotal * 0.0825);
-    const gratuity = Math.round(subtotal * 0.20);
-    const total = subtotal + tax + gratuity;
-    
-    return { subtotal, tax, gratuity, total };
+  // Use the quote's actual pricing (no dynamic calculation)
+  const pricing = {
+    subtotal: quote?.subtotal || 0,
+    tax: quote?.tax || 0,
+    gratuity: quote?.gratuity || 0,
+    total: quote?.total || 0
   };
-  
-  const pricing = calculateTotal();
   
   const formatCurrency = (cents: number) => {
     return new Intl.NumberFormat('en-US', {
@@ -270,6 +227,11 @@ export default function QuoteViewer() {
   const isExpired = quote.expiresAt && new Date(quote.expiresAt) < new Date();
   const showDiscoOptions = quote.project?.eventType === 'bachelor' || quote.project?.eventType === 'bachelorette' || false;
   
+  // Check if quote has been accepted
+  const isQuoteAccepted = quote.radioSections?.some(section => 
+    section.id === 'terms_acceptance' && section.selectedValue === 'accepted'
+  ) || false;
+  
   return (
     <div className="min-h-screen bg-white">
       {/* Print/Download Actions */}
@@ -287,16 +249,16 @@ export default function QuoteViewer() {
           <Button 
             variant="outline" 
             size="sm"
-            onClick={() => saveSelections.mutate()}
-            disabled={saveSelections.isPending}
+            onClick={() => saveAcceptance.mutate()}
+            disabled={saveAcceptance.isPending || !acceptTerms}
             data-testid="button-save"
           >
-            {saveSelections.isPending ? (
+            {saveAcceptance.isPending ? (
               <Loader2 className="h-4 w-4 mr-2 animate-spin" />
             ) : (
               <Save className="h-4 w-4 mr-2" />
             )}
-            Save Selections
+            Save Acceptance
           </Button>
         </div>
       </div>
@@ -389,230 +351,207 @@ export default function QuoteViewer() {
           </div>
         </div>
         
-        {/* Package Selection Section */}
+        {/* Cruise Selection Details */}
         <div className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Select Your Package</h2>
-          <RadioGroup value={selectedPackage} onValueChange={setSelectedPackage}>
-            <div className="space-y-3">
-              <div className="flex items-start space-x-3 p-4 border rounded-lg hover:bg-gray-50">
-                <RadioGroupItem value="standard" id="package-standard" className="mt-1" />
-                <Label htmlFor="package-standard" className="flex-1 cursor-pointer">
-                  <div className="flex justify-between">
+          <h2 className="text-lg font-semibold text-gray-900 mb-4">Your Cruise Selection</h2>
+          
+          {/* Display Primary Cruise Selection */}
+          {quote.items && quote.items.filter(item => item.type === 'private_cruise' || item.type === 'cruise').length > 0 && (
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
+              <div className="flex items-start space-x-3">
+                <Ship className="h-6 w-6 text-blue-600 mt-1" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-blue-900 mb-2">Private Charter Cruise</h3>
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                     <div>
-                      <p className="font-medium text-gray-900">Standard Package</p>
-                      <p className="text-sm text-gray-600">Base cruise experience with captain and crew</p>
+                      <p className="text-blue-600 font-medium">Date</p>
+                      <p className="text-blue-800">{formatDate(quote.project?.projectDate)}</p>
                     </div>
-                    <p className="font-semibold text-gray-900">Included</p>
-                  </div>
-                </Label>
-              </div>
-              
-              <div className="flex items-start space-x-3 p-4 border rounded-lg hover:bg-gray-50">
-                <RadioGroupItem value="essentials" id="package-essentials" className="mt-1" />
-                <Label htmlFor="package-essentials" className="flex-1 cursor-pointer">
-                  <div className="flex justify-between">
                     <div>
-                      <p className="font-medium text-gray-900">Essentials Package</p>
-                      <p className="text-sm text-gray-600">Enhanced experience with premium amenities</p>
+                      <p className="text-blue-600 font-medium">Duration</p>
+                      <p className="text-blue-800">{quote.project?.duration || 4} hours</p>
                     </div>
-                    <p className="font-semibold text-gray-900">+$50/hr</p>
-                  </div>
-                </Label>
-              </div>
-              
-              <div className="flex items-start space-x-3 p-4 border rounded-lg hover:bg-gray-50">
-                <RadioGroupItem value="ultimate" id="package-ultimate" className="mt-1" />
-                <Label htmlFor="package-ultimate" className="flex-1 cursor-pointer">
-                  <div className="flex justify-between">
                     <div>
-                      <p className="font-medium text-gray-900">Ultimate Package</p>
-                      <p className="text-sm text-gray-600">All-inclusive luxury experience</p>
+                      <p className="text-blue-600 font-medium">Group Size</p>
+                      <p className="text-blue-800">{quote.project?.groupSize || 20} guests</p>
                     </div>
-                    <p className="font-semibold text-gray-900">+$75/hr</p>
+                    <div>
+                      <p className="text-blue-600 font-medium">Boat</p>
+                      <p className="text-blue-800">
+                        {(() => {
+                          // Try to get boat info from cruise items
+                          const cruiseItem = quote.items?.find(item => item.type === 'private_cruise' || item.type === 'cruise');
+                          if (cruiseItem?.description?.includes('Vessel:')) {
+                            const vesselMatch = cruiseItem.description.match(/Vessel:\s*([^,\n]+)/);
+                            return vesselMatch?.[1] || 'TBD';
+                          }
+                          
+                          // Fallback based on group size
+                          const groupSize = quote.project?.groupSize || 20;
+                          if (groupSize <= 15) return 'Day Tripper (15 guests)';
+                          if (groupSize <= 25) return 'Medium Vessel (25 guests)';
+                          if (groupSize <= 50) return 'Large Vessel (50 guests)';
+                          return 'Extra Large Vessel (75 guests)';
+                        })()
+                      }</p>
+                    </div>
                   </div>
-                </Label>
+                  
+                  {/* Show selected time if available from radioSections */}
+                  {quote.radioSections?.find(s => s.selectedValue && s.title?.toLowerCase().includes('time'))?.selectedValue && (
+                    <div className="mt-3 p-3 bg-white rounded border border-blue-200">
+                      <p className="text-blue-600 font-medium text-sm">Selected Time Slot</p>
+                      <p className="text-blue-800 font-semibold">
+                        {quote.radioSections.find(s => s.selectedValue && s.title?.toLowerCase().includes('time'))?.selectedValue}
+                      </p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
-          </RadioGroup>
+          )}
+          
+          {/* Display Disco Cruise Options if present */}
+          {showDiscoOptions && quote.items?.some(item => item.name?.toLowerCase().includes('disco') || item.name?.toLowerCase().includes('atx')) && (
+            <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
+              <div className="flex items-start space-x-3">
+                <Sparkles className="h-6 w-6 text-purple-600 mt-1" />
+                <div className="flex-1">
+                  <h3 className="font-semibold text-purple-900 mb-2">ATX Disco Cruise Experience</h3>
+                  <div className="text-sm text-purple-800">
+                    <p className="mb-2">Join our party boat experience with DJ, dancing, and festive atmosphere!</p>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                      <div>
+                        <p className="font-medium text-purple-700">Available Times:</p>
+                        <p>• Friday: 12:00 PM - 4:00 PM</p>
+                        <p>• Saturday: 11:00 AM - 3:00 PM or 3:30 PM - 7:30 PM</p>
+                      </div>
+                      <div>
+                        <p className="font-medium text-purple-700">Includes:</p>
+                        <p>• Professional DJ & Sound System</p>
+                        <p>• Dance Floor & Party Atmosphere</p>
+                        <p>• Cash Bar Available</p>
+                      </div>
+                    </div>
+                    
+                    {/* Show selected disco tickets */}
+                    {(() => {
+                      const discoItem = quote.items?.find(item => item.name?.toLowerCase().includes('disco') || item.name?.toLowerCase().includes('atx'));
+                      if (discoItem?.qty && discoItem.qty > 0) {
+                        return (
+                          <div className="mt-3 p-3 bg-white rounded border border-purple-200">
+                            <p className="text-purple-600 font-medium text-sm">Selected Tickets</p>
+                            <p className="text-purple-800 font-semibold">
+                              {discoItem.qty} × {discoItem.name} @ {formatCurrency(discoItem.unitPrice)} each
+                            </p>
+                          </div>
+                        );
+                      }
+                      return null;
+                    })()
+                    }
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+          
+          {/* Display selected packages/add-ons from radioSections */}
+          {quote.radioSections && quote.radioSections.filter(section => section.selectedValue && section.id !== 'terms_acceptance').length > 0 && (
+            <div className="mt-4">
+              <h3 className="font-medium text-gray-900 mb-3">Selected Options</h3>
+              <div className="space-y-2">
+                {quote.radioSections
+                  .filter(section => section.selectedValue && section.id !== 'terms_acceptance')
+                  .map((section, index) => (
+                    <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded border">
+                      <div>
+                        <p className="font-medium text-gray-900">{section.title}</p>
+                        <p className="text-sm text-gray-600">{section.selectedValue}</p>
+                      </div>
+                      {section.options?.find(opt => opt.id === section.selectedOptionId)?.price && (
+                        <p className="font-semibold text-gray-900">
+                          {formatCurrency(section.options.find(opt => opt.id === section.selectedOptionId)?.price || 0)}
+                        </p>
+                      )}
+                    </div>
+                  ))
+                }
+              </div>
+            </div>
+          )}
         </div>
         
-        {/* Items Table */}
+        {/* Items Table - Display Actual Quote Items */}
         <div className="mb-8">
           <table className="w-full border-collapse">
             <thead>
               <tr className="border-b-2 border-gray-300">
                 <th className="text-left py-2 text-sm font-semibold text-gray-900">ITEM</th>
                 <th className="text-center py-2 text-sm font-semibold text-gray-900 w-24">QTY</th>
-                <th className="text-right py-2 text-sm font-semibold text-gray-900 w-32">PRICE</th>
+                <th className="text-right py-2 text-sm font-semibold text-gray-900 w-32">RATE</th>
                 <th className="text-right py-2 text-sm font-semibold text-gray-900 w-32">TOTAL</th>
               </tr>
             </thead>
             <tbody>
-              {/* Base Cruise Item */}
-              <tr className="border-b border-gray-200">
-                <td className="py-3">
-                  <p className="font-medium text-gray-900">Private Charter - {quote.project?.duration || 4} Hour Cruise</p>
-                  <p className="text-sm text-gray-600">
-                    Exclusive use of vessel for your group
-                  </p>
-                </td>
-                <td className="text-center py-3">1</td>
-                <td className="text-right py-3">{formatCurrency(quote.subtotal || 180000)}</td>
-                <td className="text-right py-3 font-medium">{formatCurrency(quote.subtotal || 180000)}</td>
-              </tr>
-              
-              {/* Package Upgrade (if selected) */}
-              {selectedPackage !== 'standard' && (
+              {/* Display all quote items */}
+              {quote.items && quote.items.length > 0 ? (
+                quote.items
+                  .sort((a, b) => (a.order || 0) - (b.order || 0)) // Sort by order if specified
+                  .map((item, index) => (
+                    <tr key={item.id || index} className="border-b border-gray-200">
+                      <td className="py-3">
+                        <p className="font-medium text-gray-900" data-testid={`text-item-name-${index}`}>
+                          {item.name}
+                        </p>
+                        {item.description && (
+                          <p className="text-sm text-gray-600 mt-1" data-testid={`text-item-description-${index}`}>
+                            {item.description}
+                          </p>
+                        )}
+                        {/* Show category badge if it's an add-on or optional */}
+                        {(item.isOptional || item.category === 'addon') && (
+                          <Badge variant="secondary" className="mt-2">
+                            Optional Add-On
+                          </Badge>
+                        )}
+                      </td>
+                      <td className="text-center py-3" data-testid={`text-item-qty-${index}`}>
+                        {item.qty || 1}
+                      </td>
+                      <td className="text-right py-3" data-testid={`text-item-rate-${index}`}>
+                        {formatCurrency(item.unitPrice)}
+                        {/* Show per unit label if quantity > 1 */}
+                        {(item.qty || 1) > 1 && (
+                          <span className="text-xs text-gray-500 block">each</span>
+                        )}
+                      </td>
+                      <td className="text-right py-3 font-medium" data-testid={`text-item-total-${index}`}>
+                        {formatCurrency(item.unitPrice * (item.qty || 1))}
+                      </td>
+                    </tr>
+                  ))
+              ) : (
                 <tr className="border-b border-gray-200">
                   <td className="py-3">
-                    <p className="font-medium text-gray-900">
-                      {selectedPackage === 'essentials' ? 'Essentials Package Upgrade' : 'Ultimate Package Upgrade'}
-                    </p>
+                    <p className="font-medium text-gray-900">Private Charter - {quote.project?.duration || 4} Hour Cruise</p>
                     <p className="text-sm text-gray-600">
-                      {selectedPackage === 'essentials' 
-                        ? 'Premium amenities and enhanced service'
-                        : 'All-inclusive luxury experience'}
+                      Exclusive use of vessel for your group of {quote.project?.groupSize || 20} guests
                     </p>
                   </td>
-                  <td className="text-center py-3">{quote.project?.duration || 4}</td>
-                  <td className="text-right py-3">
-                    {selectedPackage === 'essentials' ? '$50.00/hr' : '$75.00/hr'}
-                  </td>
-                  <td className="text-right py-3 font-medium">
-                    {selectedPackage === 'essentials' 
-                      ? formatCurrency(5000 * (quote.project?.duration || 4))
-                      : formatCurrency(7500 * (quote.project?.duration || 4))}
-                  </td>
-                </tr>
-              )}
-              
-              {/* Disco Cruise Tickets (for bachelor/bachelorette) */}
-              {showDiscoOptions && (
-                <tr className="border-b border-gray-200">
-                  <td className="py-3">
-                    <p className="font-medium text-gray-900">ATX Disco Cruise Tickets</p>
-                    <div className="mt-2 bg-gray-50 p-3 rounded text-sm text-gray-600">
-                      <p className="font-medium text-gray-700 mb-1">Join the party boat experience!</p>
-                      <p>• Friday: 12:00 PM - 4:00 PM</p>
-                      <p>• Saturday: 11:00 AM - 3:00 PM or 3:30 PM - 7:30 PM</p>
-                      <p>• Includes DJ, dancing, and party atmosphere</p>
-                      <p>• Cash bar available on board</p>
-                    </div>
-                  </td>
-                  <td className="text-center py-3">
-                    <div className="flex items-center justify-center gap-2">
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setDiscoTickets(Math.max(0, discoTickets - 1))}
-                        className="h-8 w-8 p-0"
-                        data-testid="button-disco-decrease"
-                      >
-                        <Minus className="h-4 w-4" />
-                      </Button>
-                      <span className="w-12 text-center font-medium" data-testid="text-disco-quantity">
-                        {discoTickets}
-                      </span>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => setDiscoTickets(Math.min(50, discoTickets + 1))}
-                        className="h-8 w-8 p-0"
-                        data-testid="button-disco-increase"
-                      >
-                        <Plus className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </td>
-                  <td className="text-right py-3">$85.00</td>
-                  <td className="text-right py-3 font-medium">
-                    {formatCurrency(discoTickets * 8500)}
-                  </td>
+                  <td className="text-center py-3">1</td>
+                  <td className="text-right py-3">{formatCurrency(quote.subtotal || 0)}</td>
+                  <td className="text-right py-3 font-medium">{formatCurrency(quote.subtotal || 0)}</td>
                 </tr>
               )}
             </tbody>
           </table>
         </div>
         
-        {/* Optional Add-Ons */}
+        {/* Pricing Summary Section */}
         <div className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Optional Add-Ons</h2>
-          <div className="space-y-3">
-            <div className="flex items-start space-x-3 p-4 border rounded-lg hover:bg-gray-50">
-              <Checkbox 
-                id="addon-cooler"
-                checked={selectedAddOns.includes('addon-cooler')}
-                onCheckedChange={(checked) => {
-                  if (checked) {
-                    setSelectedAddOns([...selectedAddOns, 'addon-cooler']);
-                  } else {
-                    setSelectedAddOns(selectedAddOns.filter(id => id !== 'addon-cooler'));
-                  }
-                }}
-              />
-              <Label htmlFor="addon-cooler" className="flex-1 cursor-pointer">
-                <div className="flex justify-between">
-                  <div>
-                    <p className="font-medium text-gray-900">Large Cooler with Ice</p>
-                    <p className="text-sm text-gray-600">120qt cooler pre-filled with ice</p>
-                  </div>
-                  <p className="font-semibold text-gray-900">$50.00</p>
-                </div>
-              </Label>
-            </div>
-            
-            <div className="flex items-start space-x-3 p-4 border rounded-lg hover:bg-gray-50">
-              <Checkbox 
-                id="addon-decorations"
-                checked={selectedAddOns.includes('addon-decorations')}
-                onCheckedChange={(checked) => {
-                  if (checked) {
-                    setSelectedAddOns([...selectedAddOns, 'addon-decorations']);
-                  } else {
-                    setSelectedAddOns(selectedAddOns.filter(id => id !== 'addon-decorations'));
-                  }
-                }}
-              />
-              <Label htmlFor="addon-decorations" className="flex-1 cursor-pointer">
-                <div className="flex justify-between">
-                  <div>
-                    <p className="font-medium text-gray-900">Party Decorations</p>
-                    <p className="text-sm text-gray-600">Themed decorations for your event</p>
-                  </div>
-                  <p className="font-semibold text-gray-900">$75.00</p>
-                </div>
-              </Label>
-            </div>
-            
-            <div className="flex items-start space-x-3 p-4 border rounded-lg hover:bg-gray-50">
-              <Checkbox 
-                id="addon-photographer"
-                checked={selectedAddOns.includes('addon-photographer')}
-                onCheckedChange={(checked) => {
-                  if (checked) {
-                    setSelectedAddOns([...selectedAddOns, 'addon-photographer']);
-                  } else {
-                    setSelectedAddOns(selectedAddOns.filter(id => id !== 'addon-photographer'));
-                  }
-                }}
-              />
-              <Label htmlFor="addon-photographer" className="flex-1 cursor-pointer">
-                <div className="flex justify-between">
-                  <div>
-                    <p className="font-medium text-gray-900">Professional Photographer</p>
-                    <p className="text-sm text-gray-600">2 hours of professional photography</p>
-                  </div>
-                  <p className="font-semibold text-gray-900">$300.00</p>
-                </div>
-              </Label>
-            </div>
-          </div>
-        </div>
-        
-        {/* Pricing Summary */}
-        <div className="mb-8">
-          <div className="bg-gray-50 rounded-lg p-6">
-            <div className="space-y-2 text-sm">
+          <div className="border-t-2 border-gray-300 pt-4">
+            <div className="space-y-2 text-right max-w-md ml-auto">
               <div className="flex justify-between">
                 <span className="text-gray-600">Subtotal:</span>
                 <span className="font-medium text-gray-900">{formatCurrency(pricing.subtotal)}</span>
@@ -625,20 +564,23 @@ export default function QuoteViewer() {
                 <span className="text-gray-600">Crew Gratuity (20%):</span>
                 <span className="font-medium text-gray-900">{formatCurrency(pricing.gratuity)}</span>
               </div>
-              <Separator className="my-2" />
+              <Separator className="my-3" />
               <div className="flex justify-between text-lg font-bold">
                 <span className="text-gray-900">Total:</span>
                 <span className="text-gray-900">{formatCurrency(pricing.total)}</span>
               </div>
-              <div className="flex justify-between text-sm pt-2">
-                <span className="text-gray-600">25% Deposit to Reserve:</span>
-                <span className="font-medium text-green-600">
-                  {formatCurrency(Math.round(pricing.total * 0.25))}
-                </span>
-              </div>
+              {quote.depositRequired && (
+                <div className="flex justify-between text-sm pt-2 border-t">
+                  <span className="text-gray-600">Deposit Required:</span>
+                  <span className="font-medium text-green-600">
+                    {formatCurrency(quote.depositAmount || Math.round(pricing.total * (quote.depositPercent || 25) / 100))}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
         </div>
+        
         
         {/* Payment Terms */}
         <div className="mb-8">
@@ -696,24 +638,31 @@ export default function QuoteViewer() {
         <div className="flex justify-end gap-4 print:hidden">
           <Button
             variant="outline"
-            onClick={() => saveSelections.mutate()}
-            disabled={saveSelections.isPending}
-            data-testid="button-save-bottom"
+            onClick={() => saveAcceptance.mutate()}
+            disabled={saveAcceptance.isPending || !acceptTerms || !signature}
+            data-testid="button-save-acceptance"
           >
-            Save Selections
+            {saveAcceptance.isPending ? (
+              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+            ) : (
+              <CheckCircle className="h-4 w-4 mr-2" />
+            )}
+            {isQuoteAccepted ? 'Update Acceptance' : 'Accept Quote'}
           </Button>
-          <Button
-            disabled={!acceptTerms || !signature || !!isExpired}
-            className="bg-green-600 hover:bg-green-700"
-            onClick={() => {
-              // Navigate to payment
-              window.location.href = `/checkout?quote=${quoteId}`;
-            }}
-            data-testid="button-proceed-payment"
-          >
-            <CreditCard className="h-4 w-4 mr-2" />
-            Proceed to Payment
-          </Button>
+          {isQuoteAccepted && (
+            <Button
+              disabled={!acceptTerms || !signature || !!isExpired}
+              className="bg-green-600 hover:bg-green-700"
+              onClick={() => {
+                // Navigate to payment
+                window.location.href = `/checkout?quote=${quoteId}&token=${token}`;
+              }}
+              data-testid="button-proceed-payment"
+            >
+              <CreditCard className="h-4 w-4 mr-2" />
+              Proceed to Payment
+            </Button>
+          )}
         </div>
         
         {/* Footer */}
