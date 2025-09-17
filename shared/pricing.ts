@@ -134,25 +134,36 @@ export function calculateTaxAndGratuity(subtotal: number) {
 }
 
 /**
- * Calculates deposit amount based on event date and total cost
+ * Calculates deposit amount and due dates based on event date and total cost
+ * Business Rule: Always 25% deposit, remaining balance due 30 days before event
  * @param total Total cost in cents
  * @param eventDate Event date
- * @returns Deposit information
+ * @returns Deposit information including due dates
  */
 export function calculateDeposit(total: number, eventDate: Date) {
   const today = new Date();
   const daysUntilEvent = Math.ceil((eventDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
   
-  const depositPercent = daysUntilEvent >= PRICING_DEFAULTS.URGENCY_THRESHOLD_DAYS ? 
-    PRICING_DEFAULTS.DEPOSIT_PERCENT : 100;
+  // Always use 25% deposit as per business requirements
+  const depositPercent = PRICING_DEFAULTS.DEPOSIT_PERCENT; // Always 25%
   const depositAmount = Math.floor(total * (depositPercent / 100));
+  const balanceDue = total - depositAmount;
+  
+  // Calculate when remaining balance is due (30 days before event)
+  const remainingBalanceDueAt = new Date(eventDate);
+  remainingBalanceDueAt.setDate(remainingBalanceDueAt.getDate() - 30);
+  
+  // If the due date has already passed, set it to today
+  const finalDueDate = remainingBalanceDueAt < today ? today : remainingBalanceDueAt;
   
   return {
     depositPercent,
     depositAmount,
-    balanceDue: total - depositAmount,
-    isFullPaymentRequired: depositPercent === 100,
-    daysUntilEvent
+    balanceDue,
+    remainingBalanceDueAt: finalDueDate,
+    isFullPaymentRequired: false, // Always false since we always use 25% deposit
+    daysUntilEvent,
+    daysUntilBalanceDue: Math.ceil((finalDueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
   };
 }
 

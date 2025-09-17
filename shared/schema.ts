@@ -97,6 +97,11 @@ export const invoices = pgTable("invoices", {
   tax: integer("tax").notNull(),
   total: integer("total").notNull(),
   balance: integer("balance").notNull(),
+  // Persistent deposit calculation fields (always 25%)
+  depositPercent: integer("deposit_percent").notNull().default(25),
+  depositAmount: integer("deposit_amount").notNull().default(0),
+  remainingBalance: integer("remaining_balance").notNull().default(0),
+  remainingBalanceDueAt: timestamp("remaining_balance_due_at"),
   schedule: jsonb("schedule").$type<PaymentSchedule[]>().default([]),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });

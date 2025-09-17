@@ -267,7 +267,66 @@ export default function InvoiceViewer() {
           </Card>
         )}
         
-        {/* Payment Summary */}
+        {/* Quote Details Section - Show the real booking choices */}
+        {(invoice as any).quote && (
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <FileText className="h-5 w-5 text-purple-600" />
+                Booking Details
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              {/* Show selected quote items */}
+              {(invoice as any).quote.items && (invoice as any).quote.items.length > 0 && (
+                <div className="space-y-4">
+                  <h4 className="font-semibold text-gray-900">Selected Options:</h4>
+                  {(invoice as any).quote.items.map((item: any, index: number) => (
+                    <div key={index} className="flex justify-between items-center py-2 px-3 bg-gray-50 rounded-lg">
+                      <div>
+                        <p className="font-medium">{item.name}</p>
+                        {item.description && (
+                          <p className="text-sm text-gray-600">{item.description}</p>
+                        )}
+                        {item.quantity > 1 && (
+                          <p className="text-sm text-gray-500">Quantity: {item.quantity}</p>
+                        )}
+                      </div>
+                      <div className="text-right">
+                        <p className="font-medium">{formatCurrency(item.unitPrice * item.quantity)}</p>
+                        {item.quantity > 1 && (
+                          <p className="text-sm text-gray-500">{formatCurrency(item.unitPrice)} each</p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {/* Show selected radio options */}
+              {(invoice as any).quote.radioSections && (invoice as any).quote.radioSections.length > 0 && (
+                <div className="mt-6 space-y-3">
+                  <h4 className="font-semibold text-gray-900">Selected Preferences:</h4>
+                  {(invoice as any).quote.radioSections
+                    .filter((section: any) => section.selectedValue && section.id !== 'terms_acceptance')
+                    .map((section: any, index: number) => {
+                      const selectedOption = section.options?.find((opt: any) => opt.value === section.selectedValue);
+                      return (
+                        <div key={index} className="flex justify-between items-center py-2">
+                          <span className="text-gray-700">{section.label}:</span>
+                          <span className="font-medium text-gray-900">
+                            {selectedOption?.label || section.selectedValue}
+                          </span>
+                        </div>
+                      );
+                    })}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
+
+        {/* Payment Summary with Enhanced 25% Deposit Structure */}
         <Card className="mb-8">
           <CardHeader>
             <CardTitle className="flex items-center gap-2">
@@ -277,90 +336,241 @@ export default function InvoiceViewer() {
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span className="text-gray-600">Subtotal:</span>
-                <span className="font-medium">{formatCurrency(invoice.subtotal)}</span>
-              </div>
-              
-              {invoice.tax > 0 && (
+              {/* Cruise Cost Breakdown */}
+              <div className="space-y-2">
                 <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Tax:</span>
-                  <span className="font-medium">{formatCurrency(invoice.tax)}</span>
+                  <span className="text-gray-600">Cruise Cost:</span>
+                  <span className="font-medium">{formatCurrency(invoice.subtotal)}</span>
                 </div>
-              )}
+                
+                {invoice.tax > 0 && (
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Tax (8.25%):</span>
+                    <span className="font-medium">{formatCurrency(invoice.tax)}</span>
+                  </div>
+                )}
+
+                {(invoice as any).gratuity > 0 && (
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Gratuity (20%):</span>
+                    <span className="font-medium">{formatCurrency((invoice as any).gratuity)}</span>
+                  </div>
+                )}
+              </div>
               
               <Separator />
               
-              <div className="flex justify-between items-center text-lg font-semibold">
-                <span>Total Amount:</span>
-                <span className="text-blue-600">{formatCurrency(invoice.total)}</span>
+              <div className="flex justify-between items-center text-xl font-bold bg-blue-50 p-4 rounded-lg">
+                <span className="text-blue-900">Total Cruise Price:</span>
+                <span className="text-blue-900">{formatCurrency(invoice.total)}</span>
               </div>
               
+              {/* Enhanced Deposit Structure - PERSISTENT VALUES FROM DATABASE */}
+              <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                <h4 className="font-semibold text-green-800 mb-3 text-lg">💳 Payment Structure (25% Deposit)</h4>
+                <div className="space-y-2">
+                  <div className="flex justify-between items-center">
+                    <span className="text-green-700 font-medium">Deposit Required (25%):</span>
+                    <span className="font-bold text-green-900 text-lg">
+                      {formatCurrency((invoice as any).depositAmount || Math.floor(invoice.total * 0.25))}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-green-700 font-medium">Remaining Balance (75%):</span>
+                    <span className="font-bold text-green-900 text-lg">
+                      {formatCurrency((invoice as any).remainingBalance || Math.floor(invoice.total * 0.75))}
+                    </span>
+                  </div>
+                </div>
+                
+                {/* Due Date Information - PERSISTENT VALUE FROM DATABASE */}
+                {((invoice as any).remainingBalanceDueAt || invoice.project?.projectDate) && (
+                  <div className="mt-3 p-3 bg-amber-50 border border-amber-200 rounded">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Clock className="h-4 w-4 text-amber-600" />
+                      <span className="font-medium text-amber-800">Remaining Balance Due Date:</span>
+                    </div>
+                    <p className="text-amber-900 font-semibold">
+                      {(() => {
+                        // Use PERSISTENT due date from database if available
+                        if ((invoice as any).remainingBalanceDueAt) {
+                          return format(new Date((invoice as any).remainingBalanceDueAt), 'EEEE, MMMM d, yyyy');
+                        }
+                        // Fallback to client-side calculation only if persistent value not available
+                        else if (invoice.project?.projectDate) {
+                          const eventDate = new Date(invoice.project.projectDate);
+                          const dueDate = new Date(eventDate);
+                          dueDate.setDate(dueDate.getDate() - 30);
+                          const today = new Date();
+                          const finalDueDate = dueDate < today ? today : dueDate;
+                          return format(finalDueDate, 'EEEE, MMMM d, yyyy');
+                        }
+                        return 'TBD';
+                      })()} 
+                      <span className="text-sm text-amber-700">(30 days before cruise)</span>
+                    </p>
+                    {(invoice as any).remainingBalanceDueAt && (
+                      <div className="mt-2 text-xs text-green-700 bg-green-100 px-2 py-1 rounded">
+                        ✓ Server-calculated due date stored persistently
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+              
+              {/* Current Payment Status */}
               {amountPaid > 0 && (
-                <div className="flex justify-between items-center">
-                  <span className="text-green-600">Amount Paid:</span>
-                  <span className="font-medium text-green-600">{formatCurrency(amountPaid)}</span>
+                <div className="bg-gray-50 p-4 rounded-lg">
+                  <h4 className="font-semibold text-gray-800 mb-2">Payment Status</h4>
+                  <div className="flex justify-between items-center">
+                    <span className="text-green-600 font-medium">✓ Amount Paid:</span>
+                    <span className="font-bold text-green-700 text-lg">{formatCurrency(amountPaid)}</span>
+                  </div>
                 </div>
               )}
               
               {amountDue > 0 && (
-                <div className="flex justify-between items-center text-lg font-semibold">
-                  <span className="text-red-600">Amount Due:</span>
-                  <span className="text-red-600">{formatCurrency(amountDue)}</span>
+                <div className="bg-red-50 p-4 rounded-lg border border-red-200">
+                  <div className="flex justify-between items-center">
+                    <span className="text-red-700 font-semibold text-lg">Outstanding Balance:</span>
+                    <span className="text-red-700 font-bold text-xl">{formatCurrency(amountDue)}</span>
+                  </div>
+                  <p className="text-red-600 text-sm mt-1">
+                    {amountPaid === 0 ? 'Deposit payment required to secure booking' : 'Final payment due before cruise date'}
+                  </p>
                 </div>
               )}
             </div>
           </CardContent>
         </Card>
+
+        {/* Payment Schedule Section */}
+        {(invoice as any).schedule && (invoice as any).schedule.length > 0 && (
+          <Card className="mb-8">
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Calendar className="h-5 w-5 text-orange-600" />
+                Payment Schedule
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                {(invoice as any).schedule.map((payment: any, index: number) => (
+                  <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                    <div>
+                      <p className="font-medium text-gray-900">{payment.description}</p>
+                      <p className="text-sm text-gray-600">
+                        Due: {format(new Date(payment.dueDate), 'MMMM dd, yyyy')}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="font-semibold text-lg">{formatCurrency(payment.amount)}</p>
+                      <Badge 
+                        variant={payment.status === 'paid' ? 'default' : 'secondary'}
+                        className={payment.status === 'paid' ? 'bg-green-100 text-green-700' : ''}
+                      >
+                        {payment.status === 'paid' ? '✓ Paid' : 'Pending'}
+                      </Badge>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        )}
         
-        {/* Payment Actions */}
+        {/* Enhanced Payment Actions with Deposit Focus */}
         {!isPaid && amountDue > 0 && (
           <Card className="mb-8">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <CreditCard className="h-5 w-5 text-blue-600" />
-                Make Payment
+                {amountPaid === 0 ? 'Secure Your Booking - Pay Deposit' : 'Complete Final Payment'}
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                <p className="text-gray-600">
-                  Click below to securely pay your invoice with credit card or bank transfer.
-                </p>
+              <div className="space-y-6">
+                {amountPaid === 0 ? (
+                  <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                    <h4 className="font-semibold text-green-800 mb-2 flex items-center gap-2">
+                      <CheckCircle className="h-5 w-5" />
+                      Ready to Secure Your Booking?
+                    </h4>
+                    <p className="text-green-700 mb-3">
+                      Pay your 25% deposit now to lock in your cruise date and time. 
+                      The remaining 75% will be due 30 days before your cruise.
+                    </p>
+                    <div className="text-sm text-green-600 space-y-1">
+                      <p>✓ Immediate booking confirmation</p>
+                      <p>✓ Date and time secured</p>
+                      <p>✓ Email confirmation sent</p>
+                      <p>✓ Automatic payment reminders for final balance</p>
+                    </div>
+                  </div>
+                ) : (
+                  <div className="bg-amber-50 p-4 rounded-lg border border-amber-200">
+                    <h4 className="font-semibold text-amber-800 mb-2">Final Payment Due</h4>
+                    <p className="text-amber-700">
+                      Complete your final payment to ensure your cruise is fully paid before the event date.
+                    </p>
+                  </div>
+                )}
                 
-                <div className="flex gap-4">
+                <div className="flex flex-col gap-3">
                   <Button
                     onClick={() => processPayment.mutate(amountDue)}
                     disabled={processPayment.isPending}
-                    className="bg-blue-600 hover:bg-blue-700"
-                    data-testid="button-pay-full"
+                    className="bg-blue-600 hover:bg-blue-700 text-lg h-12"
+                    data-testid="button-pay-amount"
                   >
                     {processPayment.isPending ? (
-                      <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                      <Loader2 className="h-5 w-5 mr-2 animate-spin" />
                     ) : (
-                      <CreditCard className="h-4 w-4 mr-2" />
+                      <CreditCard className="h-5 w-5 mr-2" />
                     )}
-                    Pay Full Amount ({formatCurrency(amountDue)})
+                    {amountPaid === 0 ? 
+                      `Pay 25% Deposit (${formatCurrency(amountDue)})` :
+                      `Pay Final Balance (${formatCurrency(amountDue)})`
+                    }
                   </Button>
                   
-                  {/* Optional: Add partial payment option */}
-                  {amountDue > 10000 && ( // Only show for amounts > $100
+                  {/* Optional: Full payment for first-time customers */}
+                  {amountPaid === 0 && (
                     <Button
                       variant="outline"
-                      onClick={() => processPayment.mutate(Math.round(amountDue * 0.5))}
+                      onClick={() => processPayment.mutate(invoice.total)}
                       disabled={processPayment.isPending}
-                      data-testid="button-pay-partial"
+                      className="border-green-300 text-green-700 hover:bg-green-50"
+                      data-testid="button-pay-full"
                     >
-                      Pay 50% ({formatCurrency(Math.round(amountDue * 0.5))})
+                      <DollarSign className="h-4 w-4 mr-2" />
+                      Pay Full Amount ({formatCurrency(invoice.total)}) - Save Time!
                     </Button>
                   )}
                 </div>
                 
-                <div className="bg-blue-50 p-4 rounded-lg">
-                  <p className="text-sm text-blue-800">
-                    🔒 <strong>Secure Payment:</strong> All transactions are processed securely through Stripe. 
-                    Your payment information is encrypted and never stored on our servers.
-                  </p>
+                {/* Payment Security and Auto-Pay Information */}
+                <div className="space-y-3">
+                  <div className="bg-blue-50 p-4 rounded-lg">
+                    <p className="text-sm text-blue-800">
+                      🔒 <strong>Secure Payment:</strong> All transactions are processed securely through Stripe. 
+                      Your payment information is encrypted and never stored on our servers.
+                    </p>
+                  </div>
+                  
+                  {amountPaid === 0 && (
+                    <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
+                      <h5 className="font-medium text-purple-800 mb-2">📧 Automatic Payment Reminders</h5>
+                      <p className="text-sm text-purple-700 mb-2">
+                        We'll automatically send you friendly email reminders for your final balance:
+                      </p>
+                      <div className="text-xs text-purple-600 space-y-1 ml-2">
+                        <p>• 45 days before cruise: First reminder</p>
+                        <p>• 35 days before cruise: Second reminder</p>
+                        <p>• 30 days before cruise: Final notice (due date)</p>
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
             </CardContent>

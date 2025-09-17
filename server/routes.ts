@@ -498,7 +498,7 @@ const sendInvoiceSchema = z.object({
 // PRICING CALCULATION HELPER
 // ==========================================
 
-async function calculateInvoiceTotalsWithPricingSettings(items: any[], quoteId?: string) {
+async function calculateInvoiceTotalsWithPricingSettings(items: any[], quoteId?: string, eventDate?: Date) {
   // Get PricingSettings for consistent tax rates
   const settings = await storage.getPricingSettings();
   
@@ -518,8 +518,43 @@ async function calculateInvoiceTotalsWithPricingSettings(items: any[], quoteId?:
   const tax = Math.round(subtotal * taxRate);
   const gratuity = Math.round(subtotal * gratuityRate);
   const total = subtotal + tax + gratuity;
+  
+  // Calculate deposit and due date - always 25% deposit
+  const depositPercent = 25; // Always 25% as per business requirements
+  const depositAmount = Math.floor(total * (depositPercent / 100));
+  const remainingBalance = total - depositAmount;
+  
+  // Calculate when remaining balance is due (30 days before event)
+  let remainingBalanceDueAt = null;
+  if (eventDate) {
+    const today = new Date();
+    const dueDate = new Date(eventDate);
+    dueDate.setDate(dueDate.getDate() - 30);
+    remainingBalanceDueAt = dueDate < today ? today : dueDate;
+  }
+  
+  // Create payment schedule
+  const paymentSchedule = [
+    {
+      line: 1,
+      due: "booking",
+      percent: depositPercent,
+      amount: depositAmount,
+      daysBefore: 0,
+      description: "Deposit to secure booking"
+    },
+    {
+      line: 2,
+      due: "final",
+      percent: 100 - depositPercent,
+      amount: remainingBalance,
+      daysBefore: 30,
+      dueDate: remainingBalanceDueAt,
+      description: "Remaining balance due 30 days before cruise"
+    }
+  ];
 
-  console.log(`💰 Invoice calculation - Subtotal: $${subtotal/100}, Tax: $${tax/100} (${taxRate*100}%), Gratuity: $${gratuity/100} (${gratuityRate*100}%), Total: $${total/100}`);
+  console.log(`💰 Invoice calculation - Subtotal: $${subtotal/100}, Tax: $${tax/100} (${taxRate*100}%), Gratuity: $${gratuity/100} (${gratuityRate*100}%), Total: $${total/100}, Deposit: $${depositAmount/100} (25%), Balance Due: $${remainingBalance/100}`);
 
   return {
     subtotal,
@@ -527,7 +562,12 @@ async function calculateInvoiceTotalsWithPricingSettings(items: any[], quoteId?:
     gratuity,
     total,
     taxRate,
-    gratuityRate
+    gratuityRate,
+    depositPercent,
+    depositAmount,
+    remainingBalance,
+    remainingBalanceDueAt,
+    paymentSchedule
   };
 }
 
@@ -1175,31 +1215,73 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get individual invoice endpoint
+  // Get individual invoice endpoint - with access control
   app.get("/api/invoices/:id", async (req, res) => {
     try {
-      console.log("🎯 Invoice API endpoint hit for ID:", req.params.id);
+      console.log("🔒 Invoice API endpoint hit for ID:", req.params.id);
       const invoiceId = req.params.id;
       const invoice = await storage.getInvoice(invoiceId);
       
-      console.log("🎯 Found invoice:", invoice ? "YES" : "NO");
+      console.log("🔒 Found invoice:", invoice ? "YES" : "NO");
       
       if (!invoice) {
-        console.log("🎯 Invoice not found, returning 404");
+        console.log("🔒 Invoice not found, returning 404");
         return res.status(404).json({ error: "Invoice not found" });
+      }
+      
+      // **SECURITY: Verify quote has been accepted before allowing invoice access**
+      if (invoice.quoteId) {
+        const quote = await storage.getQuote(invoice.quoteId);
+        if (!quote) {
+          console.log("🚫 Invoice access denied: Associated quote not found");
+          return res.status(403).json({ error: "Invoice access denied: Quote not found" });
+        }
+        
+        // Check if quote has been accepted by looking at radioSections
+        const termsSection = quote.radioSections?.find(s => s.id === 'terms_acceptance');
+        const isQuoteAccepted = termsSection?.selectedValue === 'accepted' || quote.status === 'ACCEPTED';
+        
+        if (!isQuoteAccepted) {
+          console.log("🚫 Invoice access denied: Quote not yet accepted", {
+            quoteId: quote.id,
+            quoteStatus: quote.status,
+            termsAccepted: termsSection?.selectedValue
+          });
+          return res.status(403).json({ 
+            error: "Invoice access denied: Quote must be accepted first",
+            quoteAcceptanceRequired: true
+          });
+        }
+        
+        console.log("✅ Invoice access authorized: Quote has been accepted", {
+          quoteId: quote.id,
+          quoteStatus: quote.status,
+          termsAccepted: termsSection?.selectedValue
+        });
       }
       
       // Get related project and contact data
       const project = await storage.getProject(invoice.projectId);
       const contact = project ? await storage.getContact(project.contactId) : null;
       
-      console.log("🎯 Returning invoice with details");
+      // **ENHANCED: Get the associated quote data for complete booking details**
+      const quote = invoice.quoteId ? await storage.getQuote(invoice.quoteId) : null;
       
-      // Return invoice with related data
+      console.log("🔒 Returning invoice with complete details:", {
+        hasProject: !!project,
+        hasContact: !!contact,
+        hasQuote: !!quote,
+        quoteItems: quote?.items?.length || 0,
+        quoteOptions: quote?.radioSections?.length || 0,
+        accessControlPassed: true
+      });
+      
+      // Return invoice with ALL related data including quote details for real booking information
       const invoiceWithDetails = {
         ...invoice,
         project,
-        contact
+        contact,
+        quote // Include quote data for real booking details display
       };
       
       res.json(invoiceWithDetails);
@@ -2025,9 +2107,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
               perPersonCost: privatePricing.perPersonCost,
               discountTotal: privatePricing.discountTotal || 0,
               paymentSchedule: privatePricing.paymentSchedule || [{
-                line: 1, due: "booking", percent: privatePricing.depositPercent || 50, daysBefore: 0
+                line: 1, due: "booking", percent: 25, daysBefore: 0
               }, {
-                line: 2, due: "final", percent: (100 - (privatePricing.depositPercent || 50)), daysBefore: 14
+                line: 2, due: "final", percent: 75, daysBefore: 30
               }],
               expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
               
@@ -2054,9 +2136,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
               perPersonCost: discoPricing.perPersonCost,
               discountTotal: discoPricing.discountTotal || 0,
               paymentSchedule: discoPricing.paymentSchedule || [{
-                line: 1, due: "booking", percent: discoPricing.depositPercent || 50, daysBefore: 0
+                line: 1, due: "booking", percent: 25, daysBefore: 0
               }, {
-                line: 2, due: "final", percent: (100 - (discoPricing.depositPercent || 50)), daysBefore: 14
+                line: 2, due: "final", percent: 75, daysBefore: 30
               }],
               expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
               
@@ -3826,13 +3908,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Quote acceptance endpoint for updating acceptance status
+  // Quote acceptance endpoint for updating acceptance status and creating invoice
   app.patch("/api/quotes/:id/acceptance", async (req, res) => {
     try {
       const quoteId = req.params.id;
       const { signature, acceptedAt } = req.body;
       
-      console.log('📝 Updating quote acceptance:', {
+      console.log('📝 Processing quote acceptance:', {
         quoteId,
         hasSignature: !!signature,
         acceptedAt: acceptedAt
@@ -3842,6 +3924,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const quote = await storage.getQuote(quoteId);
       if (!quote) {
         return res.status(404).json({ error: "Quote not found" });
+      }
+
+      // Get project details for invoice
+      const project = await storage.getProject(quote.projectId);
+      if (!project) {
+        return res.status(404).json({ error: "Associated project not found" });
       }
       
       // Update radio sections to mark terms as accepted/rejected
@@ -3863,8 +3951,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         };
         updatedRadioSections.push(termsSection);
       }
+
+      let invoiceId = null;
       
-      // Update the acceptance status
+      // Handle acceptance or rejection
       if (signature && acceptedAt) {
         termsSection.selectedValue = 'accepted';
         termsSection.metadata = {
@@ -3873,36 +3963,102 @@ export async function registerRoutes(app: Express): Promise<Server> {
           acceptedAt,
           ipAddress: req.ip || req.connection.remoteAddress || 'unknown'
         };
-        console.log('✅ Quote terms accepted with signature');
+        
+        // Update quote status to ACCEPTED
+        await storage.updateQuote(quoteId, {
+          status: 'ACCEPTED',
+          radioSections: updatedRadioSections
+        });
+
+        console.log('✅ Quote terms accepted with signature - creating invoice');
+
+        // Check if invoice already exists to prevent duplicates
+        const existingInvoice = await storage.getInvoiceByQuoteId(quote.id);
+        if (existingInvoice) {
+          console.log('📄 Invoice already exists for this quote:', existingInvoice.id);
+          invoiceId = existingInvoice.id;
+        } else {
+          // **AUTOMATICALLY CREATE INVOICE FROM ACCEPTED QUOTE**
+          console.log('💰 Creating invoice with real booking data from accepted quote');
+          
+          // Use server-calculated totals for accuracy
+          const calculatedTotals = await calculateInvoiceTotalsWithPricingSettings(quote.items || [], quote.id);
+          
+          // Create invoice with all real booking details
+          const invoice = await storage.createInvoice({
+            orgId: quote.orgId,
+            projectId: quote.projectId,
+            quoteId: quote.id,
+            subtotal: calculatedTotals.subtotal,
+            tax: calculatedTotals.tax,
+            gratuity: calculatedTotals.gratuity,
+            total: calculatedTotals.total,
+            balance: calculatedTotals.total, // Full amount due initially
+            schedule: quote.paymentSchedule || [{
+              amount: Math.round(calculatedTotals.total * 0.25), // 25% deposit
+              dueDate: new Date().toISOString(),
+              description: "Deposit Payment",
+              status: "pending"
+            }, {
+              amount: calculatedTotals.total - Math.round(calculatedTotals.total * 0.25), // Remaining balance
+              dueDate: project.projectDate ? 
+                new Date(new Date(project.projectDate).getTime() - 30 * 24 * 60 * 60 * 1000).toISOString() : 
+                new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), // 30 days before event or 30 days from now
+              description: "Final Payment",
+              status: "pending"
+            }],
+            status: "OPEN", // Ready for payment
+            dueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString() // 7 days for first payment
+          });
+
+          invoiceId = invoice.id;
+
+          // Update project pipeline to reflect invoice creation
+          await storage.updateProject(project.id, {
+            pipelinePhase: "ph_invoice_sent"
+          });
+
+          console.log('🎉 Invoice automatically created from accepted quote:', {
+            invoiceId: invoice.id,
+            quoteId: quote.id,
+            projectId: project.id,
+            total: calculatedTotals.total / 100,
+            status: invoice.status
+          });
+        }
       } else {
+        // Clear acceptance
         termsSection.selectedValue = null;
         if (termsSection.metadata) {
           delete termsSection.metadata.signature;
           delete termsSection.metadata.acceptedAt;
         }
+        
+        // Update quote with cleared acceptance
+        await storage.updateQuote(quoteId, {
+          radioSections: updatedRadioSections
+        });
+        
         console.log('❌ Quote terms acceptance cleared');
       }
       
-      // Update the quote with new radio sections
-      const updatedQuote = await storage.updateQuote(quoteId, {
-        radioSections: updatedRadioSections
-      });
-      
-      console.log('📝 Quote acceptance updated successfully:', {
+      console.log('📝 Quote acceptance processing complete:', {
         quoteId,
         accepted: termsSection.selectedValue === 'accepted',
-        hasSignature: !!(termsSection.metadata?.signature)
+        hasSignature: !!(termsSection.metadata?.signature),
+        invoiceCreated: !!invoiceId
       });
       
       res.json({ 
         success: true,
         accepted: termsSection.selectedValue === 'accepted',
-        acceptedAt: termsSection.metadata?.acceptedAt || null
+        acceptedAt: termsSection.metadata?.acceptedAt || null,
+        invoiceId: invoiceId // Include invoice ID for client redirect
       });
       
     } catch (error: any) {
-      console.error("Quote acceptance update error:", error);
-      res.status(500).json({ error: "Failed to update quote acceptance" });
+      console.error("Quote acceptance processing error:", error);
+      res.status(500).json({ error: "Failed to process quote acceptance: " + error.message });
     }
   });
 
@@ -6467,17 +6623,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ error: "Project not found" });
       }
       
+      // Get event date from project for deposit calculation
+      const eventDate = project.projectDate;
+      
       // ENFORCED: Server-authoritative calculation - CLIENT VALUES COMPLETELY IGNORED
       const serverCalculatedTotals = await calculateInvoiceTotalsWithPricingSettings(
         validatedData.items,
-        validatedData.quoteId
+        validatedData.quoteId,
+        eventDate
       );
       
-      console.log('🔒 SERVER-AUTHORITATIVE: Server calculated totals override any client values:', {
+      console.log('🔒 SERVER-AUTHORITATIVE: Server calculated totals with 25% deposit:', {
         subtotal: serverCalculatedTotals.subtotal,
         tax: serverCalculatedTotals.tax,
         gratuity: serverCalculatedTotals.gratuity,
-        total: serverCalculatedTotals.total
+        total: serverCalculatedTotals.total,
+        depositAmount: serverCalculatedTotals.depositAmount,
+        remainingBalance: serverCalculatedTotals.remainingBalance,
+        remainingBalanceDueAt: serverCalculatedTotals.remainingBalanceDueAt
       });
       
       // VERIFIABLE PROOF: Client totals are IMPOSSIBLE to send due to schema enforcement
@@ -6486,18 +6649,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
         orgId: project.orgId,
         projectId: project.id,
         quoteId: validatedData.quoteId,
-        status: "draft",
+        status: "open", // Start as open for deposit payment
         
         // ENFORCED: ONLY server-calculated totals used (client cannot override)
         subtotal: serverCalculatedTotals.subtotal,
         tax: serverCalculatedTotals.tax,
-        gratuity: serverCalculatedTotals.gratuity,
         total: serverCalculatedTotals.total,
         
-        balance: serverCalculatedTotals.total,
-        items: validatedData.items,
-        dueDate: validatedData.dueDate,
-        notes: validatedData.notes
+        // Set balance to remaining balance after 25% deposit
+        balance: serverCalculatedTotals.remainingBalance,
+        
+        // PERSISTENT DEPOSIT FIELDS: Store 25% deposit calculations in database
+        depositPercent: serverCalculatedTotals.depositPercent,
+        depositAmount: serverCalculatedTotals.depositAmount,
+        remainingBalance: serverCalculatedTotals.remainingBalance,
+        remainingBalanceDueAt: serverCalculatedTotals.remainingBalanceDueAt,
+        
+        // Include payment schedule for clear payment terms
+        schedule: serverCalculatedTotals.paymentSchedule
       });
       
       // Update project phase if needed
@@ -6849,29 +7018,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ error: "Project not found" });
       }
       
-      // FIXED: Server-authoritative calculation - recalculate totals from quote items
+      // FIXED: Server-authoritative calculation - recalculate totals from quote items including deposit
       let serverCalculatedTotals;
       if (quote.items && quote.items.length > 0) {
         serverCalculatedTotals = await calculateInvoiceTotalsWithPricingSettings(
           quote.items,
-          quote.id
+          quote.id,
+          project.projectDate // Include event date for deposit calculation
         );
         
-        console.log('💰 Server recalculated totals from quote items:', {
+        console.log('💰 Server recalculated totals from quote items with deposit:', {
           original: { subtotal: quote.subtotal, tax: quote.tax, gratuity: quote.gratuity, total: quote.total },
-          calculated: { subtotal: serverCalculatedTotals.subtotal, tax: serverCalculatedTotals.tax, gratuity: serverCalculatedTotals.gratuity, total: serverCalculatedTotals.total }
+          calculated: { 
+            subtotal: serverCalculatedTotals.subtotal, 
+            tax: serverCalculatedTotals.tax, 
+            gratuity: serverCalculatedTotals.gratuity, 
+            total: serverCalculatedTotals.total,
+            depositAmount: serverCalculatedTotals.depositAmount,
+            remainingBalance: serverCalculatedTotals.remainingBalance
+          }
         });
       }
       
-      // SECURITY: Use server-calculated totals if available, otherwise validate quote totals
-      const finalTotals = serverCalculatedTotals || {
-        subtotal: quote.subtotal,
-        tax: quote.tax, 
-        gratuity: quote.gratuity || 0,
-        total: quote.total
-      };
+      // SECURITY: Ensure deposit calculations are always performed for finalTotals
+      let finalTotals;
+      if (serverCalculatedTotals) {
+        finalTotals = serverCalculatedTotals;
+      } else {
+        // Fallback: Calculate deposit for existing quote totals
+        finalTotals = await calculateInvoiceTotalsWithPricingSettings(
+          [{ quantity: 1, unitPrice: quote.subtotal, description: "Quote conversion" }],
+          quote.id,
+          project.projectDate
+        );
+      }
       
-      // Create invoice with SERVER-AUTHORITATIVE TOTALS
+      // Create invoice with SERVER-AUTHORITATIVE TOTALS including persistent deposit
       const invoice = await storage.createInvoice({
         orgId: quote.orgId,
         projectId: quote.projectId,
@@ -6881,16 +7063,32 @@ export async function registerRoutes(app: Express): Promise<Server> {
         // SERVER-AUTHORITATIVE TOTALS (override quote values if recalculated)
         subtotal: finalTotals.subtotal,
         tax: finalTotals.tax,
-        gratuity: finalTotals.gratuity,
         total: finalTotals.total,
         
-        balance: finalTotals.total,
-        items: quote.items || [],
-        schedule: quote.paymentSchedule?.length > 0 ? quote.paymentSchedule : [{
-          type: 'due_on_receipt',
-          dueDate: new Date(Date.now() + paymentTerms * 24 * 60 * 60 * 1000),
-          amount: finalTotals.total,
-          description: 'Full payment due'
+        // Set balance to remaining balance after 25% deposit
+        balance: finalTotals.remainingBalance || finalTotals.total,
+        
+        // PERSISTENT DEPOSIT FIELDS: Store 25% deposit calculations in database
+        depositPercent: finalTotals.depositPercent || 25,
+        depositAmount: finalTotals.depositAmount || Math.floor(finalTotals.total * 0.25),
+        remainingBalance: finalTotals.remainingBalance || Math.floor(finalTotals.total * 0.75),
+        remainingBalanceDueAt: finalTotals.remainingBalanceDueAt,
+        
+        schedule: finalTotals.paymentSchedule || quote.paymentSchedule || [{
+          line: 1,
+          due: "booking",
+          percent: 25,
+          amount: finalTotals.depositAmount || Math.floor(finalTotals.total * 0.25),
+          daysBefore: 0,
+          description: "Deposit to secure booking"
+        }, {
+          line: 2,
+          due: "final", 
+          percent: 75,
+          amount: finalTotals.remainingBalance || Math.floor(finalTotals.total * 0.75),
+          daysBefore: 30,
+          dueDate: finalTotals.remainingBalanceDueAt,
+          description: "Remaining balance due 30 days before cruise"
         }]
       });
       

@@ -141,7 +141,7 @@ export default function QuoteViewer() {
     }
   }, [quote, isLoading, quoteError]);
   
-  // Save acceptance mutation (only for terms acceptance)
+  // Save acceptance mutation - now creates invoice automatically
   const saveAcceptance = useMutation({
     mutationFn: async () => {
       const res = await apiRequest('PATCH', `/api/quotes/${quoteId}/acceptance`, {
@@ -151,12 +151,31 @@ export default function QuoteViewer() {
       if (!res.ok) throw new Error('Failed to save acceptance');
       return res.json();
     },
-    onSuccess: () => {
-      toast({ 
-        title: 'Terms Accepted', 
-        description: 'Your acceptance has been recorded.',
-      });
-      queryClient.invalidateQueries({ queryKey: [`/api/quotes/${quoteId}/public`] });
+    onSuccess: (data) => {
+      if (data.invoiceId) {
+        // Quote accepted and invoice created automatically
+        toast({ 
+          title: '🎉 Quote Accepted Successfully!', 
+          description: 'Your invoice has been generated and is ready for payment. You\'ll be redirected shortly.',
+          duration: 5000,
+        });
+        
+        // Invalidate queries to refresh the UI
+        queryClient.invalidateQueries({ queryKey: [`/api/quotes/${quoteId}/public`] });
+        
+        // Redirect to invoice after a short delay
+        setTimeout(() => {
+          window.location.href = `/invoice/${data.invoiceId}`;
+        }, 2000);
+        
+      } else {
+        // Just terms accepted (no invoice created)
+        toast({ 
+          title: 'Terms Accepted', 
+          description: 'Your acceptance has been recorded.',
+        });
+        queryClient.invalidateQueries({ queryKey: [`/api/quotes/${quoteId}/public`] });
+      }
     },
     onError: (error: any) => {
       toast({ 

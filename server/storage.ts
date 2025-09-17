@@ -1854,12 +1854,16 @@ export class DatabaseStorage implements IStorage {
     // Calculate total
     const total = adjustedSubtotal + tax + gratuity;
     
-    // Calculate deposit based on event date (30-day rule)
+    // Calculate deposit - always 25% as per business requirements
     const today = new Date();
     const daysUntilEvent = Math.ceil((eventDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-    const depositPercent = daysUntilEvent >= PRICING_DEFAULTS.URGENCY_THRESHOLD_DAYS ? 
-      PRICING_DEFAULTS.DEPOSIT_PERCENT : 100;
+    const depositPercent = PRICING_DEFAULTS.DEPOSIT_PERCENT; // Always 25%
     const depositAmount = Math.floor(total * (depositPercent / 100));
+    
+    // Calculate when remaining balance is due (30 days before event)
+    const remainingBalanceDueAt = new Date(eventDate);
+    remainingBalanceDueAt.setDate(remainingBalanceDueAt.getDate() - 30);
+    const finalDueDate = remainingBalanceDueAt < today ? today : remainingBalanceDueAt;
     
     return {
       subtotal: adjustedSubtotal, // Return adjusted subtotal
@@ -1944,16 +1948,19 @@ export class DatabaseStorage implements IStorage {
     // Calculate total
     const total = adjustedSubtotal + tax + gratuity;
     
-    // Calculate deposit based on project date (30-day rule)
-    let depositPercent = PRICING_DEFAULTS.DEPOSIT_PERCENT;
+    // Calculate deposit - always 25% as per business requirements
+    let depositPercent = PRICING_DEFAULTS.DEPOSIT_PERCENT; // Always 25%
     let depositAmount = Math.floor(total * (depositPercent / 100));
+    let remainingBalanceDueAt = null;
     
     if (projectDate) {
       const today = new Date();
       const daysUntilEvent = Math.ceil((projectDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
-      depositPercent = daysUntilEvent >= PRICING_DEFAULTS.URGENCY_THRESHOLD_DAYS ? 
-        PRICING_DEFAULTS.DEPOSIT_PERCENT : 100;
-      depositAmount = Math.floor(total * (depositPercent / 100));
+      
+      // Calculate when remaining balance is due (30 days before event)
+      remainingBalanceDueAt = new Date(projectDate);
+      remainingBalanceDueAt.setDate(remainingBalanceDueAt.getDate() - 30);
+      remainingBalanceDueAt = remainingBalanceDueAt < today ? today : remainingBalanceDueAt;
     }
     
     return {
