@@ -30,7 +30,7 @@ interface Invoice {
   dueDate: string;
   totalAmount: number;
   paidAmount: number;
-  status: 'draft' | 'sent' | 'paid' | 'partial' | 'overdue' | 'cancelled';
+  status: 'draft' | 'open' | 'sent' | 'paid' | 'partial' | 'overdue' | 'cancelled';
   createdAt: string;
   sentAt?: string;
   paidAt?: string;
@@ -96,6 +96,7 @@ export function RecentInvoices() {
   const getStatusBadge = (status: Invoice['status']) => {
     const statusIcons = {
       draft: Clock,
+      open: Send,
       sent: Send, 
       paid: CheckCircle,
       partial: DollarSign,
@@ -103,7 +104,7 @@ export function RecentInvoices() {
       cancelled: Receipt,
     };
     
-    const Icon = statusIcons[status];
+    const Icon = statusIcons[status] || FileText;
     const label = INVOICE_STATUSES[status] || status;
     const variant = BADGE_VARIANTS.INVOICE[status] || 'secondary';
     const className = status === 'paid' ? STATUS_COLORS.SUCCESS : '';
