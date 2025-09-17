@@ -8,24 +8,39 @@
  * @returns The public URL without trailing slash
  */
 export function getPublicUrl(): string {
+  let url = '';
+  
   // In Replit environment, use the dev domain
   if (process.env.REPLIT_DEV_DOMAIN) {
-    return `https://${process.env.REPLIT_DEV_DOMAIN}`;
+    url = `https://${process.env.REPLIT_DEV_DOMAIN}`;
   }
-  
   // Use custom BASE_URL if configured
-  if (process.env.BASE_URL) {
-    return process.env.BASE_URL.replace(/\/$/, ''); // Remove trailing slash if present
+  else if (process.env.BASE_URL) {
+    url = process.env.BASE_URL.replace(/\/$/, ''); // Remove trailing slash if present
   }
-  
   // In production deployment, check for REPLIT_DOMAINS (deployed URL)
-  if (process.env.REPLIT_DOMAINS) {
+  else if (process.env.REPLIT_DOMAINS) {
     const domain = process.env.REPLIT_DOMAINS.split(',')[0]; // Take first domain if multiple
-    return `https://${domain}`;
+    url = `https://${domain}`;
+  }
+  // Default fallback (should rarely be reached)
+  else {
+    url = 'https://premierpartycruises.com';
   }
   
-  // Default fallback (should rarely be reached)
-  return 'https://premierpartycruises.com';
+  console.log('🌐 getPublicUrl() result:', {
+    url,
+    source: process.env.REPLIT_DEV_DOMAIN ? 'REPLIT_DEV_DOMAIN' :
+            process.env.BASE_URL ? 'BASE_URL' :
+            process.env.REPLIT_DOMAINS ? 'REPLIT_DOMAINS' : 'default',
+    envVars: {
+      REPLIT_DEV_DOMAIN: !!process.env.REPLIT_DEV_DOMAIN,
+      BASE_URL: !!process.env.BASE_URL,
+      REPLIT_DOMAINS: !!process.env.REPLIT_DOMAINS
+    }
+  });
+  
+  return url;
 }
 
 /**

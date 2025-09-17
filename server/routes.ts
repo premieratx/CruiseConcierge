@@ -596,7 +596,7 @@ async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: 
         </div>
         
         <div style="text-align: center; margin: 30px 0;">
-          <a href="${quoteTokenService.generateSecureQuoteUrl(quote.id, quoteTokenService.generateSecureToken(quote.id))}" 
+          <a href="${quoteTokenService.generateSecureQuoteUrl(quote.id, getPublicUrl())}" 
              style="background: #3b82f6; color: white; padding: 15px 30px; text-decoration: none; border-radius: 8px; font-weight: bold; display: inline-block; margin: 10px;">
             🚢 View Full Quote & Book
           </a>
@@ -646,8 +646,7 @@ async function sendQuoteSMS(quoteId: string, phone: string) {
   const eventType = project?.eventType || 'event';
   
   // Generate secure tokenized URL
-  const secureToken = quoteTokenService.generateSecureToken(quote.id);
-  const secureQuoteUrl = quoteTokenService.generateSecureQuoteUrl(quote.id, secureToken);
+  const secureQuoteUrl = quoteTokenService.generateSecureQuoteUrl(quote.id, getPublicUrl());
   
   const message = `Hi ${contact?.name || 'there'}! 🚢 Your ${eventType} cruise quote (${formattedDate}) is ready: $${(quote.total / 100).toFixed(2)}. View & book: ${secureQuoteUrl}`;
   
@@ -675,8 +674,7 @@ async function sendAdminNotificationSMS(quoteId: string) {
   const eventType = project?.eventType || 'Party Cruise';
   
   // Generate secure tokenized URL for admin
-  const adminSecureToken = quoteTokenService.generateSecureToken(quote.id);
-  const adminSecureQuoteUrl = quoteTokenService.generateSecureQuoteUrl(quote.id, adminSecureToken);
+  const adminSecureQuoteUrl = quoteTokenService.generateSecureQuoteUrl(quote.id, getPublicUrl());
   
   const message = `🚢 NEW BOOKING REQUEST!\n\nCustomer: ${contact?.name || 'Unknown'}\nEvent: ${eventType}\nDate: ${formattedDate}\nGroup Size: ${project?.groupSize || 'TBD'}\nTotal: $${(quote.total / 100).toFixed(2)}\n\nView quote: ${adminSecureQuoteUrl}`;
   
@@ -2140,8 +2138,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         if (contact?.email) {
           try {
             // Generate secure tokenized URL for email
-            const secureToken = quoteTokenService.generateSecureToken(quote.id);
-            const secureQuoteUrl = quoteTokenService.generateSecureQuoteUrl(quote.id, secureToken);
+            const secureQuoteUrl = quoteTokenService.generateSecureQuoteUrl(quote.id, getPublicUrl());
             
             // Prepare quote details for email template
             const quoteDetails = {
@@ -2200,8 +2197,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         
         // Generate secure tokenized URL for frontend use
-        const secureToken = quoteTokenService.generateSecureToken(quote.id);
-        const secureQuoteUrl = quoteTokenService.generateSecureQuoteUrl(quote.id, secureToken);
+        const secureQuoteUrl = quoteTokenService.generateSecureQuoteUrl(quote.id, getPublicUrl());
         
         res.json({
           success: true,
@@ -7487,26 +7483,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
         
       } else if (typeof slotId === 'string' && slotId.startsWith('private_')) {
-        // Handle both formats:
-        // Legacy: private_{boatId}_{date}_{startTime}_{endTime} (5 parts)
-        // Current: private_{dateISO}_{timeRange} (3 parts)
-        const parts = slotId.split('_');
+        // Parse private slot IDs robustly to handle boat IDs containing underscores
+        // Format: private_{boatId}_{date}_{startTime}_{endTime}
+        // where boatId might contain underscores (e.g., "boat_meeseeks")
+        
         let boatId, dateStr, startTime, endTime;
         
-        if (parts.length === 5) {
-          // Legacy format: private_{boatId}_{date}_{startTime}_{endTime}
-          [, boatId, dateStr, startTime, endTime] = parts;
-        } else if (parts.length === 3) {
-          // Current format: private_{dateISO}_{timeRange}
-          const [, dateISO, timeRange] = parts;
-          dateStr = dateISO;
-          const [start, end] = timeRange.split('-');
-          startTime = start;
-          endTime = end;
-          // For current format, we'll use the first available boat
-          boatId = null;
-        } else {
-          return res.status(400).json({ error: "Invalid private slot ID format" });
+        // Remove "private_" prefix
+        const slotData = slotId.substring(8); // Remove "private_"
+        
+        // Use regex to find the date pattern (YYYY-MM-DD) and time patterns (HH:MM)
+        const datePattern = /(\d{4}-\d{2}-\d{2})/;
+        const timePattern = /(\d{1,2}:\d{2})/g;
+        
+        const dateMatch = slotData.match(datePattern);
+        if (!dateMatch) {
+          return res.status(400).json({ error: "Invalid private slot ID format - date not found" });
+        }
+        
+        dateStr = dateMatch[1];
+        const dateIndex = slotData.indexOf(dateStr);
+        
+        // Extract boat ID (everything before the date)
+        boatId = slotData.substring(0, dateIndex - 1); // -1 to remove the underscore before date
+        
+        // Extract time slots after the date
+        const timeSegment = slotData.substring(dateIndex + dateStr.length + 1); // +1 to skip underscore after date
+        const timeMatches = timeSegment.match(timePattern);
+        
+        if (!timeMatches || timeMatches.length < 2) {
+          return res.status(400).json({ error: "Invalid private slot ID format - start/end times not found" });
+        }
+        
+        startTime = timeMatches[0];
+        endTime = timeMatches[1];
+        
+        // Validate extracted components
+        if (!boatId || !dateStr || !startTime || !endTime) {
+          return res.status(400).json({ error: "Invalid private slot ID format - missing components" });
         }
         
         // Fetch boat details

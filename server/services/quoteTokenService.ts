@@ -121,15 +121,49 @@ export class QuoteTokenService {
   /**
    * Generate a secure quote URL with embedded token
    */
-  generateSecureQuoteUrl(quoteId: string, baseUrl: string, options: QuoteTokenOptions = {}): string {
+  generateSecureQuoteUrl(quoteId: string, baseUrl?: string, options: QuoteTokenOptions = {}): string {
     const token = this.generateSecureToken(quoteId, options);
-    const url = `${baseUrl}/quotes/${quoteId}?token=${encodeURIComponent(token)}`;
+    
+    // Determine the base URL with fallbacks
+    let effectiveBaseUrl = baseUrl || '';
+    
+    if (!effectiveBaseUrl) {
+      // Fallback 1: Try environment variables
+      if (process.env.REPLIT_DEV_DOMAIN) {
+        effectiveBaseUrl = `https://${process.env.REPLIT_DEV_DOMAIN}`;
+      } else if (process.env.BASE_URL) {
+        effectiveBaseUrl = process.env.BASE_URL;
+      } else if (process.env.REPLIT_DOMAINS) {
+        const domain = process.env.REPLIT_DOMAINS.split(',')[0];
+        effectiveBaseUrl = `https://${domain}`;
+      }
+    }
+    
+    // Clean the base URL
+    const cleanBaseUrl = effectiveBaseUrl.replace(/\/$/, '');
+    
+    if (!cleanBaseUrl) {
+      console.error('❌ CRITICAL: No base URL available for quote URL generation');
+      console.error('Available env vars:', {
+        REPLIT_DEV_DOMAIN: process.env.REPLIT_DEV_DOMAIN,
+        BASE_URL: process.env.BASE_URL,
+        REPLIT_DOMAINS: process.env.REPLIT_DOMAINS,
+        providedBaseUrl: baseUrl
+      });
+      // In case of complete failure, return a relative URL that might work
+      return `/quotes/${encodeURIComponent(quoteId)}?token=${encodeURIComponent(token)}`;
+    }
+    
+    const url = `${cleanBaseUrl}/quotes/${encodeURIComponent(quoteId)}?token=${encodeURIComponent(token)}`;
     
     console.log('🔗 Generated secure quote URL:', {
       quoteId,
-      url: url.substring(0, 100) + '...', // Log truncated URL for security
+      providedBaseUrl: baseUrl || 'none',
+      effectiveBaseUrl: cleanBaseUrl,
+      isFullUrl: url.startsWith('http'),
       scope: options.scope || 'quote:view',
-      expiresIn: options.expiresIn || this.defaultExpiresIn
+      expiresIn: options.expiresIn || this.defaultExpiresIn,
+      urlPreview: url.substring(0, 100) + '...'
     });
 
     return url;

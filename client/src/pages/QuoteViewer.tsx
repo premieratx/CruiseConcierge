@@ -33,9 +33,18 @@ export default function QuoteViewer() {
   const quoteId = params.quoteId as string;
   const { toast } = useToast();
   
-  // Extract token from URL query parameters  
+  // Extract token from URL query parameters with better error handling
   const urlParams = new URLSearchParams(window.location.search);
   const token = urlParams.get('token');
+  
+  // Debug token extraction
+  console.log('🔍 QuoteViewer URL Analysis:', {
+    quoteId,
+    currentUrl: window.location.href,
+    searchParams: window.location.search,
+    extractedToken: token ? `${token.substring(0, 20)}...` : null,
+    tokenLength: token?.length || 0
+  });
   
   // State for interactive elements
   const [selectedPackage, setSelectedPackage] = useState<string>('standard');
@@ -48,19 +57,55 @@ export default function QuoteViewer() {
   const { data: quote, isLoading, error: quoteError } = useQuery<QuoteWithDetails>({
     queryKey: [`/api/quotes/${quoteId}/public`, token],
     queryFn: async () => {
-      const url = token 
-        ? `/api/quotes/${quoteId}/public?token=${encodeURIComponent(token)}`
-        : `/api/quotes/${quoteId}/public`;
-      const res = await apiRequest('GET', url);
-      if (!res.ok) {
-        const error = await res.json();
-        throw new Error(error.error || 'Failed to fetch quote');
+      if (!token) {
+        console.warn('⚠️ No token found in URL parameters for quote access');
+        throw new Error('Access token required. Please use the link from your email or SMS.');
       }
-      return res.json();
+      
+      const url = `/api/quotes/${encodeURIComponent(quoteId)}/public?token=${encodeURIComponent(token)}`;
+      
+      console.log('🌐 Making quote API request:', {
+        quoteId,
+        url: url.substring(0, 80) + '...',
+        tokenPresent: !!token
+      });
+      
+      const res = await apiRequest('GET', url);
+      
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
+        console.error('❌ Quote API error:', {
+          status: res.status,
+          statusText: res.statusText,
+          error: errorData.error
+        });
+        throw new Error(errorData.error || `Failed to fetch quote (${res.status})`);
+      }
+      
+      const quoteData = await res.json();
+      console.log('✅ Quote loaded successfully:', {
+        quoteId: quoteData.id,
+        hasContact: !!quoteData.contact,
+        hasProject: !!quoteData.project,
+        total: quoteData.total
+      });
+      
+      return quoteData;
     },
     enabled: !!quoteId,
     retry: (failureCount, error: any) => {
-      if (error?.message?.includes('Invalid access token') || error?.message?.includes('Access token required')) return false;
+      console.log('🔄 Query retry decision:', { 
+        failureCount, 
+        errorMessage: error?.message,
+        shouldRetry: failureCount < 2 && !error?.message?.includes('Access token required')
+      });
+      
+      // Don't retry token-related errors
+      if (error?.message?.includes('Invalid access token') || 
+          error?.message?.includes('Access token required') ||
+          error?.message?.includes('Token expired')) {
+        return false;
+      }
       if (error?.status === 401 || error?.status === 404) return false;
       return failureCount < 2;
     },

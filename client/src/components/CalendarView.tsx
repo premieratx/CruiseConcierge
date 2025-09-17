@@ -218,6 +218,40 @@ function CalendarView() {
     return date;
   });
 
+  // Fetch boats
+  const { data: boats = [] } = useQuery<Boat[]>({
+    queryKey: ["/api/boats"],
+  });
+
+  // Fetch products
+  const { data: products = [] } = useQuery<Product[]>({
+    queryKey: ["/api/products"],
+  });
+
+  // Fetch timeframes
+  const { data: timeframes = [] } = useQuery<Timeframe[]>({
+    queryKey: ["/api/timeframes"],
+  });
+
+  // Smart boat filtering based on group size
+  const getBoatsForGroupSize = (groupSize: number) => {
+    return boats.filter(boat => {
+      // Show boats that can accommodate the group size
+      // But don't show boats that are unnecessarily large (more than 2x capacity)
+      return boat.capacity >= groupSize && boat.capacity <= Math.max(groupSize * 2, 75);
+    });
+  };
+
+  const filteredBoats = getBoatsForGroupSize(selectedCapacity);
+
+  // Group filtered boats by capacity for tabs - only include boats that match group size
+  const boatGroups = {
+    all: filteredBoats,
+    dayTripper: filteredBoats.filter(b => b.capacity <= 15),
+    medium: filteredBoats.filter(b => b.capacity > 15 && b.capacity <= 35),
+    large: filteredBoats.filter(b => b.capacity > 35)
+  };
+
   // Flash Day Tripper tab on component mount
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -248,21 +282,6 @@ function CalendarView() {
       setIsDatePickerOpen(false);
     }
   };
-
-  // Fetch boats
-  const { data: boats = [] } = useQuery<Boat[]>({
-    queryKey: ["/api/boats"],
-  });
-
-  // Fetch products
-  const { data: products = [] } = useQuery<Product[]>({
-    queryKey: ["/api/products"],
-  });
-
-  // Fetch timeframes
-  const { data: timeframes = [] } = useQuery<Timeframe[]>({
-    queryKey: ["/api/timeframes"],
-  });
 
   // Fetch bookings for the week
   const { data: bookings = [] } = useQuery<Booking[]>({
@@ -349,25 +368,6 @@ function CalendarView() {
       });
     },
   });
-
-  // Smart boat filtering based on group size
-  const getBoatsForGroupSize = (groupSize: number) => {
-    return boats.filter(boat => {
-      // Show boats that can accommodate the group size
-      // But don't show boats that are unnecessarily large (more than 2x capacity)
-      return boat.capacity >= groupSize && boat.capacity <= Math.max(groupSize * 2, 75);
-    });
-  };
-
-  const filteredBoats = getBoatsForGroupSize(selectedCapacity);
-
-  // Group filtered boats by capacity for tabs - only include boats that match group size
-  const boatGroups = {
-    all: filteredBoats,
-    dayTripper: filteredBoats.filter(b => b.capacity <= 15),
-    medium: filteredBoats.filter(b => b.capacity > 15 && b.capacity <= 35),
-    large: filteredBoats.filter(b => b.capacity > 35)
-  };
 
   // Capacity selector handlers
   const handleCapacityChange = (value: number[]) => {
