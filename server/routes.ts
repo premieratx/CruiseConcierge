@@ -20,7 +20,7 @@ import { goHighLevelService, type LeadWebhookPayload } from "./services/gohighle
 import { sendEmail as sendgridEmail, sendQuoteEmail as sendgridQuoteEmail } from "./services/sendgrid";
 import { ComprehensiveLeadService } from "./services/comprehensiveLeadService";
 import { wisprFlowService } from "./services/wispr";
-import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation } from "@shared/schema";
+import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation } from "@shared/schema";
 import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate } from "@shared/timeSlots";
 import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
@@ -4128,10 +4128,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Enhanced pricing preview endpoint
   app.post("/api/pricing/preview", async (req, res) => {
     try {
-      const { items = [], promoCode, projectDate, groupSize, templateId } = req.body;
+      const { 
+        items = [], 
+        promoCode, 
+        projectDate, 
+        eventDate, 
+        groupSize, 
+        templateId, 
+        timeSlot, 
+        boatId, 
+        productId,
+        includePricingAdjustments = true 
+      } = req.body;
       
       // Enhanced logging for debugging
-      console.log("Pricing preview request:", { items, groupSize, projectDate, promoCode, templateId });
+      console.log("Pricing preview request:", { 
+        items, groupSize, projectDate, eventDate, promoCode, templateId, 
+        timeSlot, boatId, productId, includePricingAdjustments 
+      });
       
       // Validate items structure for proper pricing calculation
       const validatedItems = items.map((item: any) => ({
@@ -4139,14 +4153,115 @@ export async function registerRoutes(app: Express): Promise<Server> {
         unitPrice: Number(item.unitPrice) || 0,
         qty: Number(item.qty) || 1,
       }));
+
+      // Use eventDate if provided, otherwise fall back to projectDate
+      const effectiveDate = eventDate ? new Date(eventDate) : (projectDate ? new Date(projectDate) : undefined);
       
-      const pricing = await storage.calculatePricing({
-        items: validatedItems,
-        groupSize,
-        projectDate: projectDate ? new Date(projectDate) : undefined,
-        promoCode,
-        templateId,
-      });
+      let pricing;
+      
+      // If we have cruise-specific parameters, use cruise pricing with adjustments
+      if (groupSize && effectiveDate && timeSlot && includePricingAdjustments) {
+        try {
+          pricing = await storage.calculateCruisePricing({
+            groupSize,
+            eventDate: effectiveDate,
+            timeSlot,
+            promoCode,
+          });
+          
+          // Apply pricing adjustments if enabled
+          if (includePricingAdjustments) {
+            // Get effective adjustments for the date and scope
+            let adjustments: any[] = [];
+            
+            if (boatId) {
+              const boatAdjustments = await storage.getEffectiveAdjustments(effectiveDate, 'boat', boatId);
+              adjustments = adjustments.concat(boatAdjustments);
+            }
+            
+            if (productId) {
+              const productAdjustments = await storage.getEffectiveAdjustments(effectiveDate, 'product', productId);
+              adjustments = adjustments.concat(productAdjustments);
+            }
+            
+            // Always include global adjustments
+            const globalAdjustments = await storage.getEffectiveAdjustments(effectiveDate, 'global');
+            adjustments = adjustments.concat(globalAdjustments);
+            
+            // Apply adjustments to pricing
+            let adjustedSubtotal = pricing.subtotal;
+            const appliedAdjustments: any[] = [];
+            
+            adjustments.forEach(adj => {
+              let adjustmentAmount = 0;
+              
+              switch (adj.adjustmentType) {
+                case 'percent':
+                  adjustmentAmount = Math.round(adjustedSubtotal * (adj.adjustmentValue / 100));
+                  break;
+                case 'amount':
+                  adjustmentAmount = adj.adjustmentValue;
+                  break;
+                case 'override':
+                  adjustedSubtotal = adj.adjustmentValue;
+                  adjustmentAmount = adj.adjustmentValue - pricing.subtotal;
+                  break;
+              }
+              
+              adjustedSubtotal += adjustmentAmount;
+              
+              appliedAdjustments.push({
+                id: adj.id,
+                name: adj.name,
+                type: adj.adjustmentType,
+                value: adj.adjustmentValue,
+                appliedAmount: adjustmentAmount,
+                scopeType: adj.scopeType,
+                scopeId: adj.scopeId
+              });
+            });
+            
+            // Recalculate totals with adjustments
+            if (appliedAdjustments.length > 0) {
+              const adjustmentTotal = appliedAdjustments.reduce((sum, adj) => sum + adj.appliedAmount, 0);
+              const newSubtotal = Math.max(0, adjustedSubtotal); // Ensure non-negative
+              const newTotal = newSubtotal + pricing.tax + pricing.gratuity - pricing.discountTotal;
+              
+              pricing = {
+                ...pricing,
+                subtotal: newSubtotal,
+                total: Math.max(0, newTotal),
+                perPersonCost: groupSize ? Math.round(newTotal / groupSize) : 0,
+                adjustments: appliedAdjustments,
+                adjustmentTotal,
+                originalSubtotal: pricing.subtotal
+              };
+            } else {
+              pricing.adjustments = [];
+              pricing.adjustmentTotal = 0;
+            }
+          }
+        } catch (cruiseError) {
+          console.warn("Cruise pricing failed, falling back to general pricing:", cruiseError);
+          // Fall back to general pricing if cruise pricing fails
+          pricing = await storage.calculatePricing({
+            items: validatedItems,
+            groupSize,
+            projectDate: effectiveDate,
+            promoCode,
+            templateId,
+          });
+        }
+      } else {
+        // Use general pricing for non-cruise scenarios
+        pricing = await storage.calculatePricing({
+          items: validatedItems,
+          groupSize,
+          projectDate: effectiveDate,
+          promoCode,
+          templateId,
+        });
+      }
 
       // Ensure all pricing values are valid numbers, not null
       const validatedPricing = {
@@ -4164,6 +4279,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         breakdown: pricing.breakdown || {},
         displaySettings: pricing.displaySettings || {},
         urgencyMessage: pricing.urgencyMessage || null,
+        // Add pricing adjustment data if available
+        adjustments: pricing.adjustments || [],
+        adjustmentTotal: Number(pricing.adjustmentTotal) || 0,
+        originalSubtotal: pricing.originalSubtotal ? Number(pricing.originalSubtotal) : undefined,
       };
       
       console.log("Pricing preview response:", validatedPricing);
@@ -5252,6 +5371,182 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Update pricing settings error:", error);
       res.status(500).json({ error: "Failed to update pricing settings" });
+    }
+  });
+
+  // Pricing Adjustments CRUD endpoints
+  app.get("/api/pricing/adjustments", async (req, res) => {
+    try {
+      const { start, end, scopeType, scopeId, active } = req.query;
+      let adjustments;
+      
+      if (active === 'true') {
+        adjustments = await storage.getActivePricingAdjustments();
+      } else if (scopeType) {
+        adjustments = await storage.getPricingAdjustmentsByScope(scopeType as string, scopeId as string);
+      } else {
+        adjustments = await storage.getPricingAdjustments();
+      }
+
+      // Apply date filtering if start/end dates provided
+      if (start || end) {
+        adjustments = adjustments.filter(adj => {
+          const adjStart = new Date(adj.startDate);
+          const adjEnd = new Date(adj.endDate);
+          const filterStart = start ? new Date(start as string) : new Date('1900-01-01');
+          const filterEnd = end ? new Date(end as string) : new Date('2100-12-31');
+          
+          // Check if adjustment overlaps with the filter range
+          return adjStart <= filterEnd && adjEnd >= filterStart;
+        });
+      }
+      
+      res.json(adjustments);
+    } catch (error) {
+      console.error("Get pricing adjustments error:", error);
+      res.status(500).json({ error: "Failed to fetch pricing adjustments" });
+    }
+  });
+
+  app.post("/api/pricing/adjustments", async (req, res) => {
+    try {
+      const adjustmentData = insertPricingAdjustmentSchema.parse(req.body);
+      const adjustment = await storage.createPricingAdjustment(adjustmentData);
+      res.status(201).json(adjustment);
+    } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ error: "Invalid pricing adjustment data", details: error.errors });
+      }
+      console.error("Create pricing adjustment error:", error);
+      res.status(500).json({ error: "Failed to create pricing adjustment" });
+    }
+  });
+
+  app.patch("/api/pricing/adjustments/:id", async (req, res) => {
+    try {
+      const adjustment = await storage.updatePricingAdjustment(req.params.id, req.body);
+      res.json(adjustment);
+    } catch (error: any) {
+      if (error.message === "Pricing adjustment not found") {
+        return res.status(404).json({ error: "Pricing adjustment not found" });
+      }
+      console.error("Update pricing adjustment error:", error);
+      res.status(500).json({ error: "Failed to update pricing adjustment" });
+    }
+  });
+
+  app.delete("/api/pricing/adjustments/:id", async (req, res) => {
+    try {
+      const success = await storage.deletePricingAdjustment(req.params.id);
+      if (!success) {
+        return res.status(404).json({ error: "Pricing adjustment not found" });
+      }
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Delete pricing adjustment error:", error);
+      res.status(500).json({ error: "Failed to delete pricing adjustment" });
+    }
+  });
+
+  // Pricing Calendar endpoint
+  app.get("/api/pricing/calendar", async (req, res) => {
+    try {
+      const { month } = req.query;
+      
+      if (!month || !/^\d{4}-\d{2}$/.test(month as string)) {
+        return res.status(400).json({ error: "Month parameter required in YYYY-MM format" });
+      }
+
+      const [year, monthNum] = (month as string).split('-');
+      const startDate = new Date(parseInt(year), parseInt(monthNum) - 1, 1);
+      const endDate = new Date(parseInt(year), parseInt(monthNum), 0); // Last day of month
+
+      // Get all active pricing adjustments that overlap with the requested month
+      const adjustments = await storage.getPricingAdjustments();
+      const relevantAdjustments = adjustments.filter(adj => {
+        const adjStart = new Date(adj.startDate);
+        const adjEnd = new Date(adj.endDate);
+        return adjStart <= endDate && adjEnd >= startDate && adj.active;
+      });
+
+      // Get all bookings for the month to mark dates with existing bookings
+      const bookings = await storage.getBookingsInRange(startDate, endDate);
+
+      // Aggregate dates of interest
+      const datesOfInterest: Record<string, {
+        date: string;
+        adjustments: Array<{
+          id: string;
+          name: string;
+          scopeType: string;
+          scopeId: string | null;
+          adjustmentType: string;
+          adjustmentValue: number;
+        }>;
+        hasBookings: boolean;
+        bookingCount: number;
+      }> = {};
+
+      // Process adjustments to mark affected dates
+      relevantAdjustments.forEach(adj => {
+        const adjStart = new Date(Math.max(adj.startDate.getTime(), startDate.getTime()));
+        const adjEnd = new Date(Math.min(adj.endDate.getTime(), endDate.getTime()));
+        
+        for (let d = new Date(adjStart); d <= adjEnd; d.setDate(d.getDate() + 1)) {
+          const dayOfWeek = d.getDay();
+          
+          // Check if adjustment applies to this day of week (empty array means all days)
+          if (adj.daysOfWeek.length === 0 || adj.daysOfWeek.includes(dayOfWeek)) {
+            const dateStr = d.toISOString().split('T')[0];
+            
+            if (!datesOfInterest[dateStr]) {
+              datesOfInterest[dateStr] = {
+                date: dateStr,
+                adjustments: [],
+                hasBookings: false,
+                bookingCount: 0
+              };
+            }
+            
+            datesOfInterest[dateStr].adjustments.push({
+              id: adj.id,
+              name: adj.name,
+              scopeType: adj.scopeType,
+              scopeId: adj.scopeId,
+              adjustmentType: adj.adjustmentType,
+              adjustmentValue: adj.adjustmentValue
+            });
+          }
+        }
+      });
+
+      // Mark dates with bookings
+      bookings.forEach(booking => {
+        const dateStr = booking.startTime.toISOString().split('T')[0];
+        if (!datesOfInterest[dateStr]) {
+          datesOfInterest[dateStr] = {
+            date: dateStr,
+            adjustments: [],
+            hasBookings: false,
+            bookingCount: 0
+          };
+        }
+        datesOfInterest[dateStr].hasBookings = true;
+        datesOfInterest[dateStr].bookingCount++;
+      });
+
+      res.json({
+        month: month as string,
+        datesOfInterest: Object.values(datesOfInterest).sort((a, b) => a.date.localeCompare(b.date)),
+        summary: {
+          totalAdjustments: relevantAdjustments.length,
+          totalBookingDays: Object.values(datesOfInterest).filter(d => d.hasBookings).length,
+          totalAdjustmentDays: Object.values(datesOfInterest).filter(d => d.adjustments.length > 0).length
+        }
+      });
+    } catch (error) {
+      console.error("Get pricing calendar error:", error);
+      res.status(500).json({ error: "Failed to fetch pricing calendar" });
     }
   });
   
