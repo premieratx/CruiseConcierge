@@ -402,7 +402,7 @@ export default function TestimonialsFaq() {
   };
 
   const handleGetQuote = () => {
-    navigate('/contact');
+    navigate('/chat');
   };
 
   const eventTypeFilters = [

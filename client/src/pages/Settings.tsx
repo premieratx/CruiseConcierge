@@ -23,7 +23,7 @@ import type { QuoteTemplate, EmailTemplate, PricingSettings } from '@shared/sche
 
 export default function Settings() {
   const { toast } = useToast();
-  const [activeTab, setActiveTab] = useState('quote-templates');
+  const [activeTab, setActiveTab] = useState('customer-flow');
   const [selectedTemplate, setSelectedTemplate] = useState<QuoteTemplate | null>(null);
   const [selectedEmailTemplate, setSelectedEmailTemplate] = useState<EmailTemplate | null>(null);
   const [showTemplateBuilder, setShowTemplateBuilder] = useState(false);
@@ -235,7 +235,11 @@ export default function Settings() {
         </div>
         
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-          <TabsList className="grid w-full max-w-4xl grid-cols-4">
+          <TabsList className="grid w-full max-w-4xl grid-cols-5">
+            <TabsTrigger value="customer-flow">
+              <Workflow className="h-4 w-4 mr-2" />
+              Customer Quote Flow
+            </TabsTrigger>
             <TabsTrigger value="quote-templates">
               <FileText className="h-4 w-4 mr-2" />
               Quote Templates
@@ -253,6 +257,369 @@ export default function Settings() {
               Website Platform Plan
             </TabsTrigger>
           </TabsList>
+          
+          <TabsContent value="customer-flow" className="space-y-4">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Workflow className="h-5 w-5" />
+                  Customer Quote Flow Requirements
+                </CardTitle>
+                <CardDescription>
+                  Complete documentation of the customer quote flow system with step-by-step requirements
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                
+                {/* Overview Section */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2">
+                    <Target className="h-5 w-5 text-blue-600" />
+                    <h3 className="text-lg font-semibold">Flow Overview</h3>
+                  </div>
+                  <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                    <p className="text-sm text-blue-800">
+                      The customer quote flow is a progressive, guided experience that takes customers from initial interest to bookable quotes. 
+                      It combines real-time availability, intelligent pricing, and automated communication to create a seamless booking experience.
+                    </p>
+                  </div>
+                </div>
+
+                {/* Required Customer Flow */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2">
+                    <ChevronRight className="h-5 w-5 text-green-600" />
+                    <h3 className="text-lg font-semibold">Required Customer Flow Steps</h3>
+                  </div>
+                  
+                  <div className="space-y-3">
+                    <div className="flex items-start gap-3 p-3 border rounded-lg">
+                      <div className="bg-green-100 text-green-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">1</div>
+                      <div>
+                        <h4 className="font-semibold">Entry Point: "Get a Quote" Buttons</h4>
+                        <p className="text-sm text-gray-600">Customer clicks "Get a Quote" anywhere on the website</p>
+                        <ul className="text-xs text-gray-500 mt-1 list-disc list-inside">
+                          <li>Homepage hero section</li>
+                          <li>Bachelor Party page</li>
+                          <li>Bachelorette Party page</li>
+                          <li>Private Cruises page</li>
+                          <li>Navigation menu</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 border rounded-lg">
+                      <div className="bg-green-100 text-green-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">2</div>
+                      <div>
+                        <h4 className="font-semibold">Route to Chat Flow</h4>
+                        <p className="text-sm text-gray-600">All "Get a Quote" buttons redirect to <code className="bg-gray-100 px-1 rounded">/chat</code></p>
+                        <div className="text-xs text-red-600 mt-1">
+                          ⚠️ Critical: Must route to /chat, NOT admin pages!
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 border rounded-lg">
+                      <div className="bg-green-100 text-green-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">3</div>
+                      <div>
+                        <h4 className="font-semibold">Step 1: Calendar Date Selection</h4>
+                        <p className="text-sm text-gray-600">Interactive calendar with real availability data</p>
+                        <ul className="text-xs text-gray-500 mt-1 list-disc list-inside">
+                          <li>Shows available dates based on boat/crew availability</li>
+                          <li>Greys out unavailable dates</li>
+                          <li>Integrates with availability slots system</li>
+                          <li>Alternative dates suggestion if first choice unavailable</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 border rounded-lg">
+                      <div className="bg-green-100 text-green-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">4</div>
+                      <div>
+                        <h4 className="font-semibold">Step 2: Event Type Selection</h4>
+                        <p className="text-sm text-gray-600">"What type of party?" with visual cards</p>
+                        <ul className="text-xs text-gray-500 mt-1 list-disc list-inside">
+                          <li>Bachelor Party 👨‍💼</li>
+                          <li>Bachelorette Party 👰‍♀️</li>
+                          <li>Birthday Party 🎂</li>
+                          <li>Corporate Event 🏢</li>
+                          <li>Wedding Reception 💒</li>
+                          <li>Other/Custom 🎉</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 border rounded-lg">
+                      <div className="bg-green-100 text-green-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">5</div>
+                      <div>
+                        <h4 className="font-semibold">Step 3: Group Size Adjustment</h4>
+                        <p className="text-sm text-gray-600">Interactive slider for group size (8-75 people)</p>
+                        <ul className="text-xs text-gray-500 mt-1 list-disc list-inside">
+                          <li>Real-time pricing updates based on group size</li>
+                          <li>Boat recommendations based on capacity</li>
+                          <li>Group size affects pricing tiers and packages</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 border rounded-lg">
+                      <div className="bg-green-100 text-green-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">6</div>
+                      <div>
+                        <h4 className="font-semibold">Display Layout: Two-Column Interface</h4>
+                        <p className="text-sm text-gray-600">Responsive design with chat and options</p>
+                        <div className="grid grid-cols-2 gap-2 mt-2 text-xs">
+                          <div className="bg-gray-50 p-2 rounded">
+                            <strong>Left Column: Chat Interface</strong>
+                            <ul className="list-disc list-inside mt-1">
+                              <li>Progressive conversation flow</li>
+                              <li>Customer selections display</li>
+                              <li>AI guidance and recommendations</li>
+                            </ul>
+                          </div>
+                          <div className="bg-gray-50 p-2 rounded">
+                            <strong>Right Column: Options & Pricing</strong>
+                            <ul className="list-disc list-inside mt-1">
+                              <li>Real-time pricing display</li>
+                              <li>Package comparisons</li>
+                              <li>Add-ons and upgrades</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 border rounded-lg">
+                      <div className="bg-green-100 text-green-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">7</div>
+                      <div>
+                        <h4 className="font-semibold">Final Actions: Quote Options</h4>
+                        <p className="text-sm text-gray-600">Four primary action buttons for customer choice</p>
+                        <div className="grid grid-cols-2 gap-2 mt-2">
+                          <div className="bg-green-50 border border-green-200 p-2 rounded text-xs">
+                            <strong className="text-green-800">💳 Pay Deposit</strong>
+                            <p className="text-green-600">25% deposit to secure booking</p>
+                          </div>
+                          <div className="bg-blue-50 border border-blue-200 p-2 rounded text-xs">
+                            <strong className="text-blue-800">💰 Pay in Full</strong>
+                            <p className="text-blue-600">Complete payment for discount</p>
+                          </div>
+                          <div className="bg-purple-50 border border-purple-200 p-2 rounded text-xs">
+                            <strong className="text-purple-800">📧 Send Quote</strong>
+                            <p className="text-purple-600">Email/SMS quote for later</p>
+                          </div>
+                          <div className="bg-orange-50 border border-orange-200 p-2 rounded text-xs">
+                            <strong className="text-orange-800">👀 View Quote</strong>
+                            <p className="text-orange-600">Review detailed quote</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 border rounded-lg">
+                      <div className="bg-green-100 text-green-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">8</div>
+                      <div>
+                        <h4 className="font-semibold">Communication Delivery</h4>
+                        <p className="text-sm text-gray-600">Automated email and SMS with quote links</p>
+                        <div className="grid grid-cols-2 gap-2 mt-2 text-xs">
+                          <div className="bg-gray-50 p-2 rounded">
+                            <strong>📧 Email (Mailgun)</strong>
+                            <ul className="list-disc list-inside mt-1">
+                              <li>Professional quote template</li>
+                              <li>Secure access token links</li>
+                              <li>Payment action buttons</li>
+                            </ul>
+                          </div>
+                          <div className="bg-gray-50 p-2 rounded">
+                            <strong>📱 SMS (GoHighLevel)</strong>
+                            <ul className="list-disc list-inside mt-1">
+                              <li>Short quote summary</li>
+                              <li>Direct link to quote viewer</li>
+                              <li>Call-to-action for payment</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="flex items-start gap-3 p-3 border rounded-lg">
+                      <div className="bg-green-100 text-green-800 rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">9</div>
+                      <div>
+                        <h4 className="font-semibold">Availability Updates</h4>
+                        <p className="text-sm text-gray-600">Automatic slot management after payment/booking</p>
+                        <ul className="text-xs text-gray-500 mt-1 list-disc list-inside">
+                          <li>Slot holds during quote process (15-30 min TTL)</li>
+                          <li>Atomic booking creation after payment</li>
+                          <li>Real-time availability updates across system</li>
+                          <li>Conflict prevention and double-booking protection</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Technical Requirements */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2">
+                    <Code className="h-5 w-5 text-purple-600" />
+                    <h3 className="text-lg font-semibold">Technical Requirements</h3>
+                  </div>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-3">
+                      <div className="bg-gray-50 border rounded-lg p-3">
+                        <h4 className="font-semibold text-sm mb-2">🔄 Routing & Navigation</h4>
+                        <ul className="text-xs text-gray-600 space-y-1">
+                          <li>✅ All "Get Quote" buttons → `/chat`</li>
+                          <li>✅ Chat flow uses wouter for navigation</li>
+                          <li>✅ Quote viewer at `/quote/:quoteId?token=xxx`</li>
+                          <li>✅ Mobile-responsive design</li>
+                        </ul>
+                      </div>
+
+                      <div className="bg-gray-50 border rounded-lg p-3">
+                        <h4 className="font-semibold text-sm mb-2">🗄️ Data Management</h4>
+                        <ul className="text-xs text-gray-600 space-y-1">
+                          <li>✅ Real-time availability via API</li>
+                          <li>✅ Slot holds with TTL expiration</li>
+                          <li>✅ Quote templates and pricing</li>
+                          <li>✅ Customer contact and project data</li>
+                        </ul>
+                      </div>
+
+                      <div className="bg-gray-50 border rounded-lg p-3">
+                        <h4 className="font-semibold text-sm mb-2">💳 Payment Integration</h4>
+                        <ul className="text-xs text-gray-600 space-y-1">
+                          <li>✅ Stripe payment processing</li>
+                          <li>✅ Deposit and full payment options</li>
+                          <li>✅ Payment intent validation</li>
+                          <li>✅ Atomic booking creation</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <div className="bg-gray-50 border rounded-lg p-3">
+                        <h4 className="font-semibold text-sm mb-2">📧 Communication</h4>
+                        <ul className="text-xs text-gray-600 space-y-1">
+                          <li>✅ Mailgun email delivery</li>
+                          <li>✅ GoHighLevel SMS integration</li>
+                          <li>✅ Quote access tokens (secure)</li>
+                          <li>✅ Template-based messaging</li>
+                        </ul>
+                      </div>
+
+                      <div className="bg-gray-50 border rounded-lg p-3">
+                        <h4 className="font-semibold text-sm mb-2">🔒 Security & Validation</h4>
+                        <ul className="text-xs text-gray-600 space-y-1">
+                          <li>✅ Slot hold validation</li>
+                          <li>✅ Payment tampering prevention</li>
+                          <li>✅ Access token expiration</li>
+                          <li>✅ Rate limiting on SMS/email</li>
+                        </ul>
+                      </div>
+
+                      <div className="bg-gray-50 border rounded-lg p-3">
+                        <h4 className="font-semibold text-sm mb-2">📊 Analytics & Tracking</h4>
+                        <ul className="text-xs text-gray-600 space-y-1">
+                          <li>✅ Partial leads capture</li>
+                          <li>✅ Quote view tracking</li>
+                          <li>✅ Conversion metrics</li>
+                          <li>✅ Customer journey analytics</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Critical Testing Points */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2">
+                    <AlertCircle className="h-5 w-5 text-red-600" />
+                    <h3 className="text-lg font-semibold">Critical Testing Points</h3>
+                  </div>
+                  
+                  <div className="bg-red-50 border border-red-200 rounded-lg p-4 space-y-3">
+                    <h4 className="font-semibold text-red-800">Must Test Before Production:</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-sm">
+                      <div>
+                        <h5 className="font-semibold text-red-700">🔗 Navigation Flow</h5>
+                        <ul className="text-xs text-red-600 list-disc list-inside">
+                          <li>All "Get Quote" buttons work</li>
+                          <li>Chat flow progression</li>
+                          <li>Quote viewer accessibility</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-red-700">📅 Availability System</h5>
+                        <ul className="text-xs text-red-600 list-disc list-inside">
+                          <li>Real-time availability data</li>
+                          <li>Slot hold creation/expiration</li>
+                          <li>Double-booking prevention</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-red-700">💰 Payment Processing</h5>
+                        <ul className="text-xs text-red-600 list-disc list-inside">
+                          <li>Stripe integration</li>
+                          <li>Deposit vs full payment</li>
+                          <li>Payment confirmation flow</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-red-700">📨 Communication Delivery</h5>
+                        <ul className="text-xs text-red-600 list-disc list-inside">
+                          <li>Email delivery (Mailgun)</li>
+                          <li>SMS delivery (GoHighLevel)</li>
+                          <li>Quote link accessibility</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Success Metrics */}
+                <div className="space-y-4">
+                  <div className="flex items-center gap-2">
+                    <CheckCircle className="h-5 w-5 text-green-600" />
+                    <h3 className="text-lg font-semibold">Success Metrics</h3>
+                  </div>
+                  
+                  <div className="bg-green-50 border border-green-200 rounded-lg p-4">
+                    <h4 className="font-semibold text-green-800 mb-2">Bulletproof Quote Flow Achieved When:</h4>
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+                      <div>
+                        <h5 className="font-semibold text-green-700">🎯 User Experience</h5>
+                        <ul className="text-xs text-green-600 list-disc list-inside">
+                          <li>Zero broken "Get Quote" buttons</li>
+                          <li>Smooth chat progression</li>
+                          <li>Clear pricing display</li>
+                          <li>Mobile-friendly interface</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-green-700">⚙️ System Reliability</h5>
+                        <ul className="text-xs text-green-600 list-disc list-inside">
+                          <li>100% email delivery rate</li>
+                          <li>Zero double-bookings</li>
+                          <li>Real-time availability sync</li>
+                          <li>Payment processing stability</li>
+                        </ul>
+                      </div>
+                      <div>
+                        <h5 className="font-semibold text-green-700">💼 Business Impact</h5>
+                        <ul className="text-xs text-green-600 list-disc list-inside">
+                          <li>Increased quote-to-booking conversion</li>
+                          <li>Reduced customer support load</li>
+                          <li>Automated lead capture</li>
+                          <li>Professional customer experience</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </CardContent>
+            </Card>
+          </TabsContent>
           
           <TabsContent value="quote-templates" className="space-y-4">
             <Card>
