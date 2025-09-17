@@ -7,7 +7,7 @@ import {
   DollarSign, Settings, Ship, TrendingUp, Mail, Phone,
   ChevronDown, Plus, Search, Bell, User, LogOut, Building,
   CreditCard, Briefcase, Star, FileBarChart, Database, ArrowLeft, Home,
-  AlertCircle, Code, UserCheck, FolderOpen, Receipt, BookOpen, Image
+  AlertCircle, Code, UserCheck, FolderOpen, Receipt, BookOpen, Image, BarChart3
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -156,6 +156,19 @@ export default function Navigation() {
                         <div className="flex items-center gap-2">
                           <DollarSign className="h-4 w-4" />
                           <div className="text-sm font-medium">Products & Pricing</div>
+                        </div>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        href="/admin/pricing"
+                        className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      >
+                        <div className="flex items-center gap-2">
+                          <BarChart3 className="h-4 w-4" />
+                          <div className="text-sm font-medium">Pricing Management</div>
                         </div>
                       </Link>
                     </NavigationMenuLink>

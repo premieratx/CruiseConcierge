@@ -45,6 +45,9 @@ import BlogPostEditor from "./pages/admin/BlogPostEditor";
 // Admin SEO Pages
 import SEOManagement from "./pages/admin/SEOManagement";
 
+// Admin Pricing Pages
+import Pricing from "./pages/admin/Pricing";
+
 // Landing Pages
 import BachelorParty from "./pages/BachelorParty";
 import BacheloretteParty from "./pages/BacheloretteParty";
@@ -134,6 +137,9 @@ function Router() {
       
       {/* Admin SEO Routes */}
       <Route path="/admin/seo" component={SEOManagement} />
+      
+      {/* Admin Pricing Routes */}
+      <Route path="/admin/pricing" component={Pricing} />
       
       {/* AI Media Library */}
       <Route path="/admin/media" component={lazy(() => import('./pages/admin/MediaLibrary'))} />

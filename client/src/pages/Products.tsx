@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
-import { Plus, Edit2, Trash2, DollarSign, Calendar, Clock, Users, Sparkles, Ship, Package, Tag, Image } from "lucide-react";
+import { Plus, Edit2, Trash2, DollarSign, Calendar, Clock, Users, Sparkles, Ship, Package, Tag, Image, BarChart3, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/Layout";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -20,6 +20,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage, FormDescription } from "@/components/ui/form";
+import { Link } from "wouter";
 
 const productFormSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -187,6 +188,17 @@ const ProductCard = ({ product, onEdit, onDelete }: {
           >
             <Edit2 className="h-4 w-4 mr-1" />
             Edit
+          </Button>
+          <Button
+            size="sm"
+            variant="outline"
+            asChild
+            onClick={(e) => e.stopPropagation()}
+            data-testid={`button-pricing-product-${product.id}`}
+          >
+            <Link href={`/admin/pricing?product=${product.id}`}>
+              <BarChart3 className="h-4 w-4" />
+            </Link>
           </Button>
           <Button
             size="sm"
@@ -382,17 +394,29 @@ export default function Products() {
               Manage your cruise experiences and add-on services
             </p>
           </div>
-          <Button 
-            onClick={() => {
-              setEditingProduct(null);
-              productForm.reset();
-              setIsProductDialogOpen(true);
-            }}
-            data-testid="button-new-product"
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            New Product
-          </Button>
+          <div className="flex gap-2">
+            <Button 
+              variant="outline"
+              asChild
+              data-testid="button-pricing-management"
+            >
+              <Link href="/admin/pricing">
+                <Target className="mr-2 h-4 w-4" />
+                Pricing Management
+              </Link>
+            </Button>
+            <Button 
+              onClick={() => {
+                setEditingProduct(null);
+                productForm.reset();
+                setIsProductDialogOpen(true);
+              }}
+              data-testid="button-new-product"
+            >
+              <Plus className="mr-2 h-4 w-4" />
+              New Product
+            </Button>
+          </div>
         </div>
 
         {/* Filters */}
