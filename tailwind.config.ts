@@ -61,7 +61,15 @@ export default {
           border: "var(--sidebar-border)",
           ring: "var(--sidebar-ring)",
         },
-        // Premier Party Cruises custom colors
+        // Premier Party Cruises brand colors
+        "brand-blue": "var(--brand-blue)",
+        "brand-blue-light": "var(--brand-blue-light)",
+        "brand-blue-dark": "var(--brand-blue-dark)",
+        "brand-yellow": "var(--brand-yellow)",
+        "brand-yellow-light": "var(--brand-yellow-light)",
+        "brand-yellow-dark": "var(--brand-yellow-dark)",
+        "brand-black": "var(--brand-black)",
+        "brand-white": "var(--brand-white)",
         marine: {
           50: "var(--marine-50)",
           100: "var(--marine-100)",

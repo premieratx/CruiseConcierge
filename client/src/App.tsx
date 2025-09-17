@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { lazy, Suspense } from "react";
+import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Checkout from "./pages/Checkout";
 import Chat from "./pages/Chat";
@@ -40,6 +41,13 @@ import BlogAuthor from "./pages/BlogAuthor";
 import BlogManagement from "./pages/admin/BlogManagement";
 import BlogPostEditor from "./pages/admin/BlogPostEditor";
 
+// Landing Pages
+import BachelorParty from "./pages/BachelorParty";
+import BacheloretteParty from "./pages/BacheloretteParty";
+import PrivateCruises from "./pages/PrivateCruises";
+import Gallery from "./pages/Gallery";
+import Contact from "./pages/Contact";
+
 // Customer Portal Pages
 import PortalLogin from "./pages/PortalLogin";
 import PortalVerify from "./pages/PortalVerify";
@@ -75,8 +83,18 @@ function Router() {
   // Main app routes (unchanged - preserves all existing functionality)
   return (
     <Switch>
+      {/* Public Homepage */}
+      <Route path="/" component={Home} />
+      
+      {/* Landing Pages */}
+      <Route path="/bachelor-party" component={BachelorParty} />
+      <Route path="/bachelorette-party" component={BacheloretteParty} />
+      <Route path="/private-cruises" component={PrivateCruises} />
+      <Route path="/gallery" component={Gallery} />
+      <Route path="/contact" component={Contact} />
+      
       {/* Admin Dashboard Routes */}
-      <Route path="/" component={Dashboard} />
+      <Route path="/dashboard" component={Dashboard} />
       <Route path="/chat" component={Chat} />
       <Route path="/leads" component={Leads} />
       <Route path="/customers/:id" component={CustomerProfile} />
