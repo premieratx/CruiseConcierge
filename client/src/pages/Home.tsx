@@ -23,6 +23,7 @@ import {
 } from 'lucide-react';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
+import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
 
 // Hero and gallery images 
 import heroImage1 from '@assets/image_1757844813165.png';
@@ -407,6 +408,13 @@ export default function Home() {
             </motion.div>
           </div>
         </motion.div>
+      </section>
+
+      {/* Embedded Quote Builder */}
+      <section className="py-16 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <EmbeddedQuoteBuilder pageContext="home" className="mb-8" />
+        </div>
       </section>
 
       {/* Services Section */}
