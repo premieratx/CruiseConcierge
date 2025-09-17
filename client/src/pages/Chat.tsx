@@ -30,7 +30,7 @@ import { useAvailabilityForDate, useAvailabilityForDateRange, formatDateForAvail
 import { TimeSlotList } from '@/components/TimeSlotList';
 import { formatCurrency, formatDate, formatLongDate, formatTimeForDisplay, formatTimeRange, formatPhoneNumber, formatCustomerName, formatBoatCapacity, formatEventDuration, formatGroupSize } from '@shared/formatters';
 import { EVENT_TYPES, CRUISE_TYPES, DISCO_PACKAGES, PRICING_DEFAULTS } from '@shared/constants';
-import { getDiscoTimeSlotsForDate, getPrivateTimeSlotsForDate } from '@shared/timeSlots';
+import { getDiscoTimeSlotsForDate, getPrivateTimeSlotsForDate, isDiscoAvailableForDate } from '@shared/timeSlots';
 
 type ChatFlowStep = 
   | 'intro' // Intro + Calendar combined
@@ -294,6 +294,43 @@ export default function Chat() {
     discoTicketQuantity: 1,
   });
   
+  // Fetch boats data for exact boat name display
+  const { data: boats = [] } = useQuery<any[]>({
+    queryKey: ['/api/boats'],
+    staleTime: 1000 * 60 * 5, // 5 minutes
+  });
+
+  // Create boat lookup map for fast boat name retrieval
+  const boatMap = useMemo(() => {
+    const map = new Map();
+    boats.forEach(boat => {
+      map.set(boat.id, boat);
+    });
+    return map;
+  }, [boats]);
+
+  // Helper function to get boat name from boat ID
+  const getBoatName = useCallback((boatId: string): string => {
+    const boat = boatMap.get(boatId);
+    return boat ? boat.name : `Boat ${boatId}`;
+  }, [boatMap]);
+
+  // Helper function to get boat details from boat candidates
+  const getBoatDetails = useCallback((slot: NormalizedSlot) => {
+    if (!slot.boatCandidates || slot.boatCandidates.length === 0) {
+      return { name: 'TBD Boat', capacity: slot.capacity };
+    }
+    
+    const primaryBoatId = slot.boatCandidates[0];
+    const boat = boatMap.get(primaryBoatId);
+    
+    return {
+      name: boat ? boat.name : `Boat ${primaryBoatId}`,
+      capacity: boat ? boat.capacity : slot.capacity,
+      id: primaryBoatId
+    };
+  }, [boatMap]);
+
   // Fetch available slots for the selected date
   const { data: availabilityData, isLoading: availabilityLoading, error: availabilityError } = useAvailabilityForDate(
     formData.eventDate ? formatDateForAvailability(formData.eventDate) : '',
@@ -1044,17 +1081,48 @@ export default function Chat() {
       return;
     }
     
-    console.log('🚢 handlePrivateCruiseSelect called with slot:', slot);
+    const boatDetails = getBoatDetails(slot);
+    
+    console.log("⛵ BOAT SLOT SELECTED", {
+      step: "slot_selection",
+      sessionId: chatSessionId,
+      boatId: boatDetails.id,
+      boatName: boatDetails.name,
+      capacity: boatDetails.capacity,
+      exactDate: slot.dateISO,
+      exactStartTime: slot.startTime,
+      exactEndTime: slot.endTime,
+      duration: slot.duration,
+      price: slot.price,
+      groupSize: formData.groupSize,
+      eventType: formData.eventType,
+      bookable: slot.bookable,
+      held: slot.held,
+      timestamp: new Date().toISOString()
+    });
+    
     setFormData(prev => {
       const newData = {
         ...prev,
         selectedCruiseType: 'private' as CruiseType,
         selectedSlot: slot,
+        selectedBoat: boatDetails.id,
+        preferredTimeLabel: `${slot.label} on ${format(formData.eventDate!, 'EEEE, MMMM d, yyyy')}`,
       };
-      console.log('🚢 Setting form data to:', newData);
+      
+      console.log('🚢 FORM DATA UPDATED WITH EXACT SELECTION', {
+        step: "form_data_update",
+        sessionId: chatSessionId,
+        selectedBoat: boatDetails.name,
+        selectedTime: `${slot.startTime}-${slot.endTime}`,
+        selectedDate: slot.dateISO,
+        cruiseType: 'private',
+        timestamp: new Date().toISOString()
+      });
+      
       return newData;
     });
-  }, [pricingLoading, paymentProcessing, formSubmitting]);
+  }, [pricingLoading, paymentProcessing, formSubmitting, getBoatDetails, chatSessionId, formData.groupSize, formData.eventType, formData.eventDate]);
   
   const handleAddOnPackageToggle = useCallback((packageId: string) => {
     // Prevent interactions during loading states
@@ -1298,6 +1366,41 @@ export default function Chat() {
       return;
     }
     
+    // COMPREHENSIVE LOGGING FOR CONTACT SUBMISSION
+    const selectedBoatDetails = formData.selectedSlot ? getBoatDetails(formData.selectedSlot) : null;
+    
+    console.log("🚀 BOOKING PROCESS STARTED", {
+      step: "contact_submission",
+      sessionId: chatSessionId,
+      customer: {
+        name: `${formData.firstName} ${formData.lastName}`,
+        email: formData.email,
+        phone: formData.phone
+      },
+      eventDetails: {
+        eventType: formData.eventType,
+        eventTypeLabel: formData.eventTypeLabel,
+        groupSize: formData.groupSize,
+        specialRequests: formData.specialRequests
+      },
+      exactBookingSelection: selectedBoatDetails ? {
+        boatId: selectedBoatDetails.id,
+        boatName: selectedBoatDetails.name,
+        capacity: selectedBoatDetails.capacity,
+        exactDate: formData.selectedSlot?.dateISO,
+        exactStartTime: formData.selectedSlot?.startTime,
+        exactEndTime: formData.selectedSlot?.endTime,
+        duration: formData.selectedSlot?.duration,
+        cruiseType: formData.selectedCruiseType,
+        timeSlotLabel: formData.selectedSlot?.label
+      } : null,
+      pricing: {
+        privatePricing: privatePricing?.total,
+        discoPricing: discoPricing?.total
+      },
+      timestamp: new Date().toISOString()
+    });
+    
     try {
       setFormSubmitting(true);
       addCompletedSelection({
@@ -1308,7 +1411,12 @@ export default function Chat() {
       });
       handleSendQuote();
     } catch (error) {
-      console.error('Contact form submission error:', error);
+      console.error('❌ CONTACT FORM SUBMISSION ERROR', {
+        step: "contact_submission_error",
+        sessionId: chatSessionId,
+        error: error.message,
+        timestamp: new Date().toISOString()
+      });
       toast({
         title: "Submission Error",
         description: "Failed to submit contact information. Please try again.",
@@ -1317,11 +1425,37 @@ export default function Chat() {
     } finally {
       setFormSubmitting(false);
     }
-  }, [formData, formSubmitting, pricingLoading, paymentProcessing, toast]);
+  }, [formData, formSubmitting, pricingLoading, paymentProcessing, toast, chatSessionId, getBoatDetails, privatePricing, discoPricing]);
 
   // Create lead mutation
   const createLead = useMutation({
     mutationFn: async (data: BookingData) => {
+      const selectedBoatDetails = data.selectedSlot ? getBoatDetails(data.selectedSlot) : null;
+      
+      console.log("👤 LEAD CREATION STARTED", {
+        step: "lead_creation_start",
+        sessionId: chatSessionId,
+        exactBookingDetails: selectedBoatDetails ? {
+          boatId: selectedBoatDetails.id,
+          boatName: selectedBoatDetails.name,
+          capacity: selectedBoatDetails.capacity,
+          exactDate: data.selectedSlot?.dateISO,
+          exactStartTime: data.selectedSlot?.startTime,
+          exactEndTime: data.selectedSlot?.endTime,
+          cruiseDateTime: `${format(data.eventDate!, 'EEEE, MMMM d, yyyy')} ${data.selectedSlot?.label}`,
+          duration: data.selectedSlot?.duration,
+          price: data.selectedSlot?.price
+        } : null,
+        customerInfo: {
+          name: `${data.firstName} ${data.lastName}`,
+          email: data.email,
+          phone: data.phone,
+          groupSize: data.groupSize,
+          eventType: data.eventType
+        },
+        timestamp: new Date().toISOString()
+      });
+      
       // Step 1: Create lead and project using the new booking endpoint
       const leadResponse = await apiRequest('POST', '/api/chat/booking', {
         sessionId: `chat_${Date.now()}`,
@@ -1339,7 +1473,8 @@ export default function Chat() {
         budget: (data.selectedCruiseType === 'private' ? privatePricing?.total : discoPricing?.total)?.toString(),
         data: {
           eventTypeLabel: data.eventTypeLabel,
-          discoTicketQuantity: data.discoTicketQuantity
+          discoTicketQuantity: data.discoTicketQuantity,
+          exactBoatDetails: selectedBoatDetails
         }
       });
       const leadResult = await leadResponse.json();
@@ -1876,8 +2011,19 @@ export default function Chat() {
                               <Ship className="h-6 w-6 text-blue-600" />
                             </div>
                             <div>
-                              <CardTitle>Private Cruise (Fits {getBoatCapacityForGroup(formData.groupSize)} People)</CardTitle>
-                              <CardDescription>Exclusive boat for your group • {getCruiseDuration(formData.eventDate)} hour cruise</CardDescription>
+                              {formData.selectedSlot ? (
+                                <>
+                                  <CardTitle>Private Cruise - {getBoatDetails(formData.selectedSlot).name}</CardTitle>
+                                  <CardDescription>
+                                    {format(formData.eventDate!, 'EEEE, MMMM d, yyyy')} • {formData.selectedSlot.label} • Fits {getBoatDetails(formData.selectedSlot).capacity} people
+                                  </CardDescription>
+                                </>
+                              ) : (
+                                <>
+                                  <CardTitle>Private Cruise (Fits {getBoatCapacityForGroup(formData.groupSize)} People)</CardTitle>
+                                  <CardDescription>Exclusive boat for your group • {getCruiseDuration(formData.eventDate)} hour cruise</CardDescription>
+                                </>
+                              )}
                             </div>
                           </div>
                         </CardHeader>

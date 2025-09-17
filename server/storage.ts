@@ -932,6 +932,55 @@ export class DatabaseStorage implements IStorage {
     }
   }
 
+  async convertLeadToCustomer(contactId: string): Promise<Contact> {
+    console.log("🔄 CONVERTING LEAD TO CUSTOMER", { 
+      contactId, 
+      step: "lead_conversion_start",
+      timestamp: new Date().toISOString()
+    });
+    
+    try {
+      // Update contact status to customer and related fields
+      const result = await db.update(contacts).set({
+        status: 'customer',
+        pipelinePhase: 'ph_closed_won',
+        leadSource: 'chat_booking_conversion',
+        tags: sql`CASE 
+          WHEN ${contacts.tags} IS NULL OR ${contacts.tags} = '[]'::jsonb 
+          THEN '["customer", "converted_lead"]'::jsonb 
+          ELSE ${contacts.tags} || '["customer", "converted_lead"]'::jsonb 
+        END`,
+        updatedAt: new Date()
+      }).where(eq(contacts.id, contactId)).returning();
+      
+      if (result.length === 0) {
+        throw new Error(`Contact ${contactId} not found for conversion`);
+      }
+      
+      const convertedContact = result[0];
+      
+      console.log("✅ LEAD SUCCESSFULLY CONVERTED TO CUSTOMER", {
+        customerId: contactId,
+        previousStatus: 'lead',
+        newStatus: 'customer',
+        pipelinePhase: 'ph_closed_won',
+        conversionComplete: true,
+        step: "lead_conversion_success",
+        timestamp: new Date().toISOString()
+      });
+      
+      return convertedContact;
+    } catch (error) {
+      console.error("❌ LEAD CONVERSION FAILED", {
+        contactId,
+        error: error.message,
+        step: "lead_conversion_error",
+        timestamp: new Date().toISOString()
+      });
+      throw error;
+    }
+  }
+
   async getProject(id: string): Promise<Project | undefined> {
     const result = await db.select().from(projects).where(eq(projects.id, id)).limit(1);
     return result[0];

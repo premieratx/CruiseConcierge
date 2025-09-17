@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { CONTACT_INFO, BUSINESS_HOURS } from '@shared/contact';
 import { 
   Phone, Mail, MapPin, Clock, MessageSquare, Calendar,
   Send, Facebook, Instagram, Star
@@ -56,7 +57,7 @@ export default function Contact() {
     } catch (error) {
       toast({
         title: "Something went wrong",
-        description: "Please try again or call us directly at (512) 555-0123",
+        description: `Please try again or call us directly at ${CONTACT_INFO.phoneFormatted}`,
         variant: "destructive"
       });
     }
@@ -100,7 +101,9 @@ export default function Contact() {
                   <Phone className="h-6 w-6 text-brand-blue mt-1 flex-shrink-0" />
                   <div>
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Call Us</h3>
-                    <p className="text-gray-600 dark:text-gray-300">(512) 555-0123</p>
+                    <a href={CONTACT_INFO.phoneHref} className="text-gray-600 dark:text-gray-300 hover:text-brand-blue transition-colors">
+                      {CONTACT_INFO.phoneFormatted}
+                    </a>
                     <p className="text-sm text-gray-500">Available 9 AM - 8 PM Daily</p>
                   </div>
                 </div>
@@ -109,7 +112,9 @@ export default function Contact() {
                   <Mail className="h-6 w-6 text-brand-blue mt-1 flex-shrink-0" />
                   <div>
                     <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Email Us</h3>
-                    <p className="text-gray-600 dark:text-gray-300">info@premierpartycruises.com</p>
+                    <a href={CONTACT_INFO.emailHref} className="text-gray-600 dark:text-gray-300 hover:text-brand-blue transition-colors">
+                      {CONTACT_INFO.email}
+                    </a>
                     <p className="text-sm text-gray-500">We respond within 24 hours</p>
                   </div>
                 </div>
