@@ -1554,7 +1554,7 @@ export default function Chat() {
         timestamp: new Date().toISOString()
       });
       
-      // Step 1: Create lead and project using the new booking endpoint
+      // Step 1: Create lead and project using the new booking endpoint - ENHANCED with complete selection data
       const leadResponse = await apiRequest('POST', '/api/chat/booking', {
         sessionId: `chat_${Date.now()}`,
         step: 'create-lead',
@@ -1570,9 +1570,63 @@ export default function Chat() {
         discoPackage: data.selectedDiscoPackage,
         budget: (data.selectedCruiseType === 'private' ? privatePricing?.total : discoPricing?.total)?.toString(),
         data: {
+          // Basic event info
           eventTypeLabel: data.eventTypeLabel,
+          eventTypeEmoji: data.eventEmoji,
+          
+          // Complete selected slot information
+          selectedSlot: data.selectedSlot ? {
+            id: data.selectedSlot.id,
+            dateISO: data.selectedSlot.dateISO,
+            startTime: data.selectedSlot.startTime,
+            endTime: data.selectedSlot.endTime,
+            duration: data.selectedSlot.duration,
+            label: data.selectedSlot.label,
+            price: data.selectedSlot.price,
+            capacity: data.selectedSlot.capacity,
+            boatCandidates: data.selectedSlot.boatCandidates,
+            cruiseType: data.selectedSlot.cruiseType,
+            bookable: data.selectedSlot.bookable,
+            held: data.selectedSlot.held
+          } : null,
+          
+          // Complete boat details
+          exactBoatDetails: selectedBoatDetails,
+          
+          // Disco cruise specific data
+          discoPackage: data.selectedDiscoPackage,
           discoTicketQuantity: data.discoTicketQuantity,
-          exactBoatDetails: selectedBoatDetails
+          discoPricing: data.selectedCruiseType === 'disco' ? discoPricing : null,
+          
+          // Private cruise specific data
+          selectedAddOnPackages: data.selectedAddOnPackages || [],
+          privatePricing: data.selectedCruiseType === 'private' ? privatePricing : null,
+          
+          // Pricing context for quote generation
+          calculatedPricing: {
+            selectedCruiseType: data.selectedCruiseType,
+            eventDate: data.eventDate?.toISOString(),
+            groupSize: data.groupSize,
+            privateOptions: data.selectedCruiseType === 'private' ? {
+              selectedAddOnPackages: data.selectedAddOnPackages,
+              pricing: privatePricing
+            } : null,
+            discoOptions: data.selectedCruiseType === 'disco' ? {
+              package: data.selectedDiscoPackage,
+              ticketQuantity: data.discoTicketQuantity,
+              pricing: discoPricing
+            } : null
+          },
+          
+          // Alternative dates information for reference
+          alternativeDatesConsidered: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : null,
+          
+          // Comparison screen context
+          comparisonScreenCompleted: true,
+          selectedAfterComparison: {
+            cruiseType: data.selectedCruiseType,
+            reasoning: data.selectedCruiseType === 'private' ? 'Selected private cruise after comparison' : 'Selected disco cruise after comparison'
+          }
         }
       });
       const leadResult = await leadResponse.json();

@@ -2,7 +2,7 @@ import { randomUUID } from "crypto";
 import { storage } from "../storage";
 import { googleSheetsService } from "./googleSheets";
 import { goHighLevelService } from "./gohighlevel";
-import { sendQuoteEmail } from "./sendgrid";
+import { sendQuoteEmail } from "./mailgunEmail";
 import { getFullUrl } from "../utils";
 import { quoteTokenService } from "./quoteTokenService";
 

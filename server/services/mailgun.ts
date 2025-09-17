@@ -29,9 +29,26 @@ class MailgunService implements EmailService {
   }
 
   isConfigured(): boolean {
-    // Override to make email live - only simulate if explicitly requested
+    // Check if explicitly set to simulate emails
     const simulate = process.env.EMAIL_SIMULATE === 'true';
-    return !simulate && !!(this.apiKey && this.domain);
+    if (simulate) {
+      console.log('📧 Mailgun: Email simulation mode enabled (EMAIL_SIMULATE=true)');
+      return false;
+    }
+    
+    // Check if we have the required credentials
+    const hasCredentials = !!(this.apiKey && this.domain);
+    
+    if (!hasCredentials) {
+      console.log('📧 Mailgun: Missing credentials, will simulate emails');
+      console.log('   API Key exists:', !!this.apiKey);
+      console.log('   Domain exists:', !!this.domain);
+    } else {
+      console.log('📧 Mailgun: Configured and ready to send real emails');
+      console.log('   Domain:', this.domain);
+    }
+    
+    return hasCredentials;
   }
 
   async send(options: EmailOptions): Promise<boolean> {

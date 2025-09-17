@@ -151,10 +151,10 @@ export class QuoteTokenService {
         providedBaseUrl: baseUrl
       });
       // In case of complete failure, return a relative URL that might work
-      return `/quotes/${encodeURIComponent(quoteId)}?token=${encodeURIComponent(token)}`;
+      return `/quote/${encodeURIComponent(quoteId)}?token=${encodeURIComponent(token)}`;
     }
     
-    const url = `${cleanBaseUrl}/quotes/${encodeURIComponent(quoteId)}?token=${encodeURIComponent(token)}`;
+    const url = `${cleanBaseUrl}/quote/${encodeURIComponent(quoteId)}?token=${encodeURIComponent(token)}`;
     
     console.log('🔗 Generated secure quote URL:', {
       quoteId,

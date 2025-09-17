@@ -17,7 +17,7 @@ import { googleSheetsService } from "./services/googleSheets";
 import { mailgunService } from "./services/mailgun";
 import { openRouterService } from "./services/openrouter";
 import { goHighLevelService, type LeadWebhookPayload } from "./services/gohighlevel";
-import { sendEmail as sendgridEmail, sendQuoteEmail as sendgridQuoteEmail } from "./services/sendgrid";
+import { sendEmail as mailgunEmail, sendQuoteEmail as mailgunQuoteEmail } from "./services/mailgunEmail";
 import { ComprehensiveLeadService } from "./services/comprehensiveLeadService";
 import { wisprFlowService } from "./services/wispr";
 import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation } from "@shared/schema";
@@ -1033,7 +1033,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         if (lead.quoteId) {
           const quote = await storage.getQuote(lead.quoteId);
           if (quote && quote.accessToken) {
-            quoteUrl = `${getPublicUrl()}/quotes/${quote.id}?token=${quote.accessToken}`;
+            quoteUrl = `${getPublicUrl()}/quote/${quote.id}?token=${quote.accessToken}`;
           }
         }
         
@@ -1095,7 +1095,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       }
 
-      const quoteUrl = `${getPublicUrl()}/quotes/${quote.id}?token=${quote.accessToken}`;
+      const quoteUrl = `${getPublicUrl()}/quote/${quote.id}?token=${quote.accessToken}`;
 
       if (method === 'email' && partialLead.email) {
         await sendQuoteEmail(quote.id, partialLead.email, customMessage);
@@ -1990,12 +1990,131 @@ export async function registerRoutes(app: Express): Promise<Server> {
           return res.status(404).json({ error: "Project not found" });
         }
         
-        // Calculate pricing using the same logic as chatbot display
+        // ENHANCED: Use detailed pricing data from chatbot flow if available, otherwise fallback to calculation
         // Extract cruise selection data from project
         const projectData = project.data as any || {};
         
+        console.log('🎯 Generate Quote - Project Data Available:', {
+          projectId,
+          hasPrivatePricing: !!projectData.privatePricing,
+          hasDiscoPricing: !!projectData.discoPricing,
+          hasSelectedSlot: !!projectData.selectedSlot,
+          hasCalculatedPricing: !!projectData.calculatedPricing,
+          cruiseType: projectData.cruiseType || data?.cruiseType
+        });
+        
         let pricing;
-        if (projectData.cruiseType === 'disco' || data?.cruiseType === 'disco') {
+        
+        // CRITICAL FIX: Use detailed pricing from chatbot flow if available
+        if (projectData.calculatedPricing && (projectData.calculatedPricing.privateOptions || projectData.calculatedPricing.discoOptions)) {
+          console.log('🎉 Using detailed pricing from chatbot flow');
+          
+          if (projectData.calculatedPricing.selectedCruiseType === 'private' && projectData.calculatedPricing.privateOptions) {
+            // Use the exact pricing that user saw and selected in chatbot
+            const privatePricing = projectData.calculatedPricing.privateOptions.pricing;
+            console.log('💰 Using private cruise pricing from chatbot:', privatePricing);
+            
+            pricing = {
+              subtotal: privatePricing.subtotal,
+              tax: privatePricing.tax,
+              gratuity: privatePricing.gratuity,
+              total: privatePricing.total,
+              depositRequired: privatePricing.depositRequired,
+              depositAmount: privatePricing.depositAmount,
+              depositPercent: privatePricing.depositPercent,
+              perPersonCost: privatePricing.perPersonCost,
+              discountTotal: privatePricing.discountTotal || 0,
+              paymentSchedule: privatePricing.paymentSchedule || [{
+                line: 1, due: "booking", percent: privatePricing.depositPercent || 50, daysBefore: 0
+              }, {
+                line: 2, due: "final", percent: (100 - (privatePricing.depositPercent || 50)), daysBefore: 14
+              }],
+              expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+              
+              // Include detailed breakdown from chatbot
+              breakdown: privatePricing.breakdown || {},
+              selectedAddOns: projectData.selectedAddOnPackages || [],
+              selectedSlot: projectData.selectedSlot || null,
+              boatDetails: projectData.exactBoatDetails || null
+            };
+            
+          } else if (projectData.calculatedPricing.selectedCruiseType === 'disco' && projectData.calculatedPricing.discoOptions) {
+            // Use the exact pricing that user saw and selected in chatbot
+            const discoPricing = projectData.calculatedPricing.discoOptions.pricing;
+            console.log('🎶 Using disco cruise pricing from chatbot:', discoPricing);
+            
+            pricing = {
+              subtotal: discoPricing.subtotal,
+              tax: discoPricing.tax,
+              gratuity: discoPricing.gratuity,
+              total: discoPricing.total,
+              depositRequired: discoPricing.depositRequired,
+              depositAmount: discoPricing.depositAmount,
+              depositPercent: discoPricing.depositPercent,
+              perPersonCost: discoPricing.perPersonCost,
+              discountTotal: discoPricing.discountTotal || 0,
+              paymentSchedule: discoPricing.paymentSchedule || [{
+                line: 1, due: "booking", percent: discoPricing.depositPercent || 50, daysBefore: 0
+              }, {
+                line: 2, due: "final", percent: (100 - (discoPricing.depositPercent || 50)), daysBefore: 14
+              }],
+              expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
+              
+              // Include detailed selection from chatbot
+              selectedPackage: projectData.calculatedPricing.discoOptions.package,
+              ticketQuantity: projectData.calculatedPricing.discoOptions.ticketQuantity,
+              selectedSlot: projectData.selectedSlot || null,
+              boatDetails: projectData.exactBoatDetails || null
+            };
+          }
+          
+        } else if (projectData.discoPricing && !projectData.calculatedPricing) {
+          // ENHANCED FALLBACK: Use basic disco pricing data if available
+          console.log('🎶 Using basic disco pricing data (pre-calculated)');
+          
+          pricing = {
+            subtotal: projectData.discoPricing.subtotal,
+            tax: projectData.discoPricing.tax,
+            gratuity: projectData.discoPricing.gratuity,
+            total: projectData.discoPricing.total,
+            depositRequired: projectData.discoPricing.depositRequired || true,
+            depositAmount: projectData.discoPricing.depositAmount,
+            depositPercent: projectData.discoPricing.depositPercent || 50,
+            perPersonCost: projectData.discoPricing.perPersonCost,
+            discountTotal: projectData.discoPricing.discountTotal || 0,
+            paymentSchedule: projectData.discoPricing.paymentSchedule || [{
+              line: 1, due: "booking", percent: 50, daysBefore: 0
+            }, {
+              line: 2, due: "final", percent: 50, daysBefore: 14
+            }],
+            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+          };
+          
+        } else if (projectData.privatePricing && !projectData.calculatedPricing) {
+          // ENHANCED FALLBACK: Use basic private pricing data if available
+          console.log('🚢 Using basic private pricing data (pre-calculated)');
+          
+          pricing = {
+            subtotal: projectData.privatePricing.subtotal,
+            tax: projectData.privatePricing.tax,
+            gratuity: projectData.privatePricing.gratuity,
+            total: projectData.privatePricing.total,
+            depositRequired: projectData.privatePricing.depositRequired || true,
+            depositAmount: projectData.privatePricing.depositAmount,
+            depositPercent: projectData.privatePricing.depositPercent || 50,
+            perPersonCost: projectData.privatePricing.perPersonCost,
+            discountTotal: projectData.privatePricing.discountTotal || 0,
+            paymentSchedule: projectData.privatePricing.paymentSchedule || [{
+              line: 1, due: "booking", percent: 50, daysBefore: 0
+            }, {
+              line: 2, due: "final", percent: 50, daysBefore: 14
+            }],
+            expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000)
+          };
+          
+        } else if (projectData.cruiseType === 'disco' || data?.cruiseType === 'disco') {
+          // FALLBACK: Original disco pricing calculation logic (last resort)
+          console.log('⚠️ Fallback: Calculating disco pricing from scratch (missing detailed data)');
           // For disco cruises, use per-person pricing
           const discoPackageId = projectData.discoPackage || data?.discoPackage || 'basic';
           const discoCruiseProducts = await storage.getDiscoCruiseProducts();
@@ -2154,8 +2273,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
               total: quote.total
             };
             
-            // Use the SendGrid service with proper parameters
-            emailSent = await sendgridQuoteEmail(
+            // Use the Mailgun service with proper parameters
+            emailSent = await mailgunQuoteEmail(
               contact.email,
               contact.name,
               quote.id,
@@ -2718,7 +2837,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           });
 
           if (quote && quote.accessToken) {
-            quoteUrl = `${getPublicUrl()}/quotes/${quote.id}?token=${quote.accessToken}`;
+            quoteUrl = `${getPublicUrl()}/quote/${quote.id}?token=${quote.accessToken}`;
             console.log('✅ Auto-generated quote:', quote.id, 'URL:', quoteUrl);
           }
         } catch (quoteError) {
@@ -2913,7 +3032,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
 
         if (quote && quote.accessToken) {
-          quoteUrl = `${getPublicUrl()}/quotes/${quote.id}?token=${quote.accessToken}`;
+          quoteUrl = `${getPublicUrl()}/quote/${quote.id}?token=${quote.accessToken}`;
           console.log('✅ Auto-generated immediate quote:', quote.id, 'URL:', quoteUrl);
         }
       } catch (quoteError) {
