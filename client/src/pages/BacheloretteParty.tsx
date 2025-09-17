@@ -27,13 +27,13 @@ import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
 import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
 
-// Hero and gallery images 
-import heroImage1 from '@assets/image_1757844813165.png';
-import heroImage2 from '@assets/image_1757850768476.png';
-import heroImage3 from '@assets/image_1757853656553.png';
-import galleryImage1 from '@assets/image_1757877906674.png';
-import galleryImage2 from '@assets/image_1757884902886.png';
-import galleryImage3 from '@assets/image_1757886911506.png';
+// Hero and gallery images - Real photos from live website
+import heroImage1 from '@assets/bachelor-party-group-guys.jpg';
+import heroImage2 from '@assets/atx-disco-cruise-party.jpg';
+import heroImage3 from '@assets/dancing-party-scene.jpg';
+import galleryImage1 from '@assets/party-atmosphere-1.jpg';
+import galleryImage2 from '@assets/party-atmosphere-2.jpg';
+import galleryImage3 from '@assets/party-atmosphere-3.jpg';
 
 // Animation variants
 const fadeInUp = {

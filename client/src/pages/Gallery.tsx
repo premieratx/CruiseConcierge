@@ -17,10 +17,10 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-// Import gallery images - ALL available Premier Party Cruises real photos
-import heroImage1 from '@assets/image_1757844813165.png';
-import heroImage2 from '@assets/image_1757850768476.png';
-import heroImage3 from '@assets/image_1757853656553.png';
+// Import gallery images - Real photos from live website
+import heroImage1 from '@assets/bachelor-party-group-guys.jpg';
+import heroImage2 from '@assets/atx-disco-cruise-party.jpg';
+import heroImage3 from '@assets/dancing-party-scene.jpg';
 import galleryImage1 from '@assets/image_1757877906674.png';
 import galleryImage2 from '@assets/image_1757884902886.png';
 import galleryImage3 from '@assets/image_1757886911506.png';
@@ -42,15 +42,29 @@ import ppcLogoLarge from '@assets/PPC Logo LARGE_1757881944449.png';
 // Comprehensive Gallery data structure - ALL real Premier Party Cruises photos
 const galleryImages = [
   {
+    id: 'bachelor-party-group',
+    src: heroImage1,
+    alt: 'Epic Bachelor Party on Lake Travis - Group of Friends Celebrating',
+    title: 'Bachelor Party Celebration',
+    description: 'Group of guys having the time of their lives on Premier Party Cruises - the perfect Austin bachelor party experience',
+    category: 'Bachelor Parties',
+    location: 'Lake Travis, Austin',
+    photographer: 'Premier Party Cruises',
+    date: '2025-01-15',
+    likes: 1847,
+    views: 12930,
+    tags: ['bachelor', 'party', 'guys', 'celebration', 'austin']
+  },
+  {
     id: 'flagship-disco',
-    src: atxDiscoFull,
+    src: heroImage2,
     alt: 'ATX Disco Cruise - Austin\'s Premier Party Boat Experience',
     title: 'ATX Disco Cruise - Flagship Experience',
     description: 'The ultimate Austin party cruise experience with state-of-the-art sound, lighting, and premium amenities on Lake Travis',
     category: 'Featured',
     location: 'Lake Travis, Austin',
     photographer: 'Premier Party Cruises',
-    date: '2024-09-15',
+    date: '2025-01-15',
     likes: 1247,
     views: 8930,
     tags: ['flagship', 'disco', 'atx', 'premium', 'weekend']
