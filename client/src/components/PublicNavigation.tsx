@@ -65,17 +65,8 @@ export default function PublicNavigation() {
   }, []);
 
   const handleGetQuote = () => {
-    // For now, scroll to contact form if on home page, otherwise navigate to contact
-    if (location === '/') {
-      const contactSection = document.getElementById('contact');
-      if (contactSection) {
-        contactSection.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        navigate('/contact');
-      }
-    } else {
-      navigate('/contact');
-    }
+    // Navigate to the customer chatbot quote flow
+    navigate('/chat');
   };
 
   const handleBookNow = () => {

@@ -1045,6 +1045,37 @@ export class GoogleSheetsService {
     }
   }
 
+  // ALIAS METHOD: For backward compatibility with existing route calls
+  async updateLeadWithQuote(contactId: string, quoteId: string, quoteUrl: string): Promise<boolean> {
+    console.log(`🔗 Updating lead with quote (alias method) - contactId: ${contactId}, quoteId: ${quoteId}`);
+    
+    try {
+      // Get contact details to match with leads
+      // Note: This is a simple approach - we'll match leads by project association
+      // In a more sophisticated implementation, you'd store contactId in the lead record
+      
+      // For now, find the most recent lead without a quote that could match this contact
+      const allLeads = await this.getAllLeads();
+      const candidateLeads = allLeads.filter(l => !l.quoteUrl && !l.quoteId); // Find leads without quotes
+      
+      if (candidateLeads.length === 0) {
+        console.log(`❌ No unquoted leads found to update with quote for contact ${contactId}`);
+        return false;
+      }
+      
+      // Use the most recent lead (assumes chronological lead IDs)
+      const targetLead = candidateLeads.sort((a, b) => b.createdDate.localeCompare(a.createdDate))[0];
+      
+      console.log(`✅ Found candidate lead ${targetLead.leadId} to update with quote ${quoteId}`);
+      
+      // Use the existing updateLeadWithQuoteLink method with the lead ID
+      return await this.updateLeadWithQuoteLink(targetLead.leadId, quoteUrl, quoteId);
+    } catch (error: any) {
+      console.error(`❌ Error in updateLeadWithQuote alias:`, error.message);
+      return false;
+    }
+  }
+
   // Helper method to generate availability data (similar to getMockAvailability but returns all as AVAILABLE)
   private generateAvailabilityData(startDate: Date, endDate: Date): AvailabilityData[] {
     const availability: AvailabilityData[] = [];

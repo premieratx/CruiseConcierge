@@ -421,17 +421,35 @@ function LeadDetailsModal({
                   {quotes.map((quote) => (
                     <Card key={quote.id} className="p-3">
                       <div className="flex justify-between items-start">
-                        <div>
-                          <p className="font-medium text-sm">Quote #{quote.id.slice(0, 8)}</p>
-                          <p className="text-sm text-muted-foreground">
-                            {formatDate(quote.createdAt)}
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <p className="font-medium text-sm">Quote #{quote.id.slice(0, 8)}</p>
+                            <Badge variant={quote.status === 'ACCEPTED' ? 'default' : 'secondary'} className="text-xs">
+                              {quote.status}
+                            </Badge>
+                          </div>
+                          <p className="text-sm text-muted-foreground mb-2">
+                            Created {formatDate(quote.createdAt)}
                           </p>
+                          <div className="flex items-center gap-2">
+                            <Link href={`/quote/${quote.id}`}>
+                              <Button variant="outline" size="sm" className="h-7" data-testid={`button-view-quote-${quote.id}`}>
+                                <Eye className="h-3 w-3 mr-1" />
+                                View Quote
+                              </Button>
+                            </Link>
+                            {project && (
+                              <Link href={`/quotes/new?projectId=${project.id}`}>
+                                <Button variant="ghost" size="sm" className="h-7" data-testid={`button-create-new-quote-${quote.id}`}>
+                                  <Plus className="h-3 w-3 mr-1" />
+                                  New Version
+                                </Button>
+                              </Link>
+                            )}
+                          </div>
                         </div>
                         <div className="text-right">
                           <p className="font-semibold">{formatCurrency(quote.total)}</p>
-                          <Badge variant={quote.status === 'accepted' ? 'default' : 'secondary'}>
-                            {quote.status}
-                          </Badge>
                         </div>
                       </div>
                     </Card>
@@ -440,7 +458,15 @@ function LeadDetailsModal({
               ) : (
                 <div className="text-center py-8 text-muted-foreground">
                   <FileText className="w-12 h-12 mx-auto mb-2 opacity-50" />
-                  <p>No quotes created yet</p>
+                  <p className="mb-3">No quotes created yet</p>
+                  {project && (
+                    <Link href={`/quotes/new?projectId=${project.id}`}>
+                      <Button variant="outline" size="sm" data-testid="button-create-first-quote">
+                        <Plus className="h-4 w-4 mr-2" />
+                        Create Quote
+                      </Button>
+                    </Link>
+                  )}
                 </div>
               )}
             </TabsContent>

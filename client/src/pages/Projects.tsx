@@ -139,8 +139,22 @@ export default function Projects() {
     },
   });
 
+  // Fetch all quotes to link with projects
+  const { data: allQuotes = [] } = useQuery({
+    queryKey: ["/api/quotes"],
+    queryFn: async () => {
+      const response = await apiRequest('GET', '/api/quotes');
+      return response.json();
+    },
+  });
+
   // Create contact map for quick lookups
   const contactMap = new Map(clients.map(c => [c.id, c]));
+
+  // Helper function to get quotes for a project
+  const getQuotesForProject = (projectId: string) => {
+    return allQuotes.filter((quote: any) => quote.projectId === projectId);
+  };
 
   // Create project mutation
   const createProjectMutation = useMutation({
@@ -258,6 +272,8 @@ export default function Projects() {
   const ProjectRow = ({ project }: { project: Project }) => {
     const contact = contactMap.get(project.contactId);
     const projectBooking = bookings.find(b => b.projectId === project.id);
+    const projectQuotes = getQuotesForProject(project.id);
+    const latestQuote = projectQuotes.length > 0 ? projectQuotes[projectQuotes.length - 1] : null;
     
     return (
       <TableRow data-testid={`row-project-${project.id}`}>
@@ -330,11 +346,26 @@ export default function Projects() {
         </TableCell>
         <TableCell>
           <div className="flex items-center gap-2">
-            <Link href={`/quotes?projectId=${project.id}`}>
-              <Button variant="ghost" size="sm" data-testid={`button-view-quote-${project.id}`}>
-                <FileText className="h-4 w-4" />
-              </Button>
-            </Link>
+            {latestQuote ? (
+              <div className="flex flex-col gap-1">
+                <Link href={`/quote/${latestQuote.id}`}>
+                  <Button variant="outline" size="sm" className="h-8" data-testid={`button-view-quote-${project.id}`}>
+                    <FileText className="h-3 w-3 mr-1" />
+                    View Quote
+                  </Button>
+                </Link>
+                <div className="text-xs text-muted-foreground">
+                  {formatCurrency(latestQuote.total)} • {latestQuote.status}
+                </div>
+              </div>
+            ) : (
+              <Link href={`/quotes/new?projectId=${project.id}`}>
+                <Button variant="ghost" size="sm" className="h-8" data-testid={`button-create-quote-${project.id}`}>
+                  <Plus className="h-3 w-3 mr-1" />
+                  Create Quote
+                </Button>
+              </Link>
+            )}
             <Select
               value={project.status}
               onValueChange={(value) => updateStatusMutation.mutate({ id: project.id, status: value })}

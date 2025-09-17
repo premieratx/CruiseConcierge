@@ -12,9 +12,19 @@ export async function apiRequest(
   url: string,
   data?: unknown | undefined,
 ): Promise<Response> {
+  // Add admin dev token for admin routes during development
+  const isAdminRoute = url.includes('/api/quotes') || url.includes('/api/admin') || 
+                       url.includes('/api/contacts') || url.includes('/api/projects') ||
+                       url.includes('/api/invoices') || url.includes('/api/media');
+  
+  const headers: Record<string, string> = {
+    ...(data ? { "Content-Type": "application/json" } : {}),
+    ...(isAdminRoute ? { "Authorization": "Bearer admin-dev-token" } : {})
+  };
+
   const res = await fetch(url, {
     method,
-    headers: data ? { "Content-Type": "application/json" } : {},
+    headers,
     body: data ? JSON.stringify(data) : undefined,
     credentials: "include",
   });
@@ -29,7 +39,19 @@ export const getQueryFn: <T>(options: {
 }) => QueryFunction<T> =
   ({ on401: unauthorizedBehavior }) =>
   async ({ queryKey }) => {
-    const res = await fetch(queryKey.join("/") as string, {
+    const url = queryKey.join("/") as string;
+    
+    // Add admin dev token for admin routes during development
+    const isAdminRoute = url.includes('/api/quotes') || url.includes('/api/admin') || 
+                         url.includes('/api/contacts') || url.includes('/api/projects') ||
+                         url.includes('/api/invoices') || url.includes('/api/media');
+    
+    const headers: Record<string, string> = {
+      ...(isAdminRoute ? { "Authorization": "Bearer admin-dev-token" } : {})
+    };
+
+    const res = await fetch(url, {
+      headers,
       credentials: "include",
     });
 

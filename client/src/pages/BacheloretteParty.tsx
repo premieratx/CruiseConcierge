@@ -331,7 +331,7 @@ export default function BacheloretteParty() {
   };
 
   const handleGetQuote = () => {
-    navigate('/quotes/new?event=bachelorette');
+    navigate('/chat');
   };
 
   const handleContactSubmit = async (e: React.FormEvent) => {

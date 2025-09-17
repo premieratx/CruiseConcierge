@@ -273,8 +273,13 @@ export default function BachelorParty() {
   };
 
   const handleGetQuote = (packageId?: string) => {
-    setContactForm(prev => ({ ...prev, selectedPackage: packageId || '' }));
-    setShowBookingDialog(true);
+    // Navigate to chat with bachelor party context
+    const params = new URLSearchParams();
+    params.set('event', 'bachelor');
+    if (packageId) {
+      params.set('package', packageId);
+    }
+    navigate(`/chat?${params.toString()}`);
   };
 
   const handleContactSubmit = async (e: React.FormEvent) => {

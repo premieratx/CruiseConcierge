@@ -3289,6 +3289,27 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const quote = await storage.createQuote(quoteData);
       console.log("Quote created successfully:", quote.id);
       
+      // Update Google Sheets with quote URL if the quote is linked to a project/contact
+      if (quote.projectId) {
+        try {
+          const project = await storage.getProject(quote.projectId);
+          if (project) {
+            const contact = await storage.getContact(project.contactId);
+            if (contact) {
+              // Generate secure quote URL
+              const quoteUrl = quoteTokenService.generateSecureQuoteUrl(quote.id);
+              
+              // Update Google Sheets with quote link
+              await googleSheetsService.updateLeadWithQuote(contact.id, quote.id, quoteUrl);
+              console.log("✅ Updated Google Sheets with quote link for manual quote creation");
+            }
+          }
+        } catch (sheetsError) {
+          console.error("❌ Failed to update Google Sheets with quote link:", sheetsError);
+          // Don't fail the quote creation if Google Sheets update fails
+        }
+      }
+      
       res.status(201).json(quote);
     } catch (error: any) {
       if (error instanceof z.ZodError) {
