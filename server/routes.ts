@@ -19,7 +19,7 @@ import { openRouterService } from "./services/openrouter";
 import { goHighLevelService, type LeadWebhookPayload } from "./services/gohighlevel";
 import { sendEmail as sendgridEmail, sendQuoteEmail as sendgridQuoteEmail } from "./services/sendgrid";
 import { ComprehensiveLeadService } from "./services/comprehensiveLeadService";
-import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters } from "@shared/schema";
+import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters } from "@shared/schema";
 import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate } from "@shared/timeSlots";
 import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
@@ -10393,6 +10393,772 @@ export async function registerRoutes(app: Express): Promise<Server> {
         success: false, 
         error: error.message 
       });
+    }
+  });
+
+  // ============================================
+  // BLOG SYSTEM API ENDPOINTS
+  // ============================================
+
+  // ========== BLOG AUTHORS API ==========
+
+  // Get all blog authors
+  app.get("/api/blog/authors", async (req, res) => {
+    try {
+      const authors = await storage.getBlogAuthors();
+      res.json(authors);
+    } catch (error: any) {
+      console.error("Get blog authors error:", error);
+      res.status(500).json({ error: "Failed to get blog authors" });
+    }
+  });
+
+  // Get single blog author
+  app.get("/api/blog/authors/:id", async (req, res) => {
+    try {
+      const author = await storage.getBlogAuthor(req.params.id);
+      if (!author) {
+        return res.status(404).json({ error: "Author not found" });
+      }
+      res.json(author);
+    } catch (error: any) {
+      console.error("Get blog author error:", error);
+      res.status(500).json({ error: "Failed to get blog author" });
+    }
+  });
+
+  // Create blog author
+  app.post("/api/blog/authors", async (req, res) => {
+    try {
+      const validatedData = insertBlogAuthorSchema.parse(req.body);
+      const author = await storage.createBlogAuthor(validatedData);
+      res.status(201).json(author);
+    } catch (error: any) {
+      console.error("Create blog author error:", error);
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: "Invalid author data", details: error.errors });
+      }
+      res.status(500).json({ error: "Failed to create blog author" });
+    }
+  });
+
+  // Update blog author
+  app.put("/api/blog/authors/:id", async (req, res) => {
+    try {
+      const updates = insertBlogAuthorSchema.partial().parse(req.body);
+      const author = await storage.updateBlogAuthor(req.params.id, updates);
+      res.json(author);
+    } catch (error: any) {
+      console.error("Update blog author error:", error);
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: "Invalid author data", details: error.errors });
+      }
+      res.status(500).json({ error: "Failed to update blog author" });
+    }
+  });
+
+  // Delete blog author
+  app.delete("/api/blog/authors/:id", async (req, res) => {
+    try {
+      const success = await storage.deleteBlogAuthor(req.params.id);
+      if (!success) {
+        return res.status(404).json({ error: "Author not found" });
+      }
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error("Delete blog author error:", error);
+      res.status(500).json({ error: "Failed to delete blog author" });
+    }
+  });
+
+  // ========== BLOG CATEGORIES API ==========
+
+  // Get all blog categories (hierarchical)
+  app.get("/api/blog/categories", async (req, res) => {
+    try {
+      const categories = await storage.getBlogCategoryHierarchy();
+      res.json(categories);
+    } catch (error: any) {
+      console.error("Get blog categories error:", error);
+      res.status(500).json({ error: "Failed to get blog categories" });
+    }
+  });
+
+  // Get single blog category
+  app.get("/api/blog/categories/:id", async (req, res) => {
+    try {
+      const category = await storage.getBlogCategory(req.params.id);
+      if (!category) {
+        return res.status(404).json({ error: "Category not found" });
+      }
+      res.json(category);
+    } catch (error: any) {
+      console.error("Get blog category error:", error);
+      res.status(500).json({ error: "Failed to get blog category" });
+    }
+  });
+
+  // Create blog category
+  app.post("/api/blog/categories", async (req, res) => {
+    try {
+      const validatedData = insertBlogCategorySchema.parse(req.body);
+      const category = await storage.createBlogCategory(validatedData);
+      res.status(201).json(category);
+    } catch (error: any) {
+      console.error("Create blog category error:", error);
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: "Invalid category data", details: error.errors });
+      }
+      res.status(500).json({ error: "Failed to create blog category" });
+    }
+  });
+
+  // Update blog category
+  app.put("/api/blog/categories/:id", async (req, res) => {
+    try {
+      const updates = insertBlogCategorySchema.partial().parse(req.body);
+      const category = await storage.updateBlogCategory(req.params.id, updates);
+      res.json(category);
+    } catch (error: any) {
+      console.error("Update blog category error:", error);
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: "Invalid category data", details: error.errors });
+      }
+      res.status(500).json({ error: "Failed to update blog category" });
+    }
+  });
+
+  // Delete blog category
+  app.delete("/api/blog/categories/:id", async (req, res) => {
+    try {
+      const success = await storage.deleteBlogCategory(req.params.id);
+      if (!success) {
+        return res.status(404).json({ error: "Category not found" });
+      }
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error("Delete blog category error:", error);
+      res.status(500).json({ error: "Failed to delete blog category" });
+    }
+  });
+
+  // ========== BLOG TAGS API ==========
+
+  // Get all blog tags
+  app.get("/api/blog/tags", async (req, res) => {
+    try {
+      const tags = await storage.getBlogTags();
+      res.json(tags);
+    } catch (error: any) {
+      console.error("Get blog tags error:", error);
+      res.status(500).json({ error: "Failed to get blog tags" });
+    }
+  });
+
+  // Get single blog tag
+  app.get("/api/blog/tags/:id", async (req, res) => {
+    try {
+      const tag = await storage.getBlogTag(req.params.id);
+      if (!tag) {
+        return res.status(404).json({ error: "Tag not found" });
+      }
+      res.json(tag);
+    } catch (error: any) {
+      console.error("Get blog tag error:", error);
+      res.status(500).json({ error: "Failed to get blog tag" });
+    }
+  });
+
+  // Create blog tag
+  app.post("/api/blog/tags", async (req, res) => {
+    try {
+      const validatedData = insertBlogTagSchema.parse(req.body);
+      const tag = await storage.createBlogTag(validatedData);
+      res.status(201).json(tag);
+    } catch (error: any) {
+      console.error("Create blog tag error:", error);
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: "Invalid tag data", details: error.errors });
+      }
+      res.status(500).json({ error: "Failed to create blog tag" });
+    }
+  });
+
+  // Update blog tag
+  app.put("/api/blog/tags/:id", async (req, res) => {
+    try {
+      const updates = insertBlogTagSchema.partial().parse(req.body);
+      const tag = await storage.updateBlogTag(req.params.id, updates);
+      res.json(tag);
+    } catch (error: any) {
+      console.error("Update blog tag error:", error);
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: "Invalid tag data", details: error.errors });
+      }
+      res.status(500).json({ error: "Failed to update blog tag" });
+    }
+  });
+
+  // Delete blog tag
+  app.delete("/api/blog/tags/:id", async (req, res) => {
+    try {
+      const success = await storage.deleteBlogTag(req.params.id);
+      if (!success) {
+        return res.status(404).json({ error: "Tag not found" });
+      }
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error("Delete blog tag error:", error);
+      res.status(500).json({ error: "Failed to delete blog tag" });
+    }
+  });
+
+  // ========== BLOG POSTS API ==========
+
+  // Get all blog posts with filtering and pagination
+  app.get("/api/blog/posts", async (req, res) => {
+    try {
+      const {
+        status = undefined,
+        authorId = undefined,
+        categoryId = undefined,
+        tagId = undefined,
+        featured = undefined,
+        search = undefined,
+        limit = '20',
+        offset = '0',
+        sortBy = 'createdAt',
+        sortOrder = 'desc'
+      } = req.query;
+
+      const filters = {
+        status: status as any,
+        authorId: authorId as string,
+        categoryId: categoryId as string,
+        tagId: tagId as string,
+        featured: featured === 'true' ? true : featured === 'false' ? false : undefined,
+        search: search as string,
+        limit: parseInt(limit as string),
+        offset: parseInt(offset as string),
+        sortBy: sortBy as any,
+        sortOrder: sortOrder as any,
+      };
+
+      const result = await storage.getBlogPosts(filters);
+      res.json(result);
+    } catch (error: any) {
+      console.error("Get blog posts error:", error);
+      res.status(500).json({ error: "Failed to get blog posts" });
+    }
+  });
+
+  // Get single blog post with all related data
+  app.get("/api/blog/posts/:id", async (req, res) => {
+    try {
+      const post = await storage.getBlogPost(req.params.id);
+      if (!post) {
+        return res.status(404).json({ error: "Post not found" });
+      }
+      
+      // Get related data
+      const [categories, tags] = await Promise.all([
+        storage.getBlogPostCategories(req.params.id),
+        storage.getBlogPostTags(req.params.id)
+      ]);
+
+      res.json({ ...post, categories, tags });
+    } catch (error: any) {
+      console.error("Get blog post error:", error);
+      res.status(500).json({ error: "Failed to get blog post" });
+    }
+  });
+
+  // Create new blog post
+  app.post("/api/blog/posts", async (req, res) => {
+    try {
+      const validatedData = insertBlogPostSchema.parse(req.body);
+      const post = await storage.createBlogPost(validatedData);
+      
+      // Assign categories and tags if provided
+      if (req.body.categoryIds && req.body.categoryIds.length > 0) {
+        await storage.assignPostToCategories(post.id, req.body.categoryIds, req.body.primaryCategoryId);
+      }
+      
+      if (req.body.tagIds && req.body.tagIds.length > 0) {
+        await storage.assignPostToTags(post.id, req.body.tagIds);
+      }
+
+      res.status(201).json(post);
+    } catch (error: any) {
+      console.error("Create blog post error:", error);
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: "Invalid post data", details: error.errors });
+      }
+      res.status(500).json({ error: "Failed to create blog post" });
+    }
+  });
+
+  // Update blog post
+  app.put("/api/blog/posts/:id", async (req, res) => {
+    try {
+      const updates = insertBlogPostSchema.partial().parse(req.body);
+      const post = await storage.updateBlogPost(req.params.id, updates);
+      
+      // Update categories and tags if provided
+      if (req.body.categoryIds !== undefined) {
+        await storage.removePostFromCategories(req.params.id);
+        if (req.body.categoryIds.length > 0) {
+          await storage.assignPostToCategories(req.params.id, req.body.categoryIds, req.body.primaryCategoryId);
+        }
+      }
+      
+      if (req.body.tagIds !== undefined) {
+        await storage.removePostFromTags(req.params.id);
+        if (req.body.tagIds.length > 0) {
+          await storage.assignPostToTags(req.params.id, req.body.tagIds);
+        }
+      }
+
+      res.json(post);
+    } catch (error: any) {
+      console.error("Update blog post error:", error);
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: "Invalid post data", details: error.errors });
+      }
+      res.status(500).json({ error: "Failed to update blog post" });
+    }
+  });
+
+  // Delete blog post
+  app.delete("/api/blog/posts/:id", async (req, res) => {
+    try {
+      const success = await storage.deleteBlogPost(req.params.id);
+      if (!success) {
+        return res.status(404).json({ error: "Post not found" });
+      }
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error("Delete blog post error:", error);
+      res.status(500).json({ error: "Failed to delete blog post" });
+    }
+  });
+
+  // Publish/unpublish blog post
+  app.post("/api/blog/posts/:id/publish", async (req, res) => {
+    try {
+      const { action = 'publish', scheduledFor } = req.body;
+      
+      if (action === 'publish') {
+        const publishedAt = req.body.publishedAt ? new Date(req.body.publishedAt) : new Date();
+        const post = await storage.publishBlogPost(req.params.id, publishedAt);
+        res.json(post);
+      } else if (action === 'schedule' && scheduledFor) {
+        const post = await storage.scheduleBlogPost(req.params.id, new Date(scheduledFor));
+        res.json(post);
+      } else if (action === 'unpublish') {
+        const post = await storage.updateBlogPost(req.params.id, { status: 'draft', publishedAt: null });
+        res.json(post);
+      } else {
+        res.status(400).json({ error: "Invalid action or missing scheduledFor date" });
+      }
+    } catch (error: any) {
+      console.error("Publish blog post error:", error);
+      res.status(500).json({ error: "Failed to publish/unpublish blog post" });
+    }
+  });
+
+  // ========== PUBLIC BLOG API ==========
+
+  // Get published blog posts for public consumption
+  app.get("/api/blog/public/posts", async (req, res) => {
+    try {
+      const {
+        categorySlug = undefined,
+        tagSlug = undefined,
+        limit = '20',
+        offset = '0',
+        featured = undefined
+      } = req.query;
+
+      let result;
+      
+      if (categorySlug) {
+        const category = await storage.getBlogCategoryBySlug(categorySlug as string);
+        if (!category) {
+          return res.status(404).json({ error: "Category not found" });
+        }
+        result = await storage.getBlogPostsByCategory(category.id, parseInt(limit as string), parseInt(offset as string));
+      } else if (tagSlug) {
+        const tag = await storage.getBlogTagBySlug(tagSlug as string);
+        if (!tag) {
+          return res.status(404).json({ error: "Tag not found" });
+        }
+        result = await storage.getBlogPostsByTag(tag.id, parseInt(limit as string), parseInt(offset as string));
+      } else if (featured === 'true') {
+        const posts = await storage.getFeaturedBlogPosts(parseInt(limit as string));
+        result = { posts, total: posts.length };
+      } else {
+        result = await storage.getPublishedBlogPosts(parseInt(limit as string), parseInt(offset as string));
+      }
+
+      res.json(result);
+    } catch (error: any) {
+      console.error("Get public blog posts error:", error);
+      res.status(500).json({ error: "Failed to get public blog posts" });
+    }
+  });
+
+  // Get single published blog post by slug
+  app.get("/api/blog/public/posts/:slug", async (req, res) => {
+    try {
+      const post = await storage.getBlogPostBySlug(req.params.slug);
+      if (!post || post.status !== 'published') {
+        return res.status(404).json({ error: "Post not found" });
+      }
+      
+      // Increment view count
+      await storage.incrementBlogPostViews(post.id);
+      
+      // Get related data
+      const [categories, tags, relatedPosts] = await Promise.all([
+        storage.getBlogPostCategories(post.id),
+        storage.getBlogPostTags(post.id),
+        storage.getRelatedBlogPosts(post.id, 5)
+      ]);
+
+      res.json({ ...post, categories, tags, relatedPosts });
+    } catch (error: any) {
+      console.error("Get public blog post error:", error);
+      res.status(500).json({ error: "Failed to get public blog post" });
+    }
+  });
+
+  // Get public blog categories
+  app.get("/api/blog/public/categories", async (req, res) => {
+    try {
+      const categories = await storage.getBlogCategories();
+      // Filter to only active categories with posts
+      const activeCategories = categories.filter(cat => cat.active && cat.postCount > 0);
+      res.json(activeCategories);
+    } catch (error: any) {
+      console.error("Get public blog categories error:", error);
+      res.status(500).json({ error: "Failed to get public blog categories" });
+    }
+  });
+
+  // Get public blog tags
+  app.get("/api/blog/public/tags", async (req, res) => {
+    try {
+      const tags = await storage.getBlogTags();
+      // Filter to only active tags with posts
+      const activeTags = tags.filter(tag => tag.active && tag.postCount > 0);
+      res.json(activeTags);
+    } catch (error: any) {
+      console.error("Get public blog tags error:", error);
+      res.status(500).json({ error: "Failed to get public blog tags" });
+    }
+  });
+
+  // ========== BLOG COMMENTS API ==========
+
+  // Get comments for a blog post
+  app.get("/api/blog/posts/:postId/comments", async (req, res) => {
+    try {
+      const { status = 'approved' } = req.query;
+      const comments = await storage.getBlogCommentsByPost(req.params.postId, status as any);
+      res.json(comments);
+    } catch (error: any) {
+      console.error("Get blog comments error:", error);
+      res.status(500).json({ error: "Failed to get blog comments" });
+    }
+  });
+
+  // Create new comment
+  app.post("/api/blog/posts/:postId/comments", async (req, res) => {
+    try {
+      const validatedData = insertBlogCommentSchema.parse({
+        ...req.body,
+        postId: req.params.postId
+      });
+      const comment = await storage.createBlogComment(validatedData);
+      
+      // Update comment count for the post
+      await storage.updateCommentCounts(req.params.postId);
+      
+      res.status(201).json(comment);
+    } catch (error: any) {
+      console.error("Create blog comment error:", error);
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: "Invalid comment data", details: error.errors });
+      }
+      res.status(500).json({ error: "Failed to create blog comment" });
+    }
+  });
+
+  // Update comment status (approve/reject/spam)
+  app.put("/api/blog/comments/:id/status", async (req, res) => {
+    try {
+      const { status, action } = req.body;
+      let comment;
+      
+      if (action === 'approve') {
+        comment = await storage.approveBlogComment(req.params.id);
+      } else if (action === 'reject') {
+        comment = await storage.rejectBlogComment(req.params.id);
+      } else if (action === 'spam') {
+        comment = await storage.markBlogCommentAsSpam(req.params.id);
+      } else if (status) {
+        comment = await storage.updateBlogComment(req.params.id, { status });
+      } else {
+        return res.status(400).json({ error: "Invalid action or status" });
+      }
+      
+      res.json(comment);
+    } catch (error: any) {
+      console.error("Update comment status error:", error);
+      res.status(500).json({ error: "Failed to update comment status" });
+    }
+  });
+
+  // Delete comment
+  app.delete("/api/blog/comments/:id", async (req, res) => {
+    try {
+      const success = await storage.deleteBlogComment(req.params.id);
+      if (!success) {
+        return res.status(404).json({ error: "Comment not found" });
+      }
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error("Delete blog comment error:", error);
+      res.status(500).json({ error: "Failed to delete blog comment" });
+    }
+  });
+
+  // ========== BLOG ANALYTICS API ==========
+
+  // Track blog post view
+  app.post("/api/blog/posts/:id/views", async (req, res) => {
+    try {
+      const post = await storage.incrementBlogPostViews(req.params.id);
+      
+      // Create analytics record
+      const today = new Date();
+      today.setHours(0, 0, 0, 0);
+      
+      try {
+        await storage.createBlogAnalytics({
+          postId: req.params.id,
+          date: today,
+          views: 1,
+          uniqueViews: 1,
+          shares: 0,
+          comments: 0,
+          engagementRate: 0,
+          averageReadTime: req.body.readTime || 0,
+          bounceRate: 0,
+          referrerData: req.body.referrer ? { [req.body.referrer]: 1 } : {},
+          userAgent: req.headers['user-agent'] || '',
+          ipAddress: req.ip || ''
+        });
+      } catch (analyticsError) {
+        // Try to update existing record
+        await storage.updateBlogAnalytics(req.params.id, today, {
+          views: 1,
+          uniqueViews: 1
+        });
+      }
+      
+      res.json({ success: true, views: post.viewCount });
+    } catch (error: any) {
+      console.error("Track blog post view error:", error);
+      res.status(500).json({ error: "Failed to track blog post view" });
+    }
+  });
+
+  // Get blog analytics
+  app.get("/api/blog/analytics", async (req, res) => {
+    try {
+      const { startDate, endDate, postId } = req.query;
+      
+      const start = startDate ? new Date(startDate as string) : new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
+      const end = endDate ? new Date(endDate as string) : new Date();
+      
+      let analytics;
+      if (postId) {
+        analytics = await storage.getBlogAnalytics(postId as string, start, end);
+      } else {
+        analytics = await storage.getBlogAnalyticsSummary(start, end);
+      }
+      
+      res.json(analytics);
+    } catch (error: any) {
+      console.error("Get blog analytics error:", error);
+      res.status(500).json({ error: "Failed to get blog analytics" });
+    }
+  });
+
+  // ========== WORDPRESS IMPORT API ==========
+
+  // WordPress XML import endpoint
+  app.post("/api/blog/import/wordpress", async (req, res) => {
+    try {
+      const { xmlContent, options = {} } = req.body;
+      
+      if (!xmlContent) {
+        return res.status(400).json({ error: "XML content is required" });
+      }
+      
+      const importId = randomUUID();
+      
+      // Store import status for tracking
+      const importStatus = {
+        id: importId,
+        status: 'processing',
+        totalItems: 0,
+        processedItems: 0,
+        errors: [],
+        startedAt: new Date(),
+        completedAt: null
+      };
+      
+      // Note: In a real implementation, you would store this in the database
+      // For now, we'll return the import ID and process immediately
+      
+      try {
+        // Parse WordPress XML (simplified version)
+        const parser = require('xml2js');
+        const result = await parser.parseStringPromise(xmlContent);
+        
+        const items = result?.rss?.channel?.[0]?.item || [];
+        importStatus.totalItems = items.length;
+        
+        let processedCount = 0;
+        const errors: string[] = [];
+        
+        for (const item of items) {
+          try {
+            const postType = item['wp:post_type']?.[0] || 'post';
+            const status = item['wp:status']?.[0] || 'draft';
+            
+            // Only import posts, not pages or other content types
+            if (postType !== 'post') {
+              continue;
+            }
+            
+            // Check if post already exists by WordPress ID
+            const wpPostId = parseInt(item['wp:post_id']?.[0] || '0');
+            if (wpPostId > 0) {
+              const existing = await storage.getBlogPostByWordPressId(wpPostId);
+              if (existing && !options.allowDuplicates) {
+                continue;
+              }
+            }
+            
+            // Create/find author
+            let authorId = options.defaultAuthorId;
+            if (!authorId) {
+              const authorName = item['dc:creator']?.[0] || 'Imported Author';
+              const authorSlug = authorName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+              
+              let author = await storage.getBlogAuthorBySlug(authorSlug);
+              if (!author) {
+                author = await storage.createBlogAuthor({
+                  name: authorName,
+                  slug: authorSlug,
+                  email: '',
+                  bio: '',
+                  socialLinks: {},
+                  active: true,
+                  displayOrder: 0
+                });
+              }
+              authorId = author.id;
+            }
+            
+            // Extract content
+            const title = item.title?.[0] || 'Untitled Post';
+            const content = item['content:encoded']?.[0] || item.description?.[0] || '';
+            const excerpt = item['excerpt:encoded']?.[0] || '';
+            const slug = item['wp:post_name']?.[0] || title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+            const publishedAt = item.pubDate?.[0] ? new Date(item.pubDate[0]) : null;
+            
+            // Create blog post
+            const postData = {
+              authorId,
+              title,
+              slug: `${slug}-${wpPostId}`, // Append ID to avoid conflicts
+              content,
+              contentType: 'html' as const,
+              status: status === 'publish' ? 'published' as const : 'draft' as const,
+              excerpt,
+              publishedAt,
+              wordPress: {
+                postId: wpPostId,
+                originalSlug: slug
+              },
+              viewCount: 0,
+              featured: false,
+              allowComments: true,
+              sticky: false,
+              galleryImages: [],
+              customFields: {
+                wordpressImport: true,
+                importId,
+                originalId: wpPostId
+              }
+            };
+            
+            await storage.createBlogPost(postData);
+            processedCount++;
+            
+          } catch (itemError: any) {
+            errors.push(`Error processing item: ${itemError.message}`);
+          }
+        }
+        
+        importStatus.status = 'completed';
+        importStatus.processedItems = processedCount;
+        importStatus.errors = errors;
+        importStatus.completedAt = new Date();
+        
+        res.json({
+          success: true,
+          importId,
+          imported: processedCount,
+          total: items.length,
+          errors
+        });
+        
+      } catch (parseError: any) {
+        res.status(400).json({
+          error: "Failed to parse WordPress XML",
+          details: parseError.message
+        });
+      }
+      
+    } catch (error: any) {
+      console.error("WordPress import error:", error);
+      res.status(500).json({ error: "Failed to import WordPress content" });
+    }
+  });
+
+  // Get import status
+  app.get("/api/blog/import/status/:importId", async (req, res) => {
+    try {
+      // In a real implementation, you would fetch this from the database
+      // For now, return a mock status
+      res.json({
+        id: req.params.importId,
+        status: 'completed',
+        totalItems: 0,
+        processedItems: 0,
+        errors: [],
+        startedAt: new Date(),
+        completedAt: new Date()
+      });
+    } catch (error: any) {
+      console.error("Get import status error:", error);
+      res.status(500).json({ error: "Failed to get import status" });
     }
   });
 

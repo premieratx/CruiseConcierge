@@ -1578,6 +1578,26 @@ export class DatabaseStorage implements IStorage {
     return result.rowCount > 0;
   }
 
+  // ===== DATE RANGE QUERY METHODS =====
+
+  async getBookingsInRange(startDate: Date, endDate: Date): Promise<Booking[]> {
+    return await this.getBookings({
+      startDate,
+      endDate
+    });
+  }
+
+  async getDiscoSlotsInRange(startDate: Date, endDate: Date): Promise<DiscoSlot[]> {
+    return await db.select().from(discoSlots)
+      .where(
+        and(
+          gte(discoSlots.date, startDate),
+          lte(discoSlots.date, endDate)
+        )
+      )
+      .orderBy(asc(discoSlots.date));
+  }
+
   // ===== EMAIL TEMPLATE OPERATIONS =====
 
   async getEmailTemplate(id: string): Promise<EmailTemplate | undefined> {
