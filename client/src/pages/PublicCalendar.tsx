@@ -25,7 +25,7 @@ import { format, addDays, addWeeks, subWeeks, isToday, isSameMonth, startOfWeek,
 import type { NormalizedSlot } from "@shared/schema";
 import { useAvailability } from "@/hooks/use-availability";
 import { TimeSlotList } from "@/components/TimeSlotList";
-import { formatCurrency, formatDate, formatLongDate, formatTimeRange, formatBoatCapacity, formatEventDuration, formatGroupSize } from '@shared/formatters';
+import { formatCurrency, formatDate, formatLongDate, formatTimeRange, formatBoatCapacity, formatEventDuration, formatGroupSize, formatTimeForDisplay } from '@shared/formatters';
 import { EVENT_TYPES, CRUISE_TYPES, DISCO_PACKAGES } from '@shared/constants';
 
 interface BookingModalData {
