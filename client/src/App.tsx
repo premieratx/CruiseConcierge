@@ -51,6 +51,7 @@ import BacheloretteParty from "./pages/BacheloretteParty";
 import PrivateCruises from "./pages/PrivateCruises";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
+import TestimonialsFaq from "./pages/TestimonialsFaq";
 
 // Customer Portal Pages
 import PortalLogin from "./pages/PortalLogin";
@@ -96,6 +97,7 @@ function Router() {
       <Route path="/private-cruises" component={PrivateCruises} />
       <Route path="/gallery" component={Gallery} />
       <Route path="/contact" component={Contact} />
+      <Route path="/testimonials-faq" component={TestimonialsFaq} />
       
       {/* Admin Dashboard Routes */}
       <Route path="/dashboard" component={Dashboard} />

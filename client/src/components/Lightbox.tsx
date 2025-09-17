@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, Download, Share2 } from 'lucide-react';
@@ -37,7 +37,7 @@ export default function Lightbox({
   const [isZoomed, setIsZoomed] = useState(false);
   const [showControls, setShowControls] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
-  const [controlsTimeout, setControlsTimeout] = useState<NodeJS.Timeout | null>(null);
+  const controlsTimeoutRef = useRef<number | null>(null);
 
   const currentImage = images[currentIndex];
 
@@ -76,16 +76,15 @@ export default function Lightbox({
 
   // Auto-hide controls
   const resetControlsTimeout = useCallback(() => {
-    if (controlsTimeout) {
-      clearTimeout(controlsTimeout);
+    if (controlsTimeoutRef.current) {
+      clearTimeout(controlsTimeoutRef.current);
     }
 
     setShowControls(true);
-    const timeout = setTimeout(() => {
+    controlsTimeoutRef.current = window.setTimeout(() => {
       setShowControls(false);
     }, 3000);
-    setControlsTimeout(timeout);
-  }, [controlsTimeout]);
+  }, []);
 
   useEffect(() => {
     if (isOpen) {
@@ -93,11 +92,11 @@ export default function Lightbox({
     }
 
     return () => {
-      if (controlsTimeout) {
-        clearTimeout(controlsTimeout);
+      if (controlsTimeoutRef.current) {
+        clearTimeout(controlsTimeoutRef.current);
       }
     };
-  }, [isOpen, currentIndex, resetControlsTimeout]);
+  }, [isOpen, currentIndex]);
 
   const handleMouseMove = useCallback(() => {
     resetControlsTimeout();

@@ -38,6 +38,11 @@ const navigationItems = [
     icon: Camera
   },
   {
+    title: 'Reviews & FAQ',
+    href: '/testimonials-faq',
+    icon: Star
+  },
+  {
     title: 'Contact',
     href: '/contact',
     icon: Phone
