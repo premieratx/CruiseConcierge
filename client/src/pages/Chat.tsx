@@ -239,12 +239,176 @@ const fadeInUp = {
 
 // Use shared formatCurrency from formatters
 
-// Helper function to determine boat capacity based on group size - rounds UP to appropriate boat size
+// Helper function to determine boat capacity based on group size - shows appropriate capacity
 const getBoatCapacityForGroup = (groupSize: number): number => {
-  if (groupSize <= 15) return 15;  // small dayTripper boats
-  if (groupSize <= 25) return 25;  // medium boats
+  if (groupSize <= 25) return 25;  // 25-person boats for groups up to 25
+  if (groupSize <= 30) return 30;  // 30-person boats for groups 26-30
   if (groupSize <= 50) return 50;  // large boats
   return 75;  // extra large boats (up to GROUP_SIZE_MAX)
+};
+
+// Helper function to get boat name based on capacity and slot info
+const getBoatNameForCapacity = (capacity: number, slotIndex: number = 0): string => {
+  if (capacity === 25) {
+    // Use actual boat names for 25-person boats
+    return slotIndex === 0 ? 'Meeseeks' : 'The Irony';
+  } else if (capacity === 30) {
+    return '30-Person Boat';
+  } else if (capacity === 50) {
+    return '50-Person Boat';
+  } else {
+    return '75-Person Boat';
+  }
+};
+
+// Generate structured private cruise time slots with proper boat names
+const generateStructuredPrivateSlots = (date: Date, groupSize: number): NormalizedSlot[] => {
+  const dayOfWeek = date.getDay();
+  const dateISO = date.toISOString().split('T')[0];
+  const capacity = getBoatCapacityForGroup(groupSize);
+  
+  const slots: NormalizedSlot[] = [];
+  
+  if (dayOfWeek === 5) { // Friday
+    // Slot 1: Meeseeks 12:00PM-4:00PM
+    slots.push({
+      id: `private_meeseeks_${dateISO}_12:00_16:00`,
+      dateISO,
+      startTime: '12:00',
+      endTime: '16:00',
+      duration: 4,
+      label: `${getBoatNameForCapacity(capacity, 0)} • 12:00 PM - 4:00 PM`,
+      description: 'Friday afternoon cruise (4 hours)',
+      cruiseType: 'private' as const,
+      capacity,
+      availableCount: 1,
+      bookable: true,
+      held: false,
+      boatCandidates: ['boat_meeseeks'],
+      estimatedPricing: {
+        baseRate: PRICING_DEFAULTS.BASE_HOURLY_RATE / 100, // Convert from cents
+        duration: 4,
+        subtotal: (PRICING_DEFAULTS.BASE_HOURLY_RATE / 100) * 4,
+        total: Math.round(((PRICING_DEFAULTS.BASE_HOURLY_RATE / 100) * 4) * 1.28) // Add tax and gratuity
+      }
+    });
+    
+    // Slot 2: The Irony 4:30PM-8:30PM
+    slots.push({
+      id: `private_irony_${dateISO}_16:30_20:30`,
+      dateISO,
+      startTime: '16:30',
+      endTime: '20:30',
+      duration: 4,
+      label: `${getBoatNameForCapacity(capacity, 1)} • 4:30 PM - 8:30 PM`,
+      description: 'Friday evening cruise (4 hours)',
+      cruiseType: 'private' as const,
+      capacity,
+      availableCount: 1,
+      bookable: true,
+      held: false,
+      boatCandidates: ['boat_irony'],
+      estimatedPricing: {
+        baseRate: PRICING_DEFAULTS.BASE_HOURLY_RATE / 100,
+        duration: 4,
+        subtotal: (PRICING_DEFAULTS.BASE_HOURLY_RATE / 100) * 4,
+        total: Math.round(((PRICING_DEFAULTS.BASE_HOURLY_RATE / 100) * 4) * 1.28)
+      }
+    });
+  } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
+    // Slot 1: Meeseeks 11:00AM-3:00PM
+    slots.push({
+      id: `private_meeseeks_${dateISO}_11:00_15:00`,
+      dateISO,
+      startTime: '11:00',
+      endTime: '15:00',
+      duration: 4,
+      label: `${getBoatNameForCapacity(capacity, 0)} • 11:00 AM - 3:00 PM`,
+      description: 'Weekend afternoon cruise (4 hours)',
+      cruiseType: 'private' as const,
+      capacity,
+      availableCount: 1,
+      bookable: true,
+      held: false,
+      boatCandidates: ['boat_meeseeks'],
+      estimatedPricing: {
+        baseRate: PRICING_DEFAULTS.BASE_HOURLY_RATE / 100,
+        duration: 4,
+        subtotal: (PRICING_DEFAULTS.BASE_HOURLY_RATE / 100) * 4,
+        total: Math.round(((PRICING_DEFAULTS.BASE_HOURLY_RATE / 100) * 4) * 1.28)
+      }
+    });
+    
+    // Slot 2: The Irony 3:30PM-7:30PM
+    slots.push({
+      id: `private_irony_${dateISO}_15:30_19:30`,
+      dateISO,
+      startTime: '15:30',
+      endTime: '19:30',
+      duration: 4,
+      label: `${getBoatNameForCapacity(capacity, 1)} • 3:30 PM - 7:30 PM`,
+      description: 'Weekend evening cruise (4 hours)',
+      cruiseType: 'private' as const,
+      capacity,
+      availableCount: 1,
+      bookable: true,
+      held: false,
+      boatCandidates: ['boat_irony'],
+      estimatedPricing: {
+        baseRate: PRICING_DEFAULTS.BASE_HOURLY_RATE / 100,
+        duration: 4,
+        subtotal: (PRICING_DEFAULTS.BASE_HOURLY_RATE / 100) * 4,
+        total: Math.round(((PRICING_DEFAULTS.BASE_HOURLY_RATE / 100) * 4) * 1.28)
+      }
+    });
+  } else { // Monday-Thursday (4-hour minimum for simplicity)
+    // Show 4-hour options with 4-hour minimum pricing
+    slots.push({
+      id: `private_meeseeks_${dateISO}_12:00_16:00`,
+      dateISO,
+      startTime: '12:00',
+      endTime: '16:00',
+      duration: 4,
+      label: `${getBoatNameForCapacity(capacity, 0)} • 12:00 PM - 4:00 PM`,
+      description: 'Weekday afternoon cruise (4-hour minimum)',
+      cruiseType: 'private' as const,
+      capacity,
+      availableCount: 1,
+      bookable: true,
+      held: false,
+      boatCandidates: ['boat_meeseeks'],
+      estimatedPricing: {
+        baseRate: PRICING_DEFAULTS.BASE_HOURLY_RATE / 100,
+        duration: 4, // Always 4-hour minimum
+        subtotal: (PRICING_DEFAULTS.BASE_HOURLY_RATE / 100) * 4,
+        total: Math.round(((PRICING_DEFAULTS.BASE_HOURLY_RATE / 100) * 4) * 1.28)
+      }
+    });
+    
+    slots.push({
+      id: `private_irony_${dateISO}_16:30_20:30`,
+      dateISO,
+      startTime: '16:30',
+      endTime: '20:30',
+      duration: 4,
+      label: `${getBoatNameForCapacity(capacity, 1)} • 4:30 PM - 8:30 PM`,
+      description: 'Weekday evening cruise (4-hour minimum)',
+      cruiseType: 'private' as const,
+      capacity,
+      availableCount: 1,
+      bookable: true,
+      held: false,
+      boatCandidates: ['boat_irony'],
+      estimatedPricing: {
+        baseRate: PRICING_DEFAULTS.BASE_HOURLY_RATE / 100,
+        duration: 4, // Always 4-hour minimum
+        subtotal: (PRICING_DEFAULTS.BASE_HOURLY_RATE / 100) * 4,
+        total: Math.round(((PRICING_DEFAULTS.BASE_HOURLY_RATE / 100) * 4) * 1.28)
+      }
+    });
+  }
+  
+  return slots;
 };
 
 const getIconComponent = (iconName: string, size: number = 14) => {
@@ -344,7 +508,14 @@ export default function Chat() {
   );
   
   const availableSlots = availabilityData?.slots || [];
-  const privateSlots = availableSlots.filter(slot => slot.cruiseType === 'private');
+  
+  // Use structured private slots with proper boat names for chat flow
+  const structuredPrivateSlots = formData.eventDate ? 
+    generateStructuredPrivateSlots(formData.eventDate, formData.groupSize) : [];
+  
+  // Use structured slots for chat flow, fallback to API data for other components
+  const privateSlots = structuredPrivateSlots.length > 0 ? structuredPrivateSlots :
+    availableSlots.filter(slot => slot.cruiseType === 'private');
   const discoSlots = availableSlots.filter(slot => slot.cruiseType === 'disco');
   
   // Get alternative dates with real availability data
@@ -2166,14 +2337,22 @@ export default function Chat() {
                               {formData.selectedSlot ? (
                                 <>
                                   <CardTitle>Private Cruise - {getBoatDetails(formData.selectedSlot).name}</CardTitle>
+                                  {/* Large, prominent date display */}
+                                  <div className="text-2xl font-bold text-blue-600 mt-2 mb-1">
+                                    {format(formData.eventDate!, 'EEEE, MMMM d')}
+                                  </div>
                                   <CardDescription>
-                                    {format(formData.eventDate!, 'EEEE, MMMM d, yyyy')} • {formData.selectedSlot.label} • Fits {getBoatDetails(formData.selectedSlot).capacity} people
+                                    {formData.selectedSlot.label} • Fits {getBoatDetails(formData.selectedSlot).capacity} people
                                   </CardDescription>
                                 </>
                               ) : (
                                 <>
-                                  <CardTitle>Private Cruise (Fits {getBoatCapacityForGroup(formData.groupSize)} People)</CardTitle>
-                                  <CardDescription>Exclusive boat for your group • {getCruiseDuration(formData.eventDate)} hour cruise</CardDescription>
+                                  <CardTitle>Private Cruise</CardTitle>
+                                  {/* Large, prominent date display */}
+                                  <div className="text-2xl font-bold text-blue-600 mt-2 mb-1">
+                                    {format(formData.eventDate!, 'EEEE, MMMM d')}
+                                  </div>
+                                  <CardDescription>Exclusive boat for your group • Fits {getBoatCapacityForGroup(formData.groupSize)} people • {getCruiseDuration(formData.eventDate)}-hour minimum</CardDescription>
                                 </>
                               )}
                             </div>
@@ -2399,65 +2578,130 @@ export default function Chat() {
                             </div>
                             <div>
                               <CardTitle>ATX Disco Cruise</CardTitle>
+                              {/* Large, prominent date display */}
+                              <div className="text-2xl font-bold text-purple-600 mt-2 mb-1">
+                                {format(formData.eventDate!, 'EEEE, MMMM d')}
+                              </div>
                               <CardDescription>
-                                {format(formData.eventDate!, 'EEEE, MMMM d, yyyy')} • 4-hour party cruise • Join the party!
+                                4-hour party cruise • Join the party!
                               </CardDescription>
                             </div>
                           </div>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          {/* Step 1: Package Selection */}
+                          {/* Step 1: Time Slot Selection */}
                           <div className="space-y-3">
                             <Label className="flex items-center gap-2">
-                              <Crown className="h-4 w-4" />
-                              Select Your Package
+                              <Clock className="h-4 w-4" />
+                              Select Time Slot
                             </Label>
-                            <RadioGroup
-                              value={formData.selectedDiscoPackage || ''}
-                              onValueChange={(packageId) => {
-                                setFormData(prev => ({
-                                  ...prev,
-                                  selectedDiscoPackage: packageId as DiscoPackage,
-                                  selectedCruiseType: 'disco' // Auto-select disco when package is chosen
-                                }));
-                              }}
-                            >
-                              {discoPackages.map((pkg) => (
-                                <Card key={pkg.id} className={cn(
-                                  "transition-all cursor-pointer border-2",
-                                  formData.selectedDiscoPackage === pkg.id 
-                                    ? "ring-2 ring-purple-600 bg-purple-50 dark:bg-purple-900/20" 
-                                    : "border-slate-200 dark:border-slate-700 hover:border-purple-300"
-                                )}>
-                                  <CardContent className="p-3">
-                                    <div className="flex items-center space-x-3">
-                                      <RadioGroupItem value={pkg.id} id={`disco-${pkg.id}`} />
-                                      <Label htmlFor={`disco-${pkg.id}`} className="flex-1 cursor-pointer">
-                                        <div className="flex justify-between items-start">
-                                          <div className="space-y-1">
-                                            <div className="font-bold">{pkg.name}</div>
-                                            <div className="text-xs text-slate-600 dark:text-slate-400">{pkg.description}</div>
-                                            <div className="flex flex-wrap gap-1 mt-1">
-                                              {pkg.features.slice(0, 2).map((feature) => (
-                                                <Badge key={feature} variant="outline" className="text-xs">{feature}</Badge>
-                                              ))}
+                            {discoSlots.length > 0 ? (
+                              <RadioGroup
+                                value={formData.selectedSlot?.id || ''}
+                                onValueChange={(slotId) => {
+                                  const selectedSlot = discoSlots.find(slot => slot.id === slotId);
+                                  if (selectedSlot) {
+                                    setFormData(prev => ({
+                                      ...prev,
+                                      selectedSlot,
+                                      selectedCruiseType: 'disco' // Auto-select disco when slot is chosen
+                                    }));
+                                  }
+                                }}
+                              >
+                                {discoSlots.map((slot) => (
+                                  <Card key={slot.id} className={cn(
+                                    "transition-all cursor-pointer border-2",
+                                    formData.selectedSlot?.id === slot.id 
+                                      ? "ring-2 ring-purple-600 bg-purple-50 dark:bg-purple-900/20" 
+                                      : "border-slate-200 dark:border-slate-700 hover:border-purple-300"
+                                  )}>
+                                    <CardContent className="p-3">
+                                      <div className="flex items-center space-x-3">
+                                        <RadioGroupItem value={slot.id} id={`disco-slot-${slot.id}`} />
+                                        <Label htmlFor={`disco-slot-${slot.id}`} className="flex-1 cursor-pointer">
+                                          <div className="flex justify-between items-center">
+                                            <div className="space-y-1">
+                                              <div className="font-bold text-purple-600">{slot.label}</div>
+                                              <div className="text-sm text-slate-600 dark:text-slate-400">{slot.description || '4-hour disco cruise'}</div>
+                                              <Badge variant="outline" className="text-xs">
+                                                <Users className="h-3 w-3 mr-1" />
+                                                Up to {slot.capacity || 100} people
+                                              </Badge>
+                                            </div>
+                                            <div className="text-right">
+                                              <div className="text-sm font-medium text-purple-600">Available</div>
                                             </div>
                                           </div>
-                                          <div className="text-right ml-3">
-                                            <div className="font-bold text-lg text-purple-600">${pkg.price}</div>
-                                            <div className="text-xs text-slate-600">per person</div>
-                                          </div>
-                                        </div>
-                                      </Label>
-                                    </div>
-                                  </CardContent>
-                                </Card>
-                              ))}
-                            </RadioGroup>
+                                        </Label>
+                                      </div>
+                                    </CardContent>
+                                  </Card>
+                                ))}
+                              </RadioGroup>
+                            ) : (
+                              <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg p-4">
+                                <div className="flex items-center gap-2 text-yellow-700 dark:text-yellow-400">
+                                  <AlertCircle className="h-4 w-4" />
+                                  <span className="text-sm font-medium">Disco cruises available Friday & Saturday</span>
+                                </div>
+                              </div>
+                            )}
                           </div>
 
-                          {/* Step 2: Ticket Quantity - Only show if package selected */}
-                          {formData.selectedDiscoPackage && (
+                          {/* Step 2: Package Selection - Only show if time slot selected */}
+                          {formData.selectedSlot && formData.selectedSlot.cruiseType === 'disco' && (
+                            <div className="space-y-3 border-t pt-4">
+                              <Label className="flex items-center gap-2">
+                                <Crown className="h-4 w-4" />
+                                Select Your Package
+                              </Label>
+                              <RadioGroup
+                                value={formData.selectedDiscoPackage || ''}
+                                onValueChange={(packageId) => {
+                                  setFormData(prev => ({
+                                    ...prev,
+                                    selectedDiscoPackage: packageId as DiscoPackage
+                                  }));
+                                }}
+                              >
+                                {discoPackages.map((pkg) => (
+                                  <Card key={pkg.id} className={cn(
+                                    "transition-all cursor-pointer border-2",
+                                    formData.selectedDiscoPackage === pkg.id 
+                                      ? "ring-2 ring-purple-600 bg-purple-50 dark:bg-purple-900/20" 
+                                      : "border-slate-200 dark:border-slate-700 hover:border-purple-300"
+                                  )}>
+                                    <CardContent className="p-3">
+                                      <div className="flex items-center space-x-3">
+                                        <RadioGroupItem value={pkg.id} id={`disco-${pkg.id}`} />
+                                        <Label htmlFor={`disco-${pkg.id}`} className="flex-1 cursor-pointer">
+                                          <div className="flex justify-between items-start">
+                                            <div className="space-y-1">
+                                              <div className="font-bold">{pkg.name}</div>
+                                              <div className="text-xs text-slate-600 dark:text-slate-400">{pkg.description}</div>
+                                              <div className="flex flex-wrap gap-1 mt-1">
+                                                {pkg.features.slice(0, 2).map((feature) => (
+                                                  <Badge key={feature} variant="outline" className="text-xs">{feature}</Badge>
+                                                ))}
+                                              </div>
+                                            </div>
+                                            <div className="text-right ml-3">
+                                              <div className="font-bold text-lg text-purple-600">${pkg.price}</div>
+                                              <div className="text-xs text-slate-600">per person</div>
+                                            </div>
+                                          </div>
+                                        </Label>
+                                      </div>
+                                    </CardContent>
+                                  </Card>
+                                ))}
+                              </RadioGroup>
+                            </div>
+                          )}
+
+                          {/* Step 3: Ticket Quantity - Only show if package selected */}
+                          {formData.selectedDiscoPackage && formData.selectedSlot && (
                             <div className="space-y-3 border-t pt-4">
                               <Label className="flex items-center gap-2">
                                 <Users className="h-4 w-4" />
@@ -2494,8 +2738,8 @@ export default function Chat() {
                             </div>
                           )}
 
-                          {/* Step 3: Pricing Details - Only show if package selected */}
-                          {formData.selectedDiscoPackage && (
+                          {/* Step 4: Pricing Details - Only show if both slot and package selected */}
+                          {formData.selectedDiscoPackage && formData.selectedSlot && (
                             <div className="border-t pt-4">
                               {pricingLoading ? (
                                 <div className="flex items-center justify-center py-8">
@@ -2570,35 +2814,49 @@ export default function Chat() {
                             </div>
                           )}
                           
-                          {/* Payment Buttons */}
-                          <div className="space-y-2">
-                            <Button
-                              onClick={() => {
-                                setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
-                                handlePayment('full', 'disco');
-                              }}
-                              disabled={!formData.selectedDiscoPackage || !discoPricing}
-                              className="w-full bg-purple-600 hover:bg-purple-700"
-                              data-testid="button-disco-full"
-                            >
-                              <CreditCard className="h-4 w-4 mr-2" />
-                              Book Now - Pay Full ({discoPricing ? formatCurrency(discoPricing.total) : '$0'})
-                            </Button>
-                            
-                            <Button
-                              onClick={() => {
-                                setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
-                                goToStep('contact-form');
-                              }}
-                              disabled={!formData.selectedDiscoPackage}
-                              variant="outline"
-                              className="w-full"
-                              data-testid="button-disco-quote"
-                            >
-                              <FileText className="h-4 w-4 mr-2" />
-                              Send Me My Quote
-                            </Button>
-                          </div>
+                          {/* Payment Buttons - Only show if both slot and package selected */}
+                          {formData.selectedSlot && formData.selectedDiscoPackage && (
+                            <div className="space-y-2">
+                              <Button
+                                onClick={() => {
+                                  setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
+                                  handlePayment('deposit', 'disco');
+                                }}
+                                disabled={!discoPricing}
+                                className="w-full bg-green-600 hover:bg-green-700"
+                                data-testid="button-disco-deposit"
+                              >
+                                <CreditCard className="h-4 w-4 mr-2" />
+                                Pay {discoPricing?.depositPercent || 100}% Deposit ({discoPricing ? formatCurrency(discoPricing.depositAmount || discoPricing.total) : '$0'})
+                              </Button>
+                              
+                              <Button
+                                onClick={() => {
+                                  setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
+                                  handlePayment('full', 'disco');
+                                }}
+                                disabled={!discoPricing}
+                                className="w-full bg-purple-600 hover:bg-purple-700"
+                                data-testid="button-disco-full"
+                              >
+                                <CreditCard className="h-4 w-4 mr-2" />
+                                Pay in Full ({discoPricing ? formatCurrency(discoPricing.total) : '$0'})
+                              </Button>
+                              
+                              <Button
+                                onClick={() => {
+                                  setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
+                                  goToStep('contact-form');
+                                }}
+                                variant="outline"
+                                className="w-full"
+                                data-testid="button-disco-quote"
+                              >
+                                <FileText className="h-4 w-4 mr-2" />
+                                Send Me My Quote
+                              </Button>
+                            </div>
+                          )}
                         </CardContent>
                       </Card>
                     </div>
