@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { cn } from '@/lib/utils';
-import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
+import logoPath from '@assets/PPC logo 2023_1758097465959.png';
 import { 
   Menu, X, Ship, Calendar, MessageSquare, Phone, 
   Users, Camera, Heart, ArrowRight, Star
