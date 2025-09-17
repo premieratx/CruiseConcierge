@@ -18,7 +18,7 @@ import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 import { 
   Ship, Calendar, Clock, MapPin, Phone, Mail, FileText,
   Download, Printer, CheckCircle, AlertCircle, Loader2,
-  Users, Plus, Minus, Edit2, Save, CreditCard, ChevronRight
+  Users, Plus, Minus, Edit2, Save, CreditCard, ChevronRight, Sparkles
 } from 'lucide-react';
 import type { Quote, PricingPreview, Project, Contact, QuoteItem, RadioSection } from '@shared/schema';
 
@@ -557,11 +557,11 @@ export default function QuoteViewer() {
                 <span className="font-medium text-gray-900">{formatCurrency(pricing.subtotal)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Sales Tax (8.25%):</span>
+                <span className="text-gray-600">Sales Tax ({((pricing.tax / pricing.subtotal) * 100).toFixed(2)}%):</span>
                 <span className="font-medium text-gray-900">{formatCurrency(pricing.tax)}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Crew Gratuity (20%):</span>
+                <span className="text-gray-600">Crew Gratuity ({((pricing.gratuity / pricing.subtotal) * 100).toFixed(2)}%):</span>
                 <span className="font-medium text-gray-900">{formatCurrency(pricing.gratuity)}</span>
               </div>
               <Separator className="my-3" />
@@ -649,9 +649,8 @@ export default function QuoteViewer() {
             )}
             {isQuoteAccepted ? 'Update Acceptance' : 'Accept Quote'}
           </Button>
-          {isQuoteAccepted && (
+          {acceptTerms && signature && !isExpired && (
             <Button
-              disabled={!acceptTerms || !signature || !!isExpired}
               className="bg-green-600 hover:bg-green-700"
               onClick={() => {
                 // Navigate to payment
