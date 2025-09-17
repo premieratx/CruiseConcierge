@@ -1229,36 +1229,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(404).json({ error: "Invoice not found" });
       }
       
-      // **SECURITY: Verify quote has been accepted before allowing invoice access**
-      if (invoice.quoteId) {
-        const quote = await storage.getQuote(invoice.quoteId);
-        if (!quote) {
-          console.log("🚫 Invoice access denied: Associated quote not found");
-          return res.status(403).json({ error: "Invoice access denied: Quote not found" });
-        }
-        
-        // Check if quote has been accepted by looking at radioSections
-        const termsSection = quote.radioSections?.find(s => s.id === 'terms_acceptance');
-        const isQuoteAccepted = termsSection?.selectedValue === 'accepted' || quote.status === 'ACCEPTED';
-        
-        if (!isQuoteAccepted) {
-          console.log("🚫 Invoice access denied: Quote not yet accepted", {
-            quoteId: quote.id,
-            quoteStatus: quote.status,
-            termsAccepted: termsSection?.selectedValue
-          });
-          return res.status(403).json({ 
-            error: "Invoice access denied: Quote must be accepted first",
-            quoteAcceptanceRequired: true
-          });
-        }
-        
-        console.log("✅ Invoice access authorized: Quote has been accepted", {
-          quoteId: quote.id,
-          quoteStatus: quote.status,
-          termsAccepted: termsSection?.selectedValue
-        });
-      }
+      // **STREAMLINED: Direct invoice access without acceptance requirements**
+      console.log("✅ Invoice access authorized: Direct access enabled for streamlined payment flow");
       
       // Get related project and contact data
       const project = await storage.getProject(invoice.projectId);
