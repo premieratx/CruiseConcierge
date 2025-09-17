@@ -2892,11 +2892,11 @@ export default function Chat() {
                             </div>
                           </CardHeader>
                           <CardContent>
-                            {alternativeDates.length > 0 ? (
+                            {alternativeDates.length > 0 && formData.eventDate ? (
                               <AlternativeDates
-                                alternatives={alternativeDates}
-                                currentDate={formData.eventDate}
-                                onDateSelect={(date) => {
+                                selectedDate={formData.eventDate}
+                                groupSize={formData.groupSize}
+                                onSelectDate={(date, timeSlot) => {
                                   setFormData(prev => ({ 
                                     ...prev, 
                                     eventDate: date,
@@ -2904,6 +2904,9 @@ export default function Chat() {
                                     selectedCruiseType: null 
                                   }));
                                 }}
+                                getTimeSlotsForDate={getPrivateTimeSlotsForDate}
+                                formatCurrency={formatCurrency}
+                                basePrice={privatePricing?.subtotal || 0}
                               />
                             ) : (
                               <div className="text-center py-8">

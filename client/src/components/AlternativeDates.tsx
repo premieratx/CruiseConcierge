@@ -13,9 +13,12 @@ import { EVENT_TYPES, CRUISE_TYPES } from '@shared/constants';
 interface TimeSlot {
   id: string;
   label: string;
-  time: string;
-  icon: string;
+  startTime: string;
+  endTime: string;
+  duration: number;
+  icon?: string;
   popular?: boolean;
+  description?: string;
 }
 
 interface AlternativeDate {
@@ -140,7 +143,7 @@ export function AlternativeDates({
                       data-testid={`button-alt-date-${format(altDate.date, 'yyyy-MM-dd')}-${slot.id}`}
                     >
                       <Clock className="h-3 w-3 mr-1" />
-                      {slot.time}
+                      {formatTimeRange(slot.startTime, slot.endTime)}
                     </Button>
                   ))}
                 </div>
