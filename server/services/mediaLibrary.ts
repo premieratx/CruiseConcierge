@@ -365,6 +365,107 @@ export class MediaLibraryService {
     const suggestions = await findBestPhotosForSection(photos, sectionType);
     return suggestions;
   }
+
+  // Delete media item with security validation
+  async deleteMedia(mediaId: string, userId: string) {
+    // Validate mediaId format
+    if (!mediaId || typeof mediaId !== 'string') {
+      throw new Error('Invalid media ID');
+    }
+
+    const [media] = await db.select().from(mediaItems)
+      .where(eq(mediaItems.id, mediaId))
+      .limit(1);
+      
+    if (!media) {
+      throw new Error('Media not found');
+    }
+    
+    try {
+      // Delete physical file securely
+      if (media.filePath) {
+        const fullPath = this.resolveSecureFilePath(media.filePath);
+        if (fs.existsSync(fullPath)) {
+          fs.unlinkSync(fullPath);
+          console.log(`✅ Deleted file: ${fullPath}`);
+        }
+      }
+      
+      // Delete from database
+      await db.delete(mediaItems).where(eq(mediaItems.id, mediaId));
+      
+      // Also delete any related photo edits
+      await db.delete(photoEdits).where(eq(photoEdits.originalPhotoId, mediaId));
+      
+      console.log(`✅ Media deleted: ${mediaId} by user ${userId}`);
+      return { success: true, deletedId: mediaId };
+      
+    } catch (error) {
+      console.error(`❌ Failed to delete media ${mediaId}:`, error);
+      throw new Error('Failed to delete media item');
+    }
+  }
+
+  // Bulk delete media items
+  async bulkDeleteMedia(mediaIds: string[], userId: string) {
+    if (!Array.isArray(mediaIds) || mediaIds.length === 0) {
+      throw new Error('Invalid media IDs array');
+    }
+
+    if (mediaIds.length > 50) {
+      throw new Error('Too many items to delete at once (max 50)');
+    }
+
+    const results = {
+      deleted: [] as string[],
+      failed: [] as { id: string; error: string }[]
+    };
+
+    for (const mediaId of mediaIds) {
+      try {
+        await this.deleteMedia(mediaId, userId);
+        results.deleted.push(mediaId);
+      } catch (error) {
+        results.failed.push({ 
+          id: mediaId, 
+          error: error instanceof Error ? error.message : 'Unknown error' 
+        });
+      }
+    }
+
+    console.log(`✅ Bulk delete completed: ${results.deleted.length} successful, ${results.failed.length} failed`);
+    return results;
+  }
+
+  // Update media metadata
+  async updateMediaMetadata(mediaId: string, updates: {
+    manualTags?: string[];
+    status?: 'draft' | 'published';
+    publishedLocations?: string[];
+  }, userId: string) {
+    if (!mediaId || typeof mediaId !== 'string') {
+      throw new Error('Invalid media ID');
+    }
+
+    const [existingMedia] = await db.select().from(mediaItems)
+      .where(eq(mediaItems.id, mediaId))
+      .limit(1);
+      
+    if (!existingMedia) {
+      throw new Error('Media not found');
+    }
+
+    const [updatedMedia] = await db.update(mediaItems)
+      .set({
+        ...updates,
+        updatedAt: new Date()
+      })
+      .where(eq(mediaItems.id, mediaId))
+      .returning();
+
+    console.log(`✅ Media metadata updated: ${mediaId} by user ${userId}`);
+    return updatedMedia;
+  }
 }
 
 export const mediaLibraryService = new MediaLibraryService();

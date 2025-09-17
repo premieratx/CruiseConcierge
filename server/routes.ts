@@ -12519,6 +12519,92 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Delete media item - SECURED
+  app.delete('/api/media/:id', requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const { id } = req.params;
+      const userId = req.adminUser?.id || 'admin';
+      
+      // Validate ID format
+      if (!id || typeof id !== 'string') {
+        return res.status(400).json({ error: 'Invalid media ID' });
+      }
+      
+      const result = await mediaLibraryService.deleteMedia(id, userId);
+      
+      console.log(`✅ Media deleted: ${id} by user ${userId}`);
+      res.json(result);
+      
+    } catch (error) {
+      console.error('Delete media error:', error);
+      res.status(500).json({ 
+        error: error instanceof Error ? error.message : 'Failed to delete media' 
+      });
+    }
+  });
+
+  // Bulk delete media items - SECURED
+  app.post('/api/media/bulk-delete', requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const validation = z.object({
+        mediaIds: z.array(z.string().uuid()).min(1).max(50)
+      }).safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: 'Invalid request data',
+          details: validation.error.issues
+        });
+      }
+      
+      const { mediaIds } = validation.data;
+      const userId = req.adminUser?.id || 'admin';
+      
+      const results = await mediaLibraryService.bulkDeleteMedia(mediaIds, userId);
+      
+      console.log(`✅ Bulk delete completed: ${results.deleted.length}/${mediaIds.length} successful`);
+      res.json(results);
+      
+    } catch (error) {
+      console.error('Bulk delete error:', error);
+      res.status(500).json({ 
+        error: error instanceof Error ? error.message : 'Failed to bulk delete media'
+      });
+    }
+  });
+
+  // Update media metadata - SECURED
+  app.put('/api/media/:id', requireAdminAuth, async (req, res) => {
+    try {
+      const { id } = req.params;
+      const userId = req.adminUser?.id || 'admin';
+      
+      const validation = z.object({
+        manualTags: z.array(z.string()).optional(),
+        status: z.enum(['draft', 'published']).optional(),
+        publishedLocations: z.array(z.string()).optional()
+      }).safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: 'Invalid request data',
+          details: validation.error.issues
+        });
+      }
+      
+      const result = await mediaLibraryService.updateMediaMetadata(id, validation.data, userId);
+      
+      console.log(`✅ Media metadata updated: ${id} by user ${userId}`);
+      res.json(result);
+      
+    } catch (error) {
+      console.error('Update media metadata error:', error);
+      res.status(500).json({ 
+        error: error instanceof Error ? error.message : 'Failed to update media metadata'
+      });
+    }
+  });
+
   // Get AI suggestions for section - SECURED
   app.get('/api/media/suggestions/:section', requireAdminAuth, async (req, res) => {
     try {

@@ -10,7 +10,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiRequest } from "@/lib/queryClient";
-import { Upload, Image, Video, Sparkles, Wand2, Download, Eye, Tag, Star, Filter, Search } from "lucide-react";
+import { Upload, Image, Video, Sparkles, Wand2, Download, Eye, Tag, Star, Filter, Search, Trash2, Check, X, Globe, Archive } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface MediaItem {
@@ -29,8 +29,73 @@ interface MediaItem {
   qualityScore?: number;
   ugcPotential?: number;
   status: 'draft' | 'published';
-  publishedLocations?: any[];
+  publishedLocations?: string[];
   createdBy?: string;
+}
+
+interface PublishDialogProps {
+  selectedItems: MediaItem[];
+  isOpen: boolean;
+  onClose: () => void;
+  onPublish: (section: string) => void;
+}
+
+function PublishDialog({ selectedItems, isOpen, onClose, onPublish }: PublishDialogProps) {
+  const [selectedSection, setSelectedSection] = useState('gallery');
+
+  const websiteSections = [
+    { value: 'hero', label: 'Hero Section', description: 'Main homepage banner images' },
+    { value: 'gallery', label: 'Photo Gallery', description: 'Public photo gallery section' },
+    { value: 'boats', label: 'Boat Showcase', description: 'Individual boat photos' },
+    { value: 'party_atmosphere', label: 'Party Atmosphere', description: 'Party scene photos' },
+    { value: 'testimonials', label: 'Testimonials', description: 'Customer experience photos' }
+  ];
+
+  return (
+    <Dialog open={isOpen} onOpenChange={onClose}>
+      <DialogContent className="max-w-lg">
+        <DialogHeader>
+          <DialogTitle className="flex items-center gap-2">
+            <Globe className="h-5 w-5 text-blue-500" />
+            Publish to Website
+          </DialogTitle>
+        </DialogHeader>
+        
+        <div className="space-y-4">
+          <p className="text-sm text-gray-600">
+            Publishing {selectedItems.length} item(s) to the website. Choose the section where these media items should appear.
+          </p>
+          
+          <div>
+            <label className="text-sm font-medium mb-2 block">Target Section</label>
+            <Select value={selectedSection} onValueChange={setSelectedSection}>
+              <SelectTrigger data-testid="select-publish-section">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {websiteSections.map(section => (
+                  <SelectItem key={section.value} value={section.value}>
+                    <div className="space-y-1">
+                      <div className="font-medium">{section.label}</div>
+                      <div className="text-xs text-gray-500">{section.description}</div>
+                    </div>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <div className="flex justify-end gap-2">
+            <Button variant="outline" onClick={onClose}>Cancel</Button>
+            <Button onClick={() => onPublish(selectedSection)} className="bg-blue-600 hover:bg-blue-700" data-testid="button-confirm-publish">
+              <Globe className="h-4 w-4 mr-2" />
+              Publish Items
+            </Button>
+          </div>
+        </div>
+      </DialogContent>
+    </Dialog>
+  );
 }
 
 interface EditModalProps {
@@ -167,6 +232,12 @@ export default function MediaLibrary() {
   const [uploadedFiles, setUploadedFiles] = useState<FileList | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   
+  // Bulk operations state
+  const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
+  const [isBulkMode, setIsBulkMode] = useState(false);
+  const [isPublishDialogOpen, setIsPublishDialogOpen] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
+  
   const { toast } = useToast();
   const queryClient = useQueryClient();
 
@@ -224,6 +295,92 @@ export default function MediaLibrary() {
     }
   };
 
+  // Delete media items
+  const deleteItems = async (itemIds: string[]) => {
+    setIsDeleting(true);
+    try {
+      if (itemIds.length === 1) {
+        // Single delete
+        await apiRequest(`/api/media/${itemIds[0]}`, {
+          method: 'DELETE'
+        });
+      } else {
+        // Bulk delete
+        await apiRequest('/api/media/bulk-delete', {
+          method: 'POST',
+          body: JSON.stringify({ mediaIds: itemIds })
+        });
+      }
+      
+      toast({
+        title: "Delete Successful!",
+        description: `Deleted ${itemIds.length} item(s) successfully.`,
+      });
+      
+      queryClient.invalidateQueries({ queryKey: ['/api/media/library'] });
+      setSelectedItems(new Set());
+    } catch (error) {
+      console.error('Delete failed:', error);
+      toast({
+        title: "Delete Failed",
+        description: "Failed to delete items. Please try again.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsDeleting(false);
+    }
+  };
+
+  // Publish media items to website
+  const publishItems = async (section: string) => {
+    try {
+      const itemIds = Array.from(selectedItems);
+      await apiRequest('/api/media/publish', {
+        method: 'POST',
+        body: JSON.stringify({
+          mediaIds: itemIds,
+          targetSection: section
+        })
+      });
+      
+      toast({
+        title: "Published Successfully!",
+        description: `Published ${itemIds.length} item(s) to ${section} section.`,
+      });
+      
+      queryClient.invalidateQueries({ queryKey: ['/api/media/library'] });
+      setSelectedItems(new Set());
+      setIsPublishDialogOpen(false);
+    } catch (error) {
+      console.error('Publish failed:', error);
+      toast({
+        title: "Publish Failed",
+        description: "Failed to publish items. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  // Toggle item selection for bulk operations
+  const toggleItemSelection = (itemId: string) => {
+    const newSelection = new Set(selectedItems);
+    if (newSelection.has(itemId)) {
+      newSelection.delete(itemId);
+    } else {
+      newSelection.add(itemId);
+    }
+    setSelectedItems(newSelection);
+  };
+
+  // Select all visible items
+  const selectAllVisible = () => {
+    if (selectedItems.size === filteredItems.length) {
+      setSelectedItems(new Set());
+    } else {
+      setSelectedItems(new Set(filteredItems.map((item: MediaItem) => item.id)));
+    }
+  };
+
   // Generate image with AI
   const generateImage = async () => {
     if (!generatePrompt.trim()) {
@@ -265,13 +422,39 @@ export default function MediaLibrary() {
     }
   };
 
-  // Filter media items based on search
+  // Filter media items based on search and filter selection
   const filteredItems = mediaItems?.filter((item: MediaItem) => {
     const matchesSearch = !searchTerm || 
       item.originalName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       item.autoTags?.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
     
-    return matchesSearch;
+    // Filter by selected filter type
+    let matchesFilter = true;
+    switch (selectedFilter) {
+      case 'photos':
+        matchesFilter = item.fileType === 'photo' || item.fileType === 'edited_photo';
+        break;
+      case 'videos':
+        matchesFilter = item.fileType === 'video' || item.fileType === 'generated_video';
+        break;
+      case 'analyzed':
+        matchesFilter = item.aiAnalyzed === true;
+        break;
+      case 'edited':
+        matchesFilter = item.fileType === 'edited_photo';
+        break;
+      case 'published':
+        matchesFilter = item.status === 'published';
+        break;
+      case 'draft':
+        matchesFilter = item.status === 'draft';
+        break;
+      case 'all':
+      default:
+        matchesFilter = true;
+    }
+    
+    return matchesSearch && matchesFilter;
   }) || [];
 
   return (
@@ -389,7 +572,7 @@ export default function MediaLibrary() {
         </div>
 
         {/* Filters and Search */}
-        <div className="flex flex-col md:flex-row gap-4 mb-6">
+        <div className="flex flex-col lg:flex-row gap-4 mb-6">
           <div className="flex items-center gap-2">
             <Filter className="h-4 w-4 text-gray-500" />
             <Select value={selectedFilter} onValueChange={setSelectedFilter}>
@@ -402,6 +585,8 @@ export default function MediaLibrary() {
                 <SelectItem value="videos">Videos Only</SelectItem>
                 <SelectItem value="analyzed">AI Analyzed</SelectItem>
                 <SelectItem value="edited">Edited Photos</SelectItem>
+                <SelectItem value="published">Published</SelectItem>
+                <SelectItem value="draft">Draft Only</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -416,7 +601,77 @@ export default function MediaLibrary() {
               data-testid="input-search-media"
             />
           </div>
+          
+          <div className="flex items-center gap-2">
+            <Button
+              variant={isBulkMode ? "default" : "outline"}
+              onClick={() => {
+                setIsBulkMode(!isBulkMode);
+                setSelectedItems(new Set());
+              }}
+              data-testid="button-bulk-mode"
+            >
+              {isBulkMode ? (
+                <><X className="h-4 w-4 mr-2" /> Exit Bulk</>
+              ) : (
+                <><Check className="h-4 w-4 mr-2" /> Bulk Select</>
+              )}
+            </Button>
+          </div>
         </div>
+
+        {/* Bulk Operations Bar */}
+        {isBulkMode && (
+          <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={selectAllVisible}
+                  data-testid="button-select-all"
+                >
+                  {selectedItems.size === filteredItems.length && filteredItems.length > 0 ? 'Deselect All' : 'Select All'}
+                </Button>
+                <span className="text-sm text-gray-600">
+                  {selectedItems.size} of {filteredItems.length} selected
+                </span>
+              </div>
+              
+              {selectedItems.size > 0 && (
+                <div className="flex items-center gap-2">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setIsPublishDialogOpen(true)}
+                    disabled={selectedItems.size === 0}
+                    data-testid="button-bulk-publish"
+                  >
+                    <Globe className="h-4 w-4 mr-2" />
+                    Publish ({selectedItems.size})
+                  </Button>
+                  <Button
+                    variant="destructive"
+                    size="sm"
+                    onClick={() => {
+                      if (window.confirm(`Are you sure you want to delete ${selectedItems.size} selected item(s)? This action cannot be undone.`)) {
+                        deleteItems(Array.from(selectedItems));
+                      }
+                    }}
+                    disabled={selectedItems.size === 0 || isDeleting}
+                    data-testid="button-bulk-delete"
+                  >
+                    {isDeleting ? (
+                      <><Sparkles className="h-4 w-4 mr-2 animate-spin" /> Deleting...</>
+                    ) : (
+                      <><Trash2 className="h-4 w-4 mr-2" /> Delete ({selectedItems.size})</>
+                    )}
+                  </Button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Media Grid */}
         {isLoading ? (
@@ -448,7 +703,20 @@ export default function MediaLibrary() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {filteredItems.map((item: MediaItem) => (
-              <Card key={item.id} className="group hover:shadow-lg transition-shadow duration-200">
+              <Card key={item.id} className="group hover:shadow-lg transition-shadow duration-200 relative">
+                {isBulkMode && (
+                  <div className="absolute top-2 left-2 z-10">
+                    <div className="bg-white/90 rounded-full p-1">
+                      <input
+                        type="checkbox"
+                        checked={selectedItems.has(item.id)}
+                        onChange={() => toggleItemSelection(item.id)}
+                        className="w-4 h-4 text-blue-600 border-2 border-gray-300 rounded focus:ring-blue-500"
+                        data-testid={`checkbox-select-${item.id}`}
+                      />
+                    </div>
+                  </div>
+                )}
                 <div className="relative overflow-hidden rounded-t-lg">
                   {item.fileType.includes('video') ? (
                     <div className="h-48 bg-gray-100 flex items-center justify-center">
@@ -507,32 +775,65 @@ export default function MediaLibrary() {
                       </div>
                     )}
                     
-                    <div className="flex gap-2">
-                      {!item.fileType.includes('video') && (
+                    <div className="space-y-2">
+                      <div className="flex gap-2">
+                        {!item.fileType.includes('video') && (
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            className="flex-1"
+                            onClick={() => {
+                              setSelectedPhoto(item);
+                              setIsEditModalOpen(true);
+                            }}
+                            data-testid={`button-edit-photo-${item.id}`}
+                          >
+                            <Wand2 className="h-3 w-3 mr-1" />
+                            Edit
+                          </Button>
+                        )}
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="flex-1"
+                          onClick={() => window.open(item.filePath, '_blank')}
+                          data-testid={`button-view-media-${item.id}`}
+                        >
+                          <Eye className="h-3 w-3 mr-1" />
+                          View
+                        </Button>
+                      </div>
+                      
+                      <div className="flex gap-2">
                         <Button
                           size="sm"
                           variant="outline"
                           className="flex-1"
                           onClick={() => {
-                            setSelectedPhoto(item);
-                            setIsEditModalOpen(true);
+                            setSelectedItems(new Set([item.id]));
+                            setIsPublishDialogOpen(true);
                           }}
-                          data-testid={`button-edit-photo-${item.id}`}
+                          data-testid={`button-publish-${item.id}`}
                         >
-                          <Wand2 className="h-3 w-3 mr-1" />
-                          Edit
+                          <Globe className="h-3 w-3 mr-1" />
+                          {item.status === 'published' ? 'Published' : 'Publish'}
                         </Button>
-                      )}
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="flex-1"
-                        onClick={() => window.open(item.filePath, '_blank')}
-                        data-testid={`button-view-media-${item.id}`}
-                      >
-                        <Eye className="h-3 w-3 mr-1" />
-                        View
-                      </Button>
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="text-red-600 hover:text-red-700 hover:bg-red-50"
+                          onClick={() => {
+                            if (window.confirm(`Delete "${item.originalName || item.filename}"? This cannot be undone.`)) {
+                              deleteItems([item.id]);
+                            }
+                          }}
+                          disabled={isDeleting}
+                          data-testid={`button-delete-${item.id}`}
+                        >
+                          <Trash2 className="h-3 w-3 mr-1" />
+                          Delete
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </CardContent>
@@ -555,6 +856,19 @@ export default function MediaLibrary() {
             }}
           />
         )}
+
+        {/* Publish Dialog */}
+        <PublishDialog
+          selectedItems={filteredItems.filter((item: MediaItem) => selectedItems.has(item.id))}
+          isOpen={isPublishDialogOpen}
+          onClose={() => {
+            setIsPublishDialogOpen(false);
+            if (selectedItems.size === 1) {
+              setSelectedItems(new Set());
+            }
+          }}
+          onPublish={publishItems}
+        />
       </div>
     </div>
   );
