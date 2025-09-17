@@ -388,7 +388,7 @@ export default function Home() {
                 size="lg"
                 variant="outline"
                 onClick={() => handleGetQuote()}
-                className="border-3 border-white text-white hover:bg-white hover:text-black font-bold text-xl px-12 py-6 rounded-2xl backdrop-blur-sm tracking-wide"
+                className="border-3 border-white text-white hover:bg-white hover:text-black font-bold text-xl px-12 py-6 rounded-2xl backdrop-blur-sm tracking-wide bg-[#07c0ff]"
                 data-testid="button-hero-get-quote"
               >
                 <MessageSquare className="mr-3 h-6 w-6" />

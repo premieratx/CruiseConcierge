@@ -40,6 +40,13 @@ export interface IStorage {
 
   // Quotes
   getQuote(id: string): Promise<Quote | undefined>;
+  getQuotes(filters?: {
+    searchTerm?: string;
+    statusFilter?: string;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+    limit?: number;
+  }): Promise<Quote[]>;
   createQuote(quote: InsertQuote): Promise<Quote>;
   updateQuote(id: string, updates: Partial<Quote>): Promise<Quote>;
   getQuotesByProject(projectId: string): Promise<Quote[]>;
@@ -1408,6 +1415,64 @@ export class DatabaseStorage implements IStorage {
   async getQuote(id: string): Promise<Quote | undefined> {
     const result = await db.select().from(quotes).where(eq(quotes.id, id)).limit(1);
     return result[0];
+  }
+
+  async getQuotes(filters?: {
+    searchTerm?: string;
+    statusFilter?: string;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+    limit?: number;
+  }): Promise<Quote[]> {
+    let query = db.select().from(quotes);
+    
+    // Apply status filter
+    if (filters?.statusFilter && filters.statusFilter !== 'all') {
+      query = query.where(eq(quotes.status, filters.statusFilter));
+    }
+    
+    // Apply search term filter (search across multiple fields)
+    if (filters?.searchTerm) {
+      const searchTerm = `%${filters.searchTerm}%`;
+      query = query.where(
+        or(
+          sql`${quotes.quoteNumber} ILIKE ${searchTerm}`,
+          sql`${quotes.customerName} ILIKE ${searchTerm}`,
+          sql`${quotes.customerEmail} ILIKE ${searchTerm}`
+        )
+      );
+    }
+    
+    // Apply sorting
+    const sortOrder = filters?.sortOrder === 'asc' ? asc : desc;
+    let sortColumn;
+    switch (filters?.sortBy) {
+      case 'quoteNumber':
+        sortColumn = quotes.quoteNumber;
+        break;
+      case 'customerName':
+        sortColumn = quotes.customerName;
+        break;
+      case 'total':
+        sortColumn = quotes.total;
+        break;
+      case 'status':
+        sortColumn = quotes.status;
+        break;
+      case 'eventDate':
+        sortColumn = quotes.eventDate;
+        break;
+      default:
+        sortColumn = quotes.createdAt;
+    }
+    query = query.orderBy(sortOrder(sortColumn));
+    
+    // Apply limit
+    if (filters?.limit) {
+      query = query.limit(filters.limit);
+    }
+    
+    return await query;
   }
 
   async createQuote(insertQuote: InsertQuote): Promise<Quote> {
