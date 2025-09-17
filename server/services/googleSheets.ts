@@ -295,10 +295,10 @@ export class GoogleSheetsService {
   private getMockAvailability(startDate: Date, endDate: Date): AvailabilityData[] {
     const availability: AvailabilityData[] = [];
     const boats = [
-      { name: "14-Person Luxury Yacht", capacity: 14, weekdayRate: 200, fridayRate: 250, weekendRate: 300 },
-      { name: "25-Person Party Cruiser", capacity: 25, weekdayRate: 250, fridayRate: 300, weekendRate: 350 },
-      { name: "50-Person Charter Yacht", capacity: 50, weekdayRate: 300, fridayRate: 350, weekendRate: 400 },
-      { name: "ATX Disco Cruise", capacity: 30, weekdayRate: 85, fridayRate: 85, weekendRate: 85 }
+      { name: "Day Tripper", capacity: 14, weekdayRate: 200, fridayRate: 250, weekendRate: 300 },
+      { name: "Me Seeks The Irony", capacity: 30, weekdayRate: 250, fridayRate: 300, weekendRate: 350 },
+      { name: "Clever Girl", capacity: 75, weekdayRate: 300, fridayRate: 350, weekendRate: 400 },
+      { name: "ATX Disco Cruise", capacity: 100, weekdayRate: 85, fridayRate: 85, weekendRate: 85 }
     ];
     const times = ["12:00", "15:00", "18:00"];
     const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];

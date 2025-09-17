@@ -54,6 +54,11 @@ export const products = pgTable("products", {
   productType: varchar("product_type").notNull().default("private_cruise"), // 'private_cruise', 'disco_cruise', 'addon'
   dayType: varchar("day_type"), // 'weekday', 'friday', 'saturday', 'sunday' (for private cruises)
   groupSize: integer("group_size"), // 14, 25, 30, 50, 75 (for private cruises)
+  boatId: varchar("boat_id"), // links to specific boat for private/disco cruises
+  startTime: text("start_time"), // time slot start (e.g., "10:00") for private/disco cruises
+  endTime: text("end_time"), // time slot end (e.g., "14:00") for private/disco cruises
+  duration: integer("duration"), // duration in hours for time slot products
+  crewFeePerHour: integer("crew_fee_per_hour").default(0), // additional crew fee in cents/hour when capacity threshold reached
   imageUrl: text("image_url"), // Background image for photo-centric cards
   categoryType: varchar("category_type").notNull().default("experience"), // 'experience', 'addon'
   eventTypes: jsonb("event_types").$type<string[]>().default([]), // which event types this product applies to
