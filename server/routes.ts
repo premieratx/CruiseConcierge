@@ -11841,43 +11841,149 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // AI MEDIA LIBRARY ROUTES
   // ==========================================
   
-  // Configure multer for file uploads
+  // Zod validation schemas for media endpoints
+  const uploadSchema = z.object({
+    userId: z.string().min(1, "User ID is required")
+  });
+
+  const editPhotoSchema = z.object({
+    photoId: z.string().uuid("Invalid photo ID format"),
+    editType: z.enum(['enhance', 'style', 'background', 'color', 'custom'], {
+      errorMap: () => ({ message: "Edit type must be one of: enhance, style, background, color, custom" })
+    }),
+    editPrompt: z.string().max(500, "Edit prompt too long").optional(),
+    userId: z.string().min(1, "User ID is required")
+  });
+
+  const generateImageSchema = z.object({
+    prompt: z.string().min(5, "Prompt must be at least 5 characters").max(500, "Prompt too long"),
+    userId: z.string().min(1, "User ID is required")
+  });
+
+  const publishSchema = z.object({
+    mediaIds: z.array(z.string().uuid("Invalid media ID format")).min(1, "At least one media ID required").max(50, "Too many items to publish"),
+    targetSection: z.string().min(1, "Target section is required")
+  });
+
+  const mediaLibraryQuerySchema = z.object({
+    page: z.coerce.number().min(1).max(1000).optional(),
+    limit: z.coerce.number().min(1).max(100).optional(),
+    filter: z.enum(['photos', 'videos', 'analyzed', 'edited']).optional()
+  });
+
+  // Configure secure multer for file uploads
   const upload = multer({
     storage: multer.memoryStorage(),
-    limits: { fileSize: 50 * 1024 * 1024 }, // 50MB limit
+    limits: { 
+      fileSize: 50 * 1024 * 1024, // 50MB limit - ENFORCED
+      files: 10, // Max 10 files per request
+      fields: 5, // Max 5 form fields
+      fieldSize: 1024 * 1024 // 1MB per field
+    },
     fileFilter: (req: any, file: any, cb: any) => {
-      // Allow images and videos
-      if (file.mimetype.startsWith('image/') || file.mimetype.startsWith('video/')) {
-        cb(null, true);
+      // Strict allowlist for security
+      const allowedMimeTypes = [
+        'image/jpeg', 
+        'image/png', 
+        'image/webp',
+        'image/gif'
+      ];
+      const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
+      
+      const ext = require('path').extname(file.originalname).toLowerCase();
+      
+      // Check both MIME type and extension
+      if (allowedMimeTypes.includes(file.mimetype) && allowedExtensions.includes(ext)) {
+        // Additional security: check file size in filter
+        if (file.size && file.size > 50 * 1024 * 1024) {
+          cb(new Error('File too large'), false);
+        } else {
+          cb(null, true);
+        }
       } else {
-        cb(new Error('Only image and video files allowed'), false);
+        cb(new Error('Only JPEG, PNG, WebP, and GIF images are allowed'), false);
       }
     }
   });
 
-  // Upload media files
-  app.post('/api/media/upload', upload.single('file'), async (req, res) => {
+  // Upload media files - SECURED
+  app.post('/api/media/upload', requireAdminAuth, upload.single('file'), async (req, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({ error: 'No file uploaded' });
       }
 
-      const userId = req.body.userId || 'admin';
+      // Validate request body
+      const validation = uploadSchema.safeParse(req.body);
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: 'Invalid request data',
+          details: validation.error.issues.map(issue => ({
+            field: issue.path.join('.'),
+            message: issue.message
+          }))
+        });
+      }
+
+      const { userId } = validation.data;
+      
+      // Additional file security checks
+      const maxFileSize = 50 * 1024 * 1024;
+      if (req.file.size > maxFileSize) {
+        return res.status(400).json({ error: 'File too large. Maximum size is 50MB' });
+      }
+
+      // Verify file type matches extension
+      const path = require('path');
+      const ext = path.extname(req.file.originalname).toLowerCase();
+      const mimeTypeMap: Record<string, string[]> = {
+        'image/jpeg': ['.jpg', '.jpeg'],
+        'image/png': ['.png'],
+        'image/webp': ['.webp'],
+        'image/gif': ['.gif']
+      };
+      
+      const expectedExtensions = mimeTypeMap[req.file.mimetype];
+      if (!expectedExtensions || !expectedExtensions.includes(ext)) {
+        return res.status(400).json({ error: 'File extension does not match MIME type' });
+      }
+
       const mediaItem = await mediaLibraryService.uploadMedia(req.file, userId);
       
+      console.log(`✅ Secure media upload completed: ${mediaItem.id} by user ${userId}`);
       res.json({ success: true, mediaItem });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Upload error:', error);
+      
+      // Handle multer errors specifically
+      if (error.code === 'LIMIT_FILE_SIZE') {
+        return res.status(400).json({ error: 'File too large. Maximum size is 50MB' });
+      } else if (error.code === 'LIMIT_UNEXPECTED_FILE') {
+        return res.status(400).json({ error: 'Unexpected file upload' });
+      } else if (error.message.includes('Only JPEG, PNG, WebP')) {
+        return res.status(400).json({ error: error.message });
+      }
+      
       res.status(500).json({ error: 'Upload failed' });
     }
   });
 
-  // Get media library
-  app.get('/api/media/library', async (req, res) => {
+  // Get media library - SECURED
+  app.get('/api/media/library', requireAdminAuth, async (req, res) => {
     try {
-      const page = parseInt(req.query.page as string) || 1;
-      const limit = parseInt(req.query.limit as string) || 20;
-      const filter = req.query.filter as string;
+      // Validate query parameters
+      const validation = mediaLibraryQuerySchema.safeParse(req.query);
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: 'Invalid query parameters',
+          details: validation.error.issues.map(issue => ({
+            field: issue.path.join('.'),
+            message: issue.message
+          }))
+        });
+      }
+
+      const { page = 1, limit = 20, filter } = validation.data;
       
       const items = await mediaLibraryService.getMediaLibrary(page, limit, filter);
       res.json({ success: true, items });
@@ -11887,41 +11993,63 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Edit photo with Nano Banana
-  app.post('/api/media/edit-photo', async (req, res) => {
+  // Edit photo with Nano Banana - SECURED
+  app.post('/api/media/edit-photo', requireAdminAuth, async (req, res) => {
     try {
-      const { photoId, editType, editPrompt } = req.body;
-      const userId = req.body.userId || 'admin';
-      
-      if (!photoId || !editType) {
-        return res.status(400).json({ error: 'Photo ID and edit type required' });
+      // Validate request body
+      const validation = editPhotoSchema.safeParse(req.body);
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: 'Invalid request data',
+          details: validation.error.issues.map(issue => ({
+            field: issue.path.join('.'),
+            message: issue.message
+          }))
+        });
       }
+
+      const { photoId, editType, editPrompt = '', userId } = validation.data;
 
       const editedPhoto = await mediaLibraryService.editPhoto(
         photoId, 
         editType, 
-        editPrompt || '', 
+        editPrompt, 
         userId
       );
       
+      console.log(`✅ Photo edited successfully: ${photoId} by user ${userId}`);
       res.json({ success: true, editedPhoto });
-    } catch (error) {
+    } catch (error: any) {
       console.error('Photo edit error:', error);
+      
+      if (error.message.includes('Photo not found')) {
+        return res.status(404).json({ error: 'Photo not found' });
+      }
+      
       res.status(500).json({ error: 'Photo editing failed' });
     }
   });
 
-  // Generate image with Nano Banana
-  app.post('/api/media/generate-image', async (req, res) => {
+  // Generate image with Nano Banana - SECURED
+  app.post('/api/media/generate-image', requireAdminAuth, async (req, res) => {
     try {
-      const { prompt } = req.body;
-      const userId = req.body.userId || 'admin';
-      
-      if (!prompt) {
-        return res.status(400).json({ error: 'Prompt required' });
+      // Validate request body
+      const validation = generateImageSchema.safeParse(req.body);
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: 'Invalid request data',
+          details: validation.error.issues.map(issue => ({
+            field: issue.path.join('.'),
+            message: issue.message
+          }))
+        });
       }
 
+      const { prompt, userId } = validation.data;
+
       const generatedPhoto = await mediaLibraryService.generateImage(prompt, userId);
+      
+      console.log(`✅ Image generated successfully by user ${userId}`);
       res.json({ success: true, generatedPhoto });
     } catch (error) {
       console.error('Image generation error:', error);
@@ -11929,16 +12057,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Publish to website
-  app.post('/api/media/publish', async (req, res) => {
+  // Publish to website - SECURED
+  app.post('/api/media/publish', requireAdminAuth, requirePermission('edit'), async (req, res) => {
     try {
-      const { mediaIds, targetSection } = req.body;
-      
-      if (!mediaIds || !Array.isArray(mediaIds) || !targetSection) {
-        return res.status(400).json({ error: 'Media IDs array and target section required' });
+      // Validate request body
+      const validation = publishSchema.safeParse(req.body);
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: 'Invalid request data',
+          details: validation.error.issues.map(issue => ({
+            field: issue.path.join('.'),
+            message: issue.message
+          }))
+        });
       }
 
+      const { mediaIds, targetSection } = validation.data;
+
       const result = await mediaLibraryService.publishToWebsite(mediaIds, targetSection);
+      
+      console.log(`✅ Published ${mediaIds.length} items to ${targetSection} by user ${req.adminUser?.id}`);
       res.json(result);
     } catch (error) {
       console.error('Publish error:', error);
@@ -11946,11 +12084,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get AI suggestions for section
-  app.get('/api/media/suggestions/:section', async (req, res) => {
+  // Get AI suggestions for section - SECURED
+  app.get('/api/media/suggestions/:section', requireAdminAuth, async (req, res) => {
     try {
       const { section } = req.params;
-      const suggestions = await mediaLibraryService.getAISuggestions(section);
+      
+      // Validate section parameter
+      if (!section || typeof section !== 'string' || section.length < 1) {
+        return res.status(400).json({ error: 'Valid section parameter required' });
+      }
+
+      // Sanitize section name
+      const sanitizedSection = section.replace(/[^a-zA-Z0-9_-]/g, '');
+      if (sanitizedSection !== section) {
+        return res.status(400).json({ error: 'Invalid section name format' });
+      }
+
+      const suggestions = await mediaLibraryService.getAISuggestions(sanitizedSection);
       res.json({ success: true, suggestions });
     } catch (error) {
       console.error('AI suggestions error:', error);

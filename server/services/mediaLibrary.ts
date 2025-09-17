@@ -9,31 +9,117 @@ import {
 } from "./gemini";
 import * as fs from "fs";
 import * as path from "path";
+import * as crypto from "crypto";
 
 export class MediaLibraryService {
   
-  async uploadMedia(file: Express.Multer.File, userId: string) {
-    // Save file to uploads directory
-    const uploadDir = path.join(process.cwd(), 'uploads', 'media');
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true });
+  // Secure filename sanitization
+  private sanitizeFilename(originalName: string): string {
+    const ext = path.extname(originalName).toLowerCase();
+    const basename = path.basename(originalName, ext);
+    
+    // Remove dangerous characters and limit length
+    const safeName = basename
+      .replace(/[^a-zA-Z0-9_-]/g, '_')
+      .substring(0, 50); // Limit basename length
+    
+    const timestamp = Date.now();
+    const random = crypto.randomBytes(4).toString('hex');
+    
+    // Ensure unique, safe filename
+    return `${safeName}_${timestamp}_${random}${ext}`;
+  }
+
+  // Validate file type and size
+  private validateFile(file: Express.Multer.File): { valid: boolean; error?: string } {
+    const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
+    const maxSize = 50 * 1024 * 1024; // 50MB
+    
+    const ext = path.extname(file.originalname).toLowerCase();
+    
+    if (!allowedMimeTypes.includes(file.mimetype)) {
+      return { valid: false, error: `Invalid MIME type: ${file.mimetype}` };
     }
     
-    const filename = `${Date.now()}_${file.originalname}`;
-    const filePath = path.join(uploadDir, filename);
-    fs.writeFileSync(filePath, file.buffer);
+    if (!allowedExtensions.includes(ext)) {
+      return { valid: false, error: `Invalid file extension: ${ext}` };
+    }
     
-    // Insert into database
+    if (file.size > maxSize) {
+      return { valid: false, error: `File too large: ${(file.size / 1024 / 1024).toFixed(2)}MB` };
+    }
+    
+    // Verify MIME type matches extension
+    const mimeExtMap: Record<string, string[]> = {
+      'image/jpeg': ['.jpg', '.jpeg'],
+      'image/png': ['.png'],
+      'image/webp': ['.webp'],
+      'image/gif': ['.gif']
+    };
+    
+    const expectedExts = mimeExtMap[file.mimetype];
+    if (!expectedExts || !expectedExts.includes(ext)) {
+      return { valid: false, error: 'File extension does not match MIME type' };
+    }
+    
+    return { valid: true };
+  }
+
+  // Ensure secure upload directory
+  private ensureSecureUploadDir(): string {
+    const uploadDir = path.resolve(process.cwd(), 'uploads', 'media');
+    
+    // Prevent directory traversal
+    if (!uploadDir.startsWith(path.resolve(process.cwd()))) {
+      throw new Error('Invalid upload directory path');
+    }
+    
+    if (!fs.existsSync(uploadDir)) {
+      fs.mkdirSync(uploadDir, { recursive: true, mode: 0o755 });
+    }
+    
+    return uploadDir;
+  }
+  
+  async uploadMedia(file: Express.Multer.File, userId: string) {
+    // Validate file first
+    const validation = this.validateFile(file);
+    if (!validation.valid) {
+      throw new Error(`File validation failed: ${validation.error}`);
+    }
+
+    // Save file to secure uploads directory
+    const uploadDir = this.ensureSecureUploadDir();
+    
+    // Use sanitized filename
+    const filename = this.sanitizeFilename(file.originalname);
+    const filePath = path.join(uploadDir, filename);
+    
+    // Additional security: check file doesn't already exist
+    if (fs.existsSync(filePath)) {
+      throw new Error('File conflict detected - please retry');
+    }
+
+    try {
+      fs.writeFileSync(filePath, file.buffer, { mode: 0o644 });
+    } catch (error) {
+      throw new Error(`Failed to save file: ${error}`);
+    }
+    
+    // Insert into database with sanitized data
     const [mediaItem] = await db.insert(mediaItems).values({
       filename,
-      originalName: file.originalname,
-      fileType: file.mimetype.startsWith('image') ? 'photo' : 'video',
+      originalName: this.sanitizeFilename(file.originalname), // Use sanitized name
+      fileType: 'photo', // Only photos allowed now
       filePath: `/uploads/media/${filename}`,
       fileSize: file.size,
       mimeType: file.mimetype,
       createdBy: userId,
       status: 'draft'
     }).returning();
+    
+    console.log(`✅ Secure media upload: ${mediaItem.id} - ${filename} by user ${userId}`);
     
     // Queue for AI analysis if it's a photo
     if (file.mimetype.startsWith('image')) {
@@ -63,43 +149,82 @@ export class MediaLibraryService {
     }
   }
 
-  // Photo editing with Nano Banana
+  // Secure file path resolution
+  private resolveSecureFilePath(filePath: string): string {
+    // Remove leading slash and normalize path
+    const normalizedPath = filePath.replace(/^\/+/, '');
+    const fullPath = path.resolve(process.cwd(), normalizedPath);
+    
+    // Security: ensure path is within uploads directory
+    const uploadsDir = path.resolve(process.cwd(), 'uploads');
+    if (!fullPath.startsWith(uploadsDir)) {
+      throw new Error('Invalid file path - security violation');
+    }
+    
+    // Verify file exists
+    if (!fs.existsSync(fullPath)) {
+      throw new Error('File not found');
+    }
+    
+    return fullPath;
+  }
+
+  // Photo editing with Nano Banana - SECURED
   async editPhoto(
     photoId: string, 
     editType: 'enhance' | 'style' | 'background' | 'color' | 'custom',
     editPrompt: string,
     userId: string
   ) {
+    // Validate photoId format
+    if (!photoId || typeof photoId !== 'string') {
+      throw new Error('Invalid photo ID');
+    }
+
     const photo = await db.select().from(mediaItems)
       .where(eq(mediaItems.id, photoId))
       .limit(1);
       
-    if (!photo[0]) throw new Error('Photo not found');
+    if (!photo[0]) {
+      throw new Error('Photo not found');
+    }
+    
+    // Security: validate file belongs to system
+    if (!photo[0].filePath || !photo[0].filePath.startsWith('/uploads/media/')) {
+      throw new Error('Invalid photo file path');
+    }
     
     // Create edit record
     const [editRecord] = await db.insert(photoEdits).values({
       originalPhotoId: photoId,
       editType,
-      editPrompt,
+      editPrompt: editPrompt.substring(0, 500), // Limit prompt length
       status: 'processing'
     }).returning();
     
     try {
-      const fullPath = path.join(process.cwd(), photo[0].filePath.replace('/uploads/', 'uploads/'));
+      // Use secure path resolution
+      const fullPath = this.resolveSecureFilePath(photo[0].filePath);
       const result = await editPhotoWithNanoBanana(fullPath, editType, editPrompt);
       
-      // Save edited image
-      const editedFilename = `edited_${Date.now()}_${photo[0].filename}`;
-      const editedPath = path.join(process.cwd(), 'uploads', 'media', editedFilename);
+      // Generate secure filename for edited image
+      const editedFilename = this.sanitizeFilename(`edited_${photo[0].filename}`);
+      const editedPath = path.join(this.ensureSecureUploadDir(), editedFilename);
       
-      // Convert base64 to file
+      // Convert base64 to file with security
       const imageBuffer = Buffer.from(result.imageData, 'base64');
-      fs.writeFileSync(editedPath, imageBuffer);
       
-      // Create new media item for edited photo
+      // Validate buffer size
+      if (imageBuffer.length > 50 * 1024 * 1024) {
+        throw new Error('Generated image too large');
+      }
+      
+      fs.writeFileSync(editedPath, imageBuffer, { mode: 0o644 });
+      
+      // Create new media item for edited photo with secure data
       const [editedPhoto] = await db.insert(mediaItems).values({
         filename: editedFilename,
-        originalName: `edited_${photo[0].originalName}`,
+        originalName: this.sanitizeFilename(`edited_${photo[0].originalName}`),
         fileType: 'edited_photo',
         filePath: `/uploads/media/${editedFilename}`,
         fileSize: imageBuffer.length,
@@ -107,12 +232,14 @@ export class MediaLibraryService {
         originalPhotoId: photoId,
         editHistory: [{
           editType,
-          editPrompt,
+          editPrompt: editPrompt.substring(0, 500), // Limit prompt length
           editedAt: new Date().toISOString()
         }],
         createdBy: userId,
         status: 'draft'
       }).returning();
+      
+      console.log(`✅ Photo edited securely: ${editedPhoto.id} from ${photoId} by user ${userId}`);
       
       // Update edit record
       await db.update(photoEdits)
@@ -134,22 +261,34 @@ export class MediaLibraryService {
     }
   }
 
-  // Generate new image with Nano Banana
+  // Generate new image with Nano Banana - SECURED
   async generateImage(prompt: string, userId: string) {
     try {
-      const result = await generateImageWithNanoBanana(prompt);
+      // Sanitize and validate prompt
+      if (!prompt || prompt.length < 5 || prompt.length > 500) {
+        throw new Error('Invalid prompt length');
+      }
       
-      // Save generated image
-      const filename = `generated_${Date.now()}.jpg`;
-      const filePath = path.join(process.cwd(), 'uploads', 'media', filename);
+      const sanitizedPrompt = prompt.replace(/[<>]/g, ''); // Remove potential HTML
+      const result = await generateImageWithNanoBanana(sanitizedPrompt);
+      
+      // Generate secure filename
+      const filename = this.sanitizeFilename(`generated_${Date.now()}.jpg`);
+      const filePath = path.join(this.ensureSecureUploadDir(), filename);
       
       const imageBuffer = Buffer.from(result.imageData, 'base64');
-      fs.writeFileSync(filePath, imageBuffer);
       
-      // Create media item
+      // Validate generated image size
+      if (imageBuffer.length > 50 * 1024 * 1024) {
+        throw new Error('Generated image too large');
+      }
+      
+      fs.writeFileSync(filePath, imageBuffer, { mode: 0o644 });
+      
+      // Create media item with secure data
       const [generatedPhoto] = await db.insert(mediaItems).values({
         filename,
-        originalName: `generated_${prompt.substring(0, 50)}.jpg`,
+        originalName: this.sanitizeFilename(`generated_${prompt.substring(0, 30)}.jpg`),
         fileType: 'photo',
         filePath: `/uploads/media/${filename}`,
         fileSize: imageBuffer.length,
@@ -157,6 +296,8 @@ export class MediaLibraryService {
         createdBy: userId,
         status: 'draft'
       }).returning();
+      
+      console.log(`✅ Image generated securely: ${generatedPhoto.id} by user ${userId}`);
       
       // Analyze generated photo
       this.analyzePhotoAsync(generatedPhoto.id, filePath);

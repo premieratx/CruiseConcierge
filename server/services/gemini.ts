@@ -28,23 +28,29 @@ export async function analyzePhotoForContent(imagePath: string) {
       }
     `;
 
-    const response = await ai.models.generateContent({
+    const model = ai.getGenerativeModel({ 
       model: "gemini-2.5-flash",
-      contents: [
-        {
-          inlineData: {
-            data: imageBytes.toString("base64"),
-            mimeType: "image/jpeg",
-          },
-        },
-        analysisPrompt
-      ],
       generationConfig: {
         responseMimeType: "application/json"
       }
     });
 
-    return JSON.parse(response.text || "{}");
+    const response = await model.generateContent({
+      contents: [{
+        role: 'user',
+        parts: [{
+          inlineData: {
+            data: imageBytes.toString("base64"),
+            mimeType: "image/jpeg"
+          }
+        }, {
+          text: analysisPrompt
+        }]
+      }]
+    });
+
+    const result = await response.response.text();
+    return JSON.parse(result || "{}");
   } catch (error) {
     console.error('Photo analysis failed:', error);
     throw error;
@@ -68,24 +74,28 @@ export async function editPhotoWithNanoBanana(
       custom: editPrompt
     };
 
-    const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash-preview-image-generation", // Nano Banana model
-      contents: [
-        {
-          inlineData: {
-            data: imageBytes.toString("base64"),
-            mimeType: "image/jpeg",
-          },
-        },
-        { text: editPrompts[editType] }
-      ],
-      config: {
-        responseModalities: [Modality.IMAGE]
-      }
+    const model = ai.getGenerativeModel({ 
+      model: "gemini-2.0-flash-exp" // Correct model for image editing
     });
 
-    // Extract the edited image
-    const candidates = response.candidates;
+    const response = await model.generateContent({
+      contents: [{
+        role: 'user',
+        parts: [{
+          inlineData: {
+            data: imageBytes.toString("base64"),
+            mimeType: "image/jpeg"
+          }
+        }, {
+          text: editPrompts[editType]
+        }]
+      }]
+    });
+
+    const result = await response.response;
+    
+    // Check for image data in response
+    const candidates = result.candidates;
     if (!candidates || candidates.length === 0) {
       throw new Error('No edited image generated');
     }
@@ -114,15 +124,22 @@ export async function editPhotoWithNanoBanana(
 // Generate new image with Nano Banana
 export async function generateImageWithNanoBanana(prompt: string) {
   try {
-    const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash-preview-image-generation", // Nano Banana
-      contents: [{ role: "user", parts: [{ text: prompt }] }],
-      config: {
-        responseModalities: [Modality.TEXT, Modality.IMAGE],
-      },
+    const model = ai.getGenerativeModel({ 
+      model: "gemini-2.0-flash-exp" // Correct model for image generation
     });
 
-    const candidates = response.candidates;
+    const response = await model.generateContent({
+      contents: [{
+        role: 'user',
+        parts: [{
+          text: prompt
+        }]
+      }]
+    });
+
+    const result = await response.response;
+    const candidates = result.candidates;
+    
     if (!candidates || candidates.length === 0) {
       throw new Error('No image generated');
     }
@@ -156,11 +173,22 @@ export async function findBestPhotosForSection(photos: any[], sectionType: strin
     Return JSON array of photo IDs ranked by relevance: ["id1", "id2", "id3", "id4", "id5", "id6"]
   `;
   
-  const response = await ai.models.generateContent({
+  const model = ai.getGenerativeModel({ 
     model: "gemini-2.5-flash",
-    contents: prompt,
-    generationConfig: { responseMimeType: "application/json" }
+    generationConfig: { 
+      responseMimeType: "application/json" 
+    }
   });
   
-  return JSON.parse(response.text || "[]");
+  const response = await model.generateContent({
+    contents: [{
+      role: 'user',
+      parts: [{
+        text: prompt
+      }]
+    }]
+  });
+  
+  const result = await response.response.text();
+  return JSON.parse(result || "[]");
 }
