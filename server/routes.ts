@@ -19,6 +19,7 @@ import { openRouterService } from "./services/openrouter";
 import { goHighLevelService, type LeadWebhookPayload } from "./services/gohighlevel";
 import { sendEmail as sendgridEmail, sendQuoteEmail as sendgridQuoteEmail } from "./services/sendgrid";
 import { ComprehensiveLeadService } from "./services/comprehensiveLeadService";
+import { wisprFlowService } from "./services/wispr";
 import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation } from "@shared/schema";
 import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate } from "@shared/timeSlots";
 import { templateRenderer } from "./services/templateRenderer";
@@ -2229,6 +2230,87 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error("Error fetching chat history:", error);
       res.status(500).json({ error: "Failed to fetch chat history" });
+    }
+  });
+
+  // Voice transcription endpoint
+  app.post("/api/voice/transcribe", async (req, res) => {
+    try {
+      const { audioData, language = 'en' } = req.body;
+
+      if (!audioData) {
+        return res.status(400).json({ error: "Audio data is required" });
+      }
+
+      console.log('🎤 Voice transcription request received');
+
+      // Validate audio data
+      const validation = wisprFlowService.validateAudioData(audioData);
+      if (!validation.valid) {
+        console.error('❌ Invalid audio data:', validation.error);
+        return res.status(400).json({ error: validation.error });
+      }
+
+      // Check if Wispr Flow is available
+      if (wisprFlowService.isAvailable()) {
+        console.log('🚀 Using Wispr Flow for transcription');
+        try {
+          // Convert audio if it's WebM format (detect by attempting conversion)
+          let processedAudioData = audioData;
+          
+          // If the audio data looks like WebM (has specific headers), convert it
+          const audioBuffer = Buffer.from(audioData, 'base64');
+          if (audioBuffer.length > 4 && audioBuffer.subarray(0, 4).toString('hex') === '1a45dfa3') {
+            console.log('🔄 Converting WebM to WAV format');
+            processedAudioData = await wisprFlowService.convertWebMToWav(audioBuffer);
+          }
+
+          const result = await wisprFlowService.transcribe(processedAudioData, {
+            language,
+            enableAutoEdit: true,
+            enablePunctuation: true
+          });
+
+          console.log('✅ Wispr Flow transcription successful:', result.text);
+          
+          res.json({
+            success: true,
+            text: result.text,
+            confidence: result.confidence,
+            language: result.language,
+            provider: 'wispr_flow',
+            processingTime: result.processingTime
+          });
+
+        } catch (error: any) {
+          console.error('❌ Wispr Flow transcription failed:', error);
+          
+          // Return specific error for better frontend handling
+          res.status(500).json({ 
+            error: "Speech transcription failed",
+            details: error.message,
+            provider: 'wispr_flow',
+            fallbackAvailable: true
+          });
+        }
+      } else {
+        console.log('⚠️ Wispr Flow not available - API key not configured');
+        
+        // Return error indicating fallback should be used
+        res.status(503).json({ 
+          error: "Primary speech service unavailable",
+          message: "Please use browser speech recognition",
+          provider: 'wispr_flow',
+          fallbackAvailable: true
+        });
+      }
+
+    } catch (error: any) {
+      console.error('❌ Voice transcription error:', error);
+      res.status(500).json({ 
+        error: "Internal server error during transcription",
+        details: error.message
+      });
     }
   });
 
