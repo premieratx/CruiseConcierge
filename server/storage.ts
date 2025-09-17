@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, contacts, projects, boats, products, quotes, invoices, payments, chatMessages, availabilitySlots, quoteTemplates, templateRules, discountRules, pricingSettings, affiliates, bookings, discoSlots, timeframes, emailTemplates, masterTemplates, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts, quoteAnalytics, fileSends, emailTracking, customerLifecycle, customerActivity, slotHolds, partialLeads } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, contacts, projects, boats, products, quotes, invoices, payments, chatMessages, availabilitySlots, quoteTemplates, templateRules, discountRules, pricingSettings, affiliates, bookings, discoSlots, timeframes, emailTemplates, masterTemplates, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts, quoteAnalytics, fileSends, emailTracking, customerLifecycle, customerActivity, slotHolds, partialLeads, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, blogComments, blogAnalytics } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, gte, lte, desc, asc, isNull, isNotNull, or, inArray, sql, count, sum } from "drizzle-orm";
 import { randomUUID } from "crypto";
@@ -391,6 +391,167 @@ export interface IStorage {
   getSlotHold(holdId: string): Promise<SlotHold | undefined>;
   getSlotHoldsBySession(sessionId: string): Promise<SlotHold[]>;
   getActiveSlotHolds(): Promise<SlotHold[]>;
+
+  // ===== BLOG SYSTEM OPERATIONS =====
+  
+  // Blog Authors
+  getBlogAuthor(id: string): Promise<BlogAuthor | undefined>;
+  getBlogAuthors(): Promise<BlogAuthor[]>;
+  getBlogAuthorBySlug(slug: string): Promise<BlogAuthor | undefined>;
+  getBlogAuthorByContact(contactId: string): Promise<BlogAuthor | undefined>;
+  createBlogAuthor(author: InsertBlogAuthor): Promise<BlogAuthor>;
+  updateBlogAuthor(id: string, updates: Partial<BlogAuthor>): Promise<BlogAuthor>;
+  deleteBlogAuthor(id: string): Promise<boolean>;
+
+  // Blog Categories
+  getBlogCategory(id: string): Promise<BlogCategory | undefined>;
+  getBlogCategories(): Promise<BlogCategory[]>;
+  getBlogCategoryBySlug(slug: string): Promise<BlogCategory | undefined>;
+  getBlogCategoriesByParent(parentId: string | null): Promise<BlogCategory[]>;
+  getBlogCategoryHierarchy(): Promise<BlogCategory[]>;
+  createBlogCategory(category: InsertBlogCategory): Promise<BlogCategory>;
+  updateBlogCategory(id: string, updates: Partial<BlogCategory>): Promise<BlogCategory>;
+  deleteBlogCategory(id: string): Promise<boolean>;
+  updateCategoryPostCount(categoryId: string): Promise<BlogCategory>;
+
+  // Blog Tags
+  getBlogTag(id: string): Promise<BlogTag | undefined>;
+  getBlogTags(): Promise<BlogTag[]>;
+  getBlogTagBySlug(slug: string): Promise<BlogTag | undefined>;
+  getBlogTagsByName(names: string[]): Promise<BlogTag[]>;
+  createBlogTag(tag: InsertBlogTag): Promise<BlogTag>;
+  updateBlogTag(id: string, updates: Partial<BlogTag>): Promise<BlogTag>;
+  deleteBlogTag(id: string): Promise<boolean>;
+  updateTagPostCount(tagId: string): Promise<BlogTag>;
+
+  // Blog Posts
+  getBlogPost(id: string): Promise<BlogPost | undefined>;
+  getBlogPostBySlug(slug: string): Promise<BlogPost | undefined>;
+  getBlogPostByWordPressId(wpPostId: number): Promise<BlogPost | undefined>;
+  getBlogPosts(filters?: {
+    status?: 'draft' | 'published' | 'scheduled' | 'archived';
+    authorId?: string;
+    categoryId?: string;
+    tagId?: string;
+    featured?: boolean;
+    search?: string;
+    limit?: number;
+    offset?: number;
+    sortBy?: 'createdAt' | 'publishedAt' | 'viewCount' | 'title';
+    sortOrder?: 'asc' | 'desc';
+  }): Promise<{
+    posts: (BlogPost & { 
+      author: BlogAuthor;
+      categories: BlogCategory[];
+      tags: BlogTag[];
+    })[];
+    total: number;
+  }>;
+  getPublishedBlogPosts(limit?: number, offset?: number): Promise<{
+    posts: (BlogPost & { 
+      author: BlogAuthor;
+      categories: BlogCategory[];
+      tags: BlogTag[];
+    })[];
+    total: number;
+  }>;
+  getFeaturedBlogPosts(limit?: number): Promise<(BlogPost & { 
+    author: BlogAuthor;
+    categories: BlogCategory[];
+    tags: BlogTag[];
+  })[]>;
+  getRelatedBlogPosts(postId: string, limit?: number): Promise<BlogPost[]>;
+  getBlogPostsByCategory(categoryId: string, limit?: number, offset?: number): Promise<{
+    posts: (BlogPost & { 
+      author: BlogAuthor;
+      categories: BlogCategory[];
+      tags: BlogTag[];
+    })[];
+    total: number;
+  }>;
+  getBlogPostsByTag(tagId: string, limit?: number, offset?: number): Promise<{
+    posts: (BlogPost & { 
+      author: BlogAuthor;
+      categories: BlogCategory[];
+      tags: BlogTag[];
+    })[];
+    total: number;
+  }>;
+  getBlogPostsByAuthor(authorId: string, limit?: number, offset?: number): Promise<{
+    posts: (BlogPost & { 
+      author: BlogAuthor;
+      categories: BlogCategory[];
+      tags: BlogTag[];
+    })[];
+    total: number;
+  }>;
+  createBlogPost(post: InsertBlogPost): Promise<BlogPost>;
+  updateBlogPost(id: string, updates: Partial<BlogPost>): Promise<BlogPost>;
+  deleteBlogPost(id: string): Promise<boolean>;
+  publishBlogPost(id: string, publishedAt?: Date): Promise<BlogPost>;
+  scheduleBlogPost(id: string, scheduledFor: Date): Promise<BlogPost>;
+  incrementBlogPostViews(id: string): Promise<BlogPost>;
+
+  // Blog Post Relationships
+  assignPostToCategories(postId: string, categoryIds: string[], primaryCategoryId?: string): Promise<BlogPostCategory[]>;
+  removePostFromCategories(postId: string, categoryIds?: string[]): Promise<boolean>;
+  assignPostToTags(postId: string, tagIds: string[]): Promise<BlogPostTag[]>;
+  removePostFromTags(postId: string, tagIds?: string[]): Promise<boolean>;
+  getBlogPostCategories(postId: string): Promise<BlogCategory[]>;
+  getBlogPostTags(postId: string): Promise<BlogTag[]>;
+
+  // Blog Comments
+  getBlogComment(id: string): Promise<BlogComment | undefined>;
+  getBlogCommentsByPost(postId: string, status?: 'pending' | 'approved' | 'spam' | 'rejected'): Promise<BlogComment[]>;
+  getBlogCommentsByParent(parentId: string): Promise<BlogComment[]>;
+  getBlogCommentsByAuthor(authorEmail: string): Promise<BlogComment[]>;
+  createBlogComment(comment: InsertBlogComment): Promise<BlogComment>;
+  updateBlogComment(id: string, updates: Partial<BlogComment>): Promise<BlogComment>;
+  deleteBlogComment(id: string): Promise<boolean>;
+  approveBlogComment(id: string): Promise<BlogComment>;
+  rejectBlogComment(id: string): Promise<BlogComment>;
+  markBlogCommentAsSpam(id: string): Promise<BlogComment>;
+  updateCommentCounts(postId: string): Promise<BlogPost>;
+
+  // Blog Analytics
+  getBlogAnalytics(postId: string, startDate?: Date, endDate?: Date): Promise<BlogAnalytics[]>;
+  createBlogAnalytics(analytics: InsertBlogAnalytics): Promise<BlogAnalytics>;
+  updateBlogAnalytics(postId: string, date: Date, updates: Partial<BlogAnalytics>): Promise<BlogAnalytics>;
+  getBlogAnalyticsSummary(startDate: Date, endDate: Date): Promise<{
+    totalViews: number;
+    totalUniqueViews: number;
+    totalShares: number;
+    totalComments: number;
+    avgBounceRate: number;
+    avgTimeOnPage: number;
+    topPosts: Array<{ post: BlogPost; views: number; shares: number }>;
+    topCategories: Array<{ category: BlogCategory; views: number }>;
+  }>;
+
+  // WordPress Import Support
+  importWordPressPost(wpData: {
+    wpPostId: number;
+    wpGuid: string;
+    wpStatus: string;
+    wpModified: Date;
+    wpAuthorId: number;
+    title: string;
+    content: string;
+    excerpt?: string;
+    publishedAt?: Date;
+    categories: string[];
+    tags: string[];
+    authorName: string;
+    authorEmail?: string;
+    featuredImage?: string;
+    metaData?: Record<string, any>;
+  }): Promise<BlogPost>;
+  checkWordPressPostExists(wpPostId: number): Promise<boolean>;
+  mapWordPressCategories(wpCategories: Array<{ id: number; name: string; slug: string; parent?: number }>): Promise<BlogCategory[]>;
+  mapWordPressTags(wpTags: Array<{ id: number; name: string; slug: string }>): Promise<BlogTag[]>;
+  mapWordPressAuthor(wpAuthorData: { id: number; name: string; email?: string; bio?: string }): Promise<BlogAuthor>;
+
+  // ===== END BLOG SYSTEM OPERATIONS =====
 }
 
 export class DatabaseStorage implements IStorage {
