@@ -374,7 +374,7 @@ export default function PrivateCruises() {
     
     // Use pricing settings or defaults
     const taxRate = pricingSettings?.taxRate ? pricingSettings.taxRate / 10000 : 0.0825; // Convert basis points
-    const gratuityRate = pricingSettings?.defaultGratuityPercent ? pricingSettings.defaultGratuityPercent / 100 : 0.18;
+    const gratuityRate = pricingSettings?.defaultGratuityPercent ? pricingSettings.defaultGratuityPercent / 100 : (PRICING_DEFAULTS.GRATUITY_PERCENT / 100);
     const depositPercent = pricingSettings?.defaultDepositPercent || 25;
     
     const tax = Math.round(subtotalWithCrew * taxRate);

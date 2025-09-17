@@ -320,7 +320,7 @@ export class TemplateRenderer {
                 </div>
                 ${pricing.gratuity > 0 ? `
                 <div class="pricing-row">
-                    <span>Gratuity (18%):</span>
+                    <span>Gratuity (20%):</span>
                     <span>${this.formatCurrency(pricing.gratuity)}</span>
                 </div>
                 ` : ''}

@@ -263,7 +263,7 @@ export default function Products() {
       seasonalAdjustments: pricingSettings.seasonalAdjustments || [],
     } : {
       taxRate: 825,
-      defaultGratuityPercent: 18,
+      defaultGratuityPercent: 20,
       gratuityIncluded: false,
       defaultDepositPercent: 25,
       urgencyThresholdDays: 30,

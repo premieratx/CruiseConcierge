@@ -167,9 +167,34 @@ export const PRICING_DEFAULTS = {
 /**
  * Premier Party Cruises Hourly Rate Structure
  * All rates in cents (multiply by 100)
+ * Structured as Mon-Thu < Friday < Sat-Sun pricing tiers
  */
 export const HOURLY_RATES = {
   // Capacity-based rates for Monday-Thursday (3 hours)
+  MON_THU: {
+    14: 20000,  // $200/hour for ≤14 people
+    25: 25000,  // $250/hour for ≤25 people
+    30: 30000,  // $300/hour for ≤30 people
+    50: 32500,  // $325/hour for ≤50 people
+    75: 35000,  // $350/hour for ≤75 people
+  },
+  // Capacity-based rates for Friday (4 hours) - 25% premium over weekday
+  FRIDAY: {
+    14: 25000,  // $250/hour for ≤14 people
+    25: 31250,  // $312.50/hour for ≤25 people
+    30: 37500,  // $375/hour for ≤30 people
+    50: 40625,  // $406.25/hour for ≤50 people
+    75: 43750,  // $437.50/hour for ≤75 people
+  },
+  // Capacity-based rates for Saturday-Sunday (4 hours) - 50% premium over weekday
+  SAT_SUN: {
+    14: 30000,  // $300/hour for ≤14 people
+    25: 37500,  // $375/hour for ≤25 people
+    30: 45000,  // $450/hour for ≤30 people
+    50: 48750,  // $487.50/hour for ≤50 people
+    75: 52500,  // $525/hour for ≤75 people
+  },
+  // Legacy aliases for backward compatibility
   WEEKDAY: {
     14: 20000,  // $200/hour for ≤14 people
     25: 25000,  // $250/hour for ≤25 people
@@ -177,13 +202,12 @@ export const HOURLY_RATES = {
     50: 32500,  // $325/hour for ≤50 people
     75: 35000,  // $350/hour for ≤75 people
   },
-  // Capacity-based rates for Friday-Sunday (4 hours)
   WEEKEND: {
-    14: 25000,  // $250/hour for ≤14 people
-    25: 30000,  // $300/hour for ≤25 people
-    30: 35000,  // $350/hour for ≤30 people
-    50: 37500,  // $375/hour for ≤50 people
-    75: 40000,  // $400/hour for ≤75 people
+    14: 30000,  // $300/hour for ≤14 people
+    25: 37500,  // $375/hour for ≤25 people
+    30: 45000,  // $450/hour for ≤30 people
+    50: 48750,  // $487.50/hour for ≤50 people
+    75: 52500,  // $525/hour for ≤75 people
   }
 } as const;
 

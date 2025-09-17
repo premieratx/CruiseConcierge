@@ -207,7 +207,7 @@ export const pricingSettings = pgTable("pricing_settings", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   orgId: varchar("org_id").notNull().default("org_demo"),
   taxRate: integer("tax_rate").notNull().default(825), // 8.25% as 825 basis points
-  defaultGratuityPercent: integer("default_gratuity_percent").notNull().default(18),
+  defaultGratuityPercent: integer("default_gratuity_percent").notNull().default(20),
   gratuityIncluded: boolean("gratuity_included").notNull().default(false),
   defaultDepositPercent: integer("default_deposit_percent").notNull().default(25),
   urgencyThresholdDays: integer("urgency_threshold_days").notNull().default(30),

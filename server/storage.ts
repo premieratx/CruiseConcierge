@@ -1664,7 +1664,7 @@ export class DatabaseStorage implements IStorage {
       id,
       orgId: orgId || "org_demo",
       taxRate: 825,
-      defaultGratuityPercent: 18,
+      defaultGratuityPercent: 20,
       gratuityIncluded: false,
       defaultDepositPercent: 25,
       urgencyThresholdDays: 30,
@@ -1693,24 +1693,17 @@ export class DatabaseStorage implements IStorage {
   }): Promise<PricingPreview> {
     const { groupSize, eventDate } = params;
     
-    // Import pricing constants
+    // Import pricing constants and centralized pricing logic
     const { HOURLY_RATES, CRUISE_DURATIONS, PRICING_DEFAULTS } = await import('@shared/constants');
+    const { getDayType, getCapacityTier, getHourlyRateByDayAndGroupSize, getCruiseDuration } = await import('@shared/pricing');
     
-    // Determine boat capacity tier based on group size
-    let capacityTier: number;
-    if (groupSize <= 14) capacityTier = 14;
-    else if (groupSize <= 25) capacityTier = 25;
-    else if (groupSize <= 30) capacityTier = 30;
-    else if (groupSize <= 50) capacityTier = 50;
-    else capacityTier = 75;
+    // Use centralized logic for day type and capacity tier determination
+    const dayType = getDayType(eventDate);
+    const capacityTier = getCapacityTier(groupSize);
     
-    // Determine if it's weekend (Friday=5, Saturday=6, Sunday=0) or weekday
-    const dayOfWeek = eventDate.getDay();
-    const isWeekend = dayOfWeek === 0 || dayOfWeek === 5 || dayOfWeek === 6; // Sun, Fri, Sat
-    
-    // Get hourly rate and duration
-    const hourlyRate = isWeekend ? HOURLY_RATES.WEEKEND[capacityTier] : HOURLY_RATES.WEEKDAY[capacityTier];
-    const duration = isWeekend ? CRUISE_DURATIONS.WEEKEND : CRUISE_DURATIONS.WEEKDAY;
+    // Get hourly rate and duration using centralized functions
+    const hourlyRate = getHourlyRateByDayAndGroupSize(eventDate, groupSize);
+    const duration = getCruiseDuration(eventDate);
     
     // Calculate base cruise cost
     const baseCruiseCost = hourlyRate * duration;
@@ -1821,7 +1814,8 @@ export class DatabaseStorage implements IStorage {
       originalSubtotal: subtotal, // Keep track of original subtotal before adjustments
       breakdown: {
         boatType: `${capacityTier}-person boat`,
-        dayName: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dayOfWeek],
+        dayName: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][eventDate.getDay()],
+        dayType: dayType,
         baseHourlyRate: hourlyRate,
         cruiseDuration: duration,
         baseCruiseCost,

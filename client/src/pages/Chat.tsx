@@ -27,6 +27,7 @@ import { cn } from '@/lib/utils';
 import { format, addDays, isBefore, isAfter, startOfDay, differenceInDays } from 'date-fns';
 import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection, QuoteItem, NormalizedSlot } from '@shared/schema';
 import { useAvailabilityForDate, useAvailabilityForDateRange, formatDateForAvailability } from '@/hooks/use-availability';
+import { useSlotHold, type CreateSlotHoldParams } from '@/hooks/use-slot-hold';
 import { TimeSlotList } from '@/components/TimeSlotList';
 import { formatCurrency, formatDate, formatLongDate, formatTimeForDisplay, formatTimeRange, formatPhoneNumber, formatCustomerName, formatBoatCapacity, formatEventDuration, formatGroupSize } from '@shared/formatters';
 import { EVENT_TYPES, CRUISE_TYPES, DISCO_PACKAGES, PRICING_DEFAULTS } from '@shared/constants';
@@ -377,6 +378,27 @@ export default function Chat() {
   }, [completedSelections]);
   
   const { toast } = useToast();
+
+  // Slot hold management for atomic checkout
+  const slotHold = useSlotHold({
+    onHoldCreated: (hold) => {
+      console.log('🔒 Slot hold created:', hold.id);
+      toast({
+        title: "Time Slot Reserved",
+        description: `Your selection is held for ${Math.floor((new Date(hold.expiresAt).getTime() - Date.now()) / (1000 * 60))} minutes`,
+        variant: "default",
+      });
+    },
+    onHoldExpired: () => {
+      console.log('⏰ Slot hold expired');
+      toast({
+        title: "Time Reservation Expired",
+        description: "Please select a new time slot to continue with booking.",
+        variant: "destructive",
+      });
+    },
+    autoRelease: true
+  });
 
   // Debounced function to save partial lead data in real-time - FIXED: removed formData dependency
   const debouncedSavePartialLead = useCallback(
@@ -1301,6 +1323,53 @@ export default function Chat() {
       setPaymentProcessing(true); // Set payment loading state
       setPricingError(null); // Clear any previous errors
 
+      // CRITICAL: Create slot hold before payment to prevent double-booking
+      if (!formData.selectedSlot) {
+        throw new Error('No time slot selected');
+      }
+
+      console.log('🔒 Creating slot hold before payment...');
+      
+      // Create hold parameters from selected slot
+      const holdParams: CreateSlotHoldParams = {
+        slotId: formData.selectedSlot.id,
+        boatId: formData.selectedSlot.boatCandidates?.[0] || '',
+        cruiseType: cruiseType,
+        dateISO: formData.eventDate ? formatDateForAvailability(formData.eventDate) : '',
+        startTime: formData.selectedSlot.startTime,
+        endTime: formData.selectedSlot.endTime,
+        groupSize: formData.groupSize,
+        ttlMinutes: 15 // 15 minute hold for checkout
+      };
+
+      // Create the slot hold and wait for completion
+      slotHold.createHold(holdParams);
+      
+      // Wait for hold creation to complete by polling the state
+      let holdCreationAttempts = 0;
+      const maxAttempts = 20; // 10 seconds max wait
+      
+      while (holdCreationAttempts < maxAttempts) {
+        if (slotHold.createHoldError) {
+          throw new Error('Failed to create slot hold: ' + slotHold.createHoldError.message);
+        }
+        
+        if (slotHold.currentHold?.id) {
+          console.log('🔒 Successfully created hold for payment:', slotHold.currentHold.id);
+          break;
+        }
+        
+        // Wait 500ms before checking again
+        await new Promise(resolve => setTimeout(resolve, 500));
+        holdCreationAttempts++;
+      }
+      
+      if (!slotHold.currentHold?.id) {
+        throw new Error('Timeout: Failed to create slot hold within 10 seconds');
+      }
+
+      const holdId = slotHold.currentHold.id;
+
       // Create selection payload with all form data
       const selectionPayload = {
         cruiseType,
@@ -1320,13 +1389,15 @@ export default function Chat() {
 
       console.log('💳 Making API call to /api/checkout/create-session with payload:', {
         paymentType,
-        selectionPayload
+        selectionPayload,
+        holdId // Include holdId for atomic checkout
       });
 
       const response = await apiRequest("POST", "/api/checkout/create-session", {
         paymentType,
         customerEmail: formData.email.trim(), // Pass actual customer email
         selectionPayload,
+        holdId, // CRITICAL: Include holdId for server validation
       });
 
       console.log('💳 API response status:', response.status);

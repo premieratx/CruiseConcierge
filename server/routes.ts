@@ -21,6 +21,7 @@ import { sendEmail as sendgridEmail, sendQuoteEmail as sendgridQuoteEmail } from
 import { ComprehensiveLeadService } from "./services/comprehensiveLeadService";
 import { wisprFlowService } from "./services/wispr";
 import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation } from "@shared/schema";
+import { PRICING_DEFAULTS } from "@shared/constants";
 import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate } from "@shared/timeSlots";
 import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
@@ -1682,7 +1683,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 // If available and we have all info, generate a quote
                 if (availableBoats.length > 0 && project.projectDate) {
                   // Use chatbot pricing logic for consistency
-                  const baseHourlyRate = 300; // Base rate for private cruises
+                  const baseHourlyRate = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100; // Base rate for private cruises in dollars (from shared constants)
                   const dayOfWeek = project.projectDate.getDay();
                   
                   let duration = 3; // Default 3 hours for weekdays
@@ -2038,7 +2039,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
         } else {
           // For private cruises, use the same logic as chatbot
-          const baseHourlyRate = 300; // Base rate for private cruises
+          const baseHourlyRate = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100; // Base rate for private cruises in dollars (from shared constants)
           
           // Extract selected add-on packages from project data
           const selectedAddOns = projectData.selectedPrivatePackage ? 
@@ -3754,7 +3755,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Calculate pricing for display using chatbot logic for consistency
       const eventDate = project?.projectDate || new Date();
-      const baseHourlyRate = 300; // Base rate for private cruises
+      const baseHourlyRate = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100; // Base rate for private cruises in dollars (from shared constants)
       const dayOfWeek = eventDate.getDay();
       
       let duration = 3; // Default 3 hours for weekdays
@@ -4029,7 +4030,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Recalculate pricing with new parameters using chatbot logic for consistency
       const eventDate = project?.projectDate || new Date();
-      const baseHourlyRate = 300; // Base rate for private cruises
+      const baseHourlyRate = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100; // Base rate for private cruises in dollars (from shared constants)
       const dayOfWeek = eventDate.getDay();
       
       let duration = 3; // Default 3 hours for weekdays
@@ -4402,7 +4403,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           }
           
           // Use new pricing logic with add-on packages
-          const baseHourlyRate = 300;
+          const baseHourlyRate = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100; // Base rate in dollars (from shared constants)
           const selectedAddOns = selectedAddOnPackages || [];
           
           // Define available add-on packages (server-side validation)
@@ -5924,7 +5925,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const discoCruiseProducts = await storage.getDiscoCruiseProducts();
         
         // OPTION A: Private Cruise with Standard/Essential/Ultimate packages
-        const baseHourlyRate = 300; // Base rate for private cruises
+        const baseHourlyRate = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100; // Base rate for private cruises in dollars (from shared constants)
         const date = new Date(eventDate);
         const dayOfWeek = date.getDay();
         
@@ -6041,7 +6042,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
       } else if (cruiseType === 'private') {
         // New private cruise pricing with time slot + add-on packages structure
-        const baseHourlyRate = 300; // Base rate for private cruises
+        const baseHourlyRate = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100; // Base rate for private cruises in dollars (from shared constants)
         
         // Parse selected add-on packages
         const selectedAddOns = packageType ? packageType.split(',').filter(Boolean) : [];
@@ -6114,41 +6115,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
           eventType: eventType || 'other'
         });
       } else {
-        // Regular private cruise pricing for all other events using consistent chatbot logic
-        const baseHourlyRate = 300; // Base rate for private cruises
-        const date = new Date(eventDate);
-        const dayOfWeek = date.getDay();
-        
-        let duration = 3; // Default 3 hours for weekdays
-        if (dayOfWeek === 5) { // Friday
-          duration = 4;
-        } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
-          duration = 4;
-        }
-        
-        const subtotalCents = baseHourlyRate * duration * 100; // Convert to cents
-        const items = [{ quantity: 1, unitPrice: subtotalCents, name: 'Private Cruise', type: 'cruise' }];
-        const calculatedPricing = await calculateInvoiceTotalsWithPricingSettings(items);
-        const taxCents = calculatedPricing.tax;
-        const gratuityCents = calculatedPricing.gratuity;
-        const totalCents = subtotalCents + taxCents + gratuityCents;
-        
-        const pricing = {
-          subtotal: subtotalCents,
-          tax: taxCents,
-          gratuity: gratuityCents,
-          total: totalCents,
-          depositRequired: true,
-          depositAmount: Math.round(totalCents * 0.5),
-          depositPercent: 50,
-          duration: duration,
-          hourlyRate: baseHourlyRate,
-          baseHourlyRate: baseHourlyRate,
+        // Use centralized pricing calculation with proper day/group tiers
+        const pricing = await storage.calculateCruisePricing({
+          groupSize: parseInt(groupSize),
+          eventDate: new Date(eventDate),
+          timeSlot,
+          promoCode
+        });
+
+        res.json({
+          subtotal: pricing.subtotal,
+          tax: pricing.tax,
+          gratuity: pricing.gratuity,
+          total: pricing.total,
+          depositRequired: pricing.depositRequired,
+          depositAmount: pricing.depositAmount,
+          depositPercent: pricing.depositPercent,
+          duration: pricing.breakdown?.cruiseDuration || 3,
+          hourlyRate: Math.round((pricing.breakdown?.baseHourlyRate || 20000) / 100), // Convert cents to dollars
+          baseHourlyRate: Math.round((pricing.breakdown?.baseHourlyRate || 20000) / 100),
           timeSlot: timeSlot,
           pricingModel: 'hourly',
-          discountTotal: 0,
-          perPersonCost: Math.round(totalCents / parseInt(groupSize)),
-          paymentSchedule: [{
+          discountTotal: pricing.discountTotal || 0,
+          perPersonCost: pricing.perPersonCost,
+          paymentSchedule: pricing.paymentSchedule || [{
             line: 1,
             due: "booking",
             percent: 50,
@@ -6159,11 +6149,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             percent: 50,
             daysBefore: 14,
           }],
-          expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000) // 7 days
-        };
-
-        res.json({
-          ...pricing,
+          expiresAt: pricing.expiresAt || new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
           showBothOptions: false,
           eventType: eventType || 'other'
         });
@@ -9068,7 +9054,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         }
         
         // Calculate pricing using consistent chatbot logic
-        const baseHourlyRate = 300; // Base rate for private cruises
+        const baseHourlyRate = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100; // Base rate for private cruises in dollars (from shared constants)
         const dayOfWeek = date.getDay();
         
         let duration = 3; // Default 3 hours for weekdays
@@ -9233,7 +9219,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                         { duration: Math.round((endDateTime.getTime() - startDateTime.getTime()) / (1000 * 60 * 60)) };
         
         // Calculate pricing using consistent chatbot logic
-        const baseHourlyRate = 300; // Base rate for private cruises
+        const baseHourlyRate = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100; // Base rate for private cruises in dollars (from shared constants)
         const dayOfWeek = date.getDay();
         
         let duration = 3; // Default 3 hours for weekdays
