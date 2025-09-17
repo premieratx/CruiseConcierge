@@ -1665,6 +1665,7 @@ export class MemStorage implements IStorage {
       accessToken, // Set the secure access token for public access
       accessTokenCreatedAt: new Date(), // Record when token was created
       accessTokenRevokedAt: null, // Initially not revoked
+      expiresAt: insertQuote.expiresAt ?? null, // Fix: use null instead of undefined
       id,
       createdAt: new Date(),
     };
@@ -1686,7 +1687,7 @@ export class MemStorage implements IStorage {
         newStatus: updates.status
       });
       
-      const refreshResult = quoteTokenService.refreshToken(quote.accessToken, {
+      const refreshResult = quoteTokenService.refreshToken(quote.accessToken || '', {
         expiresIn: 60 * 24 * 60 * 60 * 1000 // 60 days for sent quotes
       });
       
@@ -1736,16 +1737,16 @@ export class MemStorage implements IStorage {
       // Build quote data with proper field mapping
       const quoteData = {
         id: quote.id,
-        quoteNumber: quote.quoteNumber || `Q-${quote.id.slice(0, 8).toUpperCase()}`,
-        customerName: contact?.name || project?.contactName || 'Unknown Customer',
-        customerEmail: contact?.email || project?.contactEmail || '',
+        quoteNumber: `Q-${quote.id.slice(0, 8).toUpperCase()}`, // Generate from ID since not in schema
+        customerName: contact?.name || 'Unknown Customer', // Remove non-existent contactName
+        customerEmail: contact?.email || '', // Remove non-existent contactEmail
         eventDate: project?.projectDate?.toISOString() || '',
         totalAmount: quote.total || 0,
         status: quote.status?.toLowerCase() || 'draft',
         createdAt: quote.createdAt?.toISOString() || new Date().toISOString(),
-        // FIXED: Proper sentAt/viewedAt mapping instead of using createdAt
-        sentAt: quote.sentAt?.toISOString() || (quote.status === 'SENT' ? quote.updatedAt?.toISOString() : null),
-        viewedAt: quote.viewedAt?.toISOString() || (quote.status === 'VIEWED' ? quote.updatedAt?.toISOString() : null),
+        // Note: sentAt/viewedAt not in schema, using status-based logic
+        sentAt: quote.status === 'SENT' ? quote.createdAt?.toISOString() : null,
+        viewedAt: quote.status === 'VIEWED' ? quote.createdAt?.toISOString() : null,
         expiresAt: quote.expiresAt?.toISOString() || null,
         projectId: quote.projectId,
         contactId: contact?.id,
@@ -1849,7 +1850,7 @@ export class MemStorage implements IStorage {
       if (project && contact) {
         const invoiceData = {
           id: invoice.id,
-          invoiceNumber: invoice.invoiceNumber || `INV-${invoice.id.slice(-8)}`,
+          invoiceNumber: `INV-${invoice.id.slice(-8)}`, // Generate from ID since not in schema
           customerName: contact.name,
           customerEmail: contact.email,
           projectId: project.id,
@@ -1857,15 +1858,15 @@ export class MemStorage implements IStorage {
           eventType: project.eventType,
           eventDate: project.projectDate,
           totalAmount: invoice.total,
-          paidAmount: invoice.paidAmount || 0,
+          paidAmount: invoice.total - invoice.balance, // Calculate from balance since paidAmount not in schema
           status: invoice.status,
-          dueDate: invoice.dueDate,
+          dueDate: null, // Not in schema
           createdAt: invoice.createdAt,
-          sentAt: invoice.sentAt,
+          sentAt: null, // Not in schema
           subtotal: invoice.subtotal,
           tax: invoice.tax,
-          gratuity: invoice.gratuity,
-          items: invoice.items || []
+          gratuity: 0, // Not in schema
+          items: [] // Not in schema
         };
         
         // Apply search filter
@@ -1875,7 +1876,7 @@ export class MemStorage implements IStorage {
             contact.name.toLowerCase().includes(search) ||
             contact.email.toLowerCase().includes(search) ||
             (project.title?.toLowerCase().includes(search)) ||
-            (invoice.invoiceNumber?.toLowerCase().includes(search)) ||
+            // Removed invoiceNumber search since field not in schema
             (invoice.id.toLowerCase().includes(search))
           );
           if (!matchesSearch) continue;
@@ -2047,6 +2048,7 @@ export class MemStorage implements IStorage {
       description: insertTemplate.description ?? null,
       orgId: insertTemplate.orgId || "org_demo",
       defaultItems: insertTemplate.defaultItems ? [...insertTemplate.defaultItems] as QuoteItem[] : [],
+      defaultRadioSections: Array.isArray(insertTemplate.defaultRadioSections) ? insertTemplate.defaultRadioSections : [],
       minGroupSize: insertTemplate.minGroupSize || null,
       maxGroupSize: insertTemplate.maxGroupSize || null,
       basePricePerPerson: insertTemplate.basePricePerPerson || null,
@@ -2756,7 +2758,7 @@ export class MemStorage implements IStorage {
     
     // Calculate pricing
     const pricing = await this.calculatePricing({
-      items: template.defaultItems,
+      items: template.defaultItems || [], // Ensure it's never null
       groupSize: project.groupSize || template.minGroupSize || 1,
       projectDate: project.projectDate || undefined,
       templateId: template.id,
@@ -2778,7 +2780,7 @@ export class MemStorage implements IStorage {
       depositPercent: pricing.depositPercent,
       depositAmount: pricing.depositAmount,
       paymentSchedule: pricing.paymentSchedule,
-      expiresAt: pricing.expiresAt,
+      expiresAt: pricing.expiresAt || null, // Convert undefined to null
       status: 'DRAFT'
     });
 
@@ -2902,8 +2904,9 @@ export class MemStorage implements IStorage {
       orgId: insertBooking.orgId || "org_demo",
       status: insertBooking.status || "booked",
       notes: insertBooking.notes || null,
-      projectId: insertBooking.projectId || null,
-      partyType: insertBooking.partyType || null,
+      projectId: insertBooking.projectId ?? null, // Fix: use ?? instead of ||
+      quoteId: insertBooking.quoteId ?? null, // Fix: ensure proper null handling
+      partyType: insertBooking.partyType ?? null,
       boatId: insertBooking.boatId || null,
       paymentStatus: insertBooking.paymentStatus || "pending",
       amountPaid: insertBooking.amountPaid || 0,

@@ -9,6 +9,7 @@ import CalendarView from "@/components/CalendarView";
 import Navigation from "@/components/Navigation";
 import { RecentQuotes } from "@/components/RecentQuotes";
 import { RecentInvoices } from "@/components/RecentInvoices";
+import { BookingsTable } from "@/components/BookingsTable";
 import { apiRequest } from "@/lib/queryClient";
 import { useLocation } from "wouter";
 import logoPath from "@assets/PPC Logo LARGE_1757881944449.png";
@@ -46,6 +47,31 @@ export default function Dashboard() {
             <Button 
               onClick={async () => {
                 try {
+                  const response = await apiRequest("POST", "/api/seed-customer-bookings");
+                  const data = await response.json();
+                  toast({
+                    title: "Customer Bookings Created! 🎉",
+                    description: `Created ${data.bookingsCreated} customer bookings`,
+                  });
+                  // Refresh the page to show new data
+                  window.location.reload();
+                } catch (error) {
+                  toast({
+                    title: "Error",
+                    description: "Failed to create customer bookings",
+                    variant: "destructive",
+                  });
+                }
+              }}
+              variant="default"
+              data-testid="button-seed-customer-bookings"
+            >
+              <Ship className="mr-2 h-4 w-4" />
+              Load Customer Bookings
+            </Button>
+            <Button 
+              onClick={async () => {
+                try {
                   const response = await apiRequest("POST", "/api/seed-sample-data");
                   const data = await response.json();
                   toast({
@@ -75,7 +101,23 @@ export default function Dashboard() {
 
       {/* Main Dashboard Content */}
       <div className="container mx-auto px-4 py-6">
-          <div className="space-y-6">
+        <Tabs defaultValue="overview" className="space-y-6">
+          <TabsList className="grid w-full grid-cols-3">
+            <TabsTrigger value="overview" className="flex items-center gap-2">
+              <LayoutDashboard className="h-4 w-4" />
+              Overview
+            </TabsTrigger>
+            <TabsTrigger value="customers" className="flex items-center gap-2">
+              <Users className="h-4 w-4" />
+              Customers
+            </TabsTrigger>
+            <TabsTrigger value="calendar" className="flex items-center gap-2">
+              <Calendar className="h-4 w-4" />
+              Calendar
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="overview" className="space-y-6">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Analytics & Pipeline */}
               <Analytics />
@@ -158,7 +200,45 @@ export default function Dashboard() {
                 <IntegrationStatus />
               </div>
             </div>
-          </div>
+          </TabsContent>
+
+          <TabsContent value="customers" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Users className="h-5 w-5" />
+                  Customer Bookings
+                </CardTitle>
+                <CardDescription>
+                  Customers who have paid deposits with their booking details
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <BookingsTable 
+                  className="mt-4"
+                  data-testid="table-customer-bookings"
+                />
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="calendar" className="space-y-6">
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Calendar className="h-5 w-5" />
+                  Availability Calendar
+                </CardTitle>
+                <CardDescription>
+                  View and manage your cruise availability
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <CalendarView />
+              </CardContent>
+            </Card>
+          </TabsContent>
+        </Tabs>
       </div>
 
     </div>

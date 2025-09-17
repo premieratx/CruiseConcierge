@@ -1207,6 +1207,252 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Seed specific customer bookings with deposits
+  app.post("/api/seed-customer-bookings", async (req, res) => {
+    try {
+      console.log("\n=== Starting Customer Bookings Seeding ===\n");
+      
+      const customerBookings = [
+        {
+          customerName: "Mikayla Hermenau",
+          email: "mikayla.hermenau@email.com",
+          phone: "+1-512-555-0101",
+          cruiseDate: "2025-09-19",
+          startTime: "12:00",
+          endTime: "16:00",
+          eventType: "ATX Disco Cruise",
+          packageName: "Platinum Package",
+          partySize: 8,
+          totalAmount: 120000, // $1200 in cents
+          depositPaid: 30000, // $300 deposit
+          paymentStatus: "Partial",
+          bookingStatus: "Confirmed"
+        },
+        {
+          customerName: "Jenna Steininger", 
+          email: "jenna.steininger@email.com",
+          phone: "+1-512-555-0102",
+          cruiseDate: "2025-09-19",
+          startTime: "12:00",
+          endTime: "16:00", 
+          eventType: "ATX Disco Cruise",
+          packageName: "Disco Queen Package",
+          partySize: 9,
+          totalAmount: 135000, // $1350
+          depositPaid: 33750, // $337.50 deposit
+          paymentStatus: "Partial",
+          bookingStatus: "Confirmed"
+        },
+        {
+          customerName: "James Harrison",
+          email: "james.harrison@email.com", 
+          phone: "+1-512-555-0103",
+          cruiseDate: "2025-09-19",
+          startTime: "12:00",
+          endTime: "16:00",
+          eventType: "ATX Disco Cruise", 
+          packageName: "Disco Queen Package",
+          partySize: 8,
+          totalAmount: 120000, // $1200
+          depositPaid: 30000, // $300 deposit
+          paymentStatus: "Partial",
+          bookingStatus: "Confirmed"
+        },
+        {
+          customerName: "Robert",
+          email: "robert@email.com",
+          phone: "+1-512-555-0104", 
+          cruiseDate: "2025-09-19",
+          startTime: "12:00",
+          endTime: "16:00",
+          eventType: "ATX Disco Cruise",
+          packageName: "Basic Bach Package", 
+          partySize: 10,
+          totalAmount: 150000, // $1500
+          depositPaid: 37500, // $375 deposit
+          paymentStatus: "Partial",
+          bookingStatus: "Confirmed"
+        },
+        {
+          customerName: "Shawnette Ruffins",
+          email: "shawnette.ruffins@email.com",
+          phone: "+1-512-555-0105",
+          cruiseDate: "2025-09-19", 
+          startTime: "12:00",
+          endTime: "16:00",
+          eventType: "ATX Disco Cruise",
+          packageName: "Disco Queen Package",
+          partySize: 9,
+          totalAmount: 135000, // $1350
+          depositPaid: 33750, // $337.50 deposit 
+          paymentStatus: "Partial",
+          bookingStatus: "Confirmed"
+        },
+        {
+          customerName: "Abbie Ralston",
+          email: "abbie.ralston@email.com",
+          phone: "+1-512-555-0106",
+          cruiseDate: "2025-09-19",
+          startTime: "16:30", 
+          endTime: "20:30",
+          eventType: "Private Cruise",
+          packageName: "Ultimate Disco Party Package",
+          partySize: 14, // 14-Person Private Cruise
+          totalAmount: 280000, // $2800
+          depositPaid: 70000, // $700 deposit
+          paymentStatus: "Partial",
+          bookingStatus: "Confirmed"
+        },
+        {
+          customerName: "Austin Lindquist",
+          email: "austin.lindquist@email.com",
+          phone: "+1-512-555-0107",
+          cruiseDate: "2025-09-19",
+          startTime: "12:00",
+          endTime: "16:00",
+          eventType: "ATX Disco Cruise", 
+          packageName: "Basic Bach Package",
+          partySize: 20,
+          totalAmount: 300000, // $3000
+          depositPaid: 75000, // $750 deposit
+          paymentStatus: "Partial",
+          bookingStatus: "Confirmed"
+        },
+        {
+          customerName: "Casey Dwyer",
+          email: "casey.dwyer@email.com",
+          phone: "+1-512-555-0108",
+          cruiseDate: "2025-09-19",
+          startTime: "12:00", 
+          endTime: "16:00",
+          eventType: "Private Cruise",
+          packageName: "14-Person Private Cruise",
+          partySize: 14,
+          totalAmount: 210000, // $2100
+          depositPaid: 52500, // $525 deposit 
+          paymentStatus: "Partial",
+          bookingStatus: "Confirmed"
+        }
+      ];
+      
+      let bookingsCreated = 0;
+      const boats = await storage.getActiveBoats();
+      
+      for (const bookingData of customerBookings) {
+        try {
+          // Create or find customer contact
+          let contact = await storage.getContactByEmail(bookingData.email);
+          if (!contact) {
+            contact = await storage.createContact({
+              name: bookingData.customerName,
+              email: bookingData.email,
+              phone: bookingData.phone,
+              tags: ["customer", "deposit_paid"]
+            });
+            console.log(`✅ Created customer: ${contact.name}`);
+          }
+          
+          // Convert to customer if they're a lead
+          await storage.convertLeadToCustomer(contact.id);
+          
+          // Create project for the booking
+          const cruiseDate = new Date(`${bookingData.cruiseDate}T${bookingData.startTime}:00`);
+          const project = await storage.createProject({
+            contactId: contact.id,
+            title: `${bookingData.eventType} - ${bookingData.packageName}`,
+            status: "CONFIRMED",
+            projectDate: cruiseDate,
+            pipelinePhase: "ph_closed_won",
+            groupSize: bookingData.partySize,
+            eventType: bookingData.eventType,
+            duration: 4, // 4 hour cruise
+            specialRequests: `Package: ${bookingData.packageName}`,
+            tags: ["deposit_paid", "confirmed_booking"]
+          });
+          
+          // Select appropriate boat based on group size and event type
+          let assignedBoat = boats.find(boat => boat.capacity >= bookingData.partySize) || boats[0];
+          if (bookingData.eventType === "ATX Disco Cruise") {
+            // Use specific disco cruise boat if available
+            assignedBoat = boats.find(boat => boat.name.toLowerCase().includes("disco") || boat.name.toLowerCase().includes("party")) || assignedBoat;
+          }
+          
+          // Create the booking
+          const startDateTime = new Date(`${bookingData.cruiseDate}T${bookingData.startTime}:00`);
+          const endDateTime = new Date(`${bookingData.cruiseDate}T${bookingData.endTime}:00`);
+          
+          const booking = await storage.createBooking({
+            projectId: project.id,
+            boatId: assignedBoat.id,
+            startTime: startDateTime,
+            endTime: endDateTime,
+            status: bookingData.bookingStatus,
+            groupSize: bookingData.partySize,
+            eventType: bookingData.eventType,
+            notes: `Package: ${bookingData.packageName}. Customer has paid deposit of $${bookingData.depositPaid/100}.`
+          });
+          
+          // Create invoice with partial payment
+          const invoice = await storage.createInvoice({
+            projectId: project.id,
+            status: bookingData.paymentStatus === "Paid" ? "PAID" : "PARTIAL",
+            subtotal: bookingData.totalAmount,
+            tax: 0,
+            total: bookingData.totalAmount,
+            balance: bookingData.totalAmount - bookingData.depositPaid
+          });
+          
+          // Record the deposit payment
+          if (bookingData.depositPaid > 0) {
+            await storage.createPayment({
+              invoiceId: invoice.id,
+              amount: bookingData.depositPaid,
+              status: "completed",
+              method: "card",
+              paidAt: new Date()
+            });
+          }
+          
+          // Block the time slot in availability
+          try {
+            await storage.blockTimeSlot(
+              assignedBoat.id,
+              startDateTime, 
+              endDateTime,
+              `Booked by ${bookingData.customerName} - ${bookingData.packageName}`,
+              "system"
+            );
+            console.log(`🔒 Blocked availability slot for ${bookingData.customerName}`);
+          } catch (availError) {
+            console.warn(`⚠️ Could not block availability slot: ${availError.message}`);
+          }
+          
+          bookingsCreated++;
+          console.log(`✅ Created booking for ${bookingData.customerName} - ${bookingData.eventType}`);
+          
+        } catch (error) {
+          console.error(`❌ Failed to create booking for ${bookingData.customerName}:`, error.message);
+        }
+      }
+      
+      console.log(`\n=== Customer Bookings Seeding Complete ===`);
+      console.log(`📊 Successfully created ${bookingsCreated} customer bookings\n`);
+      
+      res.json({
+        success: true,
+        message: "Customer bookings created successfully",
+        bookingsCreated
+      });
+      
+    } catch (error) {
+      console.error("❌ Error seeding customer bookings:", error);
+      res.status(500).json({
+        error: "Failed to seed customer bookings",
+        details: error.message
+      });
+    }
+  });
+
   // Seed sample data endpoint (for testing)
   app.post("/api/seed-sample-data", async (req, res) => {
     try {
@@ -7270,6 +7516,65 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error("Error reassigning booking:", error);
       res.status(500).json({ error: "Failed to reassign booking" });
+    }
+  });
+
+  // Update booking details
+  app.put("/api/bookings/:id", async (req, res) => {
+    try {
+      const bookingId = req.params.id;
+      const updates = req.body;
+      
+      console.log(`🔄 Updating booking ${bookingId}:`, updates);
+      
+      // Validate the booking exists
+      const existingBooking = await storage.getBooking(bookingId);
+      if (!existingBooking) {
+        return res.status(404).json({ error: "Booking not found" });
+      }
+      
+      // If updating dates/times, check availability conflicts
+      if (updates.startTime || updates.endTime) {
+        const startTime = updates.startTime ? new Date(updates.startTime) : existingBooking.startTime;
+        const endTime = updates.endTime ? new Date(updates.endTime) : existingBooking.endTime;
+        const boatId = updates.boatId || existingBooking.boatId;
+        
+        const hasConflict = await storage.checkBookingConflict(boatId, startTime, endTime, bookingId);
+        if (hasConflict) {
+          return res.status(409).json({ 
+            error: "Time slot conflict", 
+            message: "The selected time slot is already booked for this boat" 
+          });
+        }
+      }
+      
+      // Update the booking
+      const updatedBooking = await storage.updateBooking(bookingId, updates);
+      
+      // If we updated project-related data, also update the project
+      if (updates.eventType || updates.groupSize || updates.notes) {
+        const project = await storage.getProject(updatedBooking.projectId);
+        if (project) {
+          await storage.updateProject(project.id, {
+            eventType: updates.eventType || project.eventType,
+            groupSize: updates.groupSize || project.groupSize,
+            specialRequests: updates.notes || project.specialRequests
+          });
+        }
+      }
+      
+      console.log(`✅ Successfully updated booking ${bookingId}`);
+      res.json({
+        success: true,
+        booking: updatedBooking
+      });
+      
+    } catch (error: any) {
+      console.error("❌ Error updating booking:", error);
+      res.status(500).json({
+        error: "Failed to update booking",
+        details: error.message
+      });
     }
   });
 

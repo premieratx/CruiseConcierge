@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Clock, Users, DollarSign, Anchor } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { useNavigate } from 'wouter';
+import { useLocation } from 'wouter';
 
 export interface TimeSlotListProps {
   slots: NormalizedSlot[];
@@ -36,7 +36,7 @@ export const TimeSlotList = ({
   navigateToBooking = false,
   groupSize,
 }: TimeSlotListProps) => {
-  const navigate = useNavigate();
+  const [, setLocation] = useLocation();
 
   const generateBookingSlotId = (slot: NormalizedSlot): string => {
     if (slot.cruiseType === 'disco') {
@@ -72,7 +72,7 @@ export const TimeSlotList = ({
     if (navigateToBooking) {
       const bookingSlotId = generateBookingSlotId(slot);
       const bookingPath = `/book/${bookingSlotId}`;
-      navigate(bookingPath);
+      setLocation(bookingPath);
     }
   };
 
