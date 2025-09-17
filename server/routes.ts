@@ -4746,8 +4746,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
             return res.status(400).json({ error: "timeSlot required for private cruise" });
           }
           
-          // Use new pricing logic with add-on packages
-          const baseHourlyRate = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100; // Base rate in dollars (from shared constants)
+          // Use shared pricing functions for consistency
+          const { getHourlyRateByDayAndGroupSize, getCruiseDuration, calculateCompletePricing } = await import('@shared/pricing');
+          const date = new Date(eventDate);
+          
+          // Get proper base hourly rate from shared pricing logic
+          const baseHourlyRateFromPricing = getHourlyRateByDayAndGroupSize(date, parseInt(groupSize));
+          const baseHourlyRate = baseHourlyRateFromPricing / 100; // Convert cents to dollars
+          
           const selectedAddOns = selectedAddOnPackages || [];
           
           // Define available add-on packages (server-side validation)
@@ -4756,7 +4762,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             { id: 'ultimate', name: 'Ultimate Party Package', hourlyRate: 75 }
           ];
           
-          // Calculate total hourly rate server-side
+          // Calculate total hourly rate with add-ons
           let serverCalculatedHourlyRate = baseHourlyRate;
           const appliedAddOns = [];
           
@@ -4768,32 +4774,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
             }
           }
           
-          // Calculate time slot duration and total cost
-          const date = new Date(eventDate);
-          const dayOfWeek = date.getDay();
+          // Use proper duration calculation from shared pricing
+          const duration = getCruiseDuration(date);
           
-          let duration = 3; // Default 3 hours for weekdays
-          if (dayOfWeek === 5) { // Friday
-            duration = 4;
-          } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
-            duration = 4;
-          }
-          
-          const subtotalCents = serverCalculatedHourlyRate * duration * 100; // Convert to cents
+          // Calculate subtotal with add-ons
+          const subtotalCents = Math.round(serverCalculatedHourlyRate * duration * 100); // Convert to cents
           const items = [{ quantity: 1, unitPrice: subtotalCents, name: 'Private Cruise', type: 'cruise' }];
-          let pricing = await calculateInvoiceTotalsWithPricingSettings(items);
-          const taxCents = pricing.tax;
-          const gratuityCents = pricing.gratuity;
-          const totalCents = subtotalCents + taxCents + gratuityCents;
           
-          // Calculate deposit (50% of total)
-          const depositCents = Math.round(totalCents * 0.5);
+          // Use shared invoice calculation for consistent tax/gratuity
+          const invoiceTotals = await calculateInvoiceTotalsWithPricingSettings(items, undefined, date);
+          
+          // Calculate deposit (50% of total for checkout)
+          const depositCents = Math.round(invoiceTotals.total * 0.5);
           
           pricing = {
-            subtotal: subtotalCents,
-            tax: taxCents,
-            gratuity: gratuityCents,
-            total: totalCents,
+            subtotal: invoiceTotals.subtotal,
+            tax: invoiceTotals.tax,
+            gratuity: invoiceTotals.gratuity,
+            total: invoiceTotals.total,
             depositRequired: true,
             depositAmount: depositCents,
             depositPercent: 50,
@@ -4804,7 +4802,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
             timeSlot: effectiveTimeSlot,
             pricingModel: 'hourly',
             discountTotal: 0,
-            perPersonCost: Math.round(totalCents / parseInt(groupSize))
+            perPersonCost: Math.round(invoiceTotals.total / parseInt(groupSize))
           };
         } else if (cruiseType === 'disco') {
           if (!discoPackage || !discoTicketQuantity) {
@@ -6268,17 +6266,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if ((eventType === 'bachelor' || eventType === 'bachelorette') && cruiseType === 'both') {
         const discoCruiseProducts = await storage.getDiscoCruiseProducts();
         
-        // OPTION A: Private Cruise with Standard/Essential/Ultimate packages
-        const baseHourlyRate = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100; // Base rate for private cruises in dollars (from shared constants)
+        // OPTION A: Private Cruise with Standard/Essential/Ultimate packages - use shared pricing logic
+        const { getHourlyRateByDayAndGroupSize, getCruiseDuration } = await import('@shared/pricing');
         const date = new Date(eventDate);
-        const dayOfWeek = date.getDay();
         
-        let duration = 3; // Default 3 hours for weekdays
-        if (dayOfWeek === 5) { // Friday
-          duration = 4;
-        } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
-          duration = 4;
-        }
+        // Use proper hourly rate calculation from shared pricing
+        const baseHourlyRateFromPricing = getHourlyRateByDayAndGroupSize(date, parseInt(groupSize));
+        const baseHourlyRate = baseHourlyRateFromPricing / 100; // Convert cents to dollars
+        
+        // Use proper duration calculation from shared pricing
+        const duration = getCruiseDuration(date);
         
         // Available private cruise packages
         const privateCruisePackages = [

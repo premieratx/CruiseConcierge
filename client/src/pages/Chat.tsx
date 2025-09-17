@@ -1593,10 +1593,29 @@ export default function Chat() {
         throw new Error('No checkout URL received');
       }
     } catch (error: any) {
-      console.error('💳 Payment error:', error);
+      console.error('💳 Payment error details:', {
+        message: error.message,
+        stack: error.stack,
+        cause: error.cause,
+        name: error.name,
+        fullError: error
+      });
+      
+      // Provide more specific error message to user
+      let userMessage = "Failed to start payment process. Please try again.";
+      if (error.message) {
+        if (error.message.includes('holdId') || error.message.includes('HOLD_')) {
+          userMessage = "Your booking session has expired. Please select your time slot again.";
+        } else if (error.message.includes('pricing') || error.message.includes('amount')) {
+          userMessage = "There was an issue with pricing calculation. Please refresh and try again.";
+        } else if (error.message.includes('network') || error.message.includes('fetch')) {
+          userMessage = "Network connection issue. Please check your connection and try again.";
+        }
+      }
+      
       toast({
         title: "Payment Error",
-        description: "Failed to start payment process. Please try again.",
+        description: userMessage,
         variant: "destructive",
       });
     } finally {
