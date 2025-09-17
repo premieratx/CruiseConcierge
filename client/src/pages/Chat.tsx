@@ -359,10 +359,26 @@ export default function Chat() {
   const [chatSessionId] = useState<string>(() => `chat_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   const [partialLeadSaved, setPartialLeadSaved] = useState(false);
   const partialLeadTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const formDataRef = useRef(formData);
+  const currentStepRef = useRef(currentStep);
+  const completedSelectionsRef = useRef(completedSelections);
+  
+  // Update refs when state changes
+  useEffect(() => {
+    formDataRef.current = formData;
+  }, [formData]);
+  
+  useEffect(() => {
+    currentStepRef.current = currentStep;
+  }, [currentStep]);
+  
+  useEffect(() => {
+    completedSelectionsRef.current = completedSelections;
+  }, [completedSelections]);
   
   const { toast } = useToast();
 
-  // Debounced function to save partial lead data in real-time
+  // Debounced function to save partial lead data in real-time - FIXED: removed formData dependency
   const debouncedSavePartialLead = useCallback(
     (contactData: { firstName?: string; lastName?: string; email?: string; phone?: string }) => {
       // Clear existing timeout
@@ -380,25 +396,30 @@ export default function Chat() {
 
         if (hasContactInfo) {
           try {
+            // Use refs to get current state without adding to dependencies
+            const currentFormData = formDataRef.current;
+            const currentStep = currentStepRef.current;
+            const currentCompletedSelections = completedSelectionsRef.current;
+            
             await apiRequest('POST', '/api/partial-leads/save', {
               sessionId: chatSessionId,
               name: [contactData.firstName?.trim(), contactData.lastName?.trim()]
                 .filter(Boolean).join(' ') || undefined,
               email: contactData.email?.trim() || undefined,
               phone: contactData.phone?.trim() || undefined,
-              eventType: formData.eventType || undefined,
-              eventTypeLabel: formData.eventTypeLabel || undefined,
-              groupSize: formData.groupSize || undefined,
-              preferredDate: formData.eventDate?.toISOString() || undefined,
+              eventType: currentFormData.eventType || undefined,
+              eventTypeLabel: currentFormData.eventTypeLabel || undefined,
+              groupSize: currentFormData.groupSize || undefined,
+              preferredDate: currentFormData.eventDate?.toISOString() || undefined,
               chatbotData: {
                 currentStep,
-                completedSelections,
-                selectedCruiseType: formData.selectedCruiseType,
-                selectedSlot: formData.selectedSlot,
-                selectedDiscoPackage: formData.selectedDiscoPackage,
-                selectedAddOnPackages: formData.selectedAddOnPackages,
-                budget: formData.budget,
-                specialRequests: formData.specialRequests,
+                completedSelections: currentCompletedSelections,
+                selectedCruiseType: currentFormData.selectedCruiseType,
+                selectedSlot: currentFormData.selectedSlot,
+                selectedDiscoPackage: currentFormData.selectedDiscoPackage,
+                selectedAddOnPackages: currentFormData.selectedAddOnPackages,
+                budget: currentFormData.budget,
+                specialRequests: currentFormData.specialRequests,
               },
             });
             
@@ -413,26 +434,32 @@ export default function Chat() {
         }
       }, 2000); // 2 second debounce
     },
-    [chatSessionId, formData, currentStep, completedSelections, partialLeadSaved]
+    [chatSessionId, partialLeadSaved] // FIXED: Only stable dependencies
   );
 
-  // Enhanced form data setter that triggers partial lead save
+  // Enhanced form data setter that triggers partial lead save - FIXED: removed formData dependency
   const updateFormDataWithAutoSave = useCallback(
     (updates: Partial<BookingData>) => {
-      const newFormData = { ...formData, ...updates };
-      setFormData(newFormData);
-      
-      // Trigger partial lead save for contact fields
-      if ('firstName' in updates || 'lastName' in updates || 'email' in updates || 'phone' in updates) {
-        debouncedSavePartialLead({
-          firstName: newFormData.firstName,
-          lastName: newFormData.lastName,
-          email: newFormData.email,
-          phone: newFormData.phone,
-        });
-      }
+      setFormData(prevFormData => {
+        const newFormData = { ...prevFormData, ...updates };
+        
+        // Trigger partial lead save for contact fields
+        if ('firstName' in updates || 'lastName' in updates || 'email' in updates || 'phone' in updates) {
+          // Use setTimeout to avoid calling during render
+          setTimeout(() => {
+            debouncedSavePartialLead({
+              firstName: newFormData.firstName,
+              lastName: newFormData.lastName,
+              email: newFormData.email,
+              phone: newFormData.phone,
+            });
+          }, 0);
+        }
+        
+        return newFormData;
+      });
     },
-    [formData, debouncedSavePartialLead]
+    [debouncedSavePartialLead] // FIXED: Only debouncedSavePartialLead dependency
   );
 
   // Cleanup function to mark lead as abandoned when user leaves
