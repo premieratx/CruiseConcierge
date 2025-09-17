@@ -16,7 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 import { motion, AnimatePresence } from "framer-motion";
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 import { 
-  CalendarIcon, Clock, Users, Ship, DollarSign, Star, Sparkles,
+  CalendarIcon, Clock, Users, Ship, DollarSign, Sparkles,
   ChevronLeft, ChevronRight, Filter, Heart, MapPin, Phone, Mail,
   CheckCircle, ArrowRight, Waves, Sun, Moon
 } from "lucide-react";
@@ -429,12 +429,12 @@ export default function PublicCalendar() {
                               onClick={() => handleSlotSelect(slot, date)}
                               data-testid={`card-private-slot-${slot.id}`}
                             >
-                              <CardContent className="p-3">
-                                <div className="flex items-center justify-between mb-2">
-                                  <div className="flex items-center gap-2">
-                                    <div className="text-lg" data-testid={`text-slot-icon-${slot.id}`}>{slot.icon || '⛵'}</div>
+                              <CardContent className="p-2">
+                                <div className="flex items-center justify-between mb-1">
+                                  <div className="flex items-center gap-1">
+                                    <div className="text-sm" data-testid={`text-slot-icon-${slot.id}`}>{slot.icon || '⛵'}</div>
                                     <div>
-                                      <div className="font-medium text-sm" data-testid={`text-slot-time-${slot.id}`}>
+                                      <div className="font-medium text-xs" data-testid={`text-slot-time-${slot.id}`}>
                                         {formatTimeForDisplay(slot.startTime)} - {formatTimeForDisplay(slot.endTime)}
                                       </div>
                                       <div className="text-xs text-gray-600 dark:text-gray-300" data-testid={`text-slot-boat-${slot.id}`}>
@@ -442,12 +442,6 @@ export default function PublicCalendar() {
                                       </div>
                                     </div>
                                   </div>
-                                  {slot.popular && (
-                                    <Badge variant="secondary" className="text-xs" data-testid={`badge-popular-${slot.id}`}>
-                                      <Star className="h-3 w-3 mr-1" />
-                                      Popular
-                                    </Badge>
-                                  )}
                                 </div>
                                 
                                 <div className="flex items-center justify-between text-xs">
@@ -478,12 +472,12 @@ export default function PublicCalendar() {
                               onClick={() => handleSlotSelect(slot, date)}
                               data-testid={`card-disco-slot-${slot.id}`}
                             >
-                              <CardContent className="p-3">
-                                <div className="flex items-center justify-between mb-2">
-                                  <div className="flex items-center gap-2">
-                                    <Sparkles className="h-4 w-4 text-purple-500" />
+                              <CardContent className="p-2">
+                                <div className="flex items-center justify-between mb-1">
+                                  <div className="flex items-center gap-1">
+                                    <Sparkles className="h-3 w-3 text-purple-500" />
                                     <div>
-                                      <div className="font-medium text-sm" data-testid={`text-disco-time-${slot.id}`}>
+                                      <div className="font-medium text-xs" data-testid={`text-disco-time-${slot.id}`}>
                                         {formatTimeForDisplay(slot.startTime)} - {formatTimeForDisplay(slot.endTime)}
                                       </div>
                                       <div className="text-xs text-purple-600 dark:text-purple-300" data-testid={`text-disco-label-${slot.id}`}>
@@ -495,7 +489,7 @@ export default function PublicCalendar() {
                                 
                                 <div className="flex items-center justify-between text-xs">
                                   <div className="text-gray-600 dark:text-gray-300" data-testid={`text-disco-tickets-${slot.id}`}>
-                                    {slot.availableTickets} tickets left
+                                    {slot.availableTickets ? `${slot.availableTickets}/100 remaining` : '100/100 remaining'}
                                   </div>
                                   <div className="font-semibold text-purple-600 dark:text-purple-400" data-testid={`text-disco-price-${slot.id}`}>
                                     ${slot.ticketPrice}/ticket

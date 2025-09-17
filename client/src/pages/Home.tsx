@@ -66,9 +66,9 @@ const services = [
     id: 'private',
     title: 'Private Charters',
     subtitle: 'Exclusive boat rental',
-    description: 'Your own private floating paradise with professional crew, premium sound systems, and all the amenities.',
-    features: ['14, 25, or 50 person boats', 'Professional captain & crew', 'Premium sound system', 'Coolers & ice provided'],
-    startingPrice: '$2,500',
+    description: 'Choose from our fleet of premium party boats: "Day Tripper" (14 people), "The Irony" & "Meeseeks" (25 people), or flagship "Clever Girl" (50 people) with giant Texas flag and 14 disco balls.',
+    features: ['"Day Tripper", "The Irony", "Meeseeks", "Clever Girl" boats', 'Licensed captains & crew', 'Premium bluetooth sound systems', 'Large coolers with ice', 'Lily pads & floaties available'],
+    startingPrice: '$499',
     icon: Ship,
     image: galleryImage1,
     popular: true
@@ -76,9 +76,9 @@ const services = [
   {
     id: 'disco',
     title: 'ATX Disco Cruises',
-    subtitle: 'Party with others',
-    description: 'Join Austin\'s most epic floating dance party every weekend with DJ, dancing, and incredible Lake Travis views.',
-    features: ['DJ & live entertainment', 'Party atmosphere', 'Meet new people', 'Cash bar available'],
+    subtitle: 'Friday & Saturday party cruises',
+    description: 'Austin\'s signature floating dance party every weekend! Friday 12pm-4pm, Saturday 11am-3pm & 3:30pm-7:30pm. DJ, photographer, bubbles, and epic Lake Travis vibes.',
+    features: ['Professional DJ & photographer included', 'Coolers, ice, and party setup', 'Giant unicorn floats & lily pads', 'Bubbles, koozies, and party favors', 'Friday & Saturday schedules'],
     startingPrice: '$85',
     icon: Music,
     image: galleryImage2,
@@ -86,23 +86,23 @@ const services = [
   },
   {
     id: 'bachelor',
-    title: 'Bachelor Parties',
-    subtitle: 'Ultimate Austin experience',
-    description: 'Austin\'s premier bachelor party cruise experience on Lake Travis with professional DJs, photography, and epic vibes.',
-    features: ['ATX Disco Cruise experience', 'Professional DJ & party host', 'Photography included', 'Up to 50 people'],
+    title: 'Bachelorette Parties',
+    subtitle: 'Our specialty since 2009',
+    description: 'Austin\'s premier bachelorette party experience! Join the ATX Disco Cruise or book a private charter. Professional DJ, photographer, and everything needed for an unforgettable celebration.',
+    features: ['Basic Bach, Disco Queen, or Platinum packages', 'Professional DJ & photographer', 'Party favors & decorations', 'Priority booking & VIP treatment'],
     startingPrice: '$85',
     icon: PartyPopper,
     image: galleryImage3,
-    badge: 'New!',
+    badge: 'Our Specialty',
     specialPage: '/bachelor-party'
   },
   {
     id: 'corporate',
     title: 'Corporate Events',
     subtitle: 'Team building on water',
-    description: 'Strengthen team bonds with unique corporate retreats and client entertainment on Lake Travis.',
-    features: ['Team building activities', 'Professional atmosphere', 'Customizable packages', 'Catering options'],
-    startingPrice: '$4,000',
+    description: 'Premium corporate experiences on Lake Travis. Our largest boats perfect for team building, client entertainment, and company celebrations with professional service.',
+    features: ['"Clever Girl" flagship boat available', 'Professional atmosphere & service', 'Customizable catering options', 'Team building activities', 'Transportation partnerships'],
+    startingPrice: '$549',
     icon: Users,
     image: galleryImage1
   }
@@ -111,13 +111,13 @@ const services = [
 const whyChooseUs = [
   {
     icon: Trophy,
-    title: '14+ Years Experience',
-    description: 'Austin\'s longest-running party cruise company with unmatched expertise on Lake Travis.'
+    title: '15+ Years Experience',
+    description: 'Austin\'s longest-running party cruise company since 2009 with unmatched expertise on Lake Travis.'
   },
   {
     icon: UserCheck,
-    title: '125,000+ Happy Customers',
-    description: 'We\'ve created unforgettable memories for over 125,000 guests with 5-star service.'
+    title: '100,000+ Happy Customers',
+    description: 'We\'ve created unforgettable memories for over 100,000 guests with 5-star service since 2009.'
   },
   {
     icon: Shield,
@@ -126,8 +126,8 @@ const whyChooseUs = [
   },
   {
     icon: Star,
-    title: 'Newest Fleet',
-    description: 'Austin\'s newest and nicest boats with premium amenities and sound systems.'
+    title: 'Premier Fleet',
+    description: 'Four awesome boats: "Day Tripper", "The Irony", "Meeseeks", and flagship "Clever Girl" - Austin\'s nicest party boats.'
   },
   {
     icon: Headphones,
@@ -136,43 +136,43 @@ const whyChooseUs = [
   },
   {
     icon: Wine,
-    title: 'Alcohol Delivery',
-    description: 'We partner with local providers to deliver premium alcohol directly to your cruise.'
+    title: 'Party On Delivery',
+    description: 'Direct-to-boat alcohol delivery through our sister company Party On Delivery! Order online, they deliver 50 feet from your boat.'
   }
 ];
 
 const testimonials = [
   {
     id: 1,
-    name: 'Sarah Johnson',
-    role: 'Bachelorette Party',
+    name: 'Sarah M.',
+    role: 'ATX Disco Cruise Bachelorette',
     rating: 5,
-    text: "Premier Party Cruises made my bachelorette party absolutely perfect! The boat was gorgeous, crew was amazing, and Lake Travis was stunning. 10/10 would book again!",
+    text: "The ATX Disco Cruise was absolutely perfect for my bachelorette party! The DJ was incredible, photographer captured amazing moments, and the Clever Girl boat with those 14 disco balls was unreal!",
     avatar: '👰'
   },
   {
     id: 2,
-    name: 'Mike Rodriguez',
-    role: 'Corporate Event',
+    name: 'Mike R.',
+    role: 'Corporate Private Charter',
     rating: 5,
-    text: "Outstanding experience for our company retreat. Professional service, beautiful boat, and the team building aspect was genius. Our employees loved it!",
+    text: "Booked the Clever Girl for our company event - 50 people, perfect service. The giant Texas flag deck and professional crew made it unforgettable. Party On Delivery made it seamless!",
     avatar: '💼'
   },
   {
     id: 3,
-    name: 'Ashley & David',
-    role: 'Anniversary Cruise',
+    name: 'Jessica & Chris',
+    role: '25-Person Private Cruise',
     rating: 5,
-    text: "Celebrated our 5th anniversary with Premier Party Cruises. The sunset cruise was magical - professional crew, perfect atmosphere, couldn't ask for more.",
+    text: "The Irony was perfect for our celebration! Anderson Mill Marina was convenient, crew was professional, and 4 hours on Lake Travis was magical. Best decision ever!",
     avatar: '💕'
   }
 ];
 
 const stats = [
-  { value: '14+', label: 'Years Experience', icon: Trophy },
-  { value: '125K+', label: 'Happy Customers', icon: Heart },
-  { value: '5-Star', label: 'Safety Record', icon: Shield },
-  { value: '4.9/5', label: 'Customer Rating', icon: Star }
+  { value: '15+', label: 'Years Experience', icon: Trophy },
+  { value: '100K+', label: 'Happy Customers', icon: Heart },
+  { value: 'Perfect', label: 'Safety Record', icon: Shield },
+  { value: '5-Star', label: 'Customer Reviews', icon: Star }
 ];
 
 export default function Home() {
@@ -203,16 +203,16 @@ export default function Home() {
 
   // Update page title for SEO
   useEffect(() => {
-    document.title = 'Premier Party Cruises - Austin\'s Best Lake Travis Boat Rentals & Party Cruises';
+    document.title = 'Premier Party Cruises - Austin Lake Travis Boat Rentals Since 2009';
     
     // Add meta description
     const existingDesc = document.querySelector('meta[name="description"]');
     if (existingDesc) {
-      existingDesc.setAttribute('content', 'Austin\'s premier party cruise company offering private boat charters and disco cruises on Lake Travis. 14+ years experience, 125K+ happy customers. Book your unforgettable cruise today!');
+      existingDesc.setAttribute('content', 'Austin\'s premier party cruise company since 2009 offering ATX Disco Cruises and private boat charters on Lake Travis. 100,000+ happy customers, 4 awesome boats. Book today!');
     } else {
       const metaDesc = document.createElement('meta');
       metaDesc.name = 'description';
-      metaDesc.content = 'Austin\'s premier party cruise company offering private boat charters and disco cruises on Lake Travis. 14+ years experience, 125K+ happy customers. Book your unforgettable cruise today!';
+      metaDesc.content = 'Austin\'s premier party cruise company since 2009 offering ATX Disco Cruises and private boat charters on Lake Travis. 100,000+ happy customers, 4 awesome boats. Book today!';
       document.head.appendChild(metaDesc);
     }
   }, []);
@@ -345,8 +345,8 @@ export default function Home() {
               variants={fadeInUp}
               className="text-xl md:text-2xl mb-12 text-gray-100 max-w-4xl mx-auto leading-relaxed font-light"
             >
-              Create unforgettable memories on Lake Travis with Austin's most trusted party cruise company. 
-              14+ years of experience, 125,000+ happy customers, and the newest fleet on the lake.
+              Experience Austin's ultimate Lake Travis adventure with the most trusted party cruise company since 2009. 
+              From intimate 14-person cruises on "Day Tripper" to epic 50-person parties on flagship "Clever Girl" - we create unforgettable memories.
             </motion.p>
 
             {/* Key Features */}
@@ -356,15 +356,15 @@ export default function Home() {
             >
               <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
                 <MapPin className="h-6 w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-lg">Lake Travis, Austin</span>
+                <span className="font-semibold text-lg">Anderson Mill Marina</span>
               </div>
               <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
                 <Users className="h-6 w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-lg">Up to 50 People</span>
+                <span className="font-semibold text-lg">4 Awesome Boats</span>
               </div>
               <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
                 <Clock className="h-6 w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-lg">3-5 Hour Cruises</span>
+                <span className="font-semibold text-lg">ATX Disco Fri/Sat</span>
               </div>
             </motion.div>
 

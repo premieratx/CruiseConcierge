@@ -17,10 +17,12 @@ import { useToast } from "@/hooks/use-toast";
 import type { Product, QuoteTemplate, Project, Contact, Quote, InsertQuote, NormalizedSlot } from "@shared/schema";
 import { useAvailabilityForDate, formatDateForAvailability } from "@/hooks/use-availability";
 import { TimeSlotList } from "@/components/TimeSlotList";
+import { DurationSelector } from "@/components/DurationSelector";
+import { isDurationSelectionRequired, getPrivateTimeSlotsForDate } from "@shared/timeSlots";
 import { 
   Calculator, Gift, DollarSign, Percent, Users, Clock, AlertTriangle, Edit, Wand2,
   Save, FileText, Package, Eye, ChevronRight, Sparkles, Copy, Plus, Trash2,
-  Ship, MapPin, Calendar, User, Phone, Mail, CheckCircle
+  Ship, MapPin, Calendar, User, Phone, Mail, CheckCircle, Timer
 } from "lucide-react";
 import { format } from "date-fns";
 
@@ -73,19 +75,31 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
   const [newTemplateDescription, setNewTemplateDescription] = useState("");
   const [selectedEventType, setSelectedEventType] = useState("wedding");
   const [selectedSlot, setSelectedSlot] = useState<NormalizedSlot | null>(null);
+  const [selectedDuration, setSelectedDuration] = useState<'3-hour' | '4-hour' | null>(null);
   
-  // Fetch available slots for the project date
+  // Check if duration selection is required for the selected date
+  const requiresDurationSelection = projectDate ? isDurationSelectionRequired(new Date(projectDate)) : false;
+  
+  // Fetch available slots for the project date (filtered by duration for Monday-Thursday)
   const { data: availabilityData } = useAvailabilityForDate(
     projectDate,
     undefined, // both private and disco
     currentGroupSize,
     {
-      enabled: Boolean(projectDate),
+      enabled: Boolean(projectDate) && (!requiresDurationSelection || selectedDuration !== null),
       staleTime: 1000 * 60 * 2, // 2 minutes
     }
   );
   
   const availableSlots = availabilityData?.slots || [];
+  
+  // Filter slots by duration for Monday-Thursday bookings
+  const filteredSlots = requiresDurationSelection && selectedDuration
+    ? availableSlots.filter(slot => {
+        const durationHours = selectedDuration === '3-hour' ? 3 : 4;
+        return slot.duration === durationHours;
+      })
+    : availableSlots;
   const { toast } = useToast();
 
   // Fetch data
@@ -404,31 +418,87 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
               />
             </div>
 
-            {/* Time Slot Selection */}
-            {projectDate && (
+            {/* Duration Selection for Monday-Thursday */}
+            {projectDate && requiresDurationSelection && (
               <div className="space-y-2">
-                <Label>Available Time Slots</Label>
+                <DurationSelector
+                  selectedDuration={selectedDuration}
+                  onDurationChange={(duration) => {
+                    setSelectedDuration(duration);
+                    // Reset selected slot when duration changes
+                    setSelectedSlot(null);
+                  }}
+                  availableDurations={['3-hour', '4-hour']}
+                  data-testid="duration-selector"
+                />
+              </div>
+            )}
+
+            {/* Time Slot Selection */}
+            {projectDate && (!requiresDurationSelection || selectedDuration) && (
+              <div className="space-y-2">
+                <Label className="flex items-center gap-2">
+                  <Clock className="w-4 h-4" />
+                  Available Time Slots
+                  {requiresDurationSelection && selectedDuration && (
+                    <Badge variant="outline" className="text-xs">
+                      {selectedDuration.replace('-', ' ')} options
+                    </Badge>
+                  )}
+                </Label>
                 <div className="rounded-lg border p-4">
-                  {availableSlots.length > 0 ? (
+                  {filteredSlots.length > 0 ? (
                     <TimeSlotList
-                      slots={availableSlots}
-                      selectedSlot={selectedSlot}
+                      slots={filteredSlots}
+                      selectedSlotId={selectedSlot?.id}
                       onSlotSelect={(slot) => {
                         setSelectedSlot(slot);
                         console.log('Selected slot:', slot);
                       }}
                       groupSize={currentGroupSize}
-                      cruiseType={undefined} // Show all types
-                      showFilters={false}
+                      variant="compact"
+                      showDate={false}
                       data-testid="timeslot-list"
                     />
                   ) : (
                     <div className="text-center py-6 text-muted-foreground">
                       <Clock className="h-8 w-8 mx-auto mb-2 opacity-50" />
                       <p>No time slots available for this date.</p>
-                      <p className="text-sm">Try selecting a different date.</p>
+                      {requiresDurationSelection && selectedDuration && (
+                        <p className="text-sm">No {selectedDuration.replace('-', ' ')} slots available. Try the other duration option.</p>
+                      )}
+                      {!requiresDurationSelection && (
+                        <p className="text-sm">Try selecting a different date.</p>
+                      )}
                     </div>
                   )}
+                </div>
+                
+                {/* Duration selection helper for Monday-Thursday */}
+                {requiresDurationSelection && selectedDuration && filteredSlots.length > 0 && (
+                  <div className="mt-2 p-3 bg-blue-50 rounded-lg">
+                    <p className="text-sm text-blue-700">
+                      <Timer className="w-4 h-4 inline mr-1" />
+                      Showing {selectedDuration.replace('-', ' ')} time slots for {format(new Date(projectDate), 'EEEE, MMMM d, yyyy')}
+                    </p>
+                  </div>
+                )}
+              </div>
+            )}
+
+            {/* Message when duration selection is required but not selected */}
+            {projectDate && requiresDurationSelection && !selectedDuration && (
+              <div className="space-y-2">
+                <Label className="flex items-center gap-2">
+                  <Clock className="w-4 h-4" />
+                  Time Slots
+                </Label>
+                <div className="rounded-lg border p-4">
+                  <div className="text-center py-6 text-muted-foreground">
+                    <Timer className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                    <p className="font-medium">Choose your cruise duration first</p>
+                    <p className="text-sm">Select either 3-hour or 4-hour option above to see available time slots.</p>
+                  </div>
                 </div>
               </div>
             )}

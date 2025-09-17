@@ -22,33 +22,50 @@ export interface DiscoTimeSlot extends TimeSlot {
 /**
  * Get available private cruise time slots for a given date
  * Business Rules:
- * - Monday-Thursday: 3-hour blocks between 10 AM-8 PM
+ * - Monday-Thursday: 3-hour AND 4-hour options (user chooses duration first)
  * - Friday: 4-hour blocks (12PM-4PM and 4:30PM-8:30PM)
  * - Saturday/Sunday: 4-hour blocks (11AM-3PM and 3:30PM-7:30PM)
  */
-export const getPrivateTimeSlotsForDate = (date: Date): TimeSlot[] => {
+export const getPrivateTimeSlotsForDate = (date: Date, duration?: 3 | 4): TimeSlot[] => {
   const dayOfWeek = date.getDay();
   
-  if (dayOfWeek >= 1 && dayOfWeek <= 4) { // Monday-Thursday (3-hour slots)
-    return [
-      { id: '10am-1pm', label: '10am-1pm', startTime: '10:00', endTime: '13:00', duration: 3, icon: '🌅', popular: false, description: 'Morning cruise' },
-      { id: '11am-2pm', label: '11am-2pm', startTime: '11:00', endTime: '14:00', duration: 3, icon: '🌞', popular: false, description: 'Late morning cruise' },
-      { id: '12pm-3pm', label: '12pm-3pm', startTime: '12:00', endTime: '15:00', duration: 3, icon: '☀️', popular: true, description: 'Lunch cruise' },
-      { id: '1pm-4pm', label: '1pm-4pm', startTime: '13:00', endTime: '16:00', duration: 3, icon: '☀️', popular: true, description: 'Afternoon cruise' },
-      { id: '2pm-5pm', label: '2pm-5pm', startTime: '14:00', endTime: '17:00', duration: 3, icon: '🌆', popular: true, description: 'Late afternoon cruise' },
-      { id: '3pm-6pm', label: '3pm-6pm', startTime: '15:00', endTime: '18:00', duration: 3, icon: '🌆', popular: true, description: 'Evening cruise' },
-      { id: '4pm-7pm', label: '4pm-7pm', startTime: '16:00', endTime: '19:00', duration: 3, icon: '🌅', popular: false, description: 'Early sunset cruise' },
-      { id: '5pm-8pm', label: '5pm-8pm', startTime: '17:00', endTime: '20:00', duration: 3, icon: '🌙', popular: false, description: 'Sunset cruise' },
+  if (dayOfWeek >= 1 && dayOfWeek <= 4) { // Monday-Thursday (both 3-hour and 4-hour options)
+    const threeHourSlots = [
+      { id: '10am-1pm-3h', label: '10:00 AM - 1:00 PM', startTime: '10:00', endTime: '13:00', duration: 3, icon: '🌅', description: 'Morning cruise (3 hours)' },
+      { id: '11am-2pm-3h', label: '11:00 AM - 2:00 PM', startTime: '11:00', endTime: '14:00', duration: 3, icon: '🌞', description: 'Late morning cruise (3 hours)' },
+      { id: '12pm-3pm-3h', label: '12:00 PM - 3:00 PM', startTime: '12:00', endTime: '15:00', duration: 3, icon: '☀️', description: 'Lunch cruise (3 hours)' },
+      { id: '1pm-4pm-3h', label: '1:00 PM - 4:00 PM', startTime: '13:00', endTime: '16:00', duration: 3, icon: '☀️', description: 'Afternoon cruise (3 hours)' },
+      { id: '2pm-5pm-3h', label: '2:00 PM - 5:00 PM', startTime: '14:00', endTime: '17:00', duration: 3, icon: '🌆', description: 'Late afternoon cruise (3 hours)' },
+      { id: '3pm-6pm-3h', label: '3:00 PM - 6:00 PM', startTime: '15:00', endTime: '18:00', duration: 3, icon: '🌆', description: 'Evening cruise (3 hours)' },
+      { id: '4pm-7pm-3h', label: '4:00 PM - 7:00 PM', startTime: '16:00', endTime: '19:00', duration: 3, icon: '🌅', description: 'Early sunset cruise (3 hours)' },
+      { id: '5pm-8pm-3h', label: '5:00 PM - 8:00 PM', startTime: '17:00', endTime: '20:00', duration: 3, icon: '🌙', description: 'Sunset cruise (3 hours)' },
     ];
+
+    const fourHourSlots = [
+      { id: '10am-2pm-4h', label: '10:00 AM - 2:00 PM', startTime: '10:00', endTime: '14:00', duration: 4, icon: '🌅', description: 'Morning cruise (4 hours)' },
+      { id: '11am-3pm-4h', label: '11:00 AM - 3:00 PM', startTime: '11:00', endTime: '15:00', duration: 4, icon: '🌞', description: 'Late morning cruise (4 hours)' },
+      { id: '12pm-4pm-4h', label: '12:00 PM - 4:00 PM', startTime: '12:00', endTime: '16:00', duration: 4, icon: '☀️', description: 'Lunch cruise (4 hours)' },
+      { id: '1pm-5pm-4h', label: '1:00 PM - 5:00 PM', startTime: '13:00', endTime: '17:00', duration: 4, icon: '☀️', description: 'Afternoon cruise (4 hours)' },
+      { id: '2pm-6pm-4h', label: '2:00 PM - 6:00 PM', startTime: '14:00', endTime: '18:00', duration: 4, icon: '🌆', description: 'Late afternoon cruise (4 hours)' },
+      { id: '3pm-7pm-4h', label: '3:00 PM - 7:00 PM', startTime: '15:00', endTime: '19:00', duration: 4, icon: '🌆', description: 'Evening cruise (4 hours)' },
+      { id: '4pm-8pm-4h', label: '4:00 PM - 8:00 PM', startTime: '16:00', endTime: '20:00', duration: 4, icon: '🌙', description: 'Sunset cruise (4 hours)' },
+    ];
+
+    // Filter by duration if specified
+    if (duration === 3) return threeHourSlots;
+    if (duration === 4) return fourHourSlots;
+    
+    // Return all slots if no duration filter (for backward compatibility)
+    return [...threeHourSlots, ...fourHourSlots];
   } else if (dayOfWeek === 5) { // Friday (4-hour slots)
     return [
-      { id: '12pm-4pm', label: '12pm-4pm', startTime: '12:00', endTime: '16:00', duration: 4, icon: '☀️', popular: true, description: 'Friday afternoon cruise' },
-      { id: '4:30pm-8:30pm', label: '4:30pm-8:30pm', startTime: '16:30', endTime: '20:30', duration: 4, icon: '🌙', popular: true, description: 'Friday evening cruise' },
+      { id: '12pm-4pm', label: '12:00 PM - 4:00 PM', startTime: '12:00', endTime: '16:00', duration: 4, icon: '☀️', description: 'Friday afternoon cruise' },
+      { id: '4:30pm-8:30pm', label: '4:30 PM - 8:30 PM', startTime: '16:30', endTime: '20:30', duration: 4, icon: '🌙', description: 'Friday evening cruise' },
     ];
   } else { // Saturday/Sunday (4-hour slots)
     return [
-      { id: '11am-3pm', label: '11am-3pm', startTime: '11:00', endTime: '15:00', duration: 4, icon: '☀️', popular: true, description: 'Weekend afternoon cruise' },
-      { id: '3:30pm-7:30pm', label: '3:30pm-7:30pm', startTime: '15:30', endTime: '19:30', duration: 4, icon: '🌆', popular: true, description: 'Weekend evening cruise' },
+      { id: '11am-3pm', label: '11:00 AM - 3:00 PM', startTime: '11:00', endTime: '15:00', duration: 4, icon: '☀️', description: 'Weekend afternoon cruise' },
+      { id: '3:30pm-7:30pm', label: '3:30 PM - 7:30 PM', startTime: '15:30', endTime: '19:30', duration: 4, icon: '🌆', description: 'Weekend evening cruise' },
     ];
   }
 };
@@ -68,11 +85,10 @@ export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
         startTime: '12:00', 
         endTime: '16:00', 
         duration: 4, 
-        icon: '🕛', 
-        popular: true, 
+        icon: '🎉', 
         description: 'Friday disco cruise',
         ticketPrice: 85,
-        maxCapacity: 50
+        maxCapacity: 100
       },
     ];
   } else if (dayOfWeek === 6) { // Saturday
@@ -83,11 +99,10 @@ export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
         startTime: '11:00', 
         endTime: '15:00', 
         duration: 4, 
-        icon: '🕚', 
-        popular: true, 
+        icon: '🎉', 
         description: 'Saturday afternoon disco cruise',
         ticketPrice: 95,
-        maxCapacity: 50
+        maxCapacity: 100
       },
       { 
         id: 'disco-sat-3:30pm-7:30pm', 
@@ -95,38 +110,10 @@ export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
         startTime: '15:30', 
         endTime: '19:30', 
         duration: 4, 
-        icon: '🕞', 
-        popular: true, 
+        icon: '🎉', 
         description: 'Saturday evening disco cruise',
         ticketPrice: 105,
-        maxCapacity: 50
-      },
-    ];
-  } else if (dayOfWeek === 0) { // Sunday
-    return [
-      { 
-        id: 'disco-sun-11am-3pm', 
-        label: '11:00 AM - 3:00 PM', 
-        startTime: '11:00', 
-        endTime: '15:00', 
-        duration: 4, 
-        icon: '🕚', 
-        popular: true, 
-        description: 'Sunday afternoon disco cruise',
-        ticketPrice: 85,
-        maxCapacity: 50
-      },
-      { 
-        id: 'disco-sun-3:30pm-7:30pm', 
-        label: '3:30 PM - 7:30 PM', 
-        startTime: '15:30', 
-        endTime: '19:30', 
-        duration: 4, 
-        icon: '🕞', 
-        popular: true, 
-        description: 'Sunday evening disco cruise',
-        ticketPrice: 95,
-        maxCapacity: 50
+        maxCapacity: 100
       },
     ];
   } else {
@@ -139,7 +126,7 @@ export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
  */
 export const isDiscoAvailableForDate = (date: Date): boolean => {
   const dayOfWeek = date.getDay();
-  return dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0; // Friday, Saturday, Sunday
+  return dayOfWeek === 5 || dayOfWeek === 6; // Friday, Saturday only
 };
 
 /**
@@ -190,6 +177,32 @@ export const formatTimeForDisplay = (time: string): string => {
   const period = hours >= 12 ? 'PM' : 'AM';
   const displayHours = hours % 12 || 12;
   return `${displayHours}:${minutes.toString().padStart(2, '0')} ${period}`;
+};
+
+/**
+ * Check if a date is Monday-Thursday (requires duration selection)
+ */
+export const isMondayToThursday = (date: Date): boolean => {
+  const dayOfWeek = date.getDay();
+  return dayOfWeek >= 1 && dayOfWeek <= 4;
+};
+
+/**
+ * Get available durations for a date
+ */
+export const getAvailableDurations = (date: Date): Array<3 | 4> => {
+  if (isMondayToThursday(date)) {
+    return [3, 4]; // Both 3-hour and 4-hour options
+  }
+  // Friday-Sunday only have 4-hour options
+  return [4];
+};
+
+/**
+ * Check if duration selection is required for a date
+ */
+export const isDurationSelectionRequired = (date: Date): boolean => {
+  return isMondayToThursday(date);
 };
 
 /**

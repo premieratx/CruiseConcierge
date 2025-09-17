@@ -17,7 +17,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
-// Import gallery images
+// Import gallery images - ALL available Premier Party Cruises real photos
 import heroImage1 from '@assets/image_1757844813165.png';
 import heroImage2 from '@assets/image_1757850768476.png';
 import heroImage3 from '@assets/image_1757853656553.png';
@@ -34,9 +34,27 @@ import galleryImage10 from '@assets/image_1757892709763.png';
 import galleryImage11 from '@assets/image_1757924324329.png';
 import galleryImage12 from '@assets/image_1758068225810.png';
 import galleryImage13 from '@assets/image_1758076921602.png';
+// Additional real photos not previously used
+import atxDiscoFull from '@assets/ATX Disco Cruise FULL SIZE_1758097496695.png';
+import galleryImage14 from '@assets/image_1757884929747.png';
+import ppcLogoLarge from '@assets/PPC Logo LARGE_1757881944449.png';
 
-// Gallery data structure
+// Comprehensive Gallery data structure - ALL real Premier Party Cruises photos
 const galleryImages = [
+  {
+    id: 'flagship-disco',
+    src: atxDiscoFull,
+    alt: 'ATX Disco Cruise - Austin\'s Premier Party Boat Experience',
+    title: 'ATX Disco Cruise - Flagship Experience',
+    description: 'The ultimate Austin party cruise experience with state-of-the-art sound, lighting, and premium amenities on Lake Travis',
+    category: 'Featured',
+    location: 'Lake Travis, Austin',
+    photographer: 'Premier Party Cruises',
+    date: '2024-09-15',
+    likes: 1247,
+    views: 8930,
+    tags: ['flagship', 'disco', 'atx', 'premium', 'weekend']
+  },
   {
     id: 'fleet-1',
     src: galleryImage1,
@@ -204,16 +222,74 @@ const galleryImages = [
     likes: 634,
     views: 3450,
     tags: ['austin', 'skyline', 'cityscape', 'views']
+  },
+  {
+    id: 'party-atmosphere-1',
+    src: galleryImage11,
+    alt: 'High-energy party atmosphere on Premier Party Cruises',
+    title: 'Electric Party Vibes',
+    description: 'Experience the electric atmosphere of our weekend party cruises',
+    category: 'Parties',
+    location: 'Lake Travis, Austin',
+    photographer: 'Premier Party Cruises',
+    date: '2024-08-28',
+    likes: 789,
+    views: 4120,
+    tags: ['party', 'energy', 'dancing', 'music']
+  },
+  {
+    id: 'sunset-cruise-1',
+    src: galleryImage12,
+    alt: 'Romantic sunset cruise on Lake Travis',
+    title: 'Sunset Magic',
+    description: 'Breathtaking sunset cruises perfect for romantic evenings and special occasions',
+    category: 'Scenery',
+    location: 'Lake Travis, Austin',
+    photographer: 'Premier Party Cruises',
+    date: '2024-07-30',
+    likes: 892,
+    views: 5260,
+    tags: ['sunset', 'romantic', 'golden-hour', 'couples']
+  },
+  {
+    id: 'lake-activities-1',
+    src: galleryImage13,
+    alt: 'Water activities and swimming on Lake Travis',
+    title: 'Lake Travis Adventures',
+    description: 'Swimming, water sports, and lake activities in crystal clear Lake Travis waters',
+    category: 'Activities',
+    location: 'Lake Travis, Austin',
+    photographer: 'Premier Party Cruises',
+    date: '2024-08-12',
+    likes: 456,
+    views: 2890,
+    tags: ['swimming', 'water-sports', 'activities', 'adventure']
+  },
+  {
+    id: 'group-celebration-1',
+    src: galleryImage14,
+    alt: 'Large group celebration on Premier Party Cruises',
+    title: 'Group Celebrations',
+    description: 'Perfect venue for large group celebrations, corporate events, and milestone parties',
+    category: 'Events',
+    location: 'Lake Travis, Austin',
+    photographer: 'Premier Party Cruises',
+    date: '2024-09-05',
+    likes: 567,
+    views: 3240,
+    tags: ['groups', 'celebration', 'corporate', 'milestone']
   }
 ];
 
 const categories = [
   { id: 'All', label: 'All Photos', count: galleryImages.length },
+  { id: 'Featured', label: 'Featured', count: galleryImages.filter(img => img.category === 'Featured').length },
   { id: 'Fleet', label: 'Our Fleet', count: galleryImages.filter(img => img.category === 'Fleet').length },
   { id: 'Parties', label: 'Party Life', count: galleryImages.filter(img => img.category === 'Parties').length },
   { id: 'Scenery', label: 'Lake Views', count: galleryImages.filter(img => img.category === 'Scenery').length },
   { id: 'Events', label: 'Special Events', count: galleryImages.filter(img => img.category === 'Events').length },
-  { id: 'Celebrations', label: 'Celebrations', count: galleryImages.filter(img => img.category === 'Celebrations').length }
+  { id: 'Celebrations', label: 'Celebrations', count: galleryImages.filter(img => img.category === 'Celebrations').length },
+  { id: 'Activities', label: 'Activities', count: galleryImages.filter(img => img.category === 'Activities').length }
 ];
 
 const featuredVideos = [

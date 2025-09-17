@@ -2073,7 +2073,7 @@ export default function Chat() {
                           </div>
 
                           {/* Step 2: Package Add-Ons - Only show if time slot selected */}
-                          {formData.selectedTimeSlot && (
+                          {formData.selectedSlot && (
                             <div className="space-y-3 border-t pt-4">
                               <Label className="flex items-center gap-2">
                                 <Crown className="h-4 w-4" />
@@ -2112,7 +2112,7 @@ export default function Chat() {
                           )}
 
                           {/* Step 3: Pricing Details - Only show if time slot selected */}
-                          {formData.selectedTimeSlot && (
+                          {formData.selectedSlot && (
                             <div className="border-t pt-4">
                               {pricingLoading ? (
                                 <div className="flex items-center justify-center py-8">
@@ -2120,7 +2120,7 @@ export default function Chat() {
                                   <span className="text-slate-600 dark:text-slate-400">Calculating pricing...</span>
                                 </div>
                               ) : privatePricing ? (
-                            <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-lg p-4 border-t">
+                                <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-lg p-4">
                               <div className="text-center mb-4">
                                 <div className="text-3xl font-bold text-blue-600">
                                   {formatCurrency(privatePricing.total)}
@@ -2224,7 +2224,7 @@ export default function Chat() {
                                 setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
                                 handlePayment('deposit', 'private');
                               }}
-                              disabled={!formData.selectedTimeSlot || !privatePricing}
+                              disabled={!formData.selectedSlot || !privatePricing}
                               className="w-full bg-green-600 hover:bg-green-700"
                               data-testid="button-private-deposit"
                             >

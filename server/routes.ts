@@ -7049,6 +7049,62 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Update disco slot capacity (admin only)
+  app.put("/api/admin/disco/slots/:slotId/capacity", async (req, res) => {
+    try {
+      const { slotId } = req.params;
+      const { capacity } = req.body;
+      
+      // Basic validation
+      if (!capacity || typeof capacity !== 'number' || capacity < 1) {
+        return res.status(400).json({ 
+          error: "Invalid capacity", 
+          message: "Capacity must be a number greater than 0" 
+        });
+      }
+      
+      // Check if capacity is reasonable (max 500)
+      if (capacity > 500) {
+        return res.status(400).json({ 
+          error: "Invalid capacity", 
+          message: "Maximum capacity is 500 tickets" 
+        });
+      }
+      
+      // Get existing slot to validate
+      const existing = await storage.getDiscoSlot(slotId);
+      if (!existing) {
+        return res.status(404).json({ error: "Disco slot not found" });
+      }
+      
+      // Validate capacity is not less than tickets already sold
+      if (capacity < existing.ticketsSold) {
+        return res.status(400).json({ 
+          error: "Invalid capacity", 
+          message: `Cannot set capacity below current tickets sold (${existing.ticketsSold})` 
+        });
+      }
+      
+      // Update the capacity using the storage method
+      const updated = await storage.updateDiscoSlotCapacity(slotId, capacity);
+      
+      // Log the capacity change for audit
+      console.log(`Admin updated disco slot ${slotId} capacity from ${existing.ticketCap} to ${capacity}`);
+      
+      res.json({
+        success: true,
+        slot: updated,
+        message: `Capacity updated from ${existing.ticketCap} to ${capacity}`
+      });
+    } catch (error: any) {
+      console.error("Error updating disco slot capacity:", error);
+      if (error.message === "Disco slot not found") {
+        return res.status(404).json({ error: "Disco slot not found" });
+      }
+      res.status(500).json({ error: "Failed to update capacity" });
+    }
+  });
+
   // Get individual disco slot by ID  
   app.get("/api/disco/slots/:id", async (req, res) => {
     try {
