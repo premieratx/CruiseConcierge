@@ -7,6 +7,7 @@ import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Ship, Anchor, Users, Plus, Minus, AlertCircle } from "lucide-react";
+import { Slider } from "@/components/ui/slider";
 import type { Boat, Booking, DiscoSlot, Timeframe, Product } from "@shared/schema";
 import { getPrivateTimeSlotsForDate, timeSlotToCalendarFormat } from "@shared/timeSlots";
 import { format, startOfWeek, addWeeks, subWeeks, isToday } from "date-fns";
@@ -139,6 +140,7 @@ function CalendarView() {
   const [selectedTab, setSelectedTab] = useState<string>("all");
   const [viewMode, setViewMode] = useState<'week' | 'day'>('week');
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
+  const [selectedCapacity, setSelectedCapacity] = useState<number>(1); // Default to show all boats
   const { toast } = useToast();
 
   // Get the start of the week (Sunday)
@@ -259,12 +261,24 @@ function CalendarView() {
     },
   });
 
-  // Group boats by capacity for tabs
+  // Filter boats based on selected capacity - show boats that can accommodate the group size
+  const filteredBoats = boats.filter(boat => boat.capacity >= selectedCapacity);
+
+  // Group filtered boats by capacity for tabs
   const boatGroups = {
-    all: boats,
-    dayTripper: boats.filter(b => b.capacity <= 15),
-    medium: boats.filter(b => b.capacity >= 20 && b.capacity <= 35),
-    large: boats.filter(b => b.capacity >= 40)
+    all: filteredBoats,
+    dayTripper: filteredBoats.filter(b => b.capacity <= 15),
+    medium: filteredBoats.filter(b => b.capacity >= 20 && b.capacity <= 35),
+    large: filteredBoats.filter(b => b.capacity >= 40)
+  };
+
+  // Capacity selector handlers
+  const handleCapacityChange = (value: number[]) => {
+    setSelectedCapacity(value[0]);
+  };
+
+  const handleQuickSelect = (capacity: number) => {
+    setSelectedCapacity(capacity);
   };
 
   // Count available boats for 25-person group using proper time overlap logic
@@ -519,6 +533,74 @@ function CalendarView() {
         </div>
       </div>
 
+      {/* Boat Capacity Selector */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="text-lg">Group Size Filter</CardTitle>
+          <CardDescription>
+            Select your group size to see available boats that can accommodate your party
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          {/* Capacity Slider */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="text-sm font-medium">Group Size: {selectedCapacity} people</label>
+              <span className="text-sm text-muted-foreground">
+                {filteredBoats.length} boat{filteredBoats.length !== 1 ? 's' : ''} available
+              </span>
+            </div>
+            <Slider
+              value={[selectedCapacity]}
+              onValueChange={handleCapacityChange}
+              min={1}
+              max={75}
+              step={1}
+              className="w-full"
+              data-testid="capacity-slider"
+            />
+          </div>
+
+          {/* Quick Select Buttons */}
+          <div className="flex gap-2 flex-wrap">
+            <span className="text-sm font-medium self-center mr-2">Quick Select:</span>
+            {[14, 25, 30, 50, 75].map((capacity) => {
+              const availableBoats = boats.filter(b => b.capacity >= capacity).length;
+              return (
+                <Button
+                  key={capacity}
+                  variant={selectedCapacity === capacity ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => handleQuickSelect(capacity)}
+                  disabled={availableBoats === 0}
+                  className={cn(
+                    "relative",
+                    selectedCapacity === capacity && "ring-2 ring-primary"
+                  )}
+                  data-testid={`capacity-button-${capacity}`}
+                >
+                  {capacity}
+                  {availableBoats === 0 && (
+                    <span className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full" />
+                  )}
+                </Button>
+              );
+            })}
+            <Button
+              variant={selectedCapacity === 1 ? "default" : "outline"}
+              size="sm"
+              onClick={() => handleQuickSelect(1)}
+              className={cn(
+                selectedCapacity === 1 && "ring-2 ring-primary"
+              )}
+              data-testid="capacity-button-all"
+            >
+              All Sizes
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
       {/* Week Display */}
       <Card>
         <CardHeader>
@@ -551,7 +633,7 @@ function CalendarView() {
                   const isToday = date.toDateString() === new Date().toDateString();
                   const dayTimeBlocks = generateTimeBlocks(
                     date,
-                    selectedTab === 'all' ? boats : boatGroups[selectedTab as keyof typeof boatGroups],
+                    selectedTab === 'all' ? filteredBoats : boatGroups[selectedTab as keyof typeof boatGroups],
                     bookings,
                     products
                   );

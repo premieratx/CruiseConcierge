@@ -217,12 +217,20 @@ export default function Home() {
     }
   }, []);
 
-  const handleBookNow = () => {
-    navigate('/book');
+  const handleBookNow = (packageType?: string, eventType?: string) => {
+    if (packageType && eventType) {
+      navigate(`/chat?package=${packageType}&type=${eventType}`);
+    } else {
+      navigate('/chat?type=general');
+    }
   };
 
-  const handleGetQuote = () => {
-    navigate('/quotes/new');
+  const handleGetQuote = (packageType?: string, eventType?: string) => {
+    if (packageType && eventType) {
+      navigate(`/chat?package=${packageType}&type=${eventType}`);
+    } else {
+      navigate('/chat?type=general');
+    }
   };
 
   const handleContactSubmit = async (e: React.FormEvent) => {
@@ -367,7 +375,7 @@ export default function Home() {
             >
               <Button
                 size="lg"
-                onClick={handleBookNow}
+                onClick={() => handleBookNow()}
                 className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-xl px-12 py-6 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide"
                 data-testid="button-hero-book-now"
               >
@@ -379,7 +387,7 @@ export default function Home() {
               <Button
                 size="lg"
                 variant="outline"
-                onClick={handleGetQuote}
+                onClick={() => handleGetQuote()}
                 className="border-3 border-white text-white hover:bg-white hover:text-black font-bold text-xl px-12 py-6 rounded-2xl backdrop-blur-sm tracking-wide"
                 data-testid="button-hero-get-quote"
               >
@@ -509,10 +517,29 @@ export default function Home() {
                       
                       <Button 
                         className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white font-bold py-3 rounded-xl tracking-wide"
-                        onClick={() => service.specialPage ? navigate(service.specialPage) : handleGetQuote()}
+                        onClick={() => {
+                          if (service.specialPage) {
+                            navigate(service.specialPage);
+                          } else {
+                            // Handle specific service booking with package context
+                            switch(service.id) {
+                              case 'private':
+                                handleBookNow('private-cruise', 'general');
+                                break;
+                              case 'disco':
+                                handleBookNow('disco-cruise', 'general');
+                                break;
+                              case 'corporate':
+                                handleBookNow('private-cruise', 'corporate');
+                                break;
+                              default:
+                                handleGetQuote();
+                            }
+                          }
+                        }}
                         data-testid={`button-service-${service.id}`}
                       >
-                        {service.specialPage ? 'LEARN MORE' : 'GET QUOTE'}
+                        {service.specialPage ? 'LEARN MORE' : service.id === 'private' ? 'BOOK PRIVATE CRUISE' : service.id === 'disco' ? 'BOOK DISCO CRUISE' : 'GET QUOTE'}
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                     </div>

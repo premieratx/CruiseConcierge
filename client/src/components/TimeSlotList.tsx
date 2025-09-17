@@ -155,80 +155,71 @@ export const TimeSlotList = ({
             data-testid={`timeslot-card-${slot.id}`}
           >
             <CardContent className={cn(
-              "p-4",
-              variant === 'compact' && "p-3",
-              variant === 'detailed' && "p-6"
+              "p-2",
+              variant === 'compact' && "p-1.5",
+              variant === 'detailed' && "p-3"
             )}>
-              <div className="flex items-center justify-between">
-                <div className="flex-1">
-                  {/* Main time slot information */}
-                  <div className="flex items-center gap-3 mb-2">
-                    <span className="text-lg" aria-label={`${slot.cruiseType} cruise`}>
-                      {getSlotIcon(slot.cruiseType)}
-                    </span>
-                    <div>
-                      <div className="font-semibold text-lg" data-testid={`timeslot-label-${slot.id}`}>
-                        {showDate && `${formatDate(slot.dateISO)} · `}
-                        {formatTimeRange(slot.startTime, slot.endTime)}
-                      </div>
-                      <div className="text-sm text-muted-foreground">
-                        {slot.duration}h {slot.cruiseType} cruise
-                      </div>
+              {/* New compact layout with hierarchy */}
+              <div className="space-y-1">
+                {/* TOP: Boat capacity and name - most prominent */}
+                <div className="flex items-center justify-between">
+                  <div className="font-bold text-base" data-testid={`timeslot-boat-${slot.id}`}>
+                    {slot.cruiseType === 'private' && slot.boatCandidates.length > 0 && (
+                      <span className="text-primary">
+                        {slot.boatCandidates.length > 1 
+                          ? `${slot.boatCandidates.length} Boats` 
+                          : `Boat`} (Capacity: {slot.capacity})
+                      </span>
+                    )}
+                    {slot.cruiseType === 'disco' && (
+                      <span className="text-primary">Disco Cruise (Up to {slot.capacity})</span>
+                    )}
+                  </div>
+                  <Badge 
+                    variant={getSlotStatus(slot).variant} 
+                    className="text-xs"
+                    data-testid={`timeslot-status-${slot.id}`}
+                  >
+                    {getSlotStatus(slot).label}
+                  </Badge>
+                </div>
+
+                {/* MIDDLE: Time slot information */}
+                <div className="font-medium text-sm text-foreground" data-testid={`timeslot-label-${slot.id}`}>
+                  {showDate && `${formatDate(slot.dateISO)} • `}
+                  {formatTimeRange(slot.startTime, slot.endTime)}
+                </div>
+
+                {/* BOTTOM: Price and duration - large and prominent */}
+                {showPrice && (
+                  <div className="flex items-center justify-between pt-1 border-t border-border/50">
+                    <div className="font-bold text-base text-foreground" data-testid={`timeslot-price-${slot.id}`}>
+                      {slot.cruiseType === 'disco' 
+                        ? `${formatPrice(slot.price)} per ticket`
+                        : `From ${formatPrice(slot.price)}`
+                      }
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      {slot.duration}h cruise
                     </div>
                   </div>
+                )}
 
-                  {/* Additional details for non-compact variants */}
-                  {variant !== 'compact' && (
-                    <div className="flex items-center gap-4 text-sm text-muted-foreground">
-                      {showCapacity && (
-                        <div className="flex items-center gap-1" data-testid={`timeslot-capacity-${slot.id}`}>
-                          <Users className="h-4 w-4" />
-                          <span>Up to {slot.capacity} guests</span>
-                        </div>
-                      )}
-                      
-                      {slot.cruiseType === 'private' && slot.boatCandidates.length > 0 && (
-                        <div className="flex items-center gap-1">
-                          <Anchor className="h-4 w-4" />
-                          <span>{slot.boatCandidates.length} boat{slot.boatCandidates.length > 1 ? 's' : ''} available</span>
-                        </div>
-                      )}
-
-                      {showPrice && (
-                        <div className="flex items-center gap-1" data-testid={`timeslot-price-${slot.id}`}>
-                          <DollarSign className="h-4 w-4" />
-                          <span>
-                            {slot.cruiseType === 'disco' 
-                              ? `${formatPrice(slot.price)} per ticket`
-                              : `From ${formatPrice(slot.price)}`
-                            }
-                          </span>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-
-                {/* Status and action button */}
-                <div className="flex flex-col items-end gap-2">
-                  <Badge variant={statusVariant} data-testid={`timeslot-status-${slot.id}`}>
-                    {label}
-                  </Badge>
-                  
-                  {variant === 'detailed' && !isDisabled && (
-                    <Button
-                      size="sm"
-                      variant={isSelected ? "default" : "outline"}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        handleSlotClick(slot);
-                      }}
-                      data-testid={`button-select-slot-${slot.id}`}
-                    >
-                      {isSelected ? 'Selected' : 'Select'}
-                    </Button>
-                  )}
-                </div>
+                {/* Action button for detailed variant only */}
+                {variant === 'detailed' && !isDisabled && (
+                  <Button
+                    size="sm"
+                    variant={isSelected ? "default" : "outline"}
+                    className="w-full mt-2"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleSlotClick(slot);
+                    }}
+                    data-testid={`button-select-slot-${slot.id}`}
+                  >
+                    {isSelected ? 'Selected' : 'Select'}
+                  </Button>
+                )}
               </div>
 
               {/* Hold expiration countdown for held slots */}
