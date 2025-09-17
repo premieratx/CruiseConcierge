@@ -295,10 +295,10 @@ export class GoogleSheetsService {
   private getMockAvailability(startDate: Date, endDate: Date): AvailabilityData[] {
     const availability: AvailabilityData[] = [];
     const boats = [
-      { name: "Day Tripper", capacity: 14, weekdayRate: 200, fridayRate: 250, weekendRate: 300 },
-      { name: "Me Seeks The Irony", capacity: 30, weekdayRate: 250, fridayRate: 300, weekendRate: 350 },
-      { name: "Clever Girl", capacity: 75, weekdayRate: 300, fridayRate: 350, weekendRate: 400 },
-      { name: "ATX Disco Cruise", capacity: 100, weekdayRate: 85, fridayRate: 85, weekendRate: 85 }
+      { name: "boat_day_tripper", displayName: "Day Tripper", capacity: 14, weekdayRate: 200, fridayRate: 250, weekendRate: 300 },
+      { name: "boat_me_seeks_the_irony", displayName: "Me Seeks The Irony", capacity: 30, weekdayRate: 250, fridayRate: 300, weekendRate: 350 },
+      { name: "boat_clever_girl", displayName: "Clever Girl", capacity: 75, weekdayRate: 300, fridayRate: 350, weekendRate: 400 },
+      { name: "boat_atx_disco", displayName: "ATX Disco Cruise", capacity: 100, weekdayRate: 85, fridayRate: 85, weekendRate: 85 }
     ];
     const times = ["12:00", "15:00", "18:00"];
     const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -313,7 +313,7 @@ export class GoogleSheetsService {
       
       boats.forEach(boat => {
         // ATX Disco Cruise only on Friday/Saturday specific times
-        if (boat.name === "ATX Disco Cruise") {
+        if (boat.name === "boat_atx_disco") {
           if (isFriday) {
             availability.push({
               date: current.toISOString().split('T')[0],
@@ -1098,7 +1098,7 @@ export class GoogleSheetsService {
       
       boats.forEach(boat => {
         // ATX Disco Cruise only on Friday/Saturday specific times
-        if (boat.name === "ATX Disco Cruise") {
+        if (boat.name === "boat_atx_disco") {
           if (isFriday) {
             availability.push({
               date: current.toISOString().split('T')[0],

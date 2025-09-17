@@ -39,6 +39,7 @@ export const getPrivateTimeSlotsForDate = (date: Date, duration?: 3 | 4): TimeSl
       { id: '3pm-6pm-3h', label: '3:00 PM - 6:00 PM', startTime: '15:00', endTime: '18:00', duration: 3, icon: '🌆', description: 'Evening cruise (3 hours)' },
       { id: '4pm-7pm-3h', label: '4:00 PM - 7:00 PM', startTime: '16:00', endTime: '19:00', duration: 3, icon: '🌅', description: 'Early sunset cruise (3 hours)' },
       { id: '5pm-8pm-3h', label: '5:00 PM - 8:00 PM', startTime: '17:00', endTime: '20:00', duration: 3, icon: '🌙', description: 'Sunset cruise (3 hours)' },
+      { id: '5:30pm-8:30pm-3h', label: '5:30 PM - 8:30 PM', startTime: '17:30', endTime: '20:30', duration: 3, icon: '🌙', description: 'Late sunset cruise (3 hours)' },
     ];
 
     const fourHourSlots = [
@@ -49,6 +50,7 @@ export const getPrivateTimeSlotsForDate = (date: Date, duration?: 3 | 4): TimeSl
       { id: '2pm-6pm-4h', label: '2:00 PM - 6:00 PM', startTime: '14:00', endTime: '18:00', duration: 4, icon: '🌆', description: 'Late afternoon cruise (4 hours)' },
       { id: '3pm-7pm-4h', label: '3:00 PM - 7:00 PM', startTime: '15:00', endTime: '19:00', duration: 4, icon: '🌆', description: 'Evening cruise (4 hours)' },
       { id: '4pm-8pm-4h', label: '4:00 PM - 8:00 PM', startTime: '16:00', endTime: '20:00', duration: 4, icon: '🌙', description: 'Sunset cruise (4 hours)' },
+      { id: '4:30pm-8:30pm-4h', label: '4:30 PM - 8:30 PM', startTime: '16:30', endTime: '20:30', duration: 4, icon: '🌙', description: 'Late sunset cruise (4 hours)' },
     ];
 
     // Filter by duration if specified

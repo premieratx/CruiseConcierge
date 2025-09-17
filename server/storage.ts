@@ -687,6 +687,72 @@ export interface IStorage {
   }): Promise<SeoPage>;
   
   // ===== END SEO MANAGEMENT OPERATIONS =====
+
+  // ===== VERIFICATION AND TESTING OPERATIONS =====
+  // Automated verification to prove production readiness
+  
+  // Product Count and Linkage Verification
+  verifyProductCountAndLinkage(): Promise<{
+    valid: boolean;
+    productCount: number;
+    productCountValid: boolean;
+    boatLinkageValid: boolean;
+    uniqueSlotCombinations: number;
+    issues: string[];
+    products: any[];
+  }>;
+
+  // Database Constraint Verification
+  verifyDatabaseConstraints(): Promise<{
+    valid: boolean;
+    constraints: any[];
+    uniqueConstraintExists: boolean;
+    constraintDetails: any;
+    issues: string[];
+  }>;
+
+  // Time Slot Catalog Verification
+  verifyTimeSlotCatalog(): Promise<{
+    valid: boolean;
+    dayTypeCompliance: boolean;
+    requiredSlotsPresent: boolean;
+    businessSpecCompliance: boolean;
+    slotCoverage: any;
+    issues: string[];
+  }>;
+
+  // Pricing Threshold Testing
+  verifyPricingThresholds(): Promise<{
+    valid: boolean;
+    thresholdTests: any[];
+    crewFeeCalculations: any[];
+    pricingAccuracy: boolean;
+    criticalGroupSizes: number[];
+    issues: string[];
+  }>;
+
+  // End-to-End Double-Booking Prevention Test
+  testDoubleBookingPrevention(): Promise<{
+    valid: boolean;
+    testScenarios: any[];
+    preventionWorking: boolean;
+    constraintEnforcement: boolean;
+    availabilityUpdates: boolean;
+    cleanupCompleted: boolean;
+    issues: string[];
+  }>;
+
+  // Boat Fleet Configuration Verification
+  verifyBoatFleetConfiguration(): Promise<{
+    valid: boolean;
+    boatCount: number;
+    capacityCorrect: boolean;
+    crewThresholdCorrect: boolean;
+    boatDetails: any[];
+    issues: string[];
+  }>;
+
+  // ===== END VERIFICATION OPERATIONS =====
 }
 
 export class DatabaseStorage implements IStorage {
@@ -1694,8 +1760,19 @@ export class DatabaseStorage implements IStorage {
     // Calculate base cruise cost
     const baseCruiseCost = hourlyRate * duration;
     
-    // Add crew fee for groups >20 people
-    const crewFee = groupSize > 20 ? PRICING_DEFAULTS.EXTRA_CREW_FEE : 0;
+    // Boat-specific crew fee calculation based on capacity thresholds
+    let crewFee = 0;
+    if (groupSize > capacityTier) {
+      // Apply crew fees only when group exceeds boat's base capacity
+      if (capacityTier === 25 && groupSize <= 30) {
+        // Me Seeks The Irony: +$50/hr for 26-30 people
+        crewFee = 5000 * duration; // $50/hr * duration
+      } else if (capacityTier === 50 && groupSize <= 75) {
+        // Clever Girl: +$100/hr for 51-75 people
+        crewFee = 10000 * duration; // $100/hr * duration
+      }
+      // Day Tripper (14) and ATX Disco (100) don't have crew fee expansion
+    }
     
     // Calculate subtotal (base + crew fee)
     let subtotal = baseCruiseCost + crewFee;
@@ -4361,6 +4438,643 @@ Crawl-delay: 1`;
   }
 
   // ===== END SEO MANAGEMENT OPERATIONS =====
+
+  // ===== VERIFICATION AND TESTING OPERATIONS =====
+  // Automated verification to prove production readiness
+
+  /**
+   * Verify that exactly 27 products exist with proper boat linkage
+   */
+  async verifyProductCountAndLinkage(): Promise<{
+    valid: boolean;
+    productCount: number;
+    productCountValid: boolean;
+    boatLinkageValid: boolean;
+    uniqueSlotCombinations: number;
+    issues: string[];
+    products: any[];
+  }> {
+    console.log('🔍 Verifying product count and boat linkage...');
+    
+    const issues: string[] = [];
+    const allProducts = await db.select().from(products).where(eq(products.active, true));
+    const allBoats = await db.select().from(boats).where(eq(boats.active, true));
+    
+    const productCount = allProducts.length;
+    const expectedCount = 27;
+    const productCountValid = productCount === expectedCount;
+    
+    if (!productCountValid) {
+      issues.push(`Expected ${expectedCount} products, found ${productCount}`);
+    }
+    
+    // Verify boat linkage for private cruise products
+    const privateCruiseProducts = allProducts.filter(p => p.productType === 'private_cruise');
+    let boatLinkageValid = true;
+    
+    for (const product of privateCruiseProducts) {
+      if (!product.boatId) {
+        issues.push(`Private cruise product ${product.name} missing boatId`);
+        boatLinkageValid = false;
+      } else {
+        const boat = allBoats.find(b => b.id === product.boatId);
+        if (!boat) {
+          issues.push(`Product ${product.name} linked to invalid boat ${product.boatId}`);
+          boatLinkageValid = false;
+        }
+      }
+    }
+    
+    // Verify unique boat+time+day combinations
+    const slotCombinations = new Set();
+    for (const product of privateCruiseProducts) {
+      const combo = `${product.boatId}_${product.dayType}_${product.startTime}_${product.endTime}`;
+      if (slotCombinations.has(combo)) {
+        issues.push(`Duplicate slot combination: ${combo}`);
+      }
+      slotCombinations.add(combo);
+    }
+    
+    const uniqueSlotCombinations = slotCombinations.size;
+    
+    console.log(`✅ Product verification complete: ${productCount} products, ${uniqueSlotCombinations} unique slots`);
+    
+    return {
+      valid: productCountValid && boatLinkageValid && issues.length === 0,
+      productCount,
+      productCountValid,
+      boatLinkageValid,
+      uniqueSlotCombinations,
+      issues,
+      products: allProducts.map(p => ({
+        id: p.id,
+        name: p.name,
+        productType: p.productType,
+        boatId: p.boatId,
+        dayType: p.dayType,
+        startTime: p.startTime,
+        endTime: p.endTime,
+        active: p.active
+      }))
+    };
+  }
+
+  /**
+   * Verify database constraints exist to prevent double-booking
+   */
+  async verifyDatabaseConstraints(): Promise<{
+    valid: boolean;
+    constraints: any[];
+    uniqueConstraintExists: boolean;
+    constraintDetails: any;
+    issues: string[];
+  }> {
+    console.log('🔍 Verifying database constraints...');
+    
+    const issues: string[] = [];
+    let constraints: any[] = [];
+    let uniqueConstraintExists = false;
+    let constraintDetails: any = {};
+    
+    try {
+      // Query PostgreSQL system tables for constraint information
+      const constraintQuery = sql`
+        SELECT 
+          tc.constraint_name,
+          tc.constraint_type,
+          tc.table_name,
+          string_agg(kcu.column_name, ',' ORDER BY kcu.ordinal_position) as columns
+        FROM information_schema.table_constraints tc
+        JOIN information_schema.key_column_usage kcu 
+          ON tc.constraint_name = kcu.constraint_name 
+          AND tc.table_schema = kcu.table_schema
+        WHERE tc.table_name IN ('bookings', 'availability_slots', 'products')
+          AND tc.constraint_type IN ('UNIQUE', 'PRIMARY KEY')
+        GROUP BY tc.constraint_name, tc.constraint_type, tc.table_name
+        ORDER BY tc.table_name, tc.constraint_type;
+      `;
+      
+      const result = await db.execute(constraintQuery);
+      constraints = result.rows as any[];
+      
+      // Look for boat_id + time constraints
+      const bookingConstraints = constraints.filter(c => c.table_name === 'bookings');
+      const productConstraints = constraints.filter(c => c.table_name === 'products');
+      
+      // Check for time-based uniqueness constraint
+      const timeConstraint = bookingConstraints.find(c => 
+        c.columns?.includes('boat_id') && 
+        (c.columns?.includes('start_time') || c.columns?.includes('startTime'))
+      );
+      
+      if (timeConstraint) {
+        uniqueConstraintExists = true;
+        constraintDetails = timeConstraint;
+      } else {
+        issues.push('No unique constraint found on boat_id + start_time + end_time');
+      }
+      
+      // Verify product uniqueness constraint
+      const productUniqueConstraint = productConstraints.find(c =>
+        c.columns?.includes('boat_id') &&
+        c.columns?.includes('start_time') &&
+        c.columns?.includes('day_type')
+      );
+      
+      if (!productUniqueConstraint) {
+        issues.push('No unique constraint found on product boat_id + start_time + day_type');
+      }
+      
+    } catch (error: any) {
+      issues.push(`Database constraint verification failed: ${error.message}`);
+    }
+    
+    console.log(`✅ Constraint verification complete: ${constraints.length} constraints found`);
+    
+    return {
+      valid: uniqueConstraintExists && issues.length === 0,
+      constraints,
+      uniqueConstraintExists,
+      constraintDetails,
+      issues
+    };
+  }
+
+  /**
+   * Verify time slot catalog matches business specification
+   */
+  async verifyTimeSlotCatalog(): Promise<{
+    valid: boolean;
+    dayTypeCompliance: boolean;
+    requiredSlotsPresent: boolean;
+    businessSpecCompliance: boolean;
+    slotCoverage: any;
+    issues: string[];
+  }> {
+    console.log('🔍 Verifying time slot catalog...');
+    
+    const issues: string[] = [];
+    const allProducts = await db.select().from(products).where(
+      and(eq(products.active, true), eq(products.productType, 'private_cruise'))
+    );
+    
+    // Group products by day type
+    const weekdayProducts = allProducts.filter(p => p.dayType === 'weekday');
+    const fridayProducts = allProducts.filter(p => p.dayType === 'friday');  
+    const weekendProducts = allProducts.filter(p => p.dayType === 'weekend');
+    
+    // Check required slots per business spec
+    const requiredSlots = {
+      weekday: [
+        '10:00-14:00', '11:00-15:00', '12:00-16:00', '13:00-17:00', 
+        '14:00-18:00', '15:00-19:00', '16:00-20:00', '16:30-20:30',
+        '17:00-20:00', '17:30-20:30' // Added evening slots
+      ],
+      friday: ['12:00-16:00', '16:30-20:30'],
+      weekend: ['11:00-15:00', '15:30-19:30']
+    };
+    
+    let dayTypeCompliance = true;
+    let requiredSlotsPresent = true;
+    
+    // Verify weekday slots
+    for (const requiredSlot of requiredSlots.weekday) {
+      const [startTime, endTime] = requiredSlot.split('-');
+      const hasSlot = weekdayProducts.some(p => p.startTime === startTime && p.endTime === endTime);
+      if (!hasSlot) {
+        issues.push(`Missing weekday slot: ${requiredSlot}`);
+        requiredSlotsPresent = false;
+      }
+    }
+    
+    // Verify Friday slots
+    for (const requiredSlot of requiredSlots.friday) {
+      const [startTime, endTime] = requiredSlot.split('-');
+      const hasSlot = fridayProducts.some(p => p.startTime === startTime && p.endTime === endTime);
+      if (!hasSlot) {
+        issues.push(`Missing Friday slot: ${requiredSlot}`);
+        requiredSlotsPresent = false;
+      }
+    }
+    
+    // Verify Weekend slots
+    for (const requiredSlot of requiredSlots.weekend) {
+      const [startTime, endTime] = requiredSlot.split('-');
+      const hasSlot = weekendProducts.some(p => p.startTime === startTime && p.endTime === endTime);
+      if (!hasSlot) {
+        issues.push(`Missing weekend slot: ${requiredSlot}`);
+        requiredSlotsPresent = false;
+      }
+    }
+    
+    // Check for critical evening slots on weekdays (4:30-8:30 PM and 5:30-8:30 PM)
+    const has430Slot = weekdayProducts.some(p => p.startTime === '16:30' && p.endTime === '20:30');
+    const has530Slot = weekdayProducts.some(p => p.startTime === '17:30' && p.endTime === '20:30');
+    
+    if (!has430Slot) {
+      issues.push('Missing critical weekday slot: 4:30 PM - 8:30 PM');
+    }
+    if (!has530Slot) {
+      issues.push('Missing critical weekday slot: 5:30 PM - 8:30 PM');
+    }
+    
+    const businessSpecCompliance = has430Slot && has530Slot && requiredSlotsPresent;
+    
+    const slotCoverage = {
+      weekday: {
+        total: weekdayProducts.length,
+        required: requiredSlots.weekday.length,
+        coverage: `${weekdayProducts.length}/${requiredSlots.weekday.length}`
+      },
+      friday: {
+        total: fridayProducts.length,
+        required: requiredSlots.friday.length,
+        coverage: `${fridayProducts.length}/${requiredSlots.friday.length}`
+      },
+      weekend: {
+        total: weekendProducts.length,
+        required: requiredSlots.weekend.length,
+        coverage: `${weekendProducts.length}/${requiredSlots.weekend.length}`
+      }
+    };
+    
+    console.log(`✅ Time slot verification complete: ${issues.length} issues found`);
+    
+    return {
+      valid: businessSpecCompliance && issues.length === 0,
+      dayTypeCompliance,
+      requiredSlotsPresent,
+      businessSpecCompliance,
+      slotCoverage,
+      issues
+    };
+  }
+
+  /**
+   * Verify pricing thresholds work correctly at critical group sizes
+   */
+  async verifyPricingThresholds(): Promise<{
+    valid: boolean;
+    thresholdTests: any[];
+    crewFeeCalculations: any[];
+    pricingAccuracy: boolean;
+    criticalGroupSizes: number[];
+    issues: string[];
+  }> {
+    console.log('🔍 Verifying pricing thresholds...');
+    
+    const issues: string[] = [];
+    const criticalGroupSizes = [14, 25, 26, 30, 50, 51, 75];
+    const thresholdTests: any[] = [];
+    const crewFeeCalculations: any[] = [];
+    
+    // Test each boat at critical group sizes
+    const boats = await db.select().from(boats).where(eq(boats.active, true));
+    let pricingAccuracy = true;
+    
+    for (const boat of boats) {
+      for (const groupSize of criticalGroupSizes) {
+        try {
+          // Calculate pricing for this boat at this group size
+          const testDate = new Date('2024-06-15'); // Saturday for consistent testing
+          const timeSlot = '11:00 AM - 3:00 PM';
+          
+          const pricing = await this.calculateCruisePricing({
+            groupSize,
+            eventDate: testDate,
+            timeSlot
+          });
+          
+          // Check crew fee logic
+          let expectedCrewFee = 0;
+          if (boat.extraCrewThreshold && groupSize > boat.extraCrewThreshold) {
+            // Apply crew fee for 4 hours (typical duration)
+            expectedCrewFee = (boat.id === 'boat_me_seeks_the_irony' ? 50 : 100) * 4 * 100; // Convert to cents
+          }
+          
+          const testResult = {
+            boatId: boat.id,
+            boatName: boat.name,
+            groupSize,
+            capacity: boat.capacity,
+            maxCapacity: boat.maxCapacity,
+            extraCrewThreshold: boat.extraCrewThreshold,
+            expectedCrewFee,
+            actualPricing: pricing,
+            crewFeeCorrect: true // Will verify below
+          };
+          
+          // Verify crew fee is applied correctly
+          if (boat.extraCrewThreshold && groupSize > boat.extraCrewThreshold) {
+            // Check if pricing includes crew fee (this would be in the breakdown)
+            const hasCrewFee = pricing.breakdown?.some(item => 
+              item.name?.toLowerCase().includes('crew') || 
+              item.name?.toLowerCase().includes('extra')
+            );
+            
+            if (!hasCrewFee) {
+              issues.push(`Missing crew fee for ${boat.name} at group size ${groupSize}`);
+              testResult.crewFeeCorrect = false;
+              pricingAccuracy = false;
+            }
+          }
+          
+          thresholdTests.push(testResult);
+          
+          if (expectedCrewFee > 0) {
+            crewFeeCalculations.push({
+              boat: boat.name,
+              groupSize,
+              threshold: boat.extraCrewThreshold,
+              expectedFee: expectedCrewFee,
+              feeApplied: testResult.crewFeeCorrect
+            });
+          }
+          
+        } catch (error: any) {
+          issues.push(`Pricing calculation failed for ${boat.name} at group size ${groupSize}: ${error.message}`);
+          pricingAccuracy = false;
+        }
+      }
+    }
+    
+    console.log(`✅ Pricing threshold verification complete: ${thresholdTests.length} tests run`);
+    
+    return {
+      valid: pricingAccuracy && issues.length === 0,
+      thresholdTests,
+      crewFeeCalculations,
+      pricingAccuracy,
+      criticalGroupSizes,
+      issues
+    };
+  }
+
+  /**
+   * Test end-to-end double-booking prevention
+   */
+  async testDoubleBookingPrevention(): Promise<{
+    valid: boolean;
+    testScenarios: any[];
+    preventionWorking: boolean;
+    constraintEnforcement: boolean;
+    availabilityUpdates: boolean;
+    cleanupCompleted: boolean;
+    issues: string[];
+  }> {
+    console.log('🔍 Testing double-booking prevention...');
+    
+    const issues: string[] = [];
+    const testScenarios: any[] = [];
+    let preventionWorking = true;
+    let constraintEnforcement = true;
+    let availabilityUpdates = true;
+    let cleanupCompleted = false;
+    
+    // Test booking IDs for cleanup
+    const testBookingIds: string[] = [];
+    
+    try {
+      // Test Scenario 1: Attempt simultaneous bookings on same boat/time
+      const testDate = new Date('2024-08-15'); // Future date
+      const startTime = new Date(testDate);
+      startTime.setHours(14, 0, 0, 0); // 2:00 PM
+      const endTime = new Date(testDate);
+      endTime.setHours(18, 0, 0, 0); // 6:00 PM
+      
+      const testBoat = await db.select().from(boats).where(eq(boats.active, true)).limit(1);
+      if (testBoat.length === 0) {
+        issues.push('No boats available for testing');
+        return {
+          valid: false,
+          testScenarios,
+          preventionWorking: false,
+          constraintEnforcement: false,
+          availabilityUpdates: false,
+          cleanupCompleted: false,
+          issues
+        };
+      }
+      
+      const boatId = testBoat[0].id;
+      
+      // Create first booking
+      const booking1 = await this.createBooking({
+        orgId: 'org_demo',
+        boatId,
+        type: 'private',
+        startTime,
+        endTime,
+        groupSize: 20,
+        contactName: 'Test Customer 1',
+        contactEmail: 'test1@example.com',
+        contactPhone: '555-0001',
+        partyType: 'test'
+      });
+      
+      testBookingIds.push(booking1.id);
+      
+      const scenario1 = {
+        name: 'First booking creation',
+        boatId,
+        startTime: startTime.toISOString(),
+        endTime: endTime.toISOString(),
+        success: true,
+        bookingId: booking1.id
+      };
+      testScenarios.push(scenario1);
+      
+      // Attempt second booking on same boat/time (should fail)
+      let secondBookingFailed = false;
+      try {
+        const booking2 = await this.createBooking({
+          orgId: 'org_demo',
+          boatId,
+          type: 'private',
+          startTime,
+          endTime,
+          groupSize: 15,
+          contactName: 'Test Customer 2',
+          contactEmail: 'test2@example.com',
+          contactPhone: '555-0002',
+          partyType: 'test'
+        });
+        
+        // If we get here, double-booking was allowed (BAD)
+        testBookingIds.push(booking2.id);
+        issues.push('Double-booking was allowed - constraint failed');
+        preventionWorking = false;
+        constraintEnforcement = false;
+        
+        const scenario2 = {
+          name: 'Second booking attempt (should fail)',
+          boatId,
+          startTime: startTime.toISOString(),
+          endTime: endTime.toISOString(),
+          success: true,
+          bookingId: booking2.id,
+          shouldHaveFailed: true
+        };
+        testScenarios.push(scenario2);
+        
+      } catch (error: any) {
+        // This is expected - double booking should fail
+        secondBookingFailed = true;
+        const scenario2 = {
+          name: 'Second booking attempt (correctly failed)',
+          boatId,
+          startTime: startTime.toISOString(), 
+          endTime: endTime.toISOString(),
+          success: false,
+          error: error.message,
+          correctlyPrevented: true
+        };
+        testScenarios.push(scenario2);
+      }
+      
+      if (!secondBookingFailed) {
+        issues.push('Second booking should have failed but succeeded');
+        preventionWorking = false;
+      }
+      
+      // Test Scenario 2: Check availability updates
+      const availability = await this.checkAvailability(testDate, 4, 20, 'private');
+      if (availability.available) {
+        // Should show not available for the test boat during our test time
+        const availableBoats = availability.boats || [];
+        const testBoatAvailable = availableBoats.some(b => b.id === boatId);
+        
+        if (testBoatAvailable) {
+          issues.push('Boat showing as available despite existing booking');
+          availabilityUpdates = false;
+        }
+      }
+      
+      const scenario3 = {
+        name: 'Availability check after booking',
+        date: testDate.toISOString(),
+        available: availability.available,
+        reason: availability.reason,
+        correctlyUpdated: !availability.available || !(availability.boats?.some(b => b.id === boatId))
+      };
+      testScenarios.push(scenario3);
+      
+      // Cleanup test bookings
+      for (const bookingId of testBookingIds) {
+        try {
+          await this.deleteBooking(bookingId);
+          cleanupCompleted = true;
+        } catch (error: any) {
+          issues.push(`Failed to cleanup test booking ${bookingId}: ${error.message}`);
+        }
+      }
+      
+    } catch (error: any) {
+      issues.push(`Double-booking test failed: ${error.message}`);
+      preventionWorking = false;
+    }
+    
+    console.log(`✅ Double-booking prevention test complete: ${testScenarios.length} scenarios tested`);
+    
+    return {
+      valid: preventionWorking && constraintEnforcement && availabilityUpdates && issues.length === 0,
+      testScenarios,
+      preventionWorking,
+      constraintEnforcement,
+      availabilityUpdates,
+      cleanupCompleted,
+      issues
+    };
+  }
+
+  /**
+   * Verify boat fleet configuration is correct
+   */
+  async verifyBoatFleetConfiguration(): Promise<{
+    valid: boolean;
+    boatCount: number;
+    capacityCorrect: boolean;
+    crewThresholdCorrect: boolean;
+    boatDetails: any[];
+    issues: string[];
+  }> {
+    console.log('🔍 Verifying boat fleet configuration...');
+    
+    const issues: string[] = [];
+    const allBoats = await db.select().from(boats).where(eq(boats.active, true));
+    
+    const expectedBoats = [
+      { id: 'boat_day_tripper', name: 'Day Tripper', capacity: 14, maxCapacity: 14, extraCrewThreshold: null },
+      { id: 'boat_me_seeks_the_irony', name: 'Me Seeks The Irony', capacity: 25, maxCapacity: 30, extraCrewThreshold: 26 },
+      { id: 'boat_clever_girl', name: 'Clever Girl', capacity: 50, maxCapacity: 75, extraCrewThreshold: 51 },
+      { id: 'boat_atx_disco', name: 'ATX Disco Cruise', capacity: 100, maxCapacity: 100, extraCrewThreshold: null }
+    ];
+    
+    const boatCount = allBoats.length;
+    const expectedCount = 4;
+    let capacityCorrect = true;
+    let crewThresholdCorrect = true;
+    
+    if (boatCount !== expectedCount) {
+      issues.push(`Expected ${expectedCount} boats, found ${boatCount}`);
+    }
+    
+    const boatDetails = allBoats.map(boat => {
+      const expected = expectedBoats.find(e => e.id === boat.id);
+      const isCorrect = expected && 
+        boat.capacity === expected.capacity &&
+        boat.maxCapacity === expected.maxCapacity &&
+        boat.extraCrewThreshold === expected.extraCrewThreshold;
+      
+      if (!isCorrect && expected) {
+        if (boat.capacity !== expected.capacity) {
+          issues.push(`${boat.name}: Expected capacity ${expected.capacity}, got ${boat.capacity}`);
+          capacityCorrect = false;
+        }
+        if (boat.maxCapacity !== expected.maxCapacity) {
+          issues.push(`${boat.name}: Expected maxCapacity ${expected.maxCapacity}, got ${boat.maxCapacity}`);
+          capacityCorrect = false;
+        }
+        if (boat.extraCrewThreshold !== expected.extraCrewThreshold) {
+          issues.push(`${boat.name}: Expected extraCrewThreshold ${expected.extraCrewThreshold}, got ${boat.extraCrewThreshold}`);
+          crewThresholdCorrect = false;
+        }
+      } else if (!expected) {
+        issues.push(`Unexpected boat found: ${boat.name} (${boat.id})`);
+      }
+      
+      return {
+        id: boat.id,
+        name: boat.name,
+        capacity: boat.capacity,
+        maxCapacity: boat.maxCapacity,
+        extraCrewThreshold: boat.extraCrewThreshold,
+        expected: expected || null,
+        isCorrect
+      };
+    });
+    
+    // Check for missing boats
+    for (const expected of expectedBoats) {
+      const found = allBoats.find(b => b.id === expected.id);
+      if (!found) {
+        issues.push(`Missing expected boat: ${expected.name} (${expected.id})`);
+      }
+    }
+    
+    console.log(`✅ Boat fleet verification complete: ${boatCount} boats verified`);
+    
+    return {
+      valid: boatCount === expectedCount && capacityCorrect && crewThresholdCorrect && issues.length === 0,
+      boatCount,
+      capacityCorrect,
+      crewThresholdCorrect,
+      boatDetails,
+      issues
+    };
+  }
+
+  // ===== END VERIFICATION OPERATIONS =====
 }
 
 export const storage = new DatabaseStorage();

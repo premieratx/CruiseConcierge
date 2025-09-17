@@ -91,8 +91,27 @@ export function calculateBaseCruiseCost(date: Date, groupSize: number) {
   // Calculate base cruise cost
   const baseCruiseCost = hourlyRate * duration;
   
-  // Add crew fee for groups >20 people
-  const crewFee = groupSize > 20 ? PRICING_DEFAULTS.EXTRA_CREW_FEE : 0;
+  // Crew fee calculation - this is a fallback generic calculation
+  // Real pricing should use boat-specific crew fees from products table
+  // This is kept for backward compatibility and fallback scenarios
+  let crewFee = 0;
+  if (groupSize > 20) {
+    // For capacity tiers that support expanded capacity:
+    // - 14-person boat (Day Tripper): No crew fee (no expansion possible)
+    // - 25-person boat (Me Seeks): +$50/hr for 26-30 people 
+    // - 50-person boat (Clever Girl): +$100/hr for 51-75 people
+    // - 100-person boat (ATX Disco): No crew fee needed
+    if (capacityTier === 25 && groupSize > 25) {
+      crewFee = 5000 * duration; // $50/hr * duration for Me Seeks expansion
+    } else if (capacityTier === 50 && groupSize > 50) {
+      crewFee = 10000 * duration; // $100/hr * duration for Clever Girl expansion  
+    } else if (capacityTier <= 14 || capacityTier >= 75) {
+      crewFee = 0; // No crew fee for boats that don't support expansion
+    } else {
+      // Fallback for unexpected cases - use original logic but with hourly rate
+      crewFee = Math.floor(PRICING_DEFAULTS.EXTRA_CREW_FEE / 4) * duration; // Convert flat fee to hourly
+    }
+  }
   
   // Calculate subtotal (base + crew fee)
   const subtotal = baseCruiseCost + crewFee;

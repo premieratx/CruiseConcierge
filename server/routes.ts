@@ -12907,6 +12907,239 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ==========================================
+  // VERIFICATION AND TESTING ENDPOINTS 
+  // AUTOMATED VERIFICATION TO PROVE PRODUCTION READINESS
+  // ==========================================
+
+  // Product Count and Linkage Verification
+  app.get('/api/verify/products', async (req, res) => {
+    try {
+      console.log('🔍 Verifying product count and linkage...');
+      const verification = await storage.verifyProductCountAndLinkage();
+      
+      res.json({
+        success: verification.valid,
+        verification: {
+          productCount: verification.productCount,
+          expectedCount: 27,
+          productCountValid: verification.productCountValid,
+          boatLinkageValid: verification.boatLinkageValid,
+          uniqueSlotCombinations: verification.uniqueSlotCombinations,
+          issues: verification.issues,
+          products: verification.products
+        },
+        timestamp: new Date().toISOString()
+      });
+    } catch (error: any) {
+      console.error('❌ Product verification error:', error);
+      res.status(500).json({ 
+        error: 'Product verification failed', 
+        details: error.message 
+      });
+    }
+  });
+
+  // Database Constraint Verification
+  app.get('/api/verify/constraints', async (req, res) => {
+    try {
+      console.log('🔍 Verifying database constraints...');
+      const verification = await storage.verifyDatabaseConstraints();
+      
+      res.json({
+        success: verification.valid,
+        verification: {
+          constraints: verification.constraints,
+          uniqueConstraintExists: verification.uniqueConstraintExists,
+          constraintDetails: verification.constraintDetails,
+          issues: verification.issues
+        },
+        timestamp: new Date().toISOString()
+      });
+    } catch (error: any) {
+      console.error('❌ Database constraint verification error:', error);
+      res.status(500).json({ 
+        error: 'Database constraint verification failed', 
+        details: error.message 
+      });
+    }
+  });
+
+  // Time Slot Catalog Verification
+  app.get('/api/verify/timeslots', async (req, res) => {
+    try {
+      console.log('🔍 Verifying time slot catalog...');
+      const verification = await storage.verifyTimeSlotCatalog();
+      
+      res.json({
+        success: verification.valid,
+        verification: {
+          dayTypeCompliance: verification.dayTypeCompliance,
+          requiredSlotsPresent: verification.requiredSlotsPresent,
+          businessSpecCompliance: verification.businessSpecCompliance,
+          slotCoverage: verification.slotCoverage,
+          issues: verification.issues
+        },
+        timestamp: new Date().toISOString()
+      });
+    } catch (error: any) {
+      console.error('❌ Time slot verification error:', error);
+      res.status(500).json({ 
+        error: 'Time slot verification failed', 
+        details: error.message 
+      });
+    }
+  });
+
+  // Pricing Threshold Testing
+  app.get('/api/verify/pricing', async (req, res) => {
+    try {
+      console.log('🔍 Verifying pricing thresholds...');
+      const verification = await storage.verifyPricingThresholds();
+      
+      res.json({
+        success: verification.valid,
+        verification: {
+          thresholdTests: verification.thresholdTests,
+          crewFeeCalculations: verification.crewFeeCalculations,
+          pricingAccuracy: verification.pricingAccuracy,
+          criticalGroupSizes: verification.criticalGroupSizes,
+          issues: verification.issues
+        },
+        timestamp: new Date().toISOString()
+      });
+    } catch (error: any) {
+      console.error('❌ Pricing verification error:', error);
+      res.status(500).json({ 
+        error: 'Pricing verification failed', 
+        details: error.message 
+      });
+    }
+  });
+
+  // End-to-End Double-Booking Prevention Test
+  app.post('/api/verify/double-booking-test', async (req, res) => {
+    try {
+      console.log('🔍 Testing double-booking prevention...');
+      const verification = await storage.testDoubleBookingPrevention();
+      
+      res.json({
+        success: verification.valid,
+        verification: {
+          testScenarios: verification.testScenarios,
+          preventionWorking: verification.preventionWorking,
+          constraintEnforcement: verification.constraintEnforcement,
+          availabilityUpdates: verification.availabilityUpdates,
+          cleanupCompleted: verification.cleanupCompleted,
+          issues: verification.issues
+        },
+        timestamp: new Date().toISOString()
+      });
+    } catch (error: any) {
+      console.error('❌ Double-booking prevention test error:', error);
+      res.status(500).json({ 
+        error: 'Double-booking prevention test failed', 
+        details: error.message 
+      });
+    }
+  });
+
+  // Boat Fleet Verification
+  app.get('/api/verify/boats', async (req, res) => {
+    try {
+      console.log('🔍 Verifying boat fleet configuration...');
+      const verification = await storage.verifyBoatFleetConfiguration();
+      
+      res.json({
+        success: verification.valid,
+        verification: {
+          boatCount: verification.boatCount,
+          expectedBoatCount: 4,
+          capacityCorrect: verification.capacityCorrect,
+          crewThresholdCorrect: verification.crewThresholdCorrect,
+          boatDetails: verification.boatDetails,
+          issues: verification.issues
+        },
+        timestamp: new Date().toISOString()
+      });
+    } catch (error: any) {
+      console.error('❌ Boat fleet verification error:', error);
+      res.status(500).json({ 
+        error: 'Boat fleet verification failed', 
+        details: error.message 
+      });
+    }
+  });
+
+  // Comprehensive System Verification
+  app.get('/api/verify/system', async (req, res) => {
+    try {
+      console.log('🔍 Running comprehensive system verification...');
+      
+      // Run all verification checks
+      const [
+        productVerification,
+        constraintVerification,
+        timeslotVerification,
+        pricingVerification,
+        boatVerification
+      ] = await Promise.all([
+        storage.verifyProductCountAndLinkage(),
+        storage.verifyDatabaseConstraints(),
+        storage.verifyTimeSlotCatalog(),
+        storage.verifyPricingThresholds(),
+        storage.verifyBoatFleetConfiguration()
+      ]);
+
+      // Double-booking test (skip for comprehensive to avoid side effects)
+      
+      const allValid = [
+        productVerification.valid,
+        constraintVerification.valid,
+        timeslotVerification.valid,
+        pricingVerification.valid,
+        boatVerification.valid
+      ].every(v => v === true);
+
+      const allIssues = [
+        ...productVerification.issues,
+        ...constraintVerification.issues,
+        ...timeslotVerification.issues,
+        ...pricingVerification.issues,
+        ...boatVerification.issues
+      ];
+
+      res.json({
+        success: allValid,
+        productionReady: allValid && allIssues.length === 0,
+        verification: {
+          products: productVerification,
+          constraints: constraintVerification,
+          timeslots: timeslotVerification,
+          pricing: pricingVerification,
+          boats: boatVerification,
+          overallValid: allValid,
+          totalIssues: allIssues.length,
+          allIssues
+        },
+        summary: {
+          productCount: productVerification.productCount,
+          boatCount: boatVerification.boatCount,
+          constraintsValid: constraintVerification.valid,
+          pricingValid: pricingVerification.valid,
+          timeslotsValid: timeslotVerification.valid
+        },
+        timestamp: new Date().toISOString()
+      });
+    } catch (error: any) {
+      console.error('❌ Comprehensive system verification error:', error);
+      res.status(500).json({ 
+        error: 'Comprehensive system verification failed', 
+        details: error.message 
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
