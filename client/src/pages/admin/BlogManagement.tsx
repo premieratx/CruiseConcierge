@@ -1,0 +1,623 @@
+import { useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import Layout from "@/components/Layout";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { 
+  Table, 
+  TableBody, 
+  TableCell, 
+  TableHead, 
+  TableHeader, 
+  TableRow 
+} from "@/components/ui/table";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { 
+  Search, 
+  Plus, 
+  Edit, 
+  Trash2, 
+  Eye, 
+  Calendar,
+  Filter,
+  MoreHorizontal,
+  FileText,
+  Users,
+  Tag,
+  Folder
+} from "lucide-react";
+import { Link } from "wouter";
+import { BlogPost, BlogAuthor, BlogCategory, BlogTag } from "@shared/schema";
+import { useToast } from "@/hooks/use-toast";
+
+interface BlogManagementData {
+  posts: (BlogPost & {
+    author?: BlogAuthor;
+    categories?: BlogCategory[];
+    tags?: BlogTag[];
+  })[];
+  authors: BlogAuthor[];
+  categories: BlogCategory[];
+  tags: BlogTag[];
+  totalPosts: number;
+  totalPublished: number;
+  totalDrafts: number;
+  totalViews: number;
+}
+
+export default function BlogManagement() {
+  const [activeTab, setActiveTab] = useState("posts");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [selectedStatus, setSelectedStatus] = useState("");
+  const [selectedAuthor, setSelectedAuthor] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  
+  const { toast } = useToast();
+  const queryClient = useQueryClient();
+
+  // Fetch blog management data
+  const { data, isLoading, error } = useQuery<BlogManagementData>({
+    queryKey: [
+      '/api/blog/management',
+      activeTab,
+      currentPage,
+      searchQuery,
+      selectedStatus,
+      selectedAuthor,
+      selectedCategory
+    ],
+    queryFn: async () => {
+      const params = new URLSearchParams({
+        tab: activeTab,
+        page: currentPage.toString(),
+        ...(searchQuery && { search: searchQuery }),
+        ...(selectedStatus && { status: selectedStatus }),
+        ...(selectedAuthor && { authorId: selectedAuthor }),
+        ...(selectedCategory && { categoryId: selectedCategory })
+      });
+
+      const response = await fetch(`/api/blog/management?${params}`);
+      if (!response.ok) throw new Error('Failed to fetch blog data');
+      return response.json();
+    }
+  });
+
+  // Delete post mutation
+  const deletePostMutation = useMutation({
+    mutationFn: async (postId: string) => {
+      const response = await fetch(`/api/blog/posts/${postId}`, {
+        method: 'DELETE'
+      });
+      if (!response.ok) throw new Error('Failed to delete post');
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/blog/management'] });
+      toast({
+        title: "Success",
+        description: "Blog post deleted successfully."
+      });
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to delete blog post.",
+        variant: "destructive"
+      });
+    }
+  });
+
+  // Publish/unpublish post mutation
+  const togglePublishMutation = useMutation({
+    mutationFn: async ({ postId, action }: { postId: string; action: 'publish' | 'unpublish' }) => {
+      const response = await fetch(`/api/blog/posts/${postId}/${action}`, {
+        method: 'POST'
+      });
+      if (!response.ok) throw new Error(`Failed to ${action} post`);
+    },
+    onSuccess: (_, { action }) => {
+      queryClient.invalidateQueries({ queryKey: ['/api/blog/management'] });
+      toast({
+        title: "Success",
+        description: `Blog post ${action}ed successfully.`
+      });
+    },
+    onError: (_, { action }) => {
+      toast({
+        title: "Error",
+        description: `Failed to ${action} blog post.`,
+        variant: "destructive"
+      });
+    }
+  });
+
+  const formatDate = (date: Date | string | null) => {
+    if (!date) return "Not set";
+    return new Date(date).toLocaleDateString('en-US', { 
+      year: 'numeric', 
+      month: 'short', 
+      day: 'numeric' 
+    });
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'published': return 'bg-green-100 text-green-800';
+      case 'draft': return 'bg-gray-100 text-gray-800';
+      case 'scheduled': return 'bg-blue-100 text-blue-800';
+      case 'archived': return 'bg-red-100 text-red-800';
+      default: return 'bg-gray-100 text-gray-800';
+    }
+  };
+
+  return (
+    <Layout>
+      <div className="container mx-auto px-4 py-8">
+        {/* Header */}
+        <div className="flex items-center justify-between mb-8">
+          <div>
+            <h1 className="text-3xl font-bold" data-testid="title-blog-management">Blog Management</h1>
+            <p className="text-gray-600 dark:text-gray-300">Manage your blog content, authors, and categories</p>
+          </div>
+          <Button asChild data-testid="button-create-post">
+            <Link href="/admin/blog/posts/new">
+              <Plus className="h-4 w-4 mr-2" />
+              New Post
+            </Link>
+          </Button>
+        </div>
+
+        {/* Stats Cards */}
+        {data && (
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4 mb-8">
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Total Posts</CardTitle>
+                <FileText className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold" data-testid="stat-total-posts">{data.totalPosts}</div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Published</CardTitle>
+                <Eye className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-green-600" data-testid="stat-published">{data.totalPublished}</div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Drafts</CardTitle>
+                <Edit className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-yellow-600" data-testid="stat-drafts">{data.totalDrafts}</div>
+              </CardContent>
+            </Card>
+            
+            <Card>
+              <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                <CardTitle className="text-sm font-medium">Total Views</CardTitle>
+                <Eye className="h-4 w-4 text-muted-foreground" />
+              </CardHeader>
+              <CardContent>
+                <div className="text-2xl font-bold text-blue-600" data-testid="stat-total-views">{data.totalViews}</div>
+              </CardContent>
+            </Card>
+          </div>
+        )}
+
+        {/* Management Tabs */}
+        <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
+          <TabsList className="grid w-full grid-cols-4">
+            <TabsTrigger value="posts" className="flex items-center gap-2">
+              <FileText className="h-4 w-4" />
+              Posts
+            </TabsTrigger>
+            <TabsTrigger value="categories" className="flex items-center gap-2">
+              <Folder className="h-4 w-4" />
+              Categories
+            </TabsTrigger>
+            <TabsTrigger value="tags" className="flex items-center gap-2">
+              <Tag className="h-4 w-4" />
+              Tags
+            </TabsTrigger>
+            <TabsTrigger value="authors" className="flex items-center gap-2">
+              <Users className="h-4 w-4" />
+              Authors
+            </TabsTrigger>
+          </TabsList>
+
+          {/* Posts Tab */}
+          <TabsContent value="posts" className="space-y-6">
+            {/* Filters */}
+            <div className="flex flex-col lg:flex-row gap-4">
+              <div className="relative flex-1">
+                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                <Input
+                  placeholder="Search posts..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="pl-10"
+                  data-testid="input-search-posts"
+                />
+              </div>
+              
+              <Select value={selectedStatus} onValueChange={setSelectedStatus}>
+                <SelectTrigger className="w-[180px]" data-testid="select-status-filter">
+                  <SelectValue placeholder="All Statuses" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="">All Statuses</SelectItem>
+                  <SelectItem value="published">Published</SelectItem>
+                  <SelectItem value="draft">Draft</SelectItem>
+                  <SelectItem value="scheduled">Scheduled</SelectItem>
+                  <SelectItem value="archived">Archived</SelectItem>
+                </SelectContent>
+              </Select>
+
+              {data?.authors && (
+                <Select value={selectedAuthor} onValueChange={setSelectedAuthor}>
+                  <SelectTrigger className="w-[180px]" data-testid="select-author-filter">
+                    <SelectValue placeholder="All Authors" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">All Authors</SelectItem>
+                    {data.authors.map((author) => (
+                      <SelectItem key={author.id} value={author.id}>
+                        {author.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+
+              {data?.categories && (
+                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                  <SelectTrigger className="w-[180px]" data-testid="select-category-filter">
+                    <SelectValue placeholder="All Categories" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="">All Categories</SelectItem>
+                    {data.categories.map((category) => (
+                      <SelectItem key={category.id} value={category.id}>
+                        {category.name}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              )}
+            </div>
+
+            {/* Posts Table */}
+            <div className="border rounded-lg">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>Title</TableHead>
+                    <TableHead>Author</TableHead>
+                    <TableHead>Status</TableHead>
+                    <TableHead>Categories</TableHead>
+                    <TableHead>Views</TableHead>
+                    <TableHead>Date</TableHead>
+                    <TableHead className="text-right">Actions</TableHead>
+                  </TableRow>
+                </TableHeader>
+                <TableBody>
+                  {data?.posts.map((post) => (
+                    <TableRow key={post.id}>
+                      <TableCell>
+                        <div className="space-y-1">
+                          <div className="font-medium" data-testid={`title-post-${post.id}`}>
+                            {post.title}
+                          </div>
+                          {post.excerpt && (
+                            <div className="text-sm text-gray-500 line-clamp-1">
+                              {post.excerpt}
+                            </div>
+                          )}
+                        </div>
+                      </TableCell>
+                      <TableCell data-testid={`author-post-${post.id}`}>
+                        {post.author?.name || 'Unknown'}
+                      </TableCell>
+                      <TableCell>
+                        <Badge className={getStatusColor(post.status)} data-testid={`status-post-${post.id}`}>
+                          {post.status}
+                        </Badge>
+                      </TableCell>
+                      <TableCell>
+                        <div className="flex flex-wrap gap-1">
+                          {post.categories?.slice(0, 2).map((category) => (
+                            <Badge key={category.id} variant="outline" className="text-xs">
+                              {category.name}
+                            </Badge>
+                          ))}
+                          {post.categories && post.categories.length > 2 && (
+                            <Badge variant="outline" className="text-xs">
+                              +{post.categories.length - 2}
+                            </Badge>
+                          )}
+                        </div>
+                      </TableCell>
+                      <TableCell data-testid={`views-post-${post.id}`}>
+                        {post.viewCount || 0}
+                      </TableCell>
+                      <TableCell data-testid={`date-post-${post.id}`}>
+                        {formatDate(post.publishedAt || post.createdAt)}
+                      </TableCell>
+                      <TableCell className="text-right">
+                        <div className="flex items-center justify-end gap-2">
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            asChild
+                            data-testid={`button-edit-${post.id}`}
+                          >
+                            <Link href={`/admin/blog/posts/${post.id}/edit`}>
+                              <Edit className="h-4 w-4" />
+                            </Link>
+                          </Button>
+                          
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            asChild
+                            data-testid={`button-view-${post.id}`}
+                          >
+                            <Link href={`/blog/${post.slug}`}>
+                              <Eye className="h-4 w-4" />
+                            </Link>
+                          </Button>
+
+                          {post.status === 'published' ? (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => togglePublishMutation.mutate({ postId: post.id, action: 'unpublish' })}
+                              data-testid={`button-unpublish-${post.id}`}
+                            >
+                              Unpublish
+                            </Button>
+                          ) : (
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => togglePublishMutation.mutate({ postId: post.id, action: 'publish' })}
+                              data-testid={`button-publish-${post.id}`}
+                            >
+                              Publish
+                            </Button>
+                          )}
+
+                          <AlertDialog>
+                            <AlertDialogTrigger asChild>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                className="text-red-600 hover:text-red-700"
+                                data-testid={`button-delete-${post.id}`}
+                              >
+                                <Trash2 className="h-4 w-4" />
+                              </Button>
+                            </AlertDialogTrigger>
+                            <AlertDialogContent>
+                              <AlertDialogHeader>
+                                <AlertDialogTitle>Delete Blog Post</AlertDialogTitle>
+                                <AlertDialogDescription>
+                                  Are you sure you want to delete "{post.title}"? This action cannot be undone.
+                                </AlertDialogDescription>
+                              </AlertDialogHeader>
+                              <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction
+                                  onClick={() => deletePostMutation.mutate(post.id)}
+                                  className="bg-red-600 hover:bg-red-700"
+                                >
+                                  Delete
+                                </AlertDialogAction>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialog>
+                        </div>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
+          </TabsContent>
+
+          {/* Categories Tab */}
+          <TabsContent value="categories" className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-semibold">Categories</h3>
+              <Button asChild data-testid="button-create-category">
+                <Link href="/admin/blog/categories/new">
+                  <Plus className="h-4 w-4 mr-2" />
+                  New Category
+                </Link>
+              </Button>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {data?.categories.map((category) => (
+                <Card key={category.id}>
+                  <CardHeader>
+                    <div className="flex items-center justify-between">
+                      <CardTitle className="text-lg" data-testid={`name-category-${category.id}`}>
+                        {category.name}
+                      </CardTitle>
+                      <Badge variant="secondary" data-testid={`count-category-${category.id}`}>
+                        {category.postCount} posts
+                      </Badge>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    {category.description && (
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                        {category.description}
+                      </p>
+                    )}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Button variant="ghost" size="sm" asChild>
+                          <Link href={`/admin/blog/categories/${category.id}/edit`}>
+                            <Edit className="h-4 w-4" />
+                          </Link>
+                        </Button>
+                        <Button variant="ghost" size="sm" asChild>
+                          <Link href={`/blog/category/${category.slug}`}>
+                            <Eye className="h-4 w-4" />
+                          </Link>
+                        </Button>
+                      </div>
+                      {category.color && (
+                        <div 
+                          className="w-4 h-4 rounded-full"
+                          style={{ backgroundColor: category.color }}
+                        />
+                      )}
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          {/* Tags Tab */}
+          <TabsContent value="tags" className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-semibold">Tags</h3>
+              <Button asChild data-testid="button-create-tag">
+                <Link href="/admin/blog/tags/new">
+                  <Plus className="h-4 w-4 mr-2" />
+                  New Tag
+                </Link>
+              </Button>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              {data?.tags.map((tag) => (
+                <Card key={tag.id} className="p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-medium" data-testid={`name-tag-${tag.id}`}>
+                      #{tag.name}
+                    </h4>
+                    <Badge variant="secondary" data-testid={`count-tag-${tag.id}`}>
+                      {tag.postCount}
+                    </Badge>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-1">
+                      <Button variant="ghost" size="sm" asChild>
+                        <Link href={`/admin/blog/tags/${tag.id}/edit`}>
+                          <Edit className="h-3 w-3" />
+                        </Link>
+                      </Button>
+                      <Button variant="ghost" size="sm" asChild>
+                        <Link href={`/blog/tag/${tag.slug}`}>
+                          <Eye className="h-3 w-3" />
+                        </Link>
+                      </Button>
+                    </div>
+                    {tag.color && (
+                      <div 
+                        className="w-3 h-3 rounded-full"
+                        style={{ backgroundColor: tag.color }}
+                      />
+                    )}
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+
+          {/* Authors Tab */}
+          <TabsContent value="authors" className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h3 className="text-lg font-semibold">Authors</h3>
+              <Button asChild data-testid="button-create-author">
+                <Link href="/admin/blog/authors/new">
+                  <Plus className="h-4 w-4 mr-2" />
+                  New Author
+                </Link>
+              </Button>
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {data?.authors.map((author) => (
+                <Card key={author.id}>
+                  <CardHeader>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                        {author.name.split(' ').map(n => n[0]).join('')}
+                      </div>
+                      <div>
+                        <CardTitle className="text-lg" data-testid={`name-author-${author.id}`}>
+                          {author.name}
+                        </CardTitle>
+                        {author.email && (
+                          <p className="text-sm text-gray-500">{author.email}</p>
+                        )}
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    {author.bio && (
+                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">
+                        {author.bio}
+                      </p>
+                    )}
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <Button variant="ghost" size="sm" asChild>
+                          <Link href={`/admin/blog/authors/${author.id}/edit`}>
+                            <Edit className="h-4 w-4" />
+                          </Link>
+                        </Button>
+                        <Button variant="ghost" size="sm" asChild>
+                          <Link href={`/blog/author/${author.id}`}>
+                            <Eye className="h-4 w-4" />
+                          </Link>
+                        </Button>
+                      </div>
+                      <Badge variant="secondary">
+                        {data.posts.filter(p => p.authorId === author.id).length} posts
+                      </Badge>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          </TabsContent>
+        </Tabs>
+      </div>
+    </Layout>
+  );
+}

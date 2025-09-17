@@ -1,19 +1,19 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Bebas+Neue:wght@400&family=Oswald:ital,wght@0,200..700;1,200..700&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
-  --background: hsl(220 40% 98%);
-  --foreground: hsl(220 10% 15%);
+  --background: hsl(0 0% 100%);
+  --foreground: hsl(0 0% 0%);
   --card: hsl(0 0% 100%);
-  --card-foreground: hsl(220 10% 15%);
+  --card-foreground: hsl(0 0% 0%);
   --popover: hsl(0 0% 100%);
-  --popover-foreground: hsl(220 10% 15%);
-  --primary: hsl(208 100% 50%); /* Bright blue #0080FF */
+  --popover-foreground: hsl(0 0% 0%);
+  --primary: hsl(208 100% 50%); /* Electric Blue #0080FF */
   --primary-foreground: hsl(0 0% 100%);
-  --secondary: hsl(51 100% 50%); /* Bright yellow #FFD700 */
-  --secondary-foreground: hsl(220 10% 15%);
+  --secondary: hsl(51 100% 50%); /* Vibrant Yellow #FFD700 */
+  --secondary-foreground: hsl(0 0% 0%);
   --muted: hsl(220 20% 95%);
   --muted-foreground: hsl(220 10% 45%);
   --accent: hsl(51 100% 50%); /* Bright yellow accent */
@@ -36,10 +36,11 @@
   --sidebar-accent-foreground: hsl(208 100% 50%);
   --sidebar-border: hsl(220 15% 85%);
   --sidebar-ring: hsl(208 100% 50%);
-  --font-sans: "Inter", system-ui, sans-serif;
+  --font-sans: "DM Sans", "Inter", system-ui, sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: Menlo, monospace;
-  --font-heading: "Nunito", system-ui, sans-serif;
+  --font-heading: "Bebas Neue", "Oswald", system-ui, sans-serif;
+  --font-caps: "Bebas Neue", "Oswald", system-ui, sans-serif;
   --radius: 12px;
   --shadow-2xs: 0px 2px 0px 0px hsl(220 90% 55% / 0.00);
   --shadow-xs: 0px 2px 0px 0px hsl(220 90% 55% / 0.00);
@@ -53,12 +54,24 @@
   --spacing: 0.25rem;
   
   /* Premier Party Cruises Custom Colors - Bright Blue & Yellow Branding */
-  --brand-blue: hsl(208 100% 50%); /* Bright blue #0080FF */
-  --brand-blue-light: hsl(208 100% 95%);
-  --brand-blue-dark: hsl(208 100% 35%);
-  --brand-yellow: hsl(51 100% 50%); /* Bright yellow #FFD700 */
-  --brand-yellow-light: hsl(51 100% 95%);
-  --brand-yellow-dark: hsl(51 100% 35%);
+  --brand-blue: hsl(208 100% 50%); /* Electric Blue #0080FF */
+  --brand-blue-light: hsl(208 100% 96%);
+  --brand-blue-dark: hsl(208 100% 40%);
+  --brand-yellow: hsl(51 100% 50%); /* Vibrant Yellow #FFD700 */
+  --brand-yellow-light: hsl(51 100% 96%);
+  --brand-yellow-dark: hsl(51 100% 40%);
+  --brand-black: hsl(0 0% 0%); /* Pure Black */
+  --brand-white: hsl(0 0% 100%); /* Pure White */
+  --brand-gray-50: hsl(0 0% 98%);
+  --brand-gray-100: hsl(0 0% 95%);
+  --brand-gray-200: hsl(0 0% 90%);
+  --brand-gray-300: hsl(0 0% 85%);
+  --brand-gray-400: hsl(0 0% 70%);
+  --brand-gray-500: hsl(0 0% 50%);
+  --brand-gray-600: hsl(0 0% 30%);
+  --brand-gray-700: hsl(0 0% 20%);
+  --brand-gray-800: hsl(0 0% 10%);
+  --brand-gray-900: hsl(0 0% 5%);
   --marine-50: hsl(208 100% 98%);
   --marine-100: hsl(208 100% 95%);
   --marine-500: hsl(208 100% 65%);
@@ -72,16 +85,16 @@
 }
 
 .dark {
-  --background: hsl(220 20% 8%);
-  --foreground: hsl(220 5% 92%);
-  --card: hsl(220 20% 10%);
-  --card-foreground: hsl(220 5% 85%);
-  --popover: hsl(220 20% 8%);
-  --popover-foreground: hsl(220 5% 92%);
-  --primary: hsl(208 100% 60%); /* Brighter blue for dark mode */
+  --background: hsl(0 0% 5%);
+  --foreground: hsl(0 0% 95%);
+  --card: hsl(0 0% 8%);
+  --card-foreground: hsl(0 0% 92%);
+  --popover: hsl(0 0% 5%);
+  --popover-foreground: hsl(0 0% 95%);
+  --primary: hsl(208 100% 55%); /* Electric Blue for dark mode */
   --primary-foreground: hsl(0 0% 100%);
-  --secondary: hsl(51 100% 60%); /* Bright yellow for dark mode */
-  --secondary-foreground: hsl(220 10% 15%);
+  --secondary: hsl(51 100% 55%); /* Vibrant Yellow for dark mode */
+  --secondary-foreground: hsl(0 0% 0%);
   --muted: hsl(220 15% 15%);
   --muted-foreground: hsl(220 5% 65%);
   --accent: hsl(51 100% 60%); /* Bright yellow accent */
@@ -104,12 +117,24 @@
   --sidebar-accent-foreground: hsl(208 100% 60%);
   --sidebar-border: hsl(220 15% 20%);
   --sidebar-ring: hsl(208 100% 60%);
-  --brand-blue: hsl(208 100% 60%);
-  --brand-blue-light: hsl(208 100% 20%);
-  --brand-blue-dark: hsl(208 100% 80%);
-  --brand-yellow: hsl(51 100% 60%);
-  --brand-yellow-light: hsl(51 100% 20%);
-  --brand-yellow-dark: hsl(51 100% 80%);
+  --brand-blue: hsl(208 100% 55%);
+  --brand-blue-light: hsl(208 100% 15%);
+  --brand-blue-dark: hsl(208 100% 75%);
+  --brand-yellow: hsl(51 100% 55%);
+  --brand-yellow-light: hsl(51 100% 15%);
+  --brand-yellow-dark: hsl(51 100% 75%);
+  --brand-black: hsl(0 0% 95%);
+  --brand-white: hsl(0 0% 5%);
+  --brand-gray-50: hsl(0 0% 10%);
+  --brand-gray-100: hsl(0 0% 15%);
+  --brand-gray-200: hsl(0 0% 20%);
+  --brand-gray-300: hsl(0 0% 25%);
+  --brand-gray-400: hsl(0 0% 40%);
+  --brand-gray-500: hsl(0 0% 50%);
+  --brand-gray-600: hsl(0 0% 70%);
+  --brand-gray-700: hsl(0 0% 80%);
+  --brand-gray-800: hsl(0 0% 90%);
+  --brand-gray-900: hsl(0 0% 95%);
   --marine-50: hsl(208 100% 12%);
   --marine-100: hsl(208 100% 18%);
   --marine-500: hsl(208 100% 65%);
@@ -132,25 +157,96 @@
   }
   
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading font-bold;
+    @apply font-heading font-bold tracking-widest;
+    letter-spacing: 0.25em;
   }
   
-  /* Make all text bold for professional appearance */
-  p, span, div, label, button {
-    @apply font-semibold;
+  h1 {
+    @apply text-5xl md:text-6xl lg:text-7xl;
+    letter-spacing: 0.3em;
   }
   
-  /* Professional button centering and styling */
-  .btn-center {
-    @apply mx-auto flex justify-center;
+  h2 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+    letter-spacing: 0.28em;
   }
   
-  .btn-professional {
-    @apply font-bold text-center shadow-lg transition-all duration-200 hover:scale-105;
+  h3 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+    letter-spacing: 0.25em;
   }
   
-  /* Brand-specific utility classes */
-  .brand-blue {
+  h4 {
+    @apply text-2xl md:text-3xl lg:text-4xl;
+    letter-spacing: 0.22em;
+  }
+  
+  h5 {
+    @apply text-xl md:text-2xl lg:text-3xl;
+    letter-spacing: 0.2em;
+  }
+  
+  h6 {
+    @apply text-lg md:text-xl lg:text-2xl;
+    letter-spacing: 0.18em;
+  }
+  
+  .heading-caps {
+    @apply font-heading font-bold tracking-widest;
+    letter-spacing: 0.3em;
+  }
+  
+  .text-emphasis-spaced {
+    @apply font-semibold tracking-widest;
+    letter-spacing: 0.2em;
+  }
+  
+  /* Modern text styling with clean weights */
+  p {
+    @apply font-normal leading-relaxed;
+  }
+  
+  label {
+    @apply font-medium;
+  }
+  
+  button {
+    @apply font-bold tracking-wide;
+    letter-spacing: 0.1em;
+  }
+  
+  .text-body {
+    @apply font-normal leading-relaxed;
+  }
+  
+  .text-emphasis {
+    @apply font-bold tracking-wide;
+    letter-spacing: 0.08em;
+  }
+  
+  /* Modern Anthropic-inspired button styles */
+  .btn-primary {
+    @apply bg-brand-blue text-brand-white font-bold tracking-widest px-8 py-4 rounded-none transition-all duration-200 hover:bg-brand-blue-dark hover:scale-105 shadow-lg text-lg;
+    letter-spacing: 0.15em;
+  }
+  
+  .btn-secondary {
+    @apply bg-brand-yellow text-brand-black font-bold tracking-widest px-8 py-4 rounded-none transition-all duration-200 hover:bg-brand-yellow-dark hover:scale-105 shadow-lg text-lg;
+    letter-spacing: 0.15em;
+  }
+  
+  .btn-outline {
+    @apply border-2 border-brand-blue text-brand-blue bg-transparent font-bold tracking-widest px-8 py-4 rounded-none transition-all duration-200 hover:bg-brand-blue hover:text-brand-white hover:scale-105 text-lg;
+    letter-spacing: 0.15em;
+  }
+  
+  .btn-minimal {
+    @apply text-brand-black font-bold tracking-widest px-4 py-2 rounded-none transition-all duration-200 hover:text-brand-blue hover:scale-105;
+    letter-spacing: 0.12em;
+  }
+  
+  /* Modern brand utility classes */
+  .text-brand-blue {
     color: hsl(var(--brand-blue));
   }
   
@@ -158,7 +254,15 @@
     background-color: hsl(var(--brand-blue));
   }
   
-  .brand-yellow {
+  .bg-brand-blue-dark {
+    background-color: hsl(var(--brand-blue-dark));
+  }
+  
+  .bg-brand-blue-light {
+    background-color: hsl(var(--brand-blue-light));
+  }
+  
+  .text-brand-yellow {
     color: hsl(var(--brand-yellow));
   }
   
@@ -166,26 +270,78 @@
     background-color: hsl(var(--brand-yellow));
   }
   
-  .text-brand-blue {
-    color: hsl(var(--brand-blue));
+  .bg-brand-yellow-dark {
+    background-color: hsl(var(--brand-yellow-dark));
   }
   
-  .text-brand-yellow {
-    color: hsl(var(--brand-yellow));
+  .bg-brand-yellow-light {
+    background-color: hsl(var(--brand-yellow-light));
   }
   
-  /* Professional card styling */
-  .card-professional {
-    @apply bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm rounded-xl shadow-xl border border-primary/20 dark:border-primary/40;
+  .text-brand-black {
+    color: hsl(var(--brand-black));
   }
   
-  /* Gradient backgrounds with brand colors */
+  .bg-brand-black {
+    background-color: hsl(var(--brand-black));
+  }
+  
+  .text-brand-white {
+    color: hsl(var(--brand-white));
+  }
+  
+  .bg-brand-white {
+    background-color: hsl(var(--brand-white));
+  }
+  
+  /* Modern Anthropic-inspired card styling */
+  .card-modern {
+    @apply bg-brand-white dark:bg-brand-black border border-brand-gray-200 dark:border-brand-gray-700 shadow-lg transition-all duration-200 hover:shadow-xl hover:scale-102;
+    border-radius: 0;
+  }
+  
+  .card-elevated {
+    @apply bg-brand-white dark:bg-brand-black shadow-2xl border border-brand-gray-200 dark:border-brand-gray-700;
+    border-radius: 0;
+  }
+  
+  .card-minimal {
+    @apply bg-transparent border-b border-brand-gray-200 dark:border-brand-gray-700 pb-6 mb-6;
+  }
+  
+  /* Modern brand gradients */
   .bg-brand-gradient {
     background: linear-gradient(135deg, hsl(var(--brand-blue)) 0%, hsl(var(--brand-yellow)) 100%);
   }
   
-  .bg-brand-gradient-light {
+  .bg-brand-gradient-subtle {
     background: linear-gradient(135deg, hsl(var(--brand-blue-light)) 0%, hsl(var(--brand-yellow-light)) 100%);
+  }
+  
+  .bg-brand-gradient-reverse {
+    background: linear-gradient(135deg, hsl(var(--brand-yellow)) 0%, hsl(var(--brand-blue)) 100%);
+  }
+  
+  /* Layout utilities */
+  .section-padding {
+    @apply px-6 py-16 sm:px-8 lg:px-12 xl:px-16;
+  }
+  
+  .container-modern {
+    @apply max-w-7xl mx-auto px-6 sm:px-8 lg:px-12;
+  }
+  
+  .text-shadow-subtle {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Hover effects */
+  .hover-lift {
+    @apply transition-transform duration-200 hover:scale-105;
+  }
+  
+  .hover-glow {
+    @apply transition-all duration-200 hover:shadow-lg;
   }
 }
 

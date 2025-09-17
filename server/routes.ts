@@ -4902,6 +4902,22 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Seed Blog Data endpoint
+  app.post("/api/blog/seed", async (req, res) => {
+    try {
+      const { seedBlogData } = await import("./seedBlogData.js");
+      const success = await seedBlogData();
+      if (success) {
+        res.json({ success: true, message: "Blog data seeded successfully" });
+      } else {
+        res.status(500).json({ error: "Failed to seed blog data" });
+      }
+    } catch (error) {
+      console.error("Seed blog data error:", error);
+      res.status(500).json({ error: "Failed to seed blog data", details: error.message });
+    }
+  });
+
   // Test Quote System endpoint
   app.post("/api/test-quote-system", async (req, res) => {
     try {
@@ -10610,6 +10626,102 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error("Delete blog tag error:", error);
       res.status(500).json({ error: "Failed to delete blog tag" });
+    }
+  });
+
+  // Blog management dashboard endpoint
+  app.get("/api/blog/management", async (req, res) => {
+    try {
+      const {
+        tab = 'posts',
+        page = '1',
+        search = undefined,
+        status = undefined,
+        authorId = undefined,
+        categoryId = undefined
+      } = req.query;
+
+      const limit = 20;
+      const offset = (parseInt(page as string) - 1) * limit;
+
+      // Get filtered posts for current tab
+      const filters = {
+        status: status as any,
+        authorId: authorId as string,
+        categoryId: categoryId as string,
+        search: search as string,
+        limit,
+        offset,
+        sortBy: 'createdAt' as any,
+        sortOrder: 'desc' as any,
+      };
+
+      const postsResult = await storage.getBlogPosts(filters);
+      
+      // Get reference data
+      const [authors, categories, tags] = await Promise.all([
+        storage.getBlogAuthors(),
+        storage.getBlogCategories(),
+        storage.getBlogTags()
+      ]);
+
+      // Calculate summary stats
+      const allPosts = await storage.getBlogPosts({ limit: 1000, offset: 0 });
+      const totalPosts = allPosts.posts?.length || 0;
+      const totalPublished = allPosts.posts?.filter(p => p.status === 'published').length || 0;
+      const totalDrafts = allPosts.posts?.filter(p => p.status === 'draft').length || 0;
+      const totalViews = allPosts.posts?.reduce((sum, p) => sum + (p.viewCount || 0), 0) || 0;
+
+      res.json({
+        posts: postsResult.posts || [],
+        authors,
+        categories,
+        tags,
+        totalPosts,
+        totalPublished,
+        totalDrafts,
+        totalViews
+      });
+    } catch (error: any) {
+      console.error("Get blog management data error:", error);
+      res.status(500).json({ error: "Failed to get blog management data" });
+    }
+  });
+
+  // Blog editor data endpoint
+  app.get("/api/blog/editor/:id?", async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      // Get reference data
+      const [authors, categories, tags] = await Promise.all([
+        storage.getBlogAuthors(),
+        storage.getBlogCategories(),
+        storage.getBlogTags()
+      ]);
+
+      let post = undefined;
+      if (id && id !== 'new') {
+        post = await storage.getBlogPost(id);
+        if (post) {
+          // Get post categories and tags
+          const [postCategories, postTags] = await Promise.all([
+            storage.getBlogPostCategories(id),
+            storage.getBlogPostTags(id)
+          ]);
+          post = { ...post, categories: postCategories, tags: postTags };
+        }
+      }
+
+      res.json({
+        post,
+        authors,
+        categories,
+        tags
+      });
+    } catch (error: any) {
+      console.error("Get blog editor data error:", error);
+      res.status(500).json({ error: "Failed to get blog editor data" });
     }
   });
 

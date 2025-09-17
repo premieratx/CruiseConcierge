@@ -29,6 +29,17 @@ import BookingFlow from "./pages/BookingFlow";
 import BookingSuccess from "./pages/BookingSuccess";
 import NotFound from "@/pages/not-found";
 
+// Blog Pages
+import Blog from "./pages/Blog";
+import BlogPost from "./pages/BlogPost";
+import BlogCategory from "./pages/BlogCategory";
+import BlogTag from "./pages/BlogTag";
+import BlogAuthor from "./pages/BlogAuthor";
+
+// Admin Blog Pages
+import BlogManagement from "./pages/admin/BlogManagement";
+import BlogPostEditor from "./pages/admin/BlogPostEditor";
+
 // Customer Portal Pages
 import PortalLogin from "./pages/PortalLogin";
 import PortalVerify from "./pages/PortalVerify";
@@ -90,6 +101,19 @@ function Router() {
       <Route path="/checkout/:quoteId" component={Checkout} />
       <Route path="/quote/:quoteId" component={QuoteViewer} />
       <Route path="/invoice/:invoiceId" component={InvoiceViewer} />
+      
+      {/* Admin Blog Routes */}
+      <Route path="/admin/blog" component={BlogManagement} />
+      <Route path="/admin/blog/posts" component={BlogManagement} />
+      <Route path="/admin/blog/posts/new" component={BlogPostEditor} />
+      <Route path="/admin/blog/posts/:id/edit" component={BlogPostEditor} />
+      
+      {/* Public Blog Routes - Specific routes must come before generic ones */}
+      <Route path="/blog" component={Blog} />
+      <Route path="/blog/category/:slug" component={BlogCategory} />
+      <Route path="/blog/tag/:slug" component={BlogTag} />
+      <Route path="/blog/author/:id" component={BlogAuthor} />
+      <Route path="/blog/:slug" component={BlogPost} />
       
       {/* Public Customer Routes */}
       <Route path="/book" component={PublicCalendar} />

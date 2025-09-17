@@ -2296,6 +2296,311 @@ export class DatabaseStorage implements IStorage {
   async getAdminAvailabilityOverview(date: Date): Promise<{ boatId: string; boatName: string; slots: AdminCalendarSlot[] }[]> {
     return [];
   }
+
+  // Blog Post Methods - Required implementations
+  async getPublishedBlogPosts(limit?: number, offset?: number): Promise<{
+    posts: (BlogPost & { 
+      author: BlogAuthor;
+      categories: BlogCategory[];
+      tags: BlogTag[];
+    })[];
+    total: number;
+  }> {
+    const results = await db.select({
+      post: blogPosts,
+      author: blogAuthors
+    })
+    .from(blogPosts)
+    .innerJoin(blogAuthors, eq(blogPosts.authorId, blogAuthors.id))
+    .where(eq(blogPosts.status, 'published'))
+    .orderBy(desc(blogPosts.publishedAt))
+    .limit(limit || 20)
+    .offset(offset || 0);
+
+    // Get categories and tags for each post
+    const enrichedPosts = await Promise.all(
+      results.map(async (result) => {
+        const [categories, tags] = await Promise.all([
+          this.getBlogPostCategories(result.post.id),
+          this.getBlogPostTags(result.post.id)
+        ]);
+        return {
+          ...result.post,
+          author: result.author,
+          categories,
+          tags
+        };
+      })
+    );
+
+    // Get total count
+    const [{ count }] = await db.select({ count: sql`count(*)`.mapWith(Number) })
+      .from(blogPosts)
+      .where(eq(blogPosts.status, 'published'));
+
+    return {
+      posts: enrichedPosts,
+      total: count
+    };
+  }
+
+  async getFeaturedBlogPosts(limit?: number): Promise<(BlogPost & { 
+    author: BlogAuthor;
+    categories: BlogCategory[];
+    tags: BlogTag[];
+  })[]> {
+    // Stub implementation - returns empty array for now
+    return [];
+  }
+
+  async getBlogPostsByTag(tagId: string, limit?: number, offset?: number): Promise<{
+    posts: (BlogPost & { 
+      author: BlogAuthor;
+      categories: BlogCategory[];
+      tags: BlogTag[];
+    })[];
+    total: number;
+  }> {
+    // Stub implementation - returns empty result for now
+    return { posts: [], total: 0 };
+  }
+
+  async getBlogPostsByCategory(categoryId: string, limit?: number, offset?: number): Promise<{
+    posts: (BlogPost & { 
+      author: BlogAuthor;
+      categories: BlogCategory[];
+      tags: BlogTag[];
+    })[];
+    total: number;
+  }> {
+    // Stub implementation - returns empty result for now
+    return { posts: [], total: 0 };
+  }
+
+  async getBlogPost(id: string): Promise<BlogPost | undefined> {
+    // Stub implementation - returns undefined for now
+    return undefined;
+  }
+
+  async getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
+    // Stub implementation - returns undefined for now  
+    return undefined;
+  }
+
+  async getBlogPosts(filters?: any): Promise<{
+    posts: (BlogPost & { 
+      author: BlogAuthor;
+      categories: BlogCategory[];
+      tags: BlogTag[];
+    })[];
+    total: number;
+  }> {
+    // Stub implementation - returns empty result for now
+    return { posts: [], total: 0 };
+  }
+
+  async createBlogPost(post: InsertBlogPost): Promise<BlogPost> {
+    // Stub implementation - basic structure for now
+    const newPost: BlogPost = {
+      id: randomUUID(),
+      ...post,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    return newPost;
+  }
+
+  async updateBlogPost(id: string, updates: Partial<BlogPost>): Promise<BlogPost> {
+    // Stub implementation
+    throw new Error('Blog post update not implemented');
+  }
+
+  async deleteBlogPost(id: string): Promise<boolean> {
+    // Stub implementation
+    return false;
+  }
+
+  // Blog Category Methods
+  async getBlogCategory(id: string): Promise<BlogCategory | undefined> {
+    const [category] = await db.select().from(blogCategories).where(eq(blogCategories.id, id));
+    return category;
+  }
+
+  async getBlogCategoryBySlug(slug: string): Promise<BlogCategory | undefined> {
+    const [category] = await db.select().from(blogCategories).where(eq(blogCategories.slug, slug));
+    return category;
+  }
+
+  async getBlogCategories(): Promise<BlogCategory[]> {
+    return await db.select().from(blogCategories)
+      .where(eq(blogCategories.active, true))
+      .orderBy(asc(blogCategories.displayOrder), asc(blogCategories.name));
+  }
+
+  async createBlogCategory(category: InsertBlogCategory): Promise<BlogCategory> {
+    const [newCategory] = await db.insert(blogCategories).values(category).returning();
+    return newCategory;
+  }
+
+  async updateBlogCategory(id: string, updates: Partial<BlogCategory>): Promise<BlogCategory> {
+    throw new Error('Blog category update not implemented');
+  }
+
+  async deleteBlogCategory(id: string): Promise<boolean> {
+    return false;
+  }
+
+  // Blog Tag Methods
+  async getBlogTag(id: string): Promise<BlogTag | undefined> {
+    const [tag] = await db.select().from(blogTags).where(eq(blogTags.id, id));
+    return tag;
+  }
+
+  async getBlogTagBySlug(slug: string): Promise<BlogTag | undefined> {
+    const [tag] = await db.select().from(blogTags).where(eq(blogTags.slug, slug));
+    return tag;
+  }
+
+  async getBlogTags(): Promise<BlogTag[]> {
+    return await db.select().from(blogTags)
+      .where(eq(blogTags.active, true))
+      .orderBy(desc(blogTags.postCount), asc(blogTags.name));
+  }
+
+  async createBlogTag(tag: InsertBlogTag): Promise<BlogTag> {
+    const [newTag] = await db.insert(blogTags).values(tag).returning();
+    return newTag;
+  }
+
+  async updateBlogTag(id: string, updates: Partial<BlogTag>): Promise<BlogTag> {
+    throw new Error('Blog tag update not implemented');
+  }
+
+  async deleteBlogTag(id: string): Promise<boolean> {
+    return false;
+  }
+
+  // Stub implementations for other missing blog methods
+  async publishBlogPost(id: string, publishedAt?: Date): Promise<BlogPost> {
+    throw new Error('Blog post publish not implemented');
+  }
+
+  async scheduleBlogPost(id: string, scheduledFor: Date): Promise<BlogPost> {
+    throw new Error('Blog post schedule not implemented');
+  }
+
+  async incrementBlogPostViews(id: string): Promise<BlogPost> {
+    const [updatedPost] = await db.update(blogPosts)
+      .set({ viewCount: sql`${blogPosts.viewCount} + 1` })
+      .where(eq(blogPosts.id, id))
+      .returning();
+    return updatedPost;
+  }
+
+  async getRelatedBlogPosts(postId: string, limit?: number): Promise<BlogPost[]> {
+    return [];
+  }
+
+  async getBlogPostsByAuthor(authorId: string, limit?: number, offset?: number): Promise<{
+    posts: (BlogPost & { 
+      author: BlogAuthor;
+      categories: BlogCategory[];
+      tags: BlogTag[];
+    })[];
+    total: number;
+  }> {
+    return { posts: [], total: 0 };
+  }
+
+  // Blog Author Methods  
+  async getBlogAuthor(id: string): Promise<BlogAuthor | undefined> {
+    const [author] = await db.select().from(blogAuthors).where(eq(blogAuthors.id, id));
+    return author;
+  }
+
+  async getBlogAuthors(): Promise<BlogAuthor[]> {
+    return await db.select().from(blogAuthors).where(eq(blogAuthors.active, true));
+  }
+
+  async createBlogAuthor(author: InsertBlogAuthor): Promise<BlogAuthor> {
+    const [newAuthor] = await db.insert(blogAuthors).values({
+      ...author,
+      slug: author.slug || author.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')
+    }).returning();
+    return newAuthor;
+  }
+
+  async updateBlogAuthor(id: string, updates: Partial<BlogAuthor>): Promise<BlogAuthor> {
+    throw new Error('Blog author update not implemented');
+  }
+
+  async deleteBlogAuthor(id: string): Promise<boolean> {
+    return false;
+  }
+
+  // Blog relationship methods - missing implementations
+  async assignPostToCategories(postId: string, categoryIds: string[], primaryCategoryId?: string): Promise<BlogPostCategory[]> {
+    // First remove existing category assignments
+    await db.delete(blogPostCategories).where(eq(blogPostCategories.postId, postId));
+    
+    // Insert new assignments
+    if (categoryIds.length > 0) {
+      const assignments = categoryIds.map(categoryId => ({
+        postId,
+        categoryId,
+        isPrimary: categoryId === primaryCategoryId
+      }));
+      const result = await db.insert(blogPostCategories).values(assignments).returning();
+      return result;
+    }
+    return [];
+  }
+
+  async assignPostToTags(postId: string, tagIds: string[]): Promise<BlogPostTag[]> {
+    // First remove existing tag assignments
+    await db.delete(blogPostTags).where(eq(blogPostTags.postId, postId));
+    
+    // Insert new assignments
+    if (tagIds.length > 0) {
+      const assignments = tagIds.map(tagId => ({
+        postId,
+        tagId
+      }));
+      const result = await db.insert(blogPostTags).values(assignments).returning();
+      return result;
+    }
+    return [];
+  }
+
+  async getBlogPostCategories(postId: string): Promise<BlogCategory[]> {
+    const results = await db.select({
+      category: blogCategories
+    })
+    .from(blogPostCategories)
+    .innerJoin(blogCategories, eq(blogPostCategories.categoryId, blogCategories.id))
+    .where(eq(blogPostCategories.postId, postId))
+    .orderBy(desc(blogPostCategories.isPrimary), asc(blogCategories.name));
+    
+    return results.map(r => r.category);
+  }
+
+  async getBlogPostTags(postId: string): Promise<BlogTag[]> {
+    const results = await db.select({
+      tag: blogTags
+    })
+    .from(blogPostTags)
+    .innerJoin(blogTags, eq(blogPostTags.tagId, blogTags.id))
+    .where(eq(blogPostTags.postId, postId))
+    .orderBy(asc(blogTags.name));
+    
+    return results.map(r => r.tag);
+  }
+
+  async getBlogCategoryHierarchy(): Promise<BlogCategory[]> {
+    return await db.select().from(blogCategories)
+      .where(eq(blogCategories.active, true))
+      .orderBy(asc(blogCategories.displayOrder), asc(blogCategories.name));
+  }
 }
 
 export const storage = new DatabaseStorage();

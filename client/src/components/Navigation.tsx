@@ -7,7 +7,7 @@ import {
   DollarSign, Settings, Ship, TrendingUp, Mail, Phone,
   ChevronDown, Plus, Search, Bell, User, LogOut, Building,
   CreditCard, Briefcase, Star, FileBarChart, Database, ArrowLeft, Home,
-  AlertCircle, Code, UserCheck, FolderOpen, Receipt
+  AlertCircle, Code, UserCheck, FolderOpen, Receipt, BookOpen
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -56,6 +56,17 @@ const mainNavItems = [
     href: '/invoices',
     icon: Receipt,
     description: 'Invoice management and payments',
+  },
+  {
+    title: 'Blog',
+    href: '/blog',
+    icon: BookOpen,
+    description: 'Blog posts and content management',
+    subItems: [
+      { title: 'View Blog', href: '/blog', description: 'Public blog page' },
+      { title: 'Manage Posts', href: '/admin/blog', description: 'Manage blog posts' },
+      { title: 'Create Post', href: '/admin/blog/posts/new', description: 'Create new blog post' }
+    ]
   },
 ];
 
