@@ -15,7 +15,8 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from '@/components/ui/dialog';
 import { 
   Settings as SettingsIcon, Mail, FileText, Palette, Save, Plus, Edit2, Trash2, 
-  Copy, Eye, EyeOff, ChevronRight, Grid, List, Code, Webhook, Send, CheckCircle, AlertCircle, Loader2
+  Copy, Eye, EyeOff, ChevronRight, Grid, List, Code, Webhook, Send, CheckCircle, AlertCircle, Loader2,
+  Globe, Layers, Zap, Target, Workflow, Database, Puzzle, Book, Rocket, Building
 } from 'lucide-react';
 // Template builder components will be shown in dialogs
 import type { QuoteTemplate, EmailTemplate, PricingSettings } from '@shared/schema';
@@ -234,7 +235,7 @@ export default function Settings() {
         </div>
         
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-4">
-          <TabsList className="grid w-full max-w-2xl grid-cols-4">
+          <TabsList className="grid w-full max-w-4xl grid-cols-4">
             <TabsTrigger value="quote-templates">
               <FileText className="h-4 w-4 mr-2" />
               Quote Templates
@@ -246,6 +247,10 @@ export default function Settings() {
             <TabsTrigger value="global-settings">
               <SettingsIcon className="h-4 w-4 mr-2" />
               Global Settings
+            </TabsTrigger>
+            <TabsTrigger value="website-platform">
+              <Globe className="h-4 w-4 mr-2" />
+              Website Platform Plan
             </TabsTrigger>
           </TabsList>
           
@@ -529,8 +534,494 @@ export default function Settings() {
                       </div>
                     </div>
                   </div>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
+
+          <TabsContent value="website-platform" className="space-y-6">
+            {/* Website Architecture Plan */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Layers className="h-5 w-5" />
+                  Website Architecture Plan
+                </CardTitle>
+                <CardDescription>
+                  Strategic plan for expanding CRM into a full rental business website platform
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-primary">Public Website Pages</h3>
+                    <div className="space-y-3">
+                      <div className="p-3 border rounded-lg">
+                        <div className="font-medium">Homepage</div>
+                        <div className="text-sm text-muted-foreground">Hero section, services overview, testimonials, embedded booking widget</div>
+                      </div>
+                      <div className="p-3 border rounded-lg">
+                        <div className="font-medium">About Us</div>
+                        <div className="text-sm text-muted-foreground">Company story, team, safety certifications, fleet information</div>
+                      </div>
+                      <div className="p-3 border rounded-lg">
+                        <div className="font-medium">Services</div>
+                        <div className="text-sm text-muted-foreground">Private cruises, disco cruises, packages with live pricing</div>
+                      </div>
+                      <div className="p-3 border rounded-lg">
+                        <div className="font-medium">Testimonials & Gallery</div>
+                        <div className="text-sm text-muted-foreground">Customer reviews, event photos, social proof</div>
+                      </div>
+                      <div className="p-3 border rounded-lg">
+                        <div className="font-medium">Contact & Booking</div>
+                        <div className="text-sm text-muted-foreground">Contact forms, calendar widget, instant quotes</div>
+                      </div>
+                    </div>
+                  </div>
                   
-                  <Separator />
+                  <div className="space-y-4">
+                    <h3 className="text-lg font-semibold text-primary">Admin Dashboard (Existing)</h3>
+                    <div className="space-y-3">
+                      <div className="p-3 border rounded-lg bg-green-50 dark:bg-green-900/20">
+                        <div className="font-medium">CRM & Pipeline</div>
+                        <div className="text-sm text-muted-foreground">Lead management, quotes, invoices - KEEPS ALL EXISTING FUNCTIONALITY</div>
+                      </div>
+                      <div className="p-3 border rounded-lg bg-green-50 dark:bg-green-900/20">
+                        <div className="font-medium">Calendar Management</div>
+                        <div className="text-sm text-muted-foreground">Availability blocking, booking management - EXISTING SYSTEM</div>
+                      </div>
+                      <div className="p-3 border rounded-lg bg-green-50 dark:bg-green-900/20">
+                        <div className="font-medium">Payment Processing</div>
+                        <div className="text-sm text-muted-foreground">Stripe integration, deposits, full payments - EXISTING SYSTEM</div>
+                      </div>
+                      <div className="p-3 border rounded-lg bg-blue-50 dark:bg-blue-900/20">
+                        <div className="font-medium">Website Builder</div>
+                        <div className="text-sm text-muted-foreground">NEW: Page editor with drag-and-drop functionality</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                  <h4 className="font-semibold text-blue-800 dark:text-blue-200">Architecture Benefits</h4>
+                  <ul className="text-sm text-blue-700 dark:text-blue-300 mt-2 space-y-1">
+                    <li>• Public website showcases business professionally</li>
+                    <li>• Existing booking system integrates seamlessly</li>
+                    <li>• Admin retains full CRM functionality</li>
+                    <li>• Single domain with proper routing (/admin/* for CRM)</li>
+                    <li>• Unified availability and payment processing</li>
+                  </ul>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Integration Strategy */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Puzzle className="h-5 w-5" />
+                  Integration Strategy
+                </CardTitle>
+                <CardDescription>
+                  How to embed existing booking components into new website pages
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="p-4 border rounded-lg">
+                    <h4 className="font-semibold text-green-600">Direct Component Reuse</h4>
+                    <div className="text-sm text-muted-foreground mt-2">
+                      <div className="font-medium">Existing Components:</div>
+                      <ul className="mt-1 space-y-1">
+                        <li>• PublicCalendar</li>
+                        <li>• BookingFlow</li>
+                        <li>• ProductPicker</li>
+                        <li>• QuoteBuilder</li>
+                        <li>• Checkout</li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div className="p-4 border rounded-lg">
+                    <h4 className="font-semibold text-blue-600">Embed Integration</h4>
+                    <div className="text-sm text-muted-foreground mt-2">
+                      <div className="font-medium">Methods:</div>
+                      <ul className="mt-1 space-y-1">
+                        <li>• Widget embeds (existing /embed/* routes)</li>
+                        <li>• Direct component imports</li>
+                        <li>• API endpoint consumption</li>
+                        <li>• Shared state management</li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div className="p-4 border rounded-lg">
+                    <h4 className="font-semibold text-purple-600">Unified Experience</h4>
+                    <div className="text-sm text-muted-foreground mt-2">
+                      <div className="font-medium">Result:</div>
+                      <ul className="mt-1 space-y-1">
+                        <li>• Same booking flow</li>
+                        <li>• Consistent availability</li>
+                        <li>• Unified payment processing</li>
+                        <li>• Shared customer data</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                  <h4 className="font-semibold text-green-800 dark:text-green-200">Implementation Approach</h4>
+                  <div className="text-sm text-green-700 dark:text-green-300 mt-2">
+                    <strong>No Rebuilding Required:</strong> The existing booking components can be directly imported and used in new website pages. The embed system already exists and works perfectly for external integration.
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Drag-and-Drop Builder Implementation */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Zap className="h-5 w-5" />
+                  Drag-and-Drop Builder Implementation
+                </CardTitle>
+                <CardDescription>
+                  Specific recommendations for React-based page builder solutions
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid md:grid-cols-3 gap-4">
+                  <div className="p-4 border rounded-lg">
+                    <h4 className="font-semibold text-blue-600">Option 1: Puck</h4>
+                    <Badge className="mt-2">RECOMMENDED</Badge>
+                    <div className="text-sm text-muted-foreground mt-2">
+                      <ul className="space-y-1">
+                        <li>• React-based, open source</li>
+                        <li>• Perfect for our component system</li>
+                        <li>• Can wrap existing components</li>
+                        <li>• Excellent TypeScript support</li>
+                        <li>• Lightweight and flexible</li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div className="p-4 border rounded-lg">
+                    <h4 className="font-semibold text-green-600">Option 2: Craft.js</h4>
+                    <Badge variant="outline" className="mt-2">ALTERNATIVE</Badge>
+                    <div className="text-sm text-muted-foreground mt-2">
+                      <ul className="space-y-1">
+                        <li>• Highly customizable</li>
+                        <li>• Good React integration</li>
+                        <li>• More complex setup</li>
+                        <li>• Powerful for advanced needs</li>
+                        <li>• Steeper learning curve</li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div className="p-4 border rounded-lg">
+                    <h4 className="font-semibold text-purple-600">Option 3: Builder.io</h4>
+                    <Badge variant="secondary" className="mt-2">HOSTED</Badge>
+                    <div className="text-sm text-muted-foreground mt-2">
+                      <ul className="space-y-1">
+                        <li>• Commercial solution</li>
+                        <li>• Advanced features</li>
+                        <li>• External dependency</li>
+                        <li>• Monthly costs</li>
+                        <li>• Less control</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                  <h4 className="font-semibold text-blue-800 dark:text-blue-200">Puck Implementation Plan</h4>
+                  <div className="text-sm text-blue-700 dark:text-blue-300 mt-2 space-y-2">
+                    <div><strong>1. Component Wrapping:</strong> Wrap existing components (BookingWidget, ProductPicker, TestimonialCard) as Puck components</div>
+                    <div><strong>2. Builder Interface:</strong> Add Puck editor to admin dashboard for page management</div>
+                    <div><strong>3. Page Storage:</strong> Store page configurations in existing database</div>
+                    <div><strong>4. Rendering:</strong> Create dynamic page renderer for public website</div>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Replit Platform Optimization */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Rocket className="h-5 w-5" />
+                  Replit Platform Optimization
+                </CardTitle>
+                <CardDescription>
+                  Leveraging Replit's features for production website deployment
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="p-4 border rounded-lg">
+                    <h4 className="font-semibold text-green-600">Autoscale Deployment</h4>
+                    <div className="text-sm text-muted-foreground mt-2">
+                      <ul className="space-y-1">
+                        <li>• Automatic scaling for traffic spikes</li>
+                        <li>• Production-ready hosting</li>
+                        <li>• Built-in CDN and performance optimization</li>
+                        <li>• Zero-downtime deployments</li>
+                        <li>• Environment variable management</li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div className="p-4 border rounded-lg">
+                    <h4 className="font-semibold text-blue-600">Custom Domain & SSL</h4>
+                    <div className="text-sm text-muted-foreground mt-2">
+                      <ul className="space-y-1">
+                        <li>• Custom domain setup (premierpartycruises.com)</li>
+                        <li>• Automatic SSL certificate management</li>
+                        <li>• Professional business appearance</li>
+                        <li>• SEO benefits from custom domain</li>
+                        <li>• Email integration possibilities</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                  <h4 className="font-semibold text-green-800 dark:text-green-200">Deployment Strategy</h4>
+                  <div className="text-sm text-green-700 dark:text-green-300 mt-2">
+                    <strong>Single Application Deployment:</strong> The existing Replit project can serve both the public website and admin dashboard from the same deployment, using routing to separate concerns (/admin/* for CRM, /* for public website).
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Technical Implementation Phases */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Workflow className="h-5 w-5" />
+                  Technical Implementation Phases
+                </CardTitle>
+                <CardDescription>
+                  Step-by-step roadmap for building the website expansion
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="space-y-4">
+                  <div className="p-4 border-l-4 border-blue-500 bg-blue-50 dark:bg-blue-900/20">
+                    <h4 className="font-semibold text-blue-800 dark:text-blue-200">Phase 1: Foundation (Week 1)</h4>
+                    <ul className="text-sm text-blue-700 dark:text-blue-300 mt-2 space-y-1">
+                      <li>• Install and configure Puck page builder</li>
+                      <li>• Create page management system in admin dashboard</li>
+                      <li>• Set up public website routing structure</li>
+                      <li>• Create base page templates and layouts</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="p-4 border-l-4 border-green-500 bg-green-50 dark:bg-green-900/20">
+                    <h4 className="font-semibold text-green-800 dark:text-green-200">Phase 2: Component Integration (Week 2)</h4>
+                    <ul className="text-sm text-green-700 dark:text-green-300 mt-2 space-y-1">
+                      <li>• Wrap existing booking components for Puck</li>
+                      <li>• Create content components (hero, testimonials, gallery)</li>
+                      <li>• Implement component preview system</li>
+                      <li>• Test component integration and data flow</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="p-4 border-l-4 border-purple-500 bg-purple-50 dark:bg-purple-900/20">
+                    <h4 className="font-semibold text-purple-800 dark:text-purple-200">Phase 3: Content Creation (Week 3)</h4>
+                    <ul className="text-sm text-purple-700 dark:text-purple-300 mt-2 space-y-1">
+                      <li>• Build homepage with hero and booking integration</li>
+                      <li>• Create about page with company information</li>
+                      <li>• Develop services pages with live pricing</li>
+                      <li>• Implement testimonials and gallery pages</li>
+                    </ul>
+                  </div>
+                  
+                  <div className="p-4 border-l-4 border-orange-500 bg-orange-50 dark:bg-orange-900/20">
+                    <h4 className="font-semibold text-orange-800 dark:text-orange-200">Phase 4: SEO & Performance (Week 4)</h4>
+                    <ul className="text-sm text-orange-700 dark:text-orange-300 mt-2 space-y-1">
+                      <li>• Implement SEO optimization (meta tags, structured data)</li>
+                      <li>• Add performance optimizations and caching</li>
+                      <li>• Set up custom domain and SSL certificate</li>
+                      <li>• Launch and test full website functionality</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Content Management Strategy */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Book className="h-5 w-5" />
+                  Content Management Strategy
+                </CardTitle>
+                <CardDescription>
+                  How page editors can build/edit pages with prompts and backend access
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid md:grid-cols-2 gap-4">
+                  <div className="p-4 border rounded-lg">
+                    <h4 className="font-semibold text-green-600">Visual Page Builder</h4>
+                    <div className="text-sm text-muted-foreground mt-2">
+                      <ul className="space-y-1">
+                        <li>• Drag-and-drop interface using Puck</li>
+                        <li>• Live preview of changes</li>
+                        <li>• Pre-built component library</li>
+                        <li>• Mobile responsiveness controls</li>
+                        <li>• Content versioning and drafts</li>
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div className="p-4 border rounded-lg">
+                    <h4 className="font-semibold text-blue-600">AI-Assisted Editing</h4>
+                    <div className="text-sm text-muted-foreground mt-2">
+                      <ul className="space-y-1">
+                        <li>• Prompt-based content generation</li>
+                        <li>• Auto-suggest component layouts</li>
+                        <li>• Content optimization recommendations</li>
+                        <li>• SEO guidance and suggestions</li>
+                        <li>• Brand consistency checking</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+                
+                <div className="p-4 border rounded-lg">
+                  <h4 className="font-semibold text-purple-600">Direct Backend Access</h4>
+                  <div className="text-sm text-muted-foreground mt-2">
+                    For advanced users, direct file editing access through:
+                    <ul className="mt-1 space-y-1">
+                      <li>• Code editor integration in admin dashboard</li>
+                      <li>• Git workflow for version control</li>
+                      <li>• Component library management</li>
+                      <li>• Custom CSS and styling overrides</li>
+                      <li>• Database schema modifications</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* File Structure Organization */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Database className="h-5 w-5" />
+                  File Structure Organization
+                </CardTitle>
+                <CardDescription>
+                  How to organize the codebase to support both CRM and public website functionality
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="grid gap-4">
+                  <div className="p-4 border rounded-lg bg-gray-50 dark:bg-gray-900">
+                    <h4 className="font-semibold font-mono text-sm">Proposed File Structure</h4>
+                    <pre className="text-xs text-muted-foreground mt-2 overflow-x-auto">
+{`client/
+├── src/
+│   ├── pages/
+│   │   ├── admin/          # Existing CRM pages (Dashboard, Leads, etc.)
+│   │   └── public/         # NEW: Public website pages
+│   │       ├── HomePage.tsx
+│   │       ├── AboutPage.tsx
+│   │       ├── ServicesPage.tsx
+│   │       └── ContactPage.tsx
+│   ├── components/
+│   │   ├── admin/          # Existing CRM components
+│   │   ├── public/         # NEW: Public website components
+│   │   │   ├── Hero.tsx
+│   │   │   ├── Testimonials.tsx
+│   │   │   └── Gallery.tsx
+│   │   ├── shared/         # Shared components (booking, etc.)
+│   │   └── builder/        # NEW: Puck page builder components
+│   │       ├── PuckConfig.tsx
+│   │       ├── ComponentLibrary.tsx
+│   │       └── PageRenderer.tsx
+│   ├── lib/
+│   │   ├── puck/          # NEW: Page builder utilities
+│   │   └── cms/           # NEW: Content management system
+│   └── App.tsx            # Updated routing for public/admin
+server/
+├── routes/
+│   ├── admin.ts           # Existing CRM API routes
+│   ├── public.ts          # NEW: Public website API routes
+│   └── pages.ts           # NEW: Page management API
+└── storage/
+    ├── crmStorage.ts      # Existing CRM data
+    └── pageStorage.ts     # NEW: Page content storage`}
+                    </pre>
+                  </div>
+                  
+                  <div className="p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                    <h4 className="font-semibold text-blue-800 dark:text-blue-200">Organization Benefits</h4>
+                    <ul className="text-sm text-blue-700 dark:text-blue-300 mt-2 space-y-1">
+                      <li>• Clear separation between admin and public functionality</li>
+                      <li>• Shared components prevent code duplication</li>
+                      <li>• Existing CRM code remains unchanged</li>
+                      <li>• Easy to maintain and extend both systems</li>
+                      <li>• Unified routing and state management</li>
+                    </ul>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Implementation Status */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Target className="h-5 w-5" />
+                  Next Steps & Implementation
+                </CardTitle>
+                <CardDescription>
+                  Ready to implement this comprehensive website platform expansion
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div className="p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                  <h4 className="font-semibold text-green-800 dark:text-green-200">Ready to Begin</h4>
+                  <div className="text-sm text-green-700 dark:text-green-300 mt-2">
+                    This plan leverages all existing functionality while adding professional website capabilities. The booking system, payment processing, and CRM functionality will remain fully operational throughout the implementation.
+                  </div>
+                </div>
+                
+                <div className="flex gap-3">
+                  <Button 
+                    onClick={() => {
+                      toast({
+                        title: "Implementation Plan Ready",
+                        description: "This comprehensive plan is ready for implementation. All existing CRM functionality will be preserved.",
+                      });
+                    }}
+                    data-testid="button-start-implementation"
+                  >
+                    <Building className="mr-2 h-4 w-4" />
+                    Begin Implementation
+                  </Button>
+                  
+                  <Button 
+                    variant="outline"
+                    onClick={() => {
+                      toast({
+                        title: "Plan Documentation",
+                        description: "This plan has been documented in the Settings dashboard for reference.",
+                      });
+                    }}
+                    data-testid="button-save-plan"
+                  >
+                    <Save className="mr-2 h-4 w-4" />
+                    Save Plan
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          </TabsContent>
                   
                   <div>
                     <h3 className="text-lg font-semibold mb-3">GoHighLevel Webhook</h3>

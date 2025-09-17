@@ -6977,20 +6977,44 @@ export async function registerRoutes(app: Express): Promise<Server> {
         });
         
       } else if (typeof slotId === 'string' && slotId.startsWith('private_')) {
-        // Private slot: private_{boatId}_{date}_{startTime}_{endTime}
+        // Handle both formats:
+        // Legacy: private_{boatId}_{date}_{startTime}_{endTime} (5 parts)
+        // Current: private_{dateISO}_{timeRange} (3 parts)
         const parts = slotId.split('_');
-        if (parts.length !== 5) {
+        let boatId, dateStr, startTime, endTime;
+        
+        if (parts.length === 5) {
+          // Legacy format: private_{boatId}_{date}_{startTime}_{endTime}
+          [, boatId, dateStr, startTime, endTime] = parts;
+        } else if (parts.length === 3) {
+          // Current format: private_{dateISO}_{timeRange}
+          const [, dateISO, timeRange] = parts;
+          dateStr = dateISO;
+          const [start, end] = timeRange.split('-');
+          startTime = start;
+          endTime = end;
+          // For current format, we'll use the first available boat
+          boatId = null;
+        } else {
           return res.status(400).json({ error: "Invalid private slot ID format" });
         }
         
-        const [, boatId, dateStr, startTime, endTime] = parts;
-        
         // Fetch boat details
         const boats = await storage.getActiveBoats();
-        const boat = boats.find(b => b.id === boatId);
+        let boat;
         
-        if (!boat) {
-          return res.status(404).json({ error: "Boat not found" });
+        if (boatId) {
+          // Legacy format with specific boat ID
+          boat = boats.find(b => b.id === boatId);
+          if (!boat) {
+            return res.status(404).json({ error: "Boat not found" });
+          }
+        } else {
+          // Current format - find best available boat for the time slot
+          const eventDate = new Date(dateStr);
+          const availableBoats = await storage.getAvailableBoats(eventDate, startTime, endTime, 1);
+          boat = availableBoats.length > 0 ? availableBoats[0] : boats[0]; // Fallback to first boat
+          boatId = boat.id;
         }
         
         // Calculate duration
