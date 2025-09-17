@@ -5,13 +5,10 @@ import { apiRequest, queryClient } from '@/lib/queryClient';
 import { useToast } from '@/hooks/use-toast';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
-import { Textarea } from '@/components/ui/textarea';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Checkbox } from '@/components/ui/checkbox';
+import { Slider } from '@/components/ui/slider';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
@@ -28,27 +25,37 @@ type QuoteWithDetails = Quote & {
   contact?: Contact;
 };
 
+// Available packages for private cruises
+const addOnPackages = [
+  { id: 'essentials', name: 'Essentials Package', hourlyRate: 50, description: 'Coolers, ice, cups, napkins, and basic party supplies' },
+  { id: 'ultimate', name: 'Ultimate Party Package', hourlyRate: 75, description: 'Everything in Essentials plus decorations, party games, and premium setup' }
+];
+
+// Disco cruise packages
+const discoPackages = [
+  { id: 'basic', name: 'Basic Disco Experience', price: 8500, description: 'DJ, dancing, and party atmosphere' },
+  { id: 'queen', name: 'Disco Queen Experience', price: 9500, description: 'Basic package plus premium drinks and VIP treatment' },
+  { id: 'platinum', name: 'Platinum Disco Experience', price: 10500, description: 'Ultimate disco experience with all premium amenities' }
+];
+
 export default function QuoteViewer() {
   const params = useParams();
   const quoteId = params.quoteId as string;
   const { toast } = useToast();
   
-  // Extract token from URL query parameters with better error handling
+  // Extract token from URL query parameters or hash
   const urlParams = new URLSearchParams(window.location.search);
-  const token = urlParams.get('token');
+  const hashParams = new URLSearchParams(window.location.hash.substring(1));
+  const token = urlParams.get('token') || hashParams.get('token');
   
-  // Debug token extraction
-  console.log('🔍 QuoteViewer URL Analysis:', {
-    quoteId,
-    currentUrl: window.location.href,
-    searchParams: window.location.search,
-    extractedToken: token ? `${token.substring(0, 20)}...` : null,
-    tokenLength: token?.length || 0
-  });
-  
-  // State for interactive elements (now minimal as this is display-only)
-  const [acceptTerms, setAcceptTerms] = useState(false);
-  const [signature, setSignature] = useState('');
+  // Interactive state - now fully functional like quote builder
+  const [groupSize, setGroupSize] = useState(20);
+  const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
+  const [selectedDiscoPackage, setSelectedDiscoPackage] = useState<string>('basic');
+  const [discoTicketQuantity, setDiscoTicketQuantity] = useState(10);
+  const [privatePricing, setPrivatePricing] = useState<any>(null);
+  const [discoPricing, setDiscoPricing] = useState<any>(null);
+  const [pricingLoading, setPricingLoading] = useState(false);
   
   // Fetch quote details with token
   const { data: quote, isLoading, error: quoteError } = useQuery<QuoteWithDetails>({
@@ -60,22 +67,10 @@ export default function QuoteViewer() {
       }
       
       const url = `/api/quotes/${encodeURIComponent(quoteId)}/public?token=${encodeURIComponent(token)}`;
-      
-      console.log('🌐 Making quote API request:', {
-        quoteId,
-        url: url.substring(0, 80) + '...',
-        tokenPresent: !!token
-      });
-      
       const res = await apiRequest('GET', url);
       
       if (!res.ok) {
         const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
-        console.error('❌ Quote API error:', {
-          status: res.status,
-          statusText: res.statusText,
-          error: errorData.error
-        });
         throw new Error(errorData.error || `Failed to fetch quote (${res.status})`);
       }
       
@@ -91,13 +86,6 @@ export default function QuoteViewer() {
     },
     enabled: !!quoteId,
     retry: (failureCount, error: any) => {
-      console.log('🔄 Query retry decision:', { 
-        failureCount, 
-        errorMessage: error?.message,
-        shouldRetry: failureCount < 2 && !error?.message?.includes('Access token required')
-      });
-      
-      // Don't retry token-related errors
       if (error?.message?.includes('Invalid access token') || 
           error?.message?.includes('Access token required') ||
           error?.message?.includes('Token expired')) {
@@ -108,116 +96,192 @@ export default function QuoteViewer() {
     },
   });
 
-  // Track quote view when quote is loaded
-  const trackView = useMutation({
-    mutationFn: async (metadata: any) => {
-      const res = await apiRequest('POST', `/api/quotes/${quoteId}/track-view`, {
-        contactId: quote?.contact?.id,
-        viewDuration: null, // Will be calculated on page unload
-        metadata: {
-          ...metadata,
-          viewedAt: new Date().toISOString(),
-          source: 'quote_viewer'
-        }
-      });
-      if (!res.ok) throw new Error('Failed to track view');
-      return res.json();
-    },
-    onError: (error) => {
-      // Silent fail for analytics - don't disrupt user experience
-      console.warn('Failed to track quote view:', error);
-    }
-  });
-
-  // Track view when quote loads
+  // Initialize state from quote data
   useEffect(() => {
-    if (quote && !isLoading && !quoteError) {
-      trackView.mutate({
-        quoteTotal: quote.total,
-        quoteStatus: quote.status,
-        projectId: quote.projectId,
-        hasContact: !!quote.contact
-      });
-    }
-  }, [quote, isLoading, quoteError]);
-  
-  // Save acceptance mutation - now creates invoice automatically
-  const saveAcceptance = useMutation({
-    mutationFn: async () => {
-      const res = await apiRequest('PATCH', `/api/quotes/${quoteId}/acceptance`, {
-        signature: acceptTerms ? signature : null,
-        acceptedAt: acceptTerms ? new Date().toISOString() : null,
-      });
-      if (!res.ok) throw new Error('Failed to save acceptance');
-      return res.json();
-    },
-    onSuccess: (data) => {
-      if (data.invoiceId) {
-        // Quote accepted and invoice created automatically
-        toast({ 
-          title: '🎉 Quote Accepted Successfully!', 
-          description: 'Your invoice has been generated and is ready for payment. You\'ll be redirected shortly.',
-          duration: 5000,
-        });
-        
-        // Invalidate queries to refresh the UI
-        queryClient.invalidateQueries({ queryKey: [`/api/quotes/${quoteId}/public`] });
-        
-        // Redirect to invoice after a short delay
-        setTimeout(() => {
-          window.location.href = `/invoice/${data.invoiceId}`;
-        }, 2000);
-        
-      } else {
-        // Just terms accepted (no invoice created)
-        toast({ 
-          title: 'Terms Accepted', 
-          description: 'Your acceptance has been recorded.',
-        });
-        queryClient.invalidateQueries({ queryKey: [`/api/quotes/${quoteId}/public`] });
-      }
-    },
-    onError: (error: any) => {
-      toast({ 
-        title: 'Error', 
-        description: error.message || 'Failed to save acceptance',
-        variant: 'destructive',
-      });
-    },
-  });
-  
-  // Load acceptance state from quote data
-  useEffect(() => {
-    if (quote?.radioSections) {
-      // Check if terms have been accepted
-      const acceptanceSection = quote.radioSections.find(s => s.id === 'terms_acceptance');
-      if (acceptanceSection?.selectedValue === 'accepted') {
-        setAcceptTerms(true);
-        setSignature(acceptanceSection.metadata?.signature || '');
+    if (quote?.project) {
+      setGroupSize(quote.project.groupSize || 20);
+      
+      // Set disco package if it's a disco cruise
+      const discoItem = quote.items?.find(item => 
+        item.name?.toLowerCase().includes('disco') || 
+        item.productId?.includes('disco')
+      );
+      if (discoItem) {
+        const packageType = discoItem.productId?.replace('disco_', '') || 'basic';
+        setSelectedDiscoPackage(packageType);
+        setDiscoTicketQuantity(discoItem.qty || 10);
       }
     }
   }, [quote]);
-  
-  // Use the quote's actual pricing (no dynamic calculation)
-  const pricing = {
-    subtotal: quote?.subtotal || 0,
-    tax: quote?.tax || 0,
-    gratuity: quote?.gratuity || 0,
-    total: quote?.total || 0
+
+  // Fetch private cruise pricing
+  const fetchPrivatePricing = async () => {
+    if (!quote?.project) return;
+    
+    setPricingLoading(true);
+    try {
+      const timeSlot = getTimeSlotFromQuote(quote);
+      const hourlyRate = 200 + selectedAddOns.reduce((sum, addOnId) => {
+        const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
+        return sum + (addOn?.hourlyRate || 0);
+      }, 0);
+
+      const res = await apiRequest('POST', '/api/pricing/cruise', {
+        groupSize,
+        eventDate: quote.project.projectDate,
+        timeSlot,
+        eventType: quote.project.eventType,
+        cruiseType: 'private',
+        packageType: selectedAddOns.join(','),
+        hourlyRate
+      });
+      
+      if (res.ok) {
+        const pricing = await res.json();
+        setPrivatePricing(pricing);
+      }
+    } catch (error) {
+      console.error('Failed to fetch private pricing:', error);
+    } finally {
+      setPricingLoading(false);
+    }
   };
-  
+
+  // Fetch disco cruise pricing
+  const fetchDiscoPricing = async () => {
+    if (!quote?.project) return;
+    
+    setPricingLoading(true);
+    try {
+      const packagePrice = discoPackages.find(pkg => pkg.id === selectedDiscoPackage)?.price || 8500;
+      
+      const res = await apiRequest('POST', '/api/pricing/preview', {
+        items: [{
+          productId: `disco_${selectedDiscoPackage}`,
+          qty: discoTicketQuantity,
+          unitPrice: packagePrice
+        }],
+        groupSize: discoTicketQuantity,
+        projectDate: quote.project.projectDate
+      });
+      
+      if (res.ok) {
+        const pricing = await res.json();
+        setDiscoPricing(pricing);
+      }
+    } catch (error) {
+      console.error('Failed to fetch disco pricing:', error);
+    } finally {
+      setPricingLoading(false);
+    }
+  };
+
+  // Refresh pricing when dependencies change
+  useEffect(() => {
+    if (quote && isPrivateCruise(quote)) {
+      fetchPrivatePricing();
+    }
+  }, [quote, groupSize, selectedAddOns]);
+
+  useEffect(() => {
+    if (quote && isDiscoCruise(quote)) {
+      fetchDiscoPricing();
+    }
+  }, [quote, selectedDiscoPackage, discoTicketQuantity]);
+
+  // Payment handler - direct payment without acceptance step
+  const handlePayment = async (paymentType: 'deposit' | 'full', cruiseType: 'private' | 'disco') => {
+    const pricing = cruiseType === 'private' ? privatePricing : discoPricing;
+    if (!pricing || !quote) {
+      toast({
+        title: "Pricing Error",
+        description: "Please wait for pricing to load before proceeding.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      // Create payment intent with updated quote data
+      const paymentData = {
+        amount: paymentType === 'deposit' ? pricing.depositAmount : pricing.total,
+        currency: 'usd',
+        projectId: quote.project?.id,
+        quoteId: quote.id,
+        paymentType,
+        cruiseType,
+        groupSize,
+        selectedAddOns: cruiseType === 'private' ? selectedAddOns : [],
+        discoPackage: cruiseType === 'disco' ? selectedDiscoPackage : null,
+        discoTicketQuantity: cruiseType === 'disco' ? discoTicketQuantity : null,
+        contactInfo: {
+          name: quote.contact?.name || 'Customer',
+          email: quote.contact?.email || '',
+          phone: quote.contact?.phone || ''
+        }
+      };
+
+      console.log('💳 Creating payment intent:', paymentData);
+
+      const res = await apiRequest('POST', '/api/create-payment-intent', paymentData);
+      
+      if (!res.ok) {
+        throw new Error('Failed to create payment intent');
+      }
+
+      const { clientSecret } = await res.json();
+      
+      // Redirect to Stripe checkout or handle payment
+      window.location.href = `/checkout?payment_intent=${clientSecret}&quote=${quoteId}`;
+
+    } catch (error: any) {
+      console.error('💳 Payment error:', error);
+      toast({
+        title: "Payment Error",
+        description: error.message || "Failed to process payment. Please try again.",
+        variant: "destructive",
+      });
+    }
+  };
+
+  // Helper functions
+  const getTimeSlotFromQuote = (quote: QuoteWithDetails) => {
+    // Extract time slot from quote data
+    const timeSection = quote.radioSections?.find(s => 
+      s.title?.toLowerCase().includes('time') && s.selectedValue
+    );
+    return timeSection?.selectedValue || 'default-slot';
+  };
+
+  const isPrivateCruise = (quote: QuoteWithDetails) => {
+    return quote.items?.some(item => 
+      item.type === 'private_cruise' || 
+      item.type === 'cruise' ||
+      !item.name?.toLowerCase().includes('disco')
+    );
+  };
+
+  const isDiscoCruise = (quote: QuoteWithDetails) => {
+    return quote.project?.eventType === 'bachelor' || 
+           quote.project?.eventType === 'bachelorette' ||
+           quote.items?.some(item => 
+             item.name?.toLowerCase().includes('disco') ||
+             item.productId?.includes('disco')
+           );
+  };
+
   const formatCurrency = (cents: number) => {
     return new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
     }).format(cents / 100);
   };
-  
+
   const formatDate = (date: string | Date | null | undefined) => {
     if (!date) return 'TBD';
     return format(new Date(date), 'EEEE, MMMM d, yyyy');
   };
-  
+
   // Loading state
   if (isLoading) {
     return (
@@ -229,7 +293,7 @@ export default function QuoteViewer() {
       </div>
     );
   }
-  
+
   // Error state
   if (quoteError || !quote) {
     return (
@@ -242,451 +306,335 @@ export default function QuoteViewer() {
       </div>
     );
   }
-  
+
   const isExpired = quote.expiresAt && new Date(quote.expiresAt) < new Date();
-  const showDiscoOptions = quote.project?.eventType === 'bachelor' || quote.project?.eventType === 'bachelorette' || false;
-  
-  // Check if quote has been accepted
-  const isQuoteAccepted = quote.radioSections?.some(section => 
-    section.id === 'terms_acceptance' && section.selectedValue === 'accepted'
-  ) || false;
-  
+  const showPrivateOptions = isPrivateCruise(quote);
+  const showDiscoOptions = isDiscoCruise(quote);
+
   return (
-    <div className="min-h-screen bg-white">
-      {/* Print/Download Actions */}
-      <div className="sticky top-0 z-50 bg-white border-b print:hidden">
-        <div className="max-w-5xl mx-auto px-6 py-3 flex justify-end gap-3">
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={() => window.print()}
-            data-testid="button-print"
-          >
-            <Printer className="h-4 w-4 mr-2" />
-            Print
-          </Button>
-          <Button 
-            variant="outline" 
-            size="sm"
-            onClick={() => saveAcceptance.mutate()}
-            disabled={saveAcceptance.isPending || !acceptTerms}
-            data-testid="button-save"
-          >
-            {saveAcceptance.isPending ? (
-              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-            ) : (
-              <Save className="h-4 w-4 mr-2" />
-            )}
-            Save Acceptance
-          </Button>
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white border-b print:hidden">
+        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+          <img src={logoPath} alt="Premier Party Cruises" className="h-12" />
+          <div className="flex gap-3">
+            <Button variant="outline" size="sm" onClick={() => window.print()}>
+              <Printer className="h-4 w-4 mr-2" />
+              Print
+            </Button>
+          </div>
         </div>
       </div>
-      
-      <div className="max-w-5xl mx-auto px-6 py-8">
-        {/* Professional Header Section */}
-        <div className="mb-8">
-          <div className="grid grid-cols-2 gap-8 mb-6">
-            {/* Company Info (From) */}
-            <div>
-              <img 
-                src={logoPath} 
-                alt="Premier Party Cruises" 
-                className="h-16 mb-4"
-                data-testid="img-company-logo"
-              />
-              <div className="text-sm space-y-1">
-                <p className="font-semibold text-gray-900">Premier Party Cruises</p>
-                <p className="text-gray-600">1112 S Lakeshore Blvd</p>
-                <p className="text-gray-600">Austin, TX 78741</p>
-                <p className="text-gray-600">(512) 488-5892</p>
-                <p className="text-gray-600">clientservices@premierpartycruises.com</p>
-              </div>
-            </div>
-            
-            {/* Quote Info & Customer Info (To) */}
-            <div className="text-right">
-              <div className="mb-6">
-                <h1 className="text-3xl font-bold text-gray-900 mb-2">QUOTE</h1>
-                <div className="text-sm space-y-1">
-                  <p className="text-gray-600">Quote #: {quote.id.slice(-8).toUpperCase()}</p>
-                  <p className="text-gray-600">Date Issued: {format(new Date(quote.createdAt), 'MMM dd, yyyy')}</p>
-                  {quote.expiresAt && (
-                    <p className={cn(
-                      "font-medium",
-                      isExpired ? "text-red-600" : "text-gray-600"
-                    )}>
-                      {isExpired ? 'EXPIRED' : `Valid Until: ${format(new Date(quote.expiresAt), 'MMM dd, yyyy')}`}
-                    </p>
-                  )}
+
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {/* Left Column - Quote Details & Customization */}
+          <div className="space-y-6">
+            {/* Quote Header */}
+            <Card>
+              <CardHeader>
+                <div className="flex justify-between items-start">
+                  <div>
+                    <CardTitle className="text-2xl font-bold">Your Quote</CardTitle>
+                    <p className="text-gray-600">Quote #{quote.id.slice(-8).toUpperCase()}</p>
+                  </div>
+                  <Badge variant={isExpired ? "destructive" : "secondary"}>
+                    {isExpired ? 'EXPIRED' : 'Active'}
+                  </Badge>
                 </div>
-              </div>
-              
-              <div className="text-sm space-y-1 text-left inline-block">
-                <p className="font-semibold text-gray-900 uppercase">Bill To:</p>
-                <p className="text-gray-600">{quote.contact?.name || 'Customer Name'}</p>
-                <p className="text-gray-600">{quote.contact?.email || 'customer@email.com'}</p>
-                {quote.contact?.phone && (
-                  <p className="text-gray-600">{quote.contact.phone}</p>
-                )}
-              </div>
-            </div>
-          </div>
-          
-          <Separator className="my-6" />
-          
-          {/* Event Details Bar */}
-          <div className="bg-gray-50 rounded-lg p-4">
-            <div className="grid grid-cols-4 gap-4 text-sm">
-              <div>
-                <p className="text-gray-500 uppercase text-xs mb-1">Event Type</p>
-                <p className="font-semibold text-gray-900">
-                  {quote.project?.eventType === 'bachelor' && 'Bachelor Party'}
-                  {quote.project?.eventType === 'bachelorette' && 'Bachelorette Party'}
-                  {quote.project?.eventType === 'birthday' && 'Birthday Party'}
-                  {quote.project?.eventType === 'corporate' && 'Corporate Event'}
-                  {quote.project?.eventType === 'wedding' && 'Wedding Reception'}
-                  {(!quote.project?.eventType || quote.project?.eventType === 'other') && 'Party Cruise'}
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-500 uppercase text-xs mb-1">Event Date</p>
-                <p className="font-semibold text-gray-900">
-                  {formatDate(quote.project?.projectDate)}
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-500 uppercase text-xs mb-1">Duration</p>
-                <p className="font-semibold text-gray-900">
-                  {quote.project?.duration || 4} hours
-                </p>
-              </div>
-              <div>
-                <p className="text-gray-500 uppercase text-xs mb-1">Group Size</p>
-                <p className="font-semibold text-gray-900">
-                  {quote.project?.groupSize || 20} guests
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        {/* Cruise Selection Details */}
-        <div className="mb-8">
-          <h2 className="text-lg font-semibold text-gray-900 mb-4">Your Cruise Selection</h2>
-          
-          {/* Display Primary Cruise Selection */}
-          {quote.items && quote.items.filter(item => item.type === 'private_cruise' || item.type === 'cruise').length > 0 && (
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-              <div className="flex items-start space-x-3">
-                <Ship className="h-6 w-6 text-blue-600 mt-1" />
-                <div className="flex-1">
-                  <h3 className="font-semibold text-blue-900 mb-2">Private Charter Cruise</h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                    <div>
-                      <p className="text-blue-600 font-medium">Date</p>
-                      <p className="text-blue-800">{formatDate(quote.project?.projectDate)}</p>
-                    </div>
-                    <div>
-                      <p className="text-blue-600 font-medium">Duration</p>
-                      <p className="text-blue-800">{quote.project?.duration || 4} hours</p>
-                    </div>
-                    <div>
-                      <p className="text-blue-600 font-medium">Group Size</p>
-                      <p className="text-blue-800">{quote.project?.groupSize || 20} guests</p>
-                    </div>
-                    <div>
-                      <p className="text-blue-600 font-medium">Boat</p>
-                      <p className="text-blue-800">
-                        {(() => {
-                          // Try to get boat info from cruise items
-                          const cruiseItem = quote.items?.find(item => item.type === 'private_cruise' || item.type === 'cruise');
-                          if (cruiseItem?.description?.includes('Vessel:')) {
-                            const vesselMatch = cruiseItem.description.match(/Vessel:\s*([^,\n]+)/);
-                            return vesselMatch?.[1] || 'TBD';
-                          }
-                          
-                          // Fallback based on group size
-                          const groupSize = quote.project?.groupSize || 20;
-                          if (groupSize <= 15) return 'Day Tripper (15 guests)';
-                          if (groupSize <= 25) return 'Medium Vessel (25 guests)';
-                          if (groupSize <= 50) return 'Large Vessel (50 guests)';
-                          return 'Extra Large Vessel (75 guests)';
-                        })()
-                      }</p>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <p className="text-sm text-gray-600">Event Date</p>
+                    <p className="font-semibold">{formatDate(quote.project?.projectDate)}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600">Duration</p>
+                    <p className="font-semibold">{quote.project?.duration || 4} hours</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600">Event Type</p>
+                    <p className="font-semibold capitalize">{quote.project?.eventType || 'Party'}</p>
+                  </div>
+                  <div>
+                    <p className="text-sm text-gray-600">Contact</p>
+                    <p className="font-semibold">{quote.contact?.name || 'Customer'}</p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Private Cruise Options */}
+            {showPrivateOptions && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Ship className="h-5 w-5 mr-2" />
+                    Private Cruise Options
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {/* Group Size */}
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      Group Size: {groupSize} people
+                    </label>
+                    <Slider
+                      value={[groupSize]}
+                      onValueChange={(value) => setGroupSize(value[0])}
+                      min={8}
+                      max={75}
+                      step={1}
+                      className="w-full"
+                    />
+                    <div className="flex justify-between text-xs text-gray-500 mt-1">
+                      <span>8 people</span>
+                      <span>75 people</span>
                     </div>
                   </div>
-                  
-                  {/* Show selected time if available from radioSections */}
-                  {quote.radioSections?.find(s => s.selectedValue && s.title?.toLowerCase().includes('time'))?.selectedValue && (
-                    <div className="mt-3 p-3 bg-white rounded border border-blue-200">
-                      <p className="text-blue-600 font-medium text-sm">Selected Time Slot</p>
-                      <p className="text-blue-800 font-semibold">
-                        {quote.radioSections.find(s => s.selectedValue && s.title?.toLowerCase().includes('time'))?.selectedValue}
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-          )}
-          
-          {/* Display Disco Cruise Options if present */}
-          {showDiscoOptions && quote.items?.some(item => item.name?.toLowerCase().includes('disco') || item.name?.toLowerCase().includes('atx')) && (
-            <div className="bg-purple-50 border border-purple-200 rounded-lg p-4">
-              <div className="flex items-start space-x-3">
-                <Sparkles className="h-6 w-6 text-purple-600 mt-1" />
-                <div className="flex-1">
-                  <h3 className="font-semibold text-purple-900 mb-2">ATX Disco Cruise Experience</h3>
-                  <div className="text-sm text-purple-800">
-                    <p className="mb-2">Join our party boat experience with DJ, dancing, and festive atmosphere!</p>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                      <div>
-                        <p className="font-medium text-purple-700">Available Times:</p>
-                        <p>• Friday: 12:00 PM - 4:00 PM</p>
-                        <p>• Saturday: 11:00 AM - 3:00 PM or 3:30 PM - 7:30 PM</p>
-                      </div>
-                      <div>
-                        <p className="font-medium text-purple-700">Includes:</p>
-                        <p>• Professional DJ & Sound System</p>
-                        <p>• Dance Floor & Party Atmosphere</p>
-                        <p>• Cash Bar Available</p>
-                      </div>
-                    </div>
-                    
-                    {/* Show selected disco tickets */}
-                    {(() => {
-                      const discoItem = quote.items?.find(item => item.name?.toLowerCase().includes('disco') || item.name?.toLowerCase().includes('atx'));
-                      if (discoItem?.qty && discoItem.qty > 0) {
-                        return (
-                          <div className="mt-3 p-3 bg-white rounded border border-purple-200">
-                            <p className="text-purple-600 font-medium text-sm">Selected Tickets</p>
-                            <p className="text-purple-800 font-semibold">
-                              {discoItem.qty} × {discoItem.name} @ {formatCurrency(discoItem.unitPrice)} each
-                            </p>
+
+                  {/* Add-on Packages */}
+                  <div>
+                    <label className="block text-sm font-medium mb-3">Additional Packages</label>
+                    <div className="space-y-3">
+                      {addOnPackages.map((pkg) => (
+                        <div key={pkg.id} className="flex items-center space-x-3">
+                          <input
+                            type="checkbox"
+                            id={`addon-${pkg.id}`}
+                            checked={selectedAddOns.includes(pkg.id)}
+                            onChange={(e) => {
+                              if (e.target.checked) {
+                                setSelectedAddOns([...selectedAddOns, pkg.id]);
+                              } else {
+                                setSelectedAddOns(selectedAddOns.filter(id => id !== pkg.id));
+                              }
+                            }}
+                            className="rounded border-gray-300"
+                          />
+                          <div className="flex-1">
+                            <label htmlFor={`addon-${pkg.id}`} className="font-medium cursor-pointer">
+                              {pkg.name} (+${pkg.hourlyRate}/hr)
+                            </label>
+                            <p className="text-sm text-gray-600">{pkg.description}</p>
                           </div>
-                        );
-                      }
-                      return null;
-                    })()
-                    }
-                  </div>
-                </div>
-              </div>
-            </div>
-          )}
-          
-          {/* Display selected packages/add-ons from radioSections */}
-          {quote.radioSections && quote.radioSections.filter(section => section.selectedValue && section.id !== 'terms_acceptance').length > 0 && (
-            <div className="mt-4">
-              <h3 className="font-medium text-gray-900 mb-3">Selected Options</h3>
-              <div className="space-y-2">
-                {quote.radioSections
-                  .filter(section => section.selectedValue && section.id !== 'terms_acceptance')
-                  .map((section, index) => (
-                    <div key={index} className="flex justify-between items-center p-3 bg-gray-50 rounded border">
-                      <div>
-                        <p className="font-medium text-gray-900">{section.title}</p>
-                        <p className="text-sm text-gray-600">{section.selectedValue}</p>
-                      </div>
-                      {section.options?.find(opt => opt.id === section.selectedOptionId)?.price && (
-                        <p className="font-semibold text-gray-900">
-                          {formatCurrency(section.options.find(opt => opt.id === section.selectedOptionId)?.price || 0)}
-                        </p>
-                      )}
+                        </div>
+                      ))}
                     </div>
-                  ))
-                }
-              </div>
-            </div>
-          )}
-        </div>
-        
-        {/* Items Table - Display Actual Quote Items */}
-        <div className="mb-8">
-          <table className="w-full border-collapse">
-            <thead>
-              <tr className="border-b-2 border-gray-300">
-                <th className="text-left py-2 text-sm font-semibold text-gray-900">ITEM</th>
-                <th className="text-center py-2 text-sm font-semibold text-gray-900 w-24">QTY</th>
-                <th className="text-right py-2 text-sm font-semibold text-gray-900 w-32">RATE</th>
-                <th className="text-right py-2 text-sm font-semibold text-gray-900 w-32">TOTAL</th>
-              </tr>
-            </thead>
-            <tbody>
-              {/* Display all quote items */}
-              {quote.items && quote.items.length > 0 ? (
-                quote.items
-                  .sort((a, b) => (a.order || 0) - (b.order || 0)) // Sort by order if specified
-                  .map((item, index) => (
-                    <tr key={item.id || index} className="border-b border-gray-200">
-                      <td className="py-3">
-                        <p className="font-medium text-gray-900" data-testid={`text-item-name-${index}`}>
-                          {item.name}
-                        </p>
-                        {item.description && (
-                          <p className="text-sm text-gray-600 mt-1" data-testid={`text-item-description-${index}`}>
-                            {item.description}
-                          </p>
-                        )}
-                        {/* Show category badge if it's an add-on or optional */}
-                        {(item.isOptional || item.category === 'addon') && (
-                          <Badge variant="secondary" className="mt-2">
-                            Optional Add-On
-                          </Badge>
-                        )}
-                      </td>
-                      <td className="text-center py-3" data-testid={`text-item-qty-${index}`}>
-                        {item.qty || 1}
-                      </td>
-                      <td className="text-right py-3" data-testid={`text-item-rate-${index}`}>
-                        {formatCurrency(item.unitPrice)}
-                        {/* Show per unit label if quantity > 1 */}
-                        {(item.qty || 1) > 1 && (
-                          <span className="text-xs text-gray-500 block">each</span>
-                        )}
-                      </td>
-                      <td className="text-right py-3 font-medium" data-testid={`text-item-total-${index}`}>
-                        {formatCurrency(item.unitPrice * (item.qty || 1))}
-                      </td>
-                    </tr>
-                  ))
-              ) : (
-                <tr className="border-b border-gray-200">
-                  <td className="py-3">
-                    <p className="font-medium text-gray-900">Private Charter - {quote.project?.duration || 4} Hour Cruise</p>
-                    <p className="text-sm text-gray-600">
-                      Exclusive use of vessel for your group of {quote.project?.groupSize || 20} guests
-                    </p>
-                  </td>
-                  <td className="text-center py-3">1</td>
-                  <td className="text-right py-3">{formatCurrency(quote.subtotal || 0)}</td>
-                  <td className="text-right py-3 font-medium">{formatCurrency(quote.subtotal || 0)}</td>
-                </tr>
-              )}
-            </tbody>
-          </table>
-        </div>
-        
-        {/* Pricing Summary Section */}
-        <div className="mb-8">
-          <div className="border-t-2 border-gray-300 pt-4">
-            <div className="space-y-2 text-right max-w-md ml-auto">
-              <div className="flex justify-between">
-                <span className="text-gray-600">Subtotal:</span>
-                <span className="font-medium text-gray-900">{formatCurrency(pricing.subtotal)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Sales Tax ({((pricing.tax / pricing.subtotal) * 100).toFixed(2)}%):</span>
-                <span className="font-medium text-gray-900">{formatCurrency(pricing.tax)}</span>
-              </div>
-              <div className="flex justify-between">
-                <span className="text-gray-600">Crew Gratuity ({((pricing.gratuity / pricing.subtotal) * 100).toFixed(2)}%):</span>
-                <span className="font-medium text-gray-900">{formatCurrency(pricing.gratuity)}</span>
-              </div>
-              <Separator className="my-3" />
-              <div className="flex justify-between text-lg font-bold">
-                <span className="text-gray-900">Total:</span>
-                <span className="text-gray-900">{formatCurrency(pricing.total)}</span>
-              </div>
-              {quote.depositRequired && (
-                <div className="flex justify-between text-sm pt-2 border-t">
-                  <span className="text-gray-600">Deposit Required:</span>
-                  <span className="font-medium text-green-600">
-                    {formatCurrency(quote.depositAmount || Math.round(pricing.total * (quote.depositPercent || 25) / 100))}
-                  </span>
-                </div>
-              )}
-            </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Disco Cruise Options */}
+            {showDiscoOptions && (
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center">
+                    <Sparkles className="h-5 w-5 mr-2" />
+                    Disco Cruise Options
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  {/* Package Selection */}
+                  <div>
+                    <label className="block text-sm font-medium mb-2">Package Type</label>
+                    <Select value={selectedDiscoPackage} onValueChange={setSelectedDiscoPackage}>
+                      <SelectTrigger>
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {discoPackages.map((pkg) => (
+                          <SelectItem key={pkg.id} value={pkg.id}>
+                            {pkg.name} - {formatCurrency(pkg.price)}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  </div>
+
+                  {/* Ticket Quantity */}
+                  <div>
+                    <label className="block text-sm font-medium mb-2">
+                      Number of Tickets: {discoTicketQuantity}
+                    </label>
+                    <Slider
+                      value={[discoTicketQuantity]}
+                      onValueChange={(value) => setDiscoTicketQuantity(value[0])}
+                      min={1}
+                      max={50}
+                      step={1}
+                      className="w-full"
+                    />
+                    <div className="flex justify-between text-xs text-gray-500 mt-1">
+                      <span>1 ticket</span>
+                      <span>50 tickets</span>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
           </div>
-        </div>
-        
-        
-        {/* Payment Terms */}
-        <div className="mb-8">
-          <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-            <h3 className="font-semibold text-gray-900 mb-2">Payment Terms</h3>
-            <ul className="text-sm text-gray-600 space-y-1">
-              <li>• 25% deposit required to confirm booking</li>
-              <li>• Remaining balance due 7 days before event</li>
-              <li>• Cancellations made 14+ days before event receive full refund</li>
-              <li>• Cancellations made 7-13 days before event receive 50% refund</li>
-              <li>• No refunds for cancellations made less than 7 days before event</li>
-            </ul>
-          </div>
-        </div>
-        
-        {/* Acceptance Section */}
-        <div className="mb-8 border-t pt-6">
-          <h3 className="font-semibold text-gray-900 mb-4">Quote Acceptance</h3>
-          <div className="space-y-4">
-            <div className="flex items-start space-x-3">
-              <Checkbox 
-                id="accept-terms"
-                checked={acceptTerms}
-                onCheckedChange={(checked) => setAcceptTerms(checked as boolean)}
-              />
-              <Label htmlFor="accept-terms" className="text-sm text-gray-600 cursor-pointer">
-                I have read and agree to the terms and conditions outlined in this quote. 
-                I understand the payment terms and cancellation policy.
-              </Label>
-            </div>
-            
-            {acceptTerms && (
-              <div>
-                <Label htmlFor="signature" className="text-sm font-medium text-gray-700">
-                  Electronic Signature
-                </Label>
-                <Input
-                  id="signature"
-                  type="text"
-                  placeholder="Type your full name"
-                  value={signature}
-                  onChange={(e) => setSignature(e.target.value)}
-                  className="mt-1 max-w-sm"
-                  data-testid="input-signature"
-                />
-                <p className="text-xs text-gray-500 mt-1">
-                  By typing your name, you agree to use this as your electronic signature.
+
+          {/* Right Column - Pricing & Payment */}
+          <div className="space-y-6">
+            {/* Private Cruise Pricing */}
+            {showPrivateOptions && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Private Cruise Pricing</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {pricingLoading ? (
+                    <div className="flex items-center justify-center py-8">
+                      <Loader2 className="h-6 w-6 animate-spin" />
+                    </div>
+                  ) : privatePricing ? (
+                    <div className="space-y-4">
+                      {/* Pricing Breakdown */}
+                      <div className="space-y-2">
+                        <div className="flex justify-between">
+                          <span>Base Rate ({privatePricing.duration}h × ${privatePricing.hourlyRate}/hr):</span>
+                          <span>{formatCurrency(privatePricing.subtotal)}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Tax (8.25%):</span>
+                          <span>{formatCurrency(privatePricing.tax)}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Gratuity (20%):</span>
+                          <span>{formatCurrency(privatePricing.gratuity)}</span>
+                        </div>
+                        <Separator />
+                        <div className="flex justify-between font-bold text-lg">
+                          <span>Total:</span>
+                          <span>{formatCurrency(privatePricing.total)}</span>
+                        </div>
+                        <div className="flex justify-between text-sm text-gray-600">
+                          <span>Per Person:</span>
+                          <span>{formatCurrency(privatePricing.perPersonCost)}</span>
+                        </div>
+                      </div>
+
+                      {/* Payment Buttons */}
+                      <div className="space-y-3">
+                        <Button
+                          onClick={() => handlePayment('deposit', 'private')}
+                          className="w-full bg-blue-600 hover:bg-blue-700"
+                          disabled={isExpired}
+                        >
+                          <CreditCard className="h-4 w-4 mr-2" />
+                          Pay Deposit ({formatCurrency(privatePricing.depositAmount)})
+                        </Button>
+                        <Button
+                          onClick={() => handlePayment('full', 'private')}
+                          variant="outline"
+                          className="w-full"
+                          disabled={isExpired}
+                        >
+                          Pay in Full ({formatCurrency(privatePricing.total)})
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-center py-8 text-gray-500">Loading pricing...</p>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Disco Cruise Pricing */}
+            {showDiscoOptions && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Disco Cruise Pricing</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {pricingLoading ? (
+                    <div className="flex items-center justify-center py-8">
+                      <Loader2 className="h-6 w-6 animate-spin" />
+                    </div>
+                  ) : discoPricing ? (
+                    <div className="space-y-4">
+                      {/* Pricing Breakdown */}
+                      <div className="space-y-2">
+                        <div className="flex justify-between">
+                          <span>{discoTicketQuantity} × {discoPackages.find(p => p.id === selectedDiscoPackage)?.name}:</span>
+                          <span>{formatCurrency(discoPricing.subtotal)}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Tax (8.25%):</span>
+                          <span>{formatCurrency(discoPricing.tax)}</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Gratuity (20%):</span>
+                          <span>{formatCurrency(discoPricing.gratuity)}</span>
+                        </div>
+                        <Separator />
+                        <div className="flex justify-between font-bold text-lg">
+                          <span>Total:</span>
+                          <span>{formatCurrency(discoPricing.total)}</span>
+                        </div>
+                        <div className="flex justify-between text-sm text-gray-600">
+                          <span>Per Person:</span>
+                          <span>{formatCurrency(discoPricing.perPersonCost)}</span>
+                        </div>
+                      </div>
+
+                      {/* Payment Buttons */}
+                      <div className="space-y-3">
+                        <Button
+                          onClick={() => handlePayment('deposit', 'disco')}
+                          className="w-full bg-purple-600 hover:bg-purple-700"
+                          disabled={isExpired}
+                        >
+                          <CreditCard className="h-4 w-4 mr-2" />
+                          Pay Deposit ({formatCurrency(discoPricing.depositAmount)})
+                        </Button>
+                        <Button
+                          onClick={() => handlePayment('full', 'disco')}
+                          variant="outline"
+                          className="w-full"
+                          disabled={isExpired}
+                        >
+                          Pay in Full ({formatCurrency(discoPricing.total)})
+                        </Button>
+                      </div>
+                    </div>
+                  ) : (
+                    <p className="text-center py-8 text-gray-500">Loading pricing...</p>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Send Quote Option */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Share This Quote</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-sm text-gray-600 mb-4">
+                  Want to review this later or share with others?
                 </p>
-              </div>
-            )}
+                <Button
+                  variant="outline"
+                  className="w-full"
+                  onClick={() => {
+                    navigator.clipboard.writeText(window.location.href);
+                    toast({
+                      title: "Link Copied!",
+                      description: "Quote link has been copied to your clipboard.",
+                    });
+                  }}
+                >
+                  <FileText className="h-4 w-4 mr-2" />
+                  Copy Quote Link
+                </Button>
+              </CardContent>
+            </Card>
           </div>
-        </div>
-        
-        {/* Action Buttons */}
-        <div className="flex justify-end gap-4 print:hidden">
-          <Button
-            variant="outline"
-            onClick={() => saveAcceptance.mutate()}
-            disabled={saveAcceptance.isPending || !acceptTerms || !signature}
-            data-testid="button-save-acceptance"
-          >
-            {saveAcceptance.isPending ? (
-              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-            ) : (
-              <CheckCircle className="h-4 w-4 mr-2" />
-            )}
-            {isQuoteAccepted ? 'Update Acceptance' : 'Accept Quote'}
-          </Button>
-          {acceptTerms && signature && !isExpired && (
-            <Button
-              className="bg-green-600 hover:bg-green-700"
-              onClick={() => {
-                // Navigate to payment
-                window.location.href = `/checkout?quote=${quoteId}&token=${token}`;
-              }}
-              data-testid="button-proceed-payment"
-            >
-              <CreditCard className="h-4 w-4 mr-2" />
-              Proceed to Payment
-            </Button>
-          )}
-        </div>
-        
-        {/* Footer */}
-        <div className="mt-12 pt-6 border-t text-center text-sm text-gray-500">
-          <p>Thank you for choosing Premier Party Cruises!</p>
-          <p>Questions? Call us at (512) 488-5892 or email clientservices@premierpartycruises.com</p>
         </div>
       </div>
     </div>

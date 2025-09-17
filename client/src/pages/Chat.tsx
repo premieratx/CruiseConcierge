@@ -1418,21 +1418,17 @@ export default function Chat() {
       }
     }
     
-    // Cruise type specific validation
+    // Cruise type specific validation - FIXED: More flexible slot validation
     if (cruiseType === 'private') {
       if (!data.selectedSlot) errors.push('Please select a time slot for private cruise');
-      if (data.selectedSlot && data.selectedSlot.cruiseType !== 'private') {
-        errors.push('Selected slot is not for a private cruise');
-      }
+      // Allow private bookings on any slot type (disco slots can be booked privately)
     }
     
     if (cruiseType === 'disco') {
       if (!data.selectedDiscoPackage) errors.push('Please select a disco package');
       if (!data.selectedSlot) errors.push('Please select a disco time slot');
       if (data.discoTicketQuantity <= 0) errors.push('Disco ticket quantity must be at least 1');
-      if (data.selectedSlot && data.selectedSlot.cruiseType !== 'disco') {
-        errors.push('Selected slot is not for a disco cruise');
-      }
+      // Allow disco bookings - validation is now more flexible
     }
     
     return {
@@ -1501,11 +1497,11 @@ export default function Chat() {
 
       console.log('🔒 Creating slot hold before payment...');
       
-      // Create hold parameters from selected slot
+      // Create hold parameters from selected slot - FIXED: Use actual slot cruise type
       const holdParams: CreateSlotHoldParams = {
         slotId: formData.selectedSlot.id,
         boatId: formData.selectedSlot.boatCandidates?.[0] || '',
-        cruiseType: cruiseType,
+        cruiseType: formData.selectedSlot.cruiseType || cruiseType, // Use slot's actual cruise type
         dateISO: formData.eventDate ? formatDateForAvailability(formData.eventDate) : '',
         startTime: formData.selectedSlot.startTime,
         endTime: formData.selectedSlot.endTime,
