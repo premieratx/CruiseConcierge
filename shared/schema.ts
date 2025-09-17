@@ -1616,3 +1616,284 @@ export type CustomerProfile = {
   nextActionRequired: string | null;
   nextActionDue: Date | null;
 };
+
+// ==========================================
+// SEO MANAGEMENT SCHEMA
+// ==========================================
+
+// SEO pages table for comprehensive SEO management
+export const seoPages = pgTable("seo_pages", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  pageRoute: text("page_route").notNull(), // e.g., '/', '/bachelor-party', '/bachelorette-party'
+  pageName: text("page_name").notNull(), // Human-readable page name
+  
+  // Primary Meta Tags
+  metaTitle: text("meta_title"),
+  metaDescription: text("meta_description"),
+  metaKeywords: jsonb("meta_keywords").$type<string[]>().default([]),
+  
+  // Open Graph Tags
+  openGraphTitle: text("og_title"),
+  openGraphDescription: text("og_description"),
+  openGraphImage: text("og_image"),
+  openGraphType: varchar("og_type").default("website"),
+  
+  // Twitter Card Tags
+  twitterTitle: text("twitter_title"),
+  twitterDescription: text("twitter_description"),
+  twitterImage: text("twitter_image"),
+  twitterCard: varchar("twitter_card").default("summary_large_image"),
+  
+  // SEO Focus
+  focusKeyword: text("focus_keyword"),
+  targetKeywords: jsonb("target_keywords").$type<string[]>().default([]),
+  
+  // Structured Data
+  schemaMarkup: jsonb("schema_markup").$type<Record<string, any>>().default({}),
+  
+  // URL Management
+  canonicalUrl: text("canonical_url"),
+  alternateUrls: jsonb("alternate_urls").$type<string[]>().default([]),
+  
+  // Technical SEO
+  robotsDirective: varchar("robots_directive").default("index, follow"),
+  priority: integer("priority").default(50), // 0-100 for sitemap priority
+  changeFrequency: varchar("change_frequency").default("monthly"), // weekly, monthly, yearly
+  
+  // SEO Analysis Results
+  seoScore: integer("seo_score").default(0), // 0-100
+  lastAnalyzed: timestamp("last_analyzed"),
+  issues: jsonb("issues").$type<SEOIssue[]>().default([]),
+  recommendations: jsonb("recommendations").$type<string[]>().default([]),
+  
+  // Content Analysis
+  contentLength: integer("content_length").default(0),
+  keywordDensity: jsonb("keyword_density").$type<Record<string, number>>().default({}),
+  headingStructure: jsonb("heading_structure").$type<HeadingStructure>().default({ h1: [], h2: [], h3: [], h4: [], h5: [], h6: [] }),
+  internalLinks: integer("internal_links").default(0),
+  externalLinks: integer("external_links").default(0),
+  imagesWithoutAlt: integer("images_without_alt").default(0),
+  
+  // Performance Metrics
+  loadTime: integer("load_time"), // in milliseconds
+  mobileOptimized: boolean("mobile_optimized").default(true),
+  
+  // Status and Management
+  active: boolean("active").notNull().default(true),
+  autoOptimize: boolean("auto_optimize").default(false), // Allow AI optimization
+  lastUpdated: timestamp("last_updated").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// SEO audit log for tracking changes and optimizations
+export const seoAuditLog = pgTable("seo_audit_log", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  pageId: varchar("page_id").notNull(), // reference to seo_pages
+  
+  // Audit Details
+  auditType: varchar("audit_type").notNull(), // 'manual', 'ai_optimization', 'bulk_update', 'scheduled'
+  changesMade: jsonb("changes_made").$type<Record<string, any>>().default({}),
+  previousData: jsonb("previous_data").$type<Record<string, any>>().default({}),
+  
+  // Results
+  scoreBefore: integer("score_before").default(0),
+  scoreAfter: integer("score_after").default(0),
+  issuesResolved: jsonb("issues_resolved").$type<string[]>().default([]),
+  newIssues: jsonb("new_issues").$type<string[]>().default([]),
+  
+  // AI Optimization Details
+  aiPrompt: text("ai_prompt"),
+  aiModel: varchar("ai_model"), // 'gpt-4', 'gpt-3.5-turbo', etc.
+  aiTokensUsed: integer("ai_tokens_used"),
+  
+  // Metadata
+  performedBy: varchar("performed_by"), // 'system', 'admin', or user ID
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// SEO competitor tracking
+export const seoCompetitors = pgTable("seo_competitors", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  
+  // Competitor Details
+  name: text("name").notNull(),
+  domain: text("domain").notNull(),
+  targetKeywords: jsonb("target_keywords").$type<string[]>().default([]),
+  
+  // Analysis Results
+  estimatedTraffic: integer("estimated_traffic"),
+  domainAuthority: integer("domain_authority"),
+  backlinks: integer("backlinks"),
+  topRankingPages: jsonb("top_ranking_pages").$type<CompetitorPage[]>().default([]),
+  
+  // Tracking
+  active: boolean("active").notNull().default(true),
+  lastAnalyzed: timestamp("last_analyzed"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Global SEO settings and configurations
+export const seoSettings = pgTable("seo_settings", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  
+  // Global Meta Defaults
+  defaultMetaTitle: text("default_meta_title"),
+  defaultMetaDescription: text("default_meta_description"),
+  defaultOgImage: text("default_og_image"),
+  
+  // Business Information for Schema
+  businessName: text("business_name"),
+  businessType: varchar("business_type"), // 'LocalBusiness', 'Organization', etc.
+  businessAddress: jsonb("business_address").$type<BusinessAddress>().default({}),
+  businessPhone: text("business_phone"),
+  businessEmail: text("business_email"),
+  businessHours: jsonb("business_hours").$type<BusinessHours[]>().default([]),
+  
+  // Social Media Profiles
+  socialProfiles: jsonb("social_profiles").$type<SocialProfile[]>().default([]),
+  
+  // SEO Tools Integration
+  googleAnalyticsId: text("google_analytics_id"),
+  googleSearchConsoleId: text("google_search_console_id"),
+  facebookPixelId: text("facebook_pixel_id"),
+  
+  // Technical Settings
+  robotsTxtContent: text("robots_txt_content"),
+  customSchemaMarkup: jsonb("custom_schema_markup").$type<Record<string, any>>().default({}),
+  
+  // AI Optimization Settings
+  aiOptimizationEnabled: boolean("ai_optimization_enabled").default(true),
+  preferredAiModel: varchar("preferred_ai_model").default("gpt-4"),
+  aiOptimizationPrompts: jsonb("ai_optimization_prompts").$type<Record<string, string>>().default({}),
+  
+  // Automated Features
+  autoGenerateSitemap: boolean("auto_generate_sitemap").default(true),
+  autoAnalyzeNewPages: boolean("auto_analyze_new_pages").default(true),
+  scheduleRegularAudits: boolean("schedule_regular_audits").default(false),
+  auditFrequency: varchar("audit_frequency").default("weekly"), // daily, weekly, monthly
+  
+  lastUpdated: timestamp("last_updated").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Types for SEO functionality
+export type SEOIssue = {
+  type: 'error' | 'warning' | 'info';
+  category: 'meta' | 'content' | 'technical' | 'performance' | 'accessibility';
+  message: string;
+  element?: string;
+  priority: 'high' | 'medium' | 'low';
+  autoFixable: boolean;
+};
+
+export type HeadingStructure = {
+  h1: string[];
+  h2: string[];
+  h3: string[];
+  h4: string[];
+  h5: string[];
+  h6: string[];
+};
+
+export type CompetitorPage = {
+  url: string;
+  title: string;
+  keywords: string[];
+  estimatedTraffic: number;
+  position: number;
+};
+
+export type BusinessAddress = {
+  streetAddress?: string;
+  addressLocality?: string;
+  addressRegion?: string;
+  postalCode?: string;
+  addressCountry?: string;
+};
+
+export type BusinessHours = {
+  dayOfWeek: string;
+  opens: string;
+  closes: string;
+};
+
+export type SocialProfile = {
+  platform: 'facebook' | 'instagram' | 'twitter' | 'linkedin' | 'youtube' | 'tiktok';
+  url: string;
+  username?: string;
+};
+
+// Insert schemas for SEO entities
+export const insertSeoPageSchema = createInsertSchema(seoPages).omit({
+  id: true,
+  createdAt: true,
+  lastUpdated: true,
+});
+
+export const insertSeoAuditLogSchema = createInsertSchema(seoAuditLog).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertSeoCompetitorSchema = createInsertSchema(seoCompetitors).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertSeoSettingsSchema = createInsertSchema(seoSettings).omit({
+  id: true,
+  createdAt: true,
+  lastUpdated: true,
+});
+
+// TypeScript types for SEO entities
+export type SeoPage = typeof seoPages.$inferSelect;
+export type InsertSeoPage = z.infer<typeof insertSeoPageSchema>;
+export type SeoAuditLog = typeof seoAuditLog.$inferSelect;
+export type InsertSeoAuditLog = z.infer<typeof insertSeoAuditLogSchema>;
+export type SeoCompetitor = typeof seoCompetitors.$inferSelect;
+export type InsertSeoCompetitor = z.infer<typeof insertSeoCompetitorSchema>;
+export type SeoSettings = typeof seoSettings.$inferSelect;
+export type InsertSeoSettings = z.infer<typeof insertSeoSettingsSchema>;
+
+// SEO analysis and optimization types
+export type SEOAnalysisResult = {
+  score: number;
+  issues: SEOIssue[];
+  recommendations: string[];
+  keywordDensity: Record<string, number>;
+  headingStructure: HeadingStructure;
+  contentMetrics: {
+    wordCount: number;
+    paragraphCount: number;
+    sentenceCount: number;
+    readabilityScore: number;
+  };
+  technicalMetrics: {
+    loadTime: number;
+    mobileOptimized: boolean;
+    hasStructuredData: boolean;
+    internalLinks: number;
+    externalLinks: number;
+    imagesWithoutAlt: number;
+  };
+};
+
+export type SEOOptimizationRequest = {
+  pageRoute: string;
+  targetKeyword?: string;
+  optimizationType: 'meta_tags' | 'content' | 'headings' | 'full_page';
+  currentContent?: string;
+  competitorUrls?: string[];
+};
+
+export type SEOBulkOperation = {
+  operation: 'analyze' | 'optimize' | 'update_meta';
+  pageRoutes: string[];
+  parameters?: Record<string, any>;
+};

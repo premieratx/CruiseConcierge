@@ -22,6 +22,7 @@ import {
   UserCheck, MessageSquare
 } from 'lucide-react';
 import { formatCurrency } from '@shared/formatters';
+import SEOHead from '@/components/SEOHead';
 
 // Hero and gallery images 
 import heroImage1 from '@assets/image_1757844813165.png';
@@ -271,6 +272,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
+      <SEOHead
+        pageRoute="/"
+        defaultTitle="Premier Party Cruises - Austin Lake Travis Boat Rentals"
+        defaultDescription="Austin's premier boat rental and party cruise experience on Lake Travis. Private charters, disco cruises, bachelor parties, and corporate events."
+        defaultKeywords={['Austin boat rental', 'Lake Travis cruises', 'party boat Austin', 'bachelor party boat', 'private charter', 'Austin party cruises', 'boat rental Austin']}
+        schemaType="organization"
+      />
       <PublicNavigation />
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">

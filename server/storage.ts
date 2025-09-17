@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, contacts, projects, boats, products, quotes, invoices, payments, chatMessages, availabilitySlots, quoteTemplates, templateRules, discountRules, pricingSettings, affiliates, bookings, discoSlots, timeframes, emailTemplates, masterTemplates, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts, quoteAnalytics, fileSends, emailTracking, customerLifecycle, customerActivity, slotHolds, partialLeads, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, blogComments, blogAnalytics } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, contacts, projects, boats, products, quotes, invoices, payments, chatMessages, availabilitySlots, quoteTemplates, templateRules, discountRules, pricingSettings, affiliates, bookings, discoSlots, timeframes, emailTemplates, masterTemplates, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts, quoteAnalytics, fileSends, emailTracking, customerLifecycle, customerActivity, slotHolds, partialLeads, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, blogComments, blogAnalytics, seoPages, seoAuditLog, seoCompetitors, seoSettings } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, gte, lte, desc, asc, isNull, isNotNull, or, inArray, sql, count, sum } from "drizzle-orm";
 import { randomUUID } from "crypto";
@@ -552,6 +552,120 @@ export interface IStorage {
   mapWordPressAuthor(wpAuthorData: { id: number; name: string; email?: string; bio?: string }): Promise<BlogAuthor>;
 
   // ===== END BLOG SYSTEM OPERATIONS =====
+  
+  // ===== SEO MANAGEMENT OPERATIONS =====
+  
+  // SEO Pages Management
+  getSeoPage(pageRoute: string): Promise<SeoPage | undefined>;
+  getSeoPages(): Promise<SeoPage[]>;
+  createSeoPage(seoPage: InsertSeoPage): Promise<SeoPage>;
+  updateSeoPage(pageRoute: string, updates: Partial<SeoPage>): Promise<SeoPage>;
+  deleteSeoPage(pageRoute: string): Promise<boolean>;
+  upsertSeoPage(seoPage: InsertSeoPage): Promise<SeoPage>;
+  
+  // SEO Analysis and Scoring
+  analyzePage(pageRoute: string, content?: string): Promise<SEOAnalysisResult>;
+  calculateSeoScore(pageRoute: string): Promise<number>;
+  updateSeoAnalysis(pageRoute: string, analysis: SEOAnalysisResult): Promise<SeoPage>;
+  
+  // SEO Optimization with AI
+  optimizePageSeo(request: SEOOptimizationRequest): Promise<SeoPage>;
+  generateMetaTags(pageRoute: string, content: string, targetKeyword?: string): Promise<{
+    title: string;
+    description: string;
+    keywords: string[];
+  }>;
+  optimizeContent(content: string, targetKeyword: string, competitorUrls?: string[]): Promise<string>;
+  
+  // SEO Bulk Operations
+  bulkAnalyzePages(pageRoutes: string[]): Promise<SEOAnalysisResult[]>;
+  bulkOptimizePages(operation: SEOBulkOperation): Promise<SeoPage[]>;
+  refreshAllPageAnalysis(): Promise<SeoPage[]>;
+  
+  // SEO Audit Log
+  getSeoAuditLog(pageId: string): Promise<SeoAuditLog[]>;
+  getAllSeoAuditLogs(): Promise<SeoAuditLog[]>;
+  createSeoAuditLog(auditLog: InsertSeoAuditLog): Promise<SeoAuditLog>;
+  
+  // SEO Competitors
+  getSeoCompetitor(id: string): Promise<SeoCompetitor | undefined>;
+  getSeoCompetitors(): Promise<SeoCompetitor[]>;
+  getSeoCompetitorByDomain(domain: string): Promise<SeoCompetitor | undefined>;
+  createSeoCompetitor(competitor: InsertSeoCompetitor): Promise<SeoCompetitor>;
+  updateSeoCompetitor(id: string, updates: Partial<SeoCompetitor>): Promise<SeoCompetitor>;
+  deleteSeoCompetitor(id: string): Promise<boolean>;
+  
+  // SEO Settings
+  getSeoSettings(): Promise<SeoSettings | undefined>;
+  updateSeoSettings(settings: Partial<SeoSettings>): Promise<SeoSettings>;
+  createSeoSettings(settings: InsertSeoSettings): Promise<SeoSettings>;
+  upsertSeoSettings(settings: Partial<SeoSettings>): Promise<SeoSettings>;
+  
+  // Technical SEO
+  generateSitemap(): Promise<string>;
+  generateRobotsTxt(): Promise<string>;
+  getPageMetaData(pageRoute: string): Promise<{
+    title?: string;
+    description?: string;
+    keywords?: string[];
+    ogTitle?: string;
+    ogDescription?: string;
+    ogImage?: string;
+    twitterTitle?: string;
+    twitterDescription?: string;
+    twitterImage?: string;
+    canonicalUrl?: string;
+    robotsDirective?: string;
+    schemaMarkup?: Record<string, any>;
+  }>;
+  
+  // SEO Analytics and Reporting
+  getSeoOverview(): Promise<{
+    totalPages: number;
+    averageScore: number;
+    highPriorityIssues: number;
+    pagesNeedingOptimization: number;
+    lastAnalyzed?: Date;
+  }>;
+  getSeoIssuesSummary(): Promise<Array<{
+    pageRoute: string;
+    pageName: string;
+    score: number;
+    issues: SEOIssue[];
+    lastAnalyzed?: Date;
+  }>>;
+  getKeywordRankings(keyword: string): Promise<Array<{
+    pageRoute: string;
+    position?: number;
+    targetKeywords: string[];
+    focusKeyword?: string;
+  }>>;
+  
+  // Content Analysis
+  analyzeContent(content: string, targetKeyword?: string): Promise<{
+    wordCount: number;
+    keywordDensity: Record<string, number>;
+    headingStructure: HeadingStructure;
+    readabilityScore: number;
+    internalLinks: number;
+    externalLinks: number;
+    images: number;
+    imagesWithoutAlt: number;
+  }>;
+  
+  // Schema Markup Management
+  generateBusinessSchema(): Promise<Record<string, any>>;
+  generatePageSchema(pageRoute: string, pageType: 'webpage' | 'service' | 'event'): Promise<Record<string, any>>;
+  validateSchemaMarkup(schema: Record<string, any>): Promise<{ valid: boolean; errors: string[] }>;
+  
+  // SEO Performance Tracking
+  trackPagePerformance(pageRoute: string, metrics: {
+    loadTime?: number;
+    mobileOptimized?: boolean;
+    coreWebVitals?: Record<string, number>;
+  }): Promise<SeoPage>;
+  
+  // ===== END SEO MANAGEMENT OPERATIONS =====
 }
 
 export class DatabaseStorage implements IStorage {
@@ -2601,6 +2715,604 @@ export class DatabaseStorage implements IStorage {
       .where(eq(blogCategories.active, true))
       .orderBy(asc(blogCategories.displayOrder), asc(blogCategories.name));
   }
+
+  // ===== SEO MANAGEMENT OPERATIONS =====
+  
+  // SEO Pages Management
+  async getSeoPage(pageRoute: string): Promise<SeoPage | undefined> {
+    const result = await db.select().from(seoPages).where(eq(seoPages.pageRoute, pageRoute)).limit(1);
+    return result[0];
+  }
+
+  async getSeoPages(): Promise<SeoPage[]> {
+    return await db.select().from(seoPages).orderBy(asc(seoPages.pageRoute));
+  }
+
+  async createSeoPage(seoPage: InsertSeoPage): Promise<SeoPage> {
+    const result = await db.insert(seoPages).values({
+      ...seoPage,
+      id: randomUUID(),
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }).returning();
+    return result[0];
+  }
+
+  async updateSeoPage(pageRoute: string, updates: Partial<SeoPage>): Promise<SeoPage> {
+    const result = await db.update(seoPages)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(seoPages.pageRoute, pageRoute))
+      .returning();
+    
+    if (result.length === 0) {
+      throw new Error(`SEO page not found: ${pageRoute}`);
+    }
+    return result[0];
+  }
+
+  async deleteSeoPage(pageRoute: string): Promise<boolean> {
+    const result = await db.delete(seoPages).where(eq(seoPages.pageRoute, pageRoute));
+    return result.rowCount > 0;
+  }
+
+  async upsertSeoPage(seoPage: InsertSeoPage): Promise<SeoPage> {
+    const existing = await this.getSeoPage(seoPage.pageRoute);
+    if (existing) {
+      return await this.updateSeoPage(seoPage.pageRoute, seoPage);
+    } else {
+      return await this.createSeoPage(seoPage);
+    }
+  }
+
+  // SEO Settings
+  async getSeoSettings(): Promise<SeoSettings | undefined> {
+    const result = await db.select().from(seoSettings).limit(1);
+    return result[0];
+  }
+
+  async updateSeoSettings(settings: Partial<SeoSettings>): Promise<SeoSettings> {
+    const existing = await this.getSeoSettings();
+    if (existing) {
+      const result = await db.update(seoSettings)
+        .set({ ...settings, updatedAt: new Date() })
+        .where(eq(seoSettings.id, existing.id))
+        .returning();
+      return result[0];
+    } else {
+      return await this.createSeoSettings(settings as InsertSeoSettings);
+    }
+  }
+
+  async createSeoSettings(settings: InsertSeoSettings): Promise<SeoSettings> {
+    const result = await db.insert(seoSettings).values({
+      ...settings,
+      id: randomUUID(),
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }).returning();
+    return result[0];
+  }
+
+  async upsertSeoSettings(settings: Partial<SeoSettings>): Promise<SeoSettings> {
+    const existing = await this.getSeoSettings();
+    if (existing) {
+      return await this.updateSeoSettings(settings);
+    } else {
+      return await this.createSeoSettings(settings as InsertSeoSettings);
+    }
+  }
+
+  // Technical SEO
+  async generateSitemap(): Promise<string> {
+    const pages = await this.getSeoPages();
+    const baseUrl = 'https://premierppartycruises.com';
+    
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${baseUrl}/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>${baseUrl}/bachelor-party</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>${baseUrl}/bachelorette-party</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>${baseUrl}/private-cruises</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>${baseUrl}/booking</loc>
+    <changefreq>daily</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>${baseUrl}/contact</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>${baseUrl}/gallery</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>${baseUrl}/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+${pages.map(page => `  <url>
+    <loc>${baseUrl}${page.pageRoute}</loc>
+    <changefreq>weekly</changefreq>
+    <priority>${page.priority || 0.5}</priority>
+    ${page.updatedAt ? `<lastmod>${page.updatedAt.toISOString()}</lastmod>` : ''}
+  </url>`).join('\n')}
+</urlset>`;
+    
+    return sitemap;
+  }
+
+  async generateRobotsTxt(): Promise<string> {
+    const baseUrl = 'https://premierppartycruises.com';
+    
+    return `User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: ${baseUrl}/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /dashboard/
+
+# Crawl-delay for politeness
+Crawl-delay: 1`;
+  }
+
+  async getPageMetaData(pageRoute: string): Promise<{
+    metaTitle?: string;
+    metaDescription?: string;
+    metaKeywords?: string[];
+    openGraphTitle?: string;
+    openGraphDescription?: string;
+    openGraphImage?: string;
+    openGraphType?: string;
+    twitterTitle?: string;
+    twitterDescription?: string;
+    twitterImage?: string;
+    twitterCard?: string;
+    canonicalUrl?: string;
+    robotsDirective?: string;
+    schemaMarkup?: Record<string, any>;
+  }> {
+    const seoPage = await this.getSeoPage(pageRoute);
+    
+    if (!seoPage) {
+      // Return default meta data for the page
+      const defaultMeta = {
+        metaTitle: 'Premier Party Cruises - Austin Lake Travis Boat Rentals',
+        metaDescription: 'Austin\'s premier boat rental and party cruise experience on Lake Travis. Private charters, disco cruises, bachelor parties, and corporate events.',
+        metaKeywords: ['Austin boat rental', 'Lake Travis cruises', 'party boat Austin', 'bachelor party boat', 'private charter'],
+        openGraphType: 'website',
+        twitterCard: 'summary_large_image',
+        robotsDirective: 'index, follow'
+      };
+      
+      // Page-specific defaults
+      if (pageRoute === '/bachelor-party') {
+        defaultMeta.metaTitle = 'Austin Bachelor Party Boat Cruises | Lake Travis | Premier Party Cruises';
+        defaultMeta.metaDescription = 'Ultimate Austin bachelor party experience on Lake Travis. Join our epic disco cruises with DJ, drinks, and unforgettable memories. Book now!';
+        defaultMeta.metaKeywords = ['Austin bachelor party', 'Lake Travis bachelor party', 'bachelor party boat', 'disco cruise Austin', 'bachelor party ideas Austin'];
+      } else if (pageRoute === '/bachelorette-party') {
+        defaultMeta.metaTitle = 'Austin Bachelorette Party Boat Cruises | Lake Travis | Premier Party Cruises';
+        defaultMeta.metaDescription = 'Perfect Austin bachelorette party on Lake Travis! Disco cruises with DJ, dancing, drinks, and incredible views. Bride rides free on weekends!';
+        defaultMeta.metaKeywords = ['Austin bachelorette party', 'Lake Travis bachelorette', 'bachelorette party boat', 'disco cruise Austin', 'bachelorette party ideas Austin'];
+      }
+      
+      return defaultMeta;
+    }
+    
+    return {
+      metaTitle: seoPage.metaTitle,
+      metaDescription: seoPage.metaDescription,
+      metaKeywords: seoPage.metaKeywords,
+      openGraphTitle: seoPage.openGraphTitle,
+      openGraphDescription: seoPage.openGraphDescription,
+      openGraphImage: seoPage.openGraphImage,
+      openGraphType: seoPage.openGraphType,
+      twitterTitle: seoPage.twitterTitle,
+      twitterDescription: seoPage.twitterDescription,
+      twitterImage: seoPage.twitterImage,
+      twitterCard: seoPage.twitterCard,
+      canonicalUrl: seoPage.canonicalUrl,
+      robotsDirective: seoPage.robotsDirective,
+      schemaMarkup: seoPage.schemaMarkup
+    };
+  }
+
+  // SEO Analytics and Reporting
+  async getSeoOverview(): Promise<{
+    totalPages: number;
+    averageScore: number;
+    highPriorityIssues: number;
+    pagesNeedingOptimization: number;
+    lastAnalyzed?: Date;
+  }> {
+    const pages = await this.getSeoPages();
+    
+    return {
+      totalPages: pages.length,
+      averageScore: pages.length > 0 ? pages.reduce((sum, page) => sum + (page.currentScore || 0), 0) / pages.length : 0,
+      highPriorityIssues: pages.filter(page => (page.currentScore || 0) < 50).length,
+      pagesNeedingOptimization: pages.filter(page => (page.currentScore || 0) < 80).length,
+      lastAnalyzed: pages.length > 0 ? new Date(Math.max(...pages.map(page => page.updatedAt?.getTime() || 0))) : undefined
+    };
+  }
+
+  async getSeoIssuesSummary(): Promise<Array<{
+    pageRoute: string;
+    pageName: string;
+    score: number;
+    issues: SEOIssue[];
+    lastAnalyzed?: Date;
+  }>> {
+    const pages = await this.getSeoPages();
+    
+    return pages.map(page => ({
+      pageRoute: page.pageRoute,
+      pageName: page.pageName || page.pageRoute,
+      score: page.currentScore || 0,
+      issues: page.issues || [],
+      lastAnalyzed: page.updatedAt
+    }));
+  }
+
+  async getKeywordRankings(keyword: string): Promise<Array<{
+    pageRoute: string;
+    position?: number;
+    targetKeywords: string[];
+    focusKeyword?: string;
+  }>> {
+    const pages = await this.getSeoPages();
+    
+    return pages
+      .filter(page => 
+        page.targetKeywords?.includes(keyword) || 
+        page.focusKeyword === keyword ||
+        page.metaKeywords?.includes(keyword)
+      )
+      .map(page => ({
+        pageRoute: page.pageRoute,
+        position: undefined, // Would need external SEO API to get actual rankings
+        targetKeywords: page.targetKeywords || [],
+        focusKeyword: page.focusKeyword
+      }));
+  }
+
+  // Content Analysis
+  async analyzeContent(content: string, targetKeyword?: string): Promise<{
+    wordCount: number;
+    keywordDensity: Record<string, number>;
+    headingStructure: HeadingStructure;
+    readabilityScore: number;
+    internalLinks: number;
+    externalLinks: number;
+    images: number;
+    imagesWithoutAlt: number;
+  }> {
+    const wordCount = content.split(/\s+/).length;
+    const words = content.toLowerCase().split(/\s+/);
+    const keywordDensity: Record<string, number> = {};
+    
+    // Calculate keyword density
+    if (targetKeyword) {
+      const keywordOccurrences = content.toLowerCase().split(targetKeyword.toLowerCase()).length - 1;
+      keywordDensity[targetKeyword] = (keywordOccurrences / wordCount) * 100;
+    }
+    
+    // Analyze heading structure
+    const h1Matches = content.match(/<h1[^>]*>/g) || [];
+    const h2Matches = content.match(/<h2[^>]*>/g) || [];
+    const h3Matches = content.match(/<h3[^>]*>/g) || [];
+    const h4Matches = content.match(/<h4[^>]*>/g) || [];
+    const h5Matches = content.match(/<h5[^>]*>/g) || [];
+    const h6Matches = content.match(/<h6[^>]*>/g) || [];
+    
+    const headingStructure: HeadingStructure = {
+      h1Count: h1Matches.length,
+      h2Count: h2Matches.length,
+      h3Count: h3Matches.length,
+      h4Count: h4Matches.length,
+      h5Count: h5Matches.length,
+      h6Count: h6Matches.length,
+      hasProperHierarchy: h1Matches.length === 1 && h1Matches.length <= h2Matches.length,
+      duplicateHeadings: []
+    };
+    
+    // Count links
+    const internalLinks = (content.match(/href=["'](?!http|\/\/)/g) || []).length;
+    const externalLinks = (content.match(/href=["'](?:http|\/\/)/g) || []).length;
+    
+    // Count images
+    const images = (content.match(/<img[^>]*>/g) || []).length;
+    const imagesWithAlt = (content.match(/<img[^>]*alt=["'][^"']*["'][^>]*>/g) || []).length;
+    const imagesWithoutAlt = images - imagesWithAlt;
+    
+    // Simple readability score (Flesch-Kincaid approximation)
+    const sentences = content.split(/[.!?]+/).length;
+    const averageWordsPerSentence = wordCount / Math.max(sentences, 1);
+    const readabilityScore = Math.max(0, Math.min(100, 206.835 - (1.015 * averageWordsPerSentence) - (84.6 * 1.5))); // Simplified
+    
+    return {
+      wordCount,
+      keywordDensity,
+      headingStructure,
+      readabilityScore,
+      internalLinks,
+      externalLinks,
+      images,
+      imagesWithoutAlt
+    };
+  }
+
+  // Schema Markup Management
+  async generateBusinessSchema(): Promise<Record<string, any>> {
+    return {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Premier Party Cruises",
+      "description": "Austin's premier boat rental and party cruise experience on Lake Travis",
+      "url": "https://premierppartycruises.com",
+      "telephone": "+1-512-123-4567",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Austin",
+        "addressRegion": "TX",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "30.2672",
+        "longitude": "-97.7431"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "09:00",
+          "closes": "21:00"
+        }
+      ],
+      "serviceArea": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "30.2672",
+          "longitude": "-97.7431"
+        },
+        "geoRadius": "50"
+      },
+      "sameAs": [
+        "https://www.facebook.com/premierppartycruises",
+        "https://www.instagram.com/premierppartycruises",
+        "https://www.youtube.com/premierppartycruises"
+      ]
+    };
+  }
+
+  async generatePageSchema(pageRoute: string, pageType: 'webpage' | 'service' | 'event'): Promise<Record<string, any>> {
+    const baseUrl = 'https://premierppartycruises.com';
+    const seoPage = await this.getSeoPage(pageRoute);
+    
+    const baseSchema = {
+      "@context": "https://schema.org",
+      "@type": pageType === 'service' ? 'Service' : pageType === 'event' ? 'Event' : 'WebPage',
+      "url": `${baseUrl}${pageRoute}`,
+      "name": seoPage?.metaTitle || 'Premier Party Cruises',
+      "description": seoPage?.metaDescription || 'Austin\'s premier boat rental and party cruise experience',
+      "provider": {
+        "@type": "LocalBusiness",
+        "name": "Premier Party Cruises"
+      }
+    };
+    
+    return baseSchema;
+  }
+
+  async validateSchemaMarkup(schema: Record<string, any>): Promise<{ valid: boolean; errors: string[] }> {
+    const errors: string[] = [];
+    
+    // Basic validation
+    if (!schema["@context"]) {
+      errors.push("Missing @context property");
+    }
+    if (!schema["@type"]) {
+      errors.push("Missing @type property");
+    }
+    
+    return {
+      valid: errors.length === 0,
+      errors
+    };
+  }
+
+  // SEO Analysis and Scoring (stubs for now - would need AI integration)
+  async analyzePage(pageRoute: string, content?: string): Promise<SEOAnalysisResult> {
+    const seoPage = await this.getSeoPage(pageRoute);
+    return {
+      pageRoute,
+      score: seoPage?.currentScore || 75,
+      issues: seoPage?.issues || [],
+      recommendations: seoPage?.recommendations || [],
+      lastAnalyzed: new Date(),
+      contentAnalysis: content ? await this.analyzeContent(content) : undefined
+    };
+  }
+
+  async calculateSeoScore(pageRoute: string): Promise<number> {
+    const seoPage = await this.getSeoPage(pageRoute);
+    return seoPage?.currentScore || 75;
+  }
+
+  async updateSeoAnalysis(pageRoute: string, analysis: SEOAnalysisResult): Promise<SeoPage> {
+    return await this.upsertSeoPage({
+      pageRoute,
+      currentScore: analysis.score,
+      issues: analysis.issues,
+      recommendations: analysis.recommendations,
+      lastAnalyzed: analysis.lastAnalyzed,
+      pageName: `Page: ${pageRoute}`
+    });
+  }
+
+  // Placeholder methods for AI optimization (would need OpenAI integration)
+  async optimizePageSeo(request: SEOOptimizationRequest): Promise<SeoPage> {
+    // This would integrate with OpenAI for content optimization
+    return await this.upsertSeoPage({
+      pageRoute: request.pageRoute,
+      pageName: `Optimized: ${request.pageRoute}`,
+      metaTitle: request.currentContent?.substring(0, 60) || 'Premier Party Cruises',
+      metaDescription: request.currentContent?.substring(0, 160) || 'Austin\'s premier boat rental experience',
+      currentScore: 85 // Mock improved score
+    });
+  }
+
+  async generateMetaTags(pageRoute: string, content: string, targetKeyword?: string): Promise<{
+    title: string;
+    description: string;
+    keywords: string[];
+  }> {
+    // This would integrate with OpenAI for AI-generated meta tags
+    return {
+      title: `Premier Party Cruises - ${pageRoute.replace('/', '').replace('-', ' ')}`,
+      description: `Experience Austin's best ${pageRoute.replace('/', '').replace('-', ' ')} on Lake Travis with Premier Party Cruises.`,
+      keywords: ['Austin', 'Lake Travis', 'boat rental', 'party cruise', targetKeyword].filter(Boolean) as string[]
+    };
+  }
+
+  async optimizeContent(content: string, targetKeyword: string, competitorUrls?: string[]): Promise<string> {
+    // This would integrate with OpenAI for content optimization
+    return content;
+  }
+
+  async bulkAnalyzePages(pageRoutes: string[]): Promise<SEOAnalysisResult[]> {
+    return Promise.all(pageRoutes.map(route => this.analyzePage(route)));
+  }
+
+  async bulkOptimizePages(operation: SEOBulkOperation): Promise<SeoPage[]> {
+    return Promise.all(operation.pageRoutes.map(route => this.optimizePageSeo({ 
+      pageRoute: route, 
+      currentContent: '', 
+      targetKeyword: operation.targetKeyword 
+    })));
+  }
+
+  async refreshAllPageAnalysis(): Promise<SeoPage[]> {
+    const pages = await this.getSeoPages();
+    return Promise.all(pages.map(page => this.analyzePage(page.pageRoute).then(analysis => 
+      this.updateSeoAnalysis(page.pageRoute, analysis)
+    )));
+  }
+
+  // SEO Competitors
+  async getSeoCompetitor(id: string): Promise<SeoCompetitor | undefined> {
+    const result = await db.select().from(seoCompetitors).where(eq(seoCompetitors.id, id)).limit(1);
+    return result[0];
+  }
+
+  async getSeoCompetitors(): Promise<SeoCompetitor[]> {
+    return await db.select().from(seoCompetitors).orderBy(asc(seoCompetitors.name));
+  }
+
+  async getSeoCompetitorByDomain(domain: string): Promise<SeoCompetitor | undefined> {
+    const result = await db.select().from(seoCompetitors).where(eq(seoCompetitors.domain, domain)).limit(1);
+    return result[0];
+  }
+
+  async createSeoCompetitor(competitor: InsertSeoCompetitor): Promise<SeoCompetitor> {
+    const result = await db.insert(seoCompetitors).values({
+      ...competitor,
+      id: randomUUID(),
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }).returning();
+    return result[0];
+  }
+
+  async updateSeoCompetitor(id: string, updates: Partial<SeoCompetitor>): Promise<SeoCompetitor> {
+    const result = await db.update(seoCompetitors)
+      .set({ ...updates, updatedAt: new Date() })
+      .where(eq(seoCompetitors.id, id))
+      .returning();
+    
+    if (result.length === 0) {
+      throw new Error(`SEO competitor not found: ${id}`);
+    }
+    return result[0];
+  }
+
+  async deleteSeoCompetitor(id: string): Promise<boolean> {
+    const result = await db.delete(seoCompetitors).where(eq(seoCompetitors.id, id));
+    return result.rowCount > 0;
+  }
+
+  // SEO Audit Log
+  async getSeoAuditLog(pageId: string): Promise<SeoAuditLog[]> {
+    return await db.select().from(seoAuditLog)
+      .where(eq(seoAuditLog.pageId, pageId))
+      .orderBy(desc(seoAuditLog.createdAt));
+  }
+
+  async getAllSeoAuditLogs(): Promise<SeoAuditLog[]> {
+    return await db.select().from(seoAuditLog).orderBy(desc(seoAuditLog.createdAt));
+  }
+
+  async createSeoAuditLog(auditLog: InsertSeoAuditLog): Promise<SeoAuditLog> {
+    const result = await db.insert(seoAuditLog).values({
+      ...auditLog,
+      id: randomUUID(),
+      createdAt: new Date()
+    }).returning();
+    return result[0];
+  }
+
+  // SEO Performance Tracking
+  async trackPagePerformance(pageRoute: string, metrics: {
+    loadTime?: number;
+    mobileOptimized?: boolean;
+    coreWebVitals?: Record<string, number>;
+  }): Promise<SeoPage> {
+    const seoPage = await this.getSeoPage(pageRoute);
+    const performanceData = {
+      loadTime: metrics.loadTime,
+      mobileOptimized: metrics.mobileOptimized,
+      coreWebVitals: metrics.coreWebVitals
+    };
+    
+    if (seoPage) {
+      return await this.updateSeoPage(pageRoute, { 
+        ...performanceData,
+        updatedAt: new Date()
+      });
+    } else {
+      return await this.createSeoPage({
+        pageRoute,
+        pageName: `Performance: ${pageRoute}`,
+        ...performanceData
+      });
+    }
+  }
+
+  // ===== END SEO MANAGEMENT OPERATIONS =====
 }
 
 export const storage = new DatabaseStorage();

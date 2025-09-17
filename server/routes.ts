@@ -19,7 +19,7 @@ import { openRouterService } from "./services/openrouter";
 import { goHighLevelService, type LeadWebhookPayload } from "./services/gohighlevel";
 import { sendEmail as sendgridEmail, sendQuoteEmail as sendgridQuoteEmail } from "./services/sendgrid";
 import { ComprehensiveLeadService } from "./services/comprehensiveLeadService";
-import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters } from "@shared/schema";
+import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation } from "@shared/schema";
 import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate } from "@shared/timeSlots";
 import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
@@ -11273,6 +11273,385 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(500).json({ error: "Failed to get import status" });
     }
   });
+
+  // ==========================================
+  // SEO MANAGEMENT API ENDPOINTS
+  // ==========================================
+
+  // SEO Pages Management
+  app.get("/api/seo/pages", async (req, res) => {
+    try {
+      const pages = await storage.getSeoPages();
+      res.json(pages);
+    } catch (error: any) {
+      console.error("Get SEO pages error:", error);
+      res.status(500).json({ error: "Failed to fetch SEO pages" });
+    }
+  });
+
+  app.get("/api/seo/pages/:pageRoute", async (req, res) => {
+    try {
+      const { pageRoute } = req.params;
+      const decodedRoute = decodeURIComponent(pageRoute);
+      const page = await storage.getSeoPage(decodedRoute);
+      
+      if (!page) {
+        return res.status(404).json({ error: "SEO page not found" });
+      }
+      
+      res.json(page);
+    } catch (error: any) {
+      console.error("Get SEO page error:", error);
+      res.status(500).json({ error: "Failed to fetch SEO page" });
+    }
+  });
+
+  app.post("/api/seo/pages", async (req, res) => {
+    try {
+      const validatedData = insertSeoPageSchema.parse(req.body);
+      const page = await storage.createSeoPage(validatedData);
+      res.status(201).json(page);
+    } catch (error: any) {
+      console.error("Create SEO page error:", error);
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: "Invalid SEO page data", details: error.errors });
+      }
+      res.status(500).json({ error: "Failed to create SEO page" });
+    }
+  });
+
+  app.put("/api/seo/pages/:pageRoute", async (req, res) => {
+    try {
+      const { pageRoute } = req.params;
+      const decodedRoute = decodeURIComponent(pageRoute);
+      const updates = req.body;
+      
+      const page = await storage.updateSeoPage(decodedRoute, updates);
+      res.json(page);
+    } catch (error: any) {
+      console.error("Update SEO page error:", error);
+      res.status(500).json({ error: "Failed to update SEO page" });
+    }
+  });
+
+  app.delete("/api/seo/pages/:pageRoute", async (req, res) => {
+    try {
+      const { pageRoute } = req.params;
+      const decodedRoute = decodeURIComponent(pageRoute);
+      const success = await storage.deleteSeoPage(decodedRoute);
+      
+      if (!success) {
+        return res.status(404).json({ error: "SEO page not found" });
+      }
+      
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error("Delete SEO page error:", error);
+      res.status(500).json({ error: "Failed to delete SEO page" });
+    }
+  });
+
+  // SEO Analysis and Scoring
+  app.post("/api/seo/analyze/:pageRoute", async (req, res) => {
+    try {
+      const { pageRoute } = req.params;
+      const decodedRoute = decodeURIComponent(pageRoute);
+      const { content } = req.body;
+      
+      const analysis = await storage.analyzePage(decodedRoute, content);
+      res.json(analysis);
+    } catch (error: any) {
+      console.error("SEO analysis error:", error);
+      res.status(500).json({ error: "Failed to analyze page" });
+    }
+  });
+
+  app.get("/api/seo/score/:pageRoute", async (req, res) => {
+    try {
+      const { pageRoute } = req.params;
+      const decodedRoute = decodeURIComponent(pageRoute);
+      
+      const score = await storage.calculateSeoScore(decodedRoute);
+      res.json({ score });
+    } catch (error: any) {
+      console.error("SEO score calculation error:", error);
+      res.status(500).json({ error: "Failed to calculate SEO score" });
+    }
+  });
+
+  // AI-Powered SEO Optimization
+  app.post("/api/seo/optimize", async (req, res) => {
+    try {
+      const optimizationRequest = req.body as SEOOptimizationRequest;
+      const optimizedPage = await storage.optimizePageSeo(optimizationRequest);
+      res.json(optimizedPage);
+    } catch (error: any) {
+      console.error("SEO optimization error:", error);
+      res.status(500).json({ error: "Failed to optimize page SEO" });
+    }
+  });
+
+  app.post("/api/seo/generate-meta", async (req, res) => {
+    try {
+      const { pageRoute, content, targetKeyword } = req.body;
+      const metaTags = await storage.generateMetaTags(pageRoute, content, targetKeyword);
+      res.json(metaTags);
+    } catch (error: any) {
+      console.error("Meta tag generation error:", error);
+      res.status(500).json({ error: "Failed to generate meta tags" });
+    }
+  });
+
+  // Bulk SEO Operations
+  app.post("/api/seo/bulk-analyze", async (req, res) => {
+    try {
+      const { pageRoutes } = req.body;
+      const results = await storage.bulkAnalyzePages(pageRoutes);
+      res.json(results);
+    } catch (error: any) {
+      console.error("Bulk analysis error:", error);
+      res.status(500).json({ error: "Failed to perform bulk analysis" });
+    }
+  });
+
+  app.post("/api/seo/bulk-optimize", async (req, res) => {
+    try {
+      const operation = req.body as SEOBulkOperation;
+      const results = await storage.bulkOptimizePages(operation);
+      res.json(results);
+    } catch (error: any) {
+      console.error("Bulk optimization error:", error);
+      res.status(500).json({ error: "Failed to perform bulk optimization" });
+    }
+  });
+
+  // SEO Settings Management
+  app.get("/api/seo/settings", async (req, res) => {
+    try {
+      const settings = await storage.getSeoSettings();
+      res.json(settings);
+    } catch (error: any) {
+      console.error("Get SEO settings error:", error);
+      res.status(500).json({ error: "Failed to fetch SEO settings" });
+    }
+  });
+
+  app.put("/api/seo/settings", async (req, res) => {
+    try {
+      const settings = await storage.updateSeoSettings(req.body);
+      res.json(settings);
+    } catch (error: any) {
+      console.error("Update SEO settings error:", error);
+      res.status(500).json({ error: "Failed to update SEO settings" });
+    }
+  });
+
+  // Technical SEO
+  app.get("/sitemap.xml", async (req, res) => {
+    try {
+      const sitemap = await storage.generateSitemap();
+      res.set('Content-Type', 'application/xml');
+      res.send(sitemap);
+    } catch (error: any) {
+      console.error("Sitemap generation error:", error);
+      res.status(500).send("Failed to generate sitemap");
+    }
+  });
+
+  app.get("/robots.txt", async (req, res) => {
+    try {
+      const robotsTxt = await storage.generateRobotsTxt();
+      res.set('Content-Type', 'text/plain');
+      res.send(robotsTxt);
+    } catch (error: any) {
+      console.error("Robots.txt generation error:", error);
+      res.status(500).send("Failed to generate robots.txt");
+    }
+  });
+
+  // Meta Data Retrieval for Pages
+  app.get("/api/seo/meta/:pageRoute", async (req, res) => {
+    try {
+      const { pageRoute } = req.params;
+      const decodedRoute = decodeURIComponent(pageRoute);
+      const metaData = await storage.getPageMetaData(decodedRoute);
+      res.json(metaData);
+    } catch (error: any) {
+      console.error("Get page meta data error:", error);
+      res.status(500).json({ error: "Failed to fetch page meta data" });
+    }
+  });
+
+  // SEO Analytics and Reporting
+  app.get("/api/seo/overview", async (req, res) => {
+    try {
+      const overview = await storage.getSeoOverview();
+      res.json(overview);
+    } catch (error: any) {
+      console.error("SEO overview error:", error);
+      res.status(500).json({ error: "Failed to fetch SEO overview" });
+    }
+  });
+
+  app.get("/api/seo/issues", async (req, res) => {
+    try {
+      const issues = await storage.getSeoIssuesSummary();
+      res.json(issues);
+    } catch (error: any) {
+      console.error("SEO issues summary error:", error);
+      res.status(500).json({ error: "Failed to fetch SEO issues" });
+    }
+  });
+
+  app.get("/api/seo/keyword-rankings/:keyword", async (req, res) => {
+    try {
+      const { keyword } = req.params;
+      const rankings = await storage.getKeywordRankings(keyword);
+      res.json(rankings);
+    } catch (error: any) {
+      console.error("Keyword rankings error:", error);
+      res.status(500).json({ error: "Failed to fetch keyword rankings" });
+    }
+  });
+
+  // Content Analysis
+  app.post("/api/seo/analyze-content", async (req, res) => {
+    try {
+      const { content, targetKeyword } = req.body;
+      const analysis = await storage.analyzeContent(content, targetKeyword);
+      res.json(analysis);
+    } catch (error: any) {
+      console.error("Content analysis error:", error);
+      res.status(500).json({ error: "Failed to analyze content" });
+    }
+  });
+
+  // Schema Markup Management
+  app.get("/api/seo/schema/business", async (req, res) => {
+    try {
+      const businessSchema = await storage.generateBusinessSchema();
+      res.json(businessSchema);
+    } catch (error: any) {
+      console.error("Business schema generation error:", error);
+      res.status(500).json({ error: "Failed to generate business schema" });
+    }
+  });
+
+  app.post("/api/seo/schema/page", async (req, res) => {
+    try {
+      const { pageRoute, pageType } = req.body;
+      const pageSchema = await storage.generatePageSchema(pageRoute, pageType);
+      res.json(pageSchema);
+    } catch (error: any) {
+      console.error("Page schema generation error:", error);
+      res.status(500).json({ error: "Failed to generate page schema" });
+    }
+  });
+
+  app.post("/api/seo/schema/validate", async (req, res) => {
+    try {
+      const { schema } = req.body;
+      const validation = await storage.validateSchemaMarkup(schema);
+      res.json(validation);
+    } catch (error: any) {
+      console.error("Schema validation error:", error);
+      res.status(500).json({ error: "Failed to validate schema" });
+    }
+  });
+
+  // SEO Competitors Management
+  app.get("/api/seo/competitors", async (req, res) => {
+    try {
+      const competitors = await storage.getSeoCompetitors();
+      res.json(competitors);
+    } catch (error: any) {
+      console.error("Get SEO competitors error:", error);
+      res.status(500).json({ error: "Failed to fetch SEO competitors" });
+    }
+  });
+
+  app.post("/api/seo/competitors", async (req, res) => {
+    try {
+      const validatedData = insertSeoCompetitorSchema.parse(req.body);
+      const competitor = await storage.createSeoCompetitor(validatedData);
+      res.status(201).json(competitor);
+    } catch (error: any) {
+      console.error("Create SEO competitor error:", error);
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: "Invalid competitor data", details: error.errors });
+      }
+      res.status(500).json({ error: "Failed to create SEO competitor" });
+    }
+  });
+
+  app.put("/api/seo/competitors/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updates = req.body;
+      const competitor = await storage.updateSeoCompetitor(id, updates);
+      res.json(competitor);
+    } catch (error: any) {
+      console.error("Update SEO competitor error:", error);
+      res.status(500).json({ error: "Failed to update SEO competitor" });
+    }
+  });
+
+  app.delete("/api/seo/competitors/:id", async (req, res) => {
+    try {
+      const { id } = req.params;
+      const success = await storage.deleteSeoCompetitor(id);
+      
+      if (!success) {
+        return res.status(404).json({ error: "SEO competitor not found" });
+      }
+      
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error("Delete SEO competitor error:", error);
+      res.status(500).json({ error: "Failed to delete SEO competitor" });
+    }
+  });
+
+  // SEO Audit Log
+  app.get("/api/seo/audit-log/:pageId", async (req, res) => {
+    try {
+      const { pageId } = req.params;
+      const auditLog = await storage.getSeoAuditLog(pageId);
+      res.json(auditLog);
+    } catch (error: any) {
+      console.error("Get SEO audit log error:", error);
+      res.status(500).json({ error: "Failed to fetch SEO audit log" });
+    }
+  });
+
+  app.get("/api/seo/audit-log", async (req, res) => {
+    try {
+      const auditLogs = await storage.getAllSeoAuditLogs();
+      res.json(auditLogs);
+    } catch (error: any) {
+      console.error("Get all SEO audit logs error:", error);
+      res.status(500).json({ error: "Failed to fetch SEO audit logs" });
+    }
+  });
+
+  // Performance Tracking
+  app.post("/api/seo/track-performance/:pageRoute", async (req, res) => {
+    try {
+      const { pageRoute } = req.params;
+      const decodedRoute = decodeURIComponent(pageRoute);
+      const { metrics } = req.body;
+      
+      const updatedPage = await storage.trackPagePerformance(decodedRoute, metrics);
+      res.json(updatedPage);
+    } catch (error: any) {
+      console.error("Track page performance error:", error);
+      res.status(500).json({ error: "Failed to track page performance" });
+    }
+  });
+
+  // ==========================================
+  // END SEO MANAGEMENT API ENDPOINTS
+  // ==========================================
 
   const httpServer = createServer(app);
   return httpServer;

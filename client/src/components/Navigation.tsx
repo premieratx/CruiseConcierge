@@ -68,6 +68,12 @@ const mainNavItems = [
       { title: 'Create Post', href: '/admin/blog/posts/new', description: 'Create new blog post' }
     ]
   },
+  {
+    title: 'SEO',
+    href: '/admin/seo',
+    icon: Search,
+    description: 'SEO management and optimization',
+  },
 ];
 
 export default function Navigation() {

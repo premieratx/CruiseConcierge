@@ -23,6 +23,7 @@ import {
   MicIcon as Mic, Utensils, GlassWater, Palmtree
 } from 'lucide-react';
 import { formatCurrency } from '@shared/formatters';
+import SEOHead from '@/components/SEOHead';
 
 // Hero and gallery images 
 import heroImage1 from '@assets/image_1757844813165.png';
@@ -321,6 +322,13 @@ export default function BachelorParty() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
+      <SEOHead
+        pageRoute="/bachelor-party"
+        defaultTitle="Austin Bachelor Party Boat Cruises | Lake Travis | Premier Party Cruises"
+        defaultDescription="Ultimate Austin bachelor party experience on Lake Travis. Join our epic disco cruises with DJ, drinks, and unforgettable memories. Book now!"
+        defaultKeywords={['Austin bachelor party', 'Lake Travis bachelor party', 'bachelor party boat', 'disco cruise Austin', 'bachelor party ideas Austin', 'Austin party boat rental']}
+        schemaType="event"
+      />
       <PublicNavigation />
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">

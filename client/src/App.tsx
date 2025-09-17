@@ -3,6 +3,7 @@ import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
+import { HelmetProvider } from "react-helmet-async";
 import { lazy, Suspense } from "react";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
@@ -40,6 +41,9 @@ import BlogAuthor from "./pages/BlogAuthor";
 // Admin Blog Pages
 import BlogManagement from "./pages/admin/BlogManagement";
 import BlogPostEditor from "./pages/admin/BlogPostEditor";
+
+// Admin SEO Pages
+import SEOManagement from "./pages/admin/SEOManagement";
 
 // Landing Pages
 import BachelorParty from "./pages/BachelorParty";
@@ -126,6 +130,9 @@ function Router() {
       <Route path="/admin/blog/posts/new" component={BlogPostEditor} />
       <Route path="/admin/blog/posts/:id/edit" component={BlogPostEditor} />
       
+      {/* Admin SEO Routes */}
+      <Route path="/admin/seo" component={SEOManagement} />
+      
       {/* Public Blog Routes - Specific routes must come before generic ones */}
       <Route path="/blog" component={Blog} />
       <Route path="/blog/category/:slug" component={BlogCategory} />
@@ -158,10 +165,12 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Router />
-      </TooltipProvider>
+      <HelmetProvider>
+        <TooltipProvider>
+          <Toaster />
+          <Router />
+        </TooltipProvider>
+      </HelmetProvider>
     </QueryClientProvider>
   );
 }

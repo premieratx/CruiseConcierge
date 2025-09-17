@@ -24,6 +24,7 @@ import {
   Flower, Flower2, FlowerIcon as FlowerDefault, CircleDot, Smile
 } from 'lucide-react';
 import { formatCurrency } from '@shared/formatters';
+import SEOHead from '@/components/SEOHead';
 
 // Hero and gallery images 
 import heroImage1 from '@assets/image_1757844813165.png';
@@ -380,6 +381,13 @@ export default function BacheloretteParty() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-brand-black">
+      <SEOHead
+        pageRoute="/bachelorette-party"
+        defaultTitle="Austin Bachelorette Party Boat Cruises | Lake Travis | Premier Party Cruises"
+        defaultDescription="Perfect Austin bachelorette party on Lake Travis! Disco cruises with DJ, dancing, drinks, and incredible views. Bride rides free on weekends!"
+        defaultKeywords={['Austin bachelorette party', 'Lake Travis bachelorette', 'bachelorette party boat', 'disco cruise Austin', 'bachelorette party ideas Austin', 'Austin party boat rental']}
+        schemaType="event"
+      />
       <PublicNavigation />
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
