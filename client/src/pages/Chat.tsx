@@ -30,6 +30,7 @@ import { useAvailabilityForDate, useAvailabilityForDateRange, formatDateForAvail
 import { TimeSlotList } from '@/components/TimeSlotList';
 import { formatCurrency, formatDate, formatLongDate, formatTimeForDisplay, formatTimeRange, formatPhoneNumber, formatCustomerName, formatBoatCapacity, formatEventDuration, formatGroupSize } from '@shared/formatters';
 import { EVENT_TYPES, CRUISE_TYPES, DISCO_PACKAGES, PRICING_DEFAULTS } from '@shared/constants';
+import { getDiscoTimeSlotsForDate, getPrivateTimeSlotsForDate } from '@shared/timeSlots';
 
 type ChatFlowStep = 
   | 'intro' // Intro + Calendar combined

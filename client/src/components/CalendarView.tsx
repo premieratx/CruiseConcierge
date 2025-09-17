@@ -45,6 +45,42 @@ interface DiscoSlotCard {
 // Use shared formatTimeForDisplay from formatters
 const formatTime = formatTimeForDisplay;
 
+// Helper function to check if two time intervals overlap
+// Intervals [a1, a2] and [b1, b2] overlap if a1 < b2 AND a2 > b1
+const intervalsOverlap = (a1: Date, a2: Date, b1: Date, b2: Date): boolean => {
+  return a1.getTime() < b2.getTime() && a2.getTime() > b1.getTime();
+};
+
+// Helper function to check if a booking conflicts with a time slot
+const hasBookingConflict = (bookings: Booking[], boatId: string, slotStart: Date, slotEnd: Date): Booking | undefined => {
+  return bookings.find(booking => {
+    if (booking.boatId !== boatId) return false;
+    
+    const bookingStart = new Date(booking.startTime);
+    const bookingEnd = new Date(booking.endTime);
+    
+    return intervalsOverlap(slotStart, slotEnd, bookingStart, bookingEnd);
+  });
+};
+
+// Helper function to check if a time slot is booked for 25-person boat availability
+const isTimeSlotBooked = (bookings: Booking[], boatId: string, date: Date, timeString: string): boolean => {
+  const [hour, minute] = timeString.split(':').map(Number);
+  const slotDateTime = new Date(date);
+  slotDateTime.setHours(hour, minute, 0, 0);
+  
+  return bookings.some(booking => {
+    if (booking.boatId !== boatId) return false;
+    
+    const bookingStart = new Date(booking.startTime);
+    const bookingEnd = new Date(booking.endTime);
+    
+    // Check if the time slot falls within the booking period
+    return slotDateTime.getTime() >= bookingStart.getTime() && 
+           slotDateTime.getTime() < bookingEnd.getTime();
+  });
+};
+
 // Helper function to generate time blocks based on day of week using shared configuration
 const generateTimeBlocks = (date: Date, boats: Boat[], bookings: Booking[], products: Product[]): TimeBlock[] => {
   const blocks: TimeBlock[] = [];
@@ -77,12 +113,8 @@ const generateTimeBlocks = (date: Date, boats: Boat[], bookings: Booking[], prod
         endDateTime.setHours(endHour, endMin, 0, 0);
       }
       
-      // Check if there's a booking for this time slot
-      const booking = bookings.find(b => 
-        b.boatId === boat.id &&
-        new Date(b.startTime).getTime() === startDateTime.getTime() &&
-        new Date(b.endTime).getTime() === endDateTime.getTime()
-      );
+      // Check if there's a booking conflict for this time slot using interval overlap
+      const booking = hasBookingConflict(bookings, boat.id, startDateTime, endDateTime);
       
       blocks.push({
         id: `${boat.id}_${slot.startTime}_${slot.endTime}`,
@@ -235,7 +267,7 @@ function CalendarView() {
     large: boats.filter(b => b.capacity >= 40)
   };
 
-  // Count available boats for 25-person group
+  // Count available boats for 25-person group using proper time overlap logic
   const count25PersonBoats = (date: Date, time: string) => {
     const mediumBoats = boatGroups.medium;
     const dateBookings = bookings.filter(b => {
@@ -245,10 +277,7 @@ function CalendarView() {
     
     let available = 0;
     mediumBoats.forEach(boat => {
-      const isBooked = dateBookings.some(b => 
-        b.boatId === boat.id && 
-        new Date(b.startTime).toTimeString().slice(0, 5) === time
-      );
+      const isBooked = isTimeSlotBooked(dateBookings, boat.id, date, time);
       if (!isBooked) available++;
     });
     

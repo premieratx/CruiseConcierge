@@ -1485,6 +1485,252 @@ export class DatabaseStorage implements IStorage {
     return result.rowCount > 0;
   }
 
+  // ===== BOOKING CONFLICT CHECKING AND PAYMENT METHODS =====
+  
+  /**
+   * Check if a booking would conflict with existing bookings for the specified boat and time range
+   * Uses proper interval overlap logic: intervals [a1, a2] and [b1, b2] overlap if a1 < b2 AND a2 > b1
+   */
+  async checkBookingConflict(boatId: string, startTime: Date, endTime: Date, excludeBookingId?: string): Promise<boolean> {
+    // Get all active bookings for this boat
+    const existingBookings = await db.select()
+      .from(bookings)
+      .where(
+        and(
+          eq(bookings.boatId, boatId),
+          inArray(bookings.status, ['booked', 'confirmed', 'hold']), // exclude canceled/blocked
+          excludeBookingId ? sql`${bookings.id} != ${excludeBookingId}` : sql`true`
+        )
+      );
+    
+    // Check for time interval overlaps using proper overlap logic
+    return existingBookings.some(booking => {
+      const bookingStart = new Date(booking.startTime);
+      const bookingEnd = new Date(booking.endTime);
+      
+      // Intervals overlap if startTime < bookingEnd AND endTime > bookingStart
+      return startTime.getTime() < bookingEnd.getTime() && endTime.getTime() > bookingStart.getTime();
+    });
+  }
+
+  /**
+   * Create a booking from a successful payment with proper slot hold integration
+   * This prevents the critical double-booking vulnerability by using slot hold data
+   */
+  async createBookingFromPayment(projectId: string, paymentId: string, amount: number): Promise<Booking> {
+    console.log(`🔒 Creating booking from payment ${paymentId} for project ${projectId}`);
+    
+    // 1. Get project details
+    const project = await this.getProject(projectId);
+    if (!project) {
+      throw new Error(`Project ${projectId} not found for booking creation`);
+    }
+    
+    if (!project.projectDate) {
+      throw new Error(`Project ${projectId} has no event date set`);
+    }
+    
+    // 2. Get contact details
+    const contact = await this.getContact(project.contactId);
+    if (!contact) {
+      throw new Error(`Contact ${project.contactId} not found for booking creation`);
+    }
+    
+    // 3. Try to find an active slot hold for this project
+    // This ensures we use the exact selected slot information
+    let startTime: Date;
+    let endTime: Date;
+    let boatId: string;
+    let slotHoldFound = false;
+    
+    try {
+      // Look for any active slot holds that might be related to this project
+      const activeHolds = await this.getActiveSlotHolds();
+      const projectHold = activeHolds.find(hold => {
+        // Match by date and group size as a heuristic
+        const holdDate = new Date(hold.dateISO);
+        const projectDate = new Date(project.projectDate!);
+        return (
+          holdDate.toDateString() === projectDate.toDateString() &&
+          hold.groupSize === project.groupSize &&
+          hold.expiresAt > new Date() // Still active
+        );
+      });
+      
+      if (projectHold) {
+        console.log(`📍 Found matching slot hold ${projectHold.id} for project ${projectId}`);
+        
+        // Use slot hold data for exact timing and boat
+        const eventDate = new Date(projectHold.dateISO);
+        const [startHours, startMinutes] = projectHold.startTime.split(':');
+        const [endHours, endMinutes] = projectHold.endTime.split(':');
+        
+        startTime = new Date(eventDate);
+        startTime.setHours(parseInt(startHours), parseInt(startMinutes), 0, 0);
+        
+        endTime = new Date(eventDate);
+        endTime.setHours(parseInt(endHours), parseInt(endMinutes), 0, 0);
+        
+        // Use slot hold's boat or find one if not specified
+        boatId = projectHold.boatId || await this.findAvailableBoatForSlot(projectHold, project.groupSize || 1);
+        
+        if (!boatId) {
+          throw new Error(`No boats available for slot hold ${projectHold.id}`);
+        }
+        
+        slotHoldFound = true;
+        
+        // Release the hold since we're converting it to a booking
+        await this.releaseSlotHold(projectHold.id);
+        console.log(`✅ Released slot hold ${projectHold.id} after booking creation`);
+      }
+    } catch (error) {
+      console.warn(`⚠️ Could not find or use slot hold for project ${projectId}:`, error);
+      // Continue with fallback logic
+    }
+    
+    // 4. Fallback logic if no slot hold found
+    if (!slotHoldFound) {
+      console.log(`📋 No slot hold found, using project data for booking creation`);
+      
+      // FIXED: Use project.projectDate properly, not midnight times
+      if (project.timeSlot) {
+        // Try to parse time from project.timeSlot if available
+        const timeMatch = project.timeSlot.match(/(\d{1,2}:\d{2}\s*(?:AM|PM))\s*-\s*(\d{1,2}:\d{2}\s*(?:AM|PM))/i);
+        if (timeMatch) {
+          const [, startTimeStr, endTimeStr] = timeMatch;
+          
+          startTime = new Date(project.projectDate);
+          endTime = new Date(project.projectDate);
+          
+          // Parse and set times
+          const parseTime = (timeStr: string, dateObj: Date) => {
+            const [time, period] = timeStr.trim().split(/\s+/);
+            const [hours, minutes] = time.split(':').map(Number);
+            let hour24 = hours;
+            
+            if (period.toUpperCase() === 'PM' && hours !== 12) {
+              hour24 += 12;
+            } else if (period.toUpperCase() === 'AM' && hours === 12) {
+              hour24 = 0;
+            }
+            
+            dateObj.setHours(hour24, minutes, 0, 0);
+          };
+          
+          parseTime(startTimeStr, startTime);
+          parseTime(endTimeStr, endTime);
+        } else {
+          // Fallback to duration-based calculation
+          startTime = new Date(project.projectDate);
+          const duration = project.duration || 4; // default 4 hours
+          endTime = new Date(startTime.getTime() + duration * 60 * 60 * 1000);
+        }
+      } else {
+        // Fallback to duration-based calculation
+        startTime = new Date(project.projectDate);
+        const duration = project.duration || 4; // default 4 hours
+        endTime = new Date(startTime.getTime() + duration * 60 * 60 * 1000);
+      }
+      
+      // FIXED: Don't use project.availabilitySlotId as boatId (wrong field!)
+      // Instead, find appropriate boat based on group size
+      if (project.groupSize) {
+        const availableBoats = await this.getBoatsByCapacity(project.groupSize);
+        
+        // Find a boat that doesn't have conflicts
+        for (const boat of availableBoats) {
+          const hasConflict = await this.checkBookingConflict(boat.id, startTime, endTime);
+          if (!hasConflict) {
+            boatId = boat.id;
+            break;
+          }
+        }
+        
+        if (!boatId) {
+          throw new Error(`No available boats found for group size ${project.groupSize} at ${startTime.toISOString()}`);
+        }
+      } else {
+        throw new Error('No group size specified for booking creation');
+      }
+    }
+    
+    // 5. CRITICAL: Final conflict check before creating the booking
+    const hasConflict = await this.checkBookingConflict(boatId, startTime, endTime);
+    if (hasConflict) {
+      throw new Error(`BOOKING_CONFLICT: Boat ${boatId} is already booked for ${startTime.toISOString()} - ${endTime.toISOString()}`);
+    }
+    
+    // 6. Create the booking with validated data
+    const bookingData: InsertBooking = {
+      orgId: project.orgId,
+      boatId,
+      type: 'private',
+      status: 'booked',
+      startTime,
+      endTime,
+      partyType: project.eventType || 'cruise',
+      groupSize: project.groupSize || 1,
+      projectId: project.id,
+      paymentStatus: 'deposit_paid',
+      amountPaid: amount,
+      totalAmount: amount, // TODO: Calculate from quote if available
+      contactName: contact.name,
+      contactEmail: contact.email,
+      contactPhone: contact.phone || null,
+      specialRequests: project.specialRequests || null,
+      notes: `Created from payment ${paymentId} - Amount: $${(amount / 100).toFixed(2)}${slotHoldFound ? ' - From slot hold' : ' - Fallback logic'}`,
+    };
+    
+    const newBooking = await this.createBooking(bookingData);
+    
+    // 7. Update project status to closed won
+    await this.updateProject(projectId, { 
+      status: 'CLOSED_WON',
+      pipelinePhase: 'ph_closed_won'
+    });
+    
+    // 8. Convert lead to customer
+    await this.convertLeadToCustomer(project.contactId);
+    
+    console.log(`✅ Booking ${newBooking.id} created successfully from payment ${paymentId}`);
+    return newBooking;
+  }
+  
+  /**
+   * Helper method to find an available boat for a slot hold
+   */
+  private async findAvailableBoatForSlot(slotHold: any, groupSize: number): Promise<string> {
+    if (slotHold.boatId) {
+      return slotHold.boatId;
+    }
+    
+    // Find boats that can accommodate the group size
+    const boats = await this.getActiveBoats();
+    const suitableBoats = boats.filter(boat => boat.capacity >= groupSize);
+    
+    // Convert hold time to Date objects for conflict checking
+    const eventDate = new Date(slotHold.dateISO);
+    const [startHours, startMinutes] = slotHold.startTime.split(':');
+    const [endHours, endMinutes] = slotHold.endTime.split(':');
+    
+    const startTime = new Date(eventDate);
+    startTime.setHours(parseInt(startHours), parseInt(startMinutes), 0, 0);
+    
+    const endTime = new Date(eventDate);
+    endTime.setHours(parseInt(endHours), parseInt(endMinutes), 0, 0);
+    
+    // Check each suitable boat for conflicts
+    for (const boat of suitableBoats) {
+      const hasConflict = await this.checkBookingConflict(boat.id, startTime, endTime);
+      if (!hasConflict) {
+        return boat.id;
+      }
+    }
+    
+    throw new Error('No available boats found for slot hold');
+  }
+
   // ===== PLACEHOLDER METHODS FOR REMAINING INTERFACE METHODS =====
   // These need to be implemented but are stubbed for now to satisfy the interface
 

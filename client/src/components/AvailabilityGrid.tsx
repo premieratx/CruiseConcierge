@@ -8,6 +8,13 @@ import { Badge } from "@/components/ui/badge";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { Calendar, Clock, Users } from "lucide-react";
+import { getPrivateTimeSlotsForDate } from "@shared/timeSlots";
+
+// Helper function to get available time slots for a given date
+const getAvailableTimeSlots = (date: Date): string[] => {
+  const timeSlots = getPrivateTimeSlotsForDate(date);
+  return timeSlots.map(slot => slot.startTime);
+};
 
 interface AvailabilitySlot {
   id?: string;
@@ -280,7 +287,7 @@ export function AvailabilityGrid({ onSlotSelect, selectedQuoteId, groupSize: pro
                     </div>
                     
                     <div className="grid grid-cols-3 gap-2 text-xs">
-                      {['12:00', '15:00', '18:00'].map(time => {
+                      {getAvailableTimeSlots(new Date(selectedDate)).map(time => {
                         const slot = slots.find(s => s.time === time) || {
                           date: selectedDate,
                           time,

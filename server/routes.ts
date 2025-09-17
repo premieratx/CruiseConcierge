@@ -1381,6 +1381,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const startDateTime = new Date(`${bookingData.cruiseDate}T${bookingData.startTime}:00`);
           const endDateTime = new Date(`${bookingData.cruiseDate}T${bookingData.endTime}:00`);
           
+          // CRITICAL: Check for conflicts before creating booking
+          const hasConflict = await storage.checkBookingConflict(assignedBoat.id, startDateTime, endDateTime);
+          if (hasConflict) {
+            throw new Error(`BOOKING_CONFLICT: Boat ${assignedBoat.name} is already booked for ${startDateTime.toISOString()} - ${endDateTime.toISOString()}`);
+          }
+          
           const booking = await storage.createBooking({
             projectId: project.id,
             boatId: assignedBoat.id,
@@ -7429,6 +7435,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const endDateTime = new Date(`${date}T${endTime}:00`);
       
       if (status === 'booked') {
+        // CRITICAL: Check for conflicts before creating booking
+        const hasConflict = await storage.checkBookingConflict(boatId, startDateTime, endDateTime);
+        if (hasConflict) {
+          return res.status(409).json({ 
+            error: "BOOKING_CONFLICT: Time slot is already booked for this boat" 
+          });
+        }
+        
         // Create a quick booking to block the time
         const booking = await storage.createBooking({
           boatId,
