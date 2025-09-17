@@ -2933,6 +2933,18 @@ export class DatabaseStorage implements IStorage {
     return [];
   }
 
+  async trackQuoteView(quoteId: string, contactId?: string, sessionId?: string, metadata?: Record<string, any>): Promise<QuoteAnalytics> {
+    return {
+      id: randomUUID(),
+      quoteId,
+      contactId: contactId || null,
+      sessionId: sessionId || null,
+      activityType: 'view',
+      metadata: metadata || {},
+      createdAt: new Date()
+    } as QuoteAnalytics;
+  }
+
   async createFileSend(fileSend: Omit<FileSend, 'id'>): Promise<FileSend> {
     return { ...fileSend, id: randomUUID() };
   }
