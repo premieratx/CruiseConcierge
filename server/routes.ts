@@ -3826,6 +3826,86 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Quote acceptance endpoint for updating acceptance status
+  app.patch("/api/quotes/:id/acceptance", async (req, res) => {
+    try {
+      const quoteId = req.params.id;
+      const { signature, acceptedAt } = req.body;
+      
+      console.log('📝 Updating quote acceptance:', {
+        quoteId,
+        hasSignature: !!signature,
+        acceptedAt: acceptedAt
+      });
+      
+      // Get the existing quote
+      const quote = await storage.getQuote(quoteId);
+      if (!quote) {
+        return res.status(404).json({ error: "Quote not found" });
+      }
+      
+      // Update radio sections to mark terms as accepted/rejected
+      const updatedRadioSections = quote.radioSections || [];
+      
+      // Find or create the terms acceptance section
+      let termsSection = updatedRadioSections.find(s => s.id === 'terms_acceptance');
+      if (!termsSection) {
+        termsSection = {
+          id: 'terms_acceptance',
+          label: 'Terms & Conditions Acceptance',
+          options: [
+            { value: 'accepted', label: 'I accept the terms and conditions' },
+            { value: 'rejected', label: 'I do not accept the terms and conditions' }
+          ],
+          selectedValue: null,
+          required: true,
+          metadata: {}
+        };
+        updatedRadioSections.push(termsSection);
+      }
+      
+      // Update the acceptance status
+      if (signature && acceptedAt) {
+        termsSection.selectedValue = 'accepted';
+        termsSection.metadata = {
+          ...termsSection.metadata,
+          signature,
+          acceptedAt,
+          ipAddress: req.ip || req.connection.remoteAddress || 'unknown'
+        };
+        console.log('✅ Quote terms accepted with signature');
+      } else {
+        termsSection.selectedValue = null;
+        if (termsSection.metadata) {
+          delete termsSection.metadata.signature;
+          delete termsSection.metadata.acceptedAt;
+        }
+        console.log('❌ Quote terms acceptance cleared');
+      }
+      
+      // Update the quote with new radio sections
+      const updatedQuote = await storage.updateQuote(quoteId, {
+        radioSections: updatedRadioSections
+      });
+      
+      console.log('📝 Quote acceptance updated successfully:', {
+        quoteId,
+        accepted: termsSection.selectedValue === 'accepted',
+        hasSignature: !!(termsSection.metadata?.signature)
+      });
+      
+      res.json({ 
+        success: true,
+        accepted: termsSection.selectedValue === 'accepted',
+        acceptedAt: termsSection.metadata?.acceptedAt || null
+      });
+      
+    } catch (error: any) {
+      console.error("Quote acceptance update error:", error);
+      res.status(500).json({ error: "Failed to update quote acceptance" });
+    }
+  });
+
   // Public quote viewing endpoint with secure token validation
   app.get("/api/quotes/:id/public", async (req, res) => {
     try {
