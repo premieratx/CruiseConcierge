@@ -2135,8 +2135,31 @@ export async function registerRoutes(app: Express): Promise<Server> {
         
         if (contact?.email) {
           try {
-            emailSent = await sendQuoteEmail(quote.id, contact.email, 
-              "Thank you for choosing Premier Party Cruises! Your custom quote is ready."
+            // Generate secure tokenized URL for email
+            const secureToken = quoteTokenService.generateSecureToken(quote.id);
+            const secureQuoteUrl = quoteTokenService.generateSecureQuoteUrl(quote.id, secureToken);
+            
+            // Prepare quote details for email template
+            const quoteDetails = {
+              eventType: project.eventType || 'Party Cruise',
+              groupSize: project.groupSize || 'TBD',
+              date: project.projectDate ? 
+                (typeof project.projectDate === 'string' ? new Date(project.projectDate) : project.projectDate).toLocaleDateString('en-US', { 
+                  weekday: 'long', 
+                  year: 'numeric', 
+                  month: 'long', 
+                  day: 'numeric' 
+                }) : 'To be confirmed',
+              total: quote.total
+            };
+            
+            // Use the SendGrid service with proper parameters
+            emailSent = await sendgridQuoteEmail(
+              contact.email,
+              contact.name,
+              quote.id,
+              quoteDetails,
+              secureQuoteUrl
             );
             console.log(`✅ Quote email sent successfully to ${contact.email}`);
           } catch (emailError) {
