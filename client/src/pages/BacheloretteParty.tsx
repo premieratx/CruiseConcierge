@@ -393,7 +393,7 @@ export default function BacheloretteParty() {
               size="lg" 
               variant="outline" 
               className="btn-outline text-xl px-12 py-6 border-white text-white hover:bg-white hover:text-brand-black"
-              onClick={handleGetQuote}
+              onClick={() => handleGetQuote()}
               data-testid="button-get-quote"
             >
               GET CUSTOM QUOTE
@@ -775,7 +775,7 @@ export default function BacheloretteParty() {
               size="lg" 
               variant="outline" 
               className="btn-outline text-xl px-12 py-6"
-              onClick={handleGetQuote}
+              onClick={() => handleGetQuote()}
               data-testid="button-custom-quote"
             >
               GET CUSTOM BACHELORETTE QUOTE
