@@ -2042,3 +2042,369 @@ export const insertPricingAdjustmentSchema = createInsertSchema(pricingAdjustmen
 // Type definitions for Pricing Adjustments
 export type PricingAdjustment = typeof pricingAdjustments.$inferSelect;
 export type InsertPricingAdjustment = z.infer<typeof insertPricingAdjustmentSchema>;
+
+// ==========================================
+// UNIVERSAL INTELLIGENT CHECKOUT SYSTEM
+// ==========================================
+
+/**
+ * Entry point types for tracking where the checkout originated
+ */
+export type CheckoutEntryPoint = 
+  | 'quote_builder'    // From quote builder interface
+  | 'live_calendar'    // From calendar slot selection
+  | 'quote_form'       // From quote request forms
+  | 'chat_flow'        // From chatbot flow
+  | 'direct_link'      // Direct URL access
+  | 'admin_booking';   // Admin-created booking
+
+/**
+ * Boat configuration with capacity and pricing information
+ */
+export interface BoatOption {
+  id: string;
+  name: string;
+  displayName: string;
+  capacity: number;          // Standard capacity (e.g., 14, 25, 50)
+  maxCapacity: number;       // Maximum with extra crew
+  extraCrewThreshold: number; // Group size requiring extra crew
+  crewFeePerHour: number;    // Additional crew fee in cents per hour
+  description: string;       // "Intimate gatherings", "Medium groups", etc.
+  imageUrl?: string;
+  active: boolean;
+}
+
+/**
+ * Cruise type options with intelligent bachelor/bachelorette support
+ */
+export interface CruiseTypeOption {
+  id: 'private' | 'disco';
+  label: string;
+  description: string;
+  availableFor: string[];    // Event types this is available for
+  minimumAdvanceHours: number; // Minimum booking advance notice
+  cancellationPolicy: string;
+  features: string[];
+}
+
+/**
+ * Package selection for disco cruises
+ */
+export interface DiscoPackageOption {
+  id: 'basic' | 'disco_queen' | 'platinum';
+  label: string;
+  description: string;
+  pricePerPerson: number;    // In cents
+  features: string[];
+  popular?: boolean;
+}
+
+/**
+ * Add-on package options for private cruises
+ */
+export interface AddOnPackageOption {
+  id: string;
+  name: string;
+  description: string;
+  hourlyRate: number;        // Additional rate in cents per hour
+  features: string[];
+  eventTypes: string[];      // Which event types this applies to
+  popular?: boolean;
+}
+
+/**
+ * Comprehensive checkout context from entry points
+ */
+export interface CheckoutContext {
+  // Entry point tracking
+  entryPoint: CheckoutEntryPoint;
+  referrerUrl?: string;
+  utmParams?: Record<string, string>;
+  
+  // Pre-selected data from entry point
+  preselectedData: {
+    // Basic event details
+    eventDate?: Date;
+    eventType?: string;
+    eventTypeLabel?: string;
+    groupSize?: number;
+    
+    // Boat and time selection
+    boatId?: string;
+    timeSlot?: NormalizedSlot;
+    cruiseType?: 'private' | 'disco';
+    
+    // Package selections
+    discoPackage?: 'basic' | 'disco_queen' | 'platinum';
+    discoTicketQuantity?: number;
+    addOnPackages?: string[];
+    
+    // Pricing context
+    quotedPrice?: number;
+    depositAmount?: number;
+    
+    // Contact information (if available)
+    contactName?: string;
+    contactEmail?: string;
+    contactPhone?: string;
+    
+    // Special requirements
+    specialRequests?: string;
+    budget?: number;
+  };
+  
+  // Context metadata
+  sessionId: string;
+  quoteId?: string;
+  projectId?: string;
+  holdId?: string;           // Slot hold identifier
+  createdAt: Date;
+  lastModified: Date;
+}
+
+/**
+ * Current checkout selections (editable by user)
+ */
+export interface CheckoutSelections {
+  // Core selections
+  eventDate: Date;
+  eventType: string;
+  eventTypeLabel: string;
+  groupSize: number;
+  
+  // Boat selection
+  selectedBoat: BoatOption;
+  selectedTimeSlot: NormalizedSlot;
+  
+  // Cruise type and packages
+  cruiseType: 'private' | 'disco';
+  discoPackage?: DiscoPackageOption;
+  discoTicketQuantity?: number;
+  addOnPackages: AddOnPackageOption[];
+  
+  // Contact information
+  contactName: string;
+  contactEmail: string;
+  contactPhone: string;
+  
+  // Additional details
+  specialRequests?: string;
+  marketingConsent: boolean;
+}
+
+/**
+ * Real-time pricing calculation for checkout
+ */
+export interface CheckoutPricing extends PricingPreview {
+  // Boat-specific pricing
+  boatInfo: {
+    name: string;
+    baseHourlyRate: number;
+    crewFee: number;
+    capacity: number;
+  };
+  
+  // Package pricing breakdown
+  packageBreakdown: {
+    baseCruiseCost: number;
+    discoPackageCost?: number;
+    addOnPackagesCost: number;
+    crewFee: number;
+  };
+  
+  // Payment options
+  paymentOptions: {
+    depositOnly: {
+      amount: number;
+      description: string;
+    };
+    fullPayment: {
+      amount: number;
+      description: string;
+    };
+  };
+  
+  // Pricing validity
+  validUntil: Date;
+  requiresRevalidation: boolean;
+}
+
+/**
+ * Bachelor/Bachelorette intelligent comparison data
+ */
+export interface BachelorComparison {
+  privateOption: {
+    available: boolean;
+    pricing: CheckoutPricing;
+    boats: BoatOption[];
+    timeSlots: NormalizedSlot[];
+    benefits: string[];
+  };
+  
+  discoOption: {
+    available: boolean;
+    pricing: CheckoutPricing;
+    packages: DiscoPackageOption[];
+    timeSlots: NormalizedSlot[];
+    benefits: string[];
+  };
+  
+  recommendation: 'private' | 'disco';
+  comparisonNote: string;
+}
+
+/**
+ * Checkout validation result
+ */
+export interface CheckoutValidation {
+  isValid: boolean;
+  errors: Array<{
+    field: string;
+    message: string;
+    code: string;
+  }>;
+  warnings: Array<{
+    field: string;
+    message: string;
+    code: string;
+  }>;
+  
+  // Availability check
+  slotAvailable: boolean;
+  holdValid: boolean;
+  pricingCurrent: boolean;
+  
+  // Required actions
+  requiresHoldRenewal: boolean;
+  requiresPricingUpdate: boolean;
+}
+
+/**
+ * Post-payment processing data
+ */
+export interface PostPaymentProcessing {
+  // Stripe payment information
+  stripePaymentIntentId: string;
+  stripeCustomerId?: string;
+  paymentAmount: number;
+  paymentType: 'deposit' | 'full_payment';
+  
+  // Booking creation
+  bookingData: {
+    contactId: string;
+    projectId: string;
+    quoteId?: string;
+    boatId: string;
+    startTime: Date;
+    endTime: Date;
+    groupSize: number;
+    totalAmount: number;
+    amountPaid: number;
+    paymentStatus: 'deposit_paid' | 'fully_paid';
+    specialRequests?: string;
+  };
+  
+  // CRM updates
+  crmUpdates: {
+    leadStatus: string;
+    pipelinePhase: string;
+    nextFollowUp?: Date;
+  };
+  
+  // External integrations
+  integrationUpdates: {
+    updateGoogleSheets: boolean;
+    updateGoHighLevel: boolean;
+    sendConfirmationEmail: boolean;
+    sendConfirmationSMS: boolean;
+  };
+  
+  // Availability management
+  availabilityUpdates: {
+    releaseHold: boolean;
+    markSlotBooked: boolean;
+    updateCapacity: boolean;
+  };
+}
+
+/**
+ * Checkout session state management
+ */
+export interface CheckoutSession {
+  sessionId: string;
+  context: CheckoutContext;
+  selections: CheckoutSelections;
+  pricing: CheckoutPricing;
+  validation: CheckoutValidation;
+  
+  // State tracking
+  currentStep: 'selections' | 'contact' | 'payment' | 'confirmation';
+  completedSteps: string[];
+  
+  // Hold management
+  holdId?: string;
+  holdExpiresAt?: Date;
+  
+  // Checkout flow state
+  isEditing: boolean;
+  hasChanges: boolean;
+  lastUpdated: Date;
+  
+  // Error handling
+  lastError?: string;
+  retryCount: number;
+}
+
+// Zod schemas for validation
+export const checkoutContextSchema = z.object({
+  entryPoint: z.enum(['quote_builder', 'live_calendar', 'quote_form', 'chat_flow', 'direct_link', 'admin_booking']),
+  referrerUrl: z.string().optional(),
+  utmParams: z.record(z.string()).optional(),
+  preselectedData: z.object({
+    eventDate: z.date().optional(),
+    eventType: z.string().optional(),
+    eventTypeLabel: z.string().optional(),
+    groupSize: z.number().min(1).optional(),
+    boatId: z.string().optional(),
+    timeSlot: z.any().optional(), // NormalizedSlot
+    cruiseType: z.enum(['private', 'disco']).optional(),
+    discoPackage: z.enum(['basic', 'disco_queen', 'platinum']).optional(),
+    discoTicketQuantity: z.number().optional(),
+    addOnPackages: z.array(z.string()).optional(),
+    quotedPrice: z.number().optional(),
+    depositAmount: z.number().optional(),
+    contactName: z.string().optional(),
+    contactEmail: z.string().email().optional(),
+    contactPhone: z.string().optional(),
+    specialRequests: z.string().optional(),
+    budget: z.number().optional(),
+  }).default({}),
+  sessionId: z.string(),
+  quoteId: z.string().optional(),
+  projectId: z.string().optional(),
+  holdId: z.string().optional(),
+  createdAt: z.date().default(() => new Date()),
+  lastModified: z.date().default(() => new Date()),
+});
+
+export const checkoutSelectionsSchema = z.object({
+  eventDate: z.date(),
+  eventType: z.string(),
+  eventTypeLabel: z.string(),
+  groupSize: z.number().min(1),
+  selectedBoat: z.any(), // BoatOption
+  selectedTimeSlot: z.any(), // NormalizedSlot
+  cruiseType: z.enum(['private', 'disco']),
+  discoPackage: z.any().optional(), // DiscoPackageOption
+  discoTicketQuantity: z.number().optional(),
+  addOnPackages: z.array(z.any()).default([]), // AddOnPackageOption[]
+  contactName: z.string().min(1, "Contact name is required"),
+  contactEmail: z.string().email("Valid email is required"),
+  contactPhone: z.string().min(1, "Contact phone is required"),
+  specialRequests: z.string().optional(),
+  marketingConsent: z.boolean().default(false),
+});
+
+// Export types
+export type CheckoutContext = z.infer<typeof checkoutContextSchema>;
+export type CheckoutSelections = z.infer<typeof checkoutSelectionsSchema>;

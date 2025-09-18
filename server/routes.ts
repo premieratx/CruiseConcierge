@@ -7638,6 +7638,340 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
 
   // ==========================================
+  // UNIVERSAL CHECKOUT SYSTEM ENDPOINTS
+  // ==========================================
+
+  // Get boat options with enhanced capacity and pricing info for checkout
+  app.get("/api/boats/options", async (req, res) => {
+    try {
+      const boats = await storage.getBoats();
+      
+      const boatOptions = boats
+        .filter(boat => boat.active)
+        .map(boat => ({
+          id: boat.id,
+          name: boat.name,
+          displayName: `${boat.name} (${boat.capacity} guests)`,
+          capacity: boat.capacity,
+          maxCapacity: boat.maxCapacity || boat.capacity,
+          extraCrewThreshold: boat.extraCrewThreshold || boat.capacity,
+          crewFeePerHour: 0, // Will be calculated dynamically
+          description: getBoatDescription(boat.capacity),
+          imageUrl: null,
+          active: boat.active
+        }));
+
+      res.json(boatOptions);
+    } catch (error: any) {
+      console.error("Error fetching boat options:", error);
+      res.status(500).json({ error: "Failed to fetch boat options" });
+    }
+  });
+
+  // Calculate real-time pricing for checkout
+  app.post("/api/checkout/calculate-pricing", async (req, res) => {
+    try {
+      const {
+        eventDate,
+        groupSize,
+        cruiseType,
+        boatId,
+        timeSlot,
+        discoPackage,
+        discoTicketQuantity,
+        addOnPackages = []
+      } = req.body;
+
+      if (!eventDate || !groupSize || !cruiseType) {
+        return res.status(400).json({ error: "Missing required pricing parameters" });
+      }
+
+      const date = new Date(eventDate);
+      let pricing;
+
+      if (cruiseType === 'private') {
+        // Calculate private cruise pricing
+        const { calculateCompletePricing } = await import('@shared/pricing');
+        const basePricing = calculateCompletePricing(date, parseInt(groupSize));
+
+        // Add add-on packages cost
+        let addOnsCost = 0;
+        const addOnPackageOptions = [
+          { id: 'essentials', hourlyRate: 5000 }, // $50/hour
+          { id: 'ultimate', hourlyRate: 7500 }    // $75/hour
+        ];
+
+        for (const addOnId of addOnPackages) {
+          const addOn = addOnPackageOptions.find(pkg => pkg.id === addOnId);
+          if (addOn) {
+            addOnsCost += addOn.hourlyRate * basePricing.duration;
+          }
+        }
+
+        const boat = await storage.getBoats().then(boats => boats.find(b => b.id === boatId));
+        const boatName = boat ? boat.name : 'Charter Boat';
+
+        pricing = {
+          ...basePricing,
+          boatInfo: {
+            name: boatName,
+            baseHourlyRate: basePricing.hourlyRate,
+            crewFee: basePricing.crewFee,
+            capacity: boat ? boat.capacity : 25
+          },
+          packageBreakdown: {
+            baseCruiseCost: basePricing.baseCruiseCost,
+            discoPackageCost: 0,
+            addOnPackagesCost: addOnsCost,
+            crewFee: basePricing.crewFee
+          },
+          paymentOptions: {
+            depositOnly: {
+              amount: basePricing.depositAmount,
+              description: `Deposit Payment (${basePricing.depositPercent}%)`
+            },
+            fullPayment: {
+              amount: basePricing.total + addOnsCost,
+              description: 'Full Payment'
+            }
+          },
+          validUntil: new Date(Date.now() + 30 * 60 * 1000), // 30 minutes
+          requiresRevalidation: false
+        };
+
+      } else if (cruiseType === 'disco') {
+        // Calculate disco cruise pricing
+        const ticketQuantity = parseInt(discoTicketQuantity) || parseInt(groupSize);
+        const packagePrices = {
+          'basic': 8500,       // $85.00 in cents
+          'disco_queen': 9500, // $95.00 in cents
+          'platinum': 10500    // $105.00 in cents
+        };
+
+        const pricePerTicket = packagePrices[discoPackage as keyof typeof packagePrices] || 8500;
+        const subtotal = pricePerTicket * ticketQuantity;
+
+        // Use shared pricing for tax and gratuity calculation
+        const { calculateTaxAndGratuity, calculateDeposit } = await import('@shared/pricing');
+        const taxAndGratuity = calculateTaxAndGratuity(subtotal);
+        const deposit = calculateDeposit(taxAndGratuity.total, date);
+
+        pricing = {
+          subtotal,
+          discountTotal: 0,
+          ...taxAndGratuity,
+          ...deposit,
+          perPersonCost: Math.floor(taxAndGratuity.total / ticketQuantity),
+          boatInfo: {
+            name: 'ATX Disco Cruise',
+            baseHourlyRate: pricePerTicket,
+            crewFee: 0,
+            capacity: 100
+          },
+          packageBreakdown: {
+            baseCruiseCost: 0,
+            discoPackageCost: subtotal,
+            addOnPackagesCost: 0,
+            crewFee: 0
+          },
+          paymentOptions: {
+            depositOnly: {
+              amount: deposit.depositAmount,
+              description: `Deposit Payment (${deposit.depositPercent}%)`
+            },
+            fullPayment: {
+              amount: taxAndGratuity.total,
+              description: 'Full Payment'
+            }
+          },
+          validUntil: new Date(Date.now() + 30 * 60 * 1000),
+          requiresRevalidation: false
+        };
+      } else {
+        return res.status(400).json({ error: "Invalid cruise type" });
+      }
+
+      res.json(pricing);
+    } catch (error: any) {
+      console.error("Error calculating checkout pricing:", error);
+      res.status(500).json({ error: "Failed to calculate pricing: " + error.message });
+    }
+  });
+
+  // Validate checkout before payment
+  app.post("/api/checkout/validate", async (req, res) => {
+    try {
+      const { sessionId, selections, holdId } = req.body;
+
+      const validation = {
+        isValid: true,
+        errors: [] as Array<{field: string, message: string, code: string}>,
+        warnings: [] as Array<{field: string, message: string, code: string}>,
+        slotAvailable: true,
+        holdValid: true,
+        pricingCurrent: true,
+        requiresHoldRenewal: false,
+        requiresPricingUpdate: false
+      };
+
+      // Validate required selections
+      if (!selections?.contactName) {
+        validation.errors.push({
+          field: 'contactName',
+          message: 'Contact name is required',
+          code: 'REQUIRED_FIELD'
+        });
+      }
+
+      if (!selections?.contactEmail) {
+        validation.errors.push({
+          field: 'contactEmail',
+          message: 'Contact email is required',
+          code: 'REQUIRED_FIELD'
+        });
+      }
+
+      if (!selections?.contactPhone) {
+        validation.errors.push({
+          field: 'contactPhone',
+          message: 'Contact phone is required',
+          code: 'REQUIRED_FIELD'
+        });
+      }
+
+      if (!selections?.selectedBoat) {
+        validation.errors.push({
+          field: 'selectedBoat',
+          message: 'Please select a boat',
+          code: 'REQUIRED_SELECTION'
+        });
+      }
+
+      if (!selections?.selectedTimeSlot) {
+        validation.errors.push({
+          field: 'selectedTimeSlot',
+          message: 'Please select a time slot',
+          code: 'REQUIRED_SELECTION'
+        });
+      }
+
+      // Validate slot hold if provided
+      if (holdId) {
+        try {
+          const slotHold = await storage.getSlotHold(holdId);
+          if (!slotHold || slotHold.expiresAt <= new Date()) {
+            validation.holdValid = false;
+            validation.requiresHoldRenewal = true;
+            validation.warnings.push({
+              field: 'hold',
+              message: 'Time slot hold has expired',
+              code: 'HOLD_EXPIRED'
+            });
+          }
+        } catch (holdError) {
+          validation.holdValid = false;
+          validation.warnings.push({
+            field: 'hold',
+            message: 'Unable to verify time slot hold',
+            code: 'HOLD_VERIFICATION_FAILED'
+          });
+        }
+      }
+
+      // Check group size vs boat capacity
+      if (selections?.groupSize && selections?.selectedBoat) {
+        const groupSize = parseInt(selections.groupSize);
+        const boatCapacity = selections.selectedBoat.maxCapacity || selections.selectedBoat.capacity;
+        
+        if (groupSize > boatCapacity) {
+          validation.errors.push({
+            field: 'groupSize',
+            message: `Group size (${groupSize}) exceeds boat capacity (${boatCapacity})`,
+            code: 'CAPACITY_EXCEEDED'
+          });
+        }
+      }
+
+      validation.isValid = validation.errors.length === 0;
+
+      res.json(validation);
+    } catch (error: any) {
+      console.error("Error validating checkout:", error);
+      res.status(500).json({ 
+        isValid: false,
+        errors: [{ field: 'general', message: 'Validation failed', code: 'VALIDATION_ERROR' }],
+        warnings: [],
+        slotAvailable: false,
+        holdValid: false,
+        pricingCurrent: false,
+        requiresHoldRenewal: false,
+        requiresPricingUpdate: true
+      });
+    }
+  });
+
+  // Create payment intent for universal checkout
+  app.post("/api/checkout/create-payment-intent", async (req, res) => {
+    try {
+      if (!stripe) {
+        return res.status(500).json({ error: "Stripe not configured" });
+      }
+
+      const { sessionId, selections, pricing, paymentType, holdId } = req.body;
+
+      if (!sessionId || !selections || !pricing || !paymentType) {
+        return res.status(400).json({ error: "Missing required checkout data" });
+      }
+
+      // Determine payment amount
+      const amount = paymentType === 'deposit' 
+        ? pricing.paymentOptions.depositOnly.amount
+        : pricing.paymentOptions.fullPayment.amount;
+
+      if (amount <= 0) {
+        return res.status(400).json({ error: "Invalid payment amount" });
+      }
+
+      // Create payment intent
+      const paymentIntent = await stripe.paymentIntents.create({
+        amount: Math.round(amount),
+        currency: "usd",
+        metadata: {
+          sessionId,
+          paymentType,
+          cruiseType: selections.cruiseType,
+          eventType: selections.eventType,
+          groupSize: selections.groupSize.toString(),
+          eventDate: selections.eventDate,
+          boatId: selections.selectedBoat?.id || '',
+          contactName: selections.contactName,
+          contactEmail: selections.contactEmail,
+          holdId: holdId || '',
+          checkoutFlow: 'universal_checkout',
+          calculatedAt: new Date().toISOString()
+        }
+      });
+
+      res.json({ 
+        clientSecret: paymentIntent.client_secret,
+        paymentIntentId: paymentIntent.id
+      });
+    } catch (error: any) {
+      console.error("Error creating payment intent:", error);
+      res.status(500).json({ error: "Failed to create payment intent: " + error.message });
+    }
+  });
+
+  // Helper function to get boat description based on capacity
+  function getBoatDescription(capacity: number): string {
+    if (capacity <= 14) return "Perfect for intimate gatherings";
+    if (capacity <= 25) return "Great for medium-sized groups";
+    if (capacity <= 50) return "Ideal for large celebrations";
+    if (capacity <= 75) return "Perfect for grand events";
+    return "Ultimate party experience";
+  }
+
+  // ==========================================
   // CALENDAR/BOOKING ENDPOINTS
   // ==========================================
   
