@@ -7,17 +7,20 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Slider } from '@/components/ui/slider';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { Calendar as CalendarUI } from '@/components/ui/calendar';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { 
-  Users, Calendar, ChevronLeft, ChevronRight, Ship, Clock, 
+  Users, Calendar, CalendarDays, ChevronLeft, ChevronRight, Ship, Clock, 
   ArrowRight, Sparkles, Heart, Crown, PartyPopper, CreditCard,
   MapPin, Star, CheckCircle
 } from 'lucide-react';
-import { format, addWeeks, subWeeks, startOfWeek, endOfWeek, isToday } from 'date-fns';
+import { format, addWeeks, subWeeks, startOfWeek, endOfWeek, isToday, isSameDay } from 'date-fns';
 import { formatCurrency, formatTimeForDisplay } from '@shared/formatters';
 import type { NormalizedSlot } from '@shared/schema';
+import { isDiscoAvailableForDate } from '@shared/timeSlots';
 
 interface EnhancedBookingCalendarProps {
   className?: string;
@@ -135,6 +138,8 @@ export function EnhancedBookingCalendar({
   const [groupSize, setGroupSize] = useState<number>(defaultGroupSize);
   const [groupSizeSource, setGroupSizeSource] = useState<GroupSizeSource>('slider');
   const [selectedWeek, setSelectedWeek] = useState<Date>(new Date());
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(new Date());
+  const [showDatePicker, setShowDatePicker] = useState(false);
   const [selectedSlot, setSelectedSlot] = useState<NormalizedSlot | null>(null);
   const [showSlotPopup, setShowSlotPopup] = useState(false);
   const [, navigate] = useLocation();
@@ -203,6 +208,24 @@ export function EnhancedBookingCalendar({
   // Navigate weeks
   const goToPreviousWeek = () => setSelectedWeek(subWeeks(selectedWeek, 1));
   const goToNextWeek = () => setSelectedWeek(addWeeks(selectedWeek, 1));
+  
+  // Handle date picker selection
+  const handleDateSelect = (date: Date | undefined) => {
+    if (date) {
+      setSelectedDate(date);
+      // Navigate to the week containing the selected date
+      setSelectedWeek(date);
+      setShowDatePicker(false);
+      toast({
+        title: "Date Selected",
+        description: `Viewing availability for ${format(date, 'EEEE, MMMM d, yyyy')}`,
+      });
+    }
+  };
+  
+  // Filter disco cruises for bachelor/bachelorette events only
+  const shouldShowDiscoCruises = selectedEventType === 'bachelor' || selectedEventType === 'bachelorette';
+  const effectiveEventType = shouldShowDiscoCruises && selectedEventType !== 'private' ? 'disco' : 'private';
 
   // Get slots for a specific date
   const getSlotsForDate = (date: Date) => {
@@ -389,13 +412,29 @@ export function EnhancedBookingCalendar({
               </CardTitle>
               <div className="space-y-2">
                 <p className="text-gray-600 dark:text-gray-300" data-testid="text-calendar-description">
-                  Select an available time slot for your {selectedEventType === 'private' ? 'private cruise' : selectedEventType + ' party'}
+                  Select an available time slot for your {effectiveEventType === 'private' ? 'private cruise' : selectedEventType + ' party'}
+                  {!shouldShowDiscoCruises && selectedEventType !== 'private' && (
+                    <span className="block text-xs text-amber-600 mt-1">
+                      💡 Private cruises available for all event types
+                    </span>
+                  )}
+                  {shouldShowDiscoCruises && effectiveEventType === 'disco' && (
+                    <span className="block text-xs text-purple-600 mt-1">
+                      🎉 Disco cruises available Fri (12-4pm) & Sat (11am-3pm, 3:30-7:30pm)
+                    </span>
+                  )}
                 </p>
-                <div className="flex items-center justify-center gap-4 text-sm">
+                <div className="flex items-center justify-center gap-4 text-sm flex-wrap">
                   <div className={cn("flex items-center gap-2", getColorClasses(bestMatch.color, 'highlight'))}>
                     <div className={cn("w-3 h-3 rounded-full", `bg-${bestMatch.color}-500`)} />
                     <span className="font-medium">Best Match for {groupSize} people</span>
                   </div>
+                  {shouldShowDiscoCruises && effectiveEventType === 'disco' && (
+                    <div className="flex items-center gap-2">
+                      <div className="w-3 h-3 rounded-full bg-yellow-500" />
+                      <span>Disco Cruises</span>
+                    </div>
+                  )}
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full bg-gray-300" />
                     <span>Other Options</span>
@@ -404,7 +443,7 @@ export function EnhancedBookingCalendar({
               </div>
             </CardHeader>
             <CardContent>
-              {/* Week Navigation */}
+              {/* Enhanced Date Navigation with Date Picker */}
               <div className="flex items-center justify-between mb-6">
                 <Button 
                   variant="outline" 
@@ -417,9 +456,41 @@ export function EnhancedBookingCalendar({
                   Previous
                 </Button>
                 
-                <h3 className="text-lg font-semibold" data-testid="text-week-range-header">
-                  {format(weekStart, 'MMM d')} - {format(weekEnd, 'MMM d, yyyy')}
-                </h3>
+                {/* Date Picker */}
+                <div className="flex flex-col items-center gap-2">
+                  <Popover open={showDatePicker} onOpenChange={setShowDatePicker}>
+                    <PopoverTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="text-lg font-semibold px-4 py-2 hover:bg-blue-50 hover:border-blue-300"
+                        data-testid="button-date-picker-trigger"
+                      >
+                        <CalendarDays className="h-4 w-4 mr-2" />
+                        {format(weekStart, 'MMM d')} - {format(weekEnd, 'MMM d, yyyy')}
+                      </Button>
+                    </PopoverTrigger>
+                    <PopoverContent className="w-auto p-0" align="center">
+                      <CalendarUI
+                        mode="single"
+                        selected={selectedDate}
+                        onSelect={handleDateSelect}
+                        disabled={(date) => date < new Date(new Date().setHours(0, 0, 0, 0))}
+                        initialFocus
+                        className="rounded-md border"
+                      />
+                      <div className="p-3 border-t">
+                        <p className="text-sm text-muted-foreground text-center">
+                          Select any date to view availability
+                        </p>
+                      </div>
+                    </PopoverContent>
+                  </Popover>
+                  {selectedDate && !isSameDay(selectedDate, new Date()) && (
+                    <Badge variant="secondary" className="text-xs">
+                      Selected: {format(selectedDate, 'MMM d')}
+                    </Badge>
+                  )}
+                </div>
                 
                 <Button 
                   variant="outline" 
