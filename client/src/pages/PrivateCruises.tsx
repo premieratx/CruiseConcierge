@@ -1,7 +1,7 @@
 import { Link, useLocation } from 'wouter';
 import { motion } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
-import { StreamlinedBookingWidget } from '@/components/StreamlinedBookingWidget';
+import { EnhancedBookingCalendar } from '@/components/EnhancedBookingCalendar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
@@ -343,8 +343,8 @@ export default function PrivateCruises() {
             viewport={{ once: true }}
             variants={fadeInUp}
           >
-            <StreamlinedBookingWidget 
-              defaultPartyType="private"
+            <EnhancedBookingCalendar 
+              defaultEventType="private"
               defaultGroupSize={20}
               className="max-w-6xl mx-auto"
             />

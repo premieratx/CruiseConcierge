@@ -23,7 +23,6 @@ import {
 } from '@shared/schema';
 import { EVENT_TYPES, DISCO_PACKAGES } from '@shared/constants';
 import { calculateCompletePricing } from '@shared/pricing';
-import { useSlotHold } from './use-slot-hold';
 
 interface UseCheckoutContextProps {
   entryPoint: CheckoutEntryPoint;
@@ -73,7 +72,6 @@ export interface CheckoutContextHook {
   reset: () => void;
   canProceedToPayment: boolean;
   isEventTypeBachelorette: boolean;
-  needsHoldRenewal: boolean;
 }
 
 export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutContextHook => {
@@ -87,24 +85,7 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
   const [isValidating, setIsValidating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   
-  // Slot hold management for atomic checkout
-  const slotHold = useSlotHold({
-    onHoldCreated: (hold) => {
-      toast({
-        title: "Time Slot Reserved",
-        description: `Your selection is held for ${Math.floor((new Date(hold.expiresAt).getTime() - Date.now()) / (1000 * 60))} minutes`,
-        variant: "default",
-      });
-    },
-    onHoldExpired: () => {
-      toast({
-        title: "Time Reservation Expired",
-        description: "Please select a new time slot to continue with booking.",
-        variant: "destructive",
-      });
-    },
-    autoRelease: true
-  });
+  // Slot hold system removed - direct first-come-first-served checkout
   
   // Fetch available boats
   const { data: boats = [] } = useQuery<BoatOption[]>({
@@ -164,7 +145,7 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
         sessionId,
         quoteId: preselectedData.quoteId,
         projectId: preselectedData.projectId,
-        holdId: preselectedData.holdId,
+        // holdId removed - direct checkout without holds
         createdAt: new Date(),
         lastModified: new Date()
       };
@@ -341,20 +322,13 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
   }, [updateSelections, toast]);
   
   const selectTimeSlot = useCallback(async (slot: NormalizedSlot) => {
-    // Create or renew slot hold
-    if (session?.selections) {
-      await slotHold.createHold({
-        slotId: slot.id,
-        cruiseType: slot.cruiseType,
-        dateISO: slot.dateISO,
-        startTime: slot.startTime,
-        endTime: slot.endTime,
-        groupSize: session.selections.groupSize
-      });
-    }
-    
+    // Direct slot selection without holds - first-come-first-served
     await updateSelections({ selectedTimeSlot: slot });
-  }, [updateSelections, session, slotHold]);
+    toast({
+      title: "Time Slot Selected",
+      description: `${slot.label} selected for your cruise`,
+    });
+  }, [updateSelections, toast]);
   
   const selectCruiseType = useCallback(async (type: 'private' | 'disco') => {
     await updateSelections({ cruiseType: type });
@@ -414,7 +388,7 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
       const response = await apiRequest('POST', '/api/checkout/validate', {
         sessionId: session.sessionId,
         selections: session.selections,
-        holdId: session.holdId
+        // holdId removed for direct checkout
       });
       
       if (!response.ok) throw new Error('Validation failed');
@@ -454,7 +428,7 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
         selections: session.selections,
         pricing: session.pricing,
         paymentType,
-        holdId: session.holdId
+        // holdId removed for direct checkout
       });
       
       if (!response.ok) throw new Error('Failed to create payment intent');
@@ -484,9 +458,9 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
   const reset = useCallback(() => {
     setSession(null);
     setError(null);
-    slotHold.releaseHold();
+    // Slot hold system removed - direct reset
     initializeSession();
-  }, [initializeSession, slotHold]);
+  }, [initializeSession]);
   
   // Initialize on mount
   useEffect(() => {
@@ -504,9 +478,10 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
     return session?.selections?.eventType === 'bachelor' || session?.selections?.eventType === 'bachelorette';
   }, [session]);
   
+  // Direct first-come-first-served booking - no slot holds needed
   const needsHoldRenewal = useMemo(() => {
-    return session?.validation?.requiresHoldRenewal || false;
-  }, [session]);
+    return false; // No slot holds in direct booking system
+  }, []);
   
   // Bachelor/Bachelorette comparison (placeholder)
   const bachelorComparison = useMemo<BachelorComparison | null>(() => {

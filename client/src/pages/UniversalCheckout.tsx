@@ -56,7 +56,6 @@ export default function UniversalCheckout({
     eventDate: urlParams.get('eventDate') ? new Date(urlParams.get('eventDate')!) : undefined,
     boatId: urlParams.get('boatId'),
     cruiseType: urlParams.get('cruiseType') as 'private' | 'disco' | undefined,
-    holdId: urlParams.get('holdId'),
     ...preselectedData
   };
 
@@ -240,15 +239,6 @@ export default function UniversalCheckout({
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-6">
-              {/* Hold Renewal Alert */}
-              {needsHoldRenewal && (
-                <Alert className="border-yellow-200 bg-yellow-50 dark:border-yellow-800 dark:bg-yellow-950">
-                  <AlertCircle className="h-4 w-4 text-yellow-600" />
-                  <AlertDescription className="text-yellow-800 dark:text-yellow-200">
-                    Your time slot hold has expired. Please select a new time slot to continue.
-                  </AlertDescription>
-                </Alert>
-              )}
 
               {/* Bachelor/Bachelorette Comparison */}
               {showBachelorComparison && bachelorComparison && currentStep === 'selections' && (

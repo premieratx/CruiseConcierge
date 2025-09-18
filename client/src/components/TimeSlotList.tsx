@@ -105,15 +105,12 @@ export const TimeSlotList = ({
   };
 
   const getSlotStatus = (slot: NormalizedSlot): {
-    status: 'available' | 'held' | 'limited' | 'unavailable';
+    status: 'available' | 'limited' | 'unavailable';
     label: string;
     variant: 'default' | 'secondary' | 'outline' | 'destructive';
   } => {
     if (!slot.bookable) {
       return { status: 'unavailable', label: 'Unavailable', variant: 'destructive' };
-    }
-    if (slot.held) {
-      return { status: 'held', label: 'On Hold', variant: 'outline' };
     }
     if (slot.availableCount <= 2) {
       return { status: 'limited', label: 'Limited Availability', variant: 'secondary' };
@@ -333,12 +330,6 @@ export const TimeSlotList = ({
                 )}
               </div>
 
-              {/* Hold expiration countdown for held slots */}
-              {slot.held && slot.holdExpiresAt && (
-                <div className="mt-3 pt-3 border-t border-border">
-                  <HoldCountdown expiresAt={slot.holdExpiresAt} slotId={slot.id} />
-                </div>
-              )}
 
               {/* Group size validation warning */}
               {groupSize && groupSize > slot.capacity && (
@@ -357,43 +348,3 @@ export const TimeSlotList = ({
   );
 };
 
-/**
- * Component for displaying hold countdown timer
- */
-interface HoldCountdownProps {
-  expiresAt: Date;
-  slotId: string;
-}
-
-const HoldCountdown = ({ expiresAt, slotId }: HoldCountdownProps) => {
-  const [timeLeft, setTimeLeft] = useState<string>('');
-
-  useEffect(() => {
-    const updateCountdown = () => {
-      const now = new Date();
-      const timeUntilExpiration = expiresAt.getTime() - now.getTime();
-      
-      if (timeUntilExpiration <= 0) {
-        setTimeLeft('Expired');
-        return;
-      }
-
-      const minutes = Math.floor(timeUntilExpiration / (1000 * 60));
-      const seconds = Math.floor((timeUntilExpiration % (1000 * 60)) / 1000);
-      
-      setTimeLeft(`${minutes}:${seconds.toString().padStart(2, '0')}`);
-    };
-
-    updateCountdown();
-    const interval = setInterval(updateCountdown, 1000);
-
-    return () => clearInterval(interval);
-  }, [expiresAt]);
-
-  return (
-    <div className="text-sm text-orange-600 flex items-center gap-2" data-testid={`hold-countdown-${slotId}`}>
-      <Clock className="h-4 w-4" />
-      <span>Hold expires in: {timeLeft}</span>
-    </div>
-  );
-};

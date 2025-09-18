@@ -27,7 +27,6 @@ import { cn } from '@/lib/utils';
 import { format, addDays, isBefore, isAfter, startOfDay, differenceInDays } from 'date-fns';
 import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection, QuoteItem, NormalizedSlot } from '@shared/schema';
 import { useAvailabilityForDate, useAvailabilityForDateRange, formatDateForAvailability } from '@/hooks/use-availability';
-import { useSlotHold, type CreateSlotHoldParams } from '@/hooks/use-slot-hold';
 import { TimeSlotList } from '@/components/TimeSlotList';
 import { formatCurrency, formatDate, formatLongDate, formatTimeForDisplay, formatTimeRange, formatPhoneNumber, formatCustomerName, formatBoatCapacity, formatEventDuration, formatGroupSize } from '@shared/formatters';
 import { EVENT_TYPES, CRUISE_TYPES, DISCO_PACKAGES, PRICING_DEFAULTS, HOURLY_RATES } from '@shared/constants';
@@ -558,26 +557,7 @@ export default function Chat() {
   
   const { toast } = useToast();
 
-  // Slot hold management for atomic checkout
-  const slotHold = useSlotHold({
-    onHoldCreated: (hold) => {
-      console.log('🔒 Slot hold created:', hold.id);
-      toast({
-        title: "Time Slot Reserved",
-        description: `Your selection is held for ${Math.floor((new Date(hold.expiresAt).getTime() - Date.now()) / (1000 * 60))} minutes`,
-        variant: "default",
-      });
-    },
-    onHoldExpired: () => {
-      console.log('⏰ Slot hold expired');
-      toast({
-        title: "Time Reservation Expired",
-        description: "Please select a new time slot to continue with booking.",
-        variant: "destructive",
-      });
-    },
-    autoRelease: true
-  });
+  // Direct first-come-first-served booking - no slot holds
 
   // Debounced function to save partial lead data in real-time - FIXED: removed formData dependency
   const debouncedSavePartialLead = useCallback(
@@ -1492,30 +1472,12 @@ export default function Chat() {
       setPaymentProcessing(true); // Set payment loading state
       setPricingError(null); // Clear any previous errors
 
-      // CRITICAL: Create slot hold before payment to prevent double-booking
+      // Direct first-come-first-served booking - no slot holds
       if (!formData.selectedSlot) {
         throw new Error('No time slot selected');
       }
 
-      console.log('🔒 Creating slot hold before payment...');
-      
-      // Create hold parameters from selected slot - FIXED: Use actual slot cruise type
-      const holdParams: CreateSlotHoldParams = {
-        slotId: formData.selectedSlot.id,
-        boatId: formData.selectedSlot.boatCandidates?.[0] || '',
-        cruiseType: formData.selectedSlot.cruiseType || cruiseType, // Use slot's actual cruise type
-        dateISO: formData.eventDate ? formatDateForAvailability(formData.eventDate) : '',
-        startTime: formData.selectedSlot.startTime,
-        endTime: formData.selectedSlot.endTime,
-        groupSize: formData.groupSize,
-        ttlMinutes: 15 // 15 minute hold for checkout
-      };
-
-      // Create the slot hold using the async method for proper promise handling
-      const holdResponse = await slotHold.createHoldAsync(holdParams);
-      console.log('🔒 Successfully created hold for payment:', holdResponse.hold.id);
-
-      const holdId = holdResponse.hold.id;
+      console.log('💳 Creating direct payment session for first-come-first-served booking...');
 
       // Create selection payload with all form data
       const selectionPayload = {
@@ -1536,15 +1498,15 @@ export default function Chat() {
 
       console.log('💳 Making API call to /api/checkout/create-session with payload:', {
         paymentType,
-        selectionPayload,
-        holdId // Include holdId for atomic checkout
+        selectionPayload
+        // No holdId - direct first-come-first-served booking
       });
 
       const response = await apiRequest("POST", "/api/checkout/create-session", {
         paymentType,
         customerEmail: formData.email.trim(), // Pass actual customer email
-        selectionPayload,
-        holdId, // CRITICAL: Include holdId for server validation
+        selectionPayload
+        // No holdId - race condition determines winner
       });
 
       console.log('💳 API response status:', response.status);
@@ -1576,9 +1538,7 @@ export default function Chat() {
       // Provide more specific error message to user
       let userMessage = "Failed to start payment process. Please try again.";
       if (error.message) {
-        if (error.message.includes('holdId') || error.message.includes('HOLD_')) {
-          userMessage = "Your booking session has expired. Please select your time slot again.";
-        } else if (error.message.includes('pricing') || error.message.includes('amount')) {
+        if (error.message.includes('pricing') || error.message.includes('amount')) {
           userMessage = "There was an issue with pricing calculation. Please refresh and try again.";
         } else if (error.message.includes('network') || error.message.includes('fetch')) {
           userMessage = "Network connection issue. Please check your connection and try again.";

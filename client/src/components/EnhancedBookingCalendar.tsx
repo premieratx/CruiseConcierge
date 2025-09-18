@@ -1,0 +1,540 @@
+import { useState, useEffect, useCallback } from 'react';
+import { useLocation } from 'wouter';
+import { useQuery } from '@tanstack/react-query';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Slider } from '@/components/ui/slider';
+import { cn } from '@/lib/utils';
+import { useToast } from '@/hooks/use-toast';
+import { 
+  Users, Calendar, ChevronLeft, ChevronRight, Ship, Clock, 
+  ArrowRight, Sparkles, Heart, Crown, PartyPopper
+} from 'lucide-react';
+import { format, addWeeks, subWeeks, startOfWeek, endOfWeek, isToday } from 'date-fns';
+import { formatCurrency, formatTimeForDisplay } from '@shared/formatters';
+import type { NormalizedSlot } from '@shared/schema';
+
+interface EnhancedBookingCalendarProps {
+  className?: string;
+  defaultEventType?: 'private' | 'bachelor' | 'bachelorette';
+  defaultGroupSize?: number;
+  showEventTypeSelector?: boolean;
+}
+
+type EventType = 'private' | 'bachelor' | 'bachelorette';
+type GroupSizeSource = 'slider' | 'button';
+
+// Quick selection group sizes
+const QUICK_GROUP_SIZES = [14, 25, 30, 50, 75];
+
+// Boat capacity mapping for color coding and smart highlighting
+const BOAT_CAPACITY_MAP = {
+  'Day Tripper': { capacity: 14, maxCapacity: 14, color: 'purple', ideal: [14] },
+  'Me Seeks The Irony': { capacity: 25, maxCapacity: 30, color: 'red', ideal: [25, 30] },
+  'Clever Girl': { capacity: 50, maxCapacity: 75, color: 'orange', ideal: [50, 75] },
+  'ATX Disco Cruise': { capacity: 100, maxCapacity: 100, color: 'yellow', ideal: [100] },
+  'Meeseeks': { capacity: 25, maxCapacity: 30, color: 'red', ideal: [25, 30] }, // Alternative name
+  'boat_day_tripper': { capacity: 14, maxCapacity: 14, color: 'purple', ideal: [14] },
+  'boat_me_seeks_the_irony': { capacity: 25, maxCapacity: 30, color: 'red', ideal: [25, 30] },
+  'boat_meeseeks': { capacity: 25, maxCapacity: 30, color: 'red', ideal: [25, 30] },
+  'boat_clever_girl': { capacity: 50, maxCapacity: 75, color: 'orange', ideal: [50, 75] },
+} as const;
+
+// Get boat color based on name or capacity
+const getBoatColor = (boatName: string, capacity?: number): string => {
+  const name = boatName.toLowerCase().trim();
+  
+  // Direct name matching
+  for (const [key, boat] of Object.entries(BOAT_CAPACITY_MAP)) {
+    if (name.includes(key.toLowerCase()) || key.toLowerCase().includes(name)) {
+      return boat.color;
+    }
+  }
+  
+  // Fallback to capacity-based matching
+  if (capacity) {
+    if (capacity <= 14) return 'purple';
+    if (capacity <= 30) return 'red';
+    if (capacity <= 75) return 'orange';
+  }
+  
+  return 'gray';
+};
+
+// Get best boat match for group size
+const getBestBoatMatch = (groupSize: number): { color: string; boatName: string } => {
+  if (groupSize <= 14) return { color: 'purple', boatName: 'Day Tripper' };
+  if (groupSize <= 30) return { color: 'red', boatName: 'Me Seeks The Irony' };
+  if (groupSize <= 75) return { color: 'orange', boatName: 'Clever Girl' };
+  return { color: 'gray', boatName: 'Large Capacity' };
+};
+
+// Color utility functions
+const getColorClasses = (color: string, variant: 'slot' | 'button' | 'highlight') => {
+  const baseColors = {
+    purple: {
+      slot: 'border-purple-200 bg-purple-50 hover:bg-purple-100 text-purple-700',
+      button: 'border-purple-200 bg-purple-50 hover:bg-purple-100 text-purple-700',
+      highlight: 'ring-2 ring-purple-400 shadow-purple-200 shadow-lg'
+    },
+    red: {
+      slot: 'border-red-200 bg-red-50 hover:bg-red-100 text-red-700',
+      button: 'border-red-200 bg-red-50 hover:bg-red-100 text-red-700',
+      highlight: 'ring-2 ring-red-400 shadow-red-200 shadow-lg'
+    },
+    orange: {
+      slot: 'border-orange-200 bg-orange-50 hover:bg-orange-100 text-orange-700',
+      button: 'border-orange-200 bg-orange-50 hover:bg-orange-100 text-orange-700',
+      highlight: 'ring-2 ring-orange-400 shadow-orange-200 shadow-lg'
+    },
+    yellow: {
+      slot: 'border-yellow-200 bg-yellow-50 hover:bg-yellow-100 text-yellow-700',
+      button: 'border-yellow-200 bg-yellow-50 hover:bg-yellow-100 text-yellow-700',
+      highlight: 'ring-2 ring-yellow-400 shadow-yellow-200 shadow-lg'
+    },
+    gray: {
+      slot: 'border-gray-200 bg-gray-50 hover:bg-gray-100 text-gray-700',
+      button: 'border-gray-200 bg-gray-50 hover:bg-gray-100 text-gray-700',
+      highlight: 'ring-2 ring-gray-400 shadow-gray-200 shadow-lg'
+    }
+  };
+
+  return baseColors[color as keyof typeof baseColors]?.[variant] || baseColors.gray[variant];
+};
+
+// Animation variants
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
+    y: 0,
+    transition: { duration: 0.4, ease: "easeOut" }
+  }
+};
+
+const staggerChildren = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.1 }
+  }
+};
+
+export function EnhancedBookingCalendar({ 
+  className, 
+  defaultEventType = 'private',
+  defaultGroupSize = 20,
+  showEventTypeSelector = false
+}: EnhancedBookingCalendarProps) {
+  const [selectedEventType, setSelectedEventType] = useState<EventType>(defaultEventType);
+  const [groupSize, setGroupSize] = useState<number>(defaultGroupSize);
+  const [groupSizeSource, setGroupSizeSource] = useState<GroupSizeSource>('slider');
+  const [selectedWeek, setSelectedWeek] = useState<Date>(new Date());
+  const [, navigate] = useLocation();
+  const { toast } = useToast();
+
+  const weekStart = startOfWeek(selectedWeek, { weekStartsOn: 0 });
+  const weekEnd = endOfWeek(selectedWeek, { weekStartsOn: 0 });
+  const weekDates = Array.from({ length: 7 }, (_, i) => {
+    const date = new Date(weekStart);
+    date.setDate(weekStart.getDate() + i);
+    return date;
+  });
+
+  // Get best boat match for current group size
+  const bestMatch = getBestBoatMatch(groupSize);
+
+  // Debounced availability fetch
+  const { data: availableSlots = [], isLoading, refetch } = useQuery<NormalizedSlot[]>({
+    queryKey: [
+      selectedEventType === 'private' ? '/api/availability/search' : '/api/disco/availability/public',
+      format(weekStart, 'yyyy-MM-dd'), 
+      format(weekEnd, 'yyyy-MM-dd'), 
+      groupSize,
+      selectedEventType
+    ],
+    queryFn: async () => {
+      if (selectedEventType === 'private') {
+        const params = new URLSearchParams({
+          startDate: format(weekStart, 'yyyy-MM-dd'),
+          endDate: format(weekEnd, 'yyyy-MM-dd'),
+          groupSize: groupSize.toString()
+        });
+        const response = await fetch(`/api/availability/search?${params}`);
+        if (!response.ok) throw new Error("Failed to fetch private availability");
+        const data = await response.json();
+        return data.slots || [];
+      } else {
+        // Bachelor/Bachelorette disco cruises
+        const params = new URLSearchParams({
+          startDate: format(weekStart, 'yyyy-MM-dd'),
+          endDate: format(weekEnd, 'yyyy-MM-dd'),
+          groupSize: groupSize.toString()
+        });
+        const response = await fetch(`/api/disco/availability/public?${params}`);
+        if (!response.ok) throw new Error("Failed to fetch disco availability");
+        const data = await response.json();
+        return data.slots || [];
+      }
+    },
+    enabled: true,
+    staleTime: 1000 * 60 * 2, // 2 minutes
+    refetchInterval: 1000 * 60 * 5, // 5 minutes
+  });
+
+  // Handle group size changes with "last selection wins" logic
+  const handleSliderChange = useCallback((value: number[]) => {
+    setGroupSize(value[0]);
+    setGroupSizeSource('slider');
+  }, []);
+
+  const handleQuickSizeSelect = useCallback((size: number) => {
+    setGroupSize(size);
+    setGroupSizeSource('button');
+  }, []);
+
+  // Navigate weeks
+  const goToPreviousWeek = () => setSelectedWeek(subWeeks(selectedWeek, 1));
+  const goToNextWeek = () => setSelectedWeek(addWeeks(selectedWeek, 1));
+
+  // Get slots for a specific date
+  const getSlotsForDate = (date: Date) => {
+    const dateStr = format(date, 'yyyy-MM-dd');
+    return availableSlots.filter(slot => slot.dateISO === dateStr || slot.date === dateStr);
+  };
+
+  // Check if slot is a best match for current group size
+  const isSlotBestMatch = (slot: NormalizedSlot): boolean => {
+    const slotColor = getBoatColor(slot.boatName || '', slot.capacity);
+    return slotColor === bestMatch.color;
+  };
+
+  // Handle slot selection
+  const handleSlotSelect = (slot: NormalizedSlot) => {
+    const slotDate = slot.dateISO || slot.date;
+    
+    if (selectedEventType === 'private') {
+      const message = `I'd like to book a private cruise on ${slotDate} at ${formatTimeForDisplay(slot.startTime)} for ${groupSize} people. Can you help me with pricing and availability?`;
+      navigate(`/chat?message=${encodeURIComponent(message)}&slotId=${slot.id}&groupSize=${groupSize}&cruiseType=private`);
+    } else {
+      navigate(`/chat?eventType=${selectedEventType}&slotId=${slot.id}&groupSize=${groupSize}&cruiseType=disco`);
+    }
+    
+    toast({
+      title: "Starting Your Booking",
+      description: `Connecting you with our booking agent for ${selectedEventType === 'private' ? 'private cruise' : selectedEventType + ' party'} details...`,
+    });
+  };
+
+  // Get capacity description based on group size
+  const getCapacityDescription = (groupSize: number): string => {
+    if (groupSize <= 14) return "Perfect for intimate gatherings";
+    if (groupSize <= 25) return "Great for standard parties";
+    if (groupSize <= 50) return "Ideal for big celebrations";
+    return "Perfect for epic events";
+  };
+
+  return (
+    <div className={cn("w-full max-w-6xl mx-auto", className)}>
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        variants={staggerChildren}
+        className="space-y-8"
+      >
+        {/* Enhanced Group Size Selection */}
+        <motion.div variants={fadeInUp}>
+          <Card>
+            <CardHeader className="text-center pb-4">
+              <CardTitle className="text-2xl font-bold flex items-center justify-center gap-2" data-testid="heading-group-size">
+                <Users className="h-6 w-6 text-brand-blue" />
+                How Many People?
+              </CardTitle>
+              <p className="text-gray-600 dark:text-gray-300" data-testid="text-group-size-description">
+                Choose your group size - use the slider for precision or quick buttons for common sizes
+              </p>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-6">
+                {/* Current Size Display with Best Match Indicator */}
+                <div className="text-center">
+                  <div className="flex items-center justify-center gap-4 mb-2">
+                    <div className="text-4xl font-bold text-brand-blue" data-testid="text-current-group-size">
+                      {groupSize} People
+                    </div>
+                    <div className={cn(
+                      "px-3 py-1 rounded-full text-sm font-medium",
+                      getColorClasses(bestMatch.color, 'button')
+                    )}>
+                      Best: {bestMatch.boatName}
+                    </div>
+                  </div>
+                  <div className="text-sm text-gray-500">
+                    {getCapacityDescription(groupSize)}
+                  </div>
+                  <div className="text-xs text-gray-400 mt-1">
+                    Last adjusted: {groupSizeSource === 'slider' ? 'Slider' : 'Quick Button'}
+                  </div>
+                </div>
+
+                {/* Quick Selection Buttons */}
+                <div className="flex flex-wrap justify-center gap-3 mb-4">
+                  {QUICK_GROUP_SIZES.map((size) => {
+                    const buttonMatch = getBestBoatMatch(size);
+                    const isSelected = groupSize === size && groupSizeSource === 'button';
+                    
+                    return (
+                      <motion.div
+                        key={size}
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                      >
+                        <Button
+                          variant={isSelected ? "default" : "outline"}
+                          size="sm"
+                          className={cn(
+                            "font-semibold transition-all duration-200",
+                            isSelected 
+                              ? getColorClasses(buttonMatch.color, 'button') + ' shadow-md'
+                              : 'hover:' + getColorClasses(buttonMatch.color, 'button').replace('bg-', 'bg-').replace('-50', '-25')
+                          )}
+                          onClick={() => handleQuickSizeSelect(size)}
+                          data-testid={`button-group-size-${size}`}
+                        >
+                          {size} people
+                        </Button>
+                      </motion.div>
+                    );
+                  })}
+                </div>
+                
+                {/* Fine-tuned Slider */}
+                <div className="px-4">
+                  <Slider
+                    value={[groupSize]}
+                    onValueChange={handleSliderChange}
+                    max={75}
+                    min={8}
+                    step={1}
+                    className={cn(
+                      "w-full",
+                      `[&_.range]:bg-${bestMatch.color}-500`,
+                      `[&_.thumb]:bg-${bestMatch.color}-500 [&_.thumb]:border-${bestMatch.color}-600`
+                    )}
+                    data-testid="slider-group-size-selection"
+                  />
+                  <div className="flex justify-between text-xs text-gray-500 mt-2">
+                    <span>8 min</span>
+                    <span className="font-medium">
+                      Current: {groupSize} {groupSizeSource === 'slider' ? '(slider)' : '(button)'}
+                    </span>
+                    <span>75 max</span>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+
+        {/* Enhanced Weekly Calendar View with Color Coding */}
+        <motion.div variants={fadeInUp}>
+          <Card>
+            <CardHeader className="text-center pb-4">
+              <CardTitle className="text-2xl font-bold flex items-center justify-center gap-2" data-testid="heading-calendar">
+                <Calendar className="h-6 w-6 text-brand-yellow" />
+                Choose Your Date & Time
+              </CardTitle>
+              <div className="space-y-2">
+                <p className="text-gray-600 dark:text-gray-300" data-testid="text-calendar-description">
+                  Select an available time slot for your {selectedEventType === 'private' ? 'private cruise' : selectedEventType + ' party'}
+                </p>
+                <div className="flex items-center justify-center gap-4 text-sm">
+                  <div className={cn("flex items-center gap-2", getColorClasses(bestMatch.color, 'highlight'))}>
+                    <div className={cn("w-3 h-3 rounded-full", `bg-${bestMatch.color}-500`)} />
+                    <span className="font-medium">Best Match for {groupSize} people</span>
+                  </div>
+                  <div className="flex items-center gap-2">
+                    <div className="w-3 h-3 rounded-full bg-gray-300" />
+                    <span>Other Options</span>
+                  </div>
+                </div>
+              </div>
+            </CardHeader>
+            <CardContent>
+              {/* Week Navigation */}
+              <div className="flex items-center justify-between mb-6">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={goToPreviousWeek}
+                  className="flex items-center gap-2"
+                  data-testid="button-previous-week-nav"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                  Previous
+                </Button>
+                
+                <h3 className="text-lg font-semibold" data-testid="text-week-range-header">
+                  {format(weekStart, 'MMM d')} - {format(weekEnd, 'MMM d, yyyy')}
+                </h3>
+                
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={goToNextWeek}
+                  className="flex items-center gap-2"
+                  data-testid="button-next-week-nav"
+                >
+                  Next
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+
+              {/* Enhanced Weekly Calendar Grid */}
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-3">
+                {weekDates.map((date, dayIndex) => {
+                  const slotsForDate = getSlotsForDate(date);
+                  const hasSlots = slotsForDate.length > 0;
+                  
+                  return (
+                    <div key={date.toISOString()} className="space-y-2">
+                      {/* Day Header */}
+                      <div className={cn(
+                        "p-2 rounded-lg text-center border text-sm",
+                        isToday(date) 
+                          ? "bg-blue-50 dark:bg-blue-900/20 border-blue-200 dark:border-blue-800 text-blue-600 dark:text-blue-400" 
+                          : "bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+                      )}>
+                        <div className="font-medium" data-testid={`text-day-header-${dayIndex}`}>
+                          {format(date, 'EEE')}
+                        </div>
+                        <div className="font-bold text-lg" data-testid={`text-date-header-${dayIndex}`}>
+                          {format(date, 'd')}
+                        </div>
+                      </div>
+
+                      {/* Available Slots with Enhanced Color Coding */}
+                      <div className="space-y-2 min-h-[120px]">
+                        {isLoading ? (
+                          <div className="animate-pulse space-y-2">
+                            {[1, 2].map(i => (
+                              <div key={i} className="h-12 bg-gray-200 dark:bg-gray-700 rounded" />
+                            ))}
+                          </div>
+                        ) : !hasSlots ? (
+                          <div className="text-center py-4 text-gray-400 text-xs">
+                            <Ship className="h-6 w-6 mx-auto mb-1 opacity-50" />
+                            No availability
+                          </div>
+                        ) : (
+                          slotsForDate.slice(0, 3).map((slot, slotIndex) => {
+                            const slotColor = getBoatColor(slot.boatName || '', slot.capacity);
+                            const isBestMatch = isSlotBestMatch(slot);
+                            
+                            return (
+                              <motion.div
+                                key={`${slot.id}-${format(date, 'yyyy-MM-dd')}-${slotIndex}`}
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                              >
+                                <Button
+                                  variant="outline"
+                                  size="sm"
+                                  className={cn(
+                                    "w-full h-auto p-2 text-xs justify-start relative",
+                                    getColorClasses(slotColor, 'slot'),
+                                    isBestMatch && getColorClasses(slotColor, 'highlight')
+                                  )}
+                                  onClick={() => handleSlotSelect(slot)}
+                                  data-testid={`button-slot-${slot.id}`}
+                                >
+                                  {isBestMatch && (
+                                    <Sparkles className="absolute -top-1 -right-1 h-3 w-3 text-yellow-500" />
+                                  )}
+                                  <div className="w-full">
+                                    <div className="flex items-center justify-between w-full mb-1">
+                                      <div className="flex items-center gap-1">
+                                        <Clock className="h-3 w-3" />
+                                        <span className="font-medium">
+                                          {formatTimeForDisplay(slot.startTime)}
+                                        </span>
+                                      </div>
+                                      <span className="text-xs font-bold">
+                                        {selectedEventType === 'private' 
+                                          ? (slot.totalPrice ? formatCurrency(slot.totalPrice) : 'Quote')
+                                          : '$85+/person'
+                                        }
+                                      </span>
+                                    </div>
+                                    <div className="text-xs opacity-75 flex items-center justify-between">
+                                      <span>
+                                        {slot.boatName || 'Available Boat'} • {slot.capacity || 'Various'} max
+                                      </span>
+                                      {isBestMatch && (
+                                        <Badge variant="secondary" className="text-xs px-1 py-0">
+                                          Best
+                                        </Badge>
+                                      )}
+                                    </div>
+                                  </div>
+                                </Button>
+                              </motion.div>
+                            );
+                          })
+                        )}
+                        
+                        {/* Show more indicator */}
+                        {slotsForDate.length > 3 && (
+                          <div className="text-center">
+                            <Button
+                              variant="ghost" 
+                              size="sm"
+                              className="text-xs h-6 px-2"
+                              onClick={() => {
+                                const params = new URLSearchParams({
+                                  eventType: selectedEventType,
+                                  groupSize: groupSize.toString(),
+                                  date: format(date, 'yyyy-MM-dd')
+                                });
+                                navigate(`/calendar?${params.toString()}`);
+                              }}
+                              data-testid={`button-show-more-${dayIndex}`}
+                            >
+                              +{slotsForDate.length - 3} more
+                            </Button>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* View Full Calendar Link */}
+              <div className="text-center mt-6 pt-4 border-t">
+                <Button 
+                  variant="outline"
+                  onClick={() => {
+                    const params = new URLSearchParams({
+                      eventType: selectedEventType,
+                      groupSize: groupSize.toString()
+                    });
+                    navigate(`/calendar?${params.toString()}`);
+                  }}
+                  className="text-sm"
+                  data-testid="button-view-full-calendar"
+                >
+                  <Calendar className="h-4 w-4 mr-2" />
+                  View Full Calendar & More Dates
+                  <ArrowRight className="h-4 w-4 ml-2" />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
+      </motion.div>
+    </div>
+  );
+}

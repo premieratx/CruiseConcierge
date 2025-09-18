@@ -22,9 +22,10 @@ import { isDurationSelectionRequired, getPrivateTimeSlotsForDate } from "@shared
 import { 
   Calculator, Gift, DollarSign, Percent, Users, Clock, AlertTriangle, Edit, Wand2,
   Save, FileText, Package, Eye, ChevronRight, Sparkles, Copy, Plus, Trash2,
-  Ship, MapPin, Calendar, User, Phone, Mail, CheckCircle, Timer
+  Ship, MapPin, Calendar, User, Phone, Mail, CheckCircle, Timer, ShoppingCart, ArrowRight
 } from "lucide-react";
 import { format } from "date-fns";
+import { useLocation } from "wouter";
 
 interface QuoteItem {
   id: string;
@@ -76,6 +77,15 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
   const [selectedEventType, setSelectedEventType] = useState("wedding");
   const [selectedSlot, setSelectedSlot] = useState<NormalizedSlot | null>(null);
   const [selectedDuration, setSelectedDuration] = useState<'3-hour' | '4-hour' | null>(null);
+  
+  // Contact form state - ENHANCED: Show BEFORE quote display instead of after
+  const [showContactDialog, setShowContactDialog] = useState(true); // Changed to true - appears first
+  const [contactForm, setContactForm] = useState({
+    name: '',
+    email: '',
+    phone: ''
+  });
+  const [contactSubmitted, setContactSubmitted] = useState(false); // Track if contact info is provided
   
   // Check if duration selection is required for the selected date
   const requiresDurationSelection = projectDate ? isDurationSelectionRequired(new Date(projectDate)) : false;
@@ -339,590 +349,460 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
     return format(new Date(date), 'MMM dd, yyyy');
   };
 
+  // Handle contact form submission - ENHANCED: Just capture info, don't go to checkout yet
+  const handleContactSubmit = () => {
+    if (contactForm.name && contactForm.email && contactForm.phone) {
+      setContactSubmitted(true);
+      setShowContactDialog(false);
+      toast({
+        title: "Contact Info Saved",
+        description: "Great! Now let's see what's available for your event.",
+      });
+    }
+  };
+
+  // Group size options for easy selection
+  const groupSizeOptions = [14, 25, 30, 50, 75];
+
+  // If contact info not submitted yet, show contact dialog first
+  if (!contactSubmitted) {
+    return (
+      <div className="flex items-center justify-center min-h-[calc(100vh-8rem)]" data-testid="quote-builder">
+        <Dialog open={showContactDialog} onOpenChange={() => {}}>
+          <DialogContent className="sm:max-w-[425px]" data-testid="contact-dialog">
+            <DialogHeader>
+              <DialogTitle className="flex items-center gap-2">
+                <Ship className="w-5 h-5 text-blue-600" />
+                Let's Get Started!
+              </DialogTitle>
+              <DialogDescription>
+                To show you real-time pricing and availability, we need your contact information. 
+                This helps us provide personalized service and saves your quote.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="contact-name">Full Name *</Label>
+                <Input
+                  id="contact-name"
+                  value={contactForm.name}
+                  onChange={(e) => setContactForm(prev => ({ ...prev, name: e.target.value }))}
+                  placeholder="Enter your full name"
+                  data-testid="input-contact-name"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="contact-email">Email Address *</Label>
+                <Input
+                  id="contact-email"
+                  type="email"
+                  value={contactForm.email}
+                  onChange={(e) => setContactForm(prev => ({ ...prev, email: e.target.value }))}
+                  placeholder="your.email@example.com"
+                  data-testid="input-contact-email"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="contact-phone">Phone Number *</Label>
+                <Input
+                  id="contact-phone"
+                  type="tel"
+                  value={contactForm.phone}
+                  onChange={(e) => setContactForm(prev => ({ ...prev, phone: e.target.value }))}
+                  placeholder="(555) 123-4567"
+                  data-testid="input-contact-phone"
+                />
+              </div>
+              <div className="bg-blue-50 p-3 rounded-lg">
+                <p className="text-sm text-blue-700 font-medium">✨ Why we need this:</p>
+                <ul className="text-xs text-blue-600 mt-1 space-y-1">
+                  <li>• Show you real-time pricing and availability</li>
+                  <li>• Save your quote for easy booking later</li>
+                  <li>• Send you the quote via email or SMS</li>
+                </ul>
+              </div>
+            </div>
+            <div className="flex justify-end">
+              <Button
+                onClick={handleContactSubmit}
+                disabled={!contactForm.name || !contactForm.email || !contactForm.phone}
+                className="bg-blue-600 hover:bg-blue-700"
+                data-testid="button-submit-contact"
+              >
+                Show Me What's Available
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            </div>
+          </DialogContent>
+        </Dialog>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex gap-4 h-[calc(100vh-8rem)]" data-testid="quote-builder">
-      {/* Left Side - Builder (60%) */}
-      <div className="flex-[3] overflow-y-auto">
-        <Card className="h-full">
-          <CardHeader className="sticky top-0 bg-background z-10 border-b">
-            <CardTitle className="flex items-center gap-2">
-              <Calculator className="w-5 h-5" />
-              Quote Builder
-            </CardTitle>
-            <CardDescription>
-              Build and customize quotes with live pricing
-            </CardDescription>
-          </CardHeader>
-          
-          <CardContent className="p-6 space-y-6">
-            {/* Project Selection */}
-            <div className="space-y-2">
-              <Label>Project</Label>
-              <Select value={selectedProjectId} onValueChange={setSelectedProjectId}>
-                <SelectTrigger data-testid="select-project">
-                  <SelectValue placeholder="Select a project" />
-                </SelectTrigger>
-                <SelectContent>
-                  {projects.map((project) => (
-                    <SelectItem key={project.id} value={project.id}>
-                      {project.title || "Untitled Project"}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+    <div className="space-y-6" data-testid="quote-builder">
+      {/* Enhanced Header with Selected Date */}
+      <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 rounded-lg">
+        <h1 className="text-2xl font-bold mb-2">
+          What's Available for {projectDate ? format(new Date(projectDate), 'EEEE, MMMM d, yyyy') : 'Your Selected Date'}
+        </h1>
+        <p className="text-blue-100">
+          Real-time availability and pricing for your event. 
+          Adjust your selections below to see how they affect options and pricing.
+        </p>
+        <div className="flex items-center gap-4 mt-4">
+          <div className="flex items-center gap-2 text-sm">
+            <User className="w-4 h-4" />
+            <span>{contactForm.name}</span>
+          </div>
+          <div className="flex items-center gap-2 text-sm">
+            <Users className="w-4 h-4" />
+            <span>{currentGroupSize} people</span>
+          </div>
+        </div>
+      </div>
 
-            {/* Template Selection */}
-            <div className="space-y-2">
-              <Label>Template</Label>
-              <Select value={selectedTemplateId} onValueChange={setSelectedTemplateId}>
-                <SelectTrigger data-testid="select-template">
-                  <SelectValue placeholder="Select a template" />
-                </SelectTrigger>
-                <SelectContent>
-                  {templates.map((template) => (
-                    <SelectItem key={template.id} value={template.id}>
-                      <div className="flex items-center gap-2">
-                        {template.name}
-                        {template.isDefault && (
-                          <Badge variant="secondary" className="text-xs">Default</Badge>
-                        )}
-                      </div>
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+      {/* Group Size Selection */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Users className="w-5 h-5" />
+            Group Size
+          </CardTitle>
+          <CardDescription>
+            Select your group size to see appropriate boat options and pricing
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid grid-cols-5 gap-3">
+            {groupSizeOptions.map((size) => (
+              <Button
+                key={size}
+                variant={currentGroupSize === size ? "default" : "outline"}
+                onClick={() => setCurrentGroupSize(size)}
+                className="p-4 h-auto flex flex-col"
+                data-testid={`button-group-size-${size}`}
+              >
+                <span className="text-lg font-bold">{size}</span>
+                <span className="text-xs">people</span>
+              </Button>
+            ))}
+          </div>
+          <div className="mt-4">
+            <Label htmlFor="custom-group-size">Or enter custom group size:</Label>
+            <Input
+              id="custom-group-size"
+              type="number"
+              value={currentGroupSize}
+              onChange={(e) => setCurrentGroupSize(parseInt(e.target.value) || 25)}
+              min="1"
+              max="150"
+              className="mt-2 max-w-[150px]"
+              data-testid="input-custom-group-size"
+            />
+          </div>
+        </CardContent>
+      </Card>
 
-            {/* Group Size */}
-            <div className="space-y-2">
-              <Label>Group Size</Label>
-              <Input
-                type="number"
-                value={currentGroupSize}
-                onChange={(e) => setCurrentGroupSize(parseInt(e.target.value) || 25)}
-                min="1"
-                max="150"
-                data-testid="input-group-size"
-              />
-            </div>
-
-            {/* Event Date */}
-            <div className="space-y-2">
-              <Label>Event Date</Label>
+      {/* Date Selection with Edit Button */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Calendar className="w-5 h-5" />
+            Event Date
+          </CardTitle>
+          <CardDescription>
+            Change your date to see different availability and pricing
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="flex items-center gap-3">
+            <div className="flex-1">
               <Input
                 type="date"
                 value={projectDate}
-                onChange={(e) => setProjectDate(e.target.value)}
+                onChange={(e) => {
+                  setProjectDate(e.target.value);
+                  setSelectedSlot(null); // Reset slot when date changes
+                }}
                 data-testid="input-event-date"
+                className="text-lg font-medium"
               />
             </div>
+            <Button
+              variant="outline"
+              onClick={() => {
+                // Reset to tomorrow's date as default
+                const tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate() + 1);
+                setProjectDate(tomorrow.toISOString().split('T')[0]);
+                setSelectedSlot(null);
+              }}
+              data-testid="button-reset-date"
+            >
+              <RotateCcw className="w-4 h-4 mr-2" />
+              Reset
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
 
-            {/* Duration Selection for Monday-Thursday */}
-            {projectDate && requiresDurationSelection && (
-              <div className="space-y-2">
-                <DurationSelector
-                  selectedDuration={selectedDuration}
-                  onDurationChange={(duration) => {
-                    setSelectedDuration(duration);
-                    // Reset selected slot when duration changes
-                    setSelectedSlot(null);
-                  }}
-                  availableDurations={['3-hour', '4-hour']}
-                  data-testid="duration-selector"
-                />
-              </div>
-            )}
+      {/* Two-Column Layout */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Left Column - Available Options */}
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Ship className="w-5 h-5" />
+                Available Options
+              </CardTitle>
+              <CardDescription>
+                Select your preferences to see real-time availability
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Duration Selection for Monday-Thursday */}
+              {projectDate && requiresDurationSelection && (
+                <div className="space-y-2">
+                  <DurationSelector
+                    selectedDuration={selectedDuration}
+                    onDurationChange={(duration) => {
+                      setSelectedDuration(duration);
+                      setSelectedSlot(null);
+                    }}
+                    availableDurations={['3-hour', '4-hour']}
+                    data-testid="duration-selector"
+                  />
+                </div>
+              )}
 
-            {/* Time Slot Selection */}
-            {projectDate && (!requiresDurationSelection || selectedDuration) && (
-              <div className="space-y-2">
-                <Label className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
-                  Available Time Slots
-                  {requiresDurationSelection && selectedDuration && (
-                    <Badge variant="outline" className="text-xs">
-                      {selectedDuration.replace('-', ' ')} options
-                    </Badge>
-                  )}
-                </Label>
-                <div className="rounded-lg border p-4">
-                  {filteredSlots.length > 0 ? (
-                    <TimeSlotList
-                      slots={filteredSlots}
-                      selectedSlotId={selectedSlot?.id}
-                      onSlotSelect={(slot) => {
-                        setSelectedSlot(slot);
-                        console.log('Selected slot:', slot);
-                      }}
-                      groupSize={currentGroupSize}
-                      variant="compact"
-                      showDate={false}
-                      data-testid="timeslot-list"
-                    />
-                  ) : (
+              {/* Time Slot Selection */}
+              {projectDate && (!requiresDurationSelection || selectedDuration) && (
+                <div className="space-y-2">
+                  <Label className="flex items-center gap-2">
+                    <Clock className="w-4 h-4" />
+                    Available Time Slots
+                    {requiresDurationSelection && selectedDuration && (
+                      <Badge variant="outline" className="text-xs">
+                        {selectedDuration.replace('-', ' ')} options
+                      </Badge>
+                    )}
+                  </Label>
+                  <div className="rounded-lg border p-4">
+                    {filteredSlots.length > 0 ? (
+                      <TimeSlotList
+                        slots={filteredSlots}
+                        selectedSlotId={selectedSlot?.id}
+                        onSlotSelect={(slot) => {
+                          setSelectedSlot(slot);
+                          console.log('Selected slot:', slot);
+                        }}
+                        groupSize={currentGroupSize}
+                        variant="compact"
+                        showDate={false}
+                        data-testid="timeslot-list"
+                      />
+                    ) : (
+                      <div className="text-center py-6 text-muted-foreground">
+                        <Clock className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                        <p>No time slots available for this date.</p>
+                        {requiresDurationSelection && selectedDuration && (
+                          <p className="text-sm">No {selectedDuration.replace('-', ' ')} slots available. Try the other duration option.</p>
+                        )}
+                        {!requiresDurationSelection && (
+                          <p className="text-sm">Try selecting a different date or group size.</p>
+                        )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Message when duration selection is required but not selected */}
+              {projectDate && requiresDurationSelection && !selectedDuration && (
+                <div className="space-y-2">
+                  <Label className="flex items-center gap-2">
+                    <Clock className="w-4 h-4" />
+                    Time Slots
+                  </Label>
+                  <div className="rounded-lg border p-4">
                     <div className="text-center py-6 text-muted-foreground">
-                      <Clock className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                      <p>No time slots available for this date.</p>
-                      {requiresDurationSelection && selectedDuration && (
-                        <p className="text-sm">No {selectedDuration.replace('-', ' ')} slots available. Try the other duration option.</p>
-                      )}
-                      {!requiresDurationSelection && (
-                        <p className="text-sm">Try selecting a different date.</p>
+                      <Timer className="h-8 w-8 mx-auto mb-2 opacity-50" />
+                      <p className="font-medium">Choose your cruise duration first</p>
+                      <p className="text-sm">Select either 3-hour or 4-hour option above to see available time slots.</p>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Right Column - Selected Details & Pricing */}
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <DollarSign className="w-5 h-5" />
+                Your Selection
+              </CardTitle>
+              <CardDescription>
+                Selected options and real-time pricing
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {/* Selected Details Summary */}
+              <div className="space-y-4">
+                <div className="bg-blue-50 p-4 rounded-lg">
+                  <h3 className="font-semibold mb-3">Event Summary</h3>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center gap-2">
+                      <User className="w-4 h-4 text-blue-600" />
+                      <span className="font-medium">{contactForm.name}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Calendar className="w-4 h-4 text-blue-600" />
+                      <span>{projectDate ? format(new Date(projectDate), 'EEEE, MMMM d, yyyy') : 'Date not selected'}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Users className="w-4 h-4 text-blue-600" />
+                      <span>{currentGroupSize} people</span>
+                    </div>
+                    {selectedSlot && (
+                      <div className="flex items-center gap-2">
+                        <Clock className="w-4 h-4 text-blue-600" />
+                        <span>{selectedSlot.label}</span>
+                      </div>
+                    )}
+                  </div>
+                </div>
+
+                {/* Selected Slot Details */}
+                {selectedSlot && (
+                  <div className="border rounded-lg p-4">
+                    <h4 className="font-semibold mb-2 flex items-center gap-2">
+                      <Ship className="w-4 h-4" />
+                      Selected Time Slot
+                    </h4>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>Time:</span>
+                        <span className="font-medium">{selectedSlot.startTime} - {selectedSlot.endTime}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Duration:</span>
+                        <span className="font-medium">{selectedSlot.duration} hours</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Capacity:</span>
+                        <span className="font-medium">Up to {selectedSlot.capacity} people</span>
+                      </div>
+                      {selectedSlot.estimatedPricing && (
+                        <div className="flex justify-between font-semibold text-green-600">
+                          <span>Starting Price:</span>
+                          <span>{formatCurrency(selectedSlot.estimatedPricing.total)}</span>
+                        </div>
                       )}
                     </div>
-                  )}
-                </div>
-                
-                {/* Duration selection helper for Monday-Thursday */}
-                {requiresDurationSelection && selectedDuration && filteredSlots.length > 0 && (
-                  <div className="mt-2 p-3 bg-blue-50 rounded-lg">
-                    <p className="text-sm text-blue-700">
-                      <Timer className="w-4 h-4 inline mr-1" />
-                      Showing {selectedDuration.replace('-', ' ')} time slots for {format(new Date(projectDate), 'EEEE, MMMM d, yyyy')}
+                  </div>
+                )}
+
+                {/* Pricing Summary */}
+                {pricing && (
+                  <div className="border rounded-lg p-4">
+                    <h4 className="font-semibold mb-3">Pricing Breakdown</h4>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>Subtotal:</span>
+                        <span>{formatCurrency(pricing.subtotal)}</span>
+                      </div>
+                      {pricing.discountTotal > 0 && (
+                        <div className="flex justify-between text-green-600">
+                          <span>Discount:</span>
+                          <span>-{formatCurrency(pricing.discountTotal)}</span>
+                        </div>
+                      )}
+                      <div className="flex justify-between">
+                        <span>Tax:</span>
+                        <span>{formatCurrency(pricing.tax)}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>Gratuity:</span>
+                        <span>{formatCurrency(pricing.gratuity)}</span>
+                      </div>
+                      <Separator />
+                      <div className="flex justify-between font-bold text-lg">
+                        <span>Total:</span>
+                        <span className="text-green-600">{formatCurrency(pricing.total)}</span>
+                      </div>
+                      <div className="flex justify-between text-muted-foreground">
+                        <span>Per Person:</span>
+                        <span>{formatCurrency(pricing.perPersonCost)}</span>
+                      </div>
+                    </div>
+
+                    {/* Deposit Information */}
+                    {pricing.depositRequired && (
+                      <div className="mt-4 p-3 bg-yellow-50 rounded-lg">
+                        <div className="flex items-start gap-2">
+                          <AlertCircle className="w-4 h-4 text-yellow-600 mt-0.5" />
+                          <div>
+                            <p className="text-sm font-medium text-yellow-800">
+                              Deposit Required
+                            </p>
+                            <p className="text-xs text-yellow-700">
+                              {pricing.depositPercent}% deposit ({formatCurrency(pricing.depositAmount)}) required to secure your booking
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                )}
+
+                {/* No Selection Message */}
+                {!selectedSlot && (
+                  <div className="text-center py-8 text-muted-foreground">
+                    <Ship className="w-12 h-12 mx-auto mb-3 opacity-50" />
+                    <h3 className="font-medium mb-2">Select a Time Slot</h3>
+                    <p className="text-sm">Choose from the available options on the left to see detailed pricing and proceed with booking.</p>
+                  </div>
+                )}
+
+                {/* Proceed to Checkout Button */}
+                {selectedSlot && pricing && (
+                  <div className="space-y-3">
+                    <Separator />
+                    <Button 
+                      onClick={() => {
+                        // Handle checkout process
+                        toast({
+                          title: "Ready to Book!",
+                          description: "Proceeding to secure checkout...",
+                        });
+                      }}
+                      className="w-full bg-green-600 hover:bg-green-700 text-white"
+                      size="lg"
+                      data-testid="button-proceed-to-checkout"
+                    >
+                      <CreditCard className="w-4 h-4 mr-2" />
+                      Book Now - {formatCurrency(pricing.depositAmount)}
+                      <ArrowRight className="w-4 h-4 ml-2" />
+                    </Button>
+                    <p className="text-xs text-center text-muted-foreground">
+                      Secure payment • Instant confirmation • Flexible cancellation
                     </p>
                   </div>
                 )}
               </div>
-            )}
-
-            {/* Message when duration selection is required but not selected */}
-            {projectDate && requiresDurationSelection && !selectedDuration && (
-              <div className="space-y-2">
-                <Label className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
-                  Time Slots
-                </Label>
-                <div className="rounded-lg border p-4">
-                  <div className="text-center py-6 text-muted-foreground">
-                    <Timer className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                    <p className="font-medium">Choose your cruise duration first</p>
-                    <p className="text-sm">Select either 3-hour or 4-hour option above to see available time slots.</p>
-                  </div>
-                </div>
-              </div>
-            )}
-
-            <Separator />
-
-            {/* Quote Items */}
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h3 className="font-semibold">Quote Items</h3>
-                <Badge variant="outline">
-                  {items.length} item{items.length !== 1 ? 's' : ''}
-                </Badge>
-              </div>
-
-              <div className="space-y-2">
-                {items.map((item) => (
-                  <div
-                    key={item.id}
-                    className="flex items-center justify-between p-3 bg-muted rounded-lg"
-                    data-testid={`quote-item-${item.id}`}
-                  >
-                    <div className="flex-1">
-                      <div className="font-medium">{item.name}</div>
-                      {item.description && (
-                        <div className="text-sm text-muted-foreground">{item.description}</div>
-                      )}
-                      <div className="flex items-center gap-2 mt-2">
-                        {item.categoryType && (
-                          <Badge variant="outline" className="text-xs">
-                            {item.categoryType}
-                          </Badge>
-                        )}
-                        {item.productType && (
-                          <Badge variant="secondary" className="text-xs">
-                            {item.productType}
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center gap-4">
-                      <div className="flex items-center gap-2">
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => updateQuantity(item.id, item.qty - 1)}
-                          disabled={item.qty <= 1}
-                          className="h-8 w-8 p-0"
-                          data-testid={`button-decrease-qty-${item.id}`}
-                        >
-                          -
-                        </Button>
-                        <span className="w-8 text-center" data-testid={`text-qty-${item.id}`}>
-                          {item.qty}
-                        </span>
-                        <Button
-                          variant="outline"
-                          size="sm"
-                          onClick={() => updateQuantity(item.id, item.qty + 1)}
-                          className="h-8 w-8 p-0"
-                          data-testid={`button-increase-qty-${item.id}`}
-                        >
-                          +
-                        </Button>
-                      </div>
-                      
-                      <div className="text-right">
-                        <div className="font-semibold">
-                          {formatCurrency(item.unitPrice * item.qty)}
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          {formatCurrency(item.unitPrice)} each
-                        </div>
-                      </div>
-                      
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => updateQuantity(item.id, 0)}
-                        className="h-8 w-8 p-0 text-destructive"
-                        data-testid={`button-remove-item-${item.id}`}
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Add Product Section */}
-              <div>
-                <h4 className="font-medium mb-2">Add Products</h4>
-                <Tabs defaultValue="experience" className="w-full">
-                  <TabsList className="grid w-full grid-cols-2">
-                    <TabsTrigger value="experience">Experiences</TabsTrigger>
-                    <TabsTrigger value="addon">Add-ons</TabsTrigger>
-                  </TabsList>
-                  <TabsContent value="experience">
-                    <ScrollArea className="h-48 rounded-md border p-2">
-                      <div className="space-y-2">
-                        {products
-                          .filter(p => p.categoryType === "experience")
-                          .map((product) => (
-                            <div
-                              key={product.id}
-                              className="flex items-center justify-between p-2 hover:bg-muted rounded cursor-pointer"
-                              onClick={() => addProduct(product)}
-                              data-testid={`product-${product.id}`}
-                            >
-                              <div>
-                                <div className="font-medium text-sm">{product.name}</div>
-                                <div className="text-xs text-muted-foreground">
-                                  {formatCurrency(product.unitPrice || 0)}
-                                </div>
-                              </div>
-                              <Plus className="h-4 w-4 text-muted-foreground" />
-                            </div>
-                          ))}
-                      </div>
-                    </ScrollArea>
-                  </TabsContent>
-                  <TabsContent value="addon">
-                    <ScrollArea className="h-48 rounded-md border p-2">
-                      <div className="space-y-2">
-                        {products
-                          .filter(p => p.categoryType === "addon")
-                          .map((product) => (
-                            <div
-                              key={product.id}
-                              className="flex items-center justify-between p-2 hover:bg-muted rounded cursor-pointer"
-                              onClick={() => addProduct(product)}
-                              data-testid={`product-${product.id}`}
-                            >
-                              <div>
-                                <div className="font-medium text-sm">{product.name}</div>
-                                <div className="text-xs text-muted-foreground">
-                                  {formatCurrency(product.unitPrice || 0)}
-                                </div>
-                              </div>
-                              <Plus className="h-4 w-4 text-muted-foreground" />
-                            </div>
-                          ))}
-                      </div>
-                    </ScrollArea>
-                  </TabsContent>
-                </Tabs>
-              </div>
-            </div>
-
-            <Separator />
-
-            {/* Promo Code */}
-            <div className="space-y-2">
-              <Label>Promo Code</Label>
-              {appliedPromo ? (
-                <div className="flex items-center gap-2">
-                  <Badge variant="secondary" className="flex-1 justify-center py-2">
-                    <Gift className="mr-2 h-4 w-4" />
-                    {appliedPromo}
-                  </Badge>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={removePromoCode}
-                    data-testid="button-remove-promo"
-                  >
-                    Remove
-                  </Button>
-                </div>
-              ) : (
-                <div className="flex gap-2">
-                  <Input
-                    placeholder="Enter promo code"
-                    value={promoCode}
-                    onChange={(e) => setPromoCode(e.target.value)}
-                    data-testid="input-promo-code"
-                  />
-                  <Button
-                    onClick={applyPromoCode}
-                    disabled={!promoCode.trim()}
-                    data-testid="button-apply-promo"
-                  >
-                    Apply
-                  </Button>
-                </div>
-              )}
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex gap-2 pt-4">
-              <Button
-                onClick={() => saveQuote.mutate()}
-                disabled={!selectedProjectId || items.length === 0 || saveQuote.isPending}
-                className="flex-1"
-                data-testid="button-save-quote"
-              >
-                <Save className="mr-2 h-4 w-4" />
-                {saveQuote.isPending ? "Saving..." : "Save Quote"}
-              </Button>
-              <Button
-                variant="outline"
-                onClick={() => setShowSaveTemplateDialog(true)}
-                disabled={items.length === 0}
-                data-testid="button-save-template"
-              >
-                <Copy className="mr-2 h-4 w-4" />
-                Save as Template
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+            </CardContent>
+          </Card>
+        </div>
       </div>
-
-      {/* Right Side - Live Preview (40%) */}
-      <div className="flex-[2] overflow-y-auto">
-        <Card className="h-full">
-          <CardHeader className="sticky top-0 bg-background z-10 border-b">
-            <CardTitle className="flex items-center gap-2">
-              <Eye className="w-5 h-5" />
-              Live Preview
-            </CardTitle>
-            <CardDescription>
-              Real-time quote visualization
-            </CardDescription>
-          </CardHeader>
-          
-          <CardContent className="p-6 space-y-6">
-            {/* Customer Info */}
-            {selectedProject && selectedContact && (
-              <div className="space-y-3">
-                <h3 className="font-semibold">Customer Information</h3>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2">
-                    <User className="h-4 w-4 text-muted-foreground" />
-                    <span>{selectedContact.name}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Mail className="h-4 w-4 text-muted-foreground" />
-                    <span>{selectedContact.email}</span>
-                  </div>
-                  {selectedContact.phone && (
-                    <div className="flex items-center gap-2">
-                      <Phone className="h-4 w-4 text-muted-foreground" />
-                      <span>{selectedContact.phone}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* Event Details */}
-            {selectedProject && (
-              <div className="space-y-3">
-                <h3 className="font-semibold">Event Details</h3>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2">
-                    <Calendar className="h-4 w-4 text-muted-foreground" />
-                    <span>{formatDate(projectDate)}</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Users className="h-4 w-4 text-muted-foreground" />
-                    <span>{currentGroupSize} guests</span>
-                  </div>
-                  {selectedProject.eventType && (
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="h-4 w-4 text-muted-foreground" />
-                      <span className="capitalize">{selectedProject.eventType}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            <Separator />
-
-            {/* Pricing Summary */}
-            {pricing && (
-              <div className="space-y-3">
-                <h3 className="font-semibold">Pricing Summary</h3>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span>Subtotal</span>
-                    <span>{formatCurrency(pricing.subtotal)}</span>
-                  </div>
-                  {pricing.discountTotal > 0 && (
-                    <div className="flex justify-between text-sm text-green-600">
-                      <span>Discount</span>
-                      <span>-{formatCurrency(pricing.discountTotal)}</span>
-                    </div>
-                  )}
-                  <div className="flex justify-between text-sm">
-                    <span>Tax</span>
-                    <span>{formatCurrency(pricing.tax)}</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span>Gratuity</span>
-                    <span>{formatCurrency(pricing.gratuity)}</span>
-                  </div>
-                  <Separator />
-                  <div className="flex justify-between font-semibold">
-                    <span>Total</span>
-                    <span className="text-lg">{formatCurrency(pricing.total)}</span>
-                  </div>
-                  {currentGroupSize > 0 && (
-                    <div className="flex justify-between text-sm text-muted-foreground">
-                      <span>Per Person</span>
-                      <span>{formatCurrency(Math.round(pricing.total / currentGroupSize))}</span>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* Deposit Information */}
-            {pricing && pricing.depositRequired && (
-              <Alert>
-                <DollarSign className="h-4 w-4" />
-                <AlertDescription>
-                  <div className="font-semibold mb-1">Deposit Required</div>
-                  <div className="text-sm">
-                    {pricing.depositPercent}% deposit ({formatCurrency(pricing.depositAmount)}) 
-                    required to secure booking
-                  </div>
-                </AlertDescription>
-              </Alert>
-            )}
-
-            {/* Urgency Message */}
-            {pricing && pricing.urgencyMessage && (
-              <Alert>
-                <AlertTriangle className="h-4 w-4" />
-                <AlertDescription>
-                  {pricing.urgencyMessage}
-                </AlertDescription>
-              </Alert>
-            )}
-
-            {/* Quote Items Summary */}
-            <div className="space-y-3">
-              <h3 className="font-semibold">Included Services</h3>
-              <div className="space-y-2">
-                {items.map((item) => (
-                  <div key={item.id} className="flex items-center justify-between text-sm">
-                    <div className="flex items-center gap-2">
-                      <CheckCircle className="h-4 w-4 text-green-500" />
-                      <span>
-                        {item.name} {item.qty > 1 && `(x${item.qty})`}
-                      </span>
-                    </div>
-                    <span className="text-muted-foreground">
-                      {formatCurrency(item.unitPrice * item.qty)}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-      </div>
-
-      {/* Save as Template Dialog */}
-      <Dialog open={showSaveTemplateDialog} onOpenChange={setShowSaveTemplateDialog}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Save as Template</DialogTitle>
-            <DialogDescription>
-              Save this quote configuration as a reusable template
-            </DialogDescription>
-          </DialogHeader>
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="template-name">Template Name</Label>
-              <Input
-                id="template-name"
-                value={newTemplateName}
-                onChange={(e) => setNewTemplateName(e.target.value)}
-                placeholder="e.g., Premium Wedding Package"
-                data-testid="input-template-name"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="template-description">Description</Label>
-              <Textarea
-                id="template-description"
-                value={newTemplateDescription}
-                onChange={(e) => setNewTemplateDescription(e.target.value)}
-                placeholder="Describe what this template includes..."
-                data-testid="input-template-description"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="template-event-type">Event Type</Label>
-              <Select value={selectedEventType} onValueChange={setSelectedEventType}>
-                <SelectTrigger id="template-event-type" data-testid="select-template-event-type">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="wedding">Wedding</SelectItem>
-                  <SelectItem value="corporate">Corporate</SelectItem>
-                  <SelectItem value="birthday">Birthday</SelectItem>
-                  <SelectItem value="bachelor">Bachelor</SelectItem>
-                  <SelectItem value="bachelorette">Bachelorette</SelectItem>
-                  <SelectItem value="graduation">Graduation</SelectItem>
-                  <SelectItem value="anniversary">Anniversary</SelectItem>
-                  <SelectItem value="other">Other</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-          <DialogFooter>
-            <Button variant="outline" onClick={() => setShowSaveTemplateDialog(false)}>
-              Cancel
-            </Button>
-            <Button
-              onClick={() => saveAsTemplate.mutate()}
-              disabled={!newTemplateName || saveAsTemplate.isPending}
-              data-testid="button-confirm-save-template"
-            >
-              {saveAsTemplate.isPending ? "Saving..." : "Save Template"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
+                <SelectContent>
+                  {projects.map((project) => (
+                    <SelectItem key={project.id} value={project.id}>
