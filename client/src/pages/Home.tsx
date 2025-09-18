@@ -19,7 +19,7 @@ import {
   MessageCircle, Instagram, Facebook, Twitter, Quote, ChevronRight,
   Navigation, Compass, LifeBuoy, Zap, Target, TrendingUp, Play,
   ExternalLink, BookOpen, Headphones, Car, Wine, Camera as CameraIcon,
-  UserCheck, MessageSquare
+  UserCheck, MessageSquare, X, Eye, Image
 } from 'lucide-react';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
@@ -71,7 +71,10 @@ const services = [
     startingPrice: '$499',
     icon: Ship,
     image: galleryImage1,
-    popular: true
+    popular: true,
+    gallery: [galleryImage1, galleryImage2, galleryImage3, heroImage1],
+    detailedDescription: 'Experience the ultimate private charter on Lake Travis with our premium fleet of party boats. Whether you choose the intimate "Day Tripper" for 14 guests, the popular "The Irony" or "Meeseeks" for 25 people, or our flagship "Clever Girl" for up to 50 guests, every cruise includes professional captains, premium sound systems, and all the amenities for an unforgettable celebration.',
+    highlights: ['4 Premium Boats Available', '14-50 Person Capacity Options', 'Professional Licensed Captains', 'Premium Sound Systems', 'Coolers & Ice Included', 'Lily Pads & Floaties', '3-4 Hour Cruise Options']
   },
   {
     id: 'disco',
@@ -82,7 +85,10 @@ const services = [
     startingPrice: '$85',
     icon: Music,
     image: galleryImage2,
-    badge: 'Most Popular'
+    badge: 'Most Popular',
+    gallery: [galleryImage2, heroImage2, heroImage3, galleryImage3],
+    detailedDescription: 'Join Austin\'s most epic floating dance party every Friday and Saturday! Our ATX Disco Cruises feature live DJs, professional photographers, giant unicorn floats, and the wildest party atmosphere on Lake Travis. With multiple time slots and our signature "Clever Girl" boat with 14 disco balls, this is THE party cruise experience.',
+    highlights: ['Professional DJ & Live Music', 'On-Board Photographer', 'Giant Unicorn Floats', 'Bubbles & Party Favors', 'Koozies & Party Setup', 'Friday & Saturday Only', '$85 Per Person Tickets']
   },
   {
     id: 'bachelor',
@@ -94,7 +100,10 @@ const services = [
     icon: PartyPopper,
     image: galleryImage3,
     badge: 'Our Specialty',
-    specialPage: '/bachelor-party'
+    specialPage: '/bachelor-party',
+    gallery: [galleryImage3, heroImage1, galleryImage2, heroImage2],
+    detailedDescription: 'We\'ve been Austin\'s #1 bachelorette party destination since 2009! Choose from our signature ATX Disco Cruise packages (Basic Bach, Disco Queen, or Platinum) or book a private charter. Every bachelorette experience includes professional DJ, photographer, party favors, and VIP treatment to make the bride\'s celebration absolutely perfect.',
+    highlights: ['Austin\'s #1 Since 2009', 'Basic Bach, Disco Queen & Platinum', 'Professional DJ & Photographer', 'Party Favors & Decorations', 'VIP Treatment for Bride', 'ATX Disco or Private Options', 'Priority Booking Available']
   },
   {
     id: 'corporate',
@@ -104,7 +113,10 @@ const services = [
     features: ['"Clever Girl" flagship boat available', 'Professional atmosphere & service', 'Customizable catering options', 'Team building activities', 'Transportation partnerships'],
     startingPrice: '$549',
     icon: Users,
-    image: galleryImage1
+    image: galleryImage1,
+    gallery: [galleryImage1, galleryImage3, heroImage1, galleryImage2],
+    detailedDescription: 'Elevate your corporate events with premium Lake Travis experiences aboard our flagship boats. Perfect for team building, client entertainment, company celebrations, and executive retreats. Our professional crew ensures a sophisticated atmosphere while our spacious boats provide the perfect setting for business networking and team bonding.',
+    highlights: ['Flagship "Clever Girl" Available', 'Professional Business Atmosphere', 'Team Building Activities', 'Customizable Catering Options', 'Transportation Partnerships', 'Client Entertainment Perfect', 'Executive Retreat Setting']
   }
 ];
 
@@ -179,6 +191,8 @@ export default function Home() {
   const [, navigate] = useLocation();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
+  const [showLightbox, setShowLightbox] = useState(false);
+  const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
   const [contactForm, setContactForm] = useState({
     name: '',
     email: '',
@@ -277,6 +291,46 @@ export default function Home() {
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  // Handle opening lightbox for service
+  const handleOpenLightbox = (service: typeof services[0]) => {
+    setSelectedService(service);
+    setShowLightbox(true);
+  };
+
+  // Handle lightbox book now
+  const handleLightboxBookNow = () => {
+    if (!selectedService) return;
+    
+    setShowLightbox(false);
+    
+    // Handle specific service booking
+    switch(selectedService.id) {
+      case 'private':
+        navigate('/calendar?eventType=private&groupSize=25');
+        break;
+      case 'disco':
+        navigate('/calendar?eventType=disco&groupSize=20');
+        break;
+      case 'bachelor':
+        if (selectedService.specialPage) {
+          navigate(selectedService.specialPage);
+        } else {
+          navigate('/calendar?eventType=disco&groupSize=15');
+        }
+        break;
+      case 'corporate':
+        navigate('/calendar?eventType=private&groupSize=30');
+        break;
+      default:
+        navigate('/chat?type=general');
+    }
+    
+    toast({
+      title: "Redirecting to Calendar",
+      description: `Let's book your ${selectedService.title.toLowerCase()}!`,
+    });
   };
 
   return (
@@ -477,15 +531,26 @@ export default function Home() {
                     </div>
                   )}
 
-                  {/* Service Image */}
-                  <div className="relative h-48 overflow-hidden">
+                  {/* Service Image with Lightbox Trigger */}
+                  <div className="relative h-48 overflow-hidden cursor-pointer" onClick={() => handleOpenLightbox(service)}>
                     <img 
                       src={service.image} 
                       alt={service.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent group-hover:from-black/60" />
                     <service.icon className="absolute bottom-4 right-4 h-8 w-8 text-white" />
+                    {/* View Gallery Overlay */}
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
+                      <div className="bg-white/20 backdrop-blur-sm rounded-full p-3">
+                        <Eye className="h-6 w-6 text-white" />
+                      </div>
+                    </div>
+                    {/* Gallery Indicator */}
+                    <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                      <Image className="h-4 w-4 inline mr-1" />
+                      View Gallery
+                    </div>
                   </div>
                   
                   <CardHeader className="text-center pb-4">
@@ -550,6 +615,133 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* CRITICAL: Lightbox Photo Gallery for Experience Cards */}
+      <Dialog open={showLightbox} onOpenChange={setShowLightbox}>
+        <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+          {selectedService && (
+            <>
+              <DialogHeader>
+                <DialogTitle className="flex items-center gap-3 text-2xl">
+                  <selectedService.icon className="w-8 h-8 text-brand-blue" />
+                  {selectedService.title}
+                  {selectedService.badge && (
+                    <Badge className="bg-brand-blue text-white px-3 py-1">
+                      {selectedService.badge}
+                    </Badge>
+                  )}
+                </DialogTitle>
+                <DialogDescription className="text-lg text-gray-600 dark:text-gray-300">
+                  {selectedService.subtitle}
+                </DialogDescription>
+              </DialogHeader>
+
+              <div className="space-y-6">
+                {/* Photo Gallery Grid */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  {selectedService.gallery?.map((image, index) => (
+                    <motion.div
+                      key={index}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: index * 0.1 }}
+                      className="relative aspect-square overflow-hidden rounded-lg cursor-pointer group"
+                      onClick={() => {
+                        setSelectedImageIndex(index);
+                        // You could expand this to show full-size image viewer
+                      }}
+                      data-testid={`img-gallery-${selectedService.id}-${index}`}
+                    >
+                      <img
+                        src={image}
+                        alt={`${selectedService.title} gallery ${index + 1}`}
+                        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                      <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                        View Full
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                {/* Detailed Description */}
+                <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
+                  <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
+                    Experience Details
+                  </h3>
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
+                    {selectedService.detailedDescription}
+                  </p>
+                </div>
+
+                {/* Highlights Grid */}
+                <div>
+                  <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
+                    What's Included
+                  </h3>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    {selectedService.highlights?.map((highlight, index) => (
+                      <motion.div
+                        key={index}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                        className="flex items-center gap-3 bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700"
+                      >
+                        <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
+                        <span className="text-gray-700 dark:text-gray-300 font-medium">
+                          {highlight}
+                        </span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Pricing & Booking Section */}
+                <div className="border-t pt-6">
+                  <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+                    <div>
+                      <div className="text-sm text-gray-500 mb-1">Starting from</div>
+                      <div className="text-4xl font-bold text-gray-900 dark:text-white">
+                        {selectedService.startingPrice}
+                      </div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                        {selectedService.id === 'disco' ? 'per person' : 'per charter'}
+                      </div>
+                    </div>
+                    
+                    <div className="flex flex-col sm:flex-row gap-3">
+                      <Button 
+                        variant="outline"
+                        onClick={() => setShowLightbox(false)}
+                        className="px-6 py-3"
+                        data-testid={`button-lightbox-close-${selectedService.id}`}
+                      >
+                        Continue Browsing
+                      </Button>
+                      
+                      <Button 
+                        onClick={handleLightboxBookNow}
+                        className="bg-brand-blue hover:bg-brand-blue/90 text-white px-8 py-3 text-lg font-bold"
+                        data-testid={`button-lightbox-book-${selectedService.id}`}
+                      >
+                        <Calendar className="mr-2 h-5 w-5" />
+                        {selectedService.specialPage ? 'Learn More' : 'Book Now'}
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </div>
+                  </div>
+                </div>
+
+                <p className="text-center text-sm text-gray-500 dark:text-gray-400">
+                  🔒 Secure booking • Instant confirmation • Full refund protection
+                </p>
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
 
       {/* Why Choose Us Section */}
       <section className="py-24 bg-white dark:bg-gray-950">

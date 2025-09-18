@@ -25,7 +25,7 @@ import { Separator } from '@/components/ui/separator';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/hooks/use-toast';
-import { ArrowLeft, Save, Send, Plus, Trash2, DollarSign, Calendar, Users, Ship, Percent, AlertCircle, CheckCircle2, Settings, ShoppingCart, ChevronDown, ChevronUp, Eye, EyeOff, Lock, Unlock, Package } from 'lucide-react';
+import { ArrowLeft, Save, Send, Plus, Trash2, DollarSign, Calendar, Users, Ship, Percent, AlertCircle, CheckCircle2, Settings, ShoppingCart, ChevronDown, ChevronUp, Eye, EyeOff, Lock, Unlock, Package, CreditCard } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import Layout from '@/components/Layout';
 import ProductPicker from '@/components/ProductPicker';
@@ -266,6 +266,56 @@ export default function QuoteBuilder() {
       });
     },
   });
+
+  // CRITICAL: Handle payment processing - connects quote builder to UniversalCheckout
+  const handlePayment = async (paymentType: 'deposit' | 'full') => {
+    if (!isEditMode) {
+      toast({
+        title: "Save Quote First",
+        description: "Please save the quote before proceeding to payment",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    try {
+      // Get the saved quote data
+      const quote = existingQuote;
+      if (!quote) {
+        throw new Error('Quote not found');
+      }
+
+      // Build checkout URL with quote context
+      const params = new URLSearchParams({
+        quoteId: quote.id,
+        entryPoint: 'quote_builder',
+        eventType: 'custom',
+        groupSize: (quote.project?.groupSize || 25).toString(),
+        eventDate: quote.project?.projectDate ? new Date(quote.project.projectDate).toISOString() : new Date().toISOString(),
+        cruiseType: 'private',
+        paymentType,
+        // Pass existing quote total and deposit
+        total: (quote.total || 0).toString(),
+        depositAmount: (quote.depositAmount || 0).toString(),
+      });
+
+      // Navigate to UniversalCheckout with quote context
+      setLocation(`/checkout?${params.toString()}`);
+      
+      toast({
+        title: `Proceeding to ${paymentType === 'deposit' ? 'Deposit' : 'Full'} Payment`,
+        description: "Taking you to secure checkout...",
+      });
+      
+    } catch (error) {
+      console.error('Payment initiation error:', error);
+      toast({
+        title: "Payment Error",
+        description: error instanceof Error ? error.message : "Unable to proceed to payment",
+        variant: "destructive",
+      });
+    }
+  };
 
   // Apply template
   const applyTemplate = (templateId: string) => {
@@ -1264,6 +1314,48 @@ export default function QuoteBuilder() {
                         <Send className="w-4 h-4 mr-2" />
                         Send Now
                       </Button>
+                    )}
+                    
+                    {/* CRITICAL PAYMENT BUTTONS - Added to fix revenue blocker */}
+                    {isEditMode && form.watch('status') !== 'DRAFT' && (
+                      <div className="mt-4 space-y-2">
+                        <div className="text-sm font-medium text-center text-gray-700 dark:text-gray-300 mb-2">
+                          💳 Payment Options
+                        </div>
+                        
+                        {/* Pay Deposit Button */}
+                        {form.watch('depositAmount') < form.watch('total') && (
+                          <Button
+                            type="button"
+                            className="w-full bg-green-600 hover:bg-green-700 text-white"
+                            onClick={() => handlePayment('deposit')}
+                            data-testid="button-pay-deposit"
+                          >
+                            <CreditCard className="w-4 h-4 mr-2" />
+                            Pay Deposit - ${(form.watch('depositAmount') / 100).toFixed(2)}
+                          </Button>
+                        )}
+                        
+                        {/* Pay Full Amount Button */}
+                        <Button
+                          type="button"
+                          variant={form.watch('depositAmount') < form.watch('total') ? 'outline' : 'default'}
+                          className={`w-full ${
+                            form.watch('depositAmount') < form.watch('total') 
+                              ? 'border-blue-500 text-blue-600 hover:bg-blue-50' 
+                              : 'bg-blue-600 hover:bg-blue-700 text-white'
+                          }`}
+                          onClick={() => handlePayment('full')}
+                          data-testid="button-pay-full"
+                        >
+                          <CreditCard className="w-4 h-4 mr-2" />
+                          Pay Full Amount - ${(form.watch('total') / 100).toFixed(2)}
+                        </Button>
+                        
+                        <p className="text-xs text-center text-muted-foreground">
+                          🔒 Secure payment • Instant confirmation • Full refund protection
+                        </p>
+                      </div>
                     )}
                   </div>
                 </CardContent>

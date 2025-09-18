@@ -6,11 +6,14 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Slider } from '@/components/ui/slider';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { 
   Users, Calendar, ChevronLeft, ChevronRight, Ship, Clock, 
-  ArrowRight, Sparkles, Heart, Crown, PartyPopper
+  ArrowRight, Sparkles, Heart, Crown, PartyPopper, CreditCard,
+  MapPin, Star, CheckCircle
 } from 'lucide-react';
 import { format, addWeeks, subWeeks, startOfWeek, endOfWeek, isToday } from 'date-fns';
 import { formatCurrency, formatTimeForDisplay } from '@shared/formatters';
@@ -132,6 +135,8 @@ export function EnhancedBookingCalendar({
   const [groupSize, setGroupSize] = useState<number>(defaultGroupSize);
   const [groupSizeSource, setGroupSizeSource] = useState<GroupSizeSource>('slider');
   const [selectedWeek, setSelectedWeek] = useState<Date>(new Date());
+  const [selectedSlot, setSelectedSlot] = useState<NormalizedSlot | null>(null);
+  const [showSlotPopup, setShowSlotPopup] = useState(false);
   const [, navigate] = useLocation();
   const { toast } = useToast();
 
@@ -211,20 +216,42 @@ export function EnhancedBookingCalendar({
     return slotColor === bestMatch.color;
   };
 
-  // Handle slot selection
+  // Handle slot selection - CRITICAL: Show popup instead of navigating to chat
   const handleSlotSelect = (slot: NormalizedSlot) => {
-    const slotDate = slot.dateISO || slot.date;
-    
-    if (selectedEventType === 'private') {
-      const message = `I'd like to book a private cruise on ${slotDate} at ${formatTimeForDisplay(slot.startTime)} for ${groupSize} people. Can you help me with pricing and availability?`;
-      navigate(`/chat?message=${encodeURIComponent(message)}&slotId=${slot.id}&groupSize=${groupSize}&cruiseType=private`);
-    } else {
-      navigate(`/chat?eventType=${selectedEventType}&slotId=${slot.id}&groupSize=${groupSize}&cruiseType=disco`);
-    }
+    setSelectedSlot(slot);
+    setShowSlotPopup(true);
     
     toast({
-      title: "Starting Your Booking",
-      description: `Connecting you with our booking agent for ${selectedEventType === 'private' ? 'private cruise' : selectedEventType + ' party'} details...`,
+      title: "Slot Details",
+      description: "Review your selection and book now!",
+    });
+  };
+
+  // Handle "Book Now" from popup - Routes to UniversalCheckout
+  const handleBookNow = () => {
+    if (!selectedSlot) return;
+
+    const slotDate = selectedSlot.dateISO || selectedSlot.date;
+    const params = new URLSearchParams({
+      entryPoint: 'calendar_flow',
+      cruiseType: selectedEventType === 'private' ? 'private' : 'disco',
+      eventType: selectedEventType,
+      groupSize: groupSize.toString(),
+      eventDate: slotDate,
+      timeSlot: selectedSlot.startTime,
+      boatId: selectedSlot.boatName || selectedSlot.id,
+      slotId: selectedSlot.id,
+      // Pre-fill with slot pricing if available
+      ...(selectedSlot.totalPrice && { estimatedTotal: selectedSlot.totalPrice.toString() }),
+    });
+
+    // Navigate to UniversalCheckout with pre-filled selections
+    navigate(`/checkout?${params.toString()}`);
+    setShowSlotPopup(false);
+    
+    toast({
+      title: "Proceeding to Checkout",
+      description: "Taking you to secure booking...",
     });
   };
 
@@ -535,6 +562,116 @@ export function EnhancedBookingCalendar({
           </Card>
         </motion.div>
       </motion.div>
+
+      {/* CRITICAL: Slot Details Popup - Entry Point 1 Calendar Flow */}
+      <Dialog open={showSlotPopup} onOpenChange={setShowSlotPopup}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2">
+              <Ship className="w-5 h-5" />
+              Cruise Details
+            </DialogTitle>
+            <DialogDescription>
+              Review your selection and proceed to booking
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedSlot && (
+            <div className="space-y-4">
+              {/* Date & Time */}
+              <div className="flex items-center gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                <Calendar className="w-5 h-5 text-blue-600" />
+                <div>
+                  <div className="font-medium text-blue-900 dark:text-blue-100">
+                    {format(new Date(selectedSlot.dateISO || selectedSlot.date), 'EEEE, MMMM d, yyyy')}
+                  </div>
+                  <div className="text-sm text-blue-700 dark:text-blue-200">
+                    {formatTimeForDisplay(selectedSlot.startTime)} - {formatTimeForDisplay(selectedSlot.endTime)}
+                  </div>
+                </div>
+              </div>
+
+              {/* Boat & Capacity */}
+              <div className="flex items-center gap-3 p-3 border rounded-lg">
+                <Ship className="w-5 h-5 text-gray-600" />
+                <div>
+                  <div className="font-medium">
+                    {selectedSlot.boatName || 'Available Boat'}
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    Up to {selectedSlot.capacity} guests • Perfect for {groupSize} people
+                  </div>
+                </div>
+              </div>
+
+              {/* Group Size */}
+              <div className="flex items-center gap-3 p-3 border rounded-lg">
+                <Users className="w-5 h-5 text-gray-600" />
+                <div>
+                  <div className="font-medium">Your Group Size</div>
+                  <div className="text-sm text-muted-foreground">
+                    {groupSize} guests • {selectedEventType === 'private' ? 'Private Charter' : 'Disco Cruise'}
+                  </div>
+                </div>
+              </div>
+
+              {/* Pricing */}
+              {selectedSlot.totalPrice && (
+                <div className="flex items-center gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                  <CreditCard className="w-5 h-5 text-green-600" />
+                  <div>
+                    <div className="font-medium text-green-900 dark:text-green-100">
+                      Starting at {formatCurrency(selectedSlot.totalPrice)}
+                    </div>
+                    <div className="text-sm text-green-700 dark:text-green-200">
+                      Final pricing determined at checkout
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Best Match Indicator */}
+              {isSlotBestMatch(selectedSlot) && (
+                <div className="flex items-center gap-2 p-2 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
+                  <Star className="w-4 h-4 text-yellow-600" />
+                  <span className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
+                    Perfect match for your group size!
+                  </span>
+                </div>
+              )}
+
+              <Separator />
+
+              {/* Action Buttons */}
+              <div className="space-y-3">
+                <Button 
+                  onClick={handleBookNow}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
+                  size="lg"
+                  data-testid="button-book-now-popup"
+                >
+                  <CreditCard className="w-4 h-4 mr-2" />
+                  Book Now
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </Button>
+                
+                <Button 
+                  variant="outline" 
+                  onClick={() => setShowSlotPopup(false)}
+                  className="w-full"
+                  data-testid="button-cancel-popup"
+                >
+                  Choose Different Time
+                </Button>
+              </div>
+
+              <p className="text-xs text-center text-muted-foreground">
+                🔒 Secure checkout • Instant confirmation • Full refund protection
+              </p>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

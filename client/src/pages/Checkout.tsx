@@ -526,10 +526,10 @@ export default function Checkout() {
                 variant="outline" 
                 className="w-full"
                 onClick={() => window.location.href = '/'}
-                data-testid="button-back-to-dashboard"
+                data-testid="button-back-home"
               >
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Back to Dashboard
+                Back to Home
               </Button>
             </CardContent>
           </Card>

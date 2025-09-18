@@ -660,8 +660,8 @@ function ConfirmationStep({ selections, pricing }: {
           <Link href="/" data-testid="link-home">
             <Button variant="outline">Return Home</Button>
           </Link>
-          <Link href="/dashboard" data-testid="link-dashboard">
-            <Button>View My Bookings</Button>
+          <Link href="/calendar" data-testid="link-calendar">
+            <Button>View Calendar</Button>
           </Link>
         </div>
       </CardContent>
