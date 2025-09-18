@@ -1517,33 +1517,11 @@ export default function Chat() {
         ttlMinutes: 15 // 15 minute hold for checkout
       };
 
-      // Create the slot hold and wait for completion
-      slotHold.createHold(holdParams);
-      
-      // Wait for hold creation to complete by polling the state
-      let holdCreationAttempts = 0;
-      const maxAttempts = 20; // 10 seconds max wait
-      
-      while (holdCreationAttempts < maxAttempts) {
-        if (slotHold.createHoldError) {
-          throw new Error('Failed to create slot hold: ' + slotHold.createHoldError.message);
-        }
-        
-        if (slotHold.currentHold?.id) {
-          console.log('🔒 Successfully created hold for payment:', slotHold.currentHold.id);
-          break;
-        }
-        
-        // Wait 500ms before checking again
-        await new Promise(resolve => setTimeout(resolve, 500));
-        holdCreationAttempts++;
-      }
-      
-      if (!slotHold.currentHold?.id) {
-        throw new Error('Timeout: Failed to create slot hold within 10 seconds');
-      }
+      // Create the slot hold using mutateAsync for proper promise handling
+      const holdResponse = await slotHold.createHoldMutation.mutateAsync(holdParams);
+      console.log('🔒 Successfully created hold for payment:', holdResponse.hold.id);
 
-      const holdId = slotHold.currentHold.id;
+      const holdId = holdResponse.hold.id;
 
       // Create selection payload with all form data
       const selectionPayload = {
