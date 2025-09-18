@@ -9,13 +9,13 @@ import { Badge } from '@/components/ui/badge';
 import { cn } from '@/lib/utils';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 import { 
-  Users, Clock, Star, Calendar, MapPin, Ship, 
+  Users, Clock, Star, Calendar, MapPin, Ship, Phone,
   ArrowRight, CheckCircle, Sparkles, Crown, Music, 
   Heart, Camera, PartyPopper, Sun, Trophy, Shield, Award,
   MessageCircle, Quote, 
   Zap, Target, Play,
   MessageSquare, Ticket, Gift, Disc3, Volume2, 
-  Mic, Utensils, GlassWater, UserCheck, PalmTree
+  Mic, Utensils, GlassWater, UserCheck, Leaf
 } from 'lucide-react';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
@@ -614,7 +614,7 @@ export default function BachelorParty() {
                     </p>
                   </div>
                   <div>
-                    <PalmTree className="h-8 w-8 text-brand-yellow mx-auto mb-3" />
+                    <Leaf className="h-8 w-8 text-brand-yellow mx-auto mb-3" />
                     <h4 className="font-bold mb-2">Lake Travis Exclusive</h4>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       Austin's most beautiful lake setting for epic bachelor memories

@@ -15,7 +15,7 @@ import {
   MessageCircle, Quote, 
   Zap, Target, Play,
   MessageSquare, Ticket, Gift, Disc3, Volume2, 
-  Mic, Utensils, GlassWater, PalmTree, Gem,
+  Mic, Utensils, GlassWater, Gem,
   Flower, Flower2, CircleDot, Smile, UserCheck
 } from 'lucide-react';
 import { formatCurrency } from '@shared/formatters';
