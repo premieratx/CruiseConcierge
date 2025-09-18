@@ -8,23 +8,61 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
-import { Ship, Lock, CreditCard, ArrowLeft, CheckCircle } from "lucide-react";
+import { Ship, Lock, CreditCard, ArrowLeft, CheckCircle, Calendar, Clock, Users, MapPin } from "lucide-react";
+import { format } from 'date-fns';
+import type { Quote, Project, Contact, PricingPreview } from '@shared/schema';
 
 // Make sure to call `loadStripe` outside of a component's render to avoid
 // recreating the `Stripe` object on every render.
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
 
+interface QuoteWithDetails extends Quote {
+  pricing?: PricingPreview;
+  project?: Project;
+  contact?: Contact;
+}
+
 interface CheckoutFormProps {
   amount: number;
   description: string;
+  quote?: QuoteWithDetails;
 }
 
-const CheckoutForm = ({ amount, description }: CheckoutFormProps) => {
+const CheckoutForm = ({ amount, description, quote }: CheckoutFormProps) => {
   const stripe = useStripe();
   const elements = useElements();
   const { toast } = useToast();
   const [isProcessing, setIsProcessing] = useState(false);
   const [paymentSucceeded, setPaymentSucceeded] = useState(false);
+
+  // Helper function to determine cruise type from quote data
+  const determineCruiseType = (quote: QuoteWithDetails): string => {
+    if (!quote.items || quote.items.length === 0) {
+      return "Premier Party Cruise";
+    }
+    
+    // Check if it's a disco cruise
+    const hasDiscoItems = quote.items.some(item => 
+      item.name?.toLowerCase().includes('disco') || 
+      item.productId?.includes('disco')
+    );
+    
+    if (hasDiscoItems) {
+      return "Disco Cruise";
+    }
+    
+    // Check if it's a private cruise
+    const hasPrivateItems = quote.items.some(item => 
+      item.name?.toLowerCase().includes('private') || 
+      item.productId?.includes('private')
+    );
+    
+    if (hasPrivateItems) {
+      return "Private Cruise";
+    }
+    
+    return "Premier Party Cruise";
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -85,10 +123,114 @@ const CheckoutForm = ({ amount, description }: CheckoutFormProps) => {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
-      <div className="bg-muted rounded-lg p-4">
-        <h3 className="font-semibold mb-2" data-testid="text-payment-summary">Payment Summary</h3>
-        <div className="flex justify-between items-center">
-          <span className="text-sm" data-testid="text-payment-description">{description}</span>
+      <div className="bg-muted rounded-lg p-4 space-y-4">
+        <h3 className="font-semibold mb-3" data-testid="text-payment-summary">Payment Summary</h3>
+        
+        {quote && quote.project ? (
+          <div className="space-y-3">
+            {/* Cruise Type and Basic Info */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <Ship className="w-4 h-4 text-primary" />
+                <span className="font-medium">{determineCruiseType(quote)}</span>
+              </div>
+              <Badge variant="outline">{quote.project.groupSize ? `${quote.project.groupSize} guests` : 'Group size TBD'}</Badge>
+            </div>
+            
+            {/* Event Date and Time */}
+            {quote.project.projectDate && (
+              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                <Calendar className="w-4 h-4" />
+                <span>{format(new Date(quote.project.projectDate), 'EEEE, MMMM d, yyyy')}</span>
+              </div>
+            )}
+            
+            {/* Time Slot */}
+            {quote.project.preferredTime && (
+              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                <Clock className="w-4 h-4" />
+                <span>{quote.project.preferredTime}</span>
+              </div>
+            )}
+            
+            {/* Contact Info */}
+            {quote.contact && (
+              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                <Users className="w-4 h-4" />
+                <span>{quote.contact.name}</span>
+                {quote.contact.email && <span>• {quote.contact.email}</span>}
+              </div>
+            )}
+            
+            {/* Boat Details */}
+            {quote.project && (
+              <div className="flex items-center space-x-2 text-sm text-muted-foreground">
+                <MapPin className="w-4 h-4" />
+                <span>{getBoatDetails(quote)}</span>
+              </div>
+            )}
+            
+            {/* Quote Items */}
+            {quote.items && quote.items.length > 0 && (
+              <div className="space-y-2">
+                <Separator />
+                <div className="text-sm font-medium">Selected Items:</div>
+                {quote.items.map((item, index) => (
+                  <div key={index} className="flex justify-between items-center text-sm">
+                    <span>
+                      {item.name} {item.qty > 1 && `(x${item.qty})`}
+                    </span>
+                    <span>${((item.unitPrice * item.qty) / 100).toFixed(2)}</span>
+                  </div>
+                ))}
+              </div>
+            )}
+            
+            {/* Pricing Breakdown */}
+            {quote.pricing && (
+              <div className="space-y-2">
+                <Separator />
+                <div className="space-y-1 text-sm">
+                  <div className="flex justify-between">
+                    <span>Subtotal:</span>
+                    <span>${(quote.pricing.subtotal / 100).toFixed(2)}</span>
+                  </div>
+                  {quote.pricing.tax > 0 && (
+                    <div className="flex justify-between">
+                      <span>Tax:</span>
+                      <span>${(quote.pricing.tax / 100).toFixed(2)}</span>
+                    </div>
+                  )}
+                  {quote.pricing.gratuity > 0 && (
+                    <div className="flex justify-between">
+                      <span>Gratuity:</span>
+                      <span>${(quote.pricing.gratuity / 100).toFixed(2)}</span>
+                    </div>
+                  )}
+                  <Separator />
+                  <div className="flex justify-between font-medium">
+                    <span>Total:</span>
+                    <span>${(quote.pricing.total / 100).toFixed(2)}</span>
+                  </div>
+                  {quote.pricing.depositAmount && quote.pricing.depositAmount < quote.pricing.total && (
+                    <div className="flex justify-between text-primary font-medium">
+                      <span>Deposit Required:</span>
+                      <span>${(quote.pricing.depositAmount / 100).toFixed(2)}</span>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+            
+            <Separator />
+          </div>
+        ) : (
+          <div className="text-sm text-muted-foreground">Loading quote details...</div>
+        )}
+        
+        {/* Final Payment Amount */}
+        <div className="flex justify-between items-center pt-2 border-t">
+          <span className="font-semibold" data-testid="text-payment-description">{description}</span>
           <span className="font-bold text-lg text-primary" data-testid="text-payment-amount">
             ${(amount / 100).toFixed(2)}
           </span>
@@ -145,8 +287,16 @@ export default function Checkout() {
   const [clientSecret, setClientSecret] = useState("");
   const [amount, setAmount] = useState(0);
   const [description, setDescription] = useState("");
+  const [quote, setQuote] = useState<QuoteWithDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
+
+  // Read quote ID and payment intent from URL parameters
+  const urlParams = new URLSearchParams(window.location.search);
+  const quoteId = urlParams.get('quote') || params?.quoteId;
+  const paymentIntentClientSecret = urlParams.get('payment_intent');
+  const token = urlParams.get('token');
+  const paymentType = urlParams.get('payment_type');
 
   useEffect(() => {
     // Check for success parameter in URL
@@ -158,46 +308,140 @@ export default function Checkout() {
       });
     }
 
-    createPaymentIntent();
-  }, [params?.quoteId]);
+    if (quoteId) {
+      fetchQuoteAndCreatePaymentIntent();
+    } else {
+      toast({
+        title: "Error",
+        description: "No quote ID found in URL. Please return to your quote and try again.",
+        variant: "destructive",
+      });
+      setIsLoading(false);
+    }
+  }, [quoteId]);
 
-  const createPaymentIntent = async () => {
+  const fetchQuoteAndCreatePaymentIntent = async () => {
     try {
       setIsLoading(true);
       
-      // For demo purposes, we'll use mock data
-      // In production, this would fetch the actual quote/invoice details
-      const mockAmount = 17861; // $178.61 in cents
-      const mockDescription = "Premier Party Cruise - Deposit Payment";
-      
-      if (!import.meta.env.VITE_STRIPE_PUBLIC_KEY) {
-        // Demo mode - no real Stripe integration
-        setAmount(mockAmount);
-        setDescription(mockDescription);
-        setIsLoading(false);
-        return;
+      if (!quoteId) {
+        throw new Error("Quote ID is required");
       }
-
-      const response = await apiRequest("POST", "/api/create-payment-intent", {
-        amount: mockAmount,
-        quoteId: params?.quoteId || null,
-      });
       
-      const data = await response.json();
-      setClientSecret(data.clientSecret);
-      setAmount(mockAmount);
-      setDescription(mockDescription);
+      // Require token for quote access - this is now always passed from QuoteViewer
+      if (!token) {
+        throw new Error("Access token required. Please return to your quote and try again.");
+      }
       
-    } catch (error) {
-      console.error("Failed to create payment intent:", error);
+      // Fetch quote with token for full access
+      const url = `/api/quotes/${encodeURIComponent(quoteId)}/public?token=${encodeURIComponent(token)}`;
+      const res = await apiRequest('GET', url);
+      
+      if (!res.ok) {
+        const errorData = await res.json().catch(() => ({ error: 'Unknown error' }));
+        throw new Error(errorData.error || `Failed to fetch quote (${res.status})`);
+      }
+      
+      const quoteData: QuoteWithDetails = await res.json();
+      
+      setQuote(quoteData);
+      
+      // Calculate amount and description from quote data
+      const pricing = quoteData.pricing;
+      const project = quoteData.project;
+      
+      if (!pricing || !project) {
+        throw new Error("Quote pricing or project data not found");
+      }
+      
+      // Use payment type from URL parameter (passed from QuoteViewer)
+      const isDeposit = paymentType !== 'full';
+      const paymentAmount = isDeposit ? pricing.depositAmount : pricing.total;
+      
+      // Generate description based on quote details and URL parameter
+      const cruiseType = determineCruiseTypeHelper(quoteData);
+      const paymentTypeLabel = isDeposit ? "Deposit Payment" : "Full Payment";
+      const eventDate = project.projectDate ? format(new Date(project.projectDate), 'MMM d, yyyy') : '';
+      const paymentDescription = `${cruiseType} - ${paymentTypeLabel}${eventDate ? ` (${eventDate})` : ''}`;
+      
+      setAmount(paymentAmount);
+      setDescription(paymentDescription);
+      
+      // Use existing client secret if available, otherwise create new payment intent
+      if (paymentIntentClientSecret) {
+        setClientSecret(paymentIntentClientSecret);
+      } else if (import.meta.env.VITE_STRIPE_PUBLIC_KEY) {
+        // Create new payment intent
+        const response = await apiRequest("POST", "/api/create-payment-intent", {
+          amount: paymentAmount,
+          quoteId: quoteId,
+        });
+        
+        const data = await response.json();
+        setClientSecret(data.clientSecret);
+      }
+      
+    } catch (error: any) {
+      console.error("Failed to fetch quote or create payment intent:", error);
       toast({
         title: "Error",
-        description: "Failed to initialize payment. Please try again.",
+        description: error.message || "Failed to load payment information. Please try again.",
         variant: "destructive",
       });
     } finally {
       setIsLoading(false);
     }
+  };
+  
+  // Helper function to get boat details based on quote data
+  const getBoatDetails = (quote: QuoteWithDetails): string => {
+    const groupSize = quote.project?.groupSize || 0;
+    const cruiseType = determineCruiseTypeHelper(quote);
+    
+    // For disco cruises, always use ATX Disco Cruise boat
+    if (cruiseType.toLowerCase().includes('disco')) {
+      return 'ATX Disco Cruise • Up to 100 guests';
+    }
+    
+    // For private cruises, determine boat based on group size
+    if (groupSize <= 14) {
+      return 'Day Tripper • Up to 14 guests';
+    } else if (groupSize <= 25) {
+      return '25-Person Party Cruiser • Up to 25 guests';
+    } else if (groupSize <= 50) {
+      return 'Clever Girl • Up to 50 guests';
+    } else {
+      return 'Premier Charter Yacht • 50+ guests';
+    }
+  };
+
+  // Helper function to determine cruise type from quote data (shared utility)
+  const determineCruiseTypeHelper = (quote: QuoteWithDetails): string => {
+    if (!quote.items || quote.items.length === 0) {
+      return "Premier Party Cruise";
+    }
+    
+    // Check if it's a disco cruise
+    const hasDiscoItems = quote.items.some(item => 
+      item.name?.toLowerCase().includes('disco') || 
+      item.productId?.includes('disco')
+    );
+    
+    if (hasDiscoItems) {
+      return "Disco Cruise";
+    }
+    
+    // Check if it's a private cruise
+    const hasPrivateItems = quote.items.some(item => 
+      item.name?.toLowerCase().includes('private') || 
+      item.productId?.includes('private')
+    );
+    
+    if (hasPrivateItems) {
+      return "Private Cruise";
+    }
+    
+    return "Premier Party Cruise";
   };
 
   if (isLoading) {
@@ -340,7 +584,7 @@ export default function Checkout() {
                 }
               }}
             >
-              <CheckoutForm amount={amount} description={description} />
+              <CheckoutForm amount={amount} description={description} quote={quote} />
             </Elements>
           </CardContent>
         </Card>

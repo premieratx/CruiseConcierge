@@ -235,7 +235,7 @@ export default function QuoteViewer() {
       const { clientSecret } = await res.json();
       
       // Redirect to Stripe checkout or handle payment
-      window.location.href = `/checkout?payment_intent=${clientSecret}&quote=${quoteId}`;
+      window.location.href = `/checkout?payment_intent=${clientSecret}&quote=${quoteId}&token=${token}&payment_type=${paymentType}`;
 
     } catch (error: any) {
       console.error('💳 Payment error:', error);

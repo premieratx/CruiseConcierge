@@ -1518,13 +1518,7 @@ export class DatabaseStorage implements IStorage {
   }
 
   async createQuote(insertQuote: InsertQuote): Promise<Quote> {
-    // Generate secure, time-limited access token for public access
-    const accessToken = quoteTokenService.generateSecureToken(randomUUID(), {
-      scope: 'quote:view',
-      expiresIn: 30 * 24 * 60 * 60 * 1000, // 30 days
-      audience: 'customer'
-    });
-    
+    // First insert the quote to get the actual quote ID
     const result = await db.insert(quotes).values({
       ...insertQuote,
       templateId: insertQuote.templateId || null,
@@ -1543,13 +1537,32 @@ export class DatabaseStorage implements IStorage {
       depositPercent: insertQuote.depositPercent || 25,
       depositAmount: insertQuote.depositAmount || 0,
       paymentSchedule: insertQuote.paymentSchedule || [],
-      accessToken,
-      accessTokenCreatedAt: new Date(),
+      accessToken: null, // Will be updated below
+      accessTokenCreatedAt: null,
       accessTokenRevokedAt: null,
       expiresAt: insertQuote.expiresAt || null,
       version: insertQuote.version || 1,
     }).returning();
-    return result[0];
+    
+    const quote = result[0];
+    
+    // Now generate secure token with the actual quote ID
+    const accessToken = quoteTokenService.generateSecureToken(quote.id, {
+      scope: 'quote:view',
+      expiresIn: 30 * 24 * 60 * 60 * 1000, // 30 days
+      audience: 'customer'
+    });
+    
+    // Update the quote with the correct access token
+    const updatedResult = await db.update(quotes)
+      .set({
+        accessToken,
+        accessTokenCreatedAt: new Date()
+      })
+      .where(eq(quotes.id, quote.id))
+      .returning();
+    
+    return updatedResult[0];
   }
 
   async updateQuote(id: string, updates: Partial<Quote>): Promise<Quote> {

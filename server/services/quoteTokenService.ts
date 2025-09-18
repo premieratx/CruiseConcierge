@@ -19,11 +19,11 @@ export class QuoteTokenService {
   private readonly defaultExpiresIn: number = 7 * 24 * 60 * 60 * 1000; // 7 days
 
   constructor() {
-    // Use environment variable or generate a temporary secret
-    this.secret = process.env.QUOTE_TOKEN_SECRET || this.generateSecret();
+    // Use environment variable or fallback to consistent secret
+    this.secret = process.env.QUOTE_TOKEN_SECRET || '8f7e6d5c4b3a2918f7e6d5c4b3a2918f7e6d5c4b3a2918f7e6d5c4b3a291';
     
     if (!process.env.QUOTE_TOKEN_SECRET) {
-      console.warn('⚠️ QUOTE_TOKEN_SECRET not set. Using temporary secret. Set QUOTE_TOKEN_SECRET in production.');
+      console.warn('⚠️ QUOTE_TOKEN_SECRET not set. Using fallback consistent secret.');
     }
   }
 
