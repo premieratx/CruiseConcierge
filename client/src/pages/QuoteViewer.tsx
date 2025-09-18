@@ -57,6 +57,9 @@ export default function QuoteViewer() {
   const [discoPricing, setDiscoPricing] = useState<any>(null);
   const [pricingLoading, setPricingLoading] = useState(false);
   
+  // NEW: Cruise type selection state - defaults to private
+  const [selectedCruiseType, setSelectedCruiseType] = useState<'private' | 'disco'>('private');
+  
   // Fetch quote details with token
   const { data: quote, isLoading, error: quoteError } = useQuery<QuoteWithDetails>({
     queryKey: [`/api/quotes/${quoteId}/public`, token],
@@ -308,8 +311,15 @@ export default function QuoteViewer() {
   }
 
   const isExpired = quote.expiresAt && new Date(quote.expiresAt) < new Date();
-  const showPrivateOptions = isPrivateCruise(quote);
-  const showDiscoOptions = isDiscoCruise(quote);
+  
+  // NEW: Show both options for user to choose between
+  const canShowPrivate = isPrivateCruise(quote);
+  const canShowDisco = isDiscoCruise(quote);
+  const showBothOptions = canShowPrivate && canShowDisco;
+  
+  // NEW: Only show the selected cruise type's pricing, but show tabs for both
+  const showPrivateOptions = showBothOptions ? selectedCruiseType === 'private' : canShowPrivate;
+  const showDiscoOptions = showBothOptions ? selectedCruiseType === 'disco' : canShowDisco;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -364,6 +374,57 @@ export default function QuoteViewer() {
                 </div>
               </CardContent>
             </Card>
+
+            {/* Cruise Type Selection - NEW: Show both options */}
+            {showBothOptions && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Choose Your Cruise Experience</CardTitle>
+                  <p className="text-sm text-gray-600">Select between a private charter or join our disco cruise experience</p>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid grid-cols-2 gap-4">
+                    <button
+                      onClick={() => setSelectedCruiseType('private')}
+                      className={cn(
+                        "p-4 rounded-lg border-2 transition-all text-left",
+                        selectedCruiseType === 'private'
+                          ? "border-blue-500 bg-blue-50 text-blue-900"
+                          : "border-gray-200 hover:border-gray-300"
+                      )}
+                      data-testid="button-select-private-cruise"
+                    >
+                      <div className="flex items-center mb-2">
+                        <Ship className="h-5 w-5 mr-2" />
+                        <span className="font-semibold">Private Cruise</span>
+                      </div>
+                      <p className="text-sm text-gray-600">
+                        Charter the boat exclusively for your group. Customize your experience with add-on packages.
+                      </p>
+                    </button>
+                    
+                    <button
+                      onClick={() => setSelectedCruiseType('disco')}
+                      className={cn(
+                        "p-4 rounded-lg border-2 transition-all text-left",
+                        selectedCruiseType === 'disco'
+                          ? "border-purple-500 bg-purple-50 text-purple-900"
+                          : "border-gray-200 hover:border-gray-300"
+                      )}
+                      data-testid="button-select-disco-cruise"
+                    >
+                      <div className="flex items-center mb-2">
+                        <Sparkles className="h-5 w-5 mr-2" />
+                        <span className="font-semibold">Disco Cruise</span>
+                      </div>
+                      <p className="text-sm text-gray-600">
+                        Join our DJ-powered disco experience. Perfect for bachelor/bachelorette parties.
+                      </p>
+                    </button>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
 
             {/* Private Cruise Options */}
             {showPrivateOptions && (

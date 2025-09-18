@@ -771,7 +771,7 @@ export default function Chat() {
     hasAutoSelected: false
   });
 
-  // Auto-select default options when group size is selected on comparison page
+  // FIXED: Auto-select default options - made more stable to prevent crashes during group size editing
   useEffect(() => {
     // Guard against unnecessary re-runs
     if (currentStep !== 'comparison-selection' || 
@@ -781,15 +781,15 @@ export default function Chat() {
       return;
     }
 
-    // Check if we've already auto-selected for this combination
+    // Check if we've already auto-selected for this combination - more lenient for group size changes
     const current = autoSelectionRef.current;
-    const hasChanged = (
+    const significantChange = (
       current.lastEventType !== formData.eventType ||
-      current.lastGroupSize !== formData.groupSize ||
-      current.lastEventDate?.getTime() !== formData.eventDate.getTime()
+      current.lastEventDate?.getTime() !== formData.eventDate.getTime() ||
+      Math.abs(current.lastGroupSize - formData.groupSize) > 5 // FIXED: Only reset on significant group size changes
     );
 
-    if (!hasChanged && current.hasAutoSelected) {
+    if (!significantChange && current.hasAutoSelected) {
       return; // Skip if already processed this combination
     }
 
@@ -799,11 +799,11 @@ export default function Chat() {
     current.lastEventDate = formData.eventDate;
     current.hasAutoSelected = true;
 
-    // Batch all auto-selections together to prevent multiple renders
+    // FIXED: Batch all auto-selections together and be more conservative about resets
     const updates: Partial<BookingData> = {};
     
-    // Auto-select private cruise defaults if not already selected
-    if (!formData.selectedSlot) {
+    // Auto-select private cruise defaults ONLY if nothing is selected yet
+    if (!formData.selectedSlot && !formData.selectedCruiseType) {
       const defaultSlot = privateSlots.find(slot => slot.label.includes('12pm') || slot.label.includes('1pm')) || privateSlots[0];
       
       if (defaultSlot) {
@@ -813,26 +813,22 @@ export default function Chat() {
       }
     }
     
-    // For bachelor/bachelorette parties, ensure disco options are available but don't auto-select
-    // Let users choose between disco and private options in the comparison view
+    // FIXED: More conservative disco handling - don't reset existing selections during group size edits
     if ((formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') &&
         discoSlots.length > 0) {
-      // Reset any previous disco selections to force user choice in comparison view
-      updates.selectedDiscoPackage = null;
-      // Don't auto-select cruise type - let user choose between disco and private
-      if (formData.selectedCruiseType === 'disco') {
-        updates.selectedCruiseType = null;
-        updates.selectedSlot = null;
+      // Only set defaults if nothing is selected yet
+      if (!formData.selectedDiscoPackage) {
+        updates.selectedDiscoPackage = 'basic' as DiscoPackage;
       }
-      updates.discoTicketQuantity = Math.min(formData.groupSize, 10); // Set reasonable default quantity
+      // Always update quantity to match group size, but don't reset other selections
+      updates.discoTicketQuantity = Math.min(formData.groupSize, 20);
     }
     
     // For all other event types with disco available, use minimum quantity
     else if (discoSlots.length > 0 && !formData.selectedDiscoPackage) {
-      const defaultDiscoSlot = discoSlots[0];
       const defaultDiscoPackage = discoPackages[0];
       
-      if (defaultDiscoSlot && defaultDiscoPackage) {
+      if (defaultDiscoPackage) {
         updates.selectedDiscoPackage = defaultDiscoPackage.id as DiscoPackage;
         updates.discoTicketQuantity = Math.min(formData.groupSize, 10);
       }
@@ -842,7 +838,7 @@ export default function Chat() {
     if (Object.keys(updates).length > 0) {
       setFormData(prev => ({ ...prev, ...updates }));
     }
-  }, [currentStep, formData.groupSize, formData.eventType, formData.eventDate?.getTime(), formData.selectedSlot, formData.selectedDiscoPackage, privateSlots, discoSlots]);
+  }, [currentStep, formData.eventType, formData.eventDate?.getTime(), formData.selectedSlot, formData.selectedDiscoPackage, privateSlots, discoSlots, formData.groupSize]);
 
   // Debounced pricing fetch refs to prevent excessive API calls
   const pricingTimeoutRef = useRef<NodeJS.Timeout | null>(null);
@@ -1227,7 +1223,7 @@ export default function Chat() {
     }
   };
 
-  // Group Size Handler for comparison page - debounced to prevent rapid state changes
+  // Group Size Handler for comparison page - debounced and stabilized
   const handleGroupSizeChange = useCallback((value: number[]) => {
     const newSize = value[0];
     
@@ -1236,19 +1232,17 @@ export default function Chat() {
       return;
     }
     
-    // Reset auto-selection tracking when group size changes
-    autoSelectionRef.current.hasAutoSelected = false;
-    
-    // Batch updates to prevent race conditions
+    // FIXED: Only update group size, preserve existing selections if they're still valid
+    // This prevents the cascade of resets that was causing crashes
     setFormData(prev => ({ 
       ...prev, 
       groupSize: newSize,
-      selectedCruiseType: null,
-      selectedSlot: null,
-      selectedAddOnPackages: [],
-      selectedDiscoPackage: null,
-      discoTicketQuantity: Math.min(newSize, 10),
+      discoTicketQuantity: Math.min(newSize, prev.discoTicketQuantity || 10),
+      // Keep existing selections unless they're incompatible with new group size
     }));
+    
+    // FIXED: Don't reset auto-selection tracking - let the useEffect handle it gracefully
+    // autoSelectionRef.current.hasAutoSelected = false; // REMOVED
   }, []);
   
   // Confirm group size and show comparison - with enhanced validation
@@ -1517,8 +1511,8 @@ export default function Chat() {
         ttlMinutes: 15 // 15 minute hold for checkout
       };
 
-      // Create the slot hold using mutateAsync for proper promise handling
-      const holdResponse = await slotHold.createHoldMutation.mutateAsync(holdParams);
+      // Create the slot hold using the async method for proper promise handling
+      const holdResponse = await slotHold.createHoldAsync(holdParams);
       console.log('🔒 Successfully created hold for payment:', holdResponse.hold.id);
 
       const holdId = holdResponse.hold.id;

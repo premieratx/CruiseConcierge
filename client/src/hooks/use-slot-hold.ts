@@ -163,6 +163,15 @@ export const useSlotHold = (options: UseSlotHoldOptions = {}) => {
     }
   }, [currentHold, releaseHoldMutation]);
 
+  // Create a slot hold with async/await support
+  const createHoldAsync = useCallback(async (params: CreateSlotHoldParams): Promise<SlotHoldResponse> => {
+    // Release any existing hold first
+    if (currentHold) {
+      releaseHold();
+    }
+    return createHoldMutation.mutateAsync(params);
+  }, [currentHold, createHoldMutation, releaseHold]);
+
   // Release hold by slot and session (alternative method)
   const releaseHoldBySlot = useCallback((slotId: string, sessionId?: string) => {
     releaseHoldMutation.mutate({ 
@@ -228,6 +237,7 @@ export const useSlotHold = (options: UseSlotHoldOptions = {}) => {
     
     // Actions
     createHold,
+    createHoldAsync,
     releaseHold,
     releaseHoldBySlot,
     extendHold,
