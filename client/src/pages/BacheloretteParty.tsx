@@ -68,20 +68,29 @@ const heartBeat = {
   }
 };
 
-// ATX Disco Cruise packages for bachelorettes
+// ATX Disco Cruise packages for bachelorettes - Real comprehensive details
 const bachelorettePackages = [
   {
     id: 'basic_bachelorette',
-    name: 'Basic Bride Package',
+    name: 'Basic Bach Package',
     price: 85,
     originalPrice: null,
-    description: 'Perfect starter package for Austin bachelorette parties',
+    description: 'Join the BEST Party on Lake Travis, Exclusively for Bach Parties!',
+    subtitle: 'BYOB & Keep it Cheap - ALWAYS Cheaper than a Private Cruise',
+    allPackagesInclude: [
+      'Incredible DJ on Every Cruise, Party Started When You Arrive',
+      'Professional Photographer w/Free Photos Sent After the Cruise!',
+      'GIANT 25-ft Inflatable Unicorn Float - Biggest in the Country!',
+      '3 Huge 6x20\' Lily Pad Floats to Lounge in Style',
+      'Party w/Bachelorette & Bachelor Parties from All Over the Country',
+      'Ice in Coolers, Ice Water, Cups, Koozies, Bubbles, & Name Tags'
+    ],
     features: [
-      '4-hour ATX Disco Cruise',
-      'Professional DJ with bachelorette vibes',
-      'Dancing on Lake Travis',
-      'Cash bar with signature cocktails',
-      'Perfect Instagram backdrop'
+      'Join the BEST Party on Lake Travis, Exclusively for Bach Parties!',
+      'BYOB, throw your drinks in a shared cooler w/ice',
+      'Alcohol Delivery & Lunch Delivery Available',
+      'ALWAYS Cheaper than a Private Cruise',
+      'If you\'re trying to keep it cheap, this is your move!'
     ],
     popular: false,
     icon: Disc3,
@@ -94,14 +103,22 @@ const bachelorettePackages = [
     price: 95,
     originalPrice: 125,
     description: 'Our signature bachelorette party experience - That Happens to be Our Specialty!',
+    subtitle: 'Private Cooler & Reserved Spot for Your Group',
+    allPackagesInclude: [
+      'Incredible DJ on Every Cruise, Party Started When You Arrive',
+      'Professional Photographer w/Free Photos Sent After the Cruise!',
+      'GIANT 25-ft Inflatable Unicorn Float - Biggest in the Country!',
+      '3 Huge 6x20\' Lily Pad Floats to Lounge in Style',
+      'Party w/Bachelorette & Bachelor Parties from All Over the Country',
+      'Ice in Coolers, Ice Water, Cups, Koozies, Bubbles, & Name Tags'
+    ],
     features: [
-      '4-hour ATX Disco Cruise',
-      'Premium DJ with custom bridal playlist',
-      '🎉 BRIDE DISCO FOR FREE! 🎉',
-      'Bachelorette party decorations',
-      'Professional party photography',
-      'Champagne toast for the bride',
-      'VIP boarding for bridal party'
+      'Private Cooler w/Ice & Storage Bin for Your Group',
+      'Reserved Spot for Your Group',
+      'Disco Ball Cup & Bubble Gun for the Bride',
+      'Complimentary Direct-to-Boat Alcohol & Lunch Delivery',
+      '25% Discount on Round-Trip Transportation',
+      '$50-$100 Voucher for Airbnb Booze Delivery'
     ],
     popular: true,
     icon: Crown,
@@ -110,24 +127,30 @@ const bachelorettePackages = [
   },
   {
     id: 'platinum_bride',
-    name: 'Platinum Bride Package',
-    price: 110,
+    name: 'Super Sparkle Platinum Disco',
+    price: 105,
     originalPrice: 140,
-    description: 'Ultimate Austin bachelorette party luxury experience',
+    description: 'Ultimate all-inclusive Austin bachelorette party luxury',
+    subtitle: 'Nothing to Carry, Cooler Stocked w/drinks When You Arrive!',
+    allPackagesInclude: [
+      'Incredible DJ on Every Cruise, Party Started When You Arrive',
+      'Professional Photographer w/Free Photos Sent After the Cruise!',
+      'GIANT 25-ft Inflatable Unicorn Float - Biggest in the Country!',
+      '3 Huge 6x20\' Lily Pad Floats to Lounge in Style',
+      'Party w/Bachelorette & Bachelor Parties from All Over the Country',
+      'Ice in Coolers, Ice Water, Cups, Koozies, Bubbles, & Name Tags'
+    ],
     features: [
-      '4-hour ATX Disco Cruise',
-      'Premium DJ & dedicated party host',
-      '🎉 BRIDE DISCO FOR FREE! 🎉',
-      '2 Champagne toasts for the bride',
-      'VIP seating area for bridal party',
-      'Professional bachelorette photography',
-      'Party favors & bridal decorations',
-      'Priority bar service',
-      'Instagram-worthy lily pad setup'
+      'Everything in the Disco Queen Package',
+      'Personal Unicorn Float for the Bride',
+      'Mimosa Setup w/Champagne Flutes, 3 Juices, & a Chambong!',
+      '$100 Voucher for Airbnb Concierge Services',
+      'Towel Service & SPF-50 Spray Sunscreen Provided',
+      'Nothing to Carry, Cooler Stocked w/drinks When You Arrive!'
     ],
     popular: false,
     icon: Trophy,
-    badge: 'VIP Experience',
+    badge: 'All-Inclusive VIP',
     brideSpecial: true
   }
 ];
@@ -218,27 +241,37 @@ const bacheloretteGroupSizes = [
   { size: '31-50', label: 'Epic Bachelorette Bash', description: 'Maximum capacity celebration', popular: false }
 ];
 
-// Why choose Premier for bachelorettes
+// Why choose Premier for bachelorettes - Marketing positioning messages
 const whyChoosePremier = [
   {
-    icon: Heart,
-    title: 'Bachelorette Party Specialty',
-    description: 'This happens to be our specialty! We know exactly what makes Austin bachelorette parties legendary.'
-  },
-  {
-    icon: Music,
-    title: 'Bridal Playlist Experts',
-    description: 'Our DJs specialize in bachelorette energy with custom bridal playlists and party hosting.'
-  },
-  {
     icon: Sparkles,
-    title: '14+ Years of Bridal Magic',
-    description: 'We\'ve created thousands of unforgettable bachelorette moments on Lake Travis.'
+    title: 'Experience Something New!',
+    description: 'The ATX Disco Cruise is the ONLY all-inclusive boat party in Austin - unique experience you can\'t get anywhere else!'
   },
   {
-    icon: Camera,
-    title: 'Instagram-Perfect Setting',
-    description: 'Austin\'s most stunning lake views provide the perfect backdrop for your bridal celebration photos.'
+    icon: Users,
+    title: 'ONLY Joint Party EXCLUSIVELY for Bach Parties!',
+    description: 'Meet & Mingle w/Other Bachelorette & Bachelor Parties from All Over the Country - this is the ONLY party in the country exclusively for Bach parties!'
+  },
+  {
+    icon: Trophy,
+    title: 'Party on the BIGGEST Unicorn Float in the Country!',
+    description: 'Our GIANT 25-ft Inflatable Unicorn Float is the biggest in the country - Instagram-worthy memories guaranteed!'
+  },
+  {
+    icon: Heart,
+    title: 'This is an EXPERIENCE you\'ll remember & laugh about forever!',
+    description: 'Priceless Memories & Amazing Vibes - All-Inclusive, Nothing to Plan, just show up and party!'
+  },
+  {
+    icon: Target,
+    title: 'Flat-rate, Per-Person Pricing Makes it Easy to Split Payment',
+    description: 'No complicated pricing structures or hidden fees - everyone pays the same simple rate and you\'re done!'
+  },
+  {
+    icon: PartyPopper,
+    title: 'Don\'t Miss the BEST Party in ATX!',
+    description: '14+ Years of Epic Parties - We\'ve hosted thousands of bachelorette parties and know exactly what makes them legendary.'
   }
 ];
 

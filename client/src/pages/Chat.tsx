@@ -201,28 +201,72 @@ const addOnPackages = [
   },
 ];
 
-// Use disco packages from shared constants (keep local features for now)
+// Comprehensive disco packages with real details
 const discoPackages = [
   { 
     id: 'basic', 
     name: 'Basic Bach Package', 
     price: 85,
-    description: 'Essential disco cruise experience',
-    features: ['4-hour cruise', 'DJ & dancing', 'Party atmosphere', 'Cash bar']
+    description: 'Join the BEST Party on Lake Travis, Exclusively for Bach Parties!',
+    allPackagesInclude: [
+      'Incredible DJ on Every Cruise, Party Started When You Arrive',
+      'Professional Photographer w/Free Photos Sent After the Cruise!',
+      'GIANT 25-ft Inflatable Unicorn Float - Biggest in the Country!',
+      '3 Huge 6x20\' Lily Pad Floats to Lounge in Style',
+      'Party w/Bachelorette & Bachelor Parties from All Over the Country',
+      'Ice in Coolers, Ice Water, Cups, Koozies, Bubbles, & Name Tags'
+    ],
+    features: [
+      'Join the BEST Party on Lake Travis, Exclusively for Bach Parties!',
+      'BYOB, throw your drinks in a shared cooler w/ice',
+      'Alcohol Delivery & Lunch Delivery Available',
+      'ALWAYS Cheaper than a Private Cruise',
+      'If you\'re trying to keep it cheap, this is your move!'
+    ]
   },
   { 
     id: 'disco_queen', 
     name: 'Disco Queen Package', 
     price: 95,
-    description: 'Enhanced party experience',
-    features: ['4-hour cruise', 'Premium DJ', 'Welcome drink', 'Party favors', 'Cash bar']
+    description: 'Enhanced party experience with premium perks',
+    allPackagesInclude: [
+      'Incredible DJ on Every Cruise, Party Started When You Arrive',
+      'Professional Photographer w/Free Photos Sent After the Cruise!',
+      'GIANT 25-ft Inflatable Unicorn Float - Biggest in the Country!',
+      '3 Huge 6x20\' Lily Pad Floats to Lounge in Style',
+      'Party w/Bachelorette & Bachelor Parties from All Over the Country',
+      'Ice in Coolers, Ice Water, Cups, Koozies, Bubbles, & Name Tags'
+    ],
+    features: [
+      'Private Cooler w/Ice & Storage Bin for Your Group',
+      'Reserved Spot for Your Group',
+      'Disco Ball Cup & Bubble Gun for the Bride OR Disco Visor & Disco Ball Necklace for the Groom',
+      'Complimentary Direct-to-Boat Alcohol & Lunch Delivery',
+      '25% Discount on Round-Trip Transportation',
+      '$50-$100 Voucher for Airbnb Booze Delivery'
+    ]
   },
   { 
     id: 'platinum', 
-    name: 'Supabase Platinum Disco Package', 
+    name: 'Super Sparkle Platinum Disco', 
     price: 105,
-    description: 'Ultimate disco cruise luxury',
-    features: ['4-hour cruise', 'Premium DJ', '2 Welcome drinks', 'VIP area access', 'Party favors', 'Priority boarding']
+    description: 'Ultimate all-inclusive disco cruise luxury',
+    allPackagesInclude: [
+      'Incredible DJ on Every Cruise, Party Started When You Arrive',
+      'Professional Photographer w/Free Photos Sent After the Cruise!',
+      'GIANT 25-ft Inflatable Unicorn Float - Biggest in the Country!',
+      '3 Huge 6x20\' Lily Pad Floats to Lounge in Style',
+      'Party w/Bachelorette & Bachelor Parties from All Over the Country',
+      'Ice in Coolers, Ice Water, Cups, Koozies, Bubbles, & Name Tags'
+    ],
+    features: [
+      'Everything in the Disco Queen Package',
+      'Personal Unicorn Float for the Bride or Groom',
+      'Mimosa Setup w/Champagne Flutes, 3 Juices, & a Chambong!',
+      '$100 Voucher for Airbnb Concierge Services',
+      'Towel Service & SPF-50 Spray Sunscreen Provided',
+      'Nothing to Carry, Cooler Stocked w/drinks When You Arrive!'
+    ]
   },
 ];
 
@@ -285,7 +329,6 @@ const generateStructuredPrivateSlots = (date: Date, groupSize: number): Normaliz
       endTime: '16:00',
       duration: 4,
       label: `${getBoatNameForCapacity(capacity, 0)} • 12:00 PM - 4:00 PM`,
-      description: 'Friday afternoon cruise (4 hours)',
       cruiseType: 'private' as const,
       capacity,
       availableCount: 1,
@@ -308,7 +351,6 @@ const generateStructuredPrivateSlots = (date: Date, groupSize: number): Normaliz
       endTime: '20:30',
       duration: 4,
       label: `${getBoatNameForCapacity(capacity, 1)} • 4:30 PM - 8:30 PM`,
-      description: 'Friday evening cruise (4 hours)',
       cruiseType: 'private' as const,
       capacity,
       availableCount: 1,
@@ -331,7 +373,6 @@ const generateStructuredPrivateSlots = (date: Date, groupSize: number): Normaliz
       endTime: '15:00',
       duration: 4,
       label: `${getBoatNameForCapacity(capacity, 0)} • 11:00 AM - 3:00 PM`,
-      description: 'Weekend afternoon cruise (4 hours)',
       cruiseType: 'private' as const,
       capacity,
       availableCount: 1,
@@ -354,7 +395,6 @@ const generateStructuredPrivateSlots = (date: Date, groupSize: number): Normaliz
       endTime: '19:30',
       duration: 4,
       label: `${getBoatNameForCapacity(capacity, 1)} • 3:30 PM - 7:30 PM`,
-      description: 'Weekend evening cruise (4 hours)',
       cruiseType: 'private' as const,
       capacity,
       availableCount: 1,
@@ -377,7 +417,6 @@ const generateStructuredPrivateSlots = (date: Date, groupSize: number): Normaliz
       endTime: '16:00',
       duration: 4,
       label: `${getBoatNameForCapacity(capacity, 0)} • 12:00 PM - 4:00 PM`,
-      description: 'Weekday afternoon cruise (4-hour minimum)',
       cruiseType: 'private' as const,
       capacity,
       availableCount: 1,
@@ -399,7 +438,6 @@ const generateStructuredPrivateSlots = (date: Date, groupSize: number): Normaliz
       endTime: '20:30',
       duration: 4,
       label: `${getBoatNameForCapacity(capacity, 1)} • 4:30 PM - 8:30 PM`,
-      description: 'Weekday evening cruise (4-hour minimum)',
       cruiseType: 'private' as const,
       capacity,
       availableCount: 1,
@@ -1638,7 +1676,7 @@ export default function Chat() {
       console.error('❌ CONTACT FORM SUBMISSION ERROR', {
         step: "contact_submission_error",
         sessionId: chatSessionId,
-        error: error.message,
+        error: error instanceof Error ? error.message : String(error),
         timestamp: new Date().toISOString()
       });
       toast({
@@ -2579,7 +2617,7 @@ export default function Chat() {
                                           <div className="flex justify-between items-center">
                                             <div className="space-y-1">
                                               <div className="font-bold text-purple-600">{slot.label}</div>
-                                              <div className="text-sm text-slate-600 dark:text-slate-400">{slot.description || '4-hour disco cruise'}</div>
+                                              <div className="text-sm text-slate-600 dark:text-slate-400">4-hour disco cruise</div>
                                               <Badge variant="outline" className="text-xs">
                                                 <Users className="h-3 w-3 mr-1" />
                                                 Up to {slot.capacity || 100} people

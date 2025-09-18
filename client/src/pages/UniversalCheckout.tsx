@@ -279,6 +279,7 @@ export default function UniversalCheckout({
             <div className="lg:col-span-2 space-y-6">
 
               {/* Bachelor/Bachelorette Comparison */}
+              {/* 
               {showBachelorComparison && bachelorComparison && currentStep === 'selections' && (
                 <BachelorComparisonWidget
                   comparison={bachelorComparison}
@@ -286,6 +287,7 @@ export default function UniversalCheckout({
                   onSelectCruiseType={selectCruiseType}
                 />
               )}
+              */}
 
               {/* Step Content */}
               {currentStep === 'selections' && (
@@ -363,12 +365,48 @@ export default function UniversalCheckout({
 
             {/* Sidebar - Pricing Summary */}
             <div className="lg:col-span-1">
+              {/* 
               <CheckoutPricingDisplay
                 pricing={pricing}
                 selections={selections}
                 currentStep={currentStep}
                 onEditSelections={() => setCurrentStep('selections')}
               />
+              */}
+              
+              {/* Pricing Summary Card */}
+              <Card className="sticky top-6">
+                <CardHeader>
+                  <CardTitle>Booking Summary</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="space-y-3">
+                    <div className="flex justify-between">
+                      <span>Event Type:</span>
+                      <span className="font-medium">{selections.eventTypeLabel}</span>
+                    </div>
+                    {selections.eventDate && (
+                      <div className="flex justify-between">
+                        <span>Date:</span>
+                        <span className="font-medium">{formatDate(selections.eventDate)}</span>
+                      </div>
+                    )}
+                    <div className="flex justify-between">
+                      <span>Group Size:</span>
+                      <span className="font-medium">{selections.groupSize} guests</span>
+                    </div>
+                    {pricing.total > 0 && (
+                      <>
+                        <Separator />
+                        <div className="flex justify-between text-lg font-semibold">
+                          <span>Total:</span>
+                          <span>{formatCurrency(pricing.total)}</span>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </div>
@@ -441,7 +479,7 @@ function SelectionsStep({
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <Tabs value={selections.cruiseType} onValueChange={onSelectCruiseType}>
+            <Tabs value={selections.cruiseType} onValueChange={(value) => onSelectCruiseType(value as "private" | "disco")}>
               <TabsList className="grid w-full grid-cols-2">
                 <TabsTrigger value="private" data-testid="tab-private-cruise">
                   <PartyPopperIcon className="w-4 h-4 mr-2" />
@@ -486,20 +524,42 @@ function SelectionsStep({
       )}
 
       {/* Boat Selection */}
-      <CheckoutBoatSelector
-        selectedBoat={selections.selectedBoat}
-        availableBoats={availableBoats}
-        groupSize={selections.groupSize}
-        onSelectBoat={onSelectBoat}
-      />
+      {/* TODO: Implement CheckoutBoatSelector component */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center">
+            <BoatIcon className="w-5 h-5 mr-2" />
+            Select Your Boat
+          </CardTitle>
+          <CardDescription>
+            Choose from our fleet of premium party boats
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="text-sm text-muted-foreground">
+            Boat selection component will be implemented here
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Time Selection */}
-      <CheckoutTimeSelector
-        selectedTimeSlot={selections.selectedTimeSlot}
-        eventDate={selections.eventDate}
-        cruiseType={selections.cruiseType}
-        onSelectTimeSlot={onSelectTimeSlot}
-      />
+      {/* TODO: Implement CheckoutTimeSelector component */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center">
+            <ClockIcon className="w-5 h-5 mr-2" />
+            Select Your Time Slot
+          </CardTitle>
+          <CardDescription>
+            Choose your preferred cruise time
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="text-sm text-muted-foreground">
+            Time slot selection component will be implemented here
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Disco Package Selection */}
       {selections.cruiseType === 'disco' && (
@@ -624,15 +684,27 @@ function ContactStep({ selections, onUpdateContactInfo }: {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <CheckoutContactForm
-          initialData={{
-            name: selections.contactName,
-            email: selections.contactEmail,
-            phone: selections.contactPhone,
-            marketingConsent: selections.marketingConsent
-          }}
-          onSubmit={onUpdateContactInfo}
-        />
+        {/* TODO: Implement CheckoutContactForm component */}
+        <div className="space-y-4">
+          <div>
+            <label className="block text-sm font-medium mb-2">Full Name</label>
+            <div className="p-3 border rounded-md bg-muted text-muted-foreground text-sm">
+              Contact form will be implemented here
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">Email</label>
+            <div className="p-3 border rounded-md bg-muted text-muted-foreground text-sm">
+              Email input will be implemented here
+            </div>
+          </div>
+          <div>
+            <label className="block text-sm font-medium mb-2">Phone</label>
+            <div className="p-3 border rounded-md bg-muted text-muted-foreground text-sm">
+              Phone input will be implemented here
+            </div>
+          </div>
+        </div>
       </CardContent>
     </Card>
   );
@@ -656,12 +728,20 @@ function PaymentStep({ selections, pricing, onPaymentSubmit, isProcessing }: {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <CheckoutPaymentForm
-          pricing={pricing}
-          selections={selections}
-          onPaymentSubmit={onPaymentSubmit}
-          isProcessing={isProcessing}
-        />
+        {/* TODO: Implement CheckoutPaymentForm component */}
+        <div className="space-y-4">
+          <div className="p-6 border rounded-lg bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950 dark:to-cyan-950">
+            <h4 className="font-semibold mb-2">Payment Options</h4>
+            <div className="space-y-2 text-sm text-muted-foreground">
+              <p>• Secure payment processing with Stripe</p>
+              <p>• Pay deposit now, balance later</p>
+              <p>• Full payment option available</p>
+            </div>
+            <Button className="mt-4" disabled={isProcessing}>
+              {isProcessing ? 'Processing...' : 'Payment form will be implemented here'}
+            </Button>
+          </div>
+        </div>
       </CardContent>
     </Card>
   );

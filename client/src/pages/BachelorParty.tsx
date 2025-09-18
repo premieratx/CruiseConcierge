@@ -55,20 +55,29 @@ const scaleIn = {
   }
 };
 
-// ATX Disco Cruise packages
+// ATX Disco Cruise packages - Real comprehensive details
 const discoPackages = [
   {
     id: 'basic',
     name: 'Basic Bach Package',
     price: 85,
     originalPrice: null,
-    description: 'Essential bachelor party cruise experience',
+    description: 'Join the BEST Party on Lake Travis, Exclusively for Bach Parties!',
+    subtitle: 'BYOB & Keep it Cheap - ALWAYS Cheaper than a Private Cruise',
+    allPackagesInclude: [
+      'Incredible DJ on Every Cruise, Party Started When You Arrive',
+      'Professional Photographer w/Free Photos Sent After the Cruise!',
+      'GIANT 25-ft Inflatable Unicorn Float - Biggest in the Country!',
+      '3 Huge 6x20\' Lily Pad Floats to Lounge in Style',
+      'Party w/Bachelorette & Bachelor Parties from All Over the Country',
+      'Ice in Coolers, Ice Water, Cups, Koozies, Bubbles, & Name Tags'
+    ],
     features: [
-      '4-hour ATX Disco Cruise',
-      'Professional DJ & party vibes',
-      'Dancing on Lake Travis',
-      'Cash bar available',
-      'Party atmosphere guarantee'
+      'Join the BEST Party on Lake Travis, Exclusively for Bach Parties!',
+      'BYOB, throw your drinks in a shared cooler w/ice',
+      'Alcohol Delivery & Lunch Delivery Available',
+      'ALWAYS Cheaper than a Private Cruise',
+      'If you\'re trying to keep it cheap, this is your move!'
     ],
     popular: false,
     icon: Disc3,
@@ -79,14 +88,23 @@ const discoPackages = [
     name: 'Disco King Package',
     price: 95,
     originalPrice: 110,
-    description: 'Enhanced bachelor party experience',
+    description: 'Enhanced bachelor party experience with premium perks',
+    subtitle: 'Private Cooler & Reserved Spot for Your Group',
+    allPackagesInclude: [
+      'Incredible DJ on Every Cruise, Party Started When You Arrive',
+      'Professional Photographer w/Free Photos Sent After the Cruise!',
+      'GIANT 25-ft Inflatable Unicorn Float - Biggest in the Country!',
+      '3 Huge 6x20\' Lily Pad Floats to Lounge in Style',
+      'Party w/Bachelorette & Bachelor Parties from All Over the Country',
+      'Ice in Coolers, Ice Water, Cups, Koozies, Bubbles, & Name Tags'
+    ],
     features: [
-      '4-hour ATX Disco Cruise',
-      'Premium DJ with custom playlist',
-      'Welcome drink for the groom',
-      'Bachelor party decorations',
-      'Group photo session',
-      'Cash bar with drink specials'
+      'Private Cooler w/Ice & Storage Bin for Your Group',
+      'Reserved Spot for Your Group',
+      'Disco Visor & Disco Ball Necklace for the Groom',
+      'Complimentary Direct-to-Boat Alcohol & Lunch Delivery',
+      '25% Discount on Round-Trip Transportation',
+      '$50-$100 Voucher for Airbnb Booze Delivery'
     ],
     popular: true,
     icon: Crown,
@@ -94,22 +112,30 @@ const discoPackages = [
   },
   {
     id: 'platinum',
-    name: 'Bachelor Platinum Package',
+    name: 'Super Sparkle Platinum Disco',
     price: 105,
     originalPrice: 125,
-    description: 'Ultimate Austin bachelor party luxury',
+    description: 'Ultimate all-inclusive Austin bachelor party luxury',
+    subtitle: 'Nothing to Carry, Cooler Stocked w/drinks When You Arrive!',
+    allPackagesInclude: [
+      'Incredible DJ on Every Cruise, Party Started When You Arrive',
+      'Professional Photographer w/Free Photos Sent After the Cruise!',
+      'GIANT 25-ft Inflatable Unicorn Float - Biggest in the Country!',
+      '3 Huge 6x20\' Lily Pad Floats to Lounge in Style',
+      'Party w/Bachelorette & Bachelor Parties from All Over the Country',
+      'Ice in Coolers, Ice Water, Cups, Koozies, Bubbles, & Name Tags'
+    ],
     features: [
-      '4-hour ATX Disco Cruise',
-      'Premium DJ with party host',
-      '2 Welcome drinks for the groom',
-      'VIP boarding & seating area',
-      'Professional bachelor party photos',
-      'Party favors & decorations',
-      'Priority bar service'
+      'Everything in the Disco King Package',
+      'Personal Unicorn Float for the Groom',
+      'Mimosa Setup w/Champagne Flutes, 3 Juices, & a Chambong!',
+      '$100 Voucher for Airbnb Concierge Services',
+      'Towel Service & SPF-50 Spray Sunscreen Provided',
+      'Nothing to Carry, Cooler Stocked w/drinks When You Arrive!'
     ],
     popular: false,
     icon: Trophy,
-    badge: 'VIP Experience'
+    badge: 'All-Inclusive VIP'
   }
 ];
 
@@ -189,27 +215,37 @@ const groupSizes = [
   { size: '36-50', label: 'Epic Party', description: 'Maximum capacity celebration', popular: false }
 ];
 
-// Why choose ATX Disco Cruise for bachelor parties
+// Why choose ATX Disco Cruise for bachelor parties - Marketing positioning messages
 const whyChooseUs = [
   {
     icon: Sparkles,
-    title: 'Austin\'s Only Disco Cruise',
-    description: 'Unique experience you can\'t get anywhere else - dancing on Lake Travis with epic vibes.'
+    title: 'Experience Something New!',
+    description: 'The ATX Disco Cruise is the ONLY all-inclusive boat party in Austin - unique experience you can\'t get anywhere else!'
   },
   {
-    icon: Music,
-    title: 'Bachelor Party Specialists',
-    description: 'Our DJs understand bachelor party energy and know how to keep the celebration going all cruise long.'
+    icon: Users,
+    title: 'ONLY Joint Party EXCLUSIVELY for Bach Parties!',
+    description: 'Meet & Mingle w/Other Bachelorette & Bachelor Parties from All Over the Country - this is the ONLY party in the country exclusively for Bach parties!'
   },
   {
     icon: Trophy,
-    title: '14+ Years of Epic Parties',
-    description: 'We\'ve hosted thousands of bachelor parties and know exactly what makes them legendary.'
+    title: 'Party on the BIGGEST Unicorn Float in the Country!',
+    description: 'Our GIANT 25-ft Inflatable Unicorn Float is the biggest in the country - Instagram-worthy memories guaranteed!'
   },
   {
-    icon: UserCheck,
-    title: 'All-Inclusive Service',
-    description: 'From planning to execution, we handle everything so you can focus on celebrating the groom.'
+    icon: Music,
+    title: 'This is an EXPERIENCE you\'ll remember & laugh about forever!',
+    description: 'Priceless Memories & Amazing Vibes - All-Inclusive, Nothing to Plan, just show up and party!'
+  },
+  {
+    icon: Target,
+    title: 'Flat-rate, Per-Person Pricing Makes it Easy to Split Payment',
+    description: 'No complicated pricing structures or hidden fees - everyone pays the same simple rate and you\'re done!'
+  },
+  {
+    icon: PartyPopper,
+    title: 'Don\'t Miss the BEST Party in ATX!',
+    description: '14+ Years of Epic Parties - We\'ve hosted thousands of bachelor parties and know exactly what makes them legendary.'
   }
 ];
 
@@ -306,8 +342,8 @@ export default function BachelorParty() {
               variants={fadeInUp}
               className="text-xl md:text-2xl mb-12 text-gray-100 max-w-4xl mx-auto leading-relaxed font-light"
             >
-              ATX Disco Cruise: Austin's only floating dance party on Lake Travis. 
-              Professional DJs, epic vibes, and unforgettable bachelor party memories with the crew.
+              Experience Something New! The ATX Disco Cruise is the ONLY all-inclusive boat party in Austin - 
+              Party on the BIGGEST Unicorn Float in the Country with Bach parties from all over!
             </motion.p>
 
             {/* Key Features */}
