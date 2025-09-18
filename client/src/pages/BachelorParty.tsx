@@ -1,30 +1,24 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'wouter';
+import { useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
+import { StreamlinedBookingWidget } from '@/components/StreamlinedBookingWidget';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
-import { useToast } from '@/hooks/use-toast';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 import { 
-  Ship, Users, Clock, DollarSign, Star, Calendar, Phone, Mail, MapPin,
-  ArrowRight, CheckCircle, Sparkles, Crown, Music, Anchor, Waves,
+  Users, Clock, Star, Calendar, MapPin, Ship, 
+  ArrowRight, CheckCircle, Sparkles, Crown, Music, 
   Heart, Camera, PartyPopper, Sun, Trophy, Shield, Award,
-  MessageCircle, Instagram, Facebook, Twitter, Quote, ChevronRight,
-  Navigation, Compass, LifeBuoy, Zap, Target, TrendingUp, Play,
-  ExternalLink, BookOpen, Headphones, Car, Wine, Camera as CameraIcon,
-  UserCheck, MessageSquare, Ticket, Gift, Disc3, Volume2, 
-  MicIcon as Mic, Utensils, GlassWater, Palmtree
+  MessageCircle, Quote, 
+  Zap, Target, Play,
+  MessageSquare, Ticket, Gift, Disc3, Volume2, 
+  Mic, Utensils, GlassWater, UserCheck, PalmTree
 } from 'lucide-react';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
-import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
 
 // Hero and gallery images - Real photos from live website
 import heroImage1 from '@assets/bachelor-party-group-guys.jpg';
@@ -222,18 +216,6 @@ const whyChooseUs = [
 export default function BachelorParty() {
   const [, navigate] = useLocation();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
-  const [selectedPackage, setSelectedPackage] = useState<string | null>(null);
-  const [showBookingDialog, setShowBookingDialog] = useState(false);
-  const [contactForm, setContactForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    groupSize: '',
-    eventDate: '',
-    message: '',
-    selectedPackage: ''
-  });
-  const { toast } = useToast();
 
   const heroImages = [heroImage1, heroImage2, heroImage3];
 
@@ -245,81 +227,13 @@ export default function BachelorParty() {
     return () => clearInterval(interval);
   }, []);
 
-  // Update page title and SEO for bachelor parties
-  useEffect(() => {
-    document.title = 'Austin Bachelor Party Cruises - ATX Disco Cruise | Premier Party Cruises';
-    
-    // Add meta description
-    const existingDesc = document.querySelector('meta[name="description"]');
-    if (existingDesc) {
-      existingDesc.setAttribute('content', 'Plan the ultimate Austin bachelor party with ATX Disco Cruise! Professional DJs, Lake Travis dancing, photography, and all-inclusive packages. Book Austin\'s best bachelor party cruise experience.');
-    } else {
-      const metaDesc = document.createElement('meta');
-      metaDesc.name = 'description';
-      metaDesc.content = 'Plan the ultimate Austin bachelor party with ATX Disco Cruise! Professional DJs, Lake Travis dancing, photography, and all-inclusive packages. Book Austin\'s best bachelor party cruise experience.';
-      document.head.appendChild(metaDesc);
-    }
-  }, []);
-
-  const handleBookNow = (packageId?: string) => {
-    // Navigate to calendar with disco cruise filter
-    const params = new URLSearchParams();
-    if (packageId) {
-      params.set('package', packageId);
-    }
-    params.set('type', 'disco');
-    params.set('event', 'bachelor');
-    navigate(`/book?${params.toString()}`);
-  };
 
   const handleGetQuote = (packageId?: string) => {
-    // Navigate to chat with bachelor party context
-    const params = new URLSearchParams();
-    params.set('event', 'bachelor');
+    const params = new URLSearchParams({ cruiseType: 'bachelor' });
     if (packageId) {
       params.set('package', packageId);
     }
     navigate(`/chat?${params.toString()}`);
-  };
-
-  const handleContactSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    if (!contactForm.name || !contactForm.email || !contactForm.phone) {
-      toast({
-        title: "Please fill in all required fields",
-        description: "Name, email, and phone are required to get started.",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    try {
-      console.log('Bachelor party inquiry submitted:', contactForm);
-      
-      toast({
-        title: "Bachelor Party Quote Requested!",
-        description: "We'll contact you within 2 hours with your custom bachelor party quote and availability.",
-        variant: "default"
-      });
-
-      setShowBookingDialog(false);
-      setContactForm({
-        name: '',
-        email: '',
-        phone: '',
-        groupSize: '',
-        eventDate: '',
-        message: '',
-        selectedPackage: ''
-      });
-    } catch (error) {
-      toast({
-        title: "Something went wrong",
-        description: "Please try again or call us directly at (512) 488-5892",
-        variant: "destructive"
-      });
-    }
   };
 
   const scrollToSection = (id: string) => {
@@ -422,13 +336,15 @@ export default function BachelorParty() {
             >
               <Button
                 size="lg"
-                onClick={() => handleBookNow()}
+                asChild
                 className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-xl px-12 py-6 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide"
                 data-testid="button-hero-book-bachelor-party"
               >
-                <Calendar className="mr-3 h-6 w-6" />
-                BOOK BACHELOR PARTY
-                <ArrowRight className="ml-3 h-6 w-6" />
+                <a href="#booking-widget">
+                  <Calendar className="mr-3 h-6 w-6" />
+                  BOOK BACHELOR PARTY
+                  <ArrowRight className="ml-3 h-6 w-6" />
+                </a>
               </Button>
               
               <Button
@@ -472,10 +388,14 @@ export default function BachelorParty() {
         </motion.div>
       </section>
 
-      {/* Embedded Quote Builder */}
-      <section className="py-16 bg-white dark:bg-gray-950">
+      {/* Streamlined Booking Widget */}
+      <section id="booking-widget" className="py-16 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-6">
-          <EmbeddedQuoteBuilder pageContext="bachelor" className="mb-8" />
+          <StreamlinedBookingWidget 
+            defaultPartyType="bachelor"
+            defaultGroupSize={12}
+            className="mb-8"
+          />
         </div>
       </section>
 
@@ -577,11 +497,13 @@ export default function BachelorParty() {
                     <div className="space-y-3">
                       <Button 
                         className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white font-bold py-3 tracking-wide"
-                        onClick={() => handleBookNow(pkg.id)}
+                        asChild
                         data-testid={`button-book-package-${pkg.id}`}
                       >
-                        <Calendar className="mr-2 h-5 w-5" />
-                        BOOK THIS PACKAGE
+                        <a href="#booking-widget">
+                          <Calendar className="mr-2 h-5 w-5" />
+                          BOOK THIS PACKAGE
+                        </a>
                       </Button>
                       
                       <Button 
@@ -692,7 +614,7 @@ export default function BachelorParty() {
                     </p>
                   </div>
                   <div>
-                    <Palmtree className="h-8 w-8 text-brand-yellow mx-auto mb-3" />
+                    <PalmTree className="h-8 w-8 text-brand-yellow mx-auto mb-3" />
                     <h4 className="font-bold mb-2">Lake Travis Exclusive</h4>
                     <p className="text-sm text-gray-600 dark:text-gray-400">
                       Austin's most beautiful lake setting for epic bachelor memories
@@ -846,13 +768,15 @@ export default function BachelorParty() {
               <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
                 <Button
                   size="lg"
-                  onClick={() => handleBookNow()}
+                  asChild
                   className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-xl px-12 py-6 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide"
                   data-testid="button-final-book-bachelor-party"
                 >
-                  <Calendar className="mr-3 h-6 w-6" />
-                  BOOK BACHELOR PARTY NOW
-                  <ArrowRight className="ml-3 h-6 w-6" />
+                  <a href="#booking-widget">
+                    <Calendar className="mr-3 h-6 w-6" />
+                    BOOK BACHELOR PARTY NOW
+                    <ArrowRight className="ml-3 h-6 w-6" />
+                  </a>
                 </Button>
                 
                 <Button
@@ -881,104 +805,6 @@ export default function BachelorParty() {
         </div>
       </section>
 
-      {/* Contact Dialog */}
-      <Dialog open={showBookingDialog} onOpenChange={setShowBookingDialog}>
-        <DialogContent className="sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-heading font-bold tracking-wider">
-              GET YOUR BACHELOR PARTY QUOTE
-            </DialogTitle>
-            <DialogDescription>
-              Fill out the details below and we'll send you a custom quote within 2 hours.
-            </DialogDescription>
-          </DialogHeader>
-          
-          <form onSubmit={handleContactSubmit} className="space-y-4">
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="name" className="text-sm font-medium">Name *</Label>
-                <Input
-                  id="name"
-                  value={contactForm.name}
-                  onChange={(e) => setContactForm(prev => ({ ...prev, name: e.target.value }))}
-                  placeholder="Your name"
-                  required
-                  data-testid="input-contact-name"
-                />
-              </div>
-              <div>
-                <Label htmlFor="phone" className="text-sm font-medium">Phone *</Label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  value={contactForm.phone}
-                  onChange={(e) => setContactForm(prev => ({ ...prev, phone: e.target.value }))}
-                  placeholder="(512) 488-5892"
-                  required
-                  data-testid="input-contact-phone"
-                />
-              </div>
-            </div>
-            
-            <div>
-              <Label htmlFor="email" className="text-sm font-medium">Email *</Label>
-              <Input
-                id="email"
-                type="email"
-                value={contactForm.email}
-                onChange={(e) => setContactForm(prev => ({ ...prev, email: e.target.value }))}
-                placeholder="your@email.com"
-                required
-                data-testid="input-contact-email"
-              />
-            </div>
-            
-            <div className="grid grid-cols-2 gap-4">
-              <div>
-                <Label htmlFor="groupSize" className="text-sm font-medium">Group Size</Label>
-                <Input
-                  id="groupSize"
-                  value={contactForm.groupSize}
-                  onChange={(e) => setContactForm(prev => ({ ...prev, groupSize: e.target.value }))}
-                  placeholder="e.g., 15 people"
-                  data-testid="input-contact-group-size"
-                />
-              </div>
-              <div>
-                <Label htmlFor="eventDate" className="text-sm font-medium">Preferred Date</Label>
-                <Input
-                  id="eventDate"
-                  type="date"
-                  value={contactForm.eventDate}
-                  onChange={(e) => setContactForm(prev => ({ ...prev, eventDate: e.target.value }))}
-                  data-testid="input-contact-date"
-                />
-              </div>
-            </div>
-            
-            <div>
-              <Label htmlFor="message" className="text-sm font-medium">Special Requests</Label>
-              <Textarea
-                id="message"
-                value={contactForm.message}
-                onChange={(e) => setContactForm(prev => ({ ...prev, message: e.target.value }))}
-                placeholder="Tell us about your bachelor party vision..."
-                rows={3}
-                data-testid="textarea-contact-message"
-              />
-            </div>
-            
-            <Button 
-              type="submit" 
-              className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white font-bold py-3 tracking-wide"
-              data-testid="button-submit-quote-request"
-            >
-              <MessageSquare className="mr-2 h-5 w-5" />
-              GET MY BACHELOR PARTY QUOTE
-            </Button>
-          </form>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
