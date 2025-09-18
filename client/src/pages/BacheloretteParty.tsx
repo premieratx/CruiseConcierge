@@ -1,31 +1,25 @@
 import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'wouter';
+import { useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
+import { StreamlinedBookingWidget } from '@/components/StreamlinedBookingWidget';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
-import { useToast } from '@/hooks/use-toast';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 import { 
-  Ship, Users, Clock, DollarSign, Star, Calendar, Phone, Mail, MapPin,
-  ArrowRight, CheckCircle, Sparkles, Crown, Music, Anchor, Waves,
+  Users, Clock, Star, Calendar, MapPin, Ship, ChevronRight,
+  ArrowRight, CheckCircle, Sparkles, Crown, Music, 
   Heart, Camera, PartyPopper, Sun, Trophy, Shield, Award,
-  MessageCircle, Instagram, Facebook, Twitter, Quote, ChevronRight,
-  Navigation, Compass, LifeBuoy, Zap, Target, TrendingUp, Play,
-  ExternalLink, BookOpen, Headphones, Car, Wine, Camera as CameraIcon,
-  UserCheck, MessageSquare, Ticket, Gift, Disc3, Volume2, 
-  MicIcon as Mic, Utensils, GlassWater, Palmtree, Gem,
-  Flower, Flower2, FlowerIcon as FlowerDefault, CircleDot, Smile
+  MessageCircle, Quote, 
+  Zap, Target, Play,
+  MessageSquare, Ticket, Gift, Disc3, Volume2, 
+  Mic, Utensils, GlassWater, PalmTree, Gem,
+  Flower, Flower2, CircleDot, Smile, UserCheck
 } from 'lucide-react';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
-import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
 
 // Hero and gallery images - Real photos from live website
 import heroImage1 from '@assets/bachelor-party-group-guys.jpg';
@@ -279,18 +273,6 @@ const specialOffers = [
 export default function BacheloretteParty() {
   const [, navigate] = useLocation();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
-  const [selectedPackage, setSelectedPackage] = useState<string | null>(null);
-  const [showBookingDialog, setShowBookingDialog] = useState(false);
-  const [contactForm, setContactForm] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    groupSize: '',
-    eventDate: '',
-    message: '',
-    selectedPackage: ''
-  });
-  const { toast } = useToast();
 
   const heroImages = [heroImage1, heroImage2, heroImage3];
 
@@ -302,83 +284,18 @@ export default function BacheloretteParty() {
     return () => clearInterval(interval);
   }, []);
 
-  // Update page title and SEO for bachelorette parties
-  useEffect(() => {
-    document.title = 'Austin Bachelorette Party Cruises - That Happens to be Our Specialty! | Premier Party Cruises';
-    
-    // Add meta description
-    const existingDesc = document.querySelector('meta[name="description"]');
-    if (existingDesc) {
-      existingDesc.setAttribute('content', 'Austin\'s premier bachelorette party cruise experience! ATX Disco Cruise with bride disco FREE, professional photography, and Lake Travis dancing. That happens to be our specialty!');
-    } else {
-      const metaDesc = document.createElement('meta');
-      metaDesc.name = 'description';
-      metaDesc.content = 'Austin\'s premier bachelorette party cruise experience! ATX Disco Cruise with bride disco FREE, professional photography, and Lake Travis dancing. That happens to be our specialty!';
-      document.head.appendChild(metaDesc);
-    }
-  }, []);
-
-  const handleBookNow = (packageId?: string) => {
-    // Navigate to calendar with disco cruise filter
-    const params = new URLSearchParams();
+  const handleGetQuote = (packageId?: string) => {
+    const params = new URLSearchParams({ cruiseType: 'bachelorette' });
     if (packageId) {
       params.set('package', packageId);
     }
-    params.set('type', 'disco');
-    params.set('event', 'bachelorette');
-    params.set('specialty', 'true');
-    navigate(`/calendar?${params.toString()}`);
-  };
-
-  const handleGetQuote = () => {
-    navigate('/chat');
-  };
-
-  const handleContactSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    
-    // Basic validation
-    if (!contactForm.name || !contactForm.email || !contactForm.phone) {
-      toast({
-        title: "Please fill in all required fields",
-        description: "Name, email, and phone are required to plan your bachelorette party.",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    try {
-      // Here you would normally send to your API
-      console.log('Bachelorette contact form submitted:', contactForm);
-      
-      toast({
-        title: "Thanks for choosing Premier Party Cruises!",
-        description: "We'll get back to you within 24 hours with bachelorette party details.",
-        variant: "default"
-      });
-
-      // Reset form
-      setContactForm({
-        name: '',
-        email: '',
-        phone: '',
-        groupSize: '',
-        eventDate: '',
-        message: '',
-        selectedPackage: ''
-      });
-    } catch (error) {
-      toast({
-        title: "Something went wrong",
-        description: "Please try again or call us directly at (512) 488-5892",
-        variant: "destructive"
-      });
-    }
+    navigate(`/chat?${params.toString()}`);
   };
 
   const scrollToSection = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' });
   };
+
 
   return (
     <div className="min-h-screen bg-white dark:bg-brand-black">
@@ -464,11 +381,13 @@ export default function BacheloretteParty() {
             <Button 
               size="lg" 
               className="btn-primary text-xl px-12 py-6"
-              onClick={() => handleBookNow()}
+              asChild
               data-testid="button-book-bachelorette"
             >
-              BOOK YOUR BACHELORETTE PARTY
-              <ArrowRight className="w-6 h-6 ml-2" />
+              <a href="#booking-widget">
+                BOOK YOUR BACHELORETTE PARTY
+                <ArrowRight className="w-6 h-6 ml-2" />
+              </a>
             </Button>
             <Button 
               size="lg" 
@@ -518,10 +437,14 @@ export default function BacheloretteParty() {
         </motion.div>
       </section>
 
-      {/* Embedded Quote Builder */}
-      <section className="py-16 bg-white dark:bg-brand-black">
+      {/* Streamlined Booking Widget */}
+      <section id="booking-widget" className="py-16 bg-white dark:bg-brand-black">
         <div className="max-w-7xl mx-auto px-6">
-          <EmbeddedQuoteBuilder pageContext="bachelorette" className="mb-8" />
+          <StreamlinedBookingWidget 
+            defaultPartyType="bachelorette"
+            defaultGroupSize={10}
+            className="mb-8"
+          />
         </div>
       </section>
 
@@ -823,11 +746,13 @@ export default function BacheloretteParty() {
                           "w-full text-lg font-bold tracking-widest py-6",
                           pkg.popular ? "btn-primary" : "btn-outline"
                         )}
-                        onClick={() => handleBookNow(pkg.id)}
+                        asChild
                         data-testid={`button-book-${pkg.id}`}
                       >
-                        BOOK {pkg.name.toUpperCase()}
-                        <ArrowRight className="w-5 h-5 ml-2" />
+                        <a href="#booking-widget">
+                          BOOK {pkg.name.toUpperCase()}
+                          <ArrowRight className="w-5 h-5 ml-2" />
+                        </a>
                       </Button>
                     </CardContent>
                   </Card>
@@ -981,172 +906,6 @@ export default function BacheloretteParty() {
         </div>
       </section>
 
-      {/* Contact Form Section */}
-      <section className="py-24 bg-brand-yellow">
-        <div className="max-w-4xl mx-auto px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerChildren}
-            className="text-center mb-16"
-          >
-            <motion.h2 
-              variants={fadeInUp}
-              className="text-5xl md:text-6xl font-heading font-bold mb-6 text-brand-black tracking-widest"
-              data-testid="heading-contact"
-            >
-              PLAN YOUR PERFECT
-              <br />
-              <span className="text-brand-blue">BACHELORETTE PARTY</span>
-            </motion.h2>
-            <motion.p 
-              variants={fadeInUp}
-              className="text-xl text-brand-black max-w-2xl mx-auto leading-relaxed"
-              data-testid="text-contact-description"
-            >
-              Ready to create an unforgettable Austin bachelorette experience? Let's plan the perfect disco cruise celebration for your bridal party!
-            </motion.p>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <Card className="bg-white shadow-xl border-none">
-              <CardContent className="p-8">
-                <form onSubmit={handleContactSubmit} className="space-y-6">
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <Label htmlFor="name" className="text-brand-black font-bold">
-                        Name (Bride or MOH) *
-                      </Label>
-                      <Input
-                        id="name"
-                        value={contactForm.name}
-                        onChange={(e) => setContactForm({...contactForm, name: e.target.value})}
-                        placeholder="Enter your name"
-                        className="mt-2"
-                        data-testid="input-name"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="email" className="text-brand-black font-bold">
-                        Email Address *
-                      </Label>
-                      <Input
-                        id="email"
-                        type="email"
-                        value={contactForm.email}
-                        onChange={(e) => setContactForm({...contactForm, email: e.target.value})}
-                        placeholder="Enter your email"
-                        className="mt-2"
-                        data-testid="input-email"
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid md:grid-cols-2 gap-6">
-                    <div>
-                      <Label htmlFor="phone" className="text-brand-black font-bold">
-                        Phone Number *
-                      </Label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        value={contactForm.phone}
-                        onChange={(e) => setContactForm({...contactForm, phone: e.target.value})}
-                        placeholder="(512) 488-5892"
-                        className="mt-2"
-                        data-testid="input-phone"
-                        required
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="groupSize" className="text-brand-black font-bold">
-                        Bridal Party Size
-                      </Label>
-                      <Input
-                        id="groupSize"
-                        value={contactForm.groupSize}
-                        onChange={(e) => setContactForm({...contactForm, groupSize: e.target.value})}
-                        placeholder="e.g., 12 people"
-                        className="mt-2"
-                        data-testid="input-group-size"
-                      />
-                    </div>
-                  </div>
-
-                  <div>
-                    <Label htmlFor="eventDate" className="text-brand-black font-bold">
-                      Preferred Party Date
-                    </Label>
-                    <Input
-                      id="eventDate"
-                      type="date"
-                      value={contactForm.eventDate}
-                      onChange={(e) => setContactForm({...contactForm, eventDate: e.target.value})}
-                      className="mt-2"
-                      data-testid="input-event-date"
-                    />
-                  </div>
-
-                  <div>
-                    <Label htmlFor="message" className="text-brand-black font-bold">
-                      Tell us about your bachelorette party vision
-                    </Label>
-                    <Textarea
-                      id="message"
-                      value={contactForm.message}
-                      onChange={(e) => setContactForm({...contactForm, message: e.target.value})}
-                      placeholder="Tell us about the bride, your party vibe, special requests, or any questions about our bachelorette specialty services..."
-                      rows={4}
-                      className="mt-2"
-                      data-testid="textarea-message"
-                    />
-                  </div>
-
-                  <Button 
-                    type="submit" 
-                    size="lg" 
-                    className="w-full btn-primary text-xl py-6"
-                    data-testid="button-submit-contact"
-                  >
-                    PLAN MY BACHELORETTE PARTY
-                    <Heart className="w-6 h-6 ml-2" />
-                  </Button>
-                </form>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            className="text-center mt-12"
-          >
-            <div className="flex flex-col sm:flex-row gap-8 justify-center items-center text-brand-black">
-              <div className="flex items-center gap-2" data-testid="contact-phone">
-                <Phone className="w-6 h-6" />
-                <span className="text-lg font-bold">(512) 488-5892</span>
-              </div>
-              <div className="flex items-center gap-2" data-testid="contact-email">
-                <Mail className="w-6 h-6" />
-                <span className="text-lg font-bold">clientservices@premierpartycruises.com</span>
-              </div>
-            </div>
-            <p className="mt-4 text-brand-black">
-              Call or text us directly for immediate bachelorette party planning assistance!
-            </p>
-          </motion.div>
-        </div>
-      </section>
 
       {/* Final CTA Section */}
       <section className="py-24 bg-brand-black">
@@ -1180,11 +939,13 @@ export default function BacheloretteParty() {
               <Button 
                 size="lg" 
                 className="btn-primary text-2xl px-16 py-8"
-                onClick={() => handleBookNow()}
+                asChild
                 data-testid="button-final-book"
               >
-                BOOK YOUR BACHELORETTE CRUISE
-                <ArrowRight className="w-8 h-8 ml-3" />
+                <a href="#booking-widget">
+                  BOOK YOUR BACHELORETTE CRUISE
+                  <ArrowRight className="w-8 h-8 ml-3" />
+                </a>
               </Button>
             </motion.div>
           </motion.div>
