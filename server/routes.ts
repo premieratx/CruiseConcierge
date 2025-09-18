@@ -4920,7 +4920,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         description = `Group Size: ${groupSize} | Date: ${new Date(eventDate).toLocaleDateString()} | Package: ${discoPackage}`;
       }
       
-      const session = await stripe.checkout.sessions.create({
+      // Validate customer email before passing to Stripe
+      const isValidEmail = customerEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(customerEmail);
+      
+      const sessionConfig: any = {
         payment_method_types: ['card'],
         line_items: [{
           price_data: {
@@ -4936,7 +4939,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
         mode: 'payment',
         success_url: `${getFullUrl('/booking-success?session_id={CHECKOUT_SESSION_ID}')}`,
         cancel_url: `${getFullUrl('/chat')}`,
-        customer_email: customerEmail,
         metadata: {
           paymentType,
           eventType,
@@ -4961,9 +4963,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
           slotId: slotHold.slotId,
           boatId: slotHold.boatId || '',
           holdExpiresAt: slotHold.expiresAt.toISOString(),
+          // Store customer email in metadata if provided (even if invalid)
+          customerEmail: customerEmail || '',
           ...metadata
         }
-      });
+      };
+      
+      // Only add customer_email to Stripe session if email is valid
+      if (isValidEmail) {
+        sessionConfig.customer_email = customerEmail;
+      }
+
+      const session = await stripe.checkout.sessions.create(sessionConfig);
 
       res.json({ 
         sessionId: session.id, 
