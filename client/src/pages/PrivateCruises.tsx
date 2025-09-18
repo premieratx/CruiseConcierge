@@ -14,6 +14,7 @@ import {
   UserCheck, Target, Headphones
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
+import { formatCurrency } from '@shared/formatters';
 
 // Hero and gallery images 
 import heroImage1 from '@assets/image_1757844813165.png';

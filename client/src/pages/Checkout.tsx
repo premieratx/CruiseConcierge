@@ -14,7 +14,7 @@ import type { Quote, Project, Contact, PricingPreview } from '@shared/schema';
 
 // Make sure to call `loadStripe` outside of a component's render to avoid
 // recreating the `Stripe` object on every render.
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLIC_KEY || '');
+const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || '');
 
 interface QuoteWithDetails extends Quote {
   pricing?: PricingPreview;
@@ -392,7 +392,7 @@ export default function Checkout() {
       // Use existing client secret if available, otherwise create new payment intent
       if (paymentIntentClientSecret) {
         setClientSecret(paymentIntentClientSecret);
-      } else if (import.meta.env.VITE_STRIPE_PUBLIC_KEY) {
+      } else if (import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY) {
         // Create new payment intent
         const response = await apiRequest("POST", "/api/create-payment-intent", {
           amount: paymentAmount,
@@ -458,7 +458,7 @@ export default function Checkout() {
   }
 
   // Demo mode when Stripe is not configured
-  if (!import.meta.env.VITE_STRIPE_PUBLIC_KEY || !clientSecret) {
+  if (!import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || !clientSecret) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-marine-50 via-background to-marine-100">
         {/* Header */}
