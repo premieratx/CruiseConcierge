@@ -4671,9 +4671,78 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // SECURITY: Calculate amount server-side based on quote data
-      const pricing = quote.pricing;
-      if (!pricing) {
-        return res.status(400).json({ error: "Quote pricing not available" });
+      // Construct pricing from quote fields (quotes don't have a single 'pricing' object)
+      const pricing = {
+        subtotal: quote.subtotal || 0,
+        tax: quote.tax || 0,
+        gratuity: quote.gratuity || 0,
+        total: quote.total || 0,
+        depositAmount: quote.depositAmount || (quote.total ? Math.round(quote.total * 0.5) : 0),
+        depositPercent: quote.depositPercent || 50,
+        depositRequired: quote.depositRequired ?? true
+      };
+      
+      console.log('💰 Quote pricing data:', {
+        quoteId,
+        rawQuote: {
+          subtotal: quote.subtotal,
+          tax: quote.tax,
+          gratuity: quote.gratuity,
+          total: quote.total,
+          depositAmount: quote.depositAmount
+        },
+        constructedPricing: pricing
+      });
+      
+      // If quote doesn't have pricing, try to calculate it from quote items
+      if (!pricing.total || pricing.total <= 0) {
+        console.log('🔄 Quote has no total, attempting to recalculate from items...');
+        
+        if (quote.items && quote.items.length > 0) {
+          try {
+            // Recalculate pricing from quote items
+            const recalculatedPricing = await storage.calculatePricing({
+              items: quote.items.map(item => ({
+                productId: item.productId || `item_${item.id}`,
+                qty: item.qty || 1,
+                unitPrice: item.unitPrice || 0,
+              })),
+              groupSize: quote.project?.groupSize || 10,
+              projectDate: quote.project?.eventDate ? new Date(quote.project.eventDate) : new Date(),
+            });
+            
+            // Update pricing with recalculated values
+            pricing.subtotal = recalculatedPricing.subtotal || 0;
+            pricing.tax = recalculatedPricing.tax || 0;
+            pricing.gratuity = recalculatedPricing.gratuity || 0;
+            pricing.total = recalculatedPricing.total || 0;
+            pricing.depositAmount = recalculatedPricing.depositAmount || Math.round((recalculatedPricing.total || 0) * 0.5);
+            
+            console.log('✅ Recalculated pricing:', pricing);
+            
+          } catch (recalcError: any) {
+            console.error('❌ Failed to recalculate pricing:', recalcError);
+            return res.status(400).json({ 
+              error: "Quote pricing not available - unable to calculate from items",
+              details: recalcError.message 
+            });
+          }
+        } else {
+          return res.status(400).json({ 
+            error: "Quote pricing not available - no total amount or items to calculate from",
+            quoteId,
+            hasItems: Boolean(quote.items?.length),
+            itemCount: quote.items?.length || 0
+          });
+        }
+      }
+      
+      // Final validation after potential recalculation
+      if (!pricing.total || pricing.total <= 0) {
+        return res.status(400).json({ 
+          error: "Quote pricing not available - total amount is still invalid after recalculation",
+          pricing 
+        });
       }
 
       // SECURITY: Server determines amount - client input is ignored
@@ -4767,12 +4836,15 @@ export async function registerRoutes(app: Express): Promise<Server> {
         timeSlot,
         selectedTimeSlot,
         selectedAddOnPackages,
-        discoPackage,
+        selectedDiscoPackage, // Fixed: frontend sends selectedDiscoPackage, not discoPackage
         discoTimeSlot,
         discoTicketQuantity,
         eventType,
         quoteId
       } = selectionPayload;
+      
+      // Support both field names for backward compatibility
+      const discoPackage = selectedDiscoPackage || selectionPayload.discoPackage;
 
       if (!cruiseType || !groupSize || !eventDate || !eventType) {
         return res.status(400).json({ error: "Missing required selection data" });
@@ -4857,9 +4929,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
             perPersonCost: Math.round(invoiceTotals.total / parseInt(groupSize))
           };
         } else if (cruiseType === 'disco') {
-          if (!discoPackage || !discoTicketQuantity) {
-            return res.status(400).json({ error: "discoPackage and discoTicketQuantity required for disco cruise" });
+          // More flexible validation - handle missing values with defaults
+          if (!discoPackage && !selectedDiscoPackage) {
+            return res.status(400).json({ error: "discoPackage or selectedDiscoPackage required for disco cruise" });
           }
+          
+          // Use default values if not provided
+          const finalDiscoPackage = discoPackage || selectedDiscoPackage || 'basic';
+          const finalDiscoTicketQuantity = discoTicketQuantity || parseInt(groupSize) || 10;
+          
+          console.log('💃 Processing disco cruise with:', {
+            originalDiscoPackage: discoPackage,
+            selectedDiscoPackage,
+            finalDiscoPackage,
+            originalDiscoTicketQuantity: discoTicketQuantity,
+            finalDiscoTicketQuantity,
+            groupSize
+          });
 
           // Calculate disco pricing using the pricing preview endpoint logic
           const getDiscoPriceByPackage = (packageId: string): number => {
@@ -4873,11 +4959,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
           pricing = await storage.calculatePricing({
             items: [{
-              productId: `disco_${discoPackage}`,
-              qty: parseInt(discoTicketQuantity),
-              unitPrice: getDiscoPriceByPackage(discoPackage),
+              productId: `disco_${finalDiscoPackage}`,
+              qty: finalDiscoTicketQuantity,
+              unitPrice: getDiscoPriceByPackage(finalDiscoPackage),
             }],
-            groupSize: parseInt(discoTicketQuantity),
+            groupSize: finalDiscoTicketQuantity,
             projectDate: new Date(eventDate),
           });
         } else {
@@ -4917,7 +5003,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           : '';
         description = `Group Size: ${groupSize} | Date: ${new Date(eventDate).toLocaleDateString()} | Time: ${effectiveTimeSlot}${addOnsText}`;
       } else {
-        description = `Group Size: ${groupSize} | Date: ${new Date(eventDate).toLocaleDateString()} | Package: ${discoPackage}`;
+        description = `Group Size: ${groupSize} | Date: ${new Date(eventDate).toLocaleDateString()} | Package: ${finalDiscoPackage}`;
       }
       
       // Validate customer email before passing to Stripe

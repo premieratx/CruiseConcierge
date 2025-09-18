@@ -3,7 +3,7 @@ import { NormalizedSlot } from '@shared/schema';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Clock, Users, DollarSign, Anchor } from 'lucide-react';
+import { Clock, Users, DollarSign, Anchor, Ship, Star } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useLocation } from 'wouter';
 
@@ -125,6 +125,89 @@ export const TimeSlotList = ({
     return cruiseType === 'disco' ? '🎉' : '⛵';
   };
 
+  // Enhanced color coding system for boat capacities/types
+  const getCapacityColorClasses = (capacity: number, variant: 'card' | 'text' | 'accent' = 'card') => {
+    const colorScheme = {
+      small: { // 8-15 capacity (Day Tripper boats)
+        card: 'border-l-4 border-l-purple-500 bg-purple-50/50 dark:bg-purple-900/10',
+        text: 'text-purple-700 dark:text-purple-400',
+        accent: 'bg-purple-100 dark:bg-purple-900/30'
+      },
+      medium: { // 16-25 capacity (Meeseeks, The Irony)
+        card: 'border-l-4 border-l-red-500 bg-red-50/50 dark:bg-red-900/10',
+        text: 'text-red-700 dark:text-red-400',
+        accent: 'bg-red-100 dark:bg-red-900/30'
+      },
+      large: { // 26-50 capacity (Clever Girl)
+        card: 'border-l-4 border-l-orange-500 bg-orange-50/50 dark:bg-orange-900/10',
+        text: 'text-orange-700 dark:text-orange-400',
+        accent: 'bg-orange-100 dark:bg-orange-900/30'
+      },
+      xlarge: { // 51+ capacity (Big boats)
+        card: 'border-l-4 border-l-blue-500 bg-blue-50/50 dark:bg-blue-900/10',
+        text: 'text-blue-700 dark:text-blue-400',
+        accent: 'bg-blue-100 dark:bg-blue-900/30'
+      },
+      disco: { // Disco cruises
+        card: 'border-l-4 border-l-yellow-500 bg-yellow-50/50 dark:bg-yellow-900/10',
+        text: 'text-yellow-700 dark:text-yellow-400',
+        accent: 'bg-yellow-100 dark:bg-yellow-900/30'
+      }
+    };
+
+    if (capacity <= 15) return colorScheme.small[variant];
+    if (capacity <= 25) return colorScheme.medium[variant];
+    if (capacity <= 50) return colorScheme.large[variant];
+    return colorScheme.xlarge[variant];
+  };
+
+  const getDiscoColorClasses = (variant: 'card' | 'text' | 'accent' = 'card') => {
+    const colorScheme = {
+      card: 'border-l-4 border-l-yellow-500 bg-gradient-to-r from-yellow-50 to-pink-50 dark:from-yellow-900/10 dark:to-pink-900/10',
+      text: 'text-yellow-700 dark:text-yellow-400',
+      accent: 'bg-gradient-to-r from-yellow-100 to-pink-100 dark:from-yellow-900/30 dark:to-pink-900/30'
+    };
+    return colorScheme[variant];
+  };
+
+  // Smart matching: highlight slots closest to user's group size
+  const getGroupSizeMatchScore = (slot: NormalizedSlot, userGroupSize?: number): 'perfect' | 'good' | 'acceptable' | 'poor' => {
+    if (!userGroupSize || !slot.capacity) return 'acceptable';
+    
+    const ratio = userGroupSize / slot.capacity;
+    
+    if (ratio >= 0.8 && ratio <= 1.0) return 'perfect'; // 80-100% capacity utilization
+    if (ratio >= 0.6 && ratio < 0.8) return 'good';     // 60-79% capacity utilization
+    if (ratio >= 0.4 && ratio < 0.6) return 'acceptable'; // 40-59% capacity utilization
+    return 'poor'; // Under 40% or over 100%
+  };
+
+  const getMatchScoreStyles = (score: 'perfect' | 'good' | 'acceptable' | 'poor') => {
+    switch (score) {
+      case 'perfect':
+        return 'ring-2 ring-green-500 shadow-lg border-green-200 dark:border-green-800';
+      case 'good':
+        return 'ring-1 ring-blue-400 shadow-md border-blue-200 dark:border-blue-800';
+      case 'acceptable':
+        return '';
+      case 'poor':
+        return 'opacity-75';
+      default:
+        return '';
+    }
+  };
+
+  const getMatchScoreBadge = (score: 'perfect' | 'good' | 'acceptable' | 'poor') => {
+    switch (score) {
+      case 'perfect':
+        return { label: 'Perfect Match', className: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200', icon: <Star className="h-3 w-3" /> };
+      case 'good':
+        return { label: 'Great Match', className: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200', icon: <Ship className="h-3 w-3" /> };
+      default:
+        return null;
+    }
+  };
+
   if (slots.length === 0) {
     return (
       <div className="text-center py-8 text-muted-foreground" data-testid="timeslot-list-empty">
@@ -142,11 +225,21 @@ export const TimeSlotList = ({
         const { status, label, variant: statusVariant } = getSlotStatus(slot);
         const isDisabled = !slot.bookable;
         
+        const matchScore = getGroupSizeMatchScore(slot, groupSize);
+        const matchBadge = getMatchScoreBadge(matchScore);
+        
         return (
           <Card 
             key={slot.id}
             className={cn(
               "transition-all duration-200 hover:shadow-md",
+              // Enhanced color coding based on boat type/capacity
+              slot.cruiseType === 'disco' 
+                ? getDiscoColorClasses('card')
+                : getCapacityColorClasses(slot.capacity, 'card'),
+              // Smart matching styles
+              groupSize && getMatchScoreStyles(matchScore),
+              // Selection and interaction states
               isSelected && "ring-2 ring-primary border-primary",
               isDisabled && "opacity-60 cursor-not-allowed",
               !isDisabled && "cursor-pointer hover:border-primary/50"
@@ -165,23 +258,41 @@ export const TimeSlotList = ({
                 <div className="flex items-center justify-between">
                   <div className="font-bold text-base" data-testid={`timeslot-boat-${slot.id}`}>
                     {slot.cruiseType === 'private' && slot.boatCandidates.length > 0 && (
-                      <span className="text-primary">
+                      <span className={cn(
+                        "flex items-center gap-2",
+                        getCapacityColorClasses(slot.capacity, 'text')
+                      )}>
+                        <Ship className="h-4 w-4" />
                         {slot.boatCandidates.length > 1 
                           ? `${slot.boatCandidates.length} Boats` 
                           : `Boat`} (Capacity: {slot.capacity})
                       </span>
                     )}
                     {slot.cruiseType === 'disco' && (
-                      <span className="text-primary">Disco Cruise (Up to {slot.capacity})</span>
+                      <span className={cn(
+                        "flex items-center gap-2",
+                        getDiscoColorClasses('text')
+                      )}>
+                        🎉 Disco Cruise (Up to {slot.capacity})
+                      </span>
                     )}
                   </div>
-                  <Badge 
-                    variant={getSlotStatus(slot).variant} 
-                    className="text-xs"
-                    data-testid={`timeslot-status-${slot.id}`}
-                  >
-                    {getSlotStatus(slot).label}
-                  </Badge>
+                  <div className="flex items-center gap-1">
+                    {/* Smart matching badge */}
+                    {matchBadge && (
+                      <Badge className={cn("text-xs flex items-center gap-1", matchBadge.className)}>
+                        {matchBadge.icon}
+                        {matchBadge.label}
+                      </Badge>
+                    )}
+                    <Badge 
+                      variant={getSlotStatus(slot).variant} 
+                      className="text-xs"
+                      data-testid={`timeslot-status-${slot.id}`}
+                    >
+                      {getSlotStatus(slot).label}
+                    </Badge>
+                  </div>
                 </div>
 
                 {/* MIDDLE: Time slot information */}

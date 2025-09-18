@@ -64,6 +64,28 @@ const CheckoutForm = ({ amount, description, quote }: CheckoutFormProps) => {
     return "Premier Party Cruise";
   };
 
+  // Helper function to get boat details based on quote data
+  const getBoatDetails = (quote: QuoteWithDetails): string => {
+    const groupSize = quote.project?.groupSize || 0;
+    const cruiseType = determineCruiseType(quote);
+    
+    // For disco cruises, always use ATX Disco Cruise boat
+    if (cruiseType.toLowerCase().includes('disco')) {
+      return 'ATX Disco Cruise • Up to 100 guests';
+    }
+    
+    // For private cruises, determine boat based on group size
+    if (groupSize <= 14) {
+      return 'Day Tripper • Up to 14 guests';
+    } else if (groupSize <= 25) {
+      return '25-Person Party Cruiser • Up to 25 guests';
+    } else if (groupSize <= 50) {
+      return 'Clever Girl • Up to 50 guests';
+    } else {
+      return 'Premier Charter Yacht • 50+ guests';
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -393,28 +415,6 @@ export default function Checkout() {
     }
   };
   
-  // Helper function to get boat details based on quote data
-  const getBoatDetails = (quote: QuoteWithDetails): string => {
-    const groupSize = quote.project?.groupSize || 0;
-    const cruiseType = determineCruiseTypeHelper(quote);
-    
-    // For disco cruises, always use ATX Disco Cruise boat
-    if (cruiseType.toLowerCase().includes('disco')) {
-      return 'ATX Disco Cruise • Up to 100 guests';
-    }
-    
-    // For private cruises, determine boat based on group size
-    if (groupSize <= 14) {
-      return 'Day Tripper • Up to 14 guests';
-    } else if (groupSize <= 25) {
-      return '25-Person Party Cruiser • Up to 25 guests';
-    } else if (groupSize <= 50) {
-      return 'Clever Girl • Up to 50 guests';
-    } else {
-      return 'Premier Charter Yacht • 50+ guests';
-    }
-  };
-
   // Helper function to determine cruise type from quote data (shared utility)
   const determineCruiseTypeHelper = (quote: QuoteWithDetails): string => {
     if (!quote.items || quote.items.length === 0) {
