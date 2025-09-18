@@ -4,6 +4,7 @@ import PublicNavigation from '@/components/PublicNavigation';
 import { EnhancedBookingCalendar } from '@/components/EnhancedBookingCalendar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 import { 
