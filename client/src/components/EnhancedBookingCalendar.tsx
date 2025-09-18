@@ -232,17 +232,31 @@ export function EnhancedBookingCalendar({
     if (!selectedSlot) return;
 
     const slotDate = selectedSlot.dateISO || selectedSlot.date;
+    
+    // CRITICAL FIX: Pass complete slot data for backend validation
     const params = new URLSearchParams({
       entryPoint: 'calendar_flow',
       cruiseType: selectedEventType === 'private' ? 'private' : 'disco',
       eventType: selectedEventType,
       groupSize: groupSize.toString(),
       eventDate: slotDate,
+      
+      // Complete slot data for backend validation
+      slotId: selectedSlot.id,
+      startTime: selectedSlot.startTime,
+      endTime: selectedSlot.endTime,
+      duration: selectedSlot.duration?.toString() || '4',
+      boatName: selectedSlot.boatName || '',
+      capacity: selectedSlot.capacity?.toString() || '',
+      
+      // Backward compatibility
       timeSlot: selectedSlot.startTime,
       boatId: selectedSlot.boatName || selectedSlot.id,
-      slotId: selectedSlot.id,
+      
       // Pre-fill with slot pricing if available
       ...(selectedSlot.totalPrice && { estimatedTotal: selectedSlot.totalPrice.toString() }),
+      ...(selectedSlot.label && { slotLabel: selectedSlot.label }),
+      ...(selectedSlot.description && { slotDescription: selectedSlot.description }),
     });
 
     // Navigate to UniversalCheckout with pre-filled selections

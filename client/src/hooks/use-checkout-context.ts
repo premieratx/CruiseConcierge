@@ -209,7 +209,8 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
       eventTypeLabel: EVENT_TYPES[eventType as keyof typeof EVENT_TYPES]?.label || 'Birthday',
       groupSize,
       selectedBoat,
-      selectedTimeSlot: preselectedData.timeSlot || defaultTimeSlot,
+      // CRITICAL FIX: Use complete selectedSlot object instead of just timeSlot string
+      selectedTimeSlot: preselectedData.selectedSlot || defaultTimeSlot,
       cruiseType: preselectedData.cruiseType || 'private',
       discoPackage: preselectedData.discoPackage ? 
         discoPackages.find(p => p.id === preselectedData.discoPackage) : undefined,
@@ -269,6 +270,12 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
     
     return {
       ...basePricing,
+      // Required PricingPreview properties
+      discountTotal: basePricing.discountTotal || 0,
+      depositRequired: basePricing.depositRequired || true,
+      appliedDiscounts: basePricing.appliedDiscounts || [],
+      paymentSchedule: basePricing.paymentSchedule || [],
+      // CheckoutPricing specific properties
       boatInfo: {
         name: selections.selectedBoat.name,
         baseHourlyRate: 25000, // $250/hour fallback

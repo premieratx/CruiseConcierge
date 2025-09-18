@@ -4801,31 +4801,41 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "paymentType and selectionPayload required" });
       }
 
-      // CRITICAL: Require valid slot hold for checkout to prevent double-booking
-      if (!holdId) {
+      // Determine if this is a calendar booking or quote-based booking
+      const isCalendarBooking = selectionPayload?.entryPoint === 'calendar_flow';
+      const isQuoteBasedBooking = holdId && !isCalendarBooking;
+
+      // SECURITY: For quote-based bookings, require valid slot hold to prevent double-booking
+      // For calendar bookings, use direct slot availability checking without holdId requirement
+      let slotHold = null;
+      
+      // Only require holdId for non-calendar quote-based bookings
+      if (!isCalendarBooking && selectionPayload?.quoteId && !holdId) {
         return res.status(400).json({ 
-          error: "holdId is required for secure checkout",
+          error: "holdId is required for quote-based checkout",
           code: "HOLD_ID_REQUIRED"
         });
       }
 
-      // Validate that the hold exists and hasn't expired
-      const slotHold = await storage.getSlotHold(holdId);
-      if (!slotHold) {
-        return res.status(400).json({ 
-          error: "Invalid or expired slot hold", 
-          code: "INVALID_HOLD"
-        });
-      }
+      if (holdId) {
+        // Validate that the hold exists and hasn't expired (for quote-based bookings)
+        slotHold = await storage.getSlotHold(holdId);
+        if (!slotHold) {
+          return res.status(400).json({ 
+            error: "Invalid or expired slot hold", 
+            code: "INVALID_HOLD"
+          });
+        }
 
-      // Check if hold has expired
-      if (slotHold.expiresAt <= new Date()) {
-        // Clean up expired hold
-        await storage.releaseSlotHold(holdId);
-        return res.status(400).json({ 
-          error: "Slot hold has expired. Please select a new time slot", 
-          code: "HOLD_EXPIRED"
-        });
+        // Check if hold has expired
+        if (slotHold.expiresAt <= new Date()) {
+          // Clean up expired hold
+          await storage.releaseSlotHold(holdId);
+          return res.status(400).json({ 
+            error: "Slot hold has expired. Please select a new time slot", 
+            code: "HOLD_EXPIRED"
+          });
+        }
       }
 
       // Validate required selection data
@@ -4850,15 +4860,50 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Missing required selection data" });
       }
 
-      // CRITICAL: Validate that hold matches the booking details to prevent tampering
-      const holdValidation = validateHoldMatchesSelection(slotHold, selectionPayload);
-      if (!holdValidation.valid) {
-        await storage.releaseSlotHold(holdId);
-        return res.status(400).json({ 
-          error: `Hold validation failed: ${holdValidation.errors.join(', ')}`,
-          code: "HOLD_MISMATCH",
-          details: holdValidation.errors
-        });
+      // CRITICAL: Validate selection matches requirements 
+      if (slotHold) {
+        // For bookings with holds, validate that hold matches the booking details to prevent tampering
+        const holdValidation = validateHoldMatchesSelection(slotHold, selectionPayload);
+        if (!holdValidation.valid) {
+          await storage.releaseSlotHold(holdId);
+          return res.status(400).json({ 
+            error: `Hold validation failed: ${holdValidation.errors.join(', ')}`,
+            code: "HOLD_MISMATCH",
+            details: holdValidation.errors
+          });
+        }
+      } else if (isCalendarBooking) {
+        // For direct calendar bookings, validate slot availability and basic requirements
+        const { selectedSlot, cruiseType, groupSize, eventDate } = selectionPayload;
+        
+        if (!selectedSlot || !selectedSlot.startTime || !selectedSlot.endTime) {
+          return res.status(400).json({
+            error: "selectedSlot with startTime and endTime required for calendar booking",
+            code: "MISSING_SLOT_DATA"
+          });
+        }
+
+        // Check slot availability for direct booking (first-come-first-served)
+        const eventDateObj = new Date(eventDate);
+        const startTime = new Date(eventDateObj);
+        const [startHours, startMinutes] = selectedSlot.startTime.split(':');
+        startTime.setHours(parseInt(startHours), parseInt(startMinutes), 0, 0);
+        
+        const endTime = new Date(eventDateObj);
+        const [endHours, endMinutes] = selectedSlot.endTime.split(':');
+        endTime.setHours(parseInt(endHours), parseInt(endMinutes), 0, 0);
+
+        // Validate slot is still available
+        const slotId = selectedSlot.id;
+        const availability = await storage.isSlotAvailable(slotId, parseInt(groupSize));
+        if (!availability.available) {
+          return res.status(400).json({
+            error: `Slot no longer available: ${availability.reason}`,
+            code: "SLOT_UNAVAILABLE"
+          });
+        }
+
+        console.log(`✅ Direct calendar booking validation passed for slot ${slotId}`);
       }
 
       // Calculate pricing server-side to prevent tampering
@@ -5044,11 +5089,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
           duration: cruiseType === 'private' ? pricing.breakdown?.cruiseDuration?.toString() || '3' : '',
           calculatedAmount: paymentAmount.toString(),
           quoteId: quoteId || '',
-          // CRITICAL: Include hold information for webhook processing
-          holdId: holdId,
-          slotId: slotHold.slotId,
-          boatId: slotHold.boatId || '',
-          holdExpiresAt: slotHold.expiresAt.toISOString(),
+          // CRITICAL: Include booking information for webhook processing
+          holdId: holdId || '',
+          slotId: slotHold?.slotId || selectionPayload?.selectedSlot?.id || '',
+          boatId: slotHold?.boatId || selectionPayload?.selectedSlot?.boatName || '',
+          holdExpiresAt: slotHold?.expiresAt?.toISOString() || '',
+          // For calendar bookings, include slot data for processing
+          isCalendarBooking: isCalendarBooking.toString(),
+          entryPoint: selectionPayload?.entryPoint || 'direct_link',
           // Store customer email in metadata if provided (even if invalid)
           customerEmail: customerEmail || '',
           ...metadata

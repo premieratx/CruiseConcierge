@@ -16,19 +16,20 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { CalendarIcon, ClockIcon, UsersIcon, BoatIcon, CreditCardIcon, CheckCircle2, AlertCircle, InfoIcon, ArrowLeft, ArrowRight, EditIcon, StarIcon, TrendingUpIcon, SparklesIcon, MusicIcon, PartyPopperIcon } from 'lucide-react';
+import { CalendarIcon, ClockIcon, UsersIcon, BotIcon as BoatIcon, CreditCardIcon, CheckCircle2, AlertCircle, InfoIcon, ArrowLeft, ArrowRight, EditIcon, StarIcon, TrendingUpIcon, SparklesIcon, MusicIcon, PartyPopperIcon } from 'lucide-react';
 import { useCheckoutContext } from '@/hooks/use-checkout-context';
 import { useToast } from '@/hooks/use-toast';
-import { formatCurrency, formatDate, formatTime } from '@/lib/utils';
+import { formatCurrency, formatDate, formatTimeForDisplay } from '@shared/formatters';
 import { CheckoutEntryPoint, BoatOption, DiscoPackageOption, AddOnPackageOption } from '@shared/schema';
 import { EVENT_TYPES } from '@shared/constants';
 
-import CheckoutBoatSelector from '@/components/checkout/CheckoutBoatSelector';
-import CheckoutTimeSelector from '@/components/checkout/CheckoutTimeSelector';
-import CheckoutContactForm from '@/components/checkout/CheckoutContactForm';
-import CheckoutPaymentForm from '@/components/checkout/CheckoutPaymentForm';
-import CheckoutPricingDisplay from '@/components/checkout/CheckoutPricingDisplay';
-import BachelorComparisonWidget from '@/components/checkout/BachelorComparisonWidget';
+// Note: These checkout components will be implemented as needed
+// import CheckoutBoatSelector from '@/components/checkout/CheckoutBoatSelector';
+// import CheckoutTimeSelector from '@/components/checkout/CheckoutTimeSelector';
+// import CheckoutContactForm from '@/components/checkout/CheckoutContactForm';
+// import CheckoutPaymentForm from '@/components/checkout/CheckoutPaymentForm';
+// import CheckoutPricingDisplay from '@/components/checkout/CheckoutPricingDisplay';
+// import BachelorComparisonWidget from '@/components/checkout/BachelorComparisonWidget';
 
 const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || '');
 
@@ -48,6 +49,33 @@ export default function UniversalCheckout({
 
   // Extract URL parameters for context
   const urlParams = new URLSearchParams(window.location.search);
+  
+  // CRITICAL FIX: Reconstruct complete selectedSlot object from URL parameters
+  const hasSlotData = urlParams.get('slotId') && urlParams.get('startTime') && urlParams.get('endTime');
+  const selectedSlot = hasSlotData ? {
+    id: urlParams.get('slotId')!,
+    dateISO: urlParams.get('eventDate')!,
+    startTime: urlParams.get('startTime')!,
+    endTime: urlParams.get('endTime')!,
+    duration: urlParams.get('duration') ? parseInt(urlParams.get('duration')!) : 4,
+    label: urlParams.get('slotLabel') || `${urlParams.get('startTime')} - ${urlParams.get('endTime')}`,
+    description: urlParams.get('slotDescription') || '',
+    cruiseType: (urlParams.get('cruiseType') as 'private' | 'disco') || 'private',
+    capacity: urlParams.get('capacity') ? parseInt(urlParams.get('capacity')!) : 25,
+    boatName: urlParams.get('boatName') || '',
+    boatCandidates: urlParams.get('boatName') ? [urlParams.get('boatName')!] : [],
+    availableCount: 1,
+    bookable: true,
+    held: false,
+    totalPrice: urlParams.get('estimatedTotal') ? parseInt(urlParams.get('estimatedTotal')!) : undefined,
+    estimatedPricing: urlParams.get('estimatedTotal') ? {
+      baseRate: Math.floor(parseInt(urlParams.get('estimatedTotal')!) / 4),
+      duration: urlParams.get('duration') ? parseInt(urlParams.get('duration')!) : 4,
+      subtotal: parseInt(urlParams.get('estimatedTotal')!),
+      total: parseInt(urlParams.get('estimatedTotal')!)
+    } : undefined
+  } : undefined;
+
   const contextFromUrl = {
     quoteId: urlParams.get('quoteId'),
     projectId: urlParams.get('projectId'),
@@ -56,6 +84,16 @@ export default function UniversalCheckout({
     eventDate: urlParams.get('eventDate') ? new Date(urlParams.get('eventDate')!) : undefined,
     boatId: urlParams.get('boatId'),
     cruiseType: urlParams.get('cruiseType') as 'private' | 'disco' | undefined,
+    
+    // Add reconstructed selectedSlot object
+    selectedSlot,
+    
+    // Backward compatibility fields
+    timeSlot: urlParams.get('timeSlot'),
+    slotId: urlParams.get('slotId'),
+    startTime: urlParams.get('startTime'),
+    endTime: urlParams.get('endTime'),
+    
     ...preselectedData
   };
 
@@ -102,7 +140,7 @@ export default function UniversalCheckout({
     processCheckout,
     canProceedToPayment,
     isEventTypeBachelorette,
-    needsHoldRenewal
+    // needsHoldRenewal - removed as it's not part of the interface
   } = checkout;
 
   // Handle step navigation
@@ -193,7 +231,7 @@ export default function UniversalCheckout({
               <div className="flex items-center space-x-3">
                 <Button 
                   variant="ghost" 
-                  size="sm"
+                  className="text-sm"
                   onClick={() => window.history.back()}
                   data-testid="button-back"
                 >
@@ -543,7 +581,7 @@ function SelectionsStep({
                           <div className="flex items-center">
                             <h4 className="font-semibold">{pkg.name}</h4>
                             {pkg.popular && (
-                              <Badge className="ml-2" variant="secondary" size="sm">
+                              <Badge className="ml-2 text-xs" variant="secondary">
                                 Popular
                               </Badge>
                             )}

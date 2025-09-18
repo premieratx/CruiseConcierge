@@ -1591,6 +1591,7 @@ export interface NormalizedSlot {
   id: string; // unique identifier for the slot (date + time + cruiseType combination)
   cruiseType: 'private' | 'disco'; // type of cruise offering
   dateISO: string; // YYYY-MM-DD format for the cruise date
+  date: string; // Alias for dateISO for backward compatibility
   startTime: string; // HH:MM format start time
   endTime: string; // HH:MM format end time  
   label: string; // human-readable time display (e.g., "11am-3pm")
@@ -1598,6 +1599,8 @@ export interface NormalizedSlot {
   capacity: number; // maximum group size for this slot
   availableCount: number; // how many boats/tickets are available
   price: number; // base price in cents for this slot/group size
+  totalPrice: number; // total price including all fees and taxes
+  boatName: string; // name of the preferred/assigned boat for this slot
   boatCandidates: string[]; // array of boat IDs that could serve this slot
   bookable: boolean; // whether this slot can be booked (available and not held)
   held?: boolean; // whether this slot is currently held by someone
