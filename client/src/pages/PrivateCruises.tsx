@@ -1,35 +1,18 @@
-import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
-import { motion, AnimatePresence } from 'framer-motion';
-import { useQuery } from '@tanstack/react-query';
+import { motion } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
+import { StreamlinedBookingWidget } from '@/components/StreamlinedBookingWidget';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Card, CardContent } from '@/components/ui/card';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
-import { cn } from '@/lib/utils';
-import { useToast } from '@/hooks/use-toast';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 import { 
-  Ship, Users, Clock, DollarSign, Star, Calendar, Phone, Mail, MapPin,
-  ArrowRight, CheckCircle, Sparkles, Crown, Music, Anchor, Waves,
-  Heart, Camera, PartyPopper, Sun, Trophy, Shield, Award,
-  MessageCircle, Instagram, Facebook, Twitter, Quote, ChevronRight,
-  Navigation, Compass, LifeBuoy, Zap, Target, TrendingUp, Play,
-  ExternalLink, BookOpen, Headphones, Car, Wine, Camera as CameraIcon,
-  UserCheck, MessageSquare, Ticket, Gift, Disc3, Volume2, 
-  MicIcon as Mic, Utensils, GlassWater, Palmtree, CircleDot,
-  Calculator, FileCheck, CreditCard, Banknote, HandCoins,
-  ChefHat, Wifi, Bluetooth, Building, Settings, Compass as CompassIcon,
-  Gauge, Fuel, PersonStanding
+  Ship, Users, Star, Calendar, Trophy, Shield, Award,
+  MessageSquare, Quote, Volume2, 
+  Calculator, FileCheck, CreditCard, PersonStanding,
+  ChefHat, Wifi, Bluetooth, Building,
+  UserCheck, Target, Headphones
 } from 'lucide-react';
-import { formatCurrency } from '@shared/formatters';
-import { PRICING_DEFAULTS } from '@shared/constants';
-import { apiRequest } from '@/lib/queryClient';
 import SEOHead from '@/components/SEOHead';
 
 // Hero and gallery images 
@@ -58,147 +41,12 @@ const staggerChildren = {
   }
 };
 
-const scaleIn = {
-  hidden: { opacity: 0, scale: 0.9 },
-  visible: { 
-    opacity: 1, 
-    scale: 1,
-    transition: { duration: 0.5, ease: "easeOut" }
-  }
-};
-
-// Types for dynamic pricing
-interface DynamicPricing {
-  weekdayRate: number;
-  weekendRate: number;
-  subtotal: number;
-  tax: number;
-  gratuity: number;
-  total: number;
-  depositAmount: number;
-}
-
-interface FleetOption {
-  id: string;
-  name: string;
-  subtitle: string;
-  capacity: number;
-  maxCapacity: number;
-  features: string[];
-  duration: { weekday: number; weekend: number };
-  image: string;
-  popular: boolean;
-  amenities: Array<{ icon: any; label: string }>;
-  pricing?: DynamicPricing;
-  isLoading?: boolean;
-}
-
-// Static fleet options (visual data only - pricing is dynamic)
-const staticFleetOptions: Omit<FleetOption, 'pricing' | 'isLoading'>[] = [
-  {
-    id: 'pontoon-14',
-    name: '14-Person Pontoon',
-    subtitle: 'Perfect for intimate groups',
-    capacity: 14,
-    maxCapacity: 14,
-    features: [
-      'Intimate private setting',
-      'Premium sound system',
-      'Coolers & ice provided',
-      'Professional captain included',
-      'Perfect for small celebrations'
-    ],
-    duration: {
-      weekday: 3, // minimum hours Mon-Thu
-      weekend: 4  // minimum hours Fri-Sun
-    },
-    image: galleryImage1,
-    popular: false,
-    amenities: [
-      { icon: Users, label: 'Up to 14 guests' },
-      { icon: Volume2, label: 'Premium sound system' },
-      { icon: LifeBuoy, label: 'Safety equipment' },
-      { icon: GlassWater, label: 'Coolers & ice' }
-    ]
-  },
-  {
-    id: 'pontoon-25',
-    name: '25-Person Pontoon',
-    subtitle: 'Most popular choice',
-    capacity: 25,
-    maxCapacity: 25,
-    features: [
-      'Spacious deck & seating',
-      'Premium sound system with Bluetooth',
-      'Large coolers & ice service',
-      'Professional captain & crew',
-      'Perfect for parties & celebrations'
-    ],
-    duration: {
-      weekday: 3, // minimum hours Mon-Thu
-      weekend: 4  // minimum hours Fri-Sun
-    },
-    image: galleryImage2,
-    popular: true,
-    amenities: [
-      { icon: Users, label: 'Up to 25 guests' },
-      { icon: Bluetooth, label: 'Bluetooth sound system' },
-      { icon: Shield, label: 'Professional crew' },
-      { icon: Anchor, label: 'Lake access & swimming' }
-    ]
-  },
-  {
-    id: 'yacht-50',
-    name: '50-Person Yacht',
-    subtitle: 'Premium luxury experience',
-    capacity: 50,
-    maxCapacity: 50,
-    features: [
-      'Luxury yacht with multiple decks',
-      'High-end sound system & entertainment',
-      'Full bar setup available',
-      'Professional captain & extra crew',
-      'Perfect for corporate & large events'
-    ],
-    duration: {
-      weekday: 3, // minimum hours Mon-Thu
-      weekend: 4  // minimum hours Fri-Sun
-    },
-    image: galleryImage3,
-    popular: false,
-    amenities: [
-      { icon: Users, label: 'Up to 50 guests' },
-      { icon: Crown, label: 'Luxury yacht amenities' },
-      { icon: ChefHat, label: 'Full bar setup' },
-      { icon: Camera, label: 'Multiple photo areas' }
-    ]
-  },
-  {
-    id: 'mega-yacht-75',
-    name: '75-Person Mega Yacht',
-    subtitle: 'Ultimate luxury charter',
-    capacity: 75,
-    maxCapacity: 75,
-    features: [
-      'Mega yacht with premium amenities',
-      'Multi-zone sound system',
-      'Full catering kitchen available',
-      'Professional crew of 3+',
-      'Perfect for weddings & corporate retreats'
-    ],
-    duration: {
-      weekday: 4, // minimum hours Mon-Thu
-      weekend: 4  // minimum hours Fri-Sun
-    },
-    image: galleryImage1,
-    popular: false,
-    amenities: [
-      { icon: Users, label: 'Up to 75 guests' },
-      { icon: Building, label: 'Multiple deck levels' },
-      { icon: Utensils, label: 'Full catering kitchen' },
-      { icon: Wifi, label: 'Premium amenities' }
-    ]
-  }
+// Fleet capacity options for display
+const fleetCapacities = [
+  { capacity: '14-person', name: 'Pontoon', subtitle: 'Perfect for intimate groups' },
+  { capacity: '25-30 person', name: 'Pontoon', subtitle: 'Most popular choice' },
+  { capacity: '50-person', name: 'Yacht', subtitle: 'Premium luxury experience' },
+  { capacity: '75-person', name: 'Mega Yacht', subtitle: 'Ultimate luxury charter' }
 ];
 
 // Pricing breakdown components
@@ -331,160 +179,10 @@ const faqData = [
 
 export default function PrivateCruises() {
   const [location, navigate] = useLocation();
-  const { toast } = useToast();
-  const [fleetOptions, setFleetOptions] = useState<FleetOption[]>(
-    staticFleetOptions.map(option => ({ ...option, isLoading: true }))
-  );
-  const [selectedBoat, setSelectedBoat] = useState<FleetOption | null>(null);
-  const [showPricingCalculator, setShowPricingCalculator] = useState(false);
-  const [calculatorInputs, setCalculatorInputs] = useState({
-    groupSize: 20,
-    hours: 4,
-    isWeekend: true
-  });
 
-  // Fetch pricing settings for tax and gratuity calculations
-  const { data: pricingSettings } = useQuery<any>({
-    queryKey: ['/api/pricing-settings'],
-    staleTime: 5 * 60 * 1000, // 5 minutes
-  });
-
-  // Calculate dynamic pricing for each fleet option
-  const calculateFleetPricing = async (option: Omit<FleetOption, 'pricing' | 'isLoading'>, isWeekend: boolean): Promise<DynamicPricing> => {
-    const baseHourlyRate = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100; // Convert from cents to dollars
-    const duration = isWeekend ? option.duration.weekend : option.duration.weekday;
-    
-    // Apply capacity-based rate adjustments (matching booking system logic)
-    let adjustedHourlyRate = baseHourlyRate;
-    if (option.capacity <= 14) {
-      adjustedHourlyRate = 180; // Small boats: $180/hour
-    } else if (option.capacity <= 25) {
-      adjustedHourlyRate = isWeekend ? 340 : 280; // Popular size with weekend premium
-    } else if (option.capacity <= 50) {
-      adjustedHourlyRate = isWeekend ? 550 : 450; // Luxury yacht rates
-    } else {
-      adjustedHourlyRate = isWeekend ? 800 : 650; // Mega yacht rates
-    }
-
-    const subtotal = adjustedHourlyRate * duration;
-    
-    // Apply crew fee for larger groups (matching booking system)
-    const crewFee = option.capacity > 20 ? 200 : 0;
-    const subtotalWithCrew = subtotal + crewFee;
-    
-    // Use pricing settings or defaults
-    const taxRate = pricingSettings?.taxRate ? pricingSettings.taxRate / 10000 : 0.0825; // Convert basis points
-    const gratuityRate = pricingSettings?.defaultGratuityPercent ? pricingSettings.defaultGratuityPercent / 100 : (PRICING_DEFAULTS.GRATUITY_PERCENT / 100);
-    const depositPercent = pricingSettings?.defaultDepositPercent || 25;
-    
-    const tax = Math.round(subtotalWithCrew * taxRate);
-    const gratuity = Math.round(subtotalWithCrew * gratuityRate);
-    const total = subtotalWithCrew + tax + gratuity;
-    const depositAmount = Math.round(total * (depositPercent / 100));
-
-    return {
-      weekdayRate: isWeekend ? adjustedHourlyRate * 0.83 : adjustedHourlyRate, // Reverse calculate weekday rate
-      weekendRate: isWeekend ? adjustedHourlyRate : adjustedHourlyRate * 1.2, // Weekend premium
-      subtotal: subtotalWithCrew,
-      tax,
-      gratuity,
-      total,
-      depositAmount,
-    };
-  };
-
-  // Update fleet options with dynamic pricing
-  useEffect(() => {
-    const updatePricing = async () => {
-      const sampleDate = new Date(); // Default to today for initial pricing
-      const isWeekend = sampleDate.getDay() === 0 || sampleDate.getDay() >= 5; // Friday, Saturday, Sunday
-      
-      const updatedOptions = await Promise.all(
-        staticFleetOptions.map(async (option) => {
-          try {
-            const pricing = await calculateFleetPricing(option, isWeekend);
-            return { ...option, pricing, isLoading: false };
-          } catch (error) {
-            console.error(`Failed to calculate pricing for ${option.name}:`, error);
-            return { ...option, isLoading: false };
-          }
-        })
-      );
-      
-      setFleetOptions(updatedOptions);
-      
-      // Set default selected boat to most popular once loaded
-      if (!selectedBoat) {
-        const popularOption = updatedOptions.find(option => option.popular) || updatedOptions[0];
-        setSelectedBoat(popularOption);
-      }
-    };
-
-    updatePricing();
-  }, [pricingSettings, selectedBoat]);
-
-  // Calculate pricing for calculator with dynamic data
-  const calculatePrice = (boat: FleetOption, inputs: typeof calculatorInputs) => {
-    if (!boat.pricing) {
-      return {
-        basePrice: 0,
-        extraCrewFee: 0,
-        subtotal: 0,
-        tax: 0,
-        suggestedGratuity: 0,
-        total: 0
-      };
-    }
-
-    const rate = inputs.isWeekend ? boat.pricing.weekendRate : boat.pricing.weekdayRate;
-    const basePrice = rate * inputs.hours;
-    const extraCrewFee = inputs.groupSize > 20 ? 200 : 0;
-    const subtotal = basePrice + extraCrewFee;
-    const taxRate = pricingSettings?.taxRate ? pricingSettings.taxRate / 10000 : 0.0825;
-    const gratuityRate = pricingSettings?.defaultGratuityPercent ? pricingSettings.defaultGratuityPercent / 100 : 0.20;
-    const tax = Math.round(subtotal * taxRate);
-    const suggestedGratuity = Math.round(subtotal * gratuityRate);
-    const total = subtotal + tax + suggestedGratuity;
-    
-    return {
-      basePrice,
-      extraCrewFee,
-      subtotal,
-      tax,
-      suggestedGratuity,
-      total
-    };
-  };
-
-  const handleBookNow = (boat?: FleetOption) => {
-    // Navigate to booking flow with pre-filled boat selection
-    if (boat) {
-      const params = new URLSearchParams({
-        cruiseType: 'private',
-        boatCapacity: boat.capacity.toString(),
-        eventType: 'other',
-        groupSize: Math.min(boat.capacity, 20).toString(),
-        preselectedBoat: boat.id
-      });
-      navigate(`/booking-flow?${params.toString()}`);
-    } else {
-      navigate('/booking-flow?cruiseType=private');
-    }
-  };
-
-  const handleGetQuote = (boat?: FleetOption) => {
-    // Navigate to chat with pre-filled boat information for instant quote
-    if (boat) {
-      const message = `I'm interested in getting a quote for the ${boat.name} for a private cruise. Can you help me with pricing?`;
-      navigate(`/chat?message=${encodeURIComponent(message)}&boatType=${boat.capacity}&cruiseType=private`);
-    } else {
-      navigate('/chat?cruiseType=private');
-    }
-  };
-
-  const handleStartBooking = () => {
-    // Navigate to booking flow from hero section
-    navigate('/booking-flow?cruiseType=private&source=hero');
+  const handleGetQuote = () => {
+    // Navigate to chat for instant quote
+    navigate('/chat?cruiseType=private');
   };
 
   return (
@@ -563,23 +261,25 @@ export default function PrivateCruises() {
             >
               <Button
                 size="lg"
-                onClick={() => handleBookNow()}
+                asChild
                 className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-xl px-12 py-6 transition-all duration-300 hover:scale-105"
                 data-testid="button-book-private-cruise"
               >
-                <Calendar className="mr-3 h-6 w-6" />
-                BOOK YOUR PRIVATE CRUISE
+                <a href="#booking-widget">
+                  <Calendar className="mr-3 h-6 w-6" />
+                  BOOK YOUR PRIVATE CRUISE
+                </a>
               </Button>
               
               <Button
                 size="lg"
                 variant="outline"
-                onClick={() => setShowPricingCalculator(true)}
+                onClick={handleGetQuote}
                 className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold text-xl px-12 py-6 transition-all duration-300 hover:scale-105"
-                data-testid="button-pricing-calculator"
+                data-testid="button-get-instant-quote"
               >
-                <Calculator className="mr-3 h-6 w-6" />
-                PRICING CALCULATOR
+                <MessageSquare className="mr-3 h-6 w-6" />
+                GET INSTANT QUOTE
               </Button>
             </motion.div>
 
@@ -611,12 +311,12 @@ export default function PrivateCruises() {
           <div className="absolute bottom-1/4 left-1/3 w-3 h-3 bg-brand-yellow rounded-full animate-ping opacity-20" style={{animationDelay: '2s'}} />
         </div>
       </section>
-
-      {/* Fleet Showcase Section */}
-      <section className="py-24 bg-white dark:bg-gray-950">
+      
+      {/* Streamlined Booking Section */}
+      <section id="booking-widget" className="py-24 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-6">
           <motion.div 
-            className="text-center mb-20"
+            className="text-center mb-16"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -626,140 +326,79 @@ export default function PrivateCruises() {
               variants={fadeInUp}
               className="text-4xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white"
             >
-              OUR PREMIUM FLEET
+              BOOK YOUR PRIVATE CRUISE
             </motion.h2>
             <motion.p 
               variants={fadeInUp}
               className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
             >
-              Choose from Austin's newest and nicest boats, each equipped with premium amenities 
-              and professional crews to ensure your perfect day on Lake Travis.
+              Choose your group size and preferred date to see available boats and pricing.
+              Our streamlined booking process makes it easy to secure your Lake Travis adventure.
             </motion.p>
           </motion.div>
+          
+          <motion.div
+            initial="hidden"
+            whileInView="visible" 
+            viewport={{ once: true }}
+            variants={fadeInUp}
+          >
+            <StreamlinedBookingWidget 
+              defaultPartyType="private"
+              defaultGroupSize={20}
+              className="max-w-6xl mx-auto"
+            />
+          </motion.div>
+        </div>
+      </section>
 
-          <div className="grid lg:grid-cols-2 gap-12 max-w-7xl mx-auto">
-            {fleetOptions.map((boat, index) => (
-              <motion.div
-                key={boat.id}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                variants={fadeInUp}
-                className={cn(
-                  "relative group cursor-pointer transition-all duration-300",
-                  selectedBoat?.id === boat.id && "scale-105"
-                )}
-                onClick={() => setSelectedBoat(boat)}
-                data-testid={`card-boat-${boat.id}`}
-              >
-                <Card className="overflow-hidden h-full hover:shadow-2xl transition-all duration-300 border-2 hover:border-brand-blue/50">
-                  {boat.popular && (
-                    <Badge className="absolute top-4 right-4 z-10 bg-brand-yellow text-black font-bold px-4 py-2">
-                      Most Popular
-                    </Badge>
-                  )}
-                  
-                  <div className="relative h-64 overflow-hidden">
-                    <img 
-                      src={boat.image} 
-                      alt={boat.name}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                    <div className="absolute bottom-4 left-4 text-white">
-                      <div className="text-2xl font-heading font-bold">{boat.name}</div>
-                      <div className="text-sm opacity-90">{boat.subtitle}</div>
-                    </div>
-                  </div>
-
-                  <CardHeader>
-                    <div className="flex justify-between items-start mb-4">
-                      <div>
-                        <CardTitle className="text-2xl font-heading mb-2">{boat.name}</CardTitle>
-                        <CardDescription className="text-lg">{boat.subtitle}</CardDescription>
-                      </div>
-                      <div className="text-right">
-                        {boat.isLoading ? (
-                          <div className="animate-pulse space-y-2">
-                            <div className="h-6 bg-gray-200 dark:bg-gray-700 rounded w-20"></div>
-                            <div className="h-4 bg-gray-200 dark:bg-gray-700 rounded w-16"></div>
-                          </div>
-                        ) : boat.pricing ? (
-                          <>
-                            <div className="text-2xl font-bold text-brand-blue" data-testid={`text-weekday-rate-${boat.id}`}>
-                              {formatCurrency(boat.pricing.weekdayRate)}/hr
-                            </div>
-                            <div className="text-sm text-gray-600 dark:text-gray-300">Mon-Thu</div>
-                            <div className="text-lg font-semibold text-gray-900 dark:text-white mt-1" data-testid={`text-weekend-rate-${boat.id}`}>
-                              {formatCurrency(boat.pricing.weekendRate)}/hr
-                            </div>
-                            <div className="text-sm text-gray-600 dark:text-gray-300">Fri-Sun</div>
-                            <div className="text-xs text-green-600 dark:text-green-400 mt-2 font-medium" data-testid={`text-total-${boat.id}`}>
-                              Total: {formatCurrency(boat.pricing.total)}
-                            </div>
-                          </>
-                        ) : (
-                          <div className="text-sm text-gray-500 dark:text-gray-400">
-                            Call for pricing
-                          </div>
-                        )}
-                      </div>
-                    </div>
-
-                    {/* Amenities Grid */}
-                    <div className="grid grid-cols-2 gap-3 mb-6">
-                      {boat.amenities.map((amenity, idx) => (
-                        <div key={idx} className="flex items-center space-x-2">
-                          <amenity.icon className="h-4 w-4 text-brand-blue" />
-                          <span className="text-sm font-medium">{amenity.label}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    {/* Features List */}
-                    <ul className="space-y-2 mb-6">
-                      {boat.features.map((feature, idx) => (
-                        <li key={idx} className="flex items-center space-x-2">
-                          <CheckCircle className="h-4 w-4 text-green-500 flex-shrink-0" />
-                          <span className="text-sm text-gray-700 dark:text-gray-300">{feature}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </CardHeader>
-
-                  <CardContent className="pt-0">
-                    <div className="space-y-3">
-                      <Button
-                        className="w-full bg-brand-blue hover:bg-brand-blue-dark text-white font-bold"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleBookNow(boat);
-                        }}
-                        data-testid={`button-book-${boat.id}`}
-                      >
-                        <Calendar className="mr-2 h-4 w-4" />
-                        Book {boat.name}
-                      </Button>
-                      <Button
-                        variant="outline"
-                        className="w-full"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleGetQuote(boat);
-                        }}
-                        data-testid={`button-quote-${boat.id}`}
-                      >
-                        <MessageCircle className="mr-2 h-4 w-4" />
-                        Get Instant Quote
-                      </Button>
-                    </div>
+      {/* Fleet Capacity Overview */}
+      <section className="py-24 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerChildren}
+          >
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-4xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white"
+            >
+              OUR FLEET OPTIONS
+            </motion.h2>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
+            >
+              Choose from Austin's newest and nicest boats, each equipped with premium amenities for your perfect day on the water.
+            </motion.p>
+          </motion.div>
+          
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerChildren}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+          >
+            {fleetCapacities.map((fleet, index) => (
+              <motion.div key={index} variants={fadeInUp}>
+                <Card className="text-center p-6 h-full hover:shadow-lg transition-shadow duration-300">
+                  <CardContent className="pt-6">
+                    <Ship className="h-12 w-12 text-brand-blue mx-auto mb-4" />
+                    <h3 className="text-xl font-bold mb-2">{fleet.capacity}</h3>
+                    <p className="text-lg font-semibold text-brand-blue mb-2">{fleet.name}</p>
+                    <p className="text-gray-600 dark:text-gray-300">{fleet.subtitle}</p>
                   </CardContent>
                 </Card>
               </motion.div>
             ))}
-          </div>
+          </motion.div>
         </div>
       </section>
+
 
       {/* Pricing Transparency Section */}
       <section className="py-24 bg-gray-50 dark:bg-gray-900">
@@ -1065,12 +704,14 @@ export default function PrivateCruises() {
             >
               <Button
                 size="lg"
-                onClick={() => handleBookNow()}
+                asChild
                 className="bg-white text-brand-blue hover:bg-gray-100 font-bold text-xl px-12 py-6 transition-all duration-300 hover:scale-105"
                 data-testid="button-book-now-final"
               >
-                <Calendar className="mr-3 h-6 w-6" />
-                BOOK NOW
+                <a href="#booking-widget">
+                  <Calendar className="mr-3 h-6 w-6" />
+                  BOOK NOW
+                </a>
               </Button>
               
               <Button
@@ -1088,156 +729,6 @@ export default function PrivateCruises() {
         </div>
       </section>
 
-      {/* Pricing Calculator Modal */}
-      <Dialog open={showPricingCalculator} onOpenChange={setShowPricingCalculator}>
-        <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-heading">Private Cruise Pricing Calculator</DialogTitle>
-            <DialogDescription>
-              Get an estimate for your private cruise. Final pricing may vary based on specific requirements.
-            </DialogDescription>
-          </DialogHeader>
-
-          <div className="space-y-6">
-            {/* Boat Selection */}
-            <div>
-              <Label className="text-lg font-semibold mb-3 block">Select Your Boat</Label>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {fleetOptions.filter(boat => boat?.id).map((boat) => (
-                  <Button
-                    key={boat.id}
-                    variant={selectedBoat?.id === boat.id ? "default" : "outline"}
-                    onClick={() => setSelectedBoat(boat)}
-                    className="p-4 h-auto text-left flex flex-col items-start space-y-1"
-                    data-testid={`calculator-boat-${boat.id}`}
-                  >
-                    <span className="font-semibold">{boat.name}</span>
-                    <span className="text-sm opacity-75">Up to {boat.capacity} guests</span>
-                  </Button>
-                ))}
-              </div>
-            </div>
-
-            {/* Calculator Inputs */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div>
-                <Label htmlFor="groupSize" className="font-semibold">Group Size</Label>
-                <Input
-                  id="groupSize"
-                  type="number"
-                  min="1"
-                  max={selectedBoat?.maxCapacity || 50}
-                  value={calculatorInputs.groupSize}
-                  onChange={(e) => setCalculatorInputs(prev => ({ ...prev, groupSize: parseInt(e.target.value) || 1 }))}
-                  className="mt-2"
-                  data-testid="input-group-size"
-                />
-              </div>
-              
-              <div>
-                <Label htmlFor="hours" className="font-semibold">Duration (Hours)</Label>
-                <Input
-                  id="hours"
-                  type="number"
-                  min={selectedBoat?.duration?.weekday || 3}
-                  max="8"
-                  value={calculatorInputs.hours}
-                  onChange={(e) => setCalculatorInputs(prev => ({ ...prev, hours: parseInt(e.target.value) || 3 }))}
-                  className="mt-2"
-                  data-testid="input-hours"
-                />
-              </div>
-              
-              <div>
-                <Label className="font-semibold">Day Type</Label>
-                <div className="mt-2 space-y-2">
-                  <Button
-                    variant={!calculatorInputs.isWeekend ? "default" : "outline"}
-                    onClick={() => setCalculatorInputs(prev => ({ ...prev, isWeekend: false }))}
-                    className="w-full"
-                    data-testid="button-weekday"
-                  >
-                    Weekday
-                  </Button>
-                  <Button
-                    variant={calculatorInputs.isWeekend ? "default" : "outline"}
-                    onClick={() => setCalculatorInputs(prev => ({ ...prev, isWeekend: true }))}
-                    className="w-full"
-                    data-testid="button-weekend"
-                  >
-                    Weekend
-                  </Button>
-                </div>
-              </div>
-            </div>
-
-            {/* Pricing Breakdown */}
-            {(() => {
-              if (!selectedBoat) {
-                return (
-                  <Card className="p-6 bg-gray-50 dark:bg-gray-800">
-                    <div className="text-center text-gray-500 dark:text-gray-400">
-                      Please select a boat to see pricing
-                    </div>
-                  </Card>
-                );
-              }
-              const pricing = calculatePrice(selectedBoat, calculatorInputs);
-              return (
-                <Card className="p-6 bg-gray-50 dark:bg-gray-800">
-                  <h3 className="text-lg font-semibold mb-4">Estimated Pricing Breakdown</h3>
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span>Base Rate ({calculatorInputs.hours} hours × {formatCurrency(calculatorInputs.isWeekend ? selectedBoat?.pricing?.weekendRate || 0 : selectedBoat?.pricing?.weekdayRate || 0)}/hr)</span>
-                      <span className="font-semibold">{formatCurrency(pricing.basePrice)}</span>
-                    </div>
-                    {pricing.extraCrewFee > 0 && (
-                      <div className="flex justify-between">
-                        <span>Extra Crew Fee ({calculatorInputs.groupSize} people)</span>
-                        <span className="font-semibold">{formatCurrency(pricing.extraCrewFee)}</span>
-                      </div>
-                    )}
-                    <div className="flex justify-between font-semibold border-t pt-2">
-                      <span>Subtotal</span>
-                      <span>{formatCurrency(pricing.subtotal)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Tax (8.25%)</span>
-                      <span>{formatCurrency(pricing.tax)}</span>
-                    </div>
-                    <div className="flex justify-between">
-                      <span>Suggested Gratuity (20%)</span>
-                      <span>{formatCurrency(pricing.suggestedGratuity)}</span>
-                    </div>
-                    <div className="flex justify-between text-xl font-bold border-t-2 border-brand-blue pt-3">
-                      <span>Estimated Total</span>
-                      <span className="text-brand-blue">{formatCurrency(pricing.total)}</span>
-                    </div>
-                    <div className="text-center text-sm text-gray-600 dark:text-gray-300">
-                      = {formatCurrency(Math.round(pricing.total / calculatorInputs.groupSize))} per person
-                    </div>
-                  </div>
-                  
-                  <div className="mt-6 text-center">
-                    <Button
-                      onClick={() => {
-                        setShowPricingCalculator(false);
-                        const message = `I'm interested in booking a ${selectedBoat?.name || 'boat'} for ${calculatorInputs.groupSize} people for ${calculatorInputs.hours} hours on a ${calculatorInputs.isWeekend ? 'weekend' : 'weekday'}. The calculator estimated ${formatCurrency(pricing.total)}. Can you help me with booking?`;
-                        navigate(`/contact?message=${encodeURIComponent(message)}`);
-                      }}
-                      className="bg-brand-blue hover:bg-brand-blue-dark text-white font-bold px-8 py-3"
-                      data-testid="button-book-from-calculator"
-                    >
-                      <Calendar className="mr-2 h-4 w-4" />
-                      Book This Cruise
-                    </Button>
-                  </div>
-                </Card>
-              );
-            })()}
-          </div>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }
