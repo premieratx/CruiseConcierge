@@ -12,10 +12,13 @@ import {
   MessageSquare, Quote, Volume2, 
   Calculator, FileCheck, CreditCard, PersonStanding,
   ChefHat, Wifi, Bluetooth, Building,
-  UserCheck, Target, Headphones
+  UserCheck, Target, Headphones, Check, Sparkles,
+  Waves, Wine, Umbrella, Music, Clock,
+  Package, Gift, Heart, Crown, Anchor
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import { formatCurrency } from '@shared/formatters';
+import { PRIVATE_CRUISE_PACKAGES, PRIVATE_CAPACITY_TIERS, PACKAGE_COMPARISON_FEATURES } from '@shared/constants';
 
 // Hero and gallery images 
 import heroImage1 from '@assets/image_1757844813165.png';
@@ -245,16 +248,17 @@ export default function PrivateCruises() {
               variants={fadeInUp}
               className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-8 text-gray-900 dark:text-white"
             >
-              EXCLUSIVE PRIVATE
-              <span className="block text-brand-blue">LAKE TRAVIS CRUISES</span>
+              EVERYTHING SET UP
+              <span className="block text-brand-blue">WHEN YOU ARRIVE</span>
             </motion.h1>
             
             <motion.p 
               variants={fadeInUp}
               className="text-xl md:text-2xl mb-12 text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed"
             >
-              Your own private floating paradise with professional crew, premium amenities, 
-              and unforgettable Austin Hill Country views. From intimate gatherings to grand celebrations.
+              <span className="text-brand-blue font-bold">Choose Your Perfect Package.</span> From basic cruising to ultimate party experiences, 
+              we handle all the setup so you can focus on making memories. Professional crew, premium amenities, 
+              and everything scaled perfectly for your group size.
             </motion.p>
             
             <motion.div 
@@ -291,10 +295,10 @@ export default function PrivateCruises() {
               className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center"
             >
               {[
-                { icon: Users, text: '14-75 Person Boats', subtext: 'Perfect for any group size' },
-                { icon: Trophy, text: '14+ Years Experience', subtext: 'Austin\'s most trusted' },
-                { icon: Shield, text: 'Professional Crews', subtext: 'Coast Guard certified' },
-                { icon: Star, text: 'Premium Amenities', subtext: 'Everything included' }
+                { icon: Package, text: '3 Package Levels', subtext: 'Standard • Essentials • Ultimate' },
+                { icon: Users, text: '5 Capacity Options', subtext: '14 • 25 • 30 • 50 • 75 Person Boats' },
+                { icon: Clock, text: 'No Setup Required', subtext: 'Everything ready when you arrive' },
+                { icon: Wine, text: 'Alcohol Delivery', subtext: 'Convenient party planning' }
               ].map((item, index) => (
                 <div key={index} className="flex flex-col items-center">
                   <item.icon className="h-12 w-12 text-brand-blue mb-4" />
@@ -354,7 +358,7 @@ export default function PrivateCruises() {
         </div>
       </section>
 
-      {/* Fleet Capacity Overview */}
+      {/* Comprehensive Package Showcase */}
       <section className="py-24 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-6">
           <motion.div 
@@ -368,39 +372,452 @@ export default function PrivateCruises() {
               variants={fadeInUp}
               className="text-4xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white"
             >
-              OUR FLEET OPTIONS
+              CHOOSE YOUR PERFECT PACKAGE
             </motion.h2>
             <motion.p 
               variants={fadeInUp}
-              className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
+              className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8"
             >
-              Choose from Austin's newest and nicest boats, each equipped with premium amenities for your perfect day on the water.
+              From basic cruising to ultimate party experiences - every capacity, every celebration, everything perfectly scaled for your group.
             </motion.p>
+            <motion.div
+              variants={fadeInUp}
+              className="flex justify-center gap-8 text-lg"
+            >
+              <div className="flex items-center gap-2">
+                <Package className="h-6 w-6 text-brand-blue" />
+                <span className="font-semibold">Standard</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Gift className="h-6 w-6 text-brand-blue" />
+                <span className="font-semibold">Essentials</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <Crown className="h-6 w-6 text-brand-blue" />
+                <span className="font-semibold">Ultimate</span>
+              </div>
+            </motion.div>
           </motion.div>
           
+          {/* Capacity Tiers */}
+          <div className="space-y-16">
+            {PRIVATE_CAPACITY_TIERS.map((capacity) => {
+              const tierData = PRIVATE_CRUISE_PACKAGES[capacity];
+              return (
+                <motion.div
+                  key={capacity}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  variants={staggerChildren}
+                  className="mb-16"
+                >
+                  {/* Capacity Tier Header */}
+                  <motion.div variants={fadeInUp} className="text-center mb-12">
+                    <div className="flex items-center justify-center gap-4 mb-4">
+                      <Ship className="h-8 w-8 text-brand-blue" />
+                      <h3 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white">
+                        {capacity}-Person {tierData.boatName}
+                      </h3>
+                      <Ship className="h-8 w-8 text-brand-blue" />
+                    </div>
+                    <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                      {tierData.description}
+                    </p>
+                    <div className="mt-4 inline-flex items-center gap-2 bg-brand-blue/10 px-4 py-2 rounded-full">
+                      <Users className="h-4 w-4 text-brand-blue" />
+                      <span className="text-sm font-semibold text-brand-blue">
+                        Up to {capacity} people • {tierData.seatingCapacity} comfortable seats
+                      </span>
+                    </div>
+                  </motion.div>
+                  
+                  {/* Package Cards */}
+                  <motion.div
+                    variants={staggerChildren}
+                    className="grid md:grid-cols-3 gap-8"
+                  >
+                    {Object.entries(tierData.packages).map(([packageType, packageData], index) => (
+                      <motion.div key={packageType} variants={fadeInUp}>
+                        <Card className={`h-full hover:shadow-xl transition-all duration-300 ${
+                          packageType === 'ultimate' 
+                            ? 'border-2 border-brand-yellow bg-gradient-to-br from-brand-yellow/5 to-brand-blue/5' 
+                            : packageType === 'essentials'
+                            ? 'border-2 border-brand-blue/50'
+                            : 'border border-gray-200 dark:border-gray-700'
+                        }`}>
+                          <CardContent className="p-6">
+                            {/* Package Header */}
+                            <div className="text-center mb-6">
+                              <div className="flex items-center justify-center mb-3">
+                                {packageType === 'standard' && <Package className="h-8 w-8 text-brand-blue" />}
+                                {packageType === 'essentials' && <Gift className="h-8 w-8 text-brand-blue" />}
+                                {packageType === 'ultimate' && <Crown className="h-8 w-8 text-brand-yellow" />}
+                              </div>
+                              {packageType === 'ultimate' && (
+                                <Badge className="mb-2 bg-brand-yellow text-black font-bold">
+                                  <Sparkles className="h-3 w-3 mr-1" />
+                                  MOST POPULAR
+                                </Badge>
+                              )}
+                              <h4 className="text-xl font-heading font-bold mb-2">
+                                {packageData.name}
+                              </h4>
+                              <p className="text-brand-blue font-semibold mb-2">
+                                {packageData.tagline}
+                              </p>
+                              <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                                {packageData.description}
+                              </p>
+                            </div>
+                            
+                            {/* Value Proposition */}
+                            <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg mb-6">
+                              <div className="flex items-start gap-2">
+                                <Check className="h-5 w-5 text-green-500 mt-0.5 flex-shrink-0" />
+                                <p className="text-sm font-semibold text-gray-900 dark:text-white">
+                                  {packageData.valueProposition}
+                                </p>
+                              </div>
+                            </div>
+                            
+                            {/* Inclusions */}
+                            <div className="mb-6">
+                              <h5 className="font-semibold mb-3 flex items-center gap-2">
+                                <Check className="h-4 w-4 text-green-500" />
+                                What's Included
+                              </h5>
+                              <ul className="space-y-2">
+                                {packageData.inclusions.map((inclusion: string, idx: number) => (
+                                  <li key={idx} className="flex items-start gap-2 text-sm">
+                                    <Check className="h-3 w-3 text-green-500 mt-1 flex-shrink-0" />
+                                    <span>{inclusion}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </div>
+                            
+                            {/* Highlights */}
+                            <div className="mb-6">
+                              <h5 className="font-semibold mb-3 flex items-center gap-2">
+                                <Star className="h-4 w-4 text-brand-blue" />
+                                Key Highlights
+                              </h5>
+                              <div className="flex flex-wrap gap-2">
+                                {packageData.highlights.map((highlight: string, idx: number) => (
+                                  <Badge key={idx} variant="secondary" className="text-xs">
+                                    {highlight}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+                            
+                            {/* Ideal For */}
+                            <div className="mb-6">
+                              <h5 className="font-semibold mb-3 flex items-center gap-2">
+                                <Heart className="h-4 w-4 text-red-500" />
+                                Perfect For
+                              </h5>
+                              <div className="flex flex-wrap gap-1">
+                                {packageData.ideal_for.map((use: string, idx: number) => (
+                                  <Badge key={idx} variant="outline" className="text-xs">
+                                    {use}
+                                  </Badge>
+                                ))}
+                              </div>
+                            </div>
+                            
+                            {/* CTA */}
+                            <Button
+                              className={`w-full font-semibold ${
+                                packageType === 'ultimate'
+                                  ? 'bg-brand-yellow hover:bg-brand-yellow/90 text-black'
+                                  : 'bg-brand-blue hover:bg-brand-blue/90 text-white'
+                              }`}
+                              data-testid={`button-select-${packageType}-${capacity}`}
+                            >
+                              <Calendar className="mr-2 h-4 w-4" />
+                              Choose {packageData.name.split(' ')[0]} Package
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      </motion.div>
+                    ))}
+                  </motion.div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
+
+      {/* Convenience & Value Proposition Section */}
+      <section className="py-24 bg-gradient-to-br from-brand-blue/5 to-brand-yellow/5 dark:from-gray-800 dark:to-gray-900">
+        <div className="container mx-auto px-6">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerChildren}
+          >
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-4xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white"
+            >
+              EVERYTHING SET UP
+              <span className="block text-brand-blue">WHEN YOU ARRIVE</span>
+            </motion.h2>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-12"
+            >
+              No hassle, no setup, no worries. We handle every detail so you can focus on what matters most - 
+              making incredible memories with the people you care about.
+            </motion.p>
+          </motion.div>
+
+          {/* Convenience Features Grid */}
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
             variants={staggerChildren}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16"
           >
-            {fleetCapacities.map((fleet, index) => (
+            {[
+              {
+                icon: Clock,
+                title: "No Setup Required",
+                description: "Professional crew handles all setup and breakdown. You just show up and start partying!",
+                highlight: "Zero Prep Time"
+              },
+              {
+                icon: Wine,
+                title: "Alcohol Delivery Service",
+                description: "We can coordinate alcohol delivery directly to your boat. Ultimate convenience for party planning!",
+                highlight: "Direct to Boat"
+              },
+              {
+                icon: Anchor,
+                title: "Professional Captain",
+                description: "Experienced, Coast Guard certified captains handle all navigation while you celebrate.",
+                highlight: "14+ Years Experience"
+              },
+              {
+                icon: Sparkles,
+                title: "Premium Everything",
+                description: "From disco balls to giant floats - everything is premium quality and ready to use.",
+                highlight: "No Compromises"
+              }
+            ].map((feature, index) => (
               <motion.div key={index} variants={fadeInUp}>
-                <Card className="text-center p-6 h-full hover:shadow-lg transition-shadow duration-300">
+                <Card className="text-center p-6 h-full hover:shadow-xl transition-all duration-300 hover:scale-105 border-2 border-transparent hover:border-brand-blue/30">
                   <CardContent className="pt-6">
-                    <Ship className="h-12 w-12 text-brand-blue mx-auto mb-4" />
-                    <h3 className="text-xl font-bold mb-2">{fleet.capacity}</h3>
-                    <p className="text-lg font-semibold text-brand-blue mb-2">{fleet.name}</p>
-                    <p className="text-gray-600 dark:text-gray-300">{fleet.subtitle}</p>
+                    <div className="mb-4">
+                      <feature.icon className="h-16 w-16 text-brand-blue mx-auto mb-4" />
+                      <Badge variant="secondary" className="mb-2">{feature.highlight}</Badge>
+                    </div>
+                    <h3 className="text-xl font-heading font-bold mb-3 text-gray-900 dark:text-white">
+                      {feature.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                      {feature.description}
+                    </p>
                   </CardContent>
                 </Card>
               </motion.div>
             ))}
           </motion.div>
+
+          {/* Alcohol Delivery Service Highlight */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="max-w-4xl mx-auto"
+          >
+            <Card className="bg-gradient-to-r from-brand-yellow/10 to-brand-blue/10 border-2 border-brand-yellow/50 hover:shadow-2xl transition-all duration-300">
+              <CardContent className="p-8 text-center">
+                <div className="flex items-center justify-center mb-6">
+                  <Wine className="h-12 w-12 text-brand-blue mr-4" />
+                  <div>
+                    <h3 className="text-2xl md:text-3xl font-heading font-bold text-gray-900 dark:text-white mb-2">
+                      Alcohol Delivery Service Available
+                    </h3>
+                    <p className="text-brand-blue font-semibold">Ultimate Party Planning Convenience</p>
+                  </div>
+                  <Wine className="h-12 w-12 text-brand-blue ml-4" />
+                </div>
+                
+                <p className="text-lg text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                  Skip the liquor store runs! We can coordinate with local delivery services to have your 
+                  beverages waiting on your boat when you arrive. Beer, wine, cocktail supplies - 
+                  everything perfectly chilled and ready for your celebration.
+                </p>
+                
+                <div className="grid md:grid-cols-3 gap-6 mb-6">
+                  <div className="flex items-center justify-center gap-2">
+                    <Check className="h-5 w-5 text-green-500" />
+                    <span className="font-semibold">Pre-chilled beverages</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <Check className="h-5 w-5 text-green-500" />
+                    <span className="font-semibold">Delivered to your boat</span>
+                  </div>
+                  <div className="flex items-center justify-center gap-2">
+                    <Check className="h-5 w-5 text-green-500" />
+                    <span className="font-semibold">No extra hassle for you</span>
+                  </div>
+                </div>
+
+                <Button
+                  onClick={() => navigate('/chat?cruiseType=private&service=alcohol-delivery')}
+                  className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-8 py-3"
+                  data-testid="button-alcohol-delivery-info"
+                >
+                  <Wine className="mr-2 h-4 w-4" />
+                  Learn About Alcohol Delivery
+                </Button>
+              </CardContent>
+            </Card>
+          </motion.div>
         </div>
       </section>
 
+      {/* Professional Setup & Service Section */}
+      <section className="py-24 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <motion.div 
+            className="text-center mb-16"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerChildren}
+          >
+            <motion.h2 
+              variants={fadeInUp}
+              className="text-4xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white"
+            >
+              PROFESSIONAL SETUP & SERVICE
+            </motion.h2>
+            <motion.p 
+              variants={fadeInUp}
+              className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
+            >
+              Our experienced crew transforms your boat into the perfect party venue before you even step aboard.
+            </motion.p>
+          </motion.div>
+
+          <div className="grid lg:grid-cols-2 gap-16 items-center">
+            {/* Service Features */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerChildren}
+              className="space-y-8"
+            >
+              {[
+                {
+                  icon: Headphones,
+                  title: "Premium Sound System Setup",
+                  description: "Professional-grade Bluetooth speakers positioned perfectly for your celebration",
+                  features: ["Crystal clear audio", "Bass that gets everyone moving", "Seamless phone connectivity"]
+                },
+                {
+                  icon: Waves,
+                  title: "Party Floats & Entertainment",
+                  description: "Giant lily pads, specialty floats, and disco balls installed and ready",
+                  features: ["20-foot lily pad floats", "Unicorn floats for VIPs", "Disco balls for atmosphere"]
+                },
+                {
+                  icon: Umbrella,
+                  title: "Comfort & Convenience",
+                  description: "Tables, seating, sunscreen, and all amenities perfectly arranged",
+                  features: ["Folding tables positioned", "Coolers stocked with ice", "Sun protection provided"]
+                },
+                {
+                  icon: Shield,
+                  title: "Safety & Peace of Mind",
+                  description: "Coast Guard certified captains and pristine safety equipment",
+                  features: ["14+ years experience", "Perfect safety record", "Local Lake Travis expertise"]
+                }
+              ].map((service, index) => (
+                <motion.div key={index} variants={fadeInUp} className="flex gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="w-16 h-16 bg-brand-blue/10 rounded-full flex items-center justify-center">
+                      <service.icon className="h-8 w-8 text-brand-blue" />
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-heading font-bold mb-2 text-gray-900 dark:text-white">
+                      {service.title}
+                    </h3>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4">
+                      {service.description}
+                    </p>
+                    <ul className="space-y-2">
+                      {service.features.map((feature, idx) => (
+                        <li key={idx} className="flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300">
+                          <Check className="h-4 w-4 text-green-500 flex-shrink-0" />
+                          <span>{feature}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </motion.div>
+              ))}
+            </motion.div>
+
+            {/* Visual Element */}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="text-center"
+            >
+              <Card className="p-8 bg-gradient-to-br from-brand-blue/5 to-brand-yellow/5 border-2 border-brand-blue/20">
+                <CardContent className="pt-6">
+                  <Trophy className="h-20 w-20 text-brand-blue mx-auto mb-6" />
+                  <h3 className="text-2xl font-heading font-bold mb-4 text-gray-900 dark:text-white">
+                    Austin's Most Trusted
+                  </h3>
+                  <div className="space-y-4 text-left">
+                    <div className="flex items-center justify-between py-2 border-b border-gray-200 dark:border-gray-600">
+                      <span className="font-semibold">Years in Business</span>
+                      <span className="text-brand-blue font-bold">14+ Years</span>
+                    </div>
+                    <div className="flex items-center justify-between py-2 border-b border-gray-200 dark:border-gray-600">
+                      <span className="font-semibold">Happy Customers</span>
+                      <span className="text-brand-blue font-bold">125,000+</span>
+                    </div>
+                    <div className="flex items-center justify-between py-2 border-b border-gray-200 dark:border-gray-600">
+                      <span className="font-semibold">Safety Record</span>
+                      <span className="text-green-500 font-bold">Perfect</span>
+                    </div>
+                    <div className="flex items-center justify-between py-2">
+                      <span className="font-semibold">Fleet Quality</span>
+                      <span className="text-brand-blue font-bold">Austin's Newest</span>
+                    </div>
+                  </div>
+                  
+                  <Button
+                    onClick={() => navigate('/chat?cruiseType=private')}
+                    className="w-full mt-6 bg-brand-blue hover:bg-brand-blue/90 text-white font-semibold"
+                    data-testid="button-trust-quote"
+                  >
+                    <MessageSquare className="mr-2 h-4 w-4" />
+                    Experience The Difference
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </div>
+      </section>
 
       {/* Pricing Transparency Section */}
       <section className="py-24 bg-gray-50 dark:bg-gray-900">
@@ -494,12 +911,12 @@ export default function PrivateCruises() {
 
               <div className="text-center mt-8">
                 <Button
-                  onClick={() => setShowPricingCalculator(true)}
+                  onClick={() => navigate('/chat?cruiseType=private')}
                   className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-8 py-3"
                   data-testid="button-open-calculator"
                 >
                   <Calculator className="mr-2 h-4 w-4" />
-                  Calculate Your Cruise Cost
+                  Get Your Custom Quote
                 </Button>
               </div>
             </Card>
