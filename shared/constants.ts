@@ -1007,3 +1007,586 @@ export const NAVIGATION_LABELS = {
   SETTINGS: 'Settings',
   ANALYTICS: 'Analytics',
 } as const;
+
+/**
+ * Disco vs Private Cruise Comparison Logic
+ * Intelligent comparison system that considers group size, day of week, and pricing scenarios
+ * User specifically noted that disco cruises are NOT always cheaper - we need accurate analysis
+ */
+
+/**
+ * Private cruise final pricing (including tax & gratuity) by day type and capacity
+ * Based on actual pricing data provided by user
+ */
+export const PRIVATE_CRUISE_FINAL_PRICES = {
+  // Monday-Thursday final prices (Standard package)
+  MON_THU: {
+    14: 105000, // $1,050.00 for ≤14 people
+    25: 118100, // $1,181.00 for ≤25 people  
+    50: 131300, // $1,313.00 for ≤50 people
+  },
+  // Friday final prices (Standard package)
+  FRIDAY: {
+    14: 118100, // $1,181.00 for ≤14 people
+    25: 131300, // $1,313.00 for ≤25 people
+    50: 144400, // $1,444.00 for ≤50 people
+  },
+  // Saturday final prices (Standard package)
+  SATURDAY: {
+    14: 183800, // $1,838.00 for ≤14 people
+    25: 196900, // $1,969.00 for ≤25 people
+    50: 210000, // $2,100.00 for ≤50 people
+  },
+  // Sunday final prices (Standard package)
+  SUNDAY: {
+    14: 131300, // $1,313.00 for ≤14 people
+    25: 144400, // $1,444.00 for ≤25 people
+    50: 157500, // $1,575.00 for ≤50 people
+  }
+} as const;
+
+/**
+ * Disco package availability and pricing
+ */
+export const DISCO_AVAILABILITY = {
+  // Disco cruises only available Friday & Saturday
+  AVAILABLE_DAYS: [5, 6], // Friday=5, Saturday=6
+  PACKAGES: {
+    basic: {
+      name: 'Basic Bach Package',
+      pricePerPerson: 8500, // $85.00
+      description: 'BYOB & Keep it Cheap - ALWAYS Cheaper than a Private Cruise'
+    },
+    disco_queen: {
+      name: 'Disco Queen/King Package', 
+      pricePerPerson: 9500, // $95.00
+      description: 'Private Cooler & Reserved Spot for Your Group'
+    },
+    platinum: {
+      name: 'Super Sparkle Platinum',
+      pricePerPerson: 10500, // $105.00
+      description: 'Nothing to Carry, Cooler Stocked w/drinks When You Arrive!'
+    }
+  }
+} as const;
+
+/**
+ * Group size categories for comparison analysis
+ */
+export const GROUP_SIZE_CATEGORIES = {
+  SMALL: { min: 8, max: 12, label: 'Small Group', description: 'Intimate gatherings' },
+  MEDIUM: { min: 13, max: 25, label: 'Medium Group', description: 'Standard parties' },
+  LARGE: { min: 26, max: 50, label: 'Large Group', description: 'Big celebrations' },
+  XLARGE: { min: 51, max: 75, label: 'Extra Large Group', description: 'Grand events' }
+} as const;
+
+/**
+ * Day type mapping for comparison analysis
+ */
+export const DAY_COMPARISON_TYPES = {
+  WEEKDAY: { days: [1, 2, 3, 4], label: 'Weekday', description: 'Monday-Thursday' },
+  FRIDAY: { days: [5], label: 'Friday', description: 'Friday night party' },
+  SATURDAY: { days: [6], label: 'Saturday', description: 'Peak weekend pricing' },
+  SUNDAY: { days: [0], label: 'Sunday', description: 'Sunday funday' }
+} as const;
+
+/**
+ * Disco vs Private Cruise Comparison Functions
+ */
+
+/**
+ * Determines if disco cruises are available on a given day
+ * @param dayOfWeek Day of week (0=Sunday, 1=Monday, ..., 6=Saturday)
+ * @returns boolean indicating if disco is available
+ */
+export function isDiscoAvailableOnDay(dayOfWeek: number): boolean {
+  return DISCO_AVAILABILITY.AVAILABLE_DAYS.includes(dayOfWeek);
+}
+
+/**
+ * Gets the appropriate private cruise capacity tier for a group size
+ * @param groupSize Number of people
+ * @returns Capacity tier (14, 25, or 50)
+ */
+export function getPrivateCruiseCapacityTier(groupSize: number): 14 | 25 | 50 {
+  if (groupSize <= 14) return 14;
+  if (groupSize <= 25) return 25;
+  return 50;
+}
+
+/**
+ * Gets the day type for private cruise pricing
+ * @param dayOfWeek Day of week (0=Sunday, 1=Monday, ..., 6=Saturday)
+ * @returns Day type key for pricing lookup
+ */
+export function getPrivateCruiseDayType(dayOfWeek: number): keyof typeof PRIVATE_CRUISE_FINAL_PRICES {
+  if (dayOfWeek >= 1 && dayOfWeek <= 4) return 'MON_THU';
+  if (dayOfWeek === 5) return 'FRIDAY';
+  if (dayOfWeek === 6) return 'SATURDAY';
+  return 'SUNDAY'; // dayOfWeek === 0
+}
+
+/**
+ * Calculates disco cruise total cost for a group
+ * @param groupSize Number of people
+ * @param packageType Disco package type
+ * @returns Total cost in cents or null if not available
+ */
+export function calculateDiscoPrice(
+  groupSize: number, 
+  packageType: keyof typeof DISCO_AVAILABILITY.PACKAGES
+): number {
+  const pricePerPerson = DISCO_AVAILABILITY.PACKAGES[packageType].pricePerPerson;
+  return pricePerPerson * groupSize;
+}
+
+/**
+ * Calculates private cruise cost for a group on a specific day
+ * @param groupSize Number of people
+ * @param dayOfWeek Day of week (0=Sunday, 1=Monday, ..., 6=Saturday) 
+ * @param packageType Private package type (standard/essentials/ultimate)
+ * @returns Cost breakdown object
+ */
+export function calculatePrivatePrice(
+  groupSize: number, 
+  dayOfWeek: number,
+  packageType: 'standard' | 'essentials' | 'ultimate' = 'standard'
+): {
+  basePrice: number;
+  addOnCost: number;
+  totalPrice: number;
+  capacityTier: 14 | 25 | 50;
+  dayType: string;
+  perPersonCost: number;
+} {
+  const capacityTier = getPrivateCruiseCapacityTier(groupSize);
+  const dayType = getPrivateCruiseDayType(dayOfWeek);
+  const basePrice = PRIVATE_CRUISE_FINAL_PRICES[dayType][capacityTier];
+  
+  // Add-on costs for Essentials and Ultimate packages
+  let addOnCost = 0;
+  if (packageType === 'essentials') {
+    addOnCost = Math.floor(basePrice * 0.20); // ~20% for essentials
+  } else if (packageType === 'ultimate') {
+    addOnCost = Math.floor(basePrice * 0.40); // ~40% for ultimate
+  }
+  
+  const totalPrice = basePrice + addOnCost;
+  
+  return {
+    basePrice,
+    addOnCost,
+    totalPrice,
+    capacityTier,
+    dayType,
+    perPersonCost: Math.floor(totalPrice / groupSize)
+  };
+}
+
+/**
+ * Compares disco vs private cruise pricing for a specific scenario
+ * @param groupSize Number of people
+ * @param dayOfWeek Day of week (0=Sunday, 1=Monday, ..., 6=Saturday)
+ * @param discoPackage Disco package type
+ * @param privatePackage Private package type
+ * @returns Comprehensive comparison object
+ */
+export function compareDiscoVsPrivate(
+  groupSize: number,
+  dayOfWeek: number,
+  discoPackage: keyof typeof DISCO_AVAILABILITY.PACKAGES = 'basic',
+  privatePackage: 'standard' | 'essentials' | 'ultimate' = 'standard'
+): {
+  discoOption: {
+    available: boolean;
+    totalCost: number | null;
+    costPerPerson: number | null;
+    packageName: string;
+    description: string;
+  };
+  privateOption: {
+    available: boolean;
+    totalCost: number;
+    costPerPerson: number;
+    packageName: string;
+    capacityTier: number;
+    dayType: string;
+    addOnCost: number;
+  };
+  comparison: {
+    discoIsAvailable: boolean;
+    discoCheaper: boolean | null;
+    savings: number | null; // Positive = disco saves money, Negative = private saves money
+    savingsPercentage: number | null;
+    recommendation: 'disco' | 'private' | 'private_only';
+    reasonCode: string;
+  };
+  valueProposition: string;
+} {
+  const discoAvailable = isDiscoAvailableOnDay(dayOfWeek);
+  
+  // Calculate disco pricing if available
+  const discoOption = {
+    available: discoAvailable,
+    totalCost: discoAvailable ? calculateDiscoPrice(groupSize, discoPackage) : null,
+    costPerPerson: discoAvailable ? DISCO_AVAILABILITY.PACKAGES[discoPackage].pricePerPerson : null,
+    packageName: DISCO_AVAILABILITY.PACKAGES[discoPackage].name,
+    description: DISCO_AVAILABILITY.PACKAGES[discoPackage].description
+  };
+  
+  // Calculate private cruise pricing
+  const privateCalc = calculatePrivatePrice(groupSize, dayOfWeek, privatePackage);
+  const privateOption = {
+    available: true,
+    totalCost: privateCalc.totalPrice,
+    costPerPerson: privateCalc.perPersonCost,
+    packageName: `${privatePackage.charAt(0).toUpperCase() + privatePackage.slice(1)} Private Cruise`,
+    capacityTier: privateCalc.capacityTier,
+    dayType: privateCalc.dayType,
+    addOnCost: privateCalc.addOnCost
+  };
+  
+  // Compare options and generate recommendations
+  let comparison: {
+    discoIsAvailable: boolean;
+    discoCheaper: boolean | null;
+    savings: number | null;
+    savingsPercentage: number | null;
+    recommendation: 'disco' | 'private' | 'private_only';
+    reasonCode: string;
+  };
+  
+  let valueProposition = '';
+  
+  if (!discoAvailable) {
+    // Disco not available - private is only option
+    comparison = {
+      discoIsAvailable: false,
+      discoCheaper: null,
+      savings: null,
+      savingsPercentage: null,
+      recommendation: 'private_only',
+      reasonCode: 'DISCO_NOT_AVAILABLE_ON_DAY'
+    };
+    valueProposition = `Private cruise is your only option on ${['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][dayOfWeek]}s. Great value at $${(privateCalc.perPersonCost / 100).toFixed(0)} per person!`;
+  } else {
+    // Both options available - compare pricing
+    const discoTotal = discoOption.totalCost!;
+    const privateTotal = privateOption.totalCost;
+    const savings = privateTotal - discoTotal; // Positive = disco saves money
+    const savingsPercentage = (savings / privateTotal) * 100;
+    const discoCheaper = savings > 0;
+    
+    let reasonCode = '';
+    let recommendation: 'disco' | 'private' = 'disco';
+    
+    if (discoCheaper) {
+      if (savings >= 50000) { // $500+ savings
+        reasonCode = 'DISCO_MAJOR_SAVINGS';
+      } else if (savings >= 20000) { // $200+ savings
+        reasonCode = 'DISCO_GOOD_SAVINGS';
+      } else {
+        reasonCode = 'DISCO_MINOR_SAVINGS';
+      }
+      recommendation = 'disco';
+    } else {
+      // Private is cheaper (rare but possible with certain scenarios)
+      if (Math.abs(savings) >= 20000) { // Private saves $200+
+        reasonCode = 'PRIVATE_SIGNIFICANT_SAVINGS';
+      } else {
+        reasonCode = 'PRIVATE_MARGINAL_SAVINGS';
+      }
+      recommendation = 'private';
+    }
+    
+    comparison = {
+      discoIsAvailable: true,
+      discoCheaper,
+      savings,
+      savingsPercentage,
+      recommendation,
+      reasonCode
+    };
+    
+    // Generate value proposition message
+    if (discoCheaper) {
+      valueProposition = `ATX Disco Cruise saves you $${(savings / 100).toFixed(0)} (${Math.abs(savingsPercentage).toFixed(0)}% less) vs private! ${groupSize} people × $${(discoOption.costPerPerson! / 100).toFixed(0)} = $${(discoTotal / 100).toLocaleString()} total.`;
+    } else {
+      valueProposition = `Surprisingly, private cruise saves $${(Math.abs(savings) / 100).toFixed(0)} vs disco! Only $${(privateCalc.perPersonCost / 100).toFixed(0)} per person for your own boat.`;
+    }
+  }
+  
+  return {
+    discoOption,
+    privateOption,
+    comparison,
+    valueProposition
+  };
+}
+
+/**
+ * Gets the best deal recommendation for a group size and day
+ * @param groupSize Number of people
+ * @param dayOfWeek Day of week (0=Sunday, 1=Monday, ..., 6=Saturday)
+ * @param preferences Optional preferences object
+ * @returns Best deal recommendation with alternatives
+ */
+export function getBestDealRecommendation(
+  groupSize: number,
+  dayOfWeek: number,
+  preferences?: {
+    maxBudgetPerPerson?: number;
+    preferPrivate?: boolean;
+    preferWeekday?: boolean;
+  }
+): {
+  primaryRecommendation: {
+    type: 'disco' | 'private' | 'private_only';
+    packageType: string;
+    totalCost: number;
+    costPerPerson: number;
+    valueMessage: string;
+    whyBest: string;
+  };
+  alternatives: Array<{
+    type: 'disco' | 'private';
+    packageType: string;
+    totalCost: number;
+    costPerPerson: number;
+    savings: number;
+    dayOfWeek?: number;
+    dayName?: string;
+  }>;
+  groupSizeInsights: {
+    category: string;
+    optimalRange: string;
+    recommendation: string;
+  };
+} {
+  // Get base comparison
+  const comparison = compareDiscoVsPrivate(groupSize, dayOfWeek);
+  
+  // Determine group size category
+  let groupCategory = '';
+  let optimalRange = '';
+  let groupRecommendation = '';
+  
+  if (groupSize <= 12) {
+    groupCategory = 'Small Group';
+    optimalRange = '8-12 people';
+    groupRecommendation = 'Disco cruises typically offer the best value for small groups, especially on weekends.';
+  } else if (groupSize <= 25) {
+    groupCategory = 'Medium Group';  
+    optimalRange = '13-25 people';
+    groupRecommendation = 'Both options competitive - disco usually better on Saturday, private better on weekdays.';
+  } else {
+    groupCategory = 'Large Group';
+    optimalRange = '26+ people';
+    groupRecommendation = 'Private cruises often provide better per-person value for large groups, especially on weekdays.';
+  }
+  
+  // Build primary recommendation
+  let primaryRecommendation;
+  if (comparison.comparison.recommendation === 'private_only') {
+    const privateCost = comparison.privateOption.totalCost;
+    primaryRecommendation = {
+      type: 'private_only' as const,
+      packageType: 'Standard Private Cruise',
+      totalCost: privateCost,
+      costPerPerson: comparison.privateOption.costPerPerson,
+      valueMessage: comparison.valueProposition,
+      whyBest: 'ATX Disco Cruise only runs Friday & Saturday. Private cruise is your only option.'
+    };
+  } else if (comparison.comparison.recommendation === 'disco') {
+    const discoCost = comparison.discoOption.totalCost!;
+    primaryRecommendation = {
+      type: 'disco' as const,
+      packageType: comparison.discoOption.packageName,
+      totalCost: discoCost,
+      costPerPerson: comparison.discoOption.costPerPerson!,
+      valueMessage: comparison.valueProposition,
+      whyBest: `Disco cruise saves $${(comparison.comparison.savings! / 100).toFixed(0)} vs private cruise`
+    };
+  } else {
+    const privateCost = comparison.privateOption.totalCost;
+    primaryRecommendation = {
+      type: 'private' as const,
+      packageType: 'Standard Private Cruise',
+      totalCost: privateCost,
+      costPerPerson: comparison.privateOption.costPerPerson,
+      valueMessage: comparison.valueProposition,
+      whyBest: 'Private cruise offers better value than expected for this scenario'
+    };
+  }
+  
+  // Generate alternatives (other days, other packages)
+  const alternatives = [];
+  
+  // If current day is weekend, show weekday private alternatives
+  if (dayOfWeek === 6) { // Saturday
+    const mondayPrivate = calculatePrivatePrice(groupSize, 1, 'standard'); // Monday
+    alternatives.push({
+      type: 'private' as const,
+      packageType: 'Weekday Private Cruise',
+      totalCost: mondayPrivate.totalPrice,
+      costPerPerson: mondayPrivate.perPersonCost,
+      savings: primaryRecommendation.totalCost - mondayPrivate.totalPrice,
+      dayOfWeek: 1,
+      dayName: 'Monday'
+    });
+  }
+  
+  // If current day is weekday and disco not available, show Friday/Saturday disco
+  if (!comparison.discoOption.available) {
+    const saturdayDisco = calculateDiscoPrice(groupSize, 'basic');
+    const saturdayPrivate = calculatePrivatePrice(groupSize, 6, 'standard');
+    if (saturdayDisco < saturdayPrivate.totalPrice) {
+      alternatives.push({
+        type: 'disco' as const,
+        packageType: 'Saturday Disco Cruise',
+        totalCost: saturdayDisco,
+        costPerPerson: Math.floor(saturdayDisco / groupSize),
+        savings: primaryRecommendation.totalCost - saturdayDisco,
+        dayOfWeek: 6,
+        dayName: 'Saturday'
+      });
+    }
+  }
+  
+  return {
+    primaryRecommendation,
+    alternatives: alternatives.slice(0, 3), // Limit to top 3 alternatives
+    groupSizeInsights: {
+      category: groupCategory,
+      optimalRange,
+      recommendation: groupRecommendation
+    }
+  };
+}
+
+/**
+ * Calculates potential savings by switching days or package types
+ * @param groupSize Number of people
+ * @param currentDayOfWeek Current day of week
+ * @returns Array of money-saving alternatives
+ */
+export function getSavingsOpportunities(
+  groupSize: number,
+  currentDayOfWeek: number
+): Array<{
+  type: 'day_change' | 'package_change' | 'cruise_type_change';
+  description: string;
+  savings: number;
+  newDayOfWeek?: number;
+  newDayName?: string;
+  newPackageType?: string;
+  newCruiseType?: 'disco' | 'private';
+  actionRequired: string;
+}> {
+  const opportunities = [];
+  const currentComparison = compareDiscoVsPrivate(groupSize, currentDayOfWeek);
+  const currentBest = currentComparison.comparison.recommendation === 'disco' 
+    ? currentComparison.discoOption.totalCost! 
+    : currentComparison.privateOption.totalCost;
+  
+  // Check weekday alternatives if currently weekend
+  if ([5, 6, 0].includes(currentDayOfWeek)) { // Fri, Sat, Sun
+    const mondayPrivate = calculatePrivatePrice(groupSize, 1, 'standard');
+    const savings = currentBest - mondayPrivate.totalPrice;
+    
+    if (savings > 10000) { // Save $100+
+      opportunities.push({
+        type: 'day_change',
+        description: `Move to Monday-Thursday for private cruise`,
+        savings,
+        newDayOfWeek: 1,
+        newDayName: 'Monday',
+        newCruiseType: 'private',
+        actionRequired: 'Change event date to weekday'
+      });
+    }
+  }
+  
+  // Check disco alternatives if currently weekday
+  if ([1, 2, 3, 4].includes(currentDayOfWeek)) { // Mon-Thu
+    const saturdayDisco = calculateDiscoPrice(groupSize, 'basic');
+    const savings = currentBest - saturdayDisco;
+    
+    if (savings > 5000) { // Save $50+
+      opportunities.push({
+        type: 'day_change',
+        description: `Switch to Saturday disco cruise`,
+        savings,
+        newDayOfWeek: 6,
+        newDayName: 'Saturday',
+        newCruiseType: 'disco',
+        actionRequired: 'Change event date to Saturday'
+      });
+    }
+  }
+  
+  return opportunities.sort((a, b) => b.savings - a.savings).slice(0, 5);
+}
+
+/**
+ * Pre-calculated scenario examples for marketing and comparison display
+ */
+export const PRICING_SCENARIOS = {
+  // Small group scenarios
+  SMALL_GROUP_SATURDAY: {
+    groupSize: 8,
+    dayOfWeek: 6,
+    discoBasic: 68000, // 8 × $85 = $680
+    discoQueen: 76000, // 8 × $95 = $760
+    discoPlatinum: 84000, // 8 × $105 = $840
+    privateStandard: 183800, // $1,838
+    winner: 'disco',
+    savingsRange: [99800, 115800], // $998-$1,158 savings
+    message: 'Disco cruise saves over $1,000 for small Saturday groups!'
+  },
+  
+  MEDIUM_GROUP_SATURDAY: {
+    groupSize: 15,
+    dayOfWeek: 6,
+    discoBasic: 127500, // 15 × $85 = $1,275
+    discoQueen: 142500, // 15 × $95 = $1,425
+    discoPlatinum: 157500, // 15 × $105 = $1,575
+    privateStandard: 196900, // $1,969 (25p boat)
+    winner: 'disco',
+    savingsRange: [39400, 69400], // $394-$694 savings
+    message: 'Disco still wins for medium groups on Saturday'
+  },
+  
+  LARGE_GROUP_SATURDAY: {
+    groupSize: 20,
+    dayOfWeek: 6,
+    discoBasic: 170000, // 20 × $85 = $1,700
+    discoQueen: 190000, // 20 × $95 = $1,900
+    discoPlatinum: 210000, // 20 × $105 = $2,100
+    privateStandard: 196900, // $1,969 (25p boat)
+    winner: 'private', // Private can win at higher group sizes
+    savings: 6900, // Private saves $69 vs disco queen
+    crossoverPoint: true,
+    message: 'Private cruise becomes competitive around 20+ people'
+  },
+  
+  WEEKDAY_ONLY: {
+    groupSize: 8,
+    dayOfWeek: 2, // Tuesday
+    discoAvailable: false,
+    privateStandard: 105000, // $1,050
+    perPersonCost: 13125, // $131.25 per person
+    winner: 'private_only',
+    message: 'Great weekday value - only $131 per person for private boat!'
+  },
+  
+  LARGE_GROUP_WEEKDAY: {
+    groupSize: 25,
+    dayOfWeek: 1, // Monday
+    discoAvailable: false,
+    privateStandard: 118100, // $1,181
+    perPersonCost: 4724, // $47.24 per person
+    winner: 'private_only',
+    message: 'Incredible weekday value - under $48 per person!'
+  }
+} as const;
