@@ -19,6 +19,8 @@ import {
   Flower, Flower2, CircleDot, Smile, UserCheck
 } from 'lucide-react';
 import { formatCurrency } from '@shared/formatters';
+import { DiscoVsPrivateComparison, QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
+import { PRIVATE_CRUISE_PACKAGES } from '@shared/constants';
 import SEOHead from '@/components/SEOHead';
 
 // Hero and gallery images - Real photos from live website
@@ -814,6 +816,277 @@ export default function BacheloretteParty() {
               GET CUSTOM BACHELORETTE QUOTE
             </Button>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Smart Deal Comparison Section */}
+      <section className="py-20 bg-gradient-to-br from-pink-50 via-purple-50 to-emerald-50 dark:from-pink-950/20 dark:via-purple-950/20 dark:to-emerald-950/20">
+        <div className="container mx-auto px-6">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <Badge className="mb-4 bg-pink-100 text-pink-800 px-4 py-2 text-sm font-medium border-pink-200">
+                <Sparkles className="h-4 w-4 mr-2" />
+                Smart Deal Finder for Her
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-slate-100 mb-6">
+                Disco vs Private: Perfect Match for Your Girls
+              </h2>
+              <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
+                Our intelligent comparison shows you exactly when disco cruises save the most money vs when private cruises offer better value for your bachelorette party size and vibe.
+              </p>
+            </motion.div>
+
+            {/* Quick Highlights for Bachelorette Party Scenarios */}
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+              <motion.div
+                variants={scaleIn}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+              >
+                <QuickDealHighlight 
+                  groupSize={10} 
+                  dayOfWeek={6}
+                  className="h-full"
+                />
+                <div className="mt-3 text-center">
+                  <Badge className="bg-green-100 text-green-800 text-xs">Bridal Squad Special</Badge>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Perfect for the core girls - saves over $900!</p>
+                </div>
+              </motion.div>
+              
+              <motion.div
+                variants={scaleIn}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+              >
+                <QuickDealHighlight 
+                  groupSize={14} 
+                  dayOfWeek={6}
+                  className="h-full"
+                />
+                <div className="mt-3 text-center">
+                  <Badge className="bg-purple-100 text-purple-800 text-xs">Classic Bachelorette</Badge>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Most popular size - disco queen savings</p>
+                </div>
+              </motion.div>
+              
+              <motion.div
+                variants={scaleIn}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+              >
+                <QuickDealHighlight 
+                  groupSize={12} 
+                  dayOfWeek={2}
+                  className="h-full"
+                />
+                <div className="mt-3 text-center">
+                  <Badge className="bg-blue-100 text-blue-800 text-xs">Weekday Luxury</Badge>
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mt-1">Tuesday-Thursday private elegance</p>
+                </div>
+              </motion.div>
+            </div>
+
+            {/* Interactive Comparison Tool */}
+            <motion.div
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <DiscoVsPrivateComparison 
+                groupSize={12}
+                dayOfWeek={6}
+                showAlternatives={true}
+                className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700 p-6"
+              />
+            </motion.div>
+
+            {/* Pro Tips Section */}
+            <motion.div
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              transition={{ delay: 0.4 }}
+              className="mt-12"
+            >
+              <Card className="bg-gradient-to-r from-rose-50 to-pink-50 dark:from-rose-950/20 dark:to-pink-950/20 border-rose-200 dark:border-rose-800">
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-rose-800 dark:text-rose-200">
+                    <Crown className="h-5 w-5" />
+                    Bridal Party Savings Secrets
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div>
+                      <h4 className="font-semibold text-slate-800 dark:text-slate-200 mb-3">💎 Money-Saving Tips:</h4>
+                      <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                        <li>• Groups under 15: Disco saves $400-1,200 on weekends</li>
+                        <li>• Groups 8-12: Move to Tuesday-Thursday private at $87-105/girl</li>
+                        <li>• Groups 15+: Private gives you VIP treatment & customization</li>
+                        <li>• Disco Queen package often best value for 10-15 girls</li>
+                      </ul>
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-slate-800 dark:text-slate-200 mb-3">👑 Best Value Sweet Spots:</h4>
+                      <ul className="space-y-2 text-sm text-slate-600 dark:text-slate-400">
+                        <li>• 8-12 girls: Saturday disco saves $700-1,100 guaranteed</li>
+                        <li>• 10-14 girls: Perfect disco queen territory with bride perks</li>
+                        <li>• 18+ girls: Private becomes competitive for luxury experience</li>
+                        <li>• Weekday private: Elegant value at $75-105 per person</li>
+                      </ul>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Private Cruise Options Section */}
+      <section className="py-20 bg-slate-50 dark:bg-slate-900">
+        <div className="container mx-auto px-6">
+          <div className="max-w-7xl mx-auto">
+            <motion.div
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              className="text-center mb-12"
+            >
+              <Badge className="mb-4 bg-purple-100 text-purple-800 px-4 py-2 text-sm font-medium border-purple-200">
+                <Ship className="h-4 w-4 mr-2" />
+                Private Bachelorette Cruises
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-slate-100 mb-6">
+                Your Own Private Boat & Celebration
+              </h2>
+              <p className="text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto">
+                When you want total privacy, custom vibes, and VIP treatment - plus incredible weekday value that often beats group pricing per person.
+              </p>
+            </motion.div>
+
+            {/* Private Package Options */}
+            <div className="grid md:grid-cols-3 gap-8 mb-12">
+              {Object.entries(PRIVATE_CRUISE_PACKAGES[25].packages).map(([key, pkg], index) => (
+                <motion.div
+                  key={key}
+                  variants={scaleIn}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Card className={`h-full relative ${key === 'essentials' ? 'border-2 border-purple-500 shadow-lg scale-105' : ''}`}>
+                    {key === 'essentials' && (
+                      <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white px-3 py-1">
+                        Most Popular
+                      </Badge>
+                    )}
+                    <CardHeader>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          {key === 'standard' && <Ship className="h-5 w-5 text-purple-600" />}
+                          {key === 'essentials' && <Crown className="h-5 w-5 text-purple-600" />}
+                          {key === 'ultimate' && <Trophy className="h-5 w-5 text-purple-600" />}
+                        </div>
+                        {key === 'essentials' && (
+                          <Badge className="bg-green-100 text-green-800">Best Value</Badge>
+                        )}
+                      </div>
+                      <CardTitle className="text-xl">{pkg.name}</CardTitle>
+                      <CardDescription className="text-sm">{pkg.tagline}</CardDescription>
+                      <div className="text-2xl font-bold text-purple-600">
+                        From $75-140/person
+                        <div className="text-sm font-normal text-slate-600 dark:text-slate-400">
+                          Depends on group size & day
+                        </div>
+                      </div>
+                    </CardHeader>
+                    <CardContent>
+                      <p className="text-sm text-slate-600 dark:text-slate-400 mb-4">
+                        {pkg.description}
+                      </p>
+                      <div className="space-y-2">
+                        {pkg.highlights.map((highlight, i) => (
+                          <div key={i} className="flex items-center gap-2 text-sm">
+                            <CheckCircle className="h-4 w-4 text-green-600 flex-shrink-0" />
+                            <span>{highlight}</span>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-6">
+                        <Button 
+                          className="w-full" 
+                          variant={key === 'essentials' ? 'default' : 'outline'}
+                          onClick={() => handleGetQuote(key)}
+                          data-testid={`button-select-private-${key}`}
+                        >
+                          Get Private Quote
+                          <ArrowRight className="h-4 w-4 ml-2" />
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Private Cruise Benefits */}
+            <motion.div
+              variants={fadeInUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+            >
+              <Card className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-950/20 dark:to-pink-950/20">
+                <CardHeader>
+                  <CardTitle className="text-center text-2xl text-slate-800 dark:text-slate-200">
+                    Why Brides Love Private Bachelorette Cruises
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div className="text-center">
+                      <UserCheck className="h-8 w-8 text-purple-600 mx-auto mb-3" />
+                      <h4 className="font-semibold mb-2">Just Your Girls</h4>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">No strangers - intimate celebration with your squad</p>
+                    </div>
+                    <div className="text-center">
+                      <Clock className="h-8 w-8 text-purple-600 mx-auto mb-3" />
+                      <h4 className="font-semibold mb-2">Custom Timeline</h4>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">Choose your departure time that works for the bride</p>
+                    </div>
+                    <div className="text-center">
+                      <GlassWater className="h-8 w-8 text-purple-600 mx-auto mb-3" />
+                      <h4 className="font-semibold mb-2">Signature Cocktails</h4>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">Bring exactly the champagne and drinks you love</p>
+                    </div>
+                    <div className="text-center">
+                      <Heart className="h-8 w-8 text-purple-600 mx-auto mb-3" />
+                      <h4 className="font-semibold mb-2">Bride's Dream</h4>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">Customize everything to match her perfect day</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
         </div>
       </section>
 
