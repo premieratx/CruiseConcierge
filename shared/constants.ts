@@ -152,6 +152,372 @@ export const BOAT_TYPES = {
 } as const;
 
 /**
+ * Private Cruise Package Configurations
+ * Organized by capacity tiers with three package levels each
+ * Structured for easy comparison display and website integration
+ */
+export const PRIVATE_CRUISE_PACKAGES = {
+  // 14-Person Capacity Tier
+  14: {
+    capacity: 14,
+    seatingCapacity: 14,
+    boatName: 'Intimate Cruiser',
+    description: 'Perfect for intimate gatherings and small celebrations',
+    packages: {
+      standard: {
+        id: 'standard-14',
+        name: 'Standard 4-Hour Cruise',
+        tagline: 'Essential cruise experience',
+        description: 'Everything you need for a perfect private cruise experience with professional crew and premium amenities',
+        valueProposition: 'Hassle-free cruising with all the essentials included',
+        inclusions: [
+          'Amazing, experienced captain',
+          '2 large empty coolers (bring your own ice & drinks)',
+          'Premium Bluetooth speaker system',
+          'Clean restroom facilities',
+          'Comfortable seating for 14 guests',
+          'Plenty of sun & shade areas'
+        ],
+        highlights: ['Professional crew', 'Premium sound system', 'Comfortable seating'],
+        ideal_for: ['Birthday parties', 'Small celebrations', 'Intimate gatherings']
+      },
+      essentials: {
+        id: 'essentials-14',
+        name: '4-Hour Cruise w/Essentials Package',
+        tagline: 'Complete convenience package',
+        description: 'All standard features plus essential refreshments and setup - perfect for worry-free entertaining',
+        valueProposition: 'Complete hosting solution with refreshments and setup included',
+        inclusions: [
+          'Everything from Standard Cruise',
+          'Insulated 5-gallon dispenser with ice water',
+          '15 gallons of fresh water & 30 solo cups',
+          'Coolers pre-stocked with 40lbs of ice',
+          '6-ft folding table for food & drinks'
+        ],
+        highlights: ['Pre-stocked coolers', 'Fresh water included', 'Setup table provided'],
+        ideal_for: ['Worry-free hosting', 'Food & drink service', 'Convenience-focused events']
+      },
+      ultimate: {
+        id: 'ultimate-14',
+        name: 'Ultimate Disco Party Package',
+        tagline: 'Complete party experience',
+        description: 'The full party package with entertainment, refreshments, and disco vibes - everything for an unforgettable celebration',
+        valueProposition: 'All-inclusive party experience with entertainment and party supplies',
+        inclusions: [
+          'Everything from Essentials Package',
+          '6x20\' giant lily pad float',
+          'Unicorn or ring float for the guest of honor',
+          '5 disco ball cups & 30 additional solo cups',
+          'Bubble gun & 3 bubble wands for fun',
+          '20 champagne flutes & 3 fruit juices',
+          '2 bottles SPF-50 spray sunscreen',
+          '20 plates, plasticware, & paper towels',
+          '3 disco balls installed for party atmosphere'
+        ],
+        highlights: ['Giant lily pad float', 'Disco party atmosphere', 'Complete entertainment package'],
+        ideal_for: ['Bachelorette parties', 'Birthday celebrations', 'Special occasions']
+      }
+    }
+  },
+  
+  // 25-Person Capacity Tier  
+  25: {
+    capacity: 25,
+    seatingCapacity: 20,
+    boatName: 'Party Cruiser',
+    description: 'Ideal for medium-sized groups and celebrations',
+    packages: {
+      standard: {
+        id: 'standard-25',
+        name: 'Standard 4-Hour Cruise',
+        tagline: 'Essential cruise experience',
+        description: 'Professional cruise experience with premium amenities for your medium-sized celebration',
+        valueProposition: 'Spacious comfort with professional service for larger groups',
+        inclusions: [
+          'Amazing, experienced captain',
+          '2 large empty coolers (bring your own ice & drinks)',
+          'Premium Bluetooth speaker system',
+          'Clean restroom facilities',
+          'Comfortable seating for 20 guests',
+          'Plenty of sun & shade areas'
+        ],
+        highlights: ['Professional crew', 'Premium sound system', 'Spacious seating'],
+        ideal_for: ['Team celebrations', 'Friend gatherings', 'Family reunions']
+      },
+      essentials: {
+        id: 'essentials-25',
+        name: '4-Hour Cruise w/Essentials Package',
+        tagline: 'Complete convenience package',
+        description: 'Enhanced cruise experience with refreshments and conveniences for effortless group entertaining',
+        valueProposition: 'Complete group hosting solution with enhanced refreshments',
+        inclusions: [
+          'Everything from Standard Cruise',
+          'Insulated 5-gallon dispenser with ice water',
+          '20 gallons of fresh water & 50 solo cups',
+          'Coolers pre-stocked with 60lbs of ice',
+          '6-ft folding table for food & drinks'
+        ],
+        highlights: ['Enhanced refreshments', 'More ice included', 'Group-sized servings'],
+        ideal_for: ['Corporate events', 'Extended celebrations', 'Group entertaining']
+      },
+      ultimate: {
+        id: 'ultimate-25',
+        name: 'Ultimate Disco Party Package',
+        tagline: 'Complete party experience',
+        description: 'The ultimate party package with dual entertainment floats, enhanced party supplies, and disco atmosphere',
+        valueProposition: 'Premium all-inclusive party experience with enhanced entertainment',
+        inclusions: [
+          'Everything from Essentials Package',
+          '(2) 6x20\' giant lily pad floats',
+          '(2) Unicorn or ring floats for guests of honor',
+          '10 disco ball cups for party vibes',
+          '(2) Bubble guns & 3 bubble wands',
+          '30 champagne flutes & 3 fruit juices',
+          '4 bottles SPF-50 spray sunscreen',
+          '30 plates, plasticware, & paper towels',
+          '3 disco balls installed for party atmosphere'
+        ],
+        highlights: ['Dual giant floats', 'Enhanced party supplies', 'Complete disco experience'],
+        ideal_for: ['Bachelor/bachelorette parties', 'Milestone celebrations', 'Group parties']
+      }
+    }
+  },
+  
+  // 30-Person Capacity Tier (same as 25)
+  30: {
+    capacity: 30,
+    seatingCapacity: 20,
+    boatName: 'Party Cruiser Plus',
+    description: 'Enhanced capacity for larger celebrations with same premium amenities',
+    packages: {
+      standard: {
+        id: 'standard-30',
+        name: 'Standard 4-Hour Cruise',
+        tagline: 'Essential cruise experience',
+        description: 'Professional cruise experience with premium amenities for your larger celebration',
+        valueProposition: 'Spacious comfort with professional service for extended groups',
+        inclusions: [
+          'Amazing, experienced captain',
+          '2 large empty coolers (bring your own ice & drinks)',
+          'Premium Bluetooth speaker system',
+          'Clean restroom facilities',
+          'Comfortable seating for 20 guests',
+          'Plenty of sun & shade areas'
+        ],
+        highlights: ['Professional crew', 'Premium sound system', 'Extended capacity'],
+        ideal_for: ['Large team events', 'Extended family', 'Big friend groups']
+      },
+      essentials: {
+        id: 'essentials-30',
+        name: '4-Hour Cruise w/Essentials Package',
+        tagline: 'Complete convenience package',
+        description: 'Enhanced cruise experience with refreshments and conveniences for effortless large group entertaining',
+        valueProposition: 'Complete large group hosting solution with enhanced refreshments',
+        inclusions: [
+          'Everything from Standard Cruise',
+          'Insulated 5-gallon dispenser with ice water',
+          '20 gallons of fresh water & 50 solo cups',
+          'Coolers pre-stocked with 60lbs of ice',
+          '6-ft folding table for food & drinks'
+        ],
+        highlights: ['Large group refreshments', 'Ample ice included', 'Extended servings'],
+        ideal_for: ['Corporate gatherings', 'Large celebrations', 'Group events']
+      },
+      ultimate: {
+        id: 'ultimate-30',
+        name: 'Ultimate Disco Party Package',
+        tagline: 'Complete party experience',
+        description: 'The ultimate party package with dual entertainment floats, enhanced party supplies, and disco atmosphere for larger groups',
+        valueProposition: 'Premium all-inclusive party experience for extended celebrations',
+        inclusions: [
+          'Everything from Essentials Package',
+          '(2) 6x20\' giant lily pad floats',
+          '(2) Unicorn or ring floats for guests of honor',
+          '10 disco ball cups for party vibes',
+          '(2) Bubble guns & 3 bubble wands',
+          '30 champagne flutes & 3 fruit juices',
+          '4 bottles SPF-50 spray sunscreen',
+          '30 plates, plasticware, & paper towels',
+          '3 disco balls installed for party atmosphere'
+        ],
+        highlights: ['Dual giant floats', 'Extended party supplies', 'Large group disco experience'],
+        ideal_for: ['Large bachelor/bachelorette parties', 'Major celebrations', 'Big group events']
+      }
+    }
+  },
+  
+  // 50-Person Capacity Tier
+  50: {
+    capacity: 50,
+    seatingCapacity: 30,
+    boatName: 'Grand Celebration',
+    description: 'Premium vessel for large celebrations and corporate events',
+    packages: {
+      standard: {
+        id: 'standard-50',
+        name: 'Standard 4-Hour Cruise',
+        tagline: 'Grand cruise experience',
+        description: 'Premium cruise experience with enhanced amenities for large celebrations and corporate events',
+        valueProposition: 'Grand-scale cruising with professional service and premium facilities',
+        inclusions: [
+          'Amazing, experienced captain',
+          '4 giant empty coolers (bring your own ice & drinks)',
+          'Premium Bluetooth speaker system',
+          '2 clean restroom facilities',
+          'Comfortable seating for 30 guests',
+          'Plenty of sun & shade areas'
+        ],
+        highlights: ['Dual restrooms', 'Enhanced cooler capacity', 'Premium seating'],
+        ideal_for: ['Corporate events', 'Large celebrations', 'Wedding parties']
+      },
+      essentials: {
+        id: 'essentials-50',
+        name: '4-Hour Cruise w/Essentials Package',
+        tagline: 'Complete grand convenience',
+        description: 'Premium cruise with enhanced refreshment service and dual table setup for large-scale entertaining',
+        valueProposition: 'Complete large-scale hosting with enhanced infrastructure',
+        inclusions: [
+          'Everything from Standard Cruise',
+          'Insulated 5-gallon dispenser with ice water',
+          '25 gallons of fresh water & 100 solo cups',
+          'Coolers pre-stocked with 80lbs of ice',
+          '(2) 6-ft folding tables for food & drinks'
+        ],
+        highlights: ['Dual table setup', 'Large-scale refreshments', 'Enhanced ice capacity'],
+        ideal_for: ['Corporate functions', 'Large family events', 'Catered celebrations']
+      },
+      ultimate: {
+        id: 'ultimate-50',
+        name: 'Ultimate Disco Party Package',
+        tagline: 'Grand party experience',
+        description: 'The ultimate large-scale party with triple entertainment floats, comprehensive party supplies, and spectacular disco atmosphere',
+        valueProposition: 'Premium all-inclusive grand celebration experience',
+        inclusions: [
+          'Everything from Essentials Package',
+          '(3) 6x20\' giant lily pad floats',
+          '(3) Unicorn or ring floats for guests of honor',
+          '15 disco ball cups for party vibes',
+          '(3) Bubble guns & 5 bubble wands',
+          '50 champagne flutes & 3 fruit juices',
+          '6 bottles SPF-50 spray sunscreen',
+          '50 plates, plasticware, & paper towels',
+          '10 disco balls installed for spectacular atmosphere'
+        ],
+        highlights: ['Triple giant floats', 'Spectacular disco setup', 'Grand-scale party supplies'],
+        ideal_for: ['Major celebrations', 'Corporate parties', 'Large wedding events']
+      }
+    }
+  },
+  
+  // 75-Person Capacity Tier (same as 50)
+  75: {
+    capacity: 75,
+    seatingCapacity: 30,
+    boatName: 'Ultimate Celebration',
+    description: 'Maximum capacity vessel for the grandest celebrations',
+    packages: {
+      standard: {
+        id: 'standard-75',
+        name: 'Standard 4-Hour Cruise',
+        tagline: 'Ultimate cruise experience',
+        description: 'Maximum capacity cruise experience with premium amenities for the grandest celebrations',
+        valueProposition: 'Ultimate-scale cruising with professional service and maximum facilities',
+        inclusions: [
+          'Amazing, experienced captain',
+          '4 giant empty coolers (bring your own ice & drinks)',
+          'Premium Bluetooth speaker system',
+          '2 clean restroom facilities',
+          'Comfortable seating for 30 guests',
+          'Plenty of sun & shade areas'
+        ],
+        highlights: ['Maximum capacity', 'Dual restrooms', 'Ultimate space'],
+        ideal_for: ['Major corporate events', 'Large weddings', 'Grand celebrations']
+      },
+      essentials: {
+        id: 'essentials-75',
+        name: '4-Hour Cruise w/Essentials Package',
+        tagline: 'Ultimate convenience package',
+        description: 'Maximum capacity cruise with ultimate refreshment service and dual table setup for grand-scale entertaining',
+        valueProposition: 'Complete grand-scale hosting with ultimate infrastructure',
+        inclusions: [
+          'Everything from Standard Cruise',
+          'Insulated 5-gallon dispenser with ice water',
+          '25 gallons of fresh water & 100 solo cups',
+          'Coolers pre-stocked with 80lbs of ice',
+          '(2) 6-ft folding tables for food & drinks'
+        ],
+        highlights: ['Ultimate capacity', 'Grand-scale refreshments', 'Maximum convenience'],
+        ideal_for: ['Large corporate functions', 'Grand family reunions', 'Major celebrations']
+      },
+      ultimate: {
+        id: 'ultimate-75',
+        name: 'Ultimate Disco Party Package',
+        tagline: 'Maximum party experience',
+        description: 'The ultimate maximum-capacity party with triple entertainment floats, comprehensive party supplies, and spectacular disco atmosphere',
+        valueProposition: 'Maximum all-inclusive grand celebration experience',
+        inclusions: [
+          'Everything from Essentials Package',
+          '(3) 6x20\' giant lily pad floats',
+          '(3) Unicorn or ring floats for guests of honor',
+          '15 disco ball cups for party vibes',
+          '(3) Bubble guns & 5 bubble wands',
+          '50 champagne flutes & 3 fruit juices',
+          '6 bottles SPF-50 spray sunscreen',
+          '50 plates, plasticware, & paper towels',
+          '10 disco balls installed for spectacular atmosphere'
+        ],
+        highlights: ['Maximum entertainment', 'Spectacular disco setup', 'Ultimate party experience'],
+        ideal_for: ['Grand celebrations', 'Major corporate parties', 'Ultimate wedding events']
+      }
+    }
+  }
+} as const;
+
+/**
+ * Private Cruise Package Types for easy access
+ */
+export const PRIVATE_PACKAGE_TYPES = {
+  STANDARD: 'standard',
+  ESSENTIALS: 'essentials', 
+  ULTIMATE: 'ultimate'
+} as const;
+
+/**
+ * Private Cruise Capacity Tiers
+ */
+export const PRIVATE_CAPACITY_TIERS = [14, 25, 30, 50, 75] as const;
+
+/**
+ * Package comparison data for website display
+ */
+export const PACKAGE_COMPARISON_FEATURES = {
+  // Core Features (included in all packages)
+  CORE: [
+    'Experienced captain',
+    'Premium sound system',
+    'Clean restroom facilities',
+    'Sun & shade areas'
+  ],
+  // Essentials additions
+  ESSENTIALS_ADDITIONS: [
+    'Fresh water dispenser',
+    'Pre-stocked ice coolers',
+    'Setup tables',
+    'Cups included'
+  ],
+  // Ultimate additions
+  ULTIMATE_ADDITIONS: [
+    'Giant lily pad floats',
+    'Specialty floats',
+    'Disco atmosphere',
+    'Party supplies',
+    'Champagne service',
+    'Sun protection',
+    'Complete tableware'
+  ]
+} as const;
+
+/**
  * Default pricing configuration
  */
 export const PRICING_DEFAULTS = {
