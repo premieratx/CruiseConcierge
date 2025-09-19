@@ -3,9 +3,12 @@ import { NormalizedSlot } from '@shared/schema';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Clock, Users, DollarSign, Anchor, Ship, Star } from 'lucide-react';
+import { Clock, Users, DollarSign, Anchor, Ship, Star, Info } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useLocation } from 'wouter';
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from '@/components/ui/tooltip';
+import { calculatePackagePricing, getCapacityTier, getPricingDayType } from '@shared/pricing';
+import { formatCurrency } from '@shared/formatters';
 
 export interface TimeSlotListProps {
   slots: NormalizedSlot[];
@@ -97,11 +100,66 @@ export const TimeSlotList = ({
   };
 
   const formatPrice = (price: number): string => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0,
-    }).format(price / 100);
+    return formatCurrency(price / 100);
+  };
+
+  // Enhanced pricing calculation for real-time pricing display
+  const getEnhancedPricing = (slot: NormalizedSlot) => {
+    if (slot.cruiseType === 'disco') {
+      // Disco pricing logic
+      const slotDate = new Date(slot.dateISO);
+      const dayOfWeek = slotDate.getDay();
+      const basePrice = dayOfWeek === 6 ? 9500 : 8500; // Saturday premium
+      
+      return {
+        displayPrice: slot.price || basePrice,
+        dayType: dayOfWeek === 6 ? 'Saturday' : dayOfWeek === 5 ? 'Friday' : dayOfWeek === 0 ? 'Sunday' : 'Weekday',
+        packages: [
+          { name: 'Basic', price: basePrice, description: 'Dance floor + cash bar' },
+          { name: 'Disco Queen', price: basePrice + 1000, description: 'Basic + VIP + welcome drink', popular: true },
+          { name: 'Platinum', price: basePrice + 2000, description: 'All inclusive + bottle service' }
+        ],
+        perPersonEstimate: Math.floor(basePrice / Math.min(slot.capacity, groupSize || 20))
+      };
+    } else {
+      // Private cruise pricing calculation
+      try {
+        const slotDate = new Date(slot.dateISO);
+        const capacityTier = getCapacityTier(Math.max(groupSize || 20, slot.capacity * 0.7));
+        const dayType = getPricingDayType(slotDate);
+        
+        const standardPricing = calculatePackagePricing(slotDate, capacityTier, 'standard');
+        const essentialsPricing = calculatePackagePricing(slotDate, capacityTier, 'essentials');
+        const ultimatePricing = calculatePackagePricing(slotDate, capacityTier, 'ultimate');
+        
+        const dayNames = {
+          'MON_THU': 'Mon-Thu',
+          'FRIDAY': 'Friday',
+          'SATURDAY': 'Saturday',
+          'SUNDAY': 'Sunday'
+        };
+        
+        return {
+          displayPrice: slot.price || standardPricing.totalPrice,
+          dayType: dayNames[dayType] || dayType,
+          packages: [
+            { name: 'Standard', price: standardPricing.totalPrice, description: 'Base charter package' },
+            { name: 'Essentials', price: essentialsPricing.totalPrice, description: 'Standard + premium add-ons', popular: true },
+            { name: 'Ultimate', price: ultimatePricing.totalPrice, description: 'All-inclusive luxury experience' }
+          ],
+          perPersonEstimate: Math.floor(standardPricing.totalPrice / capacityTier),
+          crewFeeInfo: capacityTier >= 30 ? 'Includes crew fee for larger groups' : null
+        };
+      } catch (error) {
+        console.warn('Error calculating enhanced pricing:', error);
+        return {
+          displayPrice: slot.price || 0,
+          dayType: 'Unknown',
+          packages: [],
+          perPersonEstimate: 0
+        };
+      }
+    }
   };
 
   const getSlotStatus = (slot: NormalizedSlot): {
@@ -298,17 +356,67 @@ export const TimeSlotList = ({
                   {formatTimeRange(slot.startTime, slot.endTime)}
                 </div>
 
-                {/* BOTTOM: Price and duration - large and prominent */}
+                {/* BOTTOM: Enhanced pricing with day-of-week information */}
                 {showPrice && (
-                  <div className="flex items-center justify-between pt-1 border-t border-border/50">
-                    <div className="font-bold text-base text-foreground" data-testid={`timeslot-price-${slot.id}`}>
-                      {slot.cruiseType === 'disco' 
-                        ? `${formatPrice(slot.price)} per ticket`
-                        : `From ${formatPrice(slot.price)}`
-                      }
+                  <div className="pt-1 border-t border-border/50">
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <div className="font-bold text-base text-foreground" data-testid={`timeslot-price-${slot.id}`}>
+                          {slot.cruiseType === 'disco' 
+                            ? `${formatPrice(getEnhancedPricing(slot).displayPrice)} per ticket`
+                            : `From ${formatPrice(getEnhancedPricing(slot).displayPrice)}`
+                          }
+                        </div>
+                        <TooltipProvider>
+                          <Tooltip>
+                            <TooltipTrigger asChild>
+                              <Info className="h-4 w-4 text-muted-foreground cursor-help" />
+                            </TooltipTrigger>
+                            <TooltipContent side="top" className="max-w-xs">
+                              <div className="space-y-2">
+                                <div className="font-semibold text-sm border-b pb-1">
+                                  {slot.cruiseType === 'disco' ? 'Disco Cruise Packages' : `${slot.capacity}-Person Boat Pricing`}
+                                </div>
+                                <div className="text-xs space-y-1">
+                                  <div className="text-muted-foreground">Day Type: {getEnhancedPricing(slot).dayType}</div>
+                                  {getEnhancedPricing(slot).packages.map((pkg, idx) => (
+                                    <div key={idx} className={cn(
+                                      "flex justify-between items-center p-1 rounded",
+                                      pkg.popular && "bg-yellow-100 border border-yellow-300"
+                                    )}>
+                                      <div>
+                                        <span className={cn(pkg.popular && "font-semibold")}>
+                                          {pkg.name} {pkg.popular && '⭐'}
+                                        </span>
+                                        <div className="text-xs text-muted-foreground">{pkg.description}</div>
+                                      </div>
+                                      <span className="font-medium">{formatPrice(pkg.price)}</span>
+                                    </div>
+                                  ))}
+                                  <div className="text-xs text-muted-foreground pt-1 border-t">
+                                    ~{formatPrice(getEnhancedPricing(slot).perPersonEstimate)}/person estimate
+                                    {getEnhancedPricing(slot).crewFeeInfo && (
+                                      <div className="mt-1">{getEnhancedPricing(slot).crewFeeInfo}</div>
+                                    )}
+                                  </div>
+                                </div>
+                              </div>
+                            </TooltipContent>
+                          </Tooltip>
+                        </TooltipProvider>
+                      </div>
+                      <div className="text-right">
+                        <div className="text-sm text-muted-foreground">
+                          {slot.duration}h cruise
+                        </div>
+                        <div className="text-xs text-muted-foreground">
+                          {getEnhancedPricing(slot).dayType}
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-sm text-muted-foreground">
-                      {slot.duration}h cruise
+                    <div className="text-xs text-muted-foreground mt-1">
+                      ~{formatPrice(getEnhancedPricing(slot).perPersonEstimate)}/person • 
+                      {slot.cruiseType === 'disco' ? ' Live DJ • Dance floor' : ' Private charter'}
                     </div>
                   </div>
                 )}

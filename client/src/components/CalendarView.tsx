@@ -13,11 +13,13 @@ import { getPrivateTimeSlotsForDate, timeSlotToCalendarFormat } from "@shared/ti
 import { format, startOfWeek, addWeeks, subWeeks, isToday } from "date-fns";
 import { cn } from "@/lib/utils";
 import { formatCurrency, formatDate, formatDateTime, formatTimeForDisplay, formatTimeRange, formatCustomerName, formatPhoneNumber } from '@shared/formatters';
-import { BOOKING_STATUSES, PAYMENT_STATUSES, STATUS_COLORS } from '@shared/constants';
+import { BOOKING_STATUSES, PAYMENT_STATUSES, STATUS_COLORS, PRIVATE_CRUISE_PACKAGES } from '@shared/constants';
+import { calculatePackagePricing, getCapacityTier, getDayType, getPricingDayType } from '@shared/pricing';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { BookingsTable } from "@/components/BookingsTable";
+import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
 
 interface TimeBlock {
   id: string;
@@ -31,6 +33,18 @@ interface TimeBlock {
   capacity?: number;
   bookedCount?: number;
   availableCount?: number;
+  pricing?: {
+    standardPrice: number;
+    essentialsPrice: number;
+    ultimatePrice: number;
+    perPersonEstimate: number;
+    dayType: string;
+    packagePreviews: Array<{
+      name: string;
+      price: number;
+      popular?: boolean;
+    }>;
+  };
 }
 
 interface DiscoSlotCard {
@@ -148,6 +162,61 @@ const isTimeSlotBooked = (bookings: Booking[], boatId: string, date: Date, timeS
   });
 };
 
+// Helper function to calculate pricing for a boat/time slot
+const calculateTimeBlockPricing = (date: Date, capacity: number, groupSize: number = 20) => {
+  try {
+    const capacityTier = getCapacityTier(Math.max(groupSize, capacity * 0.7)); // Use 70% capacity as estimate
+    const dayType = getPricingDayType(date);
+    
+    // Get pricing for all three packages
+    const standardPricing = calculatePackagePricing(date, capacityTier, 'standard');
+    const essentialsPricing = calculatePackagePricing(date, capacityTier, 'essentials');
+    const ultimatePricing = calculatePackagePricing(date, capacityTier, 'ultimate');
+    
+    const dayNames = {
+      'MON_THU': 'Mon-Thu',
+      'FRIDAY': 'Friday',
+      'SATURDAY': 'Saturday', 
+      'SUNDAY': 'Sunday'
+    };
+    
+    return {
+      standardPrice: standardPricing.totalPrice,
+      essentialsPrice: essentialsPricing.totalPrice,
+      ultimatePrice: ultimatePricing.totalPrice,
+      perPersonEstimate: Math.floor(standardPricing.totalPrice / capacityTier),
+      dayType: dayNames[dayType] || dayType,
+      packagePreviews: [
+        {
+          name: 'Standard',
+          price: standardPricing.totalPrice,
+          popular: false
+        },
+        {
+          name: 'Essentials',
+          price: essentialsPricing.totalPrice,
+          popular: true
+        },
+        {
+          name: 'Ultimate',
+          price: ultimatePricing.totalPrice,
+          popular: false
+        }
+      ]
+    };
+  } catch (error) {
+    console.warn('Error calculating pricing for time block:', error);
+    return {
+      standardPrice: 0,
+      essentialsPrice: 0,
+      ultimatePrice: 0,
+      perPersonEstimate: 0,
+      dayType: 'Unknown',
+      packagePreviews: []
+    };
+  }
+};
+
 // Helper function to generate time blocks based on day of week using shared configuration
 const generateTimeBlocks = (date: Date, boats: Boat[], bookings: Booking[], products: Product[]): TimeBlock[] => {
   const blocks: TimeBlock[] = [];
@@ -183,6 +252,9 @@ const generateTimeBlocks = (date: Date, boats: Boat[], bookings: Booking[], prod
       // Check if there's a booking conflict for this time slot using interval overlap
       const booking = hasBookingConflict(bookings, boat.id, startDateTime, endDateTime);
       
+      // Calculate pricing for this time block
+      const pricing = calculateTimeBlockPricing(date, boat.capacity || 25);
+      
       blocks.push({
         id: `${boat.id}_${slot.startTime}_${slot.endTime}`,
         date,
@@ -192,7 +264,8 @@ const generateTimeBlocks = (date: Date, boats: Boat[], bookings: Booking[], prod
         boatName: boat.name,
         status: booking ? (booking.status === 'blocked' ? 'blocked' : 'booked') : 'available',
         booking,
-        capacity: boat.capacity
+        capacity: boat.capacity,
+        pricing
       });
     });
   });
@@ -408,33 +481,75 @@ function CalendarView() {
     const boatColorClasses = getColorClasses(boatColor, 'card');
     const boatTextColor = getBoatTextColor(block.boatName);
 
-    return (
-      <div
-        className={cn(
-          "p-1.5 rounded-md border cursor-pointer transition-all hover:shadow-sm",
-          boatColorClasses, // Add boat-specific left border
-          block.status === 'available' 
-            ? "bg-green-100 border-green-400 hover:bg-green-200" 
-            : block.status === 'blocked'
-            ? "bg-gray-200 border-gray-400"
-            : "bg-red-100 border-red-400 hover:bg-red-200"
-        )}
-        onClick={handleToggle}
-        data-testid={`time-block-${block.id}`}
-      >
-        <div className="font-semibold text-xs text-gray-800">
-          {formatTime(block.startTime)} - {formatTime(block.endTime)}
-        </div>
-        <div className={cn("text-xs font-medium", boatTextColor)}>
-          <Ship className="inline w-2.5 h-2.5 mr-1" />
-          {block.boatName}
-        </div>
-        {block.capacity && (
-          <div className="text-xs text-gray-600">
-            Cap: {block.capacity}
+    const pricingTooltipContent = block.pricing ? (
+      <div className="space-y-2 max-w-xs">
+        <div className="font-semibold text-sm border-b pb-1">Pricing for {block.capacity}-person boat</div>
+        <div className="text-xs space-y-1">
+          <div className="text-muted-foreground">Day Type: {block.pricing.dayType}</div>
+          {block.pricing.packagePreviews.map((pkg, idx) => (
+            <div key={idx} className={cn(
+              "flex justify-between items-center p-1 rounded",
+              pkg.popular && "bg-yellow-100 border border-yellow-300"
+            )}>
+              <span className={cn(pkg.popular && "font-semibold")}>
+                {pkg.name} {pkg.popular && '⭐'}
+              </span>
+              <span className="font-medium">{formatCurrency(pkg.price / 100)}</span>
+            </div>
+          ))}
+          <div className="text-xs text-muted-foreground pt-1 border-t">
+            ~{formatCurrency(block.pricing.perPersonEstimate / 100)}/person estimate
           </div>
-        )}
+        </div>
       </div>
+    ) : null;
+
+    return (
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <div
+              className={cn(
+                "p-1.5 rounded-md border cursor-pointer transition-all hover:shadow-sm",
+                boatColorClasses, // Add boat-specific left border
+                block.status === 'available' 
+                  ? "bg-green-100 border-green-400 hover:bg-green-200" 
+                  : block.status === 'blocked'
+                  ? "bg-gray-200 border-gray-400"
+                  : "bg-red-100 border-red-400 hover:bg-red-200"
+              )}
+              onClick={handleToggle}
+              data-testid={`time-block-${block.id}`}
+            >
+              <div className="font-semibold text-xs text-gray-800">
+                {formatTime(block.startTime)} - {formatTime(block.endTime)}
+              </div>
+              <div className={cn("text-xs font-medium", boatTextColor)}>
+                <Ship className="inline w-2.5 h-2.5 mr-1" />
+                {block.boatName}
+              </div>
+              <div className="flex justify-between items-center text-xs mt-1">
+                <span className="text-gray-600">Cap: {block.capacity}</span>
+                {block.pricing && (
+                  <span className="font-semibold text-green-700">
+                    {formatCurrency(block.pricing.standardPrice / 100)}
+                  </span>
+                )}
+              </div>
+              {block.pricing && (
+                <div className="text-xs text-muted-foreground mt-0.5">
+                  {block.pricing.dayType} • ~{formatCurrency(block.pricing.perPersonEstimate / 100)}/p
+                </div>
+              )}
+            </div>
+          </TooltipTrigger>
+          {pricingTooltipContent && (
+            <TooltipContent side="right" className="z-50">
+              {pricingTooltipContent}
+            </TooltipContent>
+          )}
+        </Tooltip>
+      </TooltipProvider>
     );
   };
 
@@ -443,26 +558,73 @@ function CalendarView() {
     const { available, total } = count25PersonBoats(date, startTime);
     const mediumBoats = boatGroups.medium;
     
+    // Calculate pricing for 25-person boats
+    const avgCapacity = mediumBoats.reduce((sum, boat) => sum + (boat.capacity || 25), 0) / mediumBoats.length;
+    const groupPricing = calculateTimeBlockPricing(date, avgCapacity || 25);
+    
     return (
       <div className="space-y-2">
-        <div
-          className={cn(
-            "p-2 rounded-md border transition-all",
-            available > 0 
-              ? "bg-green-100 border-green-400" 
-              : "bg-red-100 border-red-400"
-          )}
-        >
-          <div className="font-semibold text-xs">
-            {formatTime(startTime)} - {formatTime(endTime)}
-          </div>
-          <div className="text-xs mt-1 font-medium">
-            {available} of {total} boats available
-          </div>
-          <div className="text-xs opacity-75">
-            25-person boats
-          </div>
-        </div>
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger asChild>
+              <div
+                className={cn(
+                  "p-2 rounded-md border transition-all cursor-pointer",
+                  available > 0 
+                    ? "bg-green-100 border-green-400 hover:bg-green-200" 
+                    : "bg-red-100 border-red-400"
+                )}
+              >
+                <div className="flex justify-between items-center">
+                  <div>
+                    <div className="font-semibold text-xs">
+                      {formatTime(startTime)} - {formatTime(endTime)}
+                    </div>
+                    <div className="text-xs mt-1 font-medium">
+                      {available} of {total} boats available
+                    </div>
+                    <div className="text-xs opacity-75">
+                      25-person boats
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-semibold text-sm text-green-700">
+                      {formatCurrency(groupPricing.standardPrice / 100)}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      {groupPricing.dayType}
+                    </div>
+                    <div className="text-xs text-muted-foreground">
+                      ~{formatCurrency(groupPricing.perPersonEstimate / 100)}/person
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </TooltipTrigger>
+            <TooltipContent side="right" className="z-50">
+              <div className="space-y-2 max-w-xs">
+                <div className="font-semibold text-sm border-b pb-1">25-Person Boat Pricing</div>
+                <div className="text-xs space-y-1">
+                  <div className="text-muted-foreground">Day Type: {groupPricing.dayType}</div>
+                  {groupPricing.packagePreviews.map((pkg, idx) => (
+                    <div key={idx} className={cn(
+                      "flex justify-between items-center p-1 rounded",
+                      pkg.popular && "bg-yellow-100 border border-yellow-300"
+                    )}>
+                      <span className={cn(pkg.popular && "font-semibold")}>
+                        {pkg.name} {pkg.popular && '⭐'}
+                      </span>
+                      <span className="font-medium">{formatCurrency(pkg.price / 100)}</span>
+                    </div>
+                  ))}
+                  <div className="text-xs text-muted-foreground pt-1 border-t">
+                    ~{formatCurrency(groupPricing.perPersonEstimate / 100)}/person estimate
+                  </div>
+                </div>
+              </div>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
         <div className="pl-4 space-y-1">
           {mediumBoats.map(boat => {
             const dateBookings = bookings.filter(b => {
@@ -479,7 +641,7 @@ function CalendarView() {
               <div
                 key={boat.id}
                 className={cn(
-                  "text-xs px-1.5 py-0.5 rounded cursor-pointer transition-all font-medium",
+                  "text-xs px-1.5 py-0.5 rounded cursor-pointer transition-all font-medium flex justify-between items-center",
                   getColorClasses(getBoatColor(boat.name), 'card'), // Add boat color border
                   isBooked 
                     ? "bg-red-200 text-red-800 border border-red-400" 
@@ -496,7 +658,14 @@ function CalendarView() {
                 }}
                 data-testid={`boat-toggle-${boat.id}-${startTime}`}
               >
-                <span className={getBoatTextColor(boat.name)}>{boat.name}</span>: {isBooked ? 'Booked' : 'Available'}
+                <span className={getBoatTextColor(boat.name)}>
+                  {boat.name}: {isBooked ? 'Booked' : 'Available'}
+                </span>
+                {!isBooked && (
+                  <span className="font-semibold text-green-700">
+                    {formatCurrency(groupPricing.standardPrice / 100)}
+                  </span>
+                )}
               </div>
             );
           })}
@@ -505,55 +674,104 @@ function CalendarView() {
     );
   };
 
-  // Disco slot card component
+  // Disco slot card component with pricing
   const DiscoSlotDisplay = ({ slot }: { slot: DiscoSlot }) => {
     const available = slot.ticketCap - slot.ticketsSold;
+    
+    // Disco pricing based on day of week
+    const slotDate = new Date(slot.date);
+    const dayOfWeek = slotDate.getDay();
+    const discoPackages = [
+      { name: 'Basic', price: 8500, description: 'Dance floor access + cash bar' },
+      { name: 'Disco Queen', price: 9500, description: 'Basic + VIP seating + welcome drink', popular: true },
+      { name: 'Platinum', price: 10500, description: 'All inclusive + bottle service' }
+    ];
+    
+    const basePrice = dayOfWeek === 6 ? 9500 : 8500; // Saturday premium
     
     return (
       <Card className={cn("mb-1 border-l-4 border-l-yellow-500", getColorClasses('yellow', 'disco'))}>
         <CardContent className="p-2">
-          <div className="flex items-center justify-between">
-            <div>
-              <div className="font-semibold text-xs text-yellow-800">
-                {formatTime(new Date(slot.startTime).toTimeString().slice(0, 5))} - 
-                {formatTime(new Date(slot.endTime).toTimeString().slice(0, 5))}
-              </div>
-              <div className="text-xs text-yellow-700">
-                <Anchor className="inline w-2.5 h-2.5 mr-1" />
-                Disco Cruise
-              </div>
-            </div>
-            <div className="flex items-center gap-2">
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => updateDiscoQuantityMutation.mutate({ slotId: slot.id, adjustment: -1 })}
-                disabled={slot.ticketsSold <= 0}
-                data-testid={`disco-decrease-${slot.id}`}
-              >
-                <Minus className="h-4 w-4" />
-              </Button>
-              <div className="text-center min-w-[80px]">
-                <div className="font-bold text-xs text-yellow-800">{available} of {slot.ticketCap}</div>
-                <div className="text-xs text-yellow-700">available</div>
-              </div>
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => updateDiscoQuantityMutation.mutate({ slotId: slot.id, adjustment: 1 })}
-                disabled={slot.ticketsSold >= slot.ticketCap}
-                data-testid={`disco-increase-${slot.id}`}
-              >
-                <Plus className="h-4 w-4" />
-              </Button>
-            </div>
-          </div>
-          {slot.status === 'soldout' && (
-            <Badge variant="destructive" className="mt-2">
-              <AlertCircle className="w-3 h-3 mr-1" />
-              Sold Out
-            </Badge>
-          )}
+          <TooltipProvider>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="cursor-pointer">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <div className="font-semibold text-xs text-yellow-800">
+                        {formatTime(new Date(slot.startTime).toTimeString().slice(0, 5))} - 
+                        {formatTime(new Date(slot.endTime).toTimeString().slice(0, 5))}
+                      </div>
+                      <div className="text-xs text-yellow-700">
+                        <Anchor className="inline w-2.5 h-2.5 mr-1" />
+                        Disco Cruise
+                      </div>
+                      <div className="text-xs font-semibold text-yellow-800 mt-1">
+                        From {formatCurrency(basePrice / 100)}/person
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => updateDiscoQuantityMutation.mutate({ slotId: slot.id, adjustment: -1 })}
+                        disabled={slot.ticketsSold <= 0}
+                        data-testid={`disco-decrease-${slot.id}`}
+                      >
+                        <Minus className="h-4 w-4" />
+                      </Button>
+                      <div className="text-center min-w-[80px]">
+                        <div className="font-bold text-xs text-yellow-800">{available} of {slot.ticketCap}</div>
+                        <div className="text-xs text-yellow-700">available</div>
+                      </div>
+                      <Button
+                        variant="outline"
+                        size="icon"
+                        onClick={() => updateDiscoQuantityMutation.mutate({ slotId: slot.id, adjustment: 1 })}
+                        disabled={slot.ticketsSold >= slot.ticketCap}
+                        data-testid={`disco-increase-${slot.id}`}
+                      >
+                        <Plus className="h-4 w-4" />
+                      </Button>
+                    </div>
+                  </div>
+                  {slot.status === 'soldout' && (
+                    <Badge variant="destructive" className="mt-2">
+                      <AlertCircle className="w-3 h-3 mr-1" />
+                      Sold Out
+                    </Badge>
+                  )}
+                </div>
+              </TooltipTrigger>
+              <TooltipContent side="right" className="z-50">
+                <div className="space-y-2 max-w-xs">
+                  <div className="font-semibold text-sm border-b pb-1">ATX Disco Cruise Packages</div>
+                  <div className="text-xs space-y-1">
+                    <div className="text-muted-foreground">
+                      {dayOfWeek === 6 ? 'Saturday Premium' : dayOfWeek === 5 ? 'Friday' : 'Weekend'} Pricing
+                    </div>
+                    {discoPackages.map((pkg, idx) => (
+                      <div key={idx} className={cn(
+                        "flex justify-between items-center p-1 rounded",
+                        pkg.popular && "bg-yellow-100 border border-yellow-300"
+                      )}>
+                        <div>
+                          <span className={cn(pkg.popular && "font-semibold")}>
+                            {pkg.name} {pkg.popular && '⭐'}
+                          </span>
+                          <div className="text-xs text-muted-foreground">{pkg.description}</div>
+                        </div>
+                        <span className="font-medium">{formatCurrency(pkg.price / 100)}</span>
+                      </div>
+                    ))}
+                    <div className="text-xs text-muted-foreground pt-1 border-t">
+                      4-hour party cruise • Live DJ • Dance floor
+                    </div>
+                  </div>
+                </div>
+              </TooltipContent>
+            </Tooltip>
+          </TooltipProvider>
         </CardContent>
       </Card>
     );
