@@ -4915,63 +4915,42 @@ export async function registerRoutes(app: Express): Promise<Server> {
             return res.status(400).json({ error: "timeSlot required for private cruise" });
           }
           
-          // Use shared pricing functions for consistency
-          const { getHourlyRateByDayAndGroupSize, getCruiseDuration, calculateCompletePricing } = await import('@shared/pricing');
+          // Use shared pricing functions for real PRIVATE_CRUISE_PRICING calculations
+          const { calculatePackagePricing, calculateDeposit } = await import('@shared/pricing');
           const date = new Date(eventDate);
           
-          // Get proper base hourly rate from shared pricing logic
-          const baseHourlyRateFromPricing = getHourlyRateByDayAndGroupSize(date, parseInt(groupSize));
-          const baseHourlyRate = baseHourlyRateFromPricing / 100; // Convert cents to dollars
-          
+          // Determine package type from selected add-ons
+          let packageType: 'standard' | 'essentials' | 'ultimate' = 'standard';
           const selectedAddOns = selectedAddOnPackages || [];
           
-          // Define available add-on packages (server-side validation)
-          const addOnPackages = [
-            { id: 'essentials', name: 'Essentials Package', hourlyRate: 50 },
-            { id: 'ultimate', name: 'Ultimate Party Package', hourlyRate: 75 }
-          ];
-          
-          // Calculate total hourly rate with add-ons
-          let serverCalculatedHourlyRate = baseHourlyRate;
-          const appliedAddOns = [];
-          
-          for (const addOnId of selectedAddOns) {
-            const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
-            if (addOn) {
-              serverCalculatedHourlyRate += addOn.hourlyRate;
-              appliedAddOns.push(addOn);
-            }
+          if (selectedAddOns.includes('ultimate')) {
+            packageType = 'ultimate';
+          } else if (selectedAddOns.includes('essentials')) {
+            packageType = 'essentials';
           }
           
-          // Use proper duration calculation from shared pricing
-          const duration = getCruiseDuration(date);
+          // Calculate pricing using real PRIVATE_CRUISE_PRICING structure
+          const privatePricing = calculatePackagePricing(date, parseInt(groupSize), packageType);
           
-          // Calculate subtotal with add-ons
-          const subtotalCents = Math.round(serverCalculatedHourlyRate * duration * 100); // Convert to cents
-          const items = [{ quantity: 1, unitPrice: subtotalCents, name: 'Private Cruise', type: 'cruise' }];
-          
-          // Use shared invoice calculation for consistent tax/gratuity
-          const invoiceTotals = await calculateInvoiceTotalsWithPricingSettings(items, undefined, date);
-          
-          // Calculate deposit (50% of total for checkout)
-          const depositCents = Math.round(invoiceTotals.total * 0.5);
+          // Calculate proper deposit based on booking timing
+          const depositData = calculateDeposit(privatePricing.totalPrice, date);
           
           pricing = {
-            subtotal: invoiceTotals.subtotal,
-            tax: invoiceTotals.tax,
-            gratuity: invoiceTotals.gratuity,
-            total: invoiceTotals.total,
+            subtotal: privatePricing.basePrice + privatePricing.addOnCost + privatePricing.totalCrewFee,
+            tax: privatePricing.totalPrice - privatePricing.basePrice - privatePricing.addOnCost - privatePricing.totalCrewFee - Math.round((privatePricing.totalPrice - privatePricing.basePrice - privatePricing.addOnCost - privatePricing.totalCrewFee) * 0.2), // Extract tax from totalPrice
+            gratuity: Math.round((privatePricing.basePrice + privatePricing.addOnCost + privatePricing.totalCrewFee) * 0.2), // 20% of subtotal
+            total: privatePricing.totalPrice,
             depositRequired: true,
-            depositAmount: depositCents,
-            depositPercent: 50,
-            duration: duration,
-            hourlyRate: serverCalculatedHourlyRate,
-            baseHourlyRate: baseHourlyRate,
-            selectedAddOns: appliedAddOns,
+            depositAmount: depositData.depositAmount,
+            depositPercent: depositData.depositPercent,
+            duration: 4, // All cruises are 4 hours
+            hourlyRate: privatePricing.baseHourlyRate / 100, // Convert cents to dollars
+            baseHourlyRate: privatePricing.baseHourlyRate / 100,
+            selectedAddOns: selectedAddOns.map(id => ({ id, name: id.charAt(0).toUpperCase() + id.slice(1) + ' Package' })),
             timeSlot: effectiveTimeSlot,
-            pricingModel: 'hourly',
+            pricingModel: 'package',
             discountTotal: 0,
-            perPersonCost: Math.round(invoiceTotals.total / parseInt(groupSize))
+            perPersonCost: Math.round(privatePricing.totalPrice / parseInt(groupSize))
           };
         } else if (cruiseType === 'disco') {
           // More flexible validation - handle missing values with defaults
@@ -4992,14 +4971,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
             groupSize
           });
 
-          // Calculate disco pricing using the pricing preview endpoint logic
+          // Use real DISCO_PRICING constants for consistency
+          const { DISCO_PRICING } = await import('@shared/constants');
+          
           const getDiscoPriceByPackage = (packageId: string): number => {
-            const packagePrices = {
-              'basic': 8500, // $85.00 in cents
-              'disco_queen': 9500, // $95.00 in cents  
-              'platinum': 10500, // $105.00 in cents
+            const packageMap = {
+              'basic': 'basic',
+              'disco_queen': 'disco_queen', 
+              'platinum': 'platinum'
             };
-            return packagePrices[packageId as keyof typeof packagePrices] || 8500;
+            const mappedId = packageMap[packageId as keyof typeof packageMap] || 'basic';
+            return DISCO_PRICING[mappedId as keyof typeof DISCO_PRICING] || DISCO_PRICING.basic;
           };
 
           pricing = await storage.calculatePricing({

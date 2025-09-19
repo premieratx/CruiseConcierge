@@ -22,7 +22,8 @@ import {
   NormalizedSlot 
 } from '@shared/schema';
 import { EVENT_TYPES, DISCO_PACKAGES } from '@shared/constants';
-import { calculateCompletePricing } from '@shared/pricing';
+import { calculatePackagePricing, calculateTaxAndGratuity, calculateDeposit, getPricingDayType } from '@shared/pricing';
+import { DISCO_PRICING, PRICING_POLICIES, compareDiscoVsPrivate, getBestDealRecommendation } from '@shared/constants';
 
 interface UseCheckoutContextProps {
   entryPoint: CheckoutEntryPoint;
@@ -258,47 +259,125 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
       if (!response.ok) throw new Error('Failed to calculate pricing');
       return await response.json();
     } catch (err) {
-      console.error('Pricing calculation failed:', err);
-      // Return fallback pricing
-      return createFallbackPricing(selections);
+      console.error('Pricing calculation failed, using real pricing fallback:', err);
+      // Return real pricing calculations as fallback
+      return createRealPricing(selections);
     }
   };
   
-  // Create fallback pricing when API fails
-  const createFallbackPricing = (selections: CheckoutSelections): CheckoutPricing => {
-    const basePricing = calculateCompletePricing(selections.eventDate, selections.groupSize);
+  // Create real pricing calculations using PRIVATE_CRUISE_PRICING data
+  const createRealPricing = (selections: CheckoutSelections): CheckoutPricing => {
+    if (selections.cruiseType === 'disco' && selections.discoPackage) {
+      return createDiscoPricing(selections);
+    } else {
+      return createPrivatePricing(selections);
+    }
+  };
+  
+  // Calculate disco cruise pricing
+  const createDiscoPricing = (selections: CheckoutSelections): CheckoutPricing => {
+    const packageType = selections.discoPackage?.id || 'basic';
+    const pricePerPerson = DISCO_PRICING[packageType as keyof typeof DISCO_PRICING] || DISCO_PRICING.basic;
+    const subtotal = pricePerPerson * selections.groupSize;
+    
+    // Disco prices are already final - no additional tax/gratuity
+    const taxAndGratuity = { tax: 0, gratuity: 0, total: subtotal };
+    const deposit = calculateDeposit(subtotal, selections.eventDate);
     
     return {
-      ...basePricing,
+      subtotal,
+      tax: taxAndGratuity.tax,
+      gratuity: taxAndGratuity.gratuity, 
+      total: subtotal,
+      perPersonCost: pricePerPerson,
+      
       // Required PricingPreview properties
-      discountTotal: basePricing.discountTotal || 0,
-      depositRequired: basePricing.depositRequired || true,
-      appliedDiscounts: basePricing.appliedDiscounts || [],
-      paymentSchedule: basePricing.paymentSchedule || [],
+      discountTotal: 0,
+      depositRequired: true,
+      appliedDiscounts: [],
+      paymentSchedule: [],
+      
       // CheckoutPricing specific properties
       boatInfo: {
-        name: selections.selectedBoat.name,
-        baseHourlyRate: 25000, // $250/hour fallback
-        crewFee: selections.groupSize > selections.selectedBoat.capacity ? selections.selectedBoat.crewFeePerHour : 0,
-        capacity: selections.selectedBoat.capacity
+        name: 'ATX Disco Cruise',
+        baseHourlyRate: 0, // Not applicable for disco
+        crewFee: 0,
+        capacity: 100 // Disco cruise capacity
       },
       packageBreakdown: {
-        baseCruiseCost: basePricing.subtotal,
-        discoPackageCost: 0,
+        baseCruiseCost: subtotal,
+        discoPackageCost: 0, // Already included in per-person price
         addOnPackagesCost: 0,
         crewFee: 0
       },
       paymentOptions: {
         depositOnly: {
-          amount: basePricing.depositAmount,
-          description: 'Deposit Payment (25%)'
+          amount: deposit.depositAmount,
+          description: `${deposit.depositPercent}% Deposit ${deposit.isUrgentBooking ? '(Urgent Booking)' : ''}`
         },
         fullPayment: {
-          amount: basePricing.total,
+          amount: subtotal,
           description: 'Full Payment'
         }
       },
-      validUntil: new Date(Date.now() + 30 * 60 * 1000), // 30 minutes
+      validUntil: new Date(Date.now() + 30 * 60 * 1000),
+      requiresRevalidation: false,
+      
+      // Additional deposit info
+      depositAmount: deposit.depositAmount,
+      balanceDue: deposit.balanceDue,
+      depositPercent: deposit.depositPercent,
+      isUrgentBooking: deposit.isUrgentBooking,
+      remainingBalanceDueAt: deposit.remainingBalanceDueAt,
+      daysUntilEvent: deposit.daysUntilEvent
+    };
+  };
+  
+  // Calculate private cruise pricing using PRIVATE_CRUISE_PRICING
+  const createPrivatePricing = (selections: CheckoutSelections): CheckoutPricing => {
+    // Determine package type from add-on packages selection
+    let packageType: 'standard' | 'essentials' | 'ultimate' = 'standard';
+    if (selections.addOnPackages.some(p => p.id === 'ultimate')) {
+      packageType = 'ultimate';
+    } else if (selections.addOnPackages.some(p => p.id === 'essentials')) {
+      packageType = 'essentials';
+    }
+    
+    const pricing = calculatePackagePricing(selections.eventDate, selections.groupSize, packageType);
+    
+    return {
+      ...pricing,
+      
+      // Required PricingPreview properties
+      discountTotal: 0,
+      depositRequired: true,
+      appliedDiscounts: [],
+      paymentSchedule: [],
+      
+      // CheckoutPricing specific properties
+      boatInfo: {
+        name: selections.selectedBoat.name,
+        baseHourlyRate: pricing.baseHourlyRate,
+        crewFee: pricing.totalCrewFee,
+        capacity: pricing.capacity
+      },
+      packageBreakdown: {
+        baseCruiseCost: pricing.totalPrice - pricing.addOnCost,
+        discoPackageCost: 0,
+        addOnPackagesCost: pricing.addOnCost,
+        crewFee: pricing.totalCrewFee
+      },
+      paymentOptions: {
+        depositOnly: {
+          amount: pricing.depositAmount,
+          description: `${pricing.depositPercent}% Deposit ${pricing.isUrgentBooking ? '(Urgent Booking)' : ''}`
+        },
+        fullPayment: {
+          amount: pricing.totalPrice,
+          description: 'Full Payment'
+        }
+      },
+      validUntil: new Date(Date.now() + 30 * 60 * 1000),
       requiresRevalidation: false
     };
   };

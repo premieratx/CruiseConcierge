@@ -21,7 +21,7 @@ import { useCheckoutContext } from '@/hooks/use-checkout-context';
 import { useToast } from '@/hooks/use-toast';
 import { formatCurrency, formatDate, formatTimeForDisplay } from '@shared/formatters';
 import { CheckoutEntryPoint, BoatOption, DiscoPackageOption, AddOnPackageOption } from '@shared/schema';
-import { EVENT_TYPES } from '@shared/constants';
+import { EVENT_TYPES, getBestDealRecommendation, compareDiscoVsPrivate, PRICING_POLICIES } from '@shared/constants';
 
 // Note: These checkout components will be implemented as needed
 // import CheckoutBoatSelector from '@/components/checkout/CheckoutBoatSelector';
@@ -36,6 +36,141 @@ const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || 
 interface UniversalCheckoutProps {
   entryPoint?: CheckoutEntryPoint;
   preselectedData?: any;
+}
+
+// Smart Recommendations Component
+function SmartRecommendationsCard({ selections, pricing, onSelectCruiseType }: {
+  selections: any;
+  pricing: any;
+  onSelectCruiseType: (type: 'private' | 'disco') => void;
+}) {
+  // Get intelligent recommendations
+  const recommendation = getBestDealRecommendation(
+    selections.eventDate,
+    selections.groupSize
+  );
+  
+  // Get disco vs private comparison for available days
+  const discoComparison = compareDiscoVsPrivate(
+    selections.eventDate,
+    selections.groupSize
+  );
+  
+  if (!recommendation && !discoComparison) return null;
+  
+  return (
+    <Card className="border-amber-200 dark:border-amber-800">
+      <CardHeader>
+        <CardTitle className="flex items-center gap-2 text-amber-700 dark:text-amber-300">
+          <SparklesIcon className="h-5 w-5" />
+          Smart Recommendations
+        </CardTitle>
+        <CardDescription>
+          Ways to save on your cruise booking
+        </CardDescription>
+      </CardHeader>
+      <CardContent className="space-y-3">
+        {/* Best Deal Recommendation */}
+        {recommendation && (
+          <div className="bg-amber-50 dark:bg-amber-950 p-3 rounded-lg">
+            <div className="flex items-start gap-2">
+              <TrendingUpIcon className="h-4 w-4 text-amber-600 mt-0.5" />
+              <div className="space-y-1">
+                <h4 className="font-semibold text-sm text-amber-900 dark:text-amber-100">
+                  {recommendation.type === 'different_day' && 'Save by changing your date'}
+                  {recommendation.type === 'different_cruise' && 'Consider disco cruise option'}
+                  {recommendation.type === 'different_package' && 'Package upgrade savings'}
+                </h4>
+                <p className="text-xs text-amber-800 dark:text-amber-200">
+                  {recommendation.message}
+                </p>
+                {recommendation.savings > 0 && (
+                  <div className="text-sm font-bold text-green-600 dark:text-green-400">
+                    Save {formatCurrency(recommendation.savings)}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        )}
+        
+        {/* Disco vs Private Comparison */}
+        {discoComparison && (
+          <div className="space-y-2">
+            {discoComparison.discoAvailable && (
+              <div className="bg-purple-50 dark:bg-purple-950 p-3 rounded-lg">
+                <div className="flex items-start gap-2">
+                  <MusicIcon className="h-4 w-4 text-purple-600 mt-0.5" />
+                  <div className="space-y-1">
+                    <h4 className="font-semibold text-sm text-purple-900 dark:text-purple-100">
+                      Disco Cruise Available
+                    </h4>
+                    <p className="text-xs text-purple-800 dark:text-purple-200">
+                      Join our party boat for {formatCurrency(discoComparison.discoPrice)} 
+                      ({formatCurrency(discoComparison.discoPrice / selections.groupSize)} per person)
+                    </p>
+                    {discoComparison.savings > 0 ? (
+                      <div className="text-sm font-bold text-green-600 dark:text-green-400">
+                        Save {formatCurrency(discoComparison.savings)} vs private cruise
+                      </div>
+                    ) : discoComparison.savings < 0 ? (
+                      <div className="text-sm text-muted-foreground">
+                        Private cruise saves {formatCurrency(Math.abs(discoComparison.savings))}
+                      </div>
+                    ) : null}
+                  </div>
+                </div>
+                {selections.cruiseType === 'private' && discoComparison.savings > 0 && (
+                  <Button 
+                    size="sm" 
+                    variant="outline" 
+                    className="mt-2 w-full"
+                    onClick={() => onSelectCruiseType('disco')}
+                    data-testid="button-switch-disco"
+                  >
+                    Switch to Disco Cruise
+                  </Button>
+                )}
+              </div>
+            )}
+            
+            {!discoComparison.discoAvailable && selections.cruiseType === 'disco' && (
+              <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded-lg">
+                <div className="flex items-start gap-2">
+                  <InfoIcon className="h-4 w-4 text-blue-600 mt-0.5" />
+                  <div className="space-y-1">
+                    <h4 className="font-semibold text-sm text-blue-900 dark:text-blue-100">
+                      Consider Alternative Days
+                    </h4>
+                    <p className="text-xs text-blue-800 dark:text-blue-200">
+                      Disco cruises available Friday & Saturday. Private cruise recommended for your selected day.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+        
+        {/* General Savings Tips */}
+        <div className="bg-gray-50 dark:bg-gray-950 p-3 rounded-lg">
+          <div className="flex items-start gap-2">
+            <CheckCircle2 className="h-4 w-4 text-gray-600 mt-0.5" />
+            <div className="space-y-1">
+              <h4 className="font-semibold text-sm text-gray-900 dark:text-gray-100">
+                Booking Tips
+              </h4>
+              <ul className="text-xs text-gray-800 dark:text-gray-200 space-y-1">
+                <li>• Book 30+ days in advance for lower deposit ({PRICING_POLICIES.deposit.standard.percentage}% vs {PRICING_POLICIES.deposit.urgent.percentage}%)</li>
+                <li>• Weekday cruises offer the best value</li>
+                <li>• Group size efficiency: sweet spots at 14, 25, and 50 people</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </CardContent>
+    </Card>
+  );
 }
 
 export default function UniversalCheckout({ 
@@ -363,50 +498,184 @@ export default function UniversalCheckout({
               </div>
             </div>
 
-            {/* Sidebar - Pricing Summary */}
+            {/* Sidebar - Enhanced Pricing Summary */}
             <div className="lg:col-span-1">
-              {/* 
-              <CheckoutPricingDisplay
-                pricing={pricing}
-                selections={selections}
-                currentStep={currentStep}
-                onEditSelections={() => setCurrentStep('selections')}
-              />
-              */}
-              
-              {/* Pricing Summary Card */}
-              <Card className="sticky top-6">
-                <CardHeader>
-                  <CardTitle>Booking Summary</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex justify-between">
-                      <span>Event Type:</span>
-                      <span className="font-medium">{selections.eventTypeLabel}</span>
-                    </div>
-                    {selections.eventDate && (
+              <div className="sticky top-6 space-y-4">
+                {/* Main Pricing Card */}
+                <Card data-testid="card-pricing-summary">
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <CreditCardIcon className="h-5 w-5" />
+                      Pricing Breakdown
+                    </CardTitle>
+                    <CardDescription>
+                      Transparent pricing with all details
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    {/* Event Details */}
+                    <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span>Date:</span>
+                        <span className="text-muted-foreground">Event Type:</span>
+                        <span className="font-medium">{EVENT_TYPES[selections.eventType as keyof typeof EVENT_TYPES]?.label || selections.eventTypeLabel}</span>
+                      </div>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Date:</span>
                         <span className="font-medium">{formatDate(selections.eventDate)}</span>
                       </div>
-                    )}
-                    <div className="flex justify-between">
-                      <span>Group Size:</span>
-                      <span className="font-medium">{selections.groupSize} guests</span>
+                      <div className="flex justify-between">
+                        <span className="text-muted-foreground">Group Size:</span>
+                        <span className="font-medium">{selections.groupSize} guests</span>
+                      </div>
+                      {selections.cruiseType === 'private' && pricing.boatInfo && (
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Boat:</span>
+                          <span className="font-medium">{pricing.boatInfo.name}</span>
+                        </div>
+                      )}
                     </div>
+
                     {pricing.total > 0 && (
                       <>
                         <Separator />
-                        <div className="flex justify-between text-lg font-semibold">
-                          <span>Total:</span>
-                          <span>{formatCurrency(pricing.total)}</span>
+                        
+                        {/* Pricing Breakdown */}
+                        <div className="space-y-2">
+                          <h4 className="font-semibold text-sm flex items-center gap-2">
+                            <InfoIcon className="h-4 w-4" />
+                            Cost Breakdown
+                          </h4>
+                          
+                          {selections.cruiseType === 'disco' ? (
+                            <div className="space-y-1 text-sm">
+                              <div className="flex justify-between">
+                                <span className="text-muted-foreground">
+                                  {selections.discoPackage?.name || 'Disco Package'}
+                                </span>
+                                <span>{formatCurrency(pricing.subtotal)}</span>
+                              </div>
+                              <div className="flex justify-between text-xs text-muted-foreground">
+                                <span>• {formatCurrency(pricing.perPersonCost || 0)} per person</span>
+                                <span>{selections.groupSize}x</span>
+                              </div>
+                            </div>
+                          ) : (
+                            <div className="space-y-1 text-sm">
+                              {/* Base Cruise Cost */}
+                              <div className="flex justify-between">
+                                <span className="text-muted-foreground">Base Cruise (4hrs)</span>
+                                <span>{formatCurrency(pricing.packageBreakdown?.baseCruiseCost || pricing.subtotal)}</span>
+                              </div>
+                              
+                              {/* Add-on Packages */}
+                              {pricing.packageBreakdown?.addOnPackagesCost > 0 && (
+                                <div className="flex justify-between">
+                                  <span className="text-muted-foreground">Package Add-ons</span>
+                                  <span>{formatCurrency(pricing.packageBreakdown.addOnPackagesCost)}</span>
+                                </div>
+                              )}
+                              
+                              {/* Crew Fee */}
+                              {pricing.packageBreakdown?.crewFee > 0 && (
+                                <div className="flex justify-between">
+                                  <span className="text-muted-foreground">Additional Crew</span>
+                                  <span>{formatCurrency(pricing.packageBreakdown.crewFee)}</span>
+                                </div>
+                              )}
+                              
+                              {/* Per Person Cost */}
+                              {pricing.perPersonCost && (
+                                <div className="flex justify-between text-xs text-muted-foreground pt-1 border-t">
+                                  <span>Per person cost</span>
+                                  <span>{formatCurrency(pricing.perPersonCost)}</span>
+                                </div>
+                              )}
+                            </div>
+                          )}
                         </div>
+
+                        {/* Tax and Gratuity */}
+                        {(pricing.tax > 0 || pricing.gratuity > 0) && (
+                          <>
+                            <Separator />
+                            <div className="space-y-1 text-sm">
+                              <h4 className="font-semibold text-sm">Taxes & Fees</h4>
+                              {pricing.tax > 0 && (
+                                <div className="flex justify-between">
+                                  <span className="text-muted-foreground">Tax (8.25%)</span>
+                                  <span>{formatCurrency(pricing.tax)}</span>
+                                </div>
+                              )}
+                              {pricing.gratuity > 0 && (
+                                <div className="flex justify-between">
+                                  <span className="text-muted-foreground">Gratuity (20%)</span>
+                                  <span>{formatCurrency(pricing.gratuity)}</span>
+                                </div>
+                              )}
+                            </div>
+                          </>
+                        )}
+
+                        <Separator />
+                        
+                        {/* Total */}
+                        <div className="flex justify-between text-lg font-bold">
+                          <span>Total Cost:</span>
+                          <span className="text-blue-600">{formatCurrency(pricing.total)}</span>
+                        </div>
+                        
+                        {/* Payment Options */}
+                        {pricing.paymentOptions && (
+                          <div className="space-y-2 mt-4">
+                            <h4 className="font-semibold text-sm flex items-center gap-2">
+                              <CreditCardIcon className="h-4 w-4" />
+                              Payment Options
+                            </h4>
+                            
+                            {/* Deposit Option */}
+                            <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded-lg">
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="font-medium text-sm">Pay Deposit</span>
+                                <span className="font-bold text-blue-600">{formatCurrency(pricing.paymentOptions.depositOnly.amount)}</span>
+                              </div>
+                              <p className="text-xs text-muted-foreground">{pricing.paymentOptions.depositOnly.description}</p>
+                              {pricing.balanceDue && (
+                                <p className="text-xs text-muted-foreground mt-1">
+                                  Balance: {formatCurrency(pricing.balanceDue)} due {pricing.remainingBalanceDueAt ? formatDate(new Date(pricing.remainingBalanceDueAt)) : '30 days before cruise'}
+                                </p>
+                              )}
+                              {pricing.isUrgentBooking && (
+                                <div className="flex items-center gap-1 mt-1 text-xs text-amber-600">
+                                  <AlertCircle className="h-3 w-3" />
+                                  <span>Urgent booking - higher deposit required</span>
+                                </div>
+                              )}
+                            </div>
+                            
+                            {/* Full Payment Option */}
+                            <div className="bg-green-50 dark:bg-green-950 p-3 rounded-lg">
+                              <div className="flex justify-between items-center mb-1">
+                                <span className="font-medium text-sm">Pay in Full</span>
+                                <span className="font-bold text-green-600">{formatCurrency(pricing.paymentOptions.fullPayment.amount)}</span>
+                              </div>
+                              <p className="text-xs text-muted-foreground">Complete payment - nothing more to pay</p>
+                            </div>
+                          </div>
+                        )}
                       </>
                     )}
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+                
+                {/* Smart Recommendations Card */}
+                {pricing.total > 0 && (
+                  <SmartRecommendationsCard 
+                    selections={selections} 
+                    pricing={pricing} 
+                    onSelectCruiseType={selectCruiseType}
+                  />
+                )}
+              </div>
             </div>
           </div>
         </div>
