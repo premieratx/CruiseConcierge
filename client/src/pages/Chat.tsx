@@ -43,6 +43,7 @@ import {
   calculatePrivatePrice,
   DISCO_AVAILABILITY 
 } from '@shared/constants';
+import { PricingPolicyDisplay, PolicySummary } from '@/components/PricingPolicyDisplay';
 import { getDiscoTimeSlotsForDate, getPrivateTimeSlotsForDate, isDiscoAvailableForDate } from '@shared/timeSlots';
 import { 
   calculatePackagePricing, 
@@ -2670,6 +2671,16 @@ export default function Chat() {
                             </div>
                           )}
                           
+                          {/* Pricing Policy Information */}
+                          <div className="mb-4">
+                            <PolicySummary 
+                              eventDate={formData.eventDate}
+                              totalCost={privatePricing?.total}
+                              context="chat"
+                              className="border-l-4 border-l-green-500"
+                            />
+                          </div>
+
                           {/* Payment Buttons */}
                           <div className="space-y-2">
                             <Button
@@ -2966,7 +2977,16 @@ export default function Chat() {
                             
                             {/* Payment Buttons - Only show if both slot and package selected */}
                             {formData.selectedSlot && formData.selectedDiscoPackage && (
-                              <div className="space-y-2">
+                              <div className="space-y-4">
+                                {/* Disco Pricing Policy Information */}
+                                <PolicySummary 
+                                  eventDate={formData.eventDate}
+                                  totalCost={discoPricing?.total}
+                                  context="chat"
+                                  className="border-l-4 border-l-purple-500"
+                                />
+                                
+                                <div className="space-y-2">
                                 <Button
                                   onClick={() => {
                                     setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
@@ -3005,6 +3025,7 @@ export default function Chat() {
                                   <FileText className="h-4 w-4 mr-2" />
                                   Send Me My Quote
                                 </Button>
+                                </div>
                               </div>
                             )}
                           </CardContent>

@@ -838,35 +838,105 @@ export const PRIVATE_CRUISE_PRICING = {
 } as const;
 
 /**
- * Pricing Policies for Private Cruise Bookings
+ * Comprehensive Pricing Policies for Premier Party Cruises
+ * Includes deposit rules, payment terms, cancellation policy, and legal information
  * Based on user-provided policy specifications
  */
 export const PRICING_POLICIES = {
   deposit: {
     standard: {
       percentage: 25,
-      description: 'Standard deposit for bookings made more than 30 days in advance'
+      description: 'Standard deposit for bookings made more than 30 days in advance',
+      balancePercentage: 75,
+      balanceDueDays: 30,
+      title: 'Standard Booking',
+      subtitle: '25% deposit to secure, 75% due 30 days before cruise'
     },
     urgent: {
       percentage: 50,
       description: 'Higher deposit required for bookings made 30 days or less from cruise date',
-      paymentWindow: 48 // hours to pay after booking
+      paymentWindow: 48, // hours to pay after booking
+      balancePercentage: 50,
+      balanceDueDays: 2, // 48 hours = 2 days
+      title: 'Urgent Booking',
+      subtitle: '50% deposit required, balance due within 48 hours'
     }
   },
   balance: {
     standardDueDays: 30, // days before cruise when remaining balance is due
-    description: 'Remaining balance due 30 days before cruise date'
+    description: 'Remaining balance due 30 days before cruise date',
+    urgentDueHours: 48, // hours for urgent bookings
+    urgentDescription: 'Balance due within 48 hours for urgent bookings'
   },
   thresholds: {
     urgentBookingDays: 30, // booking within this many days requires higher deposit
     fullPaymentDays: 14, // booking within this many days may require full payment
   },
+  paymentTerms: {
+    acceptedMethods: [
+      'Credit Card (Visa, Mastercard, American Express)',
+      'Debit Card',
+      'Bank Transfer (ACH)',
+      'Business Check (with approval)'
+    ],
+    processingTime: {
+      creditCard: 'Instant',
+      bankTransfer: '1-3 business days',
+      check: '5-7 business days to clear'
+    },
+    securityNote: 'All payments are processed securely through Stripe'
+  },
+  cancellation: {
+    policy: 'Cancellation and refund terms vary by booking date and circumstances',
+    contactRequired: true,
+    timeline: {
+      '45+ days': 'Contact for potential refund options',
+      '30-44 days': 'Partial refund may be available',
+      '14-29 days': 'Limited refund options',
+      'Under 14 days': 'Contact for weather or emergency cancellations only'
+    },
+    weatherPolicy: 'Full refund or reschedule for weather-related cancellations',
+    contactInfo: {
+      phone: '(512) 123-4567',
+      email: 'bookings@premierpartycruises.com',
+      hours: 'Mon-Fri 9AM-6PM, Sat-Sun 10AM-4PM'
+    }
+  },
   terms: {
     confirmationRequired: true,
     invoiceGeneration: 'automatic',
     paymentMethods: ['credit_card', 'bank_transfer', 'check'],
-    cancellationPolicy: 'Contact for cancellation terms',
-    depositRefundable: false
+    depositRefundable: false,
+    gratuityIncluded: true,
+    gratuityPercentage: 20,
+    taxRate: 8.25,
+    bookingAgreement: 'Booking constitutes acceptance of all terms and conditions',
+    ageRequirement: '21+ for alcohol service, all ages welcome',
+    capacityLimits: 'Strict capacity limits enforced for safety'
+  },
+  contact: {
+    bookingQuestions: {
+      phone: '(512) 123-4567',
+      email: 'bookings@premierpartycruises.com',
+      text: '(512) 123-4567'
+    },
+    policyQuestions: {
+      email: 'policies@premierpartycruises.com',
+      phone: '(512) 123-4567'
+    },
+    emergencyContact: {
+      phone: '(512) 123-4567',
+      available: '24/7 for booked cruises'
+    },
+    businessHours: 'Monday-Friday 9AM-6PM, Saturday-Sunday 10AM-4PM CST'
+  },
+  legal: {
+    termsUrl: '/terms-conditions',
+    privacyUrl: '/privacy-policy',
+    disclaimer: 'Prices subject to change. Final pricing confirmed upon booking.',
+    liability: 'Limited liability coverage included. Additional insurance available.',
+    disputes: 'Disputes resolved through Austin, Texas jurisdiction',
+    lastUpdated: '2024-09-19'
   }
 } as const;
 

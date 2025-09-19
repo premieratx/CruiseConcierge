@@ -21,6 +21,7 @@ import {
 import { formatCurrency } from '@shared/formatters';
 import { DiscoVsPrivateComparison, QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
 import { PRIVATE_CRUISE_PACKAGES } from '@shared/constants';
+import { PricingPolicyDisplay, PolicySummary } from '@/components/PricingPolicyDisplay';
 import SEOHead from '@/components/SEOHead';
 
 // Hero and gallery images - Real photos from live website
@@ -480,6 +481,14 @@ export default function BacheloretteParty() {
             defaultGroupSize={10}
             className="mb-8"
           />
+          
+          {/* Pricing Policy Information */}
+          <div className="mt-8 max-w-4xl mx-auto">
+            <PricingPolicyDisplay 
+              context="bachelorette-booking"
+              className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border-l-4 border-l-pink-500"
+            />
+          </div>
         </div>
       </section>
 

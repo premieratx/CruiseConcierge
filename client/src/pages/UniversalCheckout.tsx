@@ -22,6 +22,7 @@ import { useToast } from '@/hooks/use-toast';
 import { formatCurrency, formatDate, formatTimeForDisplay } from '@shared/formatters';
 import { CheckoutEntryPoint, BoatOption, DiscoPackageOption, AddOnPackageOption } from '@shared/schema';
 import { EVENT_TYPES, getBestDealRecommendation, compareDiscoVsPrivate, PRICING_POLICIES } from '@shared/constants';
+import { PricingPolicyDisplay, PolicySummary } from '@/components/PricingPolicyDisplay';
 
 // Note: These checkout components will be implemented as needed
 // import CheckoutBoatSelector from '@/components/checkout/CheckoutBoatSelector';
@@ -997,18 +998,79 @@ function PaymentStep({ selections, pricing, onPaymentSubmit, isProcessing }: {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        {/* TODO: Implement CheckoutPaymentForm component */}
-        <div className="space-y-4">
+        <div className="space-y-6">
+          {/* Comprehensive Policy Information */}
+          <div className="space-y-4">
+            <PolicySummary 
+              eventDate={selections.eventDate}
+              totalCost={pricing?.total}
+              context="checkout"
+              className="border-l-4 border-l-blue-500"
+            />
+          </div>
+
+          {/* Payment Options with Policy Context */}
           <div className="p-6 border rounded-lg bg-gradient-to-r from-blue-50 to-cyan-50 dark:from-blue-950 dark:to-cyan-950">
-            <h4 className="font-semibold mb-2">Payment Options</h4>
-            <div className="space-y-2 text-sm text-muted-foreground">
+            <h4 className="font-semibold mb-4">Secure Payment Options</h4>
+            
+            {/* Deposit Calculations */}
+            {pricing && (
+              <div className="space-y-3 mb-4">
+                <div className="flex justify-between items-center p-3 bg-white/50 dark:bg-black/20 rounded-lg">
+                  <div>
+                    <div className="font-medium">Deposit Required</div>
+                    <div className="text-sm text-muted-foreground">
+                      {pricing.isUrgentBooking ? '50% for bookings ≤30 days' : '25% to secure your booking'}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold">{formatCurrency(pricing.depositAmount)}</div>
+                    <div className="text-sm text-muted-foreground">{pricing.depositPercent}%</div>
+                  </div>
+                </div>
+                
+                <div className="flex justify-between items-center p-3 bg-white/50 dark:bg-black/20 rounded-lg">
+                  <div>
+                    <div className="font-medium">Balance Due</div>
+                    <div className="text-sm text-muted-foreground">
+                      {pricing.isUrgentBooking ? 'Within 48 hours' : '30 days before cruise'}
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <div className="font-bold">{formatCurrency(pricing.total - pricing.depositAmount)}</div>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            <div className="space-y-2 text-sm text-muted-foreground mb-4">
               <p>• Secure payment processing with Stripe</p>
-              <p>• Pay deposit now, balance later</p>
-              <p>• Full payment option available</p>
+              <p>• SSL encrypted transactions</p>
+              <p>• All major credit cards accepted</p>
+              <p>• Instant confirmation email</p>
             </div>
-            <Button className="mt-4" disabled={isProcessing}>
-              {isProcessing ? 'Processing...' : 'Payment form will be implemented here'}
-            </Button>
+            
+            {/* Payment Buttons */}
+            <div className="space-y-3">
+              <Button 
+                className="w-full" 
+                disabled={isProcessing}
+                onClick={() => onPaymentSubmit('deposit')}
+              >
+                <CreditCardIcon className="w-4 h-4 mr-2" />
+                {isProcessing ? 'Processing...' : `Pay Deposit ${pricing ? formatCurrency(pricing.depositAmount) : ''}`}
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                className="w-full" 
+                disabled={isProcessing}
+                onClick={() => onPaymentSubmit('full_payment')}
+              >
+                <CreditCardIcon className="w-4 h-4 mr-2" />
+                {isProcessing ? 'Processing...' : `Pay Full Amount ${pricing ? formatCurrency(pricing.total) : ''}`}
+              </Button>
+            </div>
           </div>
         </div>
       </CardContent>
