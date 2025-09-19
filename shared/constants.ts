@@ -528,37 +528,40 @@ export const PRICING_DEFAULTS = {
   FULL_PAYMENT_THRESHOLD_DAYS: 14,
   BASE_HOURLY_RATE: 20000, // $200.00 in cents (minimum rate)
   EXTRA_CREW_FEE: 20000, // $200.00 in cents for groups >20 people
+  CREW_FEE_26_30: 5000, // $50/hour for 26-30 person groups (25p boat expansion)
+  CREW_FEE_51_75: 7500, // $75/hour for 51-75 person groups (50p boat expansion)
 } as const;
 
 /**
  * Premier Party Cruises Hourly Rate Structure
  * All rates in cents (multiply by 100)
- * Structured as Mon-Thu < Friday < Sat-Sun pricing tiers
+ * Based on actual pricing data from user-provided screenshots
+ * All cruises are 4 hours duration
  */
 export const HOURLY_RATES = {
-  // Capacity-based rates for Monday-Thursday (3 hours)
+  // Capacity-based rates for Monday-Thursday (4 hours)
   MON_THU: {
     14: 20000,  // $200/hour for ≤14 people
-    25: 25000,  // $250/hour for ≤25 people
-    30: 30000,  // $300/hour for ≤30 people
-    50: 32500,  // $325/hour for ≤50 people
-    75: 35000,  // $350/hour for ≤75 people
+    25: 22500,  // $225/hour for ≤25 people
+    30: 22500,  // $225/hour for ≤30 people (same as 25p + crew fee)
+    50: 25000,  // $250/hour for ≤50 people
+    75: 25000,  // $250/hour for ≤75 people (same as 50p + crew fee)
   },
-  // Capacity-based rates for Friday (4 hours) - 25% premium over weekday
+  // Capacity-based rates for Friday (4 hours)
   FRIDAY: {
-    14: 25000,  // $250/hour for ≤14 people
-    25: 31250,  // $312.50/hour for ≤25 people
-    30: 37500,  // $375/hour for ≤30 people
-    50: 40625,  // $406.25/hour for ≤50 people
-    75: 43750,  // $437.50/hour for ≤75 people
+    14: 22500,  // $225/hour for ≤14 people
+    25: 25000,  // $250/hour for ≤25 people
+    30: 25000,  // $250/hour for ≤30 people (same as 25p + crew fee)
+    50: 27500,  // $275/hour for ≤50 people
+    75: 27500,  // $275/hour for ≤75 people (same as 50p + crew fee)
   },
-  // Capacity-based rates for Saturday-Sunday (4 hours) - 50% premium over weekday
+  // Capacity-based rates for Saturday (4 hours)
   SAT_SUN: {
-    14: 30000,  // $300/hour for ≤14 people
-    25: 37500,  // $375/hour for ≤25 people
-    30: 45000,  // $450/hour for ≤30 people
-    50: 48750,  // $487.50/hour for ≤50 people
-    75: 52500,  // $525/hour for ≤75 people
+    14: 35000,  // $350/hour for Saturday, $250/hour for Sunday (using higher rate)
+    25: 37500,  // $375/hour for Saturday, $275/hour for Sunday (using higher rate)
+    30: 37500,  // $375/hour for ≤30 people (same as 25p + crew fee)
+    50: 40000,  // $400/hour for Saturday, $300/hour for Sunday (using higher rate)
+    75: 40000,  // $400/hour for ≤75 people (same as 50p + crew fee)
   },
   // Legacy aliases for backward compatibility
   WEEKDAY: {
@@ -579,9 +582,10 @@ export const HOURLY_RATES = {
 
 /**
  * Cruise duration by day type (in hours)
+ * All private cruises are 4 hours as per pricing specifications
  */
 export const CRUISE_DURATIONS = {
-  WEEKDAY: 3, // Monday-Thursday: 3 hours
+  WEEKDAY: 4, // Monday-Thursday: 4 hours
   WEEKEND: 4, // Friday-Sunday: 4 hours
 } as const;
 
@@ -592,6 +596,278 @@ export const DISCO_PRICING = {
   basic: 8500,       // $85.00 per person
   disco_queen: 9500, // $95.00 per person
   platinum: 10500,   // $105.00 per person
+} as const;
+
+/**
+ * Private Cruise Pricing Structure
+ * Comprehensive pricing data extracted from user-provided screenshots
+ * Includes Standard, Essentials, and Ultimate packages for all capacity tiers
+ */
+export const PRIVATE_CRUISE_PRICING = {
+  // 14-Person Capacity Tier
+  14: {
+    capacity: 14,
+    baseHourlyRates: {
+      MON_THU: 20000,  // $200/hr
+      FRIDAY: 22500,   // $225/hr  
+      SATURDAY: 35000, // $350/hr
+      SUNDAY: 25000,   // $250/hr
+    },
+    packages: {
+      standard: {
+        name: 'Standard 4-Hour Cruise',
+        description: 'Essential cruise experience with professional crew and premium amenities',
+        addOn: 0, // Base package - no additional cost
+        totalPrices: { // Total prices including tax and gratuity from task specification
+          MON_THU: 105000,  // $1,050 total (from $800 base)
+          FRIDAY: 118100,   // $1,181 total (from $900 base)  
+          SATURDAY: 183800, // $1,838 total (from $1,400 base)
+          SUNDAY: 131300,   // $1,313 total (from $1,000 base)
+        }
+      },
+      essentials: {
+        name: '4-Hour Cruise w/Essentials Package',
+        description: 'Complete convenience package with refreshments and setup',
+        addOn: 10000, // +$100 
+        totalPrices: { // Standard totals + $100
+          MON_THU: 115000,  // $1,150 total  
+          FRIDAY: 128100,   // $1,281 total
+          SATURDAY: 193800, // $1,938 total
+          SUNDAY: 141300,   // $1,413 total
+        }
+      },
+      ultimate: {
+        name: 'Ultimate Disco Party Package',
+        description: 'Complete party experience with entertainment and disco atmosphere',
+        addOn: 25000, // +$250
+        totalPrices: { // Standard totals + $250  
+          MON_THU: 130000,  // $1,300 total
+          FRIDAY: 143100,   // $1,431 total
+          SATURDAY: 208800, // $2,088 total
+          SUNDAY: 156300,   // $1,563 total
+        }
+      }
+    }
+  },
+
+  // 25-Person Capacity Tier
+  25: {
+    capacity: 25,
+    baseHourlyRates: {
+      MON_THU: 22500,  // $225/hr
+      FRIDAY: 25000,   // $250/hr
+      SATURDAY: 37500, // $375/hr  
+      SUNDAY: 27500,   // $275/hr
+    },
+    packages: {
+      standard: {
+        name: 'Standard 4-Hour Cruise',
+        description: 'Professional cruise experience with premium amenities for medium groups',
+        addOn: 0, // Base package
+        totalPrices: { // Total prices including tax and gratuity from task specification
+          MON_THU: 118100,  // $1,181 total (from $900 base)
+          FRIDAY: 131300,   // $1,313 total (from $1,000 base)
+          SATURDAY: 196900, // $1,969 total (from $1,500 base)  
+          SUNDAY: 144400,   // $1,444 total (from $1,100 base)
+        }
+      },
+      essentials: {
+        name: '4-Hour Cruise w/Essentials Package', 
+        description: 'Enhanced cruise experience with refreshments for group entertaining',
+        addOn: 15000, // +$150
+        totalPrices: { // Standard totals + $150
+          MON_THU: 133100,  // $1,331 total
+          FRIDAY: 146300,   // $1,463 total
+          SATURDAY: 211900, // $2,119 total
+          SUNDAY: 159400,   // $1,594 total
+        }
+      },
+      ultimate: {
+        name: 'Ultimate Disco Party Package',
+        description: 'Ultimate party package with dual entertainment floats and disco atmosphere',
+        addOn: 30000, // +$300
+        totalPrices: { // Standard totals + $300
+          MON_THU: 148100,  // $1,481 total  
+          FRIDAY: 161300,   // $1,613 total
+          SATURDAY: 226900, // $2,269 total
+          SUNDAY: 174400,   // $1,744 total
+        }
+      }
+    }
+  },
+
+  // 30-Person Capacity Tier (same as 25p + crew fee)
+  30: {
+    capacity: 30,
+    baseHourlyRates: {
+      MON_THU: 22500,  // $225/hr (same as 25p)
+      FRIDAY: 25000,   // $250/hr (same as 25p)
+      SATURDAY: 37500, // $375/hr (same as 25p)
+      SUNDAY: 27500,   // $275/hr (same as 25p)
+    },
+    crewFeePerHour: 5000, // +$50/hr = +$200 for 4hr cruise
+    packages: {
+      standard: {
+        name: 'Standard 4-Hour Cruise',
+        description: 'Professional cruise experience with enhanced capacity for larger groups',
+        addOn: 0, // Base package
+        totalPrices: { // 25p totals + $200 crew fee
+          MON_THU: 138100,  // $1,381 total ($1,181 + $200)
+          FRIDAY: 151300,   // $1,513 total ($1,313 + $200) 
+          SATURDAY: 216900, // $2,169 total ($1,969 + $200)
+          SUNDAY: 164400,   // $1,644 total ($1,444 + $200)
+        }
+      },
+      essentials: {
+        name: '4-Hour Cruise w/Essentials Package',
+        description: 'Enhanced cruise experience with refreshments for large group entertaining',
+        addOn: 15000, // +$150
+        totalPrices: { // Standard totals + $150
+          MON_THU: 153100,  // $1,531 total
+          FRIDAY: 166300,   // $1,663 total
+          SATURDAY: 231900, // $2,319 total  
+          SUNDAY: 179400,   // $1,794 total
+        }
+      },
+      ultimate: {
+        name: 'Ultimate Disco Party Package',
+        description: 'Ultimate party package for enhanced capacity with dual entertainment',
+        addOn: 30000, // +$300
+        totalPrices: { // Standard totals + $300
+          MON_THU: 168100,  // $1,681 total
+          FRIDAY: 181300,   // $1,813 total
+          SATURDAY: 246900, // $2,469 total
+          SUNDAY: 194400,   // $1,944 total
+        }
+      }
+    }
+  },
+
+  // 50-Person Capacity Tier
+  50: {
+    capacity: 50,
+    baseHourlyRates: {
+      MON_THU: 25000,  // $250/hr
+      FRIDAY: 27500,   // $275/hr
+      SATURDAY: 40000, // $400/hr
+      SUNDAY: 30000,   // $300/hr
+    },
+    packages: {
+      standard: {
+        name: 'Standard 4-Hour Cruise',
+        description: 'Premium cruise experience with enhanced amenities for large celebrations',
+        addOn: 0, // Base package
+        totalPrices: { // Total prices including tax and gratuity from task specification
+          MON_THU: 131300,  // $1,313 total (from $1,000 base)
+          FRIDAY: 144400,   // $1,444 total (from $1,100 base)
+          SATURDAY: 210000, // $2,100 total (from $1,600 base)
+          SUNDAY: 157500,   // $1,575 total (from $1,200 base)
+        }
+      },
+      essentials: {
+        name: '4-Hour Cruise w/Essentials Package',
+        description: 'Premium cruise with enhanced refreshment service for large-scale entertaining',
+        addOn: 20000, // +$200
+        totalPrices: { // Standard totals + $200
+          MON_THU: 151300,  // $1,513 total
+          FRIDAY: 164400,   // $1,644 total
+          SATURDAY: 230000, // $2,300 total
+          SUNDAY: 177500,   // $1,775 total
+        }
+      },
+      ultimate: {
+        name: 'Ultimate Disco Party Package',
+        description: 'Ultimate large-scale party with triple entertainment floats and spectacular atmosphere',
+        addOn: 35000, // +$350
+        totalPrices: { // Standard totals + $350
+          MON_THU: 166300,  // $1,663 total
+          FRIDAY: 179400,   // $1,794 total
+          SATURDAY: 245000, // $2,450 total
+          SUNDAY: 192500,   // $1,925 total
+        }
+      }
+    }
+  },
+
+  // 75-Person Capacity Tier (same as 50p + crew fee)
+  75: {
+    capacity: 75,
+    baseHourlyRates: {
+      MON_THU: 25000,  // $250/hr (same as 50p)
+      FRIDAY: 27500,   // $275/hr (same as 50p)
+      SATURDAY: 40000, // $400/hr (same as 50p)
+      SUNDAY: 30000,   // $300/hr (same as 50p)
+    },
+    crewFeePerHour: 7500, // +$75/hr = +$300 for 4hr cruise
+    packages: {
+      standard: {
+        name: 'Standard 4-Hour Cruise',
+        description: 'Maximum capacity cruise experience for the grandest celebrations',
+        addOn: 0, // Base package  
+        totalPrices: { // 50p totals + $300 crew fee
+          MON_THU: 161300,  // $1,613 total ($1,313 + $300)
+          FRIDAY: 174400,   // $1,744 total ($1,444 + $300)
+          SATURDAY: 240000, // $2,400 total ($2,100 + $300)
+          SUNDAY: 187500,   // $1,875 total ($1,575 + $300)
+        }
+      },
+      essentials: {
+        name: '4-Hour Cruise w/Essentials Package',
+        description: 'Maximum capacity cruise with ultimate refreshment service',
+        addOn: 20000, // +$200
+        totalPrices: { // Standard totals + $200
+          MON_THU: 181300,  // $1,813 total
+          FRIDAY: 194400,   // $1,944 total
+          SATURDAY: 260000, // $2,600 total
+          SUNDAY: 207500,   // $2,075 total
+        }
+      },
+      ultimate: {
+        name: 'Ultimate Disco Party Package',
+        description: 'Maximum all-inclusive grand celebration experience',
+        addOn: 35000, // +$350
+        totalPrices: { // Standard totals + $350
+          MON_THU: 196300,  // $1,963 total
+          FRIDAY: 209400,   // $2,094 total
+          SATURDAY: 275000, // $2,750 total
+          SUNDAY: 222500,   // $2,225 total
+        }
+      }
+    }
+  }
+} as const;
+
+/**
+ * Pricing Policies for Private Cruise Bookings
+ * Based on user-provided policy specifications
+ */
+export const PRICING_POLICIES = {
+  deposit: {
+    standard: {
+      percentage: 25,
+      description: 'Standard deposit for bookings made more than 30 days in advance'
+    },
+    urgent: {
+      percentage: 50,
+      description: 'Higher deposit required for bookings made 30 days or less from cruise date',
+      paymentWindow: 48 // hours to pay after booking
+    }
+  },
+  balance: {
+    standardDueDays: 30, // days before cruise when remaining balance is due
+    description: 'Remaining balance due 30 days before cruise date'
+  },
+  thresholds: {
+    urgentBookingDays: 30, // booking within this many days requires higher deposit
+    fullPaymentDays: 14, // booking within this many days may require full payment
+  },
+  terms: {
+    confirmationRequired: true,
+    invoiceGeneration: 'automatic',
+    paymentMethods: ['credit_card', 'bank_transfer', 'check'],
+    cancellationPolicy: 'Contact for cancellation terms',
+    depositRefundable: false
+  }
 } as const;
 
 /**

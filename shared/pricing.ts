@@ -95,22 +95,16 @@ export function calculateBaseCruiseCost(date: Date, groupSize: number) {
   // Real pricing should use boat-specific crew fees from products table
   // This is kept for backward compatibility and fallback scenarios
   let crewFee = 0;
-  if (groupSize > 20) {
-    // For capacity tiers that support expanded capacity:
-    // - 14-person boat (Day Tripper): No crew fee (no expansion possible)
-    // - 25-person boat (Me Seeks): +$50/hr for 26-30 people 
-    // - 50-person boat (Clever Girl): +$100/hr for 51-75 people
-    // - 100-person boat (ATX Disco): No crew fee needed
-    if (capacityTier === 25 && groupSize > 25) {
-      crewFee = 5000 * duration; // $50/hr * duration for Me Seeks expansion
-    } else if (capacityTier === 50 && groupSize > 50) {
-      crewFee = 10000 * duration; // $100/hr * duration for Clever Girl expansion  
-    } else if (capacityTier <= 14 || capacityTier >= 75) {
-      crewFee = 0; // No crew fee for boats that don't support expansion
-    } else {
-      // Fallback for unexpected cases - use original logic but with hourly rate
-      crewFee = Math.floor(PRICING_DEFAULTS.EXTRA_CREW_FEE / 4) * duration; // Convert flat fee to hourly
+  if (groupSize > capacityTier) {
+    // Updated crew fee calculation based on task specifications:
+    // - 26-30 person groups: +$50/hr crew fee (additional $200 for 4hr cruise)
+    // - 51-75 person groups: +$75/hr crew fee (additional $300 for 4hr cruise)
+    if (capacityTier === 25 && groupSize >= 26 && groupSize <= 30) {
+      crewFee = PRICING_DEFAULTS.CREW_FEE_26_30 * duration; // $50/hr * duration
+    } else if (capacityTier === 50 && groupSize >= 51 && groupSize <= 75) {
+      crewFee = PRICING_DEFAULTS.CREW_FEE_51_75 * duration; // $75/hr * duration
     }
+    // 14-person and 75+ person boats don't have crew fee expansion options
   }
   
   // Calculate subtotal (base + crew fee)
@@ -163,8 +157,11 @@ export function calculateDeposit(total: number, eventDate: Date) {
   const today = new Date();
   const daysUntilEvent = Math.ceil((eventDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
   
-  // Always use 25% deposit as per business requirements
-  const depositPercent = PRICING_DEFAULTS.DEPOSIT_PERCENT; // Always 25%
+  // Updated deposit logic based on task specifications:
+  // - Standard: 25% deposit for bookings more than 30 days in advance
+  // - Urgent: 50% deposit for bookings 30 days or less from cruise date
+  const isUrgentBooking = daysUntilEvent <= PRICING_DEFAULTS.URGENCY_THRESHOLD_DAYS;
+  const depositPercent = isUrgentBooking ? 50 : PRICING_DEFAULTS.DEPOSIT_PERCENT; // 50% for urgent, 25% for standard
   const depositAmount = Math.floor(total * (depositPercent / 100));
   const balanceDue = total - depositAmount;
   
@@ -180,9 +177,102 @@ export function calculateDeposit(total: number, eventDate: Date) {
     depositAmount,
     balanceDue,
     remainingBalanceDueAt: finalDueDate,
-    isFullPaymentRequired: false, // Always false since we always use 25% deposit
+    isFullPaymentRequired: depositPercent === 100, // Full payment if 100% deposit required
+    isUrgentBooking,
+    paymentWindow: isUrgentBooking ? 48 : null, // 48 hours to pay for urgent bookings
     daysUntilEvent,
     daysUntilBalanceDue: Math.ceil((finalDueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24))
+  };
+}
+
+/**
+ * Gets day type for pricing from PRIVATE_CRUISE_PRICING structure
+ * @param date Event date
+ * @returns Day type key for pricing lookup
+ */
+export function getPricingDayType(date: Date): 'MON_THU' | 'FRIDAY' | 'SATURDAY' | 'SUNDAY' {
+  const dayOfWeek = date.getDay(); // 0=Sunday, 1=Monday, ..., 6=Saturday
+  
+  if (dayOfWeek >= 1 && dayOfWeek <= 4) {
+    return 'MON_THU';
+  } else if (dayOfWeek === 5) {
+    return 'FRIDAY';
+  } else if (dayOfWeek === 6) {
+    return 'SATURDAY';
+  } else {
+    return 'SUNDAY';
+  }
+}
+
+/**
+ * Gets package pricing from PRIVATE_CRUISE_PRICING structure
+ * @param capacityTier Capacity tier (14, 25, 30, 50, 75)
+ * @param packageType Package type (standard, essentials, ultimate)
+ * @param date Event date
+ * @returns Package pricing information
+ */
+export function getPackagePricing(capacityTier: CapacityTier, packageType: 'standard' | 'essentials' | 'ultimate', date: Date) {
+  const { PRIVATE_CRUISE_PRICING } = require('./constants');
+  const dayType = getPricingDayType(date);
+  
+  const tierPricing = PRIVATE_CRUISE_PRICING[capacityTier];
+  const packagePricing = tierPricing.packages[packageType];
+  
+  return {
+    name: packagePricing.name,
+    description: packagePricing.description,
+    addOn: packagePricing.addOn,
+    totalPrice: packagePricing.totalPrices[dayType],
+    baseHourlyRate: tierPricing.baseHourlyRates[dayType],
+    capacity: tierPricing.capacity,
+    crewFeePerHour: tierPricing.crewFeePerHour || 0
+  };
+}
+
+/**
+ * Calculates pricing using the comprehensive PRIVATE_CRUISE_PRICING structure
+ * @param date Event date
+ * @param groupSize Number of people in the group
+ * @param packageType Package type (standard, essentials, ultimate)
+ * @returns Complete pricing breakdown using new structure
+ */
+export function calculatePackagePricing(date: Date, groupSize: number, packageType: 'standard' | 'essentials' | 'ultimate' = 'standard') {
+  const capacityTier = getCapacityTier(groupSize);
+  const packagePricing = getPackagePricing(capacityTier, packageType, date);
+  const duration = getCruiseDuration(date);
+  
+  // Use the pre-calculated total price from the pricing structure
+  const totalPrice = packagePricing.totalPrice;
+  
+  // Calculate deposit information
+  const deposit = calculateDeposit(totalPrice, date);
+  
+  return {
+    packageType,
+    packageName: packagePricing.name,
+    packageDescription: packagePricing.description,
+    capacity: packagePricing.capacity,
+    groupSize,
+    baseHourlyRate: packagePricing.baseHourlyRate,
+    duration,
+    addOnCost: packagePricing.addOn,
+    crewFeePerHour: packagePricing.crewFeePerHour,
+    totalCrewFee: packagePricing.crewFeePerHour * duration,
+    totalPrice,
+    ...deposit,
+    perPersonCost: Math.floor(totalPrice / groupSize),
+    breakdown: {
+      capacityTier,
+      packageType,
+      baseHourlyRate: packagePricing.baseHourlyRate,
+      duration,
+      addOnCost: packagePricing.addOn,
+      crewFee: packagePricing.crewFeePerHour * duration,
+      totalPrice,
+      perPerson: Math.floor(totalPrice / groupSize),
+      deposit: deposit.depositAmount,
+      balanceDue: deposit.balanceDue,
+    }
   };
 }
 
