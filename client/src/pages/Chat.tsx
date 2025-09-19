@@ -29,9 +29,29 @@ import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSe
 import { useAvailabilityForDate, useAvailabilityForDateRange, formatDateForAvailability } from '@/hooks/use-availability';
 import { TimeSlotList } from '@/components/TimeSlotList';
 import { formatCurrency, formatDate, formatLongDate, formatTimeForDisplay, formatTimeRange, formatPhoneNumber, formatCustomerName, formatBoatCapacity, formatEventDuration, formatGroupSize } from '@shared/formatters';
-import { EVENT_TYPES, CRUISE_TYPES, DISCO_PACKAGES, PRICING_DEFAULTS, HOURLY_RATES } from '@shared/constants';
+import { 
+  EVENT_TYPES, 
+  CRUISE_TYPES, 
+  DISCO_PACKAGES, 
+  PRICING_DEFAULTS, 
+  HOURLY_RATES,
+  PRIVATE_CRUISE_PRICING,
+  PRICING_POLICIES,
+  compareDiscoVsPrivate,
+  getBestDealRecommendation,
+  calculateDiscoPrice,
+  calculatePrivatePrice,
+  DISCO_AVAILABILITY 
+} from '@shared/constants';
 import { getDiscoTimeSlotsForDate, getPrivateTimeSlotsForDate, isDiscoAvailableForDate } from '@shared/timeSlots';
-import { getHourlyRateByDayAndGroupSize, calculateCompletePricing, getDayType, getCapacityTier } from '@shared/pricing';
+import { 
+  calculatePackagePricing, 
+  calculateCompletePricing, 
+  getDayType, 
+  getCapacityTier, 
+  getPackagePricing,
+  getPricingDayType 
+} from '@shared/pricing';
 
 type ChatFlowStep = 
   | 'intro' // Intro + Calendar combined
@@ -171,14 +191,24 @@ const useAlternativeDates = (selectedDate: Date | undefined, groupSize: number, 
   return alternativeDates;
 };
 
-// Use pricing defaults from shared constants
-const BASE_PRIVATE_HOURLY_RATE = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100; // Convert from cents to dollars
+// Helper to get real-time pricing using the new PRIVATE_CRUISE_PRICING structure
+const getRealTimePackagePricing = (date: Date | undefined, groupSize: number, packageType: 'standard' | 'essentials' | 'ultimate' = 'standard') => {
+  if (!date) return null;
+  return calculatePackagePricing(date, groupSize, packageType);
+};
 
-// Helper to get correct hourly rate based on date and group size
-const getDisplayHourlyRate = (date: Date | undefined, groupSize: number): number => {
-  if (!date) return BASE_PRIVATE_HOURLY_RATE;
-  const rateInCents = getHourlyRateByDayAndGroupSize(date, groupSize);
-  return rateInCents / 100; // Convert from cents to dollars
+// Helper to get disco vs private comparison
+const getComparisonData = (date: Date | undefined, groupSize: number) => {
+  if (!date) return null;
+  const dayOfWeek = date.getDay();
+  return compareDiscoVsPrivate(groupSize, dayOfWeek);
+};
+
+// Helper to get best deal recommendation
+const getBestDealData = (date: Date | undefined, groupSize: number) => {
+  if (!date) return null;
+  const dayOfWeek = date.getDay();
+  return getBestDealRecommendation(groupSize, dayOfWeek);
 };
 
 // Optional add-on packages that enhance the base cruise
@@ -201,74 +231,14 @@ const addOnPackages = [
   },
 ];
 
-// Comprehensive disco packages with real details
-const discoPackages = [
-  { 
-    id: 'basic', 
-    name: 'Basic Bach Package', 
-    price: 85,
-    description: 'Join the BEST Party on Lake Travis, Exclusively for Bach Parties!',
-    allPackagesInclude: [
-      'Incredible DJ on Every Cruise, Party Started When You Arrive',
-      'Professional Photographer w/Free Photos Sent After the Cruise!',
-      'GIANT 25-ft Inflatable Unicorn Float - Biggest in the Country!',
-      '3 Huge 6x20\' Lily Pad Floats to Lounge in Style',
-      'Party w/Bachelorette & Bachelor Parties from All Over the Country',
-      'Ice in Coolers, Ice Water, Cups, Koozies, Bubbles, & Name Tags'
-    ],
-    features: [
-      'Join the BEST Party on Lake Travis, Exclusively for Bach Parties!',
-      'BYOB, throw your drinks in a shared cooler w/ice',
-      'Alcohol Delivery & Lunch Delivery Available',
-      'ALWAYS Cheaper than a Private Cruise',
-      'If you\'re trying to keep it cheap, this is your move!'
-    ]
-  },
-  { 
-    id: 'disco_queen', 
-    name: 'Disco Queen Package', 
-    price: 95,
-    description: 'Enhanced party experience with premium perks',
-    allPackagesInclude: [
-      'Incredible DJ on Every Cruise, Party Started When You Arrive',
-      'Professional Photographer w/Free Photos Sent After the Cruise!',
-      'GIANT 25-ft Inflatable Unicorn Float - Biggest in the Country!',
-      '3 Huge 6x20\' Lily Pad Floats to Lounge in Style',
-      'Party w/Bachelorette & Bachelor Parties from All Over the Country',
-      'Ice in Coolers, Ice Water, Cups, Koozies, Bubbles, & Name Tags'
-    ],
-    features: [
-      'Private Cooler w/Ice & Storage Bin for Your Group',
-      'Reserved Spot for Your Group',
-      'Disco Ball Cup & Bubble Gun for the Bride OR Disco Visor & Disco Ball Necklace for the Groom',
-      'Complimentary Direct-to-Boat Alcohol & Lunch Delivery',
-      '25% Discount on Round-Trip Transportation',
-      '$50-$100 Voucher for Airbnb Booze Delivery'
-    ]
-  },
-  { 
-    id: 'platinum', 
-    name: 'Super Sparkle Platinum Disco', 
-    price: 105,
-    description: 'Ultimate all-inclusive disco cruise luxury',
-    allPackagesInclude: [
-      'Incredible DJ on Every Cruise, Party Started When You Arrive',
-      'Professional Photographer w/Free Photos Sent After the Cruise!',
-      'GIANT 25-ft Inflatable Unicorn Float - Biggest in the Country!',
-      '3 Huge 6x20\' Lily Pad Floats to Lounge in Style',
-      'Party w/Bachelorette & Bachelor Parties from All Over the Country',
-      'Ice in Coolers, Ice Water, Cups, Koozies, Bubbles, & Name Tags'
-    ],
-    features: [
-      'Everything in the Disco Queen Package',
-      'Personal Unicorn Float for the Bride or Groom',
-      'Mimosa Setup w/Champagne Flutes, 3 Juices, & a Chambong!',
-      '$100 Voucher for Airbnb Concierge Services',
-      'Towel Service & SPF-50 Spray Sunscreen Provided',
-      'Nothing to Carry, Cooler Stocked w/drinks When You Arrive!'
-    ]
-  },
-];
+// Use real disco packages from shared constants
+const discoPackages = Object.entries(DISCO_AVAILABILITY.PACKAGES).map(([id, pkg]) => ({
+  id: id as keyof typeof DISCO_AVAILABILITY.PACKAGES,
+  name: pkg.name,
+  price: pkg.pricePerPerson / 100, // Convert from cents to dollars
+  description: pkg.description,
+  pricePerPerson: pkg.pricePerPerson
+}));
 
 const GROUP_SIZE_MIN = 8;
 const GROUP_SIZE_MAX = 75;
@@ -292,6 +262,7 @@ const fadeInUp = {
 
 // Helper function to determine boat capacity based on group size - shows appropriate capacity
 const getBoatCapacityForGroup = (groupSize: number): number => {
+  if (groupSize <= 14) return 14;  // 14-person boats for intimate groups
   if (groupSize <= 25) return 25;  // 25-person boats for groups up to 25
   if (groupSize <= 30) return 30;  // 30-person boats for groups 26-30
   if (groupSize <= 50) return 50;  // large boats
@@ -312,11 +283,14 @@ const getBoatNameForCapacity = (capacity: number, slotIndex: number = 0): string
   }
 };
 
-// Generate structured private cruise time slots with proper boat names
-const generateStructuredPrivateSlots = (date: Date, groupSize: number): NormalizedSlot[] => {
+// Generate structured private cruise time slots with real pricing data
+const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 'standard' | 'essentials' | 'ultimate' = 'standard'): NormalizedSlot[] => {
   const dayOfWeek = date.getDay();
   const dateISO = date.toISOString().split('T')[0];
   const capacity = getBoatCapacityForGroup(groupSize);
+  const pricing = getRealTimePackagePricing(date, groupSize, packageType);
+  
+  if (!pricing) return [];
   
   const slots: NormalizedSlot[] = [];
   
@@ -327,7 +301,7 @@ const generateStructuredPrivateSlots = (date: Date, groupSize: number): Normaliz
       dateISO,
       startTime: '12:00',
       endTime: '16:00',
-      duration: 4,
+      duration: pricing.duration,
       label: `${getBoatNameForCapacity(capacity, 0)} • 12:00 PM - 4:00 PM`,
       cruiseType: 'private' as const,
       capacity,
@@ -336,10 +310,10 @@ const generateStructuredPrivateSlots = (date: Date, groupSize: number): Normaliz
       held: false,
       boatCandidates: ['boat_meeseeks'],
       estimatedPricing: {
-        baseRate: getDisplayHourlyRate(date, groupSize),
-        duration: 4,
-        subtotal: getDisplayHourlyRate(date, groupSize) * 4,
-        total: Math.round((getDisplayHourlyRate(date, groupSize) * 4) * 1.28) // Add tax and gratuity
+        baseRate: pricing.baseHourlyRate / 100, // Convert to dollars for display
+        duration: pricing.duration,
+        subtotal: pricing.totalPrice / 100, // Convert to dollars
+        total: pricing.totalPrice / 100 // Already includes tax/gratuity in new system
       }
     });
     
@@ -349,7 +323,7 @@ const generateStructuredPrivateSlots = (date: Date, groupSize: number): Normaliz
       dateISO,
       startTime: '16:30',
       endTime: '20:30',
-      duration: 4,
+      duration: pricing.duration,
       label: `${getBoatNameForCapacity(capacity, 1)} • 4:30 PM - 8:30 PM`,
       cruiseType: 'private' as const,
       capacity,
@@ -358,10 +332,10 @@ const generateStructuredPrivateSlots = (date: Date, groupSize: number): Normaliz
       held: false,
       boatCandidates: ['boat_irony'],
       estimatedPricing: {
-        baseRate: getDisplayHourlyRate(date, groupSize),
-        duration: 4,
-        subtotal: getDisplayHourlyRate(date, groupSize) * 4,
-        total: Math.round((getDisplayHourlyRate(date, groupSize) * 4) * 1.28)
+        baseRate: pricing.baseHourlyRate / 100,
+        duration: pricing.duration,
+        subtotal: pricing.totalPrice / 100,
+        total: pricing.totalPrice / 100
       }
     });
   } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
@@ -371,7 +345,7 @@ const generateStructuredPrivateSlots = (date: Date, groupSize: number): Normaliz
       dateISO,
       startTime: '11:00',
       endTime: '15:00',
-      duration: 4,
+      duration: pricing.duration,
       label: `${getBoatNameForCapacity(capacity, 0)} • 11:00 AM - 3:00 PM`,
       cruiseType: 'private' as const,
       capacity,
@@ -380,10 +354,10 @@ const generateStructuredPrivateSlots = (date: Date, groupSize: number): Normaliz
       held: false,
       boatCandidates: ['boat_meeseeks'],
       estimatedPricing: {
-        baseRate: getDisplayHourlyRate(date, groupSize),
-        duration: 4,
-        subtotal: getDisplayHourlyRate(date, groupSize) * 4,
-        total: Math.round((getDisplayHourlyRate(date, groupSize) * 4) * 1.28)
+        baseRate: pricing.baseHourlyRate / 100,
+        duration: pricing.duration,
+        subtotal: pricing.totalPrice / 100,
+        total: pricing.totalPrice / 100
       }
     });
     
@@ -393,7 +367,7 @@ const generateStructuredPrivateSlots = (date: Date, groupSize: number): Normaliz
       dateISO,
       startTime: '15:30',
       endTime: '19:30',
-      duration: 4,
+      duration: pricing.duration,
       label: `${getBoatNameForCapacity(capacity, 1)} • 3:30 PM - 7:30 PM`,
       cruiseType: 'private' as const,
       capacity,
@@ -402,20 +376,20 @@ const generateStructuredPrivateSlots = (date: Date, groupSize: number): Normaliz
       held: false,
       boatCandidates: ['boat_irony'],
       estimatedPricing: {
-        baseRate: getDisplayHourlyRate(date, groupSize),
-        duration: 4,
-        subtotal: getDisplayHourlyRate(date, groupSize) * 4,
-        total: Math.round((getDisplayHourlyRate(date, groupSize) * 4) * 1.28)
+        baseRate: pricing.baseHourlyRate / 100,
+        duration: pricing.duration,
+        subtotal: pricing.totalPrice / 100,
+        total: pricing.totalPrice / 100
       }
     });
-  } else { // Monday-Thursday (4-hour minimum for simplicity)
-    // Show 4-hour options with 4-hour minimum pricing
+  } else { // Monday-Thursday
+    // Show weekday options with real pricing
     slots.push({
       id: `private_meeseeks_${dateISO}_12:00_16:00`,
       dateISO,
       startTime: '12:00',
       endTime: '16:00',
-      duration: 4,
+      duration: pricing.duration,
       label: `${getBoatNameForCapacity(capacity, 0)} • 12:00 PM - 4:00 PM`,
       cruiseType: 'private' as const,
       capacity,
@@ -424,10 +398,10 @@ const generateStructuredPrivateSlots = (date: Date, groupSize: number): Normaliz
       held: false,
       boatCandidates: ['boat_meeseeks'],
       estimatedPricing: {
-        baseRate: getDisplayHourlyRate(date, groupSize),
-        duration: 4, // Always 4-hour minimum
-        subtotal: getDisplayHourlyRate(date, groupSize) * 4,
-        total: Math.round((getDisplayHourlyRate(date, groupSize) * 4) * 1.28)
+        baseRate: pricing.baseHourlyRate / 100,
+        duration: pricing.duration,
+        subtotal: pricing.totalPrice / 100,
+        total: pricing.totalPrice / 100
       }
     });
     
@@ -436,7 +410,7 @@ const generateStructuredPrivateSlots = (date: Date, groupSize: number): Normaliz
       dateISO,
       startTime: '16:30',
       endTime: '20:30',
-      duration: 4,
+      duration: pricing.duration,
       label: `${getBoatNameForCapacity(capacity, 1)} • 4:30 PM - 8:30 PM`,
       cruiseType: 'private' as const,
       capacity,
@@ -445,10 +419,10 @@ const generateStructuredPrivateSlots = (date: Date, groupSize: number): Normaliz
       held: false,
       boatCandidates: ['boat_irony'],
       estimatedPricing: {
-        baseRate: getDisplayHourlyRate(date, groupSize),
-        duration: 4, // Always 4-hour minimum
-        subtotal: getDisplayHourlyRate(date, groupSize) * 4,
-        total: Math.round((getDisplayHourlyRate(date, groupSize) * 4) * 1.28)
+        baseRate: pricing.baseHourlyRate / 100,
+        duration: pricing.duration,
+        subtotal: pricing.totalPrice / 100,
+        total: pricing.totalPrice / 100
       }
     });
   }
@@ -475,6 +449,9 @@ export default function Chat() {
   const [completedSelections, setCompletedSelections] = useState<CompletedSelection[]>([]);
   const [privatePricing, setPrivatePricing] = useState<PricingPreview | null>(null);
   const [discoPricing, setDiscoPricing] = useState<PricingPreview | null>(null);
+  const [selectedPrivatePackage, setSelectedPrivatePackage] = useState<'standard' | 'essentials' | 'ultimate'>('standard');
+  const [showBestDealHighlight, setShowBestDealHighlight] = useState(false);
+  const [currentRecommendation, setCurrentRecommendation] = useState<any>(null);
   const [generatedQuoteId, setGeneratedQuoteId] = useState<string | null>(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
   const [selectedPaymentOption, setSelectedPaymentOption] = useState<'deposit' | 'full'>('deposit');
@@ -554,9 +531,18 @@ export default function Chat() {
   
   const availableSlots = availabilityData?.slots || [];
   
-  // Use structured private slots with proper boat names for chat flow
+  // Use structured private slots with real pricing data for chat flow
   const structuredPrivateSlots = formData.eventDate ? 
-    generateStructuredPrivateSlots(formData.eventDate, formData.groupSize) : [];
+    generateRealPrivateSlots(formData.eventDate, formData.groupSize) : [];
+  
+  // Get intelligent comparison data for recommendations
+  const comparisonData = getComparisonData(formData.eventDate, formData.groupSize);
+  const bestDealData = getBestDealData(formData.eventDate, formData.groupSize);
+  
+  // Get package pricing for all three private cruise tiers
+  const standardPackagePricing = getRealTimePackagePricing(formData.eventDate, formData.groupSize, 'standard');
+  const essentialsPackagePricing = getRealTimePackagePricing(formData.eventDate, formData.groupSize, 'essentials');
+  const ultimatePackagePricing = getRealTimePackagePricing(formData.eventDate, formData.groupSize, 'ultimate');
   
   // Use structured slots for chat flow, fallback to API data for other components
   const privateSlots = structuredPrivateSlots.length > 0 ? structuredPrivateSlots :
@@ -2315,40 +2301,134 @@ export default function Chat() {
                       </p>
                     </div>
 
+                    {/* Intelligent Deal Recommendations */}
+                    {bestDealData && comparisonData && (
+                      <div className="mb-6">
+                        <Card className="bg-gradient-to-r from-emerald-50 to-blue-50 dark:from-emerald-900/20 dark:to-blue-900/20 border-2 border-emerald-200 dark:border-emerald-800">
+                          <CardHeader className="pb-3">
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center">
+                                <Sparkles className="h-6 w-6 text-emerald-600" />
+                              </div>
+                              <div>
+                                <CardTitle className="text-emerald-800 dark:text-emerald-200">
+                                  🎯 Best Deal for Your Group
+                                </CardTitle>
+                                <CardDescription>
+                                  Smart recommendation for {formData.groupSize} people on {format(formData.eventDate!, 'EEEE, MMMM d')}
+                                </CardDescription>
+                              </div>
+                            </div>
+                          </CardHeader>
+                          <CardContent>
+                            <div className="space-y-4">
+                              {/* Main Recommendation */}
+                              <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-lg">
+                                <div className="flex items-center gap-3">
+                                  <div className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center">
+                                    <Check className="h-4 w-4 text-emerald-600" />
+                                  </div>
+                                  <div>
+                                    <div className="font-bold text-lg text-emerald-700 dark:text-emerald-300">
+                                      {bestDealData.recommendedOption === 'private' ? '🚢 Private Cruise' : '🪩 Disco Cruise'}
+                                    </div>
+                                    <div className="text-sm text-slate-600 dark:text-slate-400">
+                                      {bestDealData.reason}
+                                    </div>
+                                  </div>
+                                </div>
+                                {bestDealData.savings > 0 && (
+                                  <div className="text-right">
+                                    <div className="text-2xl font-bold text-emerald-600">
+                                      ${Math.round(bestDealData.savings)}
+                                    </div>
+                                    <div className="text-xs text-slate-600 dark:text-slate-400">savings</div>
+                                  </div>
+                                )}
+                              </div>
+
+                              {/* Price Comparison Summary */}
+                              <div className="grid grid-cols-2 gap-3">
+                                <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <Ship className="h-4 w-4 text-blue-600" />
+                                    <span className="text-sm font-medium text-blue-700 dark:text-blue-300">Private</span>
+                                  </div>
+                                  <div className="text-lg font-bold text-blue-600">
+                                    ${Math.round(comparisonData.private.totalPrice / 100)}
+                                  </div>
+                                  <div className="text-xs text-slate-600 dark:text-slate-400">
+                                    ${Math.round(comparisonData.private.pricePerPerson / 100)} per person
+                                  </div>
+                                </div>
+                                <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+                                  <div className="flex items-center gap-2 mb-1">
+                                    <Music className="h-4 w-4 text-purple-600" />
+                                    <span className="text-sm font-medium text-purple-700 dark:text-purple-300">Disco</span>
+                                  </div>
+                                  <div className="text-lg font-bold text-purple-600">
+                                    ${Math.round(comparisonData.disco.totalPrice / 100)}
+                                  </div>
+                                  <div className="text-xs text-slate-600 dark:text-slate-400">
+                                    ${Math.round(comparisonData.disco.pricePerPerson / 100)} per person
+                                  </div>
+                                </div>
+                              </div>
+
+                              {/* Additional Insights */}
+                              {bestDealData.insights && bestDealData.insights.length > 0 && (
+                                <div className="text-sm text-slate-600 dark:text-slate-400">
+                                  💡 <strong>Pro Tips:</strong> {bestDealData.insights.join(' • ')}
+                                </div>
+                              )}
+                            </div>
+                          </CardContent>
+                        </Card>
+                      </div>
+                    )}
+
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Private Cruise Option */}
                       <Card className={cn(
                         "bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm cursor-pointer transition-all",
-                        formData.selectedCruiseType === 'private' && "ring-2 ring-blue-600"
+                        formData.selectedCruiseType === 'private' && "ring-2 ring-blue-600",
+                        bestDealData?.recommendedOption === 'private' && "ring-2 ring-emerald-400 shadow-lg"
                       )}>
                         <CardHeader>
-                          <div className="flex items-center gap-3">
-                            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                              <Ship className="h-6 w-6 text-blue-600" />
+                          <div className="flex items-center justify-between">
+                            <div className="flex items-center gap-3">
+                              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                                <Ship className="h-6 w-6 text-blue-600" />
+                              </div>
+                              <div>
+                                {formData.selectedSlot ? (
+                                  <>
+                                    <CardTitle>Private Cruise - {getBoatDetails(formData.selectedSlot).name}</CardTitle>
+                                    {/* Large, prominent date display */}
+                                    <div className="text-2xl font-bold text-blue-600 mt-2 mb-1">
+                                      {format(formData.eventDate!, 'EEEE, MMMM d')}
+                                    </div>
+                                    <CardDescription>
+                                      {formData.selectedSlot.label} • Fits {getBoatDetails(formData.selectedSlot).capacity} people
+                                    </CardDescription>
+                                  </>
+                                ) : (
+                                  <>
+                                    <CardTitle>Private Cruise</CardTitle>
+                                    {/* Large, prominent date display */}
+                                    <div className="text-2xl font-bold text-blue-600 mt-2 mb-1">
+                                      {format(formData.eventDate!, 'EEEE, MMMM d')}
+                                    </div>
+                                    <CardDescription>Exclusive boat for your group • Fits {getBoatCapacityForGroup(formData.groupSize)} people • {getCruiseDuration(formData.eventDate)}-hour minimum</CardDescription>
+                                  </>
+                                )}
+                              </div>
                             </div>
-                            <div>
-                              {formData.selectedSlot ? (
-                                <>
-                                  <CardTitle>Private Cruise - {getBoatDetails(formData.selectedSlot).name}</CardTitle>
-                                  {/* Large, prominent date display */}
-                                  <div className="text-2xl font-bold text-blue-600 mt-2 mb-1">
-                                    {format(formData.eventDate!, 'EEEE, MMMM d')}
-                                  </div>
-                                  <CardDescription>
-                                    {formData.selectedSlot.label} • Fits {getBoatDetails(formData.selectedSlot).capacity} people
-                                  </CardDescription>
-                                </>
-                              ) : (
-                                <>
-                                  <CardTitle>Private Cruise</CardTitle>
-                                  {/* Large, prominent date display */}
-                                  <div className="text-2xl font-bold text-blue-600 mt-2 mb-1">
-                                    {format(formData.eventDate!, 'EEEE, MMMM d')}
-                                  </div>
-                                  <CardDescription>Exclusive boat for your group • Fits {getBoatCapacityForGroup(formData.groupSize)} people • {getCruiseDuration(formData.eventDate)}-hour minimum</CardDescription>
-                                </>
-                              )}
-                            </div>
+                            {bestDealData?.recommendedOption === 'private' && (
+                              <Badge className="bg-emerald-100 text-emerald-800 border-emerald-300 shrink-0">
+                                ⭐ Recommended
+                              </Badge>
+                            )}
                           </div>
                         </CardHeader>
                         <CardContent className="space-y-4">
@@ -2369,41 +2449,117 @@ export default function Chat() {
                             />
                           </div>
 
-                          {/* Step 2: Package Add-Ons - Only show if time slot selected */}
+                          {/* Step 2: Package Selection - Only show if time slot selected */}
                           {formData.selectedSlot && (
                             <div className="space-y-3 border-t pt-4">
                               <Label className="flex items-center gap-2">
                                 <Crown className="h-4 w-4" />
-                                Enhance Your Experience (Optional)
+                                Choose Your Package
                               </Label>
                               <div className="space-y-3">
-                                {addOnPackages.map((pkg) => (
-                                  <div key={pkg.id} className="flex items-start space-x-3 p-3 border rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800/50">
-                                    <input
-                                      type="checkbox"
-                                      id={`addon-${pkg.id}`}
-                                      checked={formData.selectedAddOnPackages.includes(pkg.id)}
-                                      onChange={() => handleAddOnPackageToggle(pkg.id)}
-                                      className="mt-1"
-                                    />
-                                    <Label htmlFor={`addon-${pkg.id}`} className="flex-1 cursor-pointer">
-                                      <div className="space-y-1">
-                                        <div className="flex justify-between items-center">
-                                          <span className="font-medium">{pkg.name}</span>
-                                          <span className="font-bold text-green-600">+${pkg.hourlyRate}/hr</span>
-                                        </div>
+                                {/* Standard Package */}
+                                <div className={cn(
+                                  "p-3 border-2 rounded-lg cursor-pointer transition-all",
+                                  selectedPrivatePackage === 'standard' 
+                                    ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" 
+                                    : "border-slate-200 dark:border-slate-700 hover:border-blue-300"
+                                )}>
+                                  <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                      <input
+                                        type="radio"
+                                        name="private-package"
+                                        value="standard"
+                                        checked={selectedPrivatePackage === 'standard'}
+                                        onChange={() => setSelectedPrivatePackage('standard')}
+                                        className="text-blue-600"
+                                      />
+                                      <div>
+                                        <div className="font-semibold">Standard Package</div>
                                         <div className="text-sm text-slate-600 dark:text-slate-400">
-                                          {pkg.description}
-                                        </div>
-                                        <div className="flex flex-wrap gap-1 mt-1">
-                                          {pkg.features.map((feature, index) => (
-                                            <Badge key={index} variant="outline" className="text-xs">{feature}</Badge>
-                                          ))}
+                                          Classic private cruise experience
                                         </div>
                                       </div>
-                                    </Label>
+                                    </div>
+                                    <div className="text-right">
+                                      <div className="font-bold text-blue-600">
+                                        {standardPackagePricing ? `$${Math.round(standardPackagePricing.totalPrice / 100)}` : 'Loading...'}
+                                      </div>
+                                      <div className="text-xs text-slate-600 dark:text-slate-400">total</div>
+                                    </div>
                                   </div>
-                                ))}
+                                </div>
+
+                                {/* Essentials Package */}
+                                <div className={cn(
+                                  "p-3 border-2 rounded-lg cursor-pointer transition-all",
+                                  selectedPrivatePackage === 'essentials' 
+                                    ? "border-green-500 bg-green-50 dark:bg-green-900/20" 
+                                    : "border-slate-200 dark:border-slate-700 hover:border-green-300"
+                                )}>
+                                  <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                      <input
+                                        type="radio"
+                                        name="private-package"
+                                        value="essentials"
+                                        checked={selectedPrivatePackage === 'essentials'}
+                                        onChange={() => setSelectedPrivatePackage('essentials')}
+                                        className="text-green-600"
+                                      />
+                                      <div>
+                                        <div className="font-semibold">Essentials Package</div>
+                                        <div className="text-sm text-slate-600 dark:text-slate-400">
+                                          Enhanced experience with premium amenities
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="text-right">
+                                      <div className="font-bold text-green-600">
+                                        {essentialsPackagePricing ? `$${Math.round(essentialsPackagePricing.totalPrice / 100)}` : 'Loading...'}
+                                      </div>
+                                      <div className="text-xs text-slate-600 dark:text-slate-400">total</div>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {/* Ultimate Package */}
+                                <div className={cn(
+                                  "p-3 border-2 rounded-lg cursor-pointer transition-all",
+                                  selectedPrivatePackage === 'ultimate' 
+                                    ? "border-purple-500 bg-purple-50 dark:bg-purple-900/20" 
+                                    : "border-slate-200 dark:border-slate-700 hover:border-purple-300"
+                                )}>
+                                  <div className="flex items-center justify-between">
+                                    <div className="flex items-center gap-3">
+                                      <input
+                                        type="radio"
+                                        name="private-package"
+                                        value="ultimate"
+                                        checked={selectedPrivatePackage === 'ultimate'}
+                                        onChange={() => setSelectedPrivatePackage('ultimate')}
+                                        className="text-purple-600"
+                                      />
+                                      <div>
+                                        <div className="font-semibold flex items-center gap-2">
+                                          Ultimate Package
+                                          <Badge className="bg-purple-100 text-purple-800 border-purple-300 text-xs">
+                                            Most Popular
+                                          </Badge>
+                                        </div>
+                                        <div className="text-sm text-slate-600 dark:text-slate-400">
+                                          All-inclusive luxury experience
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="text-right">
+                                      <div className="font-bold text-purple-600">
+                                        {ultimatePackagePricing ? `$${Math.round(ultimatePackagePricing.totalPrice / 100)}` : 'Loading...'}
+                                      </div>
+                                      <div className="text-xs text-slate-600 dark:text-slate-400">total</div>
+                                    </div>
+                                  </div>
+                                </div>
                               </div>
                             </div>
                           )}
@@ -2564,23 +2720,31 @@ export default function Chat() {
                         /* DISCO CRUISE OPTION - Only for bachelor/bachelorette events */
                         <Card className={cn(
                           "bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 backdrop-blur-sm cursor-pointer transition-all",
-                          formData.selectedCruiseType === 'disco' && "ring-2 ring-purple-600"
+                          formData.selectedCruiseType === 'disco' && "ring-2 ring-purple-600",
+                          bestDealData?.recommendedOption === 'disco' && "ring-2 ring-emerald-400 shadow-lg"
                         )}>
                           <CardHeader>
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                                <Music className="h-6 w-6 text-purple-600" />
-                              </div>
-                              <div>
-                                <CardTitle>ATX Disco Cruise</CardTitle>
-                                {/* Large, prominent date display */}
-                                <div className="text-2xl font-bold text-purple-600 mt-2 mb-1">
-                                  {format(formData.eventDate!, 'EEEE, MMMM d')}
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-3">
+                                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                                  <Music className="h-6 w-6 text-purple-600" />
                                 </div>
-                                <CardDescription>
-                                  4-hour party cruise • Join the party!
-                                </CardDescription>
+                                <div>
+                                  <CardTitle>ATX Disco Cruise</CardTitle>
+                                  {/* Large, prominent date display */}
+                                  <div className="text-2xl font-bold text-purple-600 mt-2 mb-1">
+                                    {format(formData.eventDate!, 'EEEE, MMMM d')}
+                                  </div>
+                                  <CardDescription>
+                                    4-hour party cruise • Join the party!
+                                  </CardDescription>
+                                </div>
                               </div>
+                              {bestDealData?.recommendedOption === 'disco' && (
+                                <Badge className="bg-emerald-100 text-emerald-800 border-emerald-300 shrink-0">
+                                  ⭐ Recommended
+                                </Badge>
+                              )}
                             </div>
                           </CardHeader>
                           <CardContent className="space-y-4">
