@@ -95,17 +95,15 @@ export function calculateBaseCruiseCost(date: Date, groupSize: number) {
   // Real pricing should use boat-specific crew fees from products table
   // This is kept for backward compatibility and fallback scenarios
   let crewFee = 0;
-  if (groupSize > capacityTier) {
-    // Updated crew fee calculation based on task specifications:
-    // - 26-30 person groups: +$50/hr crew fee (additional $200 for 4hr cruise)
-    // - 51-75 person groups: +$75/hr crew fee (additional $300 for 4hr cruise)
-    if (capacityTier === 25 && groupSize >= 26 && groupSize <= 30) {
-      crewFee = PRICING_DEFAULTS.CREW_FEE_26_30 * duration; // $50/hr * duration
-    } else if (capacityTier === 50 && groupSize >= 51 && groupSize <= 75) {
-      crewFee = PRICING_DEFAULTS.CREW_FEE_51_75 * duration; // $75/hr * duration
-    }
-    // 14-person and 75+ person boats don't have crew fee expansion options
+  // Updated crew fee calculation based on task specifications:
+  // - 26-30 person groups (tier 30): +$50/hr crew fee (additional $200 for 4hr cruise)
+  // - 51-75 person groups (tier 75): +$75/hr crew fee (additional $300 for 4hr cruise)
+  if (capacityTier === 30 && groupSize >= 26 && groupSize <= 30) {
+    crewFee = PRICING_DEFAULTS.CREW_FEE_26_30 * duration; // $50/hr * duration
+  } else if (capacityTier === 75 && groupSize >= 51 && groupSize <= 75) {
+    crewFee = PRICING_DEFAULTS.CREW_FEE_51_75 * duration; // $75/hr * duration
   }
+  // 14-person, 25-person boats don't have crew fee expansion options
   
   // Calculate subtotal (base + crew fee)
   const subtotal = baseCruiseCost + crewFee;
@@ -298,6 +296,52 @@ export function calculateCompletePricing(date: Date, groupSize: number) {
       gratuityAmount: taxAndGratuity.gratuity,
       taxAmount: taxAndGratuity.tax,
       grandTotal: taxAndGratuity.total,
+      perPerson: Math.floor(taxAndGratuity.total / groupSize),
+      deposit: deposit.depositAmount,
+      balanceDue: deposit.balanceDue,
+    }
+  };
+}
+
+/**
+ * Gets DISCO pricing per person for a specific package type
+ * @param packageType Package type (basic, disco_queen, platinum)
+ * @returns Price per person in cents
+ */
+export function getDiscoPricing(packageType: 'basic' | 'disco_queen' | 'platinum'): number {
+  const { DISCO_PRICING } = require('./constants');
+  return DISCO_PRICING[packageType] || DISCO_PRICING.basic;
+}
+
+/**
+ * Calculates total DISCO pricing for a group
+ * @param packageType Package type (basic, disco_queen, platinum) 
+ * @param groupSize Number of people in the group
+ * @param eventDate Event date for deposit calculation
+ * @returns Complete DISCO pricing breakdown
+ */
+export function calculateDiscoPricing(packageType: 'basic' | 'disco_queen' | 'platinum', groupSize: number, eventDate: Date) {
+  const pricePerPerson = getDiscoPricing(packageType);
+  const subtotal = pricePerPerson * groupSize;
+  const taxAndGratuity = calculateTaxAndGratuity(subtotal);
+  const deposit = calculateDeposit(taxAndGratuity.total, eventDate);
+  
+  return {
+    packageType,
+    pricePerPerson,
+    groupSize,
+    subtotal,
+    ...taxAndGratuity,
+    ...deposit,
+    perPersonCost: Math.floor(taxAndGratuity.total / groupSize),
+    breakdown: {
+      packageType,
+      pricePerPerson,
+      groupSize,
+      subtotal,
+      tax: taxAndGratuity.tax,
+      gratuity: taxAndGratuity.gratuity,
+      total: taxAndGratuity.total,
       perPerson: Math.floor(taxAndGratuity.total / groupSize),
       deposit: deposit.depositAmount,
       balanceDue: deposit.balanceDue,

@@ -519,8 +519,17 @@ async function calculateInvoiceTotalsWithPricingSettings(items: any[], quoteId?:
   const gratuity = Math.round(subtotal * gratuityRate);
   const total = subtotal + tax + gratuity;
   
-  // Calculate deposit and due date - always 25% deposit
-  const depositPercent = 25; // Always 25% as per business requirements
+  // Calculate deposit and due date - dynamic deposit based on urgency
+  const today = new Date();
+  let depositPercent = 25; // Default 25% for standard bookings
+  let isUrgentBooking = false;
+  
+  if (eventDate) {
+    const daysUntilEvent = Math.ceil((eventDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    isUrgentBooking = daysUntilEvent <= 30; // 30 days threshold for urgent booking
+    depositPercent = isUrgentBooking ? 50 : 25; // 50% for urgent, 25% for standard
+  }
+  
   const depositAmount = Math.floor(total * (depositPercent / 100));
   const remainingBalance = total - depositAmount;
   
@@ -4971,17 +4980,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
             groupSize
           });
 
-          // Use real DISCO_PRICING constants for consistency
-          const { DISCO_PRICING } = await import('@shared/constants');
+          // Use centralized DISCO pricing function for consistency
+          const { getDiscoPricing } = await import('@shared/pricing');
           
           const getDiscoPriceByPackage = (packageId: string): number => {
             const packageMap = {
               'basic': 'basic',
               'disco_queen': 'disco_queen', 
               'platinum': 'platinum'
-            };
+            } as const;
             const mappedId = packageMap[packageId as keyof typeof packageMap] || 'basic';
-            return DISCO_PRICING[mappedId as keyof typeof DISCO_PRICING] || DISCO_PRICING.basic;
+            return getDiscoPricing(mappedId as 'basic' | 'disco_queen' | 'platinum');
           };
 
           pricing = await storage.calculatePricing({

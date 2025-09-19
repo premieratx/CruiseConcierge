@@ -23,7 +23,8 @@ import {
 } from '@shared/schema';
 import { EVENT_TYPES, DISCO_PACKAGES } from '@shared/constants';
 import { calculatePackagePricing, calculateTaxAndGratuity, calculateDeposit, getPricingDayType } from '@shared/pricing';
-import { DISCO_PRICING, PRICING_POLICIES, compareDiscoVsPrivate, getBestDealRecommendation } from '@shared/constants';
+import { PRICING_POLICIES, compareDiscoVsPrivate, getBestDealRecommendation } from '@shared/constants';
+import { getDiscoPricing } from '@shared/pricing';
 
 interface UseCheckoutContextProps {
   entryPoint: CheckoutEntryPoint;
@@ -277,7 +278,7 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
   // Calculate disco cruise pricing
   const createDiscoPricing = (selections: CheckoutSelections): CheckoutPricing => {
     const packageType = selections.discoPackage?.id || 'basic';
-    const pricePerPerson = DISCO_PRICING[packageType as keyof typeof DISCO_PRICING] || DISCO_PRICING.basic;
+    const pricePerPerson = getDiscoPricing(packageType as 'basic' | 'disco_queen' | 'platinum');
     const subtotal = pricePerPerson * selections.groupSize;
     
     // Disco prices are already final - no additional tax/gratuity
