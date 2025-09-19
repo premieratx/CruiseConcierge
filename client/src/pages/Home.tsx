@@ -24,6 +24,19 @@ import {
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
 import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
+import { DiscoVsPrivateComparison, QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
+import { 
+  calculatePackagePricing, 
+  getCapacityTier, 
+  getPricingDayType 
+} from '@shared/pricing';
+import { 
+  PRIVATE_CRUISE_PRICING, 
+  DISCO_PRICING, 
+  compareDiscoVsPrivate, 
+  getBestDealRecommendation,
+  getSavingsOpportunities 
+} from '@shared/constants';
 
 // Hero and gallery images - Real photos from live website
 import heroImage1 from '@assets/bachelor-party-group-guys.jpg';
@@ -187,12 +200,65 @@ const stats = [
   { value: '5-Star', label: 'Customer Reviews', icon: Star }
 ];
 
+// Sample pricing calculations for different scenarios
+const samplePricingScenarios = {
+  weekday14: calculatePackagePricing(new Date(2024, 1, 5), 14, 'standard'), // Monday
+  weekend14: calculatePackagePricing(new Date(2024, 1, 10), 14, 'standard'), // Saturday
+  weekday25: calculatePackagePricing(new Date(2024, 1, 5), 25, 'standard'), // Monday
+  weekend25: calculatePackagePricing(new Date(2024, 1, 10), 25, 'standard'), // Saturday
+  weekday75: calculatePackagePricing(new Date(2024, 1, 5), 75, 'standard'), // Monday
+  weekend75: calculatePackagePricing(new Date(2024, 1, 10), 75, 'standard'), // Saturday
+};
+
+// Quick pricing highlights
+const pricingHighlights = [
+  {
+    type: 'Private Cruises',
+    weekdayFrom: Math.floor(samplePricingScenarios.weekday14.perPersonCost / 100),
+    weekendFrom: Math.floor(samplePricingScenarios.weekend14.perPersonCost / 100),
+    description: 'Starting prices for 14-person private cruises'
+  },
+  {
+    type: 'ATX Disco Cruises',
+    weekdayFrom: Math.floor(DISCO_PRICING.basic / 100),
+    weekendFrom: Math.floor(DISCO_PRICING.basic / 100),
+    description: 'Friday & Saturday party cruise tickets'
+  }
+];
+
+// Capacity-based pricing examples
+const capacityPricingExamples = [
+  {
+    capacity: 14,
+    weekdayPrice: samplePricingScenarios.weekday14.totalPrice,
+    weekendPrice: samplePricingScenarios.weekend14.totalPrice,
+    perPersonWeekday: samplePricingScenarios.weekday14.perPersonCost,
+    perPersonWeekend: samplePricingScenarios.weekend14.perPersonCost,
+  },
+  {
+    capacity: 25,
+    weekdayPrice: samplePricingScenarios.weekday25.totalPrice,
+    weekendPrice: samplePricingScenarios.weekend25.totalPrice,
+    perPersonWeekday: samplePricingScenarios.weekday25.perPersonCost,
+    perPersonWeekend: samplePricingScenarios.weekend25.perPersonCost,
+  },
+  {
+    capacity: 75,
+    weekdayPrice: samplePricingScenarios.weekday75.totalPrice,
+    weekendPrice: samplePricingScenarios.weekend75.totalPrice,
+    perPersonWeekday: samplePricingScenarios.weekday75.perPersonCost,
+    perPersonWeekend: samplePricingScenarios.weekend75.perPersonCost,
+  },
+];
+
 export default function Home() {
   const [, navigate] = useLocation();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [showLightbox, setShowLightbox] = useState(false);
   const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
+  const [quickPricingGroupSize, setQuickPricingGroupSize] = useState(20);
+  const [quickPricingDayOfWeek, setQuickPricingDayOfWeek] = useState(6); // Saturday
   const [contactForm, setContactForm] = useState({
     name: '',
     email: '',
@@ -394,19 +460,45 @@ export default function Home() {
               </h2>
             </motion.div>
 
-            {/* Subheadline */}
+            {/* Subheadline with Pricing Value Proposition */}
             <motion.p 
               variants={fadeInUp}
-              className="text-xl md:text-2xl mb-12 text-gray-100 max-w-4xl mx-auto leading-relaxed font-light"
+              className="text-xl md:text-2xl mb-8 text-gray-100 max-w-4xl mx-auto leading-relaxed font-light"
             >
               Experience Austin's ultimate Lake Travis adventure with the most trusted party cruise company since 2009. 
               From intimate 14-person cruises on "Day Tripper" to epic 50-person parties on flagship "Clever Girl" - we create unforgettable memories.
             </motion.p>
 
-            {/* Key Features */}
+            {/* Pricing Value Proposition */}
             <motion.div 
               variants={fadeInUp}
-              className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-12 max-w-4xl mx-auto"
+              className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 max-w-3xl mx-auto mb-12 border border-white/20"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+                <div>
+                  <div className="text-brand-yellow text-sm font-bold mb-2">PRIVATE CRUISES FROM</div>
+                  <div className="text-3xl font-bold text-white mb-1">
+                    ${pricingHighlights[0].weekdayFrom}/person
+                  </div>
+                  <div className="text-sm text-gray-200">Weekdays • 14+ people</div>
+                </div>
+                <div>
+                  <div className="text-brand-yellow text-sm font-bold mb-2">DISCO CRUISES</div>
+                  <div className="text-3xl font-bold text-white mb-1">
+                    ${pricingHighlights[1].weekdayFrom}/person
+                  </div>
+                  <div className="text-sm text-gray-200">Friday & Saturday</div>
+                </div>
+              </div>
+              <div className="text-center mt-4 text-sm text-brand-yellow font-medium">
+                ✨ Transparent pricing • No hidden fees • Best value guaranteed
+              </div>
+            </motion.div>
+
+            {/* Key Features with Pricing */}
+            <motion.div 
+              variants={fadeInUp}
+              className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12 max-w-5xl mx-auto"
             >
               <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
                 <MapPin className="h-6 w-6 text-brand-yellow flex-shrink-0" />
@@ -415,6 +507,10 @@ export default function Home() {
               <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
                 <Users className="h-6 w-6 text-brand-yellow flex-shrink-0" />
                 <span className="font-semibold text-lg">4 Awesome Boats</span>
+              </div>
+              <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <DollarSign className="h-6 w-6 text-brand-yellow flex-shrink-0" />
+                <span className="font-semibold text-lg">From ${pricingHighlights[0].weekdayFrom}/person</span>
               </div>
               <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
                 <Clock className="h-6 w-6 text-brand-yellow flex-shrink-0" />
@@ -476,6 +572,278 @@ export default function Home() {
       <section className="py-16 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-6">
           <EmbeddedQuoteBuilder pageContext="home" className="mb-8" />
+        </div>
+      </section>
+
+      {/* Pricing Preview Section */}
+      <section className="py-20 bg-gradient-to-br from-brand-blue/5 to-brand-yellow/5 dark:from-gray-900 dark:to-gray-800">
+        <div className="container mx-auto px-6">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerChildren}
+            className="text-center mb-16"
+          >
+            <motion.div variants={fadeInUp}>
+              <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider">
+                TRANSPARENT PRICING
+              </h2>
+              <h3 className="text-3xl md:text-4xl font-heading font-bold mb-8 text-brand-blue tracking-wider">
+                NO HIDDEN FEES
+              </h3>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                See exactly what you'll pay before you book. Real-time pricing based on your group size and preferred dates.
+              </p>
+            </motion.div>
+          </motion.div>
+
+          {/* Day-of-Week Pricing Highlights */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16 max-w-6xl mx-auto">
+            {pricingHighlights.map((highlight, index) => (
+              <motion.div
+                key={highlight.type}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-50px" }}
+                variants={fadeInUp}
+                transition={{ delay: index * 0.2 }}
+              >
+                <Card className="border-2 border-brand-blue/20 bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300">
+                  <CardHeader className="text-center pb-4">
+                    <CardTitle className="text-2xl font-bold mb-2 tracking-wide text-brand-blue">
+                      {highlight.type}
+                    </CardTitle>
+                    <CardDescription className="text-lg text-gray-600">
+                      {highlight.description}
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="text-center space-y-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="bg-green-50 dark:bg-green-950 p-4 rounded-xl border border-green-200">
+                        <div className="text-sm text-green-600 font-medium mb-1">Weekdays</div>
+                        <div className="text-2xl font-bold text-green-700">
+                          ${highlight.weekdayFrom}
+                        </div>
+                        <div className="text-sm text-gray-600">per person</div>
+                      </div>
+                      <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-xl border border-blue-200">
+                        <div className="text-sm text-blue-600 font-medium mb-1">Weekends</div>
+                        <div className="text-2xl font-bold text-blue-700">
+                          ${highlight.weekendFrom}
+                        </div>
+                        <div className="text-sm text-gray-600">per person</div>
+                      </div>
+                    </div>
+                    <div className="text-sm text-gray-500">
+                      {highlight.type === 'ATX Disco Cruises' ? 'Friday & Saturday only' : 'Available 7 days a week'}
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Capacity-Based Pricing Ranges */}
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={staggerChildren}
+            className="mb-16"
+          >
+            <motion.div variants={fadeInUp} className="text-center mb-12">
+              <h3 className="text-3xl font-heading font-bold mb-4 text-gray-900 dark:text-white">
+                GROUP SIZE PRICING
+              </h3>
+              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                Different boat sizes for different group sizes - find the perfect fit for your celebration
+              </p>
+            </motion.div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {capacityPricingExamples.map((example, index) => (
+                <motion.div
+                  key={example.capacity}
+                  variants={scaleIn}
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Card className="h-full border-2 border-gray-200 hover:border-brand-blue/50 transition-all duration-300 hover:shadow-lg">
+                    <CardHeader className="text-center pb-4">
+                      <Badge className="mx-auto mb-3 bg-brand-blue text-white">
+                        {example.capacity} People Max
+                      </Badge>
+                      <CardTitle className="text-xl font-bold">
+                        {example.capacity === 14 ? 'Intimate Groups' : 
+                         example.capacity === 25 ? 'Perfect Parties' : 
+                         'Grand Celebrations'}
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <div className="grid grid-cols-2 gap-3 text-center">
+                        <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                          <div className="text-sm text-gray-600 mb-1">Weekday</div>
+                          <div className="font-bold text-gray-900 dark:text-white">
+                            ${formatCurrency(example.weekdayPrice / 100, false)}
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            ${Math.floor(example.perPersonWeekday / 100)}/person
+                          </div>
+                        </div>
+                        <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                          <div className="text-sm text-gray-600 mb-1">Weekend</div>
+                          <div className="font-bold text-gray-900 dark:text-white">
+                            ${formatCurrency(example.weekendPrice / 100, false)}
+                          </div>
+                          <div className="text-xs text-gray-500">
+                            ${Math.floor(example.perPersonWeekend / 100)}/person
+                          </div>
+                        </div>
+                      </div>
+                      <div className="text-center pt-2">
+                        <Button 
+                          variant="outline" 
+                          size="sm"
+                          onClick={() => handleGetQuote('private-cruise', 'general')}
+                          className="text-brand-blue border-brand-blue hover:bg-brand-blue hover:text-white"
+                          data-testid={`button-capacity-quote-${example.capacity}`}
+                        >
+                          Get Quote
+                        </Button>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Best Deal Finder Widget */}
+      <section className="py-20 bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerChildren}
+            className="max-w-4xl mx-auto"
+          >
+            <motion.div variants={fadeInUp} className="text-center mb-12">
+              <div className="flex items-center justify-center gap-3 mb-6">
+                <Target className="h-10 w-10 text-green-600" />
+                <h2 className="text-4xl md:text-5xl font-heading font-bold text-gray-900 dark:text-white tracking-wider">
+                  BEST DEAL FINDER
+                </h2>
+              </div>
+              <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
+                Let our smart pricing engine find the perfect cruise option for your group size and budget
+              </p>
+            </motion.div>
+
+            <motion.div variants={fadeInUp}>
+              <Card className="border-2 border-green-200 bg-white/90 backdrop-blur-sm shadow-xl">
+                <CardHeader className="text-center pb-4">
+                  <CardTitle className="text-2xl font-bold text-green-700 tracking-wide">
+                    Quick Deal Calculator
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <Label className="text-sm font-semibold mb-2 block">Group Size</Label>
+                      <select 
+                        value={quickPricingGroupSize} 
+                        onChange={(e) => setQuickPricingGroupSize(Number(e.target.value))}
+                        className="w-full p-3 border border-gray-300 rounded-xl bg-white"
+                        data-testid="select-quick-pricing-group-size"
+                      >
+                        {[8, 10, 12, 14, 16, 18, 20, 22, 25, 30, 35, 40, 45, 50, 60, 75].map(size => (
+                          <option key={size} value={size}>{size} people</option>
+                        ))}
+                      </select>
+                    </div>
+                    <div>
+                      <Label className="text-sm font-semibold mb-2 block">Preferred Day</Label>
+                      <select 
+                        value={quickPricingDayOfWeek} 
+                        onChange={(e) => setQuickPricingDayOfWeek(Number(e.target.value))}
+                        className="w-full p-3 border border-gray-300 rounded-xl bg-white"
+                        data-testid="select-quick-pricing-day"
+                      >
+                        <option value={1}>Monday</option>
+                        <option value={2}>Tuesday</option>
+                        <option value={3}>Wednesday</option>
+                        <option value={4}>Thursday</option>
+                        <option value={5}>Friday</option>
+                        <option value={6}>Saturday</option>
+                        <option value={0}>Sunday</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-xl border border-green-200">
+                    <QuickDealHighlight 
+                      groupSize={quickPricingGroupSize} 
+                      dayOfWeek={quickPricingDayOfWeek}
+                      className="mb-4"
+                    />
+                    
+                    <div className="text-center pt-4">
+                      <Button 
+                        onClick={() => handleGetQuote('best-deal', 'general')}
+                        className="bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-3 text-lg rounded-xl"
+                        data-testid="button-get-best-deal"
+                      >
+                        <TrendingUp className="mr-2 h-5 w-5" />
+                        Get My Best Deal
+                      </Button>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Disco vs Private Comparison */}
+      <section className="py-20 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerChildren}
+            className="text-center mb-16"
+          >
+            <motion.div variants={fadeInUp}>
+              <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider">
+                DISCO VS PRIVATE
+              </h2>
+              <h3 className="text-3xl md:text-4xl font-heading font-bold mb-8 text-brand-blue tracking-wider">
+                WHICH IS BEST FOR YOU?
+              </h3>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Our intelligent comparison shows you exactly when each option saves you money and delivers the best experience
+              </p>
+            </motion.div>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-50px" }}
+            variants={fadeInUp}
+          >
+            <DiscoVsPrivateComparison 
+              groupSize={quickPricingGroupSize} 
+              dayOfWeek={quickPricingDayOfWeek}
+              showAlternatives={true}
+              className="max-w-7xl mx-auto"
+            />
+          </motion.div>
         </div>
       </section>
 
