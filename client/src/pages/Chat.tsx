@@ -937,11 +937,11 @@ export default function Chat() {
     setPricingLoading(true);
     setPricingError(null);
     try {
-      // Calculate total hourly rate (base + add-ons)
-      const totalHourlyRate = BASE_PRIVATE_HOURLY_RATE + 
+      // Calculate total hourly rate in cents (base + add-ons)
+      const totalHourlyRateCents = BASE_PRIVATE_HOURLY_RATE_CENTS + 
         formData.selectedAddOnPackages.reduce((sum, addOnId) => {
           const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
-          return sum + (addOn?.hourlyRate || 0);
+          return sum + (addOn?.hourlyRate || 0) * 100; // Convert dollars to cents
         }, 0);
       
       const pricingPayload = {
@@ -951,7 +951,7 @@ export default function Chat() {
         eventType: formData.eventType,
         cruiseType: 'private',
         packageType: formData.selectedAddOnPackages.join(','), // Send selected add-ons
-        hourlyRate: totalHourlyRate,
+        hourlyRate: totalHourlyRateCents,
       };
       
       console.log('🚢 Making API call to /api/pricing/cruise with:', pricingPayload);
@@ -991,19 +991,19 @@ export default function Chat() {
       return;
     }
     
-    // Calculate total hourly rate (base + add-ons) - same as in fetchPrivatePricing
-    const totalHourlyRate = BASE_PRIVATE_HOURLY_RATE + 
+    // Calculate total hourly rate in cents (base + add-ons) - consistent with display logic
+    const totalHourlyRateCents = BASE_PRIVATE_HOURLY_RATE_CENTS + 
       formData.selectedAddOnPackages.reduce((sum, addOnId) => {
         const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
-        return sum + (addOn?.hourlyRate || 0);
+        return sum + (addOn?.hourlyRate || 0) * 100; // Convert dollars to cents
       }, 0);
     
     // Calculate cruise duration based on day of week
     const cruiseDuration = getCruiseDuration(formData.eventDate);
     
-    // Calculate base cost and crew fee
-    const baseCost = totalHourlyRate * cruiseDuration;
-    const crewFee = formData.groupSize > 20 ? 200 : 0;
+    // Calculate base cost and crew fee (all in cents)
+    const baseCostCents = totalHourlyRateCents * cruiseDuration;
+    const crewFeeCents = formData.groupSize > 20 ? 20000 : 0; // $200 crew fee in cents
     
     // Use shared pricing calculation for consistency
     const packageType = formData.selectedAddOnPackages.includes('ultimate') ? 'ultimate' : 
@@ -1044,10 +1044,10 @@ export default function Chat() {
       breakdown: {
         boatType: selectedAddOnNames,
         dayName: formData.eventDate ? format(formData.eventDate, 'EEEE') : '',
-        baseHourlyRate: totalHourlyRate,
+        baseHourlyRate: totalHourlyRateCents / 100, // Convert cents to dollars for display
         cruiseDuration,
-        baseCruiseCost: baseCost,
-        crewFee,
+        baseCruiseCost: baseCostCents / 100, // Convert cents to dollars for display
+        crewFee: crewFeeCents / 100, // Convert cents to dollars for display
         subtotalBeforeTax: subtotal,
         gratuityAmount: gratuity,
         taxAmount: tax,

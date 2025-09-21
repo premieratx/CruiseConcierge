@@ -133,11 +133,18 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
     }
   ], []);
   
-  // Initialize checkout session from entry point data
+  // Initialize checkout session from entry point data - FIXED: Prevent infinite loop
   const initializeSession = useCallback(async () => {
     try {
       setIsLoading(true);
       setError(null);
+      
+      // Only initialize if we have boats data and haven't already initialized
+      if (!boats || boats.length === 0) {
+        console.log('⏳ Waiting for boats data before initializing checkout...');
+        setIsLoading(false);
+        return;
+      }
       
       // Create initial context from entry point
       const context: CheckoutContext = {
@@ -155,12 +162,12 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
       // Initialize selections with smart defaults
       const initialSelections = await createSmartDefaults(context, boats);
       
-      // Create initial session
+      // Create initial session WITHOUT calling calculateInitialPricing to prevent loop
       const newSession: CheckoutSession = {
         sessionId,
         context,
         selections: initialSelections,
-        pricing: await calculateInitialPricing(initialSelections),
+        pricing: createRealPricing(initialSelections), // Use local pricing instead of API call
         validation: { isValid: false, errors: [], warnings: [], slotAvailable: true, holdValid: true, pricingCurrent: true, requiresHoldRenewal: false, requiresPricingUpdate: false },
         currentStep: 'selections',
         completedSteps: [],
@@ -171,14 +178,16 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
       };
       
       setSession(newSession);
+      console.log('✅ Checkout session initialized successfully');
     } catch (err) {
       const errorMsg = err instanceof Error ? err.message : 'Failed to initialize checkout';
+      console.error('❌ Checkout initialization failed:', err);
       setError(errorMsg);
       onError?.(errorMsg);
     } finally {
       setIsLoading(false);
     }
-  }, [entryPoint, preselectedData, sessionId, boats, onError]);
+  }, [entryPoint, sessionId]); // FIXED: Removed boats and preselectedData from dependencies
   
   // Create smart defaults based on entry point and preselected data
   const createSmartDefaults = async (context: CheckoutContext, availableBoats: BoatOption[]): Promise<CheckoutSelections> => {
@@ -189,7 +198,7 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
     // Smart boat selection based on group size
     const selectedBoat = selectOptimalBoat(availableBoats, groupSize, preselectedData.boatId);
     
-    // Default time slot (will be refined with availability)
+    // CRITICAL FIX: Ensure selectedSlot has all required properties including capacity
     const defaultTimeSlot: NormalizedSlot = {
       id: 'default',
       cruiseType: 'private',
@@ -198,11 +207,13 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
       endTime: '16:00',
       label: '12:00 PM - 4:00 PM',
       duration: 4,
-      capacity: selectedBoat.capacity,
+      capacity: selectedBoat?.capacity || 25, // FIXED: Add fallback for capacity
       availableCount: 1,
       price: 0,
-      boatCandidates: [selectedBoat.id],
-      bookable: true
+      boatCandidates: [selectedBoat?.id || 'boat_day_tripper'],
+      bookable: true,
+      boatName: selectedBoat?.name || 'Day Tripper',
+      description: `${selectedBoat?.name || 'Day Tripper'} - 4 hour cruise`
     };
     
     return {
@@ -383,12 +394,12 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
     };
   };
   
-  // Update selections with validation and pricing refresh
+  // Update selections with validation and pricing refresh - FIXED: Use local pricing
   const updateSelections = useCallback(async (updates: Partial<CheckoutSelections>) => {
     if (!session) return;
     
     const newSelections = { ...session.selections, ...updates };
-    const newPricing = await calculateInitialPricing(newSelections);
+    const newPricing = createRealPricing(newSelections); // Use local pricing instead of API call
     
     setSession(prev => prev ? {
       ...prev,
@@ -546,13 +557,17 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
     setSession(null);
     setError(null);
     // Slot hold system removed - direct reset
-    initializeSession();
-  }, [initializeSession]);
+    if (boats && boats.length > 0) {
+      initializeSession();
+    }
+  }, [boats]);
   
-  // Initialize on mount
+  // Initialize on mount - FIXED: Only when boats are available
   useEffect(() => {
-    initializeSession();
-  }, [initializeSession]);
+    if (boats && boats.length > 0 && !session) {
+      initializeSession();
+    }
+  }, [entryPoint, sessionId, boats, session]);
   
   // Computed properties
   const canProceedToPayment = useMemo(() => {

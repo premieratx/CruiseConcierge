@@ -743,21 +743,264 @@ export default function UniversalCheckout({
               )}
               */}
 
-              {/* Step Content */}
+              {/* Step Content - SIMPLIFIED PACKAGE SELECTION */}
               {currentStep === 'selections' && (
-                <SelectionsStep
-                  selections={selections}
-                  pricing={pricing}
-                  availableBoats={availableBoats}
-                  discoPackages={discoPackages}
-                  addOnPackages={addOnPackages}
-                  onSelectBoat={selectBoat}
-                  onSelectTimeSlot={selectTimeSlot}
-                  onSelectCruiseType={selectCruiseType}
-                  onSelectDiscoPackage={selectDiscoPackage}
-                  onToggleAddOnPackage={toggleAddOnPackage}
-                  isEventTypeBachelorette={isEventTypeBachelorette}
-                />
+                <div className="space-y-6">
+                  {/* Package Selection Card */}
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2">
+                        <PartyPopperIcon className="h-5 w-5" />
+                        Choose Your Package
+                      </CardTitle>
+                      <CardDescription>
+                        {isEventTypeBachelorette 
+                          ? 'Select between disco cruise or private cruise packages'
+                          : 'Select your private cruise package'
+                        }
+                      </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      {/* Bachelor/Bachelorette: Choose Cruise Type First */}
+                      {isEventTypeBachelorette && (
+                        <div className="space-y-4">
+                          <h3 className="font-medium text-gray-900 dark:text-white">Cruise Type</h3>
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {/* Disco Cruise Option */}
+                            <div 
+                              className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                                selections?.cruiseType === 'disco' 
+                                  ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/20' 
+                                  : 'border-gray-200 hover:border-purple-300'
+                              }`}
+                              onClick={() => selectCruiseType('disco')}
+                              data-testid="cruise-type-disco"
+                            >
+                              <div className="flex items-start gap-3">
+                                <input
+                                  type="radio"
+                                  checked={selections?.cruiseType === 'disco'}
+                                  onChange={() => selectCruiseType('disco')}
+                                  className="mt-1"
+                                />
+                                <div>
+                                  <div className="flex items-center gap-2">
+                                    <MusicIcon className="h-4 w-4 text-purple-600" />
+                                    <span className="font-semibold">Disco Cruise</span>
+                                  </div>
+                                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                    Join our party boat with music and dancing
+                                  </p>
+                                  <div className="text-sm font-medium text-purple-600 mt-2">
+                                    From $85 per person
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            {/* Private Cruise Option */}
+                            <div 
+                              className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                                selections?.cruiseType === 'private' 
+                                  ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/20' 
+                                  : 'border-gray-200 hover:border-blue-300'
+                              }`}
+                              onClick={() => selectCruiseType('private')}
+                              data-testid="cruise-type-private"
+                            >
+                              <div className="flex items-start gap-3">
+                                <input
+                                  type="radio"
+                                  checked={selections?.cruiseType === 'private'}
+                                  onChange={() => selectCruiseType('private')}
+                                  className="mt-1"
+                                />
+                                <div>
+                                  <div className="flex items-center gap-2">
+                                    <Ship className="h-4 w-4 text-blue-600" />
+                                    <span className="font-semibold">Private Cruise</span>
+                                  </div>
+                                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                    Your own private boat with customizable experience
+                                  </p>
+                                  <div className="text-sm font-medium text-blue-600 mt-2">
+                                    Starting at $1,500 total
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                      
+                      {/* Package Selection Based on Cruise Type */}
+                      <div className="space-y-4">
+                        {selections?.cruiseType === 'disco' ? (
+                          <div>
+                            <h3 className="font-medium text-gray-900 dark:text-white mb-3">Disco Package</h3>
+                            <div className="space-y-3">
+                              {discoPackages.map((pkg) => (
+                                <div 
+                                  key={pkg.id}
+                                  className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                                    selections?.discoPackage?.id === pkg.id 
+                                      ? 'border-purple-500 bg-purple-50 dark:bg-purple-950/20' 
+                                      : 'border-gray-200 hover:border-purple-300'
+                                  }`}
+                                  onClick={() => selectDiscoPackage(pkg)}
+                                  data-testid={`disco-package-${pkg.id}`}
+                                >
+                                  <div className="flex items-start gap-3">
+                                    <input
+                                      type="radio"
+                                      checked={selections?.discoPackage?.id === pkg.id}
+                                      onChange={() => selectDiscoPackage(pkg)}
+                                      className="mt-1"
+                                    />
+                                    <div className="flex-1">
+                                      <div className="flex items-center justify-between">
+                                        <span className="font-semibold">{pkg.label}</span>
+                                        <span className="font-bold text-purple-600">
+                                          ${(pkg.pricePerPerson / 100).toFixed(0)} per person
+                                        </span>
+                                      </div>
+                                      <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                        {pkg.description}
+                                      </p>
+                                      {pkg.popular && (
+                                        <Badge className="mt-2" variant="secondary">
+                                          Most Popular
+                                        </Badge>
+                                      )}
+                                    </div>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        ) : (
+                          <div>
+                            <h3 className="font-medium text-gray-900 dark:text-white mb-3">Private Cruise Package</h3>
+                            <div className="space-y-3">
+                              {/* Standard Package */}
+                              <div 
+                                className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                                  !selections?.addOnPackages?.length 
+                                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/20' 
+                                    : 'border-gray-200 hover:border-blue-300'
+                                }`}
+                                onClick={() => {
+                                  // Clear all add-on packages for standard
+                                  selections?.addOnPackages?.forEach(pkg => toggleAddOnPackage(pkg));
+                                }}
+                                data-testid="package-standard"
+                              >
+                                <div className="flex items-start gap-3">
+                                  <input
+                                    type="radio"
+                                    checked={!selections?.addOnPackages?.length}
+                                    onChange={() => {}}
+                                    className="mt-1"
+                                  />
+                                  <div className="flex-1">
+                                    <div className="flex items-center justify-between">
+                                      <span className="font-semibold">Standard Package</span>
+                                      <span className="font-bold text-blue-600">Base Rate</span>
+                                    </div>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                      Basic private cruise experience with your selected boat
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              {/* Essentials Package */}
+                              <div 
+                                className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                                  selections?.addOnPackages?.some(pkg => pkg.id === 'essentials') && selections?.addOnPackages?.length === 1
+                                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/20' 
+                                    : 'border-gray-200 hover:border-blue-300'
+                                }`}
+                                onClick={() => {
+                                  // Clear all packages first, then add essentials
+                                  selections?.addOnPackages?.forEach(pkg => toggleAddOnPackage(pkg));
+                                  const essentialsPkg = addOnPackages.find(pkg => pkg.id === 'essentials');
+                                  if (essentialsPkg) toggleAddOnPackage(essentialsPkg);
+                                }}
+                                data-testid="package-essentials"
+                              >
+                                <div className="flex items-start gap-3">
+                                  <input
+                                    type="radio"
+                                    checked={selections?.addOnPackages?.some(pkg => pkg.id === 'essentials') && selections?.addOnPackages?.length === 1}
+                                    onChange={() => {}}
+                                    className="mt-1"
+                                  />
+                                  <div className="flex-1">
+                                    <div className="flex items-center justify-between">
+                                      <span className="font-semibold">Essentials Package</span>
+                                      <span className="font-bold text-blue-600">+$50/hour</span>
+                                    </div>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                      Enhanced experience with premium amenities, coolers, and decorations
+                                    </p>
+                                    <Badge className="mt-2" variant="secondary">
+                                      Recommended
+                                    </Badge>
+                                  </div>
+                                </div>
+                              </div>
+                              
+                              {/* Ultimate Package */}
+                              <div 
+                                className={`p-4 border-2 rounded-lg cursor-pointer transition-all ${
+                                  selections?.addOnPackages?.some(pkg => pkg.id === 'ultimate') && selections?.addOnPackages?.length === 1
+                                    ? 'border-blue-500 bg-blue-50 dark:bg-blue-950/20' 
+                                    : 'border-gray-200 hover:border-blue-300'
+                                }`}
+                                onClick={() => {
+                                  // Clear all packages first, then add ultimate
+                                  selections?.addOnPackages?.forEach(pkg => toggleAddOnPackage(pkg));
+                                  const ultimatePkg = addOnPackages.find(pkg => pkg.id === 'ultimate');
+                                  if (ultimatePkg) toggleAddOnPackage(ultimatePkg);
+                                }}
+                                data-testid="package-ultimate"
+                              >
+                                <div className="flex items-start gap-3">
+                                  <input
+                                    type="radio"
+                                    checked={selections?.addOnPackages?.some(pkg => pkg.id === 'ultimate') && selections?.addOnPackages?.length === 1}
+                                    onChange={() => {}}
+                                    className="mt-1"
+                                  />
+                                  <div className="flex-1">
+                                    <div className="flex items-center justify-between">
+                                      <span className="font-semibold">Ultimate Package</span>
+                                      <span className="font-bold text-blue-600">+$75/hour</span>
+                                    </div>
+                                    <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                                      All-inclusive luxury experience with photography and premium features
+                                    </p>
+                                    <Badge className="mt-2" variant="outline">
+                                      Premium
+                                    </Badge>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                  
+                  {/* Smart Recommendations */}
+                  <SmartRecommendationsCard 
+                    selections={selections} 
+                    pricing={pricing} 
+                    onSelectCruiseType={selectCruiseType} 
+                  />
+                </div>
               )}
 
               {currentStep === 'contact' && (
