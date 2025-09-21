@@ -225,7 +225,7 @@ export function EnhancedBookingCalendar({
   
   // Filter disco cruises for bachelor/bachelorette events only
   const shouldShowDiscoCruises = selectedEventType === 'bachelor' || selectedEventType === 'bachelorette';
-  const effectiveEventType = shouldShowDiscoCruises && selectedEventType !== 'private' ? 'disco' : 'private';
+  const effectiveEventType = shouldShowDiscoCruises ? 'disco' : 'private';
 
   // Get slots for a specific date
   const getSlotsForDate = (date: Date) => {
@@ -279,7 +279,7 @@ export function EnhancedBookingCalendar({
       // Pre-fill with slot pricing if available
       ...(selectedSlot.totalPrice && { estimatedTotal: selectedSlot.totalPrice.toString() }),
       ...(selectedSlot.label && { slotLabel: selectedSlot.label }),
-      ...(selectedSlot.description && { slotDescription: selectedSlot.description }),
+      ...(selectedSlot.label && { slotDescription: selectedSlot.label }),
     });
 
     // Navigate to UniversalCheckout with pre-filled selections
