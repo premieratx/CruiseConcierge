@@ -127,19 +127,31 @@ export default function PublicCalendar() {
   const handleBookNow = useCallback(() => {
     if (!selectedSlot) return;
     
-    // Build checkout URL with all necessary parameters
+    // Build checkout URL with all necessary parameters for UniversalCheckout
     const params = new URLSearchParams({
+      // Core booking data
       slotId: selectedSlot.id,
+      eventDate: selectedSlot.date,  // UniversalCheckout expects 'eventDate'
       date: selectedSlot.date,
       startTime: selectedSlot.startTime,
       endTime: selectedSlot.endTime,
+      
+      // Boat information
       boatId: selectedSlot.boatId?.toString() || '',
       boatName: selectedSlot.boatName || '',
       capacity: selectedSlot.capacity?.toString() || '',
+      
+      // Group and pricing
       groupSize: groupSize.toString(),
       eventType: eventType,
+      cruiseType: selectedSlot.cruiseType || 'private',  // Add cruiseType for UniversalCheckout
       duration: selectedSlot.duration?.toString() || '4',
       basePrice: selectedSlot.basePrice?.toString() || '0',
+      price: selectedSlot.totalPrice?.toString() || selectedSlot.basePrice?.toString() || '0',
+      
+      // Entry point and context
+      entryPoint: 'public_calendar',  // Help UniversalCheckout understand the source
+      directBooking: 'true',  // Indicate this is a direct booking, not from a quote
       
       // Pre-fill with slot pricing if available
       ...(selectedSlot.totalPrice && { estimatedTotal: selectedSlot.totalPrice.toString() }),
@@ -147,7 +159,7 @@ export default function PublicCalendar() {
       ...(selectedSlot.label && { slotDescription: selectedSlot.label }),
     });
 
-    // Navigate to UniversalCheckout with pre-filled selections
+    // Navigate to checkout with pre-filled selections
     navigate(`/checkout?${params.toString()}`);
   }, [selectedSlot, groupSize, eventType, navigate]);
 

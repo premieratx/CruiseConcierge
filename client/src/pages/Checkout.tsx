@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { Ship, Lock, CreditCard, ArrowLeft, CheckCircle, Calendar, Clock, Users, MapPin } from "lucide-react";
 import { format } from 'date-fns';
 import type { Quote, Project, Contact, PricingPreview } from '@shared/schema';
+import UniversalCheckout from './UniversalCheckout';
 
 // Make sure to call `loadStripe` outside of a component's render to avoid
 // recreating the `Stripe` object on every render.
@@ -313,12 +314,20 @@ export default function Checkout() {
   const [isLoading, setIsLoading] = useState(true);
   const { toast } = useToast();
 
-  // Read quote ID and payment intent from URL parameters
+  // Read URL parameters to determine checkout type
   const urlParams = new URLSearchParams(window.location.search);
   const quoteId = urlParams.get('quote') || params?.quoteId;
   const paymentIntentClientSecret = urlParams.get('payment_intent');
   const token = urlParams.get('token');
   const paymentType = urlParams.get('payment_type');
+  
+  // Check if this is a direct booking from calendar
+  const isDirectBooking = urlParams.get('directBooking') === 'true' || urlParams.get('entryPoint') === 'public_calendar';
+  
+  // If it's a direct booking, use UniversalCheckout instead
+  if (isDirectBooking && !quoteId) {
+    return <UniversalCheckout entryPoint="public_calendar" />;
+  }
 
   useEffect(() => {
     // Check for success parameter in URL
