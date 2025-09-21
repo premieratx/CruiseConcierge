@@ -40,7 +40,7 @@ const BOAT_CAPACITY_MAP = {
   'Day Tripper': { capacity: 14, maxCapacity: 14, color: 'purple', ideal: [14] },
   'Me Seeks The Irony': { capacity: 25, maxCapacity: 30, color: 'red', ideal: [25, 30] },
   'Clever Girl': { capacity: 50, maxCapacity: 75, color: 'orange', ideal: [50, 75] },
-  'ATX Disco Cruise': { capacity: 100, maxCapacity: 100, color: 'yellow', ideal: [100] },
+  // ATX Disco removed - it's only for disco cruises, not private cruises
   'Meeseeks': { capacity: 25, maxCapacity: 30, color: 'red', ideal: [25, 30] }, // Alternative name
   'boat_day_tripper': { capacity: 14, maxCapacity: 14, color: 'purple', ideal: [14] },
   'boat_me_seeks_the_irony': { capacity: 25, maxCapacity: 30, color: 'red', ideal: [25, 30] },
@@ -69,12 +69,12 @@ const getBoatColor = (boatName: string, capacity?: number): string => {
   return 'gray';
 };
 
-// Get best boat match for group size
+// Get best boat match for group size - strict capacity rules
 const getBestBoatMatch = (groupSize: number): { color: string; boatName: string } => {
   if (groupSize <= 14) return { color: 'purple', boatName: 'Day Tripper' };
-  if (groupSize <= 30) return { color: 'red', boatName: 'Me Seeks The Irony' };
+  if (groupSize <= 25) return { color: 'red', boatName: 'Me Seeks The Irony' };
   if (groupSize <= 75) return { color: 'orange', boatName: 'Clever Girl' };
-  return { color: 'gray', boatName: 'Large Capacity' };
+  return { color: 'gray', boatName: 'No boats available' };
 };
 
 // Color utility functions

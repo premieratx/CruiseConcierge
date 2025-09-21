@@ -7,7 +7,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { lazy, Suspense } from "react";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
-import Checkout from "./pages/Checkout";
+import UniversalCheckout from "./pages/UniversalCheckout";
 import Chat from "./pages/Chat";
 import QuoteBuilder from "./pages/QuoteBuilder";
 import QuotesManagement from "./pages/QuotesManagement";
@@ -127,8 +127,8 @@ function Router() {
       <Route path="/documentation" component={Documentation} />
       <Route path="/settings" component={Settings} />
       <Route path="/embed-widgets" component={EmbedWidgets} />
-      <Route path="/checkout" component={Checkout} />
-      <Route path="/checkout/:quoteId" component={Checkout} />
+      <Route path="/checkout" component={UniversalCheckout} />
+      <Route path="/checkout/:quoteId" component={UniversalCheckout} />
       <Route path="/quote/:quoteId" component={QuoteViewer} />
       <Route path="/invoice/:invoiceId" component={InvoiceViewer} />
       

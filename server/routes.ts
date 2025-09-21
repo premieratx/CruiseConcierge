@@ -7715,34 +7715,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Get specific boat details
-  app.get("/api/boats/:id", async (req, res) => {
-    try {
-      const boats = await storage.getBoats();
-      const boat = boats.find(b => b.id === req.params.id);
-      
-      if (!boat) {
-        return res.status(404).json({ error: "Boat not found" });
-      }
-      
-      res.json(boat);
-    } catch (error: any) {
-      console.error("Error fetching boat:", error);
-      res.status(500).json({ error: "Failed to fetch boat details" });
-    }
-  });
-
   // ==========================================
   // UNIVERSAL CHECKOUT SYSTEM ENDPOINTS
   // ==========================================
 
   // Get boat options with enhanced capacity and pricing info for checkout
+  // IMPORTANT: This route must be defined BEFORE /api/boats/:id to avoid route matching issues
   app.get("/api/boats/options", async (req, res) => {
     try {
       const boats = await storage.getBoats();
       
+      // Filter out ATX Disco boat - it's only for disco cruises, not private cruises
       const boatOptions = boats
-        .filter(boat => boat.active)
+        .filter(boat => boat.active && boat.id !== 'boat_atx_disco')
         .map(boat => ({
           id: boat.id,
           name: boat.name,
@@ -7760,6 +7745,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error("Error fetching boat options:", error);
       res.status(500).json({ error: "Failed to fetch boat options" });
+    }
+  });
+
+  // Get specific boat details
+  app.get("/api/boats/:id", async (req, res) => {
+    try {
+      const boats = await storage.getBoats();
+      const boat = boats.find(b => b.id === req.params.id);
+      
+      if (!boat) {
+        return res.status(404).json({ error: "Boat not found" });
+      }
+      
+      res.json(boat);
+    } catch (error: any) {
+      console.error("Error fetching boat:", error);
+      res.status(500).json({ error: "Failed to fetch boat details" });
     }
   });
 

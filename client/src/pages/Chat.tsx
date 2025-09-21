@@ -279,21 +279,34 @@ const fadeInUp = {
 const filterBoatsForGroupSize = (boats: any[], groupSize: number) => {
   if (!boats || boats.length === 0) return [];
   
-  // Filter boats where the group size fits within the boat's capacity range
-  // Using maxCapacity to handle boats that can expand with extra crew
-  return boats.filter(boat => {
-    // Minimum capacity is typically 1 (or could be a percentage of boat capacity)
-    const minCapacity = 1;
-    const maxCapacity = boat.maxCapacity || boat.capacity;
-    
-    // Boat must be active and able to accommodate the group
-    return groupSize <= maxCapacity && boat.active;
-  }).sort((a, b) => {
-    // Sort by capacity ascending to prefer smaller boats that fit
-    const aCapacity = a.maxCapacity || a.capacity;
-    const bCapacity = b.maxCapacity || b.capacity;
-    return aCapacity - bCapacity;
-  });
+  // IMPORTANT: Exclude ATX Disco boat - it's only for disco cruises, not private cruises
+  const privateBoats = boats.filter(boat => boat.id !== 'boat_atx_disco' && boat.active);
+  
+  // Apply strict capacity rules for boat selection
+  if (groupSize <= 14) {
+    // 14 or less: Only Day Tripper
+    return privateBoats.filter(boat => 
+      boat.id === 'boat_day_tripper' || boat.name === 'Day Tripper'
+    );
+  } else if (groupSize <= 25) {
+    // 15-25: Me Seeks The Irony
+    return privateBoats.filter(boat => 
+      boat.id === 'boat_me_seeks_the_irony' || boat.name === 'Me Seeks The Irony'
+    );
+  } else if (groupSize <= 50) {
+    // 26-50: Clever Girl
+    return privateBoats.filter(boat => 
+      boat.id === 'boat_clever_girl' || boat.name === 'Clever Girl'
+    );
+  } else if (groupSize <= 75) {
+    // 51-75: Clever Girl with extra crew
+    return privateBoats.filter(boat => 
+      boat.id === 'boat_clever_girl' || boat.name === 'Clever Girl'
+    );
+  } else {
+    // Over 75: No boats available
+    return [];
+  }
 };
 
 // Helper function to get boat display name from actual boat data
@@ -322,9 +335,11 @@ const generateRealPrivateSlots = (
   
   const slots: NormalizedSlot[] = [];
   
-  // FIXED: Show hourly rate only in slot label - actual total will be calculated server-side
+  // Show actual hourly rate from pricing calculation
   const formatSlotWithHourly = (boatName: string, time: string, hourlyRate: number) => {
-    const hourlyDisplay = `$${Math.round(hourlyRate / 100)}/hr`;
+    // Use the actual hourly rate from pricing calculation
+    const actualHourlyRate = pricing?.baseHourlyRate || hourlyRate;
+    const hourlyDisplay = `$${Math.round(actualHourlyRate / 100)}/hr`;
     return `${boatName} • ${time} • ${hourlyDisplay}`;
   };
   
@@ -1487,102 +1502,96 @@ export default function Chat() {
     setShowBookingConfirmation(true);
   }, [formData, privatePricing, discoPricing, pricingLoading, paymentProcessing, formSubmitting, validateBookingData, toast]);
   
-  // Handle confirmed booking from popup - navigate to checkout
-  const handleConfirmedBooking = useCallback(() => {
+  // Handle confirmed booking from popup - create Stripe checkout session
+  const handleConfirmedBooking = useCallback(async () => {
     if (!pendingPaymentType || !pendingCruiseType) return;
     
     const paymentType = pendingPaymentType;
     const cruiseType = pendingCruiseType;
     
-    console.log('💳 Navigating to checkout with booking data...');
-
-    // Build checkout URL with all necessary parameters
-    const params = new URLSearchParams();
+    console.log('💳 Creating checkout session...');
     
-    // Core booking data
-    params.set('entryPoint', 'quote_builder');
-    params.set('paymentType', paymentType);
-    params.set('cruiseType', cruiseType);
-    
-    // Event details
-    params.set('eventType', formData.eventType);
-    params.set('eventTypeLabel', formData.eventTypeLabel);
-    params.set('eventEmoji', formData.eventEmoji);
-    params.set('groupSize', formData.groupSize.toString());
-    
-    // Date and time slot information
-    if (formData.eventDate) {
-      params.set('eventDate', formData.eventDate.toISOString());
-      params.set('date', format(formData.eventDate, 'yyyy-MM-dd'));
-    }
-    
-    if (formData.selectedSlot) {
-      params.set('slotId', formData.selectedSlot.id);
-      params.set('slotLabel', formData.selectedSlot.label);
-      params.set('startTime', formData.selectedSlot.startTime);
-      params.set('endTime', formData.selectedSlot.endTime);
-      params.set('duration', formData.selectedSlot.duration?.toString() || '4');
+    try {
+      // Build the selection payload for the checkout session
+      const selectionPayload = {
+        entryPoint: 'quote_builder',
+        paymentType,
+        cruiseType
+,
+        eventType: formData.eventType,
+        eventTypeLabel: formData.eventTypeLabel,
+        eventEmoji: formData.eventEmoji,
+        groupSize: formData.groupSize,
+        eventDate: formData.eventDate?.toISOString(),
+        date: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : undefined,
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        specialRequests: formData.specialRequests,
+        selectedSlot: formData.selectedSlot,
+        selectedTimeSlot: formData.selectedSlot ? `${formData.selectedSlot.startTime}-${formData.selectedSlot.endTime}` : undefined,
+        slotId: formData.selectedSlot?.id,
+        slotLabel: formData.selectedSlot?.label,
+        startTime: formData.selectedSlot?.startTime,
+        endTime: formData.selectedSlot?.endTime,
+        duration: formData.selectedSlot?.duration?.toString() || '4',
+        boatId: formData.selectedSlot?.boatCandidates?.[0],
+        capacity: formData.selectedSlot?.capacity?.toString() || formData.groupSize.toString(),
+        addOnPackages: cruiseType === 'private' ? formData.selectedAddOnPackages : undefined,
+        discoPackage: cruiseType === 'disco' ? formData.selectedDiscoPackage : undefined,
+        ticketQuantity: cruiseType === 'disco' ? formData.discoTicketQuantity : undefined
+      };
       
-      // Boat information (if available)
-      if (formData.selectedSlot.boatCandidates && formData.selectedSlot.boatCandidates.length > 0) {
-        params.set('boatId', formData.selectedSlot.boatCandidates[0]);
-      }
-      params.set('capacity', formData.selectedSlot.capacity?.toString() || formData.groupSize.toString());
-    }
-    
-    // Cruise-specific parameters
-    if (cruiseType === 'private') {
-      // Private cruise specific data
-      if (formData.selectedAddOnPackages && formData.selectedAddOnPackages.length > 0) {
-        params.set('addOnPackages', formData.selectedAddOnPackages.join(','));
+      // Include pricing metadata
+      const pricing = cruiseType === 'private' ? privatePricing : discoPricing;
+      const metadata = {
+        depositAmount: pricing?.depositAmount,
+        totalAmount: pricing?.total,
+        eventType: formData.eventType,
+        groupSize: formData.groupSize,
+        subtotal: pricing?.subtotal,
+        tax: pricing?.tax,
+        gratuity: pricing?.gratuity,
+        depositPercent: pricing?.depositPercent
+      };
+      
+      // Create checkout session via API
+      const response = await apiRequest('POST', '/api/checkout/create-session', {
+        paymentType,
+        customerEmail: formData.email,
+        metadata,
+        selectionPayload
+        // Note: holdId will be managed server-side for quote flow
+      });
+      
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to create checkout session');
       }
       
-      // Private cruise pricing
-      if (privatePricing) {
-        params.set('subtotal', privatePricing.subtotal.toString());
-        params.set('tax', privatePricing.tax.toString());
-        params.set('gratuity', privatePricing.gratuity.toString());
-        params.set('total', privatePricing.total.toString());
-        if (privatePricing.depositAmount) {
-          params.set('depositAmount', privatePricing.depositAmount.toString());
-        }
-      }
-    } else if (cruiseType === 'disco') {
-      // Disco cruise specific data
-      if (formData.selectedDiscoPackage) {
-        params.set('discoPackage', formData.selectedDiscoPackage);
-      }
-      params.set('ticketQuantity', formData.discoTicketQuantity.toString());
+      const data = await response.json();
       
-      // Disco cruise pricing
-      if (discoPricing) {
-        params.set('subtotal', discoPricing.subtotal.toString());
-        params.set('tax', discoPricing.tax.toString());
-        params.set('gratuity', discoPricing.gratuity.toString());
-        params.set('total', discoPricing.total.toString());
-        if (discoPricing.depositAmount) {
-          params.set('depositAmount', discoPricing.depositAmount.toString());
-        }
+      // Reset state
+      setShowBookingConfirmation(false);
+      setPendingPaymentType(null);
+      setPendingCruiseType(null);
+      
+      // Redirect to Stripe checkout
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL returned');
       }
+    } catch (error) {
+      console.error('Error creating checkout session:', error);
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to create checkout session. Please try again.",
+        variant: "destructive",
+      });
     }
-    
-    // Contact information (if available)
-    if (formData.firstName) params.set('firstName', formData.firstName);
-    if (formData.lastName) params.set('lastName', formData.lastName);
-    if (formData.email) params.set('email', formData.email);
-    if (formData.phone) params.set('phone', formData.phone);
-    if (formData.specialRequests) params.set('specialRequests', formData.specialRequests);
-    
-    // Navigate to checkout with all parameters
-    const checkoutUrl = `/checkout?${params.toString()}`;
-    console.log('💳 Navigating to checkout:', checkoutUrl);
-    
-    // Close popup and navigate to checkout page
-    setShowBookingConfirmation(false);
-    setPendingPaymentType(null);
-    setPendingCruiseType(null);
-    navigate(checkoutUrl);
-  }, [pendingPaymentType, pendingCruiseType, formData, privatePricing, discoPricing, navigate]);
+  }, [pendingPaymentType, pendingCruiseType, formData, privatePricing, discoPricing, apiRequest, toast]);
 
   // Contact form submission with loading protection
   const handleContactSubmit = useCallback((e: React.FormEvent) => {
@@ -2425,7 +2434,7 @@ export default function Chat() {
                                     <div className="text-2xl font-bold text-blue-600 mt-2 mb-1">
                                       {format(formData.eventDate!, 'EEEE, MMMM d')}
                                     </div>
-                                    <CardDescription>Exclusive boat for your group • Fits {getBoatCapacityForGroup(formData.groupSize)} people • {getCruiseDuration(formData.eventDate)}-hour minimum</CardDescription>
+                                    <CardDescription>Exclusive boat for your group • Fits {getCapacityTier(formData.groupSize)} people • {getCruiseDuration(formData.eventDate)}-hour minimum</CardDescription>
                                   </>
                                 )}
                               </div>
