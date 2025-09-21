@@ -254,27 +254,12 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
     return suitableBoats[0] || availableBoats[0];
   };
   
-  // Calculate initial pricing
+  // Calculate initial pricing - EMERGENCY DISABLED to stop API spam
   const calculateInitialPricing = async (selections: CheckoutSelections): Promise<CheckoutPricing> => {
-    try {
-      const response = await apiRequest('POST', '/api/checkout/calculate-pricing', {
-        eventDate: selections.eventDate.toISOString(),
-        groupSize: selections.groupSize,
-        cruiseType: selections.cruiseType,
-        boatId: selections.selectedBoat.id,
-        timeSlot: selections.selectedTimeSlot,
-        discoPackage: selections.discoPackage?.id,
-        discoTicketQuantity: selections.discoTicketQuantity,
-        addOnPackages: selections.addOnPackages.map(p => p.id)
-      });
-      
-      if (!response.ok) throw new Error('Failed to calculate pricing');
-      return await response.json();
-    } catch (err) {
-      console.error('Pricing calculation failed, using real pricing fallback:', err);
-      // Return real pricing calculations as fallback
-      return createRealPricing(selections);
-    }
+    console.log('🚨 EMERGENCY: calculateInitialPricing disabled to prevent API spam');
+    // EMERGENCY DISABLED: This function was causing hundreds of API requests per minute
+    // Return local pricing calculations as immediate fallback
+    return createRealPricing(selections);
   };
   
   // Create real pricing calculations using PRIVATE_CRUISE_PRICING data
@@ -544,13 +529,13 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
     }
   }, [session, validateCheckout, onError]);
   
-  // Refresh pricing
+  // Refresh pricing - DISABLED to prevent infinite loop spam
   const refreshPricing = useCallback(async () => {
-    if (!session) return;
-    
-    const newPricing = await calculateInitialPricing(session.selections);
-    setSession(prev => prev ? { ...prev, pricing: newPricing } : null);
-  }, [session]);
+    console.log('⚠️ refreshPricing called but disabled to prevent API spam');
+    // TEMPORARILY DISABLED: This function was causing hundreds of API requests per minute
+    // TODO: Implement proper debouncing/throttling when needed
+    return;
+  }, []); // No dependencies to prevent infinite loop
   
   // Reset checkout
   const reset = useCallback(() => {

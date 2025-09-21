@@ -826,6 +826,16 @@ function getTimeAgo(date: Date): string {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   
+  // 🚨 EMERGENCY HARD BLOCK: Stop API spam immediately
+  app.all('/api/checkout/calculate-pricing', (req, res) => {
+    console.log('🚨 EMERGENCY: /api/checkout/calculate-pricing blocked to prevent API spam');
+    return res.status(503).json({ 
+      error: "Endpoint temporarily disabled to prevent API spam",
+      emergency: true,
+      timestamp: new Date().toISOString()
+    });
+  });
+  
   // Discount validation API endpoint
   app.post("/api/discounts/validate", async (req, res) => {
     try {
@@ -7765,8 +7775,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Calculate real-time pricing for checkout
+  // Calculate real-time pricing for checkout - EMERGENCY DISABLED
   app.post("/api/checkout/calculate-pricing", async (req, res) => {
+    console.log('🚨 EMERGENCY: /api/checkout/calculate-pricing disabled to prevent API spam');
+    return res.status(503).json({ error: "Endpoint temporarily disabled to prevent API spam" });
     try {
       const {
         eventDate,
