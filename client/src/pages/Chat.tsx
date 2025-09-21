@@ -123,6 +123,14 @@ const isDateAvailable = (date: Date): boolean => {
   return !isBefore(date, today) && !isAfter(date, maxDate);
 };
 
+// Hook for fetching real boat data from the API
+const useBoats = () => {
+  return useQuery<any[]>({
+    queryKey: ['/api/boats'],
+    staleTime: 1000 * 60 * 5, // Cache for 5 minutes
+  });
+};
+
 // Hook for getting alternative dates with real availability data
 const useAlternativeDates = (selectedDate: Date | undefined, groupSize: number, daysRange: number = 14) => {
   // Generate date range for alternative dates
@@ -267,36 +275,49 @@ const fadeInUp = {
 
 // Use shared formatCurrency from formatters
 
-// Helper function to determine boat capacity based on group size - shows appropriate capacity
-const getBoatCapacityForGroup = (groupSize: number): number => {
-  if (groupSize <= 14) return 14;  // 14-person boats for intimate groups
-  if (groupSize <= 25) return 25;  // 25-person boats for groups up to 25
-  if (groupSize <= 30) return 30;  // 30-person boats for groups 26-30
-  if (groupSize <= 50) return 50;  // large boats
-  return 75;  // extra large boats (up to GROUP_SIZE_MAX)
+// Helper function to filter boats that can accommodate the group size
+const filterBoatsForGroupSize = (boats: any[], groupSize: number) => {
+  if (!boats || boats.length === 0) return [];
+  
+  // Filter boats where the group size fits within the boat's capacity range
+  // Using maxCapacity to handle boats that can expand with extra crew
+  return boats.filter(boat => {
+    // Minimum capacity is typically 1 (or could be a percentage of boat capacity)
+    const minCapacity = 1;
+    const maxCapacity = boat.maxCapacity || boat.capacity;
+    
+    // Boat must be active and able to accommodate the group
+    return groupSize <= maxCapacity && boat.active;
+  }).sort((a, b) => {
+    // Sort by capacity ascending to prefer smaller boats that fit
+    const aCapacity = a.maxCapacity || a.capacity;
+    const bCapacity = b.maxCapacity || b.capacity;
+    return aCapacity - bCapacity;
+  });
 };
 
-// Helper function to get boat name based on capacity and slot info
-const getBoatNameForCapacity = (capacity: number, slotIndex: number = 0): string => {
-  if (capacity === 25) {
-    // Use actual boat names for 25-person boats
-    return slotIndex === 0 ? 'Meeseeks' : 'The Irony';
-  } else if (capacity === 30) {
-    return '30-Person Boat';
-  } else if (capacity === 50) {
-    return '50-Person Boat';
-  } else {
-    return '75-Person Boat';
-  }
+// Helper function to get boat display name from actual boat data
+const getBoatDisplayName = (boat: any): string => {
+  if (!boat) return 'Party Boat';
+  return boat.name || `${boat.capacity}-Person Boat`;
 };
 
 // Generate structured private cruise time slots with real pricing data
-const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 'standard' | 'essentials' | 'ultimate' = 'standard'): NormalizedSlot[] => {
+const generateRealPrivateSlots = (
+  date: Date, 
+  groupSize: number, 
+  boats: any[], 
+  packageType: 'standard' | 'essentials' | 'ultimate' = 'standard'
+): NormalizedSlot[] => {
   const dayOfWeek = date.getDay();
   const dateISO = date.toISOString().split('T')[0];
-  const capacity = getBoatCapacityForGroup(groupSize);
-  const pricing = getRealTimePackagePricing(date, groupSize, packageType);
   
+  // CRITICAL FIX: Filter boats that can actually accommodate the group size
+  const suitableBoats = filterBoatsForGroupSize(boats, groupSize);
+  if (suitableBoats.length === 0) return [];
+  
+  // Get correct pricing based on actual group size tier
+  const pricing = getRealTimePackagePricing(date, groupSize, packageType);
   if (!pricing) return [];
   
   const slots: NormalizedSlot[] = [];
@@ -307,136 +328,72 @@ const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 's
     return `${boatName} • ${time} • ${hourlyDisplay}`;
   };
   
-  if (dayOfWeek === 5) { // Friday
-    // Slot 1: Meeseeks 12:00PM-4:00PM
-    const slot1Label = formatSlotWithHourly(getBoatNameForCapacity(capacity, 0), '12:00 PM - 4:00 PM', pricing.baseHourlyRate);
-    slots.push({
-      id: `private_meeseeks_${dateISO}_12:00_16:00`,
-      dateISO,
-      startTime: '12:00',
-      endTime: '16:00',
-      duration: pricing.duration,
-      label: slot1Label,
-      cruiseType: 'private' as const,
-      capacity,
-      availableCount: 1,
-      bookable: true,
-      held: false,
-      boatCandidates: ['boat_meeseeks'],
-      estimatedPricing: {
-        baseRate: pricing.baseHourlyRate / 100, // Convert to dollars for display
+  // Generate time slots for each suitable boat
+  const timeSlots = dayOfWeek === 5 ? [ // Friday
+    { startTime: '12:00', endTime: '16:00', displayTime: '12:00 PM - 4:00 PM' },
+    { startTime: '16:30', endTime: '20:30', displayTime: '4:30 PM - 8:30 PM' }
+  ] : (dayOfWeek === 6 || dayOfWeek === 0) ? [ // Saturday/Sunday  
+    { startTime: '11:00', endTime: '15:00', displayTime: '11:00 AM - 3:00 PM' },
+    { startTime: '15:30', endTime: '19:30', displayTime: '3:30 PM - 7:30 PM' }
+  ] : [ // Monday-Thursday
+    { startTime: '12:00', endTime: '16:00', displayTime: '12:00 PM - 4:00 PM' },
+    { startTime: '16:30', endTime: '20:30', displayTime: '4:30 PM - 8:30 PM' }
+  ];
+  
+  // Create slots for each suitable boat and time slot combination
+  suitableBoats.forEach((boat, boatIndex) => {
+    timeSlots.forEach((timeSlot, slotIndex) => {
+      // Only create a limited number of slots to avoid overwhelming the user
+      if (slots.length >= 4) return;
+      
+      const boatName = getBoatDisplayName(boat);
+      const slotLabel = formatSlotWithHourly(boatName, timeSlot.displayTime, pricing.baseHourlyRate);
+      
+      slots.push({
+        id: `private_${boat.id}_${dateISO}_${timeSlot.startTime}_${timeSlot.endTime}`,
+        dateISO,
+        startTime: timeSlot.startTime,
+        endTime: timeSlot.endTime,
         duration: pricing.duration,
-        subtotal: pricing.totalPrice / 100, // Convert to dollars
-        total: pricing.totalPrice / 100 // Already includes tax/gratuity in new system
-      }
+        label: slotLabel,
+        cruiseType: 'private' as const,
+        capacity: boat.capacity,
+        availableCount: 1,
+        bookable: true,
+        held: false,
+        boatCandidates: [boat.id],
+        boatName: boatName,
+        estimatedPricing: {
+          baseRate: pricing.baseHourlyRate / 100, // Convert to dollars for display
+          duration: pricing.duration,
+          subtotal: pricing.totalPrice / 100, // Convert to dollars
+          total: pricing.totalPrice / 100 // Already includes tax/gratuity in new system
+        }
+      });
     });
+  });
+  // If no slots were created (shouldn't happen with proper boat data), return empty
+  if (slots.length === 0 && suitableBoats.length > 0) {
+    // Fallback: Create at least one slot with the first suitable boat
+    const boat = suitableBoats[0];
+    const boatName = getBoatDisplayName(boat);
+    const timeSlot = timeSlots[0];
+    const slotLabel = formatSlotWithHourly(boatName, timeSlot.displayTime, pricing.baseHourlyRate);
     
-    // Slot 2: The Irony 4:30PM-8:30PM
-    const slot2Label = formatSlotWithHourly(getBoatNameForCapacity(capacity, 1), '4:30 PM - 8:30 PM', pricing.baseHourlyRate);
     slots.push({
-      id: `private_irony_${dateISO}_16:30_20:30`,
+      id: `private_${boat.id}_${dateISO}_${timeSlot.startTime}_${timeSlot.endTime}`,
       dateISO,
-      startTime: '16:30',
-      endTime: '20:30',
+      startTime: timeSlot.startTime,
+      endTime: timeSlot.endTime,
       duration: pricing.duration,
-      label: slot2Label,
+      label: slotLabel,
       cruiseType: 'private' as const,
-      capacity,
+      capacity: boat.capacity,
       availableCount: 1,
       bookable: true,
       held: false,
-      boatCandidates: ['boat_irony'],
-      estimatedPricing: {
-        baseRate: pricing.baseHourlyRate / 100,
-        duration: pricing.duration,
-        subtotal: pricing.totalPrice / 100,
-        total: pricing.totalPrice / 100
-      }
-    });
-  } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
-    // Slot 1: Meeseeks 11:00AM-3:00PM
-    const slot1Label = formatSlotWithHourly(getBoatNameForCapacity(capacity, 0), '11:00 AM - 3:00 PM', pricing.baseHourlyRate);
-    slots.push({
-      id: `private_meeseeks_${dateISO}_11:00_15:00`,
-      dateISO,
-      startTime: '11:00',
-      endTime: '15:00',
-      duration: pricing.duration,
-      label: slot1Label,
-      cruiseType: 'private' as const,
-      capacity,
-      availableCount: 1,
-      bookable: true,
-      held: false,
-      boatCandidates: ['boat_meeseeks'],
-      estimatedPricing: {
-        baseRate: pricing.baseHourlyRate / 100,
-        duration: pricing.duration,
-        subtotal: pricing.totalPrice / 100,
-        total: pricing.totalPrice / 100
-      }
-    });
-    
-    // Slot 2: The Irony 3:30PM-7:30PM
-    const slot2Label = formatSlotWithHourly(getBoatNameForCapacity(capacity, 1), '3:30 PM - 7:30 PM', pricing.baseHourlyRate);
-    slots.push({
-      id: `private_irony_${dateISO}_15:30_19:30`,
-      dateISO,
-      startTime: '15:30',
-      endTime: '19:30',
-      duration: pricing.duration,
-      label: slot2Label,
-      cruiseType: 'private' as const,
-      capacity,
-      availableCount: 1,
-      bookable: true,
-      held: false,
-      boatCandidates: ['boat_irony'],
-      estimatedPricing: {
-        baseRate: pricing.baseHourlyRate / 100,
-        duration: pricing.duration,
-        subtotal: pricing.totalPrice / 100,
-        total: pricing.totalPrice / 100
-      }
-    });
-  } else { // Monday-Thursday
-    // Show weekday options with real pricing
-    const slot1Label = formatSlotWithHourly(getBoatNameForCapacity(capacity, 0), '12:00 PM - 4:00 PM', pricing.baseHourlyRate);
-    slots.push({
-      id: `private_meeseeks_${dateISO}_12:00_16:00`,
-      dateISO,
-      startTime: '12:00',
-      endTime: '16:00',
-      duration: pricing.duration,
-      label: slot1Label,
-      cruiseType: 'private' as const,
-      capacity,
-      availableCount: 1,
-      bookable: true,
-      held: false,
-      boatCandidates: ['boat_meeseeks'],
-      estimatedPricing: {
-        baseRate: pricing.baseHourlyRate / 100,
-        duration: pricing.duration,
-        subtotal: pricing.totalPrice / 100,
-        total: pricing.totalPrice / 100
-      }
-    });
-    
-    const slot2Label = formatSlotWithHourly(getBoatNameForCapacity(capacity, 1), '4:30 PM - 8:30 PM', pricing.baseHourlyRate);
-    slots.push({
-      id: `private_irony_${dateISO}_16:30_20:30`,
-      dateISO,
-      startTime: '16:30',
-      endTime: '20:30',
-      duration: pricing.duration,
-      label: slot2Label,
-      cruiseType: 'private' as const,
-      capacity,
-      availableCount: 1,
-      bookable: true,
-      held: false,
-      boatCandidates: ['boat_irony'],
+      boatCandidates: [boat.id],
+      boatName: boatName,
       estimatedPricing: {
         baseRate: pricing.baseHourlyRate / 100,
         duration: pricing.duration,
@@ -561,7 +518,7 @@ export default function Chat() {
   
   // Use structured private slots with real pricing data for chat flow
   const structuredPrivateSlots = formData.eventDate ? 
-    generateRealPrivateSlots(formData.eventDate, formData.groupSize) : [];
+    generateRealPrivateSlots(formData.eventDate, formData.groupSize, boats) : [];
   
   // Get intelligent comparison data for recommendations
   const comparisonData = getComparisonData(formData.eventDate, formData.groupSize);
