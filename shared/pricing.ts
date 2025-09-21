@@ -62,17 +62,22 @@ export function getHourlyRateByDayAndGroupSize(date: Date, groupSize: number): n
 }
 
 /**
- * Gets the cruise duration based on the event date
+ * Gets the cruise duration based on the event date and selected duration
+ * For weekdays, both 3-hour and 4-hour options are available
  * @param date Event date
+ * @param selectedDuration Optional duration override (3 or 4 hours)
  * @returns Duration in hours
  */
-export function getCruiseDuration(date: Date): number {
+export function getCruiseDuration(date: Date, selectedDuration?: 3 | 4): number {
   const dayType = getDayType(date);
   
   if (dayType === 'MON_THU') {
-    return CRUISE_DURATIONS.WEEKDAY; // 3 hours
+    // Monday-Thursday: both 3-hour and 4-hour options available
+    // Default to 4 hours if no preference specified (most popular)
+    return selectedDuration || 4;
   } else {
-    return CRUISE_DURATIONS.WEEKEND; // 4 hours for Friday and weekends
+    // Friday-Sunday: only 4-hour options
+    return 4;
   }
 }
 
@@ -80,16 +85,17 @@ export function getCruiseDuration(date: Date): number {
  * Calculates the base cruise cost before taxes and gratuity
  * @param date Event date
  * @param groupSize Number of people in the group
+ * @param duration Optional duration (3 or 4 hours). If not specified, uses default for day type
  * @returns Object with pricing breakdown
  */
-export function calculateBaseCruiseCost(date: Date, groupSize: number) {
+export function calculateBaseCruiseCost(date: Date, groupSize: number, duration?: 3 | 4) {
   const hourlyRate = getHourlyRateByDayAndGroupSize(date, groupSize);
-  const duration = getCruiseDuration(date);
+  const cruiseDuration = getCruiseDuration(date, duration);
   const capacityTier = getCapacityTier(groupSize);
   const dayType = getDayType(date);
   
   // Calculate base cruise cost
-  const baseCruiseCost = hourlyRate * duration;
+  const baseCruiseCost = hourlyRate * cruiseDuration;
   
   // Crew fee calculation - this is a fallback generic calculation
   // Real pricing should use boat-specific crew fees from products table
@@ -99,9 +105,9 @@ export function calculateBaseCruiseCost(date: Date, groupSize: number) {
   // - 26-30 person groups (tier 30): +$50/hr crew fee (additional $200 for 4hr cruise)
   // - 51-75 person groups (tier 75): +$75/hr crew fee (additional $300 for 4hr cruise)
   if (capacityTier === 30 && groupSize >= 26 && groupSize <= 30) {
-    crewFee = PRICING_DEFAULTS.CREW_FEE_26_30 * duration; // $50/hr * duration
+    crewFee = PRICING_DEFAULTS.CREW_FEE_26_30 * cruiseDuration; // $50/hr * duration
   } else if (capacityTier === 75 && groupSize >= 51 && groupSize <= 75) {
-    crewFee = PRICING_DEFAULTS.CREW_FEE_51_75 * duration; // $75/hr * duration
+    crewFee = PRICING_DEFAULTS.CREW_FEE_51_75 * cruiseDuration; // $75/hr * duration
   }
   // 14-person, 25-person boats don't have crew fee expansion options
   
@@ -110,7 +116,7 @@ export function calculateBaseCruiseCost(date: Date, groupSize: number) {
   
   return {
     hourlyRate,
-    duration,
+    duration: cruiseDuration,
     capacityTier,
     dayType,
     baseCruiseCost,
@@ -120,7 +126,7 @@ export function calculateBaseCruiseCost(date: Date, groupSize: number) {
       boatType: `${capacityTier}-person boat`,
       dayName: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][date.getDay()],
       baseHourlyRate: hourlyRate,
-      cruiseDuration: duration,
+      cruiseDuration: cruiseDuration,
       baseCruiseCost,
       crewFee,
       subtotalBeforeTax: subtotal,
@@ -231,15 +237,19 @@ export function getPackagePricing(capacityTier: CapacityTier, packageType: 'stan
  * @param date Event date
  * @param groupSize Number of people in the group
  * @param packageType Package type (standard, essentials, ultimate)
+ * @param duration Optional duration (3 or 4 hours). If not specified, uses default for day type
  * @returns Complete pricing breakdown using new structure
  */
-export function calculatePackagePricing(date: Date, groupSize: number, packageType: 'standard' | 'essentials' | 'ultimate' = 'standard') {
+export function calculatePackagePricing(date: Date, groupSize: number, packageType: 'standard' | 'essentials' | 'ultimate' = 'standard', duration?: 3 | 4) {
   const capacityTier = getCapacityTier(groupSize);
   const packagePricing = getPackagePricing(capacityTier, packageType, date);
-  const duration = getCruiseDuration(date);
+  const cruiseDuration = getCruiseDuration(date, duration);
   
   // Use the pre-calculated total price from the pricing structure
-  const totalPrice = packagePricing.totalPrice;
+  // For 3-hour cruises, adjust the price proportionally (3/4 of the 4-hour price)
+  const totalPrice = cruiseDuration === 3 
+    ? Math.floor(packagePricing.totalPrice * 0.75)
+    : packagePricing.totalPrice;
   
   // Calculate deposit information
   const deposit = calculateDeposit(totalPrice, date);
@@ -251,10 +261,10 @@ export function calculatePackagePricing(date: Date, groupSize: number, packageTy
     capacity: packagePricing.capacity,
     groupSize,
     baseHourlyRate: packagePricing.baseHourlyRate,
-    duration,
+    duration: cruiseDuration,
     addOnCost: packagePricing.addOn,
     crewFeePerHour: packagePricing.crewFeePerHour,
-    totalCrewFee: packagePricing.crewFeePerHour * duration,
+    totalCrewFee: packagePricing.crewFeePerHour * cruiseDuration,
     totalPrice,
     ...deposit,
     perPersonCost: Math.floor(totalPrice / groupSize),
@@ -262,9 +272,9 @@ export function calculatePackagePricing(date: Date, groupSize: number, packageTy
       capacityTier,
       packageType,
       baseHourlyRate: packagePricing.baseHourlyRate,
-      duration,
+      duration: cruiseDuration,
       addOnCost: packagePricing.addOn,
-      crewFee: packagePricing.crewFeePerHour * duration,
+      crewFee: packagePricing.crewFeePerHour * cruiseDuration,
       totalPrice,
       perPerson: Math.floor(totalPrice / groupSize),
       deposit: deposit.depositAmount,
@@ -277,10 +287,11 @@ export function calculatePackagePricing(date: Date, groupSize: number, packageTy
  * Master pricing calculation function that combines all pricing logic
  * @param date Event date
  * @param groupSize Number of people in the group
+ * @param duration Optional duration (3 or 4 hours). If not specified, uses default for day type
  * @returns Complete pricing breakdown
  */
-export function calculateCompletePricing(date: Date, groupSize: number) {
-  const baseCost = calculateBaseCruiseCost(date, groupSize);
+export function calculateCompletePricing(date: Date, groupSize: number, duration?: 3 | 4) {
+  const baseCost = calculateBaseCruiseCost(date, groupSize, duration);
   const taxAndGratuity = calculateTaxAndGratuity(baseCost.subtotal);
   const deposit = calculateDeposit(taxAndGratuity.total, date);
   

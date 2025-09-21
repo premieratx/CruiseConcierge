@@ -582,11 +582,15 @@ export const HOURLY_RATES = {
 
 /**
  * Cruise duration by day type (in hours)
- * All private cruises are 4 hours as per pricing specifications
+ * Monday-Thursday: Both 3-hour and 4-hour options available
+ * Friday-Sunday: Only 4-hour options available
  */
 export const CRUISE_DURATIONS = {
-  WEEKDAY: 4, // Monday-Thursday: 4 hours
-  WEEKEND: 4, // Friday-Sunday: 4 hours
+  WEEKDAY_DEFAULT: 4, // Monday-Thursday: 4 hours (default/most popular)
+  WEEKDAY_ALTERNATIVE: 3, // Monday-Thursday: 3 hours (alternative option)
+  WEEKEND: 4, // Friday-Sunday: 4 hours only
+  // Legacy aliases for backward compatibility
+  WEEKDAY: 4, // Legacy: defaults to 4 hours for weekdays
 } as const;
 
 /**

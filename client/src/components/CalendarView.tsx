@@ -996,7 +996,7 @@ function CalendarView() {
                           <>
                             {uniqueTimeSlots.map(slot => (
                               <GroupedTimeBlockCard 
-                                key={`${date.toISOString()}-${slot.startTime}`}
+                                key={`${date.toISOString()}-${slot.startTime}-${slot.endTime}`}
                                 date={date}
                                 startTime={slot.startTime}
                                 endTime={slot.endTime}

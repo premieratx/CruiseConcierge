@@ -29,69 +29,87 @@ export interface DiscoTimeSlot extends TimeSlot {
 export const getPrivateTimeSlotsForDate = (date: Date, duration?: 3 | 4): TimeSlot[] => {
   const dayOfWeek = date.getDay();
   
-  if (dayOfWeek >= 1 && dayOfWeek <= 4) { // Monday-Thursday (4-hour slots every 30 minutes from 10:00 AM to 8:30 PM)
-    const fourHourSlots: TimeSlot[] = [];
+  if (dayOfWeek >= 1 && dayOfWeek <= 4) { // Monday-Thursday: both 3-hour AND 4-hour options
+    const allSlots: TimeSlot[] = [];
     
-    // Generate 4-hour slots every 30 minutes from 10:00 AM to 4:30 PM
-    // (so the last slot ends at 8:30 PM)
-    for (let hour = 10; hour <= 16; hour++) {
-      for (let minute = 0; minute < 60; minute += 30) {
-        // Skip if it would go past 4:30 PM start time
-        if (hour === 16 && minute > 30) break;
-        
-        const startHour = hour;
-        const startMinute = minute;
-        const endHour = hour + 4;
-        const endMinute = minute;
-        
-        const formatTime = (h: number, m: number): string => {
-          return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
-        };
-        
-        const formatLabel = (h: number, m: number): string => {
-          const period = h >= 12 ? 'PM' : 'AM';
-          const displayHour = h > 12 ? h - 12 : (h === 0 ? 12 : h);
-          const minuteStr = m === 0 ? '00' : '30';
-          return `${displayHour}:${minuteStr} ${period}`;
-        };
-        
-        const startTimeStr = formatTime(startHour, startMinute);
-        const endTimeStr = formatTime(endHour, endMinute);
-        const startLabel = formatLabel(startHour, startMinute);
-        const endLabel = formatLabel(endHour, endMinute);
-        
-        // Determine icon and description based on time
-        let icon = '🌅';
-        let description = 'Morning cruise';
-        if (startHour >= 17) {
-          icon = '🌙';
-          description = 'Evening cruise';
-        } else if (startHour >= 15) {
-          icon = '🌆';
-          description = 'Late afternoon cruise';
-        } else if (startHour >= 12) {
-          icon = '☀️';
-          description = 'Afternoon cruise';
-        } else if (startHour >= 11) {
-          icon = '🌞';
-          description = 'Late morning cruise';
+    // Helper functions for time formatting
+    const formatTime = (h: number, m: number): string => {
+      return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+    };
+    
+    const formatLabel = (h: number, m: number): string => {
+      const period = h >= 12 ? 'PM' : 'AM';
+      const displayHour = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+      const minuteStr = m === 0 ? '00' : '30';
+      return `${displayHour}:${minuteStr} ${period}`;
+    };
+    
+    const getTimeIcon = (startHour: number): string => {
+      if (startHour >= 17) return '🌙';
+      if (startHour >= 15) return '🌆';
+      if (startHour >= 12) return '☀️';
+      if (startHour >= 11) return '🌞';
+      return '🌅';
+    };
+    
+    const getTimeDescription = (startHour: number, duration: number): string => {
+      let timeOfDay = 'Morning';
+      if (startHour >= 17) timeOfDay = 'Evening';
+      else if (startHour >= 15) timeOfDay = 'Late afternoon';
+      else if (startHour >= 12) timeOfDay = 'Afternoon';
+      else if (startHour >= 11) timeOfDay = 'Late morning';
+      
+      return `${timeOfDay} cruise (${duration} hours)`;
+    };
+    
+    // If duration is specified, only return slots for that duration
+    const durationsToGenerate = duration ? [duration] : [3, 4];
+    
+    for (const slotDuration of durationsToGenerate) {
+      // Generate slots for this duration
+      // 3-hour slots: 10:00 AM to 5:30 PM (last slot ends at 8:30 PM)
+      // 4-hour slots: 10:00 AM to 4:30 PM (last slot ends at 8:30 PM)
+      const maxStartHour = slotDuration === 3 ? 17 : 16;
+      const maxStartMinute = slotDuration === 3 ? 30 : 30;
+      
+      for (let hour = 10; hour <= maxStartHour; hour++) {
+        for (let minute = 0; minute < 60; minute += 30) {
+          // Skip if it would go past max start time
+          if (hour === maxStartHour && minute > maxStartMinute) break;
+          
+          const startHour = hour;
+          const startMinute = minute;
+          const endHour = hour + slotDuration;
+          const endMinute = minute;
+          
+          const startTimeStr = formatTime(startHour, startMinute);
+          const endTimeStr = formatTime(endHour, endMinute);
+          const startLabel = formatLabel(startHour, startMinute);
+          const endLabel = formatLabel(endHour, endMinute);
+          
+          const slotId = `${startTimeStr.replace(':', '')}-${endTimeStr.replace(':', '')}-${slotDuration}h`;
+          
+          allSlots.push({
+            id: slotId,
+            label: `${startLabel} - ${endLabel}`,
+            startTime: startTimeStr,
+            endTime: endTimeStr,
+            duration: slotDuration,
+            icon: getTimeIcon(startHour),
+            description: getTimeDescription(startHour, slotDuration),
+            popular: slotDuration === 4 && startHour >= 12 && startHour <= 15 // Mark 4-hour afternoon slots as popular
+          });
         }
-        
-        const slotId = `${startTimeStr.replace(':', '')}-${endTimeStr.replace(':', '')}-4h`;
-        
-        fourHourSlots.push({
-          id: slotId,
-          label: `${startLabel} - ${endLabel}`,
-          startTime: startTimeStr,
-          endTime: endTimeStr,
-          duration: 4,
-          icon,
-          description: `${description} (4 hours)`
-        });
       }
     }
     
-    return fourHourSlots;
+    // Sort by start time, then by duration (3-hour slots first for same time)
+    return allSlots.sort((a, b) => {
+      const timeA = a.startTime;
+      const timeB = b.startTime;
+      if (timeA !== timeB) return timeA.localeCompare(timeB);
+      return a.duration - b.duration;
+    });
   } else if (dayOfWeek === 5) { // Friday (4-hour slots)
     return [
       { id: '12pm-4pm', label: '12:00 PM - 4:00 PM', startTime: '12:00', endTime: '16:00', duration: 4, icon: '☀️', description: 'Friday afternoon cruise' },
