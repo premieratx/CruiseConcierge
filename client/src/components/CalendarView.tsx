@@ -310,8 +310,8 @@ function CalendarView() {
   const getBoatsForGroupSize = (groupSize: number) => {
     return boats.filter(boat => {
       // Show boats that can accommodate the group size
-      // But don't show boats that are unnecessarily large (more than 2x capacity)
-      return boat.capacity >= groupSize && boat.capacity <= Math.max(groupSize * 2, 75);
+      // Only show boats that can fit the group (not unnecessarily large unless group is big)
+      return boat.capacity >= groupSize;
     });
   };
 
@@ -529,7 +529,14 @@ function CalendarView() {
                 {block.boatName}
               </div>
               <div className="flex justify-between items-center text-xs mt-1">
-                <span className="text-gray-600">Cap: {block.capacity}</span>
+                <span className={cn(
+                  "font-medium",
+                  block.capacity >= selectedCapacity 
+                    ? "text-green-600" 
+                    : "text-red-500"
+                )}>
+                  Cap: {block.capacity} • Fits your group ({block.capacity >= selectedCapacity ? '✓' : '✗'})
+                </span>
                 {block.pricing && (
                   <span className="font-semibold text-green-700">
                     {formatCurrency(block.pricing.standardPrice / 100)}
@@ -857,7 +864,7 @@ function CalendarView() {
         <CardHeader>
           <CardTitle className="text-lg">Group Size Filter</CardTitle>
           <CardDescription>
-            Select your group size to see available boats that can accommodate your party
+            Select your group size to see only time slots for boats that can accommodate your party. Only boats with ✓ can fit your group.
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
@@ -1010,7 +1017,10 @@ function CalendarView() {
                         
                         {dayTimeBlocks.length === 0 && dayDiscoSlots.length === 0 && selectedTab !== 'medium' && (
                           <div className="text-center text-sm text-muted-foreground py-4">
-                            No cruises scheduled
+                            {filteredBoats.length === 0 
+                              ? `No boats available for ${selectedCapacity} people` 
+                              : "No cruises scheduled"
+                            }
                           </div>
                         )}
                         

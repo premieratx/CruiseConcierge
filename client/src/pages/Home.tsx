@@ -554,12 +554,6 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* Embedded Quote Builder */}
-      <section className="py-16 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
-          <EmbeddedQuoteBuilder pageContext="home" className="mb-8" />
-        </div>
-      </section>
 
       {/* Pricing Preview Section */}
       <section className="py-20 bg-gradient-to-br from-brand-blue/5 to-brand-yellow/5 dark:from-gray-900 dark:to-gray-800">
