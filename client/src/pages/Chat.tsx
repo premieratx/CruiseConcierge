@@ -52,7 +52,8 @@ import {
   getDayType, 
   getCapacityTier, 
   getPackagePricing,
-  getPricingDayType 
+  getPricingDayType,
+  getDiscoPricing 
 } from '@shared/pricing';
 
 // Convert BASE_HOURLY_RATE from cents to dollars for display
@@ -299,15 +300,21 @@ const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 's
   
   const slots: NormalizedSlot[] = [];
   
+  // FIXED: Show total price including tax/gratuity directly in slot label
+  const formatSlotWithTotal = (boatName: string, time: string, totalPrice: number) => {
+    return `${boatName} • ${time} • $${Math.round(totalPrice / 100).toLocaleString()} total`;
+  };
+  
   if (dayOfWeek === 5) { // Friday
     // Slot 1: Meeseeks 12:00PM-4:00PM
+    const slot1Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 0), '12:00 PM - 4:00 PM', pricing.totalPrice);
     slots.push({
       id: `private_meeseeks_${dateISO}_12:00_16:00`,
       dateISO,
       startTime: '12:00',
       endTime: '16:00',
       duration: pricing.duration,
-      label: `${getBoatNameForCapacity(capacity, 0)} • 12:00 PM - 4:00 PM`,
+      label: slot1Label,
       cruiseType: 'private' as const,
       capacity,
       availableCount: 1,
@@ -323,13 +330,14 @@ const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 's
     });
     
     // Slot 2: The Irony 4:30PM-8:30PM
+    const slot2Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 1), '4:30 PM - 8:30 PM', pricing.totalPrice);
     slots.push({
       id: `private_irony_${dateISO}_16:30_20:30`,
       dateISO,
       startTime: '16:30',
       endTime: '20:30',
       duration: pricing.duration,
-      label: `${getBoatNameForCapacity(capacity, 1)} • 4:30 PM - 8:30 PM`,
+      label: slot2Label,
       cruiseType: 'private' as const,
       capacity,
       availableCount: 1,
@@ -345,13 +353,14 @@ const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 's
     });
   } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
     // Slot 1: Meeseeks 11:00AM-3:00PM
+    const slot1Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 0), '11:00 AM - 3:00 PM', pricing.totalPrice);
     slots.push({
       id: `private_meeseeks_${dateISO}_11:00_15:00`,
       dateISO,
       startTime: '11:00',
       endTime: '15:00',
       duration: pricing.duration,
-      label: `${getBoatNameForCapacity(capacity, 0)} • 11:00 AM - 3:00 PM`,
+      label: slot1Label,
       cruiseType: 'private' as const,
       capacity,
       availableCount: 1,
@@ -367,13 +376,14 @@ const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 's
     });
     
     // Slot 2: The Irony 3:30PM-7:30PM
+    const slot2Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 1), '3:30 PM - 7:30 PM', pricing.totalPrice);
     slots.push({
       id: `private_irony_${dateISO}_15:30_19:30`,
       dateISO,
       startTime: '15:30',
       endTime: '19:30',
       duration: pricing.duration,
-      label: `${getBoatNameForCapacity(capacity, 1)} • 3:30 PM - 7:30 PM`,
+      label: slot2Label,
       cruiseType: 'private' as const,
       capacity,
       availableCount: 1,
@@ -389,13 +399,14 @@ const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 's
     });
   } else { // Monday-Thursday
     // Show weekday options with real pricing
+    const slot1Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 0), '12:00 PM - 4:00 PM', pricing.totalPrice);
     slots.push({
       id: `private_meeseeks_${dateISO}_12:00_16:00`,
       dateISO,
       startTime: '12:00',
       endTime: '16:00',
       duration: pricing.duration,
-      label: `${getBoatNameForCapacity(capacity, 0)} • 12:00 PM - 4:00 PM`,
+      label: slot1Label,
       cruiseType: 'private' as const,
       capacity,
       availableCount: 1,
@@ -410,13 +421,14 @@ const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 's
       }
     });
     
+    const slot2Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 1), '4:30 PM - 8:30 PM', pricing.totalPrice);
     slots.push({
       id: `private_irony_${dateISO}_16:30_20:30`,
       dateISO,
       startTime: '16:30',
       endTime: '20:30',
       duration: pricing.duration,
-      label: `${getBoatNameForCapacity(capacity, 1)} • 4:30 PM - 8:30 PM`,
+      label: slot2Label,
       cruiseType: 'private' as const,
       capacity,
       availableCount: 1,
@@ -536,6 +548,12 @@ export default function Chat() {
   
   const availableSlots = availabilityData?.slots || [];
   
+  // Helper function to calculate disco pricing
+  const calculateDiscoPrice = (groupSize: number, packageType: 'basic' | 'disco_queen' | 'platinum') => {
+    const pricePerPerson = getDiscoPricing(packageType);
+    return pricePerPerson * groupSize;
+  };
+  
   // Use structured private slots with real pricing data for chat flow
   const structuredPrivateSlots = formData.eventDate ? 
     generateRealPrivateSlots(formData.eventDate, formData.groupSize) : [];
@@ -552,7 +570,10 @@ export default function Chat() {
   // Use structured slots for chat flow, fallback to API data for other components
   const privateSlots = structuredPrivateSlots.length > 0 ? structuredPrivateSlots :
     availableSlots.filter(slot => slot.cruiseType === 'private');
-  const discoSlots = availableSlots.filter(slot => slot.cruiseType === 'disco');
+  
+  // FIXED: Only show disco slots for bachelor/bachelorette events
+  const isEligibleForDisco = formData.eventType === 'bachelor' || formData.eventType === 'bachelorette';
+  const discoSlots = isEligibleForDisco ? availableSlots.filter(slot => slot.cruiseType === 'disco') : [];
   
   // Get alternative dates with real availability data
   const alternativeDates = useAlternativeDates(formData.eventDate, formData.groupSize);
@@ -822,7 +843,7 @@ export default function Chat() {
       }
     }
     
-    // FIXED: More conservative disco handling - don't reset existing selections during group size edits
+    // FIXED: Only handle disco options for bachelor/bachelorette events
     if ((formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') &&
         discoSlots.length > 0) {
       // Only set defaults if nothing is selected yet
@@ -832,16 +853,7 @@ export default function Chat() {
       // Always update quantity to match group size, but don't reset other selections
       updates.discoTicketQuantity = Math.min(formData.groupSize, 20);
     }
-    
-    // For all other event types with disco available, use minimum quantity
-    else if (discoSlots.length > 0 && !formData.selectedDiscoPackage) {
-      const defaultDiscoPackage = discoPackages[0];
-      
-      if (defaultDiscoPackage) {
-        updates.selectedDiscoPackage = defaultDiscoPackage.id as DiscoPackage;
-        updates.discoTicketQuantity = Math.min(formData.groupSize, 10);
-      }
-    }
+    // DO NOT show disco options for other event types
 
     // Apply all updates in a single setState call
     if (Object.keys(updates).length > 0) {
@@ -2745,8 +2757,8 @@ export default function Chat() {
                         </CardContent>
                       </Card>
 
-                      {/* CONDITIONAL RIGHT COLUMN: Disco cruise for bachelor/bachelorette, Alternative dates for others */}
-                      {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') && discoSlots.length > 0 ? (
+                      {/* CONDITIONAL RIGHT COLUMN: Always show disco column for bachelor/bachelorette, Alternative dates for others */}
+                      {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') ? (
                         /* DISCO CRUISE OPTION - Only for bachelor/bachelorette events */
                         <Card className={cn(
                           "bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 backdrop-blur-sm cursor-pointer transition-all",
@@ -2797,35 +2809,53 @@ export default function Chat() {
                                   }
                                 }}
                               >
-                                {discoSlots.map((slot) => (
-                                  <Card key={slot.id} className={cn(
-                                    "transition-all cursor-pointer border-2",
-                                    formData.selectedSlot?.id === slot.id 
-                                      ? "ring-2 ring-purple-600 bg-purple-50 dark:bg-purple-900/20" 
-                                      : "border-slate-200 dark:border-slate-700 hover:border-purple-300"
-                                  )}>
-                                    <CardContent className="p-3">
-                                      <div className="flex items-center space-x-3">
-                                        <RadioGroupItem value={slot.id} id={`disco-slot-${slot.id}`} />
-                                        <Label htmlFor={`disco-slot-${slot.id}`} className="flex-1 cursor-pointer">
-                                          <div className="flex justify-between items-center">
-                                            <div className="space-y-1">
-                                              <div className="font-bold text-purple-600">{slot.label}</div>
-                                              <div className="text-sm text-slate-600 dark:text-slate-400">4-hour disco cruise</div>
-                                              <Badge variant="outline" className="text-xs">
-                                                <Users className="h-3 w-3 mr-1" />
-                                                Up to {slot.capacity || 100} people
-                                              </Badge>
+                                {discoSlots.length > 0 ? discoSlots.map((slot) => {
+                                  // Calculate disco total price for display
+                                  const discoTotal = formData.selectedDiscoPackage ? 
+                                    calculateDiscoPrice(formData.groupSize, formData.selectedDiscoPackage) : 
+                                    calculateDiscoPrice(formData.groupSize, 'basic');
+                                  const discoPriceWithTax = Math.round(discoTotal * 1.0825); // Add 8.25% tax
+                                  const discoPriceLabel = `$${Math.round(discoPriceWithTax / 100).toLocaleString()} total for ${formData.groupSize} people`;
+                                  
+                                  return (
+                                    <Card key={slot.id} className={cn(
+                                      "transition-all cursor-pointer border-2",
+                                      formData.selectedSlot?.id === slot.id 
+                                        ? "ring-2 ring-purple-600 bg-purple-50 dark:bg-purple-900/20" 
+                                        : "border-slate-200 dark:border-slate-700 hover:border-purple-300"
+                                    )}>
+                                      <CardContent className="p-3">
+                                        <div className="flex items-center space-x-3">
+                                          <RadioGroupItem value={slot.id} id={`disco-slot-${slot.id}`} />
+                                          <Label htmlFor={`disco-slot-${slot.id}`} className="flex-1 cursor-pointer">
+                                            <div className="flex justify-between items-center">
+                                              <div className="space-y-1">
+                                                <div className="font-bold text-purple-600">{slot.label}</div>
+                                                <div className="text-sm text-slate-600 dark:text-slate-400">4-hour disco cruise</div>
+                                                <div className="text-sm font-semibold text-purple-700 dark:text-purple-300">
+                                                  {discoPriceLabel}
+                                                </div>
+                                                <Badge variant="outline" className="text-xs">
+                                                  <Users className="h-3 w-3 mr-1" />
+                                                  Up to {slot.capacity || 100} people
+                                                </Badge>
+                                              </div>
+                                              <div className="text-right">
+                                                <div className="text-sm font-medium text-purple-600">Available</div>
+                                              </div>
                                             </div>
-                                            <div className="text-right">
-                                              <div className="text-sm font-medium text-purple-600">Available</div>
-                                            </div>
-                                          </div>
-                                        </Label>
-                                      </div>
-                                    </CardContent>
-                                  </Card>
-                                ))}
+                                          </Label>
+                                        </div>
+                                      </CardContent>
+                                    </Card>
+                                  );
+                                }) : (
+                                  <div className="p-6 text-center text-slate-600 dark:text-slate-400">
+                                    <Music className="h-12 w-12 mx-auto mb-4 opacity-30" />
+                                    <p className="text-sm font-medium">No Disco Cruises Available</p>
+                                    <p className="text-xs mt-1">Disco cruises are only available on Fridays and Saturdays</p>
+                                  </div>
+                                )}
                               </RadioGroup>
                             </div>
 
