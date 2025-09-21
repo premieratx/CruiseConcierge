@@ -309,36 +309,46 @@ export default function UniversalCheckout({
     return ((currentIndex + 1) / steps.length) * 100;
   };
 
-  // Handle discount code application
+  // Handle discount code application with secure server-side validation
   const handleApplyDiscount = async () => {
     if (!discountCode.trim()) return;
     
     setIsApplyingDiscount(true);
     try {
-      // Check for Premier 99 discount code (environment variable for security)
-      if (discountCode.toUpperCase() === 'PREMIER 99') {
-        const discountPercentage = 99; // 99% off for testing
-        const discountAmount = Math.floor((pricing.total * discountPercentage) / 100);
+      // Call server-side discount validation
+      const response = await fetch('/api/discounts/validate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ code: discountCode }),
+      });
+      
+      const result = await response.json();
+      
+      if (result.valid && result.discount) {
+        const discountAmount = Math.floor((pricing.total * result.discount.percentage) / 100);
         
         setAppliedDiscount({
-          code: discountCode.toUpperCase(),
-          percentage: discountPercentage,
+          code: result.discount.code,
+          percentage: result.discount.percentage,
           amount: discountAmount
         });
         
         toast({
           title: "Discount Applied! 🎉",
-          description: `${discountPercentage}% discount applied to your booking`,
+          description: `${result.discount.percentage}% discount applied to your booking`,
           variant: "default",
         });
       } else {
         toast({
           title: "Invalid Discount Code",
-          description: "Please check your discount code and try again",
+          description: result.error || "Please check your discount code and try again",
           variant: "destructive",
         });
       }
     } catch (error) {
+      console.error('Error applying discount:', error);
       toast({
         title: "Error Applying Discount",
         description: "Please try again later",

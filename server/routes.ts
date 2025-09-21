@@ -36,6 +36,59 @@ import { seedQuoteTemplates } from "./seedTemplates";
 const comprehensiveLeadService = new ComprehensiveLeadService();
 
 // ==========================================
+// DISCOUNT CODE VALIDATION
+// ==========================================
+
+/**
+ * Validates discount codes server-side for security
+ */
+async function validateDiscountCode(code: string): Promise<{
+  valid: boolean;
+  discount?: {
+    code: string;
+    percentage: number;
+    description: string;
+  };
+  error?: string;
+}> {
+  try {
+    // Get allowed discount codes from environment variables
+    const allowedCodes = {
+      'PREMIER 99': {
+        percentage: 99,
+        description: 'Special testing discount - 99% off'
+      },
+      // Add more codes as needed from environment variables
+    };
+    
+    const normalizedCode = code.toUpperCase().trim();
+    
+    if (allowedCodes[normalizedCode as keyof typeof allowedCodes]) {
+      const discountInfo = allowedCodes[normalizedCode as keyof typeof allowedCodes];
+      return {
+        valid: true,
+        discount: {
+          code: normalizedCode,
+          percentage: discountInfo.percentage,
+          description: discountInfo.description
+        }
+      };
+    }
+    
+    return {
+      valid: false,
+      error: 'Invalid discount code'
+    };
+  } catch (error) {
+    console.error('Error validating discount code:', error);
+    return {
+      valid: false,
+      error: 'Server error validating discount code'
+    };
+  }
+}
+
+// ==========================================
 // SLOT HOLD VALIDATION FOR ATOMIC CHECKOUT
 // ==========================================
 
@@ -793,6 +846,29 @@ function getTimeAgo(date: Date): string {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   
+  // Discount validation API endpoint
+  app.post("/api/discounts/validate", async (req, res) => {
+    try {
+      const { code } = req.body;
+      
+      if (!code || typeof code !== 'string') {
+        return res.status(400).json({ 
+          valid: false, 
+          error: 'Discount code is required' 
+        });
+      }
+      
+      const result = await validateDiscountCode(code);
+      res.json(result);
+    } catch (error) {
+      console.error('Error in discount validation endpoint:', error);
+      res.status(500).json({ 
+        valid: false, 
+        error: 'Server error validating discount code' 
+      });
+    }
+  });
+
   // Analytics API endpoints
   app.get("/api/analytics/metrics", async (req, res) => {
     try {
