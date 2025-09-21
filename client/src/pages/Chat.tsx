@@ -2424,22 +2424,30 @@ export default function Chat() {
                         "bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm transition-all",
                         formData.selectedCruiseType === 'private' && "ring-2 ring-blue-600"
                       )}>
-                        <CardHeader>
-                          <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                              <Ship className="h-5 w-5 text-blue-600" />
-                            </div>
-                            <div className="flex-1">
-                              <CardTitle className="text-lg">Private Charter</CardTitle>
-                              {/* Fixed date display */}
-                              <div className="text-xl font-bold text-blue-600 mt-1">
-                                {formData.eventDate ? format(formData.eventDate, 'EEEE, MMMM d') : 'Select a date'}
+                        <CardHeader className="sticky top-0 z-10 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md border-b border-blue-200 dark:border-blue-800">
+                          <div className="text-center">
+                            <div className="flex items-center justify-center gap-3 mb-2">
+                              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center">
+                                <Ship className="h-6 w-6 text-blue-600" />
                               </div>
+                              {bestDealData?.recommendedOption === 'private' && (
+                                <Badge className="bg-emerald-100 text-emerald-800 border-emerald-300">
+                                  ⭐ Best Value
+                                </Badge>
+                              )}
                             </div>
-                            {bestDealData?.recommendedOption === 'private' && (
-                              <Badge className="bg-emerald-100 text-emerald-800 border-emerald-300">
-                                ⭐ Best Value
-                              </Badge>
+                            <CardTitle className="text-3xl font-bold text-blue-600 mb-2">Private Charter</CardTitle>
+                            <div className="text-lg font-semibold text-slate-600 dark:text-slate-300">
+                              {formData.eventDate ? format(formData.eventDate, 'EEEE, MMMM d') : 'Select a date'}
+                            </div>
+                            {/* Show recommended boat for group size */}
+                            {formData.groupSize > 0 && (
+                              <div className="text-sm text-blue-600 mt-1">
+                                Recommended: {formData.groupSize <= 14 ? 'Day Tripper (Up to 14 guests)' : 
+                                             formData.groupSize <= 25 ? 'Me Seeks The Irony (Up to 30 guests)' :
+                                             formData.groupSize <= 50 ? 'Clever Girl (Up to 50 guests)' :
+                                             'Clever Girl (Up to 75 guests)'}
+                              </div>
                             )}
                           </div>
                         </CardHeader>
@@ -2562,7 +2570,15 @@ export default function Chat() {
                               <Label className="text-sm font-medium">Optional Add-On Packages</Label>
                               <RadioGroup
                                 value={selectedPrivatePackage}
-                                onValueChange={setSelectedPrivatePackage}
+                                onValueChange={(value) => {
+                                  setSelectedPrivatePackage(value);
+                                  // Update form data to trigger pricing recalculation
+                                  const addOnPackages = value === 'standard' ? [] : [value];
+                                  setFormData(prev => ({
+                                    ...prev,
+                                    selectedAddOnPackages: addOnPackages
+                                  }));
+                                }}
                                 className="space-y-2"
                               >
                                 {/* Standard Package */}
@@ -2802,23 +2818,26 @@ export default function Chat() {
                           "bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 backdrop-blur-sm transition-all",
                           formData.selectedCruiseType === 'disco' && "ring-2 ring-purple-600"
                         )}>
-                          <CardHeader>
-                            <div className="flex items-center gap-3">
-                              <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                                <Music className="h-5 w-5 text-purple-600" />
-                              </div>
-                              <div className="flex-1">
-                                <CardTitle className="text-lg">ATX Disco Cruise</CardTitle>
-                                {/* Fixed date display */}
-                                <div className="text-xl font-bold text-purple-600 mt-1">
-                                  {formData.eventDate ? format(formData.eventDate, 'EEEE, MMMM d') : 'Select a date'}
+                          <CardHeader className="sticky top-0 z-10 bg-gradient-to-r from-purple-50/95 to-pink-50/95 dark:from-purple-900/95 dark:to-pink-900/95 backdrop-blur-md border-b border-purple-200 dark:border-purple-800">
+                            <div className="text-center">
+                              <div className="flex items-center justify-center gap-3 mb-2">
+                                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center">
+                                  <Music className="h-6 w-6 text-purple-600" />
                                 </div>
+                                {bestDealData?.recommendedOption === 'disco' && (
+                                  <Badge className="bg-emerald-100 text-emerald-800 border-emerald-300">
+                                    ⭐ Best Deal
+                                  </Badge>
+                                )}
                               </div>
-                              {bestDealData?.recommendedOption === 'disco' && (
-                                <Badge className="bg-emerald-100 text-emerald-800 border-emerald-300">
-                                  ⭐ Best Deal
-                                </Badge>
-                              )}
+                              <CardTitle className="text-3xl font-bold text-purple-600 mb-2">ATX Disco Cruise</CardTitle>
+                              <div className="text-lg font-semibold text-slate-600 dark:text-slate-300">
+                                {formData.eventDate ? format(formData.eventDate, 'EEEE, MMMM d') : 'Select a date'}
+                              </div>
+                              {/* Show boat info */}
+                              <div className="text-sm text-purple-600 mt-1">
+                                ATX Disco Boat • Up to 100 guests • Friday & Saturday
+                              </div>
                             </div>
                           </CardHeader>
                           <CardContent className="space-y-4">
