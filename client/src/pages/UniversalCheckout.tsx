@@ -18,7 +18,7 @@ import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { CalendarIcon, ClockIcon, UsersIcon, BotIcon as BoatIcon, CreditCardIcon, CheckCircle2, AlertCircle, InfoIcon, ArrowLeft, ArrowRight, EditIcon, StarIcon, TrendingUpIcon, SparklesIcon, MusicIcon, PartyPopperIcon, PercentIcon, TagIcon, FileTextIcon } from 'lucide-react';
+import { CalendarIcon, ClockIcon, UsersIcon, BotIcon as BoatIcon, CreditCardIcon, CheckCircle2, AlertCircle, InfoIcon, ArrowLeft, ArrowRight, EditIcon, StarIcon, TrendingUpIcon, SparklesIcon, MusicIcon, PartyPopperIcon, PercentIcon, TagIcon, FileTextIcon, ShieldCheck, AlertTriangle, MapPin, Anchor, Ship, DollarSign } from 'lucide-react';
 import { useCheckoutContext } from '@/hooks/use-checkout-context';
 import { useToast } from '@/hooks/use-toast';
 import { formatCurrency, formatDate, formatTimeForDisplay } from '@shared/formatters';
@@ -180,6 +180,12 @@ export default function UniversalCheckout({
   entryPoint = 'direct_link', 
   preselectedData = {} 
 }: UniversalCheckoutProps) {
+  // Log entry point for debugging
+  console.log('🎯 UniversalCheckout initialized:', {
+    entryPoint,
+    urlParams: Object.fromEntries(new URLSearchParams(window.location.search)),
+    preselectedData
+  });
   const [, navigate] = useLocation();
   const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState<'selections' | 'contact' | 'payment' | 'confirmation'>('selections');
@@ -193,7 +199,23 @@ export default function UniversalCheckout({
   // Extract URL parameters for context
   const urlParams = new URLSearchParams(window.location.search);
   
+  // Determine actual entry point from URL or props
+  const actualEntryPoint = urlParams.get('entryPoint') || entryPoint;
+  
+  // Entry point display names for UI
+  const entryPointDisplay = {
+    'quote_builder': { label: 'Quote Builder', icon: FileTextIcon, color: 'bg-blue-100 text-blue-700 dark:bg-blue-900 dark:text-blue-300' },
+    'live_calendar': { label: 'Calendar Booking', icon: CalendarIcon, color: 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300' },
+    'public_calendar': { label: 'Calendar Booking', icon: CalendarIcon, color: 'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300' },
+    'chat_flow': { label: 'Chat Assistant', icon: SparklesIcon, color: 'bg-purple-100 text-purple-700 dark:bg-purple-900 dark:text-purple-300' },
+    'direct_link': { label: 'Direct Booking', icon: Anchor, color: 'bg-gray-100 text-gray-700 dark:bg-gray-900 dark:text-gray-300' },
+    'admin_booking': { label: 'Admin Booking', icon: ShieldCheck, color: 'bg-red-100 text-red-700 dark:bg-red-900 dark:text-red-300' }
+  };
+  
+  const currentEntryDisplay = entryPointDisplay[actualEntryPoint as keyof typeof entryPointDisplay] || entryPointDisplay['direct_link'];
+  
   // CRITICAL FIX: Reconstruct complete selectedSlot object from URL parameters
+  // Handle both Calendar and Quote Builder data structures
   const hasSlotData = urlParams.get('slotId') && urlParams.get('startTime') && urlParams.get('endTime');
   const selectedSlot = hasSlotData ? {
     id: urlParams.get('slotId')!,
@@ -219,14 +241,22 @@ export default function UniversalCheckout({
     } : undefined
   } : undefined;
 
+  // Comprehensive data extraction with validation
   const contextFromUrl = {
+    // Core identifiers
     quoteId: urlParams.get('quoteId'),
     projectId: urlParams.get('projectId'),
-    eventType: urlParams.get('eventType'),
-    groupSize: urlParams.get('groupSize') ? parseInt(urlParams.get('groupSize')!) : undefined,
-    eventDate: urlParams.get('eventDate') ? new Date(urlParams.get('eventDate')!) : undefined,
-    boatId: urlParams.get('boatId'),
-    cruiseType: urlParams.get('cruiseType') as 'private' | 'disco' | undefined,
+    
+    // Event details with fallbacks
+    eventType: urlParams.get('eventType') || preselectedData.eventType || 'cruise',
+    eventTypeLabel: urlParams.get('eventTypeLabel') || EVENT_TYPES[urlParams.get('eventType') || 'cruise']?.label || 'Cruise',
+    groupSize: urlParams.get('groupSize') ? parseInt(urlParams.get('groupSize')!) : preselectedData.groupSize || 15,
+    eventDate: urlParams.get('eventDate') ? new Date(urlParams.get('eventDate')!) : preselectedData.eventDate || undefined,
+    
+    // Boat and cruise type with validation
+    boatId: urlParams.get('boatId') || preselectedData.boatId,
+    boatName: urlParams.get('boatName') || preselectedData.boatName,
+    cruiseType: (urlParams.get('cruiseType') || preselectedData.cruiseType || 'private') as 'private' | 'disco',
     
     // Disco cruise specific parameters
     discoPackage: urlParams.get('discoPackage'),
@@ -246,7 +276,7 @@ export default function UniversalCheckout({
     paymentType: urlParams.get('paymentType') as 'deposit' | 'full' | undefined,
     
     // Entry point to help with flow determination
-    entryPoint: urlParams.get('entryPoint'),
+    entryPoint: actualEntryPoint,
     
     // Contact information
     firstName: urlParams.get('firstName'),
@@ -267,9 +297,49 @@ export default function UniversalCheckout({
     ...preselectedData
   };
 
-  // Initialize checkout context
+  // Data validation state
+  const [dataValidation, setDataValidation] = useState<{
+    isValid: boolean;
+    errors: string[];
+    warnings: string[];
+  }>({ isValid: true, errors: [], warnings: [] });
+  
+  // Validate required data based on entry point
+  useEffect(() => {
+    const errors: string[] = [];
+    const warnings: string[] = [];
+    
+    // Validate based on entry point
+    if (actualEntryPoint === 'quote_builder') {
+      if (!contextFromUrl.quoteId) warnings.push('No quote ID provided - creating new booking');
+      if (!contextFromUrl.groupSize || contextFromUrl.groupSize === 0) errors.push('Group size is required');
+      if (!contextFromUrl.eventDate) warnings.push('Event date not specified - please select a date');
+    } else if (actualEntryPoint === 'live_calendar' || actualEntryPoint === 'public_calendar') {
+      if (!contextFromUrl.selectedSlot) warnings.push('Time slot information is missing - please select a slot');
+      if (!contextFromUrl.eventDate) errors.push('Event date is required');
+      if (!contextFromUrl.groupSize || contextFromUrl.groupSize === 0) warnings.push('Group size not specified - using default (15)');
+    }
+    
+    // Common validations
+    if (contextFromUrl.groupSize && contextFromUrl.groupSize > 100) {
+      warnings.push('Large group size - contact us for special arrangements');
+    }
+    
+    // Check for required pricing data
+    if (contextFromUrl.cruiseType === 'disco' && !contextFromUrl.discoPackage) {
+      warnings.push('No disco package selected - defaulting to Basic package');
+    }
+    
+    setDataValidation({
+      isValid: errors.length === 0,
+      errors,
+      warnings
+    });
+  }, [actualEntryPoint, contextFromUrl.quoteId, contextFromUrl.selectedSlot, contextFromUrl.eventDate, contextFromUrl.groupSize, contextFromUrl.cruiseType, contextFromUrl.discoPackage]);
+  
+  // Initialize checkout context with validated data
   const checkout = useCheckoutContext({
-    entryPoint,
+    entryPoint: actualEntryPoint,
     preselectedData: contextFromUrl,
     onCheckoutComplete: (result) => {
       toast({
@@ -499,9 +569,12 @@ export default function UniversalCheckout({
                   </p>
                 </div>
               </div>
-              <Badge variant={entryPoint === 'quote_builder' ? 'default' : 'secondary'} data-testid="badge-entry-point">
-                {entryPoint.replace('_', ' ').toUpperCase()}
-              </Badge>
+              <div className="flex items-center gap-2">
+                <Badge className={currentEntryDisplay.color} data-testid="badge-entry-point">
+                  <currentEntryDisplay.icon className="w-3 h-3 mr-1" />
+                  {currentEntryDisplay.label}
+                </Badge>
+              </div>
             </div>
             
             {/* Progress Bar */}
@@ -526,6 +599,23 @@ export default function UniversalCheckout({
         </div>
 
         <div className="max-w-6xl mx-auto px-4 py-8">
+          {/* Data Validation Warnings */}
+          {(!dataValidation.isValid || dataValidation.warnings.length > 0) && (
+            <div className="mb-6 space-y-2">
+              {dataValidation.errors.map((error, index) => (
+                <Alert key={`error-${index}`} variant="destructive">
+                  <AlertTriangle className="h-4 w-4" />
+                  <AlertDescription>{error}</AlertDescription>
+                </Alert>
+              ))}
+              {dataValidation.warnings.map((warning, index) => (
+                <Alert key={`warning-${index}`}>
+                  <InfoIcon className="h-4 w-4" />
+                  <AlertDescription>{warning}</AlertDescription>
+                </Alert>
+              ))}
+            </div>
+          )}
           {/* Invoice-Style Booking Summary Header */}
           <div className="bg-white dark:bg-gray-900 rounded-lg border shadow-sm mb-8">
             <div className="p-6">
@@ -577,12 +667,13 @@ export default function UniversalCheckout({
                 </div>
 
                 <div className="text-center">
-                  <BoatIcon className="h-8 w-8 text-blue-600 mx-auto mb-2" />
-                  <div className="font-bold text-lg text-gray-900 dark:text-white">
-                    {selections.cruiseType === 'disco' ? 'ATX Disco' : pricing.boatInfo?.name || 'Private Cruise'}
+                  <Ship className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                  <div className="font-bold text-lg text-gray-900 dark:text-white" data-testid="text-boat-name">
+                    {selections.cruiseType === 'disco' ? 'ATX Disco Cruise' : 
+                     selections.selectedBoat?.displayName || pricing?.boatInfo?.name || 'Select Boat'}
                   </div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">
-                    {selections.cruiseType === 'disco' ? 'Disco Cruise' : 'Private Charter'}
+                  <div className="text-sm text-gray-600 dark:text-gray-400" data-testid="text-cruise-type">
+                    {selections.cruiseType === 'disco' ? 'Disco Party Cruise' : 'Private Charter'}
                   </div>
                 </div>
               </div>

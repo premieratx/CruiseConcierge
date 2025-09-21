@@ -55,6 +55,9 @@ import {
   getPricingDayType 
 } from '@shared/pricing';
 
+// Convert BASE_HOURLY_RATE from cents to dollars for display
+const BASE_PRIVATE_HOURLY_RATE = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100;
+
 type ChatFlowStep = 
   | 'intro' // Intro + Calendar combined
   | 'comparison-selection' // Event type + Group size + Comparison
