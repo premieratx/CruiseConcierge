@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
@@ -6,6 +7,7 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 import { 
   Ship, Users, Star, Calendar, Trophy, Shield, Award,
@@ -14,7 +16,7 @@ import {
   ChefHat, Wifi, Bluetooth, Building,
   UserCheck, Target, Headphones, Check, Sparkles,
   Waves, Wine, Umbrella, Music, Clock,
-  Package, Gift, Heart, Crown, Anchor
+  Package, Gift, Heart, Crown, Anchor, PartyPopper
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import { formatCurrency } from '@shared/formatters';
@@ -399,18 +401,59 @@ export default function PrivateCruises() {
             </motion.div>
           </motion.div>
           
-          {/* Capacity Tiers */}
-          <div className="space-y-16">
-            {PRIVATE_CAPACITY_TIERS.map((capacity) => {
-              const tierData = PRIVATE_CRUISE_PACKAGES[capacity];
-              return (
-                <motion.div
-                  key={capacity}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={staggerChildren}
-                  className="mb-16"
+          {/* Tabbed Capacity Interface */}
+          <div className="relative">
+            <Tabs defaultValue="14" className="w-full">
+              {/* Sticky Tab Navigation */}
+              <div className="sticky top-16 z-40 bg-white/95 dark:bg-gray-950/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 py-4 mb-8">
+                <div className="container mx-auto px-6">
+                  <TabsList className="grid w-full grid-cols-4 lg:max-w-2xl lg:mx-auto bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
+                    <TabsTrigger 
+                      value="14" 
+                      className="flex flex-col items-center gap-1 py-3 px-2 text-xs data-[state=active]:bg-brand-blue data-[state=active]:text-white"
+                    >
+                      <Ship className="h-4 w-4" />
+                      <span className="font-semibold">14 People</span>
+                      <span className="text-[10px] opacity-70">Day Tripper</span>
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="25" 
+                      className="flex flex-col items-center gap-1 py-3 px-2 text-xs data-[state=active]:bg-brand-blue data-[state=active]:text-white"
+                    >
+                      <Ship className="h-4 w-4" />
+                      <span className="font-semibold">25-30 People</span>
+                      <span className="text-[10px] opacity-70">Me Seeks The Irony</span>
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="50" 
+                      className="flex flex-col items-center gap-1 py-3 px-2 text-xs data-[state=active]:bg-brand-blue data-[state=active]:text-white"
+                    >
+                      <Ship className="h-4 w-4" />
+                      <span className="font-semibold">50-75 People</span>
+                      <span className="text-[10px] opacity-70">Clever Girl</span>
+                    </TabsTrigger>
+                    <TabsTrigger 
+                      value="disco" 
+                      className="flex flex-col items-center gap-1 py-3 px-2 text-xs data-[state=active]:bg-brand-yellow data-[state=active]:text-black"
+                    >
+                      <Sparkles className="h-4 w-4" />
+                      <span className="font-semibold">Disco Cruise</span>
+                      <span className="text-[10px] opacity-70">ATX Disco</span>
+                    </TabsTrigger>
+                  </TabsList>
+                </div>
+              </div>
+
+              {/* Tab Content */}
+              {PRIVATE_CAPACITY_TIERS.map((capacity) => {
+                const tierData = PRIVATE_CRUISE_PACKAGES[capacity];
+                return (
+                  <TabsContent key={capacity} value={capacity.toString()} className="mt-0">
+                    <motion.div
+                      initial="hidden"
+                      animate="visible"
+                      variants={staggerChildren}
+                      className="mb-16"
                 >
                   {/* Capacity Tier Header */}
                   <motion.div variants={fadeInUp} className="text-center mb-12">
@@ -545,8 +588,90 @@ export default function PrivateCruises() {
                     ))}
                   </motion.div>
                 </motion.div>
-              );
-            })}
+              </TabsContent>
+            );
+          })}
+
+          {/* Special Disco Cruise Tab */}
+              <TabsContent value="disco" className="mt-0">
+                <motion.div
+                  initial="hidden"
+                  animate="visible"
+                  variants={staggerChildren}
+                  className="mb-16"
+                >
+                  <motion.div variants={fadeInUp} className="text-center mb-12">
+                    <div className="flex items-center justify-center gap-4 mb-4">
+                      <Sparkles className="h-8 w-8 text-brand-yellow" />
+                      <h3 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 dark:text-white">
+                        ATX Disco Cruise Experience
+                      </h3>
+                      <Sparkles className="h-8 w-8 text-brand-yellow" />
+                    </div>
+                    <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+                      Join Austin's most epic floating dance party with professional DJ, photography, and party atmosphere guaranteed!
+                    </p>
+                    <div className="mt-4 inline-flex items-center gap-2 bg-brand-yellow/20 px-4 py-2 rounded-full">
+                      <Users className="h-4 w-4 text-brand-yellow" />
+                      <span className="text-sm font-semibold text-brand-yellow">
+                        Up to 100 people • Bachelor/Bachelorette parties only
+                      </span>
+                    </div>
+                  </motion.div>
+                  
+                  <motion.div variants={fadeInUp} className="max-w-4xl mx-auto">
+                    <Card className="border-2 border-brand-yellow bg-gradient-to-br from-brand-yellow/10 to-brand-blue/5">
+                      <CardContent className="p-8">
+                        <div className="text-center mb-8">
+                          <h4 className="text-2xl font-heading font-bold mb-4">
+                            Ready to Party? Let's Make It Epic!
+                          </h4>
+                          <p className="text-lg text-gray-600 dark:text-gray-300">
+                            Bachelor and bachelorette parties can choose between our signature disco cruise experience 
+                            or a private cruise tailored to your group size.
+                          </p>
+                        </div>
+                        
+                        <div className="grid md:grid-cols-2 gap-6 mb-8">
+                          <div className="text-center p-6 bg-brand-yellow/10 rounded-lg">
+                            <Sparkles className="h-12 w-12 text-brand-yellow mx-auto mb-4" />
+                            <h5 className="text-xl font-bold mb-2">Disco Cruise</h5>
+                            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                              Join other bachelor/bachelorette parties on Austin's most epic floating dance party
+                            </p>
+                            <div className="text-brand-yellow font-bold text-lg">
+                              $85-$105 per person
+                            </div>
+                          </div>
+                          
+                          <div className="text-center p-6 bg-brand-blue/10 rounded-lg">
+                            <Ship className="h-12 w-12 text-brand-blue mx-auto mb-4" />
+                            <h5 className="text-xl font-bold mb-2">Private Cruise</h5>
+                            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+                              Have the entire boat to yourselves with customized experience
+                            </p>
+                            <div className="text-brand-blue font-bold text-lg">
+                              From $75 per person
+                            </div>
+                          </div>
+                        </div>
+                        
+                        <div className="text-center">
+                          <Button 
+                            size="lg"
+                            className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold"
+                            onClick={() => window.location.href = '/bachelor-party'}
+                          >
+                            <PartyPopper className="h-5 w-5 mr-2" />
+                            Explore Bachelor/Bachelorette Options
+                          </Button>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </motion.div>
+                </motion.div>
+              </TabsContent>
+            </Tabs>
           </div>
         </div>
       </section>

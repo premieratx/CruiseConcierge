@@ -482,10 +482,221 @@ export default function BacheloretteParty() {
             className="mb-8"
           />
           
+          {/* Bachelorette Party Options Comparison */}
+          <div className="mt-12 max-w-6xl mx-auto">
+            <motion.div 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerChildren}
+              className="text-center mb-12"
+            >
+              <motion.h3 
+                variants={fadeInUp}
+                className="text-3xl md:text-4xl font-heading font-bold mb-4 text-gray-900 dark:text-white"
+              >
+                Two Perfect Bachelorette Party Options
+              </motion.h3>
+              <motion.p 
+                variants={fadeInUp}
+                className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
+              >
+                Choose between our signature disco cruise experience or a private cruise tailored to your group size. Both are absolutely perfect for bachelorette celebrations!
+              </motion.p>
+            </motion.div>
+
+            <div className="grid lg:grid-cols-2 gap-8 mb-8">
+              {/* Disco Cruise Option */}
+              <motion.div variants={fadeInUp}>
+                <Card className="border-2 border-pink-500 bg-gradient-to-br from-pink-50 to-brand-yellow/5 h-full">
+                  <CardHeader className="text-center pb-4">
+                    <div className="flex justify-center mb-4">
+                      <div className="p-4 rounded-full bg-pink-100">
+                        <Sparkles className="h-12 w-12 text-pink-500" />
+                      </div>
+                    </div>
+                    <CardTitle className="text-2xl font-bold text-pink-600 mb-2">
+                      ATX Disco Cruise
+                    </CardTitle>
+                    <CardDescription className="text-lg">
+                      Join other bachelorette parties on Austin's most epic floating dance party - Our Specialty!
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-pink-600 mb-2">$85-$105</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">per person</div>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <h5 className="font-semibold text-pink-600">Three Package Options:</h5>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span>Basic Package:</span>
+                          <span className="font-bold">$85/person</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Disco Queen Package:</span>
+                          <span className="font-bold">$95/person</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Platinum Package:</span>
+                          <span className="font-bold">$105/person</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <h5 className="font-semibold flex items-center gap-2">
+                        <Check className="h-4 w-4 text-green-500" />
+                        What's Included (All Packages):
+                      </h5>
+                      <ul className="space-y-1 text-sm">
+                        <li className="flex items-start gap-2">
+                          <Check className="h-3 w-3 text-green-500 mt-1 flex-shrink-0" />
+                          <span>Incredible DJ & Party Atmosphere</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-3 w-3 text-green-500 mt-1 flex-shrink-0" />
+                          <span>Professional Photography (Free Photos)</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-3 w-3 text-green-500 mt-1 flex-shrink-0" />
+                          <span>Giant 25-ft Inflatable Unicorn Float</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-3 w-3 text-green-500 mt-1 flex-shrink-0" />
+                          <span>3 Huge Lily Pad Floats</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-3 w-3 text-green-500 mt-1 flex-shrink-0" />
+                          <span>Party with other bachelorette groups</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-3 w-3 text-green-500 mt-1 flex-shrink-0" />
+                          <span>Special bridal perks & attention</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="bg-pink-50 p-4 rounded-lg border border-pink-200">
+                      <div className="text-sm text-center">
+                        <div className="font-bold text-pink-600">🎉 THAT HAPPENS TO BE OUR SPECIALTY!</div>
+                        <div className="mt-2">Perfect for groups of 8-20 who want to party & save money</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+
+              {/* Private Cruise Option */}
+              <motion.div variants={fadeInUp}>
+                <Card className="border-2 border-brand-blue bg-gradient-to-br from-brand-blue/10 to-gray-50 h-full">
+                  <CardHeader className="text-center pb-4">
+                    <div className="flex justify-center mb-4">
+                      <div className="p-4 rounded-full bg-brand-blue/20">
+                        <Ship className="h-12 w-12 text-brand-blue" />
+                      </div>
+                    </div>
+                    <CardTitle className="text-2xl font-bold text-brand-blue mb-2">
+                      Private Cruise
+                    </CardTitle>
+                    <CardDescription className="text-lg">
+                      Have the entire boat to yourselves with customized bachelorette experience
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    <div className="text-center">
+                      <div className="text-3xl font-bold text-brand-blue mb-2">$75-$149</div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400">per person (varies by group size & day)</div>
+                    </div>
+                    
+                    <div className="space-y-3">
+                      <h5 className="font-semibold text-brand-blue">Three Package Options:</h5>
+                      <div className="space-y-2 text-sm">
+                        <div className="flex justify-between">
+                          <span>Standard Package:</span>
+                          <span className="font-bold">Base Rate</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Essentials Package:</span>
+                          <span className="font-bold">+$100-200</span>
+                        </div>
+                        <div className="flex justify-between">
+                          <span>Ultimate Package:</span>
+                          <span className="font-bold">+$250-350</span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="space-y-3">
+                      <h5 className="font-semibold flex items-center gap-2">
+                        <Check className="h-4 w-4 text-green-500" />
+                        What's Included (All Packages):
+                      </h5>
+                      <ul className="space-y-1 text-sm">
+                        <li className="flex items-start gap-2">
+                          <Check className="h-3 w-3 text-green-500 mt-1 flex-shrink-0" />
+                          <span>Entire boat exclusively for your group</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-3 w-3 text-green-500 mt-1 flex-shrink-0" />
+                          <span>Professional captain & crew</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-3 w-3 text-green-500 mt-1 flex-shrink-0" />
+                          <span>Premium sound system</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-3 w-3 text-green-500 mt-1 flex-shrink-0" />
+                          <span>Coolers & ice (BYOB)</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-3 w-3 text-green-500 mt-1 flex-shrink-0" />
+                          <span>Customizable bachelorette itinerary</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Check className="h-3 w-3 text-green-500 mt-1 flex-shrink-0" />
+                          <span>Complete privacy for your celebration</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="bg-brand-blue/10 p-4 rounded-lg">
+                      <div className="text-sm text-center">
+                        <div className="font-bold text-brand-blue">Best For Groups Of:</div>
+                        <div>15+ people who want privacy & complete control</div>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            </div>
+
+            {/* Smart Recommendations */}
+            <motion.div variants={fadeInUp} className="mt-8">
+              <Card className="bg-gradient-to-r from-pink-50 to-brand-yellow/10 border-dashed border-2 border-pink-300">
+                <CardContent className="p-6 text-center">
+                  <h4 className="text-xl font-bold mb-4">💡 Smart Recommendation for Bachelorettes</h4>
+                  <div className="grid md:grid-cols-2 gap-6 text-sm">
+                    <div className="p-4 bg-pink-100 rounded-lg">
+                      <div className="font-bold text-pink-600 mb-2">For Groups of 8-15 People:</div>
+                      <p>Disco cruise saves you $300-800+ vs private cruise, especially on weekends! Plus it's our specialty - we've perfected bachelorette parties for 14+ years!</p>
+                    </div>
+                    <div className="p-4 bg-brand-blue/20 rounded-lg">
+                      <div className="font-bold text-brand-blue mb-2">For Groups of 20+ People:</div>
+                      <p>Private cruise often becomes more cost-effective and gives you complete privacy for special moments.</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+          
           {/* Pricing Policy Information */}
           <div className="mt-8 max-w-4xl mx-auto">
             <PricingPolicyDisplay 
-              context="bachelorette-booking"
+              context="bachelorette"
               className="bg-gray-50 dark:bg-gray-800 rounded-xl p-6 border-l-4 border-l-pink-500"
             />
           </div>
