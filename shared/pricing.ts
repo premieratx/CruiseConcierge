@@ -3,7 +3,7 @@
  * Ensures consistent pricing calculations across client and server
  */
 
-import { HOURLY_RATES, CRUISE_DURATIONS, PRICING_DEFAULTS } from './constants';
+import { HOURLY_RATES, CRUISE_DURATIONS, PRICING_DEFAULTS, PRIVATE_CRUISE_PRICING, DISCO_PRICING } from './constants';
 
 /**
  * Day type enumeration for pricing tiers
@@ -175,7 +175,7 @@ export function calculateDeposit(total: number, eventDate: Date) {
     depositAmount,
     balanceDue,
     remainingBalanceDueAt: finalDueDate,
-    isFullPaymentRequired: depositPercent === 100, // Full payment if 100% deposit required
+    isFullPaymentRequired: false, // Never require full payment upfront
     isUrgentBooking,
     paymentWindow: isUrgentBooking ? 48 : null, // 48 hours to pay for urgent bookings
     daysUntilEvent,
@@ -210,7 +210,6 @@ export function getPricingDayType(date: Date): 'MON_THU' | 'FRIDAY' | 'SATURDAY'
  * @returns Package pricing information
  */
 export function getPackagePricing(capacityTier: CapacityTier, packageType: 'standard' | 'essentials' | 'ultimate', date: Date) {
-  const { PRIVATE_CRUISE_PRICING } = require('./constants');
   const dayType = getPricingDayType(date);
   
   const tierPricing = PRIVATE_CRUISE_PRICING[capacityTier];
@@ -223,7 +222,7 @@ export function getPackagePricing(capacityTier: CapacityTier, packageType: 'stan
     totalPrice: packagePricing.totalPrices[dayType],
     baseHourlyRate: tierPricing.baseHourlyRates[dayType],
     capacity: tierPricing.capacity,
-    crewFeePerHour: tierPricing.crewFeePerHour || 0
+    crewFeePerHour: (tierPricing as any).crewFeePerHour || 0
   };
 }
 
@@ -309,7 +308,6 @@ export function calculateCompletePricing(date: Date, groupSize: number) {
  * @returns Price per person in cents
  */
 export function getDiscoPricing(packageType: 'basic' | 'disco_queen' | 'platinum'): number {
-  const { DISCO_PRICING } = require('./constants');
   return DISCO_PRICING[packageType] || DISCO_PRICING.basic;
 }
 
