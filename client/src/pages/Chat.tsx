@@ -2356,10 +2356,10 @@ export default function Chat() {
                                     <span className="text-sm font-medium text-blue-700 dark:text-blue-300">Private</span>
                                   </div>
                                   <div className="text-lg font-bold text-blue-600">
-                                    ${Math.round(comparisonData.private.totalPrice / 100)}
+                                    ${Math.round(comparisonData?.private?.totalPrice ? comparisonData.private.totalPrice / 100 : 0)}
                                   </div>
                                   <div className="text-xs text-slate-600 dark:text-slate-400">
-                                    ${Math.round(comparisonData.private.pricePerPerson / 100)} per person
+                                    ${Math.round(comparisonData?.private?.pricePerPerson ? comparisonData.private.pricePerPerson / 100 : 0)} per person
                                   </div>
                                 </div>
                                 <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
@@ -2368,10 +2368,10 @@ export default function Chat() {
                                     <span className="text-sm font-medium text-purple-700 dark:text-purple-300">Disco</span>
                                   </div>
                                   <div className="text-lg font-bold text-purple-600">
-                                    ${Math.round(comparisonData.disco.totalPrice / 100)}
+                                    ${Math.round(comparisonData?.disco?.totalPrice ? comparisonData.disco.totalPrice / 100 : 0)}
                                   </div>
                                   <div className="text-xs text-slate-600 dark:text-slate-400">
-                                    ${Math.round(comparisonData.disco.pricePerPerson / 100)} per person
+                                    ${Math.round(comparisonData?.disco?.pricePerPerson ? comparisonData.disco.pricePerPerson / 100 : 0)} per person
                                   </div>
                                 </div>
                               </div>
