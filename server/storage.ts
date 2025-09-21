@@ -1093,8 +1093,9 @@ export class DatabaseStorage implements IStorage {
       // Use INSERT ... ON CONFLICT for idempotent seeding
       for (const product of allProducts) {
         try {
+          // Use primary key (id) for conflict resolution to handle all product types
           await db.insert(products).values(product).onConflictDoUpdate({
-            target: [products.boatId, products.startTime, products.dayType],
+            target: [products.id],
             set: {
               // Update all fields to ensure consistency on conflict
               name: product.name,
@@ -1110,7 +1111,10 @@ export class DatabaseStorage implements IStorage {
               eventTypes: product.eventTypes,
               imageUrl: product.imageUrl,
               taxable: product.taxable,
-              categoryType: product.categoryType
+              categoryType: product.categoryType,
+              boatId: product.boatId,
+              startTime: product.startTime,
+              dayType: product.dayType
             }
           });
         } catch (productError: any) {

@@ -823,9 +823,9 @@ export default function Products() {
                       <CardContent className="space-y-2">
                         <div><strong>Tax:</strong> 8.25% on subtotal</div>
                         <div><strong>Gratuity:</strong> 20% on subtotal</div>
-                        <div><strong>Deposit:</strong> 25% if event >30 days out</div>
+                        <div><strong>Deposit:</strong> 25% if event &gt;30 days out</div>
                         <div><strong>Urgent:</strong> 50% if event ≤30 days out</div>
-                        <div><strong>Extra Crew:</strong> $200 for groups >20 people</div>
+                        <div><strong>Extra Crew:</strong> $200 for groups &gt;20 people</div>
                       </CardContent>
                     </Card>
                     
