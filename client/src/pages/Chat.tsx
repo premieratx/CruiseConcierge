@@ -2350,7 +2350,8 @@ export default function Chat() {
                     </div>
 
                     {/* Intelligent Deal Recommendations */}
-                    {bestDealData && comparisonData && (
+                    {/* ONLY show Best Deal for bachelor/bachelorette events */}
+                    {bestDealData && comparisonData && (formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') && (
                       <div className="mb-6">
                         <Card className="bg-gradient-to-r from-emerald-50 to-blue-50 dark:from-emerald-900/20 dark:to-blue-900/20 border-2 border-emerald-200 dark:border-emerald-800">
                           <CardHeader className="pb-3">
