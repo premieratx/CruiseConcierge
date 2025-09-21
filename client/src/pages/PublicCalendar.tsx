@@ -158,39 +158,57 @@ export default function PublicCalendar() {
     console.log('📅 handleBookNow called with selectedSlot:', selectedSlot);
     if (!selectedSlot) {
       console.log('📅 No slot selected, returning early');
+      toast({
+        title: "No time slot selected",
+        description: "Please select a time slot before proceeding to checkout.",
+        variant: "destructive"
+      });
       return;
     }
+    
+    // For Monday-Thursday, make sure we have the specific time selected
+    const slotDate = selectedSlot.date || selectedSlot.dateISO;
+    const dateStr = slotDate?.split('T')[0] || '';
+    const dayOfWeek = slotDate ? getDay(new Date(slotDate)) : -1;
+    const isMonThu = dayOfWeek >= 1 && dayOfWeek <= 4;
+    
+    // For Monday-Thursday tiles, use the specifically selected time from dropdown
+    const slotToUse = (isMonThu && selectedTimeForDay[dateStr]) 
+      ? selectedTimeForDay[dateStr] 
+      : selectedSlot;
+    
+    console.log('📅 Using slot for checkout:', slotToUse);
     
     // Build checkout URL with all necessary parameters for UniversalCheckout
     const params = new URLSearchParams({
       // Core booking data
-      slotId: selectedSlot.id,
-      eventDate: selectedSlot.date,  // UniversalCheckout expects 'eventDate'
-      date: selectedSlot.date,
-      startTime: selectedSlot.startTime,
-      endTime: selectedSlot.endTime,
+      slotId: slotToUse.id,
+      eventDate: slotToUse.date || slotToUse.dateISO || dateStr,  // UniversalCheckout expects 'eventDate'
+      date: slotToUse.date || slotToUse.dateISO || dateStr,
+      startTime: slotToUse.startTime,
+      endTime: slotToUse.endTime,
       
       // Boat information
-      boatId: selectedSlot.boatId?.toString() || '',
-      boatName: selectedSlot.boatName || '',
-      capacity: selectedSlot.capacity?.toString() || '',
+      boatId: slotToUse.boatId?.toString() || '',
+      boatName: slotToUse.boatName || '',
+      capacity: slotToUse.capacity?.toString() || '',
       
       // Group and pricing
       groupSize: groupSize.toString(),
       eventType: eventType,
-      cruiseType: selectedSlot.cruiseType || 'private',  // Add cruiseType for UniversalCheckout
-      duration: selectedSlot.duration?.toString() || '4',
-      basePrice: selectedSlot.basePrice?.toString() || '0',
-      price: selectedSlot.totalPrice?.toString() || selectedSlot.basePrice?.toString() || '0',
+      cruiseType: slotToUse.cruiseType || 'private',  // Add cruiseType for UniversalCheckout
+      duration: slotToUse.duration?.toString() || '4',
+      basePrice: slotToUse.basePrice?.toString() || slotToUse.totalPrice?.toString() || '0',
+      price: slotToUse.totalPrice?.toString() || slotToUse.basePrice?.toString() || '0',
       
       // Entry point and context
       entryPoint: 'public_calendar',  // Help UniversalCheckout understand the source
       directBooking: 'true',  // Indicate this is a direct booking, not from a quote
       
       // Pre-fill with slot pricing if available
-      ...(selectedSlot.totalPrice && { estimatedTotal: selectedSlot.totalPrice.toString() }),
-      ...(selectedSlot.label && { slotLabel: selectedSlot.label }),
-      ...(selectedSlot.label && { slotDescription: selectedSlot.label }),
+      ...(slotToUse.totalPrice && { estimatedTotal: slotToUse.totalPrice.toString() }),
+      ...(slotToUse.label && { slotLabel: slotToUse.label }),
+      ...(slotToUse.label && { slotDescription: slotToUse.label }),
     });
 
     const checkoutUrl = `/checkout?${params.toString()}`;
@@ -203,7 +221,7 @@ export default function PublicCalendar() {
     setTimeout(() => {
       navigate(checkoutUrl);
     }, 100); // Small delay to ensure modal closes first
-  }, [selectedSlot, groupSize, eventType, navigate]);
+  }, [selectedSlot, selectedTimeForDay, groupSize, eventType, navigate, toast]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900">

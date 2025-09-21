@@ -22,6 +22,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
@@ -479,6 +480,9 @@ export default function Chat() {
   const [eventTypeCollapsed, setEventTypeCollapsed] = useState(false);
   const [showGroupSize, setShowGroupSize] = useState(false);
   const [showComparison, setShowComparison] = useState(false);
+  const [showBookingConfirmation, setShowBookingConfirmation] = useState(false);
+  const [pendingPaymentType, setPendingPaymentType] = useState<'deposit' | 'full' | null>(null);
+  const [pendingCruiseType, setPendingCruiseType] = useState<'private' | 'disco' | null>(null);
   const [formData, setFormData] = useState<BookingData>({
     eventType: '',
     eventTypeLabel: '',
@@ -1524,6 +1528,21 @@ export default function Chat() {
       return;
     }
 
+    console.log('💳 Showing booking confirmation popup...');
+    
+    // Show booking confirmation popup instead of directly navigating
+    setPendingPaymentType(paymentType);
+    setPendingCruiseType(cruiseType);
+    setShowBookingConfirmation(true);
+  }, [formData, privatePricing, discoPricing, pricingLoading, paymentProcessing, formSubmitting, validateBookingData, toast]);
+  
+  // Handle confirmed booking from popup - navigate to checkout
+  const handleConfirmedBooking = useCallback(() => {
+    if (!pendingPaymentType || !pendingCruiseType) return;
+    
+    const paymentType = pendingPaymentType;
+    const cruiseType = pendingCruiseType;
+    
     console.log('💳 Navigating to checkout with booking data...');
 
     // Build checkout URL with all necessary parameters
@@ -1607,9 +1626,12 @@ export default function Chat() {
     const checkoutUrl = `/checkout?${params.toString()}`;
     console.log('💳 Navigating to checkout:', checkoutUrl);
     
-    // Navigate to checkout page
+    // Close popup and navigate to checkout page
+    setShowBookingConfirmation(false);
+    setPendingPaymentType(null);
+    setPendingCruiseType(null);
     navigate(checkoutUrl);
-  }, [formData, privatePricing, discoPricing, pricingLoading, paymentProcessing, formSubmitting, validateBookingData, toast, navigate]);
+  }, [pendingPaymentType, pendingCruiseType, formData, privatePricing, discoPricing, navigate]);
 
   // Contact form submission with loading protection
   const handleContactSubmit = useCallback((e: React.FormEvent) => {
@@ -3314,6 +3336,191 @@ export default function Chat() {
           </AnimatePresence>
         </div>
       </div>
+      
+      {/* Booking Confirmation Dialog */}
+      <Dialog open={showBookingConfirmation} onOpenChange={setShowBookingConfirmation}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-2xl flex items-center gap-2">
+              <CheckCircle className="h-6 w-6 text-green-600" />
+              Confirm Your Booking
+            </DialogTitle>
+            <DialogDescription>
+              Please review your selection before proceeding to checkout
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4 py-4">
+            {/* Event Details */}
+            <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+              <h3 className="font-semibold mb-2 flex items-center gap-2">
+                <CalendarIcon className="h-4 w-4" />
+                Event Details
+              </h3>
+              <div className="grid grid-cols-2 gap-2 text-sm">
+                <div>
+                  <span className="text-gray-600 dark:text-gray-400">Event Type:</span>
+                  <span className="ml-2 font-medium">{formData.eventTypeLabel} {formData.eventEmoji}</span>
+                </div>
+                <div>
+                  <span className="text-gray-600 dark:text-gray-400">Date:</span>
+                  <span className="ml-2 font-medium">{formData.eventDate ? format(formData.eventDate, 'MMM dd, yyyy') : 'Not selected'}</span>
+                </div>
+                <div>
+                  <span className="text-gray-600 dark:text-gray-400">Group Size:</span>
+                  <span className="ml-2 font-medium">{formData.groupSize} people</span>
+                </div>
+              </div>
+            </div>
+            
+            {/* Selected Cruise Details */}
+            {pendingCruiseType === 'private' && formData.selectedSlot && (
+              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                <h3 className="font-semibold mb-2 flex items-center gap-2">
+                  <Ship className="h-4 w-4 text-blue-600" />
+                  Private Cruise Selection
+                </h3>
+                <div className="space-y-2 text-sm">
+                  <div>
+                    <span className="text-gray-600 dark:text-gray-400">Time Slot:</span>
+                    <span className="ml-2 font-medium">{formData.selectedSlot.label}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-600 dark:text-gray-400">Duration:</span>
+                    <span className="ml-2 font-medium">{formData.selectedSlot.duration || 4} hours</span>
+                  </div>
+                  {formData.selectedAddOnPackages.length > 0 && (
+                    <div>
+                      <span className="text-gray-600 dark:text-gray-400">Add-on Packages:</span>
+                      <div className="mt-1">
+                        {formData.selectedAddOnPackages.map((pkgId) => {
+                          const pkg = addOnPackages.find(p => p.id === pkgId);
+                          return pkg ? (
+                            <Badge key={pkgId} className="mr-1" variant="secondary">
+                              {pkg.name}
+                            </Badge>
+                          ) : null;
+                        })}
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+            
+            {pendingCruiseType === 'disco' && formData.selectedSlot && (
+              <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                <h3 className="font-semibold mb-2 flex items-center gap-2">
+                  <Music className="h-4 w-4 text-purple-600" />
+                  ATX Disco Cruise Selection
+                </h3>
+                <div className="space-y-2 text-sm">
+                  <div>
+                    <span className="text-gray-600 dark:text-gray-400">Time Slot:</span>
+                    <span className="ml-2 font-medium">{formData.selectedSlot.label}</span>
+                  </div>
+                  <div>
+                    <span className="text-gray-600 dark:text-gray-400">Package:</span>
+                    <span className="ml-2 font-medium">
+                      {formData.selectedDiscoPackage && discoPackages.find(p => p.id === formData.selectedDiscoPackage)?.name}
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-gray-600 dark:text-gray-400">Tickets:</span>
+                    <span className="ml-2 font-medium">{formData.discoTicketQuantity}</span>
+                  </div>
+                </div>
+              </div>
+            )}
+            
+            {/* Pricing Summary */}
+            <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+              <h3 className="font-semibold mb-2 flex items-center gap-2">
+                <DollarSign className="h-4 w-4 text-green-600" />
+                Pricing Summary
+              </h3>
+              {pendingCruiseType === 'private' && privatePricing && (
+                <div className="space-y-1 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Subtotal:</span>
+                    <span className="font-medium">{formatCurrency(privatePricing.subtotal)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Tax (8.25%):</span>
+                    <span className="font-medium">{formatCurrency(privatePricing.tax)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Gratuity (20%):</span>
+                    <span className="font-medium">{formatCurrency(privatePricing.gratuity)}</span>
+                  </div>
+                  <Separator className="my-2" />
+                  <div className="flex justify-between font-bold">
+                    <span>Total:</span>
+                    <span className="text-lg">{formatCurrency(privatePricing.total)}</span>
+                  </div>
+                  {pendingPaymentType === 'deposit' && privatePricing.depositAmount && (
+                    <div className="flex justify-between text-green-600 dark:text-green-400 pt-2">
+                      <span>Deposit Amount ({privatePricing.depositPercent}%):</span>
+                      <span className="font-bold">{formatCurrency(privatePricing.depositAmount)}</span>
+                    </div>
+                  )}
+                </div>
+              )}
+              
+              {pendingCruiseType === 'disco' && discoPricing && (
+                <div className="space-y-1 text-sm">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Subtotal:</span>
+                    <span className="font-medium">{formatCurrency(discoPricing.subtotal)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Tax (8.25%):</span>
+                    <span className="font-medium">{formatCurrency(discoPricing.tax)}</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600 dark:text-gray-400">Gratuity (20%):</span>
+                    <span className="font-medium">{formatCurrency(discoPricing.gratuity)}</span>
+                  </div>
+                  <Separator className="my-2" />
+                  <div className="flex justify-between font-bold">
+                    <span>Total:</span>
+                    <span className="text-lg">{formatCurrency(discoPricing.total)}</span>
+                  </div>
+                  {pendingPaymentType === 'deposit' && discoPricing.depositAmount && (
+                    <div className="flex justify-between text-green-600 dark:text-green-400 pt-2">
+                      <span>Deposit Amount ({discoPricing.depositPercent}%):</span>
+                      <span className="font-bold">{formatCurrency(discoPricing.depositAmount)}</span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+          </div>
+          
+          <div className="flex gap-2 justify-end">
+            <Button
+              variant="outline"
+              onClick={() => {
+                setShowBookingConfirmation(false);
+                setPendingPaymentType(null);
+                setPendingCruiseType(null);
+              }}
+              data-testid="button-cancel-booking"
+            >
+              <X className="h-4 w-4 mr-2" />
+              Cancel
+            </Button>
+            <Button
+              onClick={handleConfirmedBooking}
+              className="bg-green-600 hover:bg-green-700"
+              data-testid="button-confirm-booking"
+            >
+              <CheckCircle className="h-4 w-4 mr-2" />
+              {pendingPaymentType === 'deposit' ? 'Proceed to Pay Deposit' : 'Proceed to Pay in Full'}
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
