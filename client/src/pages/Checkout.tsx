@@ -321,12 +321,14 @@ export default function Checkout() {
   const token = urlParams.get('token');
   const paymentType = urlParams.get('payment_type');
   
-  // Check if this is a direct booking from calendar
+  // Check if this is a direct booking from calendar or quote builder
   const isDirectBooking = urlParams.get('directBooking') === 'true' || urlParams.get('entryPoint') === 'public_calendar';
+  const isQuoteBuilderFlow = urlParams.get('entryPoint') === 'quote_builder';
   
-  // If it's a direct booking, use UniversalCheckout instead
-  if (isDirectBooking && !quoteId) {
-    return <UniversalCheckout entryPoint="public_calendar" />;
+  // If it's a direct booking or quote builder flow without quote ID, use UniversalCheckout instead
+  if ((isDirectBooking && !quoteId) || (isQuoteBuilderFlow && !quoteId)) {
+    const entryPoint = isQuoteBuilderFlow ? 'quote_builder' : 'public_calendar';
+    return <UniversalCheckout entryPoint={entryPoint} />;
   }
 
   useEffect(() => {
