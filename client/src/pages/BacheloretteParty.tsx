@@ -16,7 +16,7 @@ import {
   Zap, Target, Play,
   MessageSquare, Ticket, Gift, Disc3, Volume2, 
   Mic, Utensils, GlassWater, Gem,
-  Flower, Flower2, CircleDot, Smile, UserCheck
+  Flower, Flower2, CircleDot, Smile, UserCheck, Check
 } from 'lucide-react';
 import { formatCurrency } from '@shared/formatters';
 import { DiscoVsPrivateComparison, QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';

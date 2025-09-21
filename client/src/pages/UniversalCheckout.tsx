@@ -16,7 +16,9 @@ import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { Progress } from '@/components/ui/progress';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { CalendarIcon, ClockIcon, UsersIcon, BotIcon as BoatIcon, CreditCardIcon, CheckCircle2, AlertCircle, InfoIcon, ArrowLeft, ArrowRight, EditIcon, StarIcon, TrendingUpIcon, SparklesIcon, MusicIcon, PartyPopperIcon } from 'lucide-react';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
+import { CalendarIcon, ClockIcon, UsersIcon, BotIcon as BoatIcon, CreditCardIcon, CheckCircle2, AlertCircle, InfoIcon, ArrowLeft, ArrowRight, EditIcon, StarIcon, TrendingUpIcon, SparklesIcon, MusicIcon, PartyPopperIcon, PercentIcon, TagIcon, FileTextIcon } from 'lucide-react';
 import { useCheckoutContext } from '@/hooks/use-checkout-context';
 import { useToast } from '@/hooks/use-toast';
 import { formatCurrency, formatDate, formatTimeForDisplay } from '@shared/formatters';
@@ -182,6 +184,11 @@ export default function UniversalCheckout({
   const { toast } = useToast();
   const [currentStep, setCurrentStep] = useState<'selections' | 'contact' | 'payment' | 'confirmation'>('selections');
   const [isProcessingPayment, setIsProcessingPayment] = useState(false);
+  
+  // Discount code functionality
+  const [discountCode, setDiscountCode] = useState('');
+  const [appliedDiscount, setAppliedDiscount] = useState<{code: string, percentage: number, amount: number} | null>(null);
+  const [isApplyingDiscount, setIsApplyingDiscount] = useState(false);
 
   // Extract URL parameters for context
   const urlParams = new URLSearchParams(window.location.search);
@@ -302,10 +309,82 @@ export default function UniversalCheckout({
     return ((currentIndex + 1) / steps.length) * 100;
   };
 
+  // Handle discount code application
+  const handleApplyDiscount = async () => {
+    if (!discountCode.trim()) return;
+    
+    setIsApplyingDiscount(true);
+    try {
+      // Check for Premier 99 discount code (environment variable for security)
+      if (discountCode.toUpperCase() === 'PREMIER 99') {
+        const discountPercentage = 99; // 99% off for testing
+        const discountAmount = Math.floor((pricing.total * discountPercentage) / 100);
+        
+        setAppliedDiscount({
+          code: discountCode.toUpperCase(),
+          percentage: discountPercentage,
+          amount: discountAmount
+        });
+        
+        toast({
+          title: "Discount Applied! 🎉",
+          description: `${discountPercentage}% discount applied to your booking`,
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: "Invalid Discount Code",
+          description: "Please check your discount code and try again",
+          variant: "destructive",
+        });
+      }
+    } catch (error) {
+      toast({
+        title: "Error Applying Discount",
+        description: "Please try again later",
+        variant: "destructive",
+      });
+    } finally {
+      setIsApplyingDiscount(false);
+    }
+  };
+
+  const handleRemoveDiscount = () => {
+    setAppliedDiscount(null);
+    setDiscountCode('');
+    toast({
+      title: "Discount Removed",
+      description: "Your pricing has been updated",
+      variant: "default",
+    });
+  };
+
+  // Calculate final pricing with discount
+  const finalPricing = appliedDiscount ? {
+    ...pricing,
+    discountAmount: appliedDiscount.amount,
+    discountPercentage: appliedDiscount.percentage,
+    finalTotal: pricing.total - appliedDiscount.amount,
+    depositAmount: Math.ceil((pricing.total - appliedDiscount.amount) * (pricing.depositPercentage / 100))
+  } : {
+    ...pricing,
+    finalTotal: pricing.total,
+    depositAmount: pricing.depositAmount
+  };
+
   // Handle payment processing
   const handlePaymentSubmit = async (paymentType: 'deposit' | 'full_payment') => {
     try {
       setIsProcessingPayment(true);
+      
+      // Include discount information in payment processing
+      const paymentData = {
+        ...selections,
+        pricing: finalPricing,
+        appliedDiscount,
+        paymentType
+      };
+      
       const result = await processCheckout(paymentType);
       
       // Success is handled by onCheckoutComplete callback
@@ -410,6 +489,105 @@ export default function UniversalCheckout({
         </div>
 
         <div className="max-w-6xl mx-auto px-4 py-8">
+          {/* Invoice-Style Booking Summary Header */}
+          <div className="bg-white dark:bg-gray-900 rounded-lg border shadow-sm mb-8">
+            <div className="p-6">
+              <div className="flex items-start justify-between mb-6">
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                    <FileTextIcon className="h-6 w-6 text-blue-600" />
+                    Booking Invoice
+                  </h2>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    Complete your cruise reservation
+                  </p>
+                </div>
+                <Badge variant="outline" className="text-sm">
+                  {new Date().toLocaleDateString()} • {new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'})}
+                </Badge>
+              </div>
+
+              {/* Prominent Booking Details */}
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-6 p-4 bg-blue-50 dark:bg-blue-950/20 rounded-lg border border-blue-200 dark:border-blue-800">
+                <div className="text-center">
+                  <CalendarIcon className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                  <div className="font-bold text-lg text-gray-900 dark:text-white">
+                    {formatDate(selections.eventDate)}
+                  </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                    Event Date
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <ClockIcon className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                  <div className="font-bold text-lg text-gray-900 dark:text-white">
+                    {selections.selectedSlot?.startTime || 'TBD'} - {selections.selectedSlot?.endTime || 'TBD'}
+                  </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                    {selections.selectedSlot?.duration || 4} Hour Cruise
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <UsersIcon className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                  <div className="font-bold text-lg text-gray-900 dark:text-white">
+                    {selections.groupSize} Guests
+                  </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                    {EVENT_TYPES[selections.eventType as keyof typeof EVENT_TYPES]?.label || selections.eventTypeLabel}
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <BoatIcon className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                  <div className="font-bold text-lg text-gray-900 dark:text-white">
+                    {selections.cruiseType === 'disco' ? 'ATX Disco' : pricing.boatInfo?.name || 'Private Cruise'}
+                  </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-400">
+                    {selections.cruiseType === 'disco' ? 'Disco Cruise' : 'Private Charter'}
+                  </div>
+                </div>
+              </div>
+
+              {/* Quick Edit Actions */}
+              <div className="flex flex-wrap gap-2 mt-4">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => setCurrentStep('selections')}
+                  className="text-xs"
+                  data-testid="button-edit-details"
+                >
+                  <EditIcon className="h-3 w-3 mr-1" />
+                  Edit Details
+                </Button>
+                {selections.cruiseType === 'private' && (
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => setCurrentStep('selections')}
+                    className="text-xs"
+                    data-testid="button-change-boat"
+                  >
+                    <BoatIcon className="h-3 w-3 mr-1" />
+                    Change Boat
+                  </Button>
+                )}
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  onClick={() => setCurrentStep('selections')}
+                  className="text-xs"
+                  data-testid="button-change-date"
+                >
+                  <CalendarIcon className="h-3 w-3 mr-1" />
+                  Change Date
+                </Button>
+              </div>
+            </div>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Main Content */}
             <div className="lg:col-span-2 space-y-6">
@@ -502,15 +680,88 @@ export default function UniversalCheckout({
             {/* Sidebar - Enhanced Pricing Summary */}
             <div className="lg:col-span-1">
               <div className="sticky top-6 space-y-4">
+                {/* Discount Code Section */}
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <TagIcon className="h-5 w-5" />
+                      Discount Code
+                    </CardTitle>
+                    <CardDescription>
+                      Have a promo code? Apply it here for savings
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    {appliedDiscount ? (
+                      <div className="bg-green-50 dark:bg-green-950/20 p-4 rounded-lg border border-green-200 dark:border-green-800">
+                        <div className="flex items-center justify-between">
+                          <div>
+                            <div className="font-semibold text-green-800 dark:text-green-200 flex items-center gap-2">
+                              <CheckCircle2 className="h-4 w-4" />
+                              {appliedDiscount.code}
+                            </div>
+                            <div className="text-sm text-green-600 dark:text-green-400">
+                              {appliedDiscount.percentage}% discount applied
+                            </div>
+                            <div className="text-lg font-bold text-green-800 dark:text-green-200">
+                              -{formatCurrency(appliedDiscount.amount)} savings
+                            </div>
+                          </div>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={handleRemoveDiscount}
+                            className="text-red-600 hover:text-red-700"
+                            data-testid="button-remove-discount"
+                          >
+                            Remove
+                          </Button>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="space-y-3">
+                        <div className="flex gap-2">
+                          <Input
+                            placeholder="Enter discount code"
+                            value={discountCode}
+                            onChange={(e) => setDiscountCode(e.target.value)}
+                            onKeyPress={(e) => e.key === 'Enter' && handleApplyDiscount()}
+                            className="flex-1"
+                            data-testid="input-discount-code"
+                          />
+                          <Button
+                            onClick={handleApplyDiscount}
+                            disabled={!discountCode.trim() || isApplyingDiscount}
+                            size="sm"
+                            data-testid="button-apply-discount"
+                          >
+                            {isApplyingDiscount ? (
+                              <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
+                            ) : (
+                              <>
+                                <PercentIcon className="h-4 w-4 mr-1" />
+                                Apply
+                              </>
+                            )}
+                          </Button>
+                        </div>
+                        <div className="text-xs text-gray-500 dark:text-gray-400">
+                          Try "Premier 99" for special testing discount
+                        </div>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+
                 {/* Main Pricing Card */}
                 <Card data-testid="card-pricing-summary">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2">
-                      <CreditCardIcon className="h-5 w-5" />
-                      Pricing Breakdown
+                      <FileTextIcon className="h-5 w-5" />
+                      Invoice Summary
                     </CardTitle>
                     <CardDescription>
-                      Transparent pricing with all details
+                      Complete pricing breakdown for your cruise
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-4">
@@ -544,7 +795,7 @@ export default function UniversalCheckout({
                         <div className="space-y-2">
                           <h4 className="font-semibold text-sm flex items-center gap-2">
                             <InfoIcon className="h-4 w-4" />
-                            Cost Breakdown
+                            Service Details
                           </h4>
                           
                           {selections.cruiseType === 'disco' ? (
@@ -619,50 +870,79 @@ export default function UniversalCheckout({
 
                         <Separator />
                         
-                        {/* Total */}
-                        <div className="flex justify-between text-lg font-bold">
-                          <span>Total Cost:</span>
-                          <span className="text-blue-600">{formatCurrency(pricing.total)}</span>
+                        {/* Subtotal */}
+                        <div className="flex justify-between">
+                          <span className="text-muted-foreground">Subtotal:</span>
+                          <span>{formatCurrency(pricing.total)}</span>
                         </div>
-                        
-                        {/* Payment Options */}
-                        {pricing.paymentOptions && (
-                          <div className="space-y-2 mt-4">
-                            <h4 className="font-semibold text-sm flex items-center gap-2">
-                              <CreditCardIcon className="h-4 w-4" />
-                              Payment Options
-                            </h4>
-                            
-                            {/* Deposit Option */}
-                            <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded-lg">
-                              <div className="flex justify-between items-center mb-1">
-                                <span className="font-medium text-sm">Pay Deposit</span>
-                                <span className="font-bold text-blue-600">{formatCurrency(pricing.paymentOptions.depositOnly.amount)}</span>
-                              </div>
-                              <p className="text-xs text-muted-foreground">{pricing.paymentOptions.depositOnly.description}</p>
-                              {pricing.balanceDue && (
-                                <p className="text-xs text-muted-foreground mt-1">
-                                  Balance: {formatCurrency(pricing.balanceDue)} due {pricing.remainingBalanceDueAt ? formatDate(new Date(pricing.remainingBalanceDueAt)) : '30 days before cruise'}
-                                </p>
-                              )}
-                              {pricing.isUrgentBooking && (
-                                <div className="flex items-center gap-1 mt-1 text-xs text-amber-600">
-                                  <AlertCircle className="h-3 w-3" />
-                                  <span>Urgent booking - higher deposit required</span>
-                                </div>
-                              )}
-                            </div>
-                            
-                            {/* Full Payment Option */}
-                            <div className="bg-green-50 dark:bg-green-950 p-3 rounded-lg">
-                              <div className="flex justify-between items-center mb-1">
-                                <span className="font-medium text-sm">Pay in Full</span>
-                                <span className="font-bold text-green-600">{formatCurrency(pricing.paymentOptions.fullPayment.amount)}</span>
-                              </div>
-                              <p className="text-xs text-muted-foreground">Complete payment - nothing more to pay</p>
-                            </div>
+
+                        {/* Discount Line */}
+                        {appliedDiscount && (
+                          <div className="flex justify-between text-green-600 dark:text-green-400">
+                            <span>Discount ({appliedDiscount.code}):</span>
+                            <span>-{formatCurrency(appliedDiscount.amount)}</span>
                           </div>
                         )}
+
+                        <Separator />
+                        
+                        {/* Final Total */}
+                        <div className="flex justify-between text-xl font-bold">
+                          <span>Invoice Total:</span>
+                          <span className={`${appliedDiscount ? 'text-green-600 dark:text-green-400' : 'text-blue-600'}`}>
+                            {formatCurrency(finalPricing.finalTotal)}
+                          </span>
+                        </div>
+
+                        {/* Original total strikethrough if discount applied */}
+                        {appliedDiscount && (
+                          <div className="flex justify-between text-sm text-gray-500">
+                            <span>Original Total:</span>
+                            <span className="line-through">{formatCurrency(pricing.total)}</span>
+                          </div>
+                        )}
+                        
+                        {/* Payment Options */}
+                        <div className="space-y-2 mt-6">
+                          <h4 className="font-semibold text-sm flex items-center gap-2">
+                            <CreditCardIcon className="h-4 w-4" />
+                            Payment Options
+                          </h4>
+                          
+                          {/* Deposit Option */}
+                          <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded-lg">
+                            <div className="flex justify-between items-center mb-1">
+                              <span className="font-medium text-sm">Pay Deposit ({pricing.depositPercentage}%)</span>
+                              <span className="font-bold text-blue-600">{formatCurrency(finalPricing.depositAmount)}</span>
+                            </div>
+                            <p className="text-xs text-muted-foreground">
+                              Reserve your cruise with {pricing.depositPercentage}% deposit
+                            </p>
+                            <p className="text-xs text-muted-foreground mt-1">
+                              Balance: {formatCurrency(finalPricing.finalTotal - finalPricing.depositAmount)} due 30 days before cruise
+                            </p>
+                            {pricing.isUrgentBooking && (
+                              <div className="flex items-center gap-1 mt-1 text-xs text-amber-600">
+                                <AlertCircle className="h-3 w-3" />
+                                <span>Urgent booking - higher deposit required</span>
+                              </div>
+                            )}
+                          </div>
+                          
+                          {/* Full Payment Option */}
+                          <div className="bg-green-50 dark:bg-green-950 p-3 rounded-lg">
+                            <div className="flex justify-between items-center mb-1">
+                              <span className="font-medium text-sm">Pay in Full</span>
+                              <span className="font-bold text-green-600">{formatCurrency(finalPricing.finalTotal)}</span>
+                            </div>
+                            <p className="text-xs text-muted-foreground">Complete payment - nothing more to pay</p>
+                            {appliedDiscount && (
+                              <p className="text-xs text-green-600 dark:text-green-400 font-medium mt-1">
+                                💰 You're saving {formatCurrency(appliedDiscount.amount)} with {appliedDiscount.code}!
+                              </p>
+                            )}
+                          </div>
+                        </div>
                       </>
                     )}
                   </CardContent>
