@@ -357,3 +357,47 @@ export function calculateDiscoPricing(packageType: 'basic' | 'disco_queen' | 'pl
     }
   };
 }
+
+/**
+ * Filter boats that can accommodate a specific group size
+ */
+export const filterBoatsForGroupSize = (boats: any[], groupSize: number) => {
+  if (!boats || boats.length === 0) return [];
+  
+  // IMPORTANT: Exclude ATX Disco boat - it's only for disco cruises, not private cruises
+  const privateBoats = boats.filter(boat => boat.id !== 'boat_atx_disco' && boat.active);
+  
+  // Apply strict capacity rules for boat selection
+  if (groupSize <= 14) {
+    // 14 or less: Only Day Tripper
+    return privateBoats.filter(boat => 
+      boat.id === 'boat_day_tripper' || boat.name === 'Day Tripper'
+    );
+  } else if (groupSize <= 25) {
+    // 15-25: Me Seeks The Irony
+    return privateBoats.filter(boat => 
+      boat.id === 'boat_me_seeks_the_irony' || boat.name === 'Me Seeks The Irony'
+    );
+  } else if (groupSize <= 50) {
+    // 26-50: Clever Girl
+    return privateBoats.filter(boat => 
+      boat.id === 'boat_clever_girl' || boat.name === 'Clever Girl'
+    );
+  } else if (groupSize <= 75) {
+    // 51-75: Clever Girl with extra crew
+    return privateBoats.filter(boat => 
+      boat.id === 'boat_clever_girl' || boat.name === 'Clever Girl'
+    );
+  } else {
+    // Over 75: No boats available
+    return [];
+  }
+};
+
+/**
+ * Get boat display name from actual boat data
+ */
+export const getBoatDisplayName = (boat: any): string => {
+  if (!boat) return 'Party Boat';
+  return boat.name || `${boat.capacity}-Person Boat`;
+};

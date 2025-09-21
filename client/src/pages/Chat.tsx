@@ -1546,6 +1546,7 @@ export default function Chat() {
         specialRequests: formData.specialRequests,
         selectedSlot: formData.selectedSlot,
         selectedTimeSlot: formData.selectedSlot ? `${formData.selectedSlot.startTime}-${formData.selectedSlot.endTime}` : undefined,
+        timeSlot: formData.selectedSlot ? `${formData.selectedSlot.startTime}-${formData.selectedSlot.endTime}` : undefined,
         slotId: formData.selectedSlot?.id,
         slotLabel: formData.selectedSlot?.label,
         startTime: formData.selectedSlot?.startTime,

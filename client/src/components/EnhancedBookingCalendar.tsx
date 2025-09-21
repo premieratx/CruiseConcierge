@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useLocation } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -20,7 +20,9 @@ import {
 import { format, addWeeks, subWeeks, startOfWeek, endOfWeek, isToday, isSameDay } from 'date-fns';
 import { formatCurrency, formatTimeForDisplay } from '@shared/formatters';
 import type { NormalizedSlot } from '@shared/schema';
-import { isDiscoAvailableForDate } from '@shared/timeSlots';
+import { isDiscoAvailableForDate, getPrivateTimeSlotsForDate } from '@shared/timeSlots';
+import { useAvailabilityForDate, formatDateForAvailability } from '@/hooks/use-availability';
+import { calculatePackagePricing, filterBoatsForGroupSize, getBoatDisplayName } from '@shared/pricing';
 
 interface EnhancedBookingCalendarProps {
   className?: string;
@@ -156,43 +158,115 @@ export function EnhancedBookingCalendar({
   // Get best boat match for current group size
   const bestMatch = getBestBoatMatch(groupSize);
 
-  // Debounced availability fetch
-  const { data: availableSlots = [], isLoading, refetch } = useQuery<NormalizedSlot[]>({
-    queryKey: [
-      selectedEventType === 'private' ? '/api/availability/search' : '/api/disco/availability/public',
-      format(weekStart, 'yyyy-MM-dd'), 
-      format(weekEnd, 'yyyy-MM-dd'), 
-      groupSize,
-      selectedEventType
-    ],
-    queryFn: async () => {
-      if (selectedEventType === 'private') {
-        const params = new URLSearchParams({
-          startDate: format(weekStart, 'yyyy-MM-dd'),
-          endDate: format(weekEnd, 'yyyy-MM-dd'),
-          groupSize: groupSize.toString()
-        });
-        const response = await fetch(`/api/availability/search?${params}`);
-        if (!response.ok) throw new Error("Failed to fetch private availability");
-        const data = await response.json();
-        return data.slots || [];
-      } else {
-        // Bachelor/Bachelorette disco cruises
-        const params = new URLSearchParams({
-          startDate: format(weekStart, 'yyyy-MM-dd'),
-          endDate: format(weekEnd, 'yyyy-MM-dd'),
-          groupSize: groupSize.toString()
-        });
-        const response = await fetch(`/api/disco/availability/public?${params}`);
-        if (!response.ok) throw new Error("Failed to fetch disco availability");
-        const data = await response.json();
-        return data.slots || [];
-      }
-    },
-    enabled: true,
-    staleTime: 1000 * 60 * 2, // 2 minutes
-    refetchInterval: 1000 * 60 * 5, // 5 minutes
+  // Fetch boats data for real boat information - same as quote builder
+  const { data: boats = [] } = useQuery<any[]>({
+    queryKey: ['/api/boats'],
+    staleTime: 1000 * 60 * 10, // 10 minutes
   });
+  
+  // Create boat lookup map for quick access
+  const boatMap = useMemo(() => {
+    return boats.reduce((map, boat) => {
+      map[boat.id] = boat;
+      return map;
+    }, {} as Record<string, any>);
+  }, [boats]);
+
+  // Generate real private slots using the same system as quote builder
+  const generateRealPrivateSlots = useCallback((
+    date: Date, 
+    groupSize: number, 
+    boats: any[], 
+    packageType: 'standard' | 'essentials' | 'ultimate' = 'standard',
+    duration?: 3 | 4
+  ): NormalizedSlot[] => {
+    const dateISO = date.toISOString().split('T')[0];
+    
+    // Filter boats that can accommodate the group size
+    const suitableBoats = filterBoatsForGroupSize(boats, groupSize);
+    if (suitableBoats.length === 0) return [];
+    
+    // Get real pricing based on group size
+    const pricing = calculatePackagePricing(date, groupSize, packageType);
+    if (!pricing) return [];
+    
+    const slots: NormalizedSlot[] = [];
+    
+    // Get time slots for the date
+    const allTimeSlots = getPrivateTimeSlotsForDate(date, duration);
+    
+    // Create slots for each suitable boat and time slot combination
+    suitableBoats.forEach((boat) => {
+      allTimeSlots.forEach((timeSlot) => {
+        // Limit to avoid overwhelming the display
+        if (slots.length >= 12) return;
+        
+        const boatName = getBoatDisplayName(boat);
+        const hourlyDisplay = formatCurrency(pricing.baseHourlyRate).replace('.00', '') + '/hr';
+        const slotLabel = `${boatName} • ${timeSlot.label} • ${hourlyDisplay}`;
+        
+        slots.push({
+          id: `private_${boat.id}_${dateISO}_${timeSlot.startTime}_${timeSlot.endTime}`,
+          dateISO,
+          startTime: timeSlot.startTime,
+          endTime: timeSlot.endTime,
+          duration: timeSlot.duration,
+          label: slotLabel,
+          cruiseType: 'private' as const,
+          capacity: boat.capacity,
+          availableCount: 1,
+          bookable: true,
+          held: false,
+          boatCandidates: [boat.id],
+          boatName: boatName,
+          estimatedPricing: {
+            baseRate: pricing.baseHourlyRate,
+            duration: timeSlot.duration,
+            subtotal: pricing.totalPrice,
+            total: pricing.totalPrice
+          },
+          totalPrice: pricing.totalPrice,
+          basePrice: pricing.basePrice
+        });
+      });
+    });
+    
+    return slots;
+  }, []);
+
+  // Fetch disco availability using useAvailabilityForDate - same as quote builder
+  const { data: availabilityData, isLoading, refetch } = useAvailabilityForDate(
+    format(weekStart, 'yyyy-MM-dd'),
+    effectiveEventType === 'private' ? 'private' : 'disco',
+    groupSize,
+    {
+      enabled: true,
+      staleTime: 1000 * 60 * 2, // 2 minutes
+      refetchInterval: 1000 * 60 * 5, // 5 minutes
+    }
+  );
+
+  // Process slots to match the quote builder's approach - REAL BOAT PRODUCTS
+  const availableSlots = useMemo(() => {
+    const rawSlots = availabilityData?.slots || [];
+    
+    if (effectiveEventType === 'private') {
+      // Generate structured private slots for the entire week using REAL BOAT PRODUCTS
+      const weekSlots: NormalizedSlot[] = [];
+      const currentDate = new Date(weekStart);
+      
+      while (currentDate <= weekEnd) {
+        const daySlots = generateRealPrivateSlots(currentDate, groupSize, boats);
+        weekSlots.push(...daySlots);
+        currentDate.setDate(currentDate.getDate() + 1);
+      }
+      
+      return weekSlots;
+    } else {
+      // For disco cruises, use the raw API data but filter properly
+      return rawSlots.filter(slot => slot.cruiseType === 'disco');
+    }
+  }, [availabilityData, boats, groupSize, weekStart, weekEnd, effectiveEventType, generateRealPrivateSlots]);
 
   // Handle group size changes with "last selection wins" logic
   const handleSliderChange = useCallback((value: number[]) => {
