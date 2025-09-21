@@ -57,8 +57,8 @@ import {
   getDiscoPricing 
 } from '@shared/pricing';
 
-// Convert BASE_HOURLY_RATE from cents to dollars for display
-const BASE_PRIVATE_HOURLY_RATE = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100;
+// BASE_HOURLY_RATE is already in cents, keep it for calculations
+const BASE_PRIVATE_HOURLY_RATE_CENTS = PRICING_DEFAULTS.BASE_HOURLY_RATE;
 
 type ChatFlowStep = 
   | 'intro' // Intro + Calendar combined
@@ -339,7 +339,8 @@ const generateRealPrivateSlots = (
   const formatSlotWithHourly = (boatName: string, time: string, hourlyRate: number) => {
     // Use the actual hourly rate from pricing calculation
     const actualHourlyRate = pricing?.baseHourlyRate || hourlyRate;
-    const hourlyDisplay = `$${Math.round(actualHourlyRate / 100)}/hr`;
+    // Fix: Format the hourly rate properly with commas and no decimals
+    const hourlyDisplay = formatCurrency(actualHourlyRate).replace('.00', '') + '/hr';
     return `${boatName} • ${time} • ${hourlyDisplay}`;
   };
   
@@ -379,10 +380,10 @@ const generateRealPrivateSlots = (
         boatCandidates: [boat.id],
         boatName: boatName,
         estimatedPricing: {
-          baseRate: pricing.baseHourlyRate / 100, // Convert to dollars for display
+          baseRate: pricing.baseHourlyRate, // Keep in cents for consistency
           duration: pricing.duration,
-          subtotal: pricing.totalPrice / 100, // Convert to dollars
-          total: pricing.totalPrice / 100 // Already includes tax/gratuity in new system
+          subtotal: pricing.totalPrice, // Keep in cents
+          total: pricing.totalPrice // Already includes tax/gratuity in new system
         }
       });
     });
@@ -410,10 +411,10 @@ const generateRealPrivateSlots = (
       boatCandidates: [boat.id],
       boatName: boatName,
       estimatedPricing: {
-        baseRate: pricing.baseHourlyRate / 100,
+        baseRate: pricing.baseHourlyRate,
         duration: pricing.duration,
-        subtotal: pricing.totalPrice / 100,
-        total: pricing.totalPrice / 100
+        subtotal: pricing.totalPrice,
+        total: pricing.totalPrice
       }
     });
   }
@@ -1002,7 +1003,7 @@ export default function Chat() {
       Math.round(sharedPricing.totalPrice * 0.20 / 1.2825)) / 1.2825);
     const tax = Math.round(subtotal * 0.0825);
     const gratuity = Math.round(subtotal * 0.20);
-    const total = sharedPricing.totalPrice / 100; // Convert from cents to dollars
+    const total = sharedPricing.totalPrice; // Keep in cents for consistency
     
     // Use deposit calculation from shared pricing
     const depositPercent = sharedPricing.depositPercent;
@@ -2370,10 +2371,10 @@ export default function Chat() {
                                     <span className="text-sm font-medium text-blue-700 dark:text-blue-300">Private</span>
                                   </div>
                                   <div className="text-lg font-bold text-blue-600">
-                                    ${Math.round(comparisonData?.private?.totalPrice ? comparisonData.private.totalPrice / 100 : 0)}
+                                    {comparisonData?.private?.totalPrice ? formatCurrency(comparisonData.private.totalPrice).replace('.00', '') : '$0'}
                                   </div>
                                   <div className="text-xs text-slate-600 dark:text-slate-400">
-                                    ${Math.round(comparisonData?.private?.pricePerPerson ? comparisonData.private.pricePerPerson / 100 : 0)} per person
+                                    {comparisonData?.private?.pricePerPerson ? formatCurrency(comparisonData.private.pricePerPerson).replace('.00', '') : '$0'} per person
                                   </div>
                                 </div>
                                 <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
@@ -2382,10 +2383,10 @@ export default function Chat() {
                                     <span className="text-sm font-medium text-purple-700 dark:text-purple-300">Disco</span>
                                   </div>
                                   <div className="text-lg font-bold text-purple-600">
-                                    ${Math.round(comparisonData?.disco?.totalPrice ? comparisonData.disco.totalPrice / 100 : 0)}
+                                    {comparisonData?.disco?.totalPrice ? formatCurrency(comparisonData.disco.totalPrice).replace('.00', '') : '$0'}
                                   </div>
                                   <div className="text-xs text-slate-600 dark:text-slate-400">
-                                    ${Math.round(comparisonData?.disco?.pricePerPerson ? comparisonData.disco.pricePerPerson / 100 : 0)} per person
+                                    {comparisonData?.disco?.pricePerPerson ? formatCurrency(comparisonData.disco.pricePerPerson).replace('.00', '') : '$0'} per person
                                   </div>
                                 </div>
                               </div>
@@ -2403,179 +2404,157 @@ export default function Chat() {
                     )}
 
                     <div className="grid md:grid-cols-2 gap-6">
-                      {/* Private Cruise Option */}
+                      {/* Private Charter Option - Simplified */}
                       <Card className={cn(
-                        "bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm cursor-pointer transition-all",
-                        formData.selectedCruiseType === 'private' && "ring-2 ring-blue-600",
-                        bestDealData?.recommendedOption === 'private' && "ring-2 ring-emerald-400 shadow-lg"
+                        "bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm transition-all",
+                        formData.selectedCruiseType === 'private' && "ring-2 ring-blue-600"
                       )}>
                         <CardHeader>
-                          <div className="flex items-center justify-between">
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                                <Ship className="h-6 w-6 text-blue-600" />
-                              </div>
-                              <div>
-                                {formData.selectedSlot ? (
-                                  <>
-                                    <CardTitle>Private Cruise - {getBoatDetails(formData.selectedSlot).name}</CardTitle>
-                                    {/* Large, prominent date display */}
-                                    <div className="text-2xl font-bold text-blue-600 mt-2 mb-1">
-                                      {format(formData.eventDate!, 'EEEE, MMMM d')}
-                                    </div>
-                                    <CardDescription>
-                                      {formData.selectedSlot.label} • Fits {getBoatDetails(formData.selectedSlot).capacity} people
-                                    </CardDescription>
-                                  </>
-                                ) : (
-                                  <>
-                                    <CardTitle>Private Cruise</CardTitle>
-                                    {/* Large, prominent date display */}
-                                    <div className="text-2xl font-bold text-blue-600 mt-2 mb-1">
-                                      {format(formData.eventDate!, 'EEEE, MMMM d')}
-                                    </div>
-                                    <CardDescription>Exclusive boat for your group • Fits {getCapacityTier(formData.groupSize)} people • {getCruiseDuration(formData.eventDate)}-hour minimum</CardDescription>
-                                  </>
-                                )}
+                          <div className="flex items-center gap-3">
+                            <div className="w-10 h-10 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                              <Ship className="h-5 w-5 text-blue-600" />
+                            </div>
+                            <div className="flex-1">
+                              <CardTitle className="text-lg">Private Charter</CardTitle>
+                              {/* Fixed date display */}
+                              <div className="text-xl font-bold text-blue-600 mt-1">
+                                {formData.eventDate ? format(formData.eventDate, 'EEEE, MMMM d') : 'Select a date'}
                               </div>
                             </div>
                             {bestDealData?.recommendedOption === 'private' && (
-                              <Badge className="bg-emerald-100 text-emerald-800 border-emerald-300 shrink-0">
-                                ⭐ Recommended
+                              <Badge className="bg-emerald-100 text-emerald-800 border-emerald-300">
+                                ⭐ Best Value
                               </Badge>
                             )}
                           </div>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          {/* Step 1: Time Slot Selection */}
-                          <div className="space-y-3">
-                            <Label className="flex items-center gap-2">
-                              <Clock className="h-4 w-4" />
-                              Select Time Slot
-                            </Label>
-                            <TimeSlotList
-                              slots={privateSlots}
-                              onSlotSelect={handlePrivateCruiseSelect}
-                              selectedSlotId={formData.selectedSlot?.id}
-                              showDate={false}
-                              variant="compact"
-                              groupSize={formData.groupSize}
-                              data-testid="private-timeslot-list"
-                            />
+                          {/* Simple Time Slot Selection with Radio Buttons */}
+                          <div className="space-y-2">
+                            <Label className="text-sm font-medium">Select Time Slot</Label>
+                            <RadioGroup
+                              value={formData.selectedSlot?.id || ''}
+                              onValueChange={(slotId) => {
+                                const slot = privateSlots.find(s => s.id === slotId);
+                                if (slot) {
+                                  handlePrivateCruiseSelect(slot);
+                                }
+                              }}
+                              className="space-y-2"
+                            >
+                              {privateSlots.length > 0 ? privateSlots.slice(0, 6).map((slot, index) => {
+                                const isPopular = index === 1 || index === 2; // Mark 2nd and 3rd slots as popular
+                                return (
+                                  <div key={slot.id} className={cn(
+                                    "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
+                                    formData.selectedSlot?.id === slot.id 
+                                      ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" 
+                                      : "border-slate-200 dark:border-slate-700 hover:border-blue-300"
+                                  )}>
+                                    <RadioGroupItem value={slot.id} id={`private-${slot.id}`} />
+                                    <Label htmlFor={`private-${slot.id}`} className="flex-1 cursor-pointer ml-3">
+                                      <div className="flex items-center justify-between">
+                                        <div>
+                                          <div className="font-medium flex items-center gap-2">
+                                            {slot.label}
+                                            {isPopular && (
+                                              <Badge variant="secondary" className="text-xs">
+                                                Popular
+                                              </Badge>
+                                            )}
+                                          </div>
+                                        </div>
+                                        <div className="text-sm font-bold text-blue-600">
+                                          {slot.pricing?.total ? formatCurrency(slot.pricing.total).replace('.00', '') : ''}
+                                        </div>
+                                      </div>
+                                    </Label>
+                                  </div>
+                                );
+                              }) : (
+                                <div className="p-6 text-center text-slate-600 dark:text-slate-400">
+                                  <Ship className="h-12 w-12 mx-auto mb-4 opacity-30" />
+                                  <p className="text-sm">No private cruises available for this date</p>
+                                </div>
+                              )}
+                            </RadioGroup>
                           </div>
 
-                          {/* Step 2: Package Selection - Only show if time slot selected */}
+                          {/* Optional Add-On Packages Section */}
                           {formData.selectedSlot && (
-                            <div className="space-y-3 border-t pt-4">
-                              <Label className="flex items-center gap-2">
-                                <Crown className="h-4 w-4" />
-                                Choose Your Package
-                              </Label>
-                              <div className="space-y-3">
+                            <div className="space-y-2 border-t pt-4">
+                              <Label className="text-sm font-medium">Optional Add-On Packages</Label>
+                              <RadioGroup
+                                value={selectedPrivatePackage}
+                                onValueChange={setSelectedPrivatePackage}
+                                className="space-y-2"
+                              >
                                 {/* Standard Package */}
                                 <div className={cn(
-                                  "p-3 border-2 rounded-lg cursor-pointer transition-all",
+                                  "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
                                   selectedPrivatePackage === 'standard' 
                                     ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" 
                                     : "border-slate-200 dark:border-slate-700 hover:border-blue-300"
                                 )}>
-                                  <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                      <input
-                                        type="radio"
-                                        name="private-package"
-                                        value="standard"
-                                        checked={selectedPrivatePackage === 'standard'}
-                                        onChange={() => setSelectedPrivatePackage('standard')}
-                                        className="text-blue-600"
-                                      />
+                                  <RadioGroupItem value="standard" id="private-standard" />
+                                  <Label htmlFor="private-standard" className="flex-1 cursor-pointer ml-3">
+                                    <div className="flex items-center justify-between">
                                       <div>
-                                        <div className="font-semibold">Standard Package</div>
-                                        <div className="text-sm text-slate-600 dark:text-slate-400">
-                                          Classic private cruise experience
-                                        </div>
+                                        <div className="font-medium">Standard Package</div>
+                                        <div className="text-xs text-slate-600 dark:text-slate-400">Classic cruise experience</div>
+                                      </div>
+                                      <div className="text-sm font-bold text-blue-600">
+                                        {standardPackagePricing ? formatCurrency(standardPackagePricing.totalPrice).replace('.00', '') : '$0'}
                                       </div>
                                     </div>
-                                    <div className="text-right">
-                                      <div className="font-bold text-blue-600">
-                                        {standardPackagePricing ? `$${Math.round(standardPackagePricing.totalPrice / 100)}` : 'Loading...'}
-                                      </div>
-                                      <div className="text-xs text-slate-600 dark:text-slate-400">total</div>
-                                    </div>
-                                  </div>
+                                  </Label>
                                 </div>
 
                                 {/* Essentials Package */}
                                 <div className={cn(
-                                  "p-3 border-2 rounded-lg cursor-pointer transition-all",
+                                  "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
                                   selectedPrivatePackage === 'essentials' 
                                     ? "border-green-500 bg-green-50 dark:bg-green-900/20" 
                                     : "border-slate-200 dark:border-slate-700 hover:border-green-300"
                                 )}>
-                                  <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                      <input
-                                        type="radio"
-                                        name="private-package"
-                                        value="essentials"
-                                        checked={selectedPrivatePackage === 'essentials'}
-                                        onChange={() => setSelectedPrivatePackage('essentials')}
-                                        className="text-green-600"
-                                      />
+                                  <RadioGroupItem value="essentials" id="private-essentials" />
+                                  <Label htmlFor="private-essentials" className="flex-1 cursor-pointer ml-3">
+                                    <div className="flex items-center justify-between">
                                       <div>
-                                        <div className="font-semibold">Essentials Package</div>
-                                        <div className="text-sm text-slate-600 dark:text-slate-400">
-                                          Enhanced experience with premium amenities
-                                        </div>
+                                        <div className="font-medium">Essentials Package</div>
+                                        <div className="text-xs text-slate-600 dark:text-slate-400">Premium amenities included</div>
+                                      </div>
+                                      <div className="text-sm font-bold text-green-600">
+                                        +{formatCurrency(5000)}/hr
                                       </div>
                                     </div>
-                                    <div className="text-right">
-                                      <div className="font-bold text-green-600">
-                                        {essentialsPackagePricing ? `$${Math.round(essentialsPackagePricing.totalPrice / 100)}` : 'Loading...'}
-                                      </div>
-                                      <div className="text-xs text-slate-600 dark:text-slate-400">total</div>
-                                    </div>
-                                  </div>
+                                  </Label>
                                 </div>
 
                                 {/* Ultimate Package */}
                                 <div className={cn(
-                                  "p-3 border-2 rounded-lg cursor-pointer transition-all",
+                                  "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
                                   selectedPrivatePackage === 'ultimate' 
                                     ? "border-purple-500 bg-purple-50 dark:bg-purple-900/20" 
                                     : "border-slate-200 dark:border-slate-700 hover:border-purple-300"
                                 )}>
-                                  <div className="flex items-center justify-between">
-                                    <div className="flex items-center gap-3">
-                                      <input
-                                        type="radio"
-                                        name="private-package"
-                                        value="ultimate"
-                                        checked={selectedPrivatePackage === 'ultimate'}
-                                        onChange={() => setSelectedPrivatePackage('ultimate')}
-                                        className="text-purple-600"
-                                      />
+                                  <RadioGroupItem value="ultimate" id="private-ultimate" />
+                                  <Label htmlFor="private-ultimate" className="flex-1 cursor-pointer ml-3">
+                                    <div className="flex items-center justify-between">
                                       <div>
-                                        <div className="font-semibold flex items-center gap-2">
-                                          Ultimate Package
-                                          <Badge className="bg-purple-100 text-purple-800 border-purple-300 text-xs">
-                                            Most Popular
-                                          </Badge>
+                                        <div className="font-medium flex items-center gap-2">
+                                          Ultimate Party Package
+                                          <Badge variant="secondary" className="text-xs">Popular</Badge>
                                         </div>
-                                        <div className="text-sm text-slate-600 dark:text-slate-400">
-                                          All-inclusive luxury experience
-                                        </div>
+                                        <div className="text-xs text-slate-600 dark:text-slate-400">All-inclusive luxury</div>
+                                      </div>
+                                      <div className="text-sm font-bold text-purple-600">
+                                        +{formatCurrency(12500)}/hr
                                       </div>
                                     </div>
-                                    <div className="text-right">
-                                      <div className="font-bold text-purple-600">
-                                        {ultimatePackagePricing ? `$${Math.round(ultimatePackagePricing.totalPrice / 100)}` : 'Loading...'}
-                                      </div>
-                                      <div className="text-xs text-slate-600 dark:text-slate-400">total</div>
-                                    </div>
-                                  </div>
+                                  </Label>
                                 </div>
-                              </div>
+                              </RadioGroup>
                             </div>
                           )}
 
@@ -2606,42 +2585,42 @@ export default function Chat() {
                                 </div>
                                 <div className="flex items-center justify-between mb-2">
                                   <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Base Rate:</span>
-                                  <span className="font-bold text-blue-600">${BASE_PRIVATE_HOURLY_RATE}/hour</span>
+                                  <span className="font-bold text-blue-600">{formatCurrency(BASE_PRIVATE_HOURLY_RATE_CENTS)}/hour</span>
                                 </div>
                                 {formData.selectedAddOnPackages.length > 0 && (
                                   <div className="flex items-center justify-between mb-2">
                                     <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Add-ons:</span>
-                                    <span className="font-bold text-green-600">+${formData.selectedAddOnPackages.reduce((sum, addOnId) => {
+                                    <span className="font-bold text-green-600">+{formatCurrency(formData.selectedAddOnPackages.reduce((sum, addOnId) => {
                                       const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
-                                      return sum + (addOn?.hourlyRate || 0);
-                                    }, 0)}/hour</span>
+                                      return sum + (addOn?.hourlyRate || 0) * 100; // Convert to cents
+                                    }, 0))}/hour</span>
                                   </div>
                                 )}
                                 <div className="flex items-center justify-between mb-2">
                                   <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Total Rate:</span>
-                                  <span className="font-bold text-purple-600">${BASE_PRIVATE_HOURLY_RATE + formData.selectedAddOnPackages.reduce((sum, addOnId) => {
+                                  <span className="font-bold text-purple-600">{formatCurrency(BASE_PRIVATE_HOURLY_RATE_CENTS + formData.selectedAddOnPackages.reduce((sum, addOnId) => {
                                     const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
-                                    return sum + (addOn?.hourlyRate || 0);
-                                  }, 0)}/hour</span>
+                                    return sum + (addOn?.hourlyRate || 0) * 100; // Convert to cents
+                                  }, 0))}/hour</span>
                                 </div>
                                 <div className="flex items-center justify-between border-t pt-2">
                                   <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Total Cost:</span>
                                   <span className="font-bold text-blue-600">
                                     {(() => {
-                                      const totalHourlyRate = BASE_PRIVATE_HOURLY_RATE + formData.selectedAddOnPackages.reduce((sum, addOnId) => {
+                                      const totalHourlyRateCents = BASE_PRIVATE_HOURLY_RATE_CENTS + formData.selectedAddOnPackages.reduce((sum, addOnId) => {
                                         const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
-                                        return sum + (addOn?.hourlyRate || 0);
+                                        return sum + (addOn?.hourlyRate || 0) * 100; // Convert to cents
                                       }, 0);
                                       const duration = getCruiseDuration(formData.eventDate);
-                                      const totalCostCents = totalHourlyRate * duration * 100;
-                                      return `$${totalHourlyRate} × ${duration} hours = ${formatCurrency(totalCostCents)}`;
+                                      const totalCostCents = totalHourlyRateCents * duration;
+                                      return `${formatCurrency(totalHourlyRateCents)} × ${duration} hours = ${formatCurrency(totalCostCents)}`;
                                     })()}
                                   </span>
                                 </div>
                                 {privatePricing?.breakdown?.crewFee && privatePricing.breakdown.crewFee > 0 && (
                                   <div className="flex items-center justify-between mt-1">
                                     <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Extra Crew Fee:</span>
-                                    <span className="font-medium text-slate-600">+${privatePricing.breakdown.crewFee}</span>
+                                    <span className="font-medium text-slate-600">+{formatCurrency(privatePricing.breakdown.crewFee)}</span>
                                   </div>
                                 )}
                               </div>
@@ -2742,43 +2721,34 @@ export default function Chat() {
 
                       {/* CONDITIONAL RIGHT COLUMN: Always show disco column for bachelor/bachelorette, Alternative dates for others */}
                       {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') ? (
-                        /* DISCO CRUISE OPTION - Only for bachelor/bachelorette events */
+                        /* ATX Disco Cruise Option - Simplified */
                         <Card className={cn(
-                          "bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 backdrop-blur-sm cursor-pointer transition-all",
-                          formData.selectedCruiseType === 'disco' && "ring-2 ring-purple-600",
-                          bestDealData?.recommendedOption === 'disco' && "ring-2 ring-emerald-400 shadow-lg"
+                          "bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 backdrop-blur-sm transition-all",
+                          formData.selectedCruiseType === 'disco' && "ring-2 ring-purple-600"
                         )}>
                           <CardHeader>
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center gap-3">
-                                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                                  <Music className="h-6 w-6 text-purple-600" />
-                                </div>
-                                <div>
-                                  <CardTitle>ATX Disco Cruise</CardTitle>
-                                  {/* Large, prominent date display */}
-                                  <div className="text-2xl font-bold text-purple-600 mt-2 mb-1">
-                                    {format(formData.eventDate!, 'EEEE, MMMM d')}
-                                  </div>
-                                  <CardDescription>
-                                    4-hour party cruise • Join the party!
-                                  </CardDescription>
+                            <div className="flex items-center gap-3">
+                              <div className="w-10 h-10 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                                <Music className="h-5 w-5 text-purple-600" />
+                              </div>
+                              <div className="flex-1">
+                                <CardTitle className="text-lg">ATX Disco Cruise</CardTitle>
+                                {/* Fixed date display */}
+                                <div className="text-xl font-bold text-purple-600 mt-1">
+                                  {formData.eventDate ? format(formData.eventDate, 'EEEE, MMMM d') : 'Select a date'}
                                 </div>
                               </div>
                               {bestDealData?.recommendedOption === 'disco' && (
-                                <Badge className="bg-emerald-100 text-emerald-800 border-emerald-300 shrink-0">
-                                  ⭐ Recommended
+                                <Badge className="bg-emerald-100 text-emerald-800 border-emerald-300">
+                                  ⭐ Best Deal
                                 </Badge>
                               )}
                             </div>
                           </CardHeader>
                           <CardContent className="space-y-4">
-                            {/* Step 1: Time Slot Selection */}
-                            <div className="space-y-3">
-                              <Label className="flex items-center gap-2">
-                                <Clock className="h-4 w-4" />
-                                Select Time Slot
-                              </Label>
+                            {/* Simple Time Slot Selection with Radio Buttons */}
+                            <div className="space-y-2">
+                              <Label className="text-sm font-medium">Select Time Slot</Label>
                               <RadioGroup
                                 value={formData.selectedSlot?.id || ''}
                                 onValueChange={(slotId) => {
@@ -2791,52 +2761,51 @@ export default function Chat() {
                                     }));
                                   }
                                 }}
+                                className="space-y-2"
                               >
-                                {discoSlots.length > 0 ? discoSlots.map((slot) => {
+                                {discoSlots.length > 0 ? discoSlots.map((slot, index) => {
                                   // Calculate disco total price for display
                                   const discoTotal = formData.selectedDiscoPackage ? 
                                     calculateDiscoPrice(formData.groupSize, formData.selectedDiscoPackage) : 
                                     calculateDiscoPrice(formData.groupSize, 'basic');
                                   const discoPriceWithTax = Math.round(discoTotal * 1.0825); // Add 8.25% tax
-                                  const discoPriceLabel = `$${Math.round(discoPriceWithTax / 100).toLocaleString()} total for ${formData.groupSize} people`;
+                                  const isPopular = index === 0; // Mark first slot as popular
                                   
                                   return (
-                                    <Card key={slot.id} className={cn(
-                                      "transition-all cursor-pointer border-2",
+                                    <div key={slot.id} className={cn(
+                                      "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
                                       formData.selectedSlot?.id === slot.id 
-                                        ? "ring-2 ring-purple-600 bg-purple-50 dark:bg-purple-900/20" 
+                                        ? "border-purple-500 bg-purple-50 dark:bg-purple-900/20" 
                                         : "border-slate-200 dark:border-slate-700 hover:border-purple-300"
                                     )}>
-                                      <CardContent className="p-3">
-                                        <div className="flex items-center space-x-3">
-                                          <RadioGroupItem value={slot.id} id={`disco-slot-${slot.id}`} />
-                                          <Label htmlFor={`disco-slot-${slot.id}`} className="flex-1 cursor-pointer">
-                                            <div className="flex justify-between items-center">
-                                              <div className="space-y-1">
-                                                <div className="font-bold text-purple-600">{slot.label}</div>
-                                                <div className="text-sm text-slate-600 dark:text-slate-400">4-hour disco cruise</div>
-                                                <div className="text-sm font-semibold text-purple-700 dark:text-purple-300">
-                                                  {discoPriceLabel}
-                                                </div>
-                                                <Badge variant="outline" className="text-xs">
-                                                  <Users className="h-3 w-3 mr-1" />
-                                                  Up to {slot.capacity || 100} people
+                                      <RadioGroupItem value={slot.id} id={`disco-${slot.id}`} />
+                                      <Label htmlFor={`disco-${slot.id}`} className="flex-1 cursor-pointer ml-3">
+                                        <div className="flex items-center justify-between">
+                                          <div>
+                                            <div className="font-medium flex items-center gap-2">
+                                              {slot.label}
+                                              {isPopular && (
+                                                <Badge variant="secondary" className="text-xs">
+                                                  Popular
                                                 </Badge>
-                                              </div>
-                                              <div className="text-right">
-                                                <div className="text-sm font-medium text-purple-600">Available</div>
-                                              </div>
+                                              )}
                                             </div>
-                                          </Label>
+                                            <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">
+                                              4-hour party cruise • Up to {slot.capacity || 100} guests
+                                            </div>
+                                          </div>
+                                          <div className="text-sm font-bold text-purple-600">
+                                            ${Math.round(discoPriceWithTax / 100).toLocaleString()}
+                                          </div>
                                         </div>
-                                      </CardContent>
-                                    </Card>
+                                      </Label>
+                                    </div>
                                   );
                                 }) : (
                                   <div className="p-6 text-center text-slate-600 dark:text-slate-400">
                                     <Music className="h-12 w-12 mx-auto mb-4 opacity-30" />
-                                    <p className="text-sm font-medium">No Disco Cruises Available</p>
-                                    <p className="text-xs mt-1">Disco cruises are only available on Fridays and Saturdays</p>
+                                    <p className="text-sm">No Disco Cruises available for this date</p>
+                                    <p className="text-xs mt-1">Available on Fridays and Saturdays only</p>
                                   </div>
                                 )}
                               </RadioGroup>
