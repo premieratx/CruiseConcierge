@@ -401,7 +401,7 @@ const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 's
     });
   } else { // Monday-Thursday
     // Show weekday options with real pricing
-    const slot1Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 0), '12:00 PM - 4:00 PM', pricing.totalPrice);
+    const slot1Label = formatSlotWithHourly(getBoatNameForCapacity(capacity, 0), '12:00 PM - 4:00 PM', pricing.baseHourlyRate);
     slots.push({
       id: `private_meeseeks_${dateISO}_12:00_16:00`,
       dateISO,
@@ -423,7 +423,7 @@ const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 's
       }
     });
     
-    const slot2Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 1), '4:30 PM - 8:30 PM', pricing.totalPrice);
+    const slot2Label = formatSlotWithHourly(getBoatNameForCapacity(capacity, 1), '4:30 PM - 8:30 PM', pricing.baseHourlyRate);
     slots.push({
       id: `private_irony_${dateISO}_16:30_20:30`,
       dateISO,
@@ -2908,7 +2908,7 @@ export default function Chat() {
                                                 <div className="font-bold">{pkg.name}</div>
                                                 <div className="text-xs text-slate-600 dark:text-slate-400">{pkg.description}</div>
                                                 <div className="flex flex-wrap gap-1 mt-1">
-                                                  {pkg.features.slice(0, 2).map((feature) => (
+                                                  {(pkg.features || []).slice(0, 2).map((feature) => (
                                                     <Badge key={feature} variant="outline" className="text-xs">{feature}</Badge>
                                                   ))}
                                                 </div>
