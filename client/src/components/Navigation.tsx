@@ -41,7 +41,7 @@ const mainNavItems = [
   },
   {
     title: 'Calendar',
-    href: '/calendar',
+    href: '/admin/calendar',
     icon: Calendar,
     description: 'Bookings and availability',
   },

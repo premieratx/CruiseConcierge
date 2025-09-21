@@ -102,6 +102,9 @@ function Router() {
       <Route path="/contact" component={Contact} />
       <Route path="/testimonials-faq" component={TestimonialsFaq} />
       
+      {/* Public Booking */}
+      <Route path="/calendar" component={PublicCalendar} />
+      
       {/* Admin Dashboard Routes */}
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/chat" component={Chat} />
@@ -109,7 +112,7 @@ function Router() {
       <Route path="/customers/:id" component={CustomerProfile} />
       <Route path="/partial-leads" component={PartialLeads} />
       <Route path="/projects" component={Projects} />
-      <Route path="/calendar" component={CalendarView} />
+      <Route path="/admin/calendar" component={CalendarView} />
       <Route path="/quotes" component={QuotesManagement} />
       <Route path="/quotes/new" component={QuoteBuilder} />
       <Route path="/quotes/:id" component={QuoteBuilder} />

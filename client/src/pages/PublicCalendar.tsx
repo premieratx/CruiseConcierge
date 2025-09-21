@@ -1,17 +1,40 @@
-import { useState } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
+import { Badge } from "@/components/ui/badge";
+import { Slider } from "@/components/ui/slider";
 import { motion } from "framer-motion";
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 import { 
-  Users, Ship, ChevronLeft, ChevronRight, Phone, Mail, MapPin
+  Users, Ship, ChevronLeft, ChevronRight, Phone, Mail, MapPin, Clock, DollarSign, Star
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { format, addWeeks, subWeeks, isToday, startOfWeek, endOfWeek } from "date-fns";
 import type { NormalizedSlot } from "@shared/schema";
 import { formatCurrency, formatTimeForDisplay } from '@shared/formatters';
+import { useToast } from "@/hooks/use-toast";
+
+// Simple boat matching utility
+interface BoatMatch {
+  name: string;
+  minCapacity: number;
+  maxCapacity: number;
+}
+
+const BOAT_OPTIONS: BoatMatch[] = [
+  { name: 'Day Tripper', minCapacity: 8, maxCapacity: 14 },
+  { name: 'Me Seeks The Irony', minCapacity: 15, maxCapacity: 30 },
+  { name: 'Clever Girl', minCapacity: 31, maxCapacity: 75 },
+];
+
+function getBestBoatMatch(groupSize: number): BoatMatch | null {
+  return BOAT_OPTIONS.find(boat => 
+    groupSize >= boat.minCapacity && groupSize <= boat.maxCapacity
+  ) || null;
+}
 
 
 const slideIn = {
@@ -34,7 +57,11 @@ const fadeInUp = {
 
 export default function PublicCalendar() {
   const [selectedWeek, setSelectedWeek] = useState<Date>(new Date());
+  const [groupSize, setGroupSize] = useState<number>(20);
+  const [selectedSlot, setSelectedSlot] = useState<NormalizedSlot | null>(null);
+  const [showSlotPopup, setShowSlotPopup] = useState(false);
   const [, navigate] = useLocation();
+  const { toast } = useToast();
 
   const weekStart = startOfWeek(selectedWeek, { weekStartsOn: 0 });
   const weekEnd = endOfWeek(selectedWeek, { weekStartsOn: 0 });
@@ -44,14 +71,27 @@ export default function PublicCalendar() {
     return date;
   });
 
-  // Fetch availability for private cruises
-  const { data: privateSlots = [], isLoading: privateLoading } = useQuery<NormalizedSlot[]>({
-    queryKey: ["/api/availability/public", weekStart.toISOString(), weekEnd.toISOString()],
+  // Get URL params for event type and group size
+  const urlParams = new URLSearchParams(window.location.search);
+  const eventType = urlParams.get('eventType') || 'private';
+  const initialGroupSize = parseInt(urlParams.get('groupSize') || '20');
+  
+  // Initialize group size from URL params on mount
+  useEffect(() => {
+    setGroupSize(initialGroupSize);
+  }, [initialGroupSize]);
+
+  // Get best boat match for current group size
+  const bestMatch = getBestBoatMatch(groupSize);
+
+  // Fetch availability based on event type
+  const { data: availableSlots = [], isLoading: privateLoading } = useQuery<NormalizedSlot[]>({
+    queryKey: ["/api/availability/public", format(weekStart, 'yyyy-MM-dd'), format(weekEnd, 'yyyy-MM-dd'), groupSize, eventType],
     queryFn: async () => {
       const params = new URLSearchParams({
-        startDate: weekStart.toISOString(),
-        endDate: weekEnd.toISOString(),
-        groupSize: "20"
+        startDate: format(weekStart, 'yyyy-MM-dd'),
+        endDate: format(weekEnd, 'yyyy-MM-dd'),
+        groupSize: groupSize.toString()
       });
       
       const response = await fetch(`/api/availability/public?${params}`);
@@ -59,6 +99,9 @@ export default function PublicCalendar() {
       const data = await response.json();
       return data.slots || [];
     },
+    enabled: true,
+    staleTime: 1000 * 60 * 2, // 2 minutes
+    refetchInterval: 1000 * 60 * 5, // 5 minutes
   });
 
   const isLoading = privateLoading;
@@ -71,20 +114,42 @@ export default function PublicCalendar() {
   // Get slots for a specific date
   const getSlotsForDate = (date: Date) => {
     const dateStr = format(date, 'yyyy-MM-dd');
-    return privateSlots.filter(slot => slot.date === dateStr);
+    return availableSlots.filter(slot => slot.date === dateStr);
   };
 
-  // Handle direct slot selection for booking
-  const handleSlotSelect = (slot: NormalizedSlot) => {
-    // Navigate to chat with slot context
+  // Handle slot click - show popup
+  const handleSlotClick = useCallback((slot: NormalizedSlot) => {
+    setSelectedSlot(slot);
+    setShowSlotPopup(true);
+  }, []);
+
+  // Handle booking from popup
+  const handleBookNow = useCallback(() => {
+    if (!selectedSlot) return;
+    
+    // Build checkout URL with all necessary parameters
     const params = new URLSearchParams({
-      cruiseType: 'private',
-      date: slot.date,
-      time: slot.startTime,
-      boat: slot.boatName || 'boat'
+      slotId: selectedSlot.id,
+      date: selectedSlot.date,
+      startTime: selectedSlot.startTime,
+      endTime: selectedSlot.endTime,
+      boatId: selectedSlot.boatId?.toString() || '',
+      boatName: selectedSlot.boatName || '',
+      capacity: selectedSlot.capacity?.toString() || '',
+      groupSize: groupSize.toString(),
+      eventType: eventType,
+      duration: selectedSlot.duration?.toString() || '4',
+      basePrice: selectedSlot.basePrice?.toString() || '0',
+      
+      // Pre-fill with slot pricing if available
+      ...(selectedSlot.totalPrice && { estimatedTotal: selectedSlot.totalPrice.toString() }),
+      ...(selectedSlot.label && { slotLabel: selectedSlot.label }),
+      ...(selectedSlot.label && { slotDescription: selectedSlot.label }),
     });
-    navigate(`/chat?${params}`);
-  };
+
+    // Navigate to UniversalCheckout with pre-filled selections
+    navigate(`/checkout?${params.toString()}`);
+  }, [selectedSlot, groupSize, eventType, navigate]);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-cyan-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900">
@@ -125,6 +190,46 @@ export default function PublicCalendar() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+
+        {/* Group Size Controls */}
+        <motion.div 
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border p-6 mb-6"
+        >
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div className="flex-1">
+              <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block" data-testid="label-group-size">
+                Group Size: {groupSize} people
+              </label>
+              <div className="flex items-center gap-4">
+                <span className="text-sm text-gray-500 dark:text-gray-400">8</span>
+                <Slider
+                  value={[groupSize]}
+                  onValueChange={(values) => setGroupSize(values[0])}
+                  max={75}
+                  min={8}
+                  step={1}
+                  className="flex-1 max-w-xs"
+                  data-testid="slider-group-size"
+                />
+                <span className="text-sm text-gray-500 dark:text-gray-400">75</span>
+              </div>
+            </div>
+            
+            {bestMatch && (
+              <div className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-lg p-3">
+                <div className="text-sm text-green-700 dark:text-green-300" data-testid="text-best-match">
+                  <strong>Perfect Match:</strong> {bestMatch.name}
+                </div>
+                <div className="text-xs text-green-600 dark:text-green-400">
+                  Fits {bestMatch.minCapacity}-{bestMatch.maxCapacity} people
+                </div>
+              </div>
+            )}
+          </div>
+        </motion.div>
 
         {/* Week Navigation */}
         <motion.div 
@@ -197,6 +302,56 @@ export default function PublicCalendar() {
                 </div>
 
                 {/* Available Slots */}
+                <div className="space-y-2">
+                  {!hasSlots ? (
+                    <div className="p-4 text-center text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 rounded-lg border border-dashed border-gray-300 dark:border-gray-600">
+                      <div className="text-sm" data-testid={`text-no-slots-${dayIndex}`}>No cruises scheduled</div>
+                    </div>
+                  ) : (
+                    slots.map((slot) => (
+                      <Card 
+                        key={slot.id} 
+                        className="cursor-pointer hover:shadow-md transition-all duration-200 border-l-4 border-l-yellow-400" 
+                        onClick={() => handleSlotClick(slot)}
+                        data-testid={`slot-${slot.id}`}
+                      >
+                        <CardContent className="p-4">
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <div className="flex items-center gap-2">
+                                <Clock className="h-4 w-4 text-blue-600" />
+                                <span className="font-medium text-sm text-gray-900 dark:text-white" data-testid={`text-slot-time-${slot.id}`}>
+                                  {formatTimeForDisplay(slot.startTime)} - {formatTimeForDisplay(slot.endTime)}
+                                </span>
+                              </div>
+                              {slot.totalPrice && (
+                                <Badge variant="secondary" className="text-xs" data-testid={`text-slot-price-${slot.id}`}>
+                                  {formatCurrency(slot.totalPrice)}
+                                </Badge>
+                              )}
+                            </div>
+                            
+                            <div className="flex items-center gap-2">
+                              <Ship className="h-4 w-4 text-gray-600" />
+                              <span className="text-sm text-gray-600 dark:text-gray-300" data-testid={`text-slot-boat-${slot.id}`}>
+                                {slot.boatName || 'Available Boat'}
+                              </span>
+                            </div>
+                            
+                            {slot.capacity && (
+                              <div className="flex items-center gap-2">
+                                <Users className="h-4 w-4 text-gray-600" />
+                                <span className="text-sm text-gray-600 dark:text-gray-300" data-testid={`text-slot-capacity-${slot.id}`}>
+                                  Fits up to {slot.capacity} people
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        </CardContent>
+                      </Card>
+                    ))
+                  )}
+                </div>
                 <div className="space-y-2">
                   {isLoading ? (
                     <div className="animate-pulse space-y-2">
@@ -310,6 +465,103 @@ export default function PublicCalendar() {
           </div>
         </div>
       </footer>
+      
+      {/* Booking Popup Dialog */}
+      <Dialog open={showSlotPopup} onOpenChange={setShowSlotPopup}>
+        <DialogContent className="sm:max-w-[500px]" data-testid="dialog-slot-booking">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold text-gray-900 dark:text-white">
+              Book This Cruise
+            </DialogTitle>
+            <DialogDescription className="text-gray-600 dark:text-gray-300">
+              {eventType === 'private' ? 'Private Cruise' : 'Disco Cruise'} Details
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedSlot && (
+            <div className="space-y-4">
+              {/* Date and Time */}
+              <div className="flex items-center gap-3 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+                <Clock className="h-5 w-5 text-blue-600" />
+                <div>
+                  <div className="font-medium text-gray-900 dark:text-white" data-testid="text-popup-date">
+                    {format(new Date(selectedSlot.date), 'EEEE, MMMM d, yyyy')}
+                  </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-300" data-testid="text-popup-time">
+                    {formatTimeForDisplay(selectedSlot.startTime)} - {formatTimeForDisplay(selectedSlot.endTime)}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Boat Information */}
+              <div className="flex items-center gap-3 p-4 bg-green-50 dark:bg-green-900/20 rounded-lg">
+                <Ship className="h-5 w-5 text-green-600" />
+                <div className="flex-1">
+                  <div className="font-medium text-gray-900 dark:text-white" data-testid="text-popup-boat">
+                    {selectedSlot.boatName || 'Available Boat'}
+                  </div>
+                  {selectedSlot.capacity && (
+                    <div className="text-sm text-gray-600 dark:text-gray-300" data-testid="text-popup-capacity">
+                      Capacity: Up to {selectedSlot.capacity} people
+                    </div>
+                  )}
+                </div>
+                {bestMatch?.name === selectedSlot.boatName && (
+                  <Badge variant="outline" className="text-green-700 border-green-200">
+                    <Star className="h-3 w-3 mr-1" />
+                    Perfect Match
+                  </Badge>
+                )}
+              </div>
+              
+              {/* Group Size */}
+              <div className="flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-800 rounded-lg">
+                <Users className="h-5 w-5 text-gray-600" />
+                <div>
+                  <div className="font-medium text-gray-900 dark:text-white" data-testid="text-popup-group-size">
+                    Group Size: {groupSize} people
+                  </div>
+                  <div className="text-sm text-gray-600 dark:text-gray-300">
+                    {eventType === 'private' ? 'Private Event' : 'Bachelor/Bachelorette Party'}
+                  </div>
+                </div>
+              </div>
+              
+              {/* Pricing if available */}
+              {selectedSlot.totalPrice && (
+                <div className="flex items-center gap-3 p-4 bg-yellow-50 dark:bg-yellow-900/20 rounded-lg">
+                  <DollarSign className="h-5 w-5 text-yellow-600" />
+                  <div>
+                    <div className="font-medium text-gray-900 dark:text-white" data-testid="text-popup-price">
+                      Estimated Total: {formatCurrency(selectedSlot.totalPrice)}
+                    </div>
+                    <div className="text-sm text-gray-600 dark:text-gray-300">
+                      Final pricing will be calculated at checkout
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+          
+          <DialogFooter className="flex gap-3">
+            <Button 
+              variant="outline" 
+              onClick={() => setShowSlotPopup(false)}
+              data-testid="button-cancel-booking"
+            >
+              Cancel
+            </Button>
+            <Button 
+              onClick={handleBookNow}
+              className="bg-yellow-500 hover:bg-yellow-600 text-black"
+              data-testid="button-book-now"
+            >
+              Book Now
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
