@@ -303,56 +303,6 @@ export default function PublicCalendar() {
 
                 {/* Available Slots */}
                 <div className="space-y-2">
-                  {!hasSlots ? (
-                    <div className="p-4 text-center text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 rounded-lg border border-dashed border-gray-300 dark:border-gray-600">
-                      <div className="text-sm" data-testid={`text-no-slots-${dayIndex}`}>No cruises scheduled</div>
-                    </div>
-                  ) : (
-                    slots.map((slot) => (
-                      <Card 
-                        key={slot.id} 
-                        className="cursor-pointer hover:shadow-md transition-all duration-200 border-l-4 border-l-yellow-400" 
-                        onClick={() => handleSlotClick(slot)}
-                        data-testid={`slot-${slot.id}`}
-                      >
-                        <CardContent className="p-4">
-                          <div className="space-y-2">
-                            <div className="flex items-center justify-between">
-                              <div className="flex items-center gap-2">
-                                <Clock className="h-4 w-4 text-blue-600" />
-                                <span className="font-medium text-sm text-gray-900 dark:text-white" data-testid={`text-slot-time-${slot.id}`}>
-                                  {formatTimeForDisplay(slot.startTime)} - {formatTimeForDisplay(slot.endTime)}
-                                </span>
-                              </div>
-                              {slot.totalPrice && (
-                                <Badge variant="secondary" className="text-xs" data-testid={`text-slot-price-${slot.id}`}>
-                                  {formatCurrency(slot.totalPrice)}
-                                </Badge>
-                              )}
-                            </div>
-                            
-                            <div className="flex items-center gap-2">
-                              <Ship className="h-4 w-4 text-gray-600" />
-                              <span className="text-sm text-gray-600 dark:text-gray-300" data-testid={`text-slot-boat-${slot.id}`}>
-                                {slot.boatName || 'Available Boat'}
-                              </span>
-                            </div>
-                            
-                            {slot.capacity && (
-                              <div className="flex items-center gap-2">
-                                <Users className="h-4 w-4 text-gray-600" />
-                                <span className="text-sm text-gray-600 dark:text-gray-300" data-testid={`text-slot-capacity-${slot.id}`}>
-                                  Fits up to {slot.capacity} people
-                                </span>
-                              </div>
-                            )}
-                          </div>
-                        </CardContent>
-                      </Card>
-                    ))
-                  )}
-                </div>
-                <div className="space-y-2">
                   {isLoading ? (
                     <div className="animate-pulse space-y-2">
                       {[1, 2, 3].map(i => (
@@ -360,9 +310,8 @@ export default function PublicCalendar() {
                       ))}
                     </div>
                   ) : !hasSlots ? (
-                    <div className="text-center py-8 text-gray-500 dark:text-gray-400" data-testid={`text-no-slots-${dayIndex}`}>
-                      <Ship className="h-8 w-8 mx-auto mb-2 opacity-50" />
-                      <div className="text-sm">No availability</div>
+                    <div className="p-4 text-center text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 rounded-lg border border-dashed border-gray-300 dark:border-gray-600">
+                      <div className="text-sm" data-testid={`text-no-slots-${dayIndex}`}>No cruises scheduled</div>
                     </div>
                   ) : (
                     slots.map((slot) => (
@@ -372,33 +321,41 @@ export default function PublicCalendar() {
                         whileTap={{ scale: 0.98 }}
                       >
                         <Card 
-                          className="cursor-pointer hover:shadow-md transition-all duration-200 border-blue-200 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-800"
-                          onClick={() => handleSlotSelect(slot)}
-                          data-testid={`card-slot-${slot.id}`}
+                          className="cursor-pointer hover:shadow-md transition-all duration-200 border-l-4 border-l-blue-400" 
+                          onClick={() => handleSlotClick(slot)}
+                          data-testid={`slot-${slot.id}`}
                         >
-                          <CardContent className="p-3">
-                            <div className="flex items-center justify-between mb-2">
-                              <div className="flex items-center gap-2">
-                                <Ship className="h-4 w-4 text-blue-500" />
-                                <div>
-                                  <div className="font-medium text-sm" data-testid={`text-slot-time-${slot.id}`}>
+                          <CardContent className="p-4">
+                            <div className="space-y-2">
+                              <div className="flex items-center justify-between">
+                                <div className="flex items-center gap-2">
+                                  <Clock className="h-4 w-4 text-blue-600" />
+                                  <span className="font-medium text-sm text-gray-900 dark:text-white" data-testid={`text-slot-time-${slot.id}`}>
                                     {formatTimeForDisplay(slot.startTime)} - {formatTimeForDisplay(slot.endTime)}
-                                  </div>
-                                  <div className="text-xs text-gray-600 dark:text-gray-300" data-testid={`text-slot-boat-${slot.id}`}>
-                                    {slot.boatName}
-                                  </div>
+                                  </span>
                                 </div>
+                                {slot.totalPrice && (
+                                  <Badge variant="secondary" className="text-xs" data-testid={`text-slot-price-${slot.id}`}>
+                                    {formatCurrency(slot.totalPrice)}
+                                  </Badge>
+                                )}
                               </div>
-                            </div>
-                            
-                            <div className="flex items-center justify-between text-xs">
-                              <div className="flex items-center gap-1 text-gray-600 dark:text-gray-300">
-                                <Users className="h-3 w-3" />
-                                <span data-testid={`text-slot-capacity-${slot.id}`}>Up to {slot.capacity}</span>
+                              
+                              <div className="flex items-center gap-2">
+                                <Ship className="h-4 w-4 text-gray-600" />
+                                <span className="text-sm text-gray-600 dark:text-gray-300 font-medium" data-testid={`text-slot-boat-${slot.id}`}>
+                                  {slot.boatName || 'Available Boat'} ({slot.capacity} people)
+                                </span>
                               </div>
-                              <div className="font-semibold text-blue-600 dark:text-blue-400" data-testid={`text-slot-price-${slot.id}`}>
-                                {formatCurrency(slot.totalPrice)}
-                              </div>
+                              
+                              {slot.capacity && groupSize <= slot.capacity && (
+                                <div className="flex items-center gap-2">
+                                  <Users className="h-4 w-4 text-green-600" />
+                                  <span className="text-sm text-green-600 dark:text-green-400" data-testid={`text-slot-capacity-${slot.id}`}>
+                                    Perfect fit for your group of {groupSize}
+                                  </span>
+                                </div>
+                              )}
                             </div>
                           </CardContent>
                         </Card>
