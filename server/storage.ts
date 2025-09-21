@@ -3209,8 +3209,42 @@ export class DatabaseStorage implements IStorage {
           if (maxDuration && timeSlot.duration > maxDuration) continue;
           
           // Find suitable boats for the group size
+          // Apply strict filtering based on group size ranges:
+          // - 14 or less: Day Tripper only
+          // - 15-25: Me Seeks The Irony only  
+          // - 26-50: Clever Girl only
+          // - 51-75: Clever Girl with extra crew fee
           const suitableBoats = allBoats.filter(boat => {
-            return !groupSize || boat.maxCapacity >= groupSize;
+            // Exclude ATX Disco from private cruises (it's only for disco cruises)
+            if (boat.id === 'boat_atx_disco' || boat.name?.toLowerCase().includes('atx disco')) {
+              return false;
+            }
+            
+            // If no group size specified, return all boats (except ATX Disco)
+            if (!groupSize) {
+              return true;
+            }
+            
+            // Apply strict boat assignment based on group size ranges
+            if (groupSize <= 14) {
+              // Only Day Tripper for groups of 14 or less
+              return boat.id === 'boat_day_tripper' || boat.name?.toLowerCase().includes('day tripper');
+            } else if (groupSize <= 25) {
+              // Only Me Seeks The Irony for groups of 15-25
+              return boat.id === 'boat_me_seeks_the_irony' || 
+                     boat.id === 'boat_meeseeks' ||
+                     boat.name?.toLowerCase().includes('me seeks') ||
+                     boat.name?.toLowerCase().includes('meeseeks');
+            } else if (groupSize <= 50) {
+              // Only Clever Girl for groups of 26-50
+              return boat.id === 'boat_clever_girl' || boat.name?.toLowerCase().includes('clever girl');
+            } else if (groupSize <= 75) {
+              // Only Clever Girl for groups of 51-75 (with extra crew fee handled elsewhere)
+              return boat.id === 'boat_clever_girl' || boat.name?.toLowerCase().includes('clever girl');
+            } else {
+              // No boats available for groups larger than 75
+              return false;
+            }
           });
           
           // Find appropriate private cruise product for pricing
@@ -3261,6 +3295,7 @@ export class DatabaseStorage implements IStorage {
                 capacity: boat.maxCapacity,
                 availableCount: 1, // One boat slot
                 price: basePrice,
+                totalPrice: basePrice, // For now, totalPrice equals basePrice (taxes/fees calculated at checkout)
                 boatCandidates: [boat.id],
                 bookable: true,
                 held: false
@@ -3307,6 +3342,7 @@ export class DatabaseStorage implements IStorage {
               capacity: maxCapacity,
               availableCount: availableTickets,
               price: discoPrice,
+              totalPrice: discoPrice, // Per-person price for disco cruises
               boatCandidates: discoBoats.map(b => b.id),
               bookable: availableTickets > 0,
               held: false
