@@ -3445,7 +3445,18 @@ export default function Chat() {
                 <div className="space-y-2 text-base">
                   <div>
                     <span className="text-gray-600 dark:text-gray-400">Time Slot:</span>
-                    <span className="ml-2 font-medium">{formData.selectedSlot.label}</span>
+                    <span className="ml-2 font-medium">
+                      {(() => {
+                        // For disco cruises, remove boat name from label and show just time and price
+                        const label = formData.selectedSlot.label;
+                        const parts = label.split(' • ');
+                        if (parts.length >= 3) {
+                          // Format: "Boat Name • Time Range • Price" -> "Time Range • Price"
+                          return `${parts[1]} • ${parts[2]}`;
+                        }
+                        return label; // Fallback to full label if format unexpected
+                      })()}
+                    </span>
                   </div>
                   <div>
                     <span className="text-gray-600 dark:text-gray-400">Package:</span>
