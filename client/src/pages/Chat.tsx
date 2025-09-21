@@ -46,7 +46,7 @@ import {
   DISCO_AVAILABILITY 
 } from '@shared/constants';
 import { PricingPolicyDisplay, PolicySummary } from '@/components/PricingPolicyDisplay';
-import { getDiscoTimeSlotsForDate, getPrivateTimeSlotsForDate, isDiscoAvailableForDate } from '@shared/timeSlots';
+import { getDiscoTimeSlotsForDate, getPrivateTimeSlotsForDate, isDiscoAvailableForDate, isMondayToThursday, getAvailableDurations, isDurationSelectionRequired } from '@shared/timeSlots';
 import { 
   calculatePackagePricing, 
   calculateCompletePricing, 
@@ -95,6 +95,7 @@ interface BookingData {
   discoTicketQuantity: number;
   preferredTimeLabel?: string;
   groupSizeLabel?: string;
+  selectedDuration?: 3 | 4; // Duration selection for weekdays
 }
 
 interface CompletedSelection {
@@ -320,7 +321,8 @@ const generateRealPrivateSlots = (
   date: Date, 
   groupSize: number, 
   boats: any[], 
-  packageType: 'standard' | 'essentials' | 'ultimate' = 'standard'
+  packageType: 'standard' | 'essentials' | 'ultimate' = 'standard',
+  duration?: 3 | 4 // Optional duration filter for weekdays
 ): NormalizedSlot[] => {
   const dayOfWeek = date.getDay();
   const dateISO = date.toISOString().split('T')[0];
@@ -344,17 +346,16 @@ const generateRealPrivateSlots = (
     return `${boatName} • ${time} • ${hourlyDisplay}`;
   };
   
-  // Generate time slots for each suitable boat
-  const timeSlots = dayOfWeek === 5 ? [ // Friday
-    { startTime: '12:00', endTime: '16:00', displayTime: '12:00 PM - 4:00 PM' },
-    { startTime: '16:30', endTime: '20:30', displayTime: '4:30 PM - 8:30 PM' }
-  ] : (dayOfWeek === 6 || dayOfWeek === 0) ? [ // Saturday/Sunday  
-    { startTime: '11:00', endTime: '15:00', displayTime: '11:00 AM - 3:00 PM' },
-    { startTime: '15:30', endTime: '19:30', displayTime: '3:30 PM - 7:30 PM' }
-  ] : [ // Monday-Thursday
-    { startTime: '12:00', endTime: '16:00', displayTime: '12:00 PM - 4:00 PM' },
-    { startTime: '16:30', endTime: '20:30', displayTime: '4:30 PM - 8:30 PM' }
-  ];
+  // Use proper time slot generation from shared/timeSlots.ts
+  const allTimeSlots = getPrivateTimeSlotsForDate(date, duration);
+  
+  // Convert to the format expected by this function
+  const timeSlots = allTimeSlots.map(slot => ({
+    startTime: slot.startTime,
+    endTime: slot.endTime,
+    duration: slot.duration,
+    displayTime: slot.label
+  }));
   
   // Create slots for each suitable boat and time slot combination
   suitableBoats.forEach((boat, boatIndex) => {
@@ -370,7 +371,7 @@ const generateRealPrivateSlots = (
         dateISO,
         startTime: timeSlot.startTime,
         endTime: timeSlot.endTime,
-        duration: pricing.duration,
+        duration: timeSlot.duration,
         label: slotLabel,
         cruiseType: 'private' as const,
         capacity: boat.capacity,
@@ -381,7 +382,7 @@ const generateRealPrivateSlots = (
         boatName: boatName,
         estimatedPricing: {
           baseRate: pricing.baseHourlyRate, // Keep in cents for consistency
-          duration: pricing.duration,
+          duration: timeSlot.duration,
           subtotal: pricing.totalPrice, // Keep in cents
           total: pricing.totalPrice // Already includes tax/gratuity in new system
         }
@@ -389,7 +390,7 @@ const generateRealPrivateSlots = (
     });
   });
   // If no slots were created (shouldn't happen with proper boat data), return empty
-  if (slots.length === 0 && suitableBoats.length > 0) {
+  if (slots.length === 0 && suitableBoats.length > 0 && timeSlots.length > 0) {
     // Fallback: Create at least one slot with the first suitable boat
     const boat = suitableBoats[0];
     const boatName = getBoatDisplayName(boat);
@@ -401,7 +402,7 @@ const generateRealPrivateSlots = (
       dateISO,
       startTime: timeSlot.startTime,
       endTime: timeSlot.endTime,
-      duration: pricing.duration,
+      duration: timeSlot.duration,
       label: slotLabel,
       cruiseType: 'private' as const,
       capacity: boat.capacity,
@@ -412,7 +413,7 @@ const generateRealPrivateSlots = (
       boatName: boatName,
       estimatedPricing: {
         baseRate: pricing.baseHourlyRate,
-        duration: pricing.duration,
+        duration: timeSlot.duration,
         subtotal: pricing.totalPrice,
         total: pricing.totalPrice
       }
@@ -534,7 +535,7 @@ export default function Chat() {
   
   // Use structured private slots with real pricing data for chat flow
   const structuredPrivateSlots = formData.eventDate ? 
-    generateRealPrivateSlots(formData.eventDate, formData.groupSize, boats) : [];
+    generateRealPrivateSlots(formData.eventDate, formData.groupSize, boats, 'standard', formData.selectedDuration) : [];
   
   // Get intelligent comparison data for recommendations
   const comparisonData = getComparisonData(formData.eventDate, formData.groupSize);
@@ -2443,9 +2444,69 @@ export default function Chat() {
                           </div>
                         </CardHeader>
                         <CardContent className="space-y-4">
-                          {/* Simple Time Slot Selection with Radio Buttons */}
-                          <div className="space-y-2">
-                            <Label className="text-sm font-medium">Select Time Slot</Label>
+                          {/* Duration Selection for Weekdays (Monday-Thursday) */}
+                          {formData.eventDate && isMondayToThursday(formData.eventDate) && (
+                            <div className="space-y-2">
+                              <Label className="text-sm font-medium">Choose Duration</Label>
+                              <RadioGroup
+                                value={formData.selectedDuration?.toString() || ''}
+                                onValueChange={(value) => {
+                                  const duration = value === '3' ? 3 : 4;
+                                  setFormData(prev => ({
+                                    ...prev,
+                                    selectedDuration: duration,
+                                    selectedSlot: null // Reset slot selection when duration changes
+                                  }));
+                                }}
+                                className="grid grid-cols-2 gap-3"
+                              >
+                                {/* 3-Hour Option */}
+                                <div className={cn(
+                                  "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
+                                  formData.selectedDuration === 3
+                                    ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" 
+                                    : "border-slate-200 dark:border-slate-700 hover:border-blue-300"
+                                )}>
+                                  <RadioGroupItem value="3" id="duration-3" />
+                                  <Label htmlFor="duration-3" className="flex-1 cursor-pointer ml-3">
+                                    <div className="text-center">
+                                      <div className="font-medium">3-Hour Cruise</div>
+                                      <div className="text-xs text-slate-600 dark:text-slate-400">Perfect for shorter events</div>
+                                    </div>
+                                  </Label>
+                                </div>
+
+                                {/* 4-Hour Option */}
+                                <div className={cn(
+                                  "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
+                                  formData.selectedDuration === 4
+                                    ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" 
+                                    : "border-slate-200 dark:border-slate-700 hover:border-blue-300"
+                                )}>
+                                  <RadioGroupItem value="4" id="duration-4" />
+                                  <Label htmlFor="duration-4" className="flex-1 cursor-pointer ml-3">
+                                    <div className="text-center">
+                                      <div className="font-medium flex items-center justify-center gap-1">
+                                        4-Hour Cruise
+                                        <Badge variant="secondary" className="text-xs">Popular</Badge>
+                                      </div>
+                                      <div className="text-xs text-slate-600 dark:text-slate-400">Full cruise experience</div>
+                                    </div>
+                                  </Label>
+                                </div>
+                              </RadioGroup>
+                            </div>
+                          )}
+
+                          {/* Time Slot Selection - Only show after duration is selected for weekdays */}
+                          {(!formData.eventDate || !isMondayToThursday(formData.eventDate) || formData.selectedDuration) && (
+                            <div className="space-y-2">
+                              <Label className="text-sm font-medium">
+                                {formData.eventDate && isMondayToThursday(formData.eventDate) && formData.selectedDuration
+                                  ? `Select ${formData.selectedDuration}-Hour Time Slot`
+                                  : 'Select Time Slot'
+                                }
+                              </Label>
                             <RadioGroup
                               value={formData.selectedSlot?.id || ''}
                               onValueChange={(slotId) => {
@@ -2493,6 +2554,7 @@ export default function Chat() {
                               )}
                             </RadioGroup>
                           </div>
+                          )}
 
                           {/* Optional Add-On Packages Section */}
                           {formData.selectedSlot && (
