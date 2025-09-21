@@ -3336,11 +3336,11 @@ export default function Chat() {
       <Dialog open={showBookingConfirmation} onOpenChange={setShowBookingConfirmation}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle className="text-xl font-semibold flex items-center gap-2">
+            <DialogTitle className="text-lg font-semibold flex items-center gap-2">
               <CheckCircle className="h-5 w-5 text-green-600" />
               Confirm Your Booking
             </DialogTitle>
-            <DialogDescription>
+            <DialogDescription className="text-base text-gray-700 dark:text-gray-300">
               Please review your selection before proceeding to checkout
             </DialogDescription>
           </DialogHeader>
@@ -3348,11 +3348,11 @@ export default function Chat() {
           <div className="space-y-4 py-4">
             {/* Event Details */}
             <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-              <h3 className="font-semibold mb-2 flex items-center gap-2">
+              <h3 className="text-sm font-semibold mb-2 flex items-center gap-2">
                 <CalendarIcon className="h-4 w-4" />
                 Event Details
               </h3>
-              <div className="grid grid-cols-2 gap-2 text-sm">
+              <div className="grid grid-cols-2 gap-2 text-base">
                 <div>
                   <span className="text-gray-600 dark:text-gray-400">Event Type:</span>
                   <span className="ml-2 font-medium">{formData.eventTypeLabel} {formData.eventEmoji}</span>
@@ -3371,11 +3371,11 @@ export default function Chat() {
             {/* Selected Cruise Details */}
             {pendingCruiseType === 'private' && formData.selectedSlot && (
               <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-                <h3 className="font-semibold mb-2 flex items-center gap-2">
+                <h3 className="text-sm font-semibold mb-2 flex items-center gap-2">
                   <Ship className="h-4 w-4 text-blue-600" />
                   Private Cruise Selection
                 </h3>
-                <div className="space-y-2 text-sm">
+                <div className="space-y-2 text-base">
                   <div>
                     <span className="text-gray-600 dark:text-gray-400">Time Slot:</span>
                     <span className="ml-2 font-medium">{formData.selectedSlot.label}</span>
@@ -3405,11 +3405,11 @@ export default function Chat() {
             
             {pendingCruiseType === 'disco' && formData.selectedSlot && (
               <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
-                <h3 className="font-semibold mb-2 flex items-center gap-2">
+                <h3 className="text-sm font-semibold mb-2 flex items-center gap-2">
                   <Music className="h-4 w-4 text-purple-600" />
                   ATX Disco Cruise Selection
                 </h3>
-                <div className="space-y-2 text-sm">
+                <div className="space-y-2 text-base">
                   <div>
                     <span className="text-gray-600 dark:text-gray-400">Time Slot:</span>
                     <span className="ml-2 font-medium">{formData.selectedSlot.label}</span>
@@ -3430,12 +3430,12 @@ export default function Chat() {
             
             {/* Pricing Summary */}
             <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
-              <h3 className="font-semibold mb-2 flex items-center gap-2">
+              <h3 className="text-sm font-semibold mb-2 flex items-center gap-2">
                 <DollarSign className="h-4 w-4 text-green-600" />
                 Pricing Summary
               </h3>
               {pendingCruiseType === 'private' && privatePricing && (
-                <div className="space-y-1 text-sm">
+                <div className="space-y-1 text-base">
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">Subtotal:</span>
                     <span className="font-medium">{formatCurrency(privatePricing.subtotal)}</span>
@@ -3463,7 +3463,7 @@ export default function Chat() {
               )}
               
               {pendingCruiseType === 'disco' && discoPricing && (
-                <div className="space-y-1 text-sm">
+                <div className="space-y-1 text-base">
                   <div className="flex justify-between">
                     <span className="text-gray-600 dark:text-gray-400">Subtotal:</span>
                     <span className="font-medium">{formatCurrency(discoPricing.subtotal)}</span>
