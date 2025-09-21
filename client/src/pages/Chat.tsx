@@ -991,6 +991,20 @@ export default function Chat() {
       return;
     }
     
+    // Calculate total hourly rate (base + add-ons) - same as in fetchPrivatePricing
+    const totalHourlyRate = BASE_PRIVATE_HOURLY_RATE + 
+      formData.selectedAddOnPackages.reduce((sum, addOnId) => {
+        const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
+        return sum + (addOn?.hourlyRate || 0);
+      }, 0);
+    
+    // Calculate cruise duration based on day of week
+    const cruiseDuration = getCruiseDuration(formData.eventDate);
+    
+    // Calculate base cost and crew fee
+    const baseCost = totalHourlyRate * cruiseDuration;
+    const crewFee = formData.groupSize > 20 ? 200 : 0;
+    
     // Use shared pricing calculation for consistency
     const packageType = formData.selectedAddOnPackages.includes('ultimate') ? 'ultimate' : 
                        formData.selectedAddOnPackages.includes('essentials') ? 'essentials' : 'standard';
