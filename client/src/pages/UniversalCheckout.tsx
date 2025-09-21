@@ -610,7 +610,7 @@ export default function UniversalCheckout({
           </div>
         </div>
 
-        <div className="max-w-6xl mx-auto px-4 py-8">
+        <div className="max-w-6xl mx-auto px-2 sm:px-4 py-4 sm:py-8">
           {/* Data Validation Warnings */}
           {(!dataValidation.isValid || dataValidation.warnings.length > 0) && (
             <div className="mb-6 space-y-2">
@@ -728,9 +728,9 @@ export default function UniversalCheckout({
             </div>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-8">
             {/* Main Content */}
-            <div className="lg:col-span-2 space-y-6">
+            <div className="lg:col-span-2 space-y-4 lg:space-y-6">
 
               {/* Bachelor/Bachelorette Comparison */}
               {/* 
