@@ -617,6 +617,241 @@ export default function Products() {
           </CardContent>
         </Card>
 
+        {/* Pricing Rules Display */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="flex items-center gap-2">
+              <BarChart3 className="h-5 w-5" />
+              Current Pricing Rules & Structure
+            </CardTitle>
+            <CardDescription>
+              Review all pricing constants and rules currently in effect. Use this to verify consistency across the system.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <Tabs defaultValue="hourly-rates" className="w-full">
+              <TabsList className="grid w-full grid-cols-4">
+                <TabsTrigger value="hourly-rates">Hourly Rates</TabsTrigger>
+                <TabsTrigger value="cruise-packages">Cruise Packages</TabsTrigger>
+                <TabsTrigger value="disco-pricing">Disco Pricing</TabsTrigger>
+                <TabsTrigger value="business-rules">Business Rules</TabsTrigger>
+              </TabsList>
+              
+              <TabsContent value="hourly-rates">
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-sm">Monday-Thursday</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-2">
+                        <div className="flex justify-between"><span>≤14 people:</span><span>$200/hr</span></div>
+                        <div className="flex justify-between"><span>≤25 people:</span><span>$225/hr</span></div>
+                        <div className="flex justify-between"><span>≤30 people:</span><span>$225/hr</span></div>
+                        <div className="flex justify-between"><span>≤50 people:</span><span>$250/hr</span></div>
+                        <div className="flex justify-between"><span>≤75 people:</span><span>$250/hr</span></div>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-sm">Friday</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-2">
+                        <div className="flex justify-between"><span>≤14 people:</span><span>$225/hr</span></div>
+                        <div className="flex justify-between"><span>≤25 people:</span><span>$250/hr</span></div>
+                        <div className="flex justify-between"><span>≤30 people:</span><span>$250/hr</span></div>
+                        <div className="flex justify-between"><span>≤50 people:</span><span>$275/hr</span></div>
+                        <div className="flex justify-between"><span>≤75 people:</span><span>$275/hr</span></div>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-sm">Saturday/Sunday</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-2">
+                        <div className="flex justify-between"><span>≤14 people:</span><span className="text-red-600 font-bold">$350/hr</span></div>
+                        <div className="flex justify-between"><span>≤25 people:</span><span className="text-red-600 font-bold">$375/hr</span></div>
+                        <div className="flex justify-between"><span>≤30 people:</span><span className="text-red-600 font-bold">$375/hr</span></div>
+                        <div className="flex justify-between"><span>≤50 people:</span><span className="text-red-600 font-bold">$400/hr</span></div>
+                        <div className="flex justify-between"><span>≤75 people:</span><span className="text-red-600 font-bold">$400/hr</span></div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  
+                  <div className="bg-yellow-50 dark:bg-yellow-900/20 p-4 rounded-lg">
+                    <h4 className="font-semibold text-yellow-800 dark:text-yellow-200 mb-2">⚠️ Inconsistency Alert</h4>
+                    <p className="text-sm text-yellow-700 dark:text-yellow-300">
+                      The system has multiple pricing structures that conflict. Time slot labels show rates from HOURLY_RATES 
+                      (highlighted in red above), but actual calculations may use different rates or fallback to $200/hr when errors occur.
+                    </p>
+                  </div>
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="cruise-packages">
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-sm">Standard Package</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-2">
+                        <div className="text-xs text-gray-600 dark:text-gray-400">14-person capacity:</div>
+                        <div className="flex justify-between"><span>Mon-Thu:</span><span>$1,050 total</span></div>
+                        <div className="flex justify-between"><span>Friday:</span><span>$1,181 total</span></div>
+                        <div className="flex justify-between"><span>Saturday:</span><span>$1,838 total</span></div>
+                        <div className="flex justify-between"><span>Sunday:</span><span>$1,313 total</span></div>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-sm">Essentials Package</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-2">
+                        <div className="text-xs text-gray-600 dark:text-gray-400">+$100 add-on:</div>
+                        <div className="flex justify-between"><span>Mon-Thu:</span><span>$1,150 total</span></div>
+                        <div className="flex justify-between"><span>Friday:</span><span>$1,281 total</span></div>
+                        <div className="flex justify-between"><span>Saturday:</span><span>$1,938 total</span></div>
+                        <div className="flex justify-between"><span>Sunday:</span><span>$1,413 total</span></div>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-sm">Ultimate Package</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-2">
+                        <div className="text-xs text-gray-600 dark:text-gray-400">+$250 add-on:</div>
+                        <div className="flex justify-between"><span>Mon-Thu:</span><span>$1,300 total</span></div>
+                        <div className="flex justify-between"><span>Friday:</span><span>$1,431 total</span></div>
+                        <div className="flex justify-between"><span>Saturday:</span><span>$2,088 total</span></div>
+                        <div className="flex justify-between"><span>Sunday:</span><span>$1,563 total</span></div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  
+                  <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
+                    <h4 className="font-semibold text-blue-800 dark:text-blue-200 mb-2">📋 Package Structure</h4>
+                    <p className="text-sm text-blue-700 dark:text-blue-300">
+                      These are total prices including tax (8.25%) and gratuity (20%) for 4-hour cruises. The system also supports 
+                      3-hour options for Monday-Thursday at 75% of the 4-hour price.
+                    </p>
+                  </div>
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="disco-pricing">
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-sm">Basic Package</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">$85.00</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">per person</div>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-sm">Disco Queen Package</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">$95.00</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">per person</div>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-sm">Platinum Package</CardTitle>
+                      </CardHeader>
+                      <CardContent>
+                        <div className="text-2xl font-bold">$105.00</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-400">per person</div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                  
+                  <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
+                    <h4 className="font-semibold text-purple-800 dark:text-purple-200 mb-2">🎉 Disco Cruise Rules</h4>
+                    <ul className="text-sm text-purple-700 dark:text-purple-300 space-y-1">
+                      <li>• Available Friday and Saturday only</li>
+                      <li>• 4-hour duration cruises</li>
+                      <li>• ATX Disco boat (100-person capacity)</li>
+                      <li>• Bachelor/Bachelorette parties only</li>
+                      <li>• Prices include tax and gratuity</li>
+                    </ul>
+                  </div>
+                </div>
+              </TabsContent>
+              
+              <TabsContent value="business-rules">
+                <div className="space-y-4">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-sm">Duration Rules</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-2">
+                        <div><strong>Monday-Thursday:</strong> 3-hour AND 4-hour options (10 AM - 8:30 PM)</div>
+                        <div><strong>Friday:</strong> 4-hour blocks only (12-4 PM, 4:30-8:30 PM)</div>
+                        <div><strong>Saturday/Sunday:</strong> 4-hour blocks only (11 AM-3 PM, 3:30-7:30 PM)</div>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-sm">Fleet Configuration</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-2">
+                        <div><strong>Day Tripper:</strong> 14 people, no crew fees</div>
+                        <div><strong>Me Seeks The Irony:</strong> 25-30 capacity, +$50/hr crew (26-30)</div>
+                        <div><strong>Clever Girl:</strong> 50-75 capacity, +$100/hr crew (51-75)</div>
+                        <div><strong>ATX Disco:</strong> 100 people (disco only)</div>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-sm">Payment Rules</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-2">
+                        <div><strong>Tax:</strong> 8.25% on subtotal</div>
+                        <div><strong>Gratuity:</strong> 20% on subtotal</div>
+                        <div><strong>Deposit:</strong> 25% if event >30 days out</div>
+                        <div><strong>Urgent:</strong> 50% if event ≤30 days out</div>
+                        <div><strong>Extra Crew:</strong> $200 for groups >20 people</div>
+                      </CardContent>
+                    </Card>
+                    
+                    <Card>
+                      <CardHeader>
+                        <CardTitle className="text-sm">System Issues</CardTitle>
+                      </CardHeader>
+                      <CardContent className="space-y-2">
+                        <div className="text-red-600 dark:text-red-400">
+                          <strong>⚠️ Critical Issues:</strong>
+                        </div>
+                        <div className="text-sm space-y-1">
+                          <div>• Time slots show $400/hr but calculations use $200/hr</div>
+                          <div>• Package selection may not affect pricing</div>
+                          <div>• Calendar showing $29k pricing errors</div>
+                          <div>• Multiple conflicting rate structures</div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </div>
+                </div>
+              </TabsContent>
+            </Tabs>
+          </CardContent>
+        </Card>
+
         {/* Product Dialog */}
         <Dialog open={isProductDialogOpen} onOpenChange={setIsProductDialogOpen}>
           <DialogContent className="max-w-2xl">
