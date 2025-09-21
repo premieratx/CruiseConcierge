@@ -22,7 +22,7 @@ import { ComprehensiveLeadService } from "./services/comprehensiveLeadService";
 import { wisprFlowService } from "./services/wispr";
 import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation } from "@shared/schema";
 import { PRICING_DEFAULTS } from "@shared/constants";
-import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate } from "@shared/timeSlots";
+import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate, getTimeSlotById } from "@shared/timeSlots";
 import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
 import { randomUUID, randomInt } from "crypto";
@@ -808,27 +808,7 @@ function parseTimeString(timeStr: string): number {
 
 // Note: parseTimeToDate is now imported from shared/timeSlots.ts for consistency
 
-// Helper function to get time slot by ID
-function getTimeSlotById(date: Date, timeSlotId: string): any {
-  // Parse timeSlotId format like "12pm-4pm" or "11am-3pm"
-  if (timeSlotId.includes('-')) {
-    const [startStr, endStr] = timeSlotId.split('-');
-    return {
-      id: timeSlotId,
-      startTime: startStr,
-      endTime: endStr,
-      date: date
-    };
-  }
-  
-  // Default fallback
-  return {
-    id: timeSlotId,
-    startTime: '12pm',
-    endTime: '4pm',
-    date: date
-  };
-}
+// Note: getTimeSlotById is now imported from shared/timeSlots.ts for consistency
 
 // Helper function to format time ago for display
 function getTimeAgo(date: Date): string {
@@ -9930,7 +9910,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const end = new Date(endDate);
       
       while (currentDate <= end) {
-        // Get time slots for this date
+        // Get private cruise time slots for this date
         const timeSlots = getPrivateTimeSlotsForDate(currentDate);
         
         for (const timeSlot of timeSlots) {
@@ -9951,9 +9931,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
             );
             
             if (!isBooked) {
-              // Skip pricing calculation for now to test basic functionality
+              // Calculate pricing with crew fees
               const baseHourlyRate = 25000; // $250 in cents
-              const totalPrice = baseHourlyRate * timeSlot.duration;
+              let totalPrice = baseHourlyRate * timeSlot.duration;
+              
+              // Add crew fees based on group size
+              let crewFee = 0;
+              if (groupSize) {
+                if (groupSize >= 26 && groupSize <= 30) {
+                  // $50/hour crew fee for groups 26-30
+                  crewFee = 5000 * timeSlot.duration; // $50 per hour in cents
+                } else if (groupSize >= 51 && groupSize <= 75) {
+                  // $100/hour crew fee for groups 51-75
+                  crewFee = 10000 * timeSlot.duration; // $100 per hour in cents
+                }
+              }
+              
+              totalPrice += crewFee;
               
               availableSlots.push({
                 id: `${boat.id}_${currentDate.toISOString().split('T')[0]}_${timeSlot.startTime}_${timeSlot.endTime}`,
@@ -9967,11 +9961,74 @@ export async function registerRoutes(app: Express): Promise<Server> {
                 capacity: boat.capacity,
                 availableSpots: boat.capacity,
                 baseHourlyRate: baseHourlyRate,
+                crewFee: crewFee,
                 totalPrice: totalPrice,
+                cruiseType: 'private',
                 icon: timeSlot.icon,
                 popular: timeSlot.popular,
                 description: timeSlot.description,
                 status: 'available'
+              });
+            }
+          }
+        }
+        
+        // CRITICAL: Add disco slots ONLY for bachelor/bachelorette event types
+        if (eventType === 'bachelor' || eventType === 'bachelorette') {
+          const discoSlots = getDiscoTimeSlotsForDate(currentDate);
+          
+          for (const discoSlot of discoSlots) {
+            // Check if there are existing disco slots in the database
+            const existingDiscoSlots = await storage.getDiscoSlotsInRange(currentDate, currentDate);
+            
+            // Find matching disco slot in database
+            const matchingSlot = existingDiscoSlots.find(slot => 
+              slot.startTime === discoSlot.startTime && 
+              slot.endTime === discoSlot.endTime &&
+              slot.status === 'available'
+            );
+            
+            if (matchingSlot) {
+              // Use database slot info if available
+              availableSlots.push({
+                id: matchingSlot.id,
+                date: currentDate.toISOString().split('T')[0],
+                startTime: discoSlot.startTime,
+                endTime: discoSlot.endTime,
+                duration: discoSlot.duration,
+                boatId: 'disco_boat',
+                boatName: 'ATX Disco Cruise',
+                boatType: 'disco',
+                capacity: discoSlot.maxCapacity || 100,
+                availableSpots: matchingSlot.ticketCap - matchingSlot.ticketsSold,
+                ticketPrice: matchingSlot.ticketPrice,
+                totalPrice: matchingSlot.ticketPrice * (groupSize || 1),
+                cruiseType: 'disco',
+                icon: discoSlot.icon,
+                description: discoSlot.description,
+                status: 'available',
+                label: discoSlot.label
+              });
+            } else {
+              // Use default disco slot info
+              availableSlots.push({
+                id: `disco_${currentDate.toISOString().split('T')[0]}_${discoSlot.id}`,
+                date: currentDate.toISOString().split('T')[0],
+                startTime: discoSlot.startTime,
+                endTime: discoSlot.endTime,
+                duration: discoSlot.duration,
+                boatId: 'disco_boat',
+                boatName: 'ATX Disco Cruise',
+                boatType: 'disco',
+                capacity: discoSlot.maxCapacity || 100,
+                availableSpots: discoSlot.maxCapacity || 100,
+                ticketPrice: discoSlot.ticketPrice,
+                totalPrice: (discoSlot.ticketPrice || 0) * (groupSize || 1),
+                cruiseType: 'disco',
+                icon: discoSlot.icon,
+                description: discoSlot.description,
+                status: 'available',
+                label: discoSlot.label
               });
             }
           }
@@ -10056,14 +10113,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
         const baseHourlyRate = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100; // Base rate for private cruises in dollars (from shared constants)
         const dayOfWeek = date.getDay();
         
-        let duration = 3; // Default 3 hours for weekdays
-        if (dayOfWeek === 5) { // Friday
-          duration = 4;
-        } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
-          duration = 4;
+        let duration = timeSlot.duration || 4; // Use timeSlot duration or default to 4
+        
+        let subtotalCents = baseHourlyRate * duration * 100; // Convert to cents
+        
+        // Add crew fees based on group size
+        let crewFeeCents = 0;
+        if (groupSize >= 26 && groupSize <= 30) {
+          // $50/hour crew fee for groups 26-30
+          crewFeeCents = 5000 * duration; // $50 per hour in cents
+        } else if (groupSize >= 51 && groupSize <= 75) {
+          // $100/hour crew fee for groups 51-75
+          crewFeeCents = 10000 * duration; // $100 per hour in cents
         }
         
-        const subtotalCents = baseHourlyRate * duration * 100; // Convert to cents
+        // Add crew fee to subtotal
+        subtotalCents += crewFeeCents;
+        
         const items = [{ quantity: 1, unitPrice: subtotalCents, name: 'Private Cruise', type: 'cruise' }];
         const calculatedPricing = await calculateInvoiceTotalsWithPricingSettings(items);
         const taxCents = calculatedPricing.tax;
@@ -10080,10 +10146,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
           depositPercent: 25,
           duration: duration,
           hourlyRate: baseHourlyRate,
+          crewFee: crewFeeCents,
           breakdown: {
             baseRate: baseHourlyRate,
             duration: duration,
-            subtotal: subtotalCents / 100,
+            subtotal: (subtotalCents - crewFeeCents) / 100,
+            crewFee: crewFeeCents / 100,
             tax: taxCents / 100,
             gratuity: gratuityCents / 100,
             total: totalCents / 100
@@ -10095,6 +10163,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           subtotal: pricing.subtotal,
           tax: pricing.tax,
           gratuity: pricing.gratuity,
+          crewFee: pricing.crewFee,
           total: pricing.total,
           depositAmount: Math.round(pricing.total * 0.25), // 25% deposit
           breakdown: pricing.breakdown

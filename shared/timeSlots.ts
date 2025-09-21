@@ -29,36 +29,69 @@ export interface DiscoTimeSlot extends TimeSlot {
 export const getPrivateTimeSlotsForDate = (date: Date, duration?: 3 | 4): TimeSlot[] => {
   const dayOfWeek = date.getDay();
   
-  if (dayOfWeek >= 1 && dayOfWeek <= 4) { // Monday-Thursday (both 3-hour and 4-hour options)
-    const threeHourSlots = [
-      { id: '10am-1pm-3h', label: '10:00 AM - 1:00 PM', startTime: '10:00', endTime: '13:00', duration: 3, icon: '🌅', description: 'Morning cruise (3 hours)' },
-      { id: '11am-2pm-3h', label: '11:00 AM - 2:00 PM', startTime: '11:00', endTime: '14:00', duration: 3, icon: '🌞', description: 'Late morning cruise (3 hours)' },
-      { id: '12pm-3pm-3h', label: '12:00 PM - 3:00 PM', startTime: '12:00', endTime: '15:00', duration: 3, icon: '☀️', description: 'Lunch cruise (3 hours)' },
-      { id: '1pm-4pm-3h', label: '1:00 PM - 4:00 PM', startTime: '13:00', endTime: '16:00', duration: 3, icon: '☀️', description: 'Afternoon cruise (3 hours)' },
-      { id: '2pm-5pm-3h', label: '2:00 PM - 5:00 PM', startTime: '14:00', endTime: '17:00', duration: 3, icon: '🌆', description: 'Late afternoon cruise (3 hours)' },
-      { id: '3pm-6pm-3h', label: '3:00 PM - 6:00 PM', startTime: '15:00', endTime: '18:00', duration: 3, icon: '🌆', description: 'Evening cruise (3 hours)' },
-      { id: '4pm-7pm-3h', label: '4:00 PM - 7:00 PM', startTime: '16:00', endTime: '19:00', duration: 3, icon: '🌅', description: 'Early sunset cruise (3 hours)' },
-      { id: '5pm-8pm-3h', label: '5:00 PM - 8:00 PM', startTime: '17:00', endTime: '20:00', duration: 3, icon: '🌙', description: 'Sunset cruise (3 hours)' },
-      { id: '5:30pm-8:30pm-3h', label: '5:30 PM - 8:30 PM', startTime: '17:30', endTime: '20:30', duration: 3, icon: '🌙', description: 'Late sunset cruise (3 hours)' },
-    ];
-
-    const fourHourSlots = [
-      { id: '10am-2pm-4h', label: '10:00 AM - 2:00 PM', startTime: '10:00', endTime: '14:00', duration: 4, icon: '🌅', description: 'Morning cruise (4 hours)' },
-      { id: '11am-3pm-4h', label: '11:00 AM - 3:00 PM', startTime: '11:00', endTime: '15:00', duration: 4, icon: '🌞', description: 'Late morning cruise (4 hours)' },
-      { id: '12pm-4pm-4h', label: '12:00 PM - 4:00 PM', startTime: '12:00', endTime: '16:00', duration: 4, icon: '☀️', description: 'Lunch cruise (4 hours)' },
-      { id: '1pm-5pm-4h', label: '1:00 PM - 5:00 PM', startTime: '13:00', endTime: '17:00', duration: 4, icon: '☀️', description: 'Afternoon cruise (4 hours)' },
-      { id: '2pm-6pm-4h', label: '2:00 PM - 6:00 PM', startTime: '14:00', endTime: '18:00', duration: 4, icon: '🌆', description: 'Late afternoon cruise (4 hours)' },
-      { id: '3pm-7pm-4h', label: '3:00 PM - 7:00 PM', startTime: '15:00', endTime: '19:00', duration: 4, icon: '🌆', description: 'Evening cruise (4 hours)' },
-      { id: '4pm-8pm-4h', label: '4:00 PM - 8:00 PM', startTime: '16:00', endTime: '20:00', duration: 4, icon: '🌙', description: 'Sunset cruise (4 hours)' },
-      { id: '4:30pm-8:30pm-4h', label: '4:30 PM - 8:30 PM', startTime: '16:30', endTime: '20:30', duration: 4, icon: '🌙', description: 'Late sunset cruise (4 hours)' },
-    ];
-
-    // Filter by duration if specified
-    if (duration === 3) return threeHourSlots;
-    if (duration === 4) return fourHourSlots;
+  if (dayOfWeek >= 1 && dayOfWeek <= 4) { // Monday-Thursday (4-hour slots every 30 minutes from 10:00 AM to 8:30 PM)
+    const fourHourSlots: TimeSlot[] = [];
     
-    // Return all slots if no duration filter (for backward compatibility)
-    return [...threeHourSlots, ...fourHourSlots];
+    // Generate 4-hour slots every 30 minutes from 10:00 AM to 4:30 PM
+    // (so the last slot ends at 8:30 PM)
+    for (let hour = 10; hour <= 16; hour++) {
+      for (let minute = 0; minute < 60; minute += 30) {
+        // Skip if it would go past 4:30 PM start time
+        if (hour === 16 && minute > 30) break;
+        
+        const startHour = hour;
+        const startMinute = minute;
+        const endHour = hour + 4;
+        const endMinute = minute;
+        
+        const formatTime = (h: number, m: number): string => {
+          return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+        };
+        
+        const formatLabel = (h: number, m: number): string => {
+          const period = h >= 12 ? 'PM' : 'AM';
+          const displayHour = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+          const minuteStr = m === 0 ? '00' : '30';
+          return `${displayHour}:${minuteStr} ${period}`;
+        };
+        
+        const startTimeStr = formatTime(startHour, startMinute);
+        const endTimeStr = formatTime(endHour, endMinute);
+        const startLabel = formatLabel(startHour, startMinute);
+        const endLabel = formatLabel(endHour, endMinute);
+        
+        // Determine icon and description based on time
+        let icon = '🌅';
+        let description = 'Morning cruise';
+        if (startHour >= 17) {
+          icon = '🌙';
+          description = 'Evening cruise';
+        } else if (startHour >= 15) {
+          icon = '🌆';
+          description = 'Late afternoon cruise';
+        } else if (startHour >= 12) {
+          icon = '☀️';
+          description = 'Afternoon cruise';
+        } else if (startHour >= 11) {
+          icon = '🌞';
+          description = 'Late morning cruise';
+        }
+        
+        const slotId = `${startTimeStr.replace(':', '')}-${endTimeStr.replace(':', '')}-4h`;
+        
+        fourHourSlots.push({
+          id: slotId,
+          label: `${startLabel} - ${endLabel}`,
+          startTime: startTimeStr,
+          endTime: endTimeStr,
+          duration: 4,
+          icon,
+          description: `${description} (4 hours)`
+        });
+      }
+    }
+    
+    return fourHourSlots;
   } else if (dayOfWeek === 5) { // Friday (4-hour slots)
     return [
       { id: '12pm-4pm', label: '12:00 PM - 4:00 PM', startTime: '12:00', endTime: '16:00', duration: 4, icon: '☀️', description: 'Friday afternoon cruise' },

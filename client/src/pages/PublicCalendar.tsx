@@ -125,7 +125,11 @@ export default function PublicCalendar() {
 
   // Handle booking from popup
   const handleBookNow = useCallback(() => {
-    if (!selectedSlot) return;
+    console.log('📅 handleBookNow called with selectedSlot:', selectedSlot);
+    if (!selectedSlot) {
+      console.log('📅 No slot selected, returning early');
+      return;
+    }
     
     // Build checkout URL with all necessary parameters for UniversalCheckout
     const params = new URLSearchParams({
@@ -159,8 +163,16 @@ export default function PublicCalendar() {
       ...(selectedSlot.label && { slotDescription: selectedSlot.label }),
     });
 
+    const checkoutUrl = `/checkout?${params.toString()}`;
+    console.log('📅 Navigating to checkout URL:', checkoutUrl);
+    
+    // Close the modal before navigating
+    setShowSlotPopup(false);
+    
     // Navigate to checkout with pre-filled selections
-    navigate(`/checkout?${params.toString()}`);
+    setTimeout(() => {
+      navigate(checkoutUrl);
+    }, 100); // Small delay to ensure modal closes first
   }, [selectedSlot, groupSize, eventType, navigate]);
 
   return (

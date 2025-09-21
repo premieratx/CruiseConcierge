@@ -1001,8 +1001,11 @@ export default function Chat() {
       return;
     }
     
+    // Use BASE_PRIVATE_HOURLY_RATE from constants (Convert from cents to dollars)
+    const baseHourlyRate = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100;
+    
     // Calculate total hourly rate (base + add-ons)
-    const totalHourlyRate = BASE_PRIVATE_HOURLY_RATE + 
+    const totalHourlyRate = baseHourlyRate + 
       formData.selectedAddOnPackages.reduce((sum, addOnId) => {
         const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
         return sum + (addOn?.hourlyRate || 0);

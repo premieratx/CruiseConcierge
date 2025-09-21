@@ -424,7 +424,7 @@ export default function UniversalCheckout({
       const result = await response.json();
       
       if (result.valid && result.discount) {
-        const discountAmount = Math.floor((pricing.total * result.discount.percentage) / 100);
+        const discountAmount = Math.floor(((pricing?.total ?? 0) * result.discount.percentage) / 100);
         
         setAppliedDiscount({
           code: result.discount.code,
@@ -467,16 +467,28 @@ export default function UniversalCheckout({
   };
 
   // Calculate final pricing with discount
-  const finalPricing = appliedDiscount ? {
-    ...pricing,
-    discountAmount: appliedDiscount.amount,
-    discountPercentage: appliedDiscount.percentage,
-    finalTotal: pricing.total - appliedDiscount.amount,
-    depositAmount: Math.ceil((pricing.total - appliedDiscount.amount) * (pricing.depositPercentage / 100))
-  } : {
-    ...pricing,
-    finalTotal: pricing.total,
-    depositAmount: pricing.depositAmount
+  const finalPricing = pricing ? (
+    appliedDiscount ? {
+      ...pricing,
+      discountAmount: appliedDiscount.amount,
+      discountPercentage: appliedDiscount.percentage,
+      finalTotal: (pricing.total ?? 0) - appliedDiscount.amount,
+      depositAmount: Math.ceil(((pricing.total ?? 0) - appliedDiscount.amount) * ((pricing.depositPercentage ?? 25) / 100))
+    } : {
+      ...pricing,
+      finalTotal: pricing.total ?? 0,
+      depositAmount: pricing.depositAmount ?? 0
+    }
+  ) : {
+    subtotal: 0,
+    tax: 0,
+    gratuity: 0,
+    total: 0,
+    depositAmount: 0,
+    depositPercentage: 25,
+    finalTotal: 0,
+    perPersonCost: 0,
+    isUrgentBooking: false
   };
 
   // Handle payment processing
@@ -518,7 +530,7 @@ export default function UniversalCheckout({
     );
   }
 
-  if (error || !session || !selections || !pricing) {
+  if (error || !session || !selections) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-950 dark:to-cyan-950 flex items-center justify-center">
         <div className="max-w-md w-full mx-4">
@@ -907,15 +919,15 @@ export default function UniversalCheckout({
                         <span className="text-muted-foreground">Group Size:</span>
                         <span className="font-medium">{selections.groupSize} guests</span>
                       </div>
-                      {selections.cruiseType === 'private' && pricing.boatInfo && (
+                      {selections.cruiseType === 'private' && pricing?.boatInfo && (
                         <div className="flex justify-between">
                           <span className="text-muted-foreground">Boat:</span>
-                          <span className="font-medium">{pricing.boatInfo.name}</span>
+                          <span className="font-medium">{pricing?.boatInfo?.name}</span>
                         </div>
                       )}
                     </div>
 
-                    {pricing.total > 0 && (
+                    {pricing && pricing.total > 0 && (
                       <>
                         <Separator />
                         
@@ -932,10 +944,10 @@ export default function UniversalCheckout({
                                 <span className="text-muted-foreground">
                                   {selections.discoPackage?.name || 'Disco Package'}
                                 </span>
-                                <span>{formatCurrency(pricing.subtotal)}</span>
+                                <span>{formatCurrency(pricing?.subtotal ?? 0)}</span>
                               </div>
                               <div className="flex justify-between text-xs text-muted-foreground">
-                                <span>• {formatCurrency(pricing.perPersonCost || 0)} per person</span>
+                                <span>• {formatCurrency(pricing?.perPersonCost || 0)} per person</span>
                                 <span>{selections.groupSize}x</span>
                               </div>
                             </div>
@@ -944,30 +956,30 @@ export default function UniversalCheckout({
                               {/* Base Cruise Cost */}
                               <div className="flex justify-between">
                                 <span className="text-muted-foreground">Base Cruise (4hrs)</span>
-                                <span>{formatCurrency(pricing.packageBreakdown?.baseCruiseCost || pricing.subtotal)}</span>
+                                <span>{formatCurrency(pricing?.packageBreakdown?.baseCruiseCost || pricing?.subtotal || 0)}</span>
                               </div>
                               
                               {/* Add-on Packages */}
-                              {pricing.packageBreakdown?.addOnPackagesCost > 0 && (
+                              {pricing?.packageBreakdown?.addOnPackagesCost && pricing.packageBreakdown.addOnPackagesCost > 0 && (
                                 <div className="flex justify-between">
                                   <span className="text-muted-foreground">Package Add-ons</span>
-                                  <span>{formatCurrency(pricing.packageBreakdown.addOnPackagesCost)}</span>
+                                  <span>{formatCurrency(pricing?.packageBreakdown?.addOnPackagesCost || 0)}</span>
                                 </div>
                               )}
                               
                               {/* Crew Fee */}
-                              {pricing.packageBreakdown?.crewFee > 0 && (
+                              {pricing?.packageBreakdown?.crewFee && pricing.packageBreakdown.crewFee > 0 && (
                                 <div className="flex justify-between">
                                   <span className="text-muted-foreground">Additional Crew</span>
-                                  <span>{formatCurrency(pricing.packageBreakdown.crewFee)}</span>
+                                  <span>{formatCurrency(pricing?.packageBreakdown?.crewFee || 0)}</span>
                                 </div>
                               )}
                               
                               {/* Per Person Cost */}
-                              {pricing.perPersonCost && (
+                              {pricing?.perPersonCost && (
                                 <div className="flex justify-between text-xs text-muted-foreground pt-1 border-t">
                                   <span>Per person cost</span>
-                                  <span>{formatCurrency(pricing.perPersonCost)}</span>
+                                  <span>{formatCurrency(pricing?.perPersonCost || 0)}</span>
                                 </div>
                               )}
                             </div>
@@ -975,21 +987,21 @@ export default function UniversalCheckout({
                         </div>
 
                         {/* Tax and Gratuity */}
-                        {(pricing.tax > 0 || pricing.gratuity > 0) && (
+                        {pricing && (pricing.tax > 0 || pricing.gratuity > 0) && (
                           <>
                             <Separator />
                             <div className="space-y-1 text-sm">
                               <h4 className="font-semibold text-sm">Taxes & Fees</h4>
-                              {pricing.tax > 0 && (
+                              {pricing?.tax && pricing.tax > 0 && (
                                 <div className="flex justify-between">
                                   <span className="text-muted-foreground">Tax (8.25%)</span>
-                                  <span>{formatCurrency(pricing.tax)}</span>
+                                  <span>{formatCurrency(pricing?.tax ?? 0)}</span>
                                 </div>
                               )}
-                              {pricing.gratuity > 0 && (
+                              {pricing?.gratuity && pricing.gratuity > 0 && (
                                 <div className="flex justify-between">
                                   <span className="text-muted-foreground">Gratuity (20%)</span>
-                                  <span>{formatCurrency(pricing.gratuity)}</span>
+                                  <span>{formatCurrency(pricing?.gratuity ?? 0)}</span>
                                 </div>
                               )}
                             </div>
@@ -1001,7 +1013,7 @@ export default function UniversalCheckout({
                         {/* Subtotal */}
                         <div className="flex justify-between">
                           <span className="text-muted-foreground">Subtotal:</span>
-                          <span>{formatCurrency(pricing.total)}</span>
+                          <span>{formatCurrency(pricing?.total ?? 0)}</span>
                         </div>
 
                         {/* Discount Line */}
@@ -1026,7 +1038,7 @@ export default function UniversalCheckout({
                         {appliedDiscount && (
                           <div className="flex justify-between text-sm text-gray-500">
                             <span>Original Total:</span>
-                            <span className="line-through">{formatCurrency(pricing.total)}</span>
+                            <span className="line-through">{formatCurrency(pricing?.total ?? 0)}</span>
                           </div>
                         )}
                         
@@ -1040,16 +1052,16 @@ export default function UniversalCheckout({
                           {/* Deposit Option */}
                           <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded-lg">
                             <div className="flex justify-between items-center mb-1">
-                              <span className="font-medium text-sm">Pay Deposit ({pricing.depositPercentage}%)</span>
+                              <span className="font-medium text-sm">Pay Deposit ({pricing?.depositPercentage ?? 25}%)</span>
                               <span className="font-bold text-blue-600">{formatCurrency(finalPricing.depositAmount)}</span>
                             </div>
                             <p className="text-xs text-muted-foreground">
-                              Reserve your cruise with {pricing.depositPercentage}% deposit
+                              Reserve your cruise with {pricing?.depositPercentage ?? 25}% deposit
                             </p>
                             <p className="text-xs text-muted-foreground mt-1">
                               Balance: {formatCurrency(finalPricing.finalTotal - finalPricing.depositAmount)} due 30 days before cruise
                             </p>
-                            {pricing.isUrgentBooking && (
+                            {pricing?.isUrgentBooking && (
                               <div className="flex items-center gap-1 mt-1 text-xs text-amber-600">
                                 <AlertCircle className="h-3 w-3" />
                                 <span>Urgent booking - higher deposit required</span>
@@ -1077,7 +1089,7 @@ export default function UniversalCheckout({
                 </Card>
                 
                 {/* Smart Recommendations Card */}
-                {pricing.total > 0 && (
+                {pricing && pricing.total > 0 && (
                   <SmartRecommendationsCard 
                     selections={selections} 
                     pricing={pricing} 
@@ -1428,12 +1440,12 @@ function PaymentStep({ selections, pricing, onPaymentSubmit, isProcessing }: {
                   <div>
                     <div className="font-medium">Deposit Required</div>
                     <div className="text-sm text-muted-foreground">
-                      {pricing.isUrgentBooking ? '50% for bookings ≤30 days' : '25% to secure your booking'}
+                      {pricing?.isUrgentBooking ? '50% for bookings ≤30 days' : '25% to secure your booking'}
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="font-bold">{formatCurrency(pricing.depositAmount)}</div>
-                    <div className="text-sm text-muted-foreground">{pricing.depositPercent}%</div>
+                    <div className="font-bold">{formatCurrency(pricing?.depositAmount ?? 0)}</div>
+                    <div className="text-sm text-muted-foreground">{pricing?.depositPercentage ?? 25}%</div>
                   </div>
                 </div>
                 
@@ -1441,11 +1453,11 @@ function PaymentStep({ selections, pricing, onPaymentSubmit, isProcessing }: {
                   <div>
                     <div className="font-medium">Balance Due</div>
                     <div className="text-sm text-muted-foreground">
-                      {pricing.isUrgentBooking ? 'Within 48 hours' : '30 days before cruise'}
+                      {pricing?.isUrgentBooking ? 'Within 48 hours' : '30 days before cruise'}
                     </div>
                   </div>
                   <div className="text-right">
-                    <div className="font-bold">{formatCurrency(pricing.total - pricing.depositAmount)}</div>
+                    <div className="font-bold">{formatCurrency((pricing?.total ?? 0) - (pricing?.depositAmount ?? 0))}</div>
                   </div>
                 </div>
               </div>
@@ -1466,7 +1478,7 @@ function PaymentStep({ selections, pricing, onPaymentSubmit, isProcessing }: {
                 onClick={() => onPaymentSubmit('deposit')}
               >
                 <CreditCardIcon className="w-4 h-4 mr-2" />
-                {isProcessing ? 'Processing...' : `Pay Deposit ${pricing ? formatCurrency(pricing.depositAmount) : ''}`}
+                {isProcessing ? 'Processing...' : `Pay Deposit ${formatCurrency(pricing?.depositAmount ?? 0)}`}
               </Button>
               
               <Button 
@@ -1476,7 +1488,7 @@ function PaymentStep({ selections, pricing, onPaymentSubmit, isProcessing }: {
                 onClick={() => onPaymentSubmit('full_payment')}
               >
                 <CreditCardIcon className="w-4 h-4 mr-2" />
-                {isProcessing ? 'Processing...' : `Pay Full Amount ${pricing ? formatCurrency(pricing.total) : ''}`}
+                {isProcessing ? 'Processing...' : `Pay Full Amount ${formatCurrency(pricing?.total ?? 0)}`}
               </Button>
             </div>
           </div>
