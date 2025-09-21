@@ -1,5 +1,5 @@
 import UniversalCalendar from '@/components/UniversalCalendar';
-import { SEOHead } from '@/components/SEOHead';
+// import { SEOHead } from '@/components/SEOHead'; // Temporarily disabled
 
 // PublicCalendar is now a simple wrapper around UniversalCalendar
 // All functionality has been moved to the universal component
@@ -12,12 +12,6 @@ export default function PublicCalendar() {
 
   return (
     <>
-      <SEOHead 
-        title="Book Your Austin Party Boat - Available Times | Premier Party Cruises"
-        description="View real-time availability and book your Austin party boat cruise. Choose from private boats holding 14-75 people. Live pricing and instant booking."
-        keywords="austin party boat booking, lake travis boat rental, available times, book cruise austin"
-      />
-      
       <UniversalCalendar
         defaultGroupSize={initialGroupSize}
         defaultEventType={initialEventType === 'bachelor' || initialEventType === 'bachelorette' ? initialEventType : 'private'}
