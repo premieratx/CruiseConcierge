@@ -1532,12 +1532,11 @@ export default function Chat() {
       const selectionPayload = {
         entryPoint: 'quote_builder',
         paymentType,
-        cruiseType
-,
+        cruiseType,
         eventType: formData.eventType,
         eventTypeLabel: formData.eventTypeLabel,
         eventEmoji: formData.eventEmoji,
-        groupSize: formData.groupSize,
+        groupSize: cruiseType === 'disco' ? formData.discoTicketQuantity : formData.groupSize,
         eventDate: formData.eventDate?.toISOString(),
         date: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : undefined,
         firstName: formData.firstName,
@@ -1556,6 +1555,8 @@ export default function Chat() {
         capacity: formData.selectedSlot?.capacity?.toString() || formData.groupSize.toString(),
         addOnPackages: cruiseType === 'private' ? formData.selectedAddOnPackages : undefined,
         discoPackage: cruiseType === 'disco' ? formData.selectedDiscoPackage : undefined,
+        selectedDiscoPackage: cruiseType === 'disco' ? formData.selectedDiscoPackage : undefined,
+        discoTicketQuantity: cruiseType === 'disco' ? formData.discoTicketQuantity : undefined,
         ticketQuantity: cruiseType === 'disco' ? formData.discoTicketQuantity : undefined
       };
       
@@ -1565,7 +1566,7 @@ export default function Chat() {
         depositAmount: pricing?.depositAmount,
         totalAmount: pricing?.total,
         eventType: formData.eventType,
-        groupSize: formData.groupSize,
+        groupSize: cruiseType === 'disco' ? formData.discoTicketQuantity : formData.groupSize,
         subtotal: pricing?.subtotal,
         tax: pricing?.tax,
         gratuity: pricing?.gratuity,
@@ -3393,7 +3394,9 @@ export default function Chat() {
                 </div>
                 <div>
                   <span className="text-gray-600 dark:text-gray-400">Group Size:</span>
-                  <span className="ml-2 font-medium">{formData.groupSize} people</span>
+                  <span className="ml-2 font-medium">
+                    {pendingCruiseType === 'disco' ? formData.discoTicketQuantity : formData.groupSize} people
+                  </span>
                 </div>
               </div>
             </div>
