@@ -82,16 +82,16 @@ function SmartRecommendationsCard({ selections, pricing, onSelectCruiseType }: {
               <TrendingUpIcon className="h-4 w-4 text-amber-600 mt-0.5" />
               <div className="space-y-1">
                 <h4 className="font-semibold text-sm text-amber-900 dark:text-amber-100">
-                  {recommendation.type === 'different_day' && 'Save by changing your date'}
-                  {recommendation.type === 'different_cruise' && 'Consider disco cruise option'}
-                  {recommendation.type === 'different_package' && 'Package upgrade savings'}
+                  {recommendation.primaryRecommendation?.type === 'private' && 'Private charter recommended'}
+                  {recommendation.primaryRecommendation?.type === 'disco' && 'Disco cruise recommended'}
+                  {recommendation.primaryRecommendation?.type === 'private_only' && 'Private cruise only option'}
                 </h4>
                 <p className="text-xs text-amber-800 dark:text-amber-200">
-                  {recommendation.message}
+                  {recommendation.primaryRecommendation?.whyBest || recommendation.primaryRecommendation?.valueMessage}
                 </p>
-                {recommendation.savings > 0 && (
+                {recommendation.primaryRecommendation?.totalCost && (
                   <div className="text-sm font-bold text-green-600 dark:text-green-400">
-                    Save {formatCurrency(recommendation.savings)}
+                    {formatCurrency(recommendation.primaryRecommendation.totalCost)} total
                   </div>
                 )}
               </div>
@@ -102,7 +102,7 @@ function SmartRecommendationsCard({ selections, pricing, onSelectCruiseType }: {
         {/* Disco vs Private Comparison */}
         {discoComparison && (
           <div className="space-y-2">
-            {discoComparison.discoAvailable && (
+            {discoComparison.discoOption?.available && (
               <div className="bg-purple-50 dark:bg-purple-950 p-3 rounded-lg">
                 <div className="flex items-start gap-2">
                   <MusicIcon className="h-4 w-4 text-purple-600 mt-0.5" />
@@ -111,21 +111,21 @@ function SmartRecommendationsCard({ selections, pricing, onSelectCruiseType }: {
                       Disco Cruise Available
                     </h4>
                     <p className="text-xs text-purple-800 dark:text-purple-200">
-                      Join our party boat for {formatCurrency(discoComparison.discoPrice)} 
-                      ({formatCurrency(discoComparison.discoPrice / selections.groupSize)} per person)
+                      Join our party boat for {formatCurrency(discoComparison.discoOption.totalCost || 0)} 
+                      ({formatCurrency((discoComparison.discoOption.costPerPerson || 0))} per person)
                     </p>
-                    {discoComparison.savings > 0 ? (
+                    {discoComparison.comparison?.recommendation === 'disco' && discoComparison.comparison?.savings ? (
                       <div className="text-sm font-bold text-green-600 dark:text-green-400">
-                        Save {formatCurrency(discoComparison.savings)} vs private cruise
+                        Save {formatCurrency(Math.abs(discoComparison.comparison.savings))} vs private cruise
                       </div>
-                    ) : discoComparison.savings < 0 ? (
+                    ) : discoComparison.comparison?.recommendation === 'private' && discoComparison.comparison?.savings ? (
                       <div className="text-sm text-muted-foreground">
-                        Private cruise saves {formatCurrency(Math.abs(discoComparison.savings))}
+                        Private cruise saves {formatCurrency(Math.abs(discoComparison.comparison.savings))}
                       </div>
                     ) : null}
                   </div>
                 </div>
-                {selections.cruiseType === 'private' && discoComparison.savings > 0 && (
+                {selections.cruiseType === 'private' && discoComparison.comparison?.recommendation === 'disco' && (
                   <Button 
                     size="sm" 
                     variant="outline" 
@@ -139,7 +139,7 @@ function SmartRecommendationsCard({ selections, pricing, onSelectCruiseType }: {
               </div>
             )}
             
-            {!discoComparison.discoAvailable && selections.cruiseType === 'disco' && (
+            {!discoComparison.discoOption?.available && selections.cruiseType === 'disco' && (
               <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded-lg">
                 <div className="flex items-start gap-2">
                   <InfoIcon className="h-4 w-4 text-blue-600 mt-0.5" />
@@ -251,7 +251,7 @@ export default function UniversalCheckout({
     
     // Event details with fallbacks
     eventType: urlParams.get('eventType') || preselectedData.eventType || 'cruise',
-    eventTypeLabel: urlParams.get('eventTypeLabel') || EVENT_TYPES[urlParams.get('eventType') || 'cruise']?.label || 'Cruise',
+    eventTypeLabel: urlParams.get('eventTypeLabel') || EVENT_TYPES[urlParams.get('eventType') as keyof typeof EVENT_TYPES]?.label || 'Cruise',
     groupSize: urlParams.get('groupSize') ? parseInt(urlParams.get('groupSize')!) : preselectedData.groupSize || 15,
     eventDate: urlParams.get('eventDate') ? new Date(urlParams.get('eventDate')!) : preselectedData.eventDate || undefined,
     
@@ -278,7 +278,7 @@ export default function UniversalCheckout({
     paymentType: urlParams.get('paymentType') as 'deposit' | 'full' | undefined,
     
     // Entry point to help with flow determination
-    entryPoint: actualEntryPoint,
+    entryPoint: actualEntryPoint as CheckoutEntryPoint,
     
     // Contact information
     firstName: urlParams.get('firstName'),
@@ -341,7 +341,7 @@ export default function UniversalCheckout({
   
   // Initialize checkout context with validated data
   const checkout = useCheckoutContext({
-    entryPoint: actualEntryPoint,
+    entryPoint: actualEntryPoint as CheckoutEntryPoint,
     preselectedData: contextFromUrl,
     onCheckoutComplete: (result) => {
       toast({
@@ -475,7 +475,7 @@ export default function UniversalCheckout({
       discountAmount: appliedDiscount.amount,
       discountPercentage: appliedDiscount.percentage,
       finalTotal: (pricing.total ?? 0) - appliedDiscount.amount,
-      depositAmount: Math.ceil(((pricing.total ?? 0) - appliedDiscount.amount) * ((pricing.depositPercentage ?? 25) / 100))
+      depositAmount: Math.ceil(((pricing.total ?? 0) - appliedDiscount.amount) * ((pricing.depositPercent ?? 25) / 100))
     } : {
       ...pricing,
       finalTotal: pricing.total ?? 0,
@@ -487,7 +487,7 @@ export default function UniversalCheckout({
     gratuity: 0,
     total: 0,
     depositAmount: 0,
-    depositPercentage: 25,
+    depositPercent: 25,
     finalTotal: 0,
     perPersonCost: 0,
     isUrgentBooking: false
@@ -663,10 +663,10 @@ export default function UniversalCheckout({
                 <div className="text-center">
                   <ClockIcon className="h-8 w-8 text-blue-600 mx-auto mb-2" />
                   <div className="font-bold text-lg text-gray-900 dark:text-white">
-                    {selections.selectedSlot?.startTime || 'TBD'} - {selections.selectedSlot?.endTime || 'TBD'}
+                    {selections.selectedTimeSlot?.startTime || 'TBD'} - {selections.selectedTimeSlot?.endTime || 'TBD'}
                   </div>
                   <div className="text-sm text-gray-600 dark:text-gray-400">
-                    {selections.selectedSlot?.duration || 4} Hour Cruise
+                    {selections.selectedTimeSlot?.duration || 4} Hour Cruise
                   </div>
                 </div>
 
@@ -1220,7 +1220,7 @@ export default function UniversalCheckout({
                             <div className="space-y-1 text-sm">
                               <div className="flex justify-between">
                                 <span className="text-muted-foreground">
-                                  {selections.discoPackage?.name || 'Disco Package'}
+                                  {selections.discoPackage?.label || 'Disco Package'}
                                 </span>
                                 <span>{formatCurrency(pricing?.subtotal ?? 0)}</span>
                               </div>
@@ -1330,16 +1330,16 @@ export default function UniversalCheckout({
                           {/* Deposit Option */}
                           <div className="bg-blue-50 dark:bg-blue-950 p-3 rounded-lg">
                             <div className="flex justify-between items-center mb-1">
-                              <span className="font-medium text-sm">Pay Deposit ({pricing?.depositPercentage ?? 25}%)</span>
+                              <span className="font-medium text-sm">Pay Deposit ({pricing?.depositPercent ?? 25}%)</span>
                               <span className="font-bold text-blue-600">{formatCurrency(finalPricing.depositAmount)}</span>
                             </div>
                             <p className="text-xs text-muted-foreground">
-                              Reserve your cruise with {pricing?.depositPercentage ?? 25}% deposit
+                              Reserve your cruise with {pricing?.depositPercent ?? 25}% deposit
                             </p>
                             <p className="text-xs text-muted-foreground mt-1">
                               Balance: {formatCurrency(finalPricing.finalTotal - finalPricing.depositAmount)} due 30 days before cruise
                             </p>
-                            {pricing?.isUrgentBooking && (
+                            {pricing && 'isUrgentBooking' in pricing && pricing.isUrgentBooking && (
                               <div className="flex items-center gap-1 mt-1 text-xs text-amber-600">
                                 <AlertCircle className="h-3 w-3" />
                                 <span>Urgent booking - higher deposit required</span>
@@ -1723,7 +1723,7 @@ function PaymentStep({ selections, pricing, onPaymentSubmit, isProcessing }: {
                   </div>
                   <div className="text-right">
                     <div className="font-bold">{formatCurrency(pricing?.depositAmount ?? 0)}</div>
-                    <div className="text-sm text-muted-foreground">{pricing?.depositPercentage ?? 25}%</div>
+                    <div className="text-sm text-muted-foreground">{pricing?.depositPercent ?? 25}%</div>
                   </div>
                 </div>
                 

@@ -213,7 +213,7 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
       boatCandidates: [selectedBoat?.id || 'boat_day_tripper'],
       bookable: true,
       boatName: selectedBoat?.name || 'Day Tripper',
-      description: `${selectedBoat?.name || 'Day Tripper'} - 4 hour cruise`
+      // description: `${selectedBoat?.name || 'Day Tripper'} - 4 hour cruise` // Removed - not in NormalizedSlot interface
     };
     
     return {
@@ -222,8 +222,8 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
       eventTypeLabel: EVENT_TYPES[eventType as keyof typeof EVENT_TYPES]?.label || 'Birthday',
       groupSize,
       selectedBoat,
-      // CRITICAL FIX: Use complete selectedSlot object instead of just timeSlot string
-      selectedTimeSlot: preselectedData.selectedSlot || defaultTimeSlot,
+      // CRITICAL FIX: Use complete selectedTimeSlot object instead of just timeSlot string
+      selectedTimeSlot: preselectedData.selectedTimeSlot || defaultTimeSlot,
       cruiseType: preselectedData.cruiseType || 'private',
       discoPackage: preselectedData.discoPackage ? 
         discoPackages.find(p => p.id === preselectedData.discoPackage) : undefined,
@@ -322,7 +322,7 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
       
       // Additional deposit info
       depositAmount: deposit.depositAmount,
-      balanceDue: deposit.balanceDue,
+      // balanceDue: deposit.balanceDue, // Removed - not in CheckoutPricing interface
       depositPercent: deposit.depositPercent,
       isUrgentBooking: deposit.isUrgentBooking,
       remainingBalanceDueAt: deposit.remainingBalanceDueAt,
@@ -343,7 +343,11 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
     const pricing = calculatePackagePricing(selections.eventDate, selections.groupSize, packageType);
     
     return {
-      ...pricing,
+      // Required CheckoutPricing base properties 
+      subtotal: pricing.subtotal,
+      tax: pricing.tax,
+      gratuity: pricing.gratuity,
+      total: pricing.totalPrice,
       
       // Required PricingPreview properties
       discountTotal: 0,
