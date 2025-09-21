@@ -23,7 +23,6 @@ import {
 } from 'lucide-react';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
-import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
 import { DiscoVsPrivateComparison, QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
 import { 
   calculatePackagePricing, 
