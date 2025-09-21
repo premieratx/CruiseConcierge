@@ -302,13 +302,14 @@ const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 's
   const slots: NormalizedSlot[] = [];
   
   // FIXED: Show total price including tax/gratuity directly in slot label
-  const formatSlotWithTotal = (boatName: string, time: string, totalPrice: number) => {
-    return `${boatName} • ${time} • $${Math.round(totalPrice / 100).toLocaleString()} total`;
+  const formatSlotWithTotal = (boatName: string, time: string, totalPrice: number, hourlyRate: number, duration: number) => {
+    const hourlyDisplay = `$${Math.round(hourlyRate / 100)}/hr`;
+    return `${boatName} • ${time} • ${hourlyDisplay} • $${Math.round(totalPrice / 100).toLocaleString()} total`;
   };
   
   if (dayOfWeek === 5) { // Friday
     // Slot 1: Meeseeks 12:00PM-4:00PM
-    const slot1Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 0), '12:00 PM - 4:00 PM', pricing.totalPrice);
+    const slot1Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 0), '12:00 PM - 4:00 PM', pricing.totalPrice, pricing.baseHourlyRate, pricing.duration);
     slots.push({
       id: `private_meeseeks_${dateISO}_12:00_16:00`,
       dateISO,
@@ -354,7 +355,7 @@ const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 's
     });
   } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
     // Slot 1: Meeseeks 11:00AM-3:00PM
-    const slot1Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 0), '11:00 AM - 3:00 PM', pricing.totalPrice);
+    const slot1Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 0), '11:00 AM - 3:00 PM', pricing.totalPrice, pricing.baseHourlyRate, pricing.duration);
     slots.push({
       id: `private_meeseeks_${dateISO}_11:00_15:00`,
       dateISO,
@@ -377,7 +378,7 @@ const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 's
     });
     
     // Slot 2: The Irony 3:30PM-7:30PM
-    const slot2Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 1), '3:30 PM - 7:30 PM', pricing.totalPrice);
+    const slot2Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 1), '3:30 PM - 7:30 PM', pricing.totalPrice, pricing.baseHourlyRate, pricing.duration);
     slots.push({
       id: `private_irony_${dateISO}_15:30_19:30`,
       dateISO,
@@ -1009,38 +1010,31 @@ export default function Chat() {
     return (dayOfWeek >= 1 && dayOfWeek <= 4) ? 3 : 4; // 3 hours Mon-Thu, 4 hours Fri-Sun
   };
 
-  // Fallback private cruise pricing calculation
+  // Fallback private cruise pricing calculation - now uses shared pricing logic
   const calculatePrivatePricing = () => {
     console.log('🚢 calculatePrivatePricing called as fallback');
-    if (!formData.selectedSlot) {
-      console.log('🚢 calculatePrivatePricing early return - no slot selected');
+    if (!formData.selectedSlot || !formData.eventDate) {
+      console.log('🚢 calculatePrivatePricing early return - no slot or date selected');
       return;
     }
     
-    // Use BASE_PRIVATE_HOURLY_RATE from constants (Convert from cents to dollars)
-    const baseHourlyRate = PRICING_DEFAULTS.BASE_HOURLY_RATE / 100;
+    // Use shared pricing calculation for consistency
+    const packageType = formData.selectedAddOnPackages.includes('ultimate') ? 'ultimate' : 
+                       formData.selectedAddOnPackages.includes('essentials') ? 'essentials' : 'standard';
     
-    // Calculate total hourly rate (base + add-ons)
-    const totalHourlyRate = baseHourlyRate + 
-      formData.selectedAddOnPackages.reduce((sum, addOnId) => {
-        const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
-        return sum + (addOn?.hourlyRate || 0);
-      }, 0);
+    const sharedPricing = calculatePackagePricing(formData.eventDate, formData.groupSize, packageType);
     
-    const cruiseDuration = getCruiseDuration(formData.eventDate);
-    const baseCost = totalHourlyRate * cruiseDuration;
-    const crewFee = formData.groupSize > 20 ? 200 : 0;
-    const subtotal = baseCost + crewFee;
+    // Convert shared pricing format to component format
+    const subtotal = Math.round((sharedPricing.totalPrice - 
+      Math.round(sharedPricing.totalPrice * 0.0825) - 
+      Math.round(sharedPricing.totalPrice * 0.20 / 1.2825)) / 1.2825);
     const tax = Math.round(subtotal * 0.0825);
     const gratuity = Math.round(subtotal * 0.20);
-    const total = subtotal + tax + gratuity;
+    const total = sharedPricing.totalPrice / 100; // Convert from cents to dollars
     
-    // Calculate deposit based on event date (30-day rule)
-    const today = new Date();
-    const eventDate = formData.eventDate || new Date();
-    const daysUntilEvent = differenceInDays(eventDate, today);
-    const depositPercent = daysUntilEvent >= 30 ? 25 : 100;
-    const depositAmount = Math.round(total * (depositPercent / 100));
+    // Use deposit calculation from shared pricing
+    const depositPercent = sharedPricing.depositPercent;
+    const depositAmount = sharedPricing.depositAmount / 100; // Convert from cents
     
     // Get selected add-on names for display
     const selectedAddOnNames = formData.selectedAddOnPackages
@@ -1051,8 +1045,8 @@ export default function Chat() {
     const privatePricingData = {
       subtotal: subtotal * 100,
       tax: tax * 100,
-      total: total * 100,
-      perPersonCost: Math.round((total / formData.groupSize) * 100),
+      total: sharedPricing.totalPrice, // Use shared pricing total in cents
+      perPersonCost: sharedPricing.perPersonCost * 100,
       discountTotal: 0,
       gratuity: gratuity * 100,
       depositRequired: true,
@@ -3341,8 +3335,8 @@ export default function Chat() {
       <Dialog open={showBookingConfirmation} onOpenChange={setShowBookingConfirmation}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle className="text-2xl flex items-center gap-2">
-              <CheckCircle className="h-6 w-6 text-green-600" />
+            <DialogTitle className="text-xl font-semibold flex items-center gap-2">
+              <CheckCircle className="h-5 w-5 text-green-600" />
               Confirm Your Booking
             </DialogTitle>
             <DialogDescription>

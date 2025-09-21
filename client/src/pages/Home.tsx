@@ -90,20 +90,6 @@ const services = [
     highlights: ['4 Premium Boats Available', '14-50 Person Capacity Options', 'Professional Licensed Captains', 'Premium Sound Systems', 'Coolers & Ice Included', 'Lily Pads & Floaties', '3-4 Hour Cruise Options']
   },
   {
-    id: 'disco',
-    title: 'ATX Disco Cruises',
-    subtitle: 'Friday & Saturday party cruises',
-    description: 'Austin\'s signature floating dance party every weekend! Friday 12pm-4pm, Saturday 11am-3pm & 3:30pm-7:30pm. DJ, photographer, bubbles, and epic Lake Travis vibes.',
-    features: ['Professional DJ & photographer included', 'Coolers, ice, and party setup', 'Giant unicorn floats & lily pads', 'Bubbles, koozies, and party favors', 'Friday & Saturday schedules'],
-    startingPrice: '$85',
-    icon: Music,
-    image: galleryImage2,
-    badge: 'Most Popular',
-    gallery: [galleryImage2, heroImage2, heroImage3, galleryImage3],
-    detailedDescription: 'Join Austin\'s most epic floating dance party every Friday and Saturday! Our ATX Disco Cruises feature live DJs, professional photographers, giant unicorn floats, and the wildest party atmosphere on Lake Travis. With multiple time slots and our signature "Clever Girl" boat with 14 disco balls, this is THE party cruise experience.',
-    highlights: ['Professional DJ & Live Music', 'On-Board Photographer', 'Giant Unicorn Floats', 'Bubbles & Party Favors', 'Koozies & Party Setup', 'Friday & Saturday Only', '$85 Per Person Tickets']
-  },
-  {
     id: 'bachelor',
     title: 'Bachelorette Parties',
     subtitle: 'Our specialty since 2009',
