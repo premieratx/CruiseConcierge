@@ -6,13 +6,16 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import { Slider } from "@/components/ui/slider";
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible";
 import { motion } from "framer-motion";
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 import { 
-  Users, Ship, ChevronLeft, ChevronRight, Phone, Mail, MapPin, Clock, DollarSign, Star
+  Users, Ship, ChevronLeft, ChevronRight, Phone, Mail, MapPin, Clock, DollarSign, Star, ChevronDown, Calendar
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { format, addWeeks, subWeeks, isToday, startOfWeek, endOfWeek } from "date-fns";
+import { format, addWeeks, subWeeks, isToday, startOfWeek, endOfWeek, getDay } from "date-fns";
 import type { NormalizedSlot } from "@shared/schema";
 import { formatCurrency, formatTimeForDisplay } from '@shared/formatters';
 import { useToast } from "@/hooks/use-toast";
@@ -60,6 +63,9 @@ export default function PublicCalendar() {
   const [groupSize, setGroupSize] = useState<number>(20);
   const [selectedSlot, setSelectedSlot] = useState<NormalizedSlot | null>(null);
   const [showSlotPopup, setShowSlotPopup] = useState(false);
+  const [eventType, setEventType] = useState<'other' | 'bachelor'>('other');
+  const [expandedDays, setExpandedDays] = useState<Set<string>>(new Set());
+  const [selectedTimeForDay, setSelectedTimeForDay] = useState<Record<string, NormalizedSlot | null>>({});
   const [, navigate] = useLocation();
   const { toast } = useToast();
 
@@ -71,9 +77,8 @@ export default function PublicCalendar() {
     return date;
   });
 
-  // Get URL params for event type and group size
+  // Get URL params for group size
   const urlParams = new URLSearchParams(window.location.search);
-  const eventType = urlParams.get('eventType') || 'private';
   const initialGroupSize = parseInt(urlParams.get('groupSize') || '20');
   
   // Initialize group size from URL params on mount
@@ -85,13 +90,14 @@ export default function PublicCalendar() {
   const bestMatch = getBestBoatMatch(groupSize);
 
   // Fetch availability based on event type
-  const { data: availableSlots = [], isLoading: privateLoading } = useQuery<NormalizedSlot[]>({
+  const { data: availableSlots = [], isLoading } = useQuery<NormalizedSlot[]>({
     queryKey: ["/api/availability/public", format(weekStart, 'yyyy-MM-dd'), format(weekEnd, 'yyyy-MM-dd'), groupSize, eventType],
     queryFn: async () => {
       const params = new URLSearchParams({
         startDate: format(weekStart, 'yyyy-MM-dd'),
         endDate: format(weekEnd, 'yyyy-MM-dd'),
-        groupSize: groupSize.toString()
+        groupSize: groupSize.toString(),
+        eventType: eventType === 'bachelor' ? 'bachelor' : ''
       });
       
       const response = await fetch(`/api/availability/public?${params}`);
@@ -104,8 +110,15 @@ export default function PublicCalendar() {
     refetchInterval: 1000 * 60 * 5, // 5 minutes
   });
 
-  const isLoading = privateLoading;
 
+  // Calculate total price with tax and gratuity
+  const calculateTotalWithTaxAndGratuity = (basePrice: number) => {
+    const taxRate = 0.0825; // 8.25%
+    const gratuityRate = 0.20; // 20%
+    const tax = basePrice * taxRate;
+    const gratuity = basePrice * gratuityRate;
+    return Math.round(basePrice + tax + gratuity);
+  };
 
   // Navigate weeks
   const goToPreviousWeek = () => setSelectedWeek(subWeeks(selectedWeek, 1));
@@ -115,6 +128,23 @@ export default function PublicCalendar() {
   const getSlotsForDate = (date: Date) => {
     const dateStr = format(date, 'yyyy-MM-dd');
     return availableSlots.filter(slot => slot.date === dateStr);
+  };
+
+  // Check if a date is Monday through Thursday
+  const isMondayThroughThursday = (date: Date) => {
+    const dayOfWeek = getDay(date);
+    return dayOfWeek >= 1 && dayOfWeek <= 4; // 1 = Monday, 4 = Thursday
+  };
+
+  // Toggle expanded state for a day
+  const toggleDayExpanded = (dateStr: string) => {
+    const newExpanded = new Set(expandedDays);
+    if (newExpanded.has(dateStr)) {
+      newExpanded.delete(dateStr);
+    } else {
+      newExpanded.add(dateStr);
+    }
+    setExpandedDays(newExpanded);
   };
 
   // Handle slot click - show popup
@@ -215,6 +245,30 @@ export default function PublicCalendar() {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
 
+        {/* Event Type Selector */}
+        <motion.div 
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          className="bg-white dark:bg-gray-800 rounded-xl shadow-sm border p-4 mb-6"
+        >
+          <div className="flex items-center justify-center space-x-2">
+            <label className="text-sm font-medium text-gray-700 dark:text-gray-300" data-testid="label-event-type">
+              Event Type:
+            </label>
+            <Tabs value={eventType} onValueChange={(value) => setEventType(value as 'other' | 'bachelor')}>
+              <TabsList className="grid w-[400px] grid-cols-2">
+                <TabsTrigger value="other" data-testid="tab-other-events">
+                  Other Events
+                </TabsTrigger>
+                <TabsTrigger value="bachelor" data-testid="tab-bachelor-bachelorette">
+                  Bachelor/Bachelorette
+                </TabsTrigger>
+              </TabsList>
+            </Tabs>
+          </div>
+        </motion.div>
+
         {/* Group Size Controls */}
         <motion.div 
           initial="hidden"
@@ -292,6 +346,10 @@ export default function PublicCalendar() {
           {weekDates.map((date, dayIndex) => {
             const slots = getSlotsForDate(date);
             const hasSlots = slots.length > 0;
+            const isMonThu = isMondayThroughThursday(date);
+            const dateStr = format(date, 'yyyy-MM-dd');
+            const isExpanded = expandedDays.has(dateStr);
+            const selectedTime = selectedTimeForDay[dateStr];
             
             return (
               <motion.div
@@ -337,54 +395,135 @@ export default function PublicCalendar() {
                     <div className="p-4 text-center text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 rounded-lg border border-dashed border-gray-300 dark:border-gray-600">
                       <div className="text-sm" data-testid={`text-no-slots-${dayIndex}`}>No cruises scheduled</div>
                     </div>
-                  ) : (
-                    slots.map((slot) => (
-                      <motion.div
-                        key={slot.id}
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                      >
+                  ) : isMonThu && slots.filter(s => s.cruiseType === 'private').length > 0 ? (
+                    // Monday-Thursday: Show as single expandable tile for private cruises
+                    <Collapsible open={isExpanded} onOpenChange={() => toggleDayExpanded(dateStr)}>
+                      <CollapsibleTrigger asChild>
                         <Card 
-                          className="cursor-pointer hover:shadow-md transition-all duration-200 border-l-4 border-l-blue-400" 
-                          onClick={() => handleSlotClick(slot)}
-                          data-testid={`slot-${slot.id}`}
+                          className="cursor-pointer hover:shadow-md transition-all duration-200 border-l-4 border-l-green-400" 
+                          data-testid={`expandable-day-${dateStr}`}
                         >
                           <CardContent className="p-4">
                             <div className="space-y-2">
                               <div className="flex items-center justify-between">
                                 <div className="flex items-center gap-2">
-                                  <Clock className="h-4 w-4 text-blue-600" />
-                                  <span className="font-medium text-sm text-gray-900 dark:text-white" data-testid={`text-slot-time-${slot.id}`}>
-                                    {formatTimeForDisplay(slot.startTime)} - {formatTimeForDisplay(slot.endTime)}
+                                  <Calendar className="h-4 w-4 text-green-600" />
+                                  <span className="font-medium text-sm text-gray-900 dark:text-white">
+                                    {slots.filter(s => s.cruiseType === 'private').length} Available Times
                                   </span>
                                 </div>
-                                {slot.totalPrice && (
-                                  <Badge variant="secondary" className="text-xs" data-testid={`text-slot-price-${slot.id}`}>
-                                    {formatCurrency(slot.totalPrice)}
-                                  </Badge>
-                                )}
+                                <ChevronDown className={cn(
+                                  "h-4 w-4 text-gray-600 transition-transform",
+                                  isExpanded && "rotate-180"
+                                )} />
                               </div>
-                              
-                              <div className="flex items-center gap-2">
-                                <Ship className="h-4 w-4 text-gray-600" />
-                                <span className="text-sm text-gray-600 dark:text-gray-300 font-medium" data-testid={`text-slot-boat-${slot.id}`}>
-                                  {slot.boatName || 'Available Boat'} ({slot.capacity} people)
-                                </span>
+                              <div className="text-xs text-gray-600 dark:text-gray-300">
+                                10:00 AM - 8:30 PM • Private Cruises
                               </div>
-                              
-                              {slot.capacity && groupSize <= slot.capacity && (
-                                <div className="flex items-center gap-2">
-                                  <Users className="h-4 w-4 text-green-600" />
-                                  <span className="text-sm text-green-600 dark:text-green-400" data-testid={`text-slot-capacity-${slot.id}`}>
-                                    Perfect fit for your group of {groupSize}
-                                  </span>
-                                </div>
-                              )}
                             </div>
                           </CardContent>
                         </Card>
-                      </motion.div>
-                    ))
+                      </CollapsibleTrigger>
+                      <CollapsibleContent className="mt-2 space-y-2">
+                        <div className="bg-white dark:bg-gray-800 rounded-lg border p-4">
+                          <label className="text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 block">
+                            Select a time:
+                          </label>
+                          <Select 
+                            value={selectedTime?.id || ""}
+                            onValueChange={(value) => {
+                              const slot = slots.find(s => s.id === value);
+                              if (slot) {
+                                setSelectedTimeForDay(prev => ({...prev, [dateStr]: slot}));
+                                handleSlotClick(slot);
+                              }
+                            }}
+                          >
+                            <SelectTrigger className="w-full" data-testid={`time-select-${dateStr}`}>
+                              <SelectValue placeholder="Choose a time slot" />
+                            </SelectTrigger>
+                            <SelectContent>
+                              {slots
+                                .filter(s => s.cruiseType === 'private')
+                                .sort((a, b) => a.startTime.localeCompare(b.startTime))
+                                .map(slot => {
+                                  const totalPrice = calculateTotalWithTaxAndGratuity(slot.totalPrice || 0);
+                                  return (
+                                    <SelectItem key={slot.id} value={slot.id} data-testid={`time-option-${slot.id}`}>
+                                      <div className="flex items-center justify-between w-full">
+                                        <span>{formatTimeForDisplay(slot.startTime)} - {formatTimeForDisplay(slot.endTime)}</span>
+                                        <span className="ml-4 text-green-600 font-medium">
+                                          {formatCurrency(totalPrice)} total
+                                        </span>
+                                      </div>
+                                    </SelectItem>
+                                  );
+                                })}
+                            </SelectContent>
+                          </Select>
+                        </div>
+                      </CollapsibleContent>
+                    </Collapsible>
+                  ) : (
+                    // Friday-Sunday or Disco slots: Show individual time slots
+                    slots.map((slot) => {
+                      const totalPrice = calculateTotalWithTaxAndGratuity(slot.totalPrice || 0);
+                      return (
+                        <motion.div
+                          key={slot.id}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          <Card 
+                            className={cn(
+                              "cursor-pointer hover:shadow-md transition-all duration-200 border-l-4",
+                              slot.cruiseType === 'disco' ? "border-l-purple-400" : "border-l-blue-400"
+                            )}
+                            onClick={() => handleSlotClick(slot)}
+                            data-testid={`slot-${slot.id}`}
+                          >
+                            <CardContent className="p-4">
+                              <div className="space-y-2">
+                                <div className="flex items-center justify-between">
+                                  <div className="flex items-center gap-2">
+                                    <Clock className="h-4 w-4 text-blue-600" />
+                                    <span className="font-medium text-sm text-gray-900 dark:text-white" data-testid={`text-slot-time-${slot.id}`}>
+                                      {formatTimeForDisplay(slot.startTime)} - {formatTimeForDisplay(slot.endTime)}
+                                    </span>
+                                  </div>
+                                  <Badge 
+                                    variant={slot.cruiseType === 'disco' ? "default" : "secondary"} 
+                                    className="text-xs" 
+                                    data-testid={`text-slot-price-${slot.id}`}
+                                  >
+                                    {formatCurrency(totalPrice)} total
+                                  </Badge>
+                                </div>
+                                
+                                <div className="flex items-center gap-2">
+                                  <Ship className="h-4 w-4 text-gray-600" />
+                                  <span className="text-sm text-gray-600 dark:text-gray-300 font-medium" data-testid={`text-slot-boat-${slot.id}`}>
+                                    {slot.boatName || 'Available Boat'}
+                                    {slot.cruiseType === 'disco' && (
+                                      <Badge variant="outline" className="ml-2 text-xs">Disco</Badge>
+                                    )}
+                                  </span>
+                                </div>
+                                
+                                {slot.capacity && groupSize <= slot.capacity && (
+                                  <div className="flex items-center gap-2">
+                                    <Users className="h-4 w-4 text-green-600" />
+                                    <span className="text-sm text-green-600 dark:text-green-400" data-testid={`text-slot-capacity-${slot.id}`}>
+                                      Perfect fit for your group of {groupSize}
+                                    </span>
+                                  </div>
+                                )}
+                              </div>
+                            </CardContent>
+                          </Card>
+                        </motion.div>
+                      );
+                    })
                   )}
                 </div>
               </motion.div>
@@ -514,10 +653,10 @@ export default function PublicCalendar() {
                   <DollarSign className="h-5 w-5 text-yellow-600" />
                   <div>
                     <div className="font-medium text-gray-900 dark:text-white" data-testid="text-popup-price">
-                      Estimated Total: {formatCurrency(selectedSlot.totalPrice)}
+                      Total: {formatCurrency(calculateTotalWithTaxAndGratuity(selectedSlot.totalPrice))}
                     </div>
                     <div className="text-sm text-gray-600 dark:text-gray-300">
-                      Final pricing will be calculated at checkout
+                      Includes base price + 8.25% tax + 20% gratuity
                     </div>
                   </div>
                 </div>
