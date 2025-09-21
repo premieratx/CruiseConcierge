@@ -301,15 +301,15 @@ const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 's
   
   const slots: NormalizedSlot[] = [];
   
-  // FIXED: Show total price including tax/gratuity directly in slot label
-  const formatSlotWithTotal = (boatName: string, time: string, totalPrice: number, hourlyRate: number, duration: number) => {
+  // FIXED: Show hourly rate only in slot label - actual total will be calculated server-side
+  const formatSlotWithHourly = (boatName: string, time: string, hourlyRate: number) => {
     const hourlyDisplay = `$${Math.round(hourlyRate / 100)}/hr`;
-    return `${boatName} • ${time} • ${hourlyDisplay} • $${Math.round(totalPrice / 100).toLocaleString()} total`;
+    return `${boatName} • ${time} • ${hourlyDisplay}`;
   };
   
   if (dayOfWeek === 5) { // Friday
     // Slot 1: Meeseeks 12:00PM-4:00PM
-    const slot1Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 0), '12:00 PM - 4:00 PM', pricing.totalPrice, pricing.baseHourlyRate, pricing.duration);
+    const slot1Label = formatSlotWithHourly(getBoatNameForCapacity(capacity, 0), '12:00 PM - 4:00 PM', pricing.baseHourlyRate);
     slots.push({
       id: `private_meeseeks_${dateISO}_12:00_16:00`,
       dateISO,
@@ -332,7 +332,7 @@ const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 's
     });
     
     // Slot 2: The Irony 4:30PM-8:30PM
-    const slot2Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 1), '4:30 PM - 8:30 PM', pricing.totalPrice);
+    const slot2Label = formatSlotWithHourly(getBoatNameForCapacity(capacity, 1), '4:30 PM - 8:30 PM', pricing.baseHourlyRate);
     slots.push({
       id: `private_irony_${dateISO}_16:30_20:30`,
       dateISO,
@@ -355,7 +355,7 @@ const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 's
     });
   } else if (dayOfWeek === 6 || dayOfWeek === 0) { // Saturday/Sunday
     // Slot 1: Meeseeks 11:00AM-3:00PM
-    const slot1Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 0), '11:00 AM - 3:00 PM', pricing.totalPrice, pricing.baseHourlyRate, pricing.duration);
+    const slot1Label = formatSlotWithHourly(getBoatNameForCapacity(capacity, 0), '11:00 AM - 3:00 PM', pricing.baseHourlyRate);
     slots.push({
       id: `private_meeseeks_${dateISO}_11:00_15:00`,
       dateISO,
@@ -378,7 +378,7 @@ const generateRealPrivateSlots = (date: Date, groupSize: number, packageType: 's
     });
     
     // Slot 2: The Irony 3:30PM-7:30PM
-    const slot2Label = formatSlotWithTotal(getBoatNameForCapacity(capacity, 1), '3:30 PM - 7:30 PM', pricing.totalPrice, pricing.baseHourlyRate, pricing.duration);
+    const slot2Label = formatSlotWithHourly(getBoatNameForCapacity(capacity, 1), '3:30 PM - 7:30 PM', pricing.baseHourlyRate);
     slots.push({
       id: `private_irony_${dateISO}_15:30_19:30`,
       dateISO,
