@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useLocation } from 'wouter';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -1444,8 +1445,10 @@ export default function Chat() {
     };
   }, []);
 
-  // Enhanced payment handler with streamlined validation - NO NAME REQUIRED
-  const handlePayment = useCallback(async (paymentType: 'deposit' | 'full', cruiseType: 'private' | 'disco') => {
+  // Enhanced payment handler that navigates to checkout with all necessary parameters
+  const [, navigate] = useLocation(); // Add navigate hook for routing
+  
+  const handlePayment = useCallback((paymentType: 'deposit' | 'full', cruiseType: 'private' | 'disco') => {
     console.log('💳 handlePayment called with:', { paymentType, cruiseType });
     
     // Prevent double submissions and interactions during loading
@@ -1493,92 +1496,102 @@ export default function Chat() {
       return;
     }
     
-    try {
-      setPaymentProcessing(true); // Set payment loading state
-      setPricingError(null); // Clear any previous errors
-
-      // Direct first-come-first-served booking - no slot holds
-      if (!formData.selectedSlot) {
-        throw new Error('No time slot selected');
-      }
-
-      console.log('💳 Creating direct payment session for first-come-first-served booking...');
-
-      // Create selection payload with all form data
-      const selectionPayload = {
-        cruiseType,
-        groupSize: formData.groupSize,
-        eventDate: formData.eventDate ? formData.eventDate.toISOString() : null,
-        eventType: formData.eventType,
-        eventTypeLabel: formData.eventTypeLabel,
-        eventEmoji: formData.eventEmoji,
-        // Send both formats for backward compatibility
-        selectedSlot: formData.selectedSlot,
-        selectedTimeSlot: formData.selectedSlot ? formData.selectedSlot.label : '',
-        selectedAddOnPackages: formData.selectedAddOnPackages,
-        // For disco cruises  
-        selectedDiscoPackage: formData.selectedDiscoPackage,
-        discoTicketQuantity: formData.discoTicketQuantity,
-      };
-
-      console.log('💳 Making API call to /api/checkout/create-session with payload:', {
-        paymentType,
-        selectionPayload
-        // No holdId - direct first-come-first-served booking
-      });
-
-      const response = await apiRequest("POST", "/api/checkout/create-session", {
-        paymentType,
-        customerEmail: formData.email.trim(), // Pass actual customer email
-        selectionPayload
-        // No holdId - race condition determines winner
-      });
-
-      console.log('💳 API response status:', response.status);
-
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.log('💳 API error response:', errorText);
-        throw new Error('Failed to create checkout session: ' + errorText);
-      }
-
-      const data = await response.json();
-      console.log('💳 API response data:', data);
-      
-      if (data.url) {
-        console.log('💳 Redirecting to:', data.url);
-        window.location.href = data.url; // Redirect to Stripe checkout
-      } else {
-        throw new Error('No checkout URL received');
-      }
-    } catch (error: any) {
-      console.error('💳 Payment error details:', {
-        message: error.message,
-        stack: error.stack,
-        cause: error.cause,
-        name: error.name,
-        fullError: error
-      });
-      
-      // Provide more specific error message to user
-      let userMessage = "Failed to start payment process. Please try again.";
-      if (error.message) {
-        if (error.message.includes('pricing') || error.message.includes('amount')) {
-          userMessage = "There was an issue with pricing calculation. Please refresh and try again.";
-        } else if (error.message.includes('network') || error.message.includes('fetch')) {
-          userMessage = "Network connection issue. Please check your connection and try again.";
-        }
-      }
-      
+    // Direct first-come-first-served booking - no slot holds
+    if (!formData.selectedSlot) {
       toast({
-        title: "Payment Error",
-        description: userMessage,
+        title: "Time Slot Required",
+        description: "Please select a time slot before proceeding to payment.",
         variant: "destructive",
       });
-    } finally {
-      setPaymentProcessing(false); // Reset payment loading state
+      return;
     }
-  }, [formData, privatePricing, discoPricing, pricingLoading, validateBookingData, toast]);
+
+    console.log('💳 Navigating to checkout with booking data...');
+
+    // Build checkout URL with all necessary parameters
+    const params = new URLSearchParams();
+    
+    // Core booking data
+    params.set('entryPoint', 'quote_builder');
+    params.set('paymentType', paymentType);
+    params.set('cruiseType', cruiseType);
+    
+    // Event details
+    params.set('eventType', formData.eventType);
+    params.set('eventTypeLabel', formData.eventTypeLabel);
+    params.set('eventEmoji', formData.eventEmoji);
+    params.set('groupSize', formData.groupSize.toString());
+    
+    // Date and time slot information
+    if (formData.eventDate) {
+      params.set('eventDate', formData.eventDate.toISOString());
+      params.set('date', format(formData.eventDate, 'yyyy-MM-dd'));
+    }
+    
+    if (formData.selectedSlot) {
+      params.set('slotId', formData.selectedSlot.id);
+      params.set('slotLabel', formData.selectedSlot.label);
+      params.set('startTime', formData.selectedSlot.startTime);
+      params.set('endTime', formData.selectedSlot.endTime);
+      params.set('duration', formData.selectedSlot.duration?.toString() || '4');
+      
+      // Boat information (if available)
+      if (formData.selectedSlot.boatCandidates && formData.selectedSlot.boatCandidates.length > 0) {
+        params.set('boatId', formData.selectedSlot.boatCandidates[0]);
+      }
+      params.set('capacity', formData.selectedSlot.capacity?.toString() || formData.groupSize.toString());
+    }
+    
+    // Cruise-specific parameters
+    if (cruiseType === 'private') {
+      // Private cruise specific data
+      if (formData.selectedAddOnPackages && formData.selectedAddOnPackages.length > 0) {
+        params.set('addOnPackages', formData.selectedAddOnPackages.join(','));
+      }
+      
+      // Private cruise pricing
+      if (privatePricing) {
+        params.set('subtotal', privatePricing.subtotal.toString());
+        params.set('tax', privatePricing.tax.toString());
+        params.set('gratuity', privatePricing.gratuity.toString());
+        params.set('total', privatePricing.total.toString());
+        if (privatePricing.depositAmount) {
+          params.set('depositAmount', privatePricing.depositAmount.toString());
+        }
+      }
+    } else if (cruiseType === 'disco') {
+      // Disco cruise specific data
+      if (formData.selectedDiscoPackage) {
+        params.set('discoPackage', formData.selectedDiscoPackage);
+      }
+      params.set('ticketQuantity', formData.discoTicketQuantity.toString());
+      
+      // Disco cruise pricing
+      if (discoPricing) {
+        params.set('subtotal', discoPricing.subtotal.toString());
+        params.set('tax', discoPricing.tax.toString());
+        params.set('gratuity', discoPricing.gratuity.toString());
+        params.set('total', discoPricing.total.toString());
+        if (discoPricing.depositAmount) {
+          params.set('depositAmount', discoPricing.depositAmount.toString());
+        }
+      }
+    }
+    
+    // Contact information (if available)
+    if (formData.firstName) params.set('firstName', formData.firstName);
+    if (formData.lastName) params.set('lastName', formData.lastName);
+    if (formData.email) params.set('email', formData.email);
+    if (formData.phone) params.set('phone', formData.phone);
+    if (formData.specialRequests) params.set('specialRequests', formData.specialRequests);
+    
+    // Navigate to checkout with all parameters
+    const checkoutUrl = `/checkout?${params.toString()}`;
+    console.log('💳 Navigating to checkout:', checkoutUrl);
+    
+    // Navigate to checkout page
+    navigate(checkoutUrl);
+  }, [formData, privatePricing, discoPricing, pricingLoading, paymentProcessing, formSubmitting, validateBookingData, toast, navigate]);
 
   // Contact form submission with loading protection
   const handleContactSubmit = useCallback((e: React.FormEvent) => {

@@ -228,6 +228,33 @@ export default function UniversalCheckout({
     boatId: urlParams.get('boatId'),
     cruiseType: urlParams.get('cruiseType') as 'private' | 'disco' | undefined,
     
+    // Disco cruise specific parameters
+    discoPackage: urlParams.get('discoPackage'),
+    ticketQuantity: urlParams.get('ticketQuantity') ? parseInt(urlParams.get('ticketQuantity')!) : undefined,
+    
+    // Private cruise specific parameters
+    addOnPackages: urlParams.get('addOnPackages') ? urlParams.get('addOnPackages')!.split(',') : undefined,
+    
+    // Pricing information passed from Quote Builder
+    subtotal: urlParams.get('subtotal') ? parseInt(urlParams.get('subtotal')!) : undefined,
+    tax: urlParams.get('tax') ? parseInt(urlParams.get('tax')!) : undefined,
+    gratuity: urlParams.get('gratuity') ? parseInt(urlParams.get('gratuity')!) : undefined,
+    total: urlParams.get('total') ? parseInt(urlParams.get('total')!) : undefined,
+    depositAmount: urlParams.get('depositAmount') ? parseInt(urlParams.get('depositAmount')!) : undefined,
+    
+    // Payment type from Quote Builder
+    paymentType: urlParams.get('paymentType') as 'deposit' | 'full' | undefined,
+    
+    // Entry point to help with flow determination
+    entryPoint: urlParams.get('entryPoint'),
+    
+    // Contact information
+    firstName: urlParams.get('firstName'),
+    lastName: urlParams.get('lastName'),
+    email: urlParams.get('email'),
+    phone: urlParams.get('phone'),
+    specialRequests: urlParams.get('specialRequests'),
+    
     // Add reconstructed selectedSlot object
     selectedSlot,
     
