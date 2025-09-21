@@ -34,7 +34,9 @@ import { PricingPolicyDisplay, PolicySummary } from '@/components/PricingPolicyD
 // import CheckoutPricingDisplay from '@/components/checkout/CheckoutPricingDisplay';
 // import BachelorComparisonWidget from '@/components/checkout/BachelorComparisonWidget';
 
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || '');
+// Fix: Use the correct environment variable name and add proper error handling
+const stripePublishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || import.meta.env.TESTING_VITE_STRIPE_PUBLIC_KEY || '';
+const stripePromise = stripePublishableKey ? loadStripe(stripePublishableKey) : null;
 
 interface UniversalCheckoutProps {
   entryPoint?: CheckoutEntryPoint;
@@ -1011,14 +1013,47 @@ export default function UniversalCheckout({
               )}
 
               {currentStep === 'payment' && (
-                <Elements stripe={stripePromise}>
-                  <PaymentStep
-                    selections={selections}
-                    pricing={pricing}
-                    onPaymentSubmit={handlePaymentSubmit}
-                    isProcessing={isProcessingPayment}
-                  />
-                </Elements>
+                stripePromise ? (
+                  <Elements stripe={stripePromise}>
+                    <PaymentStep
+                      selections={selections}
+                      pricing={pricing}
+                      onPaymentSubmit={handlePaymentSubmit}
+                      isProcessing={isProcessingPayment}
+                    />
+                  </Elements>
+                ) : (
+                  <Card>
+                    <CardHeader>
+                      <CardTitle className="flex items-center gap-2 text-amber-600">
+                        <CreditCardIcon className="h-5 w-5" />
+                        Payment Processing Unavailable
+                      </CardTitle>
+                    </CardHeader>
+                    <CardContent className="space-y-4">
+                      <Alert>
+                        <AlertCircle className="h-4 w-4" />
+                        <AlertDescription>
+                          Online payment processing is temporarily unavailable. Please contact us to complete your booking.
+                        </AlertDescription>
+                      </Alert>
+                      <div className="space-y-2">
+                        <p className="text-sm text-muted-foreground">Call us to book:</p>
+                        <p className="text-lg font-bold text-blue-600">(512) 488-5892</p>
+                        <p className="text-sm text-muted-foreground">
+                          Or email: clientservices@premierpartycruises.com
+                        </p>
+                      </div>
+                      <Button
+                        onClick={() => setCurrentStep('contact')}
+                        className="w-full"
+                        data-testid="button-contact-instead"
+                      >
+                        Send Quote Request Instead
+                      </Button>
+                    </CardContent>
+                  </Card>
+                )
               )}
 
               {currentStep === 'confirmation' && (
