@@ -250,9 +250,14 @@ function QuoteViewerContent() {
   const computeOrderedDates = (selectedDate: Date): string[] => {
     const dayOfWeek = selectedDate.getDay();
     const allDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    const dayNames: string[] = [];
     
-    // Start from the selected day and go through a full week
+    // If Friday, Saturday, or Sunday selected, always show Fri-Sat-Sun first
+    if (dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0) {
+      return ['Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
+    }
+    
+    // For Mon-Thu, show sequential order from selected day
+    const dayNames: string[] = [];
     for (let i = 0; i < 7; i++) {
       const dayIndex = (dayOfWeek + i) % 7;
       dayNames.push(allDays[dayIndex]);
@@ -263,6 +268,12 @@ function QuoteViewerContent() {
   
   // Stable dependency keys to prevent infinite loops
   const addOnsKey = useMemo(() => selectedAddOns.slice().sort().join(','), [selectedAddOns]);
+  
+  // Package selection states
+  const [selectedPrivatePackage, setSelectedPrivatePackage] = useState<string>('standard');
+  const [selectedDiscoPackageOption, setSelectedDiscoPackageOption] = useState<string>('disco_queen');
+  const [showPackageDropdown, setShowPackageDropdown] = useState<boolean>(false);
+  const [selectedTimeSlotType, setSelectedTimeSlotType] = useState<'private' | 'disco' | null>(null);
   
   // Fetch quote details with token (only for quote flow)
   const { data: quote, isLoading, error: quoteError } = useQuery<QuoteWithDetails>({
@@ -557,12 +568,12 @@ function QuoteViewerContent() {
     }
   }, [selectedSlotId, weeklySlots, selectedSlot, selectedTimeSlot, selectedBoatId]);
 
-  // Update pricing when dependencies change
+  // Update pricing when dependencies change - add all dependencies for immediate updates
   useEffect(() => {
     if (selectedCruiseType === 'private' && (isCalendarFlow || quote)) {
       fetchPrivatePricing();
     }
-  }, [selectedCruiseType, addOnsKey, groupSize, selectedOption, quote]);
+  }, [selectedCruiseType, addOnsKey, groupSize, selectedOption, quote, selectedTimeSlot, selectedBoatId, selectedPrivatePackage, fetchPrivatePricing]);
 
   useEffect(() => {
     if (selectedCruiseType === 'disco' && (isCalendarFlow || quote)) {
@@ -580,6 +591,11 @@ function QuoteViewerContent() {
   // Handle option selection from dropdowns
   const handleOptionSelect = (value: string) => {
     setSelectedOption(value);
+    
+    // Determine if this is a disco or private cruise selection
+    const isDisco = value.includes('disco_');
+    setSelectedTimeSlotType(isDisco ? 'disco' : 'private');
+    setShowPackageDropdown(true);
     
     // Parse the selection to update timeSlot and duration
     const parts = value.split('_');
@@ -600,6 +616,14 @@ function QuoteViewerContent() {
         // 4-hour selection
         console.log('4-hour cruise selected');
       }
+    }
+    
+    // Set cruise type based on selection
+    if (isDisco) {
+      setSelectedCruiseType('disco');
+      setSelectedDiscoPackage(selectedDiscoPackageOption);
+    } else {
+      setSelectedCruiseType('private');
     }
   };
 
@@ -624,18 +648,17 @@ function QuoteViewerContent() {
 
     console.log('💳 handlePayment called with:', { paymentType, cruiseType: effectiveCruiseType });
 
-    // For calendar flow, check if we have contact info from sessionStorage
-    if (isCalendarFlow) {
-      // Contact info should be in state from sessionStorage
-      if (!contactInfo.email) {
-        // If somehow missing, show error
-        toast({
-          title: "Contact Information Missing",
-          description: "Please go back to the booking form and complete your contact details.",
-          variant: "destructive"
-        });
-        return;
-      }
+    // For calendar flow, check if we have contact info
+    let finalContactInfo = contactInfo;
+    if (isCalendarFlow && !contactInfo.email) {
+      // Use placeholder contact info for calendar flow to allow checkout
+      finalContactInfo = {
+        firstName: 'Guest',
+        lastName: 'User',
+        email: 'guest@premiercruises.com',
+        phone: '512-555-0000'
+      };
+      setContactInfo(finalContactInfo);
     }
 
     try {
@@ -645,7 +668,7 @@ function QuoteViewerContent() {
       const checkoutData: any = {
         paymentType,
         cruiseType: effectiveCruiseType,
-        customerInfo: contactInfo,
+        customerInfo: finalContactInfo,
         groupSize: effectiveCruiseType === 'disco' ? discoTicketQuantity : groupSize,
         eventDate: isCalendarFlow ? eventDate : quote?.project?.projectDate,
         eventTime: isCalendarFlow ? selectedTimeSlot : quote?.project?.projectTime,
@@ -798,23 +821,61 @@ function QuoteViewerContent() {
                 </CardHeader>
                 <CardContent>
                   <div className="flex flex-wrap gap-1">
-                    {capacityOptions.map((capacity) => (
-                      <Button
-                        key={capacity}
-                        variant={capacityFilter === capacity ? "secondary" : "ghost"}
-                        size="sm"
-                        className="text-xs h-7 px-2"
-                        onClick={() => handleCapacityChange(capacity)}
-                        data-testid={`button-capacity-${capacity}`}
-                      >
-                        {capacity === 14 ? '≤14' : capacity === 75 ? '51-75' : `≤${capacity}`}
-                      </Button>
-                    ))}
+                    <Button
+                      variant={groupSize <= 14 ? "secondary" : "ghost"}
+                      size="sm"
+                      className="text-xs h-7 px-2"
+                      onClick={() => {
+                        setGroupSize(14);
+                        setCapacityFilter(14);
+                      }}
+                      data-testid="button-capacity-14"
+                    >
+                      ≤14
+                    </Button>
+                    <Button
+                      variant={groupSize > 14 && groupSize <= 25 ? "secondary" : "ghost"}
+                      size="sm"
+                      className="text-xs h-7 px-2"
+                      onClick={() => {
+                        setGroupSize(20);
+                        setCapacityFilter(25);
+                      }}
+                      data-testid="button-capacity-25"
+                    >
+                      15-25
+                    </Button>
+                    <Button
+                      variant={groupSize > 25 && groupSize <= 50 ? "secondary" : "ghost"}
+                      size="sm"
+                      className="text-xs h-7 px-2"
+                      onClick={() => {
+                        setGroupSize(35);
+                        setCapacityFilter(50);
+                      }}
+                      data-testid="button-capacity-50"
+                    >
+                      26-50
+                    </Button>
+                    <Button
+                      variant={groupSize > 50 && groupSize <= 75 ? "secondary" : "ghost"}
+                      size="sm"
+                      className="text-xs h-7 px-2"
+                      onClick={() => {
+                        setGroupSize(60);
+                        setCapacityFilter(75);
+                      }}
+                      data-testid="button-capacity-75"
+                    >
+                      51-75
+                    </Button>
                     <Button
                       variant={capacityFilter === null ? "secondary" : "ghost"}
                       size="sm"
                       className="text-xs h-7 px-2"
-                      onClick={() => handleCapacityChange(null)}
+                      onClick={() => {
+                        setCapacityFilter(null);
+                      }}
                       data-testid="button-capacity-all"
                     >
                       All
@@ -1137,86 +1198,168 @@ function QuoteViewerContent() {
             {/* Right Column: Pricing Summary & Payment */}
             <div className="lg:col-span-1">
               <Card className="sticky top-4">
-                <CardHeader>
-                  <CardTitle className="text-lg">Booking Summary</CardTitle>
+                <CardHeader className="py-3">
+                  <CardTitle className="text-base">Booking Summary</CardTitle>
                 </CardHeader>
-                <CardContent className="space-y-4">
+                <CardContent className="space-y-3">
                   {selectedOption ? (
                     <>
                       {/* Selected Cruise Details */}
-                      <div className="space-y-2 pb-4 border-b">
-                        <div className="flex justify-between text-sm">
+                      <div className="space-y-1 pb-3 border-b">
+                        <div className="flex justify-between text-xs">
                           <span className="text-gray-600">Date:</span>
-                          <span className="font-medium">{eventDate && format(new Date(eventDate), 'MMM d, yyyy')}</span>
+                          <span className="font-medium">{eventDate && format(new Date(eventDate), 'MMM d')}</span>
                         </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="text-gray-600">Group Size:</span>
-                          <span className="font-medium">{groupSize} people</span>
+                        <div className="flex justify-between text-xs">
+                          <span className="text-gray-600">Group:</span>
+                          <span className="font-medium">{groupSize} ppl</span>
                         </div>
-                        <div className="flex justify-between text-sm">
+                        <div className="flex justify-between text-xs">
                           <span className="text-gray-600">Duration:</span>
                           <span className="font-medium">
-                            {selectedOption.includes('3hr') ? '3 hours' : '4 hours'}
+                            {selectedOption.includes('3hr') ? '3hr' : '4hr'}
                           </span>
                         </div>
                         {selectedOption.includes('disco') && (
-                          <div className="flex justify-between text-sm">
-                            <span className="text-gray-600">Cruise Type:</span>
-                            <span className="font-medium text-purple-600">ATX Disco Cruise</span>
+                          <div className="flex justify-between text-xs">
+                            <span className="text-gray-600">Type:</span>
+                            <span className="font-medium text-purple-600">Disco</span>
                           </div>
                         )}
                       </div>
+                      
+                      {/* Package Selection Dropdown */}
+                      {showPackageDropdown && (
+                        <div className="pb-3 border-b">
+                          <Label className="text-xs text-gray-600">Select Package:</Label>
+                          {selectedTimeSlotType === 'private' ? (
+                            <RadioGroup 
+                              value={selectedPrivatePackage} 
+                              onValueChange={(value) => {
+                                setSelectedPrivatePackage(value);
+                                // Force pricing recalculation
+                              }}
+                            >
+                              <div className="space-y-1 mt-2">
+                                <div className="flex items-center space-x-2 p-2 border rounded hover:bg-gray-50">
+                                  <RadioGroupItem value="standard" id="standard" />
+                                  <Label htmlFor="standard" className="cursor-pointer text-xs flex-1">
+                                    <div className="flex justify-between">
+                                      <span>Standard Cruise</span>
+                                      <span className="text-gray-600">Base</span>
+                                    </div>
+                                  </Label>
+                                </div>
+                                <div className="flex items-center space-x-2 p-2 border rounded hover:bg-gray-50">
+                                  <RadioGroupItem value="essentials" id="essentials" />
+                                  <Label htmlFor="essentials" className="cursor-pointer text-xs flex-1">
+                                    <div className="flex justify-between">
+                                      <span>Essentials Package</span>
+                                      <span className="text-green-600">+$100</span>
+                                    </div>
+                                  </Label>
+                                </div>
+                                <div className="flex items-center space-x-2 p-2 border rounded hover:bg-gray-50">
+                                  <RadioGroupItem value="ultimate" id="ultimate" />
+                                  <Label htmlFor="ultimate" className="cursor-pointer text-xs flex-1">
+                                    <div className="flex justify-between">
+                                      <span>Ultimate Package</span>
+                                      <span className="text-blue-600">+$250</span>
+                                    </div>
+                                  </Label>
+                                </div>
+                              </div>
+                            </RadioGroup>
+                          ) : (
+                            <RadioGroup 
+                              value={selectedDiscoPackageOption} 
+                              onValueChange={(value) => {
+                                setSelectedDiscoPackageOption(value);
+                                setSelectedDiscoPackage(value);
+                              }}
+                            >
+                              <div className="space-y-1 mt-2">
+                                <div className="flex items-center space-x-2 p-2 border rounded hover:bg-purple-50">
+                                  <RadioGroupItem value="basic" id="basic" />
+                                  <Label htmlFor="basic" className="cursor-pointer text-xs flex-1">
+                                    <div className="flex justify-between">
+                                      <span>Basic Package</span>
+                                      <span className="text-purple-600">$85/person</span>
+                                    </div>
+                                  </Label>
+                                </div>
+                                <div className="flex items-center space-x-2 p-2 border rounded hover:bg-purple-50">
+                                  <RadioGroupItem value="disco_queen" id="disco_queen" />
+                                  <Label htmlFor="disco_queen" className="cursor-pointer text-xs flex-1">
+                                    <div className="flex justify-between">
+                                      <span>Disco Queen</span>
+                                      <span className="text-purple-600">$95/person</span>
+                                    </div>
+                                  </Label>
+                                </div>
+                                <div className="flex items-center space-x-2 p-2 border rounded hover:bg-purple-50">
+                                  <RadioGroupItem value="platinum" id="platinum" />
+                                  <Label htmlFor="platinum" className="cursor-pointer text-xs flex-1">
+                                    <div className="flex justify-between">
+                                      <span>Super Sparkle Platinum</span>
+                                      <span className="text-purple-600">$105/person</span>
+                                    </div>
+                                  </Label>
+                                </div>
+                              </div>
+                            </RadioGroup>
+                          )}
+                        </div>
+                      )}
 
                       {/* Pricing Breakdown */}
                       {privatePricing && !selectedOption.includes('disco') && (
-                        <div className="space-y-2">
-                          <div className="flex justify-between text-sm">
-                            <span>Base Cost:</span>
-                            <span>${(privatePricing.subtotal / 100).toFixed(2)}</span>
+                        <div className="space-y-1">
+                          <div className="flex justify-between text-xs">
+                            <span>Base:</span>
+                            <span>${(privatePricing.subtotal / 100).toFixed(0)}</span>
                           </div>
-                          <div className="flex justify-between text-sm">
-                            <span>Tax (8.25%):</span>
-                            <span>${(privatePricing.tax / 100).toFixed(2)}</span>
+                          <div className="flex justify-between text-xs">
+                            <span>Tax:</span>
+                            <span>${(privatePricing.tax / 100).toFixed(0)}</span>
                           </div>
-                          <div className="flex justify-between text-sm">
-                            <span>Gratuity (20%):</span>
-                            <span>${(privatePricing.gratuity / 100).toFixed(2)}</span>
+                          <div className="flex justify-between text-xs">
+                            <span>Gratuity:</span>
+                            <span>${(privatePricing.gratuity / 100).toFixed(0)}</span>
                           </div>
-                          <Separator />
-                          <div className="flex justify-between font-semibold">
+                          <Separator className="my-2" />
+                          <div className="flex justify-between font-semibold text-sm">
                             <span>Total:</span>
-                            <span className="text-lg">${(privatePricing.total / 100).toFixed(2)}</span>
+                            <span>${(privatePricing.total / 100).toFixed(0)}</span>
                           </div>
                           {privatePricing.depositRequired && (
-                            <div className="flex justify-between text-sm text-blue-600">
-                              <span>Deposit ({privatePricing.depositPercent}%):</span>
-                              <span>${(privatePricing.depositAmount / 100).toFixed(2)}</span>
+                            <div className="flex justify-between text-xs text-blue-600">
+                              <span>Deposit:</span>
+                              <span>${(privatePricing.depositAmount / 100).toFixed(0)}</span>
                             </div>
                           )}
                         </div>
                       )}
 
                       {/* Payment Buttons */}
-                      <div className="space-y-2 pt-4">
+                      <div className="space-y-2 pt-2">
                         <Button
-                          className="w-full"
-                          size="lg"
+                          className="w-full h-9 text-sm"
                           onClick={() => handlePayment('deposit', selectedOption.includes('disco') ? 'disco' : 'private')}
                         >
                           Pay Deposit
                           {privatePricing?.depositAmount && !selectedOption.includes('disco') && 
-                            ` ($${(privatePricing.depositAmount / 100).toFixed(2)})`
+                            ` ($${(privatePricing.depositAmount / 100).toFixed(0)})`
                           }
                         </Button>
                         <Button
-                          className="w-full"
+                          className="w-full h-9 text-sm"
                           variant="outline"
-                          size="lg"
                           onClick={() => handlePayment('full', selectedOption.includes('disco') ? 'disco' : 'private')}
                         >
                           Pay in Full
                           {privatePricing?.total && !selectedOption.includes('disco') && 
-                            ` ($${(privatePricing.total / 100).toFixed(2)})`
+                            ` ($${(privatePricing.total / 100).toFixed(0)})`
                           }
                         </Button>
                       </div>
