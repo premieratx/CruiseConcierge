@@ -2575,7 +2575,7 @@ export default function Chat() {
                                         <div className="text-xs text-slate-600 dark:text-slate-400">Classic cruise experience</div>
                                       </div>
                                       <div className="text-sm font-bold text-blue-600">
-                                        {standardPackagePricing ? formatCurrency(standardPackagePricing.totalPrice).replace('.00', '') : '$0'}
+                                        +$0
                                       </div>
                                     </div>
                                   </Label>
@@ -2656,7 +2656,7 @@ export default function Chat() {
                                 </div>
                                 <div className="flex items-center justify-between mb-2">
                                   <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Base Rate:</span>
-                                  <span className="font-bold text-blue-600">{formatCurrency(BASE_PRIVATE_HOURLY_RATE_CENTS)}/hour</span>
+                                  <span className="font-bold text-blue-600">{privatePricing ? formatCurrency(privatePricing.baseHourlyRate || 25000) + '/hour' : 'Calculating...'}</span>
                                 </div>
                                 {formData.selectedAddOnPackages.length > 0 && (
                                   <div className="flex items-center justify-between mb-2">
@@ -2669,23 +2669,12 @@ export default function Chat() {
                                 )}
                                 <div className="flex items-center justify-between mb-2">
                                   <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Total Rate:</span>
-                                  <span className="font-bold text-purple-600">{formatCurrency(BASE_PRIVATE_HOURLY_RATE_CENTS + formData.selectedAddOnPackages.reduce((sum, addOnId) => {
-                                    const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
-                                    return sum + (addOn?.hourlyRate || 0) * 100; // Convert to cents
-                                  }, 0))}/hour</span>
+                                  <span className="font-bold text-purple-600">{privatePricing ? formatCurrency(privatePricing.hourlyRate || privatePricing.baseHourlyRate || 25000) + '/hour' : 'Calculating...'}</span>
                                 </div>
                                 <div className="flex items-center justify-between border-t pt-2">
                                   <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Total Cost:</span>
                                   <span className="font-bold text-blue-600">
-                                    {(() => {
-                                      const totalHourlyRateCents = BASE_PRIVATE_HOURLY_RATE_CENTS + formData.selectedAddOnPackages.reduce((sum, addOnId) => {
-                                        const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
-                                        return sum + (addOn?.hourlyRate || 0) * 100; // Convert to cents
-                                      }, 0);
-                                      const duration = getCruiseDuration(formData.eventDate);
-                                      const totalCostCents = totalHourlyRateCents * duration;
-                                      return `${formatCurrency(totalHourlyRateCents)} × ${duration} hours = ${formatCurrency(totalCostCents)}`;
-                                    })()}
+                                    {privatePricing ? formatCurrency(privatePricing.total || 0) : 'Calculating...'}
                                   </span>
                                 </div>
                                 {privatePricing?.breakdown?.crewFee && privatePricing.breakdown.crewFee > 0 && (
