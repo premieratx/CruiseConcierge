@@ -463,7 +463,7 @@ export default function Home() {
                 <div>
                   <div className="text-brand-yellow text-sm font-bold mb-2">PRIVATE CRUISES FROM</div>
                   <div className="text-3xl font-bold text-white mb-1">
-                    ${pricingHighlights[0].weekdayFrom}/person
+                    $200 per hour
                   </div>
                   <div className="text-sm text-gray-200">Weekdays • 14+ people</div>
                 </div>
@@ -495,7 +495,7 @@ export default function Home() {
               </div>
               <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
                 <DollarSign className="h-6 w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-lg">From ${pricingHighlights[0].weekdayFrom}/person</span>
+                <span className="font-semibold text-lg">From $200 per hour</span>
               </div>
               <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
                 <Clock className="h-6 w-6 text-brand-yellow flex-shrink-0" />
