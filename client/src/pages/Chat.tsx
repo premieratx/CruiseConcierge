@@ -2303,20 +2303,32 @@ export default function Chat() {
                     </div>
 
 
+                    {/* Enhanced Side-by-Side Comparison for Bachelor/Bachelorette Events */}
+                    {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') && (
+                      <div className="text-center mb-4">
+                        <h4 className="text-lg font-bold text-slate-800 dark:text-slate-200 mb-2">
+                          🎉 Compare Your Options Side-by-Side
+                        </h4>
+                        <p className="text-sm text-slate-600 dark:text-slate-400">
+                          Choose between an exclusive private cruise or join our popular disco cruise experience
+                        </p>
+                      </div>
+                    )}
+
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Private Charter Option - Simplified */}
                       <Card className={cn(
                         "bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm transition-all",
                         formData.selectedCruiseType === 'private' && "ring-2 ring-blue-600"
                       )}>
-                        <CardHeader className="sticky top-0 z-10 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md border-b border-blue-200 dark:border-blue-800">
+                        <CardHeader className="sticky top-0 z-10 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md border-b border-blue-200 dark:border-blue-800 py-2">
                           <div className="text-center">
-                            <div className="flex items-center justify-center gap-3 mb-2">
-                              <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center">
-                                <Ship className="h-6 w-6 text-blue-600" />
+                            <div className="flex items-center justify-center gap-2 mb-1">
+                              <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                                <Ship className="h-4 w-4 text-blue-600" />
                               </div>
                             </div>
-                            <CardTitle className="text-3xl font-bold text-blue-600 mb-2">Private Charter</CardTitle>
+                            <CardTitle className="text-xl font-bold text-blue-600 mb-1">Private Charter</CardTitle>
                             <div className="text-lg font-semibold text-slate-600 dark:text-slate-300">
                               {formData.eventDate ? format(formData.eventDate, 'EEEE, MMMM d') : 'Select a date'}
                             </div>
@@ -2666,14 +2678,14 @@ export default function Chat() {
                           "bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 backdrop-blur-sm transition-all",
                           formData.selectedCruiseType === 'disco' && "ring-2 ring-purple-600"
                         )}>
-                          <CardHeader className="sticky top-0 z-10 bg-gradient-to-r from-purple-50/95 to-pink-50/95 dark:from-purple-900/95 dark:to-pink-900/95 backdrop-blur-md border-b border-purple-200 dark:border-purple-800">
+                          <CardHeader className="sticky top-0 z-10 bg-gradient-to-r from-purple-50/95 to-pink-50/95 dark:from-purple-900/95 dark:to-pink-900/95 backdrop-blur-md border-b border-purple-200 dark:border-purple-800 py-2">
                             <div className="text-center">
-                              <div className="flex items-center justify-center gap-3 mb-2">
-                                <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center">
-                                  <Music className="h-6 w-6 text-purple-600" />
+                              <div className="flex items-center justify-center gap-2 mb-1">
+                                <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
+                                  <Music className="h-4 w-4 text-purple-600" />
                                 </div>
                               </div>
-                              <CardTitle className="text-3xl font-bold text-purple-600 mb-2">ATX Disco Cruise</CardTitle>
+                              <CardTitle className="text-xl font-bold text-purple-600 mb-1">ATX Disco Cruise</CardTitle>
                               <div className="text-lg font-semibold text-slate-600 dark:text-slate-300">
                                 {formData.eventDate ? format(formData.eventDate, 'EEEE, MMMM d') : 'Select a date'}
                               </div>
