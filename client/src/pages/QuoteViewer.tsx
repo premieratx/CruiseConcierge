@@ -1,174 +1,162 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { useParams } from 'wouter';
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useLocation } from 'wouter';
+import { format, addDays, addMinutes, parseISO, isValid } from 'date-fns';
+import { useQuery } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
-import { useToast } from '@/hooks/use-toast';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { BookingCacheProvider, useBookingCache } from '@/contexts/BookingCacheContext';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Label } from '@/components/ui/label';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
+import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from '@/components/ui/select';
-import { Calendar } from '@/components/ui/calendar';
-import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { cn } from '@/lib/utils';
-import { format, addDays } from 'date-fns';
+import { Calendar, AlertCircle, Loader2, Anchor, Music, Printer, Calendar as CalendarIconLucide } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
-import { useBookingCache } from '@/contexts/BookingCacheContext';
-import { 
-  Ship, Clock, MapPin, Phone, Mail, FileText,
-  Download, Printer, CheckCircle, AlertCircle, Loader2,
-  Users, Plus, Minus, Edit2, Save, CreditCard, ChevronRight, Sparkles, CalendarIcon,
-  Calendar as CalendarIconLucide
-} from 'lucide-react';
-import type { Quote, PricingPreview, Project, Contact, QuoteItem, RadioSection } from '@shared/schema';
 
-type QuoteWithDetails = Quote & {
-  pricing?: PricingPreview;
-  project?: Project;
-  contact?: Contact;
-};
+interface QuoteWithDetails {
+  id: string;
+  contact: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+  };
+  project: {
+    projectName: string;
+    groupSize?: number;
+    projectDate?: string;
+    projectTime?: string;
+    eventType?: string;
+    eventDetails?: string;
+  };
+  items: Array<{
+    name?: string;
+    productId?: string;
+    qty?: number;
+    rate?: number;
+    total?: number;
+  }>;
+  invoiceNumber: string;
+  total: number;
+  status: 'draft' | 'sent' | 'viewed' | 'expired';
+  issuedAt: string;
+  expiresAt: string;
+}
 
-// Available packages for private cruises
-const addOnPackages = [
-  { id: 'essentials', name: 'Essentials Package', hourlyRate: 50, description: 'Coolers, ice, cups, napkins, and basic party supplies' },
-  { id: 'ultimate', name: 'Ultimate Party Package', hourlyRate: 75, description: 'Everything in Essentials plus decorations, party games, and premium setup' }
-];
+interface CalendarData {
+  date?: string;
+  eventDate: string;
+  eventType: string;
+  groupSize: number;
+  cruiseType?: 'private' | 'disco';
+  selectedTimeSlot?: string;
+  boatId?: string;
+  slotId?: string;
+}
 
-// Helper functions for boat capacity mapping
-const getBoatForCapacity = (capacity: number) => {
-  if (capacity <= 14) return { id: 'boat_day_tripper', name: 'Day Tripper', capacity: 14 };
-  if (capacity <= 25) return { id: 'boat_me_seeks_the_irony', name: 'Me Seeks The Irony', capacity: 25 };
-  if (capacity <= 30) return { id: 'boat_me_seeks_the_irony', name: 'Me Seeks The Irony', capacity: 30 };
-  if (capacity <= 50) return { id: 'boat_clever_girl', name: 'Clever Girl', capacity: 50 };
-  return { id: 'boat_clever_girl', name: 'Clever Girl', capacity: 75 };
-};
+// Add types for pricing responses
+interface PricingResponse {
+  subtotal: number;
+  tax: number;
+  gratuity: number;
+  total: number;
+  depositRequired: boolean;
+  depositAmount: number;
+  depositPercent: number;
+  duration?: number;
+  hourlyRate?: number;
+  baseHourlyRate?: number;
+  perPersonCost?: number;
+  selectedAddOns?: string[];
+  pricingModel?: string;
+  discountTotal?: number;
+  timeSlot?: string;
+  eventType?: string;
+  showBothOptions?: boolean;
+}
 
-const getDayType = (date: Date) => {
-  const dayOfWeek = date.getDay();
-  if (dayOfWeek === 5) return 'Friday';
-  if (dayOfWeek === 0 || dayOfWeek === 6) return 'Weekend';
-  return 'Weekday';
-};
+interface DiscoPricingResponse {
+  subtotal: number;
+  discountTotal?: number;
+  tax: number;
+  gratuity: number;
+  total: number;
+  perPersonCost: number;
+  depositRequired?: boolean;
+  depositPercent?: number;
+  depositAmount?: number;
+  paymentSchedule?: Array<any>;
+  expiresAt?: string;
+  breakdown?: any;
+  displaySettings?: any;
+  urgencyMessage?: string | null;
+  adjustments?: Array<any>;
+  adjustmentTotal?: number;
+}
 
-const getAvailableDurations = (date: Date) => {
-  const dayOfWeek = date.getDay();
-  if (dayOfWeek === 5) return '4 hours only';
-  if (dayOfWeek === 0 || dayOfWeek === 6) return '4 hours only';
-  return '3 or 4 hours';
-};
+interface Boat {
+  id: string;
+  name: string;
+  capacity: number;
+  crewFeeCapacity?: number;
+}
 
-// Disco cruise packages - EXACT names per user specs - IDs MUST match shared/constants.ts
-const discoPackages = [
-  { id: 'basic', name: 'Basic', price: 8500, description: 'DJ, dancing, and party atmosphere' },
-  { id: 'disco_queen', name: 'Disco Queen', price: 9500, description: 'Basic package plus premium drinks and VIP treatment' },
-  { id: 'platinum', name: 'Super Sparkle Platinum Disco', price: 10500, description: 'Ultimate disco experience with all premium amenities' }
-];
-
-// Time parsing utility to handle both "10:30-14:30" and "10:30 AM - 2:30 PM" formats
-const parseTimeSlot = (timeSlot: string) => {
-  if (!timeSlot) return { startTime: '', endTime: '' };
-  
-  // Handle "HH:MM-HH:MM" format (24-hour)
-  if (timeSlot.includes('-') && !timeSlot.includes('AM') && !timeSlot.includes('PM')) {
-    const [start, end] = timeSlot.split('-');
-    return { startTime: start.trim(), endTime: end.trim() };
-  }
-  
-  // Handle "hh:mm AM - hh:mm PM" format
-  if (timeSlot.includes('AM') || timeSlot.includes('PM')) {
-    const [startPart, endPart] = timeSlot.split(' - ');
-    const startTime = convertTo24Hour(startPart.trim());
-    const endTime = convertTo24Hour(endPart.trim());
-    return { startTime, endTime };
-  }
-  
-  return { startTime: '', endTime: '' };
-};
-
-const convertTo24Hour = (time12: string): string => {
-  const [time, modifier] = time12.split(' ');
-  let [hours, minutes] = time.split(':');
-  if (hours === '12') hours = '00';
-  if (modifier === 'PM') hours = String(parseInt(hours) + 12);
-  return `${hours.padStart(2, '0')}:${minutes}`;
-};
-
-export default function QuoteViewer() {
-  const params = useParams();
-  const quoteId = params.quoteId as string;
+function QuoteViewerContent() {
   const { toast } = useToast();
+  const [location] = useLocation();
+  const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
+  const { updateSelection, recomputePricing } = useBookingCache();
   
-  // Extract all URL parameters for both entry points
-  const urlParams = new URLSearchParams(window.location.search);
-  const hashParams = new URLSearchParams(window.location.hash.substring(1));
-  const token = urlParams.get('token') || hashParams.get('token');
+  // Parse URL parameters using URLSearchParams
+  const searchParams = new URLSearchParams(window.location.search);
   
-  // NEW: Detect entry point and extract calendar flow data
-  const entryPoint = urlParams.get('entryPoint') || hashParams.get('entryPoint');
-  // Calendar flow is when we have eventDate param (from calendar) or explicit entryPoint
-  const isCalendarFlow = urlParams.has('eventDate') || entryPoint === 'calendar_flow';
-  const isQuoteFlow = !!quoteId && !!token;
+  // Parse URL parameters for both quote flow and calendar flow
+  const quoteId = searchParams.get('id') || '';
+  const token = searchParams.get('token') || '';
+  const isQuoteFlow = !!(quoteId && token);
   
-  // Extract calendar flow parameters (including disco-specific ones)
-  const calendarData = (isCalendarFlow || urlParams.has('eventDate')) ? {
-    cruiseType: urlParams.get('cruiseType') || 'private',
-    eventType: urlParams.get('eventType') || 'other',
-    groupSize: parseInt(urlParams.get('groupSize') || '20'),
-    eventDate: urlParams.get('eventDate'),
-    selectedTimeSlot: urlParams.get('selectedTimeSlot'),
-    slotId: urlParams.get('slotId'),
-    boatId: urlParams.get('boatId'),
-    discountCode: urlParams.get('discountCode') || '',
-    discoPackage: urlParams.get('discoPackage') || 'basic',
-    discoTicketQuantity: parseInt(urlParams.get('discoTicketQuantity') || '10'),
-    selectedAddOns: urlParams.get('selectedAddOns')?.split(',').filter(Boolean) || []
-  } : null;
-
-  // Capacity options for 17hats-style filtering
-  const capacityOptions = [14, 25, 30, 50, 75];
-
-  // Load contact info from sessionStorage (for calendar flow security)
-  const [contactInfo, setContactInfo] = useState<any>(null);
-  useEffect(() => {
-    if (isCalendarFlow) {
-      const storedContact = sessionStorage.getItem('checkoutContactInfo');
-      if (storedContact) {
-        try {
-          setContactInfo(JSON.parse(storedContact));
-        } catch (error) {
-          console.error('Failed to parse contact info from sessionStorage:', error);
-        }
-      }
+  // Parse calendar flow parameters
+  const calendarDataParam = searchParams.get('data');
+  const isCalendarFlow = !!calendarDataParam && !isQuoteFlow;
+  
+  let calendarData: CalendarData | null = null;
+  if (isCalendarFlow && calendarDataParam) {
+    try {
+      const decoded = JSON.parse(decodeURIComponent(calendarDataParam));
+      calendarData = decoded;
+    } catch (e) {
+      console.error('Failed to parse calendar data:', e);
     }
-  }, [isCalendarFlow]);
-  
-  // Interactive state - initialize from calendar flow or defaults
-  const [groupSize, setGroupSize] = useState(calendarData?.groupSize || 25);
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(
-    calendarData?.eventDate ? new Date(calendarData.eventDate) : new Date()
+  }
+
+  // Initialize state from URL params or defaults
+  const [groupSize, setGroupSize] = useState<number>(
+    isCalendarFlow ? (calendarData?.groupSize || 20) : 20
   );
-  const [selectedBoatId, setSelectedBoatId] = useState<string>(calendarData?.boatId || '');
-  const [selectedAddOns, setSelectedAddOns] = useState<string[]>(calendarData?.selectedAddOns || []);
-  const [selectedDiscoPackage, setSelectedDiscoPackage] = useState<string>(calendarData?.discoPackage || 'basic');
-  const [discoTicketQuantity, setDiscoTicketQuantity] = useState(calendarData?.discoTicketQuantity || calendarData?.groupSize || 10);
-  const [privatePricing, setPrivatePricing] = useState<any>(null);
-  const [discoPricing, setDiscoPricing] = useState<any>(null);
-  const [pricingLoading, setPricingLoading] = useState(false);
-  const [isPaymentLoading, setIsPaymentLoading] = useState(false);
   
-  // High-performance caching system
-  const { 
-    currentPricing, 
-    updateSelection, 
-    recomputePricing,
-    isLoading: cacheLoading 
-  } = useBookingCache();
-  const [discountCode, setDiscountCode] = useState(calendarData?.discountCode || '');
+  // Capacity filter options aligned with boat tiers
+  const capacityOptions = [14, 25, 50, 75]; // Matches boat capacity breakpoints
   
-  // Initialize cruise type from calendar flow or default to private
+  // Pricing and state management
+  const [privatePricing, setPrivatePricing] = useState<PricingResponse | null>(null);
+  const [discoPricing, setDiscoPricing] = useState<DiscoPricingResponse | null>(null);
+  const [selectedSlot, setSelectedSlot] = useState<any>(null);
+  const [selectedDiscoPackage, setSelectedDiscoPackage] = useState<string>('basic');
+  const [discoTicketQuantity, setDiscoTicketQuantity] = useState<number>(10);
+  const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
+  const [discountCode, setDiscountCode] = useState<string>('');
+  const [contactInfo, setContactInfo] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: ''
+  });
+  const [isExpired, setIsExpired] = useState(false);
+  const [selectedBoatId, setSelectedBoatId] = useState<string>('');
+  const [isLoadingPricing, setIsLoadingPricing] = useState(false);
   const [selectedCruiseType, setSelectedCruiseType] = useState<'private' | 'disco'>(
     (calendarData?.cruiseType as 'private' | 'disco') || 'private'
   );
@@ -176,6 +164,7 @@ export default function QuoteViewer() {
   // Time slot selection state
   const [availableSlots, setAvailableSlots] = useState<any[]>([]);
   const [weeklySlots, setWeeklySlots] = useState<any[]>([]);
+  const [weeklyDiscoSlots, setWeeklyDiscoSlots] = useState<any[]>([]);
   const [isLoadingWeekly, setIsLoadingWeekly] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [capacityFilter, setCapacityFilter] = useState<number>(isCalendarFlow ? calendarData?.groupSize || 20 : 20);
@@ -184,6 +173,44 @@ export default function QuoteViewer() {
   const [selectedSlotId, setSelectedSlotId] = useState<string>(calendarData?.slotId || '');
   const [eventDate, setEventDate] = useState<string>(calendarData?.eventDate || format(new Date(), 'yyyy-MM-dd'));
   const [slotsLoading, setSlotsLoading] = useState(false);
+  
+  // Helper functions to determine event type and ordering
+  const deriveEventType = (): string => {
+    // From calendar flow (URL params)
+    if (calendarData?.eventType) return calendarData.eventType;
+    // From quote flow
+    if (quote?.project?.eventType) return quote.project.eventType;
+    return 'other';
+  };
+
+  const isBachelorEvent = (): boolean => {
+    const eventType = deriveEventType().toLowerCase();
+    return eventType.includes('bachelor') || eventType.includes('bachelorette');
+  };
+  
+  const deriveOriginalDate = (): Date | null => {
+    // From calendar flow (preferred)
+    if (calendarData?.eventDate) return new Date(calendarData.eventDate);
+    // From quote flow
+    if (quote?.project?.projectDate) return new Date(quote.project.projectDate);
+    return eventDate ? new Date(eventDate) : null;
+  };
+  
+  const computeOrderedDates = (selectedDate: Date): string[] => {
+    const dayOfWeek = selectedDate.getDay();
+    const dayNames: string[] = [];
+    
+    // Determine ordering based on original selection
+    if (dayOfWeek >= 5 || dayOfWeek === 0) { // Friday(5), Saturday(6), Sunday(0)
+      // Weekend selected: Fri → Sat → Sun → Mon → Tue → Wed → Thu
+      dayNames.push('Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday');
+    } else { // Monday(1) through Thursday(4)
+      // Weekday selected: Mon → Tue → Wed → Thu → Fri → Sat → Sun
+      dayNames.push('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
+    }
+    
+    return dayNames;
+  };
   
   // Stable dependency keys to prevent infinite loops
   const addOnsKey = useMemo(() => selectedAddOns.slice().sort().join(','), [selectedAddOns]);
@@ -365,26 +392,47 @@ export default function QuoteViewer() {
     try {
       const targetDate = eventDate || format(new Date(), 'yyyy-MM-dd');
       const eventTypeParam = isCalendarFlow ? calendarData?.eventType : quote?.project?.eventType;
+      const isBachelor = isBachelorEvent();
       
       console.log('🗓️ Fetching weekly availability for:', {
         date: targetDate,
         groupSize: capacityFilter,
-        eventType: eventTypeParam
+        eventType: eventTypeParam,
+        isBachelor
       });
       
+      // Fetch private cruise availability
       const response = await apiRequest('GET', `/api/availability/weekly?date=${targetDate}&groupSize=${capacityFilter}&eventType=${eventTypeParam}`);
       
       if (response.ok) {
         const data = await response.json();
-        console.log('✅ Weekly availability loaded:', data.totalSlots, 'slots');
+        console.log('✅ Weekly private availability loaded:', data.totalSlots, 'slots');
         setWeeklySlots(data.slots || []);
       } else {
         console.error('❌ Failed to fetch weekly availability');
         setWeeklySlots([]);
       }
+      
+      // If bachelor/bachelorette event, also fetch disco cruise availability
+      if (isBachelor) {
+        console.log('🎵 Fetching disco availability for bachelor/bachelorette event');
+        const discoResponse = await apiRequest('GET', `/api/availability/weekly?date=${targetDate}&groupSize=${capacityFilter}&eventType=${eventTypeParam}&cruiseType=disco`);
+        
+        if (discoResponse.ok) {
+          const discoData = await discoResponse.json();
+          console.log('✅ Weekly disco availability loaded:', discoData.totalSlots, 'slots');
+          setWeeklyDiscoSlots(discoData.slots || []);
+        } else {
+          console.error('❌ Failed to fetch disco availability');
+          setWeeklyDiscoSlots([]);
+        }
+      } else {
+        setWeeklyDiscoSlots([]);
+      }
     } catch (error) {
       console.error('Weekly availability error:', error);
       setWeeklySlots([]);
+      setWeeklyDiscoSlots([]);
     } finally {
       setSlotsLoading(false);
     }
@@ -424,324 +472,181 @@ export default function QuoteViewer() {
     if (isCalendarFlow) {
       fetchWeeklyAvailability();
     }
-  }, [fetchWeeklyAvailability, isCalendarFlow]);
-  
-  // Handle capacity filter changes
-  const handleCapacityChange = useCallback((newCapacity: number) => {
+  }, [isCalendarFlow, eventDate, capacityFilter]);
+
+  // Update pricing when dependencies change
+  useEffect(() => {
+    if (selectedCruiseType === 'private' && (isCalendarFlow || quote)) {
+      fetchPrivatePricing();
+    }
+  }, [selectedCruiseType, addOnsKey, groupSize, selectedOption, quote]);
+
+  useEffect(() => {
+    if (selectedCruiseType === 'disco' && (isCalendarFlow || quote)) {
+      fetchDiscoPricing();
+    }
+  }, [selectedCruiseType, selectedDiscoPackage, discoTicketQuantity, quote]);
+
+  // Capacity filter change handler
+  const handleCapacityChange = (capacity: number | null) => {
+    const newCapacity = capacity === null ? 100 : capacity;
     setCapacityFilter(newCapacity);
-    setGroupSize(newCapacity);
-    // Reset selection when capacity changes
-    setSelectedOption('');
-    setSelectedTimeSlot('');
-    setSelectedBoat('');
-    setSelectedSlotId('');
-  }, []);
-  
-  // Handle cruise option selection (17hats-style radio buttons and dropdowns)
-  const handleOptionSelect = useCallback((optionOrId: any) => {
-    // Handle both object format (from old radio buttons) and string ID format (from new dropdowns)
-    if (typeof optionOrId === 'string') {
-      // New dropdown format - parse the ID and find the slot
-      const slotId = optionOrId;
-      setSelectedOption(slotId);
+    setGroupSize(Math.min(groupSize, newCapacity)); // Adjust group size if needed
+  };
+
+  // Handle option selection from dropdowns
+  const handleOptionSelect = (value: string) => {
+    setSelectedOption(value);
+    
+    // Parse the selection to update timeSlot and duration
+    const parts = value.split('_');
+    if (parts.length >= 6) {
+      const startTime = parts[parts.length - 2];
+      const endTime = parts[parts.length - 1];
+      setSelectedTimeSlot(`${startTime} - ${endTime}`);
       
-      // Find the actual slot from weeklySlots
-      const slot = weeklySlots.find(s => {
-        const boatName = s.boatCandidates?.[0] || s.boat || 'boat_unknown';
-        const slotType = s.cruiseType || s.type || 'private';
-        const slotDate = s.dateISO || s.date;
-        
-        // Check all possible ID formats
-        const possibleIds = [
-          `3hr_Monday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
-          `3hr_Tuesday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
-          `3hr_Wednesday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
-          `3hr_Thursday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
-          `4hr_Monday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
-          `4hr_Tuesday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
-          `4hr_Wednesday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
-          `4hr_Thursday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
-          `weekend_Friday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
-          `weekend_Saturday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
-          `weekend_Sunday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
-        ];
-        
-        return possibleIds.includes(slotId);
-      });
+      // Set boat ID from the selection
+      const boatSection = parts.slice(3, -2).join('_'); // Extract boat name from the ID
+      setSelectedBoatId(boatSection);
       
-      if (slot) {
-        const boatId = slot.boatCandidates?.[0] || slot.boat || '';
-        const timeSlot = `${slot.startTime} - ${slot.endTime}`;
-        
-        setSelectedTimeSlot(timeSlot);
-        setSelectedBoat(boatId);
-        setSelectedBoatId(boatId); // Fix: Also set selectedBoatId
-        setSelectedSlotId(slot.id || slotId);
-        
-        const cruiseType = slot.cruiseType || slot.type || 'private';
-        if (cruiseType === 'private') {
-          setSelectedCruiseType('private');
-        } else if (cruiseType === 'disco') {
-          setSelectedCruiseType('disco');
-        }
-        
-        // Update booking cache to trigger pricing recalculation
-        // IMPORTANT: Use the actual time slot from the slot object
-        const correctTimeSlot = slot.timeSlot || slot.time || timeSlot;
-        updateSelection({
-          timeSlot: correctTimeSlot, // Use the correct time slot
-          selectedBoat: boatId,
-          selectedBoatId: boatId,
-          boatId: boatId,
-          slotId: slot.id || slotId,
-          date: slot.dateISO || slot.date || eventDate
-        });
+      // Determine duration from selection ID
+      if (value.includes('3hr_')) {
+        // 3-hour selection
+        console.log('3-hour cruise selected');
+      } else if (value.includes('4hr_')) {
+        // 4-hour selection
+        console.log('4-hour cruise selected');
       }
-    } else {
-      // Old object format
-      const option = optionOrId;
-      const timeSlot = `${option.startTime} - ${option.endTime}`;
-      
-      setSelectedOption(option.id);
-      setSelectedTimeSlot(timeSlot);
-      setSelectedBoat(option.boatId);
-      setSelectedBoatId(option.boatId); // Fix: Also set selectedBoatId
-      setSelectedSlotId(option.id);
-      
-      if (option.cruiseType === 'private') {
-        setSelectedCruiseType('private');
-      } else if (option.cruiseType === 'disco') {
-        setSelectedCruiseType('disco');
-      }
-      
-      // Update booking cache to trigger pricing recalculation
-      // IMPORTANT: Use the actual time slot from the option object
-      const correctTimeSlot = option.timeSlot || option.time || option.label || timeSlot;
-      updateSelection({
-        timeSlot: correctTimeSlot, // Use the correct time slot
-        selectedBoat: option.boatId,
-        selectedBoatId: option.boatId,
-        boatId: option.boatId,
-        slotId: option.id,
-        date: option.date || eventDate
-      });
     }
-  }, [weeklySlots, updateSelection]);
+  };
 
-  // ⚡ INSTANT private pricing refresh (no debouncing needed!) - FIXED: Direct dependencies
-  useEffect(() => {
-    if (isCalendarFlow && selectedCruiseType === 'private') {
-      // Always fetch pricing when dependencies change, including when selectedTimeSlot changes
-      fetchPrivatePricing(); // Instant calculation
-    } else if (!isCalendarFlow && quote && isPrivateCruise(quote)) {
-      fetchPrivatePricing(); // Instant calculation
-    }
-  }, [quote, groupSize, addOnsKey, isCalendarFlow, selectedCruiseType, discountCode, selectedTimeSlot, selectedBoat, selectedSlotId, eventDate]);
+  // Helper to get time slot from quote
+  const getTimeSlotFromQuote = (quote: any) => {
+    if (!quote?.project?.projectTime) return '';
+    return quote.project.projectTime;
+  };
 
-  // ⚡ INSTANT disco pricing refresh (no debouncing needed!) - FIXED: Direct dependencies
-  useEffect(() => {
-    if (isCalendarFlow && selectedCruiseType === 'disco') {
-      fetchDiscoPricing(); // Instant calculation
-    } else if (!isCalendarFlow && quote && isDiscoCruise(quote)) {
-      fetchDiscoPricing(); // Instant calculation
-    }
-  }, [quote, selectedDiscoPackage, discoTicketQuantity, isCalendarFlow, selectedCruiseType, discountCode, selectedTimeSlot, selectedSlotId, eventDate]);
-
-  // Universal payment handler - works for both quote flow and calendar flow
-  const handlePayment = async (paymentType: 'deposit' | 'full', cruiseType: 'private' | 'disco') => {
-    const pricing = cruiseType === 'private' ? privatePricing : discoPricing;
+  const handlePayment = async (paymentType: 'deposit' | 'full', cruiseType?: 'private' | 'disco') => {
+    const effectiveCruiseType = cruiseType || selectedCruiseType;
+    const pricing = effectiveCruiseType === 'private' ? privatePricing : discoPricing;
+    
     if (!pricing) {
       toast({
-        title: "Pricing Error",
-        description: "Please wait for pricing to load before proceeding.",
-        variant: "destructive",
+        title: "Error",
+        description: "Pricing information not available",
+        variant: "destructive"
       });
       return;
     }
 
-    setIsPaymentLoading(true);
+    console.log('💳 handlePayment called with:', { paymentType, cruiseType: effectiveCruiseType });
+
+    // Show confirmation popup for calendar flow
+    if (isCalendarFlow && !contactInfo.email) {
+      console.log('💳 Showing booking confirmation popup...');
+      setIsConfirmationPopupOpen(true);
+      return;
+    }
+
     try {
-      const amount = paymentType === 'deposit' ? pricing.depositAmount : pricing.total;
+      console.log('💳 Creating checkout session...');
       
-      // Build selection payload for both entry points
-      // Build selectedSlot object with proper startTime/endTime for server validation
-      const timeSlotStr = selectedTimeSlot || calendarData?.selectedTimeSlot || '';
-      const { startTime, endTime } = parseTimeSlot(timeSlotStr);
-      // Calculate duration from startTime and endTime
-      const calculateDuration = (start: string, end: string): number => {
-        const [startHour, startMin] = start.split(':').map(Number);
-        const [endHour, endMin] = end.split(':').map(Number);
-        return ((endHour * 60 + endMin) - (startHour * 60 + startMin)) / 60;
-      };
-      
-      const durationHours = startTime && endTime ? calculateDuration(startTime, endTime) : 4;
-      
-      const selectedSlot = {
-        slotId: selectedSlotId || calendarData?.slotId || '',
-        boatId: selectedBoatId || calendarData?.boatId || '',
-        dateISO: eventDate || calendarData?.eventDate || '',
-        startTime,
-        endTime,
-        durationHours, // Fix: Calculate actual duration instead of hardcoding
-        cruiseType
+      // Prepare checkout data
+      const checkoutData: any = {
+        paymentType,
+        cruiseType: effectiveCruiseType,
+        customerInfo: contactInfo,
+        groupSize: effectiveCruiseType === 'disco' ? discoTicketQuantity : groupSize,
+        eventDate: isCalendarFlow ? eventDate : quote?.project?.projectDate,
+        eventTime: isCalendarFlow ? selectedTimeSlot : quote?.project?.projectTime,
+        eventType: isCalendarFlow ? calendarData?.eventType : quote?.project?.eventType,
+        subtotal: pricing.subtotal,
+        tax: pricing.tax,
+        gratuity: pricing.gratuity,
+        total: pricing.total,
+        depositAmount: pricing.depositAmount || 0,
+        quoteId: isQuoteFlow ? quoteId : undefined,
+        token: isQuoteFlow ? token : undefined
       };
 
-      const selectionPayload = isCalendarFlow ? {
-        // Calendar flow data
-        entryPoint: 'calendar_flow',
-        paymentType,
-        cruiseType,
-        eventType: calendarData?.eventType || 'other',
-        groupSize: cruiseType === 'disco' ? discoTicketQuantity : groupSize,
-        eventDate: eventDate || calendarData?.eventDate,
-        selectedTimeSlot: timeSlotStr,
-        selectedSlot, // ✅ CRITICAL: Full slot object with startTime/endTime
-        slotId: selectedSlotId || calendarData?.slotId,
-        boatId: selectedBoatId || calendarData?.boatId,
-        discountCode: discountCode,
-        selectedAddOns: cruiseType === 'private' ? selectedAddOns : [],
-        discoPackage: cruiseType === 'disco' ? selectedDiscoPackage : null,
-        discoTicketQuantity: cruiseType === 'disco' ? discoTicketQuantity : null
-      } : {
-        // Quote flow data
-        entryPoint: 'quote_flow',
-        paymentType,
-        cruiseType,
-        quoteId: quote?.id,
-        projectId: quote?.project?.id,
-        groupSize: cruiseType === 'disco' ? discoTicketQuantity : groupSize,
-        discountCode: discountCode,
-        selectedAddOns: cruiseType === 'private' ? selectedAddOns : [],
-        discoPackage: cruiseType === 'disco' ? selectedDiscoPackage : null,
-        discoTicketQuantity: cruiseType === 'disco' ? discoTicketQuantity : null,
-        contactInfo: isCalendarFlow ? contactInfo : (quote?.contact ? {
-          name: quote.contact.name || 'Customer',
-          email: quote.contact.email || '',
-          phone: quote.contact.phone || ''
-        } : null)
-      };
+      // Add cruise-type specific data
+      if (effectiveCruiseType === 'private') {
+        checkoutData.duration = privatePricing?.duration;
+        checkoutData.boatId = selectedBoatId;
+        checkoutData.selectedAddOns = selectedAddOns;
+        checkoutData.timeSlot = isCalendarFlow ? selectedOption : undefined;
+      } else {
+        checkoutData.discoPackage = selectedDiscoPackage;
+        checkoutData.ticketQuantity = discoTicketQuantity;
+      }
 
-      console.log('💳 Creating checkout session:', { paymentType, cruiseType, amount, entryPoint: isCalendarFlow ? 'calendar_flow' : 'quote_flow' });
-
-      // Use Stripe hosted checkout for now (but server validates everything)
-      const response = await apiRequest('POST', '/api/checkout/create-session', {
-        paymentType,
-        customerEmail: isCalendarFlow ? (contactInfo?.email || '') : (quote?.contact?.email || ''),
-        metadata: {
-          entryPoint: isCalendarFlow ? 'calendar_flow' : 'quote_flow',
-          cruiseType,
-          paymentType,
-          amount: amount
-        },
-        selectionPayload
-      });
+      const response = await apiRequest('POST', '/api/checkout/create-session', checkoutData);
       
       if (!response.ok) {
         const error = await response.json();
         throw new Error(error.error || 'Failed to create checkout session');
       }
-      
-      const data = await response.json();
-      
-      // Redirect to Stripe checkout
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        throw new Error('No checkout URL returned');
-      }
 
+      const { url } = await response.json();
+      
+      if (url) {
+        // Redirect to Stripe Checkout
+        window.location.href = url;
+      }
     } catch (error: any) {
       console.error('💳 Payment error:', error);
       toast({
         title: "Payment Error",
-        description: error.message || "Failed to process payment. Please try again.",
-        variant: "destructive",
+        description: error.message || "Failed to initiate payment. Please try again.",
+        variant: "destructive"
       });
-    } finally {
-      setIsPaymentLoading(false);
     }
   };
 
-  // Helper functions
-  const getTimeSlotFromQuote = (quote: QuoteWithDetails | null | undefined) => {
-    if (!quote) return 'default-slot';
-    // Extract time slot from quote data
-    const timeSection = quote.radioSections?.find(s => 
-      s.title?.toLowerCase().includes('time') && s.selectedValue
-    );
-    return timeSection?.selectedValue || 'default-slot';
-  };
-
-  const isPrivateCruise = (quote: QuoteWithDetails | null | undefined) => {
-    if (!quote || !quote.items) return false;
-    return quote.items.some(item => 
-      item.type === 'private_cruise' || 
-      item.type === 'cruise' ||
-      !item.name?.toLowerCase().includes('disco')
-    );
-  };
-
-  const isDiscoCruise = (quote: QuoteWithDetails | null | undefined) => {
-    if (!quote) return false;
-    return quote.project?.eventType === 'bachelor' || 
-           quote.project?.eventType === 'bachelorette' ||
-           quote.items?.some(item => 
-             item.name?.toLowerCase().includes('disco') ||
-             item.productId?.includes('disco')
-           ) || false;
-  };
-
-  const formatCurrency = (cents: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-    }).format(cents / 100);
-  };
-
-  const formatDate = (date: string | Date | null | undefined) => {
-    if (!date) return 'TBD';
-    return format(new Date(date), 'EEEE, MMMM d, yyyy');
-  };
-
-  // Loading state (only for quote flow)
+  // Loading state
   if (isQuoteFlow && isLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <Loader2 className="h-8 w-8 animate-spin text-blue-600 mx-auto mb-4" />
-          <p className="text-gray-600">Loading quote...</p>
+          <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-blue-600" />
+          <p className="text-gray-600">Loading your quote...</p>
         </div>
       </div>
     );
   }
 
-  // Error state (only for quote flow - calendar flow doesn't need a quote)
-  if (isQuoteFlow && (quoteError || !quote)) {
+  // Error state  
+  if (isQuoteFlow && quoteError) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center max-w-md">
-          <AlertCircle className="h-12 w-12 text-red-500 mx-auto mb-4" />
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">Quote Not Found</h2>
-          <p className="text-gray-600">This quote may have expired or the link is invalid.</p>
-        </div>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <Alert className="max-w-md">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Access Error</AlertTitle>
+          <AlertDescription className="mt-2">
+            {(quoteError as Error).message || 'Unable to access quote'}
+          </AlertDescription>
+        </Alert>
       </div>
     );
   }
 
-  // Handle expiration and cruise type for both flows
-  const isExpired = quote?.expiresAt && new Date(quote.expiresAt) < new Date();
-  
-  // Determine what to show based on entry point
-  const canShowPrivate = isCalendarFlow ? calendarData?.cruiseType === 'private' : isPrivateCruise(quote!);
-  const canShowDisco = isCalendarFlow ? calendarData?.cruiseType === 'disco' : isDiscoCruise(quote!);
-  const showBothOptions = false; // For now, simplify to single cruise type per selection
-  
-  // Show the selected cruise type's pricing
-  const showPrivateOptions = selectedCruiseType === 'private' && (canShowPrivate || !isCalendarFlow);
-  const showDiscoOptions = selectedCruiseType === 'disco' && (canShowDisco || !isCalendarFlow);
+  // If not in a valid flow, show error
+  if (!isQuoteFlow && !isCalendarFlow) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+        <Alert className="max-w-md">
+          <AlertCircle className="h-4 w-4" />
+          <AlertTitle>Invalid Access</AlertTitle>
+          <AlertDescription className="mt-2">
+            This page requires valid quote parameters or calendar selection.
+          </AlertDescription>
+        </Alert>
+      </div>
+    );
+  }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 print:bg-white">
       {/* Header */}
       <div className="bg-white border-b print:hidden">
         <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
@@ -830,212 +735,170 @@ export default function QuoteViewer() {
                     <div className="flex items-center justify-center py-12">
                       <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
                     </div>
-                  ) : weeklySlots.length > 0 ? (
+                  ) : weeklySlots.length > 0 || weeklyDiscoSlots.length > 0 ? (
                     <div className="space-y-3">
-                      {/* Sort all slots chronologically first */}
+                      {/* Compute ordered dates based on original selection */}
                       {(() => {
-                        const sortedSlots = [...weeklySlots].sort((a, b) => {
-                          const dateA = new Date(a.dateISO || a.date);
-                          const dateB = new Date(b.dateISO || b.date);
-                          if (dateA.getTime() !== dateB.getTime()) {
-                            return dateA.getTime() - dateB.getTime();
-                          }
-                          // If same date, sort by start time
-                          const timeA = parseInt(a.startTime.replace(':', ''));
-                          const timeB = parseInt(b.startTime.replace(':', ''));
-                          return timeA - timeB;
-                        });
+                        const originalDate = deriveOriginalDate();
+                        const orderedDayNames = originalDate ? computeOrderedDates(originalDate) : 
+                          ['Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
+                        const isBachelor = isBachelorEvent();
                         
                         return (
                           <>
-                            {/* Weekday Consolidated Dropdown (Mon-Thu) */}
-                            {(() => {
-                              // Filter all weekday slots (Mon-Thu)
-                              const weekdaySlots = sortedSlots.filter(slot => {
+                            {/* Render days in computed order */}
+                            {orderedDayNames.map((dayName) => {
+                              // Map day names to day numbers
+                              const dayMap: { [key: string]: number } = {
+                                'Sunday': 0, 'Monday': 1, 'Tuesday': 2, 'Wednesday': 3,
+                                'Thursday': 4, 'Friday': 5, 'Saturday': 6
+                              };
+                              const dayNum = dayMap[dayName];
+                              
+                              // Get slots for this day
+                              const privateSlots = weeklySlots.filter(slot => {
                                 const slotDay = new Date(slot.dateISO || slot.date).getDay();
-                                return slotDay >= 1 && slotDay <= 4; // Monday=1 to Thursday=4
+                                return slotDay === dayNum;
                               });
-                        
-                        if (weekdaySlots.length > 0) {
-                          // Group by day and duration
-                          const weekdayOptions: { [key: string]: any[] } = {};
-                          
-                          ['Monday', 'Tuesday', 'Wednesday', 'Thursday'].forEach((day, idx) => {
-                            const dayNum = idx + 1;
-                            const daySlots = weekdaySlots.filter(slot => {
-                              const slotDay = new Date(slot.dateISO || slot.date).getDay();
-                              return slotDay === dayNum;
-                            });
-                            
-                            if (daySlots.length > 0) {
-                              weekdayOptions[day] = daySlots;
-                            }
-                          });
-                          
-                          return (
-                            <div className="border rounded-lg p-3 bg-blue-50">
-                              <h3 className="font-semibold text-gray-900 mb-2 text-sm">Weekday Cruises (Monday - Thursday)</h3>
-                              <div className="space-y-2">
-                                <Select
-                                  value={selectedOption}
-                                  onValueChange={handleOptionSelect}
-                                >
-                                  <SelectTrigger className="w-full" data-testid="dropdown-weekday">
-                                    <SelectValue placeholder="Select a weekday cruise time" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    {Object.entries(weekdayOptions).map(([day, slots]) => {
-                                      // Get the actual date for each weekday slot
-                                      const firstSlot = slots[0];
-                                      const slotDate = firstSlot?.dateISO || firstSlot?.date;
-                                      
-                                      return (
-                                      <SelectGroup key={day}>
-                                        <SelectLabel className="font-semibold">
-                                          {day}, {slotDate ? format(new Date(slotDate), 'MMM d') : ''}
-                                        </SelectLabel>
-                                        {/* 3-hour options */}
-                                        {slots.filter(s => s.duration === 3).length > 0 && (
-                                          <>
-                                            <SelectLabel className="text-xs text-gray-500 pl-4">3-hour cruises</SelectLabel>
-                                            {slots.filter(s => s.duration === 3).map((slot) => {
-                                              const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
-                                              const slotId = `3hr_${day}_private_${boatName}_${slot.dateISO || slot.date}_${slot.startTime}_${slot.endTime}`;
-                                              const getHourlyRate = () => {
-                                                if (boatName.includes('day_tripper')) return 200;
-                                                if (boatName.includes('me_seeks')) return 225;
-                                                if (boatName.includes('clever_girl')) return 250;
-                                                return 225;
-                                              };
-                                              
-                                              return (
-                                                <SelectItem key={slotId} value={slotId} className="pl-8" data-testid={`option-${slotId}`}>
-                                                  <div className="flex justify-between items-center w-full">
-                                                    <span>{slot.startTime} - {slot.endTime}</span>
-                                                    <span className="ml-4 text-xs text-gray-500">${getHourlyRate()}/hr</span>
-                                                  </div>
-                                                </SelectItem>
-                                              );
-                                            })}
-                                          </>
-                                        )}
-                                        {/* 4-hour options */}
-                                        {slots.filter(s => s.duration === 4).length > 0 && (
-                                          <>
-                                            <SelectLabel className="text-xs text-gray-500 pl-4">4-hour cruises</SelectLabel>
-                                            {slots.filter(s => s.duration === 4).map((slot) => {
-                                              const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
-                                              const slotId = `4hr_${day}_private_${boatName}_${slot.dateISO || slot.date}_${slot.startTime}_${slot.endTime}`;
-                                              const getHourlyRate = () => {
-                                                if (boatName.includes('day_tripper')) return 200;
-                                                if (boatName.includes('me_seeks')) return 225;
-                                                if (boatName.includes('clever_girl')) return 250;
-                                                return 225;
-                                              };
-                                              
-                                              return (
-                                                <SelectItem key={slotId} value={slotId} className="pl-8" data-testid={`option-${slotId}`}>
-                                                  <div className="flex justify-between items-center w-full">
-                                                    <span>{slot.startTime} - {slot.endTime}</span>
-                                                    <span className="ml-4 text-xs text-gray-500">${getHourlyRate()}/hr</span>
-                                                  </div>
-                                                </SelectItem>
-                                              );
-                                            })}
-                                          </>
-                                        )}
-                                      </SelectGroup>
-                                    );
-                                    })}
-                                  </SelectContent>
-                                </Select>
-                              </div>
-                            </div>
-                          );
-                              }
-                              return null;
-                            })()}
-                            
-                            {/* Weekend slots (Fri-Sun) - Individual display */}
-                            {['Friday', 'Saturday', 'Sunday'].map((day, idx) => {
-                              const dayNum = idx + 5; // Friday=5, Saturday=6, Sunday=0
-                              const actualDayNum = day === 'Sunday' ? 0 : dayNum;
-                              const daySlots = sortedSlots.filter(slot => {
+                              
+                              const discoSlots = weeklyDiscoSlots.filter(slot => {
                                 const slotDay = new Date(slot.dateISO || slot.date).getDay();
-                                return slotDay === actualDayNum;
+                                return slotDay === dayNum;
                               });
-
-                        if (daySlots.length === 0) return null;
-                        
-                        // Filter slots based on business rules for each day
-                        const filteredSlots = (() => {
-                          if (day === 'Friday') {
-                            // Friday: Only 2 slots - 12:00-4:00 PM and 4:30-8:30 PM
-                            return daySlots.filter(s => 
-                              (s.startTime === '12:00' && s.endTime === '16:00') ||
-                              (s.startTime === '16:30' && s.endTime === '20:30')
-                            );
-                          } else if (day === 'Saturday') {
-                            // Saturday: Only 2 slots - 11:00 AM-3:00 PM and 3:30-7:30 PM
-                            return daySlots.filter(s => 
-                              (s.startTime === '11:00' && s.endTime === '15:00') ||
-                              (s.startTime === '15:30' && s.endTime === '19:30')
-                            );
-                          } else if (day === 'Sunday') {
-                            // Sunday: Only 2 slots - 11:00 AM-3:00 PM and 3:30-7:30 PM
-                            return daySlots.filter(s => 
-                              (s.startTime === '11:00' && s.endTime === '15:00') ||
-                              (s.startTime === '15:30' && s.endTime === '19:30')
-                            );
-                          }
-                          return daySlots;
-                        })();
-
-                        return (
-                          <div key={day} className="border rounded-lg p-3 bg-gray-50">
-                            <h3 className="font-semibold text-gray-900 mb-2 text-sm">
-                              {day}, {format(addDays(new Date(eventDate), day === 'Friday' ? 5 : day === 'Saturday' ? 6 : 0), 'MMM d')}
-                            </h3>
-                            <RadioGroup value={selectedOption} onValueChange={handleOptionSelect}>
-                              <div className="flex gap-2">
-                                {filteredSlots.map((slot) => {
-                                  const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
-                                  const slotType = slot.cruiseType || slot.type || 'private';
-                                  const slotDate = slot.dateISO || slot.date;
-                                  const slotId = `weekend_${day}_${slotType}_${boatName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
-                                  const isSelected = selectedOption === slotId;
-                                  
-                                  // Get hourly rate based on boat and day for weekends
-                                  const getWeekendHourlyRate = () => {
-                                    if (day === 'Friday') {
-                                      if (boatName.includes('day_tripper')) return 225;
-                                      if (boatName.includes('me_seeks')) return 250;
-                                      if (boatName.includes('clever_girl')) return 275;
-                                    } else { // Saturday/Sunday
-                                      if (boatName.includes('day_tripper')) return 350;
-                                      if (boatName.includes('me_seeks')) return 375;
-                                      if (boatName.includes('clever_girl')) return 400;
-                                    }
-                                    return 250; // Default
-                                  };
-                                  
-                                  return (
-                                    <div key={slotId} className={`flex-1 flex items-center space-x-2 p-2 border rounded hover:bg-white ${isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-300 bg-white'}`}>
-                                      <RadioGroupItem value={slotId} id={slotId} data-testid={`radio-slot-${slotId}`} />
-                                      <Label htmlFor={slotId} className="flex-1 cursor-pointer text-sm">
-                                        <div className="flex justify-between items-center">
-                                          <span>{slot.startTime} - {slot.endTime}</span>
-                                          <span className="text-xs text-gray-600">${getWeekendHourlyRate()}/hr</span>
-                                        </div>
-                                      </Label>
-                                    </div>
+                              
+                              if (privateSlots.length === 0 && discoSlots.length === 0) return null;
+                              
+                              // Determine if we should show disco options for this day
+                              const showDisco = isBachelor && (dayName === 'Friday' || dayName === 'Saturday') && discoSlots.length > 0;
+                              const isWeekday = ['Monday', 'Tuesday', 'Wednesday', 'Thursday'].includes(dayName);
+                              const isWeekend = ['Friday', 'Saturday', 'Sunday'].includes(dayName);
+                              
+                              // Get the actual date for display
+                              const firstSlot = privateSlots[0] || discoSlots[0];
+                              const displayDate = firstSlot ? format(new Date(firstSlot.dateISO || firstSlot.date), 'MMMM d') : '';
+                              
+                              // Filter weekend slots based on business rules
+                              const filteredPrivateSlots = (() => {
+                                if (!isWeekend) return privateSlots;
+                                
+                                if (dayName === 'Friday') {
+                                  // Friday: Only 12:00-4:00 PM and 4:30-8:30 PM
+                                  return privateSlots.filter(s => 
+                                    (s.startTime === '12:00' && s.endTime === '16:00') ||
+                                    (s.startTime === '16:30' && s.endTime === '20:30')
                                   );
-                                })}
-                              </div>
-                            </RadioGroup>
-                          </div>
-                        );
-                      })}
+                                } else if (dayName === 'Saturday' || dayName === 'Sunday') {
+                                  // Saturday/Sunday: Only 11:00 AM-3:00 PM and 3:30-7:30 PM
+                                  return privateSlots.filter(s => 
+                                    (s.startTime === '11:00' && s.endTime === '15:00') ||
+                                    (s.startTime === '15:30' && s.endTime === '19:30')
+                                  );
+                                }
+                                return privateSlots;
+                              })();
+                              
+                              const filteredDiscoSlots = showDisco ? discoSlots.filter(s => {
+                                // Apply same time filtering to disco slots
+                                if (dayName === 'Friday') {
+                                  return (s.startTime === '12:00' && s.endTime === '16:00') ||
+                                         (s.startTime === '16:30' && s.endTime === '20:30');
+                                } else if (dayName === 'Saturday') {
+                                  return (s.startTime === '11:00' && s.endTime === '15:00') ||
+                                         (s.startTime === '15:30' && s.endTime === '19:30');
+                                }
+                                return true;
+                              }) : [];
+                              
+                              return (
+                                <div key={dayName} className={`border rounded-lg p-3 ${isWeekend ? 'bg-gray-50' : 'bg-blue-50'}`}>
+                                  <h3 className="font-semibold text-gray-900 mb-3 text-base">
+                                    {dayName}, {displayDate}
+                                  </h3>
+                                  
+                                  {/* Private Cruise Options */}
+                                  {filteredPrivateSlots.length > 0 && (
+                                    <div className="mb-3">
+                                      {showDisco && <h4 className="text-sm font-medium text-gray-700 mb-2">🚢 Private Cruise</h4>}
+                                      <RadioGroup value={selectedOption} onValueChange={handleOptionSelect}>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                          {filteredPrivateSlots.map((slot) => {
+                                            const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
+                                            const slotDate = slot.dateISO || slot.date;
+                                            const duration = slot.duration || 4;
+                                            const slotId = `${duration}hr_${dayName}_private_${boatName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
+                                            const isSelected = selectedOption === slotId;
+                                            
+                                            // Get hourly rate based on boat and day
+                                            const getHourlyRate = () => {
+                                              if (isWeekday) {
+                                                if (boatName.includes('day_tripper')) return duration === 3 ? 200 : 200;
+                                                if (boatName.includes('me_seeks')) return duration === 3 ? 225 : 225;
+                                                if (boatName.includes('clever_girl')) return duration === 3 ? 250 : 250;
+                                                return 225;
+                                              } else if (dayName === 'Friday') {
+                                                if (boatName.includes('day_tripper')) return 225;
+                                                if (boatName.includes('me_seeks')) return 250;
+                                                if (boatName.includes('clever_girl')) return 275;
+                                                return 250;
+                                              } else { // Saturday/Sunday
+                                                if (boatName.includes('day_tripper')) return 350;
+                                                if (boatName.includes('me_seeks')) return 375;
+                                                if (boatName.includes('clever_girl')) return 400;
+                                                return 375;
+                                              }
+                                            };
+                                            
+                                            return (
+                                              <div key={slotId} className={`flex items-center space-x-2 p-2 border rounded hover:bg-white ${isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-300 bg-white'}`}>
+                                                <RadioGroupItem value={slotId} id={slotId} data-testid={`radio-slot-${slotId}`} />
+                                                <Label htmlFor={slotId} className="flex-1 cursor-pointer text-sm">
+                                                  <div className="flex justify-between items-center">
+                                                    <span>{slot.startTime} - {slot.endTime}</span>
+                                                    <span className="text-xs text-gray-600">${getHourlyRate()}/hr</span>
+                                                  </div>
+                                                  {isWeekday && <span className="text-xs text-gray-500">{duration}hr cruise</span>}
+                                                </Label>
+                                              </div>
+                                            );
+                                          })}
+                                        </div>
+                                      </RadioGroup>
+                                    </div>
+                                  )}
+                                  
+                                  {/* Disco Cruise Options (bachelor/bachelorette only) */}
+                                  {showDisco && filteredDiscoSlots.length > 0 && (
+                                    <div>
+                                      <h4 className="text-sm font-medium text-gray-700 mb-2">🎵 ATX Disco Cruise</h4>
+                                      <RadioGroup value={selectedOption} onValueChange={handleOptionSelect}>
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                          {filteredDiscoSlots.map((slot) => {
+                                            const slotDate = slot.dateISO || slot.date;
+                                            const slotId = `disco_${dayName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
+                                            const isSelected = selectedOption === slotId;
+                                            
+                                            return (
+                                              <div key={slotId} className={`flex items-center space-x-2 p-2 border rounded hover:bg-white ${isSelected ? 'border-purple-500 bg-purple-50' : 'border-gray-300 bg-white'}`}>
+                                                <RadioGroupItem value={slotId} id={slotId} data-testid={`radio-slot-${slotId}`} />
+                                                <Label htmlFor={slotId} className="flex-1 cursor-pointer text-sm">
+                                                  <div>
+                                                    <div className="flex justify-between items-center">
+                                                      <span>{slot.startTime} - {slot.endTime}</span>
+                                                      <span className="text-xs text-purple-600">$85+/person</span>
+                                                    </div>
+                                                    <span className="text-xs text-gray-500">Group disco party</span>
+                                                  </div>
+                                                </Label>
+                                              </div>
+                                            );
+                                          })}
+                                        </div>
+                                      </RadioGroup>
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })}
                           </>
                         );
                       })()}
@@ -1073,82 +936,75 @@ export default function QuoteViewer() {
                         <div className="flex justify-between text-sm">
                           <span className="text-gray-600">Duration:</span>
                           <span className="font-medium">
-                            {(() => {
-                              // Calculate duration directly from selected time slot
-                              if (selectedTimeSlot) {
-                                const [start, end] = selectedTimeSlot.split('-').map(t => t.trim());
-                                if (start && end) {
-                                  const [startHour, startMin] = start.split(':').map(Number);
-                                  const [endHour, endMin] = end.split(':').map(Number);
-                                  const duration = ((endHour * 60 + endMin) - (startHour * 60 + startMin)) / 60;
-                                  if (duration > 0) return `${duration} hours`;
-                                }
-                              }
-                              return `${currentPricing?.duration || privatePricing?.duration || 4} hours`;
-                            })()}
+                            {selectedOption.includes('3hr') ? '3 hours' : '4 hours'}
                           </span>
                         </div>
+                        {selectedOption.includes('disco') && (
+                          <div className="flex justify-between text-sm">
+                            <span className="text-gray-600">Cruise Type:</span>
+                            <span className="font-medium text-purple-600">ATX Disco Cruise</span>
+                          </div>
+                        )}
                       </div>
 
                       {/* Pricing Breakdown */}
-                      <div className="space-y-2">
-                        <div className="flex justify-between text-sm">
-                          <span className="text-gray-600">Subtotal:</span>
-                          <span>{formatCurrency(currentPricing?.subtotal || privatePricing?.subtotal || 0)}</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="text-gray-600">Tax (8.25%):</span>
-                          <span>{formatCurrency(currentPricing?.tax || privatePricing?.tax || 0)}</span>
-                        </div>
-                        <div className="flex justify-between text-sm">
-                          <span className="text-gray-600">Gratuity (20%):</span>
-                          <span>{formatCurrency(currentPricing?.gratuity || privatePricing?.gratuity || 0)}</span>
-                        </div>
-                        <div className="flex justify-between font-bold text-lg pt-2 border-t">
-                          <span>Total:</span>
-                          <span>{formatCurrency(currentPricing?.total || privatePricing?.total || 0)}</span>
-                        </div>
-                      </div>
-
-                      {/* Payment Buttons */}
-                      <div className="space-y-3 pt-4">
-                        <Button 
-                          className="w-full bg-blue-600 hover:bg-blue-700"
-                          size="lg"
-                          onClick={() => handlePayment('deposit', 'private')}
-                          disabled={isPaymentLoading}
-                          data-testid="button-pay-deposit"
-                        >
-                          {isPaymentLoading ? (
-                            <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                          ) : (
-                            <CreditCard className="h-4 w-4 mr-2" />
+                      {privatePricing && !selectedOption.includes('disco') && (
+                        <div className="space-y-2">
+                          <div className="flex justify-between text-sm">
+                            <span>Base Cost:</span>
+                            <span>${(privatePricing.subtotal / 100).toFixed(2)}</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span>Tax (8.25%):</span>
+                            <span>${(privatePricing.tax / 100).toFixed(2)}</span>
+                          </div>
+                          <div className="flex justify-between text-sm">
+                            <span>Gratuity (20%):</span>
+                            <span>${(privatePricing.gratuity / 100).toFixed(2)}</span>
+                          </div>
+                          <Separator />
+                          <div className="flex justify-between font-semibold">
+                            <span>Total:</span>
+                            <span className="text-lg">${(privatePricing.total / 100).toFixed(2)}</span>
+                          </div>
+                          {privatePricing.depositRequired && (
+                            <div className="flex justify-between text-sm text-blue-600">
+                              <span>Deposit ({privatePricing.depositPercent}%):</span>
+                              <span>${(privatePricing.depositAmount / 100).toFixed(2)}</span>
+                            </div>
                           )}
-                          Pay Deposit ({formatCurrency(privatePricing?.depositAmount || 0)})
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          className="w-full"
-                          size="lg"
-                          onClick={() => handlePayment('full', 'private')}
-                          disabled={isPaymentLoading}
-                          data-testid="button-pay-full"
-                        >
-                          Pay in Full ({formatCurrency(privatePricing?.total || 0)})
-                        </Button>
-                      </div>
-
-                      {/* Deposit Info */}
-                      {privatePricing?.depositRequired && (
-                        <div className="text-xs text-gray-500 text-center pt-2">
-                          {privatePricing.depositPercent}% deposit required • Balance due at boarding
                         </div>
                       )}
+
+                      {/* Payment Buttons */}
+                      <div className="space-y-2 pt-4">
+                        <Button
+                          className="w-full"
+                          size="lg"
+                          onClick={() => handlePayment('deposit', selectedOption.includes('disco') ? 'disco' : 'private')}
+                        >
+                          Pay Deposit
+                          {privatePricing?.depositAmount && !selectedOption.includes('disco') && 
+                            ` ($${(privatePricing.depositAmount / 100).toFixed(2)})`
+                          }
+                        </Button>
+                        <Button
+                          className="w-full"
+                          variant="outline"
+                          size="lg"
+                          onClick={() => handlePayment('full', selectedOption.includes('disco') ? 'disco' : 'private')}
+                        >
+                          Pay in Full
+                          {privatePricing?.total && !selectedOption.includes('disco') && 
+                            ` ($${(privatePricing.total / 100).toFixed(2)})`
+                          }
+                        </Button>
+                      </div>
                     </>
                   ) : (
                     <div className="text-center py-8">
-                      <Clock className="h-12 w-12 text-gray-400 mx-auto mb-3" />
-                      <p className="text-gray-600">Select a time slot to see pricing</p>
+                      <CalendarIconLucide className="h-8 w-8 text-gray-400 mx-auto mb-2" />
+                      <p className="text-sm text-gray-600">Select a time slot to see pricing</p>
                     </div>
                   )}
                 </CardContent>
@@ -1158,5 +1014,14 @@ export default function QuoteViewer() {
         </div>
       </div>
     </div>
+  );
+}
+
+// Wrap the component with BookingCacheProvider
+export default function QuoteViewer() {
+  return (
+    <BookingCacheProvider>
+      <QuoteViewerContent />
+    </BookingCacheProvider>
   );
 }
