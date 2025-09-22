@@ -764,11 +764,10 @@ function QuoteViewerContent() {
           <div className="flex justify-between items-start">
             <div>
               <h1 className="text-3xl font-bold text-gray-900">
-                {selectedCruiseType === 'disco' ? '🎵 ATX Disco Cruise' : '🚢 Private Cruise'} Booking
+                {selectedCruiseType === 'disco' ? '🎵 ATX Disco Cruise' : '🚢 Private Cruise'} for {groupSize} People
               </h1>
-              <p className="text-gray-600 mt-1">Select your preferred date and time below</p>
-              {eventType && (
-                <Badge className="mt-2" variant="outline">
+              <div className="flex items-center gap-3 mt-2">
+                <Badge className="text-lg px-3 py-1" variant="default">
                   {eventType === 'bachelor' ? '🤵 Bachelor Party' : 
                    eventType === 'bachelorette' ? '👰 Bachelorette Party' : 
                    eventType === 'wedding' ? '💒 Wedding' : 
@@ -776,7 +775,16 @@ function QuoteViewerContent() {
                    eventType === 'corporate' ? '💼 Corporate Event' : 
                    '🎉 Party'}
                 </Badge>
-              )}
+                <span className="text-lg text-gray-700 font-medium">
+                  {/* Show boat capacity that will be used */}
+                  {groupSize <= 14 ? 'Day Tripper (14 person boat)' :
+                   groupSize <= 25 ? 'Me Seeks The Irony (25 person boat)' :
+                   groupSize <= 50 ? 'Clever Girl (50 person boat)' :
+                   groupSize <= 75 ? 'Clever Girl (75 person boat)' :
+                   'Multiple boats may be required'}
+                </span>
+              </div>
+              <p className="text-gray-600 mt-2">Select your preferred date and time below</p>
             </div>
             {quote && (
               <Badge variant={isExpired ? "destructive" : "secondary"} className="mt-2">
@@ -824,34 +832,36 @@ function QuoteViewerContent() {
               )}
               
               {/* Capacity Filter Buttons */}
-              <Card>
-                <CardHeader>
-                  <CardTitle className="text-lg">Group Size</CardTitle>
+              <Card className="bg-gray-50 border-gray-200">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-sm text-gray-600">Adjust Group Size</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex flex-wrap gap-2">
+                  <div className="flex flex-wrap gap-1">
                     {capacityOptions.map((capacity) => (
                       <Button
                         key={capacity}
-                        variant={capacityFilter === capacity ? "default" : "outline"}
+                        variant={capacityFilter === capacity ? "secondary" : "ghost"}
                         size="sm"
+                        className="text-xs h-7 px-2"
                         onClick={() => handleCapacityChange(capacity)}
                         data-testid={`button-capacity-${capacity}`}
                       >
-                        {capacity === 14 ? '≤14' : capacity === 75 ? '51-75' : `≤${capacity}`} People
+                        {capacity === 14 ? '≤14' : capacity === 75 ? '51-75' : `≤${capacity}`}
                       </Button>
                     ))}
                     <Button
-                      variant={capacityFilter === null ? "default" : "outline"}
+                      variant={capacityFilter === null ? "secondary" : "ghost"}
                       size="sm"
+                      className="text-xs h-7 px-2"
                       onClick={() => handleCapacityChange(null)}
                       data-testid="button-capacity-all"
                     >
-                      All Sizes
+                      All
                     </Button>
                   </div>
-                  <p className="text-sm text-gray-600 mt-3">
-                    Current group size: {groupSize} people
+                  <p className="text-xs text-gray-500 mt-2">
+                    Showing options for: {groupSize} people
                   </p>
                 </CardContent>
               </Card>
@@ -938,9 +948,22 @@ function QuoteViewerContent() {
                               
                               return (
                                 <div key={dayName} className={`border rounded-lg p-3 ${isWeekend ? 'bg-gray-50' : 'bg-blue-50'}`}>
-                                  <h3 className="font-semibold text-gray-900 mb-3 text-base">
-                                    {dayName}, {displayDate}
-                                  </h3>
+                                  <div className="flex items-center justify-between mb-3">
+                                    <h3 className="font-semibold text-gray-900 text-base">
+                                      {dayName}, {displayDate}
+                                    </h3>
+                                    <div className="flex flex-col items-center">
+                                      <span className="text-xs text-gray-500 mb-1">Boat Fits</span>
+                                      <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 text-white font-bold text-lg">
+                                        {/* Show boat capacity based on group size */}
+                                        {groupSize <= 14 ? '14' :
+                                         groupSize <= 25 ? '25' :
+                                         groupSize <= 50 ? '50' :
+                                         groupSize <= 75 ? '75' :
+                                         '75+'}
+                                      </div>
+                                    </div>
+                                  </div>
                                   
                                   {/* Duration and time slot selectors for weekdays */}
                                   {isWeekday && (
