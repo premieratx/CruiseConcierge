@@ -189,6 +189,28 @@ function QuoteViewerContent() {
           console.error('Failed to parse stored checkout info:', e);
         }
       }
+      
+      // Initialize selectedSlot from calendar data if available
+      if (calendarData?.selectedTimeSlot && !selectedSlot) {
+        // Parse the time slot string to extract start and end times
+        const timeSlotStr = calendarData.selectedTimeSlot;
+        const timeMatch = timeSlotStr.match(/(\d{1,2}:\d{2})\s*(?:AM|PM)?(?:\s*-\s*(\d{1,2}:\d{2})\s*(?:AM|PM)?)?/);
+        
+        if (timeMatch) {
+          const [, startTime, endTime] = timeMatch;
+          // Create a properly structured slot object
+          const initialSlot = {
+            startTime: startTime || '',
+            endTime: endTime || '',
+            id: calendarData.slotId || '',
+            boatId: calendarData.boatId || '',
+            dateISO: calendarData.eventDate || eventDate,
+            date: calendarData.eventDate || eventDate,
+            bookable: true
+          };
+          setSelectedSlot(initialSlot);
+        }
+      }
     }
   }, [isCalendarFlow]);
   
@@ -701,7 +723,48 @@ function QuoteViewerContent() {
         selectionPayload.selectedAddOnPackages = selectedAddOns;
         selectionPayload.selectedTimeSlot = isCalendarFlow ? selectedTimeSlot : quote?.project?.projectTime;
         selectionPayload.timeSlot = isCalendarFlow ? selectedTimeSlot : quote?.project?.projectTime;
-        selectionPayload.selectedSlot = selectedSlot;
+        
+        // Ensure selectedSlot has the required startTime and endTime fields
+        if (selectedSlot) {
+          selectionPayload.selectedSlot = {
+            ...selectedSlot,
+            startTime: selectedSlot.startTime,
+            endTime: selectedSlot.endTime,
+            id: selectedSlot.id || selectedSlotId,
+            boatId: selectedSlot.boatId || selectedSlot.boat || selectedBoatId
+          };
+        } else if (selectedTimeSlot && isCalendarFlow) {
+          // If selectedSlot is not set but we have a time slot string, parse it
+          const timeMatch = selectedTimeSlot.match(/(\d{1,2}:\d{2})\s*(?:AM|PM)?(?:\s*-\s*(\d{1,2}:\d{2})\s*(?:AM|PM)?)?/);
+          if (timeMatch) {
+            const [, startTime, endTime] = timeMatch;
+            selectionPayload.selectedSlot = {
+              startTime: startTime || '',
+              endTime: endTime || '',
+              id: selectedSlotId || '',
+              boatId: selectedBoatId || ''
+            };
+          } else {
+            // As a fallback, create a minimal slot object
+            selectionPayload.selectedSlot = {
+              startTime: '',
+              endTime: '',
+              id: selectedSlotId || '',
+              boatId: selectedBoatId || ''
+            };
+          }
+        } else {
+          // Ensure we always send a selectedSlot object for calendar flow
+          if (isCalendarFlow) {
+            selectionPayload.selectedSlot = {
+              startTime: '',
+              endTime: '',
+              id: selectedSlotId || '',
+              boatId: selectedBoatId || ''
+            };
+          }
+        }
+        
         selectionPayload.selectedOption = selectedOption;
       } else {
         selectionPayload.discoPackage = selectedDiscoPackage;
