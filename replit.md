@@ -245,10 +245,12 @@ Custom CRM with AI chatbot agent for Premier Party Cruises, a party boat busines
 - ✅ **Constraint Enforcement**: Verified composite unique constraints prevent race conditions
 
 ### Previous Fixes (Maintained)
-- ✅ **Payment Button Routing**: Chatbot payment buttons redirect to Stripe checkout
+- ✅ **Payment Button Routing**: Chatbot payment buttons redirect to Stripe checkout via QuoteViewer
 - ✅ **Pricing Calculations**: Transparent hourly rate breakdowns with duration-based calculations
 - ✅ **Navigation Issues**: Fixed sticky header and back button visibility in admin dashboard
 - ✅ **Duration Logic**: Both 3-hour and 4-hour weekday options with proper weekend schedules
+- ✅ **Calendar Flow Fix**: QuoteViewer now properly finds and sets selectedSlot from URL parameters
+- ✅ **Weekday Dropdown Interface**: Monday-Thursday use dual dropdowns for duration and time slot selection
 
 ### Architecture Decisions
 - **Boat-Specific Products**: Every booking linked to actual boat + time slot combinations

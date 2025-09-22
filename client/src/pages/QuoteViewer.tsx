@@ -535,6 +535,35 @@ function QuoteViewerContent() {
     }
   }, [isCalendarFlow, eventDate, capacityFilter]);
 
+  // Find and set the selectedSlot when weekly slots are loaded and we have a selectedSlotId
+  useEffect(() => {
+    if (selectedSlotId && weeklySlots.length > 0 && !selectedSlot) {
+      // Find the slot that matches the selectedSlotId
+      const foundSlot = weeklySlots.find(slot => {
+        const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
+        const slotDate = slot.dateISO || slot.date;
+        const duration = slot.duration || 4;
+        const dayName = format(new Date(slotDate), 'EEEE');
+        const slotId = `${duration}hr_${dayName}_private_${boatName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
+        return slotId === selectedSlotId;
+      });
+
+      if (foundSlot) {
+        console.log('🎯 Found matching slot for selectedSlotId:', foundSlot);
+        setSelectedSlot(foundSlot);
+        setSelectedOption(selectedSlotId);
+        // Also ensure time slot is properly set
+        if (!selectedTimeSlot && foundSlot.startTime && foundSlot.endTime) {
+          setSelectedTimeSlot(`${foundSlot.startTime}-${foundSlot.endTime}`);
+        }
+        // Ensure boat ID is set
+        if (!selectedBoatId && foundSlot.boatCandidates?.[0]) {
+          setSelectedBoatId(foundSlot.boatCandidates[0]);
+        }
+      }
+    }
+  }, [selectedSlotId, weeklySlots, selectedSlot, selectedTimeSlot, selectedBoatId]);
+
   // Update pricing when dependencies change
   useEffect(() => {
     if (selectedCruiseType === 'private' && (isCalendarFlow || quote)) {
