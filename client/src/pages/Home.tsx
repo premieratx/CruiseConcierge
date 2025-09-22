@@ -554,277 +554,8 @@ export default function Home() {
       </section>
 
 
-      {/* Pricing Preview Section */}
-      <section className="py-20 bg-gradient-to-br from-brand-blue/5 to-brand-yellow/5 dark:from-gray-900 dark:to-gray-800">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerChildren}
-            className="text-center mb-16"
-          >
-            <motion.div variants={fadeInUp}>
-              <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider">
-                TRANSPARENT PRICING
-              </h2>
-              <h3 className="text-3xl md:text-4xl font-heading font-bold mb-8 text-brand-blue tracking-wider">
-                NO HIDDEN FEES
-              </h3>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                See exactly what you'll pay before you book. Real-time pricing based on your group size and preferred dates.
-              </p>
-            </motion.div>
-          </motion.div>
 
-          {/* Day-of-Week Pricing Highlights */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16 max-w-6xl mx-auto">
-            {pricingHighlights.map((highlight, index) => (
-              <motion.div
-                key={highlight.type}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-                variants={fadeInUp}
-                transition={{ delay: index * 0.2 }}
-              >
-                <Card className="border-2 border-brand-blue/20 bg-white/80 backdrop-blur-sm hover:shadow-xl transition-all duration-300">
-                  <CardHeader className="text-center pb-4">
-                    <CardTitle className="text-2xl font-bold mb-2 tracking-wide text-brand-blue">
-                      {highlight.type}
-                    </CardTitle>
-                    <CardDescription className="text-lg text-gray-600">
-                      {highlight.description}
-                    </CardDescription>
-                  </CardHeader>
-                  <CardContent className="text-center space-y-4">
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="bg-green-50 dark:bg-green-950 p-4 rounded-xl border border-green-200">
-                        <div className="text-sm text-green-600 font-medium mb-1">Weekdays</div>
-                        <div className="text-2xl font-bold text-green-700">
-                          ${highlight.weekdayFrom}
-                        </div>
-                        <div className="text-sm text-gray-600">per person</div>
-                      </div>
-                      <div className="bg-blue-50 dark:bg-blue-950 p-4 rounded-xl border border-blue-200">
-                        <div className="text-sm text-blue-600 font-medium mb-1">Weekends</div>
-                        <div className="text-2xl font-bold text-blue-700">
-                          ${highlight.weekendFrom}
-                        </div>
-                        <div className="text-sm text-gray-600">per person</div>
-                      </div>
-                    </div>
-                    <div className="text-sm text-gray-500">
-                      {highlight.type === 'ATX Disco Cruises' ? 'Friday & Saturday only' : 'Available 7 days a week'}
-                    </div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
 
-          {/* Capacity-Based Pricing Ranges */}
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            variants={staggerChildren}
-            className="mb-16"
-          >
-            <motion.div variants={fadeInUp} className="text-center mb-12">
-              <h3 className="text-3xl font-heading font-bold mb-4 text-gray-900 dark:text-white">
-                GROUP SIZE PRICING
-              </h3>
-              <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-                Different boat sizes for different group sizes - find the perfect fit for your celebration
-              </p>
-            </motion.div>
-
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-              {capacityPricingExamples.map((example, index) => (
-                <motion.div
-                  key={example.capacity}
-                  variants={scaleIn}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <Card className="h-full border-2 border-gray-200 hover:border-brand-blue/50 transition-all duration-300 hover:shadow-lg">
-                    <CardHeader className="text-center pb-4">
-                      <Badge className="mx-auto mb-3 bg-brand-blue text-white">
-                        {example.capacity} People Max
-                      </Badge>
-                      <CardTitle className="text-xl font-bold">
-                        {example.capacity === 14 ? 'Intimate Groups' : 
-                         example.capacity === 25 ? 'Perfect Parties' : 
-                         'Grand Celebrations'}
-                      </CardTitle>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="grid grid-cols-2 gap-3 text-center">
-                        <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-                          <div className="text-sm text-gray-600 mb-1">Weekday</div>
-                          <div className="font-bold text-gray-900 dark:text-white">
-                            ${formatCurrency(example.weekdayPrice / 100, false)}
-                          </div>
-                          <div className="text-xs text-gray-500">
-                            ${Math.floor(example.perPersonWeekday / 100)}/person
-                          </div>
-                        </div>
-                        <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
-                          <div className="text-sm text-gray-600 mb-1">Weekend</div>
-                          <div className="font-bold text-gray-900 dark:text-white">
-                            ${formatCurrency(example.weekendPrice / 100, false)}
-                          </div>
-                          <div className="text-xs text-gray-500">
-                            ${Math.floor(example.perPersonWeekend / 100)}/person
-                          </div>
-                        </div>
-                      </div>
-                      <div className="text-center pt-2">
-                        <Button 
-                          variant="outline" 
-                          size="sm"
-                          onClick={() => handleGetQuote('private-cruise', 'general')}
-                          className="text-brand-blue border-brand-blue hover:bg-brand-blue hover:text-white"
-                          data-testid={`button-capacity-quote-${example.capacity}`}
-                        >
-                          Get Quote
-                        </Button>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Best Deal Finder Widget */}
-      <section className="py-20 bg-gradient-to-br from-green-50 to-blue-50 dark:from-gray-900 dark:to-gray-800">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerChildren}
-            className="max-w-4xl mx-auto"
-          >
-            <motion.div variants={fadeInUp} className="text-center mb-12">
-              <div className="flex items-center justify-center gap-3 mb-6">
-                <Target className="h-10 w-10 text-green-600" />
-                <h2 className="text-4xl md:text-5xl font-heading font-bold text-gray-900 dark:text-white tracking-wider">
-                  BEST DEAL FINDER
-                </h2>
-              </div>
-              <p className="text-xl text-gray-600 dark:text-gray-300 leading-relaxed">
-                Let our smart pricing engine find the perfect cruise option for your group size and budget
-              </p>
-            </motion.div>
-
-            <motion.div variants={fadeInUp}>
-              <Card className="border-2 border-green-200 bg-white/90 backdrop-blur-sm shadow-xl">
-                <CardHeader className="text-center pb-4">
-                  <CardTitle className="text-2xl font-bold text-green-700 tracking-wide">
-                    Quick Deal Calculator
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                      <Label className="text-sm font-semibold mb-2 block">Group Size</Label>
-                      <select 
-                        value={quickPricingGroupSize} 
-                        onChange={(e) => setQuickPricingGroupSize(Number(e.target.value))}
-                        className="w-full p-3 border border-gray-300 rounded-xl bg-white"
-                        data-testid="select-quick-pricing-group-size"
-                      >
-                        {[8, 10, 12, 14, 16, 18, 20, 22, 25, 30, 35, 40, 45, 50, 60, 75].map(size => (
-                          <option key={size} value={size}>{size} people</option>
-                        ))}
-                      </select>
-                    </div>
-                    <div>
-                      <Label className="text-sm font-semibold mb-2 block">Preferred Day</Label>
-                      <select 
-                        value={quickPricingDayOfWeek} 
-                        onChange={(e) => setQuickPricingDayOfWeek(Number(e.target.value))}
-                        className="w-full p-3 border border-gray-300 rounded-xl bg-white"
-                        data-testid="select-quick-pricing-day"
-                      >
-                        <option value={1}>Monday</option>
-                        <option value={2}>Tuesday</option>
-                        <option value={3}>Wednesday</option>
-                        <option value={4}>Thursday</option>
-                        <option value={5}>Friday</option>
-                        <option value={6}>Saturday</option>
-                        <option value={0}>Sunday</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div className="bg-gradient-to-r from-green-50 to-blue-50 p-6 rounded-xl border border-green-200">
-                    <QuickDealHighlight 
-                      groupSize={quickPricingGroupSize} 
-                      dayOfWeek={quickPricingDayOfWeek}
-                      className="mb-4"
-                    />
-                    
-                    <div className="text-center pt-4">
-                      <Button 
-                        onClick={() => handleGetQuote('best-deal', 'general')}
-                        className="bg-green-600 hover:bg-green-700 text-white font-bold px-8 py-3 text-lg rounded-xl"
-                        data-testid="button-get-best-deal"
-                      >
-                        <TrendingUp className="mr-2 h-5 w-5" />
-                        Get My Best Deal
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            </motion.div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Disco vs Private Comparison */}
-      <section className="py-20 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerChildren}
-            className="text-center mb-16"
-          >
-            <motion.div variants={fadeInUp}>
-              <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider">
-                DISCO VS PRIVATE
-              </h2>
-              <h3 className="text-3xl md:text-4xl font-heading font-bold mb-8 text-brand-blue tracking-wider">
-                WHICH IS BEST FOR YOU?
-              </h3>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                Our intelligent comparison shows you exactly when each option saves you money and delivers the best experience
-              </p>
-            </motion.div>
-          </motion.div>
-
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-50px" }}
-            variants={fadeInUp}
-          >
-            <DiscoVsPrivateComparison 
-              groupSize={quickPricingGroupSize} 
-              dayOfWeek={quickPricingDayOfWeek}
-              showAlternatives={true}
-              className="max-w-7xl mx-auto"
-            />
-          </motion.div>
-        </div>
-      </section>
 
       {/* Services Section */}
       <section id="services" className="py-24 bg-gray-50 dark:bg-gray-900">
@@ -1316,7 +1047,7 @@ export default function Home() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <form onSubmit={handleContactSubmit} className="space-y-6">
+                  <form onSubmit={(e) => { e.preventDefault(); navigate('/chat?type=general'); }} className="space-y-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="name" className="text-sm font-semibold tracking-wide">
@@ -1454,7 +1185,7 @@ export default function Home() {
                     See our real-time availability and book your perfect cruise date instantly.
                   </p>
                   <Button 
-                    onClick={handleBookNow}
+                    onClick={() => navigate('/chat?type=general')}
                     size="lg"
                     className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold py-4 text-lg rounded-xl tracking-wide"
                     data-testid="button-quick-book"
@@ -1495,22 +1226,12 @@ export default function Home() {
                     <div>
                       <h4 className="font-bold text-lg tracking-wide">Lake Travis</h4>
                       <p className="text-gray-600 dark:text-gray-300">Austin, Texas</p>
-                      <p className="text-sm text-gray-500">Multiple departure points</p>
+                      <p className="text-sm text-gray-500">Austin, Texas</p>
                     </div>
                   </CardContent>
                 </Card>
               </div>
 
-              {/* Emergency/Quick Info */}
-              <Card className="border-2 border-green-200 bg-green-50 dark:bg-green-950">
-                <CardContent className="p-6 text-center">
-                  <Shield className="h-8 w-8 text-green-600 mx-auto mb-3" />
-                  <h4 className="font-bold text-lg mb-2 tracking-wide">Coast Guard Certified</h4>
-                  <p className="text-sm text-green-700 dark:text-green-300">
-                    Licensed captains • Full insurance • Perfect safety record
-                  </p>
-                </CardContent>
-              </Card>
             </motion.div>
           </div>
         </div>
