@@ -155,8 +155,9 @@ function QuoteViewerContent() {
     }
   }, [showDiscoOptions, selectedCruiseType]);
   
-  // State for weekday duration selection
+  // State for weekday duration and time slot selection
   const [weekdayDurations, setWeekdayDurations] = useState<Record<string, string>>({});
+  const [weekdayTimeSlots, setWeekdayTimeSlots] = useState<Record<string, string>>({});
   
   // Helper function to convert military time to AM/PM format
   const formatTimeToAMPM = (time: string): string => {
@@ -255,15 +256,13 @@ function QuoteViewerContent() {
   
   const computeOrderedDates = (selectedDate: Date): string[] => {
     const dayOfWeek = selectedDate.getDay();
+    const allDays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
     const dayNames: string[] = [];
     
-    // Determine ordering based on original selection
-    if (dayOfWeek >= 5 || dayOfWeek === 0) { // Friday(5), Saturday(6), Sunday(0)
-      // Weekend selected: Fri → Sat → Sun → Mon → Tue → Wed → Thu
-      dayNames.push('Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday');
-    } else { // Monday(1) through Thursday(4)
-      // Weekday selected: Mon → Tue → Wed → Thu → Fri → Sat → Sun
-      dayNames.push('Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday');
+    // Start from the selected day and go through a full week
+    for (let i = 0; i < 7; i++) {
+      const dayIndex = (dayOfWeek + i) % 7;
+      dayNames.push(allDays[dayIndex]);
     }
     
     return dayNames;
@@ -914,34 +913,103 @@ function QuoteViewerContent() {
                                     {dayName}, {displayDate}
                                   </h3>
                                   
-                                  {/* Duration selector for weekdays */}
+                                  {/* Duration and time slot selectors for weekdays */}
                                   {isWeekday && (
-                                    <div className="mb-3">
-                                      <Select 
-                                        value={weekdayDurations[dayName] || '4'}
-                                        onValueChange={(value) => setWeekdayDurations(prev => ({...prev, [dayName]: value}))}
-                                      >
-                                        <SelectTrigger className="w-full">
-                                          <SelectValue placeholder="Select duration" />
-                                        </SelectTrigger>
-                                        <SelectContent>
-                                          <SelectItem value="3">3 Hour Cruise</SelectItem>
-                                          <SelectItem value="4">4 Hour Cruise</SelectItem>
-                                        </SelectContent>
-                                      </Select>
+                                    <div className="mb-3 flex gap-3">
+                                      {/* Duration dropdown - Left column */}
+                                      <div className="flex-1">
+                                        <Select 
+                                          value={weekdayDurations[dayName] || '4'}
+                                          onValueChange={(value) => {
+                                            setWeekdayDurations(prev => ({...prev, [dayName]: value}));
+                                            // Clear time slot selection when duration changes
+                                            setWeekdayTimeSlots(prev => ({...prev, [dayName]: ''}));
+                                          }}
+                                        >
+                                          <SelectTrigger className="w-full">
+                                            <SelectValue placeholder="Select duration" />
+                                          </SelectTrigger>
+                                          <SelectContent>
+                                            <SelectItem value="3">3 Hour Cruise</SelectItem>
+                                            <SelectItem value="4">4 Hour Cruise</SelectItem>
+                                          </SelectContent>
+                                        </Select>
+                                      </div>
+                                      
+                                      {/* Time slot dropdown - Right column */}
+                                      <div className="flex-1">
+                                        {(() => {
+                                          const availableSlots = privateSlots.filter(s => s.duration === parseInt(weekdayDurations[dayName] || '4') && s.bookable);
+                                          const selectedSlotId = weekdayTimeSlots[dayName];
+                                          
+                                          if (availableSlots.length === 0) {
+                                            return <div className="text-sm text-gray-500 p-2">No available slots</div>;
+                                          }
+                                          
+                                          return (
+                                            <Select 
+                                              value={weekdayTimeSlots[dayName] || ''}
+                                              onValueChange={(value) => {
+                                                setWeekdayTimeSlots(prev => ({...prev, [dayName]: value}));
+                                                handleOptionSelect(value);
+                                                
+                                                // Also update the selected slot details for pricing
+                                                const slot = availableSlots.find(s => {
+                                                  const boatName = s.boatCandidates?.[0] || s.boat || 'boat_unknown';
+                                                  const slotDate = s.dateISO || s.date;
+                                                  const duration = s.duration || 4;
+                                                  const slotId = `${duration}hr_${dayName}_private_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`;
+                                                  return slotId === value;
+                                                });
+                                                
+                                                if (slot) {
+                                                  setSelectedSlot(slot);
+                                                  setSelectedTimeSlot(`${slot.startTime}-${slot.endTime}`);
+                                                  setSelectedBoatId(slot.boatCandidates?.[0] || slot.boat || '');
+                                                  setSelectedSlotId(value);
+                                                  setEventDate(slot.dateISO || slot.date);
+                                                }
+                                              }}
+                                            >
+                                              <SelectTrigger className="w-full">
+                                                <SelectValue placeholder="Select time slot" />
+                                              </SelectTrigger>
+                                              <SelectContent>
+                                                {availableSlots.map(slot => {
+                                                  const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
+                                                  const slotDate = slot.dateISO || slot.date;
+                                                  const duration = slot.duration || 4;
+                                                  const slotId = `${duration}hr_${dayName}_private_${boatName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
+                                                  
+                                                  // Get hourly rate based on boat
+                                                  const getHourlyRate = () => {
+                                                    if (boatName.includes('day_tripper')) return 200;
+                                                    if (boatName.includes('me_seeks')) return 225;
+                                                    if (boatName.includes('clever_girl')) return 250;
+                                                    return 225;
+                                                  };
+                                                  
+                                                  return (
+                                                    <SelectItem key={slotId} value={slotId}>
+                                                      {formatTimeToAMPM(slot.startTime)} - {formatTimeToAMPM(slot.endTime)} (${getHourlyRate()}/hr)
+                                                    </SelectItem>
+                                                  );
+                                                })}
+                                              </SelectContent>
+                                            </Select>
+                                          );
+                                        })()}
+                                      </div>
                                     </div>
                                   )}
                                   
-                                  {/* Private Cruise Options */}
-                                  {filteredPrivateSlots.length > 0 && (
+                                  {/* Private Cruise Options - Only show for weekends */}
+                                  {!isWeekday && filteredPrivateSlots.length > 0 && (
                                     <div className="mb-3">
                                       {showDisco && <h4 className="text-sm font-medium text-gray-700 mb-2">🚢 Private Cruise</h4>}
                                       <RadioGroup value={selectedOption} onValueChange={handleOptionSelect}>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                          {(isWeekday ? 
-                                            privateSlots.filter(s => s.duration === parseInt(weekdayDurations[dayName] || '4')) :
-                                            filteredPrivateSlots
-                                          ).map((slot) => {
+                                          {filteredPrivateSlots.map((slot) => {
                                             const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
                                             const slotDate = slot.dateISO || slot.date;
                                             const duration = slot.duration || 4;
