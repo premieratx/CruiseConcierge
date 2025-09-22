@@ -47,7 +47,9 @@ Custom CRM with AI chatbot agent for Premier Party Cruises, a party boat busines
 - **Basic Package**: $85.00 per person
 - **Disco Queen Package**: $95.00 per person
 - **Platinum Package**: $105.00 per person
-- Available Friday/Saturday only with 4-hour duration
+- Available:
+  - **Friday**: 12:00 PM - 4:00 PM only (single slot)
+  - **Saturday**: 11:00 AM - 3:00 PM and 3:30 PM - 7:30 PM (two slots)
 
 ### 2. BOOKING & INVENTORY MANAGEMENT
 
