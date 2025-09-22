@@ -2,6 +2,12 @@ import React, { createContext, useContext, useState, useEffect, useCallback, use
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { calculateSimplePricing } from '@shared/pricing';
 import { apiRequest } from '@/lib/queryClient';
+import { 
+  useWeekAvailability, 
+  useAvailabilityOptimisticUpdates, 
+  getWeekStart,
+  formatDateForAvailability 
+} from '@/hooks/use-availability';
 
 // Types for our cached state
 interface BookingSelections {
@@ -75,11 +81,15 @@ interface BookingCacheContextType extends BookingCacheState {
   // Pricing engine
   recomputePricing: () => ComputedPricing | null;
   
-  // Availability management
+  // Availability management (enhanced with week caching)
   getAvailability: (date: string, cruiseType: 'private' | 'disco') => AvailabilitySlot[];
+  getWeekAvailability: (weekStart: string, cruiseType?: 'private' | 'disco', groupSize?: number) => any;
   prefetchWeek: (weekStart: string) => void;
+  prefetchAdjacentWeeks: (currentWeek: string, cruiseType?: 'private' | 'disco', groupSize?: number) => void;
   holdSlot: (slotId: string) => Promise<boolean>;
   releaseSlot: (slotId: string) => Promise<boolean>;
+  markSlotAsBooked: (slotId: string, weekStart: string) => Promise<void>;
+  markSlotAsAvailable: (slotId: string, weekStart: string) => Promise<void>;
   
   // Cache management
   refreshStaticData: () => void;
@@ -422,13 +432,7 @@ export function useBookingCache(): BookingCacheContextType {
 }
 
 // Utility functions
-function getWeekStart(dateStr: string): string {
-  const date = new Date(dateStr);
-  const day = date.getDay();
-  const diff = date.getDate() - day;
-  const weekStart = new Date(date.setDate(diff));
-  return weekStart.toISOString().split('T')[0];
-}
+// Note: getWeekStart is imported from @/hooks/use-availability for better timezone handling
 
 function getCapacityTier(groupSize: number): string {
   if (groupSize <= 14) return 'small';

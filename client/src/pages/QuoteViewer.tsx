@@ -65,6 +65,35 @@ const discoPackages = [
   { id: 'platinum', name: 'Super Sparkle Platinum Disco', price: 10500, description: 'Ultimate disco experience with all premium amenities' }
 ];
 
+// Time parsing utility to handle both "10:30-14:30" and "10:30 AM - 2:30 PM" formats
+const parseTimeSlot = (timeSlot: string) => {
+  if (!timeSlot) return { startTime: '', endTime: '' };
+  
+  // Handle "HH:MM-HH:MM" format (24-hour)
+  if (timeSlot.includes('-') && !timeSlot.includes('AM') && !timeSlot.includes('PM')) {
+    const [start, end] = timeSlot.split('-');
+    return { startTime: start.trim(), endTime: end.trim() };
+  }
+  
+  // Handle "hh:mm AM - hh:mm PM" format
+  if (timeSlot.includes('AM') || timeSlot.includes('PM')) {
+    const [startPart, endPart] = timeSlot.split(' - ');
+    const startTime = convertTo24Hour(startPart.trim());
+    const endTime = convertTo24Hour(endPart.trim());
+    return { startTime, endTime };
+  }
+  
+  return { startTime: '', endTime: '' };
+};
+
+const convertTo24Hour = (time12: string): string => {
+  const [time, modifier] = time12.split(' ');
+  let [hours, minutes] = time.split(':');
+  if (hours === '12') hours = '00';
+  if (modifier === 'PM') hours = String(parseInt(hours) + 12);
+  return `${hours.padStart(2, '0')}:${minutes}`;
+};
+
 export default function QuoteViewer() {
   const params = useParams();
   const quoteId = params.quoteId as string;
@@ -141,7 +170,7 @@ export default function QuoteViewer() {
   const [availableSlots, setAvailableSlots] = useState<any[]>([]);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>(calendarData?.selectedTimeSlot || '');
   const [selectedBoat, setSelectedBoat] = useState<string>(calendarData?.boatId || '');
-  const [selectedSlotId, setSelectedSlotId] = useState<string>('');
+  const [selectedSlotId, setSelectedSlotId] = useState<string>(calendarData?.slotId || '');
   const [eventDate, setEventDate] = useState<string>(calendarData?.eventDate || format(new Date(), 'yyyy-MM-dd'));
   const [slotsLoading, setSlotsLoading] = useState(false);
   
@@ -213,13 +242,13 @@ export default function QuoteViewer() {
     try {
       // Update cache with current selections
       updateSelection({
-        date: isCalendarFlow ? eventDate?.toISOString().split('T')[0] : quote?.project?.projectDate?.split('T')[0],
+        date: isCalendarFlow ? (eventDate ? new Date(eventDate).toISOString().split('T')[0] : '') : quote?.project?.projectDate?.split('T')[0],
         groupSize,
         cruiseType: 'private',
         selectedAddOns,
         discountCode,
         timeSlot: isCalendarFlow ? selectedTimeSlot : getTimeSlotFromQuote(quote),
-        boatId: selectedBoat,
+        boatId: selectedBoatId,
         slotId: selectedSlotId,
         eventType: isCalendarFlow ? calendarData?.eventType : quote?.project?.eventType
       });
@@ -269,7 +298,7 @@ export default function QuoteViewer() {
     try {
       // Update cache with current disco selections
       updateSelection({
-        date: isCalendarFlow ? eventDate?.toISOString().split('T')[0] : quote?.project?.projectDate?.split('T')[0],
+        date: isCalendarFlow ? (eventDate ? new Date(eventDate).toISOString().split('T')[0] : '') : quote?.project?.projectDate?.split('T')[0],
         groupSize: discoTicketQuantity,
         cruiseType: 'disco',
         discoPackage: selectedDiscoPackage,
@@ -346,30 +375,30 @@ export default function QuoteViewer() {
     }
   }, [isCalendarFlow, eventDate, selectedCruiseType, groupSize, discoTicketQuantity]);
 
-  // Fetch slots when dependencies change
+  // Fetch slots when dependencies change - FIXED: Direct dependencies to prevent infinite loop
   useEffect(() => {
     if (isCalendarFlow) {
       fetchAvailableSlots();
     }
-  }, [fetchAvailableSlots]);
+  }, [isCalendarFlow, eventDate, selectedCruiseType, groupSize, discoTicketQuantity]);
 
-  // ⚡ INSTANT private pricing refresh (no debouncing needed!)
+  // ⚡ INSTANT private pricing refresh (no debouncing needed!) - FIXED: Direct dependencies
   useEffect(() => {
     if (isCalendarFlow && selectedCruiseType === 'private') {
       fetchPrivatePricing(); // Instant calculation
     } else if (!isCalendarFlow && quote && isPrivateCruise(quote)) {
       fetchPrivatePricing(); // Instant calculation
     }
-  }, [quote, groupSize, addOnsKey, isCalendarFlow, selectedCruiseType, discountCode, selectedTimeSlot, selectedBoat, selectedSlotId, eventDate, fetchPrivatePricing]);
+  }, [quote, groupSize, addOnsKey, isCalendarFlow, selectedCruiseType, discountCode, selectedTimeSlot, selectedBoat, selectedSlotId, eventDate]);
 
-  // ⚡ INSTANT disco pricing refresh (no debouncing needed!)
+  // ⚡ INSTANT disco pricing refresh (no debouncing needed!) - FIXED: Direct dependencies
   useEffect(() => {
     if (isCalendarFlow && selectedCruiseType === 'disco') {
       fetchDiscoPricing(); // Instant calculation
     } else if (!isCalendarFlow && quote && isDiscoCruise(quote)) {
       fetchDiscoPricing(); // Instant calculation
     }
-  }, [quote, selectedDiscoPackage, discoTicketQuantity, isCalendarFlow, selectedCruiseType, discountCode, selectedTimeSlot, selectedSlotId, eventDate, fetchDiscoPricing]);
+  }, [quote, selectedDiscoPackage, discoTicketQuantity, isCalendarFlow, selectedCruiseType, discountCode, selectedTimeSlot, selectedSlotId, eventDate]);
 
   // Universal payment handler - works for both quote flow and calendar flow
   const handlePayment = async (paymentType: 'deposit' | 'full', cruiseType: 'private' | 'disco') => {
@@ -387,6 +416,19 @@ export default function QuoteViewer() {
       const amount = paymentType === 'deposit' ? pricing.depositAmount : pricing.total;
       
       // Build selection payload for both entry points
+      // Build selectedSlot object with proper startTime/endTime for server validation
+      const timeSlotStr = selectedTimeSlot || calendarData?.selectedTimeSlot || '';
+      const { startTime, endTime } = parseTimeSlot(timeSlotStr);
+      const selectedSlot = {
+        slotId: selectedSlotId || calendarData?.slotId || '',
+        boatId: selectedBoatId || calendarData?.boatId || '',
+        dateISO: eventDate || calendarData?.eventDate || '',
+        startTime,
+        endTime,
+        durationHours: 4, // Most common duration, server will validate
+        cruiseType
+      };
+
       const selectionPayload = isCalendarFlow ? {
         // Calendar flow data
         entryPoint: 'calendar_flow',
@@ -395,9 +437,10 @@ export default function QuoteViewer() {
         eventType: calendarData?.eventType || 'other',
         groupSize: cruiseType === 'disco' ? discoTicketQuantity : groupSize,
         eventDate: eventDate || calendarData?.eventDate,
-        selectedTimeSlot: selectedTimeSlot || calendarData?.selectedTimeSlot,
+        selectedTimeSlot: timeSlotStr,
+        selectedSlot, // ✅ CRITICAL: Full slot object with startTime/endTime
         slotId: selectedSlotId || calendarData?.slotId,
-        boatId: selectedBoat || calendarData?.boatId,
+        boatId: selectedBoatId || calendarData?.boatId,
         discountCode: discountCode,
         selectedAddOns: cruiseType === 'private' ? selectedAddOns : [],
         discoPackage: cruiseType === 'disco' ? selectedDiscoPackage : null,
@@ -461,7 +504,8 @@ export default function QuoteViewer() {
   };
 
   // Helper functions
-  const getTimeSlotFromQuote = (quote: QuoteWithDetails) => {
+  const getTimeSlotFromQuote = (quote: QuoteWithDetails | null | undefined) => {
+    if (!quote) return 'default-slot';
     // Extract time slot from quote data
     const timeSection = quote.radioSections?.find(s => 
       s.title?.toLowerCase().includes('time') && s.selectedValue
@@ -469,21 +513,23 @@ export default function QuoteViewer() {
     return timeSection?.selectedValue || 'default-slot';
   };
 
-  const isPrivateCruise = (quote: QuoteWithDetails) => {
-    return quote.items?.some(item => 
+  const isPrivateCruise = (quote: QuoteWithDetails | null | undefined) => {
+    if (!quote || !quote.items) return false;
+    return quote.items.some(item => 
       item.type === 'private_cruise' || 
       item.type === 'cruise' ||
       !item.name?.toLowerCase().includes('disco')
     );
   };
 
-  const isDiscoCruise = (quote: QuoteWithDetails) => {
+  const isDiscoCruise = (quote: QuoteWithDetails | null | undefined) => {
+    if (!quote) return false;
     return quote.project?.eventType === 'bachelor' || 
            quote.project?.eventType === 'bachelorette' ||
            quote.items?.some(item => 
              item.name?.toLowerCase().includes('disco') ||
              item.productId?.includes('disco')
-           );
+           ) || false;
   };
 
   const formatCurrency = (cents: number) => {

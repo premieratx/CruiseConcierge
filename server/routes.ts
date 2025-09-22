@@ -5155,50 +5155,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         
         console.log('✅ SECURE pricing converted to legacy format for compatibility');
         
-        if (cruiseType === 'disco') {
-          // More flexible validation - handle missing values with defaults
-          if (!discoPackage && !selectedDiscoPackage) {
-            return res.status(400).json({ error: "discoPackage or selectedDiscoPackage required for disco cruise" });
-          }
-          
-          // Use default values if not provided
-          const finalDiscoPackage = discoPackage || selectedDiscoPackage || 'basic';
-          const finalDiscoTicketQuantity = discoTicketQuantity || parseInt(groupSize) || 10;
-          
-          console.log('💃 Processing disco cruise with:', {
-            originalDiscoPackage: discoPackage,
-            selectedDiscoPackage,
-            finalDiscoPackage,
-            originalDiscoTicketQuantity: discoTicketQuantity,
-            finalDiscoTicketQuantity,
-            groupSize
-          });
-
-          // Use centralized DISCO pricing function for consistency
-          const { getDiscoPricing } = await import('@shared/pricing');
-          
-          const getDiscoPriceByPackage = (packageId: string): number => {
-            const packageMap = {
-              'basic': 'basic',
-              'disco_queen': 'disco_queen', 
-              'platinum': 'platinum'
-            } as const;
-            const mappedId = packageMap[packageId as keyof typeof packageMap] || 'basic';
-            return getDiscoPricing(mappedId as 'basic' | 'disco_queen' | 'platinum');
-          };
-
-          pricing = await storage.calculatePricing({
-            items: [{
-              productId: `disco_${finalDiscoPackage}`,
-              qty: finalDiscoTicketQuantity,
-              unitPrice: getDiscoPriceByPackage(finalDiscoPackage),
-            }],
-            groupSize: finalDiscoTicketQuantity,
-            projectDate: new Date(eventDate),
-          });
-        } else {
-          return res.status(400).json({ error: "Invalid cruise type" });
-        }
+        // ✅ Server pricing validation complete - both private and disco cruises handled above
       } catch (pricingError: any) {
         console.error("Pricing calculation failed:", pricingError);
         return res.status(400).json({ error: "Unable to calculate pricing: " + pricingError.message });

@@ -283,7 +283,7 @@ export function calculateServerPricing(request: ServerPricingRequest): ServerPri
     // Validation
     isValid: errors.length === 0,
     errors,
-  };}
+  };
 }
 
 // Export for route validation
