@@ -228,12 +228,12 @@ Custom CRM with AI chatbot agent for Premier Party Cruises, a party boat busines
 
 ## Recent Changes (September 2025)
 
-### LATEST UPDATE: 17hats-Style Interface Consolidation
-- ✅ **Compact Dropdown Interface**: Monday-Thursday now use dropdown menus for 3h/4h options (was 129 individual slots)
-- ✅ **Duration Calculation Fix**: BookingCacheContext properly calculates duration from actual time slots
-- ✅ **Hourly Rate Display**: Dropdowns show accurate per-hour rates ($675/hr for 3h, $250/hr for 4h)
-- ✅ **Time Slot Format**: Fixed timeSlot format with spaces ("10:00 - 13:00") for proper parsing
-- ✅ **One Viewport Design**: Entire week's availability now fits without scrolling as requested
+### LATEST UPDATE: Bachelor/Bachelorette Dual Cruise Display
+- ✅ **Dual Cruise Options**: Bachelor/bachelorette events now show BOTH Private and Disco cruise options for Friday/Saturday
+- ✅ **Smart Date Ordering**: Days ordered chronologically based on original selection (Fri-first for weekends, Mon-first for weekdays)
+- ✅ **Separate Weekday Sections**: Monday-Thursday displayed as individual day sections (not consolidated dropdown)
+- ✅ **Business Rules Enforced**: Friday/Saturday show both cruise types, Sunday shows Private only (no disco), Mon-Thu show Private only
+- ✅ **Visual Differentiation**: Private Cruise marked with 🚢 icon, ATX Disco Cruise with 🎵 icon and "$85+/person" pricing
 
 ### MAJOR COMPLETION: Boat-Specific Time Slot System
 - ✅ **Bulletproof Architecture**: Complete boat-specific time slot system with verified database constraints
