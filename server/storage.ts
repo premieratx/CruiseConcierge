@@ -1119,7 +1119,10 @@ export class DatabaseStorage implements IStorage {
             }
           });
         } catch (productError: any) {
-          console.error(`❌ Error upserting product ${product.id}:`, productError);
+          // Only log errors that aren't duplicate key violations
+          if (!productError.message?.includes('duplicate key value violates unique constraint')) {
+            console.error(`❌ Error upserting product ${product.id}:`, productError);
+          }
           // Continue with other products
         }
       }

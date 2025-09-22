@@ -108,11 +108,12 @@ export default function QuoteViewer() {
   
   // NEW: Detect entry point and extract calendar flow data
   const entryPoint = urlParams.get('entryPoint') || hashParams.get('entryPoint');
-  const isCalendarFlow = entryPoint === 'calendar_flow';
+  // Calendar flow is when we have eventDate param (from calendar) or explicit entryPoint
+  const isCalendarFlow = urlParams.has('eventDate') || entryPoint === 'calendar_flow';
   const isQuoteFlow = !!quoteId && !!token;
   
   // Extract calendar flow parameters (including disco-specific ones)
-  const calendarData = isCalendarFlow ? {
+  const calendarData = (isCalendarFlow || urlParams.has('eventDate')) ? {
     cruiseType: urlParams.get('cruiseType') || 'private',
     eventType: urlParams.get('eventType') || 'other',
     groupSize: parseInt(urlParams.get('groupSize') || '20'),
@@ -734,7 +735,7 @@ export default function QuoteViewer() {
                       {/* Group slots by day */}
                       {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day, dayIndex) => {
                         const daySlots = weeklySlots.filter(slot => {
-                          const slotDay = new Date(slot.date).getDay();
+                          const slotDay = new Date(slot.dateISO || slot.date).getDay();
                           const mappedDay = slotDay === 0 ? 6 : slotDay - 1; // Convert Sunday=0 to Sunday=6
                           return mappedDay === dayIndex;
                         });
@@ -749,7 +750,10 @@ export default function QuoteViewer() {
                             <RadioGroup value={selectedOption} onValueChange={handleOptionSelect}>
                               <div className="grid sm:grid-cols-2 gap-3">
                                 {daySlots.map((slot) => {
-                                  const slotId = `${slot.type}_${slot.boat}_${slot.date}_${slot.startTime}_${slot.endTime}`;
+                                  const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
+                                  const slotType = slot.cruiseType || slot.type || 'private';
+                                  const slotDate = slot.dateISO || slot.date;
+                                  const slotId = `${slotType}_${boatName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
                                   const isSelected = selectedOption === slotId;
                                   
                                   return (
@@ -762,9 +766,9 @@ export default function QuoteViewer() {
                                               {slot.startTime} - {slot.endTime}
                                             </p>
                                             <p className="text-sm text-gray-600">
-                                              {slot.boat.replace('boat_', '').replace(/_/g, ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                                              {boatName.replace('boat_', '').replace(/_/g, ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
                                             </p>
-                                            {slot.type === 'disco' && (
+                                            {slotType === 'disco' && (
                                               <Badge variant="secondary" className="mt-1 text-xs">
                                                 Disco Cruise
                                               </Badge>
