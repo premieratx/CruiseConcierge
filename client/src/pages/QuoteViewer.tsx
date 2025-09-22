@@ -232,26 +232,25 @@ function PaymentForm({
 
     try {
       // Create payment intent with all data
-      const response = await apiRequest('/api/checkout/create-payment-intent', {
-        method: 'POST',
-        body: JSON.stringify({
-          paymentType,
-          cruiseType,
-          selectionPayload: {
-            ...selectionPayload,
-            ...contactInfo,
-            discountCode
-          },
-          pricing,
-          customerEmail: contactInfo.email,
-          metadata: {
-            firstName: contactInfo.firstName,
-            lastName: contactInfo.lastName,
-            phone: contactInfo.phone,
-            discountCode
-          }
-        })
+      const res = await apiRequest('POST', '/api/checkout/create-payment-intent', {
+        paymentType,
+        cruiseType,
+        selectionPayload: {
+          ...selectionPayload,
+          ...contactInfo,
+          discountCode
+        },
+        pricing,
+        customerEmail: contactInfo.email,
+        metadata: {
+          firstName: contactInfo.firstName,
+          lastName: contactInfo.lastName,
+          phone: contactInfo.phone,
+          discountCode
+        }
       });
+
+      const response = await res.json();
 
       if (!response.clientSecret) {
         throw new Error('Failed to create payment intent');
@@ -1291,8 +1290,19 @@ function QuoteViewerContent() {
       timestamp: new Date().toISOString()
     }));
 
-    // Navigate to booking success page
-    window.location.href = '/booking-success';
+    // Navigate to booking success page with query parameters
+    const successUrl = new URL('/booking-success', window.location.origin);
+    const sessionId = sessionStorage.getItem('sessionId');
+    
+    if (sessionId) {
+      successUrl.searchParams.set('session_id', sessionId);
+    }
+    if (quoteId) {
+      successUrl.searchParams.set('quote_id', quoteId);
+    }
+    
+    // Use location.href for navigation (not urlIncludes)
+    window.location.href = successUrl.toString();
   };
 
   // Loading state

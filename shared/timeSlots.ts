@@ -21,10 +21,13 @@ export interface DiscoTimeSlot extends TimeSlot {
 
 /**
  * Get available private cruise time slots for a given date
- * Business Rules:
+ * 
+ * PERMANENT BUSINESS RULES - DO NOT CHANGE:
  * - Monday-Thursday: 3-hour AND 4-hour options (user chooses duration first)
- * - Friday: 4-hour blocks (12PM-4PM and 4:30PM-8:30PM)
- * - Saturday/Sunday: 4-hour blocks (11AM-3PM and 3:30PM-7:30PM)
+ * - Friday: 4-hour blocks ONLY (12:00 PM - 4:00 PM and 4:30 PM - 8:30 PM) ✅ PERMANENT
+ * - Saturday: 4-hour blocks ONLY (11:00 AM - 3:00 PM and 3:30 PM - 7:30 PM) ✅ PERMANENT
+ * - Sunday: 4-hour blocks ONLY (11:00 AM - 3:00 PM and 3:30 PM - 7:30 PM) ✅ PERMANENT
+ *   SUNDAY PRIVATE CRUISES ARE AVAILABLE FOR ALL BOATS
  */
 export const getPrivateTimeSlotsForDate = (date: Date, duration?: 3 | 4): TimeSlot[] => {
   const dayOfWeek = date.getDay();
@@ -110,12 +113,14 @@ export const getPrivateTimeSlotsForDate = (date: Date, duration?: 3 | 4): TimeSl
       if (timeA !== timeB) return timeA.localeCompare(timeB);
       return a.duration - b.duration;
     });
-  } else if (dayOfWeek === 5) { // Friday - FINAL RULES: 12-4 PM and 4:30-8:30 PM
+  } else if (dayOfWeek === 5) { // Friday - ✅ PERMANENT RULES: 12-4 PM and 4:30-8:30 PM ONLY
     return [
       { id: '12pm-4pm', label: '12:00 PM - 4:00 PM', startTime: '12:00', endTime: '16:00', duration: 4, icon: '☀️', description: 'Friday afternoon cruise', popular: true },
       { id: '4:30pm-8:30pm', label: '4:30 PM - 8:30 PM', startTime: '16:30', endTime: '20:30', duration: 4, icon: '🌙', description: 'Friday evening cruise' },
     ];
-  } else { // Saturday/Sunday (4-hour slots)
+  } else { // Saturday/Sunday - ✅ PERMANENT RULES: 11-3 PM and 3:30-7:30 PM ONLY
+    // SUNDAY: PRIVATE CRUISES ONLY (no disco) - Available for ALL boats
+    // SATURDAY: Both private and disco cruises available
     return [
       { id: '11am-3pm', label: '11:00 AM - 3:00 PM', startTime: '11:00', endTime: '15:00', duration: 4, icon: '☀️', description: 'Weekend afternoon cruise' },
       { id: '3:30pm-7:30pm', label: '3:30 PM - 7:30 PM', startTime: '15:30', endTime: '19:30', duration: 4, icon: '🌆', description: 'Weekend evening cruise' },
@@ -125,15 +130,17 @@ export const getPrivateTimeSlotsForDate = (date: Date, duration?: 3 | 4): TimeSl
 
 /**
  * Get available disco cruise time slots for a given date
- * FINAL RULES:
- * - Friday: ONLY 12-4 PM (bachelor/bachelorette only)
- * - Saturday: 11-3 PM and 3:30-7:30 PM
- * - Sunday: NO disco cruises
+ * 
+ * ✅ PERMANENT RULES - DO NOT CHANGE:
+ * - Friday: ONLY ONE SLOT 12:00 PM - 4:00 PM (bachelor/bachelorette only) - NO EVENING DISCO
+ * - Saturday: 11:00 AM - 3:00 PM and 3:30 PM - 7:30 PM (both slots available)
+ * - Sunday: NO DISCO CRUISES EVER (private cruises only on Sundays)
+ * - Monday-Thursday: NO DISCO CRUISES
  */
 export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
   const dayOfWeek = date.getDay();
   
-  if (dayOfWeek === 5) { // Friday - ONLY 12-4 PM disco cruise
+  if (dayOfWeek === 5) { // Friday - ✅ PERMANENT: ONLY 12-4 PM disco cruise (NO EVENING DISCO)
     return [
       { 
         id: 'disco-fri-12pm-4pm', 
@@ -172,7 +179,7 @@ export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
         maxCapacity: 100
       },
     ];
-  } else if (dayOfWeek === 0) { // Sunday - NO disco cruises
+  } else if (dayOfWeek === 0) { // Sunday - ✅ PERMANENT: NO disco cruises EVER (private only)
     return [];
   } else {
     return [];
@@ -181,11 +188,11 @@ export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
 
 /**
  * Check if disco cruises are available for a given date
- * FINAL RULES: Friday and Saturday ONLY (no Sunday disco)
+ * ✅ PERMANENT RULES: Friday and Saturday ONLY (NO Sunday disco EVER)
  */
 export const isDiscoAvailableForDate = (date: Date): boolean => {
   const dayOfWeek = date.getDay();
-  return dayOfWeek === 5 || dayOfWeek === 6; // Friday and Saturday only (NO Sunday)
+  return dayOfWeek === 5 || dayOfWeek === 6; // Friday and Saturday only (✅ NEVER on Sunday)
 };
 
 /**
