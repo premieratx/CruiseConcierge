@@ -594,6 +594,14 @@ function QuoteViewerContent() {
         console.log('🎯 Found matching slot for selectedSlotId:', foundSlot);
         setSelectedSlot(foundSlot);
         setSelectedOption(selectedSlotId);
+        
+        // CRITICAL FIX: Update eventDate from the found slot
+        const slotDate = foundSlot.dateISO || foundSlot.date;
+        if (slotDate) {
+          console.log('🎯 Updating eventDate from found slot:', slotDate);
+          setEventDate(slotDate);
+        }
+        
         // Also ensure time slot is properly set
         if (!selectedTimeSlot && foundSlot.startTime && foundSlot.endTime) {
           setSelectedTimeSlot(`${foundSlot.startTime}-${foundSlot.endTime}`);
@@ -635,12 +643,57 @@ function QuoteViewerContent() {
     setSelectedTimeSlotType(isDisco ? 'disco' : 'private');
     setShowPackageDropdown(true);
     
-    // Parse the selection to update timeSlot and duration
+    // Parse the selection to update timeSlot, duration, and DATE
     const parts = value.split('_');
     if (parts.length >= 6) {
       const startTime = parts[parts.length - 2];
       const endTime = parts[parts.length - 1];
       setSelectedTimeSlot(`${startTime} - ${endTime}`);
+      
+      // CRITICAL FIX: Extract and update the actual date from the slot ID
+      // Format: {duration}hr_{dayName}_{type}_{boat}_{date}_{startTime}_{endTime} for private
+      // Format: disco_{date}_{startTime}_{endTime}_{capacity} for disco
+      let extractedDate: string | null = null;
+      
+      if (isDisco) {
+        // Disco formats: 
+        // 1. disco_2025-09-27_11:00_15:00_100
+        // 2. disco_Friday_2025-09-27_11:00_15:00_0 (from weekly grid)
+        for (let i = 0; i < parts.length; i++) {
+          if (parts[i].match(/^\d{4}-\d{2}-\d{2}$/)) {
+            extractedDate = parts[i];
+            break;
+          }
+        }
+      } else {
+        // Private format: 3hr_Friday_private_meeseeks_2025-09-27_11:00_15:00
+        // Find the date part (formatted as YYYY-MM-DD)
+        for (let i = 0; i < parts.length - 2; i++) {
+          if (parts[i].match(/^\d{4}-\d{2}-\d{2}$/)) {
+            extractedDate = parts[i];
+            break;
+          }
+        }
+      }
+      
+      // Update the eventDate if we successfully extracted it
+      if (extractedDate) {
+        console.log('🎯 Updating eventDate from slot selection:', {
+          previousDate: eventDate,
+          newDate: extractedDate,
+          slotId: value
+        });
+        setEventDate(extractedDate);
+        
+        // Also update selectedSlot with the correct date
+        setSelectedSlot(prevSlot => ({
+          ...prevSlot,
+          date: extractedDate,
+          dateISO: extractedDate
+        }));
+      } else {
+        console.warn('⚠️ Could not extract date from slot ID:', value);
+      }
       
       // Set boat ID from the selection
       const boatSection = parts.slice(3, -2).join('_'); // Extract boat name from the ID
@@ -702,11 +755,50 @@ function QuoteViewerContent() {
     try {
       console.log('💳 Creating checkout session...');
       
+      // CRITICAL FIX: Use the actual date from the selected slot, not the initial eventDate
+      let actualEventDate = eventDate; // Default to current eventDate
+      
+      // For calendar flow, ensure we're using the date from the selected slot
+      if (isCalendarFlow && selectedOption) {
+        // Extract date from the selectedOption (slot ID) as a safety check
+        const parts = selectedOption.split('_');
+        let extractedDate: string | null = null;
+        
+        if (selectedOption.includes('disco_')) {
+          // Disco format: disco_2025-09-27_11:00_15:00_100
+          if (parts.length >= 4) {
+            extractedDate = parts[1];
+          }
+        } else {
+          // Private format: 3hr_Friday_private_meeseeks_2025-09-27_11:00_15:00
+          for (let i = 0; i < parts.length - 2; i++) {
+            if (parts[i].match(/^\d{4}-\d{2}-\d{2}$/)) {
+              extractedDate = parts[i];
+              break;
+            }
+          }
+        }
+        
+        if (extractedDate) {
+          actualEventDate = extractedDate;
+          console.log('💳 Using extracted date for payment:', {
+            extractedDate,
+            selectedOption,
+            previousEventDate: eventDate
+          });
+        }
+      }
+      
+      // Use selectedSlot date if available (as additional fallback)
+      if (selectedSlot?.date) {
+        actualEventDate = selectedSlot.date;
+      }
+      
       // Prepare selectionPayload as required by the server
       const selectionPayload: any = {
         entryPoint: isCalendarFlow ? 'calendar_flow' : 'quote_flow',
         cruiseType: effectiveCruiseType,
-        eventDate: isCalendarFlow ? eventDate : quote?.project?.projectDate,
+        eventDate: isCalendarFlow ? actualEventDate : quote?.project?.projectDate,
         eventType: isCalendarFlow ? calendarData?.eventType : quote?.project?.eventType,
         groupSize: effectiveCruiseType === 'disco' ? discoTicketQuantity : groupSize,
         subtotal: pricing.subtotal,
@@ -715,6 +807,12 @@ function QuoteViewerContent() {
         total: pricing.total,
         depositAmount: pricing.depositAmount || 0
       };
+      
+      console.log('💳 Final payment payload:', {
+        eventDate: selectionPayload.eventDate,
+        cruiseType: effectiveCruiseType,
+        selectedSlotId: selectedOption
+      });
 
       // Add cruise-type specific data to selectionPayload
       if (effectiveCruiseType === 'private') {
