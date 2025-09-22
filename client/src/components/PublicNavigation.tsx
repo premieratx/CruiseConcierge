@@ -64,6 +64,11 @@ export default function PublicNavigation() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Scroll to top when location changes
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+
   const handleGetQuote = () => {
     // Navigate to the customer chatbot quote flow
     navigate('/chat');
