@@ -768,6 +768,42 @@ export const blogAnalytics = pgTable("blog_analytics", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// Blog Jobs - track upload and import jobs
+export const blogJobs = pgTable("blog_jobs", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  type: varchar("type").notNull(), // 'upload', 'batch_upload', 'wordpress_import'
+  status: varchar("status").notNull().default("pending"), // 'pending', 'running', 'completed', 'failed', 'cancelled'
+  total: integer("total").notNull().default(0),
+  processed: integer("processed").notNull().default(0),
+  success: integer("success").notNull().default(0),
+  failed: integer("failed").notNull().default(0),
+  metadata: jsonb("metadata").$type<{
+    sourceUrl?: string;
+    options?: {
+      optimizeImages?: boolean;
+      convertToMarkdown?: boolean;
+      autoCreateTags?: boolean;
+      status?: string;
+    };
+    credentials?: {
+      username?: string;
+      // Note: passwords not stored, only in memory during job
+    };
+    results?: {
+      createdPosts?: string[];
+      createdAuthors?: string[];
+      createdCategories?: string[];
+      createdTags?: string[];
+      errors?: string[];
+    };
+  }>().default({}),
+  error: text("error"),
+  startedAt: timestamp("started_at"),
+  completedAt: timestamp("completed_at"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 // ===== END BLOG SYSTEM SCHEMA =====
 
 // Type definitions for partial leads
@@ -1182,6 +1218,7 @@ export type BlogPostCategory = typeof blogPostCategories.$inferSelect;
 export type BlogPostTag = typeof blogPostTags.$inferSelect;
 export type BlogComment = typeof blogComments.$inferSelect;
 export type BlogAnalytics = typeof blogAnalytics.$inferSelect;
+export type BlogJob = typeof blogJobs.$inferSelect;
 
 // Customer Portal Types
 export type SmsAuthToken = typeof smsAuthTokens.$inferSelect;
@@ -1342,6 +1379,18 @@ export const insertBlogAnalyticsSchema = createInsertSchema(blogAnalytics).omit(
   countryData: z.record(z.number()).default({}),
 });
 
+export const insertBlogJobSchema = createInsertSchema(blogJobs).omit({
+  id: true,
+  createdAt: true,
+}).extend({
+  type: z.enum(['upload', 'batch_upload', 'wordpress_import']),
+  status: z.enum(['pending', 'running', 'completed', 'failed', 'cancelled']).default('pending'),
+  total: z.number().default(0),
+  processed: z.number().default(0),
+  success: z.number().default(0),
+  failed: z.number().default(0),
+});
+
 // Blog System Insert Types
 export type InsertBlogAuthor = z.infer<typeof insertBlogAuthorSchema>;
 export type InsertBlogCategory = z.infer<typeof insertBlogCategorySchema>;
@@ -1351,6 +1400,7 @@ export type InsertBlogPostCategory = z.infer<typeof insertBlogPostCategorySchema
 export type InsertBlogPostTag = z.infer<typeof insertBlogPostTagSchema>;
 export type InsertBlogComment = z.infer<typeof insertBlogCommentSchema>;
 export type InsertBlogAnalytics = z.infer<typeof insertBlogAnalyticsSchema>;
+export type InsertBlogJob = z.infer<typeof insertBlogJobSchema>;
 
 // Customer Portal Insert Types
 export type InsertSmsAuthToken = z.infer<typeof insertSmsAuthTokenSchema>;

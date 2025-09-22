@@ -31,6 +31,19 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
+import { Progress } from "@/components/ui/progress";
+import { Label } from "@/components/ui/label";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { 
   Search, 
@@ -44,7 +57,12 @@ import {
   FileText,
   Users,
   Tag,
-  Folder
+  Folder,
+  Upload,
+  Download,
+  Loader2,
+  CheckCircle,
+  AlertCircle
 } from "lucide-react";
 import { Link } from "wouter";
 import { BlogPost, BlogAuthor, BlogCategory, BlogTag } from "@shared/schema";
@@ -72,6 +90,20 @@ export default function BlogManagement() {
   const [selectedAuthor, setSelectedAuthor] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  
+  // Upload/Import states
+  const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);
+  const [uploadTab, setUploadTab] = useState("single");
+  const [wpSiteUrl, setWpSiteUrl] = useState("");
+  const [wpUsername, setWpUsername] = useState("");
+  const [wpAppPassword, setWpAppPassword] = useState("");
+  const [importProgress, setImportProgress] = useState(0);
+  const [importStatus, setImportStatus] = useState("");
+  const [importJobId, setImportJobId] = useState("");
+  const [uploadFiles, setUploadFiles] = useState<FileList | null>(null);
+  const [optimizeImages, setOptimizeImages] = useState(true);
+  const [convertToMarkdown, setConvertToMarkdown] = useState(false);
+  const [autoCreateTags, setAutoCreateTags] = useState(true);
   
   const { toast } = useToast();
   const queryClient = useQueryClient();
@@ -170,6 +202,244 @@ export default function BlogManagement() {
     }
   };
 
+  // Upload and import handlers
+  const handleSingleUpload = async () => {
+    if (!uploadFiles || uploadFiles.length === 0) return;
+    
+    const formData = new FormData();
+    Array.from(uploadFiles).forEach((file) => {
+      formData.append('files', file);
+    });
+    
+    formData.append('options', JSON.stringify({
+      optimizeImages,
+      convertToMarkdown,
+      autoCreateTags,
+      status: 'draft'
+    }));
+    
+    try {
+      const response = await fetch('/api/blog/upload', {
+        method: 'POST',
+        body: formData
+      });
+      
+      if (!response.ok) throw new Error('Upload failed');
+      
+      const result = await response.json();
+      
+      toast({
+        title: "Success",
+        description: `Uploaded ${result.createdPosts} posts successfully.`
+      });
+      
+      setUploadFiles(null);
+      setIsUploadDialogOpen(false);
+      queryClient.invalidateQueries({ queryKey: ['/api/blog/management'] });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to upload files.",
+        variant: "destructive"
+      });
+    }
+  };
+  
+  const handleBatchUpload = async () => {
+    if (!uploadFiles || uploadFiles.length === 0) return;
+    
+    const formData = new FormData();
+    Array.from(uploadFiles).forEach((file) => {
+      formData.append('files', file);
+    });
+    
+    formData.append('options', JSON.stringify({
+      optimizeImages,
+      convertToMarkdown,
+      autoCreateTags,
+      status: 'draft'
+    }));
+    
+    try {
+      setImportProgress(10);
+      setImportStatus('Starting batch upload...');
+      
+      const response = await fetch('/api/blog/upload/batch', {
+        method: 'POST',
+        body: formData
+      });
+      
+      if (!response.ok) throw new Error('Batch upload failed');
+      
+      const result = await response.json();
+      setImportJobId(result.jobId);
+      
+      // Poll for progress
+      pollJobStatus(result.jobId, 'batch');
+    } catch (error) {
+      setImportProgress(0);
+      setImportStatus('');
+      toast({
+        title: "Error",
+        description: "Failed to start batch upload.",
+        variant: "destructive"
+      });
+    }
+  };
+  
+  const handleWordPressPreview = async () => {
+    try {
+      const response = await fetch('/api/blog/import/wp/preview', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          baseUrl: wpSiteUrl,
+          username: wpUsername,
+          appPassword: wpAppPassword,
+          limit: 5
+        })
+      });
+      
+      if (!response.ok) throw new Error('Preview failed');
+      
+      const result = await response.json();
+      
+      toast({
+        title: "Preview Ready",
+        description: `Found ${result.totalPosts} posts, ${result.categories} categories, ${result.tags} tags.`
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to preview WordPress content.",
+        variant: "destructive"
+      });
+    }
+  };
+  
+  const handleWordPressImport = async () => {
+    try {
+      setImportProgress(10);
+      setImportStatus('Starting WordPress import...');
+      
+      const response = await fetch('/api/blog/import/wp/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          baseUrl: wpSiteUrl,
+          username: wpUsername,
+          appPassword: wpAppPassword,
+          options: {
+            optimizeImages,
+            convertToMarkdown,
+            autoCreateTags
+          }
+        })
+      });
+      
+      if (!response.ok) throw new Error('Import failed');
+      
+      const result = await response.json();
+      setImportJobId(result.jobId);
+      
+      // Poll for progress
+      pollJobStatus(result.jobId, 'wordpress');
+    } catch (error) {
+      setImportProgress(0);
+      setImportStatus('');
+      toast({
+        title: "Error",
+        description: "Failed to start WordPress import.",
+        variant: "destructive"
+      });
+    }
+  };
+  
+  const handleCancelImport = async () => {
+    if (!importJobId) return;
+    
+    try {
+      await fetch(`/api/blog/import/wp/cancel/${importJobId}`, {
+        method: 'POST'
+      });
+      
+      setImportProgress(0);
+      setImportStatus('');
+      setImportJobId('');
+      
+      toast({
+        title: "Cancelled",
+        description: "Import cancelled successfully."
+      });
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to cancel import.",
+        variant: "destructive"
+      });
+    }
+  };
+  
+  const pollJobStatus = async (jobId: string, type: 'batch' | 'wordpress') => {
+    const pollInterval = setInterval(async () => {
+      try {
+        const endpoint = type === 'wordpress' 
+          ? `/api/blog/import/wp/status/${jobId}`
+          : `/api/blog/upload/batch/status/${jobId}`;
+          
+        const response = await fetch(endpoint);
+        if (!response.ok) throw new Error('Status check failed');
+        
+        const status = await response.json();
+        
+        setImportProgress(Math.round((status.processed / status.total) * 100));
+        setImportStatus(`${status.processed}/${status.total} items processed`);
+        
+        if (status.status === 'completed') {
+          clearInterval(pollInterval);
+          setImportProgress(100);
+          setImportStatus('Import completed successfully!');
+          
+          setTimeout(() => {
+            setImportProgress(0);
+            setImportStatus('');
+            setImportJobId('');
+            setIsUploadDialogOpen(false);
+          }, 3000);
+          
+          queryClient.invalidateQueries({ queryKey: ['/api/blog/management'] });
+          
+          toast({
+            title: "Success",
+            description: `Imported ${status.processed} items successfully.`
+          });
+        } else if (status.status === 'failed' || status.status === 'cancelled') {
+          clearInterval(pollInterval);
+          setImportProgress(0);
+          setImportStatus('');
+          setImportJobId('');
+          
+          toast({
+            title: "Error",
+            description: `Import ${status.status}: ${status.error || 'Unknown error'}`,
+            variant: "destructive"
+          });
+        }
+      } catch (error) {
+        clearInterval(pollInterval);
+        setImportProgress(0);
+        setImportStatus('');
+        setImportJobId('');
+        
+        toast({
+          title: "Error",
+          description: "Failed to check import status.",
+          variant: "destructive"
+        });
+      }
+    }, 2000);
+  };
+
   return (
     <Layout>
       <div className="container mx-auto px-4 py-8">
@@ -179,12 +449,234 @@ export default function BlogManagement() {
             <h1 className="text-3xl font-bold" data-testid="title-blog-management">Blog Management</h1>
             <p className="text-gray-600 dark:text-gray-300">Manage your blog content, authors, and categories</p>
           </div>
-          <Button asChild data-testid="button-create-post">
-            <Link href="/admin/blog/posts/new">
-              <Plus className="h-4 w-4 mr-2" />
-              New Post
-            </Link>
-          </Button>
+          <div className="flex gap-3">
+            <Dialog open={isUploadDialogOpen} onOpenChange={setIsUploadDialogOpen}>
+              <DialogTrigger asChild>
+                <Button variant="outline" data-testid="button-upload-import">
+                  <Upload className="h-4 w-4 mr-2" />
+                  Upload & Import
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="max-w-2xl">
+                <DialogHeader>
+                  <DialogTitle>Upload & Import Blog Content</DialogTitle>
+                  <DialogDescription>
+                    Upload individual files, batch upload, or import from WordPress
+                  </DialogDescription>
+                </DialogHeader>
+                
+                <Tabs value={uploadTab} onValueChange={setUploadTab} className="space-y-4">
+                  <TabsList className="grid w-full grid-cols-3">
+                    <TabsTrigger value="single">Upload Files</TabsTrigger>
+                    <TabsTrigger value="batch">Batch Upload</TabsTrigger>
+                    <TabsTrigger value="wordpress">WordPress Import</TabsTrigger>
+                  </TabsList>
+                  
+                  <TabsContent value="single" className="space-y-4">
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="file-upload">Select Files (.md, .html, images)</Label>
+                        <Input
+                          id="file-upload"
+                          type="file"
+                          multiple
+                          accept=".md,.html,.jpg,.jpeg,.png,.gif,.webp"
+                          onChange={(e) => setUploadFiles(e.target.files)}
+                          className="mt-2"
+                          data-testid="input-file-upload"
+                        />
+                      </div>
+                      
+                      <div className="space-y-3">
+                        <Label>Optimization Options</Label>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="optimize-images"
+                            checked={optimizeImages}
+                            onCheckedChange={setOptimizeImages}
+                            data-testid="checkbox-optimize-images"
+                          />
+                          <Label htmlFor="optimize-images">Optimize and compress images</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="convert-markdown"
+                            checked={convertToMarkdown}
+                            onCheckedChange={setConvertToMarkdown}
+                            data-testid="checkbox-convert-markdown"
+                          />
+                          <Label htmlFor="convert-markdown">Convert HTML to Markdown</Label>
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <Checkbox
+                            id="auto-create-tags"
+                            checked={autoCreateTags}
+                            onCheckedChange={setAutoCreateTags}
+                            data-testid="checkbox-auto-tags"
+                          />
+                          <Label htmlFor="auto-create-tags">Auto-create categories and tags</Label>
+                        </div>
+                      </div>
+                      
+                      <Button 
+                        onClick={() => handleSingleUpload()}
+                        disabled={!uploadFiles || uploadFiles.length === 0}
+                        className="w-full"
+                        data-testid="button-start-upload"
+                      >
+                        <Upload className="h-4 w-4 mr-2" />
+                        Upload and Optimize
+                      </Button>
+                    </div>
+                  </TabsContent>
+                  
+                  <TabsContent value="batch" className="space-y-4">
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="batch-upload">Select Multiple Files</Label>
+                        <Input
+                          id="batch-upload"
+                          type="file"
+                          multiple
+                          accept=".md,.html,.jpg,.jpeg,.png,.gif,.webp"
+                          onChange={(e) => setUploadFiles(e.target.files)}
+                          className="mt-2"
+                          data-testid="input-batch-upload"
+                        />
+                        {uploadFiles && uploadFiles.length > 0 && (
+                          <p className="text-sm text-gray-500 mt-2">
+                            {uploadFiles.length} files selected
+                          </p>
+                        )}
+                      </div>
+                      
+                      {importProgress > 0 && (
+                        <div className="space-y-2">
+                          <Label>Upload Progress</Label>
+                          <Progress value={importProgress} className="w-full" />
+                          <p className="text-sm text-gray-500">{importStatus}</p>
+                        </div>
+                      )}
+                      
+                      <Button 
+                        onClick={() => handleBatchUpload()}
+                        disabled={!uploadFiles || uploadFiles.length === 0 || importProgress > 0}
+                        className="w-full"
+                        data-testid="button-start-batch"
+                      >
+                        {importProgress > 0 ? (
+                          <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Processing...</>
+                        ) : (
+                          <><Upload className="h-4 w-4 mr-2" />Start Batch Upload</>
+                        )}
+                      </Button>
+                    </div>
+                  </TabsContent>
+                  
+                  <TabsContent value="wordpress" className="space-y-4">
+                    <div className="space-y-4">
+                      <div>
+                        <Label htmlFor="wp-site-url">WordPress Site URL</Label>
+                        <Input
+                          id="wp-site-url"
+                          type="url"
+                          placeholder="https://yoursite.com"
+                          value={wpSiteUrl}
+                          onChange={(e) => setWpSiteUrl(e.target.value)}
+                          className="mt-2"
+                          data-testid="input-wp-url"
+                        />
+                      </div>
+                      
+                      <div>
+                        <Label htmlFor="wp-username">WordPress Username</Label>
+                        <Input
+                          id="wp-username"
+                          type="text"
+                          value={wpUsername}
+                          onChange={(e) => setWpUsername(e.target.value)}
+                          className="mt-2"
+                          data-testid="input-wp-username"
+                        />
+                      </div>
+                      
+                      <div>
+                        <Label htmlFor="wp-password">Application Password</Label>
+                        <Input
+                          id="wp-password"
+                          type="password"
+                          value={wpAppPassword}
+                          onChange={(e) => setWpAppPassword(e.target.value)}
+                          className="mt-2"
+                          data-testid="input-wp-password"
+                        />
+                        <p className="text-xs text-gray-500 mt-1">
+                          Generate an application password in your WordPress admin under Users → Profile
+                        </p>
+                      </div>
+                      
+                      {importProgress > 0 && (
+                        <div className="space-y-2">
+                          <Label>Import Progress</Label>
+                          <Progress value={importProgress} className="w-full" />
+                          <p className="text-sm text-gray-500">{importStatus}</p>
+                          {importJobId && (
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleCancelImport()}
+                              data-testid="button-cancel-import"
+                            >
+                              Cancel Import
+                            </Button>
+                          )}
+                        </div>
+                      )}
+                      
+                      <div className="flex gap-3">
+                        <Button 
+                          onClick={() => handleWordPressPreview()}
+                          disabled={!wpSiteUrl || !wpUsername || !wpAppPassword || importProgress > 0}
+                          variant="outline"
+                          className="flex-1"
+                          data-testid="button-wp-preview"
+                        >
+                          <Eye className="h-4 w-4 mr-2" />
+                          Preview Import
+                        </Button>
+                        
+                        <Button 
+                          onClick={() => handleWordPressImport()}
+                          disabled={!wpSiteUrl || !wpUsername || !wpAppPassword || importProgress > 0}
+                          className="flex-1"
+                          data-testid="button-wp-import"
+                        >
+                          {importProgress > 0 ? (
+                            <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Importing...</>
+                          ) : (
+                            <><Download className="h-4 w-4 mr-2" />Import All</>
+                          )}
+                        </Button>
+                      </div>
+                    </div>
+                  </TabsContent>
+                </Tabs>
+                
+                <DialogFooter>
+                  <Button variant="outline" onClick={() => setIsUploadDialogOpen(false)}>
+                    Close
+                  </Button>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+            
+            <Button asChild data-testid="button-create-post">
+              <Link href="/admin/blog/posts/new">
+                <Plus className="h-4 w-4 mr-2" />
+                New Post
+              </Link>
+            </Button>
+          </div>
         </div>
 
         {/* Stats Cards */}
