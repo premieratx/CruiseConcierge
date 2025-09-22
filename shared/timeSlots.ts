@@ -110,9 +110,9 @@ export const getPrivateTimeSlotsForDate = (date: Date, duration?: 3 | 4): TimeSl
       if (timeA !== timeB) return timeA.localeCompare(timeB);
       return a.duration - b.duration;
     });
-  } else if (dayOfWeek === 5) { // Friday (4-hour slots)
+  } else if (dayOfWeek === 5) { // Friday - FINAL RULES: 12-4 PM and 4:30-8:30 PM
     return [
-      { id: '12pm-4pm', label: '12:00 PM - 4:00 PM', startTime: '12:00', endTime: '16:00', duration: 4, icon: '☀️', description: 'Friday afternoon cruise' },
+      { id: '12pm-4pm', label: '12:00 PM - 4:00 PM', startTime: '12:00', endTime: '16:00', duration: 4, icon: '☀️', description: 'Friday afternoon cruise', popular: true },
       { id: '4:30pm-8:30pm', label: '4:30 PM - 8:30 PM', startTime: '16:30', endTime: '20:30', duration: 4, icon: '🌙', description: 'Friday evening cruise' },
     ];
   } else { // Saturday/Sunday (4-hour slots)
@@ -125,12 +125,15 @@ export const getPrivateTimeSlotsForDate = (date: Date, duration?: 3 | 4): TimeSl
 
 /**
  * Get available disco cruise time slots for a given date
- * Disco cruises are only available Friday, Saturday, and Sunday
+ * FINAL RULES:
+ * - Friday: ONLY 12-4 PM (bachelor/bachelorette only)
+ * - Saturday: 11-3 PM and 3:30-7:30 PM
+ * - Sunday: NO disco cruises
  */
 export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
   const dayOfWeek = date.getDay();
   
-  if (dayOfWeek === 5) { // Friday
+  if (dayOfWeek === 5) { // Friday - ONLY 12-4 PM disco cruise
     return [
       { 
         id: 'disco-fri-12pm-4pm', 
@@ -139,7 +142,7 @@ export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
         endTime: '16:00', 
         duration: 4, 
         icon: '🎉', 
-        description: 'Friday afternoon disco cruise',
+        description: 'Friday afternoon disco cruise (bachelor/bachelorette only)',
         ticketPrice: 85,
         maxCapacity: 100
       },
@@ -169,6 +172,8 @@ export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
         maxCapacity: 100
       },
     ];
+  } else if (dayOfWeek === 0) { // Sunday - NO disco cruises
+    return [];
   } else {
     return [];
   }
@@ -176,10 +181,11 @@ export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
 
 /**
  * Check if disco cruises are available for a given date
+ * FINAL RULES: Friday and Saturday ONLY (no Sunday disco)
  */
 export const isDiscoAvailableForDate = (date: Date): boolean => {
   const dayOfWeek = date.getDay();
-  return dayOfWeek === 5 || dayOfWeek === 6; // Friday, Saturday only
+  return dayOfWeek === 5 || dayOfWeek === 6; // Friday and Saturday only (NO Sunday)
 };
 
 /**

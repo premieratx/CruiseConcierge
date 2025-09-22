@@ -41,32 +41,57 @@ export function calculateSimplePricing(
   // 2. Simple lookup from HOURLY_RATES table - NO API CALLS!
   const baseHourlyRate = HOURLY_RATES[dayType][capacityTier];
   
-  // 3. Calculate add-on costs (Essentials = +$50/hr, Ultimate = +$75/hr)
-  let addOnHourlyRate = 0;
+  // 3. Calculate add-on costs (FLAT FEES based on boat capacity, NOT HOURLY)
+  let addOnFlatFee = 0;
   const addOnDetails: Array<{id: string; name: string; hourlyRate: number}> = [];
   
   if (selectedAddOns.includes('essentials')) {
-    addOnHourlyRate += 5000; // $50/hr in cents
+    // Essentials Package - FLAT fee based on boat capacity
+    const essentialsFees: Record<CapacityTier, number> = {
+      14: 10000,  // $100 flat for 14-person boat
+      25: 15000,  // $150 flat for 25-person boat
+      30: 15000,  // $150 flat for 25-person boat (26-30 uses 25p boat)
+      50: 20000,  // $200 flat for 50-person boat
+      75: 20000   // $200 flat for 50-person boat (51-75 uses 50p boat)
+    };
+    const flatFee = essentialsFees[capacityTier];
+    addOnFlatFee += flatFee;
     addOnDetails.push({
       id: 'essentials',
       name: 'Essentials Package',
-      hourlyRate: 5000
+      hourlyRate: flatFee // Store flat fee here for compatibility
     });
   }
   
   if (selectedAddOns.includes('ultimate')) {
-    addOnHourlyRate += 7500; // $75/hr in cents
+    // Ultimate Package - FLAT fee based on boat capacity
+    const ultimateFees: Record<CapacityTier, number> = {
+      14: 25000,  // $250 flat for 14-person boat
+      25: 30000,  // $300 flat for 25-person boat
+      30: 30000,  // $300 flat for 25-person boat (26-30 uses 25p boat)
+      50: 35000,  // $350 flat for 50-person boat
+      75: 35000   // $350 flat for 50-person boat (51-75 uses 50p boat)
+    };
+    const flatFee = ultimateFees[capacityTier];
+    addOnFlatFee += flatFee;
     addOnDetails.push({
       id: 'ultimate',
       name: 'Ultimate Party Package',
-      hourlyRate: 7500
+      hourlyRate: flatFee // Store flat fee here for compatibility
     });
   }
   
-  const totalHourlyRate = baseHourlyRate + addOnHourlyRate;
+  const totalHourlyRate = baseHourlyRate; // No hourly add-on rate
   
-  // 4. Calculate subtotal: rate × duration
-  const subtotal = totalHourlyRate * duration;
+  // 4. Calculate subtotal: (rate × duration) + flat add-on fees + crew fees
+  let crewFee = 0;
+  // Extra crew fees for 26-30 and 51-75 people
+  if (groupSize >= 26 && groupSize <= 30) {
+    crewFee = 5000 * duration; // $50/hr crew fee for 26-30 people
+  } else if (groupSize >= 51 && groupSize <= 75) {
+    crewFee = 10000 * duration; // $100/hr crew fee for 51-75 people
+  }
+  const subtotal = (totalHourlyRate * duration) + addOnFlatFee + crewFee;
   
   // 5. Add tax (8.25%) and gratuity (20%) using existing constants
   const tax = Math.floor(subtotal * (PRICING_DEFAULTS.TAX_RATE_BASIS_POINTS / 10000));
@@ -189,15 +214,21 @@ export function getDayType(date: Date): DayType {
 
 /**
  * Maps group size to the appropriate capacity tier
+ * FINAL RULES:
+ * - 1-14 people: Use 14-person boat (Day Tripper)
+ * - 15-25 people: Use 25-person boat (Me Seeks The Irony)
+ * - 26-30 people: Use 25-person boat + extra crew fee (tier 30)
+ * - 31-50 people: Use 50-person boat (Clever Girl)
+ * - 51-75 people: Use 50-person boat + extra crew fee (tier 75)
  * @param groupSize Number of people in the group
  * @returns CapacityTier for pricing calculations
  */
 export function getCapacityTier(groupSize: number): CapacityTier {
   if (groupSize <= 14) return 14;
   if (groupSize <= 25) return 25;
-  if (groupSize <= 30) return 30;
+  if (groupSize <= 30) return 30; // 26-30 uses 25p boat + crew fee
   if (groupSize <= 50) return 50;
-  return 75;
+  return 75; // 51-75 uses 50p boat + crew fee
 }
 
 /**

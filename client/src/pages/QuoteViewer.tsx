@@ -219,7 +219,7 @@ function QuoteViewerContent() {
   const [weeklyDiscoSlots, setWeeklyDiscoSlots] = useState<any[]>([]);
   const [isLoadingWeekly, setIsLoadingWeekly] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>('');
-  const [capacityFilter, setCapacityFilter] = useState<number>(isCalendarFlow ? calendarData?.groupSize || 20 : 20);
+  const [capacityFilter, setCapacityFilter] = useState<number | null>(isCalendarFlow ? calendarData?.groupSize || 20 : 20);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>(calendarData?.selectedTimeSlot || '');
   const [selectedBoat, setSelectedBoat] = useState<string>(calendarData?.boatId || '');
   const [selectedSlotId, setSelectedSlotId] = useState<string>(calendarData?.slotId || '');
@@ -477,13 +477,13 @@ function QuoteViewerContent() {
       
       console.log('🗓️ Fetching weekly availability for:', {
         date: targetDate,
-        groupSize: capacityFilter,
+        groupSize: capacityFilter || groupSize,
         eventType: eventTypeParam,
         isBachelor
       });
       
       // Fetch private cruise availability
-      const response = await apiRequest('GET', `/api/availability/weekly?date=${targetDate}&groupSize=${capacityFilter}&eventType=${eventTypeParam}`);
+      const response = await apiRequest('GET', `/api/availability/weekly?date=${targetDate}&groupSize=${capacityFilter || groupSize}&eventType=${eventTypeParam}`);
       
       if (response.ok) {
         const data = await response.json();
@@ -497,7 +497,7 @@ function QuoteViewerContent() {
       // If bachelor/bachelorette event, also fetch disco cruise availability
       if (isBachelor) {
         console.log('🎵 Fetching disco availability for bachelor/bachelorette event');
-        const discoResponse = await apiRequest('GET', `/api/availability/weekly?date=${targetDate}&groupSize=${capacityFilter}&eventType=${eventTypeParam}&cruiseType=disco`);
+        const discoResponse = await apiRequest('GET', `/api/availability/weekly?date=${targetDate}&groupSize=${capacityFilter || groupSize}&eventType=${eventTypeParam}&cruiseType=disco`);
         
         if (discoResponse.ok) {
           const discoData = await discoResponse.json();
@@ -1452,7 +1452,7 @@ function QuoteViewerContent() {
                             <span>Total:</span>
                             <span>${(discoPricing.total / 100).toFixed(0)}</span>
                           </div>
-                          {discoPricing.depositRequired && (
+                          {discoPricing.depositRequired && discoPricing.depositAmount && (
                             <div className="flex justify-between text-xs text-purple-600">
                               <span>Deposit (25%):</span>
                               <span>${(discoPricing.depositAmount / 100).toFixed(0)}</span>
