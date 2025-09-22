@@ -14,6 +14,7 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from '@/components/ui/select';
 import { Calendar, AlertCircle, Loader2, Anchor, Music, Printer, Calendar as CalendarIconLucide, Sparkles, Ship, ChevronLeft, ChevronRight, CalendarIcon, Users } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { CheckoutModal } from '@/components/CheckoutModal';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 
 interface QuoteWithDetails {
@@ -250,6 +251,11 @@ function QuoteViewerContent() {
   
   // Derive the initial event type (quote will be loaded later)
   const [eventType, setEventType] = useState<string>(initialEventType || 'other');
+  
+  // Checkout modal state
+  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
+  const [checkoutPaymentType, setCheckoutPaymentType] = useState<'deposit' | 'full'>('deposit');
+  const [checkoutCruiseType, setCheckoutCruiseType] = useState<'private' | 'disco'>('private');
   
   // Helper functions to determine event type and ordering
   const deriveEventType = (): string => {
@@ -742,169 +748,156 @@ function QuoteViewerContent() {
     // For calendar flow, check if we have contact info
     let finalContactInfo = contactInfo;
     if (isCalendarFlow && !contactInfo.email) {
-      // Use placeholder contact info for calendar flow to allow checkout
+      // Don't use placeholder - let the modal collect real info
       finalContactInfo = {
-        firstName: 'Guest',
-        lastName: 'User',
-        email: 'guest@premiercruises.com',
-        phone: '512-555-0000'
+        firstName: '',
+        lastName: '',
+        email: '',
+        phone: ''
       };
-      setContactInfo(finalContactInfo);
     }
 
-    try {
-      console.log('💳 Creating checkout session...');
+    // CRITICAL FIX: Use the actual date from the selected slot, not the initial eventDate
+    let actualEventDate = eventDate; // Default to current eventDate
+    
+    // For calendar flow, ensure we're using the date from the selected slot
+    if (isCalendarFlow && selectedOption) {
+      // Extract date from the selectedOption (slot ID) as a safety check
+      const parts = selectedOption.split('_');
+      let extractedDate: string | null = null;
       
-      // CRITICAL FIX: Use the actual date from the selected slot, not the initial eventDate
-      let actualEventDate = eventDate; // Default to current eventDate
-      
-      // For calendar flow, ensure we're using the date from the selected slot
-      if (isCalendarFlow && selectedOption) {
-        // Extract date from the selectedOption (slot ID) as a safety check
-        const parts = selectedOption.split('_');
-        let extractedDate: string | null = null;
-        
-        if (selectedOption.includes('disco_')) {
-          // Disco format: disco_2025-09-27_11:00_15:00_100
-          if (parts.length >= 4) {
-            extractedDate = parts[1];
-          }
-        } else {
-          // Private format: 3hr_Friday_private_meeseeks_2025-09-27_11:00_15:00
-          for (let i = 0; i < parts.length - 2; i++) {
-            if (parts[i].match(/^\d{4}-\d{2}-\d{2}$/)) {
-              extractedDate = parts[i];
-              break;
-            }
-          }
+      if (selectedOption.includes('disco_')) {
+        // Disco format: disco_2025-09-27_11:00_15:00_100
+        if (parts.length >= 4) {
+          extractedDate = parts[1];
         }
-        
-        if (extractedDate) {
-          actualEventDate = extractedDate;
-          console.log('💳 Using extracted date for payment:', {
-            extractedDate,
-            selectedOption,
-            previousEventDate: eventDate
-          });
-        }
-      }
-      
-      // Use selectedSlot date if available (as additional fallback)
-      if (selectedSlot?.date) {
-        actualEventDate = selectedSlot.date;
-      }
-      
-      // Prepare selectionPayload as required by the server
-      const selectionPayload: any = {
-        entryPoint: isCalendarFlow ? 'calendar_flow' : 'quote_flow',
-        cruiseType: effectiveCruiseType,
-        eventDate: isCalendarFlow ? actualEventDate : quote?.project?.projectDate,
-        eventType: isCalendarFlow ? calendarData?.eventType : quote?.project?.eventType,
-        groupSize: effectiveCruiseType === 'disco' ? discoTicketQuantity : groupSize,
-        subtotal: pricing.subtotal,
-        tax: pricing.tax,
-        gratuity: pricing.gratuity,
-        total: pricing.total,
-        depositAmount: pricing.depositAmount || 0
-      };
-      
-      console.log('💳 Final payment payload:', {
-        eventDate: selectionPayload.eventDate,
-        cruiseType: effectiveCruiseType,
-        selectedSlotId: selectedOption
-      });
-
-      // Add cruise-type specific data to selectionPayload
-      if (effectiveCruiseType === 'private') {
-        selectionPayload.duration = privatePricing?.duration;
-        selectionPayload.boatId = selectedBoatId;
-        selectionPayload.selectedAddOnPackages = selectedAddOns;
-        selectionPayload.selectedTimeSlot = isCalendarFlow ? selectedTimeSlot : quote?.project?.projectTime;
-        selectionPayload.timeSlot = isCalendarFlow ? selectedTimeSlot : quote?.project?.projectTime;
-        
-        // Ensure selectedSlot has the required startTime and endTime fields
-        if (selectedSlot) {
-          selectionPayload.selectedSlot = {
-            ...selectedSlot,
-            startTime: selectedSlot.startTime,
-            endTime: selectedSlot.endTime,
-            id: selectedSlot.id || selectedSlotId,
-            boatId: selectedSlot.boatId || selectedSlot.boat || selectedBoatId
-          };
-        } else if (selectedTimeSlot && isCalendarFlow) {
-          // If selectedSlot is not set but we have a time slot string, parse it
-          const timeMatch = selectedTimeSlot.match(/(\d{1,2}:\d{2})\s*(?:AM|PM)?(?:\s*-\s*(\d{1,2}:\d{2})\s*(?:AM|PM)?)?/);
-          if (timeMatch) {
-            const [, startTime, endTime] = timeMatch;
-            selectionPayload.selectedSlot = {
-              startTime: startTime || '',
-              endTime: endTime || '',
-              id: selectedSlotId || '',
-              boatId: selectedBoatId || ''
-            };
-          } else {
-            // As a fallback, create a minimal slot object
-            selectionPayload.selectedSlot = {
-              startTime: '',
-              endTime: '',
-              id: selectedSlotId || '',
-              boatId: selectedBoatId || ''
-            };
-          }
-        } else {
-          // Ensure we always send a selectedSlot object for calendar flow
-          if (isCalendarFlow) {
-            selectionPayload.selectedSlot = {
-              startTime: '',
-              endTime: '',
-              id: selectedSlotId || '',
-              boatId: selectedBoatId || ''
-            };
-          }
-        }
-        
-        selectionPayload.selectedOption = selectedOption;
       } else {
-        selectionPayload.discoPackage = selectedDiscoPackage;
-        selectionPayload.ticketQuantity = discoTicketQuantity;
-      }
-      
-      // Prepare checkout data with required fields
-      const checkoutData = {
-        paymentType,
-        selectionPayload,
-        customerEmail: finalContactInfo.email,
-        metadata: {
-          customerName: `${finalContactInfo.firstName} ${finalContactInfo.lastName}`,
-          customerPhone: finalContactInfo.phone,
-          quoteId: isQuoteFlow ? quoteId : undefined,
-          token: isQuoteFlow ? token : undefined
+        // Private format: 3hr_Friday_private_meeseeks_2025-09-27_11:00_15:00
+        for (let i = 0; i < parts.length - 2; i++) {
+          if (parts[i].match(/^\d{4}-\d{2}-\d{2}$/)) {
+            extractedDate = parts[i];
+            break;
+          }
         }
-      };
-
-      console.log('💳 Sending checkout data:', checkoutData);
-
-      const response = await apiRequest('POST', '/api/checkout/create-session', checkoutData);
-      
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to create checkout session');
       }
-
-      const { url } = await response.json();
       
-      if (url) {
-        // Redirect to Stripe Checkout
-        window.location.href = url;
+      if (extractedDate) {
+        actualEventDate = extractedDate;
+        console.log('💳 Using extracted date for payment:', {
+          extractedDate,
+          selectedOption,
+          previousEventDate: eventDate
+        });
       }
-    } catch (error: any) {
-      console.error('💳 Payment error:', error);
-      toast({
-        title: "Payment Error",
-        description: error.message || "Failed to initiate payment. Please try again.",
-        variant: "destructive"
-      });
     }
+    
+    // Use selectedSlot date if available (as additional fallback)
+    if (selectedSlot?.date) {
+      actualEventDate = selectedSlot.date;
+    }
+    
+    // Prepare selectionPayload as required by the server
+    const selectionPayload: any = {
+      entryPoint: isCalendarFlow ? 'calendar_flow' : 'quote_flow',
+      cruiseType: effectiveCruiseType,
+      eventDate: isCalendarFlow ? actualEventDate : quote?.project?.projectDate,
+      eventType: isCalendarFlow ? calendarData?.eventType : quote?.project?.eventType,
+      groupSize: effectiveCruiseType === 'disco' ? discoTicketQuantity : groupSize,
+      subtotal: pricing.subtotal,
+      tax: pricing.tax,
+      gratuity: pricing.gratuity,
+      total: pricing.total,
+      depositAmount: pricing.depositAmount || 0,
+      firstName: finalContactInfo.firstName,
+      lastName: finalContactInfo.lastName,
+      email: finalContactInfo.email,
+      phone: finalContactInfo.phone
+    };
+    
+    console.log('💳 Final payment payload:', {
+      eventDate: selectionPayload.eventDate,
+      cruiseType: effectiveCruiseType,
+      selectedSlotId: selectedOption
+    });
+
+    // Add cruise-type specific data to selectionPayload
+    if (effectiveCruiseType === 'private') {
+      selectionPayload.duration = privatePricing?.duration;
+      selectionPayload.boatId = selectedBoatId;
+      selectionPayload.selectedAddOnPackages = selectedAddOns;
+      selectionPayload.selectedTimeSlot = isCalendarFlow ? selectedTimeSlot : quote?.project?.projectTime;
+      selectionPayload.timeSlot = isCalendarFlow ? selectedTimeSlot : quote?.project?.projectTime;
+      
+      // Ensure selectedSlot has the required startTime and endTime fields
+      if (selectedSlot) {
+        selectionPayload.selectedSlot = {
+          ...selectedSlot,
+          startTime: selectedSlot.startTime,
+          endTime: selectedSlot.endTime,
+          id: selectedSlot.id || selectedSlotId,
+          boatId: selectedSlot.boatId || selectedSlot.boat || selectedBoatId
+        };
+        selectionPayload.startTime = selectedSlot.startTime;
+        selectionPayload.endTime = selectedSlot.endTime;
+        selectionPayload.slotId = selectedSlot.id || selectedSlotId;
+      } else if (selectedTimeSlot && isCalendarFlow) {
+        // If selectedSlot is not set but we have a time slot string, parse it
+        const timeMatch = selectedTimeSlot.match(/(\d{1,2}:\d{2})\s*(?:AM|PM)?(?:\s*-\s*(\d{1,2}:\d{2})\s*(?:AM|PM)?)?/);
+        if (timeMatch) {
+          const [, startTime, endTime] = timeMatch;
+          selectionPayload.selectedSlot = {
+            startTime: startTime || '',
+            endTime: endTime || '',
+            id: selectedSlotId || '',
+            boatId: selectedBoatId || ''
+          };
+          selectionPayload.startTime = startTime || '';
+          selectionPayload.endTime = endTime || '';
+        } else {
+          // As a fallback, create a minimal slot object
+          selectionPayload.selectedSlot = {
+            startTime: '',
+            endTime: '',
+            id: selectedSlotId || '',
+            boatId: selectedBoatId || ''
+          };
+        }
+      } else {
+        // Ensure we always send a selectedSlot object for calendar flow
+        if (isCalendarFlow) {
+          selectionPayload.selectedSlot = {
+            startTime: '',
+            endTime: '',
+            id: selectedSlotId || '',
+            boatId: selectedBoatId || ''
+          };
+        }
+      }
+      
+      selectionPayload.selectedOption = selectedOption;
+      selectionPayload.selectedAddOns = selectedAddOns;
+    } else {
+      selectionPayload.discoPackage = selectedDiscoPackage;
+      selectionPayload.ticketQuantity = discoTicketQuantity;
+    }
+
+    // Set the modal state and open it
+    setCheckoutPaymentType(paymentType);
+    setCheckoutCruiseType(effectiveCruiseType);
+    setIsCheckoutModalOpen(true);
+  };
+
+  const handlePaymentSuccess = async (paymentIntentId: string) => {
+    console.log('✅ Payment successful:', paymentIntentId);
+    
+    // Store payment success info
+    sessionStorage.setItem('paymentSuccess', JSON.stringify({
+      paymentIntentId,
+      timestamp: new Date().toISOString()
+    }));
+
+    // Navigate to booking success page
+    window.location.href = '/booking-success';
   };
 
   // Loading state
@@ -1644,6 +1637,38 @@ function QuoteViewerContent() {
           </div>
         </div>
       </div>
+      
+      {/* Checkout Modal */}
+      <CheckoutModal
+        isOpen={isCheckoutModalOpen}
+        onClose={() => setIsCheckoutModalOpen(false)}
+        onSuccess={handlePaymentSuccess}
+        paymentType={checkoutPaymentType}
+        cruiseType={checkoutCruiseType}
+        selectionPayload={{
+          entryPoint: isCalendarFlow ? 'calendar_flow' : 'quote_flow',
+          cruiseType: checkoutCruiseType,
+          eventDate: isCalendarFlow ? eventDate : quote?.project?.projectDate,
+          eventType: isCalendarFlow ? calendarData?.eventType : quote?.project?.eventType,
+          groupSize: checkoutCruiseType === 'disco' ? discoTicketQuantity : groupSize,
+          selectedTimeSlot: selectedTimeSlot,
+          timeSlot: selectedTimeSlot,
+          startTime: selectedSlot?.startTime || '',
+          endTime: selectedSlot?.endTime || '',
+          boatId: selectedBoatId,
+          slotId: selectedSlotId,
+          selectedAddOns,
+          discoPackage: selectedDiscoPackage,
+          discountCode,
+          firstName: contactInfo.firstName,
+          lastName: contactInfo.lastName,
+          email: contactInfo.email,
+          phone: contactInfo.phone
+        }}
+        pricing={checkoutCruiseType === 'private' ? privatePricing : discoPricing}
+        contactInfo={contactInfo}
+        holdId={undefined} // We can add slot hold support if needed
+      />
     </div>
   );
 }

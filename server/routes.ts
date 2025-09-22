@@ -8069,48 +8069,133 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(500).json({ error: "Stripe not configured" });
       }
 
-      const { sessionId, selections, pricing, paymentType, holdId } = req.body;
+      const { 
+        paymentType, 
+        cruiseType, 
+        selectionPayload, 
+        pricing, 
+        customerEmail, 
+        holdId, 
+        metadata = {},
+        sessionId,
+        selections 
+      } = req.body;
 
-      if (!sessionId || !selections || !pricing || !paymentType) {
-        return res.status(400).json({ error: "Missing required checkout data" });
+      // Support both new and old request formats
+      const effectiveSelections = selectionPayload || selections;
+      const effectivePricing = pricing;
+      const effectivePaymentType = paymentType;
+
+      if (!effectivePaymentType || !effectivePricing) {
+        return res.status(400).json({ 
+          error: "Missing required checkout data: paymentType and pricing are required" 
+        });
       }
 
-      // Determine payment amount
-      const amount = paymentType === 'deposit' 
-        ? pricing.paymentOptions.depositOnly.amount
-        : pricing.paymentOptions.fullPayment.amount;
-
-      if (amount <= 0) {
-        return res.status(400).json({ error: "Invalid payment amount" });
+      // Determine payment amount - handle both pricing formats
+      let amount;
+      if (effectivePricing.paymentOptions) {
+        // Old format with paymentOptions
+        amount = effectivePaymentType === 'deposit' 
+          ? effectivePricing.paymentOptions.depositOnly.amount
+          : effectivePricing.paymentOptions.fullPayment.amount;
+      } else {
+        // New format with direct properties
+        amount = effectivePaymentType === 'deposit'
+          ? (effectivePricing.depositAmount || Math.round(effectivePricing.total * 0.5))
+          : effectivePricing.total;
       }
 
-      // Create payment intent
+      if (!amount || amount <= 0) {
+        return res.status(400).json({ error: "Invalid payment amount calculated from pricing" });
+      }
+
+      console.log('💳 Creating payment intent:', {
+        paymentType: effectivePaymentType,
+        cruiseType,
+        amount,
+        customerEmail,
+        holdId
+      });
+
+      // Build comprehensive metadata for payment processing
+      const paymentMetadata: any = {
+        paymentType: effectivePaymentType,
+        checkoutFlow: 'internal_modal',
+        calculatedAt: new Date().toISOString()
+      };
+
+      // Add metadata from selections/selectionPayload
+      if (effectiveSelections) {
+        Object.assign(paymentMetadata, {
+          cruiseType: effectiveSelections.cruiseType || cruiseType || '',
+          eventType: effectiveSelections.eventType || '',
+          eventDate: effectiveSelections.eventDate || effectiveSelections.date || '',
+          groupSize: (effectiveSelections.groupSize || '').toString(),
+          timeSlot: effectiveSelections.selectedTimeSlot || effectiveSelections.timeSlot || '',
+          startTime: effectiveSelections.startTime || '',
+          endTime: effectiveSelections.endTime || '',
+          boatId: effectiveSelections.boatId || effectiveSelections.selectedBoat?.id || '',
+          slotId: effectiveSelections.slotId || '',
+          contactName: effectiveSelections.contactName || `${effectiveSelections.firstName || ''} ${effectiveSelections.lastName || ''}`.trim(),
+          contactEmail: effectiveSelections.contactEmail || effectiveSelections.email || customerEmail || '',
+          firstName: effectiveSelections.firstName || '',
+          lastName: effectiveSelections.lastName || '',
+          phone: effectiveSelections.phone || '',
+          selectedAddOns: Array.isArray(effectiveSelections.selectedAddOns) ? effectiveSelections.selectedAddOns.join(',') : '',
+          discoPackage: effectiveSelections.discoPackage || '',
+          discountCode: effectiveSelections.discountCode || ''
+        });
+      }
+
+      // Add pricing details to metadata
+      if (effectivePricing) {
+        Object.assign(paymentMetadata, {
+          subtotal: (effectivePricing.subtotal || 0).toString(),
+          tax: (effectivePricing.tax || 0).toString(),
+          gratuity: (effectivePricing.gratuity || 0).toString(),
+          total: (effectivePricing.total || 0).toString(),
+          depositAmount: (effectivePricing.depositAmount || 0).toString(),
+          depositPercent: (effectivePricing.depositPercent || 50).toString()
+        });
+      }
+
+      // Add holdId and sessionId if provided
+      if (holdId) paymentMetadata.holdId = holdId;
+      if (sessionId) paymentMetadata.sessionId = sessionId;
+
+      // Merge with any additional metadata
+      Object.assign(paymentMetadata, metadata);
+
+      // Create payment intent with comprehensive metadata
       const paymentIntent = await stripe.paymentIntents.create({
         amount: Math.round(amount),
         currency: "usd",
-        metadata: {
-          sessionId,
-          paymentType,
-          cruiseType: selections.cruiseType,
-          eventType: selections.eventType,
-          groupSize: selections.groupSize.toString(),
-          eventDate: selections.eventDate,
-          boatId: selections.selectedBoat?.id || '',
-          contactName: selections.contactName,
-          contactEmail: selections.contactEmail,
-          holdId: holdId || '',
-          checkoutFlow: 'universal_checkout',
-          calculatedAt: new Date().toISOString()
-        }
+        description: `${paymentMetadata.cruiseType === 'disco' ? 'Disco' : 'Private'} Cruise ${effectivePaymentType === 'deposit' ? 'Deposit' : 'Full Payment'} - ${paymentMetadata.eventType || 'Event'} for ${paymentMetadata.groupSize || '?'} guests`,
+        receipt_email: paymentMetadata.contactEmail || customerEmail,
+        metadata: paymentMetadata,
+        automatic_payment_methods: {
+          enabled: true,
+        },
+      });
+
+      console.log('✅ Payment intent created:', {
+        id: paymentIntent.id,
+        amount: paymentIntent.amount,
+        status: paymentIntent.status
       });
 
       res.json({ 
         clientSecret: paymentIntent.client_secret,
-        paymentIntentId: paymentIntent.id
+        paymentIntentId: paymentIntent.id,
+        amount: paymentIntent.amount
       });
     } catch (error: any) {
       console.error("Error creating payment intent:", error);
-      res.status(500).json({ error: "Failed to create payment intent: " + error.message });
+      res.status(500).json({ 
+        error: "Failed to create payment intent", 
+        details: error.message 
+      });
     }
   });
 
