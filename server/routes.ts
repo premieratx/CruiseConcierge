@@ -30,6 +30,8 @@ import { randomUUID, randomInt } from "crypto";
 import multer from 'multer';
 import { mediaLibraryService } from './services/mediaLibrary';
 import { getFullUrl, getPublicUrl } from "./utils";
+import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
+import { ObjectPermission } from "./objectAcl";
 import sanitizeHtml from 'sanitize-html';
 import TurndownService from 'turndown';
 import { quoteTokenService } from "./services/quoteTokenService";
@@ -13408,37 +13410,43 @@ export async function registerRoutes(app: Express): Promise<Server> {
     filter: z.enum(['photos', 'videos', 'analyzed', 'edited']).optional()
   });
 
-  // Configure secure multer for file uploads
+  // Configure secure multer for file uploads (images and videos)
   const upload = multer({
     storage: multer.memoryStorage(),
     limits: { 
-      fileSize: 50 * 1024 * 1024, // 50MB limit - ENFORCED
+      fileSize: 100 * 1024 * 1024, // 100MB limit for videos
       files: 10, // Max 10 files per request
       fields: 5, // Max 5 form fields
       fieldSize: 1024 * 1024 // 1MB per field
     },
     fileFilter: (req: any, file: any, cb: any) => {
-      // Strict allowlist for security
+      // Strict allowlist for security - images and videos
       const allowedMimeTypes = [
         'image/jpeg', 
         'image/png', 
         'image/webp',
-        'image/gif'
+        'image/gif',
+        'video/mp4',
+        'video/webm',
+        'video/quicktime'
       ];
-      const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
+      const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.mp4', '.webm', '.mov'];
       
       const ext = require('path').extname(file.originalname).toLowerCase();
       
       // Check both MIME type and extension
       if (allowedMimeTypes.includes(file.mimetype) && allowedExtensions.includes(ext)) {
-        // Additional security: check file size in filter
-        if (file.size && file.size > 50 * 1024 * 1024) {
-          cb(new Error('File too large'), false);
+        // Different size limits for different file types
+        const isVideo = file.mimetype.startsWith('video/');
+        const maxSize = isVideo ? 100 * 1024 * 1024 : 50 * 1024 * 1024; // 100MB for videos, 50MB for images
+        
+        if (file.size && file.size > maxSize) {
+          cb(new Error(`File too large. Maximum size is ${maxSize / 1024 / 1024}MB`), false);
         } else {
           cb(null, true);
         }
       } else {
-        cb(new Error('Only JPEG, PNG, WebP, and GIF images are allowed'), false);
+        cb(new Error('Only JPEG, PNG, WebP, GIF images and MP4, WebM, MOV videos are allowed'), false);
       }
     }
   });
@@ -13464,10 +13472,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
       const { userId } = validation.data;
       
-      // Additional file security checks
-      const maxFileSize = 50 * 1024 * 1024;
+      // Additional file security checks - different limits for videos
+      const isVideo = req.file.mimetype.startsWith('video/');
+      const maxFileSize = isVideo ? 100 * 1024 * 1024 : 50 * 1024 * 1024; // 100MB for videos, 50MB for images
       if (req.file.size > maxFileSize) {
-        return res.status(400).json({ error: 'File too large. Maximum size is 50MB' });
+        return res.status(400).json({ error: `File too large. Maximum size is ${maxFileSize / 1024 / 1024}MB` });
       }
 
       // Verify file type matches extension
@@ -13477,7 +13486,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
         'image/jpeg': ['.jpg', '.jpeg'],
         'image/png': ['.png'],
         'image/webp': ['.webp'],
-        'image/gif': ['.gif']
+        'image/gif': ['.gif'],
+        'video/mp4': ['.mp4'],
+        'video/webm': ['.webm'],
+        'video/quicktime': ['.mov']
       };
       
       const expectedExtensions = mimeTypeMap[req.file.mimetype];
@@ -13494,10 +13506,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
       
       // Handle multer errors specifically
       if (error.code === 'LIMIT_FILE_SIZE') {
-        return res.status(400).json({ error: 'File too large. Maximum size is 50MB' });
+        return res.status(400).json({ error: 'File too large. Maximum size is 100MB for videos, 50MB for images' });
       } else if (error.code === 'LIMIT_UNEXPECTED_FILE') {
         return res.status(400).json({ error: 'Unexpected file upload' });
-      } else if (error.message.includes('Only JPEG, PNG, WebP')) {
+      } else if (error.message.includes('Only JPEG, PNG, WebP') || error.message.includes('File too large')) {
         return res.status(400).json({ error: error.message });
       }
       
@@ -13728,6 +13740,103 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error) {
       console.error('AI suggestions error:', error);
       res.status(500).json({ error: 'Failed to get AI suggestions' });
+    }
+  });
+
+  // ==========================================
+  // OBJECT STORAGE MEDIA SERVING ROUTES
+  // ==========================================
+
+  // Serve private media objects (for admin access to uploaded media)
+  app.get('/objects/:objectPath(*)', requireAdminAuth, async (req, res) => {
+    try {
+      const objectStorageService = new ObjectStorageService();
+      const objectFile = await objectStorageService.getObjectEntityFile(req.path);
+      
+      // Check admin access
+      const canAccess = await objectStorageService.canAccessObjectEntity({
+        objectFile,
+        userId: req.adminUser?.id || 'admin',
+        requestedPermission: ObjectPermission.READ,
+      });
+      
+      if (!canAccess) {
+        return res.sendStatus(401);
+      }
+      
+      // Stream the file
+      await objectStorageService.downloadObject(objectFile, res);
+    } catch (error) {
+      console.error('Error serving media object:', error);
+      if (error instanceof ObjectNotFoundError) {
+        return res.sendStatus(404);
+      }
+      return res.sendStatus(500);
+    }
+  });
+
+  // Serve public media files (for website display)
+  app.get('/public-objects/:filePath(*)', async (req, res) => {
+    try {
+      const filePath = req.params.filePath;
+      const objectStorageService = new ObjectStorageService();
+      const file = await objectStorageService.searchPublicObject(filePath);
+      
+      if (!file) {
+        return res.status(404).json({ error: 'File not found' });
+      }
+      
+      await objectStorageService.downloadObject(file, res);
+    } catch (error) {
+      console.error('Error serving public object:', error);
+      return res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+
+  // Get upload URL for object storage
+  app.post('/api/media/upload-url', requireAdminAuth, async (req, res) => {
+    try {
+      const objectStorageService = new ObjectStorageService();
+      const uploadURL = await objectStorageService.getObjectEntityUploadURL();
+      res.json({ uploadURL });
+    } catch (error) {
+      console.error('Error getting upload URL:', error);
+      res.status(500).json({ error: 'Failed to get upload URL' });
+    }
+  });
+
+  // Update media ACL after upload
+  app.put('/api/media/acl', requireAdminAuth, async (req, res) => {
+    try {
+      const validation = z.object({
+        mediaURL: z.string().url('Invalid media URL'),
+        visibility: z.enum(['public', 'private']).default('private'),
+      }).safeParse(req.body);
+      
+      if (!validation.success) {
+        return res.status(400).json({ 
+          error: 'Invalid request data',
+          details: validation.error.issues
+        });
+      }
+      
+      const { mediaURL, visibility } = validation.data;
+      const userId = req.adminUser?.id || 'admin';
+      
+      const objectStorageService = new ObjectStorageService();
+      const objectPath = await objectStorageService.trySetObjectEntityAclPolicy(
+        mediaURL,
+        {
+          owner: userId,
+          visibility,
+          aclRules: []
+        }
+      );
+      
+      res.json({ success: true, objectPath });
+    } catch (error) {
+      console.error('Error setting media ACL:', error);
+      res.status(500).json({ error: 'Failed to set media permissions' });
     }
   });
 

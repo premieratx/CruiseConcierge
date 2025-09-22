@@ -7,16 +7,21 @@ import {
   generateImageWithNanoBanana,
   findBestPhotosForSection
 } from "./gemini";
-import * as fs from "fs";
-import * as path from "path";
 import * as crypto from "crypto";
+import { ObjectStorageService, ObjectNotFoundError } from "../objectStorage";
+import { ObjectPermission } from "../objectAcl";
 
 export class MediaLibraryService {
+  private objectStorageService: ObjectStorageService;
+  
+  constructor() {
+    this.objectStorageService = new ObjectStorageService();
+  }
   
   // Secure filename sanitization
   private sanitizeFilename(originalName: string): string {
-    const ext = path.extname(originalName).toLowerCase();
-    const basename = path.basename(originalName, ext);
+    const ext = require('path').extname(originalName).toLowerCase();
+    const basename = require('path').basename(originalName, ext);
     
     // Remove dangerous characters and limit length
     const safeName = basename
@@ -32,10 +37,11 @@ export class MediaLibraryService {
 
   // Validate file type and size
   private validateFile(file: Express.Multer.File): { valid: boolean; error?: string } {
-    const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
-    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif'];
-    const maxSize = 50 * 1024 * 1024; // 50MB
+    const allowedMimeTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'video/mp4', 'video/webm', 'video/quicktime'];
+    const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.mp4', '.webm', '.mov'];
+    const maxSize = 100 * 1024 * 1024; // 100MB for videos, 50MB for images
     
+    const path = require('path');
     const ext = path.extname(file.originalname).toLowerCase();
     
     if (!allowedMimeTypes.includes(file.mimetype)) {
@@ -46,8 +52,12 @@ export class MediaLibraryService {
       return { valid: false, error: `Invalid file extension: ${ext}` };
     }
     
-    if (file.size > maxSize) {
-      return { valid: false, error: `File too large: ${(file.size / 1024 / 1024).toFixed(2)}MB` };
+    // Different size limits for different file types
+    const isVideo = file.mimetype.startsWith('video/');
+    const maxFileSize = isVideo ? 100 * 1024 * 1024 : 50 * 1024 * 1024; // 100MB for videos, 50MB for images
+    
+    if (file.size > maxFileSize) {
+      return { valid: false, error: `File too large: ${(file.size / 1024 / 1024).toFixed(2)}MB (max ${maxFileSize / 1024 / 1024}MB)` };
     }
     
     // Verify MIME type matches extension
@@ -55,7 +65,10 @@ export class MediaLibraryService {
       'image/jpeg': ['.jpg', '.jpeg'],
       'image/png': ['.png'],
       'image/webp': ['.webp'],
-      'image/gif': ['.gif']
+      'image/gif': ['.gif'],
+      'video/mp4': ['.mp4'],
+      'video/webm': ['.webm'],
+      'video/quicktime': ['.mov']
     };
     
     const expectedExts = mimeExtMap[file.mimetype];
@@ -65,22 +78,6 @@ export class MediaLibraryService {
     
     return { valid: true };
   }
-
-  // Ensure secure upload directory
-  private ensureSecureUploadDir(): string {
-    const uploadDir = path.resolve(process.cwd(), 'uploads', 'media');
-    
-    // Prevent directory traversal
-    if (!uploadDir.startsWith(path.resolve(process.cwd()))) {
-      throw new Error('Invalid upload directory path');
-    }
-    
-    if (!fs.existsSync(uploadDir)) {
-      fs.mkdirSync(uploadDir, { recursive: true, mode: 0o755 });
-    }
-    
-    return uploadDir;
-  }
   
   async uploadMedia(file: Express.Multer.File, userId: string) {
     // Validate file first
@@ -89,49 +86,95 @@ export class MediaLibraryService {
       throw new Error(`File validation failed: ${validation.error}`);
     }
 
-    // Save file to secure uploads directory
-    const uploadDir = this.ensureSecureUploadDir();
-    
-    // Use sanitized filename
-    const filename = this.sanitizeFilename(file.originalname);
-    const filePath = path.join(uploadDir, filename);
-    
-    // Additional security: check file doesn't already exist
-    if (fs.existsSync(filePath)) {
-      throw new Error('File conflict detected - please retry');
-    }
-
     try {
-      fs.writeFileSync(filePath, file.buffer, { mode: 0o644 });
+      // Get upload URL from object storage
+      const uploadURL = await this.objectStorageService.getObjectEntityUploadURL();
+      
+      // Upload file directly to object storage
+      const uploadResponse = await fetch(uploadURL, {
+        method: 'PUT',
+        body: file.buffer,
+        headers: {
+          'Content-Type': file.mimetype,
+          'Content-Length': file.size.toString(),
+        },
+      });
+
+      if (!uploadResponse.ok) {
+        throw new Error(`Failed to upload to object storage: ${uploadResponse.statusText}`);
+      }
+
+      // Extract object path from upload URL
+      const objectPath = this.objectStorageService.normalizeObjectEntityPath(uploadURL);
+      
+      // Determine file type
+      const isVideo = file.mimetype.startsWith('video/');
+      const fileType = isVideo ? 'video' : 'photo';
+      
+      // Insert into database with object storage path
+      const [mediaItem] = await db.insert(mediaItems).values({
+        filename: this.sanitizeFilename(file.originalname),
+        originalName: file.originalname,
+        fileType,
+        filePath: objectPath, // Object storage path
+        fileSize: file.size,
+        mimeType: file.mimetype,
+        createdBy: userId,
+        status: 'draft'
+      }).returning();
+      
+      // Set ACL policy for the uploaded file (make it accessible to admins)
+      await this.objectStorageService.trySetObjectEntityAclPolicy(uploadURL, {
+        owner: userId,
+        visibility: 'private', // Private by default for admin uploads
+        aclRules: []
+      });
+      
+      console.log(`✅ Media uploaded to object storage: ${mediaItem.id} - ${mediaItem.filename} by user ${userId}`);
+      
+      // Queue for AI analysis if it's a photo
+      if (file.mimetype.startsWith('image')) {
+        this.analyzePhotoAsync(mediaItem.id, objectPath);
+      }
+      
+      return mediaItem;
     } catch (error) {
-      throw new Error(`Failed to save file: ${error}`);
+      console.error('Upload to object storage failed:', error);
+      throw new Error(`Failed to upload media: ${error instanceof Error ? error.message : 'Unknown error'}`);
     }
-    
-    // Insert into database with sanitized data
-    const [mediaItem] = await db.insert(mediaItems).values({
-      filename,
-      originalName: this.sanitizeFilename(file.originalname), // Use sanitized name
-      fileType: 'photo', // Only photos allowed now
-      filePath: `/uploads/media/${filename}`,
-      fileSize: file.size,
-      mimeType: file.mimetype,
-      createdBy: userId,
-      status: 'draft'
-    }).returning();
-    
-    console.log(`✅ Secure media upload: ${mediaItem.id} - ${filename} by user ${userId}`);
-    
-    // Queue for AI analysis if it's a photo
-    if (file.mimetype.startsWith('image')) {
-      this.analyzePhotoAsync(mediaItem.id, filePath);
-    }
-    
-    return mediaItem;
   }
   
-  async analyzePhotoAsync(mediaId: string, filePath: string) {
+  async analyzePhotoAsync(mediaId: string, objectPath: string) {
     try {
-      const analysis = await analyzePhotoForContent(filePath);
+      // Get the object file from object storage for analysis
+      const objectFile = await this.objectStorageService.getObjectEntityFile(objectPath);
+      
+      // Download image data for AI analysis
+      const [exists] = await objectFile.exists();
+      if (!exists) {
+        throw new Error('Object file not found in storage');
+      }
+      
+      // Create a temporary buffer for AI analysis
+      const chunks: Buffer[] = [];
+      const stream = objectFile.createReadStream();
+      
+      await new Promise<void>((resolve, reject) => {
+        stream.on('data', (chunk) => chunks.push(chunk));
+        stream.on('end', () => resolve());
+        stream.on('error', (error) => reject(error));
+      });
+      
+      const imageBuffer = Buffer.concat(chunks);
+      
+      // Create temporary file for analysis
+      const tempFilePath = `/tmp/temp_${mediaId}.jpg`;
+      require('fs').writeFileSync(tempFilePath, imageBuffer);
+      
+      const analysis = await analyzePhotoForContent(tempFilePath);
+      
+      // Clean up temporary file
+      require('fs').unlinkSync(tempFilePath);
       
       await db.update(mediaItems)
         .set({
@@ -143,33 +186,27 @@ export class MediaLibraryService {
         })
         .where(eq(mediaItems.id, mediaId));
         
-      console.log(`✅ Analyzed photo ${mediaId}`);
+      console.log(`✅ Analyzed photo ${mediaId} from object storage`);
     } catch (error) {
       console.error(`❌ Failed to analyze photo ${mediaId}:`, error);
     }
   }
 
-  // Secure file path resolution
-  private resolveSecureFilePath(filePath: string): string {
-    // Remove leading slash and normalize path
-    const normalizedPath = filePath.replace(/^\/+/, '');
-    const fullPath = path.resolve(process.cwd(), normalizedPath);
-    
-    // Security: ensure path is within uploads directory
-    const uploadsDir = path.resolve(process.cwd(), 'uploads');
-    if (!fullPath.startsWith(uploadsDir)) {
-      throw new Error('Invalid file path - security violation');
+  // Get object file from database media item
+  private async getObjectFileFromMediaItem(mediaId: string) {
+    const [media] = await db.select().from(mediaItems)
+      .where(eq(mediaItems.id, mediaId))
+      .limit(1);
+      
+    if (!media) {
+      throw new Error('Media not found');
     }
-    
-    // Verify file exists
-    if (!fs.existsSync(fullPath)) {
-      throw new Error('File not found');
-    }
-    
-    return fullPath;
+
+    const objectFile = await this.objectStorageService.getObjectEntityFile(media.filePath);
+    return { media, objectFile };
   }
 
-  // Photo editing with Nano Banana - SECURED
+  // Photo editing with Nano Banana - using Object Storage
   async editPhoto(
     photoId: string, 
     editType: 'enhance' | 'style' | 'background' | 'color' | 'custom',
@@ -181,18 +218,7 @@ export class MediaLibraryService {
       throw new Error('Invalid photo ID');
     }
 
-    const photo = await db.select().from(mediaItems)
-      .where(eq(mediaItems.id, photoId))
-      .limit(1);
-      
-    if (!photo[0]) {
-      throw new Error('Photo not found');
-    }
-    
-    // Security: validate file belongs to system
-    if (!photo[0].filePath || !photo[0].filePath.startsWith('/uploads/media/')) {
-      throw new Error('Invalid photo file path');
-    }
+    const { media: photo, objectFile } = await this.getObjectFileFromMediaItem(photoId);
     
     // Create edit record
     const [editRecord] = await db.insert(photoEdits).values({
@@ -203,43 +229,80 @@ export class MediaLibraryService {
     }).returning();
     
     try {
-      // Use secure path resolution
-      const fullPath = this.resolveSecureFilePath(photo[0].filePath);
-      const result = await editPhotoWithNanoBanana(fullPath, editType, editPrompt);
+      // Download original image from object storage
+      const chunks: Buffer[] = [];
+      const stream = objectFile.createReadStream();
       
-      // Generate secure filename for edited image
-      const editedFilename = this.sanitizeFilename(`edited_${photo[0].filename}`);
-      const editedPath = path.join(this.ensureSecureUploadDir(), editedFilename);
+      await new Promise<void>((resolve, reject) => {
+        stream.on('data', (chunk) => chunks.push(chunk));
+        stream.on('end', () => resolve());
+        stream.on('error', (error) => reject(error));
+      });
       
-      // Convert base64 to file with security
-      const imageBuffer = Buffer.from(result.imageData, 'base64');
+      const originalImageBuffer = Buffer.concat(chunks);
+      
+      // Create temporary file for editing
+      const tempOriginalPath = `/tmp/original_${photoId}.jpg`;
+      require('fs').writeFileSync(tempOriginalPath, originalImageBuffer);
+      
+      const result = await editPhotoWithNanoBanana(tempOriginalPath, editType, editPrompt);
+      
+      // Clean up temporary file
+      require('fs').unlinkSync(tempOriginalPath);
+      
+      // Convert base64 to buffer
+      const editedImageBuffer = Buffer.from(result.imageData, 'base64');
       
       // Validate buffer size
-      if (imageBuffer.length > 50 * 1024 * 1024) {
+      if (editedImageBuffer.length > 50 * 1024 * 1024) {
         throw new Error('Generated image too large');
       }
       
-      fs.writeFileSync(editedPath, imageBuffer, { mode: 0o644 });
+      // Upload edited image to object storage
+      const uploadURL = await this.objectStorageService.getObjectEntityUploadURL();
       
-      // Create new media item for edited photo with secure data
+      const uploadResponse = await fetch(uploadURL, {
+        method: 'PUT',
+        body: editedImageBuffer,
+        headers: {
+          'Content-Type': result.mimeType,
+          'Content-Length': editedImageBuffer.length.toString(),
+        },
+      });
+
+      if (!uploadResponse.ok) {
+        throw new Error(`Failed to upload edited image: ${uploadResponse.statusText}`);
+      }
+
+      // Get object path
+      const editedObjectPath = this.objectStorageService.normalizeObjectEntityPath(uploadURL);
+      
+      // Create new media item for edited photo
       const [editedPhoto] = await db.insert(mediaItems).values({
-        filename: editedFilename,
-        originalName: this.sanitizeFilename(`edited_${photo[0].originalName}`),
+        filename: this.sanitizeFilename(`edited_${photo.filename}`),
+        originalName: `edited_${photo.originalName}`,
         fileType: 'edited_photo',
-        filePath: `/uploads/media/${editedFilename}`,
-        fileSize: imageBuffer.length,
+        filePath: editedObjectPath,
+        fileSize: editedImageBuffer.length,
         mimeType: result.mimeType,
         originalPhotoId: photoId,
         editHistory: [{
           editType,
-          editPrompt: editPrompt.substring(0, 500), // Limit prompt length
+          editPrompt: editPrompt.substring(0, 500),
           editedAt: new Date().toISOString()
         }],
         createdBy: userId,
         status: 'draft'
       }).returning();
       
-      console.log(`✅ Photo edited securely: ${editedPhoto.id} from ${photoId} by user ${userId}`);
+      // Set ACL policy for edited photo
+      await this.objectStorageService.trySetObjectEntityAclPolicy(uploadURL, {
+        owner: userId,
+        visibility: 'private',
+        aclRules: []
+      });
+      
+      console.log(`✅ Photo edited with object storage: ${editedPhoto.id} from ${photoId} by user ${userId}`);
       
       // Update edit record
       await db.update(photoEdits)
@@ -250,7 +313,7 @@ export class MediaLibraryService {
         .where(eq(photoEdits.id, editRecord.id));
         
       // Analyze the edited photo
-      this.analyzePhotoAsync(editedPhoto.id, editedPath);
+      this.analyzePhotoAsync(editedPhoto.id, editedObjectPath);
       
       return editedPhoto;
     } catch (error) {
@@ -261,7 +324,7 @@ export class MediaLibraryService {
     }
   }
 
-  // Generate new image with Nano Banana - SECURED
+  // Generate new image with Nano Banana - using Object Storage
   async generateImage(prompt: string, userId: string) {
     try {
       // Sanitize and validate prompt
@@ -272,10 +335,6 @@ export class MediaLibraryService {
       const sanitizedPrompt = prompt.replace(/[<>]/g, ''); // Remove potential HTML
       const result = await generateImageWithNanoBanana(sanitizedPrompt);
       
-      // Generate secure filename
-      const filename = this.sanitizeFilename(`generated_${Date.now()}.jpg`);
-      const filePath = path.join(this.ensureSecureUploadDir(), filename);
-      
       const imageBuffer = Buffer.from(result.imageData, 'base64');
       
       // Validate generated image size
@@ -283,24 +342,48 @@ export class MediaLibraryService {
         throw new Error('Generated image too large');
       }
       
-      fs.writeFileSync(filePath, imageBuffer, { mode: 0o644 });
+      // Upload generated image to object storage
+      const uploadURL = await this.objectStorageService.getObjectEntityUploadURL();
       
-      // Create media item with secure data
+      const uploadResponse = await fetch(uploadURL, {
+        method: 'PUT',
+        body: imageBuffer,
+        headers: {
+          'Content-Type': result.mimeType,
+          'Content-Length': imageBuffer.length.toString(),
+        },
+      });
+
+      if (!uploadResponse.ok) {
+        throw new Error(`Failed to upload generated image: ${uploadResponse.statusText}`);
+      }
+
+      // Get object path
+      const objectPath = this.objectStorageService.normalizeObjectEntityPath(uploadURL);
+      
+      // Create media item
       const [generatedPhoto] = await db.insert(mediaItems).values({
-        filename,
-        originalName: this.sanitizeFilename(`generated_${prompt.substring(0, 30)}.jpg`),
+        filename: this.sanitizeFilename(`generated_${Date.now()}.jpg`),
+        originalName: `generated_${prompt.substring(0, 30)}.jpg`,
         fileType: 'photo',
-        filePath: `/uploads/media/${filename}`,
+        filePath: objectPath,
         fileSize: imageBuffer.length,
         mimeType: result.mimeType,
         createdBy: userId,
         status: 'draft'
       }).returning();
       
-      console.log(`✅ Image generated securely: ${generatedPhoto.id} by user ${userId}`);
+      // Set ACL policy
+      await this.objectStorageService.trySetObjectEntityAclPolicy(uploadURL, {
+        owner: userId,
+        visibility: 'private',
+        aclRules: []
+      });
+      
+      console.log(`✅ Image generated with object storage: ${generatedPhoto.id} by user ${userId}`);
       
       // Analyze generated photo
-      this.analyzePhotoAsync(generatedPhoto.id, filePath);
+      this.analyzePhotoAsync(generatedPhoto.id, objectPath);
       
       return generatedPhoto;
     } catch (error) {
@@ -366,29 +449,22 @@ export class MediaLibraryService {
     return suggestions;
   }
 
-  // Delete media item with security validation
+  // Delete media item from object storage
   async deleteMedia(mediaId: string, userId: string) {
     // Validate mediaId format
     if (!mediaId || typeof mediaId !== 'string') {
       throw new Error('Invalid media ID');
     }
 
-    const [media] = await db.select().from(mediaItems)
-      .where(eq(mediaItems.id, mediaId))
-      .limit(1);
-      
-    if (!media) {
-      throw new Error('Media not found');
-    }
-    
     try {
-      // Delete physical file securely
-      if (media.filePath) {
-        const fullPath = this.resolveSecureFilePath(media.filePath);
-        if (fs.existsSync(fullPath)) {
-          fs.unlinkSync(fullPath);
-          console.log(`✅ Deleted file: ${fullPath}`);
-        }
+      const { media, objectFile } = await this.getObjectFileFromMediaItem(mediaId);
+      
+      // Delete from object storage
+      try {
+        await objectFile.delete();
+        console.log(`✅ Deleted object from storage: ${media.filePath}`);
+      } catch (storageError) {
+        console.warn(`⚠️ Failed to delete from object storage: ${storageError}. Continuing with database cleanup.`);
       }
       
       // Delete from database

@@ -728,11 +728,26 @@ export default function MediaLibrary() {
                   ) : (
                     <div className="relative">
                       <img
-                        src={item.filePath}
+                        src={`/objects${item.filePath}`}
                         alt={item.originalName || item.filename}
                         className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200"
                         loading="lazy"
+                        onError={(e) => {
+                          // Fallback for broken images
+                          const img = e.target as HTMLImageElement;
+                          img.style.display = 'none';
+                          const placeholder = img.parentElement?.querySelector('.image-placeholder');
+                          if (placeholder) {
+                            (placeholder as HTMLElement).style.display = 'flex';
+                          }
+                        }}
                       />
+                      <div 
+                        className="image-placeholder absolute inset-0 bg-gray-100 flex items-center justify-center hidden"
+                        style={{display: 'none'}}
+                      >
+                        <Image className="h-12 w-12 text-gray-400" />
+                      </div>
                       {item.fileType === 'edited_photo' && (
                         <Badge className="absolute top-2 left-2 bg-purple-500 hover:bg-purple-600">
                           <Wand2 className="h-3 w-3 mr-1" />
