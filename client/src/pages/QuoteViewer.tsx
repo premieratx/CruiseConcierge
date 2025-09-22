@@ -137,6 +137,37 @@ function QuoteViewerContent() {
     isCalendarFlow ? (calendarData?.groupSize || 20) : 20
   );
   
+  // Retrieve contact info and payment details from sessionStorage (for calendar flow)
+  useEffect(() => {
+    if (isCalendarFlow) {
+      const storedInfo = sessionStorage.getItem('checkoutContactInfo');
+      if (storedInfo) {
+        try {
+          const parsed = JSON.parse(storedInfo);
+          setContactInfo({
+            firstName: parsed.firstName || '',
+            lastName: parsed.lastName || '',
+            email: parsed.email || '',
+            phone: parsed.phone || ''
+          });
+          
+          // Set other stored preferences
+          if (parsed.selectedAddOns) {
+            setSelectedAddOns(Array.isArray(parsed.selectedAddOns) ? parsed.selectedAddOns : []);
+          }
+          if (parsed.discoPackage) {
+            setSelectedDiscoPackage(parsed.discoPackage);
+          }
+          if (parsed.discountCode) {
+            setDiscountCode(parsed.discountCode);
+          }
+        } catch (e) {
+          console.error('Failed to parse stored checkout info:', e);
+        }
+      }
+    }
+  }, [isCalendarFlow]);
+  
   // Capacity filter options aligned with boat tiers
   const capacityOptions = [14, 25, 50, 75]; // Matches boat capacity breakpoints
   
@@ -541,11 +572,18 @@ function QuoteViewerContent() {
 
     console.log('💳 handlePayment called with:', { paymentType, cruiseType: effectiveCruiseType });
 
-    // Show confirmation popup for calendar flow
-    if (isCalendarFlow && !contactInfo.email) {
-      console.log('💳 Showing booking confirmation popup...');
-      setIsConfirmationPopupOpen(true);
-      return;
+    // For calendar flow, check if we have contact info from sessionStorage
+    if (isCalendarFlow) {
+      // Contact info should be in state from sessionStorage
+      if (!contactInfo.email) {
+        // If somehow missing, show error
+        toast({
+          title: "Contact Information Missing",
+          description: "Please go back to the booking form and complete your contact details.",
+          variant: "destructive"
+        });
+        return;
+      }
     }
 
     try {

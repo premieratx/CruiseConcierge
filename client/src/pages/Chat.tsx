@@ -1547,22 +1547,19 @@ export default function Chat() {
       };
       
       // NEW: Redirect to unified QuoteViewer checkout page (NO PII in URLs for security)
-      const checkoutParams = new URLSearchParams({
-        entryPoint: 'calendar_flow', // Mark as calendar flow for QuoteViewer
-        cruiseType,
-        eventType: formData.eventType,
-        groupSize: (cruiseType === 'disco' ? formData.discoTicketQuantity : formData.groupSize).toString(),
+      // QuoteViewer expects data in a single 'data' parameter with JSON-encoded object
+      const calendarData = {
         eventDate: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : '',
+        eventType: formData.eventType,
+        groupSize: cruiseType === 'disco' ? formData.discoTicketQuantity : formData.groupSize,
+        cruiseType: cruiseType,
         selectedTimeSlot: formData.selectedSlot ? `${formData.selectedSlot.startTime}-${formData.selectedSlot.endTime}` : '',
-        slotId: formData.selectedSlot?.id || '',
         boatId: formData.selectedSlot?.boatCandidates?.[0] || '',
-        discountCode: formData.discountCode || '',
-        paymentType,
-        // SECURITY: Remove PII from URLs - store in sessionStorage instead
-        selectedAddOns: formData.selectedAddOnPackages.join(','),
-        discoPackage: cruiseType === 'disco' ? formData.selectedDiscoPackage : '',
-        discoTicketQuantity: cruiseType === 'disco' ? formData.discoTicketQuantity.toString() : ''
-      });
+        slotId: formData.selectedSlot?.id || ''
+      };
+      
+      // Encode the data for URL
+      const encodedData = encodeURIComponent(JSON.stringify(calendarData));
       
       // Store contact info in sessionStorage for security (no PII in URLs)
       sessionStorage.setItem('checkoutContactInfo', JSON.stringify({
@@ -1570,7 +1567,11 @@ export default function Chat() {
         lastName: formData.lastName,
         email: formData.email,
         phone: formData.phone,
-        specialRequests: formData.specialRequests
+        specialRequests: formData.specialRequests,
+        paymentType: paymentType,
+        selectedAddOns: formData.selectedAddOnPackages,
+        discoPackage: cruiseType === 'disco' ? formData.selectedDiscoPackage : '',
+        discountCode: formData.discountCode
       }));
       
       // Reset state
@@ -1578,8 +1579,8 @@ export default function Chat() {
       setPendingPaymentType(null);
       setPendingCruiseType(null);
       
-      // Redirect to universal QuoteViewer checkout page
-      window.location.href = `/quote-checkout?${checkoutParams.toString()}`;
+      // Redirect to universal QuoteViewer checkout page with data parameter
+      window.location.href = `/quote?data=${encodedData}`;
     } catch (error) {
       console.error('Error creating checkout session:', error);
       toast({
