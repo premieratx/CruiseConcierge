@@ -12,7 +12,7 @@ import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from '@/components/ui/select';
-import { Calendar, AlertCircle, Loader2, Anchor, Music, Printer, Calendar as CalendarIconLucide, Sparkles, Ship, ChevronLeft, ChevronRight, CalendarIcon } from 'lucide-react';
+import { Calendar, AlertCircle, Loader2, Anchor, Music, Printer, Calendar as CalendarIconLucide, Sparkles, Ship, ChevronLeft, ChevronRight, CalendarIcon, Users } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 
@@ -553,7 +553,7 @@ function QuoteViewerContent() {
     if (isCalendarFlow) {
       fetchWeeklyAvailability();
     }
-  }, [isCalendarFlow, eventDate, capacityFilter]);
+  }, [isCalendarFlow, eventDate, capacityFilter, groupSize, fetchWeeklyAvailability]);
 
   // Find and set the selectedSlot when weekly slots are loaded and we have a selectedSlotId
   useEffect(() => {
@@ -790,15 +790,35 @@ function QuoteViewerContent() {
 
   return (
     <div className="min-h-screen bg-gray-50 print:bg-white">
-      {/* Header */}
+      {/* Combined Header with Cruise Heading */}
       <div className="bg-white border-b print:hidden">
-        <div className="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-          <img src={logoPath} alt="Premier Party Cruises" className="h-12" />
-          <div className="flex gap-3">
+        <div className="max-w-7xl mx-auto px-4 py-4">
+          <div className="flex justify-between items-center mb-4">
+            <img src={logoPath} alt="Premier Party Cruises" className="h-12" />
+            <div className="flex-1 text-center px-4">
+              <h1 className="text-4xl font-bold text-gray-900">
+                {selectedCruiseType === 'disco' ? '🎵 ATX Disco Cruise' : '🚢 Private Cruise'} for {groupSize} People
+              </h1>
+            </div>
             <Button variant="outline" size="sm" onClick={() => window.print()}>
               <Printer className="h-4 w-4 mr-2" />
               Print
             </Button>
+          </div>
+          <div className="text-center">
+            <Badge className="text-xl px-4 py-2" variant="default">
+              {eventType === 'bachelor' ? '🤵 Bachelor Party' : 
+               eventType === 'bachelorette' ? '👰 Bachelorette Party' : 
+               eventType === 'wedding' ? '💒 Wedding' : 
+               eventType === 'birthday' ? '🎂 Birthday' : 
+               eventType === 'corporate' ? '💼 Corporate Event' : 
+               '🎉 Party'}
+            </Badge>
+            {quote && (
+              <Badge variant={isExpired ? "destructive" : "secondary"} className="ml-3 text-lg px-3 py-1">
+                {isExpired ? 'EXPIRED' : 'Active Quote'}
+              </Badge>
+            )}
           </div>
         </div>
       </div>
@@ -806,164 +826,121 @@ function QuoteViewerContent() {
       <div className="max-w-7xl mx-auto px-4 py-8">
         {/* 17HATS-STYLE WEEKLY INTERFACE */}
         <div className="space-y-6">
-          {/* Title and Status */}
-          <div className="flex justify-between items-start">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">
-                {selectedCruiseType === 'disco' ? '🎵 ATX Disco Cruise' : '🚢 Private Cruise'} for {groupSize} People
-              </h1>
-              <div className="flex items-center gap-3 mt-2">
-                <Badge className="text-lg px-3 py-1" variant="default">
-                  {eventType === 'bachelor' ? '🤵 Bachelor Party' : 
-                   eventType === 'bachelorette' ? '👰 Bachelorette Party' : 
-                   eventType === 'wedding' ? '💒 Wedding' : 
-                   eventType === 'birthday' ? '🎂 Birthday' : 
-                   eventType === 'corporate' ? '💼 Corporate Event' : 
-                   '🎉 Party'}
-                </Badge>
-                <span className="text-lg text-gray-700 font-medium">
-                  {/* Show boat capacity that will be used */}
-                  {groupSize <= 14 ? 'Day Tripper (14 person boat)' :
-                   groupSize <= 25 ? 'Me Seeks The Irony (25 person boat)' :
-                   groupSize <= 50 ? 'Clever Girl (50 person boat)' :
-                   groupSize <= 75 ? 'Clever Girl (75 person boat)' :
-                   'Multiple boats may be required'}
-                </span>
-              </div>
-              <p className="text-gray-600 mt-2">Select your preferred date and time below</p>
-            </div>
-            {quote && (
-              <Badge variant={isExpired ? "destructive" : "secondary"} className="mt-2">
-                {isExpired ? 'EXPIRED' : 'Active Quote'}
-              </Badge>
-            )}
-          </div>
 
           {/* Date Navigation Header */}
           <Card className="bg-white border-gray-200 shadow-sm">
-            <CardContent className="py-3">
+            <CardContent className="py-6">
               <div className="flex items-center justify-between">
                 <Button 
                   variant="ghost" 
-                  size="sm" 
+                  size="lg" 
                   onClick={() => {
                     const currentDate = new Date(eventDate || new Date());
                     const newDate = new Date(currentDate);
-                    newDate.setDate(currentDate.getDate() - 1);
+                    newDate.setDate(currentDate.getDate() - 7);
                     setEventDate(format(newDate, 'yyyy-MM-dd'));
+                    fetchWeeklyAvailability();
                   }}
-                  className="h-8 w-8 p-0"
+                  className="h-14 w-14 p-0 hover:bg-blue-50"
                   data-testid="button-date-prev"
                 >
-                  <ChevronLeft className="h-4 w-4" />
+                  <ChevronLeft className="h-8 w-8" />
                 </Button>
                 
                 <div className="text-center">
-                  <h2 className="text-lg font-bold text-gray-900">
+                  <h2 className="text-3xl font-bold text-gray-900">
                     {eventDate ? format(new Date(eventDate), 'EEEE, MMMM d, yyyy') : 'Select a date'}
                   </h2>
+                  <p className="text-lg text-gray-600 mt-1">Select your preferred date and time below</p>
                 </div>
                 
                 <Button 
                   variant="ghost" 
-                  size="sm" 
+                  size="lg" 
                   onClick={() => {
                     const currentDate = new Date(eventDate || new Date());
                     const newDate = new Date(currentDate);
-                    newDate.setDate(currentDate.getDate() + 1);
+                    newDate.setDate(currentDate.getDate() + 7);
                     setEventDate(format(newDate, 'yyyy-MM-dd'));
+                    fetchWeeklyAvailability();
                   }}
-                  className="h-8 w-8 p-0"
+                  className="h-14 w-14 p-0 hover:bg-blue-50"
                   data-testid="button-date-next"
                 >
-                  <ChevronRight className="h-4 w-4" />
+                  <ChevronRight className="h-8 w-8" />
                 </Button>
               </div>
             </CardContent>
           </Card>
 
+          {/* Group Size Selection - Centered Below Date */}
+          <div className="flex justify-center">
+            <div className="inline-block">
+              <p className="text-center text-lg text-gray-600 mb-4">Adjust Group Size</p>
+              <div className="flex gap-3 justify-center">
+                <Button
+                  variant={groupSize <= 14 ? "default" : "outline"}
+                  size="lg"
+                  className="rounded-full h-16 w-16 text-lg font-bold"
+                  onClick={() => {
+                    setGroupSize(14);
+                    setCapacityFilter(14);
+                  }}
+                  data-testid="button-capacity-14"
+                >
+                  ≤14
+                </Button>
+                <Button
+                  variant={groupSize > 14 && groupSize <= 25 ? "default" : "outline"}
+                  size="lg"
+                  className="rounded-full h-16 w-16 text-lg font-bold"
+                  onClick={() => {
+                    setGroupSize(20);
+                    setCapacityFilter(25);
+                  }}
+                  data-testid="button-capacity-25"
+                >
+                  25
+                </Button>
+                <Button
+                  variant={groupSize > 25 && groupSize <= 50 ? "default" : "outline"}
+                  size="lg"
+                  className="rounded-full h-16 w-16 text-lg font-bold"
+                  onClick={() => {
+                    setGroupSize(35);
+                    setCapacityFilter(50);
+                  }}
+                  data-testid="button-capacity-50"
+                >
+                  50
+                </Button>
+                <Button
+                  variant={groupSize > 50 && groupSize <= 75 ? "default" : "outline"}
+                  size="lg"
+                  className="rounded-full h-16 w-16 text-lg font-bold"
+                  onClick={() => {
+                    setGroupSize(60);
+                    setCapacityFilter(75);
+                  }}
+                  data-testid="button-capacity-75"
+                >
+                  75
+                </Button>
+              </div>
+              <p className="text-center text-base text-gray-500 mt-3">
+                Currently showing options for: <span className="font-bold">{groupSize} people</span>
+              </p>
+            </div>
+          </div>
+
           {/* Main Content Grid */}
           <div className="grid lg:grid-cols-3 gap-6">
             {/* Left Column: Selection Interface */}
-            <div className="lg:col-span-2 space-y-6">
-              {/* Cruise Type Toggle for Bachelor/Bachelorette */}
-              {/* Capacity Filter Buttons */}
-              <Card className="bg-gray-50 border-gray-200">
-                <CardHeader className="pb-3">
-                  <CardTitle className="text-sm text-gray-600">Adjust Group Size</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-wrap gap-1">
-                    <Button
-                      variant={groupSize <= 14 ? "secondary" : "ghost"}
-                      size="sm"
-                      className="text-xs h-7 px-2"
-                      onClick={() => {
-                        setGroupSize(14);
-                        setCapacityFilter(14);
-                      }}
-                      data-testid="button-capacity-14"
-                    >
-                      ≤14
-                    </Button>
-                    <Button
-                      variant={groupSize > 14 && groupSize <= 25 ? "secondary" : "ghost"}
-                      size="sm"
-                      className="text-xs h-7 px-2"
-                      onClick={() => {
-                        setGroupSize(20);
-                        setCapacityFilter(25);
-                      }}
-                      data-testid="button-capacity-25"
-                    >
-                      15-25
-                    </Button>
-                    <Button
-                      variant={groupSize > 25 && groupSize <= 50 ? "secondary" : "ghost"}
-                      size="sm"
-                      className="text-xs h-7 px-2"
-                      onClick={() => {
-                        setGroupSize(35);
-                        setCapacityFilter(50);
-                      }}
-                      data-testid="button-capacity-50"
-                    >
-                      26-50
-                    </Button>
-                    <Button
-                      variant={groupSize > 50 && groupSize <= 75 ? "secondary" : "ghost"}
-                      size="sm"
-                      className="text-xs h-7 px-2"
-                      onClick={() => {
-                        setGroupSize(60);
-                        setCapacityFilter(75);
-                      }}
-                      data-testid="button-capacity-75"
-                    >
-                      51-75
-                    </Button>
-                    <Button
-                      variant={capacityFilter === null ? "secondary" : "ghost"}
-                      size="sm"
-                      className="text-xs h-7 px-2"
-                      onClick={() => {
-                        setCapacityFilter(null);
-                      }}
-                      data-testid="button-capacity-all"
-                    >
-                      All
-                    </Button>
-                  </div>
-                  <p className="text-xs text-gray-500 mt-2">
-                    Showing options for: {groupSize} people
-                  </p>
-                </CardContent>
-              </Card>
-
+            <div className="lg:col-span-2">
               {/* Weekly Availability Grid */}
               <Card>
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-base">Available Times</CardTitle>
+                <CardHeader className="pb-4">
+                  <CardTitle className="text-2xl">Available Times This Week</CardTitle>
                 </CardHeader>
                 <CardContent className="pt-2">
                   {isLoadingWeekly ? (
@@ -1029,21 +1006,21 @@ function QuoteViewerContent() {
                               const filteredDiscoSlots = showDisco ? discoSlots : [];
                               
                               return (
-                                <div key={dayName} className={`border rounded-lg p-2 ${isWeekend ? 'bg-gray-50' : 'bg-blue-50'}`}>
-                                  <div className="flex items-center justify-between mb-2">
-                                    <h3 className="font-semibold text-gray-900 text-sm">
-                                      {dayName}, {displayDate}
-                                    </h3>
-                                    <div className="flex flex-col items-center">
-                                      <span className="text-xs text-gray-500">Fits</span>
-                                      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-600 text-white font-bold text-sm">
-                                        {/* Show boat capacity based on group size */}
-                                        {groupSize <= 14 ? '14' :
-                                         groupSize <= 25 ? '25' :
-                                         groupSize <= 50 ? '50' :
-                                         groupSize <= 75 ? '75' :
-                                         '75+'}
-                                      </div>
+                                <div key={dayName} className={`border rounded-lg p-4 ${isWeekend ? 'bg-gray-50' : 'bg-blue-50'}`}>
+                                  <div className="flex items-center justify-between mb-4">
+                                    <div>
+                                      <h3 className="font-bold text-gray-900 text-2xl">
+                                        {dayName}
+                                      </h3>
+                                      <p className="text-lg text-gray-600">{displayDate}</p>
+                                    </div>
+                                    <div className="flex items-center justify-center w-16 h-16 rounded-full bg-yellow-400 text-gray-900 font-bold text-xl shadow-md">
+                                      {/* Show boat capacity based on group size */}
+                                      {groupSize <= 14 ? '14' :
+                                       groupSize <= 25 ? '25' :
+                                       groupSize <= 50 ? '50' :
+                                       groupSize <= 75 ? '75' :
+                                       '75+'}
                                     </div>
                                   </div>
                                   
@@ -1125,7 +1102,9 @@ function QuoteViewerContent() {
                                                   
                                                   return (
                                                     <SelectItem key={slotId} value={slotId}>
-                                                      {formatTimeToAMPM(slot.startTime)} - {formatTimeToAMPM(slot.endTime)} (${getHourlyRate()}/hr)
+                                                      <span className="text-base">
+                                                        {formatTimeToAMPM(slot.startTime)} - {formatTimeToAMPM(slot.endTime)} (${getHourlyRate()}/hr)
+                                                      </span>
                                                     </SelectItem>
                                                   );
                                                 })}
@@ -1140,7 +1119,7 @@ function QuoteViewerContent() {
                                   {/* Private Cruise Options - Only show for weekends */}
                                   {!isWeekday && filteredPrivateSlots.length > 0 && (
                                     <div className="mb-2">
-                                      {showDisco && <h4 className="text-xs font-medium text-gray-700 mb-1">🚢 Private Cruise</h4>}
+                                      {showDisco && <h4 className="text-base font-medium text-gray-700 mb-2">🚢 Private Cruise</h4>}
                                       <RadioGroup value={selectedOption} onValueChange={handleOptionSelect}>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
                                           {filteredPrivateSlots.map((slot) => {
@@ -1180,12 +1159,12 @@ function QuoteViewerContent() {
                                                   data-testid={`radio-slot-${slotId}`} 
                                                   className="h-3 w-3"
                                                 />
-                                                <Label htmlFor={slotId} className={`flex-1 ${isBooked ? 'cursor-not-allowed' : 'cursor-pointer'} text-xs`}>
-                                                  <div className="flex justify-between items-center">
-                                                    <span className={isBooked ? 'line-through text-red-600' : ''}>
+                                                <Label htmlFor={slotId} className={`flex-1 ${isBooked ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
+                                                  <div className="flex justify-between items-center py-1">
+                                                    <span className={`text-base ${isBooked ? 'line-through text-red-600' : ''}`}>
                                                       {formatTimeToAMPM(slot.startTime)} - {formatTimeToAMPM(slot.endTime)}
                                                     </span>
-                                                    <span className={`text-xs ${isBooked ? 'text-red-600' : 'text-gray-600'}`}>
+                                                    <span className={`text-sm ${isBooked ? 'text-red-600 font-bold' : 'text-gray-600'}`}>
                                                       {isBooked ? 'SOLD' : `$${getHourlyRate()}/hr`}
                                                     </span>
                                                   </div>
@@ -1201,7 +1180,7 @@ function QuoteViewerContent() {
                                   {/* Disco Cruise Options (bachelor/bachelorette only) */}
                                   {showDisco && filteredDiscoSlots.length > 0 && (
                                     <div>
-                                      <h4 className="text-xs font-medium text-gray-700 mb-1">🎵 ATX Disco Cruise</h4>
+                                      <h4 className="text-base font-medium text-gray-700 mb-2">🎵 ATX Disco Cruise</h4>
                                       <RadioGroup value={selectedOption} onValueChange={handleOptionSelect}>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
                                           {filteredDiscoSlots.map((slot, index) => {
@@ -1219,12 +1198,12 @@ function QuoteViewerContent() {
                                                   data-testid={`radio-slot-${slotId}`} 
                                                   className="h-3 w-3"
                                                 />
-                                                <Label htmlFor={slotId} className={`flex-1 ${isBooked ? 'cursor-not-allowed' : 'cursor-pointer'} text-xs`}>
-                                                  <div className="flex justify-between items-center">
-                                                    <span className={isBooked ? 'line-through text-red-600' : ''}>
+                                                <Label htmlFor={slotId} className={`flex-1 ${isBooked ? 'cursor-not-allowed' : 'cursor-pointer'}`}>
+                                                  <div className="flex justify-between items-center py-1">
+                                                    <span className={`text-base ${isBooked ? 'line-through text-red-600' : ''}`}>
                                                       {formatTimeToAMPM(slot.startTime)} - {formatTimeToAMPM(slot.endTime)}
                                                     </span>
-                                                    <span className={`text-xs ${isBooked ? 'text-red-600' : 'text-purple-600'}`}>
+                                                    <span className={`text-sm ${isBooked ? 'text-red-600 font-bold' : 'text-purple-600'}`}>
                                                       {isBooked ? 'SOLD' : '$85+/p'}
                                                     </span>
                                                   </div>
@@ -1245,9 +1224,9 @@ function QuoteViewerContent() {
                     </div>
                   ) : (
                     <div className="text-center py-12">
-                      <CalendarIconLucide className="h-12 w-12 text-gray-400 mx-auto mb-3" />
-                      <p className="text-gray-600">No available slots this week</p>
-                      <p className="text-sm text-gray-500 mt-1">Try adjusting your group size or selecting a different week</p>
+                      <CalendarIconLucide className="h-16 w-16 text-gray-400 mx-auto mb-4" />
+                      <p className="text-xl text-gray-600">No available slots this week</p>
+                      <p className="text-base text-gray-500 mt-2">Try adjusting your group size or selecting a different week</p>
                     </div>
                   )}
                 </CardContent>
