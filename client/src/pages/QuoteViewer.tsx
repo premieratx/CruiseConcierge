@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'wouter';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
@@ -158,7 +158,7 @@ export default function QuoteViewer() {
   }, [quote]);
 
   // Fetch private cruise pricing (works for both quote and calendar flow)
-  const fetchPrivatePricing = async () => {
+  const fetchPrivatePricing = useCallback(async () => {
     setPricingLoading(true);
     try {
       let pricingRequest;
@@ -217,10 +217,10 @@ export default function QuoteViewer() {
     } finally {
       setPricingLoading(false);
     }
-  };
+  }, [isCalendarFlow, calendarData, selectedAddOns, groupSize, quote, discountCode]);
 
   // Fetch disco cruise pricing (works for both quote and calendar flow)
-  const fetchDiscoPricing = async () => {
+  const fetchDiscoPricing = useCallback(async () => {
     setPricingLoading(true);
     try {
       if (isCalendarFlow) {
@@ -267,7 +267,7 @@ export default function QuoteViewer() {
     } finally {
       setPricingLoading(false);
     }
-  };
+  }, [isCalendarFlow, calendarData, selectedDiscoPackage, discoTicketQuantity, quote, discountCode]);
 
   // Refresh pricing when dependencies change (for both quote and calendar flow)
   useEffect(() => {
