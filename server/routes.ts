@@ -8110,6 +8110,26 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Invalid payment amount calculated from pricing" });
       }
 
+      // Apply discount code logic
+      let originalAmount = amount;
+      let discountAmount = 0;
+      let discountPercentage = 0;
+      const discountCode = effectiveSelections?.discountCode || metadata?.discountCode || '';
+      
+      // HARDCODED TEST DISCOUNT CODE: TESTMODE99 gives 99% off
+      if (discountCode && discountCode.toUpperCase() === 'TESTMODE99') {
+        discountPercentage = 99;
+        discountAmount = Math.round(originalAmount * 0.99);
+        amount = Math.round(originalAmount * 0.01); // 1% of original amount
+        
+        console.log('💯 Applying TESTMODE99 discount:', {
+          originalAmount,
+          discountPercentage,
+          discountAmount,
+          finalAmount: amount
+        });
+      }
+
       console.log('💳 Creating payment intent:', {
         paymentType: effectivePaymentType,
         cruiseType,
@@ -8136,15 +8156,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
           startTime: effectiveSelections.startTime || '',
           endTime: effectiveSelections.endTime || '',
           boatId: effectiveSelections.boatId || effectiveSelections.selectedBoat?.id || '',
+          selectedBoat: effectiveSelections.selectedBoat ? JSON.stringify(effectiveSelections.selectedBoat) : '',
           slotId: effectiveSelections.slotId || '',
           contactName: effectiveSelections.contactName || `${effectiveSelections.firstName || ''} ${effectiveSelections.lastName || ''}`.trim(),
           contactEmail: effectiveSelections.contactEmail || effectiveSelections.email || customerEmail || '',
           firstName: effectiveSelections.firstName || '',
           lastName: effectiveSelections.lastName || '',
           phone: effectiveSelections.phone || '',
-          selectedAddOns: Array.isArray(effectiveSelections.selectedAddOns) ? effectiveSelections.selectedAddOns.join(',') : '',
+          // Fix: Stringify selectedAddOns properly
+          selectedAddOns: effectiveSelections.selectedAddOns ? JSON.stringify(effectiveSelections.selectedAddOns) : '[]',
           discoPackage: effectiveSelections.discoPackage || '',
-          discountCode: effectiveSelections.discountCode || ''
+          discountCode: effectiveSelections.discountCode || metadata.discountCode || ''
         });
       }
 
@@ -8156,7 +8178,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
           gratuity: (effectivePricing.gratuity || 0).toString(),
           total: (effectivePricing.total || 0).toString(),
           depositAmount: (effectivePricing.depositAmount || 0).toString(),
-          depositPercent: (effectivePricing.depositPercent || 50).toString()
+          depositPercent: (effectivePricing.depositPercent || 50).toString(),
+          // Add discount information if applied
+          originalAmount: originalAmount.toString(),
+          discountCode: discountCode,
+          discountPercentage: discountPercentage.toString(),
+          discountAmount: discountAmount.toString(),
+          finalAmount: amount.toString()
         });
       }
 
@@ -8164,8 +8192,19 @@ export async function registerRoutes(app: Express): Promise<Server> {
       if (holdId) paymentMetadata.holdId = holdId;
       if (sessionId) paymentMetadata.sessionId = sessionId;
 
-      // Merge with any additional metadata
-      Object.assign(paymentMetadata, metadata);
+      // Merge with any additional metadata, ensuring all values are strings
+      if (metadata) {
+        Object.keys(metadata).forEach(key => {
+          const value = metadata[key];
+          if (value === null || value === undefined) {
+            paymentMetadata[key] = '';
+          } else if (typeof value === 'object') {
+            paymentMetadata[key] = JSON.stringify(value);
+          } else {
+            paymentMetadata[key] = String(value);
+          }
+        });
+      }
 
       // Create payment intent with comprehensive metadata
       const paymentIntent = await stripe.paymentIntents.create({

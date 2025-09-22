@@ -67,41 +67,100 @@ function PaymentForm({
   const [clientSecret, setClientSecret] = useState<string>('');
   const [contactInfo, setContactInfo] = useState(initialContactInfo);
   const [contactErrors, setContactErrors] = useState<any>({});
+  const [discountCode, setDiscountCode] = useState<string>('');
+  const [discountedAmount, setDiscountedAmount] = useState<number | null>(null);
+  const [isValidatingDiscount, setIsValidatingDiscount] = useState(false);
+
+  // Create payment intent function
+  const createPaymentIntent = async () => {
+    try {
+      const response = await apiRequest('POST', '/api/checkout/create-payment-intent', {
+        paymentType,
+        cruiseType,
+        selectionPayload: {
+          ...selectionPayload,
+          discountCode: discountCode // Include discount code
+        },
+        pricing,
+        customerEmail: contactInfo.email,
+        holdId,
+        metadata: {
+          firstName: contactInfo.firstName,
+          lastName: contactInfo.lastName,
+          phone: contactInfo.phone,
+          discountCode: discountCode,
+          ...selectionPayload
+        }
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to create payment intent');
+      }
+
+      const data = await response.json();
+      setClientSecret(data.clientSecret);
+      
+      // Update discounted amount if discount applied
+      if (discountCode && data.amount) {
+        setDiscountedAmount(data.amount);
+      }
+      
+      return data;
+    } catch (error: any) {
+      console.error('Failed to create payment intent:', error);
+      onError(error.message);
+      return null;
+    }
+  };
 
   // Create payment intent on mount
   useEffect(() => {
-    const createPaymentIntent = async () => {
-      try {
-        const response = await apiRequest('POST', '/api/checkout/create-payment-intent', {
-          paymentType,
-          cruiseType,
-          selectionPayload,
-          pricing,
-          customerEmail: contactInfo.email,
-          holdId,
-          metadata: {
-            firstName: contactInfo.firstName,
-            lastName: contactInfo.lastName,
-            phone: contactInfo.phone,
-            ...selectionPayload
-          }
-        });
-
-        if (!response.ok) {
-          const error = await response.json();
-          throw new Error(error.error || 'Failed to create payment intent');
-        }
-
-        const data = await response.json();
-        setClientSecret(data.clientSecret);
-      } catch (error: any) {
-        console.error('Failed to create payment intent:', error);
-        onError(error.message);
-      }
-    };
-
     createPaymentIntent();
   }, []);
+
+  // Apply discount code
+  const handleApplyDiscount = async () => {
+    if (!discountCode) {
+      toast({
+        title: "Please enter a discount code",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsValidatingDiscount(true);
+    try {
+      // Re-create payment intent with discount code
+      const result = await createPaymentIntent();
+      
+      if (result) {
+        // Check if discount was applied (hardcoded check for now)
+        if (discountCode.toUpperCase() === 'TESTMODE99') {
+          toast({
+            title: "Discount applied!",
+            description: "99% off has been applied to your total",
+          });
+        } else {
+          toast({
+            title: "Invalid discount code",
+            description: "The discount code you entered is not valid",
+            variant: "destructive"
+          });
+          setDiscountCode('');
+          setDiscountedAmount(null);
+        }
+      }
+    } catch (error) {
+      toast({
+        title: "Error applying discount",
+        description: "Failed to apply the discount code",
+        variant: "destructive"
+      });
+    } finally {
+      setIsValidatingDiscount(false);
+    }
+  };
 
   const validateContact = () => {
     const errors: any = {};
@@ -189,10 +248,13 @@ function PaymentForm({
     }
   };
 
-  // Calculate payment amount
-  const amount = paymentType === 'deposit' 
+  // Calculate payment amount (use discounted amount if available)
+  const originalAmount = paymentType === 'deposit' 
     ? pricing?.depositAmount || 0
     : pricing?.total || 0;
+  
+  const amount = discountedAmount !== null ? discountedAmount : originalAmount;
+  const isDiscounted = discountCode.toUpperCase() === 'TESTMODE99' && discountedAmount !== null;
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -263,6 +325,48 @@ function PaymentForm({
 
       <Separator />
 
+      {/* Discount Code Section */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">Discount Code</h3>
+        <div className="flex gap-2">
+          <Input
+            placeholder="Enter discount code"
+            value={discountCode}
+            onChange={(e) => setDiscountCode(e.target.value.toUpperCase())}
+            data-testid="input-discount-code"
+            className="flex-1"
+            disabled={isValidatingDiscount}
+          />
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={handleApplyDiscount}
+            disabled={!discountCode || isValidatingDiscount}
+            data-testid="button-apply-discount"
+          >
+            {isValidatingDiscount ? (
+              <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Applying...</>
+            ) : (
+              'Apply'
+            )}
+          </Button>
+        </div>
+        {isDiscounted && (
+          <Alert className="border-green-200 bg-green-50">
+            <AlertCircle className="h-4 w-4 text-green-600" />
+            <AlertDescription className="text-green-800">
+              <div className="font-semibold">99% discount applied!</div>
+              <div className="text-sm mt-1">
+                Original: ${(originalAmount / 100).toFixed(2)} → 
+                <span className="font-semibold ml-1">Now: ${(amount / 100).toFixed(2)}</span>
+              </div>
+            </AlertDescription>
+          </Alert>
+        )}
+      </div>
+
+      <Separator />
+
       {/* Payment Information */}
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">Payment Information</h3>
@@ -289,9 +393,29 @@ function PaymentForm({
       <div className="flex items-center justify-between">
         <div className="text-sm text-muted-foreground">
           {paymentType === 'deposit' ? (
-            <>Deposit: ${(amount / 100).toFixed(2)}</>
+            <div>
+              <span>Deposit: </span>
+              {isDiscounted && (
+                <>
+                  <span className="line-through text-gray-400">${(originalAmount / 100).toFixed(2)}</span>
+                  <span className="ml-1 font-semibold text-green-600">${(amount / 100).toFixed(2)}</span>
+                  <span className="ml-1 text-xs text-green-600">(99% OFF)</span>
+                </>
+              )}
+              {!isDiscounted && <span>${(amount / 100).toFixed(2)}</span>}
+            </div>
           ) : (
-            <>Total: ${(amount / 100).toFixed(2)}</>
+            <div>
+              <span>Total: </span>
+              {isDiscounted && (
+                <>
+                  <span className="line-through text-gray-400">${(originalAmount / 100).toFixed(2)}</span>
+                  <span className="ml-1 font-semibold text-green-600">${(amount / 100).toFixed(2)}</span>
+                  <span className="ml-1 text-xs text-green-600">(99% OFF)</span>
+                </>
+              )}
+              {!isDiscounted && <span>${(amount / 100).toFixed(2)}</span>}
+            </div>
           )}
         </div>
         <Button
