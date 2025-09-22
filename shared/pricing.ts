@@ -41,7 +41,7 @@ export function calculateSimplePricing(
   // 2. Simple lookup from HOURLY_RATES table - NO API CALLS!
   const baseHourlyRate = HOURLY_RATES[dayType][capacityTier];
   
-  // 3. Calculate add-on costs (Essentials = +$50/hr)
+  // 3. Calculate add-on costs (Essentials = +$50/hr, Ultimate = +$75/hr)
   let addOnHourlyRate = 0;
   const addOnDetails: Array<{id: string; name: string; hourlyRate: number}> = [];
   
@@ -51,6 +51,15 @@ export function calculateSimplePricing(
       id: 'essentials',
       name: 'Essentials Package',
       hourlyRate: 5000
+    });
+  }
+  
+  if (selectedAddOns.includes('ultimate')) {
+    addOnHourlyRate += 7500; // $75/hr in cents
+    addOnDetails.push({
+      id: 'ultimate',
+      name: 'Ultimate Party Package',
+      hourlyRate: 7500
     });
   }
   

@@ -2648,41 +2648,20 @@ export default function Chat() {
                                 </div>
                               </div>
                               
-                              {/* Duration & Rate Display */}
+                              {/* Clean Package & Duration Display */}
                               <div className="mb-4 p-3 bg-white/50 dark:bg-slate-800/50 rounded-lg">
                                 <div className="flex items-center justify-between mb-2">
+                                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Package:</span>
+                                  <span className="font-bold text-purple-600">
+                                    {formData.selectedAddOnPackages.includes('ultimate') ? 'Ultimate Party Package' :
+                                     formData.selectedAddOnPackages.includes('essentials') ? 'Essentials Package' : 
+                                     'Standard Package'}
+                                  </span>
+                                </div>
+                                <div className="flex items-center justify-between">
                                   <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Duration:</span>
                                   <span className="font-bold text-blue-600">{getCruiseDuration(formData.eventDate)} hours</span>
                                 </div>
-                                <div className="flex items-center justify-between mb-2">
-                                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Base Rate:</span>
-                                  <span className="font-bold text-blue-600">{privatePricing ? formatCurrency(privatePricing.baseHourlyRate || 25000) + '/hour' : 'Calculating...'}</span>
-                                </div>
-                                {formData.selectedAddOnPackages.length > 0 && (
-                                  <div className="flex items-center justify-between mb-2">
-                                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Add-ons:</span>
-                                    <span className="font-bold text-green-600">+{formatCurrency(formData.selectedAddOnPackages.reduce((sum, addOnId) => {
-                                      const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
-                                      return sum + (addOn?.hourlyRate || 0) * 100; // Convert to cents
-                                    }, 0))}/hour</span>
-                                  </div>
-                                )}
-                                <div className="flex items-center justify-between mb-2">
-                                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Total Rate:</span>
-                                  <span className="font-bold text-purple-600">{privatePricing ? formatCurrency(privatePricing.hourlyRate || privatePricing.baseHourlyRate || 25000) + '/hour' : 'Calculating...'}</span>
-                                </div>
-                                <div className="flex items-center justify-between border-t pt-2">
-                                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Total Cost:</span>
-                                  <span className="font-bold text-blue-600">
-                                    {privatePricing ? formatCurrency(privatePricing.total || 0) : 'Calculating...'}
-                                  </span>
-                                </div>
-                                {privatePricing?.breakdown?.crewFee && privatePricing.breakdown.crewFee > 0 && (
-                                  <div className="flex items-center justify-between mt-1">
-                                    <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Extra Crew Fee:</span>
-                                    <span className="font-medium text-slate-600">+{formatCurrency(privatePricing.breakdown.crewFee)}</span>
-                                  </div>
-                                )}
                               </div>
                               
                               {/* Detailed Pricing Breakdown */}

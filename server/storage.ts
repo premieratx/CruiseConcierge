@@ -3,7 +3,7 @@ import { db } from "./db";
 import { eq, and, gte, lte, desc, asc, isNull, isNotNull, or, inArray, sql, count, sum, between } from "drizzle-orm";
 import { randomUUID } from "crypto";
 import { quoteTokenService } from "./services/quoteTokenService";
-import { SHARED_CONSTANTS } from '../shared/constants.js';
+import { HOURLY_RATES } from '../shared/constants.js';
 
 export interface IStorage {
   // Contacts
@@ -1139,8 +1139,7 @@ export class DatabaseStorage implements IStorage {
    * Helper method to get hourly rate for a boat based on its capacity and day type
    */
   private getHourlyRateForBoat(boat: Boat, dayType: 'MON_THU' | 'FRIDAY' | 'SAT_SUN'): number {
-    // ✅ USE SHARED CONSTANTS: Import from shared/constants.ts for consistency  
-    const { HOURLY_RATES } = SHARED_CONSTANTS;
+    // ✅ USE SHARED CONSTANTS: Import from shared/constants.ts for consistency
     
     // Map boat capacity to pricing tier
     let capacityTier: keyof typeof HOURLY_RATES.MON_THU;
