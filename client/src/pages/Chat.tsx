@@ -98,6 +98,7 @@ interface BookingData {
   preferredTimeLabel?: string;
   groupSizeLabel?: string;
   selectedDuration?: 3 | 4; // Duration selection for weekdays
+  discountCode: string; // Add discount code field
 }
 
 interface CompletedSelection {
@@ -470,6 +471,7 @@ export default function Chat() {
     selectedAddOnPackages: [],
     selectedDiscoPackage: null,
     discoTicketQuantity: 1,
+    discountCode: '', // Initialize discount code
   });
   
   // Fetch boats data for exact boat name display
@@ -1513,6 +1515,7 @@ export default function Chat() {
         email: formData.email,
         phone: formData.phone,
         specialRequests: formData.specialRequests,
+        discountCode: formData.discountCode, // Include discount code
         selectedSlot: formData.selectedSlot,
         selectedTimeSlot: formData.selectedSlot ? `${formData.selectedSlot.startTime}-${formData.selectedSlot.endTime}` : undefined,
         timeSlot: formData.selectedSlot ? `${formData.selectedSlot.startTime}-${formData.selectedSlot.endTime}` : undefined,
@@ -3119,6 +3122,22 @@ export default function Chat() {
                           rows={3}
                           data-testid="input-special-requests"
                         />
+                      </div>
+                      
+                      <div className="space-y-2">
+                        <Label htmlFor="discountCode">Discount Code (Optional)</Label>
+                        <Input
+                          id="discountCode"
+                          value={formData.discountCode}
+                          onChange={(e) => updateFormDataWithAutoSave({ discountCode: e.target.value })}
+                          placeholder="Enter promo code"
+                          data-testid="input-discount-code"
+                        />
+                        {formData.discountCode && (
+                          <p className="text-xs text-green-600">
+                            💰 Discount code will be applied at checkout
+                          </p>
+                        )}
                       </div>
                       
                       <div className="flex gap-3">
