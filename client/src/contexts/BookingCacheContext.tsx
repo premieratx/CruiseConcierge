@@ -174,11 +174,31 @@ export function BookingCacheProvider({ children }: { children: React.ReactNode }
         // Calculate duration from timeSlot if available
         let duration = 4; // Default duration
         if (selections.timeSlot) {
+          // Handle both formats: "10:00 - 13:00" and "10:00 AM - 1:00 PM"
           const [start, end] = selections.timeSlot.split('-').map(t => t.trim());
           if (start && end) {
-            const [startHour, startMin] = start.split(':').map(Number);
-            const [endHour, endMin] = end.split(':').map(Number);
-            const calculatedDuration = ((endHour * 60 + endMin) - (startHour * 60 + startMin)) / 60;
+            // Remove AM/PM if present and convert to 24-hour format
+            const convertTo24Hour = (timeStr: string): { hour: number; minute: number } => {
+              const timeParts = timeStr.replace(/[^0-9:]/g, '').split(':');
+              let hour = parseInt(timeParts[0]);
+              const minute = parseInt(timeParts[1]) || 0;
+              
+              // If original had PM and hour is not 12, add 12
+              if (timeStr.toLowerCase().includes('pm') && hour !== 12) {
+                hour += 12;
+              }
+              // If original had AM and hour is 12, convert to 0
+              if (timeStr.toLowerCase().includes('am') && hour === 12) {
+                hour = 0;
+              }
+              
+              return { hour, minute };
+            };
+            
+            const startTime = convertTo24Hour(start);
+            const endTime = convertTo24Hour(end);
+            
+            const calculatedDuration = ((endTime.hour * 60 + endTime.minute) - (startTime.hour * 60 + startTime.minute)) / 60;
             if (calculatedDuration > 0) {
               duration = calculatedDuration;
             }

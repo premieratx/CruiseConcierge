@@ -471,7 +471,9 @@ export default function QuoteViewer() {
       
       if (slot) {
         const boatId = slot.boatCandidates?.[0] || slot.boat || '';
-        setSelectedTimeSlot(`${slot.startTime} - ${slot.endTime}`);
+        const timeSlot = `${slot.startTime} - ${slot.endTime}`;
+        
+        setSelectedTimeSlot(timeSlot);
         setSelectedBoat(boatId);
         setSelectedBoatId(boatId); // Fix: Also set selectedBoatId
         setSelectedSlotId(slot.id || slotId);
@@ -482,12 +484,26 @@ export default function QuoteViewer() {
         } else if (cruiseType === 'disco') {
           setSelectedCruiseType('disco');
         }
+        
+        // Update booking cache to trigger pricing recalculation
+        // IMPORTANT: Use the actual time slot from the slot object
+        const correctTimeSlot = slot.timeSlot || slot.time || timeSlot;
+        updateSelection({
+          timeSlot: correctTimeSlot, // Use the correct time slot
+          selectedBoat: boatId,
+          selectedBoatId: boatId,
+          boatId: boatId,
+          slotId: slot.id || slotId,
+          date: slot.dateISO || slot.date || eventDate
+        });
       }
     } else {
       // Old object format
       const option = optionOrId;
+      const timeSlot = `${option.startTime} - ${option.endTime}`;
+      
       setSelectedOption(option.id);
-      setSelectedTimeSlot(`${option.startTime} - ${option.endTime}`);
+      setSelectedTimeSlot(timeSlot);
       setSelectedBoat(option.boatId);
       setSelectedBoatId(option.boatId); // Fix: Also set selectedBoatId
       setSelectedSlotId(option.id);
@@ -497,12 +513,25 @@ export default function QuoteViewer() {
       } else if (option.cruiseType === 'disco') {
         setSelectedCruiseType('disco');
       }
+      
+      // Update booking cache to trigger pricing recalculation
+      // IMPORTANT: Use the actual time slot from the option object
+      const correctTimeSlot = option.timeSlot || option.time || option.label || timeSlot;
+      updateSelection({
+        timeSlot: correctTimeSlot, // Use the correct time slot
+        selectedBoat: option.boatId,
+        selectedBoatId: option.boatId,
+        boatId: option.boatId,
+        slotId: option.id,
+        date: option.date || eventDate
+      });
     }
-  }, [weeklySlots]);
+  }, [weeklySlots, updateSelection]);
 
   // ⚡ INSTANT private pricing refresh (no debouncing needed!) - FIXED: Direct dependencies
   useEffect(() => {
     if (isCalendarFlow && selectedCruiseType === 'private') {
+      // Always fetch pricing when dependencies change, including when selectedTimeSlot changes
       fetchPrivatePricing(); // Instant calculation
     } else if (!isCalendarFlow && quote && isPrivateCruise(quote)) {
       fetchPrivatePricing(); // Instant calculation
@@ -835,11 +864,19 @@ export default function QuoteViewer() {
                                           const slotDate = slot.dateISO || slot.date;
                                           const slotId = `3hr_${day}_${slotType}_${boatName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
                                           
+                                          // Get hourly rate based on boat capacity tier for Mon-Thu
+                                          const getHourlyRate = () => {
+                                            if (boatName.includes('day_tripper')) return 200;
+                                            if (boatName.includes('me_seeks')) return 225;
+                                            if (boatName.includes('clever_girl')) return 250;
+                                            return 225; // Default
+                                          };
+                                          
                                           return (
                                             <SelectItem key={slotId} value={slotId} data-testid={`option-${slotId}`}>
                                               <div className="flex justify-between items-center w-full">
                                                 <span>{slot.startTime} - {slot.endTime}</span>
-                                                <span className="ml-2 text-xs text-gray-500">${(slot.price / 100 / (slot.duration || 3)).toFixed(0)}/hr</span>
+                                                <span className="ml-2 text-xs text-gray-500">${getHourlyRate()}/hr</span>
                                               </div>
                                             </SelectItem>
                                           );
@@ -865,11 +902,19 @@ export default function QuoteViewer() {
                                           const slotDate = slot.dateISO || slot.date;
                                           const slotId = `4hr_${day}_${slotType}_${boatName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
                                           
+                                          // Get hourly rate based on boat capacity tier for Mon-Thu
+                                          const getHourlyRate = () => {
+                                            if (boatName.includes('day_tripper')) return 200;
+                                            if (boatName.includes('me_seeks')) return 225;
+                                            if (boatName.includes('clever_girl')) return 250;
+                                            return 225; // Default
+                                          };
+                                          
                                           return (
                                             <SelectItem key={slotId} value={slotId} data-testid={`option-${slotId}`}>
                                               <div className="flex justify-between items-center w-full">
                                                 <span>{slot.startTime} - {slot.endTime}</span>
-                                                <span className="ml-2 text-xs text-gray-500">${(slot.price / 100 / (slot.duration || 3)).toFixed(0)}/hr</span>
+                                                <span className="ml-2 text-xs text-gray-500">${getHourlyRate()}/hr</span>
                                               </div>
                                             </SelectItem>
                                           );
@@ -890,13 +935,27 @@ export default function QuoteViewer() {
                                     const slotId = `weekend_${day}_${slotType}_${boatName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
                                     const isSelected = selectedOption === slotId;
                                     
+                                    // Get hourly rate based on boat and day for weekends
+                                    const getWeekendHourlyRate = () => {
+                                      if (dayIndex === 4) { // Friday
+                                        if (boatName.includes('day_tripper')) return 225;
+                                        if (boatName.includes('me_seeks')) return 250;
+                                        if (boatName.includes('clever_girl')) return 275;
+                                      } else { // Saturday/Sunday
+                                        if (boatName.includes('day_tripper')) return 350;
+                                        if (boatName.includes('me_seeks')) return 375;
+                                        if (boatName.includes('clever_girl')) return 400;
+                                      }
+                                      return 250; // Default
+                                    };
+                                    
                                     return (
                                       <div key={slotId} className={`flex-1 flex items-center space-x-2 p-2 border rounded hover:bg-white ${isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-300 bg-white'}`}>
                                         <RadioGroupItem value={slotId} id={slotId} data-testid={`radio-slot-${slotId}`} />
                                         <Label htmlFor={slotId} className="flex-1 cursor-pointer text-sm">
                                           <div className="flex justify-between items-center">
                                             <span>{slot.startTime} - {slot.endTime}</span>
-                                            <span className="text-xs text-gray-600">${(slot.price / 100 / (slot.duration || 4)).toFixed(0)}/hr</span>
+                                            <span className="text-xs text-gray-600">${getWeekendHourlyRate()}/hr</span>
                                           </div>
                                         </Label>
                                       </div>
@@ -941,7 +1000,21 @@ export default function QuoteViewer() {
                         </div>
                         <div className="flex justify-between text-sm">
                           <span className="text-gray-600">Duration:</span>
-                          <span className="font-medium">{privatePricing?.duration || 4} hours</span>
+                          <span className="font-medium">
+                            {(() => {
+                              // Calculate duration directly from selected time slot
+                              if (selectedTimeSlot) {
+                                const [start, end] = selectedTimeSlot.split('-').map(t => t.trim());
+                                if (start && end) {
+                                  const [startHour, startMin] = start.split(':').map(Number);
+                                  const [endHour, endMin] = end.split(':').map(Number);
+                                  const duration = ((endHour * 60 + endMin) - (startHour * 60 + startMin)) / 60;
+                                  if (duration > 0) return `${duration} hours`;
+                                }
+                              }
+                              return `${currentPricing?.duration || privatePricing?.duration || 4} hours`;
+                            })()}
+                          </span>
                         </div>
                       </div>
 
@@ -949,19 +1022,19 @@ export default function QuoteViewer() {
                       <div className="space-y-2">
                         <div className="flex justify-between text-sm">
                           <span className="text-gray-600">Subtotal:</span>
-                          <span>{formatCurrency(privatePricing?.subtotal || 0)}</span>
+                          <span>{formatCurrency(currentPricing?.subtotal || privatePricing?.subtotal || 0)}</span>
                         </div>
                         <div className="flex justify-between text-sm">
                           <span className="text-gray-600">Tax (8.25%):</span>
-                          <span>{formatCurrency(privatePricing?.tax || 0)}</span>
+                          <span>{formatCurrency(currentPricing?.tax || privatePricing?.tax || 0)}</span>
                         </div>
                         <div className="flex justify-between text-sm">
                           <span className="text-gray-600">Gratuity (20%):</span>
-                          <span>{formatCurrency(privatePricing?.gratuity || 0)}</span>
+                          <span>{formatCurrency(currentPricing?.gratuity || privatePricing?.gratuity || 0)}</span>
                         </div>
                         <div className="flex justify-between font-bold text-lg pt-2 border-t">
                           <span>Total:</span>
-                          <span>{formatCurrency(privatePricing?.total || 0)}</span>
+                          <span>{formatCurrency(currentPricing?.total || privatePricing?.total || 0)}</span>
                         </div>
                       </div>
 
