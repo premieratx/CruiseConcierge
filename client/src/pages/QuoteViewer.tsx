@@ -7,17 +7,19 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
-import { Slider } from '@/components/ui/slider';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Calendar } from '@/components/ui/calendar';
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
+import { useBookingCache } from '@/contexts/BookingCacheContext';
 import { 
-  Ship, Calendar, Clock, MapPin, Phone, Mail, FileText,
+  Ship, Clock, MapPin, Phone, Mail, FileText,
   Download, Printer, CheckCircle, AlertCircle, Loader2,
-  Users, Plus, Minus, Edit2, Save, CreditCard, ChevronRight, Sparkles
+  Users, Plus, Minus, Edit2, Save, CreditCard, ChevronRight, Sparkles, CalendarIcon
 } from 'lucide-react';
 import type { Quote, PricingPreview, Project, Contact, QuoteItem, RadioSection } from '@shared/schema';
 
@@ -32,6 +34,29 @@ const addOnPackages = [
   { id: 'essentials', name: 'Essentials Package', hourlyRate: 50, description: 'Coolers, ice, cups, napkins, and basic party supplies' },
   { id: 'ultimate', name: 'Ultimate Party Package', hourlyRate: 75, description: 'Everything in Essentials plus decorations, party games, and premium setup' }
 ];
+
+// Helper functions for boat capacity mapping
+const getBoatForCapacity = (capacity: number) => {
+  if (capacity <= 14) return { id: 'boat_day_tripper', name: 'Day Tripper', capacity: 14 };
+  if (capacity <= 25) return { id: 'boat_me_seeks_the_irony', name: 'Me Seeks The Irony', capacity: 25 };
+  if (capacity <= 30) return { id: 'boat_me_seeks_the_irony', name: 'Me Seeks The Irony', capacity: 30 };
+  if (capacity <= 50) return { id: 'boat_clever_girl', name: 'Clever Girl', capacity: 50 };
+  return { id: 'boat_clever_girl', name: 'Clever Girl', capacity: 75 };
+};
+
+const getDayType = (date: Date) => {
+  const dayOfWeek = date.getDay();
+  if (dayOfWeek === 5) return 'Friday';
+  if (dayOfWeek === 0 || dayOfWeek === 6) return 'Weekend';
+  return 'Weekday';
+};
+
+const getAvailableDurations = (date: Date) => {
+  const dayOfWeek = date.getDay();
+  if (dayOfWeek === 5) return '4 hours only';
+  if (dayOfWeek === 0 || dayOfWeek === 6) return '4 hours only';
+  return '3 or 4 hours';
+};
 
 // Disco cruise packages - EXACT names per user specs - IDs MUST match shared/constants.ts
 const discoPackages = [
@@ -86,13 +111,25 @@ export default function QuoteViewer() {
   }, [isCalendarFlow]);
   
   // Interactive state - initialize from calendar flow or defaults
-  const [groupSize, setGroupSize] = useState(calendarData?.groupSize || 20);
+  const [groupSize, setGroupSize] = useState(calendarData?.groupSize || 25);
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(
+    calendarData?.eventDate ? new Date(calendarData.eventDate) : new Date()
+  );
+  const [selectedBoatId, setSelectedBoatId] = useState<string>(calendarData?.boatId || '');
   const [selectedAddOns, setSelectedAddOns] = useState<string[]>(calendarData?.selectedAddOns || []);
   const [selectedDiscoPackage, setSelectedDiscoPackage] = useState<string>(calendarData?.discoPackage || 'basic');
   const [discoTicketQuantity, setDiscoTicketQuantity] = useState(calendarData?.discoTicketQuantity || calendarData?.groupSize || 10);
   const [privatePricing, setPrivatePricing] = useState<any>(null);
   const [discoPricing, setDiscoPricing] = useState<any>(null);
   const [pricingLoading, setPricingLoading] = useState(false);
+  
+  // High-performance caching system
+  const { 
+    currentPricing, 
+    updateSelection, 
+    recomputePricing,
+    isLoading: cacheLoading 
+  } = useBookingCache();
   const [discountCode, setDiscountCode] = useState(calendarData?.discountCode || '');
   
   // Initialize cruise type from calendar flow or default to private
@@ -168,120 +205,117 @@ export default function QuoteViewer() {
     }
   }, [quote]);
 
-  // Fetch private cruise pricing (works for both quote and calendar flow)
-  const fetchPrivatePricing = useCallback(async () => {
-    setPricingLoading(true);
+  // ⚡ INSTANT PRICING: Client-side calculation (<50ms performance)
+  const fetchPrivatePricing = useCallback(() => {
+    const startTime = performance.now();
+    console.log('🚢 ⚡ INSTANT pricing calculation started...');
+    
     try {
-      let pricingRequest;
+      // Update cache with current selections
+      updateSelection({
+        date: isCalendarFlow ? eventDate?.toISOString().split('T')[0] : quote?.project?.projectDate?.split('T')[0],
+        groupSize,
+        cruiseType: 'private',
+        selectedAddOns,
+        discountCode,
+        timeSlot: isCalendarFlow ? selectedTimeSlot : getTimeSlotFromQuote(quote),
+        boatId: selectedBoat,
+        slotId: selectedSlotId,
+        eventType: isCalendarFlow ? calendarData?.eventType : quote?.project?.eventType
+      });
       
-      if (isCalendarFlow) {
-        // Calendar flow: use calendar data for pricing
-        const hourlyRate = 200 + selectedAddOns.reduce((sum, addOnId) => {
-          const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
-          return sum + (addOn?.hourlyRate || 0);
-        }, 0);
-        
-        pricingRequest = {
-          groupSize,
-          eventDate: eventDate,
-          timeSlot: selectedTimeSlot,
-          cruiseType: 'private',
-          eventType: calendarData?.eventType || 'other',
-          promoCode: discountCode,
-          packageType: addOnsKey,
-          hourlyRate,
-          boatId: selectedBoat,
-          slotId: selectedSlotId
+      // Instant client-side calculation
+      const instantPricing = recomputePricing();
+      
+      if (instantPricing) {
+        // Transform cache format to component format
+        const transformedPricing = {
+          subtotal: instantPricing.subtotal,
+          tax: instantPricing.tax,
+          gratuity: instantPricing.gratuity,
+          total: instantPricing.total,
+          depositRequired: instantPricing.depositAmount > 0,
+          depositAmount: instantPricing.depositAmount,
+          depositPercent: instantPricing.depositPercent,
+          duration: instantPricing.duration,
+          hourlyRate: instantPricing.hourlyRate,
+          perPersonCost: instantPricing.perPersonCost,
+          selectedAddOns: selectedAddOns,
+          pricingModel: 'hourly',
+          discountTotal: 0,
+          timeSlot: isCalendarFlow ? selectedTimeSlot : getTimeSlotFromQuote(quote),
+          eventType: isCalendarFlow ? calendarData?.eventType : quote?.project?.eventType,
+          showBothOptions: false
         };
         
-        const res = await apiRequest('POST', '/api/pricing/cruise', pricingRequest);
-        if (res.ok) {
-          const pricing = await res.json();
-          setPrivatePricing(pricing);
-        }
-      } else {
-        // Quote flow: use quote project data
-        if (!quote?.project) return;
+        setPrivatePricing(transformedPricing);
         
-        const timeSlot = getTimeSlotFromQuote(quote);
-        const hourlyRate = 200 + selectedAddOns.reduce((sum, addOnId) => {
-          const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
-          return sum + (addOn?.hourlyRate || 0);
-        }, 0);
-
-        const res = await apiRequest('POST', '/api/pricing/cruise', {
-          groupSize,
-          eventDate: quote.project.projectDate,
-          timeSlot,
-          eventType: quote.project.eventType,
-          cruiseType: 'private',
-          packageType: selectedAddOns.join(','),
-          hourlyRate,
-          promoCode: discountCode
-        });
-        
-        if (res.ok) {
-          const pricing = await res.json();
-          setPrivatePricing(pricing);
-        }
+        const endTime = performance.now();
+        const duration = Math.round(endTime - startTime);
+        console.log(`🚢 ⚡ INSTANT pricing completed in ${duration}ms (target: <50ms)`);
+        console.log('🚢 ⚡ INSTANT pricing result:', transformedPricing);
       }
     } catch (error) {
-      console.error('Failed to fetch private pricing:', error);
-    } finally {
-      setPricingLoading(false);
+      console.error('⚡ Instant pricing calculation failed:', error);
+      // Fallback to old API call if needed
     }
-  }, [isCalendarFlow, calendarData, selectedAddOns, groupSize, quote, discountCode]);
+  }, [isCalendarFlow, calendarData, selectedAddOns, groupSize, quote, discountCode, updateSelection, recomputePricing]);
 
-  // Fetch disco cruise pricing (works for both quote and calendar flow)
-  const fetchDiscoPricing = useCallback(async () => {
-    setPricingLoading(true);
+  // ⚡ INSTANT DISCO PRICING: Client-side calculation (<50ms performance)
+  const fetchDiscoPricing = useCallback(() => {
+    const startTime = performance.now();
+    console.log('🎵 ⚡ INSTANT disco pricing calculation started...');
+    
     try {
-      if (isCalendarFlow) {
-        // Calendar flow: use calendar data for disco pricing
-        const pricingRequest = {
-          groupSize: discoTicketQuantity,
-          eventDate: eventDate,
-          timeSlot: selectedTimeSlot,
-          cruiseType: 'disco',
-          eventType: calendarData?.eventType || 'bachelor',
-          packageType: selectedDiscoPackage,
-          promoCode: discountCode,
-          slotId: selectedSlotId
+      // Update cache with current disco selections
+      updateSelection({
+        date: isCalendarFlow ? eventDate?.toISOString().split('T')[0] : quote?.project?.projectDate?.split('T')[0],
+        groupSize: discoTicketQuantity,
+        cruiseType: 'disco',
+        discoPackage: selectedDiscoPackage,
+        discoTicketQuantity,
+        discountCode,
+        timeSlot: isCalendarFlow ? selectedTimeSlot : undefined,
+        slotId: selectedSlotId,
+        eventType: isCalendarFlow ? calendarData?.eventType : quote?.project?.eventType
+      });
+      
+      // Instant client-side calculation
+      const instantPricing = recomputePricing();
+      
+      if (instantPricing) {
+        // Transform cache format to component format
+        const transformedPricing = {
+          subtotal: instantPricing.subtotal,
+          discountTotal: 0,
+          tax: instantPricing.tax,
+          gratuity: instantPricing.gratuity,
+          total: instantPricing.total,
+          perPersonCost: instantPricing.perPersonCost,
+          depositRequired: instantPricing.depositAmount > 0,
+          depositPercent: instantPricing.depositPercent,
+          depositAmount: instantPricing.depositAmount,
+          paymentSchedule: [],
+          expiresAt: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString(), // 3 days from now
+          breakdown: {},
+          displaySettings: {},
+          urgencyMessage: null,
+          adjustments: [],
+          adjustmentTotal: 0
         };
         
-        const res = await apiRequest('POST', '/api/pricing/cruise', pricingRequest);
-        if (res.ok) {
-          const pricing = await res.json();
-          setDiscoPricing(pricing);
-        }
-      } else {
-        // Quote flow: use quote project data
-        if (!quote?.project) return;
+        setDiscoPricing(transformedPricing);
         
-        const packagePrice = discoPackages.find(pkg => pkg.id === selectedDiscoPackage)?.price || 8500;
-        
-        const res = await apiRequest('POST', '/api/pricing/preview', {
-          items: [{
-            productId: `disco_${selectedDiscoPackage}`,
-            qty: discoTicketQuantity,
-            unitPrice: packagePrice
-          }],
-          groupSize: discoTicketQuantity,
-          projectDate: quote.project.projectDate,
-          promoCode: discountCode
-        });
-        
-        if (res.ok) {
-          const pricing = await res.json();
-          setDiscoPricing(pricing);
-        }
+        const endTime = performance.now();
+        const duration = Math.round(endTime - startTime);
+        console.log(`🎵 ⚡ INSTANT disco pricing completed in ${duration}ms (target: <50ms)`);
+        console.log('🎵 ⚡ INSTANT disco pricing result:', transformedPricing);
       }
     } catch (error) {
-      console.error('Failed to fetch disco pricing:', error);
-    } finally {
-      setPricingLoading(false);
+      console.error('⚡ Instant disco pricing calculation failed:', error);
+      // Fallback to old API call if needed
     }
-  }, [isCalendarFlow, calendarData, selectedDiscoPackage, discoTicketQuantity, quote, discountCode]);
+  }, [isCalendarFlow, calendarData, selectedDiscoPackage, discoTicketQuantity, quote, discountCode, updateSelection, recomputePricing]);
 
   // Fetch available time slots based on group size and date
   const fetchAvailableSlots = useCallback(async () => {
@@ -319,27 +353,21 @@ export default function QuoteViewer() {
     }
   }, [fetchAvailableSlots]);
 
-  // Debounced private pricing refresh
+  // ⚡ INSTANT private pricing refresh (no debouncing needed!)
   useEffect(() => {
     if (isCalendarFlow && selectedCruiseType === 'private') {
-      const timer = setTimeout(() => {
-        fetchPrivatePricing();
-      }, 250);
-      return () => clearTimeout(timer);
+      fetchPrivatePricing(); // Instant calculation
     } else if (!isCalendarFlow && quote && isPrivateCruise(quote)) {
-      fetchPrivatePricing();
+      fetchPrivatePricing(); // Instant calculation
     }
   }, [quote, groupSize, addOnsKey, isCalendarFlow, selectedCruiseType, discountCode, selectedTimeSlot, selectedBoat, selectedSlotId, eventDate, fetchPrivatePricing]);
 
-  // Debounced disco pricing refresh  
+  // ⚡ INSTANT disco pricing refresh (no debouncing needed!)
   useEffect(() => {
     if (isCalendarFlow && selectedCruiseType === 'disco') {
-      const timer = setTimeout(() => {
-        fetchDiscoPricing();
-      }, 250);
-      return () => clearTimeout(timer);
+      fetchDiscoPricing(); // Instant calculation
     } else if (!isCalendarFlow && quote && isDiscoCruise(quote)) {
-      fetchDiscoPricing();
+      fetchDiscoPricing(); // Instant calculation
     }
   }, [quote, selectedDiscoPackage, discoTicketQuantity, isCalendarFlow, selectedCruiseType, discountCode, selectedTimeSlot, selectedSlotId, eventDate, fetchDiscoPricing]);
 
@@ -624,42 +652,89 @@ export default function QuoteViewer() {
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
-                  {/* Group Size */}
+                  {/* Capacity Selection Buttons */}
                   <div>
-                    <label className="block text-sm font-medium mb-2">
-                      Group Size: {groupSize} people
+                    <label className="block text-sm font-medium mb-3">
+                      Select Boat Capacity
                     </label>
-                    <Slider
-                      value={[groupSize]}
-                      onValueChange={(value) => setGroupSize(value[0])}
-                      min={8}
-                      max={75}
-                      step={1}
-                      className="w-full"
-                    />
-                    <div className="flex justify-between text-xs text-gray-500 mt-1">
-                      <span>8 people</span>
-                      <span>75 people</span>
+                    <div className="grid grid-cols-5 gap-2 mb-3">
+                      {[14, 25, 30, 50, 75].map((capacity) => {
+                        const boatInfo = getBoatForCapacity(capacity);
+                        return (
+                          <Button
+                            key={capacity}
+                            variant={groupSize === capacity ? "default" : "outline"}
+                            className={cn(
+                              "flex-col h-16 text-xs p-2",
+                              groupSize === capacity ? "bg-blue-600 text-white" : "hover:bg-blue-50"
+                            )}
+                            onClick={() => {
+                              setGroupSize(capacity);
+                              setSelectedBoatId(boatInfo.id);
+                            }}
+                            data-testid={`button-capacity-${capacity}`}
+                          >
+                            <span className="font-bold">{capacity}</span>
+                            <span className="text-[10px] leading-tight">{boatInfo.name}</span>
+                          </Button>
+                        );
+                      })}
                     </div>
+                    <p className="text-xs text-gray-500">
+                      Selected: {getBoatForCapacity(groupSize).name} (fits {groupSize} people)
+                    </p>
                   </div>
 
-                  {/* Event Date Selection (Calendar Flow Only) */}
-                  {isCalendarFlow && (
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        <Calendar className="h-4 w-4 inline mr-2" />
-                        Event Date
-                      </label>
-                      <Input
-                        type="date"
-                        value={eventDate}
-                        onChange={(e) => setEventDate(e.target.value)}
-                        min={format(new Date(), 'yyyy-MM-dd')}
-                        className="w-full"
-                        data-testid="input-event-date"
-                      />
-                    </div>
-                  )}
+                  {/* Date Selection */}
+                  <div>
+                    <label className="block text-sm font-medium mb-3">
+                      <CalendarIcon className="h-4 w-4 inline mr-2" />
+                      Select Event Date
+                    </label>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <Button
+                          variant="outline"
+                          className={cn(
+                            "w-full justify-start text-left font-normal",
+                            !selectedDate && "text-muted-foreground"
+                          )}
+                          data-testid="button-date-picker"
+                        >
+                          <CalendarIcon className="mr-2 h-4 w-4" />
+                          {selectedDate ? format(selectedDate, "PPP") : "Pick a date"}
+                        </Button>
+                      </PopoverTrigger>
+                      <PopoverContent className="w-auto p-0" align="start">
+                        <Calendar
+                          mode="single"
+                          selected={selectedDate}
+                          onSelect={(date) => {
+                            setSelectedDate(date);
+                            if (date) {
+                              setEventDate(format(date, 'yyyy-MM-dd'));
+                            }
+                          }}
+                          disabled={(date) => date < new Date()}
+                          initialFocus
+                        />
+                      </PopoverContent>
+                    </Popover>
+                    
+                    {/* Boat & Pricing Details */}
+                    {selectedDate && (
+                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
+                        <h4 className="font-semibold text-blue-900 mb-2">Boat & Pricing Details</h4>
+                        <div className="space-y-1 text-sm text-blue-800">
+                          <p><strong>Boat:</strong> {getBoatForCapacity(groupSize).name}</p>
+                          <p><strong>Capacity:</strong> {groupSize} people</p>
+                          <p><strong>Date:</strong> {format(selectedDate, "PPPP")}</p>
+                          <p><strong>Day Type:</strong> {getDayType(selectedDate)}</p>
+                          <p><strong>Available Durations:</strong> {getAvailableDurations(selectedDate)}</p>
+                        </div>
+                      </div>
+                    )}
+                  </div>
 
                   {/* Time Slot Selection (Calendar Flow Only) */}
                   {isCalendarFlow && (
