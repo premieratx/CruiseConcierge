@@ -38,7 +38,7 @@ export function IntegrationStatus() {
         id: 'stripe',
         name: 'Stripe Payments',
         icon: 'fab fa-stripe',
-        status: import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY ? 'connected' : 'disconnected',
+        status: (import.meta.env.VITE_STRIPE_PUBLIC_KEY || import.meta.env.TESTING_VITE_STRIPE_PUBLIC_KEY) ? 'connected' : 'disconnected',
         description: 'Payment processing',
         lastSync: new Date(Date.now() - 2 * 60 * 1000), // 2 minutes ago
       },

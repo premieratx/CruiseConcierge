@@ -35,7 +35,7 @@ import { PricingPolicyDisplay, PolicySummary } from '@/components/PricingPolicyD
 // import BachelorComparisonWidget from '@/components/checkout/BachelorComparisonWidget';
 
 // Fix: Use the correct environment variable name and add proper error handling
-const stripePublishableKey = import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || import.meta.env.TESTING_VITE_STRIPE_PUBLIC_KEY || '';
+const stripePublishableKey = import.meta.env.VITE_STRIPE_PUBLIC_KEY || import.meta.env.TESTING_VITE_STRIPE_PUBLIC_KEY || '';
 const stripePromise = stripePublishableKey ? loadStripe(stripePublishableKey) : null;
 
 interface UniversalCheckoutProps {

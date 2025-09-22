@@ -638,7 +638,7 @@ if (!process.env.STRIPE_SECRET_KEY) {
 }
 
 const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: "2025-08-27.basil",
+  apiVersion: '2024-06-20',
 }) : null;
 
 // Helper functions for sending quotes
@@ -7767,16 +7767,11 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Calculate real-time pricing for checkout - EMERGENCY COMPLETELY DISABLED
+  // Calculate real-time pricing for checkout - RE-ENABLED AFTER STRIPE FIXES
   app.post("/api/checkout/calculate-pricing", async (req, res) => {
-    // 🚨 EMERGENCY: ENDPOINT COMPLETELY DISABLED TO STOP INFINITE LOOP SPAM
-    console.log('🚨 EMERGENCY: /api/checkout/calculate-pricing called but DISABLED to stop spam');
-    return res.status(503).json({ 
-      error: 'Endpoint temporarily disabled due to infinite loop spam',
-      message: 'This endpoint has been disabled to prevent server overload'
-    });
+    console.log('🔧 /api/checkout/calculate-pricing called - endpoint re-enabled after Stripe fixes');
     
-    // DISABLED CODE BELOW:
+    // Original code re-enabled:
     try {
       const {
         eventDate,
