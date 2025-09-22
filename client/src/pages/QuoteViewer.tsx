@@ -543,6 +543,24 @@ function QuoteViewerContent() {
     return `${displayHours}:${minutes.toString().padStart(2, '0')} ${period}`;
   };
   
+  // Helper function to parse date strings as local dates without timezone issues
+  const parseLocalDate = (dateString: string): Date => {
+    if (!dateString) return new Date();
+    // If the date string is in YYYY-MM-DD format, parse it as local date
+    if (dateString.match(/^\d{4}-\d{2}-\d{2}$/)) {
+      const [year, month, day] = dateString.split('-').map(Number);
+      return new Date(year, month - 1, day); // month is 0-based
+    }
+    // For ISO strings, extract just the date part and parse as local
+    if (dateString.includes('T')) {
+      const datePart = dateString.split('T')[0];
+      const [year, month, day] = datePart.split('-').map(Number);
+      return new Date(year, month - 1, day);
+    }
+    // Fallback to regular parsing
+    return new Date(dateString);
+  };
+  
   // Retrieve contact info and payment details from sessionStorage (for calendar flow)
   useEffect(() => {
     if (isCalendarFlow) {
@@ -651,10 +669,10 @@ function QuoteViewerContent() {
   
   const deriveOriginalDate = (quoteData?: QuoteWithDetails | null): Date | null => {
     // From calendar flow (preferred)
-    if (calendarData?.eventDate) return new Date(calendarData.eventDate);
+    if (calendarData?.eventDate) return parseLocalDate(calendarData.eventDate);
     // From quote flow
-    if (quoteData?.project?.projectDate) return new Date(quoteData.project.projectDate);
-    return eventDate ? new Date(eventDate) : null;
+    if (quoteData?.project?.projectDate) return parseLocalDate(quoteData.project.projectDate);
+    return eventDate ? parseLocalDate(eventDate) : null;
   };
   
   const computeOrderedDates = (selectedDate: Date): string[] => {
@@ -771,7 +789,7 @@ function QuoteViewerContent() {
     try {
       // Update cache with current selections
       updateSelection({
-        date: isCalendarFlow ? (eventDate ? new Date(eventDate).toISOString().split('T')[0] : '') : quote?.project?.projectDate?.split('T')[0],
+        date: isCalendarFlow ? (eventDate || '') : quote?.project?.projectDate?.split('T')[0],
         groupSize,
         cruiseType: 'private',
         selectedAddOns,
@@ -827,7 +845,7 @@ function QuoteViewerContent() {
     try {
       // Update cache with current disco selections
       updateSelection({
-        date: isCalendarFlow ? (eventDate ? new Date(eventDate).toISOString().split('T')[0] : '') : quote?.project?.projectDate?.split('T')[0],
+        date: isCalendarFlow ? (eventDate || '') : quote?.project?.projectDate?.split('T')[0],
         groupSize: discoTicketQuantity,
         cruiseType: 'disco',
         discoPackage: selectedDiscoPackage,
@@ -1394,7 +1412,7 @@ function QuoteViewerContent() {
                   variant="ghost" 
                   size="lg" 
                   onClick={() => {
-                    const currentDate = new Date(eventDate || new Date());
+                    const currentDate = parseLocalDate(eventDate || format(new Date(), 'yyyy-MM-dd'));
                     const newDate = new Date(currentDate);
                     newDate.setDate(currentDate.getDate() - 7);
                     setEventDate(format(newDate, 'yyyy-MM-dd'));
@@ -1408,7 +1426,7 @@ function QuoteViewerContent() {
                 
                 <div className="text-center">
                   <h2 className="text-3xl font-bold text-gray-900">
-                    {eventDate ? format(new Date(eventDate), 'EEEE, MMMM d, yyyy') : 'Select a date'}
+                    {eventDate ? format(parseLocalDate(eventDate), 'EEEE, MMMM d, yyyy') : 'Select a date'}
                   </h2>
                   <p className="text-lg text-gray-600 mt-1">Select your preferred date and time below</p>
                 </div>
@@ -1417,7 +1435,7 @@ function QuoteViewerContent() {
                   variant="ghost" 
                   size="lg" 
                   onClick={() => {
-                    const currentDate = new Date(eventDate || new Date());
+                    const currentDate = parseLocalDate(eventDate || format(new Date(), 'yyyy-MM-dd'));
                     const newDate = new Date(currentDate);
                     newDate.setDate(currentDate.getDate() + 7);
                     setEventDate(format(newDate, 'yyyy-MM-dd'));
@@ -1528,12 +1546,12 @@ function QuoteViewerContent() {
                               
                               // Get slots for this day
                               const privateSlots = weeklySlots.filter(slot => {
-                                const slotDay = new Date(slot.dateISO || slot.date).getDay();
+                                const slotDay = parseLocalDate(slot.dateISO || slot.date).getDay();
                                 return slotDay === dayNum;
                               });
                               
                               const discoSlots = weeklyDiscoSlots.filter(slot => {
-                                const slotDay = new Date(slot.dateISO || slot.date).getDay();
+                                const slotDay = parseLocalDate(slot.dateISO || slot.date).getDay();
                                 return slotDay === dayNum;
                               });
                               
@@ -1546,7 +1564,7 @@ function QuoteViewerContent() {
                               
                               // Get the actual date for display
                               const firstSlot = privateSlots[0] || discoSlots[0];
-                              const displayDate = firstSlot ? format(new Date(firstSlot.dateISO || firstSlot.date), 'MMMM d') : '';
+                              const displayDate = firstSlot ? format(parseLocalDate(firstSlot.dateISO || firstSlot.date), 'MMMM d') : '';
                               
                               // Filter weekend slots based on business rules
                               const filteredPrivateSlots = (() => {
@@ -1555,9 +1573,17 @@ function QuoteViewerContent() {
                                 if (dayName === 'Friday') {
                                   // Friday: Show all 4-hour slots
                                   return privateSlots.filter(s => s.duration === 4);
-                                } else if (dayName === 'Saturday' || dayName === 'Sunday') {
-                                  // Saturday/Sunday: Show all 4-hour slots
+                                } else if (dayName === 'Saturday') {
+                                  // Saturday: Show all 4-hour slots
                                   return privateSlots.filter(s => s.duration === 4);
+                                } else if (dayName === 'Sunday') {
+                                  // Sunday: Only show 11:00 AM - 3:00 PM and 3:30 PM - 7:30 PM
+                                  return privateSlots.filter(s => {
+                                    if (s.duration !== 4) return false;
+                                    const startTime = s.startTime;
+                                    // Allow 11:00 and 15:30 (3:30 PM) start times
+                                    return startTime === '11:00' || startTime === '15:30';
+                                  });
                                 }
                                 return privateSlots;
                               })();
