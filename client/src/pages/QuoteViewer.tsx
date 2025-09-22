@@ -100,6 +100,13 @@ export default function QuoteViewer() {
     (calendarData?.cruiseType as 'private' | 'disco') || 'private'
   );
   
+  // Time slot selection state
+  const [availableSlots, setAvailableSlots] = useState<any[]>([]);
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>(calendarData?.selectedTimeSlot || '');
+  const [selectedBoat, setSelectedBoat] = useState<string>(calendarData?.boatId || '');
+  const [eventDate, setEventDate] = useState<string>(calendarData?.eventDate || format(new Date(), 'yyyy-MM-dd'));
+  const [slotsLoading, setSlotsLoading] = useState(false);
+  
   // Fetch quote details with token (only for quote flow)
   const { data: quote, isLoading, error: quoteError } = useQuery<QuoteWithDetails>({
     queryKey: [`/api/quotes/${quoteId}/public`, token],
@@ -268,6 +275,42 @@ export default function QuoteViewer() {
       setPricingLoading(false);
     }
   }, [isCalendarFlow, calendarData, selectedDiscoPackage, discoTicketQuantity, quote, discountCode]);
+
+  // Fetch available time slots based on group size and date
+  const fetchAvailableSlots = useCallback(async () => {
+    if (!isCalendarFlow) return; // Only needed for calendar flow
+    
+    setSlotsLoading(true);
+    try {
+      const searchParams = new URLSearchParams({
+        startDate: eventDate,
+        endDate: eventDate,
+        cruiseType: selectedCruiseType,
+        groupSize: selectedCruiseType === 'disco' ? discoTicketQuantity.toString() : groupSize.toString()
+      });
+      
+      const response = await apiRequest('GET', `/api/availability/search?${searchParams}`);
+      if (response.ok) {
+        const data = await response.json();
+        setAvailableSlots(data.slots || []);
+      } else {
+        console.error('Failed to fetch available slots');
+        setAvailableSlots([]);
+      }
+    } catch (error) {
+      console.error('Error fetching available slots:', error);
+      setAvailableSlots([]);
+    } finally {
+      setSlotsLoading(false);
+    }
+  }, [isCalendarFlow, eventDate, selectedCruiseType, groupSize, discoTicketQuantity]);
+
+  // Fetch slots when dependencies change
+  useEffect(() => {
+    if (isCalendarFlow) {
+      fetchAvailableSlots();
+    }
+  }, [fetchAvailableSlots]);
 
   // Refresh pricing when dependencies change (for both quote and calendar flow)
   useEffect(() => {
@@ -593,6 +636,84 @@ export default function QuoteViewer() {
                       <span>75 people</span>
                     </div>
                   </div>
+
+                  {/* Event Date Selection (Calendar Flow Only) */}
+                  {isCalendarFlow && (
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        <Calendar className="h-4 w-4 inline mr-2" />
+                        Event Date
+                      </label>
+                      <Input
+                        type="date"
+                        value={eventDate}
+                        onChange={(e) => setEventDate(e.target.value)}
+                        min={format(new Date(), 'yyyy-MM-dd')}
+                        className="w-full"
+                        data-testid="input-event-date"
+                      />
+                    </div>
+                  )}
+
+                  {/* Time Slot Selection (Calendar Flow Only) */}
+                  {isCalendarFlow && (
+                    <div>
+                      <label className="block text-sm font-medium mb-2">
+                        <Clock className="h-4 w-4 inline mr-2" />
+                        Available Time Slots
+                      </label>
+                      {slotsLoading ? (
+                        <div className="flex items-center justify-center p-4 border rounded-lg">
+                          <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                          <span className="text-sm text-gray-600">Loading available time slots...</span>
+                        </div>
+                      ) : availableSlots.length > 0 ? (
+                        <div className="grid grid-cols-1 gap-2 max-h-40 overflow-y-auto">
+                          {availableSlots.map((slot, index) => (
+                            <button
+                              key={`${slot.boatId}-${slot.startTime}-${index}`}
+                              onClick={() => {
+                                setSelectedTimeSlot(`${slot.startTime}-${slot.endTime}`);
+                                setSelectedBoat(slot.boatId);
+                              }}
+                              className={cn(
+                                "p-3 text-left border rounded-lg transition-all",
+                                selectedTimeSlot === `${slot.startTime}-${slot.endTime}` && selectedBoat === slot.boatId
+                                  ? "border-blue-500 bg-blue-50 text-blue-900"
+                                  : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
+                              )}
+                              data-testid={`button-select-timeslot-${slot.boatId}-${slot.startTime}`}
+                            >
+                              <div className="flex justify-between items-center">
+                                <div>
+                                  <div className="font-medium text-sm">
+                                    {slot.startTime} - {slot.endTime}
+                                  </div>
+                                  <div className="text-xs text-gray-600">
+                                    {slot.boatName} (Fits {slot.capacity} people)
+                                  </div>
+                                </div>
+                                <div className="text-right">
+                                  <div className="text-sm font-medium">
+                                    ${Math.round(slot.basePrice / 100)}/hr
+                                  </div>
+                                  <div className="text-xs text-gray-500">
+                                    {slot.duration}h duration
+                                  </div>
+                                </div>
+                              </div>
+                            </button>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="p-4 border rounded-lg text-center text-gray-600">
+                          <AlertCircle className="h-6 w-6 mx-auto mb-2 text-gray-400" />
+                          <p className="text-sm">No available time slots for {eventDate}</p>
+                          <p className="text-xs mt-1">Try a different date or group size</p>
+                        </div>
+                      )}
+                    </div>
+                  )}
 
                   {/* Add-on Packages */}
                   <div>
