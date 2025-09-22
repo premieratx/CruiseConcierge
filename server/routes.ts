@@ -826,11 +826,7 @@ function getTimeAgo(date: Date): string {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   
-  // 🚨 EMERGENCY HARD BLOCK: Stop API spam immediately
-  app.use('/api/checkout/*', (req, res) => {
-    console.log('🚨 EMERGENCY: Blocked checkout API call to stop credit drain:', req.path);
-    res.status(410).json({ error: 'Checkout APIs permanently disabled to stop credit drain' });
-  });
+  // ✅ CHECKOUT APIS RESTORED: Emergency blocking removed, pricing fixed
   
   // Discount validation API endpoint
   app.post("/api/discounts/validate", async (req, res) => {

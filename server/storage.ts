@@ -1138,28 +1138,28 @@ export class DatabaseStorage implements IStorage {
    * Helper method to get hourly rate for a boat based on its capacity and day type
    */
   private getHourlyRateForBoat(boat: Boat, dayType: 'MON_THU' | 'FRIDAY' | 'SAT_SUN'): number {
-    // Use fixed hourly rates to avoid import issues - matches shared/constants.ts
+    // ✅ CORRECTED HOURLY RATES: Now matches shared/constants.ts exactly
     const HOURLY_RATES = {
       MON_THU: {
-        14: 125000, // $1,250/hour for 14-person boat
-        25: 175000, // $1,750/hour for 25-person boat  
-        30: 200000, // $2,000/hour for 30-person boat
-        50: 300000, // $3,000/hour for 50-person boat
-        75: 400000  // $4,000/hour for 75-person boat
+        14: 20000,  // $200/hour for ≤14 people
+        25: 22500,  // $225/hour for ≤25 people
+        30: 22500,  // $225/hour for ≤30 people (same as 25p + crew fee)
+        50: 25000,  // $250/hour for ≤50 people
+        75: 25000,  // $250/hour for ≤75 people (same as 50p + crew fee)
       },
       FRIDAY: {
-        14: 150000, // $1,500/hour for 14-person boat
-        25: 200000, // $2,000/hour for 25-person boat
-        30: 225000, // $2,250/hour for 30-person boat
-        50: 350000, // $3,500/hour for 50-person boat
-        75: 450000  // $4,500/hour for 75-person boat
+        14: 22500,  // $225/hour for ≤14 people
+        25: 25000,  // $250/hour for ≤25 people
+        30: 25000,  // $250/hour for ≤30 people (same as 25p + crew fee)
+        50: 27500,  // $275/hour for ≤50 people
+        75: 27500,  // $275/hour for ≤75 people (same as 50p + crew fee)
       },
       SAT_SUN: {
-        14: 175000, // $1,750/hour for 14-person boat
-        25: 225000, // $2,250/hour for 25-person boat
-        30: 250000, // $2,500/hour for 30-person boat
-        50: 400000, // $4,000/hour for 50-person boat
-        75: 500000  // $5,000/hour for 75-person boat
+        14: 35000,  // $350/hour for Saturday, $250/hour for Sunday (using higher rate)
+        25: 37500,  // $375/hour for Saturday, $275/hour for Sunday (using higher rate)
+        30: 37500,  // $375/hour for ≤30 people (same as 25p + crew fee)
+        50: 40000,  // $400/hour for Saturday, $300/hour for Sunday (using higher rate)
+        75: 40000,  // $400/hour for ≤75 people (same as 50p + crew fee)
       }
     };
     
