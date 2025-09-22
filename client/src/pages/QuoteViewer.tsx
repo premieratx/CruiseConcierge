@@ -124,6 +124,9 @@ export default function QuoteViewer() {
     selectedAddOns: urlParams.get('selectedAddOns')?.split(',').filter(Boolean) || []
   } : null;
 
+  // Capacity options for 17hats-style filtering
+  const capacityOptions = [14, 25, 30, 50, 75];
+
   // Load contact info from sessionStorage (for calendar flow security)
   const [contactInfo, setContactInfo] = useState<any>(null);
   useEffect(() => {
@@ -168,6 +171,9 @@ export default function QuoteViewer() {
   
   // Time slot selection state
   const [availableSlots, setAvailableSlots] = useState<any[]>([]);
+  const [weeklySlots, setWeeklySlots] = useState<any[]>([]);
+  const [selectedOption, setSelectedOption] = useState<string>('');
+  const [capacityFilter, setCapacityFilter] = useState<number>(isCalendarFlow ? calendarData?.groupSize || 20 : 20);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>(calendarData?.selectedTimeSlot || '');
   const [selectedBoat, setSelectedBoat] = useState<string>(calendarData?.boatId || '');
   const [selectedSlotId, setSelectedSlotId] = useState<string>(calendarData?.slotId || '');
@@ -346,6 +352,39 @@ export default function QuoteViewer() {
     }
   }, [isCalendarFlow, calendarData, selectedDiscoPackage, discoTicketQuantity, quote, discountCode, updateSelection, recomputePricing]);
 
+  // 🗓️ WEEKLY AVAILABILITY: Fetch weekly slots for 17hats-style interface
+  const fetchWeeklyAvailability = useCallback(async () => {
+    if (!isCalendarFlow) return;
+    
+    setSlotsLoading(true);
+    try {
+      const targetDate = eventDate || format(new Date(), 'yyyy-MM-dd');
+      const eventTypeParam = isCalendarFlow ? calendarData?.eventType : quote?.project?.eventType;
+      
+      console.log('🗓️ Fetching weekly availability for:', {
+        date: targetDate,
+        groupSize: capacityFilter,
+        eventType: eventTypeParam
+      });
+      
+      const response = await apiRequest('GET', `/api/availability/weekly?date=${targetDate}&groupSize=${capacityFilter}&eventType=${eventTypeParam}`);
+      
+      if (response.ok) {
+        const data = await response.json();
+        console.log('✅ Weekly availability loaded:', data.totalSlots, 'slots');
+        setWeeklySlots(data.slots || []);
+      } else {
+        console.error('❌ Failed to fetch weekly availability');
+        setWeeklySlots([]);
+      }
+    } catch (error) {
+      console.error('Weekly availability error:', error);
+      setWeeklySlots([]);
+    } finally {
+      setSlotsLoading(false);
+    }
+  }, [isCalendarFlow, eventDate, capacityFilter, calendarData?.eventType, quote?.project?.eventType]);
+
   // Fetch available time slots based on group size and date
   const fetchAvailableSlots = useCallback(async () => {
     if (!isCalendarFlow) return; // Only needed for calendar flow
@@ -375,12 +414,37 @@ export default function QuoteViewer() {
     }
   }, [isCalendarFlow, eventDate, selectedCruiseType, groupSize, discoTicketQuantity]);
 
-  // Fetch slots when dependencies change - FIXED: Direct dependencies to prevent infinite loop
+  // Fetch weekly slots when dependencies change 
   useEffect(() => {
     if (isCalendarFlow) {
-      fetchAvailableSlots();
+      fetchWeeklyAvailability();
     }
-  }, [isCalendarFlow, eventDate, selectedCruiseType, groupSize, discoTicketQuantity]);
+  }, [fetchWeeklyAvailability, isCalendarFlow]);
+  
+  // Handle capacity filter changes
+  const handleCapacityChange = useCallback((newCapacity: number) => {
+    setCapacityFilter(newCapacity);
+    setGroupSize(newCapacity);
+    // Reset selection when capacity changes
+    setSelectedOption('');
+    setSelectedTimeSlot('');
+    setSelectedBoat('');
+    setSelectedSlotId('');
+  }, []);
+  
+  // Handle cruise option selection (17hats-style radio buttons)
+  const handleOptionSelect = useCallback((option: any) => {
+    setSelectedOption(option.id);
+    setSelectedTimeSlot(`${option.startTime}-${option.endTime}`);
+    setSelectedBoat(option.boatId);
+    setSelectedSlotId(option.id);
+    
+    if (option.cruiseType === 'private') {
+      setSelectedCruiseType('private');
+    } else if (option.cruiseType === 'disco') {
+      setSelectedCruiseType('disco');
+    }
+  }, []);
 
   // ⚡ INSTANT private pricing refresh (no debouncing needed!) - FIXED: Direct dependencies
   useEffect(() => {
@@ -597,527 +661,16 @@ export default function QuoteViewer() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Left Column - Quote Details & Customization */}
-          <div className="space-y-6">
-            {/* Quote Header */}
-            <Card>
-              <CardHeader>
-                <div className="flex justify-between items-start">
-                  <div>
-                    <CardTitle className="text-2xl font-bold">{isCalendarFlow ? 'Checkout' : 'Your Quote'}</CardTitle>
-                    {quote?.id && <p className="text-gray-600">Quote #{quote.id.slice(-8).toUpperCase()}</p>}
-                  </div>
-                  {quote && (
-                    <Badge variant={isExpired ? "destructive" : "secondary"}>
-                      {isExpired ? 'EXPIRED' : 'Active'}
-                    </Badge>
-                  )}
-                </div>
-              </CardHeader>
-              <CardContent>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-sm text-gray-600">Event Date</p>
-                    <p className="font-semibold">{formatDate(isCalendarFlow ? calendarData?.eventDate : quote?.project?.projectDate)}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Duration</p>
-                    <p className="font-semibold">{quote?.project?.duration || 4} hours</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Event Type</p>
-                    <p className="font-semibold capitalize">{isCalendarFlow ? calendarData?.eventType : quote?.project?.eventType || 'Party'}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-600">Contact</p>
-                    <p className="font-semibold">{isCalendarFlow ? 'Customer' : quote?.contact?.name || 'Customer'}</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Cruise Type Selection - NEW: Show both options */}
-            {showBothOptions && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Choose Your Cruise Experience</CardTitle>
-                  <p className="text-sm text-gray-600">Select between a private charter or join our disco cruise experience</p>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-2 gap-4">
-                    <button
-                      onClick={() => setSelectedCruiseType('private')}
-                      className={cn(
-                        "p-4 rounded-lg border-2 transition-all text-left",
-                        selectedCruiseType === 'private'
-                          ? "border-blue-500 bg-blue-50 text-blue-900"
-                          : "border-gray-200 hover:border-gray-300"
-                      )}
-                      data-testid="button-select-private-cruise"
-                    >
-                      <div className="flex items-center mb-2">
-                        <Ship className="h-5 w-5 mr-2" />
-                        <span className="font-semibold">Private Cruise</span>
-                      </div>
-                      <p className="text-sm text-gray-600">
-                        Charter the boat exclusively for your group. Customize your experience with add-on packages.
-                      </p>
-                    </button>
-                    
-                    <button
-                      onClick={() => setSelectedCruiseType('disco')}
-                      className={cn(
-                        "p-4 rounded-lg border-2 transition-all text-left",
-                        selectedCruiseType === 'disco'
-                          ? "border-purple-500 bg-purple-50 text-purple-900"
-                          : "border-gray-200 hover:border-gray-300"
-                      )}
-                      data-testid="button-select-disco-cruise"
-                    >
-                      <div className="flex items-center mb-2">
-                        <Sparkles className="h-5 w-5 mr-2" />
-                        <span className="font-semibold">Disco Cruise</span>
-                      </div>
-                      <p className="text-sm text-gray-600">
-                        Join our DJ-powered disco experience. Perfect for bachelor/bachelorette parties.
-                      </p>
-                    </button>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Private Cruise Options */}
-            {showPrivateOptions && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Ship className="h-5 w-5 mr-2" />
-                    Private Cruise Options
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  {/* Capacity Selection Buttons */}
-                  <div>
-                    <label className="block text-sm font-medium mb-3">
-                      Select Boat Capacity
-                    </label>
-                    <div className="grid grid-cols-5 gap-2 mb-3">
-                      {[14, 25, 30, 50, 75].map((capacity) => {
-                        const boatInfo = getBoatForCapacity(capacity);
-                        return (
-                          <Button
-                            key={capacity}
-                            variant={groupSize === capacity ? "default" : "outline"}
-                            className={cn(
-                              "flex-col h-16 text-xs p-2",
-                              groupSize === capacity ? "bg-blue-600 text-white" : "hover:bg-blue-50"
-                            )}
-                            onClick={() => {
-                              setGroupSize(capacity);
-                              setSelectedBoatId(boatInfo.id);
-                            }}
-                            data-testid={`button-capacity-${capacity}`}
-                          >
-                            <span className="font-bold">{capacity}</span>
-                            <span className="text-[10px] leading-tight">{boatInfo.name}</span>
-                          </Button>
-                        );
-                      })}
-                    </div>
-                    <p className="text-xs text-gray-500">
-                      Selected: {getBoatForCapacity(groupSize).name} (fits {groupSize} people)
-                    </p>
-                  </div>
-
-                  {/* Date Selection */}
-                  <div>
-                    <label className="block text-sm font-medium mb-3">
-                      <CalendarIcon className="h-4 w-4 inline mr-2" />
-                      Select Event Date
-                    </label>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <Button
-                          variant="outline"
-                          className={cn(
-                            "w-full justify-start text-left font-normal",
-                            !selectedDate && "text-muted-foreground"
-                          )}
-                          data-testid="button-date-picker"
-                        >
-                          <CalendarIcon className="mr-2 h-4 w-4" />
-                          {selectedDate ? format(selectedDate, "PPP") : "Pick a date"}
-                        </Button>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={selectedDate}
-                          onSelect={(date) => {
-                            setSelectedDate(date);
-                            if (date) {
-                              setEventDate(format(date, 'yyyy-MM-dd'));
-                            }
-                          }}
-                          disabled={(date) => date < new Date()}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-                    
-                    {/* Boat & Pricing Details */}
-                    {selectedDate && (
-                      <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-4">
-                        <h4 className="font-semibold text-blue-900 mb-2">Boat & Pricing Details</h4>
-                        <div className="space-y-1 text-sm text-blue-800">
-                          <p><strong>Boat:</strong> {getBoatForCapacity(groupSize).name}</p>
-                          <p><strong>Capacity:</strong> {groupSize} people</p>
-                          <p><strong>Date:</strong> {format(selectedDate, "PPPP")}</p>
-                          <p><strong>Day Type:</strong> {getDayType(selectedDate)}</p>
-                          <p><strong>Available Durations:</strong> {getAvailableDurations(selectedDate)}</p>
-                        </div>
-                      </div>
-                    )}
-                  </div>
-
-                  {/* Time Slot Selection (Calendar Flow Only) */}
-                  {isCalendarFlow && (
-                    <div>
-                      <label className="block text-sm font-medium mb-2">
-                        <Clock className="h-4 w-4 inline mr-2" />
-                        Available Time Slots
-                      </label>
-                      {slotsLoading ? (
-                        <div className="flex items-center justify-center p-4 border rounded-lg">
-                          <Loader2 className="h-4 w-4 animate-spin mr-2" />
-                          <span className="text-sm text-gray-600">Loading available time slots...</span>
-                        </div>
-                      ) : availableSlots.length > 0 ? (
-                        <div className="grid grid-cols-1 gap-2 max-h-40 overflow-y-auto">
-                          {availableSlots.map((slot, index) => (
-                            <button
-                              key={`${slot.boatId}-${slot.startTime}-${index}`}
-                              onClick={() => {
-                                setSelectedTimeSlot(`${slot.startTime}-${slot.endTime}`);
-                                setSelectedBoat(slot.boatId);
-                                setSelectedSlotId(slot.id || `${slot.boatId}_${slot.startTime}_${slot.endTime}`);
-                              }}
-                              className={cn(
-                                "p-3 text-left border rounded-lg transition-all",
-                                selectedTimeSlot === `${slot.startTime}-${slot.endTime}` && selectedBoat === slot.boatId
-                                  ? "border-blue-500 bg-blue-50 text-blue-900"
-                                  : "border-gray-200 hover:border-gray-300 hover:bg-gray-50"
-                              )}
-                              data-testid={`button-select-timeslot-${slot.boatId}-${slot.startTime}`}
-                            >
-                              <div className="flex justify-between items-center">
-                                <div>
-                                  <div className="font-medium text-sm">
-                                    {slot.startTime} - {slot.endTime}
-                                  </div>
-                                  <div className="text-xs text-gray-600">
-                                    {slot.boatName} (Fits {slot.capacity} people)
-                                  </div>
-                                </div>
-                                <div className="text-right">
-                                  <div className="text-sm font-medium">
-                                    ${Math.round(slot.basePrice / 100)}/hr
-                                  </div>
-                                  <div className="text-xs text-gray-500">
-                                    {slot.duration}h duration
-                                  </div>
-                                </div>
-                              </div>
-                            </button>
-                          ))}
-                        </div>
-                      ) : (
-                        <div className="p-4 border rounded-lg text-center text-gray-600">
-                          <AlertCircle className="h-6 w-6 mx-auto mb-2 text-gray-400" />
-                          <p className="text-sm">No available time slots for {eventDate}</p>
-                          <p className="text-xs mt-1">Try a different date or group size</p>
-                        </div>
-                      )}
-                    </div>
-                  )}
-
-                  {/* Add-on Packages */}
-                  <div>
-                    <label className="block text-sm font-medium mb-3">Additional Packages</label>
-                    <div className="space-y-3">
-                      {addOnPackages.map((pkg) => (
-                        <div key={pkg.id} className="flex items-center space-x-3">
-                          <input
-                            type="checkbox"
-                            id={`addon-${pkg.id}`}
-                            checked={selectedAddOns.includes(pkg.id)}
-                            onChange={(e) => {
-                              if (e.target.checked) {
-                                setSelectedAddOns([...selectedAddOns, pkg.id]);
-                              } else {
-                                setSelectedAddOns(selectedAddOns.filter(id => id !== pkg.id));
-                              }
-                            }}
-                            className="rounded border-gray-300"
-                          />
-                          <div className="flex-1">
-                            <label htmlFor={`addon-${pkg.id}`} className="font-medium cursor-pointer">
-                              {pkg.name} (+${pkg.hourlyRate}/hr)
-                            </label>
-                            <p className="text-sm text-gray-600">{pkg.description}</p>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Disco Cruise Options */}
-            {showDiscoOptions && (
-              <Card>
-                <CardHeader>
-                  <CardTitle className="flex items-center">
-                    <Sparkles className="h-5 w-5 mr-2" />
-                    Disco Cruise Options
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="space-y-6">
-                  {/* Package Selection */}
-                  <div>
-                    <label className="block text-sm font-medium mb-2">Package Type</label>
-                    <Select value={selectedDiscoPackage} onValueChange={setSelectedDiscoPackage}>
-                      <SelectTrigger>
-                        <SelectValue />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {discoPackages.map((pkg) => (
-                          <SelectItem key={pkg.id} value={pkg.id}>
-                            {pkg.name} - {formatCurrency(pkg.price)}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </div>
-
-                  {/* Ticket Quantity */}
-                  <div>
-                    <label className="block text-sm font-medium mb-2">
-                      Number of Tickets: {discoTicketQuantity}
-                    </label>
-                    <Slider
-                      value={[discoTicketQuantity]}
-                      onValueChange={(value) => setDiscoTicketQuantity(value[0])}
-                      min={1}
-                      max={50}
-                      step={1}
-                      className="w-full"
-                    />
-                    <div className="flex justify-between text-xs text-gray-500 mt-1">
-                      <span>1 ticket</span>
-                      <span>50 tickets</span>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            )}
-          </div>
-
-          {/* Right Column - Pricing & Payment */}
-          <div className="space-y-6">
-            {/* Private Cruise Pricing */}
-            {showPrivateOptions && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Private Cruise Pricing</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {pricingLoading ? (
-                    <div className="flex items-center justify-center py-8">
-                      <Loader2 className="h-6 w-6 animate-spin" />
-                    </div>
-                  ) : privatePricing ? (
-                    <div className="space-y-4">
-                      {/* Pricing Breakdown */}
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <span>Base Rate ({privatePricing.duration}h × ${privatePricing.hourlyRate}/hr):</span>
-                          <span>{formatCurrency(privatePricing.subtotal)}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Tax (8.25%):</span>
-                          <span>{formatCurrency(privatePricing.tax)}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Gratuity (20%):</span>
-                          <span>{formatCurrency(privatePricing.gratuity)}</span>
-                        </div>
-                        <Separator />
-                        <div className="flex justify-between font-bold text-lg">
-                          <span>Total:</span>
-                          <span>{formatCurrency(privatePricing.total)}</span>
-                        </div>
-                        <div className="flex justify-between text-sm text-gray-600">
-                          <span>Per Person:</span>
-                          <span>{formatCurrency(privatePricing.perPersonCost)}</span>
-                        </div>
-                      </div>
-
-                      {/* Discount Code Section */}
-                      <div className="space-y-2">
-                        <Label htmlFor="discountCode">Discount Code (Optional)</Label>
-                        <Input
-                          id="discountCode"
-                          value={discountCode}
-                          onChange={(e) => setDiscountCode(e.target.value)}
-                          placeholder="Enter promo code"
-                          data-testid="input-discount-code"
-                        />
-                        {discountCode && (
-                          <p className="text-xs text-green-600">
-                            💰 Discount code will be applied at checkout
-                          </p>
-                        )}
-                      </div>
-
-                      {/* Payment Buttons */}
-                      <div className="space-y-3">
-                        <Button
-                          onClick={() => handlePayment('deposit', 'private')}
-                          className="w-full bg-blue-600 hover:bg-blue-700"
-                          disabled={isExpired}
-                        >
-                          <CreditCard className="h-4 w-4 mr-2" />
-                          Pay Deposit ({formatCurrency(privatePricing.depositAmount)})
-                        </Button>
-                        <Button
-                          onClick={() => handlePayment('full', 'private')}
-                          variant="outline"
-                          className="w-full"
-                          disabled={isExpired}
-                        >
-                          Pay in Full ({formatCurrency(privatePricing.total)})
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <p className="text-center py-8 text-gray-500">Loading pricing...</p>
-                  )}
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Disco Cruise Pricing */}
-            {showDiscoOptions && (
-              <Card>
-                <CardHeader>
-                  <CardTitle>Disco Cruise Pricing</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  {pricingLoading ? (
-                    <div className="flex items-center justify-center py-8">
-                      <Loader2 className="h-6 w-6 animate-spin" />
-                    </div>
-                  ) : discoPricing ? (
-                    <div className="space-y-4">
-                      {/* Pricing Breakdown */}
-                      <div className="space-y-2">
-                        <div className="flex justify-between">
-                          <span>{discoTicketQuantity} × {discoPackages.find(p => p.id === selectedDiscoPackage)?.name}:</span>
-                          <span>{formatCurrency(discoPricing.subtotal)}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Tax (8.25%):</span>
-                          <span>{formatCurrency(discoPricing.tax)}</span>
-                        </div>
-                        <div className="flex justify-between">
-                          <span>Gratuity (20%):</span>
-                          <span>{formatCurrency(discoPricing.gratuity)}</span>
-                        </div>
-                        <Separator />
-                        <div className="flex justify-between font-bold text-lg">
-                          <span>Total:</span>
-                          <span>{formatCurrency(discoPricing.total)}</span>
-                        </div>
-                        <div className="flex justify-between text-sm text-gray-600">
-                          <span>Per Person:</span>
-                          <span>{formatCurrency(discoPricing.perPersonCost)}</span>
-                        </div>
-                      </div>
-
-                      {/* Discount Code Section */}
-                      <div className="space-y-2">
-                        <Label htmlFor="discountCodeDisco">Discount Code (Optional)</Label>
-                        <Input
-                          id="discountCodeDisco"
-                          value={discountCode}
-                          onChange={(e) => setDiscountCode(e.target.value)}
-                          placeholder="Enter promo code"
-                          data-testid="input-discount-code-disco"
-                        />
-                        {discountCode && (
-                          <p className="text-xs text-green-600">
-                            💰 Discount code will be applied at checkout
-                          </p>
-                        )}
-                      </div>
-
-                      {/* Payment Buttons */}
-                      <div className="space-y-3">
-                        <Button
-                          onClick={() => handlePayment('deposit', 'disco')}
-                          className="w-full bg-purple-600 hover:bg-purple-700"
-                          disabled={isExpired}
-                        >
-                          <CreditCard className="h-4 w-4 mr-2" />
-                          Pay Deposit ({formatCurrency(discoPricing.depositAmount)})
-                        </Button>
-                        <Button
-                          onClick={() => handlePayment('full', 'disco')}
-                          variant="outline"
-                          className="w-full"
-                          disabled={isExpired}
-                        >
-                          Pay in Full ({formatCurrency(discoPricing.total)})
-                        </Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <p className="text-center py-8 text-gray-500">Loading pricing...</p>
-                  )}
-                </CardContent>
-              </Card>
-            )}
-
-            {/* Send Quote Option */}
-            <Card>
-              <CardHeader>
-                <CardTitle>Share This Quote</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-sm text-gray-600 mb-4">
-                  Want to review this later or share with others?
-                </p>
-                <Button
-                  variant="outline"
-                  className="w-full"
-                  onClick={() => {
-                    navigator.clipboard.writeText(window.location.href);
-                    toast({
-                      title: "Link Copied!",
-                      description: "Quote link has been copied to your clipboard.",
-                    });
-                  }}
-                >
-                  <FileText className="h-4 w-4 mr-2" />
-                  Copy Quote Link
-                </Button>
-              </CardContent>
-            </Card>
-          </div>
+        {/* TEMPORARY PLACEHOLDER - 17HATS INTERFACE COMING */}
+        <div className="max-w-4xl mx-auto space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>17hats-Style Interface Under Construction</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <p>The new 17hats-style interface is being implemented...</p>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>

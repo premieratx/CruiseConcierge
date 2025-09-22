@@ -2702,6 +2702,92 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // UNIFIED AVAILABILITY SERVICE ENDPOINTS
   // ==========================================
 
+  // Get weekly availability for 17hats-style interface
+  app.get("/api/availability/weekly", async (req, res) => {
+    try {
+      const { date, groupSize = 20, eventType = 'other' } = req.query;
+      
+      if (!date) {
+        return res.status(400).json({ error: "Date parameter is required" });
+      }
+      
+      const targetDate = new Date(date as string);
+      
+      // Calculate start of week (Monday)
+      const startOfWeek = new Date(targetDate);
+      const dayOfWeek = startOfWeek.getDay();
+      const daysFromMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1; // Sunday = 6 days from Monday
+      startOfWeek.setDate(startOfWeek.getDate() - daysFromMonday);
+      
+      // Calculate end of week (Sunday)
+      const endOfWeek = new Date(startOfWeek);
+      endOfWeek.setDate(endOfWeek.getDate() + 6);
+      
+      const startDateStr = startOfWeek.toISOString().split('T')[0];
+      const endDateStr = endOfWeek.toISOString().split('T')[0];
+      
+      console.log(`🗓️ Weekly availability request: ${startDateStr} to ${endDateStr}, groupSize: ${groupSize}, eventType: ${eventType}`);
+      
+      // Determine what cruise types to show based on event type
+      const isPartyCruise = ['bachelor', 'bachelorette'].includes(eventType as string);
+      const cruiseTypes = isPartyCruise ? ['private', 'disco'] : ['private'];
+      
+      const weeklySlots: any[] = [];
+      
+      for (const cruiseType of cruiseTypes) {
+        const searchParams = {
+          startDate: startDateStr,
+          endDate: endDateStr,
+          cruiseType,
+          groupSize: groupSize.toString()
+        };
+        
+        // Use existing availability search logic
+        const searchFilters = {
+          startDate: new Date(startDateStr),
+          endDate: new Date(endDateStr),
+          cruiseType,
+          groupSize: parseInt(groupSize.toString())
+        };
+        const slots = await storage.searchNormalizedSlots(searchFilters);
+        
+        // Add cruise type and organize by day
+        slots.forEach((slot: any) => {
+          const slotDate = new Date(slot.dateISO);
+          const dayName = slotDate.toLocaleDateString('en-US', { weekday: 'long' });
+          
+          weeklySlots.push({
+            ...slot,
+            cruiseType,
+            dayName,
+            dayDate: slot.dateISO,
+            sortOrder: slotDate.getTime()
+          });
+        });
+      }
+      
+      // Sort by date and time
+      weeklySlots.sort((a, b) => {
+        if (a.sortOrder !== b.sortOrder) return a.sortOrder - b.sortOrder;
+        return a.startTime.localeCompare(b.startTime);
+      });
+      
+      console.log(`✅ Weekly availability: ${weeklySlots.length} slots found for week of ${startDateStr}`);
+      
+      res.json({
+        success: true,
+        weekStart: startDateStr,
+        weekEnd: endDateStr,
+        totalSlots: weeklySlots.length,
+        slots: weeklySlots
+      });
+      
+    } catch (error: any) {
+      console.error("Weekly availability error:", error);
+      res.status(500).json({ error: "Failed to fetch weekly availability: " + error.message });
+    }
+  });
+
   // Search available slots with filters
   app.get("/api/availability/search", async (req, res) => {
     try {
