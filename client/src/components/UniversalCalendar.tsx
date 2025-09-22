@@ -205,22 +205,27 @@ export default function UniversalCalendar({
       return response.json();
     },
     onSuccess: (data, slot) => {
-      // Navigate to UniversalCheckout with holdId and all needed parameters
-      const params = new URLSearchParams({
-        holdId: data.holdId,
-        entryPoint: entryPoint,
-        cruiseType: eventType === 'bachelor' || eventType === 'bachelorette' ? 'disco' : 'private',
-        eventType: eventType,
-        groupSize: groupSize.toString(),
+      // Navigate to QuoteViewer at /checkout with all needed parameters
+      const calendarData = {
         eventDate: slot.dateISO || slot.date || '',
-        startTime: slot.startTime || '',
-        endTime: slot.endTime || '',
-        duration: slot.duration?.toString() || '4',
-        boatName: slot.boatName || '',
-        slotId: slot.id
+        eventType: eventType,
+        groupSize: groupSize,
+        cruiseType: eventType === 'bachelor' || eventType === 'bachelorette' ? 'disco' : 'private',
+        selectedTimeSlot: `${slot.startTime}-${slot.endTime}`,
+        boatId: slot.boatId || '',
+        slotId: slot.id,
+        date: slot.dateISO || slot.date || ''
+      };
+      
+      const params = new URLSearchParams({
+        data: encodeURIComponent(JSON.stringify(calendarData)),
+        eventDate: slot.dateISO || slot.date || '',
+        groupSize: groupSize.toString(),
+        eventType: eventType,
+        selectedSlot: `${slot.startTime}-${slot.endTime}`
       });
 
-      navigate(`/universal-checkout?${params.toString()}`);
+      navigate(`/checkout?${params.toString()}`);
       setShowSlotPopup(false);
       
       toast({

@@ -107,6 +107,7 @@ function Router() {
       <Route path="/quote" component={QuoteViewer} />
       <Route path="/quote/:quoteId" component={QuoteViewer} />
       <Route path="/quote-checkout" component={QuoteViewer} />
+      <Route path="/checkout" component={QuoteViewer} />
       <Route path="/invoice/:invoiceId" component={InvoiceViewer} />
       
       {/* Admin Blog Routes */}
