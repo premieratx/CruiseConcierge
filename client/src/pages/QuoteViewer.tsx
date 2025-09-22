@@ -12,14 +12,16 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
-import { format } from 'date-fns';
+import { format, addDays } from 'date-fns';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 import { useBookingCache } from '@/contexts/BookingCacheContext';
 import { 
   Ship, Clock, MapPin, Phone, Mail, FileText,
   Download, Printer, CheckCircle, AlertCircle, Loader2,
-  Users, Plus, Minus, Edit2, Save, CreditCard, ChevronRight, Sparkles, CalendarIcon
+  Users, Plus, Minus, Edit2, Save, CreditCard, ChevronRight, Sparkles, CalendarIcon,
+  Calendar as CalendarIconLucide
 } from 'lucide-react';
 import type { Quote, PricingPreview, Project, Contact, QuoteItem, RadioSection } from '@shared/schema';
 
@@ -172,6 +174,7 @@ export default function QuoteViewer() {
   // Time slot selection state
   const [availableSlots, setAvailableSlots] = useState<any[]>([]);
   const [weeklySlots, setWeeklySlots] = useState<any[]>([]);
+  const [isLoadingWeekly, setIsLoadingWeekly] = useState(false);
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [capacityFilter, setCapacityFilter] = useState<number>(isCalendarFlow ? calendarData?.groupSize || 20 : 20);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>(calendarData?.selectedTimeSlot || '');
@@ -661,16 +664,232 @@ export default function QuoteViewer() {
       </div>
 
       <div className="max-w-7xl mx-auto px-4 py-8">
-        {/* TEMPORARY PLACEHOLDER - 17HATS INTERFACE COMING */}
-        <div className="max-w-4xl mx-auto space-y-6">
-          <Card>
-            <CardHeader>
-              <CardTitle>17hats-Style Interface Under Construction</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p>The new 17hats-style interface is being implemented...</p>
-            </CardContent>
-          </Card>
+        {/* 17HATS-STYLE WEEKLY INTERFACE */}
+        <div className="space-y-6">
+          {/* Title and Status */}
+          <div className="flex justify-between items-start">
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">Book Your Cruise</h1>
+              <p className="text-gray-600 mt-1">Select your preferred date and time below</p>
+            </div>
+            {quote && (
+              <Badge variant={isExpired ? "destructive" : "secondary"} className="mt-2">
+                {isExpired ? 'EXPIRED' : 'Active Quote'}
+              </Badge>
+            )}
+          </div>
+
+          {/* Main Content Grid */}
+          <div className="grid lg:grid-cols-3 gap-6">
+            {/* Left Column: Selection Interface */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* Capacity Filter Buttons */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Group Size</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <div className="flex flex-wrap gap-2">
+                    {capacityOptions.map((capacity) => (
+                      <Button
+                        key={capacity}
+                        variant={capacityFilter === capacity ? "default" : "outline"}
+                        size="sm"
+                        onClick={() => handleCapacityChange(capacity)}
+                        data-testid={`button-capacity-${capacity}`}
+                      >
+                        {capacity === 14 ? '≤14' : capacity === 75 ? '51-75' : `≤${capacity}`} People
+                      </Button>
+                    ))}
+                    <Button
+                      variant={capacityFilter === null ? "default" : "outline"}
+                      size="sm"
+                      onClick={() => handleCapacityChange(null)}
+                      data-testid="button-capacity-all"
+                    >
+                      All Sizes
+                    </Button>
+                  </div>
+                  <p className="text-sm text-gray-600 mt-3">
+                    Current group size: {groupSize} people
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Weekly Availability Grid */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-lg">Available Times This Week</CardTitle>
+                  <p className="text-sm text-gray-600">
+                    {eventDate ? format(new Date(eventDate), 'MMMM d-') : ''}{eventDate ? format(addDays(new Date(eventDate), 6), 'd, yyyy') : ''}
+                  </p>
+                </CardHeader>
+                <CardContent>
+                  {isLoadingWeekly ? (
+                    <div className="flex items-center justify-center py-12">
+                      <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+                    </div>
+                  ) : weeklySlots.length > 0 ? (
+                    <div className="space-y-4">
+                      {/* Group slots by day */}
+                      {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day, dayIndex) => {
+                        const daySlots = weeklySlots.filter(slot => {
+                          const slotDay = new Date(slot.date).getDay();
+                          const mappedDay = slotDay === 0 ? 6 : slotDay - 1; // Convert Sunday=0 to Sunday=6
+                          return mappedDay === dayIndex;
+                        });
+
+                        if (daySlots.length === 0) return null;
+
+                        return (
+                          <div key={day} className="border-b pb-4 last:border-b-0">
+                            <h3 className="font-semibold text-gray-900 mb-3">
+                              {day}, {format(addDays(new Date(eventDate), dayIndex), 'MMM d')}
+                            </h3>
+                            <RadioGroup value={selectedOption} onValueChange={handleOptionSelect}>
+                              <div className="grid sm:grid-cols-2 gap-3">
+                                {daySlots.map((slot) => {
+                                  const slotId = `${slot.type}_${slot.boat}_${slot.date}_${slot.startTime}_${slot.endTime}`;
+                                  const isSelected = selectedOption === slotId;
+                                  
+                                  return (
+                                    <div key={slotId} className={`relative flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50 ${isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
+                                      <RadioGroupItem value={slotId} id={slotId} data-testid={`radio-slot-${slotId}`} />
+                                      <Label htmlFor={slotId} className="flex-1 cursor-pointer">
+                                        <div className="flex justify-between items-start">
+                                          <div>
+                                            <p className="font-medium text-gray-900">
+                                              {slot.startTime} - {slot.endTime}
+                                            </p>
+                                            <p className="text-sm text-gray-600">
+                                              {slot.boat.replace('boat_', '').replace(/_/g, ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
+                                            </p>
+                                            {slot.type === 'disco' && (
+                                              <Badge variant="secondary" className="mt-1 text-xs">
+                                                Disco Cruise
+                                              </Badge>
+                                            )}
+                                          </div>
+                                          <div className="text-right">
+                                            <p className="font-semibold text-gray-900">
+                                              ${slot.price / 100}/hr
+                                            </p>
+                                            <p className="text-xs text-gray-500">
+                                              {slot.duration}hr cruise
+                                            </p>
+                                          </div>
+                                        </div>
+                                      </Label>
+                                    </div>
+                                  );
+                                })}
+                              </div>
+                            </RadioGroup>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  ) : (
+                    <div className="text-center py-12">
+                      <CalendarIconLucide className="h-12 w-12 text-gray-400 mx-auto mb-3" />
+                      <p className="text-gray-600">No available slots this week</p>
+                      <p className="text-sm text-gray-500 mt-1">Try adjusting your group size or selecting a different week</p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Right Column: Pricing Summary & Payment */}
+            <div className="lg:col-span-1">
+              <Card className="sticky top-4">
+                <CardHeader>
+                  <CardTitle className="text-lg">Booking Summary</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  {selectedOption ? (
+                    <>
+                      {/* Selected Cruise Details */}
+                      <div className="space-y-2 pb-4 border-b">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">Date:</span>
+                          <span className="font-medium">{eventDate && format(new Date(eventDate), 'MMM d, yyyy')}</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">Group Size:</span>
+                          <span className="font-medium">{groupSize} people</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">Duration:</span>
+                          <span className="font-medium">{privatePricing?.duration || 4} hours</span>
+                        </div>
+                      </div>
+
+                      {/* Pricing Breakdown */}
+                      <div className="space-y-2">
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">Subtotal:</span>
+                          <span>{formatCurrency(privatePricing?.subtotal || 0)}</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">Tax (8.25%):</span>
+                          <span>{formatCurrency(privatePricing?.tax || 0)}</span>
+                        </div>
+                        <div className="flex justify-between text-sm">
+                          <span className="text-gray-600">Gratuity (20%):</span>
+                          <span>{formatCurrency(privatePricing?.gratuity || 0)}</span>
+                        </div>
+                        <div className="flex justify-between font-bold text-lg pt-2 border-t">
+                          <span>Total:</span>
+                          <span>{formatCurrency(privatePricing?.total || 0)}</span>
+                        </div>
+                      </div>
+
+                      {/* Payment Buttons */}
+                      <div className="space-y-3 pt-4">
+                        <Button 
+                          className="w-full bg-blue-600 hover:bg-blue-700"
+                          size="lg"
+                          onClick={() => handlePayment('deposit', 'private')}
+                          disabled={isPaymentLoading}
+                          data-testid="button-pay-deposit"
+                        >
+                          {isPaymentLoading ? (
+                            <Loader2 className="h-4 w-4 animate-spin mr-2" />
+                          ) : (
+                            <CreditCard className="h-4 w-4 mr-2" />
+                          )}
+                          Pay Deposit ({formatCurrency(privatePricing?.depositAmount || 0)})
+                        </Button>
+                        <Button 
+                          variant="outline" 
+                          className="w-full"
+                          size="lg"
+                          onClick={() => handlePayment('full', 'private')}
+                          disabled={isPaymentLoading}
+                          data-testid="button-pay-full"
+                        >
+                          Pay in Full ({formatCurrency(privatePricing?.total || 0)})
+                        </Button>
+                      </div>
+
+                      {/* Deposit Info */}
+                      {privatePricing?.depositRequired && (
+                        <div className="text-xs text-gray-500 text-center pt-2">
+                          {privatePricing.depositPercent}% deposit required • Balance due at boarding
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <div className="text-center py-8">
+                      <Clock className="h-12 w-12 text-gray-400 mx-auto mb-3" />
+                      <p className="text-gray-600">Select a time slot to see pricing</p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          </div>
         </div>
       </div>
     </div>

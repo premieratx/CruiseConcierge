@@ -104,6 +104,7 @@ function Router() {
       <Route path="/affiliates" component={Affiliates} />
       <Route path="/documentation" component={Documentation} />
       <Route path="/settings" component={Settings} />
+      <Route path="/quote" component={QuoteViewer} />
       <Route path="/quote/:quoteId" component={QuoteViewer} />
       <Route path="/quote-checkout" component={QuoteViewer} />
       <Route path="/invoice/:invoiceId" component={InvoiceViewer} />
