@@ -139,7 +139,18 @@ export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
         endTime: '16:00', 
         duration: 4, 
         icon: '🎉', 
-        description: 'Friday disco cruise',
+        description: 'Friday afternoon disco cruise',
+        ticketPrice: 85,
+        maxCapacity: 100
+      },
+      { 
+        id: 'disco-fri-4:30pm-8:30pm', 
+        label: '4:30 PM - 8:30 PM', 
+        startTime: '16:30', 
+        endTime: '20:30', 
+        duration: 4, 
+        icon: '🌙', 
+        description: 'Friday evening disco cruise',
         ticketPrice: 85,
         maxCapacity: 100
       },

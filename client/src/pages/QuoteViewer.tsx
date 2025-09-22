@@ -145,15 +145,8 @@ function QuoteViewerContent() {
     (calendarData?.cruiseType as 'private' | 'disco') || 'private'
   );
   
-  // State for cruise type toggle (for bachelor/bachelorette events)
-  const [showDiscoOptions, setShowDiscoOptions] = useState(true);
-  
-  // Update selectedCruiseType when toggling
-  useEffect(() => {
-    if (!showDiscoOptions && selectedCruiseType === 'disco') {
-      setSelectedCruiseType('private');
-    }
-  }, [showDiscoOptions, selectedCruiseType]);
+  // Always show both options for bachelor/bachelorette events
+  const showDiscoOptions = true;
   
   // State for weekday duration and time slot selection
   const [weekdayDurations, setWeekdayDurations] = useState<Record<string, string>>({});
@@ -798,39 +791,6 @@ function QuoteViewerContent() {
             {/* Left Column: Selection Interface */}
             <div className="lg:col-span-2 space-y-6">
               {/* Cruise Type Toggle for Bachelor/Bachelorette */}
-              {isBachelorEvent() && (
-                <Card className="border-2 border-yellow-400 bg-yellow-50">
-                  <CardHeader>
-                    <CardTitle className="text-lg">Select Cruise Type</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex gap-3">
-                      <Button
-                        variant={showDiscoOptions ? "outline" : "default"}
-                        onClick={() => setShowDiscoOptions(false)}
-                        className="flex-1"
-                      >
-                        <Ship className="mr-2 h-4 w-4" />
-                        Private Cruise Only
-                      </Button>
-                      <Button
-                        variant={showDiscoOptions ? "default" : "outline"}
-                        onClick={() => setShowDiscoOptions(true)}
-                        className="flex-1"
-                      >
-                        <Sparkles className="mr-2 h-4 w-4" />
-                        Show Both Options
-                      </Button>
-                    </div>
-                    <p className="text-sm text-gray-600 mt-3">
-                      {showDiscoOptions ? 
-                        "Showing both Private and Disco cruise options" : 
-                        "Showing Private cruise options only"}
-                    </p>
-                  </CardContent>
-                </Card>
-              )}
-              
               {/* Capacity Filter Buttons */}
               <Card className="bg-gray-50 border-gray-200">
                 <CardHeader className="pb-3">
@@ -1122,9 +1082,9 @@ function QuoteViewerContent() {
                                       <h4 className="text-sm font-medium text-gray-700 mb-2">🎵 ATX Disco Cruise</h4>
                                       <RadioGroup value={selectedOption} onValueChange={handleOptionSelect}>
                                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                                          {filteredDiscoSlots.map((slot) => {
+                                          {filteredDiscoSlots.map((slot, index) => {
                                             const slotDate = slot.dateISO || slot.date;
-                                            const slotId = `disco_${dayName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
+                                            const slotId = `disco_${dayName}_${slotDate}_${slot.startTime}_${slot.endTime}_${index}`;
                                             const isSelected = selectedOption === slotId;
                                             const isBooked = !slot.bookable || slot.availableCount === 0;
                                             

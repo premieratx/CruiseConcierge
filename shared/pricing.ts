@@ -249,19 +249,17 @@ export function calculateBaseCruiseCost(date: Date, groupSize: number, duration?
   // Calculate base cruise cost
   const baseCruiseCost = hourlyRate * cruiseDuration;
   
-  // Crew fee calculation - this is a fallback generic calculation
-  // Real pricing should use boat-specific crew fees from products table
-  // This is kept for backward compatibility and fallback scenarios
+  // Crew fee calculation based on actual business rules:
   let crewFee = 0;
-  // Updated crew fee calculation based on task specifications:
-  // - 26-30 person groups (tier 30): +$50/hr crew fee (additional $200 for 4hr cruise)
-  // - 51-75 person groups (tier 75): +$75/hr crew fee (additional $300 for 4hr cruise)
+  
+  // Additional hourly crew fees for larger boats:
+  // - 26-30 person groups (Me Seeks The Irony): +$50/hr crew fee
+  // - 51-75 person groups (Clever Girl): +$100/hr crew fee  
   if (capacityTier === 30 && groupSize >= 26 && groupSize <= 30) {
     crewFee = PRICING_DEFAULTS.CREW_FEE_26_30 * cruiseDuration; // $50/hr * duration
   } else if (capacityTier === 75 && groupSize >= 51 && groupSize <= 75) {
-    crewFee = PRICING_DEFAULTS.CREW_FEE_51_75 * cruiseDuration; // $75/hr * duration
+    crewFee = PRICING_DEFAULTS.CREW_FEE_51_75 * cruiseDuration; // $100/hr * duration
   }
-  // 14-person, 25-person boats don't have crew fee expansion options
   
   // Calculate subtotal (base + crew fee)
   const subtotal = baseCruiseCost + crewFee;

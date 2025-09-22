@@ -527,9 +527,8 @@ export const PRICING_DEFAULTS = {
   URGENCY_THRESHOLD_DAYS: 30,
   FULL_PAYMENT_THRESHOLD_DAYS: 14,
   BASE_HOURLY_RATE: 20000, // $200.00 in cents (minimum rate)
-  EXTRA_CREW_FEE: 20000, // $200.00 in cents for groups >20 people
   CREW_FEE_26_30: 5000, // $50/hour for 26-30 person groups (25p boat expansion)
-  CREW_FEE_51_75: 7500, // $75/hour for 51-75 person groups (50p boat expansion)
+  CREW_FEE_51_75: 10000, // $100/hour for 51-75 person groups (50p boat expansion)
 } as const;
 
 /**
