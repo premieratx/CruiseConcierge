@@ -211,7 +211,7 @@ const faqCategories = {
       },
       {
         question: 'Are there any additional costs I should know about?',
-        answer: 'The main additional costs are gratuity for the crew (20% recommended), food and beverages (you can bring your own), and any special add-ons like professional photography ($300), decorations setup ($150), or extended hours ($200/hour). We\'re transparent about all pricing upfront.'
+        answer: 'The main additional costs are gratuity for the crew (20% recommended), food and beverages (you can bring your own), and any special add-ons like professional photography ($300), decorations setup ($150), or extended hours (rates vary by boat and date). We\'re transparent about all pricing upfront.'
       },
       {
         question: 'What are your private charter rates?',

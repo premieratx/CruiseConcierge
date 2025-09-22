@@ -2610,7 +2610,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
                   time: `${tf.startTime}-${tf.endTime}`, // Keep HH:mm format consistent
                   boatType: boat.name,
                   capacity: boat.capacity,
-                  baseRate: 350, // Base rate per hour
+                  baseRate: 250, // Base rate per hour (using shared constants)
                   status: 'AVAILABLE',
                   bookedBy: undefined,
                   groupSize: undefined,

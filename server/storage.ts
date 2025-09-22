@@ -1138,30 +1138,8 @@ export class DatabaseStorage implements IStorage {
    * Helper method to get hourly rate for a boat based on its capacity and day type
    */
   private getHourlyRateForBoat(boat: Boat, dayType: 'MON_THU' | 'FRIDAY' | 'SAT_SUN'): number {
-    // ✅ CORRECTED HOURLY RATES: Now matches shared/constants.ts exactly
-    const HOURLY_RATES = {
-      MON_THU: {
-        14: 20000,  // $200/hour for ≤14 people
-        25: 22500,  // $225/hour for ≤25 people
-        30: 22500,  // $225/hour for ≤30 people (same as 25p + crew fee)
-        50: 25000,  // $250/hour for ≤50 people
-        75: 25000,  // $250/hour for ≤75 people (same as 50p + crew fee)
-      },
-      FRIDAY: {
-        14: 22500,  // $225/hour for ≤14 people
-        25: 25000,  // $250/hour for ≤25 people
-        30: 25000,  // $250/hour for ≤30 people (same as 25p + crew fee)
-        50: 27500,  // $275/hour for ≤50 people
-        75: 27500,  // $275/hour for ≤75 people (same as 50p + crew fee)
-      },
-      SAT_SUN: {
-        14: 35000,  // $350/hour for Saturday, $250/hour for Sunday (using higher rate)
-        25: 37500,  // $375/hour for Saturday, $275/hour for Sunday (using higher rate)
-        30: 37500,  // $375/hour for ≤30 people (same as 25p + crew fee)
-        50: 40000,  // $400/hour for Saturday, $300/hour for Sunday (using higher rate)
-        75: 40000,  // $400/hour for ≤75 people (same as 50p + crew fee)
-      }
-    };
+    // ✅ USE SHARED CONSTANTS: Import from shared/constants.ts for consistency  
+    const { HOURLY_RATES } = require('../shared/constants.js');
     
     // Map boat capacity to pricing tier
     let capacityTier: keyof typeof HOURLY_RATES.MON_THU;
