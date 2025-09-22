@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import { useParams } from 'wouter';
 import { useQuery, useMutation } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
@@ -104,8 +104,12 @@ export default function QuoteViewer() {
   const [availableSlots, setAvailableSlots] = useState<any[]>([]);
   const [selectedTimeSlot, setSelectedTimeSlot] = useState<string>(calendarData?.selectedTimeSlot || '');
   const [selectedBoat, setSelectedBoat] = useState<string>(calendarData?.boatId || '');
+  const [selectedSlotId, setSelectedSlotId] = useState<string>('');
   const [eventDate, setEventDate] = useState<string>(calendarData?.eventDate || format(new Date(), 'yyyy-MM-dd'));
   const [slotsLoading, setSlotsLoading] = useState(false);
+  
+  // Stable dependency keys to prevent infinite loops
+  const addOnsKey = useMemo(() => selectedAddOns.slice().sort().join(','), [selectedAddOns]);
   
   // Fetch quote details with token (only for quote flow)
   const { data: quote, isLoading, error: quoteError } = useQuery<QuoteWithDetails>({
@@ -179,13 +183,15 @@ export default function QuoteViewer() {
         
         pricingRequest = {
           groupSize,
-          eventDate: calendarData?.eventDate,
-          timeSlot: calendarData?.selectedTimeSlot,
+          eventDate: eventDate,
+          timeSlot: selectedTimeSlot,
           cruiseType: 'private',
           eventType: calendarData?.eventType || 'other',
           promoCode: discountCode,
-          packageType: selectedAddOns.join(','),
-          hourlyRate
+          packageType: addOnsKey,
+          hourlyRate,
+          boatId: selectedBoat,
+          slotId: selectedSlotId
         };
         
         const res = await apiRequest('POST', '/api/pricing/cruise', pricingRequest);
@@ -234,12 +240,13 @@ export default function QuoteViewer() {
         // Calendar flow: use calendar data for disco pricing
         const pricingRequest = {
           groupSize: discoTicketQuantity,
-          eventDate: calendarData?.eventDate,
-          timeSlot: calendarData?.selectedTimeSlot,
+          eventDate: eventDate,
+          timeSlot: selectedTimeSlot,
           cruiseType: 'disco',
           eventType: calendarData?.eventType || 'bachelor',
           packageType: selectedDiscoPackage,
-          promoCode: discountCode
+          promoCode: discountCode,
+          slotId: selectedSlotId
         };
         
         const res = await apiRequest('POST', '/api/pricing/cruise', pricingRequest);
@@ -312,30 +319,29 @@ export default function QuoteViewer() {
     }
   }, [fetchAvailableSlots]);
 
-  // Refresh pricing when dependencies change (for both quote and calendar flow)
+  // Debounced private pricing refresh
   useEffect(() => {
-    if (isCalendarFlow) {
-      // Calendar flow: fetch pricing immediately if we have calendar data
-      if (calendarData && selectedCruiseType === 'private') {
+    if (isCalendarFlow && selectedCruiseType === 'private') {
+      const timer = setTimeout(() => {
         fetchPrivatePricing();
-      }
-    } else if (quote && isPrivateCruise(quote)) {
-      // Quote flow: fetch pricing when quote loads
+      }, 250);
+      return () => clearTimeout(timer);
+    } else if (!isCalendarFlow && quote && isPrivateCruise(quote)) {
       fetchPrivatePricing();
     }
-  }, [quote, groupSize, selectedAddOns, isCalendarFlow, calendarData, selectedCruiseType, discountCode]);
+  }, [quote, groupSize, addOnsKey, isCalendarFlow, selectedCruiseType, discountCode, selectedTimeSlot, selectedBoat, selectedSlotId, eventDate, fetchPrivatePricing]);
 
+  // Debounced disco pricing refresh  
   useEffect(() => {
-    if (isCalendarFlow) {
-      // Calendar flow: fetch disco pricing if disco cruise type
-      if (calendarData && selectedCruiseType === 'disco') {
+    if (isCalendarFlow && selectedCruiseType === 'disco') {
+      const timer = setTimeout(() => {
         fetchDiscoPricing();
-      }
-    } else if (quote && isDiscoCruise(quote)) {
-      // Quote flow: fetch disco pricing when quote loads
+      }, 250);
+      return () => clearTimeout(timer);
+    } else if (!isCalendarFlow && quote && isDiscoCruise(quote)) {
       fetchDiscoPricing();
     }
-  }, [quote, selectedDiscoPackage, discoTicketQuantity, isCalendarFlow, calendarData, selectedCruiseType, discountCode]);
+  }, [quote, selectedDiscoPackage, discoTicketQuantity, isCalendarFlow, selectedCruiseType, discountCode, selectedTimeSlot, selectedSlotId, eventDate, fetchDiscoPricing]);
 
   // Universal payment handler - works for both quote flow and calendar flow
   const handlePayment = async (paymentType: 'deposit' | 'full', cruiseType: 'private' | 'disco') => {
@@ -360,10 +366,10 @@ export default function QuoteViewer() {
         cruiseType,
         eventType: calendarData?.eventType || 'other',
         groupSize: cruiseType === 'disco' ? discoTicketQuantity : groupSize,
-        eventDate: calendarData?.eventDate,
-        selectedTimeSlot: calendarData?.selectedTimeSlot,
-        slotId: calendarData?.slotId,
-        boatId: calendarData?.boatId,
+        eventDate: eventDate || calendarData?.eventDate,
+        selectedTimeSlot: selectedTimeSlot || calendarData?.selectedTimeSlot,
+        slotId: selectedSlotId || calendarData?.slotId,
+        boatId: selectedBoat || calendarData?.boatId,
         discountCode: discountCode,
         selectedAddOns: cruiseType === 'private' ? selectedAddOns : [],
         discoPackage: cruiseType === 'disco' ? selectedDiscoPackage : null,
@@ -675,6 +681,7 @@ export default function QuoteViewer() {
                               onClick={() => {
                                 setSelectedTimeSlot(`${slot.startTime}-${slot.endTime}`);
                                 setSelectedBoat(slot.boatId);
+                                setSelectedSlotId(slot.id || `${slot.boatId}_${slot.startTime}_${slot.endTime}`);
                               }}
                               className={cn(
                                 "p-3 text-left border rounded-lg transition-all",
