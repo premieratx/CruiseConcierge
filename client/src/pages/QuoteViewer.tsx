@@ -132,12 +132,17 @@ function QuoteViewerContent() {
     }
   }
   
-  // Derive event type from calendarData or quote
-  const eventType = calendarData?.eventType || quote?.project?.eventType || '';
+  // Derive event type from calendarData (quote will be loaded later)
+  const initialEventType = calendarData?.eventType || '';
 
   // Initialize state from URL params or defaults
   const [groupSize, setGroupSize] = useState<number>(
     isCalendarFlow ? (calendarData?.groupSize || 20) : 20
+  );
+  
+  // Initialize cruise type state before using it
+  const [selectedCruiseType, setSelectedCruiseType] = useState<'private' | 'disco'>(
+    (calendarData?.cruiseType as 'private' | 'disco') || 'private'
   );
   
   // State for cruise type toggle (for bachelor/bachelorette events)
@@ -213,9 +218,6 @@ function QuoteViewerContent() {
   const [isExpired, setIsExpired] = useState(false);
   const [selectedBoatId, setSelectedBoatId] = useState<string>('');
   const [isLoadingPricing, setIsLoadingPricing] = useState(false);
-  const [selectedCruiseType, setSelectedCruiseType] = useState<'private' | 'disco'>(
-    (calendarData?.cruiseType as 'private' | 'disco') || 'private'
-  );
   
   // Time slot selection state
   const [availableSlots, setAvailableSlots] = useState<any[]>([]);
@@ -230,13 +232,12 @@ function QuoteViewerContent() {
   const [eventDate, setEventDate] = useState<string>(calendarData?.eventDate || format(new Date(), 'yyyy-MM-dd'));
   const [slotsLoading, setSlotsLoading] = useState(false);
   
+  // Derive the initial event type (quote will be loaded later)
+  const [eventType, setEventType] = useState<string>(initialEventType || 'other');
+  
   // Helper functions to determine event type and ordering
   const deriveEventType = (): string => {
-    // From calendar flow (URL params)
-    if (calendarData?.eventType) return calendarData.eventType;
-    // From quote flow
-    if (quote?.project?.eventType) return quote.project.eventType;
-    return 'other';
+    return eventType;
   };
 
   const isBachelorEvent = (): boolean => {
@@ -244,11 +245,11 @@ function QuoteViewerContent() {
     return eventType.includes('bachelor') || eventType.includes('bachelorette');
   };
   
-  const deriveOriginalDate = (): Date | null => {
+  const deriveOriginalDate = (quoteData?: QuoteWithDetails | null): Date | null => {
     // From calendar flow (preferred)
     if (calendarData?.eventDate) return new Date(calendarData.eventDate);
     // From quote flow
-    if (quote?.project?.projectDate) return new Date(quote.project.projectDate);
+    if (quoteData?.project?.projectDate) return new Date(quoteData.project.projectDate);
     return eventDate ? new Date(eventDate) : null;
   };
   
@@ -314,6 +315,11 @@ function QuoteViewerContent() {
   useEffect(() => {
     if (quote?.project) {
       setGroupSize(quote.project.groupSize || 20);
+      
+      // Update event type from quote
+      if (quote.project.eventType) {
+        setEventType(quote.project.eventType);
+      }
       
       // Set disco package if it's a disco cruise
       const discoItem = quote.items?.find(item => 
@@ -848,7 +854,7 @@ function QuoteViewerContent() {
                     <div className="space-y-3">
                       {/* Compute ordered dates based on original selection */}
                       {(() => {
-                        const originalDate = deriveOriginalDate();
+                        const originalDate = deriveOriginalDate(quote);
                         const orderedDayNames = originalDate ? computeOrderedDates(originalDate) : 
                           ['Friday', 'Saturday', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'];
                         const isBachelor = isBachelorEvent();
