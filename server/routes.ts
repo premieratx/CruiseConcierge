@@ -5259,7 +5259,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         sessionId: session.id, 
         url: session.url,
         success: true,
-        calculatedAmount: paymentAmount // Return calculated amount for verification
+        calculatedAmount: paymentAmountCents / 100 // Return calculated amount in dollars for verification
       });
     } catch (error: any) {
       console.error("Create checkout session error:", error);
