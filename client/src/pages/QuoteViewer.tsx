@@ -275,6 +275,22 @@ function QuoteViewerContent() {
   const [showPackageDropdown, setShowPackageDropdown] = useState<boolean>(false);
   const [selectedTimeSlotType, setSelectedTimeSlotType] = useState<'private' | 'disco' | null>(null);
   
+  // Update selectedAddOns when private package changes
+  useEffect(() => {
+    const newAddOns = [];
+    if (selectedPrivatePackage === 'essentials') {
+      newAddOns.push('essentials');
+    } else if (selectedPrivatePackage === 'ultimate') {
+      newAddOns.push('ultimate');
+    }
+    setSelectedAddOns(newAddOns);
+  }, [selectedPrivatePackage]);
+  
+  // Update selectedDiscoPackage when disco package option changes
+  useEffect(() => {
+    setSelectedDiscoPackage(selectedDiscoPackageOption);
+  }, [selectedDiscoPackageOption]);
+  
   // Fetch quote details with token (only for quote flow)
   const { data: quote, isLoading, error: quoteError } = useQuery<QuoteWithDetails>({
     queryKey: [`/api/quotes/${quoteId}/public`, token],
@@ -573,13 +589,13 @@ function QuoteViewerContent() {
     if (selectedCruiseType === 'private' && (isCalendarFlow || quote)) {
       fetchPrivatePricing();
     }
-  }, [selectedCruiseType, addOnsKey, groupSize, selectedOption, quote, selectedTimeSlot, selectedBoatId, selectedPrivatePackage, fetchPrivatePricing]);
+  }, [selectedCruiseType, addOnsKey, groupSize, selectedOption, quote, selectedTimeSlot, selectedBoatId, selectedPrivatePackage, fetchPrivatePricing, isCalendarFlow]);
 
   useEffect(() => {
     if (selectedCruiseType === 'disco' && (isCalendarFlow || quote)) {
       fetchDiscoPricing();
     }
-  }, [selectedCruiseType, selectedDiscoPackage, discoTicketQuantity, quote]);
+  }, [selectedCruiseType, selectedDiscoPackage, discoTicketQuantity, quote, fetchDiscoPricing, isCalendarFlow, selectedDiscoPackageOption]);
 
   // Capacity filter change handler
   const handleCapacityChange = (capacity: number | null) => {
@@ -664,34 +680,48 @@ function QuoteViewerContent() {
     try {
       console.log('💳 Creating checkout session...');
       
-      // Prepare checkout data
-      const checkoutData: any = {
-        paymentType,
+      // Prepare selectionPayload as required by the server
+      const selectionPayload: any = {
+        entryPoint: isCalendarFlow ? 'calendar_flow' : 'quote_flow',
         cruiseType: effectiveCruiseType,
-        customerInfo: finalContactInfo,
-        groupSize: effectiveCruiseType === 'disco' ? discoTicketQuantity : groupSize,
         eventDate: isCalendarFlow ? eventDate : quote?.project?.projectDate,
-        eventTime: isCalendarFlow ? selectedTimeSlot : quote?.project?.projectTime,
         eventType: isCalendarFlow ? calendarData?.eventType : quote?.project?.eventType,
+        groupSize: effectiveCruiseType === 'disco' ? discoTicketQuantity : groupSize,
         subtotal: pricing.subtotal,
         tax: pricing.tax,
         gratuity: pricing.gratuity,
         total: pricing.total,
-        depositAmount: pricing.depositAmount || 0,
-        quoteId: isQuoteFlow ? quoteId : undefined,
-        token: isQuoteFlow ? token : undefined
+        depositAmount: pricing.depositAmount || 0
       };
 
-      // Add cruise-type specific data
+      // Add cruise-type specific data to selectionPayload
       if (effectiveCruiseType === 'private') {
-        checkoutData.duration = privatePricing?.duration;
-        checkoutData.boatId = selectedBoatId;
-        checkoutData.selectedAddOns = selectedAddOns;
-        checkoutData.timeSlot = isCalendarFlow ? selectedOption : undefined;
+        selectionPayload.duration = privatePricing?.duration;
+        selectionPayload.boatId = selectedBoatId;
+        selectionPayload.selectedAddOnPackages = selectedAddOns;
+        selectionPayload.selectedTimeSlot = isCalendarFlow ? selectedTimeSlot : quote?.project?.projectTime;
+        selectionPayload.timeSlot = isCalendarFlow ? selectedTimeSlot : quote?.project?.projectTime;
+        selectionPayload.selectedSlot = selectedSlot;
+        selectionPayload.selectedOption = selectedOption;
       } else {
-        checkoutData.discoPackage = selectedDiscoPackage;
-        checkoutData.ticketQuantity = discoTicketQuantity;
+        selectionPayload.discoPackage = selectedDiscoPackage;
+        selectionPayload.ticketQuantity = discoTicketQuantity;
       }
+      
+      // Prepare checkout data with required fields
+      const checkoutData = {
+        paymentType,
+        selectionPayload,
+        customerEmail: finalContactInfo.email,
+        metadata: {
+          customerName: `${finalContactInfo.firstName} ${finalContactInfo.lastName}`,
+          customerPhone: finalContactInfo.phone,
+          quoteId: isQuoteFlow ? quoteId : undefined,
+          token: isQuoteFlow ? token : undefined
+        }
+      };
+
+      console.log('💳 Sending checkout data:', checkoutData);
 
       const response = await apiRequest('POST', '/api/checkout/create-session', checkoutData);
       
@@ -1266,7 +1296,7 @@ function QuoteViewerContent() {
                               value={selectedPrivatePackage} 
                               onValueChange={(value) => {
                                 setSelectedPrivatePackage(value);
-                                // Force pricing recalculation
+                                // Update add-ons will trigger pricing recalculation via useEffect
                               }}
                             >
                               <div className="space-y-1 mt-2">
@@ -1284,7 +1314,7 @@ function QuoteViewerContent() {
                                   <Label htmlFor="essentials" className="cursor-pointer text-xs flex-1">
                                     <div className="flex justify-between">
                                       <span>Essentials Package</span>
-                                      <span className="text-green-600">+$100</span>
+                                      <span className="text-green-600">+$200</span>
                                     </div>
                                   </Label>
                                 </div>
@@ -1293,50 +1323,78 @@ function QuoteViewerContent() {
                                   <Label htmlFor="ultimate" className="cursor-pointer text-xs flex-1">
                                     <div className="flex justify-between">
                                       <span>Ultimate Package</span>
-                                      <span className="text-blue-600">+$250</span>
+                                      <span className="text-blue-600">+$400</span>
                                     </div>
                                   </Label>
                                 </div>
                               </div>
                             </RadioGroup>
                           ) : (
-                            <RadioGroup 
-                              value={selectedDiscoPackageOption} 
-                              onValueChange={(value) => {
-                                setSelectedDiscoPackageOption(value);
-                                setSelectedDiscoPackage(value);
-                              }}
-                            >
-                              <div className="space-y-1 mt-2">
-                                <div className="flex items-center space-x-2 p-2 border rounded hover:bg-purple-50">
-                                  <RadioGroupItem value="basic" id="basic" />
-                                  <Label htmlFor="basic" className="cursor-pointer text-xs flex-1">
-                                    <div className="flex justify-between">
-                                      <span>Basic Package</span>
-                                      <span className="text-purple-600">$85/person</span>
-                                    </div>
-                                  </Label>
+                            <>
+                              <RadioGroup 
+                                value={selectedDiscoPackageOption} 
+                                onValueChange={(value) => {
+                                  setSelectedDiscoPackageOption(value);
+                                  setSelectedDiscoPackage(value);
+                                }}
+                              >
+                                <div className="space-y-1 mt-2">
+                                  <div className="flex items-center space-x-2 p-2 border rounded hover:bg-purple-50">
+                                    <RadioGroupItem value="basic" id="basic" />
+                                    <Label htmlFor="basic" className="cursor-pointer text-xs flex-1">
+                                      <div className="flex justify-between">
+                                        <span>Basic Package</span>
+                                        <span className="text-purple-600">$85/person</span>
+                                      </div>
+                                    </Label>
+                                  </div>
+                                  <div className="flex items-center space-x-2 p-2 border rounded hover:bg-purple-50">
+                                    <RadioGroupItem value="disco_queen" id="disco_queen" />
+                                    <Label htmlFor="disco_queen" className="cursor-pointer text-xs flex-1">
+                                      <div className="flex justify-between">
+                                        <span>Disco Queen</span>
+                                        <span className="text-purple-600">$95/person</span>
+                                      </div>
+                                    </Label>
+                                  </div>
+                                  <div className="flex items-center space-x-2 p-2 border rounded hover:bg-purple-50">
+                                    <RadioGroupItem value="platinum" id="platinum" />
+                                    <Label htmlFor="platinum" className="cursor-pointer text-xs flex-1">
+                                      <div className="flex justify-between">
+                                        <span>Super Sparkle Platinum</span>
+                                        <span className="text-purple-600">$105/person</span>
+                                      </div>
+                                    </Label>
+                                  </div>
                                 </div>
-                                <div className="flex items-center space-x-2 p-2 border rounded hover:bg-purple-50">
-                                  <RadioGroupItem value="disco_queen" id="disco_queen" />
-                                  <Label htmlFor="disco_queen" className="cursor-pointer text-xs flex-1">
-                                    <div className="flex justify-between">
-                                      <span>Disco Queen</span>
-                                      <span className="text-purple-600">$95/person</span>
-                                    </div>
-                                  </Label>
-                                </div>
-                                <div className="flex items-center space-x-2 p-2 border rounded hover:bg-purple-50">
-                                  <RadioGroupItem value="platinum" id="platinum" />
-                                  <Label htmlFor="platinum" className="cursor-pointer text-xs flex-1">
-                                    <div className="flex justify-between">
-                                      <span>Super Sparkle Platinum</span>
-                                      <span className="text-purple-600">$105/person</span>
-                                    </div>
-                                  </Label>
+                              </RadioGroup>
+                              
+                              {/* Ticket Quantity for Disco */}
+                              <div className="mt-3">
+                                <Label className="text-xs text-gray-600">Number of Tickets:</Label>
+                                <div className="flex items-center gap-2 mt-1">
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setDiscoTicketQuantity(Math.max(1, discoTicketQuantity - 1))}
+                                    className="h-7 w-7 p-0"
+                                    type="button"
+                                  >
+                                    -
+                                  </Button>
+                                  <span className="text-sm font-medium w-12 text-center">{discoTicketQuantity}</span>
+                                  <Button
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => setDiscoTicketQuantity(Math.min(75, discoTicketQuantity + 1))}
+                                    className="h-7 w-7 p-0"
+                                    type="button"
+                                  >
+                                    +
+                                  </Button>
                                 </div>
                               </div>
-                            </RadioGroup>
+                            </>
                           )}
                         </div>
                       )}
@@ -1369,26 +1427,67 @@ function QuoteViewerContent() {
                           )}
                         </div>
                       )}
+                      
+                      {/* Disco Pricing Breakdown */}
+                      {discoPricing && selectedOption.includes('disco') && (
+                        <div className="space-y-1">
+                          <div className="flex justify-between text-xs">
+                            <span>Tickets:</span>
+                            <span>{discoTicketQuantity} @ ${(discoPricing.subtotal / discoTicketQuantity / 100).toFixed(0)}/ea</span>
+                          </div>
+                          <div className="flex justify-between text-xs">
+                            <span>Subtotal:</span>
+                            <span>${(discoPricing.subtotal / 100).toFixed(0)}</span>
+                          </div>
+                          <div className="flex justify-between text-xs">
+                            <span>Tax:</span>
+                            <span>${(discoPricing.tax / 100).toFixed(0)}</span>
+                          </div>
+                          <div className="flex justify-between text-xs">
+                            <span>Gratuity:</span>
+                            <span>${(discoPricing.gratuity / 100).toFixed(0)}</span>
+                          </div>
+                          <Separator className="my-2" />
+                          <div className="flex justify-between font-semibold text-sm">
+                            <span>Total:</span>
+                            <span>${(discoPricing.total / 100).toFixed(0)}</span>
+                          </div>
+                          {discoPricing.depositRequired && (
+                            <div className="flex justify-between text-xs text-purple-600">
+                              <span>Deposit (25%):</span>
+                              <span>${(discoPricing.depositAmount / 100).toFixed(0)}</span>
+                            </div>
+                          )}
+                        </div>
+                      )}
 
                       {/* Payment Buttons */}
                       <div className="space-y-2 pt-2">
                         <Button
                           className="w-full h-9 text-sm"
                           onClick={() => handlePayment('deposit', selectedOption.includes('disco') ? 'disco' : 'private')}
+                          data-testid="button-pay-deposit"
                         >
                           Pay Deposit
                           {privatePricing?.depositAmount && !selectedOption.includes('disco') && 
                             ` ($${(privatePricing.depositAmount / 100).toFixed(0)})`
+                          }
+                          {discoPricing?.depositAmount && selectedOption.includes('disco') && 
+                            ` ($${(discoPricing.depositAmount / 100).toFixed(0)})`
                           }
                         </Button>
                         <Button
                           className="w-full h-9 text-sm"
                           variant="outline"
                           onClick={() => handlePayment('full', selectedOption.includes('disco') ? 'disco' : 'private')}
+                          data-testid="button-pay-full"
                         >
                           Pay in Full
                           {privatePricing?.total && !selectedOption.includes('disco') && 
                             ` ($${(privatePricing.total / 100).toFixed(0)})`
+                          }
+                          {discoPricing?.total && selectedOption.includes('disco') && 
+                            ` ($${(discoPricing.total / 100).toFixed(0)})`
                           }
                         </Button>
                       </div>
