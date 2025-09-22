@@ -12,7 +12,7 @@ import { Alert, AlertTitle, AlertDescription } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from '@/components/ui/select';
-import { Calendar, AlertCircle, Loader2, Anchor, Music, Printer, Calendar as CalendarIconLucide, Sparkles, Ship } from 'lucide-react';
+import { Calendar, AlertCircle, Loader2, Anchor, Music, Printer, Calendar as CalendarIconLucide, Sparkles, Ship, ChevronLeft, ChevronRight, CalendarIcon } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 
@@ -809,6 +809,49 @@ function QuoteViewerContent() {
             )}
           </div>
 
+          {/* Date Navigation Header */}
+          <Card className="bg-white border-gray-200 shadow-sm">
+            <CardContent className="py-3">
+              <div className="flex items-center justify-between">
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => {
+                    const currentDate = new Date(eventDate || new Date());
+                    const newDate = new Date(currentDate);
+                    newDate.setDate(currentDate.getDate() - 1);
+                    setEventDate(format(newDate, 'yyyy-MM-dd'));
+                  }}
+                  className="h-8 w-8 p-0"
+                  data-testid="button-date-prev"
+                >
+                  <ChevronLeft className="h-4 w-4" />
+                </Button>
+                
+                <div className="text-center">
+                  <h2 className="text-lg font-bold text-gray-900">
+                    {eventDate ? format(new Date(eventDate), 'EEEE, MMMM d, yyyy') : 'Select a date'}
+                  </h2>
+                </div>
+                
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => {
+                    const currentDate = new Date(eventDate || new Date());
+                    const newDate = new Date(currentDate);
+                    newDate.setDate(currentDate.getDate() + 1);
+                    setEventDate(format(newDate, 'yyyy-MM-dd'));
+                  }}
+                  className="h-8 w-8 p-0"
+                  data-testid="button-date-next"
+                >
+                  <ChevronRight className="h-4 w-4" />
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
           {/* Main Content Grid */}
           <div className="grid lg:grid-cols-3 gap-6">
             {/* Left Column: Selection Interface */}
@@ -889,22 +932,10 @@ function QuoteViewerContent() {
 
               {/* Weekly Availability Grid */}
               <Card>
-                <CardHeader>
-                  <div className="space-y-2">
-                    {/* Prominently display selected date */}
-                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
-                      <p className="text-sm text-blue-700 font-medium">Selected Date:</p>
-                      <p className="text-lg font-bold text-blue-900">
-                        {eventDate ? format(new Date(eventDate), 'EEEE, MMMM d, yyyy') : 'Please select a date'}
-                      </p>
-                    </div>
-                    <CardTitle className="text-lg">Available Times</CardTitle>
-                    <p className="text-sm text-gray-600">
-                      Showing availability for the week of {eventDate ? format(new Date(eventDate), 'MMM d') : ''}
-                    </p>
-                  </div>
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-base">Available Times</CardTitle>
                 </CardHeader>
-                <CardContent>
+                <CardContent className="pt-2">
                   {isLoadingWeekly ? (
                     <div className="flex items-center justify-center py-12">
                       <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
@@ -968,14 +999,14 @@ function QuoteViewerContent() {
                               const filteredDiscoSlots = showDisco ? discoSlots : [];
                               
                               return (
-                                <div key={dayName} className={`border rounded-lg p-3 ${isWeekend ? 'bg-gray-50' : 'bg-blue-50'}`}>
-                                  <div className="flex items-center justify-between mb-3">
-                                    <h3 className="font-semibold text-gray-900 text-base">
+                                <div key={dayName} className={`border rounded-lg p-2 ${isWeekend ? 'bg-gray-50' : 'bg-blue-50'}`}>
+                                  <div className="flex items-center justify-between mb-2">
+                                    <h3 className="font-semibold text-gray-900 text-sm">
                                       {dayName}, {displayDate}
                                     </h3>
                                     <div className="flex flex-col items-center">
-                                      <span className="text-xs text-gray-500 mb-1">Boat Fits</span>
-                                      <div className="flex items-center justify-center w-12 h-12 rounded-full bg-blue-600 text-white font-bold text-lg">
+                                      <span className="text-xs text-gray-500">Fits</span>
+                                      <div className="flex items-center justify-center w-10 h-10 rounded-full bg-blue-600 text-white font-bold text-sm">
                                         {/* Show boat capacity based on group size */}
                                         {groupSize <= 14 ? '14' :
                                          groupSize <= 25 ? '25' :
@@ -1078,10 +1109,10 @@ function QuoteViewerContent() {
                                   
                                   {/* Private Cruise Options - Only show for weekends */}
                                   {!isWeekday && filteredPrivateSlots.length > 0 && (
-                                    <div className="mb-3">
-                                      {showDisco && <h4 className="text-sm font-medium text-gray-700 mb-2">🚢 Private Cruise</h4>}
+                                    <div className="mb-2">
+                                      {showDisco && <h4 className="text-xs font-medium text-gray-700 mb-1">🚢 Private Cruise</h4>}
                                       <RadioGroup value={selectedOption} onValueChange={handleOptionSelect}>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
                                           {filteredPrivateSlots.map((slot) => {
                                             const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
                                             const slotDate = slot.dateISO || slot.date;
@@ -1111,23 +1142,23 @@ function QuoteViewerContent() {
                                             };
                                             
                                             return (
-                                              <div key={slotId} className={`flex items-center space-x-2 p-2 border rounded ${isBooked ? 'opacity-50 cursor-not-allowed bg-gray-100' : 'hover:bg-white'} ${isSelected && !isBooked ? 'border-blue-500 bg-blue-50' : isBooked ? 'border-red-300' : 'border-gray-300 bg-white'}`}>
+                                              <div key={slotId} className={`flex items-center space-x-1 p-1 border rounded ${isBooked ? 'opacity-50 cursor-not-allowed bg-gray-100' : 'hover:bg-white'} ${isSelected && !isBooked ? 'border-blue-500 bg-blue-50' : isBooked ? 'border-red-300' : 'border-gray-300 bg-white'}`}>
                                                 <RadioGroupItem 
                                                   value={slotId} 
                                                   id={slotId} 
                                                   disabled={isBooked}
                                                   data-testid={`radio-slot-${slotId}`} 
+                                                  className="h-3 w-3"
                                                 />
-                                                <Label htmlFor={slotId} className={`flex-1 ${isBooked ? 'cursor-not-allowed' : 'cursor-pointer'} text-sm`}>
+                                                <Label htmlFor={slotId} className={`flex-1 ${isBooked ? 'cursor-not-allowed' : 'cursor-pointer'} text-xs`}>
                                                   <div className="flex justify-between items-center">
                                                     <span className={isBooked ? 'line-through text-red-600' : ''}>
                                                       {formatTimeToAMPM(slot.startTime)} - {formatTimeToAMPM(slot.endTime)}
                                                     </span>
                                                     <span className={`text-xs ${isBooked ? 'text-red-600' : 'text-gray-600'}`}>
-                                                      {isBooked ? 'SOLD OUT' : `$${getHourlyRate()}/hr`}
+                                                      {isBooked ? 'SOLD' : `$${getHourlyRate()}/hr`}
                                                     </span>
                                                   </div>
-                                                  {isWeekday && <span className="text-xs text-gray-500">{duration}hr cruise</span>}
                                                 </Label>
                                               </div>
                                             );
@@ -1140,9 +1171,9 @@ function QuoteViewerContent() {
                                   {/* Disco Cruise Options (bachelor/bachelorette only) */}
                                   {showDisco && filteredDiscoSlots.length > 0 && (
                                     <div>
-                                      <h4 className="text-sm font-medium text-gray-700 mb-2">🎵 ATX Disco Cruise</h4>
+                                      <h4 className="text-xs font-medium text-gray-700 mb-1">🎵 ATX Disco Cruise</h4>
                                       <RadioGroup value={selectedOption} onValueChange={handleOptionSelect}>
-                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
                                           {filteredDiscoSlots.map((slot, index) => {
                                             const slotDate = slot.dateISO || slot.date;
                                             const slotId = `disco_${dayName}_${slotDate}_${slot.startTime}_${slot.endTime}_${index}`;
@@ -1150,24 +1181,22 @@ function QuoteViewerContent() {
                                             const isBooked = !slot.bookable || slot.availableCount === 0;
                                             
                                             return (
-                                              <div key={slotId} className={`flex items-center space-x-2 p-2 border rounded ${isBooked ? 'opacity-50 cursor-not-allowed bg-gray-100' : 'hover:bg-white'} ${isSelected && !isBooked ? 'border-purple-500 bg-purple-50' : isBooked ? 'border-red-300' : 'border-gray-300 bg-white'}`}>
+                                              <div key={slotId} className={`flex items-center space-x-1 p-1 border rounded ${isBooked ? 'opacity-50 cursor-not-allowed bg-gray-100' : 'hover:bg-white'} ${isSelected && !isBooked ? 'border-purple-500 bg-purple-50' : isBooked ? 'border-red-300' : 'border-gray-300 bg-white'}`}>
                                                 <RadioGroupItem 
                                                   value={slotId} 
                                                   id={slotId} 
                                                   disabled={isBooked}
                                                   data-testid={`radio-slot-${slotId}`} 
+                                                  className="h-3 w-3"
                                                 />
-                                                <Label htmlFor={slotId} className={`flex-1 ${isBooked ? 'cursor-not-allowed' : 'cursor-pointer'} text-sm`}>
-                                                  <div>
-                                                    <div className="flex justify-between items-center">
-                                                      <span className={isBooked ? 'line-through text-red-600' : ''}>
-                                                        {formatTimeToAMPM(slot.startTime)} - {formatTimeToAMPM(slot.endTime)}
-                                                      </span>
-                                                      <span className={`text-xs ${isBooked ? 'text-red-600' : 'text-purple-600'}`}>
-                                                        {isBooked ? 'SOLD OUT' : '$85+/person'}
-                                                      </span>
-                                                    </div>
-                                                    <span className="text-xs text-gray-500">Group disco party</span>
+                                                <Label htmlFor={slotId} className={`flex-1 ${isBooked ? 'cursor-not-allowed' : 'cursor-pointer'} text-xs`}>
+                                                  <div className="flex justify-between items-center">
+                                                    <span className={isBooked ? 'line-through text-red-600' : ''}>
+                                                      {formatTimeToAMPM(slot.startTime)} - {formatTimeToAMPM(slot.endTime)}
+                                                    </span>
+                                                    <span className={`text-xs ${isBooked ? 'text-red-600' : 'text-purple-600'}`}>
+                                                      {isBooked ? 'SOLD' : '$85+/p'}
+                                                    </span>
                                                   </div>
                                                 </Label>
                                               </div>
