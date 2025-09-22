@@ -21,6 +21,7 @@ import { sendEmail as mailgunEmail, sendQuoteEmail as mailgunQuoteEmail } from "
 import { ComprehensiveLeadService } from "./services/comprehensiveLeadService";
 import { wisprFlowService } from "./services/wispr";
 import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation } from "@shared/schema";
+import { calculateServerPricing, type ServerPricingRequest } from './serverPricing';
 import { PRICING_DEFAULTS } from "@shared/constants";
 import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate, getTimeSlotById } from "@shared/timeSlots";
 import { templateRenderer } from "./services/templateRenderer";
@@ -54,24 +55,43 @@ async function validateDiscountCode(code: string): Promise<{
   error?: string;
 }> {
   try {
-    // Get allowed discount codes from environment variables
-    const allowedCodes = {
-      'PREMIER 99': {
-        percentage: 99,
-        description: 'Special testing discount - 99% off'
-      },
-      // Add more codes as needed from environment variables
-    };
+    // 🔒 SECURITY: Discount codes now loaded from environment variables only
+    // NO HARDCODED DISCOUNT CODES FOR SECURITY
+    const allowedCodesEnv = process.env.ALLOWED_DISCOUNT_CODES;
+    if (!allowedCodesEnv) {
+      console.warn('⚠️ No ALLOWED_DISCOUNT_CODES environment variable set');
+      return {
+        valid: false,
+        error: 'Discount codes not configured'
+      };
+    }
+    
+    let allowedCodes: Record<string, { percentage: number; description: string }>;
+    try {
+      allowedCodes = JSON.parse(allowedCodesEnv);
+    } catch (parseError) {
+      console.error('❌ Invalid ALLOWED_DISCOUNT_CODES format:', parseError);
+      return {
+        valid: false,
+        error: 'Discount configuration error'
+      };
+    }
     
     const normalizedCode = code.toUpperCase().trim();
     
-    if (allowedCodes[normalizedCode as keyof typeof allowedCodes]) {
-      const discountInfo = allowedCodes[normalizedCode as keyof typeof allowedCodes];
+    if (allowedCodes[normalizedCode]) {
+      const discountInfo = allowedCodes[normalizedCode];
+      
+      // Additional validation for security
+      if (discountInfo.percentage > 50) {
+        console.warn(`⚠️ High discount attempted: ${discountInfo.percentage}% for code ${normalizedCode}`);
+      }
+      
       return {
         valid: true,
         discount: {
           code: normalizedCode,
-          percentage: discountInfo.percentage,
+          percentage: Math.min(discountInfo.percentage, 50), // Cap at 50% for security
           description: discountInfo.description
         }
       };
@@ -4545,6 +4565,71 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ====================================== 
+  // 🔒 SECURE SERVER-SIDE PRICING VALIDATION
+  // ======================================
+  // CRITICAL SECURITY: This endpoint provides authoritative pricing validation
+  // Client-side pricing is for UI estimates only - server pricing is final
+  
+  app.post("/api/pricing/validate", async (req, res) => {
+    try {
+      console.log('🔒 SECURE pricing validation request:', req.body);
+      
+      const pricingRequest: ServerPricingRequest = {
+        eventDate: req.body.eventDate,
+        groupSize: parseInt(req.body.groupSize) || 0,
+        cruiseType: req.body.cruiseType || 'private',
+        duration: parseInt(req.body.duration) || 0,
+        timeSlot: req.body.timeSlot,
+        boatId: req.body.boatId,
+        addOns: req.body.addOns || [],
+        discountCode: req.body.discountCode
+      };
+
+      // SECURITY: Validate all inputs server-side
+      if (!pricingRequest.eventDate || !pricingRequest.groupSize || !pricingRequest.duration) {
+        return res.status(400).json({
+          success: false,
+          error: 'Missing required pricing parameters',
+          details: ['eventDate', 'groupSize', 'duration']
+        });
+      }
+
+      console.log('🔒 Server pricing validation inputs:', pricingRequest);
+      const serverPricing = calculateServerPricing(pricingRequest);
+      
+      if (!serverPricing.isValid) {
+        console.error('❌ Server pricing validation failed:', serverPricing.errors);
+        return res.status(400).json({
+          success: false,
+          error: 'Invalid booking parameters',
+          details: serverPricing.errors
+        });
+      }
+
+      console.log('✅ Server pricing validated successfully:', {
+        totalAmount: serverPricing.totalAmount,
+        depositAmount: serverPricing.depositAmount,
+        daysUntilEvent: serverPricing.daysUntilEvent,
+        requiresFullPayment: serverPricing.requiresFullPayment
+      });
+
+      res.json({
+        success: true,
+        pricing: serverPricing,
+        securityVersion: 'v2',
+        message: 'Server-validated pricing - authoritative for checkout'
+      });
+      
+    } catch (error) {
+      console.error('❌ Server pricing validation error:', error);
+      res.status(500).json({
+        success: false,
+        error: 'Server pricing validation failed'
+      });
+    }
+  });
+
   // Enhanced pricing preview endpoint
   app.post("/api/pricing/preview", async (req, res) => {
     try {
@@ -4975,53 +5060,102 @@ export async function registerRoutes(app: Express): Promise<Server> {
         console.log(`✅ Direct calendar booking validation passed for slot ${slotId}`);
       }
 
-      // Calculate pricing server-side to prevent tampering
+      // 🔒 CRITICAL SECURITY: SERVER-SIDE AUTHORITATIVE PRICING VALIDATION
+      // NEVER TRUST CLIENT-PROVIDED AMOUNTS - ALL PRICING CALCULATED SERVER-SIDE
+      console.log('🔒 SECURE checkout - validating pricing server-side');
+      
+      // SECURITY: Ignore any client-provided pricing data
+      if (req.body.amount || req.body.total || req.body.deposit || req.body.pricing) {
+        console.warn('⚠️ SECURITY: Ignoring client-provided pricing data');
+      }
+      
       let pricing;
+      let serverPricing;
       try {
+        // Determine duration from time slot or defaults
+        let duration = 4; // Default 4 hours
         if (cruiseType === 'private') {
           const effectiveTimeSlot = selectedTimeSlot || timeSlot;
           if (!effectiveTimeSlot) {
             return res.status(400).json({ error: "timeSlot required for private cruise" });
           }
           
-          // Use shared pricing functions for real PRIVATE_CRUISE_PRICING calculations
-          const { calculatePackagePricing, calculateDeposit } = await import('@shared/pricing');
-          const date = new Date(eventDate);
-          
-          // Determine package type from selected add-ons
-          let packageType: 'standard' | 'essentials' | 'ultimate' = 'standard';
-          const selectedAddOns = selectedAddOnPackages || [];
-          
-          if (selectedAddOns.includes('ultimate')) {
-            packageType = 'ultimate';
-          } else if (selectedAddOns.includes('essentials')) {
-            packageType = 'essentials';
+          // Extract duration from time slot if possible
+          if (effectiveTimeSlot.includes('3-hour')) {
+            duration = 3;
+          } else if (effectiveTimeSlot.includes('4-hour')) {
+            duration = 4;
           }
-          
-          // Calculate pricing using real PRIVATE_CRUISE_PRICING structure
-          const privatePricing = calculatePackagePricing(date, parseInt(groupSize), packageType);
-          
-          // Calculate proper deposit based on booking timing
-          const depositData = calculateDeposit(privatePricing.totalPrice, date);
-          
-          pricing = {
-            subtotal: privatePricing.basePrice + privatePricing.addOnCost + privatePricing.totalCrewFee,
-            tax: privatePricing.totalPrice - privatePricing.basePrice - privatePricing.addOnCost - privatePricing.totalCrewFee - Math.round((privatePricing.totalPrice - privatePricing.basePrice - privatePricing.addOnCost - privatePricing.totalCrewFee) * 0.2), // Extract tax from totalPrice
-            gratuity: Math.round((privatePricing.basePrice + privatePricing.addOnCost + privatePricing.totalCrewFee) * 0.2), // 20% of subtotal
-            total: privatePricing.totalPrice,
-            depositRequired: true,
-            depositAmount: depositData.depositAmount,
-            depositPercent: depositData.depositPercent,
-            duration: 4, // All cruises are 4 hours
-            hourlyRate: privatePricing.baseHourlyRate / 100, // Convert cents to dollars
-            baseHourlyRate: privatePricing.baseHourlyRate / 100,
-            selectedAddOns: selectedAddOns.map(id => ({ id, name: id.charAt(0).toUpperCase() + id.slice(1) + ' Package' })),
-            timeSlot: effectiveTimeSlot,
-            pricingModel: 'package',
-            discountTotal: 0,
-            perPersonCost: Math.round(privatePricing.totalPrice / parseInt(groupSize))
-          };
-        } else if (cruiseType === 'disco') {
+          // Otherwise keep default duration = 4
+        }
+        
+        // SERVER-SIDE PRICING VALIDATION (AUTHORITATIVE)
+        const pricingRequest: ServerPricingRequest = {
+          eventDate,
+          groupSize: parseInt(groupSize),
+          cruiseType: cruiseType as 'private' | 'disco',
+          duration,
+          timeSlot: selectedTimeSlot || timeSlot,
+          boatId: slotHold?.boatId || selectionPayload?.selectedSlot?.boatName,
+          addOns: selectedAddOnPackages || [],
+          discountCode: selectionPayload?.discountCode
+        };
+
+        console.log('🔒 Server pricing validation inputs:', pricingRequest);
+        serverPricing = calculateServerPricing(pricingRequest);
+        
+        if (!serverPricing.isValid) {
+          console.error('❌ CRITICAL: Server pricing validation failed:', serverPricing.errors);
+          return res.status(400).json({
+            error: 'Invalid booking parameters - server validation failed',
+            details: serverPricing.errors,
+            code: 'PRICING_VALIDATION_FAILED'
+          });
+        }
+
+        console.log('✅ SECURE: Server pricing validated successfully:', {
+          totalAmount: serverPricing.totalAmount,
+          depositAmount: serverPricing.depositAmount,
+          requiresFullPayment: serverPricing.requiresFullPayment,
+          daysUntilEvent: serverPricing.daysUntilEvent
+        });
+
+        // Convert server pricing to legacy format for compatibility
+        // CRITICAL: Use dollar amounts for display, cents for Stripe
+        pricing = {
+          subtotal: serverPricing.subtotal, // Display amount in dollars
+          tax: serverPricing.taxAmountCents / 100, // Convert cents to dollars for display
+          gratuity: serverPricing.gratuityAmountCents / 100, // Convert cents to dollars for display
+          total: serverPricing.totalAmount, // Display amount in dollars
+          depositRequired: true,
+          depositAmount: serverPricing.depositAmount, // Display amount in dollars
+          depositPercent: serverPricing.depositPercent,
+          duration: serverPricing.durationHours,
+          hourlyRate: serverPricing.baseRate, // Display amount in dollars
+          baseHourlyRate: serverPricing.baseRate, // Display amount in dollars
+          selectedAddOns: (selectedAddOnPackages || []).map(id => ({ 
+            id, 
+            name: id.charAt(0).toUpperCase() + id.slice(1) + ' Package' 
+          })),
+          timeSlot: selectedTimeSlot || timeSlot,
+          pricingModel: 'server-validated',
+          discountTotal: serverPricing.discountAmountCents / 100, // Convert cents to dollars for display
+          perPersonCost: Math.round(serverPricing.totalAmountCents / parseInt(groupSize) / 100), // Convert cents to dollars
+          // Additional server validation metadata
+          boatId: serverPricing.boatId,
+          boatName: serverPricing.boatName,
+          dayType: serverPricing.dayType,
+          crewFeeTotal: serverPricing.crewFeeTotalCents / 100, // Convert cents to dollars for display
+          largeGroupFee: serverPricing.largeGroupFeeCents / 100, // Convert cents to dollars for display
+          securityVersion: 'v2',
+          // CRITICAL: Store cents amounts for Stripe (not exposed to client)
+          _stripeTotalCents: serverPricing.totalAmountCents,
+          _stripeDepositCents: serverPricing.depositAmountCents
+        };
+        
+        console.log('✅ SECURE pricing converted to legacy format for compatibility');
+        
+        if (cruiseType === 'disco') {
           // More flexible validation - handle missing values with defaults
           if (!discoPackage && !selectedDiscoPackage) {
             return res.status(400).json({ error: "discoPackage or selectedDiscoPackage required for disco cruise" });
@@ -5070,22 +5204,24 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "Unable to calculate pricing: " + pricingError.message });
       }
 
-      // Determine payment amount based on type
-      let paymentAmount;
+      // 🔒 CRITICAL: Determine payment amount based on type using CENTS for Stripe
+      let paymentAmountCents;
       let productName;
       if (paymentType === 'deposit') {
-        paymentAmount = pricing.depositAmount;
+        paymentAmountCents = pricing._stripeDepositCents; // Use cents for Stripe
         productName = 'Deposit Payment';
       } else if (paymentType === 'full') {
-        paymentAmount = pricing.total;
+        paymentAmountCents = pricing._stripeTotalCents; // Use cents for Stripe
         productName = 'Full Payment';
       } else {
         return res.status(400).json({ error: "Invalid payment type. Must be 'deposit' or 'full'" });
       }
 
-      if (!paymentAmount || paymentAmount <= 0) {
+      if (!paymentAmountCents || paymentAmountCents <= 0) {
         return res.status(400).json({ error: "Invalid payment amount calculated" });
       }
+      
+      console.log(`🔒 SECURE payment amount: ${paymentAmountCents} cents (${paymentAmountCents / 100} dollars) for ${paymentType}`);
 
       const cruiseTypeLabel = cruiseType === 'private' ? 'Private' : 'ATX Disco';
       const eventTypeLabel = eventType.charAt(0).toUpperCase() + eventType.slice(1);
@@ -5114,7 +5250,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               name: `${productName} - ${eventTypeLabel} ${cruiseTypeLabel} Cruise`,
               description: description,
             },
-            unit_amount: Math.round(paymentAmount), // Server-validated amount in cents
+            unit_amount: paymentAmountCents, // SECURE: Server-validated amount in cents
           },
           quantity: 1,
         }],
@@ -5138,7 +5274,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
           baseHourlyRate: cruiseType === 'private' ? pricing.breakdown?.baseHourlyRate?.toString() || '300' : '',
           totalHourlyRate: cruiseType === 'private' ? pricing.breakdown?.baseHourlyRate?.toString() || '300' : '',
           duration: cruiseType === 'private' ? pricing.breakdown?.cruiseDuration?.toString() || '3' : '',
-          calculatedAmount: paymentAmount.toString(),
+          calculatedAmountCents: paymentAmountCents.toString(),
+          calculatedAmountDollars: (paymentAmountCents / 100).toString(),
           quoteId: quoteId || '',
           // CRITICAL: Include booking information for webhook processing
           holdId: holdId || '',
