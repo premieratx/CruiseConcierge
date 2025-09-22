@@ -4,10 +4,9 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { HelmetProvider } from "react-helmet-async";
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
-import UniversalCheckout from "./pages/UniversalCheckout";
 import Chat from "./pages/Chat";
 import QuoteBuilder from "./pages/QuoteBuilder";
 import QuotesManagement from "./pages/QuotesManagement";
@@ -65,30 +64,8 @@ import PortalInvoices from "./pages/PortalInvoices";
 import PortalBookings from "./pages/PortalBookings";
 import PortalProfile from "./pages/PortalProfile";
 
-// Embeddable Widget Pages (lazy loaded)
-const EmbedApp = lazy(() => import("./EmbedApp"));
-import EmbedWidgets from "./pages/EmbedWidgets";
 
 function Router() {
-  const [location] = useLocation();
-  
-  // If this is an embed route, load the isolated EmbedApp
-  if (location.startsWith('/embed/')) {
-    return (
-      <Suspense fallback={
-        <div className="flex items-center justify-center min-h-screen">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-2"></div>
-            <p className="text-gray-600">Loading widget...</p>
-          </div>
-        </div>
-      }>
-        <EmbedApp />
-      </Suspense>
-    );
-  }
-
-  // Main app routes (unchanged - preserves all existing functionality)
   return (
     <Switch>
       {/* Public Homepage */}
@@ -126,9 +103,6 @@ function Router() {
       <Route path="/affiliates" component={Affiliates} />
       <Route path="/documentation" component={Documentation} />
       <Route path="/settings" component={Settings} />
-      <Route path="/embed-widgets" component={EmbedWidgets} />
-      <Route path="/checkout" component={UniversalCheckout} />
-      <Route path="/checkout/:quoteId" component={UniversalCheckout} />
       <Route path="/quote/:quoteId" component={QuoteViewer} />
       <Route path="/invoice/:invoiceId" component={InvoiceViewer} />
       

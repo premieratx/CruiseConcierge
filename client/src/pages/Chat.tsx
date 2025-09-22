@@ -54,7 +54,9 @@ import {
   getCapacityTier, 
   getPackagePricing,
   getPricingDayType,
-  getDiscoPricing 
+  getDiscoPricing,
+  calculateSimplePricing,
+  calculateSimpleDiscoPricing
 } from '@shared/pricing';
 
 // BASE_HOURLY_RATE is already in cents, keep it for calculations
@@ -923,11 +925,11 @@ export default function Chat() {
     }, 300); // 300ms debounce
   }, [formData.selectedDiscoPackage, formData.discoTicketQuantity, formData.eventDate?.getTime()]);
 
-  // Fetch private cruise pricing with loading state
+  // SIMPLE CLIENT-SIDE PRIVATE PRICING - NO API CALLS!
   const fetchPrivatePricing = async () => {
-    if (!formData.selectedSlot) return;
+    if (!formData.selectedSlot || !formData.eventDate) return;
     
-    console.log('🚢 fetchPrivatePricing called with:', {
+    console.log('🚢 fetchPrivatePricing called with CLIENT-SIDE calculation:', {
       selectedSlot: formData.selectedSlot,
       groupSize: formData.groupSize,
       eventDate: formData.eventDate,
@@ -937,41 +939,29 @@ export default function Chat() {
     
     setPricingLoading(true);
     setPricingError(null);
+    
     try {
-      // Calculate total hourly rate in cents (base + add-ons)
-      const totalHourlyRateCents = BASE_PRIVATE_HOURLY_RATE_CENTS + 
-        formData.selectedAddOnPackages.reduce((sum, addOnId) => {
-          const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
-          return sum + (addOn?.hourlyRate || 0) * 100; // Convert dollars to cents
-        }, 0);
+      // Use simple client-side pricing calculation - NO API CALLS!
+      const duration = formData.selectedSlot.duration || 4;
+      const result = calculateSimplePricing(
+        formData.eventDate,
+        formData.groupSize,
+        duration,
+        formData.selectedAddOnPackages
+      );
       
-      const pricingPayload = {
-        groupSize: formData.groupSize,
-        eventDate: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : '',
+      // Format result to match expected structure
+      const pricingResult = {
+        ...result,
         timeSlot: formData.selectedSlot.id,
-        eventType: formData.eventType,
-        cruiseType: 'private',
-        packageType: formData.selectedAddOnPackages.join(','), // Send selected add-ons
-        hourlyRate: totalHourlyRateCents,
+        eventType: formData.eventType
       };
       
-      console.log('🚢 Making API call to /api/pricing/cruise with:', pricingPayload);
-      
-      const res = await apiRequest('POST', '/api/pricing/cruise', pricingPayload);
-      
-      if (!res.ok) {
-        const errorText = await res.text();
-        console.log('🚢 API call failed:', res.status, errorText);
-        calculatePrivatePricing();
-        return;
-      }
-      
-      const response = await res.json();
-      console.log('🚢 API call successful, setting privatePricing:', response);
-      setPrivatePricing(response);
+      console.log('🚢 CLIENT-SIDE calculation successful, setting privatePricing:', pricingResult);
+      setPrivatePricing(pricingResult);
     } catch (error: any) {
       console.log('🚢 Exception in fetchPrivatePricing:', error);
-      calculatePrivatePricing();
+      setPricingError('Error calculating pricing');
     } finally {
       setPricingLoading(false);
     }
@@ -1063,9 +1053,11 @@ export default function Chat() {
     setPrivatePricing(privatePricingData);
   };
   
-  // Fetch disco cruise pricing
+  // SIMPLE CLIENT-SIDE DISCO PRICING - NO API CALLS!
   const fetchDiscoPricing = async () => {
-    console.log('🎵 fetchDiscoPricing called with:', {
+    if (!formData.selectedDiscoPackage) return;
+    
+    console.log('🎵 fetchDiscoPricing called with CLIENT-SIDE calculation:', {
       selectedDiscoPackage: formData.selectedDiscoPackage,
       discoTicketQuantity: formData.discoTicketQuantity,
       eventDate: formData.eventDate
@@ -1073,34 +1065,19 @@ export default function Chat() {
     
     setPricingLoading(true);
     setPricingError(null);
+    
     try {
-      const discoPayload = {
-        items: [{
-          productId: `disco_${formData.selectedDiscoPackage}`,
-          qty: formData.discoTicketQuantity,
-          unitPrice: getDiscoPriceByPackage(formData.selectedDiscoPackage),
-        }],
-        groupSize: formData.discoTicketQuantity,
-        projectDate: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : '',
-      };
+      // Use simple client-side disco pricing calculation - NO API CALLS!
+      const result = calculateSimpleDiscoPricing(
+        formData.selectedDiscoPackage as 'basic' | 'disco_queen' | 'platinum',
+        formData.discoTicketQuantity
+      );
       
-      console.log('🎵 Making API call to /api/pricing/preview with:', discoPayload);
-      
-      const res = await apiRequest('POST', '/api/pricing/preview', discoPayload);
-      
-      if (!res.ok) {
-        const errorText = await res.text();
-        console.log('🎵 API call failed:', res.status, errorText);
-        calculateDiscoPricing();
-        return;
-      }
-      
-      const response = await res.json();
-      console.log('🎵 API call successful, setting discoPricing:', response);
-      setDiscoPricing(response);
+      console.log('🎵 CLIENT-SIDE disco calculation successful, setting discoPricing:', result);
+      setDiscoPricing(result);
     } catch (error: any) {
       console.log('🎵 Exception in fetchDiscoPricing:', error);
-      calculateDiscoPricing();
+      setPricingError('Error calculating disco pricing');
     } finally {
       setPricingLoading(false);
     }

@@ -6,6 +6,149 @@
 import { HOURLY_RATES, CRUISE_DURATIONS, PRICING_DEFAULTS, PRIVATE_CRUISE_PRICING, DISCO_PRICING } from './constants';
 
 /**
+ * SIMPLE CLIENT-SIDE PRICING CALCULATOR
+ * Replaces complex API calls with instant table lookup
+ * Uses existing HOURLY_RATES table + tax + gratuity
+ */
+export function calculateSimplePricing(
+  date: Date,
+  groupSize: number,
+  duration: number = 4,
+  selectedAddOns: string[] = []
+): {
+  subtotal: number;
+  tax: number;
+  gratuity: number;
+  total: number;
+  depositRequired: boolean;
+  depositAmount: number;
+  depositPercent: number;
+  duration: number;
+  hourlyRate: number;
+  baseHourlyRate: number;
+  selectedAddOns: Array<{id: string; name: string; hourlyRate: number}>;
+  timeSlot?: string;
+  pricingModel: string;
+  discountTotal: number;
+  perPersonCost: number;
+  showBothOptions: boolean;
+  eventType?: string;
+} {
+  // 1. Get day type and capacity tier using existing functions
+  const dayType = getDayType(date);
+  const capacityTier = getCapacityTier(groupSize);
+  
+  // 2. Simple lookup from HOURLY_RATES table - NO API CALLS!
+  const baseHourlyRate = HOURLY_RATES[dayType][capacityTier];
+  
+  // 3. Calculate add-on costs (Essentials = +$50/hr)
+  let addOnHourlyRate = 0;
+  const addOnDetails: Array<{id: string; name: string; hourlyRate: number}> = [];
+  
+  if (selectedAddOns.includes('essentials')) {
+    addOnHourlyRate += 5000; // $50/hr in cents
+    addOnDetails.push({
+      id: 'essentials',
+      name: 'Essentials Package',
+      hourlyRate: 5000
+    });
+  }
+  
+  const totalHourlyRate = baseHourlyRate + addOnHourlyRate;
+  
+  // 4. Calculate subtotal: rate × duration
+  const subtotal = totalHourlyRate * duration;
+  
+  // 5. Add tax (8.25%) and gratuity (20%) using existing constants
+  const tax = Math.floor(subtotal * (PRICING_DEFAULTS.TAX_RATE_BASIS_POINTS / 10000));
+  const gratuity = Math.floor(subtotal * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100));
+  const total = subtotal + tax + gratuity;
+  
+  // 6. Calculate deposit (always 50% for fast checkout)
+  const depositPercent = 50;
+  const depositAmount = Math.floor(total * (depositPercent / 100));
+  
+  return {
+    subtotal,
+    tax,
+    gratuity,
+    total,
+    depositRequired: true,
+    depositAmount,
+    depositPercent,
+    duration,
+    hourlyRate: totalHourlyRate,
+    baseHourlyRate,
+    selectedAddOns: addOnDetails,
+    pricingModel: 'hourly',
+    discountTotal: 0,
+    perPersonCost: Math.floor(total / groupSize),
+    showBothOptions: false
+  };
+}
+
+/**
+ * SIMPLE DISCO PRICING CALCULATOR
+ * Replaces /api/pricing/preview with instant calculation
+ */
+export function calculateSimpleDiscoPricing(
+  selectedDiscoPackage: 'basic' | 'disco_queen' | 'platinum',
+  ticketQuantity: number
+): {
+  subtotal: number;
+  discountTotal: number;
+  tax: number;
+  gratuity: number;
+  total: number;
+  perPersonCost: number;
+  depositRequired: boolean;
+  depositPercent: number;
+  depositAmount: number;
+  paymentSchedule: any[];
+  expiresAt: string;
+  breakdown: {};
+  displaySettings: {};
+  urgencyMessage: null;
+  adjustments: any[];
+  adjustmentTotal: number;
+} {
+  // 1. Simple lookup from DISCO_PRICING table - NO API CALLS!
+  const perPersonPrice = DISCO_PRICING[selectedDiscoPackage];
+  const subtotal = perPersonPrice * ticketQuantity;
+  
+  // 2. Add tax and gratuity using existing constants
+  const tax = Math.floor(subtotal * (PRICING_DEFAULTS.TAX_RATE_BASIS_POINTS / 10000));
+  const gratuity = Math.floor(subtotal * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100));
+  const total = subtotal + tax + gratuity;
+  
+  // 3. Calculate deposit (25% for disco)
+  const depositPercent = 25;
+  const depositAmount = Math.floor(total * (depositPercent / 100));
+  
+  // 4. Set expiration (2 days from now)
+  const expiresAt = new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString();
+  
+  return {
+    subtotal,
+    discountTotal: 0,
+    tax,
+    gratuity,
+    total,
+    perPersonCost: Math.floor(total / ticketQuantity),
+    depositRequired: true,
+    depositPercent,
+    depositAmount,
+    paymentSchedule: [],
+    expiresAt,
+    breakdown: {},
+    displaySettings: {},
+    urgencyMessage: null,
+    adjustments: [],
+    adjustmentTotal: 0
+  };
+}
+
+/**
  * Day type enumeration for pricing tiers
  */
 export type DayType = 'MON_THU' | 'FRIDAY' | 'SAT_SUN';

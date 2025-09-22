@@ -827,6 +827,10 @@ function getTimeAgo(date: Date): string {
 export async function registerRoutes(app: Express): Promise<Server> {
   
   // 🚨 EMERGENCY HARD BLOCK: Stop API spam immediately
+  app.use('/api/checkout/*', (req, res) => {
+    console.log('🚨 EMERGENCY: Blocked checkout API call to stop credit drain:', req.path);
+    res.status(410).json({ error: 'Checkout APIs permanently disabled to stop credit drain' });
+  });
   
   // Discount validation API endpoint
   app.post("/api/discounts/validate", async (req, res) => {
@@ -7767,138 +7771,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Calculate real-time pricing for checkout - RE-ENABLED AFTER STRIPE FIXES
-  app.post("/api/checkout/calculate-pricing", async (req, res) => {
-    console.log('🔧 /api/checkout/calculate-pricing called - endpoint re-enabled after Stripe fixes');
-    
-    // Original code re-enabled:
-    try {
-      const {
-        eventDate,
-        groupSize,
-        cruiseType,
-        boatId,
-        timeSlot,
-        discoPackage,
-        discoTicketQuantity,
-        addOnPackages = []
-      } = req.body;
-
-      if (!eventDate || !groupSize || !cruiseType) {
-        return res.status(400).json({ error: "Missing required pricing parameters" });
-      }
-
-      const date = new Date(eventDate);
-      let pricing;
-
-      if (cruiseType === 'private') {
-        // Calculate private cruise pricing
-        const { calculateCompletePricing } = await import('@shared/pricing');
-        const basePricing = calculateCompletePricing(date, parseInt(groupSize));
-
-        // Add add-on packages cost
-        let addOnsCost = 0;
-        const addOnPackageOptions = [
-          { id: 'essentials', hourlyRate: 5000 }, // $50/hour
-          { id: 'ultimate', hourlyRate: 7500 }    // $75/hour
-        ];
-
-        for (const addOnId of addOnPackages) {
-          const addOn = addOnPackageOptions.find(pkg => pkg.id === addOnId);
-          if (addOn) {
-            addOnsCost += addOn.hourlyRate * basePricing.duration;
-          }
-        }
-
-        const boat = await storage.getBoats().then(boats => boats.find(b => b.id === boatId));
-        const boatName = boat ? boat.name : 'Charter Boat';
-
-        pricing = {
-          ...basePricing,
-          boatInfo: {
-            name: boatName,
-            baseHourlyRate: basePricing.hourlyRate,
-            crewFee: basePricing.crewFee,
-            capacity: boat ? boat.capacity : 25
-          },
-          packageBreakdown: {
-            baseCruiseCost: basePricing.baseCruiseCost,
-            discoPackageCost: 0,
-            addOnPackagesCost: addOnsCost,
-            crewFee: basePricing.crewFee
-          },
-          paymentOptions: {
-            depositOnly: {
-              amount: basePricing.depositAmount,
-              description: `Deposit Payment (${basePricing.depositPercent}%)`
-            },
-            fullPayment: {
-              amount: basePricing.total + addOnsCost,
-              description: 'Full Payment'
-            }
-          },
-          validUntil: new Date(Date.now() + 30 * 60 * 1000), // 30 minutes
-          requiresRevalidation: false
-        };
-
-      } else if (cruiseType === 'disco') {
-        // Calculate disco cruise pricing
-        const ticketQuantity = parseInt(discoTicketQuantity) || parseInt(groupSize);
-        const packagePrices = {
-          'basic': 8500,       // $85.00 in cents
-          'disco_queen': 9500, // $95.00 in cents
-          'platinum': 10500    // $105.00 in cents
-        };
-
-        const pricePerTicket = packagePrices[discoPackage as keyof typeof packagePrices] || 8500;
-        const subtotal = pricePerTicket * ticketQuantity;
-
-        // Use shared pricing for tax and gratuity calculation
-        const { calculateTaxAndGratuity, calculateDeposit } = await import('@shared/pricing');
-        const taxAndGratuity = calculateTaxAndGratuity(subtotal);
-        const deposit = calculateDeposit(taxAndGratuity.total, date);
-
-        pricing = {
-          subtotal,
-          discountTotal: 0,
-          ...taxAndGratuity,
-          ...deposit,
-          perPersonCost: Math.floor(taxAndGratuity.total / ticketQuantity),
-          boatInfo: {
-            name: 'ATX Disco Cruise',
-            baseHourlyRate: pricePerTicket,
-            crewFee: 0,
-            capacity: 100
-          },
-          packageBreakdown: {
-            baseCruiseCost: 0,
-            discoPackageCost: subtotal,
-            addOnPackagesCost: 0,
-            crewFee: 0
-          },
-          paymentOptions: {
-            depositOnly: {
-              amount: deposit.depositAmount,
-              description: `Deposit Payment (${deposit.depositPercent}%)`
-            },
-            fullPayment: {
-              amount: taxAndGratuity.total,
-              description: 'Full Payment'
-            }
-          },
-          validUntil: new Date(Date.now() + 30 * 60 * 1000),
-          requiresRevalidation: false
-        };
-      } else {
-        return res.status(400).json({ error: "Invalid cruise type" });
-      }
-
-      res.json(pricing);
-    } catch (error: any) {
-      console.error("Error calculating checkout pricing:", error);
-      res.status(500).json({ error: "Failed to calculate pricing: " + error.message });
-    }
-  });
 
   // Validate checkout before payment
   app.post("/api/checkout/validate", async (req, res) => {
