@@ -157,6 +157,7 @@ export default function QuoteViewer() {
   const [privatePricing, setPrivatePricing] = useState<any>(null);
   const [discoPricing, setDiscoPricing] = useState<any>(null);
   const [pricingLoading, setPricingLoading] = useState(false);
+  const [isPaymentLoading, setIsPaymentLoading] = useState(false);
   
   // High-performance caching system
   const { 
@@ -436,19 +437,68 @@ export default function QuoteViewer() {
     setSelectedSlotId('');
   }, []);
   
-  // Handle cruise option selection (17hats-style radio buttons)
-  const handleOptionSelect = useCallback((option: any) => {
-    setSelectedOption(option.id);
-    setSelectedTimeSlot(`${option.startTime}-${option.endTime}`);
-    setSelectedBoat(option.boatId);
-    setSelectedSlotId(option.id);
-    
-    if (option.cruiseType === 'private') {
-      setSelectedCruiseType('private');
-    } else if (option.cruiseType === 'disco') {
-      setSelectedCruiseType('disco');
+  // Handle cruise option selection (17hats-style radio buttons and dropdowns)
+  const handleOptionSelect = useCallback((optionOrId: any) => {
+    // Handle both object format (from old radio buttons) and string ID format (from new dropdowns)
+    if (typeof optionOrId === 'string') {
+      // New dropdown format - parse the ID and find the slot
+      const slotId = optionOrId;
+      setSelectedOption(slotId);
+      
+      // Find the actual slot from weeklySlots
+      const slot = weeklySlots.find(s => {
+        const boatName = s.boatCandidates?.[0] || s.boat || 'boat_unknown';
+        const slotType = s.cruiseType || s.type || 'private';
+        const slotDate = s.dateISO || s.date;
+        
+        // Check all possible ID formats
+        const possibleIds = [
+          `3hr_Monday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
+          `3hr_Tuesday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
+          `3hr_Wednesday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
+          `3hr_Thursday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
+          `4hr_Monday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
+          `4hr_Tuesday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
+          `4hr_Wednesday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
+          `4hr_Thursday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
+          `weekend_Friday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
+          `weekend_Saturday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
+          `weekend_Sunday_${slotType}_${boatName}_${slotDate}_${s.startTime}_${s.endTime}`,
+        ];
+        
+        return possibleIds.includes(slotId);
+      });
+      
+      if (slot) {
+        const boatId = slot.boatCandidates?.[0] || slot.boat || '';
+        setSelectedTimeSlot(`${slot.startTime} - ${slot.endTime}`);
+        setSelectedBoat(boatId);
+        setSelectedBoatId(boatId); // Fix: Also set selectedBoatId
+        setSelectedSlotId(slot.id || slotId);
+        
+        const cruiseType = slot.cruiseType || slot.type || 'private';
+        if (cruiseType === 'private') {
+          setSelectedCruiseType('private');
+        } else if (cruiseType === 'disco') {
+          setSelectedCruiseType('disco');
+        }
+      }
+    } else {
+      // Old object format
+      const option = optionOrId;
+      setSelectedOption(option.id);
+      setSelectedTimeSlot(`${option.startTime} - ${option.endTime}`);
+      setSelectedBoat(option.boatId);
+      setSelectedBoatId(option.boatId); // Fix: Also set selectedBoatId
+      setSelectedSlotId(option.id);
+      
+      if (option.cruiseType === 'private') {
+        setSelectedCruiseType('private');
+      } else if (option.cruiseType === 'disco') {
+        setSelectedCruiseType('disco');
+      }
     }
-  }, []);
+  }, [weeklySlots]);
 
   // ⚡ INSTANT private pricing refresh (no debouncing needed!) - FIXED: Direct dependencies
   useEffect(() => {
@@ -480,6 +530,7 @@ export default function QuoteViewer() {
       return;
     }
 
+    setIsPaymentLoading(true);
     try {
       const amount = paymentType === 'deposit' ? pricing.depositAmount : pricing.total;
       
@@ -487,13 +538,22 @@ export default function QuoteViewer() {
       // Build selectedSlot object with proper startTime/endTime for server validation
       const timeSlotStr = selectedTimeSlot || calendarData?.selectedTimeSlot || '';
       const { startTime, endTime } = parseTimeSlot(timeSlotStr);
+      // Calculate duration from startTime and endTime
+      const calculateDuration = (start: string, end: string): number => {
+        const [startHour, startMin] = start.split(':').map(Number);
+        const [endHour, endMin] = end.split(':').map(Number);
+        return ((endHour * 60 + endMin) - (startHour * 60 + startMin)) / 60;
+      };
+      
+      const durationHours = startTime && endTime ? calculateDuration(startTime, endTime) : 4;
+      
       const selectedSlot = {
         slotId: selectedSlotId || calendarData?.slotId || '',
         boatId: selectedBoatId || calendarData?.boatId || '',
         dateISO: eventDate || calendarData?.eventDate || '',
         startTime,
         endTime,
-        durationHours: 4, // Most common duration, server will validate
+        durationHours, // Fix: Calculate actual duration instead of hardcoding
         cruiseType
       };
 
@@ -568,6 +628,8 @@ export default function QuoteViewer() {
         description: error.message || "Failed to process payment. Please try again.",
         variant: "destructive",
       });
+    } finally {
+      setIsPaymentLoading(false);
     }
   };
 
@@ -731,7 +793,7 @@ export default function QuoteViewer() {
                       <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
                     </div>
                   ) : weeklySlots.length > 0 ? (
-                    <div className="space-y-4">
+                    <div className="space-y-3">
                       {/* Group slots by day */}
                       {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day, dayIndex) => {
                         const daySlots = weeklySlots.filter(slot => {
@@ -742,53 +804,107 @@ export default function QuoteViewer() {
 
                         if (daySlots.length === 0) return null;
 
+                        // Group slots by duration for Mon-Thu
+                        const isWeekday = dayIndex <= 3; // Monday(0) through Thursday(3)
+                        const threeHourSlots = isWeekday ? daySlots.filter(s => s.duration === 3) : [];
+                        const fourHourSlots = isWeekday ? daySlots.filter(s => s.duration === 4) : [];
+                        const weekendSlots = !isWeekday ? daySlots : [];
+
                         return (
-                          <div key={day} className="border-b pb-4 last:border-b-0">
-                            <h3 className="font-semibold text-gray-900 mb-3">
+                          <div key={day} className="border rounded-lg p-3 bg-gray-50">
+                            <h3 className="font-semibold text-gray-900 mb-2 text-sm">
                               {day}, {format(addDays(new Date(eventDate), dayIndex), 'MMM d')}
                             </h3>
-                            <RadioGroup value={selectedOption} onValueChange={handleOptionSelect}>
-                              <div className="grid sm:grid-cols-2 gap-3">
-                                {daySlots.map((slot) => {
-                                  const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
-                                  const slotType = slot.cruiseType || slot.type || 'private';
-                                  const slotDate = slot.dateISO || slot.date;
-                                  const slotId = `${slotType}_${boatName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
-                                  const isSelected = selectedOption === slotId;
-                                  
-                                  return (
-                                    <div key={slotId} className={`relative flex items-center space-x-2 p-3 border rounded-lg hover:bg-gray-50 ${isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-200'}`}>
-                                      <RadioGroupItem value={slotId} id={slotId} data-testid={`radio-slot-${slotId}`} />
-                                      <Label htmlFor={slotId} className="flex-1 cursor-pointer">
-                                        <div className="flex justify-between items-start">
-                                          <div>
-                                            <p className="font-medium text-gray-900">
-                                              {slot.startTime} - {slot.endTime}
-                                            </p>
-                                            <p className="text-sm text-gray-600">
-                                              {boatName.replace('boat_', '').replace(/_/g, ' ').split(' ').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ')}
-                                            </p>
-                                            {slotType === 'disco' && (
-                                              <Badge variant="secondary" className="mt-1 text-xs">
-                                                Disco Cruise
-                                              </Badge>
-                                            )}
-                                          </div>
-                                          <div className="text-right">
-                                            <p className="font-semibold text-gray-900">
-                                              ${slot.price / 100}/hr
-                                            </p>
-                                            <p className="text-xs text-gray-500">
-                                              {slot.duration}hr cruise
-                                            </p>
-                                          </div>
-                                        </div>
-                                      </Label>
-                                    </div>
-                                  );
-                                })}
+                            
+                            {isWeekday ? (
+                              // Monday-Thursday: Show dropdowns
+                              <div className="flex gap-2 items-center">
+                                {threeHourSlots.length > 0 && (
+                                  <div className="flex-1">
+                                    <Select
+                                      value={selectedOption?.startsWith(`3hr_${day}_`) ? selectedOption : undefined}
+                                      onValueChange={handleOptionSelect}
+                                    >
+                                      <SelectTrigger className="w-full h-9 text-sm" data-testid={`dropdown-3hr-${day}`}>
+                                        <SelectValue placeholder="3-hour cruise" />
+                                      </SelectTrigger>
+                                      <SelectContent>
+                                        {threeHourSlots.map((slot) => {
+                                          const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
+                                          const slotType = slot.cruiseType || slot.type || 'private';
+                                          const slotDate = slot.dateISO || slot.date;
+                                          const slotId = `3hr_${day}_${slotType}_${boatName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
+                                          
+                                          return (
+                                            <SelectItem key={slotId} value={slotId} data-testid={`option-${slotId}`}>
+                                              <div className="flex justify-between items-center w-full">
+                                                <span>{slot.startTime} - {slot.endTime}</span>
+                                                <span className="ml-2 text-xs text-gray-500">${(slot.price / 100 / (slot.duration || 3)).toFixed(0)}/hr</span>
+                                              </div>
+                                            </SelectItem>
+                                          );
+                                        })}
+                                      </SelectContent>
+                                    </Select>
+                                  </div>
+                                )}
+                                
+                                {fourHourSlots.length > 0 && (
+                                  <div className="flex-1">
+                                    <Select
+                                      value={selectedOption?.startsWith(`4hr_${day}_`) ? selectedOption : undefined}
+                                      onValueChange={handleOptionSelect}
+                                    >
+                                      <SelectTrigger className="w-full h-9 text-sm" data-testid={`dropdown-4hr-${day}`}>
+                                        <SelectValue placeholder="4-hour cruise" />
+                                      </SelectTrigger>
+                                      <SelectContent>
+                                        {fourHourSlots.map((slot) => {
+                                          const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
+                                          const slotType = slot.cruiseType || slot.type || 'private';
+                                          const slotDate = slot.dateISO || slot.date;
+                                          const slotId = `4hr_${day}_${slotType}_${boatName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
+                                          
+                                          return (
+                                            <SelectItem key={slotId} value={slotId} data-testid={`option-${slotId}`}>
+                                              <div className="flex justify-between items-center w-full">
+                                                <span>{slot.startTime} - {slot.endTime}</span>
+                                                <span className="ml-2 text-xs text-gray-500">${(slot.price / 100 / (slot.duration || 3)).toFixed(0)}/hr</span>
+                                              </div>
+                                            </SelectItem>
+                                          );
+                                        })}
+                                      </SelectContent>
+                                    </Select>
+                                  </div>
+                                )}
                               </div>
-                            </RadioGroup>
+                            ) : (
+                              // Friday-Sunday: Show individual slots
+                              <RadioGroup value={selectedOption} onValueChange={handleOptionSelect}>
+                                <div className="flex gap-2">
+                                  {weekendSlots.map((slot) => {
+                                    const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
+                                    const slotType = slot.cruiseType || slot.type || 'private';
+                                    const slotDate = slot.dateISO || slot.date;
+                                    const slotId = `weekend_${day}_${slotType}_${boatName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
+                                    const isSelected = selectedOption === slotId;
+                                    
+                                    return (
+                                      <div key={slotId} className={`flex-1 flex items-center space-x-2 p-2 border rounded hover:bg-white ${isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-300 bg-white'}`}>
+                                        <RadioGroupItem value={slotId} id={slotId} data-testid={`radio-slot-${slotId}`} />
+                                        <Label htmlFor={slotId} className="flex-1 cursor-pointer text-sm">
+                                          <div className="flex justify-between items-center">
+                                            <span>{slot.startTime} - {slot.endTime}</span>
+                                            <span className="text-xs text-gray-600">${(slot.price / 100 / (slot.duration || 4)).toFixed(0)}/hr</span>
+                                          </div>
+                                        </Label>
+                                      </div>
+                                    );
+                                  })}
+                                </div>
+                              </RadioGroup>
+                            )}
                           </div>
                         );
                       })}

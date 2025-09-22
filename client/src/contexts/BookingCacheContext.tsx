@@ -171,10 +171,24 @@ export function BookingCacheProvider({ children }: { children: React.ReactNode }
       const date = new Date(selections.date);
       
       if (selections.cruiseType === 'private') {
+        // Calculate duration from timeSlot if available
+        let duration = 4; // Default duration
+        if (selections.timeSlot) {
+          const [start, end] = selections.timeSlot.split('-').map(t => t.trim());
+          if (start && end) {
+            const [startHour, startMin] = start.split(':').map(Number);
+            const [endHour, endMin] = end.split(':').map(Number);
+            const calculatedDuration = ((endHour * 60 + endMin) - (startHour * 60 + startMin)) / 60;
+            if (calculatedDuration > 0) {
+              duration = calculatedDuration;
+            }
+          }
+        }
+        
         const pricing = calculateSimplePricing(
           date,
           selections.groupSize,
-          4, // Default duration - could be derived from time slot
+          duration,
           selections.selectedAddOns
         );
         
