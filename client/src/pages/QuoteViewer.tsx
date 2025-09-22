@@ -811,10 +811,19 @@ export default function QuoteViewer() {
               {/* Weekly Availability Grid */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-lg">Available Times This Week</CardTitle>
-                  <p className="text-sm text-gray-600">
-                    {eventDate ? format(new Date(eventDate), 'MMMM d-') : ''}{eventDate ? format(addDays(new Date(eventDate), 6), 'd, yyyy') : ''}
-                  </p>
+                  <div className="space-y-2">
+                    {/* Prominently display selected date */}
+                    <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
+                      <p className="text-sm text-blue-700 font-medium">Selected Date:</p>
+                      <p className="text-lg font-bold text-blue-900">
+                        {eventDate ? format(new Date(eventDate), 'EEEE, MMMM d, yyyy') : 'Please select a date'}
+                      </p>
+                    </div>
+                    <CardTitle className="text-lg">Available Times</CardTitle>
+                    <p className="text-sm text-gray-600">
+                      Showing availability for the week of {eventDate ? format(new Date(eventDate), 'MMM d') : ''}
+                    </p>
+                  </div>
                 </CardHeader>
                 <CardContent>
                   {isLoadingWeekly ? (
@@ -823,147 +832,204 @@ export default function QuoteViewer() {
                     </div>
                   ) : weeklySlots.length > 0 ? (
                     <div className="space-y-3">
-                      {/* Group slots by day */}
-                      {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day, dayIndex) => {
-                        const daySlots = weeklySlots.filter(slot => {
+                      {/* Weekday Consolidated Dropdown (Mon-Thu) */}
+                      {(() => {
+                        // Sort all slots chronologically first
+                        const sortedSlots = [...weeklySlots].sort((a, b) => {
+                          const dateA = new Date(a.dateISO || a.date);
+                          const dateB = new Date(b.dateISO || b.date);
+                          if (dateA.getTime() !== dateB.getTime()) {
+                            return dateA.getTime() - dateB.getTime();
+                          }
+                          // If same date, sort by start time
+                          const timeA = parseInt(a.startTime.replace(':', ''));
+                          const timeB = parseInt(b.startTime.replace(':', ''));
+                          return timeA - timeB;
+                        });
+                        
+                        // Filter all weekday slots (Mon-Thu)
+                        const weekdaySlots = sortedSlots.filter(slot => {
                           const slotDay = new Date(slot.dateISO || slot.date).getDay();
-                          const mappedDay = slotDay === 0 ? 6 : slotDay - 1; // Convert Sunday=0 to Sunday=6
-                          return mappedDay === dayIndex;
+                          return slotDay >= 1 && slotDay <= 4; // Monday=1 to Thursday=4
+                        });
+                        
+                        if (weekdaySlots.length > 0) {
+                          // Group by day and duration
+                          const weekdayOptions: { [key: string]: any[] } = {};
+                          
+                          ['Monday', 'Tuesday', 'Wednesday', 'Thursday'].forEach((day, idx) => {
+                            const dayNum = idx + 1;
+                            const daySlots = weekdaySlots.filter(slot => {
+                              const slotDay = new Date(slot.dateISO || slot.date).getDay();
+                              return slotDay === dayNum;
+                            });
+                            
+                            if (daySlots.length > 0) {
+                              weekdayOptions[day] = daySlots;
+                            }
+                          });
+                          
+                          return (
+                            <div className="border rounded-lg p-3 bg-blue-50">
+                              <h3 className="font-semibold text-gray-900 mb-2 text-sm">Weekday Cruises (Monday - Thursday)</h3>
+                              <div className="space-y-2">
+                                <Select
+                                  value={selectedOption}
+                                  onValueChange={handleOptionSelect}
+                                >
+                                  <SelectTrigger className="w-full" data-testid="dropdown-weekday">
+                                    <SelectValue placeholder="Select a weekday cruise time" />
+                                  </SelectTrigger>
+                                  <SelectContent>
+                                    {Object.entries(weekdayOptions).map(([day, slots]) => {
+                                      // Get the actual date for each weekday slot
+                                      const firstSlot = slots[0];
+                                      const slotDate = firstSlot?.dateISO || firstSlot?.date;
+                                      
+                                      return (
+                                      <SelectGroup key={day}>
+                                        <SelectLabel className="font-semibold">
+                                          {day}, {slotDate ? format(new Date(slotDate), 'MMM d') : ''}
+                                        </SelectLabel>
+                                        {/* 3-hour options */}
+                                        {slots.filter(s => s.duration === 3).length > 0 && (
+                                          <>
+                                            <SelectLabel className="text-xs text-gray-500 pl-4">3-hour cruises</SelectLabel>
+                                            {slots.filter(s => s.duration === 3).map((slot) => {
+                                              const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
+                                              const slotId = `3hr_${day}_private_${boatName}_${slot.dateISO || slot.date}_${slot.startTime}_${slot.endTime}`;
+                                              const getHourlyRate = () => {
+                                                if (boatName.includes('day_tripper')) return 200;
+                                                if (boatName.includes('me_seeks')) return 225;
+                                                if (boatName.includes('clever_girl')) return 250;
+                                                return 225;
+                                              };
+                                              
+                                              return (
+                                                <SelectItem key={slotId} value={slotId} className="pl-8" data-testid={`option-${slotId}`}>
+                                                  <div className="flex justify-between items-center w-full">
+                                                    <span>{slot.startTime} - {slot.endTime}</span>
+                                                    <span className="ml-4 text-xs text-gray-500">${getHourlyRate()}/hr</span>
+                                                  </div>
+                                                </SelectItem>
+                                              );
+                                            })}
+                                          </>
+                                        )}
+                                        {/* 4-hour options */}
+                                        {slots.filter(s => s.duration === 4).length > 0 && (
+                                          <>
+                                            <SelectLabel className="text-xs text-gray-500 pl-4">4-hour cruises</SelectLabel>
+                                            {slots.filter(s => s.duration === 4).map((slot) => {
+                                              const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
+                                              const slotId = `4hr_${day}_private_${boatName}_${slot.dateISO || slot.date}_${slot.startTime}_${slot.endTime}`;
+                                              const getHourlyRate = () => {
+                                                if (boatName.includes('day_tripper')) return 200;
+                                                if (boatName.includes('me_seeks')) return 225;
+                                                if (boatName.includes('clever_girl')) return 250;
+                                                return 225;
+                                              };
+                                              
+                                              return (
+                                                <SelectItem key={slotId} value={slotId} className="pl-8" data-testid={`option-${slotId}`}>
+                                                  <div className="flex justify-between items-center w-full">
+                                                    <span>{slot.startTime} - {slot.endTime}</span>
+                                                    <span className="ml-4 text-xs text-gray-500">${getHourlyRate()}/hr</span>
+                                                  </div>
+                                                </SelectItem>
+                                              );
+                                            })}
+                                          </>
+                                        )}
+                                      </SelectGroup>
+                                    );
+                                    })}
+                                  </SelectContent>
+                                </Select>
+                              </div>
+                            </div>
+                          );
+                        }
+                        return null;
+                      })()}
+                      
+                      {/* Weekend slots (Fri-Sun) - Individual display */}
+                      {['Friday', 'Saturday', 'Sunday'].map((day, idx) => {
+                        const dayNum = idx + 5; // Friday=5, Saturday=6, Sunday=0
+                        const actualDayNum = day === 'Sunday' ? 0 : dayNum;
+                        const daySlots = sortedSlots.filter(slot => {
+                          const slotDay = new Date(slot.dateISO || slot.date).getDay();
+                          return slotDay === actualDayNum;
                         });
 
                         if (daySlots.length === 0) return null;
-
-                        // Group slots by duration for Mon-Thu
-                        const isWeekday = dayIndex <= 3; // Monday(0) through Thursday(3)
-                        const threeHourSlots = isWeekday ? daySlots.filter(s => s.duration === 3) : [];
-                        const fourHourSlots = isWeekday ? daySlots.filter(s => s.duration === 4) : [];
-                        const weekendSlots = !isWeekday ? daySlots : [];
+                        
+                        // Filter slots based on business rules for each day
+                        const filteredSlots = (() => {
+                          if (day === 'Friday') {
+                            // Friday: Only 2 slots - 12:00-4:00 PM and 4:30-8:30 PM
+                            return daySlots.filter(s => 
+                              (s.startTime === '12:00' && s.endTime === '16:00') ||
+                              (s.startTime === '16:30' && s.endTime === '20:30')
+                            );
+                          } else if (day === 'Saturday') {
+                            // Saturday: Only 2 slots - 11:00 AM-3:00 PM and 3:30-7:30 PM
+                            return daySlots.filter(s => 
+                              (s.startTime === '11:00' && s.endTime === '15:00') ||
+                              (s.startTime === '15:30' && s.endTime === '19:30')
+                            );
+                          } else if (day === 'Sunday') {
+                            // Sunday: Only 2 slots - 11:00 AM-3:00 PM and 3:30-7:30 PM
+                            return daySlots.filter(s => 
+                              (s.startTime === '11:00' && s.endTime === '15:00') ||
+                              (s.startTime === '15:30' && s.endTime === '19:30')
+                            );
+                          }
+                          return daySlots;
+                        })();
 
                         return (
                           <div key={day} className="border rounded-lg p-3 bg-gray-50">
                             <h3 className="font-semibold text-gray-900 mb-2 text-sm">
-                              {day}, {format(addDays(new Date(eventDate), dayIndex), 'MMM d')}
+                              {day}, {format(addDays(new Date(eventDate), day === 'Friday' ? 5 : day === 'Saturday' ? 6 : 0), 'MMM d')}
                             </h3>
-                            
-                            {isWeekday ? (
-                              // Monday-Thursday: Show dropdowns
-                              <div className="flex gap-2 items-center">
-                                {threeHourSlots.length > 0 && (
-                                  <div className="flex-1">
-                                    <Select
-                                      value={selectedOption?.startsWith(`3hr_${day}_`) ? selectedOption : undefined}
-                                      onValueChange={handleOptionSelect}
-                                    >
-                                      <SelectTrigger className="w-full h-9 text-sm" data-testid={`dropdown-3hr-${day}`}>
-                                        <SelectValue placeholder="3-hour cruise" />
-                                      </SelectTrigger>
-                                      <SelectContent>
-                                        {threeHourSlots.map((slot) => {
-                                          const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
-                                          const slotType = slot.cruiseType || slot.type || 'private';
-                                          const slotDate = slot.dateISO || slot.date;
-                                          const slotId = `3hr_${day}_${slotType}_${boatName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
-                                          
-                                          // Get hourly rate based on boat capacity tier for Mon-Thu
-                                          const getHourlyRate = () => {
-                                            if (boatName.includes('day_tripper')) return 200;
-                                            if (boatName.includes('me_seeks')) return 225;
-                                            if (boatName.includes('clever_girl')) return 250;
-                                            return 225; // Default
-                                          };
-                                          
-                                          return (
-                                            <SelectItem key={slotId} value={slotId} data-testid={`option-${slotId}`}>
-                                              <div className="flex justify-between items-center w-full">
-                                                <span>{slot.startTime} - {slot.endTime}</span>
-                                                <span className="ml-2 text-xs text-gray-500">${getHourlyRate()}/hr</span>
-                                              </div>
-                                            </SelectItem>
-                                          );
-                                        })}
-                                      </SelectContent>
-                                    </Select>
-                                  </div>
-                                )}
-                                
-                                {fourHourSlots.length > 0 && (
-                                  <div className="flex-1">
-                                    <Select
-                                      value={selectedOption?.startsWith(`4hr_${day}_`) ? selectedOption : undefined}
-                                      onValueChange={handleOptionSelect}
-                                    >
-                                      <SelectTrigger className="w-full h-9 text-sm" data-testid={`dropdown-4hr-${day}`}>
-                                        <SelectValue placeholder="4-hour cruise" />
-                                      </SelectTrigger>
-                                      <SelectContent>
-                                        {fourHourSlots.map((slot) => {
-                                          const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
-                                          const slotType = slot.cruiseType || slot.type || 'private';
-                                          const slotDate = slot.dateISO || slot.date;
-                                          const slotId = `4hr_${day}_${slotType}_${boatName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
-                                          
-                                          // Get hourly rate based on boat capacity tier for Mon-Thu
-                                          const getHourlyRate = () => {
-                                            if (boatName.includes('day_tripper')) return 200;
-                                            if (boatName.includes('me_seeks')) return 225;
-                                            if (boatName.includes('clever_girl')) return 250;
-                                            return 225; // Default
-                                          };
-                                          
-                                          return (
-                                            <SelectItem key={slotId} value={slotId} data-testid={`option-${slotId}`}>
-                                              <div className="flex justify-between items-center w-full">
-                                                <span>{slot.startTime} - {slot.endTime}</span>
-                                                <span className="ml-2 text-xs text-gray-500">${getHourlyRate()}/hr</span>
-                                              </div>
-                                            </SelectItem>
-                                          );
-                                        })}
-                                      </SelectContent>
-                                    </Select>
-                                  </div>
-                                )}
+                            <RadioGroup value={selectedOption} onValueChange={handleOptionSelect}>
+                              <div className="flex gap-2">
+                                {filteredSlots.map((slot) => {
+                                  const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
+                                  const slotType = slot.cruiseType || slot.type || 'private';
+                                  const slotDate = slot.dateISO || slot.date;
+                                  const slotId = `weekend_${day}_${slotType}_${boatName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
+                                  const isSelected = selectedOption === slotId;
+                                  
+                                  // Get hourly rate based on boat and day for weekends
+                                  const getWeekendHourlyRate = () => {
+                                    if (day === 'Friday') {
+                                      if (boatName.includes('day_tripper')) return 225;
+                                      if (boatName.includes('me_seeks')) return 250;
+                                      if (boatName.includes('clever_girl')) return 275;
+                                    } else { // Saturday/Sunday
+                                      if (boatName.includes('day_tripper')) return 350;
+                                      if (boatName.includes('me_seeks')) return 375;
+                                      if (boatName.includes('clever_girl')) return 400;
+                                    }
+                                    return 250; // Default
+                                  };
+                                  
+                                  return (
+                                    <div key={slotId} className={`flex-1 flex items-center space-x-2 p-2 border rounded hover:bg-white ${isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-300 bg-white'}`}>
+                                      <RadioGroupItem value={slotId} id={slotId} data-testid={`radio-slot-${slotId}`} />
+                                      <Label htmlFor={slotId} className="flex-1 cursor-pointer text-sm">
+                                        <div className="flex justify-between items-center">
+                                          <span>{slot.startTime} - {slot.endTime}</span>
+                                          <span className="text-xs text-gray-600">${getWeekendHourlyRate()}/hr</span>
+                                        </div>
+                                      </Label>
+                                    </div>
+                                  );
+                                })}
                               </div>
-                            ) : (
-                              // Friday-Sunday: Show individual slots
-                              <RadioGroup value={selectedOption} onValueChange={handleOptionSelect}>
-                                <div className="flex gap-2">
-                                  {weekendSlots.map((slot) => {
-                                    const boatName = slot.boatCandidates?.[0] || slot.boat || 'boat_unknown';
-                                    const slotType = slot.cruiseType || slot.type || 'private';
-                                    const slotDate = slot.dateISO || slot.date;
-                                    const slotId = `weekend_${day}_${slotType}_${boatName}_${slotDate}_${slot.startTime}_${slot.endTime}`;
-                                    const isSelected = selectedOption === slotId;
-                                    
-                                    // Get hourly rate based on boat and day for weekends
-                                    const getWeekendHourlyRate = () => {
-                                      if (dayIndex === 4) { // Friday
-                                        if (boatName.includes('day_tripper')) return 225;
-                                        if (boatName.includes('me_seeks')) return 250;
-                                        if (boatName.includes('clever_girl')) return 275;
-                                      } else { // Saturday/Sunday
-                                        if (boatName.includes('day_tripper')) return 350;
-                                        if (boatName.includes('me_seeks')) return 375;
-                                        if (boatName.includes('clever_girl')) return 400;
-                                      }
-                                      return 250; // Default
-                                    };
-                                    
-                                    return (
-                                      <div key={slotId} className={`flex-1 flex items-center space-x-2 p-2 border rounded hover:bg-white ${isSelected ? 'border-blue-500 bg-blue-50' : 'border-gray-300 bg-white'}`}>
-                                        <RadioGroupItem value={slotId} id={slotId} data-testid={`radio-slot-${slotId}`} />
-                                        <Label htmlFor={slotId} className="flex-1 cursor-pointer text-sm">
-                                          <div className="flex justify-between items-center">
-                                            <span>{slot.startTime} - {slot.endTime}</span>
-                                            <span className="text-xs text-gray-600">${getWeekendHourlyRate()}/hr</span>
-                                          </div>
-                                        </Label>
-                                      </div>
-                                    );
-                                  })}
-                                </div>
-                              </RadioGroup>
-                            )}
+                            </RadioGroup>
                           </div>
                         );
                       })}
