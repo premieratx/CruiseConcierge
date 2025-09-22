@@ -136,9 +136,9 @@ export const CRUISE_TYPES = {
  * Disco package labels and configurations
  */
 export const DISCO_PACKAGES = {
-  basic: { label: 'Basic Package', description: 'Essential disco experience' },
-  disco_queen: { label: 'Disco Queen Package', description: 'VIP disco experience' },
-  platinum: { label: 'Platinum Package', description: 'Ultimate disco experience' },
+  basic: { label: 'Basic', description: 'Essential disco experience' },
+  disco_queen: { label: 'Disco Queen', description: 'VIP disco experience' },
+  platinum: { label: 'Super Sparkle Platinum Disco', description: 'Ultimate disco experience' },
 } as const;
 
 /**
@@ -1137,7 +1137,7 @@ export const DISCO_AVAILABILITY = {
       description: 'Private Cooler & Reserved Spot for Your Group'
     },
     platinum: {
-      name: 'Super Sparkle Platinum',
+      name: 'Super Sparkle Platinum Disco',
       pricePerPerson: 10500, // $105.00
       description: 'Nothing to Carry, Cooler Stocked w/drinks When You Arrive!'
     }

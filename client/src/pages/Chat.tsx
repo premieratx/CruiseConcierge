@@ -1546,33 +1546,40 @@ export default function Chat() {
         depositPercent: pricing?.depositPercent
       };
       
-      // Create checkout session via API
-      const response = await apiRequest('POST', '/api/checkout/create-session', {
+      // NEW: Redirect to unified QuoteViewer checkout page (NO PII in URLs for security)
+      const checkoutParams = new URLSearchParams({
+        entryPoint: 'calendar_flow', // Mark as calendar flow for QuoteViewer
+        cruiseType,
+        eventType: formData.eventType,
+        groupSize: (cruiseType === 'disco' ? formData.discoTicketQuantity : formData.groupSize).toString(),
+        eventDate: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : '',
+        selectedTimeSlot: formData.selectedSlot ? `${formData.selectedSlot.startTime}-${formData.selectedSlot.endTime}` : '',
+        slotId: formData.selectedSlot?.id || '',
+        boatId: formData.selectedSlot?.boatCandidates?.[0] || '',
+        discountCode: formData.discountCode || '',
         paymentType,
-        customerEmail: formData.email,
-        metadata,
-        selectionPayload
-        // Note: holdId will be managed server-side for quote flow
+        // SECURITY: Remove PII from URLs - store in sessionStorage instead
+        selectedAddOns: formData.selectedAddOnPackages.join(','),
+        discoPackage: cruiseType === 'disco' ? formData.selectedDiscoPackage : '',
+        discoTicketQuantity: cruiseType === 'disco' ? formData.discoTicketQuantity.toString() : ''
       });
       
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to create checkout session');
-      }
-      
-      const data = await response.json();
+      // Store contact info in sessionStorage for security (no PII in URLs)
+      sessionStorage.setItem('checkoutContactInfo', JSON.stringify({
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        specialRequests: formData.specialRequests
+      }));
       
       // Reset state
       setShowBookingConfirmation(false);
       setPendingPaymentType(null);
       setPendingCruiseType(null);
       
-      // Redirect to Stripe checkout
-      if (data.url) {
-        window.location.href = data.url;
-      } else {
-        throw new Error('No checkout URL returned');
-      }
+      // Redirect to universal QuoteViewer checkout page
+      window.location.href = `/quote-checkout?${checkoutParams.toString()}`;
     } catch (error) {
       console.error('Error creating checkout session:', error);
       toast({

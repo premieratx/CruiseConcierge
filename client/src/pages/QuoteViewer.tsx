@@ -8,6 +8,8 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { Slider } from '@/components/ui/slider';
+import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { cn } from '@/lib/utils';
 import { format } from 'date-fns';
@@ -31,11 +33,11 @@ const addOnPackages = [
   { id: 'ultimate', name: 'Ultimate Party Package', hourlyRate: 75, description: 'Everything in Essentials plus decorations, party games, and premium setup' }
 ];
 
-// Disco cruise packages
+// Disco cruise packages - EXACT names per user specs - IDs MUST match shared/constants.ts
 const discoPackages = [
-  { id: 'basic', name: 'Basic Disco Experience', price: 8500, description: 'DJ, dancing, and party atmosphere' },
-  { id: 'queen', name: 'Disco Queen Experience', price: 9500, description: 'Basic package plus premium drinks and VIP treatment' },
-  { id: 'platinum', name: 'Platinum Disco Experience', price: 10500, description: 'Ultimate disco experience with all premium amenities' }
+  { id: 'basic', name: 'Basic', price: 8500, description: 'DJ, dancing, and party atmosphere' },
+  { id: 'disco_queen', name: 'Disco Queen', price: 9500, description: 'Basic package plus premium drinks and VIP treatment' },
+  { id: 'platinum', name: 'Super Sparkle Platinum Disco', price: 10500, description: 'Ultimate disco experience with all premium amenities' }
 ];
 
 export default function QuoteViewer() {
@@ -43,24 +45,62 @@ export default function QuoteViewer() {
   const quoteId = params.quoteId as string;
   const { toast } = useToast();
   
-  // Extract token from URL query parameters or hash
+  // Extract all URL parameters for both entry points
   const urlParams = new URLSearchParams(window.location.search);
   const hashParams = new URLSearchParams(window.location.hash.substring(1));
   const token = urlParams.get('token') || hashParams.get('token');
   
-  // Interactive state - now fully functional like quote builder
-  const [groupSize, setGroupSize] = useState(20);
-  const [selectedAddOns, setSelectedAddOns] = useState<string[]>([]);
-  const [selectedDiscoPackage, setSelectedDiscoPackage] = useState<string>('basic');
-  const [discoTicketQuantity, setDiscoTicketQuantity] = useState(10);
+  // NEW: Detect entry point and extract calendar flow data
+  const entryPoint = urlParams.get('entryPoint') || hashParams.get('entryPoint');
+  const isCalendarFlow = entryPoint === 'calendar_flow';
+  const isQuoteFlow = !!quoteId && !!token;
+  
+  // Extract calendar flow parameters (including disco-specific ones)
+  const calendarData = isCalendarFlow ? {
+    cruiseType: urlParams.get('cruiseType') || 'private',
+    eventType: urlParams.get('eventType') || 'other',
+    groupSize: parseInt(urlParams.get('groupSize') || '20'),
+    eventDate: urlParams.get('eventDate'),
+    selectedTimeSlot: urlParams.get('selectedTimeSlot'),
+    slotId: urlParams.get('slotId'),
+    boatId: urlParams.get('boatId'),
+    discountCode: urlParams.get('discountCode') || '',
+    discoPackage: urlParams.get('discoPackage') || 'basic',
+    discoTicketQuantity: parseInt(urlParams.get('discoTicketQuantity') || '10'),
+    selectedAddOns: urlParams.get('selectedAddOns')?.split(',').filter(Boolean) || []
+  } : null;
+
+  // Load contact info from sessionStorage (for calendar flow security)
+  const [contactInfo, setContactInfo] = useState<any>(null);
+  useEffect(() => {
+    if (isCalendarFlow) {
+      const storedContact = sessionStorage.getItem('checkoutContactInfo');
+      if (storedContact) {
+        try {
+          setContactInfo(JSON.parse(storedContact));
+        } catch (error) {
+          console.error('Failed to parse contact info from sessionStorage:', error);
+        }
+      }
+    }
+  }, [isCalendarFlow]);
+  
+  // Interactive state - initialize from calendar flow or defaults
+  const [groupSize, setGroupSize] = useState(calendarData?.groupSize || 20);
+  const [selectedAddOns, setSelectedAddOns] = useState<string[]>(calendarData?.selectedAddOns || []);
+  const [selectedDiscoPackage, setSelectedDiscoPackage] = useState<string>(calendarData?.discoPackage || 'basic');
+  const [discoTicketQuantity, setDiscoTicketQuantity] = useState(calendarData?.discoTicketQuantity || calendarData?.groupSize || 10);
   const [privatePricing, setPrivatePricing] = useState<any>(null);
   const [discoPricing, setDiscoPricing] = useState<any>(null);
   const [pricingLoading, setPricingLoading] = useState(false);
+  const [discountCode, setDiscountCode] = useState(calendarData?.discountCode || '');
   
-  // NEW: Cruise type selection state - defaults to private
-  const [selectedCruiseType, setSelectedCruiseType] = useState<'private' | 'disco'>('private');
+  // Initialize cruise type from calendar flow or default to private
+  const [selectedCruiseType, setSelectedCruiseType] = useState<'private' | 'disco'>(
+    (calendarData?.cruiseType as 'private' | 'disco') || 'private'
+  );
   
-  // Fetch quote details with token
+  // Fetch quote details with token (only for quote flow)
   const { data: quote, isLoading, error: quoteError } = useQuery<QuoteWithDetails>({
     queryKey: [`/api/quotes/${quoteId}/public`, token],
     queryFn: async () => {
@@ -87,7 +127,7 @@ export default function QuoteViewer() {
       
       return quoteData;
     },
-    enabled: !!quoteId,
+    enabled: isQuoteFlow && !!quoteId,
     retry: (failureCount, error: any) => {
       if (error?.message?.includes('Invalid access token') || 
           error?.message?.includes('Access token required') ||
@@ -117,31 +157,60 @@ export default function QuoteViewer() {
     }
   }, [quote]);
 
-  // Fetch private cruise pricing
+  // Fetch private cruise pricing (works for both quote and calendar flow)
   const fetchPrivatePricing = async () => {
-    if (!quote?.project) return;
-    
     setPricingLoading(true);
     try {
-      const timeSlot = getTimeSlotFromQuote(quote);
-      const hourlyRate = 200 + selectedAddOns.reduce((sum, addOnId) => {
-        const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
-        return sum + (addOn?.hourlyRate || 0);
-      }, 0);
-
-      const res = await apiRequest('POST', '/api/pricing/cruise', {
-        groupSize,
-        eventDate: quote.project.projectDate,
-        timeSlot,
-        eventType: quote.project.eventType,
-        cruiseType: 'private',
-        packageType: selectedAddOns.join(','),
-        hourlyRate
-      });
+      let pricingRequest;
       
-      if (res.ok) {
-        const pricing = await res.json();
-        setPrivatePricing(pricing);
+      if (isCalendarFlow) {
+        // Calendar flow: use calendar data for pricing
+        const hourlyRate = 200 + selectedAddOns.reduce((sum, addOnId) => {
+          const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
+          return sum + (addOn?.hourlyRate || 0);
+        }, 0);
+        
+        pricingRequest = {
+          groupSize,
+          eventDate: calendarData?.eventDate,
+          timeSlot: calendarData?.selectedTimeSlot,
+          cruiseType: 'private',
+          eventType: calendarData?.eventType || 'other',
+          promoCode: discountCode,
+          packageType: selectedAddOns.join(','),
+          hourlyRate
+        };
+        
+        const res = await apiRequest('POST', '/api/pricing/cruise', pricingRequest);
+        if (res.ok) {
+          const pricing = await res.json();
+          setPrivatePricing(pricing);
+        }
+      } else {
+        // Quote flow: use quote project data
+        if (!quote?.project) return;
+        
+        const timeSlot = getTimeSlotFromQuote(quote);
+        const hourlyRate = 200 + selectedAddOns.reduce((sum, addOnId) => {
+          const addOn = addOnPackages.find(pkg => pkg.id === addOnId);
+          return sum + (addOn?.hourlyRate || 0);
+        }, 0);
+
+        const res = await apiRequest('POST', '/api/pricing/cruise', {
+          groupSize,
+          eventDate: quote.project.projectDate,
+          timeSlot,
+          eventType: quote.project.eventType,
+          cruiseType: 'private',
+          packageType: selectedAddOns.join(','),
+          hourlyRate,
+          promoCode: discountCode
+        });
+        
+        if (res.ok) {
+          const pricing = await res.json();
+          setPrivatePricing(pricing);
+        }
       }
     } catch (error) {
       console.error('Failed to fetch private pricing:', error);
@@ -150,27 +219,48 @@ export default function QuoteViewer() {
     }
   };
 
-  // Fetch disco cruise pricing
+  // Fetch disco cruise pricing (works for both quote and calendar flow)
   const fetchDiscoPricing = async () => {
-    if (!quote?.project) return;
-    
     setPricingLoading(true);
     try {
-      const packagePrice = discoPackages.find(pkg => pkg.id === selectedDiscoPackage)?.price || 8500;
-      
-      const res = await apiRequest('POST', '/api/pricing/preview', {
-        items: [{
-          productId: `disco_${selectedDiscoPackage}`,
-          qty: discoTicketQuantity,
-          unitPrice: packagePrice
-        }],
-        groupSize: discoTicketQuantity,
-        projectDate: quote.project.projectDate
-      });
-      
-      if (res.ok) {
-        const pricing = await res.json();
-        setDiscoPricing(pricing);
+      if (isCalendarFlow) {
+        // Calendar flow: use calendar data for disco pricing
+        const pricingRequest = {
+          groupSize: discoTicketQuantity,
+          eventDate: calendarData?.eventDate,
+          timeSlot: calendarData?.selectedTimeSlot,
+          cruiseType: 'disco',
+          eventType: calendarData?.eventType || 'bachelor',
+          packageType: selectedDiscoPackage,
+          promoCode: discountCode
+        };
+        
+        const res = await apiRequest('POST', '/api/pricing/cruise', pricingRequest);
+        if (res.ok) {
+          const pricing = await res.json();
+          setDiscoPricing(pricing);
+        }
+      } else {
+        // Quote flow: use quote project data
+        if (!quote?.project) return;
+        
+        const packagePrice = discoPackages.find(pkg => pkg.id === selectedDiscoPackage)?.price || 8500;
+        
+        const res = await apiRequest('POST', '/api/pricing/preview', {
+          items: [{
+            productId: `disco_${selectedDiscoPackage}`,
+            qty: discoTicketQuantity,
+            unitPrice: packagePrice
+          }],
+          groupSize: discoTicketQuantity,
+          projectDate: quote.project.projectDate,
+          promoCode: discountCode
+        });
+        
+        if (res.ok) {
+          const pricing = await res.json();
+          setDiscoPricing(pricing);
+        }
       }
     } catch (error) {
       console.error('Failed to fetch disco pricing:', error);
@@ -179,23 +269,35 @@ export default function QuoteViewer() {
     }
   };
 
-  // Refresh pricing when dependencies change
+  // Refresh pricing when dependencies change (for both quote and calendar flow)
   useEffect(() => {
-    if (quote && isPrivateCruise(quote)) {
+    if (isCalendarFlow) {
+      // Calendar flow: fetch pricing immediately if we have calendar data
+      if (calendarData && selectedCruiseType === 'private') {
+        fetchPrivatePricing();
+      }
+    } else if (quote && isPrivateCruise(quote)) {
+      // Quote flow: fetch pricing when quote loads
       fetchPrivatePricing();
     }
-  }, [quote, groupSize, selectedAddOns]);
+  }, [quote, groupSize, selectedAddOns, isCalendarFlow, calendarData, selectedCruiseType, discountCode]);
 
   useEffect(() => {
-    if (quote && isDiscoCruise(quote)) {
+    if (isCalendarFlow) {
+      // Calendar flow: fetch disco pricing if disco cruise type
+      if (calendarData && selectedCruiseType === 'disco') {
+        fetchDiscoPricing();
+      }
+    } else if (quote && isDiscoCruise(quote)) {
+      // Quote flow: fetch disco pricing when quote loads
       fetchDiscoPricing();
     }
-  }, [quote, selectedDiscoPackage, discoTicketQuantity]);
+  }, [quote, selectedDiscoPackage, discoTicketQuantity, isCalendarFlow, calendarData, selectedCruiseType, discountCode]);
 
-  // Payment handler - direct payment without acceptance step
+  // Universal payment handler - works for both quote flow and calendar flow
   const handlePayment = async (paymentType: 'deposit' | 'full', cruiseType: 'private' | 'disco') => {
     const pricing = cruiseType === 'private' ? privatePricing : discoPricing;
-    if (!pricing || !quote) {
+    if (!pricing) {
       toast({
         title: "Pricing Error",
         description: "Please wait for pricing to load before proceeding.",
@@ -205,37 +307,71 @@ export default function QuoteViewer() {
     }
 
     try {
-      // Create payment intent with updated quote data
-      const paymentData = {
-        amount: paymentType === 'deposit' ? pricing.depositAmount : pricing.total,
-        currency: 'usd',
-        projectId: quote.project?.id,
-        quoteId: quote.id,
+      const amount = paymentType === 'deposit' ? pricing.depositAmount : pricing.total;
+      
+      // Build selection payload for both entry points
+      const selectionPayload = isCalendarFlow ? {
+        // Calendar flow data
+        entryPoint: 'calendar_flow',
         paymentType,
         cruiseType,
-        groupSize,
+        eventType: calendarData?.eventType || 'other',
+        groupSize: cruiseType === 'disco' ? discoTicketQuantity : groupSize,
+        eventDate: calendarData?.eventDate,
+        selectedTimeSlot: calendarData?.selectedTimeSlot,
+        slotId: calendarData?.slotId,
+        boatId: calendarData?.boatId,
+        discountCode: discountCode,
+        selectedAddOns: cruiseType === 'private' ? selectedAddOns : [],
+        discoPackage: cruiseType === 'disco' ? selectedDiscoPackage : null,
+        discoTicketQuantity: cruiseType === 'disco' ? discoTicketQuantity : null
+      } : {
+        // Quote flow data
+        entryPoint: 'quote_flow',
+        paymentType,
+        cruiseType,
+        quoteId: quote?.id,
+        projectId: quote?.project?.id,
+        groupSize: cruiseType === 'disco' ? discoTicketQuantity : groupSize,
+        discountCode: discountCode,
         selectedAddOns: cruiseType === 'private' ? selectedAddOns : [],
         discoPackage: cruiseType === 'disco' ? selectedDiscoPackage : null,
         discoTicketQuantity: cruiseType === 'disco' ? discoTicketQuantity : null,
-        contactInfo: {
-          name: quote.contact?.name || 'Customer',
-          email: quote.contact?.email || '',
-          phone: quote.contact?.phone || ''
-        }
+        contactInfo: isCalendarFlow ? contactInfo : (quote?.contact ? {
+          name: quote.contact.name || 'Customer',
+          email: quote.contact.email || '',
+          phone: quote.contact.phone || ''
+        } : null)
       };
 
-      console.log('💳 Creating payment intent:', paymentData);
+      console.log('💳 Creating checkout session:', { paymentType, cruiseType, amount, entryPoint: isCalendarFlow ? 'calendar_flow' : 'quote_flow' });
 
-      const res = await apiRequest('POST', '/api/create-payment-intent', paymentData);
+      // Use Stripe hosted checkout for now (but server validates everything)
+      const response = await apiRequest('POST', '/api/checkout/create-session', {
+        paymentType,
+        customerEmail: isCalendarFlow ? (contactInfo?.email || '') : (quote?.contact?.email || ''),
+        metadata: {
+          entryPoint: isCalendarFlow ? 'calendar_flow' : 'quote_flow',
+          cruiseType,
+          paymentType,
+          amount: amount
+        },
+        selectionPayload
+      });
       
-      if (!res.ok) {
-        throw new Error('Failed to create payment intent');
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to create checkout session');
       }
-
-      const { clientSecret } = await res.json();
       
-      // Redirect to Stripe checkout or handle payment
-      window.location.href = `/checkout?payment_intent=${clientSecret}&quote=${quoteId}&token=${token}&payment_type=${paymentType}`;
+      const data = await response.json();
+      
+      // Redirect to Stripe checkout
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('No checkout URL returned');
+      }
 
     } catch (error: any) {
       console.error('💳 Payment error:', error);
@@ -285,8 +421,8 @@ export default function QuoteViewer() {
     return format(new Date(date), 'EEEE, MMMM d, yyyy');
   };
 
-  // Loading state
-  if (isLoading) {
+  // Loading state (only for quote flow)
+  if (isQuoteFlow && isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center">
@@ -297,8 +433,8 @@ export default function QuoteViewer() {
     );
   }
 
-  // Error state
-  if (quoteError || !quote) {
+  // Error state (only for quote flow - calendar flow doesn't need a quote)
+  if (isQuoteFlow && (quoteError || !quote)) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-gray-50">
         <div className="text-center max-w-md">
@@ -310,16 +446,17 @@ export default function QuoteViewer() {
     );
   }
 
-  const isExpired = quote.expiresAt && new Date(quote.expiresAt) < new Date();
+  // Handle expiration and cruise type for both flows
+  const isExpired = quote?.expiresAt && new Date(quote.expiresAt) < new Date();
   
-  // NEW: Show both options for user to choose between
-  const canShowPrivate = isPrivateCruise(quote);
-  const canShowDisco = isDiscoCruise(quote);
-  const showBothOptions = canShowPrivate && canShowDisco;
+  // Determine what to show based on entry point
+  const canShowPrivate = isCalendarFlow ? calendarData?.cruiseType === 'private' : isPrivateCruise(quote!);
+  const canShowDisco = isCalendarFlow ? calendarData?.cruiseType === 'disco' : isDiscoCruise(quote!);
+  const showBothOptions = false; // For now, simplify to single cruise type per selection
   
-  // NEW: Only show the selected cruise type's pricing, but show tabs for both
-  const showPrivateOptions = showBothOptions ? selectedCruiseType === 'private' : canShowPrivate;
-  const showDiscoOptions = showBothOptions ? selectedCruiseType === 'disco' : canShowDisco;
+  // Show the selected cruise type's pricing
+  const showPrivateOptions = selectedCruiseType === 'private' && (canShowPrivate || !isCalendarFlow);
+  const showDiscoOptions = selectedCruiseType === 'disco' && (canShowDisco || !isCalendarFlow);
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -345,31 +482,33 @@ export default function QuoteViewer() {
               <CardHeader>
                 <div className="flex justify-between items-start">
                   <div>
-                    <CardTitle className="text-2xl font-bold">Your Quote</CardTitle>
-                    <p className="text-gray-600">Quote #{quote.id.slice(-8).toUpperCase()}</p>
+                    <CardTitle className="text-2xl font-bold">{isCalendarFlow ? 'Checkout' : 'Your Quote'}</CardTitle>
+                    {quote?.id && <p className="text-gray-600">Quote #{quote.id.slice(-8).toUpperCase()}</p>}
                   </div>
-                  <Badge variant={isExpired ? "destructive" : "secondary"}>
-                    {isExpired ? 'EXPIRED' : 'Active'}
-                  </Badge>
+                  {quote && (
+                    <Badge variant={isExpired ? "destructive" : "secondary"}>
+                      {isExpired ? 'EXPIRED' : 'Active'}
+                    </Badge>
+                  )}
                 </div>
               </CardHeader>
               <CardContent>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <p className="text-sm text-gray-600">Event Date</p>
-                    <p className="font-semibold">{formatDate(quote.project?.projectDate)}</p>
+                    <p className="font-semibold">{formatDate(isCalendarFlow ? calendarData?.eventDate : quote?.project?.projectDate)}</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-600">Duration</p>
-                    <p className="font-semibold">{quote.project?.duration || 4} hours</p>
+                    <p className="font-semibold">{quote?.project?.duration || 4} hours</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-600">Event Type</p>
-                    <p className="font-semibold capitalize">{quote.project?.eventType || 'Party'}</p>
+                    <p className="font-semibold capitalize">{isCalendarFlow ? calendarData?.eventType : quote?.project?.eventType || 'Party'}</p>
                   </div>
                   <div>
                     <p className="text-sm text-gray-600">Contact</p>
-                    <p className="font-semibold">{quote.contact?.name || 'Customer'}</p>
+                    <p className="font-semibold">{isCalendarFlow ? 'Customer' : quote?.contact?.name || 'Customer'}</p>
                   </div>
                 </div>
               </CardContent>
@@ -578,6 +717,23 @@ export default function QuoteViewer() {
                         </div>
                       </div>
 
+                      {/* Discount Code Section */}
+                      <div className="space-y-2">
+                        <Label htmlFor="discountCode">Discount Code (Optional)</Label>
+                        <Input
+                          id="discountCode"
+                          value={discountCode}
+                          onChange={(e) => setDiscountCode(e.target.value)}
+                          placeholder="Enter promo code"
+                          data-testid="input-discount-code"
+                        />
+                        {discountCode && (
+                          <p className="text-xs text-green-600">
+                            💰 Discount code will be applied at checkout
+                          </p>
+                        )}
+                      </div>
+
                       {/* Payment Buttons */}
                       <div className="space-y-3">
                         <Button
@@ -641,6 +797,23 @@ export default function QuoteViewer() {
                           <span>Per Person:</span>
                           <span>{formatCurrency(discoPricing.perPersonCost)}</span>
                         </div>
+                      </div>
+
+                      {/* Discount Code Section */}
+                      <div className="space-y-2">
+                        <Label htmlFor="discountCodeDisco">Discount Code (Optional)</Label>
+                        <Input
+                          id="discountCodeDisco"
+                          value={discountCode}
+                          onChange={(e) => setDiscountCode(e.target.value)}
+                          placeholder="Enter promo code"
+                          data-testid="input-discount-code-disco"
+                        />
+                        {discountCode && (
+                          <p className="text-xs text-green-600">
+                            💰 Discount code will be applied at checkout
+                          </p>
+                        )}
                       </div>
 
                       {/* Payment Buttons */}
