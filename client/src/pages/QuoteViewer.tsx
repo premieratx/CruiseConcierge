@@ -9,7 +9,7 @@ import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from '@/components/ui/select';
 import { Calendar } from '@/components/ui/calendar';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -832,9 +832,8 @@ export default function QuoteViewer() {
                     </div>
                   ) : weeklySlots.length > 0 ? (
                     <div className="space-y-3">
-                      {/* Weekday Consolidated Dropdown (Mon-Thu) */}
+                      {/* Sort all slots chronologically first */}
                       {(() => {
-                        // Sort all slots chronologically first
                         const sortedSlots = [...weeklySlots].sort((a, b) => {
                           const dateA = new Date(a.dateISO || a.date);
                           const dateB = new Date(b.dateISO || b.date);
@@ -847,11 +846,15 @@ export default function QuoteViewer() {
                           return timeA - timeB;
                         });
                         
-                        // Filter all weekday slots (Mon-Thu)
-                        const weekdaySlots = sortedSlots.filter(slot => {
-                          const slotDay = new Date(slot.dateISO || slot.date).getDay();
-                          return slotDay >= 1 && slotDay <= 4; // Monday=1 to Thursday=4
-                        });
+                        return (
+                          <>
+                            {/* Weekday Consolidated Dropdown (Mon-Thu) */}
+                            {(() => {
+                              // Filter all weekday slots (Mon-Thu)
+                              const weekdaySlots = sortedSlots.filter(slot => {
+                                const slotDay = new Date(slot.dateISO || slot.date).getDay();
+                                return slotDay >= 1 && slotDay <= 4; // Monday=1 to Thursday=4
+                              });
                         
                         if (weekdaySlots.length > 0) {
                           // Group by day and duration
@@ -949,18 +952,18 @@ export default function QuoteViewer() {
                               </div>
                             </div>
                           );
-                        }
-                        return null;
-                      })()}
-                      
-                      {/* Weekend slots (Fri-Sun) - Individual display */}
-                      {['Friday', 'Saturday', 'Sunday'].map((day, idx) => {
-                        const dayNum = idx + 5; // Friday=5, Saturday=6, Sunday=0
-                        const actualDayNum = day === 'Sunday' ? 0 : dayNum;
-                        const daySlots = sortedSlots.filter(slot => {
-                          const slotDay = new Date(slot.dateISO || slot.date).getDay();
-                          return slotDay === actualDayNum;
-                        });
+                              }
+                              return null;
+                            })()}
+                            
+                            {/* Weekend slots (Fri-Sun) - Individual display */}
+                            {['Friday', 'Saturday', 'Sunday'].map((day, idx) => {
+                              const dayNum = idx + 5; // Friday=5, Saturday=6, Sunday=0
+                              const actualDayNum = day === 'Sunday' ? 0 : dayNum;
+                              const daySlots = sortedSlots.filter(slot => {
+                                const slotDay = new Date(slot.dateISO || slot.date).getDay();
+                                return slotDay === actualDayNum;
+                              });
 
                         if (daySlots.length === 0) return null;
                         
@@ -1033,6 +1036,9 @@ export default function QuoteViewer() {
                           </div>
                         );
                       })}
+                          </>
+                        );
+                      })()}
                     </div>
                   ) : (
                     <div className="text-center py-12">
