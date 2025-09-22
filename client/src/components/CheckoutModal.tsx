@@ -48,6 +48,8 @@ interface PaymentFormProps {
   holdId?: string;
   onSuccess: (paymentIntentId: string) => void;
   onError: (error: string) => void;
+  onDiscountUpdate?: (discountCode: string) => Promise<any>;
+  clientSecret: string;
 }
 
 function PaymentForm({ 
@@ -58,66 +60,21 @@ function PaymentForm({
   contactInfo: initialContactInfo,
   holdId,
   onSuccess,
-  onError
+  onError,
+  onDiscountUpdate,
+  clientSecret
 }: PaymentFormProps) {
   const stripe = useStripe();
   const elements = useElements();
   const { toast } = useToast();
   const [isProcessing, setIsProcessing] = useState(false);
-  const [clientSecret, setClientSecret] = useState<string>('');
   const [contactInfo, setContactInfo] = useState(initialContactInfo);
   const [contactErrors, setContactErrors] = useState<any>({});
   const [discountCode, setDiscountCode] = useState<string>('');
   const [discountedAmount, setDiscountedAmount] = useState<number | null>(null);
   const [isValidatingDiscount, setIsValidatingDiscount] = useState(false);
 
-  // Create payment intent function
-  const createPaymentIntent = async () => {
-    try {
-      const response = await apiRequest('POST', '/api/checkout/create-payment-intent', {
-        paymentType,
-        cruiseType,
-        selectionPayload: {
-          ...selectionPayload,
-          discountCode: discountCode // Include discount code
-        },
-        pricing,
-        customerEmail: contactInfo.email,
-        holdId,
-        metadata: {
-          firstName: contactInfo.firstName,
-          lastName: contactInfo.lastName,
-          phone: contactInfo.phone,
-          discountCode: discountCode,
-          ...selectionPayload
-        }
-      });
-
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.error || 'Failed to create payment intent');
-      }
-
-      const data = await response.json();
-      setClientSecret(data.clientSecret);
-      
-      // Update discounted amount if discount applied
-      if (discountCode && data.amount) {
-        setDiscountedAmount(data.amount);
-      }
-      
-      return data;
-    } catch (error: any) {
-      console.error('Failed to create payment intent:', error);
-      onError(error.message);
-      return null;
-    }
-  };
-
-  // Create payment intent on mount
-  useEffect(() => {
-    createPaymentIntent();
-  }, []);
+  // No longer creating payment intent here - it's handled by the parent component
 
   // Apply discount code
   const handleApplyDiscount = async () => {
@@ -129,12 +86,21 @@ function PaymentForm({
       return;
     }
 
+    if (!onDiscountUpdate) {
+      return;
+    }
+
     setIsValidatingDiscount(true);
     try {
       // Re-create payment intent with discount code
-      const result = await createPaymentIntent();
+      const result = await onDiscountUpdate(discountCode);
       
       if (result) {
+        // Update discounted amount if discount applied
+        if (result.amount) {
+          setDiscountedAmount(result.amount);
+        }
+        
         // Check if discount was applied (hardcoded check for now)
         if (discountCode.toUpperCase() === 'TESTMODE99') {
           toast({
@@ -371,20 +337,14 @@ function PaymentForm({
       <div className="space-y-4">
         <h3 className="text-lg font-semibold">Payment Information</h3>
         
-        {clientSecret ? (
-          <div className="border rounded-lg p-4">
-            <PaymentElement 
-              options={{
-                layout: 'tabs',
-                paymentMethodOrder: ['card'],
-              }}
-            />
-          </div>
-        ) : (
-          <div className="flex items-center justify-center p-8">
-            <Loader2 className="h-6 w-6 animate-spin text-gray-400" />
-          </div>
-        )}
+        <div className="border rounded-lg p-4">
+          <PaymentElement 
+            options={{
+              layout: 'tabs',
+              paymentMethodOrder: ['card'],
+            }}
+          />
+        </div>
       </div>
 
       <Separator />
@@ -453,6 +413,9 @@ export function CheckoutModal({
   holdId
 }: CheckoutModalProps) {
   const [error, setError] = useState<string | null>(null);
+  const [clientSecret, setClientSecret] = useState<string>('');
+  const [isLoadingPaymentIntent, setIsLoadingPaymentIntent] = useState(true);
+  const { toast } = useToast();
 
   // Format date and time for display
   const eventDate = selectionPayload?.eventDate || selectionPayload?.date;
@@ -465,6 +428,64 @@ export function CheckoutModal({
   const amount = paymentType === 'deposit' 
     ? pricing?.depositAmount || 0
     : pricing?.total || 0;
+
+  // Create payment intent function
+  const createPaymentIntent = async (discountCode: string = '') => {
+    setIsLoadingPaymentIntent(true);
+    try {
+      const response = await apiRequest('POST', '/api/checkout/create-payment-intent', {
+        paymentType,
+        cruiseType,
+        selectionPayload: {
+          ...selectionPayload,
+          discountCode: discountCode
+        },
+        pricing,
+        customerEmail: contactInfo.email,
+        holdId,
+        metadata: {
+          firstName: contactInfo.firstName,
+          lastName: contactInfo.lastName,
+          phone: contactInfo.phone,
+          discountCode: discountCode,
+          ...selectionPayload
+        }
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.error || 'Failed to create payment intent');
+      }
+
+      const data = await response.json();
+      setClientSecret(data.clientSecret);
+      return data;
+    } catch (error: any) {
+      console.error('Failed to create payment intent:', error);
+      setError(error.message);
+      toast({
+        title: "Failed to initialize payment",
+        description: error.message || "Please try again later",
+        variant: "destructive"
+      });
+      return null;
+    } finally {
+      setIsLoadingPaymentIntent(false);
+    }
+  };
+
+  // Create payment intent on mount
+  useEffect(() => {
+    if (isOpen) {
+      createPaymentIntent();
+    }
+  }, [isOpen]);
+
+  // Handle discount code update from child component
+  const handleDiscountUpdate = async (newDiscountCode: string) => {
+    // Recreate payment intent with the discount code
+    return await createPaymentIntent(newDiscountCode);
+  };
 
   const handleSuccess = (paymentIntentId: string) => {
     onSuccess(paymentIntentId);
@@ -557,28 +578,47 @@ export function CheckoutModal({
 
           {/* Right Column - Payment Form */}
           <div>
-            <Elements 
-              stripe={stripePromise}
-              options={{
-                appearance: {
-                  theme: 'stripe',
-                  variables: {
-                    colorPrimary: '#0070f3',
+            {isLoadingPaymentIntent ? (
+              <div className="flex items-center justify-center p-12">
+                <div className="text-center">
+                  <Loader2 className="h-8 w-8 animate-spin text-primary mx-auto mb-4" />
+                  <p className="text-sm text-muted-foreground">Initializing payment...</p>
+                </div>
+              </div>
+            ) : clientSecret ? (
+              <Elements 
+                stripe={stripePromise}
+                options={{
+                  clientSecret,
+                  appearance: {
+                    theme: 'stripe',
+                    variables: {
+                      colorPrimary: '#0070f3',
+                    },
                   },
-                },
-              }}
-            >
-              <PaymentForm
-                paymentType={paymentType}
-                cruiseType={cruiseType}
-                selectionPayload={selectionPayload}
-                pricing={pricing}
-                contactInfo={contactInfo}
-                holdId={holdId}
-                onSuccess={handleSuccess}
-                onError={handleError}
-              />
-            </Elements>
+                }}
+              >
+                <PaymentForm
+                  paymentType={paymentType}
+                  cruiseType={cruiseType}
+                  selectionPayload={selectionPayload}
+                  pricing={pricing}
+                  contactInfo={contactInfo}
+                  holdId={holdId}
+                  onSuccess={handleSuccess}
+                  onError={handleError}
+                  onDiscountUpdate={handleDiscountUpdate}
+                  clientSecret={clientSecret}
+                />
+              </Elements>
+            ) : (
+              <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
+                <AlertDescription>
+                  Failed to initialize payment. Please try again or contact support.
+                </AlertDescription>
+              </Alert>
+            )}
           </div>
         </div>
       </DialogContent>
