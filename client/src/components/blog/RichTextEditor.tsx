@@ -16,7 +16,9 @@ import {
   Undo,
   Redo,
   Type,
-  Palette
+  Palette,
+  Upload,
+  Loader2
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -25,8 +27,17 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useToast } from "@/hooks/use-toast";
 
 interface RichTextEditorProps {
   value: string;
@@ -44,9 +55,15 @@ export function RichTextEditor({
   minHeight = "300px"
 }: RichTextEditorProps) {
   const editorRef = useRef<HTMLDivElement>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
   const [isLinkDialogOpen, setIsLinkDialogOpen] = useState(false);
+  const [isImageDialogOpen, setIsImageDialogOpen] = useState(false);
   const [linkUrl, setLinkUrl] = useState("");
   const [linkText, setLinkText] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [imageAlt, setImageAlt] = useState("");
+  const [isUploading, setIsUploading] = useState(false);
+  const { toast } = useToast();
 
   // Initialize editor content
   useEffect(() => {
@@ -96,11 +113,87 @@ export function RichTextEditor({
     }
   };
 
-  // Handle image insertion
-  const handleInsertImage = () => {
-    const url = prompt("Enter image URL:");
-    if (url) {
-      insertHTML(`<img src="${url}" alt="Image" style="max-width: 100%; height: auto;" />`);
+  // Handle image upload
+  const handleImageUpload = async (file: File) => {
+    setIsUploading(true);
+    try {
+      const formData = new FormData();
+      formData.append('file', file);
+      formData.append('userId', 'admin'); // Using admin user for blog uploads
+      
+      const response = await fetch('/api/media/upload', {
+        method: 'POST',
+        body: formData,
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Upload failed');
+      }
+      
+      const result = await response.json();
+      const imageUrl = result.publicUrl || result.url;
+      
+      if (imageUrl) {
+        insertHTML(`<img src="${imageUrl}" alt="${file.name}" style="max-width: 100%; height: auto;" />`);
+        toast({
+          title: "Success",
+          description: "Image uploaded successfully."
+        });
+      }
+    } catch (error) {
+      console.error('Image upload error:', error);
+      toast({
+        title: "Error",
+        description: error instanceof Error ? error.message : "Failed to upload image.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  // Handle file input change
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      // Validate file type and size
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];
+      const maxSize = 50 * 1024 * 1024; // 50MB
+      
+      if (!allowedTypes.includes(file.type)) {
+        toast({
+          title: "Error",
+          description: "Please select a valid image file (JPEG, PNG, WebP, or GIF).",
+          variant: "destructive"
+        });
+        return;
+      }
+      
+      if (file.size > maxSize) {
+        toast({
+          title: "Error", 
+          description: "Image file size must be less than 50MB.",
+          variant: "destructive"
+        });
+        return;
+      }
+      
+      handleImageUpload(file);
+    }
+    // Reset input
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
+  };
+
+  // Handle image insertion from URL
+  const handleInsertImageUrl = () => {
+    if (imageUrl) {
+      insertHTML(`<img src="${imageUrl}" alt="${imageAlt || 'Image'}" style="max-width: 100%; height: auto;" />`);
+      setImageUrl("");
+      setImageAlt("");
+      setIsImageDialogOpen(false);
     }
   };
 
@@ -276,11 +369,86 @@ export function RichTextEditor({
               </PopoverContent>
             </Popover>
 
-            <ToolbarButton
-              onClick={handleInsertImage}
-              icon={Image}
-              title="Insert Image"
-            />
+            <Dialog open={isImageDialogOpen} onOpenChange={setIsImageDialogOpen}>
+              <DialogTrigger asChild>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  title="Insert Image"
+                  type="button"
+                  className="h-8 w-8 p-0"
+                  data-testid="button-insert-image"
+                  disabled={isUploading}
+                >
+                  {isUploading ? (
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                  ) : (
+                    <Image className="h-4 w-4" />
+                  )}
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="sm:max-w-md">
+                <DialogHeader>
+                  <DialogTitle>Insert Image</DialogTitle>
+                </DialogHeader>
+                <Tabs defaultValue="upload" className="w-full">
+                  <TabsList className="grid w-full grid-cols-2">
+                    <TabsTrigger value="upload">Upload Image</TabsTrigger>
+                    <TabsTrigger value="url">From URL</TabsTrigger>
+                  </TabsList>
+                  
+                  <TabsContent value="upload" className="space-y-4 mt-4">
+                    <div className="space-y-2">
+                      <Label>Select Image File</Label>
+                      <Input
+                        ref={fileInputRef}
+                        type="file"
+                        accept="image/jpeg,image/png,image/webp,image/gif"
+                        onChange={handleFileChange}
+                        disabled={isUploading}
+                        data-testid="input-image-file"
+                      />
+                      <p className="text-xs text-gray-500">
+                        Supported formats: JPEG, PNG, WebP, GIF (max 50MB)
+                      </p>
+                    </div>
+                  </TabsContent>
+                  
+                  <TabsContent value="url" className="space-y-4 mt-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="image-url">Image URL</Label>
+                      <Input
+                        id="image-url"
+                        type="url"
+                        placeholder="https://example.com/image.jpg"
+                        value={imageUrl}
+                        onChange={(e) => setImageUrl(e.target.value)}
+                        data-testid="input-image-url"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="image-alt">Alt Text (optional)</Label>
+                      <Input
+                        id="image-alt"
+                        type="text"
+                        placeholder="Description of the image"
+                        value={imageAlt}
+                        onChange={(e) => setImageAlt(e.target.value)}
+                        data-testid="input-image-alt"
+                      />
+                    </div>
+                    <Button 
+                      onClick={handleInsertImageUrl}
+                      disabled={!imageUrl}
+                      className="w-full"
+                      data-testid="button-insert-url"
+                    >
+                      Insert Image
+                    </Button>
+                  </TabsContent>
+                </Tabs>
+              </DialogContent>
+            </Dialog>
 
             <Separator orientation="vertical" className="h-6 mx-1" />
 
