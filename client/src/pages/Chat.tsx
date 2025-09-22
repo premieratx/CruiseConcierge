@@ -222,12 +222,6 @@ const getComparisonData = (date: Date | undefined, groupSize: number) => {
   return compareDiscoVsPrivate(groupSize, dayOfWeek);
 };
 
-// Helper to get best deal recommendation
-const getBestDealData = (date: Date | undefined, groupSize: number) => {
-  if (!date) return null;
-  const dayOfWeek = date.getDay();
-  return getBestDealRecommendation(groupSize, dayOfWeek);
-};
 
 // Optional add-on packages that enhance the base cruise
 const addOnPackages = [
@@ -445,7 +439,6 @@ export default function Chat() {
   const [privatePricing, setPrivatePricing] = useState<PricingPreview | null>(null);
   const [discoPricing, setDiscoPricing] = useState<PricingPreview | null>(null);
   const [selectedPrivatePackage, setSelectedPrivatePackage] = useState<'standard' | 'essentials' | 'ultimate'>('standard');
-  const [showBestDealHighlight, setShowBestDealHighlight] = useState(false);
   const [currentRecommendation, setCurrentRecommendation] = useState<any>(null);
   const [generatedQuoteId, setGeneratedQuoteId] = useState<string | null>(null);
   const [showPaymentModal, setShowPaymentModal] = useState(false);
@@ -541,7 +534,6 @@ export default function Chat() {
   
   // Get intelligent comparison data for recommendations
   const comparisonData = getComparisonData(formData.eventDate, formData.groupSize);
-  const bestDealData = getBestDealData(formData.eventDate, formData.groupSize);
   
   // Get package pricing for all three private cruise tiers
   const standardPackagePricing = getRealTimePackagePricing(formData.eventDate, formData.groupSize, 'standard');
@@ -2310,92 +2302,6 @@ export default function Chat() {
                       </p>
                     </div>
 
-                    {/* Intelligent Deal Recommendations */}
-                    {/* ONLY show Best Deal for bachelor/bachelorette events */}
-                    {bestDealData && comparisonData && (formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') && (
-                      <div className="mb-6">
-                        <Card className="bg-gradient-to-r from-emerald-50 to-blue-50 dark:from-emerald-900/20 dark:to-blue-900/20 border-2 border-emerald-200 dark:border-emerald-800">
-                          <CardHeader className="pb-3">
-                            <div className="flex items-center gap-3">
-                              <div className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900 rounded-lg flex items-center justify-center">
-                                <Sparkles className="h-6 w-6 text-emerald-600" />
-                              </div>
-                              <div>
-                                <CardTitle className="text-emerald-800 dark:text-emerald-200">
-                                  🎯 Best Deal for Your Group
-                                </CardTitle>
-                                <CardDescription>
-                                  Smart recommendation for {formData.groupSize} people on {format(formData.eventDate!, 'EEEE, MMMM d')}
-                                </CardDescription>
-                              </div>
-                            </div>
-                          </CardHeader>
-                          <CardContent>
-                            <div className="space-y-4">
-                              {/* Main Recommendation */}
-                              <div className="flex items-center justify-between p-4 bg-white dark:bg-slate-800 rounded-lg">
-                                <div className="flex items-center gap-3">
-                                  <div className="w-8 h-8 bg-emerald-100 dark:bg-emerald-900 rounded-full flex items-center justify-center">
-                                    <Check className="h-4 w-4 text-emerald-600" />
-                                  </div>
-                                  <div>
-                                    <div className="font-bold text-lg text-emerald-700 dark:text-emerald-300">
-                                      {bestDealData.recommendedOption === 'private' ? '🚢 Private Cruise' : '🪩 Disco Cruise'}
-                                    </div>
-                                    <div className="text-sm text-slate-600 dark:text-slate-400">
-                                      {bestDealData.reason}
-                                    </div>
-                                  </div>
-                                </div>
-                                {bestDealData.savings > 0 && (
-                                  <div className="text-right">
-                                    <div className="text-2xl font-bold text-emerald-600">
-                                      ${Math.round(bestDealData.savings)}
-                                    </div>
-                                    <div className="text-xs text-slate-600 dark:text-slate-400">savings</div>
-                                  </div>
-                                )}
-                              </div>
-
-                              {/* Price Comparison Summary */}
-                              <div className="grid grid-cols-2 gap-3">
-                                <div className="p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                                  <div className="flex items-center gap-2 mb-1">
-                                    <Ship className="h-4 w-4 text-blue-600" />
-                                    <span className="text-sm font-medium text-blue-700 dark:text-blue-300">Private</span>
-                                  </div>
-                                  <div className="text-lg font-bold text-blue-600">
-                                    {comparisonData?.private?.totalPrice ? formatCurrency(comparisonData.private.totalPrice).replace('.00', '') : '$0'}
-                                  </div>
-                                  <div className="text-xs text-slate-600 dark:text-slate-400">
-                                    {comparisonData?.private?.pricePerPerson ? formatCurrency(comparisonData.private.pricePerPerson).replace('.00', '') : '$0'} per person
-                                  </div>
-                                </div>
-                                <div className="p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                                  <div className="flex items-center gap-2 mb-1">
-                                    <Music className="h-4 w-4 text-purple-600" />
-                                    <span className="text-sm font-medium text-purple-700 dark:text-purple-300">Disco</span>
-                                  </div>
-                                  <div className="text-lg font-bold text-purple-600">
-                                    {comparisonData?.disco?.totalPrice ? formatCurrency(comparisonData.disco.totalPrice).replace('.00', '') : '$0'}
-                                  </div>
-                                  <div className="text-xs text-slate-600 dark:text-slate-400">
-                                    {comparisonData?.disco?.pricePerPerson ? formatCurrency(comparisonData.disco.pricePerPerson).replace('.00', '') : '$0'} per person
-                                  </div>
-                                </div>
-                              </div>
-
-                              {/* Additional Insights */}
-                              {bestDealData.insights && bestDealData.insights.length > 0 && (
-                                <div className="text-sm text-slate-600 dark:text-slate-400">
-                                  💡 <strong>Pro Tips:</strong> {bestDealData.insights.join(' • ')}
-                                </div>
-                              )}
-                            </div>
-                          </CardContent>
-                        </Card>
-                      </div>
-                    )}
 
                     <div className="grid md:grid-cols-2 gap-6">
                       {/* Private Charter Option - Simplified */}
@@ -2409,11 +2315,6 @@ export default function Chat() {
                               <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-xl flex items-center justify-center">
                                 <Ship className="h-6 w-6 text-blue-600" />
                               </div>
-                              {bestDealData?.recommendedOption === 'private' && (
-                                <Badge className="bg-emerald-100 text-emerald-800 border-emerald-300">
-                                  ⭐ Best Value
-                                </Badge>
-                              )}
                             </div>
                             <CardTitle className="text-3xl font-bold text-blue-600 mb-2">Private Charter</CardTitle>
                             <div className="text-lg font-semibold text-slate-600 dark:text-slate-300">
@@ -2771,11 +2672,6 @@ export default function Chat() {
                                 <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-xl flex items-center justify-center">
                                   <Music className="h-6 w-6 text-purple-600" />
                                 </div>
-                                {bestDealData?.recommendedOption === 'disco' && (
-                                  <Badge className="bg-emerald-100 text-emerald-800 border-emerald-300">
-                                    ⭐ Best Deal
-                                  </Badge>
-                                )}
                               </div>
                               <CardTitle className="text-3xl font-bold text-purple-600 mb-2">ATX Disco Cruise</CardTitle>
                               <div className="text-lg font-semibold text-slate-600 dark:text-slate-300">
