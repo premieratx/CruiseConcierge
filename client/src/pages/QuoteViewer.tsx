@@ -143,6 +143,13 @@ function QuoteViewerContent() {
   // State for cruise type toggle (for bachelor/bachelorette events)
   const [showDiscoOptions, setShowDiscoOptions] = useState(true);
   
+  // Update selectedCruiseType when toggling
+  useEffect(() => {
+    if (!showDiscoOptions && selectedCruiseType === 'disco') {
+      setSelectedCruiseType('private');
+    }
+  }, [showDiscoOptions, selectedCruiseType]);
+  
   // State for weekday duration selection
   const [weekdayDurations, setWeekdayDurations] = useState<Record<string, string>>({});
   
