@@ -182,6 +182,26 @@ export default function UniversalCheckout({
   entryPoint = 'direct_link', 
   preselectedData = {} 
 }: UniversalCheckoutProps) {
+  // 🚨 EMERGENCY: COMPONENT COMPLETELY DISABLED TO STOP INFINITE API LOOP
+  console.log('🚨 EMERGENCY: UniversalCheckout component DISABLED to stop API spam');
+  
+  return (
+    <div className="min-h-screen bg-gray-50 dark:bg-gray-900 flex items-center justify-center">
+      <Card className="w-full max-w-md">
+        <CardContent className="p-6 text-center">
+          <AlertTriangle className="h-12 w-12 text-amber-500 mx-auto mb-4" />
+          <h2 className="text-xl font-semibold mb-2">Checkout Temporarily Disabled</h2>
+          <p className="text-gray-600 dark:text-gray-400">
+            The checkout system is temporarily disabled for maintenance.
+            Please try again later.
+          </p>
+        </CardContent>
+      </Card>
+    </div>
+  );
+  
+  // ALL CODE BELOW IS DISABLED:
+  /*
   // Log entry point for debugging
   console.log('🎯 UniversalCheckout initialized:', {
     entryPoint,
@@ -521,7 +541,7 @@ export default function UniversalCheckout({
     }
   };
 
-  if (isLoading) {
+  /* if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-950 dark:to-cyan-950 flex items-center justify-center">
         <div className="text-center">
@@ -611,7 +631,6 @@ export default function UniversalCheckout({
             </div>
           </div>
         </div>
-
         <div className="max-w-6xl mx-auto px-2 sm:px-4 py-4 sm:py-8">
           {/* Data Validation Warnings */}
           {(!dataValidation.isValid || dataValidation.warnings.length > 0) && (
@@ -743,7 +762,7 @@ export default function UniversalCheckout({
                   onSelectCruiseType={selectCruiseType}
                 />
               )}
-              */}
+              */
 
               {/* Step Content - SIMPLIFIED PACKAGE SELECTION */}
               {currentStep === 'selections' && (
@@ -1815,3 +1834,4 @@ function ConfirmationStep({ selections, pricing }: {
     </Card>
   );
 }
+*/

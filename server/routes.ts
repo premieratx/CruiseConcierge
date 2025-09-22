@@ -7767,8 +7767,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  // Calculate real-time pricing for checkout - EMERGENCY DISABLED
+  // Calculate real-time pricing for checkout - EMERGENCY COMPLETELY DISABLED
   app.post("/api/checkout/calculate-pricing", async (req, res) => {
+    // 🚨 EMERGENCY: ENDPOINT COMPLETELY DISABLED TO STOP INFINITE LOOP SPAM
+    console.log('🚨 EMERGENCY: /api/checkout/calculate-pricing called but DISABLED to stop spam');
+    return res.status(503).json({ 
+      error: 'Endpoint temporarily disabled due to infinite loop spam',
+      message: 'This endpoint has been disabled to prevent server overload'
+    });
+    
+    // DISABLED CODE BELOW:
     try {
       const {
         eventDate,

@@ -551,12 +551,19 @@ export const useCheckoutContext = (props: UseCheckoutContextProps): CheckoutCont
     }
   }, [boats]);
   
-  // Initialize on mount - FIXED: Only when boats are available
+  // Initialize on mount - EMERGENCY DISABLED TO STOP INFINITE LOOP
   useEffect(() => {
-    if (boats && boats.length > 0 && !session) {
-      initializeSession();
-    }
-  }, [entryPoint, sessionId, boats, session]);
+    console.log('🚨 EMERGENCY: useEffect in useCheckoutContext DISABLED to stop infinite API loop');
+    // EMERGENCY DISABLED: This useEffect was causing infinite loop because 'session' dependency
+    // triggers re-run when initializeSession() calls setSession()
+    // TODO: Fix dependency array and re-enable
+    return;
+    
+    // DISABLED CODE:
+    // if (boats && boats.length > 0 && !session) {
+    //   initializeSession();
+    // }
+  }, []);  // EMPTY dependencies to prevent any re-runs
   
   // Computed properties
   const canProceedToPayment = useMemo(() => {

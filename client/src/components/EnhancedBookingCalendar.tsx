@@ -250,12 +250,6 @@ export function EnhancedBookingCalendar({
           held: false,
           boatCandidates: [boat.id],
           boatName: boatName,
-          estimatedPricing: {
-            baseRate: hourlyRateInCents,
-            duration: durationHours,
-            subtotal: Math.round(baseCost),
-            total: Math.round(totalWithTaxTip)
-          },
           totalPrice: Math.round(totalWithTaxTip), // FIXED: Realistic pricing ~$800-1200
           basePrice: Math.round(baseCost)
         });
@@ -264,6 +258,10 @@ export function EnhancedBookingCalendar({
     
     return slots;
   }, [filterBoatsForGroupSize, getBoatDisplayName]);
+
+  // MOVED: Declare shouldShowDiscoCruises BEFORE using it
+  const shouldShowDiscoCruises = selectedEventType === 'bachelor' || selectedEventType === 'bachelorette';
+  const effectiveEventType = shouldShowDiscoCruises ? 'disco' : 'private';
 
   // Fetch disco availability using useAvailabilityForDate - same as quote builder
   const { data: availabilityData, isLoading, refetch } = useAvailabilityForDate(
@@ -328,9 +326,7 @@ export function EnhancedBookingCalendar({
     }
   };
   
-  // Filter disco cruises for bachelor/bachelorette events only
-  const shouldShowDiscoCruises = selectedEventType === 'bachelor' || selectedEventType === 'bachelorette';
-  const effectiveEventType = shouldShowDiscoCruises ? 'disco' : 'private';
+  // REMOVED: shouldShowDiscoCruises moved earlier to fix initialization order
 
   // Get slots for a specific date
   const getSlotsForDate = (date: Date) => {
