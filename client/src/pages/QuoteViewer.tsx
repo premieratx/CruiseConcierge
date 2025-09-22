@@ -14,7 +14,14 @@ import { Badge } from '@/components/ui/badge';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue, SelectGroup, SelectLabel } from '@/components/ui/select';
 import { Calendar, AlertCircle, Loader2, Anchor, Music, Printer, Calendar as CalendarIconLucide, Sparkles, Ship, ChevronLeft, ChevronRight, CalendarIcon, Users } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import { CheckoutModal } from '@/components/CheckoutModal';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { getStripePublishableKey } from '@/lib/stripe';
+import { Input } from '@/components/ui/input';
+import { CreditCard } from 'lucide-react';
+
+// Initialize Stripe
+const stripePromise = loadStripe(getStripePublishableKey() || '');
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 
 interface QuoteWithDetails {
@@ -103,6 +110,381 @@ interface Boat {
   name: string;
   capacity: number;
   crewFeeCapacity?: number;
+}
+
+// Embedded Payment Form Component
+function PaymentForm({ 
+  paymentType, 
+  cruiseType, 
+  selectionPayload, 
+  pricing, 
+  contactInfo: initialContactInfo,
+  onSuccess,
+  onCancel 
+}: {
+  paymentType: 'deposit' | 'full';
+  cruiseType: 'private' | 'disco';
+  selectionPayload: any;
+  pricing: any;
+  contactInfo: any;
+  onSuccess: (paymentIntentId: string) => void;
+  onCancel: () => void;
+}) {
+  const stripe = useStripe();
+  const elements = useElements();
+  const { toast } = useToast();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [contactInfo, setContactInfo] = useState(initialContactInfo);
+  const [contactErrors, setContactErrors] = useState<any>({});
+  const [discountCode, setDiscountCode] = useState<string>('');
+  const [discountedAmount, setDiscountedAmount] = useState<number | null>(null);
+  const [isValidatingDiscount, setIsValidatingDiscount] = useState(false);
+
+  // Validate contact information
+  const validateContact = () => {
+    const errors: any = {};
+    
+    if (!contactInfo.firstName.trim()) {
+      errors.firstName = 'First name is required';
+    }
+    if (!contactInfo.lastName.trim()) {
+      errors.lastName = 'Last name is required';
+    }
+    if (!contactInfo.email.trim()) {
+      errors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactInfo.email)) {
+      errors.email = 'Please enter a valid email';
+    }
+    if (!contactInfo.phone.trim()) {
+      errors.phone = 'Phone number is required';
+    } else if (!/^\+?[\d\s\-\(\)]+$/.test(contactInfo.phone)) {
+      errors.phone = 'Please enter a valid phone number';
+    }
+
+    setContactErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Calculate payment amount
+  const originalAmount = paymentType === 'deposit' 
+    ? pricing?.depositAmount || 0
+    : pricing?.total || 0;
+  
+  const amount = discountedAmount !== null ? discountedAmount : originalAmount;
+  const isDiscounted = discountCode.toUpperCase() === 'TESTMODE99' && discountedAmount !== null;
+
+  // Apply discount code
+  const handleApplyDiscount = async () => {
+    if (!discountCode) {
+      toast({
+        title: "Please enter a discount code",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsValidatingDiscount(true);
+    
+    // Check for test discount code
+    if (discountCode.toUpperCase() === 'TESTMODE99') {
+      const discounted = Math.round(originalAmount * 0.01); // 1% of original (99% off)
+      setDiscountedAmount(discounted);
+      toast({
+        title: "Discount applied!",
+        description: "99% off has been applied to your total",
+      });
+    } else {
+      toast({
+        title: "Invalid discount code",
+        description: "The discount code you entered is not valid",
+        variant: "destructive"
+      });
+      setDiscountCode('');
+      setDiscountedAmount(null);
+    }
+    
+    setIsValidatingDiscount(false);
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    if (!validateContact()) {
+      toast({
+        title: "Please complete all required fields",
+        description: "Fill in your contact information to continue.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const cardElement = elements.getElement(CardElement);
+    if (!cardElement) {
+      return;
+    }
+
+    setIsProcessing(true);
+
+    try {
+      // Create payment intent with all data
+      const response = await apiRequest('/api/checkout/create-payment-intent', {
+        method: 'POST',
+        body: JSON.stringify({
+          paymentType,
+          cruiseType,
+          selectionPayload: {
+            ...selectionPayload,
+            ...contactInfo,
+            discountCode
+          },
+          pricing,
+          customerEmail: contactInfo.email,
+          metadata: {
+            firstName: contactInfo.firstName,
+            lastName: contactInfo.lastName,
+            phone: contactInfo.phone,
+            discountCode
+          }
+        })
+      });
+
+      if (!response.clientSecret) {
+        throw new Error('Failed to create payment intent');
+      }
+
+      // Confirm the payment with card details
+      const { error, paymentIntent } = await stripe.confirmCardPayment(
+        response.clientSecret,
+        {
+          payment_method: {
+            card: cardElement,
+            billing_details: {
+              name: `${contactInfo.firstName} ${contactInfo.lastName}`,
+              email: contactInfo.email,
+              phone: contactInfo.phone
+            }
+          }
+        }
+      );
+
+      if (error) {
+        // Handle errors
+        if (error.type === 'card_error' || error.type === 'validation_error') {
+          toast({
+            title: "Payment failed",
+            description: error.message,
+            variant: "destructive"
+          });
+        } else {
+          toast({
+            title: "An error occurred",
+            description: "Something went wrong. Please try again.",
+            variant: "destructive"
+          });
+        }
+      } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+        // Payment successful
+        onSuccess(paymentIntent.id);
+      }
+    } catch (err: any) {
+      console.error('Payment error:', err);
+      toast({
+        title: "Payment error",
+        description: err.message || "An unexpected error occurred",
+        variant: "destructive"
+      });
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Contact Information */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">Contact Information</h3>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <Label htmlFor="firstName">First Name *</Label>
+            <Input
+              id="firstName"
+              value={contactInfo.firstName}
+              onChange={(e) => setContactInfo({ ...contactInfo, firstName: e.target.value })}
+              placeholder="John"
+              data-testid="input-firstName"
+              className={contactErrors.firstName ? 'border-red-500' : ''}
+            />
+            {contactErrors.firstName && (
+              <p className="text-red-500 text-sm mt-1">{contactErrors.firstName}</p>
+            )}
+          </div>
+          <div>
+            <Label htmlFor="lastName">Last Name *</Label>
+            <Input
+              id="lastName"
+              value={contactInfo.lastName}
+              onChange={(e) => setContactInfo({ ...contactInfo, lastName: e.target.value })}
+              placeholder="Doe"
+              data-testid="input-lastName"
+              className={contactErrors.lastName ? 'border-red-500' : ''}
+            />
+            {contactErrors.lastName && (
+              <p className="text-red-500 text-sm mt-1">{contactErrors.lastName}</p>
+            )}
+          </div>
+        </div>
+        <div>
+          <Label htmlFor="email">Email *</Label>
+          <Input
+            id="email"
+            type="email"
+            value={contactInfo.email}
+            onChange={(e) => setContactInfo({ ...contactInfo, email: e.target.value })}
+            placeholder="john@example.com"
+            data-testid="input-email"
+            className={contactErrors.email ? 'border-red-500' : ''}
+          />
+          {contactErrors.email && (
+            <p className="text-red-500 text-sm mt-1">{contactErrors.email}</p>
+          )}
+        </div>
+        <div>
+          <Label htmlFor="phone">Phone Number *</Label>
+          <Input
+            id="phone"
+            type="tel"
+            value={contactInfo.phone}
+            onChange={(e) => setContactInfo({ ...contactInfo, phone: e.target.value })}
+            placeholder="+1 (555) 123-4567"
+            data-testid="input-phone"
+            className={contactErrors.phone ? 'border-red-500' : ''}
+          />
+          {contactErrors.phone && (
+            <p className="text-red-500 text-sm mt-1">{contactErrors.phone}</p>
+          )}
+        </div>
+      </div>
+
+      <Separator />
+
+      {/* Discount Code Section */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">Discount Code</h3>
+        <div className="flex gap-2">
+          <Input
+            placeholder="Enter discount code"
+            value={discountCode}
+            onChange={(e) => setDiscountCode(e.target.value.toUpperCase())}
+            data-testid="input-discount-code"
+            className="flex-1"
+            disabled={isValidatingDiscount}
+          />
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={handleApplyDiscount}
+            disabled={!discountCode || isValidatingDiscount}
+            data-testid="button-apply-discount"
+          >
+            {isValidatingDiscount ? (
+              <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Applying...</>
+            ) : (
+              'Apply'
+            )}
+          </Button>
+        </div>
+        {isDiscounted && (
+          <Alert className="border-green-200 bg-green-50">
+            <AlertCircle className="h-4 w-4 text-green-600" />
+            <AlertDescription className="text-green-800">
+              <div className="font-semibold">99% discount applied!</div>
+              <div className="text-sm mt-1">
+                Original: ${(originalAmount / 100).toFixed(2)} → 
+                <span className="font-semibold ml-1">Now: ${(amount / 100).toFixed(2)}</span>
+              </div>
+            </AlertDescription>
+          </Alert>
+        )}
+      </div>
+
+      <Separator />
+
+      {/* Payment Information */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">Payment Information</h3>
+        
+        <div className="border rounded-lg p-4 bg-gray-50">
+          <CardElement 
+            options={{
+              style: {
+                base: {
+                  fontSize: '16px',
+                  color: '#424770',
+                  '::placeholder': {
+                    color: '#aab7c4',
+                  },
+                },
+                invalid: {
+                  color: '#9e2146',
+                },
+              },
+            }}
+          />
+        </div>
+      </div>
+
+      <Separator />
+
+      {/* Submit Button */}
+      <div className="flex items-center justify-between">
+        <Button
+          type="button"
+          variant="outline"
+          onClick={onCancel}
+          disabled={isProcessing}
+        >
+          Cancel
+        </Button>
+        
+        <div className="flex items-center gap-4">
+          <div className="text-right">
+            <div className="text-sm text-muted-foreground">
+              {paymentType === 'deposit' ? 'Deposit' : 'Total'} Amount:
+            </div>
+            <div className="text-lg font-semibold">
+              {isDiscounted && (
+                <>
+                  <span className="line-through text-gray-400 mr-2">${(originalAmount / 100).toFixed(2)}</span>
+                  <span className="text-green-600">${(amount / 100).toFixed(2)}</span>
+                </>
+              )}
+              {!isDiscounted && (
+                <span>${(amount / 100).toFixed(2)}</span>
+              )}
+            </div>
+          </div>
+          
+          <Button
+            type="submit"
+            disabled={isProcessing}
+            data-testid="button-process-payment"
+            className="min-w-[150px]"
+          >
+            {isProcessing ? (
+              <><Loader2 className="mr-2 h-4 w-4 animate-spin" /> Processing...</>
+            ) : (
+              <><CreditCard className="mr-2 h-4 w-4" /> Process Payment</>
+            )}
+          </Button>
+        </div>
+      </div>
+    </form>
+  );
 }
 
 function QuoteViewerContent() {
@@ -252,10 +634,11 @@ function QuoteViewerContent() {
   // Derive the initial event type (quote will be loaded later)
   const [eventType, setEventType] = useState<string>(initialEventType || 'other');
   
-  // Checkout modal state
-  const [isCheckoutModalOpen, setIsCheckoutModalOpen] = useState(false);
-  const [checkoutPaymentType, setCheckoutPaymentType] = useState<'deposit' | 'full'>('deposit');
-  const [checkoutCruiseType, setCheckoutCruiseType] = useState<'private' | 'disco'>('private');
+  // Embedded payment form state
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
+  const [paymentType, setPaymentType] = useState<'deposit' | 'full'>('deposit');
+  const [paymentFormLoading, setPaymentFormLoading] = useState(false);
+  const [paymentError, setPaymentError] = useState<string | null>(null);
   
   // Helper functions to determine event type and ordering
   const deriveEventType = (): string => {
@@ -730,7 +1113,7 @@ function QuoteViewerContent() {
     return quote.project.projectTime;
   };
 
-  const handlePayment = async (paymentType: 'deposit' | 'full', cruiseType?: 'private' | 'disco') => {
+  const handlePayment = async (type: 'deposit' | 'full', cruiseType?: 'private' | 'disco') => {
     const effectiveCruiseType = cruiseType || selectedCruiseType;
     const pricing = effectiveCruiseType === 'private' ? privatePricing : discoPricing;
     
@@ -743,7 +1126,20 @@ function QuoteViewerContent() {
       return;
     }
 
-    console.log('💳 handlePayment called with:', { paymentType, cruiseType: effectiveCruiseType });
+    console.log('💳 handlePayment called with:', { paymentType: type, cruiseType: effectiveCruiseType });
+    
+    // Set payment type and show embedded form
+    setPaymentType(type);
+    setShowPaymentForm(true);
+    setPaymentError(null);
+    
+    // Scroll to payment form after a brief delay
+    setTimeout(() => {
+      const paymentForm = document.getElementById('embedded-payment-form');
+      if (paymentForm) {
+        paymentForm.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
 
     // For calendar flow, check if we have contact info
     let finalContactInfo = contactInfo;
@@ -881,10 +1277,9 @@ function QuoteViewerContent() {
       selectionPayload.ticketQuantity = discoTicketQuantity;
     }
 
-    // Set the modal state and open it
-    setCheckoutPaymentType(paymentType);
-    setCheckoutCruiseType(effectiveCruiseType);
-    setIsCheckoutModalOpen(true);
+    // Store payment details for the embedded form
+    sessionStorage.setItem('paymentSelectionPayload', JSON.stringify(selectionPayload));
+    sessionStorage.setItem('paymentPricing', JSON.stringify(pricing));
   };
 
   const handlePaymentSuccess = async (paymentIntentId: string) => {
@@ -1638,37 +2033,32 @@ function QuoteViewerContent() {
         </div>
       </div>
       
-      {/* Checkout Modal */}
-      <CheckoutModal
-        isOpen={isCheckoutModalOpen}
-        onClose={() => setIsCheckoutModalOpen(false)}
-        onSuccess={handlePaymentSuccess}
-        paymentType={checkoutPaymentType}
-        cruiseType={checkoutCruiseType}
-        selectionPayload={{
-          entryPoint: isCalendarFlow ? 'calendar_flow' : 'quote_flow',
-          cruiseType: checkoutCruiseType,
-          eventDate: isCalendarFlow ? eventDate : quote?.project?.projectDate,
-          eventType: isCalendarFlow ? calendarData?.eventType : quote?.project?.eventType,
-          groupSize: checkoutCruiseType === 'disco' ? discoTicketQuantity : groupSize,
-          selectedTimeSlot: selectedTimeSlot,
-          timeSlot: selectedTimeSlot,
-          startTime: selectedSlot?.startTime || '',
-          endTime: selectedSlot?.endTime || '',
-          boatId: selectedBoatId,
-          slotId: selectedSlotId,
-          selectedAddOns,
-          discoPackage: selectedDiscoPackage,
-          discountCode,
-          firstName: contactInfo.firstName,
-          lastName: contactInfo.lastName,
-          email: contactInfo.email,
-          phone: contactInfo.phone
-        }}
-        pricing={checkoutCruiseType === 'private' ? privatePricing : discoPricing}
-        contactInfo={contactInfo}
-        holdId={undefined} // We can add slot hold support if needed
-      />
+      {/* Embedded Payment Form */}
+      {showPaymentForm && (
+        <div id="embedded-payment-form" className="mt-8 mb-8">
+          <Card className="max-w-4xl mx-auto shadow-lg">
+            <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b">
+              <CardTitle className="flex items-center gap-2">
+                <CreditCard className="h-5 w-5" />
+                Complete Your {paymentType === 'deposit' ? 'Deposit' : 'Full'} Payment
+              </CardTitle>
+            </CardHeader>
+            <CardContent className="p-6">
+              <Elements stripe={stripePromise}>
+                <PaymentForm
+                  paymentType={paymentType}
+                  cruiseType={selectedCruiseType}
+                  selectionPayload={JSON.parse(sessionStorage.getItem('paymentSelectionPayload') || '{}')}
+                  pricing={selectedCruiseType === 'private' ? privatePricing : discoPricing}
+                  contactInfo={contactInfo}
+                  onSuccess={handlePaymentSuccess}
+                  onCancel={() => setShowPaymentForm(false)}
+                />
+              </Elements>
+            </CardContent>
+          </Card>
+        </div>
+      )}
     </div>
   );
 }

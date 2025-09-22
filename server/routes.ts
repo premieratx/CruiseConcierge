@@ -8207,16 +8207,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
       }
 
       // Create payment intent with comprehensive metadata
-      const paymentIntent = await stripe.paymentIntents.create({
+      const paymentIntentData: any = {
         amount: Math.round(amount),
         currency: "usd",
         description: `${paymentMetadata.cruiseType === 'disco' ? 'Disco' : 'Private'} Cruise ${effectivePaymentType === 'deposit' ? 'Deposit' : 'Full Payment'} - ${paymentMetadata.eventType || 'Event'} for ${paymentMetadata.groupSize || '?'} guests`,
-        receipt_email: paymentMetadata.contactEmail || customerEmail,
         metadata: paymentMetadata,
         automatic_payment_methods: {
           enabled: true,
         },
-      });
+      };
+      
+      // Only set receipt_email if email is provided
+      const email = paymentMetadata.contactEmail || customerEmail;
+      if (email) {
+        paymentIntentData.receipt_email = email;
+      }
+      
+      const paymentIntent = await stripe.paymentIntents.create(paymentIntentData);
 
       console.log('✅ Payment intent created:', {
         id: paymentIntent.id,
