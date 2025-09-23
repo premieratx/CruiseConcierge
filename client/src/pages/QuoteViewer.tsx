@@ -1116,7 +1116,7 @@ function QuoteViewerContent() {
         setEventDate(extractedDate);
         
         // Also update selectedSlot with the correct date
-        setSelectedSlot(prevSlot => ({
+        setSelectedSlot((prevSlot: any) => ({
           ...prevSlot,
           date: extractedDate,
           dateISO: extractedDate
@@ -1408,12 +1408,12 @@ function QuoteViewerContent() {
           </div>
           <div className="text-center">
             <Badge className="text-xl px-4 py-2" variant="default">
-              {eventType === 'bachelor' ? '🤵 Bachelor Party' : 
-               eventType === 'bachelorette' ? '👰 Bachelorette Party' : 
-               eventType === 'wedding' ? '💒 Wedding' : 
-               eventType === 'birthday' ? '🎂 Birthday' : 
-               eventType === 'corporate' ? '💼 Corporate Event' : 
-               '🎉 Party'}
+              {eventType === 'bachelor' && '🤵 Bachelor Party'}
+              {eventType === 'bachelorette' && '👰 Bachelorette Party'}
+              {eventType === 'wedding' && '💒 Wedding'}
+              {eventType === 'birthday' && '🎂 Birthday'}
+              {eventType === 'corporate' && '💼 Corporate Event'}
+              {!['bachelor', 'bachelorette', 'wedding', 'birthday', 'corporate'].includes(eventType) && '🎉 Party'}
             </Badge>
             {quote && (
               <Badge variant={isExpired ? "destructive" : "secondary"} className="ml-3 text-lg px-3 py-1">
