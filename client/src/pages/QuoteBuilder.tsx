@@ -96,21 +96,23 @@ export default function QuoteBuilder() {
   const [showContactInfoModal, setShowContactInfoModal] = useState(false);
   const [chatSelections, setChatSelections] = useState<any>(null);
 
-  // Check for selections from Chat flow on component mount
+  // Always show contact info modal for new quotes, check for chat selections
   useEffect(() => {
     if (!isEditMode) {
+      // Check for selections from Chat flow
       const selections = localStorage.getItem('quote-builder-selections');
       if (selections) {
         try {
           const parsed = JSON.parse(selections);
           setChatSelections(parsed);
-          setShowContactInfoModal(true);
           // Clear localStorage so modal doesn't show again on refresh
           localStorage.removeItem('quote-builder-selections');
         } catch (error) {
           console.error('Failed to parse chat selections:', error);
         }
       }
+      // Always show modal for new quotes (not just from Chat)
+      setShowContactInfoModal(true);
     }
   }, [isEditMode]);
 
