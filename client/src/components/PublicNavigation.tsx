@@ -17,10 +17,54 @@ import logoPath from '@assets/PPC logo 2023_1758097465959.png';
 import { 
   Menu, X, Ship, Calendar, MessageSquare, Phone, 
   Users, Camera, Heart, ArrowRight, Star,
-  Building, Cake, ChevronDown
+  Building, Cake, ChevronDown, GraduationCap,
+  Trophy, Crown, Sparkles, Wine, Music, Gift
 } from 'lucide-react';
 
-const navigationItems = [
+// Type definitions
+type BaseNavigationItem = {
+  title: string;
+  href: string;
+  icon: any;
+  badge?: string;
+};
+
+type NavigationItemWithDropdown = BaseNavigationItem & {
+  hasDropdown: true;
+  dropdownItems: (DropdownLink | DropdownSection)[];
+};
+
+type NavigationItemSimple = BaseNavigationItem & {
+  hasDropdown?: false;
+};
+
+type NavigationItem = NavigationItemSimple | NavigationItemWithDropdown;
+
+type DropdownLink = {
+  title: string;
+  href: string;
+  description: string;
+  icon: any;
+};
+
+type DropdownSection = {
+  section: string;
+};
+
+// Helper functions
+const safeSlug = (s?: string): string => {
+  return (s ?? 'item').toLowerCase().replace(/\s+/g, '-');
+};
+
+const isSection = (item: DropdownLink | DropdownSection): item is DropdownSection => {
+  return 'section' in item;
+};
+
+const isLink = (item: DropdownLink | DropdownSection): item is DropdownLink => {
+  return 'href' in item;
+};
+
+const navigationItems: NavigationItem[] = [
   {
     title: 'Home',
     href: '/',
@@ -50,22 +94,70 @@ const navigationItems = [
         icon: Ship
       },
       {
-        title: 'Corporate Events',
-        href: '/corporate-events',
-        description: 'Team building & client entertainment',
+        section: 'Wedding Experiences'
+      },
+      {
+        title: 'Rehearsal Dinner',
+        href: '/rehearsal-dinner',
+        description: 'Elegant pre-wedding celebration',
+        icon: Wine
+      },
+      {
+        title: 'Welcome Party',
+        href: '/welcome-party',
+        description: 'Kick off wedding weekend',
+        icon: Heart
+      },
+      {
+        title: 'After Party',
+        href: '/after-party',
+        description: 'Keep celebration going',
+        icon: Music
+      },
+      {
+        section: 'Corporate Events'
+      },
+      {
+        title: 'Team Building',
+        href: '/team-building',
+        description: 'Interactive team activities',
+        icon: Users
+      },
+      {
+        title: 'Client Entertainment',
+        href: '/client-entertainment',
+        description: 'Impress with Austin views',
         icon: Building
       },
       {
-        title: 'Birthday Parties',
-        href: '/birthday-parties',
-        description: 'Celebrate on the water',
-        icon: Cake
+        title: 'Company Milestones',
+        href: '/company-milestone',
+        description: 'Celebrate achievements',
+        icon: Trophy
       },
       {
-        title: 'Wedding Parties',
-        href: '/wedding-parties',
-        description: 'Rehearsal dinners & celebrations',
-        icon: Heart
+        section: 'Birthday Parties'
+      },
+      {
+        title: 'Milestone Birthdays',
+        href: '/milestone-birthday',
+        description: '21st, 30th, 40th, 50th & beyond',
+        icon: Crown
+      },
+      {
+        title: 'Sweet 16',
+        href: '/sweet-16',
+        description: 'Teen celebration cruise',
+        icon: Sparkles
+      },
+      {
+        section: 'Special Events'
+      },
+      {
+        title: 'Graduation Parties',
+        href: '/graduation-party',
+        description: 'Celebrate achievements',
+        icon: GraduationCap
       }
     ]
   },
@@ -177,26 +269,40 @@ export default function PublicNavigation() {
                         <span>{item.title}</span>
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
-                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
-                          {item.dropdownItems?.map((dropdownItem) => (
-                            <li key={dropdownItem.href}>
-                              <NavigationMenuLink asChild>
-                                <Link
-                                  href={dropdownItem.href}
-                                  className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                                  data-testid={`link-dropdown-${dropdownItem.title.toLowerCase().replace(/\s+/g, '-')}`}
-                                >
-                                  <div className="flex items-center space-x-2">
-                                    <dropdownItem.icon className="h-4 w-4 text-brand-blue" />
-                                    <div className="text-sm font-medium leading-none">{dropdownItem.title}</div>
+                        <ul className="grid w-[600px] gap-2 p-4 md:w-[700px] md:grid-cols-2">
+                          {item.dropdownItems?.map((dropdownItem, index) => {
+                            if (isSection(dropdownItem)) {
+                              return (
+                                <li key={`section-${index}`} className="col-span-2 mt-2 first:mt-0">
+                                  <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3 pb-1">
+                                    {dropdownItem.section}
                                   </div>
-                                  <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
-                                    {dropdownItem.description}
-                                  </p>
-                                </Link>
-                              </NavigationMenuLink>
-                            </li>
-                          ))}
+                                </li>
+                              );
+                            } else if (isLink(dropdownItem)) {
+                              const Icon = dropdownItem.icon;
+                              return (
+                                <li key={dropdownItem.href}>
+                                  <NavigationMenuLink asChild>
+                                    <Link
+                                      href={dropdownItem.href}
+                                      className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                      data-testid={`link-dropdown-${safeSlug(dropdownItem.title)}`}
+                                    >
+                                      <div className="flex items-center space-x-2">
+                                        <Icon className="h-4 w-4 text-brand-blue" />
+                                        <div className="text-sm font-medium leading-none">{dropdownItem.title}</div>
+                                      </div>
+                                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                        {dropdownItem.description}
+                                      </p>
+                                    </Link>
+                                  </NavigationMenuLink>
+                                </li>
+                              );
+                            }
+                            return null;
+                          })}
                         </ul>
                       </NavigationMenuContent>
                     </NavigationMenuItem>
@@ -211,7 +317,7 @@ export default function PublicNavigation() {
                             ? "text-brand-blue bg-brand-blue/10"
                             : "text-gray-700 dark:text-gray-300"
                         )}
-                        data-testid={`link-nav-${item.title.toLowerCase().replace(' ', '-')}`}
+                        data-testid={`link-nav-${safeSlug(item.title)}`}
                       >
                         <item.icon className="h-4 w-4" />
                         <span>{item.title}</span>
@@ -303,24 +409,36 @@ export default function PublicNavigation() {
                               <div className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-4">
                                 {item.title}
                               </div>
-                              {item.dropdownItems?.map((dropdownItem) => (
-                                <Link
-                                  key={dropdownItem.href}
-                                  href={dropdownItem.href}
-                                  onClick={closeMobileMenu}
-                                  className={cn(
-                                    "flex items-center space-x-3 w-full px-4 py-3 rounded-xl font-medium transition-all duration-300",
-                                    location === dropdownItem.href
-                                      ? "text-brand-blue bg-brand-blue/10 border-l-4 border-brand-blue"
-                                      : "text-gray-700 dark:text-gray-300 hover:text-brand-blue hover:bg-brand-blue/5"
-                                  )}
-                                  data-testid={`link-mobile-${dropdownItem.title.toLowerCase().replace(/\s+/g, '-')}`}
-                                >
-                                  <dropdownItem.icon className="h-5 w-5" />
-                                  <span className="flex-1">{dropdownItem.title}</span>
-                                  <ArrowRight className="h-4 w-4 opacity-50" />
-                                </Link>
-                              ))}
+                              {item.dropdownItems?.map((dropdownItem, index) => {
+                                if (isSection(dropdownItem)) {
+                                  return (
+                                    <div key={`section-mobile-${index}`} className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4 mb-2 px-4">
+                                      {dropdownItem.section}
+                                    </div>
+                                  );
+                                } else if (isLink(dropdownItem)) {
+                                  const Icon = dropdownItem.icon;
+                                  return (
+                                    <Link
+                                      key={dropdownItem.href}
+                                      href={dropdownItem.href}
+                                      onClick={closeMobileMenu}
+                                      className={cn(
+                                        "flex items-center space-x-3 w-full px-4 py-3 rounded-xl font-medium transition-all duration-300",
+                                        location === dropdownItem.href
+                                          ? "text-brand-blue bg-brand-blue/10 border-l-4 border-brand-blue"
+                                          : "text-gray-700 dark:text-gray-300 hover:text-brand-blue hover:bg-brand-blue/5"
+                                      )}
+                                      data-testid={`link-mobile-${safeSlug(dropdownItem.title)}`}
+                                    >
+                                      <Icon className="h-5 w-5" />
+                                      <span className="flex-1">{dropdownItem.title}</span>
+                                      <ArrowRight className="h-4 w-4 opacity-50" />
+                                    </Link>
+                                  );
+                                }
+                                return null;
+                              })}
                             </>
                           ) : (
                             <Link
@@ -332,7 +450,7 @@ export default function PublicNavigation() {
                                   ? "text-brand-blue bg-brand-blue/10 border-l-4 border-brand-blue"
                                   : "text-gray-700 dark:text-gray-300 hover:text-brand-blue hover:bg-brand-blue/5"
                               )}
-                              data-testid={`link-mobile-${item.title.toLowerCase().replace(' ', '-')}`}
+                              data-testid={`link-mobile-${safeSlug(item.title)}`}
                             >
                               <item.icon className="h-5 w-5" />
                               <span className="flex-1 tracking-wide">{item.title}</span>

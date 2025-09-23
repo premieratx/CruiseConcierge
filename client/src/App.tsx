@@ -59,6 +59,23 @@ import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import TestimonialsFaq from "./pages/TestimonialsFaq";
 
+// Wedding Experience Pages
+import RehearsalDinner from "./pages/RehearsalDinner";
+import WelcomeParty from "./pages/WelcomeParty";
+import AfterParty from "./pages/AfterParty";
+
+// Corporate Experience Pages
+import TeamBuilding from "./pages/TeamBuilding";
+import ClientEntertainment from "./pages/ClientEntertainment";
+import CompanyMilestone from "./pages/CompanyMilestone";
+
+// Birthday Experience Pages
+import MilestoneBirthday from "./pages/MilestoneBirthday";
+import Sweet16 from "./pages/Sweet16";
+
+// Special Event Pages
+import GraduationParty from "./pages/GraduationParty";
+
 // Customer Portal Pages
 import PortalLogin from "./pages/PortalLogin";
 import PortalVerify from "./pages/PortalVerify";
@@ -85,6 +102,23 @@ function Router() {
       <Route path="/gallery" component={Gallery} />
       <Route path="/contact" component={Contact} />
       <Route path="/testimonials-faq" component={TestimonialsFaq} />
+      
+      {/* Wedding Experience Pages */}
+      <Route path="/rehearsal-dinner" component={RehearsalDinner} />
+      <Route path="/welcome-party" component={WelcomeParty} />
+      <Route path="/after-party" component={AfterParty} />
+      
+      {/* Corporate Experience Pages */}
+      <Route path="/team-building" component={TeamBuilding} />
+      <Route path="/client-entertainment" component={ClientEntertainment} />
+      <Route path="/company-milestone" component={CompanyMilestone} />
+      
+      {/* Birthday Experience Pages */}
+      <Route path="/milestone-birthday" component={MilestoneBirthday} />
+      <Route path="/sweet-16" component={Sweet16} />
+      
+      {/* Special Event Pages */}
+      <Route path="/graduation-party" component={GraduationParty} />
       
       {/* Public Booking - Commented out, using /chat instead */}
       {/* <Route path="/calendar" component={PublicCalendar} /> */}

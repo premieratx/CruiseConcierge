@@ -3,6 +3,7 @@ import { Link, useLocation } from 'wouter';
 import { motion } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import Chat from '@/pages/Chat';
+import ExperienceCards from '@/components/ExperienceCards';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -399,11 +400,19 @@ export default function PrivateCruises() {
           
           {/* Tabbed Capacity Interface */}
           <div className="relative">
-            <Tabs defaultValue="14" className="w-full">
+            <Tabs defaultValue="experiences" className="w-full">
               {/* Sticky Tab Navigation */}
               <div className="sticky top-16 z-40 bg-white/95 dark:bg-gray-950/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 py-4 mb-8">
                 <div className="container mx-auto px-6">
-                  <TabsList className="grid w-full grid-cols-4 lg:max-w-2xl lg:mx-auto bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
+                  <TabsList className="grid w-full grid-cols-5 lg:max-w-3xl lg:mx-auto bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
+                    <TabsTrigger 
+                      value="experiences" 
+                      className="flex flex-col items-center gap-1 py-3 px-2 text-xs data-[state=active]:bg-brand-blue data-[state=active]:text-white"
+                    >
+                      <PartyPopper className="h-4 w-4" />
+                      <span className="font-semibold">Experiences</span>
+                      <span className="text-[10px] opacity-70">All Events</span>
+                    </TabsTrigger>
                     <TabsTrigger 
                       value="14" 
                       className="flex flex-col items-center gap-1 py-3 px-2 text-xs data-[state=active]:bg-brand-blue data-[state=active]:text-white"
@@ -439,6 +448,26 @@ export default function PrivateCruises() {
                   </TabsList>
                 </div>
               </div>
+
+              {/* Experiences Tab - First tab showing all experience types */}
+              <TabsContent value="experiences" className="mt-0">
+                <div className="container mx-auto px-6">
+                  <motion.div
+                    initial="hidden"
+                    animate="visible"
+                    variants={fadeInUp}
+                    className="mb-8"
+                  >
+                    <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                      Curated Experiences for Every Occasion
+                    </h2>
+                    <p className="text-lg text-gray-600 dark:text-gray-400 max-w-3xl">
+                      From elegant wedding celebrations to corporate team building, discover our premium private cruise experiences designed for your special moments.
+                    </p>
+                  </motion.div>
+                  <ExperienceCards />
+                </div>
+              </TabsContent>
 
               {/* Tab Content */}
               {PRIVATE_CAPACITY_TIERS.map((capacity) => {

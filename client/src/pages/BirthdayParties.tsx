@@ -20,7 +20,7 @@ import {
   ChefHat, Wifi, Target, Headphones, Check, Sparkles,
   Waves, Wine, Umbrella, Music, ArrowRight, Camera,
   Crown, Anchor, Presentation, Zap, ChevronRight,
-  DollarSign, Smile, Balloon, Gem, CheckCircle
+  DollarSign, Smile, Gem, CheckCircle
 } from 'lucide-react';
 
 // Hero and gallery images - reuse from other pages
@@ -574,7 +574,7 @@ export default function BirthdayParties() {
                     'Transportation coordination'
                   ].map((addon) => (
                     <div key={addon} className="flex items-center">
-                      <Balloon className="h-5 w-5 text-brand-yellow mr-3" />
+                      <PartyPopper className="h-5 w-5 text-brand-yellow mr-3" />
                       <span className="font-semibold">{addon}</span>
                     </div>
                   ))}
