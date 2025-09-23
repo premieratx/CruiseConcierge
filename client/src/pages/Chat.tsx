@@ -73,7 +73,6 @@ type ChatFlowStep =
   | 'intro' // Intro + Calendar combined
   | 'comparison-selection' // Event type + Group size + Comparison
   | 'contact-form'
-  | 'checkout' // New checkout step for payment
   | 'confirmation';
 
 type CruiseType = 'private' | 'disco';
@@ -271,6 +270,7 @@ function PaymentForm({
   cruiseType, 
   formData,
   pricing, 
+  holdId,
   onSuccess,
   onCancel 
 }: {
@@ -278,6 +278,7 @@ function PaymentForm({
   cruiseType: 'private' | 'disco';
   formData: BookingData;
   pricing: any;
+  holdId: string | null;
   onSuccess: (paymentIntentId: string) => void;
   onCancel: () => void;
 }) {
@@ -421,7 +422,7 @@ function PaymentForm({
         ticketQuantity: cruiseType === 'disco' ? formData.discoTicketQuantity : undefined
       };
 
-      // Create payment intent with all data
+      // Create payment intent with all data including holdId
       const res = await apiRequest('POST', '/api/checkout/create-payment-intent', {
         paymentType,
         cruiseType,
@@ -432,7 +433,8 @@ function PaymentForm({
           firstName: contactInfo.firstName,
           lastName: contactInfo.lastName,
           phone: contactInfo.phone,
-          discountCode
+          discountCode,
+          holdId: holdId || '' // Include the holdId in metadata
         }
       });
 
@@ -580,39 +582,37 @@ function PaymentForm({
         </div>
       </div>
 
-      {/* Discount Code Section (if applicable) */}
-      {discountCode && (
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold">Discount Code</h3>
-          <div className="flex gap-2">
-            <Input
-              placeholder="Enter discount code"
-              value={discountCode}
-              onChange={(e) => setDiscountCode(e.target.value.toUpperCase())}
-              data-testid="input-checkout-discount-code"
-              className="flex-1"
-              disabled={isValidatingDiscount}
-            />
-            <Button
-              type="button"
-              onClick={handleApplyDiscount}
-              disabled={isValidatingDiscount}
-              variant="outline"
-              data-testid="button-apply-discount"
-            >
-              Apply
-            </Button>
-          </div>
-          {isDiscounted && (
-            <Alert className="border-green-200 bg-green-50">
-              <AlertCircle className="h-4 w-4 text-green-600" />
-              <AlertDescription className="text-green-800">
-                Discount applied! You're paying {formatCurrency(amount)} instead of {formatCurrency(originalAmount)}
-              </AlertDescription>
-            </Alert>
-          )}
+      {/* Discount Code Section - Always visible */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">Discount Code</h3>
+        <div className="flex gap-2">
+          <Input
+            placeholder="Enter discount code"
+            value={discountCode}
+            onChange={(e) => setDiscountCode(e.target.value.toUpperCase())}
+            data-testid="input-checkout-discount-code"
+            className="flex-1"
+            disabled={isValidatingDiscount}
+          />
+          <Button
+            type="button"
+            onClick={handleApplyDiscount}
+            disabled={isValidatingDiscount || !discountCode}
+            variant="outline"
+            data-testid="button-apply-discount"
+          >
+            Apply
+          </Button>
         </div>
-      )}
+        {isDiscounted && (
+          <Alert className="border-green-200 bg-green-50">
+            <AlertCircle className="h-4 w-4 text-green-600" />
+            <AlertDescription className="text-green-800">
+              Discount applied! You're paying {formatCurrency(amount)} instead of {formatCurrency(originalAmount)}
+            </AlertDescription>
+          </Alert>
+        )}
+      </div>
 
       {/* Amount Summary */}
       <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
@@ -851,6 +851,7 @@ export default function Chat() {
   const [showBookingConfirmation, setShowBookingConfirmation] = useState(false);
   const [pendingPaymentType, setPendingPaymentType] = useState<'deposit' | 'full' | null>(null);
   const [pendingCruiseType, setPendingCruiseType] = useState<'private' | 'disco' | null>(null);
+  const [currentHoldId, setCurrentHoldId] = useState<string | null>(null);
   const [formData, setFormData] = useState<BookingData>({
     eventType: '',
     eventTypeLabel: '',
@@ -1825,8 +1826,9 @@ export default function Chat() {
     };
   }, []);
 
-  // Enhanced payment handler that navigates to checkout with all necessary parameters
+  // Enhanced payment handler that shows checkout section below
   const [, navigate] = useLocation(); // Add navigate hook for routing
+  const [showCheckout, setShowCheckout] = useState(false);
   
   const handlePayment = useCallback((paymentType: 'deposit' | 'full', cruiseType: 'private' | 'disco') => {
     console.log('💳 handlePayment called with:', { paymentType, cruiseType });
@@ -1886,12 +1888,20 @@ export default function Chat() {
       return;
     }
 
-    console.log('💳 Moving to checkout step...');
+    console.log('💳 Showing checkout section...');
     
-    // Set payment details and move to checkout step
+    // Set payment details and show checkout section
     setPendingPaymentType(paymentType);
     setPendingCruiseType(cruiseType);
-    setCurrentStep('checkout');
+    setShowCheckout(true);
+    
+    // Scroll to checkout section
+    setTimeout(() => {
+      const checkoutSection = document.getElementById('checkout-section');
+      if (checkoutSection) {
+        checkoutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   }, [formData, privatePricing, discoPricing, pricingLoading, paymentProcessing, formSubmitting, validateBookingData, toast]);
   
   // Handle confirmed booking - No longer used for payment flow
@@ -2789,7 +2799,10 @@ export default function Chat() {
                                   const addOnPackages = value === 'standard' ? [] : [value];
                                   setFormData(prev => ({
                                     ...prev,
-                                    selectedAddOnPackages: addOnPackages
+                                    selectedAddOnPackages: addOnPackages,
+                                    // Reset disco package when selecting private package
+                                    selectedDiscoPackage: null,
+                                    selectedCruiseType: 'private' as CruiseType
                                   }));
                                 }}
                                 className="space-y-2"
@@ -2997,7 +3010,8 @@ export default function Chat() {
                         /* ATX Disco Cruise Option - Simplified */
                         <Card className={cn(
                           "bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 backdrop-blur-sm transition-all",
-                          formData.selectedCruiseType === 'disco' && "ring-2 ring-purple-600"
+                          formData.selectedCruiseType === 'disco' && "ring-2 ring-purple-600",
+                          discoSlots.length === 0 && "opacity-50 cursor-not-allowed"
                         )}>
                           <CardHeader className="sticky top-0 z-10 bg-gradient-to-r from-purple-50/95 to-pink-50/95 dark:from-purple-900/95 dark:to-pink-900/95 backdrop-blur-md border-b border-purple-200 dark:border-purple-800 py-2">
                             <div className="text-center">
@@ -3259,8 +3273,9 @@ export default function Chat() {
                                     setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
                                     handlePayment('deposit', 'disco');
                                   }}
-                                  disabled={!discoPricing}
-                                  className="w-full bg-green-600 hover:bg-green-700"
+                                  disabled={!discoPricing || discoSlots.length === 0}
+                                  className="w-full bg-green-600 hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                                  title={discoSlots.length === 0 ? "No Disco Cruises available on this date" : ""}
                                   data-testid="button-disco-deposit"
                                 >
                                   <CreditCard className="h-4 w-4 mr-2" />
@@ -3272,8 +3287,9 @@ export default function Chat() {
                                     setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
                                     handlePayment('full', 'disco');
                                   }}
-                                  disabled={!discoPricing}
-                                  className="w-full bg-purple-600 hover:bg-purple-700"
+                                  disabled={!discoPricing || discoSlots.length === 0}
+                                  className="w-full bg-purple-600 hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
+                                  title={discoSlots.length === 0 ? "No Disco Cruises available on this date" : ""}
                                   data-testid="button-disco-full"
                                 >
                                   <CreditCard className="h-4 w-4 mr-2" />
@@ -3488,15 +3504,16 @@ export default function Chat() {
               </motion.div>
             )}
 
-            {/* Checkout Step */}
-            {currentStep === 'checkout' && pendingPaymentType && pendingCruiseType && (
+            {/* Old checkout step - now removed since we moved it outside AnimatePresence */}
+            {false && (
               <motion.div
+                id="checkout-section"
                 key="checkout"
                 variants={fadeInUp}
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="w-full max-w-4xl mx-auto"
+                className="w-full max-w-4xl mx-auto mt-8"
               >
                 <Card className="border-2 border-blue-200 dark:border-blue-800">
                   <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950">
@@ -3571,6 +3588,19 @@ export default function Chat() {
                         </h3>
                         {pendingCruiseType === 'private' && privatePricing && (
                           <div className="space-y-1 text-sm">
+                            {/* Detailed breakdown for private cruises */}
+                            <div className="flex justify-between">
+                              <span className="text-gray-600 dark:text-gray-400">Cruise Details:</span>
+                              <span className="font-medium">
+                                {formData.selectedSlot?.boatName || 'Boat'} for {formData.groupSize} people
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-600 dark:text-gray-400">Duration & Rate:</span>
+                              <span className="font-medium">
+                                {formData.selectedSlot?.duration || 4} hours × {formatCurrency(privatePricing.baseHourlyRate || 0)}/hour
+                              </span>
+                            </div>
                             <div className="flex justify-between">
                               <span className="text-gray-600 dark:text-gray-400">Subtotal:</span>
                               <span className="font-medium">{formatCurrency(privatePricing.subtotal)}</span>
@@ -3599,6 +3629,19 @@ export default function Chat() {
                         
                         {pendingCruiseType === 'disco' && discoPricing && (
                           <div className="space-y-1 text-sm">
+                            {/* Detailed breakdown for disco cruises */}
+                            <div className="flex justify-between">
+                              <span className="text-gray-600 dark:text-gray-400">Tickets:</span>
+                              <span className="font-medium">
+                                {formData.discoTicketQuantity} tickets × ${Math.round((discoPricing.subtotal / formData.discoTicketQuantity) / 100)}/person
+                              </span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-600 dark:text-gray-400">Package:</span>
+                              <span className="font-medium">
+                                {discoPackages.find(p => p.id === formData.selectedDiscoPackage)?.name || 'Disco Package'}
+                              </span>
+                            </div>
                             <div className="flex justify-between">
                               <span className="text-gray-600 dark:text-gray-400">Subtotal:</span>
                               <span className="font-medium">{formatCurrency(discoPricing.subtotal)}</span>
@@ -3653,8 +3696,8 @@ export default function Chat() {
                           setPendingCruiseType(null);
                         }}
                         onCancel={() => {
-                          // Go back to comparison-selection
-                          setCurrentStep('comparison-selection');
+                          // Hide checkout section
+                          setShowCheckout(false);
                           setPendingPaymentType(null);
                           setPendingCruiseType(null);
                         }}
@@ -3736,6 +3779,196 @@ export default function Chat() {
             )}
             
           </AnimatePresence>
+          
+          {/* Checkout Section - Shows inline below comparison */}
+          {showCheckout && pendingPaymentType && pendingCruiseType && currentStep === 'comparison-selection' && (
+            <motion.div
+              id="checkout-section"
+              key="checkout"
+              variants={fadeInUp}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="w-full max-w-4xl mx-auto mt-8"
+            >
+              <Card className="border-2 border-blue-200 dark:border-blue-800">
+                <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950">
+                  <CardTitle className="flex items-center gap-2">
+                    <ShoppingCart className="h-6 w-6" />
+                    Complete Your Booking
+                  </CardTitle>
+                  <CardDescription>Secure checkout powered by Stripe</CardDescription>
+                </CardHeader>
+                <CardContent className="pt-6">
+                  {/* Consolidated Selection Summary */}
+                  <div className="space-y-4 mb-6">
+                    <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                      <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                        <CalendarIcon className="h-4 w-4" />
+                        Booking Summary
+                      </h3>
+                      <div className="space-y-2 text-sm">
+                        {/* Single consolidated line with all key information */}
+                        <div className="font-medium text-base">
+                          {formData.eventDate && format(formData.eventDate, 'EEEE, MMMM d')} • {formData.selectedSlot?.label || 'Time Not Selected'}
+                        </div>
+                        <div className="text-gray-600 dark:text-gray-400">
+                          {pendingCruiseType === 'private' ? (
+                            <>
+                              Private Cruise • {formData.selectedSlot?.boatName || 'Boat'} • {formData.groupSize} people
+                              {formData.selectedAddOnPackages.length > 0 && (
+                                <span className="ml-2">
+                                  • {formData.selectedAddOnPackages.includes('ultimate') ? 'Ultimate Package' :
+                                     formData.selectedAddOnPackages.includes('essentials') ? 'Essentials Package' : ''}
+                                </span>
+                              )}
+                            </>
+                          ) : (
+                            <>
+                              ATX Disco Cruise • {formData.discoTicketQuantity} tickets
+                              {formData.selectedDiscoPackage && (
+                                <span className="ml-2">
+                                  • {discoPackages.find(p => p.id === formData.selectedDiscoPackage)?.name}
+                                </span>
+                              )}
+                            </>
+                          )}
+                        </div>
+                        <div className="text-gray-600 dark:text-gray-400">
+                          {formData.eventTypeLabel} {formData.eventEmoji}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Pricing Breakdown */}
+                    <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                      <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                        <DollarSign className="h-4 w-4 text-green-600" />
+                        Pricing Breakdown
+                      </h3>
+                      {pendingCruiseType === 'private' && privatePricing && (
+                        <div className="space-y-1 text-sm">
+                          {/* Detailed breakdown for private cruises */}
+                          <div className="flex justify-between">
+                            <span className="text-gray-600 dark:text-gray-400">Cruise Details:</span>
+                            <span className="font-medium">
+                              {formData.selectedSlot?.boatName || 'Boat'} for {formData.groupSize} people
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600 dark:text-gray-400">Duration & Rate:</span>
+                            <span className="font-medium">
+                              {formData.selectedSlot?.duration || 4} hours × {formatCurrency(privatePricing.baseHourlyRate || 0)}/hour
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600 dark:text-gray-400">Subtotal:</span>
+                            <span className="font-medium">{formatCurrency(privatePricing.subtotal)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600 dark:text-gray-400">Tax (8.25%):</span>
+                            <span className="font-medium">{formatCurrency(privatePricing.tax)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600 dark:text-gray-400">Gratuity (20%):</span>
+                            <span className="font-medium">{formatCurrency(privatePricing.gratuity)}</span>
+                          </div>
+                          <Separator className="my-2" />
+                          <div className="flex justify-between font-bold text-base">
+                            <span>Total:</span>
+                            <span className="text-lg">{formatCurrency(privatePricing.total)}</span>
+                          </div>
+                          {pendingPaymentType === 'deposit' && privatePricing.depositAmount && (
+                            <div className="flex justify-between text-green-600 dark:text-green-400 pt-2 text-base">
+                              <span>Amount Due Now ({privatePricing.depositPercent}% deposit):</span>
+                              <span className="font-bold text-lg">{formatCurrency(privatePricing.depositAmount)}</span>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                      
+                      {pendingCruiseType === 'disco' && discoPricing && (
+                        <div className="space-y-1 text-sm">
+                          {/* Detailed breakdown for disco cruises */}
+                          <div className="flex justify-between">
+                            <span className="text-gray-600 dark:text-gray-400">Tickets:</span>
+                            <span className="font-medium">
+                              {formData.discoTicketQuantity} tickets × ${Math.round((discoPricing.subtotal / formData.discoTicketQuantity) / 100)}/person
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600 dark:text-gray-400">Package:</span>
+                            <span className="font-medium">
+                              {discoPackages.find(p => p.id === formData.selectedDiscoPackage)?.name || 'Disco Package'}
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600 dark:text-gray-400">Subtotal:</span>
+                            <span className="font-medium">{formatCurrency(discoPricing.subtotal)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600 dark:text-gray-400">Tax (8.25%):</span>
+                            <span className="font-medium">{formatCurrency(discoPricing.tax)}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600 dark:text-gray-400">Gratuity (20%):</span>
+                            <span className="font-medium">{formatCurrency(discoPricing.gratuity)}</span>
+                          </div>
+                          <Separator className="my-2" />
+                          <div className="flex justify-between font-bold text-base">
+                            <span>Total:</span>
+                            <span className="text-lg">{formatCurrency(discoPricing.total)}</span>
+                          </div>
+                          {pendingPaymentType === 'deposit' && discoPricing.depositAmount && (
+                            <div className="flex justify-between text-green-600 dark:text-green-400 pt-2 text-base">
+                              <span>Amount Due Now ({discoPricing.depositPercent}% deposit):</span>
+                              <span className="font-bold text-lg">{formatCurrency(discoPricing.depositAmount)}</span>
+                            </div>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+
+                  <Separator className="mb-6" />
+
+                  {/* Stripe Payment Form */}
+                  <Elements stripe={stripePromise}>
+                    <PaymentForm
+                      paymentType={pendingPaymentType}
+                      cruiseType={pendingCruiseType}
+                      formData={formData}
+                      pricing={pendingCruiseType === 'private' ? privatePricing : discoPricing}
+                      holdId={currentHoldId}
+                      onSuccess={(paymentIntentId) => {
+                        console.log('✅ Payment successful:', paymentIntentId);
+                        // Move to confirmation step
+                        setCurrentStep('confirmation');
+                        // Store payment info for confirmation display
+                        sessionStorage.setItem('paymentSuccess', JSON.stringify({
+                          paymentIntentId,
+                          paymentType: pendingPaymentType,
+                          cruiseType: pendingCruiseType,
+                          amount: pendingPaymentType === 'deposit'
+                            ? (pendingCruiseType === 'private' ? privatePricing?.depositAmount : discoPricing?.depositAmount)
+                            : (pendingCruiseType === 'private' ? privatePricing?.total : discoPricing?.total)
+                        }));
+                        setPendingPaymentType(null);
+                        setPendingCruiseType(null);
+                        setShowCheckout(false);
+                      }}
+                      onCancel={() => {
+                        // Hide checkout section
+                        setShowCheckout(false);
+                        setPendingPaymentType(null);
+                        setPendingCruiseType(null);
+                      }}
+                    />
+                  </Elements>
+                </CardContent>
+              </Card>
+            </motion.div>
+          )}
         </div>
       </div>
       

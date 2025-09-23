@@ -5355,6 +5355,232 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ==========================================
+  // CHECKOUT VERIFICATION ENDPOINT
+  // Real-time slot validation and package enforcement
+  // ==========================================
+  app.post("/api/checkout/verify", async (req, res) => {
+    try {
+      const {
+        cruiseType,
+        selectedSlot,
+        eventDate,
+        groupSize,
+        selectedAddOnPackages,
+        selectedDiscoPackage,
+        discoTicketQuantity,
+      } = req.body;
+
+      // 1. Validate required fields
+      if (!cruiseType || !selectedSlot || !eventDate) {
+        return res.status(400).json({
+          success: false,
+          error: "Missing required fields",
+        });
+      }
+
+      const slotDate = new Date(eventDate);
+      
+      // 2. Validate disco cruise restrictions
+      if (cruiseType === 'disco') {
+        // Check season (March-October)
+        const month = slotDate.getMonth();
+        if (month < 2 || month > 9) {
+          return res.status(400).json({
+            success: false,
+            error: "Disco cruises are only available March through October",
+          });
+        }
+
+        // Check day and time restrictions
+        const dayOfWeek = slotDate.getDay();
+        const startTime = selectedSlot.startTime;
+        
+        // Friday: Only 12-4pm slot
+        if (dayOfWeek === 5 && startTime !== '12:00') {
+          return res.status(400).json({
+            success: false,
+            error: "Friday disco cruises are only available at 12:00 PM",
+          });
+        }
+        
+        // Saturday: Only 11am-3pm and 3:30-7:30pm slots
+        if (dayOfWeek === 6) {
+          if (startTime !== '11:00' && startTime !== '15:30') {
+            return res.status(400).json({
+              success: false,
+              error: "Saturday disco cruises are only available at 11:00 AM or 3:30 PM",
+            });
+          }
+        }
+        
+        // Sunday: No disco cruises allowed
+        if (dayOfWeek === 0) {
+          return res.status(400).json({
+            success: false,
+            error: "Disco cruises are not available on Sundays",
+          });
+        }
+        
+        // Weekdays: No disco cruises
+        if (dayOfWeek >= 1 && dayOfWeek <= 4) {
+          return res.status(400).json({
+            success: false,
+            error: "Disco cruises are only available on Fridays and Saturdays",
+          });
+        }
+        
+        // Validate disco package type
+        if (!selectedDiscoPackage || !['basic', 'disco_queen', 'platinum'].includes(selectedDiscoPackage)) {
+          return res.status(400).json({
+            success: false,
+            error: "Invalid disco package selection",
+          });
+        }
+        
+        // Validate ticket quantity
+        if (!discoTicketQuantity || discoTicketQuantity < 1) {
+          return res.status(400).json({
+            success: false,
+            error: "Invalid ticket quantity for disco cruise",
+          });
+        }
+        
+        // Ensure no private packages are selected
+        if (selectedAddOnPackages && selectedAddOnPackages.length > 0) {
+          return res.status(400).json({
+            success: false,
+            error: "Cannot mix private and disco cruise packages",
+          });
+        }
+      }
+      
+      // 3. Validate private cruise restrictions
+      if (cruiseType === 'private') {
+        // Validate add-on packages (only essentials and ultimate allowed)
+        if (selectedAddOnPackages && selectedAddOnPackages.length > 0) {
+          const validPackages = ['essentials', 'ultimate'];
+          const invalidPackages = selectedAddOnPackages.filter(pkg => !validPackages.includes(pkg));
+          if (invalidPackages.length > 0) {
+            return res.status(400).json({
+              success: false,
+              error: "Invalid private cruise package selection",
+            });
+          }
+        }
+        
+        // Ensure no disco package is selected
+        if (selectedDiscoPackage) {
+          return res.status(400).json({
+            success: false,
+            error: "Cannot mix private and disco cruise packages",
+          });
+        }
+        
+        // Validate group size
+        if (!groupSize || groupSize < 1) {
+          return res.status(400).json({
+            success: false,
+            error: "Invalid group size for private cruise",
+          });
+        }
+      }
+      
+      // 4. Check real-time slot availability
+      const availability = await storage.isSlotAvailable(
+        selectedSlot.id,
+        cruiseType === 'private' ? groupSize : discoTicketQuantity
+      );
+      
+      if (!availability.available) {
+        return res.status(409).json({
+          success: false,
+          error: `Slot is not available: ${availability.reason || 'Unknown reason'}`,
+        });
+      }
+      
+      // 5. Create temporary hold on the slot
+      const holdData = {
+        slotId: selectedSlot.id,
+        boatId: selectedSlot.boatId || undefined,
+        cruiseType,
+        dateISO: slotDate.toISOString().split('T')[0],
+        startTime: selectedSlot.startTime,
+        endTime: selectedSlot.endTime,
+        sessionId: req.session?.id || `checkout_${Date.now()}`,
+        groupSize: cruiseType === 'private' ? groupSize : discoTicketQuantity,
+        ttlMinutes: 10, // 10-minute hold for checkout
+      };
+      
+      const holdResult = await storage.createSlotHold(holdData);
+      
+      if (!holdResult.success) {
+        return res.status(409).json({
+          success: false,
+          error: "Unable to reserve slot. Please try again.",
+        });
+      }
+      
+      // 6. Calculate authoritative pricing
+      let pricing;
+      if (cruiseType === 'disco') {
+        // Calculate disco pricing
+        pricing = calculateSimpleDiscoPricing({
+          packageType: selectedDiscoPackage,
+          ticketQuantity: discoTicketQuantity,
+          eventDate: slotDate,
+        });
+      } else {
+        // Calculate private cruise pricing
+        const duration = selectedSlot.duration || 4;
+        pricing = calculateSimplePricing({
+          groupSize,
+          duration,
+          eventDate: slotDate,
+          eventType: req.body.eventType || 'other',
+          selectedAddOns: selectedAddOnPackages || [],
+        });
+      }
+      
+      // 7. Return success with hold token and pricing
+      res.json({
+        success: true,
+        holdId: holdResult.hold.id,
+        hold: {
+          id: holdResult.hold.id,
+          expiresAt: holdResult.hold.expiresAt,
+          slotId: holdResult.hold.slotId,
+        },
+        pricing: {
+          subtotal: pricing.subtotal,
+          tax: pricing.tax,
+          gratuity: pricing.gratuity,
+          total: pricing.total,
+          depositAmount: pricing.depositAmount,
+          depositPercent: pricing.depositPercent,
+          perPersonCost: pricing.perPersonCost,
+        },
+        validation: {
+          cruiseType,
+          packageType: cruiseType === 'disco' ? selectedDiscoPackage : (selectedAddOnPackages?.join(', ') || 'standard'),
+          groupSize: cruiseType === 'private' ? groupSize : discoTicketQuantity,
+          slotDetails: {
+            date: slotDate.toISOString().split('T')[0],
+            startTime: selectedSlot.startTime,
+            endTime: selectedSlot.endTime,
+            duration: selectedSlot.duration,
+          },
+        },
+      });
+    } catch (error: any) {
+      console.error("Checkout verification error:", error);
+      res.status(500).json({
+        success: false,
+        error: "Error verifying checkout: " + error.message,
+      });
+    }
+  });
+
   // Get Stripe session details for booking confirmation
   app.get("/api/stripe/session/:sessionId", async (req, res) => {
     try {
