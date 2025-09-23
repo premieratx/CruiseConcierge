@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback, useMemo, useRef } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { useLocation } from 'wouter';
+import { useLocation, useParams } from 'wouter';
 import { useToast } from '@/hooks/use-toast';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -838,6 +838,12 @@ interface ChatProps {
 
 export default function Chat({ defaultEventType }: ChatProps = {}) {
   const { isEditMode } = useInlineEdit();
+  const params = useParams();
+  const quoteToken = params.token;
+  const [isQuoteMode, setIsQuoteMode] = useState(false);
+  const [quoteLoading, setQuoteLoading] = useState(false);
+  const [loadedQuoteData, setLoadedQuoteData] = useState<any>(null);
+  
   // Initialize with defaultEventType if provided
   const getInitialEventData = () => {
     if (defaultEventType && EVENT_TYPES[defaultEventType]) {
@@ -1003,6 +1009,102 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   }, [completedSelections]);
   
   const { toast } = useToast();
+  
+  // Load quote data if we're in Quote Mode
+  useEffect(() => {
+    if (quoteToken) {
+      setQuoteLoading(true);
+      fetch(`/api/quotes/public/${quoteToken}`)
+        .then(res => {
+          if (!res.ok) throw new Error('Quote not found');
+          return res.json();
+        })
+        .then(quote => {
+          setLoadedQuoteData(quote);
+          // Pre-fill formData with quote details
+          const eventDetails = quote.eventDetails || {};
+          const selectionDetails = quote.selectionDetails || {};
+          const contactInfo = quote.contactInfo || {};
+          
+          setFormData(prev => ({
+            ...prev,
+            eventType: eventDetails.eventType || '',
+            eventTypeLabel: eventDetails.eventTypeLabel || '',
+            eventEmoji: eventDetails.eventEmoji || '',
+            groupSize: eventDetails.groupSize || GROUP_SIZE_DEFAULT,
+            eventDate: eventDetails.eventDate ? new Date(eventDetails.eventDate) : undefined,
+            firstName: contactInfo.firstName || '',
+            lastName: contactInfo.lastName || '',
+            email: contactInfo.email || '',
+            phone: contactInfo.phone || '',
+            specialRequests: eventDetails.specialRequests || '',
+            budget: eventDetails.budget || '',
+            selectedCruiseType: selectionDetails.cruiseType || null,
+            selectedSlot: selectionDetails.selectedSlot || null,
+            selectedAddOnPackages: selectionDetails.selectedPackages || [],
+            selectedDiscoPackage: selectionDetails.discoPackage || null,
+            discoTicketQuantity: selectionDetails.ticketQuantity || eventDetails.groupSize || GROUP_SIZE_DEFAULT,
+            selectedDuration: selectionDetails.selectedDuration || undefined,
+            preferredTimeLabel: selectionDetails.preferredTimeLabel || '',
+            groupSizeLabel: selectionDetails.groupSizeLabel || '',
+            selectedBoat: selectionDetails.selectedBoat || '',
+            discountCode: quote.promoCode || ''
+          }));
+          
+          // Update completed selections based on what's in the quote
+          const selections: CompletedSelection[] = [];
+          
+          if (eventDetails.eventDate) {
+            selections.push({
+              id: 'date',
+              label: 'Event Date',
+              value: format(new Date(eventDetails.eventDate), 'EEEE, MMMM d, yyyy'),
+              icon: 'Calendar',
+              emoji: '📅'
+            });
+          }
+          
+          if (eventDetails.eventType) {
+            selections.push({
+              id: 'event',
+              label: 'Event Type',
+              value: eventDetails.eventTypeLabel || eventDetails.eventType,
+              emoji: eventDetails.eventEmoji || '🎉'
+            });
+          }
+          
+          if (eventDetails.groupSize) {
+            selections.push({
+              id: 'group',
+              label: 'Group Size',
+              value: `${eventDetails.groupSize} guests`,
+              icon: 'Users',
+              emoji: '👥'
+            });
+          }
+          
+          setCompletedSelections(selections);
+          setIsQuoteMode(true);
+          
+          // Jump to comparison step directly
+          setCurrentStep('comparison-selection');
+          setEventTypeCollapsed(true);
+          setShowGroupSize(false);
+          setShowComparison(true);
+          
+          setQuoteLoading(false);
+        })
+        .catch(error => {
+          console.error('Failed to load quote:', error);
+          toast({
+            title: "Quote Not Found",
+            description: "The quote you're looking for could not be found.",
+            variant: "destructive"
+          });
+          setQuoteLoading(false);
+        });
+    }
+  }, [quoteToken, toast]);
 
   // Direct first-come-first-served booking - no slot holds
 
@@ -2404,6 +2506,20 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     createLead.mutate(formData);
   };
 
+  // Show loading state while quote is being loaded
+  if (quoteLoading) {
+    return (
+      <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center space-y-4">
+            <Loader2 className="h-12 w-12 animate-spin mx-auto text-blue-600" />
+            <p className="text-lg text-slate-600">Loading your quote...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       
@@ -2495,7 +2611,9 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                       animate={{ y: 0, opacity: 1 }}
                       transition={{ delay: 0.2, duration: 0.5 }}
                     >
-                      Welcome Aboard!
+                      {isQuoteMode && loadedQuoteData?.contactInfo ? 
+                        `Quote for ${loadedQuoteData.contactInfo.firstName || 'Guest'}` : 
+                        'Welcome Aboard!'}
                     </motion.h1>
                     
                     <motion.p
@@ -3515,8 +3633,14 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
               >
                 <Card className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm">
                   <CardHeader className="text-center">
-                    <CardTitle className="text-2xl">Your Information</CardTitle>
-                    <CardDescription>We'll send your quote to this email</CardDescription>
+                    <CardTitle className="text-2xl">
+                      {isQuoteMode ? 'Contact Details' : 'Your Information'}
+                    </CardTitle>
+                    <CardDescription>
+                      {isQuoteMode ? 
+                        'Review your contact information for this quote' : 
+                        "We'll send your quote to this email"}
+                    </CardDescription>
                   </CardHeader>
                   <CardContent>
                     <form onSubmit={handleContactSubmit} className="space-y-4">
@@ -3604,24 +3728,26 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                           <ChevronLeft className="h-4 w-4 mr-2" />
                           Back
                         </Button>
-                        <Button
-                          type="submit"
-                          disabled={createLead.isPending}
-                          className="flex-1"
-                          data-testid="button-send-quote"
-                        >
-                          {createLead.isPending ? (
-                            <>
-                              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                              Sending...
-                            </>
-                          ) : (
-                            <>
-                              Send Quote
-                              <ChevronRight className="h-4 w-4 ml-2" />
-                            </>
-                          )}
-                        </Button>
+                        {!isQuoteMode && (
+                          <Button
+                            type="submit"
+                            disabled={createLead.isPending}
+                            className="flex-1"
+                            data-testid="button-send-quote"
+                          >
+                            {createLead.isPending ? (
+                              <>
+                                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                                Sending...
+                              </>
+                            ) : (
+                              <>
+                                Send Quote
+                                <ChevronRight className="h-4 w-4 ml-2" />
+                              </>
+                            )}
+                          </Button>
+                        )}
                       </div>
                     </form>
                   </CardContent>

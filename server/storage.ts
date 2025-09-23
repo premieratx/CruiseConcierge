@@ -56,6 +56,12 @@ export interface IStorage {
   createQuote(quote: InsertQuote): Promise<Quote>;
   updateQuote(id: string, updates: Partial<Quote>): Promise<Quote>;
   getQuotesByProject(projectId: string): Promise<Quote[]>;
+  getQuoteByToken(token: string): Promise<Quote | undefined>;
+  createQuoteFromChat(data: {
+    contact: InsertContact;
+    project: InsertProject;
+    quoteData: Partial<InsertQuote>;
+  }): Promise<{ quote: Quote; publicUrl: string }>;
 
   // Invoices
   getInvoice(id: string): Promise<Invoice | undefined>;
@@ -1587,6 +1593,70 @@ export class DatabaseStorage implements IStorage {
 
   async getQuotesByProject(projectId: string): Promise<Quote[]> {
     return await db.select().from(quotes).where(eq(quotes.projectId, projectId));
+  }
+
+  async getQuoteByToken(token: string): Promise<Quote | undefined> {
+    const result = await db.select().from(quotes)
+      .where(
+        and(
+          eq(quotes.accessToken, token),
+          isNull(quotes.accessTokenRevokedAt)
+        )
+      )
+      .limit(1);
+    return result[0];
+  }
+
+  async createQuoteFromChat(data: {
+    contact: InsertContact;
+    project: InsertProject;
+    quoteData: Partial<InsertQuote>;
+  }): Promise<{ quote: Quote; publicUrl: string }> {
+    // Create or get contact
+    let contact = await this.getContactByEmail(data.contact.email);
+    if (!contact) {
+      contact = await this.createContact(data.contact);
+    }
+
+    // Create project
+    const projectData = {
+      ...data.project,
+      contactId: contact.id,
+    };
+    const project = await this.createProject(projectData);
+
+    // Generate slug and access token
+    const year = new Date().getFullYear();
+    const randomPart = Math.random().toString(36).substring(2, 8).toUpperCase();
+    const slug = `Q-${year}-${randomPart}`;
+    
+    // Generate secure access token using quoteTokenService
+    const { token } = quoteTokenService.generateToken();
+
+    // Create the quote with all details
+    const quoteToCreate: InsertQuote = {
+      ...data.quoteData,
+      projectId: project.id,
+      slug,
+      accessToken: token,
+      accessTokenCreatedAt: new Date(),
+      status: 'SENT',
+      // Store contact info directly for standalone viewing
+      contactInfo: {
+        firstName: data.contact.name?.split(' ')[0] || '',
+        lastName: data.contact.name?.split(' ')[1] || '',
+        email: data.contact.email,
+        phone: data.contact.phone || '',
+      },
+      // Event details are passed in quoteData
+    };
+
+    const quote = await this.createQuote(quoteToCreate);
+    
+    // Generate the public URL
+    const publicUrl = `/q/${token}`;
+
+    return { quote, publicUrl };
   }
 
   // ===== INVOICE AND PAYMENT OPERATIONS =====

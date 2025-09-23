@@ -36,9 +36,250 @@ import sanitizeHtml from 'sanitize-html';
 import TurndownService from 'turndown';
 import { quoteTokenService } from "./services/quoteTokenService";
 import { seedQuoteTemplates } from "./seedTemplates";
+import { format } from "date-fns";
 
 // Initialize comprehensive lead service
 const comprehensiveLeadService = new ComprehensiveLeadService();
+
+// ==========================================
+// QUOTE CREATION FROM CHAT
+// ==========================================
+
+/**
+ * Creates a quote from the chat flow with all selections
+ */
+export async function createQuoteFromChat(app: Express) {
+  app.post("/api/quotes/from-chat", async (req, res) => {
+    try {
+      const {
+        // Contact information
+        firstName,
+        lastName,
+        email,
+        phone,
+        
+        // Event details
+        eventType,
+        eventTypeLabel,
+        eventEmoji,
+        eventDate,
+        groupSize,
+        specialRequests,
+        budget,
+        
+        // Selection details
+        cruiseType,
+        selectedSlot,
+        selectedPackages,
+        discoPackage,
+        ticketQuantity,
+        selectedDuration,
+        selectedBoat,
+        preferredTimeLabel,
+        groupSizeLabel,
+        
+        // Pricing details
+        subtotal,
+        tax,
+        gratuity,
+        total,
+        depositAmount,
+        discountCode
+      } = req.body;
+
+      // Validate required fields
+      if (!firstName || !lastName || !email || !phone) {
+        return res.status(400).json({ error: 'Missing required contact information' });
+      }
+      if (!eventDate || !groupSize) {
+        return res.status(400).json({ error: 'Missing required event details' });
+      }
+
+      // Create the contact data
+      const contactData = {
+        name: `${firstName} ${lastName}`,
+        email,
+        phone,
+        tags: ['chat-quote', eventType || 'general']
+      };
+
+      // Create the project data
+      const projectData = {
+        title: `${eventTypeLabel || 'Event'} - ${format(new Date(eventDate), 'MMM d, yyyy')}`,
+        status: 'QUOTE',
+        projectDate: new Date(eventDate),
+        groupSize,
+        eventType,
+        specialRequests,
+        budget,
+        leadSource: 'chat',
+        tags: ['chat-generated'],
+        pipelinePhase: 'ph_quote_sent'
+      };
+
+      // Prepare quote data
+      const quoteData = {
+        eventDetails: {
+          eventType,
+          eventTypeLabel,
+          eventEmoji,
+          eventDate,
+          groupSize,
+          specialRequests,
+          budget
+        },
+        selectionDetails: {
+          cruiseType,
+          selectedSlot,
+          selectedPackages,
+          discoPackage,
+          ticketQuantity,
+          selectedDuration,
+          selectedBoat,
+          preferredTimeLabel,
+          groupSizeLabel
+        },
+        promoCode: discountCode,
+        subtotal,
+        tax,
+        gratuity,
+        total,
+        depositAmount,
+        depositRequired: true,
+        depositPercent: 25,
+        perPersonCost: Math.floor(total / (ticketQuantity || groupSize))
+      };
+
+      // Create the quote with all details
+      const result = await storage.createQuoteFromChat({
+        contact: contactData,
+        project: projectData,
+        quoteData
+      });
+
+      // Add lead to Google Sheets "Leads" tab
+      try {
+        await googleSheetsService.addLeadToSheet({
+          name: `${firstName} ${lastName}`,
+          email,
+          phone,
+          eventDate: format(new Date(eventDate), 'MM/dd/yyyy'),
+          eventType: eventTypeLabel || eventType || 'General',
+          groupSize: String(groupSize),
+          quoteUrl: result.publicUrl,
+          createdDate: format(new Date(), 'MM/dd/yyyy HH:mm:ss'),
+          leadSource: 'Chat Quote Builder',
+          status: 'Quote Sent'
+        });
+      } catch (sheetsError) {
+        console.error('Error adding lead to Google Sheets:', sheetsError);
+        // Don't fail the quote creation if sheets update fails
+      }
+
+      // Also save to comprehensive lead system
+      try {
+        await comprehensiveLeadService.createLead({
+          name: `${firstName} ${lastName}`,
+          email,
+          phone,
+          eventType: eventType || 'general',
+          eventDate: new Date(eventDate),
+          groupSize,
+          source: 'chat_quote',
+          status: 'quote_sent',
+          quoteId: result.quote.id,
+          projectId: result.quote.projectId,
+          contactId: result.quote.contactId
+        });
+      } catch (leadError) {
+        console.error('Error creating lead:', leadError);
+        // Don't fail the quote creation if lead creation fails
+      }
+
+      // Return the quote ID, slug, and public URL
+      res.json({
+        success: true,
+        quoteId: result.quote.id,
+        slug: result.quote.slug,
+        publicUrl: result.publicUrl,
+        accessToken: result.quote.accessToken
+      });
+
+    } catch (error) {
+      console.error('Error creating quote from chat:', error);
+      res.status(500).json({ 
+        error: 'Failed to create quote',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // ==========================================
+  // PUBLIC QUOTE RETRIEVAL 
+  // ==========================================
+  
+  app.get("/api/quotes/public/:token", async (req, res) => {
+    try {
+      const { token } = req.params;
+      
+      if (!token) {
+        return res.status(400).json({ error: 'Token is required' });
+      }
+
+      // Get the quote by access token
+      const quote = await storage.getQuoteByToken(token);
+      
+      if (!quote) {
+        return res.status(404).json({ error: 'Quote not found or has been revoked' });
+      }
+
+      // Get related project and contact information if needed
+      const project = await storage.getProject(quote.projectId);
+      let contact = null;
+      
+      if (project) {
+        contact = await storage.getContact(project.contactId);
+      }
+
+      // Track quote view
+      if (quote.id) {
+        await storage.trackQuoteView(quote.id, contact?.id, undefined, {
+          accessMethod: 'public_link',
+          viewedAt: new Date().toISOString()
+        });
+      }
+
+      // Return the quote with all necessary data
+      res.json({
+        success: true,
+        quote: {
+          ...quote,
+          // Include contact info from either the quote or the contact record
+          contactInfo: quote.contactInfo || {
+            firstName: contact?.name?.split(' ')[0] || '',
+            lastName: contact?.name?.split(' ')[1] || '',
+            email: contact?.email || '',
+            phone: contact?.phone || ''
+          },
+          // Include project details if available
+          project: project ? {
+            title: project.title,
+            projectDate: project.projectDate,
+            groupSize: project.groupSize,
+            eventType: project.eventType
+          } : undefined
+        }
+      });
+
+    } catch (error) {
+      console.error('Error retrieving public quote:', error);
+      res.status(500).json({ 
+        error: 'Failed to retrieve quote',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+}
 
 // ==========================================
 // DISCOUNT CODE VALIDATION

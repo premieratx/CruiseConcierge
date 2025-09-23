@@ -70,9 +70,43 @@ export const quotes = pgTable("quotes", {
   orgId: varchar("org_id").notNull().default("org_demo"),
   projectId: varchar("project_id").notNull(),
   templateId: varchar("template_id"), // reference to quote template
+  slug: varchar("slug"), // human-friendly identifier like Q-2025-ABC123
   status: varchar("status").notNull().default("DRAFT"),
   items: jsonb("items").$type<QuoteItem[]>().default([]),
   radioSections: jsonb("radio_sections").$type<RadioSection[]>().default([]),
+  
+  // Contact Information (stored directly for standalone viewing)
+  contactInfo: jsonb("contact_info").$type<{
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+  }>(),
+  
+  // Event Details (stored for standalone viewing)
+  eventDetails: jsonb("event_details").$type<{
+    eventType: string;
+    eventTypeLabel?: string;
+    eventEmoji?: string;
+    eventDate: string;
+    groupSize: number;
+    specialRequests?: string;
+    budget?: string;
+  }>(),
+  
+  // Selection Details (cruise type, slot, packages, etc.)
+  selectionDetails: jsonb("selection_details").$type<{
+    cruiseType?: 'private' | 'disco';
+    selectedSlot?: any; // NormalizedSlot
+    selectedPackages?: string[];
+    discoPackage?: string;
+    ticketQuantity?: number;
+    selectedDuration?: number;
+    selectedBoat?: string;
+    preferredTimeLabel?: string;
+    groupSizeLabel?: string;
+  }>(),
+  
   promoCode: text("promo_code"),
   discountTotal: integer("discount_total").notNull().default(0),
   subtotal: integer("subtotal").notNull().default(0),
