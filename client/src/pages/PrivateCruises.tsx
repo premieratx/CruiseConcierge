@@ -21,6 +21,7 @@ import {
 } from 'lucide-react';
 import SEOHead from '@/components/SEOHead';
 import { formatCurrency } from '@shared/formatters';
+import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { PRIVATE_CRUISE_PACKAGES, PRIVATE_CAPACITY_TIERS, PACKAGE_COMPARISON_FEATURES } from '@shared/constants';
 
 // Hero and gallery images 
@@ -187,6 +188,7 @@ const faqData = [
 
 export default function PrivateCruises() {
   const [location, navigate] = useLocation();
+  const { isEditMode } = useInlineEdit();
 
   const handleGetQuote = () => {
     // Navigate to chat for instant quote
@@ -250,6 +252,7 @@ export default function PrivateCruises() {
             <motion.h1 
               variants={fadeInUp}
               className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-8 text-gray-900 dark:text-white"
+              data-editable data-editable-id="private-hero-title"
             >
               EVERYTHING SET UP
               <span className="block text-brand-blue">WHEN YOU ARRIVE</span>
@@ -258,6 +261,7 @@ export default function PrivateCruises() {
             <motion.p 
               variants={fadeInUp}
               className="text-xl md:text-2xl mb-12 text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed"
+              data-editable data-editable-id="private-hero-subtitle"
             >
               <span className="text-brand-blue font-bold">Choose Your Perfect Package.</span> From basic cruising to ultimate party experiences, 
               we handle all the setup so you can focus on making memories. Professional crew, premium amenities, 

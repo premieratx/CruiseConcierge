@@ -24,6 +24,7 @@ import {
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
 import { DiscoVsPrivateComparison, QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
+import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { 
   calculatePackagePricing, 
   getCapacityTier, 
@@ -238,6 +239,7 @@ const capacityPricingExamples = [
 
 export default function Home() {
   const [, navigate] = useLocation();
+  const { isEditMode } = useInlineEdit();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [showLightbox, setShowLightbox] = useState(false);
@@ -437,10 +439,10 @@ export default function Home() {
 
             {/* Main Headline */}
             <motion.div variants={fadeInUp} className="mb-8">
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-6 leading-tight tracking-wider">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-6 leading-tight tracking-wider" data-editable data-editable-id="hero-title">
                 AUSTIN'S PREMIER
               </h1>
-              <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-brand-yellow mb-6 leading-tight tracking-wider">
+              <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-brand-yellow mb-6 leading-tight tracking-wider" data-editable data-editable-id="hero-subtitle">
                 PARTY CRUISE EXPERIENCE
               </h2>
             </motion.div>
@@ -449,6 +451,7 @@ export default function Home() {
             <motion.p 
               variants={fadeInUp}
               className="text-xl md:text-2xl mb-8 text-gray-100 max-w-4xl mx-auto leading-relaxed font-light"
+              data-editable data-editable-id="hero-description"
             >
               Experience Austin's ultimate Lake Travis adventure with the most trusted party cruise company since 2009. 
               From intimate 14-person cruises on "Day Tripper" to epic 50-person parties on flagship "Clever Girl" - we create unforgettable memories.

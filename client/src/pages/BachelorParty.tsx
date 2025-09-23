@@ -11,6 +11,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
+import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { 
   Users, Clock, Star, Calendar, MapPin, Ship, Phone,
   ArrowRight, CheckCircle, Sparkles, Crown, Music, 
@@ -273,6 +274,7 @@ const galleryPhotos = [
 
 export default function BachelorParty() {
   const [, navigate] = useLocation();
+  const { isEditMode } = useInlineEdit();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const [activeTab, setActiveTab] = useState('overview');
   const heroImages = [heroImage1, heroImage2, heroImage3];
@@ -335,6 +337,7 @@ export default function BachelorParty() {
             <motion.h1 
               variants={fadeInUp}
               className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
+              data-editable data-editable-id="bachelor-hero-title"
             >
               The Ultimate Bachelor Party<br/>
               <span className="text-brand-yellow">Cruise Experience</span>
@@ -343,6 +346,7 @@ export default function BachelorParty() {
             <motion.p 
               variants={fadeInUp}
               className="text-xl md:text-2xl mb-8 text-gray-100"
+              data-editable data-editable-id="bachelor-hero-subtitle"
             >
               Exclusively for Bachelorette & Bachelor Parties<br/>
               <span className="text-lg">The Highlight of Your Weekend Every. Damn. Time.</span>
