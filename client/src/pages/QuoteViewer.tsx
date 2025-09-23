@@ -40,6 +40,26 @@ interface QuoteWithDetails {
     eventType?: string;
     eventDetails?: string;
   };
+  eventDetails?: {
+    eventType: string;
+    eventTypeLabel?: string;
+    eventEmoji?: string;
+    eventDate: string;
+    groupSize: number;
+    specialRequests?: string;
+    budget?: string;
+  };
+  selectionDetails?: {
+    cruiseType?: 'private' | 'disco';
+    selectedSlot?: any;
+    selectedPackages?: string[];
+    discoPackage?: string;
+    ticketQuantity?: number;
+    selectedDuration?: number;
+    selectedBoat?: string;
+    preferredTimeLabel?: string;
+    groupSizeLabel?: string;
+  };
   items: Array<{
     name?: string;
     productId?: string;
@@ -805,20 +825,61 @@ function QuoteViewerContent() {
 
   // Initialize state from quote data
   useEffect(() => {
-    if (quote?.project) {
-      setGroupSize(quote.project.groupSize || 20);
-      
-      // Update event type from quote
-      if (quote.project.eventType) {
-        setEventType(quote.project.eventType);
+    if (quote) {
+      // First try to use eventDetails (from chat flow quotes)
+      if (quote.eventDetails) {
+        setGroupSize(quote.eventDetails.groupSize || 20);
+        setEventType(quote.eventDetails.eventType || 'other');
+        if (quote.eventDetails.eventDate) {
+          const date = new Date(quote.eventDetails.eventDate);
+          setEventDate(format(date, 'yyyy-MM-dd'));
+        }
       }
       
-      // Set disco package if it's a disco cruise
+      // Then check selectionDetails for cruise selections
+      if (quote.selectionDetails) {
+        if (quote.selectionDetails.cruiseType) {
+          setSelectedCruiseType(quote.selectionDetails.cruiseType);
+        }
+        if (quote.selectionDetails.selectedBoat) {
+          setSelectedBoat(quote.selectionDetails.selectedBoat);
+        }
+        if (quote.selectionDetails.ticketQuantity) {
+          setDiscoTicketQuantity(quote.selectionDetails.ticketQuantity);
+        }
+        if (quote.selectionDetails.discoPackage) {
+          setSelectedDiscoPackage(quote.selectionDetails.discoPackage);
+        }
+        if (quote.selectionDetails.selectedPackages) {
+          setSelectedAddOns(quote.selectionDetails.selectedPackages);
+        }
+        if (quote.selectionDetails.selectedSlot) {
+          const slot = quote.selectionDetails.selectedSlot;
+          if (slot.startTime && slot.endTime) {
+            setSelectedTimeSlot(`${slot.startTime}-${slot.endTime}`);
+          }
+          if (slot.id) {
+            setSelectedSlotId(slot.id);
+          }
+        }
+      }
+      
+      // Fallback to project data if available (legacy quotes)
+      if (quote.project) {
+        if (!quote.eventDetails) {
+          setGroupSize(quote.project.groupSize || 20);
+          if (quote.project.eventType) {
+            setEventType(quote.project.eventType);
+          }
+        }
+      }
+      
+      // Set disco package if it's a disco cruise (legacy)
       const discoItem = quote.items?.find(item => 
         item.name?.toLowerCase().includes('disco') || 
         item.productId?.includes('disco')
       );
-      if (discoItem) {
+      if (discoItem && !quote.selectionDetails?.discoPackage) {
         const packageType = discoItem.productId?.replace('disco_', '') || 'basic';
         setSelectedDiscoPackage(packageType);
         setDiscoTicketQuantity(discoItem.qty || 10);

@@ -103,7 +103,7 @@ export async function createQuoteFromChat(app: Express) {
         tags: ['chat-quote', eventType || 'general']
       };
 
-      // Create the project data
+      // Create the project data (budget is integer in DB, so parse or exclude)
       const projectData = {
         title: `${eventTypeLabel || 'Event'} - ${format(new Date(eventDate), 'MMM d, yyyy')}`,
         status: 'QUOTE',
@@ -111,7 +111,7 @@ export async function createQuoteFromChat(app: Express) {
         groupSize,
         eventType,
         specialRequests,
-        budget,
+        // Don't include budget string in project, it will be in eventDetails
         leadSource: 'chat',
         tags: ['chat-generated'],
         pipelinePhase: 'ph_quote_sent'
@@ -327,6 +327,14 @@ export async function createQuoteFromChat(app: Express) {
             email: contact?.email || '',
             phone: contact?.phone || ''
           },
+          // Include event details from the quote
+          eventDetails: quote.eventDetails || {
+            eventType: project?.eventType || '',
+            eventDate: project?.projectDate || '',
+            groupSize: project?.groupSize || 0
+          },
+          // Include selection details from the quote
+          selectionDetails: quote.selectionDetails || {},
           // Include project details if available
           project: project ? {
             title: project.title,
