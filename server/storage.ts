@@ -5,6 +5,7 @@ import { randomUUID } from "crypto";
 import { quoteTokenService } from "./services/quoteTokenService";
 import { HOURLY_RATES } from '../shared/constants.js';
 import { isInDiscoSeason } from '../shared/timeSlots.js';
+import { format } from "date-fns";
 
 export interface IStorage {
   // Contacts
@@ -62,6 +63,12 @@ export interface IStorage {
     project: InsertProject;
     quoteData: Partial<InsertQuote>;
   }): Promise<{ quote: Quote; publicUrl: string }>;
+  createInitializedQuote(data: {
+    eventDate: Date;
+    eventType: string;
+    groupSize: number;
+  }): Promise<{ quote: Quote; publicUrl: string; accessToken: string }>;
+  updateQuoteByToken(token: string, updates: Partial<InsertQuote>): Promise<Quote>;
 
   // Invoices
   getInvoice(id: string): Promise<Invoice | undefined>;
@@ -1540,32 +1547,38 @@ export class DatabaseStorage implements IStorage {
       depositPercent: insertQuote.depositPercent || 25,
       depositAmount: insertQuote.depositAmount || 0,
       paymentSchedule: insertQuote.paymentSchedule || [],
-      accessToken: null, // Will be updated below
-      accessTokenCreatedAt: null,
-      accessTokenRevokedAt: null,
+      accessToken: insertQuote.accessToken || null, // Keep existing token if provided
+      accessTokenCreatedAt: insertQuote.accessTokenCreatedAt || null,
+      accessTokenRevokedAt: insertQuote.accessTokenRevokedAt || null,
       expiresAt: insertQuote.expiresAt || null,
       version: insertQuote.version || 1,
     }).returning();
     
     const quote = result[0];
     
-    // Now generate secure token with the actual quote ID
-    const accessToken = quoteTokenService.generateSecureToken(quote.id, {
-      scope: 'quote:view',
-      expiresIn: 30 * 24 * 60 * 60 * 1000, // 30 days
-      audience: 'customer'
-    });
+    // Only generate JWT token if no token was provided
+    if (!insertQuote.accessToken) {
+      // Generate secure JWT token with the actual quote ID
+      const accessToken = quoteTokenService.generateSecureToken(quote.id, {
+        scope: 'quote:view',
+        expiresIn: 30 * 24 * 60 * 60 * 1000, // 30 days
+        audience: 'customer'
+      });
+      
+      // Update the quote with the correct access token
+      const updatedResult = await db.update(quotes)
+        .set({
+          accessToken,
+          accessTokenCreatedAt: new Date()
+        })
+        .where(eq(quotes.id, quote.id))
+        .returning();
+      
+      return updatedResult[0];
+    }
     
-    // Update the quote with the correct access token
-    const updatedResult = await db.update(quotes)
-      .set({
-        accessToken,
-        accessTokenCreatedAt: new Date()
-      })
-      .where(eq(quotes.id, quote.id))
-      .returning();
-    
-    return updatedResult[0];
+    // If token was provided, return the quote as-is
+    return quote;
   }
 
   async updateQuote(id: string, updates: Partial<Quote>): Promise<Quote> {
@@ -1630,8 +1643,9 @@ export class DatabaseStorage implements IStorage {
     const randomPart = Math.random().toString(36).substring(2, 8).toUpperCase();
     const slug = `Q-${year}-${randomPart}`;
     
-    // Generate secure access token using quoteTokenService
-    const { token } = quoteTokenService.generateToken();
+    // Generate a simple random access token for now (we don't have the quoteId yet)
+    // This will be a simple random token for public access
+    const token = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
 
     // Create the quote with all details
     const quoteToCreate: InsertQuote = {
@@ -1657,6 +1671,98 @@ export class DatabaseStorage implements IStorage {
     const publicUrl = `/q/${token}`;
 
     return { quote, publicUrl };
+  }
+  
+  async createInitializedQuote(data: {
+    eventDate: Date;
+    eventType: string;
+    groupSize: number;
+  }): Promise<{ quote: Quote; publicUrl: string; accessToken: string }> {
+    // Generate slug
+    const year = new Date().getFullYear();
+    const randomPart = Math.random().toString(36).substring(2, 8).toUpperCase();
+    const slug = `Q-${year}-${randomPart}`;
+    
+    // Generate a simple secure access token for public access (will be used in URLs)
+    const simpleToken = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    
+    // Create a placeholder project (no contact yet)
+    const projectData = {
+      contactId: 'placeholder_' + randomUUID(), // Temporary placeholder
+      title: `Event - ${format(new Date(data.eventDate), 'MMM d, yyyy')}`,
+      status: 'DRAFT',
+      projectDate: new Date(data.eventDate),
+      groupSize: data.groupSize,
+      eventType: data.eventType,
+      leadSource: 'chat',
+      tags: ['initialized-quote'],
+      pipelinePhase: 'ph_draft'
+    };
+    const project = await this.createProject(projectData);
+    
+    // Create minimal quote with essential info only
+    const quoteToCreate: InsertQuote = {
+      projectId: project.id,
+      slug,
+      accessToken: simpleToken,  // Use the simple token here
+      accessTokenCreatedAt: new Date(),
+      status: 'DRAFT',
+      eventDetails: {
+        eventDate: data.eventDate,
+        eventType: data.eventType,
+        groupSize: data.groupSize
+      },
+      // Initialize with empty pricing - will be calculated when selections are made
+      subtotal: 0,
+      tax: 0,
+      gratuity: 0,
+      total: 0,
+      depositAmount: 0,
+      depositRequired: false,
+      depositPercent: 25,
+      perPersonCost: 0
+    };
+    
+    const quote = await this.createQuote(quoteToCreate);
+    
+    // Generate the public URL using the simple token
+    const publicUrl = `/q/${simpleToken}`;
+    
+    return { quote, publicUrl, accessToken: simpleToken };
+  }
+  
+  async updateQuoteByToken(token: string, updates: Partial<InsertQuote>): Promise<Quote> {
+    // First get the quote by token
+    const quote = await this.getQuoteByToken(token);
+    if (!quote) {
+      throw new Error('Quote not found or access token is invalid');
+    }
+    
+    // If contact info is being updated and we have a placeholder project, update it
+    if (updates.contactInfo && quote.projectId) {
+      const project = await this.getProject(quote.projectId);
+      if (project && project.contactId.startsWith('placeholder_')) {
+        // Check if contact exists or create new one
+        let contact = await this.getContactByEmail(updates.contactInfo.email);
+        if (!contact) {
+          contact = await this.createContact({
+            name: `${updates.contactInfo.firstName} ${updates.contactInfo.lastName}`,
+            email: updates.contactInfo.email,
+            phone: updates.contactInfo.phone || '',
+            tags: ['chat-quote', project.eventType || 'general']
+          });
+        }
+        
+        // Update project with real contact ID
+        await this.updateProject(quote.projectId, {
+          contactId: contact.id,
+          title: `${project.eventType} - ${updates.contactInfo.firstName} ${updates.contactInfo.lastName}`
+        });
+      }
+    }
+    
+    // Update the quote with new data
+    return await this.updateQuote(quote.id, updates);
   }
 
   // ===== INVOICE AND PAYMENT OPERATIONS =====

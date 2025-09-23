@@ -11,7 +11,7 @@ import {
   User, Mail, Phone, MapPin, Star, Sparkles, CreditCard,
   FileText, AlertCircle, Loader2, ChevronLeft, Edit2,
   Music, Anchor, Crown, Zap, Calendar, ArrowRight, ArrowLeft,
-  RotateCcw, CheckCircle, Settings, Plus, Minus, ShoppingCart
+  RotateCcw, CheckCircle, Settings, Plus, Minus, ShoppingCart, Copy
 } from 'lucide-react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
@@ -837,12 +837,15 @@ interface ChatProps {
 }
 
 export default function Chat({ defaultEventType }: ChatProps = {}) {
+  const { toast } = useToast(); // Move to the top for proper initialization
   const { isEditMode } = useInlineEdit();
   const params = useParams();
   const quoteToken = params.token;
   const [isQuoteMode, setIsQuoteMode] = useState(false);
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [loadedQuoteData, setLoadedQuoteData] = useState<any>(null);
+  const [quoteUrl, setQuoteUrl] = useState<string | null>(null);
+  const [showQuoteConfirmation, setShowQuoteConfirmation] = useState(false);
   
   // Initialize with defaultEventType if provided
   const getInitialEventData = () => {
@@ -1007,8 +1010,6 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   useEffect(() => {
     completedSelectionsRef.current = completedSelections;
   }, [completedSelections]);
-  
-  const { toast } = useToast();
   
   // Load quote data if we're in Quote Mode
   useEffect(() => {
@@ -1242,9 +1243,48 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     }
   };
   
-  const proceedToComparison = (selectedDate?: Date) => {
+  const proceedToComparison = async (selectedDate?: Date) => {
     const eventDate = selectedDate || formData.eventDate;
     if (eventDate) {
+      // NEW FLOW: Initialize quote immediately and redirect to quote URL
+      if (!token) {  // Only initialize if not already on a quote URL
+        try {
+          // Show loading state
+          setQuoteLoading(true);
+          
+          // Initialize the quote with minimal data
+          const response = await fetch('/api/quotes/initialize', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              eventDate: eventDate.toISOString(),
+              eventType: formData.eventType,
+              groupSize: formData.groupSize
+            })
+          });
+          
+          if (!response.ok) {
+            throw new Error('Failed to initialize quote');
+          }
+          
+          const data = await response.json();
+          
+          // Redirect to the quote URL
+          window.location.href = `/q/${data.accessToken}`;
+          return; // Stop here, page will redirect
+          
+        } catch (error) {
+          console.error('Error initializing quote:', error);
+          toast({
+            title: "Error",
+            description: "Failed to initialize quote. Please try again.",
+            variant: "destructive"
+          });
+          setQuoteLoading(false);
+        }
+      }
+      
+      // If already on quote URL or fallback, continue with normal flow
       setCurrentStep('comparison-selection');
       setEventTypeCollapsed(false);
       setShowGroupSize(false);
@@ -1291,6 +1331,50 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       return [...prev, selection];
     });
   };
+  
+  // Update quote via PATCH when selections change (for quote URLs)
+  const updateQuoteSelections = useCallback(async () => {
+    if (!token || !formData.selectedCruiseType) return;
+    
+    try {
+      // Build selection details
+      const selectionDetails: any = {
+        cruiseType: formData.selectedCruiseType,
+        selectedSlot: formData.selectedSlot,
+        selectedPackages: formData.selectedAddOnPackages,
+        discoPackage: formData.selectedDiscoPackage,
+        ticketQuantity: formData.discoTicketQuantity,
+        selectedDuration: formData.selectedDuration,
+        selectedBoat: formData.selectedBoat,
+        preferredTimeLabel: formData.preferredTimeLabel,
+        groupSizeLabel: formData.groupSizeLabel
+      };
+      
+      // Update the quote
+      const response = await fetch(`/api/quotes/public/${token}`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          eventDetails: {
+            eventDate: formData.eventDate,
+            eventType: formData.eventType,
+            eventTypeLabel: formData.eventTypeLabel,
+            eventEmoji: formData.eventEmoji,
+            groupSize: formData.groupSize
+          },
+          selectionDetails,
+          specialRequests: formData.specialRequests,
+          promoCode: formData.discountCode
+        })
+      });
+      
+      if (!response.ok) {
+        console.error('Failed to update quote selections');
+      }
+    } catch (error) {
+      console.error('Error updating quote selections:', error);
+    }
+  }, [token, formData]);
 
   // Refs to prevent infinite loops in auto-selection
   const autoSelectionRef = useRef({
@@ -1299,6 +1383,26 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     lastEventDate: null as Date | null,
     hasAutoSelected: false
   });
+  
+  // Auto-update quote when selections change (for quote URLs)
+  useEffect(() => {
+    if (!token || !formData.selectedCruiseType) return;
+    
+    // Debounce updates to avoid too many API calls
+    const timeoutId = setTimeout(() => {
+      updateQuoteSelections();
+    }, 1000); // Wait 1 second after changes stop
+    
+    return () => clearTimeout(timeoutId);
+  }, [
+    token,
+    formData.selectedCruiseType,
+    formData.selectedSlot,
+    formData.selectedAddOnPackages,
+    formData.selectedDiscoPackage,
+    formData.discoTicketQuantity,
+    updateQuoteSelections
+  ]);
 
   // FIXED: Auto-select default options - made more stable to prevent crashes during group size editing
   useEffect(() => {
@@ -2102,7 +2206,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   }, []);
 
   // Contact form submission with loading protection
-  const handleContactSubmit = useCallback((e: React.FormEvent) => {
+  const handleContactSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
     
     // Prevent submission during loading states
@@ -2136,7 +2240,54 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       return;
     }
     
-    // COMPREHENSIVE LOGGING FOR CONTACT SUBMISSION
+    // NEW FLOW: Update existing quote if on quote URL
+    if (token) {
+      setFormSubmitting(true);
+      
+      try {
+        // Update the existing quote with contact info
+        const response = await fetch(`/api/quotes/public/${token}`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            contactInfo: {
+              firstName: formData.firstName,
+              lastName: formData.lastName,
+              email: formData.email,
+              phone: formData.phone || ''
+            },
+            specialRequests: formData.specialRequests
+          })
+        });
+        
+        if (!response.ok) {
+          throw new Error('Failed to update quote');
+        }
+        
+        const updatedQuote = await response.json();
+        
+        // Move to confirmation step
+        setCurrentStep('confirmation');
+        
+        toast({
+          title: "Contact Information Saved",
+          description: "Your quote has been updated with your contact details.",
+        });
+      } catch (error) {
+        console.error('Error updating quote:', error);
+        toast({
+          title: "Error",
+          description: "Failed to save contact information. Please try again.",
+          variant: "destructive"
+        });
+      } finally {
+        setFormSubmitting(false);
+      }
+      
+      return; // Exit early for quote URL flow
+    }
+    
+    // COMPREHENSIVE LOGGING FOR CONTACT SUBMISSION (original flow)
     const selectedBoatDetails = formData.selectedSlot ? getBoatDetails(formData.selectedSlot) : null;
     
     console.log("🚀 BOOKING PROCESS STARTED", {
@@ -2171,31 +2322,147 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       timestamp: new Date().toISOString()
     });
     
+    setFormSubmitting(true);
+    addCompletedSelection({
+      id: 'contact-info',
+      label: 'Contact',
+      value: `${formData.firstName} ${formData.lastName}`,
+      icon: 'user'
+    });
+    handleSendQuote();
+  }, [formData, formSubmitting, pricingLoading, paymentProcessing, toast, chatSessionId, getBoatDetails, privatePricing, discoPricing, token]);
+  
+  // Handle sending quote via API
+  const handleSendQuote = async () => {
     try {
-      setFormSubmitting(true);
-      addCompletedSelection({
-        id: 'contact-info',
-        label: 'Contact',
-        value: `${formData.firstName} ${formData.lastName}`,
-        icon: 'user'
+      // Determine which pricing to use based on cruise type
+      const selectedCruiseType = formData.selectedCruiseType;
+      const pricing = selectedCruiseType === 'private' ? privatePricing : discoPricing;
+      
+      // Log for debugging
+      console.log('📧 Sending quote with data:', {
+        cruiseType: selectedCruiseType,
+        pricing,
+        formData
       });
-      handleSendQuote();
+      
+      // Ensure we have the required pricing data
+      if (!pricing) {
+        throw new Error('Pricing information is not available. Please try again.');
+      }
+      
+      // Build the request payload
+      const requestPayload = {
+        // Contact information
+        firstName: formData.firstName,
+        lastName: formData.lastName,
+        email: formData.email,
+        phone: formData.phone,
+        
+        // Event details
+        eventType: formData.eventType,
+        eventTypeLabel: formData.eventTypeLabel,
+        eventEmoji: formData.eventEmoji,
+        eventDate: formData.eventDate,
+        groupSize: formData.groupSize,
+        specialRequests: formData.specialRequests,
+        budget: formData.budget,
+        
+        // Selection details
+        cruiseType: selectedCruiseType,
+        selectedSlot: formData.selectedSlot,
+        selectedPackages: formData.selectedAddOnPackages,
+        discoPackage: formData.selectedDiscoPackage,
+        ticketQuantity: formData.discoTicketQuantity,
+        selectedDuration: formData.selectedDuration,
+        selectedBoat: formData.selectedBoat,
+        preferredTimeLabel: formData.preferredTimeLabel,
+        groupSizeLabel: formData.groupSizeLabel,
+        
+        // Pricing details
+        subtotal: pricing?.subtotal,
+        tax: pricing?.tax,
+        gratuity: pricing?.gratuity,
+        total: pricing?.total,
+        depositAmount: pricing?.depositAmount,
+        discountCode: formData.discountCode
+      };
+      
+      // Call the API to create the quote
+      const response = await fetch('/api/quotes/from-chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(requestPayload),
+        credentials: 'include'
+      });
+      
+      // Check if response is OK
+      if (!response.ok) {
+        // Try to get error message from response
+        let errorMessage = `HTTP error! status: ${response.status}`;
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.error || errorData.message || errorMessage;
+        } catch {
+          // If response is not JSON, use default error message
+        }
+        throw new Error(errorMessage);
+      }
+      
+      // Parse the JSON response
+      const result = await response.json();
+      
+      if (result.success && result.accessToken) {
+        // Generate the shareable quote URL
+        const generatedQuoteUrl = `${window.location.origin}/q/${result.accessToken}`;
+        
+        // Store the quote URL and ID
+        setQuoteUrl(generatedQuoteUrl);
+        setGeneratedQuoteId(result.quoteId || result.slug || result.accessToken);
+        setShowQuoteConfirmation(true);
+        
+        // Show success toast with the quote URL
+        toast({
+          title: 'Quote Sent Successfully! 🎉',
+          description: (
+            <div className="space-y-2">
+              <p>Your quote has been sent to {formData.email}</p>
+              <p className="text-sm">Quote URL: {generatedQuoteUrl}</p>
+            </div>
+          ) as any,
+          duration: 10000
+        });
+        
+        // Proceed to confirmation step
+        goToStep('confirmation');
+      } else {
+        throw new Error(result.error || result.message || 'Failed to create quote');
+      }
+      
     } catch (error) {
-      console.error('❌ CONTACT FORM SUBMISSION ERROR', {
-        step: "contact_submission_error",
-        sessionId: chatSessionId,
-        error: error instanceof Error ? error.message : String(error),
-        timestamp: new Date().toISOString()
-      });
+      console.error('❌ Error sending quote:', error);
+      
+      // Detailed error logging
+      let errorMessage = 'Please try again';
+      if (error instanceof Error) {
+        errorMessage = error.message;
+        // Check if it's a network error
+        if (error.message.includes('Failed to fetch')) {
+          errorMessage = 'Network error. Please check your connection and try again.';
+        }
+      }
+      
       toast({
-        title: "Submission Error",
-        description: "Failed to submit contact information. Please try again.",
-        variant: "destructive",
+        title: 'Error sending quote',
+        description: errorMessage,
+        variant: 'destructive'
       });
     } finally {
       setFormSubmitting(false);
     }
-  }, [formData, formSubmitting, pricingLoading, paymentProcessing, toast, chatSessionId, getBoatDetails, privatePricing, discoPricing]);
+  };
 
   // Create lead mutation
   const createLead = useMutation({
@@ -2501,10 +2768,6 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       });
     },
   });
-
-  const handleSendQuote = () => {
-    createLead.mutate(formData);
-  };
 
   // Show loading state while quote is being loaded
   if (quoteLoading) {
@@ -4000,20 +4263,58 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                   </p>
                 </div>
                 
-                {generatedQuoteId && (
+                {(quoteUrl || generatedQuoteId) && (
                   <div className="space-y-4">
-                    <p className="text-slate-600 dark:text-slate-400">
-                      Quote ID: <span className="font-mono font-bold">{generatedQuoteId}</span>
-                    </p>
+                    {generatedQuoteId && (
+                      <p className="text-slate-600 dark:text-slate-400">
+                        Quote ID: <span className="font-mono font-bold">{generatedQuoteId}</span>
+                      </p>
+                    )}
                     
-                    <Button
-                      onClick={() => window.location.href = `/quote/${generatedQuoteId}`}
-                      size="lg"
-                      className="bg-gradient-to-r from-blue-600 to-purple-600"
-                    >
-                      View Your Quote
-                      <ArrowRight className="h-4 w-4 ml-2" />
-                    </Button>
+                    {quoteUrl && (
+                      <div className="space-y-3">
+                        <Alert className="border-green-200 bg-green-50 dark:bg-green-950 dark:border-green-800">
+                          <CheckCircle className="h-4 w-4 text-green-600" />
+                          <AlertDescription>
+                            <div className="space-y-2">
+                              <p className="font-medium">Your quote link is ready to share:</p>
+                              <div className="flex gap-2">
+                                <Input 
+                                  value={quoteUrl} 
+                                  readOnly 
+                                  className="flex-1"
+                                  data-testid="input-quote-url"
+                                />
+                                <Button
+                                  onClick={() => {
+                                    navigator.clipboard.writeText(quoteUrl);
+                                    toast({
+                                      title: 'Link copied!',
+                                      description: 'The quote link has been copied to your clipboard.',
+                                    });
+                                  }}
+                                  variant="outline"
+                                  size="sm"
+                                  data-testid="button-copy-quote-url"
+                                >
+                                  <Copy className="h-4 w-4" />
+                                </Button>
+                              </div>
+                            </div>
+                          </AlertDescription>
+                        </Alert>
+                        
+                        <Button
+                          onClick={() => window.open(quoteUrl, '_blank')}
+                          size="lg"
+                          className="bg-gradient-to-r from-blue-600 to-purple-600 w-full"
+                          data-testid="button-view-quote"
+                        >
+                          View Your Quote
+                          <ArrowRight className="h-4 w-4 ml-2" />
+                        </Button>
+                      </div>
+                    )}
                   </div>
                 )}
                 

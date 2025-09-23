@@ -1093,6 +1093,161 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // ✅ CHECKOUT APIS RESTORED: Emergency blocking removed, pricing fixed
   
+  // Register quote from chat endpoint
+  createQuoteFromChat(app);
+  
+  // ==========================================
+  // NEW QUOTE INITIALIZATION FLOW 
+  // ==========================================
+  
+  /**
+   * Initialize a minimal quote with just date, occasion, and group size
+   * This creates the quote immediately and returns the public URL
+   */
+  app.post("/api/quotes/initialize", async (req, res) => {
+    try {
+      const { eventDate, eventType, groupSize } = req.body;
+      
+      // Validate required fields
+      if (!eventDate || !eventType || !groupSize) {
+        return res.status(400).json({ 
+          error: 'Missing required fields: eventDate, eventType, and groupSize are required' 
+        });
+      }
+      
+      // Create the initialized quote
+      const result = await storage.createInitializedQuote({
+        eventDate: new Date(eventDate),
+        eventType,
+        groupSize: Number(groupSize)
+      });
+      
+      // Return the quote info
+      res.json({
+        success: true,
+        id: result.quote.id,
+        accessToken: result.accessToken,
+        publicUrl: result.publicUrl,
+        slug: result.quote.slug,
+        eventDetails: {
+          eventDate,
+          eventType,
+          groupSize
+        },
+        status: result.quote.status
+      });
+      
+    } catch (error) {
+      console.error('Error initializing quote:', error);
+      res.status(500).json({ 
+        error: 'Failed to initialize quote',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+  
+  /**
+   * Update an existing quote by its public access token
+   * This allows updating selections, contact info, and packages
+   */
+  app.patch("/api/quotes/public/:token", async (req, res) => {
+    try {
+      const { token } = req.params;
+      
+      if (!token) {
+        return res.status(400).json({ error: 'Token is required' });
+      }
+      
+      const updates = req.body;
+      
+      // Calculate pricing if selections are being updated
+      if (updates.selectionDetails || updates.eventDetails) {
+        const quote = await storage.getQuoteByToken(token);
+        if (!quote) {
+          return res.status(404).json({ error: 'Quote not found' });
+        }
+        
+        // Merge existing event details with any updates
+        const eventDetails = {
+          ...(quote.eventDetails || {}),
+          ...(updates.eventDetails || {})
+        };
+        
+        const selectionDetails = updates.selectionDetails || quote.selectionDetails || {};
+        
+        // Calculate pricing based on selections
+        if (selectionDetails.cruiseType && selectionDetails.selectedSlot) {
+          const pricingResult = await calculateServerPricing({
+            cruiseType: selectionDetails.cruiseType,
+            groupSize: selectionDetails.ticketQuantity || eventDetails.groupSize,
+            selectedSlot: selectionDetails.selectedSlot,
+            selectedPackages: selectionDetails.selectedPackages || [],
+            discoPackage: selectionDetails.discoPackage,
+            duration: selectionDetails.selectedDuration,
+            discountCode: updates.promoCode
+          });
+          
+          // Add pricing to updates
+          updates.subtotal = pricingResult.subtotal;
+          updates.tax = pricingResult.tax;
+          updates.gratuity = pricingResult.gratuity;
+          updates.total = pricingResult.total;
+          updates.depositAmount = pricingResult.depositAmount;
+          updates.perPersonCost = Math.floor(pricingResult.total / (selectionDetails.ticketQuantity || eventDetails.groupSize));
+        }
+      }
+      
+      // Update the quote
+      const updatedQuote = await storage.updateQuoteByToken(token, updates);
+      
+      // If contact info was just added, try to save to leads
+      if (updates.contactInfo) {
+        try {
+          await comprehensiveLeadService.createLead({
+            name: `${updates.contactInfo.firstName} ${updates.contactInfo.lastName}`,
+            email: updates.contactInfo.email,
+            phone: updates.contactInfo.phone,
+            eventType: updatedQuote.eventDetails?.eventType || 'general',
+            eventDate: new Date(updatedQuote.eventDetails?.eventDate || Date.now()),
+            groupSize: updatedQuote.eventDetails?.groupSize || 1,
+            source: 'chat_quote',
+            status: 'quote_draft',
+            quoteId: updatedQuote.id,
+            projectId: updatedQuote.projectId
+          });
+        } catch (leadError) {
+          console.error('Error creating lead:', leadError);
+          // Don't fail the update if lead creation fails
+        }
+      }
+      
+      res.json({
+        success: true,
+        quote: {
+          id: updatedQuote.id,
+          slug: updatedQuote.slug,
+          status: updatedQuote.status,
+          eventDetails: updatedQuote.eventDetails,
+          selectionDetails: updatedQuote.selectionDetails,
+          contactInfo: updatedQuote.contactInfo,
+          subtotal: updatedQuote.subtotal,
+          tax: updatedQuote.tax,
+          gratuity: updatedQuote.gratuity,
+          total: updatedQuote.total,
+          depositAmount: updatedQuote.depositAmount,
+          perPersonCost: updatedQuote.perPersonCost
+        }
+      });
+      
+    } catch (error) {
+      console.error('Error updating quote:', error);
+      res.status(500).json({ 
+        error: 'Failed to update quote',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+  
   // Discount validation API endpoint
   app.post("/api/discounts/validate", async (req, res) => {
     try {
