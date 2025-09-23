@@ -4,6 +4,7 @@ import { eq, and, gte, lte, desc, asc, isNull, isNotNull, or, inArray, sql, coun
 import { randomUUID } from "crypto";
 import { quoteTokenService } from "./services/quoteTokenService";
 import { HOURLY_RATES } from '../shared/constants.js';
+import { isInDiscoSeason } from '../shared/timeSlots.js';
 
 export interface IStorage {
   // Contacts
@@ -3604,7 +3605,26 @@ export class DatabaseStorage implements IStorage {
   }
 
   async checkDiscoAvailability(date: Date, timeSlot: string): Promise<boolean> {
-    return true;
+    // Check if date is within disco season (March 1 - last Saturday of October)
+    if (!isInDiscoSeason(date)) {
+      return false;
+    }
+    
+    // Check day of week - only Friday and Saturday have disco cruises
+    const dayOfWeek = date.getDay();
+    if (dayOfWeek !== 5 && dayOfWeek !== 6) { // Not Friday or Saturday
+      return false;
+    }
+    
+    // Validate time slots based on day
+    if (dayOfWeek === 5) { // Friday - only 12:00 PM - 4:00 PM
+      return timeSlot === '12:00-16:00' || timeSlot === '12pm-4pm';
+    } else if (dayOfWeek === 6) { // Saturday - 11:00 AM - 3:00 PM and 3:30 PM - 7:30 PM
+      return timeSlot === '11:00-15:00' || timeSlot === '11am-3pm' || 
+             timeSlot === '15:30-19:30' || timeSlot === '3:30pm-7:30pm';
+    }
+    
+    return false;
   }
 
   async getBoatAvailabilityByCapacity(date: Date, startTime: string, endTime: string): Promise<Map<number, { total: number; available: number; boats: Boat[] }>> {

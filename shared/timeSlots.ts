@@ -129,15 +129,58 @@ export const getPrivateTimeSlotsForDate = (date: Date, duration?: 3 | 4): TimeSl
 };
 
 /**
+ * Helper function to check if a date is within disco cruise season
+ * Season runs from March 1st through the last Saturday of October
+ */
+export const isInDiscoSeason = (date: Date): boolean => {
+  const year = date.getFullYear();
+  const month = date.getMonth(); // 0-indexed (0 = January)
+  const dayOfMonth = date.getDate();
+  
+  // Check if between March 1 and October 31
+  if (month < 2 || month > 9) { // Before March (2) or after October (9)
+    return false;
+  }
+  
+  if (month >= 2 && month < 9) { // March through September
+    return true;
+  }
+  
+  // Special handling for October - must be on or before the last Saturday
+  if (month === 9) { // October
+    // Find the last Saturday of October
+    const lastDayOfOctober = new Date(year, 9, 31);
+    let lastSaturday = lastDayOfOctober;
+    
+    // Work backwards from October 31 to find the last Saturday
+    while (lastSaturday.getDay() !== 6) { // 6 = Saturday
+      lastSaturday = new Date(lastSaturday);
+      lastSaturday.setDate(lastSaturday.getDate() - 1);
+    }
+    
+    // Check if current date is on or before the last Saturday
+    return date <= lastSaturday;
+  }
+  
+  return false;
+};
+
+/**
  * Get available disco cruise time slots for a given date
  * 
  * ✅ PERMANENT RULES - DO NOT CHANGE:
+ * - SEASONAL: Only available March 1st through last Saturday of October
  * - Friday: ONLY ONE SLOT 12:00 PM - 4:00 PM (bachelor/bachelorette only) - NO EVENING DISCO
  * - Saturday: 11:00 AM - 3:00 PM and 3:30 PM - 7:30 PM (both slots available)
  * - Sunday: NO DISCO CRUISES EVER (private cruises only on Sundays)
  * - Monday-Thursday: NO DISCO CRUISES
  */
 export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
+  // Check if date is within disco season
+  if (!isInDiscoSeason(date)) {
+    return [];
+  }
+  
   const dayOfWeek = date.getDay();
   
   if (dayOfWeek === 5) { // Friday - ✅ PERMANENT: ONLY 12-4 PM disco cruise (NO EVENING DISCO)
@@ -188,9 +231,16 @@ export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
 
 /**
  * Check if disco cruises are available for a given date
- * ✅ PERMANENT RULES: Friday and Saturday ONLY (NO Sunday disco EVER)
+ * ✅ PERMANENT RULES: 
+ * - SEASONAL: Only available March 1st through last Saturday of October
+ * - Friday and Saturday ONLY (NO Sunday disco EVER)
  */
 export const isDiscoAvailableForDate = (date: Date): boolean => {
+  // First check if date is within disco season
+  if (!isInDiscoSeason(date)) {
+    return false;
+  }
+  
   const dayOfWeek = date.getDay();
   return dayOfWeek === 5 || dayOfWeek === 6; // Friday and Saturday only (✅ NEVER on Sunday)
 };

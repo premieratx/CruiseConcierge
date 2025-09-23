@@ -540,42 +540,42 @@ export const PRICING_DEFAULTS = {
 export const HOURLY_RATES = {
   // Capacity-based rates for Monday-Thursday (4 hours)
   MON_THU: {
-    14: 29500,  // $295/hour - Day Tripper
-    25: 49500,  // $495/hour - Me Seeks The Irony
-    30: 49500,  // $495/hour - Me Seeks The Irony (same as 25p + crew fee)
-    50: 79500,  // $795/hour - Clever Girl
-    75: 79500,  // $795/hour - Clever Girl (same as 50p + crew fee)
+    14: 20000,  // $200/hour - Day Tripper
+    25: 25000,  // $250/hour - Me Seeks The Irony
+    30: 25000,  // $250/hour - Me Seeks The Irony (same as 25p + crew fee)
+    50: 30000,  // $300/hour - Clever Girl
+    75: 30000,  // $300/hour - Clever Girl (same as 50p + crew fee)
   },
   // Capacity-based rates for Friday (4 hours)
   FRIDAY: {
-    14: 29500,  // $295/hour - Day Tripper
-    25: 49500,  // $495/hour - Me Seeks The Irony
-    30: 49500,  // $495/hour - Me Seeks The Irony (same as 25p + crew fee)
-    50: 79500,  // $795/hour - Clever Girl
-    75: 79500,  // $795/hour - Clever Girl (same as 50p + crew fee)
+    14: 25000,  // $250/hour - Day Tripper
+    25: 30000,  // $300/hour - Me Seeks The Irony
+    30: 30000,  // $300/hour - Me Seeks The Irony (same as 25p + crew fee)
+    50: 35000,  // $350/hour - Clever Girl
+    75: 35000,  // $350/hour - Clever Girl (same as 50p + crew fee)
   },
-  // Capacity-based rates for Saturday (4 hours)
+  // Capacity-based rates for Saturday-Sunday (4 hours)
   SAT_SUN: {
-    14: 29500,  // $295/hour - Day Tripper
-    25: 49500,  // $495/hour - Me Seeks The Irony
-    30: 49500,  // $495/hour - Me Seeks The Irony (same as 25p + crew fee)
-    50: 79500,  // $795/hour - Clever Girl
-    75: 79500,  // $795/hour - Clever Girl (same as 50p + crew fee)
+    14: 30000,  // $300/hour - Day Tripper
+    25: 35000,  // $350/hour - Me Seeks The Irony
+    30: 35000,  // $350/hour - Me Seeks The Irony (same as 25p + crew fee)
+    50: 40000,  // $400/hour - Clever Girl
+    75: 40000,  // $400/hour - Clever Girl (same as 50p + crew fee)
   },
   // Legacy aliases for backward compatibility
   WEEKDAY: {
-    14: 29500,  // $295/hour - Day Tripper
-    25: 49500,  // $495/hour - Me Seeks The Irony
-    30: 49500,  // $495/hour - Me Seeks The Irony
-    50: 79500,  // $795/hour - Clever Girl
-    75: 79500,  // $795/hour - Clever Girl
+    14: 20000,  // $200/hour - Day Tripper (Mon-Thu rate)
+    25: 25000,  // $250/hour - Me Seeks The Irony
+    30: 25000,  // $250/hour - Me Seeks The Irony
+    50: 30000,  // $300/hour - Clever Girl
+    75: 30000,  // $300/hour - Clever Girl
   },
   WEEKEND: {
-    14: 29500,  // $295/hour - Day Tripper
-    25: 49500,  // $495/hour - Me Seeks The Irony  
-    30: 49500,  // $495/hour - Me Seeks The Irony
-    50: 79500,  // $795/hour - Clever Girl
-    75: 79500,  // $795/hour - Clever Girl
+    14: 30000,  // $300/hour - Day Tripper (Sat-Sun rate)
+    25: 35000,  // $350/hour - Me Seeks The Irony  
+    30: 35000,  // $350/hour - Me Seeks The Irony
+    50: 40000,  // $400/hour - Clever Girl
+    75: 40000,  // $400/hour - Clever Girl
   }
 } as const;
 
@@ -611,10 +611,10 @@ export const PRIVATE_CRUISE_PRICING = {
   14: {
     capacity: 14,
     baseHourlyRates: {
-      MON_THU: 29500,  // $295/hr
-      FRIDAY: 29500,   // $295/hr  
-      SATURDAY: 29500, // $295/hr
-      SUNDAY: 29500,   // $295/hr
+      MON_THU: 20000,  // $200/hr
+      FRIDAY: 25000,   // $250/hr  
+      SATURDAY: 30000, // $300/hr
+      SUNDAY: 30000,   // $300/hr
     },
     packages: {
       standard: {
@@ -657,10 +657,10 @@ export const PRIVATE_CRUISE_PRICING = {
   25: {
     capacity: 25,
     baseHourlyRates: {
-      MON_THU: 49500,  // $495/hr
-      FRIDAY: 49500,   // $495/hr
-      SATURDAY: 49500, // $495/hr  
-      SUNDAY: 49500,   // $495/hr
+      MON_THU: 25000,  // $250/hr
+      FRIDAY: 30000,   // $300/hr
+      SATURDAY: 35000, // $350/hr  
+      SUNDAY: 35000,   // $350/hr
     },
     packages: {
       standard: {
@@ -703,10 +703,10 @@ export const PRIVATE_CRUISE_PRICING = {
   30: {
     capacity: 30,
     baseHourlyRates: {
-      MON_THU: 49500,  // $495/hr (same as 25p)
-      FRIDAY: 49500,   // $495/hr (same as 25p)
-      SATURDAY: 49500, // $495/hr (same as 25p)
-      SUNDAY: 49500,   // $495/hr (same as 25p)
+      MON_THU: 25000,  // $250/hr (same as 25p)
+      FRIDAY: 30000,   // $300/hr (same as 25p)
+      SATURDAY: 35000, // $350/hr (same as 25p)
+      SUNDAY: 35000,   // $350/hr (same as 25p)
     },
     crewFeePerHour: 5000, // +$50/hr = +$200 for 4hr cruise
     packages: {
@@ -750,10 +750,10 @@ export const PRIVATE_CRUISE_PRICING = {
   50: {
     capacity: 50,
     baseHourlyRates: {
-      MON_THU: 79500,  // $795/hr
-      FRIDAY: 79500,   // $795/hr
-      SATURDAY: 79500, // $795/hr
-      SUNDAY: 79500,   // $795/hr
+      MON_THU: 30000,  // $300/hr
+      FRIDAY: 35000,   // $350/hr
+      SATURDAY: 40000, // $400/hr
+      SUNDAY: 40000,   // $400/hr
     },
     packages: {
       standard: {
@@ -796,10 +796,10 @@ export const PRIVATE_CRUISE_PRICING = {
   75: {
     capacity: 75,
     baseHourlyRates: {
-      MON_THU: 79500,  // $795/hr (same as 50p)
-      FRIDAY: 79500,   // $795/hr (same as 50p)
-      SATURDAY: 79500, // $795/hr (same as 50p)
-      SUNDAY: 79500,   // $795/hr (same as 50p)
+      MON_THU: 30000,  // $300/hr (same as 50p)
+      FRIDAY: 35000,   // $350/hr (same as 50p)
+      SATURDAY: 40000, // $400/hr (same as 50p)
+      SUNDAY: 40000,   // $400/hr (same as 50p)
     },
     crewFeePerHour: 7500, // +$75/hr = +$300 for 4hr cruise
     packages: {

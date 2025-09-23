@@ -76,11 +76,44 @@ const PRICING_CONFIG = {
   },
   
   // Boat Configuration (rates in CENTS for Stripe compatibility)
+  // Updated to match correct pricing by day of week
   BOATS: {
-    boat_day_tripper: { name: 'Day Tripper', minCapacity: 1, maxCapacity: 14, baseRateCents: 29500 }, // $295/hr
-    boat_me_seeks_the_irony: { name: 'Me Seeks The Irony', minCapacity: 15, maxCapacity: 30, baseRateCents: 49500 }, // $495/hr
-    boat_clever_girl: { name: 'Clever Girl', minCapacity: 31, maxCapacity: 75, baseRateCents: 79500 }, // $795/hr
-    boat_atx_disco: { name: 'ATX Disco', minCapacity: 1, maxCapacity: 100, baseRateCents: 8500 }, // $85 per person
+    boat_day_tripper: { 
+      name: 'Day Tripper', 
+      minCapacity: 1, 
+      maxCapacity: 14, 
+      baseRateCents: {
+        weekday: 20000,  // $200/hr Mon-Thu
+        friday: 25000,   // $250/hr Friday
+        weekend: 30000   // $300/hr Sat-Sun
+      }
+    },
+    boat_me_seeks_the_irony: { 
+      name: 'Me Seeks The Irony', 
+      minCapacity: 15, 
+      maxCapacity: 30, 
+      baseRateCents: {
+        weekday: 25000,  // $250/hr Mon-Thu
+        friday: 30000,   // $300/hr Friday
+        weekend: 35000   // $350/hr Sat-Sun
+      }
+    },
+    boat_clever_girl: { 
+      name: 'Clever Girl', 
+      minCapacity: 31, 
+      maxCapacity: 75, 
+      baseRateCents: {
+        weekday: 30000,  // $300/hr Mon-Thu
+        friday: 35000,   // $350/hr Friday
+        weekend: 40000   // $400/hr Sat-Sun
+      }
+    },
+    boat_atx_disco: { 
+      name: 'ATX Disco', 
+      minCapacity: 1, 
+      maxCapacity: 100, 
+      baseRateCents: 8500 // $85 per person (disco cruise, not hourly)
+    }
   },
   
   // Duration Rules by Day Type
@@ -195,11 +228,12 @@ export function calculateServerPricing(request: ServerPricingRequest): ServerPri
   
   if (request.cruiseType === 'disco') {
     // Disco pricing: per-person rate × group size (no duration multiplier)
-    baseRateCents = boatConfig.baseRateCents; // $85 per person in cents
+    baseRateCents = boatConfig.baseRateCents as number; // $85 per person in cents
     subtotalCents = baseRateCents * request.groupSize; // Total for all people
   } else {
-    // Private cruise pricing: hourly rate × duration
-    baseRateCents = boatConfig.baseRateCents; // $200/hr in cents
+    // Private cruise pricing: hourly rate × duration (varies by day)
+    const ratesByDay = boatConfig.baseRateCents as { weekday: number; friday: number; weekend: number };
+    baseRateCents = ratesByDay[dayType]; // Get rate for specific day type
     subtotalCents = baseRateCents * request.duration; // Total for duration
   }
   
