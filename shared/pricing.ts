@@ -85,17 +85,18 @@ export function calculateSimplePricing(
   
   // 4. Calculate subtotal: (rate × duration) + flat add-on fees + crew fees
   let crewFee = 0;
-  // Extra crew fees for 26-30 and 51-75 people
-  if (groupSize >= 26 && groupSize <= 30) {
-    crewFee = 5000 * duration; // $50/hr crew fee for 26-30 people
-  } else if (groupSize >= 51 && groupSize <= 75) {
-    crewFee = 10000 * duration; // $100/hr crew fee for 51-75 people
+  // Extra FLAT crew fees for 16-30 and 40-75 people
+  if (groupSize >= 16 && groupSize <= 30) {
+    crewFee = 20000; // $200 flat crew fee for 16-30 people
+  } else if (groupSize >= 40 && groupSize <= 75) {
+    crewFee = 30000; // $300 flat crew fee for 40-75 people
   }
-  const subtotal = (totalHourlyRate * duration) + addOnFlatFee + crewFee;
+  const baseCruiseCost = totalHourlyRate * duration;
+  const subtotal = baseCruiseCost + addOnFlatFee + crewFee;
   
-  // 5. Add tax (8.25%) and gratuity (20%) using existing constants
+  // 5. Add tax (8.25%) and gratuity (20% of base cruise cost only) using existing constants
   const tax = Math.floor(subtotal * (PRICING_DEFAULTS.TAX_RATE_BASIS_POINTS / 10000));
-  const gratuity = Math.floor(subtotal * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100));
+  const gratuity = Math.floor(baseCruiseCost * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100));
   const total = subtotal + tax + gratuity;
   
   // 6. Calculate deposit (always 50% for fast checkout)
@@ -283,13 +284,13 @@ export function calculateBaseCruiseCost(date: Date, groupSize: number, duration?
   // Crew fee calculation based on actual business rules:
   let crewFee = 0;
   
-  // Additional hourly crew fees for larger boats:
-  // - 26-30 person groups (Me Seeks The Irony): +$50/hr crew fee
-  // - 51-75 person groups (Clever Girl): +$100/hr crew fee  
-  if (capacityTier === 30 && groupSize >= 26 && groupSize <= 30) {
-    crewFee = PRICING_DEFAULTS.CREW_FEE_26_30 * cruiseDuration; // $50/hr * duration
-  } else if (capacityTier === 75 && groupSize >= 51 && groupSize <= 75) {
-    crewFee = PRICING_DEFAULTS.CREW_FEE_51_75 * cruiseDuration; // $100/hr * duration
+  // Additional FLAT crew fees for larger boats:
+  // - 16-30 person groups (Me Seeks The Irony): $200 flat crew fee
+  // - 40-75 person groups (Clever Girl): $300 flat crew fee  
+  if (groupSize >= 16 && groupSize <= 30) {
+    crewFee = PRICING_DEFAULTS.CREW_FEE_26_30; // $200 flat fee
+  } else if (groupSize >= 40 && groupSize <= 75) {
+    crewFee = PRICING_DEFAULTS.CREW_FEE_51_75; // $300 flat fee
   }
   
   // Calculate subtotal (base + crew fee)

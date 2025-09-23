@@ -69,21 +69,17 @@ const PRICING_CONFIG = {
   EARLY_DEPOSIT_PERCENT: 0.25, // 25% if >30 days
   LATE_DEPOSIT_PERCENT: 1.00,  // 100% if <30 days
   
-  // Crew Fee Tiers (per hour)
+  // Crew Fees (flat fees, not per hour)
   CREW_FEES: {
-    TIER_1: { min: 26, max: 30, hourlyRate: 50 }, // $50/hr for 26-30 people
-    TIER_2: { min: 51, max: 75, hourlyRate: 100 }, // $100/hr for 51-75 people
+    TIER_1: { min: 16, max: 30, flatFee: 200 }, // $200 flat fee for 16-30 people on Me Seeks
+    TIER_2: { min: 40, max: 75, flatFee: 300 }, // $300 flat fee for 40-75 people on Clever Girl
   },
-  
-  // Large Group Fee (flat one-time fee)
-  LARGE_GROUP_THRESHOLD: 20,
-  LARGE_GROUP_FEE: 200, // $200 flat fee for groups >20
   
   // Boat Configuration (rates in CENTS for Stripe compatibility)
   BOATS: {
-    boat_day_tripper: { name: 'Day Tripper', minCapacity: 1, maxCapacity: 14, baseRateCents: 20000 }, // $200/hr
-    boat_me_seeks_the_irony: { name: 'Me Seeks The Irony', minCapacity: 15, maxCapacity: 30, baseRateCents: 20000 }, // $200/hr
-    boat_clever_girl: { name: 'Clever Girl', minCapacity: 31, maxCapacity: 75, baseRateCents: 20000 }, // $200/hr
+    boat_day_tripper: { name: 'Day Tripper', minCapacity: 1, maxCapacity: 14, baseRateCents: 29500 }, // $295/hr
+    boat_me_seeks_the_irony: { name: 'Me Seeks The Irony', minCapacity: 15, maxCapacity: 30, baseRateCents: 49500 }, // $495/hr
+    boat_clever_girl: { name: 'Clever Girl', minCapacity: 31, maxCapacity: 75, baseRateCents: 79500 }, // $795/hr
     boat_atx_disco: { name: 'ATX Disco', minCapacity: 1, maxCapacity: 100, baseRateCents: 8500 }, // $85 per person
   },
   
@@ -129,18 +125,18 @@ function validateDuration(dayType: string, duration: number): boolean {
 }
 
 function calculateCrewFees(groupSize: number, duration: number): { hourlyRateCents: number; totalFeeCents: number } {
-  let hourlyRateCents = 0;
+  let flatFeeCents = 0;
   
-  // Apply crew fee tiers (convert dollars to cents)
+  // Apply crew fee tiers (flat fees, not per hour)
   if (groupSize >= PRICING_CONFIG.CREW_FEES.TIER_2.min && groupSize <= PRICING_CONFIG.CREW_FEES.TIER_2.max) {
-    hourlyRateCents = PRICING_CONFIG.CREW_FEES.TIER_2.hourlyRate * 100; // $100 -> 10000 cents
+    flatFeeCents = PRICING_CONFIG.CREW_FEES.TIER_2.flatFee * 100; // $300 -> 30000 cents
   } else if (groupSize >= PRICING_CONFIG.CREW_FEES.TIER_1.min && groupSize <= PRICING_CONFIG.CREW_FEES.TIER_1.max) {
-    hourlyRateCents = PRICING_CONFIG.CREW_FEES.TIER_1.hourlyRate * 100; // $50 -> 5000 cents
+    flatFeeCents = PRICING_CONFIG.CREW_FEES.TIER_1.flatFee * 100; // $200 -> 20000 cents
   }
   
   return {
-    hourlyRateCents,
-    totalFeeCents: hourlyRateCents * duration
+    hourlyRateCents: 0, // Not hourly anymore, but keeping for interface compatibility
+    totalFeeCents: flatFeeCents // Flat fee, not duration-based
   };
 }
 
@@ -212,10 +208,8 @@ export function calculateServerPricing(request: ServerPricingRequest): ServerPri
     ? calculateCrewFees(request.groupSize, request.duration)
     : { hourlyRateCents: 0, totalFeeCents: 0 };
   
-  // Large group fee (flat $200 for groups >20, only for private cruises)
-  const largeGroupFeeCents = (request.cruiseType === 'private' && request.groupSize > PRICING_CONFIG.LARGE_GROUP_THRESHOLD) 
-    ? PRICING_CONFIG.LARGE_GROUP_FEE * 100 // Convert $200 to cents
-    : 0;
+  // Large group fee removed per requirements
+  const largeGroupFeeCents = 0;
   
   // Add-ons (simplified for now)
   const addOnTotalCents = 0; // TODO: Implement add-on pricing
@@ -226,15 +220,20 @@ export function calculateServerPricing(request: ServerPricingRequest): ServerPri
   // Calculate taxable amount (in cents)
   const taxableAmountCents = subtotalCents + crewFees.totalFeeCents + largeGroupFeeCents + addOnTotalCents - discountAmountCents;
   
-  // Tax and gratuity (in cents)
+  // Tax on full amount, gratuity only on base cruise cost (not crew fees or other fees)
   const taxAmountCents = Math.round(taxableAmountCents * PRICING_CONFIG.TAX_RATE);
-  const gratuityAmountCents = Math.round(taxableAmountCents * PRICING_CONFIG.GRATUITY_RATE);
+  // For private cruises: gratuity is 20% of (hourly rate × hours) only, not including crew fees
+  // For disco cruises: gratuity is 20% of the per-person rate × group size
+  const baseCruiseCostCents = request.cruiseType === 'private' 
+    ? baseRateCents * request.duration  // hourly × hours for private
+    : baseRateCents * request.groupSize; // per-person × people for disco
+  const gratuityAmountCents = Math.round(baseCruiseCostCents * PRICING_CONFIG.GRATUITY_RATE);
   
   // Total amount (in cents)
   const totalAmountCents = taxableAmountCents + taxAmountCents + gratuityAmountCents;
   
   // Deposit calculation based on event timing (in cents)
-  const requiresFullPayment = daysUntilEvent < PRICING_CONFIG.DEPOSIT_THRESHOLD_DAYS;
+  const requiresFullPayment = daysUntilEvent <= 7; // Full payment if 7 days or less
   const depositPercent = requiresFullPayment 
     ? PRICING_CONFIG.LATE_DEPOSIT_PERCENT 
     : PRICING_CONFIG.EARLY_DEPOSIT_PERCENT;

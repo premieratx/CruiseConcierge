@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 import { format, addWeeks, subWeeks, isToday, startOfWeek, endOfWeek, getDay, isSameDay } from "date-fns";
 import type { NormalizedSlot } from "@shared/schema";
 import { formatCurrency, formatTimeForDisplay } from '@shared/formatters';
+import { calculateSimplePricing } from '@shared/pricing';
 import { useToast } from "@/hooks/use-toast";
 import { queryClient } from "@/lib/queryClient";
 
@@ -126,6 +127,7 @@ export default function UniversalCalendar({
   const [groupSize, setGroupSize] = useState<number>(defaultGroupSize);
   const [selectedSlot, setSelectedSlot] = useState<NormalizedSlot | null>(null);
   const [showSlotPopup, setShowSlotPopup] = useState(false);
+  const [calculatedPricing, setCalculatedPricing] = useState<{ total: number; perPerson: number } | null>(null);
   const [eventType, setEventType] = useState<'other' | 'bachelor' | 'bachelorette'>(
     defaultEventType === 'disco' || defaultEventType === 'private' ? 'other' : 
     defaultEventType as 'other' | 'bachelor' | 'bachelorette'
@@ -328,11 +330,47 @@ export default function UniversalCalendar({
     setExpandedDays(newExpanded);
   };
 
-  // Handle slot click - show popup
+  // Handle slot click - show popup and calculate correct pricing
   const handleSlotClick = useCallback((slot: NormalizedSlot) => {
     setSelectedSlot(slot);
+    
+    // Calculate correct pricing for private cruises
+    // Check both dateISO and date fields (some slots might use 'date' instead of 'dateISO')
+    const slotDateString = slot?.dateISO || slot?.date;
+    
+    if (slot && slotDateString) {
+      const slotDate = new Date(slotDateString);
+      const duration = slot.duration || 4; // Default to 4 hours if not specified
+      
+      // Use calculateSimplePricing to get the correct pricing
+      const pricing = calculateSimplePricing(
+        slotDate,
+        groupSize,
+        duration,
+        [] // No add-ons for now
+      );
+      
+      setCalculatedPricing({
+        total: pricing.total,
+        perPerson: Math.round(pricing.total / groupSize)
+      });
+    } else {
+      // If no date, still try to use calculateSimplePricing with current date as fallback
+      const pricing = calculateSimplePricing(
+        new Date(), // Use current date as fallback
+        groupSize,
+        slot?.duration || 4,
+        []
+      );
+      
+      setCalculatedPricing({
+        total: pricing.total,
+        perPerson: Math.round(pricing.total / groupSize)
+      });
+    }
+    
     setShowSlotPopup(true);
-  }, []);
+  }, [groupSize]);
 
   // Handle "Book Now" - hold slot then navigate to checkout
   const handleBookNow = useCallback(() => {
@@ -839,19 +877,19 @@ export default function UniversalCalendar({
                   <div>
                     <h3 className="font-semibold text-lg mb-2">Pricing</h3>
                     <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                      {selectedSlot.totalPrice ? (
+                      {calculatedPricing ? (
                         <>
                           <div className="flex justify-between text-lg font-bold text-green-600">
                             <span>Total (incl. tax & tip)</span>
-                            <span>{formatCurrency(selectedSlot.totalPrice)}</span>
+                            <span>{formatCurrency(calculatedPricing.total)}</span>
                           </div>
                           <div className="text-sm text-gray-500 mt-1">
-                            {formatCurrency(Math.round(selectedSlot.totalPrice / groupSize))} per person
+                            {formatCurrency(calculatedPricing.perPerson)} per person
                           </div>
                         </>
                       ) : (
                         <div className="text-gray-500">
-                          Pricing will be calculated at checkout
+                          Calculating pricing...
                         </div>
                       )}
                     </div>

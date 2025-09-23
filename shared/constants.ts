@@ -527,8 +527,8 @@ export const PRICING_DEFAULTS = {
   URGENCY_THRESHOLD_DAYS: 30,
   FULL_PAYMENT_THRESHOLD_DAYS: 14,
   BASE_HOURLY_RATE: 20000, // $200.00 in cents (minimum rate)
-  CREW_FEE_26_30: 5000, // $50/hour for 26-30 person groups (25p boat expansion)
-  CREW_FEE_51_75: 10000, // $100/hour for 51-75 person groups (50p boat expansion)
+  CREW_FEE_26_30: 20000, // $200 crew fee for 16+ people on Me Seeks The Irony (25-30 boat)
+  CREW_FEE_51_75: 30000, // $300 crew fee for 40+ people on Clever Girl (50-75 boat)
 } as const;
 
 /**
@@ -540,42 +540,42 @@ export const PRICING_DEFAULTS = {
 export const HOURLY_RATES = {
   // Capacity-based rates for Monday-Thursday (4 hours)
   MON_THU: {
-    14: 20000,  // $200/hour for ≤14 people
-    25: 22500,  // $225/hour for ≤25 people
-    30: 22500,  // $225/hour for ≤30 people (same as 25p + crew fee)
-    50: 25000,  // $250/hour for ≤50 people
-    75: 25000,  // $250/hour for ≤75 people (same as 50p + crew fee)
+    14: 29500,  // $295/hour - Day Tripper
+    25: 49500,  // $495/hour - Me Seeks The Irony
+    30: 49500,  // $495/hour - Me Seeks The Irony (same as 25p + crew fee)
+    50: 79500,  // $795/hour - Clever Girl
+    75: 79500,  // $795/hour - Clever Girl (same as 50p + crew fee)
   },
   // Capacity-based rates for Friday (4 hours)
   FRIDAY: {
-    14: 22500,  // $225/hour for ≤14 people
-    25: 25000,  // $250/hour for ≤25 people
-    30: 25000,  // $250/hour for ≤30 people (same as 25p + crew fee)
-    50: 27500,  // $275/hour for ≤50 people
-    75: 27500,  // $275/hour for ≤75 people (same as 50p + crew fee)
+    14: 29500,  // $295/hour - Day Tripper
+    25: 49500,  // $495/hour - Me Seeks The Irony
+    30: 49500,  // $495/hour - Me Seeks The Irony (same as 25p + crew fee)
+    50: 79500,  // $795/hour - Clever Girl
+    75: 79500,  // $795/hour - Clever Girl (same as 50p + crew fee)
   },
   // Capacity-based rates for Saturday (4 hours)
   SAT_SUN: {
-    14: 35000,  // $350/hour for Saturday, $250/hour for Sunday (using higher rate)
-    25: 37500,  // $375/hour for Saturday, $275/hour for Sunday (using higher rate)
-    30: 37500,  // $375/hour for ≤30 people (same as 25p + crew fee)
-    50: 40000,  // $400/hour for Saturday, $300/hour for Sunday (using higher rate)
-    75: 40000,  // $400/hour for ≤75 people (same as 50p + crew fee)
+    14: 29500,  // $295/hour - Day Tripper
+    25: 49500,  // $495/hour - Me Seeks The Irony
+    30: 49500,  // $495/hour - Me Seeks The Irony (same as 25p + crew fee)
+    50: 79500,  // $795/hour - Clever Girl
+    75: 79500,  // $795/hour - Clever Girl (same as 50p + crew fee)
   },
   // Legacy aliases for backward compatibility
   WEEKDAY: {
-    14: 20000,  // $200/hour for ≤14 people
-    25: 25000,  // $250/hour for ≤25 people
-    30: 30000,  // $300/hour for ≤30 people
-    50: 32500,  // $325/hour for ≤50 people
-    75: 35000,  // $350/hour for ≤75 people
+    14: 29500,  // $295/hour - Day Tripper
+    25: 49500,  // $495/hour - Me Seeks The Irony
+    30: 49500,  // $495/hour - Me Seeks The Irony
+    50: 79500,  // $795/hour - Clever Girl
+    75: 79500,  // $795/hour - Clever Girl
   },
   WEEKEND: {
-    14: 30000,  // $300/hour for ≤14 people
-    25: 37500,  // $375/hour for ≤25 people
-    30: 45000,  // $450/hour for ≤30 people
-    50: 48750,  // $487.50/hour for ≤50 people
-    75: 52500,  // $525/hour for ≤75 people
+    14: 29500,  // $295/hour - Day Tripper
+    25: 49500,  // $495/hour - Me Seeks The Irony  
+    30: 49500,  // $495/hour - Me Seeks The Irony
+    50: 79500,  // $795/hour - Clever Girl
+    75: 79500,  // $795/hour - Clever Girl
   }
 } as const;
 

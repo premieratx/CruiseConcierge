@@ -10214,9 +10214,15 @@ Phone: ${contact.phone || 'N/A'}`;
       
       // Get all boats (filter by type if specified)
       const boats = await storage.getActiveBoats();
+      // CRITICAL FIX: Exclude ATX Disco from private cruises
+      // ATX Disco is only for disco cruises, never for private cruises
+      const privateCruiseBoats = boats.filter(b => 
+        b.id !== 'boat_atx_disco' && 
+        !b.name?.toLowerCase().includes('atx disco')
+      );
       const filteredBoats = boatType 
-        ? boats.filter(b => b.boatType === boatType)
-        : boats;
+        ? privateCruiseBoats.filter(b => b.boatType === boatType)
+        : privateCruiseBoats;
       
       // Get bookings for the date range
       const bookings = await storage.getBookingsInRange(startDate, endDate);
@@ -10232,8 +10238,35 @@ Phone: ${contact.phone || 'N/A'}`;
         
         for (const timeSlot of timeSlots) {
           for (const boat of filteredBoats) {
-            // Skip if group size filter and boat doesn't fit
-            if (groupSize && boat.capacity < groupSize) continue;
+            // Apply strict boat assignment based on group size ranges
+            // This ensures the correct boat is shown based on capacity requirements
+            if (groupSize) {
+              // Skip if boat doesn't have enough capacity
+              if (boat.capacity < groupSize) continue;
+              
+              // Apply strict boat assignment rules
+              if (groupSize <= 14) {
+                // Only Day Tripper for groups of 14 or less
+                const isDayTripper = boat.id === 'boat_day_tripper' || 
+                                     boat.name?.toLowerCase().includes('day tripper');
+                if (!isDayTripper) continue;
+              } else if (groupSize <= 25) {
+                // Only Me Seeks The Irony for groups of 15-25
+                const isMeeseeks = boat.id === 'boat_me_seeks_the_irony' || 
+                                   boat.id === 'boat_meeseeks' ||
+                                   boat.name?.toLowerCase().includes('me seeks') ||
+                                   boat.name?.toLowerCase().includes('meeseeks');
+                if (!isMeeseeks) continue;
+              } else if (groupSize <= 75) {
+                // Only Clever Girl for groups of 26-75
+                const isCleverGirl = boat.id === 'boat_clever_girl' || 
+                                     boat.name?.toLowerCase().includes('clever girl');
+                if (!isCleverGirl) continue;
+              } else {
+                // No boats available for groups larger than 75
+                continue;
+              }
+            }
             
             // Parse time slot into full dates
             const slotStartTime = parseTimeToDate(currentDate, timeSlot.startTime);

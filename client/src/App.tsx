@@ -92,6 +92,7 @@ function Router() {
       <Route path="/projects" component={Projects} />
       <Route path="/admin/calendar" component={CalendarView} />
       <Route path="/quotes" component={QuotesManagement} />
+      <Route path="/quote-builder" component={QuoteBuilder} />
       <Route path="/quotes/new" component={QuoteBuilder} />
       <Route path="/quotes/:id" component={QuoteBuilder} />
       <Route path="/quotes/:id/edit" component={QuoteEditor} />

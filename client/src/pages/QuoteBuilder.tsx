@@ -160,7 +160,10 @@ export default function QuoteBuilder() {
           required: item.required || false,
         })) || [],
         radioSections: existingQuote.radioSections || [],
-        expiresAt: existingQuote.expiresAt ? new Date(existingQuote.expiresAt) : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
+        expiresAt: existingQuote.expiresAt ? (() => {
+          const date = new Date(existingQuote.expiresAt);
+          return !isNaN(date.getTime()) ? date : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000);
+        })() : new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
       });
     }
   }, [existingQuote, form]);
@@ -194,7 +197,10 @@ export default function QuoteBuilder() {
     let depositAmount = totalAmount;
     
     if (project?.projectDate) {
-      const daysUntilEvent = Math.floor((new Date(project.projectDate).getTime() - Date.now()) / (1000 * 60 * 60 * 24));
+      const projectDateObj = new Date(project.projectDate);
+      const daysUntilEvent = !isNaN(projectDateObj.getTime()) 
+        ? Math.floor((projectDateObj.getTime() - Date.now()) / (1000 * 60 * 60 * 24))
+        : 0;
       if (daysUntilEvent > 30) {
         depositAmount = Math.round(totalAmount * 0.25); // 25% deposit if > 30 days
       }
@@ -291,7 +297,10 @@ export default function QuoteBuilder() {
         entryPoint: 'quote_builder',
         eventType: 'custom',
         groupSize: (quote.project?.groupSize || 25).toString(),
-        eventDate: quote.project?.projectDate ? new Date(quote.project.projectDate).toISOString() : new Date().toISOString(),
+        eventDate: quote.project?.projectDate ? (() => {
+          const date = new Date(quote.project.projectDate);
+          return !isNaN(date.getTime()) ? date.toISOString() : new Date().toISOString();
+        })() : new Date().toISOString(),
         cruiseType: 'private',
         paymentType,
         // Pass existing quote total and deposit
@@ -532,7 +541,10 @@ export default function QuoteBuilder() {
                             <SelectContent>
                               {projects?.map((project: Project) => (
                                 <SelectItem key={project.id} value={project.id}>
-                                  {project.title || `Project ${project.id}`} - {project.projectDate ? new Date(project.projectDate).toLocaleDateString() : 'TBD'}
+                                  {project.title || `Project ${project.id}`} - {project.projectDate ? (() => {
+                                    const date = new Date(project.projectDate);
+                                    return !isNaN(date.getTime()) ? date.toLocaleDateString() : 'TBD';
+                                  })() : 'TBD'}
                                 </SelectItem>
                               ))}
                             </SelectContent>
@@ -584,8 +596,33 @@ export default function QuoteBuilder() {
                         <FormControl>
                           <Input 
                             type="date" 
-                            value={field.value instanceof Date ? field.value.toISOString().split('T')[0] : ''}
-                            onChange={(e) => field.onChange(new Date(e.target.value))}
+                            value={(() => {
+                              if (!field.value) return '';
+                              if (field.value instanceof Date && !isNaN(field.value.getTime())) {
+                                return field.value.toISOString().split('T')[0];
+                              }
+                              return '';
+                            })()}
+                            onChange={(e) => {
+                              const inputValue = e.target.value;
+                              if (!inputValue) {
+                                // Handle empty input
+                                field.onChange(null);
+                              } else {
+                                // Validate date format (YYYY-MM-DD)
+                                const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+                                if (dateRegex.test(inputValue)) {
+                                  const parsedDate = new Date(inputValue + 'T00:00:00');
+                                  // Check if the date is valid
+                                  if (!isNaN(parsedDate.getTime())) {
+                                    field.onChange(parsedDate);
+                                  } else {
+                                    // Invalid date, don't update
+                                    console.warn('Invalid date input:', inputValue);
+                                  }
+                                }
+                              }
+                            }}
                             data-testid="input-valid-until"
                           />
                         </FormControl>

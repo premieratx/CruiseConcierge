@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useMemo } from 'react';
-import { useLocation } from 'wouter';
+import { useLocation, useParams } from 'wouter';
 import { format, addDays, addMinutes, parseISO, isValid } from 'date-fns';
 import { useQuery } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
@@ -492,17 +492,27 @@ function QuoteViewerContent() {
   const [isConfirmationPopupOpen, setIsConfirmationPopupOpen] = useState(false);
   const { updateSelection, recomputePricing } = useBookingCache();
   
+  // Get path parameters
+  const params = useParams<{ quoteId?: string }>();
+  const pathQuoteId = params.quoteId || '';
+  
   // Parse URL parameters using URLSearchParams
   const searchParams = new URLSearchParams(window.location.search);
   
   // Parse URL parameters for both quote flow and calendar flow
-  const quoteId = searchParams.get('id') || '';
+  const queryQuoteId = searchParams.get('id') || '';
   const token = searchParams.get('token') || '';
-  const isQuoteFlow = !!(quoteId && token);
+  
+  // Support both path parameter (from admin) and query parameter (from public links)
+  const quoteId = pathQuoteId || queryQuoteId;
+  
+  // Define different access flows
+  const isQuoteFlow = !!(quoteId && token); // Public quote flow with token
+  const isAdminFlow = !!(pathQuoteId && !token); // Admin flow without token
   
   // Parse calendar flow parameters
   const calendarDataParam = searchParams.get('data');
-  const isCalendarFlow = !!calendarDataParam && !isQuoteFlow;
+  const isCalendarFlow = !!calendarDataParam && !isQuoteFlow && !isAdminFlow;
   
   let calendarData: CalendarData | null = null;
   if (isCalendarFlow && calendarDataParam) {
@@ -743,16 +753,26 @@ function QuoteViewerContent() {
     setSelectedDiscoPackage(selectedDiscoPackageOption);
   }, [selectedDiscoPackageOption]);
   
-  // Fetch quote details with token (only for quote flow)
+  // Fetch quote details - with token for public access, without token for admin access
   const { data: quote, isLoading, error: quoteError } = useQuery<QuoteWithDetails>({
-    queryKey: [`/api/quotes/${quoteId}/public`, token],
+    queryKey: isAdminFlow 
+      ? [`/api/quotes/${quoteId}`]
+      : [`/api/quotes/${quoteId}/public`, token],
     queryFn: async () => {
-      if (!token) {
-        console.warn('⚠️ No token found in URL parameters for quote access');
-        throw new Error('Access token required. Please use the link from your email or SMS.');
+      let url: string;
+      
+      if (isAdminFlow) {
+        // Admin access - fetch without token (relies on authentication)
+        console.log('🔐 Fetching quote via admin access');
+        url = `/api/quotes/${encodeURIComponent(quoteId)}`;
+      } else if (isQuoteFlow) {
+        // Public access - requires token
+        console.log('🔗 Fetching quote via public link with token');
+        url = `/api/quotes/${encodeURIComponent(quoteId)}/public?token=${encodeURIComponent(token)}`;
+      } else {
+        throw new Error('Invalid quote access method');
       }
       
-      const url = `/api/quotes/${encodeURIComponent(quoteId)}/public?token=${encodeURIComponent(token)}`;
       const res = await apiRequest('GET', url);
       
       if (!res.ok) {
@@ -765,12 +785,13 @@ function QuoteViewerContent() {
         quoteId: quoteData.id,
         hasContact: !!quoteData.contact,
         hasProject: !!quoteData.project,
-        total: quoteData.total
+        total: quoteData.total,
+        accessMethod: isAdminFlow ? 'admin' : 'public'
       });
       
       return quoteData;
     },
-    enabled: isQuoteFlow && !!quoteId,
+    enabled: (isQuoteFlow || isAdminFlow) && !!quoteId,
     retry: (failureCount, error: any) => {
       if (error?.message?.includes('Invalid access token') || 
           error?.message?.includes('Access token required') ||
@@ -1348,7 +1369,7 @@ function QuoteViewerContent() {
   };
 
   // Loading state
-  if (isQuoteFlow && isLoading) {
+  if ((isQuoteFlow || isAdminFlow) && isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
@@ -1360,7 +1381,7 @@ function QuoteViewerContent() {
   }
 
   // Error state  
-  if (isQuoteFlow && quoteError) {
+  if ((isQuoteFlow || isAdminFlow) && quoteError) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <Alert className="max-w-md">
@@ -1375,7 +1396,7 @@ function QuoteViewerContent() {
   }
 
   // If not in a valid flow, show error
-  if (!isQuoteFlow && !isCalendarFlow) {
+  if (!isQuoteFlow && !isAdminFlow && !isCalendarFlow) {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
         <Alert className="max-w-md">
@@ -2164,6 +2185,7 @@ function QuoteViewerContent() {
                   </CardContent>
                 </Card>
               )}
+              </div>
             </div>
           </div>
         </div>
