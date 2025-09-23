@@ -11,8 +11,14 @@ import {
   User, Mail, Phone, MapPin, Star, Sparkles, CreditCard,
   FileText, AlertCircle, Loader2, ChevronLeft, Edit2,
   Music, Anchor, Crown, Zap, Calendar, ArrowRight, ArrowLeft,
-  RotateCcw, CheckCircle, Settings, Plus, Minus
+  RotateCcw, CheckCircle, Settings, Plus, Minus, ShoppingCart
 } from 'lucide-react';
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
+import { getStripePublishableKey } from '@/lib/stripe';
+
+// Initialize Stripe
+const stripePromise = loadStripe(getStripePublishableKey() || '');
 import { AlternativeDates } from '@/components/AlternativeDates';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -22,6 +28,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Calendar as CalendarComponent } from '@/components/ui/calendar';
 import { Badge } from '@/components/ui/badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
@@ -66,6 +73,7 @@ type ChatFlowStep =
   | 'intro' // Intro + Calendar combined
   | 'comparison-selection' // Event type + Group size + Comparison
   | 'contact-form'
+  | 'checkout' // New checkout step for payment
   | 'confirmation';
 
 type CruiseType = 'private' | 'disco';
@@ -256,6 +264,403 @@ const discoPackages = Object.entries(DISCO_AVAILABILITY.PACKAGES).map(([id, pkg]
 const GROUP_SIZE_MIN = 8;
 const GROUP_SIZE_MAX = 75;
 const GROUP_SIZE_DEFAULT = 20;
+
+// Embedded Payment Form Component for checkout
+function PaymentForm({ 
+  paymentType, 
+  cruiseType, 
+  formData,
+  pricing, 
+  onSuccess,
+  onCancel 
+}: {
+  paymentType: 'deposit' | 'full';
+  cruiseType: 'private' | 'disco';
+  formData: BookingData;
+  pricing: any;
+  onSuccess: (paymentIntentId: string) => void;
+  onCancel: () => void;
+}) {
+  const stripe = useStripe();
+  const elements = useElements();
+  const { toast } = useToast();
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [contactErrors, setContactErrors] = useState<any>({});
+  const [discountCode, setDiscountCode] = useState<string>(formData.discountCode || '');
+  const [discountedAmount, setDiscountedAmount] = useState<number | null>(null);
+  const [isValidatingDiscount, setIsValidatingDiscount] = useState(false);
+  const [contactInfo, setContactInfo] = useState({
+    firstName: formData.firstName,
+    lastName: formData.lastName,
+    email: formData.email,
+    phone: formData.phone
+  });
+
+  // Validate contact information
+  const validateContact = () => {
+    const errors: any = {};
+    
+    if (!contactInfo.firstName.trim()) {
+      errors.firstName = 'First name is required';
+    }
+    if (!contactInfo.lastName.trim()) {
+      errors.lastName = 'Last name is required';
+    }
+    if (!contactInfo.email.trim()) {
+      errors.email = 'Email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactInfo.email)) {
+      errors.email = 'Please enter a valid email';
+    }
+    if (!contactInfo.phone.trim()) {
+      errors.phone = 'Phone number is required';
+    } else if (!/^\+?[\d\s\-\(\)]+$/.test(contactInfo.phone)) {
+      errors.phone = 'Please enter a valid phone number';
+    }
+
+    setContactErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
+  // Calculate payment amount
+  const originalAmount = paymentType === 'deposit' 
+    ? pricing?.depositAmount || 0
+    : pricing?.total || 0;
+  
+  const amount = discountedAmount !== null ? discountedAmount : originalAmount;
+  const isDiscounted = discountCode.toUpperCase() === 'TESTMODE99' && discountedAmount !== null;
+
+  // Apply discount code
+  const handleApplyDiscount = async () => {
+    if (!discountCode) {
+      toast({
+        title: "Please enter a discount code",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsValidatingDiscount(true);
+    
+    // Check for test discount code
+    if (discountCode.toUpperCase() === 'TESTMODE99') {
+      const discounted = Math.round(originalAmount * 0.01); // 1% of original (99% off)
+      setDiscountedAmount(discounted);
+      toast({
+        title: "Discount applied!",
+        description: "99% off has been applied to your total",
+      });
+    } else {
+      toast({
+        title: "Invalid discount code",
+        description: "The discount code you entered is not valid",
+        variant: "destructive"
+      });
+      setDiscountCode('');
+      setDiscountedAmount(null);
+    }
+    
+    setIsValidatingDiscount(false);
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!stripe || !elements) {
+      return;
+    }
+
+    if (!validateContact()) {
+      toast({
+        title: "Please complete all required fields",
+        description: "Fill in your contact information to continue.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    const cardElement = elements.getElement(CardElement);
+    if (!cardElement) {
+      return;
+    }
+
+    setIsProcessing(true);
+
+    try {
+      // Build selection payload
+      const selectionPayload = {
+        entryPoint: 'quote_builder',
+        paymentType,
+        cruiseType,
+        eventType: formData.eventType,
+        eventTypeLabel: formData.eventTypeLabel,
+        eventEmoji: formData.eventEmoji,
+        groupSize: cruiseType === 'disco' ? formData.discoTicketQuantity : formData.groupSize,
+        eventDate: formData.eventDate?.toISOString(),
+        date: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : undefined,
+        firstName: contactInfo.firstName,
+        lastName: contactInfo.lastName,
+        email: contactInfo.email,
+        phone: contactInfo.phone,
+        specialRequests: formData.specialRequests,
+        discountCode,
+        selectedSlot: formData.selectedSlot,
+        selectedTimeSlot: formData.selectedSlot ? `${formData.selectedSlot.startTime}-${formData.selectedSlot.endTime}` : undefined,
+        timeSlot: formData.selectedSlot ? `${formData.selectedSlot.startTime}-${formData.selectedSlot.endTime}` : undefined,
+        slotId: formData.selectedSlot?.id,
+        slotLabel: formData.selectedSlot?.label,
+        startTime: formData.selectedSlot?.startTime,
+        endTime: formData.selectedSlot?.endTime,
+        duration: formData.selectedSlot?.duration?.toString() || '4',
+        boatId: formData.selectedSlot?.boatCandidates?.[0],
+        capacity: formData.selectedSlot?.capacity?.toString() || formData.groupSize.toString(),
+        addOnPackages: cruiseType === 'private' ? formData.selectedAddOnPackages : undefined,
+        discoPackage: cruiseType === 'disco' ? formData.selectedDiscoPackage : undefined,
+        selectedDiscoPackage: cruiseType === 'disco' ? formData.selectedDiscoPackage : undefined,
+        discoTicketQuantity: cruiseType === 'disco' ? formData.discoTicketQuantity : undefined,
+        ticketQuantity: cruiseType === 'disco' ? formData.discoTicketQuantity : undefined
+      };
+
+      // Create payment intent with all data
+      const res = await apiRequest('POST', '/api/checkout/create-payment-intent', {
+        paymentType,
+        cruiseType,
+        selectionPayload,
+        pricing,
+        customerEmail: contactInfo.email,
+        metadata: {
+          firstName: contactInfo.firstName,
+          lastName: contactInfo.lastName,
+          phone: contactInfo.phone,
+          discountCode
+        }
+      });
+
+      const response = await res.json();
+
+      if (!response.clientSecret) {
+        throw new Error('Failed to create payment intent');
+      }
+
+      // Confirm the payment with card details
+      const { error, paymentIntent } = await stripe.confirmCardPayment(
+        response.clientSecret,
+        {
+          payment_method: {
+            card: cardElement,
+            billing_details: {
+              name: `${contactInfo.firstName} ${contactInfo.lastName}`,
+              email: contactInfo.email,
+              phone: contactInfo.phone
+            }
+          }
+        }
+      );
+
+      if (error) {
+        // Handle errors
+        if (error.type === 'card_error' || error.type === 'validation_error') {
+          toast({
+            title: "Payment failed",
+            description: error.message,
+            variant: "destructive"
+          });
+        } else {
+          toast({
+            title: "An error occurred",
+            description: "Something went wrong. Please try again.",
+            variant: "destructive"
+          });
+        }
+      } else if (paymentIntent && paymentIntent.status === 'succeeded') {
+        // Payment successful
+        onSuccess(paymentIntent.id);
+      }
+    } catch (err: any) {
+      console.error('Payment error:', err);
+      toast({
+        title: "Payment error",
+        description: err.message || "An unexpected error occurred",
+        variant: "destructive"
+      });
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Contact Information */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">Contact Information</h3>
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <Label htmlFor="firstName">First Name *</Label>
+            <Input
+              id="firstName"
+              value={contactInfo.firstName}
+              onChange={(e) => setContactInfo({ ...contactInfo, firstName: e.target.value })}
+              placeholder="John"
+              data-testid="input-payment-firstName"
+              className={contactErrors.firstName ? 'border-red-500' : ''}
+            />
+            {contactErrors.firstName && (
+              <p className="text-red-500 text-sm mt-1">{contactErrors.firstName}</p>
+            )}
+          </div>
+          <div>
+            <Label htmlFor="lastName">Last Name *</Label>
+            <Input
+              id="lastName"
+              value={contactInfo.lastName}
+              onChange={(e) => setContactInfo({ ...contactInfo, lastName: e.target.value })}
+              placeholder="Doe"
+              data-testid="input-payment-lastName"
+              className={contactErrors.lastName ? 'border-red-500' : ''}
+            />
+            {contactErrors.lastName && (
+              <p className="text-red-500 text-sm mt-1">{contactErrors.lastName}</p>
+            )}
+          </div>
+        </div>
+        <div>
+          <Label htmlFor="email">Email *</Label>
+          <Input
+            id="email"
+            type="email"
+            value={contactInfo.email}
+            onChange={(e) => setContactInfo({ ...contactInfo, email: e.target.value })}
+            placeholder="john@example.com"
+            data-testid="input-payment-email"
+            className={contactErrors.email ? 'border-red-500' : ''}
+          />
+          {contactErrors.email && (
+            <p className="text-red-500 text-sm mt-1">{contactErrors.email}</p>
+          )}
+        </div>
+        <div>
+          <Label htmlFor="phone">Phone Number *</Label>
+          <Input
+            id="phone"
+            type="tel"
+            value={contactInfo.phone}
+            onChange={(e) => setContactInfo({ ...contactInfo, phone: e.target.value })}
+            placeholder="+1 (555) 123-4567"
+            data-testid="input-payment-phone"
+            className={contactErrors.phone ? 'border-red-500' : ''}
+          />
+          {contactErrors.phone && (
+            <p className="text-red-500 text-sm mt-1">{contactErrors.phone}</p>
+          )}
+        </div>
+      </div>
+
+      <Separator />
+
+      {/* Payment Details */}
+      <div className="space-y-4">
+        <h3 className="text-lg font-semibold">Payment Details</h3>
+        <div className="border rounded-lg p-4">
+          <CardElement
+            options={{
+              style: {
+                base: {
+                  fontSize: '16px',
+                  color: '#424770',
+                  '::placeholder': {
+                    color: '#aab7c4',
+                  },
+                },
+                invalid: {
+                  color: '#9e2146',
+                },
+              },
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Discount Code Section (if applicable) */}
+      {discountCode && (
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold">Discount Code</h3>
+          <div className="flex gap-2">
+            <Input
+              placeholder="Enter discount code"
+              value={discountCode}
+              onChange={(e) => setDiscountCode(e.target.value.toUpperCase())}
+              data-testid="input-checkout-discount-code"
+              className="flex-1"
+              disabled={isValidatingDiscount}
+            />
+            <Button
+              type="button"
+              onClick={handleApplyDiscount}
+              disabled={isValidatingDiscount}
+              variant="outline"
+              data-testid="button-apply-discount"
+            >
+              Apply
+            </Button>
+          </div>
+          {isDiscounted && (
+            <Alert className="border-green-200 bg-green-50">
+              <AlertCircle className="h-4 w-4 text-green-600" />
+              <AlertDescription className="text-green-800">
+                Discount applied! You're paying {formatCurrency(amount)} instead of {formatCurrency(originalAmount)}
+              </AlertDescription>
+            </Alert>
+          )}
+        </div>
+      )}
+
+      {/* Amount Summary */}
+      <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+        <div className="flex justify-between items-center">
+          <span className="text-lg font-semibold">
+            {paymentType === 'deposit' ? 'Deposit Amount' : 'Total Amount'}:
+          </span>
+          <span className="text-2xl font-bold text-green-600">
+            {formatCurrency(amount)}
+          </span>
+        </div>
+      </div>
+
+      {/* Action Buttons */}
+      <div className="flex gap-3">
+        <Button
+          type="button"
+          onClick={onCancel}
+          variant="outline"
+          disabled={isProcessing}
+          className="flex-1"
+          data-testid="button-cancel-payment"
+        >
+          <ChevronLeft className="h-4 w-4 mr-2" />
+          Back
+        </Button>
+        <Button
+          type="submit"
+          disabled={isProcessing || !stripe || !elements}
+          className="flex-1 bg-green-600 hover:bg-green-700"
+          data-testid="button-submit-payment"
+        >
+          {isProcessing ? (
+            <>
+              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+              Processing...
+            </>
+          ) : (
+            <>
+              <CreditCard className="h-4 w-4 mr-2" />
+              {paymentType === 'deposit' ? `Pay Deposit (${formatCurrency(amount)})` : `Pay Now (${formatCurrency(amount)})`}
+            </>
+          )}
+        </Button>
+      </div>
+    </form>
+  );
+}
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 60 },
@@ -1481,115 +1886,20 @@ export default function Chat() {
       return;
     }
 
-    console.log('💳 Showing booking confirmation popup...');
+    console.log('💳 Moving to checkout step...');
     
-    // Show booking confirmation popup instead of directly navigating
+    // Set payment details and move to checkout step
     setPendingPaymentType(paymentType);
     setPendingCruiseType(cruiseType);
-    setShowBookingConfirmation(true);
+    setCurrentStep('checkout');
   }, [formData, privatePricing, discoPricing, pricingLoading, paymentProcessing, formSubmitting, validateBookingData, toast]);
   
-  // Handle confirmed booking from popup - create Stripe checkout session
+  // Handle confirmed booking - No longer used for payment flow
   const handleConfirmedBooking = useCallback(async () => {
-    if (!pendingPaymentType || !pendingCruiseType) return;
-    
-    const paymentType = pendingPaymentType;
-    const cruiseType = pendingCruiseType;
-    
-    console.log('💳 Creating checkout session...');
-    
-    try {
-      // Build the selection payload for the checkout session
-      const selectionPayload = {
-        entryPoint: 'quote_builder',
-        paymentType,
-        cruiseType,
-        eventType: formData.eventType,
-        eventTypeLabel: formData.eventTypeLabel,
-        eventEmoji: formData.eventEmoji,
-        groupSize: cruiseType === 'disco' ? formData.discoTicketQuantity : formData.groupSize,
-        eventDate: formData.eventDate?.toISOString(),
-        date: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : undefined,
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        phone: formData.phone,
-        specialRequests: formData.specialRequests,
-        discountCode: formData.discountCode, // Include discount code
-        selectedSlot: formData.selectedSlot,
-        selectedTimeSlot: formData.selectedSlot ? `${formData.selectedSlot.startTime}-${formData.selectedSlot.endTime}` : undefined,
-        timeSlot: formData.selectedSlot ? `${formData.selectedSlot.startTime}-${formData.selectedSlot.endTime}` : undefined,
-        slotId: formData.selectedSlot?.id,
-        slotLabel: formData.selectedSlot?.label,
-        startTime: formData.selectedSlot?.startTime,
-        endTime: formData.selectedSlot?.endTime,
-        duration: formData.selectedSlot?.duration?.toString() || '4',
-        boatId: formData.selectedSlot?.boatCandidates?.[0],
-        capacity: formData.selectedSlot?.capacity?.toString() || formData.groupSize.toString(),
-        addOnPackages: cruiseType === 'private' ? formData.selectedAddOnPackages : undefined,
-        discoPackage: cruiseType === 'disco' ? formData.selectedDiscoPackage : undefined,
-        selectedDiscoPackage: cruiseType === 'disco' ? formData.selectedDiscoPackage : undefined,
-        discoTicketQuantity: cruiseType === 'disco' ? formData.discoTicketQuantity : undefined,
-        ticketQuantity: cruiseType === 'disco' ? formData.discoTicketQuantity : undefined
-      };
-      
-      // Include pricing metadata
-      const pricing = cruiseType === 'private' ? privatePricing : discoPricing;
-      const metadata = {
-        depositAmount: pricing?.depositAmount,
-        totalAmount: pricing?.total,
-        eventType: formData.eventType,
-        groupSize: cruiseType === 'disco' ? formData.discoTicketQuantity : formData.groupSize,
-        subtotal: pricing?.subtotal,
-        tax: pricing?.tax,
-        gratuity: pricing?.gratuity,
-        depositPercent: pricing?.depositPercent
-      };
-      
-      // NEW: Redirect to unified QuoteViewer checkout page (NO PII in URLs for security)
-      // QuoteViewer expects data in a single 'data' parameter with JSON-encoded object
-      const calendarData = {
-        eventDate: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : '',
-        eventType: formData.eventType,
-        groupSize: cruiseType === 'disco' ? formData.discoTicketQuantity : formData.groupSize,
-        cruiseType: cruiseType,
-        selectedTimeSlot: formData.selectedSlot ? `${formData.selectedSlot.startTime}-${formData.selectedSlot.endTime}` : '',
-        boatId: formData.selectedSlot?.boatCandidates?.[0] || '',
-        slotId: formData.selectedSlot?.id || ''
-      };
-      
-      // Encode the data for URL
-      const encodedData = encodeURIComponent(JSON.stringify(calendarData));
-      
-      // Store contact info in sessionStorage for security (no PII in URLs)
-      sessionStorage.setItem('checkoutContactInfo', JSON.stringify({
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        phone: formData.phone,
-        specialRequests: formData.specialRequests,
-        paymentType: paymentType,
-        selectedAddOns: formData.selectedAddOnPackages,
-        discoPackage: cruiseType === 'disco' ? formData.selectedDiscoPackage : '',
-        discountCode: formData.discountCode
-      }));
-      
-      // Reset state
-      setShowBookingConfirmation(false);
-      setPendingPaymentType(null);
-      setPendingCruiseType(null);
-      
-      // Redirect to universal QuoteViewer checkout page with data parameter
-      window.location.href = `/quote?data=${encodedData}`;
-    } catch (error) {
-      console.error('Error creating checkout session:', error);
-      toast({
-        title: "Error",
-        description: error instanceof Error ? error.message : "Failed to create checkout session. Please try again.",
-        variant: "destructive",
-      });
-    }
-  }, [pendingPaymentType, pendingCruiseType, formData, privatePricing, discoPricing, apiRequest, toast]);
+    // This function is kept for backwards compatibility but is no longer used
+    // Payment is now handled directly in the checkout step on the same page
+    console.log('handleConfirmedBooking called but not used - payment handled in checkout step');
+  }, []);
 
   // Contact form submission with loading protection
   const handleContactSubmit = useCallback((e: React.FormEvent) => {
@@ -3178,6 +3488,183 @@ export default function Chat() {
               </motion.div>
             )}
 
+            {/* Checkout Step */}
+            {currentStep === 'checkout' && pendingPaymentType && pendingCruiseType && (
+              <motion.div
+                key="checkout"
+                variants={fadeInUp}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="w-full max-w-4xl mx-auto"
+              >
+                <Card className="border-2 border-blue-200 dark:border-blue-800">
+                  <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950">
+                    <CardTitle className="flex items-center gap-2">
+                      <ShoppingCart className="h-6 w-6" />
+                      Complete Your Booking
+                    </CardTitle>
+                    <CardDescription>Secure checkout powered by Stripe</CardDescription>
+                  </CardHeader>
+                  <CardContent className="pt-6">
+                    {/* Selection Summary */}
+                    <div className="space-y-4 mb-6">
+                      <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+                        <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                          <CalendarIcon className="h-4 w-4" />
+                          Your Selection
+                        </h3>
+                        <div className="space-y-2 text-sm">
+                          <div className="flex justify-between">
+                            <span className="text-gray-600 dark:text-gray-400">Event Type:</span>
+                            <span className="font-medium">{formData.eventTypeLabel} {formData.eventEmoji}</span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600 dark:text-gray-400">Date:</span>
+                            <span className="font-medium">
+                              {formData.eventDate ? format(formData.eventDate, 'EEEE, MMMM d, yyyy') : 'Not selected'}
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span className="text-gray-600 dark:text-gray-400">Group Size:</span>
+                            <span className="font-medium">
+                              {pendingCruiseType === 'disco' ? formData.discoTicketQuantity : formData.groupSize} people
+                            </span>
+                          </div>
+                          {formData.selectedSlot && (
+                            <div className="flex justify-between">
+                              <span className="text-gray-600 dark:text-gray-400">Time Slot:</span>
+                              <span className="font-medium">{formData.selectedSlot.label}</span>
+                            </div>
+                          )}
+                          {pendingCruiseType === 'private' && formData.selectedAddOnPackages.length > 0 && (
+                            <div className="flex justify-between">
+                              <span className="text-gray-600 dark:text-gray-400">Add-ons:</span>
+                              <div className="text-right">
+                                {formData.selectedAddOnPackages.map((pkgId) => {
+                                  const pkg = addOnPackages.find(p => p.id === pkgId);
+                                  return pkg ? (
+                                    <Badge key={pkgId} className="ml-1 mb-1" variant="secondary">
+                                      {pkg.name}
+                                    </Badge>
+                                  ) : null;
+                                })}
+                              </div>
+                            </div>
+                          )}
+                          {pendingCruiseType === 'disco' && formData.selectedDiscoPackage && (
+                            <div className="flex justify-between">
+                              <span className="text-gray-600 dark:text-gray-400">Package:</span>
+                              <span className="font-medium">
+                                {discoPackages.find(p => p.id === formData.selectedDiscoPackage)?.name}
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      {/* Pricing Breakdown */}
+                      <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                        <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
+                          <DollarSign className="h-4 w-4 text-green-600" />
+                          Pricing Breakdown
+                        </h3>
+                        {pendingCruiseType === 'private' && privatePricing && (
+                          <div className="space-y-1 text-sm">
+                            <div className="flex justify-between">
+                              <span className="text-gray-600 dark:text-gray-400">Subtotal:</span>
+                              <span className="font-medium">{formatCurrency(privatePricing.subtotal)}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-600 dark:text-gray-400">Tax (8.25%):</span>
+                              <span className="font-medium">{formatCurrency(privatePricing.tax)}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-600 dark:text-gray-400">Gratuity (20%):</span>
+                              <span className="font-medium">{formatCurrency(privatePricing.gratuity)}</span>
+                            </div>
+                            <Separator className="my-2" />
+                            <div className="flex justify-between font-bold text-base">
+                              <span>Total:</span>
+                              <span className="text-lg">{formatCurrency(privatePricing.total)}</span>
+                            </div>
+                            {pendingPaymentType === 'deposit' && privatePricing.depositAmount && (
+                              <div className="flex justify-between text-green-600 dark:text-green-400 pt-2 text-base">
+                                <span>Amount Due Now ({privatePricing.depositPercent}% deposit):</span>
+                                <span className="font-bold text-lg">{formatCurrency(privatePricing.depositAmount)}</span>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                        
+                        {pendingCruiseType === 'disco' && discoPricing && (
+                          <div className="space-y-1 text-sm">
+                            <div className="flex justify-between">
+                              <span className="text-gray-600 dark:text-gray-400">Subtotal:</span>
+                              <span className="font-medium">{formatCurrency(discoPricing.subtotal)}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-600 dark:text-gray-400">Tax (8.25%):</span>
+                              <span className="font-medium">{formatCurrency(discoPricing.tax)}</span>
+                            </div>
+                            <div className="flex justify-between">
+                              <span className="text-gray-600 dark:text-gray-400">Gratuity (20%):</span>
+                              <span className="font-medium">{formatCurrency(discoPricing.gratuity)}</span>
+                            </div>
+                            <Separator className="my-2" />
+                            <div className="flex justify-between font-bold text-base">
+                              <span>Total:</span>
+                              <span className="text-lg">{formatCurrency(discoPricing.total)}</span>
+                            </div>
+                            {pendingPaymentType === 'deposit' && discoPricing.depositAmount && (
+                              <div className="flex justify-between text-green-600 dark:text-green-400 pt-2 text-base">
+                                <span>Amount Due Now ({discoPricing.depositPercent}% deposit):</span>
+                                <span className="font-bold text-lg">{formatCurrency(discoPricing.depositAmount)}</span>
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
+                    <Separator className="mb-6" />
+
+                    {/* Stripe Payment Form */}
+                    <Elements stripe={stripePromise}>
+                      <PaymentForm
+                        paymentType={pendingPaymentType}
+                        cruiseType={pendingCruiseType}
+                        formData={formData}
+                        pricing={pendingCruiseType === 'private' ? privatePricing : discoPricing}
+                        onSuccess={(paymentIntentId) => {
+                          console.log('✅ Payment successful:', paymentIntentId);
+                          // Move to confirmation step
+                          setCurrentStep('confirmation');
+                          // Store payment info for confirmation display
+                          sessionStorage.setItem('paymentSuccess', JSON.stringify({
+                            paymentIntentId,
+                            paymentType: pendingPaymentType,
+                            cruiseType: pendingCruiseType,
+                            amount: pendingPaymentType === 'deposit'
+                              ? (pendingCruiseType === 'private' ? privatePricing?.depositAmount : discoPricing?.depositAmount)
+                              : (pendingCruiseType === 'private' ? privatePricing?.total : discoPricing?.total)
+                          }));
+                          setPendingPaymentType(null);
+                          setPendingCruiseType(null);
+                        }}
+                        onCancel={() => {
+                          // Go back to comparison-selection
+                          setCurrentStep('comparison-selection');
+                          setPendingPaymentType(null);
+                          setPendingCruiseType(null);
+                        }}
+                      />
+                    </Elements>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+
             {/* Confirmation */}
             {currentStep === 'confirmation' && (
               <motion.div
@@ -3199,10 +3686,23 @@ export default function Chat() {
                 
                 <div className="space-y-2">
                   <h2 className="text-3xl font-bold text-slate-800 dark:text-slate-200">
-                    Quote Sent Successfully!
+                    {(() => {
+                      const paymentInfo = sessionStorage.getItem('paymentSuccess');
+                      if (paymentInfo) {
+                        return 'Payment Successful!';
+                      }
+                      return 'Quote Sent Successfully!';
+                    })()}
                   </h2>
                   <p className="text-lg text-slate-600 dark:text-slate-400">
-                    Check your email for the full interactive quote
+                    {(() => {
+                      const paymentInfo = sessionStorage.getItem('paymentSuccess');
+                      if (paymentInfo) {
+                        const info = JSON.parse(paymentInfo);
+                        return `Your ${info.paymentType === 'deposit' ? 'deposit' : 'payment'} of ${formatCurrency(info.amount)} has been processed`;
+                      }
+                      return 'Check your email for the full interactive quote';
+                    })()}
                   </p>
                 </div>
                 
@@ -3239,203 +3739,7 @@ export default function Chat() {
         </div>
       </div>
       
-      {/* Booking Confirmation Dialog */}
-      <Dialog open={showBookingConfirmation} onOpenChange={setShowBookingConfirmation}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle className="text-lg font-semibold flex items-center gap-2">
-              <CheckCircle className="h-5 w-5 text-green-600" />
-              Confirm Your Booking
-            </DialogTitle>
-            <DialogDescription className="text-base text-gray-700 dark:text-gray-300">
-              Please review your selection before proceeding to checkout
-            </DialogDescription>
-          </DialogHeader>
-          
-          <div className="space-y-4 py-4">
-            {/* Event Details */}
-            <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-              <h3 className="text-sm font-semibold mb-2 flex items-center gap-2">
-                <CalendarIcon className="h-4 w-4" />
-                Event Details
-              </h3>
-              <div className="grid grid-cols-2 gap-2 text-base">
-                <div>
-                  <span className="text-gray-600 dark:text-gray-400">Event Type:</span>
-                  <span className="ml-2 font-medium">{formData.eventTypeLabel} {formData.eventEmoji}</span>
-                </div>
-                <div>
-                  <span className="text-gray-600 dark:text-gray-400">Date:</span>
-                  <span className="ml-2 font-medium">{formData.eventDate ? format(formData.eventDate, 'MMM dd, yyyy') : 'Not selected'}</span>
-                </div>
-                <div>
-                  <span className="text-gray-600 dark:text-gray-400">Group Size:</span>
-                  <span className="ml-2 font-medium">
-                    {pendingCruiseType === 'disco' ? formData.discoTicketQuantity : formData.groupSize} people
-                  </span>
-                </div>
-              </div>
-            </div>
-            
-            {/* Selected Cruise Details */}
-            {pendingCruiseType === 'private' && formData.selectedSlot && (
-              <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-                <h3 className="text-sm font-semibold mb-2 flex items-center gap-2">
-                  <Ship className="h-4 w-4 text-blue-600" />
-                  Private Cruise Selection
-                </h3>
-                <div className="space-y-2 text-base">
-                  <div>
-                    <span className="text-gray-600 dark:text-gray-400">Time Slot:</span>
-                    <span className="ml-2 font-medium">{formData.selectedSlot.label}</span>
-                  </div>
-                  <div>
-                    <span className="text-gray-600 dark:text-gray-400">Duration:</span>
-                    <span className="ml-2 font-medium">{formData.selectedSlot.duration || 4} hours</span>
-                  </div>
-                  {formData.selectedAddOnPackages.length > 0 && (
-                    <div>
-                      <span className="text-gray-600 dark:text-gray-400">Add-on Packages:</span>
-                      <div className="mt-1">
-                        {formData.selectedAddOnPackages.map((pkgId) => {
-                          const pkg = addOnPackages.find(p => p.id === pkgId);
-                          return pkg ? (
-                            <Badge key={pkgId} className="mr-1" variant="secondary">
-                              {pkg.name}
-                            </Badge>
-                          ) : null;
-                        })}
-                      </div>
-                    </div>
-                  )}
-                </div>
-              </div>
-            )}
-            
-            {pendingCruiseType === 'disco' && formData.selectedSlot && (
-              <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
-                <h3 className="text-sm font-semibold mb-2 flex items-center gap-2">
-                  <Music className="h-4 w-4 text-purple-600" />
-                  ATX Disco Cruise Selection
-                </h3>
-                <div className="space-y-2 text-base">
-                  <div>
-                    <span className="text-gray-600 dark:text-gray-400">Time Slot:</span>
-                    <span className="ml-2 font-medium">
-                      {(() => {
-                        // For disco cruises, remove boat name from label and show just time and price
-                        const label = formData.selectedSlot.label;
-                        const parts = label.split(' • ');
-                        if (parts.length >= 3) {
-                          // Format: "Boat Name • Time Range • Price" -> "Time Range • Price"
-                          return `${parts[1]} • ${parts[2]}`;
-                        }
-                        return label; // Fallback to full label if format unexpected
-                      })()}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-gray-600 dark:text-gray-400">Package:</span>
-                    <span className="ml-2 font-medium">
-                      {formData.selectedDiscoPackage && discoPackages.find(p => p.id === formData.selectedDiscoPackage)?.name}
-                    </span>
-                  </div>
-                  <div>
-                    <span className="text-gray-600 dark:text-gray-400">Tickets:</span>
-                    <span className="ml-2 font-medium">{formData.discoTicketQuantity}</span>
-                  </div>
-                </div>
-              </div>
-            )}
-            
-            {/* Pricing Summary */}
-            <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
-              <h3 className="text-sm font-semibold mb-2 flex items-center gap-2">
-                <DollarSign className="h-4 w-4 text-green-600" />
-                Pricing Summary
-              </h3>
-              {pendingCruiseType === 'private' && privatePricing && (
-                <div className="space-y-1 text-base">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-400">Subtotal:</span>
-                    <span className="font-medium">{formatCurrency(privatePricing.subtotal)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-400">Tax (8.25%):</span>
-                    <span className="font-medium">{formatCurrency(privatePricing.tax)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-400">Gratuity (20%):</span>
-                    <span className="font-medium">{formatCurrency(privatePricing.gratuity)}</span>
-                  </div>
-                  <Separator className="my-2" />
-                  <div className="flex justify-between font-bold">
-                    <span>Total:</span>
-                    <span className="text-lg">{formatCurrency(privatePricing.total)}</span>
-                  </div>
-                  {pendingPaymentType === 'deposit' && privatePricing.depositAmount && (
-                    <div className="flex justify-between text-green-600 dark:text-green-400 pt-2">
-                      <span>Deposit Amount ({privatePricing.depositPercent}%):</span>
-                      <span className="font-bold">{formatCurrency(privatePricing.depositAmount)}</span>
-                    </div>
-                  )}
-                </div>
-              )}
-              
-              {pendingCruiseType === 'disco' && discoPricing && (
-                <div className="space-y-1 text-base">
-                  <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-400">Subtotal:</span>
-                    <span className="font-medium">{formatCurrency(discoPricing.subtotal)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-400">Tax (8.25%):</span>
-                    <span className="font-medium">{formatCurrency(discoPricing.tax)}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-600 dark:text-gray-400">Gratuity (20%):</span>
-                    <span className="font-medium">{formatCurrency(discoPricing.gratuity)}</span>
-                  </div>
-                  <Separator className="my-2" />
-                  <div className="flex justify-between font-bold">
-                    <span>Total:</span>
-                    <span className="text-lg">{formatCurrency(discoPricing.total)}</span>
-                  </div>
-                  {pendingPaymentType === 'deposit' && discoPricing.depositAmount && (
-                    <div className="flex justify-between text-green-600 dark:text-green-400 pt-2">
-                      <span>Deposit Amount ({discoPricing.depositPercent}%):</span>
-                      <span className="font-bold">{formatCurrency(discoPricing.depositAmount)}</span>
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-          </div>
-          
-          <div className="flex gap-2 justify-end">
-            <Button
-              variant="outline"
-              onClick={() => {
-                setShowBookingConfirmation(false);
-                setPendingPaymentType(null);
-                setPendingCruiseType(null);
-              }}
-              data-testid="button-cancel-booking"
-            >
-              <X className="h-4 w-4 mr-2" />
-              Cancel
-            </Button>
-            <Button
-              onClick={handleConfirmedBooking}
-              className="bg-green-600 hover:bg-green-700"
-              data-testid="button-confirm-booking"
-            >
-              <CheckCircle className="h-4 w-4 mr-2" />
-              {pendingPaymentType === 'deposit' ? 'Proceed to Pay Deposit' : 'Proceed to Pay in Full'}
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
+      {/* Booking Confirmation Dialog - No longer used but kept for backwards compatibility */}
     </div>
   );
 }
