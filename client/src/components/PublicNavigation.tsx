@@ -75,7 +75,7 @@ export default function PublicNavigation() {
   };
 
   const handleBookNow = () => {
-    navigate('/book');
+    navigate('/chat');
   };
 
   const closeMobileMenu = () => {

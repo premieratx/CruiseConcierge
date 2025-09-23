@@ -831,7 +831,30 @@ const getIconComponent = (iconName: string, size: number = 14) => {
   return <IconComponent className={`h-${Math.floor(size/4)} w-${Math.floor(size/4)}`} />;
 };
 
-export default function Chat() {
+interface ChatProps {
+  defaultEventType?: string;
+}
+
+export default function Chat({ defaultEventType }: ChatProps = {}) {
+  // Initialize with defaultEventType if provided
+  const getInitialEventData = () => {
+    if (defaultEventType && EVENT_TYPES[defaultEventType]) {
+      const eventConfig = EVENT_TYPES[defaultEventType];
+      return {
+        eventType: defaultEventType,
+        eventTypeLabel: eventConfig.label,
+        eventEmoji: eventConfig.emoji,
+      };
+    }
+    return {
+      eventType: '',
+      eventTypeLabel: '',
+      eventEmoji: '',
+    };
+  };
+
+  const initialEventData = getInitialEventData();
+  
   const [currentStep, setCurrentStep] = useState<ChatFlowStep>('intro');
   const [completedSelections, setCompletedSelections] = useState<CompletedSelection[]>([]);
   const [privatePricing, setPrivatePricing] = useState<PricingPreview | null>(null);
@@ -845,7 +868,7 @@ export default function Chat() {
   const [pricingError, setPricingError] = useState<string | null>(null);
   const [paymentProcessing, setPaymentProcessing] = useState(false);
   const [formSubmitting, setFormSubmitting] = useState(false);
-  const [eventTypeCollapsed, setEventTypeCollapsed] = useState(false);
+  const [eventTypeCollapsed, setEventTypeCollapsed] = useState(Boolean(defaultEventType));
   const [showGroupSize, setShowGroupSize] = useState(false);
   const [showComparison, setShowComparison] = useState(false);
   const [showBookingConfirmation, setShowBookingConfirmation] = useState(false);
@@ -853,9 +876,7 @@ export default function Chat() {
   const [pendingCruiseType, setPendingCruiseType] = useState<'private' | 'disco' | null>(null);
   const [currentHoldId, setCurrentHoldId] = useState<string | null>(null);
   const [formData, setFormData] = useState<BookingData>({
-    eventType: '',
-    eventTypeLabel: '',
-    eventEmoji: '',
+    ...initialEventData,
     firstName: '',
     lastName: '',
     email: '',
@@ -1367,7 +1388,11 @@ export default function Chat() {
   const getCruiseDuration = (date: Date | undefined) => {
     if (!date) return 4; // Default to 4 hours
     const dayOfWeek = date.getDay();
-    return (dayOfWeek >= 1 && dayOfWeek <= 4) ? 3 : 4; // 3 hours Mon-Thu, 4 hours Fri-Sun
+    // For Mon-Thu, use selectedDuration if available, otherwise default to 3
+    if (dayOfWeek >= 1 && dayOfWeek <= 4) {
+      return formData.selectedDuration || 3;
+    }
+    return 4; // Fri-Sun is always 4 hours
   };
 
   // Fallback private cruise pricing calculation - now uses shared pricing logic
@@ -1810,6 +1835,10 @@ export default function Chat() {
     // Cruise type specific validation - FIXED: More flexible slot validation
     if (cruiseType === 'private') {
       if (!data.selectedSlot) errors.push('Please select a time slot for private cruise');
+      // For Monday-Thursday, require duration selection
+      if (data.eventDate && isMondayToThursday(data.eventDate) && !data.selectedDuration) {
+        errors.push('Please select cruise duration (3 or 4 hours)');
+      }
       // Allow private bookings on any slot type (disco slots can be booked privately)
     }
     
@@ -1825,6 +1854,46 @@ export default function Chat() {
       errors
     };
   }, []);
+  
+  // Check if user can proceed to payment
+  const canProceedToPayment = useCallback((cruiseType: 'private' | 'disco') => {
+    if (cruiseType === 'private') {
+      // For private cruises:
+      // 1. Must have a slot selected
+      // 2. If Mon-Thu, must have duration selected
+      // 3. Package selection is automatically handled (defaults to standard)
+      const hasSlot = Boolean(formData.selectedSlot);
+      const hasDuration = !formData.eventDate || !isMondayToThursday(formData.eventDate) || Boolean(formData.selectedDuration);
+      return hasSlot && hasDuration;
+    } else {
+      // For disco cruises:
+      // 1. Must have a disco package selected
+      // 2. Must have ticket quantity > 0
+      // 3. Must have a valid disco slot
+      const hasPackage = Boolean(formData.selectedDiscoPackage);
+      const hasQuantity = formData.discoTicketQuantity > 0;
+      const hasValidSlot = Boolean(formData.selectedSlot?.id?.includes('disco'));
+      return hasPackage && hasQuantity && hasValidSlot;
+    }
+  }, [formData]);
+  
+  // Get payment button tooltip message
+  const getPaymentButtonTooltip = useCallback((cruiseType: 'private' | 'disco') => {
+    const messages: string[] = [];
+    
+    if (cruiseType === 'private') {
+      if (!formData.selectedSlot) messages.push('Select a time slot');
+      if (formData.eventDate && isMondayToThursday(formData.eventDate) && !formData.selectedDuration) {
+        messages.push('Select cruise duration');
+      }
+    } else {
+      if (!formData.selectedDiscoPackage) messages.push('Select a disco package');
+      if (formData.discoTicketQuantity < 1) messages.push('Select ticket quantity');
+      if (!formData.selectedSlot?.id?.includes('disco')) messages.push('Select a disco time slot');
+    }
+    
+    return messages.length > 0 ? `Required: ${messages.join(', ')}` : '';
+  }, [formData]);
 
   // Enhanced payment handler that shows checkout section below
   const [, navigate] = useLocation(); // Add navigate hook for routing
@@ -1839,6 +1908,17 @@ export default function Chat() {
         title: "Please Wait",
         description: "Processing in progress. Please wait.",
         variant: "default",
+      });
+      return;
+    }
+    
+    // Check if user can proceed to payment
+    if (!canProceedToPayment(cruiseType)) {
+      const tooltip = getPaymentButtonTooltip(cruiseType);
+      toast({
+        title: "Please Complete Selection",
+        description: tooltip,
+        variant: "destructive",
       });
       return;
     }
@@ -1902,7 +1982,7 @@ export default function Chat() {
         checkoutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     }, 100);
-  }, [formData, privatePricing, discoPricing, pricingLoading, paymentProcessing, formSubmitting, validateBookingData, toast]);
+  }, [formData, privatePricing, discoPricing, pricingLoading, paymentProcessing, formSubmitting, validateBookingData, canProceedToPayment, getPaymentButtonTooltip, toast]);
   
   // Handle confirmed booking - No longer used for payment flow
   const handleConfirmedBooking = useCallback(async () => {
@@ -2843,7 +2923,7 @@ export default function Chat() {
                                         <div className="text-xs text-slate-600 dark:text-slate-400">Premium amenities included</div>
                                       </div>
                                       <div className="text-sm font-bold text-green-600">
-                                        +{formatCurrency(5000)}/hr
+                                        +{formatCurrency(formData.selectedDuration ? formData.selectedDuration * 5000 : (getCruiseDuration(formData.eventDate) || 4) * 5000)} total
                                       </div>
                                     </div>
                                   </Label>
@@ -2867,7 +2947,7 @@ export default function Chat() {
                                         <div className="text-xs text-slate-600 dark:text-slate-400">All-inclusive luxury</div>
                                       </div>
                                       <div className="text-sm font-bold text-purple-600">
-                                        +{formatCurrency(12500)}/hr
+                                        +{formatCurrency(formData.selectedDuration ? formData.selectedDuration * 7500 : (getCruiseDuration(formData.eventDate) || 4) * 7500)} total
                                       </div>
                                     </div>
                                   </Label>
@@ -2907,7 +2987,12 @@ export default function Chat() {
                                 </div>
                                 <div className="flex items-center justify-between">
                                   <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Duration:</span>
-                                  <span className="font-bold text-blue-600">{getCruiseDuration(formData.eventDate)} hours</span>
+                                  <span className="font-bold text-blue-600">
+                                    {formData.eventDate && isMondayToThursday(formData.eventDate)
+                                      ? (formData.selectedDuration ? `${formData.selectedDuration} hours` : 'Select duration')
+                                      : '4 hours'
+                                    }
+                                  </span>
                                 </div>
                               </div>
                               
@@ -2967,8 +3052,14 @@ export default function Chat() {
                                 setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
                                 handlePayment('deposit', 'private');
                               }}
-                              disabled={!formData.selectedSlot || !privatePricing}
-                              className="w-full bg-green-600 hover:bg-green-700"
+                              disabled={!canProceedToPayment('private') || !privatePricing}
+                              className={cn(
+                                "w-full",
+                                canProceedToPayment('private') && privatePricing
+                                  ? "bg-green-600 hover:bg-green-700"
+                                  : "bg-gray-400 cursor-not-allowed opacity-50"
+                              )}
+                              title={getPaymentButtonTooltip('private')}
                               data-testid="button-private-deposit"
                             >
                               <CreditCard className="h-4 w-4 mr-2" />
@@ -2980,8 +3071,14 @@ export default function Chat() {
                                 setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
                                 handlePayment('full', 'private');
                               }}
-                              disabled={!formData.selectedSlot || !privatePricing}
-                              className="w-full bg-blue-600 hover:bg-blue-700"
+                              disabled={!canProceedToPayment('private') || !privatePricing}
+                              className={cn(
+                                "w-full",
+                                canProceedToPayment('private') && privatePricing
+                                  ? "bg-blue-600 hover:bg-blue-700"
+                                  : "bg-gray-400 cursor-not-allowed opacity-50"
+                              )}
+                              title={getPaymentButtonTooltip('private')}
                               data-testid="button-private-full"
                             >
                               <CreditCard className="h-4 w-4 mr-2" />
@@ -3273,9 +3370,14 @@ export default function Chat() {
                                     setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
                                     handlePayment('deposit', 'disco');
                                   }}
-                                  disabled={!discoPricing || discoSlots.length === 0}
-                                  className="w-full bg-green-600 hover:bg-green-700 disabled:opacity-50 disabled:cursor-not-allowed"
-                                  title={discoSlots.length === 0 ? "No Disco Cruises available on this date" : ""}
+                                  disabled={!canProceedToPayment('disco') || !discoPricing || discoSlots.length === 0}
+                                  className={cn(
+                                    "w-full",
+                                    canProceedToPayment('disco') && discoPricing && discoSlots.length > 0
+                                      ? "bg-green-600 hover:bg-green-700"
+                                      : "bg-gray-400 cursor-not-allowed opacity-50"
+                                  )}
+                                  title={discoSlots.length === 0 ? "No Disco Cruises available on this date" : getPaymentButtonTooltip('disco')}
                                   data-testid="button-disco-deposit"
                                 >
                                   <CreditCard className="h-4 w-4 mr-2" />
@@ -3287,9 +3389,14 @@ export default function Chat() {
                                     setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
                                     handlePayment('full', 'disco');
                                   }}
-                                  disabled={!discoPricing || discoSlots.length === 0}
-                                  className="w-full bg-purple-600 hover:bg-purple-700 disabled:opacity-50 disabled:cursor-not-allowed"
-                                  title={discoSlots.length === 0 ? "No Disco Cruises available on this date" : ""}
+                                  disabled={!canProceedToPayment('disco') || !discoPricing || discoSlots.length === 0}
+                                  className={cn(
+                                    "w-full",
+                                    canProceedToPayment('disco') && discoPricing && discoSlots.length > 0
+                                      ? "bg-purple-600 hover:bg-purple-700"
+                                      : "bg-gray-400 cursor-not-allowed opacity-50"
+                                  )}
+                                  title={discoSlots.length === 0 ? "No Disco Cruises available on this date" : getPaymentButtonTooltip('disco')}
                                   data-testid="button-disco-full"
                                 >
                                   <CreditCard className="h-4 w-4 mr-2" />

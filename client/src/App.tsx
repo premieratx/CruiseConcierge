@@ -80,8 +80,8 @@ function Router() {
       <Route path="/contact" component={Contact} />
       <Route path="/testimonials-faq" component={TestimonialsFaq} />
       
-      {/* Public Booking */}
-      <Route path="/calendar" component={PublicCalendar} />
+      {/* Public Booking - Commented out, using /chat instead */}
+      {/* <Route path="/calendar" component={PublicCalendar} /> */}
       
       {/* Admin Dashboard Routes */}
       <Route path="/dashboard" component={Dashboard} />
@@ -105,10 +105,11 @@ function Router() {
       <Route path="/affiliates" component={Affiliates} />
       <Route path="/documentation" component={Documentation} />
       <Route path="/settings" component={Settings} />
-      <Route path="/quote" component={QuoteViewer} />
-      <Route path="/quote/:quoteId" component={QuoteViewer} />
-      <Route path="/quote-checkout" component={QuoteViewer} />
-      <Route path="/checkout" component={QuoteViewer} />
+      {/* Quote viewer routes - Commented out, using /chat instead */}
+      {/* <Route path="/quote" component={QuoteViewer} /> */}
+      {/* <Route path="/quote/:quoteId" component={QuoteViewer} /> */}
+      {/* <Route path="/quote-checkout" component={QuoteViewer} /> */}
+      {/* <Route path="/checkout" component={QuoteViewer} /> */}
       <Route path="/invoice/:invoiceId" component={InvoiceViewer} />
       
       {/* Admin Blog Routes */}
@@ -133,11 +134,11 @@ function Router() {
       <Route path="/blog/author/:id" component={BlogAuthor} />
       <Route path="/blog/:slug" component={BlogPost} />
       
-      {/* Public Customer Routes */}
-      <Route path="/book" component={PublicCalendar} />
-      <Route path="/availability" component={PublicCalendar} />
-      <Route path="/book/:slotId" component={BookingFlow} />
-      <Route path="/booking-success" component={BookingSuccess} />
+      {/* Public Customer Routes - Calendar routes commented out, using /chat instead */}
+      {/* <Route path="/book" component={PublicCalendar} /> */}
+      {/* <Route path="/availability" component={PublicCalendar} /> */}
+      {/* <Route path="/book/:slotId" component={BookingFlow} /> */}
+      {/* <Route path="/booking-success" component={BookingSuccess} /> */}
       
       {/* Customer Portal Routes */}
       <Route path="/portal" component={PortalLogin} />

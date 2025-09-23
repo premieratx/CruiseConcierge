@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
-import UniversalCalendar from '@/components/UniversalCalendar';
+import Chat from '@/pages/Chat';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -994,6 +994,38 @@ export default function BachelorParty() {
                 </Card>
               </motion.div>
             ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Booking Section with Chat Component */}
+      <section id="booking-widget" className="py-24 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <motion.div 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerChildren}
+            className="text-center mb-12"
+          >
+            <motion.div variants={fadeInUp}>
+              <h2 className="text-4xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider">
+                BOOK YOUR BACHELOR PARTY
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Get started with our instant quote builder and book your epic bachelor party cruise in minutes.
+              </p>
+            </motion.div>
+          </motion.div>
+          
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            className="max-w-7xl mx-auto"
+          >
+            <Chat defaultEventType="bachelor" />
           </motion.div>
         </div>
       </section>
