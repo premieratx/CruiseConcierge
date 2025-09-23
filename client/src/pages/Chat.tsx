@@ -1247,7 +1247,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     const eventDate = selectedDate || formData.eventDate;
     if (eventDate) {
       // NEW FLOW: Initialize quote immediately and redirect to quote URL
-      if (!token) {  // Only initialize if not already on a quote URL
+      if (!quoteToken) {  // Only initialize if not already on a quote URL
         try {
           // Show loading state
           setQuoteLoading(true);
@@ -1334,7 +1334,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   
   // Update quote via PATCH when selections change (for quote URLs)
   const updateQuoteSelections = useCallback(async () => {
-    if (!token || !formData.selectedCruiseType) return;
+    if (!quoteToken || !formData.selectedCruiseType) return;
     
     try {
       // Build selection details
@@ -1351,7 +1351,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       };
       
       // Update the quote
-      const response = await fetch(`/api/quotes/public/${token}`, {
+      const response = await fetch(`/api/quotes/public/${quoteToken}`, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -1375,7 +1375,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       console.error('Error updating quote selections:', error);
     }
   }, [
-    token, 
+    quoteToken, 
     formData.selectedCruiseType,
     formData.selectedSlot,
     formData.selectedAddOnPackages,
@@ -1404,7 +1404,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   
   // Auto-update quote when selections change (for quote URLs)
   useEffect(() => {
-    if (!token || !formData.selectedCruiseType) return;
+    if (!quoteToken || !formData.selectedCruiseType) return;
     
     // Debounce updates to avoid too many API calls
     const timeoutId = setTimeout(() => {
@@ -1413,7 +1413,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     
     return () => clearTimeout(timeoutId);
   }, [
-    token,
+    quoteToken,
     formData.selectedCruiseType,
     formData.selectedSlot,
     formData.selectedAddOnPackages,
@@ -2259,12 +2259,12 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     }
     
     // NEW FLOW: Update existing quote if on quote URL
-    if (token) {
+    if (quoteToken) {
       setFormSubmitting(true);
       
       try {
         // Update the existing quote with contact info
-        const response = await fetch(`/api/quotes/public/${token}`, {
+        const response = await fetch(`/api/quotes/public/${quoteToken}`, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -2348,7 +2348,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       icon: 'user'
     });
     handleSendQuote();
-  }, [formData, formSubmitting, pricingLoading, paymentProcessing, toast, chatSessionId, getBoatDetails, privatePricing, discoPricing, token]);
+  }, [formData, formSubmitting, pricingLoading, paymentProcessing, toast, chatSessionId, getBoatDetails, privatePricing, discoPricing, quoteToken]);
   
   // Handle sending quote via API
   const handleSendQuote = async () => {
