@@ -5437,6 +5437,133 @@ export async function registerRoutes(app: Express): Promise<Server> {
                   paymentIntentMetadata: paymentIntent.metadata
                 });
                 console.log(`✅ Booking created atomically from hold ${holdId} for project ${project.id}`);
+                
+                // ============== TASK 1: BOOKING NOTIFICATIONS ==============
+                // Send SMS & Email notifications on successful bookings
+                try {
+                  // Get contact information for the booking
+                  const contact = await storage.getContact(project.contactId);
+                  if (contact) {
+                    // Parse booking details from payment metadata and project
+                    const eventDate = paymentIntent.metadata.eventDate || project.projectDate?.toISOString().split('T')[0] || 'TBD';
+                    const boatName = paymentIntent.metadata.boatName || 'TBD';
+                    const timeSlot = paymentIntent.metadata.timeSlot || `${paymentIntent.metadata.startTime || 'TBD'} - ${paymentIntent.metadata.endTime || 'TBD'}`;
+                    const totalAmount = (paymentIntent.amount / 100).toFixed(2);
+                    const paymentType = newBalance === 0 ? 'Full Payment' : 'Deposit Payment';
+                    
+                    console.log(`📱 Sending booking notifications for ${contact.name}...`);
+                    
+                    // Check for duplicate notifications using idempotency protection
+                    const existingNotification = await storage.getWebhookNotificationByPaymentIntent(paymentIntent.id);
+                    if (existingNotification) {
+                      console.log(`🔄 Duplicate webhook detected for payment_intent ${paymentIntent.id} - skipping notifications`);
+                    } else {
+                      // Send SMS notification to admin phone
+                      try {
+                        const adminPhone = process.env.ADMIN_ALERT_PHONE || '512-576-7975'; // fallback for compatibility
+                        const smsMessage = `🎉 NEW BOOKING CONFIRMED! 
+Customer: ${contact.name}
+Event Date: ${eventDate}
+Boat: ${boatName}
+Time: ${timeSlot}
+${paymentType}: $${totalAmount}
+Group Size: ${project.groupSize || 'TBD'} people
+Event Type: ${project.eventType || 'Party'}
+Email: ${contact.email}
+Phone: ${contact.phone || 'N/A'}`;
+
+                        await goHighLevelService.send({
+                          to: adminPhone,
+                          body: smsMessage
+                        });
+                        console.log(`✅ SMS notification sent to admin (${adminPhone}) for booking ${project.id}`);
+                      } catch (smsError) {
+                        console.error(`❌ Failed to send SMS notification for booking ${project.id}:`, smsError);
+                      }
+                    
+                    // Send confirmation email to PPC admin email
+                    try {
+                      // Use existing Mailgun service instead of SendGrid
+                      const emailHtml = `
+                        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                          <div style="background: linear-gradient(135deg, #0080FF, #FFD700); padding: 30px; text-align: center;">
+                            <div style="background: white; display: inline-block; padding: 15px; border-radius: 10px; margin-bottom: 20px;">
+                              <h2 style="color: #0080FF; margin: 0;">⚓ Premier Party Cruises ⚓</h2>
+                            </div>
+                            <h1 style="color: white; margin: 0; text-shadow: 2px 2px 4px rgba(0,0,0,0.2);">🎉 New Booking Confirmed!</h1>
+                          </div>
+                          
+                          <div style="padding: 30px; background: white;">
+                            <h2 style="color: #0080FF; margin-bottom: 20px;">Booking Details</h2>
+                            
+                            <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                              <div style="display: grid; gap: 15px;">
+                                <div><strong>Customer:</strong> ${contact.name}</div>
+                                <div><strong>Email:</strong> ${contact.email}</div>
+                                <div><strong>Phone:</strong> ${contact.phone || 'N/A'}</div>
+                                <div><strong>Event Date:</strong> ${eventDate}</div>
+                                <div><strong>Event Type:</strong> ${project.eventType || 'Party'}</div>
+                                <div><strong>Group Size:</strong> ${project.groupSize || 'TBD'} people</div>
+                                <div><strong>Boat:</strong> ${boatName}</div>
+                                <div><strong>Time Slot:</strong> ${timeSlot}</div>
+                                <div style="padding-top: 10px; border-top: 1px solid #e5e7eb;">
+                                  <strong>Payment Type:</strong> ${paymentType}
+                                </div>
+                                <div><strong>Amount Paid:</strong> $${totalAmount}</div>
+                                <div><strong>Payment Status:</strong> ${newBalance === 0 ? 'Fully Paid' : 'Deposit Paid - Balance Due'}</div>
+                                ${newBalance > 0 ? `<div><strong>Remaining Balance:</strong> $${(newBalance / 100).toFixed(2)}</div>` : ''}
+                              </div>
+                            </div>
+                            
+                            <div style="text-align: center; margin: 30px 0; padding: 20px; background: #f0fdf4; border-radius: 8px;">
+                              <p style="margin: 0; color: #166534; font-weight: bold;">✨ Check your admin dashboard for full details! ✨</p>
+                            </div>
+                          </div>
+                          
+                          <div style="background: #f1f5f9; padding: 20px; text-align: center; font-size: 12px; color: #64748b;">
+                            <p>Premier Party Cruises | Lake Travis, TX | Booking ID: ${project.id}</p>
+                          </div>
+                        </div>
+                      `;
+
+                      const adminEmail = process.env.ADMIN_ALERT_EMAIL || 'PPCAustin@gmail.com'; // fallback for compatibility
+                      await mailgunEmail({
+                        to: adminEmail,
+                        from: process.env.MAILGUN_FROM || 'clientservices@premierpartycruises.com',
+                        subject: `🎉 New Booking Confirmed - ${contact.name} - ${eventDate}`,
+                        html: emailHtml
+                      });
+                      console.log(`✅ Email notification sent to admin (${adminEmail}) for booking ${project.id}`);
+                    } catch (emailError) {
+                      console.error(`❌ Failed to send email notification for booking ${project.id}:`, emailError);
+                    }
+                    
+                    // Record that notifications have been sent to prevent duplicates
+                    try {
+                      await storage.createWebhookNotification({
+                        paymentIntentId: paymentIntent.id,
+                        notificationType: 'both',
+                        contactId: contact.id,
+                        projectId: project.id,
+                        success: true,
+                        metadata: {
+                          eventDate,
+                          boatName,
+                          timeSlot,
+                          paymentType,
+                          totalAmount
+                        }
+                      });
+                      console.log(`✅ Webhook notification recorded for payment_intent ${paymentIntent.id}`);
+                    } catch (notificationRecordError) {
+                      console.error(`❌ Failed to record webhook notification for ${paymentIntent.id}:`, notificationRecordError);
+                    }
+                  }
+                  }
+                } catch (notificationError) {
+                  console.error(`❌ Error in booking notification process for project ${project.id}:`, notificationError);
+                }
+                // ========================================================
               } catch (error: any) {
                 console.error("❌ Failed to create booking:", error);
                 

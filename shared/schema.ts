@@ -2458,6 +2458,29 @@ export const checkoutSelectionsSchema = z.object({
   marketingConsent: z.boolean().default(false),
 });
 
+// Webhook Notifications - for preventing duplicate notifications on webhook retries
+export const webhookNotifications = pgTable("webhook_notifications", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  paymentIntentId: text("payment_intent_id").notNull().unique(), // Stripe payment_intent.id
+  notificationType: varchar("notification_type").notNull(), // 'sms', 'email', 'both'
+  sentAt: timestamp("sent_at").notNull().defaultNow(),
+  contactId: varchar("contact_id"), // optional reference to contact
+  projectId: varchar("project_id"), // optional reference to project
+  success: boolean("success").notNull().default(true),
+  errorMessage: text("error_message"), // if notification failed
+  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export type WebhookNotification = typeof webhookNotifications.$inferSelect;
+export type InsertWebhookNotification = typeof webhookNotifications.$inferInsert;
+
+// Insert schemas
+export const insertWebhookNotificationSchema = createInsertSchema(webhookNotifications).omit({
+  id: true,
+  createdAt: true,
+});
+
 // Export types
 export type CheckoutContext = z.infer<typeof checkoutContextSchema>;
 export type CheckoutSelections = z.infer<typeof checkoutSelectionsSchema>;

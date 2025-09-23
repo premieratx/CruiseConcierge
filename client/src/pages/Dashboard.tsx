@@ -10,12 +10,13 @@ import Navigation from "@/components/Navigation";
 import { RecentQuotes } from "@/components/RecentQuotes";
 import { RecentInvoices } from "@/components/RecentInvoices";
 import { BookingsTable } from "@/components/BookingsTable";
+import BookingsManagement from "@/pages/BookingsManagement";
 import { apiRequest } from "@/lib/queryClient";
 import { useLocation } from "wouter";
 import logoPath from "@assets/PPC Logo LARGE_1757881944449.png";
 import { 
   TrendingUp, Calendar, LayoutDashboard, FileText, 
-  MessageCircle, Save, Ship, Users, BarChart3
+  MessageCircle, Save, Ship, Users, BarChart3, Anchor
 } from "lucide-react";
 
 export default function Dashboard() {
@@ -102,7 +103,7 @@ export default function Dashboard() {
       {/* Main Dashboard Content */}
       <div className="container mx-auto px-4 py-6">
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="overview" className="flex items-center gap-2">
               <LayoutDashboard className="h-4 w-4" />
               Overview
@@ -110,6 +111,10 @@ export default function Dashboard() {
             <TabsTrigger value="customers" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
               Customers
+            </TabsTrigger>
+            <TabsTrigger value="bookings" className="flex items-center gap-2">
+              <Anchor className="h-4 w-4" />
+              Bookings
             </TabsTrigger>
             <TabsTrigger value="calendar" className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
@@ -220,6 +225,10 @@ export default function Dashboard() {
                 />
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="bookings" className="space-y-6">
+            <BookingsManagement />
           </TabsContent>
 
           <TabsContent value="calendar" className="space-y-6">
