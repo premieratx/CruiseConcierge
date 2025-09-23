@@ -1187,13 +1187,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
             discountCode: updates.promoCode
           });
           
-          // Add pricing to updates
-          updates.subtotal = pricingResult.subtotal;
-          updates.tax = pricingResult.tax;
-          updates.gratuity = pricingResult.gratuity;
-          updates.total = pricingResult.total;
-          updates.depositAmount = pricingResult.depositAmount;
-          updates.perPersonCost = Math.floor(pricingResult.total / (selectionDetails.ticketQuantity || eventDetails.groupSize));
+          // Add pricing to updates - ensure all values are valid numbers
+          updates.subtotal = parseInt(pricingResult.subtotal) || 0;
+          updates.tax = parseInt(pricingResult.tax) || 0;
+          updates.gratuity = parseInt(pricingResult.gratuity) || 0;
+          updates.total = parseInt(pricingResult.total) || 0;
+          updates.depositAmount = parseInt(pricingResult.depositAmount) || 0;
+          
+          // Calculate per person cost safely
+          const groupSizeForCost = selectionDetails.ticketQuantity || eventDetails.groupSize || 1;
+          updates.perPersonCost = updates.total > 0 ? Math.floor(updates.total / groupSizeForCost) : 0;
         }
       }
       
@@ -1236,26 +1239,30 @@ export async function registerRoutes(app: Express): Promise<Server> {
           
           // 3. Add to Google Sheets
           try {
-            await googleSheetsService.appendToSheet('Leads', [[
-              `${contactInfo.firstName} ${contactInfo.lastName}`,
-              contactInfo.email,
-              contactInfo.phone || '',
-              updatedQuote.eventDetails?.eventDate || '',
-              updatedQuote.eventDetails?.eventType || '',
-              updatedQuote.eventDetails?.groupSize || '',
-              quoteUrl,
-              new Date().toISOString()
-            ]]);
+            await googleSheetsService.createLead({
+              leadId: `lead_${Date.now()}_${Math.random().toString(36).substring(7)}`,
+              name: `${contactInfo.firstName} ${contactInfo.lastName}`,
+              email: contactInfo.email,
+              phone: contactInfo.phone || '',
+              eventType: updatedQuote.eventDetails?.eventType,
+              eventTypeLabel: updatedQuote.eventDetails?.eventTypeLabel,
+              source: 'quote_builder',
+              quoteUrl: quoteUrl,
+              quoteId: updatedQuote.id,
+              groupSize: updatedQuote.eventDetails?.groupSize,
+              cruiseDate: updatedQuote.eventDetails?.eventDate,
+              status: 'QUOTED',
+              createdDate: new Date().toISOString(),
+              lastUpdated: new Date().toISOString(),
+              progress: 'complete'
+            });
             console.log('✅ Lead added to Google Sheets');
           } catch (sheetsError) {
             console.error('❌ Error adding to Google Sheets:', sheetsError);
           }
           
-          // 4. Send Email via SendGrid
+          // 4. Send Email via Mailgun
           try {
-            const sgMail = require('@sendgrid/mail');
-            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-            
             const emailHtml = `
               <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
                 <div style="background: linear-gradient(135deg, #0080FF, #FFD700); padding: 30px; text-align: center;">
@@ -1298,9 +1305,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
               </div>
             `;
             
-            await sgMail.send({
+            await mailgunService.send({
               to: contactInfo.email,
-              from: process.env.SENDGRID_FROM_EMAIL || 'clientservices@premierpartycruises.com',
+              from: process.env.MAILGUN_FROM || 'clientservices@premierpartycruises.com',
               subject: `Your Premier Party Cruises Quote - ${updatedQuote.eventDetails?.eventTypeLabel || updatedQuote.eventDetails?.eventType || 'Party Cruise'}`,
               html: emailHtml
             });
@@ -1315,9 +1322,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
             try {
               const smsMessage = `Hi ${contactInfo.firstName}! Your Premier Party Cruises quote is ready. Total: $${((updatedQuote.total || 0) / 100).toFixed(2)}. View it here: ${quoteUrl}`;
               
-              await goHighLevelService.sendSMS({
-                phone: contactInfo.phone,
-                message: smsMessage
+              await goHighLevelService.send({
+                to: contactInfo.phone,
+                body: smsMessage
               });
               
               console.log('✅ SMS sent to:', contactInfo.phone);
@@ -1326,23 +1333,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
             }
           }
           
-          // Also try comprehensive lead service for additional tracking
-          try {
-            await comprehensiveLeadService.createLead({
-              name: `${contactInfo.firstName} ${contactInfo.lastName}`,
-              email: contactInfo.email,
-              phone: contactInfo.phone,
-              eventType: updatedQuote.eventDetails?.eventType || 'general',
-              eventDate: new Date(updatedQuote.eventDetails?.eventDate || Date.now()),
-              groupSize: updatedQuote.eventDetails?.groupSize || 1,
-              source: 'chat_quote',
-              status: 'quote_sent',
-              quoteId: updatedQuote.id,
-              projectId: lead.id
-            });
-          } catch (comprehensiveError) {
-            console.error('Comprehensive lead service error:', comprehensiveError);
-          }
+          // Lead creation already handled by storage.createLead above
+          // No need for duplicate comprehensive lead service call
           
         } catch (leadError) {
           console.error('Error in lead creation flow:', leadError);
