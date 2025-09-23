@@ -16,6 +16,7 @@ import {
   Heart, Eye, Share2, ChevronDown, Video
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { useInlineEdit } from '@/hooks/useInlineEdit';
 
 // Import gallery images - Real photos from live website
 import heroImage1 from '@assets/bachelor-party-group-guys.jpg';
@@ -334,6 +335,7 @@ const stats = [
 
 export default function Gallery() {
   const [, navigate] = useLocation();
+  const { isEditMode } = useInlineEdit();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);

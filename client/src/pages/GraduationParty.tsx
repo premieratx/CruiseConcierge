@@ -9,6 +9,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
+import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
 import { 
@@ -237,6 +238,7 @@ const testimonials = [
 
 export default function GraduationParty() {
   const [location, navigate] = useLocation();
+  const { isEditMode } = useInlineEdit();
   const [selectedPackage, setSelectedPackage] = useState('grad_essentials');
 
   const handleGetQuote = () => {

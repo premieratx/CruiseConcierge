@@ -6,6 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useToast } from '@/hooks/use-toast';
+import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { CONTACT_INFO, BUSINESS_HOURS } from '@shared/contact';
 import { 
   Phone, Mail, MapPin, Clock, MessageSquare, Calendar,
@@ -13,6 +14,7 @@ import {
 } from 'lucide-react';
 
 export default function Contact() {
+  const { isEditMode } = useInlineEdit();
   const [contactForm, setContactForm] = useState({
     name: '',
     email: '',
@@ -72,10 +74,10 @@ export default function Contact() {
         <div className="container mx-auto px-6">
           <div className="max-w-4xl mx-auto text-center">
             <MessageSquare className="h-20 w-20 text-brand-blue mx-auto mb-8" />
-            <h1 className="text-5xl md:text-7xl font-heading font-bold mb-6 text-gray-900 dark:text-white">
+            <h1 className="text-5xl md:text-7xl font-heading font-bold mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="h1-contact-us">
               CONTACT US
             </h1>
-            <p className="text-xl md:text-2xl mb-12 text-gray-600 dark:text-gray-300">
+            <p className="text-xl md:text-2xl mb-12 text-gray-600 dark:text-gray-300" data-editable data-editable-id="p-contact-tagline">
               Ready to plan your Lake Travis adventure? Let's make it happen!
             </p>
           </div>
@@ -88,10 +90,10 @@ export default function Contact() {
           <div className="grid lg:grid-cols-2 gap-16 max-w-7xl mx-auto">
             {/* Contact Information */}
             <div>
-              <h2 className="text-4xl font-heading font-bold mb-8 text-gray-900 dark:text-white">
+              <h2 className="text-4xl font-heading font-bold mb-8 text-gray-900 dark:text-white" data-editable data-editable-id="h2-get-in-touch">
                 GET IN TOUCH
               </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-12">
+              <p className="text-xl text-gray-600 dark:text-gray-300 mb-12" data-editable data-editable-id="p-contact-description">
                 Premier Party Cruises has been Austin's original Lake Travis party cruise company for over 14 years. 
                 We're here to help plan your perfect celebration!
               </p>

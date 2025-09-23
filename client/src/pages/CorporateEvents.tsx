@@ -13,6 +13,7 @@ import SEOHead from '@/components/SEOHead';
 import { formatCurrency } from '@shared/formatters';
 import { HOURLY_RATES, PRICING_DEFAULTS } from '@shared/constants';
 import { cn } from '@/lib/utils';
+import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { 
   Building, Users, Star, Calendar, Trophy, Shield, Award,
   MessageSquare, Quote, Volume2, Clock, Briefcase,
@@ -270,6 +271,7 @@ const galleryImages = [
 
 export default function CorporateEvents() {
   const [location, navigate] = useLocation();
+  const { isEditMode } = useInlineEdit();
 
   const handleGetQuote = () => {
     navigate('/chat?eventType=corporate');
@@ -319,12 +321,12 @@ export default function CorporateEvents() {
           <Badge className="mb-4 bg-brand-blue text-white px-4 py-2 text-sm font-bold">
             PROFESSIONAL CORPORATE CRUISES
           </Badge>
-          <h1 className="text-5xl md:text-7xl font-heading font-black mb-6 tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-heading font-black mb-6 tracking-tight" data-editable data-editable-id="h1-corporate-hero">
             IMPRESS CLIENTS.<br />
             REWARD YOUR TEAM.<br />
             <span className="text-brand-yellow">ELEVATE YOUR BUSINESS.</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="p-corporate-tagline">
             Tax-deductible business entertainment • Professional service • Unforgettable experiences
           </p>
           
@@ -392,10 +394,10 @@ export default function CorporateEvents() {
                 viewport={{ once: true }}
               >
                 <div className="text-center max-w-4xl mx-auto mb-12">
-                  <h2 className="text-4xl md:text-5xl font-heading font-black mb-6">
+                  <h2 className="text-4xl md:text-5xl font-heading font-black mb-6" data-editable data-editable-id="h2-corporate-overview">
                     AUSTIN'S PREMIER CORPORATE CRUISE EXPERIENCE
                   </h2>
-                  <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+                  <p className="text-xl text-gray-600 dark:text-gray-400 leading-relaxed" data-editable data-editable-id="p-corporate-overview-desc">
                     Take your next corporate event to the water. Whether it's team building, client entertainment, 
                     or celebrating success, our professional cruises deliver unforgettable experiences that strengthen 
                     relationships and drive business results.

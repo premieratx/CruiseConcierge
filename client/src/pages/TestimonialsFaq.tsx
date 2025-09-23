@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { cn } from '@/lib/utils';
+import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { 
   Star, Quote, Play, Search, Phone, Mail, Calendar, 
   Users, Ship, PartyPopper, Building2, Heart, Trophy,
@@ -355,6 +356,7 @@ const socialProofStats = [
 
 export default function TestimonialsFaq() {
   const [location, navigate] = useLocation();
+  const { isEditMode } = useInlineEdit();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedTestimonialFilter, setSelectedTestimonialFilter] = useState('all');
   const [isVideoModalOpen, setIsVideoModalOpen] = useState(false);

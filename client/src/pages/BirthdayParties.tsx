@@ -13,6 +13,7 @@ import SEOHead from '@/components/SEOHead';
 import { formatCurrency } from '@shared/formatters';
 import { HOURLY_RATES, PRICING_DEFAULTS } from '@shared/constants';
 import { cn } from '@/lib/utils';
+import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { 
   Cake, Users, Star, Calendar, Trophy, Shield, Award,
   MessageSquare, Quote, Volume2, Clock, PartyPopper,
@@ -262,6 +263,7 @@ const galleryImages = [
 
 export default function BirthdayParties() {
   const [location, navigate] = useLocation();
+  const { isEditMode } = useInlineEdit();
 
   const handleGetQuote = () => {
     navigate('/chat?eventType=birthday');
@@ -311,12 +313,12 @@ export default function BirthdayParties() {
           <Badge className="mb-4 bg-brand-yellow text-black px-4 py-2 text-sm font-bold animate-pulse">
             🎉 BIRTHDAY VIP CRUISES FREE! 🎉
           </Badge>
-          <h1 className="text-5xl md:text-7xl font-heading font-black mb-6 tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-heading font-black mb-6 tracking-tight" data-editable data-editable-id="h1-birthday-hero">
             MAKE YOUR<br />
             BIRTHDAY<br />
             <span className="text-brand-yellow">LEGENDARY!</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="p-birthday-tagline">
             Celebrate on Lake Travis • All ages welcome • Milestone specialists
           </p>
           

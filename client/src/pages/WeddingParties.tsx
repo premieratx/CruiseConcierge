@@ -13,6 +13,7 @@ import SEOHead from '@/components/SEOHead';
 import { formatCurrency } from '@shared/formatters';
 import { HOURLY_RATES, PRICING_DEFAULTS } from '@shared/constants';
 import { cn } from '@/lib/utils';
+import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { 
   Heart, Users, Star, Calendar, Trophy, Shield, Award,
   MessageSquare, Quote, Volume2, Clock, Sparkles,
@@ -279,6 +280,7 @@ const galleryImages = [
 
 export default function WeddingParties() {
   const [location, navigate] = useLocation();
+  const { isEditMode } = useInlineEdit();
 
   const handleGetQuote = () => {
     navigate('/chat?eventType=wedding');
@@ -330,12 +332,12 @@ export default function WeddingParties() {
             WEDDING CELEBRATIONS ON THE WATER
             <Heart className="h-4 w-4 ml-2 text-red-500" />
           </Badge>
-          <h1 className="text-5xl md:text-7xl font-heading font-black mb-6 tracking-tight">
+          <h1 className="text-5xl md:text-7xl font-heading font-black mb-6 tracking-tight" data-editable data-editable-id="h1-wedding-hero">
             CREATE<br />
             UNFORGETTABLE<br />
             <span className="text-brand-yellow">WEDDING MEMORIES</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed font-light">
+          <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed font-light" data-editable data-editable-id="p-wedding-tagline">
             Rehearsal Dinners • Welcome Parties • After Parties<br />
             Elegant celebrations with sunset views on Lake Travis
           </p>

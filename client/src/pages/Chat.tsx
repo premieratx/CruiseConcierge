@@ -33,6 +33,7 @@ import { Separator } from '@/components/ui/separator';
 import { Slider } from '@/components/ui/slider';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
+import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { format, addDays, isBefore, isAfter, startOfDay, differenceInDays } from 'date-fns';
 import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection, QuoteItem, NormalizedSlot } from '@shared/schema';
 import { useAvailabilityForDate, useAvailabilityForDateRange, formatDateForAvailability } from '@/hooks/use-availability';
@@ -836,6 +837,7 @@ interface ChatProps {
 }
 
 export default function Chat({ defaultEventType }: ChatProps = {}) {
+  const { isEditMode } = useInlineEdit();
   // Initialize with defaultEventType if provided
   const getInitialEventData = () => {
     if (defaultEventType && EVENT_TYPES[defaultEventType]) {
