@@ -3,11 +3,21 @@ import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
+import { 
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle
+} from '@/components/ui/navigation-menu';
 import { cn } from '@/lib/utils';
 import logoPath from '@assets/PPC logo 2023_1758097465959.png';
 import { 
   Menu, X, Ship, Calendar, MessageSquare, Phone, 
-  Users, Camera, Heart, ArrowRight, Star
+  Users, Camera, Heart, ArrowRight, Star,
+  Building, Cake, ChevronDown
 } from 'lucide-react';
 
 const navigationItems = [
@@ -30,7 +40,34 @@ const navigationItems = [
   {
     title: 'Private Cruises',
     href: '/private-cruises',
-    icon: Ship
+    icon: Ship,
+    hasDropdown: true,
+    dropdownItems: [
+      {
+        title: 'All Private Cruises',
+        href: '/private-cruises',
+        description: 'Exclusive boat charters',
+        icon: Ship
+      },
+      {
+        title: 'Corporate Events',
+        href: '/corporate-events',
+        description: 'Team building & client entertainment',
+        icon: Building
+      },
+      {
+        title: 'Birthday Parties',
+        href: '/birthday-parties',
+        description: 'Celebrate on the water',
+        icon: Cake
+      },
+      {
+        title: 'Wedding Parties',
+        href: '/wedding-parties',
+        description: 'Rehearsal dinners & celebrations',
+        icon: Heart
+      }
+    ]
   },
   {
     title: 'Gallery',
@@ -122,35 +159,73 @@ export default function PublicNavigation() {
             </Link>
 
             {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-8">
-              {navigationItems.map((item) => (
-                <Link
-                  key={item.href}
-                  href={item.href}
-                  className={cn(
-                    "relative flex items-center space-x-2 px-4 py-2 rounded-lg font-semibold transition-all duration-300 group",
-                    location === item.href
-                      ? "text-brand-blue bg-brand-blue/10"
-                      : "text-gray-700 dark:text-gray-300 hover:text-brand-blue hover:bg-brand-blue/5"
-                  )}
-                  data-testid={`link-nav-${item.title.toLowerCase().replace(' ', '-')}`}
-                >
-                  <item.icon className="h-4 w-4" />
-                  <span className="tracking-wide">{item.title}</span>
-                  {item.badge && (
-                    <span className="ml-2 px-2 py-1 text-xs font-bold bg-brand-yellow text-black rounded-full">
-                      {item.badge}
-                    </span>
-                  )}
-                  {location === item.href && (
-                    <motion.div
-                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-blue rounded-full"
-                      layoutId="nav-indicator"
-                    />
-                  )}
-                </Link>
-              ))}
-            </nav>
+            <NavigationMenu className="hidden lg:block">
+              <NavigationMenuList className="flex items-center space-x-2">
+                {navigationItems.map((item) => (
+                  item.hasDropdown ? (
+                    <NavigationMenuItem key={item.href}>
+                      <NavigationMenuTrigger className={cn(
+                        "flex items-center space-x-2 px-4 py-2 font-semibold",
+                        location.startsWith('/private-cruises') || 
+                        location.startsWith('/corporate-events') ||
+                        location.startsWith('/birthday-parties') ||
+                        location.startsWith('/wedding-parties')
+                          ? "text-brand-blue"
+                          : "text-gray-700 dark:text-gray-300"
+                      )}>
+                        <item.icon className="h-4 w-4" />
+                        <span>{item.title}</span>
+                      </NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2">
+                          {item.dropdownItems?.map((dropdownItem) => (
+                            <li key={dropdownItem.href}>
+                              <NavigationMenuLink asChild>
+                                <Link
+                                  href={dropdownItem.href}
+                                  className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                                  data-testid={`link-dropdown-${dropdownItem.title.toLowerCase().replace(/\s+/g, '-')}`}
+                                >
+                                  <div className="flex items-center space-x-2">
+                                    <dropdownItem.icon className="h-4 w-4 text-brand-blue" />
+                                    <div className="text-sm font-medium leading-none">{dropdownItem.title}</div>
+                                  </div>
+                                  <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                    {dropdownItem.description}
+                                  </p>
+                                </Link>
+                              </NavigationMenuLink>
+                            </li>
+                          ))}
+                        </ul>
+                      </NavigationMenuContent>
+                    </NavigationMenuItem>
+                  ) : (
+                    <NavigationMenuItem key={item.href}>
+                      <Link
+                        href={item.href}
+                        className={cn(
+                          navigationMenuTriggerStyle(),
+                          "flex items-center space-x-2 font-semibold",
+                          location === item.href
+                            ? "text-brand-blue bg-brand-blue/10"
+                            : "text-gray-700 dark:text-gray-300"
+                        )}
+                        data-testid={`link-nav-${item.title.toLowerCase().replace(' ', '-')}`}
+                      >
+                        <item.icon className="h-4 w-4" />
+                        <span>{item.title}</span>
+                        {item.badge && (
+                          <span className="ml-2 px-2 py-1 text-xs font-bold bg-brand-yellow text-black rounded-full">
+                            {item.badge}
+                          </span>
+                        )}
+                      </Link>
+                    </NavigationMenuItem>
+                  )
+                ))}
+              </NavigationMenuList>
+            </NavigationMenu>
 
             {/* Desktop CTA Buttons */}
             <div className="hidden lg:flex items-center space-x-4">
@@ -219,30 +294,57 @@ export default function PublicNavigation() {
                   </div>
 
                   {/* Mobile Navigation Links */}
-                  <nav className="flex-1 py-6">
+                  <nav className="flex-1 py-6 overflow-y-auto">
                     <div className="space-y-2 px-6">
                       {navigationItems.map((item) => (
-                        <Link
-                          key={item.href}
-                          href={item.href}
-                          onClick={closeMobileMenu}
-                          className={cn(
-                            "flex items-center space-x-3 w-full px-4 py-4 rounded-xl font-semibold text-lg transition-all duration-300",
-                            location === item.href
-                              ? "text-brand-blue bg-brand-blue/10 border-l-4 border-brand-blue"
-                              : "text-gray-700 dark:text-gray-300 hover:text-brand-blue hover:bg-brand-blue/5"
+                        <div key={item.href}>
+                          {item.hasDropdown ? (
+                            <>
+                              <div className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-4">
+                                {item.title}
+                              </div>
+                              {item.dropdownItems?.map((dropdownItem) => (
+                                <Link
+                                  key={dropdownItem.href}
+                                  href={dropdownItem.href}
+                                  onClick={closeMobileMenu}
+                                  className={cn(
+                                    "flex items-center space-x-3 w-full px-4 py-3 rounded-xl font-medium transition-all duration-300",
+                                    location === dropdownItem.href
+                                      ? "text-brand-blue bg-brand-blue/10 border-l-4 border-brand-blue"
+                                      : "text-gray-700 dark:text-gray-300 hover:text-brand-blue hover:bg-brand-blue/5"
+                                  )}
+                                  data-testid={`link-mobile-${dropdownItem.title.toLowerCase().replace(/\s+/g, '-')}`}
+                                >
+                                  <dropdownItem.icon className="h-5 w-5" />
+                                  <span className="flex-1">{dropdownItem.title}</span>
+                                  <ArrowRight className="h-4 w-4 opacity-50" />
+                                </Link>
+                              ))}
+                            </>
+                          ) : (
+                            <Link
+                              href={item.href}
+                              onClick={closeMobileMenu}
+                              className={cn(
+                                "flex items-center space-x-3 w-full px-4 py-4 rounded-xl font-semibold text-lg transition-all duration-300",
+                                location === item.href
+                                  ? "text-brand-blue bg-brand-blue/10 border-l-4 border-brand-blue"
+                                  : "text-gray-700 dark:text-gray-300 hover:text-brand-blue hover:bg-brand-blue/5"
+                              )}
+                              data-testid={`link-mobile-${item.title.toLowerCase().replace(' ', '-')}`}
+                            >
+                              <item.icon className="h-5 w-5" />
+                              <span className="flex-1 tracking-wide">{item.title}</span>
+                              {item.badge && (
+                                <span className="px-2 py-1 text-xs font-bold bg-brand-yellow text-black rounded-full">
+                                  {item.badge}
+                                </span>
+                              )}
+                              <ArrowRight className="h-4 w-4 opacity-50" />
+                            </Link>
                           )}
-                          data-testid={`link-mobile-${item.title.toLowerCase().replace(' ', '-')}`}
-                        >
-                          <item.icon className="h-5 w-5" />
-                          <span className="flex-1 tracking-wide">{item.title}</span>
-                          {item.badge && (
-                            <span className="px-2 py-1 text-xs font-bold bg-brand-yellow text-black rounded-full">
-                              {item.badge}
-                            </span>
-                          )}
-                          <ArrowRight className="h-4 w-4 opacity-50" />
-                        </Link>
+                        </div>
                       ))}
                     </div>
                   </nav>

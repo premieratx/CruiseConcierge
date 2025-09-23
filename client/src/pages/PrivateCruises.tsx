@@ -351,13 +351,7 @@ export default function PrivateCruises() {
             viewport={{ once: true }}
             variants={fadeInUp}
           >
-            <UniversalCalendar 
-              defaultEventType="private"
-              defaultGroupSize={20}
-              embedMode={true}
-              entryPoint="private-page"
-              className="max-w-6xl mx-auto"
-            />
+            <Chat />
           </motion.div>
         </div>
       </section>

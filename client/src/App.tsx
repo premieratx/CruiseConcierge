@@ -52,6 +52,9 @@ import Pricing from "./pages/admin/Pricing";
 import BachelorParty from "./pages/BachelorParty";
 import BacheloretteParty from "./pages/BacheloretteParty";
 import PrivateCruises from "./pages/PrivateCruises";
+import CorporateEvents from "./pages/CorporateEvents";
+import BirthdayParties from "./pages/BirthdayParties";
+import WeddingParties from "./pages/WeddingParties";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import TestimonialsFaq from "./pages/TestimonialsFaq";
@@ -76,6 +79,9 @@ function Router() {
       <Route path="/bachelor-party" component={BachelorParty} />
       <Route path="/bachelorette-party" component={BacheloretteParty} />
       <Route path="/private-cruises" component={PrivateCruises} />
+      <Route path="/corporate-events" component={CorporateEvents} />
+      <Route path="/birthday-parties" component={BirthdayParties} />
+      <Route path="/wedding-parties" component={WeddingParties} />
       <Route path="/gallery" component={Gallery} />
       <Route path="/contact" component={Contact} />
       <Route path="/testimonials-faq" component={TestimonialsFaq} />
