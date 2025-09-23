@@ -526,6 +526,105 @@ export class GoogleSheetsService {
   }
 
   // Lead tracking methods with enhanced retry and logging
+  // Simple method to add leads to Google Sheets (used by quote creation)
+  async addLeadToSheet(leadData: {
+    name: string;
+    email: string;
+    phone?: string;
+    eventDate?: string;
+    eventType?: string;
+    groupSize?: string;
+    quoteUrl?: string;
+    createdDate?: string;
+    leadSource?: string;
+    status?: string;
+  }): Promise<boolean> {
+    console.log('📊 Adding lead to Google Sheets (simple)...', {
+      name: leadData.name,
+      email: leadData.email,
+      hasQuoteUrl: !!leadData.quoteUrl
+    });
+
+    try {
+      if (!this.sheets || !this.spreadsheetId) {
+        console.log("📊 Google Sheets not configured - simulating lead addition:", leadData);
+        return true;
+      }
+
+      // Ensure the Leads sheet exists with retry
+      await this.withRetry(
+        () => this.ensureLeadsSheetExists(),
+        'Ensure Leads sheet exists'
+      );
+
+      const now = new Date().toISOString();
+      const leadId = `lead_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      
+      const leadRow = [
+        leadId, // A: Lead ID
+        leadData.createdDate || now, // B: Created Date
+        leadData.name, // C: Name
+        leadData.email, // D: Email
+        leadData.phone || '', // E: Phone
+        '', // F: Event Type (old format)
+        leadData.eventType || '', // G: Event Type Label
+        leadData.eventDate || '', // H: Cruise Date
+        leadData.groupSize || '', // I: Group Size
+        '', // J: Boat Type (filled later)
+        '', // K: Disco Package (filled later)
+        '', // L: Time Slot (filled later)
+        leadData.status || 'NEW', // M: Status
+        'started', // N: Progress
+        now, // O: Last Updated
+        leadData.leadSource || 'Web', // P: Source
+        '', // Q: Special Requests (filled later)
+        '', // R: Budget (filled later)
+        '', // S: Project ID (filled later)
+        '', // T: Notes (filled later)
+        leadData.quoteUrl || '', // U: Quote URL
+        '' // V: Quote ID
+      ];
+
+      console.log('📊 Writing lead row to Google Sheets (simple):', {
+        leadId,
+        rowLength: leadRow.length,
+        quoteUrl: leadData.quoteUrl,
+        range: 'Leads!A:V'
+      });
+
+      // Write lead with retry mechanism
+      await this.withRetry(
+        async () => {
+          const response = await this.sheets.spreadsheets.values.append({
+            spreadsheetId: this.spreadsheetId,
+            range: 'Leads!A:V',
+            valueInputOption: 'RAW',
+            resource: {
+              values: [leadRow]
+            }
+          });
+          return response;
+        },
+        `Add lead ${leadData.name} to Google Sheets`
+      );
+
+      console.log('✅ Successfully added lead to Google Sheets:', {
+        leadId,
+        name: leadData.name,
+        quoteUrl: leadData.quoteUrl
+      });
+      
+      return true;
+    } catch (error: any) {
+      console.error('❌ Error adding lead to Google Sheets:', {
+        name: leadData.name,
+        error: error.message,
+        quoteUrl: leadData.quoteUrl
+      });
+      return false;
+    }
+  }
+
   async createLead(leadData: {
     leadId: string;
     name: string;

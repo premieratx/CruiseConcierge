@@ -64,6 +64,25 @@ app.use('/embed', (req, res, next) => {
   next();
 });
 
+// Add CSP headers for quote pages to allow inline styles
+app.use('/q/', (req, res, next) => {
+  // Set permissive CSP to allow inline styles for quote pages
+  res.setHeader('Content-Security-Policy', 
+    "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https:; " +
+    "connect-src 'self' https: wss: ws:; " +
+    "img-src 'self' data: https: blob:; " +
+    "style-src 'self' 'unsafe-inline' https:; " +
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; " +
+    "frame-ancestors 'self';"
+  );
+  
+  // Additional headers for compatibility
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('Referrer-Policy', 'origin-when-cross-origin');
+  
+  next();
+});
+
 (async () => {
   const server = await registerRoutes(app);
 
