@@ -178,31 +178,97 @@ export async function createQuoteFromChat(app: Express) {
 
       // Also save to comprehensive lead system
       try {
-        await comprehensiveLeadService.createLead({
+        await comprehensiveLeadService.createComprehensiveLead({
           name: `${firstName} ${lastName}`,
           email,
           phone,
           eventType: eventType || 'general',
-          eventDate: new Date(eventDate),
+          eventTypeLabel: eventTypeLabel || eventType || 'General',
           groupSize,
+          cruiseDate: format(new Date(eventDate), 'MM/dd/yyyy'),
           source: 'chat_quote',
-          status: 'quote_sent',
-          quoteId: result.quote.id,
-          projectId: result.quote.projectId,
-          contactId: result.quote.contactId
+          projectData: projectData,
+          quoteData: quoteData,
+          selectedOptions: {
+            cruiseType,
+            selectedSlot,
+            selectedPackages,
+            discoPackage,
+            ticketQuantity,
+            selectedDuration,
+            selectedBoat
+          },
+          pricing: {
+            subtotal,
+            tax,
+            gratuity,
+            total,
+            depositAmount
+          }
         });
       } catch (leadError) {
-        console.error('Error creating lead:', leadError);
+        console.error('Error creating comprehensive lead:', leadError);
         // Don't fail the quote creation if lead creation fails
       }
 
+      // Send email notification with quote link
+      const fullQuoteUrl = `${process.env.PUBLIC_URL || 'https://cruise-concierge-brian-hill.replit.app'}/q/${result.quote.accessToken}`;
+      
+      try {
+        // Send email with the full quote URL
+        const emailSuccess = await mailgunQuoteEmail(
+          email,
+          `${firstName} ${lastName}`,
+          result.quote.id,
+          {
+            eventType: eventType || 'Party Cruise',
+            eventTypeLabel: eventTypeLabel || eventType || 'Party Cruise',
+            groupSize: groupSize || 0,
+            date: format(new Date(eventDate), 'EEEE, MMMM d, yyyy'),
+            total: total || 0,
+            subtotal: subtotal || 0,
+            tax: tax || 0,
+            gratuity: gratuity || 0
+          },
+          fullQuoteUrl
+        );
+        
+        if (emailSuccess) {
+          console.log('✅ Quote email sent successfully to:', email);
+        } else {
+          console.error('⚠️ Failed to send quote email to:', email);
+        }
+      } catch (emailError) {
+        console.error('❌ Error sending quote email:', emailError);
+        // Don't fail the quote creation if email fails
+      }
+      
+      // Send SMS notification with quote link
+      try {
+        const smsMessage = `Hi ${firstName}! Your cruise quote is ready! View it here: ${fullQuoteUrl}`;
+        const smsSuccess = await goHighLevelService.send({
+          to: phone,
+          body: smsMessage
+        });
+        
+        if (smsSuccess) {
+          console.log('✅ SMS notification sent to:', phone);
+        } else {
+          console.error('⚠️ Failed to send SMS to:', phone);
+        }
+      } catch (smsError) {
+        console.error('❌ Error sending SMS:', smsError);
+        // Don't fail the quote creation if SMS fails
+      }
+      
       // Return the quote ID, slug, and public URL
       res.json({
         success: true,
         quoteId: result.quote.id,
         slug: result.quote.slug,
         publicUrl: result.publicUrl,
-        accessToken: result.quote.accessToken
+        accessToken: result.quote.accessToken,
+        redirectUrl: `/q/${result.quote.accessToken}` // Add explicit redirect URL
       });
 
     } catch (error) {

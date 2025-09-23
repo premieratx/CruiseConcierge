@@ -34,7 +34,7 @@ import { Slider } from '@/components/ui/slider';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
 import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
-import { format, addDays, isBefore, isAfter, startOfDay, differenceInDays } from 'date-fns';
+import { format, addDays, isBefore, isAfter, startOfDay, differenceInDays, isValid } from 'date-fns';
 import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection, QuoteItem, NormalizedSlot } from '@shared/schema';
 import { useAvailabilityForDate, useAvailabilityForDateRange, formatDateForAvailability } from '@/hooks/use-availability';
 import { TimeSlotList } from '@/components/TimeSlotList';
@@ -1246,45 +1246,11 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   const proceedToComparison = async (selectedDate?: Date) => {
     const eventDate = selectedDate || formData.eventDate;
     if (eventDate) {
-      // NEW FLOW: Initialize quote immediately and redirect to quote URL
-      if (!quoteToken) {  // Only initialize if not already on a quote URL
-        try {
-          // Show loading state
-          setQuoteLoading(true);
-          
-          // Initialize the quote with minimal data
-          const response = await fetch('/api/quotes/initialize', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              eventDate: eventDate.toISOString(),
-              eventType: formData.eventType,
-              groupSize: formData.groupSize
-            })
-          });
-          
-          if (!response.ok) {
-            throw new Error('Failed to initialize quote');
-          }
-          
-          const data = await response.json();
-          
-          // Redirect to the quote URL
-          window.location.href = `/q/${data.accessToken}`;
-          return; // Stop here, page will redirect
-          
-        } catch (error) {
-          console.error('Error initializing quote:', error);
-          toast({
-            title: "Error",
-            description: "Failed to initialize quote. Please try again.",
-            variant: "destructive"
-          });
-          setQuoteLoading(false);
-        }
-      }
+      // FIXED: Do NOT initialize quote here - wait until all data is collected
+      // Quote creation should only happen after all 3 questions are answered
+      // This prevents the "Missing required fields" error
       
-      // If already on quote URL or fallback, continue with normal flow
+      // Simply proceed to the comparison selection step
       setCurrentStep('comparison-selection');
       setEventTypeCollapsed(false);
       setShowGroupSize(false);
@@ -1971,7 +1937,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         selectedCruiseType: 'private' as CruiseType,
         selectedSlot: slot,
         selectedBoat: boatDetails.id,
-        preferredTimeLabel: `${slot.label} on ${format(formData.eventDate!, 'EEEE, MMMM d, yyyy')}`,
+        preferredTimeLabel: `${slot.label} on ${formData.eventDate && isValid(new Date(formData.eventDate)) ? format(new Date(formData.eventDate), 'EEEE, MMMM d, yyyy') : 'selected date'}`,
         // Keep disco selections intact for side-by-side comparison
       };
       
@@ -2443,18 +2409,21 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         
         // Show success toast with the quote URL
         toast({
-          title: 'Quote Sent Successfully! 🎉',
+          title: 'Quote Created Successfully! 🎉',
           description: (
             <div className="space-y-2">
               <p>Your quote has been sent to {formData.email}</p>
-              <p className="text-sm">Quote URL: {generatedQuoteUrl}</p>
+              <p className="text-sm">Redirecting to your quote...</p>
             </div>
           ) as any,
-          duration: 10000
+          duration: 3000
         });
         
-        // Proceed to confirmation step
-        goToStep('confirmation');
+        // CRITICAL FIX: Actually redirect to the quote page  
+        // This ensures the user can continue the flow on the quote page
+        setTimeout(() => {
+          window.location.href = `/q/${result.accessToken}`;
+        }, 2000); // Give time for toast to show
       } else {
         throw new Error(result.error || result.message || 'Failed to create quote');
       }
@@ -2497,7 +2466,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
           exactDate: data.selectedSlot?.dateISO,
           exactStartTime: data.selectedSlot?.startTime,
           exactEndTime: data.selectedSlot?.endTime,
-          cruiseDateTime: `${format(data.eventDate!, 'EEEE, MMMM d, yyyy')} ${data.selectedSlot?.label}`,
+          cruiseDateTime: `${data.eventDate && isValid(new Date(data.eventDate)) ? format(new Date(data.eventDate), 'EEEE, MMMM d, yyyy') : 'selected date'} ${data.selectedSlot?.label}`,
           duration: data.selectedSlot?.duration,
           price: data.selectedSlot?.price
         } : null,
@@ -3021,7 +2990,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                         What type of event are you planning?
                       </h2>
                       <p className="text-slate-600 dark:text-slate-400">
-                        Select to see options for {format(formData.eventDate!, 'MMMM d, yyyy')}
+                        Select to see options for {formData.eventDate && isValid(new Date(formData.eventDate)) ? format(new Date(formData.eventDate), 'MMMM d, yyyy') : 'selected date'}
                       </p>
                     </div>
 
@@ -3116,7 +3085,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                         Available Options for Your {formData.eventTypeLabel}
                       </h3>
                       <p className="text-slate-600 dark:text-slate-400 flex items-center justify-center gap-2">
-                        <span>{formData.groupSize} people on {format(formData.eventDate!, 'EEEE, MMMM d')}</span>
+                        <span>{formData.groupSize} people on {formData.eventDate && isValid(new Date(formData.eventDate)) ? format(new Date(formData.eventDate), 'EEEE, MMMM d') : 'date to be selected'}</span>
                         <Button
                           variant="ghost"
                           size="sm"
