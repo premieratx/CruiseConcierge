@@ -1030,7 +1030,7 @@ export class DatabaseStorage implements IStorage {
               description: `Private cruise on ${boat.name} for ${slotDuration} hours. Capacity: ${boat.capacity}-${boat.maxCapacity} people.${crewFeePerHour > 0 ? ` Additional crew fee applies for groups over ${boat.extraCrewThreshold} people.` : ''}`,
               unitPrice: totalPrice,
               taxable: true,
-              pricingModel: "flat_rate" as const,
+              pricingModel: "per_cruise" as const,
               productType: "private_cruise" as const,
               dayType: dayConfig.dayType,
               groupSize: boat.capacity, // Standard capacity

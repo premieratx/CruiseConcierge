@@ -611,10 +611,10 @@ export const PRIVATE_CRUISE_PRICING = {
   14: {
     capacity: 14,
     baseHourlyRates: {
-      MON_THU: 20000,  // $200/hr
-      FRIDAY: 22500,   // $225/hr  
-      SATURDAY: 35000, // $350/hr
-      SUNDAY: 25000,   // $250/hr
+      MON_THU: 29500,  // $295/hr
+      FRIDAY: 29500,   // $295/hr  
+      SATURDAY: 29500, // $295/hr
+      SUNDAY: 29500,   // $295/hr
     },
     packages: {
       standard: {
@@ -657,10 +657,10 @@ export const PRIVATE_CRUISE_PRICING = {
   25: {
     capacity: 25,
     baseHourlyRates: {
-      MON_THU: 22500,  // $225/hr
-      FRIDAY: 25000,   // $250/hr
-      SATURDAY: 37500, // $375/hr  
-      SUNDAY: 27500,   // $275/hr
+      MON_THU: 49500,  // $495/hr
+      FRIDAY: 49500,   // $495/hr
+      SATURDAY: 49500, // $495/hr  
+      SUNDAY: 49500,   // $495/hr
     },
     packages: {
       standard: {
@@ -703,10 +703,10 @@ export const PRIVATE_CRUISE_PRICING = {
   30: {
     capacity: 30,
     baseHourlyRates: {
-      MON_THU: 22500,  // $225/hr (same as 25p)
-      FRIDAY: 25000,   // $250/hr (same as 25p)
-      SATURDAY: 37500, // $375/hr (same as 25p)
-      SUNDAY: 27500,   // $275/hr (same as 25p)
+      MON_THU: 49500,  // $495/hr (same as 25p)
+      FRIDAY: 49500,   // $495/hr (same as 25p)
+      SATURDAY: 49500, // $495/hr (same as 25p)
+      SUNDAY: 49500,   // $495/hr (same as 25p)
     },
     crewFeePerHour: 5000, // +$50/hr = +$200 for 4hr cruise
     packages: {
@@ -750,10 +750,10 @@ export const PRIVATE_CRUISE_PRICING = {
   50: {
     capacity: 50,
     baseHourlyRates: {
-      MON_THU: 25000,  // $250/hr
-      FRIDAY: 27500,   // $275/hr
-      SATURDAY: 40000, // $400/hr
-      SUNDAY: 30000,   // $300/hr
+      MON_THU: 79500,  // $795/hr
+      FRIDAY: 79500,   // $795/hr
+      SATURDAY: 79500, // $795/hr
+      SUNDAY: 79500,   // $795/hr
     },
     packages: {
       standard: {
@@ -796,10 +796,10 @@ export const PRIVATE_CRUISE_PRICING = {
   75: {
     capacity: 75,
     baseHourlyRates: {
-      MON_THU: 25000,  // $250/hr (same as 50p)
-      FRIDAY: 27500,   // $275/hr (same as 50p)
-      SATURDAY: 40000, // $400/hr (same as 50p)
-      SUNDAY: 30000,   // $300/hr (same as 50p)
+      MON_THU: 79500,  // $795/hr (same as 50p)
+      FRIDAY: 79500,   // $795/hr (same as 50p)
+      SATURDAY: 79500, // $795/hr (same as 50p)
+      SUNDAY: 79500,   // $795/hr (same as 50p)
     },
     crewFeePerHour: 7500, // +$75/hr = +$300 for 4hr cruise
     packages: {
@@ -1173,7 +1173,7 @@ export const DAY_COMPARISON_TYPES = {
  * @returns boolean indicating if disco is available
  */
 export function isDiscoAvailableOnDay(dayOfWeek: number): boolean {
-  return DISCO_AVAILABILITY.AVAILABLE_DAYS.includes(dayOfWeek);
+  return DISCO_AVAILABILITY.AVAILABLE_DAYS.includes(dayOfWeek as 5 | 6);
 }
 
 /**
@@ -1569,12 +1569,12 @@ export function getSavingsOpportunities(
     
     if (savings > 10000) { // Save $100+
       opportunities.push({
-        type: 'day_change',
+        type: 'day_change' as const,
         description: `Move to Monday-Thursday for private cruise`,
         savings,
         newDayOfWeek: 1,
         newDayName: 'Monday',
-        newCruiseType: 'private',
+        newCruiseType: 'private' as const,
         actionRequired: 'Change event date to weekday'
       });
     }
@@ -1587,12 +1587,12 @@ export function getSavingsOpportunities(
     
     if (savings > 5000) { // Save $50+
       opportunities.push({
-        type: 'day_change',
+        type: 'day_change' as const,
         description: `Switch to Saturday disco cruise`,
         savings,
         newDayOfWeek: 6,
         newDayName: 'Saturday',
-        newCruiseType: 'disco',
+        newCruiseType: 'disco' as const,
         actionRequired: 'Change event date to Saturday'
       });
     }

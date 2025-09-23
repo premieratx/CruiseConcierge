@@ -377,12 +377,8 @@ const generateRealPrivateSlots = (
         held: false,
         boatCandidates: [boat.id],
         boatName: boatName,
-        estimatedPricing: {
-          baseRate: pricing.baseHourlyRate, // Keep in cents for consistency
-          duration: timeSlot.duration,
-          subtotal: pricing.totalPrice, // Keep in cents
-          total: pricing.totalPrice // Already includes tax/gratuity in new system
-        }
+        price: pricing.totalPrice, // base price in cents
+        totalPrice: pricing.totalPrice // total price including all fees and taxes
       });
     });
   });
@@ -408,12 +404,8 @@ const generateRealPrivateSlots = (
       held: false,
       boatCandidates: [boat.id],
       boatName: boatName,
-      estimatedPricing: {
-        baseRate: pricing.baseHourlyRate,
-        duration: timeSlot.duration,
-        subtotal: pricing.totalPrice,
-        total: pricing.totalPrice
-      }
+      price: pricing.totalPrice,
+      totalPrice: pricing.totalPrice
     });
   }
   
@@ -952,7 +944,11 @@ export default function Chat() {
       };
       
       console.log('🚢 CLIENT-SIDE calculation successful, setting privatePricing:', pricingResult);
-      setPrivatePricing(pricingResult);
+      setPrivatePricing({
+        ...pricingResult,
+        appliedDiscounts: [],
+        paymentSchedule: []
+      });
     } catch (error: any) {
       console.log('🚢 Exception in fetchPrivatePricing:', error);
       setPricingError('Error calculating pricing');
@@ -1068,7 +1064,11 @@ export default function Chat() {
       );
       
       console.log('🎵 CLIENT-SIDE disco calculation successful, setting discoPricing:', result);
-      setDiscoPricing(result);
+      setDiscoPricing({
+        ...result,
+        appliedDiscounts: result.appliedDiscounts || [],
+        paymentSchedule: result.paymentSchedule || []
+      });
     } catch (error: any) {
       console.log('🎵 Exception in fetchDiscoPricing:', error);
       setPricingError('Error calculating disco pricing');
@@ -2451,7 +2451,7 @@ export default function Chat() {
                                           </div>
                                         </div>
                                         <div className="text-sm font-bold text-blue-600">
-                                          {slot.pricing?.total ? formatCurrency(slot.pricing.total).replace('.00', '') : ''}
+                                          {slot.totalPrice ? formatCurrency(slot.totalPrice).replace('.00', '') : ''}
                                         </div>
                                       </div>
                                     </Label>
@@ -2474,7 +2474,7 @@ export default function Chat() {
                               <RadioGroup
                                 value={selectedPrivatePackage}
                                 onValueChange={(value) => {
-                                  setSelectedPrivatePackage(value);
+                                  setSelectedPrivatePackage(value as 'standard' | 'essentials' | 'ultimate');
                                   // Update form data to trigger pricing recalculation
                                   const addOnPackages = value === 'standard' ? [] : [value];
                                   setFormData(prev => ({
@@ -2803,11 +2803,6 @@ export default function Chat() {
                                               <div className="space-y-1">
                                                 <div className="font-bold">{pkg.name}</div>
                                                 <div className="text-xs text-slate-600 dark:text-slate-400">{pkg.description}</div>
-                                                <div className="flex flex-wrap gap-1 mt-1">
-                                                  {(pkg.features || []).slice(0, 2).map((feature) => (
-                                                    <Badge key={feature} variant="outline" className="text-xs">{feature}</Badge>
-                                                  ))}
-                                                </div>
                                               </div>
                                               <div className="text-right ml-3">
                                                 <div className="font-bold text-lg text-purple-600">${pkg.price}</div>
