@@ -29,7 +29,7 @@ import { z } from "zod";
 import { randomUUID, randomInt } from "crypto";
 import multer from 'multer';
 import { mediaLibraryService } from './services/mediaLibrary';
-import { getFullUrl, getPublicUrl } from "./utils";
+import { getFullUrl, getPublicUrl, getQuoteUrl } from "./utils";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 import { ObjectPermission } from "./objectAcl";
 import sanitizeHtml from 'sanitize-html';
@@ -1122,12 +1122,13 @@ export async function registerRoutes(app: Express): Promise<Server> {
         groupSize: Number(groupSize)
       });
       
-      // Return the quote info
+      // Return the quote info with proper URL
+      const publicUrl = getQuoteUrl(result.accessToken);
       res.json({
         success: true,
         id: result.quote.id,
         accessToken: result.accessToken,
-        publicUrl: result.publicUrl,
+        publicUrl: publicUrl,
         slug: result.quote.slug,
         eventDetails: {
           eventDate,
@@ -1206,7 +1207,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // If contact info was just added, process the complete lead flow
       if (updates.contactInfo) {
         const contactInfo = updates.contactInfo;
-        const quoteUrl = `${req.protocol}://${req.get('host')}/q/${token}`;
+        const quoteUrl = getQuoteUrl(token);
         
         try {
           // 1. Create/update contact
@@ -1224,7 +1225,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
           const lead = await storage.createLead({
             contactId: contact.id,
             orgId: 'org_demo',
-            source: 'quote_builder',
+            source: 'AI chat widget',
             status: 'QUOTE_SENT',
             metadata: {
               quoteId: updatedQuote.id,
@@ -1246,7 +1247,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
               phone: contactInfo.phone || '',
               eventType: updatedQuote.eventDetails?.eventType,
               eventTypeLabel: updatedQuote.eventDetails?.eventTypeLabel,
-              source: 'quote_builder',
+              source: 'AI chat widget',
               quoteUrl: quoteUrl,
               quoteId: updatedQuote.id,
               groupSize: updatedQuote.eventDetails?.groupSize,
