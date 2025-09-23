@@ -59,58 +59,20 @@ export function getFullUrl(path: string): string {
  * Generates a quote URL with the proper domain (not localhost)
  * This is critical for quote links that need to work from any device
  * @param token The quote access token
- * @param req Optional Express request object for fallback
+ * @param req Optional Express request object (not used anymore)
  * @returns The full quote URL
  */
 export function getQuoteUrl(token: string, req?: any): string {
-  let baseUrl = '';
-  
-  // Priority 1: Use REPLIT_URL environment variable if available
-  if (process.env.REPLIT_URL) {
-    baseUrl = process.env.REPLIT_URL;
-  }
-  // Priority 2: Use Replit dev domain
-  else if (process.env.REPLIT_DEV_DOMAIN) {
-    baseUrl = `https://${process.env.REPLIT_DEV_DOMAIN}`;
-  }
-  // Priority 3: Use custom BASE_URL if configured
-  else if (process.env.BASE_URL) {
-    baseUrl = process.env.BASE_URL.replace(/\/$/, '');
-  }
-  // Priority 4: Use REPLIT_DOMAINS (deployed URL)
-  else if (process.env.REPLIT_DOMAINS) {
-    const domain = process.env.REPLIT_DOMAINS.split(',')[0];
-    baseUrl = `https://${domain}`;
-  }
-  // Priority 5: Try to get from request headers (but avoid localhost)
-  else if (req) {
-    const protocol = req.headers['x-forwarded-proto'] || req.protocol || 'https';
-    const host = req.headers['x-forwarded-host'] || req.get('host');
-    
-    // Avoid localhost URLs - they won't work from external devices
-    if (host && !host.includes('localhost') && !host.includes('127.0.0.1')) {
-      baseUrl = `${protocol}://${host}`;
-    }
-  }
-  
-  // Last resort: use the getPublicUrl function
-  if (!baseUrl) {
-    baseUrl = getPublicUrl();
-  }
-  
-  // Remove trailing slash if present
-  baseUrl = baseUrl.replace(/\/$/, '');
+  // Always use the production domain for quotes
+  // This ensures quotes work from anywhere
+  const productionDomain = 'https://cruise-concierge-brian-hill.replit.app';
   
   console.log('🔗 Generated quote URL:', {
     token: token.substring(0, 10) + '...',
-    baseUrl,
-    fullUrl: `${baseUrl}/q/${token}`,
-    source: process.env.REPLIT_URL ? 'REPLIT_URL' :
-            process.env.REPLIT_DEV_DOMAIN ? 'REPLIT_DEV_DOMAIN' :
-            process.env.BASE_URL ? 'BASE_URL' :
-            process.env.REPLIT_DOMAINS ? 'REPLIT_DOMAINS' :
-            req ? 'request' : 'getPublicUrl'
+    baseUrl: productionDomain,
+    fullUrl: `${productionDomain}/q/${token}`,
+    source: 'production_domain'
   });
   
-  return `${baseUrl}/q/${token}`;
+  return `${productionDomain}/q/${token}`;
 }

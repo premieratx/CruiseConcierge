@@ -1374,7 +1374,25 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     } catch (error) {
       console.error('Error updating quote selections:', error);
     }
-  }, [token, formData]);
+  }, [
+    token, 
+    formData.selectedCruiseType,
+    formData.selectedSlot,
+    formData.selectedAddOnPackages,
+    formData.selectedDiscoPackage,
+    formData.discoTicketQuantity,
+    formData.selectedDuration,
+    formData.selectedBoat,
+    formData.preferredTimeLabel,
+    formData.groupSizeLabel,
+    formData.eventDate,
+    formData.eventType,
+    formData.eventTypeLabel,
+    formData.eventEmoji,
+    formData.groupSize,
+    formData.specialRequests,
+    formData.discountCode
+  ]);
 
   // Refs to prevent infinite loops in auto-selection
   const autoSelectionRef = useRef({
