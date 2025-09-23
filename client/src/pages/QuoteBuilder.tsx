@@ -96,7 +96,7 @@ export default function QuoteBuilder() {
   const [showContactInfoModal, setShowContactInfoModal] = useState(false);
   const [chatSelections, setChatSelections] = useState<any>(null);
 
-  // Always show contact info modal for new quotes, check for chat selections
+  // Always show contact info modal for new quotes with 0.5 second delay for FOMO effect
   useEffect(() => {
     if (!isEditMode) {
       // Check for selections from Chat flow
@@ -111,8 +111,15 @@ export default function QuoteBuilder() {
           console.error('Failed to parse chat selections:', error);
         }
       }
-      // Always show modal for new quotes (not just from Chat)
-      setShowContactInfoModal(true);
+      
+      // Add 0.5 second delay before showing modal for FOMO effect
+      // Users see the quote page briefly, then modal appears
+      const timer = setTimeout(() => {
+        setShowContactInfoModal(true);
+      }, 500);
+      
+      // Cleanup timer on unmount
+      return () => clearTimeout(timer);
     }
   }, [isEditMode]);
 
@@ -1434,29 +1441,29 @@ export default function QuoteBuilder() {
       selectedProductIds={getSelectedProductIds()}
     />
     
-    {/* Contact Info Modal for Chat Flow */}
-    {chatSelections && (
+    {/* Contact Info Modal - Shows for ALL new quotes, not just from Chat Flow */}
+    {!isEditMode && (
       <ContactInfoModal
         open={showContactInfoModal}
         eventDetails={{
-          eventDate: chatSelections.eventDate ? new Date(chatSelections.eventDate) : undefined,
-          eventType: chatSelections.eventType || '',
-          eventTypeLabel: chatSelections.eventTypeLabel || '',
-          eventEmoji: chatSelections.eventEmoji,
-          groupSize: chatSelections.groupSize || 20,
-          specialRequests: chatSelections.specialRequests,
-          budget: chatSelections.budget,
+          eventDate: chatSelections?.eventDate ? new Date(chatSelections.eventDate) : new Date(),
+          eventType: chatSelections?.eventType || '',
+          eventTypeLabel: chatSelections?.eventTypeLabel || 'Event',
+          eventEmoji: chatSelections?.eventEmoji || '🎉',
+          groupSize: chatSelections?.groupSize || 20,
+          specialRequests: chatSelections?.specialRequests || '',
+          budget: chatSelections?.budget || '',
         }}
         selectionDetails={{
-          cruiseType: chatSelections.cruiseType,
-          selectedSlot: chatSelections.selectedSlot,
-          selectedPackages: chatSelections.selectedPackages,
-          discoPackage: chatSelections.discoPackage,
-          ticketQuantity: chatSelections.discoTicketQuantity,
-          selectedDuration: chatSelections.selectedDuration,
-          selectedBoat: chatSelections.selectedBoat,
-          preferredTimeLabel: chatSelections.preferredTimeLabel,
-          groupSizeLabel: chatSelections.groupSizeLabel,
+          cruiseType: chatSelections?.cruiseType || 'private',
+          selectedSlot: chatSelections?.selectedSlot,
+          selectedPackages: chatSelections?.selectedPackages || [],
+          discoPackage: chatSelections?.discoPackage,
+          ticketQuantity: chatSelections?.discoTicketQuantity || chatSelections?.groupSize || 20,
+          selectedDuration: chatSelections?.selectedDuration,
+          selectedBoat: chatSelections?.selectedBoat,
+          preferredTimeLabel: chatSelections?.preferredTimeLabel,
+          groupSizeLabel: chatSelections?.groupSizeLabel,
         }}
       />
     )}
