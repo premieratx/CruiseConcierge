@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
-import { EnhancedBookingCalendar } from '@/components/EnhancedBookingCalendar';
+import UniversalCalendar from '@/components/UniversalCalendar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -351,9 +351,11 @@ export default function PrivateCruises() {
             viewport={{ once: true }}
             variants={fadeInUp}
           >
-            <EnhancedBookingCalendar 
+            <UniversalCalendar 
               defaultEventType="private"
               defaultGroupSize={20}
+              embedMode={true}
+              entryPoint="private-page"
               className="max-w-6xl mx-auto"
             />
           </motion.div>

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
-import { EnhancedBookingCalendar } from '@/components/EnhancedBookingCalendar';
+import UniversalCalendar from '@/components/UniversalCalendar';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -430,9 +430,11 @@ export default function BachelorParty() {
       {/* Streamlined Booking Widget */}
       <section id="booking-widget" className="py-16 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-6">
-          <EnhancedBookingCalendar 
+          <UniversalCalendar 
             defaultEventType="bachelor"
             defaultGroupSize={12}
+            embedMode={true}
+            entryPoint="bachelor-page"
             className="mb-8"
           />
           

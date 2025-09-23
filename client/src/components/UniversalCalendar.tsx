@@ -178,22 +178,56 @@ export default function UniversalCalendar({
     refetchInterval: 1000 * 60 * 5, // 5 minutes
   });
 
+  // Map eventType to cruiseType based on business rules
+  const getCruiseType = (eventType: string, defaultEventType?: string): 'private' | 'disco' => {
+    // Bachelor and bachelorette parties map to 'private' cruises
+    if (eventType === 'bachelor' || eventType === 'bachelorette') {
+      return 'private';
+    }
+    
+    // If eventType is 'other', check the original defaultEventType
+    if (eventType === 'other') {
+      if (defaultEventType === 'disco') {
+        return 'disco';
+      }
+    }
+    
+    // Default to 'private' for all other cases (including defaultEventType 'private')
+    return 'private';
+  };
+
+  // Get dateISO in YYYY-MM-DD format
+  const getDateISO = (slot: NormalizedSlot): string => {
+    if (slot.dateISO) {
+      return slot.dateISO;
+    }
+    
+    if (slot.date) {
+      // Convert slot.date to YYYY-MM-DD format if needed
+      const date = new Date(slot.date);
+      return date.toISOString().split('T')[0];
+    }
+    
+    // Fallback to today's date if no date is available
+    return new Date().toISOString().split('T')[0];
+  };
+
   // Slot hold mutation
   const holdSlotMutation = useMutation({
     mutationFn: async (slot: NormalizedSlot) => {
+      const cruiseType = getCruiseType(eventType, defaultEventType);
+      const dateISO = getDateISO(slot);
+      
       const response = await fetch('/api/availability/hold', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           slotId: slot.id,
-          groupSize,
-          eventType,
-          eventDate: slot.dateISO || slot.date,
+          cruiseType,
+          dateISO,
           startTime: slot.startTime,
           endTime: slot.endTime,
-          duration: slot.duration,
-          boatName: slot.boatName,
-          entryPoint
+          groupSize,
         })
       });
       
@@ -206,20 +240,23 @@ export default function UniversalCalendar({
     },
     onSuccess: (data, slot) => {
       // Navigate to QuoteViewer at /checkout with all needed parameters
+      const cruiseType = getCruiseType(eventType, defaultEventType);
+      const dateISO = getDateISO(slot);
+      
       const calendarData = {
-        eventDate: slot.dateISO || slot.date || '',
+        eventDate: dateISO,
         eventType: eventType,
         groupSize: groupSize,
-        cruiseType: eventType === 'bachelor' || eventType === 'bachelorette' ? 'disco' : 'private',
+        cruiseType: cruiseType,
         selectedTimeSlot: `${slot.startTime}-${slot.endTime}`,
         boatId: slot.boatId || '',
         slotId: slot.id,
-        date: slot.dateISO || slot.date || ''
+        date: dateISO
       };
       
       const params = new URLSearchParams({
         data: encodeURIComponent(JSON.stringify(calendarData)),
-        eventDate: slot.dateISO || slot.date || '',
+        eventDate: dateISO,
         groupSize: groupSize.toString(),
         eventType: eventType,
         selectedSlot: `${slot.startTime}-${slot.endTime}`
