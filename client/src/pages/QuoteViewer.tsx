@@ -2172,7 +2172,7 @@ function QuoteViewerContent() {
   );
 }
 
-// Wrap the component with BookingCacheProvider  
+// Wrap the component with BookingCacheProvider
 export default function QuoteViewer() {
   return (
     <BookingCacheProvider>
