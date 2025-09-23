@@ -2236,6 +2236,89 @@ export class DatabaseStorage implements IStorage {
     });
   }
 
+  async createOrUpdateContact(data: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+    orgId?: string;
+  }): Promise<Contact> {
+    const fullName = `${data.firstName} ${data.lastName}`.trim();
+    
+    // Try to find existing contact by email
+    const existing = await this.getContactByEmail(data.email);
+    
+    if (existing) {
+      // Update existing contact with new data
+      const updates: Partial<Contact> = {};
+      if (existing.name !== fullName) updates.name = fullName;
+      if (existing.phone !== data.phone) updates.phone = data.phone;
+      
+      if (Object.keys(updates).length > 0) {
+        const result = await db.update(contacts)
+          .set(updates)
+          .where(eq(contacts.id, existing.id))
+          .returning();
+        return result[0];
+      }
+      return existing;
+    }
+    
+    // Create new contact
+    return await this.createContact({
+      name: fullName,
+      email: data.email,
+      phone: data.phone,
+      orgId: data.orgId || 'org_demo',
+      tags: ['quote_lead'],
+    });
+  }
+
+  async createLead(data: {
+    contactId: string;
+    orgId?: string;
+    source: string;
+    status: string;
+    metadata?: {
+      quoteId?: string;
+      quoteUrl?: string;
+      eventType?: string;
+      eventDate?: string;
+      groupSize?: number;
+    };
+  }): Promise<Project> {
+    // Create a lead as a project in the system
+    const eventDate = data.metadata?.eventDate ? new Date(data.metadata.eventDate) : new Date();
+    const eventType = data.metadata?.eventType || 'General Inquiry';
+    
+    const project = await this.createProject({
+      contactId: data.contactId,
+      title: `${eventType} - ${format(eventDate, 'MMM d, yyyy')}`,
+      status: data.status,
+      projectDate: eventDate,
+      pipelinePhase: 'ph_quote_sent',
+      groupSize: data.metadata?.groupSize,
+      eventType: data.metadata?.eventType,
+      leadSource: data.source,
+      tags: ['quote_builder', 'auto_lead'],
+    });
+
+    // Log the lead creation for admin dashboard visibility
+    console.log('✅ Lead created for admin dashboard:', {
+      projectId: project.id,
+      contactId: data.contactId,
+      quoteId: data.metadata?.quoteId,
+      quoteUrl: data.metadata?.quoteUrl,
+      eventType: data.metadata?.eventType,
+      eventDate: data.metadata?.eventDate,
+      groupSize: data.metadata?.groupSize,
+      source: data.source,
+      status: data.status
+    });
+
+    return project;
+  }
+
   async createProjectFromChatData(contactId: string, extractedData: any): Promise<Project> {
     return await this.createProject({
       contactId,

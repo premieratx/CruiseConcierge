@@ -1200,23 +1200,152 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Update the quote
       const updatedQuote = await storage.updateQuoteByToken(token, updates);
       
-      // If contact info was just added, try to save to leads
+      // If contact info was just added, process the complete lead flow
       if (updates.contactInfo) {
+        const contactInfo = updates.contactInfo;
+        const quoteUrl = `${req.protocol}://${req.get('host')}/q/${token}`;
+        
         try {
-          await comprehensiveLeadService.createLead({
-            name: `${updates.contactInfo.firstName} ${updates.contactInfo.lastName}`,
-            email: updates.contactInfo.email,
-            phone: updates.contactInfo.phone,
-            eventType: updatedQuote.eventDetails?.eventType || 'general',
-            eventDate: new Date(updatedQuote.eventDetails?.eventDate || Date.now()),
-            groupSize: updatedQuote.eventDetails?.groupSize || 1,
-            source: 'chat_quote',
-            status: 'quote_draft',
-            quoteId: updatedQuote.id,
-            projectId: updatedQuote.projectId
+          // 1. Create/update contact
+          const contact = await storage.createOrUpdateContact({
+            firstName: contactInfo.firstName,
+            lastName: contactInfo.lastName,
+            email: contactInfo.email,
+            phone: contactInfo.phone,
+            orgId: 'org_demo'
           });
+          
+          console.log('✅ Contact created/updated:', contact.id);
+          
+          // 2. Create lead for admin dashboard
+          const lead = await storage.createLead({
+            contactId: contact.id,
+            orgId: 'org_demo',
+            source: 'quote_builder',
+            status: 'QUOTE_SENT',
+            metadata: {
+              quoteId: updatedQuote.id,
+              quoteUrl: quoteUrl,
+              eventType: updatedQuote.eventDetails?.eventType,
+              eventDate: updatedQuote.eventDetails?.eventDate,
+              groupSize: updatedQuote.eventDetails?.groupSize
+            }
+          });
+          
+          console.log('✅ Lead created for admin dashboard:', lead.id);
+          
+          // 3. Add to Google Sheets
+          try {
+            await googleSheetsService.appendToSheet('Leads', [[
+              `${contactInfo.firstName} ${contactInfo.lastName}`,
+              contactInfo.email,
+              contactInfo.phone || '',
+              updatedQuote.eventDetails?.eventDate || '',
+              updatedQuote.eventDetails?.eventType || '',
+              updatedQuote.eventDetails?.groupSize || '',
+              quoteUrl,
+              new Date().toISOString()
+            ]]);
+            console.log('✅ Lead added to Google Sheets');
+          } catch (sheetsError) {
+            console.error('❌ Error adding to Google Sheets:', sheetsError);
+          }
+          
+          // 4. Send Email via SendGrid
+          try {
+            const sgMail = require('@sendgrid/mail');
+            sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+            
+            const emailHtml = `
+              <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+                <div style="background: linear-gradient(135deg, #0080FF, #FFD700); padding: 30px; text-align: center;">
+                  <h1 style="color: white; margin: 0;">Premier Party Cruises</h1>
+                </div>
+                
+                <div style="padding: 30px; background: white;">
+                  <h2>Your Quote for ${updatedQuote.eventDetails?.eventTypeLabel || updatedQuote.eventDetails?.eventType || 'Your Event'}</h2>
+                  
+                  <p>Hi ${contactInfo.firstName},</p>
+                  
+                  <p>Thank you for your interest in Premier Party Cruises! Your custom quote is ready.</p>
+                  
+                  <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                    <p><strong>Event Date:</strong> ${updatedQuote.eventDetails?.eventDate || 'To be confirmed'}</p>
+                    <p><strong>Group Size:</strong> ${updatedQuote.eventDetails?.groupSize || 'TBD'} people</p>
+                    <p><strong>Total Quote:</strong> $${((updatedQuote.total || 0) / 100).toFixed(2)}</p>
+                    ${updatedQuote.depositAmount ? `<p><strong>Deposit Required:</strong> $${(updatedQuote.depositAmount / 100).toFixed(2)}</p>` : ''}
+                  </div>
+                  
+                  <div style="text-align: center; margin: 30px 0;">
+                    <a href="${quoteUrl}" 
+                       style="background: #007bff; color: white; padding: 15px 30px; text-decoration: none; border-radius: 5px; display: inline-block; font-weight: bold;">
+                      View Your Complete Quote
+                    </a>
+                  </div>
+                  
+                  <p>Questions? Reply to this email or call us at (512) 488-5892!</p>
+                  
+                  <p style="margin-top: 30px;">
+                    Best regards,<br>
+                    <strong>Premier Party Cruises Team</strong><br>
+                    Lake Travis, Austin, Texas
+                  </p>
+                </div>
+                
+                <div style="background: #f1f5f9; padding: 20px; text-align: center; font-size: 12px; color: #64748b;">
+                  <p>Premier Party Cruises | Lake Travis, TX | premierpartycruises.com</p>
+                </div>
+              </div>
+            `;
+            
+            await sgMail.send({
+              to: contactInfo.email,
+              from: process.env.SENDGRID_FROM_EMAIL || 'clientservices@premierpartycruises.com',
+              subject: `Your Premier Party Cruises Quote - ${updatedQuote.eventDetails?.eventTypeLabel || updatedQuote.eventDetails?.eventType || 'Party Cruise'}`,
+              html: emailHtml
+            });
+            
+            console.log('✅ Quote email sent to:', contactInfo.email);
+          } catch (emailError) {
+            console.error('❌ Error sending email:', emailError);
+          }
+          
+          // 5. Send SMS via GoHighLevel if phone provided
+          if (contactInfo.phone) {
+            try {
+              const smsMessage = `Hi ${contactInfo.firstName}! Your Premier Party Cruises quote is ready. Total: $${((updatedQuote.total || 0) / 100).toFixed(2)}. View it here: ${quoteUrl}`;
+              
+              await goHighLevelService.sendSMS({
+                phone: contactInfo.phone,
+                message: smsMessage
+              });
+              
+              console.log('✅ SMS sent to:', contactInfo.phone);
+            } catch (smsError) {
+              console.error('❌ Error sending SMS:', smsError);
+            }
+          }
+          
+          // Also try comprehensive lead service for additional tracking
+          try {
+            await comprehensiveLeadService.createLead({
+              name: `${contactInfo.firstName} ${contactInfo.lastName}`,
+              email: contactInfo.email,
+              phone: contactInfo.phone,
+              eventType: updatedQuote.eventDetails?.eventType || 'general',
+              eventDate: new Date(updatedQuote.eventDetails?.eventDate || Date.now()),
+              groupSize: updatedQuote.eventDetails?.groupSize || 1,
+              source: 'chat_quote',
+              status: 'quote_sent',
+              quoteId: updatedQuote.id,
+              projectId: lead.id
+            });
+          } catch (comprehensiveError) {
+            console.error('Comprehensive lead service error:', comprehensiveError);
+          }
+          
         } catch (leadError) {
-          console.error('Error creating lead:', leadError);
+          console.error('Error in lead creation flow:', leadError);
           // Don't fail the update if lead creation fails
         }
       }
