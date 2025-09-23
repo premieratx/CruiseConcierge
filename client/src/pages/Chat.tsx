@@ -3473,8 +3473,27 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                             
                             <Button
                               onClick={() => {
-                                setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
-                                goToStep('contact-form');
+                                // Store all selections in localStorage for the quote builder
+                                const selections = {
+                                  eventDate: formData.eventDate?.toISOString(),
+                                  eventType: formData.eventType,
+                                  eventTypeLabel: formData.eventTypeLabel,
+                                  eventEmoji: formData.eventEmoji,
+                                  groupSize: formData.groupSize,
+                                  specialRequests: formData.specialRequests,
+                                  budget: formData.budget,
+                                  cruiseType: 'private',
+                                  selectedSlot: formData.selectedSlot,
+                                  selectedPackages: formData.selectedAddOnPackages,
+                                  selectedBoat: formData.selectedBoat,
+                                  preferredTimeLabel: formData.preferredTimeLabel,
+                                  groupSizeLabel: formData.groupSizeLabel,
+                                  selectedDuration: formData.selectedDuration,
+                                };
+                                localStorage.setItem('quote-builder-selections', JSON.stringify(selections));
+                                
+                                // Navigate to quote builder where ContactInfoModal will be shown
+                                window.location.href = '/quote-builder';
                               }}
                               disabled={!formData.selectedSlot}
                               variant="outline"
@@ -3791,8 +3810,26 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                                 
                                 <Button
                                   onClick={() => {
-                                    setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
-                                    goToStep('contact-form');
+                                    // Store all selections in localStorage for the quote builder
+                                    const selections = {
+                                      eventDate: formData.eventDate?.toISOString(),
+                                      eventType: formData.eventType,
+                                      eventTypeLabel: formData.eventTypeLabel,
+                                      eventEmoji: formData.eventEmoji,
+                                      groupSize: formData.groupSize,
+                                      specialRequests: formData.specialRequests,
+                                      budget: formData.budget,
+                                      cruiseType: 'disco',
+                                      selectedSlot: formData.selectedSlot,
+                                      discoPackage: formData.selectedDiscoPackage,
+                                      discoTicketQuantity: formData.discoTicketQuantity,
+                                      preferredTimeLabel: formData.preferredTimeLabel,
+                                      groupSizeLabel: formData.groupSizeLabel,
+                                    };
+                                    localStorage.setItem('quote-builder-selections', JSON.stringify(selections));
+                                    
+                                    // Navigate to quote builder where ContactInfoModal will be shown
+                                    window.location.href = '/quote-builder';
                                   }}
                                   variant="outline"
                                   className="w-full"

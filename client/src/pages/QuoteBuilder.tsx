@@ -6,6 +6,7 @@ import { z } from 'zod';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
 import { insertQuoteSchema, type Quote, type Project, type Contact, type QuoteTemplate, type RadioSection, type RadioOption, type Product, type PricingSettings } from '@shared/schema';
+import { ContactInfoModal } from '@/components/ContactInfoModal';
 import {
   Form,
   FormControl,
@@ -92,6 +93,26 @@ export default function QuoteBuilder() {
   const isEditMode = quoteId && quoteId !== 'new';
   const [showProductPicker, setShowProductPicker] = useState(false);
   const [expandedItems, setExpandedItems] = useState<{ [key: number]: boolean }>({});
+  const [showContactInfoModal, setShowContactInfoModal] = useState(false);
+  const [chatSelections, setChatSelections] = useState<any>(null);
+
+  // Check for selections from Chat flow on component mount
+  useEffect(() => {
+    if (!isEditMode) {
+      const selections = localStorage.getItem('quote-builder-selections');
+      if (selections) {
+        try {
+          const parsed = JSON.parse(selections);
+          setChatSelections(parsed);
+          setShowContactInfoModal(true);
+          // Clear localStorage so modal doesn't show again on refresh
+          localStorage.removeItem('quote-builder-selections');
+        } catch (error) {
+          console.error('Failed to parse chat selections:', error);
+        }
+      }
+    }
+  }, [isEditMode]);
 
   // Initialize form first
   const form = useForm<QuoteFormData>({
@@ -1410,6 +1431,33 @@ export default function QuoteBuilder() {
       onProductSelect={addProductFromCatalog}
       selectedProductIds={getSelectedProductIds()}
     />
+    
+    {/* Contact Info Modal for Chat Flow */}
+    {chatSelections && (
+      <ContactInfoModal
+        open={showContactInfoModal}
+        eventDetails={{
+          eventDate: chatSelections.eventDate ? new Date(chatSelections.eventDate) : undefined,
+          eventType: chatSelections.eventType || '',
+          eventTypeLabel: chatSelections.eventTypeLabel || '',
+          eventEmoji: chatSelections.eventEmoji,
+          groupSize: chatSelections.groupSize || 20,
+          specialRequests: chatSelections.specialRequests,
+          budget: chatSelections.budget,
+        }}
+        selectionDetails={{
+          cruiseType: chatSelections.cruiseType,
+          selectedSlot: chatSelections.selectedSlot,
+          selectedPackages: chatSelections.selectedPackages,
+          discoPackage: chatSelections.discoPackage,
+          ticketQuantity: chatSelections.discoTicketQuantity,
+          selectedDuration: chatSelections.selectedDuration,
+          selectedBoat: chatSelections.selectedBoat,
+          preferredTimeLabel: chatSelections.preferredTimeLabel,
+          groupSizeLabel: chatSelections.groupSizeLabel,
+        }}
+      />
+    )}
     </Layout>
   );
 }
