@@ -491,11 +491,11 @@ function PaymentForm({
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <form onSubmit={handleSubmit} className="space-y-3">
       {/* Contact Information */}
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold">Contact Information</h3>
-        <div className="grid grid-cols-2 gap-4">
+      <div className="space-y-2">
+        <h3 className="text-base font-semibold">Contact Information</h3>
+        <div className="grid grid-cols-2 gap-2">
           <div>
             <Label htmlFor="firstName">First Name *</Label>
             <Input
@@ -507,7 +507,7 @@ function PaymentForm({
               className={contactErrors.firstName ? 'border-red-500' : ''}
             />
             {contactErrors.firstName && (
-              <p className="text-red-500 text-sm mt-1">{contactErrors.firstName}</p>
+              <p className="text-red-500 text-xs mt-0.5">{contactErrors.firstName}</p>
             )}
           </div>
           <div>
@@ -521,7 +521,7 @@ function PaymentForm({
               className={contactErrors.lastName ? 'border-red-500' : ''}
             />
             {contactErrors.lastName && (
-              <p className="text-red-500 text-sm mt-1">{contactErrors.lastName}</p>
+              <p className="text-red-500 text-xs mt-0.5">{contactErrors.lastName}</p>
             )}
           </div>
         </div>
@@ -537,7 +537,7 @@ function PaymentForm({
             className={contactErrors.email ? 'border-red-500' : ''}
           />
           {contactErrors.email && (
-            <p className="text-red-500 text-sm mt-1">{contactErrors.email}</p>
+            <p className="text-red-500 text-xs mt-0.5">{contactErrors.email}</p>
           )}
         </div>
         <div>
@@ -552,7 +552,7 @@ function PaymentForm({
             className={contactErrors.phone ? 'border-red-500' : ''}
           />
           {contactErrors.phone && (
-            <p className="text-red-500 text-sm mt-1">{contactErrors.phone}</p>
+            <p className="text-red-500 text-xs mt-0.5">{contactErrors.phone}</p>
           )}
         </div>
       </div>
@@ -560,9 +560,9 @@ function PaymentForm({
       <Separator />
 
       {/* Payment Details */}
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold">Payment Details</h3>
-        <div className="border rounded-lg p-4">
+      <div className="space-y-2">
+        <h3 className="text-base font-semibold">Payment Details</h3>
+        <div className="border rounded-lg p-3">
           <CardElement
             options={{
               style: {
@@ -583,8 +583,8 @@ function PaymentForm({
       </div>
 
       {/* Discount Code Section - Always visible */}
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold">Discount Code</h3>
+      <div className="space-y-2">
+        <h3 className="text-base font-semibold">Discount Code</h3>
         <div className="flex gap-2">
           <Input
             placeholder="Enter discount code"
@@ -615,9 +615,9 @@ function PaymentForm({
       </div>
 
       {/* Amount Summary */}
-      <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
+      <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
         <div className="flex justify-between items-center">
-          <span className="text-lg font-semibold">
+          <span className="text-base font-semibold">
             {paymentType === 'deposit' ? 'Deposit Amount' : 'Total Amount'}:
           </span>
           <span className="text-2xl font-bold text-green-600">
@@ -873,6 +873,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   const [showComparison, setShowComparison] = useState(false);
   const [showBookingConfirmation, setShowBookingConfirmation] = useState(false);
   const [pendingPaymentType, setPendingPaymentType] = useState<'deposit' | 'full' | null>(null);
+  const [showDateChangeDialog, setShowDateChangeDialog] = useState(false);
   const [pendingCruiseType, setPendingCruiseType] = useState<'private' | 'disco' | null>(null);
   const [currentHoldId, setCurrentHoldId] = useState<string | null>(null);
   const [formData, setFormData] = useState<BookingData>({
@@ -1297,7 +1298,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         calculatePrivatePricing();
       }
     }, 300); // 300ms debounce
-  }, [formData.selectedSlot?.id, formData.selectedAddOnPackages, formData.groupSize, formData.eventDate?.getTime()]);
+  }, [formData.selectedSlot?.id, formData.selectedAddOnPackages, formData.groupSize, formData.eventDate?.getTime(), formData.selectedDuration]);
   
   // Fetch disco pricing with debouncing and duplicate prevention
   useEffect(() => {
@@ -1354,8 +1355,10 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     setPricingError(null);
     
     try {
-      // Use simple client-side pricing calculation - NO API CALLS!
-      const duration = formData.selectedSlot.duration || 4;
+      // Use selected duration for Mon-Thu, otherwise use slot duration
+      const duration = isMondayToThursday(formData.eventDate) && formData.selectedDuration ? 
+        formData.selectedDuration : 
+        (formData.selectedSlot.duration || 4);
       const result = calculateSimplePricing(
         formData.eventDate,
         formData.groupSize,
@@ -1410,8 +1413,9 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         return sum + (addOn?.hourlyRate || 0) * 100; // Convert dollars to cents
       }, 0);
     
-    // Calculate cruise duration based on day of week
-    const cruiseDuration = getCruiseDuration(formData.eventDate);
+    // Use selected duration for Mon-Thu, otherwise calculate based on day
+    const cruiseDuration = isMondayToThursday(formData.eventDate) && formData.selectedDuration ? 
+      formData.selectedDuration : getCruiseDuration(formData.eventDate);
     
     // Calculate base cost and crew fee (all in cents)
     const baseCostCents = totalHourlyRateCents * cruiseDuration;
@@ -1742,6 +1746,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         selectedSlot: slot,
         selectedBoat: boatDetails.id,
         preferredTimeLabel: `${slot.label} on ${format(formData.eventDate!, 'EEEE, MMMM d, yyyy')}`,
+        // Keep disco selections intact for side-by-side comparison
       };
       
       console.log('🚢 FORM DATA UPDATED WITH EXACT SELECTION', {
@@ -1791,6 +1796,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       selectedCruiseType: 'disco' as CruiseType,
       selectedSlot: slot,
       selectedDiscoPackage: packageId as DiscoPackage,
+      // Keep private selections intact for side-by-side comparison
     }));
   }, [pricingLoading, paymentProcessing, formSubmitting]);
 
@@ -2708,8 +2714,18 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                       <h3 className="text-xl font-bold text-slate-800 dark:text-slate-200">
                         Available Options for Your {formData.eventTypeLabel}
                       </h3>
-                      <p className="text-slate-600 dark:text-slate-400">
-                        {formData.groupSize} people on {format(formData.eventDate!, 'EEEE, MMMM d')}
+                      <p className="text-slate-600 dark:text-slate-400 flex items-center justify-center gap-2">
+                        <span>{formData.groupSize} people on {format(formData.eventDate!, 'EEEE, MMMM d')}</span>
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          onClick={() => setShowDateChangeDialog(true)}
+                          className="p-1 h-7 w-7"
+                          title="Change date"
+                          data-testid="button-change-date"
+                        >
+                          <CalendarIcon className="h-4 w-4" />
+                        </Button>
                       </p>
                     </div>
 
@@ -3907,48 +3923,46 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                   <CardDescription>Secure checkout powered by Stripe</CardDescription>
                 </CardHeader>
                 <CardContent className="pt-6">
-                  {/* Consolidated Selection Summary */}
-                  <div className="space-y-4 mb-6">
-                    <div className="bg-gray-50 dark:bg-gray-800 p-4 rounded-lg">
-                      <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
-                        <CalendarIcon className="h-4 w-4" />
-                        Booking Summary
-                      </h3>
-                      <div className="space-y-2 text-sm">
-                        {/* Single consolidated line with all key information */}
-                        <div className="font-medium text-base">
-                          {formData.eventDate && format(formData.eventDate, 'EEEE, MMMM d')} • {formData.selectedSlot?.label || 'Time Not Selected'}
-                        </div>
-                        <div className="text-gray-600 dark:text-gray-400">
-                          {pendingCruiseType === 'private' ? (
-                            <>
-                              Private Cruise • {formData.selectedSlot?.boatName || 'Boat'} • {formData.groupSize} people
-                              {formData.selectedAddOnPackages.length > 0 && (
-                                <span className="ml-2">
-                                  • {formData.selectedAddOnPackages.includes('ultimate') ? 'Ultimate Package' :
-                                     formData.selectedAddOnPackages.includes('essentials') ? 'Essentials Package' : ''}
-                                </span>
-                              )}
-                            </>
-                          ) : (
-                            <>
-                              ATX Disco Cruise • {formData.discoTicketQuantity} tickets
-                              {formData.selectedDiscoPackage && (
-                                <span className="ml-2">
-                                  • {discoPackages.find(p => p.id === formData.selectedDiscoPackage)?.name}
-                                </span>
-                              )}
-                            </>
-                          )}
-                        </div>
-                        <div className="text-gray-600 dark:text-gray-400">
-                          {formData.eventTypeLabel} {formData.eventEmoji}
-                        </div>
+                  {/* Consolidated Selection Summary with Single Prominent Header */}
+                  <div className="space-y-3 mb-6">
+                    <div className="bg-gray-50 dark:bg-gray-800 p-3 rounded-lg">
+                      {/* Single Prominent Header Line */}
+                      <div className="text-lg font-bold mb-2">
+                        {formData.eventDate && format(formData.eventDate, 'EEEE, MMMM d')} • 
+                        {' '}{formData.selectedSlot?.boatName || (pendingCruiseType === 'disco' ? 'ATX Disco Cruise' : 'Boat')} • 
+                        {' '}{formData.selectedSlot?.label || 'Time Not Selected'} • 
+                        {' '}{formatCurrency((pendingCruiseType === 'private' ? privatePricing?.baseHourlyRate : discoPricing?.perPersonCost) || 0)}/
+                        {pendingCruiseType === 'private' ? 'hr' : 'person'}
+                      </div>
+                      {/* Secondary Details */}
+                      <div className="text-sm text-gray-600 dark:text-gray-400">
+                        {pendingCruiseType === 'private' ? (
+                          <>
+                            {formData.selectedSlot?.boatName || 'Boat'} for {formData.groupSize} people
+                            {formData.selectedAddOnPackages.length > 0 && (
+                              <> • {formData.selectedAddOnPackages.includes('ultimate') ? 'Ultimate Package' :
+                                   formData.selectedAddOnPackages.includes('essentials') ? 'Essentials Package' : ''}</>
+                            )}
+                          </>
+                        ) : (
+                          <>
+                            ATX Disco Cruise for {formData.discoTicketQuantity} people • 
+                            {' '}{discoPackages.find(p => p.id === formData.selectedDiscoPackage)?.name}
+                          </>
+                        )}
+                      </div>
+                      {/* Duration and Rate Line */}
+                      <div className="text-base font-semibold mt-2">
+                        {pendingCruiseType === 'private' ? (
+                          <>{formData.selectedSlot?.duration || 4} hours × {formatCurrency(privatePricing?.baseHourlyRate || 0)}/hour</>
+                        ) : (
+                          <>{formData.discoTicketQuantity} tickets × {formatCurrency(discoPricing?.perPersonCost || 0)}/person</>
+                        )}
                       </div>
                     </div>
 
-                    {/* Pricing Breakdown */}
-                    <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
+                    {/* Simplified Pricing Breakdown */}
+                    <div className="bg-green-50 dark:bg-green-900/20 p-3 rounded-lg">
                       <h3 className="text-sm font-semibold mb-3 flex items-center gap-2">
                         <DollarSign className="h-4 w-4 text-green-600" />
                         Pricing Breakdown
@@ -4080,6 +4094,42 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       </div>
       
       {/* Booking Confirmation Dialog - No longer used but kept for backwards compatibility */}
+      
+      {/* Date Change Dialog */}
+      <Dialog open={showDateChangeDialog} onOpenChange={setShowDateChangeDialog}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>Change Event Date</DialogTitle>
+            <DialogDescription>
+              Select a new date for your {formData.eventTypeLabel || 'event'}. Your other selections will be preserved.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="py-4">
+            <CalendarComponent
+              mode="single"
+              selected={formData.eventDate}
+              onSelect={(date) => {
+                if (date && isDateAvailable(date)) {
+                  setFormData(prev => ({ 
+                    ...prev, 
+                    eventDate: date,
+                    // Clear time slot selections as they may not be valid for new date
+                    selectedSlot: null
+                  }));
+                  setShowDateChangeDialog(false);
+                  // Refetch availability for new date
+                  toast({
+                    title: "Date Updated",
+                    description: `Your event date has been changed to ${format(date, 'EEEE, MMMM d, yyyy')}`,
+                  });
+                }
+              }}
+              disabled={(date) => !isDateAvailable(date)}
+              className="rounded-md border"
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
