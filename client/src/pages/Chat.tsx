@@ -4564,6 +4564,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       {showContactInfoModal && (
         <ContactInfoModal
           open={showContactInfoModal}
+          onClose={() => setShowContactInfoModal(false)}
           eventDetails={{
             eventDate: formData.eventDate,
             eventType: formData.eventType,

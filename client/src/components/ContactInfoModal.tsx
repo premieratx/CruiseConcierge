@@ -42,6 +42,7 @@ type ContactFormData = z.infer<typeof contactFormSchema>;
 
 interface ContactInfoModalProps {
   open: boolean;
+  onClose?: () => void;
   eventDetails: {
     eventDate: Date | undefined;
     eventType: string;
@@ -74,6 +75,7 @@ interface ContactInfoModalProps {
 
 export function ContactInfoModal({
   open,
+  onClose,
   eventDetails,
   selectionDetails = {},
   pricingDetails = {},
@@ -142,7 +144,12 @@ export function ContactInfoModal({
         icon: <CheckCircle className="h-4 w-4" />,
       });
       
-      // Redirect to the quote page with the token
+      // Close the modal first
+      if (onClose) {
+        onClose();
+      }
+      
+      // Then redirect to the quote page with the token
       if (data.accessToken) {
         setLocation(`/q/${data.accessToken}`);
       } else if (data.redirectUrl) {
@@ -181,7 +188,7 @@ export function ContactInfoModal({
   };
 
   return (
-    <Dialog open={open} onOpenChange={() => {}}>
+    <Dialog open={open} onOpenChange={onClose || (() => {})}>
       <DialogContent 
         className="sm:max-w-[500px]"
         onPointerDownOutside={(e) => e.preventDefault()}

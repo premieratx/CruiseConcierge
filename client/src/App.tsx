@@ -124,7 +124,7 @@ function Router() {
       {/* <Route path="/calendar" component={PublicCalendar} /> */}
       
       {/* Shareable Quote Route */}
-      <Route path="/q/:token" component={Chat} />
+      <Route path="/q/:token" component={QuoteViewer} />
       
       {/* Admin Dashboard Routes */}
       <Route path="/dashboard" component={Dashboard} />
