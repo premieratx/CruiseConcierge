@@ -1,6 +1,7 @@
 import OpenAI from "openai";
 import { storage } from "../storage";
 import { comprehensiveLeadService } from "./comprehensiveLeadService";
+import { getQuoteUrl } from "../utils";
 import { type ChatbotButton, type ChatbotFlow } from "@shared/schema";
 
 if (!process.env.OPENAI_API_KEY) {
@@ -369,7 +370,7 @@ async function processAutomatedActions(
               // Update existing lead with new quote information
               const contact = await storage.getContact(existingContactId);
               if (contact?.email) {
-                const quoteUrl = `${process.env.PUBLIC_URL || 'https://your-domain.com'}/quote/${quote.id}?token=${quote.accessToken}`;
+                const quoteUrl = getQuoteUrl(quote.accessToken);
                 
                 // Update Google Sheets and GoHighLevel with quote info
                 await comprehensiveLeadService.updateLeadWithQuote(existingContactId, {

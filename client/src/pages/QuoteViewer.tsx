@@ -527,8 +527,11 @@ function QuoteViewerContent() {
   const quoteId = pathQuoteId || queryQuoteId;
   
   // Define different access flows
-  const isQuoteFlow = !!(quoteId && token); // Public quote flow with token
-  const isAdminFlow = !!(pathQuoteId && !token); // Admin flow without token
+  // Check if pathQuoteId looks like an access token (JWT format: xxx.yyy.zzz)
+  const isAccessToken = pathQuoteId && pathQuoteId.includes('.') && pathQuoteId.split('.').length === 3;
+  
+  const isQuoteFlow = !!(quoteId && token) || isAccessToken; // Public quote flow with token in query OR path
+  const isAdminFlow = !!(pathQuoteId && !token && !isAccessToken); // Admin flow without token (and not access token)
   
   // Parse calendar flow parameters
   const calendarDataParam = searchParams.get('data');
@@ -777,7 +780,9 @@ function QuoteViewerContent() {
   const { data: quote, isLoading, error: quoteError } = useQuery<QuoteWithDetails>({
     queryKey: isAdminFlow 
       ? [`/api/quotes/${quoteId}`]
-      : [`/api/quotes/${quoteId}/public`, token],
+      : isAccessToken
+        ? [`/api/quotes/public/${pathQuoteId}`]
+        : [`/api/quotes/${quoteId}/public`, token],
     queryFn: async () => {
       let url: string;
       
@@ -785,8 +790,12 @@ function QuoteViewerContent() {
         // Admin access - fetch without token (relies on authentication)
         console.log('🔐 Fetching quote via admin access');
         url = `/api/quotes/${encodeURIComponent(quoteId)}`;
+      } else if (isAccessToken) {
+        // Public access with token in path parameter
+        console.log('🔗 Fetching quote via public access token in path');
+        url = `/api/quotes/public/${encodeURIComponent(pathQuoteId)}`;
       } else if (isQuoteFlow) {
-        // Public access - requires token
+        // Public access - requires token in query parameter
         console.log('🔗 Fetching quote via public link with token');
         url = `/api/quotes/${encodeURIComponent(quoteId)}/public?token=${encodeURIComponent(token)}`;
       } else {

@@ -3,7 +3,7 @@ import { storage } from "../storage";
 import { googleSheetsService } from "./googleSheets";
 import { goHighLevelService } from "./gohighlevel";
 import { sendQuoteEmail } from "./mailgunEmail";
-import { getFullUrl } from "../utils";
+import { getFullUrl, getPublicUrl } from "../utils";
 import { quoteTokenService } from "./quoteTokenService";
 
 export interface ComprehensiveLeadData {
@@ -143,7 +143,7 @@ export class ComprehensiveLeadService {
           // Generate secure quote URL using secure token service
           quoteUrl = quoteTokenService.generateSecureQuoteUrl(
             quote.id,
-            process.env.PUBLIC_URL || 'https://your-domain.com',
+            getPublicUrl(),
             { 
               scope: 'quote:view',
               expiresIn: 30 * 24 * 60 * 60 * 1000, // 30 days
