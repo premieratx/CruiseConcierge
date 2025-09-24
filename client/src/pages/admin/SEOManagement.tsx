@@ -177,10 +177,43 @@ export default function SEOManagement() {
       if (!response.ok) throw new Error('Failed to perform bulk analysis');
       return response.json();
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['/api/seo/pages'] });
       queryClient.invalidateQueries({ queryKey: ['/api/seo/overview'] });
-      toast({ title: 'Success', description: 'Bulk analysis completed' });
+      const aiMessage = data.model === 'gpt-5' ? ' with AI-powered insights' : '';
+      toast({ 
+        title: 'AI Analysis Complete', 
+        description: `Analyzed ${data.totalPages || seoPages.length} pages${aiMessage}` 
+      });
+    }
+  });
+
+  // Bulk optimize mutation
+  const bulkOptimizeMutation = useMutation({
+    mutationFn: async (params: { pageRoutes: string[]; optimizationType: string; targetKeywords?: string[] }) => {
+      const response = await fetch('/api/seo/bulk-optimize', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(params),
+      });
+      if (!response.ok) throw new Error('Failed to perform bulk optimization');
+      return response.json();
+    },
+    onSuccess: (data) => {
+      queryClient.invalidateQueries({ queryKey: ['/api/seo/pages'] });
+      queryClient.invalidateQueries({ queryKey: ['/api/seo/overview'] });
+      const aiMessage = data.model === 'gpt-5' ? ' using AI optimization' : '';
+      toast({ 
+        title: 'AI Optimization Complete', 
+        description: `Successfully optimized ${data.successfulOptimizations || 0} of ${data.totalPages || 0} pages${aiMessage}` 
+      });
+    },
+    onError: (error) => {
+      toast({ 
+        title: 'Optimization Failed', 
+        description: `Failed to optimize pages: ${error.message}`, 
+        variant: 'destructive' 
+      });
     }
   });
 
@@ -247,7 +280,19 @@ export default function SEOManagement() {
               data-testid="button-bulk-analyze"
             >
               <RefreshCw className={`w-4 h-4 mr-2 ${bulkAnalyzeMutation.isPending ? 'animate-spin' : ''}`} />
-              Analyze All Pages
+              {bulkAnalyzeMutation.isPending ? 'AI Analyzing...' : 'AI Analyze All'}
+            </Button>
+            <Button
+              onClick={() => {
+                const pageRoutes = seoPages.map(page => page.pageRoute);
+                bulkOptimizeMutation.mutate({ pageRoutes, optimizationType: 'meta_tags' });
+              }}
+              disabled={bulkOptimizeMutation.isPending}
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              data-testid="button-bulk-optimize"
+            >
+              <Sparkles className={`w-4 h-4 mr-2 ${bulkOptimizeMutation.isPending ? 'animate-pulse' : ''}`} />
+              {bulkOptimizeMutation.isPending ? 'AI Optimizing...' : 'AI Optimize All'}
             </Button>
           </div>
         </motion.div>
@@ -322,11 +367,22 @@ export default function SEOManagement() {
 
         {/* Main Content */}
         <Tabs value={activeTab} onValueChange={setActiveTab} className="space-y-6">
-          <TabsList>
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-6">
             <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="pages">Page Management</TabsTrigger>
-            <TabsTrigger value="settings">Global Settings</TabsTrigger>
-            <TabsTrigger value="analysis">Analysis</TabsTrigger>
+            <TabsTrigger value="pages">Pages</TabsTrigger>
+            <TabsTrigger value="ai-optimizer" className="flex items-center gap-2">
+              <Sparkles className="w-4 h-4" />
+              AI Optimizer
+            </TabsTrigger>
+            <TabsTrigger value="keyword-research" className="flex items-center gap-2">
+              <Hash className="w-4 h-4" />
+              Keywords
+            </TabsTrigger>
+            <TabsTrigger value="competitor-analysis" className="flex items-center gap-2">
+              <Users className="w-4 h-4" />
+              Competitors
+            </TabsTrigger>
+            <TabsTrigger value="settings">Settings</TabsTrigger>
           </TabsList>
 
           {/* Pages Management Tab */}
@@ -643,9 +699,8 @@ export default function SEOManagement() {
               </CardContent>
             </Card>
           </TabsContent>
-        </Tabs>
 
-        {/* Edit Page Dialog */}
+          {/* Edit Page Dialog */}
         <Dialog open={isEditing} onOpenChange={setIsEditing}>
           <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
             <DialogHeader>
@@ -771,6 +826,326 @@ export default function SEOManagement() {
             )}
           </DialogContent>
         </Dialog>
+
+        {/* AI Optimizer Tab */}
+        <TabsContent value="ai-optimizer" className="space-y-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Meta Tag Generator */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Sparkles className="w-5 h-5 text-purple-600" />
+                  AI Meta Generator
+                </CardTitle>
+                <CardDescription>
+                  Generate optimized meta titles and descriptions using GPT-5
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label>Page Route</Label>
+                  <Input placeholder="/bachelor-party" data-testid="input-ai-page-route" />
+                </div>
+                <div>
+                  <Label>Target Keyword</Label>
+                  <Input placeholder="Austin bachelor party cruise" data-testid="input-ai-keyword" />
+                </div>
+                <div>
+                  <Label>Content Context (optional)</Label>
+                  <Textarea 
+                    placeholder="Brief description of page content..."
+                    className="min-h-[100px]"
+                    data-testid="textarea-content-context"
+                  />
+                </div>
+                <Button className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700" data-testid="button-generate-meta">
+                  <Brain className="w-4 h-4 mr-2" />
+                  Generate AI Meta Tags
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Content Analyzer */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <BarChart3 className="w-5 h-5 text-blue-600" />
+                  Content Analyzer
+                </CardTitle>
+                <CardDescription>
+                  Analyze content for SEO improvements with AI insights
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label>Page Route</Label>
+                  <Input placeholder="/private-cruises" data-testid="input-analyze-route" />
+                </div>
+                <div>
+                  <Label>Content to Analyze</Label>
+                  <Textarea 
+                    placeholder="Paste your page content here..."
+                    className="min-h-[120px]"
+                    data-testid="textarea-analyze-content"
+                  />
+                </div>
+                <Button className="w-full bg-gradient-to-r from-blue-600 to-teal-600 hover:from-blue-700 hover:to-teal-700" data-testid="button-analyze-content">
+                  <Lightbulb className="w-4 h-4 mr-2" />
+                  Analyze Content with AI
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Schema Generator */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <FileText className="w-5 h-5 text-green-600" />
+                  Schema Generator
+                </CardTitle>
+                <CardDescription>
+                  Generate structured data markup for better search visibility
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label>Page Type</Label>
+                  <select className="w-full px-3 py-2 border border-gray-300 rounded-md" data-testid="select-schema-type">
+                    <option>Service Page</option>
+                    <option>About Page</option>
+                    <option>Contact Page</option>
+                    <option>Event Page</option>
+                    <option>Article/Blog</option>
+                  </select>
+                </div>
+                <div>
+                  <Label>Page Content Context</Label>
+                  <Textarea 
+                    placeholder="Describe the page content..."
+                    className="min-h-[100px]"
+                    data-testid="textarea-schema-content"
+                  />
+                </div>
+                <Button className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700" data-testid="button-generate-schema">
+                  <FileText className="w-4 h-4 mr-2" />
+                  Generate Schema Markup
+                </Button>
+              </CardContent>
+            </Card>
+
+            {/* Batch Optimizer */}
+            <Card>
+              <CardHeader>
+                <CardTitle className="flex items-center gap-2">
+                  <Zap className="w-5 h-5 text-orange-600" />
+                  Batch Optimizer
+                </CardTitle>
+                <CardDescription>
+                  Optimize multiple pages simultaneously with AI
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-4">
+                <div>
+                  <Label>Optimization Type</Label>
+                  <select className="w-full px-3 py-2 border border-gray-300 rounded-md" data-testid="select-optimization-type">
+                    <option>Meta Tags Only</option>
+                    <option>Full Page Analysis</option>
+                    <option>Content Optimization</option>
+                    <option>Technical SEO</option>
+                  </select>
+                </div>
+                <div>
+                  <Label>Target Keywords (comma-separated)</Label>
+                  <Input placeholder="party cruise, austin boats, lake travis" data-testid="input-batch-keywords" />
+                </div>
+                <div className="text-sm text-gray-600">
+                  This will optimize all tracked pages ({seoPages.length} pages)
+                </div>
+                <Button 
+                  className="w-full bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700"
+                  disabled={bulkOptimizeMutation.isPending}
+                  data-testid="button-batch-optimize"
+                >
+                  {bulkOptimizeMutation.isPending ? (
+                    <RefreshCw className="w-4 h-4 mr-2 animate-spin" />
+                  ) : (
+                    <Zap className="w-4 h-4 mr-2" />
+                  )}
+                  Batch Optimize with AI
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </TabsContent>
+
+        {/* Keyword Research Tab */}
+        <TabsContent value="keyword-research" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Hash className="w-5 h-5 text-indigo-600" />
+                AI-Powered Keyword Research
+              </CardTitle>
+              <CardDescription>
+                Discover high-value keywords and content opportunities using GPT-5 analysis
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="lg:col-span-1 space-y-4">
+                  <div>
+                    <Label>Seed Keyword</Label>
+                    <Input placeholder="party cruise" data-testid="input-seed-keyword" />
+                  </div>
+                  <div>
+                    <Label>Business Type</Label>
+                    <Input placeholder="Party boat rental service" data-testid="input-business-type" />
+                  </div>
+                  <div>
+                    <Label>Location</Label>
+                    <Input placeholder="Austin, Texas" data-testid="input-location" />
+                  </div>
+                  <div>
+                    <Label>Content Type</Label>
+                    <select className="w-full px-3 py-2 border border-gray-300 rounded-md" data-testid="select-content-type">
+                      <option>Service Pages</option>
+                      <option>Blog Content</option>
+                      <option>Landing Pages</option>
+                      <option>Product Pages</option>
+                    </select>
+                  </div>
+                  <Button className="w-full bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700" data-testid="button-research-keywords">
+                    <Search className="w-4 h-4 mr-2" />
+                    Research Keywords with AI
+                  </Button>
+                </div>
+                <div className="lg:col-span-2">
+                  <div className="border rounded-lg p-6 h-[400px] flex items-center justify-center text-gray-500" data-testid="keyword-results-container">
+                    <div className="text-center">
+                      <Hash className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                      <p>AI keyword research results will appear here</p>
+                      <p className="text-sm mt-2">Enter a seed keyword and click "Research Keywords" to start</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Competitor Analysis Tab */}
+        <TabsContent value="competitor-analysis" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Users className="w-5 h-5 text-teal-600" />
+                AI Competitor Analysis
+              </CardTitle>
+              <CardDescription>
+                Analyze competitor strategies and identify opportunities using advanced AI insights
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <div className="lg:col-span-1 space-y-4">
+                  <div>
+                    <Label>Competitor URL</Label>
+                    <Input placeholder="https://competitor-website.com" data-testid="input-competitor-url" />
+                  </div>
+                  <div>
+                    <Label>Our Domain</Label>
+                    <Input placeholder="premierpartycruises.com" data-testid="input-our-domain" />
+                  </div>
+                  <div>
+                    <Label>Target Keywords</Label>
+                    <Textarea 
+                      placeholder="party cruise, bachelor party boat, austin boat rental"
+                      className="min-h-[80px]"
+                      data-testid="textarea-competitor-keywords"
+                    />
+                  </div>
+                  <div>
+                    <Label>Analysis Type</Label>
+                    <select className="w-full px-3 py-2 border border-gray-300 rounded-md" data-testid="select-analysis-type">
+                      <option>Comprehensive</option>
+                      <option>Content Strategy</option>
+                      <option>Technical SEO</option>
+                      <option>Keyword Gaps</option>
+                    </select>
+                  </div>
+                  <Button className="w-full bg-gradient-to-r from-teal-600 to-cyan-600 hover:from-teal-700 hover:to-cyan-700" data-testid="button-analyze-competitor">
+                    <Eye className="w-4 h-4 mr-2" />
+                    Analyze Competitor with AI
+                  </Button>
+                </div>
+                <div className="lg:col-span-2">
+                  <div className="border rounded-lg p-6 h-[400px] flex items-center justify-center text-gray-500" data-testid="competitor-results-container">
+                    <div className="text-center">
+                      <Users className="w-12 h-12 mx-auto mb-4 text-gray-300" />
+                      <p>AI competitor analysis results will appear here</p>
+                      <p className="text-sm mt-2">Enter a competitor URL and click "Analyze Competitor" to start</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        {/* Settings Tab */}
+        <TabsContent value="settings" className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center gap-2">
+                <Settings className="w-5 h-5" />
+                SEO Settings
+              </CardTitle>
+              <CardDescription>
+                Configure global SEO settings and AI optimization preferences
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">AI Optimization</h3>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>Enable AI Auto-optimization</Label>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                        Allow GPT-5 to automatically optimize pages
+                      </p>
+                    </div>
+                    <Switch data-testid="switch-auto-ai" />
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <Label>Real-time Analysis</Label>
+                      <p className="text-sm text-gray-600 dark:text-gray-300">
+                        Analyze content changes in real-time
+                      </p>
+                    </div>
+                    <Switch data-testid="switch-realtime" />
+                  </div>
+                </div>
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Global Defaults</h3>
+                  <div>
+                    <Label>Default Business Schema</Label>
+                    <Button variant="outline" className="w-full mt-2" data-testid="button-business-schema">
+                      <FileText className="w-4 h-4 mr-2" />
+                      Generate Business Schema
+                    </Button>
+                  </div>
+                  <div>
+                    <Label>Site-wide Keywords</Label>
+                    <Input placeholder="party cruise, lake travis, austin" data-testid="input-sitewide-keywords" />
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </TabsContent>
+        </Tabs>
       </div>
     </Layout>
   );

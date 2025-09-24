@@ -14865,49 +14865,527 @@ Phone: ${contact.phone || 'N/A'}`;
     }
   });
 
-  // AI-Powered SEO Optimization
+  // AI-Powered SEO Optimization with GPT-5
   app.post("/api/seo/optimize", async (req, res) => {
     try {
       const optimizationRequest = req.body as SEOOptimizationRequest;
-      const optimizedPage = await storage.optimizePageSeo(optimizationRequest);
-      res.json(optimizedPage);
+      const openai = await getOpenAIService();
+      
+      if (!openai) {
+        return res.status(503).json({ 
+          error: "OpenAI service unavailable", 
+          message: "GPT-5 optimization requires OpenAI API key configuration"
+        });
+      }
+
+      // Enhanced GPT-5 powered SEO optimization
+      const { pageRoute, optimizationType, content, targetKeywords, competitorData } = optimizationRequest;
+      
+      // Build comprehensive analysis prompt
+      const systemPrompt = `You are an expert SEO consultant with deep expertise in search engine optimization, content analysis, and ranking strategies. You specialize in providing actionable, data-driven SEO recommendations.
+
+TASK: Perform comprehensive SEO analysis and optimization for the provided webpage content.
+
+ANALYSIS AREAS:
+1. **Content Quality & Structure**
+   - Readability analysis (Flesch score, sentence structure)
+   - Content depth and comprehensiveness
+   - Header hierarchy (H1, H2, H3) optimization
+   - Keyword integration and density
+   - Content uniqueness and value proposition
+
+2. **Technical SEO Factors**
+   - Meta tag optimization (title, description, keywords)
+   - Schema markup opportunities
+   - Internal linking potential
+   - Image optimization needs
+   - Page performance considerations
+
+3. **Competitive Analysis** (if competitor data provided)
+   - Content gap analysis
+   - Keyword opportunity identification
+   - Competitive advantage recommendations
+
+4. **User Experience Signals**
+   - Content engagement factors
+   - Search intent alignment
+   - Call-to-action optimization
+   - Mobile optimization considerations
+
+RESPONSE FORMAT (JSON):
+{
+  "seoScore": number (0-100),
+  "analysis": {
+    "contentQuality": {
+      "score": number,
+      "readabilityScore": number,
+      "wordCount": number,
+      "keywordDensity": object,
+      "issues": string[],
+      "recommendations": string[]
+    },
+    "technicalSeo": {
+      "score": number,
+      "metaTagsOptimized": boolean,
+      "headerStructure": object,
+      "schemaOpportunities": string[],
+      "issues": string[],
+      "recommendations": string[]
+    },
+    "competitiveAnalysis": {
+      "score": number,
+      "gaps": string[],
+      "opportunities": string[],
+      "recommendations": string[]
+    }
+  },
+  "optimizations": {
+    "metaTitle": string,
+    "metaDescription": string,
+    "suggestedKeywords": string[],
+    "contentRecommendations": string[],
+    "schemaMarkup": object,
+    "internalLinkingSuggestions": string[]
+  },
+  "priorities": [
+    {
+      "priority": "high" | "medium" | "low",
+      "category": string,
+      "issue": string,
+      "solution": string,
+      "impact": string
+    }
+  ]
+}`;
+
+      const userPrompt = `
+PAGE ROUTE: ${pageRoute}
+OPTIMIZATION TYPE: ${optimizationType}
+TARGET KEYWORDS: ${targetKeywords?.join(', ') || 'Not specified'}
+
+CURRENT CONTENT:
+${content || 'No content provided'}
+
+${competitorData ? `COMPETITOR DATA:
+${JSON.stringify(competitorData, null, 2)}` : ''}
+
+Please provide comprehensive SEO analysis and optimization recommendations.`;
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-5",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt }
+        ],
+        max_completion_tokens: 3000,
+        temperature: 0.3,
+        response_format: { type: "json_object" }
+      });
+
+      const optimizationResult = JSON.parse(response.choices[0].message.content || '{}');
+      
+      // Update the SEO page with optimizations if it exists
+      try {
+        const existingPage = await storage.getSeoPage(pageRoute);
+        if (existingPage) {
+          await storage.updateSeoPage(pageRoute, {
+            metaTitle: optimizationResult.optimizations?.metaTitle,
+            metaDescription: optimizationResult.optimizations?.metaDescription,
+            metaKeywords: optimizationResult.optimizations?.suggestedKeywords || [],
+            seoScore: optimizationResult.seoScore,
+            lastAnalyzed: new Date(),
+            recommendations: optimizationResult.priorities?.map((p: any) => p.solution) || [],
+            issues: optimizationResult.priorities?.filter((p: any) => p.priority === 'high').map((p: any) => ({
+              type: 'error',
+              category: p.category,
+              message: p.issue,
+              priority: p.priority,
+              autoFixable: false
+            })) || []
+          });
+        }
+      } catch (updateError) {
+        console.warn("Could not update SEO page with optimization results:", updateError);
+      }
+      
+      res.json({
+        success: true,
+        pageRoute,
+        optimization: optimizationResult,
+        timestamp: new Date().toISOString(),
+        model: "gpt-5"
+      });
+      
     } catch (error: any) {
-      console.error("SEO optimization error:", error);
-      res.status(500).json({ error: "Failed to optimize page SEO" });
+      console.error("GPT-5 SEO optimization error:", error);
+      res.status(500).json({ 
+        error: "Failed to optimize page SEO", 
+        details: error.message,
+        fallback: "Consider using basic optimization or try again later"
+      });
     }
   });
 
   app.post("/api/seo/generate-meta", async (req, res) => {
     try {
-      const { pageRoute, content, targetKeyword } = req.body;
-      const metaTags = await storage.generateMetaTags(pageRoute, content, targetKeyword);
-      res.json(metaTags);
+      const { pageRoute, content, targetKeyword, businessInfo } = req.body;
+      const openai = await getOpenAIService();
+      
+      if (!openai) {
+        return res.status(503).json({ 
+          error: "OpenAI service unavailable", 
+          message: "Meta tag generation requires OpenAI API key configuration"
+        });
+      }
+
+      const systemPrompt = `You are an expert SEO copywriter specializing in creating high-converting, search-optimized meta tags. Your meta tags consistently drive higher click-through rates and improve search rankings.
+
+TASK: Generate optimized meta title, description, and keyword suggestions for the provided webpage.
+
+META TAG BEST PRACTICES:
+- Title: 50-60 characters, include primary keyword, compelling and clickable
+- Description: 150-160 characters, include primary keyword, clear value proposition, call-to-action
+- Keywords: 5-10 relevant terms, mix of primary and long-tail keywords
+
+OPTIMIZATION PRINCIPLES:
+- Search intent alignment
+- Competitive differentiation
+- Local SEO (if applicable)
+- Brand consistency
+- Emotional triggers for higher CTR
+
+RESPONSE FORMAT (JSON):
+{
+  "metaTitle": string,
+  "metaDescription": string,
+  "suggestedKeywords": string[],
+  "alternativeTitles": string[],
+  "alternativeDescriptions": string[],
+  "seoAnalysis": {
+    "titleLength": number,
+    "descriptionLength": number,
+    "keywordOptimization": string,
+    "ctrPotential": "high" | "medium" | "low",
+    "improvements": string[]
+  }
+}`;
+
+      const userPrompt = `
+PAGE ROUTE: ${pageRoute}
+PRIMARY KEYWORD: ${targetKeyword || 'Not specified'}
+BUSINESS INFO: ${businessInfo ? JSON.stringify(businessInfo) : 'Premier Party Cruises - Lake Travis party boat rentals'}
+
+CONTENT TO OPTIMIZE:
+${content || 'No content provided'}
+
+Generate compelling, SEO-optimized meta tags that will improve search rankings and click-through rates.`;
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-5",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt }
+        ],
+        max_completion_tokens: 1500,
+        temperature: 0.4,
+        response_format: { type: "json_object" }
+      });
+
+      const metaResult = JSON.parse(response.choices[0].message.content || '{}');
+      
+      res.json({
+        success: true,
+        pageRoute,
+        ...metaResult,
+        timestamp: new Date().toISOString(),
+        model: "gpt-5"
+      });
+      
     } catch (error: any) {
-      console.error("Meta tag generation error:", error);
-      res.status(500).json({ error: "Failed to generate meta tags" });
+      console.error("GPT-5 meta generation error:", error);
+      res.status(500).json({ 
+        error: "Failed to generate meta tags", 
+        details: error.message 
+      });
     }
   });
 
-  // Bulk SEO Operations
+  // AI-Enhanced Bulk SEO Operations with GPT-5
   app.post("/api/seo/bulk-analyze", async (req, res) => {
     try {
       const { pageRoutes } = req.body;
-      const results = await storage.bulkAnalyzePages(pageRoutes);
-      res.json(results);
+      const openai = await getOpenAIService();
+      
+      if (!openai) {
+        // Fallback to basic analysis if OpenAI is not available
+        const results = await storage.bulkAnalyzePages(pageRoutes);
+        return res.json({
+          success: true,
+          results,
+          model: "basic",
+          message: "Used basic analysis - OpenAI unavailable"
+        });
+      }
+
+      const analysisResults = [];
+      const batchSize = 5; // Process 5 pages at a time to avoid rate limits
+      
+      for (let i = 0; i < pageRoutes.length; i += batchSize) {
+        const batch = pageRoutes.slice(i, i + batchSize);
+        const batchPromises = batch.map(async (pageRoute: string) => {
+          try {
+            // Get existing page data
+            const existingPage = await storage.getSeoPage(pageRoute);
+            const content = existingPage?.content || `Page content for ${pageRoute}`;
+            
+            const systemPrompt = `You are an SEO analysis expert. Analyze the provided webpage for SEO performance and provide actionable recommendations.
+
+ANALYSIS FOCUS:
+- Technical SEO issues
+- Content optimization opportunities  
+- Meta tag improvements
+- Keyword optimization
+- Performance bottlenecks
+- Structural improvements
+
+RESPONSE FORMAT (JSON):
+{
+  "pageRoute": string,
+  "seoScore": number (0-100),
+  "criticalIssues": string[],
+  "recommendations": string[],
+  "priorityActions": string[],
+  "estimatedImpact": "high" | "medium" | "low"
+}`;
+
+            const userPrompt = `Analyze this page for SEO:
+PAGE: ${pageRoute}
+CONTENT: ${content}
+
+Provide comprehensive SEO analysis with specific, actionable recommendations.`;
+
+            const response = await openai.chat.completions.create({
+              model: "gpt-5",
+              messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: userPrompt }
+              ],
+              max_completion_tokens: 1500,
+              temperature: 0.2,
+              response_format: { type: "json_object" }
+            });
+
+            const analysis = JSON.parse(response.choices[0].message.content || '{}');
+            
+            // Update the page with analysis results
+            if (existingPage) {
+              await storage.updateSeoPage(pageRoute, {
+                seoScore: analysis.seoScore,
+                lastAnalyzed: new Date(),
+                recommendations: analysis.recommendations,
+                issues: analysis.criticalIssues?.map((issue: string) => ({
+                  type: 'warning',
+                  category: 'seo',
+                  message: issue,
+                  priority: 'high',
+                  autoFixable: false
+                })) || []
+              });
+            }
+            
+            return analysis;
+          } catch (error) {
+            console.error(`Error analyzing page ${pageRoute}:`, error);
+            return {
+              pageRoute,
+              seoScore: 0,
+              criticalIssues: [`Analysis failed: ${error instanceof Error ? error.message : 'Unknown error'}`],
+              recommendations: ["Retry analysis later"],
+              priorityActions: ["Fix analysis errors"],
+              estimatedImpact: "high"
+            };
+          }
+        });
+
+        const batchResults = await Promise.allSettled(batchPromises);
+        batchResults.forEach((result, index) => {
+          if (result.status === 'fulfilled') {
+            analysisResults.push(result.value);
+          } else {
+            analysisResults.push({
+              pageRoute: batch[index],
+              seoScore: 0,
+              criticalIssues: ["Analysis failed"],
+              recommendations: ["Retry analysis"],
+              priorityActions: ["Check page accessibility"],
+              estimatedImpact: "high"
+            });
+          }
+        });
+
+        // Small delay between batches to respect rate limits
+        if (i + batchSize < pageRoutes.length) {
+          await new Promise(resolve => setTimeout(resolve, 1000));
+        }
+      }
+
+      res.json({
+        success: true,
+        results: analysisResults,
+        totalPages: pageRoutes.length,
+        timestamp: new Date().toISOString(),
+        model: "gpt-5"
+      });
+      
     } catch (error: any) {
-      console.error("Bulk analysis error:", error);
-      res.status(500).json({ error: "Failed to perform bulk analysis" });
+      console.error("Bulk AI analysis error:", error);
+      res.status(500).json({ 
+        error: "Failed to perform bulk analysis", 
+        details: error.message 
+      });
     }
   });
 
   app.post("/api/seo/bulk-optimize", async (req, res) => {
     try {
-      const operation = req.body as SEOBulkOperation;
-      const results = await storage.bulkOptimizePages(operation);
-      res.json(results);
+      const { pageRoutes, optimizationType = "meta_tags", targetKeywords } = req.body as SEOBulkOperation;
+      const openai = await getOpenAIService();
+      
+      if (!openai) {
+        // Fallback to basic optimization
+        const results = await storage.bulkOptimizePages({ pageRoutes, optimizationType, targetKeywords });
+        return res.json({
+          success: true,
+          results,
+          model: "basic",
+          message: "Used basic optimization - OpenAI unavailable"
+        });
+      }
+
+      const optimizationResults = [];
+      const batchSize = 3; // Smaller batch size for optimization (more intensive)
+      
+      for (let i = 0; i < pageRoutes.length; i += batchSize) {
+        const batch = pageRoutes.slice(i, i + batchSize);
+        const batchPromises = batch.map(async (pageRoute: string) => {
+          try {
+            const existingPage = await storage.getSeoPage(pageRoute);
+            const content = existingPage?.content || `Page content for ${pageRoute}`;
+            
+            const systemPrompt = `You are an expert SEO optimization specialist. Generate optimized meta tags and content recommendations for better search rankings.
+
+OPTIMIZATION TYPE: ${optimizationType}
+
+REQUIREMENTS:
+- Meta Title: 50-60 characters, include primary keyword
+- Meta Description: 150-160 characters, compelling and action-oriented
+- Keywords: 5-8 relevant terms including long-tail variations
+- Content improvements for better SEO performance
+
+RESPONSE FORMAT (JSON):
+{
+  "pageRoute": string,
+  "optimizations": {
+    "metaTitle": string,
+    "metaDescription": string,
+    "metaKeywords": string[],
+    "focusKeyword": string,
+    "contentRecommendations": string[],
+    "schemaMarkup": object
+  },
+  "expectedImprovements": {
+    "seoScore": number,
+    "trafficIncrease": string,
+    "competitiveAdvantage": string[]
+  }
+}`;
+
+            const userPrompt = `Optimize this page for search engines:
+PAGE: ${pageRoute}
+CONTENT: ${content}
+TARGET KEYWORDS: ${targetKeywords?.join(', ') || 'Not specified'}
+
+Generate comprehensive SEO optimizations.`;
+
+            const response = await openai.chat.completions.create({
+              model: "gpt-5",
+              messages: [
+                { role: "system", content: systemPrompt },
+                { role: "user", content: userPrompt }
+              ],
+              max_completion_tokens: 2000,
+              temperature: 0.3,
+              response_format: { type: "json_object" }
+            });
+
+            const optimization = JSON.parse(response.choices[0].message.content || '{}');
+            
+            // Apply optimizations to the page
+            if (existingPage) {
+              await storage.updateSeoPage(pageRoute, {
+                metaTitle: optimization.optimizations?.metaTitle,
+                metaDescription: optimization.optimizations?.metaDescription,
+                metaKeywords: optimization.optimizations?.metaKeywords || [],
+                focusKeyword: optimization.optimizations?.focusKeyword,
+                seoScore: optimization.expectedImprovements?.seoScore || existingPage.seoScore,
+                lastAnalyzed: new Date(),
+                recommendations: optimization.optimizations?.contentRecommendations || []
+              });
+            }
+            
+            return {
+              pageRoute,
+              success: true,
+              ...optimization
+            };
+          } catch (error) {
+            console.error(`Error optimizing page ${pageRoute}:`, error);
+            return {
+              pageRoute,
+              success: false,
+              error: error instanceof Error ? error.message : 'Unknown error',
+              optimizations: {},
+              expectedImprovements: {}
+            };
+          }
+        });
+
+        const batchResults = await Promise.allSettled(batchPromises);
+        batchResults.forEach((result, index) => {
+          if (result.status === 'fulfilled') {
+            optimizationResults.push(result.value);
+          } else {
+            optimizationResults.push({
+              pageRoute: batch[index],
+              success: false,
+              error: "Optimization failed",
+              optimizations: {},
+              expectedImprovements: {}
+            });
+          }
+        });
+
+        // Delay between batches
+        if (i + batchSize < pageRoutes.length) {
+          await new Promise(resolve => setTimeout(resolve, 2000));
+        }
+      }
+
+      res.json({
+        success: true,
+        results: optimizationResults,
+        totalPages: pageRoutes.length,
+        successfulOptimizations: optimizationResults.filter(r => r.success).length,
+        timestamp: new Date().toISOString(),
+        model: "gpt-5"
+      });
+      
     } catch (error: any) {
-      console.error("Bulk optimization error:", error);
-      res.status(500).json({ error: "Failed to perform bulk optimization" });
+      console.error("Bulk AI optimization error:", error);
+      res.status(500).json({ 
+        error: "Failed to perform bulk optimization", 
+        details: error.message 
+      });
     }
   });
 
@@ -15005,48 +15483,565 @@ Phone: ${contact.phone || 'N/A'}`;
     }
   });
 
-  // Content Analysis
+  // AI-Enhanced Content Analysis with GPT-5
   app.post("/api/seo/analyze-content", async (req, res) => {
     try {
-      const { content, targetKeyword } = req.body;
-      const analysis = await storage.analyzeContent(content, targetKeyword);
-      res.json(analysis);
+      const { content, targetKeyword, pageRoute, competitorUrls } = req.body;
+      const openai = await getOpenAIService();
+      
+      if (!openai) {
+        // Fallback to basic analysis
+        const analysis = await storage.analyzeContent(content, targetKeyword);
+        return res.json({ 
+          ...analysis,
+          model: "basic",
+          message: "Used basic analysis - OpenAI unavailable"
+        });
+      }
+
+      const systemPrompt = `You are an expert content SEO analyst with deep knowledge of content optimization, readability, and search engine ranking factors.
+
+TASK: Perform comprehensive content analysis for SEO optimization.
+
+ANALYSIS AREAS:
+1. **Content Quality Assessment**
+   - Readability score (Flesch-Kincaid level)
+   - Content depth and comprehensiveness
+   - Topic coverage and expertise demonstration
+   - User engagement potential
+
+2. **Keyword Analysis**
+   - Primary keyword integration
+   - Keyword density optimization
+   - Semantic keyword opportunities
+   - Long-tail keyword potential
+
+3. **Structure Analysis**
+   - Header hierarchy (H1, H2, H3)
+   - Content flow and organization
+   - Paragraph length optimization
+   - Call-to-action placement
+
+4. **Technical Factors**
+   - Content length assessment
+   - Internal linking opportunities
+   - Image optimization needs
+   - Meta information alignment
+
+RESPONSE FORMAT (JSON):
+{
+  "contentAnalysis": {
+    "readabilityScore": number,
+    "wordCount": number,
+    "readingLevel": string,
+    "contentDepth": "shallow" | "moderate" | "comprehensive",
+    "topicCoverage": string[]
+  },
+  "keywordAnalysis": {
+    "primaryKeywordDensity": number,
+    "keywordDistribution": "poor" | "good" | "excellent",
+    "suggestedKeywords": string[],
+    "semanticOpportunities": string[]
+  },
+  "structureAnalysis": {
+    "headerStructure": object,
+    "contentFlow": "poor" | "good" | "excellent",
+    "callToActionPresence": boolean,
+    "improvements": string[]
+  },
+  "seoScore": number (0-100),
+  "priorityRecommendations": string[],
+  "contentRewrite": {
+    "suggestedTitle": string,
+    "improvedIntro": string,
+    "keyOptimizations": string[]
+  }
+}`;
+
+      const userPrompt = `Analyze this content for SEO optimization:
+
+PAGE ROUTE: ${pageRoute || 'Not specified'}
+TARGET KEYWORD: ${targetKeyword || 'Not specified'}
+${competitorUrls?.length ? `COMPETITOR URLS: ${competitorUrls.join(', ')}` : ''}
+
+CONTENT TO ANALYZE:
+${content}
+
+Provide comprehensive content analysis with specific, actionable SEO recommendations.`;
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-5",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt }
+        ],
+        max_completion_tokens: 2500,
+        temperature: 0.2,
+        response_format: { type: "json_object" }
+      });
+
+      const analysis = JSON.parse(response.choices[0].message.content || '{}');
+      
+      res.json({
+        success: true,
+        pageRoute: pageRoute || 'unknown',
+        targetKeyword: targetKeyword || 'none',
+        ...analysis,
+        timestamp: new Date().toISOString(),
+        model: "gpt-5"
+      });
+      
     } catch (error: any) {
-      console.error("Content analysis error:", error);
-      res.status(500).json({ error: "Failed to analyze content" });
+      console.error("GPT-5 content analysis error:", error);
+      res.status(500).json({ 
+        error: "Failed to analyze content", 
+        details: error.message 
+      });
     }
   });
 
-  // Schema Markup Management
+  // AI-Powered Keyword Research with GPT-5
+  app.post("/api/seo/keyword-research", async (req, res) => {
+    try {
+      const { seedKeyword, businessType, location, contentType, competitorKeywords } = req.body;
+      const openai = await getOpenAIService();
+      
+      if (!openai) {
+        return res.status(503).json({ 
+          error: "OpenAI service unavailable", 
+          message: "Keyword research requires OpenAI API key configuration"
+        });
+      }
+
+      const systemPrompt = `You are an expert SEO keyword researcher with extensive knowledge of search behavior, keyword difficulty, and content strategy.
+
+TASK: Generate comprehensive keyword research based on the provided seed keyword and business context.
+
+RESEARCH AREAS:
+1. **Primary Keywords** - High-traffic, business-relevant terms
+2. **Long-tail Keywords** - Specific, lower competition phrases
+3. **Semantic Keywords** - Related terms and synonyms
+4. **Question Keywords** - What users ask about this topic
+5. **Local Keywords** - Location-based variations (if applicable)
+6. **Commercial Intent** - Buying-focused keywords
+7. **Informational Intent** - Learning-focused keywords
+
+RESPONSE FORMAT (JSON):
+{
+  "seedKeyword": string,
+  "keywordClusters": [
+    {
+      "cluster": string,
+      "keywords": [
+        {
+          "keyword": string,
+          "searchVolume": "high" | "medium" | "low",
+          "difficulty": "easy" | "medium" | "hard",
+          "intent": "commercial" | "informational" | "navigational" | "transactional",
+          "relevanceScore": number (0-10)
+        }
+      ]
+    }
+  ],
+  "opportunityKeywords": string[],
+  "competitiveGaps": string[],
+  "contentIdeas": string[],
+  "seasonalTrends": string[]
+}`;
+
+      const userPrompt = `Generate keyword research for:
+
+SEED KEYWORD: ${seedKeyword}
+BUSINESS TYPE: ${businessType || 'General business'}
+LOCATION: ${location || 'Not specified'}
+CONTENT TYPE: ${contentType || 'Website content'}
+${competitorKeywords?.length ? `COMPETITOR KEYWORDS: ${competitorKeywords.join(', ')}` : ''}
+
+Provide comprehensive keyword research with search volume estimates, difficulty assessments, and content opportunities.`;
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-5",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt }
+        ],
+        max_completion_tokens: 2500,
+        temperature: 0.3,
+        response_format: { type: "json_object" }
+      });
+
+      const keywordResearch = JSON.parse(response.choices[0].message.content || '{}');
+      
+      res.json({
+        success: true,
+        ...keywordResearch,
+        timestamp: new Date().toISOString(),
+        model: "gpt-5"
+      });
+      
+    } catch (error: any) {
+      console.error("GPT-5 keyword research error:", error);
+      res.status(500).json({ 
+        error: "Failed to perform keyword research", 
+        details: error.message 
+      });
+    }
+  });
+
+  // AI-Powered Competitor Analysis with GPT-5
+  app.post("/api/seo/competitor-analysis", async (req, res) => {
+    try {
+      const { competitorUrl, targetKeywords, ourDomain, analysisType } = req.body;
+      const openai = await getOpenAIService();
+      
+      if (!openai) {
+        return res.status(503).json({ 
+          error: "OpenAI service unavailable", 
+          message: "Competitor analysis requires OpenAI API key configuration"
+        });
+      }
+
+      const systemPrompt = `You are an expert competitive SEO analyst with deep understanding of competitive positioning, content gaps, and strategic opportunities.
+
+TASK: Analyze competitor's SEO strategy and provide actionable competitive insights.
+
+ANALYSIS AREAS:
+1. **Content Strategy** - Topic coverage and content depth
+2. **Keyword Targeting** - Primary and secondary keyword focus
+3. **Technical SEO** - Site structure and optimization
+4. **User Experience** - Design and navigation analysis
+5. **Content Gaps** - Opportunities our site can exploit
+6. **Competitive Advantages** - Areas where we can differentiate
+
+RESPONSE FORMAT (JSON):
+{
+  "competitorProfile": {
+    "domain": string,
+    "estimatedAuthority": "low" | "medium" | "high",
+    "contentVolume": "low" | "medium" | "high",
+    "updateFrequency": string
+  },
+  "contentAnalysis": {
+    "topicCoverage": string[],
+    "contentTypes": string[],
+    "contentQuality": "poor" | "good" | "excellent",
+    "uniqueApproaches": string[]
+  },
+  "keywordStrategy": {
+    "primaryTargets": string[],
+    "contentClusters": string[],
+    "missedOpportunities": string[]
+  },
+  "technicalInsights": {
+    "siteStructure": string,
+    "pageSpeed": "slow" | "average" | "fast",
+    "mobileOptimization": "poor" | "good" | "excellent",
+    "technicalIssues": string[]
+  },
+  "competitiveGaps": [
+    {
+      "opportunity": string,
+      "difficulty": "easy" | "medium" | "hard",
+      "impact": "low" | "medium" | "high",
+      "strategy": string
+    }
+  ],
+  "recommendations": string[]
+}`;
+
+      const userPrompt = `Analyze this competitor for SEO insights:
+
+COMPETITOR URL: ${competitorUrl}
+OUR DOMAIN: ${ourDomain || 'Not specified'}
+TARGET KEYWORDS: ${targetKeywords?.join(', ') || 'Not specified'}
+ANALYSIS TYPE: ${analysisType || 'comprehensive'}
+
+Provide detailed competitive analysis with specific opportunities and strategic recommendations.`;
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-5",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt }
+        ],
+        max_completion_tokens: 3000,
+        temperature: 0.2,
+        response_format: { type: "json_object" }
+      });
+
+      const competitorAnalysis = JSON.parse(response.choices[0].message.content || '{}');
+      
+      res.json({
+        success: true,
+        competitorUrl,
+        ...competitorAnalysis,
+        timestamp: new Date().toISOString(),
+        model: "gpt-5"
+      });
+      
+    } catch (error: any) {
+      console.error("GPT-5 competitor analysis error:", error);
+      res.status(500).json({ 
+        error: "Failed to perform competitor analysis", 
+        details: error.message 
+      });
+    }
+  });
+
+  // AI-Enhanced Schema Markup Management with GPT-5
   app.get("/api/seo/schema/business", async (req, res) => {
     try {
-      const businessSchema = await storage.generateBusinessSchema();
-      res.json(businessSchema);
+      const openai = await getOpenAIService();
+      
+      if (!openai) {
+        // Fallback to basic schema generation
+        const businessSchema = await storage.generateBusinessSchema();
+        return res.json({ 
+          ...businessSchema,
+          model: "basic",
+          message: "Used basic schema - OpenAI unavailable"
+        });
+      }
+
+      const systemPrompt = `You are an expert schema markup specialist with deep knowledge of structured data for local businesses and service providers.
+
+TASK: Generate comprehensive business schema markup for Premier Party Cruises, a party boat rental service on Lake Travis, Austin, Texas.
+
+SCHEMA REQUIREMENTS:
+- LocalBusiness schema with complete business information
+- Service schema for party cruise offerings
+- Location and contact information
+- Operating hours and availability
+- Review and rating aggregation
+- Social media profiles
+- Booking and reservation systems
+
+RESPONSE FORMAT (JSON):
+{
+  "schemaMarkup": {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    // Complete schema object
+  },
+  "additionalSchemas": [
+    // Additional relevant schemas
+  ],
+  "implementation": {
+    "placement": "head",
+    "validation": "passed",
+    "richSnippetPotential": "high"
+  }
+}`;
+
+      const userPrompt = `Generate comprehensive business schema markup for:
+
+BUSINESS: Premier Party Cruises
+LOCATION: Lake Travis, Austin, Texas
+SERVICES: Party boat rentals, private cruises, corporate events
+SPECIALTIES: Bachelor/bachelorette parties, birthday parties, corporate team building
+
+Generate complete, valid schema markup optimized for local search and rich snippets.`;
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-5",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt }
+        ],
+        max_completion_tokens: 2000,
+        temperature: 0.1,
+        response_format: { type: "json_object" }
+      });
+
+      const schemaResult = JSON.parse(response.choices[0].message.content || '{}');
+      
+      res.json({
+        success: true,
+        ...schemaResult,
+        timestamp: new Date().toISOString(),
+        model: "gpt-5"
+      });
+      
     } catch (error: any) {
-      console.error("Business schema generation error:", error);
-      res.status(500).json({ error: "Failed to generate business schema" });
+      console.error("AI business schema generation error:", error);
+      res.status(500).json({ 
+        error: "Failed to generate business schema", 
+        details: error.message 
+      });
     }
   });
 
   app.post("/api/seo/schema/page", async (req, res) => {
     try {
-      const { pageRoute, pageType } = req.body;
-      const pageSchema = await storage.generatePageSchema(pageRoute, pageType);
-      res.json(pageSchema);
+      const { pageRoute, pageType, content, businessInfo } = req.body;
+      const openai = await getOpenAIService();
+      
+      if (!openai) {
+        // Fallback to basic schema generation
+        const pageSchema = await storage.generatePageSchema(pageRoute, pageType);
+        return res.json({ 
+          ...pageSchema,
+          model: "basic",
+          message: "Used basic schema - OpenAI unavailable"
+        });
+      }
+
+      const systemPrompt = `You are a schema markup expert specializing in page-specific structured data for better search visibility.
+
+TASK: Generate appropriate schema markup for the specified page type and content.
+
+COMMON PAGE SCHEMAS:
+- WebPage/WebSite for general pages
+- Service for service pages
+- Event for event-related pages
+- Article for blog/content pages
+- FAQPage for FAQ sections
+- ContactPage for contact information
+- AboutPage for company information
+
+RESPONSE FORMAT (JSON):
+{
+  "primarySchema": {
+    "@context": "https://schema.org",
+    "@type": string,
+    // Complete schema object
+  },
+  "secondarySchemas": [
+    // Additional relevant schemas
+  ],
+  "breadcrumbSchema": {
+    // Breadcrumb navigation schema
+  },
+  "implementation": {
+    "priority": "high" | "medium" | "low",
+    "richSnippetTypes": string[],
+    "seoImpact": string
+  }
+}`;
+
+      const userPrompt = `Generate schema markup for:
+
+PAGE ROUTE: ${pageRoute}
+PAGE TYPE: ${pageType}
+BUSINESS: ${businessInfo || 'Premier Party Cruises - Lake Travis party boat rentals'}
+
+CONTENT CONTEXT:
+${content || 'No specific content provided'}
+
+Generate appropriate, valid schema markup optimized for this page type and content.`;
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-5",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt }
+        ],
+        max_completion_tokens: 2000,
+        temperature: 0.1,
+        response_format: { type: "json_object" }
+      });
+
+      const pageSchema = JSON.parse(response.choices[0].message.content || '{}');
+      
+      res.json({
+        success: true,
+        pageRoute,
+        pageType,
+        ...pageSchema,
+        timestamp: new Date().toISOString(),
+        model: "gpt-5"
+      });
+      
     } catch (error: any) {
-      console.error("Page schema generation error:", error);
-      res.status(500).json({ error: "Failed to generate page schema" });
+      console.error("AI page schema generation error:", error);
+      res.status(500).json({ 
+        error: "Failed to generate page schema", 
+        details: error.message 
+      });
     }
   });
 
   app.post("/api/seo/schema/validate", async (req, res) => {
     try {
-      const { schema } = req.body;
-      const validation = await storage.validateSchemaMarkup(schema);
-      res.json(validation);
+      const { schema, pageType } = req.body;
+      const openai = await getOpenAIService();
+      
+      if (!openai) {
+        // Fallback to basic validation
+        const validation = await storage.validateSchemaMarkup(schema);
+        return res.json({ 
+          ...validation,
+          model: "basic",
+          message: "Used basic validation - OpenAI unavailable"
+        });
+      }
+
+      const systemPrompt = `You are a schema markup validation expert with comprehensive knowledge of Schema.org specifications and Google's structured data requirements.
+
+TASK: Validate the provided schema markup for correctness, completeness, and optimization opportunities.
+
+VALIDATION AREAS:
+1. **Syntax Validation** - Correct JSON-LD structure
+2. **Schema.org Compliance** - Valid properties and types
+3. **Google Guidelines** - Rich snippet requirements
+4. **Completeness** - Missing required/recommended properties
+5. **Optimization** - Opportunities for enhancement
+
+RESPONSE FORMAT (JSON):
+{
+  "validation": {
+    "isValid": boolean,
+    "syntaxErrors": string[],
+    "complianceIssues": string[],
+    "missingProperties": string[],
+    "warnings": string[]
+  },
+  "optimization": {
+    "richSnippetEligibility": "eligible" | "partial" | "not_eligible",
+    "improvementSuggestions": string[],
+    "additionalProperties": string[],
+    "competitiveAdvantages": string[]
+  },
+  "recommendations": string[],
+  "correctedSchema": object
+}`;
+
+      const userPrompt = `Validate this schema markup:
+
+PAGE TYPE: ${pageType || 'General page'}
+
+SCHEMA TO VALIDATE:
+${JSON.stringify(schema, null, 2)}
+
+Provide comprehensive validation with specific recommendations for improvement.`;
+
+      const response = await openai.chat.completions.create({
+        model: "gpt-5",
+        messages: [
+          { role: "system", content: systemPrompt },
+          { role: "user", content: userPrompt }
+        ],
+        max_completion_tokens: 2000,
+        temperature: 0.1,
+        response_format: { type: "json_object" }
+      });
+
+      const validationResult = JSON.parse(response.choices[0].message.content || '{}');
+      
+      res.json({
+        success: true,
+        originalSchema: schema,
+        ...validationResult,
+        timestamp: new Date().toISOString(),
+        model: "gpt-5"
+      });
+      
     } catch (error: any) {
-      console.error("Schema validation error:", error);
-      res.status(500).json({ error: "Failed to validate schema" });
+      console.error("AI schema validation error:", error);
+      res.status(500).json({ 
+        error: "Failed to validate schema", 
+        details: error.message 
+      });
     }
   });
 
