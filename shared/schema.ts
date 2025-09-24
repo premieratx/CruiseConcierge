@@ -493,8 +493,23 @@ export const partialLeads = pgTable("partial_leads", {
   phone: text("phone"),
   eventType: text("event_type"),
   eventTypeLabel: text("event_type_label"),
+  eventDate: text("event_date"), // Quote Builder event date in string format
   groupSize: integer("group_size"),
   preferredDate: timestamp("preferred_date"),
+  
+  // Quote Builder Selection Details (cruise type, slot, packages, etc.)
+  selectionDetails: jsonb("selection_details").$type<{
+    cruiseType?: 'private' | 'disco';
+    selectedSlot?: any; // NormalizedSlot
+    selectedPackages?: string[];
+    discoPackage?: string;
+    ticketQuantity?: number;
+    selectedDuration?: number;
+    selectedBoat?: string;
+    preferredTimeLabel?: string;
+    groupSizeLabel?: string;
+  }>().default({}),
+  
   chatbotData: jsonb("chatbot_data").$type<Record<string, any>>().default({}),
   quoteId: varchar("quote_id"), // reference to auto-generated quote
   status: varchar("status").notNull().default("partial"), // 'partial', 'abandoned', 'converted', 'contacted'

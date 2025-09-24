@@ -554,6 +554,181 @@ export async function createQuoteFromChat(app: Express) {
 }
 
 // ==========================================
+// QUOTE BUILDER LEAD CREATION
+// ==========================================
+
+/**
+ * Creates a comprehensive lead from the Quote Builder flow with full integrations
+ */
+export async function createQuoteBuilderLead(app: Express) {
+  // Input validation schema
+  const quoteBuilderSchema = z.object({
+    contactInfo: z.object({
+      firstName: z.string().min(1, 'First name is required'),
+      lastName: z.string().min(1, 'Last name is required'),
+      email: z.string().email('Invalid email address'),
+      phone: z.string().min(1, 'Phone number is required')
+    }),
+    eventDetails: z.object({
+      eventDate: z.string().min(1, 'Event date is required'),
+      eventType: z.string().min(1, 'Event type is required'),
+      groupSize: z.number().int().positive('Group size must be a positive number')
+    }),
+    selectionDetails: z.object({
+      cruiseType: z.string().optional(),
+      selectedSlot: z.any().optional(),
+      selectedPackages: z.array(z.any()).optional(),
+      discoPackage: z.any().optional(),
+      ticketQuantity: z.number().int().positive().optional(),
+      selectedDuration: z.number().optional(),
+      selectedBoat: z.any().optional(),
+      preferredTimeLabel: z.string().optional(),
+      groupSizeLabel: z.string().optional()
+    }).optional(),
+    pricing: z.object({
+      subtotal: z.number().optional(),
+      tax: z.number().optional(),
+      gratuity: z.number().optional(),
+      total: z.number().optional(),
+      depositAmount: z.number().optional(),
+      discountCode: z.string().optional()
+    }).optional(),
+    partialLeadId: z.string().optional() // For converting existing partial leads
+  });
+
+  app.post("/api/leads/quote-builder", async (req, res) => {
+    try {
+      console.log('🎯 Quote Builder Lead Creation - Starting...');
+      
+      // Validate request body
+      const validationResult = quoteBuilderSchema.safeParse(req.body);
+      if (!validationResult.success) {
+        console.error('❌ Validation failed:', validationResult.error.flatten());
+        return res.status(400).json({ 
+          error: 'Invalid request data',
+          details: validationResult.error.flatten()
+        });
+      }
+
+      const { contactInfo, eventDetails, selectionDetails, pricing, partialLeadId } = validationResult.data;
+
+      // Transform data for ComprehensiveLeadService
+      const leadData = {
+        name: `${contactInfo.firstName} ${contactInfo.lastName}`,
+        email: contactInfo.email,
+        phone: contactInfo.phone,
+        eventType: eventDetails.eventType,
+        eventTypeLabel: eventDetails.eventType, // Could be enhanced with mapping
+        groupSize: eventDetails.groupSize,
+        cruiseDate: eventDetails.eventDate,
+        source: 'quote_builder',
+        
+        // Project data
+        projectData: {
+          preferredTime: selectionDetails?.preferredTimeLabel,
+          specialRequests: `Quote Builder Selection: ${JSON.stringify(selectionDetails || {})}`,
+          budget: pricing?.total
+        },
+
+        // Quote data for creation
+        quoteData: {
+          templateId: null, // Will use default template
+          items: [] // Will be populated by service based on selections
+        },
+
+        // Selection details for quote
+        selectedOptions: selectionDetails,
+
+        // Pricing data
+        pricing: pricing ? {
+          subtotal: Math.round((pricing.subtotal || 0) * 100), // Convert to cents
+          tax: Math.round((pricing.tax || 0) * 100),
+          gratuity: Math.round((pricing.gratuity || 0) * 100), 
+          total: Math.round((pricing.total || 0) * 100),
+          depositAmount: Math.round((pricing.depositAmount || 0) * 100),
+          depositRequired: true,
+          depositPercent: pricing.total ? Math.round((pricing.depositAmount || 0) / pricing.total * 100) : 25,
+          perPersonCost: pricing.total ? Math.round(pricing.total * 100 / eventDetails.groupSize) : 0,
+          discountTotal: 0,
+          paymentSchedule: [],
+          expiresAt: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
+        } : undefined
+      };
+
+      console.log('📋 Transformed lead data:', {
+        name: leadData.name,
+        email: leadData.email,
+        eventType: leadData.eventType,
+        source: leadData.source,
+        hasPricing: !!leadData.pricing
+      });
+
+      // Create comprehensive lead using the service
+      const comprehensiveLeadService = await getComprehensiveLeadService();
+      const result = await comprehensiveLeadService.createComprehensiveLead(leadData);
+
+      // Handle partial lead conversion if provided
+      if (partialLeadId && result.success && result.leadId) {
+        console.log('🔄 Converting partial lead:', partialLeadId);
+        try {
+          const googleSheetsService = await getGoogleSheetsService();
+          const conversionSuccess = await googleSheetsService.updatePartialLead(partialLeadId, {
+            status: 'converted',
+            convertedToContactId: result.leadId,
+            quoteId: result.quoteId,
+            quoteUrl: result.quoteUrl,
+            notes: `Converted to full lead via Quote Builder on ${new Date().toISOString()}`
+          });
+          
+          if (conversionSuccess) {
+            console.log('✅ Partial lead marked as converted:', partialLeadId);
+          } else {
+            console.log('⚠️ Failed to mark partial lead as converted:', partialLeadId);
+          }
+        } catch (error) {
+          console.error('❌ Error converting partial lead:', error);
+          // Don't fail the entire request if partial lead conversion fails
+        }
+      }
+
+      // Return response in required format
+      if (result.success) {
+        console.log('🎉 Quote Builder Lead Creation - Success!');
+        res.json({
+          success: true,
+          contactId: result.leadId,
+          projectId: result.projectId,
+          quoteId: result.quoteId,
+          publicUrl: result.quoteUrl,
+          integrations: result.integrations,
+          message: 'Lead created successfully with full integrations'
+        });
+      } else {
+        console.log('⚠️ Quote Builder Lead Creation - Partial Success');
+        res.status(206).json({
+          success: false,
+          contactId: result.leadId,
+          projectId: result.projectId,
+          quoteId: result.quoteId,
+          publicUrl: result.quoteUrl,
+          integrations: result.integrations,
+          errors: result.errors,
+          message: 'Lead created with some integration issues'
+        });
+      }
+
+    } catch (error: any) {
+      console.error('💥 Quote Builder Lead Creation - Error:', error);
+      res.status(500).json({ 
+        error: 'Failed to create quote builder lead',
+        message: error.message || 'Unknown error',
+        success: false
+      });
+    }
+  });
+}
+
+// ==========================================
 // DISCOUNT CODE VALIDATION
 // ==========================================
 
@@ -1418,6 +1593,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Register quote from chat endpoint
   createQuoteFromChat(app);
+  
+  // Register quote builder lead creation endpoint
+  createQuoteBuilderLead(app);
   
   // ==========================================
   // NEW QUOTE INITIALIZATION FLOW 
