@@ -580,7 +580,8 @@ export async function createQuoteFromChat(app: Express) {
       
       try {
         // Send email with the full quote URL
-        const emailSuccess = await mailgunQuoteEmail(
+        const emailFunctions = await getMailgunEmailFunctions();
+        const emailSuccess = await emailFunctions.sendQuoteEmail(
           email,
           `${firstName} ${lastName}`,
           result.quote.id,
@@ -610,7 +611,8 @@ export async function createQuoteFromChat(app: Express) {
       // Send SMS notification with quote link
       try {
         const smsMessage = `Hi ${firstName}! Your cruise quote is ready! View it here: ${fullQuoteUrl}`;
-        const smsSuccess = await goHighLevelService.send({
+        const ghlService = await getGoHighLevelService();
+        const smsSuccess = await ghlService.send({
           to: phone,
           body: smsMessage
         });
