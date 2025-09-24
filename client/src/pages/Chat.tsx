@@ -1073,6 +1073,13 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
             discountCode: quote.promoCode || ''
           }));
           
+          // CRITICAL FIX: Bypass contact modal if contact info already exists
+          const hasContactInfo = contactInfo.firstName || contactInfo.lastName || contactInfo.email || contactInfo.phone;
+          if (hasContactInfo) {
+            console.log('✅ Contact info found in quote, bypassing contact modal');
+            setContactInfoModalCompleted(true);
+          }
+          
           // Update completed selections based on what's in the quote
           const selections: CompletedSelection[] = [];
           
@@ -2490,15 +2497,21 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
           publicUrl: result.publicUrl
         });
         
-        // Show success toast - user stays on current quote
+        // CRITICAL FIX: Navigate to the new quote URL to preserve all selections
+        console.log('🔄 Navigating to quote URL to preserve user selections:', result.publicUrl);
+        
+        // Show success toast
         toast({
-          title: 'Quote Sent! 🎉',
-          description: `Your quote has been sent to ${formData.email}`,
-          duration: 4000
+          title: 'Quote Created! 🎉',
+          description: `Your quote has been created with all your selections`,
+          duration: 3000
         });
         
-        // Set completion flag to close modal
-        setContactCompletionFlag(true);
+        // CRITICAL FIX: Navigate to the quote URL so user sees their preserved selections
+        // This prevents the "blank quote" issue by loading the quote with all data intact
+        setTimeout(() => {
+          window.location.href = result.publicUrl;
+        }, 500); // Small delay to let toast show
       } else {
         throw new Error(result.error || result.message || 'Failed to create quote');
       }

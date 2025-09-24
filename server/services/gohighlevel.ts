@@ -843,6 +843,31 @@ class GoHighLevelService implements SMSService {
     return !simulate && (hasOAuth || hasApiKey);
   }
 
+  // Public method to get debug configuration information
+  getDebugInfo(): {
+    authMethod: string;
+    baseUrl: string;
+    hasClientId: boolean;
+    hasClientSecret: boolean;
+    hasApiKey: boolean;
+    hasLocationId: boolean;
+    locationId: string;
+    isConfigured: boolean;
+    smsSimulate: boolean;
+  } {
+    return {
+      authMethod: this.authMethod,
+      baseUrl: this.baseUrl,
+      hasClientId: !!this.clientId,
+      hasClientSecret: !!this.clientSecret,
+      hasApiKey: !!this.apiKey,
+      hasLocationId: !!this.locationId,
+      locationId: this.locationId,
+      isConfigured: this.isConfigured(),
+      smsSimulate: process.env.SMS_SIMULATE === 'true'
+    };
+  }
+
   async send(options: SMSOptions | SMSOptionsWithName): Promise<boolean> {
     if (!this.isConfigured()) {
       console.log('📱 GoHighLevel not configured - simulating SMS send:');

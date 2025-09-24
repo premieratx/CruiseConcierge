@@ -129,7 +129,7 @@ export class ComprehensiveLeadService {
             templateId: leadData.quoteData.templateId,
             items: leadData.quoteData.items || [],
             
-            // SAVE CONTACT INFO directly to quote for standalone viewing
+            // CRITICAL FIX: SAVE COMPLETE CONTACT INFO directly to quote for standalone viewing
             contactInfo: {
               firstName: leadData.name.split(' ')[0] || '',
               lastName: leadData.name.split(' ').slice(1).join(' ') || '',
@@ -137,18 +137,18 @@ export class ComprehensiveLeadService {
               phone: leadData.phone
             },
             
-            // SAVE EVENT DETAILS with all user selections
+            // CRITICAL FIX: SAVE COMPLETE EVENT DETAILS with all user selections  
             eventDetails: {
-              eventType: leadData.eventType || project.eventType || 'cruise',
+              eventType: leadData.eventType || project?.eventType || 'cruise',
               eventTypeLabel: leadData.eventTypeLabel || leadData.eventType || 'Cruise',
               eventEmoji: leadData.selectedOptions?.eventEmoji || '🚢',
-              eventDate: leadData.cruiseDate || project.projectDate?.toISOString() || new Date().toISOString(),
-              groupSize: leadData.groupSize || project.groupSize || 1,
-              specialRequests: leadData.projectData?.specialRequests || '',
-              budget: leadData.projectData?.budget || ''
+              eventDate: leadData.cruiseDate || project?.projectDate?.toISOString() || new Date().toISOString(),
+              groupSize: leadData.groupSize || project?.groupSize || 1,
+              specialRequests: leadData.projectData?.specialRequests || project?.specialRequests || '',
+              budget: leadData.projectData?.budget || project?.budget || ''
             },
             
-            // SAVE SELECTION DETAILS with cruise/slot selections
+            // CRITICAL FIX: SAVE COMPLETE SELECTION DETAILS with cruise/slot selections
             selectionDetails: {
               cruiseType: leadData.selectedOptions?.cruiseType || leadData.quoteData?.cruiseType,
               selectedSlot: leadData.selectedOptions?.selectedSlot || leadData.quoteData?.selectedSlot,
@@ -344,40 +344,93 @@ export class ComprehensiveLeadService {
         console.log(`   Quote: ${!!quote}, URL: ${!!quoteUrl}, Email: ${!!leadData.email}`);
       }
 
-      // 6.1. Send SMS notification with Column Q URL
+      // 6.1. Send SMS notification with Column Q URL - ENHANCED DEBUGGING
       if (quote && quoteUrl && leadData.phone) {
         console.log('📱 Step 6.1: Sending SMS notification with Column Q URL...');
+        console.log('🔧 SMS DEBUG: Environment Check');
+        console.log('   GOHIGHLEVEL_PRIVATE_INTEGRATION_TOKEN exists:', !!process.env.GOHIGHLEVEL_PRIVATE_INTEGRATION_TOKEN);
+        console.log('   GOHIGHLEVEL_LOCATION_ID exists:', !!process.env.GOHIGHLEVEL_LOCATION_ID);
+        console.log('   FROM_PHONE exists:', !!process.env.FROM_PHONE);
+        console.log('   SMS_SIMULATE setting:', process.env.SMS_SIMULATE);
+        
         try {
           // Use GoHighLevel SMS service as specified in requirements
           const smsMessage = `Hi ${leadData.name}! 🚢 Your cruise quote is ready: ${quoteUrl}. Questions? Reply here or call us!`;
           
-          console.log('📱 Sending GoHighLevel SMS to:', leadData.phone);
-          console.log('🔗 CRITICAL: Using Column Q URL in SMS:', quoteUrl);
-          console.log('💬 SMS Message:', smsMessage);
+          console.log('📱 SMS Payload Details:');
+          console.log('   To Phone:', leadData.phone);
+          console.log('   Lead Name:', leadData.name);
+          console.log('   Quote URL:', quoteUrl);
+          console.log('   Message:', smsMessage);
+          console.log('   Message Length:', smsMessage.length);
           
-          // CRITICAL FIX: Use GoHighLevel SMS instead of Twilio as specified
-          const smsSuccess = await goHighLevelService.sendSMS({
-            to: leadData.phone,
-            body: smsMessage,
-            name: leadData.name
-          });
+          // Check if GoHighLevel service is properly configured
+          const debugInfo = goHighLevelService.getDebugInfo();
+          console.log('🔧 GoHighLevel Service Configuration Status:', debugInfo.isConfigured);
+          console.log('🔧 Detailed Configuration Debug:', debugInfo);
           
-          if (smsSuccess) {
-            result.integrations.smsNotification = { success: true };
-            console.log('✅ SMS notification sent successfully via GoHighLevel with Column Q URL');
+          if (!debugInfo.isConfigured) {
+            console.error('❌ GoHighLevel service is not properly configured!');
+            console.log('💡 Configuration Requirements:');
+            console.log('   Required: GOHIGHLEVEL_PRIVATE_INTEGRATION_TOKEN + GOHIGHLEVEL_LOCATION_ID');
+            console.log('   OR: GOHIGHLEVEL_CLIENT_ID + GOHIGHLEVEL_CLIENT_SECRET + GOHIGHLEVEL_LOCATION_ID');
+            console.log('   Current Config:', {
+              hasApiKey: debugInfo.hasApiKey,
+              hasClientCredentials: debugInfo.hasClientId && debugInfo.hasClientSecret,
+              hasLocationId: debugInfo.hasLocationId,
+              authMethod: debugInfo.authMethod,
+              smsSimulate: debugInfo.smsSimulate
+            });
+            result.integrations.smsNotification = { success: false, error: 'GoHighLevel service not configured' };
+            result.errors.push('GoHighLevel SMS service not configured');
           } else {
-            result.integrations.smsNotification = { success: false, error: 'GoHighLevel SMS sending failed' };
-            result.errors.push('GoHighLevel SMS notification failed');
-            console.error('❌ GoHighLevel SMS notification failed');
+            console.log('✅ GoHighLevel service is configured, attempting SMS send...');
+            
+            // CRITICAL FIX: Use GoHighLevel SMS with enhanced error reporting
+            const smsSuccess = await goHighLevelService.sendSMS({
+              to: leadData.phone,
+              body: smsMessage,
+              name: leadData.name
+            });
+            
+            console.log('📱 SMS Send Result:', smsSuccess);
+            
+            if (smsSuccess) {
+              result.integrations.smsNotification = { success: true };
+              console.log('✅ SMS notification sent successfully via GoHighLevel with Column Q URL');
+              console.log('🎉 SMS SUCCESS: Message delivered to', leadData.phone);
+            } else {
+              result.integrations.smsNotification = { success: false, error: 'GoHighLevel SMS sending returned false' };
+              result.errors.push('GoHighLevel SMS notification failed - service returned false');
+              console.error('❌ GoHighLevel SMS notification failed - service returned false');
+              console.error('💡 This could indicate:');
+              console.error('   1. Authentication issues with GoHighLevel');
+              console.error('   2. Invalid phone number format');
+              console.error('   3. Missing required scopes (conversations.write)');
+              console.error('   4. API rate limiting');
+              console.error('   5. GoHighLevel service unavailable');
+            }
           }
         } catch (error: any) {
           console.error('❌ SMS notification error:', error);
+          console.error('📱 Error Details:');
+          console.error('   Error Type:', error.constructor.name);
+          console.error('   Error Message:', error.message);
+          console.error('   Error Stack:', error.stack?.substring(0, 500));
           result.integrations.smsNotification = { success: false, error: error.message };
           result.errors.push(`SMS notification error: ${error.message}`);
         }
       } else {
-        console.log('ℹ️ Skipping SMS notification - missing quote, URL, or phone number');
-        console.log(`   Quote: ${!!quote}, URL: ${!!quoteUrl}, Phone: ${!!leadData.phone}`);
+        console.log('ℹ️ Skipping SMS notification - missing required data');
+        console.log('📱 SMS Skip Reason Analysis:');
+        console.log('   Has Quote:', !!quote, quote ? `(ID: ${quote.id})` : '');
+        console.log('   Has Quote URL:', !!quoteUrl, quoteUrl ? `(URL: ${quoteUrl.substring(0, 50)}...)` : '');
+        console.log('   Has Phone:', !!leadData.phone, leadData.phone ? `(Phone: ${leadData.phone})` : '');
+        console.log('   Lead Name:', leadData.name || 'undefined');
+        
+        if (!quote) console.log('   ❌ Missing quote object');
+        if (!quoteUrl) console.log('   ❌ Missing quote URL');
+        if (!leadData.phone) console.log('   ❌ Missing phone number');
       }
 
       // 7. Determine overall success
