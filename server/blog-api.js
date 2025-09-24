@@ -272,18 +272,46 @@ blogRouter.get("/management", async (req, res) => {
         ...(categoryId && { categoryId })
       };
       
-      const pgResult = await storageInstance.getBlogPosts(filters);
-      postgresqlPosts = (pgResult.posts || []).map(post => ({
-        ...post,
-        source: 'postgresql'
-      }));
+      // Robust error handling for each PostgreSQL operation
+      try {
+        const pgResult = await storageInstance.getBlogPosts(filters);
+        postgresqlPosts = (pgResult?.posts || []).map(post => ({
+          ...post,
+          source: 'postgresql'
+        }));
+      } catch (postsError) {
+        console.warn('PostgreSQL getBlogPosts failed, using empty array:', postsError.message);
+        postgresqlPosts = [];
+      }
       
-      // Get authors, categories, tags from PostgreSQL
-      postgresqlAuthors = await storageInstance.getBlogAuthors();
-      postgresqlCategories = await storageInstance.getBlogCategories();
-      postgresqlTags = await storageInstance.getBlogTags();
+      // Get authors, categories, tags from PostgreSQL with individual error handling
+      try {
+        postgresqlAuthors = await storageInstance.getBlogAuthors() || [];
+      } catch (authorsError) {
+        console.warn('PostgreSQL getBlogAuthors failed, using empty array:', authorsError.message);
+        postgresqlAuthors = [];
+      }
+      
+      try {
+        postgresqlCategories = await storageInstance.getBlogCategories() || [];
+      } catch (categoriesError) {
+        console.warn('PostgreSQL getBlogCategories failed, using empty array:', categoriesError.message);
+        postgresqlCategories = [];
+      }
+      
+      try {
+        postgresqlTags = await storageInstance.getBlogTags() || [];
+      } catch (tagsError) {
+        console.warn('PostgreSQL getBlogTags failed, using empty array:', tagsError.message);
+        postgresqlTags = [];
+      }
+      
     } catch (pgError) {
-      console.error('Error fetching PostgreSQL posts:', pgError);
+      console.error('PostgreSQL storage initialization failed, falling back to Replit DB only:', pgError);
+      postgresqlPosts = [];
+      postgresqlAuthors = [];
+      postgresqlCategories = [];
+      postgresqlTags = [];
     }
 
     // Get WordPress authors, categories, tags from Replit DB
