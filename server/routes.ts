@@ -14729,15 +14729,19 @@ Phone: ${contact.phone || 'N/A'}`;
       if (categorySlug) {
         const category = await storage.getBlogCategoryBySlug(categorySlug as string);
         if (!category) {
-          return res.status(404).json({ error: "Category not found" });
+          // Return empty results for invalid category instead of 404
+          result = { posts: [], total: 0 };
+        } else {
+          result = await storage.getBlogPostsByCategory(category.id, parseInt(limit as string), parseInt(offset as string));
         }
-        result = await storage.getBlogPostsByCategory(category.id, parseInt(limit as string), parseInt(offset as string));
       } else if (tagSlug) {
         const tag = await storage.getBlogTagBySlug(tagSlug as string);
         if (!tag) {
-          return res.status(404).json({ error: "Tag not found" });
+          // Return empty results for invalid tag instead of 404
+          result = { posts: [], total: 0 };
+        } else {
+          result = await storage.getBlogPostsByTag(tag.id, parseInt(limit as string), parseInt(offset as string));
         }
-        result = await storage.getBlogPostsByTag(tag.id, parseInt(limit as string), parseInt(offset as string));
       } else if (featured === 'true') {
         const posts = await storage.getFeaturedBlogPosts(parseInt(limit as string));
         result = { posts, total: posts.length };
@@ -14781,8 +14785,8 @@ Phone: ${contact.phone || 'N/A'}`;
   app.get("/api/blog/public/categories", async (req, res) => {
     try {
       const categories = await storage.getBlogCategories();
-      // Filter to only active categories with posts
-      const activeCategories = categories.filter(cat => cat.active && cat.postCount > 0);
+      // Filter to only active categories
+      const activeCategories = categories.filter(cat => cat.active);
       res.json(activeCategories);
     } catch (error: any) {
       console.error("Get public blog categories error:", error);
@@ -14794,8 +14798,8 @@ Phone: ${contact.phone || 'N/A'}`;
   app.get("/api/blog/public/tags", async (req, res) => {
     try {
       const tags = await storage.getBlogTags();
-      // Filter to only active tags with posts
-      const activeTags = tags.filter(tag => tag.active && tag.postCount > 0);
+      // Filter to only active tags
+      const activeTags = tags.filter(tag => tag.active);
       res.json(activeTags);
     } catch (error: any) {
       console.error("Get public blog tags error:", error);
@@ -14885,7 +14889,7 @@ Phone: ${contact.phone || 'N/A'}`;
     try {
       const post = await storage.incrementBlogPostViews(req.params.id);
       
-      // Create analytics record
+      // Create analytics record (simplified - no update fallback since updateBlogAnalytics is not implemented)
       const today = new Date();
       today.setHours(0, 0, 0, 0);
       
@@ -14905,11 +14909,8 @@ Phone: ${contact.phone || 'N/A'}`;
           ipAddress: req.ip || ''
         });
       } catch (analyticsError) {
-        // Try to update existing record
-        await storage.updateBlogAnalytics(req.params.id, today, {
-          views: 1,
-          uniqueViews: 1
-        });
+        // Analytics creation failed (likely duplicate for today), but view count was still incremented
+        console.log("Analytics record may already exist for today, continuing...");
       }
       
       res.json({ success: true, views: post.viewCount });
