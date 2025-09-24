@@ -165,6 +165,20 @@ export const chatMessages = pgTable("chat_messages", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+export const media = pgTable("media", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  filename: text("filename").notNull(), // stored filename
+  originalName: text("original_name").notNull(), // original uploaded filename
+  mimeType: text("mime_type").notNull(), // file MIME type
+  size: integer("size").notNull(), // file size in bytes
+  url: text("url").notNull(), // public URL to access file
+  title: text("title"), // user-defined title
+  altText: text("alt_text"), // for image SEO
+  description: text("description"), // file description
+  uploadedAt: timestamp("uploaded_at").notNull().defaultNow(),
+  uploadedBy: text("uploaded_by"), // user who uploaded
+});
+
 export const availabilitySlots = pgTable("availability_slots", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   boatId: varchar("boat_id").notNull(),
@@ -2509,10 +2523,19 @@ export const webhookNotifications = pgTable("webhook_notifications", {
 export type WebhookNotification = typeof webhookNotifications.$inferSelect;
 export type InsertWebhookNotification = typeof webhookNotifications.$inferInsert;
 
+// Media types
+export type Media = typeof media.$inferSelect;
+export type InsertMedia = typeof media.$inferInsert;
+
 // Insert schemas
 export const insertWebhookNotificationSchema = createInsertSchema(webhookNotifications).omit({
   id: true,
   createdAt: true,
+});
+
+export const insertMediaSchema = createInsertSchema(media).omit({
+  id: true,
+  uploadedAt: true,
 });
 
 // Export types

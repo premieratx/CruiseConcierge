@@ -32,6 +32,7 @@ import { mediaLibraryService } from './services/mediaLibrary';
 import { getFullUrl, getPublicUrl, getQuoteUrl } from "./utils";
 import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
 import { ObjectPermission } from "./objectAcl";
+import { insertMediaSchema } from "@shared/schema";
 import sanitizeHtml from 'sanitize-html';
 import TurndownService from 'turndown';
 import { quoteTokenService } from "./services/quoteTokenService";
@@ -14815,6 +14816,218 @@ Phone: ${contact.phone || 'N/A'}`;
     } catch (error) {
       console.error('Error setting media ACL:', error);
       res.status(500).json({ error: 'Failed to set media permissions' });
+    }
+  });
+
+  // ==========================================
+  // MEDIA LIBRARY ENDPOINTS
+  // ==========================================
+  
+  // Configure multer for file uploads
+  const upload = multer({
+    storage: multer.memoryStorage(),
+    limits: {
+      fileSize: 50 * 1024 * 1024, // 50MB max file size
+    },
+    fileFilter: (req, file, cb) => {
+      // Allow images, videos, documents
+      const allowedMimeTypes = [
+        'image/jpeg',
+        'image/png',
+        'image/gif',
+        'image/webp',
+        'image/svg+xml',
+        'video/mp4',
+        'video/webm',
+        'video/ogg',
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+        'application/vnd.ms-excel',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'text/plain',
+        'text/csv'
+      ];
+      
+      if (allowedMimeTypes.includes(file.mimetype)) {
+        cb(null, true);
+      } else {
+        cb(new Error(`File type ${file.mimetype} not allowed`));
+      }
+    }
+  });
+
+  // Initialize object storage service
+  const mediaObjectStorage = new ObjectStorageService();
+
+  // POST /api/media/upload - Handle file uploads
+  app.post('/api/media/upload', upload.single('file'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: 'No file uploaded' });
+      }
+
+      const { title, altText, description, uploadedBy } = req.body;
+      const file = req.file;
+
+      // Generate unique filename
+      const fileExtension = file.originalname.split('.').pop();
+      const uniqueFilename = `${randomUUID()}.${fileExtension}`;
+      const filePath = `public/media/${uniqueFilename}`;
+
+      // Upload to object storage
+      const publicUrl = await mediaObjectStorage.uploadFile(
+        filePath,
+        file.buffer,
+        file.mimetype,
+        ObjectPermission.PUBLIC_READ
+      );
+
+      // Save to database
+      const mediaData = {
+        filename: uniqueFilename,
+        originalName: file.originalname,
+        mimeType: file.mimetype,
+        size: file.size,
+        url: publicUrl,
+        title: title || null,
+        altText: altText || null,
+        description: description || null,
+        uploadedBy: uploadedBy || 'admin'
+      };
+
+      const media = await storage.createMedia(mediaData);
+
+      res.json({
+        success: true,
+        media
+      });
+    } catch (error: any) {
+      console.error('Media upload error:', error);
+      res.status(500).json({ 
+        error: 'Failed to upload media', 
+        details: error.message 
+      });
+    }
+  });
+
+  // GET /api/media - List all media with pagination
+  app.get('/api/media', async (req, res) => {
+    try {
+      const { 
+        search, 
+        mimeType, 
+        sortBy = 'uploadedAt', 
+        sortOrder = 'desc',
+        limit = 50,
+        offset = 0
+      } = req.query;
+
+      const result = await storage.listMedia({
+        search: search as string,
+        mimeType: mimeType as string,
+        sortBy: sortBy as string,
+        sortOrder: sortOrder as 'asc' | 'desc',
+        limit: parseInt(limit as string),
+        offset: parseInt(offset as string)
+      });
+
+      res.json({
+        success: true,
+        ...result
+      });
+    } catch (error: any) {
+      console.error('Media list error:', error);
+      res.status(500).json({ 
+        error: 'Failed to list media', 
+        details: error.message 
+      });
+    }
+  });
+
+  // GET /api/media/:id - Get single media item
+  app.get('/api/media/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const media = await storage.getMedia(id);
+      
+      if (!media) {
+        return res.status(404).json({ error: 'Media not found' });
+      }
+
+      res.json({
+        success: true,
+        media
+      });
+    } catch (error: any) {
+      console.error('Media get error:', error);
+      res.status(500).json({ 
+        error: 'Failed to get media', 
+        details: error.message 
+      });
+    }
+  });
+
+  // PUT /api/media/:id - Update media metadata
+  app.put('/api/media/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { title, altText, description } = req.body;
+
+      const media = await storage.updateMedia(id, {
+        title,
+        altText,
+        description
+      });
+
+      res.json({
+        success: true,
+        media
+      });
+    } catch (error: any) {
+      console.error('Media update error:', error);
+      res.status(500).json({ 
+        error: 'Failed to update media', 
+        details: error.message 
+      });
+    }
+  });
+
+  // DELETE /api/media/:id - Delete media from storage and database
+  app.delete('/api/media/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      // Get media details first
+      const media = await storage.getMedia(id);
+      
+      if (!media) {
+        return res.status(404).json({ error: 'Media not found' });
+      }
+
+      // Delete from object storage
+      try {
+        const filePath = `public/media/${media.filename}`;
+        await mediaObjectStorage.deleteFile(filePath);
+      } catch (storageError: any) {
+        console.error('Failed to delete from storage:', storageError);
+        // Continue with database deletion even if storage deletion fails
+      }
+
+      // Delete from database
+      await storage.deleteMedia(id);
+
+      res.json({
+        success: true,
+        message: 'Media deleted successfully'
+      });
+    } catch (error: any) {
+      console.error('Media delete error:', error);
+      res.status(500).json({ 
+        error: 'Failed to delete media', 
+        details: error.message 
+      });
     }
   });
 
