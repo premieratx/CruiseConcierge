@@ -1,4 +1,5 @@
 import { randomBytes, createHmac, timingSafeEqual } from 'crypto';
+import { getPublicUrl } from '../utils';
 
 export interface QuoteTokenPayload {
   quoteId: string;
@@ -124,28 +125,8 @@ export class QuoteTokenService {
   generateSecureQuoteUrl(quoteId: string, baseUrl?: string, options: QuoteTokenOptions = {}): string {
     const token = this.generateSecureToken(quoteId, options);
     
-    // Determine the base URL with fallbacks (consistent with getPublicUrl logic)
-    let effectiveBaseUrl = baseUrl || '';
-    
-    if (!effectiveBaseUrl) {
-      // Priority 1: REPLIT_DEV_DOMAIN (most reliable in Replit)
-      if (process.env.REPLIT_DEV_DOMAIN) {
-        effectiveBaseUrl = `https://${process.env.REPLIT_DEV_DOMAIN}`;
-      } 
-      // Priority 2: BASE_URL if configured
-      else if (process.env.BASE_URL) {
-        effectiveBaseUrl = process.env.BASE_URL;
-      } 
-      // Priority 3: REPLIT_DOMAINS (production deployment)
-      else if (process.env.REPLIT_DOMAINS) {
-        const domain = process.env.REPLIT_DOMAINS.split(',')[0];
-        effectiveBaseUrl = `https://${domain}`;
-      }
-      // Final fallback: known Replit app URL
-      else {
-        effectiveBaseUrl = 'https://cruise-concierge-brian-hill.replit.app';
-      }
-    }
+    // Use the provided baseUrl or get the public URL from utils
+    const effectiveBaseUrl = baseUrl || getPublicUrl();
     
     // Clean the base URL (remove trailing slash)
     const cleanBaseUrl = effectiveBaseUrl.replace(/\/$/, '');
@@ -155,15 +136,12 @@ export class QuoteTokenService {
     
     console.log('🔗 Generated secure quote URL:', {
       quoteId,
-      providedBaseUrl: baseUrl || 'none',
+      providedBaseUrl: baseUrl || 'auto-detected',
       effectiveBaseUrl: cleanBaseUrl,
       isFullUrl: url.startsWith('http'),
       scope: options.scope || 'quote:view',
       expiresIn: options.expiresIn || this.defaultExpiresIn,
-      urlPreview: url.substring(0, 100) + '...',
-      source: process.env.REPLIT_DEV_DOMAIN ? 'REPLIT_DEV_DOMAIN' : 
-              process.env.BASE_URL ? 'BASE_URL' :
-              process.env.REPLIT_DOMAINS ? 'REPLIT_DOMAINS' : 'fallback'
+      urlPreview: url.substring(0, 100) + '...'
     });
 
     return url;

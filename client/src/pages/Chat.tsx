@@ -20,6 +20,7 @@ import { getStripePublishableKey } from '@/lib/stripe';
 // Initialize Stripe
 const stripePromise = loadStripe(getStripePublishableKey() || '');
 import { AlternativeDates } from '@/components/AlternativeDates';
+import { ContactInfoModal } from '@/components/ContactInfoModal';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -883,6 +884,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   const [showGroupSize, setShowGroupSize] = useState(false);
   const [showComparison, setShowComparison] = useState(false);
   const [showBookingConfirmation, setShowBookingConfirmation] = useState(false);
+  const [showContactInfoModal, setShowContactInfoModal] = useState(false);
   const [pendingPaymentType, setPendingPaymentType] = useState<'deposit' | 'full' | null>(null);
   const [showDateChangeDialog, setShowDateChangeDialog] = useState(false);
   const [pendingCruiseType, setPendingCruiseType] = useState<'private' | 'disco' | null>(null);
@@ -1232,6 +1234,17 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       }
     };
   }, [partialLeadSaved, chatSessionId]);
+
+  // Show contact info modal when comparison view is shown (0.5 second delay for FOMO effect)
+  useEffect(() => {
+    if (showComparison && !showContactInfoModal) {
+      const timer = setTimeout(() => {
+        setShowContactInfoModal(true);
+      }, 500); // 0.5 second delay for FOMO effect
+      
+      return () => clearTimeout(timer);
+    }
+  }, [showComparison, showContactInfoModal]);
 
   // Navigation functions for the new 2-step flow
   const goToStep = (step: ChatFlowStep) => {
@@ -3473,27 +3486,8 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                             
                             <Button
                               onClick={() => {
-                                // Store all selections in localStorage for the quote builder
-                                const selections = {
-                                  eventDate: formData.eventDate?.toISOString(),
-                                  eventType: formData.eventType,
-                                  eventTypeLabel: formData.eventTypeLabel,
-                                  eventEmoji: formData.eventEmoji,
-                                  groupSize: formData.groupSize,
-                                  specialRequests: formData.specialRequests,
-                                  budget: formData.budget,
-                                  cruiseType: 'private',
-                                  selectedSlot: formData.selectedSlot,
-                                  selectedPackages: formData.selectedAddOnPackages,
-                                  selectedBoat: formData.selectedBoat,
-                                  preferredTimeLabel: formData.preferredTimeLabel,
-                                  groupSizeLabel: formData.groupSizeLabel,
-                                  selectedDuration: formData.selectedDuration,
-                                };
-                                localStorage.setItem('quote-builder-selections', JSON.stringify(selections));
-                                
-                                // Navigate to quote builder where ContactInfoModal will be shown
-                                window.location.href = '/quote-builder';
+                                // Show the contact info modal
+                                setShowContactInfoModal(true);
                               }}
                               disabled={!formData.selectedSlot}
                               variant="outline"
@@ -3810,26 +3804,8 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                                 
                                 <Button
                                   onClick={() => {
-                                    // Store all selections in localStorage for the quote builder
-                                    const selections = {
-                                      eventDate: formData.eventDate?.toISOString(),
-                                      eventType: formData.eventType,
-                                      eventTypeLabel: formData.eventTypeLabel,
-                                      eventEmoji: formData.eventEmoji,
-                                      groupSize: formData.groupSize,
-                                      specialRequests: formData.specialRequests,
-                                      budget: formData.budget,
-                                      cruiseType: 'disco',
-                                      selectedSlot: formData.selectedSlot,
-                                      discoPackage: formData.selectedDiscoPackage,
-                                      discoTicketQuantity: formData.discoTicketQuantity,
-                                      preferredTimeLabel: formData.preferredTimeLabel,
-                                      groupSizeLabel: formData.groupSizeLabel,
-                                    };
-                                    localStorage.setItem('quote-builder-selections', JSON.stringify(selections));
-                                    
-                                    // Navigate to quote builder where ContactInfoModal will be shown
-                                    window.location.href = '/quote-builder';
+                                    // Show the contact info modal
+                                    setShowContactInfoModal(true);
                                   }}
                                   variant="outline"
                                   className="w-full"
@@ -4583,6 +4559,51 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
           </div>
         </DialogContent>
       </Dialog>
+      
+      {/* Contact Info Modal - Shows automatically when comparison view is displayed */}
+      {showContactInfoModal && (
+        <ContactInfoModal
+          open={showContactInfoModal}
+          eventDetails={{
+            eventDate: formData.eventDate,
+            eventType: formData.eventType,
+            eventTypeLabel: formData.eventTypeLabel,
+            eventEmoji: formData.eventEmoji,
+            groupSize: formData.groupSize,
+            specialRequests: formData.specialRequests,
+            budget: formData.budget,
+          }}
+          selectionDetails={{
+            cruiseType: formData.selectedCruiseType || undefined,
+            selectedSlot: formData.selectedSlot || undefined,
+            selectedPackages: formData.selectedAddOnPackages || [],
+            discoPackage: formData.selectedDiscoPackage || undefined,
+            ticketQuantity: formData.discoTicketQuantity,
+            selectedDuration: formData.selectedDuration,
+            selectedBoat: formData.selectedBoat,
+            preferredTimeLabel: formData.preferredTimeLabel,
+            groupSizeLabel: formData.groupSizeLabel,
+          }}
+          pricingDetails={{
+            subtotal: formData.selectedCruiseType === 'disco' 
+              ? discoPricing?.subtotal 
+              : privatePricing?.subtotal,
+            tax: formData.selectedCruiseType === 'disco' 
+              ? discoPricing?.tax 
+              : privatePricing?.tax,
+            gratuity: formData.selectedCruiseType === 'disco' 
+              ? discoPricing?.gratuity 
+              : privatePricing?.gratuity,
+            total: formData.selectedCruiseType === 'disco' 
+              ? discoPricing?.total 
+              : privatePricing?.total,
+            depositAmount: formData.selectedCruiseType === 'disco' 
+              ? discoPricing?.depositAmount 
+              : privatePricing?.depositAmount,
+            discountCode: formData.discountCode,
+          }}
+        />
+      )}
     </div>
   );
 }
