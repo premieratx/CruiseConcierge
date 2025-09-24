@@ -2519,25 +2519,14 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     }
   };
 
-  // Create lead mutation
+  // Create lead mutation using the CORRECT /api/leads/quote-builder endpoint
   const createLead = useMutation({
     mutationFn: async (data: BookingData) => {
       const selectedBoatDetails = data.selectedSlot ? getBoatDetails(data.selectedSlot) : null;
       
-      console.log("👤 LEAD CREATION STARTED", {
-        step: "lead_creation_start",
+      console.log("🎯 QUOTE BUILDER LEAD CREATION STARTED", {
+        step: "quote_builder_lead_creation",
         sessionId: chatSessionId,
-        exactBookingDetails: selectedBoatDetails ? {
-          boatId: selectedBoatDetails.id,
-          boatName: selectedBoatDetails.name,
-          capacity: selectedBoatDetails.capacity,
-          exactDate: data.selectedSlot?.dateISO,
-          exactStartTime: data.selectedSlot?.startTime,
-          exactEndTime: data.selectedSlot?.endTime,
-          cruiseDateTime: `${data.eventDate && isValid(new Date(data.eventDate)) ? format(new Date(data.eventDate), 'EEEE, MMMM d, yyyy') : 'selected date'} ${data.selectedSlot?.label}`,
-          duration: data.selectedSlot?.duration,
-          price: data.selectedSlot?.price
-        } : null,
         customerInfo: {
           name: `${data.firstName} ${data.lastName}`,
           email: data.email,
@@ -2545,172 +2534,122 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
           groupSize: data.groupSize,
           eventType: data.eventType
         },
+        selectedSlot: data.selectedSlot,
+        boatDetails: selectedBoatDetails,
         timestamp: new Date().toISOString()
       });
       
-      // Step 1: Create lead and project using the new booking endpoint - ENHANCED with complete selection data
-      const leadResponse = await apiRequest('POST', '/api/chat/booking', {
-        sessionId: `chat_${Date.now()}`,
-        step: 'create-lead',
-        email: data.email,
-        name: `${data.firstName} ${data.lastName}`,
-        phone: data.phone,
-        eventType: data.eventType,
-        eventDate: data.eventDate?.toISOString(),
-        groupSize: data.groupSize,
-        specialRequests: data.specialRequests,
-        cruiseType: data.selectedCruiseType,
-        timeSlot: data.selectedSlot?.id || '',
-        discoPackage: data.selectedDiscoPackage,
-        budget: (data.selectedCruiseType === 'private' ? privatePricing?.total : discoPricing?.total)?.toString(),
-        data: {
-          // Basic event info
-          eventTypeLabel: data.eventTypeLabel,
-          eventTypeEmoji: data.eventEmoji,
-          
-          // Complete selected slot information
-          selectedSlot: data.selectedSlot ? {
-            id: data.selectedSlot.id,
-            dateISO: data.selectedSlot.dateISO,
-            startTime: data.selectedSlot.startTime,
-            endTime: data.selectedSlot.endTime,
-            duration: data.selectedSlot.duration,
-            label: data.selectedSlot.label,
-            price: data.selectedSlot.price,
-            capacity: data.selectedSlot.capacity,
-            boatCandidates: data.selectedSlot.boatCandidates,
-            cruiseType: data.selectedSlot.cruiseType,
-            bookable: data.selectedSlot.bookable,
-            held: data.selectedSlot.held
-          } : null,
-          
-          // Complete boat details
-          exactBoatDetails: selectedBoatDetails,
-          
-          // Disco cruise specific data
+      // Get the correct pricing for the request
+      const currentPricing = data.selectedCruiseType === 'private' ? privatePricing : discoPricing;
+      
+      // Format data for the /api/leads/quote-builder endpoint
+      const quoteBuilderPayload = {
+        contactInfo: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          phone: data.phone
+        },
+        eventDetails: {
+          eventType: data.eventType,
+          groupSize: data.groupSize,
+          eventDate: data.eventDate?.toISOString()
+        },
+        selectionDetails: {
+          cruiseType: data.selectedCruiseType,
+          selectedSlot: data.selectedSlot,
+          selectedPackages: data.selectedAddOnPackages || [],
           discoPackage: data.selectedDiscoPackage,
-          discoTicketQuantity: data.discoTicketQuantity,
-          discoPricing: data.selectedCruiseType === 'disco' ? discoPricing : null,
-          
-          // Private cruise specific data
-          selectedAddOnPackages: data.selectedAddOnPackages || [],
-          privatePricing: data.selectedCruiseType === 'private' ? privatePricing : null,
-          
-          // Pricing context for quote generation
-          calculatedPricing: {
-            selectedCruiseType: data.selectedCruiseType,
-            eventDate: data.eventDate?.toISOString(),
-            groupSize: data.groupSize,
-            privateOptions: data.selectedCruiseType === 'private' ? {
-              selectedAddOnPackages: data.selectedAddOnPackages,
-              pricing: privatePricing
-            } : null,
-            discoOptions: data.selectedCruiseType === 'disco' ? {
-              package: data.selectedDiscoPackage,
-              ticketQuantity: data.discoTicketQuantity,
-              pricing: discoPricing
-            } : null
-          },
-          
-          // Alternative dates information for reference
-          alternativeDatesConsidered: formData.eventDate ? format(formData.eventDate, 'yyyy-MM-dd') : null,
-          
-          // Comparison screen context
-          comparisonScreenCompleted: true,
-          selectedAfterComparison: {
-            cruiseType: data.selectedCruiseType,
-            reasoning: data.selectedCruiseType === 'private' ? 'Selected private cruise after comparison' : 'Selected disco cruise after comparison'
-          }
-        }
+          ticketQuantity: data.discoTicketQuantity,
+          selectedDuration: data.selectedSlot?.duration,
+          selectedBoat: selectedBoatDetails,
+          preferredTimeLabel: data.selectedSlot?.label,
+          groupSizeLabel: `${data.groupSize} people`
+        },
+        pricing: currentPricing ? {
+          subtotal: currentPricing.subtotal,
+          tax: currentPricing.tax,
+          gratuity: currentPricing.gratuity, 
+          total: currentPricing.total,
+          depositAmount: currentPricing.depositAmount,
+          discountCode: data.discountCode
+        } : undefined,
+        partialLeadId: chatSessionId // Convert partial lead if exists
+      };
+      
+      console.log("📋 Sending to /api/leads/quote-builder:", {
+        contactName: quoteBuilderPayload.contactInfo.firstName + ' ' + quoteBuilderPayload.contactInfo.lastName,
+        eventType: quoteBuilderPayload.eventDetails.eventType,
+        cruiseType: quoteBuilderPayload.selectionDetails.cruiseType,
+        totalAmount: quoteBuilderPayload.pricing?.total,
+        hasSlot: !!quoteBuilderPayload.selectionDetails.selectedSlot
       });
+      
+      // Call the CORRECT endpoint with proper data format
+      const leadResponse = await apiRequest('POST', '/api/leads/quote-builder', quoteBuilderPayload);
       const leadResult = await leadResponse.json();
 
       if (!leadResult.success) {
-        throw new Error('Failed to create lead');
+        console.error('❌ Quote Builder API Error:', leadResult);
+        throw new Error(leadResult.error || leadResult.message || 'Failed to create lead');
       }
 
-      const projectId = leadResult.project.id;
-      const contactId = leadResult.contact.id;
-      
-      // Step 2: Check availability
-      if (data.eventDate) {
-        await apiRequest('POST', '/api/chat/booking', {
-          sessionId: `chat_${Date.now()}`,
-          step: 'check-availability',
-          data: {
-            date: data.eventDate.toISOString().split('T')[0],
-            groupSize: data.groupSize
-          }
-        });
-      }
-      
-      // Step 3: Generate and send quote using backend
-      const quoteResponse = await apiRequest('POST', '/api/chat/booking', {
-        sessionId: `chat_${Date.now()}`,
-        step: 'generate-quote',
-        data: {
-          projectId: projectId,
-          promoCode: undefined
-        }
+      console.log('✅ Quote Builder API Success:', {
+        leadId: leadResult.leadId,
+        projectId: leadResult.projectId,
+        quoteId: leadResult.quoteId,
+        hasQuoteUrl: !!leadResult.quoteUrl,
+        integrations: leadResult.integrations
       });
-      const quoteResult = await quoteResponse.json();
 
-      if (!quoteResult.success) {
-        throw new Error('Failed to generate quote');
+      // Set the generated quote ID if available
+      if (leadResult.quoteId) {
+        setGeneratedQuoteId(leadResult.quoteId);
       }
-
-      setGeneratedQuoteId(quoteResult.quote.id);
       
-      // Show delivery status feedback to user
-      if (quoteResult.delivery) {
-        const { emailSent, smsSent, hasContact } = quoteResult.delivery;
-        
-        if (hasContact) {
-          if (emailSent && smsSent) {
-            toast({
-              title: "Quote Sent Successfully! ✅",
-              description: "We've sent your quote via email and text message. Check your inbox!",
-            });
-          } else if (emailSent && !smsSent) {
-            toast({
-              title: "Quote Sent via Email! 📧",
-              description: "We've emailed your quote. SMS delivery encountered an issue - we'll follow up personally.",
-              variant: "default",
-            });
-          } else if (!emailSent && smsSent) {
-            toast({
-              title: "Quote Sent via Text! 📱", 
-              description: "We've texted your quote. Email delivery encountered an issue - we'll follow up personally.",
-              variant: "default",
-            });
-          } else if (!emailSent && !smsSent) {
-            toast({
-              title: "Quote Ready! 📋",
-              description: "Your quote is ready! We'll contact you directly to share the details.",
-              variant: "default",
-            });
-          }
-        } else {
-          toast({
-            title: "Quote Generated! 🎉",
-            description: "Your quote is ready! We'll reach out to you with the details.",
-            variant: "default",
-          });
-        }
-      } else {
-        // Fallback toast for older backend responses
+      // Show comprehensive feedback based on integration results
+      const { integrations } = leadResult;
+      let successCount = 0;
+      let totalIntegrations = 3; // Google Sheets, GoHighLevel, Email
+
+      if (integrations.googleSheets.success) successCount++;
+      if (integrations.goHighLevel.success) successCount++;
+      if (integrations.emailNotification.success) successCount++;
+
+      // Provide detailed feedback to user
+      if (successCount === totalIntegrations) {
         toast({
-          title: "Quote Created! 🎉",
-          description: quoteResult.message || "Your personalized quote is ready!",
+          title: "Quote Sent Successfully! 🎉",
+          description: "We've sent your quote via email and updated all our systems. Check your inbox!",
+        });
+      } else if (successCount >= 1) {
+        toast({
+          title: "Quote Created Successfully! ✅",
+          description: "Your quote has been generated and we'll be in touch shortly with all the details.",
+          variant: "default",
+        });
+      } else {
+        toast({
+          title: "Quote Generated! 📋",
+          description: "Your quote is ready! We'll contact you directly to share the details.",
+          variant: "default",
         });
       }
+
+      // Log integration status for debugging
+      console.log('📊 Integration Status:', {
+        googleSheets: integrations.googleSheets.success ? '✅' : `❌ ${integrations.googleSheets.error}`,
+        goHighLevel: integrations.goHighLevel.success ? '✅' : `❌ ${integrations.goHighLevel.error}`,
+        email: integrations.emailNotification.success ? '✅' : `❌ ${integrations.emailNotification.error}`
+      });
 
       return { 
-        contact: leadResult.contact, 
-        project: leadResult.project,
-        quote: quoteResult.quote,
-        quoteUrl: quoteResult.quoteUrl,
-        delivery: quoteResult.delivery
+        leadId: leadResult.leadId,
+        projectId: leadResult.projectId,
+        quoteId: leadResult.quoteId,
+        quoteUrl: leadResult.quoteUrl,
+        integrations: leadResult.integrations,
+        success: true
       };
       
       /* Remove old client-side quote generation - now handled by backend
