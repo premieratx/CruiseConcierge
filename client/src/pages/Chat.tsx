@@ -15,10 +15,10 @@ import {
 } from 'lucide-react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
-import { getStripePublishableKey } from '@/lib/stripe';
+import { createStripePromise, isStripeConfigured } from '@/lib/stripe';
 
-// Initialize Stripe
-const stripePromise = loadStripe(getStripePublishableKey() || '');
+// Initialize Stripe properly with error handling
+const stripePromise = createStripePromise();
 import { AlternativeDates } from '@/components/AlternativeDates';
 import { ContactInfoModal } from '@/components/ContactInfoModal';
 import { Button } from '@/components/ui/button';
@@ -370,6 +370,11 @@ function PaymentForm({
     e.preventDefault();
 
     if (!stripe || !elements) {
+      toast({
+        title: "Payment Configuration Error",
+        description: "Stripe is not configured correctly. Please refresh the page and try again.",
+        variant: "destructive"
+      });
       return;
     }
 

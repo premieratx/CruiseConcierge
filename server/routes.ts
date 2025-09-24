@@ -17153,7 +17153,7 @@ Provide comprehensive validation with specific recommendations for improvement.`
   const RATE_LIMIT_WINDOW = 60000; // 1 minute
   const RATE_LIMIT_MAX_REQUESTS = 30; // 30 requests per minute
 
-  const checkRateLimit = (userKey: string): boolean => {
+  const checkAgentRateLimit = (userKey: string): boolean => {
     const now = Date.now();
     const userLimit = agentChatRateLimit.get(userKey);
     
@@ -17186,7 +17186,7 @@ Provide comprehensive validation with specific recommendations for improvement.`
       const userId = req.adminUser!.id; // Get from authenticated session
       
       // Rate limiting
-      if (!checkRateLimit(`sessions_${userId}`)) {
+      if (!checkAgentRateLimit(`sessions_${userId}`)) {
         return res.status(429).json({ error: 'Rate limit exceeded. Please try again later.' });
       }
       
@@ -17211,7 +17211,7 @@ Provide comprehensive validation with specific recommendations for improvement.`
       const userId = req.adminUser!.id; // Get from authenticated session
       
       // Rate limiting
-      if (!checkRateLimit(`create_session_${userId}`)) {
+      if (!checkAgentRateLimit(`create_session_${userId}`)) {
         return res.status(429).json({ error: 'Rate limit exceeded. Please try again later.' });
       }
       
@@ -17241,7 +17241,7 @@ Provide comprehensive validation with specific recommendations for improvement.`
       const userId = req.adminUser!.id; // Get from authenticated session
       
       // Rate limiting
-      if (!checkRateLimit(`send_message_${userId}`)) {
+      if (!checkAgentRateLimit(`send_message_${userId}`)) {
         return res.status(429).json({ error: 'Rate limit exceeded. Please try again later.' });
       }
       
@@ -17268,7 +17268,7 @@ Provide comprehensive validation with specific recommendations for improvement.`
       const userId = req.adminUser!.id; // Get from authenticated session
       
       // Rate limiting
-      if (!checkRateLimit(`history_${userId}`)) {
+      if (!checkAgentRateLimit(`history_${userId}`)) {
         return res.status(429).json({ error: 'Rate limit exceeded. Please try again later.' });
       }
       

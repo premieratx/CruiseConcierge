@@ -123,6 +123,7 @@ export class ComprehensiveLeadService {
       if (project && leadData.quoteData) {
         console.log('💰 Step 3: Generating quote...');
         try {
+          // Create the quote first (without token)
           quote = await storage.createQuote({
             projectId: project.id,
             templateId: leadData.quoteData.templateId,
@@ -140,18 +141,22 @@ export class ComprehensiveLeadService {
             expiresAt: leadData.pricing?.expiresAt || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
           });
           
-          // Generate secure quote URL using secure token service
-          quoteUrl = quoteTokenService.generateSecureQuoteUrl(
-            quote.id,
-            getPublicUrl(),
-            { 
-              scope: 'quote:view',
-              expiresIn: 30 * 24 * 60 * 60 * 1000, // 30 days
-              audience: 'customer'
-            }
-          );
-          console.log('✅ Quote created:', quote.id);
+          // DEBUG: Log the quote object to see what token was returned
+          console.log('🐛 DEBUG: Quote object returned:', {
+            id: quote.id,
+            accessToken: quote.accessToken ? quote.accessToken.substring(0, 50) + '...' : 'NULL',
+            hasAccessToken: !!quote.accessToken
+          });
+          
+          // Use the SAME token that was stored in the database for the URL
+          // This ensures complete token consistency between database and URL
+          const baseUrl = getPublicUrl().replace(/\/$/, '');
+          quoteUrl = `${baseUrl}/chat?quote=${encodeURIComponent(quote.accessToken)}`;
+          
+          console.log('✅ Quote created with token consistency:', quote.id);
           console.log('🔗 Quote URL:', quoteUrl);
+          console.log('🔐 Using database token for URL:', quote.accessToken ? 'YES' : 'NO');
+          console.log('🔐 Token preview:', quote.accessToken ? quote.accessToken.substring(0, 50) + '...' : 'NULL');
           result.quoteId = quote.id;
           result.quoteUrl = quoteUrl;
         } catch (error: any) {

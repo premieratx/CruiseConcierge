@@ -1622,6 +1622,31 @@ export class DatabaseStorage implements IStorage {
     return result[0];
   }
 
+  async getQuoteByToken(token: string): Promise<Quote | undefined> {
+    // Import the quote token service to verify the JWT token
+    const { quoteTokenService } = await import('./services/quoteTokenService');
+    
+    // Verify the JWT token and extract the payload
+    const verificationResult = quoteTokenService.verifyToken(token);
+    
+    if (!verificationResult.valid || !verificationResult.payload) {
+      console.warn('🚨 Invalid or expired quote token:', verificationResult.error);
+      return undefined;
+    }
+    
+    // Extract the quote ID from the token payload
+    const { quoteId } = verificationResult.payload;
+    
+    console.log('✅ Quote token verified successfully, retrieving quote:', {
+      quoteId,
+      scope: verificationResult.payload.scope,
+      audience: verificationResult.payload.aud
+    });
+    
+    // Use the existing getQuote method to retrieve the quote
+    return this.getQuote(quoteId);
+  }
+
   async getQuotes(filters?: {
     searchTerm?: string;
     statusFilter?: string;
