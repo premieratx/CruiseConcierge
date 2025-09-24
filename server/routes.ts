@@ -1381,6 +1381,39 @@ function getTimeAgo(date: Date): string {
 
 export async function registerRoutes(app: Express): Promise<Server> {
   
+  // ==========================================
+  // FRONTEND SPA ROUTES
+  // ==========================================
+  
+  // Quote display routes - serve the main app for these paths
+  app.get('/quote/:id', (req, res, next) => {
+    console.log('🔗 Quote route hit:', req.params.id);
+    
+    // Check if this is a valid quote ID format (UUID or quote_timestamp_hash)
+    const quoteId = req.params.id;
+    if (quoteId && (
+      /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(quoteId) || 
+      /^quote_\d+_[a-z0-9]+$/i.test(quoteId)
+    )) {
+      console.log('✅ Valid quote ID format, serving SPA');
+      // This looks like a valid quote ID, serve the SPA directly
+      
+      if (app.get("env") === "development") {
+        // In development, let Vite handle it
+        req.url = '/';
+        next();
+      } else {
+        // In production, serve the static index.html
+        const path = require('path');
+        const indexPath = path.resolve(__dirname, 'public', 'index.html');
+        res.sendFile(indexPath);
+      }
+    } else {
+      console.log('❌ Invalid quote ID format, passing through');
+      next();
+    }
+  });
+  
   // ✅ CHECKOUT APIS RESTORED: Emergency blocking removed, pricing fixed
   
   // Register quote from chat endpoint

@@ -1026,7 +1026,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       // Use different API endpoint based on whether we have a token or ID
       const apiUrl = quoteToken 
         ? `/api/quotes/public/${quoteToken}`  // Token-based access
-        : `/api/quotes/${quoteId}/public`;    // ID-based access
+        : `/api/quotes/${quoteId}`;           // ID-based access (no /public)
       
       fetch(apiUrl)
         .then(res => {
@@ -1344,7 +1344,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       // Update the quote using appropriate endpoint
       const apiUrl = quoteToken 
         ? `/api/quotes/public/${quoteToken}`
-        : `/api/quotes/${quoteId}/public`;
+        : `/api/quotes/${quoteId}`;
       
       const response = await fetch(apiUrl, {
         method: 'PATCH',
@@ -2262,7 +2262,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         // Update the existing quote with contact info using appropriate endpoint
         const apiUrl = quoteToken 
           ? `/api/quotes/public/${quoteToken}`
-          : `/api/quotes/${quoteId}/public`;
+          : `/api/quotes/${quoteId}`;
           
         const response = await fetch(apiUrl, {
           method: 'PATCH',
