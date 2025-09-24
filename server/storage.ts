@@ -4349,6 +4349,16 @@ export class DatabaseStorage implements IStorage {
     return await db.select().from(blogAuthors).where(eq(blogAuthors.active, true));
   }
 
+  async getBlogAuthorBySlug(slug: string): Promise<BlogAuthor | undefined> {
+    const [author] = await db.select().from(blogAuthors).where(eq(blogAuthors.slug, slug));
+    return author;
+  }
+
+  async getBlogAuthorByContact(contactId: string): Promise<BlogAuthor | undefined> {
+    const [author] = await db.select().from(blogAuthors).where(eq(blogAuthors.contactId, contactId));
+    return author;
+  }
+
   async createBlogAuthor(author: InsertBlogAuthor): Promise<BlogAuthor> {
     const [newAuthor] = await db.insert(blogAuthors).values({
       ...author,
