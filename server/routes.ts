@@ -538,10 +538,12 @@ export async function createQuoteFromChat(app: Express) {
         // Don't fail the quote creation if sheets update fails
       }
 
-      // Also save to comprehensive lead system
+      // Also save to comprehensive lead system and get Column Q URL
+      let columnQUrl = null;
+      let leadId = null;
       try {
         const leadService = await getComprehensiveLeadService();
-        await leadService.createComprehensiveLead({
+        const comprehensiveResult = await leadService.createComprehensiveLead({
           name: `${firstName} ${lastName}`,
           email,
           phone,
@@ -569,17 +571,44 @@ export async function createQuoteFromChat(app: Express) {
             depositAmount
           }
         });
+        
+        leadId = comprehensiveResult.leadId;
+        console.log('✅ Comprehensive lead created with ID:', leadId);
+        
+        // CRITICAL: Wait and retrieve Column Q URL from Google Sheets
+        if (leadId && comprehensiveResult.success) {
+          console.log('🔍 Retrieving Column Q URL from Google Sheets...');
+          const sheetsService = await getGoogleSheetsService();
+          
+          // Wait a moment for Google Sheets to be updated
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          
+          const verificationResult = await sheetsService.getLeadForVerification(leadId);
+          if (verificationResult.found && verificationResult.quoteUrl) {
+            columnQUrl = verificationResult.quoteUrl;
+            console.log('✅ Retrieved Column Q URL for notifications:', columnQUrl);
+          } else {
+            console.warn('⚠️ Column Q URL not found, using fallback URL');
+          }
+        }
       } catch (leadError) {
         console.error('Error creating comprehensive lead:', leadError);
         // Don't fail the quote creation if lead creation fails
       }
 
-      // Send email notification with quote link - use live domain with unique quote path
+      // CRITICAL FIX: Use Column Q URL for consistent notifications
       const uniqueQuoteId = result.quote.id || `quote_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
-      const fullQuoteUrl = `https://cruise-concierge-brian-hill.replit.app/quote/${uniqueQuoteId}`;
+      // Use Column Q URL if available, fallback to constructed URL
+      const notificationUrl = columnQUrl || `https://cruise-concierge-brian-hill.replit.app/quote/${uniqueQuoteId}`;
+      
+      console.log('📧 Notification URL decision:', {
+        hasColumnQUrl: !!columnQUrl,
+        usingColumnQ: !!columnQUrl,
+        finalUrl: notificationUrl
+      });
       
       try {
-        // Send email with the full quote URL
+        // Send email with the Column Q URL (secure tokenized) or fallback URL
         const emailFunctions = await getMailgunEmailFunctions();
         const emailSuccess = await emailFunctions.sendQuoteEmail(
           email,
@@ -595,7 +624,7 @@ export async function createQuoteFromChat(app: Express) {
             tax: tax || 0,
             gratuity: gratuity || 0
           },
-          fullQuoteUrl
+          notificationUrl  // CRITICAL: Use Column Q URL for consistency
         );
         
         if (emailSuccess) {
@@ -608,33 +637,46 @@ export async function createQuoteFromChat(app: Express) {
         // Don't fail the quote creation if email fails
       }
       
-      // Send SMS notification with quote link
+      // Send SMS notification with Column Q URL
       try {
-        const smsMessage = `Hi ${firstName}! Your cruise quote is ready! View it here: ${fullQuoteUrl}`;
-        const ghlService = await getGoHighLevelService();
-        const smsSuccess = await ghlService.send({
-          to: phone,
-          body: smsMessage
+        console.log('📱 SMS notification using URL:', notificationUrl);
+        console.log('📱 Column Q URL consistency check:', {
+          leadId,
+          hasColumnQUrl: !!columnQUrl,
+          urlMatches: notificationUrl === columnQUrl
         });
         
+        // CRITICAL FIX: Use Twilio service with Column Q URL for consistency
+        const { twilioService } = await import('./services/twilio');
+        const smsSuccess = await twilioService.sendQuoteSMS(
+          phone,
+          `${firstName} ${lastName}`,
+          result.quote.id,
+          total || 0,
+          notificationUrl  // CRITICAL: Use Column Q URL for SMS consistency
+        );
+        
         if (smsSuccess) {
-          console.log('✅ SMS notification sent to:', phone);
+          console.log('✅ SMS notification sent via Twilio to:', phone);
+          console.log('📱 SMS sent with Column Q URL consistency:', !!columnQUrl);
         } else {
-          console.error('⚠️ Failed to send SMS to:', phone);
+          console.error('⚠️ Failed to send SMS via Twilio to:', phone);
         }
       } catch (smsError) {
         console.error('❌ Error sending SMS:', smsError);
         // Don't fail the quote creation if SMS fails
       }
       
-      // Return the quote ID, slug, and public URL with live domain
+      // Return the quote ID, slug, and Column Q URL (or fallback)
       res.json({
         success: true,
         quoteId: uniqueQuoteId,
         slug: result.quote.slug,
-        publicUrl: fullQuoteUrl,
+        publicUrl: notificationUrl,  // Return the same URL used in notifications
         accessToken: result.quote.accessToken,
-        redirectUrl: fullQuoteUrl
+        redirectUrl: notificationUrl,  // Consistent URL across all touchpoints
+        leadId: leadId,  // Include leadId for tracking
+        usedColumnQUrl: !!columnQUrl  // Flag to indicate URL source
       });
 
     } catch (error) {
@@ -658,15 +700,34 @@ export async function createQuoteFromChat(app: Express) {
         return res.status(400).json({ error: 'Token is required' });
       }
 
-      // Get the quote by access token
-      const storageInstance = await getStorage();
-      const quote = await storageInstance.getQuoteByToken(token);
+      // NEW: Use enhanced token verification with Google Sheets data
+      const quoteTokenService = await import('./services/quoteTokenService').then(m => m.quoteTokenService);
+      const tokenVerification = await quoteTokenService.verifyTokenWithLeadData(token);
       
-      if (!quote) {
-        return res.status(404).json({ error: 'Quote not found or has been revoked' });
+      if (!tokenVerification.valid || !tokenVerification.payload) {
+        console.warn('🚨 Invalid or expired quote token:', tokenVerification.error);
+        return res.status(401).json({ 
+          error: 'Invalid or expired token',
+          message: tokenVerification.error 
+        });
       }
 
-      // Get related project and contact information if needed
+      const { quoteId, leadId, leadData } = tokenVerification.payload;
+      console.log('✅ Token verified with enhanced data:', {
+        quoteId,
+        leadId,
+        hasLeadData: !!leadData
+      });
+
+      // Get the quote from storage using quoteId
+      const storageInstance = await getStorage();
+      const quote = await storageInstance.getQuote(quoteId);
+      
+      if (!quote) {
+        return res.status(404).json({ error: 'Quote not found' });
+      }
+
+      // Get related project and contact information
       const project = await storageInstance.getProject(quote.projectId);
       let contact = null;
       
@@ -677,31 +738,57 @@ export async function createQuoteFromChat(app: Express) {
       // Track quote view
       if (quote.id) {
         await storageInstance.trackQuoteView(quote.id, contact?.id, undefined, {
-          accessMethod: 'public_link',
-          viewedAt: new Date().toISOString()
+          accessMethod: 'enhanced_token_link',
+          viewedAt: new Date().toISOString(),
+          leadId: leadId
         });
       }
 
-      // Return the quote with all necessary data
+      // NEW: Enhanced response with complete Google Sheets data
       res.json({
         success: true,
         quote: {
           ...quote,
-          // Include contact info from either the quote or the contact record
-          contactInfo: quote.contactInfo || {
+          // Enhanced contact info from Google Sheets data (if available) or fallback to quote/contact
+          contactInfo: leadData ? {
+            firstName: leadData.name?.split(' ')[0] || '',
+            lastName: leadData.name?.split(' ').slice(1).join(' ') || '',
+            email: leadData.email || '',
+            phone: leadData.phone || ''
+          } : (quote.contactInfo || {
             firstName: contact?.name?.split(' ')[0] || '',
             lastName: contact?.name?.split(' ')[1] || '',
             email: contact?.email || '',
             phone: contact?.phone || ''
-          },
-          // Include event details from the quote
-          eventDetails: quote.eventDetails || {
+          }),
+          // Enhanced event details from Google Sheets data
+          eventDetails: leadData ? {
+            eventType: leadData.eventType || '',
+            eventTypeLabel: leadData.eventTypeLabel || leadData.eventType || '',
+            eventEmoji: quote.eventDetails?.eventEmoji || '🎉',
+            eventDate: leadData.cruiseDate || project?.projectDate || '',
+            groupSize: leadData.groupSize || project?.groupSize || 0,
+            specialRequests: leadData.specialRequests || '',
+            budget: leadData.budget || ''
+          } : (quote.eventDetails || {
             eventType: project?.eventType || '',
             eventDate: project?.projectDate || '',
             groupSize: project?.groupSize || 0
-          },
-          // Include selection details from the quote
-          selectionDetails: quote.selectionDetails || {},
+          }),
+          // Enhanced selection details from Google Sheets data
+          selectionDetails: leadData ? {
+            cruiseType: leadData.boatType ? (leadData.boatType.includes('disco') ? 'disco' : 'private') : quote.selectionDetails?.cruiseType,
+            selectedSlot: quote.selectionDetails?.selectedSlot,
+            selectedPackages: quote.selectionDetails?.selectedPackages || [],
+            discoPackage: leadData.discoPackage || quote.selectionDetails?.discoPackage,
+            ticketQuantity: leadData.groupSize || quote.selectionDetails?.ticketQuantity,
+            selectedDuration: quote.selectionDetails?.selectedDuration,
+            selectedBoat: leadData.boatType || quote.selectionDetails?.selectedBoat,
+            preferredTimeLabel: leadData.timeSlot || quote.selectionDetails?.preferredTimeLabel || '',
+            groupSizeLabel: `${leadData.groupSize || 1} people`
+          } : (quote.selectionDetails || {}),
+          // Include complete lead data from Google Sheets for maximum pre-population
+          leadData: leadData || null,
           // Include project details if available
           project: project ? {
             title: project.title,
@@ -713,7 +800,7 @@ export async function createQuoteFromChat(app: Express) {
       });
 
     } catch (error) {
-      console.error('Error retrieving public quote:', error);
+      console.error('Error retrieving enhanced public quote:', error);
       res.status(500).json({ 
         error: 'Failed to retrieve quote',
         message: error instanceof Error ? error.message : 'Unknown error'
@@ -17599,6 +17686,94 @@ Provide comprehensive validation with specific recommendations for improvement.`
     }
   });
 
+  // Test Google Sheets with EXACT column placement - Write to row 2
+  app.post('/api/test-google-sheets-exact', async (req, res) => {
+    try {
+      console.log('🧪 Testing Google Sheets with exact column placement...');
+      
+      const sheetsService = await getGoogleSheetsService();
+      
+      // Create test data exactly as requested - Brian Hill info
+      const leadId = `lead_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+      const now = new Date().toISOString();
+      const quoteUrl = 'https://cruise-concierge-brian-hill.replit.app/chat?quote=TEST_PLACEHOLDER_TOKEN';
+      
+      // Build the exact row data matching your column headers
+      const testRow = [
+        leadId,                           // A: Lead ID
+        now,                             // B: Created Date
+        'Brian Hill',                    // C: Name
+        'PPCAustin@gmail.com',          // D: Email
+        '512-576-7975',                 // E: Phone
+        'bachelor',                     // F: Event Type
+        'Bachelor Party',               // G: Event Type Label
+        '2024-10-28',                   // H: Cruise Date
+        '20',                           // I: Group Size
+        'private',                      // J: Boat Type
+        '',                             // K: Disco Package
+        '',                             // L: Time Slot
+        'TEST_LEAD',                    // M: Status
+        'started',                      // N: Progress
+        now,                            // O: Last Updated
+        'Manual Test',                  // P: Source
+        quoteUrl,                       // Q: Quote URL - THIS IS THE CRITICAL COLUMN
+        '',                             // R: Additional field
+        '',                             // S: Additional field  
+        '',                             // T: Additional field
+        '',                             // U: Additional field
+        ''                              // V: Additional field
+      ];
+
+      console.log('📊 Writing test data to row 2, columns A-V:', {
+        leadId,
+        name: testRow[2],
+        email: testRow[3],
+        phone: testRow[4],
+        eventType: testRow[6],
+        quoteUrl: testRow[16], // Column Q
+        targetRange: 'Leads!A2:V2'
+      });
+
+      // Write directly to row 2 with exact column mapping
+      if (sheetsService.sheets && sheetsService.spreadsheetId) {
+        const response = await sheetsService.sheets.spreadsheets.values.update({
+          spreadsheetId: sheetsService.spreadsheetId,
+          range: 'Leads!A2:V2',
+          valueInputOption: 'RAW',
+          resource: {
+            values: [testRow]
+          }
+        });
+        
+        console.log('✅ Google Sheets update successful:', response.data);
+      } else {
+        throw new Error('Google Sheets service not properly configured');
+      }
+      
+      res.json({
+        success: true,
+        message: 'Test data written to row 2, columns A-V',
+        testData: {
+          leadId,
+          name: 'Brian Hill',
+          email: 'PPCAustin@gmail.com',
+          phone: '512-576-7975',
+          eventDate: '2024-10-28',
+          eventType: 'Bachelor Party',
+          groupSize: '20',
+          quoteUrl,
+          targetRange: 'Leads!A2:V2'
+        },
+        timestamp: new Date().toISOString()
+      });
+    } catch (error: any) {
+      console.error('❌ Google Sheets exact test failed:', error);
+      res.status(500).json({ 
+        error: 'Google Sheets exact test failed', 
+        details: error.message 
+      });
+    }
+  });
 
   const httpServer = createServer(app);
   return httpServer;

@@ -603,11 +603,11 @@ export class GoogleSheetsService {
         'started', // N: Progress
         now, // O: Last Updated
         leadData.leadSource || 'Web', // P: Source
-        '', // Q: Special Requests (filled later)
-        '', // R: Budget (filled later)
-        '', // S: Project ID (filled later)
-        '', // T: Notes (filled later)
-        leadData.quoteUrl || '', // U: Quote URL
+        leadData.quoteUrl || '', // Q: Quote URL - CRITICAL COLUMN FOR AUTOMATION
+        '', // R: Additional field
+        '', // S: Additional field
+        '', // T: Additional field
+        '', // U: Additional field
         '' // V: Quote ID
       ];
 
@@ -712,11 +712,11 @@ export class GoogleSheetsService {
         'started', // N: Progress
         now, // O: Last Updated
         leadData.source || 'AI Chatbot Flow', // P: Source
-        '', // Q: Special Requests (filled later)
-        '', // R: Budget (filled later)
-        '', // S: Project ID (filled later)
-        '', // T: Notes (filled later)
-        leadData.quoteUrl || '', // U: Quote URL - CRITICAL FOR AUTOMATION
+        leadData.quoteUrl || '', // Q: Quote URL - CRITICAL COLUMN FOR AUTOMATION
+        '', // R: Additional field
+        '', // S: Additional field
+        '', // T: Additional field
+        '', // U: Additional field
         leadData.quoteId || '' // V: Quote ID - CRITICAL FOR AUTOMATION
       ];
 
@@ -915,7 +915,7 @@ export class GoogleSheetsService {
       budget: row[17] || undefined,
       projectId: row[18] || undefined,
       notes: row[19] || undefined,
-      quoteUrl: row[20] || undefined,
+      quoteUrl: row[16] || undefined, // Column Q - CORRECTED
       quoteId: row[21] || undefined
     };
   }
@@ -1030,6 +1030,190 @@ export class GoogleSheetsService {
     }
   }
 
+  // NEW METHOD: Get lead data by email (for cases where we only have email)
+  async getLeadByEmail(email: string): Promise<LeadData | null> {
+    console.log(`🔍 Finding lead by email: ${email}`);
+    
+    try {
+      if (!this.sheets || !this.spreadsheetId) {
+        console.log("📊 Google Sheets not configured - returning null");
+        return null;
+      }
+
+      const range = 'Leads!A2:V1000';
+      const response = await this.withRetry(
+        () => this.sheets.spreadsheets.values.get({
+          spreadsheetId: this.spreadsheetId,
+          range: range
+        }),
+        `Get lead by email ${email}`
+      );
+      
+      const rows = response.data.values || [];
+      const leadRow = rows.find((row: any[]) => row[3] === email); // Email is in column D (index 3)
+      
+      if (!leadRow) {
+        console.log(`❌ Lead with email ${email} not found in Google Sheets`);
+        return null;
+      }
+
+      const leadData = this.mapRowToLeadData(leadRow);
+      console.log(`✅ Found lead by email ${email}:`, leadData?.leadId);
+      return leadData;
+    } catch (error: any) {
+      console.error(`❌ Error finding lead by email ${email}:`, error.message);
+      return null;
+    }
+  }
+
+  // NEW METHOD: Get complete lead data with Quote Builder selections by lead ID
+  async getCompleteLeadData(leadId: string): Promise<{
+    success: boolean;
+    leadData?: any;
+    error?: string;
+  }> {
+    console.log(`🔍 Getting complete lead data for ${leadId}...`);
+    
+    try {
+      if (!this.sheets || !this.spreadsheetId) {
+        return {
+          success: false,
+          error: 'Google Sheets not configured'
+        };
+      }
+
+      const range = 'Leads!A2:V1000';
+      const response = await this.withRetry(
+        () => this.sheets.spreadsheets.values.get({
+          spreadsheetId: this.spreadsheetId,
+          range: range
+        }),
+        `Get complete lead data ${leadId}`
+      );
+      
+      const rows = response.data.values || [];
+      const leadRow = rows.find((row: any[]) => row[0] === leadId);
+      
+      if (!leadRow) {
+        console.log(`❌ Lead ${leadId} not found in Google Sheets`);
+        return {
+          success: false,
+          error: 'Lead not found in Google Sheets'
+        };
+      }
+
+      // Map all available data from the spreadsheet row
+      const completeData = {
+        leadId: leadRow[0] || '',
+        createdDate: leadRow[1] || '',
+        name: leadRow[2] || '',
+        email: leadRow[3] || '',
+        phone: leadRow[4] || '',
+        eventType: leadRow[5] || '',
+        eventTypeLabel: leadRow[6] || '',
+        cruiseDate: leadRow[7] || '',
+        groupSize: leadRow[8] ? parseInt(leadRow[8]) : undefined,
+        boatType: leadRow[9] || '',
+        discoPackage: leadRow[10] || '',
+        timeSlot: leadRow[11] || '',
+        status: leadRow[12] || 'NEW',
+        progress: leadRow[13] || 'started',
+        lastUpdated: leadRow[14] || '',
+        source: leadRow[15] || 'AI Chatbot Flow',
+        quoteUrl: leadRow[16] || '', // Column Q - CORRECT COLUMN FOR QUOTE URL
+        specialRequests: leadRow[17] || '',
+        budget: leadRow[18] || '',
+        projectId: leadRow[19] || '',
+        notes: leadRow[20] || '',
+        quoteId: leadRow[21] || '' // Column V
+      };
+
+      console.log(`✅ Complete lead data retrieved for ${leadId}:`, {
+        hasQuoteUrl: !!completeData.quoteUrl,
+        hasQuoteId: !!completeData.quoteId,
+        eventType: completeData.eventType,
+        groupSize: completeData.groupSize,
+        cruiseDate: completeData.cruiseDate
+      });
+
+      return {
+        success: true,
+        leadData: completeData
+      };
+    } catch (error: any) {
+      console.error(`❌ Error getting complete lead data ${leadId}:`, error.message);
+      return {
+        success: false,
+        error: error.message
+      };
+    }
+  }
+
+  // NEW METHOD: Update Quote URL in Column Q (the correct column)
+  async updateQuoteUrlInColumnQ(leadId: string, quoteUrl: string): Promise<boolean> {
+    console.log(`📝 Updating Column Q (Quote URL) for lead ${leadId}...`);
+    
+    try {
+      if (!this.sheets || !this.spreadsheetId) {
+        console.log("📝 Google Sheets not configured - simulating quote URL update:", {
+          leadId,
+          quoteUrl
+        });
+        return true;
+      }
+
+      // Find the lead row
+      const range = 'Leads!A2:V1000';
+      const response = await this.withRetry(
+        () => this.sheets.spreadsheets.values.get({
+          spreadsheetId: this.spreadsheetId,
+          range: range
+        }),
+        `Find lead ${leadId} for Column Q update`
+      );
+      
+      const rows = response.data.values || [];
+      let rowIndex = -1;
+      
+      for (let i = 0; i < rows.length; i++) {
+        const row = rows[i];
+        if (row[0] === leadId) {
+          rowIndex = i + 2; // Add 2 because arrays are 0-indexed and we start from A2
+          break;
+        }
+      }
+      
+      if (rowIndex === -1) {
+        console.error(`❌ Lead ${leadId} not found for Column Q update`);
+        return false;
+      }
+
+      console.log(`📝 Updating Google Sheets Column Q (row ${rowIndex}) with quote URL:`, {
+        cell: `Q${rowIndex}`,
+        quoteUrl: quoteUrl
+      });
+
+      // Update Column Q (index 16) with the quote URL
+      await this.withRetry(
+        () => this.sheets.spreadsheets.values.update({
+          spreadsheetId: this.spreadsheetId,
+          range: `Leads!Q${rowIndex}`,
+          valueInputOption: 'RAW',
+          resource: {
+            values: [[quoteUrl]]
+          }
+        }),
+        `Update Column Q for lead ${leadId}`
+      );
+      
+      console.log(`✅ Successfully updated Column Q (row ${rowIndex}) with quote URL`);
+      return true;
+    } catch (error: any) {
+      console.error(`❌ Error updating Column Q for lead ${leadId}:`, error.message);
+      return false;
+    }
+  }
+
   // VERIFICATION METHOD: Get lead data by ID to verify quote link population
   async getLeadForVerification(leadId: string): Promise<{
     found: boolean;
@@ -1081,7 +1265,7 @@ export class GoogleSheetsService {
         status: leadRow[12],
         progress: leadRow[13],
         source: leadRow[15],
-        quoteUrl: leadRow[20], // Column U
+        quoteUrl: leadRow[16], // Column Q - CORRECTED
         quoteId: leadRow[21]   // Column V
       };
 

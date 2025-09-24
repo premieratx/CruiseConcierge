@@ -1,18 +1,25 @@
 import { randomBytes, createHmac, timingSafeEqual } from 'crypto';
 import { getPublicUrl } from '../utils';
+import { googleSheetsService } from './googleSheets';
 
 export interface QuoteTokenPayload {
   quoteId: string;
+  leadId?: string; // NEW: Include leadId to fetch complete data from Google Sheets
   scope: 'quote:view' | 'quote:download' | 'quote:accept';
   exp: number; // expiration timestamp
   iat: number; // issued at timestamp
   aud: string; // audience (e.g., 'customer', 'admin')
 }
 
+export interface EnhancedQuoteTokenPayload extends QuoteTokenPayload {
+  leadData?: any; // Complete lead data from Google Sheets
+}
+
 export interface QuoteTokenOptions {
   expiresIn?: number; // milliseconds from now, default 7 days
   scope?: QuoteTokenPayload['scope'];
   audience?: string;
+  leadId?: string; // NEW: Include leadId for complete data fetching
 }
 
 export class QuoteTokenService {
@@ -41,6 +48,7 @@ export class QuoteTokenService {
     
     const payload: QuoteTokenPayload = {
       quoteId,
+      leadId: options.leadId, // NEW: Include leadId for complete data fetching
       scope: options.scope || 'quote:view',
       exp: now + expiresIn,
       iat: now,
@@ -58,6 +66,7 @@ export class QuoteTokenService {
     
     console.log('🔐 Generated secure quote token:', {
       quoteId,
+      leadId: payload.leadId,
       scope: payload.scope,
       expiresAt: new Date(payload.exp).toISOString(),
       audience: payload.aud,
@@ -68,7 +77,54 @@ export class QuoteTokenService {
   }
 
   /**
-   * Verify and decode a quote token
+   * Verify and decode a quote token with complete lead data
+   */
+  async verifyTokenWithLeadData(token: string): Promise<{ valid: boolean; payload?: EnhancedQuoteTokenPayload; error?: string }> {
+    const basicVerification = this.verifyToken(token);
+    
+    if (!basicVerification.valid || !basicVerification.payload) {
+      return basicVerification;
+    }
+
+    const payload = basicVerification.payload;
+    
+    // If leadId is available, fetch complete lead data from Google Sheets
+    let leadData;
+    if (payload.leadId) {
+      console.log(`🔍 Fetching complete lead data for leadId: ${payload.leadId}`);
+      try {
+        const leadResult = await googleSheetsService.getCompleteLeadData(payload.leadId);
+        if (leadResult.success && leadResult.leadData) {
+          leadData = leadResult.leadData;
+          console.log(`✅ Successfully fetched complete lead data for token verification`);
+        } else {
+          console.warn(`⚠️ Could not fetch lead data for leadId: ${payload.leadId}`);
+        }
+      } catch (error: any) {
+        console.error(`❌ Error fetching lead data for token verification:`, error.message);
+      }
+    }
+
+    const enhancedPayload: EnhancedQuoteTokenPayload = {
+      ...payload,
+      leadData
+    };
+
+    console.log(`✅ Token verified with enhanced lead data:`, {
+      quoteId: payload.quoteId,
+      leadId: payload.leadId,
+      hasLeadData: !!leadData,
+      leadDataFields: leadData ? Object.keys(leadData).length : 0
+    });
+
+    return {
+      valid: true,
+      payload: enhancedPayload
+    };
+  }
+
+  /**
+   * Verify and decode a quote token (basic version)
    */
   verifyToken(token: string): { valid: boolean; payload?: QuoteTokenPayload; error?: string } {
     try {
@@ -120,7 +176,7 @@ export class QuoteTokenService {
   }
 
   /**
-   * Generate a secure quote URL with embedded token
+   * Generate a secure quote URL with embedded token including lead data
    */
   generateSecureQuoteUrl(quoteId: string, baseUrl?: string, options: QuoteTokenOptions = {}): string {
     const token = this.generateSecureToken(quoteId, options);
@@ -134,8 +190,9 @@ export class QuoteTokenService {
     // Use /chat?quote= path (redirects to Chat.tsx for quote display)
     const url = `${cleanBaseUrl}/chat?quote=${encodeURIComponent(token)}`;
     
-    console.log('🔗 Generated secure quote URL:', {
+    console.log('🔗 Generated secure quote URL with lead data:', {
       quoteId,
+      leadId: options.leadId,
       providedBaseUrl: baseUrl || 'auto-detected',
       effectiveBaseUrl: cleanBaseUrl,
       isFullUrl: url.startsWith('http'),

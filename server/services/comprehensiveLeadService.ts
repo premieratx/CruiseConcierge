@@ -175,24 +175,12 @@ export class ComprehensiveLeadService {
             expiresAt: leadData.pricing?.expiresAt || new Date(Date.now() + 30 * 24 * 60 * 60 * 1000) // 30 days
           });
           
-          // DEBUG: Log the quote object to see what token was returned
-          console.log('🐛 DEBUG: Quote object returned:', {
-            id: quote.id,
-            accessToken: quote.accessToken ? quote.accessToken.substring(0, 50) + '...' : 'NULL',
-            hasAccessToken: !!quote.accessToken
-          });
-          
-          // Use the SAME token that was stored in the database for the URL
-          // This ensures complete token consistency between database and URL
-          const baseUrl = getPublicUrl().replace(/\/$/, '');
-          quoteUrl = `${baseUrl}/chat?quote=${encodeURIComponent(quote.accessToken)}`;
-          
-          console.log('✅ Quote created with token consistency:', quote.id);
-          console.log('🔗 Quote URL:', quoteUrl);
-          console.log('🔐 Using database token for URL:', quote.accessToken ? 'YES' : 'NO');
-          console.log('🔐 Token preview:', quote.accessToken ? quote.accessToken.substring(0, 50) + '...' : 'NULL');
+          // Store basic info for now - we'll generate the REAL URL from Google Sheets data later
+          console.log('✅ Quote created:', quote.id);
           result.quoteId = quote.id;
-          result.quoteUrl = quoteUrl;
+          
+          // NOTE: We'll generate the quote URL from Google Sheets data after the lead is saved
+          // This ensures the URL contains complete lead information for pre-population
         } catch (error: any) {
           console.error('❌ Failed to create quote:', error);
           result.errors.push(`Quote creation failed: ${error.message}`);
@@ -200,8 +188,9 @@ export class ComprehensiveLeadService {
         }
       }
 
-      // 4. Create Google Sheets entry with quote link
+      // 4. Create Google Sheets entry (without quote URL initially)
       console.log('📊 Step 4: Creating Google Sheets lead entry...');
+      let leadId: string = contact.id;
       try {
         const sheetsSuccess = await googleSheetsService.createLead({
           leadId: contact.id,
@@ -211,7 +200,7 @@ export class ComprehensiveLeadService {
           eventType: leadData.eventType,
           eventTypeLabel: leadData.eventTypeLabel,
           source: leadData.source || 'AI Chatbot Flow',
-          quoteUrl: quoteUrl,
+          quoteUrl: '', // Initially empty - we'll update this after reading back the complete data
           quoteId: quote?.id,
           cruiseDate: leadData.cruiseDate,
           groupSize: leadData.groupSize
@@ -230,7 +219,54 @@ export class ComprehensiveLeadService {
         result.errors.push(`Google Sheets integration error: ${error.message}`);
       }
 
-      // 5. Create GoHighLevel contact with quote link custom fields
+      // 4.5. NEW STEP: Generate quote URL from Google Sheets data and update Column Q
+      if (result.integrations.googleSheets.success && quote) {
+        console.log('🔗 Step 4.5: Generating quote URL from Google Sheets data...');
+        try {
+          // Read back the complete lead data from Google Sheets (single source of truth)
+          const completeLeadResult = await googleSheetsService.getCompleteLeadData(leadId);
+          
+          if (completeLeadResult.success && completeLeadResult.leadData) {
+            console.log('✅ Retrieved complete lead data from Google Sheets');
+            
+            // Generate secure quote URL with leadId for complete data access
+            const secureQuoteUrl = quoteTokenService.generateSecureQuoteUrl(
+              quote.id,
+              undefined, // Use default base URL
+              {
+                leadId: leadId, // Include leadId so token can fetch complete data
+                scope: 'quote:view',
+                audience: 'customer'
+              }
+            );
+            
+            console.log('🔗 Generated secure quote URL from sheets data:', secureQuoteUrl);
+            
+            // Update Column Q in Google Sheets with the generated URL
+            const updateSuccess = await googleSheetsService.updateQuoteUrlInColumnQ(
+              leadId,
+              secureQuoteUrl
+            );
+            
+            if (updateSuccess) {
+              console.log('✅ Successfully updated Column Q with quote URL');
+              result.quoteUrl = secureQuoteUrl;
+              quoteUrl = secureQuoteUrl; // Update for use in notifications
+            } else {
+              console.error('❌ Failed to update Column Q with quote URL');
+              result.errors.push('Failed to update quote URL in Google Sheets');
+            }
+          } else {
+            console.error('❌ Failed to read complete lead data from Google Sheets');
+            result.errors.push('Failed to read lead data from Google Sheets for URL generation');
+          }
+        } catch (error: any) {
+          console.error('❌ Error generating quote URL from sheets data:', error);
+          result.errors.push(`Quote URL generation failed: ${error.message}`);
+        }
+      }
+
+      // 5. Create GoHighLevel contact with quote link custom fields (using the URL from Column Q)
       console.log('🎯 Step 5: Creating GoHighLevel contact with quote link...');
       try {
         const goHLContactId = await goHighLevelService.createLeadWithQuoteLink({
@@ -306,6 +342,47 @@ export class ComprehensiveLeadService {
       } else {
         console.log('ℹ️ Skipping email notification - missing quote, URL, or email address');
         console.log(`   Quote: ${!!quote}, URL: ${!!quoteUrl}, Email: ${!!leadData.email}`);
+      }
+
+      // 6.1. Send SMS notification with Column Q URL
+      if (quote && quoteUrl && leadData.phone) {
+        console.log('📱 Step 6.1: Sending SMS notification with Column Q URL...');
+        try {
+          // Import Twilio service
+          const { twilioService } = await import('./twilio');
+          
+          const quoteDetails = {
+            total: quote.total || 0
+          };
+          
+          console.log('📱 Sending Twilio SMS to:', leadData.phone);
+          console.log('🔗 CRITICAL: Using Column Q URL in SMS:', quoteUrl);
+          
+          // CRITICAL FIX: Use Column Q URL from Google Sheets for SMS
+          const smsSuccess = await twilioService.sendQuoteSMS(
+            leadData.phone,
+            leadData.name,
+            quote.id,
+            quoteDetails.total,
+            quoteUrl  // Pass Column Q URL to ensure consistency
+          );
+          
+          if (smsSuccess) {
+            result.integrations.smsNotification = { success: true };
+            console.log('✅ SMS notification sent successfully via Twilio with Column Q URL');
+          } else {
+            result.integrations.smsNotification = { success: false, error: 'Twilio SMS sending failed' };
+            result.errors.push('Twilio SMS notification failed');
+            console.error('❌ Twilio SMS notification failed');
+          }
+        } catch (error: any) {
+          console.error('❌ SMS notification error:', error);
+          result.integrations.smsNotification = { success: false, error: error.message };
+          result.errors.push(`SMS notification error: ${error.message}`);
+        }
+      } else {
+        console.log('ℹ️ Skipping SMS notification - missing quote, URL, or phone number');
+        console.log(`   Quote: ${!!quote}, URL: ${!!quoteUrl}, Phone: ${!!leadData.phone}`);
       }
 
       // 7. Determine overall success

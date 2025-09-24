@@ -42,8 +42,13 @@ export class TwilioService {
     }
   }
 
-  async sendQuoteSMS(phoneNumber: string, customerName: string, quoteId: string, total: number): Promise<boolean> {
-    const message = `Hi ${customerName}! 🚢 Your Premier Party Cruises quote is ready. Total: $${(total / 100).toFixed(2)}. View details: ${process.env.BASE_URL || 'http://localhost:5000'}/quote/${quoteId}`;
+  async sendQuoteSMS(phoneNumber: string, customerName: string, quoteId: string, total: number, quoteUrl?: string): Promise<boolean> {
+    // Use Column Q URL from Google Sheets if provided, otherwise fall back to constructed URL
+    const finalUrl = quoteUrl || `${process.env.BASE_URL || 'http://localhost:5000'}/quote/${quoteId}`;
+    const message = `Hi ${customerName}! 🚢 Your Premier Party Cruises quote is ready. Total: $${(total / 100).toFixed(2)}. View details: ${finalUrl}`;
+    
+    console.log('📱 SMS Quote URL being sent:', finalUrl);
+    console.log('📱 Using Column Q URL from Google Sheets:', !!quoteUrl);
     
     return await this.sendSMS(phoneNumber, message);
   }
