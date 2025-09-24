@@ -842,10 +842,11 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   const { isEditMode } = useInlineEdit();
   const params = useParams();
   
-  // Parse URL parameters to detect quote token
+  // Parse URL parameters to detect quote token or quote ID
   const urlParams = new URLSearchParams(window.location.search);
   const quoteToken = urlParams.get('quote'); // Look for ?quote={token}
-  const [isQuoteMode, setIsQuoteMode] = useState(Boolean(quoteToken));
+  const quoteId = params.id; // Look for /quote/{id} route parameter
+  const [isQuoteMode, setIsQuoteMode] = useState(Boolean(quoteToken || quoteId));
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [loadedQuoteData, setLoadedQuoteData] = useState<any>(null);
   const [quoteUrl, setQuoteUrl] = useState<string | null>(null);
@@ -1019,9 +1020,15 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   
   // Load quote data if we're in Quote Mode
   useEffect(() => {
-    if (quoteToken) {
+    if (quoteToken || quoteId) {
       setQuoteLoading(true);
-      fetch(`/api/quotes/public/${quoteToken}`)
+      
+      // Use different API endpoint based on whether we have a token or ID
+      const apiUrl = quoteToken 
+        ? `/api/quotes/public/${quoteToken}`  // Token-based access
+        : `/api/quotes/${quoteId}/public`;    // ID-based access
+      
+      fetch(apiUrl)
         .then(res => {
           if (!res.ok) throw new Error('Quote not found');
           return res.json();
@@ -1111,7 +1118,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
           setQuoteLoading(false);
         });
     }
-  }, [quoteToken, toast]);
+  }, [quoteToken, quoteId, toast]);
 
   // Direct first-come-first-served booking - no slot holds
 
@@ -1318,7 +1325,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   
   // Update quote via PATCH when selections change (for quote URLs)
   const updateQuoteSelections = useCallback(async () => {
-    if (!quoteToken || !formData.selectedCruiseType) return;
+    if ((!quoteToken && !quoteId) || !formData.selectedCruiseType) return;
     
     try {
       // Build selection details
@@ -1334,8 +1341,12 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         groupSizeLabel: formData.groupSizeLabel
       };
       
-      // Update the quote
-      const response = await fetch(`/api/quotes/public/${quoteToken}`, {
+      // Update the quote using appropriate endpoint
+      const apiUrl = quoteToken 
+        ? `/api/quotes/public/${quoteToken}`
+        : `/api/quotes/${quoteId}/public`;
+      
+      const response = await fetch(apiUrl, {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -1388,7 +1399,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   
   // Auto-update quote when selections change (for quote URLs)
   useEffect(() => {
-    if (!quoteToken || !formData.selectedCruiseType) return;
+    if ((!quoteToken && !quoteId) || !formData.selectedCruiseType) return;
     
     // Debounce updates to avoid too many API calls
     const timeoutId = setTimeout(() => {
@@ -1398,6 +1409,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     return () => clearTimeout(timeoutId);
   }, [
     quoteToken,
+    quoteId,
     formData.selectedCruiseType,
     formData.selectedSlot,
     formData.selectedAddOnPackages,
@@ -2243,12 +2255,16 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     }
     
     // NEW FLOW: Update existing quote if on quote URL
-    if (quoteToken) {
+    if (quoteToken || quoteId) {
       setFormSubmitting(true);
       
       try {
-        // Update the existing quote with contact info
-        const response = await fetch(`/api/quotes/public/${quoteToken}`, {
+        // Update the existing quote with contact info using appropriate endpoint
+        const apiUrl = quoteToken 
+          ? `/api/quotes/public/${quoteToken}`
+          : `/api/quotes/${quoteId}/public`;
+          
+        const response = await fetch(apiUrl, {
           method: 'PATCH',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({

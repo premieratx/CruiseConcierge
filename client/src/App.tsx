@@ -125,6 +125,9 @@ function Router() {
       {/* QuoteViewer DEACTIVATED - now using Chat.tsx flow only */}
       {/* <Route path="/q/:token" component={QuoteViewer} /> */}
       
+      {/* Quote display route - redirects to Chat with quote ID */}
+      <Route path="/quote/:id" component={Chat} />
+      
       {/* Admin Dashboard Routes */}
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/chat" component={Chat} />
