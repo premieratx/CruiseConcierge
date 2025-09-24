@@ -865,15 +865,20 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   const urlDate = urlParams.get('date'); // Format: YYYY-MM-DD (e.g., 2025-10-28)
   const urlParty = urlParams.get('party'); // Event type ID (e.g., bachelor, bachelorette)
   const urlPeople = urlParams.get('people'); // Group size (e.g., 25)
+  const urlContact = urlParams.get('contact'); // Contact flag (e.g., 'done' to skip modal)
   
   // Check if we have complete URL parameters for quote builder
   const hasUrlParameters = Boolean(urlDate && urlParty && urlPeople);
+  const hasContactDone = urlContact === 'done'; // Check if contact modal was already completed
   
   // Define hasValidQuoteToken to check if we have a valid quote token from URL
   const hasValidQuoteToken = Boolean(quoteToken);
   
   // Define hasValidUrlParams to check if we have valid direct URL parameters
   const hasValidUrlParams = hasUrlParameters;
+  
+  // Check if modal should be bypassed (contact=done flag is present)
+  const shouldBypassModal = hasContactDone;
   
   const [isQuoteMode, setIsQuoteMode] = useState(Boolean(quoteToken || quoteId));
   const [quoteLoading, setQuoteLoading] = useState(false);
@@ -918,7 +923,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   const [showComparison, setShowComparison] = useState(false);
   const [showBookingConfirmation, setShowBookingConfirmation] = useState(false);
   const [showContactInfoModal, setShowContactInfoModal] = useState(false);
-  const [contactInfoModalCompleted, setContactInfoModalCompleted] = useState(hasValidQuoteToken || hasValidUrlParams); // Bypass modal immediately if we have a valid quote token or URL parameters
+  const [contactInfoModalCompleted, setContactInfoModalCompleted] = useState(hasValidQuoteToken || shouldBypassModal); // Bypass modal immediately if we have a valid quote token or contact=done flag
   const [pendingPaymentType, setPendingPaymentType] = useState<'deposit' | 'full' | null>(null);
   const [showDateChangeDialog, setShowDateChangeDialog] = useState(false);
   const [pendingCruiseType, setPendingCruiseType] = useState<'private' | 'disco' | null>(null);
@@ -1199,7 +1204,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   // NEW: Load quote data from direct URL parameters (date, party, people)
   useEffect(() => {
     if (hasValidUrlParams && !quoteToken && !quoteId) {
-      console.log('🔍 Detected URL parameters for quote builder:', { date: urlDate, party: urlParty, people: urlPeople });
+      console.log('🔍 Detected URL parameters for quote builder:', { date: urlDate, party: urlParty, people: urlPeople, contact: urlContact });
       setQuoteLoading(true);
       
       try {
@@ -1245,8 +1250,8 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         setFormData(prev => ({
           ...prev,
           eventType: urlParty!,
-          eventTypeLabel: eventConfig.label,
-          eventEmoji: eventConfig.emoji,
+          eventTypeLabel: validEventConfig.label,
+          eventEmoji: validEventConfig.emoji,
           eventDate: parsedDate,
           groupSize: parsedPeople,
         }));
@@ -1262,8 +1267,8 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
           {
             id: 'event',
             label: 'Event Type',
-            value: eventConfig.label,
-            emoji: eventConfig.emoji
+            value: validEventConfig.label,
+            emoji: validEventConfig.emoji
           },
           {
             id: 'group',
@@ -1276,9 +1281,17 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         setCompletedSelections(selections);
         setIsQuoteMode(true);
         
-        // Complete modal bypass - skip directly to comparison view with all parameters set
-        console.log('🚀 Bypassing contact modal and jumping to live quote view');
-        setContactInfoModalCompleted(true);
+        // Check for contact=done flag to bypass modal
+        if (hasContactDone) {
+          console.log('✅ Contact modal bypass flag detected (contact=done), skipping modal');
+          setContactInfoModalCompleted(true);
+        } else {
+          console.log('⚠️ No contact=done flag, modal will show when needed');
+          setContactInfoModalCompleted(false);
+        }
+        
+        // Skip directly to comparison view with all parameters set
+        console.log('🚀 Jumping to live quote view with URL parameters');
         setCurrentStep('comparison-selection');
         setEventTypeCollapsed(true);
         setShowGroupSize(true);
@@ -1298,7 +1311,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         setQuoteLoading(false);
       }
     }
-  }, [urlDate, urlParty, urlPeople, hasValidUrlParams, quoteToken, quoteId, toast]);
+  }, [urlDate, urlParty, urlPeople, urlContact, hasValidUrlParams, hasContactDone, quoteToken, quoteId, toast]);
 
   // Direct first-come-first-served booking - no slot holds
 
@@ -1427,9 +1440,9 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   }, [partialLeadSaved, chatSessionId]);
 
   // Show contact info modal when comparison view is shown (0.5 second delay for FOMO effect)
-  // Only show if not already completed/dismissed and not accessing via quote token or URL parameters
+  // Only show if not already completed/dismissed and not accessing via quote token, URL parameters, or contact=done flag
   useEffect(() => {
-    if (showComparison && !showContactInfoModal && !contactInfoModalCompleted && !hasValidQuoteToken && !hasValidUrlParams) {
+    if (showComparison && !showContactInfoModal && !contactInfoModalCompleted && !hasValidQuoteToken && !shouldBypassModal) {
       // CRITICAL: Capture quote snapshot BEFORE modal opens
       quoteSnapshotRef.current = {
         eventDetails: {
@@ -1480,7 +1493,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       
       return () => clearTimeout(timer);
     }
-  }, [showComparison, showContactInfoModal, contactInfoModalCompleted, hasValidQuoteToken, hasValidUrlParams, formData, completedSelections, discoPricing, privatePricing]);
+  }, [showComparison, showContactInfoModal, contactInfoModalCompleted, hasValidQuoteToken, shouldBypassModal, formData, completedSelections, discoPricing, privatePricing]);
 
   // Navigation functions for the new 2-step flow
   const goToStep = (step: ChatFlowStep) => {

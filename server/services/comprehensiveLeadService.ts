@@ -248,50 +248,78 @@ export class ComprehensiveLeadService {
         result.errors.push(`Google Sheets integration error: ${error.message}`);
       }
 
-      // 4.5. NEW STEP: Generate quote URL from Google Sheets data and update Column Q
+      // 4.5. NEW STEP: Generate simple parameter URL and update Column Q
       if (result.integrations.googleSheets.success && quote) {
-        console.log('🔗 Step 4.5: Generating quote URL from Google Sheets data...');
+        console.log('🔗 Step 4.5: Generating simple parameter URL...');
         try {
-          // 🎯 CRITICAL FIX: Don't fetch stale lead data from Google Sheets - use our fresh quote data
-          // The Google Sheets might have old/stale groupSize that would override our correct quote
-          console.log('🔗 Using fresh quote data instead of potentially stale Google Sheets data');
+          // 🎯 CRITICAL FIX: Generate simple parameter URL instead of token URL
+          console.log('🔗 Creating human-readable parameter URL with event details');
           
-          // 🎯 CRITICAL DEBUG: Log that we're skipping Google Sheets data retrieval
-          console.log("🔍 GROUPSIZE TRACK - SKIPPING GOOGLE SHEETS RETRIEVAL:", {
-            reason: "Prevent stale groupSize override",
-            usingQuoteGroupSize: quote.eventDetails?.groupSize,
-            timestamp: new Date().toISOString()
-          });
-            
-            // Generate secure quote URL with leadId for complete data access
-            const secureQuoteUrl = quoteTokenService.generateSecureQuoteUrl(
-              quote.id,
-              undefined, // Use default base URL
-              {
-                leadId: leadId, // Include leadId so token can fetch complete data
-                scope: 'quote:view',
-                audience: 'customer'
-              }
-            );
-            
-            console.log('🔗 Generated secure quote URL from sheets data:', secureQuoteUrl);
-            
-            // Update Column Q in Google Sheets with the generated URL
-            const updateSuccess = await googleSheetsService.updateQuoteUrlInColumnQ(
-              leadId,
-              secureQuoteUrl
-            );
-            
-            if (updateSuccess) {
-              console.log('✅ Successfully updated Column Q with quote URL');
-              result.quoteUrl = secureQuoteUrl;
-              quoteUrl = secureQuoteUrl; // Update for use in notifications
-            } else {
-              console.error('❌ Failed to update Column Q with quote URL');
-              result.errors.push('Failed to update quote URL in Google Sheets');
+          // Format the date as YYYY-MM-DD
+          let formattedDate = '';
+          if (leadData.cruiseDate) {
+            const dateObj = new Date(leadData.cruiseDate);
+            if (!isNaN(dateObj.getTime())) {
+              const year = dateObj.getFullYear();
+              const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+              const day = String(dateObj.getDate()).padStart(2, '0');
+              formattedDate = `${year}-${month}-${day}`;
             }
+          }
+          
+          // Get the event type (lowercase, no spaces)
+          const eventType = (leadData.eventType || 'cruise').toLowerCase().replace(/\s+/g, '');
+          
+          // Get the group size
+          const groupSize = leadData.groupSize || quote.eventDetails?.groupSize || 1;
+          
+          // Build URL parameters
+          const params = new URLSearchParams();
+          
+          // Add date parameter if we have it
+          if (formattedDate) {
+            params.append('date', formattedDate);
+          }
+          
+          // Add party type parameter
+          params.append('party', eventType);
+          
+          // Add people count parameter
+          params.append('people', String(groupSize));
+          
+          // Add contact=done to signal modal bypass
+          params.append('contact', 'done');
+          
+          // Generate the full URL
+          const baseUrl = getPublicUrl();
+          const simpleQuoteUrl = `${baseUrl}/chat?${params.toString()}`;
+          
+          console.log('🔗 Generated simple parameter URL:', {
+            url: simpleQuoteUrl,
+            parameters: {
+              date: formattedDate || 'not set',
+              party: eventType,
+              people: groupSize,
+              contact: 'done'
+            }
+          });
+          
+          // Update Column Q in Google Sheets with the generated URL
+          const updateSuccess = await googleSheetsService.updateQuoteUrlInColumnQ(
+            leadId,
+            simpleQuoteUrl
+          );
+          
+          if (updateSuccess) {
+            console.log('✅ Successfully updated Column Q with simple parameter URL');
+            result.quoteUrl = simpleQuoteUrl;
+            quoteUrl = simpleQuoteUrl; // Update for use in notifications
+          } else {
+            console.error('❌ Failed to update Column Q with quote URL');
+            result.errors.push('Failed to update quote URL in Google Sheets');
+          }
         } catch (error: any) {
-          console.error('❌ Error generating quote URL from sheets data:', error);
+          console.error('❌ Error generating simple parameter URL:', error);
           result.errors.push(`Quote URL generation failed: ${error.message}`);
         }
       }

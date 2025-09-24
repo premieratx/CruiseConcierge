@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test URL Parameter Quote Builder</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+        .test-section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .test-section h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .test-link {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            background: #f5f5f5;
+            border-radius: 3px;
+            text-decoration: none;
+            color: #0066cc;
+        }
+        .test-link:hover {
+            background: #e8e8e8;
+        }
+        .description {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .success { color: green; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>🧪 URL Parameter Quote Builder Test Suite</h1>
+
+    <div class="test-section">
+        <h2>✅ Test Case 1: Complete URL with contact=done (Modal Bypass)</h2>
+        <p class="description">
+            This link should bypass the contact modal completely and show the quote immediately
+        </p>
+        <a href="/chat?date=2025-11-15&party=birthday&people=30&contact=done" class="test-link" target="_blank">
+            /chat?date=2025-11-15&party=birthday&people=30&contact=done
+        </a>
+        <p class="description">Expected: Quote loads immediately without showing contact modal</p>
+    </div>
+
+    <div class="test-section">
+        <h2>📝 Test Case 2: URL without contact flag (Modal Should Show)</h2>
+        <p class="description">
+            This link should show the contact modal after a short delay
+        </p>
+        <a href="/chat?date=2025-12-20&party=bachelor&people=25" class="test-link" target="_blank">
+            /chat?date=2025-12-20&party=bachelor&people=25
+        </a>
+        <p class="description">Expected: Quote loads but modal appears after 0.5 seconds</p>
+    </div>
+
+    <div class="test-section">
+        <h2>🎉 Test Case 3: Different Event Types with contact=done</h2>
+        <a href="/chat?date=2025-10-10&party=bachelorette&people=20&contact=done" class="test-link" target="_blank">
+            Bachelorette Party (20 people)
+        </a>
+        <a href="/chat?date=2025-09-15&party=corporate&people=50&contact=done" class="test-link" target="_blank">
+            Corporate Event (50 people)
+        </a>
+        <a href="/chat?date=2025-08-22&party=birthday&people=15&contact=done" class="test-link" target="_blank">
+            Birthday Party (15 people)
+        </a>
+        <p class="description">Expected: All load immediately without modal, with correct event types</p>
+    </div>
+
+    <div class="test-section">
+        <h2>🔍 Test Case 4: Edge Cases</h2>
+        <a href="/chat?date=invalid&party=birthday&people=30&contact=done" class="test-link" target="_blank">
+            Invalid Date Format
+        </a>
+        <a href="/chat?date=2025-11-15&party=invalid&people=30&contact=done" class="test-link" target="_blank">
+            Invalid Party Type
+        </a>
+        <a href="/chat?date=2025-11-15&party=birthday&people=999&contact=done" class="test-link" target="_blank">
+            Invalid Group Size (999)
+        </a>
+        <p class="description">Expected: Graceful fallback to normal flow</p>
+    </div>
+
+    <div class="test-section">
+        <h2>📋 Test Instructions:</h2>
+        <ol>
+            <li>Click each test link above</li>
+            <li>Verify the expected behavior occurs</li>
+            <li>Note any issues or unexpected behavior</li>
+            <li>Check browser console for any errors</li>
+        </ol>
+        
+        <h3>What to Look For:</h3>
+        <ul>
+            <li class="success">✓ Links with contact=done should NOT show the contact modal</li>
+            <li class="success">✓ Date, party type, and group size should populate correctly</li>
+            <li class="success">✓ Availability should load for the selected date</li>
+            <li class="success">✓ URL should be preserved after navigation</li>
+            <li class="error">✗ Watch for any JavaScript errors in console</li>
+            <li class="error">✗ Check if modal appears when it shouldn't</li>
+        </ul>
+    </div>
+
+    <div class="test-section">
+        <h2>🔗 Manual Test: ContactInfoModal Flow</h2>
+        <p class="description">
+            To test the ContactInfoModal URL generation:
+        </p>
+        <ol>
+            <li>Go to <a href="/chat" target="_blank">/chat</a></li>
+            <li>Select a date, event type, and group size</li>
+            <li>Wait for the contact modal to appear</li>
+            <li>Fill in the form and submit</li>
+            <li>Check that the URL updates to include all 4 parameters with contact=done</li>
+            <li>Copy the URL and open it in a new tab - modal should NOT appear</li>
+        </ol>
+    </div>
+
+    <script>
+        console.log('Test page loaded. Click the links to test URL parameter functionality.');
+        
+        // Log current URL parameters if any
+        const params = new URLSearchParams(window.location.search);
+        if (params.toString()) {
+            console.log('Current URL parameters:', Object.fromEntries(params));
+        }
+    </script>
+</body>
+</html>

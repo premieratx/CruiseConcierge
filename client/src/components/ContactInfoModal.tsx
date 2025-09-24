@@ -190,32 +190,37 @@ export function ContactInfoModal({
       });
       console.log('✅ Success toast shown');
       
-      // Use server-provided quote URL from API response (server handles secure token generation)
-      if (data.publicUrl) {
-        console.log('🔗 Using server-provided quote URL:', data.publicUrl);
-        try {
-          const url = new URL(data.publicUrl);
-          const pathWithQuery = url.pathname + url.search;
-          setLocation(pathWithQuery);
-          console.log('✅ Browser URL updated with server quote URL successfully');
-        } catch (error) {
-          console.error('❌ Error updating browser URL with server quote URL:', error);
-          // Fallback to basic parameters if URL parsing fails
-          if (eventDetails.eventDate && eventDetails.eventType && eventDetails.groupSize) {
-            const fallbackUrl = `/chat?date=${eventDetails.eventDate.toISOString().split('T')[0]}&party=${eventDetails.eventType}&people=${eventDetails.groupSize}`;
-            setLocation(fallbackUrl);
-            console.log('✅ Using fallback URL with basic parameters');
-          }
-        }
-      } else {
-        console.warn('⚠️ No publicUrl received from server, using fallback parameters');
-        // Fallback to basic parameters if no server URL provided
-        if (eventDetails.eventDate && eventDetails.eventType && eventDetails.groupSize) {
-          const fallbackUrl = `/chat?date=${eventDetails.eventDate.toISOString().split('T')[0]}&party=${eventDetails.eventType}&people=${eventDetails.groupSize}`;
-          setLocation(fallbackUrl);
-          console.log('✅ Using fallback URL with basic parameters');
-        }
+      // Build URL with required parameters for quote sharing
+      // Format: /chat?date=YYYY-MM-DD&party=TYPE&people=NUMBER&contact=done
+      const params = new URLSearchParams();
+      
+      // Add date parameter
+      if (eventDetails.eventDate) {
+        const dateStr = format(eventDetails.eventDate, 'yyyy-MM-dd');
+        params.set('date', dateStr);
       }
+      
+      // Add party type parameter
+      if (eventDetails.eventType) {
+        params.set('party', eventDetails.eventType);
+      }
+      
+      // Add people count parameter
+      const peopleCount = getEffectivePeopleCount(
+        selectionDetails.cruiseType || 'private',
+        eventDetails.groupSize,
+        selectionDetails.ticketQuantity
+      );
+      params.set('people', peopleCount.toString());
+      
+      // Add contact=done flag to indicate modal was completed
+      params.set('contact', 'done');
+      
+      // Navigate to the URL with parameters
+      const urlWithParams = `/chat?${params.toString()}`;
+      console.log('🔗 Navigating to URL with parameters:', urlWithParams);
+      setLocation(urlWithParams);
+      console.log('✅ Browser URL updated with parameters successfully');
       
       // Close the modal - user now sees their quote with the updated URL
       if (onClose) {
