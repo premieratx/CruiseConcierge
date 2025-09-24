@@ -2454,26 +2454,6 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       const result = await response.json();
       
       if (result.success && result.publicUrl) {
-        // Use the returned publicUrl directly instead of constructing our own
-        const generatedQuoteUrl = result.publicUrl;
-        
-        // Store the quote URL and IDs from the response
-        setQuoteUrl(generatedQuoteUrl);
-        setGeneratedQuoteId(result.quoteId || result.contactId);
-        setShowQuoteConfirmation(true);
-        
-        // Show success toast with the quote URL
-        toast({
-          title: 'Quote Created Successfully! 🎉',
-          description: (
-            <div className="space-y-2">
-              <p>Your quote has been sent to {formData.email}</p>
-              <p className="text-sm">Redirecting to your quote...</p>
-            </div>
-          ) as any,
-          duration: 3000
-        });
-        
         // Log successful creation with all returned IDs
         console.log('✅ Quote Builder Lead created successfully:', {
           contactId: result.contactId,
@@ -2482,10 +2462,15 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
           publicUrl: result.publicUrl
         });
         
-        // Redirect to the quote page using the returned publicUrl
-        setTimeout(() => {
-          window.location.href = generatedQuoteUrl;
-        }, 2000); // Give time for toast to show
+        // Show success toast - user stays on current quote
+        toast({
+          title: 'Quote Sent! 🎉',
+          description: `Your quote has been sent to ${formData.email}`,
+          duration: 4000
+        });
+        
+        // Set completion flag to close modal
+        setContactCompletionFlag(true);
       } else {
         throw new Error(result.error || result.message || 'Failed to create quote');
       }

@@ -130,6 +130,8 @@ function Router() {
       
       {/* Admin Dashboard Routes */}
       <Route path="/dashboard" component={Dashboard} />
+      <Route path="/admin" component={Dashboard} />
+      <Route path="/admin/leads" component={Leads} />
       <Route path="/chat" component={Chat} />
       <Route path="/leads" component={Leads} />
       <Route path="/customers/:id" component={CustomerProfile} />
