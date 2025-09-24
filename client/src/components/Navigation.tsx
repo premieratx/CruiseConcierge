@@ -7,7 +7,7 @@ import {
   DollarSign, Settings, Ship, TrendingUp, Mail, Phone,
   ChevronDown, Plus, Search, Bell, User, LogOut, Building,
   CreditCard, Briefcase, Star, FileBarChart, Database, ArrowLeft, Home,
-  AlertCircle, Code, UserCheck, FolderOpen, Receipt, BookOpen, Image, BarChart3
+  AlertCircle, Code, UserCheck, FolderOpen, Receipt, BookOpen, Image, BarChart3, Bot
 } from 'lucide-react';
 import {
   DropdownMenu,
@@ -85,6 +85,12 @@ const mainNavItems = [
     href: '/admin/ai-assistant',
     icon: Code,
     description: 'AI-powered coding and admin assistance with GPT-5',
+  },
+  {
+    title: 'Agent Chat',
+    href: '/admin/agent-chat',
+    icon: Bot,
+    description: 'AI agent that can perform backend tasks: blog posts, database queries, file operations',
   },
 ];
 

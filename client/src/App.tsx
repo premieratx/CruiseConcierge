@@ -50,6 +50,9 @@ import Pricing from "./pages/admin/Pricing";
 // Admin AI Assistant
 import AIAssistant from "./pages/admin/AIAssistant";
 
+// Admin Agent Chat
+import AgentChat from "./pages/admin/AgentChat";
+
 // Landing Pages
 import BachelorParty from "./pages/BachelorParty";
 import BacheloretteParty from "./pages/BacheloretteParty";
@@ -176,6 +179,9 @@ function Router() {
       
       {/* Admin AI Assistant */}
       <Route path="/admin/ai-assistant" component={AIAssistant} />
+      
+      {/* Admin Agent Chat */}
+      <Route path="/admin/agent-chat" component={AgentChat} />
       
       {/* AI Media Library */}
       <Route path="/admin/media" component={lazy(() => import('./pages/admin/MediaLibrary'))} />

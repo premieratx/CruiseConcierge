@@ -422,12 +422,9 @@ export class ToolExecutor {
   private async executeFilesystemTool(toolName: string, args: any): Promise<Omit<ExecutionResult, 'executionTime'>> {
     switch (toolName) {
       case 'file_read':
-        try {
-          const content = await fs.readFile(args.filePath, args.encoding || 'utf8');
-          return { success: true, data: { content, filePath: args.filePath } };
-        } catch (error: any) {
-          return { success: false, error: error.message };
-        }
+        // SECURITY: File reading tool disabled due to security vulnerability
+        // Previously allowed reading any file on server - potential data exfiltration risk
+        return { success: false, error: "File reading tool disabled for security" };
 
       case 'file_write':
         try {

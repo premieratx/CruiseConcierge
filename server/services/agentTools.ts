@@ -205,39 +205,9 @@ export const databaseTools: AgentToolDefinition[] = [
  * FILE SYSTEM OPERATIONS TOOLS
  */
 export const filesystemTools: AgentToolDefinition[] = [
-  {
-    name: 'file_read',
-    description: 'Read contents of a file',
-    category: 'filesystem',
-    functionSchema: {
-      name: 'file_read',
-      description: 'Read the contents of a file from the filesystem',
-      parameters: {
-        type: 'object',
-        properties: {
-          filePath: {
-            type: 'string',
-            description: 'Relative or absolute path to the file'
-          },
-          encoding: {
-            type: 'string',
-            enum: ['utf8', 'base64', 'binary'],
-            default: 'utf8',
-            description: 'File encoding'
-          }
-        },
-        required: ['filePath']
-      }
-    },
-    implementation: {
-      handlerFunction: 'readFile',
-      module: 'filesystem',
-      requiresAuth: true,
-      rateLimit: 100,
-      dangerLevel: 'safe',
-      allowedEnvironments: ['development', 'staging', 'production']
-    }
-  },
+  // SECURITY: file_read tool removed due to security vulnerability
+  // Previously allowed reading any file on server - potential data exfiltration risk
+  // If file reading is needed in the future, implement with strict allowlisting
   {
     name: 'file_write',
     description: 'Write content to a file',

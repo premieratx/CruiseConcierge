@@ -55,27 +55,9 @@ export class QuickAgentService {
       }
     });
 
-    // File System Tool
-    this.tools.set("read_file", {
-      name: "read_file", 
-      description: "Read content from a file",
-      schema: {
-        type: "object",
-        properties: {
-          path: { type: "string", description: "File path to read" }
-        },
-        required: ["path"]
-      },
-      handler: async (args) => {
-        try {
-          const fs = await import("fs/promises");
-          const content = await fs.readFile(args.path, "utf-8");
-          return { success: true, data: { content, path: args.path }, message: `File ${args.path} read successfully` };
-        } catch (error: any) {
-          return { success: false, error: error.message };
-        }
-      }
-    });
+    // SECURITY: File reading tool removed due to security vulnerability
+    // Previously allowed reading any file on server - potential data exfiltration risk
+    // If file reading is needed in the future, implement with strict allowlisting
 
     // Database Query Tool
     this.tools.set("database_query", {

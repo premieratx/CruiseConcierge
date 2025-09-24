@@ -15,7 +15,8 @@ export async function apiRequest(
   // Add admin dev token for admin routes during development
   const isAdminRoute = url.includes('/api/quotes') || url.includes('/api/admin') || 
                        url.includes('/api/contacts') || url.includes('/api/projects') ||
-                       url.includes('/api/invoices') || url.includes('/api/media');
+                       url.includes('/api/invoices') || url.includes('/api/media') ||
+                       url.includes('/api/agent/chat'); // SECURITY: Include agent chat routes
   
   const headers: Record<string, string> = {
     ...(data ? { "Content-Type": "application/json" } : {}),
@@ -44,7 +45,8 @@ export const getQueryFn: <T>(options: {
     // Add admin dev token for admin routes during development
     const isAdminRoute = url.includes('/api/quotes') || url.includes('/api/admin') || 
                          url.includes('/api/contacts') || url.includes('/api/projects') ||
-                         url.includes('/api/invoices') || url.includes('/api/media');
+                         url.includes('/api/invoices') || url.includes('/api/media') ||
+                         url.includes('/api/agent/chat'); // SECURITY: Include agent chat routes
     
     const headers: Record<string, string> = {
       ...(isAdminRoute ? { "Authorization": "Bearer admin-dev-token" } : {})

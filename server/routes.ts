@@ -17135,6 +17135,156 @@ Provide comprehensive validation with specific recommendations for improvement.`
   });
 
   // ==========================================
+  // AGENT CHAT SYSTEM ENDPOINTS - SECURED
+  // ==========================================
+
+  // Zod schemas for agent chat validation
+  const agentChatSessionCreateSchema = z.object({
+    title: z.string().min(1, "Session title is required").max(100, "Title too long")
+  });
+
+  const agentChatMessageSchema = z.object({
+    sessionId: z.string().min(1, "Session ID is required"),
+    message: z.string().min(1, "Message cannot be empty").max(4000, "Message too long")
+  });
+
+  // Rate limiting helper for agent chat
+  const agentChatRateLimit = new Map<string, { count: number; resetTime: number }>();
+  const RATE_LIMIT_WINDOW = 60000; // 1 minute
+  const RATE_LIMIT_MAX_REQUESTS = 30; // 30 requests per minute
+
+  const checkRateLimit = (userKey: string): boolean => {
+    const now = Date.now();
+    const userLimit = agentChatRateLimit.get(userKey);
+    
+    if (!userLimit || now > userLimit.resetTime) {
+      agentChatRateLimit.set(userKey, { count: 1, resetTime: now + RATE_LIMIT_WINDOW });
+      return true;
+    }
+    
+    if (userLimit.count >= RATE_LIMIT_MAX_REQUESTS) {
+      return false;
+    }
+    
+    userLimit.count++;
+    return true;
+  };
+
+  // Audit logging helper
+  const auditLog = async (action: string, userId: string, details?: any) => {
+    try {
+      console.log(`🔒 AUDIT LOG: ${action} by ${userId}`, details ? JSON.stringify(details) : '');
+      // TODO: Store in database for production
+    } catch (error) {
+      console.error('Audit logging failed:', error);
+    }
+  };
+
+  // Get user's chat sessions - SECURED
+  app.get('/api/agent/chat/sessions', requireAdminAuth, async (req, res) => {
+    try {
+      const userId = req.adminUser!.id; // Get from authenticated session
+      
+      // Rate limiting
+      if (!checkRateLimit(`sessions_${userId}`)) {
+        return res.status(429).json({ error: 'Rate limit exceeded. Please try again later.' });
+      }
+      
+      await auditLog('agent_chat_sessions_list', userId);
+      
+      const quickAgent = await import('./services/quickAgentService');
+      const sessions = await quickAgent.quickAgentService.getUserSessions(userId);
+      res.json(sessions);
+    } catch (error: any) {
+      console.error('Get agent chat sessions error:', error);
+      res.status(500).json({ error: 'Failed to fetch chat sessions', details: error.message });
+    }
+  });
+
+  // Create new chat session - SECURED
+  app.post('/api/agent/chat/sessions', requireAdminAuth, async (req, res) => {
+    try {
+      // Validate request body
+      const validatedData = agentChatSessionCreateSchema.parse(req.body);
+      const { title } = validatedData;
+      
+      const userId = req.adminUser!.id; // Get from authenticated session
+      
+      // Rate limiting
+      if (!checkRateLimit(`create_session_${userId}`)) {
+        return res.status(429).json({ error: 'Rate limit exceeded. Please try again later.' });
+      }
+      
+      await auditLog('agent_chat_session_create', userId, { title });
+      const quickAgent = await import('./services/quickAgentService');
+      const sessionId = await quickAgent.quickAgentService.createChatSession(userId, title);
+      
+      res.status(201).json({ 
+        sessionId,
+        title,
+        status: 'active',
+        createdAt: new Date().toISOString()
+      });
+    } catch (error: any) {
+      console.error('Create agent chat session error:', error);
+      res.status(500).json({ error: 'Failed to create chat session', details: error.message });
+    }
+  });
+
+  // Send message and get AI response - SECURED
+  app.post('/api/agent/chat/message', requireAdminAuth, async (req, res) => {
+    try {
+      // Validate request body
+      const validatedData = agentChatMessageSchema.parse(req.body);
+      const { sessionId, message } = validatedData;
+      
+      const userId = req.adminUser!.id; // Get from authenticated session
+      
+      // Rate limiting
+      if (!checkRateLimit(`send_message_${userId}`)) {
+        return res.status(429).json({ error: 'Rate limit exceeded. Please try again later.' });
+      }
+      
+      await auditLog('agent_chat_message_send', userId, { sessionId, messageLength: message.length });
+
+      const quickAgent = await import('./services/quickAgentService');
+      const response = await quickAgent.quickAgentService.processMessage(sessionId, message);
+      
+      res.json({
+        content: response.content,
+        toolCalls: response.toolCalls || [],
+        timestamp: new Date().toISOString()
+      });
+    } catch (error: any) {
+      console.error('Agent chat message error:', error);
+      res.status(500).json({ error: 'Failed to process message', details: error.message });
+    }
+  });
+
+  // Get chat history for a session - SECURED
+  app.get('/api/agent/chat/:sessionId/history', requireAdminAuth, async (req, res) => {
+    try {
+      const { sessionId } = req.params;
+      const userId = req.adminUser!.id; // Get from authenticated session
+      
+      // Rate limiting
+      if (!checkRateLimit(`history_${userId}`)) {
+        return res.status(429).json({ error: 'Rate limit exceeded. Please try again later.' });
+      }
+      
+      await auditLog('agent_chat_history_access', userId, { sessionId });
+      
+      const quickAgent = await import('./services/quickAgentService');
+      const messages = await quickAgent.quickAgentService.getChatHistory(sessionId);
+      
+      res.json(messages);
+    } catch (error: any) {
+      console.error('Get agent chat history error:', error);
+      res.status(500).json({ error: 'Failed to fetch chat history', details: error.message });
+    }
+  });
+
+  // ==========================================
   // VERIFICATION AND TESTING ENDPOINTS 
   // AUTOMATED VERIFICATION TO PROVE PRODUCTION READINESS
   // ==========================================
