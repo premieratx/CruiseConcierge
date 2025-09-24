@@ -257,14 +257,23 @@ export class ComprehensiveLeadService {
           console.log('🔗 Creating human-readable parameter URL with event details');
           
           // Format the date as YYYY-MM-DD
+          // CRITICAL FIX: Parse date carefully to avoid timezone issues
           let formattedDate = '';
           if (leadData.cruiseDate) {
-            const dateObj = new Date(leadData.cruiseDate);
-            if (!isNaN(dateObj.getTime())) {
-              const year = dateObj.getFullYear();
-              const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-              const day = String(dateObj.getDate()).padStart(2, '0');
-              formattedDate = `${year}-${month}-${day}`;
+            // If cruiseDate is already in YYYY-MM-DD format, use it directly
+            if (typeof leadData.cruiseDate === 'string' && /^\d{4}-\d{2}-\d{2}/.test(leadData.cruiseDate)) {
+              // Extract just the date part (YYYY-MM-DD) in case it has time component
+              formattedDate = leadData.cruiseDate.split('T')[0];
+            } else {
+              // If it's a Date object or ISO string with time, extract local date components
+              const dateObj = new Date(leadData.cruiseDate);
+              if (!isNaN(dateObj.getTime())) {
+                // Use local date methods to preserve the intended date
+                const year = dateObj.getFullYear();
+                const month = String(dateObj.getMonth() + 1).padStart(2, '0');
+                const day = String(dateObj.getDate()).padStart(2, '0');
+                formattedDate = `${year}-${month}-${day}`;
+              }
             }
           }
           

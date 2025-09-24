@@ -1235,7 +1235,18 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       
       try {
         // Validate and parse URL parameters
-        const parsedDate = new Date(urlDate!);
+        // CRITICAL FIX: Parse date as local date, not UTC
+        // When given "YYYY-MM-DD", new Date() interprets it as UTC midnight
+        // We need to parse it as local date instead
+        let parsedDate: Date;
+        if (urlDate && /^\d{4}-\d{2}-\d{2}/.test(urlDate)) {
+          // Parse YYYY-MM-DD as local date components
+          const [year, month, day] = urlDate.split('-').map(Number);
+          parsedDate = new Date(year, month - 1, day); // month is 0-indexed in Date constructor
+        } else {
+          // Fallback for other formats
+          parsedDate = new Date(urlDate!);
+        }
         const parsedPeople = parseInt(urlPeople!, 10);
         
         // Enhanced validation: gracefully fall back to normal flow instead of showing error toasts
