@@ -212,7 +212,7 @@ export async function createQuoteFromChat(app: Express) {
       }
 
       // Send email notification with quote link
-      const fullQuoteUrl = `${process.env.PUBLIC_URL || 'https://cruise-concierge-brian-hill.replit.app'}/q/${result.quote.accessToken}`;
+      const fullQuoteUrl = getQuoteUrl(result.quote.accessToken);
       
       try {
         // Send email with the full quote URL

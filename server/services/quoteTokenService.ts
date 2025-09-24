@@ -124,37 +124,34 @@ export class QuoteTokenService {
   generateSecureQuoteUrl(quoteId: string, baseUrl?: string, options: QuoteTokenOptions = {}): string {
     const token = this.generateSecureToken(quoteId, options);
     
-    // Determine the base URL with fallbacks
+    // Determine the base URL with fallbacks (consistent with getPublicUrl logic)
     let effectiveBaseUrl = baseUrl || '';
     
     if (!effectiveBaseUrl) {
-      // Fallback 1: Try environment variables
+      // Priority 1: REPLIT_DEV_DOMAIN (most reliable in Replit)
       if (process.env.REPLIT_DEV_DOMAIN) {
         effectiveBaseUrl = `https://${process.env.REPLIT_DEV_DOMAIN}`;
-      } else if (process.env.BASE_URL) {
+      } 
+      // Priority 2: BASE_URL if configured
+      else if (process.env.BASE_URL) {
         effectiveBaseUrl = process.env.BASE_URL;
-      } else if (process.env.REPLIT_DOMAINS) {
+      } 
+      // Priority 3: REPLIT_DOMAINS (production deployment)
+      else if (process.env.REPLIT_DOMAINS) {
         const domain = process.env.REPLIT_DOMAINS.split(',')[0];
         effectiveBaseUrl = `https://${domain}`;
       }
+      // Final fallback: known Replit app URL
+      else {
+        effectiveBaseUrl = 'https://cruise-concierge-brian-hill.replit.app';
+      }
     }
     
-    // Clean the base URL
+    // Clean the base URL (remove trailing slash)
     const cleanBaseUrl = effectiveBaseUrl.replace(/\/$/, '');
     
-    if (!cleanBaseUrl) {
-      console.error('❌ CRITICAL: No base URL available for quote URL generation');
-      console.error('Available env vars:', {
-        REPLIT_DEV_DOMAIN: process.env.REPLIT_DEV_DOMAIN,
-        BASE_URL: process.env.BASE_URL,
-        REPLIT_DOMAINS: process.env.REPLIT_DOMAINS,
-        providedBaseUrl: baseUrl
-      });
-      // In case of complete failure, return a relative URL that might work
-      return `/quote/${encodeURIComponent(quoteId)}?token=${encodeURIComponent(token)}`;
-    }
-    
-    const url = `${cleanBaseUrl}/quote/${encodeURIComponent(quoteId)}?token=${encodeURIComponent(token)}`;
+    // Use /q/ path (consistent with other parts of the app)
+    const url = `${cleanBaseUrl}/q/${encodeURIComponent(token)}`;
     
     console.log('🔗 Generated secure quote URL:', {
       quoteId,
@@ -163,7 +160,10 @@ export class QuoteTokenService {
       isFullUrl: url.startsWith('http'),
       scope: options.scope || 'quote:view',
       expiresIn: options.expiresIn || this.defaultExpiresIn,
-      urlPreview: url.substring(0, 100) + '...'
+      urlPreview: url.substring(0, 100) + '...',
+      source: process.env.REPLIT_DEV_DOMAIN ? 'REPLIT_DEV_DOMAIN' : 
+              process.env.BASE_URL ? 'BASE_URL' :
+              process.env.REPLIT_DOMAINS ? 'REPLIT_DOMAINS' : 'fallback'
     });
 
     return url;

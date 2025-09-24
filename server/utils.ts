@@ -63,16 +63,40 @@ export function getFullUrl(path: string): string {
  * @returns The full quote URL
  */
 export function getQuoteUrl(token: string, req?: any): string {
-  // Always use the production domain for quotes
-  // This ensures quotes work from anywhere
-  const productionDomain = 'https://cruise-concierge-brian-hill.replit.app';
+  // Use the same logic as getPublicUrl to get the actual domain
+  let baseUrl = '';
+  
+  // In Replit environment, use the dev domain (most reliable)
+  if (process.env.REPLIT_DEV_DOMAIN) {
+    baseUrl = `https://${process.env.REPLIT_DEV_DOMAIN}`;
+  }
+  // Use custom BASE_URL if configured
+  else if (process.env.BASE_URL) {
+    baseUrl = process.env.BASE_URL.replace(/\/$/, ''); // Remove trailing slash if present
+  }
+  // In production deployment, check for REPLIT_DOMAINS
+  else if (process.env.REPLIT_DOMAINS) {
+    const domain = process.env.REPLIT_DOMAINS.split(',')[0]; // Take first domain if multiple
+    baseUrl = `https://${domain}`;
+  }
+  // Final fallback to the known Replit app URL
+  else {
+    baseUrl = 'https://cruise-concierge-brian-hill.replit.app';
+  }
   
   console.log('🔗 Generated quote URL:', {
     token: token.substring(0, 10) + '...',
-    baseUrl: productionDomain,
-    fullUrl: `${productionDomain}/q/${token}`,
-    source: 'production_domain'
+    baseUrl: baseUrl,
+    fullUrl: `${baseUrl}/q/${token}`,
+    source: process.env.REPLIT_DEV_DOMAIN ? 'REPLIT_DEV_DOMAIN' : 
+            process.env.BASE_URL ? 'BASE_URL' :
+            process.env.REPLIT_DOMAINS ? 'REPLIT_DOMAINS' : 'fallback',
+    envVars: {
+      REPLIT_DEV_DOMAIN: process.env.REPLIT_DEV_DOMAIN || 'not set',
+      BASE_URL: process.env.BASE_URL || 'not set',
+      REPLIT_DOMAINS: process.env.REPLIT_DOMAINS ? process.env.REPLIT_DOMAINS.substring(0, 50) + '...' : 'not set'
+    }
   });
   
-  return `${productionDomain}/q/${token}`;
+  return `${baseUrl}/q/${token}`;
 }
