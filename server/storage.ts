@@ -822,6 +822,13 @@ export interface IStorage {
     sortOrder?: 'asc' | 'desc';
   }): Promise<AgentTask[]>;
   createAgentTask(task: InsertAgentTask): Promise<AgentTask>;
+  
+  // Agent Chat Sessions
+  createChatSession(session: InsertAgentChatSession): Promise<{ sessionId: string }>;
+  getChatSession(sessionId: string): Promise<SelectAgentChatSession | null>;
+  getChatSessionsForUser(userId: string): Promise<SelectAgentChatSession[]>;
+  addChatMessage(message: InsertAgentChatMessage): Promise<{ messageId: string }>;
+  getChatMessages(sessionId: string): Promise<SelectAgentChatMessage[]>;
   updateAgentTask(id: string, updates: Partial<AgentTask>): Promise<AgentTask>;
   deleteAgentTask(id: string): Promise<boolean>;
   getAgentTasksByStatus(status: string): Promise<AgentTask[]>;

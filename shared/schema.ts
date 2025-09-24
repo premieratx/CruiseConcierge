@@ -2769,6 +2769,36 @@ export const insertAgentExecutionSchema = createInsertSchema(agentExecutions).om
   retryAttempt: z.number().min(0).default(0),
 });
 
+// AI Agent Chat Sessions
+export const agentChatSessions = pgTable("agent_chat_sessions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  userId: varchar("user_id").notNull(),
+  title: text("title").notNull(),
+  status: varchar("status").notNull().default("active"), // active, archived
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// AI Agent Chat Messages
+export const agentChatMessages = pgTable("agent_chat_messages", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  sessionId: varchar("session_id").notNull(),
+  role: varchar("role").notNull(), // user, assistant, system, function
+  content: text("content").notNull(),
+  functionCall: jsonb("function_call").$type<{name: string, arguments: string}>(),
+  toolResult: jsonb("tool_result").$type<{success: boolean, data?: any, error?: string}>(),
+  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const insertAgentChatSessionSchema = createInsertSchema(agentChatSessions).omit({ id: true, createdAt: true, updatedAt: true });
+export type InsertAgentChatSession = z.infer<typeof insertAgentChatSessionSchema>;
+export type SelectAgentChatSession = typeof agentChatSessions.$inferSelect;
+
+export const insertAgentChatMessageSchema = createInsertSchema(agentChatMessages).omit({ id: true, createdAt: true });
+export type InsertAgentChatMessage = z.infer<typeof insertAgentChatMessageSchema>;
+export type SelectAgentChatMessage = typeof agentChatMessages.$inferSelect;
+
 // Export types
 export type CheckoutContext = z.infer<typeof checkoutContextSchema>;
 export type CheckoutSelections = z.infer<typeof checkoutSelectionsSchema>;
