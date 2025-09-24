@@ -4206,20 +4206,65 @@ export class DatabaseStorage implements IStorage {
   }
 
   async updateBlogTag(id: string, updates: Partial<BlogTag>): Promise<BlogTag> {
-    throw new Error('Blog tag update not implemented');
+    const [updatedTag] = await db.update(blogTags)
+      .set({ 
+        ...updates,
+        updatedAt: new Date()
+      })
+      .where(eq(blogTags.id, id))
+      .returning();
+    
+    if (!updatedTag) {
+      throw new Error('Blog tag not found');
+    }
+    
+    return updatedTag;
   }
 
   async deleteBlogTag(id: string): Promise<boolean> {
-    return false;
+    // First remove tag assignments from posts
+    await db.delete(blogPostTags).where(eq(blogPostTags.tagId, id));
+    
+    // Then delete the tag
+    const result = await db.delete(blogTags).where(eq(blogTags.id, id));
+    
+    return result.rowCount > 0;
   }
 
-  // Stub implementations for other missing blog methods
+  // Blog post publishing and scheduling methods
   async publishBlogPost(id: string, publishedAt?: Date): Promise<BlogPost> {
-    throw new Error('Blog post publish not implemented');
+    const publishDate = publishedAt || new Date();
+    const [updatedPost] = await db.update(blogPosts)
+      .set({ 
+        status: 'published', 
+        publishedAt: publishDate,
+        updatedAt: new Date()
+      })
+      .where(eq(blogPosts.id, id))
+      .returning();
+    
+    if (!updatedPost) {
+      throw new Error('Blog post not found');
+    }
+    
+    return updatedPost;
   }
 
   async scheduleBlogPost(id: string, scheduledFor: Date): Promise<BlogPost> {
-    throw new Error('Blog post schedule not implemented');
+    const [updatedPost] = await db.update(blogPosts)
+      .set({ 
+        status: 'scheduled', 
+        scheduledFor: scheduledFor,
+        updatedAt: new Date()
+      })
+      .where(eq(blogPosts.id, id))
+      .returning();
+    
+    if (!updatedPost) {
+      throw new Error('Blog post not found');
+    }
+    
+    return updatedPost;
   }
 
   async incrementBlogPostViews(id: string): Promise<BlogPost> {
@@ -4230,11 +4275,24 @@ export class DatabaseStorage implements IStorage {
     return updatedPost;
   }
 
-  async getRelatedBlogPosts(postId: string, limit?: number): Promise<BlogPost[]> {
-    return [];
+  async getRelatedBlogPosts(postId: string, limit = 5): Promise<BlogPost[]> {
+    // Simple implementation: return latest published posts excluding current post
+    // In a full implementation, this would find posts with shared categories/tags
+    const relatedPosts = await db.select()
+      .from(blogPosts)
+      .where(
+        and(
+          eq(blogPosts.status, 'published'),
+          sql`${blogPosts.id} != ${postId}`
+        )
+      )
+      .limit(limit)
+      .orderBy(desc(blogPosts.publishedAt));
+    
+    return relatedPosts;
   }
 
-  async getBlogPostsByAuthor(authorId: string, limit?: number, offset?: number): Promise<{
+  async getBlogPostsByAuthor(authorId: string, limit = 20, offset = 0): Promise<{
     posts: (BlogPost & { 
       author: BlogAuthor;
       categories: BlogCategory[];
@@ -4242,7 +4300,36 @@ export class DatabaseStorage implements IStorage {
     })[];
     total: number;
   }> {
-    return { posts: [], total: 0 };
+    // Get total count
+    const [{ count }] = await db.select({ count: sql<number>`count(*)` })
+      .from(blogPosts)
+      .where(eq(blogPosts.authorId, authorId));
+    
+    // Get posts with author data
+    const postsWithAuthor = await db.select()
+      .from(blogPosts)
+      .innerJoin(blogAuthors, eq(blogPosts.authorId, blogAuthors.id))
+      .where(eq(blogPosts.authorId, authorId))
+      .orderBy(desc(blogPosts.createdAt))
+      .limit(limit)
+      .offset(offset);
+    
+    const enrichedPosts = [];
+    for (const row of postsWithAuthor) {
+      const [categories, tags] = await Promise.all([
+        this.getBlogPostCategories(row.blog_posts.id),
+        this.getBlogPostTags(row.blog_posts.id)
+      ]);
+      
+      enrichedPosts.push({
+        ...row.blog_posts,
+        author: row.blog_authors,
+        categories,
+        tags
+      });
+    }
+    
+    return { posts: enrichedPosts, total: count };
   }
 
   // Blog Author Methods  
@@ -4327,6 +4414,34 @@ export class DatabaseStorage implements IStorage {
     .orderBy(asc(blogTags.name));
     
     return results.map(r => r.tag);
+  }
+
+  async removePostFromCategories(postId: string, categoryIds?: string[]): Promise<boolean> {
+    let query = db.delete(blogPostCategories).where(eq(blogPostCategories.postId, postId));
+    
+    if (categoryIds && categoryIds.length > 0) {
+      query = query.where(and(
+        eq(blogPostCategories.postId, postId),
+        inArray(blogPostCategories.categoryId, categoryIds)
+      ));
+    }
+    
+    const result = await query;
+    return result.rowCount > 0;
+  }
+
+  async removePostFromTags(postId: string, tagIds?: string[]): Promise<boolean> {
+    let query = db.delete(blogPostTags).where(eq(blogPostTags.postId, postId));
+    
+    if (tagIds && tagIds.length > 0) {
+      query = query.where(and(
+        eq(blogPostTags.postId, postId),
+        inArray(blogPostTags.tagId, tagIds)
+      ));
+    }
+    
+    const result = await query;
+    return result.rowCount > 0;
   }
 
   async getBlogCategoryHierarchy(): Promise<BlogCategory[]> {
