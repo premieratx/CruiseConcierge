@@ -221,7 +221,7 @@ export class ComprehensiveLeadService {
         result.errors.push(`GoHighLevel integration error: ${error.message}`);
       }
 
-      // 6. Send email notification with quote link (if quote exists) - FIXED: Use real SendGrid
+      // 6. Send email notification with quote link (if quote exists) - Using Mailgun
       if (quote && quoteUrl && leadData.email) {
         console.log('📧 Step 6: Sending email notification with quote link...');
         try {
@@ -237,7 +237,7 @@ export class ComprehensiveLeadService {
             gratuity: quote.gratuity || 0
           };
 
-          console.log('📧 Sending real SendGrid email to:', leadData.email);
+          console.log('📧 Sending Mailgun email to:', leadData.email);
           console.log('🔗 FIXED: Using secure quote URL in email:', quoteUrl);
           
           // CRITICAL FIX: Use secure quote URL consistently across all integrations
@@ -251,12 +251,12 @@ export class ComprehensiveLeadService {
 
           if (emailSuccess) {
             result.integrations.emailNotification.success = true;
-            console.log('✅ Email notification sent successfully via SendGrid');
+            console.log('✅ Email notification sent successfully via Mailgun');
           } else {
             result.integrations.emailNotification.success = false;
-            result.integrations.emailNotification.error = 'SendGrid email sending failed';
-            result.errors.push('SendGrid email notification failed');
-            console.error('❌ SendGrid email notification failed');
+            result.integrations.emailNotification.error = 'Mailgun email sending failed';
+            result.errors.push('Mailgun email notification failed');
+            console.error('❌ Mailgun email notification failed');
           }
         } catch (error: any) {
           console.error('❌ Email notification error:', error);

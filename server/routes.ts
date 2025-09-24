@@ -11342,34 +11342,7 @@ Phone: ${contact.phone || 'N/A'}`;
       console.log("   ❌ OpenAI: Failed -", error.message);
     }
 
-    // Test 6: SendGrid Service (check configuration only)
-    console.log("6️⃣ Checking SendGrid service configuration...");
-    try {
-      const hasApiKey = !!process.env.SENDGRID_API_KEY;
-      
-      if (hasApiKey) {
-        results.services.sendgrid = {
-          status: "✅ Configured",
-          test_passed: true,
-          note: "API key configured, email functionality available"
-        };
-        console.log("   ✅ SendGrid: API key configured");
-      } else {
-        results.services.sendgrid = {
-          status: "⚠️ Not configured",
-          test_passed: false,
-          note: "No API key - using mock email responses"
-        };
-        console.log("   ⚠️ SendGrid: Not configured (using mock responses)");
-      }
-    } catch (error: any) {
-      results.services.sendgrid = {
-        status: "❌ Failed",
-        error: error.message,
-        test_passed: false
-      };
-      console.log("   ❌ SendGrid: Failed -", error.message);
-    }
+    // Test 6: SENDGRID REMOVED - Using Mailgun only
 
     // Calculate overall status
     const serviceTests = Object.values(results.services);
@@ -13251,122 +13224,7 @@ Phone: ${contact.phone || 'N/A'}`;
   // EMAIL PROVIDER WEBHOOKS
   // ==========================================
 
-  // POST /api/webhooks/sendgrid - SendGrid webhook for email events
-  app.post("/api/webhooks/sendgrid", async (req, res) => {
-    try {
-      const events = req.body;
-      
-      if (!Array.isArray(events)) {
-        return res.status(400).json({ error: "Invalid payload format" });
-      }
-
-      console.log(`Processing ${events.length} SendGrid webhook events`);
-      
-      for (const event of events) {
-        const { event: eventType, sg_message_id, timestamp, email, url } = event;
-        
-        try {
-          // Find email tracking record by provider message ID
-          const emailRecord = await storage.findEmailTrackingByMessageId(sg_message_id, 'sendgrid');
-          
-          if (!emailRecord) {
-            console.warn(`Email tracking record not found for SendGrid message: ${sg_message_id}`);
-            continue;
-          }
-
-          // Process different event types
-          switch (eventType) {
-            case 'delivered':
-              await storage.updateEmailDeliveryStatus(emailRecord.id, 'delivered', {
-                deliveredAt: new Date(timestamp * 1000),
-                provider: 'sendgrid'
-              });
-              break;
-              
-            case 'open':
-              await storage.trackEmailOpen(emailRecord.id);
-              // Create customer activity record
-              if (emailRecord.contactId) {
-                await storage.createCustomerActivity({
-                  contactId: emailRecord.contactId,
-                  projectId: emailRecord.projectId || null,
-                  activityType: 'email_open',
-                  activitySubtype: emailRecord.emailType,
-                  description: `Opened email: ${emailRecord.emailSubject}`,
-                  source: 'sendgrid_webhook',
-                  sourceId: emailRecord.id,
-                  initiatedBy: 'customer',
-                  metadata: { 
-                    messageId: sg_message_id,
-                    timestamp: timestamp,
-                    provider: 'sendgrid'
-                  },
-                  importance: 'normal',
-                  isAutomated: false
-                });
-              }
-              break;
-              
-            case 'click':
-              await storage.trackEmailClick(emailRecord.id);
-              // Create customer activity record
-              if (emailRecord.contactId) {
-                await storage.createCustomerActivity({
-                  contactId: emailRecord.contactId,
-                  projectId: emailRecord.projectId || null,
-                  activityType: 'email_click',
-                  activitySubtype: emailRecord.emailType,
-                  description: `Clicked link in email: ${emailRecord.emailSubject}`,
-                  source: 'sendgrid_webhook',
-                  sourceId: emailRecord.id,
-                  initiatedBy: 'customer',
-                  metadata: { 
-                    messageId: sg_message_id,
-                    timestamp: timestamp,
-                    url: url,
-                    provider: 'sendgrid'
-                  },
-                  importance: 'normal',
-                  isAutomated: false
-                });
-              }
-              break;
-              
-            case 'bounce':
-            case 'dropped':
-              await storage.updateEmailDeliveryStatus(emailRecord.id, 'bounced', {
-                bounceReason: event.reason || eventType,
-                bouncedAt: new Date(timestamp * 1000),
-                provider: 'sendgrid'
-              });
-              break;
-              
-            case 'unsubscribe':
-              await storage.updateEmailUnsubscribeStatus(emailRecord.id, {
-                unsubscribedAt: new Date(timestamp * 1000),
-                provider: 'sendgrid'
-              });
-              break;
-          }
-          
-          console.log(`Processed SendGrid ${eventType} event for message: ${sg_message_id}`);
-          
-        } catch (eventError) {
-          console.error(`Error processing SendGrid event:`, eventError);
-          // Continue processing other events
-        }
-      }
-      
-      res.status(200).send('OK');
-      
-    } catch (error) {
-      console.error('SendGrid webhook error:', error);
-      res.status(500).json({ 
-        error: "Failed to process SendGrid webhook",
-        details: error instanceof Error ? error.message : 'Unknown error'
-      });
-    }
-  });
+  // SendGrid webhook REMOVED - Using Mailgun only
 
   // POST /api/webhooks/mailgun - Mailgun webhook for email events  
   app.post("/api/webhooks/mailgun", async (req, res) => {

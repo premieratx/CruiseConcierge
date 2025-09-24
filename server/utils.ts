@@ -10,13 +10,13 @@
 export function getPublicUrl(): string {
   let url = '';
   
-  // In Replit environment, use the dev domain
-  if (process.env.REPLIT_DEV_DOMAIN) {
-    url = `https://${process.env.REPLIT_DEV_DOMAIN}`;
+  // Prioritize BASE_URL for live domain (FIXED: was prioritizing dev domain)
+  if (process.env.BASE_URL && process.env.BASE_URL.trim()) {
+    url = process.env.BASE_URL.trim().replace(/\/$/, ''); // Remove whitespace and trailing slash
   }
-  // Use custom BASE_URL if configured
-  else if (process.env.BASE_URL) {
-    url = process.env.BASE_URL.replace(/\/$/, ''); // Remove trailing slash if present
+  // Use dev domain only if no BASE_URL is set
+  else if (process.env.REPLIT_DEV_DOMAIN) {
+    url = `https://${process.env.REPLIT_DEV_DOMAIN}`;
   }
   // In production deployment, check for REPLIT_DOMAINS (deployed URL)
   else if (process.env.REPLIT_DOMAINS) {
@@ -30,8 +30,8 @@ export function getPublicUrl(): string {
   
   console.log('🌐 getPublicUrl() result:', {
     url,
-    source: process.env.REPLIT_DEV_DOMAIN ? 'REPLIT_DEV_DOMAIN' :
-            process.env.BASE_URL ? 'BASE_URL' :
+    source: process.env.BASE_URL && process.env.BASE_URL.trim() ? 'BASE_URL' :
+            process.env.REPLIT_DEV_DOMAIN ? 'REPLIT_DEV_DOMAIN' :
             process.env.REPLIT_DOMAINS ? 'REPLIT_DOMAINS' : 'default',
     envVars: {
       REPLIT_DEV_DOMAIN: !!process.env.REPLIT_DEV_DOMAIN,
@@ -66,13 +66,13 @@ export function getQuoteUrl(token: string, req?: any): string {
   // Use the same logic as getPublicUrl to get the actual domain
   let baseUrl = '';
   
-  // In Replit environment, use the dev domain (most reliable)
-  if (process.env.REPLIT_DEV_DOMAIN) {
-    baseUrl = `https://${process.env.REPLIT_DEV_DOMAIN}`;
+  // Prioritize BASE_URL for live domain (FIXED: was prioritizing dev domain)
+  if (process.env.BASE_URL && process.env.BASE_URL.trim()) {
+    baseUrl = process.env.BASE_URL.trim().replace(/\/$/, ''); // Remove whitespace and trailing slash
   }
-  // Use custom BASE_URL if configured
-  else if (process.env.BASE_URL) {
-    baseUrl = process.env.BASE_URL.replace(/\/$/, ''); // Remove trailing slash if present
+  // Use dev domain only if no BASE_URL is set
+  else if (process.env.REPLIT_DEV_DOMAIN) {
+    baseUrl = `https://${process.env.REPLIT_DEV_DOMAIN}`;
   }
   // In production deployment, check for REPLIT_DOMAINS
   else if (process.env.REPLIT_DOMAINS) {
@@ -88,8 +88,8 @@ export function getQuoteUrl(token: string, req?: any): string {
     token: token.substring(0, 10) + '...',
     baseUrl: baseUrl,
     fullUrl: `${baseUrl}/chat?quote=${token}`,
-    source: process.env.REPLIT_DEV_DOMAIN ? 'REPLIT_DEV_DOMAIN' : 
-            process.env.BASE_URL ? 'BASE_URL' :
+    source: process.env.BASE_URL && process.env.BASE_URL.trim() ? 'BASE_URL' :
+            process.env.REPLIT_DEV_DOMAIN ? 'REPLIT_DEV_DOMAIN' : 
             process.env.REPLIT_DOMAINS ? 'REPLIT_DOMAINS' : 'fallback',
     envVars: {
       REPLIT_DEV_DOMAIN: process.env.REPLIT_DEV_DOMAIN || 'not set',
