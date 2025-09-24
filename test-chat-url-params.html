@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Chat URL Parameters</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .test-link {
+            display: block;
+            padding: 15px 20px;
+            margin: 10px 0;
+            background: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .test-link:hover {
+            background: #45a049;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .info {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #2196F3;
+        }
+        .expected {
+            background: #e8f5e9;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #4CAF50;
+        }
+        .expected h3 {
+            margin-top: 0;
+            color: #2e7d32;
+        }
+        .expected ul {
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>🧪 Test Chat Quote Builder URL Parameters</h1>
+    
+    <div class="info">
+        <h3>Test Case: Quote URL with All Parameters</h3>
+        <p>Click the link below to test if the Quote Builder correctly jumps to the comparison view when URL parameters are provided.</p>
+    </div>
+
+    <a href="/chat?date=2025-10-15&party=bachelor&people=30&contact=done" 
+       class="test-link"
+       target="_blank">
+        Test URL: Bachelor Party - 30 People - Oct 15, 2025
+    </a>
+
+    <div class="expected">
+        <h3>✅ Expected Behavior:</h3>
+        <ul>
+            <li>Page should immediately show the comparison/quote view</li>
+            <li>Should NOT show the intro/calendar selection</li>
+            <li>Event type should be set to "Bachelor Party"</li>
+            <li>Group size should be set to 30 people</li>
+            <li>Date should be set to October 15, 2025</li>
+            <li>Both Private and Disco cruise options should be visible</li>
+            <li>Pricing should be calculated and displayed</li>
+            <li>Contact info modal should be bypassed (contact=done)</li>
+        </ul>
+    </div>
+
+    <h2>Additional Test Cases:</h2>
+    
+    <a href="/chat?date=2025-11-20&party=bachelorette&people=20&contact=done" 
+       class="test-link"
+       target="_blank">
+        Bachelorette Party - 20 People - Nov 20, 2025
+    </a>
+
+    <a href="/chat?date=2025-12-31&party=birthday&people=15" 
+       class="test-link"
+       target="_blank">
+        Birthday Party - 15 People - Dec 31, 2025 (No contact=done)
+    </a>
+
+    <a href="/chat?date=2026-01-15&party=corporate&people=50&contact=done" 
+       class="test-link"
+       target="_blank">
+        Corporate Event - 50 People - Jan 15, 2026
+    </a>
+
+    <div class="info">
+        <h3>🔍 How to Verify:</h3>
+        <ol>
+            <li>Open browser developer tools (F12)</li>
+            <li>Check the Console tab for debug messages</li>
+            <li>Look for "🔍 URL Parameter Debug:" and "🎯 URL Parameter Status:" logs</li>
+            <li>Verify that the UI shows the comparison view immediately</li>
+            <li>Check that pricing is calculated correctly</li>
+        </ol>
+    </div>
+    
+    <script>
+        // Log when page loads
+        console.log('Test page loaded at:', new Date().toISOString());
+    </script>
+</body>
+</html>

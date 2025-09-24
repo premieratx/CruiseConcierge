@@ -867,6 +867,15 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   const urlPeople = urlParams.get('people'); // Group size (e.g., 25)
   const urlContact = urlParams.get('contact'); // Contact flag (e.g., 'done' to skip modal)
   
+  // Debug URL parameter parsing
+  console.log('🔍 URL Parameter Debug:', {
+    urlDate,
+    urlParty,
+    urlPeople,
+    urlContact,
+    fullUrl: window.location.href
+  });
+  
   // Check if we have complete URL parameters for quote builder
   const hasUrlParameters = Boolean(urlDate && urlParty && urlPeople);
   const hasContactDone = urlContact === 'done'; // Check if contact modal was already completed
@@ -876,6 +885,13 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   
   // Define hasValidUrlParams to check if we have valid direct URL parameters
   const hasValidUrlParams = hasUrlParameters;
+  
+  console.log('🎯 URL Parameter Status:', {
+    hasUrlParameters,
+    hasContactDone,
+    hasValidQuoteToken,
+    hasValidUrlParams
+  });
   
   // Check if modal should be bypassed (contact=done flag is present)
   const shouldBypassModal = hasContactDone;
@@ -905,6 +921,16 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
 
   const initialEventData = getInitialEventData();
   
+  // Log initial state decisions
+  console.log('🚀 Initial State Setup:', {
+    hasValidUrlParams,
+    defaultEventType,
+    initialStep: hasValidUrlParams ? 'comparison-selection' : 'intro',
+    willShowComparison: hasValidUrlParams,
+    willShowGroupSize: hasValidUrlParams,
+    willCollapseEventType: Boolean(defaultEventType || hasValidUrlParams)
+  });
+
   const [currentStep, setCurrentStep] = useState<ChatFlowStep>(hasValidUrlParams ? 'comparison-selection' : 'intro');
   const [completedSelections, setCompletedSelections] = useState<CompletedSelection[]>([]);
   const [privatePricing, setPrivatePricing] = useState<PricingPreview | null>(null);
@@ -1241,6 +1267,29 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
           console.log('🔄 Gracefully falling back to normal chat flow due to invalid URL parameters');
           setQuoteLoading(false);
           // Don't show error toasts, just let the user use the normal flow
+          // Still try to use what we can from the URL parameters
+          if (validDate && isDateAvailable(validDate)) {
+            setFormData(prev => ({ ...prev, eventDate: validDate }));
+          }
+          if (validEventConfig) {
+            setFormData(prev => ({
+              ...prev,
+              eventType: urlParty!,
+              eventTypeLabel: validEventConfig.label,
+              eventEmoji: validEventConfig.emoji
+            }));
+          }
+          if (!isNaN(parsedPeople) && parsedPeople >= GROUP_SIZE_MIN && parsedPeople <= GROUP_SIZE_MAX) {
+            setFormData(prev => ({ ...prev, groupSize: parsedPeople }));
+          }
+          // Set the UI states to show comparison if we have some valid data
+          if ((validDate && isDateAvailable(validDate)) || validEventConfig || (!isNaN(parsedPeople) && parsedPeople >= GROUP_SIZE_MIN)) {
+            setCurrentStep('comparison-selection');
+            setEventTypeCollapsed(true);
+            setShowGroupSize(true);
+            setShowComparison(true);
+            setIsQuoteMode(true);
+          }
           return;
         }
         
@@ -1303,12 +1352,13 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         
       } catch (error) {
         console.error('❌ Failed to process URL parameters:', error);
+        // Clear loading state first
+        setQuoteLoading(false);
         toast({
           title: "Invalid URL Parameters",
           description: "Unable to process the quote parameters in the URL.",
           variant: "destructive"
         });
-        setQuoteLoading(false);
       }
     }
   }, [urlDate, urlParty, urlPeople, urlContact, hasValidUrlParams, hasContactDone, quoteToken, quoteId, toast]);
@@ -3049,6 +3099,19 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       </div>
     );
   }
+
+  // Debug render decision
+  console.log('🎨 Rendering Chat Component:', {
+    currentStep,
+    showComparison,
+    showGroupSize,
+    eventTypeCollapsed,
+    hasFormData: {
+      eventDate: !!formData.eventDate,
+      eventType: !!formData.eventType,
+      groupSize: formData.groupSize
+    }
+  });
 
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
