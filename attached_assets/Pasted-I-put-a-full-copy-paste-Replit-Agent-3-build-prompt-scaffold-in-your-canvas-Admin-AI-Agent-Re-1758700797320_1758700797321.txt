@@ -1,0 +1,75 @@
+I put a full, copy-paste Replit Agent 3 build prompt + scaffold in your canvas: “Admin AI Agent — Replit Agent 3 Prompt & Setup (Responses API + o3-mini)”. It includes:
+
+a production-ready “mega-prompt” for Replit Agent 3 (planner → preview → apply)
+
+a TypeScript/Node backend scaffold (Responses API orchestration, tool registry, RAG/memory, RBAC, audit logs)
+
+JSON-schema tool specs for blog/SEO/media, availability/pricing/bookings, CRM/quotes/messaging, files/git/deploy, and knowledge ingestion
+
+a minimal chat UI spec with approval gates and diff previews
+
+Why this design (and why it’ll work)
+
+Responses API is the current, unified way to build agentic back-end helpers (tool calling, file search, code execution, MCP). It’s the right foundation for a dashboard agent. 
+OpenAI Platform
++2
+OpenAI Platform
++2
+
+o3-mini is a strong, cost-efficient reasoning/coding model; ideal default for your admin agent. Use it for planning, code edits, and tool use. 
+OpenAI
+
+Long context needs: pair the model with File Search (built-in tool) and your own RAG store so the agent “knows your business” without stuffing everything into the prompt. For extreme-length sessions, you can fall back to a large-context model (e.g., GPT-4.1) selectively. 
+OpenAI Platform
++1
+
+MCP connectors let you cleanly plug in external systems (Git, DB, GHL/Twilio, Shopify, Xola, etc.) behind a standard “tool” interface; the Responses API now supports remote MCP servers. 
+OpenAI Platform
++1
+
+If/when you want multi-agent flows (Planner → Coder → Reviewer → Deployer), layer the Agents SDK on top of Responses. 
+OpenAI
+
+What your back-end agent can do (from the scaffold)
+
+Content/SEO/media: create/update posts & pages with preview diffs; run SEO audits; apply meta, canonicals, JSON-LD; optimize images.
+
+Bookings & ops: check availability, stage bookings (dry-run first), bulk update availability, update pricing tables with effective dates.
+
+CRM & sales: upsert leads, create quotes, send templated SMS/email (GHL/Twilio integration ready).
+
+Dev & deploy: safe file edits, open PRs, run tests, and deploy (approval required + full audit trail).
+
+Knowledge: ingest URLs/files into a pgvector store with text-embedding-3-large; retrieve the most relevant snippets per task. 
+OpenAI
+
+How to set it up (high level)
+
+Models & API: Use OpenAI’s Responses API with model: "o3-mini" and tool_choice: "auto". Keep previous_response_id per session so it retains short-term context. (Examples + event streaming are in the doc.) 
+OpenAI Platform
++1
+
+Tools: Register each admin action as a JSON-schema function (strict args, dry-run previews for anything risky). The agent only acts via these tools. 
+OpenAI Platform
+
+Memory/RAG: Store KB chunks in Postgres/pgvector; embed with text-embedding-3-large; retrieve top-k and pass them as input items to each call. (Pricing/perf notes in the embedding write-ups.) 
+OpenAI
++1
+
+File/Doc awareness: When you need the model to read your docs directly, enable File Search in the tools array. 
+OpenAI Platform
+
+Optional extras:
+
+Web search tool for fresh info (if you want the agent to pull references). 
+OpenAI Platform
+
+Remote MCP servers to reach internal services cleanly. 
+OpenAI Platform
+
+Agents SDK to orchestrate multi-agent handoffs. 
+OpenAI
+
+Security & ops: RBAC by tool, mandatory approvals for deploys/price/availability/page writes, rate & budget caps, redaction, and a full audit log. (All patterns are included in the scaffold.)
+
+If you want me to tailor the tool adapters to your exact stack (Supabase schemas, Xola/GHL/Shopify endpoints), say the word and I’ll fill in those adapter files next.

@@ -1,0 +1,383 @@
+# 0) Copy/Paste into Replit Agent 3 — Build Prompt
+
+**TITLE:** Build a full Admin AI Helper (Responses API + o3‑mini) with chat UI, tools, memory, RBAC, and audit
+
+**GOAL:** Add an in‑dashboard chatbot that can safely perform admin tasks across my site (content, SEO, media, bookings, pricing, CRM, messaging, deploys) using the OpenAI **Responses API** with **o3‑mini** for reasoning/coding. Use a tool‑calling architecture, long‑term memory (RAG), and strict security (RBAC, approvals, audit logs).
+
+---
+
+## A. Deliverables (create these files / modules)
+
+**Server (TypeScript / Node / Express)**
+
+* `src/agent/index.ts` – Agent orchestrator using Responses API, tool registry, tool dispatcher, streaming.
+* `src/agent/systemPrompt.ts` – System/developer prompts.
+* `src/agent/tools/*.ts` – One file per tool (see Section C).
+* `src/agent/memory/rag.ts` – RAG helpers: embed, chunk, store, retrieve (Supabase pgvector).
+* `src/agent/memory/sessionStore.ts` – Short‑term session state (previous\_response\_id + Redis fallback).
+* `src/agent/security/guard.ts` – RBAC, high‑risk approvals, rate/time/token limits.
+* `src/agent/security/audit.ts` – Audit log (Postgres table + JSON payload of tool calls/results).
+* `src/agent/schema.ts` – Shared Zod/JSON Schema for tools and typed responses.
+* `src/routes/agent.ts` – REST endpoints: `/api/admin/agent/chat` (SSE streaming), `/api/admin/agent/tools`, `/api/admin/agent/memory/search`.
+* `src/routes/webhooks.ts` – Optional inbound webhooks (deploy events, CI, etc.).
+* `src/config/env.ts` – Env loader (OpenAI key, Supabase, Git, Xola, GHL/Twilio, Shopify, SendGrid, etc.).
+
+**Client (React/Next.js)**
+
+* `app/admin/ai/page.tsx` – Chat UI (messages, tool call previews, approve/apply buttons).
+* `components/AgentMessage.tsx` – Renders streamed tokens and tool steps.
+* `components/ToolPreview.tsx` – Diff/preview panel for content/code changes.
+* `lib/sse.ts` – SSE client helper.
+
+**DB Migrations (SQL)**
+
+* `migrations/001_agent_audit.sql` – `agent_audit` table.
+* `migrations/002_embeddings.sql` – `kb_chunks (id, doc_id, url, tags, chunk, embedding vector)` with pgvector.
+* `migrations/003_sessions.sql` – `agent_sessions` (session id, user id, last\_response\_id, ttl).
+
+**Tests**
+
+* `tests/agent.e2e.test.ts` – end‑to‑end: tool invocation, dry‑run vs apply, RBAC gates.
+* `tests/tools/*.test.ts` – per‑tool contract tests.
+
+**Docs**
+
+* `docs/agent-ops.md` – runbook, rollback, on‑call, rate limits.
+
+---
+
+## B. System & Developer Prompts (put in `src/agent/systemPrompt.ts`)
+
+**SYSTEM PROMPT (admin agent):**
+
+> You are **Premier Admin Agent**, an in‑dashboard operator for Premier Party Cruises & Party On Delivery. You perform admin tasks through tool calls only. Follow these rules strictly:
+>
+> 1. **Safety first**: Obey RBAC. For any tool marked `requiresApproval: true`, produce a `plan` + `dryRun` preview and wait for user approval before applying.
+> 2. **Deterministic JSON**: When calling tools, output only valid JSON tool arguments; do not include prose in tool calls.
+> 3. **Plan → Preview → Apply**: For edits, propose a short plan, run `dryRun: true` to show diffs, then apply if approved.
+> 4. **Source of truth**: Use RAG (`retrieveContext`) and `file_search` only for relevant snippets; cite `kb_refs` in your final answer. Never invent data.
+> 5. **No shell access** unless via approved tools (git, fs, deploy). Never execute arbitrary code outside provided tools.
+> 6. **Idempotence**: Re‑running a task should not duplicate content or corrupt data.
+> 7. **Explain briefly** what you did and where.
+
+**DEVELOPER PROMPT (tool behavior):**
+
+> Tools are typed and validated. Each tool returns `{ ok: boolean, preview?: Diff[], data?: any, error?: string }`. Use `dryRun: true` for previews. For batch changes, chunk operations and report progress.
+
+---
+
+## C. Tool Registry (create in `src/agent/tools/*`)
+
+Implement as strongly‑typed adapters around existing services/DB. Each tool exports:
+
+```ts
+export const spec = {
+  name: "<name>",
+  description: "<what it does>",
+  jsonSchema: { type: "object", properties: { ... }, required: [ ... ] },
+  requiresApproval: boolean
+} as const;
+
+export async function run(args: z.infer<typeof schema>, ctx: ToolContext): Promise<ToolResult> { ... }
+```
+
+### Content & SEO
+
+1. **blog.upsertPost** `{slug, title?, html?, excerpt?, status?, tags?, featuredImageId?, canonical?, metaTitle?, metaDescription?, schemaOrg?}`
+2. **page.updateBlocks** `{slug, blocks, dryRun?}` – for headless block/page builder.
+3. **seo.auditPage** `{url}` → returns issues + fixes.
+4. **seo.applyMeta** `{slug, metaTitle?, metaDescription?, canonical?, schemaOrg?}`
+5. **media.optimizeImage** `{mediaId, maxWidth?, maxHeight?, quality?}`
+
+### Bookings / Pricing / Availability
+
+6. **booking.checkAvailability** `{date, time?, pax, boatType?}`
+7. **booking.createBooking** `{leadId, productId, date, time, pax, paymentIntentId}` (dry‑run OK)
+8. **pricing.update** `{table: "boats"|"addons", rows: Array<Record<string, any>>, effectiveFrom?}`
+9. **availability.bulkUpdate** `{table: "calendar", changes: Array<{date, productId, available:boolean}>}`
+
+### CRM / Quotes / Messaging
+
+10. **crm.upsertLead** `{name, email?, phone?, tags?, source?, note?}`
+11. **quotes.createOrUpdate** `{leadId, items: Array<{sku, qty, price}>, discounts?, validUntil}`
+12. **messaging.sendSms** `{to, templateKey?, body?, variables?}`
+13. **messaging.sendEmail** `{to, templateKey?, subject?, html?, variables?}`
+
+### DevOps / Code / Deploy
+
+14. **fs.read** `{path}` ; **fs.write** `{path, content, mode?}`
+15. **git.prCreate** `{branch, title, body, changes: Array<{path, content}>}`
+16. **ci.runTests** `{suite?:"all"|"smoke"}`
+17. **ops.deploy** `{env:"staging"|"prod", version?:string}` (approval required)
+
+### Knowledge Base (RAG)
+
+18. **kb.ingestUrl** `{url, tags?}`
+19. **kb.ingestFile** `{fileId, tags?}`
+20. **kb.search** `{query, k?:number, filters?:Record<string,string>}`
+
+> NOTE: Mark **ops.deploy**, **pricing.update**, **availability.bulkUpdate**, **page.updateBlocks**, **git.prCreate** as `requiresApproval: true`.
+
+---
+
+## D. Orchestrator (put in `src/agent/index.ts`)
+
+* Initialize OpenAI client (Responses API) with model `o3-mini`.
+* Provide `tools` array using the JSON Schemas from Section C.
+* Accept chat turns: `{sessionId, messages[], userId}`.
+* Maintain `previous_response_id` per session in `agent_sessions` to preserve short‑term context.
+* Loop tool calls: on tool output event → map to local tool → run with `{dryRun:true}` when risky → feed `tool_result` back into Responses API until `completed`.
+* Stream tokens to client via SSE.
+
+**Event loop pseudocode:**
+
+```ts
+const resp = await openai.responses.create({
+  model: 'o3-mini',
+  reasoning: { effort: 'medium' },
+  input: [systemMsg, devMsg, ...userMsgs],
+  tools,
+  tool_choice: 'auto',
+  previous_response_id: session.prevId,
+});
+
+for await (const event of openai.responses.stream(resp)) {
+  if (event.type === 'tool_call') {
+    const tool = registry[event.tool.name];
+    const args = validate(event.tool.arguments);
+    const guardedArgs = await guard(tool, args, userId);
+    const result = await tool.run(guardedArgs, ctx);
+    await streamToolResult(result);
+  }
+}
+```
+
+---
+
+## E. Memory & Knowledge (RAG)
+
+* **Embeddings:** use `text-embedding-3-large`.
+* **Chunking:** 1–2k tokens with overlap; store `doc_id, url, tags, chunk, embedding` in `kb_chunks`.
+* **Retrieval:** cosine similarity in pgvector; top‑k with Maximal Marginal Relevance; add as `input` items to Responses API.
+* **Auto‑ingest:** nightly crawls of docs/sites; tool‑driven on demand via `kb.ingestUrl`.
+* **Session memory:** persist `previous_response_id`; back‑fill with a short recap summary when sessions get long.
+
+---
+
+## F. Security, Approvals, and Audit
+
+* **RBAC:** roles: `owner`, `admin`, `editor`, `viewer`. Map tools to min role.
+* **Approvals:** For `requiresApproval`, agent must emit a plan + preview diff. UI shows **Approve / Cancel**.
+* **Guards:** rate limit (per user + global), token/time caps, dry‑run first for writes, disallow wildcards in `fs.write` paths, block secrets.
+* **Audit:** log user, sessionId, tool, args (redacted), result, diffs.
+
+---
+
+## G. Chat UI behavior
+
+* Messages list with role avatars.
+* Tool steps timeline (detect `tool_call` / `tool_result`).
+* Preview panel showing diffs for `dryRun`.
+* Button: **Apply Change** → re‑invoke same tool with `dryRun:false`.
+
+---
+
+## H. Env Vars (configure in `.env`)
+
+```
+OPENAI_API_KEY=
+SUPABASE_URL=
+SUPABASE_SERVICE_ROLE_KEY=
+POSTGRES_URL=
+REDIS_URL=
+GHL_API_KEY=
+TWILIO_ACCOUNT_SID=
+TWILIO_AUTH_TOKEN=
+TWILIO_PHONE=
+SHOPIFY_STOREFRONT_TOKEN=
+XOLA_API_KEY=
+GIT_PROVIDER=github|gitlab
+GIT_TOKEN=
+```
+
+---
+
+## I. Acceptance Criteria
+
+1. Chat page renders; streaming tokens visible.
+2. Agent can **upsert a blog post**, run `seo.auditPage`, and produce a preview meta diff.
+3. Agent can **update a page block** with preview and apply after approval.
+4. Agent can **check availability** and **create a booking (dry‑run)**.
+5. Agent can **create a quote** from a lead.
+6. Agent can **open a PR** touching a code file via `git.prCreate` (approval required).
+7. Agent logs all tool calls and diffs in `agent_audit`.
+8. RAG search returns relevant snippets for “ATX Disco Cruise policies”.
+
+---
+
+## J. Coding standards
+
+* TypeScript strict mode; Zod schemas; node `18+`.
+* Use `undici`/`fetch`; no deprecated `axios` unless justified.
+* Unit tests with Vitest; e2e with Playwright (API).
+
+---
+
+## K. After build — run & seed
+
+* Run migrations, seed a few KB docs (FAQ, policies, product/boat pages).
+* Add two example email templates and one SMS template.
+* Create a smoke test that upserts a dummy post, opens a PR touch, reverts.
+
+---
+
+**Now implement everything above and wire it end‑to‑end. Provide a short `README.md` with run instructions.**
+
+---
+
+# 1) Server code scaffolds (snippets)
+
+### `src/agent/index.ts` (skeleton)
+
+```ts
+import OpenAI from 'openai';
+import { registry, toolsArray } from './registry';
+import { getSession, saveSession } from './memory/sessionStore';
+import { guard } from './security/guard';
+
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY! });
+
+export async function handleChat({ sessionId, messages, userId }) {
+  const session = await getSession(sessionId);
+  const base = {
+    model: 'o3-mini',
+    reasoning: { effort: 'medium' },
+    input: messages,
+    tools: toolsArray,
+    tool_choice: 'auto',
+    previous_response_id: session?.prevId,
+  } as const;
+
+  const stream = await openai.responses.stream(base);
+
+  for await (const event of stream) {
+    if (event.type === 'tool_call') {
+      const { name, arguments: args } = event;
+      const tool = registry[name];
+      const safeArgs = await guard(tool, args, userId);
+      const result = await tool.run(safeArgs, { userId, sessionId });
+      await stream.send({ type: 'tool_result', tool_name: name, result });
+    }
+    if (event.type === 'response.completed') {
+      await saveSession(sessionId, event.response.id);
+    }
+  }
+}
+```
+
+### `src/agent/registry.ts`
+
+```ts
+import * as blog from './tools/blog.upsertPost';
+import * as page from './tools/page.updateBlocks';
+// ... import others
+
+export const registry = {
+  [blog.spec.name]: blog,
+  [page.spec.name]: page,
+  // ...
+};
+
+export const toolsArray = Object.values(registry).map(t => ({
+  type: 'function',
+  name: t.spec.name,
+  description: t.spec.description,
+  parameters: t.spec.jsonSchema,
+}));
+```
+
+### `src/agent/memory/rag.ts` (outline)
+
+```ts
+export async function retrieveContext(query: string, k = 6, filters?: any) {
+  // 1) embed query with text-embedding-3-large
+  // 2) pgvector similarity to kb_chunks
+  // 3) return top chunks as `{ type: 'input_text', text: chunk }` items
+}
+```
+
+---
+
+# 2) Example Tool Spec (blog.upsertPost)
+
+```ts
+export const spec = {
+  name: 'blog.upsertPost',
+  description: 'Create or update a blog post and SEO fields',
+  jsonSchema: {
+    type: 'object',
+    properties: {
+      slug: { type: 'string' },
+      title: { type: 'string' },
+      html: { type: 'string' },
+      excerpt: { type: 'string' },
+      status: { enum: ['draft','published'] },
+      tags: { type: 'array', items: { type: 'string' } },
+      featuredImageId: { type: 'string' },
+      canonical: { type: 'string' },
+      metaTitle: { type: 'string' },
+      metaDescription: { type: 'string' },
+      schemaOrg: { type: 'object', additionalProperties: true },
+      dryRun: { type: 'boolean', default: false }
+    },
+    required: ['slug']
+  },
+  requiresApproval: false
+} as const;
+
+export async function run(args, ctx) {
+  if (args.dryRun) {
+    // compute diff vs current post
+    return { ok: true, preview: [/* diff objects */] };
+  }
+  // write to CMS DB; return URL
+  return { ok: true, data: { url: `/blog/${args.slug}` } };
+}
+```
+
+---
+
+# 3) Chat UI (Next.js page sketch)
+
+```tsx
+export default function AdminAI() {
+  // render messages, SSE stream, tool previews, approve/apply
+}
+```
+
+---
+
+# 4) Ops Runbook (docs/agent-ops.md)
+
+* Rotate OPENAI keys quarterly.
+* Monitor token spend; set daily budget caps.
+* Review audit logs weekly.
+* Keep KB fresh: nightly sitemap crawl + monthly media re‑embeddings.
+
+---
+
+# 5) Quick Start
+
+1. `pnpm i openai zod pg pgvector supabase jsdom vitest` (and others as needed).
+2. Run migrations.
+3. Add `.env` values.
+4. Start dev: `pnpm dev`.
+5. Visit `/admin/ai` and issue: “Create a blog post draft titled ‘Best Austin Bachelorette Boat Themes’.”
+
+---
+
+# 6) Notes
+
+* Use **dryRun** for any write tool by default unless explicitly approved.
+* All tool inputs must be validated with Zod before execution.
+* Keep the system prompt invariant; only pass user’s instructions as `input`.

@@ -805,6 +805,126 @@ export interface IStorage {
   cleanupOldWebhookNotifications(daysOld: number): Promise<number>;
   
   // ===== END WEBHOOK NOTIFICATION MANAGEMENT =====
+  
+  // ===== AGENTIC AI TASK MANAGEMENT =====
+  
+  // Agent Tasks
+  getAgentTask(id: string): Promise<AgentTask | undefined>;
+  getAgentTasks(filters?: {
+    status?: string;
+    category?: string;
+    type?: string;
+    priority?: string;
+    createdBy?: string;
+    limit?: number;
+    offset?: number;
+    sortBy?: 'createdAt' | 'updatedAt' | 'priority' | 'status';
+    sortOrder?: 'asc' | 'desc';
+  }): Promise<AgentTask[]>;
+  createAgentTask(task: InsertAgentTask): Promise<AgentTask>;
+  updateAgentTask(id: string, updates: Partial<AgentTask>): Promise<AgentTask>;
+  deleteAgentTask(id: string): Promise<boolean>;
+  getAgentTasksByStatus(status: string): Promise<AgentTask[]>;
+  getAgentTasksByCategory(category: string): Promise<AgentTask[]>;
+  getActiveAgentTasks(): Promise<AgentTask[]>;
+  getAgentTaskQueue(limit?: number): Promise<AgentTask[]>;
+  
+  // Agent Tools
+  getAgentTool(id: string): Promise<AgentTool | undefined>;
+  getAgentTools(filters?: {
+    name?: string;
+    category?: string;
+    enabled?: boolean;
+    limit?: number;
+    offset?: number;
+  }): Promise<AgentTool[]>;
+  createAgentTool(tool: InsertAgentTool): Promise<AgentTool>;
+  updateAgentTool(id: string, updates: Partial<AgentTool>): Promise<AgentTool>;
+  deleteAgentTool(id: string): Promise<boolean>;
+  getAgentToolsByCategory(category: string): Promise<AgentTool[]>;
+  getEnabledAgentTools(): Promise<AgentTool[]>;
+  
+  // Agent Executions
+  getAgentExecution(id: string): Promise<AgentExecution | undefined>;
+  getAgentExecutions(filters?: {
+    taskId?: string;
+    agentId?: string;
+    toolName?: string;
+    status?: string;
+    dateFrom?: Date;
+    dateTo?: Date;
+    limit?: number;
+    offset?: number;
+  }): Promise<AgentExecution[]>;
+  createAgentExecution(execution: InsertAgentExecution): Promise<AgentExecution>;
+  updateAgentExecution(id: string, updates: Partial<AgentExecution>): Promise<AgentExecution>;
+  getAgentExecutionsByTask(taskId: string): Promise<AgentExecution[]>;
+  getAgentExecutionsByAgent(agentId: string): Promise<AgentExecution[]>;
+  getAgentExecutionStats(filters?: {
+    dateFrom?: Date;
+    dateTo?: Date;
+    taskId?: string;
+    agentId?: string;
+  }): Promise<{
+    totalExecutions: number;
+    successfulExecutions: number;
+    failedExecutions: number;
+    averageExecutionTime: number;
+    toolUsageStats: Record<string, number>;
+  }>;
+  
+  // Agent Task Analytics
+  getAgentTaskAnalytics(filters?: {
+    dateFrom?: Date;
+    dateTo?: Date;
+    category?: string;
+    status?: string;
+  }): Promise<{
+    totalTasks: number;
+    completedTasks: number;
+    failedTasks: number;
+    averageCompletionTime: number;
+    tasksByCategory: Record<string, number>;
+    tasksByStatus: Record<string, number>;
+    tasksByPriority: Record<string, number>;
+  }>;
+  
+  // Agent Performance Metrics
+  getAgentPerformanceMetrics(agentId?: string): Promise<{
+    agentId?: string;
+    totalTasks: number;
+    completedTasks: number;
+    successRate: number;
+    averageExecutionTime: number;
+    totalToolExecutions: number;
+    toolSuccessRate: number;
+    lastActivity?: Date;
+    errors: number;
+  }>;
+  
+  // Agent Task Dependencies and Coordination
+  createTaskDependency(taskId: string, dependsOnTaskId: string): Promise<boolean>;
+  getTaskDependencies(taskId: string): Promise<AgentTask[]>;
+  getTasksDependingOn(taskId: string): Promise<AgentTask[]>;
+  checkTaskCanRun(taskId: string): Promise<{ canRun: boolean; blockedBy?: AgentTask[] }>;
+  
+  // Agent Task History and Audit
+  getAgentTaskHistory(taskId: string): Promise<{
+    task: AgentTask;
+    executions: AgentExecution[];
+    statusHistory: Array<{
+      status: string;
+      timestamp: Date;
+      details?: any;
+    }>;
+  }>;
+  
+  // Cleanup and Maintenance
+  cleanupCompletedAgentTasks(daysOld: number): Promise<number>;
+  cleanupAgentExecutions(daysOld: number): Promise<number>;
+  archiveAgentTask(taskId: string): Promise<AgentTask>;
+  
+  // ===== END AGENTIC AI TASK MANAGEMENT =====
 }
 
 export class DatabaseStorage implements IStorage {

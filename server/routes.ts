@@ -40,8 +40,10 @@ let ObjectNotFoundError: any = null;
 let ObjectPermission: any = null;
 let quoteTokenService: any = null;
 let seedQuoteTemplates: any = null;
+let agenticAIService: any = null;
+let toolExecutor: any = null;
 import { getFullUrl, getPublicUrl, getQuoteUrl } from "./utils";
-import { insertMediaSchema } from "@shared/schema";
+import { insertMediaSchema, insertAgentTaskSchema, insertAgentToolSchema, insertAgentExecutionSchema } from "@shared/schema";
 import sanitizeHtml from 'sanitize-html';
 import TurndownService from 'turndown';
 import { format } from "date-fns";
@@ -234,6 +236,58 @@ const getSeedQuoteTemplates = async () => {
     }
   }
   return seedQuoteTemplates;
+};
+
+const getAgenticAIService = async () => {
+  if (!agenticAIService) {
+    try {
+      const { agenticAIService: service } = await import('./services/agenticAI');
+      agenticAIService = service;
+      
+      // Initialize dependencies
+      const storage = await getStorage();
+      const toolExecutorInstance = await getToolExecutor();
+      
+      service.setStorage(storage);
+      service.setToolExecutor(toolExecutorInstance);
+    } catch (error) {
+      console.error('Failed to initialize Agentic AI service:', error);
+      return { 
+        createTask: async () => ({ success: false, error: 'Service unavailable' }),
+        getTaskStatus: async () => null,
+        listTasks: async () => [],
+        cancelTask: async () => false,
+        getAgentPoolStatus: () => ({ totalAgents: 0, idleAgents: 0, busyAgents: 0, queuedTasks: 0, agents: [] }),
+        getHealthStatus: () => ({ status: 'unhealthy', openaiConnected: false, storageConnected: false, activeAgents: 0, queuedTasks: 0, errors: ['Service unavailable'] })
+      };
+    }
+  }
+  return agenticAIService;
+};
+
+const getToolExecutor = async () => {
+  if (!toolExecutor) {
+    try {
+      const { toolExecutor: executor } = await import('./services/toolExecutor');
+      toolExecutor = executor;
+      
+      // Initialize with available services
+      const storage = await getStorage();
+      const mediaService = await getMediaLibraryService();
+      
+      executor.setServices({
+        storage,
+        mediaService
+      });
+    } catch (error) {
+      console.error('Failed to initialize Tool Executor:', error);
+      return { 
+        execute: async () => ({ success: false, error: 'Service unavailable', executionTime: 0 }),
+        getExecutionStats: () => ({ totalExecutions: 0, rateLimits: [] })
+      };
+    }
+  }
+  return toolExecutor;
 };
 
 const getOpenAIService = async () => {
@@ -2441,6 +2495,265 @@ export async function registerRoutes(app: Express): Promise<Server> {
     } catch (error: any) {
       console.error("Mark partial lead as abandoned error:", error);
       res.status(500).json({ error: "Failed to mark as abandoned" });
+    }
+  });
+
+  // ==========================================
+  // AGENTIC AI ENDPOINTS
+  // ==========================================
+
+  /**
+   * Create a new agentic AI task
+   */
+  app.post("/api/agents/task/create", async (req, res) => {
+    try {
+      const taskSchema = insertAgentTaskSchema.extend({
+        instructions: z.string().min(1, "Instructions are required"),
+        category: z.enum(["database", "filesystem", "api", "seo", "media", "blog", "analytics", "system"]),
+        agentConfig: z.object({
+          model: z.enum(['gpt-3.5-turbo', 'gpt-4o-mini', 'gpt-4']).optional(),
+          temperature: z.number().min(0).max(2).optional(),
+          maxTokens: z.number().min(1).max(4096).optional(),
+          enabledTools: z.array(z.string()).optional(),
+          maxRetries: z.number().min(1).max(5).optional(),
+          timeoutMs: z.number().min(1000).max(300000).optional()
+        }).optional()
+      });
+
+      const validatedData = taskSchema.parse(req.body);
+      const agenticService = await getAgenticAIService();
+
+      const result = await agenticService.createTask({
+        title: validatedData.title,
+        description: validatedData.description,
+        instructions: validatedData.instructions,
+        type: validatedData.type,
+        category: validatedData.category,
+        priority: validatedData.priority,
+        context: validatedData.taskData?.context,
+        agentConfig: validatedData.agentConfig,
+        createdBy: req.adminUser?.id || 'system'
+      });
+
+      console.log(`🤖 Created agentic task: ${result.taskId}`);
+      res.json(result);
+
+    } catch (error: any) {
+      console.error("❌ Create agent task error:", error);
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ 
+          error: "Invalid request data", 
+          details: error.errors 
+        });
+      }
+      res.status(500).json({ error: "Failed to create agent task" });
+    }
+  });
+
+  /**
+   * Get task status and results
+   */
+  app.get("/api/agents/task/:taskId/status", async (req, res) => {
+    try {
+      const { taskId } = req.params;
+      const agenticService = await getAgenticAIService();
+
+      const task = await agenticService.getTaskStatus(taskId);
+      
+      if (!task) {
+        return res.status(404).json({ error: "Task not found" });
+      }
+
+      res.json(task);
+
+    } catch (error: any) {
+      console.error("❌ Get task status error:", error);
+      res.status(500).json({ error: "Failed to get task status" });
+    }
+  });
+
+  /**
+   * List all agent tasks with filtering
+   */
+  app.get("/api/agents/task/list", async (req, res) => {
+    try {
+      const { status, category, limit = 50, offset = 0 } = req.query;
+      const agenticService = await getAgenticAIService();
+
+      const filters: any = {};
+      if (status) filters.status = status;
+      if (category) filters.category = category;
+      filters.limit = Math.min(parseInt(limit as string), 100);
+      filters.offset = parseInt(offset as string);
+
+      const tasks = await agenticService.listTasks(filters);
+      res.json(tasks);
+
+    } catch (error: any) {
+      console.error("❌ List tasks error:", error);
+      res.status(500).json({ error: "Failed to list tasks" });
+    }
+  });
+
+  /**
+   * Cancel a running task
+   */
+  app.post("/api/agents/task/:taskId/cancel", async (req, res) => {
+    try {
+      const { taskId } = req.params;
+      const agenticService = await getAgenticAIService();
+
+      const cancelled = await agenticService.cancelTask(taskId);
+      
+      if (!cancelled) {
+        return res.status(404).json({ error: "Task not found or already completed" });
+      }
+
+      res.json({ success: true, message: "Task cancelled successfully" });
+
+    } catch (error: any) {
+      console.error("❌ Cancel task error:", error);
+      res.status(500).json({ error: "Failed to cancel task" });
+    }
+  });
+
+  /**
+   * Direct tool execution (for testing and admin use)
+   */
+  app.post("/api/agents/tools/execute", async (req, res) => {
+    try {
+      const { toolName, args } = req.body;
+      
+      if (!toolName || !args) {
+        return res.status(400).json({ 
+          error: "Missing required fields: toolName and args" 
+        });
+      }
+
+      const toolExecutor = await getToolExecutor();
+      
+      const context = {
+        agentId: 'direct_execution',
+        taskId: 'direct_execution',
+        environment: process.env.NODE_ENV || 'development',
+        timestamp: new Date(),
+        userPermissions: req.adminUser?.permissions || []
+      };
+
+      const result = await toolExecutor.execute(toolName, args, context);
+      res.json(result);
+
+    } catch (error: any) {
+      console.error("❌ Direct tool execution error:", error);
+      res.status(500).json({ error: "Failed to execute tool" });
+    }
+  });
+
+  /**
+   * Get agent pool status and coordination info
+   */
+  app.get("/api/agents/coordinate", async (req, res) => {
+    try {
+      const agenticService = await getAgenticAIService();
+      const toolExecutor = await getToolExecutor();
+
+      const poolStatus = agenticService.getAgentPoolStatus();
+      const healthStatus = agenticService.getHealthStatus();
+      const executionStats = toolExecutor.getExecutionStats();
+
+      res.json({
+        agentPool: poolStatus,
+        health: healthStatus,
+        executionStats,
+        environment: process.env.NODE_ENV || 'development',
+        timestamp: new Date().toISOString()
+      });
+
+    } catch (error: any) {
+      console.error("❌ Get coordination status error:", error);
+      res.status(500).json({ error: "Failed to get coordination status" });
+    }
+  });
+
+  /**
+   * Get available tools and their definitions
+   */
+  app.get("/api/agents/tools", async (req, res) => {
+    try {
+      const { ALL_AGENT_TOOLS, getToolsByCategory, getEnabledToolsForEnvironment } = await import('./services/agentTools');
+      
+      const { category, environment } = req.query;
+      
+      let tools = ALL_AGENT_TOOLS;
+      
+      if (category) {
+        tools = getToolsByCategory(category as string);
+      }
+      
+      if (environment) {
+        tools = getEnabledToolsForEnvironment(environment as string);
+      }
+
+      res.json({
+        tools: tools.map(tool => ({
+          name: tool.name,
+          description: tool.description,
+          category: tool.category,
+          dangerLevel: tool.implementation.dangerLevel,
+          rateLimit: tool.implementation.rateLimit,
+          allowedEnvironments: tool.implementation.allowedEnvironments,
+          schema: tool.functionSchema
+        })),
+        count: tools.length
+      });
+
+    } catch (error: any) {
+      console.error("❌ Get tools error:", error);
+      res.status(500).json({ error: "Failed to get tools" });
+    }
+  });
+
+  /**
+   * Bulk task operations
+   */
+  app.post("/api/agents/task/bulk", async (req, res) => {
+    try {
+      const { operation, taskIds } = req.body;
+      
+      if (!operation || !Array.isArray(taskIds)) {
+        return res.status(400).json({ 
+          error: "Missing required fields: operation and taskIds array" 
+        });
+      }
+
+      const agenticService = await getAgenticAIService();
+      const results = [];
+
+      for (const taskId of taskIds) {
+        try {
+          let result;
+          switch (operation) {
+            case 'cancel':
+              result = await agenticService.cancelTask(taskId);
+              results.push({ taskId, success: result, operation: 'cancelled' });
+              break;
+            case 'status':
+              result = await agenticService.getTaskStatus(taskId);
+              results.push({ taskId, success: !!result, data: result, operation: 'status' });
+              break;
+            default:
+              results.push({ taskId, success: false, error: 'Unknown operation', operation });
+          }
+        } catch (error: any) {
+          results.push({ taskId, success: false, error: error.message, operation });
+        }
+      }
+
+      res.json({ results });
+
+    } catch (error: any) {
+      console.error("❌ Bulk task operations error:", error);
+      res.status(500).json({ error: "Failed to perform bulk operations" });
     }
   });
 

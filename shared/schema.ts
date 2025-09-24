@@ -2581,8 +2581,146 @@ export const webhookNotifications = pgTable("webhook_notifications", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+// Agent Tasks - for managing agentic AI task workflows
+export const agentTasks = pgTable("agent_tasks", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  title: text("title").notNull(),
+  description: text("description"),
+  type: varchar("type").notNull(), // 'single_action', 'workflow', 'continuous'
+  category: varchar("category").notNull(), // 'database', 'filesystem', 'api', 'seo', 'media', 'blog', 'analytics'
+  status: varchar("status").notNull().default("pending"), // 'pending', 'queued', 'running', 'completed', 'failed', 'cancelled'
+  priority: integer("priority").notNull().default(1), // 1-10, higher = more priority
+  
+  // Task configuration
+  taskData: jsonb("task_data").$type<{
+    instructions: string;
+    context?: Record<string, any>;
+    dependencies?: string[]; // task IDs this task depends on
+    retryCount?: number;
+    maxRetries?: number;
+    timeoutMs?: number;
+    requiredTools?: string[];
+    expectedOutput?: string;
+  }>().default({}),
+  
+  // Agent configuration
+  agentConfig: jsonb("agent_config").$type<{
+    model: 'gpt-3.5-turbo' | 'gpt-4o-mini' | 'gpt-4';
+    temperature?: number;
+    maxTokens?: number;
+    enabledTools?: string[];
+    systemPrompt?: string;
+    conversationHistory?: Array<{role: string; content: string}>;
+  }>().default({}),
+  
+  // Execution tracking
+  startedAt: timestamp("started_at"),
+  completedAt: timestamp("completed_at"),
+  lastExecutionAt: timestamp("last_execution_at"),
+  
+  // Results and errors
+  result: jsonb("result").$type<{
+    success: boolean;
+    output?: any;
+    error?: string;
+    executedTools?: string[];
+    tokensUsed?: number;
+    executionTime?: number;
+  }>().default({}),
+  
+  // Parent-child relationships for complex workflows
+  parentTaskId: varchar("parent_task_id"), // reference to parent task
+  childTasks: jsonb("child_tasks").$type<string[]>().default([]), // array of child task IDs
+  
+  // User context
+  createdBy: varchar("created_by"), // admin user who created the task
+  assignedAgent: varchar("assigned_agent"), // which agent instance is handling this
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Agent Tools - definitions of available tools for agents
+export const agentTools = pgTable("agent_tools", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  name: text("name").notNull().unique(),
+  description: text("description").notNull(),
+  category: varchar("category").notNull(), // 'database', 'filesystem', 'api', 'seo', 'media', 'blog', 'analytics', 'system'
+  
+  // Function definition for OpenAI function calling
+  functionSchema: jsonb("function_schema").$type<{
+    name: string;
+    description: string;
+    parameters: {
+      type: 'object';
+      properties: Record<string, any>;
+      required?: string[];
+    };
+  }>().notNull(),
+  
+  // Implementation details
+  implementation: jsonb("implementation").$type<{
+    handlerFunction: string; // name of the function to call
+    module: string; // which module/service contains the function
+    requiresAuth?: boolean;
+    rateLimit?: number; // max calls per minute
+    dangerLevel: 'safe' | 'moderate' | 'dangerous'; // safety classification
+    allowedEnvironments?: string[]; // 'development', 'staging', 'production'
+  }>().notNull(),
+  
+  // Usage tracking
+  usageCount: integer("usage_count").notNull().default(0),
+  successRate: integer("success_rate").notNull().default(100), // percentage
+  avgExecutionTime: integer("avg_execution_time").notNull().default(0), // milliseconds
+  
+  // Configuration
+  enabled: boolean("enabled").notNull().default(true),
+  requiresApproval: boolean("requires_approval").notNull().default(false), // for dangerous operations
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Agent Executions - tracking individual tool executions within tasks
+export const agentExecutions = pgTable("agent_executions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  taskId: varchar("task_id").notNull(), // reference to agent_tasks
+  toolId: varchar("tool_id").notNull(), // reference to agent_tools
+  
+  // Execution details
+  input: jsonb("input").$type<Record<string, any>>().notNull(),
+  output: jsonb("output").$type<Record<string, any>>().default({}),
+  status: varchar("status").notNull().default("pending"), // 'pending', 'running', 'completed', 'failed'
+  
+  // Timing and performance
+  startedAt: timestamp("started_at").notNull().defaultNow(),
+  completedAt: timestamp("completed_at"),
+  executionTime: integer("execution_time"), // milliseconds
+  
+  // Error handling
+  error: text("error"),
+  retryAttempt: integer("retry_attempt").notNull().default(0),
+  
+  // Context and metadata
+  agentId: varchar("agent_id"), // which agent instance executed this
+  conversationContext: jsonb("conversation_context").$type<Array<{role: string; content: string}>>().default([]),
+  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
+  
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 export type WebhookNotification = typeof webhookNotifications.$inferSelect;
 export type InsertWebhookNotification = typeof webhookNotifications.$inferInsert;
+
+export type AgentTask = typeof agentTasks.$inferSelect;
+export type InsertAgentTask = typeof agentTasks.$inferInsert;
+
+export type AgentTool = typeof agentTools.$inferSelect;
+export type InsertAgentTool = typeof agentTools.$inferInsert;
+
+export type AgentExecution = typeof agentExecutions.$inferSelect;
+export type InsertAgentExecution = typeof agentExecutions.$inferInsert;
 
 // Media types
 export type Media = typeof media.$inferSelect;
@@ -2597,6 +2735,38 @@ export const insertWebhookNotificationSchema = createInsertSchema(webhookNotific
 export const insertMediaSchema = createInsertSchema(media).omit({
   id: true,
   uploadedAt: true,
+});
+
+export const insertAgentTaskSchema = createInsertSchema(agentTasks).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+}).extend({
+  type: z.enum(["single_action", "workflow", "continuous"]),
+  category: z.enum(["database", "filesystem", "api", "seo", "media", "blog", "analytics", "system"]),
+  status: z.enum(["pending", "queued", "running", "completed", "failed", "cancelled"]).default("pending"),
+  priority: z.number().min(1).max(10).default(1),
+});
+
+export const insertAgentToolSchema = createInsertSchema(agentTools).omit({
+  id: true,
+  usageCount: true,
+  successRate: true,
+  avgExecutionTime: true,
+  createdAt: true,
+  updatedAt: true,
+}).extend({
+  category: z.enum(["database", "filesystem", "api", "seo", "media", "blog", "analytics", "system"]),
+  enabled: z.boolean().default(true),
+  requiresApproval: z.boolean().default(false),
+});
+
+export const insertAgentExecutionSchema = createInsertSchema(agentExecutions).omit({
+  id: true,
+  createdAt: true,
+}).extend({
+  status: z.enum(["pending", "running", "completed", "failed"]).default("pending"),
+  retryAttempt: z.number().min(0).default(0),
 });
 
 // Export types
