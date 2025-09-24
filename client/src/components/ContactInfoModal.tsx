@@ -94,57 +94,80 @@ export function ContactInfoModal({
     },
   });
 
-  // Create quote mutation
+  // Create quote mutation - Updated to use /api/leads/quote-builder endpoint
   const createQuoteMutation = useMutation({
     mutationFn: async (data: ContactFormData) => {
-      // Prepare the complete payload for the API
+      // Prepare the structured payload for the new API endpoint
       const payload = {
         // Contact information
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
-        phone: data.phone,
+        contactInfo: {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          email: data.email,
+          phone: data.phone
+        },
         
         // Event details
-        eventType: eventDetails.eventType,
-        eventTypeLabel: eventDetails.eventTypeLabel,
-        eventEmoji: eventDetails.eventEmoji,
-        eventDate: eventDetails.eventDate?.toISOString(),
-        groupSize: eventDetails.groupSize,
-        specialRequests: eventDetails.specialRequests || '',
-        budget: eventDetails.budget || '',
+        eventDetails: {
+          eventDate: eventDetails.eventDate?.toISOString().split('T')[0] || '', // Format as YYYY-MM-DD
+          eventType: eventDetails.eventType,
+          groupSize: selectionDetails.cruiseType === 'disco' 
+            ? (selectionDetails.ticketQuantity || eventDetails.groupSize)
+            : eventDetails.groupSize
+        },
         
         // Selection details
-        cruiseType: selectionDetails.cruiseType || 'private',
-        selectedSlot: selectionDetails.selectedSlot,
-        selectedPackages: selectionDetails.selectedPackages || [],
-        discoPackage: selectionDetails.discoPackage,
-        ticketQuantity: selectionDetails.ticketQuantity || eventDetails.groupSize,
-        selectedDuration: selectionDetails.selectedDuration,
-        selectedBoat: selectionDetails.selectedBoat,
-        preferredTimeLabel: selectionDetails.preferredTimeLabel,
-        groupSizeLabel: selectionDetails.groupSizeLabel,
-        
-        // Pricing details
-        subtotal: pricingDetails.subtotal || 0,
-        tax: pricingDetails.tax || 0,
-        gratuity: pricingDetails.gratuity || 0,
-        total: pricingDetails.total || 0,
-        depositAmount: pricingDetails.depositAmount || 0,
-        discountCode: pricingDetails.discountCode || '',
+        selectionDetails: {
+          cruiseType: selectionDetails.cruiseType || 'private',
+          selectedSlot: selectionDetails.selectedSlot,
+          eventTypeLabel: eventDetails.eventTypeLabel,
+          eventEmoji: eventDetails.eventEmoji,
+          specialRequests: eventDetails.specialRequests || '',
+          budget: eventDetails.budget || '',
+          discountCode: pricingDetails.discountCode || '',
+          
+          // Private cruise specific details
+          ...(selectionDetails.cruiseType === 'private' && {
+            selectedPackages: selectionDetails.selectedPackages || [],
+            selectedAddOnPackages: selectionDetails.selectedPackages || [],
+            selectedDuration: selectionDetails.selectedDuration,
+            selectedBoat: selectionDetails.selectedBoat
+          }),
+          
+          // Disco cruise specific details
+          ...(selectionDetails.cruiseType === 'disco' && {
+            discoPackage: selectionDetails.discoPackage,
+            selectedDiscoPackage: selectionDetails.discoPackage,
+            ticketQuantity: selectionDetails.ticketQuantity || eventDetails.groupSize,
+            discoTicketQuantity: selectionDetails.ticketQuantity || eventDetails.groupSize
+          }),
+          
+          // Additional selection context
+          preferredTimeLabel: selectionDetails.preferredTimeLabel,
+          groupSizeLabel: selectionDetails.groupSizeLabel,
+          
+          // Pricing context
+          pricingDetails: {
+            subtotal: pricingDetails.subtotal || 0,
+            tax: pricingDetails.tax || 0,
+            gratuity: pricingDetails.gratuity || 0,
+            total: pricingDetails.total || 0,
+            depositAmount: pricingDetails.depositAmount || 0
+          }
+        }
       };
 
-      console.log('🔄 Submitting quote request:', payload);
-      const response = await apiRequest('POST', '/api/quotes/from-chat', payload);
+      console.log('🔄 Creating lead and quote via ContactInfoModal:', payload);
+      const response = await apiRequest('POST', '/api/leads/quote-builder', payload);
       
       if (!response.ok) {
         const errorData = await response.json();
-        console.error('❌ Quote API error:', response.status, errorData);
+        console.error('❌ Quote Builder API error:', response.status, errorData);
         throw new Error(errorData.message || `API Error: ${response.status}`);
       }
       
       const result = await response.json();
-      console.log('✅ Quote creation successful:', result);
+      console.log('✅ Quote Builder creation successful:', result);
       return result;
     },
     onSuccess: (data) => {

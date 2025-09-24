@@ -2350,7 +2350,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     handleSendQuote();
   }, [formData, formSubmitting, pricingLoading, paymentProcessing, toast, chatSessionId, getBoatDetails, privatePricing, discoPricing, quoteToken]);
   
-  // Handle sending quote via API
+  // Handle sending quote via API - Updated to use /api/leads/quote-builder endpoint
   const handleSendQuote = async () => {
     try {
       // Determine which pricing to use based on cruise type
@@ -2358,7 +2358,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       const pricing = selectedCruiseType === 'private' ? privatePricing : discoPricing;
       
       // Log for debugging
-      console.log('📧 Sending quote with data:', {
+      console.log('📧 Creating lead and quote with data:', {
         cruiseType: selectedCruiseType,
         pricing,
         formData
@@ -2369,45 +2369,66 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         throw new Error('Pricing information is not available. Please try again.');
       }
       
-      // Build the request payload
+      // Build the structured request payload for the new endpoint
       const requestPayload = {
         // Contact information
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        phone: formData.phone,
+        contactInfo: {
+          firstName: formData.firstName,
+          lastName: formData.lastName,
+          email: formData.email,
+          phone: formData.phone || ''
+        },
         
         // Event details
-        eventType: formData.eventType,
-        eventTypeLabel: formData.eventTypeLabel,
-        eventEmoji: formData.eventEmoji,
-        eventDate: formData.eventDate,
-        groupSize: formData.groupSize,
-        specialRequests: formData.specialRequests,
-        budget: formData.budget,
+        eventDetails: {
+          eventDate: formData.eventDate?.toISOString().split('T')[0] || '', // Format as YYYY-MM-DD
+          eventType: formData.eventType,
+          groupSize: selectedCruiseType === 'disco' ? formData.discoTicketQuantity : formData.groupSize
+        },
         
         // Selection details
-        cruiseType: selectedCruiseType,
-        selectedSlot: formData.selectedSlot,
-        selectedPackages: formData.selectedAddOnPackages,
-        discoPackage: formData.selectedDiscoPackage,
-        ticketQuantity: formData.discoTicketQuantity,
-        selectedDuration: formData.selectedDuration,
-        selectedBoat: formData.selectedBoat,
-        preferredTimeLabel: formData.preferredTimeLabel,
-        groupSizeLabel: formData.groupSizeLabel,
-        
-        // Pricing details
-        subtotal: pricing?.subtotal,
-        tax: pricing?.tax,
-        gratuity: pricing?.gratuity,
-        total: pricing?.total,
-        depositAmount: pricing?.depositAmount,
-        discountCode: formData.discountCode
+        selectionDetails: {
+          cruiseType: selectedCruiseType,
+          selectedSlot: formData.selectedSlot,
+          eventTypeLabel: formData.eventTypeLabel,
+          eventEmoji: formData.eventEmoji,
+          specialRequests: formData.specialRequests,
+          budget: formData.budget,
+          discountCode: formData.discountCode,
+          
+          // Private cruise specific details
+          ...(selectedCruiseType === 'private' && {
+            selectedPackages: formData.selectedAddOnPackages,
+            selectedAddOnPackages: formData.selectedAddOnPackages,
+            selectedDuration: formData.selectedDuration,
+            selectedBoat: formData.selectedBoat
+          }),
+          
+          // Disco cruise specific details
+          ...(selectedCruiseType === 'disco' && {
+            discoPackage: formData.selectedDiscoPackage,
+            selectedDiscoPackage: formData.selectedDiscoPackage,
+            ticketQuantity: formData.discoTicketQuantity,
+            discoTicketQuantity: formData.discoTicketQuantity
+          }),
+          
+          // Additional selection context
+          preferredTimeLabel: formData.preferredTimeLabel,
+          groupSizeLabel: formData.groupSizeLabel,
+          
+          // Pricing context
+          pricingDetails: {
+            subtotal: pricing?.subtotal,
+            tax: pricing?.tax,
+            gratuity: pricing?.gratuity,
+            total: pricing?.total,
+            depositAmount: pricing?.depositAmount
+          }
+        }
       };
       
-      // Call the API to create the quote
-      const response = await fetch('/api/quotes/from-chat', {
+      // Call the new API endpoint to create lead and quote
+      const response = await fetch('/api/leads/quote-builder', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -2432,13 +2453,13 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       // Parse the JSON response
       const result = await response.json();
       
-      if (result.success && result.accessToken) {
-        // Generate the shareable quote URL
-        const generatedQuoteUrl = `${window.location.origin}/chat?quote=${result.accessToken}`;
+      if (result.success && result.publicUrl) {
+        // Use the returned publicUrl directly instead of constructing our own
+        const generatedQuoteUrl = result.publicUrl;
         
-        // Store the quote URL and ID
+        // Store the quote URL and IDs from the response
         setQuoteUrl(generatedQuoteUrl);
-        setGeneratedQuoteId(result.quoteId || result.slug || result.accessToken);
+        setGeneratedQuoteId(result.quoteId || result.contactId);
         setShowQuoteConfirmation(true);
         
         // Show success toast with the quote URL
@@ -2453,17 +2474,24 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
           duration: 3000
         });
         
-        // CRITICAL FIX: Actually redirect to the quote page  
-        // This ensures the user can continue the flow on the quote page
+        // Log successful creation with all returned IDs
+        console.log('✅ Quote Builder Lead created successfully:', {
+          contactId: result.contactId,
+          projectId: result.projectId,
+          quoteId: result.quoteId,
+          publicUrl: result.publicUrl
+        });
+        
+        // Redirect to the quote page using the returned publicUrl
         setTimeout(() => {
-          window.location.href = `/chat?quote=${result.accessToken}`;
+          window.location.href = generatedQuoteUrl;
         }, 2000); // Give time for toast to show
       } else {
         throw new Error(result.error || result.message || 'Failed to create quote');
       }
       
     } catch (error) {
-      console.error('❌ Error sending quote:', error);
+      console.error('❌ Error creating quote:', error);
       
       // Detailed error logging
       let errorMessage = 'Please try again';
@@ -2476,7 +2504,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       }
       
       toast({
-        title: 'Error sending quote',
+        title: 'Error creating quote',
         description: errorMessage,
         variant: 'destructive'
       });
