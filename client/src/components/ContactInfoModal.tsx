@@ -25,6 +25,10 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Loader2, Ship, Mail, Phone, User, CheckCircle } from 'lucide-react';
+import { getEffectivePeopleCount } from '@shared/formatters';
+import { format } from 'date-fns';
+
+// ContactInfoModal now uses server-provided quote URLs instead of client-side tokens
 
 // Form validation schema
 const contactFormSchema = z.object({
@@ -111,9 +115,11 @@ export function ContactInfoModal({
         eventDetails: {
           eventDate: eventDetails.eventDate?.toISOString()?.split('T')[0] || '', // Format as YYYY-MM-DD
           eventType: eventDetails.eventType,
-          groupSize: selectionDetails.cruiseType === 'disco' 
-            ? (selectionDetails.ticketQuantity || eventDetails.groupSize)
-            : eventDetails.groupSize
+          groupSize: getEffectivePeopleCount(
+            selectionDetails.cruiseType || 'private',
+            eventDetails.groupSize,
+            selectionDetails.ticketQuantity
+          )
         },
         
         // Selection details
@@ -184,31 +190,31 @@ export function ContactInfoModal({
       });
       console.log('✅ Success toast shown');
       
-      // CRITICAL FIX: Update browser URL with quote token
+      // Use server-provided quote URL from API response (server handles secure token generation)
       if (data.publicUrl) {
-        console.log('🔗 Updating browser URL with quote token:', data.publicUrl);
-        
-        // Extract the path and query from the publicUrl (e.g., "/chat?quote=token")
+        console.log('🔗 Using server-provided quote URL:', data.publicUrl);
         try {
           const url = new URL(data.publicUrl);
           const pathWithQuery = url.pathname + url.search;
-          console.log('🔗 Extracted path with query:', pathWithQuery);
-          
-          // Update the browser URL using wouter's setLocation
           setLocation(pathWithQuery);
-          console.log('✅ Browser URL updated successfully');
+          console.log('✅ Browser URL updated with server quote URL successfully');
         } catch (error) {
-          console.error('❌ Error updating browser URL:', error);
-          // Fallback: extract token from URL and construct path manually
-          const tokenMatch = data.publicUrl.match(/[?&]quote=([^&]+)/);
-          if (tokenMatch) {
-            const token = tokenMatch[1];
-            setLocation(`/chat?quote=${token}`);
-            console.log('✅ Browser URL updated with extracted token');
+          console.error('❌ Error updating browser URL with server quote URL:', error);
+          // Fallback to basic parameters if URL parsing fails
+          if (eventDetails.eventDate && eventDetails.eventType && eventDetails.groupSize) {
+            const fallbackUrl = `/chat?date=${eventDetails.eventDate.toISOString().split('T')[0]}&party=${eventDetails.eventType}&people=${eventDetails.groupSize}`;
+            setLocation(fallbackUrl);
+            console.log('✅ Using fallback URL with basic parameters');
           }
         }
       } else {
-        console.warn('⚠️ No publicUrl in response to update browser URL');
+        console.warn('⚠️ No publicUrl received from server, using fallback parameters');
+        // Fallback to basic parameters if no server URL provided
+        if (eventDetails.eventDate && eventDetails.eventType && eventDetails.groupSize) {
+          const fallbackUrl = `/chat?date=${eventDetails.eventDate.toISOString().split('T')[0]}&party=${eventDetails.eventType}&people=${eventDetails.groupSize}`;
+          setLocation(fallbackUrl);
+          console.log('✅ Using fallback URL with basic parameters');
+        }
       }
       
       // Close the modal - user now sees their quote with the updated URL

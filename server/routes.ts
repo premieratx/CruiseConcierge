@@ -868,6 +868,15 @@ export async function createQuoteBuilderLead(app: Express) {
 
       const { contactInfo, eventDetails, selectionDetails, pricing, partialLeadId } = validationResult.data;
 
+      // 🎯 CRITICAL GROUPSIZE DEBUG: Track groupSize from API endpoint
+      console.log("🔍 GROUPSIZE TRACK - API ENDPOINT RECEIVED:", {
+        receivedEventDetailsGroupSize: eventDetails.groupSize,
+        receivedSelectionDetailsTicketQuantity: selectionDetails?.ticketQuantity,
+        receivedSelectionDetailsGroupSizeLabel: selectionDetails?.groupSizeLabel,
+        cruiseType: selectionDetails?.cruiseType,
+        timestamp: new Date().toISOString()
+      });
+
       // Transform data for ComprehensiveLeadService
       const leadData = {
         name: `${contactInfo.firstName} ${contactInfo.lastName}`,
@@ -875,7 +884,9 @@ export async function createQuoteBuilderLead(app: Express) {
         phone: contactInfo.phone,
         eventType: eventDetails.eventType,
         eventTypeLabel: eventDetails.eventType, // Could be enhanced with mapping
-        groupSize: eventDetails.groupSize,
+        // 🎯 CRITICAL FIX: Mark this as submitted data that should NEVER be overridden
+        groupSize: eventDetails.groupSize, // AUTHORITATIVE: This is the user's current selection from UI
+        groupSizeIsSubmitted: true, // Flag to prevent external data from overriding this value
         cruiseDate: eventDetails.eventDate,
         source: 'quote_builder',
         
@@ -917,6 +928,14 @@ export async function createQuoteBuilderLead(app: Express) {
         eventType: leadData.eventType,
         source: leadData.source,
         hasPricing: !!leadData.pricing
+      });
+
+      // 🎯 CRITICAL GROUPSIZE DEBUG: Track groupSize being sent to service
+      console.log("🔍 GROUPSIZE TRACK - SENDING TO SERVICE:", {
+        leadDataGroupSize: leadData.groupSize,
+        selectedOptionsTicketQuantity: leadData.selectedOptions?.ticketQuantity,
+        selectedOptionsGroupSizeLabel: leadData.selectedOptions?.groupSizeLabel,
+        timestamp: new Date().toISOString()
       });
 
       // Create comprehensive lead using the service

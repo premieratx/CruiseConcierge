@@ -143,6 +143,24 @@ export const formatGroupSize = (size: number): string => {
 };
 
 /**
+ * Get effective people count based on cruise type
+ * Consolidates logic for determining whether to use disco ticket quantity or regular group size
+ * @param cruiseType The type of cruise ('disco' or 'private')
+ * @param groupSize Regular group size for private cruises
+ * @param discoTicketQuantity Ticket quantity for disco cruises (optional)
+ * @returns The effective number of people for pricing/display purposes
+ */
+export const getEffectivePeopleCount = (
+  cruiseType: 'disco' | 'private' | string,
+  groupSize: number,
+  discoTicketQuantity?: number
+): number => {
+  return cruiseType === 'disco' 
+    ? (discoTicketQuantity || groupSize)
+    : groupSize;
+};
+
+/**
  * Format percentage values consistently
  * @param percent Percentage as whole number (e.g., 25 for 25%)
  * @returns Formatted percentage (e.g., "25%")

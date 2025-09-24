@@ -68,11 +68,20 @@ export class ComprehensiveLeadService {
       errors: []
     };
 
+    // 🎯 CRITICAL GROUPSIZE DEBUG: Track groupSize at service entry
+    console.log("🔍 GROUPSIZE TRACK - SERVICE RECEIVED:", {
+      leadDataGroupSize: leadData.groupSize,
+      selectedOptionsTicketQuantity: leadData.selectedOptions?.ticketQuantity,
+      selectedOptionsGroupSizeLabel: leadData.selectedOptions?.groupSizeLabel,
+      timestamp: new Date().toISOString()
+    });
+
     console.log('🚀 Starting comprehensive lead creation...', {
       name: leadData.name,
       email: leadData.email,
       phone: leadData.phone,
       eventType: leadData.eventType,
+      groupSize: leadData.groupSize,
       source: leadData.source
     });
 
@@ -125,6 +134,15 @@ export class ComprehensiveLeadService {
       if (project && leadData.quoteData) {
         console.log('💰 Step 3: Generating quote...');
         try {
+          // 🎯 CRITICAL GROUPSIZE DEBUG: Track values before quote creation
+          console.log("🔍 GROUPSIZE TRACK - BEFORE QUOTE CREATION:", {
+            leadDataGroupSize: leadData.groupSize,
+            projectGroupSize: project?.groupSize,
+            finalGroupSizeWillBe: leadData.groupSize || project?.groupSize || 1,
+            selectedOptionsTicketQuantity: leadData.selectedOptions?.ticketQuantity,
+            timestamp: new Date().toISOString()
+          });
+          
           // Create the quote with ALL user selections (CRITICAL FIX)
           quote = await storage.createQuote({
             projectId: project.id,
@@ -145,7 +163,9 @@ export class ComprehensiveLeadService {
               eventTypeLabel: leadData.eventTypeLabel || leadData.eventType || 'Cruise',
               eventEmoji: leadData.selectedOptions?.eventEmoji || '🚢',
               eventDate: leadData.cruiseDate || project?.projectDate?.toISOString() || new Date().toISOString(),
-              groupSize: leadData.groupSize || project?.groupSize || 1,
+              // 🎯 CRITICAL FIX: ALWAYS use submitted groupSize - NO CONDITIONAL LOGIC
+              // This is the user's explicit selection from the UI and must NEVER be overridden
+              groupSize: leadData.groupSize, // AUTHORITATIVE: Direct from user submission - NO fallbacks
               specialRequests: leadData.projectData?.specialRequests || project?.specialRequests || '',
               budget: leadData.projectData?.budget || project?.budget || ''
             },
@@ -178,6 +198,13 @@ export class ComprehensiveLeadService {
           });
           
           // Store basic info for now - we'll generate the REAL URL from Google Sheets data later
+          // 🎯 CRITICAL GROUPSIZE DEBUG: Track quote creation result
+          console.log("🔍 GROUPSIZE TRACK - AFTER QUOTE CREATION:", {
+            quoteId: quote.id,
+            createdQuoteGroupSize: quote.eventDetails?.groupSize,
+            timestamp: new Date().toISOString()
+          });
+          
           console.log('✅ Quote created:', quote.id);
           result.quoteId = quote.id;
           
@@ -225,11 +252,16 @@ export class ComprehensiveLeadService {
       if (result.integrations.googleSheets.success && quote) {
         console.log('🔗 Step 4.5: Generating quote URL from Google Sheets data...');
         try {
-          // Read back the complete lead data from Google Sheets (single source of truth)
-          const completeLeadResult = await googleSheetsService.getCompleteLeadData(leadId);
+          // 🎯 CRITICAL FIX: Don't fetch stale lead data from Google Sheets - use our fresh quote data
+          // The Google Sheets might have old/stale groupSize that would override our correct quote
+          console.log('🔗 Using fresh quote data instead of potentially stale Google Sheets data');
           
-          if (completeLeadResult.success && completeLeadResult.leadData) {
-            console.log('✅ Retrieved complete lead data from Google Sheets');
+          // 🎯 CRITICAL DEBUG: Log that we're skipping Google Sheets data retrieval
+          console.log("🔍 GROUPSIZE TRACK - SKIPPING GOOGLE SHEETS RETRIEVAL:", {
+            reason: "Prevent stale groupSize override",
+            usingQuoteGroupSize: quote.eventDetails?.groupSize,
+            timestamp: new Date().toISOString()
+          });
             
             // Generate secure quote URL with leadId for complete data access
             const secureQuoteUrl = quoteTokenService.generateSecureQuoteUrl(
@@ -258,10 +290,6 @@ export class ComprehensiveLeadService {
               console.error('❌ Failed to update Column Q with quote URL');
               result.errors.push('Failed to update quote URL in Google Sheets');
             }
-          } else {
-            console.error('❌ Failed to read complete lead data from Google Sheets');
-            result.errors.push('Failed to read lead data from Google Sheets for URL generation');
-          }
         } catch (error: any) {
           console.error('❌ Error generating quote URL from sheets data:', error);
           result.errors.push(`Quote URL generation failed: ${error.message}`);

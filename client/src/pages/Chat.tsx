@@ -37,9 +37,15 @@ import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { format, addDays, isBefore, isAfter, startOfDay, differenceInDays, isValid } from 'date-fns';
 import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSection, QuoteItem, NormalizedSlot } from '@shared/schema';
+
+// Client-side token handling removed - now using server-side token verification
+
+// Quote token verification is now handled by server API call to /api/quotes/public/:token
+
+// Quote token creation now handled by server API responses
 import { useAvailabilityForDate, useAvailabilityForDateRange, formatDateForAvailability } from '@/hooks/use-availability';
 import { TimeSlotList } from '@/components/TimeSlotList';
-import { formatCurrency, formatDate, formatLongDate, formatTimeForDisplay, formatTimeRange, formatPhoneNumber, formatCustomerName, formatBoatCapacity, formatEventDuration, formatGroupSize } from '@shared/formatters';
+import { formatCurrency, formatDate, formatLongDate, formatTimeForDisplay, formatTimeRange, formatPhoneNumber, formatCustomerName, formatBoatCapacity, formatEventDuration, formatGroupSize, getEffectivePeopleCount } from '@shared/formatters';
 import { 
   EVENT_TYPES, 
   CRUISE_TYPES, 
@@ -850,10 +856,25 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   const { isEditMode } = useInlineEdit();
   const params = useParams();
   
-  // Parse URL parameters to detect quote token or quote ID (with fallback)
+  // Parse URL parameters to detect quote token, quote ID, or direct parameters
   const urlParams = new URLSearchParams(window.location.search);
   const quoteToken = urlParams.get('quote') || urlParams.get('quoteToken'); // Look for ?quote={token} or ?quoteToken={token}
   const quoteId = params.id; // Look for /quote/{id} route parameter
+  
+  // NEW: Parse direct URL parameters for quote builder
+  const urlDate = urlParams.get('date'); // Format: YYYY-MM-DD (e.g., 2025-10-28)
+  const urlParty = urlParams.get('party'); // Event type ID (e.g., bachelor, bachelorette)
+  const urlPeople = urlParams.get('people'); // Group size (e.g., 25)
+  
+  // Check if we have complete URL parameters for quote builder
+  const hasUrlParameters = Boolean(urlDate && urlParty && urlPeople);
+  
+  // Define hasValidQuoteToken to check if we have a valid quote token from URL
+  const hasValidQuoteToken = Boolean(quoteToken);
+  
+  // Define hasValidUrlParams to check if we have valid direct URL parameters
+  const hasValidUrlParams = hasUrlParameters;
+  
   const [isQuoteMode, setIsQuoteMode] = useState(Boolean(quoteToken || quoteId));
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [loadedQuoteData, setLoadedQuoteData] = useState<any>(null);
@@ -897,7 +918,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   const [showComparison, setShowComparison] = useState(false);
   const [showBookingConfirmation, setShowBookingConfirmation] = useState(false);
   const [showContactInfoModal, setShowContactInfoModal] = useState(false);
-  const [contactInfoModalCompleted, setContactInfoModalCompleted] = useState(false);
+  const [contactInfoModalCompleted, setContactInfoModalCompleted] = useState(hasValidQuoteToken || hasValidUrlParams); // Bypass modal immediately if we have a valid quote token or URL parameters
   const [pendingPaymentType, setPendingPaymentType] = useState<'deposit' | 'full' | null>(null);
   const [showDateChangeDialog, setShowDateChangeDialog] = useState(false);
   const [pendingCruiseType, setPendingCruiseType] = useState<'private' | 'disco' | null>(null);
@@ -1005,6 +1026,15 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   const [leadTrackingEnabled, setLeadTrackingEnabled] = useState(true);
   const [availabilityCache, setAvailabilityCache] = useState<Map<string, any>>(new Map());
   
+  // Quote snapshot ref for modal bypass functionality
+  const quoteSnapshotRef = useRef<{
+    eventDetails: any;
+    selectionDetails: any;
+    pricingDetails: any;
+    formData: BookingData;
+    completedSelections: CompletedSelection[];
+  } | null>(null);
+  
   // Partial lead capture system
   const [chatSessionId] = useState<string>(() => `chat_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`);
   const [partialLeadSaved, setPartialLeadSaved] = useState(false);
@@ -1026,114 +1056,249 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     completedSelectionsRef.current = completedSelections;
   }, [completedSelections]);
   
-  // Load quote data if we're in Quote Mode
+  // Load quote data from server-verified token
   useEffect(() => {
-    if (quoteToken || quoteId) {
+    if (quoteToken) {
+      console.log('🔍 Detected quote token in URL, verifying with server...', quoteToken);
       setQuoteLoading(true);
       
-      // Use different API endpoint based on whether we have a token or ID
-      const apiUrl = quoteToken 
-        ? `/api/quotes/public/${quoteToken}`  // Token-based access
-        : `/api/quotes/${quoteId}`;           // ID-based access (no /public)
-      
-      fetch(apiUrl)
-        .then(res => {
-          if (!res.ok) throw new Error('Quote not found');
-          return res.json();
-        })
-        .then(quote => {
-          setLoadedQuoteData(quote);
-          // Pre-fill formData with quote details
-          const eventDetails = quote.eventDetails || {};
-          const selectionDetails = quote.selectionDetails || {};
-          const contactInfo = quote.contactInfo || {};
+      // Call server API to verify token and get quote data
+      const verifyQuoteToken = async () => {
+        try {
+          const response = await apiRequest('GET', `/api/quotes/public/${quoteToken}`);
           
-          setFormData(prev => ({
-            ...prev,
-            eventType: eventDetails.eventType || '',
-            eventTypeLabel: eventDetails.eventTypeLabel || '',
-            eventEmoji: eventDetails.eventEmoji || '',
-            groupSize: eventDetails.groupSize || GROUP_SIZE_DEFAULT,
-            eventDate: eventDetails.eventDate ? new Date(eventDetails.eventDate) : undefined,
-            firstName: contactInfo.firstName || '',
-            lastName: contactInfo.lastName || '',
-            email: contactInfo.email || '',
-            phone: contactInfo.phone || '',
-            specialRequests: eventDetails.specialRequests || '',
-            budget: eventDetails.budget || '',
-            selectedCruiseType: selectionDetails.cruiseType || null,
-            selectedSlot: selectionDetails.selectedSlot || null,
-            selectedAddOnPackages: selectionDetails.selectedPackages || [],
-            selectedDiscoPackage: selectionDetails.discoPackage || null,
-            discoTicketQuantity: selectionDetails.ticketQuantity || eventDetails.groupSize || GROUP_SIZE_DEFAULT,
-            selectedDuration: selectionDetails.selectedDuration || undefined,
-            preferredTimeLabel: selectionDetails.preferredTimeLabel || '',
-            groupSizeLabel: selectionDetails.groupSizeLabel || '',
-            selectedBoat: selectionDetails.selectedBoat || '',
-            discountCode: quote.promoCode || ''
-          }));
-          
-          // CRITICAL FIX: Bypass contact modal if contact info already exists
-          const hasContactInfo = contactInfo.firstName || contactInfo.lastName || contactInfo.email || contactInfo.phone;
-          if (hasContactInfo) {
-            console.log('✅ Contact info found in quote, bypassing contact modal');
-            setContactInfoModalCompleted(true);
+          if (!response.ok) {
+            const errorData = await response.json();
+            console.error('❌ Server token verification failed:', errorData);
+            toast({
+              title: "Invalid Quote Link",
+              description: errorData.message || "The quote link you're using is not valid or has expired.",
+              variant: "destructive"
+            });
+            setQuoteLoading(false);
+            return;
           }
           
-          // Update completed selections based on what's in the quote
+          const quoteData = await response.json();
+          console.log('✅ Server verified quote token successfully:', quoteData);
+          
+          // Extract the quote and related data from server response
+          const { quote } = quoteData;
+          const { contactInfo, eventDetails, selectionDetails } = quote;
+          
+          // Get the event config for emoji
+          const eventConfig = EVENT_TYPES[eventDetails?.eventType] || EVENT_TYPES['general'];
+          
+          // Populate form data from server-verified quote data
+          setFormData(prev => ({
+            ...prev,
+            eventType: eventDetails?.eventType || '',
+            eventTypeLabel: eventDetails?.eventTypeLabel || eventConfig?.label || '',
+            eventEmoji: eventConfig?.emoji || '🎉',
+            groupSize: eventDetails?.groupSize || 1,
+            eventDate: eventDetails?.eventDate ? new Date(eventDetails.eventDate) : undefined,
+            selectedCruiseType: selectionDetails?.cruiseType || 'private',
+            selectedSlot: selectionDetails?.selectedSlot || null,
+            selectedAddOnPackages: selectionDetails?.selectedAddOnPackages || [],
+            selectedDiscoPackage: selectionDetails?.discoPackage || null,
+            discoTicketQuantity: selectionDetails?.discoTicketQuantity || eventDetails?.groupSize || 1,
+            selectedDuration: selectionDetails?.selectedDuration || undefined,
+            specialRequests: selectionDetails?.specialRequests || '',
+            budget: selectionDetails?.budget || '',
+            discountCode: selectionDetails?.discountCode || '',
+            // Populate contact info if verified by server
+            firstName: contactInfo?.firstName || '',
+            lastName: contactInfo?.lastName || '',
+            email: contactInfo?.email || '',
+            phone: contactInfo?.phone || ''
+          }));
+          
+          // Create completed selections from server data
           const selections: CompletedSelection[] = [];
           
-          if (eventDetails.eventDate) {
+          if (eventDetails?.eventDate) {
             selections.push({
               id: 'date',
               label: 'Event Date',
               value: format(new Date(eventDetails.eventDate), 'EEEE, MMMM d, yyyy'),
-              icon: 'Calendar',
               emoji: '📅'
             });
           }
           
-          if (eventDetails.eventType) {
+          if (eventDetails?.eventType) {
             selections.push({
               id: 'event',
               label: 'Event Type',
-              value: eventDetails.eventTypeLabel || eventDetails.eventType,
-              emoji: eventDetails.eventEmoji || '🎉'
+              value: eventDetails.eventTypeLabel || eventConfig?.label || eventDetails.eventType,
+              emoji: eventConfig?.emoji || '🎉'
             });
           }
           
-          if (eventDetails.groupSize) {
+          if (eventDetails?.groupSize) {
             selections.push({
               id: 'group',
               label: 'Group Size',
               value: `${eventDetails.groupSize} guests`,
-              icon: 'Users',
               emoji: '👥'
+            });
+          }
+          
+          if (selectionDetails?.cruiseType) {
+            selections.push({
+              id: 'cruise-type',
+              label: 'Cruise Type',
+              value: selectionDetails.cruiseType === 'private' ? 'Private Cruise' : 'Disco Cruise',
+              emoji: selectionDetails.cruiseType === 'private' ? '🛥️' : '🕺'
             });
           }
           
           setCompletedSelections(selections);
           setIsQuoteMode(true);
           
-          // Jump to comparison step directly
+          // Modal bypass based on server confirmation of contact info
+          const hasContactInfo = Boolean(contactInfo?.firstName && contactInfo?.email);
+          console.log(`🚀 Server verified contact info: ${hasContactInfo ? 'Complete' : 'Missing'}`);
+          
+          if (hasContactInfo) {
+            console.log('✅ Server confirmed contact info collected - bypassing modal');
+            setContactInfoModalCompleted(true);
+          } else {
+            console.log('⚠️ Server indicates contact info needed - modal will show');
+            setContactInfoModalCompleted(false);
+          }
+          
           setCurrentStep('comparison-selection');
           setEventTypeCollapsed(true);
-          setShowGroupSize(false);
+          setShowGroupSize(true);
           setShowComparison(true);
           
-          setQuoteLoading(false);
-        })
-        .catch(error => {
-          console.error('Failed to load quote:', error);
+        } catch (error) {
+          console.error('❌ Error verifying quote token with server:', error);
           toast({
-            title: "Quote Not Found",
-            description: "The quote you're looking for could not be found.",
+            title: "Error Loading Quote",
+            description: "Unable to load quote data. Please try again or request a new quote.",
             variant: "destructive"
           });
+        } finally {
           setQuoteLoading(false);
-        });
+        }
+      };
+      
+      verifyQuoteToken();
+    } else if (quoteId) {
+      // Fallback for legacy quote IDs (not self-contained)
+      console.log('⚠️ Legacy quote ID detected, please use token-based quotes for better performance');
+      toast({
+        title: "Legacy Quote Format",
+        description: "This quote format is no longer supported. Please request a new quote.",
+        variant: "destructive"
+      });
     }
   }, [quoteToken, quoteId, toast]);
+
+  // NEW: Load quote data from direct URL parameters (date, party, people)
+  useEffect(() => {
+    if (hasValidUrlParams && !quoteToken && !quoteId) {
+      console.log('🔍 Detected URL parameters for quote builder:', { date: urlDate, party: urlParty, people: urlPeople });
+      setQuoteLoading(true);
+      
+      try {
+        // Validate and parse URL parameters
+        const parsedDate = new Date(urlDate!);
+        const parsedPeople = parseInt(urlPeople!, 10);
+        
+        // Enhanced validation: gracefully fall back to normal flow instead of showing error toasts
+        let validDate = parsedDate;
+        let validEventConfig = EVENT_TYPES[urlParty!];
+        let validPeople = parsedPeople;
+        let hasValidationIssues = false;
+        
+        // Validate and fix date
+        if (isNaN(parsedDate.getTime()) || !isDateAvailable(parsedDate)) {
+          console.warn('⚠️ Invalid date in URL parameters, falling back to normal flow:', urlDate);
+          hasValidationIssues = true;
+        }
+        
+        // Validate and fix party type
+        if (!validEventConfig) {
+          console.warn('⚠️ Invalid party type in URL parameters, falling back to normal flow:', urlParty);
+          hasValidationIssues = true;
+        }
+        
+        // Validate and fix group size
+        if (isNaN(parsedPeople) || parsedPeople < GROUP_SIZE_MIN || parsedPeople > GROUP_SIZE_MAX) {
+          console.warn('⚠️ Invalid group size in URL parameters, falling back to normal flow:', urlPeople);
+          hasValidationIssues = true;
+        }
+        
+        // If any validation issues, gracefully fall back to normal chat flow
+        if (hasValidationIssues) {
+          console.log('🔄 Gracefully falling back to normal chat flow due to invalid URL parameters');
+          setQuoteLoading(false);
+          // Don't show error toasts, just let the user use the normal flow
+          return;
+        }
+        
+        console.log('✅ Successfully validated URL parameters');
+        
+        // Auto-populate form data from URL parameters
+        setFormData(prev => ({
+          ...prev,
+          eventType: urlParty!,
+          eventTypeLabel: eventConfig.label,
+          eventEmoji: eventConfig.emoji,
+          eventDate: parsedDate,
+          groupSize: parsedPeople,
+        }));
+        
+        // Create completed selections from URL parameters
+        const selections: CompletedSelection[] = [
+          {
+            id: 'date',
+            label: 'Event Date',
+            value: format(parsedDate, 'EEEE, MMMM d, yyyy'),
+            emoji: '📅'
+          },
+          {
+            id: 'event',
+            label: 'Event Type',
+            value: eventConfig.label,
+            emoji: eventConfig.emoji
+          },
+          {
+            id: 'group',
+            label: 'Group Size',
+            value: `${parsedPeople} guests`,
+            emoji: '👥'
+          }
+        ];
+        
+        setCompletedSelections(selections);
+        setIsQuoteMode(true);
+        
+        // Complete modal bypass - skip directly to comparison view with all parameters set
+        console.log('🚀 Bypassing contact modal and jumping to live quote view');
+        setContactInfoModalCompleted(true);
+        setCurrentStep('comparison-selection');
+        setEventTypeCollapsed(true);
+        setShowGroupSize(true);
+        setShowComparison(true);
+        
+        setQuoteLoading(false);
+        
+        console.log('✅ Quote Builder initialized from URL parameters successfully');
+        
+      } catch (error) {
+        console.error('❌ Failed to process URL parameters:', error);
+        toast({
+          title: "Invalid URL Parameters",
+          description: "Unable to process the quote parameters in the URL.",
+          variant: "destructive"
+        });
+        setQuoteLoading(false);
+      }
+    }
+  }, [urlDate, urlParty, urlPeople, hasValidUrlParams, quoteToken, quoteId, toast]);
 
   // Direct first-come-first-served booking - no slot holds
 
@@ -1262,16 +1427,60 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   }, [partialLeadSaved, chatSessionId]);
 
   // Show contact info modal when comparison view is shown (0.5 second delay for FOMO effect)
-  // Only show if not already completed/dismissed
+  // Only show if not already completed/dismissed and not accessing via quote token or URL parameters
   useEffect(() => {
-    if (showComparison && !showContactInfoModal && !contactInfoModalCompleted) {
+    if (showComparison && !showContactInfoModal && !contactInfoModalCompleted && !hasValidQuoteToken && !hasValidUrlParams) {
+      // CRITICAL: Capture quote snapshot BEFORE modal opens
+      quoteSnapshotRef.current = {
+        eventDetails: {
+          eventDate: formData.eventDate,
+          eventType: formData.eventType,
+          eventTypeLabel: formData.eventTypeLabel,
+          eventEmoji: formData.eventEmoji,
+          groupSize: formData.groupSize,
+          specialRequests: formData.specialRequests,
+          budget: formData.budget,
+        },
+        selectionDetails: {
+          cruiseType: formData.selectedCruiseType || undefined,
+          selectedSlot: formData.selectedSlot || undefined,
+          selectedPackages: formData.selectedAddOnPackages || [],
+          discoPackage: formData.selectedDiscoPackage || undefined,
+          ticketQuantity: formData.discoTicketQuantity,
+          selectedDuration: formData.selectedDuration,
+          selectedBoat: formData.selectedBoat,
+          preferredTimeLabel: formData.preferredTimeLabel,
+          groupSizeLabel: formData.groupSizeLabel,
+        },
+        pricingDetails: {
+          subtotal: formData.selectedCruiseType === 'disco' 
+            ? discoPricing?.subtotal 
+            : privatePricing?.subtotal,
+          tax: formData.selectedCruiseType === 'disco' 
+            ? discoPricing?.tax 
+            : privatePricing?.tax,
+          gratuity: formData.selectedCruiseType === 'disco' 
+            ? discoPricing?.gratuity 
+            : privatePricing?.gratuity,
+          total: formData.selectedCruiseType === 'disco' 
+            ? discoPricing?.total 
+            : privatePricing?.total,
+          depositAmount: formData.selectedCruiseType === 'disco' 
+            ? discoPricing?.depositAmount 
+            : privatePricing?.depositAmount,
+          discountCode: formData.discountCode,
+        },
+        formData: { ...formData },
+        completedSelections: [...completedSelections]
+      };
+      
       const timer = setTimeout(() => {
         setShowContactInfoModal(true);
       }, 500); // 0.5 second delay for FOMO effect
       
       return () => clearTimeout(timer);
     }
-  }, [showComparison, showContactInfoModal, contactInfoModalCompleted]);
+  }, [showComparison, showContactInfoModal, contactInfoModalCompleted, hasValidQuoteToken, hasValidUrlParams, formData, completedSelections, discoPricing, privatePricing]);
 
   // Navigation functions for the new 2-step flow
   const goToStep = (step: ChatFlowStep) => {
@@ -2234,6 +2443,90 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     console.log('handleConfirmedBooking called but not used - payment handled in checkout step');
   }, []);
 
+  // Server-based contact submission handler (uses proper API flow)
+  const handleServerBasedContactSubmit = useCallback(async (contactData: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phone: string;
+  }) => {
+    console.log('🚀 Server-based contact submission starting...', contactData);
+    
+    try {
+      // Update form data with contact info
+      setFormData(prev => ({
+        ...prev,
+        firstName: contactData.firstName,
+        lastName: contactData.lastName,
+        email: contactData.email,
+        phone: contactData.phone
+      }));
+      
+      // Call server API to create lead and quote with proper server token
+      const response = await apiRequest('POST', '/api/leads/quote-builder', {
+        contactInfo: contactData,
+        eventDetails: {
+          eventDate: formData.eventDate?.toISOString()?.split('T')[0] || '',
+          eventType: formData.eventType,
+          groupSize: getEffectivePeopleCount(
+            formData.selectedCruiseType || 'private',
+            formData.groupSize,
+            formData.discoTicketQuantity
+          )
+        },
+        selectionDetails: {
+          cruiseType: formData.selectedCruiseType || 'private',
+          selectedSlot: formData.selectedSlot,
+          selectedPackages: formData.selectedAddOnPackages,
+          discoPackage: formData.selectedDiscoPackage,
+          ticketQuantity: formData.discoTicketQuantity,
+          selectedDuration: formData.selectedDuration,
+          selectedBoat: formData.selectedBoat,
+          preferredTimeLabel: formData.preferredTimeLabel,
+          groupSizeLabel: formData.groupSizeLabel,
+          eventTypeLabel: formData.eventTypeLabel,
+          eventEmoji: formData.eventEmoji,
+          specialRequests: formData.specialRequests,
+          budget: formData.budget,
+          discountCode: formData.discountCode
+        }
+      });
+      
+      if (!response.ok) {
+        throw new Error('Failed to create quote via server');
+      }
+      
+      const result = await response.json();
+      console.log('✅ Server quote creation successful:', result);
+      
+      // Hide modal immediately and show quote
+      setShowContactInfoModal(false);
+      setContactInfoModalCompleted(true);
+      
+      // Use server-provided quote URL (with proper server token)
+      if (result.publicUrl) {
+        console.log('🔗 Using server-provided quote URL:', result.publicUrl);
+        const url = new URL(result.publicUrl);
+        const pathWithQuery = url.pathname + url.search;
+        window.history.replaceState({}, '', pathWithQuery);
+        console.log('✅ URL updated with server quote token');
+      }
+      
+      toast({
+        title: 'Quote Created Successfully!',
+        description: 'Your quote is ready and you will receive it via email and SMS.',
+      });
+      
+    } catch (error) {
+      console.error('❌ Error creating server-based quote:', error);
+      toast({
+        title: 'Error Creating Quote',
+        description: 'Failed to create quote. Please try again.',
+        variant: 'destructive'
+      });
+    }
+  }, [formData, toast]);
+
   // Contact form submission with loading protection
   const handleContactSubmit = useCallback(async (e: React.FormEvent) => {
     e.preventDefault();
@@ -2418,7 +2711,9 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         eventDetails: {
           eventDate: formData.eventDate?.toISOString().split('T')[0] || '', // Format as YYYY-MM-DD
           eventType: formData.eventType,
-          groupSize: selectedCruiseType === 'disco' ? formData.discoTicketQuantity : formData.groupSize
+          // 🎯 CRITICAL FIX: Always use formData.groupSize as the authoritative source
+          // The UI selection (formData.groupSize) should ALWAYS override any other values
+          groupSize: formData.groupSize // FIXED: Use consistent groupSize from UI selection
         },
         
         // Selection details
@@ -2443,13 +2738,15 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
           ...(selectedCruiseType === 'disco' && {
             discoPackage: formData.selectedDiscoPackage,
             selectedDiscoPackage: formData.selectedDiscoPackage,
-            ticketQuantity: formData.discoTicketQuantity,
-            discoTicketQuantity: formData.discoTicketQuantity
+            // 🎯 CRITICAL FIX: Use formData.groupSize for consistency, not discoTicketQuantity
+            ticketQuantity: formData.groupSize, // FIXED: Use UI groupSize as source of truth
+            discoTicketQuantity: formData.groupSize // FIXED: Use UI groupSize as source of truth
           }),
           
           // Additional selection context
           preferredTimeLabel: formData.preferredTimeLabel,
-          groupSizeLabel: formData.groupSizeLabel,
+          // 🎯 CRITICAL FIX: Generate groupSizeLabel from current UI groupSize
+          groupSizeLabel: `${formData.groupSize} people`, // FIXED: Use UI groupSize
           
           // Pricing context
           pricingDetails: {
@@ -2580,7 +2877,8 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
           selectedSlot: data.selectedSlot,
           selectedPackages: data.selectedAddOnPackages || [],
           discoPackage: data.selectedDiscoPackage,
-          ticketQuantity: data.discoTicketQuantity,
+          // 🎯 CRITICAL FIX: Use data.groupSize consistently for both cruise types
+          ticketQuantity: data.groupSize, // FIXED: Use UI groupSize as source of truth
           selectedDuration: data.selectedSlot?.duration,
           selectedBoat: selectedBoatDetails,
           preferredTimeLabel: data.selectedSlot?.label,
@@ -2607,6 +2905,16 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
 
       // 🧪 CRITICAL DEBUG: Log the complete payload being sent
       console.log("🔍 DEBUG: Complete payload being sent to server:", JSON.stringify(quoteBuilderPayload, null, 2));
+      
+      // 🎯 CRITICAL GROUPSIZE DEBUG: Track groupSize from frontend
+      console.log("🔍 GROUPSIZE TRACK - FRONTEND SENDING:", {
+        originalFormDataGroupSize: data.groupSize,
+        payloadEventDetailsGroupSize: quoteBuilderPayload.eventDetails.groupSize,
+        payloadSelectionDetailsGroupSizeLabel: quoteBuilderPayload.selectionDetails.groupSizeLabel,
+        cruiseType: data.selectedCruiseType,
+        discoTicketQuantity: data.discoTicketQuantity,
+        timestamp: new Date().toISOString()
+      });
 
       // 🧪 CRITICAL DEBUG: Log request details before sending
       console.log("🚀 DEBUG: About to send request to /api/leads/quote-builder");
