@@ -8,6 +8,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { BlogPost, BlogAuthor, BlogCategory, BlogTag } from "@shared/schema";
+import SEOHead from "@/components/SEOHead";
 
 interface BlogPostsResponse {
   posts: (BlogPost & {
@@ -40,7 +41,7 @@ export default function Blog() {
   const [sortBy, setSortBy] = useState("publishedAt");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
 
-  const postsPerPage = 12;
+  const postsPerPage = 15; // Changed to 15 to work better with 5-column layout
 
   // Fetch blog data
   const { data, isLoading, error } = useQuery<BlogPageData>({
@@ -132,6 +133,12 @@ export default function Blog() {
 
   return (
     <Layout>
+      <SEOHead 
+        pageRoute="/blog"
+        defaultTitle="Blog - Party Perfect Cruises | Lake Travis Boat Tours & Events"
+        defaultDescription="Discover the latest news, tips, and stories from Lake Travis. Read about boat tours, party planning, lake activities, and exclusive cruise experiences on Austin's premier waterway."
+        defaultKeywords={["Lake Travis blog", "Austin boat tours", "party planning tips", "lake activities", "cruise stories", "Lake Travis events"]}
+      />
       <div className="container mx-auto px-4 py-8">
         <BlogHeader
           searchQuery={searchQuery}
@@ -150,12 +157,12 @@ export default function Blog() {
         {/* Loading State */}
         {isLoading && (
           <div className="mt-8">
-            <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
-              {Array.from({ length: 6 }).map((_, i) => (
-                <div key={i} className="space-y-4">
-                  <Skeleton className="h-48 w-full" />
+            <div className={`grid gap-4 ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' : 'grid-cols-1'}`}>
+              {Array.from({ length: 10 }).map((_, i) => (
+                <div key={i} className="space-y-3">
+                  <Skeleton className="h-40 w-full" />
                   <Skeleton className="h-4 w-3/4" />
-                  <Skeleton className="h-4 w-1/2" />
+                  <Skeleton className="h-3 w-1/2" />
                 </div>
               ))}
             </div>
@@ -201,23 +208,24 @@ export default function Blog() {
 
             {/* Posts Grid/List */}
             {data.posts.length === 0 ? (
-              <div className="mt-12 text-center">
+              <section className="mt-12 text-center">
                 <p className="text-xl text-gray-500 dark:text-gray-400">No blog posts found.</p>
                 <p className="text-gray-400 dark:text-gray-500 mt-2">Try adjusting your search or filters.</p>
-              </div>
+              </section>
             ) : (
-              <div className={`mt-8 grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1 max-w-4xl mx-auto'}`}>
+              <section className={`mt-8 grid gap-4 ${viewMode === 'grid' ? 'grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5' : 'grid-cols-1 max-w-4xl mx-auto'}`}>
                 {data.posts.map((post) => (
-                  <BlogCard
-                    key={post.id}
-                    post={post}
-                    author={post.author}
-                    categories={post.categories}
-                    showExcerpt={true}
-                    className={viewMode === 'list' ? 'md:flex md:space-x-6' : ''}
-                  />
+                  <article key={post.id} data-testid={`card-blog-post-${post.id}`}>
+                    <BlogCard
+                      post={post}
+                      author={post.author}
+                      categories={post.categories}
+                      showExcerpt={true}
+                      className={viewMode === 'list' ? 'md:flex md:space-x-6' : ''}
+                    />
+                  </article>
                 ))}
-              </div>
+              </section>
             )}
 
             {/* Pagination */}
