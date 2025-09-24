@@ -731,13 +731,54 @@ export interface IStorage {
 
   // ===== CONTENT BLOCKS OPERATIONS =====
   
-  // Content Blocks Management
+  // Basic Content Blocks Management
   createContentBlock(contentBlock: InsertContentBlock): Promise<ContentBlock>;
   getContentBlock(route: string, key: string): Promise<ContentBlock | undefined>;
   getContentBlocks(route?: string): Promise<ContentBlock[]>;
+  
+  // Public-safe content blocks methods (only visible + published)
+  getPublicContentBlocks(route?: string): Promise<ContentBlock[]>;
+  getPublicContentBlocksByPage(pageRoute: string, filters?: {
+    category?: string;
+    type?: string;
+  }): Promise<ContentBlock[]>;
+  getPublicContentBlock(route: string, key: string): Promise<ContentBlock | undefined>;
+  searchPublicContentBlocks(query: string, filters?: {
+    route?: string;
+    type?: string;
+    category?: string;
+  }): Promise<ContentBlock[]>;
+  getPublicContentBlocksByType(blockType: string): Promise<ContentBlock[]>;
+  getPublicContentBlocksByCategory(category: string): Promise<ContentBlock[]>;
   updateContentBlock(route: string, key: string, updates: Partial<ContentBlock>): Promise<ContentBlock>;
   deleteContentBlock(route: string, key: string): Promise<boolean>;
   upsertContentBlock(contentBlock: InsertContentBlock): Promise<ContentBlock>;
+  
+  // Advanced Content Blocks Management
+  getContentBlocksByPage(pageRoute: string, filters?: {
+    category?: string;
+    type?: string;
+    isVisible?: boolean;
+    parentBlockId?: string;
+  }): Promise<ContentBlock[]>;
+  reorderContentBlocks(pageRoute: string, blockIds: string[]): Promise<ContentBlock[]>;
+  duplicateContentBlock(route: string, key: string, newKey: string): Promise<ContentBlock>;
+  bulkUpdateContentBlocks(updates: {
+    route: string;
+    key: string;
+    updates: Partial<ContentBlock>;
+  }[]): Promise<ContentBlock[]>;
+  getContentBlocksByType(blockType: string): Promise<ContentBlock[]>;
+  getContentBlocksByCategory(category: string): Promise<ContentBlock[]>;
+  searchContentBlocks(query: string, filters?: {
+    route?: string;
+    type?: string;
+    category?: string;
+  }): Promise<ContentBlock[]>;
+  publishContentBlock(route: string, key: string): Promise<ContentBlock>;
+  archiveContentBlock(route: string, key: string): Promise<ContentBlock>;
+  getContentBlockVersions(route: string, key: string): Promise<ContentBlock[]>;
+  createContentBlockFromTemplate(templateId: string, route: string, key: string): Promise<ContentBlock>;
   
   // ===== END CONTENT BLOCKS OPERATIONS =====
 
@@ -5459,6 +5500,339 @@ Crawl-delay: 1`;
     } else {
       return await this.createContentBlock(contentBlockData);
     }
+  }
+
+  // Advanced Content Blocks Management
+  async getContentBlocksByPage(pageRoute: string, filters?: {
+    category?: string;
+    type?: string;
+    isVisible?: boolean;
+    parentBlockId?: string;
+  }): Promise<ContentBlock[]> {
+    // Build all conditions first
+    const conditions = [eq(contentBlocks.route, pageRoute)];
+    
+    if (filters?.category) {
+      conditions.push(eq(contentBlocks.category, filters.category));
+    }
+    if (filters?.type) {
+      conditions.push(eq(contentBlocks.type, filters.type));
+    }
+    if (filters?.isVisible !== undefined) {
+      conditions.push(eq(contentBlocks.isVisible, filters.isVisible));
+    }
+    if (filters?.parentBlockId !== undefined) {
+      if (filters.parentBlockId === null) {
+        conditions.push(isNull(contentBlocks.parentBlockId));
+      } else {
+        conditions.push(eq(contentBlocks.parentBlockId, filters.parentBlockId));
+      }
+    }
+    
+    // Apply all conditions with and()
+    const query = db.select()
+      .from(contentBlocks)
+      .where(and(...conditions))
+      .orderBy(asc(contentBlocks.displayOrder), asc(contentBlocks.createdAt));
+      
+    const results = await query;
+    return results;
+  }
+
+  async reorderContentBlocks(pageRoute: string, blockIds: string[]): Promise<ContentBlock[]> {
+    // Update display order for each block
+    const updates = blockIds.map(async (blockId, index) => {
+      return await db.update(contentBlocks)
+        .set({ 
+          displayOrder: index,
+          updatedAt: new Date()
+        })
+        .where(and(eq(contentBlocks.route, pageRoute), eq(contentBlocks.id, blockId)))
+        .returning();
+    });
+    
+    await Promise.all(updates);
+    
+    // Return updated blocks in new order
+    return await this.getContentBlocksByPage(pageRoute);
+  }
+
+  async duplicateContentBlock(route: string, key: string, newKey: string): Promise<ContentBlock> {
+    const original = await this.getContentBlock(route, key);
+    if (!original) {
+      throw new Error(`Content block not found: ${route}/${key}`);
+    }
+
+    const duplicateData: InsertContentBlock = {
+      route: original.route,
+      key: newKey,
+      title: original.title ? `${original.title} (Copy)` : undefined,
+      valueJSON: original.valueJSON,
+      type: original.type,
+      category: original.category,
+      displayOrder: original.displayOrder + 1,
+      isVisible: original.isVisible,
+      conditions: original.conditions,
+      styling: original.styling,
+      metadata: {
+        ...original.metadata,
+        version: 1,
+        isDraft: true
+      },
+      parentBlockId: original.parentBlockId,
+      templateId: original.templateId,
+      updatedBy: original.updatedBy
+    };
+
+    return await this.createContentBlock(duplicateData);
+  }
+
+  async bulkUpdateContentBlocks(updates: {
+    route: string;
+    key: string;
+    updates: Partial<ContentBlock>;
+  }[]): Promise<ContentBlock[]> {
+    const updatePromises = updates.map(async (update) => {
+      return await this.updateContentBlock(update.route, update.key, {
+        ...update.updates,
+        updatedAt: new Date()
+      });
+    });
+    
+    return await Promise.all(updatePromises);
+  }
+
+  async getContentBlocksByType(blockType: string): Promise<ContentBlock[]> {
+    const results = await db.select()
+      .from(contentBlocks)
+      .where(eq(contentBlocks.type, blockType))
+      .orderBy(asc(contentBlocks.route), asc(contentBlocks.displayOrder));
+    return results;
+  }
+
+  async getContentBlocksByCategory(category: string): Promise<ContentBlock[]> {
+    const results = await db.select()
+      .from(contentBlocks)
+      .where(eq(contentBlocks.category, category))
+      .orderBy(asc(contentBlocks.route), asc(contentBlocks.displayOrder));
+    return results;
+  }
+
+  async searchContentBlocks(query: string, filters?: {
+    route?: string;
+    type?: string;
+    category?: string;
+  }): Promise<ContentBlock[]> {
+    // Build all conditions first
+    const conditions = [];
+    
+    // Add text search across multiple fields
+    const searchCondition = sql`(
+      ${contentBlocks.title} ILIKE ${`%${query}%`} OR 
+      ${contentBlocks.key} ILIKE ${`%${query}%`} OR 
+      ${contentBlocks.valueJSON} ILIKE ${`%${query}%`}
+    )`;
+    conditions.push(searchCondition);
+    
+    // Apply filters
+    if (filters?.route) {
+      conditions.push(eq(contentBlocks.route, filters.route));
+    }
+    if (filters?.type) {
+      conditions.push(eq(contentBlocks.type, filters.type));
+    }
+    if (filters?.category) {
+      conditions.push(eq(contentBlocks.category, filters.category));
+    }
+    
+    // Apply all conditions with and()
+    const dbQuery = db.select()
+      .from(contentBlocks)
+      .where(and(...conditions))
+      .orderBy(asc(contentBlocks.route), asc(contentBlocks.displayOrder));
+      
+    const results = await dbQuery;
+    return results;
+  }
+
+  async publishContentBlock(route: string, key: string): Promise<ContentBlock> {
+    const updates = {
+      status: 'published' as const,
+      isVisible: true,
+      metadata: {
+        isDraft: false,
+        lastPublished: new Date().toISOString(),
+        approvalStatus: 'approved' as const
+      },
+      updatedAt: new Date()
+    };
+    
+    return await this.updateContentBlock(route, key, updates);
+  }
+
+  async archiveContentBlock(route: string, key: string): Promise<ContentBlock> {
+    const updates = {
+      status: 'archived' as const,
+      isVisible: false,
+      metadata: {
+        approvalStatus: 'archived' as const
+      },
+      updatedAt: new Date()
+    };
+    
+    return await this.updateContentBlock(route, key, updates);
+  }
+
+  async getContentBlockVersions(route: string, key: string): Promise<ContentBlock[]> {
+    // This is a simplified version - in a full implementation you'd have a separate versions table
+    const block = await this.getContentBlock(route, key);
+    return block ? [block] : [];
+  }
+
+  // ===== PUBLIC-SAFE CONTENT BLOCKS METHODS =====
+  // These methods only return content blocks that are visible and published
+  
+  async getPublicContentBlocks(route?: string): Promise<ContentBlock[]> {
+    let query = db.select().from(contentBlocks)
+      .where(and(
+        eq(contentBlocks.isVisible, true),
+        eq(contentBlocks.status, 'published')
+      ));
+    
+    if (route) {
+      query = query.where(and(
+        eq(contentBlocks.route, route),
+        eq(contentBlocks.isVisible, true),
+        eq(contentBlocks.status, 'published')
+      ));
+    }
+    
+    const results = await query.orderBy(asc(contentBlocks.route), asc(contentBlocks.key));
+    return results;
+  }
+
+  async getPublicContentBlocksByPage(pageRoute: string, filters?: {
+    category?: string;
+    type?: string;
+  }): Promise<ContentBlock[]> {
+    // Build conditions for public access (visible + published only)
+    const conditions = [
+      eq(contentBlocks.route, pageRoute),
+      eq(contentBlocks.isVisible, true),
+      eq(contentBlocks.status, 'published')
+    ];
+    
+    if (filters?.category) {
+      conditions.push(eq(contentBlocks.category, filters.category));
+    }
+    if (filters?.type) {
+      conditions.push(eq(contentBlocks.type, filters.type));
+    }
+    
+    const query = db.select()
+      .from(contentBlocks)
+      .where(and(...conditions))
+      .orderBy(asc(contentBlocks.displayOrder), asc(contentBlocks.createdAt));
+      
+    const results = await query;
+    return results;
+  }
+
+  async getPublicContentBlock(route: string, key: string): Promise<ContentBlock | undefined> {
+    const result = await db.select()
+      .from(contentBlocks)
+      .where(and(
+        eq(contentBlocks.route, route),
+        eq(contentBlocks.key, key),
+        eq(contentBlocks.isVisible, true),
+        eq(contentBlocks.status, 'published')
+      ))
+      .limit(1);
+    return result[0];
+  }
+
+  async searchPublicContentBlocks(query: string, filters?: {
+    route?: string;
+    type?: string;
+    category?: string;
+  }): Promise<ContentBlock[]> {
+    // Build conditions for public access
+    const conditions = [
+      eq(contentBlocks.isVisible, true),
+      eq(contentBlocks.status, 'published')
+    ];
+    
+    // Add text search across multiple fields
+    const searchCondition = sql`(
+      ${contentBlocks.title} ILIKE ${`%${query}%`} OR
+      ${contentBlocks.valueJSON} ILIKE ${`%${query}%`}
+    )`;
+    conditions.push(searchCondition);
+    
+    // Add optional filters
+    if (filters?.route) {
+      conditions.push(eq(contentBlocks.route, filters.route));
+    }
+    if (filters?.type) {
+      conditions.push(eq(contentBlocks.type, filters.type));
+    }
+    if (filters?.category) {
+      conditions.push(eq(contentBlocks.category, filters.category));
+    }
+    
+    const results = await db.select()
+      .from(contentBlocks)
+      .where(and(...conditions))
+      .orderBy(asc(contentBlocks.route), asc(contentBlocks.displayOrder));
+      
+    return results;
+  }
+
+  async getPublicContentBlocksByType(blockType: string): Promise<ContentBlock[]> {
+    const results = await db.select()
+      .from(contentBlocks)
+      .where(and(
+        eq(contentBlocks.type, blockType),
+        eq(contentBlocks.isVisible, true),
+        eq(contentBlocks.status, 'published')
+      ))
+      .orderBy(asc(contentBlocks.route), asc(contentBlocks.displayOrder));
+    return results;
+  }
+
+  async getPublicContentBlocksByCategory(category: string): Promise<ContentBlock[]> {
+    const results = await db.select()
+      .from(contentBlocks)
+      .where(and(
+        eq(contentBlocks.category, category),
+        eq(contentBlocks.isVisible, true),
+        eq(contentBlocks.status, 'published')
+      ))
+      .orderBy(asc(contentBlocks.route), asc(contentBlocks.displayOrder));
+    return results;
+  }
+
+  // ===== END PUBLIC-SAFE CONTENT BLOCKS METHODS =====
+
+  async createContentBlockFromTemplate(templateId: string, route: string, key: string): Promise<ContentBlock> {
+    // For now, create a basic template - in full implementation you'd have template storage
+    const templateData: InsertContentBlock = {
+      route,
+      key,
+      title: 'New Block from Template',
+      valueJSON: JSON.stringify({ content: 'Template content' }),
+      type: 'text',
+      category: 'content',
+      displayOrder: 0,
+      isVisible: true,
+      templateId,
+      metadata: {
+        version: 1,
+        isDraft: true
+      }
+    };
+    
+    return await this.createContentBlock(templateData);
   }
 
   // ===== END CONTENT BLOCKS OPERATIONS =====

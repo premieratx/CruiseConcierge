@@ -25,7 +25,7 @@ let wisprFlowService: any = null;
 let generateQuoteDescription: any = null;
 let openaiService: any = null;
 type LeadWebhookPayload = any;
-import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertAdminChatSessionSchema, insertAdminChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation, type AdminChatSession, type AdminChatMessage } from "@shared/schema";
+import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertAdminChatSessionSchema, insertAdminChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, insertContentBlockSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation, type AdminChatSession, type AdminChatMessage } from "@shared/schema";
 import { calculateServerPricing, type ServerPricingRequest } from './serverPricing';
 import { PRICING_DEFAULTS } from "@shared/constants";
 import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate, getTimeSlotById } from "@shared/timeSlots";
@@ -1948,6 +1948,358 @@ export async function registerRoutes(app: Express): Promise<Server> {
   
   // Register quote builder lead creation endpoint
   createQuoteBuilderLead(app);
+  
+  // ==========================================
+  // CONTENT BLOCKS API ENDPOINTS
+  // ==========================================
+  
+  // List content blocks with authentication-aware filtering
+  app.get("/api/content-blocks", async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { route, category, type, isVisible, search, limit = 50, offset = 0 } = req.query;
+      const isAdmin = req.session?.user?.permissions?.includes('edit') || false;
+      
+      if (search) {
+        // Use search functionality
+        const blocks = isAdmin 
+          ? await storage.searchContentBlocks(search as string, {
+              route: route as string,
+              type: type as string,
+              category: category as string,
+            })
+          : await storage.searchPublicContentBlocks(search as string, {
+              route: route as string,
+              type: type as string,
+              category: category as string,
+            });
+        res.json({ blocks, total: blocks.length });
+      } else if (route) {
+        // Get blocks for specific page with filters
+        const blocks = isAdmin 
+          ? await storage.getContentBlocksByPage(route as string, {
+              category: category as string,
+              type: type as string,
+              isVisible: isVisible === 'true' ? true : isVisible === 'false' ? false : undefined,
+            })
+          : await storage.getPublicContentBlocksByPage(route as string, {
+              category: category as string,
+              type: type as string,
+            });
+        res.json({ blocks, total: blocks.length });
+      } else {
+        // Get all blocks with basic filtering
+        const blocks = isAdmin 
+          ? await storage.getContentBlocks(route as string)
+          : await storage.getPublicContentBlocks(route as string);
+        const filtered = blocks.slice(parseInt(offset as string), parseInt(offset as string) + parseInt(limit as string));
+        res.json({ blocks: filtered, total: blocks.length });
+      }
+    } catch (error: any) {
+      console.error("Get content blocks error:", error);
+      res.status(500).json({ error: "Failed to fetch content blocks" });
+    }
+  });
+
+  // Get specific content block by route and key with authentication-aware access
+  app.get("/api/content-blocks/:route/:key", async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { route, key } = req.params;
+      const isAdmin = req.session?.user?.permissions?.includes('edit') || false;
+      
+      const block = isAdmin 
+        ? await storage.getContentBlock(decodeURIComponent(route), key)
+        : await storage.getPublicContentBlock(decodeURIComponent(route), key);
+      
+      if (!block) {
+        return res.status(404).json({ error: "Content block not found" });
+      }
+      
+      res.json(block);
+    } catch (error: any) {
+      console.error("Get content block error:", error);
+      res.status(500).json({ error: "Failed to fetch content block" });
+    }
+  });
+
+  // Create new content block
+  app.post("/api/content-blocks", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const blockData = insertContentBlockSchema.parse(req.body);
+      const block = await storage.createContentBlock(blockData);
+      res.status(201).json(block);
+    } catch (error: any) {
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({ error: "Invalid content block data", details: error.errors });
+      }
+      console.error("Create content block error:", error);
+      res.status(500).json({ error: "Failed to create content block" });
+    }
+  });
+
+  // Update content block
+  app.put("/api/content-blocks/:route/:key", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { route, key } = req.params;
+      const updates = req.body;
+      
+      // Remove fields that shouldn't be updated directly
+      delete updates.id;
+      delete updates.createdAt;
+      
+      const block = await storage.updateContentBlock(decodeURIComponent(route), key, updates);
+      res.json(block);
+    } catch (error: any) {
+      console.error("Update content block error:", error);
+      res.status(500).json({ error: "Failed to update content block" });
+    }
+  });
+
+  // Delete content block
+  app.delete("/api/content-blocks/:route/:key", requireAdminAuth, requirePermission('full'), async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { route, key } = req.params;
+      await storage.deleteContentBlock(decodeURIComponent(route), key);
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error("Delete content block error:", error);
+      res.status(500).json({ error: "Failed to delete content block" });
+    }
+  });
+
+  // Reorder content blocks on a page
+  app.post("/api/content-blocks/page/:pageRoute/reorder", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { pageRoute } = req.params;
+      const { blockIds } = req.body;
+      
+      if (!Array.isArray(blockIds)) {
+        return res.status(400).json({ error: "blockIds must be an array" });
+      }
+      
+      const reorderedBlocks = await storage.reorderContentBlocks(decodeURIComponent(pageRoute), blockIds);
+      res.json({ success: true, blocks: reorderedBlocks });
+    } catch (error: any) {
+      console.error("Reorder content blocks error:", error);
+      res.status(500).json({ error: "Failed to reorder content blocks" });
+    }
+  });
+
+  // Duplicate content block
+  app.post("/api/content-blocks/:route/:key/duplicate", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { route, key } = req.params;
+      const { newKey } = req.body;
+      
+      if (!newKey) {
+        return res.status(400).json({ error: "newKey is required" });
+      }
+      
+      const duplicatedBlock = await storage.duplicateContentBlock(decodeURIComponent(route), key, newKey);
+      res.status(201).json(duplicatedBlock);
+    } catch (error: any) {
+      console.error("Duplicate content block error:", error);
+      res.status(500).json({ error: "Failed to duplicate content block" });
+    }
+  });
+
+  // Bulk update content blocks
+  app.post("/api/content-blocks/bulk-update", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { updates } = req.body;
+      
+      if (!Array.isArray(updates)) {
+        return res.status(400).json({ error: "updates must be an array" });
+      }
+      
+      const updatedBlocks = await storage.bulkUpdateContentBlocks(updates);
+      res.json({ success: true, blocks: updatedBlocks });
+    } catch (error: any) {
+      console.error("Bulk update content blocks error:", error);
+      res.status(500).json({ error: "Failed to bulk update content blocks" });
+    }
+  });
+
+  // Get content blocks by type with authentication-aware filtering
+  app.get("/api/content-blocks/by-type/:type", async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { type } = req.params;
+      const isAdmin = req.session?.user?.permissions?.includes('edit') || false;
+      
+      const blocks = isAdmin 
+        ? await storage.getContentBlocksByType(type)
+        : await storage.getPublicContentBlocksByType(type);
+      res.json({ blocks, total: blocks.length });
+    } catch (error: any) {
+      console.error("Get content blocks by type error:", error);
+      res.status(500).json({ error: "Failed to fetch content blocks by type" });
+    }
+  });
+
+  // Get content blocks by category with authentication-aware filtering
+  app.get("/api/content-blocks/by-category/:category", async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { category } = req.params;
+      const isAdmin = req.session?.user?.permissions?.includes('edit') || false;
+      
+      const blocks = isAdmin 
+        ? await storage.getContentBlocksByCategory(category)
+        : await storage.getPublicContentBlocksByCategory(category);
+      res.json({ blocks, total: blocks.length });
+    } catch (error: any) {
+      console.error("Get content blocks by category error:", error);
+      res.status(500).json({ error: "Failed to fetch content blocks by category" });
+    }
+  });
+
+  // Publish content block (mark as published and approved)
+  app.post("/api/content-blocks/:route/:key/publish", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { route, key } = req.params;
+      const publishedBlock = await storage.publishContentBlock(decodeURIComponent(route), key);
+      res.json(publishedBlock);
+    } catch (error: any) {
+      console.error("Publish content block error:", error);
+      res.status(500).json({ error: "Failed to publish content block" });
+    }
+  });
+
+  // Archive content block (hide and mark as archived)
+  app.post("/api/content-blocks/:route/:key/archive", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { route, key } = req.params;
+      const archivedBlock = await storage.archiveContentBlock(decodeURIComponent(route), key);
+      res.json(archivedBlock);
+    } catch (error: any) {
+      console.error("Archive content block error:", error);
+      res.status(500).json({ error: "Failed to archive content block" });
+    }
+  });
+
+  // Create content block from template
+  app.post("/api/content-blocks/from-template", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { templateId, route, key } = req.body;
+      
+      if (!templateId || !route || !key) {
+        return res.status(400).json({ error: "templateId, route, and key are required" });
+      }
+      
+      const block = await storage.createContentBlockFromTemplate(templateId, route, key);
+      res.status(201).json(block);
+    } catch (error: any) {
+      console.error("Create content block from template error:", error);
+      res.status(500).json({ error: "Failed to create content block from template" });
+    }
+  });
+
+  // Get content block versions (simplified - returns current version)
+  app.get("/api/content-blocks/:route/:key/versions", async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { route, key } = req.params;
+      const versions = await storage.getContentBlockVersions(decodeURIComponent(route), key);
+      res.json({ versions, total: versions.length });
+    } catch (error: any) {
+      console.error("Get content block versions error:", error);
+      res.status(500).json({ error: "Failed to fetch content block versions" });
+    }
+  });
+
+  // ==========================================
+  // ADMIN-ONLY CONTENT BLOCKS API ENDPOINTS
+  // These endpoints provide full access to all content blocks for authenticated admins
+  // ==========================================
+
+  // Admin: Get all content blocks with full access (including drafts and hidden)
+  app.get("/api/admin/content-blocks", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { route, category, type, isVisible, search, limit = 50, offset = 0 } = req.query;
+      
+      if (search) {
+        // Admin search with full access
+        const blocks = await storage.searchContentBlocks(search as string, {
+          route: route as string,
+          type: type as string,
+          category: category as string,
+        });
+        res.json({ blocks, total: blocks.length });
+      } else if (route) {
+        // Admin get blocks by page with full access
+        const blocks = await storage.getContentBlocksByPage(route as string, {
+          category: category as string,
+          type: type as string,
+          isVisible: isVisible === 'true' ? true : isVisible === 'false' ? false : undefined,
+        });
+        res.json({ blocks, total: blocks.length });
+      } else {
+        // Admin get all blocks with full access
+        const blocks = await storage.getContentBlocks(route as string);
+        const filtered = blocks.slice(parseInt(offset as string), parseInt(offset as string) + parseInt(limit as string));
+        res.json({ blocks: filtered, total: blocks.length });
+      }
+    } catch (error: any) {
+      console.error("Admin get content blocks error:", error);
+      res.status(500).json({ error: "Failed to fetch content blocks" });
+    }
+  });
+
+  // Admin: Get specific content block with full access (including drafts and hidden)
+  app.get("/api/admin/content-blocks/:route/:key", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { route, key } = req.params;
+      const block = await storage.getContentBlock(decodeURIComponent(route), key);
+      
+      if (!block) {
+        return res.status(404).json({ error: "Content block not found" });
+      }
+      
+      res.json(block);
+    } catch (error: any) {
+      console.error("Admin get content block error:", error);
+      res.status(500).json({ error: "Failed to fetch content block" });
+    }
+  });
+
+  // Admin: Get content blocks by type with full access
+  app.get("/api/admin/content-blocks/by-type/:type", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { type } = req.params;
+      const blocks = await storage.getContentBlocksByType(type);
+      res.json({ blocks, total: blocks.length });
+    } catch (error: any) {
+      console.error("Admin get content blocks by type error:", error);
+      res.status(500).json({ error: "Failed to fetch content blocks by type" });
+    }
+  });
+
+  // Admin: Get content blocks by category with full access
+  app.get("/api/admin/content-blocks/by-category/:category", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { category } = req.params;
+      const blocks = await storage.getContentBlocksByCategory(category);
+      res.json({ blocks, total: blocks.length });
+    } catch (error: any) {
+      console.error("Admin get content blocks by category error:", error);
+      res.status(500).json({ error: "Failed to fetch content blocks by category" });
+    }
+  });
   
   // ==========================================
   // NEW QUOTE INITIALIZATION FLOW 

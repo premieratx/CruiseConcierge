@@ -2802,10 +2802,45 @@ export type SelectAgentChatMessage = typeof agentChatMessages.$inferSelect;
 // Content Blocks - for inline editing and content management
 export const contentBlocks = pgTable('content_blocks', {
   id: varchar('id').primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
   route: text('route').notNull(), // page route like '/home', '/about'
   key: text('key').notNull(), // unique identifier like 'hero-title', 'popup-text'
+  title: text('title'), // human-readable title for the block
   valueJSON: text('value_json').notNull(), // JSON content
-  type: text('type').notNull(), // 'text', 'image', 'html'
+  type: text('type').notNull(), // 'text', 'image', 'video', 'cta', 'section', 'gallery', 'testimonial', 'pricing', 'faq', 'contact', 'custom', 'html'
+  category: text('category').default('content'), // 'content', 'layout', 'media', 'interactive'
+  displayOrder: integer('display_order').default(0), // for ordering blocks within a page
+  isVisible: boolean('is_visible').default(true), // show/hide blocks
+  status: varchar('status').notNull().default('draft'), // 'draft', 'published', 'archived'
+  conditions: jsonb('conditions').$type<{
+    showOnMobile?: boolean;
+    showOnDesktop?: boolean;
+    showForUserRoles?: string[];
+    dateRange?: {
+      start?: string;
+      end?: string;
+    };
+  }>().default({}), // conditional display rules
+  styling: jsonb('styling').$type<{
+    backgroundColor?: string;
+    textColor?: string;
+    padding?: string;
+    margin?: string;
+    customCSS?: string;
+  }>().default({}), // block-specific styling
+  metadata: jsonb('metadata').$type<{
+    version?: number;
+    lastPublished?: string;
+    isDraft?: boolean;
+    approvalStatus?: 'pending' | 'approved' | 'rejected';
+    approvedBy?: string;
+    approvedAt?: string;
+    tags?: string[];
+    seoTitle?: string;
+    seoDescription?: string;
+  }>().default({}), // extensible metadata
+  parentBlockId: varchar('parent_block_id'), // for nested blocks (e.g., sections containing other blocks)
+  templateId: varchar('template_id'), // reference to block templates
   updatedBy: text('updated_by'),
   createdAt: timestamp('created_at').defaultNow(),
   updatedAt: timestamp('updated_at').defaultNow()
@@ -2819,8 +2854,42 @@ export const insertContentBlockSchema = createInsertSchema(contentBlocks).omit({
 }).extend({
   route: z.string().min(1, "Route is required"),
   key: z.string().min(1, "Key is required"),
+  title: z.string().optional(),
   valueJSON: z.string().min(1, "Content is required"),
-  type: z.enum(['text', 'image', 'html']),
+  type: z.enum(['text', 'image', 'video', 'cta', 'section', 'gallery', 'testimonial', 'pricing', 'faq', 'contact', 'custom', 'html']),
+  category: z.string().default('content'),
+  displayOrder: z.number().default(0),
+  isVisible: z.boolean().default(true),
+  status: z.enum(['draft', 'published', 'archived']).default('draft'),
+  conditions: z.object({
+    showOnMobile: z.boolean().optional(),
+    showOnDesktop: z.boolean().optional(),
+    showForUserRoles: z.array(z.string()).optional(),
+    dateRange: z.object({
+      start: z.string().optional(),
+      end: z.string().optional(),
+    }).optional(),
+  }).optional(),
+  styling: z.object({
+    backgroundColor: z.string().optional(),
+    textColor: z.string().optional(),
+    padding: z.string().optional(),
+    margin: z.string().optional(),
+    customCSS: z.string().optional(),
+  }).optional(),
+  metadata: z.object({
+    version: z.number().optional(),
+    lastPublished: z.string().optional(),
+    isDraft: z.boolean().optional(),
+    approvalStatus: z.enum(['pending', 'approved', 'rejected']).optional(),
+    approvedBy: z.string().optional(),
+    approvedAt: z.string().optional(),
+    tags: z.array(z.string()).optional(),
+    seoTitle: z.string().optional(),
+    seoDescription: z.string().optional(),
+  }).optional(),
+  parentBlockId: z.string().optional(),
+  templateId: z.string().optional(),
   updatedBy: z.string().optional(),
 });
 

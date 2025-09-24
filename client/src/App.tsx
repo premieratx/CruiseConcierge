@@ -4,6 +4,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { BookingCacheProvider } from "@/contexts/BookingCacheContext";
+import { EditModeProvider } from "@/contexts/EditModeContext";
 import { HelmetProvider } from "react-helmet-async";
 import { lazy } from "react";
 import Home from "./pages/Home";
@@ -186,6 +187,12 @@ function Router() {
       {/* AI Media Library */}
       <Route path="/admin/media" component={lazy(() => import('./pages/admin/MediaLibrary'))} />
       
+      {/* Content Blocks Management */}
+      <Route path="/admin/content-blocks" component={lazy(() => import('./pages/admin/ContentBlocksManagement'))} />
+      
+      {/* Demo Content Page */}
+      <Route path="/demo-content" component={lazy(() => import('./pages/DemoContentPage'))} />
+      
       {/* Public Blog Routes - Specific routes must come before generic ones */}
       <Route path="/blog" component={Blog} />
       <Route path="/blog/category/:slug" component={BlogCategory} />
@@ -219,12 +226,14 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BookingCacheProvider>
-        <HelmetProvider>
-          <TooltipProvider>
-            <Toaster />
-            <Router />
-          </TooltipProvider>
-        </HelmetProvider>
+        <EditModeProvider>
+          <HelmetProvider>
+            <TooltipProvider>
+              <Toaster />
+              <Router />
+            </TooltipProvider>
+          </HelmetProvider>
+        </EditModeProvider>
       </BookingCacheProvider>
     </QueryClientProvider>
   );

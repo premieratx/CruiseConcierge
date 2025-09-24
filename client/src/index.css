@@ -3,6 +3,56 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Content Blocks Edit Mode Styles */
+.edit-mode {
+  /* Global edit mode indicator */
+  cursor: default;
+}
+
+.edit-mode .content-block:hover {
+  /* Highlight blocks when hovering in edit mode */
+  outline: 2px dashed hsl(var(--primary));
+  outline-offset: 4px;
+  border-radius: 8px;
+}
+
+.edit-mode .content-block {
+  /* Add padding and transitions for edit mode */
+  position: relative;
+  transition: all 0.2s ease-in-out;
+}
+
+.edit-mode .content-block .edit-controls {
+  /* Show edit controls in edit mode */
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.edit-mode .content-block:hover .edit-controls {
+  opacity: 1;
+}
+
+/* Drag and drop styles */
+.sortable-ghost {
+  opacity: 0.4;
+}
+
+.sortable-chosen {
+  transform: rotate(2deg);
+}
+
+.sortable-drag {
+  transform: rotate(5deg);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+}
+
+/* Edit mode visual improvements */
+.edit-mode-active {
+  background: linear-gradient(45deg, transparent 49%, rgba(59, 130, 246, 0.1) 50%, transparent 51%);
+  background-size: 10px 10px;
+}
+
 :root {
   --background: hsl(0 0% 100%);
   --foreground: hsl(0 0% 0%);
