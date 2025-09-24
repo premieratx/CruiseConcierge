@@ -888,6 +888,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   const [showComparison, setShowComparison] = useState(false);
   const [showBookingConfirmation, setShowBookingConfirmation] = useState(false);
   const [showContactInfoModal, setShowContactInfoModal] = useState(false);
+  const [contactInfoModalCompleted, setContactInfoModalCompleted] = useState(false);
   const [pendingPaymentType, setPendingPaymentType] = useState<'deposit' | 'full' | null>(null);
   const [showDateChangeDialog, setShowDateChangeDialog] = useState(false);
   const [pendingCruiseType, setPendingCruiseType] = useState<'private' | 'disco' | null>(null);
@@ -1239,15 +1240,16 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   }, [partialLeadSaved, chatSessionId]);
 
   // Show contact info modal when comparison view is shown (0.5 second delay for FOMO effect)
+  // Only show if not already completed/dismissed
   useEffect(() => {
-    if (showComparison && !showContactInfoModal) {
+    if (showComparison && !showContactInfoModal && !contactInfoModalCompleted) {
       const timer = setTimeout(() => {
         setShowContactInfoModal(true);
       }, 500); // 0.5 second delay for FOMO effect
       
       return () => clearTimeout(timer);
     }
-  }, [showComparison, showContactInfoModal]);
+  }, [showComparison, showContactInfoModal, contactInfoModalCompleted]);
 
   // Navigation functions for the new 2-step flow
   const goToStep = (step: ChatFlowStep) => {
@@ -4567,7 +4569,10 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       {showContactInfoModal && (
         <ContactInfoModal
           open={showContactInfoModal}
-          onClose={() => setShowContactInfoModal(false)}
+          onClose={() => {
+            setShowContactInfoModal(false);
+            setContactInfoModalCompleted(true);
+          }}
           eventDetails={{
             eventDate: formData.eventDate,
             eventType: formData.eventType,

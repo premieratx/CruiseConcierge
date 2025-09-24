@@ -134,20 +134,39 @@ export function ContactInfoModal({
         discountCode: pricingDetails.discountCode || '',
       };
 
+      console.log('🔄 Submitting quote request:', payload);
       const response = await apiRequest('POST', '/api/quotes/from-chat', payload);
-      return response.json();
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error('❌ Quote API error:', response.status, errorData);
+        throw new Error(errorData.message || `API Error: ${response.status}`);
+      }
+      
+      const result = await response.json();
+      console.log('✅ Quote creation successful:', result);
+      return result;
     },
     onSuccess: (data) => {
+      console.log('🎉 onSuccess handler called:', data);
+      
+      // Reset submitting state first
+      setIsSubmitting(false);
+      console.log('✅ Reset isSubmitting to false');
+      
       toast({
         title: 'Quote Created Successfully!',
         description: 'You will receive your quote via email and SMS shortly.',
         icon: <CheckCircle className="h-4 w-4" />,
       });
+      console.log('✅ Success toast shown');
       
-      // Simply close the modal - no redirect needed!
-      // User stays on the same quote they were looking at
+      // Close the modal - user stays on the same quote they were looking at
       if (onClose) {
+        console.log('✅ Calling onClose to close modal');
         onClose();
+      } else {
+        console.warn('⚠️ onClose function not available');
       }
     },
     onError: (error: any) => {
