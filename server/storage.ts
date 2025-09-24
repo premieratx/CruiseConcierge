@@ -4014,16 +4014,31 @@ export class DatabaseStorage implements IStorage {
   }
 
   async getBlogPost(id: string): Promise<BlogPost | undefined> {
-    // Stub implementation - returns undefined for now
-    return undefined;
+    const [post] = await db.select()
+      .from(blogPosts)
+      .where(eq(blogPosts.id, id));
+    return post;
   }
 
   async getBlogPostBySlug(slug: string): Promise<BlogPost | undefined> {
-    // Stub implementation - returns undefined for now  
-    return undefined;
+    const [post] = await db.select()
+      .from(blogPosts)
+      .where(eq(blogPosts.slug, slug));
+    return post;
   }
 
-  async getBlogPosts(filters?: any): Promise<{
+  async getBlogPosts(filters?: {
+    status?: 'draft' | 'published' | 'scheduled' | 'archived';
+    authorId?: string;
+    categoryId?: string;
+    tagId?: string;
+    featured?: boolean;
+    search?: string;
+    limit?: number;
+    offset?: number;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+  }): Promise<{
     posts: (BlogPost & { 
       author: BlogAuthor;
       categories: BlogCategory[];
@@ -4031,29 +4046,111 @@ export class DatabaseStorage implements IStorage {
     })[];
     total: number;
   }> {
-    // Stub implementation - returns empty result for now
-    return { posts: [], total: 0 };
+    let query = db.select({
+      post: blogPosts,
+      author: blogAuthors
+    })
+    .from(blogPosts)
+    .leftJoin(blogAuthors, eq(blogPosts.authorId, blogAuthors.id));
+
+    // Apply filters
+    const conditions = [];
+    if (filters?.status) {
+      conditions.push(eq(blogPosts.status, filters.status));
+    }
+    if (filters?.authorId) {
+      conditions.push(eq(blogPosts.authorId, filters.authorId));
+    }
+    if (filters?.featured !== undefined) {
+      conditions.push(eq(blogPosts.featured, filters.featured));
+    }
+    if (filters?.search) {
+      conditions.push(
+        or(
+          sql`${blogPosts.title} ILIKE ${`%${filters.search}%`}`,
+          sql`${blogPosts.content} ILIKE ${`%${filters.search}%`}`
+        )
+      );
+    }
+
+    if (conditions.length > 0) {
+      query = query.where(and(...conditions));
+    }
+
+    // Apply sorting
+    const sortBy = filters?.sortBy || 'createdAt';
+    const sortOrder = filters?.sortOrder || 'desc';
+    const sortField = sortBy === 'publishedAt' ? blogPosts.publishedAt : 
+                     sortBy === 'title' ? blogPosts.title : blogPosts.createdAt;
+    
+    query = query.orderBy(sortOrder === 'asc' ? asc(sortField) : desc(sortField));
+
+    // Apply pagination
+    if (filters?.limit) {
+      query = query.limit(filters.limit);
+    }
+    if (filters?.offset) {
+      query = query.offset(filters.offset);
+    }
+
+    const results = await query;
+    
+    // Get categories and tags for each post
+    const enrichedPosts = [];
+    for (const result of results) {
+      const categories = await this.getBlogPostCategories(result.post.id);
+      const tags = await this.getBlogPostTags(result.post.id);
+      
+      enrichedPosts.push({
+        ...result.post,
+        author: result.author || {} as BlogAuthor,
+        categories,
+        tags
+      });
+    }
+
+    // Get total count
+    let countQuery = db.select({ count: count() }).from(blogPosts);
+    if (conditions.length > 0) {
+      countQuery = countQuery.where(and(...conditions));
+    }
+    const [{ count: totalCount }] = await countQuery;
+
+    return {
+      posts: enrichedPosts,
+      total: totalCount
+    };
   }
 
   async createBlogPost(post: InsertBlogPost): Promise<BlogPost> {
-    // Stub implementation - basic structure for now
-    const newPost: BlogPost = {
-      id: randomUUID(),
+    const [newPost] = await db.insert(blogPosts).values({
       ...post,
       createdAt: new Date(),
       updatedAt: new Date(),
-    };
+    }).returning();
     return newPost;
   }
 
   async updateBlogPost(id: string, updates: Partial<BlogPost>): Promise<BlogPost> {
-    // Stub implementation
-    throw new Error('Blog post update not implemented');
+    const [updatedPost] = await db.update(blogPosts)
+      .set({
+        ...updates,
+        updatedAt: new Date(),
+      })
+      .where(eq(blogPosts.id, id))
+      .returning();
+    
+    if (!updatedPost) {
+      throw new Error(`Blog post with id ${id} not found`);
+    }
+    
+    return updatedPost;
   }
 
   async deleteBlogPost(id: string): Promise<boolean> {
-    // Stub implementation
-    return false;
+    const result = await db.delete(blogPosts)
+      .where(eq(blogPosts.id, id));
+    return result.rowCount > 0;
   }
 
   // Blog Category Methods
