@@ -2799,6 +2799,36 @@ export const insertAgentChatMessageSchema = createInsertSchema(agentChatMessages
 export type InsertAgentChatMessage = z.infer<typeof insertAgentChatMessageSchema>;
 export type SelectAgentChatMessage = typeof agentChatMessages.$inferSelect;
 
+// Content Blocks - for inline editing and content management
+export const contentBlocks = pgTable('content_blocks', {
+  id: varchar('id').primaryKey().default(sql`gen_random_uuid()`),
+  route: text('route').notNull(), // page route like '/home', '/about'
+  key: text('key').notNull(), // unique identifier like 'hero-title', 'popup-text'
+  valueJSON: text('value_json').notNull(), // JSON content
+  type: text('type').notNull(), // 'text', 'image', 'html'
+  updatedBy: text('updated_by'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow()
+});
+
+// Content Blocks Insert Schema
+export const insertContentBlockSchema = createInsertSchema(contentBlocks).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+}).extend({
+  route: z.string().min(1, "Route is required"),
+  key: z.string().min(1, "Key is required"),
+  valueJSON: z.string().min(1, "Content is required"),
+  type: z.enum(['text', 'image', 'html']),
+  updatedBy: z.string().optional(),
+});
+
+// Content Blocks Types
+export type ContentBlock = typeof contentBlocks.$inferSelect;
+export type InsertContentBlock = z.infer<typeof insertContentBlockSchema>;
+
+
 // Export types
 export type CheckoutContext = z.infer<typeof checkoutContextSchema>;
 export type CheckoutSelections = z.infer<typeof checkoutSelectionsSchema>;

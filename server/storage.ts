@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AdminChatSession, type InsertAdminChatSession, type AdminChatMessage, type InsertAdminChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, type SelectAgentChatSession, type InsertAgentChatSession, type SelectAgentChatMessage, type InsertAgentChatMessage, contacts, projects, boats, products, quotes, invoices, payments, chatMessages, adminChatSessions, adminChatMessages, availabilitySlots, quoteTemplates, templateRules, discountRules, pricingSettings, pricingAdjustments, affiliates, bookings, discoSlots, timeframes, emailTemplates, masterTemplates, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts, quoteAnalytics, fileSends, emailTracking, customerLifecycle, customerActivity, slotHolds, partialLeads, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, blogComments, blogAnalytics, seoPages, seoAuditLog, seoCompetitors, seoSettings, webhookNotifications, media, agentChatSessions, agentChatMessages } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AdminChatSession, type InsertAdminChatSession, type AdminChatMessage, type InsertAdminChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, type ContentBlock, type InsertContentBlock, type SelectAgentChatSession, type InsertAgentChatSession, type SelectAgentChatMessage, type InsertAgentChatMessage, contacts, projects, boats, products, quotes, invoices, payments, chatMessages, adminChatSessions, adminChatMessages, availabilitySlots, quoteTemplates, templateRules, discountRules, pricingSettings, pricingAdjustments, affiliates, bookings, discoSlots, timeframes, emailTemplates, masterTemplates, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts, quoteAnalytics, fileSends, emailTracking, customerLifecycle, customerActivity, slotHolds, partialLeads, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, blogComments, blogAnalytics, seoPages, seoAuditLog, seoCompetitors, seoSettings, webhookNotifications, media, contentBlocks, agentChatSessions, agentChatMessages } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, gte, lte, desc, asc, isNull, isNotNull, or, inArray, sql, count, sum, between } from "drizzle-orm";
 import { randomUUID } from "crypto";
@@ -728,6 +728,18 @@ export interface IStorage {
   deleteMedia(id: string): Promise<boolean>;
   
   // ===== END MEDIA LIBRARY OPERATIONS =====
+
+  // ===== CONTENT BLOCKS OPERATIONS =====
+  
+  // Content Blocks Management
+  createContentBlock(contentBlock: InsertContentBlock): Promise<ContentBlock>;
+  getContentBlock(route: string, key: string): Promise<ContentBlock | undefined>;
+  getContentBlocks(route?: string): Promise<ContentBlock[]>;
+  updateContentBlock(route: string, key: string, updates: Partial<ContentBlock>): Promise<ContentBlock>;
+  deleteContentBlock(route: string, key: string): Promise<boolean>;
+  upsertContentBlock(contentBlock: InsertContentBlock): Promise<ContentBlock>;
+  
+  // ===== END CONTENT BLOCKS OPERATIONS =====
 
   // ===== VERIFICATION AND TESTING OPERATIONS =====
   // Automated verification to prove production readiness
@@ -5368,6 +5380,66 @@ Crawl-delay: 1`;
   }
 
   // ===== END MEDIA LIBRARY OPERATIONS =====
+
+  // ===== CONTENT BLOCKS OPERATIONS =====
+  
+  async createContentBlock(contentBlockData: InsertContentBlock): Promise<ContentBlock> {
+    const [result] = await db.insert(contentBlocks).values({
+      ...contentBlockData,
+      createdAt: new Date(),
+      updatedAt: new Date()
+    }).returning();
+    return result;
+  }
+
+  async getContentBlock(route: string, key: string): Promise<ContentBlock | undefined> {
+    const result = await db.select()
+      .from(contentBlocks)
+      .where(and(eq(contentBlocks.route, route), eq(contentBlocks.key, key)))
+      .limit(1);
+    return result[0];
+  }
+
+  async getContentBlocks(route?: string): Promise<ContentBlock[]> {
+    let query = db.select().from(contentBlocks);
+    
+    if (route) {
+      query = query.where(eq(contentBlocks.route, route));
+    }
+    
+    const results = await query.orderBy(asc(contentBlocks.route), asc(contentBlocks.key));
+    return results;
+  }
+
+  async updateContentBlock(route: string, key: string, updates: Partial<ContentBlock>): Promise<ContentBlock> {
+    const [result] = await db.update(contentBlocks)
+      .set({
+        ...updates,
+        updatedAt: new Date()
+      })
+      .where(and(eq(contentBlocks.route, route), eq(contentBlocks.key, key)))
+      .returning();
+    return result;
+  }
+
+  async deleteContentBlock(route: string, key: string): Promise<boolean> {
+    await db.delete(contentBlocks)
+      .where(and(eq(contentBlocks.route, route), eq(contentBlocks.key, key)));
+    return true;
+  }
+
+  async upsertContentBlock(contentBlockData: InsertContentBlock): Promise<ContentBlock> {
+    // Try to get existing content block
+    const existing = await this.getContentBlock(contentBlockData.route, contentBlockData.key);
+    
+    if (existing) {
+      return await this.updateContentBlock(contentBlockData.route, contentBlockData.key, contentBlockData);
+    } else {
+      return await this.createContentBlock(contentBlockData);
+    }
+  }
+
+  // ===== END CONTENT BLOCKS OPERATIONS =====
 
   // ===== VERIFICATION AND TESTING OPERATIONS =====
   // Automated verification to prove production readiness
