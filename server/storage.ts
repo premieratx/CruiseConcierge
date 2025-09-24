@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, contacts, projects, boats, products, quotes, invoices, payments, chatMessages, availabilitySlots, quoteTemplates, templateRules, discountRules, pricingSettings, pricingAdjustments, affiliates, bookings, discoSlots, timeframes, emailTemplates, masterTemplates, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts, quoteAnalytics, fileSends, emailTracking, customerLifecycle, customerActivity, slotHolds, partialLeads, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, blogComments, blogAnalytics, seoPages, seoAuditLog, seoCompetitors, seoSettings, webhookNotifications, media } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AdminChatSession, type InsertAdminChatSession, type AdminChatMessage, type InsertAdminChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, contacts, projects, boats, products, quotes, invoices, payments, chatMessages, adminChatSessions, adminChatMessages, availabilitySlots, quoteTemplates, templateRules, discountRules, pricingSettings, pricingAdjustments, affiliates, bookings, discoSlots, timeframes, emailTemplates, masterTemplates, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts, quoteAnalytics, fileSends, emailTracking, customerLifecycle, customerActivity, slotHolds, partialLeads, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, blogComments, blogAnalytics, seoPages, seoAuditLog, seoCompetitors, seoSettings, webhookNotifications, media } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, gte, lte, desc, asc, isNull, isNotNull, or, inArray, sql, count, sum, between } from "drizzle-orm";
 import { randomUUID } from "crypto";
@@ -92,6 +92,14 @@ export interface IStorage {
   // Chat Messages
   createChatMessage(message: InsertChatMessage): Promise<ChatMessage>;
   getChatMessages(sessionId: string): Promise<ChatMessage[]>;
+
+  // Admin Chat
+  getAdminChatSessions(adminUserId?: string): Promise<AdminChatSession[]>;
+  createAdminChatSession(session: InsertAdminChatSession): Promise<AdminChatSession>;
+  updateAdminChatSession(sessionId: string, updates: Partial<AdminChatSession>): Promise<AdminChatSession>;
+  deleteAdminChatSession(sessionId: string): Promise<boolean>;
+  getAdminChatMessages(sessionId: string): Promise<AdminChatMessage[]>;
+  createAdminChatMessage(message: InsertAdminChatMessage): Promise<AdminChatMessage>;
 
   // Availability
   getAvailabilitySlots(startDate: Date, endDate: Date): Promise<AvailabilitySlot[]>;
@@ -1868,6 +1876,62 @@ export class DatabaseStorage implements IStorage {
     return await db.select().from(chatMessages)
       .where(eq(chatMessages.sessionId, sessionId))
       .orderBy(asc(chatMessages.createdAt));
+  }
+
+  // ===== ADMIN CHAT =====
+
+  async getAdminChatSessions(adminUserId?: string): Promise<AdminChatSession[]> {
+    const query = db.select().from(adminChatSessions);
+    
+    if (adminUserId) {
+      return await query.where(eq(adminChatSessions.adminUserId, adminUserId))
+        .orderBy(desc(adminChatSessions.lastMessageAt));
+    }
+    
+    return await query.orderBy(desc(adminChatSessions.lastMessageAt));
+  }
+
+  async createAdminChatSession(session: InsertAdminChatSession): Promise<AdminChatSession> {
+    const result = await db.insert(adminChatSessions).values({
+      ...session,
+      tags: session.tags || [],
+    }).returning();
+    return result[0];
+  }
+
+  async updateAdminChatSession(sessionId: string, updates: Partial<AdminChatSession>): Promise<AdminChatSession> {
+    const result = await db.update(adminChatSessions)
+      .set(updates)
+      .where(eq(adminChatSessions.id, sessionId))
+      .returning();
+    
+    if (result.length === 0) throw new Error("Admin chat session not found");
+    return result[0];
+  }
+
+  async deleteAdminChatSession(sessionId: string): Promise<boolean> {
+    // First delete all messages in the session
+    await db.delete(adminChatMessages).where(eq(adminChatMessages.sessionId, sessionId));
+    
+    // Then delete the session
+    const result = await db.delete(adminChatSessions)
+      .where(eq(adminChatSessions.id, sessionId));
+    
+    return true;
+  }
+
+  async getAdminChatMessages(sessionId: string): Promise<AdminChatMessage[]> {
+    return await db.select().from(adminChatMessages)
+      .where(eq(adminChatMessages.sessionId, sessionId))
+      .orderBy(asc(adminChatMessages.createdAt));
+  }
+
+  async createAdminChatMessage(message: InsertAdminChatMessage): Promise<AdminChatMessage> {
+    const result = await db.insert(adminChatMessages).values({
+      ...message,
+      metadata: message.metadata || {},
+    }).returning();
+    return result[0];
   }
 
   // ===== AVAILABILITY OPERATIONS =====

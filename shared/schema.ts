@@ -165,6 +165,35 @@ export const chatMessages = pgTable("chat_messages", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
+export const adminChatSessions = pgTable("admin_chat_sessions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  adminUserId: varchar("admin_user_id"), // reference to admin user
+  title: text("title").notNull(),
+  description: text("description"),
+  tags: jsonb("tags").$type<string[]>().default([]),
+  isActive: boolean("is_active").notNull().default(true),
+  lastMessageAt: timestamp("last_message_at").notNull().defaultNow(),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+export const adminChatMessages = pgTable("admin_chat_messages", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  sessionId: varchar("session_id").notNull(),
+  adminUserId: varchar("admin_user_id"), // reference to admin user
+  role: varchar("role").notNull(), // 'user' or 'assistant'
+  content: text("content").notNull(),
+  messageType: varchar("message_type").notNull().default("text"), // 'text', 'code', 'system'
+  codeLanguage: varchar("code_language"), // programming language for code blocks
+  metadata: jsonb("metadata").$type<{
+    requestType?: 'coding' | 'admin' | 'query' | 'debug' | 'review';
+    attachments?: string[];
+    tokens?: number;
+    model?: string;
+    reasoning?: string;
+  }>().default({}),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
 export const media = pgTable("media", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   filename: text("filename").notNull(), // stored filename
@@ -1051,6 +1080,17 @@ export const insertChatMessageSchema = createInsertSchema(chatMessages).omit({
   createdAt: true,
 });
 
+export const insertAdminChatSessionSchema = createInsertSchema(adminChatSessions).omit({
+  id: true,
+  createdAt: true,
+  lastMessageAt: true,
+});
+
+export const insertAdminChatMessageSchema = createInsertSchema(adminChatMessages).omit({
+  id: true,
+  createdAt: true,
+});
+
 export const insertQuoteTemplateSchema = createInsertSchema(quoteTemplates).omit({
   id: true,
   createdAt: true,
@@ -1295,6 +1335,12 @@ export type InsertContact = z.infer<typeof insertContactSchema>;
 export type InsertProject = z.infer<typeof insertProjectSchema>;
 export type InsertQuote = z.infer<typeof insertQuoteSchema>;
 export type InsertChatMessage = z.infer<typeof insertChatMessageSchema>;
+export type InsertAdminChatSession = z.infer<typeof insertAdminChatSessionSchema>;
+export type InsertAdminChatMessage = z.infer<typeof insertAdminChatMessageSchema>;
+
+// Admin Chat Select Types
+export type AdminChatSession = typeof adminChatSessions.$inferSelect;
+export type AdminChatMessage = typeof adminChatMessages.$inferSelect;
 export type InsertQuoteTemplate = z.infer<typeof insertQuoteTemplateSchema>;
 export type InsertTemplateRule = z.infer<typeof insertTemplateRuleSchema>;
 export type InsertDiscountRule = z.infer<typeof insertDiscountRuleSchema>;

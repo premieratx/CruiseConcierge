@@ -80,6 +80,12 @@ const mainNavItems = [
     icon: Image,
     description: 'AI-powered photo studio and media management',
   },
+  {
+    title: 'AI Assistant',
+    href: '/admin/ai-assistant',
+    icon: Code,
+    description: 'AI-powered coding and admin assistance with GPT-5',
+  },
 ];
 
 export default function Navigation() {

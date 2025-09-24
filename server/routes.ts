@@ -23,8 +23,9 @@ let mailgunQuoteEmail: any = null;
 let comprehensiveLeadService: any = null;
 let wisprFlowService: any = null;
 let generateQuoteDescription: any = null;
+let openaiService: any = null;
 type LeadWebhookPayload = any;
-import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation } from "@shared/schema";
+import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertAdminChatSessionSchema, insertAdminChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation, type AdminChatSession, type AdminChatMessage } from "@shared/schema";
 import { calculateServerPricing, type ServerPricingRequest } from './serverPricing';
 import { PRICING_DEFAULTS } from "@shared/constants";
 import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate, getTimeSlotById } from "@shared/timeSlots";
@@ -234,6 +235,117 @@ const getSeedQuoteTemplates = async () => {
   }
   return seedQuoteTemplates;
 };
+
+const getOpenAIService = async () => {
+  if (!openaiService) {
+    try {
+      const { default: OpenAI } = await import('openai');
+      openaiService = process.env.OPENAI_API_KEY ? new OpenAI({ apiKey: process.env.OPENAI_API_KEY }) : null;
+    } catch (error) {
+      console.error('Failed to initialize OpenAI service:', error);
+      return null;
+    }
+  }
+  return openaiService;
+};
+
+/**
+ * Process admin AI message using GPT-5 for coding and admin operations
+ */
+async function processAdminAIMessage(
+  content: string,
+  conversationHistory: { role: string; content: string }[],
+  metadata: any = {}
+): Promise<{
+  content: string;
+  messageType?: string;
+  codeLanguage?: string;
+  metadata?: any;
+  tokens?: number;
+}> {
+  try {
+    const openai = await getOpenAIService();
+    
+    if (!openai) {
+      return {
+        content: "I'm sorry, OpenAI service is not configured. Please set up the OPENAI_API_KEY environment variable to enable AI assistance.",
+        messageType: 'text',
+        metadata: { error: 'service_unavailable' }
+      };
+    }
+
+    // Build system prompt for admin AI assistant
+    const systemPrompt = `You are an expert AI assistant for Premier Party Cruises admin dashboard. You help with:
+
+CODING OPERATIONS:
+- Code review and suggestions for React/TypeScript/Node.js
+- Debugging assistance and error resolution
+- Database queries and schema operations (PostgreSQL/Drizzle ORM)
+- API endpoint creation and modification (Express.js)
+- Frontend component development with React/shadcn/Tailwind
+
+ADMIN OPERATIONS:
+- System configuration and optimization
+- User management and analytics
+- SEO optimization and content management
+- Database administration and reporting
+- Performance monitoring and troubleshooting
+
+GUIDELINES:
+- Provide specific, actionable solutions
+- Include code examples with proper syntax highlighting
+- Explain complex concepts clearly
+- Consider security and best practices
+- Format code blocks with language identifiers
+- Be concise but thorough
+
+RESPONSE FORMAT:
+- Use markdown for formatting
+- Code blocks: \`\`\`language\ncode\n\`\`\`
+- Be professional and helpful
+- Include reasoning when appropriate
+
+Current request type: ${metadata.requestType || 'general'}`;
+
+    const messages = [
+      { role: "system", content: systemPrompt },
+      ...conversationHistory.slice(-10), // Keep last 10 messages for context
+      { role: "user", content }
+    ];
+
+    const response = await openai.chat.completions.create({
+      model: "gpt-5", // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
+      messages: messages as any,
+      max_completion_tokens: 2048,
+    });
+
+    const aiContent = response.choices[0].message.content || "I'm sorry, I couldn't generate a response.";
+    
+    // Detect if response contains code
+    const hasCodeBlock = aiContent.includes('```');
+    const codeLanguageMatch = aiContent.match(/```(\w+)/);
+    
+    return {
+      content: aiContent,
+      messageType: hasCodeBlock ? 'code' : 'text',
+      codeLanguage: codeLanguageMatch ? codeLanguageMatch[1] : undefined,
+      metadata: {
+        model: 'gpt-5',
+        requestType: metadata.requestType,
+        hasCode: hasCodeBlock
+      },
+      tokens: response.usage?.total_tokens
+    };
+
+  } catch (error) {
+    console.error("Error processing admin AI message:", error);
+    return {
+      content: "I'm experiencing technical difficulties. Please try again in a moment.",
+      messageType: 'text',
+      metadata: { error: 'processing_failed' }
+    };
+  }
+}
 
 // ==========================================
 // QUOTE CREATION FROM CHAT
@@ -11164,6 +11276,166 @@ Phone: ${contact.phone || 'N/A'}`;
     } catch (error: any) {
       console.error("Error validating booking request:", error);
       res.status(500).json({ error: "Failed to validate booking request" });
+    }
+  });
+
+  // ==========================================
+  // ADMIN AI ASSISTANT ENDPOINTS
+  // ==========================================
+
+  // Get admin chat sessions
+  app.get("/api/admin/ai-assistant/sessions", requireAdminAuth, async (req, res) => {
+    try {
+      const storageInstance = await getStorage();
+      const sessions = await storageInstance.getAdminChatSessions(req.adminUser?.id);
+      res.json(sessions);
+    } catch (error) {
+      console.error("Error fetching admin chat sessions:", error);
+      res.status(500).json({ error: "Failed to fetch chat sessions" });
+    }
+  });
+
+  // Create new admin chat session
+  app.post("/api/admin/ai-assistant/sessions", requireAdminAuth, async (req, res) => {
+    try {
+      const validation = insertAdminChatSessionSchema.safeParse(req.body);
+      if (!validation.success) {
+        return res.status(400).json({ error: "Invalid session data", details: validation.error.errors });
+      }
+
+      const storageInstance = await getStorage();
+      const session = await storageInstance.createAdminChatSession({
+        ...validation.data,
+        adminUserId: req.adminUser?.id || 'admin_default'
+      });
+
+      res.json(session);
+    } catch (error) {
+      console.error("Error creating admin chat session:", error);
+      res.status(500).json({ error: "Failed to create chat session" });
+    }
+  });
+
+  // Get messages for a specific admin chat session
+  app.get("/api/admin/ai-assistant/sessions/:sessionId/messages", requireAdminAuth, async (req, res) => {
+    try {
+      const { sessionId } = req.params;
+      
+      if (!sessionId) {
+        return res.status(400).json({ error: "Session ID is required" });
+      }
+
+      const storageInstance = await getStorage();
+      const messages = await storageInstance.getAdminChatMessages(sessionId);
+      res.json(messages);
+    } catch (error) {
+      console.error("Error fetching admin chat messages:", error);
+      res.status(500).json({ error: "Failed to fetch chat messages" });
+    }
+  });
+
+  // Send message to admin AI assistant
+  app.post("/api/admin/ai-assistant/sessions/:sessionId/messages", requireAdminAuth, async (req, res) => {
+    try {
+      const { sessionId } = req.params;
+      const { content, messageType = 'text', codeLanguage, metadata = {} } = req.body;
+
+      if (!sessionId || !content) {
+        return res.status(400).json({ error: "Session ID and content are required" });
+      }
+
+      const storageInstance = await getStorage();
+      
+      // Save user message
+      const userMessage = await storageInstance.createAdminChatMessage({
+        sessionId,
+        adminUserId: req.adminUser?.id || 'admin_default',
+        role: 'user',
+        content,
+        messageType,
+        codeLanguage,
+        metadata
+      });
+
+      // Get conversation history for context
+      const messages = await storageInstance.getAdminChatMessages(sessionId);
+      const conversationHistory = messages.map((msg: AdminChatMessage) => ({
+        role: msg.role,
+        content: msg.content
+      }));
+
+      // Process with OpenAI GPT-5 for admin assistance
+      const aiResponse = await processAdminAIMessage(content, conversationHistory, metadata);
+
+      // Save AI response
+      const assistantMessage = await storageInstance.createAdminChatMessage({
+        sessionId,
+        adminUserId: req.adminUser?.id || 'admin_default',
+        role: 'assistant',
+        content: aiResponse.content,
+        messageType: aiResponse.messageType || 'text',
+        codeLanguage: aiResponse.codeLanguage,
+        metadata: {
+          ...aiResponse.metadata,
+          model: 'gpt-5',
+          tokens: aiResponse.tokens,
+          requestType: metadata.requestType
+        }
+      });
+
+      // Update session last message time
+      await storageInstance.updateAdminChatSession(sessionId, {
+        lastMessageAt: new Date()
+      });
+
+      res.json({
+        userMessage,
+        assistantMessage,
+        success: true
+      });
+
+    } catch (error) {
+      console.error("Error processing admin AI message:", error);
+      res.status(500).json({ error: "Failed to process message" });
+    }
+  });
+
+  // Update admin chat session
+  app.patch("/api/admin/ai-assistant/sessions/:sessionId", requireAdminAuth, async (req, res) => {
+    try {
+      const { sessionId } = req.params;
+      const updates = req.body;
+
+      if (!sessionId) {
+        return res.status(400).json({ error: "Session ID is required" });
+      }
+
+      const storageInstance = await getStorage();
+      const session = await storageInstance.updateAdminChatSession(sessionId, updates);
+      
+      res.json(session);
+    } catch (error) {
+      console.error("Error updating admin chat session:", error);
+      res.status(500).json({ error: "Failed to update chat session" });
+    }
+  });
+
+  // Delete admin chat session
+  app.delete("/api/admin/ai-assistant/sessions/:sessionId", requireAdminAuth, async (req, res) => {
+    try {
+      const { sessionId } = req.params;
+
+      if (!sessionId) {
+        return res.status(400).json({ error: "Session ID is required" });
+      }
+
+      const storageInstance = await getStorage();
+      await storageInstance.deleteAdminChatSession(sessionId);
+      
+      res.json({ success: true });
+    } catch (error) {
+      console.error("Error deleting admin chat session:", error);
+      res.status(500).json({ error: "Failed to delete chat session" });
     }
   });
 
