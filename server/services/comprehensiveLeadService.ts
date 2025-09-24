@@ -123,11 +123,45 @@ export class ComprehensiveLeadService {
       if (project && leadData.quoteData) {
         console.log('💰 Step 3: Generating quote...');
         try {
-          // Create the quote first (without token)
+          // Create the quote with ALL user selections (CRITICAL FIX)
           quote = await storage.createQuote({
             projectId: project.id,
             templateId: leadData.quoteData.templateId,
             items: leadData.quoteData.items || [],
+            
+            // SAVE CONTACT INFO directly to quote for standalone viewing
+            contactInfo: {
+              firstName: leadData.name.split(' ')[0] || '',
+              lastName: leadData.name.split(' ').slice(1).join(' ') || '',
+              email: leadData.email,
+              phone: leadData.phone
+            },
+            
+            // SAVE EVENT DETAILS with all user selections
+            eventDetails: {
+              eventType: leadData.eventType || project.eventType || 'cruise',
+              eventTypeLabel: leadData.eventTypeLabel || leadData.eventType || 'Cruise',
+              eventEmoji: leadData.selectedOptions?.eventEmoji || '🚢',
+              eventDate: leadData.cruiseDate || project.projectDate?.toISOString() || new Date().toISOString(),
+              groupSize: leadData.groupSize || project.groupSize || 1,
+              specialRequests: leadData.projectData?.specialRequests || '',
+              budget: leadData.projectData?.budget || ''
+            },
+            
+            // SAVE SELECTION DETAILS with cruise/slot selections
+            selectionDetails: {
+              cruiseType: leadData.selectedOptions?.cruiseType || leadData.quoteData?.cruiseType,
+              selectedSlot: leadData.selectedOptions?.selectedSlot || leadData.quoteData?.selectedSlot,
+              selectedPackages: leadData.selectedOptions?.selectedPackages || [],
+              discoPackage: leadData.selectedOptions?.discoPackage || leadData.quoteData?.discoPackage,
+              ticketQuantity: leadData.selectedOptions?.ticketQuantity || leadData.groupSize,
+              selectedDuration: leadData.selectedOptions?.selectedDuration || leadData.quoteData?.selectedDuration,
+              selectedBoat: leadData.selectedOptions?.selectedBoat || leadData.quoteData?.selectedBoat,
+              preferredTimeLabel: leadData.selectedOptions?.preferredTimeLabel || '',
+              groupSizeLabel: leadData.selectedOptions?.groupSizeLabel || `${leadData.groupSize || 1} people`
+            },
+            
+            // Pricing information
             subtotal: leadData.pricing?.subtotal || 0,
             discountTotal: leadData.pricing?.discountTotal || 0,
             tax: leadData.pricing?.tax || 0,

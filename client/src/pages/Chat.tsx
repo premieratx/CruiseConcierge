@@ -850,9 +850,9 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   const { isEditMode } = useInlineEdit();
   const params = useParams();
   
-  // Parse URL parameters to detect quote token or quote ID
+  // Parse URL parameters to detect quote token or quote ID (with fallback)
   const urlParams = new URLSearchParams(window.location.search);
-  const quoteToken = urlParams.get('quote'); // Look for ?quote={token}
+  const quoteToken = urlParams.get('quote') || urlParams.get('quoteToken'); // Look for ?quote={token} or ?quoteToken={token}
   const quoteId = params.id; // Look for /quote/{id} route parameter
   const [isQuoteMode, setIsQuoteMode] = useState(Boolean(quoteToken || quoteId));
   const [quoteLoading, setQuoteLoading] = useState(false);
@@ -2732,10 +2732,40 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       return { contact: contactResponse, project: projectResponse };
       */
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
+      console.log('🎉 createLead onSuccess handler called:', data);
+      
       queryClient.invalidateQueries({ queryKey: ['/api/contacts'] });
       queryClient.invalidateQueries({ queryKey: ['/api/projects'] });
       setCurrentStep('confirmation');
+      
+      // CRITICAL FIX: Update browser URL with quote token
+      if (data.quoteUrl) {
+        console.log('🔗 Updating browser URL with quote token from createLead:', data.quoteUrl);
+        
+        // Extract the path and query from the quoteUrl (e.g., "/chat?quote=token")
+        try {
+          const url = new URL(data.quoteUrl);
+          const pathWithQuery = url.pathname + url.search;
+          console.log('🔗 Extracted path with query from createLead:', pathWithQuery);
+          
+          // Update the browser URL using wouter's setLocation
+          setLocation(pathWithQuery);
+          console.log('✅ Browser URL updated successfully from createLead');
+        } catch (error) {
+          console.error('❌ Error updating browser URL from createLead:', error);
+          // Fallback: extract token from URL and construct path manually
+          const tokenMatch = data.quoteUrl.match(/[?&]quote=([^&]+)/);
+          if (tokenMatch) {
+            const token = tokenMatch[1];
+            setLocation(`/chat?quote=${token}`);
+            console.log('✅ Browser URL updated with extracted token from createLead');
+          }
+        }
+      } else {
+        console.warn('⚠️ No quoteUrl in createLead response to update browser URL');
+      }
+      
       toast({ 
         title: 'Quote Sent Successfully!',
         description: "Check your email and text message for the full interactive quote.",

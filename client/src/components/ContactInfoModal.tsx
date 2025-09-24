@@ -184,7 +184,34 @@ export function ContactInfoModal({
       });
       console.log('✅ Success toast shown');
       
-      // Close the modal - user stays on the same quote they were looking at
+      // CRITICAL FIX: Update browser URL with quote token
+      if (data.publicUrl) {
+        console.log('🔗 Updating browser URL with quote token:', data.publicUrl);
+        
+        // Extract the path and query from the publicUrl (e.g., "/chat?quote=token")
+        try {
+          const url = new URL(data.publicUrl);
+          const pathWithQuery = url.pathname + url.search;
+          console.log('🔗 Extracted path with query:', pathWithQuery);
+          
+          // Update the browser URL using wouter's setLocation
+          setLocation(pathWithQuery);
+          console.log('✅ Browser URL updated successfully');
+        } catch (error) {
+          console.error('❌ Error updating browser URL:', error);
+          // Fallback: extract token from URL and construct path manually
+          const tokenMatch = data.publicUrl.match(/[?&]quote=([^&]+)/);
+          if (tokenMatch) {
+            const token = tokenMatch[1];
+            setLocation(`/chat?quote=${token}`);
+            console.log('✅ Browser URL updated with extracted token');
+          }
+        }
+      } else {
+        console.warn('⚠️ No publicUrl in response to update browser URL');
+      }
+      
+      // Close the modal - user now sees their quote with the updated URL
       if (onClose) {
         console.log('✅ Calling onClose to close modal');
         onClose();
