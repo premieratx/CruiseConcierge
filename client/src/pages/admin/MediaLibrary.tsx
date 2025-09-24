@@ -372,6 +372,41 @@ export default function MediaLibrary() {
     setSelectedItems(newSelection);
   };
 
+  // Filter media items based on search and filter selection
+  const filteredItems = mediaItems?.filter((item: MediaItem) => {
+    const matchesSearch = !searchTerm || 
+      item.originalName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      item.autoTags?.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
+    
+    // Filter by selected filter type
+    let matchesFilter = true;
+    switch (selectedFilter) {
+      case 'photos':
+        matchesFilter = item.fileType === 'photo' || item.fileType === 'edited_photo';
+        break;
+      case 'videos':
+        matchesFilter = item.fileType === 'video' || item.fileType === 'generated_video';
+        break;
+      case 'analyzed':
+        matchesFilter = item.aiAnalyzed === true;
+        break;
+      case 'edited':
+        matchesFilter = item.fileType === 'edited_photo';
+        break;
+      case 'published':
+        matchesFilter = item.status === 'published';
+        break;
+      case 'draft':
+        matchesFilter = item.status === 'draft';
+        break;
+      case 'all':
+      default:
+        matchesFilter = true;
+    }
+    
+    return matchesSearch && matchesFilter;
+  }) || [];
+
   // Select all visible items
   const selectAllVisible = () => {
     if (selectedItems.size === filteredItems.length) {
@@ -421,41 +456,6 @@ export default function MediaLibrary() {
       setIsGenerating(false);
     }
   };
-
-  // Filter media items based on search and filter selection
-  const filteredItems = mediaItems?.filter((item: MediaItem) => {
-    const matchesSearch = !searchTerm || 
-      item.originalName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.autoTags?.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    
-    // Filter by selected filter type
-    let matchesFilter = true;
-    switch (selectedFilter) {
-      case 'photos':
-        matchesFilter = item.fileType === 'photo' || item.fileType === 'edited_photo';
-        break;
-      case 'videos':
-        matchesFilter = item.fileType === 'video' || item.fileType === 'generated_video';
-        break;
-      case 'analyzed':
-        matchesFilter = item.aiAnalyzed === true;
-        break;
-      case 'edited':
-        matchesFilter = item.fileType === 'edited_photo';
-        break;
-      case 'published':
-        matchesFilter = item.status === 'published';
-        break;
-      case 'draft':
-        matchesFilter = item.status === 'draft';
-        break;
-      case 'all':
-      default:
-        matchesFilter = true;
-    }
-    
-    return matchesSearch && matchesFilter;
-  }) || [];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-yellow-50 p-6">
