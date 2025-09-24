@@ -4027,6 +4027,13 @@ export class DatabaseStorage implements IStorage {
     return post;
   }
 
+  async getBlogPostByWordPressId(wpPostId: number): Promise<BlogPost | undefined> {
+    const [post] = await db.select()
+      .from(blogPosts)
+      .where(eq(blogPosts.wpPostId, wpPostId));
+    return post;
+  }
+
   async getBlogPosts(filters?: {
     status?: 'draft' | 'published' | 'scheduled' | 'archived';
     authorId?: string;

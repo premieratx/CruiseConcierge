@@ -44,6 +44,7 @@ import { insertMediaSchema } from "@shared/schema";
 import sanitizeHtml from 'sanitize-html';
 import TurndownService from 'turndown';
 import { format } from "date-fns";
+import { XMLParser } from 'fast-xml-parser';
 
 // Lazy initialization functions
 const getStorage = async () => {
@@ -14108,6 +14109,7 @@ Phone: ${contact.phone || 'N/A'}`;
         return res.status(400).json({ error: "XML content is required" });
       }
       
+      const storage = await getStorage();
       const importId = randomUUID();
       
       // Store import status for tracking
@@ -14116,29 +14118,178 @@ Phone: ${contact.phone || 'N/A'}`;
         status: 'processing',
         totalItems: 0,
         processedItems: 0,
+        createdPosts: 0,
+        createdAuthors: 0,
+        createdCategories: 0,
+        createdTags: 0,
+        skippedPosts: 0,
         errors: [],
         startedAt: new Date(),
         completedAt: null
       };
       
-      // Note: In a real implementation, you would store this in the database
-      // For now, we'll return the import ID and process immediately
-      
       try {
-        // Parse WordPress XML (simplified version)
-        const parser = require('xml2js');
-        const result = await parser.parseStringPromise(xmlContent);
+        // Parse WordPress XML using fast-xml-parser
         
-        const items = result?.rss?.channel?.[0]?.item || [];
+        const parserOptions = {
+          ignoreAttributes: false,
+          attributeNamePrefix: "@_",
+          textNodeName: "#text",
+          parseAttributeValue: true,
+          parseTagValue: true,
+          trimValues: true,
+          parseTrueNumberOnly: false,
+          arrayMode: false,
+          alwaysCreateTextNode: false,
+          isArray: (name: string, jpath: string, isLeafNode: boolean, isAttribute: boolean) => {
+            // Always treat these as arrays for consistency
+            return ['item', 'category', 'tag', 'wp:postmeta', 'wp:comment'].includes(name);
+          }
+        };
+        
+        const parser = new XMLParser(parserOptions);
+        const parsedData = parser.parse(xmlContent);
+        
+        // Validate this is a WordPress export
+        if (!parsedData.rss || !parsedData.rss.channel) {
+          return res.status(400).json({ 
+            error: "Invalid WordPress export file", 
+            details: "File does not contain expected RSS channel structure" 
+          });
+        }
+        
+        const channel = parsedData.rss.channel;
+        const items = Array.isArray(channel.item) ? channel.item : (channel.item ? [channel.item] : []);
+        
+        // Extract WordPress categories and tags from channel for reference
+        const wpCategories = Array.isArray(channel["wp:category"]) ? channel["wp:category"] : 
+                           (channel["wp:category"] ? [channel["wp:category"]] : []);
+        const wpTags = Array.isArray(channel["wp:tag"]) ? channel["wp:tag"] : 
+                      (channel["wp:tag"] ? [channel["wp:tag"]] : []);
+        
         importStatus.totalItems = items.length;
         
         let processedCount = 0;
+        let createdPosts = 0;
+        let createdAuthors = 0;
+        let createdCategories = 0;
+        let createdTags = 0;
+        let skippedPosts = 0;
         const errors: string[] = [];
         
+        // Helper function to create unique slug
+        const createUniqueSlug = async (baseSlug: string, wpPostId?: number): Promise<string> => {
+          let slug = baseSlug;
+          let counter = 1;
+          
+          while (true) {
+            try {
+              const existing = await storage.getBlogPostBySlug(slug);
+              if (!existing) return slug;
+              
+              // If it's the same WordPress post, return existing slug
+              if (wpPostId && existing.wpPostId === wpPostId) {
+                return existing.slug;
+              }
+              
+              slug = `${baseSlug}-${counter}`;
+              counter++;
+            } catch (error) {
+              // If getBlogPostBySlug fails, assume slug is available
+              return slug;
+            }
+          }
+        };
+        
+        // Helper function to sanitize HTML content
+        const sanitizeContent = (content: string): string => {
+          if (!content) return '';
+          
+          // Basic WordPress shortcode removal (can be expanded)
+          let sanitized = content
+            .replace(/\[caption[^\]]*\](.*?)\[\/caption\]/gi, '$1')
+            .replace(/\[gallery[^\]]*\]/gi, '')
+            .replace(/\[embed[^\]]*\](.*?)\[\/embed\]/gi, '$1')
+            .replace(/\[youtube[^\]]*\](.*?)\[\/youtube\]/gi, '')
+            .replace(/\[video[^\]]*\](.*?)\[\/video\]/gi, '');
+          
+          return sanitizeHtml(sanitized, {
+            allowedTags: ['p', 'br', 'strong', 'em', 'u', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 
+                         'ul', 'ol', 'li', 'a', 'img', 'blockquote', 'code', 'pre', 'span', 'div'],
+            allowedAttributes: {
+              'a': ['href', 'title', 'target'],
+              'img': ['src', 'alt', 'title', 'width', 'height'],
+              '*': ['class', 'id', 'style']
+            }
+          });
+        };
+        
+        // Create category/tag mapping from WordPress taxonomy to our system
+        const categoryMap = new Map<string, string>();
+        const tagMap = new Map<string, string>();
+        
+        // Process WordPress categories
+        for (const wpCat of wpCategories) {
+          if (!wpCat["wp:cat_name"] || wpCat["wp:cat_name"] === 'Uncategorized') continue;
+          
+          try {
+            const catName = wpCat["wp:cat_name"];
+            const catSlug = wpCat["wp:category_nicename"] || 
+                           catName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+            
+            let category = await storage.getBlogCategoryBySlug(catSlug);
+            if (!category) {
+              category = await storage.createBlogCategory({
+                name: catName,
+                slug: catSlug,
+                description: wpCat["wp:category_description"] || '',
+                active: true,
+                displayOrder: 0,
+                wpCategoryId: parseInt(wpCat["wp:term_id"]) || null
+              });
+              createdCategories++;
+            }
+            
+            categoryMap.set(catName, category.id);
+            categoryMap.set(catSlug, category.id);
+          } catch (error: any) {
+            errors.push(`Error creating category ${wpCat["wp:cat_name"]}: ${error.message}`);
+          }
+        }
+        
+        // Process WordPress tags
+        for (const wpTag of wpTags) {
+          if (!wpTag["wp:tag_name"]) continue;
+          
+          try {
+            const tagName = wpTag["wp:tag_name"];
+            const tagSlug = wpTag["wp:tag_slug"] || 
+                           tagName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+            
+            let tag = await storage.getBlogTagBySlug(tagSlug);
+            if (!tag) {
+              tag = await storage.createBlogTag({
+                name: tagName,
+                slug: tagSlug,
+                description: wpTag["wp:tag_description"] || '',
+                active: true,
+                wpTagId: parseInt(wpTag["wp:term_id"]) || null
+              });
+              createdTags++;
+            }
+            
+            tagMap.set(tagName, tag.id);
+            tagMap.set(tagSlug, tag.id);
+          } catch (error: any) {
+            errors.push(`Error creating tag ${wpTag["wp:tag_name"]}: ${error.message}`);
+          }
+        }
+        
+        // Process each post
         for (const item of items) {
           try {
-            const postType = item['wp:post_type']?.[0] || 'post';
-            const status = item['wp:status']?.[0] || 'draft';
+            const postType = item["wp:post_type"] || 'post';
+            const status = item["wp:status"] || 'draft';
             
             // Only import posts, not pages or other content types
             if (postType !== 'post') {
@@ -14146,10 +14297,11 @@ Phone: ${contact.phone || 'N/A'}`;
             }
             
             // Check if post already exists by WordPress ID
-            const wpPostId = parseInt(item['wp:post_id']?.[0] || '0');
+            const wpPostId = parseInt(item["wp:post_id"] || '0');
             if (wpPostId > 0) {
               const existing = await storage.getBlogPostByWordPressId(wpPostId);
               if (existing && !options.allowDuplicates) {
+                skippedPosts++;
                 continue;
               }
             }
@@ -14157,7 +14309,7 @@ Phone: ${contact.phone || 'N/A'}`;
             // Create/find author
             let authorId = options.defaultAuthorId;
             if (!authorId) {
-              const authorName = item['dc:creator']?.[0] || 'Imported Author';
+              const authorName = item["dc:creator"] || 'Imported Author';
               const authorSlug = authorName.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
               
               let author = await storage.getBlogAuthorBySlug(authorSlug);
@@ -14171,31 +14323,44 @@ Phone: ${contact.phone || 'N/A'}`;
                   active: true,
                   displayOrder: 0
                 });
+                createdAuthors++;
               }
               authorId = author.id;
             }
             
             // Extract content
-            const title = item.title?.[0] || 'Untitled Post';
-            const content = item['content:encoded']?.[0] || item.description?.[0] || '';
-            const excerpt = item['excerpt:encoded']?.[0] || '';
-            const slug = item['wp:post_name']?.[0] || title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
-            const publishedAt = item.pubDate?.[0] ? new Date(item.pubDate[0]) : null;
+            const title = item.title || 'Untitled Post';
+            const rawContent = item["content:encoded"] || item.description || '';
+            const content = sanitizeContent(rawContent);
+            const excerpt = item["excerpt:encoded"] || '';
+            const wpSlug = item["wp:post_name"] || '';
+            const baseSlug = wpSlug || title.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+            const publishedAt = item.pubDate ? new Date(item.pubDate) : null;
+            
+            // Generate unique slug
+            const uniqueSlug = await createUniqueSlug(baseSlug, wpPostId);
+            
+            // Calculate reading time and word count
+            const wordCount = content.split(/\s+/).filter(word => word.length > 0).length;
+            const readingTime = Math.max(1, Math.round(wordCount / 200)); // 200 words per minute
             
             // Create blog post
             const postData = {
               authorId,
               title,
-              slug: `${slug}-${wpPostId}`, // Append ID to avoid conflicts
+              slug: uniqueSlug,
               content,
               contentType: 'html' as const,
               status: status === 'publish' ? 'published' as const : 'draft' as const,
               excerpt,
               publishedAt,
-              wordPress: {
-                postId: wpPostId,
-                originalSlug: slug
-              },
+              wpPostId,
+              wpGuid: item.guid || '',
+              wpStatus: status,
+              wpImportDate: new Date(),
+              wpModified: item["wp:post_date"] ? new Date(item["wp:post_date"]) : null,
+              readingTime,
+              wordCount,
               viewCount: 0,
               featured: false,
               allowComments: true,
@@ -14204,41 +14369,102 @@ Phone: ${contact.phone || 'N/A'}`;
               customFields: {
                 wordpressImport: true,
                 importId,
-                originalId: wpPostId
+                originalId: wpPostId,
+                originalSlug: wpSlug
               }
             };
             
-            await storage.createBlogPost(postData);
+            const post = await storage.createBlogPost(postData);
+            createdPosts++;
+            
+            // Extract and assign categories
+            const categories = Array.isArray(item.category) ? item.category : (item.category ? [item.category] : []);
+            const categoryIds: string[] = [];
+            
+            for (const categoryItem of categories) {
+              const categoryName = typeof categoryItem === 'string' ? categoryItem : 
+                                 (categoryItem["#text"] || categoryItem);
+              
+              if (categoryName && categoryName !== 'Uncategorized') {
+                const categoryId = categoryMap.get(categoryName);
+                if (categoryId && !categoryIds.includes(categoryId)) {
+                  categoryIds.push(categoryId);
+                }
+              }
+            }
+            
+            if (categoryIds.length > 0) {
+              await storage.assignPostToCategories(post.id, categoryIds, categoryIds[0]);
+            }
+            
+            // Extract and assign tags (from both category domain="post_tag" and wp:postmeta)
+            const tagIds: string[] = [];
+            
+            // Check categories with domain="post_tag" (WordPress tags)
+            for (const categoryItem of categories) {
+              if (typeof categoryItem === 'object' && categoryItem["@_domain"] === 'post_tag') {
+                const tagName = categoryItem["#text"] || categoryItem;
+                const tagId = tagMap.get(tagName);
+                if (tagId && !tagIds.includes(tagId)) {
+                  tagIds.push(tagId);
+                }
+              }
+            }
+            
+            if (tagIds.length > 0) {
+              await storage.assignPostToTags(post.id, tagIds);
+            }
+            
             processedCount++;
             
           } catch (itemError: any) {
-            errors.push(`Error processing item: ${itemError.message}`);
+            errors.push(`Error processing post "${item.title || 'Unknown'}": ${itemError.message}`);
           }
         }
         
         importStatus.status = 'completed';
         importStatus.processedItems = processedCount;
+        importStatus.createdPosts = createdPosts;
+        importStatus.createdAuthors = createdAuthors;
+        importStatus.createdCategories = createdCategories;
+        importStatus.createdTags = createdTags;
+        importStatus.skippedPosts = skippedPosts;
         importStatus.errors = errors;
         importStatus.completedAt = new Date();
         
         res.json({
           success: true,
           importId,
-          imported: processedCount,
-          total: items.length,
-          errors
+          summary: {
+            totalItemsProcessed: processedCount,
+            postsCreated: createdPosts,
+            authorsCreated: createdAuthors,
+            categoriesCreated: createdCategories,
+            tagsCreated: createdTags,
+            postsSkipped: skippedPosts,
+            totalErrors: errors.length
+          },
+          details: {
+            totalItems: items.length,
+            errors: errors.slice(0, 10) // Limit errors in response to avoid huge payloads
+          }
         });
         
       } catch (parseError: any) {
+        console.error("WordPress XML parsing error:", parseError);
         res.status(400).json({
           error: "Failed to parse WordPress XML",
-          details: parseError.message
+          details: parseError.message,
+          suggestion: "Please ensure this is a valid WordPress Export (WXR) file"
         });
       }
       
     } catch (error: any) {
       console.error("WordPress import error:", error);
-      res.status(500).json({ error: "Failed to import WordPress content" });
+      res.status(500).json({ 
+        error: "WordPress import failed", 
+        details: error.message 
+      });
     }
   });
 

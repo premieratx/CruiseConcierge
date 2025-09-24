@@ -1,0 +1,328 @@
+// import-wxr.js
+// Node script to import a single WordPress WXR XML file into Replit DB,
+// auto-format a bit, detect central topic, and generate 10 focus keywords
+// branded for Premier Party Cruises & Party On Delivery.
+
+import fs from "node:fs";
+import path from "node:path";
+import { XMLParser } from "fast-xml-parser";
+import slugify from "slugify";
+import { JSDOM } from "jsdom";
+import Database from "@replit/database";
+
+// ---- Config ----
+const WXR_FILE = process.env.FILE || "./wordpress-export.xml";
+const db = new Database(); // Replit DB (key-value)
+
+// Stopwords for simple keywording
+const STOP = new Set([
+  "with","that","this","from","will","your","have","been","they","them","their",
+  "into","about","when","what","where","which","while","there","then","than",
+  "also","because","just","make","like","over","such","some","more","most","less",
+  "very","much","many","each","every","after","before","between","among","other",
+  "ours","ourselves","hers","herself","himself","themselves","ours","were","have",
+  "been","being","within","without","under","above","below","across","toward",
+  "towards","around","again","even","ever","never","could","should","would"
+]);
+
+// Brand seeds to bias central-topic detection
+const BRAND_SEEDS = [
+  "premier party cruises",
+  "party on delivery",
+  "atx disco cruise",
+  "lake travis",
+  "austin",
+  "bachelorette",
+  "bachelor",
+  "party boat",
+  "boat cruise",
+  "corporate event",
+  "wedding",
+  "alcohol delivery",
+  "concierge",
+  "airbnb",
+  "itinerary"
+];
+
+// --- Helpers ---
+function htmlToText(html) {
+  const dom = new JSDOM(html || "");
+  return dom.window.document.body.textContent || "";
+}
+
+function makeExcerpt(html, max = 240) {
+  const dom = new JSDOM(html || "");
+  const p = dom.window.document.querySelector("p");
+  const txt = (p?.textContent || "").replace(/\s+/g, " ").trim();
+  return txt.length > max ? txt.slice(0, max - 1) + "…" : txt;
+}
+
+function normalizeHTML(html, title) {
+  const dom = new JSDOM(html || "");
+  const doc = dom.window.document;
+
+  // Ensure an H1 exists
+  if (!doc.querySelector("h1") && title) {
+    const h1 = doc.createElement("h1");
+    h1.textContent = title;
+    doc.body.insertBefore(h1, doc.body.firstChild);
+  }
+
+  // Make images responsive-ish; ensure alt text
+  doc.querySelectorAll("img").forEach((img, i) => {
+    if (!img.getAttribute("alt") || img.getAttribute("alt").trim() === "") {
+      img.setAttribute("alt", `${title} — Premier Party Cruises & Party On Delivery — image ${i + 1}`);
+    }
+    img.removeAttribute("loading");
+    img.removeAttribute("decoding");
+    img.removeAttribute("width");
+    img.removeAttribute("height");
+  });
+
+  return "<!-- normalized -->\n" + doc.body.innerHTML;
+}
+
+function detectCentralTopic(text, title) {
+  const baseline = (title + " " + text).toLowerCase();
+
+  // 1) Brand/domain seed match
+  const counts = {};
+  for (const s of BRAND_SEEDS) {
+    const re = new RegExp("\\b" + s.replace(/\s+/g, "\\s+") + "\\b", "g");
+    counts[s] = (baseline.match(re) || []).length;
+  }
+  const topSeed = Object.entries(counts).sort((a, b) => b[1] - a[1])[0];
+  if (topSeed && topSeed[1] > 0) return topSeed[0];
+
+  // 2) Fallback: frequent bigrams
+  const words = baseline
+    .replace(/[^a-z0-9\s]/g, " ")
+    .split(/\s+/)
+    .filter(w => w.length > 3 && !STOP.has(w));
+  const bigrams = {};
+  for (let i = 0; i < words.length - 1; i++) {
+    const k = words[i] + " " + words[i + 1];
+    bigrams[k] = (bigrams[k] || 0) + 1;
+  }
+  const top = Object.entries(bigrams).sort((a, b) => b[1] - a[1])[0]?.[0];
+  return top || (words[0] || "austin party boat");
+}
+
+function extractTopicTerms(text, limit = 12) {
+  const words = text
+    .toLowerCase()
+    .replace(/[^a-z0-9\s]/g, " ")
+    .split(/\s+/)
+    .filter(w => w.length > 3 && !STOP.has(w));
+
+  const freq = {};
+  for (const w of words) freq[w] = (freq[w] || 0) + 1;
+
+  return Object.entries(freq)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, limit * 2)
+    .map(([w]) => w)
+    // de-emphasize brand words (we add them manually)
+    .filter(w => !["premier","party","cruises","delivery","austin","travis","lake"].includes(w))
+    .slice(0, limit);
+}
+
+function buildFocusKeywords(centralTopic, topicTerms) {
+  const base = [
+    "Premier Party Cruises",
+    "Party On Delivery",
+    "ATX Disco Cruise",
+    "Austin bachelorette boat",
+    "Lake Travis party boat"
+  ];
+  const variants = [
+    `${centralTopic}`,
+    `${centralTopic} Austin`,
+    `${centralTopic} Lake Travis`,
+    ...topicTerms.slice(0, 3).map(t => `${t} Austin`),
+    ...topicTerms.slice(3, 6).map(t => `${t} Lake Travis`)
+  ];
+  const merged = [...base, ...variants]
+    .map(k => k.trim())
+    .filter(Boolean);
+
+  // unique, limit 10
+  return Array.from(new Set(merged)).slice(0, 10);
+}
+
+function makeMetaTitle(title, central) {
+  const raw = `${title} | ${central} | Premier Party Cruises & Party On Delivery (Austin)`;
+  return raw.length <= 60 ? raw : raw.slice(0, 57) + "…";
+}
+
+function makeMetaDescription(excerpt, central) {
+  const raw = `${excerpt} — Book with Premier Party Cruises and stock your party with Party On Delivery. ${central ? "Topic: " + central + ". " : ""}Austin • Lake Travis.`;
+  return raw.length <= 155 ? raw : raw.slice(0, 152) + "…";
+}
+
+// ---- DB helpers (Replit DB) ----
+// Keys:
+//   post:<slug>              -> JSON post record
+//   index:posts              -> array of slugs
+//   tag:<slug>               -> { name, slug }
+//   index:tag:<slug>:posts   -> array of post slugs for that tag
+//   index:keyword:<kw>:posts -> array of post slugs for keyword browsing (optional)
+
+async function savePost(post) {
+  const key = `post:${post.slug}`;
+  const existing = await db.get(key);
+
+  // Upsert
+  await db.set(key, post);
+
+  // index:posts
+  const all = (await db.get("index:posts")) || [];
+  if (!all.includes(post.slug)) {
+    all.push(post.slug);
+    await db.set("index:posts", all);
+  }
+}
+
+async function upsertTag(name) {
+  const slug = slugify(name, { lower: true, strict: true });
+  const tKey = `tag:${slug}`;
+  const found = await db.get(tKey);
+  if (!found) await db.set(tKey, { name, slug });
+  return slug;
+}
+
+async function indexPostTags(slug, tagNames) {
+  for (const name of tagNames) {
+    const tagSlug = await upsertTag(name);
+    const idxKey = `index:tag:${tagSlug}:posts`;
+    const list = (await db.get(idxKey)) || [];
+    if (!list.includes(slug)) {
+      list.push(slug);
+      await db.set(idxKey, list);
+    }
+  }
+}
+
+async function indexPostKeywords(slug, keywords) {
+  for (const kw of keywords) {
+    const k = kw.toLowerCase().replace(/\s+/g, "-");
+    const idxKey = `index:keyword:${k}:posts`;
+    const list = (await db.get(idxKey)) || [];
+    if (!list.includes(slug)) {
+      list.push(slug);
+      await db.set(idxKey, list);
+    }
+  }
+}
+
+// --- CSV writer ---
+function toCSV(rows) {
+  const esc = (s) =>
+    '"' + String(s ?? "").replace(/"/g, '""') + '"';
+  const header = ["slug","title","primary_keyword","keywords"].map(esc).join(",");
+  const lines = rows.map(r =>
+    [r.slug, r.title, r.primary_keyword, r.keywords.join(" | ")].map(esc).join(",")
+  );
+  return [header, ...lines].join("\n");
+}
+
+// --- Main ---
+(async () => {
+  // 1) Read XML
+  const xml = fs.readFileSync(path.resolve(WXR_FILE), "utf8");
+
+  // 2) Parse
+  const parser = new XMLParser({
+    ignoreAttributes: false,
+    attributeNamePrefix: "",
+    removeNSPrefix: true,
+    processEntities: true,
+    preserveOrder: false
+  });
+  const obj = parser.parse(xml);
+  const items = obj?.rss?.channel?.item || [];
+  console.log(`Found ${items.length} items in WXR.`);
+
+  let imported = 0;
+  const csvRows = [];
+
+  for (const it of items) {
+    const postType = it["post_type"] || it["wp:post_type"] || "post";
+    if (postType !== "post") continue;
+
+    const title = it.title || "Untitled";
+    const content = it["content:encoded"] || it["encoded"] || "";
+    const guid = (typeof it.guid === "object" ? it.guid?.["#text"] : it.guid) || it.link || title;
+    const link = it.link || null;
+    const date = it["pubDate"] || it["wp:post_date"] || it["wp:post_date_gmt"] || null;
+    const author = it["dc:creator"] || it["wp:author_display_name"] || null;
+
+    // try featured image from WP meta if present
+    let featured = null;
+    const postmeta = it["wp:postmeta"] || [];
+    for (const m of postmeta) {
+      const key = m["wp:meta_key"] || m["meta_key"];
+      const val = m["wp:meta_value"] || m["meta_value"];
+      if (key === "_thumbnail_url") featured = val;
+    }
+
+    const html = normalizeHTML(content, title);
+    const text = htmlToText(html);
+    const excerpt = makeExcerpt(html);
+    const central = detectCentralTopic(text, title);
+    const topicTerms = extractTopicTerms(text, 8);
+    const keywords = buildFocusKeywords(central, topicTerms);
+
+    const slug = slugify((it["wp:post_name"] || title), { lower: true, strict: true });
+
+    const metaTitle = makeMetaTitle(title, central);
+    const metaDescription = makeMetaDescription(excerpt, central);
+
+    // Save in a single JSON document (your renderer can read from here)
+    const record = {
+      slug,
+      title,
+      html_content: html,
+      excerpt,
+      author,
+      published_at: date ? new Date(date).toISOString() : null,
+      canonical_url: link,
+      featured_image_url: featured,
+      // SEO
+      seo: {
+        primary_keyword: keywords[0],
+        keywords,
+        meta_title: metaTitle,
+        meta_description: metaDescription
+      },
+      // convenience
+      wp_guid: guid,
+      central_topic: central
+    };
+
+    try {
+      await savePost(record);
+      await indexPostTags(slug, keywords);      // treat keywords as tags for quick browse
+      await indexPostKeywords(slug, keywords);  // keyword index (optional)
+      imported++;
+
+      csvRows.push({
+        slug,
+        title,
+        primary_keyword: keywords[0],
+        keywords
+      });
+
+      if (imported % 10 === 0) console.log(`Imported ${imported} posts…`);
+    } catch (e) {
+      console.error(`Failed on "${title}":`, e);
+    }
+  }
+
+  // Write CSV for verification
+  const csv = toCSV(csvRows);
+  fs.writeFileSync("./imported-posts.csv", csv, "utf8");
+
+  console.log(`Done. Imported ${imported} post(s).`);
+  console.log(`Wrote ./imported-posts.csv`);
+})();

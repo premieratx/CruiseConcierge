@@ -47,9 +47,26 @@ The system features a progressive booking flow designed for an intuitive user ex
 - **Booking Status Workflow**: Lead -> Quote -> Payment -> Booking Created -> Status Update -> Inventory Update.
 - **Architectural Principles**: Emphasis on boat-specific products, database constraints for double-booking prevention, composite uniqueness, idempotent seeding for data stability, and server-side validation.
 
+## WordPress Migration System
+### AI-Optimized Content Enhancement
+The WordPress migration system includes intelligent content enhancement to optimize for AI discovery across key event categories. During import, blog posts are automatically enhanced with:
+
+**Target Event Categories:** Corporate events, wedding parties, bachelor/bachelorette parties, birthdays, graduations
+**Service Integration:** Natural mentions of Party on Delivery alcohol delivery services
+**Enhancement Pipeline:** Content → Topic Detection → AI Enhancement → Structured Data → Replit DB Storage
+**Quality Controls:** Maximum 1 brand mention per 300 words, natural reading level maintained, randomized template variants
+**Indexing:** Event-specific indexes (`index:event:<category>:posts`) for targeted content discovery
+
+### Migration Features
+- **Replit DB Storage**: Uses key-value structure (`post:<slug>`, `index:posts`, `tag:<slug>:posts`)
+- **SEO Optimization**: Auto-generates meta titles, descriptions, and focus keywords
+- **Brand Integration**: Premier Party Cruises and Party on Delivery branded content
+- **CSV Export**: Verification report of imported content with keywords and categories
+
 ## External Dependencies
 - **Stripe**: For payment processing (`VITE_STRIPE_PUBLIC_KEY`, `STRIPE_SECRET_KEY`).
 - **GoHighLevel**: For SMS notifications and lead management (`GOHIGHLEVEL_API_KEY`, `GOHIGHLEVEL_LOCATION_ID`, `GOHIGHLEVEL_PRIVATE_INTEGRATION_TOKEN`).
 - **Google Sheets**: For real-time availability management (`GOOGLE_SHEETS_CREDENTIALS`, `SHEET_ID`, `GOOGLE_SERVICE_ACCOUNT_CREDENTIALS`).
 - **Mailgun**: For email delivery of quotes and confirmations (`MAILGUN_API_KEY`, `MAILGUN_DOMAIN`, `MAILGUN_FROM`).
 - **OpenRouter**: For AI-powered customer interactions (`OPENROUTER_API_KEY`).
+- **Replit DB**: For WordPress blog migration and storage (`@replit/database`, `jsdom`, `slugify`).
