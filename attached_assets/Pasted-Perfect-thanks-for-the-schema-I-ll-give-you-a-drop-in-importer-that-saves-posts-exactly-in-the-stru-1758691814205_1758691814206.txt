@@ -1,0 +1,506 @@
+Perfect—thanks for the schema. I’ll give you a drop-in importer that saves posts exactly in the structure your frontend expects, plus plug-and-play API routes (Express) that read from Replit DB and power:
+
+GET /api/blog/public/posts
+
+GET /api/blog/public/posts/:slug
+
+GET /api/blog/public/categories
+
+GET /api/blog/public/tags
+
+You can paste this into your Replit project and run.
+
+1) Importer: WordPress WXR → Replit DB (schema-compatible)
+
+Files you’ll add:
+
+scripts/import-wxr.js (the importer)
+
+Put your WXR export as data/wordpress-export.xml
+
+Install deps (Shell):
+
+npm i @replit/database fast-xml-parser jsdom slugify nanoid
+
+
+scripts/import-wxr.js
+
+// scripts/import-wxr.js
+// Import WordPress WXR into Replit DB, shaped for your app's API schema.
+
+import fs from "node:fs";
+import path from "node:path";
+import { XMLParser } from "fast-xml-parser";
+import { JSDOM } from "jsdom";
+import slugify from "slugify";
+import { nanoid } from "nanoid";
+import Database from "@replit/database";
+
+const db = new Database();
+const WXR_FILE = process.env.FILE || "data/wordpress-export.xml";
+
+// ---------- helpers ----------
+const STOP = new Set([
+  "with","that","this","from","will","your","have","been","they","them","their",
+  "into","about","when","what","where","which","while","there","then","than",
+  "also","because","just","make","like","over","such","some","more","most","less",
+  "very","much","many","each","every","after","before","between","among","other",
+  "ours","ourselves","hers","herself","himself","themselves","ours","were","have",
+  "been","being","within","without","under","above","below","across","toward",
+  "towards","around","again","even","ever","never","could","should","would"
+]);
+
+const BRAND_SEEDS = [
+  "premier party cruises","party on delivery","atx disco cruise",
+  "lake travis","austin","bachelorette","bachelor","party boat","boat cruise",
+  "corporate event","wedding","alcohol delivery","concierge","airbnb","itinerary"
+];
+
+function htmlToText(html) {
+  const dom = new JSDOM(html || "");
+  return dom.window.document.body.textContent || "";
+}
+function firstParagraph(html) {
+  const dom = new JSDOM(html || "");
+  const p = dom.window.document.querySelector("p");
+  return (p?.textContent || "").replace(/\s+/g, " ").trim();
+}
+function excerpt(html, max = 240) {
+  const txt = firstParagraph(html);
+  return txt.length > max ? txt.slice(0, max - 1) + "…" : txt;
+}
+function normalizeHTML(html, title) {
+  const dom = new JSDOM(html || "");
+  const doc = dom.window.document;
+
+  if (!doc.querySelector("h1") && title) {
+    const h1 = doc.createElement("h1");
+    h1.textContent = title;
+    doc.body.insertBefore(h1, doc.body.firstChild);
+  }
+  doc.querySelectorAll("img").forEach((img, i) => {
+    if (!img.getAttribute("alt") || img.getAttribute("alt").trim() === "") {
+      img.setAttribute("alt", `${title} — Premier Party Cruises & Party On Delivery — image ${i + 1}`);
+    }
+    img.removeAttribute("loading");
+    img.removeAttribute("decoding");
+    img.removeAttribute("width");
+    img.removeAttribute("height");
+    img.setAttribute("style", "max-width:100%;height:auto;");
+  });
+  return "<!-- normalized -->\n" + doc.body.innerHTML;
+}
+function detectCentralTopic(text, title) {
+  const baseline = (title + " " + text).toLowerCase();
+
+  // Seed match first
+  const counts = {};
+  for (const s of BRAND_SEEDS) {
+    const re = new RegExp("\\b" + s.replace(/\s+/g, "\\s+") + "\\b", "g");
+    counts[s] = (baseline.match(re) || []).length;
+  }
+  const topSeed = Object.entries(counts).sort((a,b)=>b[1]-a[1])[0];
+  if (topSeed && topSeed[1] > 0) return topSeed[0];
+
+  // Fallback: frequent bigrams
+  const words = baseline.replace(/[^a-z0-9\s]/g," ").split(/\s+/)
+    .filter(w=>w.length>3 && !STOP.has(w));
+  const bigrams = {};
+  for (let i=0;i<words.length-1;i++){
+    const k = words[i]+" "+words[i+1];
+    bigrams[k] = (bigrams[k]||0)+1;
+  }
+  const top = Object.entries(bigrams).sort((a,b)=>b[1]-a[1])[0]?.[0];
+  return top || (words[0] || "austin party boat");
+}
+function extractTopicTerms(text, limit=12) {
+  const words = text.toLowerCase().replace(/[^a-z0-9\s]/g," ").split(/\s+/)
+    .filter(w=>w.length>3 && !STOP.has(w));
+  const freq = {};
+  for (const w of words) freq[w]=(freq[w]||0)+1;
+
+  return Object.entries(freq).sort((a,b)=>b[1]-a[1])
+    .map(([w])=>w)
+    .filter(w=>!["premier","party","cruises","delivery","austin","travis","lake"].includes(w))
+    .slice(0,limit);
+}
+function focusKeywords(central, terms) {
+  const base = [
+    "Premier Party Cruises",
+    "Party On Delivery",
+    "ATX Disco Cruise",
+    "Austin bachelorette boat",
+    "Lake Travis party boat"
+  ];
+  const variants = [
+    `${central}`,
+    `${central} Austin`,
+    `${central} Lake Travis`,
+    ...terms.slice(0,3).map(t=>`${t} Austin`),
+    ...terms.slice(3,6).map(t=>`${t} Lake Travis`)
+  ];
+  return Array.from(new Set([...base, ...variants].map(s=>s.trim()).filter(Boolean))).slice(0,10);
+}
+function slug(s) {
+  return slugify(s || "post", { lower:true, strict:true });
+}
+function authorObj(nameRaw) {
+  const name = (nameRaw || "Premier Team").toString();
+  const aslug = slug(name);
+  return {
+    id: `author_${aslug}`,
+    name,
+    slug: aslug,
+    bio: "",
+    avatar: ""
+  };
+}
+function wpTaxItems(item, key) {
+  // WP can have multiple <category> with domain attr; also wp:category/wp:tag arrays in some wxr
+  // Simpler: read <category> nodes; use those with domain="category" vs "post_tag"
+  const arr = (item.category || []).map(c=>{
+    if (typeof c === "string") return { nicename: slug(c), name: c, domain: "post_tag" };
+    return {
+      nicename: c?.nicename || slug(c?.["#text"] || c?.text || ""),
+      name: c?.["#text"] || c?.text || c?.nicename || "",
+      domain: c?.domain || "post_tag"
+    };
+  });
+  return arr.filter(x => (key==="category" ? x.domain==="category" : x.domain!=="category") && x.name);
+}
+
+function toTag(name) {
+  const tslug = slug(name);
+  return { id: `tag_${tslug}`, name, slug: tslug };
+}
+function toCategory(name) {
+  const cslug = slug(name);
+  return { id: `cat_${cslug}`, name, slug: cslug };
+}
+
+// ---- Replit DB keys ----
+// post:<slug> -> BlogPost
+// index:posts -> array of slugs sorted new->old
+// author:<slug> -> author obj
+// index:author:<slug>:posts -> array of slugs
+// tag:<slug>, index:tag:<slug>:posts
+// category:<slug>, index:category:<slug>:posts
+// search:<slug> -> "title content excerpt" lowercased for naive search
+
+async function setIfMissing(key, value) {
+  const existing = await db.get(key);
+  if (!existing) await db.set(key, value);
+}
+async function pushIndex(indexKey, value) {
+  const arr = (await db.get(indexKey)) || [];
+  if (!arr.includes(value)) {
+    arr.push(value);
+    await db.set(indexKey, arr);
+  }
+}
+async function pushIndexSortedByDate(listKey, slug, dateIso) {
+  const list = (await db.get(listKey)) || [];
+  // remove if exists, then insert by date desc
+  const filtered = list.filter(s=>s!==slug);
+  // We'll store separate date map to sort quickly
+  await db.set(`date:${slug}`, dateIso || null);
+  filtered.push(slug);
+  // re-sort
+  const withDates = await Promise.all(filtered.map(async s=>{
+    const d = await db.get(`date:${s}`);
+    return { s, d: d ? new Date(d).getTime() : 0 };
+  }));
+  withDates.sort((a,b)=>b.d - a.d);
+  await db.set(listKey, withDates.map(o=>o.s));
+}
+
+(async ()=>{
+  const xml = fs.readFileSync(path.resolve(WXR_FILE), "utf8");
+  const parser = new XMLParser({
+    ignoreAttributes: false,
+    attributeNamePrefix: "",
+    removeNSPrefix: true,
+    processEntities: true,
+  });
+  const obj = parser.parse(xml);
+  const items = obj?.rss?.channel?.item || [];
+  console.log(`Found ${items.length} items.`);
+
+  let imported = 0;
+
+  for (const it of items) {
+    const postType = it["post_type"] || it["wp:post_type"] || "post";
+    if (postType !== "post") continue;
+
+    const wpTitle = it.title || "Untitled";
+    const wpContent = it["content:encoded"] || it["encoded"] || "";
+    const wpSlug = it["wp:post_name"] || wpTitle;
+    const link = it.link || null;
+    const date = it["pubDate"] || it["wp:post_date"] || it["wp:post_date_gmt"] || null;
+    const publishedAt = date ? new Date(date).toISOString() : null;
+
+    const authorName = it["dc:creator"] || it["wp:author_display_name"] || "Premier Team";
+    const author = authorObj(authorName);
+    await setIfMissing(`author:${author.slug}`, author);
+
+    // categories / tags
+    const cats = wpTaxItems(it, "category").map(x=>toCategory(x.name));
+    const tags = wpTaxItems(it, "tag").map(x=>toTag(x.name));
+
+    // featured image via meta
+    let featuredImage = null;
+    let featuredImageAlt = null;
+    const postmeta = it["wp:postmeta"] || [];
+    for (const m of postmeta) {
+      const key = m["wp:meta_key"] || m["meta_key"];
+      const val = m["wp:meta_value"] || m["meta_value"];
+      if (key === "_thumbnail_url") featuredImage = val;
+      if (key === "_thumbnail_alt") featuredImageAlt = val;
+    }
+
+    // normalize & SEO
+    const content = normalizeHTML(wpContent, wpTitle);
+    const text = htmlToText(content);
+    const central = detectCentralTopic(text, wpTitle);
+    const terms = extractTopicTerms(text, 10);
+    const keywords = focusKeywords(central, terms);
+
+    const post = {
+      id: `post_${nanoid(10)}`,
+      title: wpTitle,
+      content,                 // Full HTML
+      excerpt: excerpt(content),
+      slug: slug(wpSlug),
+      status: "published",
+      publishedAt,
+      featuredImage: featuredImage || undefined,
+      featuredImageAlt: featuredImageAlt || undefined,
+      author,                  // nested author object
+      categories: cats,        // array of category objects
+      tags: [
+        ...tags,
+        // Also add our 10 focus keywords as tags (optional, good for filtering)
+        ...keywords.map(k=>toTag(k))
+      ]
+    };
+
+    // save post
+    await db.set(`post:${post.slug}`, post);
+
+    // indexes
+    await pushIndexSortedByDate("index:posts", post.slug, post.publishedAt);
+    await pushIndex(`index:author:${author.slug}:posts`, post.slug);
+
+    for (const c of cats) {
+      await setIfMissing(`category:${c.slug}`, c);
+      await pushIndex(`index:category:${c.slug}:posts`, post.slug);
+    }
+    for (const t of post.tags) {
+      await setIfMissing(`tag:${t.slug}`, t);
+      await pushIndex(`index:tag:${t.slug}:posts`, post.slug);
+    }
+
+    // naive search index
+    const searchable = `${post.title}\n${post.excerpt}\n${text}`.toLowerCase();
+    await db.set(`search:${post.slug}`, searchable);
+
+    imported++;
+    if (imported % 10 === 0) console.log(`Imported ${imported}…`);
+  }
+
+  console.log(`Done. Imported ${imported} post(s).`);
+})();
+
+
+Run it (Shell):
+
+node scripts/import-wxr.js
+
+2) API routes that match your frontend
+
+If you already have an Express server, drop these handlers in.
+If not, create server/blog-api.js and mount from your main server file.
+
+Install (if you haven’t):
+
+npm i express @replit/database
+
+
+server/blog-api.js
+
+import express from "express";
+import Database from "@replit/database";
+
+const db = new Database();
+export const blogRouter = express.Router();
+
+// Utility: fetch posts by slugs with pagination
+async function loadPostsBySlugs(slugs, { offset=0, limit=10 }) {
+  const slice = slugs.slice(offset, offset + limit);
+  const posts = await Promise.all(slice.map(s => db.get(`post:${s}`)));
+  // Filter out nulls and keep only published
+  return posts.filter(p => p && p.status === "published");
+}
+
+// GET /api/blog/public/posts
+blogRouter.get("/public/posts", async (req, res) => {
+  try {
+    const {
+      limit = "10",
+      offset = "0",
+      search = "",
+      categorySlug = "",
+      tagSlug = ""
+    } = req.query;
+
+    let slugs = (await db.get("index:posts")) || [];
+
+    // category filter
+    if (categorySlug) {
+      const key = `index:category:${categorySlug}:posts`;
+      const arr = (await db.get(key)) || [];
+      slugs = slugs.filter(s => arr.includes(s));
+    }
+
+    // tag filter
+    if (tagSlug) {
+      const key = `index:tag:${tagSlug}:posts`;
+      const arr = (await db.get(key)) || [];
+      slugs = slugs.filter(s => arr.includes(s));
+    }
+
+    // search (naive)
+    if (search) {
+      const q = String(search).toLowerCase().trim();
+      const matches = [];
+      for (const s of slugs) {
+        const doc = await db.get(`search:${s}`);
+        if (doc && doc.includes(q)) matches.push(s);
+      }
+      slugs = matches;
+    }
+
+    const total = slugs.length;
+    const posts = await loadPostsBySlugs(slugs, { offset: Number(offset), limit: Number(limit) });
+
+    return res.json({ posts, total });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "Failed to fetch posts" });
+  }
+});
+
+// GET /api/blog/public/posts/:slug
+blogRouter.get("/public/posts/:slug", async (req, res) => {
+  try {
+    const slug = req.params.slug;
+    const post = await db.get(`post:${slug}`);
+    if (!post || post.status !== "published") {
+      return res.status(404).json({ error: "Not found" });
+    }
+    res.json(post);
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "Failed to fetch post" });
+  }
+});
+
+// GET /api/blog/public/categories
+blogRouter.get("/public/categories", async (_req, res) => {
+  try {
+    // We don't have a native list key; scan all known categories via indexes in posts list
+    const slugs = (await db.get("index:posts")) || [];
+    const catSlugsSet = new Set();
+    for (const s of slugs) {
+      const post = await db.get(`post:${s}`);
+      (post?.categories || []).forEach(c => catSlugsSet.add(c.slug));
+    }
+    const categories = await Promise.all([...catSlugsSet].map(cs => db.get(`category:${cs}`)));
+    res.json(categories.filter(Boolean));
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "Failed to fetch categories" });
+  }
+});
+
+// GET /api/blog/public/tags
+blogRouter.get("/public/tags", async (_req, res) => {
+  try {
+    // Collect from posts (same logic as categories)
+    const slugs = (await db.get("index:posts")) || [];
+    const tagSlugsSet = new Set();
+    for (const s of slugs) {
+      const post = await db.get(`post:${s}`);
+      (post?.tags || []).forEach(t => tagSlugsSet.add(t.slug));
+    }
+    const tags = await Promise.all([...tagSlugsSet].map(ts => db.get(`tag:${ts}`)));
+    res.json(tags.filter(Boolean));
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: "Failed to fetch tags" });
+  }
+});
+
+
+Mount it (example main server):
+
+// server/index.js
+import express from "express";
+import { blogRouter } from "./blog-api.js";
+
+const app = express();
+app.use(express.json());
+
+// Mount at /api/blog
+app.use("/api/blog", blogRouter);
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => console.log(`Server running on ${port}`));
+
+
+Now your frontend’s existing queries to:
+
+/api/blog/public/posts?limit=12&offset=0&search=...&categorySlug=...&tagSlug=...
+
+/api/blog/public/posts/:slug
+
+/api/blog/public/categories
+
+/api/blog/public/tags
+
+…will return objects exactly as it expects.
+
+3) “Agent Prompt” (paste to Replit Agent)
+
+Goal: Import all WordPress posts from data/wordpress-export.xml into Replit DB and serve them via our existing API shape.
+Steps:
+
+Install dependencies: npm i @replit/database fast-xml-parser jsdom slugify nanoid express.
+
+Add scripts/import-wxr.js and put the XML at data/wordpress-export.xml.
+
+Run node scripts/import-wxr.js.
+
+Add server/blog-api.js and mount it in server/index.js (Express).
+
+Verify endpoints:
+
+GET /api/blog/public/posts?limit=10&offset=0 returns { posts: BlogPost[], total }.
+
+GET /api/blog/public/posts/:slug returns a single BlogPost (with content HTML intact).
+
+GET /api/blog/public/categories and /api/blog/public/tags return arrays.
+Constraints:
+
+Preserve original HTML and publish dates.
+
+Add H1 if missing, responsive images, and brand-aware alt text.
+
+Generate 10 focus keywords per post (brand + topic).
+
+Save those keywords as tags in each post.
+
+Maintain indexes for pagination, filtering, and search.
+Deliverables:
+
+Working endpoints returning the exact shapes our frontend expects.

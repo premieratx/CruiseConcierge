@@ -2,6 +2,7 @@ import express, { type Request, Response, NextFunction } from "express";
 import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { setupEmbedRouting, hasEmbedBuild } from "./embedServer";
+import { blogRouter } from "./blog-api.js";
 
 const app = express();
 
@@ -84,6 +85,9 @@ app.use('/q/', (req, res, next) => {
 });
 
 (async () => {
+  // Mount Replit DB blog routes FIRST (higher priority)
+  app.use("/api/blog", blogRouter);
+  
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
