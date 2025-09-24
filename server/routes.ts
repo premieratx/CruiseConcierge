@@ -11,15 +11,19 @@ declare module 'express-serve-static-core' {
     customerSession?: any;
   }
 }
-import { storage } from "./storage";
-import { generateQuoteDescription } from "./services/openai";
-import { googleSheetsService } from "./services/googleSheets";
-import { mailgunService } from "./services/mailgun";
-import { openRouterService } from "./services/openrouter";
-import { goHighLevelService, type LeadWebhookPayload } from "./services/gohighlevel";
-import { sendEmail as mailgunEmail, sendQuoteEmail as mailgunQuoteEmail } from "./services/mailgunEmail";
-import { ComprehensiveLeadService } from "./services/comprehensiveLeadService";
-import { wisprFlowService } from "./services/wispr";
+
+// Lazy loading imports - moved to avoid expensive startup operations
+let storage: any = null;
+let googleSheetsService: any = null;
+let mailgunService: any = null;
+let openRouterService: any = null;
+let goHighLevelService: any = null;
+let mailgunEmail: any = null;
+let mailgunQuoteEmail: any = null;
+let comprehensiveLeadService: any = null;
+let wisprFlowService: any = null;
+let generateQuoteDescription: any = null;
+type LeadWebhookPayload = any;
 import { insertContactSchema, insertProjectSchema, insertQuoteSchema, insertChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertBookingSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation } from "@shared/schema";
 import { calculateServerPricing, type ServerPricingRequest } from './serverPricing';
 import { PRICING_DEFAULTS } from "@shared/constants";
@@ -28,19 +32,207 @@ import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
 import { randomUUID, randomInt } from "crypto";
 import multer from 'multer';
-import { mediaLibraryService } from './services/mediaLibrary';
+// Lazy loading - these will be imported when needed
+let mediaLibraryService: any = null;
+let ObjectStorageService: any = null;
+let ObjectNotFoundError: any = null;
+let ObjectPermission: any = null;
+let quoteTokenService: any = null;
+let seedQuoteTemplates: any = null;
 import { getFullUrl, getPublicUrl, getQuoteUrl } from "./utils";
-import { ObjectStorageService, ObjectNotFoundError } from "./objectStorage";
-import { ObjectPermission } from "./objectAcl";
 import { insertMediaSchema } from "@shared/schema";
 import sanitizeHtml from 'sanitize-html';
 import TurndownService from 'turndown';
-import { quoteTokenService } from "./services/quoteTokenService";
-import { seedQuoteTemplates } from "./seedTemplates";
 import { format } from "date-fns";
 
-// Initialize comprehensive lead service
-const comprehensiveLeadService = new ComprehensiveLeadService();
+// Lazy initialization functions
+const getStorage = async () => {
+  if (!storage) {
+    try {
+      const { storage: storageInstance } = await import('./storage');
+      storage = storageInstance;
+    } catch (error) {
+      console.error('Failed to initialize storage:', error);
+      throw new Error('Storage initialization failed');
+    }
+  }
+  return storage;
+};
+
+const getGoogleSheetsService = async () => {
+  if (!googleSheetsService) {
+    try {
+      const { googleSheetsService: service } = await import('./services/googleSheets');
+      googleSheetsService = service;
+    } catch (error) {
+      console.error('Failed to initialize Google Sheets service:', error);
+      // Return a mock service to prevent crashes
+      return { addLeadToSheet: async () => ({ success: false, error: 'Service unavailable' }) };
+    }
+  }
+  return googleSheetsService;
+};
+
+const getMailgunService = async () => {
+  if (!mailgunService) {
+    try {
+      const { mailgunService: service } = await import('./services/mailgun');
+      mailgunService = service;
+    } catch (error) {
+      console.error('Failed to initialize Mailgun service:', error);
+      return { sendEmail: async () => ({ success: false, error: 'Service unavailable' }) };
+    }
+  }
+  return mailgunService;
+};
+
+const getMailgunEmailFunctions = async () => {
+  if (!mailgunEmail || !mailgunQuoteEmail) {
+    try {
+      const { sendEmail, sendQuoteEmail } = await import('./services/mailgunEmail');
+      mailgunEmail = sendEmail;
+      mailgunQuoteEmail = sendQuoteEmail;
+    } catch (error) {
+      console.error('Failed to initialize Mailgun email functions:', error);
+      return {
+        sendEmail: async () => false,
+        sendQuoteEmail: async () => false
+      };
+    }
+  }
+  return { sendEmail: mailgunEmail, sendQuoteEmail: mailgunQuoteEmail };
+};
+
+const getOpenRouterService = async () => {
+  if (!openRouterService) {
+    try {
+      const { openRouterService: service } = await import('./services/openrouter');
+      openRouterService = service;
+    } catch (error) {
+      console.error('Failed to initialize OpenRouter service:', error);
+      return { generateResponse: async () => 'Service temporarily unavailable' };
+    }
+  }
+  return openRouterService;
+};
+
+const getGoHighLevelService = async () => {
+  if (!goHighLevelService) {
+    try {
+      const { goHighLevelService: service } = await import('./services/gohighlevel');
+      goHighLevelService = service;
+    } catch (error) {
+      console.error('Failed to initialize GoHighLevel service:', error);
+      return { createContact: async () => ({ success: false, error: 'Service unavailable' }) };
+    }
+  }
+  return goHighLevelService;
+};
+
+const getComprehensiveLeadService = async () => {
+  if (!comprehensiveLeadService) {
+    try {
+      const { ComprehensiveLeadService } = await import('./services/comprehensiveLeadService');
+      comprehensiveLeadService = new ComprehensiveLeadService();
+    } catch (error) {
+      console.error('Failed to initialize Comprehensive Lead service:', error);
+      return { createComprehensiveLead: async () => ({ success: false, error: 'Service unavailable' }) };
+    }
+  }
+  return comprehensiveLeadService;
+};
+
+const getWisprFlowService = async () => {
+  if (!wisprFlowService) {
+    try {
+      const { wisprFlowService: service } = await import('./services/wispr');
+      wisprFlowService = service;
+    } catch (error) {
+      console.error('Failed to initialize Wispr Flow service:', error);
+      return { isAvailable: () => false, transcribe: async () => ({ text: 'Service unavailable' }) };
+    }
+  }
+  return wisprFlowService;
+};
+
+const getQuoteDescription = async () => {
+  if (!generateQuoteDescription) {
+    try {
+      const { generateQuoteDescription: func } = await import('./services/openai');
+      generateQuoteDescription = func;
+    } catch (error) {
+      console.error('Failed to initialize OpenAI service:', error);
+      return async () => 'Standard cruise package';
+    }
+  }
+  return generateQuoteDescription;
+};
+
+const getMediaLibraryService = async () => {
+  if (!mediaLibraryService) {
+    try {
+      const { mediaLibraryService: service } = await import('./services/mediaLibrary');
+      mediaLibraryService = service;
+    } catch (error) {
+      console.error('Failed to initialize Media Library service:', error);
+      return { getMediaLibrary: async () => [], uploadMedia: async () => ({ success: false }) };
+    }
+  }
+  return mediaLibraryService;
+};
+
+const getObjectStorageService = async () => {
+  if (!ObjectStorageService) {
+    try {
+      const services = await import('./objectStorage');
+      ObjectStorageService = services.ObjectStorageService;
+      ObjectNotFoundError = services.ObjectNotFoundError;
+    } catch (error) {
+      console.error('Failed to initialize Object Storage service:', error);
+      return null;
+    }
+  }
+  return ObjectStorageService;
+};
+
+const getObjectPermission = async () => {
+  if (!ObjectPermission) {
+    try {
+      const { ObjectPermission: permission } = await import('./objectAcl');
+      ObjectPermission = permission;
+    } catch (error) {
+      console.error('Failed to initialize Object Permission:', error);
+      return {};
+    }
+  }
+  return ObjectPermission;
+};
+
+const getQuoteTokenService = async () => {
+  if (!quoteTokenService) {
+    try {
+      const { quoteTokenService: service } = await import('./services/quoteTokenService');
+      quoteTokenService = service;
+    } catch (error) {
+      console.error('Failed to initialize Quote Token service:', error);
+      return { generateSecureQuoteUrl: () => '#', validateQuoteToken: () => false };
+    }
+  }
+  return quoteTokenService;
+};
+
+const getSeedQuoteTemplates = async () => {
+  if (!seedQuoteTemplates) {
+    try {
+      const { seedQuoteTemplates: func } = await import('./seedTemplates');
+      seedQuoteTemplates = func;
+    } catch (error) {
+      console.error('Failed to initialize seed quote templates:', error);
+      return async () => {};
+    }
+  }
+  return seedQuoteTemplates;
+};
 
 // ==========================================
 // QUOTE CREATION FROM CHAT
@@ -152,7 +344,8 @@ export async function createQuoteFromChat(app: Express) {
       };
 
       // Create the quote with all details
-      const result = await storage.createQuoteFromChat({
+      const storageInstance = await getStorage();
+      const result = await storageInstance.createQuoteFromChat({
         contact: contactData,
         project: projectData,
         quoteData
@@ -160,7 +353,8 @@ export async function createQuoteFromChat(app: Express) {
 
       // Add lead to Google Sheets "Leads" tab
       try {
-        await googleSheetsService.addLeadToSheet({
+        const sheetsService = await getGoogleSheetsService();
+        await sheetsService.addLeadToSheet({
           name: `${firstName} ${lastName}`,
           email,
           phone,
@@ -179,7 +373,8 @@ export async function createQuoteFromChat(app: Express) {
 
       // Also save to comprehensive lead system
       try {
-        await comprehensiveLeadService.createComprehensiveLead({
+        const leadService = await getComprehensiveLeadService();
+        await leadService.createComprehensiveLead({
           name: `${firstName} ${lastName}`,
           email,
           phone,
@@ -294,23 +489,24 @@ export async function createQuoteFromChat(app: Express) {
       }
 
       // Get the quote by access token
-      const quote = await storage.getQuoteByToken(token);
+      const storageInstance = await getStorage();
+      const quote = await storageInstance.getQuoteByToken(token);
       
       if (!quote) {
         return res.status(404).json({ error: 'Quote not found or has been revoked' });
       }
 
       // Get related project and contact information if needed
-      const project = await storage.getProject(quote.projectId);
+      const project = await storageInstance.getProject(quote.projectId);
       let contact = null;
       
       if (project) {
-        contact = await storage.getContact(project.contactId);
+        contact = await storageInstance.getContact(project.contactId);
       }
 
       // Track quote view
       if (quote.id) {
-        await storage.trackQuoteView(quote.id, contact?.id, undefined, {
+        await storageInstance.trackQuoteView(quote.id, contact?.id, undefined, {
           accessMethod: 'public_link',
           viewedAt: new Date().toISOString()
         });
@@ -554,18 +750,20 @@ async function createBookingFromHoldAtomic(params: {
   }
   
   // CRITICAL: Verify slot is still available (double-check for race conditions)
-  const availability = await storage.isSlotAvailable(slotHold.slotId, slotHold.groupSize);
+  const storageInstance = await getStorage();
+  const availability = await storageInstance.isSlotAvailable(slotHold.slotId, slotHold.groupSize);
   if (!availability.available) {
     // Release the hold since slot is no longer available
-    await storage.releaseSlotHold(holdId);
+    const storageInstance = await getStorage();
+    await storageInstance.releaseSlotHold(holdId);
     const error = new Error(`SLOT_UNAVAILABLE: Slot is no longer available - ${availability.reason}`);
     (error as any).code = 'SLOT_UNAVAILABLE';
     throw error;
   }
   
   try {
-    // Get project details
-    const project = await storage.getProject(projectId);
+    // Get project details  
+    const project = await storageInstance.getProject(projectId);
     if (!project) {
       throw new Error('Project not found for booking creation');
     }
@@ -584,15 +782,15 @@ async function createBookingFromHoldAtomic(params: {
     // CRITICAL: Final conflict check with the specific boat and time
     const boatId = slotHold.boatId || await findAvailableBoat(slotHold, project.groupSize || 1);
     if (!boatId) {
-      await storage.releaseSlotHold(holdId);
+      await storageInstance.releaseSlotHold(holdId);
       const error = new Error('NO_BOATS_AVAILABLE: No boats available for the time slot');
       (error as any).code = 'NO_BOATS_AVAILABLE';
       throw error;
     }
     
-    const hasConflict = await storage.checkBookingConflict(boatId, startTime, endTime);
+    const hasConflict = await storageInstance.checkBookingConflict(boatId, startTime, endTime);
     if (hasConflict) {
-      await storage.releaseSlotHold(holdId);
+      await storageInstance.releaseSlotHold(holdId);
       const error = new Error('BOOKING_CONFLICT: Slot conflict detected during atomic booking creation');
       (error as any).code = 'BOOKING_CONFLICT';
       throw error;
@@ -616,11 +814,11 @@ async function createBookingFromHoldAtomic(params: {
     };
     
     // ATOMIC OPERATION: Create booking and release hold in sequence
-    const newBooking = await storage.createBooking(booking);
+    const newBooking = await storageInstance.createBooking(booking);
     console.log(`✅ Booking created successfully: ${newBooking.id}`);
     
     // CRITICAL: Release the hold only after successful booking creation
-    const holdReleased = await storage.releaseSlotHold(holdId);
+    const holdReleased = await storageInstance.releaseSlotHold(holdId);
     if (holdReleased) {
       console.log(`✅ Hold ${holdId} released after successful booking creation`);
     } else {
@@ -628,7 +826,7 @@ async function createBookingFromHoldAtomic(params: {
     }
     
     // Convert lead to customer
-    await storage.convertLeadToCustomer(project.contactId);
+    await storageInstance.convertLeadToCustomer(project.contactId);
     
     console.log(`🎉 Atomic booking creation completed successfully for hold ${holdId}`);
     
@@ -637,7 +835,8 @@ async function createBookingFromHoldAtomic(params: {
     
     // CRITICAL: Ensure hold is released on any failure
     try {
-      await storage.releaseSlotHold(holdId);
+      const errorStorageInstance = await getStorage();
+      await errorStorageInstance.releaseSlotHold(holdId);
       console.log(`🧹 Hold ${holdId} released due to booking creation failure`);
     } catch (releaseError) {
       console.error(`❌ Failed to release hold ${holdId} after booking failure:`, releaseError);
@@ -656,7 +855,8 @@ async function findAvailableBoat(slotHold: any, groupSize: number): Promise<stri
   }
   
   // Find boats that can accommodate the group size
-  const boats = await storage.getActiveBoats();
+  const storageInstance = await getStorage();
+  const boats = await storageInstance.getActiveBoats();
   const suitableBoats = boats.filter(boat => boat.capacity >= groupSize);
   
   // Convert hold time to Date objects for conflict checking
@@ -672,7 +872,7 @@ async function findAvailableBoat(slotHold: any, groupSize: number): Promise<stri
   
   // Check each suitable boat for conflicts
   for (const boat of suitableBoats) {
-    const hasConflict = await storage.checkBookingConflict(boat.id, startTime, endTime);
+    const hasConflict = await storageInstance.checkBookingConflict(boat.id, startTime, endTime);
     if (!hasConflict) {
       return boat.id;
     }
@@ -893,7 +1093,8 @@ const sendInvoiceSchema = z.object({
 
 async function calculateInvoiceTotalsWithPricingSettings(items: any[], quoteId?: string, eventDate?: Date) {
   // Get PricingSettings for consistent tax rates
-  const settings = await storage.getPricingSettings();
+  const storageInstance = await getStorage();
+  const settings = await storageInstance.getPricingSettings();
   
   // Handle tax rate - if it's in basis points (like 825), convert to decimal (0.0825)
   let taxRate = settings?.taxRate || 0.0825;
@@ -973,13 +1174,26 @@ async function calculateInvoiceTotalsWithPricingSettings(items: any[], quoteId?:
   };
 }
 
-if (!process.env.STRIPE_SECRET_KEY) {
-  console.warn('STRIPE_SECRET_KEY not configured. Payment functionality will be mocked.');
-}
+// Lazy Stripe initialization - only create when needed for payment operations
+let stripe: Stripe | null = null;
 
-const stripe = process.env.STRIPE_SECRET_KEY ? new Stripe(process.env.STRIPE_SECRET_KEY, {
-  apiVersion: '2024-06-20',
-}) : null;
+const getStripe = () => {
+  if (!stripe && process.env.STRIPE_SECRET_KEY) {
+    try {
+      stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+        apiVersion: '2024-06-20',
+      });
+      console.log('✅ Stripe initialized on-demand');
+    } catch (error) {
+      console.error('Failed to initialize Stripe:', error);
+      throw new Error('Payment service initialization failed');
+    }
+  } else if (!process.env.STRIPE_SECRET_KEY) {
+    console.warn('STRIPE_SECRET_KEY not configured. Payment functionality will be mocked.');
+    return null;
+  }
+  return stripe;
+};
 
 // Helper functions for sending quotes
 async function sendQuoteEmail(quoteId: string, email: string, personalMessage?: string) {
@@ -8839,7 +9053,8 @@ Phone: ${contact.phone || 'N/A'}`;
   // Get all boats with capacities and crew requirements
   app.get("/api/boats", async (req, res) => {
     try {
-      const boats = await storage.getBoats();
+      const storageInstance = await getStorage();
+      const boats = await storageInstance.getBoats();
       res.json(boats);
     } catch (error: any) {
       console.error("Error fetching boats:", error);
@@ -8855,7 +9070,8 @@ Phone: ${contact.phone || 'N/A'}`;
   // IMPORTANT: This route must be defined BEFORE /api/boats/:id to avoid route matching issues
   app.get("/api/boats/options", async (req, res) => {
     try {
-      const boats = await storage.getBoats();
+      const storageInstance = await getStorage();
+      const boats = await storageInstance.getBoats();
       
       // Filter out ATX Disco boat - it's only for disco cruises, not private cruises
       const boatOptions = boats
@@ -14151,7 +14367,8 @@ Phone: ${contact.phone || 'N/A'}`;
   // Technical SEO
   app.get("/sitemap.xml", async (req, res) => {
     try {
-      const sitemap = await storage.generateSitemap();
+      const storageInstance = await getStorage();
+      const sitemap = await storageInstance.generateSitemap();
       res.set('Content-Type', 'application/xml');
       res.send(sitemap);
     } catch (error: any) {
@@ -14162,7 +14379,8 @@ Phone: ${contact.phone || 'N/A'}`;
 
   app.get("/robots.txt", async (req, res) => {
     try {
-      const robotsTxt = await storage.generateRobotsTxt();
+      const storageInstance = await getStorage();
+      const robotsTxt = await storageInstance.generateRobotsTxt();
       res.set('Content-Type', 'text/plain');
       res.send(robotsTxt);
     } catch (error: any) {
@@ -14176,7 +14394,8 @@ Phone: ${contact.phone || 'N/A'}`;
     try {
       const { pageRoute } = req.params;
       const decodedRoute = decodeURIComponent(pageRoute);
-      const metaData = await storage.getPageMetaData(decodedRoute);
+      const storageInstance = await getStorage();
+      const metaData = await storageInstance.getPageMetaData(decodedRoute);
       res.json(metaData);
     } catch (error: any) {
       console.error("Get page meta data error:", error);
@@ -14187,7 +14406,8 @@ Phone: ${contact.phone || 'N/A'}`;
   // SEO Analytics and Reporting
   app.get("/api/seo/overview", async (req, res) => {
     try {
-      const overview = await storage.getSeoOverview();
+      const storageInstance = await getStorage();
+      const overview = await storageInstance.getSeoOverview();
       res.json(overview);
     } catch (error: any) {
       console.error("SEO overview error:", error);
@@ -14197,7 +14417,8 @@ Phone: ${contact.phone || 'N/A'}`;
 
   app.get("/api/seo/issues", async (req, res) => {
     try {
-      const issues = await storage.getSeoIssuesSummary();
+      const storageInstance = await getStorage();
+      const issues = await storageInstance.getSeoIssuesSummary();
       res.json(issues);
     } catch (error: any) {
       console.error("SEO issues summary error:", error);
@@ -14824,7 +15045,7 @@ Phone: ${contact.phone || 'N/A'}`;
   // ==========================================
   
   // Configure multer for file uploads
-  const upload = multer({
+  const generalUpload = multer({
     storage: multer.memoryStorage(),
     limits: {
       fileSize: 50 * 1024 * 1024, // 50MB max file size
@@ -14857,11 +15078,17 @@ Phone: ${contact.phone || 'N/A'}`;
     }
   });
 
-  // Initialize object storage service
-  const mediaObjectStorage = new ObjectStorageService();
+  // Lazy initialize object storage service when needed
+  const getMediaObjectStorage = async () => {
+    const ObjectStorageServiceClass = await getObjectStorageService();
+    if (!ObjectStorageServiceClass) {
+      throw new Error('Object storage service unavailable');
+    }
+    return new ObjectStorageServiceClass();
+  };
 
   // POST /api/media/upload - Handle file uploads
-  app.post('/api/media/upload', upload.single('file'), async (req, res) => {
+  app.post('/api/media/upload', generalUpload.single('file'), async (req, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({ error: 'No file uploaded' });
