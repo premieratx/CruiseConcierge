@@ -5560,35 +5560,105 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
-  // Test SMS endpoint
+  // Enhanced SMS test endpoint with comprehensive debugging
   app.post("/api/sms/test", async (req, res) => {
     try {
-      const { phone, message } = req.body;
+      const { phone, message, testName } = req.body;
+      const testPhone = phone || '5125767975';
+      const name = testName || 'Test User';
       
-      // Default test message if none provided
+      console.log('🧪 SMS TEST: Starting comprehensive SMS test...');
+      console.log('   Phone:', testPhone);
+      console.log('   Name:', name);
+      console.log('   Custom Message:', !!message);
+      
+      // CRITICAL FIX: Use sendSMS() method like comprehensive lead service does
+      const goHighLevelService = await getGoHighLevelService();
+      
+      // Check service configuration first
+      console.log('🔧 SMS TEST: Checking GoHighLevel service configuration...');
+      const debugInfo = goHighLevelService.getDebugInfo();
+      console.log('   Configuration Status:', debugInfo);
+      
+      if (!debugInfo.isConfigured) {
+        console.error('❌ SMS TEST: GoHighLevel service not properly configured');
+        return res.status(400).json({
+          success: false,
+          error: 'GoHighLevel SMS service not configured',
+          debugInfo,
+          recommendations: [
+            'Check GOHIGHLEVEL_PRIVATE_INTEGRATION_TOKEN environment variable',
+            'Check GOHIGHLEVEL_LOCATION_ID environment variable',
+            'Verify FROM_PHONE environment variable (optional but recommended)'
+          ]
+        });
+      }
+      
+      // Default test message with quote URL simulation
       const testMessage = message || 
-        "🚢 Premier Party Cruises Test\n\n" +
-        "This is a test message from your CRM system. " +
-        "GoHighLevel SMS integration is working correctly!\n\n" +
-        "- SMS delivery: ✅\n" +
-        "- Integration status: Active\n" +
-        "- System ready for production\n\n" +
-        "Reply STOP to opt out.";
+        `Hi ${name}! 🚢 Your cruise quote is ready: https://premierpartycruises.com/quote/test-123-456. Questions? Reply here or call us!`;
       
-      const success = await goHighLevelService.send({
-        to: phone || '5125767975',  // Default to user's phone if not specified
-        body: testMessage
+      console.log('📱 SMS TEST: Sending SMS with parameters:');
+      console.log('   Method: sendSMS() (same as comprehensive lead service)');
+      console.log('   To:', testPhone);
+      console.log('   Name:', name);
+      console.log('   Message:', testMessage);
+      console.log('   Message Length:', testMessage.length);
+      
+      // CRITICAL FIX: Use the same method as comprehensive lead service
+      const smsStartTime = Date.now();
+      const success = await goHighLevelService.sendSMS({
+        to: testPhone,
+        body: testMessage,
+        name: name
       });
+      const smsEndTime = Date.now();
+      const smsResponseTime = smsEndTime - smsStartTime;
       
-      res.json({ 
-        success, 
-        message: success ? 'Test SMS sent successfully!' : 'SMS send failed - check logs for details',
-        phone: phone || '5125767975',
+      console.log('📱 SMS TEST: SendSMS result:', success);
+      console.log('   Response Time:', smsResponseTime + 'ms');
+      
+      const result = {
+        success,
+        method: 'sendSMS',
+        phone: testPhone,
+        name: name,
+        messageLength: testMessage.length,
+        responseTimeMs: smsResponseTime,
+        timestamp: new Date().toISOString(),
+        debugInfo,
+        message: success 
+          ? 'SMS test completed successfully! Check your phone for the message.' 
+          : 'SMS test failed - check server logs for detailed error information',
+        troubleshooting: !success ? [
+          'Check server logs for detailed error messages',
+          'Verify phone number format (should include country code)',
+          'Ensure GoHighLevel account has SMS permissions',
+          'Check GoHighLevel integration scope includes conversations.write',
+          'Verify FROM_PHONE number is configured in GoHighLevel'
+        ] : undefined
+      };
+      
+      if (success) {
+        console.log('✅ SMS TEST: SUCCESS - Message sent successfully');
+      } else {
+        console.error('❌ SMS TEST: FAILED - Check logs above for details');
+      }
+      
+      res.json(result);
+    } catch (error: any) {
+      console.error("❌ SMS TEST: Exception occurred:", error);
+      console.error('   Error Type:', error.constructor.name);
+      console.error('   Error Message:', error.message);
+      console.error('   Stack Trace:', error.stack?.substring(0, 500));
+      
+      res.status(500).json({ 
+        success: false,
+        error: "SMS test failed with exception",
+        details: error.message,
+        errorType: error.constructor.name,
         timestamp: new Date().toISOString()
       });
-    } catch (error) {
-      console.error("Test SMS error:", error);
-      res.status(500).json({ error: "Failed to send test SMS" });
     }
   });
   

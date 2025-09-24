@@ -31,6 +31,7 @@ export interface ComprehensiveLeadResult {
     googleSheets: { success: boolean; error?: string };
     goHighLevel: { success: boolean; error?: string; contactId?: string };
     emailNotification: { success: boolean; error?: string };
+    smsNotification: { success: boolean; error?: string };
   };
   errors: string[];
 }
@@ -61,7 +62,8 @@ export class ComprehensiveLeadService {
       integrations: {
         googleSheets: { success: false },
         goHighLevel: { success: false },
-        emailNotification: { success: false }
+        emailNotification: { success: false },
+        smsNotification: { success: false }
       },
       errors: []
     };
@@ -446,7 +448,8 @@ export class ComprehensiveLeadService {
         console.log('📊 Integration Results:', {
           googleSheets: result.integrations.googleSheets.success ? '✅' : '❌',
           goHighLevel: result.integrations.goHighLevel.success ? '✅' : '❌',
-          emailNotification: result.integrations.emailNotification.success ? '✅' : '❌'
+          emailNotification: result.integrations.emailNotification.success ? '✅' : '❌',
+          smsNotification: result.integrations.smsNotification.success ? '✅' : '❌'
         });
       } else {
         console.log('⚠️ Comprehensive lead creation completed with issues');
