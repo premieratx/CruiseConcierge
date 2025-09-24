@@ -248,11 +248,12 @@ export class ComprehensiveLeadService {
         result.errors.push(`Google Sheets integration error: ${error.message}`);
       }
 
-      // 4.5. NEW STEP: Generate simple parameter URL and update Column Q
-      if (result.integrations.googleSheets.success && quote) {
-        console.log('🔗 Step 4.5: Generating simple parameter URL...');
+      // 4.5. CRITICAL FIX: ALWAYS generate simple parameter URL and update Column Q for EVERY lead
+      // This must happen for ALL leads, not just those with quotes!
+      if (result.integrations.googleSheets.success) {
+        console.log('🔗 Step 4.5: ALWAYS Generating simple parameter URL for Column Q...');
         try {
-          // 🎯 CRITICAL FIX: Generate simple parameter URL instead of token URL
+          // 🎯 CRITICAL FIX: Generate simple parameter URL for EVERY lead
           console.log('🔗 Creating human-readable parameter URL with event details');
           
           // Format the date as YYYY-MM-DD
@@ -270,8 +271,8 @@ export class ComprehensiveLeadService {
           // Get the event type (lowercase, no spaces)
           const eventType = (leadData.eventType || 'cruise').toLowerCase().replace(/\s+/g, '');
           
-          // Get the group size
-          const groupSize = leadData.groupSize || quote.eventDetails?.groupSize || 1;
+          // Get the group size - use leadData first, then quote if available, then default to 1
+          const groupSize = leadData.groupSize || quote?.eventDetails?.groupSize || 1;
           
           // Build URL parameters
           const params = new URLSearchParams();
@@ -294,34 +295,42 @@ export class ComprehensiveLeadService {
           const baseUrl = getPublicUrl();
           const simpleQuoteUrl = `${baseUrl}/chat?${params.toString()}`;
           
-          console.log('🔗 Generated simple parameter URL:', {
+          console.log('🔗 CRITICAL: Generated simple parameter URL for Column Q:', {
             url: simpleQuoteUrl,
             parameters: {
               date: formattedDate || 'not set',
               party: eventType,
               people: groupSize,
               contact: 'done'
-            }
+            },
+            leadId: leadId,
+            hasQuote: !!quote
           });
           
-          // Update Column Q in Google Sheets with the generated URL
+          // CRITICAL: Update Column Q in Google Sheets with the generated URL - MUST succeed!
           const updateSuccess = await googleSheetsService.updateQuoteUrlInColumnQ(
             leadId,
             simpleQuoteUrl
           );
           
           if (updateSuccess) {
-            console.log('✅ Successfully updated Column Q with simple parameter URL');
+            console.log('✅ CRITICAL SUCCESS: Column Q updated with simple parameter URL');
             result.quoteUrl = simpleQuoteUrl;
             quoteUrl = simpleQuoteUrl; // Update for use in notifications
           } else {
-            console.error('❌ Failed to update Column Q with quote URL');
-            result.errors.push('Failed to update quote URL in Google Sheets');
+            // This is CRITICAL - log loudly if this fails
+            console.error('❌ CRITICAL FAILURE: Failed to update Column Q with quote URL - THIS MUST BE FIXED!');
+            result.errors.push('CRITICAL: Failed to update quote URL in Column Q of Google Sheets');
           }
         } catch (error: any) {
-          console.error('❌ Error generating simple parameter URL:', error);
-          result.errors.push(`Quote URL generation failed: ${error.message}`);
+          // This is CRITICAL - log the full error
+          console.error('❌ CRITICAL ERROR generating simple parameter URL:', error);
+          console.error('Full error details:', error.stack);
+          result.errors.push(`CRITICAL: Quote URL generation failed: ${error.message}`);
         }
+      } else {
+        // Log if Google Sheets creation failed so we know why Column Q wasn't updated
+        console.warn('⚠️ WARNING: Cannot update Column Q because Google Sheets lead creation failed');
       }
 
       // 5. Create GoHighLevel contact with quote link custom fields (using the URL from Column Q)

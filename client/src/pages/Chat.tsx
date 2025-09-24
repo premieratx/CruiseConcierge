@@ -880,7 +880,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   // Check if modal should be bypassed (contact=done flag is present)
   const shouldBypassModal = hasContactDone;
   
-  const [isQuoteMode, setIsQuoteMode] = useState(Boolean(quoteToken || quoteId));
+  const [isQuoteMode, setIsQuoteMode] = useState(Boolean(quoteToken || quoteId || hasValidUrlParams));
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [loadedQuoteData, setLoadedQuoteData] = useState<any>(null);
   const [quoteUrl, setQuoteUrl] = useState<string | null>(null);
@@ -905,7 +905,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
 
   const initialEventData = getInitialEventData();
   
-  const [currentStep, setCurrentStep] = useState<ChatFlowStep>('intro');
+  const [currentStep, setCurrentStep] = useState<ChatFlowStep>(hasValidUrlParams ? 'comparison-selection' : 'intro');
   const [completedSelections, setCompletedSelections] = useState<CompletedSelection[]>([]);
   const [privatePricing, setPrivatePricing] = useState<PricingPreview | null>(null);
   const [discoPricing, setDiscoPricing] = useState<PricingPreview | null>(null);
@@ -918,12 +918,12 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   const [pricingError, setPricingError] = useState<string | null>(null);
   const [paymentProcessing, setPaymentProcessing] = useState(false);
   const [formSubmitting, setFormSubmitting] = useState(false);
-  const [eventTypeCollapsed, setEventTypeCollapsed] = useState(Boolean(defaultEventType));
-  const [showGroupSize, setShowGroupSize] = useState(false);
-  const [showComparison, setShowComparison] = useState(false);
+  const [eventTypeCollapsed, setEventTypeCollapsed] = useState(Boolean(defaultEventType || hasValidUrlParams));
+  const [showGroupSize, setShowGroupSize] = useState(hasValidUrlParams);
+  const [showComparison, setShowComparison] = useState(hasValidUrlParams);
   const [showBookingConfirmation, setShowBookingConfirmation] = useState(false);
   const [showContactInfoModal, setShowContactInfoModal] = useState(false);
-  const [contactInfoModalCompleted, setContactInfoModalCompleted] = useState(hasValidQuoteToken || shouldBypassModal); // Bypass modal immediately if we have a valid quote token or contact=done flag
+  const [contactInfoModalCompleted, setContactInfoModalCompleted] = useState(hasValidQuoteToken || shouldBypassModal || hasContactDone); // Bypass modal immediately if we have a valid quote token or contact=done flag
   const [pendingPaymentType, setPendingPaymentType] = useState<'deposit' | 'full' | null>(null);
   const [showDateChangeDialog, setShowDateChangeDialog] = useState(false);
   const [pendingCruiseType, setPendingCruiseType] = useState<'private' | 'disco' | null>(null);

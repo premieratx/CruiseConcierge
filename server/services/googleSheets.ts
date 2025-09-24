@@ -1149,52 +1149,66 @@ export class GoogleSheetsService {
     }
   }
 
-  // NEW METHOD: Update Quote URL in Column Q (the correct column)
+  // CRITICAL METHOD: Update Quote URL in Column Q - MUST work for quote sharing!
   async updateQuoteUrlInColumnQ(leadId: string, quoteUrl: string): Promise<boolean> {
-    console.log(`📝 Updating Column Q (Quote URL) for lead ${leadId}...`);
+    console.log(`📝 CRITICAL: Updating Column Q (Quote URL) for lead ${leadId}...`);
+    console.log(`📝 URL to save: ${quoteUrl}`);
     
     try {
       if (!this.sheets || !this.spreadsheetId) {
-        console.log("📝 Google Sheets not configured - simulating quote URL update:", {
+        console.warn("⚠️ WARNING: Google Sheets not configured - Column Q cannot be updated!", {
           leadId,
-          quoteUrl
+          quoteUrl,
+          error: "No sheets service or spreadsheet ID"
         });
-        return true;
+        // Return false to indicate failure when Sheets is not configured
+        return false;
       }
 
-      // Find the lead row
+      // Find the lead row with better error handling
       const range = 'Leads!A2:V1000';
+      console.log(`🔍 Searching for lead ${leadId} in range ${range}...`);
+      
       const response = await this.withRetry(
         () => this.sheets.spreadsheets.values.get({
           spreadsheetId: this.spreadsheetId,
           range: range
         }),
-        `Find lead ${leadId} for Column Q update`
+        `Find lead ${leadId} for Column Q update`,
+        5 // Increase retries for this critical operation
       );
       
       const rows = response.data.values || [];
+      console.log(`🔍 Found ${rows.length} rows in Leads sheet`);
+      
       let rowIndex = -1;
+      let foundRow = null;
       
       for (let i = 0; i < rows.length; i++) {
         const row = rows[i];
         if (row[0] === leadId) {
           rowIndex = i + 2; // Add 2 because arrays are 0-indexed and we start from A2
+          foundRow = row;
+          console.log(`✅ Found lead ${leadId} at row ${rowIndex}`);
+          console.log(`📊 Current Column Q value: "${row[16] || 'EMPTY'}"`);
           break;
         }
       }
       
       if (rowIndex === -1) {
-        console.error(`❌ Lead ${leadId} not found for Column Q update`);
+        console.error(`❌ CRITICAL: Lead ${leadId} not found in Google Sheets for Column Q update!`);
+        console.error(`Searched ${rows.length} rows but could not find lead with ID: ${leadId}`);
         return false;
       }
 
-      console.log(`📝 Updating Google Sheets Column Q (row ${rowIndex}) with quote URL:`, {
+      console.log(`📝 CRITICAL: Updating Google Sheets Column Q (row ${rowIndex}) with quote URL:`, {
         cell: `Q${rowIndex}`,
-        quoteUrl: quoteUrl
+        quoteUrl: quoteUrl,
+        currentValue: foundRow?.[16] || 'EMPTY'
       });
 
-      // Update Column Q (index 16) with the quote URL
-      await this.withRetry(
+      // Update Column Q (index 16) with the quote URL - with enhanced retry
+      const updateResult = await this.withRetry(
         () => this.sheets.spreadsheets.values.update({
           spreadsheetId: this.spreadsheetId,
           range: `Leads!Q${rowIndex}`,
@@ -1203,13 +1217,35 @@ export class GoogleSheetsService {
             values: [[quoteUrl]]
           }
         }),
-        `Update Column Q for lead ${leadId}`
+        `CRITICAL: Update Column Q for lead ${leadId}`,
+        5 // Increase retries for this critical operation
       );
       
-      console.log(`✅ Successfully updated Column Q (row ${rowIndex}) with quote URL`);
-      return true;
+      // Verify the update actually happened
+      if (updateResult && updateResult.data) {
+        console.log(`✅ CRITICAL SUCCESS: Column Q (row ${rowIndex}) updated with quote URL!`);
+        console.log(`📊 Update details:`, {
+          updatedCells: updateResult.data.updatedCells,
+          updatedColumns: updateResult.data.updatedColumns,
+          updatedRows: updateResult.data.updatedRows,
+          updatedRange: updateResult.data.updatedRange
+        });
+        return true;
+      } else {
+        console.error(`❌ CRITICAL: Update appeared to succeed but no confirmation received`);
+        return false;
+      }
     } catch (error: any) {
-      console.error(`❌ Error updating Column Q for lead ${leadId}:`, error.message);
+      console.error(`❌ CRITICAL ERROR updating Column Q for lead ${leadId}:`, error.message);
+      console.error(`Full error details:`, error);
+      console.error(`Stack trace:`, error.stack);
+      // Log the specific error type to help diagnose issues
+      if (error.code) {
+        console.error(`Error code: ${error.code}`);
+      }
+      if (error.errors && Array.isArray(error.errors)) {
+        console.error(`Detailed errors:`, error.errors);
+      }
       return false;
     }
   }
