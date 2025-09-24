@@ -525,6 +525,32 @@ export class GoogleSheetsService {
     }
   }
 
+  // Helper method to find the next available row in the Leads sheet
+  private async getNextAvailableRow(): Promise<number> {
+    try {
+      if (!this.sheets || !this.spreadsheetId) {
+        return 2; // Default to row 2 if no sheets access
+      }
+
+      // Get all data from the Leads sheet to find the last populated row
+      const response = await this.sheets.spreadsheets.values.get({
+        spreadsheetId: this.spreadsheetId,
+        range: 'Leads!A:A', // Just check column A for any data
+      });
+      
+      const rows = response.data.values || [];
+      // Return the next row after the last populated row
+      // Add 1 because rows array is 0-indexed, add 1 more for next empty row
+      const nextRow = rows.length + 1;
+      
+      console.log(`📊 Next available row in Leads sheet: ${nextRow} (found ${rows.length} existing rows)`);
+      return nextRow;
+    } catch (error) {
+      console.error('Error finding next available row:', error);
+      return 2; // Default to row 2 on error
+    }
+  }
+
   // Lead tracking methods with enhanced retry and logging
   // Simple method to add leads to Google Sheets (used by quote creation)
   async addLeadToSheet(leadData: {
@@ -592,12 +618,17 @@ export class GoogleSheetsService {
         range: 'Leads!A:V'
       });
 
-      // Write lead with retry mechanism
+      // Find the next available row and write lead there specifically
+      const nextRow = await this.getNextAvailableRow();
+      const specificRange = `Leads!A${nextRow}:V${nextRow}`;
+      
+      console.log(`📊 Writing to specific range: ${specificRange}`);
+      
       await this.withRetry(
         async () => {
-          const response = await this.sheets.spreadsheets.values.append({
+          const response = await this.sheets.spreadsheets.values.update({
             spreadsheetId: this.spreadsheetId,
-            range: 'Leads!A:V',
+            range: specificRange,
             valueInputOption: 'RAW',
             resource: {
               values: [leadRow]
@@ -605,7 +636,7 @@ export class GoogleSheetsService {
           });
           return response;
         },
-        `Add lead ${leadData.name} to Google Sheets`
+        `Add lead ${leadData.name} to Google Sheets at row ${nextRow}`
       );
 
       console.log('✅ Successfully added lead to Google Sheets:', {
@@ -689,20 +720,25 @@ export class GoogleSheetsService {
         leadData.quoteId || '' // V: Quote ID - CRITICAL FOR AUTOMATION
       ];
 
+      // Find the next available row and write lead there specifically
+      const nextRow = await this.getNextAvailableRow();
+      const specificRange = `Leads!A${nextRow}:V${nextRow}`;
+      
       console.log('📊 Writing lead row to Google Sheets:', {
         leadId: leadData.leadId,
         rowLength: leadRow.length,
         quoteUrlColumn: leadRow[20], // Column U (index 20)
         quoteIdColumn: leadRow[21],  // Column V (index 21)
-        range: 'Leads!A:V'
+        specificRange: specificRange,
+        targetRow: nextRow
       });
 
-      // Write lead with retry mechanism
+      // Write lead with retry mechanism to specific row
       await this.withRetry(
         async () => {
-          const response = await this.sheets.spreadsheets.values.append({
+          const response = await this.sheets.spreadsheets.values.update({
             spreadsheetId: this.spreadsheetId,
-            range: 'Leads!A:V',
+            range: specificRange,
             valueInputOption: 'RAW',
             resource: {
               values: [leadRow]
@@ -710,7 +746,7 @@ export class GoogleSheetsService {
           });
           return response;
         },
-        `Create lead ${leadData.leadId} in Google Sheets`
+        `Create lead ${leadData.leadId} in Google Sheets at row ${nextRow}`
       );
 
       console.log('✅ Successfully created lead in Google Sheets:', {
