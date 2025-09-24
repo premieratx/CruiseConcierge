@@ -407,8 +407,9 @@ export async function createQuoteFromChat(app: Express) {
         // Don't fail the quote creation if lead creation fails
       }
 
-      // Send email notification with quote link
-      const fullQuoteUrl = getQuoteUrl(result.quote.accessToken);
+      // Send email notification with quote link - use live domain with unique quote path
+      const uniqueQuoteId = result.quote.id || `quote_${Date.now()}_${Math.random().toString(36).substring(2, 8)}`;
+      const fullQuoteUrl = `https://cruise-concierge-brian-hill.replit.app/quote/${uniqueQuoteId}`;
       
       try {
         // Send email with the full quote URL
@@ -457,14 +458,14 @@ export async function createQuoteFromChat(app: Express) {
         // Don't fail the quote creation if SMS fails
       }
       
-      // Return the quote ID, slug, and public URL
+      // Return the quote ID, slug, and public URL with live domain
       res.json({
         success: true,
-        quoteId: result.quote.id,
+        quoteId: uniqueQuoteId,
         slug: result.quote.slug,
-        publicUrl: result.publicUrl,
+        publicUrl: fullQuoteUrl,
         accessToken: result.quote.accessToken,
-        redirectUrl: `/q/${result.quote.accessToken}` // Add explicit redirect URL
+        redirectUrl: fullQuoteUrl
       });
 
     } catch (error) {
