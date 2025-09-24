@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AdminChatSession, type InsertAdminChatSession, type AdminChatMessage, type InsertAdminChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, type ContentBlock, type InsertContentBlock, type SelectAgentChatSession, type InsertAgentChatSession, type SelectAgentChatMessage, type InsertAgentChatMessage, contacts, projects, boats, products, quotes, invoices, payments, chatMessages, adminChatSessions, adminChatMessages, availabilitySlots, quoteTemplates, templateRules, discountRules, pricingSettings, pricingAdjustments, affiliates, bookings, discoSlots, timeframes, emailTemplates, masterTemplates, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts, quoteAnalytics, fileSends, emailTracking, customerLifecycle, customerActivity, slotHolds, partialLeads, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, blogComments, blogAnalytics, seoPages, seoAuditLog, seoCompetitors, seoSettings, webhookNotifications, media, contentBlocks, agentChatSessions, agentChatMessages } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AdminChatSession, type InsertAdminChatSession, type AdminChatMessage, type InsertAdminChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, type MediaItem, type InsertMediaItem, type ContentBlock, type InsertContentBlock, type SelectAgentChatSession, type InsertAgentChatSession, type SelectAgentChatMessage, type InsertAgentChatMessage, contacts, projects, boats, products, quotes, invoices, payments, chatMessages, adminChatSessions, adminChatMessages, availabilitySlots, quoteTemplates, templateRules, discountRules, pricingSettings, pricingAdjustments, affiliates, bookings, discoSlots, timeframes, emailTemplates, masterTemplates, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts, quoteAnalytics, fileSends, emailTracking, customerLifecycle, customerActivity, slotHolds, partialLeads, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, blogComments, blogAnalytics, seoPages, seoAuditLog, seoCompetitors, seoSettings, webhookNotifications, media, mediaItems, contentBlocks, agentChatSessions, agentChatMessages } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, gte, lte, desc, asc, isNull, isNotNull, or, inArray, sql, count, sum, between } from "drizzle-orm";
 import { randomUUID } from "crypto";
@@ -944,6 +944,20 @@ export interface IStorage {
   archiveAgentTask(taskId: string): Promise<AgentTask>;
   
   // ===== END AGENTIC AI TASK MANAGEMENT =====
+
+  // Media Library Operations
+  createMedia(mediaData: any): Promise<any>;
+  getMedia(id: string): Promise<any | undefined>;
+  listMedia(filters?: {
+    search?: string;
+    mimeType?: string;
+    sortBy?: string;
+    sortOrder?: 'asc' | 'desc';
+    limit?: number;
+    offset?: number;
+  }): Promise<{ media: any[]; total: number }>;
+  updateMedia(id: string, updates: Partial<any>): Promise<any>;
+  deleteMedia(id: string): Promise<boolean>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -5296,14 +5310,14 @@ Crawl-delay: 1`;
   // ===== MEDIA LIBRARY OPERATIONS =====
   
   async createMedia(mediaData: InsertMedia): Promise<Media> {
-    const [result] = await db.insert(media).values(mediaData).returning();
+    const [result] = await db.insert(mediaItems).values(mediaData).returning();
     return result;
   }
 
   async getMedia(id: string): Promise<Media | undefined> {
     const result = await db.select()
-      .from(media)
-      .where(eq(media.id, id))
+      .from(mediaItems)
+      .where(eq(mediaItems.id, id))
       .limit(1);
     return result[0];
   }
@@ -5315,17 +5329,17 @@ Crawl-delay: 1`;
     sortOrder?: 'asc' | 'desc';
     limit?: number;
     offset?: number;
-  }): Promise<{ media: Media[]; total: number }> {
-    let query = db.select().from(media);
-    let countQuery = db.select({ count: sql`count(*)::int` }).from(media);
+  }): Promise<{ media: any[]; total: number }> {
+    let query = db.select().from(mediaItems);
+    let countQuery = db.select({ count: sql`count(*)::int` }).from(mediaItems);
 
     // Apply search filter
     if (filters?.search) {
       const searchCondition = or(
-        sql`${media.filename} ILIKE ${`%${filters.search}%`}`,
-        sql`${media.originalName} ILIKE ${`%${filters.search}%`}`,
-        sql`${media.title} ILIKE ${`%${filters.search}%`}`,
-        sql`${media.description} ILIKE ${`%${filters.search}%`}`
+        sql`${mediaItems.filename} ILIKE ${`%${filters.search}%`}`,
+        sql`${mediaItems.originalName} ILIKE ${`%${filters.search}%`}`,
+        sql`COALESCE(${mediaItems.title}, '') ILIKE ${`%${filters.search}%`}`,
+        sql`COALESCE(${mediaItems.description}, '') ILIKE ${`%${filters.search}%`}`
       );
       query = query.where(searchCondition);
       countQuery = countQuery.where(searchCondition);
@@ -5333,20 +5347,20 @@ Crawl-delay: 1`;
 
     // Apply MIME type filter
     if (filters?.mimeType) {
-      const mimeCondition = sql`${media.mimeType} ILIKE ${`${filters.mimeType}%`}`;
+      const mimeCondition = sql`${mediaItems.mimeType} ILIKE ${`${filters.mimeType}%`}`;
       query = query.where(mimeCondition);
       countQuery = countQuery.where(mimeCondition);
     }
 
-    // Apply sorting
-    const sortBy = filters?.sortBy || 'uploadedAt';
+    // Apply sorting  
+    const sortBy = filters?.sortBy || 'uploadDate';
     const sortOrder = filters?.sortOrder || 'desc';
-    if (sortBy === 'uploadedAt') {
-      query = sortOrder === 'desc' ? query.orderBy(desc(media.uploadedAt)) : query.orderBy(asc(media.uploadedAt));
-    } else if (sortBy === 'size') {
-      query = sortOrder === 'desc' ? query.orderBy(desc(media.size)) : query.orderBy(asc(media.size));
+    if (sortBy === 'uploadDate' || sortBy === 'uploadedAt') {
+      query = sortOrder === 'desc' ? query.orderBy(desc(mediaItems.uploadDate)) : query.orderBy(asc(mediaItems.uploadDate));
+    } else if (sortBy === 'size' || sortBy === 'fileSize') {
+      query = sortOrder === 'desc' ? query.orderBy(desc(mediaItems.fileSize)) : query.orderBy(asc(mediaItems.fileSize));
     } else if (sortBy === 'originalName') {
-      query = sortOrder === 'desc' ? query.orderBy(desc(media.originalName)) : query.orderBy(asc(media.originalName));
+      query = sortOrder === 'desc' ? query.orderBy(desc(mediaItems.originalName)) : query.orderBy(asc(mediaItems.originalName));
     }
 
     // Apply pagination
@@ -5354,28 +5368,36 @@ Crawl-delay: 1`;
     const offset = filters?.offset || 0;
     query = query.limit(limit).offset(offset);
 
-    const [results, totalResult] = await Promise.all([
-      query,
-      countQuery
-    ]);
+    try {
+      const [results, totalResult] = await Promise.all([
+        query,
+        countQuery
+      ]);
 
-    return {
-      media: results,
-      total: totalResult[0].count
-    };
+      return {
+        media: results,
+        total: totalResult[0].count
+      };
+    } catch (error) {
+      console.error('Error in listMedia query:', error);
+      return {
+        media: [],
+        total: 0
+      };
+    }
   }
 
   async updateMedia(id: string, updates: Partial<Media>): Promise<Media> {
-    const [result] = await db.update(media)
+    const [result] = await db.update(mediaItems)
       .set(updates)
-      .where(eq(media.id, id))
+      .where(eq(mediaItems.id, id))
       .returning();
     return result;
   }
 
   async deleteMedia(id: string): Promise<boolean> {
-    const result = await db.delete(media)
-      .where(eq(media.id, id));
+    const result = await db.delete(mediaItems)
+      .where(eq(mediaItems.id, id));
     return true;
   }
 

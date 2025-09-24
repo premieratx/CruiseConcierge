@@ -17085,7 +17085,11 @@ Provide comprehensive validation with specific recommendations for improvement.`
   // Serve private media objects (for admin access to uploaded media)
   app.get('/objects/:objectPath(*)', requireAdminAuth, async (req, res) => {
     try {
-      const objectStorageService = new ObjectStorageService();
+      const ObjectStorageServiceClass = await getObjectStorageService();
+      if (!ObjectStorageServiceClass) {
+        return res.status(500).json({ error: 'Object storage service unavailable' });
+      }
+      const objectStorageService = new ObjectStorageServiceClass();
       const objectFile = await objectStorageService.getObjectEntityFile(req.path);
       
       // Check admin access
@@ -17114,7 +17118,11 @@ Provide comprehensive validation with specific recommendations for improvement.`
   app.get('/public-objects/:filePath(*)', async (req, res) => {
     try {
       const filePath = req.params.filePath;
-      const objectStorageService = new ObjectStorageService();
+      const ObjectStorageServiceClass = await getObjectStorageService();
+      if (!ObjectStorageServiceClass) {
+        return res.status(500).json({ error: 'Object storage service unavailable' });
+      }
+      const objectStorageService = new ObjectStorageServiceClass();
       const file = await objectStorageService.searchPublicObject(filePath);
       
       if (!file) {
@@ -17131,7 +17139,11 @@ Provide comprehensive validation with specific recommendations for improvement.`
   // Get upload URL for object storage
   app.post('/api/media/upload-url', requireAdminAuth, async (req, res) => {
     try {
-      const objectStorageService = new ObjectStorageService();
+      const ObjectStorageServiceClass = await getObjectStorageService();
+      if (!ObjectStorageServiceClass) {
+        return res.status(500).json({ error: 'Object storage service unavailable' });
+      }
+      const objectStorageService = new ObjectStorageServiceClass();
       const uploadURL = await objectStorageService.getObjectEntityUploadURL();
       res.json({ uploadURL });
     } catch (error) {
@@ -17158,7 +17170,11 @@ Provide comprehensive validation with specific recommendations for improvement.`
       const { mediaURL, visibility } = validation.data;
       const userId = req.adminUser?.id || 'admin';
       
-      const objectStorageService = new ObjectStorageService();
+      const ObjectStorageServiceClass = await getObjectStorageService();
+      if (!ObjectStorageServiceClass) {
+        return res.status(500).json({ error: 'Object storage service unavailable' });
+      }
+      const objectStorageService = new ObjectStorageServiceClass();
       const objectPath = await objectStorageService.trySetObjectEntityAclPolicy(
         mediaURL,
         {
@@ -17285,7 +17301,8 @@ Provide comprehensive validation with specific recommendations for improvement.`
         offset = 0
       } = req.query;
 
-      const result = await storage.listMedia({
+      const storageInstance = await getStorage();
+      const result = await storageInstance.listMedia({
         search: search as string,
         mimeType: mimeType as string,
         sortBy: sortBy as string,
