@@ -2571,213 +2571,115 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         totalAmount: quoteBuilderPayload.pricing?.total,
         hasSlot: !!quoteBuilderPayload.selectionDetails.selectedSlot
       });
+
+      // 🧪 CRITICAL DEBUG: Log the complete payload being sent
+      console.log("🔍 DEBUG: Complete payload being sent to server:", JSON.stringify(quoteBuilderPayload, null, 2));
+
+      // 🧪 CRITICAL DEBUG: Log request details before sending
+      console.log("🚀 DEBUG: About to send request to /api/leads/quote-builder");
+      console.log("🔗 DEBUG: API Request URL:", '/api/leads/quote-builder');
+      console.log("📦 DEBUG: Payload size:", JSON.stringify(quoteBuilderPayload).length, 'bytes');
       
       // Call the CORRECT endpoint with proper data format
-      const leadResponse = await apiRequest('POST', '/api/leads/quote-builder', quoteBuilderPayload);
-      const leadResult = await leadResponse.json();
+      try {
+        console.log("⏳ DEBUG: Calling apiRequest...");
+        const leadResponse = await apiRequest('POST', '/api/leads/quote-builder', quoteBuilderPayload);
+        console.log("📨 DEBUG: API Response received, status:", leadResponse.status);
+        console.log("📨 DEBUG: API Response headers:", leadResponse.headers);
+        
+        const leadResult = await leadResponse.json();
+        console.log("📋 DEBUG: API Response parsed as JSON:", leadResult);
 
-      if (!leadResult.success) {
-        console.error('❌ Quote Builder API Error:', leadResult);
-        throw new Error(leadResult.error || leadResult.message || 'Failed to create lead');
+        if (!leadResult.success) {
+          console.error('❌ Quote Builder API Error:', leadResult);
+          throw new Error(leadResult.error || leadResult.message || 'Failed to create lead');
+        }
+
+        console.log('✅ Quote Builder API Success:', {
+          leadId: leadResult.leadId,
+          projectId: leadResult.projectId,
+          quoteId: leadResult.quoteId,
+          hasQuoteUrl: !!leadResult.quoteUrl,
+          integrations: leadResult.integrations
+        });
+
+        return leadResult;
+
+      } catch (apiError) {
+        console.error("❌ DEBUG: API Request failed:", apiError);
+        console.error("📍 DEBUG: Error occurred during apiRequest call");
+        
+        // Enhanced error details for debugging
+        if (apiError instanceof Error) {
+          console.error("🔍 DEBUG: Error name:", apiError.name);
+          console.error("🔍 DEBUG: Error message:", apiError.message);
+          console.error("🔍 DEBUG: Error stack:", apiError.stack);
+        }
+        
+        // Check for specific error types
+        if (apiError instanceof TypeError && apiError.message.includes('Failed to fetch')) {
+          console.error("🌐 DEBUG: Network error - request never reached server");
+          throw new Error("Network error: Unable to reach server. Please check your connection and try again.");
+        }
+        
+        throw apiError;
       }
-
-      console.log('✅ Quote Builder API Success:', {
-        leadId: leadResult.leadId,
-        projectId: leadResult.projectId,
-        quoteId: leadResult.quoteId,
-        hasQuoteUrl: !!leadResult.quoteUrl,
-        integrations: leadResult.integrations
-      });
-
+    },
+    onSuccess: (result) => {
+      console.log('🎉 Quote Builder Lead Creation - SUCCESS!');
+      
       // Set the generated quote ID if available
-      if (leadResult.quoteId) {
-        setGeneratedQuoteId(leadResult.quoteId);
+      if (result.quoteId) {
+        setGeneratedQuoteId(result.quoteId);
       }
       
       // Show comprehensive feedback based on integration results
-      const { integrations } = leadResult;
-      let successCount = 0;
-      let totalIntegrations = 3; // Google Sheets, GoHighLevel, Email
+      if (result.integrations) {
+        const { integrations } = result;
+        let successCount = 0;
+        let totalIntegrations = 3; // Google Sheets, GoHighLevel, Email
 
-      if (integrations.googleSheets.success) successCount++;
-      if (integrations.goHighLevel.success) successCount++;
-      if (integrations.emailNotification.success) successCount++;
+        if (integrations.googleSheets?.success) successCount++;
+        if (integrations.goHighLevel?.success) successCount++;
+        if (integrations.emailNotification?.success) successCount++;
 
-      // Provide detailed feedback to user
-      if (successCount === totalIntegrations) {
-        toast({
-          title: "Quote Sent Successfully! 🎉",
-          description: "We've sent your quote via email and updated all our systems. Check your inbox!",
-        });
-      } else if (successCount >= 1) {
-        toast({
-          title: "Quote Created Successfully! ✅",
-          description: "Your quote has been generated and we'll be in touch shortly with all the details.",
-          variant: "default",
-        });
-      } else {
-        toast({
-          title: "Quote Generated! 📋",
-          description: "Your quote is ready! We'll contact you directly to share the details.",
-          variant: "default",
-        });
-      }
-
-      // Log integration status for debugging
-      console.log('📊 Integration Status:', {
-        googleSheets: integrations.googleSheets.success ? '✅' : `❌ ${integrations.googleSheets.error}`,
-        goHighLevel: integrations.goHighLevel.success ? '✅' : `❌ ${integrations.goHighLevel.error}`,
-        email: integrations.emailNotification.success ? '✅' : `❌ ${integrations.emailNotification.error}`
-      });
-
-      return { 
-        leadId: leadResult.leadId,
-        projectId: leadResult.projectId,
-        quoteId: leadResult.quoteId,
-        quoteUrl: leadResult.quoteUrl,
-        integrations: leadResult.integrations,
-        success: true
-      };
-      
-      /* Remove old client-side quote generation - now handled by backend
-      const currentPricing = data.selectedCruiseType === 'private' ? privatePricing : discoPricing;
-      if (currentPricing && currentPricing.breakdown) {
-        const quoteItems: QuoteItem[] = [];
-        
-        if (data.selectedCruiseType === 'disco' && data.selectedDiscoPackage) {
-          const selectedPackage = discoPackages.find(pkg => pkg.id === data.selectedDiscoPackage);
-          if (selectedPackage) {
-            const timeSlotLabel = data.selectedSlot?.label || 'Unknown time';
-            
-            quoteItems.push({
-              id: `disco_${selectedPackage.id}_${Date.now()}`,
-              type: 'disco_cruise',
-              name: `${selectedPackage.name} - ${timeSlotLabel}`,
-              description: `ATX Disco Cruise for ${data.groupSize} people on ${data.eventDate ? format(data.eventDate, 'EEEE, MMMM do, yyyy') : 'selected date'}. ${selectedPackage.features.join(', ')}.`,
-              unitPrice: selectedPackage.price * 100,
-              qty: data.groupSize,
-              category: 'cruise_package'
-            });
-          }
+        // Provide detailed feedback to user
+        if (successCount === totalIntegrations) {
+          toast({
+            title: "Quote Sent Successfully! 🎉",
+            description: "We've sent your quote via email and updated all our systems. Check your inbox!",
+          });
+        } else if (successCount >= 1) {
+          toast({
+            title: "Quote Created Successfully! ✅",
+            description: "Your quote has been generated and we'll be in touch shortly with all the details.",
+            variant: "default",
+          });
         } else {
-          const timeSlotLabel = data.selectedSlot?.label || 'Unknown time';
-          
-          quoteItems.push({
-            id: `private_charter_${Date.now()}`,
-            type: 'private_cruise',
-            name: `Private ${currentPricing.breakdown.boatType} Charter`,
-            description: `Exclusive ${currentPricing.breakdown.cruiseDuration}-hour cruise on ${currentPricing.breakdown.dayName}, ${data.eventDate ? format(data.eventDate, 'MMMM do, yyyy') : 'selected date'} from ${timeSlotLabel}. Perfect for your ${data.eventTypeLabel.toLowerCase()}.`,
-            unitPrice: currentPricing.breakdown.baseCruiseCost * 100,
-            qty: 1,
-            category: 'cruise_charter'
-          });
-          
-          if (currentPricing.breakdown.crewFee > 0) {
-            quoteItems.push({
-              id: `crew_fee_${Date.now()}`,
-              type: 'crew_fee',
-              name: 'Additional Crew Service',
-              description: `Professional crew service required for groups of ${data.groupSize}+ people.`,
-              unitPrice: currentPricing.breakdown.crewFee * 100,
-              qty: 1,
-              category: 'service_fee'
-            });
-          }
-        }
-        
-        if (data.specialRequests && data.specialRequests.trim()) {
-          quoteItems.push({
-            id: `special_requests_${Date.now()}`,
-            type: 'note',
-            name: 'Special Requests',
-            description: data.specialRequests,
-            unitPrice: 0,
-            qty: 1,
-            category: 'customer_notes'
+          toast({
+            title: "Quote Generated! 📋",
+            description: "Your quote is ready! We'll contact you directly to share the details.",
+            variant: "default",
           });
         }
 
-        const radioSections: RadioSection[] = [];
-        
-        const quote: InsertQuote = {
-          orgId: 'org_demo',
-          projectId: projectResponse.id,
-          items: quoteItems,
-          radioSections: radioSections,
-          subtotal: currentPricing.subtotal,
-          discountTotal: currentPricing.discountTotal,
-          tax: currentPricing.tax,
-          gratuity: currentPricing.gratuity,
-          total: currentPricing.total,
-          perPersonCost: currentPricing.perPersonCost,
-          depositRequired: currentPricing.depositRequired,
-          depositPercent: currentPricing.depositPercent,
-          depositAmount: currentPricing.depositAmount,
-          paymentSchedule: currentPricing.paymentSchedule,
-          status: 'DRAFT',
-          expiresAt: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000),
-        };
-        
-        const quoteRes = await apiRequest('POST', '/api/quotes', quote);
-        const quoteResponse = await quoteRes.json();
-        
-        setGeneratedQuoteId(quoteResponse.id);
-        
-        await apiRequest('POST', '/api/quotes/' + quoteResponse.id + '/send', {
-          email: contact.email,
-          phone: contact.phone,
+        // Log integration status for debugging
+        console.log('📊 Integration Status:', {
+          googleSheets: integrations.googleSheets?.success ? '✅' : `❌ ${integrations.googleSheets?.error}`,
+          goHighLevel: integrations.goHighLevel?.success ? '✅' : `❌ ${integrations.goHighLevel?.error}`,
+          email: integrations.emailNotification?.success ? '✅' : `❌ ${integrations.emailNotification?.error}`
         });
       }
-      
-      return { contact: contactResponse, project: projectResponse };
-      */
     },
-    onSuccess: (data) => {
-      console.log('🎉 createLead onSuccess handler called:', data);
+    onError: (error: any) => {
+      console.error('❌ Quote Builder Lead Creation - ERROR:', error);
       
-      queryClient.invalidateQueries({ queryKey: ['/api/contacts'] });
-      queryClient.invalidateQueries({ queryKey: ['/api/projects'] });
-      setCurrentStep('confirmation');
-      
-      // CRITICAL FIX: Update browser URL with quote token
-      if (data.quoteUrl) {
-        console.log('🔗 Updating browser URL with quote token from createLead:', data.quoteUrl);
-        
-        // Extract the path and query from the quoteUrl (e.g., "/chat?quote=token")
-        try {
-          const url = new URL(data.quoteUrl);
-          const pathWithQuery = url.pathname + url.search;
-          console.log('🔗 Extracted path with query from createLead:', pathWithQuery);
-          
-          // Update the browser URL using wouter's setLocation
-          setLocation(pathWithQuery);
-          console.log('✅ Browser URL updated successfully from createLead');
-        } catch (error) {
-          console.error('❌ Error updating browser URL from createLead:', error);
-          // Fallback: extract token from URL and construct path manually
-          const tokenMatch = data.quoteUrl.match(/[?&]quote=([^&]+)/);
-          if (tokenMatch) {
-            const token = tokenMatch[1];
-            setLocation(`/chat?quote=${token}`);
-            console.log('✅ Browser URL updated with extracted token from createLead');
-          }
-        }
-      } else {
-        console.warn('⚠️ No quoteUrl in createLead response to update browser URL');
-      }
-      
-      toast({ 
-        title: 'Quote Sent Successfully!',
-        description: "Check your email and text message for the full interactive quote.",
+      toast({
+        title: "Error Creating Quote",
+        description: error.message || "Please try again or contact support.",
+        variant: "destructive",
       });
-    },
-    onError: () => {
-      toast({ 
-        title: 'Something went wrong', 
-        description: 'Please try again or contact us directly.',
-        variant: 'destructive',
-      });
-    },
+    }
   });
 
   // Show loading state while quote is being loaded

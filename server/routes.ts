@@ -895,6 +895,83 @@ export async function createQuoteBuilderLead(app: Express) {
       });
     }
   });
+
+  // ==========================================
+  // DEBUG ENDPOINT FOR QUOTE BUILDER TESTING
+  // ==========================================
+  
+  app.post("/api/debug-quote-builder", async (req, res) => {
+    try {
+      console.log("🧪 DEBUG: Quote builder test submission received");
+      console.log("Request headers:", JSON.stringify(req.headers, null, 2));
+      console.log("Request body:", JSON.stringify(req.body, null, 2));
+      
+      // Test with minimal valid data to isolate issues
+      const testPayload = {
+        name: "Test User",
+        email: "test@example.com",
+        phone: "5125767975",
+        eventType: "Bachelor Party",
+        eventTypeLabel: "Bachelor Party",
+        groupSize: 15,
+        cruiseDate: new Date().toISOString(),
+        source: 'debug_test',
+        
+        projectData: {
+          preferredTime: "Evening",
+          specialRequests: "Debug test submission",
+          budget: 2000
+        },
+        
+        quoteData: {
+          templateId: null, // Use default template
+          items: []
+        },
+        
+        selectedOptions: {
+          cruiseType: 'private',
+          selectedDuration: 3,
+          preferredTimeLabel: 'Evening (6:00 PM - 9:00 PM)'
+        },
+        
+        pricing: {
+          subtotal: 180000, // $1800 in cents
+          tax: 14400, // $144 in cents
+          gratuity: 36000, // $360 in cents
+          total: 230400, // $2304 in cents
+          depositAmount: 57600, // $576 in cents
+          depositRequired: true,
+          depositPercent: 25
+        }
+      };
+      
+      console.log("🧪 DEBUG: Testing with payload:", JSON.stringify(testPayload, null, 2));
+      
+      // Get the comprehensive lead service
+      const comprehensiveLeadService = await getComprehensiveLeadService();
+      console.log("🧪 DEBUG: ComprehensiveLeadService loaded successfully");
+      
+      // Test the service
+      const result = await comprehensiveLeadService.createComprehensiveLead(testPayload);
+      console.log("🎉 DEBUG: Quote builder test successful:", JSON.stringify(result, null, 2));
+      
+      res.json({ 
+        success: true, 
+        debug: true,
+        result,
+        testPayload,
+        message: "Debug test successful - server-side quote builder logic works!" 
+      });
+      
+    } catch (error) {
+      console.error("❌ DEBUG: Quote builder test failed:", error);
+      res.status(500).json({ 
+        error: "Debug test failed", 
+        details: error instanceof Error ? error.message : 'Unknown error',
+        stack: error instanceof Error ? error.stack : undefined
+      });
+    }
+  });
 }
 
 // ==========================================
@@ -9468,6 +9545,7 @@ Phone: ${contact.phone || 'N/A'}`;
         console.log('   To:', targetPhone);
         console.log('   Message:', message);
         
+        const goHighLevelService = await getGoHighLevelService();
         const success = await goHighLevelService.send({
           to: targetPhone,
           body: message

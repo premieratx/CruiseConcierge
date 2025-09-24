@@ -109,7 +109,7 @@ export function ContactInfoModal({
         
         // Event details
         eventDetails: {
-          eventDate: eventDetails.eventDate?.toISOString().split('T')[0] || '', // Format as YYYY-MM-DD
+          eventDate: eventDetails.eventDate?.toISOString()?.split('T')[0] || '', // Format as YYYY-MM-DD
           eventType: eventDetails.eventType,
           groupSize: selectionDetails.cruiseType === 'disco' 
             ? (selectionDetails.ticketQuantity || eventDetails.groupSize)
