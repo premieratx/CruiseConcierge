@@ -184,45 +184,13 @@ export function ContactInfoModal({
       console.log('✅ Reset isSubmitting to false');
       
       toast({
-        title: 'Quote Created Successfully!',
-        description: 'You will receive your quote via email and SMS shortly.',
+        title: 'Contact Information Saved!',
+        description: 'Continue building your quote below.',
         icon: <CheckCircle className="h-4 w-4" />,
       });
       console.log('✅ Success toast shown');
       
-      // Build URL with required parameters for quote sharing
-      // Format: /chat?date=YYYY-MM-DD&party=TYPE&people=NUMBER&contact=done
-      const params = new URLSearchParams();
-      
-      // Add date parameter
-      if (eventDetails.eventDate) {
-        const dateStr = format(eventDetails.eventDate, 'yyyy-MM-dd');
-        params.set('date', dateStr);
-      }
-      
-      // Add party type parameter
-      if (eventDetails.eventType) {
-        params.set('party', eventDetails.eventType);
-      }
-      
-      // Add people count parameter
-      const peopleCount = getEffectivePeopleCount(
-        selectionDetails.cruiseType || 'private',
-        eventDetails.groupSize,
-        selectionDetails.ticketQuantity
-      );
-      params.set('people', peopleCount.toString());
-      
-      // Add contact=done flag to indicate modal was completed
-      params.set('contact', 'done');
-      
-      // Navigate to the URL with parameters
-      const urlWithParams = `/chat?${params.toString()}`;
-      console.log('🔗 Navigating to URL with parameters:', urlWithParams);
-      setLocation(urlWithParams);
-      console.log('✅ Browser URL updated with parameters successfully');
-      
-      // Close the modal - user now sees their quote with the updated URL
+      // Close the modal - stay in quote builder
       if (onClose) {
         console.log('✅ Calling onClose to close modal');
         onClose();

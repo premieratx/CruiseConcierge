@@ -24,6 +24,7 @@ import Discounts from "./pages/Discounts";
 import Affiliates from "./pages/Affiliates";
 import Documentation from "./pages/Documentation";
 import InvoiceViewer from "./pages/InvoiceViewer";
+import QuoteViewer from "./pages/QuoteViewer";
 import CalendarView from "@/components/CalendarView";
 import Settings from "./pages/Settings";
 import PublicCalendar from "./pages/PublicCalendar";
@@ -163,7 +164,7 @@ function Router() {
       {/* <Route path="/quote" component={QuoteViewer} /> */}
       {/* <Route path="/quote/:quoteId" component={QuoteViewer} /> */}
       {/* <Route path="/quote-checkout" component={QuoteViewer} /> */}
-      {/* <Route path="/checkout" component={QuoteViewer} /> */}
+      <Route path="/checkout" component={QuoteViewer} />
       <Route path="/invoice/:invoiceId" component={InvoiceViewer} />
       
       {/* Admin Blog Routes */}

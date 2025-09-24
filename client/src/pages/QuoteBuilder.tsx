@@ -326,9 +326,9 @@ export default function QuoteBuilder() {
         quoteId: quote.id,
         entryPoint: 'quote_builder',
         eventType: 'custom',
-        groupSize: (quote.project?.groupSize || 25).toString(),
-        eventDate: quote.project?.projectDate ? (() => {
-          const date = new Date(quote.project.projectDate);
+        groupSize: (selectedProject?.groupSize || 25).toString(),
+        eventDate: selectedProject?.projectDate ? (() => {
+          const date = new Date(selectedProject.projectDate);
           return !isNaN(date.getTime()) ? date.toISOString() : new Date().toISOString();
         })() : new Date().toISOString(),
         cruiseType: 'private',
@@ -1445,10 +1445,11 @@ export default function QuoteBuilder() {
     {!isEditMode && (
       <ContactInfoModal
         open={showContactInfoModal}
+        onClose={() => setShowContactInfoModal(false)}
         eventDetails={{
           eventDate: chatSelections?.eventDate ? new Date(chatSelections.eventDate) : new Date(),
-          eventType: chatSelections?.eventType || '',
-          eventTypeLabel: chatSelections?.eventTypeLabel || 'Event',
+          eventType: chatSelections?.eventType || 'custom',
+          eventTypeLabel: chatSelections?.eventTypeLabel || 'Custom Event',
           eventEmoji: chatSelections?.eventEmoji || '🎉',
           groupSize: chatSelections?.groupSize || 20,
           specialRequests: chatSelections?.specialRequests || '',
