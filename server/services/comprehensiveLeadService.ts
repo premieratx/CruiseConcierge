@@ -348,32 +348,27 @@ export class ComprehensiveLeadService {
       if (quote && quoteUrl && leadData.phone) {
         console.log('📱 Step 6.1: Sending SMS notification with Column Q URL...');
         try {
-          // Import Twilio service
-          const { twilioService } = await import('./twilio');
+          // Use GoHighLevel SMS service as specified in requirements
+          const smsMessage = `Hi ${leadData.name}! 🚢 Your cruise quote is ready: ${quoteUrl}. Questions? Reply here or call us!`;
           
-          const quoteDetails = {
-            total: quote.total || 0
-          };
-          
-          console.log('📱 Sending Twilio SMS to:', leadData.phone);
+          console.log('📱 Sending GoHighLevel SMS to:', leadData.phone);
           console.log('🔗 CRITICAL: Using Column Q URL in SMS:', quoteUrl);
+          console.log('💬 SMS Message:', smsMessage);
           
-          // CRITICAL FIX: Use Column Q URL from Google Sheets for SMS
-          const smsSuccess = await twilioService.sendQuoteSMS(
-            leadData.phone,
-            leadData.name,
-            quote.id,
-            quoteDetails.total,
-            quoteUrl  // Pass Column Q URL to ensure consistency
-          );
+          // CRITICAL FIX: Use GoHighLevel SMS instead of Twilio as specified
+          const smsSuccess = await goHighLevelService.sendSMS({
+            to: leadData.phone,
+            body: smsMessage,
+            name: leadData.name
+          });
           
           if (smsSuccess) {
             result.integrations.smsNotification = { success: true };
-            console.log('✅ SMS notification sent successfully via Twilio with Column Q URL');
+            console.log('✅ SMS notification sent successfully via GoHighLevel with Column Q URL');
           } else {
-            result.integrations.smsNotification = { success: false, error: 'Twilio SMS sending failed' };
-            result.errors.push('Twilio SMS notification failed');
-            console.error('❌ Twilio SMS notification failed');
+            result.integrations.smsNotification = { success: false, error: 'GoHighLevel SMS sending failed' };
+            result.errors.push('GoHighLevel SMS notification failed');
+            console.error('❌ GoHighLevel SMS notification failed');
           }
         } catch (error: any) {
           console.error('❌ SMS notification error:', error);

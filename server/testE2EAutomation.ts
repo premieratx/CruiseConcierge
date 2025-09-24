@@ -32,7 +32,7 @@ export interface ComprehensiveE2EResult {
  * Comprehensive End-to-End Automation Testing Suite
  * 
  * This module provides concrete verification that:
- * 1. Google Sheets receives quote URLs in columns U and V
+ * 1. Google Sheets receives quote URLs in Column Q (FIXED!) and Quote ID in Column V
  * 2. GoHighLevel custom fields are populated correctly
  * 3. Secure tokens are properly generated and used
  * 4. All lead creation paths trigger comprehensive automation

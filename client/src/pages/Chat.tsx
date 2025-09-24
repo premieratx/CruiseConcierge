@@ -2282,7 +2282,27 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
               email: formData.email,
               phone: formData.phone || ''
             },
-            specialRequests: formData.specialRequests
+            // CRITICAL FIX: Include ALL user selections when updating quote
+            eventDetails: {
+              eventType: formData.eventType,
+              eventTypeLabel: formData.eventTypeLabel,
+              eventEmoji: formData.eventEmoji,
+              eventDate: formData.eventDate?.toISOString(),
+              groupSize: formData.groupSize,
+              specialRequests: formData.specialRequests,
+              budget: formData.budget
+            },
+            selectionDetails: {
+              cruiseType: formData.selectedCruiseType,
+              selectedSlot: formData.selectedSlot,
+              selectedPackages: formData.selectedAddOnPackages,
+              discoPackage: formData.selectedDiscoPackage,
+              ticketQuantity: formData.discoTicketQuantity,
+              selectedDuration: formData.selectedDuration,
+              selectedBoat: formData.selectedBoat,
+              preferredTimeLabel: formData.preferredTimeLabel,
+              groupSizeLabel: formData.groupSizeLabel
+            }
           })
         });
         

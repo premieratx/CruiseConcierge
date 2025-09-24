@@ -1058,6 +1058,44 @@ class GoHighLevelService implements SMSService {
     }
   }
 
+  // Main SMS sending interface - creates contact if needed and sends SMS
+  async sendSMS(options: SMSOptionsWithName): Promise<boolean> {
+    if (!options.to || !options.body) {
+      console.error('❌ SMS missing required fields: to and body');
+      return false;
+    }
+
+    console.log('📱 GoHighLevel SMS: Starting send process...');
+    console.log('   To:', options.to);
+    console.log('   Message length:', options.body.length);
+    console.log('   Name:', options.name || 'Not provided');
+
+    try {
+      // Find or create contact for this phone number
+      const contactId = await this.findOrCreateContact(options.to, options.name);
+      
+      if (!contactId) {
+        console.error('❌ Could not find or create contact for SMS');
+        return false;
+      }
+      
+      // Send SMS using the contact ID
+      const smsSuccess = await this.sendSMSToContact(contactId, options.body, this.fromPhone);
+      
+      if (smsSuccess) {
+        console.log('✅ GoHighLevel SMS sent successfully');
+        return true;
+      } else {
+        console.error('❌ GoHighLevel SMS sending failed');
+        return false;
+      }
+      
+    } catch (error: any) {
+      console.error('❌ GoHighLevel SMS error:', error.message);
+      return false;
+    }
+  }
+
   // Send lead information to GoHighLevel webhook
   async sendLeadWebhook(payload: LeadWebhookPayload): Promise<boolean> {
     const webhookUrl = process.env.GOHIGHLEVEL_WEBHOOK_URL;

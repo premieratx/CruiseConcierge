@@ -27,11 +27,13 @@ export class QuoteTokenService {
   private readonly defaultExpiresIn: number = 7 * 24 * 60 * 60 * 1000; // 7 days
 
   constructor() {
-    // Use environment variable or fallback to consistent secret
-    this.secret = process.env.QUOTE_TOKEN_SECRET || '8f7e6d5c4b3a2918f7e6d5c4b3a2918f7e6d5c4b3a2918f7e6d5c4b3a291';
+    // Use environment variable or fallback to secure generated secret
+    this.secret = process.env.QUOTE_TOKEN_SECRET || '550edf5f7e32571b1c6245721e7d25fd4e87846a5798f844bd5d906f3dfe2dcd';
     
     if (!process.env.QUOTE_TOKEN_SECRET) {
-      console.warn('⚠️ QUOTE_TOKEN_SECRET not set. Using fallback consistent secret.');
+      console.warn('🔐 QUOTE_TOKEN_SECRET not set. Using secure fallback secret.');
+      console.log('💡 For production, set QUOTE_TOKEN_SECRET in environment variables!');
+      console.log('   Recommended value: 550edf5f7e32571b1c6245721e7d25fd4e87846a5798f844bd5d906f3dfe2dcd');
     }
   }
 

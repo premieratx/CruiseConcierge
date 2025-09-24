@@ -603,11 +603,11 @@ export class GoogleSheetsService {
         'started', // N: Progress
         now, // O: Last Updated
         leadData.leadSource || 'Web', // P: Source
-        leadData.quoteUrl || '', // Q: Quote URL - CRITICAL COLUMN FOR AUTOMATION
-        '', // R: Additional field
-        '', // S: Additional field
-        '', // T: Additional field
-        '', // U: Additional field
+        leadData.quoteUrl || '', // Q: Quote URL - CRITICAL COLUMN FOR AUTOMATION !!!
+        '', // R: Budget
+        '', // S: Project ID
+        '', // T: Notes
+        '', // U: Special Requests (moved from Q)
         '' // V: Quote ID
       ];
 
@@ -712,11 +712,11 @@ export class GoogleSheetsService {
         'started', // N: Progress
         now, // O: Last Updated
         leadData.source || 'AI Chatbot Flow', // P: Source
-        leadData.quoteUrl || '', // Q: Quote URL - CRITICAL COLUMN FOR AUTOMATION
-        '', // R: Additional field
-        '', // S: Additional field
-        '', // T: Additional field
-        '', // U: Additional field
+        leadData.quoteUrl || '', // Q: Quote URL - CRITICAL COLUMN FOR AUTOMATION !!!
+        '', // R: Budget
+        '', // S: Project ID
+        '', // T: Notes
+        '', // U: Special Requests (moved from Q)
         leadData.quoteId || '' // V: Quote ID - CRITICAL FOR AUTOMATION
       ];
 
@@ -727,8 +727,8 @@ export class GoogleSheetsService {
       console.log('📊 Writing lead row to Google Sheets:', {
         leadId: leadData.leadId,
         rowLength: leadRow.length,
-        quoteUrlColumn: leadRow[20], // Column U (index 20)
-        quoteIdColumn: leadRow[21],  // Column V (index 21)
+        quoteUrlColumn: leadRow[16], // Column Q (index 16) - Quote URL - FIXED!
+        quoteIdColumn: leadRow[21],  // Column V (index 21) - Quote ID
         specificRange: specificRange,
         targetRow: nextRow
       });
@@ -1124,7 +1124,7 @@ export class GoogleSheetsService {
         specialRequests: leadRow[17] || '',
         budget: leadRow[18] || '',
         projectId: leadRow[19] || '',
-        notes: leadRow[20] || '',
+        notes: leadRow[19] || '', // Column T - Updated from index 20 to 19
         quoteId: leadRow[21] || '' // Column V
       };
 
