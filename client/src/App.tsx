@@ -22,7 +22,6 @@ import Products from "./pages/Products";
 import Discounts from "./pages/Discounts";
 import Affiliates from "./pages/Affiliates";
 import Documentation from "./pages/Documentation";
-import QuoteViewer from "./pages/QuoteViewer";
 import InvoiceViewer from "./pages/InvoiceViewer";
 import CalendarView from "@/components/CalendarView";
 import Settings from "./pages/Settings";
@@ -123,8 +122,8 @@ function Router() {
       {/* Public Booking - Commented out, using /chat instead */}
       {/* <Route path="/calendar" component={PublicCalendar} /> */}
       
-      {/* Shareable Quote Route */}
-      <Route path="/q/:token" component={QuoteViewer} />
+      {/* QuoteViewer DEACTIVATED - now using Chat.tsx flow only */}
+      {/* <Route path="/q/:token" component={QuoteViewer} /> */}
       
       {/* Admin Dashboard Routes */}
       <Route path="/dashboard" component={Dashboard} />

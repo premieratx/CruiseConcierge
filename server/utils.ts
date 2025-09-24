@@ -87,7 +87,7 @@ export function getQuoteUrl(token: string, req?: any): string {
   console.log('🔗 Generated quote URL:', {
     token: token.substring(0, 10) + '...',
     baseUrl: baseUrl,
-    fullUrl: `${baseUrl}/q/${token}`,
+    fullUrl: `${baseUrl}/chat?quote=${token}`,
     source: process.env.REPLIT_DEV_DOMAIN ? 'REPLIT_DEV_DOMAIN' : 
             process.env.BASE_URL ? 'BASE_URL' :
             process.env.REPLIT_DOMAINS ? 'REPLIT_DOMAINS' : 'fallback',
@@ -98,5 +98,5 @@ export function getQuoteUrl(token: string, req?: any): string {
     }
   });
   
-  return `${baseUrl}/q/${token}`;
+  return `${baseUrl}/chat?quote=${token}`;
 }

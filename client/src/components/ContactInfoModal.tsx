@@ -144,23 +144,10 @@ export function ContactInfoModal({
         icon: <CheckCircle className="h-4 w-4" />,
       });
       
-      // Close the modal first
+      // Simply close the modal - no redirect needed!
+      // User stays on the same quote they were looking at
       if (onClose) {
         onClose();
-      }
-      
-      // Then redirect to the quote page with the token
-      if (data.accessToken) {
-        setLocation(`/q/${data.accessToken}`);
-      } else if (data.redirectUrl) {
-        setLocation(data.redirectUrl);
-      } else {
-        console.error('No access token or redirect URL in response');
-        toast({
-          title: 'Navigation Error',
-          description: 'Quote created but unable to redirect. Please check your email.',
-          variant: 'destructive',
-        });
       }
     },
     onError: (error: any) => {

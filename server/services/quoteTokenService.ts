@@ -131,8 +131,8 @@ export class QuoteTokenService {
     // Clean the base URL (remove trailing slash)
     const cleanBaseUrl = effectiveBaseUrl.replace(/\/$/, '');
     
-    // Use /q/ path (consistent with other parts of the app)
-    const url = `${cleanBaseUrl}/q/${encodeURIComponent(token)}`;
+    // Use /chat?quote= path (redirects to Chat.tsx for quote display)
+    const url = `${cleanBaseUrl}/chat?quote=${encodeURIComponent(token)}`;
     
     console.log('🔗 Generated secure quote URL:', {
       quoteId,

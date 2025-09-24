@@ -841,8 +841,11 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   const { toast } = useToast(); // Move to the top for proper initialization
   const { isEditMode } = useInlineEdit();
   const params = useParams();
-  const quoteToken = params.token;
-  const [isQuoteMode, setIsQuoteMode] = useState(false);
+  
+  // Parse URL parameters to detect quote token
+  const urlParams = new URLSearchParams(window.location.search);
+  const quoteToken = urlParams.get('quote'); // Look for ?quote={token}
+  const [isQuoteMode, setIsQuoteMode] = useState(Boolean(quoteToken));
   const [quoteLoading, setQuoteLoading] = useState(false);
   const [loadedQuoteData, setLoadedQuoteData] = useState<any>(null);
   const [quoteUrl, setQuoteUrl] = useState<string | null>(null);
@@ -2413,7 +2416,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       
       if (result.success && result.accessToken) {
         // Generate the shareable quote URL
-        const generatedQuoteUrl = `${window.location.origin}/q/${result.accessToken}`;
+        const generatedQuoteUrl = `${window.location.origin}/chat?quote=${result.accessToken}`;
         
         // Store the quote URL and ID
         setQuoteUrl(generatedQuoteUrl);
@@ -2435,7 +2438,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         // CRITICAL FIX: Actually redirect to the quote page  
         // This ensures the user can continue the flow on the quote page
         setTimeout(() => {
-          window.location.href = `/q/${result.accessToken}`;
+          window.location.href = `/chat?quote=${result.accessToken}`;
         }, 2000); // Give time for toast to show
       } else {
         throw new Error(result.error || result.message || 'Failed to create quote');
