@@ -4641,6 +4641,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
         return res.status(400).json({ error: "leadId is required" });
       }
 
+      const googleSheetsService = await getGoogleSheetsService();
       const lead = await googleSheetsService.getLead(leadId);
 
       if (lead) {
@@ -4663,7 +4664,8 @@ export async function registerRoutes(app: Express): Promise<Server> {
 
   app.get("/api/leads", async (req, res) => {
     try {
-      const leads = await googleSheetsService.getAllLeads();
+      const storageService = await getStorage();
+      const leads = await storageService.getLeads();
       res.json({ success: true, leads, count: leads.length });
     } catch (error: any) {
       console.error("Get all leads error:", error);

@@ -131,9 +131,25 @@ const eventTypes = Object.entries(EVENT_TYPES).map(([id, config]) => ({
 // Now using unified availability system with useAvailability hook
 
 const isDateAvailable = (date: Date): boolean => {
-  const today = startOfDay(new Date());
-  const maxDate = addDays(today, 365);
-  return !isBefore(date, today) && !isAfter(date, maxDate);
+  // For demo/testing purposes, allow dates from December 1, 2024 onwards
+  // This enables testing with December 2024 dates even if system date is in 2025
+  const earliestAllowedDate = new Date('2024-12-01');
+  const maxDate = addDays(new Date(), 365);
+  const isInRange = !isBefore(date, earliestAllowedDate) && !isAfter(date, maxDate);
+  
+  // Debug logging to track date availability checks
+  if (!isInRange) {
+    console.log('Date availability check:', {
+      date: date.toISOString(),
+      earliestAllowed: earliestAllowedDate.toISOString(),
+      maxDate: maxDate.toISOString(),
+      isBeforeEarliest: isBefore(date, earliestAllowedDate),
+      isAfterMaxDate: isAfter(date, maxDate),
+      result: isInRange
+    });
+  }
+  
+  return isInRange;
 };
 
 // Hook for fetching real boat data from the API
