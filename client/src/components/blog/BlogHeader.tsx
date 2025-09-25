@@ -93,7 +93,7 @@ export function BlogHeader({
                   <SelectValue placeholder="All Categories" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Categories</SelectItem>
+                  <SelectItem value="all">All Categories</SelectItem>
                   {categories.map((category) => (
                     <SelectItem key={category.id} value={category.id}>
                       {category.name} ({category.postCount})
@@ -110,7 +110,7 @@ export function BlogHeader({
                   <SelectValue placeholder="All Tags" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Tags</SelectItem>
+                  <SelectItem value="all">All Tags</SelectItem>
                   {tags.map((tag) => (
                     <SelectItem key={tag.id} value={tag.id}>
                       #{tag.name} ({tag.postCount})
@@ -163,11 +163,11 @@ export function BlogHeader({
             </Badge>
           )}
           
-          {selectedCategory && (
+          {selectedCategory && selectedCategory !== "all" && (
             <Badge variant="secondary" className="gap-1" data-testid="badge-category-filter">
               Category: {categories.find(c => c.id === selectedCategory)?.name}
               <button
-                onClick={() => onCategoryChange?.("")}
+                onClick={() => onCategoryChange?.("all")}
                 className="ml-1 hover:text-red-500"
                 data-testid="button-clear-category"
               >
@@ -176,11 +176,11 @@ export function BlogHeader({
             </Badge>
           )}
           
-          {selectedTag && (
+          {selectedTag && selectedTag !== "all" && (
             <Badge variant="secondary" className="gap-1" data-testid="badge-tag-filter">
               Tag: #{tags.find(t => t.id === selectedTag)?.name}
               <button
-                onClick={() => onTagChange?.("")}
+                onClick={() => onTagChange?.("all")}
                 className="ml-1 hover:text-red-500"
                 data-testid="button-clear-tag"
               >

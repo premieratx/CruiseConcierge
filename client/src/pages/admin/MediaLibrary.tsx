@@ -727,16 +727,16 @@ export default function MediaLibrary() {
                         onError={(e) => {
                           // Fallback for broken images
                           const img = e.target as HTMLImageElement;
-                          img.style.display = 'none';
+                          img.classList.add('hidden');
                           const placeholder = img.parentElement?.querySelector('.image-placeholder');
                           if (placeholder) {
-                            (placeholder as HTMLElement).style.display = 'flex';
+                            placeholder.classList.remove('hidden');
+                            placeholder.classList.add('flex');
                           }
                         }}
                       />
                       <div 
-                        className="image-placeholder absolute inset-0 bg-gray-100 flex items-center justify-center hidden"
-                        style={{display: 'none'}}
+                        className="image-placeholder absolute inset-0 bg-gray-100 items-center justify-center hidden"
                       >
                         <Image className="h-12 w-12 text-gray-400" />
                       </div>
