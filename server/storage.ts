@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AdminChatSession, type InsertAdminChatSession, type AdminChatMessage, type InsertAdminChatMessage, type AvailabilitySlot, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, type MediaItem, type InsertMediaItem, type ContentBlock, type InsertContentBlock, type SelectAgentChatSession, type InsertAgentChatSession, type SelectAgentChatMessage, type InsertAgentChatMessage, contacts, projects, boats, products, quotes, invoices, payments, chatMessages, adminChatSessions, adminChatMessages, availabilitySlots, quoteTemplates, templateRules, discountRules, pricingSettings, pricingAdjustments, affiliates, bookings, discoSlots, timeframes, emailTemplates, masterTemplates, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts, quoteAnalytics, fileSends, emailTracking, customerLifecycle, customerActivity, slotHolds, partialLeads, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, blogComments, blogAnalytics, seoPages, seoAuditLog, seoCompetitors, seoSettings, webhookNotifications, media, mediaItems, contentBlocks, agentChatSessions, agentChatMessages } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AdminChatSession, type InsertAdminChatSession, type AdminChatMessage, type InsertAdminChatMessage, type AvailabilitySlot, type InsertAvailabilitySlot, type SystemBlockout, type InsertSystemBlockout, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, type MediaItem, type InsertMediaItem, type ContentBlock, type InsertContentBlock, type SelectAgentChatSession, type InsertAgentChatSession, type SelectAgentChatMessage, type InsertAgentChatMessage, contacts, projects, boats, products, quotes, invoices, payments, chatMessages, adminChatSessions, adminChatMessages, availabilitySlots, systemBlockouts, quoteTemplates, templateRules, discountRules, pricingSettings, pricingAdjustments, affiliates, bookings, discoSlots, timeframes, emailTemplates, masterTemplates, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts, quoteAnalytics, fileSends, emailTracking, customerLifecycle, customerActivity, slotHolds, partialLeads, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, blogComments, blogAnalytics, seoPages, seoAuditLog, seoCompetitors, seoSettings, webhookNotifications, media, mediaItems, contentBlocks, agentChatSessions, agentChatMessages } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, gte, lte, desc, asc, isNull, isNotNull, or, inArray, sql, count, sum, between } from "drizzle-orm";
 import { randomUUID } from "crypto";
@@ -188,6 +188,22 @@ export interface IStorage {
   updateTimeframe(id: string, updates: Partial<Timeframe>): Promise<Timeframe>;
   deleteTimeframe(id: string): Promise<boolean>;
   generateTimeframesForMonth(year: number, month: number): Promise<{ date: Date; timeframes: Timeframe[] }[]>;
+
+  // System Blockouts Management
+  getSystemBlockouts(active?: boolean): Promise<SystemBlockout[]>;
+  getSystemBlockout(id: string): Promise<SystemBlockout | undefined>;
+  createSystemBlockout(blockout: InsertSystemBlockout): Promise<SystemBlockout>;
+  updateSystemBlockout(id: string, updates: Partial<SystemBlockout>): Promise<SystemBlockout>;
+  deleteSystemBlockout(id: string): Promise<boolean>;
+  getActiveSystemBlockoutsForDate(date: Date, boatId?: string): Promise<SystemBlockout[]>;
+
+  // Availability Slots Management
+  getAvailabilitySlots(boatId?: string, startDate?: Date, endDate?: Date): Promise<AvailabilitySlot[]>;
+  getAvailabilitySlot(id: string): Promise<AvailabilitySlot | undefined>;
+  createAvailabilitySlot(slot: InsertAvailabilitySlot): Promise<AvailabilitySlot>;
+  updateAvailabilitySlot(id: string, updates: Partial<AvailabilitySlot>): Promise<AvailabilitySlot>;
+  deleteAvailabilitySlot(id: string): Promise<boolean>;
+  adminBookTimeSlot(boatId: string, startTime: Date, endTime: Date, bookingData: Partial<InsertBooking>): Promise<{ booking: Booking; slot?: AvailabilitySlot }>;
 
   // Boat Fleet Management
   getAvailableBoats(date: Date, startTime: string, endTime: string, groupSize: number): Promise<Boat[]>;
@@ -6682,6 +6698,173 @@ Crawl-delay: 1`;
   }
 
   // ===== END WEBHOOK NOTIFICATION MANAGEMENT =====
+
+  // ===== SYSTEM BLOCKOUTS IMPLEMENTATION =====
+
+  async getSystemBlockouts(active?: boolean): Promise<SystemBlockout[]> {
+    let query = db.select().from(systemBlockouts);
+    
+    if (active !== undefined) {
+      query = query.where(eq(systemBlockouts.active, active));
+    }
+    
+    return query.orderBy(desc(systemBlockouts.createdAt));
+  }
+
+  async getSystemBlockout(id: string): Promise<SystemBlockout | undefined> {
+    const result = await db.select().from(systemBlockouts).where(eq(systemBlockouts.id, id)).limit(1);
+    return result[0];
+  }
+
+  async createSystemBlockout(blockout: InsertSystemBlockout): Promise<SystemBlockout> {
+    const blockoutWithId = {
+      ...blockout,
+      id: randomUUID(),
+      createdAt: new Date(),
+      updatedAt: new Date()
+    };
+    
+    const result = await db.insert(systemBlockouts).values(blockoutWithId).returning();
+    return result[0];
+  }
+
+  async updateSystemBlockout(id: string, updates: Partial<SystemBlockout>): Promise<SystemBlockout> {
+    const updateData = {
+      ...updates,
+      updatedAt: new Date()
+    };
+    
+    const result = await db.update(systemBlockouts)
+      .set(updateData)
+      .where(eq(systemBlockouts.id, id))
+      .returning();
+    
+    if (result.length === 0) {
+      throw new Error(`System blockout with id ${id} not found`);
+    }
+    
+    return result[0];
+  }
+
+  async deleteSystemBlockout(id: string): Promise<boolean> {
+    const result = await db.delete(systemBlockouts).where(eq(systemBlockouts.id, id));
+    return (result.rowCount || 0) > 0;
+  }
+
+  async getActiveSystemBlockoutsForDate(date: Date, boatId?: string): Promise<SystemBlockout[]> {
+    let query = db.select().from(systemBlockouts).where(eq(systemBlockouts.active, true));
+    
+    if (boatId) {
+      query = query.where(and(eq(systemBlockouts.active, true), eq(systemBlockouts.boatId, boatId)));
+    }
+    
+    // TODO: Add logic to filter by recurring pattern matching the date
+    // For now, return all active blockouts and let the caller filter
+    return query.orderBy(systemBlockouts.createdAt);
+  }
+
+  // ===== AVAILABILITY SLOTS IMPLEMENTATION =====
+
+  async getAvailabilitySlots(boatId?: string, startDate?: Date, endDate?: Date): Promise<AvailabilitySlot[]> {
+    let query = db.select().from(availabilitySlots);
+    
+    const conditions = [];
+    
+    if (boatId) {
+      conditions.push(eq(availabilitySlots.boatId, boatId));
+    }
+    
+    if (startDate) {
+      conditions.push(gte(availabilitySlots.startTime, startDate));
+    }
+    
+    if (endDate) {
+      conditions.push(lte(availabilitySlots.endTime, endDate));
+    }
+    
+    if (conditions.length > 0) {
+      query = query.where(and(...conditions));
+    }
+    
+    return query.orderBy(availabilitySlots.startTime);
+  }
+
+  async getAvailabilitySlot(id: string): Promise<AvailabilitySlot | undefined> {
+    const result = await db.select().from(availabilitySlots).where(eq(availabilitySlots.id, id)).limit(1);
+    return result[0];
+  }
+
+  async createAvailabilitySlot(slot: InsertAvailabilitySlot): Promise<AvailabilitySlot> {
+    const slotWithId = {
+      ...slot,
+      id: randomUUID(),
+      createdAt: new Date(),
+      updatedAt: new Date()
+    };
+    
+    const result = await db.insert(availabilitySlots).values(slotWithId).returning();
+    return result[0];
+  }
+
+  async updateAvailabilitySlot(id: string, updates: Partial<AvailabilitySlot>): Promise<AvailabilitySlot> {
+    const updateData = {
+      ...updates,
+      updatedAt: new Date()
+    };
+    
+    const result = await db.update(availabilitySlots)
+      .set(updateData)
+      .where(eq(availabilitySlots.id, id))
+      .returning();
+    
+    if (result.length === 0) {
+      throw new Error(`Availability slot with id ${id} not found`);
+    }
+    
+    return result[0];
+  }
+
+  async deleteAvailabilitySlot(id: string): Promise<boolean> {
+    const result = await db.delete(availabilitySlots).where(eq(availabilitySlots.id, id));
+    return (result.rowCount || 0) > 0;
+  }
+
+  async adminBookTimeSlot(boatId: string, startTime: Date, endTime: Date, bookingData: Partial<InsertBooking>): Promise<{ booking: Booking; slot?: AvailabilitySlot }> {
+    // Check for conflicts first
+    const hasConflict = await this.checkBookingConflict(boatId, startTime, endTime);
+    if (hasConflict) {
+      throw new Error('Time slot conflict: The selected time slot is already booked');
+    }
+
+    // Create the booking
+    const booking = await this.createBooking({
+      boatId,
+      startTime,
+      endTime,
+      ...bookingData
+    } as InsertBooking);
+
+    // Optionally create an availability slot to mark as booked
+    let slot: AvailabilitySlot | undefined;
+    try {
+      slot = await this.createAvailabilitySlot({
+        boatId,
+        startTime: startTime.toISOString(),
+        endTime: endTime.toISOString(),
+        status: 'BOOKED',
+        bookingId: booking.id,
+        notes: `Admin booking: ${booking.contactName}`,
+        isSystemBlock: false
+      });
+    } catch (error) {
+      console.warn('Could not create availability slot for admin booking:', error);
+      // Continue without slot - the booking is still valid
+    }
+
+    return { booking, slot };
+  }
+
+  // ===== END SYSTEM BLOCKOUTS AND AVAILABILITY SLOTS =====
 }
 
 export const storage = new DatabaseStorage();

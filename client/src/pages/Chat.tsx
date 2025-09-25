@@ -61,7 +61,7 @@ import {
   DISCO_AVAILABILITY 
 } from '@shared/constants';
 import { PricingPolicyDisplay, PolicySummary } from '@/components/PricingPolicyDisplay';
-import { getDiscoTimeSlotsForDate, getPrivateTimeSlotsForDate, isDiscoAvailableForDate, isMondayToThursday, getAvailableDurations, isDurationSelectionRequired } from '@shared/timeSlots';
+// Legacy timeSlots removed - now using centralized availability system
 import { 
   calculatePackagePricing, 
   calculateCompletePricing, 
@@ -772,16 +772,10 @@ const generateRealPrivateSlots = (
     return `${boatName} • ${time} • ${hourlyDisplay}`;
   };
   
-  // Use proper time slot generation from shared/timeSlots.ts
-  const allTimeSlots = getPrivateTimeSlotsForDate(date, duration);
-  
-  // Convert to the format expected by this function
-  const timeSlots = allTimeSlots.map(slot => ({
-    startTime: slot.startTime,
-    endTime: slot.endTime,
-    duration: slot.duration,
-    displayTime: slot.label
-  }));
+  // Use centralized availability system instead of legacy timeSlots
+  // This function is legacy - slots are now provided by the centralized availability system
+  // via useAvailabilityForDate hook which is already being used in the main component
+  const timeSlots: Array<{startTime: string; endTime: string; duration: number; displayTime: string}> = [];
   
   // Create slots for each suitable boat and time slot combination
   suitableBoats.forEach((boat, boatIndex) => {
@@ -4197,7 +4191,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                                     selectedCruiseType: null 
                                   }));
                                 }}
-                                getTimeSlotsForDate={getPrivateTimeSlotsForDate}
+                                getTimeSlotsForDate={(date: Date, duration?: number) => []}
                                 formatCurrency={formatCurrency}
                                 basePrice={privatePricing?.subtotal || 0}
                               />

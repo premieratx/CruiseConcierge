@@ -1540,6 +1540,49 @@ async function createBookingFromHoldAtomic(params: {
     const newBooking = await storageInstance.createBooking(booking);
     console.log(`✅ Booking created successfully: ${newBooking.id}`);
     
+    // CRITICAL: Remove availability slot after successful booking (PURCHASE INTEGRATION)
+    try {
+      // Find and remove the corresponding availability slot to prevent further bookings
+      const availabilitySlots = await storageInstance.getAvailabilitySlots(boatId, startTime, endTime);
+      const availabilitySlot = availabilitySlots.find(slot => 
+        slot.boatId === boatId &&
+        slot.startTime.getTime() === startTime.getTime() &&
+        slot.endTime.getTime() === endTime.getTime()
+      );
+      
+      if (availabilitySlot) {
+        const slotRemoved = await storageInstance.deleteAvailabilitySlot(availabilitySlot.id);
+        if (slotRemoved) {
+          console.log(`✅ PURCHASE INTEGRATION: Availability slot ${availabilitySlot.id} removed after booking ${newBooking.id}`);
+          
+          // Broadcast real-time update for immediate sync with Admin Calendar and Quote Builder
+          broadcastRealtimeEvent({
+            type: 'booking_created',
+            slotId: availabilitySlot.id,
+            eventDate: startTime.toISOString().split('T')[0],
+            boatId: boatId,
+            startTime: startTime.toTimeString().split(' ')[0].substring(0, 5),
+            endTime: endTime.toTimeString().split(' ')[0].substring(0, 5),
+            eventTitle: `Slot booked by customer - ${paymentIntentMetadata.customerName}`,
+            customerName: paymentIntentMetadata.customerName,
+            customerEmail: paymentIntentMetadata.customerEmail,
+            bookingId: newBooking.id,
+            amount: paymentAmount,
+            timestamp: new Date().toISOString()
+          });
+          
+          console.log(`📡 PURCHASE INTEGRATION: SSE broadcast sent for slot removal after booking ${newBooking.id}`);
+        } else {
+          console.warn(`⚠️ PURCHASE INTEGRATION: Failed to remove availability slot ${availabilitySlot.id} after booking`);
+        }
+      } else {
+        console.warn(`⚠️ PURCHASE INTEGRATION: No availability slot found to remove for booking ${newBooking.id}`);
+      }
+    } catch (slotRemovalError) {
+      console.error(`❌ PURCHASE INTEGRATION: Failed to remove availability slot after booking:`, slotRemovalError);
+      // Don't fail the booking - the booking was successful, slot removal is for optimization
+    }
+    
     // CRITICAL: Release the hold only after successful booking creation
     const holdReleased = await storageInstance.releaseSlotHold(holdId);
     if (holdReleased) {
@@ -12205,6 +12248,77 @@ Phone: ${contact.phone || 'N/A'}`;
     }
   });
 
+  // CRITICAL: Admin time slot deletion with confirmation - PERMANENT REMOVAL
+  app.delete("/api/admin/remove-slot/:slotId", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const { slotId } = req.params;
+      const { confirmation } = req.body;
+      
+      if (!slotId) {
+        return res.status(400).json({ error: "Slot ID is required" });
+      }
+      
+      // SECURITY: Require explicit confirmation to prevent accidental deletions
+      if (confirmation !== 'DELETE') {
+        return res.status(400).json({ 
+          error: "Confirmation required. Type 'DELETE' to confirm permanent removal."
+        });
+      }
+      
+      console.log(`🗑️ ADMIN SLOT DELETION: Removing slot ${slotId} with confirmation: ${confirmation}`);
+      
+      // Find the slot in the availability system to get details for SSE broadcast
+      const slotDetails = await storage.getAvailabilitySlot(slotId);
+      
+      if (!slotDetails) {
+        return res.status(404).json({ error: "Time slot not found" });
+      }
+      
+      // Only allow deletion of available slots to prevent removing booked slots
+      if (slotDetails.status !== 'AVAILABLE') {
+        return res.status(400).json({ 
+          error: `Cannot delete ${slotDetails.status.toLowerCase()} slot. Only available slots can be deleted.`
+        });
+      }
+      
+      // CRITICAL: Permanently remove the slot from availability
+      const success = await storage.deleteAvailabilitySlot(slotId);
+      
+      if (!success) {
+        return res.status(500).json({ error: "Failed to delete time slot" });
+      }
+      
+      // Broadcast real-time update for immediate sync with Quote Builder
+      broadcastRealtimeEvent({
+        type: 'availability_changed',
+        slotId: slotId,
+        eventDate: slotDetails.startTime.toISOString().split('T')[0],
+        boatId: slotDetails.boatId,
+        startTime: slotDetails.startTime.toTimeString().split(' ')[0].substring(0, 5),
+        endTime: slotDetails.endTime.toTimeString().split(' ')[0].substring(0, 5),
+        eventTitle: 'Time slot permanently deleted by admin',
+        timestamp: new Date().toISOString()
+      });
+      
+      console.log(`✅ ADMIN SLOT DELETION: Successfully removed slot ${slotId} from ${slotDetails.boatId} on ${slotDetails.startTime}`);
+      
+      res.json({ 
+        success: true,
+        message: "Time slot permanently removed from availability",
+        deletedSlot: {
+          id: slotId,
+          boatId: slotDetails.boatId,
+          startTime: slotDetails.startTime,
+          endTime: slotDetails.endTime
+        }
+      });
+      
+    } catch (error: any) {
+      console.error("Admin slot deletion error:", error);
+      res.status(500).json({ error: "Failed to delete time slot" });
+    }
+  });
+
   // Batch slot operations
   app.post("/api/admin/calendar/batch-slots", requireAdminAuth, requirePermission('edit'), async (req, res) => {
     try {
@@ -18542,6 +18656,13 @@ Provide comprehensive validation with specific recommendations for improvement.`
     }
   });
 
+  // ==========================================
+  // ADMIN BOOKING/BLOCKING ENDPOINTS FOR BIDIRECTIONAL SYNC
+  // ==========================================
+  
+  // Import and register admin booking endpoints for perfect bidirectional synchronization
+  const { addAdminBookingEndpoints } = await import('./adminBookingEndpoints');
+  addAdminBookingEndpoints(app, storage, requireAdminAuth, requirePermission, broadcastRealtimeEvent);
 
   const httpServer = createServer(app);
   return httpServer;

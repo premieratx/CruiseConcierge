@@ -223,7 +223,35 @@ export const availabilitySlots = pgTable("availability_slots", {
   notes: text("notes"), // general notes about this slot
   isRecurring: boolean("is_recurring").default(false), // part of recurring pattern
   recurringId: varchar("recurring_id"), // reference to recurring pattern
+  isSystemBlock: boolean("is_system_block").default(false), // system-level permanent blocks
+  systemBlockType: varchar("system_block_type"), // 'clever_girl_october', 'maintenance', etc
   createdAt: timestamp("created_at").defaultNow(),
+});
+
+// System Blockouts - for permanent system-level availability blocks
+export const systemBlockouts = pgTable("system_blockouts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  name: text("name").notNull(), // 'Clever Girl October Saturdays'
+  description: text("description"), // detailed explanation
+  boatId: varchar("boat_id"), // specific boat, null for all boats
+  blockType: varchar("block_type").notNull(), // 'maintenance', 'special_event', 'seasonal'
+  recurringPattern: jsonb("recurring_pattern").$type<{
+    frequency: 'weekly' | 'monthly' | 'yearly';
+    daysOfWeek?: number[]; // 0=Sunday, 6=Saturday
+    daysOfMonth?: number[]; // specific days of month
+    months?: number[]; // 1=January, 12=December
+    startDate?: string; // YYYY-MM-DD
+    endDate?: string; // YYYY-MM-DD
+    times: Array<{
+      startTime: string; // HH:MM format
+      endTime: string; // HH:MM format
+    }>;
+  }>(),
+  active: boolean("active").notNull().default(true),
+  createdBy: varchar("created_by"), // admin who created this
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
 // Quote Templates - for reusable quote configurations
@@ -1202,6 +1230,39 @@ export const insertTimeframeSchema = createInsertSchema(timeframes).omit({
   active: z.boolean().default(true),
 });
 
+export const insertAvailabilitySlotSchema = createInsertSchema(availabilitySlots).omit({
+  id: true,
+  createdAt: true,
+}).extend({
+  status: z.enum(["AVAILABLE", "BOOKED", "BLOCKED", "MAINTENANCE"]).default("AVAILABLE"),
+  startTime: z.string().datetime().transform(str => new Date(str)),
+  endTime: z.string().datetime().transform(str => new Date(str)),
+  isSystemBlock: z.boolean().default(false),
+  systemBlockType: z.string().optional(),
+});
+
+export const insertSystemBlockoutSchema = createInsertSchema(systemBlockouts).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+}).extend({
+  name: z.string().min(1, "Name is required"),
+  blockType: z.enum(["maintenance", "special_event", "seasonal"]),
+  recurringPattern: z.object({
+    frequency: z.enum(['weekly', 'monthly', 'yearly']),
+    daysOfWeek: z.array(z.number().min(0).max(6)).optional(),
+    daysOfMonth: z.array(z.number().min(1).max(31)).optional(),
+    months: z.array(z.number().min(1).max(12)).optional(),
+    startDate: z.string().optional(),
+    endDate: z.string().optional(),
+    times: z.array(z.object({
+      startTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
+      endTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
+    })),
+  }),
+  active: z.boolean().default(true),
+});
+
 export const insertEmailTemplateSchema = createInsertSchema(emailTemplates).omit({
   id: true,
   createdAt: true,
@@ -1356,6 +1417,10 @@ export type InsertAffiliate = z.infer<typeof insertAffiliateSchema>;
 export type InsertBooking = z.infer<typeof insertBookingSchema>;
 export type InsertDiscoSlot = z.infer<typeof insertDiscoSlotSchema>;
 export type InsertTimeframe = z.infer<typeof insertTimeframeSchema>;
+export type AvailabilitySlot = typeof availabilitySlots.$inferSelect;
+export type InsertAvailabilitySlot = z.infer<typeof insertAvailabilitySlotSchema>;
+export type SystemBlockout = typeof systemBlockouts.$inferSelect;
+export type InsertSystemBlockout = z.infer<typeof insertSystemBlockoutSchema>;
 export type InsertEmailTemplate = z.infer<typeof insertEmailTemplateSchema>;
 export type InsertMasterTemplate = z.infer<typeof insertMasterTemplateSchema>;
 

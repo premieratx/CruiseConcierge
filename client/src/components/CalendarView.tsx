@@ -8,7 +8,7 @@ import { useToast } from "@/hooks/use-toast";
 import { useSSEAutoConnect } from "@/hooks/use-sse";
 import { useRealtimeAvailability } from "@/hooks/useRealtimeAvailability";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Ship, Anchor, Users, Plus, Minus, AlertCircle, Wifi, WifiOff, Activity, RefreshCw } from "lucide-react";
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Ship, Anchor, Users, Plus, Minus, AlertCircle, Wifi, WifiOff, Activity, RefreshCw, UserPlus, Block, X, Check } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import type { Boat, Booking, DiscoSlot, Timeframe, Product, NormalizedSlot } from "@shared/schema";
 import { useAvailabilityForDate, formatDateForAvailability } from "@/hooks/use-availability";
@@ -21,6 +21,11 @@ import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
 import { BookingsTable } from "@/components/BookingsTable";
 import { Tooltip, TooltipContent, TooltipTrigger, TooltipProvider } from "@/components/ui/tooltip";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
 
 interface TimeBlock {
   id: string;
@@ -169,6 +174,21 @@ const normalizedSlotToTimeBlock = (slot: NormalizedSlot): TimeBlock => {
   };
 };
 
+// Admin Booking Form Schema
+const adminBookingSchema = z.object({
+  contactName: z.string().min(1, "Contact name is required"),
+  contactEmail: z.string().email("Valid email is required").optional(),
+  contactPhone: z.string().optional(),
+  groupSize: z.number().min(1, "Group size must be at least 1").max(100, "Group size cannot exceed 100"),
+  eventType: z.string().default("admin_booking"),
+  specialRequests: z.string().optional(),
+  adminNotes: z.string().optional(),
+  totalAmount: z.number().min(0).optional(),
+  paymentStatus: z.enum(["pending", "deposit_paid", "fully_paid"]).default("pending")
+});
+
+type AdminBookingFormData = z.infer<typeof adminBookingSchema>;
+
 function CalendarView() {
   const [selectedWeek, setSelectedWeek] = useState<Date>(new Date());
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
@@ -177,6 +197,18 @@ function CalendarView() {
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [selectedCapacity, setSelectedCapacity] = useState<number>(1); // Default to show all boats
   const [flashDayTripper, setFlashDayTripper] = useState(true);
+  
+  // Admin booking/blocking UI state
+  const [selectedTimeBlock, setSelectedTimeBlock] = useState<TimeBlock | null>(null);
+  const [isAdminBookingDialogOpen, setIsAdminBookingDialogOpen] = useState(false);
+  const [isBlockingDialogOpen, setIsBlockingDialogOpen] = useState(false);
+  
+  // Slot details and deletion UI state
+  const [selectedSlotForDetails, setSelectedSlotForDetails] = useState<TimeBlock | null>(null);
+  const [isSlotDetailsDialogOpen, setIsSlotDetailsDialogOpen] = useState(false);
+  const [isDeleteConfirmationOpen, setIsDeleteConfirmationOpen] = useState(false);
+  const [deleteConfirmationText, setDeleteConfirmationText] = useState('');
+  
   const { toast } = useToast();
   const { isConnected } = useSSEAutoConnect(); // ⚡ Real-time updates via SSE
   
@@ -336,6 +368,184 @@ function CalendarView() {
     },
   });
 
+  // ===== NEW ADMIN BOOKING/BLOCKING MUTATIONS FOR BIDIRECTIONAL SYNC =====
+
+  // Admin book time slot mutation
+  const adminBookSlotMutation = useMutation({
+    mutationFn: async (bookingData: AdminBookingFormData & { 
+      boatId: string; 
+      startTime: string; 
+      endTime: string; 
+    }) => {
+      return apiRequest("POST", "/api/admin/book-slot", {
+        ...bookingData,
+        startTime: bookingData.startTime,
+        endTime: bookingData.endTime
+      });
+    },
+    onSuccess: (data) => {
+      // Invalidate centralized availability cache for immediate sync with Quote Builder
+      queryClient.invalidateQueries({ queryKey: ["/api/availability/search"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/bookings"] });
+      
+      setIsAdminBookingDialogOpen(false);
+      setSelectedTimeBlock(null);
+      adminBookingForm.reset();
+      
+      toast({
+        title: "Booking Created",
+        description: `Manual booking created successfully for ${data.booking?.contactName}`,
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Booking Failed",
+        description: error.message || "Failed to create booking. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Admin cancel booking mutation  
+  const cancelBookingMutation = useMutation({
+    mutationFn: async ({ bookingId, reason }: { bookingId: string; reason?: string }) => {
+      return apiRequest("DELETE", `/api/admin/cancel-booking/${bookingId}`, { reason });
+    },
+    onSuccess: () => {
+      // Invalidate centralized availability cache for immediate sync with Quote Builder
+      queryClient.invalidateQueries({ queryKey: ["/api/availability/search"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/bookings"] });
+      
+      toast({
+        title: "Booking Canceled",
+        description: "Booking has been canceled successfully.",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Cancelation Failed",
+        description: error.message || "Failed to cancel booking. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Admin block time slot mutation
+  const blockSlotMutation = useMutation({
+    mutationFn: async ({ 
+      boatId, 
+      startTime, 
+      endTime, 
+      blockReason, 
+      notes 
+    }: {
+      boatId: string;
+      startTime: string;
+      endTime: string;
+      blockReason: string;
+      notes?: string;
+    }) => {
+      return apiRequest("POST", "/api/admin/block-slot", {
+        boatId,
+        startTime,
+        endTime,
+        blockReason,
+        notes
+      });
+    },
+    onSuccess: () => {
+      // Invalidate centralized availability cache for immediate sync with Quote Builder
+      queryClient.invalidateQueries({ queryKey: ["/api/availability/search"] });
+      
+      setIsBlockingDialogOpen(false);
+      setSelectedTimeBlock(null);
+      
+      toast({
+        title: "Time Slot Blocked",
+        description: "Time slot has been blocked successfully.",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Block Failed",
+        description: error.message || "Failed to block time slot. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Admin unblock time slot mutation
+  const unblockSlotMutation = useMutation({
+    mutationFn: async (slotId: string) => {
+      return apiRequest("DELETE", `/api/admin/unblock-slot/${slotId}`);
+    },
+    onSuccess: () => {
+      // Invalidate centralized availability cache for immediate sync with Quote Builder
+      queryClient.invalidateQueries({ queryKey: ["/api/availability/search"] });
+      
+      toast({
+        title: "Time Slot Unblocked",
+        description: "Time slot has been unblocked successfully.",
+      });
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Unblock Failed",
+        description: error.message || "Failed to unblock time slot. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  // ===== NEW ADMIN SLOT DELETION MUTATION =====
+  const deleteSlotMutation = useMutation({
+    mutationFn: async ({ slotId, confirmation }: { slotId: string; confirmation: string }) => {
+      return apiRequest("DELETE", `/api/admin/remove-slot/${slotId}`, { confirmation });
+    },
+    onSuccess: () => {
+      // Invalidate centralized availability cache for immediate sync with Quote Builder
+      queryClient.invalidateQueries({ queryKey: ["/api/availability/search"] });
+      queryClient.invalidateQueries({ queryKey: ["/api/availability"] });
+      
+      // Close all dialogs and reset state
+      setIsDeleteConfirmationOpen(false);
+      setIsSlotDetailsDialogOpen(false);
+      setSelectedSlotForDetails(null);
+      setDeleteConfirmationText('');
+      
+      toast({
+        title: "Time Slot Deleted",
+        description: "Time slot has been permanently removed from availability.",
+      });
+      
+      // Broadcast real-time update
+      invalidateAvailability(formatDateForAvailability(selectedDate));
+    },
+    onError: (error: any) => {
+      toast({
+        title: "Deletion Failed",
+        description: error.message || "Failed to delete time slot. Please try again.",
+        variant: "destructive",
+      });
+    },
+  });
+
+  // Form setup for admin booking
+  const adminBookingForm = useForm<AdminBookingFormData>({
+    resolver: zodResolver(adminBookingSchema),
+    defaultValues: {
+      contactName: "",
+      contactEmail: "",
+      contactPhone: "",
+      groupSize: 1,
+      eventType: "admin_booking",
+      specialRequests: "",
+      adminNotes: "",
+      totalAmount: 0,
+      paymentStatus: "pending"
+    }
+  });
+
   // Capacity selector handlers
   const handleCapacityChange = (value: number[]) => {
     setSelectedCapacity(value[0]);
@@ -358,14 +568,9 @@ function CalendarView() {
 
   // Time block card component
   const TimeBlockCard = ({ block }: { block: TimeBlock }) => {
-    const handleToggle = () => {
-      toggleAvailabilityMutation.mutate({
-        date: block.date.toISOString().split('T')[0],
-        startTime: block.startTime,
-        endTime: block.endTime,
-        boatId: block.boatId,
-        status: block.status === 'available' ? 'booked' : 'available'
-      });
+    const handleCardClick = () => {
+      setSelectedSlotForDetails(block);
+      setIsSlotDetailsDialogOpen(true);
     };
 
     const boatColor = getBoatColor(block.boatName);
@@ -409,7 +614,7 @@ function CalendarView() {
                   ? "bg-gray-200 border-gray-400"
                   : "bg-red-100 border-red-400 hover:bg-red-200"
               )}
-              onClick={handleToggle}
+              onClick={handleCardClick}
               data-testid={`time-block-${block.id}`}
             >
               <div className="font-semibold text-xs text-gray-800">
@@ -1079,6 +1284,186 @@ function CalendarView() {
           </CardContent>
         </Card>
       </div>
+
+      {/* Slot Details Dialog */}
+      <Dialog open={isSlotDetailsDialogOpen} onOpenChange={setIsSlotDetailsDialogOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Time Slot Details</DialogTitle>
+            <DialogDescription>
+              Manage availability for this time slot
+            </DialogDescription>
+          </DialogHeader>
+          
+          {selectedSlotForDetails && (
+            <div className="space-y-4">
+              {/* Slot Information */}
+              <div className="grid grid-cols-2 gap-4 text-sm">
+                <div>
+                  <Label className="font-medium">Date</Label>
+                  <div>{formatDate(selectedSlotForDetails.date)}</div>
+                </div>
+                <div>
+                  <Label className="font-medium">Time</Label>
+                  <div>{formatTime(selectedSlotForDetails.startTime)} - {formatTime(selectedSlotForDetails.endTime)}</div>
+                </div>
+                <div>
+                  <Label className="font-medium">Boat</Label>
+                  <div className={getBoatTextColor(selectedSlotForDetails.boatName)}>
+                    <Ship className="inline w-4 h-4 mr-1" />
+                    {selectedSlotForDetails.boatName}
+                  </div>
+                </div>
+                <div>
+                  <Label className="font-medium">Capacity</Label>
+                  <div>{selectedSlotForDetails.capacity} passengers</div>
+                </div>
+                <div>
+                  <Label className="font-medium">Status</Label>
+                  <Badge variant={selectedSlotForDetails.status === 'available' ? 'default' : 'destructive'}>
+                    {selectedSlotForDetails.status}
+                  </Badge>
+                </div>
+                {selectedSlotForDetails.pricing && (
+                  <div>
+                    <Label className="font-medium">Pricing</Label>
+                    <div>{formatCurrency(selectedSlotForDetails.pricing.standardPrice / 100)}</div>
+                  </div>
+                )}
+              </div>
+
+              {/* Pricing Details */}
+              {selectedSlotForDetails.pricing && (
+                <div className="border rounded-lg p-3 bg-gray-50">
+                  <Label className="font-medium text-sm">Package Pricing</Label>
+                  <div className="mt-2 space-y-1">
+                    {selectedSlotForDetails.pricing.packagePreviews.map((pkg, idx) => (
+                      <div key={idx} className="flex justify-between items-center text-xs">
+                        <span className={cn(pkg.popular && "font-semibold")}>
+                          {pkg.name} {pkg.popular && '⭐'}
+                        </span>
+                        <span>{formatCurrency(pkg.price / 100)}</span>
+                      </div>
+                    ))}
+                    <div className="text-xs text-muted-foreground pt-1 border-t">
+                      ~{formatCurrency(selectedSlotForDetails.pricing.perPersonEstimate / 100)}/person estimate
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Action Buttons */}
+              <div className="flex gap-2 pt-4">
+                {selectedSlotForDetails.status === 'available' && (
+                  <Button
+                    variant="destructive"
+                    onClick={() => setIsDeleteConfirmationOpen(true)}
+                    className="flex-1"
+                    data-testid="button-delete-slot"
+                  >
+                    <X className="w-4 h-4 mr-1" />
+                    Delete Slot
+                  </Button>
+                )}
+                <Button
+                  variant="outline"
+                  onClick={() => setIsSlotDetailsDialogOpen(false)}
+                  className="flex-1"
+                  data-testid="button-close-details"
+                >
+                  Close
+                </Button>
+              </div>
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={isDeleteConfirmationOpen} onOpenChange={setIsDeleteConfirmationOpen}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-red-600">Delete Time Slot</DialogTitle>
+            <DialogDescription>
+              This action cannot be undone. This will permanently remove the time slot from availability.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="space-y-4">
+            <Alert className="border-red-200 bg-red-50">
+              <AlertCircle className="h-4 w-4 text-red-600" />
+              <div className="text-red-800">
+                <div className="font-medium">Warning: Permanent Deletion</div>
+                <div className="text-sm mt-1">
+                  This time slot will be removed from both the Admin Calendar and Quote Builder availability. 
+                  Customers will no longer be able to book this slot.
+                </div>
+              </div>
+            </Alert>
+
+            {selectedSlotForDetails && (
+              <div className="bg-gray-50 p-3 rounded border">
+                <div className="text-sm font-medium">Slot to be deleted:</div>
+                <div className="text-sm text-gray-600 mt-1">
+                  {formatDate(selectedSlotForDetails.date)} • {formatTime(selectedSlotForDetails.startTime)} - {formatTime(selectedSlotForDetails.endTime)}
+                  <br />
+                  {selectedSlotForDetails.boatName} ({selectedSlotForDetails.capacity} capacity)
+                </div>
+              </div>
+            )}
+
+            <div>
+              <Label htmlFor="delete-confirmation" className="text-sm font-medium">
+                Type "DELETE" to confirm permanent removal:
+              </Label>
+              <Input
+                id="delete-confirmation"
+                type="text"
+                value={deleteConfirmationText}
+                onChange={(e) => setDeleteConfirmationText(e.target.value)}
+                placeholder="Type DELETE to confirm"
+                className="mt-1"
+                data-testid="input-delete-confirmation"
+              />
+            </div>
+          </div>
+
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => {
+                setIsDeleteConfirmationOpen(false);
+                setDeleteConfirmationText('');
+              }}
+              data-testid="button-cancel-delete"
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={() => {
+                if (selectedSlotForDetails) {
+                  deleteSlotMutation.mutate({
+                    slotId: selectedSlotForDetails.id,
+                    confirmation: deleteConfirmationText
+                  });
+                }
+              }}
+              disabled={deleteConfirmationText !== 'DELETE' || deleteSlotMutation.isPending}
+              data-testid="button-confirm-delete"
+            >
+              {deleteSlotMutation.isPending ? (
+                <div className="flex items-center">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                  Deleting...
+                </div>
+              ) : (
+                'Delete Permanently'
+              )}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
