@@ -106,7 +106,6 @@ export async function processChatMessage(
       model: "gpt-5",
       messages: messages as any,
       response_format: { type: "json_object" },
-      temperature: 0.7,
     });
 
     const result = JSON.parse(response.choices[0].message.content || "{}");
@@ -422,7 +421,6 @@ export async function generateQuoteDescription(
     const response = await openai.chat.completions.create({
       model: "gpt-5",
       messages: [{ role: "user", content: prompt }],
-      temperature: 0.8,
     });
 
     return response.choices[0].message.content || "Your amazing party cruise awaits!";

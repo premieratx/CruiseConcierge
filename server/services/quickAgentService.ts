@@ -183,8 +183,7 @@ Use the available tools to complete tasks. Be helpful and professional.`;
         model: "gpt-3.5-turbo",
         messages: openaiMessages,
         tools: toolSchemas,
-        tool_choice: "auto",
-        temperature: 0.1
+        tool_choice: "auto"
       });
 
       const assistantMessage = completion.choices[0].message;

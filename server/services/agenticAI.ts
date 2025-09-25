@@ -48,7 +48,6 @@ export class AgenticAIService {
   private maxConcurrentAgents: number = 3;
   private defaultAgentConfig: AgentConfig = {
     model: 'gpt-3.5-turbo',
-    temperature: 0.1,
     maxTokens: 2048,
     maxRetries: 3,
     timeoutMs: 60000
