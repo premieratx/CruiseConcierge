@@ -5,8 +5,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
+import { useSSEAutoConnect } from "@/hooks/use-sse";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Ship, Anchor, Users, Plus, Minus, AlertCircle } from "lucide-react";
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Ship, Anchor, Users, Plus, Minus, AlertCircle, Wifi, WifiOff } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import type { Boat, Booking, DiscoSlot, Timeframe, Product } from "@shared/schema";
 import { getPrivateTimeSlotsForDate, timeSlotToCalendarFormat } from "@shared/timeSlots";
@@ -282,6 +283,7 @@ function CalendarView() {
   const [selectedCapacity, setSelectedCapacity] = useState<number>(1); // Default to show all boats
   const [flashDayTripper, setFlashDayTripper] = useState(true);
   const { toast } = useToast();
+  const { isConnected } = useSSEAutoConnect(); // ⚡ Real-time updates via SSE
 
   // Get the start of the week (Sunday)
   const weekStart = startOfWeek(selectedWeek, { weekStartsOn: 0 });
@@ -893,8 +895,21 @@ function CalendarView() {
       {/* Week Display */}
       <Card>
         <CardHeader>
-          <CardTitle>
-            Week of {format(weekStart, 'MMMM d, yyyy')}
+          <CardTitle className="flex items-center justify-between">
+            <span>Week of {format(weekStart, 'MMMM d, yyyy')}</span>
+            <div className="flex items-center gap-2 text-sm">
+              {isConnected ? (
+                <div className="flex items-center gap-1 text-green-600">
+                  <Wifi className="w-4 h-4" />
+                  <span className="font-medium">Live Updates</span>
+                </div>
+              ) : (
+                <div className="flex items-center gap-1 text-orange-600">
+                  <WifiOff className="w-4 h-4" />
+                  <span className="font-medium">Reconnecting...</span>
+                </div>
+              )}
+            </div>
           </CardTitle>
         </CardHeader>
         <CardContent>

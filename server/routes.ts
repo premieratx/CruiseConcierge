@@ -49,6 +49,67 @@ import TurndownService from 'turndown';
 import { format } from "date-fns";
 import { XMLParser } from 'fast-xml-parser';
 
+// ===== REAL-TIME CACHE INVALIDATION VIA SERVER-SENT EVENTS =====
+interface SSEClient {
+  id: string;
+  response: any;
+  lastPing: Date;
+}
+
+const sseClients: Map<string, SSEClient> = new Map();
+
+// Send cache invalidation event to all connected SSE clients
+function broadcastCacheInvalidation(event: {
+  type: string;
+  slotId?: string;
+  eventDate?: string;
+  boatId?: string;
+  startTime?: string;
+  endTime?: string;
+  weekStart?: string;
+  discoSlotId?: string;
+  ticketsSold?: number;
+}) {
+  const eventData = JSON.stringify(event);
+  console.log(`🚨 BROADCASTING CACHE INVALIDATION to ${sseClients.size} SSE clients:`, event);
+  
+  if (sseClients.size === 0) {
+    console.warn(`⚠️ NO SSE CLIENTS CONNECTED - real-time updates will not be received!`);
+    return;
+  }
+  
+  let successCount = 0;
+  let failureCount = 0;
+  
+  // Send to all connected clients
+  for (const [clientId, client] of sseClients.entries()) {
+    try {
+      client.response.write(`data: ${eventData}\n\n`);
+      successCount++;
+      console.log(`✅ Cache invalidation sent to client ${clientId}`);
+    } catch (error) {
+      failureCount++;
+      console.error(`❌ Failed to send to client ${clientId}:`, error);
+      // Remove dead connection
+      sseClients.delete(clientId);
+    }
+  }
+  
+  console.log(`📊 Cache invalidation broadcast complete: ${successCount} success, ${failureCount} failed`);
+}
+
+// Clean up dead SSE connections every 5 minutes
+setInterval(() => {
+  const now = new Date();
+  for (const [clientId, client] of sseClients.entries()) {
+    const timeSinceLastPing = now.getTime() - client.lastPing.getTime();
+    if (timeSinceLastPing > 5 * 60 * 1000) { // 5 minutes
+      console.log(`🧹 Cleaning up stale SSE client ${clientId}`);
+      sseClients.delete(clientId);
+    }
+  }
+}, 5 * 60 * 1000);
+
 // Lazy initialization functions
 const getStorage = async () => {
   if (!storage) {
@@ -686,6 +747,94 @@ export async function createQuoteFromChat(app: Express) {
         message: error instanceof Error ? error.message : 'Unknown error'
       });
     }
+  });
+
+  // ===== SERVER-SENT EVENTS ENDPOINT FOR REAL-TIME UPDATES =====
+  app.get("/api/events/sse", (req, res) => {
+    // Set headers for SSE - ORDER MATTERS
+    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Cache-Control', 'no-cache, no-transform');
+    res.setHeader('Connection', 'keep-alive');
+    res.setHeader('X-Accel-Buffering', 'no'); // Disable Nginx buffering
+    
+    // Fix CORS for same-origin requests (development/production)
+    const origin = req.get('Origin');
+    const referer = req.get('Referer');
+    const host = req.get('Host');
+    
+    // Allow same-origin requests (more permissive for development)
+    if (origin) {
+      res.setHeader('Access-Control-Allow-Origin', origin);
+    } else if (referer) {
+      // Extract origin from referer if no origin header
+      const refererUrl = new URL(referer);
+      res.setHeader('Access-Control-Allow-Origin', `${refererUrl.protocol}//${refererUrl.host}`);
+    } else {
+      // Fallback for local development
+      res.setHeader('Access-Control-Allow-Origin', `http://localhost:5000`);
+    }
+    
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Cache-Control');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+    
+    // Generate unique client ID
+    const clientId = `client_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
+    
+    // Store client connection
+    sseClients.set(clientId, {
+      id: clientId,
+      response: res,
+      lastPing: new Date()
+    });
+    
+    console.log(`🔗 NEW SSE CLIENT CONNECTED: ${clientId} (${sseClients.size} total clients)`);
+    console.log(`📡 SSE Endpoint: /api/events/sse`);
+    console.log(`🌐 Headers: Origin='${req.get('Origin') || 'none'}', Referer='${req.get('Referer') || 'none'}', Host='${req.get('Host') || 'none'}'`);
+    console.log(`🎯 Client will receive real-time booking updates, disco sales, and admin actions`);
+    
+    // Send initial connection confirmation
+    res.write(`data: ${JSON.stringify({ 
+      type: 'connected', 
+      clientId,
+      timestamp: new Date().toISOString()
+    })}\n\n`);
+    
+    // Handle client disconnect
+    req.on('close', () => {
+      console.log(`🔌 SSE CLIENT DISCONNECTED: ${clientId} (${sseClients.size - 1} remaining)`);
+      sseClients.delete(clientId);
+    });
+    
+    req.on('error', (error) => {
+      console.error(`❌ SSE client error for ${clientId}:`, error);
+      sseClients.delete(clientId);
+    });
+    
+    // Send periodic heartbeat to keep connection alive (more frequent for stability)
+    const heartbeat = setInterval(() => {
+      if (sseClients.has(clientId)) {
+        try {
+          res.write(`data: ${JSON.stringify({ 
+            type: 'heartbeat', 
+            timestamp: new Date().toISOString(),
+            clientId 
+          })}\n\n`);
+          // CRITICAL: Update lastPing to prevent cleanup
+          const client = sseClients.get(clientId);
+          if (client) {
+            client.lastPing = new Date();
+            console.log(`💓 Heartbeat sent to client ${clientId} - ${sseClients.size} total clients`);
+          }
+        } catch (error) {
+          console.error(`❌ Heartbeat failed for client ${clientId}:`, error);
+          clearInterval(heartbeat);
+          sseClients.delete(clientId);
+        }
+      } else {
+        clearInterval(heartbeat);
+      }
+    }, 20000); // Heartbeat every 20 seconds (more frequent)
   });
 
   // ==========================================
@@ -7678,7 +7827,35 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Webhook for payment confirmations
   app.post("/api/webhooks/stripe", async (req, res) => {
     try {
-      const { type, data } = req.body;
+      // CRITICAL SECURITY FIX: Verify Stripe webhook signature
+      const sig = req.headers['stripe-signature'];
+      const endpointSecret = process.env.STRIPE_WEBHOOK_SECRET;
+      
+      if (!endpointSecret) {
+        console.error("❌ STRIPE_WEBHOOK_SECRET not configured - webhook rejected for security");
+        return res.status(400).json({ error: "Webhook secret not configured" });
+      }
+      
+      if (!sig) {
+        console.error("❌ Missing Stripe signature - webhook rejected");
+        return res.status(400).json({ error: "Missing signature" });
+      }
+      
+      let event;
+      try {
+        // Import Stripe dynamically
+        const { default: Stripe } = await import('stripe');
+        const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+        
+        // Verify webhook signature
+        event = stripe.webhooks.constructEvent(req.body, sig as string, endpointSecret);
+        console.log("✅ Stripe webhook signature verified");
+      } catch (err: any) {
+        console.error("❌ Stripe webhook signature verification failed:", err.message);
+        return res.status(400).json({ error: `Webhook signature verification failed: ${err.message}` });
+      }
+      
+      const { type, data } = event;
       
       if (type === "payment_intent.succeeded") {
         const paymentIntent = data.object;
@@ -7719,6 +7896,49 @@ export async function registerRoutes(app: Express): Promise<Server> {
                   paymentIntentMetadata: paymentIntent.metadata
                 });
                 console.log(`✅ Booking created atomically from hold ${holdId} for project ${project.id}`);
+                
+                // ============== CRITICAL: INVALIDATE AVAILABILITY CACHES ==============
+                // Notify all clients that availability has changed due to new booking
+                try {
+                  // Extract booking details for cache invalidation
+                  const eventDate = paymentIntent.metadata.eventDate || project.projectDate?.toISOString().split('T')[0];
+                  const boatId = paymentIntent.metadata.boatId;
+                  const startTime = paymentIntent.metadata.startTime;
+                  const endTime = paymentIntent.metadata.endTime;
+                  
+                  if (eventDate && boatId && startTime && endTime) {
+                    // Calculate week start for cache key calculation
+                    const bookingDate = new Date(eventDate + 'T00:00:00');
+                    const dayOfWeek = bookingDate.getDay();
+                    const daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+                    const weekStart = new Date(bookingDate);
+                    weekStart.setDate(bookingDate.getDate() - daysToMonday);
+                    const weekStartISO = weekStart.toISOString().split('T')[0];
+                    
+                    // Create slot ID for cache invalidation
+                    const slotId = `private-${eventDate}-${startTime}-${endTime}-${boatId}`;
+                    
+                    console.log(`🚨 CACHE INVALIDATION: Booking created for slot ${slotId} on ${eventDate}`);
+                    console.log(`📅 Week start for cache invalidation: ${weekStartISO}`);
+                    
+                    // CRITICAL FIX: Send real-time cache invalidation event to connected clients
+                    broadcastCacheInvalidation({
+                      type: 'booking_created',
+                      slotId,
+                      eventDate,
+                      boatId,
+                      startTime,
+                      endTime,
+                      weekStart: weekStartISO
+                    });
+                    
+                    console.log(`📡 Real-time cache invalidation broadcast sent for slot ${slotId}`);
+                    // This ensures availability is updated immediately across all connected clients
+                  }
+                } catch (cacheError) {
+                  console.error(`❌ Cache invalidation failed after booking creation:`, cacheError);
+                  // Don't fail the webhook - booking was successful, cache just needs manual refresh
+                }
                 
                 // ============== TASK 1: BOOKING NOTIFICATIONS ==============
                 // Send SMS & Email notifications on successful bookings
@@ -10901,6 +11121,30 @@ Phone: ${contact.phone || 'N/A'}`;
       }
       
       const updated = await storage.purchaseDiscoTickets(id, quantity);
+      
+      // ============== CRITICAL FIX: REAL-TIME CACHE INVALIDATION ==============
+      // Send SSE notification for disco ticket purchase - enables real-time inventory updates
+      try {
+        const eventDate = updated.date.toISOString().split('T')[0];
+        const discoSlotId = `disco-${eventDate}-${updated.id}`;
+        
+        console.log(`🚨 DISCO TICKET CACHE INVALIDATION: ${quantity} tickets purchased for slot ${discoSlotId}`);
+        console.log(`🎫 Tickets sold: ${updated.ticketsSold}/${updated.ticketCap}`);
+        
+        // Send real-time cache invalidation to all connected clients
+        broadcastCacheInvalidation({
+          type: 'disco_tickets_purchased',
+          discoSlotId,
+          eventDate,
+          ticketsSold: updated.ticketsSold
+        });
+        
+        console.log(`📡 Disco ticket purchase cache invalidation broadcast sent for slot ${discoSlotId}`);
+      } catch (cacheError) {
+        console.error(`❌ Cache invalidation failed after disco ticket purchase:`, cacheError);
+        // Don't fail the request - purchase was successful, cache just needs manual refresh
+      }
+      
       res.json(updated);
     } catch (error: any) {
       console.error("Error purchasing disco tickets:", error);
@@ -11962,6 +12206,43 @@ Phone: ${contact.phone || 'N/A'}`;
         startTime: booking.startTime.toISOString(),
         endTime: booking.endTime.toISOString()
       }, req.adminUser.id);
+      
+      // ============== CRITICAL FIX: REAL-TIME CACHE INVALIDATION ==============
+      // Send SSE notification for admin booking creation - matches Stripe payment pattern
+      try {
+        const eventDate = booking.startTime.toISOString().split('T')[0];
+        const startTime = booking.startTime.toISOString().substring(11, 16); // HH:MM format  
+        const endTime = booking.endTime.toISOString().substring(11, 16);
+        
+        // Calculate week start for cache key calculation 
+        const bookingDate = new Date(eventDate + 'T00:00:00');
+        const dayOfWeek = bookingDate.getDay();
+        const daysToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+        const weekStart = new Date(bookingDate);
+        weekStart.setDate(bookingDate.getDate() - daysToMonday);
+        const weekStartISO = weekStart.toISOString().split('T')[0];
+        
+        // Create slot ID for cache invalidation
+        const slotId = `private-${eventDate}-${startTime}-${endTime}-${booking.boatId}`;
+        
+        console.log(`🚨 ADMIN BOOKING CACHE INVALIDATION: Manual booking created for slot ${slotId}`);
+        
+        // Send real-time cache invalidation to all connected clients
+        broadcastCacheInvalidation({
+          type: 'admin_booking_created',
+          slotId,
+          eventDate,
+          boatId: booking.boatId,
+          startTime,
+          endTime,
+          weekStart: weekStartISO
+        });
+        
+        console.log(`📡 Admin booking cache invalidation broadcast sent for slot ${slotId}`);
+      } catch (cacheError) {
+        console.error(`❌ Cache invalidation failed after admin booking creation:`, cacheError);
+        // Don't fail the request - booking was successful, cache just needs manual refresh
+      }
       
       res.status(201).json(booking);
     } catch (error: any) {

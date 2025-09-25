@@ -3730,6 +3730,37 @@ export class DatabaseStorage implements IStorage {
     };
   }
 
+  // ===== TIMEFRAME BLOCKING CHECK =====
+  async isTimeSlotBlocked(boatId: string, date: Date, startTime: string, endTime: string): Promise<boolean> {
+    const dayOfWeek = date.getDay();
+    
+    // Get all timeframes for this day of week
+    const dayTimeframes = await this.getTimeframesByDay(dayOfWeek);
+    
+    // Check if any timeframe blocks this specific time slot
+    return dayTimeframes.some(timeframe => {
+      // Only check if timeframe is blocked
+      if (timeframe.status !== 'blocked') return false;
+      
+      // Check if timeframe applies to this boat (if specified) or all boats
+      if (timeframe.boatId && timeframe.boatId !== boatId) return false;
+      
+      // Check time overlap
+      const slotStart = this.parseTimeString(startTime);
+      const slotEnd = this.parseTimeString(endTime);
+      const frameStart = this.parseTimeString(timeframe.startTime);
+      const frameEnd = this.parseTimeString(timeframe.endTime);
+      
+      // Return true if there's any overlap
+      return slotStart < frameEnd && slotEnd > frameStart;
+    });
+  }
+  
+  private parseTimeString(timeStr: string): number {
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    return hours * 60 + minutes; // Convert to minutes for easy comparison
+  }
+
   // ===== AVAILABILITY SEARCH - CORE BUSINESS LOGIC =====
   async searchNormalizedSlots(filters: {
     startDate: Date;
@@ -3827,20 +3858,20 @@ export class DatabaseStorage implements IStorage {
           for (const boat of suitableBoats) {
             const slotId = `private-${dateISO}-${timeSlot.startTime}-${timeSlot.endTime}-${boat.id}`;
             
-            // Check if slot is already booked (simplified for now - skip DB check for testing)
-            const existingBookings: any[] = []; // Temporarily disable booking conflict check
+            // CRITICAL FIX: Check actual bookings to prevent double-booking
+            const startDateTime = new Date(currentDate);
+            const [startHours, startMinutes] = timeSlot.startTime.split(':').map(Number);
+            startDateTime.setHours(startHours, startMinutes, 0, 0);
             
-            const isBooked = existingBookings.some(booking => {
-              const bookingStart = booking.startTime?.getHours() || 0;
-              const bookingEnd = booking.endTime?.getHours() || 0;
-              const slotStart = parseInt(timeSlot.startTime.split(':')[0]);
-              const slotEnd = parseInt(timeSlot.endTime.split(':')[0]);
-              
-              // Check for time overlap
-              return (slotStart < bookingEnd && slotEnd > bookingStart);
-            });
+            const endDateTime = new Date(currentDate);
+            const [endHours, endMinutes] = timeSlot.endTime.split(':').map(Number);
+            endDateTime.setHours(endHours, endMinutes, 0, 0);
             
-            if (!isBooked) {
+            // CRITICAL FIX 1: Check both booking conflicts AND blocked timeframes
+            const isBooked = await this.checkBookingConflict(boat.id, startDateTime, endDateTime);
+            const isBlocked = await this.isTimeSlotBlocked(boat.id, currentDate, timeSlot.startTime, timeSlot.endTime);
+            
+            if (!isBooked && !isBlocked) {
               slots.push({
                 id: slotId,
                 cruiseType: 'private',
@@ -3884,26 +3915,66 @@ export class DatabaseStorage implements IStorage {
           if (discoBoats.length > 0) {
             const slotId = `disco-${dateISO}-${timeSlot.startTime}-${timeSlot.endTime}`;
             
-            // Simplified availability check for disco
-            const maxCapacity = Math.max(...discoBoats.map(b => b.maxCapacity));
-            const availableTickets = groupSize ? Math.max(0, maxCapacity - (groupSize || 0)) : maxCapacity;
+            // CRITICAL FIX: Check disco slot availability against actual bookings
+            const startDateTime = new Date(currentDate);
+            const [startHours, startMinutes] = timeSlot.startTime.split(':').map(Number);
+            startDateTime.setHours(startHours, startMinutes, 0, 0);
             
-            slots.push({
-              id: slotId,
-              cruiseType: 'disco',
-              dateISO,
-              startTime: timeSlot.startTime,
-              endTime: timeSlot.endTime,
-              label: timeSlot.label,
-              duration: timeSlot.duration,
-              capacity: maxCapacity,
-              availableCount: availableTickets,
-              price: discoPrice,
-              totalPrice: discoPrice, // Per-person price for disco cruises
-              boatCandidates: discoBoats.map(b => b.id),
-              bookable: availableTickets > 0,
-              held: false
-            });
+            const endDateTime = new Date(currentDate);
+            const [endHours, endMinutes] = timeSlot.endTime.split(':').map(Number);
+            endDateTime.setHours(endHours, endMinutes, 0, 0);
+            
+            // CRITICAL FIX 2: Check disco slots in database for actual ticket sales
+            let hasAvailableBoat = false;
+            let maxCapacity = 0;
+            let actualAvailableTickets = 0;
+            
+            // Get actual disco slot from database to check sold tickets
+            const existingDiscoSlots = await this.getDiscoSlotsInRange(currentDate, currentDate);
+            const matchingDiscoSlot = existingDiscoSlots.find(slot => 
+              slot.startTime === timeSlot.startTime && 
+              slot.endTime === timeSlot.endTime &&
+              slot.date.toISOString().split('T')[0] === dateISO
+            );
+            
+            if (matchingDiscoSlot && matchingDiscoSlot.status === 'available') {
+              // Use actual sold tickets from database
+              actualAvailableTickets = matchingDiscoSlot.ticketCap - matchingDiscoSlot.ticketsSold;
+              hasAvailableBoat = actualAvailableTickets > 0;
+              maxCapacity = matchingDiscoSlot.ticketCap;
+            } else {
+              // Fallback to boat capacity check for new slots
+              for (const boat of discoBoats) {
+                const isBoatBooked = await this.checkBookingConflict(boat.id, startDateTime, endDateTime);
+                const isBoatBlocked = await this.isTimeSlotBlocked(boat.id, currentDate, timeSlot.startTime, timeSlot.endTime);
+                if (!isBoatBooked && !isBoatBlocked) {
+                  hasAvailableBoat = true;
+                  maxCapacity = Math.max(maxCapacity, boat.maxCapacity);
+                }
+              }
+              actualAvailableTickets = maxCapacity;
+            }
+            
+            if (hasAvailableBoat) {
+              const availableTickets = actualAvailableTickets;
+              
+              slots.push({
+                id: slotId,
+                cruiseType: 'disco',
+                dateISO,
+                startTime: timeSlot.startTime,
+                endTime: timeSlot.endTime,
+                label: timeSlot.label,
+                duration: timeSlot.duration,
+                capacity: maxCapacity,
+                availableCount: availableTickets,
+                price: discoPrice,
+                totalPrice: discoPrice, // Per-person price for disco cruises
+                boatCandidates: discoBoats.map(b => b.id),
+                bookable: availableTickets > 0,
+                held: false
+              });
+            }
           }
         }
       }

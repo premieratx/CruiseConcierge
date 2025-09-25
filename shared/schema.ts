@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, integer, boolean, timestamp, jsonb } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, integer, boolean, timestamp, jsonb, unique } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -355,7 +355,11 @@ export const bookings = pgTable("bookings", {
   lastModifiedAt: timestamp("last_modified_at").defaultNow(),
   notes: text("notes"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
-});
+}, (table) => ({
+  // CRITICAL: Database-level unique constraint to prevent double-bookings
+  // Ensures the same boat cannot be booked for overlapping time periods
+  uniqueBoatTimeSlot: unique("unique_boat_time_slot").on(table.boatId, table.startTime, table.endTime),
+}));
 
 // Disco Slots - for managing disco cruise availability
 export const discoSlots = pgTable("disco_slots", {

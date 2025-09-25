@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { useSSEAutoConnect } from "@/hooks/use-sse";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -62,6 +63,7 @@ interface QuoteBuilderProps {
 
 export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteChange }: QuoteBuilderProps = {}) {
   // State management
+  const { isConnected } = useSSEAutoConnect(); // ⚡ Real-time availability updates
   const [selectedProjectId, setSelectedProjectId] = useState<string>(projectId || "");
   const [selectedTemplateId, setSelectedTemplateId] = useState<string>(templateId || "");
   const [items, setItems] = useState<QuoteItem[]>([]);
