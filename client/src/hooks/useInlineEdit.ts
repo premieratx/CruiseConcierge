@@ -233,6 +233,8 @@ export const useInlineEdit = () => {
     
     const badge = document.createElement('div');
     badge.className = 'fixed bottom-4 right-4 z-[9999] px-5 py-3 rounded-xl shadow-2xl transition-all duration-500 backdrop-blur-md';
+    // Hide badge completely when edit mode is off
+    badge.style.display = isEditMode ? 'block' : 'none';
     badge.style.backgroundColor = isEditMode 
       ? 'rgba(16, 185, 129, 0.95)' 
       : canEdit ? 'rgba(107, 114, 128, 0.95)' : 'rgba(107, 114, 128, 0.6)';
@@ -297,6 +299,8 @@ export const useInlineEdit = () => {
   const updateBadge = useCallback(() => {
     if (!badgeRef.current) return;
     
+    // Hide badge completely when edit mode is off
+    badgeRef.current.style.display = isEditMode ? 'block' : 'none';
     badgeRef.current.style.backgroundColor = isEditMode 
       ? 'rgba(16, 185, 129, 0.95)' 
       : canEdit ? 'rgba(107, 114, 128, 0.95)' : 'rgba(107, 114, 128, 0.6)';
@@ -356,19 +360,32 @@ export const useInlineEdit = () => {
 
   // Setup editable elements when edit mode changes
   useEffect(() => {
-    setupEditableElements();
+    // Add a small delay to ensure DOM is fully rendered
+    const timer = setTimeout(() => {
+      setupEditableElements();
+    }, 100);
     
     return () => {
+      clearTimeout(timer);
       // Cleanup all editable elements
       editableElementsRef.current.forEach(element => makeNonEditable(element));
       editableElementsRef.current.clear();
     };
   }, [isEditMode, setupEditableElements, makeNonEditable]);
 
-  // Load saved content on mount
+  // Load saved content on mount and setup elements when location changes
   useEffect(() => {
     loadSavedContent();
-  }, [loadSavedContent]);
+    
+    // Force setup elements after location change if in edit mode
+    if (isEditMode) {
+      const timer = setTimeout(() => {
+        setupEditableElements();
+      }, 200);
+      
+      return () => clearTimeout(timer);
+    }
+  }, [loadSavedContent, location, isEditMode, setupEditableElements]);
 
   // Create and update badge - only show when edit mode is active
   useEffect(() => {
