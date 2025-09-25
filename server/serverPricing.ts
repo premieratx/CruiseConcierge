@@ -69,10 +69,10 @@ const PRICING_CONFIG = {
   EARLY_DEPOSIT_PERCENT: 0.25, // 25% if >30 days
   LATE_DEPOSIT_PERCENT: 1.00,  // 100% if <30 days
   
-  // Crew Fees (flat fees, not per hour)
+  // Crew Fees (hourly fees)
   CREW_FEES: {
-    TIER_1: { min: 16, max: 30, flatFee: 200 }, // $200 flat fee for 16-30 people on Me Seeks
-    TIER_2: { min: 40, max: 75, flatFee: 300 }, // $300 flat fee for 40-75 people on Clever Girl
+    TIER_1: { min: 26, max: 30, hourlyFee: 50 }, // $50/hour for 26-30 people on Me Seek/The Irony
+    TIER_2: { min: 51, max: 75, hourlyFee: 100 }, // $100/hour for 51-75 people on Clever Girl
   },
   
   // Boat Configuration (rates in CENTS for Stripe compatibility)
@@ -88,8 +88,18 @@ const PRICING_CONFIG = {
         weekend: 30000   // $300/hr Sat-Sun
       }
     },
-    boat_me_seeks_the_irony: { 
-      name: 'Me Seeks The Irony', 
+    boat_me_seek: { 
+      name: 'Me Seek', 
+      minCapacity: 15, 
+      maxCapacity: 30, 
+      baseRateCents: {
+        weekday: 25000,  // $250/hr Mon-Thu
+        friday: 30000,   // $300/hr Friday
+        weekend: 35000   // $350/hr Sat-Sun
+      }
+    },
+    boat_the_irony: { 
+      name: 'The Irony', 
       minCapacity: 15, 
       maxCapacity: 30, 
       baseRateCents: {

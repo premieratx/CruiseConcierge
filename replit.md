@@ -30,7 +30,7 @@ The system features a progressive booking flow designed for an intuitive user ex
 ### Feature Specifications
 - **Pricing Rules**:
     - **Duration**: Monday-Thursday offers 3 and 4-hour options; Friday-Sunday offer 4-hour blocks.
-    - **Boat Fleet**: Day Tripper (14-person), Me Seeks The Irony (25-30 person with crew fee), Clever Girl (50-75 person with crew fee), ATX Disco (100-person for disco cruises). Capacity prominently displayed.
+    - **Boat Fleet**: Day Tripper (14-person), Me Seek (25-30 person with crew fee), The Irony (25-30 person with crew fee), Clever Girl (50-75 person with crew fee), ATX Disco (100-person for disco cruises). Capacity prominently displayed.
     - **Disco Cruise Packages**: Basic, Disco Queen, Platinum tiers ($85-$105/person) for specific Friday and Saturday slots.
 - **Booking & Inventory**:
     - **Availability**: Sourced from Google Sheets, accessible via `/api/boats`, `/api/bookings`, `/api/disco/slots`.

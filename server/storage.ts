@@ -1054,9 +1054,18 @@ export class DatabaseStorage implements IStorage {
           active: true 
         },
         { 
-          id: "boat_me_seeks_the_irony", 
+          id: "boat_me_seek", 
           orgId: "org_demo", 
-          name: "Me Seeks The Irony", 
+          name: "Me Seek", 
+          capacity: 25, 
+          maxCapacity: 30,
+          extraCrewThreshold: 26, // +$50/hour for 26-30 people due to state law extra crew requirement
+          active: true 
+        },
+        { 
+          id: "boat_the_irony", 
+          orgId: "org_demo", 
+          name: "The Irony", 
           capacity: 25, 
           maxCapacity: 30,
           extraCrewThreshold: 26, // +$50/hour for 26-30 people due to state law extra crew requirement

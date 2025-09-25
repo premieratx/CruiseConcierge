@@ -81,15 +81,26 @@ export function calculateSimplePricing(
     });
   }
   
+  if (selectedAddOns.includes('lily_pad')) {
+    // Lily Pad Float - $50 flat fee for all boats
+    const lilyPadFee = 5000; // $50
+    addOnFlatFee += lilyPadFee;
+    addOnDetails.push({
+      id: 'lily_pad',
+      name: 'Lily Pad Float',
+      hourlyRate: lilyPadFee // Store flat fee here for compatibility
+    });
+  }
+  
   const totalHourlyRate = baseHourlyRate; // No hourly add-on rate
   
   // 4. Calculate subtotal: (rate × duration) + flat add-on fees + crew fees
   let crewFee = 0;
-  // Extra FLAT crew fees for 16-30 and 40-75 people
-  if (groupSize >= 16 && groupSize <= 30) {
-    crewFee = 20000; // $200 flat crew fee for 16-30 people
-  } else if (groupSize >= 40 && groupSize <= 75) {
-    crewFee = 30000; // $300 flat crew fee for 40-75 people
+  // Extra HOURLY crew fees: $50/hour for 26-30 people, $100/hour for 51-75 people
+  if (groupSize >= 26 && groupSize <= 30) {
+    crewFee = 5000 * duration; // $50/hour for 26-30 people (25-person boats)
+  } else if (groupSize >= 51 && groupSize <= 75) {
+    crewFee = 10000 * duration; // $100/hour for 51-75 people (50-person boat)
   }
   const baseCruiseCost = totalHourlyRate * duration;
   const subtotal = baseCruiseCost + addOnFlatFee + crewFee;
