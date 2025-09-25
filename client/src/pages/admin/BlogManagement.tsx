@@ -765,7 +765,7 @@ export default function BlogManagement() {
                   <SelectValue placeholder="All Statuses" />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="">All Statuses</SelectItem>
+                  <SelectItem value="all">All Statuses</SelectItem>
                   <SelectItem value="published">Published</SelectItem>
                   <SelectItem value="draft">Draft</SelectItem>
                   <SelectItem value="scheduled">Scheduled</SelectItem>
@@ -779,7 +779,7 @@ export default function BlogManagement() {
                     <SelectValue placeholder="All Authors" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Authors</SelectItem>
+                    <SelectItem value="all">All Authors</SelectItem>
                     {data.authors.map((author) => (
                       <SelectItem key={author.id} value={author.id}>
                         {author.name}
@@ -795,7 +795,7 @@ export default function BlogManagement() {
                     <SelectValue placeholder="All Categories" />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="">All Categories</SelectItem>
+                    <SelectItem value="all">All Categories</SelectItem>
                     {data.categories.map((category) => (
                       <SelectItem key={category.id} value={category.id}>
                         {category.name}

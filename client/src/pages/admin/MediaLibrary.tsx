@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, startTransition } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -497,7 +497,9 @@ export default function MediaLibrary() {
                     {uploadedFiles.length} file(s) selected
                   </p>
                   <Button 
-                    onClick={uploadFiles} 
+                    onClick={() => startTransition(() => {
+                      uploadFiles();
+                    })} 
                     disabled={isUploading}
                     className="w-full"
                     data-testid="button-upload-files"
@@ -527,7 +529,9 @@ export default function MediaLibrary() {
                 data-testid="textarea-generate-prompt"
               />
               <Button 
-                onClick={generateImage} 
+                onClick={() => startTransition(() => {
+                  generateImage();
+                })} 
                 disabled={isGenerating || !generatePrompt.trim()}
                 className="w-full bg-purple-600 hover:bg-purple-700"
                 data-testid="button-generate-image"

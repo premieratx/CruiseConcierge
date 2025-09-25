@@ -16380,7 +16380,7 @@ Provide comprehensive SEO analysis with specific, actionable recommendations.`;
                 { role: "user", content: userPrompt }
               ],
               max_completion_tokens: 1500,
-              temperature: 0.2,
+              temperature: 1,
               response_format: { type: "json_object" }
             });
 
@@ -16785,7 +16785,7 @@ Provide comprehensive content analysis with specific, actionable SEO recommendat
           { role: "user", content: userPrompt }
         ],
         max_completion_tokens: 2500,
-        temperature: 0.2,
+        temperature: 1,
         response_format: { type: "json_object" }
       });
 
@@ -16974,7 +16974,7 @@ Provide detailed competitive analysis with specific opportunities and strategic 
           { role: "user", content: userPrompt }
         ],
         max_completion_tokens: 3000,
-        temperature: 0.2,
+        temperature: 1,
         response_format: { type: "json_object" }
       });
 
