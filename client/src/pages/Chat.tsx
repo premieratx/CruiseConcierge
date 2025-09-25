@@ -707,10 +707,11 @@ const filterBoatsForGroupSize = (boats: any[], groupSize: number) => {
     return privateBoats.filter(boat => 
       boat.id === 'boat_day_tripper' || boat.name === 'Day Tripper'
     );
-  } else if (groupSize <= 25) {
-    // 15-25: Me Seeks The Irony
+  } else if (groupSize <= 30) {
+    // 15-30: Me Seek and The Irony (show as one unified option, book Me Seek first)
     return privateBoats.filter(boat => 
-      boat.id === 'boat_me_seeks_the_irony' || boat.name === 'Me Seeks The Irony'
+      boat.id === 'boat_me_seek' || boat.id === 'boat_the_irony' ||
+      boat.name === 'Me Seek' || boat.name === 'The Irony'
     );
   } else if (groupSize <= 50) {
     // 26-50: Clever Girl
@@ -731,6 +732,13 @@ const filterBoatsForGroupSize = (boats: any[], groupSize: number) => {
 // Helper function to get boat display name from actual boat data
 const getBoatDisplayName = (boat: any): string => {
   if (!boat) return 'Party Boat';
+  
+  // Special case: For Me Seek and The Irony, show unified name
+  if (boat.id === 'boat_me_seek' || boat.id === 'boat_the_irony' ||
+      boat.name === 'Me Seek' || boat.name === 'The Irony') {
+    return 'Me Seek/The Irony';
+  }
+  
   return boat.name || `${boat.capacity}-Person Boat`;
 };
 
