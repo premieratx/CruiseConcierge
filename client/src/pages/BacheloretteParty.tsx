@@ -409,7 +409,7 @@ export default function BacheloretteParty() {
                 className="flex items-center justify-center space-x-2"
               >
                 <Heart className="h-6 w-6 fill-current" />
-                <span className="font-bold text-lg">BRIDE CRUISES FREE with Disco Queen & Platinum!</span>
+                <span className="font-bold text-lg" data-editable data-editable-id="bachelorette-bride-free-banner">BRIDE CRUISES FREE with Disco Queen & Platinum!</span>
                 <Heart className="h-6 w-6 fill-current" />
               </motion.div>
             </motion.div>
@@ -421,9 +421,9 @@ export default function BacheloretteParty() {
             >
               <div className="flex items-center justify-center space-x-2">
                 <AlertCircle className="h-6 w-6 animate-pulse" />
-                <span className="font-bold text-lg">Most weekends sell out 4-6 weeks early!</span>
+                <span className="font-bold text-lg" data-editable data-editable-id="bachelorette-scarcity-text">Most weekends sell out 4-6 weeks early!</span>
               </div>
-              <p className="text-sm mt-2">Books up SOLID at least a month in advance</p>
+              <p className="text-sm mt-2" data-editable data-editable-id="bachelorette-scarcity-details">Books up SOLID at least a month in advance</p>
             </motion.div>
 
             <motion.div 
@@ -437,7 +437,7 @@ export default function BacheloretteParty() {
                 data-testid="button-hero-book-now-bachelorette"
               >
                 <Calendar className="mr-2 h-6 w-6" />
-                BOOK NOW - You'll Be the Hero!
+                <span data-editable data-editable-id="bachelorette-hero-book-button">BOOK NOW - You'll Be the Hero!</span>
               </Button>
               
               <Button
@@ -447,7 +447,7 @@ export default function BacheloretteParty() {
                 className="border-white text-white hover:bg-white hover:text-black font-bold"
                 data-testid="button-hero-see-packages"
               >
-                See Packages & Pricing
+                <span data-editable data-editable-id="bachelorette-hero-packages-button">See Packages & Pricing</span>
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </motion.div>
@@ -456,7 +456,7 @@ export default function BacheloretteParty() {
               variants={fadeInUp}
               className="mt-6 text-lg"
             >
-              Just <span className="text-pink-400 font-bold">SHOW UP & GET DOWN</span> - Everything Included!
+              <span data-editable data-editable-id="bachelorette-hero-tagline">Just <span className="text-pink-400 font-bold">SHOW UP & GET DOWN</span> - Everything Included!</span>
             </motion.p>
           </motion.div>
         </div>
@@ -467,46 +467,46 @@ export default function BacheloretteParty() {
         <div className="container mx-auto px-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-3 lg:grid-cols-7 gap-2 h-auto p-1">
-              <TabsTrigger value="overview" data-testid="tab-overview">Overview</TabsTrigger>
-              <TabsTrigger value="included" data-testid="tab-included">What's Included</TabsTrigger>
-              <TabsTrigger value="packages" data-testid="tab-packages">Packages</TabsTrigger>
-              <TabsTrigger value="compare" data-testid="tab-compare">Compare</TabsTrigger>
-              <TabsTrigger value="faq" data-testid="tab-faq">FAQs</TabsTrigger>
-              <TabsTrigger value="photos" data-testid="tab-photos">Photos</TabsTrigger>
-              <TabsTrigger value="testimonials" data-testid="tab-testimonials">Reviews</TabsTrigger>
+              <TabsTrigger value="overview" data-testid="tab-overview"><span data-editable data-editable-id="bachelorette-tab-overview">Overview</span></TabsTrigger>
+              <TabsTrigger value="included" data-testid="tab-included"><span data-editable data-editable-id="bachelorette-tab-included">What's Included</span></TabsTrigger>
+              <TabsTrigger value="packages" data-testid="tab-packages"><span data-editable data-editable-id="bachelorette-tab-packages">Packages</span></TabsTrigger>
+              <TabsTrigger value="compare" data-testid="tab-compare"><span data-editable data-editable-id="bachelorette-tab-compare">Compare</span></TabsTrigger>
+              <TabsTrigger value="faq" data-testid="tab-faq"><span data-editable data-editable-id="bachelorette-tab-faq">FAQs</span></TabsTrigger>
+              <TabsTrigger value="photos" data-testid="tab-photos"><span data-editable data-editable-id="bachelorette-tab-photos">Photos</span></TabsTrigger>
+              <TabsTrigger value="testimonials" data-testid="tab-testimonials"><span data-editable data-editable-id="bachelorette-tab-reviews">Reviews</span></TabsTrigger>
             </TabsList>
 
             {/* Overview Tab */}
             <TabsContent value="overview" className="mt-8">
               <div className="max-w-4xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelorette-overview-title">
                   Show Your Bride the <span className="text-pink-500">BEST Weekend</span> of Her Life!
                 </h2>
                 
                 <div className="bg-pink-100 dark:bg-pink-950/30 border-2 border-pink-400 rounded-xl p-8 mb-8">
-                  <h3 className="text-2xl font-bold text-pink-600 dark:text-pink-400 mb-4 text-center">
+                  <h3 className="text-2xl font-bold text-pink-600 dark:text-pink-400 mb-4 text-center" data-editable data-editable-id="bachelorette-overview-subtitle">
                     You'll Be Chanting the Planner's Name!
                   </h3>
                   <div className="space-y-4">
                     <div className="flex items-start space-x-3">
                       <Trophy className="h-6 w-6 text-pink-500 mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold">Experience Something New!</p>
-                        <p className="text-gray-600 dark:text-gray-400">The ONLY all-inclusive boat party in Austin - unique experience you can't get anywhere else!</p>
+                        <p className="font-semibold" data-editable data-editable-id="bachelorette-feature-1-title">Experience Something New!</p>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-feature-1-description">The ONLY all-inclusive boat party in Austin - unique experience you can't get anywhere else!</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Users className="h-6 w-6 text-pink-500 mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold">Party with Other Bachelorette Parties!</p>
-                        <p className="text-gray-600 dark:text-gray-400">Meet & mingle with bachelorette parties from all over the country</p>
+                        <p className="font-semibold" data-editable data-editable-id="bachelorette-feature-2-title">Party with Other Bachelorette Parties!</p>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-feature-2-description">Meet & mingle with bachelorette parties from all over the country</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Heart className="h-6 w-6 text-pink-500 mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold">Bride Cruises FREE!</p>
-                        <p className="text-gray-600 dark:text-gray-400">With Disco Queen or Platinum packages (8+ paying guests)</p>
+                        <p className="font-semibold" data-editable data-editable-id="bachelorette-feature-3-title">Bride Cruises FREE!</p>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-feature-3-description">With Disco Queen or Platinum packages (8+ paying guests)</p>
                       </div>
                     </div>
                   </div>
@@ -514,9 +514,9 @@ export default function BacheloretteParty() {
 
                 <div className="text-center space-y-4">
                   <p className="text-lg">
-                    Starting at just <span className="text-pink-500 font-bold text-2xl">$85/person</span>
+                    <span data-editable data-editable-id="bachelorette-pricing-text">Starting at just <span className="text-pink-500 font-bold text-2xl">$85/person</span></span>
                   </p>
-                  <p className="text-lg text-gray-600 dark:text-gray-400">
+                  <p className="text-lg text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-overview-details">
                     Friday & Saturday • 4 Hours on Lake Travis • Up to 50 People
                   </p>
                   
@@ -526,11 +526,11 @@ export default function BacheloretteParty() {
                     className="bg-pink-500 hover:bg-pink-600 text-white font-bold"
                     data-testid="button-overview-book-bachelorette"
                   >
-                    Book Your Bachelorette Party Now
+                    <span data-editable data-editable-id="bachelorette-overview-book-button">Book Your Bachelorette Party Now</span>
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                   
-                  <p className="text-sm text-red-600 font-semibold">
+                  <p className="text-sm text-red-600 font-semibold" data-editable data-editable-id="bachelorette-availability-warning">
                     ⚠️ Limited Availability - Spring & Summer books up fast!
                   </p>
                 </div>
@@ -540,10 +540,10 @@ export default function BacheloretteParty() {
             {/* What's Included Tab */}
             <TabsContent value="included" className="mt-8">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" data-editable data-editable-id="bachelorette-included-title">
                   EVERYTHING Included but Alcohol!
                 </h2>
-                <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-8">
+                <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-8" data-editable data-editable-id="bachelorette-included-subtitle">
                   Just SHOW UP & GET DOWN - We handle everything else
                 </p>
                 
@@ -561,8 +561,8 @@ export default function BacheloretteParty() {
                           <item.icon className="h-6 w-6 text-pink-600 dark:text-pink-400" />
                         </div>
                         <div>
-                          <h3 className="font-semibold mb-1">{item.title}</h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
+                          <h3 className="font-semibold mb-1" data-editable data-editable-id={`bachelorette-included-item-${index}-title`}>{item.title}</h3>
+                          <p className="text-sm text-gray-600 dark:text-gray-400" data-editable data-editable-id={`bachelorette-included-item-${index}-description`}>{item.description}</p>
                         </div>
                       </div>
                     </motion.div>
@@ -570,8 +570,8 @@ export default function BacheloretteParty() {
                 </div>
 
                 <div className="bg-purple-100 dark:bg-purple-950/30 border-2 border-purple-400 rounded-xl p-6 text-center">
-                  <h3 className="text-xl font-bold mb-4">Plus the BIGGEST Unicorn Float in the Country!</h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  <h3 className="text-xl font-bold mb-4" data-editable data-editable-id="bachelorette-unicorn-title">Plus the BIGGEST Unicorn Float in the Country!</h3>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4" data-editable data-editable-id="bachelorette-unicorn-description">
                     Our GIANT 25-ft Inflatable Unicorn Float is Instagram-worthy and unforgettable
                   </p>
                   <Button
@@ -579,7 +579,7 @@ export default function BacheloretteParty() {
                     className="bg-purple-500 hover:bg-purple-600 text-white"
                     data-testid="button-included-book-bachelorette"
                   >
-                    Reserve Your Date Now
+                    <span data-editable data-editable-id="bachelorette-included-reserve-button">Reserve Your Date Now</span>
                   </Button>
                 </div>
               </div>
@@ -588,7 +588,7 @@ export default function BacheloretteParty() {
             {/* Packages Tab */}
             <TabsContent value="packages" className="mt-8">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelorette-packages-title">
                   Choose Your Bachelorette Party Package
                 </h2>
                 
@@ -603,7 +603,7 @@ export default function BacheloretteParty() {
                     >
                       {pkg.popular && (
                         <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                          <Badge className="bg-pink-500 text-white font-bold px-4 py-1">
+                          <Badge className="bg-pink-500 text-white font-bold px-4 py-1" data-editable data-editable-id="bachelorette-most-popular-badge">
                             MOST POPULAR
                           </Badge>
                         </div>
@@ -611,7 +611,7 @@ export default function BacheloretteParty() {
                       
                       {pkg.brideSpecial && (
                         <div className="absolute -top-8 left-1/2 transform -translate-x-1/2 z-10 w-full text-center">
-                          <Badge className="bg-purple-600 text-white text-xs px-3 py-1">
+                          <Badge className="bg-purple-600 text-white text-xs px-3 py-1" data-editable data-editable-id="bachelorette-bride-free-badge">
                             BRIDE FREE!
                           </Badge>
                         </div>

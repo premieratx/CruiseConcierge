@@ -444,7 +444,7 @@ export default function Gallery() {
               <Video className="h-12 w-12 text-brand-blue" />
             </motion.div>
             
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-6">
+            <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-6" data-editable data-editable-id="gallery-hero-title">
               GALLERY
             </h1>
             
@@ -454,13 +454,13 @@ export default function Gallery() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <Badge className="bg-brand-yellow text-black font-bold text-lg px-6 py-2 mb-4">
+              <Badge className="bg-brand-yellow text-black font-bold text-lg px-6 py-2 mb-4" data-editable data-editable-id="gallery-hero-badge">
                 1000+ PHOTOS & VIDEOS
               </Badge>
-              <p className="text-xl md:text-2xl lg:text-3xl mb-4 max-w-4xl mx-auto font-light leading-relaxed">
+              <p className="text-xl md:text-2xl lg:text-3xl mb-4 max-w-4xl mx-auto font-light leading-relaxed" data-editable data-editable-id="gallery-hero-description">
                 Experience the magic of <span className="text-brand-yellow font-bold">Lake Travis</span>
               </p>
-              <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto">
+              <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto" data-editable data-editable-id="gallery-hero-subtitle">
                 Real moments from real celebrations. See why we're Austin's premier party cruise experience.
               </p>
             </motion.div>
@@ -478,7 +478,7 @@ export default function Gallery() {
                 data-testid="button-book-now"
               >
                 <Calendar className="mr-3 h-6 w-6" />
-                BOOK YOUR CRUISE
+                <span data-editable data-editable-id="gallery-book-button">BOOK YOUR CRUISE</span>
                 <ArrowRight className="ml-3 h-6 w-6" />
               </Button>
               
@@ -493,7 +493,7 @@ export default function Gallery() {
                 data-testid="button-video-gallery"
               >
                 <Play className="mr-3 h-6 w-6" />
-                WATCH VIDEOS
+                <span data-editable data-editable-id="gallery-video-button">WATCH VIDEOS</span>
               </Button>
             </motion.div>
 
@@ -507,8 +507,8 @@ export default function Gallery() {
               {stats.map((stat, index) => (
                 <div key={index} className="text-center">
                   <stat.icon className="h-8 w-8 mx-auto mb-2 text-brand-yellow" />
-                  <div className="text-2xl md:text-3xl font-bold">{stat.label}</div>
-                  <div className="text-sm text-gray-300">{stat.value}</div>
+                  <div className="text-2xl md:text-3xl font-bold" data-editable data-editable-id={`gallery-stat-${index}-label`}>{stat.label}</div>
+                  <div className="text-sm text-gray-300" data-editable data-editable-id={`gallery-stat-${index}-value`}>{stat.value}</div>
                 </div>
               ))}
             </motion.div>
@@ -535,10 +535,10 @@ export default function Gallery() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white">
+            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="photo-gallery-title">
               PHOTO GALLERY
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8" data-editable data-editable-id="photo-gallery-description">
               Browse our collection of professional photos showcasing the Premier Party Cruises experience
             </p>
 
@@ -584,10 +584,10 @@ export default function Gallery() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white">
+            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="video-gallery-title">
               VIDEO GALLERY
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-editable data-editable-id="video-gallery-description">
               Watch the action unfold - experience the energy and excitement of our cruises
             </p>
           </motion.div>
@@ -617,13 +617,13 @@ export default function Gallery() {
                         <Play className="h-8 w-8 ml-1" />
                       </div>
                     </div>
-                    <Badge className="absolute top-4 left-4 bg-black/70 text-white">
+                    <Badge className="absolute top-4 left-4 bg-black/70 text-white" data-editable data-editable-id={`video-${video.id}-category`}>
                       {video.category}
                     </Badge>
                   </div>
                   <CardHeader>
-                    <CardTitle className="text-xl font-bold">{video.title}</CardTitle>
-                    <p className="text-gray-600 dark:text-gray-400">{video.description}</p>
+                    <CardTitle className="text-xl font-bold" data-editable data-editable-id={`video-${video.id}-title`}>{video.title}</CardTitle>
+                    <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id={`video-${video.id}-description`}>{video.description}</p>
                   </CardHeader>
                 </Card>
               </motion.div>
@@ -641,10 +641,10 @@ export default function Gallery() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6">
+            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6" data-editable data-editable-id="social-section-title">
               FOLLOW THE ADVENTURE
             </h2>
-            <p className="text-xl mb-12 max-w-3xl mx-auto">
+            <p className="text-xl mb-12 max-w-3xl mx-auto" data-editable data-editable-id="social-section-description">
               Stay connected with us on social media for daily updates, behind-the-scenes content, and the latest cruise adventures
             </p>
 
@@ -656,7 +656,7 @@ export default function Gallery() {
                 data-testid="button-follow-instagram"
               >
                 <Instagram className="mr-3 h-6 w-6" />
-                FOLLOW ON INSTAGRAM
+                <span data-editable data-editable-id="gallery-instagram-button">FOLLOW ON INSTAGRAM</span>
                 <ExternalLink className="ml-3 h-4 w-4" />
               </Button>
               
@@ -667,7 +667,7 @@ export default function Gallery() {
                 data-testid="button-book-from-gallery"
               >
                 <Calendar className="mr-3 h-6 w-6" />
-                BOOK YOUR EXPERIENCE
+                <span data-editable data-editable-id="gallery-book-experience-button">BOOK YOUR EXPERIENCE</span>
                 <ArrowRight className="ml-3 h-6 w-6" />
               </Button>
             </div>

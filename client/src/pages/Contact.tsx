@@ -102,55 +102,55 @@ export default function Contact() {
                 <div className="flex items-start space-x-4">
                   <Phone className="h-6 w-6 text-brand-blue mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Call Us</h3>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1" data-editable data-editable-id="contact-call-title">Call Us</h3>
                     <a href={CONTACT_INFO.phoneHref} className="text-gray-600 dark:text-gray-300 hover:text-brand-blue transition-colors">
                       {CONTACT_INFO.phoneFormatted}
                     </a>
-                    <p className="text-sm text-gray-500">Available 9 AM - 8 PM Daily</p>
+                    <p className="text-sm text-gray-500" data-editable data-editable-id="contact-call-hours">Available 9 AM - 8 PM Daily</p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
                   <Mail className="h-6 w-6 text-brand-blue mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Email Us</h3>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1" data-editable data-editable-id="contact-email-title">Email Us</h3>
                     <a href={CONTACT_INFO.emailHref} className="text-gray-600 dark:text-gray-300 hover:text-brand-blue transition-colors">
                       {CONTACT_INFO.email}
                     </a>
-                    <p className="text-sm text-gray-500">We respond within 24 hours</p>
+                    <p className="text-sm text-gray-500" data-editable data-editable-id="contact-email-response-time">We respond within 24 hours</p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
                   <MapPin className="h-6 w-6 text-brand-blue mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Location</h3>
-                    <p className="text-gray-600 dark:text-gray-300">Lake Travis, Austin, TX</p>
-                    <p className="text-sm text-gray-500">Multiple departure points available</p>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1" data-editable data-editable-id="contact-location-title">Location</h3>
+                    <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="contact-location-address">Lake Travis, Austin, TX</p>
+                    <p className="text-sm text-gray-500" data-editable data-editable-id="contact-location-details">Multiple departure points available</p>
                   </div>
                 </div>
 
                 <div className="flex items-start space-x-4">
                   <Clock className="h-6 w-6 text-brand-blue mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1">Operating Hours</h3>
-                    <p className="text-gray-600 dark:text-gray-300">Friday & Saturday Cruises</p>
-                    <p className="text-sm text-gray-500">Private charters available any day</p>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-1" data-editable data-editable-id="contact-hours-title">Operating Hours</h3>
+                    <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="contact-hours-schedule">Friday & Saturday Cruises</p>
+                    <p className="text-sm text-gray-500" data-editable data-editable-id="contact-hours-private">Private charters available any day</p>
                   </div>
                 </div>
               </div>
 
               {/* Social Media */}
               <div className="mt-12">
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Follow Our Adventures</h3>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6" data-editable data-editable-id="contact-social-title">Follow Our Adventures</h3>
                 <div className="flex space-x-4">
                   <Button variant="outline" size="lg" data-testid="button-facebook">
                     <Facebook className="h-5 w-5 mr-2" />
-                    Facebook
+                    <span data-editable data-editable-id="contact-facebook-button">Facebook</span>
                   </Button>
                   <Button variant="outline" size="lg" data-testid="button-instagram">
                     <Instagram className="h-5 w-5 mr-2" />
-                    Instagram
+                    <span data-editable data-editable-id="contact-instagram-button">Instagram</span>
                   </Button>
                 </div>
               </div>
@@ -160,7 +160,7 @@ export default function Contact() {
             <div>
               <Card className="p-8">
                 <CardHeader className="px-0 pt-0">
-                  <CardTitle className="text-3xl font-heading font-bold text-gray-900 dark:text-white">
+                  <CardTitle className="text-3xl font-heading font-bold text-gray-900 dark:text-white" data-editable data-editable-id="contact-form-title">
                     Send Us a Message
                   </CardTitle>
                 </CardHeader>
@@ -168,7 +168,7 @@ export default function Contact() {
                   <form onSubmit={handleSubmit} className="space-y-6">
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <Label htmlFor="name" className="text-base font-semibold">Name *</Label>
+                        <Label htmlFor="name" className="text-base font-semibold" data-editable data-editable-id="form-label-name">Name *</Label>
                         <Input
                           id="name"
                           value={contactForm.name}
@@ -178,7 +178,7 @@ export default function Contact() {
                         />
                       </div>
                       <div>
-                        <Label htmlFor="email" className="text-base font-semibold">Email *</Label>
+                        <Label htmlFor="email" className="text-base font-semibold" data-editable data-editable-id="form-label-email">Email *</Label>
                         <Input
                           id="email"
                           type="email"
@@ -192,7 +192,7 @@ export default function Contact() {
 
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <Label htmlFor="phone" className="text-base font-semibold">Phone *</Label>
+                        <Label htmlFor="phone" className="text-base font-semibold" data-editable data-editable-id="form-label-phone">Phone *</Label>
                         <Input
                           id="phone"
                           value={contactForm.phone}
@@ -202,7 +202,7 @@ export default function Contact() {
                         />
                       </div>
                       <div>
-                        <Label htmlFor="eventType" className="text-base font-semibold">Event Type</Label>
+                        <Label htmlFor="eventType" className="text-base font-semibold" data-editable data-editable-id="form-label-event-type">Event Type</Label>
                         <Input
                           id="eventType"
                           value={contactForm.eventType}
@@ -216,7 +216,7 @@ export default function Contact() {
 
                     <div className="grid md:grid-cols-2 gap-6">
                       <div>
-                        <Label htmlFor="groupSize" className="text-base font-semibold">Group Size</Label>
+                        <Label htmlFor="groupSize" className="text-base font-semibold" data-editable data-editable-id="form-label-group-size">Group Size</Label>
                         <Input
                           id="groupSize"
                           value={contactForm.groupSize}
@@ -227,7 +227,7 @@ export default function Contact() {
                         />
                       </div>
                       <div>
-                        <Label htmlFor="eventDate" className="text-base font-semibold">Preferred Date</Label>
+                        <Label htmlFor="eventDate" className="text-base font-semibold" data-editable data-editable-id="form-label-event-date">Preferred Date</Label>
                         <Input
                           id="eventDate"
                           type="date"
@@ -240,7 +240,7 @@ export default function Contact() {
                     </div>
 
                     <div>
-                      <Label htmlFor="message" className="text-base font-semibold">Message</Label>
+                      <Label htmlFor="message" className="text-base font-semibold" data-editable data-editable-id="form-label-message">Message</Label>
                       <Textarea
                         id="message"
                         value={contactForm.message}
@@ -259,7 +259,7 @@ export default function Contact() {
                       data-testid="button-send-message"
                     >
                       <Send className="mr-3 h-5 w-5" />
-                      SEND MESSAGE
+                      <span data-editable data-editable-id="form-send-button">SEND MESSAGE</span>
                     </Button>
                   </form>
                 </CardContent>
@@ -273,7 +273,7 @@ export default function Contact() {
       <section className="py-24 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white">
+            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="reviews-section-title">
               WHAT OUR CUSTOMERS SAY
             </h2>
             <div className="flex justify-center items-center space-x-2 mb-8">
@@ -282,8 +282,8 @@ export default function Contact() {
                   <Star key={star} className="h-6 w-6 fill-brand-yellow text-brand-yellow" />
                 ))}
               </div>
-              <span className="text-xl font-bold text-gray-900 dark:text-white">4.9/5</span>
-              <span className="text-gray-600 dark:text-gray-300">(125,000+ Reviews)</span>
+              <span className="text-xl font-bold text-gray-900 dark:text-white" data-editable data-editable-id="reviews-rating-score">4.9/5</span>
+              <span className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="reviews-rating-count">(125,000+ Reviews)</span>
             </div>
           </div>
 
@@ -312,10 +312,10 @@ export default function Contact() {
                       <Star key={star} className="h-4 w-4 fill-brand-yellow text-brand-yellow" />
                     ))}
                   </div>
-                  <p className="text-gray-600 dark:text-gray-300 mb-4 italic">"{review.text}"</p>
+                  <p className="text-gray-600 dark:text-gray-300 mb-4 italic" data-editable data-editable-id={`review-${index}-text`}>"{review.text}"</p>
                   <div>
-                    <p className="font-bold text-gray-900 dark:text-white">{review.name}</p>
-                    <p className="text-sm text-gray-500">{review.event}</p>
+                    <p className="font-bold text-gray-900 dark:text-white" data-editable data-editable-id={`review-${index}-name`}>{review.name}</p>
+                    <p className="text-sm text-gray-500" data-editable data-editable-id={`review-${index}-event`}>{review.event}</p>
                   </div>
                 </CardContent>
               </Card>

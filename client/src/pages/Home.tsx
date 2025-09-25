@@ -552,7 +552,7 @@ export default function Home() {
           transition={{ delay: 2, duration: 1 }}
         >
           <div className="flex flex-col items-center cursor-pointer" onClick={() => scrollToSection('services')}>
-            <span className="text-sm mb-3 font-medium tracking-wide">DISCOVER MORE</span>
+            <span className="text-sm mb-3 font-medium tracking-wide" data-editable data-editable-id="scroll-indicator-text">DISCOVER MORE</span>
             <motion.div 
               className="w-6 h-12 border-2 border-white rounded-full flex justify-center"
               animate={{ y: [0, 5, 0] }}
@@ -579,13 +579,13 @@ export default function Home() {
             className="text-center mb-20"
           >
             <motion.div variants={fadeInUp}>
-              <h2 className="text-5xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider">
+              <h2 className="text-5xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="services-main-title">
                 CHOOSE YOUR
               </h2>
-              <h3 className="text-4xl md:text-5xl font-heading font-bold mb-8 text-brand-blue tracking-wider">
+              <h3 className="text-4xl md:text-5xl font-heading font-bold mb-8 text-brand-blue tracking-wider" data-editable data-editable-id="services-subtitle">
                 PERFECT EXPERIENCE
               </h3>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="services-description">
                 From intimate celebrations to epic disco parties, we have the perfect cruise experience 
                 for every group size and occasion.
               </p>
@@ -638,19 +638,19 @@ export default function Home() {
                     {/* Gallery Indicator */}
                     <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <Image className="h-4 w-4 inline mr-1" />
-                      View Gallery
+                      <span data-editable data-editable-id="view-gallery-text">View Gallery</span>
                     </div>
                   </div>
                   
                   <CardHeader className="text-center pb-4">
-                    <CardTitle className="text-2xl font-bold mb-2 tracking-wide">{service.title}</CardTitle>
-                    <CardDescription className="text-lg font-semibold text-brand-blue">
+                    <CardTitle className="text-2xl font-bold mb-2 tracking-wide" data-editable data-editable-id={`service-${service.id}-title`}>{service.title}</CardTitle>
+                    <CardDescription className="text-lg font-semibold text-brand-blue" data-editable data-editable-id={`service-${service.id}-subtitle`}>
                       {service.subtitle}
                     </CardDescription>
                   </CardHeader>
                   
                   <CardContent className="space-y-6">
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed" data-editable data-editable-id={`service-${service.id}-description`}>
                       {service.description}
                     </p>
                     
@@ -658,13 +658,13 @@ export default function Home() {
                       {service.features.map((feature, featureIndex) => (
                         <div key={featureIndex} className="flex items-center text-sm">
                           <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
-                          <span className="text-gray-700 dark:text-gray-300">{feature}</span>
+                          <span className="text-gray-700 dark:text-gray-300" data-editable data-editable-id={`service-${service.id}-feature-${featureIndex}`}>{feature}</span>
                         </div>
                       ))}
                     </div>
 
                     <div className="text-center pt-4">
-                      <div className="text-sm text-gray-500 mb-2">Starting from</div>
+                      <div className="text-sm text-gray-500 mb-2" data-editable data-editable-id={`service-${service.id}-price-label`}>Starting from</div>
                       <div className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
                         {service.startingPrice}
                       </div>
@@ -713,14 +713,14 @@ export default function Home() {
               <DialogHeader>
                 <DialogTitle className="flex items-center gap-3 text-2xl">
                   <selectedService.icon className="w-8 h-8 text-brand-blue" />
-                  {selectedService.title}
+                  <span data-editable data-editable-id={`lightbox-${selectedService.id}-title`}>{selectedService.title}</span>
                   {selectedService.badge && (
                     <Badge className="bg-brand-blue text-white px-3 py-1">
                       {selectedService.badge}
                     </Badge>
                   )}
                 </DialogTitle>
-                <DialogDescription className="text-lg text-gray-600 dark:text-gray-300">
+                <DialogDescription className="text-lg text-gray-600 dark:text-gray-300" data-editable data-editable-id={`lightbox-${selectedService.id}-subtitle`}>
                   {selectedService.subtitle}
                 </DialogDescription>
               </DialogHeader>
@@ -748,7 +748,7 @@ export default function Home() {
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
                       <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        View Full
+                        <span data-editable data-editable-id="gallery-view-full-text">View Full</span>
                       </div>
                     </motion.div>
                   ))}
@@ -756,17 +756,17 @@ export default function Home() {
 
                 {/* Detailed Description */}
                 <div className="bg-gray-50 dark:bg-gray-800 rounded-lg p-6">
-                  <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
+                  <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white" data-editable data-editable-id={`lightbox-${selectedService.id}-details-title`}>
                     Experience Details
                   </h3>
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg" data-editable data-editable-id={`lightbox-${selectedService.id}-detailed-description`}>
                     {selectedService.detailedDescription}
                   </p>
                 </div>
 
                 {/* Highlights Grid */}
                 <div>
-                  <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">
+                  <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white" data-editable data-editable-id={`lightbox-${selectedService.id}-included-title`}>
                     What's Included
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -779,7 +779,7 @@ export default function Home() {
                         className="flex items-center gap-3 bg-white dark:bg-gray-800 rounded-lg p-4 border border-gray-200 dark:border-gray-700"
                       >
                         <CheckCircle className="w-5 h-5 text-green-500 flex-shrink-0" />
-                        <span className="text-gray-700 dark:text-gray-300 font-medium">
+                        <span className="text-gray-700 dark:text-gray-300 font-medium" data-editable data-editable-id={`lightbox-${selectedService.id}-highlight-${index}`}>
                           {highlight}
                         </span>
                       </motion.div>
@@ -791,11 +791,11 @@ export default function Home() {
                 <div className="border-t pt-6">
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div>
-                      <div className="text-sm text-gray-500 mb-1">Starting from</div>
+                      <div className="text-sm text-gray-500 mb-1" data-editable data-editable-id={`lightbox-${selectedService.id}-pricing-label`}>Starting from</div>
                       <div className="text-4xl font-bold text-gray-900 dark:text-white">
                         {selectedService.startingPrice}
                       </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                      <div className="text-sm text-gray-600 dark:text-gray-400 mt-1" data-editable data-editable-id={`lightbox-${selectedService.id}-pricing-details`}>
                         {selectedService.id === 'disco' ? 'per person' : 'per charter'}
                       </div>
                     </div>
@@ -807,7 +807,7 @@ export default function Home() {
                         className="px-6 py-3"
                         data-testid={`button-lightbox-close-${selectedService.id}`}
                       >
-                        Continue Browsing
+                        <span data-editable data-editable-id={`lightbox-${selectedService.id}-continue-button`}>Continue Browsing</span>
                       </Button>
                       
                       <Button 
@@ -816,14 +816,14 @@ export default function Home() {
                         data-testid={`button-lightbox-book-${selectedService.id}`}
                       >
                         <Calendar className="mr-2 h-5 w-5" />
-                        {selectedService.specialPage ? 'Learn More' : 'Book Now'}
+                        <span data-editable data-editable-id={`lightbox-${selectedService.id}-book-button`}>{selectedService.specialPage ? 'Learn More' : 'Book Now'}</span>
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                     </div>
                   </div>
                 </div>
 
-                <p className="text-center text-sm text-gray-500 dark:text-gray-400">
+                <p className="text-center text-sm text-gray-500 dark:text-gray-400" data-editable data-editable-id="lightbox-security-features">
                   🔒 Secure booking • Instant confirmation • Full refund protection
                 </p>
               </div>
@@ -843,13 +843,13 @@ export default function Home() {
             className="text-center mb-20"
           >
             <motion.div variants={fadeInUp}>
-              <h2 className="text-5xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider">
+              <h2 className="text-5xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="why-choose-main-title">
                 WHY CHOOSE
               </h2>
-              <h3 className="text-4xl md:text-5xl font-heading font-bold mb-8 text-brand-yellow tracking-wider">
+              <h3 className="text-4xl md:text-5xl font-heading font-bold mb-8 text-brand-yellow tracking-wider" data-editable data-editable-id="why-choose-subtitle">
                 PREMIER PARTY CRUISES
               </h3>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="why-choose-description">
                 Austin's most trusted party cruise company with unmatched experience, safety, and service.
               </p>
             </motion.div>
@@ -869,10 +869,10 @@ export default function Home() {
                 <div className="bg-gradient-to-br from-brand-blue to-brand-blue/80 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
                   <item.icon className="h-8 w-8 text-white" />
                 </div>
-                <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white tracking-wide">
+                <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white tracking-wide" data-editable data-editable-id={`why-choose-item-${index}-title`}>
                   {item.title}
                 </h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                <p className="text-gray-600 dark:text-gray-300 leading-relaxed" data-editable data-editable-id={`why-choose-item-${index}-description`}>
                   {item.description}
                 </p>
               </motion.div>
@@ -898,10 +898,10 @@ export default function Home() {
                   <div className="bg-brand-yellow/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-yellow/20 transition-colors duration-300">
                     <stat.icon className="h-8 w-8 text-brand-blue" />
                   </div>
-                  <div className="text-3xl md:text-4xl font-bold mb-2 text-gray-900 dark:text-white">
+                  <div className="text-3xl md:text-4xl font-bold mb-2 text-gray-900 dark:text-white" data-editable data-editable-id={`stat-${index}-value`}>
                     {stat.value}
                   </div>
-                  <div className="text-gray-600 dark:text-gray-300 font-medium tracking-wide">
+                  <div className="text-gray-600 dark:text-gray-300 font-medium tracking-wide" data-editable data-editable-id={`stat-${index}-label`}>
                     {stat.label}
                   </div>
                 </motion.div>
@@ -922,13 +922,13 @@ export default function Home() {
             className="text-center mb-16"
           >
             <motion.div variants={fadeInUp}>
-              <h2 className="text-5xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider">
+              <h2 className="text-5xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="gallery-main-title">
                 EXPERIENCE THE
               </h2>
-              <h3 className="text-4xl md:text-5xl font-heading font-bold mb-8 text-brand-blue tracking-wider">
+              <h3 className="text-4xl md:text-5xl font-heading font-bold mb-8 text-brand-blue tracking-wider" data-editable data-editable-id="gallery-subtitle">
                 PREMIER DIFFERENCE
               </h3>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="gallery-description">
                 See why 125,000+ customers choose Premier Party Cruises for their unforgettable Lake Travis experience.
               </p>
             </motion.div>

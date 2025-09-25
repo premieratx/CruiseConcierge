@@ -370,10 +370,18 @@ export const useInlineEdit = () => {
     loadSavedContent();
   }, [loadSavedContent]);
 
-  // Create and update badge
+  // Create and update badge - only show when edit mode is active
   useEffect(() => {
-    createBadge();
-    updateBadge();
+    if (isEditMode && canEdit) {
+      createBadge();
+      updateBadge();
+    } else {
+      // Remove badge when edit mode is off
+      if (badgeRef.current) {
+        badgeRef.current.remove();
+        badgeRef.current = null;
+      }
+    }
     
     return () => {
       // Remove badge on unmount
@@ -382,7 +390,7 @@ export const useInlineEdit = () => {
         badgeRef.current = null;
       }
     };
-  }, [createBadge, updateBadge]);
+  }, [isEditMode, canEdit, createBadge, updateBadge]);
 
   // Watch for DOM changes to handle dynamically added elements
   useEffect(() => {

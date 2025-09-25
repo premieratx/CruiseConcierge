@@ -241,10 +241,10 @@ export default function PublicNavigation() {
                 />
               </div>
               <div className="hidden sm:block">
-                <div className="text-xl font-heading font-bold text-gray-900 dark:text-white tracking-wider">
+                <div className="text-xl font-heading font-bold text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="header-logo-title">
                   PREMIER PARTY CRUISES
                 </div>
-                <div className="text-xs text-brand-blue font-semibold tracking-widest">
+                <div className="text-xs text-brand-blue font-semibold tracking-widest" data-editable data-editable-id="header-logo-tagline">
                   AUSTIN'S ORIGINAL LAKE PARTY
                 </div>
               </div>
@@ -266,7 +266,7 @@ export default function PublicNavigation() {
                           : "text-gray-700 dark:text-gray-300"
                       )}>
                         <item.icon className="h-4 w-4" />
-                        <span>{item.title}</span>
+                        <span data-editable data-editable-id={`nav-dropdown-${safeSlug(item.title)}`}>{item.title}</span>
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
                         <ul className="grid w-[600px] gap-2 p-4 md:w-[700px] md:grid-cols-2">
@@ -274,7 +274,7 @@ export default function PublicNavigation() {
                             if (isSection(dropdownItem)) {
                               return (
                                 <li key={`section-${index}`} className="col-span-2 mt-2 first:mt-0">
-                                  <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3 pb-1">
+                                  <div className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3 pb-1" data-editable data-editable-id={`nav-section-${safeSlug(dropdownItem.section)}`}>
                                     {dropdownItem.section}
                                   </div>
                                 </li>
@@ -291,9 +291,9 @@ export default function PublicNavigation() {
                                     >
                                       <div className="flex items-center space-x-2">
                                         <Icon className="h-4 w-4 text-brand-blue" />
-                                        <div className="text-sm font-medium leading-none">{dropdownItem.title}</div>
+                                        <div className="text-sm font-medium leading-none" data-editable data-editable-id={`nav-dropdown-${safeSlug(dropdownItem.title)}-title`}>{dropdownItem.title}</div>
                                       </div>
-                                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+                                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground" data-editable data-editable-id={`nav-dropdown-${safeSlug(dropdownItem.title)}-description`}>
                                         {dropdownItem.description}
                                       </p>
                                     </Link>
@@ -320,9 +320,9 @@ export default function PublicNavigation() {
                         data-testid={`link-nav-${safeSlug(item.title)}`}
                       >
                         <item.icon className="h-4 w-4" />
-                        <span>{item.title}</span>
+                        <span data-editable data-editable-id={`nav-simple-${safeSlug(item.title)}`}>{item.title}</span>
                         {item.badge && (
-                          <span className="ml-2 px-2 py-1 text-xs font-bold bg-brand-yellow text-black rounded-full">
+                          <span className="ml-2 px-2 py-1 text-xs font-bold bg-brand-yellow text-black rounded-full" data-editable data-editable-id={`nav-badge-${safeSlug(item.title)}`}>
                             {item.badge}
                           </span>
                         )}
@@ -342,7 +342,7 @@ export default function PublicNavigation() {
                 data-testid="button-header-get-quote"
               >
                 <MessageSquare className="mr-2 h-4 w-4" />
-                GET QUOTE
+                <span data-editable data-editable-id="header-get-quote-button">GET QUOTE</span>
               </Button>
               
               <Button
@@ -351,7 +351,7 @@ export default function PublicNavigation() {
                 data-testid="button-header-book-now"
               >
                 <Calendar className="mr-2 h-4 w-4" />
-                BOOK NOW
+                <span data-editable data-editable-id="header-book-now-button">BOOK NOW</span>
                 <ArrowRight className="ml-2 h-4 w-4" />
               </Button>
             </div>
@@ -380,10 +380,10 @@ export default function PublicNavigation() {
                         className="h-10 w-auto"
                       />
                       <div>
-                        <div className="text-lg font-heading font-bold text-gray-900 dark:text-white tracking-wider">
+                        <div className="text-lg font-heading font-bold text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="mobile-header-title">
                           PREMIER PARTY
-                        </div>
-                        <div className="text-xs text-brand-blue font-semibold tracking-widest">
+                </div>
+                        <div className="text-xs text-brand-blue font-semibold tracking-widest" data-editable data-editable-id="mobile-header-subtitle">
                           CRUISES
                         </div>
                       </div>
@@ -406,13 +406,13 @@ export default function PublicNavigation() {
                         <div key={item.href}>
                           {item.hasDropdown ? (
                             <>
-                              <div className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-4">
+                              <div className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2 px-4" data-editable data-editable-id={`mobile-dropdown-${safeSlug(item.title)}-header`}>
                                 {item.title}
                               </div>
                               {item.dropdownItems?.map((dropdownItem, index) => {
                                 if (isSection(dropdownItem)) {
                                   return (
-                                    <div key={`section-mobile-${index}`} className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4 mb-2 px-4">
+                                    <div key={`section-mobile-${index}`} className="text-xs font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mt-4 mb-2 px-4" data-editable data-editable-id={`mobile-section-${safeSlug(dropdownItem.section)}`}>
                                       {dropdownItem.section}
                                     </div>
                                   );
@@ -432,7 +432,7 @@ export default function PublicNavigation() {
                                       data-testid={`link-mobile-${safeSlug(dropdownItem.title)}`}
                                     >
                                       <Icon className="h-5 w-5" />
-                                      <span className="flex-1">{dropdownItem.title}</span>
+                                      <span className="flex-1" data-editable data-editable-id={`mobile-dropdown-${safeSlug(dropdownItem.title)}`}>{dropdownItem.title}</span>
                                       <ArrowRight className="h-4 w-4 opacity-50" />
                                     </Link>
                                   );
@@ -453,9 +453,9 @@ export default function PublicNavigation() {
                               data-testid={`link-mobile-${safeSlug(item.title)}`}
                             >
                               <item.icon className="h-5 w-5" />
-                              <span className="flex-1 tracking-wide">{item.title}</span>
+                              <span className="flex-1 tracking-wide" data-editable data-editable-id={`mobile-nav-${safeSlug(item.title)}`}>{item.title}</span>
                               {item.badge && (
-                                <span className="px-2 py-1 text-xs font-bold bg-brand-yellow text-black rounded-full">
+                                <span className="px-2 py-1 text-xs font-bold bg-brand-yellow text-black rounded-full" data-editable data-editable-id={`mobile-badge-${safeSlug(item.title)}`}>
                                   {item.badge}
                                 </span>
                               )}
@@ -479,7 +479,7 @@ export default function PublicNavigation() {
                       data-testid="button-mobile-get-quote"
                     >
                       <MessageSquare className="mr-2 h-5 w-5" />
-                      GET QUOTE
+                      <span data-editable data-editable-id="mobile-get-quote-button">GET QUOTE</span>
                     </Button>
                     
                     <Button
@@ -491,7 +491,7 @@ export default function PublicNavigation() {
                       data-testid="button-mobile-book-now"
                     >
                       <Calendar className="mr-2 h-5 w-5" />
-                      BOOK NOW
+                      <span data-editable data-editable-id="mobile-book-now-button">BOOK NOW</span>
                       <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
                   </div>
