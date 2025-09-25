@@ -6943,7 +6943,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Stripe payment endpoints - SECURE VERSION: Server-side amount calculation
   app.post("/api/create-payment-intent", async (req, res) => {
     try {
-      if (!stripe) {
+      // Initialize Stripe if not already initialized
+      const stripeInstance = getStripe();
+      if (!stripeInstance) {
         return res.status(500).json({ error: "Stripe not configured" });
       }
 
@@ -7057,7 +7059,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       });
 
       // Create payment intent with server-validated amount
-      const paymentIntent = await stripe.paymentIntents.create({
+      const paymentIntent = await stripeInstance.paymentIntents.create({
         amount: serverCalculatedAmount, // SECURITY: Server-calculated amount only
         currency: "usd",
         metadata: {
@@ -10477,7 +10479,9 @@ Phone: ${contact.phone || 'N/A'}`;
   // Create payment intent for universal checkout
   app.post("/api/checkout/create-payment-intent", async (req, res) => {
     try {
-      if (!stripe) {
+      // Initialize Stripe if not already initialized
+      const stripeInstance = getStripe();
+      if (!stripeInstance) {
         return res.status(500).json({ error: "Stripe not configured" });
       }
 
@@ -10635,7 +10639,7 @@ Phone: ${contact.phone || 'N/A'}`;
         paymentIntentData.receipt_email = email;
       }
       
-      const paymentIntent = await stripe.paymentIntents.create(paymentIntentData);
+      const paymentIntent = await stripeInstance.paymentIntents.create(paymentIntentData);
 
       console.log('✅ Payment intent created:', {
         id: paymentIntent.id,
