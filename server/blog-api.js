@@ -75,51 +75,42 @@ async function loadPostsBySlugs(slugs, { offset=0, limit=10 }) {
   return posts.filter(p => p && p.status === "published");
 }
 
-// GET /api/blog/public/posts
+// GET /api/blog/public/posts - Fixed to use PostgreSQL instead of Replit DB
 blogRouter.get("/public/posts", async (req, res) => {
   try {
     const {
-      limit = "10",
-      offset = "0",
-      search = "",
-      categorySlug = "",
-      tagSlug = ""
+      categorySlug = undefined,
+      tagSlug = undefined,
+      limit = '20',
+      offset = '0',
+      featured = undefined
     } = req.query;
 
-    const postsIndexRaw = await db.get("index:posts");
-    let slugs = Array.isArray(postsIndexRaw) ? postsIndexRaw : (postsIndexRaw?.value || []);
-
-    // category filter
+    const storage = await getStorage();
+    let result;
+    
     if (categorySlug) {
-      const key = `index:category:${categorySlug}:posts`;
-      const arrRaw = await db.get(key);
-      const arr = Array.isArray(arrRaw) ? arrRaw : (arrRaw?.value || []);
-      slugs = slugs.filter(s => arr.includes(s));
-    }
-
-    // tag filter
-    if (tagSlug) {
-      const key = `index:tag:${tagSlug}:posts`;
-      const arrRaw = await db.get(key);
-      const arr = Array.isArray(arrRaw) ? arrRaw : (arrRaw?.value || []);
-      slugs = slugs.filter(s => arr.includes(s));
-    }
-
-    // search (naive)
-    if (search) {
-      const q = String(search).toLowerCase().trim();
-      const matches = [];
-      for (const s of slugs) {
-        const doc = await db.get(`search:${s}`);
-        if (doc && doc.includes(q)) matches.push(s);
+      const category = await storage.getBlogCategoryBySlug(categorySlug);
+      if (!category) {
+        result = { posts: [], total: 0 };
+      } else {
+        result = await storage.getBlogPostsByCategory(category.id, parseInt(limit), parseInt(offset));
       }
-      slugs = matches;
+    } else if (tagSlug) {
+      const tag = await storage.getBlogTagBySlug(tagSlug);
+      if (!tag) {
+        result = { posts: [], total: 0 };
+      } else {
+        result = await storage.getBlogPostsByTag(tag.id, parseInt(limit), parseInt(offset));
+      }
+    } else if (featured === 'true') {
+      const posts = await storage.getFeaturedBlogPosts(parseInt(limit));
+      result = { posts, total: posts.length };
+    } else {
+      result = await storage.getPublishedBlogPosts(parseInt(limit), parseInt(offset));
     }
 
-    const total = slugs.length;
-    const posts = await loadPostsBySlugs(slugs, { offset: Number(offset), limit: Number(limit) });
-
-    return res.json({ posts, total });
+    return res.json(result);
   } catch (e) {
     console.error("Blog posts fetch error:", e);
     res.status(500).json({ error: "Failed to fetch posts" });

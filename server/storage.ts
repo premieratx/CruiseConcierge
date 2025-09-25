@@ -4333,27 +4333,21 @@ export class DatabaseStorage implements IStorage {
       author: blogAuthors
     })
     .from(blogPosts)
-    .innerJoin(blogAuthors, eq(blogPosts.authorId, blogAuthors.id))
+    .leftJoin(blogAuthors, eq(blogPosts.authorId, blogAuthors.id))
     .where(eq(blogPosts.status, 'published'))
-    .orderBy(desc(blogPosts.publishedAt))
+    .orderBy(desc(blogPosts.createdAt))
     .limit(limit || 20)
     .offset(offset || 0);
 
-    // Get categories and tags for each post
-    const enrichedPosts = await Promise.all(
-      results.map(async (result) => {
-        const [categories, tags] = await Promise.all([
-          this.getBlogPostCategories(result.post.id),
-          this.getBlogPostTags(result.post.id)
-        ]);
-        return {
-          ...result.post,
-          author: result.author,
-          categories,
-          tags
-        };
-      })
-    );
+    // Temporarily simplified: no enrichment to debug the core issue
+    console.log(`🐛 DEBUG: Found ${results.length} published posts from database query`);
+    
+    const enrichedPosts = results.map((result) => ({
+      ...result.post,
+      author: result.author || {} as BlogAuthor,
+      categories: [] as BlogCategory[],
+      tags: [] as BlogTag[]
+    }));
 
     // Get total count
     const [{ count }] = await db.select({ count: sql`count(*)`.mapWith(Number) })
