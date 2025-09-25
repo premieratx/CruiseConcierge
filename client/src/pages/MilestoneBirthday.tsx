@@ -11,6 +11,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { formatCurrency } from '@shared/formatters';
+import { HOURLY_RATES, PRICING_DEFAULTS } from '@shared/constants';
 import SEOHead from '@/components/SEOHead';
 import { 
   Cake, Users, Calendar, MapPin, Clock, Phone,
@@ -63,7 +64,7 @@ const birthdayPackages = [
   {
     id: 'essential',
     name: 'Essential Celebration',
-    basePrice: 425,
+    basePrice: HOURLY_RATES.MON_THU[25] / 100, // Uses centralized pricing from shared/constants.ts
     description: 'Perfect for intimate milestone celebrations',
     features: [
       'Premium pontoon boat (25-30 guests)',
@@ -82,7 +83,7 @@ const birthdayPackages = [
   {
     id: 'premium',
     name: 'Premium Party',
-    basePrice: 525,
+    basePrice: HOURLY_RATES.MON_THU[50] / 100, // Uses centralized pricing from shared/constants.ts
     addOnPrice: 75,
     description: 'Enhanced milestone celebration with extras',
     features: [
@@ -102,7 +103,7 @@ const birthdayPackages = [
   {
     id: 'ultimate',
     name: 'Ultimate Bash',
-    basePrice: 675,
+    basePrice: HOURLY_RATES.FRIDAY[50] / 100, // Uses centralized pricing from shared/constants.ts
     addOnPrice: 125,
     description: 'Unforgettable luxury milestone experience',
     features: [

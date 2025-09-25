@@ -22,7 +22,16 @@ import {
 import SEOHead from '@/components/SEOHead';
 import { formatCurrency } from '@shared/formatters';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
-import { PRIVATE_CRUISE_PACKAGES, PRIVATE_CAPACITY_TIERS, PACKAGE_COMPARISON_FEATURES } from '@shared/constants';
+import { 
+  PRIVATE_CRUISE_PACKAGES, 
+  PRIVATE_CAPACITY_TIERS, 
+  PACKAGE_COMPARISON_FEATURES,
+  BOATS,
+  CREW_FEES,
+  DISCO_PRICING,
+  ADDON_FEES,
+  HOURLY_RATES
+} from '@shared/constants';
 
 // Hero and gallery images 
 import heroImage1 from '@assets/image_1757844813165.png';
@@ -52,10 +61,24 @@ const staggerChildren = {
 
 // Fleet capacity options for display
 const fleetCapacities = [
-  { capacity: '14-person', name: 'Pontoon', subtitle: 'Perfect for intimate groups' },
-  { capacity: '25-30 person', name: 'Pontoon', subtitle: 'Most popular choice' },
-  { capacity: '50-person', name: 'Yacht', subtitle: 'Premium luxury experience' },
-  { capacity: '75-person', name: 'Mega Yacht', subtitle: 'Ultimate luxury charter' }
+  { 
+    capacity: `${BOATS.DAY_TRIPPER.capacity}-person`, 
+    name: BOATS.DAY_TRIPPER.displayName, 
+    subtitle: BOATS.DAY_TRIPPER.description,
+    maxCapacity: BOATS.DAY_TRIPPER.capacity
+  },
+  { 
+    capacity: `${BOATS.ME_SEEKS_THE_IRONY.seatingCapacity}-${BOATS.ME_SEEKS_THE_IRONY.capacity} person`, 
+    name: BOATS.ME_SEEKS_THE_IRONY.displayName, 
+    subtitle: BOATS.ME_SEEKS_THE_IRONY.description,
+    maxCapacity: BOATS.ME_SEEKS_THE_IRONY.capacity
+  },
+  { 
+    capacity: `${BOATS.CLEVER_GIRL.seatingCapacity}-${BOATS.CLEVER_GIRL.capacity} person`, 
+    name: BOATS.CLEVER_GIRL.displayName, 
+    subtitle: BOATS.CLEVER_GIRL.description,
+    maxCapacity: BOATS.CLEVER_GIRL.capacity
+  }
 ];
 
 // Pricing breakdown components
@@ -68,7 +91,7 @@ const pricingFeatures = [
   {
     icon: PersonStanding,
     title: 'Extra Crew Fee',
-    description: 'Groups over 20 people: $200 extra crew fee for enhanced service & safety.'
+    description: `26-30 people: +$${CREW_FEES.HOURLY_RATES.SMALL_BOAT_EXTRA / 100}/hour. 51-75 people: +$${CREW_FEES.HOURLY_RATES.LARGE_BOAT_EXTRA / 100}/hour for enhanced service & safety.`
   },
   {
     icon: FileCheck,
@@ -669,7 +692,7 @@ export default function PrivateCruises() {
                               Join other bachelor/bachelorette parties on Austin's most epic floating dance party
                             </p>
                             <div className="text-brand-yellow font-bold text-lg">
-                              $85-$105 per person
+                              $${DISCO_PRICING.basic / 100}-$${DISCO_PRICING.platinum / 100} per person
                             </div>
                           </div>
                           
@@ -680,7 +703,7 @@ export default function PrivateCruises() {
                               Have the entire boat to yourselves with customized experience
                             </p>
                             <div className="text-brand-blue font-bold text-lg">
-                              From $75 per person
+                              From $${Math.floor(HOURLY_RATES.MON_THU[14] / 100 / 4)} per person
                             </div>
                           </div>
                         </div>

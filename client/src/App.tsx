@@ -24,7 +24,8 @@ import Discounts from "./pages/Discounts";
 import Affiliates from "./pages/Affiliates";
 import Documentation from "./pages/Documentation";
 import InvoiceViewer from "./pages/InvoiceViewer";
-import QuoteViewer from "./pages/QuoteViewer";
+// ARCHIVED: QuoteViewer completely disabled - Quote Builder is single source of truth
+// import QuoteViewer from "./pages/QuoteViewer";
 import CalendarView from "@/components/CalendarView";
 import Settings from "./pages/Settings";
 import PublicCalendar from "./pages/PublicCalendar";
@@ -48,6 +49,7 @@ import SEOManagement from "./pages/admin/SEOManagement";
 
 // Admin Pricing Pages
 import Pricing from "./pages/admin/Pricing";
+import PricingRules from "./pages/admin/PricingRules";
 
 // Admin AI Assistant
 import AIAssistant from "./pages/admin/AIAssistant";
@@ -164,7 +166,8 @@ function Router() {
       {/* <Route path="/quote" component={QuoteViewer} /> */}
       {/* <Route path="/quote/:quoteId" component={QuoteViewer} /> */}
       {/* <Route path="/quote-checkout" component={QuoteViewer} /> */}
-      <Route path="/checkout" component={QuoteViewer} />
+      {/* ARCHIVED: QuoteViewer checkout route disabled - Quote Builder is single source of truth */}
+      {/* <Route path="/checkout" component={QuoteViewer} /> */}
       <Route path="/invoice/:invoiceId" component={InvoiceViewer} />
       
       {/* Admin Blog Routes */}
@@ -178,6 +181,7 @@ function Router() {
       
       {/* Admin Pricing Routes */}
       <Route path="/admin/pricing" component={Pricing} />
+      <Route path="/admin/pricing-rules" component={PricingRules} />
       
       {/* Admin AI Assistant */}
       <Route path="/admin/ai-assistant" component={AIAssistant} />

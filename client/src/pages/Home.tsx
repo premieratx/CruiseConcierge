@@ -35,7 +35,12 @@ import {
   DISCO_PRICING, 
   compareDiscoVsPrivate, 
   getBestDealRecommendation,
-  getSavingsOpportunities 
+  getSavingsOpportunities,
+  BOATS,
+  PACKAGE_FLAT_FEES,
+  CREW_FEES,
+  ADDON_FEES,
+  HOURLY_RATES
 } from '@shared/constants';
 
 // Hero and gallery images - Real photos from live website
@@ -79,15 +84,16 @@ const services = [
     id: 'private',
     title: 'Private Charters',
     subtitle: 'Exclusive boat rental',
-    description: 'Choose from our fleet of premium party boats: "Day Tripper" (14 people), "The Irony" & "Meeseeks" (25 people), or flagship "Clever Girl" (50 people) with giant Texas flag and 14 disco balls.',
-    features: ['"Day Tripper", "The Irony", "Meeseeks", "Clever Girl" boats', 'Licensed captains & crew', 'Premium bluetooth sound systems', 'Large coolers with ice', 'Lily pads & floaties available'],
-    startingPrice: '$499',
+    description: `Choose from our fleet of premium party boats: "${BOATS.DAY_TRIPPER.displayName}" (${BOATS.DAY_TRIPPER.capacity} people), "${BOATS.ME_SEEKS_THE_IRONY.displayName}" (${BOATS.ME_SEEKS_THE_IRONY.seatingCapacity}-${BOATS.ME_SEEKS_THE_IRONY.capacity} people), or flagship "${BOATS.CLEVER_GIRL.displayName}" (${BOATS.CLEVER_GIRL.seatingCapacity}-${BOATS.CLEVER_GIRL.capacity} people) with giant Texas flag and 14 disco balls.`,
+    features: [`"${BOATS.DAY_TRIPPER.displayName}", "${BOATS.ME_SEEKS_THE_IRONY.displayName}", "${BOATS.CLEVER_GIRL.displayName}" boats`, 'Licensed captains & crew', 'Premium bluetooth sound systems', 'Large coolers with ice', `Lily pads & floaties available (+$${ADDON_FEES.LILY_PAD / 100})`],
+    startingPrice: `$${HOURLY_RATES.MON_THU[14] / 100}`,
+    hourlyNote: 'per hour (4-hour minimum)',
     icon: Ship,
     image: galleryImage1,
     popular: true,
     gallery: [galleryImage1, galleryImage2, galleryImage3, heroImage1],
-    detailedDescription: 'Experience the ultimate private charter on Lake Travis with our premium fleet of party boats. Whether you choose the intimate "Day Tripper" for 14 guests, the popular "The Irony" or "Meeseeks" for 25 people, or our flagship "Clever Girl" for up to 50 guests, every cruise includes professional captains, premium sound systems, and all the amenities for an unforgettable celebration.',
-    highlights: ['4 Premium Boats Available', '14-50 Person Capacity Options', 'Professional Licensed Captains', 'Premium Sound Systems', 'Coolers & Ice Included', 'Lily Pads & Floaties', '3-4 Hour Cruise Options']
+    detailedDescription: `Experience the ultimate private charter on Lake Travis with our premium fleet of party boats. Whether you choose the intimate "${BOATS.DAY_TRIPPER.displayName}" for ${BOATS.DAY_TRIPPER.capacity} guests, the popular "${BOATS.ME_SEEKS_THE_IRONY.displayName}" for ${BOATS.ME_SEEKS_THE_IRONY.seatingCapacity}-${BOATS.ME_SEEKS_THE_IRONY.capacity} people, or our flagship "${BOATS.CLEVER_GIRL.displayName}" for up to ${BOATS.CLEVER_GIRL.capacity} guests, every cruise includes professional captains, premium sound systems, and all the amenities for an unforgettable celebration.`,
+    highlights: ['3 Premium Boats Available', `${BOATS.DAY_TRIPPER.capacity}-${BOATS.CLEVER_GIRL.capacity} Person Capacity Options`, 'Professional Licensed Captains', 'Premium Sound Systems', 'Coolers & Ice Included', `Lily Pads & Floaties (+$${ADDON_FEES.LILY_PAD / 100})`, '3-4 Hour Cruise Options']
   },
   {
     id: 'bachelor',
@@ -95,7 +101,8 @@ const services = [
     subtitle: 'Our specialty since 2009',
     description: 'Austin\'s premier bachelorette party experience! Join the ATX Disco Cruise or book a private charter. Professional DJ, photographer, and everything needed for an unforgettable celebration.',
     features: ['Basic Bach, Disco Queen, or Platinum packages', 'Professional DJ & photographer', 'Party favors & decorations', 'Priority booking & VIP treatment'],
-    startingPrice: '$85',
+    startingPrice: `$${DISCO_PRICING.basic / 100}`,
+    priceNote: 'per person',
     icon: PartyPopper,
     image: galleryImage3,
     badge: 'Our Specialty',
@@ -110,7 +117,8 @@ const services = [
     subtitle: 'Team building on water',
     description: 'Premium corporate experiences on Lake Travis. Our largest boats perfect for team building, client entertainment, and company celebrations with professional service.',
     features: ['"Clever Girl" flagship boat available', 'Professional atmosphere & service', 'Customizable catering options', 'Team building activities', 'Transportation partnerships'],
-    startingPrice: '$549',
+    startingPrice: `$${HOURLY_RATES.MON_THU[50] / 100}`,
+    hourlyNote: 'per hour (4-hour minimum)',
     icon: Users,
     image: galleryImage1,
     gallery: [galleryImage1, galleryImage3, heroImage1, galleryImage2],
@@ -454,7 +462,7 @@ export default function Home() {
               data-editable data-editable-id="hero-description"
             >
               Experience Austin's ultimate Lake Travis adventure with the most trusted party cruise company since 2009. 
-              From intimate 14-person cruises on "Day Tripper" to epic 50-person parties on flagship "Clever Girl" - we create unforgettable memories.
+              From intimate 14-person cruises on "Day Tripper" to epic 75-person celebrations on flagship "Clever Girl" - we create unforgettable memories.
             </motion.p>
 
             {/* Pricing Value Proposition */}
@@ -466,7 +474,7 @@ export default function Home() {
                 <div>
                   <div className="text-brand-yellow text-sm font-bold mb-2">PRIVATE CRUISES FROM</div>
                   <div className="text-3xl font-bold text-white mb-1">
-                    $200 per hour
+                    $${HOURLY_RATES.MON_THU[14] / 100} per hour
                   </div>
                   <div className="text-sm text-gray-200">Weekdays • 14+ people</div>
                 </div>
@@ -498,7 +506,7 @@ export default function Home() {
               </div>
               <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
                 <DollarSign className="h-6 w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-lg">From $200 per hour</span>
+                <span className="font-semibold text-lg">From $${HOURLY_RATES.MON_THU[14] / 100} per hour</span>
               </div>
               <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
                 <Clock className="h-6 w-6 text-brand-yellow flex-shrink-0" />

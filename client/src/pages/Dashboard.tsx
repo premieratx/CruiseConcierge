@@ -1,6 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
 import { CRMPipeline } from "@/components/CRMPipeline";
 import { Analytics } from "@/components/Analytics";
@@ -14,14 +16,41 @@ import BookingsManagement from "@/pages/BookingsManagement";
 import { apiRequest } from "@/lib/queryClient";
 import { useLocation } from "wouter";
 import logoPath from "@assets/PPC Logo LARGE_1757881944449.png";
+import { useRealtimeBookings } from "@/hooks/useRealtimeBookings";
+import { format } from "date-fns";
 import { 
   TrendingUp, Calendar, LayoutDashboard, FileText, 
-  MessageCircle, Save, Ship, Users, BarChart3, Anchor
+  MessageCircle, Save, Ship, Users, BarChart3, Anchor,
+  Bell, BellOff, Wifi, WifiOff, Check, X, Quote,
+  DollarSign, UserPlus, Activity
 } from "lucide-react";
 
 export default function Dashboard() {
   const { toast } = useToast();
   const [, setLocation] = useLocation();
+  
+  // Real-time booking notifications
+  const { 
+    notifications, 
+    unreadCount, 
+    markAsRead, 
+    markAllAsRead, 
+    clearNotifications,
+    isConnected 
+  } = useRealtimeBookings({ 
+    showToasts: true,
+    maxNotifications: 100 
+  });
+
+  const getNotificationIcon = (type: string) => {
+    switch (type) {
+      case 'quote_created': return <Quote className="h-4 w-4 text-blue-600" />;
+      case 'booking_confirmed': return <DollarSign className="h-4 w-4 text-green-600" />;
+      case 'admin_booking_created': return <UserPlus className="h-4 w-4 text-purple-600" />;
+      case 'lead_updated': return <Activity className="h-4 w-4 text-orange-600" />;
+      default: return <Bell className="h-4 w-4 text-gray-600" />;
+    }
+  };
 
 
   return (
@@ -45,6 +74,39 @@ export default function Dashboard() {
             </div>
           </div>
           <div className="flex gap-2">
+            {/* Real-time Connection Status */}
+            <div className="flex items-center gap-2 px-3 py-2 rounded-lg border bg-background/50">
+              {isConnected ? (
+                <Wifi className="h-4 w-4 text-green-600" />
+              ) : (
+                <WifiOff className="h-4 w-4 text-red-600" />
+              )}
+              <span className={`text-xs ${isConnected ? 'text-green-600' : 'text-red-600'}`}>
+                {isConnected ? 'Live Updates' : 'Disconnected'}
+              </span>
+            </div>
+
+            {/* Real-time Notifications Badge */}
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => setLocation('/leads')}
+              className="relative"
+              data-testid="button-notifications"
+            >
+              <Bell className="h-4 w-4 mr-2" />
+              Notifications
+              {unreadCount > 0 && (
+                <Badge 
+                  variant="destructive" 
+                  className="absolute -top-2 -right-2 px-1 min-w-5 h-5 text-xs"
+                  data-testid="badge-notification-count"
+                >
+                  {unreadCount > 99 ? '99+' : unreadCount}
+                </Badge>
+              )}
+            </Button>
+
             <Button 
               onClick={async () => {
                 try {
@@ -123,6 +185,100 @@ export default function Dashboard() {
           </TabsList>
 
           <TabsContent value="overview" className="space-y-6">
+            {/* Real-time Notifications Panel */}
+            {notifications.length > 0 && (
+              <Card data-testid="card-realtime-notifications">
+                <CardHeader className="pb-3">
+                  <div className="flex items-center justify-between">
+                    <CardTitle className="flex items-center gap-2">
+                      <Activity className="h-5 w-5" />
+                      Real-time Updates
+                      {unreadCount > 0 && (
+                        <Badge variant="destructive" className="ml-2">
+                          {unreadCount} new
+                        </Badge>
+                      )}
+                    </CardTitle>
+                    <div className="flex gap-2">
+                      {unreadCount > 0 && (
+                        <Button 
+                          variant="ghost" 
+                          size="sm" 
+                          onClick={markAllAsRead}
+                          data-testid="button-mark-all-read"
+                        >
+                          <Check className="h-4 w-4 mr-1" />
+                          Mark All Read
+                        </Button>
+                      )}
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={clearNotifications}
+                        data-testid="button-clear-notifications"
+                      >
+                        <X className="h-4 w-4 mr-1" />
+                        Clear
+                      </Button>
+                    </div>
+                  </div>
+                </CardHeader>
+                <CardContent>
+                  <ScrollArea className="h-48">
+                    <div className="space-y-2">
+                      {notifications.slice(0, 10).map((notification) => (
+                        <div 
+                          key={notification.id}
+                          className={`flex items-start gap-3 p-3 rounded-lg border cursor-pointer transition-colors hover:bg-muted/50 ${
+                            !notification.read ? 'bg-blue-50 border-blue-200' : 'bg-background'
+                          }`}
+                          onClick={() => markAsRead(notification.id)}
+                          data-testid={`notification-${notification.id}`}
+                        >
+                          <div className="flex-shrink-0 mt-0.5">
+                            {getNotificationIcon(notification.type)}
+                          </div>
+                          <div className="flex-1 min-w-0">
+                            <div className="flex items-start justify-between">
+                              <p className={`text-sm font-medium truncate ${!notification.read ? 'text-blue-900' : 'text-foreground'}`}>
+                                {notification.title}
+                              </p>
+                              <span className="text-xs text-muted-foreground flex-shrink-0 ml-2">
+                                {format(notification.timestamp, 'HH:mm')}
+                              </span>
+                            </div>
+                            <p className={`text-xs mt-1 ${!notification.read ? 'text-blue-700' : 'text-muted-foreground'}`}>
+                              {notification.message}
+                            </p>
+                            {notification.data?.amount && (
+                              <Badge variant="outline" className="mt-1">
+                                {new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD' }).format(notification.data.amount / 100)}
+                              </Badge>
+                            )}
+                          </div>
+                          {!notification.read && (
+                            <div className="w-2 h-2 bg-blue-600 rounded-full flex-shrink-0 mt-2" />
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                  </ScrollArea>
+                  {notifications.length > 10 && (
+                    <div className="mt-3 pt-3 border-t text-center">
+                      <Button 
+                        variant="ghost" 
+                        size="sm" 
+                        onClick={() => setLocation('/leads')}
+                        data-testid="button-view-all-notifications"
+                      >
+                        View All {notifications.length} Notifications →
+                      </Button>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            )}
+
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Analytics & Pipeline */}
               <Analytics />

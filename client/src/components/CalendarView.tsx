@@ -6,16 +6,16 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
 import { useSSEAutoConnect } from "@/hooks/use-sse";
+import { useRealtimeAvailability } from "@/hooks/useRealtimeAvailability";
 import { apiRequest, queryClient } from "@/lib/queryClient";
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Ship, Anchor, Users, Plus, Minus, AlertCircle, Wifi, WifiOff } from "lucide-react";
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Ship, Anchor, Users, Plus, Minus, AlertCircle, Wifi, WifiOff, Activity, RefreshCw } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
-import type { Boat, Booking, DiscoSlot, Timeframe, Product } from "@shared/schema";
-import { getPrivateTimeSlotsForDate, timeSlotToCalendarFormat } from "@shared/timeSlots";
+import type { Boat, Booking, DiscoSlot, Timeframe, Product, NormalizedSlot } from "@shared/schema";
+import { useAvailabilityForDate, formatDateForAvailability } from "@/hooks/use-availability";
 import { format, startOfWeek, addWeeks, subWeeks, isToday } from "date-fns";
 import { cn } from "@/lib/utils";
 import { formatCurrency, formatDate, formatDateTime, formatTimeForDisplay, formatTimeRange, formatCustomerName, formatPhoneNumber } from '@shared/formatters';
-import { BOOKING_STATUSES, PAYMENT_STATUSES, STATUS_COLORS, PRIVATE_CRUISE_PACKAGES } from '@shared/constants';
-import { calculatePackagePricing, getCapacityTier, getDayType, getPricingDayType } from '@shared/pricing';
+import { BOOKING_STATUSES, PAYMENT_STATUSES, STATUS_COLORS, PRIVATE_CRUISE_PACKAGES, BOATS } from '@shared/constants';
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { Calendar } from "@/components/ui/calendar";
 import { Input } from "@/components/ui/input";
@@ -61,13 +61,13 @@ interface DiscoSlotCard {
 // Use shared formatTimeForDisplay from formatters
 const formatTime = formatTimeForDisplay;
 
-// Boat color mapping system
+// Boat color mapping system - EXACTLY matching Quote Builder
 const getBoatColor = (boatName: string): string => {
   const name = boatName.toLowerCase();
   if (name.includes('day tripper')) return 'purple';
-  if (name.includes('meeseeks') || name.includes('the irony')) return 'red';
+  if (name.includes('me seek') || name.includes('the irony') || name.includes('me seeks the irony')) return 'red';
   if (name.includes('clever girl')) return 'orange';
-  if (name.includes('big papa') || name.includes('large')) return 'blue';
+  if (name.includes('atx disco')) return 'yellow';
   return 'gray';
 };
 
@@ -127,151 +127,46 @@ const getBoatTextColor = (boatName: string): string => {
   }
 };
 
-// Helper function to check if two time intervals overlap
-// Intervals [a1, a2] and [b1, b2] overlap if a1 < b2 AND a2 > b1
-const intervalsOverlap = (a1: Date, a2: Date, b1: Date, b2: Date): boolean => {
-  return a1.getTime() < b2.getTime() && a2.getTime() > b1.getTime();
-};
+// REMOVED: All custom conflict detection and pricing logic
+// Now using centralized availability system from Quote Builder
+// which already includes booking conflicts, pricing, and availability status
 
-// Helper function to check if a booking conflicts with a time slot
-const hasBookingConflict = (bookings: Booking[], boatId: string, slotStart: Date, slotEnd: Date): Booking | undefined => {
-  return bookings.find(booking => {
-    if (booking.boatId !== boatId) return false;
-    
-    const bookingStart = new Date(booking.startTime);
-    const bookingEnd = new Date(booking.endTime);
-    
-    return intervalsOverlap(slotStart, slotEnd, bookingStart, bookingEnd);
-  });
-};
-
-// Helper function to check if a time slot is booked for 25-person boat availability
-const isTimeSlotBooked = (bookings: Booking[], boatId: string, date: Date, timeString: string): boolean => {
-  const [hour, minute] = timeString.split(':').map(Number);
-  const slotDateTime = new Date(date);
-  slotDateTime.setHours(hour, minute, 0, 0);
-  
-  return bookings.some(booking => {
-    if (booking.boatId !== boatId) return false;
-    
-    const bookingStart = new Date(booking.startTime);
-    const bookingEnd = new Date(booking.endTime);
-    
-    // Check if the time slot falls within the booking period
-    return slotDateTime.getTime() >= bookingStart.getTime() && 
-           slotDateTime.getTime() < bookingEnd.getTime();
-  });
-};
-
-// Helper function to calculate pricing for a boat/time slot
-const calculateTimeBlockPricing = (date: Date, capacity: number, groupSize: number = 20) => {
-  try {
-    const capacityTier = getCapacityTier(Math.max(groupSize, capacity * 0.7)); // Use 70% capacity as estimate
-    const dayType = getPricingDayType(date);
-    
-    // Get pricing for all three packages
-    const standardPricing = calculatePackagePricing(date, capacityTier, 'standard');
-    const essentialsPricing = calculatePackagePricing(date, capacityTier, 'essentials');
-    const ultimatePricing = calculatePackagePricing(date, capacityTier, 'ultimate');
-    
-    const dayNames = {
-      'MON_THU': 'Mon-Thu',
-      'FRIDAY': 'Friday',
-      'SATURDAY': 'Saturday', 
-      'SUNDAY': 'Sunday'
-    };
-    
-    return {
-      standardPrice: standardPricing.totalPrice,
-      essentialsPrice: essentialsPricing.totalPrice,
-      ultimatePrice: ultimatePricing.totalPrice,
-      perPersonEstimate: Math.floor(standardPricing.totalPrice / capacityTier),
-      dayType: dayNames[dayType] || dayType,
+// Convert NormalizedSlot to TimeBlock for backward compatibility with existing UI
+const normalizedSlotToTimeBlock = (slot: NormalizedSlot): TimeBlock => {
+  return {
+    id: slot.id,
+    date: new Date(slot.dateISO),
+    startTime: slot.startTime,
+    endTime: slot.endTime,
+    boatId: slot.boatId,
+    boatName: slot.boatDisplayName || slot.boatName,
+    status: slot.bookable && !slot.held ? 'available' : (slot.held ? 'blocked' : 'booked'),
+    capacity: slot.boatCapacity,
+    pricing: slot.pricing ? {
+      standardPrice: Math.round((slot.pricing.basePrice || 0) * 100), // Convert to cents
+      essentialsPrice: Math.round((slot.pricing.essentialsPrice || slot.pricing.basePrice || 0) * 100),
+      ultimatePrice: Math.round((slot.pricing.ultimatePrice || slot.pricing.basePrice || 0) * 100),
+      perPersonEstimate: Math.round((slot.pricing.perPersonEstimate || 0) * 100),
+      dayType: slot.pricing.dayType || 'Unknown',
       packagePreviews: [
         {
           name: 'Standard',
-          price: standardPricing.totalPrice,
+          price: Math.round((slot.pricing.basePrice || 0) * 100),
           popular: false
         },
         {
-          name: 'Essentials',
-          price: essentialsPricing.totalPrice,
+          name: 'Essentials', 
+          price: Math.round((slot.pricing.essentialsPrice || slot.pricing.basePrice || 0) * 100),
           popular: true
         },
         {
           name: 'Ultimate',
-          price: ultimatePricing.totalPrice,
+          price: Math.round((slot.pricing.ultimatePrice || slot.pricing.basePrice || 0) * 100), 
           popular: false
         }
       ]
-    };
-  } catch (error) {
-    console.warn('Error calculating pricing for time block:', error);
-    return {
-      standardPrice: 0,
-      essentialsPrice: 0,
-      ultimatePrice: 0,
-      perPersonEstimate: 0,
-      dayType: 'Unknown',
-      packagePreviews: []
-    };
-  }
-};
-
-// Helper function to generate time blocks based on day of week using shared configuration
-const generateTimeBlocks = (date: Date, boats: Boat[], bookings: Booking[], products: Product[]): TimeBlock[] => {
-  const blocks: TimeBlock[] = [];
-  
-  // Use centralized time slot configuration
-  const timeSlots = getPrivateTimeSlotsForDate(date);
-  const availableTimeSlots = timeSlots.map(timeSlotToCalendarFormat);
-  
-  // Generate blocks for each boat and time slot
-  boats.forEach(boat => {
-    availableTimeSlots.forEach(slot => {
-      const startDateTime = new Date(date);
-      const [startHour, startMin] = slot.startTime.split(':').map(Number);
-      
-      // Handle next day for night slots
-      if (slot.endTime === '01:00' && startHour === 22) {
-        startDateTime.setHours(startHour, startMin, 0, 0);
-      } else {
-        startDateTime.setHours(startHour, startMin, 0, 0);
-      }
-      
-      const endDateTime = new Date(date);
-      const [endHour, endMin] = slot.endTime.split(':').map(Number);
-      
-      // Handle next day for night slots (10PM-1AM)
-      if (slot.endTime === '01:00' && startHour === 22) {
-        endDateTime.setDate(endDateTime.getDate() + 1);
-        endDateTime.setHours(endHour, endMin, 0, 0);
-      } else {
-        endDateTime.setHours(endHour, endMin, 0, 0);
-      }
-      
-      // Check if there's a booking conflict for this time slot using interval overlap
-      const booking = hasBookingConflict(bookings, boat.id, startDateTime, endDateTime);
-      
-      // Calculate pricing for this time block
-      const pricing = calculateTimeBlockPricing(date, boat.capacity || 25);
-      
-      blocks.push({
-        id: `${boat.id}_${slot.startTime}_${slot.endTime}`,
-        date,
-        startTime: slot.startTime,
-        endTime: slot.endTime,
-        boatId: boat.id,
-        boatName: boat.name,
-        status: booking ? (booking.status === 'blocked' ? 'blocked' : 'booked') : 'available',
-        booking,
-        capacity: boat.capacity,
-        pricing
-      });
-    });
-  });
-  
-  return blocks;
+    } : undefined
+  };
 };
 
 function CalendarView() {
@@ -284,6 +179,18 @@ function CalendarView() {
   const [flashDayTripper, setFlashDayTripper] = useState(true);
   const { toast } = useToast();
   const { isConnected } = useSSEAutoConnect(); // ⚡ Real-time updates via SSE
+  
+  // Real-time availability updates
+  const { 
+    recentUpdates, 
+    isConnected: isAvailabilityConnected,
+    invalidateAvailability,
+    clearUpdates 
+  } = useRealtimeAvailability({ 
+    showToasts: false, // We'll show our own indicators
+    maxUpdates: 5,
+    targetDate: formatDateForAvailability(selectedDate)
+  });
 
   // Get the start of the week (Sunday)
   const weekStart = startOfWeek(selectedWeek, { weekStartsOn: 0 });
@@ -293,38 +200,53 @@ function CalendarView() {
     return date;
   });
 
-  // Fetch boats
-  const { data: boats = [] } = useQuery<Boat[]>({
-    queryKey: ["/api/boats"],
-  });
+  // Use centralized availability system - same as Quote Builder
+  const { data: availabilityData } = useAvailabilityForDate(
+    formatDateForAvailability(selectedDate),
+    'private', // Only show private cruises in admin calendar
+    selectedCapacity,
+    {
+      enabled: true,
+      staleTime: 1000 * 60 * 2, // 2 minutes - same as Quote Builder
+      refetchInterval: 1000 * 60 * 5, // 5 minutes - real-time updates
+    }
+  );
 
-  // Fetch products
-  const { data: products = [] } = useQuery<Product[]>({
-    queryKey: ["/api/products"],
-  });
+  const availableSlots = availabilityData?.slots || [];
 
-  // Fetch timeframes
-  const { data: timeframes = [] } = useQuery<Timeframe[]>({
-    queryKey: ["/api/timeframes"],
-  });
+  // Convert normalized slots to time blocks for backward compatibility
+  const timeBlocks = availableSlots.map(normalizedSlotToTimeBlock);
 
-  // Smart boat filtering based on group size
+  // Get unique boats from available slots - using same boat information as Quote Builder
+  const boatsFromSlots = availableSlots.reduce((boats, slot) => {
+    const existing = boats.find(b => b.id === slot.boatId);
+    if (!existing) {
+      boats.push({
+        id: slot.boatId,
+        name: slot.boatDisplayName || slot.boatName,
+        capacity: slot.boatCapacity,
+        active: true
+      });
+    }
+    return boats;
+  }, [] as Array<{id: string; name: string; capacity: number; active: boolean}>);
+
+  // Smart boat filtering based on group size - same logic as Quote Builder
   const getBoatsForGroupSize = (groupSize: number) => {
-    return boats.filter(boat => {
+    return boatsFromSlots.filter(boat => {
       // Show boats that can accommodate the group size
-      // Only show boats that can fit the group (not unnecessarily large unless group is big)
       return boat.capacity >= groupSize;
     });
   };
 
   const filteredBoats = getBoatsForGroupSize(selectedCapacity);
 
-  // Group filtered boats by capacity for tabs - only include boats that match group size
+  // Group filtered boats by capacity for tabs - using Quote Builder boat categories
   const boatGroups = {
     all: filteredBoats,
-    dayTripper: filteredBoats.filter(b => b.capacity <= 15),
-    medium: filteredBoats.filter(b => b.capacity > 15 && b.capacity <= 35),
-    large: filteredBoats.filter(b => b.capacity > 35)
+    dayTripper: filteredBoats.filter(b => b.capacity <= 14), // Day Tripper: 14 people
+    medium: filteredBoats.filter(b => b.capacity >= 25 && b.capacity <= 30), // Me Seek/The Irony: 25-30 people
+    large: filteredBoats.filter(b => b.capacity >= 50 && b.capacity <= 75) // Clever Girl: 50-75 people
   };
 
   // Flash Day Tripper tab on component mount
@@ -337,9 +259,9 @@ function CalendarView() {
 
   // Auto-select appropriate tab when slider changes
   useEffect(() => {
-    if (boatGroups.dayTripper.length > 0 && selectedCapacity <= 15) {
+    if (boatGroups.dayTripper.length > 0 && selectedCapacity <= 14) {
       setSelectedTab('dayTripper');
-    } else if (boatGroups.medium.length > 0 && selectedCapacity <= 35) {
+    } else if (boatGroups.medium.length > 0 && selectedCapacity <= 30) {
       setSelectedTab('medium');
     } else if (boatGroups.large.length > 0) {
       setSelectedTab('large');
@@ -347,7 +269,7 @@ function CalendarView() {
       // If no boats match, default to all
       setSelectedTab('all');
     }
-  }, [selectedCapacity, boats]);
+  }, [selectedCapacity, boatsFromSlots]);
 
   // When date picker selects a date, update the week view
   const handleDateSelect = (date: Date | undefined) => {
@@ -358,39 +280,7 @@ function CalendarView() {
     }
   };
 
-  // Fetch bookings for the week
-  const { data: bookings = [] } = useQuery<Booking[]>({
-    queryKey: ["/api/bookings", weekStart.toISOString()],
-    queryFn: async () => {
-      const endDate = new Date(weekStart);
-      endDate.setDate(endDate.getDate() + 7);
-      
-      const params = new URLSearchParams({
-        startDate: weekStart.toISOString(),
-        endDate: endDate.toISOString()
-      });
-      
-      const response = await fetch(`/api/bookings?${params}`);
-      if (!response.ok) throw new Error("Failed to fetch bookings");
-      return response.json();
-    },
-  });
-
-  // Fetch disco slots for the week
-  const { data: discoSlots = [] } = useQuery<DiscoSlot[]>({
-    queryKey: ["/api/disco/slots", weekStart.getFullYear(), weekStart.getMonth()],
-    queryFn: async () => {
-      const params = new URLSearchParams({
-        year: weekStart.getFullYear().toString(),
-        month: (weekStart.getMonth() + 1).toString()
-      });
-      const response = await fetch(`/api/disco/slots?${params}`);
-      if (!response.ok) throw new Error("Failed to fetch disco slots");
-      return response.json();
-    },
-  });
-
-  // Toggle availability mutation
+  // Toggle availability mutation - updated to invalidate centralized availability cache
   const toggleAvailabilityMutation = useMutation({
     mutationFn: async ({ date, startTime, endTime, boatId, status }: {
       date: string;
@@ -408,7 +298,8 @@ function CalendarView() {
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/bookings"] });
+      // Invalidate centralized availability cache - same as Quote Builder
+      queryClient.invalidateQueries({ queryKey: ["/api/availability/search"] });
       toast({
         title: "Availability Updated",
         description: "The time slot has been updated successfully.",
@@ -423,13 +314,14 @@ function CalendarView() {
     },
   });
 
-  // Update disco slot quantity mutation
+  // Update disco slot quantity mutation - updated to invalidate centralized cache
   const updateDiscoQuantityMutation = useMutation({
     mutationFn: async ({ slotId, adjustment }: { slotId: string; adjustment: number }) => {
       return apiRequest("POST", `/api/disco/slots/${slotId}/update-quantity`, { adjustment });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["/api/disco/slots"] });
+      // Invalidate centralized availability cache for disco cruises
+      queryClient.invalidateQueries({ queryKey: ["/api/availability/search"] });
       toast({
         title: "Tickets Updated",
         description: "Disco cruise tickets have been updated.",
@@ -450,21 +342,18 @@ function CalendarView() {
   };
 
 
-  // Count available boats for 25-person group using proper time overlap logic
-  const count25PersonBoats = (date: Date, time: string) => {
-    const mediumBoats = boatGroups.medium;
-    const dateBookings = bookings.filter(b => {
-      const bookingDate = new Date(b.startTime);
-      return bookingDate.toDateString() === date.toDateString();
-    });
+  // Get availability count for medium boats at a specific time using centralized data
+  const getMediumBoatAvailability = (date: Date, time: string) => {
+    const mediumBoatsAtTime = timeBlocks.filter(block => 
+      block.date.toDateString() === date.toDateString() &&
+      block.startTime === time &&
+      boatGroups.medium.some(boat => boat.id === block.boatId)
+    );
     
-    let available = 0;
-    mediumBoats.forEach(boat => {
-      const isBooked = isTimeSlotBooked(dateBookings, boat.id, date, time);
-      if (!isBooked) available++;
-    });
+    const available = mediumBoatsAtTime.filter(block => block.status === 'available').length;
+    const total = mediumBoatsAtTime.length;
     
-    return { available, total: mediumBoats.length };
+    return { available, total };
   };
 
   // Time block card component
@@ -562,14 +451,18 @@ function CalendarView() {
     );
   };
 
-  // 25-person boats grouped card
+  // Medium boats grouped card - using centralized availability data
   const GroupedTimeBlockCard = ({ date, startTime, endTime }: { date: Date; startTime: string; endTime: string }) => {
-    const { available, total } = count25PersonBoats(date, startTime);
+    const { available, total } = getMediumBoatAvailability(date, startTime);
     const mediumBoats = boatGroups.medium;
     
-    // Calculate pricing for 25-person boats
-    const avgCapacity = mediumBoats.reduce((sum, boat) => sum + (boat.capacity || 25), 0) / mediumBoats.length;
-    const groupPricing = calculateTimeBlockPricing(date, avgCapacity || 25);
+    // Get pricing from first available medium boat block at this time
+    const sampleBlock = timeBlocks.find(block => 
+      block.date.toDateString() === date.toDateString() &&
+      block.startTime === startTime &&
+      mediumBoats.some(boat => boat.id === block.boatId)
+    );
+    const groupPricing = sampleBlock?.pricing;
     
     return (
       <div className="space-y-2">
@@ -598,13 +491,13 @@ function CalendarView() {
                   </div>
                   <div className="text-right">
                     <div className="font-semibold text-sm text-green-700">
-                      {formatCurrency(groupPricing.standardPrice / 100)}
+                      {groupPricing ? formatCurrency(groupPricing.standardPrice / 100) : 'Pricing unavailable'}
                     </div>
                     <div className="text-xs text-muted-foreground">
-                      {groupPricing.dayType}
+                      {groupPricing ? groupPricing.dayType : 'N/A'}
                     </div>
                     <div className="text-xs text-muted-foreground">
-                      ~{formatCurrency(groupPricing.perPersonEstimate / 100)}/person
+                      {groupPricing ? `~${formatCurrency(groupPricing.perPersonEstimate / 100)}/person` : ''}
                     </div>
                   </div>
                 </div>
@@ -612,39 +505,44 @@ function CalendarView() {
             </TooltipTrigger>
             <TooltipContent side="right" className="z-50">
               <div className="space-y-2 max-w-xs">
-                <div className="font-semibold text-sm border-b pb-1">25-Person Boat Pricing</div>
-                <div className="text-xs space-y-1">
-                  <div className="text-muted-foreground">Day Type: {groupPricing.dayType}</div>
-                  {groupPricing.packagePreviews.map((pkg, idx) => (
-                    <div key={idx} className={cn(
-                      "flex justify-between items-center p-1 rounded",
-                      pkg.popular && "bg-yellow-100 border border-yellow-300"
-                    )}>
-                      <span className={cn(pkg.popular && "font-semibold")}>
-                        {pkg.name} {pkg.popular && '⭐'}
-                      </span>
-                      <span className="font-medium">{formatCurrency(pkg.price / 100)}</span>
+                <div className="font-semibold text-sm border-b pb-1">Medium Boat Pricing</div>
+                {groupPricing ? (
+                  <div className="text-xs space-y-1">
+                    <div className="text-muted-foreground">Day Type: {groupPricing.dayType}</div>
+                    {groupPricing.packagePreviews.map((pkg, idx) => (
+                      <div key={idx} className={cn(
+                        "flex justify-between items-center p-1 rounded",
+                        pkg.popular && "bg-yellow-100 border border-yellow-300"
+                      )}>
+                        <span className={cn(pkg.popular && "font-semibold")}>
+                          {pkg.name} {pkg.popular && '⭐'}
+                        </span>
+                        <span className="font-medium">{formatCurrency(pkg.price / 100)}</span>
+                      </div>
+                    ))}
+                    <div className="text-xs text-muted-foreground pt-1 border-t">
+                      ~{formatCurrency(groupPricing.perPersonEstimate / 100)}/person estimate
                     </div>
-                  ))}
-                  <div className="text-xs text-muted-foreground pt-1 border-t">
-                    ~{formatCurrency(groupPricing.perPersonEstimate / 100)}/person estimate
                   </div>
-                </div>
+                ) : (
+                  <div className="text-xs text-muted-foreground">
+                    Pricing information unavailable
+                  </div>
+                )}
               </div>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
         <div className="pl-4 space-y-1">
           {mediumBoats.map(boat => {
-            const dateBookings = bookings.filter(b => {
-              const bookingDate = new Date(b.startTime);
-              return bookingDate.toDateString() === date.toDateString();
-            });
-            
-            const isBooked = dateBookings.some(b => 
-              b.boatId === boat.id && 
-              new Date(b.startTime).toTimeString().slice(0, 5) === startTime
+            // Find the time block for this boat at this time using centralized data
+            const boatBlock = timeBlocks.find(block => 
+              block.boatId === boat.id && 
+              block.date.toDateString() === date.toDateString() &&
+              block.startTime === startTime
             );
+            
+            const isBooked = boatBlock ? boatBlock.status !== 'available' : false;
             
             return (
               <div
@@ -670,9 +568,9 @@ function CalendarView() {
                 <span className={getBoatTextColor(boat.name)}>
                   {boat.name}: {isBooked ? 'Booked' : 'Available'}
                 </span>
-                {!isBooked && (
+                {!isBooked && boatBlock?.pricing && (
                   <span className="font-semibold text-green-700">
-                    {formatCurrency(groupPricing.standardPrice / 100)}
+                    {formatCurrency(boatBlock.pricing.standardPrice / 100)}
                   </span>
                 )}
               </div>
@@ -897,7 +795,28 @@ function CalendarView() {
         <CardHeader>
           <CardTitle className="flex items-center justify-between">
             <span>Week of {format(weekStart, 'MMMM d, yyyy')}</span>
-            <div className="flex items-center gap-2 text-sm">
+            <div className="flex items-center gap-4 text-sm">
+              {/* Recent Updates Badge */}
+              {recentUpdates.length > 0 && (
+                <div className="flex items-center gap-1 text-blue-600">
+                  <Activity className="w-4 h-4" />
+                  <span className="font-medium">{recentUpdates.length} recent update{recentUpdates.length !== 1 ? 's' : ''}</span>
+                </div>
+              )}
+              
+              {/* Manual Refresh Button */}
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => invalidateAvailability(formatDateForAvailability(selectedDate))}
+                className="h-6 px-2"
+                data-testid="button-refresh-availability"
+              >
+                <RefreshCw className="w-3 h-3 mr-1" />
+                Refresh
+              </Button>
+              
+              {/* Real-time Connection Status */}
               {isConnected ? (
                 <div className="flex items-center gap-1 text-green-600">
                   <Wifi className="w-4 h-4" />
@@ -911,6 +830,44 @@ function CalendarView() {
               )}
             </div>
           </CardTitle>
+          
+          {/* Real-time Updates Display */}
+          {recentUpdates.length > 0 && (
+            <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="text-sm font-medium text-blue-900">Recent Availability Updates</h4>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={clearUpdates}
+                  className="h-6 px-2 text-blue-600"
+                  data-testid="button-clear-updates"
+                >
+                  Clear
+                </Button>
+              </div>
+              <div className="space-y-1">
+                {recentUpdates.slice(0, 3).map((update) => (
+                  <div 
+                    key={update.id} 
+                    className="flex items-center gap-2 text-xs text-blue-700"
+                    data-testid={`availability-update-${update.id}`}
+                  >
+                    <Activity className="w-3 h-3 flex-shrink-0" />
+                    <span className="flex-1">{update.message}</span>
+                    <span className="text-blue-500">
+                      {format(update.timestamp, 'HH:mm:ss')}
+                    </span>
+                  </div>
+                ))}
+                {recentUpdates.length > 3 && (
+                  <div className="text-xs text-blue-600 text-center pt-1">
+                    +{recentUpdates.length - 3} more updates
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </CardHeader>
         <CardContent>
           <Tabs value={selectedTab} onValueChange={setSelectedTab}>

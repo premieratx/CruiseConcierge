@@ -58,8 +58,8 @@ interface SSEClient {
 
 const sseClients: Map<string, SSEClient> = new Map();
 
-// Send cache invalidation event to all connected SSE clients
-function broadcastCacheInvalidation(event: {
+// Send real-time event to all connected SSE clients
+function broadcastRealtimeEvent(event: {
   type: string;
   slotId?: string;
   eventDate?: string;
@@ -69,9 +69,22 @@ function broadcastCacheInvalidation(event: {
   weekStart?: string;
   discoSlotId?: string;
   ticketsSold?: number;
+  // New fields for enhanced event types
+  quoteId?: string;
+  leadId?: string;
+  contactId?: string;
+  projectId?: string;
+  bookingId?: string;
+  leadStatus?: string;
+  eventTitle?: string;
+  customerName?: string;
+  customerEmail?: string;
+  amount?: number;
+  timestamp?: string;
+  data?: any;
 }) {
   const eventData = JSON.stringify(event);
-  console.log(`🚨 BROADCASTING CACHE INVALIDATION to ${sseClients.size} SSE clients:`, event);
+  console.log(`🚨 BROADCASTING REALTIME EVENT to ${sseClients.size} SSE clients:`, event);
   
   if (sseClients.size === 0) {
     console.warn(`⚠️ NO SSE CLIENTS CONNECTED - real-time updates will not be received!`);
@@ -86,7 +99,7 @@ function broadcastCacheInvalidation(event: {
     try {
       client.response.write(`data: ${eventData}\n\n`);
       successCount++;
-      console.log(`✅ Cache invalidation sent to client ${clientId}`);
+      console.log(`✅ Realtime event sent to client ${clientId}`);
     } catch (error) {
       failureCount++;
       console.error(`❌ Failed to send to client ${clientId}:`, error);
@@ -95,8 +108,11 @@ function broadcastCacheInvalidation(event: {
     }
   }
   
-  console.log(`📊 Cache invalidation broadcast complete: ${successCount} success, ${failureCount} failed`);
+  console.log(`📊 Realtime event broadcast complete: ${successCount} success, ${failureCount} failed`);
 }
+
+// Backward compatibility alias
+const broadcastCacheInvalidation = broadcastRealtimeEvent;
 
 // Clean up dead SSE connections every 5 minutes
 setInterval(() => {
@@ -1118,6 +1134,36 @@ export async function createQuoteBuilderLead(app: Express) {
       // Return response in required format
       if (result.success) {
         console.log('🎉 Quote Builder Lead Creation - Success!');
+        
+        // ============== REAL-TIME EVENT: QUOTE CREATED ==============
+        // Broadcast quote_created event to all connected admin clients
+        try {
+          broadcastRealtimeEvent({
+            type: 'quote_created',
+            quoteId: result.quoteId,
+            leadId: result.leadId,
+            contactId: result.leadId,
+            projectId: result.projectId,
+            customerName: leadData.name,
+            customerEmail: leadData.email,
+            eventTitle: `${leadData.eventType} for ${leadData.groupSize} guests`,
+            eventDate: leadData.cruiseDate,
+            amount: leadData.pricing?.total || 0,
+            timestamp: new Date().toISOString(),
+            data: {
+              eventType: leadData.eventType,
+              groupSize: leadData.groupSize,
+              cruiseDate: leadData.cruiseDate,
+              quoteUrl: result.quoteUrl,
+              source: leadData.source
+            }
+          });
+          console.log(`🚨 Quote created event broadcasted for quote ${result.quoteId}`);
+        } catch (error) {
+          console.error('❌ Failed to broadcast quote_created event:', error);
+          // Don't fail the request if broadcasting fails
+        }
+        
         res.json({
           success: true,
           contactId: result.leadId,

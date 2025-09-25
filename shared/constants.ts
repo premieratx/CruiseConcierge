@@ -532,6 +532,176 @@ export const PRICING_DEFAULTS = {
 } as const;
 
 /**
+ * CRITICAL PRICING CONSTANTS - SINGLE SOURCE OF TRUTH
+ * These constants are used by BOTH admin display AND calculations
+ * Any change here automatically updates both PricingRules.tsx AND shared/pricing.ts
+ */
+
+/**
+ * Private Cruise Package Flat Fees (in cents)
+ * Applied as one-time fees, NOT per hour
+ */
+export const PACKAGE_FLAT_FEES = {
+  ESSENTIALS: {
+    14: 10000,  // $100 flat fee for 14-person boat
+    25: 15000,  // $150 flat fee for 25-person boat
+    30: 15000,  // $150 flat fee for 25-person boat (26-30 uses same boat)
+    50: 20000,  // $200 flat fee for 50-person boat
+    75: 20000   // $200 flat fee for 50-person boat (51-75 uses same boat)
+  },
+  ULTIMATE: {
+    14: 25000,  // $250 flat fee for 14-person boat
+    25: 30000,  // $300 flat fee for 25-person boat
+    30: 30000,  // $300 flat fee for 25-person boat (26-30 uses same boat)
+    50: 35000,  // $350 flat fee for 50-person boat
+    75: 35000   // $350 flat fee for 50-person boat (51-75 uses same boat)
+  }
+} as const;
+
+/**
+ * Crew Fee Thresholds and Amounts (in cents)
+ * Applied as HOURLY fees for larger groups requiring extra crew
+ */
+export const CREW_FEES = {
+  THRESHOLDS: {
+    SMALL_BOAT_EXTRA: 26,  // 26-30 people need extra crew on 25-person boats
+    LARGE_BOAT_EXTRA: 51   // 51-75 people need extra crew on 50-person boats
+  },
+  HOURLY_RATES: {
+    SMALL_BOAT_EXTRA: 5000,  // $50/hour extra for 26-30 people
+    LARGE_BOAT_EXTRA: 10000  // $100/hour extra for 51-75 people
+  }
+} as const;
+
+/**
+ * Add-on Fees (in cents)
+ */
+export const ADDON_FEES = {
+  LILY_PAD: 5000  // $50 flat fee for lily pad float
+} as const;
+
+/**
+ * Deposit Policies by Cruise Type (in percentages)
+ */
+export const DEPOSIT_POLICIES = {
+  PRIVATE: 50,  // 50% deposit for private cruises
+  DISCO: 25     // 25% deposit for disco cruises
+} as const;
+
+/**
+ * Standardized Boat Definitions - SINGLE SOURCE OF TRUTH
+ * Fixes naming inconsistencies across the entire system
+ */
+export const BOATS = {
+  DAY_TRIPPER: {
+    id: 'boat_day_tripper',
+    name: 'Day Tripper',
+    displayName: 'Day Tripper',
+    capacity: 14,
+    seatingCapacity: 14,
+    description: 'Perfect for intimate gatherings up to 14 people'
+  },
+  ME_SEEKS_THE_IRONY: {
+    id: 'boat_me_seeks_the_irony', 
+    name: 'Me Seeks The Irony',
+    displayName: 'Me Seeks The Irony',
+    capacity: 30, // Can handle up to 30 people
+    seatingCapacity: 25,
+    description: 'Ideal for medium groups of 15-30 people',
+    aliases: ['Me Seek', 'Me Seek/The Irony', 'Me Seek / The Irony', 'The Irony'] // Handle legacy naming
+  },
+  CLEVER_GIRL: {
+    id: 'boat_clever_girl',
+    name: 'Clever Girl', 
+    displayName: 'Clever Girl',
+    capacity: 75, // Can handle up to 75 people
+    seatingCapacity: 50,
+    description: 'Premium vessel for large celebrations of 31-75 people'
+  }
+} as const;
+
+/**
+ * Boat Selection Rules by Group Size
+ * Maps group sizes to appropriate boats and pricing tiers
+ */
+export const BOAT_SELECTION_RULES = {
+  1: { boat: 'DAY_TRIPPER', pricingTier: 14, crewFeeRequired: false },
+  14: { boat: 'DAY_TRIPPER', pricingTier: 14, crewFeeRequired: false },
+  15: { boat: 'ME_SEEKS_THE_IRONY', pricingTier: 25, crewFeeRequired: false },
+  25: { boat: 'ME_SEEKS_THE_IRONY', pricingTier: 25, crewFeeRequired: false },
+  26: { boat: 'ME_SEEKS_THE_IRONY', pricingTier: 30, crewFeeRequired: true, crewFeeType: 'SMALL_BOAT_EXTRA' },
+  30: { boat: 'ME_SEEKS_THE_IRONY', pricingTier: 30, crewFeeRequired: true, crewFeeType: 'SMALL_BOAT_EXTRA' },
+  31: { boat: 'CLEVER_GIRL', pricingTier: 50, crewFeeRequired: false },
+  50: { boat: 'CLEVER_GIRL', pricingTier: 50, crewFeeRequired: false },
+  51: { boat: 'CLEVER_GIRL', pricingTier: 75, crewFeeRequired: true, crewFeeType: 'LARGE_BOAT_EXTRA' },
+  75: { boat: 'CLEVER_GIRL', pricingTier: 75, crewFeeRequired: true, crewFeeType: 'LARGE_BOAT_EXTRA' }
+} as const;
+
+/**
+ * Helper function to get boat selection for any group size
+ */
+export function getBoatForGroupSize(groupSize: number) {
+  if (groupSize <= 14) return BOAT_SELECTION_RULES[14];
+  if (groupSize <= 25) return BOAT_SELECTION_RULES[25];
+  if (groupSize <= 30) return BOAT_SELECTION_RULES[30];
+  if (groupSize <= 50) return BOAT_SELECTION_RULES[50];
+  if (groupSize <= 75) return BOAT_SELECTION_RULES[75];
+  throw new Error(`Group size ${groupSize} exceeds maximum capacity of 75 people`);
+}
+
+/**
+ * Package Pricing Display Data for Admin Rules Page
+ * Matches exactly what calculations use - SINGLE SOURCE OF TRUTH
+ */
+export const PACKAGE_PRICING_DISPLAY = {
+  14: {
+    groupSizeRange: '1-14 people',
+    recommendedBoat: BOATS.DAY_TRIPPER.displayName,
+    basePricing: 'Standard cruise price',
+    essentialsPrice: `$${PACKAGE_FLAT_FEES.ESSENTIALS[14] / 100}`,
+    ultimatePrice: `$${PACKAGE_FLAT_FEES.ULTIMATE[14] / 100}`,
+    crewFee: 'No extra fee',
+    notes: 'Up to 14 people max capacity'
+  },
+  25: {
+    groupSizeRange: '15-25 people', 
+    recommendedBoat: BOATS.ME_SEEKS_THE_IRONY.displayName,
+    basePricing: 'Standard price',
+    essentialsPrice: `$${PACKAGE_FLAT_FEES.ESSENTIALS[25] / 100}`,
+    ultimatePrice: `$${PACKAGE_FLAT_FEES.ULTIMATE[25] / 100}`,
+    crewFee: 'No extra fee',
+    notes: 'Standard capacity range'
+  },
+  30: {
+    groupSizeRange: '26-30 people',
+    recommendedBoat: BOATS.ME_SEEKS_THE_IRONY.displayName,
+    basePricing: 'Standard price',
+    essentialsPrice: `$${PACKAGE_FLAT_FEES.ESSENTIALS[30] / 100}`,
+    ultimatePrice: `$${PACKAGE_FLAT_FEES.ULTIMATE[30] / 100}`,
+    crewFee: `+$${CREW_FEES.HOURLY_RATES.SMALL_BOAT_EXTRA / 100}/hour`,
+    notes: 'Extra crew required for 26+ people'
+  },
+  50: {
+    groupSizeRange: '31-50 people',
+    recommendedBoat: BOATS.CLEVER_GIRL.displayName,
+    basePricing: 'Standard price',
+    essentialsPrice: `$${PACKAGE_FLAT_FEES.ESSENTIALS[50] / 100}`,
+    ultimatePrice: `$${PACKAGE_FLAT_FEES.ULTIMATE[50] / 100}`,
+    crewFee: 'No extra fee',
+    notes: 'Large group capacity'
+  },
+  75: {
+    groupSizeRange: '51-75 people',
+    recommendedBoat: BOATS.CLEVER_GIRL.displayName, 
+    basePricing: 'Standard price',
+    essentialsPrice: `$${PACKAGE_FLAT_FEES.ESSENTIALS[75] / 100}`,
+    ultimatePrice: `$${PACKAGE_FLAT_FEES.ULTIMATE[75] / 100}`,
+    crewFee: `+$${CREW_FEES.HOURLY_RATES.LARGE_BOAT_EXTRA / 100}/hour`,
+    notes: 'Large group capacity with additional crew'
+  }
+} as const;
+
+/**
  * Premier Party Cruises Hourly Rate Structure
  * All rates in cents (multiply by 100)
  * Based on actual pricing data from user-provided screenshots
@@ -1663,3 +1833,131 @@ export const PRICING_SCENARIOS = {
     message: 'Incredible weekday value - under $48 per person!'
   }
 } as const;
+
+/**
+ * VALIDATION SYSTEM - Single Source of Truth Verification
+ * Ensures admin display constants match calculation outputs
+ * Prevents future divergence between admin UI and pricing calculations
+ */
+
+export const VALIDATION_TEST_CASES = {
+  GROUP_SIZES: [14, 25, 30, 50, 75],
+  DURATION: 4, // 4-hour cruise
+  EVENT_TYPE: 'private' as const,
+  ADDONS: {
+    ESSENTIALS: ['essentials'] as const,
+    ULTIMATE: ['ultimate'] as const,
+    LILY_PAD: ['lily_pad'] as const
+  }
+};
+
+/**
+ * Validates that admin display constants match calculation outputs
+ * This prevents future divergence between admin UI and pricing calculations
+ * @param calculatePricingFunction The pricing calculation function to test
+ * @returns Validation results with any mismatches
+ */
+export const validatePricingConsistency = (calculatePricingFunction: any) => {
+  const results = {
+    valid: true,
+    errors: [] as string[],
+    testResults: {} as Record<number, any>
+  };
+
+  for (const groupSize of VALIDATION_TEST_CASES.GROUP_SIZES) {
+    try {
+      // Test essentials package pricing
+      const essentialsResult = calculatePricingFunction({
+        groupSize,
+        duration: VALIDATION_TEST_CASES.DURATION,
+        eventType: VALIDATION_TEST_CASES.EVENT_TYPE,
+        selectedAddOns: VALIDATION_TEST_CASES.ADDONS.ESSENTIALS,
+        date: new Date().toISOString().split('T')[0]
+      });
+
+      // Test ultimate package pricing
+      const ultimateResult = calculatePricingFunction({
+        groupSize,
+        duration: VALIDATION_TEST_CASES.DURATION,
+        eventType: VALIDATION_TEST_CASES.EVENT_TYPE,  
+        selectedAddOns: VALIDATION_TEST_CASES.ADDONS.ULTIMATE,
+        date: new Date().toISOString().split('T')[0]
+      });
+
+      // Get capacity tier for comparison
+      const capacityTier = groupSize <= 14 ? 14 : groupSize <= 30 ? (groupSize <= 25 ? 25 : 30) : groupSize <= 50 ? 50 : 75;
+      
+      // Validate essentials package fee matches constant
+      const expectedEssentialsFee = PACKAGE_FLAT_FEES.ESSENTIALS[capacityTier as keyof typeof PACKAGE_FLAT_FEES.ESSENTIALS];
+      const actualEssentialsFee = essentialsResult.addOnDetails?.find((addon: any) => addon.id === 'essentials')?.hourlyRate;
+      
+      if (actualEssentialsFee !== expectedEssentialsFee) {
+        results.valid = false;
+        results.errors.push(
+          `Group ${groupSize}: Essentials fee mismatch - Expected: ${expectedEssentialsFee}, Actual: ${actualEssentialsFee}`
+        );
+      }
+
+      // Validate ultimate package fee matches constant
+      const expectedUltimateFee = PACKAGE_FLAT_FEES.ULTIMATE[capacityTier as keyof typeof PACKAGE_FLAT_FEES.ULTIMATE];
+      const actualUltimateFee = ultimateResult.addOnDetails?.find((addon: any) => addon.id === 'ultimate')?.hourlyRate;
+      
+      if (actualUltimateFee !== expectedUltimateFee) {
+        results.valid = false;
+        results.errors.push(
+          `Group ${groupSize}: Ultimate fee mismatch - Expected: ${expectedUltimateFee}, Actual: ${actualUltimateFee}`
+        );
+      }
+
+      // Validate crew fees
+      if (groupSize >= CREW_FEES.THRESHOLDS.SMALL_BOAT_EXTRA && groupSize <= 30) {
+        const expectedCrewFee = CREW_FEES.HOURLY_RATES.SMALL_BOAT_EXTRA * VALIDATION_TEST_CASES.DURATION;
+        const actualCrewFee = essentialsResult.crewFee;
+        
+        if (actualCrewFee !== expectedCrewFee) {
+          results.valid = false;
+          results.errors.push(
+            `Group ${groupSize}: Crew fee mismatch - Expected: ${expectedCrewFee}, Actual: ${actualCrewFee}`
+          );
+        }
+      } else if (groupSize >= CREW_FEES.THRESHOLDS.LARGE_BOAT_EXTRA) {
+        const expectedCrewFee = CREW_FEES.HOURLY_RATES.LARGE_BOAT_EXTRA * VALIDATION_TEST_CASES.DURATION;
+        const actualCrewFee = essentialsResult.crewFee;
+        
+        if (actualCrewFee !== expectedCrewFee) {
+          results.valid = false;
+          results.errors.push(
+            `Group ${groupSize}: Crew fee mismatch - Expected: ${expectedCrewFee}, Actual: ${actualCrewFee}`
+          );
+        }
+      }
+
+      // Validate deposit percentage
+      const expectedDepositPercent = DEPOSIT_POLICIES.PRIVATE;
+      const actualDepositPercent = Math.round((essentialsResult.depositAmount / essentialsResult.total) * 100);
+      
+      if (actualDepositPercent !== expectedDepositPercent) {
+        results.valid = false;
+        results.errors.push(
+          `Group ${groupSize}: Deposit percentage mismatch - Expected: ${expectedDepositPercent}%, Actual: ${actualDepositPercent}%`
+        );
+      }
+
+      results.testResults[groupSize] = {
+        essentials: essentialsResult,
+        ultimate: ultimateResult,
+        validatedFees: {
+          essentialsFee: actualEssentialsFee === expectedEssentialsFee,
+          ultimateFee: actualUltimateFee === expectedUltimateFee,
+          depositPercent: actualDepositPercent === expectedDepositPercent
+        }
+      };
+
+    } catch (error) {
+      results.valid = false;
+      results.errors.push(`Group ${groupSize}: Validation error - ${error}`);
+    }
+  }
+
+  return results;
+};

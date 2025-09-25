@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
+import { DISCO_PRICING } from '@shared/constants';
 import { 
   Users, Clock, Star, Calendar, MapPin, Ship, Phone,
   ArrowRight, CheckCircle, Sparkles, Crown, Music, 
@@ -58,7 +59,7 @@ const discoPackages = [
   {
     id: 'basic',
     name: 'Basic Bach Package',
-    price: 85,
+    price: DISCO_PRICING.basic / 100,
     originalPrice: null,
     description: 'Join the BEST Party on Lake Travis, Exclusively for Bach Parties!',
     subtitle: 'BYOB & Keep it Cheap - ALWAYS Cheaper than a Private Cruise',
@@ -76,7 +77,7 @@ const discoPackages = [
   {
     id: 'disco_king',
     name: 'Disco King Package',
-    price: 95,
+    price: DISCO_PRICING.disco_queen / 100,
     originalPrice: 110,
     description: 'Enhanced bachelor party experience with premium perks',
     subtitle: 'Private Cooler & Reserved Spot for Your Group',
@@ -95,7 +96,7 @@ const discoPackages = [
   {
     id: 'platinum',
     name: 'Super Sparkle Platinum Disco',
-    price: 105,
+    price: DISCO_PRICING.platinum / 100,
     originalPrice: 125,
     description: 'Ultimate all-inclusive Austin bachelor party luxury',
     subtitle: 'Nothing to Carry, Cooler Stocked w/drinks When You Arrive!',

@@ -2132,15 +2132,44 @@ function QuoteViewerContent() {
                       {privatePricing && !selectedOption.includes('disco') && (
                         <div className="space-y-3 bg-gray-50 p-4 rounded-lg">
                           <div className="flex justify-between text-lg">
-                            <span className="font-medium">Base Price:</span>
+                            <span className="font-medium">Base Cruise Cost:</span>
+                            <span className="font-bold">${((privatePricing.hourlyRate * privatePricing.duration) / 100).toFixed(0)}</span>
+                          </div>
+                          {/* Show selected add-ons breakdown */}
+                          {privatePricing.selectedAddOns && privatePricing.selectedAddOns.length > 0 && (
+                            <>
+                              {privatePricing.selectedAddOns.map((addon: any, index: number) => (
+                                <div key={index} className="flex justify-between text-base">
+                                  <span className="font-medium text-blue-600">+ {addon.name}:</span>
+                                  <span className="font-bold text-blue-600">${(addon.hourlyRate / 100).toFixed(0)}</span>
+                                </div>
+                              ))}
+                            </>
+                          )}
+                          {/* Show crew fees if applicable */}
+                          {groupSize >= 26 && groupSize <= 30 && (
+                            <div className="flex justify-between text-base">
+                              <span className="font-medium text-orange-600">+ Extra Crew Fee:</span>
+                              <span className="font-bold text-orange-600">${((5000 * privatePricing.duration) / 100).toFixed(0)}</span>
+                            </div>
+                          )}
+                          {groupSize >= 51 && groupSize <= 75 && (
+                            <div className="flex justify-between text-base">
+                              <span className="font-medium text-orange-600">+ Extra Crew Fee:</span>
+                              <span className="font-bold text-orange-600">${((10000 * privatePricing.duration) / 100).toFixed(0)}</span>
+                            </div>
+                          )}
+                          <Separator className="my-2" />
+                          <div className="flex justify-between text-lg">
+                            <span className="font-medium">Subtotal:</span>
                             <span className="font-bold">${(privatePricing.subtotal / 100).toFixed(0)}</span>
                           </div>
                           <div className="flex justify-between text-lg">
-                            <span className="font-medium">Tax:</span>
+                            <span className="font-medium">Tax (8.25%):</span>
                             <span className="font-bold">${(privatePricing.tax / 100).toFixed(0)}</span>
                           </div>
                           <div className="flex justify-between text-lg">
-                            <span className="font-medium">Gratuity:</span>
+                            <span className="font-medium">Gratuity (20%):</span>
                             <span className="font-bold">${(privatePricing.gratuity / 100).toFixed(0)}</span>
                           </div>
                           <Separator className="my-4" />
@@ -2150,7 +2179,7 @@ function QuoteViewerContent() {
                           </div>
                           {privatePricing.depositRequired && (
                             <div className="flex justify-between text-lg font-semibold text-blue-600 bg-blue-50 p-2 rounded">
-                              <span>Deposit Required:</span>
+                              <span>Deposit Required (50%):</span>
                               <span>${(privatePricing.depositAmount / 100).toLocaleString()}</span>
                             </div>
                           )}

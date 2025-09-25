@@ -18,6 +18,7 @@ import {
   ChevronDown, Calendar, CalendarDays, Home, ArrowRight, Sparkles, Heart, Crown, PartyPopper
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { BOATS } from "@shared/constants";
 import { format, addWeeks, subWeeks, isToday, startOfWeek, endOfWeek, getDay, isSameDay } from "date-fns";
 import type { NormalizedSlot } from "@shared/schema";
 import { formatCurrency, formatTimeForDisplay } from '@shared/formatters';
@@ -36,21 +37,21 @@ interface UniversalCalendarProps {
   className?: string;
 }
 
-// Boat capacity mapping for color coding and smart highlighting
+// Boat capacity mapping for color coding and smart highlighting - uses centralized constants
 const BOAT_CAPACITY_MAP = {
-  'Day Tripper': { capacity: 14, maxCapacity: 14, color: 'purple', ideal: [14] },
-  'Me Seeks The Irony': { capacity: 25, maxCapacity: 30, color: 'red', ideal: [25, 30] },
-  'Clever Girl': { capacity: 50, maxCapacity: 75, color: 'orange', ideal: [50, 75] },
+  [BOATS.DAY_TRIPPER.displayName]: { capacity: 14, maxCapacity: 14, color: 'purple', ideal: [14] },
+  [BOATS.ME_SEEKS_THE_IRONY.displayName]: { capacity: 25, maxCapacity: 30, color: 'red', ideal: [25, 30] },
+  [BOATS.CLEVER_GIRL.displayName]: { capacity: 50, maxCapacity: 75, color: 'orange', ideal: [50, 75] },
 } as const;
 
 // Quick selection group sizes
 const QUICK_GROUP_SIZES = [14, 25, 30, 50, 75];
 
-// Get best boat match for group size - strict capacity rules
+// Get best boat match for group size - strict capacity rules using centralized constants
 const getBestBoatMatch = (groupSize: number): { color: string; boatName: string } => {
-  if (groupSize <= 14) return { color: 'purple', boatName: 'Day Tripper' };
-  if (groupSize <= 25) return { color: 'red', boatName: 'Me Seeks The Irony' };
-  if (groupSize <= 75) return { color: 'orange', boatName: 'Clever Girl' };
+  if (groupSize <= 14) return { color: 'purple', boatName: BOATS.DAY_TRIPPER.displayName };
+  if (groupSize >= 15 && groupSize <= 30) return { color: 'red', boatName: BOATS.ME_SEEKS_THE_IRONY.displayName };
+  if (groupSize >= 31 && groupSize <= 75) return { color: 'orange', boatName: BOATS.CLEVER_GIRL.displayName };
   return { color: 'gray', boatName: 'No boats available' };
 };
 
@@ -264,12 +265,12 @@ export default function UniversalCalendar({
         selectedSlot: `${slot.startTime}-${slot.endTime}`
       });
 
-      navigate(`/checkout?${params.toString()}`);
+      navigate(`/chat?${params.toString()}`);
       setShowSlotPopup(false);
       
       toast({
         title: "Slot Reserved",
-        description: "Taking you to checkout to complete your booking...",
+        description: "Taking you to quote builder to complete your booking...",
       });
     },
     onError: (error) => {
@@ -372,7 +373,7 @@ export default function UniversalCalendar({
     setShowSlotPopup(true);
   }, [groupSize]);
 
-  // Handle "Book Now" - hold slot then navigate to checkout
+  // Handle "Book Now" - hold slot then navigate to quote builder
   const handleBookNow = useCallback(() => {
     if (!selectedSlot) {
       toast({

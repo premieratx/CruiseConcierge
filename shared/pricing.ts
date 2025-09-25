@@ -3,7 +3,17 @@
  * Ensures consistent pricing calculations across client and server
  */
 
-import { HOURLY_RATES, CRUISE_DURATIONS, PRICING_DEFAULTS, PRIVATE_CRUISE_PRICING, DISCO_PRICING } from './constants';
+import { 
+  HOURLY_RATES, 
+  CRUISE_DURATIONS, 
+  PRICING_DEFAULTS, 
+  PRIVATE_CRUISE_PRICING, 
+  DISCO_PRICING,
+  PACKAGE_FLAT_FEES,
+  CREW_FEES,
+  ADDON_FEES,
+  DEPOSIT_POLICIES
+} from './constants';
 
 /**
  * SIMPLE CLIENT-SIDE PRICING CALCULATOR
@@ -46,15 +56,8 @@ export function calculateSimplePricing(
   const addOnDetails: Array<{id: string; name: string; hourlyRate: number}> = [];
   
   if (selectedAddOns.includes('essentials')) {
-    // Essentials Package - FLAT fee based on boat capacity
-    const essentialsFees: Record<CapacityTier, number> = {
-      14: 10000,  // $100 flat for 14-person boat
-      25: 15000,  // $150 flat for 25-person boat
-      30: 15000,  // $150 flat for 25-person boat (26-30 uses 25p boat)
-      50: 20000,  // $200 flat for 50-person boat
-      75: 20000   // $200 flat for 50-person boat (51-75 uses 50p boat)
-    };
-    const flatFee = essentialsFees[capacityTier];
+    // Essentials Package - FLAT fee from centralized constants
+    const flatFee = PACKAGE_FLAT_FEES.ESSENTIALS[capacityTier];
     addOnFlatFee += flatFee;
     addOnDetails.push({
       id: 'essentials',
@@ -64,15 +67,8 @@ export function calculateSimplePricing(
   }
   
   if (selectedAddOns.includes('ultimate')) {
-    // Ultimate Package - FLAT fee based on boat capacity
-    const ultimateFees: Record<CapacityTier, number> = {
-      14: 25000,  // $250 flat for 14-person boat
-      25: 30000,  // $300 flat for 25-person boat
-      30: 30000,  // $300 flat for 25-person boat (26-30 uses 25p boat)
-      50: 35000,  // $350 flat for 50-person boat
-      75: 35000   // $350 flat for 50-person boat (51-75 uses 50p boat)
-    };
-    const flatFee = ultimateFees[capacityTier];
+    // Ultimate Package - FLAT fee from centralized constants
+    const flatFee = PACKAGE_FLAT_FEES.ULTIMATE[capacityTier];
     addOnFlatFee += flatFee;
     addOnDetails.push({
       id: 'ultimate',
@@ -82,8 +78,8 @@ export function calculateSimplePricing(
   }
   
   if (selectedAddOns.includes('lily_pad')) {
-    // Lily Pad Float - $50 flat fee for all boats
-    const lilyPadFee = 5000; // $50
+    // Lily Pad Float - fee from centralized constants
+    const lilyPadFee = ADDON_FEES.LILY_PAD;
     addOnFlatFee += lilyPadFee;
     addOnDetails.push({
       id: 'lily_pad',
@@ -96,11 +92,11 @@ export function calculateSimplePricing(
   
   // 4. Calculate subtotal: (rate × duration) + flat add-on fees + crew fees
   let crewFee = 0;
-  // Extra HOURLY crew fees: $50/hour for 26-30 people, $100/hour for 51-75 people
-  if (groupSize >= 26 && groupSize <= 30) {
-    crewFee = 5000 * duration; // $50/hour for 26-30 people (25-person boats)
-  } else if (groupSize >= 51 && groupSize <= 75) {
-    crewFee = 10000 * duration; // $100/hour for 51-75 people (50-person boat)
+  // Extra HOURLY crew fees from centralized constants
+  if (groupSize >= CREW_FEES.THRESHOLDS.SMALL_BOAT_EXTRA && groupSize <= 30) {
+    crewFee = CREW_FEES.HOURLY_RATES.SMALL_BOAT_EXTRA * duration; // Crew fee for 26-30 people (25-person boats)
+  } else if (groupSize >= CREW_FEES.THRESHOLDS.LARGE_BOAT_EXTRA && groupSize <= 75) {
+    crewFee = CREW_FEES.HOURLY_RATES.LARGE_BOAT_EXTRA * duration; // Crew fee for 51-75 people (50-person boat)
   }
   const baseCruiseCost = totalHourlyRate * duration;
   const subtotal = baseCruiseCost + addOnFlatFee + crewFee;
@@ -110,8 +106,8 @@ export function calculateSimplePricing(
   const gratuity = Math.floor(baseCruiseCost * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100));
   const total = subtotal + tax + gratuity;
   
-  // 6. Calculate deposit (always 50% for fast checkout)
-  const depositPercent = 50;
+  // 6. Calculate deposit using centralized constants
+  const depositPercent = DEPOSIT_POLICIES.PRIVATE;
   const depositAmount = Math.floor(total * (depositPercent / 100));
   
   return {
@@ -167,8 +163,8 @@ export function calculateSimpleDiscoPricing(
   const gratuity = Math.floor(subtotal * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100));
   const total = subtotal + tax + gratuity;
   
-  // 3. Calculate deposit (25% for disco)
-  const depositPercent = 25;
+  // 3. Calculate deposit using centralized constants
+  const depositPercent = DEPOSIT_POLICIES.DISCO;
   const depositAmount = Math.floor(total * (depositPercent / 100));
   
   // 4. Set expiration (2 days from now)
@@ -553,6 +549,10 @@ export function calculateDiscoPricing(packageType: 'basic' | 'disco_queen' | 'pl
 
 /**
  * Filter boats that can accommodate a specific group size
+ * Updated to match the exact requirements:
+ * - 1-14 people: Day Tripper
+ * - 15-30 people: Me Seek/The Irony (unified option)
+ * - 31-75 people: Clever Girl
  */
 export const filterBoatsForGroupSize = (boats: any[], groupSize: number) => {
   if (!boats || boats.length === 0) return [];
@@ -560,24 +560,19 @@ export const filterBoatsForGroupSize = (boats: any[], groupSize: number) => {
   // IMPORTANT: Exclude ATX Disco boat - it's only for disco cruises, not private cruises
   const privateBoats = boats.filter(boat => boat.id !== 'boat_atx_disco' && boat.active);
   
-  // Apply strict capacity rules for boat selection
+  // Apply strict capacity rules for boat selection per requirements
   if (groupSize <= 14) {
-    // 14 or less: Only Day Tripper
+    // 1-14 people: Only Day Tripper
     return privateBoats.filter(boat => 
       boat.id === 'boat_day_tripper' || boat.name === 'Day Tripper'
     );
-  } else if (groupSize <= 25) {
-    // 15-25: Me Seeks The Irony
+  } else if (groupSize <= 30) {
+    // 15-30 people: Me Seeks The Irony (unified option)
     return privateBoats.filter(boat => 
       boat.id === 'boat_me_seeks_the_irony' || boat.name === 'Me Seeks The Irony'
     );
-  } else if (groupSize <= 50) {
-    // 26-50: Clever Girl
-    return privateBoats.filter(boat => 
-      boat.id === 'boat_clever_girl' || boat.name === 'Clever Girl'
-    );
   } else if (groupSize <= 75) {
-    // 51-75: Clever Girl with extra crew
+    // 31-75 people: Clever Girl
     return privateBoats.filter(boat => 
       boat.id === 'boat_clever_girl' || boat.name === 'Clever Girl'
     );

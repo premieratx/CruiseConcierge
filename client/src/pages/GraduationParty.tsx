@@ -11,6 +11,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { formatCurrency } from '@shared/formatters';
+import { HOURLY_RATES, PRICING_DEFAULTS } from '@shared/constants';
 import SEOHead from '@/components/SEOHead';
 import { 
   GraduationCap, Users, Calendar, MapPin, Clock, Phone,
@@ -65,7 +66,7 @@ const graduationPackages = [
   {
     id: 'grad_standard',
     name: 'Grad Standard',
-    basePrice: 425,
+    basePrice: HOURLY_RATES.MON_THU[25] / 100, // Uses centralized pricing from shared/constants.ts
     description: 'Essential graduation celebration package',
     features: [
       'Premium pontoon boat (25-30 guests)',
@@ -84,7 +85,7 @@ const graduationPackages = [
   {
     id: 'grad_essentials',
     name: 'Grad Essentials',
-    basePrice: 525,
+    basePrice: HOURLY_RATES.MON_THU[50] / 100, // Uses centralized pricing from shared/constants.ts
     addOnPrice: 75,
     description: 'Enhanced graduation party experience',
     features: [
@@ -105,7 +106,7 @@ const graduationPackages = [
   {
     id: 'grad_ultimate',
     name: 'Grad Ultimate',
-    basePrice: 675,
+    basePrice: HOURLY_RATES.FRIDAY[50] / 100, // Uses centralized pricing from shared/constants.ts
     addOnPrice: 125,
     description: 'Luxury graduation celebration',
     features: [

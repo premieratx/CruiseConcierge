@@ -40,8 +40,10 @@ import {
   MessageSquare, FileText, Clock, User, Building, Ship,
   Award, Star, History, CreditCard, Download, UserCheck,
   Eye, ShoppingBag, Send, CheckCircle, XCircle, Activity,
-  GripVertical, ArrowRight, MailIcon, PhoneIcon, MessageCircleIcon
+  GripVertical, ArrowRight, MailIcon, PhoneIcon, MessageCircleIcon,
+  Wifi, WifiOff, Bell, RefreshCw
 } from 'lucide-react';
+import { useRealtimeBookings } from '@/hooks/useRealtimeBookings';
 
 // Pipeline stages as required
 const PIPELINE_STAGES = [
@@ -751,6 +753,17 @@ export default function Leads() {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [activeId, setActiveId] = useState<string | null>(null);
+  
+  // Real-time lead updates
+  const { 
+    recentUpdates, 
+    isConnected,
+    invalidateLeads,
+    clearUpdates 
+  } = useRealtimeBookings({ 
+    showToasts: false, // We'll show our own notifications
+    maxUpdates: 5
+  });
 
   const sensors = useSensors(
     useSensor(PointerSensor),
@@ -910,11 +923,89 @@ export default function Leads() {
   return (
     <div className="container mx-auto py-6 space-y-6">
       {/* Header */}
-      <div className="flex justify-between items-center">
-        <div>
-          <h1 className="text-3xl font-bold tracking-tight" data-testid="text-page-title">Lead Management</h1>
+      <div className="flex justify-between items-start">
+        <div className="flex-1">
+          <div className="flex items-center gap-4 mb-2">
+            <h1 className="text-3xl font-bold tracking-tight" data-testid="text-page-title">Lead Management</h1>
+            
+            {/* Real-time Status Indicators */}
+            <div className="flex items-center gap-4 text-sm">
+              {/* Recent Updates Badge */}
+              {recentUpdates.length > 0 && (
+                <div className="flex items-center gap-1 text-orange-600">
+                  <Bell className="w-4 h-4" />
+                  <span className="font-medium">{recentUpdates.length} new update{recentUpdates.length !== 1 ? 's' : ''}</span>
+                </div>
+              )}
+              
+              {/* Manual Refresh Button */}
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={invalidateLeads}
+                className="h-6 px-2"
+                data-testid="button-refresh-leads"
+              >
+                <RefreshCw className="w-3 h-3 mr-1" />
+                Refresh
+              </Button>
+              
+              {/* Real-time Connection Status */}
+              {isConnected ? (
+                <div className="flex items-center gap-1 text-green-600">
+                  <Wifi className="w-4 h-4" />
+                  <span className="font-medium">Live Updates</span>
+                </div>
+              ) : (
+                <div className="flex items-center gap-1 text-orange-600">
+                  <WifiOff className="w-4 h-4" />
+                  <span className="font-medium">Reconnecting...</span>
+                </div>
+              )}
+            </div>
+          </div>
+          
           <p className="text-muted-foreground" data-testid="text-page-subtitle">Track and manage your sales pipeline</p>
+          
+          {/* Real-time Updates Display */}
+          {recentUpdates.length > 0 && (
+            <div className="mt-4 p-3 bg-orange-50 border border-orange-200 rounded-lg">
+              <div className="flex items-center justify-between mb-2">
+                <h4 className="text-sm font-medium text-orange-900">Recent Lead Updates</h4>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={clearUpdates}
+                  className="h-6 px-2 text-orange-600"
+                  data-testid="button-clear-lead-updates"
+                >
+                  Clear
+                </Button>
+              </div>
+              <div className="space-y-1">
+                {recentUpdates.slice(0, 3).map((update) => (
+                  <div 
+                    key={update.id} 
+                    className="flex items-center gap-2 text-xs text-orange-700"
+                    data-testid={`lead-update-${update.id}`}
+                  >
+                    <Activity className="w-3 h-3 flex-shrink-0" />
+                    <span className="flex-1">{update.message}</span>
+                    <span className="text-orange-500">
+                      {format(update.timestamp, 'HH:mm:ss')}
+                    </span>
+                  </div>
+                ))}
+                {recentUpdates.length > 3 && (
+                  <div className="text-xs text-orange-600 text-center pt-1">
+                    +{recentUpdates.length - 3} more updates
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
+        
         <Button onClick={() => setIsCreateModalOpen(true)} data-testid="button-create-lead">
           <Plus className="w-4 h-4 mr-2" />
           New Lead

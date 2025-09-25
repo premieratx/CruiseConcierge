@@ -11,6 +11,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { formatCurrency } from '@shared/formatters';
+import { HOURLY_RATES, PRICING_DEFAULTS } from '@shared/constants';
 import SEOHead from '@/components/SEOHead';
 import { 
   Trophy, Users, Calendar, MapPin, Clock, Phone,
@@ -63,7 +64,7 @@ const milestonePackages = [
   {
     id: 'recognition',
     name: 'Recognition Package',
-    basePrice: 475,
+    basePrice: HOURLY_RATES.MON_THU[25] / 100, // Uses centralized pricing from shared/constants.ts
     description: 'Celebrate team achievements and milestones',
     features: [
       'Premium pontoon boat (25-30 people)',
@@ -82,7 +83,7 @@ const milestonePackages = [
   {
     id: 'achievement',
     name: 'Achievement Package',
-    basePrice: 625,
+    basePrice: HOURLY_RATES.MON_THU[50] / 100, // Uses centralized pricing from shared/constants.ts
     addOnPrice: 100,
     description: 'Premium celebration for major accomplishments',
     features: [
@@ -103,7 +104,7 @@ const milestonePackages = [
   {
     id: 'legacy',
     name: 'Legacy Package',
-    basePrice: 825,
+    basePrice: HOURLY_RATES.FRIDAY[50] / 100, // Uses centralized pricing from shared/constants.ts
     addOnPrice: 175,
     description: 'Ultimate celebration for historic achievements',
     features: [

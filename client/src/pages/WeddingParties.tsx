@@ -100,7 +100,7 @@ const weddingPackages = [
   {
     name: 'Elegant Essentials',
     icon: Heart,
-    price: 'From $1,200',
+    price: `From ${formatCurrency(HOURLY_RATES.MON_THU[25] * 4)}`,  // 4-hour minimum on 25-person boat
     description: 'Classic wedding elegance on the water',
     features: [
       'Private yacht for your group',
@@ -115,7 +115,7 @@ const weddingPackages = [
   {
     name: 'Romance Package',
     icon: Flower,
-    price: 'From $1,800',
+    price: `From ${formatCurrency(HOURLY_RATES.MON_THU[25] * 6)}`,  // 6-hour minimum on 25-person boat
     description: 'Enhanced romantic atmosphere',
     features: [
       'Everything from Elegant Essentials',
@@ -131,7 +131,7 @@ const weddingPackages = [
   {
     name: 'Luxury Wedding',
     icon: Gem,
-    price: 'From $3,000',
+    price: `From ${formatCurrency(HOURLY_RATES.MON_THU[50] * 6)}`,  // 6-hour minimum on 50-person boat
     description: 'Ultimate luxury wedding experience',
     features: [
       'Everything from Romance Package',

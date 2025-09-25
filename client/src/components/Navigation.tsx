@@ -188,6 +188,22 @@ export default function Navigation() {
                   <li>
                     <NavigationMenuLink asChild>
                       <Link
+                        href="/admin/pricing-rules"
+                        className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground bg-primary/10 border border-primary/20"
+                      >
+                        <div className="flex items-center gap-2">
+                          <DollarSign className="h-4 w-4 text-primary" />
+                          <div className="text-sm font-medium text-primary">Pricing Rules (Source of Truth)</div>
+                        </div>
+                        <div className="text-xs text-muted-foreground pl-6">
+                          Official pricing structure and boat recommendations
+                        </div>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
                         href="/embed-widgets"
                         className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                       >
