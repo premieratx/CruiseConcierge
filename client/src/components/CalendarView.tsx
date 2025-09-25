@@ -249,6 +249,23 @@ function CalendarView() {
   // Convert normalized slots to time blocks for backward compatibility
   const timeBlocks = availableSlots.map(normalizedSlotToTimeBlock);
 
+  // Generate time blocks for calendar view - compatible with existing UI
+  const generateTimeBlocks = (
+    date: Date,
+    boats: Array<{id: string; name: string; capacity: number; active: boolean}>,
+    bookings: Booking[] = [],
+    products: Product[] = []
+  ): TimeBlock[] => {
+    // Use the centralized availability data (timeBlocks) instead of generating from scratch
+    // Filter timeBlocks for the specific date and boats
+    const dateStr = date.toDateString();
+    
+    return timeBlocks.filter(block => 
+      block.date.toDateString() === dateStr &&
+      boats.some(boat => boat.id === block.boatId)
+    );
+  };
+
   // Get unique boats from available slots - using same boat information as Quote Builder
   const boatsFromSlots = availableSlots.reduce((boats, slot) => {
     const existing = boats.find(b => b.id === slot.boatId);

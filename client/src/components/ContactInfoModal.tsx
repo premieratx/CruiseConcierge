@@ -164,17 +164,16 @@ export function ContactInfoModal({
       };
 
       console.log('🔄 Creating lead and quote via ContactInfoModal:', payload);
-      const response = await apiRequest('POST', '/api/leads/quote-builder', payload);
       
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error('❌ Quote Builder API error:', response.status, errorData);
-        throw new Error(errorData.message || `API Error: ${response.status}`);
+      try {
+        // apiRequest already returns parsed JSON and throws on HTTP errors
+        const result = await apiRequest('POST', '/api/leads/quote-builder', payload);
+        console.log('✅ Quote Builder creation successful:', result);
+        return result;
+      } catch (error: any) {
+        console.error('❌ Quote Builder API error:', error);
+        throw new Error(error.message || 'Failed to create quote');
       }
-      
-      const result = await response.json();
-      console.log('✅ Quote Builder creation successful:', result);
-      return result;
     },
     onSuccess: (data) => {
       console.log('🎉 onSuccess handler called:', data);

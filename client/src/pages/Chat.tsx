@@ -46,6 +46,7 @@ import type { InsertContact, InsertProject, PricingPreview, InsertQuote, RadioSe
 import { useAvailabilityForDate, useAvailabilityForDateRange, formatDateForAvailability } from '@/hooks/use-availability';
 import { TimeSlotList } from '@/components/TimeSlotList';
 import { formatCurrency, formatDate, formatLongDate, formatTimeForDisplay, formatTimeRange, formatPhoneNumber, formatCustomerName, formatBoatCapacity, formatEventDuration, formatGroupSize, getEffectivePeopleCount } from '@shared/formatters';
+import { isMondayToThursday } from '@shared/timeSlots';
 import { 
   EVENT_TYPES, 
   CRUISE_TYPES, 
@@ -439,7 +440,7 @@ function PaymentForm({
       };
 
       // Create payment intent with all data including holdId
-      const res = await apiRequest('POST', '/api/checkout/create-payment-intent', {
+      const response = await apiRequest('POST', '/api/checkout/create-payment-intent', {
         paymentType,
         cruiseType,
         selectionPayload,
@@ -453,8 +454,6 @@ function PaymentForm({
           holdId: holdId || '' // Include the holdId in metadata
         }
       });
-
-      const response = await res.json();
 
       if (!response.clientSecret) {
         throw new Error('Failed to create payment intent');
@@ -1098,21 +1097,8 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       // Call server API to verify token and get quote data
       const verifyQuoteToken = async () => {
         try {
-          const response = await apiRequest('GET', `/api/quotes/public/${quoteToken}`);
-          
-          if (!response.ok) {
-            const errorData = await response.json();
-            console.error('❌ Server token verification failed:', errorData);
-            toast({
-              title: "Invalid Quote Link",
-              description: errorData.message || "The quote link you're using is not valid or has expired.",
-              variant: "destructive"
-            });
-            setQuoteLoading(false);
-            return;
-          }
-          
-          const quoteData = await response.json();
+          // apiRequest already returns parsed JSON and throws on HTTP errors
+          const quoteData = await apiRequest('GET', `/api/quotes/public/${quoteToken}`);
           console.log('✅ Server verified quote token successfully:', quoteData);
           
           // Extract the quote and related data from server response
@@ -2539,7 +2525,8 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       }));
       
       // Call server API to create lead and quote with proper server token
-      const response = await apiRequest('POST', '/api/leads/quote-builder', {
+      // apiRequest already returns parsed JSON and throws on HTTP errors
+      const result = await apiRequest('POST', '/api/leads/quote-builder', {
         contactInfo: contactData,
         eventDetails: {
           eventDate: formData.eventDate?.toISOString()?.split('T')[0] || '',
@@ -2568,11 +2555,6 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         }
       });
       
-      if (!response.ok) {
-        throw new Error('Failed to create quote via server');
-      }
-      
-      const result = await response.json();
       console.log('✅ Server quote creation successful:', result);
       
       // Hide modal immediately and show quote
