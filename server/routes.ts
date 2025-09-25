@@ -33,7 +33,44 @@ import { templateRenderer } from "./services/templateRenderer";
 import { z } from "zod";
 import { randomUUID, randomInt } from "crypto";
 import multer from 'multer';
+import slugify from 'slugify';
 import Database from "@replit/database";
+
+// Slug utility functions
+function generateSlugFromText(text: string): string {
+  return slugify(text, {
+    lower: true,
+    strict: true,
+    remove: /[*+~.()'"`!:@]/g
+  });
+}
+
+async function generateUniqueSlug(
+  baseSlug: string, 
+  checkExistsFn: (slug: string) => Promise<any>
+): Promise<string> {
+  let slug = baseSlug;
+  let counter = 1;
+  
+  while (await checkExistsFn(slug)) {
+    slug = `${baseSlug}-${counter}`;
+    counter++;
+    
+    // Prevent infinite loops
+    if (counter > 1000) {
+      throw new Error('Unable to generate unique slug after 1000 attempts');
+    }
+  }
+  
+  return slug;
+}
+
+function isSlugConflictError(error: any): boolean {
+  return error?.code === '23505' || // PostgreSQL unique constraint violation
+         error?.message?.includes('duplicate key value') ||
+         error?.message?.includes('unique constraint');
+}
+
 // Lazy loading - these will be imported when needed
 let mediaLibraryService: any = null;
 let ObjectStorageService: any = null;
@@ -15111,10 +15148,20 @@ Phone: ${contact.phone || 'N/A'}`;
   });
 
   // Create blog author
-  app.post("/api/blog/authors", async (req, res) => {
+  app.post("/api/blog/authors", requireAdminAuth, async (req, res) => {
     try {
       const storage = await getStorage();
       const validatedData = insertBlogAuthorSchema.parse(req.body);
+      
+      // Auto-generate slug from name if not provided
+      if (!validatedData.slug && validatedData.name) {
+        const baseSlug = generateSlugFromText(validatedData.name);
+        validatedData.slug = await generateUniqueSlug(
+          baseSlug,
+          (slug) => storage.getBlogAuthorBySlug(slug)
+        );
+      }
+      
       const author = await storage.createBlogAuthor(validatedData);
       res.status(201).json(author);
     } catch (error: any) {
@@ -15122,12 +15169,19 @@ Phone: ${contact.phone || 'N/A'}`;
       if (error.name === 'ZodError') {
         return res.status(400).json({ error: "Invalid author data", details: error.errors });
       }
+      if (isSlugConflictError(error)) {
+        return res.status(409).json({ 
+          error: "Slug already exists", 
+          field: "slug",
+          message: "This slug is already in use. Please choose a different one."
+        });
+      }
       res.status(500).json({ error: "Failed to create blog author" });
     }
   });
 
   // Update blog author
-  app.put("/api/blog/authors/:id", async (req, res) => {
+  app.put("/api/blog/authors/:id", requireAdminAuth, async (req, res) => {
     try {
       const storage = await getStorage();
       const updates = insertBlogAuthorSchema.partial().parse(req.body);
@@ -15143,7 +15197,7 @@ Phone: ${contact.phone || 'N/A'}`;
   });
 
   // Delete blog author
-  app.delete("/api/blog/authors/:id", async (req, res) => {
+  app.delete("/api/blog/authors/:id", requireAdminAuth, async (req, res) => {
     try {
       const storage = await getStorage();
       const success = await storage.deleteBlogAuthor(req.params.id);
@@ -15187,10 +15241,20 @@ Phone: ${contact.phone || 'N/A'}`;
   });
 
   // Create blog category
-  app.post("/api/blog/categories", async (req, res) => {
+  app.post("/api/blog/categories", requireAdminAuth, async (req, res) => {
     try {
       const storage = await getStorage();
       const validatedData = insertBlogCategorySchema.parse(req.body);
+      
+      // Auto-generate slug from name if not provided
+      if (!validatedData.slug && validatedData.name) {
+        const baseSlug = generateSlugFromText(validatedData.name);
+        validatedData.slug = await generateUniqueSlug(
+          baseSlug,
+          (slug) => storage.getBlogCategoryBySlug(slug)
+        );
+      }
+      
       const category = await storage.createBlogCategory(validatedData);
       res.status(201).json(category);
     } catch (error: any) {
@@ -15198,12 +15262,19 @@ Phone: ${contact.phone || 'N/A'}`;
       if (error.name === 'ZodError') {
         return res.status(400).json({ error: "Invalid category data", details: error.errors });
       }
+      if (isSlugConflictError(error)) {
+        return res.status(409).json({ 
+          error: "Slug already exists", 
+          field: "slug",
+          message: "This slug is already in use. Please choose a different one."
+        });
+      }
       res.status(500).json({ error: "Failed to create blog category" });
     }
   });
 
   // Update blog category
-  app.put("/api/blog/categories/:id", async (req, res) => {
+  app.put("/api/blog/categories/:id", requireAdminAuth, async (req, res) => {
     try {
       const storage = await getStorage();
       const updates = insertBlogCategorySchema.partial().parse(req.body);
@@ -15219,7 +15290,7 @@ Phone: ${contact.phone || 'N/A'}`;
   });
 
   // Delete blog category
-  app.delete("/api/blog/categories/:id", async (req, res) => {
+  app.delete("/api/blog/categories/:id", requireAdminAuth, async (req, res) => {
     try {
       const storage = await getStorage();
       const success = await storage.deleteBlogCategory(req.params.id);
@@ -15263,10 +15334,20 @@ Phone: ${contact.phone || 'N/A'}`;
   });
 
   // Create blog tag
-  app.post("/api/blog/tags", async (req, res) => {
+  app.post("/api/blog/tags", requireAdminAuth, async (req, res) => {
     try {
       const storage = await getStorage();
       const validatedData = insertBlogTagSchema.parse(req.body);
+      
+      // Auto-generate slug from name if not provided
+      if (!validatedData.slug && validatedData.name) {
+        const baseSlug = generateSlugFromText(validatedData.name);
+        validatedData.slug = await generateUniqueSlug(
+          baseSlug,
+          (slug) => storage.getBlogTagBySlug(slug)
+        );
+      }
+      
       const tag = await storage.createBlogTag(validatedData);
       res.status(201).json(tag);
     } catch (error: any) {
@@ -15274,12 +15355,19 @@ Phone: ${contact.phone || 'N/A'}`;
       if (error.name === 'ZodError') {
         return res.status(400).json({ error: "Invalid tag data", details: error.errors });
       }
+      if (isSlugConflictError(error)) {
+        return res.status(409).json({ 
+          error: "Slug already exists", 
+          field: "slug",
+          message: "This slug is already in use. Please choose a different one."
+        });
+      }
       res.status(500).json({ error: "Failed to create blog tag" });
     }
   });
 
   // Update blog tag
-  app.put("/api/blog/tags/:id", async (req, res) => {
+  app.put("/api/blog/tags/:id", requireAdminAuth, async (req, res) => {
     try {
       const storage = await getStorage();
       const updates = insertBlogTagSchema.partial().parse(req.body);
@@ -15295,7 +15383,7 @@ Phone: ${contact.phone || 'N/A'}`;
   });
 
   // Delete blog tag
-  app.delete("/api/blog/tags/:id", async (req, res) => {
+  app.delete("/api/blog/tags/:id", requireAdminAuth, async (req, res) => {
     try {
       const storage = await getStorage();
       const success = await storage.deleteBlogTag(req.params.id);
@@ -15469,10 +15557,20 @@ Phone: ${contact.phone || 'N/A'}`;
   });
 
   // Create new blog post
-  app.post("/api/blog/posts", async (req, res) => {
+  app.post("/api/blog/posts", requireAdminAuth, async (req, res) => {
     try {
       const storage = await getStorage();
       const validatedData = insertBlogPostSchema.parse(req.body);
+      
+      // Auto-generate slug from title if not provided
+      if (!validatedData.slug && validatedData.title) {
+        const baseSlug = generateSlugFromText(validatedData.title);
+        validatedData.slug = await generateUniqueSlug(
+          baseSlug,
+          (slug) => storage.getBlogPostBySlug(slug)
+        );
+      }
+      
       const post = await storage.createBlogPost(validatedData);
       
       // Assign categories and tags if provided
@@ -15490,12 +15588,19 @@ Phone: ${contact.phone || 'N/A'}`;
       if (error.name === 'ZodError') {
         return res.status(400).json({ error: "Invalid post data", details: error.errors });
       }
+      if (isSlugConflictError(error)) {
+        return res.status(409).json({ 
+          error: "Slug already exists", 
+          field: "slug",
+          message: "This slug is already in use. Please choose a different one."
+        });
+      }
       res.status(500).json({ error: "Failed to create blog post" });
     }
   });
 
   // Update blog post
-  app.put("/api/blog/posts/:id", async (req, res) => {
+  app.put("/api/blog/posts/:id", requireAdminAuth, async (req, res) => {
     try {
       const storage = await getStorage();
       const updates = insertBlogPostSchema.partial().parse(req.body);
@@ -15527,7 +15632,7 @@ Phone: ${contact.phone || 'N/A'}`;
   });
 
   // Delete blog post
-  app.delete("/api/blog/posts/:id", async (req, res) => {
+  app.delete("/api/blog/posts/:id", requireAdminAuth, async (req, res) => {
     try {
       const storage = await getStorage();
       const success = await storage.deleteBlogPost(req.params.id);
@@ -15542,7 +15647,7 @@ Phone: ${contact.phone || 'N/A'}`;
   });
 
   // Publish/unpublish blog post
-  app.post("/api/blog/posts/:id/publish", async (req, res) => {
+  app.post("/api/blog/posts/:id/publish", requireAdminAuth, async (req, res) => {
     try {
       const storage = await getStorage();
       const { action = 'publish', scheduledFor } = req.body;
@@ -18222,7 +18327,7 @@ Provide JSON response with: { "enhancedContent": "...", "eventCategory": "corpor
   });
 
   // Blog post unpublish endpoint
-  app.post("/api/blog/posts/:id/unpublish", async (req, res) => {
+  app.post("/api/blog/posts/:id/unpublish", requireAdminAuth, async (req, res) => {
     try {
       const storage = await getStorage();
       const post = await storage.updateBlogPost(req.params.id, { 

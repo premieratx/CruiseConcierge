@@ -175,6 +175,15 @@ function Router() {
       <Route path="/admin/blog/posts" component={BlogManagement} />
       <Route path="/admin/blog/posts/new" component={BlogPostEditor} />
       <Route path="/admin/blog/posts/:id/edit" component={BlogPostEditor} />
+      <Route path="/admin/blog/categories" component={BlogManagement} />
+      <Route path="/admin/blog/categories/new" component={BlogManagement} />
+      <Route path="/admin/blog/categories/:id/edit" component={BlogManagement} />
+      <Route path="/admin/blog/tags" component={BlogManagement} />
+      <Route path="/admin/blog/tags/new" component={BlogManagement} />
+      <Route path="/admin/blog/tags/:id/edit" component={BlogManagement} />
+      <Route path="/admin/blog/authors" component={BlogManagement} />
+      <Route path="/admin/blog/authors/new" component={BlogManagement} />
+      <Route path="/admin/blog/authors/:id/edit" component={BlogManagement} />
       
       {/* Admin SEO Routes */}
       <Route path="/admin/seo" component={SEOManagement} />

@@ -126,7 +126,25 @@ app.use('/q/', (req, res, next) => {
     port,
     host: "0.0.0.0",
     reusePort: true,
-  }, () => {
+  }, async () => {
     log(`serving on port ${port}`);
+    
+    // Verify blog system persistence
+    try {
+      const { storage } = await import('./storage');
+      const blogPostsResult = await storage.getBlogPosts({ limit: 100 });
+      const authors = await storage.getBlogAuthors();
+      const categories = await storage.getBlogCategories();
+      const tags = await storage.getBlogTags();
+      
+      // Handle different return formats from getBlogPosts
+      const postsCount = Array.isArray(blogPostsResult) ? blogPostsResult.length : 
+                        (blogPostsResult?.posts ? blogPostsResult.posts.length : 0);
+      
+      log(`📝 Blog system persistence verified - PostgreSQL storage confirmed`);
+      log(`📊 Blog data: ${postsCount} posts, ${authors.length} authors, ${categories.length} categories, ${tags.length} tags`);
+    } catch (error) {
+      log(`⚠️ Blog system persistence check failed: ${error}`);
+    }
   });
 })();

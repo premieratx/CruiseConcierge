@@ -11,27 +11,32 @@ export async function apiRequest(
   method: string,
   url: string,
   data?: unknown | undefined,
-): Promise<Response> {
+): Promise<any> {
   // Add admin dev token for admin routes during development
   const isAdminRoute = url.includes('/api/quotes') || url.includes('/api/admin') || 
                        url.includes('/api/contacts') || url.includes('/api/projects') ||
                        url.includes('/api/invoices') || url.includes('/api/media') ||
+                       url.includes('/api/blog') || // SECURITY: Include blog management routes
                        url.includes('/api/agent/chat'); // SECURITY: Include agent chat routes
   
+  // Handle FormData uploads (don't set Content-Type, let browser set it with boundary)
+  const isFormData = data instanceof FormData;
+  
   const headers: Record<string, string> = {
-    ...(data ? { "Content-Type": "application/json" } : {}),
+    ...(!isFormData && data ? { "Content-Type": "application/json" } : {}),
     ...(isAdminRoute ? { "Authorization": "Bearer admin-dev-token" } : {})
   };
 
   const res = await fetch(url, {
     method,
     headers,
-    body: data ? JSON.stringify(data) : undefined,
+    body: isFormData ? data : (data ? JSON.stringify(data) : undefined),
     credentials: "include",
   });
 
   await throwIfResNotOk(res);
-  return res;
+  // Parse JSON response and return it directly for consistency
+  return await res.json();
 }
 
 type UnauthorizedBehavior = "returnNull" | "throw";
@@ -46,6 +51,7 @@ export const getQueryFn: <T>(options: {
     const isAdminRoute = url.includes('/api/quotes') || url.includes('/api/admin') || 
                          url.includes('/api/contacts') || url.includes('/api/projects') ||
                          url.includes('/api/invoices') || url.includes('/api/media') ||
+                         url.includes('/api/blog') || // SECURITY: Include blog management routes
                          url.includes('/api/agent/chat'); // SECURITY: Include agent chat routes
     
     const headers: Record<string, string> = {

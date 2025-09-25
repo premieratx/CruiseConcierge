@@ -1,6 +1,49 @@
 import express from "express";
 import Database from "@replit/database";
 
+// Import authentication middleware
+let requireAdminAuth = null;
+const getRequireAdminAuth = async () => {
+  if (!requireAdminAuth) {
+    try {
+      const routesModule = await import('./routes');
+      // Extract requireAdminAuth from the routes module
+      requireAdminAuth = routesModule.requireAdminAuth;
+      if (!requireAdminAuth) {
+        // Fallback auth check
+        requireAdminAuth = (req, res, next) => {
+          const authHeader = req.headers.authorization;
+          if (!authHeader || !authHeader.startsWith('Bearer ')) {
+            return res.status(401).json({ error: 'Unauthorized: Missing authentication token' });
+          }
+          const token = authHeader.split(' ')[1];
+          if (token !== 'admin-dev-token') {
+            return res.status(401).json({ error: 'Unauthorized: Invalid authentication token' });
+          }
+          req.adminUser = { id: 'admin', role: 'admin' };
+          next();
+        };
+      }
+    } catch (error) {
+      console.error('Failed to import auth middleware:', error);
+      // Fallback auth middleware
+      requireAdminAuth = (req, res, next) => {
+        const authHeader = req.headers.authorization;
+        if (!authHeader || !authHeader.startsWith('Bearer ')) {
+          return res.status(401).json({ error: 'Unauthorized: Missing authentication token' });
+        }
+        const token = authHeader.split(' ')[1];
+        if (token !== 'admin-dev-token') {
+          return res.status(401).json({ error: 'Unauthorized: Invalid authentication token' });
+        }
+        req.adminUser = { id: 'admin', role: 'admin' };
+        next();
+      };
+    }
+  }
+  return requireAdminAuth;
+};
+
 const db = new Database();
 export const blogRouter = express.Router();
 
@@ -146,6 +189,80 @@ blogRouter.get("/public/tags", async (_req, res) => {
 });
 
 // Additional utility routes
+// GET /api/blog/health - Production health checks
+blogRouter.get("/health", async (_req, res) => {
+  try {
+    // Get WordPress data from Replit DB
+    const postsIndexRaw = await db.get("index:posts");
+    const wpPostSlugs = Array.isArray(postsIndexRaw) ? postsIndexRaw : (postsIndexRaw?.value || []);
+    
+    // Count WordPress posts by status
+    const wpCounts = { total: 0, published: 0, draft: 0 };
+    for (const slug of wpPostSlugs) {
+      const postRaw = await db.get(`post:${slug}`);
+      const post = postRaw?.value || postRaw;
+      if (post) {
+        wpCounts.total++;
+        if (post.status === 'published') wpCounts.published++;
+        if (post.status === 'draft') wpCounts.draft++;
+      }
+    }
+    
+    // Get PostgreSQL data
+    let pgCounts = { posts: 0, authors: 0, categories: 0, tags: 0 };
+    let pgStatus = 'healthy';
+    try {
+      const storage = await getStorage();
+      const blogPostsResult = await storage.getBlogPosts({ limit: 1000 });
+      const authors = await storage.getBlogAuthors();
+      const categories = await storage.getBlogCategories();
+      const tags = await storage.getBlogTags();
+      
+      pgCounts = {
+        posts: Array.isArray(blogPostsResult) ? blogPostsResult.length : 
+               (blogPostsResult?.posts ? blogPostsResult.posts.length : 0),
+        authors: authors.length,
+        categories: categories.length,
+        tags: tags.length
+      };
+    } catch (pgError) {
+      pgStatus = 'error';
+      console.error('PostgreSQL health check failed:', pgError);
+    }
+    
+    const healthReport = {
+      timestamp: new Date().toISOString(),
+      overall: pgStatus === 'healthy' ? 'healthy' : 'degraded',
+      wordpress: {
+        status: 'healthy',
+        posts: wpCounts
+      },
+      postgresql: {
+        status: pgStatus,
+        counts: pgCounts
+      },
+      totals: {
+        posts: wpCounts.total + pgCounts.posts,
+        publishedPosts: wpCounts.published,
+        authors: pgCounts.authors,
+        categories: pgCounts.categories,
+        tags: pgCounts.tags
+      }
+    };
+    
+    console.log('🏥 Blog health check:', JSON.stringify(healthReport, null, 2));
+    res.json(healthReport);
+  } catch (e) {
+    console.error("Blog health check error:", e);
+    res.status(500).json({ 
+      timestamp: new Date().toISOString(),
+      overall: 'unhealthy', 
+      error: "Health check failed",
+      details: e.message 
+    });
+  }
+});
+
 // GET /api/blog/stats - Blog statistics
 blogRouter.get("/stats", async (_req, res) => {
   try {
@@ -187,7 +304,10 @@ blogRouter.get("/stats", async (_req, res) => {
 });
 
 // GET /api/blog/management - Admin dashboard endpoint 
-blogRouter.get("/management", async (req, res) => {
+blogRouter.get("/management", async (req, res, next) => {
+  // Apply admin authentication
+  const authMiddleware = await getRequireAdminAuth();
+  authMiddleware(req, res, async () => {
   try {
     const {
       tab = "posts",
@@ -394,6 +514,7 @@ blogRouter.get("/management", async (req, res) => {
     console.error("Blog management fetch error:", e);
     res.status(500).json({ error: "Failed to fetch blog management data" });
   }
+  }); // Close auth middleware
 });
 
 export default blogRouter;

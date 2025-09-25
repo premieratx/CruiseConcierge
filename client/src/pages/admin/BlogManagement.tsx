@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useForm, FormProvider } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import Layout from "@/components/Layout";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -45,6 +47,15 @@ import { Label } from "@/components/ui/label";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import {
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import { 
   Search, 
   Plus, 
@@ -62,11 +73,15 @@ import {
   Download,
   Loader2,
   CheckCircle,
-  AlertCircle
+  AlertCircle,
+  ArrowLeft,
+  Save,
+  X
 } from "lucide-react";
-import { Link } from "wouter";
-import { BlogPost, BlogAuthor, BlogCategory, BlogTag } from "@shared/schema";
+import { Link, useLocation } from "wouter";
+import { BlogPost, BlogAuthor, BlogCategory, BlogTag, insertBlogCategorySchema, insertBlogTagSchema, insertBlogAuthorSchema, InsertBlogCategory, InsertBlogTag, InsertBlogAuthor } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
+import { apiRequest } from "@/lib/queryClient";
 
 interface BlogManagementData {
   posts: (BlogPost & {
@@ -84,12 +99,19 @@ interface BlogManagementData {
 }
 
 export default function BlogManagement() {
+  const [location, setLocation] = useLocation();
   const [activeTab, setActiveTab] = useState("posts");
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedStatus, setSelectedStatus] = useState("");
   const [selectedAuthor, setSelectedAuthor] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
+  
+  // Route detection for creation forms
+  const isCreatingCategory = location === '/admin/blog/categories/new';
+  const isCreatingTag = location === '/admin/blog/tags/new';
+  const isCreatingAuthor = location === '/admin/blog/authors/new';
+  const isCreating = isCreatingCategory || isCreatingTag || isCreatingAuthor;
   
   // Upload/Import states
   const [isUploadDialogOpen, setIsUploadDialogOpen] = useState(false);
@@ -107,8 +129,131 @@ export default function BlogManagement() {
   
   const { toast } = useToast();
   const queryClient = useQueryClient();
+  
+  // Form configurations
+  const categoryForm = useForm<InsertBlogCategory>({
+    resolver: zodResolver(insertBlogCategorySchema),
+    defaultValues: {
+      name: '',
+      slug: '',
+      description: '',
+      color: '#3b82f6', // Default to a valid hex color
+      icon: ''
+    }
+  });
+  
+  const tagForm = useForm<InsertBlogTag>({
+    resolver: zodResolver(insertBlogTagSchema),
+    defaultValues: {
+      name: '',
+      slug: '',
+      description: '',
+      color: '#10b981' // Default to a valid hex color
+    }
+  });
+  
+  const authorForm = useForm<InsertBlogAuthor>({
+    resolver: zodResolver(insertBlogAuthorSchema),
+    defaultValues: {
+      name: '',
+      email: '',
+      bio: '',
+      website: ''
+    }
+  });
+  
+  // Create category mutation
+  const createCategoryMutation = useMutation({
+    mutationFn: async (data: InsertBlogCategory) => {
+      console.log('Executing mutationFn for category creation with data:', data);
+      return apiRequest('POST', '/api/blog/categories', data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/blog/management'] });
+      toast({
+        title: "Success",
+        description: "Category created successfully."
+      });
+      categoryForm.reset();
+      setLocation('/admin/blog');
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to create category.",
+        variant: "destructive"
+      });
+    }
+  });
+  
+  // Create tag mutation
+  const createTagMutation = useMutation({
+    mutationFn: async (data: InsertBlogTag) => {
+      console.log('Executing mutationFn for tag creation with data:', data);
+      return apiRequest('POST', '/api/blog/tags', data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/blog/management'] });
+      toast({
+        title: "Success",
+        description: "Tag created successfully."
+      });
+      tagForm.reset();
+      setLocation('/admin/blog');
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to create tag.",
+        variant: "destructive"
+      });
+    }
+  });
+  
+  // Create author mutation
+  const createAuthorMutation = useMutation({
+    mutationFn: async (data: InsertBlogAuthor) => {
+      console.log('Executing mutationFn for author creation with data:', data);
+      return apiRequest('POST', '/api/blog/authors', data);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['/api/blog/management'] });
+      toast({
+        title: "Success",
+        description: "Author created successfully."
+      });
+      authorForm.reset();
+      setLocation('/admin/blog');
+    },
+    onError: () => {
+      toast({
+        title: "Error",
+        description: "Failed to create author.",
+        variant: "destructive"
+      });
+    }
+  });
+  
+  // Form handlers
+  const handleCreateCategory = (data: InsertBlogCategory) => {
+    console.log('Submitting category data:', data);
+    console.log('Form errors:', categoryForm.formState.errors);
+    createCategoryMutation.mutate(data);
+  };
+  
+  const handleCreateTag = (data: InsertBlogTag) => {
+    createTagMutation.mutate(data);
+  };
+  
+  const handleCreateAuthor = (data: InsertBlogAuthor) => {
+    createAuthorMutation.mutate(data);
+  };
+  
+  const handleCancel = () => {
+    setLocation('/admin/blog');
+  };
 
-  // Fetch blog management data
+  // Fetch blog management data with authenticated query function
   const { data, isLoading, error } = useQuery<BlogManagementData>({
     queryKey: [
       '/api/blog/management',
@@ -118,30 +263,14 @@ export default function BlogManagement() {
       selectedStatus,
       selectedAuthor,
       selectedCategory
-    ],
-    queryFn: async () => {
-      const params = new URLSearchParams({
-        tab: activeTab,
-        page: currentPage.toString(),
-        ...(searchQuery && { search: searchQuery }),
-        ...(selectedStatus && { status: selectedStatus }),
-        ...(selectedAuthor && { authorId: selectedAuthor }),
-        ...(selectedCategory && { categoryId: selectedCategory })
-      });
-
-      const response = await fetch(`/api/blog/management?${params}`);
-      if (!response.ok) throw new Error('Failed to fetch blog data');
-      return response.json();
-    }
+    ]
+    // Uses default authenticated queryFn - no custom queryFn needed
   });
 
   // Delete post mutation
   const deletePostMutation = useMutation({
     mutationFn: async (postId: string) => {
-      const response = await fetch(`/api/blog/posts/${postId}`, {
-        method: 'DELETE'
-      });
-      if (!response.ok) throw new Error('Failed to delete post');
+      await apiRequest('DELETE', `/api/blog/posts/${postId}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/blog/management'] });
@@ -162,10 +291,7 @@ export default function BlogManagement() {
   // Publish/unpublish post mutation
   const togglePublishMutation = useMutation({
     mutationFn: async ({ postId, action }: { postId: string; action: 'publish' | 'unpublish' }) => {
-      const response = await fetch(`/api/blog/posts/${postId}/${action}`, {
-        method: 'POST'
-      });
-      if (!response.ok) throw new Error(`Failed to ${action} post`);
+      await apiRequest('POST', `/api/blog/posts/${postId}/${action}`);
     },
     onSuccess: (_, { action }) => {
       queryClient.invalidateQueries({ queryKey: ['/api/blog/management'] });
@@ -219,14 +345,7 @@ export default function BlogManagement() {
     }));
     
     try {
-      const response = await fetch('/api/blog/upload', {
-        method: 'POST',
-        body: formData
-      });
-      
-      if (!response.ok) throw new Error('Upload failed');
-      
-      const result = await response.json();
+      const result = await apiRequest('POST', '/api/blog/upload', formData);
       
       toast({
         title: "Success",
@@ -264,14 +383,7 @@ export default function BlogManagement() {
       setImportProgress(10);
       setImportStatus('Starting batch upload...');
       
-      const response = await fetch('/api/blog/upload/batch', {
-        method: 'POST',
-        body: formData
-      });
-      
-      if (!response.ok) throw new Error('Batch upload failed');
-      
-      const result = await response.json();
+      const result = await apiRequest('POST', '/api/blog/upload/batch', formData);
       setImportJobId(result.jobId);
       
       // Poll for progress
@@ -289,20 +401,12 @@ export default function BlogManagement() {
   
   const handleWordPressPreview = async () => {
     try {
-      const response = await fetch('/api/blog/import/wp/preview', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          baseUrl: wpSiteUrl,
-          username: wpUsername,
-          appPassword: wpAppPassword,
-          limit: 5
-        })
+      const result = await apiRequest('POST', '/api/blog/import/wp/preview', {
+        baseUrl: wpSiteUrl,
+        username: wpUsername,
+        appPassword: wpAppPassword,
+        limit: 5
       });
-      
-      if (!response.ok) throw new Error('Preview failed');
-      
-      const result = await response.json();
       
       toast({
         title: "Preview Ready",
@@ -322,23 +426,16 @@ export default function BlogManagement() {
       setImportProgress(10);
       setImportStatus('Starting WordPress import...');
       
-      const response = await fetch('/api/blog/import/wp/start', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          baseUrl: wpSiteUrl,
-          username: wpUsername,
-          appPassword: wpAppPassword,
-          options: {
-            optimizeImages,
-            convertToMarkdown,
-            autoCreateTags
-          }
-        })
+      const response = await apiRequest('POST', '/api/blog/import/wp/start', {
+        baseUrl: wpSiteUrl,
+        username: wpUsername,
+        appPassword: wpAppPassword,
+        options: {
+          optimizeImages,
+          convertToMarkdown,
+          autoCreateTags
+        }
       });
-      
-      if (!response.ok) throw new Error('Import failed');
-      
       const result = await response.json();
       setImportJobId(result.jobId);
       
@@ -359,9 +456,7 @@ export default function BlogManagement() {
     if (!importJobId) return;
     
     try {
-      await fetch(`/api/blog/import/wp/cancel/${importJobId}`, {
-        method: 'POST'
-      });
+      await apiRequest('POST', `/api/blog/import/wp/cancel/${importJobId}`);
       
       setImportProgress(0);
       setImportStatus('');
@@ -387,9 +482,7 @@ export default function BlogManagement() {
           ? `/api/blog/import/wp/status/${jobId}`
           : `/api/blog/upload/batch/status/${jobId}`;
           
-        const response = await fetch(endpoint);
-        if (!response.ok) throw new Error('Status check failed');
-        
+        const response = await apiRequest('GET', endpoint);
         const status = await response.json();
         
         setImportProgress(Math.round((status.processed / status.total) * 100));
@@ -947,166 +1040,528 @@ export default function BlogManagement() {
 
           {/* Categories Tab */}
           <TabsContent value="categories" className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Categories</h3>
-              <Button asChild data-testid="button-create-category">
-                <Link href="/admin/blog/categories/new">
-                  <Plus className="h-4 w-4 mr-2" />
-                  New Category
-                </Link>
-              </Button>
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {data?.categories.map((category) => (
-                <Card key={category.id}>
+            {isCreatingCategory ? (
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleCancel}
+                    data-testid="button-cancel-category"
+                  >
+                    <ArrowLeft className="h-4 w-4 mr-2" />
+                    Back to Categories
+                  </Button>
+                  <h3 className="text-lg font-semibold">Create New Category</h3>
+                </div>
+                
+                <Card className="max-w-2xl">
                   <CardHeader>
-                    <div className="flex items-center justify-between">
-                      <CardTitle className="text-lg" data-testid={`name-category-${category.id}`}>
-                        {category.name}
-                      </CardTitle>
-                      <Badge variant="secondary" data-testid={`count-category-${category.id}`}>
-                        {category.postCount} posts
-                      </Badge>
-                    </div>
+                    <CardTitle>Category Details</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    {category.description && (
-                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
-                        {category.description}
-                      </p>
-                    )}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <Button variant="ghost" size="sm" asChild>
-                          <Link href={`/admin/blog/categories/${category.id}/edit`}>
-                            <Edit className="h-4 w-4" />
-                          </Link>
-                        </Button>
-                        <Button variant="ghost" size="sm" asChild>
-                          <Link href={`/blog/category/${category.slug}`}>
-                            <Eye className="h-4 w-4" />
-                          </Link>
-                        </Button>
-                      </div>
-                      {category.color && (
-                        <div 
-                          className="w-4 h-4 rounded-full"
-                          style={{ backgroundColor: category.color }}
+                    <Form {...categoryForm}>
+                      <form onSubmit={categoryForm.handleSubmit(handleCreateCategory)} className="space-y-4">
+                        <FormField
+                          control={categoryForm.control}
+                          name="name"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Category Name *</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Enter category name" {...field} data-testid="input-category-name" />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
                         />
-                      )}
-                    </div>
+                        
+                        <FormField
+                          control={categoryForm.control}
+                          name="slug"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Category Slug *</FormLabel>
+                              <FormControl>
+                                <Input placeholder="category-slug" {...field} data-testid="input-category-slug" />
+                              </FormControl>
+                              <FormDescription>
+                                URL-friendly identifier (auto-generated from name if empty)
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={categoryForm.control}
+                          name="description"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Description</FormLabel>
+                              <FormControl>
+                                <Textarea placeholder="Enter category description" {...field} data-testid="textarea-category-description" />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={categoryForm.control}
+                          name="color"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Color</FormLabel>
+                              <FormControl>
+                                <Input type="color" {...field} data-testid="input-category-color" />
+                              </FormControl>
+                              <FormDescription>
+                                Choose a color to help identify this category
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={categoryForm.control}
+                          name="icon"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Icon</FormLabel>
+                              <FormControl>
+                                <Input placeholder="e.g. folder, tag, star" {...field} data-testid="input-category-icon" />
+                              </FormControl>
+                              <FormDescription>
+                                Lucide icon name (optional)
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <div className="flex gap-3 pt-4">
+                          <Button
+                            type="submit"
+                            disabled={createCategoryMutation.isPending}
+                            data-testid="button-save-category"
+                          >
+                            {createCategoryMutation.isPending ? (
+                              <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Creating...</>
+                            ) : (
+                              <><Save className="h-4 w-4 mr-2" />Create Category</>
+                            )}
+                          </Button>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={handleCancel}
+                            disabled={createCategoryMutation.isPending}
+                            data-testid="button-cancel-category-form"
+                          >
+                            <X className="h-4 w-4 mr-2" />
+                            Cancel
+                          </Button>
+                        </div>
+                      </form>
+                    </Form>
                   </CardContent>
                 </Card>
-              ))}
-            </div>
+              </div>
+            ) : (
+              <>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold">Categories</h3>
+                  <Button asChild data-testid="button-create-category">
+                    <Link href="/admin/blog/categories/new">
+                      <Plus className="h-4 w-4 mr-2" />
+                      New Category
+                    </Link>
+                  </Button>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  {data?.categories.map((category) => (
+                    <Card key={category.id}>
+                      <CardHeader>
+                        <div className="flex items-center justify-between">
+                          <CardTitle className="text-lg" data-testid={`name-category-${category.id}`}>
+                            {category.name}
+                          </CardTitle>
+                          <Badge variant="secondary" data-testid={`count-category-${category.id}`}>
+                            {category.postCount} posts
+                          </Badge>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        {category.description && (
+                          <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+                            {category.description}
+                          </p>
+                        )}
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <Button variant="ghost" size="sm" asChild>
+                              <Link href={`/admin/blog/categories/${category.id}/edit`}>
+                                <Edit className="h-4 w-4" />
+                              </Link>
+                            </Button>
+                            <Button variant="ghost" size="sm" asChild>
+                              <Link href={`/blog/category/${category.slug}`}>
+                                <Eye className="h-4 w-4" />
+                              </Link>
+                            </Button>
+                          </div>
+                          {category.color && (
+                            <div 
+                              className="w-4 h-4 rounded-full"
+                              style={{ backgroundColor: category.color }}
+                            />
+                          )}
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </>
+            )}
           </TabsContent>
 
           {/* Tags Tab */}
           <TabsContent value="tags" className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Tags</h3>
-              <Button asChild data-testid="button-create-tag">
-                <Link href="/admin/blog/tags/new">
-                  <Plus className="h-4 w-4 mr-2" />
-                  New Tag
-                </Link>
-              </Button>
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-              {data?.tags.map((tag) => (
-                <Card key={tag.id} className="p-4">
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-medium" data-testid={`name-tag-${tag.id}`}>
-                      #{tag.name}
-                    </h4>
-                    <Badge variant="secondary" data-testid={`count-tag-${tag.id}`}>
-                      {tag.postCount}
-                    </Badge>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-1">
-                      <Button variant="ghost" size="sm" asChild>
-                        <Link href={`/admin/blog/tags/${tag.id}/edit`}>
-                          <Edit className="h-3 w-3" />
-                        </Link>
-                      </Button>
-                      <Button variant="ghost" size="sm" asChild>
-                        <Link href={`/blog/tag/${tag.slug}`}>
-                          <Eye className="h-3 w-3" />
-                        </Link>
-                      </Button>
-                    </div>
-                    {tag.color && (
-                      <div 
-                        className="w-3 h-3 rounded-full"
-                        style={{ backgroundColor: tag.color }}
-                      />
-                    )}
-                  </div>
+            {isCreatingTag ? (
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleCancel}
+                    data-testid="button-cancel-tag"
+                  >
+                    <ArrowLeft className="h-4 w-4 mr-2" />
+                    Back to Tags
+                  </Button>
+                  <h3 className="text-lg font-semibold">Create New Tag</h3>
+                </div>
+                
+                <Card className="max-w-2xl">
+                  <CardHeader>
+                    <CardTitle>Tag Details</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <Form {...tagForm}>
+                      <form onSubmit={tagForm.handleSubmit(handleCreateTag)} className="space-y-4">
+                        <FormField
+                          control={tagForm.control}
+                          name="name"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Tag Name *</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Enter tag name" {...field} data-testid="input-tag-name" />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={tagForm.control}
+                          name="slug"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Tag Slug *</FormLabel>
+                              <FormControl>
+                                <Input placeholder="tag-slug" {...field} data-testid="input-tag-slug" />
+                              </FormControl>
+                              <FormDescription>
+                                URL-friendly identifier (auto-generated from name if empty)
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={tagForm.control}
+                          name="description"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Description</FormLabel>
+                              <FormControl>
+                                <Textarea placeholder="Enter tag description" {...field} data-testid="textarea-tag-description" />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={tagForm.control}
+                          name="color"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Color</FormLabel>
+                              <FormControl>
+                                <Input type="color" {...field} data-testid="input-tag-color" />
+                              </FormControl>
+                              <FormDescription>
+                                Choose a color to help identify this tag
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <div className="flex gap-3 pt-4">
+                          <Button
+                            type="submit"
+                            disabled={createTagMutation.isPending}
+                            data-testid="button-save-tag"
+                          >
+                            {createTagMutation.isPending ? (
+                              <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Creating...</>
+                            ) : (
+                              <><Save className="h-4 w-4 mr-2" />Create Tag</>
+                            )}
+                          </Button>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={handleCancel}
+                            disabled={createTagMutation.isPending}
+                            data-testid="button-cancel-tag-form"
+                          >
+                            <X className="h-4 w-4 mr-2" />
+                            Cancel
+                          </Button>
+                        </div>
+                      </form>
+                    </Form>
+                  </CardContent>
                 </Card>
-              ))}
-            </div>
+              </div>
+            ) : (
+              <>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold">Tags</h3>
+                  <Button asChild data-testid="button-create-tag">
+                    <Link href="/admin/blog/tags/new">
+                      <Plus className="h-4 w-4 mr-2" />
+                      New Tag
+                    </Link>
+                  </Button>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+                  {data?.tags.map((tag) => (
+                    <Card key={tag.id} className="p-4">
+                      <div className="flex items-center justify-between mb-2">
+                        <h4 className="font-medium" data-testid={`name-tag-${tag.id}`}>
+                          #{tag.name}
+                        </h4>
+                        <Badge variant="secondary" data-testid={`count-tag-${tag.id}`}>
+                          {tag.postCount}
+                        </Badge>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-1">
+                          <Button variant="ghost" size="sm" asChild>
+                            <Link href={`/admin/blog/tags/${tag.id}/edit`}>
+                              <Edit className="h-3 w-3" />
+                            </Link>
+                          </Button>
+                          <Button variant="ghost" size="sm" asChild>
+                            <Link href={`/blog/tag/${tag.slug}`}>
+                              <Eye className="h-3 w-3" />
+                            </Link>
+                          </Button>
+                        </div>
+                        {tag.color && (
+                          <div 
+                            className="w-3 h-3 rounded-full"
+                            style={{ backgroundColor: tag.color }}
+                          />
+                        )}
+                      </div>
+                    </Card>
+                  ))}
+                </div>
+              </>
+            )}
           </TabsContent>
 
           {/* Authors Tab */}
           <TabsContent value="authors" className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold">Authors</h3>
-              <Button asChild data-testid="button-create-author">
-                <Link href="/admin/blog/authors/new">
-                  <Plus className="h-4 w-4 mr-2" />
-                  New Author
-                </Link>
-              </Button>
-            </div>
-
-            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-              {data?.authors.map((author) => (
-                <Card key={author.id}>
+            {isCreatingAuthor ? (
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={handleCancel}
+                    data-testid="button-cancel-author"
+                  >
+                    <ArrowLeft className="h-4 w-4 mr-2" />
+                    Back to Authors
+                  </Button>
+                  <h3 className="text-lg font-semibold">Create New Author</h3>
+                </div>
+                
+                <Card className="max-w-2xl">
                   <CardHeader>
-                    <div className="flex items-center gap-3">
-                      <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
-                        {author.name.split(' ').map(n => n[0]).join('')}
-                      </div>
-                      <div>
-                        <CardTitle className="text-lg" data-testid={`name-author-${author.id}`}>
-                          {author.name}
-                        </CardTitle>
-                        {author.email && (
-                          <p className="text-sm text-gray-500">{author.email}</p>
-                        )}
-                      </div>
-                    </div>
+                    <CardTitle>Author Details</CardTitle>
                   </CardHeader>
                   <CardContent>
-                    {author.bio && (
-                      <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">
-                        {author.bio}
-                      </p>
-                    )}
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center gap-2">
-                        <Button variant="ghost" size="sm" asChild>
-                          <Link href={`/admin/blog/authors/${author.id}/edit`}>
-                            <Edit className="h-4 w-4" />
-                          </Link>
-                        </Button>
-                        <Button variant="ghost" size="sm" asChild>
-                          <Link href={`/blog/author/${author.id}`}>
-                            <Eye className="h-4 w-4" />
-                          </Link>
-                        </Button>
-                      </div>
-                      <Badge variant="secondary">
-                        {data.posts.filter(p => p.authorId === author.id).length} posts
-                      </Badge>
-                    </div>
+                    <Form {...authorForm}>
+                      <form onSubmit={authorForm.handleSubmit(handleCreateAuthor)} className="space-y-4">
+                        <FormField
+                          control={authorForm.control}
+                          name="name"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Author Name *</FormLabel>
+                              <FormControl>
+                                <Input placeholder="Enter author name" {...field} data-testid="input-author-name" />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={authorForm.control}
+                          name="email"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Email</FormLabel>
+                              <FormControl>
+                                <Input type="email" placeholder="Enter email address" {...field} data-testid="input-author-email" />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={authorForm.control}
+                          name="bio"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Bio</FormLabel>
+                              <FormControl>
+                                <Textarea placeholder="Enter author biography" {...field} data-testid="textarea-author-bio" />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <FormField
+                          control={authorForm.control}
+                          name="website"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Website</FormLabel>
+                              <FormControl>
+                                <Input type="url" placeholder="https://example.com" {...field} data-testid="input-author-website" />
+                              </FormControl>
+                              <FormDescription>
+                                Author's website or portfolio URL (optional)
+                              </FormDescription>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                        
+                        <div className="flex gap-3 pt-4">
+                          <Button
+                            type="submit"
+                            disabled={createAuthorMutation.isPending}
+                            data-testid="button-save-author"
+                          >
+                            {createAuthorMutation.isPending ? (
+                              <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Creating...</>
+                            ) : (
+                              <><Save className="h-4 w-4 mr-2" />Create Author</>
+                            )}
+                          </Button>
+                          <Button
+                            type="button"
+                            variant="outline"
+                            onClick={handleCancel}
+                            disabled={createAuthorMutation.isPending}
+                            data-testid="button-cancel-author-form"
+                          >
+                            <X className="h-4 w-4 mr-2" />
+                            Cancel
+                          </Button>
+                        </div>
+                      </form>
+                    </Form>
                   </CardContent>
                 </Card>
-              ))}
-            </div>
+              </div>
+            ) : (
+              <>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-semibold">Authors</h3>
+                  <Button asChild data-testid="button-create-author">
+                    <Link href="/admin/blog/authors/new">
+                      <Plus className="h-4 w-4 mr-2" />
+                      New Author
+                    </Link>
+                  </Button>
+                </div>
+
+                <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+                  {data?.authors.map((author) => (
+                    <Card key={author.id}>
+                      <CardHeader>
+                        <div className="flex items-center gap-3">
+                          <div className="w-10 h-10 bg-blue-100 rounded-full flex items-center justify-center">
+                            {author.name.split(' ').map(n => n[0]).join('')}
+                          </div>
+                          <div>
+                            <CardTitle className="text-lg" data-testid={`name-author-${author.id}`}>
+                              {author.name}
+                            </CardTitle>
+                            {author.email && (
+                              <p className="text-sm text-gray-500">{author.email}</p>
+                            )}
+                          </div>
+                        </div>
+                      </CardHeader>
+                      <CardContent>
+                        {author.bio && (
+                          <p className="text-sm text-gray-600 dark:text-gray-300 mb-3 line-clamp-2">
+                            {author.bio}
+                          </p>
+                        )}
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2">
+                            <Button variant="ghost" size="sm" asChild>
+                              <Link href={`/admin/blog/authors/${author.id}/edit`}>
+                                <Edit className="h-4 w-4" />
+                              </Link>
+                            </Button>
+                            <Button variant="ghost" size="sm" asChild>
+                              <Link href={`/blog/author/${author.id}`}>
+                                <Eye className="h-4 w-4" />
+                              </Link>
+                            </Button>
+                          </div>
+                          <Badge variant="secondary">
+                            {data?.posts.filter(p => p.authorId === author.id).length || 0} posts
+                          </Badge>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))}
+                </div>
+              </>
+            )}
           </TabsContent>
         </Tabs>
       </div>
