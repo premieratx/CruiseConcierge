@@ -188,6 +188,9 @@ function Router() {
       {/* AI Media Library */}
       <Route path="/admin/media" component={lazy(() => import('./pages/admin/MediaLibrary'))} />
       
+      {/* Public Media Library */}
+      <Route path="/media" component={lazy(() => import('./pages/MediaLibrary'))} />
+      
       {/* Content Blocks Management */}
       <Route path="/admin/content-blocks" component={lazy(() => import('./pages/admin/ContentBlocksManagement'))} />
       

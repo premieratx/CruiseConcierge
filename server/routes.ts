@@ -17142,8 +17142,8 @@ Provide comprehensive validation with specific recommendations for improvement.`
     }
   });
 
-  // Upload media files - SECURED
-  app.post('/api/media/upload', requireAdminAuth, upload.single('file'), async (req, res) => {
+  // Upload media files for admin (AI-enabled) - SECURED
+  app.post('/api/media/admin-upload', requireAdminAuth, upload.single('file'), async (req, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({ error: 'No file uploaded' });
@@ -17342,43 +17342,67 @@ Provide comprehensive validation with specific recommendations for improvement.`
       
     } catch (error) {
       console.error('Delete media error:', error);
-      res.status(500).json({ 
-        error: error instanceof Error ? error.message : 'Failed to delete media' 
-      });
+      res.status(500).json({ error: 'Failed to delete media' });
     }
   });
 
   // Bulk delete media items - SECURED
   app.post('/api/media/bulk-delete', requireAdminAuth, requirePermission('edit'), async (req, res) => {
     try {
-      const validation = z.object({
-        mediaIds: z.array(z.string().uuid()).min(1).max(50)
-      }).safeParse(req.body);
+      const { mediaIds } = req.body;
       
-      if (!validation.success) {
-        return res.status(400).json({ 
-          error: 'Invalid request data',
-          details: validation.error.issues
-        });
+      if (!Array.isArray(mediaIds) || mediaIds.length === 0) {
+        return res.status(400).json({ error: 'Invalid media IDs array' });
       }
       
-      const { mediaIds } = validation.data;
+      if (mediaIds.length > 50) {
+        return res.status(400).json({ error: 'Too many items to delete at once (max 50)' });
+      }
+      
       const userId = req.adminUser?.id || 'admin';
       
-      const results = await mediaLibraryService.bulkDeleteMedia(mediaIds, userId);
+      const result = await mediaLibraryService.bulkDeleteMedia(mediaIds, userId);
       
-      console.log(`✅ Bulk delete completed: ${results.deleted.length}/${mediaIds.length} successful`);
-      res.json(results);
+      console.log(`✅ Bulk delete completed: ${result.deleted.length} successful, ${result.failed.length} failed by user ${userId}`);
+      res.json(result);
       
     } catch (error) {
       console.error('Bulk delete error:', error);
-      res.status(500).json({ 
-        error: error instanceof Error ? error.message : 'Failed to bulk delete media'
-      });
+      res.status(500).json({ error: 'Bulk delete failed' });
     }
   });
 
   // Update media metadata - SECURED
+  app.put('/api/media/:id/metadata', requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { manualTags, status, publishedLocations } = req.body;
+      const userId = req.adminUser?.id || 'admin';
+      
+      if (!id || typeof id !== 'string') {
+        return res.status(400).json({ error: 'Invalid media ID' });
+      }
+      
+      const updatedMedia = await mediaLibraryService.updateMediaMetadata(
+        id, 
+        { manualTags, status, publishedLocations }, 
+        userId
+      );
+      
+      console.log(`✅ Media metadata updated: ${id} by user ${userId}`);
+      res.json({ success: true, media: updatedMedia });
+      
+    } catch (error) {
+      console.error('Update metadata error:', error);
+      res.status(500).json({ error: 'Failed to update media metadata' });
+    }
+  });
+
+  // ==========================================
+  // MEDIA LIBRARY ENDPOINTS (PUBLIC)
+  // ==========================================
+  
+  // Update media metadata - SECURED (Admin MediaLibrary service)
   app.put('/api/media/:id', requireAdminAuth, async (req, res) => {
     try {
       const { id } = req.params;
@@ -17551,7 +17575,7 @@ Provide comprehensive validation with specific recommendations for improvement.`
   // MEDIA LIBRARY ENDPOINTS
   // ==========================================
   
-  // Configure multer for file uploads
+  // Configure multer for general media uploads (public media library)
   const generalUpload = multer({
     storage: multer.memoryStorage(),
     limits: {
@@ -17594,7 +17618,9 @@ Provide comprehensive validation with specific recommendations for improvement.`
     return new ObjectStorageServiceClass();
   };
 
-  // POST /api/media/upload - Handle file uploads
+  // Media object storage will be initialized when needed
+
+  // POST /api/media/upload - Handle general file uploads (public media library)
   app.post('/api/media/upload', generalUpload.single('file'), async (req, res) => {
     try {
       if (!req.file) {
@@ -17610,11 +17636,13 @@ Provide comprehensive validation with specific recommendations for improvement.`
       const filePath = `public/media/${uniqueFilename}`;
 
       // Upload to object storage
+      const mediaObjectStorage = await getMediaObjectStorage();
+      const objectPermission = await getObjectPermission();
       const publicUrl = await mediaObjectStorage.uploadFile(
         filePath,
         file.buffer,
         file.mimetype,
-        ObjectPermission.PUBLIC_READ
+        objectPermission.READ
       );
 
       // Save to database

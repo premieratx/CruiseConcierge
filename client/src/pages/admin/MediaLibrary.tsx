@@ -265,7 +265,7 @@ export default function MediaLibrary() {
         formData.append('file', file);
         formData.append('userId', 'admin');
 
-        const response = await fetch('/api/media/upload', {
+        const response = await fetch('/api/media/admin-upload', {
           method: 'POST',
           body: formData
         });
