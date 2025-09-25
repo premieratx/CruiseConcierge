@@ -65,7 +65,7 @@ The WordPress migration system includes intelligent content enhancement to optim
 
 ## External Dependencies
 - **Stripe**: For payment processing (`VITE_STRIPE_PUBLIC_KEY`, `STRIPE_SECRET_KEY`).
-- **GoHighLevel**: For SMS notifications and lead management (`GOHIGHLEVEL_API_KEY`, `GOHIGHLEVEL_LOCATION_ID`, `GOHIGHLEVEL_PRIVATE_INTEGRATION_TOKEN`).
+- **GoHighLevel**: For SMS notifications and lead management (`GOHIGHLEVEL_PRIVATE_INTEGRATION_TOKEN`, `GOHIGHLEVEL_LOCATION_ID`, `FROM_PHONE`). **CRITICAL**: We use GoHighLevel for ALL SMS notifications, NOT Twilio. FROM_PHONE is set to `5124885892` for GoHighLevel SMS sending.
 - **Google Sheets**: For real-time availability management (`GOOGLE_SHEETS_CREDENTIALS`, `SHEET_ID`, `GOOGLE_SERVICE_ACCOUNT_CREDENTIALS`).
 - **Mailgun**: For email delivery of quotes and confirmations (`MAILGUN_API_KEY`, `MAILGUN_DOMAIN`, `MAILGUN_FROM`).
 - **OpenRouter**: For AI-powered customer interactions (`OPENROUTER_API_KEY`).
