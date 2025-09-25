@@ -133,24 +133,45 @@ function SortableLeadCard({ lead, project, onClick }: { lead: Contact; project?:
               </>
             )}
           </div>
-          <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="h-6 w-6 p-0"
-              onClick={handleViewProfile}
-              data-testid={`button-view-profile-${lead.id}`}
-              title="View Customer Profile"
-            >
-              <User className="h-3 w-3" />
-            </Button>
-            <div
-              {...attributes}
-              {...listeners}
-              className="cursor-grab active:cursor-grabbing p-1"
-              data-testid={`drag-handle-${lead.id}`}
-            >
-              <GripVertical className="w-4 h-4 text-muted-foreground" />
+          <div className="flex gap-1 items-center">
+            {/* Quote Link - Always visible if available */}
+            {lead.quoteUrl && (
+              <Button
+                variant="outline"
+                size="sm"
+                className="h-6 px-2 text-xs"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.open(lead.quoteUrl, '_blank');
+                }}
+                data-testid={`button-quote-link-${lead.id}`}
+                title="View Quote"
+              >
+                <FileText className="h-3 w-3 mr-1" />
+                Quote
+              </Button>
+            )}
+            
+            {/* Action buttons - visible on hover */}
+            <div className="flex gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                className="h-6 w-6 p-0"
+                onClick={handleViewProfile}
+                data-testid={`button-view-profile-${lead.id}`}
+                title="View Customer Profile"
+              >
+                <User className="h-3 w-3" />
+              </Button>
+              <div
+                {...attributes}
+                {...listeners}
+                className="cursor-grab active:cursor-grabbing p-1"
+                data-testid={`drag-handle-${lead.id}`}
+              >
+                <GripVertical className="w-4 h-4 text-muted-foreground" />
+              </div>
             </div>
           </div>
         </div>
@@ -325,6 +346,26 @@ function LeadDetailsModal({
                     {formatDate(lead.createdAt)}
                   </p>
                 </div>
+                {lead.quoteUrl && (
+                  <div className="col-span-2">
+                    <Label>Quote Link</Label>
+                    <div className="flex items-center gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => window.open(lead.quoteUrl, '_blank')}
+                        data-testid="button-modal-quote-link"
+                        className="text-xs"
+                      >
+                        <FileText className="h-3 w-3 mr-1" />
+                        View Quote
+                      </Button>
+                      <span className="text-xs text-muted-foreground truncate">
+                        {lead.quoteUrl}
+                      </span>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {project && (
@@ -718,10 +759,12 @@ export default function Leads() {
     })
   );
 
-  // Fetch all contacts
-  const { data: contacts = [], isLoading: contactsLoading } = useQuery<Contact[]>({
-    queryKey: ['/api/contacts'],
+  // Fetch all leads with quote links
+  const { data: leadsResponse, isLoading: contactsLoading } = useQuery<{success: boolean, leads: Contact[], count: number}>({
+    queryKey: ['/api/leads'],
   });
+  
+  const contacts = leadsResponse?.leads || [];
 
   // Fetch projects
   const { data: projects = [], isLoading: projectsLoading } = useQuery<Project[]>({

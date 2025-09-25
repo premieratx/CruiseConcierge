@@ -10,6 +10,7 @@ export const contacts = pgTable("contacts", {
   email: text("email").notNull(),
   phone: text("phone"),
   tags: jsonb("tags").$type<string[]>().default([]),
+  quoteUrl: text("quote_url"), // Store quote link for leads
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 

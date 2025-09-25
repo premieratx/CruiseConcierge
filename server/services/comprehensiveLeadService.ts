@@ -326,6 +326,21 @@ export class ComprehensiveLeadService {
             console.log('✅ CRITICAL SUCCESS: Column Q updated with simple parameter URL');
             result.quoteUrl = simpleQuoteUrl;
             quoteUrl = simpleQuoteUrl; // Update for use in notifications
+            
+            // 🎯 CRITICAL FIX: Also update the Contact record in local storage with quote URL
+            try {
+              console.log('💾 CRITICAL: Updating Contact record in local storage with quote URL');
+              const updatedContact = await storage.updateContact(contact.id, {
+                quoteUrl: simpleQuoteUrl
+              });
+              console.log('✅ CRITICAL SUCCESS: Contact record updated with quote URL in local storage:', {
+                contactId: contact.id,
+                quoteUrl: simpleQuoteUrl
+              });
+            } catch (error: any) {
+              console.error('❌ CRITICAL ERROR: Failed to update Contact record with quote URL:', error);
+              result.errors.push(`CRITICAL: Failed to update Contact record with quote URL: ${error.message}`);
+            }
           } else {
             // This is CRITICAL - log loudly if this fails
             console.error('❌ CRITICAL FAILURE: Failed to update Column Q with quote URL - THIS MUST BE FIXED!');

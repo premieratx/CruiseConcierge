@@ -5161,15 +5161,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  app.get("/api/contacts/leads", async (req, res) => {
-    try {
-      const leads = await storage.getLeads();
-      res.json(leads);
-    } catch (error) {
-      console.error("Get leads error:", error);
-      res.status(500).json({ error: "Failed to fetch leads" });
-    }
-  });
 
   app.get("/api/contacts/clients", async (req, res) => {
     try {
@@ -5365,6 +5356,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const storageService = await getStorage();
       const leads = await storageService.getLeads();
+      console.log(`📊 Retrieved ${leads.length} leads with quote links for admin dashboard`);
       res.json({ success: true, leads, count: leads.length });
     } catch (error: any) {
       console.error("Get all leads error:", error);

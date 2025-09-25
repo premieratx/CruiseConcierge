@@ -12,6 +12,7 @@ export interface IStorage {
   getContact(id: string): Promise<Contact | undefined>;
   getContactByEmail(email: string): Promise<Contact | undefined>;
   createContact(contact: InsertContact): Promise<Contact>;
+  updateContact(id: string, updates: Partial<Contact>): Promise<Contact>;
   getLeads(): Promise<Contact[]>;
   getClients(): Promise<Contact[]>;
 
@@ -1510,6 +1511,12 @@ export class DatabaseStorage implements IStorage {
       phone: insertContact.phone || null,
       tags: insertContact.tags || [],
     }).returning();
+    return result[0];
+  }
+
+  async updateContact(id: string, updates: Partial<Contact>): Promise<Contact> {
+    const result = await db.update(contacts).set(updates).where(eq(contacts.id, id)).returning();
+    if (result.length === 0) throw new Error("Contact not found");
     return result[0];
   }
 
