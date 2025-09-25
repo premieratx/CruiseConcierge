@@ -12652,6 +12652,36 @@ Phone: ${contact.phone || 'N/A'}`;
     }
   });
 
+  // Clear all leads and quotes for clean slate (admin only)
+  app.delete("/api/admin/clear-leads-and-quotes", requireAdminAuth, async (req, res) => {
+    try {
+      const storageInstance = await getStorage();
+      
+      // Import db for direct SQL operations since deleteContact/deleteQuote aren't implemented
+      const { db } = await import('./db');
+      const { contacts, quotes } = await import('@shared/schema');
+      
+      // Clear all contacts (leads)
+      const contactsResult = await db.delete(contacts);
+      
+      // Clear all quotes  
+      const quotesResult = await db.delete(quotes);
+      
+      console.log(`🧹 Admin cleared all data: ${contactsResult.rowCount || 0} contacts and ${quotesResult.rowCount || 0} quotes deleted`);
+      
+      res.json({ 
+        success: true, 
+        message: `Cleared ${contactsResult.rowCount || 0} leads and ${quotesResult.rowCount || 0} quotes`,
+        contactsDeleted: contactsResult.rowCount || 0,
+        quotesDeleted: quotesResult.rowCount || 0
+      });
+      
+    } catch (error) {
+      console.error("❌ Error clearing leads and quotes:", error);
+      res.status(500).json({ error: "Failed to clear leads and quotes" });
+    }
+  });
+
   // Comprehensive API Service Testing Endpoint
   app.get("/api/test-integrations", async (req, res) => {
     console.log("🧪 Starting comprehensive API integration testing...");
