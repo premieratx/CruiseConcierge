@@ -85,23 +85,28 @@ export default function AIAssistant() {
   // Fetch chat sessions
   const { data: sessions = [], isLoading: sessionsLoading } = useQuery({
     queryKey: ['/api/admin/ai-assistant/sessions'],
-    queryFn: () => apiRequest('/api/admin/ai-assistant/sessions'),
+    queryFn: async () => {
+      const response = await apiRequest('GET', '/api/admin/ai-assistant/sessions');
+      return await response.json() as AdminChatSession[];
+    },
   });
 
   // Fetch messages for selected session
   const { data: messages = [], isLoading: messagesLoading } = useQuery({
     queryKey: ['/api/admin/ai-assistant/sessions', selectedSession, 'messages'],
-    queryFn: () => apiRequest(`/api/admin/ai-assistant/sessions/${selectedSession}/messages`),
+    queryFn: async () => {
+      const response = await apiRequest('GET', `/api/admin/ai-assistant/sessions/${selectedSession}/messages`);
+      return await response.json() as AdminChatMessage[];
+    },
     enabled: !!selectedSession,
   });
 
   // Create new session mutation
   const createSessionMutation = useMutation({
-    mutationFn: (data: { title: string; description?: string; tags?: string[] }) =>
-      apiRequest('/api/admin/ai-assistant/sessions', {
-        method: 'POST',
-        body: JSON.stringify(data),
-      }),
+    mutationFn: async (data: { title: string; description?: string; tags?: string[] }) => {
+      const response = await apiRequest('POST', '/api/admin/ai-assistant/sessions', data);
+      return await response.json() as AdminChatSession;
+    },
     onSuccess: (newSession) => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/ai-assistant/sessions'] });
       setSelectedSession(newSession.id);
@@ -124,16 +129,15 @@ export default function AIAssistant() {
 
   // Send message mutation
   const sendMessageMutation = useMutation({
-    mutationFn: (data: { 
+    mutationFn: async (data: { 
       sessionId: string; 
       content: string; 
       messageType?: string;
       metadata?: any;
-    }) =>
-      apiRequest(`/api/admin/ai-assistant/sessions/${data.sessionId}/messages`, {
-        method: 'POST',
-        body: JSON.stringify(data),
-      }),
+    }) => {
+      const response = await apiRequest('POST', `/api/admin/ai-assistant/sessions/${data.sessionId}/messages`, data);
+      return await response.json() as AdminChatMessage;
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ 
         queryKey: ['/api/admin/ai-assistant/sessions', selectedSession, 'messages'] 
@@ -154,10 +158,10 @@ export default function AIAssistant() {
 
   // Delete session mutation
   const deleteSessionMutation = useMutation({
-    mutationFn: (sessionId: string) =>
-      apiRequest(`/api/admin/ai-assistant/sessions/${sessionId}`, {
-        method: 'DELETE',
-      }),
+    mutationFn: async (sessionId: string) => {
+      const response = await apiRequest('DELETE', `/api/admin/ai-assistant/sessions/${sessionId}`);
+      return await response.json();
+    },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/ai-assistant/sessions'] });
       setSelectedSession(null);

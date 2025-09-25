@@ -384,14 +384,12 @@ export default function Pricing() {
   // Mutations
   const createAdjustmentMutation = useMutation({
     mutationFn: async (data: PricingAdjustmentFormData) => {
-      return apiRequest("/api/pricing/adjustments", {
-        method: "POST",
-        body: JSON.stringify({
-          ...data,
-          startDate: data.startDate.toISOString(),
-          endDate: data.endDate.toISOString(),
-        }),
+      const response = await apiRequest("POST", "/api/pricing/adjustments", {
+        ...data,
+        startDate: data.startDate.toISOString(),
+        endDate: data.endDate.toISOString(),
       });
+      return await response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/pricing/adjustments"] });
@@ -404,14 +402,12 @@ export default function Pricing() {
 
   const updateAdjustmentMutation = useMutation({
     mutationFn: async ({ id, data }: { id: string; data: Partial<PricingAdjustmentFormData> }) => {
-      return apiRequest(`/api/pricing/adjustments/${id}`, {
-        method: "PATCH",
-        body: JSON.stringify({
-          ...data,
-          ...(data.startDate && { startDate: data.startDate.toISOString() }),
-          ...(data.endDate && { endDate: data.endDate.toISOString() }),
-        }),
+      const response = await apiRequest("PATCH", `/api/pricing/adjustments/${id}`, {
+        ...data,
+        ...(data.startDate && { startDate: data.startDate.toISOString() }),
+        ...(data.endDate && { endDate: data.endDate.toISOString() }),
       });
+      return await response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/pricing/adjustments"] });
@@ -422,7 +418,8 @@ export default function Pricing() {
 
   const deleteAdjustmentMutation = useMutation({
     mutationFn: async (id: string) => {
-      return apiRequest(`/api/pricing/adjustments/${id}`, { method: "DELETE" });
+      const response = await apiRequest("DELETE", `/api/pricing/adjustments/${id}`);
+      return await response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/pricing/adjustments"] });
@@ -433,19 +430,17 @@ export default function Pricing() {
 
   const createPromotionMutation = useMutation({
     mutationFn: async (data: DiscountRuleFormData) => {
-      return apiRequest("/api/discount-rules", {
-        method: "POST",
-        body: JSON.stringify({
-          ...data,
-          discountValue: data.discountType === "percentage" 
-            ? Math.round(data.discountValue * 100) // Convert to basis points
-            : Math.round(data.discountValue * 100), // Convert to cents
-          ...(data.validFrom && { validFrom: data.validFrom.toISOString() }),
-          ...(data.validUntil && { validUntil: data.validUntil.toISOString() }),
-          ...(data.inquiryStartDate && { inquiryStartDate: data.inquiryStartDate.toISOString() }),
-          ...(data.inquiryEndDate && { inquiryEndDate: data.inquiryEndDate.toISOString() }),
-        }),
+      const response = await apiRequest("POST", "/api/discount-rules", {
+        ...data,
+        discountValue: data.discountType === "percentage" 
+          ? Math.round(data.discountValue * 100) // Convert to basis points
+          : Math.round(data.discountValue * 100), // Convert to cents
+        ...(data.validFrom && { validFrom: data.validFrom.toISOString() }),
+        ...(data.validUntil && { validUntil: data.validUntil.toISOString() }),
+        ...(data.inquiryStartDate && { inquiryStartDate: data.inquiryStartDate.toISOString() }),
+        ...(data.inquiryEndDate && { inquiryEndDate: data.inquiryEndDate.toISOString() }),
       });
+      return await response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/discount-rules"] });

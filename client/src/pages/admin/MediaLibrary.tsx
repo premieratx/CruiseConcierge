@@ -114,18 +114,16 @@ function EditModal({ photo, isOpen, onClose, onEditComplete }: EditModalProps) {
   const handleEdit = async () => {
     setIsEditing(true);
     try {
-      const response = await apiRequest('/api/media/edit-photo', {
-        method: 'POST',
-        body: JSON.stringify({
-          photoId: photo.id,
-          editType,
-          editPrompt,
-          userId: 'admin'
-        })
+      const response = await apiRequest('POST', '/api/media/edit-photo', {
+        photoId: photo.id,
+        editType,
+        editPrompt,
+        userId: 'admin'
       });
 
-      if (response.success) {
-        onEditComplete(response.editedPhoto);
+      const result = await response.json();
+      if (result.success) {
+        onEditComplete(result.editedPhoto);
         toast({
           title: "Photo Edited Successfully!",
           description: "Nano Banana has enhanced your photo.",
@@ -301,15 +299,10 @@ export default function MediaLibrary() {
     try {
       if (itemIds.length === 1) {
         // Single delete
-        await apiRequest(`/api/media/${itemIds[0]}`, {
-          method: 'DELETE'
-        });
+        await apiRequest('DELETE', `/api/media/${itemIds[0]}`);
       } else {
         // Bulk delete
-        await apiRequest('/api/media/bulk-delete', {
-          method: 'POST',
-          body: JSON.stringify({ mediaIds: itemIds })
-        });
+        await apiRequest('POST', '/api/media/bulk-delete', { mediaIds: itemIds });
       }
       
       toast({
@@ -335,12 +328,9 @@ export default function MediaLibrary() {
   const publishItems = async (section: string) => {
     try {
       const itemIds = Array.from(selectedItems);
-      await apiRequest('/api/media/publish', {
-        method: 'POST',
-        body: JSON.stringify({
-          mediaIds: itemIds,
-          targetSection: section
-        })
+      await apiRequest('POST', '/api/media/publish', {
+        mediaIds: itemIds,
+        targetSection: section
       });
       
       toast({
@@ -429,15 +419,13 @@ export default function MediaLibrary() {
 
     setIsGenerating(true);
     try {
-      const response = await apiRequest('/api/media/generate-image', {
-        method: 'POST',
-        body: JSON.stringify({
-          prompt: generatePrompt,
-          userId: 'admin'
-        })
+      const response = await apiRequest('POST', '/api/media/generate-image', {
+        prompt: generatePrompt,
+        userId: 'admin'
       });
 
-      if (response.success) {
+      const result = await response.json();
+      if (result.success) {
         toast({
           title: "Image Generated!",
           description: "Nano Banana has created your image. AI analysis in progress...",

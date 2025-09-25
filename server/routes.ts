@@ -1571,47 +1571,60 @@ interface AdminUser {
 
 // Mock admin session validation - replace with real authentication
 const validateAdminSession = (req: any): AdminUser | null => {
-  // Check for admin session or token
-  const authHeader = req.headers.authorization;
-  const sessionAdmin = req.session?.admin;
-  
-  // For development, allow a test admin token
-  if (authHeader === 'Bearer admin-dev-token' || process.env.ADMIN_DEV_MODE === 'true') {
-    return {
-      id: 'admin-dev',
-      name: 'Development Admin',
-      email: 'admin@premierpartycruises.com',
-      permissions: ['read', 'edit', 'full']
-    };
+  try {
+    // Check for admin session or token
+    const authHeader = req.headers?.authorization;
+    
+    // For development, allow a test admin token
+    if (authHeader === 'Bearer admin-dev-token' || process.env.ADMIN_DEV_MODE === 'true') {
+      return {
+        id: 'admin-dev',
+        name: 'Development Admin',
+        email: 'admin@premierpartycruises.com',
+        permissions: ['read', 'edit', 'full']
+      };
+    }
+    
+    // Safely check for valid session admin
+    const sessionAdmin = req.session?.admin;
+    if (sessionAdmin && sessionAdmin.id && sessionAdmin.email) {
+      return {
+        id: sessionAdmin.id,
+        name: sessionAdmin.name || 'Admin User',
+        email: sessionAdmin.email,
+        permissions: sessionAdmin.permissions || ['read', 'edit']
+      };
+    }
+    
+    return null;
+  } catch (error) {
+    console.error('Error in validateAdminSession:', error);
+    return null;
   }
-  
-  // Check for valid session admin
-  if (sessionAdmin && sessionAdmin.id && sessionAdmin.email) {
-    return {
-      id: sessionAdmin.id,
-      name: sessionAdmin.name || 'Admin User',
-      email: sessionAdmin.email,
-      permissions: sessionAdmin.permissions || ['read', 'edit']
-    };
-  }
-  
-  return null;
 };
 
 // Authentication middleware for admin routes
 const requireAdminAuth = (req: any, res: any, next: any) => {
-  const adminUser = validateAdminSession(req);
-  
-  if (!adminUser) {
-    return res.status(401).json({ 
-      error: "Admin authentication required",
-      details: "Please authenticate with valid admin credentials"
+  try {
+    const adminUser = validateAdminSession(req);
+    
+    if (!adminUser) {
+      return res.status(401).json({ 
+        error: "Admin authentication required",
+        details: "Please authenticate with valid admin credentials"
+      });
+    }
+    
+    // Attach verified admin identity to request
+    req.adminUser = adminUser;
+    next();
+  } catch (error) {
+    console.error('Error in requireAdminAuth:', error);
+    return res.status(500).json({ 
+      error: "Authentication system error",
+      details: error instanceof Error ? error.message : 'Unknown error'
     });
   }
-  
-  // Attach verified admin identity to request
-  req.adminUser = adminUser;
-  next();
 };
 
 // Permission check middleware
@@ -15142,6 +15155,7 @@ Phone: ${contact.phone || 'N/A'}`;
       const totalViews = allPosts.posts?.reduce((sum, p) => sum + (p.viewCount || 0), 0) || 0;
 
       res.json({
+        success: true,
         posts: postsResult.posts || [],
         authors,
         categories,
@@ -17506,7 +17520,9 @@ Provide comprehensive validation with specific recommendations for improvement.`
 
       const { page = 1, limit = 20, filter } = validation.data;
       
-      const items = await mediaLibraryService.getMediaLibrary(page, limit, filter);
+      // Use lazy-loaded service
+      const mediaLibraryServiceInstance = await getMediaLibraryService();
+      const items = await mediaLibraryServiceInstance.getMediaLibrary(page, limit, filter);
       res.json({ success: true, items });
     } catch (error) {
       console.error('Library fetch error:', error);

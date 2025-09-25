@@ -163,10 +163,10 @@ export default function AgenticAI() {
 
   // Mutations
   const createTaskMutation = useMutation({
-    mutationFn: (data: CreateTaskForm) => apiRequest('/api/agents/task/create', {
-      method: 'POST',
-      body: JSON.stringify(data)
-    }),
+    mutationFn: async (data: CreateTaskForm) => {
+      const response = await apiRequest('POST', '/api/agents/task/create', data);
+      return await response.json();
+    },
     onSuccess: (data) => {
       toast({
         title: '✅ Task Created',
@@ -185,9 +185,10 @@ export default function AgenticAI() {
   });
 
   const cancelTaskMutation = useMutation({
-    mutationFn: (taskId: string) => apiRequest(`/api/agents/task/${taskId}/cancel`, {
-      method: 'POST'
-    }),
+    mutationFn: async (taskId: string) => {
+      const response = await apiRequest('POST', `/api/agents/task/${taskId}/cancel`);
+      return await response.json();
+    },
     onSuccess: () => {
       toast({
         title: '✅ Task Cancelled',
@@ -205,10 +206,10 @@ export default function AgenticAI() {
   });
 
   const executeToolMutation = useMutation({
-    mutationFn: (data: { toolName: string; args: any }) => apiRequest('/api/agents/tools/execute', {
-      method: 'POST',
-      body: JSON.stringify(data)
-    }),
+    mutationFn: async (data: { toolName: string; args: any }) => {
+      const response = await apiRequest('POST', '/api/agents/tools/execute', data);
+      return await response.json();
+    },
     onSuccess: (result) => {
       toast({
         title: result.success ? '✅ Tool Executed' : '❌ Tool Failed',
