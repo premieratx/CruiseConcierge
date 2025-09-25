@@ -17,6 +17,7 @@ export async function apiRequest(
                        url.includes('/api/contacts') || url.includes('/api/projects') ||
                        url.includes('/api/invoices') || url.includes('/api/media') ||
                        url.includes('/api/blog') || // SECURITY: Include blog management routes
+                       url.includes('/api/seo') || // SECURITY: Include SEO management routes
                        url.includes('/api/agent/chat'); // SECURITY: Include agent chat routes
   
   // Handle FormData uploads (don't set Content-Type, let browser set it with boundary)
@@ -52,6 +53,7 @@ export const getQueryFn: <T>(options: {
                          url.includes('/api/contacts') || url.includes('/api/projects') ||
                          url.includes('/api/invoices') || url.includes('/api/media') ||
                          url.includes('/api/blog') || // SECURITY: Include blog management routes
+                         url.includes('/api/seo') || // SECURITY: Include SEO management routes
                          url.includes('/api/agent/chat'); // SECURITY: Include agent chat routes
     
     const headers: Record<string, string> = {

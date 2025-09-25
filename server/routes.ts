@@ -2591,6 +2591,399 @@ export async function registerRoutes(app: Express): Promise<Server> {
   });
   
   // ==========================================
+  // SEO MANAGEMENT ENDPOINTS
+  // ==========================================
+  
+  // Import SEO service for comprehensive SEO functionality
+  const getSeoService = async () => {
+    const { seoService } = await import('./services/seoService');
+    return seoService;
+  };
+
+  // Get SEO overview metrics
+  app.get("/api/seo/overview", async (req, res) => {
+    try {
+      const seoService = await getSeoService();
+      const overview = await seoService.calculateOverviewMetrics();
+      
+      console.log('📊 SEO overview calculated:', overview);
+      res.json(overview);
+    } catch (error) {
+      console.error("SEO overview error:", error);
+      res.status(500).json({ error: "Failed to calculate SEO overview" });
+    }
+  });
+
+  // Get all SEO pages with their metrics
+  app.get("/api/seo/pages", async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const pages = await storage.getSeoPages();
+      
+      // Transform storage format to frontend format
+      const formattedPages = pages.map(page => ({
+        id: page.id,
+        pageRoute: page.pageRoute,
+        pageName: page.pageName,
+        metaTitle: page.metaTitle,
+        metaDescription: page.metaDescription,
+        metaKeywords: page.metaKeywords || [],
+        focusKeyword: page.focusKeyword,
+        targetKeywords: page.targetKeywords || [],
+        seoScore: page.seoScore || 0,
+        lastAnalyzed: page.lastAnalyzed?.toISOString(),
+        issues: page.issues || [],
+        recommendations: page.recommendations || [],
+        active: page.active,
+        autoOptimize: page.autoOptimize || false
+      }));
+
+      console.log('📄 SEO pages retrieved:', formattedPages.length);
+      res.json(formattedPages);
+    } catch (error) {
+      console.error("Get SEO pages error:", error);
+      res.status(500).json({ error: "Failed to retrieve SEO pages" });
+    }
+  });
+
+  // Get SEO settings
+  app.get("/api/seo/settings", async (req, res) => {
+    try {
+      const storage = await getStorage();
+      let settings = await storage.getSeoSettings();
+      
+      // Create default settings if none exist
+      if (!settings) {
+        const defaultSettings = {
+          orgId: 'org_demo',
+          defaultMetaTitle: 'Premier Party Cruises - Austin Lake Travis Boat Rentals',
+          defaultMetaDescription: 'Book unforgettable boat cruises and party experiences on Lake Austin. Private cruises, bachelor parties, corporate events, and more.',
+          businessName: 'Premier Party Cruises',
+          businessType: 'LocalBusiness',
+          businessPhone: '(512) 363-5000',
+          businessEmail: 'info@premierppartycruises.com',
+          aiOptimizationEnabled: true,
+          preferredAiModel: 'gpt-4',
+          autoGenerateSitemap: true,
+          autoAnalyzeNewPages: true
+        };
+        
+        settings = await storage.createSeoSettings(defaultSettings);
+      }
+
+      console.log('⚙️ SEO settings retrieved');
+      res.json(settings);
+    } catch (error) {
+      console.error("Get SEO settings error:", error);
+      res.status(500).json({ error: "Failed to retrieve SEO settings" });
+    }
+  });
+
+  // Update SEO page settings
+  app.put("/api/seo/pages/:pageRoute", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const { pageRoute } = req.params;
+      const updates = req.body;
+      
+      const storage = await getStorage();
+      
+      // Check if page exists, create if it doesn't
+      let page = await storage.getSeoPage(decodeURIComponent(pageRoute));
+      if (!page) {
+        const seoService = await getSeoService();
+        const routes = await seoService.discoverApplicationRoutes();
+        const routeInfo = routes.find(r => r.route === decodeURIComponent(pageRoute));
+        
+        page = await storage.createSeoPage({
+          pageRoute: decodeURIComponent(pageRoute),
+          pageName: routeInfo?.name || decodeURIComponent(pageRoute),
+          active: true,
+          ...updates
+        });
+      } else {
+        page = await storage.updateSeoPage(decodeURIComponent(pageRoute), updates);
+      }
+
+      // Transform to frontend format
+      const formattedPage = {
+        id: page.id,
+        pageRoute: page.pageRoute,
+        pageName: page.pageName,
+        metaTitle: page.metaTitle,
+        metaDescription: page.metaDescription,
+        metaKeywords: page.metaKeywords || [],
+        focusKeyword: page.focusKeyword,
+        targetKeywords: page.targetKeywords || [],
+        seoScore: page.seoScore || 0,
+        lastAnalyzed: page.lastAnalyzed?.toISOString(),
+        issues: page.issues || [],
+        recommendations: page.recommendations || [],
+        active: page.active,
+        autoOptimize: page.autoOptimize || false
+      };
+
+      console.log('✏️ SEO page updated:', pageRoute);
+      res.json(formattedPage);
+    } catch (error) {
+      console.error("Update SEO page error:", error);
+      res.status(500).json({ error: "Failed to update SEO page" });
+    }
+  });
+
+  // Analyze page SEO performance
+  app.post("/api/seo/analyze/:pageRoute", async (req, res) => {
+    try {
+      const { pageRoute } = req.params;
+      const { content } = req.body;
+      
+      const seoService = await getSeoService();
+      const analysis = await seoService.analyzePage(decodeURIComponent(pageRoute), content);
+      
+      // Update the page with analysis results
+      const storage = await getStorage();
+      let page = await storage.getSeoPage(decodeURIComponent(pageRoute));
+      
+      if (!page) {
+        // Create page if it doesn't exist
+        const routes = await seoService.discoverApplicationRoutes();
+        const routeInfo = routes.find(r => r.route === decodeURIComponent(pageRoute));
+        
+        page = await storage.createSeoPage({
+          pageRoute: decodeURIComponent(pageRoute),
+          pageName: routeInfo?.name || decodeURIComponent(pageRoute),
+          active: true,
+          seoScore: analysis.score,
+          issues: analysis.issues,
+          recommendations: analysis.recommendations,
+          lastAnalyzed: new Date(),
+          keywordDensity: analysis.keywordDensity,
+          headingStructure: analysis.headingStructure,
+          contentLength: analysis.contentMetrics.wordCount,
+          internalLinks: analysis.technicalMetrics.internalLinks,
+          externalLinks: analysis.technicalMetrics.externalLinks,
+          imagesWithoutAlt: analysis.technicalMetrics.imagesWithoutAlt,
+          loadTime: analysis.technicalMetrics.loadTime,
+          mobileOptimized: analysis.technicalMetrics.mobileOptimized
+        });
+      } else {
+        page = await storage.updateSeoPage(decodeURIComponent(pageRoute), {
+          seoScore: analysis.score,
+          issues: analysis.issues,
+          recommendations: analysis.recommendations,
+          lastAnalyzed: new Date(),
+          keywordDensity: analysis.keywordDensity,
+          headingStructure: analysis.headingStructure,
+          contentLength: analysis.contentMetrics.wordCount,
+          internalLinks: analysis.technicalMetrics.internalLinks,
+          externalLinks: analysis.technicalMetrics.externalLinks,
+          imagesWithoutAlt: analysis.technicalMetrics.imagesWithoutAlt,
+          loadTime: analysis.technicalMetrics.loadTime,
+          mobileOptimized: analysis.technicalMetrics.mobileOptimized
+        });
+      }
+
+      console.log('🔍 SEO analysis completed for:', pageRoute, '- Score:', analysis.score);
+      res.json({
+        analysis,
+        updatedPage: {
+          id: page.id,
+          pageRoute: page.pageRoute,
+          pageName: page.pageName,
+          seoScore: page.seoScore,
+          issues: page.issues,
+          recommendations: page.recommendations,
+          lastAnalyzed: page.lastAnalyzed?.toISOString()
+        }
+      });
+    } catch (error) {
+      console.error("SEO analyze page error:", error);
+      res.status(500).json({ error: "Failed to analyze page SEO" });
+    }
+  });
+
+  // AI optimize page
+  app.post("/api/seo/optimize", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const { pageRoute, optimizationType, targetKeyword } = req.body;
+      
+      if (!pageRoute) {
+        return res.status(400).json({ error: "pageRoute is required" });
+      }
+
+      const seoService = await getSeoService();
+      const optimization = await seoService.optimizePage({
+        pageRoute,
+        optimizationType: optimizationType || 'full_page',
+        targetKeyword
+      });
+      
+      // Update the page with optimized data
+      const storage = await getStorage();
+      const updatedPage = await storage.updateSeoPage(pageRoute, optimization.optimizedData);
+
+      console.log('🤖 AI optimization completed for:', pageRoute, '- Model:', optimization.model);
+      res.json({
+        success: true,
+        optimizedData: optimization.optimizedData,
+        aiSuggestions: optimization.aiSuggestions,
+        model: optimization.model,
+        updatedPage: {
+          id: updatedPage.id,
+          pageRoute: updatedPage.pageRoute,
+          pageName: updatedPage.pageName,
+          metaTitle: updatedPage.metaTitle,
+          metaDescription: updatedPage.metaDescription,
+          focusKeyword: updatedPage.focusKeyword,
+          targetKeywords: updatedPage.targetKeywords,
+          seoScore: updatedPage.seoScore,
+          recommendations: updatedPage.recommendations,
+          lastAnalyzed: updatedPage.lastAnalyzed?.toISOString()
+        }
+      });
+    } catch (error) {
+      console.error("SEO optimize page error:", error);
+      res.status(500).json({ error: "Failed to optimize page" });
+    }
+  });
+
+  // Bulk analyze pages
+  app.post("/api/seo/bulk-analyze", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const { pageRoutes } = req.body;
+      
+      if (!pageRoutes || !Array.isArray(pageRoutes)) {
+        return res.status(400).json({ error: "pageRoutes array is required" });
+      }
+
+      const seoService = await getSeoService();
+      const storage = await getStorage();
+      
+      const results = [];
+      let analyzedCount = 0;
+      
+      for (const pageRoute of pageRoutes) {
+        try {
+          const analysis = await seoService.analyzePage(pageRoute);
+          
+          // Update or create the page
+          let page = await storage.getSeoPage(pageRoute);
+          if (!page) {
+            const routes = await seoService.discoverApplicationRoutes();
+            const routeInfo = routes.find(r => r.route === pageRoute);
+            
+            page = await storage.createSeoPage({
+              pageRoute,
+              pageName: routeInfo?.name || pageRoute,
+              active: true,
+              seoScore: analysis.score,
+              issues: analysis.issues,
+              recommendations: analysis.recommendations,
+              lastAnalyzed: new Date()
+            });
+          } else {
+            page = await storage.updateSeoPage(pageRoute, {
+              seoScore: analysis.score,
+              issues: analysis.issues,
+              recommendations: analysis.recommendations,
+              lastAnalyzed: new Date()
+            });
+          }
+          
+          results.push({
+            pageRoute,
+            success: true,
+            score: analysis.score,
+            issuesFound: analysis.issues.length
+          });
+          analyzedCount++;
+        } catch (error) {
+          console.error(`Failed to analyze ${pageRoute}:`, error);
+          results.push({
+            pageRoute,
+            success: false,
+            error: error instanceof Error ? error.message : 'Analysis failed'
+          });
+        }
+      }
+
+      console.log('📊 Bulk analysis completed:', analyzedCount, 'of', pageRoutes.length, 'pages');
+      res.json({
+        success: true,
+        totalPages: pageRoutes.length,
+        analyzedPages: analyzedCount,
+        failedPages: pageRoutes.length - analyzedCount,
+        results,
+        model: 'analysis-engine'
+      });
+    } catch (error) {
+      console.error("Bulk analyze error:", error);
+      res.status(500).json({ error: "Failed to perform bulk analysis" });
+    }
+  });
+
+  // Bulk optimize pages
+  app.post("/api/seo/bulk-optimize", requireAdminAuth, requirePermission('edit'), async (req, res) => {
+    try {
+      const { pageRoutes, optimizationType, targetKeywords } = req.body;
+      
+      if (!pageRoutes || !Array.isArray(pageRoutes)) {
+        return res.status(400).json({ error: "pageRoutes array is required" });
+      }
+
+      const seoService = await getSeoService();
+      const storage = await getStorage();
+      
+      const results = [];
+      let successfulOptimizations = 0;
+      
+      for (const pageRoute of pageRoutes) {
+        try {
+          const targetKeyword = Array.isArray(targetKeywords) ? 
+            targetKeywords[pageRoutes.indexOf(pageRoute)] : 
+            targetKeywords;
+            
+          const optimization = await seoService.optimizePage({
+            pageRoute,
+            optimizationType: optimizationType || 'meta_tags',
+            targetKeyword
+          });
+          
+          // Update the page with optimized data
+          await storage.updateSeoPage(pageRoute, optimization.optimizedData);
+          
+          results.push({
+            pageRoute,
+            success: true,
+            optimizations: optimization.aiSuggestions.length,
+            model: optimization.model
+          });
+          successfulOptimizations++;
+        } catch (error) {
+          console.error(`Failed to optimize ${pageRoute}:`, error);
+          results.push({
+            pageRoute,
+            success: false,
+            error: error instanceof Error ? error.message : 'Optimization failed'
+          });
+        }
+      }
+
+      console.log('🚀 Bulk optimization completed:', successfulOptimizations, 'of', pageRoutes.length, 'pages');
+      res.json({
+        success: true,
+        totalPages: pageRoutes.length,
+        successfulOptimizations,
+        failedOptimizations: pageRoutes.length - successfulOptimizations,
+        results,
+        model: results.find(r => r.success)?.model || 'optimization-engine'
+      });
+    } catch (error) {
+      console.error("Bulk optimize error:", error);
+      res.status(500).json({ error: "Failed to perform bulk optimization" });
+    }
+  });
+  
+  // ==========================================
   // NEW QUOTE INITIALIZATION FLOW 
   // ==========================================
   

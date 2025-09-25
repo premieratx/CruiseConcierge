@@ -16,7 +16,7 @@ import { Progress } from '@/components/ui/progress';
 import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useToast } from '@/hooks/use-toast';
-import { queryClient } from '@/lib/queryClient';
+import { queryClient, apiRequest } from '@/lib/queryClient';
 import { 
   Search, TrendingUp, Target, Globe, Settings, Bot, BarChart3, 
   CheckCircle, AlertTriangle, XCircle, Zap, Eye, Edit, Plus,
@@ -98,13 +98,7 @@ export default function SEOManagement() {
   // Update SEO page mutation
   const updatePageMutation = useMutation({
     mutationFn: async (data: { pageRoute: string; updates: Partial<SeoPage> }) => {
-      const response = await fetch(`/api/seo/pages/${encodeURIComponent(data.pageRoute)}`, {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(data.updates),
-      });
-      if (!response.ok) throw new Error('Failed to update SEO page');
-      return response.json();
+      return apiRequest('PUT', `/api/seo/pages/${encodeURIComponent(data.pageRoute)}`, data.updates);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/seo/pages'] });
@@ -121,13 +115,7 @@ export default function SEOManagement() {
   // Analyze page mutation
   const analyzePageMutation = useMutation({
     mutationFn: async (pageRoute: string) => {
-      const response = await fetch(`/api/seo/analyze/${encodeURIComponent(pageRoute)}`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ content: '' }), // Will analyze current page content
-      });
-      if (!response.ok) throw new Error('Failed to analyze page');
-      return response.json();
+      return apiRequest('POST', `/api/seo/analyze/${encodeURIComponent(pageRoute)}`, { content: '' });
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/seo/pages'] });
@@ -143,16 +131,10 @@ export default function SEOManagement() {
   const optimizePageMutation = useMutation({
     mutationFn: async (pageRoute: string) => {
       setOptimizing(pageRoute);
-      const response = await fetch('/api/seo/optimize', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          pageRoute,
-          optimizationType: 'full_page'
-        }),
+      return apiRequest('POST', '/api/seo/optimize', {
+        pageRoute,
+        optimizationType: 'full_page'
       });
-      if (!response.ok) throw new Error('Failed to optimize page');
-      return response.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/seo/pages'] });
@@ -169,13 +151,7 @@ export default function SEOManagement() {
   const bulkAnalyzeMutation = useMutation({
     mutationFn: async () => {
       const pageRoutes = seoPages.map(page => page.pageRoute);
-      const response = await fetch('/api/seo/bulk-analyze', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pageRoutes }),
-      });
-      if (!response.ok) throw new Error('Failed to perform bulk analysis');
-      return response.json();
+      return apiRequest('POST', '/api/seo/bulk-analyze', { pageRoutes });
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['/api/seo/pages'] });
@@ -191,13 +167,7 @@ export default function SEOManagement() {
   // Bulk optimize mutation
   const bulkOptimizeMutation = useMutation({
     mutationFn: async (params: { pageRoutes: string[]; optimizationType: string; targetKeywords?: string[] }) => {
-      const response = await fetch('/api/seo/bulk-optimize', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(params),
-      });
-      if (!response.ok) throw new Error('Failed to perform bulk optimization');
-      return response.json();
+      return apiRequest('POST', '/api/seo/bulk-optimize', params);
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ['/api/seo/pages'] });
