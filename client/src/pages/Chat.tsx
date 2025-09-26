@@ -3474,7 +3474,383 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                       {/* CONDITIONALLY SWAP COLUMNS FOR BACHELOR/BACHELORETTE PARTIES */}
                       {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') ? (
                         <>
-                          {/* ATX Disco Cruise Option FIRST for bachelor/bachelorette */}
+                          {/* Private Charter Option FIRST for bachelor/bachelorette (swapped per user request) */}
+                      <Card className={cn(
+                        "bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm transition-all",
+                        formData.selectedCruiseType === 'private' && "ring-2 ring-blue-600"
+                      )}>
+                        <CardHeader className="sticky top-0 z-10 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md border-b border-blue-200 dark:border-blue-800 py-2">
+                          <div className="text-center">
+                            <div className="flex items-center justify-center gap-2 mb-1">
+                              <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                                <Ship className="h-4 w-4 text-blue-600" />
+                              </div>
+                            </div>
+                            <CardTitle className="text-xl font-bold text-blue-600 mb-1">Private Charter</CardTitle>
+                            <div className="text-lg font-semibold text-slate-600 dark:text-slate-300">
+                              {formData.eventDate ? format(formData.eventDate, 'EEEE, MMMM d') : 'Select a date'}
+                            </div>
+                            {/* Show recommended boat for group size */}
+                            {formData.groupSize > 0 && (
+                              <div className="text-sm text-blue-600 mt-1">
+                                Recommended: {formData.groupSize <= 14 ? 'Day Tripper (Up to 14 guests)' : 
+                                             formData.groupSize <= 25 ? 'Me Seeks The Irony (Up to 30 guests)' :
+                                             formData.groupSize <= 50 ? 'Clever Girl (Up to 50 guests)' :
+                                             'Clever Girl (Up to 75 guests)'}
+                              </div>
+                            )}
+                          </div>
+                        </CardHeader>
+                        <CardContent className="space-y-4">
+                          {/* Duration Selection for Weekdays (Monday-Thursday) */}
+                          {formData.eventDate && isMondayToThursday(formData.eventDate) && (
+                            <div className="space-y-2">
+                              <Label className="text-sm font-medium">Choose Duration</Label>
+                              <RadioGroup
+                                value={formData.selectedDuration?.toString() || ''}
+                                onValueChange={(value) => {
+                                  const duration = value === '3' ? 3 : 4;
+                                  setFormData(prev => ({
+                                    ...prev,
+                                    selectedDuration: duration,
+                                    selectedSlot: null // Reset slot selection when duration changes
+                                  }));
+                                }}
+                                className="grid grid-cols-2 gap-3"
+                              >
+                                {/* 3-Hour Option */}
+                                <div className={cn(
+                                  "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
+                                  formData.selectedDuration === 3
+                                    ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" 
+                                    : "border-slate-200 dark:border-slate-700 hover:border-blue-300"
+                                )}>
+                                  <RadioGroupItem value="3" id="duration-3" />
+                                  <Label htmlFor="duration-3" className="flex-1 cursor-pointer ml-3">
+                                    <div className="text-center">
+                                      <div className="font-medium">3-Hour Cruise</div>
+                                      <div className="text-xs text-slate-600 dark:text-slate-400">Perfect for shorter events</div>
+                                    </div>
+                                  </Label>
+                                </div>
+
+                                {/* 4-Hour Option */}
+                                <div className={cn(
+                                  "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
+                                  formData.selectedDuration === 4
+                                    ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" 
+                                    : "border-slate-200 dark:border-slate-700 hover:border-blue-300"
+                                )}>
+                                  <RadioGroupItem value="4" id="duration-4" />
+                                  <Label htmlFor="duration-4" className="flex-1 cursor-pointer ml-3">
+                                    <div className="text-center">
+                                      <div className="font-medium flex items-center justify-center gap-1">
+                                        4-Hour Cruise
+                                        <Badge variant="secondary" className="text-xs">Popular</Badge>
+                                      </div>
+                                      <div className="text-xs text-slate-600 dark:text-slate-400">Full cruise experience</div>
+                                    </div>
+                                  </Label>
+                                </div>
+                              </RadioGroup>
+                            </div>
+                          )}
+
+                          {/* Time Slot Selection - Only show after duration is selected for weekdays */}
+                          {(!formData.eventDate || !isMondayToThursday(formData.eventDate) || formData.selectedDuration) && (
+                            <div className="space-y-2">
+                              <Label className="text-sm font-medium">
+                                {formData.eventDate && isMondayToThursday(formData.eventDate) && formData.selectedDuration
+                                  ? `Select ${formData.selectedDuration}-Hour Time Slot`
+                                  : 'Select Time Slot'
+                                }
+                              </Label>
+                            <RadioGroup
+                              value={formData.selectedSlot?.id || ''}
+                              onValueChange={(slotId) => {
+                                const slot = privateSlots.find(s => s.id === slotId);
+                                if (slot) {
+                                  handlePrivateCruiseSelect(slot);
+                                }
+                              }}
+                              className="space-y-2"
+                            >
+                              {privateSlots.length > 0 ? privateSlots.slice(0, 6).map((slot, index) => {
+                                const isPopular = index === 1 || index === 2; // Mark 2nd and 3rd slots as popular
+                                return (
+                                  <div key={slot.id} className={cn(
+                                    "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
+                                    formData.selectedSlot?.id === slot.id 
+                                      ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" 
+                                      : "border-slate-200 dark:border-slate-700 hover:border-blue-300"
+                                  )}>
+                                    <RadioGroupItem value={slot.id} id={`private-${slot.id}`} />
+                                    <Label htmlFor={`private-${slot.id}`} className="flex-1 cursor-pointer ml-3">
+                                      <div className="flex items-center justify-between">
+                                        <div>
+                                          <div className="font-medium flex items-center gap-2">
+                                            {slot.label}
+                                            {isPopular && (
+                                              <Badge variant="secondary" className="text-xs">
+                                                Popular
+                                              </Badge>
+                                            )}
+                                          </div>
+                                        </div>
+                                        <div className="text-sm font-bold text-blue-600">
+                                          {/* Show hourly rate instead of total price */}
+                                          {slot.duration ? `$${Math.round((slot.totalPrice || 140000) / slot.duration / 100)}/hr` : '$350/hr'}
+                                        </div>
+                                      </div>
+                                    </Label>
+                                  </div>
+                                );
+                              }) : (
+                                <div className="p-6 text-center text-slate-600 dark:text-slate-400">
+                                  <Ship className="h-12 w-12 mx-auto mb-4 opacity-30" />
+                                  <p className="text-sm">No private cruises available for this date</p>
+                                </div>
+                              )}
+                            </RadioGroup>
+                          </div>
+                          )}
+
+                          {/* Optional Add-On Packages Section */}
+                          {formData.selectedSlot && (
+                            <div className="space-y-2 border-t pt-4">
+                              <Label className="text-sm font-medium">Optional Add-On Packages</Label>
+                              <RadioGroup
+                                value={selectedPrivatePackage}
+                                onValueChange={(value) => {
+                                  setSelectedPrivatePackage(value as 'standard' | 'essentials' | 'ultimate');
+                                  // Update form data to trigger pricing recalculation
+                                  const addOnPackages = value === 'standard' ? [] : [value];
+                                  setFormData(prev => ({
+                                    ...prev,
+                                    selectedAddOnPackages: addOnPackages,
+                                    // Reset disco package when selecting private package
+                                    selectedDiscoPackage: null,
+                                    selectedCruiseType: 'private' as CruiseType
+                                  }));
+                                }}
+                                className="space-y-2"
+                              >
+                                {/* Standard Package */}
+                                <div className={cn(
+                                  "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
+                                  selectedPrivatePackage === 'standard' 
+                                    ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" 
+                                    : "border-slate-200 dark:border-slate-700 hover:border-blue-300"
+                                )}>
+                                  <RadioGroupItem value="standard" id="private-standard" />
+                                  <Label htmlFor="private-standard" className="flex-1 cursor-pointer ml-3">
+                                    <div className="flex items-center justify-between">
+                                      <div>
+                                        <div className="font-medium">Standard Package</div>
+                                        <div className="text-xs text-slate-600 dark:text-slate-400">Classic cruise experience</div>
+                                      </div>
+                                      <div className="text-sm font-bold text-blue-600">
+                                        +$0
+                                      </div>
+                                    </div>
+                                  </Label>
+                                </div>
+
+                                {/* Essentials Package */}
+                                <div className={cn(
+                                  "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
+                                  selectedPrivatePackage === 'essentials' 
+                                    ? "border-green-500 bg-green-50 dark:bg-green-900/20" 
+                                    : "border-slate-200 dark:border-slate-700 hover:border-green-300"
+                                )}>
+                                  <RadioGroupItem value="essentials" id="private-essentials" />
+                                  <Label htmlFor="private-essentials" className="flex-1 cursor-pointer ml-3">
+                                    <div className="flex items-center justify-between">
+                                      <div>
+                                        <div className="font-medium">Essentials Package</div>
+                                        <div className="text-xs text-slate-600 dark:text-slate-400">Premium amenities included</div>
+                                      </div>
+                                      <div className="text-sm font-bold text-green-600">
+                                        +{formatCurrency(formData.selectedDuration ? formData.selectedDuration * 5000 : (getCruiseDuration(formData.eventDate) || 4) * 5000)} total
+                                      </div>
+                                    </div>
+                                  </Label>
+                                </div>
+
+                                {/* Ultimate Package */}
+                                <div className={cn(
+                                  "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
+                                  selectedPrivatePackage === 'ultimate' 
+                                    ? "border-purple-500 bg-purple-50 dark:bg-purple-900/20" 
+                                    : "border-slate-200 dark:border-slate-700 hover:border-purple-300"
+                                )}>
+                                  <RadioGroupItem value="ultimate" id="private-ultimate" />
+                                  <Label htmlFor="private-ultimate" className="flex-1 cursor-pointer ml-3">
+                                    <div className="flex items-center justify-between">
+                                      <div>
+                                        <div className="font-medium flex items-center gap-2">
+                                          Ultimate Party Package
+                                          <Badge variant="secondary" className="text-xs">Popular</Badge>
+                                        </div>
+                                        <div className="text-xs text-slate-600 dark:text-slate-400">All-inclusive luxury</div>
+                                      </div>
+                                      <div className="text-sm font-bold text-purple-600">
+                                        +{formatCurrency(formData.selectedDuration ? formData.selectedDuration * 7500 : (getCruiseDuration(formData.eventDate) || 4) * 7500)} total
+                                      </div>
+                                    </div>
+                                  </Label>
+                                </div>
+                              </RadioGroup>
+                            </div>
+                          )}
+
+                          {/* Step 3: Pricing Details - Only show if time slot selected */}
+                          {formData.selectedSlot && (
+                            <div className="border-t pt-4">
+                              {pricingLoading ? (
+                                <div className="flex items-center justify-center py-8">
+                                  <Loader2 className="h-6 w-6 animate-spin text-blue-600 mr-2" />
+                                  <span className="text-slate-600 dark:text-slate-400">Calculating pricing...</span>
+                                </div>
+                              ) : privatePricing ? (
+                                <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-lg p-4">
+                              <div className="text-center mb-4">
+                                <div className="text-3xl font-bold text-blue-600">
+                                  {formatCurrency(privatePricing.total)}
+                                </div>
+                                <div className="text-sm text-slate-600 dark:text-slate-400">
+                                  {formatCurrency(privatePricing.perPersonCost)} per person
+                                </div>
+                              </div>
+                              
+                              {/* Clean Package & Duration Display */}
+                              <div className="mb-4 p-3 bg-white/50 dark:bg-slate-800/50 rounded-lg">
+                                <div className="flex items-center justify-between mb-2">
+                                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Package:</span>
+                                  <span className="font-bold text-purple-600">
+                                    {formData.selectedAddOnPackages.includes('ultimate') ? 'Ultimate Party Package' :
+                                     formData.selectedAddOnPackages.includes('essentials') ? 'Essentials Package' : 
+                                     'Standard Package'}
+                                  </span>
+                                </div>
+                                <div className="flex items-center justify-between">
+                                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Duration:</span>
+                                  <span className="font-bold text-blue-600">
+                                    {formData.eventDate && isMondayToThursday(formData.eventDate)
+                                      ? (formData.selectedDuration ? `${formData.selectedDuration} hours` : 'Select duration')
+                                      : '4 hours'
+                                    }
+                                  </span>
+                                </div>
+                              </div>
+                              
+                              {/* Detailed Pricing Breakdown */}
+                              <div className="space-y-2 text-sm border-t pt-3">
+                                <div className="flex justify-between">
+                                  <span>Cruise Subtotal:</span>
+                                  <span>{formatCurrency(privatePricing.subtotal)}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span>Tax (8.25%):</span>
+                                  <span>{formatCurrency(privatePricing.tax)}</span>
+                                </div>
+                                <div className="flex justify-between">
+                                  <span>Gratuity (20%):</span>
+                                  <span>{formatCurrency(privatePricing.gratuity)}</span>
+                                </div>
+                                <div className="flex justify-between font-bold border-t pt-2">
+                                  <span>Grand Total:</span>
+                                  <span>{formatCurrency(privatePricing.total)}</span>
+                                </div>
+                                <div className="flex justify-between text-green-600">
+                                  <span>Deposit ({privatePricing.depositPercent}%):</span>
+                                  <span>{formatCurrency(privatePricing.depositAmount)}</span>
+                                </div>
+                                <div className="flex justify-between text-slate-600">
+                                  <span>Balance Due:</span>
+                                  <span>{formatCurrency(privatePricing.total - privatePricing.depositAmount)}</span>
+                                </div>
+                              </div>
+                            </div>
+                              ) : (
+                                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
+                                  <div className="flex items-center gap-2 text-red-700 dark:text-red-400">
+                                    <AlertCircle className="h-4 w-4" />
+                                    <span className="text-sm font-medium">Pricing temporarily unavailable</span>
+                                  </div>
+                                </div>
+                              )}
+                            </div>
+                          )}
+                          
+                          {/* Pricing Policy Information */}
+                          <div className="mb-4">
+                            <PolicySummary 
+                              eventDate={formData.eventDate}
+                              totalCost={privatePricing?.total}
+                              context="chat"
+                              className="border-l-4 border-l-green-500"
+                            />
+                          </div>
+
+                          {/* Payment Buttons */}
+                          <div className="space-y-2">
+                            <Button
+                              onClick={() => {
+                                setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
+                                handlePayment('deposit', 'private');
+                              }}
+                              disabled={!canProceedToPayment('private') || !privatePricing}
+                              className={cn(
+                                "w-full",
+                                canProceedToPayment('private') && privatePricing
+                                  ? "bg-green-600 hover:bg-green-700"
+                                  : "bg-gray-400 cursor-not-allowed opacity-50"
+                              )}
+                              title={getPaymentButtonTooltip('private')}
+                              data-testid="button-private-deposit"
+                            >
+                              <CreditCard className="h-4 w-4 mr-2" />
+                              Pay {privatePricing?.depositPercent || 25}% Deposit ({privatePricing ? formatCurrency(privatePricing.depositAmount) : '$0'})
+                            </Button>
+                            
+                            <Button
+                              onClick={() => {
+                                setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
+                                handlePayment('full', 'private');
+                              }}
+                              disabled={!canProceedToPayment('private') || !privatePricing}
+                              className={cn(
+                                "w-full",
+                                canProceedToPayment('private') && privatePricing
+                                  ? "bg-blue-600 hover:bg-blue-700"
+                                  : "bg-gray-400 cursor-not-allowed opacity-50"
+                              )}
+                              title={getPaymentButtonTooltip('private')}
+                              data-testid="button-private-full"
+                            >
+                              <CreditCard className="h-4 w-4 mr-2" />
+                              Pay in Full ({privatePricing ? formatCurrency(privatePricing.total) : '$0'})
+                            </Button>
+                            
+                            <Button
+                              onClick={() => {
+                                // Show the contact info modal
+                                setShowContactInfoModal(true);
+                              }}
+                              disabled={!formData.selectedSlot}
+                              variant="outline"
+                              className="w-full"
+                              data-testid="button-private-quote"
+                            >
+                              <FileText className="h-4 w-4 mr-2" />
+                              Send Me My Quote
+                            </Button>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                          {/* ATX Disco Cruise Option SECOND for bachelor/bachelorette (swapped per user request) */}
                           <Card className={cn(
                             "bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 backdrop-blur-sm transition-all",
                             formData.selectedCruiseType === 'disco' && "ring-2 ring-purple-600",
@@ -3763,426 +4139,52 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                               </div>
                             </CardContent>
                           </Card>
-                          
-                          {/* Private Charter Option SECOND for bachelor/bachelorette */}
-                      <Card className={cn(
-                        "bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm transition-all",
-                        formData.selectedCruiseType === 'private' && "ring-2 ring-blue-600"
-                      )}>
-                        <CardHeader className="sticky top-0 z-10 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md border-b border-blue-200 dark:border-blue-800 py-2">
-                          <div className="text-center">
-                            <div className="flex items-center justify-center gap-2 mb-1">
-                              <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
-                                <Ship className="h-4 w-4 text-blue-600" />
-                              </div>
-                            </div>
-                            <CardTitle className="text-xl font-bold text-blue-600 mb-1">Private Charter</CardTitle>
-                            <div className="text-lg font-semibold text-slate-600 dark:text-slate-300">
-                              {formData.eventDate ? format(formData.eventDate, 'EEEE, MMMM d') : 'Select a date'}
-                            </div>
-                            {/* Show recommended boat for group size */}
-                            {formData.groupSize > 0 && (
-                              <div className="text-sm text-blue-600 mt-1">
-                                Recommended: {formData.groupSize <= 14 ? 'Day Tripper (Up to 14 guests)' : 
-                                             formData.groupSize <= 25 ? 'Me Seeks The Irony (Up to 30 guests)' :
-                                             formData.groupSize <= 50 ? 'Clever Girl (Up to 50 guests)' :
-                                             'Clever Girl (Up to 75 guests)'}
-                              </div>
-                            )}
-                          </div>
-                        </CardHeader>
-                        <CardContent className="space-y-4">
-                          {/* Duration Selection for Weekdays (Monday-Thursday) */}
-                          {formData.eventDate && isMondayToThursday(formData.eventDate) && (
-                            <div className="space-y-2">
-                              <Label className="text-sm font-medium">Choose Duration</Label>
-                              <RadioGroup
-                                value={formData.selectedDuration?.toString() || ''}
-                                onValueChange={(value) => {
-                                  const duration = value === '3' ? 3 : 4;
-                                  setFormData(prev => ({
-                                    ...prev,
-                                    selectedDuration: duration,
-                                    selectedSlot: null // Reset slot selection when duration changes
-                                  }));
-                                }}
-                                className="grid grid-cols-2 gap-3"
-                              >
-                                {/* 3-Hour Option */}
-                                <div className={cn(
-                                  "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
-                                  formData.selectedDuration === 3
-                                    ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" 
-                                    : "border-slate-200 dark:border-slate-700 hover:border-blue-300"
-                                )}>
-                                  <RadioGroupItem value="3" id="duration-3" />
-                                  <Label htmlFor="duration-3" className="flex-1 cursor-pointer ml-3">
-                                    <div className="text-center">
-                                      <div className="font-medium">3-Hour Cruise</div>
-                                      <div className="text-xs text-slate-600 dark:text-slate-400">Perfect for shorter events</div>
-                                    </div>
-                                  </Label>
-                                </div>
-
-                                {/* 4-Hour Option */}
-                                <div className={cn(
-                                  "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
-                                  formData.selectedDuration === 4
-                                    ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" 
-                                    : "border-slate-200 dark:border-slate-700 hover:border-blue-300"
-                                )}>
-                                  <RadioGroupItem value="4" id="duration-4" />
-                                  <Label htmlFor="duration-4" className="flex-1 cursor-pointer ml-3">
-                                    <div className="text-center">
-                                      <div className="font-medium flex items-center justify-center gap-1">
-                                        4-Hour Cruise
-                                        <Badge variant="secondary" className="text-xs">Popular</Badge>
-                                      </div>
-                                      <div className="text-xs text-slate-600 dark:text-slate-400">Full cruise experience</div>
-                                    </div>
-                                  </Label>
-                                </div>
-                              </RadioGroup>
-                            </div>
-                          )}
-
-                          {/* Time Slot Selection - Only show after duration is selected for weekdays */}
-                          {(!formData.eventDate || !isMondayToThursday(formData.eventDate) || formData.selectedDuration) && (
-                            <div className="space-y-2">
-                              <Label className="text-sm font-medium">
-                                {formData.eventDate && isMondayToThursday(formData.eventDate) && formData.selectedDuration
-                                  ? `Select ${formData.selectedDuration}-Hour Time Slot`
-                                  : 'Select Time Slot'
-                                }
-                              </Label>
-                            <RadioGroup
-                              value={formData.selectedSlot?.id || ''}
-                              onValueChange={(slotId) => {
-                                const slot = privateSlots.find(s => s.id === slotId);
-                                if (slot) {
-                                  handlePrivateCruiseSelect(slot);
-                                }
-                              }}
-                              className="space-y-2"
-                            >
-                              {privateSlots.length > 0 ? privateSlots.slice(0, 6).map((slot, index) => {
-                                const isPopular = index === 1 || index === 2; // Mark 2nd and 3rd slots as popular
-                                return (
-                                  <div key={slot.id} className={cn(
-                                    "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
-                                    formData.selectedSlot?.id === slot.id 
-                                      ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" 
-                                      : "border-slate-200 dark:border-slate-700 hover:border-blue-300"
-                                  )}>
-                                    <RadioGroupItem value={slot.id} id={`private-${slot.id}`} />
-                                    <Label htmlFor={`private-${slot.id}`} className="flex-1 cursor-pointer ml-3">
-                                      <div className="flex items-center justify-between">
-                                        <div>
-                                          <div className="font-medium flex items-center gap-2">
-                                            {slot.label}
-                                            {isPopular && (
-                                              <Badge variant="secondary" className="text-xs">
-                                                Popular
-                                              </Badge>
-                                            )}
-                                          </div>
-                                        </div>
-                                        <div className="text-sm font-bold text-blue-600">
-                                          {slot.totalPrice ? formatCurrency(slot.totalPrice).replace('.00', '') : ''}
-                                        </div>
-                                      </div>
-                                    </Label>
-                                  </div>
-                                );
-                              }) : (
-                                <div className="p-6 text-center text-slate-600 dark:text-slate-400">
-                                  <Ship className="h-12 w-12 mx-auto mb-4 opacity-30" />
-                                  <p className="text-sm">No private cruises available for this date</p>
-                                </div>
-                              )}
-                            </RadioGroup>
-                          </div>
-                          )}
-
-                          {/* Optional Add-On Packages Section */}
-                          {formData.selectedSlot && (
-                            <div className="space-y-2 border-t pt-4">
-                              <Label className="text-sm font-medium">Optional Add-On Packages</Label>
-                              <RadioGroup
-                                value={selectedPrivatePackage}
-                                onValueChange={(value) => {
-                                  setSelectedPrivatePackage(value as 'standard' | 'essentials' | 'ultimate');
-                                  // Update form data to trigger pricing recalculation
-                                  const addOnPackages = value === 'standard' ? [] : [value];
-                                  setFormData(prev => ({
-                                    ...prev,
-                                    selectedAddOnPackages: addOnPackages,
-                                    // Reset disco package when selecting private package
-                                    selectedDiscoPackage: null,
-                                    selectedCruiseType: 'private' as CruiseType
-                                  }));
-                                }}
-                                className="space-y-2"
-                              >
-                                {/* Standard Package */}
-                                <div className={cn(
-                                  "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
-                                  selectedPrivatePackage === 'standard' 
-                                    ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" 
-                                    : "border-slate-200 dark:border-slate-700 hover:border-blue-300"
-                                )}>
-                                  <RadioGroupItem value="standard" id="private-standard" />
-                                  <Label htmlFor="private-standard" className="flex-1 cursor-pointer ml-3">
-                                    <div className="flex items-center justify-between">
-                                      <div>
-                                        <div className="font-medium">Standard Package</div>
-                                        <div className="text-xs text-slate-600 dark:text-slate-400">Classic cruise experience</div>
-                                      </div>
-                                      <div className="text-sm font-bold text-blue-600">
-                                        +$0
-                                      </div>
-                                    </div>
-                                  </Label>
-                                </div>
-
-                                {/* Essentials Package */}
-                                <div className={cn(
-                                  "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
-                                  selectedPrivatePackage === 'essentials' 
-                                    ? "border-green-500 bg-green-50 dark:bg-green-900/20" 
-                                    : "border-slate-200 dark:border-slate-700 hover:border-green-300"
-                                )}>
-                                  <RadioGroupItem value="essentials" id="private-essentials" />
-                                  <Label htmlFor="private-essentials" className="flex-1 cursor-pointer ml-3">
-                                    <div className="flex items-center justify-between">
-                                      <div>
-                                        <div className="font-medium">Essentials Package</div>
-                                        <div className="text-xs text-slate-600 dark:text-slate-400">Premium amenities included</div>
-                                      </div>
-                                      <div className="text-sm font-bold text-green-600">
-                                        +{formatCurrency(formData.selectedDuration ? formData.selectedDuration * 5000 : (getCruiseDuration(formData.eventDate) || 4) * 5000)} total
-                                      </div>
-                                    </div>
-                                  </Label>
-                                </div>
-
-                                {/* Ultimate Package */}
-                                <div className={cn(
-                                  "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
-                                  selectedPrivatePackage === 'ultimate' 
-                                    ? "border-purple-500 bg-purple-50 dark:bg-purple-900/20" 
-                                    : "border-slate-200 dark:border-slate-700 hover:border-purple-300"
-                                )}>
-                                  <RadioGroupItem value="ultimate" id="private-ultimate" />
-                                  <Label htmlFor="private-ultimate" className="flex-1 cursor-pointer ml-3">
-                                    <div className="flex items-center justify-between">
-                                      <div>
-                                        <div className="font-medium flex items-center gap-2">
-                                          Ultimate Party Package
-                                          <Badge variant="secondary" className="text-xs">Popular</Badge>
-                                        </div>
-                                        <div className="text-xs text-slate-600 dark:text-slate-400">All-inclusive luxury</div>
-                                      </div>
-                                      <div className="text-sm font-bold text-purple-600">
-                                        +{formatCurrency(formData.selectedDuration ? formData.selectedDuration * 7500 : (getCruiseDuration(formData.eventDate) || 4) * 7500)} total
-                                      </div>
-                                    </div>
-                                  </Label>
-                                </div>
-                              </RadioGroup>
-                            </div>
-                          )}
-
-                          {/* Step 3: Pricing Details - Only show if time slot selected */}
-                          {formData.selectedSlot && (
-                            <div className="border-t pt-4">
-                              {pricingLoading ? (
-                                <div className="flex items-center justify-center py-8">
-                                  <Loader2 className="h-6 w-6 animate-spin text-blue-600 mr-2" />
-                                  <span className="text-slate-600 dark:text-slate-400">Calculating pricing...</span>
-                                </div>
-                              ) : privatePricing ? (
-                                <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-900/30 dark:to-purple-900/30 rounded-lg p-4">
-                              <div className="text-center mb-4">
-                                <div className="text-3xl font-bold text-blue-600">
-                                  {formatCurrency(privatePricing.total)}
-                                </div>
-                                <div className="text-sm text-slate-600 dark:text-slate-400">
-                                  {formatCurrency(privatePricing.perPersonCost)} per person
-                                </div>
-                              </div>
-                              
-                              {/* Clean Package & Duration Display */}
-                              <div className="mb-4 p-3 bg-white/50 dark:bg-slate-800/50 rounded-lg">
-                                <div className="flex items-center justify-between mb-2">
-                                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Package:</span>
-                                  <span className="font-bold text-purple-600">
-                                    {formData.selectedAddOnPackages.includes('ultimate') ? 'Ultimate Party Package' :
-                                     formData.selectedAddOnPackages.includes('essentials') ? 'Essentials Package' : 
-                                     'Standard Package'}
-                                  </span>
-                                </div>
-                                <div className="flex items-center justify-between">
-                                  <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Duration:</span>
-                                  <span className="font-bold text-blue-600">
-                                    {formData.eventDate && isMondayToThursday(formData.eventDate)
-                                      ? (formData.selectedDuration ? `${formData.selectedDuration} hours` : 'Select duration')
-                                      : '4 hours'
-                                    }
-                                  </span>
-                                </div>
-                              </div>
-                              
-                              {/* Detailed Pricing Breakdown */}
-                              <div className="space-y-2 text-sm border-t pt-3">
-                                <div className="flex justify-between">
-                                  <span>Cruise Subtotal:</span>
-                                  <span>{formatCurrency(privatePricing.subtotal)}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                  <span>Tax (8.25%):</span>
-                                  <span>{formatCurrency(privatePricing.tax)}</span>
-                                </div>
-                                <div className="flex justify-between">
-                                  <span>Gratuity (20%):</span>
-                                  <span>{formatCurrency(privatePricing.gratuity)}</span>
-                                </div>
-                                <div className="flex justify-between font-bold border-t pt-2">
-                                  <span>Grand Total:</span>
-                                  <span>{formatCurrency(privatePricing.total)}</span>
-                                </div>
-                                <div className="flex justify-between text-green-600">
-                                  <span>Deposit ({privatePricing.depositPercent}%):</span>
-                                  <span>{formatCurrency(privatePricing.depositAmount)}</span>
-                                </div>
-                                <div className="flex justify-between text-slate-600">
-                                  <span>Balance Due:</span>
-                                  <span>{formatCurrency(privatePricing.total - privatePricing.depositAmount)}</span>
-                                </div>
-                              </div>
-                            </div>
-                              ) : (
-                                <div className="bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg p-4">
-                                  <div className="flex items-center gap-2 text-red-700 dark:text-red-400">
-                                    <AlertCircle className="h-4 w-4" />
-                                    <span className="text-sm font-medium">Pricing temporarily unavailable</span>
-                                  </div>
-                                </div>
-                              )}
-                            </div>
-                          )}
-                          
-                          {/* Pricing Policy Information */}
-                          <div className="mb-4">
-                            <PolicySummary 
-                              eventDate={formData.eventDate}
-                              totalCost={privatePricing?.total}
-                              context="chat"
-                              className="border-l-4 border-l-green-500"
-                            />
-                          </div>
-
-                          {/* Payment Buttons */}
-                          <div className="space-y-2">
-                            <Button
-                              onClick={() => {
-                                setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
-                                handlePayment('deposit', 'private');
-                              }}
-                              disabled={!canProceedToPayment('private') || !privatePricing}
-                              className={cn(
-                                "w-full",
-                                canProceedToPayment('private') && privatePricing
-                                  ? "bg-green-600 hover:bg-green-700"
-                                  : "bg-gray-400 cursor-not-allowed opacity-50"
-                              )}
-                              title={getPaymentButtonTooltip('private')}
-                              data-testid="button-private-deposit"
-                            >
-                              <CreditCard className="h-4 w-4 mr-2" />
-                              Pay {privatePricing?.depositPercent || 25}% Deposit ({privatePricing ? formatCurrency(privatePricing.depositAmount) : '$0'})
-                            </Button>
-                            
-                            <Button
-                              onClick={() => {
-                                setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
-                                handlePayment('full', 'private');
-                              }}
-                              disabled={!canProceedToPayment('private') || !privatePricing}
-                              className={cn(
-                                "w-full",
-                                canProceedToPayment('private') && privatePricing
-                                  ? "bg-blue-600 hover:bg-blue-700"
-                                  : "bg-gray-400 cursor-not-allowed opacity-50"
-                              )}
-                              title={getPaymentButtonTooltip('private')}
-                              data-testid="button-private-full"
-                            >
-                              <CreditCard className="h-4 w-4 mr-2" />
-                              Pay in Full ({privatePricing ? formatCurrency(privatePricing.total) : '$0'})
-                            </Button>
-                            
-                            <Button
-                              onClick={() => {
-                                // Show the contact info modal
-                                setShowContactInfoModal(true);
-                              }}
-                              disabled={!formData.selectedSlot}
-                              variant="outline"
-                              className="w-full"
-                              data-testid="button-private-quote"
-                            >
-                              <FileText className="h-4 w-4 mr-2" />
-                              Send Me My Quote
-                            </Button>
-                          </div>
-                        </CardContent>
-                      </Card>
-
-                      {/* CONDITIONAL RIGHT COLUMN: Always show disco column for bachelor/bachelorette, Alternative dates for others */}
-                      {(formData.eventType === 'bachelor' || formData.eventType === 'bachelorette') ? (
-                        /* ATX Disco Cruise Option - Simplified */
-                        <Card className={cn(
-                          "bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 backdrop-blur-sm transition-all",
-                          formData.selectedCruiseType === 'disco' && "ring-2 ring-purple-600",
-                          discoSlots.length === 0 && "opacity-50 cursor-not-allowed"
-                        )}>
-                          <CardHeader className="sticky top-0 z-10 bg-gradient-to-r from-purple-50/95 to-pink-50/95 dark:from-purple-900/95 dark:to-pink-900/95 backdrop-blur-md border-b border-purple-200 dark:border-purple-800 py-2">
+                        </>
+                      ) : (
+                        <>
+                          {/* Private Charter Option FIRST for non-bachelor/bachelorette */}
+                          <Card className={cn(
+                            "bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm transition-all",
+                            formData.selectedCruiseType === 'private' && "ring-2 ring-blue-600"
+                          )}>
+                            <CardHeader className="sticky top-0 z-10 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md border-b border-blue-200 dark:border-blue-800 py-2">
                             <div className="text-center">
                               <div className="flex items-center justify-center gap-2 mb-1">
-                                <div className="w-8 h-8 bg-purple-100 dark:bg-purple-900 rounded-lg flex items-center justify-center">
-                                  <Music className="h-4 w-4 text-purple-600" />
+                                <div className="w-8 h-8 bg-blue-100 dark:bg-blue-900 rounded-lg flex items-center justify-center">
+                                  <Ship className="h-4 w-4 text-blue-600" />
                                 </div>
                               </div>
-                              <CardTitle className="text-xl font-bold text-purple-600 mb-1">ATX Disco Cruise</CardTitle>
+                              <CardTitle className="text-xl font-bold text-blue-600 mb-1">Private Charter</CardTitle>
                               <div className="text-lg font-semibold text-slate-600 dark:text-slate-300">
                                 {formData.eventDate ? format(formData.eventDate, 'EEEE, MMMM d') : 'Select a date'}
                               </div>
-                              {/* Show boat info */}
-                              <div className="text-sm text-purple-600 mt-1">
-                                ATX Disco Boat • Up to 100 guests • Friday & Saturday
-                              </div>
+                              {/* Show recommended boat for group size */}
+                              {formData.groupSize > 0 && (
+                                <div className="text-sm text-blue-600 mt-1">
+                                  Recommended: {formData.groupSize <= 14 ? 'Day Tripper (Up to 14 guests)' : 
+                                               formData.groupSize <= 25 ? 'Me Seeks The Irony (Up to 30 guests)' :
+                                               formData.groupSize <= 50 ? 'Clever Girl (Up to 50 guests)' :
+                                               'Clever Girl (Up to 75 guests)'}
+                                </div>
+                              )}
                             </div>
                           </CardHeader>
                           <CardContent className="space-y-4">
-                            {/* Simple Time Slot Selection with Radio Buttons */}
-                            <div className="space-y-2">
-                              <Label className="text-sm font-medium">Select Time Slot</Label>
-                              <RadioGroup
-                                value={formData.selectedSlot?.id || ''}
-                                onValueChange={(slotId) => {
-                                  const selectedSlot = discoSlots.find(slot => slot.id === slotId);
-                                  if (selectedSlot) {
-                                    setFormData(prev => ({
-                                      ...prev,
-                                      selectedSlot,
-                                      selectedCruiseType: 'disco' // Auto-select disco when slot is chosen
-                                    }));
-                                  }
-                                }}
-                                className="space-y-2"
-                              >
-                                {discoSlots.length > 0 ? discoSlots.map((slot, index) => {
+                            {/* Copy the Private Charter content from earlier in the file */}
+                            {/* This is the same content as the Private Charter card for bachelor/bachelorette events */}
+                            <TimeSlotList
+                              slots={privateSlots}
+                              selectedSlot={formData.selectedSlot}
+                              onSelectSlot={(slot) => {
+                                setFormData(prev => ({
+                                  ...prev,
+                                  selectedSlot: slot,
+                                  selectedCruiseType: 'private'
+                                }));
+                              }}
+                              cruiseType="private"
+                              groupSize={formData.groupSize}
+                            />
                                   // Calculate disco total price for display
                                   const discoTotal = formData.selectedDiscoPackage ? 
                                     calculateDiscoPrice(formData.groupSize, formData.selectedDiscoPackage) : 
@@ -4220,162 +4222,106 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                                       </Label>
                                     </div>
                                   );
-                                }) : (
-                                  <div className="p-6 text-center text-slate-600 dark:text-slate-400">
-                                    <Music className="h-12 w-12 mx-auto mb-4 opacity-30" />
-                                    <p className="text-sm">No Disco Cruises available for this date</p>
-                                    <p className="text-xs mt-1">Available on Fridays and Saturdays only</p>
-                                  </div>
-                                )}
-                              </RadioGroup>
-                            </div>
 
-                            {/* Step 2: Package Selection - Only show if time slot selected */}
-                            {formData.selectedSlot && formData.selectedSlot.cruiseType === 'disco' && (
+                            {/* Add-on Packages Selection for Private Cruises */}
+                            {formData.selectedSlot && formData.selectedSlot.cruiseType === 'private' && (
                               <div className="space-y-3 border-t pt-4">
-                                <Label className="flex items-center gap-2">
-                                  <Crown className="h-4 w-4" />
-                                  Select Your Package
-                                </Label>
-                                <RadioGroup
-                                  value={formData.selectedDiscoPackage || ''}
-                                  onValueChange={(packageId) => {
-                                    setFormData(prev => ({
-                                      ...prev,
-                                      selectedDiscoPackage: packageId as DiscoPackage
-                                    }));
-                                  }}
-                                >
-                                  {discoPackages.map((pkg) => (
-                                    <Card key={pkg.id} className={cn(
-                                      "transition-all cursor-pointer border-2",
-                                      formData.selectedDiscoPackage === pkg.id 
-                                        ? "ring-2 ring-purple-600 bg-purple-50 dark:bg-purple-900/20" 
-                                        : "border-slate-200 dark:border-slate-700 hover:border-purple-300"
-                                    )}>
-                                      <CardContent className="p-3">
-                                        <div className="flex items-center space-x-3">
-                                          <RadioGroupItem value={pkg.id} id={`disco-${pkg.id}`} />
-                                          <Label htmlFor={`disco-${pkg.id}`} className="flex-1 cursor-pointer">
-                                            <div className="flex justify-between items-start">
-                                              <div className="space-y-1">
-                                                <div className="font-bold">{pkg.name}</div>
-                                                <div className="text-xs text-slate-600 dark:text-slate-400">{pkg.description}</div>
-                                              </div>
-                                              <div className="text-right ml-3">
-                                                <div className="font-bold text-lg text-purple-600">${pkg.price}</div>
-                                                <div className="text-xs text-slate-600">per person</div>
-                                              </div>
-                                            </div>
-                                          </Label>
-                                        </div>
-                                      </CardContent>
-                                    </Card>
+                                <Label>Select Add-on Packages (Optional)</Label>
+                                <div className="space-y-2">
+                                  {addOnPackages.map((pkg) => (
+                                    <div
+                                      key={pkg.id}
+                                      className={cn(
+                                        "flex items-center p-3 rounded-lg border",
+                                        formData.selectedAddOnPackages.includes(pkg.id)
+                                          ? "bg-blue-50 dark:bg-blue-900/20 border-blue-300"
+                                          : "hover:bg-gray-50 dark:hover:bg-gray-800"
+                                      )}
+                                    >
+                                      <input
+                                        type="checkbox"
+                                        id={`addon-${pkg.id}`}
+                                        checked={formData.selectedAddOnPackages.includes(pkg.id)}
+                                        onChange={(e) => {
+                                          if (e.target.checked) {
+                                            setFormData(prev => ({
+                                              ...prev,
+                                              selectedAddOnPackages: [...prev.selectedAddOnPackages, pkg.id]
+                                            }));
+                                          } else {
+                                            setFormData(prev => ({
+                                              ...prev,
+                                              selectedAddOnPackages: prev.selectedAddOnPackages.filter(id => id !== pkg.id)
+                                            }));
+                                          }
+                                        }}
+                                        className="mr-3"
+                                      />
+                                      <label htmlFor={`addon-${pkg.id}`} className="flex-1 cursor-pointer">
+                                        <div className="font-medium">{pkg.name}</div>
+                                        <div className="text-xs text-gray-600 mt-1">{pkg.description}</div>
+                                      </label>
+                                      <div className="text-sm font-semibold">+${pkg.hourlyRate}/hr</div>
+                                    </div>
                                   ))}
-                                </RadioGroup>
-                              </div>
-                            )}
-
-                            {/* Step 3: Ticket Quantity - Only show if package selected */}
-                            {formData.selectedDiscoPackage && formData.selectedSlot && (
-                              <div className="space-y-3 border-t pt-4">
-                                <Label className="flex items-center gap-2">
-                                  <Users className="h-4 w-4" />
-                                  Number of Tickets
-                                </Label>
-                                <div className="flex items-center gap-4 justify-center bg-white/50 dark:bg-slate-800/50 rounded-lg p-3">
-                                  <Button
-                                    onClick={() => setFormData(prev => ({ 
-                                      ...prev, 
-                                      discoTicketQuantity: Math.max(1, prev.discoTicketQuantity - 1) 
-                                    }))}
-                                    size="sm"
-                                    variant="outline"
-                                    className="h-8 w-8 p-0"
-                                  >
-                                    <Minus className="h-3 w-3" />
-                                  </Button>
-                                  <div className="text-center min-w-[60px]">
-                                    <div className="text-2xl font-bold text-purple-600">{formData.discoTicketQuantity}</div>
-                                    <div className="text-xs text-slate-600">tickets</div>
-                                  </div>
-                                  <Button
-                                    onClick={() => setFormData(prev => ({ 
-                                      ...prev, 
-                                      discoTicketQuantity: Math.min(50, prev.discoTicketQuantity + 1) 
-                                    }))}
-                                    size="sm"
-                                    variant="outline"
-                                    className="h-8 w-8 p-0"
-                                  >
-                                    <Plus className="h-3 w-3" />
-                                  </Button>
                                 </div>
                               </div>
                             )}
 
-                            {/* Step 4: Pricing Details - Only show if both slot and package selected */}
-                            {formData.selectedDiscoPackage && formData.selectedSlot && (
+                            {/* Pricing Details for Private Cruises */}
+                            {formData.selectedSlot && formData.selectedSlot.cruiseType === 'private' && (
                               <div className="border-t pt-4">
                                 {pricingLoading ? (
                                   <div className="flex items-center justify-center py-8">
-                                    <Loader2 className="h-6 w-6 animate-spin text-purple-600 mr-2" />
+                                    <Loader2 className="h-6 w-6 animate-spin text-blue-600 mr-2" />
                                     <span className="text-slate-600 dark:text-slate-400">Calculating pricing...</span>
                                   </div>
-                                ) : discoPricing ? (
-                                  <div className="bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/30 dark:to-pink-900/30 rounded-lg p-4">
+                                ) : privatePricing ? (
+                                  <div className="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-blue-900/30 dark:to-indigo-900/30 rounded-lg p-4">
                                     <div className="text-center mb-4">
-                                      <div className="text-3xl font-bold text-purple-600">
-                                        {formatCurrency(discoPricing.total)}
+                                      <div className="text-3xl font-bold text-blue-600">
+                                        {formatCurrency(privatePricing.total)}
                                       </div>
                                       <div className="text-sm text-slate-600 dark:text-slate-400">
-                                        {formatCurrency(Math.round(discoPricing.total / formData.discoTicketQuantity))} per person
+                                        {formatCurrency(Math.round(privatePricing.total / formData.groupSize))} per person
                                       </div>
                                     </div>
                                     
-                                    {/* Package & Quantity Display */}
+                                    {/* Private Charter Details Display */}
                                     <div className="mb-4 p-3 bg-white/50 dark:bg-slate-800/50 rounded-lg">
                                       <div className="flex items-center justify-between mb-2">
-                                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Package:</span>
-                                        <span className="font-bold text-purple-600">{discoPackages.find(p => p.id === formData.selectedDiscoPackage)?.name}</span>
+                                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Duration:</span>
+                                        <span className="font-bold text-blue-600">{formData.selectedSlot?.duration || 4} hours</span>
                                       </div>
                                       <div className="flex items-center justify-between mb-2">
-                                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Per Person:</span>
-                                        <span className="font-bold text-purple-600">${discoPackages.find(p => p.id === formData.selectedDiscoPackage)?.price}</span>
+                                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Group Size:</span>
+                                        <span className="font-bold text-blue-600">{formData.groupSize} guests</span>
                                       </div>
-                                      <div className="flex items-center justify-between mb-2">
-                                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Tickets:</span>
-                                        <span className="font-bold text-purple-600">{formData.discoTicketQuantity}</span>
-                                      </div>
-                                      <div className="flex items-center justify-between border-t pt-2">
-                                        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Subtotal:</span>
-                                        <span className="font-bold text-purple-600">
-                                          ${(discoPackages.find(p => p.id === formData.selectedDiscoPackage)?.price || 0) * formData.discoTicketQuantity}
-                                        </span>
-                                      </div>
+                                      {formData.selectedAddOnPackages.length > 0 && (
+                                        <div className="flex items-center justify-between mb-2">
+                                          <span className="text-sm font-medium text-slate-700 dark:text-slate-300">Add-ons:</span>
+                                          <span className="font-bold text-blue-600">
+                                            {formData.selectedAddOnPackages.map(id => 
+                                              addOnPackages.find(p => p.id === id)?.name
+                                            ).filter(Boolean).join(', ')}
+                                          </span>
+                                        </div>
+                                      )}
                                     </div>
                                     
                                     {/* Detailed Pricing Breakdown */}
                                     <div className="space-y-2 text-sm border-t pt-3">
                                       <div className="flex justify-between">
-                                        <span>Cruise Subtotal:</span>
-                                        <span>{formatCurrency(discoPricing.subtotal)}</span>
+                                        <span>Base Charter:</span>
+                                        <span>{formatCurrency(privatePricing.subtotal)}</span>
                                       </div>
                                       <div className="flex justify-between">
                                         <span>Tax (8.25%):</span>
-                                        <span>{formatCurrency(discoPricing.tax || 0)}</span>
-                                      </div>
-                                      <div className="flex justify-between">
-                                        <span>Service Fee (3%):</span>
-                                        <span>{formatCurrency(Math.round(discoPricing.subtotal * 0.03))}</span>
+                                        <span>{formatCurrency(privatePricing.tax || 0)}</span>
                                       </div>
                                       <div className="flex justify-between font-bold border-t pt-2">
                                         <span>Grand Total:</span>
-                                        <span>{formatCurrency(discoPricing.total)}</span>
-                                      </div>
-                                      <div className="flex justify-between text-green-600">
-                                        <span>Pay Today (100%):</span>
-                                        <span>{formatCurrency(discoPricing.total)}</span>
+                                        <span>{formatCurrency(privatePricing.total)}</span>
                                       </div>
                                     </div>
                                   </div>
@@ -4390,75 +4336,63 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                               </div>
                             )}
                             
-                            {/* Payment Buttons - Only show if both slot and package selected */}
-                            {formData.selectedSlot && formData.selectedDiscoPackage && (
-                              <div className="space-y-4">
-                                {/* Disco Pricing Policy Information */}
-                                <PolicySummary 
-                                  eventDate={formData.eventDate}
-                                  totalCost={discoPricing?.total}
-                                  context="chat"
-                                  className="border-l-4 border-l-purple-500"
-                                />
-                                
-                                <div className="space-y-2">
-                                <Button
-                                  onClick={() => {
-                                    setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
-                                    handlePayment('deposit', 'disco');
-                                  }}
-                                  disabled={!canProceedToPayment('disco') || !discoPricing || discoSlots.length === 0}
-                                  className={cn(
-                                    "w-full",
-                                    canProceedToPayment('disco') && discoPricing && discoSlots.length > 0
-                                      ? "bg-green-600 hover:bg-green-700"
-                                      : "bg-gray-400 cursor-not-allowed opacity-50"
-                                  )}
-                                  title={discoSlots.length === 0 ? "No Disco Cruises available on this date" : getPaymentButtonTooltip('disco')}
-                                  data-testid="button-disco-deposit"
-                                >
-                                  <CreditCard className="h-4 w-4 mr-2" />
-                                  Pay {discoPricing?.depositPercent || 100}% Deposit ({discoPricing ? formatCurrency(discoPricing.depositAmount || discoPricing.total) : '$0'})
-                                </Button>
-                                
-                                <Button
-                                  onClick={() => {
-                                    setFormData(prev => ({ ...prev, selectedCruiseType: 'disco' }));
-                                    handlePayment('full', 'disco');
-                                  }}
-                                  disabled={!canProceedToPayment('disco') || !discoPricing || discoSlots.length === 0}
-                                  className={cn(
-                                    "w-full",
-                                    canProceedToPayment('disco') && discoPricing && discoSlots.length > 0
-                                      ? "bg-purple-600 hover:bg-purple-700"
-                                      : "bg-gray-400 cursor-not-allowed opacity-50"
-                                  )}
-                                  title={discoSlots.length === 0 ? "No Disco Cruises available on this date" : getPaymentButtonTooltip('disco')}
-                                  data-testid="button-disco-full"
-                                >
-                                  <CreditCard className="h-4 w-4 mr-2" />
-                                  Pay in Full ({discoPricing ? formatCurrency(discoPricing.total) : '$0'})
-                                </Button>
-                                
-                                <Button
-                                  onClick={() => {
-                                    // Show the contact info modal
-                                    setShowContactInfoModal(true);
-                                  }}
-                                  variant="outline"
-                                  className="w-full"
-                                  data-testid="button-disco-quote"
-                                >
-                                  <FileText className="h-4 w-4 mr-2" />
-                                  Send Me My Quote
-                                </Button>
-                                </div>
-                              </div>
-                            )}
+                            {/* Payment Buttons for Private Charter */}
+                            <div className="space-y-2">
+                              <Button
+                                onClick={() => {
+                                  setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
+                                  handlePayment('deposit', 'private');
+                                }}
+                                disabled={!canProceedToPayment('private') || !privatePricing}
+                                className={cn(
+                                  "w-full",
+                                  canProceedToPayment('private') && privatePricing
+                                    ? "bg-green-600 hover:bg-green-700"
+                                    : "bg-gray-400 cursor-not-allowed opacity-50"
+                                )}
+                                title={getPaymentButtonTooltip('private')}
+                                data-testid="button-private-deposit"
+                              >
+                                <CreditCard className="h-4 w-4 mr-2" />
+                                Pay 50% Deposit ({privatePricing ? formatCurrency(privatePricing.depositAmount) : '$0'})
+                              </Button>
+                              
+                              <Button
+                                onClick={() => {
+                                  setFormData(prev => ({ ...prev, selectedCruiseType: 'private' }));
+                                  handlePayment('full', 'private');
+                                }}
+                                disabled={!canProceedToPayment('private') || !privatePricing}
+                                className={cn(
+                                  "w-full",
+                                  canProceedToPayment('private') && privatePricing
+                                    ? "bg-blue-600 hover:bg-blue-700"
+                                    : "bg-gray-400 cursor-not-allowed opacity-50"
+                                )}
+                                title={getPaymentButtonTooltip('private')}
+                                data-testid="button-private-full"
+                              >
+                                <CreditCard className="h-4 w-4 mr-2" />
+                                Pay in Full ({privatePricing ? formatCurrency(privatePricing.total) : '$0'})
+                              </Button>
+                              
+                              <Button
+                                onClick={() => {
+                                  setShowContactInfoModal(true);
+                                }}
+                                disabled={!formData.selectedSlot}
+                                variant="outline"
+                                className="w-full"
+                                data-testid="button-private-quote"
+                              >
+                                <FileText className="h-4 w-4 mr-2" />
+                                Send Me My Quote
+                              </Button>
+                            </div>
                           </CardContent>
                         </Card>
-                      ) : (
-                        /* ALTERNATIVE DATES - For non-bachelor/bachelorette events */
+                        
+                        {/* Alternative Dates Card - Second column for non-bachelor/bachelorette */}
                         <Card className="bg-white/90 dark:bg-slate-800/90 backdrop-blur-sm">
                           <CardHeader>
                             <div className="flex items-center gap-3">
@@ -4503,6 +4437,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                             )}
                           </CardContent>
                         </Card>
+                        </>
                       )}
                     </div>
 

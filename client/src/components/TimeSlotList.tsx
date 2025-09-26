@@ -394,8 +394,8 @@ export const TimeSlotList = ({
                       <div className="flex items-center gap-2">
                         <div className="font-bold text-base text-foreground" data-testid={`timeslot-price-${slot.id}`}>
                           {slot.cruiseType === 'disco' 
-                            ? `${formatPrice(getEnhancedPricing(slot).displayPrice)} per ticket`
-                            : `From ${formatPrice(getEnhancedPricing(slot).displayPrice)}`
+                            ? `$85/person`  // Fixed per-person rate for disco
+                            : `$350/hr`      // Fixed hourly rate for private
                           }
                         </div>
                         <TooltipProvider>

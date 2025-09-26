@@ -54,6 +54,13 @@ export async function sendQuoteEmail(
         <p><strong>Event:</strong> ${quoteDetails.eventType || 'Bachelor/Bachelorette Party'}</p>
         <p><strong>Group Size:</strong> ${quoteDetails.groupSize || 'TBD'}</p>
         <p><strong>Date:</strong> ${quoteDetails.date || 'To be confirmed'}</p>
+        ${quoteDetails.timeSlot || quoteDetails.selectedSlot ? 
+          `<p><strong>Time Slot:</strong> ${
+            quoteDetails.timeSlot || 
+            (quoteDetails.selectedSlot?.label || 
+             (quoteDetails.selectedSlot?.startTime && quoteDetails.selectedSlot?.endTime ? 
+              `${quoteDetails.selectedSlot.startTime} - ${quoteDetails.selectedSlot.endTime}` : 
+              'TBD'))}</p>` : ''}
         
         <!-- Option A: Private Cruise -->
         <div style="border: 2px solid #3b82f6; border-radius: 8px; padding: 15px; margin: 15px 0; background: #eff6ff;">
@@ -103,6 +110,13 @@ export async function sendQuoteEmail(
         <p><strong>Event:</strong> ${quoteDetails.eventType || 'Party Cruise'}</p>
         <p><strong>Group Size:</strong> ${quoteDetails.groupSize || 'TBD'}</p>
         <p><strong>Date:</strong> ${quoteDetails.date || 'To be confirmed'}</p>
+        ${quoteDetails.timeSlot || quoteDetails.selectedSlot ? 
+          `<p><strong>Time Slot:</strong> ${
+            quoteDetails.timeSlot || 
+            (quoteDetails.selectedSlot?.label || 
+             (quoteDetails.selectedSlot?.startTime && quoteDetails.selectedSlot?.endTime ? 
+              `${quoteDetails.selectedSlot.startTime} - ${quoteDetails.selectedSlot.endTime}` : 
+              'TBD'))}</p>` : ''}
         <p><strong>Total:</strong> $${(quoteDetails.total / 100).toFixed(2)}</p>
       </div>
     `;
