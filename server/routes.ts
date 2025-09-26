@@ -5732,6 +5732,21 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Sync Google Sheets data to local database
+  app.post("/api/google-sheets/sync-to-database", async (req, res) => {
+    try {
+      const { handleGoogleSheetsSync } = await import("./syncGoogleSheetsData");
+      await handleGoogleSheetsSync(req, res);
+    } catch (error) {
+      console.error("Error loading sync handler:", error);
+      res.status(500).json({ 
+        success: false, 
+        error: "Failed to load sync handler",
+        details: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
+
   // Enhanced calendar availability endpoint that uses Google Sheets as source of truth
   app.get("/api/google-sheets/calendar-availability", async (req, res) => {
     try {

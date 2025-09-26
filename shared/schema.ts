@@ -384,11 +384,7 @@ export const bookings = pgTable("bookings", {
   lastModifiedAt: timestamp("last_modified_at").defaultNow(),
   notes: text("notes"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
-}, (table) => ({
-  // CRITICAL: Database-level unique constraint to prevent double-bookings
-  // Ensures the same boat cannot be booked for overlapping time periods
-  uniqueBoatTimeSlot: unique("unique_boat_time_slot").on(table.boatId, table.startTime, table.endTime),
-}));
+});
 
 // Disco Slots - for managing disco cruise availability
 export const discoSlots = pgTable("disco_slots", {
@@ -429,6 +425,99 @@ export const slotHolds = pgTable("slot_holds", {
   groupSize: integer("group_size"), // requested group size
   expiresAt: timestamp("expires_at").notNull(), // TTL for automatic cleanup
   createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// Master Availability Rules - defines standard availability by day type, group size, and time slots
+export const masterAvailabilityRules = pgTable("master_availability_rules", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  dayType: varchar("day_type").notNull(), // 'weekday', 'friday', 'saturday', 'sunday'
+  groupSizeMin: integer("group_size_min").notNull(), // minimum group size for this rule
+  groupSizeMax: integer("group_size_max").notNull(), // maximum group size for this rule
+  startTime: varchar("start_time").notNull(), // HH:MM format
+  endTime: varchar("end_time").notNull(), // HH:MM format
+  duration: integer("duration"), // duration in hours
+  boatId: varchar("boat_id"), // specific boat or null for any
+  cruiseType: varchar("cruise_type").notNull(), // 'private', 'disco'
+  basePrice: integer("base_price"), // base price in cents
+  pricePerPerson: integer("price_per_person"), // per person price in cents
+  active: boolean("active").notNull().default(true),
+  priority: integer("priority").notNull().default(0), // higher priority rules override lower
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Holiday Exceptions - specific dates that override normal availability rules
+export const holidayExceptions = pgTable("holiday_exceptions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  exceptionDate: timestamp("exception_date").notNull(), // specific date
+  holidayName: text("holiday_name"), // e.g., "Memorial Day", "4th of July"
+  dayType: varchar("day_type"), // override day type: 'weekday', 'friday', 'saturday', 'sunday', or null to keep original
+  priceMultiplier: integer("price_multiplier").default(100), // percentage multiplier (100 = normal, 150 = 1.5x)
+  availabilityStatus: varchar("availability_status").notNull().default("modified"), // 'normal', 'modified', 'closed'
+  // Custom time slots for this date (overrides master rules)
+  customSlots: jsonb("custom_slots").$type<Array<{
+    startTime: string; // HH:MM format
+    endTime: string; // HH:MM format
+    groupSizeMin: number;
+    groupSizeMax: number;
+    boatId?: string;
+    basePrice?: number;
+    pricePerPerson?: number;
+  }>>().default([]),
+  active: boolean("active").notNull().default(true),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Special Pricing Rules - date-specific pricing overrides
+export const specialPricingRules = pgTable("special_pricing_rules", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  name: text("name").notNull(),
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date").notNull(),
+  dayTypes: jsonb("day_types").$type<string[]>().default([]), // ['weekday', 'friday', 'saturday', 'sunday'] or empty for all
+  groupSizeMin: integer("group_size_min"), // null for any size
+  groupSizeMax: integer("group_size_max"), // null for any size
+  boatId: varchar("boat_id"), // specific boat or null for all
+  cruiseType: varchar("cruise_type"), // 'private', 'disco', or null for both
+  pricingType: varchar("pricing_type").notNull(), // 'multiplier', 'fixed', 'discount'
+  pricingValue: integer("pricing_value").notNull(), // percentage for multiplier/discount, cents for fixed
+  priority: integer("priority").notNull().default(0), // higher priority rules override lower
+  active: boolean("active").notNull().default(true),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// Blackout Dates - maintenance/unavailable periods
+export const blackoutDates = pgTable("blackout_dates", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  name: text("name").notNull(), // e.g., "Boat Maintenance", "Private Event"
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date").notNull(),
+  boatId: varchar("boat_id"), // specific boat or null for all boats
+  blockType: varchar("block_type").notNull(), // 'maintenance', 'private_event', 'weather', 'other'
+  affectedSlots: jsonb("affected_slots").$type<Array<{
+    startTime?: string; // HH:MM format, null for all day
+    endTime?: string; // HH:MM format, null for all day
+  }>>().default([]),
+  recurring: boolean("recurring").notNull().default(false),
+  recurringPattern: jsonb("recurring_pattern").$type<{
+    frequency?: 'weekly' | 'monthly' | 'yearly';
+    interval?: number; // every N weeks/months/years
+    daysOfWeek?: number[]; // 0=Sunday, 6=Saturday
+    endDate?: string; // when recurring pattern ends
+  }>(),
+  active: boolean("active").notNull().default(true),
+  notes: text("notes"),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
 // Email Templates - for customizable email communications
@@ -2796,6 +2885,19 @@ export type InsertAgentExecution = typeof agentExecutions.$inferInsert;
 export type Media = typeof media.$inferSelect;
 export type InsertMedia = typeof media.$inferInsert;
 
+// Availability Management types
+export type MasterAvailabilityRule = typeof masterAvailabilityRules.$inferSelect;
+export type InsertMasterAvailabilityRule = typeof masterAvailabilityRules.$inferInsert;
+
+export type HolidayException = typeof holidayExceptions.$inferSelect;
+export type InsertHolidayException = typeof holidayExceptions.$inferInsert;
+
+export type SpecialPricingRule = typeof specialPricingRules.$inferSelect;
+export type InsertSpecialPricingRule = typeof specialPricingRules.$inferInsert;
+
+export type BlackoutDate = typeof blackoutDates.$inferSelect;
+export type InsertBlackoutDate = typeof blackoutDates.$inferInsert;
+
 // Insert schemas
 export const insertWebhookNotificationSchema = createInsertSchema(webhookNotifications).omit({
   id: true,
@@ -2805,6 +2907,31 @@ export const insertWebhookNotificationSchema = createInsertSchema(webhookNotific
 export const insertMediaSchema = createInsertSchema(media).omit({
   id: true,
   uploadedAt: true,
+});
+
+// Availability Management insert schemas
+export const insertMasterAvailabilityRuleSchema = createInsertSchema(masterAvailabilityRules).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertHolidayExceptionSchema = createInsertSchema(holidayExceptions).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertSpecialPricingRuleSchema = createInsertSchema(specialPricingRules).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertBlackoutDateSchema = createInsertSchema(blackoutDates).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
 });
 
 export const insertAgentTaskSchema = createInsertSchema(agentTasks).omit({
