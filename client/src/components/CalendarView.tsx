@@ -1224,9 +1224,7 @@ function CalendarView() {
                   const isToday = date.toDateString() === new Date().toDateString();
                   const dayTimeBlocks = generateTimeBlocks(
                     date,
-                    selectedTab === 'all' ? filteredBoats : boatGroups[selectedTab as keyof typeof boatGroups],
-                    bookings,
-                    products
+                    selectedTab === 'all' ? filteredBoats : boatGroups[selectedTab as keyof typeof boatGroups]
                   );
                   const dayDiscoSlots = discoSlots.filter(slot => {
                     const slotDate = new Date(slot.date);
