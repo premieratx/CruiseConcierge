@@ -13,6 +13,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogFooter } from "@/components/ui/dialog";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Textarea } from "@/components/ui/textarea";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { apiRequest, queryClient } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import type { Product, QuoteTemplate, Project, Contact, Quote, InsertQuote, NormalizedSlot } from "@shared/schema";
@@ -54,6 +55,50 @@ interface PricingPreview {
   urgencyMessage?: string;
 }
 
+// Package pricing definitions
+interface PackageOption {
+  id: string;
+  name: string;
+  description?: string;
+  price: number; // in cents
+  isDefault?: boolean;
+}
+
+// Disco cruise packages (per person pricing)
+const DISCO_PACKAGES: PackageOption[] = [
+  { id: 'basic-bach', name: 'Basic Bach', price: 8500, isDefault: false },
+  { id: 'disco-queen', name: 'Disco Queen', price: 9500, isDefault: true },
+  { id: 'super-sparkle', name: 'Super Sparkle Platinum Disco', price: 10500, isDefault: false }
+];
+
+// Private cruise packages (additional cost on top of base)
+const getPrivatePackages = (capacity: number): PackageOption[] => {
+  let essentialsPrice = 0;
+  let ultimatePrice = 0;
+  
+  // Determine price based on boat capacity
+  if (capacity <= 14) {
+    essentialsPrice = 10000; // +$100
+    ultimatePrice = 25000; // +$250
+  } else if (capacity <= 25) {
+    essentialsPrice = 15000; // +$150
+    ultimatePrice = 30000; // +$300
+  } else if (capacity <= 50) {
+    essentialsPrice = 20000; // +$200
+    ultimatePrice = 35000; // +$350
+  } else {
+    // For larger boats (75 capacity), use 50-person pricing
+    essentialsPrice = 20000; // +$200
+    ultimatePrice = 35000; // +$350
+  }
+  
+  return [
+    { id: 'standard', name: 'Standard Cruise', price: 0, isDefault: true },
+    { id: 'essentials', name: 'Standard Cruise Plus Essentials Package', price: essentialsPrice, isDefault: false },
+    { id: 'ultimate', name: 'Standard Cruise Plus Ultimate Party Package', price: ultimatePrice, isDefault: false }
+  ];
+};
+
 interface QuoteBuilderProps {
   projectId?: string;
   templateId?: string;
@@ -79,6 +124,7 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
   const [selectedEventType, setSelectedEventType] = useState("wedding");
   const [selectedSlot, setSelectedSlot] = useState<NormalizedSlot | null>(null);
   const [selectedDuration, setSelectedDuration] = useState<'3-hour' | '4-hour' | null>(null);
+  const [selectedPackage, setSelectedPackage] = useState<string>("");
   
   // Contact form state - ENHANCED: Show BEFORE quote display instead of after
   const [showContactDialog, setShowContactDialog] = useState(true); // Changed to true - appears first
@@ -168,12 +214,12 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
     }
   }, [selectedTemplateId, templates, products]);
 
-  // Calculate pricing whenever items change
+  // Calculate pricing whenever items change or package selection changes
   useEffect(() => {
-    if (items.length > 0) {
+    if (items.length > 0 || selectedSlot) {
       calculatePricing();
     }
-  }, [items, appliedPromo, projectDate, currentGroupSize]);
+  }, [items, appliedPromo, projectDate, currentGroupSize, selectedPackage, selectedSlot]);
 
   // Use default template on mount
   useEffect(() => {
@@ -182,9 +228,45 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
     }
   }, [defaultTemplate, selectedTemplateId]);
 
+  // Pre-select default package when slot is selected
+  useEffect(() => {
+    if (selectedSlot) {
+      if (selectedSlot.cruiseType === 'disco') {
+        // Pre-select Disco Queen package for disco cruises
+        const defaultDisco = DISCO_PACKAGES.find(p => p.isDefault);
+        setSelectedPackage(defaultDisco?.id || 'disco-queen');
+      } else if (selectedSlot.cruiseType === 'private') {
+        // Pre-select Standard Cruise for private cruises
+        setSelectedPackage('standard');
+      }
+    } else {
+      // Reset package selection when no slot is selected
+      setSelectedPackage("");
+    }
+  }, [selectedSlot]);
+
   const calculatePricing = async () => {
     setIsLoading(true);
     try {
+      // Calculate package cost
+      let packageCost = 0;
+      if (selectedSlot && selectedPackage) {
+        if (selectedSlot.cruiseType === 'disco') {
+          // For disco cruises: per person pricing
+          const discoPackage = DISCO_PACKAGES.find(p => p.id === selectedPackage);
+          if (discoPackage) {
+            packageCost = discoPackage.price * currentGroupSize; // Total in cents
+          }
+        } else {
+          // For private cruises: flat additional fee
+          const privatePackages = getPrivatePackages(selectedSlot.capacity);
+          const privatePackage = privatePackages.find(p => p.id === selectedPackage);
+          if (privatePackage) {
+            packageCost = privatePackage.price; // Flat fee in cents
+          }
+        }
+      }
+
       const response = await apiRequest("POST", "/api/pricing/preview", {
         items: items.map(item => ({
           unitPrice: item.unitPrice,
@@ -193,9 +275,21 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
         promoCode: appliedPromo || null,
         projectDate,
         groupSize: currentGroupSize,
+        packageCost: packageCost, // Include package cost
       });
 
       const result = await response.json();
+      
+      // Add package cost to the subtotal
+      if (packageCost > 0) {
+        result.subtotal = (result.subtotal || 0) + packageCost;
+        result.total = result.subtotal + result.tax + result.gratuity - result.discountTotal;
+        result.perPersonCost = Math.round(result.total / currentGroupSize);
+        if (result.depositRequired) {
+          result.depositAmount = Math.round(result.total * result.depositPercent / 100);
+        }
+      }
+      
       setPricing(result);
       
       if (onQuoteChange) {
@@ -204,6 +298,7 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
           pricing: result,
           projectId: selectedProjectId,
           templateId: selectedTemplateId,
+          selectedPackage,
         });
       }
     } catch (error) {
@@ -621,6 +716,121 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
                 </div>
               )}
 
+              {/* Package Selection - Shows only after slot is selected */}
+              {selectedSlot && (
+                <div className="space-y-2 mt-4">
+                  <Label className="flex items-center gap-2">
+                    <Package className="w-4 h-4" />
+                    Select Your Package
+                    <Badge variant="secondary" className="text-xs">
+                      {selectedSlot.cruiseType === 'disco' ? 'Per Person' : 'Add-On'}
+                    </Badge>
+                  </Label>
+                  <div className="rounded-lg border p-4">
+                    <RadioGroup 
+                      value={selectedPackage} 
+                      onValueChange={setSelectedPackage}
+                      className="space-y-3"
+                      data-testid="package-selector"
+                    >
+                      {selectedSlot.cruiseType === 'disco' ? (
+                        // Disco Cruise Packages
+                        DISCO_PACKAGES.map((pkg) => (
+                          <div key={pkg.id} className="flex items-start space-x-2">
+                            <RadioGroupItem value={pkg.id} id={pkg.id} />
+                            <Label 
+                              htmlFor={pkg.id} 
+                              className="flex-1 cursor-pointer text-sm font-normal space-y-1"
+                            >
+                              <div className="flex items-center justify-between">
+                                <span className="font-medium">
+                                  {pkg.name}
+                                  {pkg.isDefault && (
+                                    <Badge variant="outline" className="ml-2 text-xs">
+                                      Recommended
+                                    </Badge>
+                                  )}
+                                </span>
+                                <span className="font-semibold text-green-600">
+                                  ${(pkg.price / 100).toFixed(0)}/person
+                                </span>
+                              </div>
+                              {pkg.id === 'basic-bach' && (
+                                <p className="text-xs text-muted-foreground">Essential party package for budget-conscious groups</p>
+                              )}
+                              {pkg.id === 'disco-queen' && (
+                                <p className="text-xs text-muted-foreground">Our most popular package with premium features</p>
+                              )}
+                              {pkg.id === 'super-sparkle' && (
+                                <p className="text-xs text-muted-foreground">Ultimate VIP experience with all the extras</p>
+                              )}
+                            </Label>
+                          </div>
+                        ))
+                      ) : (
+                        // Private Cruise Packages
+                        getPrivatePackages(selectedSlot.capacity).map((pkg) => (
+                          <div key={pkg.id} className="flex items-start space-x-2">
+                            <RadioGroupItem value={pkg.id} id={pkg.id} />
+                            <Label 
+                              htmlFor={pkg.id} 
+                              className="flex-1 cursor-pointer text-sm font-normal space-y-1"
+                            >
+                              <div className="flex items-center justify-between">
+                                <span className="font-medium">
+                                  {pkg.name}
+                                  {pkg.isDefault && (
+                                    <Badge variant="outline" className="ml-2 text-xs">
+                                      Base Package
+                                    </Badge>
+                                  )}
+                                </span>
+                                <span className={`font-semibold ${pkg.price > 0 ? 'text-green-600' : 'text-muted-foreground'}`}>
+                                  {pkg.price > 0 ? `+$${(pkg.price / 100).toFixed(0)}` : 'Included'}
+                                </span>
+                              </div>
+                              {pkg.id === 'standard' && (
+                                <p className="text-xs text-muted-foreground">Standard private cruise experience</p>
+                              )}
+                              {pkg.id === 'essentials' && (
+                                <p className="text-xs text-muted-foreground">Includes cooler, ice, cups, and party essentials</p>
+                              )}
+                              {pkg.id === 'ultimate' && (
+                                <p className="text-xs text-muted-foreground">Premium package with all amenities and special features</p>
+                              )}
+                            </Label>
+                          </div>
+                        ))
+                      )}
+                    </RadioGroup>
+                    
+                    {/* Package total preview */}
+                    {selectedPackage && (
+                      <div className="mt-4 pt-3 border-t">
+                        <div className="flex justify-between text-sm">
+                          <span>Package Cost:</span>
+                          {selectedSlot.cruiseType === 'disco' ? (
+                            <span className="font-medium text-green-600">
+                              ${((DISCO_PACKAGES.find(p => p.id === selectedPackage)?.price || 0) * currentGroupSize / 100).toFixed(0)} total
+                              <span className="text-xs text-muted-foreground ml-1">
+                                (${(DISCO_PACKAGES.find(p => p.id === selectedPackage)?.price || 0) / 100}/person × {currentGroupSize})
+                              </span>
+                            </span>
+                          ) : (
+                            <span className="font-medium text-green-600">
+                              {getPrivatePackages(selectedSlot.capacity).find(p => p.id === selectedPackage)?.price === 0 
+                                ? 'Included in base price' 
+                                : `+$${(getPrivatePackages(selectedSlot.capacity).find(p => p.id === selectedPackage)?.price || 0) / 100}`
+                              }
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              )}
+
               {/* Message when duration selection is required but not selected */}
               {projectDate && requiresDurationSelection && !selectedDuration && (
                 <div className="space-y-2">
@@ -705,6 +915,58 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
                           <span>Starting Price:</span>
                           <span>{formatCurrency(selectedSlot.estimatedPricing.total)}</span>
                         </div>
+                      )}
+                    </div>
+                  </div>
+                )}
+
+                {/* Selected Package Details */}
+                {selectedSlot && selectedPackage && (
+                  <div className="border rounded-lg p-4 bg-blue-50/50">
+                    <h4 className="font-semibold mb-2 flex items-center gap-2">
+                      <Package className="w-4 h-4" />
+                      Selected Package
+                    </h4>
+                    <div className="space-y-2 text-sm">
+                      {selectedSlot.cruiseType === 'disco' ? (
+                        <>
+                          <div className="flex justify-between">
+                            <span>Package:</span>
+                            <span className="font-medium">
+                              {DISCO_PACKAGES.find(p => p.id === selectedPackage)?.name}
+                            </span>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>Price per person:</span>
+                            <span className="font-medium text-green-600">
+                              ${(DISCO_PACKAGES.find(p => p.id === selectedPackage)?.price || 0) / 100}
+                            </span>
+                          </div>
+                          <div className="flex justify-between font-semibold">
+                            <span>Total package cost:</span>
+                            <span className="text-green-600">
+                              ${((DISCO_PACKAGES.find(p => p.id === selectedPackage)?.price || 0) * currentGroupSize / 100).toFixed(0)}
+                            </span>
+                          </div>
+                        </>
+                      ) : (
+                        <>
+                          <div className="flex justify-between">
+                            <span>Package:</span>
+                            <span className="font-medium">
+                              {getPrivatePackages(selectedSlot.capacity).find(p => p.id === selectedPackage)?.name}
+                            </span>
+                          </div>
+                          <div className="flex justify-between font-semibold">
+                            <span>Package add-on:</span>
+                            <span className="text-green-600">
+                              {getPrivatePackages(selectedSlot.capacity).find(p => p.id === selectedPackage)?.price === 0 
+                                ? 'Included' 
+                                : `+$${(getPrivatePackages(selectedSlot.capacity).find(p => p.id === selectedPackage)?.price || 0) / 100}`
+                              }
+                            </span>
+                          </div>
+                        </>
                       )}
                     </div>
                   </div>
