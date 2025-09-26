@@ -1858,6 +1858,159 @@ export class GoogleSheetsService {
       throw error;
     }
   }
+
+  // New method to read data from the "Availability" tab
+  async getAvailabilityTabData(): Promise<any> {
+    try {
+      if (!this.sheets || !this.spreadsheetId) {
+        console.warn("Google Sheets API not properly initialized");
+        return {
+          success: false,
+          error: "Google Sheets API not initialized",
+          data: null
+        };
+      }
+
+      console.log(`📊 Reading data from Availability tab in spreadsheet: ${this.spreadsheetId}`);
+      
+      // Read all data from the "Availability" tab
+      const sheetName = 'Availability';
+      const range = `${sheetName}!A:Z`; // Read all columns A through Z
+      
+      try {
+        const response = await this.sheets.spreadsheets.values.get({
+          spreadsheetId: this.spreadsheetId,
+          range: range,
+        });
+        
+        const values = response.data.values || [];
+        
+        if (values.length === 0) {
+          console.warn("No data found in the Availability tab");
+          return {
+            success: true,
+            sheetName: sheetName,
+            data: [],
+            message: "Availability sheet is empty"
+          };
+        }
+        
+        // Process the data - assume first row is headers
+        const headers = values[0];
+        const rows = values.slice(1);
+        
+        // Convert to JSON format with headers as keys
+        const jsonData = rows.map((row, index) => {
+          const obj: any = {
+            rowNumber: index + 2 // +2 because arrays are 0-indexed and we skip header row
+          };
+          headers.forEach((header, colIndex) => {
+            obj[header] = row[colIndex] || '';
+          });
+          return obj;
+        });
+        
+        console.log(`✅ Successfully read ${jsonData.length} rows from "${sheetName}" tab`);
+        
+        // Log sample data for analysis
+        if (jsonData.length > 0) {
+          console.log(`📄 Sample data from first 3 rows:`);
+          console.log(JSON.stringify(jsonData.slice(0, 3), null, 2));
+        }
+        
+        // Analyze the data structure
+        const dataStructure = {
+          totalRows: jsonData.length,
+          headers: headers,
+          sampleRows: jsonData.slice(0, 5), // First 5 rows for analysis
+          // Group by various potential fields to understand the structure
+          uniqueDays: [...new Set(jsonData.map(row => 
+            row['Day'] || row['Day of Week'] || row['day'] || row['DayOfWeek'] || ''
+          ).filter(Boolean))],
+          uniqueMonths: [...new Set(jsonData.map(row => 
+            row['Month'] || row['month'] || row['MonthName'] || ''
+          ).filter(Boolean))],
+          uniqueTimeSlots: [...new Set(jsonData.map(row => 
+            row['Time'] || row['Time Slot'] || row['TimeSlot'] || row['time'] || row['Availability'] || row['Available Times'] || ''
+          ).filter(Boolean))].slice(0, 10), // Limit to 10 for cleaner output
+          hasAvailability: headers.some(h => 
+            h.toLowerCase().includes('available') || 
+            h.toLowerCase().includes('availability')
+          ),
+          hasPricing: headers.some(h => 
+            h.toLowerCase().includes('price') || 
+            h.toLowerCase().includes('cost') || 
+            h.toLowerCase().includes('rate')
+          ),
+          dateFields: headers.filter(h => 
+            h.toLowerCase().includes('date') || 
+            h.toLowerCase().includes('day') || 
+            h.toLowerCase().includes('month') || 
+            h.toLowerCase().includes('year')
+          )
+        };
+        
+        console.log(`📊 Data structure analysis:`, JSON.stringify(dataStructure, null, 2));
+        
+        return {
+          success: true,
+          spreadsheetId: this.spreadsheetId,
+          sheetName: sheetName,
+          headers: headers,
+          rowCount: jsonData.length,
+          data: jsonData,
+          structure: dataStructure,
+          timestamp: new Date().toISOString()
+        };
+        
+      } catch (sheetError: any) {
+        // If the "Availability" tab doesn't exist, return appropriate error
+        if (sheetError.message?.includes('Unable to parse range') || 
+            sheetError.code === 400) {
+          console.error(`❌ The "Availability" tab was not found in the spreadsheet`);
+          
+          // Get list of available sheets for debugging
+          const availableSheets = await this.getAvailableSheets();
+          console.log(`📋 Available sheets in spreadsheet: ${availableSheets.join(', ')}`);
+          
+          return {
+            success: false,
+            error: `The "Availability" tab was not found in the spreadsheet. Please ensure the tab is named exactly "Availability".`,
+            sheetName: sheetName,
+            availableTabs: availableSheets
+          };
+        }
+        throw sheetError;
+      }
+      
+    } catch (error: any) {
+      console.error("❌ Error reading Availability tab from Google Sheets:", error);
+      return {
+        success: false,
+        error: error.message || "Failed to read Availability tab",
+        data: null
+      };
+    }
+  }
+  
+  // Helper method to get list of available sheets in the spreadsheet
+  async getAvailableSheets(): Promise<string[]> {
+    try {
+      if (!this.sheets || !this.spreadsheetId) {
+        return [];
+      }
+      
+      const spreadsheet = await this.sheets.spreadsheets.get({
+        spreadsheetId: this.spreadsheetId
+      });
+      
+      const sheets = spreadsheet.data.sheets || [];
+      return sheets.map((sheet: any) => sheet.properties?.title || 'Unnamed Sheet');
+    } catch (error) {
+      console.error("Error fetching sheet names:", error);
+      return [];
+    }
+  }
 }
 
 export const googleSheetsService = new GoogleSheetsService();

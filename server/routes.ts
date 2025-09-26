@@ -5621,6 +5621,60 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Read availability data from the "Availability" tab of Google Sheets
+  app.get("/api/google-sheets/availability", async (req, res) => {
+    try {
+      console.log("📊 Fetching data from Availability tab in Google Sheets...");
+      
+      // Get Google Sheets service
+      const googleSheetsService = await getGoogleSheetsService();
+      
+      // Call the new method to get data from the Availability tab
+      const result = await googleSheetsService.getAvailabilityTabData();
+      
+      if (!result.success) {
+        console.error("❌ Failed to fetch availability data:", result.error);
+        return res.status(500).json({ 
+          success: false,
+          error: result.error || "Failed to fetch data from Availability tab",
+          availableTabs: result.availableTabs || []
+        });
+      }
+      
+      console.log(`✅ Successfully fetched availability data:`, {
+        sheetName: result.sheetName,
+        rowCount: result.rowCount,
+        headers: result.headers,
+        hasAvailability: result.structure?.hasAvailability,
+        hasPricing: result.structure?.hasPricing,
+        uniqueDays: result.structure?.uniqueDays?.length || 0,
+        uniqueMonths: result.structure?.uniqueMonths?.length || 0,
+        uniqueTimeSlots: result.structure?.uniqueTimeSlots?.length || 0
+      });
+      
+      // Return the data to the client
+      res.json({
+        success: true,
+        message: "Successfully retrieved data from Availability tab",
+        spreadsheetId: result.spreadsheetId || process.env.SHEET_ID,
+        sheetName: result.sheetName,
+        headers: result.headers,
+        rowCount: result.rowCount,
+        data: result.data,
+        structure: result.structure,
+        timestamp: result.timestamp
+      });
+      
+    } catch (error: any) {
+      console.error("❌ Error fetching availability data from Google Sheets:", error);
+      res.status(500).json({ 
+        success: false,
+        error: error.message || "Internal server error",
+        timestamp: new Date().toISOString()
+      });
+    }
+  });
+
   // Create a slot hold with TTL
   app.post("/api/availability/hold", async (req, res) => {
     try {
