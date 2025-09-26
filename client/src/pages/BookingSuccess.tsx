@@ -116,8 +116,10 @@ export default function BookingSuccess() {
       endTime: metadata.endTime || "18:00",
       groupSize: metadata.groupSize || project?.groupSize || 20,
       boatName: metadata.boatName || "Premier Cruise Vessel",
-      totalAmount: stripeSession?.amount_total || quote?.total || 150000,
-      depositPaid: stripeSession?.amount_total || quote?.depositAmount || 37500,
+      // CRITICAL FIX: Always use Stripe session amount (actual amount paid) over quote fallbacks
+      totalAmount: quote?.total || 150000, // Keep original quote total for balance calculation
+      depositPaid: stripeSession?.amount_total || quote?.depositAmount || 37500, // Use ACTUAL amount paid from Stripe
+      actualAmountPaid: stripeSession?.amount_total || 37500, // Track actual payment from Stripe
       status: stripeSession?.payment_status === 'paid' ? 'confirmed' : 'processing',
       cruiseType: metadata.cruiseType || 'private',
       sessionId: sessionId,
@@ -373,15 +375,15 @@ export default function BookingSuccess() {
               <CardContent className="space-y-4">
                 <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
                   <div className="flex justify-between items-center mb-2">
-                    <span className="font-medium" data-testid="text-deposit-label">Deposit Paid</span>
+                    <span className="font-medium" data-testid="text-deposit-label">Amount Paid</span>
                     <span className="text-lg font-bold text-green-600 dark:text-green-400" data-testid="text-deposit-amount">
-                      {formatCurrency(bookingDetails.depositPaid)}
+                      {formatCurrency(bookingDetails.actualAmountPaid)}
                     </span>
                   </div>
                   <div className="flex justify-between items-center text-sm text-gray-600 dark:text-gray-300">
                     <span>Balance Due (day of cruise)</span>
                     <span data-testid="text-balance-due">
-                      {formatCurrency(bookingDetails.totalAmount - bookingDetails.depositPaid)}
+                      {formatCurrency(Math.max(0, bookingDetails.totalAmount - bookingDetails.actualAmountPaid))}
                     </span>
                   </div>
                   <div className="mt-2 pt-2 border-t border-green-200 dark:border-green-700">
