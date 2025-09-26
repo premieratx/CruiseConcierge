@@ -1481,11 +1481,14 @@ export class DatabaseStorage implements IStorage {
 
   /**
    * Get available boats for a group size
+   * FIXED: Check that group size is within BOTH min and max capacity
+   * A group of 27 should get Me Seeks/The Irony (25-30), NOT Clever Girl (50-75)
    */
   async getAvailableBoatsForGroupSize(groupSize: number): Promise<Boat[]> {
     return await db.select().from(boats)
       .where(and(
-        gte(boats.maxCapacity, groupSize),
+        lte(boats.capacity, groupSize),     // groupSize >= min capacity 
+        gte(boats.maxCapacity, groupSize),  // groupSize <= max capacity
         eq(boats.active, true)
       ))
       .orderBy(boats.capacity);
@@ -3879,18 +3882,21 @@ export class DatabaseStorage implements IStorage {
             if (groupSize <= 14) {
               // Only Day Tripper for groups of 14 or less
               return boat.id === 'boat_day_tripper' || boat.name?.toLowerCase().includes('day tripper');
-            } else if (groupSize <= 25) {
-              // Only Me Seek and The Irony for groups of 15-25
+            } else if (groupSize <= 30) {
+              // Me Seek and The Irony for groups of 15-30 (their max capacity is 30)
               return boat.id === 'boat_me_seek' || 
                      boat.id === 'boat_the_irony' ||
                      boat.name?.toLowerCase().includes('me seek') ||
                      boat.name?.toLowerCase().includes('the irony');
-            } else if (groupSize <= 50) {
-              // Only Clever Girl for groups of 26-50
-              return boat.id === 'boat_clever_girl' || boat.name?.toLowerCase().includes('clever girl');
             } else if (groupSize <= 75) {
-              // Only Clever Girl for groups of 51-75 (with extra crew fee handled elsewhere)
-              return boat.id === 'boat_clever_girl' || boat.name?.toLowerCase().includes('clever girl');
+              // Clever Girl for groups of 50-75 (min capacity 50, max 75)
+              // Note: Groups 31-49 have NO boats available
+              if (groupSize >= 50) {
+                return boat.id === 'boat_clever_girl' || boat.name?.toLowerCase().includes('clever girl');
+              } else {
+                // No boats for groups 31-49
+                return false;
+              }
             } else {
               // No boats available for groups larger than 75
               return false;
@@ -3930,16 +3936,19 @@ export class DatabaseStorage implements IStorage {
               if (dayType === 'weekday') hourlyRateCents = 20000; // $200/hr
               else if (dayType === 'friday') hourlyRateCents = 25000; // $250/hr
               else hourlyRateCents = 30000; // $300/hr weekend
-            } else if (groupSize <= 25) {
-              // Me Seek/The Irony rates (groups 15-25)
+            } else if (groupSize <= 30) {
+              // Me Seek/The Irony rates (groups 15-30, including group of 27)
               if (dayType === 'weekday') hourlyRateCents = 25000; // $250/hr
               else if (dayType === 'friday') hourlyRateCents = 30000; // $300/hr
               else hourlyRateCents = 35000; // $350/hr weekend
-            } else {
-              // Clever Girl rates (for groups 26-75, which includes group of 27)
+            } else if (groupSize >= 50 && groupSize <= 75) {
+              // Clever Girl rates (groups 50-75)
               if (dayType === 'weekday') hourlyRateCents = 30000; // $300/hr
               else if (dayType === 'friday') hourlyRateCents = 35000; // $350/hr
               else hourlyRateCents = 40000; // $400/hr weekend (Sunday)
+            } else {
+              // No boats available for groups 31-49 or above 75
+              hourlyRateCents = 0;
             }
             
             basePrice = hourlyRateCents * timeSlot.duration;
