@@ -283,6 +283,22 @@ export class ComprehensiveLeadService {
           // Get the group size - use leadData first, then quote if available, then default to 1
           const groupSize = leadData.groupSize || quote?.eventDetails?.groupSize || 1;
           
+          // CRITICAL FIX: Check if date is a weekday and add duration parameter
+          let selectedDuration: number | undefined = undefined;
+          if (formattedDate) {
+            const dateObj = new Date(formattedDate);
+            const dayOfWeek = dateObj.getDay();
+            const isWeekday = dayOfWeek >= 1 && dayOfWeek <= 4; // Monday through Thursday
+            
+            if (isWeekday) {
+              // For weekday dates, check if duration was in selection details
+              selectedDuration = leadData.selectedOptions?.selectedDuration || 
+                                leadData.selectedOptions?.duration || 
+                                4; // Default to 4 hours for weekdays
+              console.log(`📅 Weekday detected (${['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][dayOfWeek]}), duration: ${selectedDuration} hours`);
+            }
+          }
+          
           // Build URL parameters
           const params = new URLSearchParams();
           
@@ -297,6 +313,11 @@ export class ComprehensiveLeadService {
           // Add people count parameter
           params.append('people', String(groupSize));
           
+          // Add duration parameter for weekday dates
+          if (selectedDuration) {
+            params.append('duration', String(selectedDuration));
+          }
+          
           // Add contact=done to signal modal bypass
           params.append('contact', 'done');
           
@@ -310,6 +331,7 @@ export class ComprehensiveLeadService {
               date: formattedDate || 'not set',
               party: eventType,
               people: groupSize,
+              duration: selectedDuration || 'not needed',
               contact: 'done'
             },
             leadId: leadId,

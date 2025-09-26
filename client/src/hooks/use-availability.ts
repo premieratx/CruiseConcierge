@@ -85,6 +85,7 @@ export const useAvailabilityForDateRange = (
   endDate: string,
   cruiseType?: 'private' | 'disco',
   groupSize?: number,
+  duration?: number, // Added optional duration parameter
   options?: Omit<UseQueryOptions<AvailabilityResponse, Error>, 'queryKey' | 'queryFn'>
 ) => {
   return useAvailability(
@@ -93,6 +94,7 @@ export const useAvailabilityForDateRange = (
       endDate,
       cruiseType,
       groupSize,
+      ...(duration ? { minDuration: duration, maxDuration: duration } : {}),
     },
     options
   );
@@ -101,13 +103,30 @@ export const useAvailabilityForDateRange = (
 /**
  * Hook for getting available slots for a single date
  * Convenience wrapper for single-day searches
+ * Added duration support for weekday cruise filtering
  */
 export const useAvailabilityForDate = (
   date: string, // YYYY-MM-DD format
   cruiseType?: 'private' | 'disco',
   groupSize?: number,
+  duration?: number, // Added duration parameter for weekday cruises
   options?: Omit<UseQueryOptions<AvailabilityResponse, Error>, 'queryKey' | 'queryFn'>
 ) => {
+  // If duration is specified, use the full availability hook with duration filtering
+  if (duration) {
+    return useAvailability(
+      {
+        startDate: date,
+        endDate: date,
+        cruiseType,
+        groupSize,
+        minDuration: duration,
+        maxDuration: duration,
+      },
+      options
+    );
+  }
+  // Otherwise, use the simpler date range hook
   return useAvailabilityForDateRange(date, date, cruiseType, groupSize, options);
 };
 

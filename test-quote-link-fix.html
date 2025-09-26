@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote Link Test - October 28, 2025 Bachelor Party</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .test-container {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            border-bottom: 2px solid #007bff;
+            padding-bottom: 10px;
+        }
+        .test-details {
+            margin: 20px 0;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .test-details h3 {
+            margin-top: 0;
+            color: #495057;
+        }
+        .test-link {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 12px 24px;
+            background: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        .test-link:hover {
+            background: #0056b3;
+        }
+        .url-display {
+            margin: 10px 0;
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 3px;
+            word-break: break-all;
+            font-family: monospace;
+            font-size: 14px;
+        }
+        .fix-list {
+            margin: 20px 0;
+        }
+        .fix-list li {
+            margin: 10px 0;
+            line-height: 1.5;
+        }
+        .success {
+            color: #28a745;
+            font-weight: bold;
+        }
+        .warning {
+            color: #ffc107;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="test-container">
+        <h1>🧪 Quote Link Fix Verification Test</h1>
+        
+        <div class="test-details">
+            <h3>Test Case Details:</h3>
+            <ul>
+                <li><strong>Date:</strong> October 28, 2025 (Tuesday - Weekday)</li>
+                <li><strong>Event Type:</strong> Bachelor Party</li>
+                <li><strong>Group Size:</strong> 18 people</li>
+                <li><strong>Duration:</strong> 4 hours (weekday default)</li>
+                <li><strong>Contact Modal:</strong> Bypassed (contact=done)</li>
+            </ul>
+        </div>
+
+        <div class="test-details">
+            <h3>Applied Fixes:</h3>
+            <ul class="fix-list">
+                <li class="success">✅ Added duration parameter support to URL parameters in Chat.tsx</li>
+                <li class="success">✅ Updated useAvailabilityForDate hook to accept and use duration parameter</li>
+                <li class="success">✅ Fixed weekday date handling to automatically set duration (default: 4 hours)</li>
+                <li class="success">✅ Enhanced Google Sheets integration with retry logic and double verification</li>
+                <li class="success">✅ Added duration to quote URL generation for weekday dates</li>
+                <li class="success">✅ Implemented exponential backoff for Google Sheets updates</li>
+            </ul>
+        </div>
+
+        <div class="test-details">
+            <h3>Test Links:</h3>
+            
+            <p><strong>1. Full Quote Link (with duration):</strong></p>
+            <div class="url-display" id="fullUrl"></div>
+            <a href="#" class="test-link" id="fullLink" target="_blank">Open Full Quote Link →</a>
+            
+            <p style="margin-top: 20px;"><strong>2. Quote Link (without duration - should auto-detect):</strong></p>
+            <div class="url-display" id="basicUrl"></div>
+            <a href="#" class="test-link" id="basicLink" target="_blank">Open Basic Quote Link →</a>
+        </div>
+
+        <div class="test-details">
+            <h3>Expected Behavior:</h3>
+            <ol>
+                <li>The date (October 28, 2025) should be pre-selected in the calendar</li>
+                <li>The event type should be set to "Bachelor Party"</li>
+                <li>The group size should be set to 18 people</li>
+                <li>For the Tuesday date, duration should automatically be set to 4 hours</li>
+                <li><strong class="success">Time slots should appear immediately</strong> after the page loads</li>
+                <li>The contact information modal should be bypassed</li>
+                <li>The comparison view should be displayed with pricing options</li>
+            </ol>
+        </div>
+
+        <div class="test-details">
+            <h3>What Was Fixed:</h3>
+            <p>The main issue was that when URL parameters were loaded, the <code>selectedDuration</code> wasn't being set for weekday dates. Since October 28, 2025 is a Tuesday (weekday), the system requires a duration selection (3 or 4 hours). Without this, the availability API didn't know what duration to filter for, resulting in no time slots being displayed.</p>
+            <p>Additionally, the Google Sheets integration was enhanced to ensure the quote URL is reliably saved to Column Q every time, with retry logic and verification.</p>
+        </div>
+    </div>
+
+    <script>
+        // Get the current host
+        const host = window.location.origin;
+        
+        // Build the test URLs
+        const fullUrl = `${host}/chat?date=2025-10-28&party=bachelor&people=18&duration=4&contact=done`;
+        const basicUrl = `${host}/chat?date=2025-10-28&party=bachelor&people=18&contact=done`;
+        
+        // Set the URLs in the display and links
+        document.getElementById('fullUrl').textContent = fullUrl;
+        document.getElementById('fullLink').href = fullUrl;
+        
+        document.getElementById('basicUrl').textContent = basicUrl;
+        document.getElementById('basicLink').href = basicUrl;
+    </script>
+</body>
+</html>

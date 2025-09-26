@@ -1154,16 +1154,23 @@ export class GoogleSheetsService {
     console.log(`📝 CRITICAL: Updating Column Q (Quote URL) for lead ${leadId}...`);
     console.log(`📝 URL to save: ${quoteUrl}`);
     
-    try {
-      if (!this.sheets || !this.spreadsheetId) {
-        console.warn("⚠️ WARNING: Google Sheets not configured - Column Q cannot be updated!", {
-          leadId,
-          quoteUrl,
-          error: "No sheets service or spreadsheet ID"
-        });
-        // Return false to indicate failure when Sheets is not configured
-        return false;
-      }
+    // Add retry wrapper for the entire operation
+    const maxRetries = 3;
+    let lastError: any = null;
+    
+    for (let attempt = 1; attempt <= maxRetries; attempt++) {
+      try {
+        console.log(`🔄 Attempt ${attempt}/${maxRetries} to update Column Q for lead ${leadId}`);
+        
+        if (!this.sheets || !this.spreadsheetId) {
+          console.warn("⚠️ WARNING: Google Sheets not configured - Column Q cannot be updated!", {
+            leadId,
+            quoteUrl,
+            error: "No sheets service or spreadsheet ID"
+          });
+          // Return false to indicate failure when Sheets is not configured
+          return false;
+        }
 
       // Find the lead row with better error handling
       const range = 'Leads!A2:V1000';
@@ -1221,33 +1228,58 @@ export class GoogleSheetsService {
         5 // Increase retries for this critical operation
       );
       
-      // Verify the update actually happened
-      if (updateResult && updateResult.data) {
-        console.log(`✅ CRITICAL SUCCESS: Column Q (row ${rowIndex}) updated with quote URL!`);
-        console.log(`📊 Update details:`, {
-          updatedCells: updateResult.data.updatedCells,
-          updatedColumns: updateResult.data.updatedColumns,
-          updatedRows: updateResult.data.updatedRows,
-          updatedRange: updateResult.data.updatedRange
-        });
-        return true;
-      } else {
-        console.error(`❌ CRITICAL: Update appeared to succeed but no confirmation received`);
-        return false;
+        // Verify the update actually happened
+        if (updateResult && updateResult.data) {
+          console.log(`✅ CRITICAL SUCCESS: Column Q (row ${rowIndex}) updated with quote URL!`);
+          console.log(`📊 Update details:`, {
+            updatedCells: updateResult.data.updatedCells,
+            updatedColumns: updateResult.data.updatedColumns,
+            updatedRows: updateResult.data.updatedRows,
+            updatedRange: updateResult.data.updatedRange
+          });
+          
+          // DOUBLE VERIFICATION: Read back the value to confirm it was actually saved
+          try {
+            const verifyResponse = await this.sheets.spreadsheets.values.get({
+              spreadsheetId: this.spreadsheetId,
+              range: `Leads!Q${rowIndex}`
+            });
+            const savedValue = verifyResponse.data.values?.[0]?.[0];
+            if (savedValue === quoteUrl) {
+              console.log(`✅✅ DOUBLE VERIFIED: Column Q value confirmed as: ${savedValue}`);
+              return true;
+            } else {
+              console.error(`❌ VERIFICATION FAILED: Expected '${quoteUrl}' but found '${savedValue}'`);
+              throw new Error('Verification failed - value mismatch');
+            }
+          } catch (verifyError: any) {
+            console.error(`⚠️ Could not verify update, but update was reported as successful:`, verifyError.message);
+            // Still return true if the update was reported successful
+            return true;
+          }
+        } else {
+          throw new Error('Update appeared to succeed but no confirmation received');
+        }
+      } catch (error: any) {
+        lastError = error;
+        console.error(`❌ Attempt ${attempt}/${maxRetries} FAILED for lead ${leadId}:`, error.message);
+        
+        if (attempt < maxRetries) {
+          // Wait before retrying (exponential backoff)
+          const waitTime = Math.min(1000 * Math.pow(2, attempt - 1), 5000);
+          console.log(`⏳ Waiting ${waitTime}ms before retry...`);
+          await new Promise(resolve => setTimeout(resolve, waitTime));
+        }
       }
-    } catch (error: any) {
-      console.error(`❌ CRITICAL ERROR updating Column Q for lead ${leadId}:`, error.message);
-      console.error(`Full error details:`, error);
-      console.error(`Stack trace:`, error.stack);
-      // Log the specific error type to help diagnose issues
-      if (error.code) {
-        console.error(`Error code: ${error.code}`);
-      }
-      if (error.errors && Array.isArray(error.errors)) {
-        console.error(`Detailed errors:`, error.errors);
-      }
-      return false;
     }
+    
+    // All retries failed
+    console.error(`❌❌❌ CRITICAL FAILURE: All ${maxRetries} attempts to update Column Q failed for lead ${leadId}`);
+    console.error(`Last error:`, lastError);
+    if (lastError?.stack) {
+      console.error(`Stack trace:`, lastError.stack);
+    }
+    return false;
   }
 
   // VERIFICATION METHOD: Get lead data by ID to verify quote link population

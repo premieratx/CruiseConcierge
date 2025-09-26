@@ -155,7 +155,7 @@ const useBoats = () => {
 };
 
 // Hook for getting alternative dates with real availability data
-const useAlternativeDates = (selectedDate: Date | undefined, groupSize: number, daysRange: number = 14) => {
+const useAlternativeDates = (selectedDate: Date | undefined, groupSize: number, duration?: number, daysRange: number = 14) => {
   // Generate date range for alternative dates
   const dateRange = useMemo(() => {
     if (!selectedDate) return { startDate: '', endDate: '', dates: [] };
@@ -181,12 +181,13 @@ const useAlternativeDates = (selectedDate: Date | undefined, groupSize: number, 
     };
   }, [selectedDate, daysRange]);
   
-  // Fetch availability for the date range
+  // Fetch availability for the date range - FIXED: pass duration for weekday filtering
   const { data: availabilityData } = useAvailabilityForDateRange(
     dateRange.startDate,
     dateRange.endDate,
     undefined, // both private and disco
     groupSize,
+    duration, // Pass duration for weekday filtering
     {
       enabled: Boolean(dateRange.startDate && dateRange.endDate && dateRange.dates.length > 0),
       staleTime: 1000 * 60 * 2, // 2 minutes
@@ -867,6 +868,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   const urlParty = urlParams.get('party'); // Event type ID (e.g., bachelor, bachelorette)
   const urlPeople = urlParams.get('people'); // Group size (e.g., 25)
   const urlContact = urlParams.get('contact'); // Contact flag (e.g., 'done' to skip modal)
+  const urlDuration = urlParams.get('duration'); // Duration for weekday cruises (3 or 4)
   
   // Debug URL parameter parsing
   console.log('🔍 URL Parameter Debug:', {
@@ -874,6 +876,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     urlParty,
     urlPeople,
     urlContact,
+    urlDuration,
     fullUrl: window.location.href
   });
   
@@ -1010,11 +1013,12 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     };
   }, [boatMap]);
 
-  // Fetch available slots for the selected date
+  // Fetch available slots for the selected date - FIXED: pass duration for weekday cruises
   const { data: availabilityData, isLoading: availabilityLoading, error: availabilityError } = useAvailabilityForDate(
     formData.eventDate ? formatDateForAvailability(formData.eventDate) : '',
     undefined, // both private and disco
     formData.groupSize,
+    formData.selectedDuration, // Pass duration for weekday filtering
     {
       enabled: Boolean(formData.eventDate),
       staleTime: 1000 * 60 * 2, // 2 minutes
@@ -1049,8 +1053,8 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   const isEligibleForDisco = formData.eventType === 'bachelor' || formData.eventType === 'bachelorette';
   const discoSlots = isEligibleForDisco ? availableSlots.filter(slot => slot.cruiseType === 'disco') : [];
   
-  // Get alternative dates with real availability data
-  const alternativeDates = useAlternativeDates(formData.eventDate, formData.groupSize);
+  // Get alternative dates with real availability data - FIXED: pass duration for weekday filtering
+  const alternativeDates = useAlternativeDates(formData.eventDate, formData.groupSize, formData.selectedDuration);
 
   const [leadId, setLeadId] = useState<string | null>(null);
   const [leadCreated, setLeadCreated] = useState(false);
@@ -1295,6 +1299,21 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
         console.log('✅ Successfully validated URL parameters');
         
         // Auto-populate form data from URL parameters
+        // Check if date is a weekday and set duration accordingly
+        const dayOfWeek = parsedDate.getDay();
+        const isWeekday = dayOfWeek >= 1 && dayOfWeek <= 4; // Monday through Thursday
+        let selectedDuration: 3 | 4 | undefined = undefined;
+        
+        if (isWeekday) {
+          // For weekdays, check if duration is in URL, otherwise default to 4 hours
+          if (urlDuration === '3') {
+            selectedDuration = 3;
+          } else {
+            selectedDuration = 4; // Default to 4 hours for weekdays
+          }
+          console.log(`📅 Weekday detected (${['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][dayOfWeek]}), setting duration to ${selectedDuration} hours`);
+        }
+        
         setFormData(prev => ({
           ...prev,
           eventType: urlParty!,
@@ -1302,6 +1321,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
           eventEmoji: validEventConfig.emoji,
           eventDate: parsedDate,
           groupSize: parsedPeople,
+          selectedDuration: selectedDuration, // Set duration for weekday dates
         }));
         
         // Create completed selections from URL parameters
