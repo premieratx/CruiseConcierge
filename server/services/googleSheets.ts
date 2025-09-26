@@ -442,8 +442,10 @@ export class GoogleSheetsService {
         console.log(`  - ${sheet.properties?.title}`);
       });
 
-      // Sheets to read
+      // Sheets to read - include Weekly Pricing and Availability
       const targetSheets = [
+        'Weekly Pricing',
+        'Availability', 
         'Master Availability Rules',
         'Holiday Exceptions',
         'Booked Dates',
