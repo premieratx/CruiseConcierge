@@ -3913,9 +3913,38 @@ export class DatabaseStorage implements IStorage {
             product.active
           );
           
-          // Calculate pricing (use first matching product or default)
+          // Calculate pricing - use product or fall back to correct boat pricing
           const baseProduct = matchingProducts[0];
-          const basePrice = baseProduct ? baseProduct.unitPrice * timeSlot.duration : 50000; // Default $500/hour
+          let basePrice: number;
+          
+          if (baseProduct) {
+            basePrice = baseProduct.unitPrice * timeSlot.duration;
+          } else {
+            // No product found, use pricing from PRICING_CONFIG
+            // Determine the correct hourly rate based on boat and day
+            let hourlyRateCents = 0;
+            
+            // Determine boat based on group size
+            if (!groupSize || groupSize <= 14) {
+              // Day Tripper rates
+              if (dayType === 'weekday') hourlyRateCents = 20000; // $200/hr
+              else if (dayType === 'friday') hourlyRateCents = 25000; // $250/hr
+              else hourlyRateCents = 30000; // $300/hr weekend
+            } else if (groupSize <= 25) {
+              // Me Seek/The Irony rates (groups 15-25)
+              if (dayType === 'weekday') hourlyRateCents = 25000; // $250/hr
+              else if (dayType === 'friday') hourlyRateCents = 30000; // $300/hr
+              else hourlyRateCents = 35000; // $350/hr weekend
+            } else {
+              // Clever Girl rates (for groups 26-75, which includes group of 27)
+              if (dayType === 'weekday') hourlyRateCents = 30000; // $300/hr
+              else if (dayType === 'friday') hourlyRateCents = 35000; // $350/hr
+              else hourlyRateCents = 40000; // $400/hr weekend (Sunday)
+            }
+            
+            basePrice = hourlyRateCents * timeSlot.duration;
+            console.log(`📊 [PRICING FALLBACK] No product found for ${dayType}, using boat rates: $${hourlyRateCents/100}/hr × ${timeSlot.duration}hrs = $${basePrice/100}`);
+          }
           
           // Create slot for each suitable boat
           for (const boat of suitableBoats) {
@@ -3935,23 +3964,58 @@ export class DatabaseStorage implements IStorage {
             const isBlocked = await this.isTimeSlotBlocked(boat.id, currentDate, timeSlot.startTime, timeSlot.endTime);
             
             // CRITICAL FIX 2: Check local bookings from Google Sheets import
+            // MUST filter by boat_id to avoid false conflicts
             const hasLocalBooking = dateBookings.some(b => {
               if (!b.startTime || !b.endTime) return false;
+              
+              // CRITICAL: Check if booking is for the SAME BOAT
+              if (b.boatId !== boat.id && b.boatId !== boat.name) {
+                return false; // Different boat, no conflict
+              }
               
               // Convert booking times to HH:MM format for comparison
               const bookingStart = format(b.startTime, 'HH:mm');
               const bookingEnd = format(b.endTime, 'HH:mm');
               
               // Check if time slots overlap
-              return (bookingStart === timeSlot.startTime && bookingEnd === timeSlot.endTime) ||
+              const overlaps = (bookingStart === timeSlot.startTime && bookingEnd === timeSlot.endTime) ||
                      (bookingStart <= timeSlot.startTime && bookingEnd > timeSlot.startTime) ||
                      (bookingStart < timeSlot.endTime && bookingEnd >= timeSlot.endTime);
+              
+              if (overlaps) {
+                console.log(`📋 [LOCAL BOOKING CONFLICT] Boat ${boat.id}: Booking for ${b.contactName} (${bookingStart}-${bookingEnd}) conflicts with slot ${timeSlot.startTime}-${timeSlot.endTime}`);
+              }
+              
+              return overlaps;
             });
             
             // Check availability from local database
             const slotAvailability = await checkLocalAvailability(currentDate, timeSlot.startTime, timeSlot.endTime, boat.id);
             
             if (!isBooked && !isBlocked && !hasLocalBooking && slotAvailability.available) {
+              // Calculate crew fees for private cruises
+              let crewFeeCents = 0;
+              if (groupSize) {
+                // For groups 26+, apply crew fees
+                if (groupSize >= 26 && groupSize <= 50) {
+                  // Groups 26-50 on Clever Girl: $100/hour
+                  crewFeeCents = 10000 * timeSlot.duration; // $100/hour in cents
+                } else if (groupSize >= 51 && groupSize <= 75) {
+                  // Groups 51-75 on Clever Girl: $100/hour
+                  crewFeeCents = 10000 * timeSlot.duration; // $100/hour in cents
+                }
+              }
+              
+              // Calculate total price with crew fees, tax, and gratuity
+              // Formula: (basePrice + crewFee) × 1.0825 × 1.2
+              const subtotal = basePrice + crewFeeCents;
+              const withTax = Math.round(subtotal * 1.0825); // Add 8.25% tax
+              const totalPrice = Math.round(withTax * 1.2); // Add 20% gratuity
+              
+              console.log(`💰 [PRICING] ${boat.id} ${dateISO} ${timeSlot.startTime}-${timeSlot.endTime}:`);
+              console.log(`  Base: $${basePrice/100}, Crew: $${crewFeeCents/100}, Subtotal: $${subtotal/100}`);
+              console.log(`  With Tax (8.25%): $${withTax/100}, Total (+ 20% gratuity): $${totalPrice/100}`);
+              
               slots.push({
                 id: slotId,
                 cruiseType: 'private',
@@ -3963,10 +4027,12 @@ export class DatabaseStorage implements IStorage {
                 capacity: boat.maxCapacity,
                 availableCount: 1, // One boat slot
                 price: basePrice,
-                totalPrice: basePrice, // For now, totalPrice equals basePrice (taxes/fees calculated at checkout)
+                totalPrice: totalPrice, // Now includes crew fees, tax, and gratuity
                 boatCandidates: [boat.id],
                 bookable: true,
-                held: false
+                held: false,
+                // Add crew fee to the slot data for transparency
+                crew_fee_per_hour: groupSize && groupSize >= 26 ? 10000 : 0 // $100/hour for groups 26+
               });
             }
           }

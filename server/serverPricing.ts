@@ -168,18 +168,26 @@ function validateDuration(dayType: string, duration: number): boolean {
 }
 
 function calculateCrewFees(groupSize: number, duration: number): { hourlyRateCents: number; totalFeeCents: number } {
-  let flatFeeCents = 0;
+  let hourlyRateCents = 0;
   
-  // Apply crew fee tiers (flat fees, not per hour)
-  if (groupSize >= PRICING_CONFIG.CREW_FEES.TIER_2.min && groupSize <= PRICING_CONFIG.CREW_FEES.TIER_2.max) {
-    flatFeeCents = PRICING_CONFIG.CREW_FEES.TIER_2.flatFee * 100; // $300 -> 30000 cents
-  } else if (groupSize >= PRICING_CONFIG.CREW_FEES.TIER_1.min && groupSize <= PRICING_CONFIG.CREW_FEES.TIER_1.max) {
-    flatFeeCents = PRICING_CONFIG.CREW_FEES.TIER_1.flatFee * 100; // $200 -> 20000 cents
+  // Apply crew fee tiers (hourly fees multiplied by duration)
+  // For Clever Girl (groups 26-75), always use $100/hour
+  // For Me Seek/The Irony (groups 26-30), use $50/hour (but Clever Girl takes priority for 27+)
+  if (groupSize >= 26 && groupSize <= 50) {
+    // Groups 26-50 use Clever Girl with $100/hour crew fee
+    hourlyRateCents = 10000; // $100/hour -> 10000 cents
+  } else if (groupSize >= 51 && groupSize <= 75) {
+    // Groups 51-75 also use $100/hour
+    hourlyRateCents = PRICING_CONFIG.CREW_FEES.TIER_2.hourlyFee * 100; // $100/hour -> 10000 cents
   }
   
+  const totalFeeCents = hourlyRateCents * duration;
+  
+  console.log(`💰 [CREW FEE CALC] Group size: ${groupSize}, Duration: ${duration}h, Hourly: $${hourlyRateCents/100}/h, Total: $${totalFeeCents/100}`);
+  
   return {
-    hourlyRateCents: 0, // Not hourly anymore, but keeping for interface compatibility
-    totalFeeCents: flatFeeCents // Flat fee, not duration-based
+    hourlyRateCents,
+    totalFeeCents
   };
 }
 

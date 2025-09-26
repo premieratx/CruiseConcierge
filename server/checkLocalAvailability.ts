@@ -126,31 +126,60 @@ export async function checkLocalAvailability(
   const startOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
   const endOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
   
+  // CRITICAL: Filter by boat_id if provided to check specific boat availability
+  console.log(`🔍 [AVAILABILITY CHECK] Checking bookings for date: ${dateStr}, boat: ${boatId || 'ANY'}, time: ${startTime || 'ANY'}-${endTime || 'ANY'}`);
+  
+  const whereConditions = [
+    gte(bookings.startTime, startOfDay),
+    lte(bookings.startTime, endOfDay)
+  ];
+  
+  // Only filter by boat_id if provided
+  if (boatId) {
+    whereConditions.push(eq(bookings.boatId, boatId));
+  }
+  
   const bookedDates = await db.select().from(bookings)
-    .where(
-      and(
-        gte(bookings.startTime, startOfDay),
-        lte(bookings.startTime, endOfDay)
-      )
-    );
+    .where(and(...whereConditions));
+  
+  console.log(`📊 [AVAILABILITY CHECK] Found ${bookedDates.length} bookings for ${dateStr}${boatId ? ` on boat ${boatId}` : ''}`);
   
   if (bookedDates.length > 0) {
     // If specific time slot is provided, check for conflicts
-    if (startTime || endTime) {
+    if (startTime && endTime) {
       const conflicts = bookedDates.filter(b => {
         if (!b.startTime || !b.endTime) return false;
         
-        // Convert booking times to HH:MM format for comparison
+        // Convert booking times to HH:mm format for comparison
         const bookingStartTime = format(b.startTime, 'HH:mm');
         const bookingEndTime = format(b.endTime, 'HH:mm');
         
-        // Check if the time slots overlap
-        return bookingStartTime === startTime || bookingEndTime === endTime ||
-               (startTime && bookingStartTime <= startTime && bookingEndTime > startTime) ||
-               (endTime && bookingStartTime < endTime && bookingEndTime >= endTime);
+        // Enhanced overlap detection: Check if time ranges overlap in any way
+        // A booking conflicts if:
+        // 1. It starts during our requested time slot
+        // 2. It ends during our requested time slot  
+        // 3. It completely encompasses our requested time slot
+        // 4. Our requested slot completely encompasses the booking
+        const overlaps = (
+          // Exact match
+          (bookingStartTime === startTime && bookingEndTime === endTime) ||
+          // Booking starts during our slot
+          (bookingStartTime >= startTime && bookingStartTime < endTime) ||
+          // Booking ends during our slot
+          (bookingEndTime > startTime && bookingEndTime <= endTime) ||
+          // Booking encompasses our slot
+          (bookingStartTime <= startTime && bookingEndTime >= endTime)
+        );
+        
+        if (overlaps) {
+          console.log(`⚠️ [AVAILABILITY CONFLICT] Time overlap detected: Booking ${b.id} (${bookingStartTime}-${bookingEndTime}) conflicts with requested ${startTime}-${endTime}`);
+        }
+        
+        return overlaps;
       });
       
       if (conflicts.length > 0) {
+        console.log(`❌ [AVAILABILITY BLOCKED] ${conflicts.length} conflicting booking(s) found for ${dateStr} ${startTime}-${endTime}${boatId ? ` on boat ${boatId}` : ''}`);
         return {
           available: false,
           reason: `Already booked for this time slot (${conflicts.length} booking${conflicts.length > 1 ? 's' : ''})`,
@@ -160,6 +189,8 @@ export async function checkLocalAvailability(
             groupSize: b.groupSize || undefined
           }))
         };
+      } else {
+        console.log(`✅ [AVAILABILITY CHECK] No time conflicts found for ${dateStr} ${startTime}-${endTime}${boatId ? ` on boat ${boatId}` : ''}`);
       }
     }
     

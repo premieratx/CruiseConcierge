@@ -163,17 +163,23 @@ export const TimeSlotList = ({
   };
 
   const getSlotStatus = (slot: NormalizedSlot): {
-    status: 'available' | 'limited' | 'unavailable';
+    status: 'available' | 'limited' | 'unavailable' | 'booked';
     label: string;
     variant: 'default' | 'secondary' | 'outline' | 'destructive';
   } => {
-    if (!slot.bookable) {
-      return { status: 'unavailable', label: 'Unavailable', variant: 'destructive' };
+    // Check if slot is explicitly marked as booked or has conflicting bookings
+    if (!slot.bookable || slot.held) {
+      // Check if it's held vs fully booked
+      if (slot.held) {
+        return { status: 'unavailable', label: 'On Hold', variant: 'secondary' };
+      }
+      // Slot is booked
+      return { status: 'booked', label: '❌ BOOKED', variant: 'destructive' };
     }
     if (slot.availableCount <= 2) {
       return { status: 'limited', label: 'Limited Availability', variant: 'secondary' };
     }
-    return { status: 'available', label: 'Available', variant: 'default' };
+    return { status: 'available', label: '✅ Available', variant: 'default' };
   };
 
   const getSlotIcon = (cruiseType: 'private' | 'disco') => {
@@ -277,8 +283,10 @@ export const TimeSlotList = ({
     <div className={cn("space-y-3", className)} data-testid="timeslot-list">
       {slots.map((slot) => {
         const isSelected = selectedSlotId === slot.id;
-        const { status, label, variant: statusVariant } = getSlotStatus(slot);
+        const slotStatus = getSlotStatus(slot);
+        const { status, label, variant: statusVariant } = slotStatus;
         const isDisabled = !slot.bookable;
+        const isBooked = status === 'booked';
         
         const matchScore = getGroupSizeMatchScore(slot, groupSize);
         const matchBadge = getMatchScoreBadge(matchScore);
@@ -287,21 +295,36 @@ export const TimeSlotList = ({
           <Card 
             key={slot.id}
             className={cn(
-              "transition-all duration-200 hover:shadow-md",
-              // Enhanced color coding based on boat type/capacity
-              slot.cruiseType === 'disco' 
+              "transition-all duration-200",
+              // BOOKED SLOT STYLING - Most prominent
+              isBooked && [
+                "bg-red-50 dark:bg-red-950 border-red-300 dark:border-red-700",
+                "cursor-not-allowed opacity-90",
+                "relative overflow-hidden"
+              ],
+              // Enhanced color coding based on boat type/capacity (only if not booked)
+              !isBooked && (slot.cruiseType === 'disco' 
                 ? getDiscoColorClasses('card')
-                : getCapacityColorClasses(slot.capacity, 'card'),
-              // Smart matching styles
-              groupSize && getMatchScoreStyles(matchScore),
+                : getCapacityColorClasses(slot.capacity, 'card')),
+              // Smart matching styles (only if not booked)
+              !isBooked && groupSize && getMatchScoreStyles(matchScore),
               // Selection and interaction states
-              isSelected && "ring-2 ring-primary border-primary",
-              isDisabled && "opacity-60 cursor-not-allowed",
-              !isDisabled && "cursor-pointer hover:border-primary/50"
+              isSelected && !isBooked && "ring-2 ring-primary border-primary",
+              isDisabled && !isBooked && "opacity-60 cursor-not-allowed",
+              !isDisabled && !isBooked && "cursor-pointer hover:shadow-md hover:border-primary/50"
             )}
             onClick={() => !isDisabled && handleSlotClick(slot)}
             data-testid={`timeslot-card-${slot.id}`}
           >
+            {/* Red diagonal stripe overlay for booked slots */}
+            {isBooked && (
+              <div 
+                className="absolute inset-0 opacity-10 pointer-events-none" 
+                style={{
+                  background: 'repeating-linear-gradient(45deg, transparent, transparent 10px, rgb(239 68 68) 10px, rgb(239 68 68) 20px)'
+                }}
+              />
+            )}
             <CardContent className={cn(
               "p-2",
               variant === 'compact' && "p-1.5",
@@ -345,15 +368,23 @@ export const TimeSlotList = ({
                       className="text-xs"
                       data-testid={`timeslot-status-${slot.id}`}
                     >
-                      {getSlotStatus(slot).label}
+                      {label}
                     </Badge>
                   </div>
                 </div>
 
                 {/* MIDDLE: Time slot information */}
-                <div className="font-medium text-sm text-foreground" data-testid={`timeslot-label-${slot.id}`}>
+                <div className={cn(
+                  "font-medium text-sm text-foreground",
+                  isBooked && "line-through text-muted-foreground"
+                )} data-testid={`timeslot-label-${slot.id}`}>
                   {showDate && `${formatDate(slot.dateISO)} • `}
                   {formatTimeRange(slot.startTime, slot.endTime)}
+                  {isBooked && (
+                    <span className="ml-2 text-red-600 dark:text-red-400 font-bold no-underline" style={{ textDecoration: 'none' }}>
+                      [FULLY BOOKED]
+                    </span>
+                  )}
                 </div>
 
                 {/* BOTTOM: Enhanced pricing with day-of-week information */}
