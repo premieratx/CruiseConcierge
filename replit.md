@@ -18,6 +18,11 @@ All time slot definitions and availability must be identical across all customer
 ### UI/UX Decisions
 The system features a progressive booking flow designed for an intuitive user experience. Admin dashboards include a calendar view for visual booking management, a leads pipeline, and a comprehensive booking table. The UI prioritizes transparent pricing breakdowns and clear display of boat capacities. Design uses Tailwind CSS and shadcn/ui components for a modern and consistent look.
 
+### Recent UI Improvements (Sep 26, 2025)
+- **Column Order for Bachelor/Bachelorette**: Private Charter displays on the LEFT, Disco Cruise on the RIGHT for better comparison flow
+- **Time Slot Pricing Display**: Shows hourly rates (e.g., "$350/hr") for private cruises and per-person rates (e.g., "$85/person") for disco cruises instead of total prices
+- **Quote Emails**: Now include selected time slots (e.g., "11:00 AM - 3:00 PM") for complete booking details
+
 ### Technical Implementations
 - **AI Chatbot**: Utilizes OpenRouter API for progressive booking interactions.
 - **Booking Flow**: Guides users through event type, date, group size, time slot, and package selection, culminating in pricing display and payment options.
