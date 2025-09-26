@@ -5520,9 +5520,16 @@ export async function registerRoutes(app: Express): Promise<Server> {
         groupSize: z.string().transform(val => parseInt(val)).optional(),
         minDuration: z.string().transform(val => parseInt(val)).optional(),
         maxDuration: z.string().transform(val => parseInt(val)).optional(),
+        duration: z.string().transform(val => parseInt(val)).optional(),
       });
 
       const filters = querySchema.parse(req.query);
+      
+      // Handle duration parameter for weekday dates
+      if (filters.duration && !filters.minDuration && !filters.maxDuration) {
+        filters.minDuration = filters.duration;
+        filters.maxDuration = filters.duration;
+      }
       
       // Search normalized slots using the unified availability service
       const slots = await storage.searchNormalizedSlots(filters);
