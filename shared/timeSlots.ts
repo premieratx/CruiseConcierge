@@ -22,93 +22,118 @@ export interface DiscoTimeSlot extends TimeSlot {
 /**
  * Get available private cruise time slots for a given date
  * 
- * UPDATED BUSINESS RULES:
- * - Monday-Thursday: 10am-1pm, 10am-2pm, 2pm-5pm, 2pm-6pm, 6pm-9pm, 6pm-10pm (3 and 4-hour options)
- * - Friday-Sunday: 10am-2pm, 2pm-6pm, 6pm-10pm (4-hour only)
+ * UPDATED TO MATCH MIGRATED DATABASE RULES:
+ * - Monday-Thursday (weekdays): 10:00-13:00 (3 hours)
+ * - Friday: 12:00-16:00 (4 hours) 
+ * - Saturday/Sunday: 11:00-15:00 (4 hours)
  */
 export const getPrivateTimeSlotsForDate = (date: Date, duration?: 3 | 4): TimeSlot[] => {
   const dayOfWeek = date.getDay();
   
-  if (dayOfWeek >= 1 && dayOfWeek <= 4) { // Monday-Thursday: both 3-hour AND 4-hour options
-    const allSlots: TimeSlot[] = [];
+  // Helper functions for time formatting
+  const formatLabel = (h: number, m: number): string => {
+    const period = h >= 12 ? 'PM' : 'AM';
+    const displayHour = h > 12 ? h - 12 : (h === 0 ? 12 : h);
+    const minuteStr = m === 0 ? '00' : m.toString();
+    return `${displayHour}:${minuteStr} ${period}`;
+  };
+  
+  const getTimeIcon = (startHour: number): string => {
+    if (startHour >= 18) return '🌙';
+    if (startHour >= 14) return '🌆';
+    if (startHour >= 10) return '☀️';
+    return '🌅';
+  };
+  
+  const getTimeDescription = (startHour: number, duration: number): string => {
+    let timeOfDay = 'Morning';
+    if (startHour >= 18) timeOfDay = 'Evening';
+    else if (startHour >= 14) timeOfDay = 'Afternoon';
     
-    // Helper functions for time formatting
-    const formatTime = (h: number, m: number): string => {
-      return `${h.toString().padStart(2, '0')}:${m.toString().padStart(2, '0')}`;
+    return `${timeOfDay} cruise (${duration} hours)`;
+  };
+
+  if (dayOfWeek >= 1 && dayOfWeek <= 4) { 
+    // Monday-Thursday (weekdays): 10:00-13:00 (3 hours) - MATCHES DATABASE RULES
+    const slot = {
+      start: '10:00',
+      end: '13:00', 
+      duration: 3
     };
     
-    const formatLabel = (h: number, m: number): string => {
-      const period = h >= 12 ? 'PM' : 'AM';
-      const displayHour = h > 12 ? h - 12 : (h === 0 ? 12 : h);
-      const minuteStr = m === 0 ? '00' : m.toString();
-      return `${displayHour}:${minuteStr} ${period}`;
+    // Filter by duration if specified
+    if (duration && duration !== slot.duration) return [];
+    
+    const [startHour, startMinute] = slot.start.split(':').map(Number);
+    const [endHour, endMinute] = slot.end.split(':').map(Number);
+    
+    const startLabel = formatLabel(startHour, startMinute);
+    const endLabel = formatLabel(endHour, endMinute);
+    
+    return [{
+      id: `${slot.start.replace(':', '')}-${slot.end.replace(':', '')}-${slot.duration}h`,
+      label: `${startLabel} - ${endLabel}`,
+      startTime: slot.start,
+      endTime: slot.end,
+      duration: slot.duration,
+      icon: getTimeIcon(startHour),
+      description: getTimeDescription(startHour, slot.duration),
+      popular: true
+    }];
+  } else if (dayOfWeek === 5) { 
+    // Friday: 12:00-16:00 (4 hours) - MATCHES DATABASE RULES
+    const slot = {
+      start: '12:00',
+      end: '16:00',
+      duration: 4
     };
     
-    const getTimeIcon = (startHour: number): string => {
-      if (startHour >= 18) return '🌙';
-      if (startHour >= 14) return '🌆';
-      if (startHour >= 10) return '☀️';
-      return '🌅';
+    // Filter by duration if specified
+    if (duration && duration !== slot.duration) return [];
+    
+    const [startHour, startMinute] = slot.start.split(':').map(Number);
+    const [endHour, endMinute] = slot.end.split(':').map(Number);
+    
+    const startLabel = formatLabel(startHour, startMinute);
+    const endLabel = formatLabel(endHour, endMinute);
+    
+    return [{
+      id: `${slot.start.replace(':', '')}-${slot.end.replace(':', '')}-${slot.duration}h`,
+      label: `${startLabel} - ${endLabel}`,
+      startTime: slot.start,
+      endTime: slot.end,
+      duration: slot.duration,
+      icon: getTimeIcon(startHour),
+      description: getTimeDescription(startHour, slot.duration),
+      popular: true
+    }];
+  } else { 
+    // Saturday/Sunday: 11:00-15:00 (4 hours) - MATCHES DATABASE RULES
+    const slot = {
+      start: '11:00',
+      end: '15:00',
+      duration: 4
     };
     
-    const getTimeDescription = (startHour: number, duration: number): string => {
-      let timeOfDay = 'Morning';
-      if (startHour >= 18) timeOfDay = 'Evening';
-      else if (startHour >= 14) timeOfDay = 'Afternoon';
-      
-      return `${timeOfDay} cruise (${duration} hours)`;
-    };
+    // Filter by duration if specified
+    if (duration && duration !== slot.duration) return [];
     
-    // If duration is specified, only return slots for that duration
-    const durationsToGenerate = duration ? [duration] : [3, 4];
+    const [startHour, startMinute] = slot.start.split(':').map(Number);
+    const [endHour, endMinute] = slot.end.split(':').map(Number);
     
-    // Fixed time slots for Mon-Thu based on requirements
-    const weekdaySlots: { start: string; end: string; duration: number }[] = [
-      { start: '10:00', end: '13:00', duration: 3 },  // 10am-1pm (3 hours)
-      { start: '10:00', end: '14:00', duration: 4 },  // 10am-2pm (4 hours)
-      { start: '14:00', end: '17:00', duration: 3 },  // 2pm-5pm (3 hours)
-      { start: '14:00', end: '18:00', duration: 4 },  // 2pm-6pm (4 hours)
-      { start: '18:00', end: '21:00', duration: 3 },  // 6pm-9pm (3 hours)
-      { start: '18:00', end: '22:00', duration: 4 },  // 6pm-10pm (4 hours)
-    ];
+    const startLabel = formatLabel(startHour, startMinute);
+    const endLabel = formatLabel(endHour, endMinute);
     
-    for (const slot of weekdaySlots) {
-      // Filter by duration if specified
-      if (!durationsToGenerate.includes(slot.duration)) continue;
-      
-      const [startHour, startMinute] = slot.start.split(':').map(Number);
-      const [endHour, endMinute] = slot.end.split(':').map(Number);
-      
-      const startLabel = formatLabel(startHour, startMinute);
-      const endLabel = formatLabel(endHour, endMinute);
-      
-      const slotId = `${slot.start.replace(':', '')}-${slot.end.replace(':', '')}-${slot.duration}h`;
-      
-      allSlots.push({
-        id: slotId,
-        label: `${startLabel} - ${endLabel}`,
-        startTime: slot.start,
-        endTime: slot.end,
-        duration: slot.duration,
-        icon: getTimeIcon(startHour),
-        description: getTimeDescription(startHour, slot.duration),
-        popular: slot.duration === 4 && startHour >= 10 && startHour <= 14 // Mark 4-hour morning/afternoon slots as popular
-      });
-    }
-    
-    // Sort by start time, then by duration (3-hour slots first for same time)
-    return allSlots.sort((a, b) => {
-      const timeA = a.startTime;
-      const timeB = b.startTime;
-      if (timeA !== timeB) return timeA.localeCompare(timeB);
-      return a.duration - b.duration;
-    });
-  } else { // Friday, Saturday, Sunday - 4-hour slots only: 10am-2pm, 2pm-6pm, 6pm-10pm
-    return [
-      { id: '10am-2pm', label: '10:00 AM - 2:00 PM', startTime: '10:00', endTime: '14:00', duration: 4, icon: '☀️', description: 'Weekend morning cruise', popular: true },
-      { id: '2pm-6pm', label: '2:00 PM - 6:00 PM', startTime: '14:00', endTime: '18:00', duration: 4, icon: '🌆', description: 'Weekend afternoon cruise' },
-      { id: '6pm-10pm', label: '6:00 PM - 10:00 PM', startTime: '18:00', endTime: '22:00', duration: 4, icon: '🌙', description: 'Weekend evening cruise' },
-    ];
+    return [{
+      id: `${slot.start.replace(':', '')}-${slot.end.replace(':', '')}-${slot.duration}h`,
+      label: `${startLabel} - ${endLabel}`,
+      startTime: slot.start,
+      endTime: slot.end,
+      duration: slot.duration,
+      icon: getTimeIcon(startHour),
+      description: getTimeDescription(startHour, slot.duration),
+      popular: true
+    }];
   }
 };
 

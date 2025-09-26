@@ -55,7 +55,7 @@ export async function checkLocalAvailability(
     if (affectsAllBoats || affectsThisBoat) {
       // Check if specific time slots are affected
       const affectsAllSlots = blackouts.some(b => 
-        b.affectedSlots?.includes('all') || !b.affectedSlots || b.affectedSlots.length === 0
+        !b.affectedSlots || b.affectedSlots.length === 0
       );
       
       if (affectsAllSlots) {
@@ -72,11 +72,12 @@ export async function checkLocalAvailability(
       // Check specific time slots if provided
       if (startTime || endTime) {
         const timeSlotAffected = blackouts.some(b => {
-          if (!b.affectedSlots) return false;
+          if (!b.affectedSlots || b.affectedSlots.length === 0) return false;
           return b.affectedSlots.some(slot => {
-            // Match against provided times
-            return slot === startTime || slot === endTime || 
-                   slot.includes(startTime || '') || slot.includes(endTime || '');
+            // Match against provided times using the slot object properties
+            return slot.startTime === startTime || slot.endTime === endTime ||
+                   (slot.startTime && startTime && slot.startTime === startTime) ||
+                   (slot.endTime && endTime && slot.endTime === endTime);
           });
         });
         
@@ -94,11 +95,15 @@ export async function checkLocalAvailability(
     }
   }
   
-  // 2. Check for holiday exceptions
+  // 2. Check for holiday exceptions  
+  const startOfTargetDay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const endOfTargetDay = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
+  
   const holidays = await db.select().from(holidayExceptions)
     .where(
       and(
-        eq(holidayExceptions.exceptionDate, date),
+        gte(holidayExceptions.exceptionDate, startOfTargetDay),
+        lte(holidayExceptions.exceptionDate, endOfTargetDay),
         eq(holidayExceptions.active, true)
       )
     );
@@ -118,17 +123,31 @@ export async function checkLocalAvailability(
   }
   
   // 3. Check for existing bookings
+  const startOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+  const endOfDay = new Date(date.getFullYear(), date.getMonth(), date.getDate(), 23, 59, 59, 999);
+  
   const bookedDates = await db.select().from(bookings)
-    .where(eq(bookings.cruiseDate, date));
+    .where(
+      and(
+        gte(bookings.startTime, startOfDay),
+        lte(bookings.startTime, endOfDay)
+      )
+    );
   
   if (bookedDates.length > 0) {
     // If specific time slot is provided, check for conflicts
     if (startTime || endTime) {
       const conflicts = bookedDates.filter(b => {
-        if (!b.timeSlot) return false;
+        if (!b.startTime || !b.endTime) return false;
+        
+        // Convert booking times to HH:MM format for comparison
+        const bookingStartTime = format(b.startTime, 'HH:mm');
+        const bookingEndTime = format(b.endTime, 'HH:mm');
+        
         // Check if the time slots overlap
-        return b.timeSlot === startTime || b.timeSlot === endTime ||
-               b.timeSlot?.includes(startTime || '') || b.timeSlot?.includes(endTime || '');
+        return bookingStartTime === startTime || bookingEndTime === endTime ||
+               (startTime && bookingStartTime <= startTime && bookingEndTime > startTime) ||
+               (endTime && bookingStartTime < endTime && bookingEndTime >= endTime);
       });
       
       if (conflicts.length > 0) {
@@ -136,8 +155,8 @@ export async function checkLocalAvailability(
           available: false,
           reason: `Already booked for this time slot (${conflicts.length} booking${conflicts.length > 1 ? 's' : ''})`,
           bookedSlots: conflicts.map(b => ({
-            clientName: b.clientName || undefined,
-            timeSlot: b.timeSlot || undefined,
+            clientName: b.contactName || undefined,
+            timeSlot: b.startTime ? `${format(b.startTime, 'HH:mm')}-${format(b.endTime!, 'HH:mm')}` : undefined,
             groupSize: b.groupSize || undefined
           }))
         };
@@ -152,8 +171,8 @@ export async function checkLocalAvailability(
         available: false,
         reason: 'Fully booked for this date',
         bookedSlots: bookedDates.map(b => ({
-          clientName: b.clientName || undefined,
-          timeSlot: b.timeSlot || undefined,
+          clientName: b.contactName || undefined,
+          timeSlot: b.startTime ? `${format(b.startTime, 'HH:mm')}-${format(b.endTime!, 'HH:mm')}` : undefined,
           groupSize: b.groupSize || undefined
         }))
       };
@@ -174,8 +193,8 @@ export async function getLocalBookings(startDate: Date, endDate: Date) {
   return await db.select().from(bookings)
     .where(
       and(
-        gte(bookings.cruiseDate, startDate),
-        lte(bookings.cruiseDate, endDate)
+        gte(bookings.startTime, startDate),
+        lte(bookings.startTime, endDate)
       )
     );
 }

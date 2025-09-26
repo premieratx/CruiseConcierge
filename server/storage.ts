@@ -3840,7 +3840,7 @@ export class DatabaseStorage implements IStorage {
       
       // Get bookings for this specific date from our imported data
       const dateBookings = localBookings.filter(b => {
-        const bookingDate = b.cruiseDate;
+        const bookingDate = b.startTime;
         return bookingDate && bookingDate.toISOString().split('T')[0] === dateISO;
       });
       
@@ -3851,6 +3851,7 @@ export class DatabaseStorage implements IStorage {
       // Generate private cruise slots if requested
       if (!cruiseType || cruiseType === 'private') {
         const privateTimeSlots = getPrivateTimeSlotsForDate(currentDate);
+        console.log(`🔧 DEBUG: Generated ${privateTimeSlots.length} time slots for ${dateISO}:`, privateTimeSlots.map(s => `${s.startTime}-${s.endTime}`));
         
         for (const timeSlot of privateTimeSlots) {
           // Filter by duration if specified
@@ -3879,11 +3880,11 @@ export class DatabaseStorage implements IStorage {
               // Only Day Tripper for groups of 14 or less
               return boat.id === 'boat_day_tripper' || boat.name?.toLowerCase().includes('day tripper');
             } else if (groupSize <= 25) {
-              // Only Me Seeks The Irony for groups of 15-25
-              return boat.id === 'boat_me_seeks_the_irony' || 
-                     boat.id === 'boat_meeseeks' ||
-                     boat.name?.toLowerCase().includes('me seeks') ||
-                     boat.name?.toLowerCase().includes('meeseeks');
+              // Only Me Seek and The Irony for groups of 15-25
+              return boat.id === 'boat_me_seek' || 
+                     boat.id === 'boat_the_irony' ||
+                     boat.name?.toLowerCase().includes('me seek') ||
+                     boat.name?.toLowerCase().includes('the irony');
             } else if (groupSize <= 50) {
               // Only Clever Girl for groups of 26-50
               return boat.id === 'boat_clever_girl' || boat.name?.toLowerCase().includes('clever girl');
@@ -3895,6 +3896,7 @@ export class DatabaseStorage implements IStorage {
               return false;
             }
           });
+          console.log(`🔧 DEBUG: Found ${suitableBoats.length} suitable boats for group size ${groupSize}:`, suitableBoats.map(b => b.id));
           
           // Find appropriate private cruise product for pricing
           const dayOfWeek = currentDate.getDay();
@@ -3934,13 +3936,16 @@ export class DatabaseStorage implements IStorage {
             
             // CRITICAL FIX 2: Check local bookings from Google Sheets import
             const hasLocalBooking = dateBookings.some(b => {
-              if (!b.timeSlot) return false;
+              if (!b.startTime || !b.endTime) return false;
+              
+              // Convert booking times to HH:MM format for comparison
+              const bookingStart = format(b.startTime, 'HH:mm');
+              const bookingEnd = format(b.endTime, 'HH:mm');
+              
               // Check if time slots overlap
-              const bookingSlot = b.timeSlot.toLowerCase();
-              const currentSlot = timeSlot.label.toLowerCase();
-              return bookingSlot.includes(timeSlot.startTime) || 
-                     bookingSlot.includes(timeSlot.label) ||
-                     currentSlot.includes(bookingSlot);
+              return (bookingStart === timeSlot.startTime && bookingEnd === timeSlot.endTime) ||
+                     (bookingStart <= timeSlot.startTime && bookingEnd > timeSlot.startTime) ||
+                     (bookingStart < timeSlot.endTime && bookingEnd >= timeSlot.endTime);
             });
             
             // Check availability from local database
