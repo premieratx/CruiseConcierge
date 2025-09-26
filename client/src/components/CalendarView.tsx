@@ -306,6 +306,13 @@ function CalendarView() {
   // Get time blocks from Google Sheets data
   const timeBlocks = transformSheetsToTimeBlocks(googleSheetsAvailability?.availability || []);
 
+  // Filter disco slots - fix for undefined discoSlots error
+  const discoSlots = timeBlocks.filter(slot => 
+    slot.boatName?.toLowerCase().includes('atx disco') || 
+    slot.boatId?.includes('disco') ||
+    (slot as any).cruiseType === 'disco'
+  );
+
   // Generate time blocks for calendar view - compatible with existing UI
   const generateTimeBlocks = (
     date: Date,

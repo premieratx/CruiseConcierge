@@ -165,7 +165,7 @@ export default function Dashboard() {
       {/* Main Dashboard Content */}
       <div className="container mx-auto px-4 py-6">
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="overview" className="flex items-center gap-2">
               <LayoutDashboard className="h-4 w-4" />
               Overview
@@ -173,10 +173,6 @@ export default function Dashboard() {
             <TabsTrigger value="customers" className="flex items-center gap-2">
               <Users className="h-4 w-4" />
               Customers
-            </TabsTrigger>
-            <TabsTrigger value="bookings" className="flex items-center gap-2">
-              <Anchor className="h-4 w-4" />
-              Bookings
             </TabsTrigger>
             <TabsTrigger value="calendar" className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
@@ -383,9 +379,6 @@ export default function Dashboard() {
             </Card>
           </TabsContent>
 
-          <TabsContent value="bookings" className="space-y-6">
-            <BookingsManagement />
-          </TabsContent>
 
           <TabsContent value="calendar" className="space-y-6">
             <Card>
