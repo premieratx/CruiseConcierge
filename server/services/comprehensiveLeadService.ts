@@ -413,8 +413,13 @@ export class ComprehensiveLeadService {
       if (quote && quoteUrl && leadData.email) {
         console.log('📧 Step 6: Sending email notification with quote link...');
         try {
+          // Check if this is a bachelor/bachelorette party
+          const isBachelorBachelorette = 
+            leadData.eventType?.toLowerCase().includes('bachelor') || 
+            leadData.eventType?.toLowerCase().includes('bachelorette');
+
           // Prepare email data for quote notification - INCLUDE ALL CRITICAL DETAILS
-          const quoteDetails = {
+          const quoteDetails: any = {
             eventType: leadData.eventType || 'Party Cruise',
             eventTypeLabel: leadData.eventTypeLabel || leadData.eventType || 'Party Cruise',
             groupSize: leadData.groupSize || quote.eventDetails?.groupSize || 'TBD',
@@ -439,6 +444,56 @@ export class ComprehensiveLeadService {
             depositAmount: quote.depositAmount || 0,
             depositPercent: quote.depositPercent || 0
           };
+
+          // CRITICAL FIX: Structure data for bachelor/bachelorette parties with optionA and optionB
+          if (isBachelorBachelorette) {
+            // Option A: Private Charter (using selected boat and slot info)
+            const boatName = quote.selectionDetails?.selectedBoat || leadData.selectedOptions?.selectedBoat || 'Premium Boat';
+            const duration = quote.selectionDetails?.selectedDuration || leadData.selectedOptions?.selectedDuration || 4;
+            const timeSlot = quote.selectionDetails?.selectedSlot || leadData.selectedOptions?.selectedSlot;
+            const timeSlotLabel = timeSlot?.label || 
+                                (timeSlot?.startTime && timeSlot?.endTime ? 
+                                  `${timeSlot.startTime} - ${timeSlot.endTime}` : 
+                                  'Flexible timing');
+            
+            // Calculate private charter price (use total from quote or estimate)
+            const privateCharterTotal = quote.total || leadData.pricing?.total || 120000; // Default $1200 if no price
+            
+            quoteDetails.optionA = {
+              packages: [{
+                name: `${boatName} - Private Charter`,
+                total: privateCharterTotal,
+                description: `${duration} hour private charter (${timeSlotLabel}) - Your own boat with captain for ${quoteDetails.groupSize} people`
+              }]
+            };
+
+            // Option B: Disco Cruise (using disco package info)
+            const discoPackage = quote.selectionDetails?.discoPackage || leadData.selectedOptions?.discoPackage;
+            const ticketQuantity = quote.selectionDetails?.ticketQuantity || 
+                                 leadData.selectedOptions?.ticketQuantity || 
+                                 leadData.groupSize || 
+                                 1;
+            
+            // Disco cruise pricing (default $85 per person)
+            const discoPerPersonPrice = discoPackage?.pricePerPerson || 8500; // $85 in cents
+            
+            quoteDetails.optionB = {
+              packages: [{
+                name: discoPackage?.name || 'ATX Disco Cruise Package',
+                pricePerPerson: discoPerPersonPrice,
+                description: '4-hour party cruise with DJ, dancing, and full bar',
+                ticketQuantity: ticketQuantity
+              }]
+            };
+
+            console.log('📧 Bachelor/Bachelorette email structure created:', {
+              hasOptionA: !!quoteDetails.optionA,
+              hasOptionB: !!quoteDetails.optionB,
+              optionATotal: privateCharterTotal,
+              optionBPerPerson: discoPerPersonPrice,
+              groupSize: quoteDetails.groupSize
+            });
+          }
 
           console.log('📧 Sending Mailgun email to:', leadData.email);
           console.log('🔗 FIXED: Using secure quote URL in email:', quoteUrl);
@@ -483,7 +538,11 @@ export class ComprehensiveLeadService {
         
         try {
           // Use GoHighLevel SMS service with enhanced details
-          // Build SMS message with cruise details
+          // Build SMS message with cruise details - ENHANCED with more info
+          const isBachelorBacheloretteSMS = 
+            leadData.eventType?.toLowerCase().includes('bachelor') || 
+            leadData.eventType?.toLowerCase().includes('bachelorette');
+          
           const cruiseType = quote.selectionDetails?.cruiseType === 'disco' ? 'Disco Cruise' : 'Private Charter';
           const eventDate = leadData.cruiseDate || quote.eventDetails?.eventDate || 'TBD';
           const groupSize = leadData.groupSize || quote.eventDetails?.groupSize || 'TBD';
@@ -492,7 +551,21 @@ export class ComprehensiveLeadService {
                            `${quote.selectionDetails?.selectedSlot?.startTime}-${quote.selectionDetails?.selectedSlot?.endTime}` : 
                            'TBD');
           
-          const smsMessage = `Hi ${leadData.name}! 🚢 Your ${cruiseType} quote for ${groupSize} people on ${eventDate} (${timeSlot}) is ready! Total: $${Math.round((quote.total || 0) / 100)}. View details: ${quoteUrl}`;
+          // Enhanced SMS for bachelor/bachelorette with both options
+          let smsMessage: string;
+          if (isBachelorBacheloretteSMS) {
+            const privatePrice = Math.round((leadData.pricing?.total || quote.total || 120000) / 100);
+            const discoPerPerson = 85; // Base disco price per person
+            smsMessage = `Hi ${leadData.name}! 🎉 Your ${leadData.eventType || 'party'} quotes ready! We have 2 amazing options for ${groupSize} people on ${eventDate}:
+🚢 Private: From $${privatePrice}
+🎵 Disco: From $${discoPerPerson}/person
+View both: ${quoteUrl}`;
+          } else {
+            // Standard SMS for other events
+            const boatInfo = quote.selectionDetails?.selectedBoat ? 
+              ` on ${quote.selectionDetails.selectedBoat}` : '';
+            smsMessage = `Hi ${leadData.name}! 🚢 Your ${cruiseType} quote for ${groupSize} people on ${eventDate} (${timeSlot})${boatInfo} is ready! Total: $${Math.round((quote.total || 0) / 100)}. View details: ${quoteUrl}`;
+          }
           
           console.log('📱 SMS Payload Details:');
           console.log('   To Phone:', leadData.phone);
