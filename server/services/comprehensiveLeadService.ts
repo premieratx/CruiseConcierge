@@ -413,16 +413,31 @@ export class ComprehensiveLeadService {
       if (quote && quoteUrl && leadData.email) {
         console.log('📧 Step 6: Sending email notification with quote link...');
         try {
-          // Prepare email data for quote notification
+          // Prepare email data for quote notification - INCLUDE ALL CRITICAL DETAILS
           const quoteDetails = {
             eventType: leadData.eventType || 'Party Cruise',
             eventTypeLabel: leadData.eventTypeLabel || leadData.eventType || 'Party Cruise',
-            groupSize: leadData.groupSize || 'TBD',
-            date: leadData.cruiseDate || 'To be confirmed',
+            groupSize: leadData.groupSize || quote.eventDetails?.groupSize || 'TBD',
+            date: leadData.cruiseDate || quote.eventDetails?.eventDate || 'To be confirmed',
             total: quote.total || 0,
             subtotal: quote.subtotal || 0,
             tax: quote.tax || 0,
-            gratuity: quote.gratuity || 0
+            gratuity: quote.gratuity || 0,
+            // CRITICAL FIX: Include cruise type and selection details
+            cruiseType: quote.selectionDetails?.cruiseType || leadData.selectedOptions?.cruiseType,
+            selectedSlot: quote.selectionDetails?.selectedSlot || leadData.selectedOptions?.selectedSlot,
+            selectedPackages: quote.selectionDetails?.selectedPackages || leadData.selectedOptions?.selectedPackages || [],
+            discoPackage: quote.selectionDetails?.discoPackage || leadData.selectedOptions?.discoPackage,
+            selectedBoat: quote.selectionDetails?.selectedBoat || leadData.selectedOptions?.selectedBoat,
+            ticketQuantity: quote.selectionDetails?.ticketQuantity || leadData.selectedOptions?.ticketQuantity,
+            timeSlot: quote.selectionDetails?.selectedSlot?.label || 
+                     (quote.selectionDetails?.selectedSlot?.startTime && quote.selectionDetails?.selectedSlot?.endTime ? 
+                      `${quote.selectionDetails?.selectedSlot?.startTime} - ${quote.selectionDetails?.selectedSlot?.endTime}` : 
+                      undefined),
+            // Include pricing details
+            perPersonCost: quote.perPersonCost || 0,
+            depositAmount: quote.depositAmount || 0,
+            depositPercent: quote.depositPercent || 0
           };
 
           console.log('📧 Sending Mailgun email to:', leadData.email);
@@ -467,8 +482,17 @@ export class ComprehensiveLeadService {
         console.log('   SMS_SIMULATE setting:', process.env.SMS_SIMULATE);
         
         try {
-          // Use GoHighLevel SMS service as specified in requirements
-          const smsMessage = `Hi ${leadData.name}! 🚢 Your cruise quote is ready: ${quoteUrl}. Questions? Reply here or call us!`;
+          // Use GoHighLevel SMS service with enhanced details
+          // Build SMS message with cruise details
+          const cruiseType = quote.selectionDetails?.cruiseType === 'disco' ? 'Disco Cruise' : 'Private Charter';
+          const eventDate = leadData.cruiseDate || quote.eventDetails?.eventDate || 'TBD';
+          const groupSize = leadData.groupSize || quote.eventDetails?.groupSize || 'TBD';
+          const timeSlot = quote.selectionDetails?.selectedSlot?.label || 
+                          (quote.selectionDetails?.selectedSlot?.startTime && quote.selectionDetails?.selectedSlot?.endTime ? 
+                           `${quote.selectionDetails?.selectedSlot?.startTime}-${quote.selectionDetails?.selectedSlot?.endTime}` : 
+                           'TBD');
+          
+          const smsMessage = `Hi ${leadData.name}! 🚢 Your ${cruiseType} quote for ${groupSize} people on ${eventDate} (${timeSlot}) is ready! Total: $${Math.round((quote.total || 0) / 100)}. View details: ${quoteUrl}`;
           
           console.log('📱 SMS Payload Details:');
           console.log('   To Phone:', leadData.phone);
