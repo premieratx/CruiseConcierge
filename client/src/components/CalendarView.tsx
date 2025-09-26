@@ -192,7 +192,7 @@ type AdminBookingFormData = z.infer<typeof adminBookingSchema>;
 function CalendarView() {
   const [selectedWeek, setSelectedWeek] = useState<Date>(new Date());
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
-  const [selectedTab, setSelectedTab] = useState<string>("dayTripper"); // Default to Day Tripper
+  const [selectedTab, setSelectedTab] = useState<string>("all"); // Default to show all boats
   const [viewMode, setViewMode] = useState<'week' | 'day'>('week');
   const [isDatePickerOpen, setIsDatePickerOpen] = useState(false);
   const [selectedCapacity, setSelectedCapacity] = useState<number>(1); // Default to show all boats
@@ -232,22 +232,79 @@ function CalendarView() {
     return date;
   });
 
-  // Use centralized availability system - same as Quote Builder
-  const { data: availabilityData } = useAvailabilityForDate(
-    formatDateForAvailability(selectedDate),
-    'private', // Only show private cruises in admin calendar
-    selectedCapacity,
-    {
-      enabled: true,
-      staleTime: 1000 * 60 * 2, // 2 minutes - same as Quote Builder
-      refetchInterval: 1000 * 60 * 5, // 5 minutes - real-time updates
-    }
-  );
+  // Fetch availability data from Google Sheets (source of truth)
+  const { data: googleSheetsAvailability, isLoading: isLoadingSheets, refetch: refetchSheets } = useQuery({
+    queryKey: ['/api/google-sheets/calendar-availability', weekStart.toISOString(), selectedWeek.toISOString()],
+    queryFn: async () => {
+      // Calculate week range for the current week view
+      const endDate = new Date(weekStart);
+      endDate.setDate(weekStart.getDate() + 7);
+      
+      const response = await fetch(`/api/google-sheets/calendar-availability?startDate=${weekStart.toISOString()}&endDate=${endDate.toISOString()}`);
+      if (!response.ok) throw new Error('Failed to fetch Google Sheets availability');
+      const data = await response.json();
+      return data;
+    },
+    staleTime: 1000 * 60 * 1, // 1 minute - refresh more frequently for admin view
+    refetchInterval: 1000 * 60 * 2, // 2 minutes - keep data fresh
+  });
 
-  const availableSlots = availabilityData?.slots || [];
+  // Transform Google Sheets data into time blocks
+  const transformSheetsToTimeBlocks = (sheetsData: any[]): TimeBlock[] => {
+    if (!sheetsData || !Array.isArray(sheetsData)) return [];
+    
+    return sheetsData.map(slot => {
+      const slotDate = new Date(slot.date);
+      
+      // Determine boat details based on group size
+      let boatId = 'day-tripper';
+      let boatName = 'Day Tripper';
+      let capacity = 14;
+      
+      if (slot.boat?.toLowerCase().includes('day tripper')) {
+        boatId = 'day-tripper';
+        boatName = 'Day Tripper';
+        capacity = 14;
+      } else if (slot.boat?.toLowerCase().includes('me seek') || slot.boat?.toLowerCase().includes('irony')) {
+        boatId = 'me-seeks-the-irony';
+        boatName = 'Me Seeks The Irony';
+        capacity = 25;
+      } else if (slot.boat?.toLowerCase().includes('clever girl')) {
+        boatId = 'clever-girl';
+        boatName = 'Clever Girl';
+        capacity = 50;
+      }
+      
+      // Convert pricing structure
+      const pricing = slot.pricing?.type === 'per-cruise' ? {
+        standardPrice: Math.round((slot.pricing.standardPrice || 0) * 100), // Convert to cents
+        essentialsPrice: Math.round((slot.pricing.essentialsPrice || 0) * 100),
+        ultimatePrice: Math.round((slot.pricing.ultimatePrice || 0) * 100),
+        perPersonEstimate: Math.round(((slot.pricing.standardPrice || 0) / capacity) * 100),
+        dayType: slot.dayOfWeek,
+        packagePreviews: [
+          { name: 'Standard', price: Math.round((slot.pricing.standardPrice || 0) * 100), popular: false },
+          { name: 'Essentials', price: Math.round((slot.pricing.essentialsPrice || 0) * 100), popular: true },
+          { name: 'Ultimate', price: Math.round((slot.pricing.ultimatePrice || 0) * 100), popular: false }
+        ]
+      } : undefined;
+      
+      return {
+        id: slot.id,
+        date: slotDate,
+        startTime: slot.startTime,
+        endTime: slot.endTime,
+        boatId: boatId,
+        boatName: boatName,
+        status: slot.status as 'available' | 'booked' | 'blocked',
+        capacity: capacity,
+        pricing: pricing,
+      };
+    });
+  };
 
-  // Convert normalized slots to time blocks for backward compatibility
-  const timeBlocks = availableSlots.map(normalizedSlotToTimeBlock);
+  // Get time blocks from Google Sheets data
+  const timeBlocks = transformSheetsToTimeBlocks(googleSheetsAvailability?.availability || []);
 
   // Generate time blocks for calendar view - compatible with existing UI
   const generateTimeBlocks = (
@@ -266,14 +323,14 @@ function CalendarView() {
     );
   };
 
-  // Get unique boats from available slots - using same boat information as Quote Builder
-  const boatsFromSlots = availableSlots.reduce((boats, slot) => {
-    const existing = boats.find(b => b.id === slot.boatId);
+  // Get unique boats from Google Sheets time blocks
+  const boatsFromSlots = timeBlocks.reduce((boats, block) => {
+    const existing = boats.find(b => b.id === block.boatId);
     if (!existing) {
       boats.push({
-        id: slot.boatId,
-        name: slot.boatDisplayName || slot.boatName,
-        capacity: slot.boatCapacity,
+        id: block.boatId,
+        name: block.boatName,
+        capacity: block.capacity || 14,
         active: true
       });
     }
@@ -906,15 +963,37 @@ function CalendarView() {
     );
   };
 
+  // Show loading state while fetching Google Sheets data
+  if (isLoadingSheets) {
+    return (
+      <div className="flex items-center justify-center h-64">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto mb-2"></div>
+          <p className="text-muted-foreground">Loading availability from Google Sheets...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Boat Calendar</h2>
-          <p className="text-muted-foreground">Manage boat availability and bookings</p>
+          <h2 className="text-2xl font-bold">Boat Calendar (Google Sheets)</h2>
+          <p className="text-muted-foreground">Manage boat availability and bookings from Google Sheets</p>
         </div>
         <div className="flex gap-2 items-center">
+          {/* Refresh button for Google Sheets data */}
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => refetchSheets()}
+            title="Refresh from Google Sheets"
+            data-testid="refresh-sheets-button"
+          >
+            <RefreshCw className="h-4 w-4" />
+          </Button>
           {/* Week Navigation */}
           <Button
             variant="outline"

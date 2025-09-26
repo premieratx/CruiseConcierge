@@ -5675,6 +5675,307 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Read all sheets data for Memorial Weekend 2026 analysis
+  app.get("/api/google-sheets/all-sheets-data", async (req, res) => {
+    try {
+      console.log("🎆 Fetching all sheets data for Memorial Weekend 2026 analysis...");
+      
+      // Get Google Sheets service
+      const googleSheetsService = await getGoogleSheetsService();
+      
+      if (!googleSheetsService) {
+        return res.status(500).json({ 
+          success: false, 
+          error: "Google Sheets service not available" 
+        });
+      }
+      
+      // Get all the sheets data with Memorial Weekend 2026 analysis
+      const result = await googleSheetsService.getAllSheetsData();
+      
+      if (result.success) {
+        console.log(`✅ Successfully fetched data from ${result.summary.targetSheetsRead} target sheets`);
+        console.log(`🎯 Memorial Day Weekend 2026 analysis complete`);
+        
+        // Log a summary to the console
+        const findings = result.summary.memorialDayFindings;
+        console.log(`📊 Memorial Day Weekend 2026 Findings:`);
+        console.log(`   - Holiday Exceptions: ${findings.hasHolidayException ? 'YES' : 'NO'}`);
+        console.log(`   - Special Pricing: ${findings.hasSpecialPricing ? 'YES' : 'NO'}`);
+        console.log(`   - Blackouts: ${findings.hasBlackouts ? 'YES' : 'NO'}`);
+        console.log(`   - Existing Bookings: ${findings.hasBookings ? 'YES' : 'NO'}`);
+        console.log(`   - Sunday Time Slots Available: ${findings.sundayTimeSlotsAvailable}`);
+        
+        res.json({
+          success: true,
+          message: "Successfully fetched all sheets data",
+          spreadsheetId: result.spreadsheetId,
+          sheetsFound: result.sheetsFound,
+          allSheetsData: result.allSheetsData,
+          memorialDayWeekend2026: result.memorialDayWeekend2026,
+          summary: result.summary,
+          analysisComplete: true
+        });
+      } else {
+        console.error("❌ Failed to fetch all sheets data:", result.error);
+        res.status(500).json({ 
+          success: false, 
+          error: result.error || "Failed to fetch sheets data" 
+        });
+      }
+    } catch (error: any) {
+      console.error("❌ Error in /api/google-sheets/all-sheets-data endpoint:", error);
+      res.status(500).json({ 
+        success: false, 
+        error: error.message || "Internal server error" 
+      });
+    }
+  });
+
+  // Enhanced calendar availability endpoint that uses Google Sheets as source of truth
+  app.get("/api/google-sheets/calendar-availability", async (req, res) => {
+    try {
+      const { startDate, endDate } = req.query;
+      
+      console.log('📊 Fetching calendar availability from Google Sheets...');
+      
+      // Get google sheets service
+      const googleSheetsService = await getGoogleSheetsService();
+      const sheetsData = await googleSheetsService.getAllSheetsData();
+      
+      if (!sheetsData.success) {
+        throw new Error("Failed to fetch sheets data");
+      }
+      
+      // Extract data from each sheet
+      const masterRules = sheetsData.allSheetsData?.['Master Availability Rules']?.data || [];
+      const holidayExceptions = sheetsData.allSheetsData?.['Holiday Exceptions']?.data || [];
+      const bookedDates = sheetsData.allSheetsData?.['Booked Dates']?.data || [];
+      const specialPricing = sheetsData.allSheetsData?.['Special Pricing']?.data || [];
+      const blackoutDates = sheetsData.allSheetsData?.['Blackout Dates']?.data || [];
+      
+      // Generate availability slots based on the rules
+      const availability = [];
+      const start = startDate ? new Date(startDate as string) : new Date();
+      const end = endDate ? new Date(endDate as string) : new Date(start.getTime() + 30 * 24 * 60 * 60 * 1000); // 30 days default
+      
+      // Process each day in the range
+      for (let date = new Date(start); date <= end; date.setDate(date.getDate() + 1)) {
+        const currentDate = new Date(date);
+        const dateStr = currentDate.toISOString().split('T')[0]; // YYYY-MM-DD format
+        const dayOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'][currentDate.getDay()];
+        
+        // Check for holiday exceptions - if Sunday should follow Saturday schedule
+        const holidayException = holidayExceptions.find((exc: any) => {
+          const excDate = exc['Date'] || exc['Holiday Date'] || '';
+          return excDate.includes(dateStr) || excDate.includes(currentDate.toLocaleDateString());
+        });
+        
+        // Determine which day's rules to use
+        let rulesDay = dayOfWeek;
+        if (holidayException) {
+          const followDay = holidayException['Follows Schedule'] || holidayException['Override Day'] || '';
+          if (followDay) {
+            rulesDay = followDay;
+            console.log(`📅 ${dateStr} (${dayOfWeek}) following ${followDay} schedule due to holiday exception`);
+          }
+        }
+        
+        // Check if this date is blackedout
+        const isBlackedOut = blackoutDates.some((blackout: any) => {
+          const blackoutDate = blackout['Date'] || blackout['Blackout Date'] || '';
+          return blackoutDate.includes(dateStr) || blackoutDate.includes(currentDate.toLocaleDateString());
+        });
+        
+        if (isBlackedOut) {
+          console.log(`🚫 ${dateStr} is blacked out`);
+          continue; // Skip this date entirely
+        }
+        
+        // Get master rules for this day type
+        const dayRules = masterRules.filter((rule: any) => {
+          const ruleDay = rule['Day Type'] || rule['Day'] || rule['Day of Week'] || '';
+          // Handle day type matching - "Monday-Thursday" should match Monday, Tuesday, Wednesday, Thursday
+          if (ruleDay.includes('-')) {
+            const dayTypes = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+            const [startDay, endDay] = ruleDay.split('-');
+            const startIdx = dayTypes.findIndex(d => d === startDay);
+            const endIdx = dayTypes.findIndex(d => d === endDay);
+            if (startIdx !== -1 && endIdx !== -1 && startIdx <= endIdx) {
+              const rangeDays = dayTypes.slice(startIdx, endIdx + 1);
+              return rangeDays.includes(rulesDay);
+            }
+          }
+          return ruleDay.toLowerCase() === rulesDay.toLowerCase();
+        });
+        
+        // Process each time slot from the rules
+        dayRules.forEach((rule: any) => {
+          const timeSlotStr = rule['Available Time Slots'] || rule['Time Slot'] || rule['Time'] || '';
+          const boat = rule['Boat Recommended'] || rule['Boat'] || rule['Boat Type'] || '';
+          const groupSizeStr = rule['Valid Group Sizes'] || rule['Group Size'] || rule['Capacity'] || '';
+          const cruiseType = rule['Private or Disco Cruise'] || rule['Cruise Type'] || rule['Type'] || 'Private';
+          
+          // Parse multiple time slots (comma-separated)
+          const timeSlots = timeSlotStr.split(',').map((ts: string) => ts.trim());
+          
+          timeSlots.forEach((timeSlot: string) => {
+            // Parse compressed time format (e.g., "10am-1pm", "1030am-130pm", "12-4pm")
+            const parseTime = (timeStr: string): string => {
+              // Handle numeric-only times (e.g., "12", "430", "1030")
+              if (/^\d+$/.test(timeStr)) {
+                // If it's 3 or 4 digits, split into hours and minutes
+                if (timeStr.length >= 3) {
+                  const hours = timeStr.slice(0, -2);
+                  const minutes = timeStr.slice(-2);
+                  let hourNum = parseInt(hours);
+                  
+                  // For condensed format, assume PM for afternoon times
+                  // "430" should be 4:30 PM, "1030" should be 10:30 AM
+                  if (hourNum <= 6) {
+                    hourNum += 12; // Convert 1-6 to 13-18 (PM times)
+                  }
+                  
+                  const period = hourNum >= 12 ? 'PM' : 'AM';
+                  const displayHour = hourNum > 12 ? hourNum - 12 : (hourNum === 0 ? 12 : hourNum);
+                  return `${displayHour.toString().padStart(2, '0')}:${minutes} ${period}`;
+                } else {
+                  // 1 or 2 digit number, treat as hour
+                  let hourNum = parseInt(timeStr);
+                  
+                  // Assume PM for afternoon single-digit times
+                  if (hourNum <= 6) {
+                    hourNum += 12;
+                  }
+                  
+                  const period = hourNum >= 12 ? 'PM' : 'AM';
+                  const displayHour = hourNum > 12 ? hourNum - 12 : (hourNum === 0 ? 12 : hourNum);
+                  return `${displayHour.toString().padStart(2, '0')}:00 ${period}`;
+                }
+              }
+              
+              // Convert compressed format like "10am" or "1030am" to standard format
+              let parsed = timeStr;
+              
+              // Handle formats with minutes like "1030am"
+              parsed = parsed.replace(/(\d{1,2})(\d{2})(am|pm)/gi, (match, hour, minutes, period) => {
+                const h = parseInt(hour);
+                const displayHour = (period.toLowerCase() === 'pm' && h !== 12) ? h : h;
+                return `${displayHour.toString().padStart(2, '0')}:${minutes} ${period.toUpperCase()}`;
+              });
+              
+              // Handle formats without minutes like "10am"
+              parsed = parsed.replace(/(\d{1,2})(am|pm)/gi, (match, hour, period) => {
+                const h = parseInt(hour);
+                const displayHour = (period.toLowerCase() === 'pm' && h !== 12) ? h : h;
+                return `${displayHour.toString().padStart(2, '0')}:00 ${period.toUpperCase()}`;
+              });
+              
+              return parsed;
+            };
+            
+            const [startTimeRaw, endTimeRaw] = timeSlot.split('-').map((t: string) => t.trim());
+            const startTime = parseTime(startTimeRaw);
+            const endTime = parseTime(endTimeRaw);
+            
+            if (!startTime || !endTime) return;
+          
+          // Check if this slot is booked
+          const isBooked = bookedDates.some((booking: any) => {
+            const bookingDate = booking['Date'] || booking['Event Date'] || '';
+            const bookingTime = booking['Time'] || booking['Time Slot'] || '';
+            const bookingBoat = booking['Boat'] || booking['Boat Name'] || '';
+            
+            return (bookingDate.includes(dateStr) || bookingDate.includes(currentDate.toLocaleDateString())) &&
+                   bookingTime === timeSlot &&
+                   bookingBoat === boat;
+          });
+          
+          // Get pricing info (check for special pricing first)
+          const specialPrice = specialPricing.find((price: any) => {
+            const priceDate = price['Date'] || price['Start Date'] || '';
+            const priceBoat = price['Boat'] || price['Boat Type'] || '';
+            const priceTime = price['Time'] || price['Time Slot'] || '';
+            
+            return (priceDate.includes(dateStr) || priceDate.includes(currentDate.toLocaleDateString())) &&
+                   (!priceBoat || priceBoat === boat) &&
+                   (!priceTime || priceTime === timeSlot);
+          });
+          
+          // Determine pricing based on cruise type and boat
+          let pricing: any = {};
+          if (cruiseType.toLowerCase() === 'disco') {
+            // Disco cruises use per-person pricing
+            const perPersonPrice = specialPrice?.['Price'] || specialPrice?.['Per Person'] || rule['Price'] || rule['Per Person Price'] || 89;
+            pricing = {
+              type: 'per-person',
+              perPersonPrice: parseFloat(perPersonPrice.toString()),
+              totalPrice: null // Will be calculated based on actual attendance
+            };
+          } else {
+            // Private cruises use per-cruise pricing
+            const basePriceStr = specialPrice?.['Price'] || specialPrice?.['Total Price'] || rule['Price'] || rule['Base Price'] || '2500';
+            const basePrice = parseFloat(basePriceStr.toString());
+            
+            // Apply different pricing tiers based on boat size
+            let essentialsMultiplier = 1.2;
+            let ultimateMultiplier = 1.5;
+            
+            if (boat.toLowerCase().includes('day tripper')) {
+              essentialsMultiplier = 1.15;
+              ultimateMultiplier = 1.35;
+            } else if (boat.toLowerCase().includes('clever girl')) {
+              essentialsMultiplier = 1.25;
+              ultimateMultiplier = 1.6;
+            }
+            
+            pricing = {
+              type: 'per-cruise',
+              standardPrice: basePrice,
+              essentialsPrice: basePrice * essentialsMultiplier,
+              ultimatePrice: basePrice * ultimateMultiplier
+            };
+          }
+          
+            // Add the slot to availability
+            availability.push({
+              id: `${dateStr}-${boat}-${startTime}`,
+              date: dateStr,
+              dayOfWeek: dayOfWeek,
+              startTime: startTime,
+              endTime: endTime,
+              boat: boat,
+              groupSize: groupSizeStr,
+              cruiseType: cruiseType,
+              status: isBooked ? 'booked' : 'available',
+              pricing: pricing,
+              isHolidaySchedule: !!holidayException,
+              hasSpecialPricing: !!specialPrice
+            });
+          }); // Close timeSlots.forEach
+        }); // Close dayRules.forEach
+      }
+      
+      console.log(`✅ Generated ${availability.length} availability slots from Google Sheets data`);
+      
+      res.json({
+        success: true,
+        startDate: start.toISOString(),
+        endDate: end.toISOString(),
+        totalSlots: availability.length,
+        availability: availability
+      });
+      
+    } catch (error: any) {
+      console.error("❌ Error in /api/google-sheets/calendar-availability endpoint:", error);
+      res.status(500).json({
+        success: false,
+        error: error.message || "Failed to fetch calendar availability",
+        availability: []
+      });
+    }
+  });
+
   // Create comprehensive availability management structure in Google Sheets
   app.post("/api/google-sheets/create-availability-structure", async (req, res) => {
     try {

@@ -405,6 +405,283 @@ export class GoogleSheetsService {
     return slot ? slot.baseRate : 0;
   }
 
+  // New method to read all sheets for Memorial Weekend 2026 analysis
+  async getAllSheetsData(): Promise<any> {
+    try {
+      if (!this.sheets || !this.spreadsheetId) {
+        console.warn("Google Sheets API not properly initialized");
+        return {
+          success: false,
+          error: "Google Sheets API not initialized",
+          data: null
+        };
+      }
+
+      // Override spreadsheet ID with the one provided
+      const targetSpreadsheetId = '13VHEq3Aqv46oSt0tGiF5ZBOxs1WxBU0SqEIwG6QUsxI';
+      console.log(`📊 Reading ALL sheets from spreadsheet: ${targetSpreadsheetId}`);
+      
+      // First, get the spreadsheet metadata to find all sheet names
+      const spreadsheet = await this.sheets.spreadsheets.get({
+        spreadsheetId: targetSpreadsheetId
+      });
+      
+      const sheets = spreadsheet.data.sheets || [];
+      if (sheets.length === 0) {
+        console.error("No sheets found in spreadsheet");
+        return {
+          success: false,
+          error: "No sheets found in spreadsheet",
+          data: null
+        };
+      }
+      
+      // Log all sheet names
+      console.log(`📋 Found ${sheets.length} sheets in spreadsheet:`);
+      sheets.forEach((sheet: any) => {
+        console.log(`  - ${sheet.properties?.title}`);
+      });
+
+      // Sheets to read
+      const targetSheets = [
+        'Master Availability Rules',
+        'Holiday Exceptions',
+        'Booked Dates',
+        'Special Pricing',
+        'Blackout Dates'
+      ];
+
+      const allSheetsData: any = {};
+      const memorialDayWeekendData: any = {
+        date: 'May 24-25, 2026',
+        sundayDate: '2026-05-24',
+        mondayDate: '2026-05-25',
+        holidayExceptions: [],
+        specialPricing: [],
+        blackoutDates: [],
+        bookedDates: [],
+        masterRules: [],
+        sundayTimeSlots: []
+      };
+
+      // Read each target sheet
+      for (const sheetName of targetSheets) {
+        const sheetExists = sheets.find((sheet: any) => sheet.properties?.title === sheetName);
+        
+        if (!sheetExists) {
+          console.warn(`⚠️ Sheet "${sheetName}" not found in spreadsheet`);
+          allSheetsData[sheetName] = { exists: false, data: [] };
+          continue;
+        }
+
+        console.log(`📖 Reading sheet: "${sheetName}"`);
+        
+        try {
+          const range = `'${sheetName}'!A:Z`; // Read all columns A through Z
+          const response = await this.sheets.spreadsheets.values.get({
+            spreadsheetId: targetSpreadsheetId,
+            range: range,
+          });
+          
+          const values = response.data.values || [];
+          
+          if (values.length === 0) {
+            console.log(`   Sheet "${sheetName}" is empty`);
+            allSheetsData[sheetName] = { 
+              exists: true, 
+              data: [], 
+              headers: [],
+              rowCount: 0 
+            };
+            continue;
+          }
+          
+          // Process the data - assume first row is headers
+          const headers = values[0];
+          const rows = values.slice(1);
+          
+          // Convert to JSON format with headers as keys
+          const jsonData = rows.map((row, index) => {
+            const obj: any = {
+              rowNumber: index + 2 // +2 because arrays are 0-indexed and we skip header row
+            };
+            headers.forEach((header, colIndex) => {
+              obj[header] = row[colIndex] || '';
+            });
+            return obj;
+          });
+          
+          console.log(`   ✅ Read ${jsonData.length} rows from "${sheetName}"`);
+          
+          allSheetsData[sheetName] = {
+            exists: true,
+            headers: headers,
+            rowCount: jsonData.length,
+            data: jsonData
+          };
+
+          // Check for Memorial Day Weekend 2026 data
+          if (sheetName === 'Holiday Exceptions') {
+            const memorialDayRows = jsonData.filter(row => {
+              const dateField = row['Date'] || row['Holiday Date'] || row['Exception Date'] || '';
+              const holidayName = row['Holiday'] || row['Holiday Name'] || row['Name'] || '';
+              
+              // Check if this is Memorial Day 2026
+              return (
+                dateField.includes('2026-05-24') ||
+                dateField.includes('2026-05-25') ||
+                dateField.includes('5/24/2026') ||
+                dateField.includes('5/25/2026') ||
+                dateField.includes('May 24') ||
+                dateField.includes('May 25') ||
+                holidayName.toLowerCase().includes('memorial')
+              );
+            });
+            
+            if (memorialDayRows.length > 0) {
+              console.log(`   🎯 Found ${memorialDayRows.length} Memorial Day Weekend 2026 entries!`);
+              memorialDayWeekendData.holidayExceptions = memorialDayRows;
+            }
+          }
+
+          // Check Special Pricing for Memorial Weekend
+          if (sheetName === 'Special Pricing') {
+            const memorialPricing = jsonData.filter(row => {
+              const dateField = row['Date'] || row['Start Date'] || row['Price Date'] || '';
+              return (
+                dateField.includes('2026-05-24') ||
+                dateField.includes('2026-05-25') ||
+                dateField.includes('5/24/2026') ||
+                dateField.includes('5/25/2026')
+              );
+            });
+            
+            if (memorialPricing.length > 0) {
+              console.log(`   💰 Found ${memorialPricing.length} Special Pricing entries for Memorial Weekend!`);
+              memorialDayWeekendData.specialPricing = memorialPricing;
+            }
+          }
+
+          // Check Blackout Dates
+          if (sheetName === 'Blackout Dates') {
+            const memorialBlackouts = jsonData.filter(row => {
+              const dateField = row['Date'] || row['Blackout Date'] || row['Start Date'] || '';
+              return (
+                dateField.includes('2026-05-24') ||
+                dateField.includes('2026-05-25') ||
+                dateField.includes('5/24/2026') ||
+                dateField.includes('5/25/2026')
+              );
+            });
+            
+            if (memorialBlackouts.length > 0) {
+              console.log(`   🚫 Found ${memorialBlackouts.length} Blackout entries for Memorial Weekend!`);
+              memorialDayWeekendData.blackoutDates = memorialBlackouts;
+            }
+          }
+
+          // Check Booked Dates
+          if (sheetName === 'Booked Dates') {
+            const memorialBookings = jsonData.filter(row => {
+              const dateField = row['Date'] || row['Booking Date'] || row['Event Date'] || '';
+              return (
+                dateField.includes('2026-05-24') ||
+                dateField.includes('2026-05-25') ||
+                dateField.includes('5/24/2026') ||
+                dateField.includes('5/25/2026')
+              );
+            });
+            
+            if (memorialBookings.length > 0) {
+              console.log(`   📅 Found ${memorialBookings.length} Bookings for Memorial Weekend!`);
+              memorialDayWeekendData.bookedDates = memorialBookings;
+            }
+          }
+
+          // Check Master Availability Rules for Sunday rules
+          if (sheetName === 'Master Availability Rules') {
+            const sundayRules = jsonData.filter(row => {
+              const dayField = row['Day'] || row['Day of Week'] || row['Weekday'] || '';
+              return dayField.toLowerCase().includes('sunday');
+            });
+            
+            if (sundayRules.length > 0) {
+              console.log(`   📏 Found ${sundayRules.length} Sunday rules in Master Availability!`);
+              memorialDayWeekendData.masterRules = sundayRules;
+              
+              // Extract time slots from Sunday rules
+              sundayRules.forEach(rule => {
+                const timeSlot = rule['Time Slot'] || rule['Time'] || rule['Available Times'] || '';
+                if (timeSlot) {
+                  memorialDayWeekendData.sundayTimeSlots.push({
+                    timeSlot: timeSlot,
+                    boat: rule['Boat'] || rule['Boat Type'] || '',
+                    capacity: rule['Capacity'] || rule['Max Capacity'] || '',
+                    price: rule['Price'] || rule['Rate'] || '',
+                    status: rule['Status'] || rule['Availability'] || 'Available'
+                  });
+                }
+              });
+            }
+          }
+          
+        } catch (error: any) {
+          console.error(`   ❌ Error reading sheet "${sheetName}":`, error.message);
+          allSheetsData[sheetName] = { 
+            exists: true, 
+            error: error.message, 
+            data: [] 
+          };
+        }
+      }
+
+      // Summary of Memorial Day Weekend 2026 findings
+      console.log('\n🎆 MEMORIAL DAY WEEKEND 2026 SUMMARY:');
+      console.log('====================================');
+      console.log(`📅 Sunday, May 24, 2026 - Monday, May 25, 2026`);
+      console.log(`🎯 Holiday Exceptions: ${memorialDayWeekendData.holidayExceptions.length} entries`);
+      console.log(`💰 Special Pricing: ${memorialDayWeekendData.specialPricing.length} entries`);
+      console.log(`🚫 Blackout Dates: ${memorialDayWeekendData.blackoutDates.length} entries`);
+      console.log(`📅 Booked Dates: ${memorialDayWeekendData.bookedDates.length} entries`);
+      console.log(`📏 Sunday Rules: ${memorialDayWeekendData.masterRules.length} rules`);
+      console.log(`⏰ Sunday Time Slots: ${memorialDayWeekendData.sundayTimeSlots.length} slots`);
+      
+      if (memorialDayWeekendData.sundayTimeSlots.length > 0) {
+        console.log('\n⏰ AVAILABLE TIME SLOTS FOR SUNDAY OF MEMORIAL WEEKEND:');
+        memorialDayWeekendData.sundayTimeSlots.forEach((slot: any) => {
+          console.log(`   - ${slot.timeSlot} | Boat: ${slot.boat} | Capacity: ${slot.capacity} | Price: ${slot.price}`);
+        });
+      }
+
+      return {
+        success: true,
+        spreadsheetId: targetSpreadsheetId,
+        sheetsFound: sheets.map((s: any) => s.properties?.title),
+        allSheetsData: allSheetsData,
+        memorialDayWeekend2026: memorialDayWeekendData,
+        summary: {
+          totalSheets: sheets.length,
+          targetSheetsRead: Object.keys(allSheetsData).length,
+          memorialDayFindings: {
+            hasHolidayException: memorialDayWeekendData.holidayExceptions.length > 0,
+            hasSpecialPricing: memorialDayWeekendData.specialPricing.length > 0,
+            hasBlackouts: memorialDayWeekendData.blackoutDates.length > 0,
+            hasBookings: memorialDayWeekendData.bookedDates.length > 0,
+            sundayTimeSlotsAvailable: memorialDayWeekendData.sundayTimeSlots.length
+          }
+        }
+      };
+      
+    } catch (error: any) {
+      console.error("Error reading all sheets from Google Sheets:", error);
+      return {
+        success: false,
+        error: error.message || "Failed to read data from Google Sheets",
+        data: null
+      };
+    }
+  }
+
   // New method to read pricing and availability from the first tab
   async getPricingAndAvailability(): Promise<any> {
     try {
