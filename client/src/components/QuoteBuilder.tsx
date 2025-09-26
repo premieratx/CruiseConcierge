@@ -72,22 +72,21 @@ const DISCO_PACKAGES: PackageOption[] = [
 ];
 
 // Private cruise packages (additional cost on top of base)
-const getPrivatePackages = (capacity: number): PackageOption[] => {
+const getPrivatePackages = (groupSize: number): PackageOption[] => {
   let essentialsPrice = 0;
   let ultimatePrice = 0;
   
-  // Determine price based on boat capacity
-  if (capacity <= 14) {
+  // Determine price based on GROUP SIZE ranges (not boat capacity)
+  if (groupSize <= 14) {
+    // 1-14 people: Use 14-person pricing
     essentialsPrice = 10000; // +$100
     ultimatePrice = 25000; // +$250
-  } else if (capacity <= 25) {
+  } else if (groupSize <= 30) {
+    // 15-30 people: Use 25-person pricing
     essentialsPrice = 15000; // +$150
     ultimatePrice = 30000; // +$300
-  } else if (capacity <= 50) {
-    essentialsPrice = 20000; // +$200
-    ultimatePrice = 35000; // +$350
   } else {
-    // For larger boats (75 capacity), use 50-person pricing
+    // 31-75 people: Use 50-person pricing
     essentialsPrice = 20000; // +$200
     ultimatePrice = 35000; // +$350
   }
@@ -259,7 +258,7 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
           }
         } else {
           // For private cruises: flat additional fee
-          const privatePackages = getPrivatePackages(selectedSlot.capacity);
+          const privatePackages = getPrivatePackages(currentGroupSize);
           const privatePackage = privatePackages.find(p => p.id === selectedPackage);
           if (privatePackage) {
             packageCost = privatePackage.price; // Flat fee in cents
@@ -769,7 +768,7 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
                         ))
                       ) : (
                         // Private Cruise Packages
-                        getPrivatePackages(selectedSlot.capacity).map((pkg) => (
+                        getPrivatePackages(currentGroupSize).map((pkg) => (
                           <div key={pkg.id} className="flex items-start space-x-2">
                             <RadioGroupItem value={pkg.id} id={pkg.id} />
                             <Label 
@@ -818,9 +817,9 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
                             </span>
                           ) : (
                             <span className="font-medium text-green-600">
-                              {getPrivatePackages(selectedSlot.capacity).find(p => p.id === selectedPackage)?.price === 0 
+                              {getPrivatePackages(currentGroupSize).find(p => p.id === selectedPackage)?.price === 0 
                                 ? 'Included in base price' 
-                                : `+$${(getPrivatePackages(selectedSlot.capacity).find(p => p.id === selectedPackage)?.price || 0) / 100}`
+                                : `+$${(getPrivatePackages(currentGroupSize).find(p => p.id === selectedPackage)?.price || 0) / 100}`
                               }
                             </span>
                           )}
@@ -954,15 +953,15 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
                           <div className="flex justify-between">
                             <span>Package:</span>
                             <span className="font-medium">
-                              {getPrivatePackages(selectedSlot.capacity).find(p => p.id === selectedPackage)?.name}
+                              {getPrivatePackages(currentGroupSize).find(p => p.id === selectedPackage)?.name}
                             </span>
                           </div>
                           <div className="flex justify-between font-semibold">
                             <span>Package add-on:</span>
                             <span className="text-green-600">
-                              {getPrivatePackages(selectedSlot.capacity).find(p => p.id === selectedPackage)?.price === 0 
+                              {getPrivatePackages(currentGroupSize).find(p => p.id === selectedPackage)?.price === 0 
                                 ? 'Included' 
-                                : `+$${(getPrivatePackages(selectedSlot.capacity).find(p => p.id === selectedPackage)?.price || 0) / 100}`
+                                : `+$${(getPrivatePackages(currentGroupSize).find(p => p.id === selectedPackage)?.price || 0) / 100}`
                               }
                             </span>
                           </div>
