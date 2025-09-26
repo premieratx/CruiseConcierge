@@ -2011,6 +2011,240 @@ export class GoogleSheetsService {
       return [];
     }
   }
+
+  // Create comprehensive availability management structure
+  async createAvailabilityManagementStructure(): Promise<{success: boolean, message: string, createdSheets?: string[]}> {
+    try {
+      if (!this.sheets || !this.spreadsheetId) {
+        return {
+          success: false,
+          message: "Google Sheets API not properly initialized"
+        };
+      }
+
+      console.log('📊 Creating comprehensive availability management structure...');
+      
+      // Get existing sheets to avoid duplicates
+      const existingSheets = await this.getAvailableSheets();
+      console.log(`📋 Existing sheets: ${existingSheets.join(', ')}`);
+      
+      const sheetsToCreate = [];
+      const createdSheets: string[] = [];
+      
+      // Define all sheets with their structure and example data
+      const sheetDefinitions = [
+        {
+          title: 'Master Availability Rules',
+          headers: ['Day Type', 'Valid Group Sizes', 'Available Time Slots', 'Effective Start Date', 'Effective End Date', 'Notes'],
+          exampleData: [
+            ['Monday-Thursday', '14, 25, 30, 50, 75', '10:00 AM, 2:00 PM, 6:00 PM', '2025-01-01', '2025-12-31', 'Weekday standard schedule'],
+            ['Friday', '14, 25, 30, 50, 75, 100', '10:00 AM, 2:00 PM, 6:00 PM, 10:00 PM', '2025-01-01', '2025-12-31', 'Friday extended hours + disco cruise']
+          ]
+        },
+        {
+          title: 'Holiday Exceptions',
+          headers: ['Date', 'Holiday Name', 'Day Override', 'Custom Time Slots', 'Price Multiplier', 'Closed', 'Notes'],
+          exampleData: [
+            ['2025-07-04', 'Independence Day', 'Treat as Saturday', '12:00 PM, 3:00 PM, 7:00 PM, 10:00 PM', '1.5', 'No', 'Premium pricing for holiday'],
+            ['2025-12-25', 'Christmas Day', 'N/A', '', '0', 'Yes', 'Closed for Christmas']
+          ]
+        },
+        {
+          title: 'Booked Dates',
+          headers: ['Date', 'Time Slot', 'Boat Name', 'Group Size', 'Customer Name', 'Booking ID', 'Status', 'Notes'],
+          exampleData: [
+            ['2025-02-14', '6:00 PM', 'Clever Girl', '45', 'John Smith', 'BK-2025-0214-001', 'Confirmed', 'Valentine\'s Day special event'],
+            ['2025-03-15', '2:00 PM', 'Day Tripper', '12', 'Jane Doe', 'BK-2025-0315-002', 'Pending', 'Birthday party']
+          ]
+        },
+        {
+          title: 'Special Pricing',
+          headers: ['Start Date', 'End Date', 'Day of Week', 'Time Slot', 'Group Size Range', 'Base Price Override', 'Discount Percentage', 'Promotion Name', 'Notes'],
+          exampleData: [
+            ['2025-01-15', '2025-02-28', 'All', 'All', '1-14', '', '20', 'Winter Special', 'Early season discount for small groups'],
+            ['2025-03-01', '2025-03-31', 'Monday-Thursday', '10:00 AM', '15-30', '250', '', 'Spring Break Promo', 'Fixed rate for morning cruises']
+          ]
+        },
+        {
+          title: 'Blackout Dates',
+          headers: ['Date', 'Reason', 'Affected Boats', 'Affected Time Slots', 'Notes'],
+          exampleData: [
+            ['2025-04-15', 'Maintenance', 'Day Tripper, Me Seeks The Irony', 'All', 'Annual maintenance for smaller boats'],
+            ['2025-05-20', 'Private Event', 'All', '2:00 PM, 6:00 PM', 'Lake reserved for private corporate event']
+          ]
+        }
+      ];
+
+      // Create batch requests for sheets that don't exist
+      const requests: any[] = [];
+      
+      for (const sheetDef of sheetDefinitions) {
+        if (!existingSheets.includes(sheetDef.title)) {
+          requests.push({
+            addSheet: {
+              properties: {
+                title: sheetDef.title,
+                gridProperties: {
+                  rowCount: 1000,
+                  columnCount: sheetDef.headers.length + 2, // Extra columns for flexibility
+                  frozenRowCount: 1 // Freeze header row
+                }
+              }
+            }
+          });
+          sheetsToCreate.push(sheetDef);
+        } else {
+          console.log(`⚠️ Sheet "${sheetDef.title}" already exists, will populate with data`);
+          sheetsToCreate.push(sheetDef); // Still need to populate existing sheets
+        }
+      }
+
+      // Create new sheets if any
+      if (requests.length > 0) {
+        console.log(`📝 Creating ${requests.length} new sheets...`);
+        await this.withRetry(
+          async () => {
+            await this.sheets.spreadsheets.batchUpdate({
+              spreadsheetId: this.spreadsheetId,
+              resource: {
+                requests: requests
+              }
+            });
+          },
+          `Create ${requests.length} availability management sheets`
+        );
+        console.log(`✅ Successfully created ${requests.length} new sheets`);
+      }
+
+      // Now populate each sheet with headers and example data
+      const dataUpdates: any[] = [];
+      
+      for (const sheetDef of sheetsToCreate) {
+        const sheetData = [
+          sheetDef.headers, // Header row
+          ...sheetDef.exampleData // Example data rows
+        ];
+        
+        dataUpdates.push({
+          range: `'${sheetDef.title}'!A1`,
+          values: sheetData
+        });
+        
+        createdSheets.push(sheetDef.title);
+      }
+
+      // Batch update all sheet data
+      if (dataUpdates.length > 0) {
+        console.log(`📝 Populating ${dataUpdates.length} sheets with headers and example data...`);
+        
+        await this.withRetry(
+          async () => {
+            await this.sheets.spreadsheets.values.batchUpdate({
+              spreadsheetId: this.spreadsheetId,
+              resource: {
+                valueInputOption: 'RAW',
+                data: dataUpdates
+              }
+            });
+          },
+          `Populate ${dataUpdates.length} sheets with data`
+        );
+        
+        console.log(`✅ Successfully populated all sheets with headers and example data`);
+      }
+
+      // Format the sheets for better readability
+      const formatRequests: any[] = [];
+      
+      // Get updated sheet metadata to get sheet IDs
+      const updatedSpreadsheet = await this.sheets.spreadsheets.get({
+        spreadsheetId: this.spreadsheetId
+      });
+      
+      const sheetIdMap: {[key: string]: number} = {};
+      for (const sheet of updatedSpreadsheet.data.sheets || []) {
+        const title = sheet.properties?.title;
+        if (title && sheetsToCreate.some(s => s.title === title)) {
+          sheetIdMap[title] = sheet.properties?.sheetId;
+        }
+      }
+      
+      // Add formatting requests for each sheet
+      for (const sheetDef of sheetsToCreate) {
+        const sheetId = sheetIdMap[sheetDef.title];
+        if (sheetId !== undefined) {
+          // Bold header row
+          formatRequests.push({
+            repeatCell: {
+              range: {
+                sheetId: sheetId,
+                startRowIndex: 0,
+                endRowIndex: 1
+              },
+              cell: {
+                userEnteredFormat: {
+                  textFormat: {
+                    bold: true
+                  },
+                  backgroundColor: {
+                    red: 0.9,
+                    green: 0.9,
+                    blue: 0.9
+                  }
+                }
+              },
+              fields: 'userEnteredFormat(textFormat,backgroundColor)'
+            }
+          });
+          
+          // Auto-resize columns
+          formatRequests.push({
+            autoResizeDimensions: {
+              dimensions: {
+                sheetId: sheetId,
+                dimension: 'COLUMNS',
+                startIndex: 0,
+                endIndex: sheetDef.headers.length
+              }
+            }
+          });
+        }
+      }
+      
+      // Apply formatting if we have requests
+      if (formatRequests.length > 0) {
+        console.log('🎨 Applying formatting to sheets...');
+        try {
+          await this.sheets.spreadsheets.batchUpdate({
+            spreadsheetId: this.spreadsheetId,
+            resource: {
+              requests: formatRequests
+            }
+          });
+          console.log('✅ Successfully applied formatting');
+        } catch (formatError) {
+          console.warn('⚠️ Formatting partially failed, but sheets are created:', formatError);
+          // Don't fail the whole operation if formatting fails
+        }
+      }
+
+      const message = `Successfully created/updated availability management structure with ${createdSheets.length} sheets: ${createdSheets.join(', ')}`;
+      console.log(`✅ ${message}`);
+      
+      return {
+        success: true,
+        message: message,
+        createdSheets: createdSheets
+      };
+      
+    } catch (error: any) {
+      console.error('❌ Error creating availability management structure:', error);
+      return {
+        success: false,
+        message: `Failed to create availability management structure: ${error.message || 'Unknown error'}`
+      };
+    }
+  }
 }
 
 export const googleSheetsService = new GoogleSheetsService();

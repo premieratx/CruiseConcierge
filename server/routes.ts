@@ -5675,6 +5675,45 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Create comprehensive availability management structure in Google Sheets
+  app.post("/api/google-sheets/create-availability-structure", async (req, res) => {
+    try {
+      console.log("📊 Creating comprehensive availability management structure in Google Sheets...");
+      
+      // Get Google Sheets service
+      const googleSheetsService = await getGoogleSheetsService();
+      
+      // Call the new method to create all availability management sheets
+      const result = await googleSheetsService.createAvailabilityManagementStructure();
+      
+      if (!result.success) {
+        console.error("❌ Failed to create availability management structure:", result.message);
+        return res.status(500).json({ 
+          success: false,
+          error: result.message || "Failed to create availability management structure"
+        });
+      }
+      
+      console.log(`✅ ${result.message}`);
+      
+      // Return the result to the client
+      res.json({
+        success: true,
+        message: result.message,
+        createdSheets: result.createdSheets || [],
+        timestamp: new Date().toISOString()
+      });
+      
+    } catch (error: any) {
+      console.error("❌ Error creating availability management structure:", error);
+      res.status(500).json({ 
+        success: false,
+        error: error.message || "Internal server error",
+        timestamp: new Date().toISOString()
+      });
+    }
+  });
+
   // Create a slot hold with TTL
   app.post("/api/availability/hold", async (req, res) => {
     try {
