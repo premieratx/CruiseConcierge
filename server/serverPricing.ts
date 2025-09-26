@@ -269,7 +269,22 @@ export async function calculateServerPricing(request: ServerPricingRequest): Pro
       if (privateProducts.length > 0) {
         const product = privateProducts[0];
         baseRateCents = product.unitPrice; // Hourly rate in cents
-        crewFeeHourlyCents = product.crewFeePerHour || 0; // Crew fee per hour in cents
+        
+        // CRITICAL FIX: Apply crew fees based on group size and boat
+        // Groups 26-30 on Me Seek or The Irony: $50/hr crew fee
+        // Groups 51-75 on Clever Girl: $100/hr crew fee
+        if (request.groupSize >= 26 && request.groupSize <= 30 && 
+            (boat.id === 'boat_me_seek' || boat.id === 'boat_the_irony')) {
+          crewFeeHourlyCents = 5000; // $50/hour crew fee
+          console.log(`💰 [CREW FEE] Applied $50/hr crew fee for group of ${request.groupSize} on ${boat.name}`);
+        } else if (request.groupSize >= 51 && request.groupSize <= 75 && 
+                   boat.id === 'boat_clever_girl') {
+          crewFeeHourlyCents = 10000; // $100/hour crew fee
+          console.log(`💰 [CREW FEE] Applied $100/hr crew fee for group of ${request.groupSize} on ${boat.name}`);
+        } else {
+          crewFeeHourlyCents = product.crewFeePerHour || 0; // Use product's crew fee if no special rule applies
+        }
+        
         productName = product.name;
         pricingSource = `products_table:${product.id}`;
         console.log(`💰 [PRIVATE PRICING] Using ${productName}: $${baseRateCents/100}/hr + $${crewFeeHourlyCents/100}/hr crew`);

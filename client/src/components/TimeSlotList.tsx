@@ -112,7 +112,7 @@ export const TimeSlotList = ({
       const basePrice = dayOfWeek === 6 ? 9500 : 8500; // Saturday premium
       
       return {
-        displayPrice: slot.price || basePrice,
+        displayPrice: slot.totalPrice || slot.price || basePrice,
         dayType: dayOfWeek === 6 ? 'Saturday' : dayOfWeek === 5 ? 'Friday' : dayOfWeek === 0 ? 'Sunday' : 'Weekday',
         packages: [
           { name: 'Basic', price: basePrice, description: 'Dance floor + cash bar' },
@@ -140,7 +140,7 @@ export const TimeSlotList = ({
         };
         
         return {
-          displayPrice: slot.price || standardPricing.totalPrice,
+          displayPrice: slot.totalPrice || slot.price || standardPricing.totalPrice,
           dayType: dayNames[dayType] || dayType,
           packages: [
             { name: 'Standard', price: standardPricing.totalPrice, description: 'Base charter package' },
@@ -153,7 +153,7 @@ export const TimeSlotList = ({
       } catch (error) {
         console.warn('Error calculating enhanced pricing:', error);
         return {
-          displayPrice: slot.price || 0,
+          displayPrice: slot.totalPrice || slot.price || 0,
           dayType: 'Unknown',
           packages: [],
           perPersonEstimate: 0

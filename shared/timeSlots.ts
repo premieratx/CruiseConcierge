@@ -149,11 +149,12 @@ export const isInDiscoSeason = (date: Date): boolean => {
 /**
  * Get available disco cruise time slots for a given date
  * 
- * UPDATED RULES:
- * - Available year-round (no seasonal restriction)
- * - Friday-Saturday: Same slots as private cruises (10am-2pm, 2pm-6pm, 6pm-10pm)
+ * CRITICAL - EXACT TIMES FROM GOOGLE SHEETS:
+ * - FRIDAY: 12:00pm-4:00pm (ONLY ONE SLOT)
+ * - SATURDAY: 11:00am-3:00pm AND 3:30pm-7:30pm (TWO SLOTS)
  * - Sunday: NO DISCO CRUISES (private cruises only on Sundays)
  * - Monday-Thursday: NO DISCO CRUISES
+ * - Disco cruises are ONLY for bachelor/bachelorette parties
  */
 export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
   // Check if date is within disco season (now year-round)
@@ -163,77 +164,44 @@ export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
   
   const dayOfWeek = date.getDay();
   
-  if (dayOfWeek === 5) { // Friday
+  if (dayOfWeek === 5) { // Friday - ONLY ONE SLOT: 12pm-4pm
     return [
       { 
-        id: 'disco-fri-10am-2pm', 
-        label: '10:00 AM - 2:00 PM', 
-        startTime: '10:00', 
-        endTime: '14:00', 
+        id: 'disco-fri-12pm-4pm', 
+        label: '12:00 PM - 4:00 PM', 
+        startTime: '12:00', 
+        endTime: '16:00', 
         duration: 4, 
         icon: '🎉', 
-        description: 'Friday morning disco cruise',
+        description: 'Friday ATX Disco Cruise (Bachelor/Bachelorette Parties)',
         ticketPrice: 85,
         maxCapacity: 100
-      },
-      { 
-        id: 'disco-fri-2pm-6pm', 
-        label: '2:00 PM - 6:00 PM', 
-        startTime: '14:00', 
-        endTime: '18:00', 
-        duration: 4, 
-        icon: '🎉', 
-        description: 'Friday afternoon disco cruise',
-        ticketPrice: 85,
-        maxCapacity: 100
-      },
-      { 
-        id: 'disco-fri-6pm-10pm', 
-        label: '6:00 PM - 10:00 PM', 
-        startTime: '18:00', 
-        endTime: '22:00', 
-        duration: 4, 
-        icon: '🎉', 
-        description: 'Friday evening disco cruise',
-        ticketPrice: 85,
-        maxCapacity: 100
-      },
+      }
     ];
-  } else if (dayOfWeek === 6) { // Saturday
+  } else if (dayOfWeek === 6) { // Saturday - TWO SLOTS: 11am-3pm and 3:30pm-7:30pm
     return [
       { 
-        id: 'disco-sat-10am-2pm', 
-        label: '10:00 AM - 2:00 PM', 
-        startTime: '10:00', 
-        endTime: '14:00', 
+        id: 'disco-sat-11am-3pm', 
+        label: '11:00 AM - 3:00 PM', 
+        startTime: '11:00', 
+        endTime: '15:00', 
         duration: 4, 
         icon: '🎉', 
-        description: 'Saturday morning disco cruise',
+        description: 'Saturday Morning ATX Disco Cruise (Bachelor/Bachelorette Parties)',
         ticketPrice: 95,
         maxCapacity: 100
       },
       { 
-        id: 'disco-sat-2pm-6pm', 
-        label: '2:00 PM - 6:00 PM', 
-        startTime: '14:00', 
-        endTime: '18:00', 
+        id: 'disco-sat-330pm-730pm', 
+        label: '3:30 PM - 7:30 PM', 
+        startTime: '15:30', 
+        endTime: '19:30', 
         duration: 4, 
         icon: '🎉', 
-        description: 'Saturday afternoon disco cruise',
+        description: 'Saturday Afternoon ATX Disco Cruise (Bachelor/Bachelorette Parties)',
         ticketPrice: 95,
         maxCapacity: 100
-      },
-      { 
-        id: 'disco-sat-6pm-10pm', 
-        label: '6:00 PM - 10:00 PM', 
-        startTime: '18:00', 
-        endTime: '22:00', 
-        duration: 4, 
-        icon: '🎉', 
-        description: 'Saturday evening disco cruise',
-        ticketPrice: 105,
-        maxCapacity: 100
-      },
+      }
     ];
   } else if (dayOfWeek === 0) { // Sunday - NO disco cruises (private only)
     return [];
@@ -244,9 +212,11 @@ export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
 
 /**
  * Check if disco cruises are available for a given date
- * UPDATED RULES: 
+ * CRITICAL RULES FROM GOOGLE SHEETS: 
  * - Available year-round (no seasonal restriction)
  * - Friday and Saturday ONLY (NO Sunday disco)
+ * - Friday: 12pm-4pm (ONE slot only)
+ * - Saturday: 11am-3pm AND 3:30pm-7:30pm (TWO slots)
  */
 export const isDiscoAvailableForDate = (date: Date): boolean => {
   // First check if date is within disco season (now year-round)
