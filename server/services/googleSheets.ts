@@ -405,6 +405,120 @@ export class GoogleSheetsService {
     return slot ? slot.baseRate : 0;
   }
 
+  // New method to read pricing and availability from the first tab
+  async getPricingAndAvailability(): Promise<any> {
+    try {
+      if (!this.sheets || !this.spreadsheetId) {
+        console.warn("Google Sheets API not properly initialized");
+        return {
+          success: false,
+          error: "Google Sheets API not initialized",
+          data: null
+        };
+      }
+
+      console.log(`📊 Reading pricing & availability from spreadsheet: ${this.spreadsheetId}`);
+      
+      // First, get the spreadsheet metadata to find the first sheet's name
+      const spreadsheet = await this.sheets.spreadsheets.get({
+        spreadsheetId: this.spreadsheetId
+      });
+      
+      const sheets = spreadsheet.data.sheets || [];
+      if (sheets.length === 0) {
+        console.error("No sheets found in spreadsheet");
+        return {
+          success: false,
+          error: "No sheets found in spreadsheet",
+          data: null
+        };
+      }
+      
+      // Get the first sheet (tab 1)
+      const firstSheet = sheets[0];
+      const sheetName = firstSheet.properties?.title || 'Sheet1';
+      console.log(`📄 Reading from first tab: "${sheetName}"`);
+      
+      // Read all data from the first tab
+      const range = `${sheetName}!A:Z`; // Read all columns A through Z
+      const response = await this.sheets.spreadsheets.values.get({
+        spreadsheetId: this.spreadsheetId,
+        range: range,
+      });
+      
+      const values = response.data.values || [];
+      
+      if (values.length === 0) {
+        console.warn("No data found in the first tab");
+        return {
+          success: true,
+          sheetName: sheetName,
+          data: [],
+          message: "Sheet is empty"
+        };
+      }
+      
+      // Process the data - assume first row is headers
+      const headers = values[0];
+      const rows = values.slice(1);
+      
+      // Convert to JSON format with headers as keys
+      const jsonData = rows.map((row, index) => {
+        const obj: any = {
+          rowNumber: index + 2 // +2 because arrays are 0-indexed and we skip header row
+        };
+        headers.forEach((header, colIndex) => {
+          obj[header] = row[colIndex] || '';
+        });
+        return obj;
+      });
+      
+      console.log(`✅ Successfully read ${jsonData.length} rows from "${sheetName}"`);
+      
+      // Log some sample data for 14-person cruises
+      const fourteenPersonData = jsonData.filter(row => {
+        // Check various possible column names for group size/capacity
+        // The user has entered "14 or Less" in the spreadsheet
+        const peopleField = row['# of People'] || row['Capacity'] || row['People'] || row['Size'] || '';
+        return peopleField === '14' || 
+               peopleField === '14 or Less' ||
+               peopleField === '14 people' ||
+               peopleField.includes('14') ||
+               row['capacity'] === '14' ||
+               row['Group Size'] === '14' ||
+               row['group_size'] === '14' ||
+               row['Max Capacity'] === '14' ||
+               row['Max People'] === '14' ||
+               (row['Boat'] && row['Boat'].toLowerCase().includes('day tripper')) ||
+               (row['Boat Type'] && row['Boat Type'].toLowerCase().includes('day tripper')) ||
+               (row['Boat Name'] && row['Boat Name'].toLowerCase().includes('day tripper'));
+      });
+      
+      if (fourteenPersonData.length > 0) {
+        console.log(`🚢 Found ${fourteenPersonData.length} entries for 14-person cruises:`);
+        console.log(JSON.stringify(fourteenPersonData.slice(0, 3), null, 2)); // Log first 3 entries
+      }
+      
+      return {
+        success: true,
+        spreadsheetId: this.spreadsheetId,
+        sheetName: sheetName,
+        headers: headers,
+        rowCount: jsonData.length,
+        data: jsonData,
+        fourteenPersonCruises: fourteenPersonData // Include filtered data for 14-person cruises
+      };
+      
+    } catch (error: any) {
+      console.error("Error reading pricing & availability from Google Sheets:", error);
+      return {
+        success: false,
+        error: error.message || "Failed to read data from Google Sheets",
+        data: null
+      };
+    }
+  }
+
   // New method to populate the spreadsheet with 3 months of availability data
   async populateSpreadsheet(): Promise<boolean> {
     try {

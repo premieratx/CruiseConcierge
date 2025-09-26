@@ -5572,6 +5572,55 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // Read pricing and availability data from the first tab of Google Sheets
+  app.get("/api/google-sheets/pricing-availability", async (req, res) => {
+    try {
+      console.log("📊 Fetching pricing & availability data from Google Sheets...");
+      
+      // Get Google Sheets service
+      const googleSheetsService = await getGoogleSheetsService();
+      
+      // Call the new method to get pricing and availability from first tab
+      const result = await googleSheetsService.getPricingAndAvailability();
+      
+      if (!result.success) {
+        console.error("❌ Failed to fetch pricing & availability:", result.error);
+        return res.status(500).json({ 
+          success: false,
+          error: result.error || "Failed to fetch data from Google Sheets" 
+        });
+      }
+      
+      console.log(`✅ Successfully fetched pricing & availability data:`, {
+        sheetName: result.sheetName,
+        rowCount: result.rowCount,
+        headers: result.headers,
+        fourteenPersonCruiseCount: result.fourteenPersonCruises?.length || 0
+      });
+      
+      // Return the data to the client
+      res.json({
+        success: true,
+        message: "Pricing & availability data from first tab of Google Sheets",
+        spreadsheetId: result.spreadsheetId || process.env.SHEET_ID,
+        sheetName: result.sheetName,
+        headers: result.headers,
+        rowCount: result.rowCount,
+        data: result.data,
+        fourteenPersonCruises: result.fourteenPersonCruises,
+        timestamp: new Date().toISOString()
+      });
+      
+    } catch (error: any) {
+      console.error("❌ Error fetching pricing & availability from Google Sheets:", error);
+      res.status(500).json({ 
+        success: false,
+        error: error.message || "Internal server error",
+        timestamp: new Date().toISOString()
+      });
+    }
+  });
+
   // Create a slot hold with TTL
   app.post("/api/availability/hold", async (req, res) => {
     try {
