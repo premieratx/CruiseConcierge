@@ -2198,6 +2198,47 @@ function getTimeAgo(date: Date): string {
 export async function registerRoutes(app: Express): Promise<Server> {
   
   // ==========================================
+  // PRICING VERIFICATION ENDPOINTS
+  // ==========================================
+  
+  // Verify pricing against Google Sheets - CRITICAL for accuracy
+  app.post('/api/pricing/verify', async (req, res) => {
+    try {
+      const { verifyPricingRealtime } = await import('./verifyPricing');
+      const verification = await verifyPricingRealtime(req.body);
+      
+      res.json({
+        success: verification.isCorrect,
+        verification,
+        message: verification.isCorrect ? 'Pricing is correct' : 'Pricing discrepancies found'
+      });
+    } catch (error) {
+      console.error('Pricing verification error:', error);
+      res.status(500).json({ 
+        success: false, 
+        error: 'Failed to verify pricing',
+        message: (error as Error).message
+      });
+    }
+  });
+  
+  // Test all pricing scenarios
+  app.get('/api/pricing/test-scenarios', async (req, res) => {
+    try {
+      const { testPricingScenarios } = await import('./verifyPricing');
+      await testPricingScenarios();
+      res.json({ success: true, message: 'Test scenarios completed - check server logs' });
+    } catch (error) {
+      console.error('Test scenarios error:', error);
+      res.status(500).json({ 
+        success: false, 
+        error: 'Failed to run test scenarios',
+        message: (error as Error).message
+      });
+    }
+  });
+
+  // ==========================================
   // FRONTEND SPA ROUTES
   // ==========================================
   
@@ -5743,6 +5784,119 @@ export async function registerRoutes(app: Express): Promise<Server> {
         success: false, 
         error: "Failed to load sync handler",
         details: error instanceof Error ? error.message : String(error)
+      });
+    }
+  });
+  
+  // ==========================================
+  // COMPREHENSIVE GOOGLE SHEETS PRICING SYNC
+  // ==========================================
+  
+  // CRITICAL: Sync all pricing from Google Sheets - SINGLE SOURCE OF TRUTH
+  app.post("/api/sync/sheets", async (req, res) => {
+    try {
+      console.log("🔄 [SYNC] Starting comprehensive Google Sheets pricing sync...");
+      
+      // Import the sync service
+      const { googleSheetsPricingSync } = await import('./services/googleSheetsPricingSync');
+      
+      // Run the full sync - clears and rebuilds products table
+      const result = await googleSheetsPricingSync.syncProductsTable();
+      
+      console.log(`✅ [SYNC] Sync complete: ${result.message}`);
+      
+      // Broadcast cache invalidation to all connected clients
+      broadcastRealtimeEvent({
+        type: 'pricing_sync',
+        timestamp: new Date().toISOString(),
+        data: {
+          deleted: result.stats.deleted,
+          created: result.stats.created,
+          errors: result.stats.errors
+        }
+      });
+      
+      res.json({
+        success: result.success,
+        message: result.message,
+        stats: result.stats,
+        timestamp: new Date().toISOString()
+      });
+      
+    } catch (error: any) {
+      console.error("❌ [SYNC] Failed to sync pricing from Google Sheets:", error);
+      res.status(500).json({
+        error: "Failed to sync pricing from Google Sheets",
+        details: error.message,
+        stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+      });
+    }
+  });
+  
+  // Validate current pricing against Google Sheets
+  app.post("/api/sync/validate-pricing", async (req, res) => {
+    try {
+      const { boatId, dayType, groupSize } = req.body;
+      
+      if (!boatId || !dayType || !groupSize) {
+        return res.status(400).json({
+          error: "Missing required fields: boatId, dayType, groupSize"
+        });
+      }
+      
+      console.log(`🔍 [VALIDATE] Checking pricing for ${boatId} on ${dayType} for ${groupSize} people`);
+      
+      // Import the sync service
+      const { googleSheetsPricingSync } = await import('./services/googleSheetsPricingSync');
+      
+      // Validate pricing
+      const validation = await googleSheetsPricingSync.validatePricingWithSheets(
+        boatId, 
+        dayType, 
+        groupSize
+      );
+      
+      if (!validation.isValid) {
+        console.warn(`⚠️ [VALIDATE] Pricing discrepancy detected: ${validation.discrepancyMessage}`);
+      } else {
+        console.log(`✅ [VALIDATE] Pricing is valid and matches Google Sheets`);
+      }
+      
+      res.json(validation);
+      
+    } catch (error: any) {
+      console.error("❌ [VALIDATE] Failed to validate pricing:", error);
+      res.status(500).json({
+        error: "Failed to validate pricing",
+        details: error.message
+      });
+    }
+  });
+  
+  // Get current pricing from Google Sheets (read-only, no database update)
+  app.get("/api/sync/current-pricing", async (req, res) => {
+    try {
+      console.log("📊 [PRICING] Fetching current pricing from Google Sheets...");
+      
+      // Import the sync service
+      const { googleSheetsPricingSync } = await import('./services/googleSheetsPricingSync');
+      
+      // Fetch pricing without syncing
+      const pricingData = await googleSheetsPricingSync.fetchPricingFromSheets();
+      
+      console.log(`✅ [PRICING] Fetched ${pricingData.boatPricing.length} boat prices from sheets`);
+      
+      res.json({
+        success: true,
+        data: pricingData,
+        timestamp: new Date().toISOString()
+      });
+      
+    } catch (error: any) {
+      console.error("❌ [PRICING] Failed to fetch pricing from sheets:", error);
+      res.status(500).json({
+        error: "Failed to fetch pricing from Google Sheets",
+        details: error.message
       });
     }
   });
