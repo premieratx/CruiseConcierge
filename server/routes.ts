@@ -5531,6 +5531,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
         filters.maxDuration = filters.duration;
       }
       
+      // Get storage instance
+      const storage = await getStorage();
+      
       // Search normalized slots using the unified availability service
       const slots = await storage.searchNormalizedSlots(filters);
       

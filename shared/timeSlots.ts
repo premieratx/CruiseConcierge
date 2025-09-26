@@ -22,12 +22,9 @@ export interface DiscoTimeSlot extends TimeSlot {
 /**
  * Get available private cruise time slots for a given date
  * 
- * PERMANENT BUSINESS RULES - DO NOT CHANGE:
- * - Monday-Thursday: 3-hour AND 4-hour options (user chooses duration first)
- * - Friday: 4-hour blocks ONLY (12:00 PM - 4:00 PM and 4:30 PM - 8:30 PM) ✅ PERMANENT
- * - Saturday: 4-hour blocks ONLY (11:00 AM - 3:00 PM and 3:30 PM - 7:30 PM) ✅ PERMANENT
- * - Sunday: 4-hour blocks ONLY (11:00 AM - 3:00 PM and 3:30 PM - 7:30 PM) ✅ PERMANENT
- *   SUNDAY PRIVATE CRUISES ARE AVAILABLE FOR ALL BOATS
+ * UPDATED BUSINESS RULES:
+ * - Monday-Thursday: 10am-1pm, 10am-2pm, 2pm-5pm, 2pm-6pm, 6pm-9pm, 6pm-10pm (3 and 4-hour options)
+ * - Friday-Sunday: 10am-2pm, 2pm-6pm, 6pm-10pm (4-hour only)
  */
 export const getPrivateTimeSlotsForDate = (date: Date, duration?: 3 | 4): TimeSlot[] => {
   const dayOfWeek = date.getDay();
@@ -43,24 +40,21 @@ export const getPrivateTimeSlotsForDate = (date: Date, duration?: 3 | 4): TimeSl
     const formatLabel = (h: number, m: number): string => {
       const period = h >= 12 ? 'PM' : 'AM';
       const displayHour = h > 12 ? h - 12 : (h === 0 ? 12 : h);
-      const minuteStr = m === 0 ? '00' : '30';
+      const minuteStr = m === 0 ? '00' : m.toString();
       return `${displayHour}:${minuteStr} ${period}`;
     };
     
     const getTimeIcon = (startHour: number): string => {
-      if (startHour >= 17) return '🌙';
-      if (startHour >= 15) return '🌆';
-      if (startHour >= 12) return '☀️';
-      if (startHour >= 11) return '🌞';
+      if (startHour >= 18) return '🌙';
+      if (startHour >= 14) return '🌆';
+      if (startHour >= 10) return '☀️';
       return '🌅';
     };
     
     const getTimeDescription = (startHour: number, duration: number): string => {
       let timeOfDay = 'Morning';
-      if (startHour >= 17) timeOfDay = 'Evening';
-      else if (startHour >= 15) timeOfDay = 'Late afternoon';
-      else if (startHour >= 12) timeOfDay = 'Afternoon';
-      else if (startHour >= 11) timeOfDay = 'Late morning';
+      if (startHour >= 18) timeOfDay = 'Evening';
+      else if (startHour >= 14) timeOfDay = 'Afternoon';
       
       return `${timeOfDay} cruise (${duration} hours)`;
     };
@@ -68,42 +62,38 @@ export const getPrivateTimeSlotsForDate = (date: Date, duration?: 3 | 4): TimeSl
     // If duration is specified, only return slots for that duration
     const durationsToGenerate = duration ? [duration] : [3, 4];
     
-    for (const slotDuration of durationsToGenerate) {
-      // Generate slots for this duration
-      // 3-hour slots: 10:00 AM to 5:30 PM (last slot ends at 8:30 PM)
-      // 4-hour slots: 10:00 AM to 4:30 PM (last slot ends at 8:30 PM)
-      const maxStartHour = slotDuration === 3 ? 17 : 16;
-      const maxStartMinute = slotDuration === 3 ? 30 : 30;
+    // Fixed time slots for Mon-Thu based on requirements
+    const weekdaySlots: { start: string; end: string; duration: number }[] = [
+      { start: '10:00', end: '13:00', duration: 3 },  // 10am-1pm (3 hours)
+      { start: '10:00', end: '14:00', duration: 4 },  // 10am-2pm (4 hours)
+      { start: '14:00', end: '17:00', duration: 3 },  // 2pm-5pm (3 hours)
+      { start: '14:00', end: '18:00', duration: 4 },  // 2pm-6pm (4 hours)
+      { start: '18:00', end: '21:00', duration: 3 },  // 6pm-9pm (3 hours)
+      { start: '18:00', end: '22:00', duration: 4 },  // 6pm-10pm (4 hours)
+    ];
+    
+    for (const slot of weekdaySlots) {
+      // Filter by duration if specified
+      if (!durationsToGenerate.includes(slot.duration)) continue;
       
-      for (let hour = 10; hour <= maxStartHour; hour++) {
-        for (let minute = 0; minute < 60; minute += 30) {
-          // Skip if it would go past max start time
-          if (hour === maxStartHour && minute > maxStartMinute) break;
-          
-          const startHour = hour;
-          const startMinute = minute;
-          const endHour = hour + slotDuration;
-          const endMinute = minute;
-          
-          const startTimeStr = formatTime(startHour, startMinute);
-          const endTimeStr = formatTime(endHour, endMinute);
-          const startLabel = formatLabel(startHour, startMinute);
-          const endLabel = formatLabel(endHour, endMinute);
-          
-          const slotId = `${startTimeStr.replace(':', '')}-${endTimeStr.replace(':', '')}-${slotDuration}h`;
-          
-          allSlots.push({
-            id: slotId,
-            label: `${startLabel} - ${endLabel}`,
-            startTime: startTimeStr,
-            endTime: endTimeStr,
-            duration: slotDuration,
-            icon: getTimeIcon(startHour),
-            description: getTimeDescription(startHour, slotDuration),
-            popular: slotDuration === 4 && startHour >= 12 && startHour <= 15 // Mark 4-hour afternoon slots as popular
-          });
-        }
-      }
+      const [startHour, startMinute] = slot.start.split(':').map(Number);
+      const [endHour, endMinute] = slot.end.split(':').map(Number);
+      
+      const startLabel = formatLabel(startHour, startMinute);
+      const endLabel = formatLabel(endHour, endMinute);
+      
+      const slotId = `${slot.start.replace(':', '')}-${slot.end.replace(':', '')}-${slot.duration}h`;
+      
+      allSlots.push({
+        id: slotId,
+        label: `${startLabel} - ${endLabel}`,
+        startTime: slot.start,
+        endTime: slot.end,
+        duration: slot.duration,
+        icon: getTimeIcon(startHour),
+        description: getTimeDescription(startHour, slot.duration),
+        popular: slot.duration === 4 && startHour >= 10 && startHour <= 14 // Mark 4-hour morning/afternoon slots as popular
+      });
     }
     
     // Sort by start time, then by duration (3-hour slots first for same time)
@@ -113,86 +103,73 @@ export const getPrivateTimeSlotsForDate = (date: Date, duration?: 3 | 4): TimeSl
       if (timeA !== timeB) return timeA.localeCompare(timeB);
       return a.duration - b.duration;
     });
-  } else if (dayOfWeek === 5) { // Friday - ✅ PERMANENT RULES: 12-4 PM and 4:30-8:30 PM ONLY
+  } else { // Friday, Saturday, Sunday - 4-hour slots only: 10am-2pm, 2pm-6pm, 6pm-10pm
     return [
-      { id: '12pm-4pm', label: '12:00 PM - 4:00 PM', startTime: '12:00', endTime: '16:00', duration: 4, icon: '☀️', description: 'Friday afternoon cruise', popular: true },
-      { id: '4:30pm-8:30pm', label: '4:30 PM - 8:30 PM', startTime: '16:30', endTime: '20:30', duration: 4, icon: '🌙', description: 'Friday evening cruise' },
-    ];
-  } else { // Saturday/Sunday - ✅ PERMANENT RULES: 11-3 PM and 3:30-7:30 PM ONLY
-    // SUNDAY: PRIVATE CRUISES ONLY (no disco) - Available for ALL boats
-    // SATURDAY: Both private and disco cruises available
-    return [
-      { id: '11am-3pm', label: '11:00 AM - 3:00 PM', startTime: '11:00', endTime: '15:00', duration: 4, icon: '☀️', description: 'Weekend afternoon cruise' },
-      { id: '3:30pm-7:30pm', label: '3:30 PM - 7:30 PM', startTime: '15:30', endTime: '19:30', duration: 4, icon: '🌆', description: 'Weekend evening cruise' },
+      { id: '10am-2pm', label: '10:00 AM - 2:00 PM', startTime: '10:00', endTime: '14:00', duration: 4, icon: '☀️', description: 'Weekend morning cruise', popular: true },
+      { id: '2pm-6pm', label: '2:00 PM - 6:00 PM', startTime: '14:00', endTime: '18:00', duration: 4, icon: '🌆', description: 'Weekend afternoon cruise' },
+      { id: '6pm-10pm', label: '6:00 PM - 10:00 PM', startTime: '18:00', endTime: '22:00', duration: 4, icon: '🌙', description: 'Weekend evening cruise' },
     ];
   }
 };
 
 /**
  * Helper function to check if a date is within disco cruise season
- * Season runs from March 1st through the last Saturday of October
+ * UPDATED: Disco cruises are now available year-round
  */
 export const isInDiscoSeason = (date: Date): boolean => {
-  const year = date.getFullYear();
-  const month = date.getMonth(); // 0-indexed (0 = January)
-  const dayOfMonth = date.getDate();
-  
-  // Check if between March 1 and October 31
-  if (month < 2 || month > 9) { // Before March (2) or after October (9)
-    return false;
-  }
-  
-  if (month >= 2 && month < 9) { // March through September
-    return true;
-  }
-  
-  // Special handling for October - must be on or before the last Saturday
-  if (month === 9) { // October
-    // Find the last Saturday of October
-    const lastDayOfOctober = new Date(year, 9, 31);
-    let lastSaturday = lastDayOfOctober;
-    
-    // Work backwards from October 31 to find the last Saturday
-    while (lastSaturday.getDay() !== 6) { // 6 = Saturday
-      lastSaturday = new Date(lastSaturday);
-      lastSaturday.setDate(lastSaturday.getDate() - 1);
-    }
-    
-    // Check if current date is on or before the last Saturday
-    return date <= lastSaturday;
-  }
-  
-  return false;
+  // Disco cruises are now available year-round
+  return true;
 };
 
 /**
  * Get available disco cruise time slots for a given date
  * 
- * ✅ PERMANENT RULES - DO NOT CHANGE:
- * - SEASONAL: Only available March 1st through last Saturday of October
- * - Friday: ONLY ONE SLOT 12:00 PM - 4:00 PM (bachelor/bachelorette only) - NO EVENING DISCO
- * - Saturday: 11:00 AM - 3:00 PM and 3:30 PM - 7:30 PM (both slots available)
- * - Sunday: NO DISCO CRUISES EVER (private cruises only on Sundays)
+ * UPDATED RULES:
+ * - Available year-round (no seasonal restriction)
+ * - Friday-Saturday: Same slots as private cruises (10am-2pm, 2pm-6pm, 6pm-10pm)
+ * - Sunday: NO DISCO CRUISES (private cruises only on Sundays)
  * - Monday-Thursday: NO DISCO CRUISES
  */
 export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
-  // Check if date is within disco season
+  // Check if date is within disco season (now year-round)
   if (!isInDiscoSeason(date)) {
     return [];
   }
   
   const dayOfWeek = date.getDay();
   
-  if (dayOfWeek === 5) { // Friday - ✅ PERMANENT: ONLY 12-4 PM disco cruise (NO EVENING DISCO)
+  if (dayOfWeek === 5) { // Friday
     return [
       { 
-        id: 'disco-fri-12pm-4pm', 
-        label: '12:00 PM - 4:00 PM', 
-        startTime: '12:00', 
-        endTime: '16:00', 
+        id: 'disco-fri-10am-2pm', 
+        label: '10:00 AM - 2:00 PM', 
+        startTime: '10:00', 
+        endTime: '14:00', 
         duration: 4, 
         icon: '🎉', 
-        description: 'Friday afternoon disco cruise (bachelor/bachelorette only)',
+        description: 'Friday morning disco cruise',
+        ticketPrice: 85,
+        maxCapacity: 100
+      },
+      { 
+        id: 'disco-fri-2pm-6pm', 
+        label: '2:00 PM - 6:00 PM', 
+        startTime: '14:00', 
+        endTime: '18:00', 
+        duration: 4, 
+        icon: '🎉', 
+        description: 'Friday afternoon disco cruise',
+        ticketPrice: 85,
+        maxCapacity: 100
+      },
+      { 
+        id: 'disco-fri-6pm-10pm', 
+        label: '6:00 PM - 10:00 PM', 
+        startTime: '18:00', 
+        endTime: '22:00', 
+        duration: 4, 
+        icon: '🎉', 
+        description: 'Friday evening disco cruise',
         ticketPrice: 85,
         maxCapacity: 100
       },
@@ -200,10 +177,21 @@ export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
   } else if (dayOfWeek === 6) { // Saturday
     return [
       { 
-        id: 'disco-sat-11am-3pm', 
-        label: '11:00 AM - 3:00 PM', 
-        startTime: '11:00', 
-        endTime: '15:00', 
+        id: 'disco-sat-10am-2pm', 
+        label: '10:00 AM - 2:00 PM', 
+        startTime: '10:00', 
+        endTime: '14:00', 
+        duration: 4, 
+        icon: '🎉', 
+        description: 'Saturday morning disco cruise',
+        ticketPrice: 95,
+        maxCapacity: 100
+      },
+      { 
+        id: 'disco-sat-2pm-6pm', 
+        label: '2:00 PM - 6:00 PM', 
+        startTime: '14:00', 
+        endTime: '18:00', 
         duration: 4, 
         icon: '🎉', 
         description: 'Saturday afternoon disco cruise',
@@ -211,10 +199,10 @@ export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
         maxCapacity: 100
       },
       { 
-        id: 'disco-sat-3:30pm-7:30pm', 
-        label: '3:30 PM - 7:30 PM', 
-        startTime: '15:30', 
-        endTime: '19:30', 
+        id: 'disco-sat-6pm-10pm', 
+        label: '6:00 PM - 10:00 PM', 
+        startTime: '18:00', 
+        endTime: '22:00', 
         duration: 4, 
         icon: '🎉', 
         description: 'Saturday evening disco cruise',
@@ -222,7 +210,7 @@ export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
         maxCapacity: 100
       },
     ];
-  } else if (dayOfWeek === 0) { // Sunday - ✅ PERMANENT: NO disco cruises EVER (private only)
+  } else if (dayOfWeek === 0) { // Sunday - NO disco cruises (private only)
     return [];
   } else {
     return [];
@@ -231,18 +219,18 @@ export const getDiscoTimeSlotsForDate = (date: Date): DiscoTimeSlot[] => {
 
 /**
  * Check if disco cruises are available for a given date
- * ✅ PERMANENT RULES: 
- * - SEASONAL: Only available March 1st through last Saturday of October
- * - Friday and Saturday ONLY (NO Sunday disco EVER)
+ * UPDATED RULES: 
+ * - Available year-round (no seasonal restriction)
+ * - Friday and Saturday ONLY (NO Sunday disco)
  */
 export const isDiscoAvailableForDate = (date: Date): boolean => {
-  // First check if date is within disco season
+  // First check if date is within disco season (now year-round)
   if (!isInDiscoSeason(date)) {
     return false;
   }
   
   const dayOfWeek = date.getDay();
-  return dayOfWeek === 5 || dayOfWeek === 6; // Friday and Saturday only (✅ NEVER on Sunday)
+  return dayOfWeek === 5 || dayOfWeek === 6; // Friday and Saturday only (NEVER on Sunday)
 };
 
 /**
