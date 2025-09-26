@@ -62,29 +62,12 @@ export async function sendQuoteEmail(
               `${quoteDetails.selectedSlot.startTime} - ${quoteDetails.selectedSlot.endTime}` : 
               'TBD'))}</p>` : ''}
         
-        <!-- Option A: Private Cruise -->
-        <div style="border: 2px solid #3b82f6; border-radius: 8px; padding: 15px; margin: 15px 0; background: #eff6ff;">
-          <h4 style="color: #1d4ed8; margin: 0 0 10px 0;">🚢 Option A: Private Cruise Experience</h4>
-          <p style="margin: 5px 0; color: #374151;"><em>Your own private boat with captain</em></p>
-          
-          ${(quoteDetails.optionA?.packages || []).map((pkg: any) => `
-            <div style="margin: 8px 0; padding: 8px; background: white; border-radius: 4px;">
-              <strong>${pkg.name}</strong> - $${(pkg.total / 100).toFixed(2)}
-              <div style="font-size: 12px; color: #6b7280;">${pkg.description}</div>
-            </div>
-          `).join('')}
-          
-          <p style="margin: 10px 0 5px 0; font-weight: bold; color: #1d4ed8;">
-            Private Cruise Options: From $${quoteDetails.optionA?.packages?.[0] ? (quoteDetails.optionA.packages[0].total / 100).toFixed(2) : '1,200'}
-          </p>
-        </div>
-        
-        <!-- Option B: Disco Cruise -->
+        <!-- Option A: Disco Cruise (LEFT) -->
         <div style="border: 2px solid #9333ea; border-radius: 8px; padding: 15px; margin: 15px 0; background: #faf5ff;">
-          <h4 style="color: #7c3aed; margin: 0 0 10px 0;">🎵 Option B: ATX Disco Cruise Experience</h4>
+          <h4 style="color: #7c3aed; margin: 0 0 10px 0;">🎵 Option A: ATX Disco Cruise Experience</h4>
           <p style="margin: 5px 0; color: #374151;"><em>Join our signature party cruise</em></p>
           
-          ${(quoteDetails.optionB?.packages || []).map((pkg: any) => `
+          ${(quoteDetails.optionA?.packages || []).map((pkg: any) => `
             <div style="margin: 8px 0; padding: 8px; background: white; border-radius: 4px;">
               <strong>${pkg.name}</strong> - $${((pkg.pricePerPerson || 8500) / 100).toFixed(2)}/person
               <div style="font-size: 12px; color: #6b7280;">4-hour disco cruise with DJ and dancing</div>
@@ -92,7 +75,24 @@ export async function sendQuoteEmail(
           `).join('')}
           
           <p style="margin: 10px 0 5px 0; font-weight: bold; color: #7c3aed;">
-            Disco Cruise Options: From $${quoteDetails.optionB?.packages?.[0] ? ((quoteDetails.optionB.packages[0].pricePerPerson || 8500) / 100).toFixed(2) : '85'} per person
+            Disco Cruise Options: From $${quoteDetails.optionA?.packages?.[0] ? ((quoteDetails.optionA.packages[0].pricePerPerson || 8500) / 100).toFixed(2) : '85'} per person
+          </p>
+        </div>
+        
+        <!-- Option B: Private Charter (RIGHT) -->
+        <div style="border: 2px solid #3b82f6; border-radius: 8px; padding: 15px; margin: 15px 0; background: #eff6ff;">
+          <h4 style="color: #1d4ed8; margin: 0 0 10px 0;">🚢 Option B: Private Cruise Experience</h4>
+          <p style="margin: 5px 0; color: #374151;"><em>Your own private boat with captain</em></p>
+          
+          ${(quoteDetails.optionB?.packages || []).map((pkg: any) => `
+            <div style="margin: 8px 0; padding: 8px; background: white; border-radius: 4px;">
+              <strong>${pkg.name}</strong> - $${(pkg.total / 100).toFixed(2)}
+              <div style="font-size: 12px; color: #6b7280;">${pkg.description}</div>
+            </div>
+          `).join('')}
+          
+          <p style="margin: 10px 0 5px 0; font-weight: bold; color: #1d4ed8;">
+            Private Cruise Options: From $${quoteDetails.optionB?.packages?.[0] ? (quoteDetails.optionB.packages[0].total / 100).toFixed(2) : '1,200'}
           </p>
         </div>
         

@@ -446,8 +446,28 @@ export class ComprehensiveLeadService {
           };
 
           // CRITICAL FIX: Structure data for bachelor/bachelorette parties with optionA and optionB
+          // IMPORTANT: optionA = Disco Cruise (LEFT), optionB = Private Charter (RIGHT) to match UI
           if (isBachelorBachelorette) {
-            // Option A: Private Charter (using selected boat and slot info)
+            // Option A: Disco Cruise (LEFT option in UI)
+            const discoPackage = quote.selectionDetails?.discoPackage || leadData.selectedOptions?.discoPackage;
+            const ticketQuantity = quote.selectionDetails?.ticketQuantity || 
+                                 leadData.selectedOptions?.ticketQuantity || 
+                                 leadData.groupSize || 
+                                 1;
+            
+            // Disco cruise pricing (default $85 per person)
+            const discoPerPersonPrice = discoPackage?.pricePerPerson || 8500; // $85 in cents
+            
+            quoteDetails.optionA = {
+              packages: [{
+                name: discoPackage?.name || 'ATX Disco Cruise Package',
+                pricePerPerson: discoPerPersonPrice,
+                description: '4-hour party cruise with DJ, dancing, and full bar',
+                ticketQuantity: ticketQuantity
+              }]
+            };
+
+            // Option B: Private Charter (RIGHT option in UI)
             const boatName = quote.selectionDetails?.selectedBoat || leadData.selectedOptions?.selectedBoat || 'Premium Boat';
             const duration = quote.selectionDetails?.selectedDuration || leadData.selectedOptions?.selectedDuration || 4;
             const timeSlot = quote.selectionDetails?.selectedSlot || leadData.selectedOptions?.selectedSlot;
@@ -459,7 +479,7 @@ export class ComprehensiveLeadService {
             // Calculate private charter price (use total from quote or estimate)
             const privateCharterTotal = quote.total || leadData.pricing?.total || 120000; // Default $1200 if no price
             
-            quoteDetails.optionA = {
+            quoteDetails.optionB = {
               packages: [{
                 name: `${boatName} - Private Charter`,
                 total: privateCharterTotal,
@@ -467,30 +487,11 @@ export class ComprehensiveLeadService {
               }]
             };
 
-            // Option B: Disco Cruise (using disco package info)
-            const discoPackage = quote.selectionDetails?.discoPackage || leadData.selectedOptions?.discoPackage;
-            const ticketQuantity = quote.selectionDetails?.ticketQuantity || 
-                                 leadData.selectedOptions?.ticketQuantity || 
-                                 leadData.groupSize || 
-                                 1;
-            
-            // Disco cruise pricing (default $85 per person)
-            const discoPerPersonPrice = discoPackage?.pricePerPerson || 8500; // $85 in cents
-            
-            quoteDetails.optionB = {
-              packages: [{
-                name: discoPackage?.name || 'ATX Disco Cruise Package',
-                pricePerPerson: discoPerPersonPrice,
-                description: '4-hour party cruise with DJ, dancing, and full bar',
-                ticketQuantity: ticketQuantity
-              }]
-            };
-
             console.log('📧 Bachelor/Bachelorette email structure created:', {
               hasOptionA: !!quoteDetails.optionA,
               hasOptionB: !!quoteDetails.optionB,
-              optionATotal: privateCharterTotal,
-              optionBPerPerson: discoPerPersonPrice,
+              optionADiscoPerPerson: discoPerPersonPrice,
+              optionBPrivateTotal: privateCharterTotal,
               groupSize: quoteDetails.groupSize
             });
           }
