@@ -476,8 +476,17 @@ export class ComprehensiveLeadService {
                                   `${timeSlot.startTime} - ${timeSlot.endTime}` : 
                                   'Flexible timing');
             
-            // Calculate private charter price (use total from quote or estimate)
-            const privateCharterTotal = quote.total || leadData.pricing?.total || 120000; // Default $1200 if no price
+            // Calculate private charter price correctly from pricing details
+            // Use pricing subtotal (base + crew fees) or fallback to reasonable default
+            const privateCharterSubtotal = quote.pricingDetails?.subtotal || 
+                                          leadData.pricing?.subtotal || 
+                                          leadData.selectedOptions?.pricingDetails?.subtotal ||
+                                          160000; // Default $1600 for 4-hour charter with crew
+            
+            // Add tax and gratuity for display total
+            const tax = Math.floor(privateCharterSubtotal * 0.0825); // 8.25% tax
+            const gratuity = Math.floor(privateCharterSubtotal * 0.20); // 20% gratuity
+            const privateCharterTotal = privateCharterSubtotal + tax + gratuity;
             
             quoteDetails.optionB = {
               packages: [{
@@ -491,8 +500,12 @@ export class ComprehensiveLeadService {
               hasOptionA: !!quoteDetails.optionA,
               hasOptionB: !!quoteDetails.optionB,
               optionADiscoPerPerson: discoPerPersonPrice,
+              optionBPrivateSubtotal: privateCharterSubtotal,
               optionBPrivateTotal: privateCharterTotal,
-              groupSize: quoteDetails.groupSize
+              groupSize: quoteDetails.groupSize,
+              boatName: boatName,
+              duration: duration,
+              timeSlot: timeSlotLabel
             });
           }
 
