@@ -77,8 +77,7 @@ export default function AgentChat() {
     const checkAuthentication = async () => {
       try {
         // Test if the user has access to admin endpoints by making a simple authenticated request
-        const response = await apiRequest('GET', '/api/contacts?limit=1');
-        await response.json();
+        await apiRequest('GET', '/api/contacts?limit=1');
       } catch (error: any) {
         console.error('Authentication check failed:', error);
         if (error.status === 401 || error.status === 403) {
@@ -107,8 +106,7 @@ export default function AgentChat() {
   const { data: sessions = [], isLoading: sessionsLoading } = useQuery({
     queryKey: ['/api/agent/chat/sessions'],
     queryFn: async () => {
-      const response = await apiRequest('GET', '/api/agent/chat/sessions');
-      return await response.json() as AgentChatSession[];
+      return await apiRequest('GET', '/api/agent/chat/sessions') as AgentChatSession[];
     },
   });
 
@@ -116,8 +114,7 @@ export default function AgentChat() {
   const { data: messages = [], isLoading: messagesLoading } = useQuery({
     queryKey: ['/api/agent/chat', selectedSession, 'history'],
     queryFn: async () => {
-      const response = await apiRequest('GET', `/api/agent/chat/${selectedSession}/history`);
-      return await response.json() as AgentChatMessage[];
+      return await apiRequest('GET', `/api/agent/chat/${selectedSession}/history`) as AgentChatMessage[];
     },
     enabled: !!selectedSession,
   });
@@ -125,8 +122,7 @@ export default function AgentChat() {
   // Create new session mutation
   const createSessionMutation = useMutation({
     mutationFn: async (data: { title: string }) => {
-      const response = await apiRequest('POST', '/api/agent/chat/sessions', data);
-      return await response.json() as AgentChatSession;
+      return await apiRequest('POST', '/api/agent/chat/sessions', data) as AgentChatSession;
     },
     onSuccess: (newSession) => {
       queryClient.invalidateQueries({ queryKey: ['/api/agent/chat/sessions'] });
@@ -150,8 +146,7 @@ export default function AgentChat() {
   // Send message mutation
   const sendMessageMutation = useMutation({
     mutationFn: async (data: { sessionId: string; message: string }) => {
-      const response = await apiRequest('POST', '/api/agent/chat/message', data);
-      return await response.json();
+      return await apiRequest('POST', '/api/agent/chat/message', data);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ 

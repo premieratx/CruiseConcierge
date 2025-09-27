@@ -29,8 +29,7 @@ export function Analytics() {
 
   const loadAnalytics = async () => {
     try {
-      const response = await apiRequest("GET", "/api/analytics/metrics");
-      const data = await response.json();
+      const data = await apiRequest("GET", "/api/analytics/metrics");
       setMetrics(data);
     } catch (error) {
       console.error("Failed to load analytics:", error);
