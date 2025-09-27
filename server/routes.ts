@@ -483,7 +483,7 @@ Current request type: ${metadata.requestType || 'general'}`;
     ];
 
     const response = await openai.chat.completions.create({
-      model: "gpt-5", // the newest OpenAI model is "gpt-5" which was released August 7, 2025. do not change this unless explicitly requested by the user
+      model: "gpt-4o", // using latest available GPT-4 model for reliable AI responses
       messages: messages as any,
       max_completion_tokens: 2048,
     });
@@ -499,7 +499,7 @@ Current request type: ${metadata.requestType || 'general'}`;
       messageType: hasCodeBlock ? 'code' : 'text',
       codeLanguage: codeLanguageMatch ? codeLanguageMatch[1] : undefined,
       metadata: {
-        model: 'gpt-5',
+        model: 'gpt-4o',
         requestType: metadata.requestType,
         hasCode: hasCodeBlock
       },
