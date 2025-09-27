@@ -1119,7 +1119,18 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
             eventTypeLabel: eventDetails?.eventTypeLabel || eventConfig?.label || '',
             eventEmoji: eventConfig?.emoji || '🎉',
             groupSize: eventDetails?.groupSize || 1,
-            eventDate: eventDetails?.eventDate ? new Date(eventDetails.eventDate) : undefined,
+            eventDate: (() => {
+              // Robust date parsing for quote data
+              if (!eventDetails?.eventDate) return undefined;
+              
+              const date = new Date(eventDetails.eventDate);
+              if (isNaN(date.getTime())) {
+                console.warn('⚠️ Invalid eventDate from server:', eventDetails.eventDate);
+                return undefined;
+              }
+              
+              return date;
+            })(),
             selectedCruiseType: selectionDetails?.cruiseType || 'private',
             selectedSlot: selectionDetails?.selectedSlot || null,
             selectedAddOnPackages: selectionDetails?.selectedAddOnPackages || [],
@@ -1140,12 +1151,18 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
           const selections: CompletedSelection[] = [];
           
           if (eventDetails?.eventDate) {
-            selections.push({
-              id: 'date',
-              label: 'Event Date',
-              value: format(new Date(eventDetails.eventDate), 'EEEE, MMMM d, yyyy'),
-              emoji: '📅'
-            });
+            // Robust date formatting for display
+            const date = new Date(eventDetails.eventDate);
+            if (!isNaN(date.getTime())) {
+              selections.push({
+                id: 'date',
+                label: 'Event Date',
+                value: format(date, 'EEEE, MMMM d, yyyy'),
+                emoji: '📅'
+              });
+            } else {
+              console.warn('⚠️ Skipping invalid eventDate for completed selections:', eventDetails.eventDate);
+            }
           }
           
           if (eventDetails?.eventType) {

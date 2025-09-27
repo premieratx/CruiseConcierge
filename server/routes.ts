@@ -964,18 +964,43 @@ export async function createQuoteFromChat(app: Express) {
             email: contact?.email || '',
             phone: contact?.phone || ''
           }),
-          // Enhanced event details from Google Sheets data
+          // Enhanced event details from Google Sheets data with consistent date formatting
           eventDetails: leadData ? {
             eventType: leadData.eventType || '',
             eventTypeLabel: leadData.eventTypeLabel || leadData.eventType || '',
             eventEmoji: quote.eventDetails?.eventEmoji || '🎉',
-            eventDate: leadData.cruiseDate || project?.projectDate || '',
+            eventDate: (() => {
+              // Ensure consistent ISO date format for frontend parsing
+              let date = leadData.cruiseDate || project?.projectDate;
+              if (!date) return '';
+              
+              // Handle different date formats consistently
+              const parsedDate = new Date(date);
+              if (isNaN(parsedDate.getTime())) {
+                console.warn('⚠️ Invalid date in quote data:', date);
+                return '';
+              }
+              
+              return parsedDate.toISOString();
+            })(),
             groupSize: leadData.groupSize || project?.groupSize || 0,
             specialRequests: leadData.specialRequests || '',
             budget: leadData.budget || ''
           } : (quote.eventDetails || {
             eventType: project?.eventType || '',
-            eventDate: project?.projectDate || '',
+            eventDate: (() => {
+              // Ensure consistent ISO date format for frontend parsing
+              let date = project?.projectDate;
+              if (!date) return '';
+              
+              const parsedDate = new Date(date);
+              if (isNaN(parsedDate.getTime())) {
+                console.warn('⚠️ Invalid date in project data:', date);
+                return '';
+              }
+              
+              return parsedDate.toISOString();
+            })(),
             groupSize: project?.groupSize || 0
           }),
           // Enhanced selection details from Google Sheets data
