@@ -82,7 +82,7 @@ export async function sendQuoteEmail(
         <!-- Option B: Private Charter (RIGHT) -->
         <div style="border: 2px solid #3b82f6; border-radius: 8px; padding: 15px; margin: 15px 0; background: #eff6ff;">
           <h4 style="color: #1d4ed8; margin: 0 0 10px 0;">🚢 Option B: Private Cruise Experience</h4>
-          <p style="margin: 5px 0; color: #374151;"><em>Your own private boat with captain</em></p>
+          <p style="margin: 5px 0; color: #374151;"><em>Your own private ${quoteDetails.optionB?.packages?.[0]?.name?.includes('-') ? quoteDetails.optionB.packages[0].name.split('-')[0].trim() : 'boat'} with captain</em></p>
           
           ${(quoteDetails.optionB?.packages || []).map((pkg: any) => `
             <div style="margin: 8px 0; padding: 8px; background: white; border-radius: 4px;">

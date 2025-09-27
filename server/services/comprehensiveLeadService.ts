@@ -468,7 +468,31 @@ export class ComprehensiveLeadService {
             };
 
             // Option B: Private Charter (RIGHT option in UI)
-            const boatName = quote.selectionDetails?.selectedBoat || leadData.selectedOptions?.selectedBoat || 'Premium Boat';
+            // Get the actual boat name from the selection details
+            let boatName = quote.selectionDetails?.selectedBoat || leadData.selectedOptions?.selectedBoat;
+            
+            // If no boat name found, try to derive from selected slot
+            if (!boatName) {
+              const selectedSlot = quote.selectionDetails?.selectedSlot || leadData.selectedOptions?.selectedSlot;
+              if (selectedSlot?.id) {
+                // Map boat IDs to display names
+                if (selectedSlot.id.includes('boat_me_seek') || selectedSlot.boatCandidates?.includes('boat_me_seek')) {
+                  boatName = 'Me Seek';
+                } else if (selectedSlot.id.includes('boat_day_tripper') || selectedSlot.boatCandidates?.includes('boat_day_tripper')) {
+                  boatName = 'Day Tripper';
+                } else if (selectedSlot.id.includes('boat_the_irony') || selectedSlot.boatCandidates?.includes('boat_the_irony')) {
+                  boatName = 'The Irony';
+                } else if (selectedSlot.id.includes('boat_clever_girl') || selectedSlot.boatCandidates?.includes('boat_clever_girl')) {
+                  boatName = 'Clever Girl';
+                } else if (selectedSlot.id.includes('boat_atx_disco') || selectedSlot.boatCandidates?.includes('boat_atx_disco')) {
+                  boatName = 'ATX Disco Cruise';
+                } else {
+                  boatName = 'Premium Boat'; // Final fallback
+                }
+              } else {
+                boatName = 'Premium Boat'; // Final fallback
+              }
+            }
             const duration = quote.selectionDetails?.selectedDuration || leadData.selectedOptions?.selectedDuration || 4;
             const timeSlot = quote.selectionDetails?.selectedSlot || leadData.selectedOptions?.selectedSlot;
             const timeSlotLabel = timeSlot?.label || 
