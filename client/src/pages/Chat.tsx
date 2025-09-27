@@ -3880,34 +3880,28 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                                 <RadioGroup
                                   value={formData.selectedSlot?.id || ''}
                                   onValueChange={(slotId) => {
-                                    const selectedSlot = discoSlots.find(slot => slot.id === slotId);
+                                    const selectedSlot = privateSlots.find(slot => slot.id === slotId);
                                     if (selectedSlot) {
                                       setFormData(prev => ({
                                         ...prev,
                                         selectedSlot,
-                                        selectedCruiseType: 'disco' // Auto-select disco when slot is chosen
+                                        selectedCruiseType: 'private' // Auto-select private when slot is chosen
                                       }));
                                     }
                                   }}
                                   className="space-y-2"
                                 >
-                                  {discoSlots.length > 0 ? discoSlots.map((slot, index) => {
-                                    // Calculate disco total price for display
-                                    const discoTotal = formData.selectedDiscoPackage ? 
-                                      calculateDiscoPrice(formData.groupSize, formData.selectedDiscoPackage) : 
-                                      calculateDiscoPrice(formData.groupSize, 'basic');
-                                    const discoPriceWithTax = Math.round(discoTotal * 1.0825); // Add 8.25% tax
-                                    const isPopular = index === 0; // Mark first slot as popular
-                                    
+                                  {privateSlots.length > 0 ? privateSlots.slice(0, 6).map((slot, index) => {
+                                    const isPopular = index === 1 || index === 2; // Mark 2nd and 3rd slots as popular
                                     return (
                                       <div key={slot.id} className={cn(
                                         "flex items-center p-3 rounded-lg border-2 transition-all cursor-pointer",
                                         formData.selectedSlot?.id === slot.id 
-                                          ? "border-purple-500 bg-purple-50 dark:bg-purple-900/20" 
-                                          : "border-slate-200 dark:border-slate-700 hover:border-purple-300"
+                                          ? "border-blue-500 bg-blue-50 dark:bg-blue-900/20" 
+                                          : "border-slate-200 dark:border-slate-700 hover:border-blue-300"
                                       )}>
-                                        <RadioGroupItem value={slot.id} id={`disco-${slot.id}`} />
-                                        <Label htmlFor={`disco-${slot.id}`} className="flex-1 cursor-pointer ml-3">
+                                        <RadioGroupItem value={slot.id} id={`private-${slot.id}`} />
+                                        <Label htmlFor={`private-${slot.id}`} className="flex-1 cursor-pointer ml-3">
                                           <div className="flex items-center justify-between">
                                             <div>
                                               <div className="font-medium flex items-center gap-2">
@@ -3918,12 +3912,10 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                                                   </Badge>
                                                 )}
                                               </div>
-                                              <div className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-                                                4-hour party cruise • Up to {slot.capacity || 100} guests
-                                              </div>
                                             </div>
-                                            <div className="text-sm font-bold text-purple-600">
-                                              $85/person
+                                            <div className="text-sm font-bold text-blue-600">
+                                              {/* Show hourly rate instead of total price */}
+                                              {slot.duration ? `$${Math.round((slot.totalPrice || 140000) / slot.duration / 100)}/hr` : '$350/hr'}
                                             </div>
                                           </div>
                                         </Label>
@@ -3931,9 +3923,8 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                                     );
                                   }) : (
                                     <div className="p-6 text-center text-slate-600 dark:text-slate-400">
-                                      <Music className="h-12 w-12 mx-auto mb-4 opacity-30" />
-                                      <p className="text-sm">No Disco Cruises available for this date</p>
-                                      <p className="text-xs mt-1">Available on Fridays and Saturdays only</p>
+                                      <Ship className="h-12 w-12 mx-auto mb-4 opacity-30" />
+                                      <p className="text-sm">No private cruises available for this date</p>
                                     </div>
                                   )}
                                 </RadioGroup>
