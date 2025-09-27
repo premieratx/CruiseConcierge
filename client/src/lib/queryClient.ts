@@ -20,7 +20,8 @@ export async function apiRequest(
                        url.includes('/api/seo') || // SECURITY: Include SEO management routes
                        url.includes('/api/agent/chat') || // SECURITY: Include agent chat routes
                        url.includes('/api/leads') || // SECURITY: Include leads management routes
-                       url.includes('/api/agents'); // SECURITY: Include agentic AI routes
+                       url.includes('/api/agents') || // SECURITY: Include agentic AI routes
+                       url.includes('/api/analytics'); // SECURITY: Include analytics routes
   
   // Handle FormData uploads (don't set Content-Type, let browser set it with boundary)
   const isFormData = data instanceof FormData;
@@ -58,7 +59,8 @@ export const getQueryFn: <T>(options: {
                          url.includes('/api/seo') || // SECURITY: Include SEO management routes
                          url.includes('/api/agent/chat') || // SECURITY: Include agent chat routes
                          url.includes('/api/leads') || // SECURITY: Include leads management routes
-                         url.includes('/api/agents'); // SECURITY: Include agentic AI routes
+                         url.includes('/api/agents') || // SECURITY: Include agentic AI routes
+                         url.includes('/api/analytics'); // SECURITY: Include analytics routes
     
     const headers: Record<string, string> = {
       ...(isAdminRoute ? { "Authorization": "Bearer admin-dev-token" } : {})

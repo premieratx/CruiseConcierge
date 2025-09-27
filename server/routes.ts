@@ -3349,6 +3349,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Analytics API endpoints
   app.get("/api/analytics/metrics", async (req, res) => {
     try {
+      const storage = await getStorage();
       const leads = await storage.getLeads();
       const clients = await storage.getClients();
       const quotes: any[] = [];
