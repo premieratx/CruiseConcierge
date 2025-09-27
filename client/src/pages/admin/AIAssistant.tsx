@@ -87,7 +87,7 @@ export default function AIAssistant() {
     queryKey: ['/api/admin/ai-assistant/sessions'],
     queryFn: async () => {
       const response = await apiRequest('GET', '/api/admin/ai-assistant/sessions');
-      return await response.json() as AdminChatSession[];
+      return response as AdminChatSession[];
     },
   });
 
@@ -96,7 +96,7 @@ export default function AIAssistant() {
     queryKey: ['/api/admin/ai-assistant/sessions', selectedSession, 'messages'],
     queryFn: async () => {
       const response = await apiRequest('GET', `/api/admin/ai-assistant/sessions/${selectedSession}/messages`);
-      return await response.json() as AdminChatMessage[];
+      return response as AdminChatMessage[];
     },
     enabled: !!selectedSession,
   });
@@ -105,7 +105,7 @@ export default function AIAssistant() {
   const createSessionMutation = useMutation({
     mutationFn: async (data: { title: string; description?: string; tags?: string[] }) => {
       const response = await apiRequest('POST', '/api/admin/ai-assistant/sessions', data);
-      return await response.json() as AdminChatSession;
+      return response as AdminChatSession;
     },
     onSuccess: (newSession) => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/ai-assistant/sessions'] });
@@ -136,7 +136,7 @@ export default function AIAssistant() {
       metadata?: any;
     }) => {
       const response = await apiRequest('POST', `/api/admin/ai-assistant/sessions/${data.sessionId}/messages`, data);
-      return await response.json() as AdminChatMessage;
+      return response as AdminChatMessage;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ 
@@ -160,7 +160,7 @@ export default function AIAssistant() {
   const deleteSessionMutation = useMutation({
     mutationFn: async (sessionId: string) => {
       const response = await apiRequest('DELETE', `/api/admin/ai-assistant/sessions/${sessionId}`);
-      return await response.json();
+      return response;
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['/api/admin/ai-assistant/sessions'] });
