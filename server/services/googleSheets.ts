@@ -97,22 +97,27 @@ export class GoogleSheetsService {
   private baseDelay: number = 1000; // 1 second
 
   constructor() {
-    this.spreadsheetId = process.env.SHEET_ID || "";
+    // PRODUCTION FIX: Fail fast if required environment variables missing
+    if (!process.env.SHEET_ID) {
+      throw new Error("CRITICAL: SHEET_ID environment variable is required for production. No fallbacks available.");
+    }
+    
+    if (!process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS) {
+      throw new Error("CRITICAL: GOOGLE_SERVICE_ACCOUNT_CREDENTIALS environment variable is required for production. No fallbacks available.");
+    }
+    
+    this.spreadsheetId = process.env.SHEET_ID;
     
     // Parse service account credentials from environment variable
     const credentialsJson = process.env.GOOGLE_SERVICE_ACCOUNT_CREDENTIALS;
-    if (credentialsJson) {
-      try {
-        this.serviceAccountCredentials = JSON.parse(credentialsJson);
-        this.initializeAuth();
-      } catch (error) {
-        console.error("Failed to parse GOOGLE_SERVICE_ACCOUNT_CREDENTIALS:", error);
-      }
+    try {
+      this.serviceAccountCredentials = JSON.parse(credentialsJson);
+      this.initializeAuth();
+    } catch (error) {
+      throw new Error(`CRITICAL: Failed to parse GOOGLE_SERVICE_ACCOUNT_CREDENTIALS: ${error}`);
     }
     
-    if (!this.serviceAccountCredentials || !this.spreadsheetId) {
-      console.warn("Google Sheets credentials not properly configured. Using mock data.");
-    }
+    console.log("✅ Google Sheets Service initialized with production credentials - no fallbacks available");
   }
 
   // Enhanced retry mechanism with exponential backoff
@@ -191,47 +196,43 @@ export class GoogleSheetsService {
   }
 
   async getAvailability(startDate: Date, endDate: Date): Promise<AvailabilityData[]> {
-    try {
-      if (!this.sheets || !this.spreadsheetId) {
-        return this.getMockAvailability(startDate, endDate);
-      }
-
-      const range = 'Availability!A2:J1000'; // Extended range for new columns
-      const response = await this.sheets.spreadsheets.values.get({
-        spreadsheetId: this.spreadsheetId,
-        range: range,
-      });
-      
-      const rows = response.data.values || [];
-      
-      return rows.map((row: any[]) => ({
-        date: row[0] || '',
-        day: row[1] || '',
-        time: row[2] || '',
-        boatType: row[3] || '',
-        capacity: parseInt(row[4]) || 0,
-        baseRate: parseFloat(row[5]) || 0,
-        status: row[6] || 'AVAILABLE',
-        bookedBy: row[7] || undefined,
-        groupSize: parseInt(row[8]) || undefined,
-        notes: row[9] || undefined
-      })).filter((item: AvailabilityData) => {
-        const itemDate = new Date(item.date);
-        return itemDate >= startDate && itemDate <= endDate;
-      });
-    } catch (error) {
-      console.error("Error fetching availability from Google Sheets:", error);
-      return this.getMockAvailability(startDate, endDate);
+    // PRODUCTION FIX: No fallbacks - Google Sheets is the single source of truth
+    if (!this.sheets || !this.spreadsheetId) {
+      throw new Error("CRITICAL: Google Sheets service not initialized. Cannot fetch availability data.");
     }
+
+    const range = 'Availability!A2:J1000'; // Extended range for new columns
+    const response = await this.sheets.spreadsheets.values.get({
+      spreadsheetId: this.spreadsheetId,
+      range: range,
+    });
+    
+    const rows = response.data.values || [];
+    
+    return rows.map((row: any[]) => ({
+      date: row[0] || '',
+      day: row[1] || '',
+      time: row[2] || '',
+      boatType: row[3] || '',
+      capacity: parseInt(row[4]) || 0,
+      baseRate: parseFloat(row[5]) || 0,
+      status: row[6] || 'AVAILABLE',
+      bookedBy: row[7] || undefined,
+      groupSize: parseInt(row[8]) || undefined,
+      notes: row[9] || undefined
+    })).filter((item: AvailabilityData) => {
+      const itemDate = new Date(item.date);
+      return itemDate >= startDate && itemDate <= endDate;
+    });
   }
 
   async updateAvailability(date: string, time: string, boatType: string, status: string, bookedBy?: string, groupSize?: number): Promise<boolean> {
-    try {
-      if (!this.sheets || !this.spreadsheetId) {
-        console.log("Would update Google Sheets:", { date, time, boatType, status, bookedBy, groupSize });
-        return true;
-      }
+    // PRODUCTION FIX: No mock behavior - require working Google Sheets
+    if (!this.sheets || !this.spreadsheetId) {
+      throw new Error("CRITICAL: Cannot update availability - Google Sheets service not initialized.");
+    }
 
+    try {
       // Find the row that matches the criteria
       const range = 'Availability!A2:J1000';
       const response = await this.sheets.spreadsheets.values.get({
@@ -503,11 +504,11 @@ export class GoogleSheetsService {
           const rows = values.slice(1);
           
           // Convert to JSON format with headers as keys
-          const jsonData = rows.map((row, index) => {
+          const jsonData = rows.map((row: any[], index: number) => {
             const obj: any = {
               rowNumber: index + 2 // +2 because arrays are 0-indexed and we skip header row
             };
-            headers.forEach((header, colIndex) => {
+            headers.forEach((header: string, colIndex: number) => {
               obj[header] = row[colIndex] || '';
             });
             return obj;
@@ -524,7 +525,7 @@ export class GoogleSheetsService {
 
           // Check for Memorial Day Weekend 2026 data
           if (sheetName === 'Holiday Exceptions') {
-            const memorialDayRows = jsonData.filter(row => {
+            const memorialDayRows = jsonData.filter((row: any) => {
               const dateField = row['Date'] || row['Holiday Date'] || row['Exception Date'] || '';
               const holidayName = row['Holiday'] || row['Holiday Name'] || row['Name'] || '';
               
@@ -548,7 +549,7 @@ export class GoogleSheetsService {
 
           // Check Special Pricing for Memorial Weekend
           if (sheetName === 'Special Pricing') {
-            const memorialPricing = jsonData.filter(row => {
+            const memorialPricing = jsonData.filter((row: any) => {
               const dateField = row['Date'] || row['Start Date'] || row['Price Date'] || '';
               return (
                 dateField.includes('2026-05-24') ||
@@ -566,7 +567,7 @@ export class GoogleSheetsService {
 
           // Check Blackout Dates
           if (sheetName === 'Blackout Dates') {
-            const memorialBlackouts = jsonData.filter(row => {
+            const memorialBlackouts = jsonData.filter((row: any) => {
               const dateField = row['Date'] || row['Blackout Date'] || row['Start Date'] || '';
               return (
                 dateField.includes('2026-05-24') ||
@@ -584,7 +585,7 @@ export class GoogleSheetsService {
 
           // Check Booked Dates
           if (sheetName === 'Booked Dates') {
-            const memorialBookings = jsonData.filter(row => {
+            const memorialBookings = jsonData.filter((row: any) => {
               const dateField = row['Date'] || row['Booking Date'] || row['Event Date'] || '';
               return (
                 dateField.includes('2026-05-24') ||
@@ -602,7 +603,7 @@ export class GoogleSheetsService {
 
           // Check Master Availability Rules for Sunday rules
           if (sheetName === 'Master Availability Rules') {
-            const sundayRules = jsonData.filter(row => {
+            const sundayRules = jsonData.filter((row: any) => {
               const dayField = row['Day'] || row['Day of Week'] || row['Weekday'] || '';
               return dayField.toLowerCase().includes('sunday');
             });
@@ -755,7 +756,7 @@ export class GoogleSheetsService {
       console.log(`✅ Successfully read ${jsonData.length} rows from "${sheetName}"`);
       
       // Log some sample data for 14-person cruises
-      const fourteenPersonData = jsonData.filter(row => {
+      const fourteenPersonData = jsonData.filter((row: any) => {
         // Check various possible column names for group size/capacity
         // The user has entered "14 or Less" in the spreadsheet
         const peopleField = row['# of People'] || row['Capacity'] || row['People'] || row['Size'] || '';
@@ -1073,12 +1074,7 @@ export class GoogleSheetsService {
 
     try {
       if (!this.sheets || !this.spreadsheetId) {
-        console.log("📊 Google Sheets not configured - simulating lead creation:", {
-          leadId: leadData.leadId,
-          quoteUrl: leadData.quoteUrl,
-          quoteId: leadData.quoteId
-        });
-        return true;
+        throw new Error("CRITICAL: Cannot create lead - Google Sheets service not initialized.");
       }
 
       // Ensure the Leads sheet exists with retry
@@ -1164,8 +1160,7 @@ export class GoogleSheetsService {
   async updateLead(leadId: string, updates: LeadUpdateData): Promise<boolean> {
     try {
       if (!this.sheets || !this.spreadsheetId) {
-        console.log("Would update lead in Google Sheets:", { leadId, updates });
-        return true;
+        throw new Error("CRITICAL: Cannot update lead - Google Sheets service not initialized.");
       }
 
       // Find the lead row
@@ -1238,12 +1233,12 @@ export class GoogleSheetsService {
   }
 
   async getLead(leadId: string): Promise<LeadData | null> {
-    try {
-      if (!this.sheets || !this.spreadsheetId) {
-        // Return mock data for development
-        return this.getMockLead(leadId);
-      }
+    // PRODUCTION FIX: No mock fallbacks
+    if (!this.sheets || !this.spreadsheetId) {
+      throw new Error("CRITICAL: Cannot get lead - Google Sheets service not initialized.");
+    }
 
+    try {
       const range = 'Leads!A2:V1000';
       const response = await this.sheets.spreadsheets.values.get({
         spreadsheetId: this.spreadsheetId,
@@ -1260,16 +1255,17 @@ export class GoogleSheetsService {
       return this.mapRowToLeadData(leadRow);
     } catch (error) {
       console.error("Error fetching lead from Google Sheets:", error);
-      return this.getMockLead(leadId);
+      throw error; // PRODUCTION FIX: No fallback, let error propagate
     }
   }
 
   async getAllLeads(): Promise<LeadData[]> {
-    try {
-      if (!this.sheets || !this.spreadsheetId) {
-        return this.getMockLeads();
-      }
+    // PRODUCTION FIX: No mock fallbacks
+    if (!this.sheets || !this.spreadsheetId) {
+      throw new Error("CRITICAL: Cannot get leads - Google Sheets service not initialized.");
+    }
 
+    try {
       const range = 'Leads!A2:V1000';
       const response = await this.sheets.spreadsheets.values.get({
         spreadsheetId: this.spreadsheetId,
@@ -1280,7 +1276,7 @@ export class GoogleSheetsService {
       return rows.map((row: any[]) => this.mapRowToLeadData(row)).filter((lead: LeadData | null) => lead !== null) as LeadData[];
     } catch (error) {
       console.error("Error fetching leads from Google Sheets:", error);
-      return this.getMockLeads();
+      throw error; // PRODUCTION FIX: No fallback, let error propagate
     }
   }
 

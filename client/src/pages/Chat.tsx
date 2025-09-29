@@ -859,26 +859,60 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   const params = useParams();
   
   // Parse URL parameters to detect quote token, quote ID, or direct parameters
-  const urlParams = new URLSearchParams(window.location.search);
-  const quoteToken = urlParams.get('quote') || urlParams.get('quoteToken'); // Look for ?quote={token} or ?quoteToken={token}
-  const quoteId = params.id; // Look for /quote/{id} route parameter
-  
-  // NEW: Parse direct URL parameters for quote builder
-  const urlDate = urlParams.get('date'); // Format: YYYY-MM-DD (e.g., 2025-10-28)
-  const urlParty = urlParams.get('party'); // Event type ID (e.g., bachelor, bachelorette)
-  const urlPeople = urlParams.get('people'); // Group size (e.g., 25)
-  const urlContact = urlParams.get('contact'); // Contact flag (e.g., 'done' to skip modal)
-  const urlDuration = urlParams.get('duration'); // Duration for weekday cruises (3 or 4)
-  
-  // Debug URL parameter parsing
-  console.log('🔍 URL Parameter Debug:', {
-    urlDate,
-    urlParty,
-    urlPeople,
-    urlContact,
-    urlDuration,
-    fullUrl: window.location.href
+  // Use useState and useEffect to ensure parameters are parsed after component mounts
+  const [urlParams, setUrlParams] = useState<URLSearchParams | null>(null);
+  const [parsedParams, setParsedParams] = useState({
+    quoteToken: null as string | null,
+    urlDate: null as string | null,
+    urlParty: null as string | null,
+    urlPeople: null as string | null,
+    urlContact: null as string | null,
+    urlDuration: null as string | null
   });
+
+  // Parse URL parameters on component mount and whenever location changes
+  useEffect(() => {
+    const parseUrlParams = () => {
+      const searchParams = new URLSearchParams(window.location.search);
+      setUrlParams(searchParams);
+      
+      const newParams = {
+        quoteToken: searchParams.get('quote') || searchParams.get('quoteToken'),
+        urlDate: searchParams.get('date'),
+        urlParty: searchParams.get('party'),
+        urlPeople: searchParams.get('people'),
+        urlContact: searchParams.get('contact'),
+        urlDuration: searchParams.get('duration')
+      };
+      
+      setParsedParams(newParams);
+      
+      // Debug URL parameter parsing
+      console.log('🔍 URL Parameter Debug (Updated):', {
+        ...newParams,
+        fullUrl: window.location.href,
+        search: window.location.search
+      });
+    };
+
+    // Parse immediately
+    parseUrlParams();
+    
+    // Also parse when the browser navigation changes
+    const handlePopState = () => parseUrlParams();
+    window.addEventListener('popstate', handlePopState);
+    
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Extract values from parsed params
+  const quoteToken = parsedParams.quoteToken;
+  const quoteId = params.id; // Look for /quote/{id} route parameter
+  const urlDate = parsedParams.urlDate;
+  const urlParty = parsedParams.urlParty;
+  const urlPeople = parsedParams.urlPeople;
+  const urlContact = parsedParams.urlContact;
+  const urlDuration = parsedParams.urlDuration;
   
   // Check if we have complete URL parameters for quote builder
   const hasUrlParameters = Boolean(urlDate && urlParty && urlPeople);
@@ -1812,8 +1846,8 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
       clearTimeout(pricingTimeoutRef.current);
     }
 
-    // Guard: Skip if missing required data
-    if (!formData.selectedSlot || !formData.groupSize) {
+    // Guard: Skip if missing required data OR if this is a disco cruise slot
+    if (!formData.selectedSlot || !formData.groupSize || formData.selectedSlot.cruiseType === 'disco') {
       setPrivatePricing(null);
       return;
     }

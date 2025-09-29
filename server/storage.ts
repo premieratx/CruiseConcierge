@@ -3,6 +3,7 @@ import { db } from "./db";
 import { eq, and, gte, lte, desc, asc, isNull, isNotNull, or, inArray, sql, count, sum, between } from "drizzle-orm";
 import { randomUUID } from "crypto";
 import { quoteTokenService } from "./services/quoteTokenService";
+import { GoogleSheetsService, type AvailabilityData } from "./services/googleSheets";
 import { HOURLY_RATES } from '../shared/constants.js';
 import { isInDiscoSeason } from '../shared/timeSlots.js';
 import { format } from "date-fns";
@@ -1028,7 +1029,11 @@ export class DatabaseStorage implements IStorage {
   // Initialize database seeding
   private seedComplete = false;
 
+  // Google Sheets service for real availability data
+  private googleSheetsService: GoogleSheetsService;
+
   constructor() {
+    this.googleSheetsService = new GoogleSheetsService();
     this.initializeDatabase();
   }
 
@@ -1278,7 +1283,7 @@ export class DatabaseStorage implements IStorage {
             const slotDuration = timeSlot.duration || dayConfig.duration;
             
             // Get hourly rate based on boat capacity and day type
-            const hourlyRate = this.getHourlyRateForBoat(boat, dayConfig.priceKey);
+            const hourlyRate = await this.getHourlyRateForBoat(boat, dayConfig.priceKey);
             const totalPrice = hourlyRate * slotDuration;
 
             const productId = `${boat.id}_${dayConfig.dayType}_${timeSlot.start}_${timeSlot.end}`.replace(/[^a-zA-Z0-9_]/g, '_');
@@ -1412,25 +1417,36 @@ export class DatabaseStorage implements IStorage {
   /**
    * Helper method to get hourly rate for a boat based on its capacity and day type
    */
-  private getHourlyRateForBoat(boat: Boat, dayType: 'MON_THU' | 'FRIDAY' | 'SAT_SUN'): number {
-    // ✅ USE SHARED CONSTANTS: Import from shared/constants.ts for consistency
-    
-    // Map boat capacity to pricing tier
-    let capacityTier: keyof typeof HOURLY_RATES.MON_THU;
-    
-    if (boat.capacity <= 14) {
-      capacityTier = 14;
-    } else if (boat.capacity <= 25) {
-      capacityTier = 25; 
-    } else if (boat.capacity <= 30) {
-      capacityTier = 30;
-    } else if (boat.capacity <= 50) {
-      capacityTier = 50;
-    } else {
-      capacityTier = 75;
+  private async getHourlyRateForBoat(boat: Boat, dayType: 'MON_THU' | 'FRIDAY' | 'SAT_SUN'): Promise<number> {
+    // PRODUCTION FIX: Get pricing from Google Sheets-synced products table instead of constants
+    try {
+      // Query products table for boat-specific pricing from Google Sheets sync
+      const dayTypeForQuery = dayType === 'MON_THU' ? 'weekday' : dayType === 'FRIDAY' ? 'friday' : 'weekend';
+      
+      const pricingProducts = await db.select().from(products)
+        .where(
+          and(
+            eq(products.boatId, boat.id),
+            eq(products.dayType, dayTypeForQuery),
+            eq(products.productType, 'private_cruise'),
+            eq(products.active, true)
+          )
+        )
+        .limit(1);
+      
+      if (pricingProducts.length > 0) {
+        const hourlyRateCents = pricingProducts[0].unitPrice;
+        console.log(`✅ [GOOGLE SHEET PRICING] ${boat.name} ${dayTypeForQuery}: $${hourlyRateCents/100}/hr from synced data`);
+        return hourlyRateCents; // Return cents
+      }
+      
+      // If no Google Sheet data found, this is a critical error - no fallbacks
+      console.error(`❌ CRITICAL: No Google Sheet pricing data found for ${boat.name} on ${dayTypeForQuery}. Check Google Sheets sync.`);
+      throw new Error(`Missing Google Sheet pricing data for ${boat.name} on ${dayTypeForQuery}`);
+    } catch (error) {
+      console.error(`❌ CRITICAL: Failed to get Google Sheet pricing for ${boat.name}:`, error);
+      throw error; // No fallbacks - Google Sheets is required
     }
-    
-    return HOURLY_RATES[dayType][capacityTier];
   }
 
   // ===== BOAT-SPECIFIC PRODUCT METHODS =====
@@ -3853,8 +3869,115 @@ export class DatabaseStorage implements IStorage {
       
       // Generate private cruise slots if requested
       if (!cruiseType || cruiseType === 'private') {
-        const privateTimeSlots = getPrivateTimeSlotsForDate(currentDate);
-        console.log(`🔧 DEBUG: Generated ${privateTimeSlots.length} time slots for ${dateISO}:`, privateTimeSlots.map(s => `${s.startTime}-${s.endTime}`));
+        // CRITICAL FIX: Use Google Sheets data instead of fake hardcoded slots
+        let privateTimeSlots: any[] = [];
+        
+        try {
+          // Get real availability data from Google Sheets for this specific date
+          const nextDay = new Date(currentDate);
+          nextDay.setDate(nextDay.getDate() + 1);
+          
+          const availabilityData = await this.googleSheetsService.getAvailability(currentDate, nextDay);
+          
+          // Filter for private cruise slots (exclude disco) and transform to time slot format
+          const privateSlotsData = availabilityData.filter(slot => 
+            slot.status === 'AVAILABLE' && 
+            slot.boatType !== 'ATX Disco Cruise' &&
+            slot.date === dateISO
+          );
+          
+          // CRITICAL FIX: Process Google Sheets data preserving boat identity
+          // Group by time while maintaining boat information for capacity tracking
+          const timeSlotGroups = new Map<string, {
+            timeInfo: any;
+            boats: Array<{
+              boatId: string;
+              boatType: string;
+              capacity: number;
+              baseRate: number;
+              status: string;
+              bookedBy?: string;
+              groupSize?: number;
+              notes?: string;
+            }>;
+          }>();
+          
+          privateSlotsData.forEach(slot => {
+            const timeKey = slot.time;
+            
+            // Parse time range with minute precision
+            const timeParts = slot.time.split('-');
+            if (timeParts.length === 2) {
+              const [startTime, endTime] = timeParts;
+              const [startHourStr, startMinStr = '0'] = startTime.split(':');
+              const [endHourStr, endMinStr = '0'] = endTime.split(':');
+              const startHour = parseInt(startHourStr);
+              const startMin = parseInt(startMinStr);
+              const endHour = parseInt(endHourStr);
+              const endMin = parseInt(endMinStr);
+              
+              // Calculate duration with minute precision
+              const startTotalMinutes = startHour * 60 + startMin;
+              const endTotalMinutes = endHour * 60 + endMin;
+              const durationMinutes = endTotalMinutes - startTotalMinutes;
+              const duration = durationMinutes / 60; // Convert to hours with decimal precision
+              
+              if (!timeSlotGroups.has(timeKey)) {
+                timeSlotGroups.set(timeKey, {
+                  timeInfo: {
+                    id: `gs-${timeKey.replace(/[:\-]/g, '')}`,
+                    label: `${startTime} - ${endTime}`,
+                    startTime: startTime,
+                    endTime: endTime,
+                    duration: duration,
+                    icon: startHour >= 18 ? '🌙' : startHour >= 14 ? '🌆' : '☀️',
+                    description: `${duration}-hour cruise from Google Sheets`,
+                    popular: true,
+                    source: 'google_sheets'
+                  },
+                  boats: []
+                });
+              }
+              
+              // Add boat information preserving identity and capacity
+              timeSlotGroups.get(timeKey)!.boats.push({
+                boatId: slot.boatType, // This should map to actual boat IDs
+                boatType: slot.boatType,
+                capacity: slot.capacity,
+                baseRate: slot.baseRate,
+                status: slot.status,
+                bookedBy: slot.bookedBy,
+                groupSize: slot.groupSize,
+                notes: slot.notes
+              });
+            }
+          });
+          
+          // Convert to time slots while preserving boat capacity info
+          privateTimeSlots = Array.from(timeSlotGroups.values()).map(group => ({
+            ...group.timeInfo,
+            // Aggregate boat information for availability calculations
+            totalCapacity: group.boats.reduce((sum, boat) => sum + boat.capacity, 0),
+            availableBoats: group.boats.filter(boat => boat.status === 'AVAILABLE'),
+            bookedBoats: group.boats.filter(boat => boat.status === 'BOOKED'),
+            boatDetails: group.boats, // Preserve all boat details for per-boat booking
+            availableBoatCount: group.boats.filter(boat => boat.status === 'AVAILABLE').length
+          }));
+          
+          if (privateTimeSlots.length > 0) {
+            console.log(`✅ Found ${privateTimeSlots.length} time slots from Google Sheets for ${dateISO}:`, privateTimeSlots.map(s => `${s.startTime}-${s.endTime}`));
+          } else {
+            console.log(`⚠️ No private cruise slots found in Google Sheets for ${dateISO} - no availability for this date`);
+            // CRITICAL FIX: NO FALLBACK to fake data - if Google Sheets has no slots, date is not available
+            privateTimeSlots = [];
+            console.log(`📅 ${dateISO}: No availability from Google Sheets - date marked as unavailable`);
+          }
+        } catch (error) {
+          console.error(`❌ Error fetching availability from Google Sheets for ${dateISO}:`, error);
+          // CRITICAL FIX: NO FALLBACK to fake data - Google Sheets is the single source of truth
+          privateTimeSlots = [];
+          console.log(`🚫 ERROR: No availability for ${dateISO} due to Google Sheets error - ensuring data integrity`);
+        }
         
         for (const timeSlot of privateTimeSlots) {
           // Filter by duration if specified
@@ -3924,6 +4047,8 @@ export class DatabaseStorage implements IStorage {
           let basePrice: number;
           
           if (baseProduct) {
+            // CRITICAL FIX: Ensure unitPrice is per hour, not total
+            console.log(`📊 [PRICING DEBUG] Product ${baseProduct.name}: unitPrice=$${baseProduct.unitPrice/100}, duration=${timeSlot.duration}hrs`);
             basePrice = baseProduct.unitPrice * timeSlot.duration;
           } else {
             // No product found, use pricing from PRICING_CONFIG
@@ -3953,6 +4078,7 @@ export class DatabaseStorage implements IStorage {
             
             basePrice = hourlyRateCents * timeSlot.duration;
             console.log(`📊 [PRICING FALLBACK] No product found for ${dayType}, using boat rates: $${hourlyRateCents/100}/hr × ${timeSlot.duration}hrs = $${basePrice/100}`);
+            console.log(`📊 [PRICING DEBUG] Calculated: ${hourlyRateCents} cents/hr × ${timeSlot.duration}hrs = ${basePrice} cents total`);
           }
           
           // Create slot for each suitable boat

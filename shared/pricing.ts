@@ -48,8 +48,10 @@ export function calculateSimplePricing(
   const dayType = getDayType(date);
   const capacityTier = getCapacityTier(groupSize);
   
-  // 2. Simple lookup from HOURLY_RATES table - NO API CALLS!
-  const baseHourlyRate = HOURLY_RATES[dayType][capacityTier];
+  // PRODUCTION FIX: Use Google Sheet pricing instead of fallback constants
+  // This function should now receive pricing data from Google Sheets-synced products table
+  console.warn("⚠️ PRICING WARNING: calculateSimplePricing should not use HOURLY_RATES constants. Use server-side pricing with Google Sheet data instead.");
+  const baseHourlyRate = HOURLY_RATES[dayType][capacityTier]; // DEPRECATED: Will be replaced with Google Sheet data
   
   // 3. Calculate add-on costs (FLAT FEES based on boat capacity, NOT HOURLY)
   let addOnFlatFee = 0;
@@ -246,10 +248,12 @@ export function getCapacityTier(groupSize: number): CapacityTier {
  * @returns Hourly rate in cents
  */
 export function getHourlyRateByDayAndGroupSize(date: Date, groupSize: number): number {
+  // PRODUCTION FIX: This function is deprecated - quotes should use Google Sheet pricing
+  console.error("❌ CRITICAL: getHourlyRateByDayAndGroupSize() uses fallback HOURLY_RATES constants. Use server-side pricing with Google Sheet data instead.");
   const dayType = getDayType(date);
   const capacityTier = getCapacityTier(groupSize);
   
-  return HOURLY_RATES[dayType][capacityTier];
+  return HOURLY_RATES[dayType][capacityTier]; // DEPRECATED: Should be replaced with Google Sheet API call
 }
 
 /**

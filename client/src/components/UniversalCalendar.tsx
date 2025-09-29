@@ -343,26 +343,36 @@ export default function UniversalCalendar({
       const slotDate = new Date(slotDateString);
       const duration = slot.duration || 4; // Default to 4 hours if not specified
       
-      // Use calculateSimplePricing to get the correct pricing
-      const pricing = calculateSimplePricing(
-        slotDate,
-        groupSize,
-        duration,
-        [] // No add-ons for now
-      );
+      // Use appropriate pricing based on cruise type
+      const pricing = slot.cruiseType === 'disco' 
+        ? {
+            total: (groupSize * 8500), // $85 per person in cents
+            perPerson: 8500 // $85 per person
+          }
+        : calculateSimplePricing(
+            slotDate,
+            groupSize,
+            duration,
+            [] // No add-ons for now
+          );
       
       setCalculatedPricing({
         total: pricing.total,
         perPerson: Math.round(pricing.total / groupSize)
       });
     } else {
-      // If no date, still try to use calculateSimplePricing with current date as fallback
-      const pricing = calculateSimplePricing(
-        new Date(), // Use current date as fallback
-        groupSize,
-        slot?.duration || 4,
-        []
-      );
+      // If no date, use appropriate pricing based on cruise type
+      const pricing = slot?.cruiseType === 'disco'
+        ? {
+            total: (groupSize * 8500), // $85 per person in cents
+            perPerson: 8500 // $85 per person
+          }
+        : calculateSimplePricing(
+            new Date(), // Use current date as fallback
+            groupSize,
+            slot?.duration || 4,
+            []
+          );
       
       setCalculatedPricing({
         total: pricing.total,
