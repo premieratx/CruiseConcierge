@@ -924,6 +924,16 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   // Define hasValidUrlParams to check if we have valid direct URL parameters
   const hasValidUrlParams = hasUrlParameters;
   
+  // LEGACY COMPATIBILITY: Handle quote tokens that need redirect to QuoteViewer
+  const [, navigate] = useLocation();
+  useEffect(() => {
+    if (quoteToken) {
+      console.log('🔄 Legacy compatibility: redirecting quote token to QuoteViewer', quoteToken);
+      navigate(`/quote/${quoteToken}`);
+      return;
+    }
+  }, [quoteToken, navigate]);
+  
   console.log('🎯 URL Parameter Status:', {
     hasUrlParameters,
     hasContactDone,
@@ -2481,7 +2491,6 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   }, [formData]);
 
   // Enhanced payment handler that shows checkout section below
-  const [, navigate] = useLocation(); // Add navigate hook for routing
   const [showCheckout, setShowCheckout] = useState(false);
   
   const handlePayment = useCallback((paymentType: 'deposit' | 'full', cruiseType: 'private' | 'disco') => {

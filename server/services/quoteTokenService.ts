@@ -27,14 +27,18 @@ export class QuoteTokenService {
   private readonly defaultExpiresIn: number = 7 * 24 * 60 * 60 * 1000; // 7 days
 
   constructor() {
-    // Use environment variable or fallback to secure generated secret
-    this.secret = process.env.QUOTE_TOKEN_SECRET || '550edf5f7e32571b1c6245721e7d25fd4e87846a5798f844bd5d906f3dfe2dcd';
+    // SECURITY: QUOTE_TOKEN_SECRET must be set in environment variables - no fallback allowed
+    this.secret = process.env.QUOTE_TOKEN_SECRET;
     
-    if (!process.env.QUOTE_TOKEN_SECRET) {
-      console.warn('🔐 QUOTE_TOKEN_SECRET not set. Using secure fallback secret.');
-      console.log('💡 For production, set QUOTE_TOKEN_SECRET in environment variables!');
-      console.log('   Recommended value: 550edf5f7e32571b1c6245721e7d25fd4e87846a5798f844bd5d906f3dfe2dcd');
+    if (!this.secret) {
+      const error = 'CRITICAL SECURITY ERROR: QUOTE_TOKEN_SECRET environment variable not set. This is required for secure token generation.';
+      console.error('🚨', error);
+      console.error('💡 Set QUOTE_TOKEN_SECRET environment variable to a secure 32-byte hex string');
+      console.error('   Example: export QUOTE_TOKEN_SECRET="3a291fc3dd81fdea8989406574ed05a6f29240a7a31525fd91d5ab8fda7cc090"');
+      throw new Error(error);
     }
+    
+    console.log('🔐 QUOTE_TOKEN_SECRET configured securely from environment');
   }
 
   private generateSecret(): string {
@@ -189,8 +193,8 @@ export class QuoteTokenService {
     // Clean the base URL (remove trailing slash)
     const cleanBaseUrl = effectiveBaseUrl.replace(/\/$/, '');
     
-    // Use /chat?quote= path (redirects to Chat.tsx for quote display)
-    const url = `${cleanBaseUrl}/chat?quote=${encodeURIComponent(token)}`;
+    // Use /quote/ path for dedicated QuoteViewer component
+    const url = `${cleanBaseUrl}/quote/${encodeURIComponent(token)}`;
     
     console.log('🔗 Generated secure quote URL with lead data:', {
       quoteId,

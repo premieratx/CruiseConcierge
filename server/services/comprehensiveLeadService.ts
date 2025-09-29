@@ -248,132 +248,81 @@ export class ComprehensiveLeadService {
         result.errors.push(`Google Sheets integration error: ${error.message}`);
       }
 
-      // 4.5. CRITICAL FIX: ALWAYS generate simple parameter URL and update Column Q for EVERY lead
-      // This must happen for ALL leads, not just those with quotes!
-      if (result.integrations.googleSheets.success) {
-        console.log('🔗 Step 4.5: ALWAYS Generating simple parameter URL for Column Q...');
+      // 4.5. CRITICAL FIX: Generate secure tokenized quote URL if we have a quote
+      let tokenizedQuoteUrl: string | undefined = undefined;
+      
+      if (quote && result.integrations.googleSheets.success) {
+        console.log('🔗 Step 4.5: Generating secure tokenized quote URL...');
         try {
-          // 🎯 CRITICAL FIX: Generate simple parameter URL for EVERY lead
-          console.log('🔗 Creating human-readable parameter URL with event details');
+          // Generate secure tokenized URL using quoteTokenService
+          console.log('🔐 Creating secure tokenized quote URL with complete quote data');
           
-          // Format the date as YYYY-MM-DD
-          // CRITICAL FIX: Parse date carefully to avoid timezone issues
-          let formattedDate = '';
-          if (leadData.cruiseDate) {
-            // If cruiseDate is already in YYYY-MM-DD format, use it directly
-            if (typeof leadData.cruiseDate === 'string' && /^\d{4}-\d{2}-\d{2}/.test(leadData.cruiseDate)) {
-              // Extract just the date part (YYYY-MM-DD) in case it has time component
-              formattedDate = leadData.cruiseDate.split('T')[0];
-            } else {
-              // If it's a Date object or ISO string with time, extract local date components
-              const dateObj = new Date(leadData.cruiseDate);
-              if (!isNaN(dateObj.getTime())) {
-                // Use local date methods to preserve the intended date
-                const year = dateObj.getFullYear();
-                const month = String(dateObj.getMonth() + 1).padStart(2, '0');
-                const day = String(dateObj.getDate()).padStart(2, '0');
-                formattedDate = `${year}-${month}-${day}`;
-              }
+          const tokenizedUrl = quoteTokenService.generateSecureQuoteUrl(
+            quote.id,
+            getPublicUrl(),
+            {
+              leadId: contact.id, // Include leadId for complete data fetching
+              scope: 'quote:view',
+              audience: 'customer',
+              expiresIn: 30 * 24 * 60 * 60 * 1000 // 30 days
             }
-          }
+          );
           
-          // Get the event type (lowercase, no spaces)
-          const eventType = (leadData.eventType || 'cruise').toLowerCase().replace(/\s+/g, '');
-          
-          // Get the group size - use leadData first, then quote if available, then default to 1
-          const groupSize = leadData.groupSize || quote?.eventDetails?.groupSize || 1;
-          
-          // CRITICAL FIX: Check if date is a weekday and add duration parameter
-          let selectedDuration: number | undefined = undefined;
-          if (formattedDate) {
-            const dateObj = new Date(formattedDate);
-            const dayOfWeek = dateObj.getDay();
-            const isWeekday = dayOfWeek >= 1 && dayOfWeek <= 4; // Monday through Thursday
-            
-            if (isWeekday) {
-              // For weekday dates, check if duration was in selection details
-              selectedDuration = leadData.selectedOptions?.selectedDuration || 
-                                leadData.selectedOptions?.duration || 
-                                4; // Default to 4 hours for weekdays
-              console.log(`📅 Weekday detected (${['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'][dayOfWeek]}), duration: ${selectedDuration} hours`);
-            }
-          }
-          
-          // Build URL parameters
-          const params = new URLSearchParams();
-          
-          // Add date parameter if we have it
-          if (formattedDate) {
-            params.append('date', formattedDate);
-          }
-          
-          // Add party type parameter
-          params.append('party', eventType);
-          
-          // Add people count parameter
-          params.append('people', String(groupSize));
-          
-          // Add duration parameter for weekday dates
-          if (selectedDuration) {
-            params.append('duration', String(selectedDuration));
-          }
-          
-          // Add contact=done to signal modal bypass
-          params.append('contact', 'done');
-          
-          // Generate the full URL
-          const baseUrl = getPublicUrl();
-          const simpleQuoteUrl = `${baseUrl}/chat?${params.toString()}`;
-          
-          console.log('🔗 CRITICAL: Generated simple parameter URL for Column Q:', {
-            url: simpleQuoteUrl,
-            parameters: {
-              date: formattedDate || 'not set',
-              party: eventType,
-              people: groupSize,
-              duration: selectedDuration || 'not needed',
-              contact: 'done'
-            },
-            leadId: leadId,
-            hasQuote: !!quote
+          console.log('✅ Generated secure tokenized quote URL:', {
+            quoteId: quote.id,
+            leadId: contact.id,
+            tokenizedUrl: tokenizedUrl.substring(0, 100) + '...',
+            expiresIn: '30 days'
           });
           
-          // CRITICAL: Update Column Q in Google Sheets with the generated URL - MUST succeed!
+          tokenizedQuoteUrl = tokenizedUrl;
+          
+          // Update the quote URL to use the new /quote/:token format instead of /chat?quote=
+          const finalQuoteUrl = tokenizedUrl.replace('/chat?quote=', '/quote/');
+          
+          console.log('🔗 FINAL: Updated quote URL to use dedicated /quote/:token route:', {
+            originalUrl: tokenizedUrl.substring(0, 50) + '...',
+            finalUrl: finalQuoteUrl.substring(0, 50) + '...'
+          });
+          
+          // CRITICAL: Update Google Sheets with the tokenized URL - MUST succeed!
           const updateSuccess = await googleSheetsService.updateQuoteUrlInColumnQ(
             leadId,
-            simpleQuoteUrl
+            finalQuoteUrl
           );
           
           if (updateSuccess) {
-            console.log('✅ CRITICAL SUCCESS: Column Q updated with simple parameter URL');
-            result.quoteUrl = simpleQuoteUrl;
-            quoteUrl = simpleQuoteUrl; // Update for use in notifications
+            console.log('✅ CRITICAL SUCCESS: Column Q updated with tokenized quote URL');
+            result.quoteUrl = finalQuoteUrl;
+            quoteUrl = finalQuoteUrl; // Update for use in notifications
             
-            // 🎯 CRITICAL FIX: Also update the Contact record in local storage with quote URL
+            // 🎯 CRITICAL FIX: Also update the Contact record in local storage with tokenized quote URL
             try {
-              console.log('💾 CRITICAL: Updating Contact record in local storage with quote URL');
+              console.log('💾 CRITICAL: Updating Contact record in local storage with tokenized quote URL');
               const updatedContact = await storage.updateContact(contact.id, {
-                quoteUrl: simpleQuoteUrl
+                quoteUrl: finalQuoteUrl
               });
-              console.log('✅ CRITICAL SUCCESS: Contact record updated with quote URL in local storage:', {
+              console.log('✅ CRITICAL SUCCESS: Contact record updated with tokenized quote URL in local storage:', {
                 contactId: contact.id,
-                quoteUrl: simpleQuoteUrl
+                quoteUrl: finalQuoteUrl
               });
             } catch (error: any) {
-              console.error('❌ CRITICAL ERROR: Failed to update Contact record with quote URL:', error);
-              result.errors.push(`CRITICAL: Failed to update Contact record with quote URL: ${error.message}`);
+              console.error('❌ CRITICAL ERROR: Failed to update Contact record with tokenized quote URL:', error);
+              result.errors.push(`CRITICAL: Failed to update Contact record with tokenized quote URL: ${error.message}`);
             }
           } else {
             // This is CRITICAL - log loudly if this fails
-            console.error('❌ CRITICAL FAILURE: Failed to update Column Q with quote URL - THIS MUST BE FIXED!');
-            result.errors.push('CRITICAL: Failed to update quote URL in Column Q of Google Sheets');
+            console.error('❌ CRITICAL FAILURE: Failed to update Column Q with tokenized quote URL - THIS MUST BE FIXED!');
+            result.errors.push('CRITICAL: Failed to update tokenized quote URL in Column Q of Google Sheets');
           }
         } catch (error: any) {
           // This is CRITICAL - log the full error
-          console.error('❌ CRITICAL ERROR generating simple parameter URL:', error);
+          console.error('❌ CRITICAL ERROR generating tokenized quote URL:', error);
           console.error('Full error details:', error.stack);
-          result.errors.push(`CRITICAL: Quote URL generation failed: ${error.message}`);
+          result.errors.push(`CRITICAL: Tokenized quote URL generation failed: ${error.message}`);
         }
+      } else if (!quote) {
+        console.log('ℹ️ No quote created - skipping tokenized URL generation');
       } else {
         // Log if Google Sheets creation failed so we know why Column Q wasn't updated
         console.warn('⚠️ WARNING: Cannot update Column Q because Google Sheets lead creation failed');

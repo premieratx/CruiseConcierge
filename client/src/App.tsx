@@ -24,8 +24,7 @@ import Discounts from "./pages/Discounts";
 import Affiliates from "./pages/Affiliates";
 import Documentation from "./pages/Documentation";
 import InvoiceViewer from "./pages/InvoiceViewer";
-// ARCHIVED: QuoteViewer completely disabled - Quote Builder is single source of truth
-// import QuoteViewer from "./pages/QuoteViewer";
+import QuoteViewer from "./pages/QuoteViewer";
 import CalendarView from "@/components/CalendarView";
 import Settings from "./pages/Settings";
 import PublicCalendar from "./pages/PublicCalendar";
@@ -132,11 +131,25 @@ function Router() {
       {/* Public Booking - Commented out, using /chat instead */}
       {/* <Route path="/calendar" component={PublicCalendar} /> */}
       
-      {/* QuoteViewer DEACTIVATED - now using Chat.tsx flow only */}
-      {/* <Route path="/q/:token" component={QuoteViewer} /> */}
+      {/* Quote display route - tokenized quote viewing */}
+      <Route path="/quote/:token" component={QuoteViewer} />
       
-      {/* Quote display route - redirects to Chat with quote ID */}
-      <Route path="/quote/:id" component={Chat} />
+      {/* Legacy quote ID route - redirects to Chat with quote ID */}
+      <Route path="/quote/id/:id" component={Chat} />
+      
+      {/* Legacy direct quote ID route - handles old emailed links /quote/ABC123 */}
+      <Route path="/quote/:id" component={(props: any) => {
+        const { id } = props.params;
+        // Smart detection: tokens are long with dots, legacy IDs are short alphanumeric
+        if (id && (id.length > 50 || id.includes('.'))) {
+          // This looks like a secure token, render QuoteViewer
+          return <QuoteViewer params={{ token: id }} />;
+        } else {
+          // This looks like a legacy quote ID, redirect to Chat with quote context
+          console.log('🔗 Legacy quote ID detected, redirecting to Chat:', id);
+          return <Chat params={{ ...props.params, quoteId: id }} />;
+        }
+      }} />
       
       {/* Admin Dashboard Routes */}
       <Route path="/dashboard" component={Dashboard} />
