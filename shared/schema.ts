@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, integer, boolean, timestamp, jsonb, unique } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, integer, boolean, timestamp, jsonb, unique, bigint } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -27,7 +27,7 @@ export const projects = pgTable("projects", {
   duration: integer("duration"), // in hours
   specialRequests: text("special_requests"),
   preferredTime: text("preferred_time"),
-  budget: integer("budget"), // in cents
+  budget: bigint("budget", { mode: "number" }), // in cents
   leadSource: varchar("lead_source").default("chat"),
   availabilitySlotId: varchar("availability_slot_id"), // reference to booked slot
   tags: jsonb("tags").$type<string[]>().default([]),
@@ -49,7 +49,7 @@ export const products = pgTable("products", {
   orgId: varchar("org_id").notNull().default("org_demo"),
   name: text("name").notNull(),
   description: text("description"),
-  unitPrice: integer("unit_price").notNull(), // in cents
+  unitPrice: bigint("unit_price", { mode: "number" }).notNull(), // in cents
   taxable: boolean("taxable").notNull().default(true),
   pricingModel: varchar("pricing_model").notNull().default("hourly"), // 'hourly', 'per_person', 'flat_rate'
   productType: varchar("product_type").notNull().default("private_cruise"), // 'private_cruise', 'disco_cruise', 'addon'
@@ -59,7 +59,7 @@ export const products = pgTable("products", {
   startTime: text("start_time"), // time slot start (e.g., "10:00") for private/disco cruises
   endTime: text("end_time"), // time slot end (e.g., "14:00") for private/disco cruises
   duration: integer("duration"), // duration in hours for time slot products
-  crewFeePerHour: integer("crew_fee_per_hour").default(0), // additional crew fee in cents/hour when capacity threshold reached
+  crewFeePerHour: bigint("crew_fee_per_hour", { mode: "number" }).default(0), // additional crew fee in cents/hour when capacity threshold reached
   imageUrl: text("image_url"), // Background image for photo-centric cards
   categoryType: varchar("category_type").notNull().default("experience"), // 'experience', 'addon'
   eventTypes: jsonb("event_types").$type<string[]>().default([]), // which event types this product applies to
@@ -109,15 +109,15 @@ export const quotes = pgTable("quotes", {
   }>(),
   
   promoCode: text("promo_code"),
-  discountTotal: integer("discount_total").notNull().default(0),
-  subtotal: integer("subtotal").notNull().default(0),
-  tax: integer("tax").notNull().default(0),
-  gratuity: integer("gratuity").notNull().default(0),
-  total: integer("total").notNull().default(0),
-  perPersonCost: integer("per_person_cost").notNull().default(0),
+  discountTotal: bigint("discount_total", { mode: "number" }).notNull().default(0),
+  subtotal: bigint("subtotal", { mode: "number" }).notNull().default(0),
+  tax: bigint("tax", { mode: "number" }).notNull().default(0),
+  gratuity: bigint("gratuity", { mode: "number" }).notNull().default(0),
+  total: bigint("total", { mode: "number" }).notNull().default(0),
+  perPersonCost: bigint("per_person_cost", { mode: "number" }).notNull().default(0),
   depositRequired: boolean("deposit_required").notNull().default(true),
   depositPercent: integer("deposit_percent").notNull().default(25),
-  depositAmount: integer("deposit_amount").notNull().default(0),
+  depositAmount: bigint("deposit_amount", { mode: "number" }).notNull().default(0),
   paymentSchedule: jsonb("payment_schedule").$type<PaymentSchedule[]>().default([]),
   accessToken: varchar("access_token"), // nullable 128-bit secure token for public access
   accessTokenCreatedAt: timestamp("access_token_created_at"), // when token was generated
@@ -133,14 +133,14 @@ export const invoices = pgTable("invoices", {
   projectId: varchar("project_id").notNull(),
   quoteId: varchar("quote_id"),
   status: varchar("status").notNull().default("OPEN"),
-  subtotal: integer("subtotal").notNull(),
-  tax: integer("tax").notNull(),
-  total: integer("total").notNull(),
-  balance: integer("balance").notNull(),
+  subtotal: bigint("subtotal", { mode: "number" }).notNull(),
+  tax: bigint("tax", { mode: "number" }).notNull(),
+  total: bigint("total", { mode: "number" }).notNull(),
+  balance: bigint("balance", { mode: "number" }).notNull(),
   // Persistent deposit calculation fields (always 25%)
   depositPercent: integer("deposit_percent").notNull().default(25),
-  depositAmount: integer("deposit_amount").notNull().default(0),
-  remainingBalance: integer("remaining_balance").notNull().default(0),
+  depositAmount: bigint("deposit_amount", { mode: "number" }).notNull().default(0),
+  remainingBalance: bigint("remaining_balance", { mode: "number" }).notNull().default(0),
   remainingBalanceDueAt: timestamp("remaining_balance_due_at"),
   schedule: jsonb("schedule").$type<PaymentSchedule[]>().default([]),
   createdAt: timestamp("created_at").notNull().defaultNow(),
@@ -149,7 +149,7 @@ export const invoices = pgTable("invoices", {
 export const payments = pgTable("payments", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   invoiceId: varchar("invoice_id").notNull(),
-  amount: integer("amount").notNull(),
+  amount: bigint("amount", { mode: "number" }).notNull(),
   status: varchar("status").notNull(),
   paidAt: timestamp("paid_at"),
   method: varchar("method").notNull().default("card"),
@@ -266,7 +266,7 @@ export const quoteTemplates = pgTable("quote_templates", {
   components: jsonb("components").$type<TemplateComponent[]>().default([]), // Added for visual template builder
   minGroupSize: integer("min_group_size"),
   maxGroupSize: integer("max_group_size"),
-  basePricePerPerson: integer("base_price_per_person"), // in cents
+  basePricePerPerson: bigint("base_price_per_person", { mode: "number" }), // in cents
   duration: integer("duration").notNull(), // in hours
   active: boolean("active").notNull().default(true),
   isDefault: boolean("is_default").notNull().default(false), // Added isDefault field
@@ -297,10 +297,10 @@ export const discountRules = pgTable("discount_rules", {
   name: text("name").notNull(),
   code: text("code"), // promo code, if applicable
   discountType: varchar("discount_type").notNull(), // 'percentage', 'fixed_amount', 'per_person'
-  discountValue: integer("discount_value").notNull(), // percentage (0-100) or amount in cents
+  discountValue: bigint("discount_value", { mode: "number" }).notNull(), // percentage (0-100) or amount in cents
   minGroupSize: integer("min_group_size"),
   maxGroupSize: integer("max_group_size"),
-  minSubtotal: integer("min_subtotal"), // minimum order value in cents
+  minSubtotal: bigint("min_subtotal", { mode: "number" }), // minimum order value in cents
   validFrom: timestamp("valid_from"),
   validUntil: timestamp("valid_until"),
   usageLimit: integer("usage_limit"),
@@ -348,9 +348,9 @@ export const affiliates = pgTable("affiliates", {
   commissionType: varchar("commission_type").notNull().default("percentage"), // 'percentage' or 'flat_fee'
   commissionRate: integer("commission_rate").notNull(), // percentage (0-100) or cents for flat fee
   totalReferrals: integer("total_referrals").notNull().default(0),
-  totalRevenue: integer("total_revenue").notNull().default(0), // in cents
-  totalCommission: integer("total_commission").notNull().default(0), // in cents
-  pendingCommission: integer("pending_commission").notNull().default(0), // in cents
+  totalRevenue: bigint("total_revenue", { mode: "number" }).notNull().default(0), // in cents
+  totalCommission: bigint("total_commission", { mode: "number" }).notNull().default(0), // in cents
+  pendingCommission: bigint("pending_commission", { mode: "number" }).notNull().default(0), // in cents
   lastReferralDate: timestamp("last_referral_date"),
   notes: text("notes"),
   active: boolean("active").notNull().default(true),
@@ -372,8 +372,8 @@ export const bookings = pgTable("bookings", {
   productId: varchar("product_id"), // reference to product for pricing and package details
   quoteId: varchar("quote_id"), // reference to generated quote
   paymentStatus: varchar("payment_status").default("pending"), // 'pending', 'deposit_paid', 'fully_paid'
-  amountPaid: integer("amount_paid").default(0), // in cents
-  totalAmount: integer("total_amount").default(0), // in cents
+  amountPaid: bigint("amount_paid", { mode: "number" }).default(0), // in cents
+  totalAmount: bigint("total_amount", { mode: "number" }).default(0), // in cents
   contactName: text("contact_name"),
   contactEmail: text("contact_email"),
   contactPhone: text("contact_phone"),
@@ -439,8 +439,8 @@ export const masterAvailabilityRules = pgTable("master_availability_rules", {
   duration: integer("duration"), // duration in hours
   boatId: varchar("boat_id"), // specific boat or null for any
   cruiseType: varchar("cruise_type").notNull(), // 'private', 'disco'
-  basePrice: integer("base_price"), // base price in cents
-  pricePerPerson: integer("price_per_person"), // per person price in cents
+  basePrice: bigint("base_price", { mode: "number" }), // base price in cents
+  pricePerPerson: bigint("price_per_person", { mode: "number" }), // per person price in cents
   active: boolean("active").notNull().default(true),
   priority: integer("priority").notNull().default(0), // higher priority rules override lower
   notes: text("notes"),
@@ -486,7 +486,7 @@ export const specialPricingRules = pgTable("special_pricing_rules", {
   boatId: varchar("boat_id"), // specific boat or null for all
   cruiseType: varchar("cruise_type"), // 'private', 'disco', or null for both
   pricingType: varchar("pricing_type").notNull(), // 'multiplier', 'fixed', 'discount'
-  pricingValue: integer("pricing_value").notNull(), // percentage for multiplier/discount, cents for fixed
+  pricingValue: bigint("pricing_value", { mode: "number" }).notNull(), // percentage for multiplier/discount, cents for fixed
   priority: integer("priority").notNull().default(0), // higher priority rules override lower
   active: boolean("active").notNull().default(true),
   notes: text("notes"),
@@ -767,7 +767,7 @@ export const customerLifecycle = pgTable("customer_lifecycle", {
   }[]>().default([]),
   nextActionRequired: varchar("next_action_required"), // 'send_quote', 'follow_up', 'collect_deposit', 'confirm_booking', 'send_reminder'
   nextActionDue: timestamp("next_action_due"),
-  totalValue: integer("total_value").notNull().default(0), // estimated/actual total value in cents
+  totalValue: bigint("total_value", { mode: "number" }).notNull().default(0), // estimated/actual total value in cents
   probabilityScore: integer("probability_score").notNull().default(50), // 0-100 likelihood of conversion
   lastTouchpoint: timestamp("last_touchpoint"),
   lastTouchpointType: varchar("last_touchpoint_type"), // 'email', 'call', 'text', 'chat', 'quote_view'
@@ -2291,7 +2291,7 @@ export const photoEdits = pgTable('photo_edits', {
   editType: varchar('edit_type', { length: 100 }),
   editPrompt: text('edit_prompt'),
   nanoBananaJobId: varchar('nanobanan_job_id', { length: 500 }),
-  editCost: integer('edit_cost'),
+  editCost: bigint('edit_cost', { mode: "number" }),
   status: varchar('status', { length: 50 }).default('processing'),
   createdAt: timestamp('created_at').defaultNow()
 });
@@ -2324,7 +2324,7 @@ export const pricingAdjustments = pgTable("pricing_adjustments", {
   endDate: timestamp("end_date").notNull(),
   daysOfWeek: jsonb("days_of_week").$type<number[]>().default([]), // 0-6 for Sunday-Saturday
   adjustmentType: varchar("adjustment_type").notNull(), // 'amount', 'percent', 'override'
-  amountCents: integer("amount_cents").notNull().default(0), // Fixed amount in cents
+  amountCents: bigint("amount_cents", { mode: "number" }).notNull().default(0), // Fixed amount in cents
   percentBps: integer("percent_bps").notNull().default(0), // Percentage in basis points (0-10000)
   operation: varchar("operation").notNull().default("increase"), // 'increase', 'decrease'
   priority: integer("priority").notNull().default(0), // Lower number = higher priority
