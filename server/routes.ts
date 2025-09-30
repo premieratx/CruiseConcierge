@@ -20301,6 +20301,287 @@ Provide JSON response with: { "enhancedContent": "...", "eventCategory": "corpor
   });
 
   // ==========================================
+  // INVENTORY MANAGEMENT ENDPOINTS
+  // ==========================================
+  
+  // Get all inventory items
+  app.get("/api/inventory", requireAdminAuth, async (req, res) => {
+    try {
+      const { inventoryService } = await import('./services/inventoryService');
+      const inventory = await inventoryService.getAllInventory();
+      res.json({ success: true, inventory });
+    } catch (error: any) {
+      console.error("Get inventory error:", error);
+      res.status(500).json({ error: "Failed to fetch inventory", details: error.message });
+    }
+  });
+  
+  // Get inventory item details
+  app.get("/api/inventory/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const { inventoryService } = await import('./services/inventoryService');
+      const item = await inventoryService.getInventoryItem(req.params.id);
+      if (!item) {
+        return res.status(404).json({ error: "Inventory item not found" });
+      }
+      res.json({ success: true, item });
+    } catch (error: any) {
+      console.error("Get inventory item error:", error);
+      res.status(500).json({ error: "Failed to fetch inventory item", details: error.message });
+    }
+  });
+  
+  // Get available slots for boat
+  app.get("/api/inventory/:id/slots", async (req, res) => {
+    try {
+      const { inventoryService } = await import('./services/inventoryService');
+      const { startDate, endDate } = req.query;
+      
+      if (!startDate || !endDate) {
+        return res.status(400).json({ error: "startDate and endDate required" });
+      }
+      
+      const slots = await inventoryService.getAvailableSlots(
+        req.params.id,
+        new Date(startDate as string),
+        new Date(endDate as string)
+      );
+      
+      res.json({ success: true, slots });
+    } catch (error: any) {
+      console.error("Get slots error:", error);
+      res.status(500).json({ error: "Failed to fetch slots", details: error.message });
+    }
+  });
+  
+  // Create new time slots
+  app.post("/api/inventory/:id/slots", requireAdminAuth, async (req, res) => {
+    try {
+      const { inventoryService } = await import('./services/inventoryService');
+      const { dateRange, pattern } = req.body;
+      
+      if (!dateRange || !pattern) {
+        return res.status(400).json({ error: "dateRange and pattern required" });
+      }
+      
+      const result = await inventoryService.bulkCreateSlots(
+        req.params.id,
+        {
+          start: new Date(dateRange.start),
+          end: new Date(dateRange.end)
+        },
+        pattern
+      );
+      
+      res.json({ success: true, ...result });
+    } catch (error: any) {
+      console.error("Create slots error:", error);
+      res.status(500).json({ error: "Failed to create slots", details: error.message });
+    }
+  });
+  
+  // Update inventory item
+  app.put("/api/inventory/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const { inventoryService } = await import('./services/inventoryService');
+      const updated = await inventoryService.upsertInventoryItem({
+        ...req.body,
+        boatId: req.params.id
+      });
+      res.json({ success: true, item: updated });
+    } catch (error: any) {
+      console.error("Update inventory error:", error);
+      res.status(500).json({ error: "Failed to update inventory", details: error.message });
+    }
+  });
+  
+  // Get boat recommendations
+  app.get("/api/rules/recommend", async (req, res) => {
+    try {
+      const { rulesEngine } = await import('./services/rulesEngine');
+      const { groupSize, eventType, eventDate, duration, budget } = req.query;
+      
+      if (!groupSize || !eventType || !eventDate) {
+        return res.status(400).json({ error: "groupSize, eventType, and eventDate required" });
+      }
+      
+      const recommendations = await rulesEngine.getRecommendations({
+        groupSize: parseInt(groupSize as string),
+        eventType: eventType as string,
+        eventDate: new Date(eventDate as string),
+        duration: duration ? parseInt(duration as string) : undefined,
+        budget: budget ? parseInt(budget as string) : undefined
+      });
+      
+      res.json({ success: true, recommendations });
+    } catch (error: any) {
+      console.error("Get recommendations error:", error);
+      res.status(500).json({ error: "Failed to get recommendations", details: error.message });
+    }
+  });
+  
+  // Create pricing exception
+  app.post("/api/exceptions", requireAdminAuth, async (req, res) => {
+    try {
+      const { pricingExceptionsService } = await import('./services/pricingExceptions');
+      const exception = await pricingExceptionsService.createException(req.body);
+      
+      // Broadcast pricing update event
+      broadcastRealtimeEvent({
+        type: 'pricing_exception_created',
+        data: exception,
+        timestamp: new Date().toISOString()
+      });
+      
+      res.json({ success: true, exception });
+    } catch (error: any) {
+      console.error("Create exception error:", error);
+      res.status(500).json({ error: "Failed to create exception", details: error.message });
+    }
+  });
+  
+  // Get all pricing exceptions
+  app.get("/api/exceptions", requireAdminAuth, async (req, res) => {
+    try {
+      const { pricingExceptionsService } = await import('./services/pricingExceptions');
+      const exceptions = await pricingExceptionsService.getAllExceptions();
+      res.json({ success: true, exceptions });
+    } catch (error: any) {
+      console.error("Get exceptions error:", error);
+      res.status(500).json({ error: "Failed to fetch exceptions", details: error.message });
+    }
+  });
+  
+  // Update pricing exception
+  app.put("/api/exceptions/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const { pricingExceptionsService } = await import('./services/pricingExceptions');
+      const updated = await pricingExceptionsService.updateException(req.params.id, req.body);
+      
+      // Broadcast pricing update event
+      broadcastRealtimeEvent({
+        type: 'pricing_exception_updated',
+        data: updated,
+        timestamp: new Date().toISOString()
+      });
+      
+      res.json({ success: true, exception: updated });
+    } catch (error: any) {
+      console.error("Update exception error:", error);
+      res.status(500).json({ error: "Failed to update exception", details: error.message });
+    }
+  });
+  
+  // Delete pricing exception
+  app.delete("/api/exceptions/:id", requireAdminAuth, async (req, res) => {
+    try {
+      const { pricingExceptionsService } = await import('./services/pricingExceptions');
+      await pricingExceptionsService.deleteException(req.params.id);
+      
+      // Broadcast pricing update event
+      broadcastRealtimeEvent({
+        type: 'pricing_exception_deleted',
+        data: { id: req.params.id },
+        timestamp: new Date().toISOString()
+      });
+      
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error("Delete exception error:", error);
+      res.status(500).json({ error: "Failed to delete exception", details: error.message });
+    }
+  });
+  
+  // Get availability grid for calendar view
+  app.get("/api/availability/grid", async (req, res) => {
+    try {
+      const { availabilityService } = await import('./services/availabilityService');
+      const { month, year } = req.query;
+      
+      if (!month || !year) {
+        return res.status(400).json({ error: "month and year required" });
+      }
+      
+      const grid = await availabilityService.getCalendarGrid(
+        parseInt(month as string),
+        parseInt(year as string)
+      );
+      
+      res.json({ success: true, grid });
+    } catch (error: any) {
+      console.error("Get availability grid error:", error);
+      res.status(500).json({ error: "Failed to fetch availability grid", details: error.message });
+    }
+  });
+  
+  // Check availability with rules
+  app.post("/api/availability/check-with-rules", async (req, res) => {
+    try {
+      const { availabilityService } = await import('./services/availabilityService');
+      const { date, boatId, groupSize, eventType, duration } = req.body;
+      
+      if (!date) {
+        return res.status(400).json({ error: "date required" });
+      }
+      
+      const result = await availabilityService.checkAvailability({
+        date: new Date(date),
+        boatId,
+        groupSize,
+        eventType,
+        duration
+      });
+      
+      res.json({ success: true, ...result });
+    } catch (error: any) {
+      console.error("Check availability error:", error);
+      res.status(500).json({ error: "Failed to check availability", details: error.message });
+    }
+  });
+  
+  // Get utilization report
+  app.get("/api/inventory/utilization", requireAdminAuth, async (req, res) => {
+    try {
+      const { inventoryService } = await import('./services/inventoryService');
+      const { startDate, endDate } = req.query;
+      
+      if (!startDate || !endDate) {
+        return res.status(400).json({ error: "startDate and endDate required" });
+      }
+      
+      const report = await inventoryService.getUtilizationReport(
+        new Date(startDate as string),
+        new Date(endDate as string)
+      );
+      
+      res.json({ success: true, report });
+    } catch (error: any) {
+      console.error("Get utilization report error:", error);
+      res.status(500).json({ error: "Failed to fetch utilization report", details: error.message });
+    }
+  });
+  
+  // Initialize holiday exceptions for a year
+  app.post("/api/exceptions/initialize-holidays", requireAdminAuth, async (req, res) => {
+    try {
+      const { pricingExceptionsService } = await import('./services/pricingExceptions');
+      const { year } = req.body;
+      
+      const targetYear = year || new Date().getFullYear();
+      await pricingExceptionsService.initializeHolidayExceptions(targetYear);
+      await pricingExceptionsService.initializeSpecialEvents(targetYear);
+      
+      res.json({ 
+        success: true, 
+        message: `Initialized holidays and special events for ${targetYear}` 
+      });
+    } catch (error: any) {
+      console.error("Initialize holidays error:", error);
+      res.status(500).json({ error: "Failed to initialize holidays", details: error.message });
+    }
+  });
+
+  // ==========================================
   // ADMIN BOOKING/BLOCKING ENDPOINTS FOR BIDIRECTIONAL SYNC
   // ==========================================
   

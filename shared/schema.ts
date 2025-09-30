@@ -2996,6 +2996,68 @@ export const insertAgentChatMessageSchema = createInsertSchema(agentChatMessages
 export type InsertAgentChatMessage = z.infer<typeof insertAgentChatMessageSchema>;
 export type SelectAgentChatMessage = typeof agentChatMessages.$inferSelect;
 
+// Inventory Management Tables
+export const inventory = pgTable("inventory", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  boatId: varchar("boat_id").notNull().unique(),
+  minCapacity: integer("min_capacity").notNull().default(1),
+  maxCapacity: integer("max_capacity"),
+  basePricing: jsonb("base_pricing").$type<{
+    weekday: number;
+    friday: number;
+    weekend: number;
+  }>().notNull(),
+  allowedEventTypes: jsonb("allowed_event_types").$type<string[]>().default([]),
+  crewRequirements: jsonb("crew_requirements").$type<{
+    standard: number;
+    extraThreshold?: number;
+    extraCrew?: number;
+  }>(),
+  amenities: jsonb("amenities").$type<string[]>().default([]),
+  features: jsonb("features").$type<string[]>().default([]),
+  maintenanceBuffer: integer("maintenance_buffer").default(30), // minutes
+  active: boolean("active").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const timeSlotTemplates = pgTable("time_slot_templates", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  boatId: varchar("boat_id"), // null means applies to all boats
+  dayOfWeek: integer("day_of_week").notNull(), // 0-6
+  startTime: varchar("start_time").notNull(), // HH:MM format
+  endTime: varchar("end_time").notNull(), // HH:MM format
+  duration: integer("duration").notNull(), // in hours
+  cruiseType: varchar("cruise_type").notNull().default("private"), // private or disco
+  active: boolean("active").notNull().default(true),
+  priority: integer("priority").notNull().default(0),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const pricingExceptions = pgTable("pricing_exceptions", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  name: text("name").notNull(),
+  exceptionType: varchar("exception_type").notNull(), // holiday, special_event, dynamic, discount
+  multiplier: integer("multiplier").notNull(), // percentage (150 = 1.5x)
+  startDate: timestamp("start_date").notNull(),
+  endDate: timestamp("end_date").notNull(),
+  conditions: jsonb("conditions").$type<{
+    minGroupSize?: number;
+    maxGroupSize?: number;
+    withinHours?: number;
+    boatIds?: string[];
+    eventTypes?: string[];
+  }>().default({}),
+  priority: integer("priority").notNull().default(50),
+  active: boolean("active").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
 // Content Blocks - for inline editing and content management
 export const contentBlocks = pgTable('content_blocks', {
   id: varchar('id').primaryKey().default(sql`gen_random_uuid()`),
@@ -3093,6 +3155,35 @@ export const insertContentBlockSchema = createInsertSchema(contentBlocks).omit({
 // Content Blocks Types
 export type ContentBlock = typeof contentBlocks.$inferSelect;
 export type InsertContentBlock = z.infer<typeof insertContentBlockSchema>;
+
+// Inventory Management Types
+export type Inventory = typeof inventory.$inferSelect;
+export type InsertInventory = typeof inventory.$inferInsert;
+
+export type TimeSlotTemplate = typeof timeSlotTemplates.$inferSelect;
+export type InsertTimeSlotTemplate = typeof timeSlotTemplates.$inferInsert;
+
+export type PricingException = typeof pricingExceptions.$inferSelect;
+export type InsertPricingException = typeof pricingExceptions.$inferInsert;
+
+// Inventory Management Insert Schemas
+export const insertInventorySchema = createInsertSchema(inventory).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertTimeSlotTemplateSchema = createInsertSchema(timeSlotTemplates).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertPricingExceptionSchema = createInsertSchema(pricingExceptions).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
 
 
 // Export types
