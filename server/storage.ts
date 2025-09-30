@@ -7,6 +7,7 @@ import { GoogleSheetsService, type AvailabilityData } from "./services/googleShe
 import { HOURLY_RATES } from '../shared/constants.js';
 import { isInDiscoSeason } from '../shared/timeSlots.js';
 import { format } from "date-fns";
+import { STATIC_PRICING, getPricingDayType, getBoatPricing } from './config/staticPricing';
 
 export interface IStorage {
   // Contacts
@@ -1416,36 +1417,30 @@ export class DatabaseStorage implements IStorage {
   
   /**
    * Helper method to get hourly rate for a boat based on its capacity and day type
+   * Uses static pricing configuration as the source of truth
    */
   private async getHourlyRateForBoat(boat: Boat, dayType: 'MON_THU' | 'FRIDAY' | 'SAT_SUN'): Promise<number> {
-    // PRODUCTION FIX: Get pricing from Google Sheets-synced products table instead of constants
     try {
-      // Query products table for boat-specific pricing from Google Sheets sync
-      const dayTypeForQuery = dayType === 'MON_THU' ? 'weekday' : dayType === 'FRIDAY' ? 'friday' : 'weekend';
+      // Map internal day type to pricing day type
+      const dayTypeForPricing = dayType === 'MON_THU' ? 'weekday' : dayType === 'FRIDAY' ? 'friday' : 'weekend';
       
-      const pricingProducts = await db.select().from(products)
-        .where(
-          and(
-            eq(products.boatId, boat.id),
-            eq(products.dayType, dayTypeForQuery),
-            eq(products.productType, 'private_cruise'),
-            eq(products.active, true)
-          )
-        )
-        .limit(1);
-      
-      if (pricingProducts.length > 0) {
-        const hourlyRateCents = pricingProducts[0].unitPrice;
-        console.log(`✅ [GOOGLE SHEET PRICING] ${boat.name} ${dayTypeForQuery}: $${hourlyRateCents/100}/hr from synced data`);
-        return hourlyRateCents; // Return cents
+      // Get boat pricing from static config
+      const boatConfig = STATIC_PRICING.boats[boat.id];
+      if (!boatConfig) {
+        throw new Error(`No static pricing configuration found for boat: ${boat.id}`);
       }
       
-      // If no Google Sheet data found, this is a critical error - no fallbacks
-      console.error(`❌ CRITICAL: No Google Sheet pricing data found for ${boat.name} on ${dayTypeForQuery}. Check Google Sheets sync.`);
-      throw new Error(`Missing Google Sheet pricing data for ${boat.name} on ${dayTypeForQuery}`);
-    } catch (error) {
-      console.error(`❌ CRITICAL: Failed to get Google Sheet pricing for ${boat.name}:`, error);
-      throw error; // No fallbacks - Google Sheets is required
+      // Get the hourly rate for the day type
+      const hourlyRateCents = boatConfig.pricing[dayTypeForPricing];
+      if (hourlyRateCents === undefined || hourlyRateCents === null) {
+        throw new Error(`No pricing found for ${boat.id} on ${dayTypeForPricing}`);
+      }
+      
+      console.log(`✅ [STATIC PRICING] ${boat.name} ${dayTypeForPricing}: $${hourlyRateCents/100}/hr from static config`);
+      return hourlyRateCents; // Return cents
+    } catch (error: any) {
+      console.error(`❌ CRITICAL: Failed to get static pricing for ${boat.name}:`, error.message);
+      throw error;
     }
   }
 
