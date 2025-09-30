@@ -15,6 +15,58 @@ All time slot definitions and availability must be identical across all customer
 
 ## System Architecture
 
+### Centralized Availability System (Updated Sep 30, 2025)
+The platform now uses a **unified availability system** that serves as the single source of truth for both Quote Builder and Admin Calendar components. This ensures perfect synchronization between customer-facing quotes and administrative booking management.
+
+#### How It Works
+1. **Static Pricing Configuration** (`server/config/staticPricing.ts`):
+   - All boat pricing is defined statically and rarely changes
+   - Pricing varies by boat type and day type (weekday/friday/weekend)
+   - Database seeding uses static pricing, NOT Google Sheets pricing data
+   - Example: Day Tripper = $600/hr weekday, $1000/hr Friday, $1200/hr weekend
+
+2. **Products Table** (PostgreSQL):
+   - Seeded with 89 products: 87 boat-specific time slots + 2 add-ons
+   - Each product represents a specific boat + time slot + day type combination
+   - Products are the foundation for availability checking and booking
+
+3. **Centralized Availability API** (`/api/availability/search`):
+   - Single endpoint used by both Quote Builder and Admin Calendar
+   - Returns NormalizedSlot objects with complete pricing and availability data
+   - Handles booking conflicts, slot holds, and real-time availability
+   - Supports filtering by date range, cruise type, group size, and duration
+
+4. **Quote Builder Flow**:
+   - User selects date, group size, duration → calls `/api/availability/search`
+   - System returns available time slots with pricing already in cents
+   - User selects time slot → generates quote with pricing breakdown
+   - Quote stores selected product_id linking it to specific time slot
+
+5. **Admin Calendar Flow**:
+   - Fetches week of availability from `/api/availability/search`
+   - Transforms NormalizedSlots to TimeBlocks for UI display
+   - Shows available (green), booked (red), and blocked (gray) time slots
+   - Real-time updates via SSE when bookings are created/modified
+
+6. **Quote-to-Calendar Linkage**:
+   - When quote is created → stores product_id in database
+   - When payment is completed → creates booking with start_time/end_time
+   - Booking automatically marks time slot as unavailable
+   - Calendar reflects booking immediately via cache invalidation
+   - Both systems query same availability endpoint = perfect sync
+
+#### Key Benefits
+- **Single Source of Truth**: Both Quote Builder and Calendar use `/api/availability/search`
+- **Real-time Sync**: Changes in either system immediately reflect in the other
+- **Accurate Pricing**: Static pricing ensures consistent rates across all components
+- **Conflict Prevention**: Centralized booking checks prevent double-bookings
+- **Efficient Caching**: Week-scoped cache keys minimize redundant API calls
+
+#### Google Sheets Role (Availability Only)
+- Google Sheets is used ONLY for tracking availability/bookings, NOT pricing
+- Pricing always comes from `server/config/staticPricing.ts`
+- Future: May integrate Google Sheets availability data with normalized slot system
+
 ### UI/UX Decisions
 The system features a progressive booking flow designed for an intuitive user experience. Admin dashboards include a calendar view for visual booking management, a leads pipeline, and a comprehensive booking table. The UI prioritizes transparent pricing breakdowns and clear display of boat capacities. Design uses Tailwind CSS and shadcn/ui components for a modern and consistent look.
 
