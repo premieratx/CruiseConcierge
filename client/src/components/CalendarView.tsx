@@ -11,7 +11,7 @@ import { apiRequest, queryClient } from "@/lib/queryClient";
 import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Ship, Anchor, Users, Plus, Minus, AlertCircle, Wifi, WifiOff, Activity, RefreshCw, UserPlus, Block, X, Check } from "lucide-react";
 import { Slider } from "@/components/ui/slider";
 import type { Boat, Booking, DiscoSlot, Timeframe, Product, NormalizedSlot } from "@shared/schema";
-import { useAvailabilityForDate, formatDateForAvailability } from "@/hooks/use-availability";
+import { useAvailabilityForDate, formatDateForAvailability, useWeekAvailability, getWeekStart } from "@/hooks/use-availability";
 import { format, startOfWeek, addWeeks, subWeeks, isToday } from "date-fns";
 import { cn } from "@/lib/utils";
 import { formatCurrency, formatDate, formatDateTime, formatTimeForDisplay, formatTimeRange, formatCustomerName, formatPhoneNumber } from '@shared/formatters';
@@ -138,39 +138,63 @@ const getBoatTextColor = (boatName: string): string => {
 
 // Convert NormalizedSlot to TimeBlock for backward compatibility with existing UI
 const normalizedSlotToTimeBlock = (slot: NormalizedSlot): TimeBlock => {
+  // Use canonical boatId if available, fallback to first candidate
+  const boatId = (slot as any).boatId || slot.boatCandidates?.[0] || 'unknown';
+  
+  // Get server-provided pricing data - already in cents
+  const serverPricing = (slot as any).pricing;
+  
+  // Use server-provided pricing tiers if available, otherwise fall back to calculating from base price
+  const standardPrice = serverPricing?.standardPrice || slot.price || 0;
+  const essentialsPrice = serverPricing?.essentialsPrice || Math.round(standardPrice * 1.15);
+  const ultimatePrice = serverPricing?.ultimatePrice || Math.round(standardPrice * 1.30);
+  const perPersonEstimate = serverPricing?.perPersonEstimate || (slot.capacity > 0 ? Math.round(standardPrice / slot.capacity) : standardPrice);
+  const dayType = serverPricing?.dayType || new Date(slot.dateISO).toLocaleDateString('en-US', { weekday: 'long' });
+  
+  // Determine status: available if bookable and not held, blocked if held, otherwise booked/unavailable
+  let status: 'available' | 'booked' | 'blocked';
+  if (slot.bookable && !slot.held) {
+    status = 'available';
+  } else if (slot.held) {
+    status = 'blocked';
+  } else {
+    // Not bookable and not held = booked or otherwise unavailable
+    status = 'booked';
+  }
+  
   return {
     id: slot.id,
     date: new Date(slot.dateISO),
     startTime: slot.startTime,
     endTime: slot.endTime,
-    boatId: slot.boatId,
-    boatName: slot.boatDisplayName || slot.boatName,
-    status: slot.bookable && !slot.held ? 'available' : (slot.held ? 'blocked' : 'booked'),
-    capacity: slot.boatCapacity,
-    pricing: slot.pricing ? {
-      standardPrice: Math.round((slot.pricing.basePrice || 0) * 100), // Convert to cents
-      essentialsPrice: Math.round((slot.pricing.essentialsPrice || slot.pricing.basePrice || 0) * 100),
-      ultimatePrice: Math.round((slot.pricing.ultimatePrice || slot.pricing.basePrice || 0) * 100),
-      perPersonEstimate: Math.round((slot.pricing.perPersonEstimate || 0) * 100),
-      dayType: slot.pricing.dayType || 'Unknown',
+    boatId: boatId,
+    boatName: slot.boatName || 'Unknown Boat',
+    status: status,
+    capacity: slot.capacity,
+    pricing: {
+      standardPrice: standardPrice, // Already in cents from server
+      essentialsPrice: essentialsPrice, // Already in cents from server
+      ultimatePrice: ultimatePrice, // Already in cents from server
+      perPersonEstimate: perPersonEstimate, // Already in cents from server
+      dayType: dayType,
       packagePreviews: [
         {
           name: 'Standard',
-          price: Math.round((slot.pricing.basePrice || 0) * 100),
+          price: standardPrice, // Already in cents
           popular: false
         },
         {
           name: 'Essentials', 
-          price: Math.round((slot.pricing.essentialsPrice || slot.pricing.basePrice || 0) * 100),
+          price: essentialsPrice, // Already in cents
           popular: true
         },
         {
           name: 'Ultimate',
-          price: Math.round((slot.pricing.ultimatePrice || slot.pricing.basePrice || 0) * 100), 
+          price: ultimatePrice, // Already in cents
           popular: false
         }
       ]
-    } : undefined
+    }
   };
 };
 
@@ -232,79 +256,16 @@ function CalendarView() {
     return date;
   });
 
-  // Fetch availability data from Google Sheets (source of truth)
-  const { data: googleSheetsAvailability, isLoading: isLoadingSheets, refetch: refetchSheets } = useQuery({
-    queryKey: ['/api/google-sheets/calendar-availability', weekStart.toISOString(), selectedWeek.toISOString()],
-    queryFn: async () => {
-      // Calculate week range for the current week view
-      const endDate = new Date(weekStart);
-      endDate.setDate(weekStart.getDate() + 7);
-      
-      const response = await fetch(`/api/google-sheets/calendar-availability?startDate=${weekStart.toISOString()}&endDate=${endDate.toISOString()}`);
-      if (!response.ok) throw new Error('Failed to fetch Google Sheets availability');
-      const data = await response.json();
-      return data;
-    },
-    staleTime: 1000 * 60 * 1, // 1 minute - refresh more frequently for admin view
-    refetchInterval: 1000 * 60 * 2, // 2 minutes - keep data fresh
-  });
+  // Fetch availability data from centralized availability system (same as Quote Builder)
+  const weekStartISO = formatDateForAvailability(weekStart);
+  const { data: availabilityData, isLoading: isLoadingSheets, refetch: refetchSheets } = useWeekAvailability(
+    weekStartISO,
+    undefined, // fetch both private and disco
+    undefined  // no group size filter at this level
+  );
 
-  // Transform Google Sheets data into time blocks
-  const transformSheetsToTimeBlocks = (sheetsData: any[]): TimeBlock[] => {
-    if (!sheetsData || !Array.isArray(sheetsData)) return [];
-    
-    return sheetsData.map(slot => {
-      const slotDate = new Date(slot.date);
-      
-      // Determine boat details based on group size
-      let boatId = 'day-tripper';
-      let boatName = 'Day Tripper';
-      let capacity = 14;
-      
-      if (slot.boat?.toLowerCase().includes('day tripper')) {
-        boatId = 'day-tripper';
-        boatName = 'Day Tripper';
-        capacity = 14;
-      } else if (slot.boat?.toLowerCase().includes('me seek') || slot.boat?.toLowerCase().includes('irony')) {
-        boatId = 'me-seeks-the-irony';
-        boatName = 'Me Seeks The Irony';
-        capacity = 25;
-      } else if (slot.boat?.toLowerCase().includes('clever girl')) {
-        boatId = 'clever-girl';
-        boatName = 'Clever Girl';
-        capacity = 50;
-      }
-      
-      // Convert pricing structure
-      const pricing = slot.pricing?.type === 'per-cruise' ? {
-        standardPrice: Math.round((slot.pricing.standardPrice || 0) * 100), // Convert to cents
-        essentialsPrice: Math.round((slot.pricing.essentialsPrice || 0) * 100),
-        ultimatePrice: Math.round((slot.pricing.ultimatePrice || 0) * 100),
-        perPersonEstimate: Math.round(((slot.pricing.standardPrice || 0) / capacity) * 100),
-        dayType: slot.dayOfWeek,
-        packagePreviews: [
-          { name: 'Standard', price: Math.round((slot.pricing.standardPrice || 0) * 100), popular: false },
-          { name: 'Essentials', price: Math.round((slot.pricing.essentialsPrice || 0) * 100), popular: true },
-          { name: 'Ultimate', price: Math.round((slot.pricing.ultimatePrice || 0) * 100), popular: false }
-        ]
-      } : undefined;
-      
-      return {
-        id: slot.id,
-        date: slotDate,
-        startTime: slot.startTime,
-        endTime: slot.endTime,
-        boatId: boatId,
-        boatName: boatName,
-        status: slot.status as 'available' | 'booked' | 'blocked',
-        capacity: capacity,
-        pricing: pricing,
-      };
-    });
-  };
-
-  // Get time blocks from Google Sheets data
-  const timeBlocks = transformSheetsToTimeBlocks(googleSheetsAvailability?.availability || []);
+  // Transform normalized slots to time blocks using existing converter
+  const timeBlocks: TimeBlock[] = (availabilityData?.slots || []).map(normalizedSlotToTimeBlock);
 
   // Filter disco slots - fix for undefined discoSlots error
   const discoSlots = timeBlocks.filter(slot => 
@@ -411,8 +372,9 @@ function CalendarView() {
       });
     },
     onSuccess: () => {
-      // Invalidate centralized availability cache - same as Quote Builder
-      queryClient.invalidateQueries({ queryKey: ["/api/availability/search"] });
+      // Invalidate week-scoped availability cache with correct format
+      const weekStart = getWeekStart(formatDateForAvailability(selectedDate));
+      queryClient.invalidateQueries({ queryKey: ['availability', 'week', weekStart] });
       toast({
         title: "Availability Updated",
         description: "The time slot has been updated successfully.",
@@ -433,8 +395,9 @@ function CalendarView() {
       return apiRequest("POST", `/api/disco/slots/${slotId}/update-quantity`, { adjustment });
     },
     onSuccess: () => {
-      // Invalidate centralized availability cache for disco cruises
-      queryClient.invalidateQueries({ queryKey: ["/api/availability/search"] });
+      // Invalidate week-scoped availability cache with correct format
+      const weekStart = getWeekStart(formatDateForAvailability(selectedDate));
+      queryClient.invalidateQueries({ queryKey: ['availability', 'week', weekStart] });
       toast({
         title: "Tickets Updated",
         description: "Disco cruise tickets have been updated.",
@@ -465,8 +428,9 @@ function CalendarView() {
       });
     },
     onSuccess: (data) => {
-      // Invalidate centralized availability cache for immediate sync with Quote Builder
-      queryClient.invalidateQueries({ queryKey: ["/api/availability/search"] });
+      // Invalidate week-scoped availability cache with correct format
+      const weekStart = getWeekStart(formatDateForAvailability(selectedDate));
+      queryClient.invalidateQueries({ queryKey: ['availability', 'week', weekStart] });
       queryClient.invalidateQueries({ queryKey: ["/api/bookings"] });
       
       setIsAdminBookingDialogOpen(false);
@@ -493,8 +457,9 @@ function CalendarView() {
       return apiRequest("DELETE", `/api/admin/cancel-booking/${bookingId}`, { reason });
     },
     onSuccess: () => {
-      // Invalidate centralized availability cache for immediate sync with Quote Builder
-      queryClient.invalidateQueries({ queryKey: ["/api/availability/search"] });
+      // Invalidate week-scoped availability cache with correct format
+      const weekStart = getWeekStart(formatDateForAvailability(selectedDate));
+      queryClient.invalidateQueries({ queryKey: ['availability', 'week', weekStart] });
       queryClient.invalidateQueries({ queryKey: ["/api/bookings"] });
       
       toast({
@@ -535,8 +500,9 @@ function CalendarView() {
       });
     },
     onSuccess: () => {
-      // Invalidate centralized availability cache for immediate sync with Quote Builder
-      queryClient.invalidateQueries({ queryKey: ["/api/availability/search"] });
+      // Invalidate week-scoped availability cache with correct format
+      const weekStart = getWeekStart(formatDateForAvailability(selectedDate));
+      queryClient.invalidateQueries({ queryKey: ['availability', 'week', weekStart] });
       
       setIsBlockingDialogOpen(false);
       setSelectedTimeBlock(null);
@@ -561,8 +527,9 @@ function CalendarView() {
       return apiRequest("DELETE", `/api/admin/unblock-slot/${slotId}`);
     },
     onSuccess: () => {
-      // Invalidate centralized availability cache for immediate sync with Quote Builder
-      queryClient.invalidateQueries({ queryKey: ["/api/availability/search"] });
+      // Invalidate week-scoped availability cache with correct format
+      const weekStart = getWeekStart(formatDateForAvailability(selectedDate));
+      queryClient.invalidateQueries({ queryKey: ['availability', 'week', weekStart] });
       
       toast({
         title: "Time Slot Unblocked",
@@ -584,9 +551,9 @@ function CalendarView() {
       return apiRequest("DELETE", `/api/admin/remove-slot/${slotId}`, { confirmation });
     },
     onSuccess: () => {
-      // Invalidate centralized availability cache for immediate sync with Quote Builder
-      queryClient.invalidateQueries({ queryKey: ["/api/availability/search"] });
-      queryClient.invalidateQueries({ queryKey: ["/api/availability"] });
+      // Invalidate week-scoped availability cache with correct format
+      const weekStart = getWeekStart(formatDateForAvailability(selectedDate));
+      queryClient.invalidateQueries({ queryKey: ['availability', 'week', weekStart] });
       
       // Close all dialogs and reset state
       setIsDeleteConfirmationOpen(false);
@@ -976,7 +943,7 @@ function CalendarView() {
       <div className="flex items-center justify-center h-64">
         <div className="text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900 mx-auto mb-2"></div>
-          <p className="text-muted-foreground">Loading availability from Google Sheets...</p>
+          <p className="text-muted-foreground">Loading availability data...</p>
         </div>
       </div>
     );
@@ -987,16 +954,16 @@ function CalendarView() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-2xl font-bold">Boat Calendar (Google Sheets)</h2>
-          <p className="text-muted-foreground">Manage boat availability and bookings from Google Sheets</p>
+          <h2 className="text-2xl font-bold">Boat Calendar</h2>
+          <p className="text-muted-foreground">Manage boat availability and bookings - synced with Quote Builder</p>
         </div>
         <div className="flex gap-2 items-center">
-          {/* Refresh button for Google Sheets data */}
+          {/* Refresh button for availability data */}
           <Button
             variant="outline"
             size="icon"
             onClick={() => refetchSheets()}
-            title="Refresh from Google Sheets"
+            title="Refresh availability"
             data-testid="refresh-sheets-button"
           >
             <RefreshCw className="h-4 w-4" />
