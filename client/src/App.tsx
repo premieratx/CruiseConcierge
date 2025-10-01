@@ -187,19 +187,19 @@ function Router() {
       <Route path="/invoice/:invoiceId" component={InvoiceViewer} />
       
       {/* Admin Blog Routes */}
-      <Route path="/admin/blog" component={BlogManagement} />
-      <Route path="/admin/blog/posts" component={BlogManagement} />
-      <Route path="/admin/blog/posts/new" component={BlogPostEditor} />
-      <Route path="/admin/blog/posts/:id/edit" component={BlogPostEditor} />
-      <Route path="/admin/blog/categories" component={BlogManagement} />
-      <Route path="/admin/blog/categories/new" component={BlogManagement} />
-      <Route path="/admin/blog/categories/:id/edit" component={BlogManagement} />
-      <Route path="/admin/blog/tags" component={BlogManagement} />
-      <Route path="/admin/blog/tags/new" component={BlogManagement} />
-      <Route path="/admin/blog/tags/:id/edit" component={BlogManagement} />
-      <Route path="/admin/blog/authors" component={BlogManagement} />
-      <Route path="/admin/blog/authors/new" component={BlogManagement} />
-      <Route path="/admin/blog/authors/:id/edit" component={BlogManagement} />
+      <Route path="/admin/blogs" component={BlogManagement} />
+      <Route path="/admin/blogs/posts" component={BlogManagement} />
+      <Route path="/admin/blogs/posts/new" component={BlogPostEditor} />
+      <Route path="/admin/blogs/posts/:id/edit" component={BlogPostEditor} />
+      <Route path="/admin/blogs/categories" component={BlogManagement} />
+      <Route path="/admin/blogs/categories/new" component={BlogManagement} />
+      <Route path="/admin/blogs/categories/:id/edit" component={BlogManagement} />
+      <Route path="/admin/blogs/tags" component={BlogManagement} />
+      <Route path="/admin/blogs/tags/new" component={BlogManagement} />
+      <Route path="/admin/blogs/tags/:id/edit" component={BlogManagement} />
+      <Route path="/admin/blogs/authors" component={BlogManagement} />
+      <Route path="/admin/blogs/authors/new" component={BlogManagement} />
+      <Route path="/admin/blogs/authors/:id/edit" component={BlogManagement} />
       
       {/* Admin SEO Routes */}
       <Route path="/admin/seo" component={SEOManagement} />
@@ -230,11 +230,11 @@ function Router() {
       <Route path="/demo-content" component={lazy(() => import('./pages/DemoContentPage'))} />
       
       {/* Public Blog Routes - Specific routes must come before generic ones */}
-      <Route path="/blog" component={Blog} />
-      <Route path="/blog/category/:slug" component={BlogCategory} />
-      <Route path="/blog/tag/:slug" component={BlogTag} />
-      <Route path="/blog/author/:id" component={BlogAuthor} />
-      <Route path="/blog/:slug" component={BlogPost} />
+      <Route path="/blogs" component={Blog} />
+      <Route path="/blogs/category/:slug" component={BlogCategory} />
+      <Route path="/blogs/tag/:slug" component={BlogTag} />
+      <Route path="/blogs/author/:id" component={BlogAuthor} />
+      <Route path="/blogs/:slug" component={BlogPost} />
       
       {/* Public Customer Routes - Calendar routes commented out, using /chat instead */}
       {/* <Route path="/book" component={PublicCalendar} /> */}

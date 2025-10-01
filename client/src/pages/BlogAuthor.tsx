@@ -94,7 +94,7 @@ export default function BlogAuthorPage() {
             </AlertDescription>
           </Alert>
           <div className="mt-4">
-            <Link href="/blog">
+            <Link href="/blogs">
               <Button variant="outline">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Blog
@@ -144,7 +144,7 @@ export default function BlogAuthorPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="mb-6">
-          <Link href="/blog">
+          <Link href="/blogs">
             <Button variant="ghost" size="sm" data-testid="button-back-blog">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Blog

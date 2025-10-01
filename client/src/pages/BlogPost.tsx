@@ -111,7 +111,7 @@ export default function BlogPostPage() {
             </AlertDescription>
           </Alert>
           <div className="mt-4">
-            <Link href="/blog">
+            <Link href="/blogs">
               <Button variant="outline">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Blog
@@ -152,7 +152,7 @@ export default function BlogPostPage() {
       <div className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="mb-6">
-          <Link href="/blog">
+          <Link href="/blogs">
             <Button variant="ghost" size="sm" data-testid="button-back-blog">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Blog
@@ -187,7 +187,7 @@ export default function BlogPostPage() {
             {/* Meta Information */}
             <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-300">
               {/* Author */}
-              <Link href={`/blog/author/${author.id}`}>
+              <Link href={`/blogs/author/${author.id}`}>
                 <div className="flex items-center gap-2 hover:text-primary transition-colors" data-testid="link-author">
                   <Avatar className="h-8 w-8">
                     <AvatarImage src={author.avatarUrl || ""} alt={author.name} />
@@ -289,7 +289,7 @@ export default function BlogPostPage() {
                   </p>
                 )}
                 <div className="flex items-center gap-4">
-                  <Link href={`/blog/author/${author.id}`}>
+                  <Link href={`/blogs/author/${author.id}`}>
                     <Button variant="outline" size="sm" data-testid="button-view-author">
                       View Profile
                     </Button>

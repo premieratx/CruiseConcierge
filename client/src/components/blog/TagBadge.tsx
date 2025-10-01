@@ -39,7 +39,7 @@ export function TagBadge({
 
   if (linkable) {
     return (
-      <Link href={`/blog/tag/${tag.slug}`}>
+      <Link href={`/blogs/tag/${tag.slug}`}>
         {BadgeContent}
       </Link>
     );

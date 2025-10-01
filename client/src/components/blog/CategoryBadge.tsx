@@ -40,7 +40,7 @@ export function CategoryBadge({
 
   if (linkable) {
     return (
-      <Link href={`/blog/category/${category.slug}`}>
+      <Link href={`/blogs/category/${category.slug}`}>
         {BadgeContent}
       </Link>
     );

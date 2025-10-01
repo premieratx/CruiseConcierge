@@ -59,13 +59,13 @@ const mainNavItems = [
   },
   {
     title: 'Blog',
-    href: '/blog',
+    href: '/blogs',
     icon: BookOpen,
     description: 'Blog posts and content management',
     subItems: [
-      { title: 'View Blog', href: '/blog', description: 'Public blog page' },
-      { title: 'Manage Posts', href: '/admin/blog', description: 'Manage blog posts' },
-      { title: 'Create Post', href: '/admin/blog/posts/new', description: 'Create new blog post' }
+      { title: 'View Blog', href: '/blogs', description: 'Public blog page' },
+      { title: 'Manage Posts', href: '/admin/blogs', description: 'Manage blog posts' },
+      { title: 'Create Post', href: '/admin/blogs/posts/new', description: 'Create new blog post' }
     ]
   },
   {

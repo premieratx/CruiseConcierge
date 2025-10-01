@@ -108,9 +108,9 @@ export default function BlogManagement() {
   const [currentPage, setCurrentPage] = useState(1);
   
   // Route detection for creation forms
-  const isCreatingCategory = location === '/admin/blog/categories/new';
-  const isCreatingTag = location === '/admin/blog/tags/new';
-  const isCreatingAuthor = location === '/admin/blog/authors/new';
+  const isCreatingCategory = location === '/admin/blogs/categories/new';
+  const isCreatingTag = location === '/admin/blogs/tags/new';
+  const isCreatingAuthor = location === '/admin/blogs/authors/new';
   const isCreating = isCreatingCategory || isCreatingTag || isCreatingAuthor;
   
   // Upload/Import states
@@ -175,7 +175,7 @@ export default function BlogManagement() {
         description: "Category created successfully."
       });
       categoryForm.reset();
-      setLocation('/admin/blog');
+      setLocation('/admin/blogs');
     },
     onError: () => {
       toast({
@@ -199,7 +199,7 @@ export default function BlogManagement() {
         description: "Tag created successfully."
       });
       tagForm.reset();
-      setLocation('/admin/blog');
+      setLocation('/admin/blogs');
     },
     onError: () => {
       toast({
@@ -223,7 +223,7 @@ export default function BlogManagement() {
         description: "Author created successfully."
       });
       authorForm.reset();
-      setLocation('/admin/blog');
+      setLocation('/admin/blogs');
     },
     onError: () => {
       toast({
@@ -250,7 +250,7 @@ export default function BlogManagement() {
   };
   
   const handleCancel = () => {
-    setLocation('/admin/blog');
+    setLocation('/admin/blogs');
   };
 
   // Fetch blog management data with authenticated query function
@@ -764,7 +764,7 @@ export default function BlogManagement() {
             </Dialog>
             
             <Button asChild data-testid="button-create-post">
-              <Link href="/admin/blog/posts/new">
+              <Link href="/admin/blogs/posts/new">
                 <Plus className="h-4 w-4 mr-2" />
                 New Post
               </Link>
@@ -964,7 +964,7 @@ export default function BlogManagement() {
                             asChild
                             data-testid={`button-edit-${post.id}`}
                           >
-                            <Link href={`/admin/blog/posts/${post.id}/edit`}>
+                            <Link href={`/admin/blogs/posts/${post.id}/edit`}>
                               <Edit className="h-4 w-4" />
                             </Link>
                           </Button>
@@ -975,7 +975,7 @@ export default function BlogManagement() {
                             asChild
                             data-testid={`button-view-${post.id}`}
                           >
-                            <Link href={`/blog/${post.slug}`}>
+                            <Link href={`/blogs/${post.slug}`}>
                               <Eye className="h-4 w-4" />
                             </Link>
                           </Button>
@@ -1174,7 +1174,7 @@ export default function BlogManagement() {
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-semibold">Categories</h3>
                   <Button asChild data-testid="button-create-category">
-                    <Link href="/admin/blog/categories/new">
+                    <Link href="/admin/blogs/categories/new">
                       <Plus className="h-4 w-4 mr-2" />
                       New Category
                     </Link>
@@ -1203,12 +1203,12 @@ export default function BlogManagement() {
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
                             <Button variant="ghost" size="sm" asChild>
-                              <Link href={`/admin/blog/categories/${category.id}/edit`}>
+                              <Link href={`/admin/blogs/categories/${category.id}/edit`}>
                                 <Edit className="h-4 w-4" />
                               </Link>
                             </Button>
                             <Button variant="ghost" size="sm" asChild>
-                              <Link href={`/blog/category/${category.slug}`}>
+                              <Link href={`/blogs/category/${category.slug}`}>
                                 <Eye className="h-4 w-4" />
                               </Link>
                             </Button>
@@ -1347,7 +1347,7 @@ export default function BlogManagement() {
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-semibold">Tags</h3>
                   <Button asChild data-testid="button-create-tag">
-                    <Link href="/admin/blog/tags/new">
+                    <Link href="/admin/blogs/tags/new">
                       <Plus className="h-4 w-4 mr-2" />
                       New Tag
                     </Link>
@@ -1368,12 +1368,12 @@ export default function BlogManagement() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1">
                           <Button variant="ghost" size="sm" asChild>
-                            <Link href={`/admin/blog/tags/${tag.id}/edit`}>
+                            <Link href={`/admin/blogs/tags/${tag.id}/edit`}>
                               <Edit className="h-3 w-3" />
                             </Link>
                           </Button>
                           <Button variant="ghost" size="sm" asChild>
-                            <Link href={`/blog/tag/${tag.slug}`}>
+                            <Link href={`/blogs/tag/${tag.slug}`}>
                               <Eye className="h-3 w-3" />
                             </Link>
                           </Button>
@@ -1508,7 +1508,7 @@ export default function BlogManagement() {
                 <div className="flex items-center justify-between">
                   <h3 className="text-lg font-semibold">Authors</h3>
                   <Button asChild data-testid="button-create-author">
-                    <Link href="/admin/blog/authors/new">
+                    <Link href="/admin/blogs/authors/new">
                       <Plus className="h-4 w-4 mr-2" />
                       New Author
                     </Link>
@@ -1542,12 +1542,12 @@ export default function BlogManagement() {
                         <div className="flex items-center justify-between">
                           <div className="flex items-center gap-2">
                             <Button variant="ghost" size="sm" asChild>
-                              <Link href={`/admin/blog/authors/${author.id}/edit`}>
+                              <Link href={`/admin/blogs/authors/${author.id}/edit`}>
                                 <Edit className="h-4 w-4" />
                               </Link>
                             </Button>
                             <Button variant="ghost" size="sm" asChild>
-                              <Link href={`/blog/author/${author.id}`}>
+                              <Link href={`/blogs/author/${author.id}`}>
                                 <Eye className="h-4 w-4" />
                               </Link>
                             </Button>

@@ -61,7 +61,7 @@ export function BlogCard({
       <CardHeader className="pb-3">
         <div className="flex items-center gap-2 text-sm text-muted-foreground mb-2">
           {author && (
-            <Link href={`/blog/author/${author.id}`}>
+            <Link href={`/blogs/author/${author.id}`}>
               <div className="flex items-center gap-1 hover:text-primary transition-colors" data-testid={`link-author-${author.id}`}>
                 <User className="h-3 w-3" />
                 <span>{author.name}</span>
@@ -84,7 +84,7 @@ export function BlogCard({
           )}
         </div>
         
-        <Link href={`/blog/${post.slug}`}>
+        <Link href={`/blogs/${post.slug}`}>
           <h3 className="text-xl font-semibold line-clamp-2 hover:text-primary transition-colors cursor-pointer" data-testid={`title-post-${post.id}`}>
             {post.title}
           </h3>
@@ -111,7 +111,7 @@ export function BlogCard({
           </div>
         </div>
         
-        <Link href={`/blog/${post.slug}`}>
+        <Link href={`/blogs/${post.slug}`}>
           <Button variant="outline" size="sm" data-testid={`button-read-${post.id}`}>
             Read More
           </Button>

@@ -180,7 +180,7 @@ export default function BlogPostEditor() {
         title: "Success",
         description: `Blog post ${isEditing ? 'updated' : 'created'} successfully.`
       });
-      navigate(`/admin/blog/posts/${savedPost.id}/edit`);
+      navigate(`/admin/blogs/posts/${savedPost.id}/edit`);
     },
     onError: () => {
       toast({
@@ -311,7 +311,7 @@ export default function BlogPostEditor() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center gap-4">
-            <Link href="/admin/blog/posts">
+            <Link href="/admin/blogs/posts">
               <Button variant="ghost" size="sm" data-testid="button-back">
                 <ArrowLeft className="h-4 w-4 mr-2" />
                 Back to Posts
@@ -325,7 +325,7 @@ export default function BlogPostEditor() {
           <div className="flex items-center gap-2">
             {isEditing && data?.post && (
               <Button variant="outline" asChild data-testid="button-preview">
-                <Link href={`/blog/${data.post.slug}`} target="_blank">
+                <Link href={`/blogs/${data.post.slug}`} target="_blank">
                   <Eye className="h-4 w-4 mr-2" />
                   Preview
                 </Link>
