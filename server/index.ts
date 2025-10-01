@@ -85,8 +85,8 @@ app.use('/q/', (req, res, next) => {
 });
 
 (async () => {
-  // Mount blog routes FIRST (higher priority) - Blog system enabled
-  app.use("/api/blog", blogRouter);
+  // Blog routes are now handled by routes.ts (PostgreSQL-based)
+  // Old Replit DB router disabled: app.use("/api/blog", blogRouter);
   
   const server = await registerRoutes(app);
 

@@ -263,8 +263,21 @@ export default function BlogManagement() {
       selectedStatus,
       selectedAuthor,
       selectedCategory
-    ]
-    // Uses default authenticated queryFn - no custom queryFn needed
+    ],
+    queryFn: async () => {
+      const response = await fetch('/api/blog/management', {
+        headers: {
+          "Authorization": "Bearer admin-dev-token"
+        },
+        credentials: "include"
+      });
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch blog management data: ${response.status}`);
+      }
+      
+      return response.json();
+    }
   });
 
   // Delete post mutation

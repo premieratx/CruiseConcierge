@@ -16415,6 +16415,7 @@ Phone: ${contact.phone || 'N/A'}`;
   // Blog management dashboard endpoint
   app.get("/api/blog/management", async (req, res) => {
     try {
+      const storage = await getStorage();
       const {
         tab = 'posts',
         page = '1',
@@ -16475,6 +16476,7 @@ Phone: ${contact.phone || 'N/A'}`;
   // Blog editor data endpoint
   app.get("/api/blog/editor/:id?", async (req, res) => {
     try {
+      const storage = await getStorage();
       const { id } = req.params;
       
       // Get reference data
@@ -16691,6 +16693,7 @@ Phone: ${contact.phone || 'N/A'}`;
   // Get published blog posts for public consumption
   app.get("/api/blog/public/posts", async (req, res) => {
     try {
+      const storage = await getStorage();
       const {
         categorySlug = undefined,
         tagSlug = undefined,
@@ -16734,8 +16737,13 @@ Phone: ${contact.phone || 'N/A'}`;
   // Get single published blog post by slug
   app.get("/api/blog/public/posts/:slug", async (req, res) => {
     try {
+      const storage = await getStorage();
+      console.log(`📝 Fetching blog post by slug: ${req.params.slug}`);
       const post = await storage.getBlogPostBySlug(req.params.slug);
+      console.log(`📝 Blog post found:`, post ? { id: post.id, title: post.title, status: post.status } : 'null');
+      
       if (!post || post.status !== 'published') {
+        console.log(`📝 Blog post not found or not published for slug: ${req.params.slug}`);
         return res.status(404).json({ error: "Post not found" });
       }
       
@@ -16743,13 +16751,14 @@ Phone: ${contact.phone || 'N/A'}`;
       await storage.incrementBlogPostViews(post.id);
       
       // Get related data
-      const [categories, tags, relatedPosts] = await Promise.all([
+      const [author, categories, tags, relatedPosts] = await Promise.all([
+        storage.getBlogAuthor(post.authorId || ''),
         storage.getBlogPostCategories(post.id),
         storage.getBlogPostTags(post.id),
         storage.getRelatedBlogPosts(post.id, 5)
       ]);
 
-      res.json({ ...post, categories, tags, relatedPosts });
+      res.json({ post, author, categories, tags, relatedPosts });
     } catch (error: any) {
       console.error("Get public blog post error:", error);
       res.status(500).json({ error: "Failed to get public blog post" });
@@ -16759,6 +16768,7 @@ Phone: ${contact.phone || 'N/A'}`;
   // Get public blog categories
   app.get("/api/blog/public/categories", async (req, res) => {
     try {
+      const storage = await getStorage();
       const categories = await storage.getBlogCategories();
       // Filter to only active categories
       const activeCategories = categories.filter(cat => cat.active);
@@ -16772,6 +16782,7 @@ Phone: ${contact.phone || 'N/A'}`;
   // Get public blog tags
   app.get("/api/blog/public/tags", async (req, res) => {
     try {
+      const storage = await getStorage();
       const tags = await storage.getBlogTags();
       // Filter to only active tags
       const activeTags = tags.filter(tag => tag.active);
@@ -16787,6 +16798,7 @@ Phone: ${contact.phone || 'N/A'}`;
   // Get comments for a blog post
   app.get("/api/blog/posts/:postId/comments", async (req, res) => {
     try {
+      const storage = await getStorage();
       const { status = 'approved' } = req.query;
       const comments = await storage.getBlogCommentsByPost(req.params.postId, status as any);
       res.json(comments);
@@ -16799,6 +16811,7 @@ Phone: ${contact.phone || 'N/A'}`;
   // Create new comment
   app.post("/api/blog/posts/:postId/comments", async (req, res) => {
     try {
+      const storage = await getStorage();
       const validatedData = insertBlogCommentSchema.parse({
         ...req.body,
         postId: req.params.postId
@@ -16821,6 +16834,7 @@ Phone: ${contact.phone || 'N/A'}`;
   // Update comment status (approve/reject/spam)
   app.put("/api/blog/comments/:id/status", async (req, res) => {
     try {
+      const storage = await getStorage();
       const { status, action } = req.body;
       let comment;
       
@@ -16846,6 +16860,7 @@ Phone: ${contact.phone || 'N/A'}`;
   // Delete comment
   app.delete("/api/blog/comments/:id", async (req, res) => {
     try {
+      const storage = await getStorage();
       const success = await storage.deleteBlogComment(req.params.id);
       if (!success) {
         return res.status(404).json({ error: "Comment not found" });
@@ -16862,6 +16877,7 @@ Phone: ${contact.phone || 'N/A'}`;
   // Track blog post view
   app.post("/api/blog/posts/:id/views", async (req, res) => {
     try {
+      const storage = await getStorage();
       const post = await storage.incrementBlogPostViews(req.params.id);
       
       // Create analytics record (simplified - no update fallback since updateBlogAnalytics is not implemented)
@@ -16898,6 +16914,7 @@ Phone: ${contact.phone || 'N/A'}`;
   // Get blog analytics
   app.get("/api/blog/analytics", async (req, res) => {
     try {
+      const storage = await getStorage();
       const { startDate, endDate, postId } = req.query;
       
       const start = startDate ? new Date(startDate as string) : new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
