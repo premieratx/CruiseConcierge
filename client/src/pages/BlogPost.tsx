@@ -1,7 +1,7 @@
 import { useParams } from "wouter";
 import { useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import Layout from "@/components/Layout";
+import PublicNavigation from "@/components/PublicNavigation";
 import { CategoryBadge } from "@/components/blog/CategoryBadge";
 import { TagBadge } from "@/components/blog/TagBadge";
 import { BlogCard } from "@/components/blog/BlogCard";
@@ -15,6 +15,7 @@ import { Calendar, Clock, Eye, Share2, MessageCircle, User, ArrowLeft } from "lu
 import { Link } from "wouter";
 import { BlogPost, BlogAuthor, BlogCategory, BlogTag } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
+import SEOHead from "@/components/SEOHead";
 
 interface BlogPostData {
   post: BlogPost;
@@ -103,43 +104,49 @@ export default function BlogPostPage() {
 
   if (error) {
     return (
-      <Layout>
-        <div className="container mx-auto px-4 py-8">
-          <Alert variant="destructive">
-            <AlertDescription>
-              {error.message || "Failed to load blog post. Please try again later."}
-            </AlertDescription>
-          </Alert>
-          <div className="mt-4">
-            <Link href="/blogs">
-              <Button variant="outline">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Back to Blog
-              </Button>
-            </Link>
+      <>
+        <PublicNavigation />
+        <div className="min-h-screen bg-background">
+          <div className="container mx-auto px-4 py-8">
+            <Alert variant="destructive">
+              <AlertDescription>
+                {error.message || "Failed to load blog post. Please try again later."}
+              </AlertDescription>
+            </Alert>
+            <div className="mt-4">
+              <Link href="/blogs">
+                <Button variant="outline">
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Back to Blog
+                </Button>
+              </Link>
+            </div>
           </div>
         </div>
-      </Layout>
+      </>
     );
   }
 
   if (isLoading) {
     return (
-      <Layout>
-        <div className="container mx-auto px-4 py-8">
-          <div className="max-w-4xl mx-auto">
-            <Skeleton className="h-8 w-32 mb-6" />
-            <Skeleton className="h-12 w-full mb-4" />
-            <Skeleton className="h-4 w-64 mb-8" />
-            <Skeleton className="h-64 w-full mb-8" />
-            <div className="space-y-4">
-              <Skeleton className="h-4 w-full" />
-              <Skeleton className="h-4 w-full" />
-              <Skeleton className="h-4 w-3/4" />
+      <>
+        <PublicNavigation />
+        <div className="min-h-screen bg-background">
+          <div className="container mx-auto px-4 py-8">
+            <div className="max-w-4xl mx-auto">
+              <Skeleton className="h-8 w-32 mb-6" />
+              <Skeleton className="h-12 w-full mb-4" />
+              <Skeleton className="h-4 w-64 mb-8" />
+              <Skeleton className="h-64 w-full mb-8" />
+              <div className="space-y-4">
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-3/4" />
+              </div>
             </div>
           </div>
         </div>
-      </Layout>
+      </>
     );
   }
 
@@ -148,8 +155,16 @@ export default function BlogPostPage() {
   const { post, author, categories, tags, relatedPosts } = data;
 
   return (
-    <Layout>
-      <div className="container mx-auto px-4 py-8">
+    <>
+      <PublicNavigation />
+      <SEOHead 
+        pageRoute={`/blogs/${slug}`}
+        defaultTitle={post.metaTitle || post.title || "Blog Post"}
+        defaultDescription={post.metaDescription || post.excerpt || ""}
+        defaultKeywords={post.focusKeyphrase ? [post.focusKeyphrase] : []}
+      />
+      <div className="min-h-screen bg-background">
+        <div className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="mb-6">
           <Link href="/blogs">
@@ -328,7 +343,8 @@ export default function BlogPostPage() {
             </div>
           </section>
         )}
+        </div>
       </div>
-    </Layout>
+    </>
   );
 }

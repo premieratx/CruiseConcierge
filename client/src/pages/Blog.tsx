@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import Layout from "@/components/Layout";
+import PublicNavigation from "@/components/PublicNavigation";
 import { BlogHeader } from "@/components/blog/BlogHeader";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { Button } from "@/components/ui/button";
@@ -117,29 +117,34 @@ export default function Blog() {
 
   if (error) {
     return (
-      <Layout>
-        <div className="container mx-auto px-4 py-8">
-          <Alert variant="destructive">
-            <AlertDescription>
-              Failed to load blog posts. Please try again later.
-            </AlertDescription>
-          </Alert>
-        </div>
-      </Layout>
-    );
-  }
+      <>
+        <PublicNavigation />
+        <div className="min-h-screen bg-background">
+          <div className="container mx-auto px-4 py-8">
+              <Alert variant="destructive">
+                <AlertDescription>
+                  Failed to load blog posts. Please try again later.
+                </AlertDescription>
+              </Alert>
+            </div>
+          </div>
+        </>
+      );
+    }
 
   const featuredCategories = (data?.categories || []).filter(cat => cat && typeof cat.displayOrder === 'number' && cat.displayOrder <= 5);
 
   return (
-    <Layout>
+    <>
+      <PublicNavigation />
       <SEOHead 
         pageRoute="/blogs"
         defaultTitle="Blog - Party Perfect Cruises | Lake Travis Boat Tours & Events"
         defaultDescription="Discover the latest news, tips, and stories from Lake Travis. Read about boat tours, party planning, lake activities, and exclusive cruise experiences on Austin's premier waterway."
         defaultKeywords={["Lake Travis blog", "Austin boat tours", "party planning tips", "lake activities", "cruise stories", "Lake Travis events"]}
       />
-      <div className="container mx-auto px-4 py-8">
+      <div className="min-h-screen bg-background">
+        <div className="container mx-auto px-4 py-8">
         <BlogHeader
           searchQuery={searchQuery}
           onSearchChange={handleSearch}
@@ -283,7 +288,8 @@ export default function Blog() {
             )}
           </>
         )}
+        </div>
       </div>
-    </Layout>
+    </>
   );
 }
