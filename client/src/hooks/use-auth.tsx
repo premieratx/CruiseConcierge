@@ -61,41 +61,20 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const login = async (email: string, password: string) => {
-    const response = await apiRequest('/api/login', {
-      method: 'POST',
-      body: JSON.stringify({ email, password }),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error || 'Login failed');
-    }
-
-    const data = await response.json();
+    const data = await apiRequest('POST', '/api/auth/login', { email, password });
     setUser(data.user);
     queryClient.invalidateQueries();
   };
 
   const logout = async () => {
-    await apiRequest('/api/logout', {
-      method: 'POST',
-    });
+    await apiRequest('POST', '/api/auth/logout');
     setUser(null);
     queryClient.clear();
     setLocation('/auth');
   };
 
   const register = async (data: RegisterData) => {
-    const response = await apiRequest('/api/register', {
-      method: 'POST',
-      body: JSON.stringify(data),
-    });
-
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.error || 'Registration failed');
-    }
-
+    await apiRequest('POST', '/api/auth/register', data);
     await login(data.email, data.password);
   };
 

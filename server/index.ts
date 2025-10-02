@@ -90,7 +90,9 @@ app.use('/q/', (req, res, next) => {
   // Old Replit DB router disabled: app.use("/api/blog", blogRouter);
   
   // Setup authentication before registering other routes
-  setupAuth(app);
+  // Import storage for authentication
+  const { storage } = await import('./storage');
+  setupAuth(app, storage);
   
   const server = await registerRoutes(app);
 

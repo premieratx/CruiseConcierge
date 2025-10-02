@@ -661,6 +661,162 @@ export async function registerRoutes(app: Express): Promise<Server> {
       res.status(401).json({ error: 'Not authenticated' });
     }
   });
+
+  // ==========================================
+  // NEW AUTHENTICATION ROUTES (/api/auth/*)
+  // ==========================================
+
+  // POST /api/auth/login - Login route using Passport local strategy
+  app.post('/api/auth/login', (req, res, next) => {
+    passport.authenticate('local', (err: any, user: any, info: any) => {
+      if (err) return next(err);
+      if (!user) return res.status(401).json({ error: info?.message || 'Login failed' });
+      
+      req.login(user, (err) => {
+        if (err) return next(err);
+        return res.json({ user });
+      });
+    })(req, res, next);
+  });
+
+  // POST /api/auth/logout - Logout route
+  app.post('/api/auth/logout', (req, res) => {
+    req.logout((err) => {
+      if (err) {
+        return res.status(500).json({ error: 'Logout failed' });
+      }
+      
+      // Destroy session as well
+      req.session?.destroy((err: any) => {
+        if (err) {
+          console.error('Session destruction error:', err);
+        }
+        res.json({ success: true, message: 'Logged out successfully' });
+      });
+    });
+  });
+
+  // POST /api/auth/register - Register new user (requires valid invite token)
+  app.post('/api/auth/register', async (req, res, next) => {
+    try {
+      const validatedData = insertUserSchema.parse(req.body);
+      const { email, username, password, firstName, lastName } = validatedData;
+      const { inviteToken } = req.body;
+      
+      if (!inviteToken) {
+        return res.status(400).json({ error: 'Invite token required' });
+      }
+      
+      // Check if invite exists and is valid
+      const invite = await storageInstance.getInviteByToken(inviteToken);
+      
+      if (!invite) {
+        return res.status(404).json({ error: 'Invalid invite token' });
+      }
+      
+      if (invite.usedAt) {
+        return res.status(400).json({ error: 'Invite already used' });
+      }
+      
+      if (new Date() > new Date(invite.expiresAt)) {
+        return res.status(400).json({ error: 'Invite expired' });
+      }
+      
+      if (invite.email !== email) {
+        return res.status(400).json({ error: 'Email does not match invite' });
+      }
+      
+      // Check if user already exists
+      const existingUser = await storageInstance.getUserByEmail(email);
+      if (existingUser) {
+        return res.status(400).json({ error: 'User already exists' });
+      }
+      
+      // Hash password
+      const hashedPassword = await PasswordService.hash(password);
+      
+      // Create user
+      const newUser = await storageInstance.createUser({
+        email,
+        username,
+        password: hashedPassword,
+        role: invite.role || 'user',
+        firstName,
+        lastName,
+        isActive: true,
+      });
+      
+      // Mark invite as used
+      await storageInstance.markInviteAsUsed(invite.id);
+      
+      // Auto-login after registration
+      const userForSession = {
+        id: newUser.id,
+        email: newUser.email,
+        username: newUser.username,
+        role: newUser.role,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+      };
+      
+      req.login(userForSession, (err) => {
+        if (err) {
+          console.error('Auto-login error:', err);
+          // Still return success, but without auto-login
+          return res.status(201).json({ 
+            user: userForSession,
+            message: 'Registration successful, please login' 
+          });
+        }
+        
+        return res.status(201).json({ user: userForSession });
+      });
+    } catch (error: any) {
+      console.error('Registration error:', error);
+      if (error.name === 'ZodError') {
+        return res.status(400).json({ error: 'Invalid request data', details: error.errors });
+      }
+      res.status(500).json({ error: error.message || 'Registration failed' });
+    }
+  });
+
+  // POST /api/auth/password-reset - Password reset (for logged-in users)
+  app.post('/api/auth/password-reset', requireAuth, async (req, res) => {
+    try {
+      const { oldPassword, newPassword } = req.body;
+      
+      if (!oldPassword || !newPassword) {
+        return res.status(400).json({ error: 'Old password and new password are required' });
+      }
+      
+      if (newPassword.length < 8) {
+        return res.status(400).json({ error: 'New password must be at least 8 characters' });
+      }
+      
+      const user = req.user as Express.User;
+      
+      // Get user from database
+      const dbUser = await storageInstance.getUser(user.id);
+      if (!dbUser) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+      
+      // Verify old password
+      const isValid = await PasswordService.compare(oldPassword, dbUser.password);
+      if (!isValid) {
+        return res.status(401).json({ error: 'Current password is incorrect' });
+      }
+      
+      // Hash new password and update user
+      const hashedPassword = await PasswordService.hash(newPassword);
+      await storageInstance.updateUserPassword(user.id, hashedPassword);
+      
+      res.json({ success: true, message: 'Password updated successfully' });
+    } catch (error: any) {
+      console.error('Password reset error:', error);
+      res.status(500).json({ error: 'Password reset failed' });
+    }
+  });
   
   // Reset password
   app.post('/api/reset-password', requireAuth, async (req, res) => {
@@ -1614,7 +1770,7 @@ export async function createQuoteBuilderLead(app: Express) {
   // ==========================================
   
   // Get all SEO pages
-  app.get('/api/seo/pages', async (req, res) => {
+  app.get('/api/seo/pages', requireAdmin, async (req, res) => {
     try {
       const storage = await getStorage();
       const pages = await storage.getSeoPages();
@@ -1629,7 +1785,7 @@ export async function createQuoteBuilderLead(app: Express) {
   });
 
   // Get SEO overview
-  app.get('/api/seo/overview', async (req, res) => {
+  app.get('/api/seo/overview', requireAdmin, async (req, res) => {
     try {
       const storage = await getStorage();
       const pages = await storage.getSeoPages();
@@ -1659,7 +1815,7 @@ export async function createQuoteBuilderLead(app: Express) {
   });
 
   // Get SEO settings
-  app.get('/api/seo/settings', async (req, res) => {
+  app.get('/api/seo/settings', requireAdmin, async (req, res) => {
     try {
       const storage = await getStorage();
       const settings = await storage.getSeoSettings();
@@ -1674,7 +1830,7 @@ export async function createQuoteBuilderLead(app: Express) {
   });
 
   // Update SEO page
-  app.put('/api/seo/pages/:route', async (req, res) => {
+  app.put('/api/seo/pages/:route', requireAdmin, async (req, res) => {
     try {
       const { route } = req.params;
       const updates = req.body;
@@ -1693,7 +1849,7 @@ export async function createQuoteBuilderLead(app: Express) {
   });
 
   // Analyze SEO page
-  app.post('/api/seo/analyze/:route', async (req, res) => {
+  app.post('/api/seo/analyze/:route', requireAdmin, async (req, res) => {
     try {
       const { route } = req.params;
       const { content } = req.body;
@@ -1721,7 +1877,7 @@ export async function createQuoteBuilderLead(app: Express) {
   });
 
   // AI optimize SEO page
-  app.post('/api/seo/optimize', async (req, res) => {
+  app.post('/api/seo/optimize', requireAdmin, async (req, res) => {
     try {
       const seoService = await getSEOService();
       const result = await seoService.optimizePage(req.body);
@@ -1741,7 +1897,7 @@ export async function createQuoteBuilderLead(app: Express) {
   });
 
   // Bulk analyze SEO pages
-  app.post('/api/seo/bulk-analyze', async (req, res) => {
+  app.post('/api/seo/bulk-analyze', requireAdmin, async (req, res) => {
     try {
       const { pageRoutes } = req.body;
       
@@ -1763,7 +1919,7 @@ export async function createQuoteBuilderLead(app: Express) {
   });
 
   // Bulk optimize SEO pages
-  app.post('/api/seo/bulk-optimize', async (req, res) => {
+  app.post('/api/seo/bulk-optimize', requireAdmin, async (req, res) => {
     try {
       const { pageRoutes, optimizationType, targetKeywords } = req.body;
       
@@ -1797,7 +1953,7 @@ export async function createQuoteBuilderLead(app: Express) {
   });
 
   // Get media library items
-  app.get('/api/media/library', async (req, res) => {
+  app.get('/api/media/library', requireAdmin, async (req, res) => {
     try {
       const { filter } = req.query;
       
@@ -1815,7 +1971,7 @@ export async function createQuoteBuilderLead(app: Express) {
   });
 
   // Upload media file (admin)
-  app.post('/api/media/admin-upload', upload.single('file'), async (req, res) => {
+  app.post('/api/media/admin-upload', requireAdmin, upload.single('file'), async (req, res) => {
     try {
       if (!req.file) {
         return res.status(400).json({ error: 'No file provided' });
@@ -1835,7 +1991,7 @@ export async function createQuoteBuilderLead(app: Express) {
   });
 
   // Update media item
-  app.put('/api/media/:id', async (req, res) => {
+  app.put('/api/media/:id', requireAdmin, async (req, res) => {
     try {
       const { id } = req.params;
       const updates = req.body;
@@ -1854,7 +2010,7 @@ export async function createQuoteBuilderLead(app: Express) {
   });
 
   // Delete media item
-  app.delete('/api/media/:id', async (req, res) => {
+  app.delete('/api/media/:id', requireAdmin, async (req, res) => {
     try {
       const { id } = req.params;
       
@@ -1872,7 +2028,7 @@ export async function createQuoteBuilderLead(app: Express) {
   });
 
   // Bulk delete media items
-  app.post('/api/media/bulk-delete', async (req, res) => {
+  app.post('/api/media/bulk-delete', requireAdmin, async (req, res) => {
     try {
       const { mediaIds } = req.body;
       
@@ -1894,7 +2050,7 @@ export async function createQuoteBuilderLead(app: Express) {
   });
 
   // Publish media to website section
-  app.post('/api/media/publish', async (req, res) => {
+  app.post('/api/media/publish', requireAdmin, async (req, res) => {
     try {
       const { mediaIds, targetSection } = req.body;
       
@@ -1920,7 +2076,7 @@ export async function createQuoteBuilderLead(app: Express) {
   });
 
   // Edit photo with AI
-  app.post('/api/media/edit-photo', async (req, res) => {
+  app.post('/api/media/edit-photo', requireAdmin, async (req, res) => {
     try {
       const { photoId, editType, editPrompt, userId } = req.body;
       
@@ -1942,7 +2098,7 @@ export async function createQuoteBuilderLead(app: Express) {
   });
 
   // Analyze photo with AI
-  app.post('/api/media/:id/analyze', async (req, res) => {
+  app.post('/api/media/:id/analyze', requireAdmin, async (req, res) => {
     try {
       const { id } = req.params;
       

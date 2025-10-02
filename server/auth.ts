@@ -6,7 +6,7 @@ import { scrypt, randomBytes, timingSafeEqual } from "crypto";
 import { promisify } from "util";
 import type { Express } from "express";
 import type { User } from "@shared/schema";
-import { db } from "./db";
+import { pool } from "./db";
 
 const scryptAsync = promisify(scrypt);
 const PgSession = ConnectPgSimple(session);
@@ -34,7 +34,7 @@ export function setupAuth(app: Express, storage: any) {
   }
 
   const sessionStore = new PgSession({
-    pool: db,
+    pool: pool,
     tableName: 'user_sessions',
     createTableIfMissing: true,
   });

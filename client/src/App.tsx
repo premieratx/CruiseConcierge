@@ -103,6 +103,7 @@ function Router() {
       
       {/* Authentication */}
       <Route path="/auth" component={AuthPage} />
+      <Route path="/admin/login" component={AuthPage} />
       
       {/* Landing Pages */}
       <Route path="/bachelor-party" component={BachelorParty} />

@@ -21,7 +21,7 @@ export function ProtectedRoute({ children, requireAdmin = false }: ProtectedRout
   }
 
   if (!user) {
-    setLocation('/auth');
+    setLocation('/admin/login');
     return null;
   }
 
