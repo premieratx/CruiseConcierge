@@ -504,60 +504,60 @@ export default function BachelorParty() {
         <div className="container mx-auto px-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-3 lg:grid-cols-7 gap-2 h-auto p-1">
-              <TabsTrigger value="overview" data-testid="tab-overview">Overview</TabsTrigger>
-              <TabsTrigger value="included" data-testid="tab-included">What's Included</TabsTrigger>
-              <TabsTrigger value="packages" data-testid="tab-packages">Packages</TabsTrigger>
-              <TabsTrigger value="compare" data-testid="tab-compare">Compare</TabsTrigger>
-              <TabsTrigger value="faq" data-testid="tab-faq">FAQs</TabsTrigger>
-              <TabsTrigger value="photos" data-testid="tab-photos">Photos</TabsTrigger>
-              <TabsTrigger value="testimonials" data-testid="tab-testimonials">Reviews</TabsTrigger>
+              <TabsTrigger value="overview" data-testid="tab-overview"><span data-editable data-editable-id="bachelor-tab-overview">Overview</span></TabsTrigger>
+              <TabsTrigger value="included" data-testid="tab-included"><span data-editable data-editable-id="bachelor-tab-included">What's Included</span></TabsTrigger>
+              <TabsTrigger value="packages" data-testid="tab-packages"><span data-editable data-editable-id="bachelor-tab-packages">Packages</span></TabsTrigger>
+              <TabsTrigger value="compare" data-testid="tab-compare"><span data-editable data-editable-id="bachelor-tab-compare">Compare</span></TabsTrigger>
+              <TabsTrigger value="faq" data-testid="tab-faq"><span data-editable data-editable-id="bachelor-tab-faq">FAQs</span></TabsTrigger>
+              <TabsTrigger value="photos" data-testid="tab-photos"><span data-editable data-editable-id="bachelor-tab-photos">Photos</span></TabsTrigger>
+              <TabsTrigger value="testimonials" data-testid="tab-testimonials"><span data-editable data-editable-id="bachelor-tab-reviews">Reviews</span></TabsTrigger>
             </TabsList>
 
             {/* Overview Tab */}
             <TabsContent value="overview" className="mt-8">
               <div className="max-w-4xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelor-overview-main-heading">
                   Show Your Groom the <span className="text-brand-yellow">BEST Weekend</span> of His Life!
                 </h2>
                 
                 <div className="bg-brand-yellow/10 border-2 border-brand-yellow rounded-xl p-8 mb-8">
-                  <h3 className="text-2xl font-bold text-brand-yellow mb-4 text-center">
+                  <h3 className="text-2xl font-bold text-brand-yellow mb-4 text-center" data-editable data-editable-id="bachelor-overview-hero-callout">
                     You'll Be the HERO - Everyone Will Love This!
                   </h3>
                   <div className="space-y-4">
                     <div className="flex items-start space-x-3">
                       <Trophy className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold">The ONLY All-Inclusive Boat Party in Austin!</p>
-                        <p className="text-gray-600 dark:text-gray-400">The ONLY joint party in the country EXCLUSIVELY for Bach parties - unique experience you can't get anywhere else!</p>
+                        <p className="font-semibold" data-editable data-editable-id="bachelor-overview-feature-1-title">The ONLY All-Inclusive Boat Party in Austin!</p>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-feature-1-desc">The ONLY joint party in the country EXCLUSIVELY for Bach parties - unique experience you can't get anywhere else!</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Users className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold">Meet Bachelor Parties from All Over the Country!</p>
-                        <p className="text-gray-600 dark:text-gray-400">The energy is AMAZING - everyone celebrating the same occasion! Make friends & create priceless memories!</p>
+                        <p className="font-semibold" data-editable data-editable-id="bachelor-overview-feature-2-title">Meet Bachelor Parties from All Over the Country!</p>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-feature-2-desc">The energy is AMAZING - everyone celebrating the same occasion! Make friends & create priceless memories!</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Waves className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold">Party on the BIGGEST Unicorn Float in the Country!</p>
-                        <p className="text-gray-600 dark:text-gray-400">Our GIANT 25-ft unicorn float is legendary - Instagram gold every time!</p>
+                        <p className="font-semibold" data-editable data-editable-id="bachelor-overview-feature-3-title">Party on the BIGGEST Unicorn Float in the Country!</p>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-feature-3-desc">Our GIANT 25-ft unicorn float is legendary - Instagram gold every time!</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Zap className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold">Nothing to Plan, Nothing to Carry!</p>
-                        <p className="text-gray-600 dark:text-gray-400">Everything is ready on the boat - just order booze and SHOW UP! FREE alcohol & lunch delivery from Party on Delivery!</p>
+                        <p className="font-semibold" data-editable data-editable-id="bachelor-overview-feature-4-title">Nothing to Plan, Nothing to Carry!</p>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-feature-4-desc">Everything is ready on the boat - just order booze and SHOW UP! FREE alcohol & lunch delivery from Party on Delivery!</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <DollarSign className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold">Flat-Rate Per-Person Pricing</p>
-                        <p className="text-gray-600 dark:text-gray-400">Makes payment splitting EASY - everyone pays their own way. ALWAYS cheaper than a private cruise!</p>
+                        <p className="font-semibold" data-editable data-editable-id="bachelor-overview-feature-5-title">Flat-Rate Per-Person Pricing</p>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-feature-5-desc">Makes payment splitting EASY - everyone pays their own way. ALWAYS cheaper than a private cruise!</p>
                       </div>
                     </div>
                   </div>
@@ -565,10 +565,10 @@ export default function BachelorParty() {
 
                 {/* Your Disco Day Experience */}
                 <div className="mb-10">
-                  <h3 className="text-2xl md:text-3xl font-bold text-center mb-6">
+                  <h3 className="text-2xl md:text-3xl font-bold text-center mb-6" data-editable data-editable-id="bachelor-timeline-title">
                     Your <span className="text-brand-yellow">Disco Day Experience</span>
                   </h3>
-                  <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-8">
+                  <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-8" data-editable data-editable-id="bachelor-timeline-subtitle">
                     SERIOUSLY the highlight of the weekend EVERY single time!
                   </p>
                   
@@ -584,8 +584,8 @@ export default function BachelorParty() {
                         </div>
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1">Arrival & Check-In (11:30 AM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelor-timeline-step-1-title">Arrival & Check-In (11:30 AM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-timeline-step-1-desc">
                           Meet at the dock - our crew welcomes your group! Check in is a breeze, grab your wristbands and party favors. 
                           Your alcohol delivery is waiting (if you pre-ordered) or grab drinks from the marina store.
                         </p>
@@ -604,8 +604,8 @@ export default function BachelorParty() {
                         </div>
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1">Boarding & Setup (11:45 AM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelor-timeline-step-2-title">Boarding & Setup (11:45 AM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-timeline-step-2-desc">
                           Board the boat and claim your crew's spot! Your private cooler is already stocked with ice. 
                           Set up your drinks, grab some party supplies, and start vibing with other bachelor parties!
                         </p>
@@ -624,8 +624,8 @@ export default function BachelorParty() {
                         </div>
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1">We Launch! Party Starts NOW! (12:00 PM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelor-timeline-step-3-title">We Launch! Party Starts NOW! (12:00 PM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-timeline-step-3-desc">
                           DJ drops the first beat and the party EXPLODES! Dance floor opens, drinks flowing, 
                           energy through the roof! Professional photographer capturing every epic moment!
                         </p>
@@ -644,8 +644,8 @@ export default function BachelorParty() {
                         </div>
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1">Cruising Lake Travis (12:00-2:30 PM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelor-timeline-step-4-title">Cruising Lake Travis (12:00-2:30 PM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-timeline-step-4-desc">
                           Dancing, partying, meeting other groups from across the country! The vibes are INSANE - 
                           everyone's celebrating, the music is BUMPING, and you're making memories that'll last forever!
                         </p>
@@ -664,8 +664,8 @@ export default function BachelorParty() {
                         </div>
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1">Anchor Time! Float Party! (2:30-3:30 PM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelor-timeline-step-5-title">Anchor Time! Float Party! (2:30-3:30 PM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-timeline-step-5-desc">
                           We anchor and the LEGENDARY UNICORN comes out! Jump in Lake Travis, float on the lily pads, 
                           dominate the BIGGEST unicorn float in the country! This is THE Instagram moment - photographer going wild!
                         </p>
@@ -684,8 +684,8 @@ export default function BachelorParty() {
                         </div>
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1">Return & Last Dance (3:30-4:00 PM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelor-timeline-step-6-title">Return & Last Dance (3:30-4:00 PM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-timeline-step-6-desc">
                           Head back with one EPIC last dance! DJ brings it home, everyone's singing along, 
                           phone numbers exchanged with your new crew from across the country. You did it - you're the LEGEND!
                         </p>
@@ -694,21 +694,21 @@ export default function BachelorParty() {
                   </div>
 
                   <div className="mt-8 bg-green-50 dark:bg-green-950/20 border-2 border-green-500 rounded-lg p-6 text-center">
-                    <p className="text-lg font-bold text-green-700 dark:text-green-400 mb-2">
+                    <p className="text-lg font-bold text-green-700 dark:text-green-400 mb-2" data-editable data-editable-id="bachelor-timeline-result-title">
                       🎉 The Result: Priceless Memories & Amazing Vibes! 🎉
                     </p>
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-timeline-result-desc">
                       Your crew will talk about this for YEARS. You'll be the hero who planned the BEST bachelor party they've ever been to!
                     </p>
                   </div>
                 </div>
 
                 <div className="text-center space-y-4">
-                  <p className="text-lg">
+                  <p className="text-lg" data-editable data-editable-id="bachelor-overview-pricing">
                     Starting at just <span className="text-brand-yellow font-bold text-2xl">$85/person</span>
                     <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">($98 with tax & tip)</span>
                   </p>
-                  <p className="text-lg text-gray-600 dark:text-gray-400">
+                  <p className="text-lg text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-details">
                     Friday & Saturday • 4 Hours on Lake Travis • Up to 50 People
                   </p>
                   
@@ -718,11 +718,11 @@ export default function BachelorParty() {
                     className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold"
                     data-testid="button-overview-book-bachelor"
                   >
-                    Book Your Bachelor Party Now
+                    <span data-editable data-editable-id="bachelor-overview-book-button">Book Your Bachelor Party Now</span>
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </Button>
                   
-                  <p className="text-sm text-red-600 font-semibold">
+                  <p className="text-sm text-red-600 font-semibold" data-editable data-editable-id="bachelor-overview-urgency">
                     ⚠️ Limited Availability - Books up 4-6 weeks in advance!
                   </p>
                 </div>
@@ -732,10 +732,10 @@ export default function BachelorParty() {
             {/* What's Included Tab */}
             <TabsContent value="included" className="mt-8">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" data-editable data-editable-id="bachelor-included-title">
                   EVERYTHING Included but Alcohol!
                 </h2>
-                <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-8">
+                <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-8" data-editable data-editable-id="bachelor-included-subtitle">
                   Just SHOW UP & GET DOWN - We handle everything else
                 </p>
                 
@@ -753,8 +753,8 @@ export default function BachelorParty() {
                           <item.icon className="h-6 w-6 text-brand-yellow" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{item.description}</p>
+                          <h3 className="font-semibold text-lg mb-2" data-editable data-editable-id={`bachelor-included-${index}-title`}>{item.title}</h3>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed" data-editable data-editable-id={`bachelor-included-${index}-desc`}>{item.description}</p>
                         </div>
                       </div>
                     </motion.div>
@@ -762,8 +762,8 @@ export default function BachelorParty() {
                 </div>
 
                 <div className="bg-brand-blue/10 border-2 border-brand-blue rounded-xl p-6 text-center">
-                  <h3 className="text-xl font-bold mb-4">Plus the BIGGEST Unicorn Float in the Country!</h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4">
+                  <h3 className="text-xl font-bold mb-4" data-editable data-editable-id="bachelor-included-unicorn-title">Plus the BIGGEST Unicorn Float in the Country!</h3>
+                  <p className="text-gray-600 dark:text-gray-400 mb-4" data-editable data-editable-id="bachelor-included-unicorn-desc">
                     Our GIANT 25-ft Inflatable Unicorn Float is Instagram-worthy and unforgettable
                   </p>
                   <Button
@@ -771,7 +771,7 @@ export default function BachelorParty() {
                     className="bg-brand-blue hover:bg-brand-blue/90 text-white"
                     data-testid="button-included-book-bachelor"
                   >
-                    Reserve Your Date Now
+                    <span data-editable data-editable-id="bachelor-included-reserve-button">Reserve Your Date Now</span>
                   </Button>
                 </div>
               </div>
@@ -780,7 +780,7 @@ export default function BachelorParty() {
             {/* Packages Tab */}
             <TabsContent value="packages" className="mt-8">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelor-packages-title">
                   Choose Your Bachelor Party Package
                 </h2>
                 
@@ -796,7 +796,7 @@ export default function BachelorParty() {
                       {pkg.popular && (
                         <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
                           <Badge className="bg-brand-yellow text-black font-bold px-4 py-1">
-                            MOST POPULAR
+                            <span data-editable data-editable-id={`bachelor-package-${pkg.id}-badge`}>MOST POPULAR</span>
                           </Badge>
                         </div>
                       )}
@@ -805,8 +805,8 @@ export default function BachelorParty() {
                         <div className="flex justify-center mb-4">
                           <pkg.icon className="h-12 w-12 text-brand-yellow" />
                         </div>
-                        <CardTitle className="text-2xl">{pkg.name}</CardTitle>
-                        <CardDescription className="text-sm mt-2">
+                        <CardTitle className="text-2xl" data-editable data-editable-id={`bachelor-package-${pkg.id}-name`}>{pkg.name}</CardTitle>
+                        <CardDescription className="text-sm mt-2" data-editable data-editable-id={`bachelor-package-${pkg.id}-subtitle`}>
                           {pkg.subtitle}
                         </CardDescription>
                       </CardHeader>
@@ -830,7 +830,7 @@ export default function BachelorParty() {
                           {pkg.features.map((feature, i) => (
                             <li key={i} className="flex items-start space-x-2">
                               <Check className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                              <span className="text-sm">{feature}</span>
+                              <span className="text-sm" data-editable data-editable-id={`bachelor-package-${pkg.id}-feature-${i}`}>{feature}</span>
                             </li>
                           ))}
                         </ul>
@@ -840,7 +840,7 @@ export default function BachelorParty() {
                           onClick={() => handleGetQuote(pkg.id)}
                           data-testid={`button-package-${pkg.id}`}
                         >
-                          Select This Package
+                          <span data-editable data-editable-id={`bachelor-package-${pkg.id}-button`}>Select This Package</span>
                         </Button>
                       </CardContent>
                     </Card>
@@ -848,12 +848,12 @@ export default function BachelorParty() {
                 </div>
 
                 <div className="text-center">
-                  <p className="text-lg mb-4">
+                  <p className="text-lg mb-4" data-editable data-editable-id="bachelor-packages-includes-text">
                     All packages include: DJ, Photographer, Floats, Party Supplies & More!
                   </p>
                   <Badge className="bg-green-600 text-white">
                     <TrendingUp className="h-4 w-4 mr-1" />
-                    Group Discounts Available for 10+ People
+                    <span data-editable data-editable-id="bachelor-packages-discount-badge">Group Discounts Available for 10+ People</span>
                   </Badge>
                 </div>
               </div>
@@ -862,7 +862,7 @@ export default function BachelorParty() {
             {/* Compare Tab */}
             <TabsContent value="compare" className="mt-8">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelor-compare-title">
                   Disco Cruise vs Private Cruise
                 </h2>
                 
@@ -994,7 +994,7 @@ export default function BachelorParty() {
             {/* FAQs Tab */}
             <TabsContent value="faq" className="mt-8">
               <div className="max-w-3xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelor-faq-title">
                   Frequently Asked Questions
                 </h2>
                 
@@ -1009,10 +1009,10 @@ export default function BachelorParty() {
                         className="text-left hover:no-underline"
                         data-testid={`faq-trigger-${item.id}`}
                       >
-                        {item.question}
+                        <span data-editable data-editable-id={`bachelor-faq-${item.id}-question`}>{item.question}</span>
                       </AccordionTrigger>
                       <AccordionContent className="text-gray-600 dark:text-gray-400">
-                        {item.answer}
+                        <span data-editable data-editable-id={`bachelor-faq-${item.id}-answer`}>{item.answer}</span>
                       </AccordionContent>
                     </AccordionItem>
                   ))}
@@ -1020,8 +1020,8 @@ export default function BachelorParty() {
 
                 <Card className="mt-8 bg-brand-yellow/10 border-brand-yellow">
                   <CardContent className="pt-6">
-                    <h3 className="font-bold text-lg mb-3">Still have questions?</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                    <h3 className="font-bold text-lg mb-3" data-editable data-editable-id="bachelor-faq-help-title">Still have questions?</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4" data-editable data-editable-id="bachelor-faq-help-desc">
                       Our team is here to help make your bachelor party perfect!
                     </p>
                     <Button
@@ -1031,7 +1031,7 @@ export default function BachelorParty() {
                       data-testid="button-faq-contact"
                     >
                       <MessageCircle className="mr-2 h-4 w-4" />
-                      Chat with Us
+                      <span data-editable data-editable-id="bachelor-faq-chat-button">Chat with Us</span>
                     </Button>
                   </CardContent>
                 </Card>
@@ -1041,7 +1041,7 @@ export default function BachelorParty() {
             {/* Photos Tab */}
             <TabsContent value="photos" className="mt-8">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelor-photos-title">
                   Bachelor Party Vibes & Photos
                 </h2>
                 
@@ -1065,7 +1065,7 @@ export default function BachelorParty() {
                 </Carousel>
 
                 <div className="mt-8 text-center">
-                  <p className="text-lg mb-4">
+                  <p className="text-lg mb-4" data-editable data-editable-id="bachelor-photos-description">
                     Professional photography included with every cruise!
                   </p>
                   <Button
@@ -1073,7 +1073,7 @@ export default function BachelorParty() {
                     className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold"
                     data-testid="button-photos-book-bachelor"
                   >
-                    Book Your Epic Bachelor Party
+                    <span data-editable data-editable-id="bachelor-photos-book-button">Book Your Epic Bachelor Party</span>
                   </Button>
                 </div>
               </div>
@@ -1082,7 +1082,7 @@ export default function BachelorParty() {
             {/* Testimonials Tab */}
             <TabsContent value="testimonials" className="mt-8">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelor-testimonials-title">
                   What Grooms Are Saying
                 </h2>
                 
@@ -1095,8 +1095,8 @@ export default function BachelorParty() {
                             <div className="flex items-center mb-4">
                               <span className="text-4xl mr-4">{testimonial.avatar}</span>
                               <div>
-                                <p className="font-semibold">{testimonial.name}</p>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                <p className="font-semibold" data-editable data-editable-id={`bachelor-testimonial-${testimonial.id}-name`}>{testimonial.name}</p>
+                                <p className="text-sm text-gray-600 dark:text-gray-400" data-editable data-editable-id={`bachelor-testimonial-${testimonial.id}-role`}>
                                   {testimonial.role} • {testimonial.location}
                                 </p>
                               </div>
@@ -1108,11 +1108,11 @@ export default function BachelorParty() {
                               ))}
                             </div>
                             
-                            <p className="text-gray-700 dark:text-gray-300 mb-3">
+                            <p className="text-gray-700 dark:text-gray-300 mb-3" data-editable data-editable-id={`bachelor-testimonial-${testimonial.id}-text`}>
                               "{testimonial.text}"
                             </p>
                             
-                            <Badge variant="secondary">{testimonial.package}</Badge>
+                            <Badge variant="secondary"><span data-editable data-editable-id={`bachelor-testimonial-${testimonial.id}-package`}>{testimonial.package}</span></Badge>
                           </CardContent>
                         </Card>
                       </CarouselItem>
@@ -1123,7 +1123,7 @@ export default function BachelorParty() {
                 </Carousel>
 
                 <div className="mt-8 text-center">
-                  <p className="text-lg mb-4">
+                  <p className="text-lg mb-4" data-editable data-editable-id="bachelor-testimonials-description">
                     Join thousands of satisfied grooms who made their bachelor party legendary!
                   </p>
                   <Button
@@ -1132,7 +1132,7 @@ export default function BachelorParty() {
                     className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold"
                     data-testid="button-testimonials-book-bachelor"
                   >
-                    Be the Next Success Story
+                    <span data-editable data-editable-id="bachelor-testimonials-success-button">Be the Next Success Story</span>
                   </Button>
                 </div>
               </div>
@@ -1147,14 +1147,14 @@ export default function BachelorParty() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center space-x-2">
               <AlertCircle className="h-5 w-5 text-red-600 animate-pulse" />
-              <span className="text-sm font-semibold">Limited Availability - Books 4-6 weeks out!</span>
+              <span className="text-sm font-semibold" data-editable data-editable-id="bachelor-sticky-footer-urgency">Limited Availability - Books 4-6 weeks out!</span>
             </div>
             <Button
               onClick={() => handleGetQuote()}
               className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold"
               data-testid="button-sticky-book-bachelor"
             >
-              Book Bachelor Party Now
+              <span data-editable data-editable-id="bachelor-sticky-footer-button">Book Bachelor Party Now</span>
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
           </div>

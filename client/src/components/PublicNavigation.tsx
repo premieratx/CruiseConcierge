@@ -225,23 +225,23 @@ export default function PublicNavigation() {
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: "easeOut" }}
       >
-        <div className="container mx-auto px-6">
-          <div className="flex items-center justify-between h-20">
+        <div className="container mx-auto px-3 md:px-4 lg:px-6">
+          <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
             <Link 
               href="/"
-              className="flex items-center space-x-3 group"
+              className="flex items-center space-x-2 group"
               data-testid="link-home-logo"
             >
               <div className="relative">
                 <img 
                   src={logoPath} 
                   alt="Premier Party Cruises" 
-                  className="h-12 w-auto transition-transform duration-300 group-hover:scale-105"
+                  className="h-10 w-auto transition-transform duration-300 group-hover:scale-105"
                 />
               </div>
               <div className="hidden sm:block">
-                <div className="text-xl font-heading font-bold text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="header-logo-title">
+                <div className="text-base lg:text-lg font-heading font-bold text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="header-logo-title">
                   PREMIER PARTY CRUISES
                 </div>
                 <div className="text-xs text-brand-blue font-semibold tracking-widest" data-editable data-editable-id="header-logo-tagline">
@@ -252,12 +252,12 @@ export default function PublicNavigation() {
 
             {/* Desktop Navigation */}
             <NavigationMenu className="hidden lg:block">
-              <NavigationMenuList className="flex items-center space-x-2">
+              <NavigationMenuList className="flex items-center space-x-1">
                 {navigationItems.map((item) => (
                   item.hasDropdown ? (
                     <NavigationMenuItem key={item.href}>
                       <NavigationMenuTrigger className={cn(
-                        "flex items-center space-x-2 px-4 py-2 font-semibold",
+                        "flex items-center space-x-2 px-2 lg:px-4 py-2 font-semibold text-sm lg:text-base",
                         location.startsWith('/private-cruises') || 
                         location.startsWith('/corporate-events') ||
                         location.startsWith('/birthday-parties') ||
@@ -312,7 +312,7 @@ export default function PublicNavigation() {
                         href={item.href}
                         className={cn(
                           navigationMenuTriggerStyle(),
-                          "flex items-center space-x-2 font-semibold",
+                          "flex items-center space-x-2 font-semibold text-sm lg:text-base px-2 lg:px-4",
                           location === item.href
                             ? "text-brand-blue bg-brand-blue/10"
                             : "text-gray-700 dark:text-gray-300"
@@ -334,11 +334,11 @@ export default function PublicNavigation() {
             </NavigationMenu>
 
             {/* Desktop CTA Buttons */}
-            <div className="hidden lg:flex items-center space-x-4">
+            <div className="hidden lg:flex items-center space-x-2">
               <Button
                 variant="outline"
                 onClick={handleGetQuote}
-                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-6 py-2 tracking-wide"
+                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 md:px-4 lg:px-6 py-2 tracking-wide text-sm lg:text-base"
                 data-testid="button-header-get-quote"
               >
                 <MessageSquare className="mr-2 h-4 w-4" />
@@ -347,7 +347,7 @@ export default function PublicNavigation() {
               
               <Button
                 onClick={handleBookNow}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-6 py-2 tracking-wide shadow-lg hover:shadow-xl transition-all duration-300"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-3 md:px-4 lg:px-6 py-2 tracking-wide shadow-lg hover:shadow-xl transition-all duration-300 text-sm lg:text-base"
                 data-testid="button-header-book-now"
               >
                 <Calendar className="mr-2 h-4 w-4" />
@@ -503,7 +503,7 @@ export default function PublicNavigation() {
       </motion.header>
 
       {/* Spacer to prevent content from hiding behind fixed header */}
-      <div className="h-20" />
+      <div className="h-16 lg:h-20" />
     </>
   );
 }

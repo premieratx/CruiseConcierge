@@ -583,15 +583,15 @@ export default function BacheloretteParty() {
                     <div className="flex items-start space-x-3">
                       <Waves className="h-6 w-6 text-pink-500 mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold">Dance on the BIGGEST Unicorn Float in the Country!</p>
-                        <p className="text-gray-600 dark:text-gray-400">Our GIANT 25-ft unicorn float is Instagram MAGIC - every bride goes wild for it!</p>
+                        <p className="font-semibold" data-editable data-editable-id="bachelorette-feature-4-title">Dance on the BIGGEST Unicorn Float in the Country!</p>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-feature-4-description">Our GIANT 25-ft unicorn float is Instagram MAGIC - every bride goes wild for it!</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Zap className="h-6 w-6 text-pink-500 mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold">Nothing to Plan, Nothing to Carry!</p>
-                        <p className="text-gray-600 dark:text-gray-400">Everything is ready on the boat - just order champagne and SHOW UP! FREE delivery from Party on Delivery!</p>
+                        <p className="font-semibold" data-editable data-editable-id="bachelorette-feature-5-title">Nothing to Plan, Nothing to Carry!</p>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-feature-5-description">Everything is ready on the boat - just order champagne and SHOW UP! FREE delivery from Party on Delivery!</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
@@ -606,10 +606,10 @@ export default function BacheloretteParty() {
 
                 {/* Your Disco Day Experience */}
                 <div className="mb-10">
-                  <h3 className="text-2xl md:text-3xl font-bold text-center mb-6">
+                  <h3 className="text-2xl md:text-3xl font-bold text-center mb-6" data-editable data-editable-id="bachelorette-timeline-title">
                     Your <span className="text-pink-500">Disco Day Experience</span>
                   </h3>
-                  <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-8">
+                  <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-8" data-editable data-editable-id="bachelorette-timeline-subtitle">
                     SERIOUSLY the highlight of the weekend EVERY single time!
                   </p>
                   
@@ -625,8 +625,8 @@ export default function BacheloretteParty() {
                         </div>
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1">Arrival & Check-In (11:30 AM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelorette-timeline-step-1-title">Arrival & Check-In (11:30 AM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-timeline-step-1-desc">
                           Meet at the dock - our crew welcomes your squad with open arms! Check-in is quick, grab your wristbands and party goodies. 
                           Your champagne delivery is ready (if pre-ordered) or grab bottles from the marina store!
                         </p>
@@ -645,8 +645,8 @@ export default function BacheloretteParty() {
                         </div>
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1">Boarding & Setup (11:45 AM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelorette-timeline-step-2-title">Boarding & Setup (11:45 AM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-timeline-step-2-desc">
                           Board and claim your bride tribe's spot! Your private cooler is ice-cold and ready. 
                           Set up the mimosas, grab cute cups and koozies, start vibing with other bachelorette squads!
                         </p>
@@ -665,8 +665,8 @@ export default function BacheloretteParty() {
                         </div>
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1">We Launch! Party Starts NOW! (12:00 PM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelorette-timeline-step-3-title">We Launch! Party Starts NOW! (12:00 PM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-timeline-step-3-desc">
                           DJ drops the beat and the party EXPLODES! Dance floor opens, mimosas flowing, 
                           energy through the ROOF! Professional photographer capturing every fabulous moment!
                         </p>
@@ -685,8 +685,8 @@ export default function BacheloretteParty() {
                         </div>
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1">Cruising Lake Travis (12:00-2:30 PM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelorette-timeline-step-4-title">Cruising Lake Travis (12:00-2:30 PM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-timeline-step-4-desc">
                           Dancing, celebrating, meeting bachelorette parties from all across America! The vibes are MAGICAL - 
                           everyone's celebrating their bride, music is PERFECT, and you're creating memories that last forever!
                         </p>
@@ -705,8 +705,8 @@ export default function BacheloretteParty() {
                         </div>
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1">Anchor Time! Float Party! (2:30-3:30 PM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelorette-timeline-step-5-title">Anchor Time! Float Party! (2:30-3:30 PM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-timeline-step-5-desc">
                           We anchor and the LEGENDARY UNICORN comes out! Jump in Lake Travis, lounge on lily pads, 
                           conquer the BIGGEST unicorn float in America! THE Instagram moment - photographer going WILD capturing it all!
                         </p>
@@ -725,8 +725,8 @@ export default function BacheloretteParty() {
                         </div>
                       </div>
                       <div className="flex-1">
-                        <h4 className="font-bold text-lg mb-1">Return & Last Dance (3:30-4:00 PM)</h4>
-                        <p className="text-gray-600 dark:text-gray-400">
+                        <h4 className="font-bold text-lg mb-1" data-editable data-editable-id="bachelorette-timeline-step-6-title">Return & Last Dance (3:30-4:00 PM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-timeline-step-6-desc">
                           Head back with one EPIC final dance! DJ brings it home, everyone's singing along, 
                           Instagram handles exchanged with your new besties from around the country. You're the LEGEND who made this happen!
                         </p>
@@ -735,10 +735,10 @@ export default function BacheloretteParty() {
                   </div>
 
                   <div className="mt-8 bg-green-50 dark:bg-green-950/20 border-2 border-green-500 rounded-lg p-6 text-center">
-                    <p className="text-lg font-bold text-green-700 dark:text-green-400 mb-2">
+                    <p className="text-lg font-bold text-green-700 dark:text-green-400 mb-2" data-editable data-editable-id="bachelorette-timeline-result-title">
                       💕 The Result: Priceless Memories & Amazing Vibes! 💕
                     </p>
-                    <p className="text-gray-600 dark:text-gray-400">
+                    <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-timeline-result-desc">
                       Your bride tribe will talk about this for YEARS. You'll be the hero who planned the BEST bachelorette party ever!
                     </p>
                   </div>
@@ -1070,10 +1070,10 @@ export default function BacheloretteParty() {
                         className="text-left hover:no-underline"
                         data-testid={`faq-trigger-${item.id}`}
                       >
-                        {item.question}
+                        <span data-editable data-editable-id={`bachelorette-faq-${item.id}-question`}>{item.question}</span>
                       </AccordionTrigger>
                       <AccordionContent className="text-gray-600 dark:text-gray-400">
-                        {item.answer}
+                        <span data-editable data-editable-id={`bachelorette-faq-${item.id}-answer`}>{item.answer}</span>
                       </AccordionContent>
                     </AccordionItem>
                   ))}
@@ -1126,7 +1126,7 @@ export default function BacheloretteParty() {
                 </Carousel>
 
                 <div className="mt-8 text-center">
-                  <p className="text-lg mb-4">
+                  <p className="text-lg mb-4" data-editable data-editable-id="bachelorette-photos-description">
                     Professional photography included - Instagram-worthy photos guaranteed!
                   </p>
                   <Button
@@ -1134,7 +1134,7 @@ export default function BacheloretteParty() {
                     className="bg-pink-500 hover:bg-pink-600 text-white font-bold"
                     data-testid="button-photos-book-bachelorette"
                   >
-                    Book Your Dream Bachelorette Party
+                    <span data-editable data-editable-id="bachelorette-photos-book-button">Book Your Dream Bachelorette Party</span>
                   </Button>
                 </div>
               </div>
@@ -1143,7 +1143,7 @@ export default function BacheloretteParty() {
             {/* Testimonials Tab */}
             <TabsContent value="testimonials" className="mt-8">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelorette-testimonials-title">
                   What Brides Are Saying
                 </h2>
                 
@@ -1156,8 +1156,8 @@ export default function BacheloretteParty() {
                             <div className="flex items-center mb-4">
                               <span className="text-4xl mr-4">{testimonial.avatar}</span>
                               <div>
-                                <p className="font-semibold">{testimonial.name}</p>
-                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                <p className="font-semibold" data-editable data-editable-id={`bachelorette-testimonial-${testimonial.id}-name`}>{testimonial.name}</p>
+                                <p className="text-sm text-gray-600 dark:text-gray-400" data-editable data-editable-id={`bachelorette-testimonial-${testimonial.id}-role`}>
                                   {testimonial.role} • {testimonial.location}
                                 </p>
                               </div>
@@ -1169,12 +1169,12 @@ export default function BacheloretteParty() {
                               ))}
                             </div>
                             
-                            <p className="text-gray-700 dark:text-gray-300 mb-3">
+                            <p className="text-gray-700 dark:text-gray-300 mb-3" data-editable data-editable-id={`bachelorette-testimonial-${testimonial.id}-text`}>
                               "{testimonial.text}"
                             </p>
                             
                             <Badge variant="secondary" className="bg-pink-100 text-pink-700">
-                              {testimonial.package}
+                              <span data-editable data-editable-id={`bachelorette-testimonial-${testimonial.id}-package`}>{testimonial.package}</span>
                             </Badge>
                           </CardContent>
                         </Card>
@@ -1186,7 +1186,7 @@ export default function BacheloretteParty() {
                 </Carousel>
 
                 <div className="mt-8 text-center">
-                  <p className="text-lg mb-4">
+                  <p className="text-lg mb-4" data-editable data-editable-id="bachelorette-testimonials-description">
                     Join thousands of happy brides who made their bachelorette party legendary!
                   </p>
                   <Button
@@ -1195,7 +1195,7 @@ export default function BacheloretteParty() {
                     className="bg-pink-500 hover:bg-pink-600 text-white font-bold"
                     data-testid="button-testimonials-book-bachelorette"
                   >
-                    Be the Next Success Story
+                    <span data-editable data-editable-id="bachelorette-testimonials-success-button">Be the Next Success Story</span>
                   </Button>
                 </div>
               </div>
@@ -1210,19 +1210,19 @@ export default function BacheloretteParty() {
           <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
             <div className="flex items-center space-x-2">
               <AlertCircle className="h-5 w-5 text-red-600 animate-pulse" />
-              <span className="text-sm font-semibold">Limited Availability - Books 4-6 weeks out!</span>
+              <span className="text-sm font-semibold" data-editable data-editable-id="bachelorette-sticky-footer-urgency">Limited Availability - Books 4-6 weeks out!</span>
             </div>
             <div className="flex items-center gap-3">
               <Badge className="bg-purple-600 text-white animate-pulse">
                 <Heart className="h-3 w-3 mr-1" />
-                Bride FREE!
+                <span data-editable data-editable-id="bachelorette-sticky-footer-bride-badge">Bride FREE!</span>
               </Badge>
               <Button
                 onClick={() => handleGetQuote()}
                 className="bg-pink-500 hover:bg-pink-600 text-white font-bold"
                 data-testid="button-sticky-book-bachelorette"
               >
-                Book Bachelorette Party Now
+                <span data-editable data-editable-id="bachelorette-sticky-footer-button">Book Bachelorette Party Now</span>
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </div>

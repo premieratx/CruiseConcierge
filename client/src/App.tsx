@@ -152,7 +152,7 @@ function Router() {
       {/* Admin Dashboard Routes */}
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/admin" component={Dashboard} />
-      <Route path="/chat" component={QuoteBuilderEmbed} />
+      <Route path="/chat" component={Chat} />
       <Route path="/customers/:id" component={CustomerProfile} />
       <Route path="/partial-leads" component={PartialLeads} />
       <Route path="/projects" component={Projects} />
