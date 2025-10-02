@@ -22,7 +22,8 @@ import {
   Waves, Wine, Umbrella, Music, ArrowRight, Camera,
   Gift, Heart, Crown, Anchor, PartyPopper, Presentation,
   TrendingUp, HandshakeIcon, DollarSign, ChevronRight,
-  Receipt, Coffee, Award as AwardIcon, Network, UserCheck
+  Receipt, Coffee, Award as AwardIcon, Network, UserCheck,
+  CheckCircle
 } from 'lucide-react';
 
 // Hero and gallery images - reuse from other pages
