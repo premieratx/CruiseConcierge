@@ -88,6 +88,11 @@ app.use('/q/', (req, res, next) => {
   // Blog routes are now handled by routes.ts (PostgreSQL-based)
   // Old Replit DB router disabled: app.use("/api/blog", blogRouter);
   
+  // Serve quote widget HTML file
+  app.get('/chat', (req, res) => {
+    res.sendFile('quote-widget.html', { root: './public' });
+  });
+  
   const server = await registerRoutes(app);
 
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
