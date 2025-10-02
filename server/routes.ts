@@ -568,12 +568,6 @@ export async function registerRoutes(app: Express): Promise<Server> {
   const storageInstance = await getStorage();
   // Note: setupAuth is called in server/index.ts before registerRoutes
   
-  // DEBUG: Test route to verify routing works
-  app.get('/api/test', (req, res) => {
-    console.log('✅ /api/test route HIT - routing is working');
-    res.json({ message: 'Test route working', authenticated: req.isAuthenticated?.() || false });
-  });
-  
   // ==========================================
   // AUTHENTICATION ROUTES
   // ==========================================
