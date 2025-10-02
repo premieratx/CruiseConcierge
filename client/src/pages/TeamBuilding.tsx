@@ -51,7 +51,7 @@ const teamBuildingPackages = [
   {
     id: 'standard',
     name: 'Standard 4-Hour Cruise',
-    basePrice: 2500,
+    basePrice: 200,
     description: 'Strengthen bonds outside the office - Collaborative celebration',
     features: [
       'Amazing, experienced captain',
@@ -69,7 +69,7 @@ const teamBuildingPackages = [
   {
     id: 'essentials',
     name: 'Cruise w/Essentials Package',
-    basePrice: 2600,
+    basePrice: 225,
     addOnPrice: 100,
     description: 'Team building with complete convenience',
     features: [
@@ -87,7 +87,7 @@ const teamBuildingPackages = [
   {
     id: 'ultimate',
     name: 'Ultimate Party Package',
-    basePrice: 2750,
+    basePrice: 250,
     addOnPrice: 250,
     description: 'Premium team building with entertainment and party supplies',
     features: [

@@ -52,7 +52,7 @@ const rehearsalPackages = [
     id: 'standard',
     name: 'Standard 4-Hour Cruise',
     capacity: 'Up to 14 guests',
-    basePrice: 2500,
+    basePrice: 200,
     description: 'Intimate pre-wedding gathering - Toast to tomorrow',
     features: [
       'Amazing, experienced captain',
@@ -71,7 +71,7 @@ const rehearsalPackages = [
     id: 'essentials',
     name: 'Cruise w/Essentials Package',
     capacity: 'Up to 14 guests',
-    basePrice: 2600,
+    basePrice: 225,
     addOnPrice: 100,
     description: 'Rehearsal dinner with complete convenience',
     features: [
@@ -90,7 +90,7 @@ const rehearsalPackages = [
     id: 'ultimate',
     name: 'Ultimate Party Package',
     capacity: 'Up to 14 guests',
-    basePrice: 2750,
+    basePrice: 250,
     addOnPrice: 250,
     description: 'Ultimate pre-wedding celebration with entertainment and party supplies',
     features: [

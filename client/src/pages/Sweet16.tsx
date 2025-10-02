@@ -64,7 +64,7 @@ const sweet16Packages = [
   {
     id: 'standard',
     name: 'Standard 4-Hour Cruise',
-    basePrice: 2500,
+    basePrice: 200,
     description: 'A coming-of-age celebration - Make it sweet and memorable',
     features: [
       'Amazing, experienced captain',
@@ -82,7 +82,7 @@ const sweet16Packages = [
   {
     id: 'essentials',
     name: 'Cruise w/Essentials Package',
-    basePrice: 2600,
+    basePrice: 225,
     addOnPrice: 100,
     description: 'Sweet 16 with complete convenience',
     features: [
@@ -100,7 +100,7 @@ const sweet16Packages = [
   {
     id: 'ultimate',
     name: 'Ultimate Party Package',
-    basePrice: 2750,
+    basePrice: 250,
     addOnPrice: 250,
     description: 'Ultimate luxury sweet 16 with entertainment and party supplies',
     features: [

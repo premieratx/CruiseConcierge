@@ -60,6 +60,7 @@ const corporatePackages = [
   {
     name: 'Standard 4-Hour Cruise',
     icon: Users,
+    basePrice: 200,
     description: 'Professional team building on water - Impress clients and boost morale',
     features: [
       'Amazing, experienced captain',
@@ -75,6 +76,7 @@ const corporatePackages = [
   {
     name: 'Cruise w/Essentials Package',
     icon: HandshakeIcon,
+    basePrice: 225,
     description: 'Corporate event with complete convenience',
     features: [
       'Everything from Standard Cruise',
@@ -89,6 +91,7 @@ const corporatePackages = [
   {
     name: 'Ultimate Party Package',
     icon: Briefcase,
+    basePrice: 250,
     description: 'Professional event with entertainment and party supplies',
     features: [
       'Everything from Essentials Package',

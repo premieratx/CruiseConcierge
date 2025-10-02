@@ -51,7 +51,7 @@ const welcomePackages = [
   {
     id: 'standard',
     name: 'Standard 4-Hour Cruise',
-    basePrice: 2500,
+    basePrice: 200,
     description: 'Welcome your guests in style - First impression celebration',
     features: [
       'Amazing, experienced captain',
@@ -69,7 +69,7 @@ const welcomePackages = [
   {
     id: 'essentials',
     name: 'Cruise w/Essentials Package',
-    basePrice: 2600,
+    basePrice: 225,
     addOnPrice: 100,
     description: 'Welcome party with complete convenience',
     features: [
@@ -87,7 +87,7 @@ const welcomePackages = [
   {
     id: 'ultimate',
     name: 'Ultimate Party Package',
-    basePrice: 2750,
+    basePrice: 250,
     addOnPrice: 250,
     description: 'Ultimate welcome reception with entertainment and party supplies',
     features: [

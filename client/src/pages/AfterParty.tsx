@@ -63,7 +63,7 @@ const afterPartyPackages = [
   {
     id: 'standard',
     name: 'Standard 4-Hour Cruise',
-    basePrice: 2500,
+    basePrice: 200,
     description: 'Keep the celebration going - Extend the magic',
     features: [
       'Amazing, experienced captain',
@@ -81,7 +81,7 @@ const afterPartyPackages = [
   {
     id: 'essentials',
     name: 'Cruise w/Essentials Package',
-    basePrice: 2600,
+    basePrice: 225,
     addOnPrice: 100,
     description: 'After party with complete convenience',
     features: [
@@ -99,7 +99,7 @@ const afterPartyPackages = [
   {
     id: 'ultimate',
     name: 'Ultimate Party Package',
-    basePrice: 2750,
+    basePrice: 250,
     addOnPrice: 250,
     description: 'The ultimate wedding after party with entertainment and party supplies',
     features: [

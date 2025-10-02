@@ -51,7 +51,7 @@ const clientPackages = [
   {
     id: 'standard',
     name: 'Standard 4-Hour Cruise',
-    basePrice: 2500,
+    basePrice: 200,
     description: 'Impress and entertain in style - Close deals on the water',
     features: [
       'Amazing, experienced captain',
@@ -69,7 +69,7 @@ const clientPackages = [
   {
     id: 'essentials',
     name: 'Cruise w/Essentials Package',
-    basePrice: 2600,
+    basePrice: 225,
     addOnPrice: 100,
     description: 'Client entertainment with complete convenience',
     features: [
@@ -87,7 +87,7 @@ const clientPackages = [
   {
     id: 'ultimate',
     name: 'Ultimate Party Package',
-    basePrice: 2750,
+    basePrice: 250,
     addOnPrice: 250,
     description: 'Ultimate VIP client experience with entertainment and party supplies',
     features: [

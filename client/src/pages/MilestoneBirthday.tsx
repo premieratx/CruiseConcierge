@@ -64,7 +64,7 @@ const birthdayPackages = [
   {
     id: 'standard',
     name: 'Standard 4-Hour Cruise',
-    basePrice: 2500,
+    basePrice: 200,
     description: 'Make this birthday unforgettable - Age in style on the water',
     features: [
       'Amazing, experienced captain',
@@ -82,7 +82,7 @@ const birthdayPackages = [
   {
     id: 'essentials',
     name: 'Cruise w/Essentials Package',
-    basePrice: 2600,
+    basePrice: 225,
     addOnPrice: 100,
     description: 'Milestone birthday with complete convenience',
     features: [
@@ -100,7 +100,7 @@ const birthdayPackages = [
   {
     id: 'ultimate',
     name: 'Ultimate Party Package',
-    basePrice: 2750,
+    basePrice: 250,
     addOnPrice: 250,
     description: 'Unforgettable luxury milestone with entertainment and party supplies',
     features: [

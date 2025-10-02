@@ -101,7 +101,7 @@ const weddingPackages = [
   {
     name: 'Standard 4-Hour Cruise',
     icon: Heart,
-    price: `From ${formatCurrency(250000)}`,
+    price: 'Starting at $200/hr',
     description: 'Perfect for rehearsal dinners, welcome parties, and after parties',
     features: [
       'Amazing, experienced captain',
@@ -117,7 +117,7 @@ const weddingPackages = [
   {
     name: 'Cruise w/Essentials Package',
     icon: Flower,
-    price: `From ${formatCurrency(260000)}`,
+    price: 'Starting at $225/hr',
     description: 'Wedding celebration with complete convenience',
     features: [
       'Everything from Standard Cruise',
@@ -133,7 +133,7 @@ const weddingPackages = [
   {
     name: 'Ultimate Party Package',
     icon: Gem,
-    price: `From ${formatCurrency(275000)}`,
+    price: 'Starting at $250/hr',
     description: 'Elegant wedding experience with entertainment and party supplies',
     features: [
       'Everything from Essentials Package',

@@ -66,7 +66,7 @@ const graduationPackages = [
   {
     id: 'standard',
     name: 'Standard 4-Hour Cruise',
-    basePrice: 2500,
+    basePrice: 200,
     description: 'Celebrate this milestone achievement - Toast to the future',
     features: [
       'Amazing, experienced captain',
@@ -84,7 +84,7 @@ const graduationPackages = [
   {
     id: 'essentials',
     name: 'Cruise w/Essentials Package',
-    basePrice: 2600,
+    basePrice: 225,
     addOnPrice: 100,
     description: 'Graduation party with complete convenience',
     features: [
@@ -102,7 +102,7 @@ const graduationPackages = [
   {
     id: 'ultimate',
     name: 'Ultimate Party Package',
-    basePrice: 2750,
+    basePrice: 250,
     addOnPrice: 250,
     description: 'Luxury graduation celebration with entertainment and party supplies',
     features: [

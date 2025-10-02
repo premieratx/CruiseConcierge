@@ -64,7 +64,7 @@ const milestonePackages = [
   {
     id: 'standard',
     name: 'Standard 4-Hour Cruise',
-    basePrice: 2500,
+    basePrice: 200,
     description: 'Celebrate achievements together - Recognition and appreciation',
     features: [
       'Amazing, experienced captain',
@@ -82,7 +82,7 @@ const milestonePackages = [
   {
     id: 'essentials',
     name: 'Cruise w/Essentials Package',
-    basePrice: 2600,
+    basePrice: 225,
     addOnPrice: 100,
     description: 'Milestone celebration with complete convenience',
     features: [
@@ -100,7 +100,7 @@ const milestonePackages = [
   {
     id: 'ultimate',
     name: 'Ultimate Party Package',
-    basePrice: 2750,
+    basePrice: 250,
     addOnPrice: 250,
     description: 'Ultimate celebration with entertainment and party supplies',
     features: [
