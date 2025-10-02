@@ -415,6 +415,86 @@ export default function TestimonialsFaq() {
     { value: 'corporate', label: 'Corporate Events' }
   ];
 
+  // Helper function to convert date strings to ISO format
+  const convertDateToISO = (dateString: string): string => {
+    const monthMap: { [key: string]: string } = {
+      'January': '01', 'February': '02', 'March': '03', 'April': '04',
+      'May': '05', 'June': '06', 'July': '07', 'August': '08',
+      'September': '09', 'October': '10', 'November': '11', 'December': '12'
+    };
+    
+    const parts = dateString.split(' ');
+    if (parts.length === 2) {
+      const month = monthMap[parts[0]];
+      const year = parts[1];
+      if (month && year) {
+        return `${year}-${month}-15T00:00:00Z`;
+      }
+    }
+    
+    return new Date().toISOString();
+  };
+
+  // Generate FAQ schema for rich snippets
+  const faqSchema = useMemo(() => ({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": Object.values(faqCategories).flatMap(category =>
+      category.faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer
+        }
+      }))
+    )
+  }), []);
+
+  // Generate Product/Service schema with reviews and aggregate rating
+  const productReviewSchema = useMemo(() => ({
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Premier Party Cruises - Austin Boat Rental Services",
+    "description": "Premium boat rental and party cruise services on Lake Travis, Austin. Featuring private charters, disco cruises, bachelor/bachelorette parties, and corporate events with professional captains and crew.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Premier Party Cruises"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "125000",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "review": allTestimonials.slice(0, 10).map(testimonial => ({
+      "@type": "Review",
+      "author": {
+        "@type": "Person",
+        "name": testimonial.name
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": testimonial.rating.toString(),
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "reviewBody": testimonial.text,
+      "datePublished": convertDateToISO(testimonial.date)
+    })),
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "USD",
+      "lowPrice": "85",
+      "highPrice": "2500",
+      "offerCount": "7"
+    }
+  }), []);
+
+  // Combine both schemas for comprehensive rich snippets
+  const combinedSchema = useMemo(() => [faqSchema, productReviewSchema], [faqSchema, productReviewSchema]);
+
   return (
     <>
       <SEOHead 
@@ -423,20 +503,7 @@ export default function TestimonialsFaq() {
         defaultDescription="Read authentic reviews from 125,000+ happy customers and get answers to frequently asked questions about Austin's premier Lake Travis party cruise experience."
         defaultKeywords={['premier party cruises reviews', 'lake travis boat rental faq', 'austin party boat testimonials', 'customer reviews lake travis', 'boat rental questions austin']}
         schemaType="webpage"
-        customSchema={{
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": Object.values(faqCategories).flatMap(category =>
-            category.faqs.map(faq => ({
-              "@type": "Question",
-              "name": faq.question,
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": faq.answer
-              }
-            }))
-          )
-        }}
+        customSchema={combinedSchema}
       />
       
       <PublicNavigation />

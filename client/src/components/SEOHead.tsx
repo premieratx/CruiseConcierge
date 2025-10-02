@@ -9,7 +9,7 @@ interface SEOHeadProps {
   defaultKeywords?: string[];
   children?: React.ReactNode;
   schemaType?: 'webpage' | 'service' | 'event' | 'organization';
-  customSchema?: Record<string, any>;
+  customSchema?: Record<string, any> | Record<string, any>[];
   image?: string;
   article?: {
     publishedTime?: string;
