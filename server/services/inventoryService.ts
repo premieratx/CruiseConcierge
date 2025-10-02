@@ -2,7 +2,7 @@ import { db } from "../db";
 import { boats, products, bookings, availabilitySlots, timeSlotTemplates, inventory } from "@shared/schema";
 import { eq, and, between, gte, lte, or, inArray, sql } from "drizzle-orm";
 import { format, addMinutes, parseISO, isSameDay, differenceInMinutes } from "date-fns";
-import { STATIC_PRICING } from "../config/staticPricing";
+// OLD STATIC_PRICING import removed - migrating to Lovable system
 
 export interface InventoryItem {
   id: string;
@@ -70,7 +70,7 @@ class InventoryService {
     
     return allBoats.map(boat => {
       const invItem = inventoryItems.find(item => item.boatId === boat.id);
-      const staticPricing = STATIC_PRICING.boats[`boat_${boat.name.toLowerCase().replace(/\s+/g, '_')}`];
+      // OLD STATIC_PRICING removed - using inventory table or fallback defaults
       
       return {
         id: invItem?.id || boat.id,
@@ -79,7 +79,7 @@ class InventoryService {
         minCapacity: invItem?.minCapacity || 1,
         maxCapacity: boat.maxCapacity,
         standardCapacity: boat.capacity,
-        basePricing: invItem?.basePricing || staticPricing?.pricing || {
+        basePricing: invItem?.basePricing || {
           weekday: 60000,
           friday: 100000,
           weekend: 120000

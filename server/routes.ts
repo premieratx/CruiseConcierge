@@ -20578,33 +20578,33 @@ Provide JSON response with: { "enhancedContent": "...", "eventCategory": "corpor
     }
   });
   
-  // Initialize holiday exceptions for a year
-  app.post("/api/exceptions/initialize-holidays", requireAdminAuth, async (req, res) => {
-    try {
-      const { pricingExceptionsService } = await import('./services/pricingExceptions');
-      const { year } = req.body;
-      
-      const targetYear = year || new Date().getFullYear();
-      await pricingExceptionsService.initializeHolidayExceptions(targetYear);
-      await pricingExceptionsService.initializeSpecialEvents(targetYear);
-      
-      res.json({ 
-        success: true, 
-        message: `Initialized holidays and special events for ${targetYear}` 
-      });
-    } catch (error: any) {
-      console.error("Initialize holidays error:", error);
-      res.status(500).json({ error: "Failed to initialize holidays", details: error.message });
-    }
-  });
+  // OLD: Initialize holiday exceptions - removed for Lovable migration
+  // app.post("/api/exceptions/initialize-holidays", requireAdminAuth, async (req, res) => {
+  //   try {
+  //     const { pricingExceptionsService } = await import('./services/pricingExceptions');
+  //     const { year } = req.body;
+  //     
+  //     const targetYear = year || new Date().getFullYear();
+  //     await pricingExceptionsService.initializeHolidayExceptions(targetYear);
+  //     await pricingExceptionsService.initializeSpecialEvents(targetYear);
+  //     
+  //     res.json({ 
+  //       success: true, 
+  //       message: `Initialized holidays and special events for ${targetYear}` 
+  //     });
+  //   } catch (error: any) {
+  //     console.error("Initialize holidays error:", error);
+  //     res.status(500).json({ error: "Failed to initialize holidays", details: error.message });
+  //   }
+  // });
 
   // ==========================================
-  // ADMIN BOOKING/BLOCKING ENDPOINTS FOR BIDIRECTIONAL SYNC
+  // OLD: ADMIN BOOKING/BLOCKING ENDPOINTS - REMOVED FOR LOVABLE MIGRATION
   // ==========================================
   
-  // Import and register admin booking endpoints for perfect bidirectional synchronization
-  const { addAdminBookingEndpoints } = await import('./adminBookingEndpoints');
-  addAdminBookingEndpoints(app, storage, requireAdminAuth, requirePermission, broadcastRealtimeEvent);
+  // OLD: Admin booking endpoints removed - will be replaced with Lovable system
+  // const { addAdminBookingEndpoints } = await import('./adminBookingEndpoints');
+  // addAdminBookingEndpoints(app, storage, requireAdminAuth, requirePermission, broadcastRealtimeEvent);
 
   const httpServer = createServer(app);
   return httpServer;
