@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PublicNavigation from '@/components/PublicNavigation';
+import SEOHead from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -67,6 +68,44 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
+      <SEOHead 
+        pageRoute="/contact"
+        defaultTitle="Contact Us - Premier Party Cruises Austin | (512) 488-5892"
+        defaultDescription="Contact Premier Party Cruises for Austin Lake Travis boat rentals. Call (512) 488-5892 or fill out our form for bachelor parties, corporate events, and private charters."
+        defaultKeywords={[
+          'contact premier party cruises',
+          'austin boat rental contact',
+          'lake travis cruise booking',
+          'party boat austin phone',
+          '512-488-5892'
+        ]}
+        schemaType="organization"
+        customSchema={{
+          "@context": "https://schema.org",
+          "@type": "ContactPage",
+          "name": "Contact Premier Party Cruises",
+          "description": "Contact information and inquiry form for Premier Party Cruises",
+          "mainEntity": {
+            "@type": "LocalBusiness",
+            "name": "Premier Party Cruises",
+            "telephone": "+1-512-488-5892",
+            "email": "clientservices@premierpartycruises.com",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "addressCountry": "US"
+            },
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+1-512-488-5892",
+              "contactType": "customer service",
+              "availableLanguage": "English",
+              "areaServed": "Austin, TX"
+            }
+          }
+        }}
+      />
       <PublicNavigation />
       
       {/* Hero Section */}
