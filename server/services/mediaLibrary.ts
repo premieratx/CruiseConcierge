@@ -10,6 +10,8 @@ import {
 import * as crypto from "crypto";
 import { ObjectStorageService, ObjectNotFoundError } from "../objectStorage";
 import { ObjectPermission } from "../objectAcl";
+import path from "path";
+import fs from "fs";
 
 export class MediaLibraryService {
   private objectStorageService: ObjectStorageService;
@@ -20,8 +22,8 @@ export class MediaLibraryService {
   
   // Secure filename sanitization
   private sanitizeFilename(originalName: string): string {
-    const ext = require('path').extname(originalName).toLowerCase();
-    const basename = require('path').basename(originalName, ext);
+    const ext = path.extname(originalName).toLowerCase();
+    const basename = path.basename(originalName, ext);
     
     // Remove dangerous characters and limit length
     const safeName = basename
@@ -41,7 +43,6 @@ export class MediaLibraryService {
     const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.mp4', '.webm', '.mov'];
     const maxSize = 100 * 1024 * 1024; // 100MB for videos, 50MB for images
     
-    const path = require('path');
     const ext = path.extname(file.originalname).toLowerCase();
     
     if (!allowedMimeTypes.includes(file.mimetype)) {
@@ -169,12 +170,12 @@ export class MediaLibraryService {
       
       // Create temporary file for analysis
       const tempFilePath = `/tmp/temp_${mediaId}.jpg`;
-      require('fs').writeFileSync(tempFilePath, imageBuffer);
+      fs.writeFileSync(tempFilePath, imageBuffer);
       
       const analysis = await analyzePhotoForContent(tempFilePath);
       
       // Clean up temporary file
-      require('fs').unlinkSync(tempFilePath);
+      fs.unlinkSync(tempFilePath);
       
       await db.update(mediaItems)
         .set({
@@ -243,12 +244,12 @@ export class MediaLibraryService {
       
       // Create temporary file for editing
       const tempOriginalPath = `/tmp/original_${photoId}.jpg`;
-      require('fs').writeFileSync(tempOriginalPath, originalImageBuffer);
+      fs.writeFileSync(tempOriginalPath, originalImageBuffer);
       
       const result = await editPhotoWithNanoBanana(tempOriginalPath, editType, editPrompt);
       
       // Clean up temporary file
-      require('fs').unlinkSync(tempOriginalPath);
+      fs.unlinkSync(tempOriginalPath);
       
       // Convert base64 to buffer
       const editedImageBuffer = Buffer.from(result.imageData, 'base64');

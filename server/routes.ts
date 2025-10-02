@@ -1,6 +1,7 @@
 import type { Express } from "express";
 import { createServer, type Server } from "http";
 import Stripe from "stripe";
+import path from "path";
 
 // Augment Express Request type to include our custom properties
 declare module 'express-serve-static-core' {
@@ -18765,7 +18766,7 @@ Provide comprehensive validation with specific recommendations for improvement.`
       ];
       const allowedExtensions = ['.jpg', '.jpeg', '.png', '.webp', '.gif', '.mp4', '.webm', '.mov'];
       
-      const ext = require('path').extname(file.originalname).toLowerCase();
+      const ext = path.extname(file.originalname).toLowerCase();
       
       // Check both MIME type and extension
       if (allowedMimeTypes.includes(file.mimetype) && allowedExtensions.includes(ext)) {
@@ -18813,7 +18814,6 @@ Provide comprehensive validation with specific recommendations for improvement.`
       }
 
       // Verify file type matches extension
-      const path = require('path');
       const ext = path.extname(req.file.originalname).toLowerCase();
       const mimeTypeMap: Record<string, string[]> = {
         'image/jpeg': ['.jpg', '.jpeg'],
@@ -18830,7 +18830,9 @@ Provide comprehensive validation with specific recommendations for improvement.`
         return res.status(400).json({ error: 'File extension does not match MIME type' });
       }
 
-      const mediaItem = await mediaLibraryService.uploadMedia(req.file, userId);
+      // Use lazy-loaded service
+      const mediaLibraryServiceInstance = await getMediaLibraryService();
+      const mediaItem = await mediaLibraryServiceInstance.uploadMedia(req.file, userId);
       
       console.log(`✅ Secure media upload completed: ${mediaItem.id} by user ${userId}`);
       res.json({ success: true, mediaItem });
