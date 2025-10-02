@@ -430,6 +430,133 @@ const allScrollingReviews = [
 // Keep original array for compatibility
 const allTestimonials = allScrollingReviews.slice(0, 9);
 
+// Component for individual review card in scrolling hero
+const ReviewCard = ({ review }: { review: typeof allScrollingReviews[0] }) => {
+  return (
+    <div className="glass-card p-3 md:p-4 rounded-xl min-w-[280px] md:min-w-[320px] mx-2 hover:scale-105 transition-transform duration-300 cursor-pointer">
+      <div className="flex items-center gap-1 mb-2">
+        {[...Array(review.rating)].map((_, i) => (
+          <Star key={i} className="w-3 h-3 md:w-4 md:h-4 fill-yellow-500 text-yellow-500" />
+        ))}
+      </div>
+      <p className="text-xs md:text-sm text-gray-700 dark:text-gray-300 line-clamp-2 mb-2">
+        "{review.text}"
+      </p>
+      <div className="flex justify-between items-end">
+        <div>
+          <p className="font-semibold text-sm">{review.name}</p>
+          <p className="text-xs text-muted-foreground">{review.event}</p>
+        </div>
+        <p className="text-[10px] md:text-xs text-muted-foreground">{review.date}</p>
+      </div>
+    </div>
+  );
+};
+
+// Scrolling Hero Section Component
+const ScrollingReviewsHero = () => {
+  // Split reviews into two rows for different speed animations
+  const firstRow = allScrollingReviews.slice(0, 15);
+  const secondRow = allScrollingReviews.slice(15, 30);
+  
+  // Duplicate arrays for seamless infinite scroll
+  const firstRowDuped = [...firstRow, ...firstRow];
+  const secondRowDuped = [...secondRow, ...secondRow];
+  
+  // Featured reviews for mobile display
+  const featuredMobileReviews = allScrollingReviews.slice(0, 6);
+  
+  return (
+    <section className="relative py-8 md:py-16 overflow-hidden bg-gradient-to-br from-brand-blue/5 to-brand-yellow/5">
+      <div className="container mx-auto px-4 md:px-6 mb-6 md:mb-8">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center"
+        >
+          <Badge className="mb-4 bg-brand-blue text-white">
+            <Sparkles className="w-3 h-3 mr-1" />
+            30+ Amazing Reviews
+          </Badge>
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4">
+            WHAT OUR CUSTOMERS SAY
+          </h2>
+          <p className="text-sm md:text-lg text-muted-foreground max-w-2xl mx-auto">
+            Join thousands of happy customers who've experienced unforgettable moments on Lake Travis
+          </p>
+        </motion.div>
+      </div>
+      
+      {/* Desktop: Animated scrolling rows */}
+      <div className="hidden md:block">
+        {/* First Row - Normal Speed */}
+        <div className="relative mb-4 md:mb-6">
+          <div className="flex animate-scroll-left hover:pause-animation">
+            {firstRowDuped.map((review, index) => (
+              <ReviewCard key={`${review.id}-row1-${index}`} review={review} />
+            ))}
+          </div>
+        </div>
+        
+        {/* Second Row - Slow Speed */}
+        <div className="relative">
+          <div className="flex animate-scroll-left-slow hover:pause-animation">
+            {secondRowDuped.map((review, index) => (
+              <ReviewCard key={`${review.id}-row2-${index}`} review={review} />
+            ))}
+          </div>
+        </div>
+        
+        {/* Gradient Overlays for fade effect */}
+        <div className="absolute left-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-r from-background to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-20 md:w-32 bg-gradient-to-l from-background to-transparent z-10 pointer-events-none" />
+      </div>
+      
+      {/* Mobile: Static featured reviews grid */}
+      <div className="block md:hidden">
+        <div className="container mx-auto px-4">
+          <div className="grid gap-4">
+            {featuredMobileReviews.map((review) => (
+              <motion.div
+                key={review.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm rounded-lg p-4 shadow-md"
+              >
+                <div className="flex items-center justify-between mb-2">
+                  <div className="flex items-center gap-2">
+                    <span className="font-semibold text-sm text-gray-900 dark:text-white">{review.name}</span>
+                    <span className="text-xs text-muted-foreground">• {review.event}</span>
+                  </div>
+                  <span className="text-[10px] text-muted-foreground">{review.date}</span>
+                </div>
+                <div className="flex mb-2">
+                  {[...Array(review.rating)].map((_, i) => (
+                    <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
+                  ))}
+                </div>
+                <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-2">"{review.text}"</p>
+              </motion.div>
+            ))}
+          </div>
+          <div className="text-center mt-6">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5 }}
+            >
+              <span className="text-sm text-gray-600 dark:text-gray-400 font-semibold">View all 30+ reviews below</span>
+              <ArrowRight className="w-4 h-4 inline-block ml-1 animate-bounce-horizontal" />
+            </motion.div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+};
+
 // FAQ data organized by categories
 const faqCategories = {
   booking: {
@@ -639,65 +766,6 @@ const ScrollingReviewCard = ({ review }: { review: typeof allScrollingReviews[0]
   </div>
 );
 
-const ScrollingReviewsHero = () => {
-  // Split reviews into two rows
-  const firstRowReviews = allScrollingReviews.slice(0, 15);
-  const secondRowReviews = allScrollingReviews.slice(15, 30);
-  
-  return (
-    <div className="relative overflow-hidden py-16 bg-gradient-to-r from-brand-blue via-indigo-600 to-brand-blue">
-      {/* Background overlay pattern */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0" style={{
-          backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.1) 10px, rgba(255,255,255,.1) 20px)`
-        }}></div>
-      </div>
-      
-      {/* Title */}
-      <div className="text-center mb-10 relative z-10">
-        <motion.h2 
-          className="text-3xl md:text-5xl font-bold text-white mb-3"
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-        >
-          LOVED BY 125,000+ HAPPY CUSTOMERS
-        </motion.h2>
-        <motion.p 
-          className="text-white/80 text-lg"
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-        >
-          See why we're Austin's #1 choice for lake parties and events
-        </motion.p>
-      </div>
-      
-      {/* Row 1 - scrolls left */}
-      <div className="mb-4 relative">
-        <div className="flex animate-scroll-left hover:pause-animation">
-          {[...firstRowReviews, ...firstRowReviews].map((review, idx) => (
-            <ScrollingReviewCard key={`row1-${idx}`} review={review} />
-          ))}
-        </div>
-      </div>
-      
-      {/* Row 2 - scrolls left slower */}
-      <div className="relative">
-        <div className="flex animate-scroll-left-slow hover:pause-animation">
-          {[...secondRowReviews, ...secondRowReviews].map((review, idx) => (
-            <ScrollingReviewCard key={`row2-${idx}`} review={review} />
-          ))}
-        </div>
-      </div>
-      
-      {/* Gradient overlays for smooth edges */}
-      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-brand-blue to-transparent z-10 pointer-events-none"></div>
-      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-brand-blue to-transparent z-10 pointer-events-none"></div>
-    </div>
-  );
-};
-
 export default function TestimonialsFaq() {
   const [location, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
@@ -857,7 +925,7 @@ export default function TestimonialsFaq() {
       
       {/* Hero Section */}
       <motion.section 
-        className="relative pt-24 pb-16 bg-gradient-to-br from-brand-blue via-brand-blue/90 to-brand-blue/80 overflow-hidden"
+        className="relative pt-20 pb-8 md:pt-24 md:pb-16 bg-gradient-to-br from-brand-blue via-brand-blue/90 to-brand-blue/80 overflow-hidden"
         initial="hidden"
         animate="visible"
         variants={staggerChildren}
@@ -868,7 +936,7 @@ export default function TestimonialsFaq() {
           style={{ backgroundImage: `url(${heroImage1})` }}
         />
         
-        <div className="container mx-auto px-6 relative z-10">
+        <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div variants={fadeInUp} className="mb-8">
               <Badge className="bg-brand-yellow text-black font-bold px-6 py-2 text-lg">
@@ -917,10 +985,10 @@ export default function TestimonialsFaq() {
       </motion.section>
 
       {/* Featured Testimonials */}
-      <section className="py-24 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
+      <section className="py-8 md:py-16 lg:py-24 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-4 md:px-6">
           <motion.div 
-            className="text-center mb-16"
+            className="text-center mb-8 md:mb-16"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -928,13 +996,13 @@ export default function TestimonialsFaq() {
           >
             <motion.h2 
               variants={fadeInUp}
-              className="text-4xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white"
+              className="text-2xl md:text-4xl lg:text-6xl font-heading font-bold mb-3 md:mb-6 text-gray-900 dark:text-white"
             >
               FEATURED REVIEWS
             </motion.h2>
             <motion.p 
               variants={fadeInUp}
-              className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
+              className="text-sm md:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
             >
               Hear directly from our customers about their unforgettable experiences on Lake Travis.
             </motion.p>
@@ -1014,6 +1082,43 @@ export default function TestimonialsFaq() {
               </motion.div>
             ))}
           </div>
+          
+          {/* Mobile Accordion View */}
+          <Accordion type="single" collapsible className="block md:hidden space-y-2 max-w-xl mx-auto">
+            {filteredTestimonials.map((testimonial) => (
+              <AccordionItem 
+                key={testimonial.id} 
+                value={testimonial.id}
+                className="bg-white dark:bg-gray-800 rounded-lg shadow-sm"
+              >
+                <AccordionTrigger className="text-left px-4 py-3 hover:no-underline">
+                  <div className="flex justify-between items-start w-full pr-4">
+                    <div>
+                      <div className="font-semibold text-sm">{testimonial.name}</div>
+                      <div className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star key={i} className="h-3 w-3 text-yellow-400 fill-current" />
+                        ))}
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <Badge variant="outline" className="text-xs mb-1">
+                        {testimonial.event}
+                      </Badge>
+                      <div className="text-xs text-muted-foreground">{testimonial.date}</div>
+                    </div>
+                  </div>
+                </AccordionTrigger>
+                <AccordionContent className="px-4 pb-3">
+                  <p className="text-sm text-muted-foreground mb-2">"{testimonial.text}"</p>
+                  <div className="flex justify-between text-xs text-gray-500">
+                    <span>{testimonial.role}</span>
+                    <span>{testimonial.groupSize} guests</span>
+                  </div>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </div>
       </section>
 
@@ -1059,7 +1164,8 @@ export default function TestimonialsFaq() {
             </motion.div>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+          {/* Desktop Grid View */}
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto">
             {filteredTestimonials.map((testimonial, index) => (
               <motion.div
                 key={testimonial.id}
@@ -1070,7 +1176,7 @@ export default function TestimonialsFaq() {
                 transition={{ delay: (index % 6) * 0.1 }}
                 data-testid={`testimonial-${testimonial.id}`}
               >
-                <Card className="p-6 h-full hover:shadow-lg transition-shadow duration-300">
+                <Card className="p-4 md:p-6 h-full hover:shadow-lg transition-shadow duration-300">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex space-x-1">
                       {[...Array(testimonial.rating)].map((_, i) => (
@@ -1141,10 +1247,10 @@ export default function TestimonialsFaq() {
       </section>
 
       {/* FAQ Section */}
-      <section className="py-24 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
+      <section className="py-8 md:py-16 lg:py-24 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-4 md:px-6">
           <motion.div 
-            className="text-center mb-16"
+            className="text-center mb-8 md:mb-16"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -1152,13 +1258,13 @@ export default function TestimonialsFaq() {
           >
             <motion.h2 
               variants={fadeInUp}
-              className="text-4xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white"
+              className="text-2xl md:text-4xl lg:text-6xl font-heading font-bold mb-3 md:mb-6 text-gray-900 dark:text-white"
             >
               FREQUENTLY ASKED QUESTIONS
             </motion.h2>
             <motion.p 
               variants={fadeInUp}
-              className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8"
+              className="text-sm md:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-4 md:mb-8"
             >
               Get answers to the most common questions about booking, pricing, safety, and what to expect on your Lake Travis cruise experience.
             </motion.p>

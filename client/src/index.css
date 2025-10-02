@@ -645,3 +645,17 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* Horizontal bounce animation for arrow */
+@keyframes bounce-horizontal {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+}
+
+.animate-bounce-horizontal {
+  animation: bounce-horizontal 1.5s ease-in-out infinite;
+}
