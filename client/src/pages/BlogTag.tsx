@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import Layout from "@/components/Layout";
+import SEOHead from "@/components/SEOHead";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { TagBadge } from "@/components/blog/TagBadge";
 import { Button } from "@/components/ui/button";
@@ -122,6 +123,13 @@ export default function BlogTagPage() {
 
   return (
     <Layout>
+      <SEOHead 
+        pageRoute={`/blog/tag/${slug}`}
+        defaultTitle={`#${tag?.name || 'Tag'} - Premier Party Cruises Blog`}
+        defaultDescription={`Explore blog posts tagged with #${tag?.name || 'this tag'}. ${totalCount || 0} articles about Austin boat rentals and Lake Travis party cruises.`}
+        defaultKeywords={['premier party cruises', tag?.name || 'blog', 'austin blog']}
+        schemaType="webpage"
+      />
       <div className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="mb-6">

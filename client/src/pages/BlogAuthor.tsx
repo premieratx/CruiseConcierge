@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import Layout from "@/components/Layout";
+import SEOHead from "@/components/SEOHead";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -141,6 +142,22 @@ export default function BlogAuthorPage() {
 
   return (
     <Layout>
+      <SEOHead 
+        pageRoute={`/blog/author/${id}`}
+        defaultTitle={`${author?.name || 'Author'} - Premier Party Cruises Blog`}
+        defaultDescription={author?.bio || `Read articles by ${author?.name || 'this author'} about Austin boat rentals, Lake Travis cruises, and party planning tips.`}
+        schemaType="webpage"
+        customSchema={{
+          "@context": "https://schema.org",
+          "@type": "ProfilePage",
+          "mainEntity": {
+            "@type": "Person",
+            "name": author?.name || '',
+            "description": author?.bio || '',
+            "url": author?.website || ''
+          }
+        }}
+      />
       <div className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="mb-6">

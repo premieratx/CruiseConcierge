@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useParams } from "wouter";
 import { useQuery } from "@tanstack/react-query";
 import Layout from "@/components/Layout";
+import SEOHead from "@/components/SEOHead";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { CategoryBadge } from "@/components/blog/CategoryBadge";
 import { Button } from "@/components/ui/button";
@@ -122,6 +123,20 @@ export default function BlogCategoryPage() {
 
   return (
     <Layout>
+      <SEOHead 
+        pageRoute={`/blog/category/${slug}`}
+        defaultTitle={`${category?.name || 'Category'} - Premier Party Cruises Blog`}
+        defaultDescription={category?.description || `Browse all blog posts about ${category?.name || 'this topic'}. Tips, guides, and insights for Austin Lake Travis party cruises.`}
+        defaultKeywords={['premier party cruises blog', category?.name?.toLowerCase() || 'blog', 'austin boat rental tips']}
+        schemaType="webpage"
+        customSchema={{
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "name": `${category?.name || 'Category'} Articles`,
+          "description": category?.description || `Blog posts about ${category?.name}`,
+          "numberOfItems": totalCount || 0
+        }}
+      />
       <div className="container mx-auto px-4 py-8">
         {/* Breadcrumb */}
         <div className="mb-6">
