@@ -325,6 +325,73 @@ export default function BachelorParty() {
     navigate(`/chat?${params.toString()}`);
   };
 
+  const eventSchema = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "ATX Disco Cruise - Bachelor Party",
+    "description": "The Ultimate Bachelor Party Cruise Experience on Lake Travis with professional DJ, photographer, and all-inclusive packages",
+    "organizer": {
+      "@type": "Organization",
+      "name": "Premier Party Cruises",
+      "url": "https://premierppartycruises.com"
+    },
+    "location": {
+      "@type": "Place",
+      "name": "Lake Travis",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Austin",
+        "addressRegion": "TX",
+        "addressCountry": "US"
+      }
+    }
+  };
+
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "ATX Disco Cruise - Bachelor Party Package",
+    "description": "Join Austin's best party on Lake Travis with DJ, photographer, and open bar options. Exclusively for bachelor parties with professional entertainment and amenities included.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Premier Party Cruises"
+    },
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Basic Bach Package",
+        "price": "85.00",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "url": "https://premierppartycruises.com/bachelor-party",
+        "priceValidUntil": "2025-12-31"
+      },
+      {
+        "@type": "Offer",
+        "name": "Disco King Package",
+        "price": "95.00",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "url": "https://premierppartycruises.com/bachelor-party",
+        "priceValidUntil": "2025-12-31"
+      },
+      {
+        "@type": "Offer",
+        "name": "Super Sparkle Platinum Package",
+        "price": "105.00",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "url": "https://premierppartycruises.com/bachelor-party",
+        "priceValidUntil": "2025-12-31"
+      }
+    ],
+    "category": "Event Services",
+    "areaServed": {
+      "@type": "City",
+      "name": "Austin"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead
@@ -333,6 +400,7 @@ export default function BachelorParty() {
         defaultDescription="The Ultimate Bachelor Party Cruise Experience! Join the ONLY all-inclusive boat party in Austin exclusively for bach parties. Professional DJ, photographer, and everything included. Book now - sells out 4-6 weeks early!"
         defaultKeywords={['Austin bachelor party', 'Lake Travis bachelor party', 'ATX Disco Cruise', 'bachelor party boat Austin']}
         schemaType="event"
+        customSchema={[eventSchema, productSchema]}
       />
       <PublicNavigation />
       

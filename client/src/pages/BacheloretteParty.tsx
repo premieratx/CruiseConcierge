@@ -349,6 +349,73 @@ export default function BacheloretteParty() {
     navigate(`/chat?${params.toString()}`);
   };
 
+  const eventSchema = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "ATX Disco Cruise - Bachelorette Party",
+    "description": "The Ultimate Bachelorette Party Cruise Experience on Lake Travis with professional DJ, photographer, and bride cruises free",
+    "organizer": {
+      "@type": "Organization",
+      "name": "Premier Party Cruises",
+      "url": "https://premierppartycruises.com"
+    },
+    "location": {
+      "@type": "Place",
+      "name": "Lake Travis",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Austin",
+        "addressRegion": "TX",
+        "addressCountry": "US"
+      }
+    }
+  };
+
+  const productSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "ATX Disco Cruise - Bachelorette Party Package",
+    "description": "Join Austin's best bachelorette party on Lake Travis with DJ, photographer, and bride cruises free. Exclusively for bachelorette parties with professional entertainment and amenities included.",
+    "brand": {
+      "@type": "Brand",
+      "name": "Premier Party Cruises"
+    },
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "Basic Bachelorette Package",
+        "price": "85.00",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "url": "https://premierppartycruises.com/bachelorette-party",
+        "priceValidUntil": "2025-12-31"
+      },
+      {
+        "@type": "Offer",
+        "name": "Disco Queen Package",
+        "price": "95.00",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "url": "https://premierppartycruises.com/bachelorette-party",
+        "priceValidUntil": "2025-12-31"
+      },
+      {
+        "@type": "Offer",
+        "name": "Super Sparkle Platinum Package",
+        "price": "105.00",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "url": "https://premierppartycruises.com/bachelorette-party",
+        "priceValidUntil": "2025-12-31"
+      }
+    ],
+    "category": "Event Services",
+    "areaServed": {
+      "@type": "City",
+      "name": "Austin"
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead
@@ -357,6 +424,7 @@ export default function BacheloretteParty() {
         defaultDescription="The Ultimate Bachelorette Party Cruise Experience! Join the ONLY all-inclusive boat party in Austin exclusively for bach parties. Bride cruises FREE! Professional DJ, photographer, and everything included. Book now!"
         defaultKeywords={['Austin bachelorette party', 'Lake Travis bachelorette party', 'ATX Disco Cruise', 'bachelorette party boat Austin']}
         schemaType="event"
+        customSchema={[eventSchema, productSchema]}
       />
       <PublicNavigation />
       
