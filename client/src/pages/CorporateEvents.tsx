@@ -58,44 +58,49 @@ const staggerChildren = {
 // Corporate packages
 const corporatePackages = [
   {
-    name: 'Team Building',
+    name: 'Standard 4-Hour Cruise',
     icon: Users,
-    description: 'Strengthen team bonds and boost morale',
+    description: 'Professional team building on water - Impress clients and boost morale',
     features: [
-      'Ice breaker activities',
-      'Team challenges & games',
-      'Collaborative exercises',
-      'Relaxed networking environment',
-      'Professional photography',
-      'Custom playlist options'
+      'Amazing, experienced captain',
+      '2 large empty coolers (bring your own ice & drinks)',
+      'Premium Bluetooth speaker system',
+      'Clean restroom facilities',
+      'Comfortable seating for up to 14 guests',
+      'Plenty of sun & shade areas',
+      'Vendor coordination for catering'
     ],
     ideal: 'Ideal for: Quarterly meetings, new team formation, remote team gatherings'
   },
   {
-    name: 'Client Entertainment',
+    name: 'Cruise w/Essentials Package',
     icon: HandshakeIcon,
-    description: 'Impress clients and close deals in style',
+    description: 'Corporate event with complete convenience',
     features: [
-      'Premium yacht options',
-      'Catering services available',
-      'Professional bartender option',
-      'Elegant atmosphere',
-      'Sunset cruise timing',
-      'Privacy guaranteed'
+      'Everything from Standard Cruise',
+      'Insulated 5-gallon dispenser with ice water',
+      'Fresh water & solo cups',
+      'Coolers pre-stocked with ice',
+      '6-ft folding table for food & drinks',
+      'Vendor coordination for catering'
     ],
     ideal: 'Ideal for: Client appreciation, deal celebrations, VIP entertainment'
   },
   {
-    name: 'Executive Retreat',
+    name: 'Ultimate Party Package',
     icon: Briefcase,
-    description: 'Strategic planning in a unique environment',
+    description: 'Professional event with entertainment and party supplies',
     features: [
-      'Quiet zones for discussions',
-      'Presentation equipment available',
-      'Working lunch setup',
-      'Break-out session areas',
-      'Refreshment stations',
-      'Professional atmosphere'
+      'Everything from Essentials Package',
+      'Giant lily pad float',
+      'Guest of honor float (unicorn or ring)',
+      'Disco ball cups for party vibes',
+      'Bubble guns & bubble wands',
+      'Champagne flutes & fruit juices',
+      'SPF-50 spray sunscreen',
+      'Plates, plasticware, & paper towels',
+      'Disco balls installed for party atmosphere',
+      'Vendor coordination for catering'
     ],
     ideal: 'Ideal for: Board meetings, strategic planning, executive bonding'
   }

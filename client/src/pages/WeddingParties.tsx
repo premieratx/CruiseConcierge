@@ -99,49 +99,53 @@ const weddingEvents = [
 // Wedding packages
 const weddingPackages = [
   {
-    name: 'Elegant Essentials',
+    name: 'Standard 4-Hour Cruise',
     icon: Heart,
-    price: `From ${formatCurrency(HOURLY_RATES.MON_THU[25] * 4)}`,  // 4-hour minimum on 25-person boat
-    description: 'Classic wedding elegance on the water',
+    price: `From ${formatCurrency(250000)}`,
+    description: 'Perfect for rehearsal dinners, welcome parties, and after parties',
     features: [
-      'Private yacht for your group',
-      'Professional captain & crew',
-      'White tablecloths & linens',
-      'Champagne toast setup',
-      'Sunset cruise timing',
-      'Elegant music playlist'
+      'Amazing, experienced captain',
+      '2 large empty coolers (bring your own ice & drinks)',
+      'Premium Bluetooth speaker system',
+      'Clean restroom facilities',
+      'Comfortable seating for up to 14 guests',
+      'Plenty of sun & shade areas',
+      'Vendor coordination for catering'
     ],
-    ideal: 'Perfect for intimate rehearsal dinners'
+    ideal: 'Essential wedding event experience'
   },
   {
-    name: 'Romance Package',
+    name: 'Cruise w/Essentials Package',
     icon: Flower,
-    price: `From ${formatCurrency(HOURLY_RATES.MON_THU[25] * 6)}`,  // 6-hour minimum on 25-person boat
-    description: 'Enhanced romantic atmosphere',
+    price: `From ${formatCurrency(260000)}`,
+    description: 'Wedding celebration with complete convenience',
     features: [
-      'Everything from Elegant Essentials',
-      'Floral centerpieces',
-      'String lights decoration',
-      'Professional photographer (1 hour)',
-      'Champagne & glasses provided',
-      'Custom wedding playlist'
+      'Everything from Standard Cruise',
+      'Insulated 5-gallon dispenser with ice water',
+      'Fresh water & solo cups',
+      'Coolers pre-stocked with ice',
+      '6-ft folding table for food & drinks',
+      'Vendor coordination for catering'
     ],
     ideal: 'Most popular for wedding events',
     popular: true
   },
   {
-    name: 'Luxury Wedding',
+    name: 'Ultimate Party Package',
     icon: Gem,
-    price: `From ${formatCurrency(HOURLY_RATES.MON_THU[50] * 6)}`,  // 6-hour minimum on 50-person boat
-    description: 'Ultimate luxury wedding experience',
+    price: `From ${formatCurrency(275000)}`,
+    description: 'Elegant wedding experience with entertainment and party supplies',
     features: [
-      'Everything from Romance Package',
-      'Full catering coordination',
-      'Premium bar service available',
-      'Professional photographer (full event)',
-      'Videographer option',
-      'Custom decorations',
-      'Dedicated event coordinator'
+      'Everything from Essentials Package',
+      'Giant lily pad float',
+      'Guest of honor float (unicorn or ring)',
+      'Disco ball cups for party vibes',
+      'Bubble guns & bubble wands',
+      'Champagne flutes & fruit juices',
+      'SPF-50 spray sunscreen',
+      'Plates, plasticware, & paper towels',
+      'Disco balls installed for party atmosphere',
+      'Vendor coordination for catering'
     ],
     ideal: 'For unforgettable wedding celebrations',
     luxury: true

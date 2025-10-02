@@ -62,39 +62,36 @@ const confettiAnimation = {
 // Milestone Birthday packages
 const birthdayPackages = [
   {
-    id: 'essential',
-    name: 'Essential Celebration',
-    basePrice: HOURLY_RATES.MON_THU[25] / 100, // Uses centralized pricing from shared/constants.ts
-    description: 'Perfect for intimate milestone celebrations',
+    id: 'standard',
+    name: 'Standard 4-Hour Cruise',
+    basePrice: 2500,
+    description: 'Make this birthday unforgettable - Age in style on the water',
     features: [
-      'Premium pontoon boat (25-30 guests)',
-      'Professional captain and crew',
-      '3-4 hour birthday cruise',
-      'Birthday decorations and banners',
-      'Music system with party playlist',
-      'Birthday cake table setup',
-      'Photo opportunities',
-      'Swimming stop included'
+      'Amazing, experienced captain',
+      '2 large empty coolers (bring your own ice & drinks)',
+      'Premium Bluetooth speaker system',
+      'Clean restroom facilities',
+      'Comfortable seating for up to 14 guests',
+      'Plenty of sun & shade areas',
+      'Vendor coordination for catering'
     ],
     popular: false,
     icon: Gift,
     badge: 'Great Value'
   },
   {
-    id: 'premium',
-    name: 'Premium Party',
-    basePrice: HOURLY_RATES.MON_THU[50] / 100, // Uses centralized pricing from shared/constants.ts
-    addOnPrice: 75,
-    description: 'Enhanced milestone celebration with extras',
+    id: 'essentials',
+    name: 'Cruise w/Essentials Package',
+    basePrice: 2600,
+    addOnPrice: 100,
+    description: 'Milestone birthday with complete convenience',
     features: [
-      'Everything in Essential Celebration',
-      'Upgraded yacht (50 guests)',
-      'Professional photographer (2 hours)',
-      'Custom milestone decorations',
-      'DJ or live music option',
-      'Champagne toast for milestone',
-      'Memory book station',
-      'Photo props for milestone age'
+      'Everything from Standard Cruise',
+      'Insulated 5-gallon dispenser with ice water',
+      'Fresh water & solo cups',
+      'Coolers pre-stocked with ice',
+      '6-ft folding table for food & drinks',
+      'Vendor coordination for catering'
     ],
     popular: true,
     icon: Crown,
@@ -102,20 +99,21 @@ const birthdayPackages = [
   },
   {
     id: 'ultimate',
-    name: 'Ultimate Bash',
-    basePrice: HOURLY_RATES.FRIDAY[50] / 100, // Uses centralized pricing from shared/constants.ts
-    addOnPrice: 125,
-    description: 'Unforgettable luxury milestone experience',
+    name: 'Ultimate Party Package',
+    basePrice: 2750,
+    addOnPrice: 250,
+    description: 'Unforgettable luxury milestone with entertainment and party supplies',
     features: [
-      'Everything in Premium Party',
-      'Luxury yacht (75 guests)',
-      'Full event photography/videography',
-      'Custom themed decorations',
-      'Live entertainment',
-      'Premium catering options',
-      'Surprise elements coordination',
-      'Fireworks display option',
-      'VIP birthday person deck'
+      'Everything from Essentials Package',
+      'Giant lily pad float',
+      'Guest of honor float (unicorn or ring)',
+      'Disco ball cups for party vibes',
+      'Bubble guns & bubble wands',
+      'Champagne flutes & fruit juices',
+      'SPF-50 spray sunscreen',
+      'Plates, plasticware, & paper towels',
+      'Disco balls installed for party atmosphere',
+      'Vendor coordination for catering'
     ],
     popular: false,
     icon: Trophy,

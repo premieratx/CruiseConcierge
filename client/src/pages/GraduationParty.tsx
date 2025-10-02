@@ -64,61 +64,58 @@ const capToss = {
 // Graduation packages
 const graduationPackages = [
   {
-    id: 'grad_standard',
-    name: 'Grad Standard',
-    basePrice: HOURLY_RATES.MON_THU[25] / 100, // Uses centralized pricing from shared/constants.ts
-    description: 'Essential graduation celebration package',
+    id: 'standard',
+    name: 'Standard 4-Hour Cruise',
+    basePrice: 2500,
+    description: 'Celebrate this milestone achievement - Toast to the future',
     features: [
-      'Premium pontoon boat (25-30 guests)',
-      'Professional captain and crew',
-      '3-4 hour celebration cruise',
-      'Graduation decorations',
-      'Cap & gown photo station',
-      'Music system with playlist',
-      'Celebration toast setup',
-      'Swimming and water activities'
+      'Amazing, experienced captain',
+      '2 large empty coolers (bring your own ice & drinks)',
+      'Premium Bluetooth speaker system',
+      'Clean restroom facilities',
+      'Comfortable seating for up to 14 guests',
+      'Plenty of sun & shade areas',
+      'Vendor coordination for catering'
     ],
     popular: false,
     icon: BookOpen,
     badge: 'Great Value'
   },
   {
-    id: 'grad_essentials',
-    name: 'Grad Essentials',
-    basePrice: HOURLY_RATES.MON_THU[50] / 100, // Uses centralized pricing from shared/constants.ts
-    addOnPrice: 75,
-    description: 'Enhanced graduation party experience',
+    id: 'essentials',
+    name: 'Cruise w/Essentials Package',
+    basePrice: 2600,
+    addOnPrice: 100,
+    description: 'Graduation party with complete convenience',
     features: [
-      'Everything in Grad Standard',
-      'Upgraded yacht (50 guests)',
-      'Professional photographer (2 hours)',
-      'Custom school colors decorations',
-      'DJ with celebration music',
-      'Achievement display area',
-      'Memory book station',
-      'Future goals board',
-      'Surprise coordination'
+      'Everything from Standard Cruise',
+      'Insulated 5-gallon dispenser with ice water',
+      'Fresh water & solo cups',
+      'Coolers pre-stocked with ice',
+      '6-ft folding table for food & drinks',
+      'Vendor coordination for catering'
     ],
     popular: true,
     icon: Trophy,
     badge: 'Most Popular'
   },
   {
-    id: 'grad_ultimate',
-    name: 'Grad Ultimate',
-    basePrice: HOURLY_RATES.FRIDAY[50] / 100, // Uses centralized pricing from shared/constants.ts
-    addOnPrice: 125,
-    description: 'Luxury graduation celebration',
+    id: 'ultimate',
+    name: 'Ultimate Party Package',
+    basePrice: 2750,
+    addOnPrice: 250,
+    description: 'Luxury graduation celebration with entertainment and party supplies',
     features: [
-      'Everything in Grad Essentials',
-      'Luxury yacht (75 guests)',
-      'Full photography & videography',
-      'Custom graduation theme',
-      'Live entertainment options',
-      'Gourmet catering setup',
-      'Awards ceremony platform',
-      'Fireworks display option',
-      'VIP deck for graduate'
+      'Everything from Essentials Package',
+      'Giant lily pad float',
+      'Guest of honor float (unicorn or ring)',
+      'Disco ball cups for party vibes',
+      'Bubble guns & bubble wands',
+      'Champagne flutes & fruit juices',
+      'SPF-50 spray sunscreen',
+      'Plates, plasticware, & paper towels',
+      'Disco balls installed for party atmosphere',
+      'Vendor coordination for catering'
     ],
     popular: false,
     icon: Rocket,
