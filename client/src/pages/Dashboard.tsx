@@ -4,15 +4,9 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useToast } from "@/hooks/use-toast";
-import { CRMPipeline } from "@/components/CRMPipeline";
 import { Analytics } from "@/components/Analytics";
 import { IntegrationStatus } from "@/components/IntegrationStatus";
-import CalendarView from "@/components/CalendarView";
 import Navigation from "@/components/Navigation";
-import { RecentQuotes } from "@/components/RecentQuotes";
-import { RecentInvoices } from "@/components/RecentInvoices";
-import { BookingsTable } from "@/components/BookingsTable";
-import BookingsManagement from "@/pages/BookingsManagement";
 import { apiRequest } from "@/lib/queryClient";
 import { useLocation } from "wouter";
 import logoPath from "@assets/PPC Logo LARGE_1757881944449.png";
@@ -261,14 +255,7 @@ export default function Dashboard() {
                   </ScrollArea>
                   {notifications.length > 10 && (
                     <div className="mt-3 pt-3 border-t text-center">
-                      <Button 
-                        variant="ghost" 
-                        size="sm" 
-                        onClick={() => setLocation('/leads')}
-                        data-testid="button-view-all-notifications"
-                      >
-                        View All {notifications.length} Notifications →
-                      </Button>
+                      {/* Notifications view - Coming soon */}
                     </div>
                   )}
                 </CardContent>
@@ -276,13 +263,8 @@ export default function Dashboard() {
             )}
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Analytics & Pipeline */}
+              {/* Analytics */}
               <Analytics />
-              <CRMPipeline />
-              
-              {/* Recent Quotes and Invoices */}
-              <RecentQuotes />
-              <RecentInvoices />
               
               {/* Customer Stats Card */}
               <Card>
@@ -310,9 +292,7 @@ export default function Dashboard() {
                       <p className="text-xs text-muted-foreground">New This Week</p>
                     </div>
                   </div>
-                  <Button variant="link" className="w-full mt-4" onClick={() => setLocation("/leads")}>
-                    View All Customers →
-                  </Button>
+                  {/* Customer management section - Coming soon */}
                 </CardContent>
               </Card>
               
@@ -367,14 +347,11 @@ export default function Dashboard() {
                   Customer Bookings
                 </CardTitle>
                 <CardDescription>
-                  Customers who have paid deposits with their booking details
+                  Customer booking management coming soon with new system
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <BookingsTable 
-                  className="mt-4"
-                  data-testid="table-customer-bookings"
-                />
+                <p className="text-muted-foreground">Booking management will be available after Lovable migration</p>
               </CardContent>
             </Card>
           </TabsContent>
@@ -388,11 +365,11 @@ export default function Dashboard() {
                   Availability Calendar
                 </CardTitle>
                 <CardDescription>
-                  View and manage your cruise availability
+                  Calendar view coming soon with new system
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <CalendarView />
+                <p className="text-muted-foreground">Calendar management will be available after Lovable migration</p>
               </CardContent>
             </Card>
           </TabsContent>

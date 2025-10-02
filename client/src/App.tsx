@@ -11,10 +11,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Chat from "./pages/Chat";
 import QuoteBuilder from "./pages/QuoteBuilder";
-import QuotesManagement from "./pages/QuotesManagement";
-import InvoiceManagement from "./pages/InvoiceManagement";
 import QuoteEditor from "./pages/QuoteEditor";
-import Leads from "./pages/Leads";
 import PartialLeads from "./pages/PartialLeads";
 import CustomerProfile from "./pages/CustomerProfile";
 import Projects from "./pages/Projects";
@@ -23,11 +20,8 @@ import Products from "./pages/Products";
 import Discounts from "./pages/Discounts";
 import Affiliates from "./pages/Affiliates";
 import Documentation from "./pages/Documentation";
-import InvoiceViewer from "./pages/InvoiceViewer";
 import QuoteViewer from "./pages/QuoteViewer";
-import CalendarView from "@/components/CalendarView";
 import Settings from "./pages/Settings";
-import PublicCalendar from "./pages/PublicCalendar";
 import BookingFlow from "./pages/BookingFlow";
 import BookingSuccess from "./pages/BookingSuccess";
 import NotFound from "@/pages/not-found";
@@ -91,9 +85,6 @@ import GraduationParty from "./pages/GraduationParty";
 import PortalLogin from "./pages/PortalLogin";
 import PortalVerify from "./pages/PortalVerify";
 import PortalDashboard from "./pages/PortalDashboard";
-import PortalQuotes from "./pages/PortalQuotes";
-import PortalInvoices from "./pages/PortalInvoices";
-import PortalBookings from "./pages/PortalBookings";
 import PortalProfile from "./pages/PortalProfile";
 
 
@@ -157,34 +148,20 @@ function Router() {
       {/* Admin Dashboard Routes */}
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/admin" component={Dashboard} />
-      <Route path="/admin/leads" component={Leads} />
       <Route path="/chat" component={Chat} />
-      <Route path="/leads" component={Leads} />
       <Route path="/customers/:id" component={CustomerProfile} />
       <Route path="/partial-leads" component={PartialLeads} />
       <Route path="/projects" component={Projects} />
-      <Route path="/admin/calendar" component={CalendarView} />
-      <Route path="/quotes" component={QuotesManagement} />
       <Route path="/quote-builder" component={QuoteBuilder} />
       <Route path="/quotes/new" component={QuoteBuilder} />
       <Route path="/quotes/:id" component={QuoteBuilder} />
       <Route path="/quotes/:id/edit" component={QuoteEditor} />
-      <Route path="/invoices" component={InvoiceManagement} />
-      <Route path="/invoices/new" component={InvoiceManagement} />
-      <Route path="/invoices/:id" component={InvoiceManagement} />
       <Route path="/templates" component={Templates} />
       <Route path="/products" component={Products} />
       <Route path="/discounts" component={Discounts} />
       <Route path="/affiliates" component={Affiliates} />
       <Route path="/documentation" component={Documentation} />
       <Route path="/settings" component={Settings} />
-      {/* Quote viewer routes - Commented out, using /chat instead */}
-      {/* <Route path="/quote" component={QuoteViewer} /> */}
-      {/* <Route path="/quote/:quoteId" component={QuoteViewer} /> */}
-      {/* <Route path="/quote-checkout" component={QuoteViewer} /> */}
-      {/* ARCHIVED: QuoteViewer checkout route disabled - Quote Builder is single source of truth */}
-      {/* <Route path="/checkout" component={QuoteViewer} /> */}
-      <Route path="/invoice/:invoiceId" component={InvoiceViewer} />
       
       {/* Admin Blog Routes */}
       <Route path="/admin/blogs" component={BlogManagement} />
@@ -247,9 +224,6 @@ function Router() {
       <Route path="/portal/login" component={PortalLogin} />
       <Route path="/portal/verify" component={PortalVerify} />
       <Route path="/portal/dashboard" component={PortalDashboard} />
-      <Route path="/portal/quotes" component={PortalQuotes} />
-      <Route path="/portal/invoices" component={PortalInvoices} />
-      <Route path="/portal/bookings" component={PortalBookings} />
       <Route path="/portal/profile" component={PortalProfile} />
       
       {/* 404 Fallback */}
