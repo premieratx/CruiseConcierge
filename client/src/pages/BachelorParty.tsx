@@ -215,7 +215,7 @@ const testimonials = [
     role: 'Groom',
     location: 'Austin, TX',
     rating: 5,
-    text: "This was hands down the best bachelor party ever! The ATX Disco Cruise was insane - great music, amazing crew, and Lake Travis is beautiful. All the guys said it was their favorite bachelor party they've been to.",
+    text: "This was hands down the BEST party I've ever been to! The ATX Disco Cruise was insane - we met bachelor parties from Dallas, Chicago, even California! The energy was absolutely electric. All the guys said it was their favorite bachelor party experience EVER.",
     avatar: '🤵',
     package: 'Disco King Package'
   },
@@ -225,7 +225,7 @@ const testimonials = [
     role: 'Best Man',
     location: 'Houston, TX',
     rating: 5,
-    text: "I planned this for my buddy's bachelor party and it exceeded all expectations. The DJ was incredible, photography was awesome, and having drinks delivered made it stress-free. 10/10 would book again!",
+    text: "I planned this and literally EVERYTHING was handled - no stress whatsoever! The DJ absolutely crushed it, professional photos came out AMAZING, and the free alcohol delivery was clutch. My buddy still calls me the GOAT for finding this!",
     avatar: '🎉',
     package: 'Platinum Package'
   },
@@ -235,7 +235,7 @@ const testimonials = [
     role: 'Groom',
     location: 'Dallas, TX',
     rating: 5,
-    text: "Premier Party Cruises made my bachelor party legendary! The disco cruise concept is genius - dancing on the water with the boys was unforgettable. Professional crew, amazing vibes, couldn't ask for more.",
+    text: "Dancing on the water with the boys was LEGENDARY! We partied with groups from all over the country - made so many friends. The vibe was insane, everyone celebrating the same occasion. SERIOUSLY the highlight of the entire weekend!",
     avatar: '🕺',
     package: 'Basic Bach Package'
   },
@@ -245,7 +245,7 @@ const testimonials = [
     role: 'Best Man',
     location: 'San Antonio, TX',
     rating: 5,
-    text: "Be the legend who finds this! My buddy couldn't stop thanking me for booking the disco cruise. The energy was unreal, other bachelor groups made it even more fun. You'll be the hero of the weekend!",
+    text: "The GIANT unicorn float was EPIC! We dominated that thing, photographer got some incredible shots. Meeting other bachelor parties from across the country made it even better. This is THE party you book - trust me, you'll be the hero!",
     avatar: '🎊',
     package: 'Disco King Package'
   },
@@ -255,9 +255,39 @@ const testimonials = [
     role: 'Groom',
     location: 'Fort Worth, TX',
     rating: 5,
-    text: "Show your groom the BEST weekend of his life! This cruise was the highlight of our entire Austin trip. Everything was included, no stress, just pure fun. The giant unicorn float alone was worth it!",
+    text: "Show your groom the BEST weekend of his life! Nothing to plan, nothing to carry - just SHOW UP and GET DOWN. Everything was ready on the boat. The DJ, photographer, floats, vibes - all PERFECT. Priceless memories made!",
     avatar: '🦄',
     package: 'Platinum Package'
+  },
+  {
+    id: 6,
+    name: 'Brandon Lee',
+    role: 'Best Man',
+    location: 'Round Rock, TX',
+    rating: 5,
+    text: "The DJ was INCREDIBLE - best party playlist I've ever heard! Professional photographer captured every wild moment. We met groups from all over and exchanged numbers with guys from 4 different states. Absolutely unforgettable!",
+    avatar: '🎧',
+    package: 'Disco King Package'
+  },
+  {
+    id: 7,
+    name: 'Marcus Williams',
+    role: 'Groom',
+    location: 'Plano, TX',
+    rating: 5,
+    text: "My best man is a LEGEND for finding this! The professional photos came out amazing - better than our actual wedding photos LOL! The party atmosphere with other bachelor groups was next level. 100% the highlight of my bachelor weekend!",
+    avatar: '📸',
+    package: 'Platinum Package'
+  },
+  {
+    id: 8,
+    name: 'Tyler Rodriguez',
+    role: 'Best Man',
+    location: 'Cedar Park, TX',
+    rating: 5,
+    text: "Everything was HANDLED - literally zero stress! Free alcohol delivery to the boat, DJ was bumping, photographer everywhere. We just showed up and partied. The groom still thanks me every time we hang out. Be the hero who books this!",
+    avatar: '⭐',
+    package: 'Disco King Package'
   }
 ];
 
@@ -424,36 +454,191 @@ export default function BachelorParty() {
                 
                 <div className="bg-brand-yellow/10 border-2 border-brand-yellow rounded-xl p-8 mb-8">
                   <h3 className="text-2xl font-bold text-brand-yellow mb-4 text-center">
-                    Why You'll Be the Legend Who Found This
+                    You'll Be the HERO - Everyone Will Love This!
                   </h3>
                   <div className="space-y-4">
                     <div className="flex items-start space-x-3">
                       <Trophy className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold">Experience Something New!</p>
-                        <p className="text-gray-600 dark:text-gray-400">The ONLY all-inclusive boat party in Austin - unique experience you can't get anywhere else!</p>
+                        <p className="font-semibold">The ONLY All-Inclusive Boat Party in Austin!</p>
+                        <p className="text-gray-600 dark:text-gray-400">The ONLY joint party in the country EXCLUSIVELY for Bach parties - unique experience you can't get anywhere else!</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Users className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold">Party with Other Bachelor Parties!</p>
-                        <p className="text-gray-600 dark:text-gray-400">Meet & mingle with bachelor/bachelorette parties from all over the country</p>
+                        <p className="font-semibold">Meet Bachelor Parties from All Over the Country!</p>
+                        <p className="text-gray-600 dark:text-gray-400">The energy is AMAZING - everyone celebrating the same occasion! Make friends & create priceless memories!</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <Waves className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
+                      <div>
+                        <p className="font-semibold">Party on the BIGGEST Unicorn Float in the Country!</p>
+                        <p className="text-gray-600 dark:text-gray-400">Our GIANT 25-ft unicorn float is legendary - Instagram gold every time!</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <Zap className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
+                      <div>
+                        <p className="font-semibold">Nothing to Plan, Nothing to Carry!</p>
+                        <p className="text-gray-600 dark:text-gray-400">Everything is ready on the boat - just order booze and SHOW UP! FREE alcohol & lunch delivery from Party on Delivery!</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <DollarSign className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold">Better Value Than Private</p>
-                        <p className="text-gray-600 dark:text-gray-400">ALWAYS cheaper per person than a private cruise for groups under 20</p>
+                        <p className="font-semibold">Flat-Rate Per-Person Pricing</p>
+                        <p className="text-gray-600 dark:text-gray-400">Makes payment splitting EASY - everyone pays their own way. ALWAYS cheaper than a private cruise!</p>
                       </div>
                     </div>
+                  </div>
+                </div>
+
+                {/* Your Disco Day Experience */}
+                <div className="mb-10">
+                  <h3 className="text-2xl md:text-3xl font-bold text-center mb-6">
+                    Your <span className="text-brand-yellow">Disco Day Experience</span>
+                  </h3>
+                  <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-8">
+                    SERIOUSLY the highlight of the weekend EVERY single time!
+                  </p>
+                  
+                  <div className="space-y-6">
+                    <motion.div 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="flex items-start space-x-4"
+                    >
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 bg-brand-yellow rounded-full flex items-center justify-center text-black font-bold">
+                          1
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-lg mb-1">Arrival & Check-In (11:30 AM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400">
+                          Meet at the dock - our crew welcomes your group! Check in is a breeze, grab your wristbands and party favors. 
+                          Your alcohol delivery is waiting (if you pre-ordered) or grab drinks from the marina store.
+                        </p>
+                      </div>
+                    </motion.div>
+
+                    <motion.div 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 }}
+                      className="flex items-start space-x-4"
+                    >
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 bg-brand-yellow rounded-full flex items-center justify-center text-black font-bold">
+                          2
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-lg mb-1">Boarding & Setup (11:45 AM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400">
+                          Board the boat and claim your crew's spot! Your private cooler is already stocked with ice. 
+                          Set up your drinks, grab some party supplies, and start vibing with other bachelor parties!
+                        </p>
+                      </div>
+                    </motion.div>
+
+                    <motion.div 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="flex items-start space-x-4"
+                    >
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 bg-brand-yellow rounded-full flex items-center justify-center text-black font-bold">
+                          3
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-lg mb-1">We Launch! Party Starts NOW! (12:00 PM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400">
+                          DJ drops the first beat and the party EXPLODES! Dance floor opens, drinks flowing, 
+                          energy through the roof! Professional photographer capturing every epic moment!
+                        </p>
+                      </div>
+                    </motion.div>
+
+                    <motion.div 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="flex items-start space-x-4"
+                    >
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 bg-brand-yellow rounded-full flex items-center justify-center text-black font-bold">
+                          4
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-lg mb-1">Cruising Lake Travis (12:00-2:30 PM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400">
+                          Dancing, partying, meeting other groups from across the country! The vibes are INSANE - 
+                          everyone's celebrating, the music is BUMPING, and you're making memories that'll last forever!
+                        </p>
+                      </div>
+                    </motion.div>
+
+                    <motion.div 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.4 }}
+                      className="flex items-start space-x-4"
+                    >
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 bg-brand-yellow rounded-full flex items-center justify-center text-black font-bold">
+                          5
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-lg mb-1">Anchor Time! Float Party! (2:30-3:30 PM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400">
+                          We anchor and the LEGENDARY UNICORN comes out! Jump in Lake Travis, float on the lily pads, 
+                          dominate the BIGGEST unicorn float in the country! This is THE Instagram moment - photographer going wild!
+                        </p>
+                      </div>
+                    </motion.div>
+
+                    <motion.div 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.5 }}
+                      className="flex items-start space-x-4"
+                    >
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 bg-brand-yellow rounded-full flex items-center justify-center text-black font-bold">
+                          6
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-lg mb-1">Return & Last Dance (3:30-4:00 PM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400">
+                          Head back with one EPIC last dance! DJ brings it home, everyone's singing along, 
+                          phone numbers exchanged with your new crew from across the country. You did it - you're the LEGEND!
+                        </p>
+                      </div>
+                    </motion.div>
+                  </div>
+
+                  <div className="mt-8 bg-green-50 dark:bg-green-950/20 border-2 border-green-500 rounded-lg p-6 text-center">
+                    <p className="text-lg font-bold text-green-700 dark:text-green-400 mb-2">
+                      🎉 The Result: Priceless Memories & Amazing Vibes! 🎉
+                    </p>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      Your crew will talk about this for YEARS. You'll be the hero who planned the BEST bachelor party they've ever been to!
+                    </p>
                   </div>
                 </div>
 
                 <div className="text-center space-y-4">
                   <p className="text-lg">
                     Starting at just <span className="text-brand-yellow font-bold text-2xl">$85/person</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">($98 with tax & tip)</span>
                   </p>
                   <p className="text-lg text-gray-600 dark:text-gray-400">
                     Friday & Saturday • 4 Hours on Lake Travis • Up to 50 People
@@ -561,14 +746,16 @@ export default function BachelorParty() {
                       <CardContent className="space-y-4">
                         <div className="text-center">
                           <div className="text-3xl font-bold">
-                            ${pkg.price}
-                            {pkg.originalPrice && (
-                              <span className="text-lg text-gray-400 line-through ml-2">
-                                ${pkg.originalPrice}
-                              </span>
-                            )}
+                            ${pkg.price}/person
                           </div>
-                          <div className="text-sm text-gray-600 dark:text-gray-400">per person</div>
+                          <div className="text-lg text-green-600 dark:text-green-400 font-semibold">
+                            ${pkg.id === 'basic' ? '98' : pkg.id === 'disco_king' ? '111' : '124'} with tax & tip
+                          </div>
+                          {pkg.originalPrice && (
+                            <div className="text-sm text-gray-400 line-through">
+                              was ${pkg.originalPrice}
+                            </div>
+                          )}
                         </div>
                         
                         <ul className="space-y-2">

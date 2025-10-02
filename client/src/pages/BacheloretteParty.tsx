@@ -239,7 +239,7 @@ const testimonials = [
     role: 'Bride',
     location: 'Austin, TX',
     rating: 5,
-    text: "OMG this was the BEST bachelorette party ever! The disco cruise was absolutely perfect - dancing on the lake with my girls was magical. The photos turned out incredible!",
+    text: "OMG this was the BEST party I've EVER been to! We met bachelorette parties from LA, Miami, even New York! The energy was ELECTRIC - everyone celebrating together made it SO special. The professional photos are Instagram PERFECTION!",
     avatar: '👰',
     package: 'Disco Queen Package'
   },
@@ -249,7 +249,7 @@ const testimonials = [
     role: 'Maid of Honor',
     location: 'Houston, TX',
     rating: 5,
-    text: "I planned this for my sister's bachelorette and it exceeded every expectation! The bride disco free deal was amazing, professional photography captured everything. So stress-free to plan!",
+    text: "I planned this and literally EVERYTHING was handled - zero stress! The DJ was FIRE, professional photos came out AMAZING, and the free champagne delivery was perfect. My bride still says I'm a genius for finding this!",
     avatar: '💕',
     package: 'Platinum Package'
   },
@@ -259,7 +259,7 @@ const testimonials = [
     role: 'Bride',
     location: 'San Antonio, TX',
     rating: 5,
-    text: "You'll be chanting the planner's name! My MOH found this and we couldn't stop thanking her. The energy, the vibes, the other bachelorette groups - everything was perfect!",
+    text: "Dancing on the lake with my girls was MAGICAL! We met parties from all over the country - made lifelong friends. The vibe was incredible, everyone celebrating their bride. SERIOUSLY the highlight of my entire bachelorette weekend!",
     avatar: '💃',
     package: 'Basic Bach Package'
   },
@@ -269,7 +269,7 @@ const testimonials = [
     role: 'Maid of Honor',
     location: 'Dallas, TX',
     rating: 5,
-    text: "This really is their specialty! From booking to the last song, everything was perfect for our bachelorette party. The disco theme, professional photos, and Lake Travis setting = perfection!",
+    text: "The GIANT unicorn float was EVERYTHING! We got the most incredible photos - our photographer captured pure magic. Meeting other bachelorette parties from across America made it even more fun. This IS their specialty!",
     avatar: '🎉',
     package: 'Disco Queen Package'
   },
@@ -279,7 +279,7 @@ const testimonials = [
     role: 'Bride',
     location: 'Fort Worth, TX',
     rating: 5,
-    text: "Show your bride the BEST weekend of her life! This cruise was the highlight of our entire Austin trip. The giant unicorn float alone was worth it. Instagram gold!",
+    text: "Show your bride the BEST weekend of her life! Nothing to plan, nothing to carry - just SHOW UP and GET DOWN. Everything was ready on the boat. The DJ, photographer, unicorn float - all PERFECT. Priceless memories made!",
     avatar: '🦄',
     package: 'Platinum Package'
   },
@@ -289,7 +289,7 @@ const testimonials = [
     role: 'Bridesmaid',
     location: 'Round Rock, TX',
     rating: 5,
-    text: "We partied with other bachelorette groups from all over and made so many new friends! The DJ was incredible, mimosas were flowing, and our bride had the time of her life!",
+    text: "The DJ was INCREDIBLE - best playlist ever! We partied with bachelorette parties from 5 different states and exchanged Instas with everyone. The energy was INSANE - everyone celebrating the same occasion!",
     avatar: '🥂',
     package: 'Disco Queen Package'
   },
@@ -299,9 +299,19 @@ const testimonials = [
     role: 'Bride',
     location: 'Cedar Park, TX',
     rating: 5,
-    text: "Just SHOW UP & GET DOWN is real! Everything was handled - DJ, photographer, floats, drinks setup. All we did was show up and party. Best bachelorette decision ever!",
+    text: "My MOH is a LEGEND for finding this! The professional photos turned out better than our engagement photos! The party atmosphere with other bachelorette groups was NEXT LEVEL. 100% the highlight of my bachelorette weekend!",
     avatar: '👑',
     package: 'Platinum Package'
+  },
+  {
+    id: 8,
+    name: 'Olivia Martinez',
+    role: 'Maid of Honor',
+    location: 'Plano, TX',
+    rating: 5,
+    text: "Everything was HANDLED - literally zero stress! Free champagne delivery to the boat, DJ was bumping, photographer captured EVERYTHING. We just showed up and partied. The bride still thanks me constantly. Be the hero!",
+    avatar: '✨',
+    package: 'Disco Queen Package'
   }
 ];
 
@@ -485,36 +495,191 @@ export default function BacheloretteParty() {
                 
                 <div className="bg-pink-100 dark:bg-pink-950/30 border-2 border-pink-400 rounded-xl p-8 mb-8">
                   <h3 className="text-2xl font-bold text-pink-600 dark:text-pink-400 mb-4 text-center" data-editable data-editable-id="bachelorette-overview-subtitle">
-                    You'll Be Chanting the Planner's Name!
+                    You'll Be the HERO - She'll Love You Forever!
                   </h3>
                   <div className="space-y-4">
                     <div className="flex items-start space-x-3">
                       <Trophy className="h-6 w-6 text-pink-500 mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold" data-editable data-editable-id="bachelorette-feature-1-title">Experience Something New!</p>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-feature-1-description">The ONLY all-inclusive boat party in Austin - unique experience you can't get anywhere else!</p>
+                        <p className="font-semibold" data-editable data-editable-id="bachelorette-feature-1-title">The ONLY All-Inclusive Boat Party in Austin!</p>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-feature-1-description">The ONLY joint party in the country EXCLUSIVELY for Bach parties - this IS our specialty!</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Users className="h-6 w-6 text-pink-500 mt-1 flex-shrink-0" />
                       <div>
-                        <p className="font-semibold" data-editable data-editable-id="bachelorette-feature-2-title">Party with Other Bachelorette Parties!</p>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-feature-2-description">Meet & mingle with bachelorette parties from all over the country</p>
+                        <p className="font-semibold" data-editable data-editable-id="bachelorette-feature-2-title">Meet Bachelorette Parties from All Over!</p>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-feature-2-description">The energy is INCREDIBLE - everyone celebrating the same occasion! Create priceless memories together!</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <Waves className="h-6 w-6 text-pink-500 mt-1 flex-shrink-0" />
+                      <div>
+                        <p className="font-semibold">Dance on the BIGGEST Unicorn Float in the Country!</p>
+                        <p className="text-gray-600 dark:text-gray-400">Our GIANT 25-ft unicorn float is Instagram MAGIC - every bride goes wild for it!</p>
+                      </div>
+                    </div>
+                    <div className="flex items-start space-x-3">
+                      <Zap className="h-6 w-6 text-pink-500 mt-1 flex-shrink-0" />
+                      <div>
+                        <p className="font-semibold">Nothing to Plan, Nothing to Carry!</p>
+                        <p className="text-gray-600 dark:text-gray-400">Everything is ready on the boat - just order champagne and SHOW UP! FREE delivery from Party on Delivery!</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
                       <Heart className="h-6 w-6 text-pink-500 mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-semibold" data-editable data-editable-id="bachelorette-feature-3-title">Bride Cruises FREE!</p>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-feature-3-description">With Disco Queen or Platinum packages (8+ paying guests)</p>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-feature-3-description">With Disco Queen or Platinum packages (8+ paying guests) - flat-rate pricing makes splitting costs EASY!</p>
                       </div>
                     </div>
+                  </div>
+                </div>
+
+                {/* Your Disco Day Experience */}
+                <div className="mb-10">
+                  <h3 className="text-2xl md:text-3xl font-bold text-center mb-6">
+                    Your <span className="text-pink-500">Disco Day Experience</span>
+                  </h3>
+                  <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-8">
+                    SERIOUSLY the highlight of the weekend EVERY single time!
+                  </p>
+                  
+                  <div className="space-y-6">
+                    <motion.div 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      className="flex items-start space-x-4"
+                    >
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold">
+                          1
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-lg mb-1">Arrival & Check-In (11:30 AM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400">
+                          Meet at the dock - our crew welcomes your squad with open arms! Check-in is quick, grab your wristbands and party goodies. 
+                          Your champagne delivery is ready (if pre-ordered) or grab bottles from the marina store!
+                        </p>
+                      </div>
+                    </motion.div>
+
+                    <motion.div 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.1 }}
+                      className="flex items-start space-x-4"
+                    >
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold">
+                          2
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-lg mb-1">Boarding & Setup (11:45 AM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400">
+                          Board and claim your bride tribe's spot! Your private cooler is ice-cold and ready. 
+                          Set up the mimosas, grab cute cups and koozies, start vibing with other bachelorette squads!
+                        </p>
+                      </div>
+                    </motion.div>
+
+                    <motion.div 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.2 }}
+                      className="flex items-start space-x-4"
+                    >
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold">
+                          3
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-lg mb-1">We Launch! Party Starts NOW! (12:00 PM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400">
+                          DJ drops the beat and the party EXPLODES! Dance floor opens, mimosas flowing, 
+                          energy through the ROOF! Professional photographer capturing every fabulous moment!
+                        </p>
+                      </div>
+                    </motion.div>
+
+                    <motion.div 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.3 }}
+                      className="flex items-start space-x-4"
+                    >
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold">
+                          4
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-lg mb-1">Cruising Lake Travis (12:00-2:30 PM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400">
+                          Dancing, celebrating, meeting bachelorette parties from all across America! The vibes are MAGICAL - 
+                          everyone's celebrating their bride, music is PERFECT, and you're creating memories that last forever!
+                        </p>
+                      </div>
+                    </motion.div>
+
+                    <motion.div 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.4 }}
+                      className="flex items-start space-x-4"
+                    >
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold">
+                          5
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-lg mb-1">Anchor Time! Float Party! (2:30-3:30 PM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400">
+                          We anchor and the LEGENDARY UNICORN comes out! Jump in Lake Travis, lounge on lily pads, 
+                          conquer the BIGGEST unicorn float in America! THE Instagram moment - photographer going WILD capturing it all!
+                        </p>
+                      </div>
+                    </motion.div>
+
+                    <motion.div 
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: 0.5 }}
+                      className="flex items-start space-x-4"
+                    >
+                      <div className="flex-shrink-0">
+                        <div className="w-12 h-12 bg-pink-500 rounded-full flex items-center justify-center text-white font-bold">
+                          6
+                        </div>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-bold text-lg mb-1">Return & Last Dance (3:30-4:00 PM)</h4>
+                        <p className="text-gray-600 dark:text-gray-400">
+                          Head back with one EPIC final dance! DJ brings it home, everyone's singing along, 
+                          Instagram handles exchanged with your new besties from around the country. You're the LEGEND who made this happen!
+                        </p>
+                      </div>
+                    </motion.div>
+                  </div>
+
+                  <div className="mt-8 bg-green-50 dark:bg-green-950/20 border-2 border-green-500 rounded-lg p-6 text-center">
+                    <p className="text-lg font-bold text-green-700 dark:text-green-400 mb-2">
+                      💕 The Result: Priceless Memories & Amazing Vibes! 💕
+                    </p>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      Your bride tribe will talk about this for YEARS. You'll be the hero who planned the BEST bachelorette party ever!
+                    </p>
                   </div>
                 </div>
 
                 <div className="text-center space-y-4">
                   <p className="text-lg">
                     <span data-editable data-editable-id="bachelorette-pricing-text">Starting at just <span className="text-pink-500 font-bold text-2xl">$85/person</span></span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">($98 with tax & tip)</span>
                   </p>
                   <p className="text-lg text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-overview-details">
                     Friday & Saturday • 4 Hours on Lake Travis • Up to 50 People
@@ -630,14 +795,16 @@ export default function BacheloretteParty() {
                       <CardContent className="space-y-4">
                         <div className="text-center">
                           <div className="text-3xl font-bold">
-                            ${pkg.price}
-                            {pkg.originalPrice && (
-                              <span className="text-lg text-gray-400 line-through ml-2">
-                                ${pkg.originalPrice}
-                              </span>
-                            )}
+                            ${pkg.price}/person
                           </div>
-                          <div className="text-sm text-gray-600 dark:text-gray-400">per person</div>
+                          <div className="text-lg text-green-600 dark:text-green-400 font-semibold">
+                            ${pkg.id === 'basic_bachelorette' ? '98' : pkg.id === 'disco_queen' ? '111' : '124'} with tax & tip
+                          </div>
+                          {pkg.originalPrice && (
+                            <div className="text-sm text-gray-400 line-through">
+                              was ${pkg.originalPrice}
+                            </div>
+                          )}
                         </div>
                         
                         <ul className="space-y-2">
