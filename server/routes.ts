@@ -562,11 +562,17 @@ function getTimeAgo(date: Date): string {
 export async function registerRoutes(app: Express): Promise<Server> {
   
   // ==========================================
-  // AUTHENTICATION SETUP
+  // AUTHENTICATION SETUP (handled in server/index.ts)
   // ==========================================
   
   const storageInstance = await getStorage();
-  setupAuth(app, storageInstance);
+  // Note: setupAuth is called in server/index.ts before registerRoutes
+  
+  // DEBUG: Test route to verify routing works
+  app.get('/api/test', (req, res) => {
+    console.log('✅ /api/test route HIT - routing is working');
+    res.json({ message: 'Test route working', authenticated: req.isAuthenticated?.() || false });
+  });
   
   // ==========================================
   // AUTHENTICATION ROUTES
@@ -1461,18 +1467,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
-  const httpServer = createServer(app);
-  return httpServer;
-}
-
-// ==========================================
-// QUOTE BUILDER LEAD CREATION
-// ==========================================
-
-/**
- * Creates a comprehensive lead from the Quote Builder flow with full integrations
- */
-export async function createQuoteBuilderLead(app: Express) {
+  // ==========================================
+  // QUOTE BUILDER LEAD CREATION
+  // ==========================================
+  
   // Input validation schema
   const quoteBuilderSchema = z.object({
     contactInfo: z.object({
@@ -2155,6 +2153,9 @@ export async function createQuoteBuilderLead(app: Express) {
       });
     }
   });
+
+  const httpServer = createServer(app);
+  return httpServer;
 }
 
 // ==========================================

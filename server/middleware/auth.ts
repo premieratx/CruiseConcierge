@@ -22,14 +22,21 @@ export function requireAuth(req: Request, res: Response, next: NextFunction) {
 }
 
 export function requireAdmin(req: Request, res: Response, next: NextFunction) {
+  console.log('🔒 requireAdmin middleware called for:', req.method, req.path);
+  console.log('   isAuthenticated:', req.isAuthenticated?.());
+  console.log('   user:', req.user);
+  
   if (!req.isAuthenticated || !req.isAuthenticated()) {
+    console.log('   ❌ Not authenticated - returning 401');
     return res.status(401).json({ error: 'Authentication required' });
   }
   
   const user = req.user as Express.User;
   if (user.role !== 'admin') {
+    console.log('   ❌ Not admin - returning 403');
     return res.status(403).json({ error: 'Admin access required' });
   }
   
+  console.log('   ✅ Admin authenticated - proceeding');
   next();
 }
