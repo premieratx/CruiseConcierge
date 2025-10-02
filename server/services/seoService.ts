@@ -69,27 +69,12 @@ export class SEOService {
       { route: '/gallery', name: 'Photo Gallery', description: 'Event photos and boat gallery', isPublic: true },
       { route: '/contact', name: 'Contact Us', description: 'Contact information and form', isPublic: true },
       { route: '/testimonials-faq', name: 'Testimonials & FAQ', description: 'Customer testimonials and FAQ', isPublic: true },
-      { route: '/affiliates', name: 'Affiliates', description: 'Affiliate program information', isPublic: true },
-      { route: '/discounts', name: 'Discounts', description: 'Available discounts and promotions', isPublic: true },
       
       // Blog pages
       { route: '/blog', name: 'Blog', description: 'Company blog and articles', isPublic: true },
       { route: '/blog/category/:category', name: 'Blog Category', description: 'Blog posts by category', isPublic: true },
       { route: '/blog/tag/:tag', name: 'Blog Tag', description: 'Blog posts by tag', isPublic: true },
       { route: '/blog/author/:author', name: 'Blog Author', description: 'Posts by specific author', isPublic: true },
-      
-      // Booking and quote pages
-      { route: '/booking-flow', name: 'Booking Flow', description: 'Customer booking process', isPublic: true },
-      { route: '/quote-builder', name: 'Quote Builder', description: 'Interactive quote builder', isPublic: true },
-      { route: '/public-calendar', name: 'Public Calendar', description: 'Available dates calendar', isPublic: true },
-      
-      // Customer portal (semi-public)
-      { route: '/portal/login', name: 'Customer Portal Login', description: 'Customer account login', isPublic: true },
-      { route: '/portal/dashboard', name: 'Customer Dashboard', description: 'Customer account dashboard', isPublic: false },
-      { route: '/portal/bookings', name: 'Customer Bookings', description: 'Customer booking history', isPublic: false },
-      { route: '/portal/quotes', name: 'Customer Quotes', description: 'Customer quotes', isPublic: false },
-      { route: '/portal/invoices', name: 'Customer Invoices', description: 'Customer invoices', isPublic: false },
-      { route: '/portal/profile', name: 'Customer Profile', description: 'Customer profile settings', isPublic: false },
     ];
 
     return routes;
