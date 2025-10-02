@@ -2751,6 +2751,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const { pageRoute } = req.params;
       const updates = req.body;
       
+      // Convert date strings to Date objects for Drizzle
+      const sanitizedUpdates: any = { ...updates };
+      if (sanitizedUpdates.lastAnalyzed && typeof sanitizedUpdates.lastAnalyzed === 'string') {
+        sanitizedUpdates.lastAnalyzed = new Date(sanitizedUpdates.lastAnalyzed);
+      }
+      if (sanitizedUpdates.createdAt && typeof sanitizedUpdates.createdAt === 'string') {
+        sanitizedUpdates.createdAt = new Date(sanitizedUpdates.createdAt);
+      }
+      if (sanitizedUpdates.updatedAt && typeof sanitizedUpdates.updatedAt === 'string') {
+        sanitizedUpdates.updatedAt = new Date(sanitizedUpdates.updatedAt);
+      }
+      
       const storage = await getStorage();
       
       // Check if page exists, create if it doesn't
@@ -2764,10 +2776,10 @@ export async function registerRoutes(app: Express): Promise<Server> {
           pageRoute: decodeURIComponent(pageRoute),
           pageName: routeInfo?.name || decodeURIComponent(pageRoute),
           active: true,
-          ...updates
+          ...sanitizedUpdates
         });
       } else {
-        page = await storage.updateSeoPage(decodeURIComponent(pageRoute), updates);
+        page = await storage.updateSeoPage(decodeURIComponent(pageRoute), sanitizedUpdates);
       }
 
       // Transform to frontend format
