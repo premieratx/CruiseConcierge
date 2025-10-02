@@ -351,10 +351,10 @@ export default function PrivateCruises() {
                 className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-xl px-12 py-6 transition-all duration-300 hover:scale-105"
                 data-testid="button-book-private-cruise"
               >
-                <a href="#booking-widget">
+                <Link href="/chat">
                   <Calendar className="mr-3 h-6 w-6" />
                   BOOK YOUR PRIVATE CRUISE
-                </a>
+                </Link>
               </Button>
               
               <Button
@@ -1386,10 +1386,10 @@ export default function PrivateCruises() {
                 className="bg-white text-brand-blue hover:bg-gray-100 font-bold text-xl px-12 py-6 transition-all duration-300 hover:scale-105"
                 data-testid="button-book-now-final"
               >
-                <a href="#booking-widget">
+                <Link href="/chat">
                   <Calendar className="mr-3 h-6 w-6" />
                   BOOK NOW
-                </a>
+                </Link>
               </Button>
               
               <Button
