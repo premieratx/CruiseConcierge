@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { BookingCacheProvider } from "@/contexts/BookingCacheContext";
 import { EditModeProvider } from "@/contexts/EditModeContext";
 import { HelmetProvider } from "react-helmet-async";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Chat from "./pages/Chat";
@@ -156,7 +156,18 @@ function Router() {
       <Route path="/customers/:id" component={CustomerProfile} />
       <Route path="/partial-leads" component={PartialLeads} />
       <Route path="/projects" component={Projects} />
-      <Route path="/quote-builder" component={QuoteBuilder} />
+      
+      {/* Public quote-builder redirects to /chat */}
+      <Route path="/quote-builder" component={() => {
+        const [, navigate] = useLocation();
+        useEffect(() => {
+          navigate('/chat');
+        }, [navigate]);
+        return null;
+      }} />
+      
+      {/* Admin Quote Builder */}
+      <Route path="/admin/quote-builder" component={QuoteBuilder} />
       <Route path="/quotes/new" component={QuoteBuilder} />
       <Route path="/quotes/:id" component={QuoteBuilder} />
       <Route path="/quotes/:id/edit" component={QuoteEditor} />

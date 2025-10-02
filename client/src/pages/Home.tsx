@@ -366,30 +366,30 @@ export default function Home() {
     
     setShowLightbox(false);
     
-    // Handle specific service booking - FIXED: Route to public calendar (/book) instead of admin (/calendar)
+    // Handle specific service booking - Route to /chat for all bookings
     switch(selectedService.id) {
       case 'private':
-        navigate('/book?eventType=private&groupSize=25');
+        navigate('/chat?eventType=private&groupSize=25');
         break;
       case 'disco':
-        navigate('/book?eventType=disco&groupSize=20');
+        navigate('/chat?eventType=disco&groupSize=20');
         break;
       case 'bachelor':
         if (selectedService.specialPage) {
           navigate(selectedService.specialPage);
         } else {
-          navigate('/book?eventType=disco&groupSize=15');
+          navigate('/chat?eventType=disco&groupSize=15');
         }
         break;
       case 'corporate':
-        navigate('/book?eventType=private&groupSize=30');
+        navigate('/chat?eventType=private&groupSize=30');
         break;
       default:
         navigate('/chat?type=general');
     }
     
     toast({
-      title: "Redirecting to Booking Calendar",
+      title: "Redirecting to Chat",
       description: `Let's book your ${selectedService.title.toLowerCase()}!`,
     });
   };
