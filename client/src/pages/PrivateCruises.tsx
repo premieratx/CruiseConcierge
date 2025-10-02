@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import Chat from '@/pages/Chat';
 import ExperienceCards from '@/components/ExperienceCards';
@@ -17,8 +17,9 @@ import {
   ChefHat, Wifi, Bluetooth, Building,
   UserCheck, Target, Headphones, Check, Sparkles,
   Waves, Wine, Umbrella, Music, Clock,
-  Package, Gift, Heart, Crown, Anchor, PartyPopper
+  Package, Gift, Heart, Crown, Anchor, PartyPopper, ArrowRight, X
 } from 'lucide-react';
+import { useToast } from '@/hooks/use-toast';
 import SEOHead from '@/components/SEOHead';
 import { formatCurrency } from '@shared/formatters';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
@@ -212,6 +213,27 @@ const faqData = [
 export default function PrivateCruises() {
   const [location, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
+  const { toast } = useToast();
+  const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
+
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.origin !== 'https://ppc-quote-builder.lovable.app') {
+        return;
+      }
+      
+      if (event.data && event.data.type === 'quote-submitted') {
+        navigate('/chat');
+        toast({
+          title: "Quote Submitted!",
+          description: "Redirecting you to view your quote details...",
+        });
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, [navigate, toast]);
 
   const handleGetQuote = () => {
     // Navigate to chat for instant quote
@@ -395,6 +417,94 @@ export default function PrivateCruises() {
           <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-brand-yellow rounded-full animate-ping opacity-30" style={{animationDelay: '0s'}} />
           <div className="absolute top-3/4 right-1/3 w-1 h-1 bg-brand-blue rounded-full animate-ping opacity-40" style={{animationDelay: '1s'}} />
           <div className="absolute bottom-1/4 left-1/3 w-3 h-3 bg-brand-yellow rounded-full animate-ping opacity-20" style={{animationDelay: '2s'}} />
+        </div>
+      </section>
+
+      {/* Build My Quote Now Section */}
+      <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center"
+          >
+            <h2 
+              className="text-5xl md:text-6xl font-heading font-bold mb-6 text-white tracking-wider"
+              data-editable 
+              data-editable-id="quote-builder-heading"
+            >
+              BUILD MY QUOTE NOW
+            </h2>
+            <p 
+              className="text-xl text-white/90 mb-8 max-w-2xl mx-auto"
+              data-editable 
+              data-editable-id="quote-builder-subheading"
+            >
+              Get instant pricing for your Lake Travis celebration in minutes
+            </p>
+            
+            {!showQuoteBuilder ? (
+              <Button
+                size="lg"
+                onClick={() => setShowQuoteBuilder(true)}
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-2xl px-16 py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide"
+                data-testid="button-build-quote"
+              >
+                <Sparkles className="mr-3 h-7 w-7" />
+                <span data-editable data-editable-id="quote-builder-button">Start Building Your Quote</span>
+                <ArrowRight className="ml-3 h-7 w-7" />
+              </Button>
+            ) : (
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => setShowQuoteBuilder(false)}
+                className="border-3 border-white text-white hover:bg-white hover:text-black font-bold text-lg px-12 py-6 rounded-2xl backdrop-blur-sm mb-8"
+                data-testid="button-hide-quote"
+              >
+                <X className="mr-2 h-5 w-5" />
+                <span data-editable data-editable-id="quote-builder-hide-button">Hide Quote Builder</span>
+              </Button>
+            )}
+          </motion.div>
+
+          {/* Expandable Quote Builder Iframe */}
+          <AnimatePresence>
+            {showQuoteBuilder && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="mt-12 overflow-hidden"
+              >
+                <div className="max-w-7xl mx-auto">
+                  <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.4 }}
+                    className="bg-white rounded-2xl shadow-2xl overflow-hidden"
+                  >
+                    <iframe 
+                      src="https://ppc-quote-builder.lovable.app/"
+                      title="Build Your Quote - Premier Party Cruises"
+                      className="w-full"
+                      style={{ 
+                        minHeight: '1200px',
+                        height: '90vh',
+                        border: 'none'
+                      }}
+                      allow="payment; geolocation"
+                      allowFullScreen
+                      data-testid="iframe-quote-builder"
+                    />
+                  </motion.div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
       
