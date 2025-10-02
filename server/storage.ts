@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AdminChatSession, type InsertAdminChatSession, type AdminChatMessage, type InsertAdminChatMessage, type AvailabilitySlot, type InsertAvailabilitySlot, type SystemBlockout, type InsertSystemBlockout, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, type MediaItem, type InsertMediaItem, type ContentBlock, type InsertContentBlock, type SelectAgentChatSession, type InsertAgentChatSession, type SelectAgentChatMessage, type InsertAgentChatMessage, type MasterAvailabilityRule, type InsertMasterAvailabilityRule, type HolidayException, type InsertHolidayException, type SpecialPricingRule, type InsertSpecialPricingRule, type BlackoutDate, type InsertBlackoutDate, boats, products, adminChatSessions, adminChatMessages, pricingSettings, affiliates, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, seoPages, mediaItems, contentBlocks } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type User, type InsertUser, type Invite, type InsertInvite, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AdminChatSession, type InsertAdminChatSession, type AdminChatMessage, type InsertAdminChatMessage, type AvailabilitySlot, type InsertAvailabilitySlot, type SystemBlockout, type InsertSystemBlockout, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, type MediaItem, type InsertMediaItem, type ContentBlock, type InsertContentBlock, type SelectAgentChatSession, type InsertAgentChatSession, type SelectAgentChatMessage, type InsertAgentChatMessage, type MasterAvailabilityRule, type InsertMasterAvailabilityRule, type HolidayException, type InsertHolidayException, type SpecialPricingRule, type InsertSpecialPricingRule, type BlackoutDate, type InsertBlackoutDate, boats, products, users, invites, adminChatSessions, adminChatMessages, pricingSettings, affiliates, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, seoPages, mediaItems, contentBlocks } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, gte, lte, desc, asc, isNull, isNotNull, or, inArray, sql, count, sum, between } from "drizzle-orm";
 import { randomUUID } from "crypto";
@@ -102,6 +102,20 @@ export interface IStorage {
   deleteAdminChatSession(sessionId: string): Promise<boolean>;
   getAdminChatMessages(sessionId: string): Promise<AdminChatMessage[]>;
   createAdminChatMessage(message: InsertAdminChatMessage): Promise<AdminChatMessage>;
+
+  // Users
+  getUserByEmail(email: string): Promise<User | undefined>;
+  getUserByUsername(username: string): Promise<User | undefined>;
+  getUser(id: number): Promise<User | undefined>;
+  createUser(user: InsertUser): Promise<User>;
+  updateUserPassword(userId: number, hashedPassword: string): Promise<User>;
+  updateUserLastLogin(userId: number): Promise<User>;
+
+  // Invites
+  createInvite(invite: InsertInvite): Promise<Invite>;
+  getInviteByToken(token: string): Promise<Invite | undefined>;
+  markInviteAsUsed(inviteId: number): Promise<Invite>;
+  getUserInvites(userId: number): Promise<Invite[]>;
 
   // Availability
   getAvailabilitySlots(startDate: Date, endDate: Date): Promise<AvailabilitySlot[]>;
@@ -1798,6 +1812,84 @@ export class DatabaseStorage implements IStorage {
       metadata: message.metadata || {},
     }).returning();
     return result[0];
+  }
+
+  // ===== USER OPERATIONS =====
+
+  async getUserByEmail(email: string): Promise<User | undefined> {
+    const result = await db.select().from(users)
+      .where(eq(users.email, email))
+      .limit(1);
+    return result[0];
+  }
+
+  async getUserByUsername(username: string): Promise<User | undefined> {
+    const result = await db.select().from(users)
+      .where(eq(users.username, username))
+      .limit(1);
+    return result[0];
+  }
+
+  async getUser(id: number): Promise<User | undefined> {
+    const result = await db.select().from(users)
+      .where(eq(users.id, id))
+      .limit(1);
+    return result[0];
+  }
+
+  async createUser(user: InsertUser): Promise<User> {
+    const result = await db.insert(users).values(user).returning();
+    return result[0];
+  }
+
+  async updateUserPassword(userId: number, hashedPassword: string): Promise<User> {
+    const result = await db.update(users)
+      .set({ password: hashedPassword })
+      .where(eq(users.id, userId))
+      .returning();
+    
+    if (result.length === 0) throw new Error("User not found");
+    return result[0];
+  }
+
+  async updateUserLastLogin(userId: number): Promise<User> {
+    const result = await db.update(users)
+      .set({ lastLoginAt: new Date() })
+      .where(eq(users.id, userId))
+      .returning();
+    
+    if (result.length === 0) throw new Error("User not found");
+    return result[0];
+  }
+
+  // ===== INVITE OPERATIONS =====
+
+  async createInvite(invite: InsertInvite): Promise<Invite> {
+    const result = await db.insert(invites).values(invite).returning();
+    return result[0];
+  }
+
+  async getInviteByToken(token: string): Promise<Invite | undefined> {
+    const result = await db.select().from(invites)
+      .where(eq(invites.inviteToken, token))
+      .limit(1);
+    return result[0];
+  }
+
+  async markInviteAsUsed(inviteId: number): Promise<Invite> {
+    const result = await db.update(invites)
+      .set({ usedAt: new Date() })
+      .where(eq(invites.id, inviteId))
+      .returning();
+    
+    if (result.length === 0) throw new Error("Invite not found");
+    return result[0];
+  }
+
+  async getUserInvites(userId: number): Promise<Invite[]> {
+    return await db.select().from(invites)
+      .where(eq(invites.invitedBy, userId))
+      .orderBy(desc(invites.createdAt));
   }
 
   // ===== AVAILABILITY OPERATIONS =====

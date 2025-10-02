@@ -3,6 +3,7 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import { setupEmbedRouting, hasEmbedBuild } from "./embedServer";
 import { blogRouter } from "./blog-api.js";
+import { setupAuth } from "./auth";
 
 const app = express();
 
@@ -87,6 +88,9 @@ app.use('/q/', (req, res, next) => {
 (async () => {
   // Blog routes are now handled by routes.ts (PostgreSQL-based)
   // Old Replit DB router disabled: app.use("/api/blog", blogRouter);
+  
+  // Setup authentication before registering other routes
+  setupAuth(app);
   
   const server = await registerRoutes(app);
 

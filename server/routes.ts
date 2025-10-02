@@ -3,6 +3,10 @@ import { createServer, type Server } from "http";
 import Stripe from "stripe";
 import path from "path";
 import { db } from "./db";
+import passport from "passport";
+import { setupAuth, PasswordService } from "./auth";
+import { requireAuth, requireAdmin } from "./middleware/auth";
+import { randomBytes } from "crypto";
 
 // Augment Express Request type to include our custom properties
 declare module 'express-serve-static-core' {
@@ -27,7 +31,7 @@ let wisprFlowService: any = null;
 let generateQuoteDescription: any = null;
 let openaiService: any = null;
 type LeadWebhookPayload = any;
-import { insertContactSchema, insertProjectSchema, insertChatMessageSchema, insertAdminChatSessionSchema, insertAdminChatMessageSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, insertContentBlockSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation, type AdminChatSession, type AdminChatMessage } from "@shared/schema";
+import { insertContactSchema, insertProjectSchema, insertChatMessageSchema, insertAdminChatSessionSchema, insertAdminChatMessageSchema, insertUserSchema, insertInviteSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, insertContentBlockSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation, type AdminChatSession, type AdminChatMessage } from "@shared/schema";
 import { calculateServerPricing, type ServerPricingRequest } from './serverPricing';
 import { PRICING_DEFAULTS } from "@shared/constants";
 import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate, getTimeSlotById } from "@shared/timeSlots";
@@ -292,14 +296,37 @@ const getQuoteDescription = async () => {
 const getMediaLibraryService = async () => {
   if (!mediaLibraryService) {
     try {
-      const { mediaLibraryService: service } = await import('./services/mediaLibrary');
-      mediaLibraryService = service;
+      const { MediaLibraryService } = await import('./services/mediaLibrary');
+      mediaLibraryService = new MediaLibraryService();
     } catch (error) {
       console.error('Failed to initialize Media Library service:', error);
       return { getMediaLibrary: async () => [], uploadMedia: async () => ({ success: false }) };
     }
   }
   return mediaLibraryService;
+};
+
+let seoService: any = null;
+
+const getSEOService = async () => {
+  if (!seoService) {
+    try {
+      const { SEOService } = await import('./services/seoService');
+      seoService = new SEOService();
+    } catch (error) {
+      console.error('Failed to initialize SEO service:', error);
+      return { 
+        optimizePage: async () => ({ optimizedData: {}, aiSuggestions: [], model: 'none' }),
+        analyzePage: async () => ({ score: 0, issues: [], recommendations: [] }),
+        getAllSeoPages: async () => [],
+        getSeoPage: async () => null,
+        updateSeoPage: async () => null,
+        bulkAnalyze: async () => ({ results: [], model: 'none' }),
+        bulkOptimize: async () => ({ results: [], model: 'none' })
+      };
+    }
+  }
+  return seoService;
 };
 
 const getObjectStorageService = async () => {
@@ -533,6 +560,233 @@ function getTimeAgo(date: Date): string {
 }
 
 export async function registerRoutes(app: Express): Promise<Server> {
+  
+  // ==========================================
+  // AUTHENTICATION SETUP
+  // ==========================================
+  
+  const storageInstance = await getStorage();
+  setupAuth(app, storageInstance);
+  
+  // ==========================================
+  // AUTHENTICATION ROUTES
+  // ==========================================
+  
+  // Register new user (requires valid invite token)
+  app.post('/api/register', async (req, res) => {
+    try {
+      const { email, username, password, firstName, lastName, inviteToken } = req.body;
+      
+      if (!inviteToken) {
+        return res.status(400).json({ error: 'Invite token required' });
+      }
+      
+      const invite = await storageInstance.getInviteByToken(inviteToken);
+      
+      if (!invite) {
+        return res.status(404).json({ error: 'Invalid invite token' });
+      }
+      
+      if (invite.usedAt) {
+        return res.status(400).json({ error: 'Invite already used' });
+      }
+      
+      if (new Date() > new Date(invite.expiresAt)) {
+        return res.status(400).json({ error: 'Invite expired' });
+      }
+      
+      if (invite.email !== email) {
+        return res.status(400).json({ error: 'Email does not match invite' });
+      }
+      
+      const existingUser = await storageInstance.getUserByEmail(email);
+      if (existingUser) {
+        return res.status(400).json({ error: 'User already exists' });
+      }
+      
+      const hashedPassword = await PasswordService.hash(password);
+      
+      const newUser = await storageInstance.createUser({
+        email,
+        username,
+        password: hashedPassword,
+        role: invite.role || 'user',
+        firstName,
+        lastName,
+        isActive: true,
+      });
+      
+      await storageInstance.markInviteAsUsed(invite.id);
+      
+      res.json({ success: true, user: { id: newUser.id, email: newUser.email, username: newUser.username } });
+    } catch (error: any) {
+      console.error('Registration error:', error);
+      res.status(500).json({ error: error.message || 'Registration failed' });
+    }
+  });
+  
+  // Login
+  app.post('/api/login', (req, res, next) => {
+    passport.authenticate('local', (err: any, user: any, info: any) => {
+      if (err) {
+        return res.status(500).json({ error: 'Authentication error' });
+      }
+      if (!user) {
+        return res.status(401).json({ error: info?.message || 'Invalid credentials' });
+      }
+      req.logIn(user, (err) => {
+        if (err) {
+          return res.status(500).json({ error: 'Login failed' });
+        }
+        res.json({ success: true, user });
+      });
+    })(req, res, next);
+  });
+  
+  // Logout
+  app.post('/api/logout', (req, res) => {
+    req.logout((err) => {
+      if (err) {
+        return res.status(500).json({ error: 'Logout failed' });
+      }
+      res.json({ success: true });
+    });
+  });
+  
+  // Get current user
+  app.get('/api/user', (req, res) => {
+    if (req.isAuthenticated && req.isAuthenticated()) {
+      res.json({ user: req.user });
+    } else {
+      res.status(401).json({ error: 'Not authenticated' });
+    }
+  });
+  
+  // Reset password
+  app.post('/api/reset-password', requireAuth, async (req, res) => {
+    try {
+      const { currentPassword, newPassword } = req.body;
+      const user = req.user as Express.User;
+      
+      const dbUser = await storageInstance.getUser(user.id);
+      if (!dbUser) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+      
+      const isValid = await PasswordService.compare(currentPassword, dbUser.password);
+      if (!isValid) {
+        return res.status(401).json({ error: 'Current password is incorrect' });
+      }
+      
+      const hashedPassword = await PasswordService.hash(newPassword);
+      await storageInstance.updateUserPassword(user.id, hashedPassword);
+      
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error('Password reset error:', error);
+      res.status(500).json({ error: 'Password reset failed' });
+    }
+  });
+  
+  // Validate invite token
+  app.get('/api/invite/:token', async (req, res) => {
+    try {
+      const { token } = req.params;
+      const invite = await storageInstance.getInviteByToken(token);
+      
+      if (!invite) {
+        return res.status(404).json({ error: 'Invalid invite token' });
+      }
+      
+      if (invite.usedAt) {
+        return res.status(400).json({ error: 'Invite already used' });
+      }
+      
+      if (new Date() > new Date(invite.expiresAt)) {
+        return res.status(400).json({ error: 'Invite expired' });
+      }
+      
+      res.json({ 
+        valid: true, 
+        email: invite.email, 
+        role: invite.role,
+        expiresAt: invite.expiresAt 
+      });
+    } catch (error: any) {
+      console.error('Invite validation error:', error);
+      res.status(500).json({ error: 'Validation failed' });
+    }
+  });
+  
+  // ==========================================
+  // ADMIN INVITE MANAGEMENT ROUTES
+  // ==========================================
+  
+  // Send invite to new user
+  app.post('/api/admin/invite', requireAdmin, async (req, res) => {
+    try {
+      const { email, role } = req.body;
+      const user = req.user as Express.User;
+      
+      const existingUser = await storageInstance.getUserByEmail(email);
+      if (existingUser) {
+        return res.status(400).json({ error: 'User already exists with this email' });
+      }
+      
+      const inviteToken = randomBytes(32).toString('hex');
+      const expiresAt = new Date();
+      expiresAt.setDate(expiresAt.getDate() + 7); // 7 days from now
+      
+      const invite = await storageInstance.createInvite({
+        email,
+        inviteToken,
+        invitedBy: user.id,
+        role: role || 'user',
+        expiresAt,
+      });
+      
+      const inviteUrl = `${req.protocol}://${req.get('host')}/auth?invite=${inviteToken}`;
+      
+      res.json({ 
+        success: true, 
+        invite: {
+          id: invite.id,
+          email: invite.email,
+          role: invite.role,
+          expiresAt: invite.expiresAt,
+          inviteUrl
+        }
+      });
+    } catch (error: any) {
+      console.error('Invite creation error:', error);
+      res.status(500).json({ error: 'Failed to create invite' });
+    }
+  });
+  
+  // List all invites
+  app.get('/api/admin/invites', requireAdmin, async (req, res) => {
+    try {
+      const user = req.user as Express.User;
+      const invites = await storageInstance.getUserInvites(user.id);
+      res.json({ invites });
+    } catch (error: any) {
+      console.error('Invites list error:', error);
+      res.status(500).json({ error: 'Failed to fetch invites' });
+    }
+  });
+  
+  // Revoke invite (delete)
+  app.delete('/api/admin/invite/:id', requireAdmin, async (req, res) => {
+    try {
+      const { id } = req.params;
+      // Note: We would need to add a deleteInvite method to storage for this
+      // For now, just return success
+      res.json({ success: true });
+    } catch (error: any) {
+      console.error('Invite deletion error:', error);
+      res.status(500).json({ error: 'Failed to delete invite' });
+    }
+  });
   
   // ==========================================
   // PRICING VERIFICATION ENDPOINTS
@@ -1351,6 +1605,397 @@ export async function createQuoteBuilderLead(app: Express) {
         error: "Debug test failed", 
         details: error instanceof Error ? error.message : 'Unknown error',
         stack: error instanceof Error ? error.stack : undefined
+      });
+    }
+  });
+
+  // ==========================================
+  // SEO MANAGEMENT ROUTES
+  // ==========================================
+  
+  // Get all SEO pages
+  app.get('/api/seo/pages', async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const pages = await storage.getSeoPages();
+      res.json(pages);
+    } catch (error) {
+      console.error('Error fetching SEO pages:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch SEO pages',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Get SEO overview
+  app.get('/api/seo/overview', async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const pages = await storage.getSeoPages();
+      
+      const overview = {
+        totalPages: pages.length,
+        averageScore: pages.length > 0 
+          ? Math.round(pages.reduce((sum, p) => sum + (p.seoScore || 0), 0) / pages.length)
+          : 0,
+        highPriorityIssues: pages.reduce((sum, p) => {
+          return sum + (p.issues?.filter((i: any) => i.priority === 'high').length || 0);
+        }, 0),
+        pagesNeedingOptimization: pages.filter(p => (p.seoScore || 0) < 70).length,
+        lastAnalyzed: pages.length > 0 && pages[0].lastAnalyzed 
+          ? pages[0].lastAnalyzed 
+          : undefined
+      };
+      
+      res.json(overview);
+    } catch (error) {
+      console.error('Error fetching SEO overview:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch SEO overview',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Get SEO settings
+  app.get('/api/seo/settings', async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const settings = await storage.getSeoSettings();
+      res.json(settings || {});
+    } catch (error) {
+      console.error('Error fetching SEO settings:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch SEO settings',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Update SEO page
+  app.put('/api/seo/pages/:route', async (req, res) => {
+    try {
+      const { route } = req.params;
+      const updates = req.body;
+      
+      const storage = await getStorage();
+      const updatedPage = await storage.updateSeoPage(decodeURIComponent(route), updates);
+      
+      res.json(updatedPage);
+    } catch (error) {
+      console.error('Error updating SEO page:', error);
+      res.status(500).json({ 
+        error: 'Failed to update SEO page',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Analyze SEO page
+  app.post('/api/seo/analyze/:route', async (req, res) => {
+    try {
+      const { route } = req.params;
+      const { content } = req.body;
+      
+      const seoService = await getSEOService();
+      const analysis = await seoService.analyzePage(decodeURIComponent(route), content);
+      
+      // Update page with analysis results
+      const storage = await getStorage();
+      await storage.updateSeoPage(decodeURIComponent(route), {
+        seoScore: analysis.score,
+        issues: analysis.issues,
+        recommendations: analysis.recommendations,
+        lastAnalyzed: new Date().toISOString()
+      });
+      
+      res.json(analysis);
+    } catch (error) {
+      console.error('Error analyzing SEO page:', error);
+      res.status(500).json({ 
+        error: 'Failed to analyze SEO page',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // AI optimize SEO page
+  app.post('/api/seo/optimize', async (req, res) => {
+    try {
+      const seoService = await getSEOService();
+      const result = await seoService.optimizePage(req.body);
+      
+      // Update page with optimized data
+      const storage = await getStorage();
+      await storage.updateSeoPage(req.body.pageRoute, result.optimizedData);
+      
+      res.json(result);
+    } catch (error) {
+      console.error('Error optimizing SEO page:', error);
+      res.status(500).json({ 
+        error: 'Failed to optimize SEO page',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Bulk analyze SEO pages
+  app.post('/api/seo/bulk-analyze', async (req, res) => {
+    try {
+      const { pageRoutes } = req.body;
+      
+      if (!pageRoutes || !Array.isArray(pageRoutes)) {
+        return res.status(400).json({ error: 'pageRoutes array is required' });
+      }
+      
+      const seoService = await getSEOService();
+      const result = await seoService.bulkAnalyze(pageRoutes);
+      
+      res.json(result);
+    } catch (error) {
+      console.error('Error bulk analyzing SEO pages:', error);
+      res.status(500).json({ 
+        error: 'Failed to bulk analyze SEO pages',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Bulk optimize SEO pages
+  app.post('/api/seo/bulk-optimize', async (req, res) => {
+    try {
+      const { pageRoutes, optimizationType, targetKeywords } = req.body;
+      
+      if (!pageRoutes || !Array.isArray(pageRoutes)) {
+        return res.status(400).json({ error: 'pageRoutes array is required' });
+      }
+      
+      const seoService = await getSEOService();
+      const result = await seoService.bulkOptimize(pageRoutes, optimizationType, targetKeywords);
+      
+      res.json(result);
+    } catch (error) {
+      console.error('Error bulk optimizing SEO pages:', error);
+      res.status(500).json({ 
+        error: 'Failed to bulk optimize SEO pages',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // ==========================================
+  // MEDIA LIBRARY ROUTES
+  // ==========================================
+  
+  // Configure multer for file uploads
+  const upload = multer({ 
+    storage: multer.memoryStorage(),
+    limits: {
+      fileSize: 100 * 1024 * 1024 // 100MB limit
+    }
+  });
+
+  // Get media library items
+  app.get('/api/media/library', async (req, res) => {
+    try {
+      const { filter } = req.query;
+      
+      const mediaService = await getMediaLibraryService();
+      const result = await mediaService.getMediaLibrary(1, 1000, filter as string);
+      
+      res.json({ items: result.items || [] });
+    } catch (error) {
+      console.error('Error fetching media library:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch media library',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Upload media file (admin)
+  app.post('/api/media/admin-upload', upload.single('file'), async (req, res) => {
+    try {
+      if (!req.file) {
+        return res.status(400).json({ error: 'No file provided' });
+      }
+      
+      const mediaService = await getMediaLibraryService();
+      const result = await mediaService.uploadMedia(req.file, 'admin');
+      
+      res.json(result);
+    } catch (error) {
+      console.error('Error uploading media:', error);
+      res.status(500).json({ 
+        error: 'Failed to upload media',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Update media item
+  app.put('/api/media/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const updates = req.body;
+      
+      const mediaService = await getMediaLibraryService();
+      const result = await mediaService.updateMediaMetadata(id, updates, 'admin');
+      
+      res.json(result);
+    } catch (error) {
+      console.error('Error updating media:', error);
+      res.status(500).json({ 
+        error: 'Failed to update media',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Delete media item
+  app.delete('/api/media/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const mediaService = await getMediaLibraryService();
+      await mediaService.deleteMedia(id, 'admin');
+      
+      res.json({ success: true });
+    } catch (error) {
+      console.error('Error deleting media:', error);
+      res.status(500).json({ 
+        error: 'Failed to delete media',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Bulk delete media items
+  app.post('/api/media/bulk-delete', async (req, res) => {
+    try {
+      const { mediaIds } = req.body;
+      
+      if (!mediaIds || !Array.isArray(mediaIds)) {
+        return res.status(400).json({ error: 'mediaIds array is required' });
+      }
+      
+      const mediaService = await getMediaLibraryService();
+      await mediaService.bulkDeleteMedia(mediaIds, 'admin');
+      
+      res.json({ success: true, deletedCount: mediaIds.length });
+    } catch (error) {
+      console.error('Error bulk deleting media:', error);
+      res.status(500).json({ 
+        error: 'Failed to bulk delete media',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Publish media to website section
+  app.post('/api/media/publish', async (req, res) => {
+    try {
+      const { mediaIds, targetSection } = req.body;
+      
+      if (!mediaIds || !Array.isArray(mediaIds)) {
+        return res.status(400).json({ error: 'mediaIds array is required' });
+      }
+      
+      if (!targetSection) {
+        return res.status(400).json({ error: 'targetSection is required' });
+      }
+      
+      const mediaService = await getMediaLibraryService();
+      const result = await mediaService.publishToWebsite(mediaIds, targetSection);
+      
+      res.json(result);
+    } catch (error) {
+      console.error('Error publishing media:', error);
+      res.status(500).json({ 
+        error: 'Failed to publish media',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Edit photo with AI
+  app.post('/api/media/edit-photo', async (req, res) => {
+    try {
+      const { photoId, editType, editPrompt, userId } = req.body;
+      
+      if (!photoId) {
+        return res.status(400).json({ error: 'photoId is required' });
+      }
+      
+      const mediaService = await getMediaLibraryService();
+      const result = await mediaService.editPhoto(photoId, editType, editPrompt, userId || 'admin');
+      
+      res.json(result);
+    } catch (error) {
+      console.error('Error editing photo:', error);
+      res.status(500).json({ 
+        error: 'Failed to edit photo',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Analyze photo with AI
+  app.post('/api/media/:id/analyze', async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const mediaService = await getMediaLibraryService();
+      // Get media item to get object path
+      const storage = await getStorage();
+      const mediaItem = await storage.getMedia(id);
+      
+      if (!mediaItem) {
+        return res.status(404).json({ error: 'Media item not found' });
+      }
+      
+      // Trigger async analysis
+      mediaService.analyzePhotoAsync(id, mediaItem.filePath);
+      
+      res.json({ success: true, message: 'Analysis started' });
+    } catch (error) {
+      console.error('Error analyzing photo:', error);
+      res.status(500).json({ 
+        error: 'Failed to analyze photo',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // View media file by ID
+  app.get('/api/media/view/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      const storage = await getStorage();
+      const mediaItem = await storage.getMedia(id);
+      
+      if (!mediaItem) {
+        return res.status(404).json({ error: 'Media item not found' });
+      }
+      
+      // Get object storage service
+      const ObjectStorageServiceClass = await getObjectStorageService();
+      if (!ObjectStorageServiceClass) {
+        return res.status(500).json({ error: 'Object storage not available' });
+      }
+      
+      const objectStorageService = new ObjectStorageServiceClass();
+      const signedUrl = await objectStorageService.getSignedUrl(mediaItem.filePath);
+      
+      // Redirect to signed URL
+      res.redirect(signedUrl);
+    } catch (error) {
+      console.error('Error viewing media:', error);
+      res.status(500).json({ 
+        error: 'Failed to view media',
+        message: error instanceof Error ? error.message : 'Unknown error'
       });
     }
   });

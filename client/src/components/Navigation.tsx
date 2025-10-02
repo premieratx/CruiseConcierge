@@ -7,8 +7,9 @@ import {
   DollarSign, Settings, Ship, TrendingUp, Mail, Phone,
   ChevronDown, Plus, Search, Bell, User, LogOut, Building,
   CreditCard, Briefcase, Star, FileBarChart, Database, ArrowLeft, Home,
-  AlertCircle, Code, UserCheck, FolderOpen, Receipt, BookOpen, Image, BarChart3, Bot
+  AlertCircle, Code, UserCheck, FolderOpen, Receipt, BookOpen, Image, BarChart3, Bot, UserPlus
 } from 'lucide-react';
+import { useAuth } from '@/hooks/use-auth';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -72,6 +73,7 @@ const mainNavItems = [
 
 export default function Navigation() {
   const [location, setLocation] = useLocation();
+  const { user, logout } = useAuth();
 
   return (
     <>
@@ -245,6 +247,19 @@ export default function Navigation() {
                   <li>
                     <NavigationMenuLink asChild>
                       <Link
+                        href="/admin/invites"
+                        className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
+                      >
+                        <div className="flex items-center gap-2">
+                          <UserPlus className="h-4 w-4" />
+                          <div className="text-sm font-medium">Invite Users</div>
+                        </div>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
                         href="/settings"
                         className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                       >
@@ -275,19 +290,32 @@ export default function Navigation() {
             <DropdownMenuContent className="w-56" align="end" forceMount>
               <DropdownMenuLabel className="font-normal">
                 <div className="flex flex-col space-y-1">
-                  <p className="text-sm font-medium leading-none">Admin User</p>
-                  <p className="text-xs leading-none text-muted-foreground">
-                    clientservices@premierpartycruises.com
+                  <p className="text-sm font-medium leading-none">
+                    {user?.firstName && user?.lastName 
+                      ? `${user.firstName} ${user.lastName}` 
+                      : user?.username || 'User'}
                   </p>
+                  <p className="text-xs leading-none text-muted-foreground">
+                    {user?.email || 'No email'}
+                  </p>
+                  {user?.role && (
+                    <Badge variant="outline" className="w-fit mt-1">
+                      {user.role}
+                    </Badge>
+                  )}
                 </div>
               </DropdownMenuLabel>
               <DropdownMenuSeparator />
+              <DropdownMenuItem onClick={() => setLocation('/admin/invites')}>
+                <UserPlus className="mr-2 h-4 w-4" />
+                <span>Invite Users</span>
+              </DropdownMenuItem>
               <DropdownMenuItem onClick={() => setLocation('/settings')}>
                 <Settings className="mr-2 h-4 w-4" />
                 <span>Admin Settings</span>
               </DropdownMenuItem>
               <DropdownMenuSeparator />
-              <DropdownMenuItem>
+              <DropdownMenuItem onClick={logout} data-testid="button-logout">
                 <LogOut className="mr-2 h-4 w-4" />
                 <span>Log out</span>
               </DropdownMenuItem>

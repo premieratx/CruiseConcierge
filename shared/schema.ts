@@ -1,5 +1,5 @@
 import { sql } from "drizzle-orm";
-import { pgTable, text, varchar, integer, boolean, timestamp, jsonb, unique, bigint } from "drizzle-orm/pg-core";
+import { pgTable, text, varchar, integer, boolean, timestamp, jsonb, unique, bigint, serial } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
@@ -37,6 +37,34 @@ export const products = pgTable("products", {
   categoryType: varchar("category_type").notNull().default("experience"), // 'experience', 'addon'
   eventTypes: jsonb("event_types").$type<string[]>().default([]), // which event types this product applies to
   active: boolean("active").notNull().default(true),
+});
+
+// ==========================================
+// AUTHENTICATION
+// ==========================================
+
+export const users = pgTable("users", {
+  id: serial("id").primaryKey(),
+  email: varchar("email", { length: 255 }).unique().notNull(),
+  username: varchar("username", { length: 100 }).unique().notNull(),
+  password: varchar("password", { length: 255 }).notNull(),
+  role: varchar("role", { length: 50 }).default("user").notNull(),
+  firstName: varchar("first_name", { length: 100 }),
+  lastName: varchar("last_name", { length: 100 }),
+  isActive: boolean("is_active").default(true).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  lastLoginAt: timestamp("last_login_at"),
+});
+
+export const invites = pgTable("invites", {
+  id: serial("id").primaryKey(),
+  email: varchar("email", { length: 255 }).notNull(),
+  inviteToken: varchar("invite_token", { length: 255 }).unique().notNull(),
+  invitedBy: integer("invited_by").references(() => users.id).notNull(),
+  role: varchar("role", { length: 50 }).default("user").notNull(),
+  expiresAt: timestamp("expires_at").notNull(),
+  usedAt: timestamp("used_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
 // ==========================================
@@ -443,6 +471,27 @@ export const insertProductSchema = createInsertSchema(products).omit({
   active: z.boolean().default(true),
 });
 
+export const insertUserSchema = createInsertSchema(users).omit({
+  id: true,
+  createdAt: true,
+  lastLoginAt: true,
+}).extend({
+  email: z.string().email("Invalid email address"),
+  username: z.string().min(3, "Username must be at least 3 characters"),
+  password: z.string().min(6, "Password must be at least 6 characters"),
+  role: z.enum(["admin", "user"]).default("user"),
+  isActive: z.boolean().default(true),
+});
+
+export const insertInviteSchema = createInsertSchema(invites).omit({
+  id: true,
+  createdAt: true,
+  usedAt: true,
+}).extend({
+  email: z.string().email("Invalid email address"),
+  role: z.enum(["admin", "user"]).default("user"),
+});
+
 export const insertAdminChatSessionSchema = createInsertSchema(adminChatSessions).omit({
   id: true,
   createdAt: true,
@@ -634,6 +683,8 @@ export const insertContentBlockSchema = createInsertSchema(contentBlocks).omit({
 
 export type Boat = typeof boats.$inferSelect;
 export type Product = typeof products.$inferSelect;
+export type User = typeof users.$inferSelect;
+export type Invite = typeof invites.$inferSelect;
 export type AdminChatSession = typeof adminChatSessions.$inferSelect;
 export type AdminChatMessage = typeof adminChatMessages.$inferSelect;
 export type PricingSettings = typeof pricingSettings.$inferSelect;
@@ -655,6 +706,8 @@ export type ContentBlock = typeof contentBlocks.$inferSelect;
 
 export type InsertBoat = z.infer<typeof insertBoatSchema>;
 export type InsertProduct = z.infer<typeof insertProductSchema>;
+export type InsertUser = z.infer<typeof insertUserSchema>;
+export type InsertInvite = z.infer<typeof insertInviteSchema>;
 export type InsertAdminChatSession = z.infer<typeof insertAdminChatSessionSchema>;
 export type InsertAdminChatMessage = z.infer<typeof insertAdminChatMessageSchema>;
 export type InsertPricingSettings = z.infer<typeof insertPricingSettingsSchema>;

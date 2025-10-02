@@ -7,7 +7,10 @@ import { BookingCacheProvider } from "@/contexts/BookingCacheContext";
 import { EditModeProvider } from "@/contexts/EditModeContext";
 import { HelmetProvider } from "react-helmet-async";
 import { lazy, Suspense, useEffect } from "react";
+import { AuthProvider } from "@/hooks/use-auth";
+import { ProtectedRoute } from "@/lib/protected-route";
 import Home from "./pages/Home";
+import AuthPage from "./pages/AuthPage";
 import Dashboard from "./pages/Dashboard";
 import Chat from "./pages/Chat";
 import QuoteBuilderEmbed from "./pages/QuoteBuilderEmbed";
@@ -97,6 +100,9 @@ function Router() {
     <Switch>
       {/* Public Homepage */}
       <Route path="/" component={Home} />
+      
+      {/* Authentication */}
+      <Route path="/auth" component={AuthPage} />
       
       {/* Landing Pages */}
       <Route path="/bachelor-party" component={BachelorParty} />
@@ -276,16 +282,18 @@ function Router() {
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BookingCacheProvider>
-        <EditModeProvider>
-          <HelmetProvider>
-            <TooltipProvider>
-              <Toaster />
-              <Router />
-            </TooltipProvider>
-          </HelmetProvider>
-        </EditModeProvider>
-      </BookingCacheProvider>
+      <AuthProvider>
+        <BookingCacheProvider>
+          <EditModeProvider>
+            <HelmetProvider>
+              <TooltipProvider>
+                <Toaster />
+                <Router />
+              </TooltipProvider>
+            </HelmetProvider>
+          </EditModeProvider>
+        </BookingCacheProvider>
+      </AuthProvider>
     </QueryClientProvider>
   );
 }
