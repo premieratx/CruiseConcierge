@@ -490,7 +490,7 @@ export default function BookingSuccess() {
               size="lg" 
               className="flex items-center gap-2"
               data-testid="button-book-another"
-              onClick={() => window.location.href = '/book'}
+              onClick={() => window.location.href = '/chat'}
             >
               <ArrowRight className="h-4 w-4" />
               Book Another Cruise

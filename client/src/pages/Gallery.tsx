@@ -473,7 +473,7 @@ export default function Gallery() {
             >
               <Button
                 size="lg"
-                onClick={() => navigate('/book')}
+                onClick={() => navigate('/chat')}
                 className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-xl px-12 py-6 shadow-2xl hover:shadow-3xl transition-all duration-300"
                 data-testid="button-book-now"
               >
@@ -662,7 +662,7 @@ export default function Gallery() {
               
               <Button
                 size="lg"
-                onClick={() => navigate('/book')}
+                onClick={() => navigate('/chat')}
                 className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-8 py-4"
                 data-testid="button-book-from-gallery"
               >

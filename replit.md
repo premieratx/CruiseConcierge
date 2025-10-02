@@ -68,22 +68,32 @@ The platform now uses a **unified availability system** that serves as the singl
 - Future: May integrate Google Sheets availability data with normalized slot system
 
 ### Lovable Quote Builder Integration (Oct 2, 2025)
-The quote builder functionality now uses an **external Lovable application** embedded via iframe at `/chat`. This architectural decision was made to:
+The quote builder functionality now uses an **external Lovable application** served as standalone HTML at `/chat`. This architectural decision was made to:
 - Avoid complex migration of Supabase edge functions and RLS policies
 - Leverage Lovable's real-time booking system with minimal integration effort
 - Maintain clean separation between CRM (Replit) and booking flow (Lovable)
 
 **Implementation Details:**
-- **Route:** `/chat` displays full-width iframe embed
-- **Lovable URL:** `https://ca5498b2-d709-4ed6-b336-83205a3bd76f.lovableproject.com/quote-widget`
-- **Layout:** Full-width responsive design with gradient header
-- **Integration:** Zero-friction embed - Lovable handles all booking logic, availability, and Stripe payments
+- **Route:** `GET /chat` serves standalone HTML file from `public/quote-widget.html`
+- **Method:** Direct HTML serving (not iframe) to avoid Content-Type and CSP issues
+- **Integration:** Uses external Supabase for leads/bookings and Stripe for payments
+- **5-Step Booking Flow:** Date selection → Party type → Guest count → Contact info → Cruise selection
+- **Public Access:** No authentication required - fully accessible to customers
+
+**Sitewide Navigation:**
+All booking and quote buttons throughout the website link to `/chat`:
+- "Get a Quote" buttons → `/chat`
+- "Book Now" buttons → `/chat`
+- "Get More Info" buttons → `/chat`
+- Navigation menu "Public Booking Page" → `/chat`
 
 **Benefits:**
 - No migration complexity (avoided 32-49 hours of edge function rewrites)
+- Zero authentication barriers for customers
 - Lovable handles updates and maintenance
 - Clean separation of concerns
 - Fast deployment with zero risk
+- Consistent booking experience across all site entry points
 
 ### UI/UX Decisions
 The system features a progressive booking flow designed for an intuitive user experience. Admin dashboards include a calendar view for visual booking management, a leads pipeline, and a comprehensive booking table. The UI prioritizes transparent pricing breakdowns and clear display of boat capacities. Design uses Tailwind CSS and shadcn/ui components for a modern and consistent look.

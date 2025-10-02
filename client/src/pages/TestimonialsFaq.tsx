@@ -400,7 +400,7 @@ export default function TestimonialsFaq() {
   };
 
   const handleBookNow = () => {
-    navigate('/book');
+    navigate('/chat');
   };
 
   const handleGetQuote = () => {

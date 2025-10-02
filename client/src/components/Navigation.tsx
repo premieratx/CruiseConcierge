@@ -232,7 +232,7 @@ export default function Navigation() {
                   <li>
                     <NavigationMenuLink asChild>
                       <Link
-                        href="/book"
+                        href="/chat"
                         className="block select-none space-y-1 rounded-md p-2 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800"
                       >
                         <div className="flex items-center gap-2">
