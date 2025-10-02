@@ -579,10 +579,10 @@ export default function Home() {
             className="text-center mb-20"
           >
             <motion.div variants={fadeInUp}>
-              <h2 className="text-5xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="services-main-title">
+              <h2 className="text-6xl md:text-7xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="services-main-title">
                 CHOOSE YOUR
               </h2>
-              <h3 className="text-4xl md:text-5xl font-heading font-bold mb-8 text-brand-blue tracking-wider" data-editable data-editable-id="services-subtitle">
+              <h3 className="text-5xl md:text-6xl font-heading font-bold mb-8 text-brand-blue tracking-wider" data-editable data-editable-id="services-subtitle">
                 PERFECT EXPERIENCE
               </h3>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="services-description">
@@ -643,29 +643,29 @@ export default function Home() {
                   </div>
                   
                   <CardHeader className="text-center pb-4">
-                    <CardTitle className="text-2xl font-bold mb-2 tracking-wide" data-editable data-editable-id={`service-${service.id}-title`}>{service.title}</CardTitle>
-                    <CardDescription className="text-lg font-semibold text-brand-blue" data-editable data-editable-id={`service-${service.id}-subtitle`}>
+                    <CardTitle className="text-2xl md:text-3xl font-bold mb-2 tracking-wide" data-editable data-editable-id={`service-${service.id}-title`}>{service.title}</CardTitle>
+                    <CardDescription className="text-lg md:text-xl font-semibold text-brand-blue" data-editable data-editable-id={`service-${service.id}-subtitle`}>
                       {service.subtitle}
                     </CardDescription>
                   </CardHeader>
                   
                   <CardContent className="space-y-6">
-                    <p className="text-gray-600 dark:text-gray-300 leading-relaxed" data-editable data-editable-id={`service-${service.id}-description`}>
+                    <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed" data-editable data-editable-id={`service-${service.id}-description`}>
                       {service.description}
                     </p>
                     
-                    <div className="space-y-3">
+                    <div className="space-y-4">
                       {service.features.map((feature, featureIndex) => (
-                        <div key={featureIndex} className="flex items-center text-sm">
-                          <CheckCircle className="h-5 w-5 text-green-500 mr-3 flex-shrink-0" />
-                          <span className="text-gray-700 dark:text-gray-300" data-editable data-editable-id={`service-${service.id}-feature-${featureIndex}`}>{feature}</span>
+                        <div key={featureIndex} className="flex items-center text-base">
+                          <CheckCircle className="h-6 w-6 text-green-500 mr-3 flex-shrink-0" />
+                          <span className="text-gray-700 dark:text-gray-300 font-medium" data-editable data-editable-id={`service-${service.id}-feature-${featureIndex}`}>{feature}</span>
                         </div>
                       ))}
                     </div>
 
                     <div className="text-center pt-4">
-                      <div className="text-sm text-gray-500 mb-2" data-editable data-editable-id={`service-${service.id}-price-label`}>Starting from</div>
-                      <div className="text-3xl font-bold text-gray-900 dark:text-white mb-4">
+                      <div className="text-base text-gray-500 mb-2 font-semibold" data-editable data-editable-id={`service-${service.id}-price-label`}>Starting from</div>
+                      <div className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4">
                         {service.startingPrice}
                       </div>
                       

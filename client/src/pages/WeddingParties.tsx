@@ -387,14 +387,14 @@ export default function WeddingParties() {
       <section className="py-16 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-6">
           <Tabs defaultValue="overview" className="space-y-8">
-            <TabsList className="grid w-full grid-cols-4 lg:grid-cols-7 bg-white dark:bg-gray-800 p-1 rounded-xl shadow-lg">
-              <TabsTrigger value="overview" className="font-semibold">Overview</TabsTrigger>
-              <TabsTrigger value="events" className="font-semibold">Event Types</TabsTrigger>
-              <TabsTrigger value="packages" className="font-semibold">Packages</TabsTrigger>
-              <TabsTrigger value="included" className="font-semibold">What's Included</TabsTrigger>
-              <TabsTrigger value="faqs" className="font-semibold">FAQs</TabsTrigger>
-              <TabsTrigger value="photos" className="font-semibold">Photos</TabsTrigger>
-              <TabsTrigger value="testimonials" className="font-semibold">Testimonials</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-4 lg:grid-cols-7 bg-gradient-to-r from-brand-blue to-indigo-600 dark:from-brand-blue dark:to-indigo-800 p-2 rounded-2xl shadow-2xl border-2 border-brand-yellow">
+              <TabsTrigger value="overview" className="font-black text-base md:text-lg uppercase tracking-wider data-[state=active]:bg-brand-yellow data-[state=active]:text-black data-[state=active]:shadow-xl data-[state=inactive]:text-white/80 data-[state=inactive]:hover:text-white transition-all duration-300 rounded-xl">Overview</TabsTrigger>
+              <TabsTrigger value="events" className="font-black text-base md:text-lg uppercase tracking-wider data-[state=active]:bg-brand-yellow data-[state=active]:text-black data-[state=active]:shadow-xl data-[state=inactive]:text-white/80 data-[state=inactive]:hover:text-white transition-all duration-300 rounded-xl">Event Types</TabsTrigger>
+              <TabsTrigger value="packages" className="font-black text-base md:text-lg uppercase tracking-wider data-[state=active]:bg-brand-yellow data-[state=active]:text-black data-[state=active]:shadow-xl data-[state=inactive]:text-white/80 data-[state=inactive]:hover:text-white transition-all duration-300 rounded-xl">Packages</TabsTrigger>
+              <TabsTrigger value="included" className="font-black text-base md:text-lg uppercase tracking-wider data-[state=active]:bg-brand-yellow data-[state=active]:text-black data-[state=active]:shadow-xl data-[state=inactive]:text-white/80 data-[state=inactive]:hover:text-white transition-all duration-300 rounded-xl">What's Included</TabsTrigger>
+              <TabsTrigger value="faqs" className="font-black text-base md:text-lg uppercase tracking-wider data-[state=active]:bg-brand-yellow data-[state=active]:text-black data-[state=active]:shadow-xl data-[state=inactive]:text-white/80 data-[state=inactive]:hover:text-white transition-all duration-300 rounded-xl">FAQs</TabsTrigger>
+              <TabsTrigger value="photos" className="font-black text-base md:text-lg uppercase tracking-wider data-[state=active]:bg-brand-yellow data-[state=active]:text-black data-[state=active]:shadow-xl data-[state=inactive]:text-white/80 data-[state=inactive]:hover:text-white transition-all duration-300 rounded-xl">Photos</TabsTrigger>
+              <TabsTrigger value="testimonials" className="font-black text-base md:text-lg uppercase tracking-wider data-[state=active]:bg-brand-yellow data-[state=active]:text-black data-[state=active]:shadow-xl data-[state=inactive]:text-white/80 data-[state=inactive]:hover:text-white transition-all duration-300 rounded-xl">Testimonials</TabsTrigger>
             </TabsList>
 
             {/* Overview Tab */}
