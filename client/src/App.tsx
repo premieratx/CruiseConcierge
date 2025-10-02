@@ -6,7 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { BookingCacheProvider } from "@/contexts/BookingCacheContext";
 import { EditModeProvider } from "@/contexts/EditModeContext";
 import { HelmetProvider } from "react-helmet-async";
-import { lazy } from "react";
+import { lazy, Suspense } from "react";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Chat from "./pages/Chat";
@@ -52,6 +52,9 @@ import AgentChat from "./pages/admin/AgentChat";
 
 // Admin Inventory Management
 import InventoryManagement from "./pages/admin/InventoryManagement";
+
+// Admin Media Library
+import MediaLibrary from "./pages/admin/MediaLibrary";
 
 // Landing Pages
 import BachelorParty from "./pages/BachelorParty";
@@ -195,16 +198,37 @@ function Router() {
       <Route path="/admin/inventory" component={InventoryManagement} />
       
       {/* AI Media Library */}
-      <Route path="/admin/media" component={lazy(() => import('./pages/admin/MediaLibrary'))} />
+      <Route path="/admin/media" component={MediaLibrary} />
       
       {/* Public Media Library */}
-      <Route path="/media" component={lazy(() => import('./pages/MediaLibrary'))} />
+      <Route path="/media">
+        <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading...</div>}>
+          {(() => {
+            const MediaLibrary = lazy(() => import('./pages/MediaLibrary'));
+            return <MediaLibrary />;
+          })()}
+        </Suspense>
+      </Route>
       
       {/* Content Blocks Management */}
-      <Route path="/admin/content-blocks" component={lazy(() => import('./pages/admin/ContentBlocksManagement'))} />
+      <Route path="/admin/content-blocks">
+        <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading...</div>}>
+          {(() => {
+            const ContentBlocksManagement = lazy(() => import('./pages/admin/ContentBlocksManagement'));
+            return <ContentBlocksManagement />;
+          })()}
+        </Suspense>
+      </Route>
       
       {/* Demo Content Page */}
-      <Route path="/demo-content" component={lazy(() => import('./pages/DemoContentPage'))} />
+      <Route path="/demo-content">
+        <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading...</div>}>
+          {(() => {
+            const DemoContentPage = lazy(() => import('./pages/DemoContentPage'));
+            return <DemoContentPage />;
+          })()}
+        </Suspense>
+      </Route>
       
       {/* Public Blog Routes - Specific routes must come before generic ones */}
       <Route path="/blog" component={Blog} />

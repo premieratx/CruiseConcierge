@@ -247,7 +247,7 @@ export default function MediaLibrary() {
       if (selectedFilter !== 'all') {
         params.append('filter', selectedFilter);
       }
-      const response = await apiRequest(`/api/media/library?${params.toString()}`);
+      const response = await apiRequest('GET', `/api/media/library?${params.toString()}`);
       return response.items || [];
     }
   });
