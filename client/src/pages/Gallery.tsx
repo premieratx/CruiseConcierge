@@ -22,23 +22,20 @@ import { useInlineEdit } from '@/hooks/useInlineEdit';
 import heroImage1 from '@assets/bachelor-party-group-guys.jpg';
 import heroImage2 from '@assets/atx-disco-cruise-party.jpg';
 import heroImage3 from '@assets/dancing-party-scene.jpg';
-import galleryImage1 from '@assets/image_1757877906674.png';
-import galleryImage2 from '@assets/image_1757884902886.png';
-import galleryImage3 from '@assets/image_1757886911506.png';
-import galleryImage4 from '@assets/image_1757828518223.png';
-import galleryImage5 from '@assets/image_1757829649857.png';
-import galleryImage6 from '@assets/image_1757829713904.png';
-import galleryImage7 from '@assets/image_1757836983311.png';
-import galleryImage8 from '@assets/image_1757850946645.png';
-import galleryImage9 from '@assets/image_1757892689394.png';
-import galleryImage10 from '@assets/image_1757892709763.png';
-import galleryImage11 from '@assets/image_1757924324329.png';
-import galleryImage12 from '@assets/image_1758068225810.png';
-import galleryImage13 from '@assets/image_1758076921602.png';
-// Additional real photos not previously used
-import atxDiscoFull from '@assets/ATX Disco Cruise FULL SIZE_1758097496695.png';
-import galleryImage14 from '@assets/image_1757884929747.png';
-import ppcLogoLarge from '@assets/PPC Logo LARGE_1757881944449.png';
+import galleryImage1 from '@assets/party-atmosphere-1.jpg';
+import galleryImage2 from '@assets/party-atmosphere-2.jpg';
+import galleryImage3 from '@assets/party-atmosphere-3.jpg';
+import galleryImage4 from '@assets/day-tripper-14-person-boat.jpg';
+import galleryImage5 from '@assets/meeseeks-25-person-boat.jpg';
+import galleryImage6 from '@assets/clever-girl-50-person-boat.jpg';
+import galleryImage7 from '@assets/bachelor-party-group-guys.jpg';
+import galleryImage8 from '@assets/giant-unicorn-float.jpg';
+import galleryImage9 from '@assets/atx-disco-cruise-party.jpg';
+import galleryImage10 from '@assets/dancing-party-scene.jpg';
+import galleryImage11 from '@assets/party-atmosphere-1.jpg';
+import galleryImage12 from '@assets/party-atmosphere-2.jpg';
+import galleryImage13 from '@assets/party-atmosphere-3.jpg';
+import galleryImage14 from '@assets/day-tripper-14-person-boat.jpg';
 
 // Comprehensive Gallery data structure - ALL real Premier Party Cruises photos
 const galleryImages = [

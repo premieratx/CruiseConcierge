@@ -25,8 +25,8 @@ import heroImage1 from '@assets/party-atmosphere-1.jpg';
 import heroImage2 from '@assets/party-atmosphere-2.jpg';
 import heroImage3 from '@assets/dancing-party-scene.jpg';
 import galleryImage1 from '@assets/atx-disco-cruise-party.jpg';
-import galleryImage2 from '@assets/image_1757884902886.png';
-import galleryImage3 from '@assets/image_1757877906674.png';
+import galleryImage2 from '@assets/bachelor-party-group-guys.jpg';
+import galleryImage3 from '@assets/giant-unicorn-float.jpg';
 
 // Animation variants
 const fadeInUp = {
