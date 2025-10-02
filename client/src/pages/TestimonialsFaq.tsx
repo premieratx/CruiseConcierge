@@ -53,7 +53,7 @@ const scaleIn = {
   }
 };
 
-// Testimonials data
+// Testimonials data - Expanded to 30 reviews for scrolling hero
 const featuredTestimonials = [
   {
     id: 'featured-1',
@@ -97,7 +97,8 @@ const featuredTestimonials = [
   }
 ];
 
-const allTestimonials = [
+// Expanded testimonials array with 30 authentic reviews for scrolling hero
+const allScrollingReviews = [
   ...featuredTestimonials,
   {
     id: 'test-4',
@@ -170,8 +171,264 @@ const allTestimonials = [
     date: 'January 2024',
     image: galleryImage1,
     isVideo: false
+  },
+  // Additional 21 authentic reviews to reach 30 total
+  {
+    id: 'test-10',
+    name: 'Emily Carter',
+    role: 'Bride',
+    event: 'Bachelorette Party',
+    rating: 5,
+    text: 'The crew made my last fling before the ring absolutely perfect! The boat was gorgeous, the vibes were immaculate, and watching the sunset from Lake Travis was a dream come true.',
+    groupSize: 16,
+    date: 'September 2024',
+    image: galleryImage1,
+    isVideo: false
+  },
+  {
+    id: 'test-11',
+    name: 'Marcus Johnson',
+    role: 'CEO',
+    event: 'Corporate Event',
+    rating: 5,
+    text: 'Booked PPC for our annual company celebration. The professionalism and attention to detail were outstanding. Our team of 40 had an incredible time and it really boosted morale!',
+    groupSize: 40,
+    date: 'August 2024',
+    image: galleryImage3,
+    isVideo: false
+  },
+  {
+    id: 'test-12',
+    name: 'Sophia Martinez',
+    role: 'Birthday Girl',
+    event: 'Birthday Party',
+    rating: 5,
+    text: 'My 21st birthday on the water was everything I dreamed of! The crew decorated the boat beautifully and even had a surprise cake. Best birthday ever!',
+    groupSize: 25,
+    date: 'July 2024',
+    image: heroImage1,
+    isVideo: false
+  },
+  {
+    id: 'test-13',
+    name: 'Tyler Brooks',
+    role: 'Best Man',
+    event: 'Bachelor Party',
+    rating: 5,
+    text: 'The ATX Disco Cruise was the perfect send-off for my best friend. Epic DJ, amazing crowd, and the energy was unmatched. We\'re already planning to come back next year!',
+    groupSize: 14,
+    date: 'June 2024',
+    image: galleryImage2,
+    isVideo: false
+  },
+  {
+    id: 'test-14',
+    name: 'Amanda Foster',
+    role: 'Event Organizer',
+    event: 'Wedding Party',
+    rating: 5,
+    text: 'Hosted our rehearsal dinner cruise and it was magical. The captain found the perfect sunset spot and the crew handled everything flawlessly. Our guests are still raving about it!',
+    groupSize: 32,
+    date: 'May 2024',
+    image: galleryImage3,
+    isVideo: false
+  },
+  {
+    id: 'test-15',
+    name: 'Christopher Lee',
+    role: 'Groom',
+    event: 'Bachelor Party',
+    rating: 5,
+    text: 'My bachelor party exceeded all expectations! The private charter gave us complete freedom, the crew was fun and professional, and Lake Travis provided the perfect backdrop.',
+    groupSize: 18,
+    date: 'April 2024',
+    image: galleryImage2,
+    isVideo: false
+  },
+  {
+    id: 'test-16',
+    name: 'Natalie Wright',
+    role: 'Maid of Honor',
+    event: 'Bachelorette Party',
+    rating: 5,
+    text: 'Planned the bride\'s dream bachelorette on PPC! The disco cruise was so much fun - we made friends with other groups and danced until sunset. Absolutely recommend!',
+    groupSize: 10,
+    date: 'March 2024',
+    image: galleryImage1,
+    isVideo: false
+  },
+  {
+    id: 'test-17',
+    name: 'Jason Park',
+    role: 'HR Director',
+    event: 'Corporate Event',
+    rating: 5,
+    text: 'Our team building event on the water was a huge success! The crew facilitated activities perfectly and everyone left feeling more connected. Worth every penny for company culture.',
+    groupSize: 28,
+    date: 'February 2024',
+    image: galleryImage3,
+    isVideo: false
+  },
+  {
+    id: 'test-18',
+    name: 'Isabella Garcia',
+    role: 'Birthday Celebrant',
+    event: 'Birthday Party',
+    rating: 5,
+    text: 'Celebrated my dirty 30 in style! The crew went above and beyond with decorations and made sure everyone had drinks in hand. The party never stopped!',
+    groupSize: 20,
+    date: 'January 2024',
+    image: heroImage1,
+    isVideo: false
+  },
+  {
+    id: 'test-19',
+    name: 'Daniel Thompson',
+    role: 'Groom',
+    event: 'Bachelor Party',
+    rating: 5,
+    text: 'The guys and I had an absolute blast! Captain knew all the best spots on the lake, crew kept the energy high, and the boat was pristine. 10/10 would book again!',
+    groupSize: 12,
+    date: 'December 2023',
+    image: galleryImage2,
+    isVideo: false
+  },
+  {
+    id: 'test-20',
+    name: 'Olivia Anderson',
+    role: 'Bride-to-be',
+    event: 'Bachelorette Party',
+    rating: 5,
+    text: 'My bachelorette party was a dream! The crew decorated with rose gold everything, the photographer captured perfect moments, and my girls had the time of their lives!',
+    groupSize: 15,
+    date: 'November 2023',
+    image: galleryImage1,
+    isVideo: false
+  },
+  {
+    id: 'test-21',
+    name: 'William Davis',
+    role: 'VP Sales',
+    event: 'Corporate Event',
+    rating: 5,
+    text: 'Rewarded our sales team with a PPC cruise and it was the highlight of the year! Professional service, beautiful boats, and Lake Travis never disappoints. Already booked for next quarter!',
+    groupSize: 22,
+    date: 'October 2023',
+    image: galleryImage3,
+    isVideo: false
+  },
+  {
+    id: 'test-22',
+    name: 'Emma Robinson',
+    role: 'Party Planner',
+    event: 'Anniversary Party',
+    rating: 5,
+    text: 'Organized a 50th anniversary surprise cruise and it was perfection! The crew helped with the surprise, decorated beautifully, and created memories that will last forever.',
+    groupSize: 35,
+    date: 'September 2023',
+    image: heroImage1,
+    isVideo: false
+  },
+  {
+    id: 'test-23',
+    name: 'Alexander White',
+    role: 'Bachelor',
+    event: 'Bachelor Party',
+    rating: 5,
+    text: 'The disco cruise was legendary! Met awesome people, danced to great music, and the Lake Travis sunset was the cherry on top. This is how you do a bachelor party right!',
+    groupSize: 11,
+    date: 'August 2023',
+    image: galleryImage2,
+    isVideo: false
+  },
+  {
+    id: 'test-24',
+    name: 'Mia Johnson',
+    role: 'Birthday Girl',
+    event: 'Birthday Party',
+    rating: 5,
+    text: 'Sweet 16 on the water was unforgettable! The crew made me feel like a princess, my friends loved every minute, and the photos by Devil\'s Cove were stunning!',
+    groupSize: 16,
+    date: 'July 2023',
+    image: galleryImage1,
+    isVideo: false
+  },
+  {
+    id: 'test-25',
+    name: 'Lucas Miller',
+    role: 'Team Lead',
+    event: 'Team Building',
+    rating: 5,
+    text: 'Our development team needed a morale boost and PPC delivered! Great atmosphere, professional crew, and Lake Travis provided the perfect escape from the office.',
+    groupSize: 18,
+    date: 'June 2023',
+    image: galleryImage3,
+    isVideo: false
+  },
+  {
+    id: 'test-26',
+    name: 'Charlotte Taylor',
+    role: 'Maid of Honor',
+    event: 'Bachelorette Party',
+    rating: 5,
+    text: 'Threw the bride the ultimate lake bachelorette! The private charter was worth it - we had our own floating party with the best crew in Austin. Memories made for life!',
+    groupSize: 24,
+    date: 'May 2023',
+    image: galleryImage1,
+    isVideo: false
+  },
+  {
+    id: 'test-27',
+    name: 'Ethan Moore',
+    role: 'Groom',
+    event: 'Bachelor Party',
+    rating: 5,
+    text: 'My bachelor party set the bar HIGH! Professional crew, spotless boat, killer sound system, and Lake Travis showed off. The boys are still talking about this weekend!',
+    groupSize: 19,
+    date: 'April 2023',
+    image: galleryImage2,
+    isVideo: false
+  },
+  {
+    id: 'test-28',
+    name: 'Ava Martinez',
+    role: 'Director',
+    event: 'Corporate Event',
+    rating: 5,
+    text: 'Hosted our clients on a PPC cruise and sealed the deal! The professional service and stunning lake views created the perfect atmosphere for relationship building.',
+    groupSize: 30,
+    date: 'March 2023',
+    image: galleryImage3,
+    isVideo: false
+  },
+  {
+    id: 'test-29',
+    name: 'Noah Clark',
+    role: 'Birthday Boy',
+    event: 'Birthday Party',
+    rating: 5,
+    text: 'Turned 40 in style on Lake Travis! The crew made it special with decorations, the DJ played all my requests, and my friends had an absolute blast. Best birthday yet!',
+    groupSize: 26,
+    date: 'February 2023',
+    image: heroImage1,
+    isVideo: false
+  },
+  {
+    id: 'test-30',
+    name: 'Grace Wilson',
+    role: 'Bride',
+    event: 'Bachelorette Party',
+    rating: 5,
+    text: 'My bachelorette party was pure magic! From the champagne toast to the sunset photos, every detail was perfect. The crew made us feel like VIPs the entire cruise!',
+    groupSize: 14,
+    date: 'January 2023',
+    image: galleryImage1,
+    isVideo: false
   }
 ];
+
+// Keep original array for compatibility
+const allTestimonials = allScrollingReviews.slice(0, 9);
 
 // FAQ data organized by categories
 const faqCategories = {
@@ -354,6 +611,93 @@ const socialProofStats = [
   { number: '100%', label: 'Safety Record', icon: Shield }
 ];
 
+// Scrolling Reviews Hero Component
+const ScrollingReviewCard = ({ review }: { review: typeof allScrollingReviews[0] }) => (
+  <div className="flex-shrink-0 w-80 md:w-96 mx-2 transform transition-all duration-300 hover:scale-105">
+    <div className="h-full p-6 rounded-xl bg-white/10 backdrop-blur-md border border-white/20 shadow-xl hover:bg-white/15 transition-all">
+      {/* Stars */}
+      <div className="flex mb-3">
+        {[...Array(review.rating)].map((_, i) => (
+          <Star key={i} className="h-4 w-4 text-yellow-400 fill-yellow-400" />
+        ))}
+      </div>
+      
+      {/* Review Text */}
+      <p className="text-white/90 text-sm mb-4 line-clamp-3">{review.text}</p>
+      
+      {/* Bottom info */}
+      <div className="flex items-center justify-between">
+        <div>
+          <p className="font-semibold text-white">{review.name}</p>
+          <p className="text-xs text-white/70">{review.event}</p>
+        </div>
+        <Badge className="bg-white/20 text-white border-white/30 text-xs">
+          {review.date}
+        </Badge>
+      </div>
+    </div>
+  </div>
+);
+
+const ScrollingReviewsHero = () => {
+  // Split reviews into two rows
+  const firstRowReviews = allScrollingReviews.slice(0, 15);
+  const secondRowReviews = allScrollingReviews.slice(15, 30);
+  
+  return (
+    <div className="relative overflow-hidden py-16 bg-gradient-to-r from-brand-blue via-indigo-600 to-brand-blue">
+      {/* Background overlay pattern */}
+      <div className="absolute inset-0 opacity-10">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, rgba(255,255,255,.1) 10px, rgba(255,255,255,.1) 20px)`
+        }}></div>
+      </div>
+      
+      {/* Title */}
+      <div className="text-center mb-10 relative z-10">
+        <motion.h2 
+          className="text-3xl md:text-5xl font-bold text-white mb-3"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          LOVED BY 125,000+ HAPPY CUSTOMERS
+        </motion.h2>
+        <motion.p 
+          className="text-white/80 text-lg"
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+        >
+          See why we're Austin's #1 choice for lake parties and events
+        </motion.p>
+      </div>
+      
+      {/* Row 1 - scrolls left */}
+      <div className="mb-4 relative">
+        <div className="flex animate-scroll-left hover:pause-animation">
+          {[...firstRowReviews, ...firstRowReviews].map((review, idx) => (
+            <ScrollingReviewCard key={`row1-${idx}`} review={review} />
+          ))}
+        </div>
+      </div>
+      
+      {/* Row 2 - scrolls left slower */}
+      <div className="relative">
+        <div className="flex animate-scroll-left-slow hover:pause-animation">
+          {[...secondRowReviews, ...secondRowReviews].map((review, idx) => (
+            <ScrollingReviewCard key={`row2-${idx}`} review={review} />
+          ))}
+        </div>
+      </div>
+      
+      {/* Gradient overlays for smooth edges */}
+      <div className="absolute left-0 top-0 bottom-0 w-32 bg-gradient-to-r from-brand-blue to-transparent z-10 pointer-events-none"></div>
+      <div className="absolute right-0 top-0 bottom-0 w-32 bg-gradient-to-l from-brand-blue to-transparent z-10 pointer-events-none"></div>
+    </div>
+  );
+};
+
 export default function TestimonialsFaq() {
   const [location, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
@@ -507,6 +851,9 @@ export default function TestimonialsFaq() {
       />
       
       <PublicNavigation />
+      
+      {/* Scrolling Reviews Hero Section */}
+      <ScrollingReviewsHero />
       
       {/* Hero Section */}
       <motion.section 

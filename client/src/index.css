@@ -597,3 +597,51 @@
     transform: translateY(0) scale(1); 
   }
 }
+
+/* Scrolling Reviews Animations */
+@keyframes scroll-left {
+  0% { 
+    transform: translateX(0); 
+  }
+  100% { 
+    transform: translateX(-50%); 
+  }
+}
+
+@keyframes scroll-left-slow {
+  0% { 
+    transform: translateX(0); 
+  }
+  100% { 
+    transform: translateX(-50%); 
+  }
+}
+
+.animate-scroll-left {
+  animation: scroll-left 30s linear infinite;
+}
+
+.animate-scroll-left-slow {
+  animation: scroll-left-slow 40s linear infinite;
+}
+
+.hover\:pause-animation:hover {
+  animation-play-state: paused;
+}
+
+/* Glass morphism effect */
+.glass-morphism {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* Line clamp utility for review text */
+.line-clamp-3 {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
