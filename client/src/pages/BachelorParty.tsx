@@ -685,8 +685,8 @@ export default function BachelorParty() {
                           <item.icon className="h-6 w-6 text-brand-yellow" />
                         </div>
                         <div>
-                          <h3 className="font-semibold mb-1">{item.title}</h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
+                          <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">{item.description}</p>
                         </div>
                       </div>
                     </motion.div>

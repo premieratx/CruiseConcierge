@@ -726,8 +726,8 @@ export default function BacheloretteParty() {
                           <item.icon className="h-6 w-6 text-pink-600 dark:text-pink-400" />
                         </div>
                         <div>
-                          <h3 className="font-semibold mb-1" data-editable data-editable-id={`bachelorette-included-item-${index}-title`}>{item.title}</h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-400" data-editable data-editable-id={`bachelorette-included-item-${index}-description`}>{item.description}</p>
+                          <h3 className="font-semibold text-lg mb-2" data-editable data-editable-id={`bachelorette-included-item-${index}-title`}>{item.title}</h3>
+                          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed" data-editable data-editable-id={`bachelorette-included-item-${index}-description`}>{item.description}</p>
                         </div>
                       </div>
                     </motion.div>
