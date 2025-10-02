@@ -1,6 +1,25 @@
 import { Helmet } from 'react-helmet-async';
+import { useEffect, useRef } from 'react';
 
 export default function QuoteBuilderEmbed() {
+  const iframeRef = useRef<HTMLIFrameElement>(null);
+
+  useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (!event.origin.includes('supabase.co')) return;
+      
+      if (event.data.type === 'quote-widget-height' && iframeRef.current) {
+        iframeRef.current.style.height = event.data.height + 'px';
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+
+    return () => {
+      window.removeEventListener('message', handleMessage);
+    };
+  }, []);
+
   return (
     <>
       <Helmet>
@@ -21,19 +40,20 @@ export default function QuoteBuilderEmbed() {
           </div>
         </div>
 
-        {/* Full-Width Iframe Container */}
-        <div className="flex-1 w-full">
+        {/* Quote Widget Container */}
+        <div id="quote-widget-container" className="flex-1 w-full" style={{ minHeight: '600px' }}>
           <iframe 
-            src="https://ca5498b2-d709-4ed6-b336-83205a3bd76f.lovableproject.com/quote-widget" 
-            width="100%" 
-            height="100%" 
-            frameBorder="0" 
+            ref={iframeRef}
+            id="quote-widget-iframe"
+            src="https://tgambsdjfwgoohkqopns.supabase.co/functions/v1/get-quote-widget" 
             style={{ 
+              width: '100%', 
+              height: '600px', 
               border: 'none', 
-              minHeight: '1200px',
-              display: 'block'
+              display: 'block' 
             }}
-            title="Quote Builder"
+            title="Get Your Quote"
+            allow="payment"
             data-testid="iframe-quote-builder"
           />
         </div>
