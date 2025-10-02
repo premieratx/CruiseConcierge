@@ -1,0 +1,470 @@
+[
+  {
+    "lineNumber": 529,
+    "content": "app.post(\"/api/quotes/from-chat\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 900,
+    "content": "app.get(\"/api/quotes/public/:token\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 1085,
+    "content": "app.post(\"/api/leads/quote-builder\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 3074,
+    "content": "app.post(\"/api/quotes/initialize\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 3121,
+    "content": "app.patch(\"/api/quotes/public/:token\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 3341,
+    "content": "app.post(\"/api/discounts/validate\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 3341,
+    "content": "app.post(\"/api/discounts/validate\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 3495,
+    "content": "app.get(\"/api/quotes/recent\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 3547,
+    "content": "app.get(\"/api/invoices/recent\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 3573,
+    "content": "app.post(\"/api/partial-leads/save\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 3837,
+    "content": "app.post(\"/api/partial-leads/:sessionId/abandon\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 4114,
+    "content": "app.get(\"/api/invoices/:id\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 4542,
+    "content": "app.post(\"/api/chat/message\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 4771,
+    "content": "app.post(\"/api/chat/booking\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 5293,
+    "content": "app.get(\"/api/chat/history/:sessionId\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 5385,
+    "content": "app.get(\"/api/availability\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 5454,
+    "content": "app.post(\"/api/availability/check\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 5506,
+    "content": "app.get(\"/api/availability/weekly\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 5592,
+    "content": "app.get(\"/api/availability/search\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 6228,
+    "content": "app.post(\"/api/availability/hold\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 6286,
+    "content": "app.post(\"/api/availability/release\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 6344,
+    "content": "app.get(\"/api/contacts/:id\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 6357,
+    "content": "app.post(\"/api/contacts\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 6400,
+    "content": "app.get(\"/api/contacts/clients\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 6411,
+    "content": "app.post(\"/api/leads\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 6525,
+    "content": "app.patch(\"/api/leads/:leadId\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 6561,
+    "content": "app.get(\"/api/leads/:leadId\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 6590,
+    "content": "app.get(\"/api/leads\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 6607,
+    "content": "app.post(\"/api/leads/immediate\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 6729,
+    "content": "app.get(\"/api/projects\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 6758,
+    "content": "app.post(\"/api/projects\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 6778,
+    "content": "app.patch(\"/api/projects/:id\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 6892,
+    "content": "app.post(\"/api/quotes\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 6934,
+    "content": "app.put(\"/api/quotes/:id\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 6947,
+    "content": "app.post(\"/api/quotes/:id/send\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 7063,
+    "content": "app.get(\"/api/quotes/:id\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 7077,
+    "content": "app.get(\"/api/quotes\", requireAdminAuth, requirePermission('read'), async (req, res) => {"
+  },
+  {
+    "lineNumber": 7108,
+    "content": "app.get(\"/api/projects/:projectId/quotes\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 7510,
+    "content": "app.patch(\"/api/quotes/:id/acceptance\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 7664,
+    "content": "app.get(\"/api/quotes/:id/public\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 7803,
+    "content": "app.patch(\"/api/quotes/:id/selections\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 7926,
+    "content": "app.post(\"/api/quotes/:id/clone\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 7958,
+    "content": "app.post(\"/api/quotes/check-expiration\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 7990,
+    "content": "app.post(\"/api/quotes/:id/recalculate-public\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 8053,
+    "content": "app.post(\"/api/quotes/:id/sign\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 8479,
+    "content": "app.post(\"/api/checkout/create-session\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 8807,
+    "content": "app.post(\"/api/checkout/verify\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 9068,
+    "content": "app.post(\"/api/webhooks/stripe\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 9657,
+    "content": "app.post(\"/api/quote-templates/seed\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 9712,
+    "content": "app.get(\"/api/quote-templates\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 9730,
+    "content": "app.get(\"/api/quote-templates/:id\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 9743,
+    "content": "app.post(\"/api/quote-templates\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 9757,
+    "content": "app.put(\"/api/quote-templates/:id\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 9770,
+    "content": "app.delete(\"/api/quote-templates/:id\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 9843,
+    "content": "app.get(\"/api/discount-rules\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 9861,
+    "content": "app.get(\"/api/discount-rules/by-code/:code\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 9874,
+    "content": "app.post(\"/api/discount-rules\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 9888,
+    "content": "app.put(\"/api/discount-rules/:id\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 9901,
+    "content": "app.delete(\"/api/discount-rules/:id\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 10277,
+    "content": "app.get(\"/api/quotes/:id/render\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 10300,
+    "content": "app.post(\"/api/quotes/:id/apply-rules\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 10328,
+    "content": "app.post(\"/api/contacts/find-or-create\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 10344,
+    "content": "app.post(\"/api/projects/from-chat-data\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 10374,
+    "content": "app.post(\"/api/quotes/from-template\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 10429,
+    "content": "app.post(\"/api/quotes/:id/recalculate\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 10725,
+    "content": "app.post(\"/api/quotes/:id/generate-invoice\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 10768,
+    "content": "app.get(\"/api/invoices\", requireAdminAuth, requirePermission('read'), async (req, res) => {"
+  },
+  {
+    "lineNumber": 10802,
+    "content": "app.post(\"/api/invoices\", requireAdminAuth, requirePermission('edit'), async (req, res) => {"
+  },
+  {
+    "lineNumber": 10887,
+    "content": "app.put(\"/api/invoices/:id\", requireAdminAuth, requirePermission('edit'), async (req, res) => {"
+  },
+  {
+    "lineNumber": 10955,
+    "content": "app.post(\"/api/invoices/:id/send\", requireAdminAuth, requirePermission('edit'), async (req, res) => "
+  },
+  {
+    "lineNumber": 10991,
+    "content": "app.post(\"/api/invoices/:id/send-reminder\", requireAdminAuth, requirePermission('edit'), async (req,"
+  },
+  {
+    "lineNumber": 11022,
+    "content": "app.patch(\"/api/invoices/:id/mark-paid\", requireAdminAuth, requirePermission('edit'), async (req, re"
+  },
+  {
+    "lineNumber": 11139,
+    "content": "app.delete(\"/api/invoices/:id\", requireAdminAuth, requirePermission('full'), async (req, res) => {"
+  },
+  {
+    "lineNumber": 11177,
+    "content": "app.post(\"/api/quotes/:id/convert-to-invoice\", requireAdminAuth, requirePermission('edit'), async (r"
+  },
+  {
+    "lineNumber": 11392,
+    "content": "app.post(\"/api/webhook/test\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 11749,
+    "content": "app.post(\"/api/checkout/validate\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 11861,
+    "content": "app.post(\"/api/checkout/create-payment-intent\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12059,
+    "content": "app.get(\"/api/calendar/month\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12081,
+    "content": "app.get(\"/api/bookings\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12103,
+    "content": "app.post(\"/api/bookings\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12140,
+    "content": "app.patch(\"/api/bookings/:id\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12180,
+    "content": "app.delete(\"/api/bookings/:id\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12207,
+    "content": "app.get(\"/api/disco/slots\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12228,
+    "content": "app.post(\"/api/disco/slots\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12262,
+    "content": "app.post(\"/api/disco/slots/:id/purchase\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12317,
+    "content": "app.patch(\"/api/disco/slots/:id\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12406,
+    "content": "app.get(\"/api/disco/slots/:id\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12430,
+    "content": "app.get(\"/api/availability/slot\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12574,
+    "content": "app.get(\"/api/timeframes\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12591,
+    "content": "app.post(\"/api/timeframes\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12611,
+    "content": "app.put(\"/api/timeframes/:id\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12629,
+    "content": "app.delete(\"/api/timeframes/:id\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12652,
+    "content": "app.get(\"/api/timeframes/generate\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12856,
+    "content": "app.get(\"/api/availability/check\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12887,
+    "content": "app.get(\"/api/availability/boats\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12916,
+    "content": "app.post(\"/api/timeframes/toggle-availability\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 12975,
+    "content": "app.post(\"/api/disco/slots/:id/update-quantity\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 13018,
+    "content": "app.post(\"/api/bookings/:id/reassign\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 13053,
+    "content": "app.put(\"/api/bookings/:id\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 13112,
+    "content": "app.get(\"/api/bookings/comprehensive\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 14174,
+    "content": "app.get(\"/api/availability/public\", publicRateLimit(50), async (req, res) => {"
+  },
+  {
+    "lineNumber": 14368,
+    "content": "app.get(\"/api/disco/availability/public\", publicRateLimit(50), async (req, res) => {"
+  },
+  {
+    "lineNumber": 14542,
+    "content": "app.post(\"/api/bookings/public\", publicRateLimit(10), async (req, res) => {"
+  },
+  {
+    "lineNumber": 15633,
+    "content": "app.get(\"/api/customers/:id/profile\", requireAdminAuth, requirePermission('read'), async (req, res) "
+  },
+  {
+    "lineNumber": 15660,
+    "content": "app.get(\"/api/customers/:id/chat-history\", requireAdminAuth, requirePermission('read'), async (req, "
+  },
+  {
+    "lineNumber": 15680,
+    "content": "app.get(\"/api/customers/:id/files\", requireAdminAuth, requirePermission('read'), async (req, res) =>"
+  },
+  {
+    "lineNumber": 15700,
+    "content": "app.get(\"/api/customers/:id/quote-analytics\", requireAdminAuth, requirePermission('read'), async (re"
+  },
+  {
+    "lineNumber": 15720,
+    "content": "app.get(\"/api/customers/:id/payments\", requireAdminAuth, requirePermission('read'), async (req, res)"
+  },
+  {
+    "lineNumber": 15740,
+    "content": "app.get(\"/api/customers/:id/activity\", requireAdminAuth, requirePermission('read'), async (req, res)"
+  },
+  {
+    "lineNumber": 15765,
+    "content": "app.get(\"/api/customers/:id/lifecycle\", requireAdminAuth, requirePermission('read'), async (req, res"
+  },
+  {
+    "lineNumber": 15789,
+    "content": "app.put(\"/api/customers/:id/lifecycle/stage\", requireAdminAuth, requirePermission('edit'), async (re"
+  },
+  {
+    "lineNumber": 15825,
+    "content": "app.post(\"/api/customers/:id/activity\", requireAdminAuth, requirePermission('edit'), async (req, res"
+  },
+  {
+    "lineNumber": 15852,
+    "content": "app.post(\"/api/quotes/:id/track-view\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 15883,
+    "content": "app.get(\"/api/quotes/:id/analytics\", requireAdminAuth, requirePermission('read'), async (req, res) ="
+  },
+  {
+    "lineNumber": 15973,
+    "content": "app.post(\"/api/webhooks/mailgun\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 20558,
+    "content": "app.get(\"/api/availability/grid\", async (req, res) => {"
+  },
+  {
+    "lineNumber": 20580,
+    "content": "app.post(\"/api/availability/check-with-rules\", async (req, res) => {"
+  }
+]

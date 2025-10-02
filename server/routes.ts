@@ -518,15 +518,28 @@ Current request type: ${metadata.requestType || 'general'}`;
   }
 }
 
-// ==========================================
-// QUOTE CREATION FROM CHAT
-// ==========================================
+// Helper function to format time ago for display
+function getTimeAgo(date: Date): string {
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffMins = Math.floor(diffMs / (1000 * 60));
+  const diffHours = Math.floor(diffMs / (1000 * 60 * 60));
+  const diffDays = Math.floor(diffMs / (1000 * 60 * 60 * 24));
 
-/**
- * Creates a quote from the chat flow with all selections
- */
-export async function createQuoteFromChat(app: Express) {
-  app.post("/api/quotes/from-chat", async (req, res) => {
+  if (diffMins < 1) return 'Just now';
+  if (diffMins < 60) return `${diffMins} minute${diffMins > 1 ? 's' : ''} ago`;
+  if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+  return `${diffDays} day${diffDays > 1 ? 's' : ''} ago`;
+}
+
+export async function registerRoutes(app: Express): Promise<Server> {
+  
+  // ==========================================
+  // PRICING VERIFICATION ENDPOINTS
+  // ==========================================
+  
+  // Verify pricing against Google Sheets - CRITICAL for accuracy
+  app.post('/api/pricing/verify', async (req, res) => {
     try {
       const {
         // Contact information
