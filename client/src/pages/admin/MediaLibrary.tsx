@@ -114,14 +114,13 @@ function EditModal({ photo, isOpen, onClose, onEditComplete }: EditModalProps) {
   const handleEdit = async () => {
     setIsEditing(true);
     try {
-      const response = await apiRequest('POST', '/api/media/edit-photo', {
+      const result = await apiRequest('POST', '/api/media/edit-photo', {
         photoId: photo.id,
         editType,
         editPrompt,
         userId: 'admin'
       });
 
-      const result = await response.json();
       if (result.success) {
         onEditComplete(result.editedPhoto);
         toast({
@@ -164,7 +163,7 @@ function EditModal({ photo, isOpen, onClose, onEditComplete }: EditModalProps) {
           <div className="flex gap-4">
             <div className="flex-1">
               <img 
-                src={photo.filePath} 
+                src={getMediaViewUrl(photo.id)} 
                 alt={photo.originalName} 
                 className="w-full h-48 object-cover rounded-lg"
               />
@@ -218,6 +217,11 @@ function EditModal({ photo, isOpen, onClose, onEditComplete }: EditModalProps) {
       </DialogContent>
     </Dialog>
   );
+}
+
+// Helper function to get viewable media URL by ID
+function getMediaViewUrl(mediaId: string): string {
+  return `/api/media/view/${mediaId}`;
 }
 
 export default function MediaLibrary() {
@@ -723,7 +727,7 @@ export default function MediaLibrary() {
                   ) : (
                     <div className="relative">
                       <img
-                        src={`/objects${item.filePath}`}
+                        src={getMediaViewUrl(item.id)}
                         alt={item.originalName || item.filename}
                         className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-200"
                         loading="lazy"
@@ -806,7 +810,7 @@ export default function MediaLibrary() {
                           size="sm"
                           variant="outline"
                           className="flex-1"
-                          onClick={() => window.open(item.filePath, '_blank')}
+                          onClick={() => window.open(getMediaViewUrl(item.id), '_blank')}
                           data-testid={`button-view-media-${item.id}`}
                         >
                           <Eye className="h-3 w-3 mr-1" />

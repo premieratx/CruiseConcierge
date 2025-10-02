@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import Stripe from "stripe";
 import path from "path";
+import { db } from "./db";
 
 // Augment Express Request type to include our custom properties
 declare module 'express-serve-static-core' {
@@ -18876,6 +18877,36 @@ Provide comprehensive validation with specific recommendations for improvement.`
     } catch (error) {
       console.error('Library fetch error:', error);
       res.status(500).json({ error: 'Failed to fetch media library' });
+    }
+  });
+
+  // View media file by ID - PUBLIC (for easy viewing without auth headers)
+  app.get('/api/media/view/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      
+      // Query media item from database
+      const mediaItem = await db.query.mediaItems.findFirst({
+        where: (mediaItems, { eq }) => eq(mediaItems.id, id)
+      });
+      
+      if (!mediaItem) {
+        return res.status(404).json({ error: 'Media not found' });
+      }
+      
+      // Get object storage service
+      const ObjectStorageServiceClass = await getObjectStorageService();
+      if (!ObjectStorageServiceClass) {
+        return res.status(500).json({ error: 'Object storage service unavailable' });
+      }
+      const objectStorageService = new ObjectStorageServiceClass();
+      const objectFile = await objectStorageService.getObjectEntityFile(mediaItem.filePath);
+      
+      // Stream the file
+      await objectStorageService.downloadObject(objectFile, res);
+    } catch (error) {
+      console.error('Error viewing media:', error);
+      res.status(500).json({ error: 'Failed to load media' });
     }
   });
 
