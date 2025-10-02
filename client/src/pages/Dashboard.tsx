@@ -80,11 +80,11 @@ export default function Dashboard() {
               </span>
             </div>
 
-            {/* Real-time Notifications Badge */}
+            {/* Real-time Notifications Badge - Disabled until new leads system */}
             <Button 
               variant="outline" 
               size="sm"
-              onClick={() => setLocation('/leads')}
+              disabled
               className="relative"
               data-testid="button-notifications"
             >

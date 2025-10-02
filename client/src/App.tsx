@@ -207,6 +207,11 @@ function Router() {
       <Route path="/demo-content" component={lazy(() => import('./pages/DemoContentPage'))} />
       
       {/* Public Blog Routes - Specific routes must come before generic ones */}
+      <Route path="/blog" component={Blog} />
+      <Route path="/blog/category/:slug" component={BlogCategory} />
+      <Route path="/blog/tag/:slug" component={BlogTag} />
+      <Route path="/blog/author/:id" component={BlogAuthor} />
+      <Route path="/blog/:slug" component={BlogPost} />
       <Route path="/blogs" component={Blog} />
       <Route path="/blogs/category/:slug" component={BlogCategory} />
       <Route path="/blogs/tag/:slug" component={BlogTag} />
