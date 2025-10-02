@@ -67,6 +67,24 @@ The platform now uses a **unified availability system** that serves as the singl
 - Pricing always comes from `server/config/staticPricing.ts`
 - Future: May integrate Google Sheets availability data with normalized slot system
 
+### Lovable Quote Builder Integration (Oct 2, 2025)
+The quote builder functionality now uses an **external Lovable application** embedded via iframe at `/chat`. This architectural decision was made to:
+- Avoid complex migration of Supabase edge functions and RLS policies
+- Leverage Lovable's real-time booking system with minimal integration effort
+- Maintain clean separation between CRM (Replit) and booking flow (Lovable)
+
+**Implementation Details:**
+- **Route:** `/chat` displays full-width iframe embed
+- **Lovable URL:** `https://ca5498b2-d709-4ed6-b336-83205a3bd76f.lovableproject.com/quote-widget`
+- **Layout:** Full-width responsive design with gradient header
+- **Integration:** Zero-friction embed - Lovable handles all booking logic, availability, and Stripe payments
+
+**Benefits:**
+- No migration complexity (avoided 32-49 hours of edge function rewrites)
+- Lovable handles updates and maintenance
+- Clean separation of concerns
+- Fast deployment with zero risk
+
 ### UI/UX Decisions
 The system features a progressive booking flow designed for an intuitive user experience. Admin dashboards include a calendar view for visual booking management, a leads pipeline, and a comprehensive booking table. The UI prioritizes transparent pricing breakdowns and clear display of boat capacities. Design uses Tailwind CSS and shadcn/ui components for a modern and consistent look.
 
