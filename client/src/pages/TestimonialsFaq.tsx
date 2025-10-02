@@ -439,15 +439,15 @@ const ReviewCard = ({ review }: { review: typeof allScrollingReviews[0] }) => {
           <Star key={i} className="w-3 h-3 md:w-4 md:h-4 fill-yellow-500 text-yellow-500" />
         ))}
       </div>
-      <p className="text-xs md:text-sm text-gray-700 dark:text-gray-300 line-clamp-2 mb-2">
+      <p className="text-xs md:text-sm text-gray-700 dark:text-gray-300 line-clamp-2 mb-2" data-editable data-editable-id={`scrolling-review-text-${review.id}`}>
         "{review.text}"
       </p>
       <div className="flex justify-between items-end">
         <div>
-          <p className="font-semibold text-sm">{review.name}</p>
-          <p className="text-xs text-muted-foreground">{review.event}</p>
+          <p className="font-semibold text-sm" data-editable data-editable-id={`scrolling-review-name-${review.id}`}>{review.name}</p>
+          <p className="text-xs text-muted-foreground" data-editable data-editable-id={`scrolling-review-event-${review.id}`}>{review.event}</p>
         </div>
-        <p className="text-[10px] md:text-xs text-muted-foreground">{review.date}</p>
+        <p className="text-[10px] md:text-xs text-muted-foreground" data-editable data-editable-id={`scrolling-review-date-${review.id}`}>{review.date}</p>
       </div>
     </div>
   );
@@ -477,12 +477,12 @@ const ScrollingReviewsHero = () => {
         >
           <Badge className="mb-4 bg-brand-blue text-white">
             <Sparkles className="w-3 h-3 mr-1" />
-            30+ Amazing Reviews
+            <span data-editable data-editable-id="scrolling-hero-badge-text">30+ Amazing Reviews</span>
           </Badge>
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4">
+          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4" data-editable data-editable-id="scrolling-hero-heading">
             WHAT OUR CUSTOMERS SAY
           </h2>
-          <p className="text-sm md:text-lg text-muted-foreground max-w-2xl mx-auto">
+          <p className="text-sm md:text-lg text-muted-foreground max-w-2xl mx-auto" data-editable data-editable-id="scrolling-hero-subheading">
             Join thousands of happy customers who've experienced unforgettable moments on Lake Travis
           </p>
         </motion.div>
@@ -527,17 +527,17 @@ const ScrollingReviewsHero = () => {
               >
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <span className="font-semibold text-sm text-gray-900 dark:text-white">{review.name}</span>
-                    <span className="text-xs text-muted-foreground">• {review.event}</span>
+                    <span className="font-semibold text-sm text-gray-900 dark:text-white" data-editable data-editable-id={`mobile-review-name-${review.id}`}>{review.name}</span>
+                    <span className="text-xs text-muted-foreground" data-editable data-editable-id={`mobile-review-event-${review.id}`}>• {review.event}</span>
                   </div>
-                  <span className="text-[10px] text-muted-foreground">{review.date}</span>
+                  <span className="text-[10px] text-muted-foreground" data-editable data-editable-id={`mobile-review-date-${review.id}`}>{review.date}</span>
                 </div>
                 <div className="flex mb-2">
                   {[...Array(review.rating)].map((_, i) => (
                     <Star key={i} className="w-3 h-3 fill-yellow-400 text-yellow-400" />
                   ))}
                 </div>
-                <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-2">"{review.text}"</p>
+                <p className="text-sm text-gray-700 dark:text-gray-300 line-clamp-2" data-editable data-editable-id={`mobile-review-text-${review.id}`}>"{review.text}"</p>
               </motion.div>
             ))}
           </div>
@@ -547,7 +547,7 @@ const ScrollingReviewsHero = () => {
               animate={{ opacity: 1 }}
               transition={{ delay: 0.5 }}
             >
-              <span className="text-sm text-gray-600 dark:text-gray-400 font-semibold">View all 30+ reviews below</span>
+              <span className="text-sm text-gray-600 dark:text-gray-400 font-semibold" data-editable data-editable-id="scrolling-hero-mobile-cta">View all 30+ reviews below</span>
               <ArrowRight className="w-4 h-4 inline-block ml-1 animate-bounce-horizontal" />
             </motion.div>
           </div>
@@ -997,12 +997,16 @@ export default function TestimonialsFaq() {
             <motion.h2 
               variants={fadeInUp}
               className="text-2xl md:text-4xl lg:text-6xl font-heading font-bold mb-3 md:mb-6 text-gray-900 dark:text-white"
+              data-editable
+              data-editable-id="featured-reviews-heading"
             >
               FEATURED REVIEWS
             </motion.h2>
             <motion.p 
               variants={fadeInUp}
               className="text-sm md:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
+              data-editable
+              data-editable-id="featured-reviews-subheading"
             >
               Hear directly from our customers about their unforgettable experiences on Lake Travis.
             </motion.p>
@@ -1042,6 +1046,8 @@ export default function TestimonialsFaq() {
                             testimonial.badge === 'Video Available' && "bg-red-50 text-red-600 border-red-200",
                             testimonial.badge === 'Corporate' && "bg-blue-50 text-blue-600 border-blue-200"
                           )}
+                          data-editable
+                          data-editable-id={`featured-badge-${testimonial.id}`}
                         >
                           {testimonial.badge}
                         </Badge>
@@ -1062,19 +1068,19 @@ export default function TestimonialsFaq() {
                     
                     <Quote className="h-8 w-8 text-brand-blue mb-4 opacity-50" />
                     
-                    <blockquote className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+                    <blockquote className="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed" data-editable data-editable-id={`featured-text-${testimonial.id}`}>
                       "{testimonial.text}"
                     </blockquote>
                     
                     <div className="flex items-center justify-between">
                       <div>
-                        <div className="font-bold text-gray-900 dark:text-white">{testimonial.name}</div>
-                        <div className="text-sm text-gray-600 dark:text-gray-300">{testimonial.role}</div>
-                        <div className="text-xs text-gray-500 mt-1">{testimonial.date}</div>
+                        <div className="font-bold text-gray-900 dark:text-white" data-editable data-editable-id={`featured-name-${testimonial.id}`}>{testimonial.name}</div>
+                        <div className="text-sm text-gray-600 dark:text-gray-300" data-editable data-editable-id={`featured-role-${testimonial.id}`}>{testimonial.role}</div>
+                        <div className="text-xs text-gray-500 mt-1" data-editable data-editable-id={`featured-date-${testimonial.id}`}>{testimonial.date}</div>
                       </div>
                       <div className="text-right">
-                        <div className="text-sm font-semibold text-brand-blue">{testimonial.groupSize} guests</div>
-                        <div className="text-xs text-gray-600 dark:text-gray-300">{testimonial.event}</div>
+                        <div className="text-sm font-semibold text-brand-blue"><span data-editable data-editable-id={`featured-groupsize-${testimonial.id}`}>{testimonial.groupSize}</span> guests</div>
+                        <div className="text-xs text-gray-600 dark:text-gray-300" data-editable data-editable-id={`featured-event-${testimonial.id}`}>{testimonial.event}</div>
                       </div>
                     </div>
                   </div>
@@ -1094,7 +1100,7 @@ export default function TestimonialsFaq() {
                 <AccordionTrigger className="text-left px-4 py-3 hover:no-underline">
                   <div className="flex justify-between items-start w-full pr-4">
                     <div>
-                      <div className="font-semibold text-sm">{testimonial.name}</div>
+                      <div className="font-semibold text-sm" data-editable data-editable-id={`accordion-name-${testimonial.id}`}>{testimonial.name}</div>
                       <div className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
                         {[...Array(testimonial.rating)].map((_, i) => (
                           <Star key={i} className="h-3 w-3 text-yellow-400 fill-current" />
@@ -1102,18 +1108,18 @@ export default function TestimonialsFaq() {
                       </div>
                     </div>
                     <div className="text-right">
-                      <Badge variant="outline" className="text-xs mb-1">
+                      <Badge variant="outline" className="text-xs mb-1" data-editable data-editable-id={`accordion-event-${testimonial.id}`}>
                         {testimonial.event}
                       </Badge>
-                      <div className="text-xs text-muted-foreground">{testimonial.date}</div>
+                      <div className="text-xs text-muted-foreground" data-editable data-editable-id={`accordion-date-${testimonial.id}`}>{testimonial.date}</div>
                     </div>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="px-4 pb-3">
-                  <p className="text-sm text-muted-foreground mb-2">"{testimonial.text}"</p>
+                  <p className="text-sm text-muted-foreground mb-2" data-editable data-editable-id={`accordion-text-${testimonial.id}`}>"{testimonial.text}"</p>
                   <div className="flex justify-between text-xs text-gray-500">
-                    <span>{testimonial.role}</span>
-                    <span>{testimonial.groupSize} guests</span>
+                    <span data-editable data-editable-id={`accordion-role-${testimonial.id}`}>{testimonial.role}</span>
+                    <span><span data-editable data-editable-id={`accordion-groupsize-${testimonial.id}`}>{testimonial.groupSize}</span> guests</span>
                   </div>
                 </AccordionContent>
               </AccordionItem>
@@ -1135,12 +1141,16 @@ export default function TestimonialsFaq() {
             <motion.h2 
               variants={fadeInUp}
               className="text-4xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white"
+              data-editable
+              data-editable-id="customer-reviews-heading"
             >
               CUSTOMER REVIEWS
             </motion.h2>
             <motion.p 
               variants={fadeInUp}
               className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8"
+              data-editable
+              data-editable-id="customer-reviews-subheading"
             >
               Browse authentic reviews from customers who experienced our various cruise packages.
             </motion.p>
@@ -1157,6 +1167,8 @@ export default function TestimonialsFaq() {
                     selectedTestimonialFilter === filter.value && "bg-brand-blue text-white hover:bg-brand-blue/90"
                   )}
                   data-testid={`filter-${filter.value}`}
+                  data-editable
+                  data-editable-id={`filter-label-${filter.value}`}
                 >
                   {filter.label}
                 </Button>
@@ -1183,23 +1195,23 @@ export default function TestimonialsFaq() {
                         <Star key={i} className="h-4 w-4 text-yellow-400 fill-current" />
                       ))}
                     </div>
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="outline" className="text-xs" data-editable data-editable-id={`review-event-${testimonial.id}`}>
                       {testimonial.event}
                     </Badge>
                   </div>
                   
-                  <blockquote className="text-gray-700 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                  <blockquote className="text-gray-700 dark:text-gray-300 mb-4 text-sm leading-relaxed" data-editable data-editable-id={`review-text-${testimonial.id}`}>
                     "{testimonial.text}"
                   </blockquote>
                   
                   <div className="flex items-center justify-between">
                     <div>
-                      <div className="font-semibold text-gray-900 dark:text-white text-sm">{testimonial.name}</div>
-                      <div className="text-xs text-gray-600 dark:text-gray-300">{testimonial.role}</div>
+                      <div className="font-semibold text-gray-900 dark:text-white text-sm" data-editable data-editable-id={`review-name-${testimonial.id}`}>{testimonial.name}</div>
+                      <div className="text-xs text-gray-600 dark:text-gray-300" data-editable data-editable-id={`review-role-${testimonial.id}`}>{testimonial.role}</div>
                     </div>
                     <div className="text-right">
-                      <div className="text-xs font-semibold text-brand-blue">{testimonial.groupSize} guests</div>
-                      <div className="text-xs text-gray-500">{testimonial.date}</div>
+                      <div className="text-xs font-semibold text-brand-blue"><span data-editable data-editable-id={`review-groupsize-${testimonial.id}`}>{testimonial.groupSize}</span> guests</div>
+                      <div className="text-xs text-gray-500" data-editable data-editable-id={`review-date-${testimonial.id}`}>{testimonial.date}</div>
                     </div>
                   </div>
                 </Card>
@@ -1216,10 +1228,10 @@ export default function TestimonialsFaq() {
             variants={fadeInUp}
           >
             <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4" data-editable data-editable-id="reviews-cta-heading">
                 Ready to Create Your Own Amazing Experience?
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
+              <p className="text-gray-600 dark:text-gray-300 mb-6" data-editable data-editable-id="reviews-cta-paragraph">
                 Join thousands of satisfied customers who have made unforgettable memories on Lake Travis.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -1229,7 +1241,7 @@ export default function TestimonialsFaq() {
                   data-testid="button-book-now-testimonials"
                 >
                   <Calendar className="mr-2 h-4 w-4" />
-                  Book Your Cruise
+                  <span data-editable data-editable-id="reviews-cta-book-button">Book Your Cruise</span>
                 </Button>
                 <Button 
                   variant="outline"
@@ -1238,7 +1250,7 @@ export default function TestimonialsFaq() {
                   data-testid="button-get-quote-testimonials"
                 >
                   <MessageSquare className="mr-2 h-4 w-4" />
-                  Get Custom Quote
+                  <span data-editable data-editable-id="reviews-cta-quote-button">Get Custom Quote</span>
                 </Button>
               </div>
             </div>
@@ -1259,12 +1271,16 @@ export default function TestimonialsFaq() {
             <motion.h2 
               variants={fadeInUp}
               className="text-2xl md:text-4xl lg:text-6xl font-heading font-bold mb-3 md:mb-6 text-gray-900 dark:text-white"
+              data-editable
+              data-editable-id="faq-heading"
             >
               FREQUENTLY ASKED QUESTIONS
             </motion.h2>
             <motion.p 
               variants={fadeInUp}
               className="text-sm md:text-lg lg:text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-4 md:mb-8"
+              data-editable
+              data-editable-id="faq-subheading"
             >
               Get answers to the most common questions about booking, pricing, safety, and what to expect on your Lake Travis cruise experience.
             </motion.p>
@@ -1280,6 +1296,8 @@ export default function TestimonialsFaq() {
                   onChange={(e) => setSearchQuery(e.target.value)}
                   className="pl-10 pr-4 py-3 w-full rounded-lg border-2 border-gray-200 focus:border-brand-blue"
                   data-testid="input-faq-search"
+                  data-editable
+                  data-editable-id="faq-search-placeholder"
                 />
               </div>
             </motion.div>
@@ -1302,7 +1320,7 @@ export default function TestimonialsFaq() {
                     data-testid={`tab-${key}`}
                   >
                     <category.icon className="h-4 w-4" />
-                    <span className="hidden sm:inline">{category.title}</span>
+                    <span className="hidden sm:inline" data-editable data-editable-id={`faq-tab-${key}`}>{category.title}</span>
                   </TabsTrigger>
                 ))}
               </TabsList>
@@ -1313,9 +1331,9 @@ export default function TestimonialsFaq() {
                     <div className="mb-6">
                       <h3 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
                         <category.icon className="h-6 w-6 mr-3 text-brand-blue" />
-                        {category.title}
+                        <span data-editable data-editable-id={`faq-category-title-${key}`}>{category.title}</span>
                       </h3>
-                      <p className="text-gray-600 dark:text-gray-300 mt-2">
+                      <p className="text-gray-600 dark:text-gray-300 mt-2" data-editable data-editable-id={`faq-category-desc-${key}`}>
                         Everything you need to know about {category.title.toLowerCase()}.
                       </p>
                     </div>
@@ -1328,9 +1346,9 @@ export default function TestimonialsFaq() {
                           <CardHeader className="text-center">
                             <CardTitle className="flex items-center justify-center text-2xl font-bold text-gray-900 dark:text-white">
                               <Ship className="h-6 w-6 mr-3 text-brand-blue" />
-                              Private Cruise Hourly Rates
+                              <span data-editable data-editable-id="pricing-table-private-title">Private Cruise Hourly Rates</span>
                             </CardTitle>
-                            <p className="text-gray-600 dark:text-gray-300">
+                            <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="pricing-table-private-desc">
                               Exclusive boat charter with captain, crew, and all amenities included
                             </p>
                           </CardHeader>
@@ -1339,9 +1357,9 @@ export default function TestimonialsFaq() {
                               <table className="w-full text-sm" data-testid="table-private-cruise-pricing">
                                 <thead>
                                   <tr className="border-b border-gray-200 dark:border-gray-700">
-                                    <th className="text-left py-3 px-4 font-semibold text-gray-900 dark:text-white">Boat Capacity</th>
-                                    <th className="text-center py-3 px-4 font-semibold text-gray-900 dark:text-white">Monday-Thursday<br /><span className="text-xs font-normal text-gray-500">(3 hours)</span></th>
-                                    <th className="text-center py-3 px-4 font-semibold text-gray-900 dark:text-white">Friday-Sunday<br /><span className="text-xs font-normal text-gray-500">(4 hours)</span></th>
+                                    <th className="text-left py-3 px-4 font-semibold text-gray-900 dark:text-white" data-editable data-editable-id="pricing-header-capacity">Boat Capacity</th>
+                                    <th className="text-center py-3 px-4 font-semibold text-gray-900 dark:text-white"><span data-editable data-editable-id="pricing-header-weekday">Monday-Thursday</span><br /><span className="text-xs font-normal text-gray-500" data-editable data-editable-id="pricing-header-weekday-hours">(3 hours)</span></th>
+                                    <th className="text-center py-3 px-4 font-semibold text-gray-900 dark:text-white"><span data-editable data-editable-id="pricing-header-weekend">Friday-Sunday</span><br /><span className="text-xs font-normal text-gray-500" data-editable data-editable-id="pricing-header-weekend-hours">(4 hours)</span></th>
                                   </tr>
                                 </thead>
                                 <tbody>
@@ -1406,13 +1424,13 @@ export default function TestimonialsFaq() {
                             <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
                               <h4 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
                                 <Calculator className="h-4 w-4 mr-2 text-brand-blue" />
-                                Additional Fees
+                                <span data-editable data-editable-id="pricing-fees-heading">Additional Fees</span>
                               </h4>
                               <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
-                                <li>• <strong>Extra Crew Fee:</strong> $200 for groups with more than 20 people</li>
-                                <li>• <strong>Tax:</strong> 8.25% applied to subtotal (base cost + crew fee)</li>
-                                <li>• <strong>Gratuity:</strong> 20% applied to subtotal (recommended)</li>
-                                <li>• <strong>Deposit:</strong> 25% if booked 30+ days ahead, 100% if within 30 days</li>
+                                <li data-editable data-editable-id="pricing-fee-crew">• <strong>Extra Crew Fee:</strong> $200 for groups with more than 20 people</li>
+                                <li data-editable data-editable-id="pricing-fee-tax">• <strong>Tax:</strong> 8.25% applied to subtotal (base cost + crew fee)</li>
+                                <li data-editable data-editable-id="pricing-fee-gratuity">• <strong>Gratuity:</strong> 20% applied to subtotal (recommended)</li>
+                                <li data-editable data-editable-id="pricing-fee-deposit">• <strong>Deposit:</strong> 25% if booked 30+ days ahead, 100% if within 30 days</li>
                               </ul>
                             </div>
                           </CardContent>
@@ -1423,53 +1441,53 @@ export default function TestimonialsFaq() {
                           <CardHeader className="text-center">
                             <CardTitle className="flex items-center justify-center text-2xl font-bold text-gray-900 dark:text-white">
                               <PartyPopper className="h-6 w-6 mr-3 text-purple-600" />
-                              ATX Disco Cruise Packages
+                              <span data-editable data-editable-id="pricing-disco-title">ATX Disco Cruise Packages</span>
                             </CardTitle>
-                            <p className="text-gray-600 dark:text-gray-300">
+                            <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="pricing-disco-desc">
                               Join our public party cruise with DJ, dancing, and amazing vibes
                             </p>
                           </CardHeader>
                           <CardContent>
                             <div className="grid md:grid-cols-3 gap-6">
                               <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md" data-testid="card-disco-basic">
-                                <div className="text-3xl font-bold text-purple-600 mb-2">$85</div>
-                                <div className="text-sm text-gray-500 mb-4">per person</div>
-                                <h4 className="font-bold text-gray-900 dark:text-white mb-3">Basic Package</h4>
+                                <div className="text-3xl font-bold text-purple-600 mb-2" data-editable data-editable-id="disco-basic-price">$85</div>
+                                <div className="text-sm text-gray-500 mb-4" data-editable data-editable-id="disco-basic-per">per person</div>
+                                <h4 className="font-bold text-gray-900 dark:text-white mb-3" data-editable data-editable-id="disco-basic-name">Basic Package</h4>
                                 <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-2">
-                                  <li>• 4-hour party cruise</li>
-                                  <li>• DJ and dance floor</li>
-                                  <li>• All standard amenities</li>
-                                  <li>• Lake Travis experience</li>
+                                  <li data-editable data-editable-id="disco-basic-feature-1">• 4-hour party cruise</li>
+                                  <li data-editable data-editable-id="disco-basic-feature-2">• DJ and dance floor</li>
+                                  <li data-editable data-editable-id="disco-basic-feature-3">• All standard amenities</li>
+                                  <li data-editable data-editable-id="disco-basic-feature-4">• Lake Travis experience</li>
                                 </ul>
                               </div>
                               <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md border-2 border-purple-300 relative" data-testid="card-disco-queen">
-                                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-purple-600 hover:bg-purple-700">Most Popular</Badge>
-                                <div className="text-3xl font-bold text-purple-600 mb-2">$95</div>
-                                <div className="text-sm text-gray-500 mb-4">per person</div>
-                                <h4 className="font-bold text-gray-900 dark:text-white mb-3">Disco Queen Package</h4>
+                                <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-purple-600 hover:bg-purple-700" data-editable data-editable-id="disco-queen-badge">Most Popular</Badge>
+                                <div className="text-3xl font-bold text-purple-600 mb-2" data-editable data-editable-id="disco-queen-price">$95</div>
+                                <div className="text-sm text-gray-500 mb-4" data-editable data-editable-id="disco-queen-per">per person</div>
+                                <h4 className="font-bold text-gray-900 dark:text-white mb-3" data-editable data-editable-id="disco-queen-name">Disco Queen Package</h4>
                                 <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-2">
-                                  <li>• Everything in Basic</li>
-                                  <li>• Premium sound system</li>
-                                  <li>• Enhanced disco lights</li>
-                                  <li>• Party favors included</li>
+                                  <li data-editable data-editable-id="disco-queen-feature-1">• Everything in Basic</li>
+                                  <li data-editable data-editable-id="disco-queen-feature-2">• Premium sound system</li>
+                                  <li data-editable data-editable-id="disco-queen-feature-3">• Enhanced disco lights</li>
+                                  <li data-editable data-editable-id="disco-queen-feature-4">• Party favors included</li>
                                 </ul>
                               </div>
                               <div className="text-center p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md" data-testid="card-disco-platinum">
-                                <div className="text-3xl font-bold text-purple-600 mb-2">$105</div>
-                                <div className="text-sm text-gray-500 mb-4">per person</div>
-                                <h4 className="font-bold text-gray-900 dark:text-white mb-3">Platinum Package</h4>
+                                <div className="text-3xl font-bold text-purple-600 mb-2" data-editable data-editable-id="disco-platinum-price">$105</div>
+                                <div className="text-sm text-gray-500 mb-4" data-editable data-editable-id="disco-platinum-per">per person</div>
+                                <h4 className="font-bold text-gray-900 dark:text-white mb-3" data-editable data-editable-id="disco-platinum-name">Platinum Package</h4>
                                 <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-2">
-                                  <li>• Everything in Disco Queen</li>
-                                  <li>• VIP service experience</li>
-                                  <li>• Premium cocktail options</li>
-                                  <li>• Luxury amenities</li>
+                                  <li data-editable data-editable-id="disco-platinum-feature-1">• Everything in Disco Queen</li>
+                                  <li data-editable data-editable-id="disco-platinum-feature-2">• VIP service experience</li>
+                                  <li data-editable data-editable-id="disco-platinum-feature-3">• Premium cocktail options</li>
+                                  <li data-editable data-editable-id="disco-platinum-feature-4">• Luxury amenities</li>
                                 </ul>
                               </div>
                             </div>
                             <div className="mt-6 p-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg text-center">
                               <p className="text-sm text-gray-600 dark:text-gray-300">
-                                <strong>Schedule:</strong> Friday & Saturday evenings, 4-hour duration<br />
-                                <strong>Includes:</strong> Tax and gratuity already included in ticket price
+                                <span data-editable data-editable-id="disco-schedule"><strong>Schedule:</strong> Friday & Saturday evenings, 4-hour duration</span><br />
+                                <span data-editable data-editable-id="disco-includes"><strong>Includes:</strong> Tax and gratuity already included in ticket price</span>
                               </p>
                             </div>
                           </CardContent>
@@ -1485,10 +1503,10 @@ export default function TestimonialsFaq() {
                           className="bg-gray-50 dark:bg-gray-800 rounded-lg px-6 border-none"
                           data-testid={`faq-item-${key}-${faqIndex}`}
                         >
-                          <AccordionTrigger className="text-left font-semibold text-gray-900 dark:text-white hover:text-brand-blue transition-colors duration-200">
+                          <AccordionTrigger className="text-left font-semibold text-gray-900 dark:text-white hover:text-brand-blue transition-colors duration-200" data-editable data-editable-id={`faq-question-${key}-${faqIndex}`}>
                             {faq.question}
                           </AccordionTrigger>
-                          <AccordionContent className="text-gray-600 dark:text-gray-300 leading-relaxed pt-2">
+                          <AccordionContent className="text-gray-600 dark:text-gray-300 leading-relaxed pt-2" data-editable data-editable-id={`faq-answer-${key}-${faqIndex}`}>
                             {faq.answer}
                           </AccordionContent>
                         </AccordionItem>
@@ -1509,20 +1527,20 @@ export default function TestimonialsFaq() {
             variants={fadeInUp}
           >
             <div className="max-w-2xl mx-auto bg-gray-50 dark:bg-gray-800 rounded-2xl p-8">
-              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4" data-editable data-editable-id="faq-contact-heading">
                 Still Have Questions?
               </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-6">
+              <p className="text-gray-600 dark:text-gray-300 mb-6" data-editable data-editable-id="faq-contact-paragraph">
                 Our friendly team is here to help! Contact us directly for personalized assistance with your cruise planning.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
                 <div className="flex items-center text-gray-700 dark:text-gray-300">
                   <Phone className="h-4 w-4 mr-2 text-brand-blue" />
-                  <span className="font-semibold">(512) 488-5892</span>
+                  <span className="font-semibold" data-editable data-editable-id="faq-contact-phone">(512) 488-5892</span>
                 </div>
                 <div className="flex items-center text-gray-700 dark:text-gray-300">
                   <Mail className="h-4 w-4 mr-2 text-brand-blue" />
-                  <span className="font-semibold">clientservices@premierpartycruises.com</span>
+                  <span className="font-semibold" data-editable data-editable-id="faq-contact-email">clientservices@premierpartycruises.com</span>
                 </div>
                 <Button 
                   onClick={handleGetQuote}
@@ -1530,7 +1548,7 @@ export default function TestimonialsFaq() {
                   data-testid="button-contact-faq"
                 >
                   <MessageSquare className="mr-2 h-4 w-4" />
-                  Contact Us
+                  <span data-editable data-editable-id="faq-contact-button">Contact Us</span>
                 </Button>
               </div>
             </div>

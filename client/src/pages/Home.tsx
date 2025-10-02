@@ -472,21 +472,21 @@ export default function Home() {
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
                 <div>
-                  <div className="text-brand-yellow text-sm font-bold mb-2">PRIVATE CRUISES FROM</div>
-                  <div className="text-3xl font-bold text-white mb-1">
+                  <div className="text-brand-yellow text-sm font-bold mb-2" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM</div>
+                  <div className="text-3xl font-bold text-white mb-1" data-editable data-editable-id="pricing-overlay-private-price">
                     $${HOURLY_RATES.MON_THU[14] / 100} per hour
                   </div>
-                  <div className="text-sm text-gray-200">Weekdays • 14+ people</div>
+                  <div className="text-sm text-gray-200" data-editable data-editable-id="pricing-overlay-private-subtitle">Weekdays • 14+ people</div>
                 </div>
                 <div>
-                  <div className="text-brand-yellow text-sm font-bold mb-2">DISCO CRUISES</div>
-                  <div className="text-3xl font-bold text-white mb-1">
+                  <div className="text-brand-yellow text-sm font-bold mb-2" data-editable data-editable-id="pricing-overlay-disco-label">DISCO CRUISES</div>
+                  <div className="text-3xl font-bold text-white mb-1" data-editable data-editable-id="pricing-overlay-disco-price">
                     ${pricingHighlights[1].weekdayFrom}/person
                   </div>
-                  <div className="text-sm text-gray-200">Friday & Saturday</div>
+                  <div className="text-sm text-gray-200" data-editable data-editable-id="pricing-overlay-disco-subtitle">Friday & Saturday</div>
                 </div>
               </div>
-              <div className="text-center mt-4 text-sm text-brand-yellow font-medium">
+              <div className="text-center mt-4 text-sm text-brand-yellow font-medium" data-editable data-editable-id="pricing-overlay-tagline">
                 ✨ Transparent pricing • No hidden fees • Best value guaranteed
               </div>
             </motion.div>
@@ -498,19 +498,19 @@ export default function Home() {
             >
               <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
                 <MapPin className="h-6 w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-lg">Anderson Mill Marina</span>
+                <span className="font-semibold text-lg" data-editable data-editable-id="hero-badge-marina">Anderson Mill Marina</span>
               </div>
               <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
                 <Users className="h-6 w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-lg">4 Awesome Boats</span>
+                <span className="font-semibold text-lg" data-editable data-editable-id="hero-badge-boats">4 Awesome Boats</span>
               </div>
               <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
                 <DollarSign className="h-6 w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-lg">From $${HOURLY_RATES.MON_THU[14] / 100} per hour</span>
+                <span className="font-semibold text-lg" data-editable data-editable-id="hero-badge-pricing">From $${HOURLY_RATES.MON_THU[14] / 100} per hour</span>
               </div>
               <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
                 <Clock className="h-6 w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-lg">ATX Disco Fri/Sat</span>
+                <span className="font-semibold text-lg" data-editable data-editable-id="hero-badge-disco">ATX Disco Fri/Sat</span>
               </div>
             </motion.div>
 
@@ -526,7 +526,7 @@ export default function Home() {
                 data-testid="button-hero-book-now"
               >
                 <Calendar className="mr-3 h-6 w-6" />
-                BOOK YOUR CRUISE
+                <span data-editable data-editable-id="hero-cta-book">BOOK YOUR CRUISE</span>
                 <ArrowRight className="ml-3 h-6 w-6" />
               </Button>
               
@@ -538,7 +538,7 @@ export default function Home() {
                 data-testid="button-hero-get-quote"
               >
                 <MessageSquare className="mr-3 h-6 w-6" />
-                GET FREE QUOTE
+                <span data-editable data-editable-id="hero-cta-quote">GET FREE QUOTE</span>
               </Button>
             </motion.div>
           </motion.div>
@@ -615,7 +615,7 @@ export default function Home() {
                   {service.badge && (
                     <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
                       <Badge className="bg-brand-blue text-white px-6 py-2 text-sm font-bold rounded-full shadow-lg">
-                        {service.badge}
+                        <span data-editable data-editable-id={`service-${service.id}-badge`}>{service.badge}</span>
                       </Badge>
                     </div>
                   )}
@@ -638,7 +638,7 @@ export default function Home() {
                     {/* Gallery Indicator */}
                     <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm rounded-full px-3 py-1 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <Image className="h-4 w-4 inline mr-1" />
-                      <span data-editable data-editable-id="view-gallery-text">View Gallery</span>
+                      <span data-editable data-editable-id={`service-${service.id}-view-gallery`}>View Gallery</span>
                     </div>
                   </div>
                   
@@ -665,8 +665,11 @@ export default function Home() {
 
                     <div className="text-center pt-4">
                       <div className="text-base text-gray-500 mb-2 font-semibold" data-editable data-editable-id={`service-${service.id}-price-label`}>Starting from</div>
-                      <div className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4">
+                      <div className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4" data-editable data-editable-id={`service-${service.id}-price`}>
                         {service.startingPrice}
+                      </div>
+                      <div className="text-sm text-gray-600 dark:text-gray-400 mb-4" data-editable data-editable-id={`service-${service.id}-price-note`}>
+                        {service.hourlyNote || service.priceNote || ''}
                       </div>
                       
                       <Button 
@@ -693,7 +696,9 @@ export default function Home() {
                         }}
                         data-testid={`button-service-${service.id}`}
                       >
-                        {service.specialPage ? 'LEARN MORE' : service.id === 'private' ? 'BOOK PRIVATE CRUISE' : service.id === 'disco' ? 'BOOK DISCO CRUISE' : 'GET QUOTE'}
+                        <span data-editable data-editable-id={`service-${service.id}-cta-button`}>
+                          {service.specialPage ? 'LEARN MORE' : service.id === 'private' ? 'BOOK PRIVATE CRUISE' : service.id === 'disco' ? 'BOOK DISCO CRUISE' : 'GET QUOTE'}
+                        </span>
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                     </div>
@@ -716,7 +721,7 @@ export default function Home() {
                   <span data-editable data-editable-id={`lightbox-${selectedService.id}-title`}>{selectedService.title}</span>
                   {selectedService.badge && (
                     <Badge className="bg-brand-blue text-white px-3 py-1">
-                      {selectedService.badge}
+                      <span data-editable data-editable-id={`lightbox-${selectedService.id}-badge`}>{selectedService.badge}</span>
                     </Badge>
                   )}
                 </DialogTitle>
@@ -748,7 +753,7 @@ export default function Home() {
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
                       <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                        <span data-editable data-editable-id="gallery-view-full-text">View Full</span>
+                        <span data-editable data-editable-id={`lightbox-${selectedService.id}-gallery-view-full`}>View Full</span>
                       </div>
                     </motion.div>
                   ))}
@@ -795,8 +800,8 @@ export default function Home() {
                       <div className="text-4xl font-bold text-gray-900 dark:text-white">
                         {selectedService.startingPrice}
                       </div>
-                      <div className="text-sm text-gray-600 dark:text-gray-400 mt-1" data-editable data-editable-id={`lightbox-${selectedService.id}-pricing-details`}>
-                        {selectedService.id === 'disco' ? 'per person' : 'per charter'}
+                      <div className="text-sm text-gray-600 dark:text-gray-400 mt-1" data-editable data-editable-id={`lightbox-${selectedService.id}-pricing-note`}>
+                        {selectedService.hourlyNote || selectedService.priceNote || (selectedService.id === 'disco' ? 'per person' : 'per charter')}
                       </div>
                     </div>
                     
@@ -971,13 +976,13 @@ export default function Home() {
             className="text-center mb-16"
           >
             <motion.div variants={fadeInUp}>
-              <h2 className="text-5xl md:text-6xl font-heading font-bold mb-6 tracking-wider">
+              <h2 className="text-5xl md:text-6xl font-heading font-bold mb-6 tracking-wider" data-editable data-editable-id="testimonials-main-title">
                 WHAT OUR
               </h2>
-              <h3 className="text-4xl md:text-5xl font-heading font-bold mb-8 text-brand-yellow tracking-wider">
+              <h3 className="text-4xl md:text-5xl font-heading font-bold mb-8 text-brand-yellow tracking-wider" data-editable data-editable-id="testimonials-subtitle">
                 CUSTOMERS SAY
               </h3>
-              <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+              <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="testimonials-description">
                 Don't just take our word for it - see what makes us Austin's most trusted party cruise company.
               </p>
             </motion.div>
@@ -1001,15 +1006,17 @@ export default function Home() {
                         <Star key={i} className="h-5 w-5 text-brand-yellow fill-current" />
                       ))}
                     </div>
-                    <CardTitle className="text-lg font-bold">{testimonial.name}</CardTitle>
+                    <CardTitle className="text-lg font-bold">
+                      <span data-editable data-editable-id={`testimonial-${testimonial.id}-name`}>{testimonial.name}</span>
+                    </CardTitle>
                     <CardDescription className="text-blue-200 font-medium">
-                      {testimonial.role}
+                      <span data-editable data-editable-id={`testimonial-${testimonial.id}-role`}>{testimonial.role}</span>
                     </CardDescription>
                   </CardHeader>
                   
                   <CardContent>
                     <Quote className="h-6 w-6 text-brand-yellow mb-4 mx-auto" />
-                    <p className="text-white/90 leading-relaxed italic text-center">
+                    <p className="text-white/90 leading-relaxed italic text-center" data-editable data-editable-id={`testimonial-${testimonial.id}-text`}>
                       "{testimonial.text}"
                     </p>
                   </CardContent>
@@ -1031,13 +1038,13 @@ export default function Home() {
             className="text-center mb-16"
           >
             <motion.div variants={fadeInUp}>
-              <h2 className="text-5xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider">
+              <h2 className="text-5xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="contact-main-title">
                 READY TO
               </h2>
-              <h3 className="text-4xl md:text-5xl font-heading font-bold mb-8 text-brand-yellow tracking-wider">
+              <h3 className="text-4xl md:text-5xl font-heading font-bold mb-8 text-brand-yellow tracking-wider" data-editable data-editable-id="contact-subtitle">
                 SET SAIL?
               </h3>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12">
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12" data-editable data-editable-id="contact-description">
                 Contact us today for a free quote and let's start planning your unforgettable Lake Travis adventure.
               </p>
             </motion.div>
@@ -1054,7 +1061,7 @@ export default function Home() {
               <Card className="border-2 border-gray-200 dark:border-gray-700 shadow-xl">
                 <CardHeader>
                   <CardTitle className="text-2xl font-bold text-center mb-4 tracking-wide">
-                    Get Your Free Quote
+                    <span data-editable data-editable-id="contact-form-title">Get Your Free Quote</span>
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -1062,7 +1069,7 @@ export default function Home() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="name" className="text-sm font-semibold tracking-wide">
-                          Full Name *
+                          <span data-editable data-editable-id="contact-form-label-name">Full Name *</span>
                         </Label>
                         <Input
                           id="name"
@@ -1076,7 +1083,7 @@ export default function Home() {
                       </div>
                       <div>
                         <Label htmlFor="email" className="text-sm font-semibold tracking-wide">
-                          Email *
+                          <span data-editable data-editable-id="contact-form-label-email">Email *</span>
                         </Label>
                         <Input
                           id="email"
@@ -1093,7 +1100,7 @@ export default function Home() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="phone" className="text-sm font-semibold tracking-wide">
-                          Phone *
+                          <span data-editable data-editable-id="contact-form-label-phone">Phone *</span>
                         </Label>
                         <Input
                           id="phone"
@@ -1107,7 +1114,7 @@ export default function Home() {
                       </div>
                       <div>
                         <Label htmlFor="eventType" className="text-sm font-semibold tracking-wide">
-                          Event Type
+                          <span data-editable data-editable-id="contact-form-label-event-type">Event Type</span>
                         </Label>
                         <Input
                           id="eventType"
@@ -1124,7 +1131,7 @@ export default function Home() {
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
                         <Label htmlFor="groupSize" className="text-sm font-semibold tracking-wide">
-                          Group Size
+                          <span data-editable data-editable-id="contact-form-label-group-size">Group Size</span>
                         </Label>
                         <Input
                           id="groupSize"
@@ -1138,7 +1145,7 @@ export default function Home() {
                       </div>
                       <div>
                         <Label htmlFor="eventDate" className="text-sm font-semibold tracking-wide">
-                          Event Date
+                          <span data-editable data-editable-id="contact-form-label-event-date">Event Date</span>
                         </Label>
                         <Input
                           id="eventDate"
@@ -1153,7 +1160,7 @@ export default function Home() {
                     
                     <div>
                       <Label htmlFor="message" className="text-sm font-semibold tracking-wide">
-                        Additional Details
+                        <span data-editable data-editable-id="contact-form-label-message">Additional Details</span>
                       </Label>
                       <Textarea
                         id="message"
@@ -1172,7 +1179,7 @@ export default function Home() {
                       data-testid="button-contact-submit"
                     >
                       <Mail className="mr-3 h-5 w-5" />
-                      GET FREE QUOTE
+                      <span data-editable data-editable-id="contact-form-submit-button">GET FREE QUOTE</span>
                     </Button>
                   </form>
                 </CardContent>
@@ -1191,8 +1198,8 @@ export default function Home() {
               <Card className="border-2 border-brand-yellow bg-gradient-to-br from-brand-yellow/10 to-brand-yellow/5">
                 <CardContent className="p-8 text-center">
                   <Calendar className="h-12 w-12 text-brand-yellow mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold mb-4 tracking-wide">Book Online Now</h3>
-                  <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed">
+                  <h3 className="text-2xl font-bold mb-4 tracking-wide" data-editable data-editable-id="quick-book-title">Book Online Now</h3>
+                  <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed" data-editable data-editable-id="quick-book-description">
                     See our real-time availability and book your perfect cruise date instantly.
                   </p>
                   <Button 
@@ -1201,7 +1208,7 @@ export default function Home() {
                     className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold py-4 text-lg rounded-xl tracking-wide"
                     data-testid="button-quick-book"
                   >
-                    VIEW AVAILABILITY
+                    <span data-editable data-editable-id="quick-book-button">VIEW AVAILABILITY</span>
                     <ExternalLink className="ml-2 h-5 w-5" />
                   </Button>
                 </CardContent>
@@ -1213,9 +1220,9 @@ export default function Home() {
                   <CardContent className="p-6 flex items-center space-x-4">
                     <Phone className="h-8 w-8 text-brand-blue flex-shrink-0" />
                     <div>
-                      <h4 className="font-bold text-lg tracking-wide">Call Us</h4>
-                      <p className="text-gray-600 dark:text-gray-300">(512) 488-5892</p>
-                      <p className="text-sm text-gray-500">Available 7 days a week</p>
+                      <h4 className="font-bold text-lg tracking-wide" data-editable data-editable-id="contact-phone-title">Call Us</h4>
+                      <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="contact-phone-number">(512) 488-5892</p>
+                      <p className="text-sm text-gray-500" data-editable data-editable-id="contact-phone-note">Available 7 days a week</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -1224,9 +1231,9 @@ export default function Home() {
                   <CardContent className="p-6 flex items-center space-x-4">
                     <Mail className="h-8 w-8 text-brand-blue flex-shrink-0" />
                     <div>
-                      <h4 className="font-bold text-lg tracking-wide">Email Us</h4>
-                      <p className="text-gray-600 dark:text-gray-300">clientservices@premierpartycruises.com</p>
-                      <p className="text-sm text-gray-500">Response within 24 hours</p>
+                      <h4 className="font-bold text-lg tracking-wide" data-editable data-editable-id="contact-email-title">Email Us</h4>
+                      <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="contact-email-address">clientservices@premierpartycruises.com</p>
+                      <p className="text-sm text-gray-500" data-editable data-editable-id="contact-email-note">Response within 24 hours</p>
                     </div>
                   </CardContent>
                 </Card>
@@ -1235,9 +1242,9 @@ export default function Home() {
                   <CardContent className="p-6 flex items-center space-x-4">
                     <MapPin className="h-8 w-8 text-brand-blue flex-shrink-0" />
                     <div>
-                      <h4 className="font-bold text-lg tracking-wide">Lake Travis</h4>
-                      <p className="text-gray-600 dark:text-gray-300">Austin, Texas</p>
-                      <p className="text-sm text-gray-500">Austin, Texas</p>
+                      <h4 className="font-bold text-lg tracking-wide" data-editable data-editable-id="contact-location-title">Lake Travis</h4>
+                      <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="contact-location-city">Austin, Texas</p>
+                      <p className="text-sm text-gray-500" data-editable data-editable-id="contact-location-note">Austin, Texas</p>
                     </div>
                   </CardContent>
                 </Card>
