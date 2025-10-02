@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AdminChatSession, type InsertAdminChatSession, type AdminChatMessage, type InsertAdminChatMessage, type AvailabilitySlot, type InsertAvailabilitySlot, type SystemBlockout, type InsertSystemBlockout, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, type MediaItem, type InsertMediaItem, type ContentBlock, type InsertContentBlock, type SelectAgentChatSession, type InsertAgentChatSession, type SelectAgentChatMessage, type InsertAgentChatMessage, type MasterAvailabilityRule, type InsertMasterAvailabilityRule, type HolidayException, type InsertHolidayException, type SpecialPricingRule, type InsertSpecialPricingRule, type BlackoutDate, type InsertBlackoutDate, contacts, projects, boats, products, quotes, invoices, payments, chatMessages, adminChatSessions, adminChatMessages, availabilitySlots, systemBlockouts, quoteTemplates, templateRules, discountRules, pricingSettings, pricingAdjustments, affiliates, bookings, discoSlots, timeframes, emailTemplates, masterTemplates, smsAuthTokens, customerSessions, portalActivityLog, phoneRateLimit, customerVerificationAttempts, quoteAnalytics, fileSends, emailTracking, customerLifecycle, customerActivity, slotHolds, partialLeads, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, blogComments, blogAnalytics, seoPages, seoAuditLog, seoCompetitors, seoSettings, webhookNotifications, media, mediaItems, contentBlocks, agentChatSessions, agentChatMessages, masterAvailabilityRules, holidayExceptions, specialPricingRules, blackoutDates } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AdminChatSession, type InsertAdminChatSession, type AdminChatMessage, type InsertAdminChatMessage, type AvailabilitySlot, type InsertAvailabilitySlot, type SystemBlockout, type InsertSystemBlockout, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, type MediaItem, type InsertMediaItem, type ContentBlock, type InsertContentBlock, type SelectAgentChatSession, type InsertAgentChatSession, type SelectAgentChatMessage, type InsertAgentChatMessage, type MasterAvailabilityRule, type InsertMasterAvailabilityRule, type HolidayException, type InsertHolidayException, type SpecialPricingRule, type InsertSpecialPricingRule, type BlackoutDate, type InsertBlackoutDate, boats, products, adminChatSessions, adminChatMessages, pricingSettings, affiliates, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, seoPages, mediaItems, contentBlocks } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, gte, lte, desc, asc, isNull, isNotNull, or, inArray, sql, count, sum, between } from "drizzle-orm";
 import { randomUUID } from "crypto";
@@ -3423,45 +3423,16 @@ export class DatabaseStorage implements IStorage {
     // Import the time slot functions dynamically to avoid circular dependency
     const { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate } = await import('@shared/timeSlots');
     
-    // Import our local availability checking
-    const { checkLocalAvailability, getLocalBookings } = await import('./checkLocalAvailability');
-    
     // Get all available boats
     const allBoats = await this.getActiveBoats();
     
     // Get all products for pricing
     const allProducts = await this.getProducts();
     
-    // Get all bookings in the date range from our local database
-    const localBookings = await getLocalBookings(startDate, endDate);
-    console.log(`📚 Found ${localBookings.length} bookings from local database for date range`);
-    
     // Generate slots for each date in the range
     const currentDate = new Date(startDate);
     while (currentDate <= endDate) {
       const dateISO = currentDate.toISOString().split('T')[0];
-      
-      // Check local availability for this date first
-      const localAvailability = await checkLocalAvailability(currentDate);
-      
-      // Skip this date entirely if it's blacked out or closed for holiday
-      if (!localAvailability.available && 
-          (localAvailability.reason?.includes('Blackout') || 
-           localAvailability.reason?.includes('Closed'))) {
-        console.log(`⛔ Skipping ${dateISO}: ${localAvailability.reason}`);
-        currentDate.setDate(currentDate.getDate() + 1);
-        continue;
-      }
-      
-      // Get bookings for this specific date from our imported data
-      const dateBookings = localBookings.filter(b => {
-        const bookingDate = b.startTime;
-        return bookingDate && bookingDate.toISOString().split('T')[0] === dateISO;
-      });
-      
-      if (dateBookings.length > 0) {
-        console.log(`📅 ${dateISO}: ${dateBookings.length} bookings from Google Sheets import`);
-      }
       
       // Generate private cruise slots if requested
       if (!cruiseType || cruiseType === 'private') {
@@ -3690,40 +3661,11 @@ export class DatabaseStorage implements IStorage {
             const [endHours, endMinutes] = timeSlot.endTime.split(':').map(Number);
             endDateTime.setHours(endHours, endMinutes, 0, 0);
             
-            // CRITICAL FIX 1: Check both booking conflicts AND blocked timeframes
+            // CRITICAL FIX: Check both booking conflicts AND blocked timeframes
             const isBooked = await this.checkBookingConflict(boat.id, startDateTime, endDateTime);
             const isBlocked = await this.isTimeSlotBlocked(boat.id, currentDate, timeSlot.startTime, timeSlot.endTime);
             
-            // CRITICAL FIX 2: Check local bookings from Google Sheets import
-            // MUST filter by boat_id to avoid false conflicts
-            const hasLocalBooking = dateBookings.some(b => {
-              if (!b.startTime || !b.endTime) return false;
-              
-              // CRITICAL: Check if booking is for the SAME BOAT
-              if (b.boatId !== boat.id && b.boatId !== boat.name) {
-                return false; // Different boat, no conflict
-              }
-              
-              // Convert booking times to HH:MM format for comparison
-              const bookingStart = format(b.startTime, 'HH:mm');
-              const bookingEnd = format(b.endTime, 'HH:mm');
-              
-              // Check if time slots overlap
-              const overlaps = (bookingStart === timeSlot.startTime && bookingEnd === timeSlot.endTime) ||
-                     (bookingStart <= timeSlot.startTime && bookingEnd > timeSlot.startTime) ||
-                     (bookingStart < timeSlot.endTime && bookingEnd >= timeSlot.endTime);
-              
-              if (overlaps) {
-                console.log(`📋 [LOCAL BOOKING CONFLICT] Boat ${boat.id}: Booking for ${b.contactName} (${bookingStart}-${bookingEnd}) conflicts with slot ${timeSlot.startTime}-${timeSlot.endTime}`);
-              }
-              
-              return overlaps;
-            });
-            
-            // Check availability from local database
-            const slotAvailability = await checkLocalAvailability(currentDate, timeSlot.startTime, timeSlot.endTime, boat.id);
-            
-            if (!isBooked && !isBlocked && !hasLocalBooking && slotAvailability.available) {
+            if (!isBooked && !isBlocked) {
               // Calculate crew fees for private cruises
               let crewFeeCents = 0;
               if (groupSize) {
