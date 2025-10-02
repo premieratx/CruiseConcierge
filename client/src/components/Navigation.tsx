@@ -34,30 +34,6 @@ const mainNavItems = [
     description: 'Overview and analytics',
   },
   {
-    title: 'Leads',
-    href: '/leads',
-    icon: Users,
-    description: 'Customer management and pipeline',
-  },
-  {
-    title: 'Calendar',
-    href: '/admin/calendar',
-    icon: Calendar,
-    description: 'Bookings and availability',
-  },
-  {
-    title: 'Quotes',
-    href: '/quotes',
-    icon: FileText,
-    description: 'Quote management and templates',
-  },
-  {
-    title: 'Invoices',
-    href: '/invoices',
-    icon: Receipt,
-    description: 'Invoice management and payments',
-  },
-  {
     title: 'Blog',
     href: '/blogs',
     icon: BookOpen,

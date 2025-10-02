@@ -3,36 +3,9 @@ import { pgTable, text, varchar, integer, boolean, timestamp, jsonb, unique, big
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
-export const contacts = pgTable("contacts", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  name: text("name").notNull(),
-  email: text("email").notNull(),
-  phone: text("phone"),
-  tags: jsonb("tags").$type<string[]>().default([]),
-  quoteUrl: text("quote_url"), // Store quote link for leads
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-export const projects = pgTable("projects", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  contactId: varchar("contact_id").notNull(),
-  title: text("title"),
-  status: varchar("status").notNull().default("NEW"),
-  projectDate: timestamp("project_date"),
-  pipelinePhase: varchar("pipeline_phase").notNull().default("ph_new"),
-  groupSize: integer("group_size"),
-  eventType: text("event_type"),
-  duration: integer("duration"), // in hours
-  specialRequests: text("special_requests"),
-  preferredTime: text("preferred_time"),
-  budget: bigint("budget", { mode: "number" }), // in cents
-  leadSource: varchar("lead_source").default("chat"),
-  availabilitySlotId: varchar("availability_slot_id"), // reference to booked slot
-  tags: jsonb("tags").$type<string[]>().default([]),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
+// ==========================================
+// CORE TABLES
+// ==========================================
 
 export const boats = pgTable("boats", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
@@ -66,105 +39,9 @@ export const products = pgTable("products", {
   active: boolean("active").notNull().default(true),
 });
 
-export const quotes = pgTable("quotes", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  projectId: varchar("project_id").notNull(),
-  templateId: varchar("template_id"), // reference to quote template
-  slug: varchar("slug"), // human-friendly identifier like Q-2025-ABC123
-  status: varchar("status").notNull().default("DRAFT"),
-  items: jsonb("items").$type<QuoteItem[]>().default([]),
-  radioSections: jsonb("radio_sections").$type<RadioSection[]>().default([]),
-  
-  // Contact Information (stored directly for standalone viewing)
-  contactInfo: jsonb("contact_info").$type<{
-    firstName: string;
-    lastName: string;
-    email: string;
-    phone: string;
-  }>(),
-  
-  // Event Details (stored for standalone viewing)
-  eventDetails: jsonb("event_details").$type<{
-    eventType: string;
-    eventTypeLabel?: string;
-    eventEmoji?: string;
-    eventDate: string;
-    groupSize: number;
-    specialRequests?: string;
-    budget?: string;
-  }>(),
-  
-  // Selection Details (cruise type, slot, packages, etc.)
-  selectionDetails: jsonb("selection_details").$type<{
-    cruiseType?: 'private' | 'disco';
-    selectedSlot?: any; // NormalizedSlot
-    selectedPackages?: string[];
-    discoPackage?: string;
-    ticketQuantity?: number;
-    selectedDuration?: number;
-    selectedBoat?: string;
-    preferredTimeLabel?: string;
-    groupSizeLabel?: string;
-  }>(),
-  
-  promoCode: text("promo_code"),
-  discountTotal: bigint("discount_total", { mode: "number" }).notNull().default(0),
-  subtotal: bigint("subtotal", { mode: "number" }).notNull().default(0),
-  tax: bigint("tax", { mode: "number" }).notNull().default(0),
-  gratuity: bigint("gratuity", { mode: "number" }).notNull().default(0),
-  total: bigint("total", { mode: "number" }).notNull().default(0),
-  perPersonCost: bigint("per_person_cost", { mode: "number" }).notNull().default(0),
-  depositRequired: boolean("deposit_required").notNull().default(true),
-  depositPercent: integer("deposit_percent").notNull().default(25),
-  depositAmount: bigint("deposit_amount", { mode: "number" }).notNull().default(0),
-  paymentSchedule: jsonb("payment_schedule").$type<PaymentSchedule[]>().default([]),
-  accessToken: varchar("access_token"), // nullable 128-bit secure token for public access
-  accessTokenCreatedAt: timestamp("access_token_created_at"), // when token was generated
-  accessTokenRevokedAt: timestamp("access_token_revoked_at"), // optional revocation timestamp
-  expiresAt: timestamp("expires_at"),
-  version: integer("version").notNull().default(1),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-export const invoices = pgTable("invoices", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  projectId: varchar("project_id").notNull(),
-  quoteId: varchar("quote_id"),
-  status: varchar("status").notNull().default("OPEN"),
-  subtotal: bigint("subtotal", { mode: "number" }).notNull(),
-  tax: bigint("tax", { mode: "number" }).notNull(),
-  total: bigint("total", { mode: "number" }).notNull(),
-  balance: bigint("balance", { mode: "number" }).notNull(),
-  // Persistent deposit calculation fields (always 25%)
-  depositPercent: integer("deposit_percent").notNull().default(25),
-  depositAmount: bigint("deposit_amount", { mode: "number" }).notNull().default(0),
-  remainingBalance: bigint("remaining_balance", { mode: "number" }).notNull().default(0),
-  remainingBalanceDueAt: timestamp("remaining_balance_due_at"),
-  schedule: jsonb("schedule").$type<PaymentSchedule[]>().default([]),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-export const payments = pgTable("payments", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  invoiceId: varchar("invoice_id").notNull(),
-  amount: bigint("amount", { mode: "number" }).notNull(),
-  status: varchar("status").notNull(),
-  paidAt: timestamp("paid_at"),
-  method: varchar("method").notNull().default("card"),
-  stripePaymentIntentId: text("stripe_payment_intent_id"),
-});
-
-export const chatMessages = pgTable("chat_messages", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  sessionId: varchar("session_id").notNull(),
-  contactId: varchar("contact_id"),
-  role: varchar("role").notNull(), // 'user' or 'assistant'
-  content: text("content").notNull(),
-  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
+// ==========================================
+// ADMIN CHAT (AI ASSISTANT)
+// ==========================================
 
 export const adminChatSessions = pgTable("admin_chat_sessions", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
@@ -195,130 +72,10 @@ export const adminChatMessages = pgTable("admin_chat_messages", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-export const media = pgTable("media", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  filename: text("filename").notNull(), // stored filename
-  originalName: text("original_name").notNull(), // original uploaded filename
-  mimeType: text("mime_type").notNull(), // file MIME type
-  size: integer("size").notNull(), // file size in bytes
-  url: text("url").notNull(), // public URL to access file
-  title: text("title"), // user-defined title
-  altText: text("alt_text"), // for image SEO
-  description: text("description"), // file description
-  uploadedAt: timestamp("uploaded_at").notNull().defaultNow(),
-  uploadedBy: text("uploaded_by"), // user who uploaded
-});
+// ==========================================
+// PRICING SETTINGS
+// ==========================================
 
-export const availabilitySlots = pgTable("availability_slots", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  boatId: varchar("boat_id").notNull(),
-  startTime: timestamp("start_time").notNull(),
-  endTime: timestamp("end_time").notNull(),
-  status: varchar("status").notNull().default("AVAILABLE"), // 'AVAILABLE', 'BOOKED', 'BLOCKED', 'MAINTENANCE'
-  projectId: varchar("project_id"), // if booked
-  bookingId: varchar("booking_id"), // reference to booking if booked
-  blockReason: text("block_reason"), // reason for blocking (admin notes)
-  blockedBy: varchar("blocked_by"), // admin user who blocked this slot
-  blockedAt: timestamp("blocked_at"), // when slot was blocked
-  notes: text("notes"), // general notes about this slot
-  isRecurring: boolean("is_recurring").default(false), // part of recurring pattern
-  recurringId: varchar("recurring_id"), // reference to recurring pattern
-  isSystemBlock: boolean("is_system_block").default(false), // system-level permanent blocks
-  systemBlockType: varchar("system_block_type"), // 'clever_girl_october', 'maintenance', etc
-  createdAt: timestamp("created_at").defaultNow(),
-});
-
-// System Blockouts - for permanent system-level availability blocks
-export const systemBlockouts = pgTable("system_blockouts", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  name: text("name").notNull(), // 'Clever Girl October Saturdays'
-  description: text("description"), // detailed explanation
-  boatId: varchar("boat_id"), // specific boat, null for all boats
-  blockType: varchar("block_type").notNull(), // 'maintenance', 'special_event', 'seasonal'
-  recurringPattern: jsonb("recurring_pattern").$type<{
-    frequency: 'weekly' | 'monthly' | 'yearly';
-    daysOfWeek?: number[]; // 0=Sunday, 6=Saturday
-    daysOfMonth?: number[]; // specific days of month
-    months?: number[]; // 1=January, 12=December
-    startDate?: string; // YYYY-MM-DD
-    endDate?: string; // YYYY-MM-DD
-    times: Array<{
-      startTime: string; // HH:MM format
-      endTime: string; // HH:MM format
-    }>;
-  }>(),
-  active: boolean("active").notNull().default(true),
-  createdBy: varchar("created_by"), // admin who created this
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-// Quote Templates - for reusable quote configurations
-export const quoteTemplates = pgTable("quote_templates", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  name: text("name").notNull(),
-  description: text("description"),
-  eventType: text("event_type").notNull(),
-  defaultItems: jsonb("default_items").$type<QuoteItem[]>().default([]),
-  defaultRadioSections: jsonb("default_radio_sections").$type<RadioSection[]>().default([]),
-  components: jsonb("components").$type<TemplateComponent[]>().default([]), // Added for visual template builder
-  minGroupSize: integer("min_group_size"),
-  maxGroupSize: integer("max_group_size"),
-  basePricePerPerson: bigint("base_price_per_person", { mode: "number" }), // in cents
-  duration: integer("duration").notNull(), // in hours
-  active: boolean("active").notNull().default(true),
-  isDefault: boolean("is_default").notNull().default(false), // Added isDefault field
-  displayOrder: integer("display_order").notNull().default(0),
-  visualTheme: jsonb("visual_theme").$type<TemplateVisual>().default({}),
-  automationRules: jsonb("automation_rules").$type<string[]>().default([]), // rule IDs
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// Template Rules - for dynamic behavior based on conditions
-export const templateRules = pgTable("template_rules", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  name: text("name").notNull(),
-  description: text("description"),
-  ruleType: varchar("rule_type").notNull(), // 'pricing', 'availability', 'items', 'messaging'
-  conditions: jsonb("conditions").$type<RuleCondition[]>().default([]),
-  actions: jsonb("actions").$type<RuleAction[]>().default([]),
-  priority: integer("priority").notNull().default(0),
-  active: boolean("active").notNull().default(true),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// Discount Rules - for automated discount applications
-export const discountRules = pgTable("discount_rules", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  name: text("name").notNull(),
-  code: text("code"), // promo code, if applicable
-  discountType: varchar("discount_type").notNull(), // 'percentage', 'fixed_amount', 'per_person'
-  discountValue: bigint("discount_value", { mode: "number" }).notNull(), // percentage (0-100) or amount in cents
-  minGroupSize: integer("min_group_size"),
-  maxGroupSize: integer("max_group_size"),
-  minSubtotal: bigint("min_subtotal", { mode: "number" }), // minimum order value in cents
-  validFrom: timestamp("valid_from"),
-  validUntil: timestamp("valid_until"),
-  usageLimit: integer("usage_limit"),
-  usageCount: integer("usage_count").notNull().default(0),
-  active: boolean("active").notNull().default(true),
-  conditions: jsonb("conditions").$type<DiscountCondition[]>().default([]),
-  // Phase 1 extensions
-  triggerOn: varchar("trigger_on").notNull().default("event"), // 'event', 'inquiry', 'both'
-  inquiryStartDate: timestamp("inquiry_start_date"), // When discount applies to inquiry period
-  inquiryEndDate: timestamp("inquiry_end_date"), // When discount stops applying to inquiry period
-  autoApply: boolean("auto_apply").notNull().default(false), // Apply automatically without code
-  requiresCode: boolean("requires_code").notNull().default(true), // Whether a code is required
-  scopeType: varchar("scope_type").notNull().default("global"), // 'global', 'boat', 'product', 'category'
-  scopeId: varchar("scope_id"), // nullable when scopeType is 'global'
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// Pricing Settings - for organization-wide pricing configuration
 export const pricingSettings = pgTable("pricing_settings", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   orgId: varchar("org_id").notNull().default("org_demo"),
@@ -336,7 +93,10 @@ export const pricingSettings = pgTable("pricing_settings", {
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
-// Affiliates - for commission tracking and referral programs
+// ==========================================
+// AFFILIATES
+// ==========================================
+
 export const affiliates = pgTable("affiliates", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   orgId: varchar("org_id").notNull().default("org_demo"),
@@ -357,757 +117,271 @@ export const affiliates = pgTable("affiliates", {
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-// Bookings - for tracking both private and disco cruise bookings
-export const bookings = pgTable("bookings", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  boatId: varchar("boat_id"), // nullable for disco cruises which may use multiple boats
-  type: varchar("type").notNull(), // 'private' or 'disco'
-  status: varchar("status").notNull().default("booked"), // 'booked', 'hold', 'blocked', 'canceled', 'confirmed'
-  startTime: timestamp("start_time").notNull(),
-  endTime: timestamp("end_time").notNull(),
-  partyType: text("party_type"), // e.g., 'wedding', 'birthday', 'corporate', etc.
-  groupSize: integer("group_size").notNull(),
-  projectId: varchar("project_id"), // reference to project/lead if applicable
-  productId: varchar("product_id"), // reference to product for pricing and package details
-  quoteId: varchar("quote_id"), // reference to generated quote
-  paymentStatus: varchar("payment_status").default("pending"), // 'pending', 'deposit_paid', 'fully_paid'
-  amountPaid: bigint("amount_paid", { mode: "number" }).default(0), // in cents
-  totalAmount: bigint("total_amount", { mode: "number" }).default(0), // in cents
-  contactName: text("contact_name"),
-  contactEmail: text("contact_email"),
-  contactPhone: text("contact_phone"),
-  specialRequests: text("special_requests"),
-  adminNotes: text("admin_notes"), // private admin-only notes
-  blockedReason: text("blocked_reason"), // reason if status is 'blocked'
-  lastModifiedBy: varchar("last_modified_by"), // admin user who last modified
-  lastModifiedAt: timestamp("last_modified_at").defaultNow(),
-  notes: text("notes"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
+// ==========================================
+// BLOG SYSTEM
+// ==========================================
 
-// Disco Slots - for managing disco cruise availability
-export const discoSlots = pgTable("disco_slots", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  date: timestamp("date").notNull(),
-  startTime: timestamp("start_time").notNull(),
-  endTime: timestamp("end_time").notNull(),
-  ticketCap: integer("ticket_cap").notNull().default(100),
-  ticketsSold: integer("tickets_sold").notNull().default(0),
-  status: varchar("status").notNull().default("available"), // 'available', 'soldout', 'canceled'
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// Timeframes - for recurring booking templates
-export const timeframes = pgTable("timeframes", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  dayOfWeek: integer("day_of_week").notNull(), // 0-6 (Sunday-Saturday)
-  type: varchar("type").notNull(), // 'private' or 'disco'
-  startTime: text("start_time").notNull(), // HH:MM format
-  endTime: text("end_time").notNull(), // HH:MM format
-  boatIds: jsonb("boat_ids").$type<string[]>().default([]), // array of boat IDs, or ['any'] for flexible
-  active: boolean("active").notNull().default(true),
-  description: text("description"), // e.g., "Friday Evening Cruise"
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// Slot Holds - for temporary reservation of availability slots
-export const slotHolds = pgTable("slot_holds", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  slotId: varchar("slot_id").notNull(), // normalized slot identifier
-  boatId: varchar("boat_id"), // specific boat if assigned
-  cruiseType: varchar("cruise_type").notNull(), // 'private' or 'disco'
-  dateISO: varchar("date_iso").notNull(), // YYYY-MM-DD format
-  startTime: varchar("start_time").notNull(), // HH:MM format
-  endTime: varchar("end_time").notNull(), // HH:MM format
-  sessionId: varchar("session_id"), // client session for tracking
-  groupSize: integer("group_size"), // requested group size
-  expiresAt: timestamp("expires_at").notNull(), // TTL for automatic cleanup
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// Master Availability Rules - defines standard availability by day type, group size, and time slots
-export const masterAvailabilityRules = pgTable("master_availability_rules", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  dayType: varchar("day_type").notNull(), // 'weekday', 'friday', 'saturday', 'sunday'
-  groupSizeMin: integer("group_size_min").notNull(), // minimum group size for this rule
-  groupSizeMax: integer("group_size_max").notNull(), // maximum group size for this rule
-  startTime: varchar("start_time").notNull(), // HH:MM format
-  endTime: varchar("end_time").notNull(), // HH:MM format
-  duration: integer("duration"), // duration in hours
-  boatId: varchar("boat_id"), // specific boat or null for any
-  cruiseType: varchar("cruise_type").notNull(), // 'private', 'disco'
-  basePrice: bigint("base_price", { mode: "number" }), // base price in cents
-  pricePerPerson: bigint("price_per_person", { mode: "number" }), // per person price in cents
-  active: boolean("active").notNull().default(true),
-  priority: integer("priority").notNull().default(0), // higher priority rules override lower
-  notes: text("notes"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-// Holiday Exceptions - specific dates that override normal availability rules
-export const holidayExceptions = pgTable("holiday_exceptions", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  exceptionDate: timestamp("exception_date").notNull(), // specific date
-  holidayName: text("holiday_name"), // e.g., "Memorial Day", "4th of July"
-  dayType: varchar("day_type"), // override day type: 'weekday', 'friday', 'saturday', 'sunday', or null to keep original
-  priceMultiplier: integer("price_multiplier").default(100), // percentage multiplier (100 = normal, 150 = 1.5x)
-  availabilityStatus: varchar("availability_status").notNull().default("modified"), // 'normal', 'modified', 'closed'
-  // Custom time slots for this date (overrides master rules)
-  customSlots: jsonb("custom_slots").$type<Array<{
-    startTime: string; // HH:MM format
-    endTime: string; // HH:MM format
-    groupSizeMin: number;
-    groupSizeMax: number;
-    boatId?: string;
-    basePrice?: number;
-    pricePerPerson?: number;
-  }>>().default([]),
-  active: boolean("active").notNull().default(true),
-  notes: text("notes"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-// Special Pricing Rules - date-specific pricing overrides
-export const specialPricingRules = pgTable("special_pricing_rules", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  name: text("name").notNull(),
-  startDate: timestamp("start_date").notNull(),
-  endDate: timestamp("end_date").notNull(),
-  dayTypes: jsonb("day_types").$type<string[]>().default([]), // ['weekday', 'friday', 'saturday', 'sunday'] or empty for all
-  groupSizeMin: integer("group_size_min"), // null for any size
-  groupSizeMax: integer("group_size_max"), // null for any size
-  boatId: varchar("boat_id"), // specific boat or null for all
-  cruiseType: varchar("cruise_type"), // 'private', 'disco', or null for both
-  pricingType: varchar("pricing_type").notNull(), // 'multiplier', 'fixed', 'discount'
-  pricingValue: bigint("pricing_value", { mode: "number" }).notNull(), // percentage for multiplier/discount, cents for fixed
-  priority: integer("priority").notNull().default(0), // higher priority rules override lower
-  active: boolean("active").notNull().default(true),
-  notes: text("notes"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-// Blackout Dates - maintenance/unavailable periods
-export const blackoutDates = pgTable("blackout_dates", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  name: text("name").notNull(), // e.g., "Boat Maintenance", "Private Event"
-  startDate: timestamp("start_date").notNull(),
-  endDate: timestamp("end_date").notNull(),
-  boatId: varchar("boat_id"), // specific boat or null for all boats
-  blockType: varchar("block_type").notNull(), // 'maintenance', 'private_event', 'weather', 'other'
-  affectedSlots: jsonb("affected_slots").$type<Array<{
-    startTime?: string; // HH:MM format, null for all day
-    endTime?: string; // HH:MM format, null for all day
-  }>>().default([]),
-  recurring: boolean("recurring").notNull().default(false),
-  recurringPattern: jsonb("recurring_pattern").$type<{
-    frequency?: 'weekly' | 'monthly' | 'yearly';
-    interval?: number; // every N weeks/months/years
-    daysOfWeek?: number[]; // 0=Sunday, 6=Saturday
-    endDate?: string; // when recurring pattern ends
-  }>(),
-  active: boolean("active").notNull().default(true),
-  notes: text("notes"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-// Email Templates - for customizable email communications
-export const emailTemplates = pgTable("email_templates", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  name: text("name").notNull(),
-  description: text("description"),
-  templateType: varchar("template_type").notNull(), // 'quote_delivery', 'payment_confirmation', 'booking_confirmation', 'follow_up', 'reminder'
-  subject: text("subject").notNull(),
-  components: jsonb("components").$type<TemplateComponent[]>().default([]),
-  variables: jsonb("variables").$type<string[]>().default([]), // {{contact.name}}, {{quote.total}}, etc.
-  active: boolean("active").notNull().default(true),
-  isDefault: boolean("is_default").notNull().default(false),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-// Master Templates - base structure for all quote templates
-export const masterTemplates = pgTable("master_templates", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  name: text("name").notNull(),
-  description: text("description"),
-  components: jsonb("components").$type<TemplateComponent[]>().default([]),
-  styles: jsonb("styles").$type<TemplateStyles>().default({}),
-  active: boolean("active").notNull().default(true),
-  isDefault: boolean("is_default").notNull().default(false),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-// Customer Portal - SMS Authentication Tokens
-export const smsAuthTokens = pgTable("sms_auth_tokens", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  phoneNumber: text("phone_number").notNull(), // normalized phone number
-  code: varchar("code", { length: 6 }).notNull(), // 6-digit verification code
-  token: varchar("token", { length: 128 }), // longer secure token for magic links
-  purpose: varchar("purpose").notNull().default("login"), // 'login', 'password_reset', etc.
-  attempts: integer("attempts").notNull().default(0), // failed verification attempts
-  maxAttempts: integer("max_attempts").notNull().default(3),
-  used: boolean("used").notNull().default(false),
-  expiresAt: timestamp("expires_at").notNull(),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  usedAt: timestamp("used_at"),
-  ipAddress: varchar("ip_address"),
-  userAgent: text("user_agent"),
-});
-
-// Customer Portal - Active Sessions
-export const customerSessions = pgTable("customer_sessions", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  sessionId: varchar("session_id").notNull().unique(), // Express session ID
-  contactId: varchar("contact_id").notNull(), // links to contacts table
-  phoneNumber: text("phone_number").notNull(),
-  isAuthenticated: boolean("is_authenticated").notNull().default(true),
-  loginTime: timestamp("login_time").notNull().defaultNow(),
-  lastActivity: timestamp("last_activity").notNull().defaultNow(),
-  expiresAt: timestamp("expires_at").notNull(),
-  ipAddress: varchar("ip_address"),
-  userAgent: text("user_agent"),
-  deviceInfo: jsonb("device_info").$type<{
-    browser?: string;
-    os?: string;
-    mobile?: boolean;
-    screen?: string;
-  }>().default({}),
-  loggedOut: boolean("logged_out").notNull().default(false),
-  loggedOutAt: timestamp("logged_out_at"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// Customer Portal - Activity Logging
-export const portalActivityLog = pgTable("portal_activity_log", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  sessionId: varchar("session_id"), // links to customer_sessions
-  contactId: varchar("contact_id"), // links to contacts table
-  phoneNumber: text("phone_number"),
-  action: varchar("action").notNull(), // 'login', 'view_quote', 'download_invoice', 'update_profile', etc.
-  resource: varchar("resource"), // 'quote', 'invoice', 'booking', 'profile', etc.
-  resourceId: varchar("resource_id"), // ID of the resource being accessed
-  details: jsonb("details").$type<Record<string, any>>().default({}), // additional context
-  success: boolean("success").notNull().default(true),
-  errorMessage: text("error_message"),
-  ipAddress: varchar("ip_address"),
-  userAgent: text("user_agent"),
-  duration: integer("duration"), // request duration in milliseconds
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// Customer Portal - Phone Number Rate Limiting
-export const phoneRateLimit = pgTable("phone_rate_limit", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  phoneNumber: text("phone_number").notNull().unique(),
-  requestCount: integer("request_count").notNull().default(1),
-  windowStart: timestamp("window_start").notNull().defaultNow(),
-  lastRequest: timestamp("last_request").notNull().defaultNow(),
-  blocked: boolean("blocked").notNull().default(false),
-  blockedUntil: timestamp("blocked_until"),
-  resetAt: timestamp("reset_at").notNull(), // when the rate limit window resets
-});
-
-// Customer Portal - Verification Attempt Tracking
-export const customerVerificationAttempts = pgTable("customer_verification_attempts", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  phoneNumber: text("phone_number").notNull(),
-  sessionId: varchar("session_id").notNull(),
-  attemptCount: integer("attempt_count").notNull().default(1),
-  lastAttempt: timestamp("last_attempt").notNull().defaultNow(),
-  lockedUntil: timestamp("locked_until"),
-  lockoutCount: integer("lockout_count").notNull().default(0), // tracks escalating lockouts
-  ipAddress: varchar("ip_address"),
-  userAgent: text("user_agent"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-// Partial Leads - for capturing abandoned contact information
-export const partialLeads = pgTable("partial_leads", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  sessionId: varchar("session_id").notNull().unique(),
-  name: text("name"),
-  email: text("email"),
-  phone: text("phone"),
-  eventType: text("event_type"),
-  eventTypeLabel: text("event_type_label"),
-  eventDate: text("event_date"), // Quote Builder event date in string format
-  groupSize: integer("group_size"),
-  preferredDate: timestamp("preferred_date"),
-  
-  // Quote Builder Selection Details (cruise type, slot, packages, etc.)
-  selectionDetails: jsonb("selection_details").$type<{
-    cruiseType?: 'private' | 'disco';
-    selectedSlot?: any; // NormalizedSlot
-    selectedPackages?: string[];
-    discoPackage?: string;
-    ticketQuantity?: number;
-    selectedDuration?: number;
-    selectedBoat?: string;
-    preferredTimeLabel?: string;
-    groupSizeLabel?: string;
-  }>().default({}),
-  
-  chatbotData: jsonb("chatbot_data").$type<Record<string, any>>().default({}),
-  quoteId: varchar("quote_id"), // reference to auto-generated quote
-  status: varchar("status").notNull().default("partial"), // 'partial', 'abandoned', 'converted', 'contacted'
-  source: varchar("source").notNull().default("chat"), // tracking source
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  lastUpdated: timestamp("last_updated").notNull().defaultNow(),
-  abandonedAt: timestamp("abandoned_at"),
-  convertedToContactId: varchar("converted_to_contact_id"), // reference to contacts table if converted
-  followUpCount: integer("follow_up_count").notNull().default(0),
-  lastContactedAt: timestamp("last_contacted_at"),
-  contactMethod: varchar("contact_method"), // 'email', 'sms', 'phone' for last contact
-  adminNotes: text("admin_notes"),
-});
-
-// Quote Analytics - for tracking quote views and interactions
-export const quoteAnalytics = pgTable("quote_analytics", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  quoteId: varchar("quote_id").notNull(),
-  contactId: varchar("contact_id"),
-  sessionId: varchar("session_id"),
-  action: varchar("action").notNull(), // 'view', 'download', 'accept', 'decline', 'share'
-  viewDuration: integer("view_duration"), // seconds spent viewing
-  ipAddress: varchar("ip_address"),
-  userAgent: text("user_agent"),
-  referrer: text("referrer"),
-  deviceInfo: jsonb("device_info").$type<{
-    browser?: string;
-    os?: string;
-    mobile?: boolean;
-    screen?: string;
-  }>().default({}),
-  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// File Tracking - for documents sent to customers
-export const fileSends = pgTable("file_sends", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  contactId: varchar("contact_id").notNull(),
-  projectId: varchar("project_id"),
-  quoteId: varchar("quote_id"),
-  fileType: varchar("file_type").notNull(), // 'quote', 'invoice', 'contract', 'confirmation', 'other'
-  fileName: text("file_name").notNull(),
-  fileUrl: text("file_url"),
-  fileSize: integer("file_size"), // in bytes
-  deliveryMethod: varchar("delivery_method").notNull(), // 'email', 'sms', 'portal', 'download'
-  emailId: varchar("email_id"), // reference to email tracking
-  sentBy: varchar("sent_by"), // admin user who sent
-  delivered: boolean("delivered").notNull().default(false),
-  deliveredAt: timestamp("delivered_at"),
-  accessed: boolean("accessed").notNull().default(false),
-  accessedAt: timestamp("accessed_at"),
-  downloadCount: integer("download_count").notNull().default(0),
-  lastAccessedAt: timestamp("last_accessed_at"),
-  expiresAt: timestamp("expires_at"),
-  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// Email Tracking - for tracking email opens and clicks
-export const emailTracking = pgTable("email_tracking", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  contactId: varchar("contact_id").notNull(),
-  projectId: varchar("project_id"),
-  quoteId: varchar("quote_id"),
-  emailType: varchar("email_type").notNull(), // 'quote_delivery', 'payment_confirmation', 'booking_confirmation', 'reminder', 'follow_up'
-  emailSubject: text("email_subject").notNull(),
-  recipientEmail: text("recipient_email").notNull(),
-  senderEmail: text("sender_email").notNull(),
-  emailProvider: varchar("email_provider").notNull().default("sendgrid"), // 'sendgrid', 'mailgun'
-  providerMessageId: text("provider_message_id"), // provider's unique message ID
-  sentAt: timestamp("sent_at").notNull().defaultNow(),
-  delivered: boolean("delivered").notNull().default(false),
-  deliveredAt: timestamp("delivered_at"),
-  opened: boolean("opened").notNull().default(false),
-  firstOpenedAt: timestamp("first_opened_at"),
-  openCount: integer("open_count").notNull().default(0),
-  lastOpenedAt: timestamp("last_opened_at"),
-  clicked: boolean("clicked").notNull().default(false),
-  firstClickedAt: timestamp("first_clicked_at"),
-  clickCount: integer("click_count").notNull().default(0),
-  lastClickedAt: timestamp("last_clicked_at"),
-  bounced: boolean("bounced").notNull().default(false),
-  bouncedAt: timestamp("bounced_at"),
-  bounceReason: text("bounce_reason"),
-  unsubscribed: boolean("unsubscribed").notNull().default(false),
-  unsubscribedAt: timestamp("unsubscribed_at"),
-  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
-});
-
-// Customer Lifecycle Status - for tracking customer journey progress
-export const customerLifecycle = pgTable("customer_lifecycle", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  contactId: varchar("contact_id").notNull().unique(),
-  projectId: varchar("project_id"),
-  currentStage: varchar("current_stage").notNull().default("initial_contact"), // 'initial_contact', 'quote_sent', 'quote_viewed', 'quote_accepted', 'deposit_paid', 'fully_paid', 'confirmed', 'completed', 'cancelled'
-  previousStage: varchar("previous_stage"),
-  stageEnteredAt: timestamp("stage_entered_at").notNull().defaultNow(),
-  stageHistory: jsonb("stage_history").$type<{
-    stage: string;
-    enteredAt: string;
-    duration?: number; // minutes in this stage
-    notes?: string;
-  }[]>().default([]),
-  nextActionRequired: varchar("next_action_required"), // 'send_quote', 'follow_up', 'collect_deposit', 'confirm_booking', 'send_reminder'
-  nextActionDue: timestamp("next_action_due"),
-  totalValue: bigint("total_value", { mode: "number" }).notNull().default(0), // estimated/actual total value in cents
-  probabilityScore: integer("probability_score").notNull().default(50), // 0-100 likelihood of conversion
-  lastTouchpoint: timestamp("last_touchpoint"),
-  lastTouchpointType: varchar("last_touchpoint_type"), // 'email', 'call', 'text', 'chat', 'quote_view'
-  daysSinceLastContact: integer("days_since_last_contact").notNull().default(0),
-  totalTouchpoints: integer("total_touchpoints").notNull().default(0),
-  conversionDate: timestamp("conversion_date"), // when they became a paying customer
-  completionDate: timestamp("completion_date"), // when service was delivered
-  adminNotes: text("admin_notes"),
-  systemNotes: text("system_notes"), // automated system notes
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// Enhanced Activity Tracking - for comprehensive customer interaction tracking
-export const customerActivity = pgTable("customer_activity", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  contactId: varchar("contact_id").notNull(),
-  projectId: varchar("project_id"),
-  activityType: varchar("activity_type").notNull(), // 'chat', 'email_open', 'quote_view', 'file_download', 'payment', 'booking', 'call', 'meeting'
-  activitySubtype: varchar("activity_subtype"), // 'message_sent', 'quote_opened', 'pdf_downloaded', 'deposit_paid', etc.
-  description: text("description").notNull(),
-  value: integer("value"), // monetary value if applicable (in cents)
-  duration: integer("duration"), // duration in seconds if applicable
-  source: varchar("source").notNull().default("system"), // 'system', 'admin', 'customer', 'automation'
-  sourceId: varchar("source_id"), // ID of source record (chat message, email, etc.)
-  initiatedBy: varchar("initiated_by"), // 'customer', 'admin', 'system'
-  adminUserId: varchar("admin_user_id"), // if action taken by admin
-  ipAddress: varchar("ip_address"),
-  userAgent: text("user_agent"),
-  deviceInfo: jsonb("device_info").$type<{
-    browser?: string;
-    os?: string;
-    mobile?: boolean;
-  }>().default({}),
-  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
-  importance: varchar("importance").notNull().default("normal"), // 'low', 'normal', 'high', 'critical'
-  isAutomated: boolean("is_automated").notNull().default(false),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// ===== BLOG SYSTEM SCHEMA =====
-
-// Blog Authors - can link to existing contacts or be standalone
 export const blogAuthors = pgTable("blog_authors", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   orgId: varchar("org_id").notNull().default("org_demo"),
-  contactId: varchar("contact_id"), // optional link to existing contact
   name: text("name").notNull(),
+  slug: varchar("slug").notNull().unique(),
   email: text("email"),
   bio: text("bio"),
   avatarUrl: text("avatar_url"),
-  website: text("website"),
   socialLinks: jsonb("social_links").$type<{
     twitter?: string;
     linkedin?: string;
     facebook?: string;
     instagram?: string;
   }>().default({}),
-  slug: text("slug").notNull().unique(), // URL-friendly author identifier
   active: boolean("active").notNull().default(true),
   displayOrder: integer("display_order").notNull().default(0),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
-// Blog Categories - hierarchical support for organizing posts
 export const blogCategories = pgTable("blog_categories", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   orgId: varchar("org_id").notNull().default("org_demo"),
-  parentId: varchar("parent_id"), // for hierarchical categories
   name: text("name").notNull(),
-  slug: text("slug").notNull().unique(), // URL-friendly category identifier
+  slug: varchar("slug").notNull().unique(),
   description: text("description"),
+  parentId: varchar("parent_id"),
   metaTitle: text("meta_title"),
   metaDescription: text("meta_description"),
-  featuredImage: text("featured_image"),
-  color: varchar("color"), // hex color for category theming
-  icon: text("icon"), // icon identifier (lucide icon name)
   active: boolean("active").notNull().default(true),
   displayOrder: integer("display_order").notNull().default(0),
-  postCount: integer("post_count").notNull().default(0), // denormalized count
-  wpCategoryId: integer("wp_category_id"), // WordPress import tracking
+  postCount: integer("post_count").notNull().default(0),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
-// Blog Tags - flexible content organization
 export const blogTags = pgTable("blog_tags", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   orgId: varchar("org_id").notNull().default("org_demo"),
   name: text("name").notNull(),
-  slug: text("slug").notNull().unique(), // URL-friendly tag identifier
+  slug: varchar("slug").notNull().unique(),
   description: text("description"),
-  color: varchar("color"), // hex color for tag theming
   active: boolean("active").notNull().default(true),
-  postCount: integer("post_count").notNull().default(0), // denormalized count
-  wpTagId: integer("wp_tag_id"), // WordPress import tracking
+  postCount: integer("post_count").notNull().default(0),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
-// Blog Posts - main content table with WordPress import support
 export const blogPosts = pgTable("blog_posts", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   orgId: varchar("org_id").notNull().default("org_demo"),
-  authorId: varchar("author_id").notNull(), // references blog_authors
+  authorId: varchar("author_id").notNull(),
   title: text("title").notNull(),
-  slug: text("slug").notNull().unique(), // URL-friendly post identifier
-  excerpt: text("excerpt"),
+  slug: varchar("slug").notNull().unique(),
   content: text("content").notNull(),
-  contentType: varchar("content_type").notNull().default("html"), // 'html', 'markdown', 'rich_text'
-  status: varchar("status").notNull().default("draft"), // 'draft', 'published', 'scheduled', 'archived'
+  contentType: varchar("content_type").notNull().default("html"),
+  status: varchar("status").notNull().default("draft"),
+  excerpt: text("excerpt"),
   publishedAt: timestamp("published_at"),
-  scheduledFor: timestamp("scheduled_for"), // for scheduled posts
-  
-  // SEO fields
+  scheduledFor: timestamp("scheduled_for"),
   metaTitle: text("meta_title"),
   metaDescription: text("meta_description"),
   focusKeyphrase: text("focus_keyphrase"),
   featuredImage: text("featured_image"),
   featuredImageAlt: text("featured_image_alt"),
-  socialImage: text("social_image"), // specific image for social sharing
-  
-  // WordPress import fields
-  wpPostId: integer("wp_post_id"), // original WordPress post ID
-  wpGuid: text("wp_guid"), // WordPress GUID for tracking
-  wpStatus: varchar("wp_status"), // original WordPress status
-  wpImportDate: timestamp("wp_import_date"), // when imported from WordPress
-  wpModified: timestamp("wp_modified"), // last modified in WordPress
-  wpAuthorId: integer("wp_author_id"), // original WordPress author ID
-  
-  // Content organization
-  readingTime: integer("reading_time"), // estimated reading time in minutes
-  wordCount: integer("word_count"), // content word count
+  socialImage: text("social_image"),
+  readingTime: integer("reading_time"),
+  wordCount: integer("word_count"),
   viewCount: integer("view_count").notNull().default(0),
-  likeCount: integer("like_count").notNull().default(0),
-  shareCount: integer("share_count").notNull().default(0),
-  commentCount: integer("comment_count").notNull().default(0),
-  
-  // Display options
-  featured: boolean("featured").notNull().default(false), // highlight on homepage
+  featured: boolean("featured").notNull().default(false),
   allowComments: boolean("allow_comments").notNull().default(true),
-  sticky: boolean("sticky").notNull().default(false), // pin to top
-  template: varchar("template"), // custom post template
-  displayOrder: integer("display_order").notNull().default(0),
-  
-  // Media and formatting
-  galleryImages: jsonb("gallery_images").$type<string[]>().default([]), // image URLs for galleries
-  videoUrl: text("video_url"), // embedded video URL
-  audioUrl: text("audio_url"), // embedded audio URL
-  customFields: jsonb("custom_fields").$type<Record<string, any>>().default({}), // extensible metadata
-  
+  sticky: boolean("sticky").notNull().default(false),
+  galleryImages: jsonb("gallery_images").$type<string[]>().default([]),
+  videoUrl: text("video_url"),
+  audioUrl: text("audio_url"),
+  customFields: jsonb("custom_fields").$type<Record<string, any>>().default({}),
   createdAt: timestamp("created_at").notNull().defaultNow(),
   updatedAt: timestamp("updated_at").notNull().defaultNow(),
 });
 
-// Junction table for post-category relationships (many-to-many)
 export const blogPostCategories = pgTable("blog_post_categories", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  postId: varchar("post_id").notNull(), // references blog_posts
-  categoryId: varchar("category_id").notNull(), // references blog_categories
-  isPrimary: boolean("is_primary").notNull().default(false), // one primary category per post
+  postId: varchar("post_id").notNull(),
+  categoryId: varchar("category_id").notNull(),
+  isPrimary: boolean("is_primary").notNull().default(false),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-// Junction table for post-tag relationships (many-to-many)
 export const blogPostTags = pgTable("blog_post_tags", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  postId: varchar("post_id").notNull(), // references blog_posts
-  tagId: varchar("tag_id").notNull(), // references blog_tags
+  postId: varchar("post_id").notNull(),
+  tagId: varchar("tag_id").notNull(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-// Blog Comments - for post engagement
-export const blogComments = pgTable("blog_comments", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  postId: varchar("post_id").notNull(), // references blog_posts
-  parentId: varchar("parent_id"), // for nested comments
-  contactId: varchar("contact_id"), // optional link to contact
-  authorName: text("author_name").notNull(),
-  authorEmail: text("author_email").notNull(),
-  authorWebsite: text("author_website"),
-  authorIp: varchar("author_ip"),
-  content: text("content").notNull(),
-  status: varchar("status").notNull().default("pending"), // 'pending', 'approved', 'spam', 'rejected'
-  isAuthorVerified: boolean("is_author_verified").notNull().default(false),
-  likeCount: integer("like_count").notNull().default(0),
-  replyCount: integer("reply_count").notNull().default(0),
-  wpCommentId: integer("wp_comment_id"), // WordPress import tracking
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
+// ==========================================
+// SEO MANAGEMENT
+// ==========================================
 
-// Blog Analytics - track post performance
-export const blogAnalytics = pgTable("blog_analytics", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  postId: varchar("post_id").notNull(), // references blog_posts
-  date: timestamp("date").notNull(), // analytics date
-  views: integer("views").notNull().default(0),
-  uniqueViews: integer("unique_views").notNull().default(0),
-  bounceRate: integer("bounce_rate").notNull().default(0), // as percentage
-  avgTimeOnPage: integer("avg_time_on_page").notNull().default(0), // in seconds
-  shares: integer("shares").notNull().default(0),
-  comments: integer("comments").notNull().default(0),
-  referrerData: jsonb("referrer_data").$type<Record<string, number>>().default({}),
-  deviceData: jsonb("device_data").$type<{
-    desktop: number;
-    mobile: number;
-    tablet: number;
-  }>().default({}),
-  countryData: jsonb("country_data").$type<Record<string, number>>().default({}),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// Blog Jobs - track upload and import jobs
-export const blogJobs = pgTable("blog_jobs", {
+export const seoPages = pgTable("seo_pages", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   orgId: varchar("org_id").notNull().default("org_demo"),
-  type: varchar("type").notNull(), // 'upload', 'batch_upload', 'wordpress_import'
-  status: varchar("status").notNull().default("pending"), // 'pending', 'running', 'completed', 'failed', 'cancelled'
-  total: integer("total").notNull().default(0),
-  processed: integer("processed").notNull().default(0),
-  success: integer("success").notNull().default(0),
-  failed: integer("failed").notNull().default(0),
-  metadata: jsonb("metadata").$type<{
-    sourceUrl?: string;
-    options?: {
-      optimizeImages?: boolean;
-      convertToMarkdown?: boolean;
-      autoCreateTags?: boolean;
-      status?: string;
-    };
-    credentials?: {
-      username?: string;
-      // Note: passwords not stored, only in memory during job
-    };
-    results?: {
-      createdPosts?: string[];
-      createdAuthors?: string[];
-      createdCategories?: string[];
-      createdTags?: string[];
-      errors?: string[];
-    };
-  }>().default({}),
-  error: text("error"),
-  startedAt: timestamp("started_at"),
-  completedAt: timestamp("completed_at"),
+  pageRoute: text("page_route").notNull(), // e.g., '/', '/bachelor-party', '/bachelorette-party'
+  pageName: text("page_name").notNull(), // Human-readable page name
+  
+  // Primary Meta Tags
+  metaTitle: text("meta_title"),
+  metaDescription: text("meta_description"),
+  metaKeywords: jsonb("meta_keywords").$type<string[]>().default([]),
+  
+  // Open Graph Tags
+  openGraphTitle: text("og_title"),
+  openGraphDescription: text("og_description"),
+  openGraphImage: text("og_image"),
+  openGraphType: varchar("og_type").default("website"),
+  
+  // Twitter Card Tags
+  twitterTitle: text("twitter_title"),
+  twitterDescription: text("twitter_description"),
+  twitterImage: text("twitter_image"),
+  twitterCard: varchar("twitter_card").default("summary_large_image"),
+  
+  // SEO Focus
+  focusKeyword: text("focus_keyword"),
+  targetKeywords: jsonb("target_keywords").$type<string[]>().default([]),
+  
+  // Structured Data
+  schemaMarkup: jsonb("schema_markup").$type<Record<string, any>>().default({}),
+  
+  // URL Management
+  canonicalUrl: text("canonical_url"),
+  alternateUrls: jsonb("alternate_urls").$type<string[]>().default([]),
+  
+  // Technical SEO
+  robotsDirective: varchar("robots_directive").default("index, follow"),
+  priority: integer("priority").default(50), // 0-100 for sitemap priority
+  changeFrequency: varchar("change_frequency").default("monthly"), // weekly, monthly, yearly
+  
+  // SEO Analysis Results
+  seoScore: integer("seo_score").default(0), // 0-100
+  lastAnalyzed: timestamp("last_analyzed"),
+  issues: jsonb("issues").$type<SEOIssue[]>().default([]),
+  recommendations: jsonb("recommendations").$type<string[]>().default([]),
+  
+  // Content Analysis
+  contentLength: integer("content_length").default(0),
+  keywordDensity: jsonb("keyword_density").$type<Record<string, number>>().default({}),
+  headingStructure: jsonb("heading_structure").$type<HeadingStructure>().default({ h1: [], h2: [], h3: [], h4: [], h5: [], h6: [] }),
+  internalLinks: integer("internal_links").default(0),
+  externalLinks: integer("external_links").default(0),
+  imagesWithoutAlt: integer("images_without_alt").default(0),
+  
+  // Performance Metrics
+  loadTime: integer("load_time"), // in milliseconds
+  mobileOptimized: boolean("mobile_optimized").default(true),
+  
+  // Status and Management
+  active: boolean("active").notNull().default(true),
+  autoOptimize: boolean("auto_optimize").default(false), // Allow AI optimization
+  lastUpdated: timestamp("last_updated").notNull().defaultNow(),
   createdAt: timestamp("created_at").notNull().defaultNow(),
 });
 
-// ===== END BLOG SYSTEM SCHEMA =====
+// ==========================================
+// MEDIA LIBRARY
+// ==========================================
 
-// Type definitions for partial leads
-export type PartialLead = typeof partialLeads.$inferSelect;
-export type InsertPartialLead = typeof partialLeads.$inferInsert;
+export const mediaItems = pgTable('media_items', {
+  id: varchar('id', { length: 255 }).primaryKey().default(sql`gen_random_uuid()`),
+  filename: varchar('filename', { length: 500 }).notNull(),
+  originalName: varchar('original_name', { length: 500 }),
+  fileType: varchar('file_type', { length: 50 }).notNull(), // 'photo', 'video', 'generated_video', 'edited_photo'
+  filePath: varchar('file_path', { length: 1000 }).notNull(),
+  fileSize: integer('file_size'),
+  mimeType: varchar('mime_type', { length: 100 }),
+  uploadDate: timestamp('upload_date').defaultNow(),
+  
+  // AI Analysis
+  aiAnalyzed: boolean('ai_analyzed').default(false),
+  aiAnalysis: jsonb('ai_analysis'),
+  autoTags: jsonb('auto_tags'),
+  manualTags: jsonb('manual_tags'),
+  qualityScore: integer('quality_score'),
+  ugcPotential: integer('ugc_potential'),
+  
+  // Editing
+  originalPhotoId: varchar('original_photo_id', { length: 255 }),
+  editHistory: jsonb('edit_history'),
+  
+  // Management
+  status: varchar('status', { length: 50 }).default('draft'),
+  publishedLocations: jsonb('published_locations'),
+  createdBy: varchar('created_by', { length: 255 }),
+  lastModified: timestamp('last_modified').defaultNow()
+});
 
-export type PartialLeadStatus = 'partial' | 'abandoned' | 'converted' | 'contacted' | 'dismissed';
+export const photoEdits = pgTable('photo_edits', {
+  id: varchar('id', { length: 255 }).primaryKey().default(sql`gen_random_uuid()`),
+  originalPhotoId: varchar('original_photo_id', { length: 255 }),
+  editedPhotoId: varchar('edited_photo_id', { length: 255 }),
+  editType: varchar('edit_type', { length: 100 }),
+  editPrompt: text('edit_prompt'),
+  nanoBananaJobId: varchar('nanobanan_job_id', { length: 500 }),
+  editCost: bigint('edit_cost', { mode: "number" }),
+  status: varchar('status', { length: 50 }).default('processing'),
+  createdAt: timestamp('created_at').defaultNow()
+});
 
-export type PartialLeadFilters = {
-  status?: PartialLeadStatus;
-  dateFrom?: Date;
-  dateTo?: Date;
-  hasEmail?: boolean;
-  hasPhone?: boolean;
-  eventType?: string;
-};
+// ==========================================
+// CONTENT BLOCKS
+// ==========================================
 
-// Type definitions
-export type QuoteItem = {
-  id: string;
-  type: string;
-  name: string;
-  productId?: string;
-  unitPrice: number;
-  qty: number;
-  clientCanEditQty?: boolean;
-  groupId?: string;
-  required?: boolean;
-  isOptional?: boolean;
-  order?: number;
-  description?: string;
-  category?: string;
-};
+export const contentBlocks = pgTable('content_blocks', {
+  id: varchar('id').primaryKey().default(sql`gen_random_uuid()`),
+  orgId: varchar("org_id").notNull().default("org_demo"),
+  route: text('route').notNull(), // page route like '/home', '/about'
+  key: text('key').notNull(), // unique identifier like 'hero-title', 'popup-text'
+  title: text('title'), // human-readable title for the block
+  valueJSON: text('value_json').notNull(), // JSON content
+  type: text('type').notNull(), // 'text', 'image', 'video', 'cta', 'section', 'gallery', 'testimonial', 'pricing', 'faq', 'contact', 'custom', 'html'
+  category: text('category').default('content'), // 'content', 'layout', 'media', 'interactive'
+  displayOrder: integer('display_order').default(0), // for ordering blocks within a page
+  isVisible: boolean('is_visible').default(true), // show/hide blocks
+  status: varchar('status').notNull().default('draft'), // 'draft', 'published', 'archived'
+  conditions: jsonb('conditions').$type<{
+    showOnMobile?: boolean;
+    showOnDesktop?: boolean;
+    showForUserRoles?: string[];
+    dateRange?: {
+      start?: string;
+      end?: string;
+    };
+  }>().default({}), // conditional display rules
+  styling: jsonb('styling').$type<{
+    backgroundColor?: string;
+    textColor?: string;
+    padding?: string;
+    margin?: string;
+    customCSS?: string;
+  }>().default({}), // block-specific styling
+  metadata: jsonb('metadata').$type<{
+    version?: number;
+    lastPublished?: string;
+    isDraft?: boolean;
+    approvalStatus?: 'pending' | 'approved' | 'rejected';
+    approvedBy?: string;
+    approvedAt?: string;
+    tags?: string[];
+    seoTitle?: string;
+    seoDescription?: string;
+  }>().default({}), // extensible metadata
+  parentBlockId: varchar('parent_block_id'), // for nested blocks (e.g., sections containing other blocks)
+  templateId: varchar('template_id'), // reference to block templates
+  updatedBy: text('updated_by'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow()
+});
 
-export type RadioOption = {
-  id: string;
-  name: string;
-  description?: string;
-  price: number; // in cents
-  isDefault?: boolean;
-  metadata?: Record<string, any>;
-};
-
-export type RadioSection = {
-  id: string;
-  title: string;
-  description?: string;
-  required: boolean;
-  options: RadioOption[];
-  selectedOptionId?: string;
-  selectedValue?: string;
-  allowCustomInput?: boolean;
-  customInputLabel?: string;
-  order?: number;
-};
-
-export type PaymentSchedule = {
-  line: number;
-  due: string;
-  percent: number;
-  daysBefore?: number;
-};
-
-export type TemplateVisual = {
-  primaryColor?: string;
-  accentColor?: string;
-  headerImage?: string;
-  logoUrl?: string;
-  theme?: string;
-};
-
-export type RuleCondition = {
-  field: string; // 'groupSize', 'eventType', 'projectDate', 'daysBefore', etc.
-  operator: string; // 'equals', 'greater_than', 'less_than', 'contains', etc.
-  value: any;
-  logicalOperator?: 'AND' | 'OR'; // for combining conditions
-};
-
-export type RuleAction = {
-  actionType: string; // 'add_item', 'modify_price', 'set_message', 'require_deposit', etc.
-  target?: string;
-  value: any;
-  parameters?: Record<string, any>;
-};
-
-export type DiscountCondition = {
-  field: string;
-  operator: string;
-  value: any;
-};
+// ==========================================
+// TYPE DEFINITIONS
+// ==========================================
 
 export type DayOfWeekMultipliers = {
   monday?: number;
@@ -1127,127 +401,33 @@ export type SeasonalAdjustment = {
   description?: string;
 };
 
-export type ChatbotButton = {
-  id: string;
-  text: string;
-  value: string;
-  style?: 'primary' | 'secondary' | 'outline';
-  metadata?: Record<string, any>;
-};
-
-export type ChatbotFlow = {
-  stepId: string;
+export type SEOIssue = {
+  type: 'error' | 'warning' | 'info';
+  category: 'meta' | 'content' | 'technical' | 'performance' | 'accessibility';
   message: string;
-  buttons?: ChatbotButton[];
-  nextStep?: string;
-  actions?: string[]; // action types to execute
+  element?: string;
+  priority: 'high' | 'medium' | 'low';
+  autoFixable: boolean;
 };
 
-// Template Component types for drag-and-drop builders
-export type TemplateComponent = {
-  id: string;
-  type: 'text' | 'line_items' | 'radio_group' | 'checkbox_group' | 'quantity_selector' | 
-        'info_box' | 'divider' | 'pricing_breakdown' | 'terms' | 'header' | 'footer' |
-        'button' | 'image' | 'table' | 'quote_summary';
-  properties: Record<string, any>;
-  children?: any[]; // Changed from TemplateComponent[] to avoid circular reference
-  order: number;
-  conditions?: ComponentCondition[];
+export type HeadingStructure = {
+  h1: string[];
+  h2: string[];
+  h3: string[];
+  h4: string[];
+  h5: string[];
+  h6: string[];
 };
 
-export type ComponentCondition = {
-  field: string;
-  operator: 'equals' | 'not_equals' | 'contains' | 'greater_than' | 'less_than';
-  value: any;
-};
+// ==========================================
+// INSERT SCHEMAS
+// ==========================================
 
-export type TemplateStyles = {
-  primaryColor?: string;
-  secondaryColor?: string;
-  fontFamily?: string;
-  fontSize?: string;
-  headerStyle?: Record<string, any>;
-  bodyStyle?: Record<string, any>;
-  footerStyle?: Record<string, any>;
-};
-
-// Insert schemas
-export const insertContactSchema = createInsertSchema(contacts).omit({
+export const insertBoatSchema = createInsertSchema(boats).omit({
   id: true,
-  createdAt: true,
-});
-
-export const insertProjectSchema = createInsertSchema(projects).omit({
-  id: true,
-  createdAt: true,
-}).partial({
-  orgId: true,
-  status: true,
-  pipelinePhase: true,
-  leadSource: true,
-  tags: true,
 }).extend({
-  projectDate: z.string().datetime().transform(str => new Date(str)).optional(),
-});
-
-export const insertQuoteSchema = createInsertSchema(quotes).omit({
-  id: true,
-  createdAt: true,
-}).extend({
-  expiresAt: z.string().datetime().transform(str => new Date(str)).optional(),
-});
-
-export const insertChatMessageSchema = createInsertSchema(chatMessages).omit({
-  id: true,
-  createdAt: true,
-});
-
-export const insertAdminChatSessionSchema = createInsertSchema(adminChatSessions).omit({
-  id: true,
-  createdAt: true,
-  lastMessageAt: true,
-});
-
-export const insertAdminChatMessageSchema = createInsertSchema(adminChatMessages).omit({
-  id: true,
-  createdAt: true,
-});
-
-export const insertQuoteTemplateSchema = createInsertSchema(quoteTemplates).omit({
-  id: true,
-  createdAt: true,
-});
-
-export const insertTemplateRuleSchema = createInsertSchema(templateRules).omit({
-  id: true,
-  createdAt: true,
-});
-
-export const insertDiscountRuleSchema = createInsertSchema(discountRules).omit({
-  id: true,
-  createdAt: true,
-}).extend({
-  name: z.string().min(1, "Discount name is required"),
-  discountType: z.enum(["percentage", "fixed_amount", "per_person"]),
-  discountValue: z.number().min(0, "Discount value must be positive"),
-  triggerOn: z.enum(["event", "inquiry", "both"]).default("event"),
-  inquiryStartDate: z.string().datetime().transform(str => new Date(str)).optional(),
-  inquiryEndDate: z.string().datetime().transform(str => new Date(str)).optional(),
-  autoApply: z.boolean().default(false),
-  requiresCode: z.boolean().default(true),
-  scopeType: z.enum(["global", "boat", "product", "category"]).default("global"),
-  validFrom: z.string().datetime().transform(str => new Date(str)).optional(),
-  validUntil: z.string().datetime().transform(str => new Date(str)).optional(),
-  minGroupSize: z.number().min(1).optional(),
-  maxGroupSize: z.number().min(1).optional(),
-  minSubtotal: z.number().min(0).optional(),
-  usageLimit: z.number().min(1).optional(),
-  active: z.boolean().default(true),
-});
-
-export const insertPricingSettingsSchema = createInsertSchema(pricingSettings).omit({
-  id: true,
-  updatedAt: true,
+  maxCapacity: z.number().min(1),
+  extraCrewThreshold: z.number().optional(),
 });
 
 export const insertProductSchema = createInsertSchema(products).omit({
@@ -1263,11 +443,20 @@ export const insertProductSchema = createInsertSchema(products).omit({
   active: z.boolean().default(true),
 });
 
-export const insertBoatSchema = createInsertSchema(boats).omit({
+export const insertAdminChatSessionSchema = createInsertSchema(adminChatSessions).omit({
   id: true,
-}).extend({
-  maxCapacity: z.number().min(1),
-  extraCrewThreshold: z.number().optional(),
+  createdAt: true,
+  lastMessageAt: true,
+});
+
+export const insertAdminChatMessageSchema = createInsertSchema(adminChatMessages).omit({
+  id: true,
+  createdAt: true,
+});
+
+export const insertPricingSettingsSchema = createInsertSchema(pricingSettings).omit({
+  id: true,
+  updatedAt: true,
 });
 
 export const insertAffiliateSchema = createInsertSchema(affiliates).omit({
@@ -1280,240 +469,6 @@ export const insertAffiliateSchema = createInsertSchema(affiliates).omit({
   createdAt: true,
 });
 
-export const insertBookingSchema = createInsertSchema(bookings).omit({
-  id: true,
-  createdAt: true,
-  lastModifiedAt: true,
-}).extend({
-  type: z.enum(["private", "disco"]),
-  status: z.enum(["booked", "hold", "blocked", "canceled", "confirmed"]).default("booked"),
-  paymentStatus: z.enum(["pending", "deposit_paid", "fully_paid"]).default("pending"),
-  startTime: z.string().datetime().transform(str => new Date(str)),
-  endTime: z.string().datetime().transform(str => new Date(str)),
-  groupSize: z.number().min(1),
-  amountPaid: z.number().min(0).default(0),
-  totalAmount: z.number().min(0).default(0),
-});
-
-export const insertDiscoSlotSchema = createInsertSchema(discoSlots).omit({
-  id: true,
-  createdAt: true,
-}).extend({
-  date: z.string().datetime().transform(str => new Date(str)),
-  startTime: z.string().datetime().transform(str => new Date(str)),
-  endTime: z.string().datetime().transform(str => new Date(str)),
-  status: z.enum(["available", "soldout", "canceled"]).default("available"),
-  ticketCap: z.number().min(1).default(100),
-  ticketsSold: z.number().min(0).default(0),
-});
-
-export const insertTimeframeSchema = createInsertSchema(timeframes).omit({
-  id: true,
-  createdAt: true,
-}).extend({
-  dayOfWeek: z.number().min(0).max(6), // 0-6 for Sunday-Saturday
-  type: z.enum(["private", "disco"]),
-  startTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/), // HH:MM format
-  endTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/), // HH:MM format
-  boatIds: z.array(z.string()).default([]),
-  active: z.boolean().default(true),
-});
-
-export const insertAvailabilitySlotSchema = createInsertSchema(availabilitySlots).omit({
-  id: true,
-  createdAt: true,
-}).extend({
-  status: z.enum(["AVAILABLE", "BOOKED", "BLOCKED", "MAINTENANCE"]).default("AVAILABLE"),
-  startTime: z.string().datetime().transform(str => new Date(str)),
-  endTime: z.string().datetime().transform(str => new Date(str)),
-  isSystemBlock: z.boolean().default(false),
-  systemBlockType: z.string().optional(),
-});
-
-export const insertSystemBlockoutSchema = createInsertSchema(systemBlockouts).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-}).extend({
-  name: z.string().min(1, "Name is required"),
-  blockType: z.enum(["maintenance", "special_event", "seasonal"]),
-  recurringPattern: z.object({
-    frequency: z.enum(['weekly', 'monthly', 'yearly']),
-    daysOfWeek: z.array(z.number().min(0).max(6)).optional(),
-    daysOfMonth: z.array(z.number().min(1).max(31)).optional(),
-    months: z.array(z.number().min(1).max(12)).optional(),
-    startDate: z.string().optional(),
-    endDate: z.string().optional(),
-    times: z.array(z.object({
-      startTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
-      endTime: z.string().regex(/^([0-1]?[0-9]|2[0-3]):[0-5][0-9]$/),
-    })),
-  }),
-  active: z.boolean().default(true),
-});
-
-export const insertEmailTemplateSchema = createInsertSchema(emailTemplates).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export const insertMasterTemplateSchema = createInsertSchema(masterTemplates).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-// Customer Portal Insert Schemas
-export const insertSmsAuthTokenSchema = createInsertSchema(smsAuthTokens).omit({
-  id: true,
-  createdAt: true,
-  usedAt: true,
-}).extend({
-  phoneNumber: z.string().min(1, "Phone number is required"),
-  code: z.string().length(6, "Code must be 6 digits"),
-  token: z.string().min(32, "Token must be at least 32 characters").optional(),
-  purpose: z.enum(["login", "password_reset", "verification"]).default("login"),
-  expiresAt: z.string().datetime().transform(str => new Date(str)),
-  attempts: z.number().min(0).default(0),
-  maxAttempts: z.number().min(1).default(3),
-  used: z.boolean().default(false),
-});
-
-export const insertCustomerSessionSchema = createInsertSchema(customerSessions).omit({
-  id: true,
-  createdAt: true,
-  loggedOutAt: true,
-}).extend({
-  sessionId: z.string().min(1, "Session ID is required"),
-  contactId: z.string().min(1, "Contact ID is required"),
-  phoneNumber: z.string().min(1, "Phone number is required"),
-  isAuthenticated: z.boolean().default(true),
-  loginTime: z.string().datetime().transform(str => new Date(str)).optional(),
-  lastActivity: z.string().datetime().transform(str => new Date(str)).optional(),
-  expiresAt: z.string().datetime().transform(str => new Date(str)),
-  loggedOut: z.boolean().default(false),
-});
-
-export const insertPortalActivityLogSchema = createInsertSchema(portalActivityLog).omit({
-  id: true,
-  createdAt: true,
-}).extend({
-  action: z.string().min(1, "Action is required"),
-  success: z.boolean().default(true),
-  duration: z.number().min(0).optional(),
-});
-
-export const insertPhoneRateLimitSchema = createInsertSchema(phoneRateLimit).omit({
-  id: true,
-}).extend({
-  phoneNumber: z.string().min(1, "Phone number is required"),
-  requestCount: z.number().min(1).default(1),
-  windowStart: z.string().datetime().transform(str => new Date(str)).optional(),
-  lastRequest: z.string().datetime().transform(str => new Date(str)).optional(),
-  resetAt: z.string().datetime().transform(str => new Date(str)),
-  blocked: z.boolean().default(false),
-  blockedUntil: z.string().datetime().transform(str => new Date(str)).optional(),
-});
-
-export const insertCustomerVerificationAttemptsSchema = createInsertSchema(customerVerificationAttempts).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-}).extend({
-  phoneNumber: z.string().min(1, "Phone number is required"),
-  sessionId: z.string().min(1, "Session ID is required"),
-  attemptCount: z.number().min(1).default(1),
-  lastAttempt: z.string().datetime().transform(str => new Date(str)).optional(),
-  lockedUntil: z.string().datetime().transform(str => new Date(str)).optional(),
-  lockoutCount: z.number().min(0).default(0),
-});
-
-export const insertPartialLeadSchema = createInsertSchema(partialLeads).omit({
-  id: true,
-  createdAt: true,
-  lastUpdated: true,
-}).extend({
-  sessionId: z.string().min(1, "Session ID is required"),
-  name: z.string().optional(),
-  email: z.string().email().optional(),
-  phone: z.string().optional(),
-  eventType: z.string().optional(),
-  eventTypeLabel: z.string().optional(),
-  groupSize: z.number().min(1).optional(),
-  preferredDate: z.string().datetime().transform(str => new Date(str)).optional(),
-  chatbotData: z.record(z.any()).default({}),
-  status: z.enum(['partial', 'abandoned', 'converted', 'contacted', 'dismissed']).default('partial'),
-});
-
-// Select types
-export type Contact = typeof contacts.$inferSelect;
-export type Project = typeof projects.$inferSelect;
-export type Boat = typeof boats.$inferSelect;
-export type Product = typeof products.$inferSelect;
-export type Quote = typeof quotes.$inferSelect;
-export type Invoice = typeof invoices.$inferSelect;
-export type Payment = typeof payments.$inferSelect;
-export type ChatMessage = typeof chatMessages.$inferSelect;
-export type AvailabilitySlot = typeof availabilitySlots.$inferSelect;
-export type QuoteTemplate = typeof quoteTemplates.$inferSelect;
-export type TemplateRule = typeof templateRules.$inferSelect;
-export type DiscountRule = typeof discountRules.$inferSelect;
-export type PricingSettings = typeof pricingSettings.$inferSelect;
-export type Affiliate = typeof affiliates.$inferSelect;
-export type Booking = typeof bookings.$inferSelect;
-export type DiscoSlot = typeof discoSlots.$inferSelect;
-export type Timeframe = typeof timeframes.$inferSelect;
-export type EmailTemplate = typeof emailTemplates.$inferSelect;
-export type MasterTemplate = typeof masterTemplates.$inferSelect;
-
-// Blog System Types
-export type BlogAuthor = typeof blogAuthors.$inferSelect;
-export type BlogCategory = typeof blogCategories.$inferSelect;
-export type BlogTag = typeof blogTags.$inferSelect;
-export type BlogPost = typeof blogPosts.$inferSelect;
-export type BlogPostCategory = typeof blogPostCategories.$inferSelect;
-export type BlogPostTag = typeof blogPostTags.$inferSelect;
-export type BlogComment = typeof blogComments.$inferSelect;
-export type BlogAnalytics = typeof blogAnalytics.$inferSelect;
-export type BlogJob = typeof blogJobs.$inferSelect;
-
-// Customer Portal Types
-export type SmsAuthToken = typeof smsAuthTokens.$inferSelect;
-export type CustomerSession = typeof customerSessions.$inferSelect;
-export type PortalActivityLog = typeof portalActivityLog.$inferSelect;
-export type PhoneRateLimit = typeof phoneRateLimit.$inferSelect;
-export type CustomerVerificationAttempts = typeof customerVerificationAttempts.$inferSelect;
-
-// Insert types
-export type InsertContact = z.infer<typeof insertContactSchema>;
-export type InsertProject = z.infer<typeof insertProjectSchema>;
-export type InsertQuote = z.infer<typeof insertQuoteSchema>;
-export type InsertChatMessage = z.infer<typeof insertChatMessageSchema>;
-export type InsertAdminChatSession = z.infer<typeof insertAdminChatSessionSchema>;
-export type InsertAdminChatMessage = z.infer<typeof insertAdminChatMessageSchema>;
-
-// Admin Chat Select Types
-export type AdminChatSession = typeof adminChatSessions.$inferSelect;
-export type AdminChatMessage = typeof adminChatMessages.$inferSelect;
-export type InsertQuoteTemplate = z.infer<typeof insertQuoteTemplateSchema>;
-export type InsertTemplateRule = z.infer<typeof insertTemplateRuleSchema>;
-export type InsertDiscountRule = z.infer<typeof insertDiscountRuleSchema>;
-export type InsertPricingSettings = z.infer<typeof insertPricingSettingsSchema>;
-export type InsertProduct = z.infer<typeof insertProductSchema>;
-export type InsertBoat = z.infer<typeof insertBoatSchema>;
-export type InsertAffiliate = z.infer<typeof insertAffiliateSchema>;
-export type InsertBooking = z.infer<typeof insertBookingSchema>;
-export type InsertDiscoSlot = z.infer<typeof insertDiscoSlotSchema>;
-export type InsertTimeframe = z.infer<typeof insertTimeframeSchema>;
-export type AvailabilitySlot = typeof availabilitySlots.$inferSelect;
-export type InsertAvailabilitySlot = z.infer<typeof insertAvailabilitySlotSchema>;
-export type SystemBlockout = typeof systemBlockouts.$inferSelect;
-export type InsertSystemBlockout = z.infer<typeof insertSystemBlockoutSchema>;
-export type InsertEmailTemplate = z.infer<typeof insertEmailTemplateSchema>;
-export type InsertMasterTemplate = z.infer<typeof insertMasterTemplateSchema>;
-
-// Blog System Insert Schemas
 export const insertBlogAuthorSchema = createInsertSchema(blogAuthors).omit({
   id: true,
   createdAt: true,
@@ -1610,690 +565,10 @@ export const insertBlogPostTagSchema = createInsertSchema(blogPostTags).omit({
   tagId: z.string().min(1, "Tag ID is required"),
 });
 
-export const insertBlogCommentSchema = createInsertSchema(blogComments).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-}).extend({
-  postId: z.string().min(1, "Post ID is required"),
-  authorName: z.string().min(1, "Author name is required"),
-  authorEmail: z.string().email("Valid email is required"),
-  content: z.string().min(1, "Comment content is required"),
-  status: z.enum(['pending', 'approved', 'spam', 'rejected']).default('pending'),
-  parentId: z.string().optional(),
-  contactId: z.string().optional(),
-  authorWebsite: z.string().optional(),
-  isAuthorVerified: z.boolean().default(false),
-});
-
-export const insertBlogAnalyticsSchema = createInsertSchema(blogAnalytics).omit({
-  id: true,
-  createdAt: true,
-}).extend({
-  postId: z.string().min(1, "Post ID is required"),
-  date: z.string().datetime().transform(str => new Date(str)),
-  views: z.number().default(0),
-  uniqueViews: z.number().default(0),
-  bounceRate: z.number().default(0),
-  avgTimeOnPage: z.number().default(0),
-  shares: z.number().default(0),
-  comments: z.number().default(0),
-  referrerData: z.record(z.number()).default({}),
-  deviceData: z.object({
-    desktop: z.number(),
-    mobile: z.number(),
-    tablet: z.number(),
-  }).default({ desktop: 0, mobile: 0, tablet: 0 }),
-  countryData: z.record(z.number()).default({}),
-});
-
-export const insertBlogJobSchema = createInsertSchema(blogJobs).omit({
-  id: true,
-  createdAt: true,
-}).extend({
-  type: z.enum(['upload', 'batch_upload', 'wordpress_import']),
-  status: z.enum(['pending', 'running', 'completed', 'failed', 'cancelled']).default('pending'),
-  total: z.number().default(0),
-  processed: z.number().default(0),
-  success: z.number().default(0),
-  failed: z.number().default(0),
-});
-
-// Blog System Insert Types
-export type InsertBlogAuthor = z.infer<typeof insertBlogAuthorSchema>;
-export type InsertBlogCategory = z.infer<typeof insertBlogCategorySchema>;
-export type InsertBlogTag = z.infer<typeof insertBlogTagSchema>;
-export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
-export type InsertBlogPostCategory = z.infer<typeof insertBlogPostCategorySchema>;
-export type InsertBlogPostTag = z.infer<typeof insertBlogPostTagSchema>;
-export type InsertBlogComment = z.infer<typeof insertBlogCommentSchema>;
-export type InsertBlogAnalytics = z.infer<typeof insertBlogAnalyticsSchema>;
-export type InsertBlogJob = z.infer<typeof insertBlogJobSchema>;
-
-// Customer Portal Insert Types
-export type InsertSmsAuthToken = z.infer<typeof insertSmsAuthTokenSchema>;
-export type InsertCustomerSession = z.infer<typeof insertCustomerSessionSchema>;
-export type InsertPortalActivityLog = z.infer<typeof insertPortalActivityLogSchema>;
-export type InsertPhoneRateLimit = z.infer<typeof insertPhoneRateLimitSchema>;
-export type InsertCustomerVerificationAttempts = z.infer<typeof insertCustomerVerificationAttemptsSchema>;
-
-// Lead tracking types for Google Sheets integration
-export type LeadProgressStage = 'started' | 'contact_complete' | 'date_selected' | 'size_selected' | 'options_selected' | 'complete';
-export type LeadStatus = 'NEW' | 'CONTACT_INFO' | 'DATE_SELECTED' | 'OPTIONS_SELECTED' | 'QUOTED' | 'BOOKED' | 'LOST';
-
-export interface LeadData {
-  leadId: string;
-  createdDate: string;
-  name: string;
-  email: string;
-  phone?: string;
-  eventType?: string;
-  eventTypeLabel?: string;
-  cruiseDate?: string;
-  groupSize?: number;
-  boatType?: string;
-  discoPackage?: string;
-  timeSlot?: string;
-  status: LeadStatus;
-  progress: LeadProgressStage;
-  lastUpdated: string;
-  source: string;
-  specialRequests?: string;
-  budget?: string;
-  projectId?: string;
-  notes?: string;
-}
-
-export interface LeadUpdateData {
-  name?: string;
-  email?: string;
-  phone?: string;
-  eventType?: string;
-  eventTypeLabel?: string;
-  cruiseDate?: string;
-  groupSize?: number;
-  boatType?: string;
-  discoPackage?: string;
-  timeSlot?: string;
-  status?: LeadStatus;
-  progress?: LeadProgressStage;
-  specialRequests?: string;
-  budget?: string;
-  projectId?: string;
-  notes?: string;
-}
-
-export interface CreateLeadRequest {
-  leadId: string;
-  name: string;
-  email: string;
-  phone?: string;
-  eventType?: string;
-  eventTypeLabel?: string;
-  source?: string;
-}
-
-// Enhanced pricing response type
-export type PricingPreview = {
-  subtotal: number;
-  discountTotal: number;
-  tax: number;
-  gratuity: number;
-  total: number;
-  perPersonCost: number;
-  depositRequired: boolean;
-  depositPercent: number;
-  depositAmount: number;
-  urgencyMessage?: string;
-  appliedDiscounts: string[];
-  paymentSchedule: PaymentSchedule[];
-  expiresAt?: Date;
-  displaySettings?: {
-    showPerPerson: boolean;
-    showDeposit: boolean;
-    showPaymentSchedule: boolean;
-    showUrgency: boolean;
-  };
-  breakdown?: {
-    boatType: string;
-    dayName: string;
-    baseHourlyRate: number;
-    cruiseDuration: number;
-    baseCruiseCost: number;
-    crewFee: number;
-    subtotalBeforeTax: number;
-    gratuityAmount: number;
-    taxAmount: number;
-    grandTotal: number;
-    perPerson: number;
-    deposit: number;
-    balanceDue: number;
-  };
-};
-
-// Admin calendar-specific types for enhanced management
-export type AdminCalendarSlot = {
-  id: string;
-  boatId: string;
-  boatName: string;
-  startTime: Date;
-  endTime: Date;
-  status: 'available' | 'booked' | 'blocked' | 'maintenance';
-  booking?: AdminBookingInfo;
-  blockReason?: string;
-  blockedBy?: string;
-  blockedAt?: Date;
-  notes?: string;
-  isRecurring: boolean;
-  capacity: number;
-  bookedCount: number;
-  availableSpots: number;
-};
-
-export type AdminBookingInfo = {
-  id: string;
-  type: 'private' | 'disco';
-  status: 'booked' | 'hold' | 'blocked' | 'canceled' | 'confirmed';
-  contactName: string;
-  contactEmail: string;
-  contactPhone?: string;
-  groupSize: number;
-  partyType?: string;
-  paymentStatus: 'pending' | 'deposit_paid' | 'fully_paid';
-  amountPaid: number;
-  totalAmount: number;
-  specialRequests?: string;
-  adminNotes?: string;
-  lastModifiedBy?: string;
-  lastModifiedAt?: Date;
-};
-
-export type CalendarSlotAction = 
-  | { type: 'block'; slotId: string; reason?: string }
-  | { type: 'unblock'; slotId: string }
-  | { type: 'create_booking'; slotId: string; bookingData: Partial<AdminBookingInfo> }
-  | { type: 'edit_booking'; bookingId: string; updates: Partial<AdminBookingInfo> }
-  | { type: 'cancel_booking'; bookingId: string; reason?: string }
-  | { type: 'move_booking'; bookingId: string; newSlotId: string };
-
-export type BatchSlotOperation = {
-  action: 'block' | 'unblock' | 'maintenance';
-  slotIds: string[];
-  reason?: string;
-  notes?: string;
-};
-
-export type RecurringPattern = {
-  type: 'weekly' | 'monthly' | 'custom';
-  startDate: Date;
-  endDate?: Date;
-  daysOfWeek?: number[]; // 0-6 for Sunday-Saturday
-  timeSlots: Array<{
-    startTime: string; // HH:MM format
-    endTime: string;   // HH:MM format
-  }>;
-  boatIds: string[];
-  excludeDates?: Date[]; // specific dates to exclude
-};
-
-export type CalendarViewMode = 'week' | 'day' | 'month';
-
-export type AdminCalendarFilters = {
-  boatIds?: string[];
-  status?: ('available' | 'booked' | 'blocked' | 'maintenance')[];
-  paymentStatus?: ('pending' | 'deposit_paid' | 'fully_paid')[];
-  bookingType?: ('private' | 'disco')[];
-  dateRange?: {
-    start: Date;
-    end: Date;
-  };
-  search?: string; // search contact name/email
-};
-
-// Comprehensive booking data for admin table views
-export type ComprehensiveAdminBooking = {
-  id: string;
-  cruiseDate: Date;
-  contactName: string;
-  contactEmail: string;
-  contactPhone?: string;
-  partySize: number;
-  partyType?: string;
-  boatAssigned: string;
-  boatName: string;
-  totalAmount: number;
-  amountPaid: number;
-  amountOwed: number;
-  paymentStatus: 'Paid' | 'Partial' | 'Unpaid';
-  bookingStatus: string;
-  eventType: string;
-  startTime: Date;
-  endTime: Date;
-  projectId?: string;
-  quoteId?: string;
-  specialRequests?: string;
-  adminNotes?: string;
-  lastModifiedBy?: string;
-  lastModifiedAt?: Date;
-  createdAt: Date;
-};
-
-// Type definitions for customer tracking tables
-export type QuoteAnalytics = typeof quoteAnalytics.$inferSelect;
-export type InsertQuoteAnalytics = typeof quoteAnalytics.$inferInsert;
-
-export type FileSend = typeof fileSends.$inferSelect;
-export type InsertFileSend = typeof fileSends.$inferInsert;
-
-export type EmailTracking = typeof emailTracking.$inferSelect;
-export type InsertEmailTracking = typeof emailTracking.$inferInsert;
-
-export type CustomerLifecycle = typeof customerLifecycle.$inferSelect;
-export type InsertCustomerLifecycle = typeof customerLifecycle.$inferInsert;
-
-export type CustomerActivity = typeof customerActivity.$inferSelect;
-export type InsertCustomerActivity = typeof customerActivity.$inferInsert;
-
-// Unified Availability Data Models
-
-// Slot Hold types
-export type SlotHold = typeof slotHolds.$inferSelect;
-export type InsertSlotHold = typeof slotHolds.$inferInsert;
-
-// Create insert schema for slot holds
-export const insertSlotHoldSchema = createInsertSchema(slotHolds);
-export type InsertSlotHoldType = z.infer<typeof insertSlotHoldSchema>;
-
-// Normalized slot interface for unified availability system
-export interface NormalizedSlot {
-  id: string; // unique identifier for the slot (date + time + cruiseType combination)
-  cruiseType: 'private' | 'disco'; // type of cruise offering
-  dateISO: string; // YYYY-MM-DD format for the cruise date
-  date: string; // Alias for dateISO for backward compatibility
-  startTime: string; // HH:MM format start time
-  endTime: string; // HH:MM format end time  
-  label: string; // human-readable time display (e.g., "11am-3pm")
-  duration: number; // duration in hours
-  capacity: number; // maximum group size for this slot
-  availableCount: number; // how many boats/tickets are available
-  price: number; // base price in cents for this slot/group size
-  totalPrice: number; // total price including all fees and taxes
-  boatName: string; // name of the preferred/assigned boat for this slot
-  boatCandidates: string[]; // array of boat IDs that could serve this slot
-  bookable: boolean; // whether this slot can be booked (available and not held)
-  held?: boolean; // whether this slot is currently held by someone
-  holdExpiresAt?: Date; // when the current hold expires
-}
-
-// Customer lifecycle stage definitions
-export type LifecycleStage = 
-  | 'initial_contact'
-  | 'quote_sent'
-  | 'quote_viewed'
-  | 'quote_accepted'
-  | 'deposit_paid'
-  | 'fully_paid'
-  | 'confirmed'
-  | 'completed'
-  | 'cancelled';
-
-// Customer activity types
-export type ActivityType = 
-  | 'chat'
-  | 'email_open'
-  | 'quote_view'
-  | 'file_download'
-  | 'payment'
-  | 'booking'
-  | 'call'
-  | 'meeting'
-  | 'email_send'
-  | 'sms_send';
-
-// Comprehensive customer profile data structure
-export type CustomerProfile = {
-  contact: Contact;
-  projects: Project[];
-  quotes: Quote[];
-  lifecycle: CustomerLifecycle;
-  chatHistory: ChatMessage[];
-  quoteAnalytics: QuoteAnalytics[];
-  fileSends: FileSend[];
-  emailTracking: EmailTracking[];
-  customerActivity: CustomerActivity[];
-  payments: Payment[];
-  bookings: Booking[];
-  totalValue: number;
-  totalPaid: number;
-  balance: number;
-  lastActivity: Date | null;
-  daysInCurrentStage: number;
-  conversionProbability: number;
-  nextActionRequired: string | null;
-  nextActionDue: Date | null;
-};
-
-// ==========================================
-// SEO MANAGEMENT SCHEMA
-// ==========================================
-
-// SEO pages table for comprehensive SEO management
-export const seoPages = pgTable("seo_pages", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  pageRoute: text("page_route").notNull(), // e.g., '/', '/bachelor-party', '/bachelorette-party'
-  pageName: text("page_name").notNull(), // Human-readable page name
-  
-  // Primary Meta Tags
-  metaTitle: text("meta_title"),
-  metaDescription: text("meta_description"),
-  metaKeywords: jsonb("meta_keywords").$type<string[]>().default([]),
-  
-  // Open Graph Tags
-  openGraphTitle: text("og_title"),
-  openGraphDescription: text("og_description"),
-  openGraphImage: text("og_image"),
-  openGraphType: varchar("og_type").default("website"),
-  
-  // Twitter Card Tags
-  twitterTitle: text("twitter_title"),
-  twitterDescription: text("twitter_description"),
-  twitterImage: text("twitter_image"),
-  twitterCard: varchar("twitter_card").default("summary_large_image"),
-  
-  // SEO Focus
-  focusKeyword: text("focus_keyword"),
-  targetKeywords: jsonb("target_keywords").$type<string[]>().default([]),
-  
-  // Structured Data
-  schemaMarkup: jsonb("schema_markup").$type<Record<string, any>>().default({}),
-  
-  // URL Management
-  canonicalUrl: text("canonical_url"),
-  alternateUrls: jsonb("alternate_urls").$type<string[]>().default([]),
-  
-  // Technical SEO
-  robotsDirective: varchar("robots_directive").default("index, follow"),
-  priority: integer("priority").default(50), // 0-100 for sitemap priority
-  changeFrequency: varchar("change_frequency").default("monthly"), // weekly, monthly, yearly
-  
-  // SEO Analysis Results
-  seoScore: integer("seo_score").default(0), // 0-100
-  lastAnalyzed: timestamp("last_analyzed"),
-  issues: jsonb("issues").$type<SEOIssue[]>().default([]),
-  recommendations: jsonb("recommendations").$type<string[]>().default([]),
-  
-  // Content Analysis
-  contentLength: integer("content_length").default(0),
-  keywordDensity: jsonb("keyword_density").$type<Record<string, number>>().default({}),
-  headingStructure: jsonb("heading_structure").$type<HeadingStructure>().default({ h1: [], h2: [], h3: [], h4: [], h5: [], h6: [] }),
-  internalLinks: integer("internal_links").default(0),
-  externalLinks: integer("external_links").default(0),
-  imagesWithoutAlt: integer("images_without_alt").default(0),
-  
-  // Performance Metrics
-  loadTime: integer("load_time"), // in milliseconds
-  mobileOptimized: boolean("mobile_optimized").default(true),
-  
-  // Status and Management
-  active: boolean("active").notNull().default(true),
-  autoOptimize: boolean("auto_optimize").default(false), // Allow AI optimization
-  lastUpdated: timestamp("last_updated").notNull().defaultNow(),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// SEO audit log for tracking changes and optimizations
-export const seoAuditLog = pgTable("seo_audit_log", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  pageId: varchar("page_id").notNull(), // reference to seo_pages
-  
-  // Audit Details
-  auditType: varchar("audit_type").notNull(), // 'manual', 'ai_optimization', 'bulk_update', 'scheduled'
-  changesMade: jsonb("changes_made").$type<Record<string, any>>().default({}),
-  previousData: jsonb("previous_data").$type<Record<string, any>>().default({}),
-  
-  // Results
-  scoreBefore: integer("score_before").default(0),
-  scoreAfter: integer("score_after").default(0),
-  issuesResolved: jsonb("issues_resolved").$type<string[]>().default([]),
-  newIssues: jsonb("new_issues").$type<string[]>().default([]),
-  
-  // AI Optimization Details
-  aiPrompt: text("ai_prompt"),
-  aiModel: varchar("ai_model"), // 'gpt-4', 'gpt-3.5-turbo', etc.
-  aiTokensUsed: integer("ai_tokens_used"),
-  
-  // Metadata
-  performedBy: varchar("performed_by"), // 'system', 'admin', or user ID
-  notes: text("notes"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// SEO competitor tracking
-export const seoCompetitors = pgTable("seo_competitors", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  
-  // Competitor Details
-  name: text("name").notNull(),
-  domain: text("domain").notNull(),
-  targetKeywords: jsonb("target_keywords").$type<string[]>().default([]),
-  
-  // Analysis Results
-  estimatedTraffic: integer("estimated_traffic"),
-  domainAuthority: integer("domain_authority"),
-  backlinks: integer("backlinks"),
-  topRankingPages: jsonb("top_ranking_pages").$type<CompetitorPage[]>().default([]),
-  
-  // Tracking
-  active: boolean("active").notNull().default(true),
-  lastAnalyzed: timestamp("last_analyzed"),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// Global SEO settings and configurations
-export const seoSettings = pgTable("seo_settings", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  
-  // Global Meta Defaults
-  defaultMetaTitle: text("default_meta_title"),
-  defaultMetaDescription: text("default_meta_description"),
-  defaultOgImage: text("default_og_image"),
-  
-  // Business Information for Schema
-  businessName: text("business_name"),
-  businessType: varchar("business_type"), // 'LocalBusiness', 'Organization', etc.
-  businessAddress: jsonb("business_address").$type<BusinessAddress>().default({}),
-  businessPhone: text("business_phone"),
-  businessEmail: text("business_email"),
-  businessHours: jsonb("business_hours").$type<BusinessHours[]>().default([]),
-  
-  // Social Media Profiles
-  socialProfiles: jsonb("social_profiles").$type<SocialProfile[]>().default([]),
-  
-  // SEO Tools Integration
-  googleAnalyticsId: text("google_analytics_id"),
-  googleSearchConsoleId: text("google_search_console_id"),
-  facebookPixelId: text("facebook_pixel_id"),
-  
-  // Technical Settings
-  robotsTxtContent: text("robots_txt_content"),
-  customSchemaMarkup: jsonb("custom_schema_markup").$type<Record<string, any>>().default({}),
-  
-  // AI Optimization Settings
-  aiOptimizationEnabled: boolean("ai_optimization_enabled").default(true),
-  preferredAiModel: varchar("preferred_ai_model").default("gpt-4"),
-  aiOptimizationPrompts: jsonb("ai_optimization_prompts").$type<Record<string, string>>().default({}),
-  
-  // Automated Features
-  autoGenerateSitemap: boolean("auto_generate_sitemap").default(true),
-  autoAnalyzeNewPages: boolean("auto_analyze_new_pages").default(true),
-  scheduleRegularAudits: boolean("schedule_regular_audits").default(false),
-  auditFrequency: varchar("audit_frequency").default("weekly"), // daily, weekly, monthly
-  
-  lastUpdated: timestamp("last_updated").notNull().defaultNow(),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// Types for SEO functionality
-export type SEOIssue = {
-  type: 'error' | 'warning' | 'info';
-  category: 'meta' | 'content' | 'technical' | 'performance' | 'accessibility';
-  message: string;
-  element?: string;
-  priority: 'high' | 'medium' | 'low';
-  autoFixable: boolean;
-};
-
-export type HeadingStructure = {
-  h1: string[];
-  h2: string[];
-  h3: string[];
-  h4: string[];
-  h5: string[];
-  h6: string[];
-};
-
-export type CompetitorPage = {
-  url: string;
-  title: string;
-  keywords: string[];
-  estimatedTraffic: number;
-  position: number;
-};
-
-export type BusinessAddress = {
-  streetAddress?: string;
-  addressLocality?: string;
-  addressRegion?: string;
-  postalCode?: string;
-  addressCountry?: string;
-};
-
-export type BusinessHours = {
-  dayOfWeek: string;
-  opens: string;
-  closes: string;
-};
-
-export type SocialProfile = {
-  platform: 'facebook' | 'instagram' | 'twitter' | 'linkedin' | 'youtube' | 'tiktok';
-  url: string;
-  username?: string;
-};
-
-// Insert schemas for SEO entities
 export const insertSeoPageSchema = createInsertSchema(seoPages).omit({
   id: true,
   createdAt: true,
   lastUpdated: true,
-});
-
-export const insertSeoAuditLogSchema = createInsertSchema(seoAuditLog).omit({
-  id: true,
-  createdAt: true,
-});
-
-export const insertSeoCompetitorSchema = createInsertSchema(seoCompetitors).omit({
-  id: true,
-  createdAt: true,
-});
-
-export const insertSeoSettingsSchema = createInsertSchema(seoSettings).omit({
-  id: true,
-  createdAt: true,
-  lastUpdated: true,
-});
-
-// TypeScript types for SEO entities
-export type SeoPage = typeof seoPages.$inferSelect;
-export type InsertSeoPage = z.infer<typeof insertSeoPageSchema>;
-export type SeoAuditLog = typeof seoAuditLog.$inferSelect;
-export type InsertSeoAuditLog = z.infer<typeof insertSeoAuditLogSchema>;
-export type SeoCompetitor = typeof seoCompetitors.$inferSelect;
-export type InsertSeoCompetitor = z.infer<typeof insertSeoCompetitorSchema>;
-export type SeoSettings = typeof seoSettings.$inferSelect;
-export type InsertSeoSettings = z.infer<typeof insertSeoSettingsSchema>;
-
-// SEO analysis and optimization types
-export type SEOAnalysisResult = {
-  score: number;
-  issues: SEOIssue[];
-  recommendations: string[];
-  keywordDensity: Record<string, number>;
-  headingStructure: HeadingStructure;
-  contentMetrics: {
-    wordCount: number;
-    paragraphCount: number;
-    sentenceCount: number;
-    readabilityScore: number;
-  };
-  technicalMetrics: {
-    loadTime: number;
-    mobileOptimized: boolean;
-    hasStructuredData: boolean;
-    internalLinks: number;
-    externalLinks: number;
-    imagesWithoutAlt: number;
-  };
-};
-
-export type SEOOptimizationRequest = {
-  pageRoute: string;
-  targetKeyword?: string;
-  optimizationType: 'meta_tags' | 'content' | 'headings' | 'full_page';
-  currentContent?: string;
-  competitorUrls?: string[];
-};
-
-export type SEOBulkOperation = {
-  operation: 'analyze' | 'optimize' | 'update_meta';
-  pageRoutes: string[];
-  parameters?: Record<string, any>;
-};
-
-// AI Media Library Tables
-export const mediaItems = pgTable('media_items', {
-  id: varchar('id', { length: 255 }).primaryKey().default(sql`gen_random_uuid()`),
-  filename: varchar('filename', { length: 500 }).notNull(),
-  originalName: varchar('original_name', { length: 500 }),
-  fileType: varchar('file_type', { length: 50 }).notNull(), // 'photo', 'video', 'generated_video', 'edited_photo'
-  filePath: varchar('file_path', { length: 1000 }).notNull(),
-  fileSize: integer('file_size'),
-  mimeType: varchar('mime_type', { length: 100 }),
-  uploadDate: timestamp('upload_date').defaultNow(),
-  
-  // AI Analysis
-  aiAnalyzed: boolean('ai_analyzed').default(false),
-  aiAnalysis: jsonb('ai_analysis'),
-  autoTags: jsonb('auto_tags'),
-  manualTags: jsonb('manual_tags'),
-  qualityScore: integer('quality_score'),
-  ugcPotential: integer('ugc_potential'),
-  
-  // Editing
-  originalPhotoId: varchar('original_photo_id', { length: 255 }),
-  editHistory: jsonb('edit_history'),
-  
-  // Management
-  status: varchar('status', { length: 50 }).default('draft'),
-  publishedLocations: jsonb('published_locations'),
-  createdBy: varchar('created_by', { length: 255 }),
-  lastModified: timestamp('last_modified').defaultNow()
-});
-
-export const photoEdits = pgTable('photo_edits', {
-  id: varchar('id', { length: 255 }).primaryKey().default(sql`gen_random_uuid()`),
-  originalPhotoId: varchar('original_photo_id', { length: 255 }),
-  editedPhotoId: varchar('edited_photo_id', { length: 255 }),
-  editType: varchar('edit_type', { length: 100 }),
-  editPrompt: text('edit_prompt'),
-  nanoBananaJobId: varchar('nanobanan_job_id', { length: 500 }),
-  editCost: bigint('edit_cost', { mode: "number" }),
-  status: varchar('status', { length: 50 }).default('processing'),
-  createdAt: timestamp('created_at').defaultNow()
 });
 
 export const insertMediaItemSchema = createInsertSchema(mediaItems).omit({
@@ -2307,805 +582,6 @@ export const insertPhotoEditSchema = createInsertSchema(photoEdits).omit({
   createdAt: true,
 });
 
-export type InsertMediaItem = z.infer<typeof insertMediaItemSchema>;
-export type MediaItem = typeof mediaItems.$inferSelect;
-export type InsertPhotoEdit = z.infer<typeof insertPhotoEditSchema>;
-export type PhotoEdit = typeof photoEdits.$inferSelect;
-
-// Pricing Adjustments - for dynamic pricing modifications (Phase 1)
-export const pricingAdjustments = pgTable("pricing_adjustments", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  name: text("name").notNull(),
-  description: text("description"),
-  scopeType: varchar("scope_type").notNull(), // 'global', 'boat', 'product', 'category'
-  scopeId: varchar("scope_id"), // nullable when scopeType is 'global'
-  startDate: timestamp("start_date").notNull(),
-  endDate: timestamp("end_date").notNull(),
-  daysOfWeek: jsonb("days_of_week").$type<number[]>().default([]), // 0-6 for Sunday-Saturday
-  adjustmentType: varchar("adjustment_type").notNull(), // 'amount', 'percent', 'override'
-  amountCents: bigint("amount_cents", { mode: "number" }).notNull().default(0), // Fixed amount in cents
-  percentBps: integer("percent_bps").notNull().default(0), // Percentage in basis points (0-10000)
-  operation: varchar("operation").notNull().default("increase"), // 'increase', 'decrease'
-  priority: integer("priority").notNull().default(0), // Lower number = higher priority
-  stackable: boolean("stackable").notNull().default(true), // Can be combined with other adjustments
-  isDateOfInterest: boolean("is_date_of_interest").notNull().default(false), // Special date highlighting
-  interestLabel: text("interest_label"), // Label for special dates (e.g., "New Year's Eve")
-  interestColor: varchar("interest_color"), // Color code for calendar highlighting
-  recurrence: varchar("recurrence").notNull().default("none"), // 'none', 'annual'
-  active: boolean("active").notNull().default(true),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-// Pricing Adjustments Insert Schema
-export const insertPricingAdjustmentSchema = createInsertSchema(pricingAdjustments).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-}).extend({
-  name: z.string().min(1, "Adjustment name is required"),
-  scopeType: z.enum(["global", "boat", "product", "category"]),
-  startDate: z.string().datetime().transform(str => new Date(str)),
-  endDate: z.string().datetime().transform(str => new Date(str)),
-  daysOfWeek: z.array(z.number().min(0).max(6)).default([]),
-  adjustmentType: z.enum(["amount", "percent", "override"]),
-  amountCents: z.number().min(0).default(0),
-  percentBps: z.number().min(0).max(10000).default(0), // 0-10000 basis points (0-100%)
-  operation: z.enum(["increase", "decrease"]).default("increase"),
-  priority: z.number().default(0),
-  stackable: z.boolean().default(true),
-  isDateOfInterest: z.boolean().default(false),
-  recurrence: z.enum(["none", "annual"]).default("none"),
-  active: z.boolean().default(true),
-});
-
-// Type definitions for Pricing Adjustments
-export type PricingAdjustment = typeof pricingAdjustments.$inferSelect;
-export type InsertPricingAdjustment = z.infer<typeof insertPricingAdjustmentSchema>;
-
-// ==========================================
-// UNIVERSAL INTELLIGENT CHECKOUT SYSTEM
-// ==========================================
-
-/**
- * Entry point types for tracking where the checkout originated
- */
-export type CheckoutEntryPoint = 
-  | 'quote_builder'    // From quote builder interface
-  | 'live_calendar'    // From calendar slot selection
-  | 'quote_form'       // From quote request forms
-  | 'chat_flow'        // From chatbot flow
-  | 'direct_link'      // Direct URL access
-  | 'admin_booking';   // Admin-created booking
-
-/**
- * Boat configuration with capacity and pricing information
- */
-export interface BoatOption {
-  id: string;
-  name: string;
-  displayName: string;
-  capacity: number;          // Standard capacity (e.g., 14, 25, 50)
-  maxCapacity: number;       // Maximum with extra crew
-  extraCrewThreshold: number; // Group size requiring extra crew
-  crewFeePerHour: number;    // Additional crew fee in cents per hour
-  description: string;       // "Intimate gatherings", "Medium groups", etc.
-  imageUrl?: string;
-  active: boolean;
-}
-
-/**
- * Cruise type options with intelligent bachelor/bachelorette support
- */
-export interface CruiseTypeOption {
-  id: 'private' | 'disco';
-  label: string;
-  description: string;
-  availableFor: string[];    // Event types this is available for
-  minimumAdvanceHours: number; // Minimum booking advance notice
-  cancellationPolicy: string;
-  features: string[];
-}
-
-/**
- * Package selection for disco cruises
- */
-export interface DiscoPackageOption {
-  id: 'basic' | 'disco_queen' | 'platinum';
-  label: string;
-  description: string;
-  pricePerPerson: number;    // In cents
-  features: string[];
-  popular?: boolean;
-}
-
-/**
- * Add-on package options for private cruises
- */
-export interface AddOnPackageOption {
-  id: string;
-  name: string;
-  description: string;
-  hourlyRate: number;        // Additional rate in cents per hour
-  features: string[];
-  eventTypes: string[];      // Which event types this applies to
-  popular?: boolean;
-}
-
-/**
- * Comprehensive checkout context from entry points
- */
-export interface CheckoutContext {
-  // Entry point tracking
-  entryPoint: CheckoutEntryPoint;
-  referrerUrl?: string;
-  utmParams?: Record<string, string>;
-  
-  // Pre-selected data from entry point
-  preselectedData: {
-    // Basic event details
-    eventDate?: Date;
-    eventType?: string;
-    eventTypeLabel?: string;
-    groupSize?: number;
-    
-    // Boat and time selection
-    boatId?: string;
-    timeSlot?: NormalizedSlot;
-    cruiseType?: 'private' | 'disco';
-    
-    // Package selections
-    discoPackage?: 'basic' | 'disco_queen' | 'platinum';
-    discoTicketQuantity?: number;
-    addOnPackages?: string[];
-    
-    // Pricing context
-    quotedPrice?: number;
-    depositAmount?: number;
-    
-    // Contact information (if available)
-    contactName?: string;
-    contactEmail?: string;
-    contactPhone?: string;
-    
-    // Special requirements
-    specialRequests?: string;
-    budget?: number;
-  };
-  
-  // Context metadata
-  sessionId: string;
-  quoteId?: string;
-  projectId?: string;
-  holdId?: string;           // Slot hold identifier
-  createdAt: Date;
-  lastModified: Date;
-}
-
-/**
- * Current checkout selections (editable by user)
- */
-export interface CheckoutSelections {
-  // Core selections
-  eventDate: Date;
-  eventType: string;
-  eventTypeLabel: string;
-  groupSize: number;
-  
-  // Boat selection
-  selectedBoat: BoatOption;
-  selectedTimeSlot: NormalizedSlot;
-  
-  // Cruise type and packages
-  cruiseType: 'private' | 'disco';
-  discoPackage?: DiscoPackageOption;
-  discoTicketQuantity?: number;
-  addOnPackages: AddOnPackageOption[];
-  
-  // Contact information
-  contactName: string;
-  contactEmail: string;
-  contactPhone: string;
-  
-  // Additional details
-  specialRequests?: string;
-  marketingConsent: boolean;
-}
-
-/**
- * Real-time pricing calculation for checkout
- */
-export interface CheckoutPricing extends PricingPreview {
-  // Boat-specific pricing
-  boatInfo: {
-    name: string;
-    baseHourlyRate: number;
-    crewFee: number;
-    capacity: number;
-  };
-  
-  // Package pricing breakdown
-  packageBreakdown: {
-    baseCruiseCost: number;
-    discoPackageCost?: number;
-    addOnPackagesCost: number;
-    crewFee: number;
-  };
-  
-  // Payment options
-  paymentOptions: {
-    depositOnly: {
-      amount: number;
-      description: string;
-    };
-    fullPayment: {
-      amount: number;
-      description: string;
-    };
-  };
-  
-  // Pricing validity
-  validUntil: Date;
-  requiresRevalidation: boolean;
-}
-
-/**
- * Bachelor/Bachelorette intelligent comparison data
- */
-export interface BachelorComparison {
-  privateOption: {
-    available: boolean;
-    pricing: CheckoutPricing;
-    boats: BoatOption[];
-    timeSlots: NormalizedSlot[];
-    benefits: string[];
-  };
-  
-  discoOption: {
-    available: boolean;
-    pricing: CheckoutPricing;
-    packages: DiscoPackageOption[];
-    timeSlots: NormalizedSlot[];
-    benefits: string[];
-  };
-  
-  recommendation: 'private' | 'disco';
-  comparisonNote: string;
-}
-
-/**
- * Checkout validation result
- */
-export interface CheckoutValidation {
-  isValid: boolean;
-  errors: Array<{
-    field: string;
-    message: string;
-    code: string;
-  }>;
-  warnings: Array<{
-    field: string;
-    message: string;
-    code: string;
-  }>;
-  
-  // Availability check
-  slotAvailable: boolean;
-  holdValid: boolean;
-  pricingCurrent: boolean;
-  
-  // Required actions
-  requiresHoldRenewal: boolean;
-  requiresPricingUpdate: boolean;
-}
-
-/**
- * Post-payment processing data
- */
-export interface PostPaymentProcessing {
-  // Stripe payment information
-  stripePaymentIntentId: string;
-  stripeCustomerId?: string;
-  paymentAmount: number;
-  paymentType: 'deposit' | 'full_payment';
-  
-  // Booking creation
-  bookingData: {
-    contactId: string;
-    projectId: string;
-    quoteId?: string;
-    boatId: string;
-    startTime: Date;
-    endTime: Date;
-    groupSize: number;
-    totalAmount: number;
-    amountPaid: number;
-    paymentStatus: 'deposit_paid' | 'fully_paid';
-    specialRequests?: string;
-  };
-  
-  // CRM updates
-  crmUpdates: {
-    leadStatus: string;
-    pipelinePhase: string;
-    nextFollowUp?: Date;
-  };
-  
-  // External integrations
-  integrationUpdates: {
-    updateGoogleSheets: boolean;
-    updateGoHighLevel: boolean;
-    sendConfirmationEmail: boolean;
-    sendConfirmationSMS: boolean;
-  };
-  
-  // Availability management
-  availabilityUpdates: {
-    releaseHold: boolean;
-    markSlotBooked: boolean;
-    updateCapacity: boolean;
-  };
-}
-
-/**
- * Checkout session state management
- */
-export interface CheckoutSession {
-  sessionId: string;
-  context: CheckoutContext;
-  selections: CheckoutSelections;
-  pricing: CheckoutPricing;
-  validation: CheckoutValidation;
-  
-  // State tracking
-  currentStep: 'selections' | 'contact' | 'payment' | 'confirmation';
-  completedSteps: string[];
-  
-  // Hold management
-  holdId?: string;
-  holdExpiresAt?: Date;
-  
-  // Checkout flow state
-  isEditing: boolean;
-  hasChanges: boolean;
-  lastUpdated: Date;
-  
-  // Error handling
-  lastError?: string;
-  retryCount: number;
-}
-
-// Zod schemas for validation
-export const checkoutContextSchema = z.object({
-  entryPoint: z.enum(['quote_builder', 'live_calendar', 'quote_form', 'chat_flow', 'direct_link', 'admin_booking']),
-  referrerUrl: z.string().optional(),
-  utmParams: z.record(z.string()).optional(),
-  preselectedData: z.object({
-    eventDate: z.date().optional(),
-    eventType: z.string().optional(),
-    eventTypeLabel: z.string().optional(),
-    groupSize: z.number().min(1).optional(),
-    boatId: z.string().optional(),
-    timeSlot: z.any().optional(), // NormalizedSlot
-    cruiseType: z.enum(['private', 'disco']).optional(),
-    discoPackage: z.enum(['basic', 'disco_queen', 'platinum']).optional(),
-    discoTicketQuantity: z.number().optional(),
-    addOnPackages: z.array(z.string()).optional(),
-    quotedPrice: z.number().optional(),
-    depositAmount: z.number().optional(),
-    contactName: z.string().optional(),
-    contactEmail: z.string().email().optional(),
-    contactPhone: z.string().optional(),
-    specialRequests: z.string().optional(),
-    budget: z.number().optional(),
-  }).default({}),
-  sessionId: z.string(),
-  quoteId: z.string().optional(),
-  projectId: z.string().optional(),
-  holdId: z.string().optional(),
-  createdAt: z.date().default(() => new Date()),
-  lastModified: z.date().default(() => new Date()),
-});
-
-export const checkoutSelectionsSchema = z.object({
-  eventDate: z.date(),
-  eventType: z.string(),
-  eventTypeLabel: z.string(),
-  groupSize: z.number().min(1),
-  selectedBoat: z.any(), // BoatOption
-  selectedTimeSlot: z.any(), // NormalizedSlot
-  cruiseType: z.enum(['private', 'disco']),
-  discoPackage: z.any().optional(), // DiscoPackageOption
-  discoTicketQuantity: z.number().optional(),
-  addOnPackages: z.array(z.any()).default([]), // AddOnPackageOption[]
-  contactName: z.string().min(1, "Contact name is required"),
-  contactEmail: z.string().email("Valid email is required"),
-  contactPhone: z.string().min(1, "Contact phone is required"),
-  specialRequests: z.string().optional(),
-  marketingConsent: z.boolean().default(false),
-});
-
-// Webhook Notifications - for preventing duplicate notifications on webhook retries
-export const webhookNotifications = pgTable("webhook_notifications", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  paymentIntentId: text("payment_intent_id").notNull().unique(), // Stripe payment_intent.id
-  notificationType: varchar("notification_type").notNull(), // 'sms', 'email', 'both'
-  sentAt: timestamp("sent_at").notNull().defaultNow(),
-  contactId: varchar("contact_id"), // optional reference to contact
-  projectId: varchar("project_id"), // optional reference to project
-  success: boolean("success").notNull().default(true),
-  errorMessage: text("error_message"), // if notification failed
-  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-// Agent Tasks - for managing agentic AI task workflows
-export const agentTasks = pgTable("agent_tasks", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  title: text("title").notNull(),
-  description: text("description"),
-  type: varchar("type").notNull(), // 'single_action', 'workflow', 'continuous'
-  category: varchar("category").notNull(), // 'database', 'filesystem', 'api', 'seo', 'media', 'blog', 'analytics'
-  status: varchar("status").notNull().default("pending"), // 'pending', 'queued', 'running', 'completed', 'failed', 'cancelled'
-  priority: integer("priority").notNull().default(1), // 1-10, higher = more priority
-  
-  // Task configuration
-  taskData: jsonb("task_data").$type<{
-    instructions: string;
-    context?: Record<string, any>;
-    dependencies?: string[]; // task IDs this task depends on
-    retryCount?: number;
-    maxRetries?: number;
-    timeoutMs?: number;
-    requiredTools?: string[];
-    expectedOutput?: string;
-  }>().default({}),
-  
-  // Agent configuration
-  agentConfig: jsonb("agent_config").$type<{
-    model: 'gpt-3.5-turbo' | 'gpt-4o-mini' | 'gpt-4';
-    temperature?: number;
-    maxTokens?: number;
-    enabledTools?: string[];
-    systemPrompt?: string;
-    conversationHistory?: Array<{role: string; content: string}>;
-  }>().default({}),
-  
-  // Execution tracking
-  startedAt: timestamp("started_at"),
-  completedAt: timestamp("completed_at"),
-  lastExecutionAt: timestamp("last_execution_at"),
-  
-  // Results and errors
-  result: jsonb("result").$type<{
-    success: boolean;
-    output?: any;
-    error?: string;
-    executedTools?: string[];
-    tokensUsed?: number;
-    executionTime?: number;
-  }>().default({}),
-  
-  // Parent-child relationships for complex workflows
-  parentTaskId: varchar("parent_task_id"), // reference to parent task
-  childTasks: jsonb("child_tasks").$type<string[]>().default([]), // array of child task IDs
-  
-  // User context
-  createdBy: varchar("created_by"), // admin user who created the task
-  assignedAgent: varchar("assigned_agent"), // which agent instance is handling this
-  
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-// Agent Tools - definitions of available tools for agents
-export const agentTools = pgTable("agent_tools", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  name: text("name").notNull().unique(),
-  description: text("description").notNull(),
-  category: varchar("category").notNull(), // 'database', 'filesystem', 'api', 'seo', 'media', 'blog', 'analytics', 'system'
-  
-  // Function definition for OpenAI function calling
-  functionSchema: jsonb("function_schema").$type<{
-    name: string;
-    description: string;
-    parameters: {
-      type: 'object';
-      properties: Record<string, any>;
-      required?: string[];
-    };
-  }>().notNull(),
-  
-  // Implementation details
-  implementation: jsonb("implementation").$type<{
-    handlerFunction: string; // name of the function to call
-    module: string; // which module/service contains the function
-    requiresAuth?: boolean;
-    rateLimit?: number; // max calls per minute
-    dangerLevel: 'safe' | 'moderate' | 'dangerous'; // safety classification
-    allowedEnvironments?: string[]; // 'development', 'staging', 'production'
-  }>().notNull(),
-  
-  // Usage tracking
-  usageCount: integer("usage_count").notNull().default(0),
-  successRate: integer("success_rate").notNull().default(100), // percentage
-  avgExecutionTime: integer("avg_execution_time").notNull().default(0), // milliseconds
-  
-  // Configuration
-  enabled: boolean("enabled").notNull().default(true),
-  requiresApproval: boolean("requires_approval").notNull().default(false), // for dangerous operations
-  
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-// Agent Executions - tracking individual tool executions within tasks
-export const agentExecutions = pgTable("agent_executions", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  taskId: varchar("task_id").notNull(), // reference to agent_tasks
-  toolId: varchar("tool_id").notNull(), // reference to agent_tools
-  
-  // Execution details
-  input: jsonb("input").$type<Record<string, any>>().notNull(),
-  output: jsonb("output").$type<Record<string, any>>().default({}),
-  status: varchar("status").notNull().default("pending"), // 'pending', 'running', 'completed', 'failed'
-  
-  // Timing and performance
-  startedAt: timestamp("started_at").notNull().defaultNow(),
-  completedAt: timestamp("completed_at"),
-  executionTime: integer("execution_time"), // milliseconds
-  
-  // Error handling
-  error: text("error"),
-  retryAttempt: integer("retry_attempt").notNull().default(0),
-  
-  // Context and metadata
-  agentId: varchar("agent_id"), // which agent instance executed this
-  conversationContext: jsonb("conversation_context").$type<Array<{role: string; content: string}>>().default([]),
-  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
-  
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-export type WebhookNotification = typeof webhookNotifications.$inferSelect;
-export type InsertWebhookNotification = typeof webhookNotifications.$inferInsert;
-
-export type AgentTask = typeof agentTasks.$inferSelect;
-export type InsertAgentTask = typeof agentTasks.$inferInsert;
-
-export type AgentTool = typeof agentTools.$inferSelect;
-export type InsertAgentTool = typeof agentTools.$inferInsert;
-
-export type AgentExecution = typeof agentExecutions.$inferSelect;
-export type InsertAgentExecution = typeof agentExecutions.$inferInsert;
-
-// Media types
-export type Media = typeof media.$inferSelect;
-export type InsertMedia = typeof media.$inferInsert;
-
-// Availability Management types
-export type MasterAvailabilityRule = typeof masterAvailabilityRules.$inferSelect;
-export type InsertMasterAvailabilityRule = typeof masterAvailabilityRules.$inferInsert;
-
-export type HolidayException = typeof holidayExceptions.$inferSelect;
-export type InsertHolidayException = typeof holidayExceptions.$inferInsert;
-
-export type SpecialPricingRule = typeof specialPricingRules.$inferSelect;
-export type InsertSpecialPricingRule = typeof specialPricingRules.$inferInsert;
-
-export type BlackoutDate = typeof blackoutDates.$inferSelect;
-export type InsertBlackoutDate = typeof blackoutDates.$inferInsert;
-
-// Insert schemas
-export const insertWebhookNotificationSchema = createInsertSchema(webhookNotifications).omit({
-  id: true,
-  createdAt: true,
-});
-
-export const insertMediaSchema = createInsertSchema(media).omit({
-  id: true,
-  uploadedAt: true,
-});
-
-// Availability Management insert schemas
-export const insertMasterAvailabilityRuleSchema = createInsertSchema(masterAvailabilityRules).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export const insertHolidayExceptionSchema = createInsertSchema(holidayExceptions).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export const insertSpecialPricingRuleSchema = createInsertSchema(specialPricingRules).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export const insertBlackoutDateSchema = createInsertSchema(blackoutDates).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export const insertAgentTaskSchema = createInsertSchema(agentTasks).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-}).extend({
-  type: z.enum(["single_action", "workflow", "continuous"]),
-  category: z.enum(["database", "filesystem", "api", "seo", "media", "blog", "analytics", "system"]),
-  status: z.enum(["pending", "queued", "running", "completed", "failed", "cancelled"]).default("pending"),
-  priority: z.number().min(1).max(10).default(1),
-});
-
-export const insertAgentToolSchema = createInsertSchema(agentTools).omit({
-  id: true,
-  usageCount: true,
-  successRate: true,
-  avgExecutionTime: true,
-  createdAt: true,
-  updatedAt: true,
-}).extend({
-  category: z.enum(["database", "filesystem", "api", "seo", "media", "blog", "analytics", "system"]),
-  enabled: z.boolean().default(true),
-  requiresApproval: z.boolean().default(false),
-});
-
-export const insertAgentExecutionSchema = createInsertSchema(agentExecutions).omit({
-  id: true,
-  createdAt: true,
-}).extend({
-  status: z.enum(["pending", "running", "completed", "failed"]).default("pending"),
-  retryAttempt: z.number().min(0).default(0),
-});
-
-// AI Agent Chat Sessions
-export const agentChatSessions = pgTable("agent_chat_sessions", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  userId: varchar("user_id").notNull(),
-  title: text("title").notNull(),
-  status: varchar("status").notNull().default("active"), // active, archived
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-// AI Agent Chat Messages
-export const agentChatMessages = pgTable("agent_chat_messages", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  sessionId: varchar("session_id").notNull(),
-  role: varchar("role").notNull(), // user, assistant, system, function
-  content: text("content").notNull(),
-  functionCall: jsonb("function_call").$type<{name: string, arguments: string}>(),
-  toolResult: jsonb("tool_result").$type<{success: boolean, data?: any, error?: string}>(),
-  metadata: jsonb("metadata").$type<Record<string, any>>().default({}),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-});
-
-export const insertAgentChatSessionSchema = createInsertSchema(agentChatSessions).omit({ id: true, createdAt: true, updatedAt: true });
-export type InsertAgentChatSession = z.infer<typeof insertAgentChatSessionSchema>;
-export type SelectAgentChatSession = typeof agentChatSessions.$inferSelect;
-
-export const insertAgentChatMessageSchema = createInsertSchema(agentChatMessages).omit({ id: true, createdAt: true });
-export type InsertAgentChatMessage = z.infer<typeof insertAgentChatMessageSchema>;
-export type SelectAgentChatMessage = typeof agentChatMessages.$inferSelect;
-
-// Inventory Management Tables
-export const inventory = pgTable("inventory", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  boatId: varchar("boat_id").notNull().unique(),
-  minCapacity: integer("min_capacity").notNull().default(1),
-  maxCapacity: integer("max_capacity"),
-  basePricing: jsonb("base_pricing").$type<{
-    weekday: number;
-    friday: number;
-    weekend: number;
-  }>().notNull(),
-  allowedEventTypes: jsonb("allowed_event_types").$type<string[]>().default([]),
-  crewRequirements: jsonb("crew_requirements").$type<{
-    standard: number;
-    extraThreshold?: number;
-    extraCrew?: number;
-  }>(),
-  amenities: jsonb("amenities").$type<string[]>().default([]),
-  features: jsonb("features").$type<string[]>().default([]),
-  maintenanceBuffer: integer("maintenance_buffer").default(30), // minutes
-  active: boolean("active").notNull().default(true),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-export const timeSlotTemplates = pgTable("time_slot_templates", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  boatId: varchar("boat_id"), // null means applies to all boats
-  dayOfWeek: integer("day_of_week").notNull(), // 0-6
-  startTime: varchar("start_time").notNull(), // HH:MM format
-  endTime: varchar("end_time").notNull(), // HH:MM format
-  duration: integer("duration").notNull(), // in hours
-  cruiseType: varchar("cruise_type").notNull().default("private"), // private or disco
-  active: boolean("active").notNull().default(true),
-  priority: integer("priority").notNull().default(0),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-export const pricingExceptions = pgTable("pricing_exceptions", {
-  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  name: text("name").notNull(),
-  exceptionType: varchar("exception_type").notNull(), // holiday, special_event, dynamic, discount
-  multiplier: integer("multiplier").notNull(), // percentage (150 = 1.5x)
-  startDate: timestamp("start_date").notNull(),
-  endDate: timestamp("end_date").notNull(),
-  conditions: jsonb("conditions").$type<{
-    minGroupSize?: number;
-    maxGroupSize?: number;
-    withinHours?: number;
-    boatIds?: string[];
-    eventTypes?: string[];
-  }>().default({}),
-  priority: integer("priority").notNull().default(50),
-  active: boolean("active").notNull().default(true),
-  createdAt: timestamp("created_at").notNull().defaultNow(),
-  updatedAt: timestamp("updated_at").notNull().defaultNow(),
-});
-
-// Content Blocks - for inline editing and content management
-export const contentBlocks = pgTable('content_blocks', {
-  id: varchar('id').primaryKey().default(sql`gen_random_uuid()`),
-  orgId: varchar("org_id").notNull().default("org_demo"),
-  route: text('route').notNull(), // page route like '/home', '/about'
-  key: text('key').notNull(), // unique identifier like 'hero-title', 'popup-text'
-  title: text('title'), // human-readable title for the block
-  valueJSON: text('value_json').notNull(), // JSON content
-  type: text('type').notNull(), // 'text', 'image', 'video', 'cta', 'section', 'gallery', 'testimonial', 'pricing', 'faq', 'contact', 'custom', 'html'
-  category: text('category').default('content'), // 'content', 'layout', 'media', 'interactive'
-  displayOrder: integer('display_order').default(0), // for ordering blocks within a page
-  isVisible: boolean('is_visible').default(true), // show/hide blocks
-  status: varchar('status').notNull().default('draft'), // 'draft', 'published', 'archived'
-  conditions: jsonb('conditions').$type<{
-    showOnMobile?: boolean;
-    showOnDesktop?: boolean;
-    showForUserRoles?: string[];
-    dateRange?: {
-      start?: string;
-      end?: string;
-    };
-  }>().default({}), // conditional display rules
-  styling: jsonb('styling').$type<{
-    backgroundColor?: string;
-    textColor?: string;
-    padding?: string;
-    margin?: string;
-    customCSS?: string;
-  }>().default({}), // block-specific styling
-  metadata: jsonb('metadata').$type<{
-    version?: number;
-    lastPublished?: string;
-    isDraft?: boolean;
-    approvalStatus?: 'pending' | 'approved' | 'rejected';
-    approvedBy?: string;
-    approvedAt?: string;
-    tags?: string[];
-    seoTitle?: string;
-    seoDescription?: string;
-  }>().default({}), // extensible metadata
-  parentBlockId: varchar('parent_block_id'), // for nested blocks (e.g., sections containing other blocks)
-  templateId: varchar('template_id'), // reference to block templates
-  updatedBy: text('updated_by'),
-  createdAt: timestamp('created_at').defaultNow(),
-  updatedAt: timestamp('updated_at').defaultNow()
-});
-
-// Content Blocks Insert Schema
 export const insertContentBlockSchema = createInsertSchema(contentBlocks).omit({
   id: true,
   createdAt: true,
@@ -3152,40 +628,44 @@ export const insertContentBlockSchema = createInsertSchema(contentBlocks).omit({
   updatedBy: z.string().optional(),
 });
 
-// Content Blocks Types
+// ==========================================
+// SELECT TYPES
+// ==========================================
+
+export type Boat = typeof boats.$inferSelect;
+export type Product = typeof products.$inferSelect;
+export type AdminChatSession = typeof adminChatSessions.$inferSelect;
+export type AdminChatMessage = typeof adminChatMessages.$inferSelect;
+export type PricingSettings = typeof pricingSettings.$inferSelect;
+export type Affiliate = typeof affiliates.$inferSelect;
+export type BlogAuthor = typeof blogAuthors.$inferSelect;
+export type BlogCategory = typeof blogCategories.$inferSelect;
+export type BlogTag = typeof blogTags.$inferSelect;
+export type BlogPost = typeof blogPosts.$inferSelect;
+export type BlogPostCategory = typeof blogPostCategories.$inferSelect;
+export type BlogPostTag = typeof blogPostTags.$inferSelect;
+export type SeoPage = typeof seoPages.$inferSelect;
+export type MediaItem = typeof mediaItems.$inferSelect;
+export type PhotoEdit = typeof photoEdits.$inferSelect;
 export type ContentBlock = typeof contentBlocks.$inferSelect;
+
+// ==========================================
+// INSERT TYPES
+// ==========================================
+
+export type InsertBoat = z.infer<typeof insertBoatSchema>;
+export type InsertProduct = z.infer<typeof insertProductSchema>;
+export type InsertAdminChatSession = z.infer<typeof insertAdminChatSessionSchema>;
+export type InsertAdminChatMessage = z.infer<typeof insertAdminChatMessageSchema>;
+export type InsertPricingSettings = z.infer<typeof insertPricingSettingsSchema>;
+export type InsertAffiliate = z.infer<typeof insertAffiliateSchema>;
+export type InsertBlogAuthor = z.infer<typeof insertBlogAuthorSchema>;
+export type InsertBlogCategory = z.infer<typeof insertBlogCategorySchema>;
+export type InsertBlogTag = z.infer<typeof insertBlogTagSchema>;
+export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
+export type InsertBlogPostCategory = z.infer<typeof insertBlogPostCategorySchema>;
+export type InsertBlogPostTag = z.infer<typeof insertBlogPostTagSchema>;
+export type InsertSeoPage = z.infer<typeof insertSeoPageSchema>;
+export type InsertMediaItem = z.infer<typeof insertMediaItemSchema>;
+export type InsertPhotoEdit = z.infer<typeof insertPhotoEditSchema>;
 export type InsertContentBlock = z.infer<typeof insertContentBlockSchema>;
-
-// Inventory Management Types
-export type Inventory = typeof inventory.$inferSelect;
-export type InsertInventory = typeof inventory.$inferInsert;
-
-export type TimeSlotTemplate = typeof timeSlotTemplates.$inferSelect;
-export type InsertTimeSlotTemplate = typeof timeSlotTemplates.$inferInsert;
-
-export type PricingException = typeof pricingExceptions.$inferSelect;
-export type InsertPricingException = typeof pricingExceptions.$inferInsert;
-
-// Inventory Management Insert Schemas
-export const insertInventorySchema = createInsertSchema(inventory).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export const insertTimeSlotTemplateSchema = createInsertSchema(timeSlotTemplates).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-export const insertPricingExceptionSchema = createInsertSchema(pricingExceptions).omit({
-  id: true,
-  createdAt: true,
-  updatedAt: true,
-});
-
-
-// Export types
-export type CheckoutContext = z.infer<typeof checkoutContextSchema>;
-export type CheckoutSelections = z.infer<typeof checkoutSelectionsSchema>;
