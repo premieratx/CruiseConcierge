@@ -10,6 +10,7 @@ import { lazy, Suspense } from "react";
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 import Chat from "./pages/Chat";
+import QuoteBuilderEmbed from "./pages/QuoteBuilderEmbed";
 import QuoteBuilder from "./pages/QuoteBuilder";
 import QuoteEditor from "./pages/QuoteEditor";
 import PartialLeads from "./pages/PartialLeads";
@@ -151,7 +152,7 @@ function Router() {
       {/* Admin Dashboard Routes */}
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/admin" component={Dashboard} />
-      <Route path="/chat" component={Chat} />
+      <Route path="/chat" component={QuoteBuilderEmbed} />
       <Route path="/customers/:id" component={CustomerProfile} />
       <Route path="/partial-leads" component={PartialLeads} />
       <Route path="/projects" component={Projects} />

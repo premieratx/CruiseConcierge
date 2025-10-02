@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { apiRequest, queryClient } from '@/lib/queryClient';
-import { insertQuoteSchema, type Quote, type Project, type Contact, type QuoteTemplate, type RadioSection, type RadioOption, type Product, type PricingSettings } from '@shared/schema';
+import { type Quote, type Project, type Contact, type QuoteTemplate, type RadioSection, type RadioOption, type Product, type PricingSettings } from '@shared/schema';
 import { ContactInfoModal } from '@/components/ContactInfoModal';
 import {
   Form,
@@ -31,8 +31,8 @@ import { cn } from '@/lib/utils';
 import Layout from '@/components/Layout';
 import ProductPicker from '@/components/ProductPicker';
 
-// Extended schema for form with all fields
-const quoteFormSchema = insertQuoteSchema.extend({
+// Complete schema for quote form with all fields
+const quoteFormSchema = z.object({
   projectId: z.string().min(1, 'Project is required'),
   templateId: z.string().optional(),
   items: z.array(z.object({
@@ -66,8 +66,13 @@ const quoteFormSchema = insertQuoteSchema.extend({
     customInputLabel: z.string().optional(),
     order: z.number().optional(),
   })).default([]),
+  subtotal: z.number().default(0),
+  tax: z.number().default(0),
   discountTotal: z.number().min(0).default(0),
+  total: z.number().default(0),
   depositAmount: z.number().min(0),
+  status: z.string().default('DRAFT'),
+  expiresAt: z.date(),
   notes: z.string().optional(),
 }).refine((data) => {
   // Validate that all required radio sections have a selectedOptionId
