@@ -4,406 +4,132 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Get Your Quote - Premier Party Cruises</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://js.stripe.com/v3/"></script>
   <style>
-    * { box-sizing: border-box; }
-    body { margin: 0; padding: 20px; font-family: system-ui, -apple-system, sans-serif; background: linear-gradient(to bottom right, #eff6ff, #dbeafe); min-height: 100vh; }
-    .btn {
-      display: inline-block;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.2s;
-      border: none;
-      font-size: 16px;
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
     }
-    .btn-primary {
-      background: #3b82f6;
+    
+    body {
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    }
+    
+    #quote-widget-container {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+    }
+    
+    #quote-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      display: block;
+    }
+    
+    /* Loading state */
+    #loading-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: opacity 0.5s ease-out;
+    }
+    
+    #loading-overlay.loaded {
+      opacity: 0;
+      pointer-events: none;
+    }
+    
+    .loading-content {
+      text-align: center;
       color: white;
     }
-    .btn-primary:hover {
-      background: #2563eb;
+    
+    .spinner {
+      width: 50px;
+      height: 50px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 20px;
     }
-    .btn-secondary {
-      background: white;
-      color: #3b82f6;
-      border: 2px solid #3b82f6;
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
     }
-    .btn-secondary:hover {
-      background: #eff6ff;
-    }
-    .card {
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-      margin-bottom: 16px;
-    }
-    .input {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #d1d5db;
-      border-radius: 8px;
-      font-size: 16px;
-      margin-bottom: 12px;
-    }
-    .hidden { display: none; }
-    .loading {
-      text-align: center;
-      padding: 40px;
-      color: #6b7280;
-    }
-    .cruise-option {
-      border: 2px solid #e5e7eb;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 16px;
-      cursor: pointer;
-      transition: all 0.2s;
-    }
-    .cruise-option:hover {
-      border-color: #3b82f6;
-      background: #eff6ff;
+    
+    .loading-text {
+      font-size: 18px;
+      font-weight: 600;
     }
   </style>
 </head>
 <body>
-  <div id="app">
-    <div id="step1" class="step">
-      <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">Select Your Date</h2>
-      <input type="date" id="dateInput" class="input" />
-      <button onclick="selectDate()" class="btn btn-primary">Continue</button>
-    </div>
-
-    <div id="step2" class="step hidden">
-      <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">What Type of Party?</h2>
-      <div onclick="selectPartyType('birthday')" class="cruise-option">
-        <h3 style="font-weight: 600; margin-bottom: 8px;">Birthday Party</h3>
-        <p style="color: #6b7280;">Celebrate your special day</p>
-      </div>
-      <div onclick="selectPartyType('bachelorette')" class="cruise-option">
-        <h3 style="font-weight: 600; margin-bottom: 8px;">Bachelorette Party</h3>
-        <p style="color: #6b7280;">Make it a night to remember</p>
-      </div>
-      <div onclick="selectPartyType('bachelor')" class="cruise-option">
-        <h3 style="font-weight: 600; margin-bottom: 8px;">Bachelor Party</h3>
-        <p style="color: #6b7280;">Epic celebration on the water</p>
-      </div>
-      <div onclick="selectPartyType('corporate')" class="cruise-option">
-        <h3 style="font-weight: 600; margin-bottom: 8px;">Corporate Event</h3>
-        <p style="color: #6b7280;">Team building on the lake</p>
-      </div>
-      <div onclick="selectPartyType('other')" class="cruise-option">
-        <h3 style="font-weight: 600; margin-bottom: 8px;">Other</h3>
-        <p style="color: #6b7280;">Any celebration!</p>
-      </div>
-      <button onclick="goBack(1)" class="btn btn-secondary" style="margin-top: 12px;">Back</button>
-    </div>
-
-    <div id="step3" class="step hidden">
-      <h2 style="font-size: 24px; font-weight: bold; margin-bottom: 20px;">How Many Guests?</h2>
-      <input type="number" id="guestInput" class="input" placeholder="Number of guests" min="1" />
-      <button onclick="selectGuestCount()" class="btn btn-primary">Find Available Cruises</button>
-      <button onclick="goBack(2)" class="btn btn-secondary" style="margin-left: 12px;">Back</button>
-    </div>
-
-    <div id="step4" class="step hidden">
-      <div id="summary" class="card">
-        <h3 style="font-weight: 600; margin-bottom: 12px;">Your Selection</h3>
-        <p><strong>Date:</strong> <span id="summaryDate"></span> <button onclick="editDate()" class="btn-secondary" style="padding: 4px 8px; font-size: 14px;">Edit</button></p>
-        <p><strong>Party Type:</strong> <span id="summaryParty"></span> <button onclick="editParty()" class="btn-secondary" style="padding: 4px 8px; font-size: 14px;">Edit</button></p>
-        <p><strong>Guests:</strong> <span id="summaryGuests"></span> <button onclick="editGuests()" class="btn-secondary" style="padding: 4px 8px; font-size: 14px;">Edit</button></p>
-      </div>
-
-      <div id="leadCapture" class="card">
-        <h3 style="font-weight: 600; margin-bottom: 16px;">Get Your Quote</h3>
-        <input type="text" id="firstName" class="input" placeholder="First Name" />
-        <input type="text" id="lastName" class="input" placeholder="Last Name" />
-        <input type="email" id="email" class="input" placeholder="Email" />
-        <input type="tel" id="phone" class="input" placeholder="Phone" />
-        <button onclick="captureLead()" class="btn btn-primary">View Available Cruises</button>
+  <div id="quote-widget-container">
+    <!-- Loading overlay -->
+    <div id="loading-overlay">
+      <div class="loading-content">
+        <div class="spinner"></div>
+        <div class="loading-text">Loading Quote Builder...</div>
       </div>
     </div>
-
-    <div id="step5" class="step hidden">
-      <div id="summary2" class="card">
-        <h3 style="font-weight: 600; margin-bottom: 12px;">Your Selection</h3>
-        <p><strong>Date:</strong> <span id="summaryDate2"></span></p>
-        <p><strong>Party Type:</strong> <span id="summaryParty2"></span></p>
-        <p><strong>Guests:</strong> <span id="summaryGuests2"></span></p>
-      </div>
-
-      <div id="loadingSlots" class="loading">
-        <p>Finding available cruises...</p>
-      </div>
-
-      <div id="slotsContainer" class="hidden"></div>
-    </div>
+    
+    <!-- Main iframe -->
+    <iframe 
+      id="quote-iframe"
+      src="https://ppc-quote-builder.lovable.app/"
+      title="Premier Party Cruises Quote Builder"
+      allow="payment; geolocation"
+      allowfullscreen
+    ></iframe>
   </div>
 
   <script>
-    const SUPABASE_URL = 'https://tgambsdjfwgoohkqopns.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InRnYW1ic2RqZndnb29oa3FvcG5zIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTkzNDYzMDUsImV4cCI6MjA3NDkyMjMwNX0.xRGHgSXJsMkxO5KV-Uh7TvLPGd8MnbYrBdKi-QNUMh4';
-    const STRIPE_KEY = 'pk_live_51M4E7yHwOvgmegQ30ldL6EdaHzDcYJjHhyir1EPDzAQ7Wf846XECS93ouhqZp5itCYmfNzcoU0L8LrKPY9vqNTEZ00ylzHoxte';
+    // Hide loading overlay once iframe loads
+    const iframe = document.getElementById('quote-iframe');
+    const loadingOverlay = document.getElementById('loading-overlay');
     
-    let state = {
-      step: 1,
-      selectedDate: null,
-      partyType: null,
-      guestCount: null,
-      leadId: null,
-      customerId: null,
-      discoSlots: [],
-      privateSlots: []
-    };
-
-    function showStep(step) {
-      document.querySelectorAll('.step').forEach(el => el.classList.add('hidden'));
-      document.getElementById('step' + step).classList.remove('hidden');
-      state.step = step;
-      
-      // Post height to parent for iframe resize
+    iframe.addEventListener('load', function() {
       setTimeout(() => {
-        const height = document.body.scrollHeight;
-        window.parent.postMessage({ type: 'quote-widget-height', height }, '*');
-      }, 100);
-    }
-
-    function selectDate() {
-      const date = document.getElementById('dateInput').value;
-      if (!date) {
-        alert('Please select a date');
+        loadingOverlay.classList.add('loaded');
+      }, 300);
+    });
+    
+    // Optional: Listen for messages from iframe for dynamic height
+    window.addEventListener('message', function(event) {
+      // Verify origin for security
+      if (event.origin !== 'https://ppc-quote-builder.lovable.app') {
         return;
       }
-      state.selectedDate = date;
-      showStep(2);
-    }
-
-    function selectPartyType(type) {
-      state.partyType = type;
-      showStep(3);
-    }
-
-    function selectGuestCount() {
-      const count = parseInt(document.getElementById('guestInput').value);
-      if (!count || count < 1) {
-        alert('Please enter number of guests');
-        return;
-      }
-      state.guestCount = count;
       
-      // Update summary
-      document.getElementById('summaryDate').textContent = state.selectedDate;
-      document.getElementById('summaryParty').textContent = state.partyType;
-      document.getElementById('summaryGuests').textContent = state.guestCount;
-      
-      showStep(4);
-    }
-
-    function goBack(toStep) {
-      showStep(toStep);
-    }
-
-    function editDate() {
-      showStep(1);
-    }
-
-    function editParty() {
-      showStep(2);
-    }
-
-    function editGuests() {
-      showStep(3);
-    }
-
-    async function captureLead() {
-      const firstName = document.getElementById('firstName').value;
-      const lastName = document.getElementById('lastName').value;
-      const email = document.getElementById('email').value;
-      const phone = document.getElementById('phone').value;
-
-      if (!firstName || !lastName || !email || !phone) {
-        alert('Please fill in all fields');
-        return;
+      // Handle height updates if Lovable sends them
+      if (event.data && event.data.type === 'resize') {
+        iframe.style.height = event.data.height + 'px';
       }
-
-      try {
-        // Create lead
-        const response = await fetch(SUPABASE_URL + '/functions/v1/create-lead', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': SUPABASE_KEY
-          },
-          body: JSON.stringify({
-            first_name: firstName,
-            last_name: lastName,
-            email,
-            phone,
-            event_date: state.selectedDate,
-            party_type: state.partyType,
-            guest_count: state.guestCount,
-            quote_url: window.location.href
-          })
-        });
-
-        const data = await response.json();
-        
-        if (data.lead_id) {
-          state.leadId = data.lead_id;
-          state.customerId = data.customer_id;
-          
-          // Update summary
-          document.getElementById('summaryDate2').textContent = state.selectedDate;
-          document.getElementById('summaryParty2').textContent = state.partyType;
-          document.getElementById('summaryGuests2').textContent = state.guestCount;
-          
-          showStep(5);
-          fetchAvailableSlots();
-        }
-      } catch (error) {
-        console.error('Error creating lead:', error);
-        alert('Something went wrong. Please try again.');
-      }
-    }
-
-    async function fetchAvailableSlots() {
-      document.getElementById('loadingSlots').classList.remove('hidden');
-      document.getElementById('slotsContainer').classList.add('hidden');
-
-      try {
-        const response = await fetch(SUPABASE_URL + '/functions/v1/list-time-slots', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': SUPABASE_KEY
-          },
-          body: JSON.stringify({
-            date: state.selectedDate,
-            party_type: state.partyType,
-            guest_count: state.guestCount
-          })
-        });
-
-        const data = await response.json();
-        
-        state.discoSlots = data.discoSlots || [];
-        state.privateSlots = data.privateSlots || [];
-
-        displaySlots();
-      } catch (error) {
-        console.error('Error fetching slots:', error);
-        document.getElementById('loadingSlots').innerHTML = '<p style="color: #ef4444;">Error loading cruises. Please try again.</p>';
-      }
-    }
-
-    function displaySlots() {
-      document.getElementById('loadingSlots').classList.add('hidden');
-      const container = document.getElementById('slotsContainer');
-      container.classList.remove('hidden');
-      container.innerHTML = '';
-
-      const isBach = state.partyType === 'bachelor' || state.partyType === 'bachelorette';
-
-      if (!isBach && state.discoSlots.length > 0) {
-        const discoSection = document.createElement('div');
-        discoSection.innerHTML = '<h3 style="font-size: 20px; font-weight: bold; margin-bottom: 16px;">Disco Cruises</h3>';
-        
-        state.discoSlots.forEach(slot => {
-          const card = createSlotCard(slot, 'disco');
-          discoSection.appendChild(card);
-        });
-        
-        container.appendChild(discoSection);
-      }
-
-      if (state.privateSlots.length > 0) {
-        const privateSection = document.createElement('div');
-        privateSection.style.marginTop = '32px';
-        privateSection.innerHTML = '<h3 style="font-size: 20px; font-weight: bold; margin-bottom: 16px;">Private Cruises</h3>';
-        
-        state.privateSlots.forEach(slot => {
-          const card = createSlotCard(slot, 'private');
-          privateSection.appendChild(card);
-        });
-        
-        container.appendChild(privateSection);
-      }
-
-      if (state.discoSlots.length === 0 && state.privateSlots.length === 0) {
-        container.innerHTML = '<div class="card"><p>No available cruises found for your date. Please try a different date.</p></div>';
-      }
-
-      // Resize iframe
-      setTimeout(() => {
-        const height = document.body.scrollHeight;
-        window.parent.postMessage({ type: 'quote-widget-height', height }, '*');
-      }, 100);
-    }
-
-    function createSlotCard(slot, type) {
-      const card = document.createElement('div');
-      card.className = 'cruise-option';
-      
-      const startTime = new Date(slot.start_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-      const endTime = new Date(slot.end_at).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
-      const price = parseFloat(slot.price);
-
-      card.innerHTML = `
-        <div style="display: flex; justify-content: space-between; align-items: start;">
-          <div>
-            <h4 style="font-weight: 600; font-size: 18px; margin-bottom: 8px;">${type === 'disco' ? 'Disco Cruise' : 'Private Cruise'}</h4>
-            <p style="color: #6b7280; margin-bottom: 4px;">${startTime} - ${endTime}</p>
-            <p style="color: #6b7280;">Capacity: ${slot.capacity_available} available</p>
-          </div>
-          <div style="text-align: right;">
-            <p style="font-size: 24px; font-weight: bold; color: #3b82f6;">$${price.toFixed(2)}</p>
-            <button onclick="bookSlot('${slot.id}', ${price})" class="btn btn-primary" style="margin-top: 8px;">Book Now</button>
+    });
+    
+    // Handle errors
+    iframe.addEventListener('error', function() {
+      loadingOverlay.innerHTML = `
+        <div class="loading-content">
+          <div style="font-size: 24px; margin-bottom: 20px;">⚠️</div>
+          <div class="loading-text">Unable to load quote builder</div>
+          <div style="margin-top: 12px; font-size: 14px; opacity: 0.9;">
+            Please refresh the page or contact us directly
           </div>
         </div>
       `;
-
-      return card;
-    }
-
-    async function bookSlot(slotId, price) {
-      try {
-        const response = await fetch(SUPABASE_URL + '/functions/v1/create-stripe-checkout', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'apikey': SUPABASE_KEY
-          },
-          body: JSON.stringify({
-            time_slot_id: slotId,
-            customer_id: state.customerId,
-            package_type: 'standard',
-            headcount: state.guestCount,
-            party_type: state.partyType,
-            amount: price,
-            deposit_amount: price * 0.5,
-            success_url: window.location.origin + '/booking-success',
-            cancel_url: window.location.href
-          })
-        });
-
-        const data = await response.json();
-        
-        if (data.sessionId) {
-          const stripe = Stripe(STRIPE_KEY);
-          await stripe.redirectToCheckout({ sessionId: data.sessionId });
-        }
-      } catch (error) {
-        console.error('Error creating checkout:', error);
-        alert('Something went wrong. Please try again.');
-      }
-    }
-
-    // Initialize
-    document.getElementById('dateInput').min = new Date().toISOString().split('T')[0];
-    showStep(1);
+    });
   </script>
 </body>
 </html>
