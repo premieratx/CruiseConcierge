@@ -590,48 +590,48 @@ export default function PrivateCruises() {
           <div className="relative">
             <Tabs defaultValue="experiences" className="w-full">
               {/* Sticky Tab Navigation */}
-              <div className="sticky top-16 z-40 bg-white/95 dark:bg-gray-950/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 py-4 mb-8">
+              <div className="sticky top-16 z-40 bg-white/95 dark:bg-gray-950/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 py-6 mb-8">
                 <div className="container mx-auto px-6">
-                  <TabsList className="grid w-full grid-cols-5 lg:max-w-3xl lg:mx-auto bg-gray-100 dark:bg-gray-800 p-1 rounded-xl">
+                  <TabsList className="grid w-full grid-cols-5 gap-2 lg:max-w-5xl lg:mx-auto bg-transparent p-0">
                     <TabsTrigger 
                       value="experiences" 
-                      className="flex flex-col items-center gap-1 py-3 px-2 text-xs data-[state=active]:bg-brand-blue data-[state=active]:text-white"
+                      className="flex flex-col items-center gap-2 py-4 px-3 text-sm rounded-lg border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-brand-blue/50 hover:shadow-md transition-all duration-200 data-[state=active]:border-brand-blue data-[state=active]:bg-brand-blue data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105"
                     >
-                      <PartyPopper className="h-4 w-4" />
-                      <span className="font-semibold">Experiences</span>
-                      <span className="text-[10px] opacity-70">All Events</span>
+                      <PartyPopper className="h-5 w-5" />
+                      <span className="font-bold">Experiences</span>
+                      <span className="text-xs opacity-80">All Events</span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="14" 
-                      className="flex flex-col items-center gap-1 py-3 px-2 text-xs data-[state=active]:bg-brand-blue data-[state=active]:text-white"
+                      className="flex flex-col items-center gap-2 py-4 px-3 text-sm rounded-lg border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-brand-blue/50 hover:shadow-md transition-all duration-200 data-[state=active]:border-brand-blue data-[state=active]:bg-brand-blue data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105"
                     >
-                      <Ship className="h-4 w-4" />
-                      <span className="font-semibold">14 People</span>
-                      <span className="text-[10px] opacity-70">Day Tripper</span>
+                      <Ship className="h-5 w-5" />
+                      <span className="font-bold">Up to 14</span>
+                      <span className="text-xs opacity-80">Day Tripper</span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="25" 
-                      className="flex flex-col items-center gap-1 py-3 px-2 text-xs data-[state=active]:bg-brand-blue data-[state=active]:text-white"
+                      className="flex flex-col items-center gap-2 py-4 px-3 text-sm rounded-lg border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-brand-blue/50 hover:shadow-md transition-all duration-200 data-[state=active]:border-brand-blue data-[state=active]:bg-brand-blue data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105"
                     >
-                      <Ship className="h-4 w-4" />
-                      <span className="font-semibold">25-30 People</span>
-                      <span className="text-[10px] opacity-70">Me Seeks The Irony</span>
+                      <Ship className="h-5 w-5" />
+                      <span className="font-bold">15-30 People</span>
+                      <span className="text-xs opacity-80">Me Seeks The Irony</span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="50" 
-                      className="flex flex-col items-center gap-1 py-3 px-2 text-xs data-[state=active]:bg-brand-blue data-[state=active]:text-white"
+                      className="flex flex-col items-center gap-2 py-4 px-3 text-sm rounded-lg border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-brand-blue/50 hover:shadow-md transition-all duration-200 data-[state=active]:border-brand-blue data-[state=active]:bg-brand-blue data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105"
                     >
-                      <Ship className="h-4 w-4" />
-                      <span className="font-semibold">50-75 People</span>
-                      <span className="text-[10px] opacity-70">Clever Girl</span>
+                      <Ship className="h-5 w-5" />
+                      <span className="font-bold">31-75 People</span>
+                      <span className="text-xs opacity-80">Clever Girl</span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="disco" 
-                      className="flex flex-col items-center gap-1 py-3 px-2 text-xs data-[state=active]:bg-brand-yellow data-[state=active]:text-black"
+                      className="flex flex-col items-center gap-2 py-4 px-3 text-sm rounded-lg border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-brand-yellow/50 hover:shadow-md transition-all duration-200 data-[state=active]:border-brand-yellow data-[state=active]:bg-brand-yellow data-[state=active]:text-black data-[state=active]:shadow-lg data-[state=active]:scale-105"
                     >
-                      <Sparkles className="h-4 w-4" />
-                      <span className="font-semibold">Disco Cruise</span>
-                      <span className="text-[10px] opacity-70">ATX Disco</span>
+                      <Sparkles className="h-5 w-5" />
+                      <span className="font-bold">ATX Disco Cruise</span>
+                      <span className="text-xs opacity-80">ATX Disco</span>
                     </TabsTrigger>
                   </TabsList>
                 </div>

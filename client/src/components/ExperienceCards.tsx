@@ -82,7 +82,7 @@ const experiences: Experience[] = [
     packages: [
       {
         name: 'Intimate Gathering',
-        price: '$1,400',
+        price: '$400',
         duration: '2 hours',
         features: [
           '14-person pontoon boat',
@@ -94,7 +94,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'Classic Celebration',
-        price: '$2,000',
+        price: '$675',
         duration: '3 hours',
         features: [
           '25-30 person pontoon',
@@ -107,7 +107,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'Luxury Experience',
-        price: '$4,500',
+        price: '$1,000',
         duration: '4 hours',
         features: [
           '50-person luxury yacht',
@@ -135,7 +135,7 @@ const experiences: Experience[] = [
     packages: [
       {
         name: 'Casual Welcome',
-        price: '$1,200',
+        price: '$450',
         duration: '2 hours',
         features: [
           '25-30 person pontoon',
@@ -147,7 +147,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'Premium Welcome',
-        price: '$2,400',
+        price: '$750',
         duration: '3 hours',
         features: [
           '50-person yacht',
@@ -160,7 +160,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'Grand Welcome',
-        price: '$3,600',
+        price: '$1,000',
         duration: '4 hours',
         features: [
           '75-person mega yacht',
@@ -188,7 +188,7 @@ const experiences: Experience[] = [
     packages: [
       {
         name: 'Intimate After Party',
-        price: '$1,000',
+        price: '$400',
         duration: '2 hours',
         features: [
           '14-person pontoon',
@@ -200,7 +200,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'Classic After Party',
-        price: '$1,800',
+        price: '$675',
         duration: '3 hours',
         features: [
           '25-30 person pontoon',
@@ -213,7 +213,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'Ultimate After Party',
-        price: '$3,000',
+        price: '$1,000',
         duration: '4 hours',
         features: [
           '50-75 person yacht',
@@ -243,7 +243,7 @@ const experiences: Experience[] = [
     packages: [
       {
         name: 'Small Team',
-        price: '$1,400',
+        price: '$600',
         duration: '3 hours',
         features: [
           '14-person pontoon',
@@ -255,7 +255,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'Department Outing',
-        price: '$2,400',
+        price: '$900',
         duration: '4 hours',
         features: [
           '25-30 person pontoon',
@@ -268,7 +268,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'Company Retreat',
-        price: '$4,800',
+        price: '$1,250',
         duration: '5 hours',
         features: [
           '50-75 person yacht',
@@ -296,7 +296,7 @@ const experiences: Experience[] = [
     packages: [
       {
         name: 'Executive Meeting',
-        price: '$1,800',
+        price: '$600',
         duration: '3 hours',
         features: [
           '14-person pontoon',
@@ -308,7 +308,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'Client Appreciation',
-        price: '$3,000',
+        price: '$1,000',
         duration: '4 hours',
         features: [
           '50-person luxury yacht',
@@ -321,7 +321,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'VIP Experience',
-        price: '$5,000',
+        price: '$1,250',
         duration: '5 hours',
         features: [
           '75-person mega yacht',
@@ -349,7 +349,7 @@ const experiences: Experience[] = [
     packages: [
       {
         name: 'Small Celebration',
-        price: '$1,600',
+        price: '$675',
         duration: '3 hours',
         features: [
           '25-30 person pontoon',
@@ -361,7 +361,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'Major Milestone',
-        price: '$3,200',
+        price: '$1,000',
         duration: '4 hours',
         features: [
           '50-person yacht',
@@ -374,7 +374,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'Grand Celebration',
-        price: '$4,800',
+        price: '$1,250',
         duration: '5 hours',
         features: [
           '75-person mega yacht',
@@ -404,7 +404,7 @@ const experiences: Experience[] = [
     packages: [
       {
         name: 'Intimate Celebration',
-        price: '$1,000',
+        price: '$400',
         duration: '2 hours',
         features: [
           '14-person pontoon',
@@ -416,7 +416,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'Party Cruise',
-        price: '$1,800',
+        price: '$675',
         duration: '3 hours',
         features: [
           '25-30 person pontoon',
@@ -429,7 +429,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'Grand Celebration',
-        price: '$3,600',
+        price: '$1,000',
         duration: '4 hours',
         features: [
           '50-75 person yacht',
@@ -457,7 +457,7 @@ const experiences: Experience[] = [
     packages: [
       {
         name: 'Sweet Celebration',
-        price: '$1,200',
+        price: '$400',
         duration: '2 hours',
         features: [
           '14-person pontoon',
@@ -469,7 +469,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'Party Package',
-        price: '$2,000',
+        price: '$675',
         duration: '3 hours',
         features: [
           '25-30 person pontoon',
@@ -482,7 +482,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'Ultimate Sweet 16',
-        price: '$3,200',
+        price: '$1,000',
         duration: '4 hours',
         features: [
           '50-person yacht',
@@ -512,7 +512,7 @@ const experiences: Experience[] = [
     packages: [
       {
         name: 'Small Grad Party',
-        price: '$1,000',
+        price: '$400',
         duration: '2 hours',
         features: [
           '14-person pontoon',
@@ -524,7 +524,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'Class Celebration',
-        price: '$1,800',
+        price: '$675',
         duration: '3 hours',
         features: [
           '25-30 person pontoon',
@@ -537,7 +537,7 @@ const experiences: Experience[] = [
       },
       {
         name: 'Grand Graduation',
-        price: '$3,000',
+        price: '$1,000',
         duration: '4 hours',
         features: [
           '50-75 person yacht',
