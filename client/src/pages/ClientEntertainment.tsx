@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
@@ -717,6 +717,109 @@ export default function ClientEntertainment() {
               </Button>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Related Experiences Section */}
+      <section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
+              Related Corporate Experiences
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+              Explore our full range of corporate event solutions on Lake Travis.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <Link href="/team-building">
+                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-brand-blue">
+                  <CardHeader>
+                    <div className="w-16 h-16 mx-auto mb-4 bg-brand-blue/10 rounded-full flex items-center justify-center">
+                      <Users className="h-8 w-8 text-brand-blue" />
+                    </div>
+                    <CardTitle className="text-2xl text-center">Team Building</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-400 text-center">
+                      Build stronger teams on Lake Travis
+                    </p>
+                    <Button className="w-full mt-4" variant="outline">
+                      Explore Team Building
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <Link href="/company-milestone">
+                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-purple-500">
+                  <CardHeader>
+                    <div className="w-16 h-16 mx-auto mb-4 bg-purple-500/10 rounded-full flex items-center justify-center">
+                      <Trophy className="h-8 w-8 text-purple-500" />
+                    </div>
+                    <CardTitle className="text-2xl text-center">Company Milestone</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-400 text-center">
+                      Celebrate business milestones
+                    </p>
+                    <Button className="w-full mt-4" variant="outline">
+                      Explore Company Milestones
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <Link href="/corporate-events">
+                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-green-500">
+                  <CardHeader>
+                    <div className="w-16 h-16 mx-auto mb-4 bg-green-500/10 rounded-full flex items-center justify-center">
+                      <Building className="h-8 w-8 text-green-500" />
+                    </div>
+                    <CardTitle className="text-2xl text-center">Corporate Events</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-400 text-center">
+                      Corporate event planning resources
+                    </p>
+                    <Button className="w-full mt-4" variant="outline">
+                      View All Corporate Events
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+          </div>
         </div>
       </section>
 

@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
@@ -757,6 +757,109 @@ export default function MilestoneBirthday() {
               </Button>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Related Experiences Section */}
+      <section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
+              Related Birthday Experiences
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+              Explore our full range of birthday party boat experiences on Lake Travis.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <Link href="/sweet-16">
+                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-pink-500">
+                  <CardHeader>
+                    <div className="w-16 h-16 mx-auto mb-4 bg-pink-500/10 rounded-full flex items-center justify-center">
+                      <Sparkles className="h-8 w-8 text-pink-500" />
+                    </div>
+                    <CardTitle className="text-2xl text-center">Sweet 16</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-400 text-center">
+                      Teen birthday celebrations
+                    </p>
+                    <Button className="w-full mt-4" variant="outline">
+                      Explore Sweet 16 Parties
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <Link href="/birthday-parties">
+                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-brand-blue">
+                  <CardHeader>
+                    <div className="w-16 h-16 mx-auto mb-4 bg-brand-blue/10 rounded-full flex items-center justify-center">
+                      <PartyPopper className="h-8 w-8 text-brand-blue" />
+                    </div>
+                    <CardTitle className="text-2xl text-center">Birthday Parties</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-400 text-center">
+                      All birthday party options
+                    </p>
+                    <Button className="w-full mt-4" variant="outline">
+                      View All Birthday Parties
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <Link href="/private-cruises">
+                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-purple-500">
+                  <CardHeader>
+                    <div className="w-16 h-16 mx-auto mb-4 bg-purple-500/10 rounded-full flex items-center justify-center">
+                      <Ship className="h-8 w-8 text-purple-500" />
+                    </div>
+                    <CardTitle className="text-2xl text-center">Private Cruises</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-400 text-center">
+                      Custom private charters
+                    </p>
+                    <Button className="w-full mt-4" variant="outline">
+                      Explore Private Cruises
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+          </div>
         </div>
       </section>
 

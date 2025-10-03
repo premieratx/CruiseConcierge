@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
@@ -213,7 +213,7 @@ const weddingTestimonials = [
     name: 'Jessica & Ryan Martinez',
     event: 'After Party',
     rating: 5,
-    text: "After our reception, we took our wedding party and close friends on a late-night cruise. It was the perfect ending to our perfect day! Dancing under the stars on Lake Travis - unforgettable!",
+    text: "After our reception, we took our wedding party and close friends on a late-night cruise. It was the perfect ending to our perfect day! Dancing under the stars on <Link href='/party-boat-lake-travis' className='text-primary hover:underline'>Lake Travis</Link> - unforgettable!",
     avatar: '💖',
     boat: 'Clever Girl'
   },
@@ -909,6 +909,109 @@ export default function WeddingParties() {
               </p>
             </div>
             <Chat />
+          </div>
+        </div>
+      </section>
+
+      {/* Related Experiences Section */}
+      <section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
+              Related Wedding Experiences
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+              Discover all our Lake Travis wedding celebration options for your special weekend on the water.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <Link href="/rehearsal-dinner">
+                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-rose-500">
+                  <CardHeader>
+                    <div className="w-16 h-16 mx-auto mb-4 bg-rose-500/10 rounded-full flex items-center justify-center">
+                      <Wine className="h-8 w-8 text-rose-500" />
+                    </div>
+                    <CardTitle className="text-2xl text-center">Rehearsal Dinner</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-400 text-center">
+                      Rehearsal dinner cruises on Lake Travis with intimate settings, sunset views, and elegant dining experiences for your wedding party.
+                    </p>
+                    <Button className="w-full mt-4" variant="outline">
+                      Explore Rehearsal Dinners
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <Link href="/welcome-party">
+                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-blue-500">
+                  <CardHeader>
+                    <div className="w-16 h-16 mx-auto mb-4 bg-blue-500/10 rounded-full flex items-center justify-center">
+                      <Users className="h-8 w-8 text-blue-500" />
+                    </div>
+                    <CardTitle className="text-2xl text-center">Welcome Party</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-400 text-center">
+                      Welcome party on water for out-of-town guests with casual cocktail cruises and scenic Lake Travis introductions.
+                    </p>
+                    <Button className="w-full mt-4" variant="outline">
+                      Explore Welcome Parties
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <Link href="/after-party">
+                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-purple-500">
+                  <CardHeader>
+                    <div className="w-16 h-16 mx-auto mb-4 bg-purple-500/10 rounded-full flex items-center justify-center">
+                      <Sparkles className="h-8 w-8 text-purple-500" />
+                    </div>
+                    <CardTitle className="text-2xl text-center">After Party</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-400 text-center">
+                      Post-wedding celebrations on Lake Travis to keep the party going with late-night cruises and dance floor fun.
+                    </p>
+                    <Button className="w-full mt-4" variant="outline">
+                      Explore After Parties
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
           </div>
         </div>
       </section>

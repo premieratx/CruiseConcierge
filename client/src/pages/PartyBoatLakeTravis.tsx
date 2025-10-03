@@ -406,6 +406,217 @@ export default function PartyBoatLakeTravis() {
         </div>
       </section>
 
+      {/* Complete Party Guide Section - SEO Hub */}
+      <section className="py-20 bg-white dark:bg-gray-800">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-complete-guide">
+              Complete Lake Travis Party Boat Guide
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-testid="text-guide-subtitle">
+              Discover the perfect Lake Travis party boat experience for your celebration. From bachelor parties to corporate events, we specialize in creating unforgettable Austin experiences.
+            </p>
+          </motion.div>
+
+          <motion.div 
+            className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-7xl mx-auto"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerChildren}
+          >
+            <motion.div variants={fadeInUp}>
+              <Link href="/bachelor-party-austin">
+                <Card className="h-full hover:shadow-xl transition-all hover:-translate-y-1 cursor-pointer group" data-testid="card-guide-bachelor">
+                  <CardHeader>
+                    <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center mb-3">
+                      <Crown className="h-6 w-6 text-blue-600 dark:text-blue-300" />
+                    </div>
+                    <CardTitle className="text-lg text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                      Austin Bachelor Party Boats
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">
+                      Epic bachelor party cruises on Lake Travis with ATX Disco Cruise or private charters. Professional DJ, photographer, and groom cruises free!
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+
+            <motion.div variants={fadeInUp}>
+              <Link href="/bachelorette-party-austin">
+                <Card className="h-full hover:shadow-xl transition-all hover:-translate-y-1 cursor-pointer group" data-testid="card-guide-bachelorette">
+                  <CardHeader>
+                    <div className="w-12 h-12 bg-pink-100 dark:bg-pink-900 rounded-full flex items-center justify-center mb-3">
+                      <Heart className="h-6 w-6 text-pink-600 dark:text-pink-300" />
+                    </div>
+                    <CardTitle className="text-lg text-gray-900 dark:text-white group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">
+                      Lake Travis Bachelorette Parties
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">
+                      Ultimate bachelorette party on Lake Travis! Bride cruises FREE, professional entertainment, and unforgettable Austin memories.
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+
+            <motion.div variants={fadeInUp}>
+              <Link href="/combined-bachelor-bachelorette">
+                <Card className="h-full hover:shadow-xl transition-all hover:-translate-y-1 cursor-pointer group" data-testid="card-guide-combined">
+                  <CardHeader>
+                    <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mb-3">
+                      <Users className="h-6 w-6 text-purple-600 dark:text-purple-300" />
+                    </div>
+                    <CardTitle className="text-lg text-gray-900 dark:text-white group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                      Combined Bachelor Bachelorette Party
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">
+                      Celebrate together on Lake Travis! Modern trend of combined parties with both sides joining for one epic Austin celebration.
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+
+            <motion.div variants={fadeInUp}>
+              <Link href="/corporate-events">
+                <Card className="h-full hover:shadow-xl transition-all hover:-translate-y-1 cursor-pointer group" data-testid="card-guide-corporate">
+                  <CardHeader>
+                    <div className="w-12 h-12 bg-gray-100 dark:bg-gray-700 rounded-full flex items-center justify-center mb-3">
+                      <Award className="h-6 w-6 text-gray-600 dark:text-gray-300" />
+                    </div>
+                    <CardTitle className="text-lg text-gray-900 dark:text-white group-hover:text-gray-600 dark:group-hover:text-gray-400 transition-colors">
+                      Austin Corporate Events on Lake Travis
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">
+                      Professional corporate cruises for team building and client entertainment. Tax-deductible Lake Travis business events.
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+
+            <motion.div variants={fadeInUp}>
+              <Link href="/birthday-parties">
+                <Card className="h-full hover:shadow-xl transition-all hover:-translate-y-1 cursor-pointer group" data-testid="card-guide-birthday">
+                  <CardHeader>
+                    <div className="w-12 h-12 bg-yellow-100 dark:bg-yellow-900 rounded-full flex items-center justify-center mb-3">
+                      <PartyPopper className="h-6 w-6 text-yellow-600 dark:text-yellow-300" />
+                    </div>
+                    <CardTitle className="text-lg text-gray-900 dark:text-white group-hover:text-yellow-600 dark:group-hover:text-yellow-400 transition-colors">
+                      Birthday Party Boats Austin
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">
+                      Celebrate birthdays on Lake Travis! From milestone birthdays to Sweet 16s, create unforgettable Austin birthday memories.
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+
+            <motion.div variants={fadeInUp}>
+              <Link href="/wedding-parties">
+                <Card className="h-full hover:shadow-xl transition-all hover:-translate-y-1 cursor-pointer group" data-testid="card-guide-wedding">
+                  <CardHeader>
+                    <div className="w-12 h-12 bg-rose-100 dark:bg-rose-900 rounded-full flex items-center justify-center mb-3">
+                      <Sparkles className="h-6 w-6 text-rose-600 dark:text-rose-300" />
+                    </div>
+                    <CardTitle className="text-lg text-gray-900 dark:text-white group-hover:text-rose-600 dark:group-hover:text-rose-400 transition-colors">
+                      Wedding Party Cruises Lake Travis
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">
+                      Rehearsal dinners, welcome parties, and after-parties on beautiful Lake Travis. Perfect Austin wedding celebrations!
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+
+            <motion.div variants={fadeInUp}>
+              <Link href="/private-cruises">
+                <Card className="h-full hover:shadow-xl transition-all hover:-translate-y-1 cursor-pointer group" data-testid="card-guide-private">
+                  <CardHeader>
+                    <div className="w-12 h-12 bg-indigo-100 dark:bg-indigo-900 rounded-full flex items-center justify-center mb-3">
+                      <Ship className="h-6 w-6 text-indigo-600 dark:text-indigo-300" />
+                    </div>
+                    <CardTitle className="text-lg text-gray-900 dark:text-white group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                      Private Charter Boats Austin
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">
+                      Exclusive private Lake Travis cruises for any occasion. Your boat, your party, your perfect Austin day on the water.
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+
+            <motion.div variants={fadeInUp}>
+              <Link href="/graduation-party">
+                <Card className="h-full hover:shadow-xl transition-all hover:-translate-y-1 cursor-pointer group" data-testid="card-guide-graduation">
+                  <CardHeader>
+                    <div className="w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center mb-3">
+                      <Trophy className="h-6 w-6 text-green-600 dark:text-green-300" />
+                    </div>
+                    <CardTitle className="text-lg text-gray-900 dark:text-white group-hover:text-green-600 dark:group-hover:text-green-400 transition-colors">
+                      Graduation Party Boats Lake Travis
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-300 text-sm">
+                      Celebrate graduation achievements on Lake Travis! High school and college grad parties with Austin's best party boats.
+                    </p>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+          </motion.div>
+
+          <motion.div 
+            className="text-center mt-12"
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+          >
+            <p className="text-gray-600 dark:text-gray-400 mb-6">
+              Can't find what you're looking for? We specialize in creating custom Lake Travis experiences for any celebration.
+            </p>
+            <Button 
+              size="lg" 
+              asChild
+              className="bg-blue-600 hover:bg-blue-700 text-white"
+              data-testid="button-custom-quote"
+            >
+              <Link href="/chat">
+                <MessageCircle className="mr-2 h-5 w-5" />
+                Get Custom Quote
+              </Link>
+            </Button>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Fleet Showcase Section */}
       <section className="py-20 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
         <div className="container mx-auto px-4">

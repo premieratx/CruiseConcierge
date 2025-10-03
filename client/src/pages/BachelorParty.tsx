@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'wouter';
+import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import { Button } from '@/components/ui/button';
@@ -546,7 +546,7 @@ export default function BachelorParty() {
               data-editable 
               data-editable-id="quote-builder-subheading"
             >
-              Get instant pricing for your Lake Travis celebration in minutes
+              Get instant pricing for your <Link href="/party-boat-lake-travis" className="text-primary hover:underline">Lake Travis</Link> celebration in minutes
             </p>
             
             {!showQuoteBuilder ? (
@@ -670,7 +670,7 @@ export default function BachelorParty() {
                       <DollarSign className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-semibold" data-editable data-editable-id="bachelor-overview-feature-5-title">Flat-Rate Per-Person Pricing</p>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-feature-5-desc">Makes payment splitting EASY - everyone pays their own way. ALWAYS cheaper than a private cruise!</p>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-feature-5-desc">Makes payment splitting EASY - everyone pays their own way. ALWAYS cheaper than a <Link href="/private-cruises" className="text-primary hover:underline">private cruise</Link>!</p>
                       </div>
                     </div>
                   </div>
@@ -1598,7 +1598,7 @@ export default function BachelorParty() {
                     <h3 className="text-2xl font-bold text-white">Party Boat Capital</h3>
                   </div>
                   <p className="text-white/90">
-                    Austin is home to Premier Party Cruises - the longest-running party boat company on Lake Travis with 15+ years of experience and 100,000+ happy customers.
+                    Austin is home to Premier Party Cruises - the longest-running <Link href="/party-boat-austin" className="text-primary hover:underline">party boat</Link> company on Lake Travis with 15+ years of experience and 100,000+ happy customers.
                   </p>
                 </div>
               </div>
@@ -1694,6 +1694,109 @@ export default function BachelorParty() {
               Book Your Austin Bachelor Party Now
             </Button>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Related Experiences Section */}
+      <section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-12"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
+              Related Austin Party Experiences
+            </h2>
+            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+              Planning more than just a bachelor party? Explore our full range of Lake Travis party boat experiences.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.1 }}
+            >
+              <Link href="/bachelorette-party">
+                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-pink-500">
+                  <CardHeader>
+                    <div className="w-16 h-16 mx-auto mb-4 bg-pink-500/10 rounded-full flex items-center justify-center">
+                      <Heart className="h-8 w-8 text-pink-500" />
+                    </div>
+                    <CardTitle className="text-2xl text-center">Bachelorette Party Austin</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-400 text-center">
+                      Austin's #1 bachelorette party boat experience with ATX Disco Cruises on Lake Travis. Professional DJ, photographer, and VIP treatment.
+                    </p>
+                    <Button className="w-full mt-4" variant="outline">
+                      Explore Bachelorette Parties
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.2 }}
+            >
+              <Link href="/combined-bachelor-bachelorette">
+                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-purple-500">
+                  <CardHeader>
+                    <div className="w-16 h-16 mx-auto mb-4 bg-purple-500/10 rounded-full flex items-center justify-center">
+                      <Users className="h-8 w-8 text-purple-500" />
+                    </div>
+                    <CardTitle className="text-2xl text-center">Combined Bachelor/Bachelorette Austin</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-400 text-center">
+                      Celebrate together! Combined bach parties on Lake Travis with the best of both worlds.
+                    </p>
+                    <Button className="w-full mt-4" variant="outline">
+                      Explore Combined Parties
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: 0.3 }}
+            >
+              <Link href="/party-boat-austin">
+                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-brand-blue">
+                  <CardHeader>
+                    <div className="w-16 h-16 mx-auto mb-4 bg-brand-blue/10 rounded-full flex items-center justify-center">
+                      <Ship className="h-8 w-8 text-brand-blue" />
+                    </div>
+                    <CardTitle className="text-2xl text-center">Party Boat Austin</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-gray-600 dark:text-gray-400 text-center">
+                      Explore all our Austin party boat options - from private charters to ATX Disco Cruises on Lake Travis.
+                    </p>
+                    <Button className="w-full mt-4" variant="outline">
+                      View All Party Boats
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Button>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+          </div>
         </div>
       </section>
 

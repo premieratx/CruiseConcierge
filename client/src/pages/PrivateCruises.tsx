@@ -137,7 +137,7 @@ const whyChooseUs = [
   {
     icon: Target,
     title: 'Custom Experiences',
-    description: 'Tailored packages for any celebration - corporate events, weddings, birthdays, anniversaries.'
+    description: 'Tailored packages for any celebration - <Link href="/corporate-events" className="text-primary hover:underline">corporate events</Link>, weddings, <Link href="/birthday-parties" className="text-primary hover:underline">birthday parties</Link>, anniversaries.'
   }
 ];
 
@@ -158,7 +158,7 @@ const testimonials = [
     name: 'Michael & Jennifer Chen',
     role: 'Newlyweds',
     rating: 5,
-    text: 'Our wedding reception cruise on Lake Travis was magical. The sunset views, professional service, and attention to detail made our special day perfect. Worth every penny!',
+    text: 'Our wedding reception cruise on <Link href="/party-boat-lake-travis" className="text-primary hover:underline">Lake Travis</Link> was magical. The sunset views, professional service, and attention to detail made our special day perfect. Worth every penny!',
     event: 'Wedding Reception',
     groupSize: 75,
     image: '/testimonials/chen.jpg'
