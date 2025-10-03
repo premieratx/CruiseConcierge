@@ -366,7 +366,7 @@ export default function PrivateCruises() {
             
             <motion.div 
               variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-6 justify-center mb-16"
+              className="flex flex-col sm:flex-row gap-6 justify-center mb-20"
             >
               <Button
                 size="lg"

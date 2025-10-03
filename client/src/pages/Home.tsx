@@ -541,7 +541,7 @@ export default function Home() {
             {/* CTA Buttons */}
             <motion.div 
               variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+              className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12"
             >
               <Button
                 size="lg"

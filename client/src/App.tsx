@@ -144,26 +144,47 @@ function Router() {
       <Route path="/quote/:token" component={QuoteViewer} />
       
       {/* Legacy quote ID route - redirects to Chat with quote ID */}
-      <Route path="/quote/id/:id" component={Chat} />
+      <Route path="/quote/id/:id">
+        {() => {
+          const [, navigate] = useLocation();
+          useEffect(() => {
+            // Redirect to chat - the quote builder iframe handles quote context
+            navigate('/chat');
+          }, [navigate]);
+          return null;
+        }}
+      </Route>
       
       {/* Legacy direct quote ID route - handles old emailed links /quote/ABC123 */}
-      <Route path="/quote/:id" component={(props: any) => {
-        const { id } = props.params;
-        // Smart detection: tokens are long with dots, legacy IDs are short alphanumeric
-        if (id && (id.length > 50 || id.includes('.'))) {
-          // This looks like a secure token, render QuoteViewer
-          return <QuoteViewer params={{ token: id }} />;
-        } else {
-          // This looks like a legacy quote ID, redirect to Chat with quote context
-          console.log('🔗 Legacy quote ID detected, redirecting to Chat:', id);
-          return <Chat params={{ ...props.params, quoteId: id }} />;
-        }
-      }} />
+      <Route path="/quote/:id">
+        {(params) => {
+          const id = params.id;
+          const [, navigate] = useLocation();
+          
+          useEffect(() => {
+            // Smart detection: tokens are long with dots, legacy IDs are short alphanumeric
+            if (id && !(id.length > 50 || id.includes('.'))) {
+              // This looks like a legacy quote ID, redirect to Chat
+              console.log('🔗 Legacy quote ID detected, redirecting to Chat:', id);
+              navigate('/chat');
+            }
+          }, [id, navigate]);
+          
+          // If it's a token (long or has dots), QuoteViewer will handle it via useParams
+          if (id && (id.length > 50 || id.includes('.'))) {
+            return <QuoteViewer />;
+          }
+          
+          return null;
+        }}
+      </Route>
       
       {/* Admin Dashboard Routes */}
       <Route path="/dashboard" component={Dashboard} />
       <Route path="/admin" component={Dashboard} />
-      <Route path="/chat" component={Chat} />
+      <Route path="/chat">
+        <Chat />
+      </Route>
       <Route path="/customers/:id" component={CustomerProfile} />
       <Route path="/partial-leads" component={PartialLeads} />
       <Route path="/projects" component={Projects} />

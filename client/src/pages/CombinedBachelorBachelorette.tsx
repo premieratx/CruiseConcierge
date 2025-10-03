@@ -529,7 +529,7 @@ export default function CombinedBachelorBachelorette() {
 
             <motion.div 
               variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-4 justify-center"
+              className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
             >
               <Button
                 size="lg"
