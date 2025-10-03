@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useLocation } from 'wouter';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import Chat from '@/pages/Chat';
@@ -22,7 +22,7 @@ import {
   ChefHat, Wifi, Target, Headphones, Check, Sparkles,
   Waves, Wine, Umbrella, Music, ArrowRight, Camera,
   Crown, Anchor, Presentation, Zap, ChevronRight,
-  DollarSign, Smile, Gem, CheckCircle
+  DollarSign, Smile, Gem, CheckCircle, X
 } from 'lucide-react';
 
 // Hero and gallery images - reuse from other pages
@@ -265,6 +265,7 @@ const galleryImages = [
 export default function BirthdayParties() {
   const [location, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
+  const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
 
   const handleGetQuote = () => {
     navigate('/chat?eventType=birthday');
@@ -376,6 +377,94 @@ export default function BirthdayParties() {
             ))}
           </div>
         </motion.div>
+      </section>
+
+      {/* Build My Quote Now Section */}
+      <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center"
+          >
+            <h2 
+              className="text-5xl md:text-6xl font-heading font-bold mb-6 text-white tracking-wider"
+              data-editable 
+              data-editable-id="quote-builder-heading"
+            >
+              BUILD MY QUOTE NOW
+            </h2>
+            <p 
+              className="text-xl text-white/90 mb-8 max-w-2xl mx-auto"
+              data-editable 
+              data-editable-id="quote-builder-subheading"
+            >
+              Get instant pricing for your Lake Travis celebration in minutes
+            </p>
+            
+            {!showQuoteBuilder ? (
+              <Button
+                size="lg"
+                onClick={() => setShowQuoteBuilder(true)}
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-2xl px-16 py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide"
+                data-testid="button-build-quote"
+              >
+                <Sparkles className="mr-3 h-7 w-7" />
+                <span data-editable data-editable-id="quote-builder-button">Start Building Your Quote</span>
+                <ArrowRight className="ml-3 h-7 w-7" />
+              </Button>
+            ) : (
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => setShowQuoteBuilder(false)}
+                className="border-3 border-white text-white hover:bg-white hover:text-black font-bold text-lg px-12 py-6 rounded-2xl backdrop-blur-sm mb-8"
+                data-testid="button-hide-quote"
+              >
+                <X className="mr-2 h-5 w-5" />
+                <span data-editable data-editable-id="quote-builder-hide-button">Hide Quote Builder</span>
+              </Button>
+            )}
+          </motion.div>
+
+          {/* Expandable Quote Builder Iframe */}
+          <AnimatePresence>
+            {showQuoteBuilder && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: 'auto' }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.5, ease: "easeInOut" }}
+                className="mt-12 overflow-hidden"
+              >
+                <div className="max-w-7xl mx-auto">
+                  <motion.div
+                    initial={{ y: 20, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    transition={{ delay: 0.2, duration: 0.4 }}
+                    className="bg-white rounded-2xl shadow-2xl overflow-hidden"
+                  >
+                    <iframe 
+                      src="https://ppc-quote-builder.lovable.app/"
+                      title="Build Your Quote - Premier Party Cruises"
+                      className="w-full"
+                      style={{ 
+                        minHeight: '1200px',
+                        height: '90vh',
+                        border: 'none'
+                      }}
+                      allow="payment; geolocation"
+                      allowFullScreen
+                      data-testid="iframe-quote-builder"
+                    />
+                  </motion.div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
       </section>
 
       {/* Main Content with Tabs */}
