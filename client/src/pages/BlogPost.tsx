@@ -2,6 +2,7 @@ import { useParams } from "wouter";
 import { useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import PublicNavigation from "@/components/PublicNavigation";
+import Footer from "@/components/Footer";
 import { CategoryBadge } from "@/components/blog/CategoryBadge";
 import { TagBadge } from "@/components/blog/TagBadge";
 import { BlogCard } from "@/components/blog/BlogCard";
@@ -11,11 +12,12 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Calendar, Clock, Eye, Share2, MessageCircle, User, ArrowLeft } from "lucide-react";
+import { Calendar, Clock, Eye, Share2, MessageCircle, User, ArrowLeft, Facebook, Twitter, Linkedin } from "lucide-react";
 import { Link } from "wouter";
 import { BlogPost, BlogAuthor, BlogCategory, BlogTag } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
 import SEOHead from "@/components/SEOHead";
+import { format } from "date-fns";
 
 interface BlogPostData {
   post: BlogPost;
@@ -70,11 +72,17 @@ export default function BlogPostPage() {
 
   const formatDate = (date: Date | string | null) => {
     if (!date) return "";
-    return new Date(date).toLocaleDateString('en-US', { 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric' 
-    });
+    try {
+      return format(new Date(date), 'MMMM d, yyyy');
+    } catch {
+      return "";
+    }
+  };
+
+  const calculateReadingTime = (content: string, wordCount?: number) => {
+    if (wordCount) return Math.ceil(wordCount / 200);
+    const words = content.replace(/<[^>]*>/g, '').split(/\s+/).length;
+    return Math.ceil(words / 200);
   };
 
   const handleShare = async () => {
@@ -86,7 +94,6 @@ export default function BlogPostPage() {
           url: window.location.href
         });
       } catch (err) {
-        // Fallback to copying URL
         fallbackShare();
       }
     } else {
@@ -100,6 +107,22 @@ export default function BlogPostPage() {
       title: "Link copied!",
       description: "Blog post URL has been copied to your clipboard."
     });
+  };
+
+  const shareToFacebook = () => {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
+  };
+
+  const shareToTwitter = () => {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent(data?.post?.title || '');
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
+  };
+
+  const shareToLinkedIn = () => {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=400');
   };
 
   if (error) {
@@ -123,6 +146,7 @@ export default function BlogPostPage() {
             </div>
           </div>
         </div>
+        <Footer />
       </>
     );
   }
@@ -146,6 +170,7 @@ export default function BlogPostPage() {
             </div>
           </div>
         </div>
+        <Footer />
       </>
     );
   }
@@ -240,31 +265,62 @@ export default function BlogPostPage() {
                 <span data-testid="view-count">{post.viewCount || 0} views</span>
               </div>
 
-              {/* Share Button */}
+            </div>
+
+            {/* Social Share Buttons */}
+            <div className="flex items-center gap-2 mt-6">
+              <span className="text-sm text-gray-600 dark:text-gray-300 mr-2">Share:</span>
               <Button
                 variant="outline"
                 size="sm"
-                onClick={handleShare}
-                className="ml-auto"
-                data-testid="button-share"
+                onClick={shareToFacebook}
+                data-testid="button-share-facebook"
               >
-                <Share2 className="h-4 w-4 mr-1" />
-                Share
+                <Facebook className="h-4 w-4 mr-1" />
+                Facebook
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={shareToTwitter}
+                data-testid="button-share-twitter"
+              >
+                <Twitter className="h-4 w-4 mr-1" />
+                Twitter
+              </Button>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={shareToLinkedIn}
+                data-testid="button-share-linkedin"
+              >
+                <Linkedin className="h-4 w-4 mr-1" />
+                LinkedIn
               </Button>
             </div>
           </header>
 
           {/* Featured Image */}
-          {post.featuredImage && (
-            <div className="mb-8">
+          <div className="mb-8">
+            {post.featuredImage ? (
               <img
                 src={post.featuredImage}
                 alt={post.featuredImageAlt || post.title}
                 className="w-full h-auto rounded-lg shadow-lg"
                 data-testid="img-featured"
               />
-            </div>
-          )}
+            ) : (
+              <div 
+                className="w-full h-64 md:h-96 rounded-lg bg-gradient-to-br from-brand-blue to-blue-600 flex items-center justify-center"
+                data-testid="img-featured-placeholder"
+              >
+                <div className="text-white text-center px-4">
+                  <h2 className="text-2xl md:text-3xl font-bold mb-2">{post.title}</h2>
+                  <p className="text-blue-100">Featured Image</p>
+                </div>
+              </div>
+            )}
+          </div>
 
           {/* Post Content */}
           <div 
@@ -328,7 +384,7 @@ export default function BlogPostPage() {
 
         {/* Related Posts */}
         {relatedPosts.length > 0 && (
-          <section className="mt-12">
+          <section className="mt-12 mb-12">
             <h2 className="text-2xl font-bold mb-6" data-testid="title-related-posts">Related Posts</h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {relatedPosts.map((relatedPost) => (
@@ -345,6 +401,7 @@ export default function BlogPostPage() {
         )}
         </div>
       </div>
+      <Footer />
     </>
   );
 }

@@ -32,6 +32,7 @@ import NotFound from "@/pages/not-found";
 
 // Blog Pages
 import Blog from "./pages/Blog";
+import Blogs from "./pages/Blogs";
 import BlogPost from "./pages/BlogPost";
 import BlogCategory from "./pages/BlogCategory";
 import BlogTag from "./pages/BlogTag";
@@ -282,7 +283,7 @@ function Router() {
       <Route path="/blog/tag/:slug" component={BlogTag} />
       <Route path="/blog/author/:id" component={BlogAuthor} />
       <Route path="/blog/:slug" component={BlogPost} />
-      <Route path="/blogs" component={Blog} />
+      <Route path="/blogs" component={Blogs} />
       <Route path="/blogs/category/:slug" component={BlogCategory} />
       <Route path="/blogs/tag/:slug" component={BlogTag} />
       <Route path="/blogs/author/:id" component={BlogAuthor} />
