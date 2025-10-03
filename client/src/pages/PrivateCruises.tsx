@@ -23,6 +23,8 @@ import { useToast } from '@/hooks/use-toast';
 import SEOHead from '@/components/SEOHead';
 import { formatCurrency } from '@shared/formatters';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
+import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
+import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
 import { 
   PRIVATE_CRUISE_PACKAGES, 
   PRIVATE_CAPACITY_TIERS, 
@@ -419,6 +421,8 @@ export default function PrivateCruises() {
           <div className="absolute bottom-1/4 left-1/3 w-3 h-3 bg-brand-yellow rounded-full animate-ping opacity-20" style={{animationDelay: '2s'}} />
         </div>
       </section>
+
+      <EmbeddedQuoteBuilder pageContext="home" className="my-16" />
 
       {/* Build My Quote Now Section */}
       <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
@@ -1461,6 +1465,8 @@ export default function PrivateCruises() {
           </motion.div>
         </div>
       </section>
+
+      <PartyPlanningChecklist partyType="Private Cruise" eventType="private charter" />
 
       {/* Final CTA Section */}
       <section className="py-24 bg-gradient-to-br from-brand-blue to-brand-yellow text-white">

@@ -25,6 +25,8 @@ import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
 import { DiscoVsPrivateComparison, QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
+import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
+import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
 import { 
   calculatePackagePricing, 
   getCapacityTier, 
@@ -589,6 +591,8 @@ export default function Home() {
         </motion.div>
       </section>
 
+      <EmbeddedQuoteBuilder pageContext="home" className="my-16" />
+
       {/* Build My Quote Now Section */}
       <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
         <div className="container mx-auto px-6">
@@ -1135,6 +1139,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <PartyPlanningChecklist partyType="Lake Travis Party" eventType="celebration" />
 
       {/* Contact & CTA Section */}
       <section className="py-24 bg-white dark:bg-gray-950">

@@ -13,6 +13,8 @@ import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { DISCO_PRICING } from '@shared/constants';
+import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
+import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
 import { 
   Users, Clock, Star, Calendar, MapPin, Ship, Phone,
   ArrowRight, CheckCircle, Sparkles, Crown, Music, 
@@ -561,6 +563,8 @@ export default function BacheloretteParty() {
           </motion.div>
         </div>
       </section>
+
+      <EmbeddedQuoteBuilder pageContext="bachelorette" className="my-16" />
 
       {/* Build My Quote Now Section */}
       <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
@@ -1313,6 +1317,8 @@ export default function BacheloretteParty() {
           </Tabs>
         </div>
       </section>
+
+      <PartyPlanningChecklist partyType="Bachelorette Party" eventType="bachelorette celebration" />
 
       {/* Sticky CTA Footer */}
       <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t shadow-lg z-40 py-4">
