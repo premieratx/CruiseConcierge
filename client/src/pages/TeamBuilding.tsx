@@ -3,6 +3,7 @@ import { useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
+import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -353,6 +354,8 @@ export default function TeamBuilding() {
           </motion.div>
         </div>
       </section>
+
+      <EmbeddedQuoteBuilder pageContext="home" className="my-16" />
 
       {/* Packages Section */}
       <section id="packages" className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">

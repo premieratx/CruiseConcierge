@@ -3,6 +3,7 @@ import { useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
+import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
 import Chat from '@/pages/Chat';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -402,6 +403,8 @@ export default function CorporateEvents() {
           </div>
         </motion.div>
       </section>
+
+      <EmbeddedQuoteBuilder pageContext="home" className="my-16" />
 
       {/* Build My Quote Now Section */}
       <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
