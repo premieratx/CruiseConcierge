@@ -87,14 +87,23 @@ export default function SEOHead({
           "telephone": "+1-512-488-5892",
           "address": {
             "@type": "PostalAddress",
+            "streetAddress": "13993 FM2769",
             "addressLocality": "Austin",
             "addressRegion": "TX",
+            "postalCode": "78641",
             "addressCountry": "US"
           },
           "geo": {
             "@type": "GeoCoordinates",
-            "latitude": "30.2672",
-            "longitude": "-97.7431"
+            "latitude": "30.3879",
+            "longitude": "-97.9723"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "4.9",
+            "reviewCount": "130",
+            "bestRating": "5",
+            "worstRating": "1"
           },
           "openingHoursSpecification": [
             {
@@ -108,12 +117,42 @@ export default function SEOHead({
             "@type": "GeoCircle",
             "geoMidpoint": {
               "@type": "GeoCoordinates",
-              "latitude": "30.2672",
-              "longitude": "-97.7431"
+              "latitude": "30.3879",
+              "longitude": "-97.9723"
             },
-            "geoRadius": "50"
+            "geoRadius": "100"
           },
-          "priceRange": "$$-$$$"
+          "priceRange": "$$-$$$",
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Boat Rental Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Private Charters",
+                  "description": "Exclusive boat rental with professional crew, perfect for intimate celebrations to large corporate events"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Disco Cruises",
+                  "description": "ATX Disco Cruise party boat experience with DJ and professional entertainment on Lake Travis"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Bachelorette Packages",
+                  "description": "Specialized bachelorette party packages including Basic Bach, Disco Queen, and Platinum options with bride cruises free"
+                }
+              }
+            ]
+          }
         },
         webpage: {
           "@context": "https://schema.org",
@@ -345,6 +384,22 @@ function formatPageName(segment: string): string {
     .join(' ');
 }
 
+// Export utility function for generating FAQ schema
+export function generateFAQSchema(faqItems: Array<{ question: string; answer: string }>) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqItems.map(faq => ({
+      "@type": "Question",
+      "name": faq.question,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": faq.answer
+      }
+    }))
+  };
+}
+
 // Export utility function for manual schema generation
 export function generateBusinessSchema() {
   return {
@@ -359,16 +414,23 @@ export function generateBusinessSchema() {
     "email": "clientservices@premierpartycruises.com",
     "address": {
       "@type": "PostalAddress",
-      "streetAddress": "123 Lake Travis Blvd",
+      "streetAddress": "13993 FM2769",
       "addressLocality": "Austin",
       "addressRegion": "TX",
-      "postalCode": "78732",
+      "postalCode": "78641",
       "addressCountry": "US"
     },
     "geo": {
       "@type": "GeoCoordinates",
       "latitude": "30.3879",
       "longitude": "-97.9723"
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "130",
+      "bestRating": "5",
+      "worstRating": "1"
     },
     "openingHoursSpecification": [
       {
@@ -403,27 +465,68 @@ export function generateBusinessSchema() {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Private Charter",
-            "description": "Exclusive boat rental with professional crew"
+            "name": "Private Charters",
+            "description": "Exclusive boat rental with professional crew, perfect for intimate celebrations to large corporate events"
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Disco Cruise",
-            "description": "Party boat experience with DJ and entertainment"
+            "name": "Disco Cruises",
+            "description": "ATX Disco Cruise party boat experience with DJ and professional entertainment on Lake Travis"
           }
         },
         {
           "@type": "Offer",
           "itemOffered": {
             "@type": "Service",
-            "name": "Bachelor Party Package",
-            "description": "Special packages for bachelor party celebrations"
+            "name": "Bachelorette Packages",
+            "description": "Specialized bachelorette party packages including Basic Bach, Disco Queen, and Platinum options with bride cruises free"
           }
         }
       ]
-    }
+    },
+    "review": [
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Sarah M."
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": "The ATX Disco Cruise was absolutely perfect for my bachelorette party! The DJ was incredible, photographer captured amazing moments, and the Clever Girl boat with those 14 disco balls was unreal!"
+      },
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Mike R."
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": "Booked the Clever Girl for our company event - 50 people, perfect service. The giant Texas flag deck and professional crew made it unforgettable. Party On Delivery made it seamless!"
+      },
+      {
+        "@type": "Review",
+        "author": {
+          "@type": "Person",
+          "name": "Jessica & Chris"
+        },
+        "reviewRating": {
+          "@type": "Rating",
+          "ratingValue": "5",
+          "bestRating": "5"
+        },
+        "reviewBody": "The Irony was perfect for our celebration! Anderson Mill Marina was convenient, crew was professional, and 4 hours on Lake Travis was magical. Best decision ever!"
+      }
+    ]
   };
 }

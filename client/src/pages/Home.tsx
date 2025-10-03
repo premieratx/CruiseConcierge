@@ -424,9 +424,9 @@ export default function Home() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead
         pageRoute="/"
-        defaultTitle="Premier Party Cruises - Austin Lake Travis Boat Rentals"
-        defaultDescription="Austin's premier boat rental and party cruise experience on Lake Travis. Private charters, disco cruises, bachelor parties, and corporate events."
-        defaultKeywords={['Austin boat rental', 'Lake Travis cruises', 'party boat Austin', 'bachelor party boat', 'private charter', 'Austin party cruises', 'boat rental Austin']}
+        defaultTitle="Party Boat Austin | Lake Travis Bachelorette Cruises | Premier Party Cruises"
+        defaultDescription="Austin's #1 party boat on Lake Travis! Perfect for bachelorette parties, bachelor parties & corporate events. Book your Austin boat party today! (512) 488-5892"
+        defaultKeywords={['party boat Austin', 'bachelorette party Austin', 'Austin boat rental', 'Lake Travis party boat', 'bachelor party Austin']}
         schemaType="organization"
       />
       <PublicNavigation />
@@ -473,12 +473,9 @@ export default function Home() {
 
             {/* Main Headline */}
             <motion.div variants={fadeInUp} className="mb-8">
-              <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-6 leading-tight tracking-wider" data-editable data-editable-id="hero-title">
-                AUSTIN'S PREMIER
+              <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight tracking-wider" data-editable data-editable-id="hero-title">
+                Austin's Premier Party Boat Experience on Lake Travis
               </h1>
-              <h2 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold text-brand-yellow mb-6 leading-tight tracking-wider" data-editable data-editable-id="hero-subtitle">
-                PARTY CRUISE EXPERIENCE
-              </h2>
             </motion.div>
 
             {/* Subheadline with Pricing Value Proposition */}
