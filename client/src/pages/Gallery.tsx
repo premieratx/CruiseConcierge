@@ -442,7 +442,7 @@ export default function Gallery() {
               <Video className="h-12 w-12 text-brand-blue" />
             </motion.div>
             
-            <h1 className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-6" data-editable data-editable-id="gallery-hero-title">
+            <h1 className="text-2xl md:text-4xl lg:text-6xl font-heading font-bold mb-6" data-editable data-editable-id="gallery-hero-title">
               GALLERY
             </h1>
             
@@ -533,7 +533,7 @@ export default function Gallery() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="photo-gallery-title">
+            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="photo-gallery-title">
               PHOTO GALLERY
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8" data-editable data-editable-id="photo-gallery-description">
@@ -582,7 +582,7 @@ export default function Gallery() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="video-gallery-title">
+            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="video-gallery-title">
               VIDEO GALLERY
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-editable data-editable-id="video-gallery-description">
@@ -639,7 +639,7 @@ export default function Gallery() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-5xl font-heading font-bold mb-6" data-editable data-editable-id="social-section-title">
+            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-6" data-editable data-editable-id="social-section-title">
               FOLLOW THE ADVENTURE
             </h2>
             <p className="text-xl mb-12 max-w-3xl mx-auto" data-editable data-editable-id="social-section-description">

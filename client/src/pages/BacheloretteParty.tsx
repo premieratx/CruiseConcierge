@@ -484,7 +484,7 @@ export default function BacheloretteParty() {
           >
             <motion.h1 
               variants={fadeInUp}
-              className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6"
+              className="text-2xl md:text-4xl lg:text-6xl font-bold mb-6"
               data-editable data-editable-id="bachelorette-hero-title"
             >
               Austin Bachelorette Party Boat<br/>
@@ -576,7 +576,7 @@ export default function BacheloretteParty() {
             className="text-center"
           >
             <h2 
-              className="text-5xl md:text-6xl font-heading font-bold mb-6 text-white tracking-wider"
+              className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 text-white tracking-wider"
               data-editable 
               data-editable-id="quote-builder-heading"
             >
@@ -705,7 +705,7 @@ export default function BacheloretteParty() {
             {/* Overview Tab */}
             <TabsContent value="overview" className="mt-8">
               <div className="max-w-4xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelorette-overview-title">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelorette-overview-title">
                   Show Your Bride the <span className="text-pink-500">BEST Weekend</span> of Her Life!
                 </h2>
                 
@@ -921,7 +921,7 @@ export default function BacheloretteParty() {
             {/* What's Included Tab */}
             <TabsContent value="included" className="mt-8">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-4" data-editable data-editable-id="bachelorette-included-title">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4" data-editable data-editable-id="bachelorette-included-title">
                   EVERYTHING Included but Alcohol!
                 </h2>
                 <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-8" data-editable data-editable-id="bachelorette-included-subtitle">
@@ -977,7 +977,7 @@ export default function BacheloretteParty() {
                 {/* Existing Disco Packages Content */}
                 <TabsContent value="disco">
                   <div className="max-w-6xl mx-auto">
-                    <h2 className="text-3xl md:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelorette-packages-title">
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelorette-packages-title">
                       Choose Your Bachelorette Party Package
                     </h2>
                     
@@ -1067,7 +1067,7 @@ export default function BacheloretteParty() {
                 {/* New Private Packages Content */}
                 <TabsContent value="private">
                   <div className="max-w-6xl mx-auto">
-                    <h3 className="text-3xl md:text-4xl font-bold text-center mb-4">
+                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4">
                       Private Cruise Options for Bach Parties
                     </h3>
                     <p className="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
@@ -1211,7 +1211,7 @@ export default function BacheloretteParty() {
             {/* Compare Tab */}
             <TabsContent value="compare" className="mt-8">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8">
                   Disco Cruise vs Private Cruise
                 </h2>
                 
@@ -1355,7 +1355,7 @@ export default function BacheloretteParty() {
             {/* FAQs Tab */}
             <TabsContent value="faq" className="mt-8">
               <div className="max-w-3xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8">
                   Frequently Asked Questions
                 </h2>
                 
@@ -1402,7 +1402,7 @@ export default function BacheloretteParty() {
             {/* Photos Tab */}
             <TabsContent value="photos" className="mt-8">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8">
                   Bachelorette Party Vibes & Photos
                 </h2>
                 
@@ -1443,7 +1443,7 @@ export default function BacheloretteParty() {
             {/* Testimonials Tab */}
             <TabsContent value="testimonials" className="mt-8">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelorette-testimonials-title">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelorette-testimonials-title">
                   What Brides Are Saying
                 </h2>
                 
@@ -1454,7 +1454,7 @@ export default function BacheloretteParty() {
                         <Card className="h-full">
                           <CardContent className="pt-6">
                             <div className="flex items-center mb-4">
-                              <span className="text-4xl mr-4">{testimonial.avatar}</span>
+                              <span className="text-3xl md:text-4xl mr-4">{testimonial.avatar}</span>
                               <div>
                                 <p className="font-semibold" data-editable data-editable-id={`bachelorette-testimonial-${testimonial.id}-name`}>{testimonial.name}</p>
                                 <p className="text-sm text-gray-600 dark:text-gray-400" data-editable data-editable-id={`bachelorette-testimonial-${testimonial.id}-role`}>
@@ -1517,7 +1517,7 @@ export default function BacheloretteParty() {
             className="text-center mb-16"
           >
             <h2 
-              className="text-4xl md:text-5xl font-bold text-white mb-6"
+              className="text-2xl md:text-3xl lg:text-5xl font-bold text-white mb-6"
               data-testid="heading-austin-reasons-bachelorette"
             >
               10 Reasons Why Austin is the Best Place for Bachelorette Parties
@@ -1805,7 +1805,7 @@ export default function BacheloretteParty() {
             variants={fadeInUp}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
+            <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold font-heading mb-4">
               Related Austin Party Experiences
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">

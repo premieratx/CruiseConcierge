@@ -301,7 +301,7 @@ export default function PartyBoatLakeTravis() {
             variants={fadeInUp}
           >
             <motion.h1 
-              className="text-5xl md:text-7xl font-bold mb-6 leading-tight"
+              className="text-2xl md:text-4xl lg:text-6xl font-bold mb-6 leading-tight"
               variants={fadeInUp}
               data-testid="heading-hero"
             >
@@ -372,7 +372,7 @@ export default function PartyBoatLakeTravis() {
             variants={fadeInUp}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-why-lake-travis">
+            <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-why-lake-travis">
               Why Choose Lake Travis for Your Party Boat?
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-testid="text-why-subtitle">
@@ -416,7 +416,7 @@ export default function PartyBoatLakeTravis() {
             variants={fadeInUp}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-complete-guide">
+            <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-complete-guide">
               Complete Lake Travis Party Boat Guide
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-testid="text-guide-subtitle">
@@ -627,7 +627,7 @@ export default function PartyBoatLakeTravis() {
             variants={fadeInUp}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-fleet">
+            <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-fleet">
               Our Lake Travis Party Boat Fleet
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-testid="text-fleet-subtitle">
@@ -699,7 +699,7 @@ export default function PartyBoatLakeTravis() {
             variants={fadeInUp}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-pricing">
+            <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-pricing">
               Transparent Lake Travis Party Boat Pricing
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-testid="text-pricing-subtitle">
@@ -722,7 +722,7 @@ export default function PartyBoatLakeTravis() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="text-center py-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
-                    <p className="text-4xl font-bold text-blue-600 dark:text-blue-400" data-testid="price-private-range">
+                    <p className="text-2xl md:text-3xl lg:text-4xl font-bold text-blue-600 dark:text-blue-400" data-testid="price-private-range">
                       ${HOURLY_RATES.MON_THU[14] / 100}-${HOURLY_RATES.MON_THU[50] / 100}/hr
                     </p>
                     <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">4-hour minimum on Lake Travis</p>
@@ -763,7 +763,7 @@ export default function PartyBoatLakeTravis() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="text-center py-4 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
-                    <p className="text-4xl font-bold text-purple-600 dark:text-purple-400" data-testid="price-disco-range">
+                    <p className="text-2xl md:text-3xl lg:text-4xl font-bold text-purple-600 dark:text-purple-400" data-testid="price-disco-range">
                       ${DISCO_PRICING.basic / 100}-${DISCO_PRICING.platinum / 100}/person
                     </p>
                     <p className="text-sm text-gray-500 dark:text-gray-400 mt-2">3-hour Lake Travis cruise</p>
@@ -803,7 +803,7 @@ export default function PartyBoatLakeTravis() {
             variants={fadeInUp}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-packages">
+            <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-packages">
               Popular Lake Travis Party Boat Packages
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-testid="text-packages-subtitle">
@@ -869,7 +869,7 @@ export default function PartyBoatLakeTravis() {
             variants={fadeInUp}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-location">
+            <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-location">
               Lake Travis Location & Access
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-testid="text-location-subtitle">
@@ -978,7 +978,7 @@ export default function PartyBoatLakeTravis() {
             variants={fadeInUp}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-testimonials">
+            <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-testimonials">
               Lake Travis Party Boat Reviews
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-testid="text-testimonials-subtitle">
@@ -1025,7 +1025,7 @@ export default function PartyBoatLakeTravis() {
             variants={fadeInUp}
             className="text-center mb-16"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-faq">
+            <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-faq">
               Lake Travis Party Boat FAQ
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300" data-testid="text-faq-subtitle">
@@ -1070,7 +1070,7 @@ export default function PartyBoatLakeTravis() {
             variants={fadeInUp}
             className="text-center mb-12"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-quote-builder">
+            <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold mb-4 text-gray-900 dark:text-white" data-testid="heading-quote-builder">
               Get Your Lake Travis Party Boat Quote
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-testid="text-quote-subtitle">

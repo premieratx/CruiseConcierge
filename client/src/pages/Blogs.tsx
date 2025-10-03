@@ -169,7 +169,7 @@ export default function Blogs() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4"
+                className="text-2xl md:text-3xl lg:text-5xl font-bold mb-4"
                 data-testid="title-hero"
               >
                 Austin Party Boat Blog

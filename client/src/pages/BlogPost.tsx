@@ -213,7 +213,7 @@ export default function BlogPostPage() {
             )}
 
             {/* Title */}
-            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-4" data-testid="title-blog-post">
+            <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4" data-testid="title-blog-post">
               {post.title}
             </h1>
 

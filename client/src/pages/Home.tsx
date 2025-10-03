@@ -108,7 +108,6 @@ const services = [
     icon: PartyPopper,
     image: galleryImage3,
     badge: 'Our Specialty',
-    specialPage: '/bachelor-party',
     gallery: [galleryImage3, heroImage1, galleryImage2, heroImage2],
     detailedDescription: 'We\'ve been Austin\'s #1 bachelorette party destination since 2009! Choose from our signature ATX Disco Cruise packages (Basic Bach, Disco Queen, or Platinum) or book a private charter. Every bachelorette experience includes professional DJ, photographer, party favors, and VIP treatment to make the bride\'s celebration absolutely perfect.',
     highlights: ['Austin\'s #1 Since 2009', 'Basic Bach, Disco Queen & Platinum', 'Professional DJ & Photographer', 'Party Favors & Decorations', 'VIP Treatment for Bride', 'ATX Disco or Private Options', 'Priority Booking Available']
@@ -402,11 +401,7 @@ export default function Home() {
         navigate('/chat?eventType=disco&groupSize=20');
         break;
       case 'bachelor':
-        if (selectedService.specialPage) {
-          navigate(selectedService.specialPage);
-        } else {
-          navigate('/chat?eventType=disco&groupSize=15');
-        }
+        navigate('/chat?eventType=disco&groupSize=15');
         break;
       case 'corporate':
         navigate('/chat?eventType=private&groupSize=30');
@@ -474,7 +469,7 @@ export default function Home() {
 
             {/* Main Headline */}
             <motion.div variants={fadeInUp} className="mb-8">
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-heading font-bold mb-6 leading-tight tracking-wider" data-editable data-editable-id="hero-title">
+              <h1 className="text-2xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 leading-tight tracking-wider" data-editable data-editable-id="hero-title">
                 Austin's Premier Party Boat Experience on Lake Travis
               </h1>
             </motion.div>
@@ -599,7 +594,7 @@ export default function Home() {
             className="text-center"
           >
             <h2 
-              className="text-5xl md:text-6xl font-heading font-bold mb-6 text-white tracking-wider"
+              className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 text-white tracking-wider"
               data-editable 
               data-editable-id="quote-builder-heading"
             >
@@ -617,19 +612,19 @@ export default function Home() {
               <Button
                 size="lg"
                 onClick={() => setShowQuoteBuilder(true)}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-2xl px-16 py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base md:text-lg lg:text-xl px-6 md:px-12 lg:px-16 py-3 md:py-6 lg:py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide"
                 data-testid="button-build-quote"
               >
-                <Sparkles className="mr-3 h-7 w-7" />
+                <Sparkles className="mr-2 md:mr-3 h-5 md:h-7 w-5 md:w-7" />
                 <span data-editable data-editable-id="quote-builder-button">Start Building Your Quote</span>
-                <ArrowRight className="ml-3 h-7 w-7" />
+                <ArrowRight className="ml-2 md:ml-3 h-5 md:h-7 w-5 md:w-7" />
               </Button>
             ) : (
               <Button
                 size="lg"
                 variant="outline"
                 onClick={() => setShowQuoteBuilder(false)}
-                className="border-3 border-white text-white hover:bg-white hover:text-black font-bold text-lg px-12 py-6 rounded-2xl backdrop-blur-sm mb-8"
+                className="bg-brand-blue border-3 border-white text-white hover:bg-white hover:text-black font-bold text-lg px-12 py-6 rounded-2xl mb-8"
                 data-testid="button-hide-quote"
               >
                 <X className="mr-2 h-5 w-5" />
@@ -687,10 +682,10 @@ export default function Home() {
             className="text-center mb-20"
           >
             <motion.div variants={fadeInUp}>
-              <h2 className="text-6xl md:text-7xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="services-main-title">
+              <h2 className="text-3xl md:text-5xl lg:text-7xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="services-main-title">
                 CHOOSE YOUR
               </h2>
-              <h3 className="text-5xl md:text-6xl font-heading font-bold mb-8 text-brand-blue tracking-wider" data-editable data-editable-id="services-subtitle">
+              <h3 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-8 text-brand-blue tracking-wider" data-editable data-editable-id="services-subtitle">
                 PERFECT EXPERIENCE
               </h3>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="services-description">
@@ -773,7 +768,7 @@ export default function Home() {
 
                     <div className="text-center pt-4">
                       <div className="text-base text-gray-500 mb-2 font-semibold" data-editable data-editable-id={`service-${service.id}-price-label`}>Starting from</div>
-                      <div className="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4" data-editable data-editable-id={`service-${service.id}-price`}>
+                      <div className="text-2xl md:text-3xl lg:text-5xl font-black text-gray-900 dark:text-white mb-4" data-editable data-editable-id={`service-${service.id}-price`}>
                         {service.startingPrice}
                       </div>
                       <div className="text-sm text-gray-600 dark:text-gray-400 mb-4" data-editable data-editable-id={`service-${service.id}-price-note`}>
@@ -783,23 +778,22 @@ export default function Home() {
                       <Button 
                         className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white font-bold py-3 rounded-xl tracking-wide"
                         onClick={() => {
-                          if (service.specialPage) {
-                            navigate(service.specialPage);
-                          } else {
-                            // Handle specific service booking with package context
-                            switch(service.id) {
-                              case 'private':
-                                handleBookNow('private-cruise', 'general');
-                                break;
-                              case 'disco':
-                                handleBookNow('disco-cruise', 'general');
-                                break;
-                              case 'corporate':
-                                handleBookNow('private-cruise', 'corporate');
-                                break;
-                              default:
-                                handleGetQuote();
-                            }
+                          // Handle specific service booking with package context
+                          switch(service.id) {
+                            case 'private':
+                              handleBookNow('private-cruise', 'general');
+                              break;
+                            case 'bachelor':
+                              handleBookNow('disco-cruise', 'bachelorette');
+                              break;
+                            case 'disco':
+                              handleBookNow('disco-cruise', 'general');
+                              break;
+                            case 'corporate':
+                              handleBookNow('private-cruise', 'corporate');
+                              break;
+                            default:
+                              handleGetQuote();
                           }
                         }}
                         data-testid={`button-service-${service.id}`}
@@ -905,7 +899,7 @@ export default function Home() {
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div>
                       <div className="text-sm text-gray-500 mb-1" data-editable data-editable-id={`lightbox-${selectedService.id}-pricing-label`}>Starting from</div>
-                      <div className="text-4xl font-bold text-gray-900 dark:text-white">
+                      <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">
                         {selectedService.startingPrice}
                       </div>
                       <div className="text-sm text-gray-600 dark:text-gray-400 mt-1" data-editable data-editable-id={`lightbox-${selectedService.id}-pricing-note`}>
@@ -956,10 +950,10 @@ export default function Home() {
             className="text-center mb-20"
           >
             <motion.div variants={fadeInUp}>
-              <h2 className="text-5xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="why-choose-main-title">
+              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="why-choose-main-title">
                 WHY CHOOSE
               </h2>
-              <h3 className="text-4xl md:text-5xl font-heading font-bold mb-8 text-brand-yellow tracking-wider" data-editable data-editable-id="why-choose-subtitle">
+              <h3 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-8 text-brand-yellow tracking-wider" data-editable data-editable-id="why-choose-subtitle">
                 PREMIER PARTY CRUISES
               </h3>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="why-choose-description">
@@ -1011,7 +1005,7 @@ export default function Home() {
                   <div className="bg-brand-yellow/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-yellow/20 transition-colors duration-300">
                     <stat.icon className="h-8 w-8 text-brand-blue" />
                   </div>
-                  <div className="text-3xl md:text-4xl font-bold mb-2 text-gray-900 dark:text-white" data-editable data-editable-id={`stat-${index}-value`}>
+                  <div className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-gray-900 dark:text-white" data-editable data-editable-id={`stat-${index}-value`}>
                     {stat.value}
                   </div>
                   <div className="text-gray-600 dark:text-gray-300 font-medium tracking-wide" data-editable data-editable-id={`stat-${index}-label`}>
@@ -1035,10 +1029,10 @@ export default function Home() {
             className="text-center mb-16"
           >
             <motion.div variants={fadeInUp}>
-              <h2 className="text-5xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="gallery-main-title">
+              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="gallery-main-title">
                 EXPERIENCE THE
               </h2>
-              <h3 className="text-4xl md:text-5xl font-heading font-bold mb-8 text-brand-blue tracking-wider" data-editable data-editable-id="gallery-subtitle">
+              <h3 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-8 text-brand-blue tracking-wider" data-editable data-editable-id="gallery-subtitle">
                 PREMIER DIFFERENCE
               </h3>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="gallery-description">
@@ -1095,10 +1089,10 @@ export default function Home() {
             className="text-center mb-16"
           >
             <motion.div variants={fadeInUp}>
-              <h2 className="text-5xl md:text-6xl font-heading font-bold mb-6 tracking-wider" data-editable data-editable-id="testimonials-main-title">
+              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 tracking-wider" data-editable data-editable-id="testimonials-main-title">
                 WHAT OUR
               </h2>
-              <h3 className="text-4xl md:text-5xl font-heading font-bold mb-8 text-brand-yellow tracking-wider" data-editable data-editable-id="testimonials-subtitle">
+              <h3 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-8 text-brand-yellow tracking-wider" data-editable data-editable-id="testimonials-subtitle">
                 CUSTOMERS SAY
               </h3>
               <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="testimonials-description">
@@ -1119,7 +1113,7 @@ export default function Home() {
               >
                 <Card className="h-full bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 transition-all duration-300">
                   <CardHeader className="text-center pb-4">
-                    <div className="text-4xl mb-4">{testimonial.avatar}</div>
+                    <div className="text-3xl md:text-4xl mb-4">{testimonial.avatar}</div>
                     <div className="flex justify-center mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <Star key={i} className="h-5 w-5 text-brand-yellow fill-current" />
@@ -1159,10 +1153,10 @@ export default function Home() {
             className="text-center mb-16"
           >
             <motion.div variants={fadeInUp}>
-              <h2 className="text-5xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="contact-main-title">
+              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="contact-main-title">
                 READY TO
               </h2>
-              <h3 className="text-4xl md:text-5xl font-heading font-bold mb-8 text-brand-yellow tracking-wider" data-editable data-editable-id="contact-subtitle">
+              <h3 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-8 text-brand-yellow tracking-wider" data-editable data-editable-id="contact-subtitle">
                 SET SAIL?
               </h3>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12" data-editable data-editable-id="contact-description">
