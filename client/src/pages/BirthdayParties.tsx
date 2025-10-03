@@ -65,7 +65,7 @@ const birthdayPackages = [
   {
     name: 'Essential Birthday',
     icon: Gift,
-    price: `From ${formatCurrency(HOURLY_RATES.MON_THU[14] * 4)}`,  // 4-hour minimum on smallest boat
+    price: 'Starting at $200/hr',
     description: 'Everything you need for an amazing birthday cruise',
     features: [
       'Private boat for your group',
@@ -80,7 +80,7 @@ const birthdayPackages = [
   {
     name: 'Birthday Bash',
     icon: PartyPopper,
-    price: `From ${formatCurrency(HOURLY_RATES.MON_THU[25] * 4)}`,  // 4-hour minimum on 25-person boat
+    price: 'Starting at $225/hr',
     description: 'Enhanced celebration with party essentials',
     features: [
       'Everything from Essential',
@@ -96,7 +96,7 @@ const birthdayPackages = [
   {
     name: 'VIP Birthday Experience',
     icon: Crown,
-    price: `From ${formatCurrency(HOURLY_RATES.MON_THU[50] * 4)}`,  // 4-hour minimum on 50-person boat
+    price: 'Starting at $250/hr',
     description: 'Ultimate birthday luxury on the water',
     features: [
       'Everything from Birthday Bash',
