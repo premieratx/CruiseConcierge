@@ -266,7 +266,7 @@ export default function WelcomeParty() {
             <div className="relative w-full h-full">
               <img 
                 src={heroImage1} 
-                alt="Welcome Party Cruise" 
+                alt="Welcome Party Boat Austin cruise on Lake Travis Welcome Party" 
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />

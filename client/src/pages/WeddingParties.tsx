@@ -275,14 +275,14 @@ const weddingFAQs = [
 
 // Gallery images
 const galleryImages = [
-  { src: heroImage1, alt: 'Elegant wedding yacht' },
-  { src: heroImage2, alt: 'Rehearsal dinner boat' },
-  { src: heroImage3, alt: 'Intimate wedding cruise' },
-  { src: galleryImage1, alt: 'Wedding celebration on water' },
-  { src: galleryImage2, alt: 'Romantic sunset cruise' },
-  { src: galleryImage3, alt: 'Wedding party atmosphere' },
-  { src: floatImage, alt: 'Fun wedding after party' },
-  { src: discoImage, alt: 'Wedding reception dancing' }
+  { src: heroImage1, alt: 'Wedding Party Boat Austin elegant yacht on Lake Travis' },
+  { src: heroImage2, alt: 'Lake Travis Wedding rehearsal dinner boat' },
+  { src: heroImage3, alt: 'Wedding Party Boat Austin intimate cruise' },
+  { src: galleryImage1, alt: 'Lake Travis Wedding celebration on water' },
+  { src: galleryImage2, alt: 'Wedding Party Boat Austin romantic sunset cruise' },
+  { src: galleryImage3, alt: 'Lake Travis Wedding party atmosphere' },
+  { src: floatImage, alt: 'Wedding Party Boat Austin fun after party on Lake Travis' },
+  { src: discoImage, alt: 'Lake Travis Wedding reception dancing' }
 ];
 
 export default function WeddingParties() {
@@ -343,7 +343,7 @@ export default function WeddingParties() {
         <div className="absolute inset-0 z-0">
           <img
             src={heroImage1}
-            alt="Wedding cruise event"
+            alt="Wedding Party Boat Austin cruise event on Lake Travis"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />

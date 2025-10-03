@@ -297,14 +297,14 @@ const testimonials = [
 
 // Photo gallery items
 const galleryPhotos = [
-  { id: 1, src: heroImage1, alt: 'Bachelor party group on boat' },
-  { id: 2, src: discoImage1, alt: 'ATX Disco Cruise party scene' },
-  { id: 3, src: galleryImage1, alt: 'Day Tripper boat' },
-  { id: 4, src: discoImage2, alt: 'Dancing on the cruise' },
-  { id: 5, src: galleryImage2, alt: 'Meeseeks boat' },
-  { id: 6, src: floatImage, alt: 'Giant unicorn float' },
-  { id: 7, src: galleryImage3, alt: 'Clever Girl boat' },
-  { id: 8, src: heroImage2, alt: 'Party atmosphere' }
+  { id: 1, src: heroImage1, alt: 'Bachelor Party Austin group celebrating on Lake Travis party boat' },
+  { id: 2, src: discoImage1, alt: 'Austin Bachelor Party ATX Disco Cruise on Party Boat Lake Travis' },
+  { id: 3, src: galleryImage1, alt: 'Lake Travis Bachelor Party Day Tripper boat cruise' },
+  { id: 4, src: discoImage2, alt: 'Bachelor Party Austin dancing on Party Boat Lake Travis cruise' },
+  { id: 5, src: galleryImage2, alt: 'Austin Bachelor Party Boat Meeseeks on Lake Travis' },
+  { id: 6, src: floatImage, alt: 'Lake Travis Bachelor Party giant unicorn float on Party Boat Austin' },
+  { id: 7, src: galleryImage3, alt: 'Bachelor Party Austin Clever Girl boat on Lake Travis' },
+  { id: 8, src: heroImage2, alt: 'Austin Bachelor Party Boat atmosphere on Lake Travis' }
 ];
 
 export default function BachelorParty() {
@@ -443,7 +443,7 @@ export default function BachelorParty() {
             >
               <img 
                 src={heroImages[currentHeroImage]}
-                alt="Austin Bachelor Party ATX Disco Cruise"
+                alt="Bachelor Party Austin ATX Disco Cruise on Lake Travis Party Boat"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />

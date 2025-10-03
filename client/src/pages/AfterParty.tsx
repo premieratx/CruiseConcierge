@@ -278,7 +278,7 @@ export default function AfterParty() {
             <div className="relative w-full h-full">
               <img 
                 src={heroImage1} 
-                alt="After Party Cruise" 
+                alt="After Party Boat Austin wedding cruise on Lake Travis After Party" 
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />

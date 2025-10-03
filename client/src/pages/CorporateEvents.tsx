@@ -271,14 +271,14 @@ const corporateFAQs = [
 
 // Gallery images
 const galleryImages = [
-  { src: heroImage1, alt: 'Corporate yacht event on Lake Travis' },
-  { src: heroImage2, alt: 'Team building cruise' },
-  { src: heroImage3, alt: 'Executive meeting boat' },
-  { src: galleryImage1, alt: 'Corporate celebration' },
-  { src: galleryImage2, alt: 'Client entertainment cruise' },
-  { src: galleryImage3, alt: 'Professional networking event' },
-  { src: floatImage, alt: 'Team relaxation time' },
-  { src: discoImage, alt: 'Company party atmosphere' }
+  { src: heroImage1, alt: 'Corporate Party Boat Austin yacht event on Lake Travis' },
+  { src: heroImage2, alt: 'Lake Travis Corporate Events team building cruise' },
+  { src: heroImage3, alt: 'Corporate Party Boat Austin executive meeting' },
+  { src: galleryImage1, alt: 'Lake Travis Corporate Events celebration' },
+  { src: galleryImage2, alt: 'Corporate Party Boat Austin client entertainment cruise' },
+  { src: galleryImage3, alt: 'Lake Travis Corporate Events professional networking' },
+  { src: floatImage, alt: 'Corporate Party Boat Austin team relaxation on Lake Travis' },
+  { src: discoImage, alt: 'Lake Travis Corporate Events company party atmosphere' }
 ];
 
 export default function CorporateEvents() {
@@ -339,7 +339,7 @@ export default function CorporateEvents() {
         <div className="absolute inset-0 z-0">
           <img
             src={heroImage1}
-            alt="Corporate cruise event"
+            alt="Corporate Party Boat Austin cruise event on Lake Travis"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/60" />

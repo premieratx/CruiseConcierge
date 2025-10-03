@@ -296,7 +296,7 @@ export default function PartyBoatAustin() {
           <div className="absolute inset-0 bg-gradient-to-r from-blue-900/80 to-purple-900/60 z-10" />
           <img 
             src={heroImage2} 
-            alt="Party boat on Lake Travis Austin with disco lights and celebration"
+            alt="Party Boat Austin on Lake Travis with disco lights and celebration Austin Party Boat"
             className="w-full h-full object-cover"
           />
         </div>
@@ -444,7 +444,7 @@ export default function PartyBoatAustin() {
                   <div className="relative h-64 overflow-hidden">
                     <img 
                       src={boat.image} 
-                      alt={`${boat.name} party boat on Lake Travis Austin`}
+                      alt={`${boat.name} Party Boat Austin on Lake Travis party cruise`}
                       className="w-full h-full object-cover"
                     />
                     <Badge className="absolute top-4 right-4 bg-blue-600 text-white">

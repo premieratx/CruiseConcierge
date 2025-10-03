@@ -253,14 +253,14 @@ const birthdayFAQs = [
 
 // Gallery images
 const galleryImages = [
-  { src: heroImage1, alt: 'Birthday party celebration on boat' },
-  { src: heroImage2, alt: 'Friends celebrating birthday cruise' },
-  { src: heroImage3, alt: 'Birthday party atmosphere' },
-  { src: boatImage1, alt: 'Intimate birthday cruise boat' },
-  { src: boatImage2, alt: 'Medium group birthday boat' },
-  { src: boatImage3, alt: 'Large birthday party yacht' },
-  { src: floatImage, alt: 'Birthday fun on giant floats' },
-  { src: discoImage, alt: 'Birthday party vibes' }
+  { src: heroImage1, alt: 'Birthday Party Boat Austin celebration on Lake Travis' },
+  { src: heroImage2, alt: 'Lake Travis Birthday Party friends celebrating cruise' },
+  { src: heroImage3, alt: 'Birthday Party Boat Austin party atmosphere' },
+  { src: boatImage1, alt: 'Lake Travis Birthday Party intimate cruise boat' },
+  { src: boatImage2, alt: 'Birthday Party Boat Austin medium group boat' },
+  { src: boatImage3, alt: 'Lake Travis Birthday Party large yacht celebration' },
+  { src: floatImage, alt: 'Birthday Party Boat Austin fun on Lake Travis giant floats' },
+  { src: discoImage, alt: 'Lake Travis Birthday Party celebration vibes' }
 ];
 
 export default function BirthdayParties() {
@@ -301,7 +301,7 @@ export default function BirthdayParties() {
         <div className="absolute inset-0 z-0">
           <img
             src={heroImage1}
-            alt="Birthday party cruise"
+            alt="Birthday Party Boat Austin cruise celebration on Lake Travis"
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/30 to-black/60" />

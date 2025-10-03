@@ -299,7 +299,7 @@ export default function Sweet16() {
             <div className="relative w-full h-full">
               <img 
                 src={heroImage1} 
-                alt="Sweet 16 Cruise" 
+                alt="Sweet 16 Party Boat Austin birthday cruise on Lake Travis Sweet Sixteen" 
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-pink-900/40 via-purple-900/30 to-pink-900/50" />

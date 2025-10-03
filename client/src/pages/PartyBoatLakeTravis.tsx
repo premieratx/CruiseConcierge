@@ -648,7 +648,7 @@ export default function PartyBoatLakeTravis() {
                   <div className="relative h-64">
                     <img 
                       src={boat.image} 
-                      alt={`${boat.name} on Lake Travis`}
+                      alt={`${boat.name} Party Boat Lake Travis Austin party cruise`}
                       className="w-full h-full object-cover"
                     />
                     <Badge className="absolute top-4 right-4 bg-blue-600 text-white">
