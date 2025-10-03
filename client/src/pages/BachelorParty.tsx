@@ -23,7 +23,7 @@ import {
   MessageSquare, Ticket, Gift, Disc3, Volume2, 
   Mic, Utensils, GlassWater, UserCheck, Leaf, Check,
   AlertCircle, DollarSign, Timer, CreditCard, CloudRain, 
-  HelpCircle, Anchor, Droplets, Waves, Info, TrendingUp, X
+  HelpCircle, Anchor, Droplets, Waves, Info, TrendingUp, X, Package
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 
@@ -890,84 +890,236 @@ export default function BachelorParty() {
 
             {/* Packages Tab */}
             <TabsContent value="packages" className="mt-8">
-              <div className="max-w-6xl mx-auto">
-                <h2 className="text-3xl md:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelor-packages-title">
-                  Choose Your Bachelor Party Package
-                </h2>
-                
-                <div className="grid md:grid-cols-3 gap-6 mb-8">
-                  {discoPackages.map((pkg) => (
-                    <Card 
-                      key={pkg.id} 
-                      className={cn(
-                        "relative h-full",
-                        pkg.popular && "border-2 border-brand-yellow shadow-xl"
-                      )}
-                    >
-                      {pkg.popular && (
-                        <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
-                          <Badge className="bg-brand-yellow text-black font-bold px-4 py-1">
-                            <span data-editable data-editable-id={`bachelor-package-${pkg.id}-badge`}>MOST POPULAR</span>
-                          </Badge>
-                        </div>
-                      )}
-                      
-                      <CardHeader className="text-center pb-4">
-                        <div className="flex justify-center mb-4">
-                          <pkg.icon className="h-12 w-12 text-brand-yellow" />
-                        </div>
-                        <CardTitle className="text-2xl" data-editable data-editable-id={`bachelor-package-${pkg.id}-name`}>{pkg.name}</CardTitle>
-                        <CardDescription className="text-sm mt-2" data-editable data-editable-id={`bachelor-package-${pkg.id}-subtitle`}>
-                          {pkg.subtitle}
-                        </CardDescription>
-                      </CardHeader>
-                      
-                      <CardContent className="space-y-4">
-                        <div className="text-center">
-                          <div className="text-3xl font-bold">
-                            ${pkg.price}/person
-                          </div>
-                          <div className="text-lg text-green-600 dark:text-green-400 font-semibold">
-                            ${pkg.id === 'basic' ? '98' : pkg.id === 'disco_king' ? '111' : '124'} with tax & tip
-                          </div>
-                          {pkg.originalPrice && (
-                            <div className="text-sm text-gray-400 line-through">
-                              was ${pkg.originalPrice}
+              <Tabs defaultValue="disco" className="w-full">
+                <TabsList className="grid w-full grid-cols-2 mb-8">
+                  <TabsTrigger value="disco" data-testid="tab-disco-packages">Disco Cruise Packages</TabsTrigger>
+                  <TabsTrigger value="private" data-testid="tab-private-packages">Private Cruise Packages</TabsTrigger>
+                </TabsList>
+
+                {/* Existing Disco Packages Content */}
+                <TabsContent value="disco">
+                  <div className="max-w-6xl mx-auto">
+                    <h2 className="text-3xl md:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelor-packages-title">
+                      Choose Your Bachelor Party Package
+                    </h2>
+                    
+                    <div className="grid md:grid-cols-3 gap-6 mb-8">
+                      {discoPackages.map((pkg) => (
+                        <Card 
+                          key={pkg.id} 
+                          className={cn(
+                            "relative h-full",
+                            pkg.popular && "border-2 border-brand-yellow shadow-xl"
+                          )}
+                        >
+                          {pkg.popular && (
+                            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 z-10">
+                              <Badge className="bg-brand-yellow text-black font-bold px-4 py-1">
+                                <span data-editable data-editable-id={`bachelor-package-${pkg.id}-badge`}>MOST POPULAR</span>
+                              </Badge>
                             </div>
                           )}
-                        </div>
-                        
-                        <ul className="space-y-2">
-                          {pkg.features.map((feature, i) => (
-                            <li key={i} className="flex items-start space-x-2">
-                              <Check className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
-                              <span className="text-sm" data-editable data-editable-id={`bachelor-package-${pkg.id}-feature-${i}`}>{feature}</span>
-                            </li>
-                          ))}
-                        </ul>
-                        
-                        <Button
-                          className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold"
-                          onClick={() => handleGetQuote(pkg.id)}
-                          data-testid={`button-package-${pkg.id}`}
-                        >
-                          <span data-editable data-editable-id={`bachelor-package-${pkg.id}-button`}>Select This Package</span>
-                        </Button>
-                      </CardContent>
-                    </Card>
-                  ))}
-                </div>
+                          
+                          <CardHeader className="text-center pb-4">
+                            <div className="flex justify-center mb-4">
+                              <pkg.icon className="h-12 w-12 text-brand-yellow" />
+                            </div>
+                            <CardTitle className="text-2xl" data-editable data-editable-id={`bachelor-package-${pkg.id}-name`}>{pkg.name}</CardTitle>
+                            <CardDescription className="text-sm mt-2" data-editable data-editable-id={`bachelor-package-${pkg.id}-subtitle`}>
+                              {pkg.subtitle}
+                            </CardDescription>
+                          </CardHeader>
+                          
+                          <CardContent className="space-y-4">
+                            <div className="text-center">
+                              <div className="text-3xl font-bold">
+                                ${pkg.price}/person
+                              </div>
+                              <div className="text-lg text-green-600 dark:text-green-400 font-semibold">
+                                ${pkg.id === 'basic' ? '98' : pkg.id === 'disco_king' ? '111' : '124'} with tax & tip
+                              </div>
+                              {pkg.originalPrice && (
+                                <div className="text-sm text-gray-400 line-through">
+                                  was ${pkg.originalPrice}
+                                </div>
+                              )}
+                            </div>
+                            
+                            <ul className="space-y-2">
+                              {pkg.features.map((feature, i) => (
+                                <li key={i} className="flex items-start space-x-2">
+                                  <Check className="h-4 w-4 text-green-500 mt-0.5 flex-shrink-0" />
+                                  <span className="text-sm" data-editable data-editable-id={`bachelor-package-${pkg.id}-feature-${i}`}>{feature}</span>
+                                </li>
+                              ))}
+                            </ul>
+                            
+                            <Button
+                              className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold"
+                              onClick={() => handleGetQuote(pkg.id)}
+                              data-testid={`button-package-${pkg.id}`}
+                            >
+                              <span data-editable data-editable-id={`bachelor-package-${pkg.id}-button`}>Select This Package</span>
+                            </Button>
+                          </CardContent>
+                        </Card>
+                      ))}
+                    </div>
 
-                <div className="text-center">
-                  <p className="text-lg mb-4" data-editable data-editable-id="bachelor-packages-includes-text">
-                    All packages include: DJ, Photographer, Floats, Party Supplies & More!
-                  </p>
-                  <Badge className="bg-green-600 text-white">
-                    <TrendingUp className="h-4 w-4 mr-1" />
-                    <span data-editable data-editable-id="bachelor-packages-discount-badge">Group Discounts Available for 10+ People</span>
-                  </Badge>
-                </div>
-              </div>
+                    <div className="text-center">
+                      <p className="text-lg mb-4" data-editable data-editable-id="bachelor-packages-includes-text">
+                        All packages include: DJ, Photographer, Floats, Party Supplies & More!
+                      </p>
+                      <Badge className="bg-green-600 text-white">
+                        <TrendingUp className="h-4 w-4 mr-1" />
+                        <span data-editable data-editable-id="bachelor-packages-discount-badge">Group Discounts Available for 10+ People</span>
+                      </Badge>
+                    </div>
+                  </div>
+                </TabsContent>
+
+                {/* New Private Packages Content */}
+                <TabsContent value="private">
+                  <div className="max-w-6xl mx-auto">
+                    <h3 className="text-3xl md:text-4xl font-bold text-center mb-4">
+                      Private Cruise Options for Bach Parties
+                    </h3>
+                    <p className="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
+                      Want your own private boat? Choose from our three package tiers - all 4-hour cruises on our 14-person boat.
+                    </p>
+
+                    <div className="grid md:grid-cols-3 gap-8">
+                      {/* Standard Package - $200/hr */}
+                      <Card className="border-2">
+                        <CardContent className="p-6">
+                          <div className="text-center mb-4">
+                            <Package className="h-12 w-12 mx-auto text-brand-blue mb-2" />
+                            <h4 className="text-2xl font-bold mb-2">Standard Private Cruise</h4>
+                            <p className="text-gray-600 dark:text-gray-400 mb-4">Essential cruise experience</p>
+                            <div className="text-3xl font-bold text-brand-blue">$200/hour</div>
+                            <p className="text-sm text-gray-500">4-hour minimum = $800</p>
+                          </div>
+                          <div className="space-y-2 text-sm">
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span>Amazing, experienced captain</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span>2 large empty coolers (bring your own ice & drinks)</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span>Premium Bluetooth speaker system</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span>Clean restroom facilities</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span>Comfortable seating for 14 guests</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span>Plenty of sun & shade areas</span>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Essentials Package - $225/hr */}
+                      <Card className="border-2 border-brand-yellow shadow-lg">
+                        <CardContent className="p-6">
+                          <Badge className="mb-2">MOST POPULAR</Badge>
+                          <div className="text-center mb-4">
+                            <Gift className="h-12 w-12 mx-auto text-brand-blue mb-2" />
+                            <h4 className="text-2xl font-bold mb-2">Private Plus Essentials</h4>
+                            <p className="text-gray-600 dark:text-gray-400 mb-4">Complete convenience package</p>
+                            <div className="text-3xl font-bold text-brand-blue">$225/hour</div>
+                            <p className="text-sm text-gray-500">4-hour minimum = $900</p>
+                          </div>
+                          <div className="space-y-2 text-sm">
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span className="font-semibold">Everything from Standard Cruise</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span>Insulated 5-gallon dispenser with ice water</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span>15 gallons of fresh water & 30 solo cups</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span>Coolers pre-stocked with 40lbs of ice</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span>6-ft folding table for food & drinks</span>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+
+                      {/* Ultimate Package - $250/hr */}
+                      <Card className="border-2">
+                        <CardContent className="p-6">
+                          <div className="text-center mb-4">
+                            <Crown className="h-12 w-12 mx-auto text-brand-blue mb-2" />
+                            <h4 className="text-2xl font-bold mb-2">Private with Ultimate Package</h4>
+                            <p className="text-gray-600 dark:text-gray-400 mb-4">Complete party experience</p>
+                            <div className="text-3xl font-bold text-brand-blue">$250/hour</div>
+                            <p className="text-sm text-gray-500">4-hour minimum = $1,000</p>
+                          </div>
+                          <div className="space-y-2 text-sm">
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span className="font-semibold">Everything from Essentials Package</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span>6x20' giant lily pad float</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span>Unicorn or ring float for guest of honor</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span>5 disco ball cups & 30 additional solo cups</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span>Bubble gun & 3 bubble wands for fun</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span>20 champagne flutes & 3 fruit juices</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span>2 bottles SPF-50 spray sunscreen</span>
+                            </div>
+                            <div className="flex items-start gap-2">
+                              <Check className="h-4 w-4 text-green-600 mt-0.5" />
+                              <span>3 disco balls installed for party atmosphere</span>
+                            </div>
+                          </div>
+                        </CardContent>
+                      </Card>
+                    </div>
+
+                    <div className="mt-8 text-center">
+                      <p className="text-sm text-gray-600 dark:text-gray-400">
+                        All prices shown are base hourly rates. Tax, gratuity, and any add-ons are additional.
+                      </p>
+                    </div>
+                  </div>
+                </TabsContent>
+              </Tabs>
             </TabsContent>
 
             {/* Compare Tab */}
