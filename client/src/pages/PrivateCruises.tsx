@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
-import Chat from '@/pages/Chat';
 import ExperienceCards from '@/components/ExperienceCards';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -506,42 +505,6 @@ export default function PrivateCruises() {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
-      </section>
-      
-      {/* Streamlined Booking Section */}
-      <section id="booking-widget" className="py-24 bg-gray-50 dark:bg-gray-900">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            className="text-center mb-16"
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerChildren}
-          >
-            <motion.h2 
-              variants={fadeInUp}
-              className="text-4xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white"
-            >
-              BOOK YOUR PRIVATE CRUISE
-            </motion.h2>
-            <motion.p 
-              variants={fadeInUp}
-              className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto"
-            >
-              Choose your group size and preferred date to see available boats and pricing.
-              Our streamlined booking process makes it easy to secure your Lake Travis adventure.
-            </motion.p>
-          </motion.div>
-          
-          <motion.div
-            initial="hidden"
-            whileInView="visible" 
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <Chat />
-          </motion.div>
         </div>
       </section>
 
@@ -1427,38 +1390,6 @@ export default function PrivateCruises() {
                 </AccordionItem>
               ))}
             </Accordion>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Booking Section with Chat Component */}
-      <section id="booking-widget" className="py-24 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerChildren}
-            className="text-center mb-12"
-          >
-            <motion.div variants={fadeInUp}>
-              <h2 className="text-4xl md:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider">
-                BOOK YOUR PRIVATE CRUISE
-              </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                Get started with our instant quote builder and book your private Lake Travis cruise.
-              </p>
-            </motion.div>
-          </motion.div>
-          
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            className="max-w-7xl mx-auto"
-          >
-            <Chat defaultEventType="private" />
           </motion.div>
         </div>
       </section>
