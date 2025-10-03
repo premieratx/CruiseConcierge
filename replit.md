@@ -1,7 +1,7 @@
 # Premier Party Cruises CRM
 
 ## Overview
-This project is a custom CRM with an AI chatbot agent designed for Premier Party Cruises, an Austin, Texas-based party boat business. It aims to streamline booking, payment, and customer management processes. Key capabilities include a 17hats-style CRM dashboard, a progressive AI chatbot booking flow, Stripe payment integration, real-time availability checking via Google Sheets, dynamic pricing, quote generation, and comprehensive admin tools for booking management. The system prevents double-bookings with a robust boat-specific time slot system and ensures production-ready architecture with verified database constraints.
+This project is a custom CRM with an AI chatbot agent designed for Premier Party Cruises. Its purpose is to streamline booking, payment, and customer management for a party boat business. Key capabilities include a 17hats-style CRM dashboard, a progressive AI chatbot booking flow, Stripe payment integration, real-time availability checking, dynamic pricing, quote generation, and comprehensive admin tools. The system ensures robust double-booking prevention and production-ready architecture.
 
 ## User Preferences
 I prefer iterative development with clear communication at each stage.
@@ -15,172 +15,50 @@ All time slot definitions and availability must be identical across all customer
 
 ## System Architecture
 
-### Centralized Availability System (Updated Sep 30, 2025)
-The platform now uses a **unified availability system** that serves as the single source of truth for both Quote Builder and Admin Calendar components. This ensures perfect synchronization between customer-facing quotes and administrative booking management.
+### Centralized Availability System
+The platform utilizes a unified availability system as the single source of truth for both customer-facing (Quote Builder) and administrative (Admin Calendar) components, ensuring perfect synchronization.
 
-#### How It Works
-1. **Static Pricing Configuration** (`server/config/staticPricing.ts`):
-   - All boat pricing is defined statically and rarely changes
-   - Pricing varies by boat type and day type (weekday/friday/weekend)
-   - Database seeding uses static pricing, NOT Google Sheets pricing data
-   - Example: Day Tripper = $600/hr weekday, $1000/hr Friday, $1200/hr weekend
+- **Static Pricing Configuration**: All boat pricing is defined statically (`server/config/staticPricing.ts`) and varies by boat type and day type. This data is used for database seeding, not Google Sheets.
+- **Products Table**: PostgreSQL database stores 89 products representing boat-specific time slots and add-ons, forming the foundation for availability and booking.
+- **Centralized Availability API (`/api/availability/search`)**: A single endpoint provides normalized slot objects with complete pricing and availability data, handling booking conflicts, slot holds, and real-time availability.
+- **Quote Builder Flow**: Users select date, group size, duration, then the system returns available time slots with pre-calculated pricing.
+- **Admin Calendar Flow**: Fetches availability from the same API, transforming normalized slots for UI display of available, booked, and blocked time slots.
+- **Quote-to-Calendar Linkage**: Bookings made via quotes or admin tools update the availability system, preventing double-bookings and immediately reflecting changes in both interfaces.
+- **Google Sheets Role**: Used exclusively for tracking availability/bookings, not pricing.
 
-2. **Products Table** (PostgreSQL):
-   - Seeded with 89 products: 87 boat-specific time slots + 2 add-ons
-   - Each product represents a specific boat + time slot + day type combination
-   - Products are the foundation for availability checking and booking
-
-3. **Centralized Availability API** (`/api/availability/search`):
-   - Single endpoint used by both Quote Builder and Admin Calendar
-   - Returns NormalizedSlot objects with complete pricing and availability data
-   - Handles booking conflicts, slot holds, and real-time availability
-   - Supports filtering by date range, cruise type, group size, and duration
-
-4. **Quote Builder Flow**:
-   - User selects date, group size, duration → calls `/api/availability/search`
-   - System returns available time slots with pricing already in cents
-   - User selects time slot → generates quote with pricing breakdown
-   - Quote stores selected product_id linking it to specific time slot
-
-5. **Admin Calendar Flow**:
-   - Fetches week of availability from `/api/availability/search`
-   - Transforms NormalizedSlots to TimeBlocks for UI display
-   - Shows available (green), booked (red), and blocked (gray) time slots
-   - Real-time updates via SSE when bookings are created/modified
-
-6. **Quote-to-Calendar Linkage**:
-   - When quote is created → stores product_id in database
-   - When payment is completed → creates booking with start_time/end_time
-   - Booking automatically marks time slot as unavailable
-   - Calendar reflects booking immediately via cache invalidation
-   - Both systems query same availability endpoint = perfect sync
-
-#### Key Benefits
-- **Single Source of Truth**: Both Quote Builder and Calendar use `/api/availability/search`
-- **Real-time Sync**: Changes in either system immediately reflect in the other
-- **Accurate Pricing**: Static pricing ensures consistent rates across all components
-- **Conflict Prevention**: Centralized booking checks prevent double-bookings
-- **Efficient Caching**: Week-scoped cache keys minimize redundant API calls
-
-#### Google Sheets Role (Availability Only)
-- Google Sheets is used ONLY for tracking availability/bookings, NOT pricing
-- Pricing always comes from `server/config/staticPricing.ts`
-- Future: May integrate Google Sheets availability data with normalized slot system
-
-### Lovable Quote Builder Integration (Oct 2, 2025)
-The quote builder functionality now uses an **external Lovable application** served as standalone HTML at `/chat`. This architectural decision was made to:
-- Avoid complex migration of Supabase edge functions and RLS policies
-- Leverage Lovable's real-time booking system with minimal integration effort
-- Maintain clean separation between CRM (Replit) and booking flow (Lovable)
-
-**Implementation Details:**
-- **Route:** `GET /chat` serves standalone HTML file from `public/quote-widget.html`
-- **Method:** Direct HTML serving (not iframe) to avoid Content-Type and CSP issues
-- **Integration:** Uses external Supabase for leads/bookings and Stripe for payments
-- **5-Step Booking Flow:** Date selection → Party type → Guest count → Contact info → Cruise selection
-- **Public Access:** No authentication required - fully accessible to customers
-
-**Sitewide Navigation:**
-All booking and quote buttons throughout the website link to `/chat`:
-- "Get a Quote" buttons → `/chat`
-- "Book Now" buttons → `/chat`
-- "Get More Info" buttons → `/chat`
-- Navigation menu "Public Booking Page" → `/chat`
-
-**Benefits:**
-- No migration complexity (avoided 32-49 hours of edge function rewrites)
-- Zero authentication barriers for customers
-- Lovable handles updates and maintenance
-- Clean separation of concerns
-- Fast deployment with zero risk
-- Consistent booking experience across all site entry points
+### Lovable Quote Builder Integration
+The quote builder functionality is integrated via an external Lovable application served as standalone HTML at `/chat`. This decision leverages Lovable's real-time booking system and simplifies integration without complex migration. The booking flow is a 5-step process accessible publicly without authentication. All site booking and quote buttons link to `/chat`.
 
 ### UI/UX Decisions
-The system features a progressive booking flow designed for an intuitive user experience. Admin dashboards include a calendar view for visual booking management, a leads pipeline, and a comprehensive booking table. The UI prioritizes transparent pricing breakdowns and clear display of boat capacities. Design uses Tailwind CSS and shadcn/ui components for a modern and consistent look.
-
-### Recent UI Improvements (Sep 26, 2025)
-- **Column Order for Bachelor/Bachelorette**: Disco Cruise displays on the LEFT, Private Charter on the RIGHT for better comparison flow
-- **Time Slot Pricing Display**: Shows hourly rates (e.g., "$350/hr") for private cruises and per-person rates (e.g., "$85/person") for disco cruises instead of total prices
-- **Quote Emails & SMS**: Now include complete cruise details - selected time slot, boat name, package type, and full pricing breakdown
+The system features a progressive booking flow and intuitive admin dashboards. Design uses Tailwind CSS and shadcn/ui. UI improvements include optimized column order for comparisons, display of hourly/per-person rates, and detailed quote emails/SMS.
 
 ### Technical Implementations
 - **AI Chatbot**: Utilizes OpenRouter API for progressive booking interactions.
-- **Booking Flow**: Guides users through event type, date, group size, time slot, and package selection, culminating in pricing display and payment options.
-- **Admin Dashboard**: Provides tools for lead management, calendar-based booking oversight, quote generation, and detailed booking records.
-- **Dynamic Pricing**: Calculates hourly rates, extra crew fees, taxes, gratuity, and deposits (25% or 100% based on event proximity) with transparent breakdowns.
-- **Inventory Management**: Real-time availability fetched from Google Sheets, with a robust boat-specific time slot system.
-- **Payment Processing**: Integrates Stripe for hosted checkouts, supporting deposit and full payments. All pricing validation occurs server-side.
-- **Quote Generation**: Automatically generates detailed quotes for private and disco cruises, delivered via email.
-
-### Feature Specifications
-- **Pricing Rules**:
-    - **Duration**: Monday-Thursday offers 3 and 4-hour options; Friday-Sunday offer 4-hour blocks.
-    - **Boat Fleet**: Day Tripper (14-person), Me Seek (25-30 person with crew fee), The Irony (25-30 person with crew fee), Clever Girl (50-75 person with crew fee), ATX Disco (100-person for disco cruises). Capacity prominently displayed.
-    - **Disco Cruise Packages**: Basic, Disco Queen, Platinum tiers ($85-$105/person) for specific Friday and Saturday slots.
-- **Booking & Inventory**:
-    - **Availability**: Sourced from Google Sheets, accessible via `/api/boats`, `/api/bookings`, `/api/disco/slots`.
-    - **Double-Booking Prevention**: Implemented with database-level unique constraints on `(boat_id, start_time, end_time)`.
-    - **Boat-Specific Products**: 47 products covering 42 unique time slots ensure granular inventory control.
-- **Payment Processing**: Stripe hosted checkout via `/api/checkout/create-session`. Server-side pricing validation and booking details stored in Stripe metadata.
-- **Quote Display**: Detailed breakdowns for private cruises (hourly rate, crew fee, tax, gratuity, deposit) and disco cruises (per-person package cost, total, time slot, group size).
+- **Booking Flow**: Guides users through event type, date, group size, time slot, and package selection.
+- **Admin Dashboard**: Tools for lead management, calendar-based booking, quote generation, and booking records.
+- **Dynamic Pricing**: Calculates hourly rates, crew fees, taxes, gratuity, and deposits with transparent breakdowns. Pricing rules dictate duration options and boat capacities. Disco Cruise packages offer tiered pricing.
+- **Inventory Management**: Real-time availability from Google Sheets, with a robust boat-specific time slot system and database-level unique constraints to prevent double-bookings.
+- **Payment Processing**: Stripe for hosted checkouts, supporting deposit and full payments with server-side pricing validation.
+- **Quote Generation**: Automated detailed quotes for private and disco cruises delivered via email.
 
 ### System Design Choices
 - **Frontend**: React + TypeScript + Vite.
 - **Backend**: Express + Node.js.
-- **Database**: PostgreSQL for production, MemStorage for development.
-- **Data Consistency**: Time slots, availability, and pricing are synchronized between calendar and chatbot components.
+- **Database**: PostgreSQL (production), MemStorage (development).
+- **Data Consistency**: Time slots, availability, and pricing synchronized across components.
 - **Booking Status Workflow**: Lead -> Quote -> Payment -> Booking Created -> Status Update -> Inventory Update.
-- **Architectural Principles**: Emphasis on boat-specific products, database constraints for double-booking prevention, composite uniqueness, idempotent seeding for data stability, and server-side validation.
+- **Architectural Principles**: Emphasis on boat-specific products, database constraints, composite uniqueness, idempotent seeding, and server-side validation.
 
-### Authentication & Security (Oct 3, 2025)
-A comprehensive authentication system protects all admin features:
+### Authentication & Security
+A comprehensive authentication system protects all admin features using Passport.js with a PostgreSQL session store. All admin API endpoints require authentication via `requireAdmin` middleware. Password hashing uses Scrypt. User management includes main admin, invite system, and role-based access. Frontend protection is enforced via a `ProtectedRoute` component and a dedicated login page.
 
-**Backend Security:**
-- **Session Management**: Uses Passport.js with PostgreSQL session store (connect-pg-simple)
-- **Protected Routes**: All admin API endpoints (/api/seo/*, /api/media/*, /api/admin/*) require authentication
-- **Middleware**: `requireAdmin` middleware returns 401 JSON for unauthenticated requests
-- **Password Hashing**: Scrypt-based password hashing for secure credential storage
-
-**User Management:**
-- **Main Admin**: ppcaustin@gmail.com (password: admin123)
-- **Invite System**: Admin can invite new users via unique tokens
-- **Role-Based Access**: User roles (admin, user) control access to different features
-
-**API Endpoints:**
-- POST /api/auth/login - Authenticate users
-- POST /api/auth/logout - End user session
-- POST /api/auth/register - Register with invite token
-- POST /api/auth/reset-password - Password reset flow
-- GET /api/user - Get current authenticated user
-
-**Frontend Protection:**
-- **ProtectedRoute Component**: Wraps admin pages to enforce authentication
-- **Login Page**: /admin/login provides authentication UI
-- **Auth Context**: Manages user state, login/logout flows across application
-
-**Known Issues:**
-- Minor UX issue: Protected pages briefly render before redirecting unauthenticated users (backend APIs remain fully secured)
-
-## WordPress Migration System
-### AI-Optimized Content Enhancement
-The WordPress migration system includes intelligent content enhancement to optimize for AI discovery across key event categories. During import, blog posts are automatically enhanced with:
-
-**Target Event Categories:** Corporate events, wedding parties, bachelor/bachelorette parties, birthdays, graduations
-**Service Integration:** Natural mentions of Party on Delivery alcohol delivery services
-**Enhancement Pipeline:** Content → Topic Detection → AI Enhancement → Structured Data → Replit DB Storage
-**Quality Controls:** Maximum 1 brand mention per 300 words, natural reading level maintained, randomized template variants
-**Indexing:** Event-specific indexes (`index:event:<category>:posts`) for targeted content discovery
-
-### Migration Features
-- **Replit DB Storage**: Uses key-value structure (`post:<slug>`, `index:posts`, `tag:<slug>:posts`)
-- **SEO Optimization**: Auto-generates meta titles, descriptions, and focus keywords
-- **Brand Integration**: Premier Party Cruises and Party on Delivery branded content
-- **CSV Export**: Verification report of imported content with keywords and categories
+### WordPress Migration System
+The blog system displays WordPress posts from Replit DB using a modern, responsive grid layout at `/blogs` and `/blog/{slug}`. It includes search, filters, pagination, and a featured carousel. Content is enhanced during import for AI discovery across target event categories (corporate, weddings, bachelor/bachelorette, birthdays, graduations) with natural mentions of Party on Delivery services. Enhancement pipeline includes topic detection, AI enhancement, structured data, and quality controls.
 
 ## External Dependencies
-- **Stripe**: For payment processing (`VITE_STRIPE_PUBLIC_KEY`, `STRIPE_SECRET_KEY`).
-- **GoHighLevel**: For SMS notifications and lead management (`GOHIGHLEVEL_PRIVATE_INTEGRATION_TOKEN`, `GOHIGHLEVEL_LOCATION_ID`, `FROM_PHONE`). **CRITICAL**: We use GoHighLevel for ALL SMS notifications, NOT Twilio. FROM_PHONE is set to `5124885892` for GoHighLevel SMS sending.
-- **Google Sheets**: For real-time availability management (`GOOGLE_SHEETS_CREDENTIALS`, `SHEET_ID`, `GOOGLE_SERVICE_ACCOUNT_CREDENTIALS`).
-- **Mailgun**: For email delivery of quotes and confirmations (`MAILGUN_API_KEY`, `MAILGUN_DOMAIN`, `MAILGUN_FROM`).
-- **OpenRouter**: For AI-powered customer interactions (`OPENROUTER_API_KEY`).
-- **Replit DB**: For WordPress blog migration and storage (`@replit/database`, `jsdom`, `slugify`).
+- **Stripe**: Payment processing (`VITE_STRIPE_PUBLIC_KEY`, `STRIPE_SECRET_KEY`).
+- **GoHighLevel**: SMS notifications and lead management (`GOHIGHLEVEL_PRIVATE_INTEGRATION_TOKEN`, `GOHIGHLEVEL_LOCATION_ID`, `FROM_PHONE`).
+- **Google Sheets**: Real-time availability management (`GOOGLE_SHEETS_CREDENTIALS`, `SHEET_ID`, `GOOGLE_SERVICE_ACCOUNT_CREDENTIALS`).
+- **Mailgun**: Email delivery for quotes and confirmations (`MAILGUN_API_KEY`, `MAILGUN_DOMAIN`, `MAILGUN_FROM`).
+- **OpenRouter**: AI-powered customer interactions (`OPENROUTER_API_KEY`).
+- **Replit DB**: WordPress blog migration and storage (`@replit/database`, `jsdom`, `slugify`).
