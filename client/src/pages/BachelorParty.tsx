@@ -14,7 +14,6 @@ import SEOHead from '@/components/SEOHead';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { DISCO_PRICING } from '@shared/constants';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
-import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
 import { 
   Users, Clock, Star, Calendar, MapPin, Ship, Phone,
   ArrowRight, CheckCircle, Sparkles, Crown, Music, 
@@ -522,8 +521,6 @@ export default function BachelorParty() {
           </motion.div>
         </div>
       </section>
-
-      <EmbeddedQuoteBuilder pageContext="bachelor" className="my-16" />
 
       {/* Build My Quote Now Section */}
       <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">

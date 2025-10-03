@@ -14,7 +14,6 @@ import SEOHead from '@/components/SEOHead';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { DISCO_PRICING } from '@shared/constants';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
-import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
 import { 
   Users, Clock, Star, Calendar, MapPin, Ship, Phone,
   ArrowRight, CheckCircle, Sparkles, Crown, Music, 
@@ -564,43 +563,6 @@ export default function BacheloretteParty() {
         </div>
       </section>
 
-      <EmbeddedQuoteBuilder pageContext="bachelorette" className="my-16" />
-
-      {/* Combined Party Option Banner */}
-      <section className="py-8 bg-gradient-to-r from-blue-600 to-purple-600">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20"
-          >
-            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <div className="flex items-center gap-4">
-                <div className="bg-white/20 rounded-full p-3">
-                  <Users className="h-8 w-8 text-white" />
-                </div>
-                <div className="text-white">
-                  <h3 className="text-xl font-bold mb-1">Planning a Combined Bachelor & Bachelorette Party?</h3>
-                  <p className="text-white/90">Bring both sides together for one epic celebration on Lake Travis!</p>
-                </div>
-              </div>
-              <Button
-                size="lg"
-                onClick={() => navigate('/combined-bachelor-bachelorette')}
-                className="bg-white text-purple-600 hover:bg-gray-100 font-bold whitespace-nowrap"
-                data-testid="button-combined-party-option"
-              >
-                <PartyPopper className="mr-2 h-5 w-5" />
-                Explore Combined Parties
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </div>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Build My Quote Now Section */}
       <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
         <div className="container mx-auto px-6">
@@ -686,6 +648,41 @@ export default function BacheloretteParty() {
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
+      </section>
+
+      {/* Combined Party Option Banner */}
+      <section className="py-8 bg-gradient-to-r from-blue-600 to-purple-600">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20"
+          >
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                <div className="bg-white/20 rounded-full p-3">
+                  <Users className="h-8 w-8 text-white" />
+                </div>
+                <div className="text-white">
+                  <h3 className="text-xl font-bold mb-1">Planning a Combined Bachelor & Bachelorette Party?</h3>
+                  <p className="text-white/90">Bring both sides together for one epic celebration on Lake Travis!</p>
+                </div>
+              </div>
+              <Button
+                size="lg"
+                onClick={() => navigate('/combined-bachelor-bachelorette')}
+                className="bg-white text-purple-600 hover:bg-gray-100 font-bold whitespace-nowrap"
+                data-testid="button-combined-party-option"
+              >
+                <PartyPopper className="mr-2 h-5 w-5" />
+                Explore Combined Parties
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
+          </motion.div>
         </div>
       </section>
 

@@ -26,7 +26,6 @@ import SEOHead from '@/components/SEOHead';
 import { DiscoVsPrivateComparison, QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
-import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
 import { 
   calculatePackagePricing, 
   getCapacityTier, 
@@ -590,8 +589,6 @@ export default function Home() {
           </div>
         </motion.div>
       </section>
-
-      <EmbeddedQuoteBuilder pageContext="home" className="my-16" />
 
       {/* Build My Quote Now Section */}
       <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">

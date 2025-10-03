@@ -3,7 +3,6 @@ import { useLocation } from 'wouter';
 import { motion } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
-import { EmbeddedQuoteBuilder } from '@/components/EmbeddedQuoteBuilder';
 import Chat from '@/pages/Chat';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -378,8 +377,6 @@ export default function BirthdayParties() {
           </div>
         </motion.div>
       </section>
-
-      <EmbeddedQuoteBuilder pageContext="home" className="my-16" />
 
       {/* Main Content with Tabs */}
       <section className="py-16 bg-gray-50 dark:bg-gray-900">
