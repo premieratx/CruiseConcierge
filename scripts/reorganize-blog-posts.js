@@ -80,64 +80,140 @@ const COMMON_TAGS = {
   eventPlanning: { id: "tag_event-planning", name: "Event Planning", slug: "event-planning" }
 };
 
-// Categorization logic based on post content
+// Helper function to convert content to string (handles arrays)
+function contentToString(content) {
+  if (!content) return "";
+  if (typeof content === "string") return content;
+  if (Array.isArray(content)) return content.join(" ");
+  if (typeof content === "object") return JSON.stringify(content);
+  return String(content);
+}
+
+// Helper function to strip HTML tags for keyword matching
+function stripHtml(html) {
+  return html.replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim();
+}
+
+// Categorization logic based on post content - PRIMARY TOPIC DETECTION
 function analyzeAndCategorize(post) {
   const title = (post.title || "").toLowerCase();
-  const content = (post.content || "").toLowerCase();
+  const contentRaw = contentToString(post.content);
+  const content = stripHtml(contentRaw).toLowerCase();
   const excerpt = (post.excerpt || "").toLowerCase();
-  const fullText = `${title} ${content} ${excerpt}`;
   
+  // Score each category based on keyword frequency and prominence
+  const scores = {};
   const categories = [];
   const tags = [COMMON_TAGS.lakeTravis]; // Every post gets Lake Travis tag
   
-  // Bachelor party detection
-  if (fullText.includes("bachelor") && !fullText.includes("bachelorette")) {
-    categories.push(CATEGORIES.bachelorParty);
-    tags.push(COMMON_TAGS.austinParties, COMMON_TAGS.groupEvents, COMMON_TAGS.partyIdeas);
+  // Count occurrences in title (weight 3x) and content (weight 1x)
+  const titleWords = title.split(/\s+/);
+  const contentWords = content.split(/\s+/);
+  
+  // Bachelor party detection - must be primary topic
+  const bachelorInTitle = title.includes("bachelor") && !title.includes("bachelorette");
+  const bachelorCount = (title.match(/\bbachelor\b/g) || []).length * 3 + 
+                       (content.match(/\bbachelor\s+party\b/gi) || []).length;
+  if (bachelorInTitle || bachelorCount > 3) {
+    scores.bachelor = bachelorCount + (bachelorInTitle ? 10 : 0);
   }
   
-  // Bachelorette party detection
-  if (fullText.includes("bachelorette")) {
-    categories.push(CATEGORIES.bacheloretteParty);
-    tags.push(COMMON_TAGS.austinParties, COMMON_TAGS.groupEvents, COMMON_TAGS.partyIdeas);
+  // Bachelorette party detection - must be primary topic  
+  const bacheloretteInTitle = title.includes("bachelorette");
+  const bacheloretteCount = (title.match(/\bbachelorette\b/g) || []).length * 3 + 
+                           (content.match(/\bbachelorette\s+party\b/gi) || []).length;
+  if (bacheloretteInTitle || bacheloretteCount > 3) {
+    scores.bachelorette = bacheloretteCount + (bacheloretteInTitle ? 10 : 0);
   }
   
-  // Corporate events detection
-  if (fullText.match(/corporate|business|team[\s-]?building|company|client|professional/)) {
-    categories.push(CATEGORIES.corporateEvents);
-    tags.push(COMMON_TAGS.groupEvents, COMMON_TAGS.eventPlanning);
+  // Corporate events - must be primary topic
+  const corporateInTitle = title.match(/corporate|business|team[\s-]?building|executive/);
+  const corporateCount = (title.match(/corporate|business|team[\s-]?building|executive|startup/g) || []).length * 3 +
+                        (content.match(/\bcorporate\s+event|team[\s-]?building|business\s+event|executive\s+retreat/gi) || []).length;
+  if (corporateInTitle || corporateCount > 2) {
+    scores.corporate = corporateCount + (corporateInTitle ? 10 : 0);
   }
   
-  // Wedding detection
-  if (fullText.match(/wedding|rehearsal[\s-]?dinner|bridal|reception/)) {
-    categories.push(CATEGORIES.weddings);
-    tags.push(COMMON_TAGS.eventPlanning);
+  // Wedding - must be primary topic
+  const weddingInTitle = title.match(/wedding|rehearsal|bridal/);
+  const weddingCount = (title.match(/wedding|rehearsal|bridal|reception/g) || []).length * 3 +
+                      (content.match(/\bwedding|rehearsal\s+dinner|bridal|reception/gi) || []).length;
+  if (weddingInTitle || weddingCount > 2) {
+    scores.wedding = weddingCount + (weddingInTitle ? 10 : 0);
   }
   
-  // Special events detection
-  if (fullText.match(/birthday|graduation|holiday|anniversary|sweet[\s-]?16|milestone/)) {
-    categories.push(CATEGORIES.specialEvents);
-    tags.push(COMMON_TAGS.partyIdeas, COMMON_TAGS.eventPlanning);
+  // Special events - birthdays, graduations, etc.
+  const specialInTitle = title.match(/birthday|graduation|holiday|anniversary|sweet[\s-]?16|milestone/);
+  const specialCount = (title.match(/birthday|graduation|holiday|anniversary/g) || []).length * 3 +
+                      (content.match(/\bbirthday\s+party|graduation|holiday\s+celebration|anniversary/gi) || []).length;
+  if (specialInTitle || specialCount > 2) {
+    scores.special = specialCount + (specialInTitle ? 10 : 0);
   }
   
-  // Planning & logistics detection
-  if (fullText.match(/plan|checklist|guide|tip|how[\s-]?to|budget|prepare|organize/)) {
-    categories.push(CATEGORIES.planningLogistics);
-    tags.push(COMMON_TAGS.partyPlanning, COMMON_TAGS.eventPlanning);
+  // Safety & regulations - must be primary topic
+  const safetyInTitle = title.match(/safety|insurance|legal|regulation|compliance/);
+  const safetyCount = (title.match(/safety|insurance|legal|regulation|law|compliance/g) || []).length * 3 +
+                     (content.match(/\bsafety|insurance|legal|regulation|compliance|liability/gi) || []).length;
+  if (safetyInTitle || safetyCount > 3) {
+    scores.safety = safetyCount + (safetyInTitle ? 10 : 0);
   }
   
-  // Safety & regulations detection
-  if (fullText.match(/safety|insurance|legal|regulation|law|permit|license|liability/)) {
-    categories.push(CATEGORIES.safetyRegulations);
+  // Planning & logistics - must be primary topic with strong indicators
+  const planningInTitle = title.match(/guide|checklist|planning|tips|how[\s-]?to|logistics/);
+  const planningCount = (title.match(/guide|checklist|planning|tips|logistics/g) || []).length * 3;
+  if (planningInTitle && planningCount > 3) {
+    scores.planning = planningCount + 5;
   }
   
-  // If no specific category, default to Party Boat Austin
+  // Assign categories based on scores (top 2 only if both > 5)
+  const sortedScores = Object.entries(scores).sort(([,a], [,b]) => b - a);
+  
+  if (sortedScores.length > 0 && sortedScores[0][1] > 5) {
+    const topCategory = sortedScores[0][0];
+    
+    if (topCategory === 'bachelor') {
+      categories.push(CATEGORIES.bachelorParty);
+      tags.push(COMMON_TAGS.austinParties, COMMON_TAGS.groupEvents, COMMON_TAGS.partyIdeas);
+    } else if (topCategory === 'bachelorette') {
+      categories.push(CATEGORIES.bacheloretteParty);
+      tags.push(COMMON_TAGS.austinParties, COMMON_TAGS.groupEvents, COMMON_TAGS.partyIdeas);
+    } else if (topCategory === 'corporate') {
+      categories.push(CATEGORIES.corporateEvents);
+      tags.push(COMMON_TAGS.groupEvents, COMMON_TAGS.eventPlanning);
+    } else if (topCategory === 'wedding') {
+      categories.push(CATEGORIES.weddings);
+      tags.push(COMMON_TAGS.eventPlanning);
+    } else if (topCategory === 'special') {
+      categories.push(CATEGORIES.specialEvents);
+      tags.push(COMMON_TAGS.partyIdeas, COMMON_TAGS.eventPlanning);
+    } else if (topCategory === 'safety') {
+      categories.push(CATEGORIES.safetyRegulations);
+    } else if (topCategory === 'planning') {
+      categories.push(CATEGORIES.planningLogistics);
+      tags.push(COMMON_TAGS.partyPlanning, COMMON_TAGS.eventPlanning);
+    }
+    
+    // Add second category if score is high enough (> 8) and different topic
+    if (sortedScores.length > 1 && sortedScores[1][1] > 8 && categories.length < 2) {
+      const secondCategory = sortedScores[1][0];
+      if (secondCategory === 'planning') {
+        categories.push(CATEGORIES.planningLogistics);
+        tags.push(COMMON_TAGS.partyPlanning, COMMON_TAGS.eventPlanning);
+      } else if (secondCategory === 'wedding') {
+        categories.push(CATEGORIES.weddings);
+        tags.push(COMMON_TAGS.eventPlanning);
+      }
+    }
+  }
+  
+  // Default to Party Boat Austin if no strong category detected
   if (categories.length === 0) {
     categories.push(CATEGORIES.partyBoatAustin);
     tags.push(COMMON_TAGS.austinParties, COMMON_TAGS.partyIdeas);
   }
   
-  // Add contextual tags
+  // Add contextual tags based on content
+  const fullText = `${title} ${content}`;
   if (fullText.match(/summer|june|july|august/)) {
     tags.push(COMMON_TAGS.summerActivities);
   }
@@ -152,24 +228,26 @@ function analyzeAndCategorize(post) {
   }
   
   return {
-    categories: categories.slice(0, 2), // Max 2 categories per post
+    categories,
     tags: [...new Set(tags)] // Remove duplicates
   };
 }
 
 // Optimize content with SEO keywords
 function optimizeContent(post) {
-  let content = post.content || "";
+  // Convert content to string if it's an array
+  let content = contentToString(post.content);
   const title = (post.title || "").toLowerCase();
   let needsOptimization = false;
   
   // Check if content already has target keywords
-  const hasPartyBoatAustin = content.toLowerCase().includes("party boat austin") || 
-                             content.toLowerCase().includes("party boat in austin");
-  const hasLakeTravis = content.toLowerCase().includes("lake travis");
+  const contentLower = content.toLowerCase();
+  const hasPartyBoatAustin = contentLower.includes("party boat austin") || 
+                             contentLower.includes("party boat in austin");
+  const hasLakeTravis = contentLower.includes("lake travis");
   
   // Add SEO-optimized introduction if missing key elements
-  if (!hasPartyBoatAustin && !content.toLowerCase().includes("premier party cruises")) {
+  if (!hasPartyBoatAustin && !contentLower.includes("premier party cruises")) {
     needsOptimization = true;
     
     // Determine which keyword intro to add based on categorization
@@ -201,7 +279,7 @@ function optimizeContent(post) {
   // Add one relevant internal link per post (avoid over-optimization)
   for (const link of internalLinks) {
     if (title.includes(link.keyword.split(" ")[0].toLowerCase()) || 
-        content.toLowerCase().includes(link.keyword.toLowerCase())) {
+        contentLower.includes(link.keyword.toLowerCase())) {
       
       // Check if link doesn't already exist
       if (!content.includes(link.url)) {
