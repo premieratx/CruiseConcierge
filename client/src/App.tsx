@@ -63,6 +63,7 @@ import MediaLibrary from "./pages/admin/MediaLibrary";
 // Landing Pages
 import BachelorParty from "./pages/BachelorParty";
 import BacheloretteParty from "./pages/BacheloretteParty";
+import CombinedBachelorBachelorette from "./pages/CombinedBachelorBachelorette";
 import PrivateCruises from "./pages/PrivateCruises";
 import CorporateEvents from "./pages/CorporateEvents";
 import BirthdayParties from "./pages/BirthdayParties";
@@ -108,6 +109,7 @@ function Router() {
       {/* Landing Pages */}
       <Route path="/bachelor-party" component={BachelorParty} />
       <Route path="/bachelorette-party" component={BacheloretteParty} />
+      <Route path="/combined-bachelor-bachelorette" component={CombinedBachelorBachelorette} />
       <Route path="/private-cruises" component={PrivateCruises} />
       <Route path="/corporate-events" component={CorporateEvents} />
       <Route path="/birthday-parties" component={BirthdayParties} />
