@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
+import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
 import Lightbox from '@/components/Lightbox';
 import VideoModal from '@/components/VideoModal';
@@ -691,6 +692,8 @@ export default function Gallery() {
         description={selectedVideo?.description}
         thumbnail={selectedVideo?.thumbnail}
       />
+
+      <Footer />
     </div>
   );
 }

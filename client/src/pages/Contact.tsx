@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import PublicNavigation from '@/components/PublicNavigation';
+import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -362,6 +363,8 @@ export default function Contact() {
           </div>
         </div>
       </section>
+
+      <Footer />
     </div>
   );
 }

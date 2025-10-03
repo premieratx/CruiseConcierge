@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
+import Footer from '@/components/Footer';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import Chat from '@/pages/Chat';
 import { Button } from '@/components/ui/button';
@@ -934,6 +935,8 @@ export default function WeddingParties() {
           </Button>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }

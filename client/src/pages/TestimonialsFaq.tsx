@@ -2,6 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
+import Footer from '@/components/Footer';
 import VideoModal from '@/components/VideoModal';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -1563,6 +1564,8 @@ export default function TestimonialsFaq() {
         videoUrl={currentVideo.url}
         title={currentVideo.title}
       />
+
+      <Footer />
     </>
   );
 }
