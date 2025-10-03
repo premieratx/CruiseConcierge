@@ -125,10 +125,10 @@ export default function PartyPlanningChecklist({
             Complete Planning Guide
           </Badge>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white">
-            How to Throw an Amazing {partyType}
+            How to Plan an Unforgettable {partyType} on Lake Travis
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
-            Follow our 10-step checklist to plan the perfect {eventType}. Premier Party Cruises makes every step easy - from booking to celebration day!
+            Planning a {partyType.toLowerCase()}? Follow our expert 10-step {eventType} planning guide. Premier Party Cruises handles every detail - from initial booking to your celebration day on beautiful Lake Travis!
           </p>
         </motion.div>
 
@@ -185,10 +185,10 @@ export default function PartyPlanningChecklist({
           <Card className="max-w-4xl mx-auto bg-brand-blue text-white border-0">
             <CardContent className="p-8">
               <h3 className="text-2xl font-bold mb-4">
-                Why Choose Premier Party Cruises?
+                Why Choose Premier Party Cruises for Your {partyType}?
               </h3>
               <p className="text-lg mb-6 opacity-90">
-                We've perfected the art of Lake Travis celebrations! With years of experience, professional crews, pristine boats, and unmatched local expertise, we handle every detail so you can focus on having fun. From planning to the final toast, we're with you every step of the way.
+                We've perfected the art of Lake Travis {eventType} celebrations! With years of experience hosting unforgettable {partyType.toLowerCase()} events, professional crews, pristine boats, and unmatched local expertise, we handle every detail so you can focus on having fun. From planning to the final toast, we're with you every step of the way.
               </p>
               <div className="flex flex-wrap gap-4 justify-center">
                 <Button 
