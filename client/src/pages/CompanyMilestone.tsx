@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
+import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -591,6 +592,12 @@ export default function CompanyMilestone() {
           </div>
         </div>
       </section>
+
+      {/* Party Planning Checklist */}
+      <PartyPlanningChecklist 
+        partyType="Company Milestone"
+        eventType="company celebration"
+      />
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-brand-blue to-blue-600">

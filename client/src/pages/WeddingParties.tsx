@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
+import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import Chat from '@/pages/Chat';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -889,6 +890,12 @@ export default function WeddingParties() {
           </Tabs>
         </div>
       </section>
+
+      {/* Party Planning Checklist */}
+      <PartyPlanningChecklist 
+        partyType="Wedding Event"
+        eventType="wedding celebration"
+      />
 
       {/* Embedded Chat Component */}
       <section className="py-16 bg-white dark:bg-gray-950">
