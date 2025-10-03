@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
+import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -611,6 +612,12 @@ export default function Sweet16() {
           </div>
         </div>
       </section>
+
+      {/* Party Planning Checklist */}
+      <PartyPlanningChecklist 
+        partyType="Sweet 16 Party"
+        eventType="Sweet 16 celebration"
+      />
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-pink-500 to-purple-600">
