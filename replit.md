@@ -132,6 +132,35 @@ The system features a progressive booking flow designed for an intuitive user ex
 - **Booking Status Workflow**: Lead -> Quote -> Payment -> Booking Created -> Status Update -> Inventory Update.
 - **Architectural Principles**: Emphasis on boat-specific products, database constraints for double-booking prevention, composite uniqueness, idempotent seeding for data stability, and server-side validation.
 
+### Authentication & Security (Oct 3, 2025)
+A comprehensive authentication system protects all admin features:
+
+**Backend Security:**
+- **Session Management**: Uses Passport.js with PostgreSQL session store (connect-pg-simple)
+- **Protected Routes**: All admin API endpoints (/api/seo/*, /api/media/*, /api/admin/*) require authentication
+- **Middleware**: `requireAdmin` middleware returns 401 JSON for unauthenticated requests
+- **Password Hashing**: Scrypt-based password hashing for secure credential storage
+
+**User Management:**
+- **Main Admin**: ppcaustin@gmail.com (password: admin123)
+- **Invite System**: Admin can invite new users via unique tokens
+- **Role-Based Access**: User roles (admin, user) control access to different features
+
+**API Endpoints:**
+- POST /api/auth/login - Authenticate users
+- POST /api/auth/logout - End user session
+- POST /api/auth/register - Register with invite token
+- POST /api/auth/reset-password - Password reset flow
+- GET /api/user - Get current authenticated user
+
+**Frontend Protection:**
+- **ProtectedRoute Component**: Wraps admin pages to enforce authentication
+- **Login Page**: /admin/login provides authentication UI
+- **Auth Context**: Manages user state, login/logout flows across application
+
+**Known Issues:**
+- Minor UX issue: Protected pages briefly render before redirecting unauthenticated users (backend APIs remain fully secured)
+
 ## WordPress Migration System
 ### AI-Optimized Content Enhancement
 The WordPress migration system includes intelligent content enhancement to optimize for AI discovery across key event categories. During import, blog posts are automatically enhanced with:
