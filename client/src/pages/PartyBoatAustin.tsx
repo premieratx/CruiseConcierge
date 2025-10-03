@@ -154,7 +154,7 @@ const austinPackages = [
     features: ['Bride cruises FREE', 'Professional DJ & photographer', 'Party favors & decorations', 'ATX Disco Cruise or private charter'],
     startingPrice: `$${DISCO_PRICING.basic / 100}`,
     priceNote: 'per person',
-    link: '/bachelorette-party'
+    link: '/bachelorette-party-austin'
   },
   {
     title: 'Bachelor Party Boats',
@@ -163,7 +163,7 @@ const austinPackages = [
     features: ['Groom cruises FREE', 'Professional entertainment', 'Lake Travis adventure', 'Swimming & activities'],
     startingPrice: `$${DISCO_PRICING.basic / 100}`,
     priceNote: 'per person',
-    link: '/bachelor-party'
+    link: '/bachelor-party-austin'
   },
   {
     title: 'Corporate Party Boats',
@@ -973,7 +973,7 @@ export default function PartyBoatAustin() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              <Link href="/bachelor-party">
+              <Link href="/bachelor-party-austin">
                 <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-brand-blue">
                   <CardHeader>
                     <div className="w-16 h-16 mx-auto mb-4 bg-brand-blue/10 rounded-full flex items-center justify-center">
@@ -1000,7 +1000,7 @@ export default function PartyBoatAustin() {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              <Link href="/bachelorette-party">
+              <Link href="/bachelorette-party-austin">
                 <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-pink-500">
                   <CardHeader>
                     <div className="w-16 h-16 mx-auto mb-4 bg-pink-500/10 rounded-full flex items-center justify-center">

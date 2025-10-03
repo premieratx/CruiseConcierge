@@ -1722,7 +1722,7 @@ export default function BachelorParty() {
               viewport={{ once: true }}
               transition={{ delay: 0.1 }}
             >
-              <Link href="/bachelorette-party">
+              <Link href="/bachelorette-party-austin">
                 <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-pink-500">
                   <CardHeader>
                     <div className="w-16 h-16 mx-auto mb-4 bg-pink-500/10 rounded-full flex items-center justify-center">
@@ -1749,7 +1749,7 @@ export default function BachelorParty() {
               viewport={{ once: true }}
               transition={{ delay: 0.2 }}
             >
-              <Link href="/combined-bachelor-bachelorette">
+              <Link href="/combined-bachelor-bachelorette-austin">
                 <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-purple-500">
                   <CardHeader>
                     <div className="w-16 h-16 mx-auto mb-4 bg-purple-500/10 rounded-full flex items-center justify-center">

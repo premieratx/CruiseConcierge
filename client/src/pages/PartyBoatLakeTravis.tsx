@@ -472,7 +472,7 @@ export default function PartyBoatLakeTravis() {
             </motion.div>
 
             <motion.div variants={fadeInUp}>
-              <Link href="/combined-bachelor-bachelorette">
+              <Link href="/combined-bachelor-bachelorette-austin">
                 <Card className="h-full hover:shadow-xl transition-all hover:-translate-y-1 cursor-pointer group" data-testid="card-guide-combined">
                   <CardHeader>
                     <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900 rounded-full flex items-center justify-center mb-3">

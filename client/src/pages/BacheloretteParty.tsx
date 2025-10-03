@@ -675,7 +675,7 @@ export default function BacheloretteParty() {
               </div>
               <Button
                 size="lg"
-                onClick={() => navigate('/combined-bachelor-bachelorette')}
+                onClick={() => navigate('/combined-bachelor-bachelorette-austin')}
                 className="bg-white text-purple-600 hover:bg-gray-100 font-bold whitespace-nowrap"
                 data-testid="button-combined-party-option"
               >
