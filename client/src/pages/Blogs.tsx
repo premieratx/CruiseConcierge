@@ -245,7 +245,7 @@ export default function Blogs() {
                   variants={containerVariants}
                   initial="hidden"
                   animate="visible"
-                  className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
+                  className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
                 >
                   {Array.from({ length: 6 }).map((_, i) => (
                     <motion.div key={i} variants={itemVariants} className="space-y-3">
@@ -287,12 +287,16 @@ export default function Blogs() {
                       variants={containerVariants}
                       initial="hidden"
                       animate="visible"
-                      className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
+                      className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
                     >
                       {data.posts.map((post, index) => (
                         <motion.article
                           key={post.id}
                           variants={itemVariants}
+                          whileHover={{ 
+                            scale: 1.05,
+                            transition: { duration: 0.2 }
+                          }}
                           data-testid={`card-blog-post-${post.id}`}
                         >
                           <BlogCard

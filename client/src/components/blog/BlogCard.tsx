@@ -33,7 +33,7 @@ export function BlogCard({
   const primaryCategory = categories.find(cat => cat.id);
 
   return (
-    <Card className={`overflow-hidden hover:shadow-lg transition-shadow duration-300 ${className}`}>
+    <Card className={`overflow-hidden hover:shadow-2xl hover:border-primary transition-all duration-300 cursor-pointer ${className}`}>
       {post.featuredImage && (
         <div className="relative aspect-video overflow-hidden">
           <img
@@ -84,7 +84,7 @@ export function BlogCard({
           )}
         </div>
         
-        <Link href={`/blogs/${post.slug}`}>
+        <Link href={`/blog/${post.slug}`}>
           <h3 className="text-xl font-semibold line-clamp-2 hover:text-primary transition-colors cursor-pointer" data-testid={`title-post-${post.id}`}>
             {post.title}
           </h3>
@@ -111,7 +111,7 @@ export function BlogCard({
           </div>
         </div>
         
-        <Link href={`/blogs/${post.slug}`}>
+        <Link href={`/blog/${post.slug}`}>
           <Button variant="outline" size="sm" data-testid={`button-read-${post.id}`}>
             Read More
           </Button>

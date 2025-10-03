@@ -75,7 +75,7 @@ async function loadPostsBySlugs(slugs, { offset=0, limit=10 }) {
   return posts.filter(p => p && p.status === "published");
 }
 
-// GET /api/blog/public/posts - Fixed to use PostgreSQL instead of Replit DB
+// GET /api/blog/public/posts - WordPress posts from Replit DB
 blogRouter.get("/public/posts", async (req, res) => {
   try {
     const {
@@ -83,50 +83,125 @@ blogRouter.get("/public/posts", async (req, res) => {
       tagSlug = undefined,
       limit = '20',
       offset = '0',
-      featured = undefined
+      featured = undefined,
+      search = ''
     } = req.query;
 
-    const storage = await getStorage();
-    let result;
+    const postsIndexRaw = await db.get("index:posts");
+    let slugs = Array.isArray(postsIndexRaw) ? postsIndexRaw : (postsIndexRaw?.value || []);
     
-    if (categorySlug) {
-      const category = await storage.getBlogCategoryBySlug(categorySlug);
-      if (!category) {
-        result = { posts: [], total: 0 };
-      } else {
-        result = await storage.getBlogPostsByCategory(category.id, parseInt(limit), parseInt(offset));
+    // Filter by featured status
+    if (featured === 'true') {
+      const matches = [];
+      for (const s of slugs) {
+        const postRaw = await db.get(`post:${s}`);
+        const post = postRaw?.value || postRaw;
+        if (post?.featured === true && post?.status === "published") {
+          matches.push(s);
+        }
       }
-    } else if (tagSlug) {
-      const tag = await storage.getBlogTagBySlug(tagSlug);
-      if (!tag) {
-        result = { posts: [], total: 0 };
-      } else {
-        result = await storage.getBlogPostsByTag(tag.id, parseInt(limit), parseInt(offset));
-      }
-    } else if (featured === 'true') {
-      const posts = await storage.getFeaturedBlogPosts(parseInt(limit));
-      result = { posts, total: posts.length };
-    } else {
-      result = await storage.getPublishedBlogPosts(parseInt(limit), parseInt(offset));
+      slugs = matches;
     }
+    
+    // Filter by category
+    if (categorySlug) {
+      const matches = [];
+      for (const s of slugs) {
+        const postRaw = await db.get(`post:${s}`);
+        const post = postRaw?.value || postRaw;
+        if (post?.categories?.some(c => c.slug === categorySlug)) {
+          matches.push(s);
+        }
+      }
+      slugs = matches;
+    }
+    
+    // Filter by tag
+    if (tagSlug) {
+      const matches = [];
+      for (const s of slugs) {
+        const postRaw = await db.get(`post:${s}`);
+        const post = postRaw?.value || postRaw;
+        if (post?.tags?.some(t => t.slug === tagSlug)) {
+          matches.push(s);
+        }
+      }
+      slugs = matches;
+    }
+    
+    // Filter by search
+    if (search) {
+      const q = search.toLowerCase().trim();
+      const matches = [];
+      for (const s of slugs) {
+        const postRaw = await db.get(`post:${s}`);
+        const post = postRaw?.value || postRaw;
+        if (post && (
+          post.title?.toLowerCase().includes(q) ||
+          post.excerpt?.toLowerCase().includes(q) ||
+          post.content?.toLowerCase().includes(q)
+        )) {
+          matches.push(s);
+        }
+      }
+      slugs = matches;
+    }
+    
+    // Pagination
+    const total = slugs.length;
+    const limitNum = parseInt(limit);
+    const offsetNum = parseInt(offset);
+    const paginatedSlugs = slugs.slice(offsetNum, offsetNum + limitNum);
+    
+    // Load posts
+    const postsRaw = await Promise.all(paginatedSlugs.map(s => db.get(`post:${s}`)));
+    const posts = postsRaw
+      .map(raw => raw?.value || raw)
+      .filter(p => p && p.status === "published");
 
-    return res.json(result);
+    return res.json({ posts, total });
   } catch (e) {
     console.error("Blog posts fetch error:", e);
     res.status(500).json({ error: "Failed to fetch posts" });
   }
 });
 
-// GET /api/blog/public/posts/:slug
+// GET /api/blog/public/posts/:slug - WordPress posts from Replit DB
 blogRouter.get("/public/posts/:slug", async (req, res) => {
   try {
     const slug = req.params.slug;
     const postRaw = await db.get(`post:${slug}`);
     const post = postRaw?.value || postRaw;
+    
     if (!post || post.status !== "published") {
       return res.status(404).json({ error: "Not found" });
     }
-    res.json(post);
+    
+    // Get related posts from same category (if any)
+    let relatedPosts = [];
+    if (post.categories && post.categories.length > 0) {
+      const primaryCategorySlug = post.categories[0].slug;
+      const postsIndexRaw = await db.get("index:posts");
+      const slugs = Array.isArray(postsIndexRaw) ? postsIndexRaw : (postsIndexRaw?.value || []);
+      
+      for (const s of slugs) {
+        if (s === slug || relatedPosts.length >= 3) continue;
+        const relatedPostRaw = await db.get(`post:${s}`);
+        const relatedPost = relatedPostRaw?.value || relatedPostRaw;
+        if (relatedPost?.status === "published" && 
+            relatedPost?.categories?.some(c => c.slug === primaryCategorySlug)) {
+          relatedPosts.push(relatedPost);
+        }
+      }
+    }
+    
+    res.json({
+      post,
+      author: post.author || null,
+      categories: post.categories || [],
+      tags: post.tags || [],
+      relatedPosts
+    });
   } catch (e) {
     console.error("Blog post fetch error:", e);
     res.status(500).json({ error: "Failed to fetch post" });

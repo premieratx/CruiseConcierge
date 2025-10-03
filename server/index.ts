@@ -86,8 +86,8 @@ app.use('/q/', (req, res, next) => {
 });
 
 (async () => {
-  // Blog routes are now handled by routes.ts (PostgreSQL-based)
-  // Old Replit DB router disabled: app.use("/api/blog", blogRouter);
+  // Blog routes - register public blog API routes
+  app.use("/api/blog", blogRouter);
   
   // Setup authentication before registering other routes
   // Import storage for authentication
