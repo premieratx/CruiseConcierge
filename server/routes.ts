@@ -2148,6 +2148,148 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  // ==========================================
+  // BLOG ROUTES
+  // ==========================================
+
+  // Create blog author (admin only)
+  app.post('/api/blog/authors', requireAdmin, async (req, res) => {
+    try {
+      const validatedData = insertBlogAuthorSchema.parse(req.body);
+      const storage = await getStorage();
+      
+      // Generate slug if not provided
+      if (!validatedData.slug) {
+        const baseSlug = generateSlugFromText(validatedData.name);
+        validatedData.slug = await generateUniqueSlug(baseSlug, async (slug) => {
+          return await storage.getBlogAuthorBySlug(slug);
+        });
+      }
+      
+      const author = await storage.createBlogAuthor(validatedData);
+      res.json(author);
+    } catch (error: any) {
+      console.error('Error creating blog author:', error);
+      if (isSlugConflictError(error)) {
+        return res.status(409).json({ error: 'Author with this slug already exists' });
+      }
+      res.status(500).json({ 
+        error: 'Failed to create blog author',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Create blog category (admin only)
+  app.post('/api/blog/categories', requireAdmin, async (req, res) => {
+    try {
+      const validatedData = insertBlogCategorySchema.parse(req.body);
+      const storage = await getStorage();
+      
+      // Generate slug if not provided
+      if (!validatedData.slug) {
+        const baseSlug = generateSlugFromText(validatedData.name);
+        validatedData.slug = await generateUniqueSlug(baseSlug, async (slug) => {
+          return await storage.getBlogCategoryBySlug(slug);
+        });
+      }
+      
+      const category = await storage.createBlogCategory(validatedData);
+      res.json(category);
+    } catch (error: any) {
+      console.error('Error creating blog category:', error);
+      if (isSlugConflictError(error)) {
+        return res.status(409).json({ error: 'Category with this slug already exists' });
+      }
+      res.status(500).json({ 
+        error: 'Failed to create blog category',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Create blog tag (admin only)
+  app.post('/api/blog/tags', requireAdmin, async (req, res) => {
+    try {
+      const validatedData = insertBlogTagSchema.parse(req.body);
+      const storage = await getStorage();
+      
+      // Generate slug if not provided
+      if (!validatedData.slug) {
+        const baseSlug = generateSlugFromText(validatedData.name);
+        validatedData.slug = await generateUniqueSlug(baseSlug, async (slug) => {
+          return await storage.getBlogTagBySlug(slug);
+        });
+      }
+      
+      const tag = await storage.createBlogTag(validatedData);
+      res.json(tag);
+    } catch (error: any) {
+      console.error('Error creating blog tag:', error);
+      if (isSlugConflictError(error)) {
+        return res.status(409).json({ error: 'Tag with this slug already exists' });
+      }
+      res.status(500).json({ 
+        error: 'Failed to create blog tag',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Create blog post (admin only)
+  app.post('/api/blog/posts', requireAdmin, async (req, res) => {
+    try {
+      const { categoryIds, tagIds, ...postData } = req.body;
+      const validatedData = insertBlogPostSchema.parse(postData);
+      const storage = await getStorage();
+      
+      // Generate slug if not provided
+      if (!validatedData.slug) {
+        const baseSlug = generateSlugFromText(validatedData.title);
+        validatedData.slug = await generateUniqueSlug(baseSlug, async (slug) => {
+          return await storage.getBlogPostBySlug(slug);
+        });
+      }
+      
+      // Calculate reading time and word count if content provided
+      if (validatedData.content) {
+        const textContent = validatedData.content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+        const words = textContent.split(' ').filter(w => w.length > 0);
+        validatedData.wordCount = words.length;
+        validatedData.readingTime = Math.ceil(words.length / 200); // Assuming 200 words per minute
+      }
+      
+      // Create the post
+      const post = await storage.createBlogPost(validatedData);
+      
+      // Add category and tag relationships
+      if (categoryIds && Array.isArray(categoryIds)) {
+        for (const categoryId of categoryIds) {
+          await storage.addBlogPostCategory(post.id, categoryId);
+        }
+      }
+      
+      if (tagIds && Array.isArray(tagIds)) {
+        for (const tagId of tagIds) {
+          await storage.addBlogPostTag(post.id, tagId);
+        }
+      }
+      
+      // Get the full post with relationships
+      const fullPost = await storage.getBlogPost(post.id);
+      res.json(fullPost);
+    } catch (error: any) {
+      console.error('Error creating blog post:', error);
+      if (isSlugConflictError(error)) {
+        return res.status(409).json({ error: 'Post with this slug already exists' });
+      }
+      res.status(500).json({ 
+        error: 'Failed to create blog post',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
