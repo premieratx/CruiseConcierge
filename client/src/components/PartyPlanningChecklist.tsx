@@ -16,7 +16,7 @@ interface ChecklistItem {
 }
 
 interface PartyPlanningChecklistProps {
-  partyType: string;
+  partyType?: string;
   eventType?: string;
   customItems?: ChecklistItem[];
 }
@@ -39,7 +39,7 @@ const staggerChildren = {
 };
 
 export default function PartyPlanningChecklist({ 
-  partyType, 
+  partyType = 'Party Boat Experience', 
   eventType = 'party',
   customItems 
 }: PartyPlanningChecklistProps) {

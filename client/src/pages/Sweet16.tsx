@@ -19,7 +19,7 @@ import {
   ArrowRight, CheckCircle, Star, Camera, Music,
   Heart, MessageSquare, Crown, Quote, ChevronRight,
   Ship, Sun, Info, TrendingUp, Gift, PartyPopper,
-  Flower2, Smile, IceCream, Palette, Shield, X
+  Flower2, Smile, IceCream, Palette, Shield, X, Cake
 } from 'lucide-react';
 
 // Hero and gallery images

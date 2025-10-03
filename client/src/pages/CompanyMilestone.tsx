@@ -20,7 +20,7 @@ import {
   ArrowRight, CheckCircle, Sparkles, Award, Shield,
   Star, MessageSquare, Crown, Quote, ChevronRight,
   Ship, Anchor, Sun, Info, TrendingUp, PartyPopper,
-  Building, Mic, GlassWater, Gift, Camera, Rocket, X
+  Building, Mic, GlassWater, Gift, Camera, Rocket, X, Briefcase
 } from 'lucide-react';
 
 // Hero and gallery images
