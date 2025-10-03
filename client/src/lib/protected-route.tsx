@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useAuth } from "@/hooks/use-auth";
 import { Loader2 } from "lucide-react";
@@ -12,6 +12,14 @@ export function ProtectedRoute({ children, requireAdmin = false }: ProtectedRout
   const { user, loading } = useAuth();
   const [, setLocation] = useLocation();
 
+  // Redirect unauthenticated users immediately
+  useEffect(() => {
+    if (!loading && !user) {
+      setLocation('/admin/login');
+    }
+  }, [loading, user, setLocation]);
+
+  // Show loading state
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -20,11 +28,12 @@ export function ProtectedRoute({ children, requireAdmin = false }: ProtectedRout
     );
   }
 
+  // Don't render anything while redirecting
   if (!user) {
-    setLocation('/admin/login');
     return null;
   }
 
+  // Check admin role
   if (requireAdmin && user.role !== 'admin') {
     return (
       <div className="flex items-center justify-center min-h-screen">
