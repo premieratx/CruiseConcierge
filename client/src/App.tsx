@@ -71,6 +71,7 @@ import WeddingParties from "./pages/WeddingParties";
 import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import TestimonialsFaq from "./pages/TestimonialsFaq";
+import PartyBoatAustin from "./pages/PartyBoatAustin";
 
 // Wedding Experience Pages
 import RehearsalDinner from "./pages/RehearsalDinner";
@@ -114,6 +115,7 @@ function Router() {
       <Route path="/corporate-events" component={CorporateEvents} />
       <Route path="/birthday-parties" component={BirthdayParties} />
       <Route path="/wedding-parties" component={WeddingParties} />
+      <Route path="/party-boat-austin" component={PartyBoatAustin} />
       <Route path="/gallery" component={Gallery} />
       <Route path="/contact" component={Contact} />
       <Route path="/testimonials-faq" component={TestimonialsFaq} />
