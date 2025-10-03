@@ -24,7 +24,8 @@ import {
   Mic, Utensils, GlassWater, UserCheck, Leaf, Check,
   AlertCircle, DollarSign, Timer, CreditCard, CloudRain, 
   HelpCircle, Anchor, Droplets, Waves, Info, TrendingUp,
-  Gem, Flower, Flower2, CircleDot, Smile, X, Package
+  Gem, Flower, Flower2, CircleDot, Smile, X, Package,
+  Plane, Wine
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
@@ -1425,6 +1426,295 @@ export default function CombinedBachelorBachelorette() {
       </section>
 
       <PartyPlanningChecklist partyType="Combined Bachelor & Bachelorette Party" eventType="combined celebration" />
+
+      {/* 10 Reasons Why Austin Section */}
+      <section className="py-20 bg-gradient-to-br from-brand-blue via-purple-700 to-blue-800">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mb-16"
+          >
+            <h2 
+              className="text-4xl md:text-5xl font-bold text-white mb-6"
+              data-testid="heading-austin-reasons-combined"
+            >
+              10 Reasons Why Austin is the Best Place for Combined Bachelor/Bachelorette Parties
+            </h2>
+            <p className="text-xl text-white/90 max-w-3xl mx-auto">
+              Discover why Austin combined parties are the modern trend and why Lake Travis is the ultimate destination for celebrating together
+            </p>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={staggerChildren}
+            className="grid md:grid-cols-2 gap-8 max-w-7xl mx-auto"
+          >
+            {/* Reason 1 */}
+            <motion.div
+              variants={fadeInUp}
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
+              data-testid="reason-card-1"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-blue-400 text-white font-bold text-xl flex items-center justify-center">
+                    1
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Waves className="h-8 w-8 text-blue-300" />
+                    <h3 className="text-2xl font-bold text-white">Lake Travis - Crystal Clear Waters</h3>
+                  </div>
+                  <p className="text-white/90">
+                    Austin's Lake Travis offers the clearest water in Texas with 270 miles of pristine shoreline. Perfect weather year-round means your Austin combined party can happen any season.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Reason 2 */}
+            <motion.div
+              variants={fadeInUp}
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
+              data-testid="reason-card-2"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-blue-400 text-white font-bold text-xl flex items-center justify-center">
+                    2
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Music className="h-8 w-8 text-blue-300" />
+                    <h3 className="text-2xl font-bold text-white">World-Famous Nightlife</h3>
+                  </div>
+                  <p className="text-white/90">
+                    6th Street, Rainey Street, and the Warehouse District make Austin the live music capital with incredible nightlife. Your combined bachelor bachelorette party Austin experience includes the best bars and clubs in Texas.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Reason 3 */}
+            <motion.div
+              variants={fadeInUp}
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
+              data-testid="reason-card-3"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-blue-400 text-white font-bold text-xl flex items-center justify-center">
+                    3
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Utensils className="h-8 w-8 text-blue-300" />
+                    <h3 className="text-2xl font-bold text-white">Unbeatable Food Scene</h3>
+                  </div>
+                  <p className="text-white/90">
+                    Austin's food trucks, BBQ joints, and award-winning restaurants create the perfect party fuel. From Franklin BBQ to food truck tacos, Austin combined bachelor bachelorette parties eat like royalty.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Reason 4 */}
+            <motion.div
+              variants={fadeInUp}
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
+              data-testid="reason-card-4"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-blue-400 text-white font-bold text-xl flex items-center justify-center">
+                    4
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <DollarSign className="h-8 w-8 text-blue-300" />
+                    <h3 className="text-2xl font-bold text-white">No State Income Tax</h3>
+                  </div>
+                  <p className="text-white/90">
+                    Your Austin combined bachelor bachelorette party budget goes further - Texas has no state income tax, so drinks, activities, and entertainment cost less than other major cities.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Reason 5 */}
+            <motion.div
+              variants={fadeInUp}
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
+              data-testid="reason-card-5"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-blue-400 text-white font-bold text-xl flex items-center justify-center">
+                    5
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Sun className="h-8 w-8 text-blue-300" />
+                    <h3 className="text-2xl font-bold text-white">Perfect Year-Round Weather</h3>
+                  </div>
+                  <p className="text-white/90">
+                    Austin's 300 days of sunshine per year mean your combined bachelor bachelorette party Austin celebration happens rain or shine. Lake Travis maintains a constant 70-degree water temperature.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Reason 6 */}
+            <motion.div
+              variants={fadeInUp}
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
+              data-testid="reason-card-6"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-blue-400 text-white font-bold text-xl flex items-center justify-center">
+                    6
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Clock className="h-8 w-8 text-blue-300" />
+                    <h3 className="text-2xl font-bold text-white">30 Minutes from Everything</h3>
+                  </div>
+                  <p className="text-white/90">
+                    Austin combined bachelor bachelorette parties access Lake Travis party boats in 30 minutes, downtown bars in 20 minutes, and Hill Country wineries in 45 minutes. Everything's close.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Reason 7 */}
+            <motion.div
+              variants={fadeInUp}
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
+              data-testid="reason-card-7"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-blue-400 text-white font-bold text-xl flex items-center justify-center">
+                    7
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Anchor className="h-8 w-8 text-blue-300" />
+                    <h3 className="text-2xl font-bold text-white">Party Boat Capital</h3>
+                  </div>
+                  <p className="text-white/90">
+                    Austin is home to Premier Party Cruises - the longest-running party boat company on Lake Travis with 15+ years of experience and 100,000+ happy customers.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Reason 8 */}
+            <motion.div
+              variants={fadeInUp}
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
+              data-testid="reason-card-8"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-blue-400 text-white font-bold text-xl flex items-center justify-center">
+                    8
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Sparkles className="h-8 w-8 text-blue-300" />
+                    <h3 className="text-2xl font-bold text-white">Diverse Entertainment Options</h3>
+                  </div>
+                  <p className="text-white/90">
+                    Your Austin combined bachelor bachelorette party can include party boats, wine tours, live music, BBQ tours, rooftop bars, and more all in one weekend.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Reason 9 */}
+            <motion.div
+              variants={fadeInUp}
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
+              data-testid="reason-card-9"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-blue-400 text-white font-bold text-xl flex items-center justify-center">
+                    9
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Heart className="h-8 w-8 text-blue-300" />
+                    <h3 className="text-2xl font-bold text-white">Party-Friendly Atmosphere</h3>
+                  </div>
+                  <p className="text-white/90">
+                    Austin welcomes combined bachelor bachelorette parties with open arms. The city's 'Keep Austin Weird' culture means anything goes and everyone's welcome.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+
+            {/* Reason 10 */}
+            <motion.div
+              variants={fadeInUp}
+              className="bg-white/10 backdrop-blur-sm rounded-xl p-6 border border-white/20"
+              data-testid="reason-card-10"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex-shrink-0">
+                  <div className="w-12 h-12 rounded-full bg-blue-400 text-white font-bold text-xl flex items-center justify-center">
+                    10
+                  </div>
+                </div>
+                <div className="flex-1">
+                  <div className="flex items-center gap-3 mb-3">
+                    <Plane className="h-8 w-8 text-blue-300" />
+                    <h3 className="text-2xl font-bold text-white">Easy Airport Access</h3>
+                  </div>
+                  <p className="text-white/90">
+                    Austin-Bergstrom International Airport serves 150+ destinations. Your Austin combined bachelor bachelorette party guests fly in easily from anywhere in the country.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+            className="text-center mt-12"
+          >
+            <Button
+              size="lg"
+              onClick={() => handleGetQuote()}
+              className="bg-brand-blue hover:bg-blue-700 text-white font-bold text-xl px-12 py-6"
+              data-testid="button-austin-reasons-book-combined"
+            >
+              <Calendar className="mr-2 h-6 w-6" />
+              Book Your Austin Combined Party Now
+            </Button>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Sticky CTA Footer */}
       <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t shadow-lg z-40 py-4">
