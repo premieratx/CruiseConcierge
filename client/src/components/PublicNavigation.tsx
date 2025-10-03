@@ -72,13 +72,13 @@ const navigationItems: NavigationItem[] = [
   },
   {
     title: 'Bachelor Party',
-    href: '/bachelor-party',
+    href: '/bachelor-party-austin',
     icon: Users,
     badge: 'New!'
   },
   {
     title: 'Bachelorette Party',
-    href: '/bachelorette-party',
+    href: '/bachelorette-party-austin',
     icon: Heart
   },
   {

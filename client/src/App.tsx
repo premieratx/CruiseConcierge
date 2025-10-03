@@ -108,9 +108,9 @@ function Router() {
       <Route path="/admin/login" component={AuthPage} />
       
       {/* Landing Pages */}
-      <Route path="/bachelor-party" component={BachelorParty} />
-      <Route path="/bachelorette-party" component={BacheloretteParty} />
-      <Route path="/combined-bachelor-bachelorette" component={CombinedBachelorBachelorette} />
+      <Route path="/bachelor-party-austin" component={BachelorParty} />
+      <Route path="/bachelorette-party-austin" component={BacheloretteParty} />
+      <Route path="/combined-bachelor-bachelorette-austin" component={CombinedBachelorBachelorette} />
       <Route path="/private-cruises" component={PrivateCruises} />
       <Route path="/corporate-events" component={CorporateEvents} />
       <Route path="/birthday-parties" component={BirthdayParties} />

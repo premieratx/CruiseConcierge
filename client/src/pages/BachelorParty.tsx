@@ -26,6 +26,7 @@ import {
   HelpCircle, Anchor, Droplets, Waves, Info, TrendingUp, X, Package
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import Footer from '@/components/Footer';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.jpg';
@@ -1425,6 +1426,9 @@ export default function BachelorParty() {
           </div>
         </div>
       </div>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

@@ -21,6 +21,7 @@ import {
   ExternalLink, BookOpen, Headphones, Car, Wine, Camera as CameraIcon,
   UserCheck, MessageSquare, X, Eye, Image
 } from 'lucide-react';
+import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
 import { DiscoVsPrivateComparison, QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
@@ -1387,6 +1388,9 @@ export default function Home() {
           )}
         </DialogContent>
       </Dialog>
+
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }

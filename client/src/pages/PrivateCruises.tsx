@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import SEOHead from '@/components/SEOHead';
+import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
@@ -1451,6 +1452,8 @@ export default function PrivateCruises() {
         </div>
       </section>
 
+      {/* Footer */}
+      <Footer />
     </div>
   );
 }
