@@ -446,7 +446,7 @@ export default function Home() {
             >
               <img 
                 src={heroImages[currentHeroImage]}
-                alt="Premier Party Cruises - Lake Travis Austin"
+                alt="Party Boat Austin cruising on Lake Travis with guests celebrating"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
@@ -466,7 +466,7 @@ export default function Home() {
             <motion.div variants={fadeInUp} className="mb-8">
               <img 
                 src={logoPath} 
-                alt="Premier Party Cruises" 
+                alt="Party Boat Austin - Premier Party Cruises on Lake Travis" 
                 className="h-20 md:h-24 mx-auto mb-6"
                 data-testid="img-hero-logo"
               />
@@ -1048,27 +1048,38 @@ export default function Home() {
           </motion.div>
 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-6xl mx-auto">
-            {galleryImages.map((image, index) => (
-              <motion.div
-                key={index}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-                variants={scaleIn}
-                transition={{ delay: index * 0.1 }}
-                className="group relative cursor-pointer overflow-hidden rounded-2xl aspect-square"
-                onClick={() => setSelectedImageIndex(index)}
-              >
-                <img 
-                  src={image}
-                  alt={`Premier Party Cruises Gallery ${index + 1}`}
-                  className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                  <Play className="h-12 w-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                </div>
-              </motion.div>
-            ))}
+            {galleryImages.map((image, index) => {
+              const altTexts = [
+                "Party Boat Austin Day Tripper 14-person vessel on Lake Travis",
+                "Party Boat Lake Travis Meeseeks 25-person charter boat",
+                "Party Boat Austin Clever Girl 50-person flagship on Lake Travis",
+                "Bachelor Party Austin celebration on Party Boat Lake Travis",
+                "Bachelorette Party Austin celebration on Party Boat Lake Travis",
+                "Party Boat Austin guests dancing and celebrating on Lake Travis"
+              ];
+              
+              return (
+                <motion.div
+                  key={index}
+                  initial="hidden"
+                  whileInView="visible"
+                  viewport={{ once: true, margin: "-50px" }}
+                  variants={scaleIn}
+                  transition={{ delay: index * 0.1 }}
+                  className="group relative cursor-pointer overflow-hidden rounded-2xl aspect-square"
+                  onClick={() => setSelectedImageIndex(index)}
+                >
+                  <img 
+                    src={image}
+                    alt={altTexts[index]}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                    <Play className="h-12 w-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -1378,7 +1389,14 @@ export default function Home() {
             <div className="relative">
               <img 
                 src={galleryImages[selectedImageIndex]}
-                alt={`Premier Party Cruises Gallery ${selectedImageIndex + 1}`}
+                alt={[
+                  "Party Boat Austin Day Tripper 14-person vessel on Lake Travis",
+                  "Party Boat Lake Travis Meeseeks 25-person charter boat",
+                  "Party Boat Austin Clever Girl 50-person flagship on Lake Travis",
+                  "Bachelor Party Austin celebration on Party Boat Lake Travis",
+                  "Bachelorette Party Austin celebration on Party Boat Lake Travis",
+                  "Party Boat Austin guests dancing and celebrating on Lake Travis"
+                ][selectedImageIndex]}
                 className="w-full h-auto max-h-[80vh] object-contain rounded-xl"
               />
               <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
