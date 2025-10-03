@@ -817,7 +817,7 @@ export default function BachelorParty() {
                 <div className="text-center space-y-4">
                   <p className="text-lg" data-editable data-editable-id="bachelor-overview-pricing">
                     Starting at just <span className="text-brand-yellow font-bold text-2xl">$85/person</span>
-                    <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">($98 with tax & tip)</span>
+                    <span className="text-sm text-gray-600 dark:text-gray-400 ml-2">($109 with tax & tip)</span>
                   </p>
                   <p className="text-lg text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-details">
                     Friday & Saturday • 4 Hours on Lake Travis • Up to 50 People
@@ -936,7 +936,7 @@ export default function BachelorParty() {
                                 ${pkg.price}/person
                               </div>
                               <div className="text-lg text-green-600 dark:text-green-400 font-semibold">
-                                ${pkg.id === 'basic' ? '98' : pkg.id === 'disco_king' ? '111' : '124'} with tax & tip
+                                ${pkg.id === 'basic' ? '109' : pkg.id === 'disco_king' ? '122' : '135'} with tax & tip
                               </div>
                               {pkg.originalPrice && (
                                 <div className="text-sm text-gray-400 line-through">

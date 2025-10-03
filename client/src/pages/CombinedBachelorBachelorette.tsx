@@ -941,7 +941,7 @@ export default function CombinedBachelorBachelorette() {
                                 ${pkg.price}/person
                               </div>
                               <div className="text-lg text-green-600 dark:text-green-400 font-semibold">
-                                ${pkg.id === 'basic_combined' ? '98' : pkg.id === 'party_squad' ? '111' : '124'} with tax & tip
+                                ${pkg.id === 'basic_combined' ? '109' : pkg.id === 'party_squad' ? '122' : '135'} with tax & tip
                               </div>
                               {pkg.originalPrice && (
                                 <div className="text-sm text-gray-400 line-through">
