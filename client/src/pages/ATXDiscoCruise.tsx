@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/com
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead, { generateFAQSchema } from '@/components/SEOHead';
@@ -24,7 +25,7 @@ import {
   Leaf, Check, AlertCircle, DollarSign, Timer, CreditCard, 
   CloudRain, HelpCircle, Anchor, Droplets, Waves, Info, 
   TrendingUp, Package, Plane, Wine, PartyPopper as ConfettiIcon,
-  X, Eye, Smile
+  X, Eye, Smile, XCircle
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
@@ -1659,6 +1660,684 @@ export default function ATXDiscoCruise() {
               </Link>
               <p className="mt-4 text-sm text-white/80">
                 48-hour full refund policy • Split payments available • Weather guaranteed
+              </p>
+            </div>
+          </div>
+        </motion.section>
+
+        {/* Why Disco Cruise Wins for Your Group Size - Price Comparison Section */}
+        <motion.section 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="py-20 px-4 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-gray-900 dark:via-green-900/20 dark:to-teal-900/20"
+          data-testid="section-group-size-pricing"
+        >
+          <div className="max-w-6xl mx-auto">
+            <motion.div variants={fadeInUp} className="text-center mb-12">
+              <Badge className="mb-4 bg-green-600 text-white text-lg px-6 py-2">
+                <DollarSign className="w-5 h-5 mr-2 inline" /> Price Transparency
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                💰 Why Disco Cruise Wins for Your Group Size
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-400">
+                See exactly how much you save AND get way more value!
+              </p>
+            </motion.div>
+
+            <Tabs defaultValue="10-12" className="w-full">
+              <TabsList className="grid w-full grid-cols-2 md:grid-cols-5 gap-2 mb-8 h-auto bg-transparent">
+                <TabsTrigger 
+                  value="6-8" 
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white flex items-center gap-2 py-3"
+                  data-testid="tab-6-8-people"
+                >
+                  <Users className="w-4 h-4" />
+                  6-8 People
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="10-12" 
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white flex items-center gap-2 py-3"
+                  data-testid="tab-10-12-people"
+                >
+                  <Users className="w-4 h-4" />
+                  10-12 People
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="15-18" 
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white flex items-center gap-2 py-3"
+                  data-testid="tab-15-18-people"
+                >
+                  <Users className="w-4 h-4" />
+                  15-18 People
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="20-25" 
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white flex items-center gap-2 py-3"
+                  data-testid="tab-20-25-people"
+                >
+                  <Users className="w-4 h-4" />
+                  20-25 People
+                </TabsTrigger>
+                <TabsTrigger 
+                  value="combined" 
+                  className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-600 data-[state=active]:to-pink-600 data-[state=active]:text-white flex items-center gap-2 py-3"
+                  data-testid="tab-combined-party"
+                >
+                  <Heart className="w-4 h-4" />
+                  Combined Party
+                </TabsTrigger>
+              </TabsList>
+
+              {/* 6-8 People Tab */}
+              <TabsContent value="6-8" className="mt-8" data-testid="content-6-8-people">
+                <Card className="border-4 border-green-500">
+                  <CardHeader>
+                    <CardTitle className="text-3xl">6-8 People - Small Squad</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {/* Disco Pricing */}
+                    <div className="bg-green-50 dark:bg-green-950/30 border-4 border-green-500 rounded-xl p-6">
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <PartyPopper className="w-6 h-6 text-green-600" />
+                        🎉 DISCO CRUISE: DISCO QUEEN PACKAGE
+                      </h3>
+                      <div className="border-t-2 border-green-400 my-4"></div>
+                      <div className="space-y-2 text-lg">
+                        <p>8 guests × $95 = $760.00</p>
+                        <p>Tax (8.25%): $62.70</p>
+                        <p>Gratuity (20%): $152.00</p>
+                        <div className="border-t border-green-400 my-2"></div>
+                        <p className="font-bold text-2xl text-green-700 dark:text-green-400">TOTAL: $974.70</p>
+                        <p className="font-bold text-xl">Per Person: $121.84</p>
+                      </div>
+                      <div className="mt-6">
+                        <h4 className="font-bold text-xl mb-3 flex items-center gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600" />
+                          ✅ YOU GET:
+                        </h4>
+                        <ul className="space-y-2 ml-6">
+                          <li>• Professional DJ ($600 value)</li>
+                          <li>• Professional photographer ($800 value)</li>
+                          <li>• Private cooler for your group</li>
+                          <li>• Reserved spot on the boat</li>
+                          <li>• Giant inflatable unicorn & lily pads</li>
+                          <li>• All party supplies (cups, koozies, bubbles)</li>
+                          <li>• Disco ball cup for bride/groom</li>
+                          <li>• Alcohol delivery voucher ($50-100)</li>
+                          <li>• 25% off transportation</li>
+                          <li>• Multi-group party atmosphere</li>
+                          <li>• ZERO setup stress</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Private Pricing */}
+                    <div className="bg-red-50 dark:bg-red-950/30 border-4 border-red-500 rounded-xl p-6">
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <Ship className="w-6 h-6 text-red-600" />
+                        🚤 PRIVATE CRUISE: STANDARD PACKAGE
+                      </h3>
+                      <div className="border-t-2 border-red-400 my-4"></div>
+                      <div className="space-y-2 text-lg">
+                        <p>Day Tripper (Saturday premium rate)</p>
+                        <p>$350/hour × 4 hours = $1,400.00</p>
+                        <p>Tax (8.25%): $115.50</p>
+                        <p>Gratuity (20%): $280.00</p>
+                        <div className="border-t border-red-400 my-2"></div>
+                        <p className="font-bold text-2xl text-red-700 dark:text-red-400">TOTAL: $1,795.50</p>
+                        <p className="font-bold text-xl">Per Person: $224.44</p>
+                      </div>
+                      <div className="mt-6">
+                        <h4 className="font-bold text-xl mb-3 flex items-center gap-2">
+                          <XCircle className="w-5 h-5 text-red-600" />
+                          ❌ YOU GET:
+                        </h4>
+                        <ul className="space-y-2 ml-6">
+                          <li>• Captain and empty boat</li>
+                          <li>• Bluetooth speaker</li>
+                          <li>• Coolers with ice</li>
+                        </ul>
+                        <h4 className="font-bold text-xl mt-4 mb-3 flex items-center gap-2">
+                          <XCircle className="w-5 h-5 text-red-600" />
+                          ❌ YOU DON'T GET:
+                        </h4>
+                        <ul className="space-y-2 ml-6">
+                          <li>• No DJ</li>
+                          <li>• No photographer</li>
+                          <li>• No party supplies</li>
+                          <li>• No floats</li>
+                          <li>• You setup everything</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Verdict */}
+                    <div className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-950/30 dark:to-orange-950/30 border-4 border-yellow-500 rounded-xl p-6">
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <Trophy className="w-6 h-6 text-yellow-600" />
+                        🏆 THE VERDICT
+                      </h3>
+                      <div className="border-t-2 border-yellow-400 my-4"></div>
+                      <p className="text-lg mb-4">
+                        Small but mighty! Even though private seems 'exclusive,' you're paying $820 MORE for an empty boat. The disco cruise gives you professional entertainment, photographer capturing every moment, and 90+ other party people creating an electric atmosphere. For intimate groups, the value is insane!
+                      </p>
+                      <div className="bg-white dark:bg-gray-900 rounded-lg p-4 mb-4">
+                        <h4 className="font-bold text-xl mb-3 flex items-center gap-2">
+                          <DollarSign className="w-5 h-5 text-green-600" />
+                          💰 DISCO ADVANTAGE:
+                        </h4>
+                        <p className="mb-3">Even at $974.70 total vs private's $1,795.50, you get $1,600+ in extras!</p>
+                        <div className="space-y-2">
+                          <p className="font-bold">To match the disco experience on a private boat:</p>
+                          <p>Private Base: $1,795.50</p>
+                          <p>+ Hire DJ: $600.00</p>
+                          <p>+ Photographer: $800.00</p>
+                          <p>+ Party Supplies: $200.00</p>
+                          <div className="border-t border-gray-400 my-2"></div>
+                          <p className="font-bold text-xl text-red-600">Real Cost: $3,395.50 (That's $2,420 MORE than disco!)</p>
+                        </div>
+                      </div>
+                      <p className="text-lg font-bold flex items-center gap-2">
+                        <Sparkles className="w-5 h-5 text-purple-600" />
+                        ✨ PLUS: The multi-group party energy is PRICELESS. For small squads, being part of a 100-person party atmosphere creates memories you can't get on an empty boat!
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              {/* 10-12 People Tab */}
+              <TabsContent value="10-12" className="mt-8" data-testid="content-10-12-people">
+                <Card className="border-4 border-green-500">
+                  <CardHeader>
+                    <CardTitle className="text-3xl">10-12 People - Classic Party</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {/* Disco Pricing */}
+                    <div className="bg-green-50 dark:bg-green-950/30 border-4 border-green-500 rounded-xl p-6">
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <PartyPopper className="w-6 h-6 text-green-600" />
+                        🎉 DISCO CRUISE: DISCO QUEEN PACKAGE
+                      </h3>
+                      <div className="border-t-2 border-green-400 my-4"></div>
+                      <div className="space-y-2 text-lg">
+                        <p>12 guests × $95 = $1,140.00</p>
+                        <p>Tax (8.25%): $94.05</p>
+                        <p>Gratuity (20%): $228.00</p>
+                        <div className="border-t border-green-400 my-2"></div>
+                        <p className="font-bold text-2xl text-green-700 dark:text-green-400">TOTAL: $1,462.05</p>
+                        <p className="font-bold text-xl">Per Person: $121.84</p>
+                      </div>
+                      <div className="mt-6">
+                        <h4 className="font-bold text-xl mb-3 flex items-center gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600" />
+                          ✅ YOU GET:
+                        </h4>
+                        <ul className="space-y-2 ml-6">
+                          <li>• Professional DJ ($600 value)</li>
+                          <li>• Professional photographer ($800 value)</li>
+                          <li>• Private cooler for your group</li>
+                          <li>• Reserved spot on the boat</li>
+                          <li>• Giant inflatable unicorn & lily pads</li>
+                          <li>• All party supplies (cups, koozies, bubbles)</li>
+                          <li>• Disco ball cup for bride/groom</li>
+                          <li>• Alcohol delivery voucher ($50-100)</li>
+                          <li>• 25% off transportation</li>
+                          <li>• Multi-group party atmosphere</li>
+                          <li>• ZERO setup stress</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Private Pricing */}
+                    <div className="bg-red-50 dark:bg-red-950/30 border-4 border-red-500 rounded-xl p-6">
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <Ship className="w-6 h-6 text-red-600" />
+                        🚤 PRIVATE CRUISE: STANDARD PACKAGE
+                      </h3>
+                      <div className="border-t-2 border-red-400 my-4"></div>
+                      <div className="space-y-2 text-lg">
+                        <p>Day Tripper (Saturday premium rate)</p>
+                        <p>$350/hour × 4 hours = $1,400.00</p>
+                        <p>Tax (8.25%): $115.50</p>
+                        <p>Gratuity (20%): $280.00</p>
+                        <div className="border-t border-red-400 my-2"></div>
+                        <p className="font-bold text-2xl text-red-700 dark:text-red-400">TOTAL: $1,795.50</p>
+                        <p className="font-bold text-xl">Per Person: $149.63</p>
+                      </div>
+                      <div className="mt-6">
+                        <h4 className="font-bold text-xl mb-3 flex items-center gap-2">
+                          <XCircle className="w-5 h-5 text-red-600" />
+                          ❌ YOU GET:
+                        </h4>
+                        <ul className="space-y-2 ml-6">
+                          <li>• Captain and empty boat</li>
+                          <li>• Bluetooth speaker</li>
+                          <li>• Coolers with ice</li>
+                        </ul>
+                        <h4 className="font-bold text-xl mt-4 mb-3 flex items-center gap-2">
+                          <XCircle className="w-5 h-5 text-red-600" />
+                          ❌ YOU DON'T GET:
+                        </h4>
+                        <ul className="space-y-2 ml-6">
+                          <li>• No DJ</li>
+                          <li>• No photographer</li>
+                          <li>• No party supplies</li>
+                          <li>• No floats</li>
+                          <li>• You setup everything</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Verdict */}
+                    <div className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-950/30 dark:to-orange-950/30 border-4 border-yellow-500 rounded-xl p-6">
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <Trophy className="w-6 h-6 text-yellow-600" />
+                        🏆 THE VERDICT
+                      </h3>
+                      <div className="border-t-2 border-yellow-400 my-4"></div>
+                      <p className="text-lg mb-4">
+                        Perfect party size! You're saving $333 AND getting a DJ, photographer, and all the party vibes. Private boats at this size still feel empty – you're literally paying more for less fun. The disco cruise turns your dozen friends into part of a 100-person celebration. That's the energy your bach party deserves!
+                      </p>
+                      <div className="bg-white dark:bg-gray-900 rounded-lg p-4 mb-4">
+                        <h4 className="font-bold text-xl mb-3 flex items-center gap-2">
+                          <DollarSign className="w-5 h-5 text-green-600" />
+                          💰 DISCO ADVANTAGE:
+                        </h4>
+                        <p className="mb-3">At $1,462.05 total vs private's $1,795.50, you save $333 AND get $1,600+ in extras!</p>
+                        <div className="space-y-2">
+                          <p className="font-bold">To match the disco experience on a private boat:</p>
+                          <p>Private Base: $1,795.50</p>
+                          <p>+ Hire DJ: $600.00</p>
+                          <p>+ Photographer: $800.00</p>
+                          <p>+ Party Supplies: $200.00</p>
+                          <div className="border-t border-gray-400 my-2"></div>
+                          <p className="font-bold text-xl text-red-600">Real Cost: $3,395.50 (That's $1,933 MORE than disco!)</p>
+                        </div>
+                      </div>
+                      <p className="text-lg font-bold flex items-center gap-2">
+                        <Sparkles className="w-5 h-5 text-purple-600" />
+                        ✨ PLUS: The multi-group party energy is PRICELESS. Your group becomes part of something bigger and better!
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              {/* 15-18 People Tab */}
+              <TabsContent value="15-18" className="mt-8" data-testid="content-15-18-people">
+                <Card className="border-4 border-green-500">
+                  <CardHeader>
+                    <CardTitle className="text-3xl">15-18 People - Big Celebration</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {/* Disco Pricing */}
+                    <div className="bg-green-50 dark:bg-green-950/30 border-4 border-green-500 rounded-xl p-6">
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <PartyPopper className="w-6 h-6 text-green-600" />
+                        🎉 DISCO CRUISE: DISCO QUEEN PACKAGE
+                      </h3>
+                      <div className="border-t-2 border-green-400 my-4"></div>
+                      <div className="space-y-2 text-lg">
+                        <p>18 guests × $95 = $1,710.00</p>
+                        <p>Tax (8.25%): $141.08</p>
+                        <p>Gratuity (20%): $342.00</p>
+                        <div className="border-t border-green-400 my-2"></div>
+                        <p className="font-bold text-2xl text-green-700 dark:text-green-400">TOTAL: $2,193.08</p>
+                        <p className="font-bold text-xl">Per Person: $121.84</p>
+                      </div>
+                      <div className="mt-6">
+                        <h4 className="font-bold text-xl mb-3 flex items-center gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600" />
+                          ✅ YOU GET:
+                        </h4>
+                        <ul className="space-y-2 ml-6">
+                          <li>• Professional DJ ($600 value)</li>
+                          <li>• Professional photographer ($800 value)</li>
+                          <li>• Private cooler for your group</li>
+                          <li>• Reserved spot on the boat</li>
+                          <li>• Giant inflatable unicorn & lily pads</li>
+                          <li>• All party supplies (cups, koozies, bubbles)</li>
+                          <li>• Disco ball cup for bride/groom</li>
+                          <li>• Alcohol delivery voucher ($50-100)</li>
+                          <li>• 25% off transportation</li>
+                          <li>• Multi-group party atmosphere</li>
+                          <li>• ZERO setup stress</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Private Pricing */}
+                    <div className="bg-red-50 dark:bg-red-950/30 border-4 border-red-500 rounded-xl p-6">
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <Ship className="w-6 h-6 text-red-600" />
+                        🚤 PRIVATE CRUISE: STANDARD PACKAGE
+                      </h3>
+                      <div className="border-t-2 border-red-400 my-4"></div>
+                      <div className="space-y-2 text-lg">
+                        <p>Meeseeks/Irony (Saturday premium rate)</p>
+                        <p>$375/hour × 4 hours = $1,500.00</p>
+                        <p>Tax (8.25%): $123.75</p>
+                        <p>Gratuity (20%): $300.00</p>
+                        <div className="border-t border-red-400 my-2"></div>
+                        <p className="font-bold text-2xl text-red-700 dark:text-red-400">TOTAL: $1,923.75</p>
+                        <p className="font-bold text-xl">Per Person: $106.88</p>
+                      </div>
+                      <div className="mt-6">
+                        <h4 className="font-bold text-xl mb-3 flex items-center gap-2">
+                          <XCircle className="w-5 h-5 text-red-600" />
+                          ❌ YOU GET:
+                        </h4>
+                        <ul className="space-y-2 ml-6">
+                          <li>• Captain and empty boat</li>
+                          <li>• Bluetooth speaker</li>
+                          <li>• Coolers with ice</li>
+                        </ul>
+                        <h4 className="font-bold text-xl mt-4 mb-3 flex items-center gap-2">
+                          <XCircle className="w-5 h-5 text-red-600" />
+                          ❌ YOU DON'T GET:
+                        </h4>
+                        <ul className="space-y-2 ml-6">
+                          <li>• No DJ</li>
+                          <li>• No photographer</li>
+                          <li>• No party supplies</li>
+                          <li>• No floats</li>
+                          <li>• You setup everything</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Verdict */}
+                    <div className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-950/30 dark:to-orange-950/30 border-4 border-yellow-500 rounded-xl p-6">
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <Trophy className="w-6 h-6 text-yellow-600" />
+                        🏆 THE VERDICT
+                      </h3>
+                      <div className="border-t-2 border-yellow-400 my-4"></div>
+                      <p className="text-lg mb-4">
+                        The sweet spot! Yes, private is $269 cheaper upfront, but here's reality: You're on an empty boat with a Bluetooth speaker. To get the same experience, add DJ ($600) + photographer ($800) + supplies ($200) = $3,523.75 total. That's $1,330 MORE than the disco cruise! Plus, your group of 18 gets absorbed into the disco party energy instead of creating it all yourself. Way more fun, way less work!
+                      </p>
+                      <div className="bg-white dark:bg-gray-900 rounded-lg p-4 mb-4">
+                        <h4 className="font-bold text-xl mb-3 flex items-center gap-2">
+                          <DollarSign className="w-5 h-5 text-green-600" />
+                          💰 DISCO ADVANTAGE:
+                        </h4>
+                        <p className="mb-3">Private looks $269 cheaper at $1,923.75 vs disco's $2,193.08, but you get NOTHING!</p>
+                        <div className="space-y-2">
+                          <p className="font-bold">To match the disco experience on a private boat:</p>
+                          <p>Private Base: $1,923.75</p>
+                          <p>+ Hire DJ: $600.00</p>
+                          <p>+ Photographer: $800.00</p>
+                          <p>+ Party Supplies: $200.00</p>
+                          <div className="border-t border-gray-400 my-2"></div>
+                          <p className="font-bold text-xl text-red-600">Real Cost: $3,523.75 (That's $1,330 MORE than disco!)</p>
+                        </div>
+                      </div>
+                      <p className="text-lg font-bold flex items-center gap-2">
+                        <Sparkles className="w-5 h-5 text-purple-600" />
+                        ✨ PLUS: The multi-group party energy is PRICELESS. Your group of 18 gets absorbed into the party instead of trying to create it yourselves!
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              {/* 20-25 People Tab */}
+              <TabsContent value="20-25" className="mt-8" data-testid="content-20-25-people">
+                <Card className="border-4 border-green-500">
+                  <CardHeader>
+                    <CardTitle className="text-3xl">20-25 People - Epic Bash</CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {/* Disco Pricing */}
+                    <div className="bg-green-50 dark:bg-green-950/30 border-4 border-green-500 rounded-xl p-6">
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <PartyPopper className="w-6 h-6 text-green-600" />
+                        🎉 DISCO CRUISE: DISCO QUEEN PACKAGE
+                      </h3>
+                      <div className="border-t-2 border-green-400 my-4"></div>
+                      <div className="space-y-2 text-lg">
+                        <p>22 guests × $95 = $2,090.00</p>
+                        <p>Tax (8.25%): $172.43</p>
+                        <p>Gratuity (20%): $418.00</p>
+                        <div className="border-t border-green-400 my-2"></div>
+                        <p className="font-bold text-2xl text-green-700 dark:text-green-400">TOTAL: $2,680.43</p>
+                        <p className="font-bold text-xl">Per Person: $121.84</p>
+                      </div>
+                      <div className="mt-6">
+                        <h4 className="font-bold text-xl mb-3 flex items-center gap-2">
+                          <CheckCircle className="w-5 h-5 text-green-600" />
+                          ✅ YOU GET:
+                        </h4>
+                        <ul className="space-y-2 ml-6">
+                          <li>• Professional DJ ($600 value)</li>
+                          <li>• Professional photographer ($800 value)</li>
+                          <li>• Private cooler for your group</li>
+                          <li>• Reserved spot on the boat</li>
+                          <li>• Giant inflatable unicorn & lily pads</li>
+                          <li>• All party supplies (cups, koozies, bubbles)</li>
+                          <li>• Disco ball cup for bride/groom</li>
+                          <li>• Alcohol delivery voucher ($50-100)</li>
+                          <li>• 25% off transportation</li>
+                          <li>• Multi-group party atmosphere</li>
+                          <li>• ZERO setup stress</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Private Pricing */}
+                    <div className="bg-red-50 dark:bg-red-950/30 border-4 border-red-500 rounded-xl p-6">
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <Ship className="w-6 h-6 text-red-600" />
+                        🚤 PRIVATE CRUISE: STANDARD PACKAGE
+                      </h3>
+                      <div className="border-t-2 border-red-400 my-4"></div>
+                      <div className="space-y-2 text-lg">
+                        <p>Meeseeks/Irony (Saturday premium rate)</p>
+                        <p>$375/hour × 4 hours = $1,500.00</p>
+                        <p>Tax (8.25%): $123.75</p>
+                        <p>Gratuity (20%): $300.00</p>
+                        <div className="border-t border-red-400 my-2"></div>
+                        <p className="font-bold text-2xl text-red-700 dark:text-red-400">TOTAL: $1,923.75</p>
+                        <p className="font-bold text-xl">Per Person: $87.44</p>
+                      </div>
+                      <div className="mt-6">
+                        <h4 className="font-bold text-xl mb-3 flex items-center gap-2">
+                          <XCircle className="w-5 h-5 text-red-600" />
+                          ❌ YOU GET:
+                        </h4>
+                        <ul className="space-y-2 ml-6">
+                          <li>• Captain and empty boat</li>
+                          <li>• Bluetooth speaker</li>
+                          <li>• Coolers with ice</li>
+                        </ul>
+                        <h4 className="font-bold text-xl mt-4 mb-3 flex items-center gap-2">
+                          <XCircle className="w-5 h-5 text-red-600" />
+                          ❌ YOU DON'T GET:
+                        </h4>
+                        <ul className="space-y-2 ml-6">
+                          <li>• No DJ</li>
+                          <li>• No photographer</li>
+                          <li>• No party supplies</li>
+                          <li>• No floats</li>
+                          <li>• You setup everything</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Verdict */}
+                    <div className="bg-gradient-to-r from-yellow-50 to-orange-50 dark:from-yellow-950/30 dark:to-orange-950/30 border-4 border-yellow-500 rounded-xl p-6">
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <Trophy className="w-6 h-6 text-yellow-600" />
+                        🏆 THE VERDICT
+                      </h3>
+                      <div className="border-t-2 border-yellow-400 my-4"></div>
+                      <p className="text-lg mb-4">
+                        Big squad energy! Private looks $756 cheaper, but you're getting a captain and a speaker. That's it. To recreate the disco vibe, you'd need to hire a DJ ($600), photographer ($800), buy all party supplies ($200), and somehow manufacture the energy of 100 people partying together. Total: $3,523.75. For big groups, the disco cruise isn't just a better deal – it's the ONLY way to get this experience!
+                      </p>
+                      <div className="bg-white dark:bg-gray-900 rounded-lg p-4 mb-4">
+                        <h4 className="font-bold text-xl mb-3 flex items-center gap-2">
+                          <DollarSign className="w-5 h-5 text-green-600" />
+                          💰 DISCO ADVANTAGE:
+                        </h4>
+                        <p className="mb-3">Private looks $756 cheaper at $1,923.75 vs disco's $2,680.43, but you get NOTHING!</p>
+                        <div className="space-y-2">
+                          <p className="font-bold">To match the disco experience on a private boat:</p>
+                          <p>Private Base: $1,923.75</p>
+                          <p>+ Hire DJ: $600.00</p>
+                          <p>+ Photographer: $800.00</p>
+                          <p>+ Party Supplies: $200.00</p>
+                          <div className="border-t border-gray-400 my-2"></div>
+                          <p className="font-bold text-xl text-red-600">Real Cost: $3,523.75 (That's $843 MORE than disco!)</p>
+                        </div>
+                      </div>
+                      <p className="text-lg font-bold flex items-center gap-2">
+                        <Sparkles className="w-5 h-5 text-purple-600" />
+                        ✨ PLUS: The multi-group party energy is PRICELESS. 22 people can't create the same vibe as 100!
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              {/* Combined Party Tab */}
+              <TabsContent value="combined" className="mt-8" data-testid="content-combined-party">
+                <Card className="border-4 border-pink-500">
+                  <CardHeader>
+                    <CardTitle className="text-3xl flex items-center gap-2">
+                      <Heart className="w-8 h-8 text-pink-600" />
+                      Combined Bachelor/Bachelorette Party
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="space-y-6">
+                    {/* Disco Pricing */}
+                    <div className="bg-pink-50 dark:bg-pink-950/30 border-4 border-pink-500 rounded-xl p-6">
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <PartyPopper className="w-6 h-6 text-pink-600" />
+                        🎉 DISCO CRUISE: DISCO QUEEN PACKAGE
+                      </h3>
+                      <div className="border-t-2 border-pink-400 my-4"></div>
+                      <div className="space-y-2 text-lg">
+                        <p>18 guests × $95 = $1,710.00</p>
+                        <p>Tax (8.25%): $141.08</p>
+                        <p>Gratuity (20%): $342.00</p>
+                        <div className="border-t border-pink-400 my-2"></div>
+                        <p className="font-bold text-2xl text-pink-700 dark:text-pink-400">TOTAL: $2,193.08</p>
+                        <p className="font-bold text-xl">Per Person: $121.84</p>
+                      </div>
+                      <div className="mt-6">
+                        <h4 className="font-bold text-xl mb-3 flex items-center gap-2">
+                          <CheckCircle className="w-5 h-5 text-pink-600" />
+                          ✅ YOU GET:
+                        </h4>
+                        <ul className="space-y-2 ml-6">
+                          <li>• Professional DJ ($600 value)</li>
+                          <li>• Professional photographer ($800 value)</li>
+                          <li>• Private cooler for your group</li>
+                          <li>• Reserved spot on the boat</li>
+                          <li>• Giant inflatable unicorn & lily pads</li>
+                          <li>• All party supplies (cups, koozies, bubbles)</li>
+                          <li>• Disco ball cup for bride/groom</li>
+                          <li>• Alcohol delivery voucher ($50-100)</li>
+                          <li>• 25% off transportation</li>
+                          <li>• Multi-group party atmosphere</li>
+                          <li>• ZERO setup stress</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Private Pricing */}
+                    <div className="bg-red-50 dark:bg-red-950/30 border-4 border-red-500 rounded-xl p-6">
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <Ship className="w-6 h-6 text-red-600" />
+                        🚤 PRIVATE CRUISE: STANDARD PACKAGE
+                      </h3>
+                      <div className="border-t-2 border-red-400 my-4"></div>
+                      <div className="space-y-2 text-lg">
+                        <p>Meeseeks/Irony (Saturday premium rate)</p>
+                        <p>$375/hour × 4 hours = $1,500.00</p>
+                        <p>Tax (8.25%): $123.75</p>
+                        <p>Gratuity (20%): $300.00</p>
+                        <div className="border-t border-red-400 my-2"></div>
+                        <p className="font-bold text-2xl text-red-700 dark:text-red-400">TOTAL: $1,923.75</p>
+                        <p className="font-bold text-xl">Per Person: $106.88</p>
+                      </div>
+                      <div className="mt-6">
+                        <h4 className="font-bold text-xl mb-3 flex items-center gap-2">
+                          <XCircle className="w-5 h-5 text-red-600" />
+                          ❌ YOU GET:
+                        </h4>
+                        <ul className="space-y-2 ml-6">
+                          <li>• Captain and empty boat</li>
+                          <li>• Bluetooth speaker</li>
+                          <li>• Coolers with ice</li>
+                        </ul>
+                        <h4 className="font-bold text-xl mt-4 mb-3 flex items-center gap-2">
+                          <XCircle className="w-5 h-5 text-red-600" />
+                          ❌ YOU DON'T GET:
+                        </h4>
+                        <ul className="space-y-2 ml-6">
+                          <li>• No DJ</li>
+                          <li>• No photographer</li>
+                          <li>• No party supplies</li>
+                          <li>• No floats</li>
+                          <li>• You setup everything</li>
+                        </ul>
+                      </div>
+                    </div>
+
+                    {/* Verdict */}
+                    <div className="bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-950/30 dark:to-purple-950/30 border-4 border-pink-500 rounded-xl p-6">
+                      <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
+                        <Trophy className="w-6 h-6 text-pink-600" />
+                        🏆 THE VERDICT
+                      </h3>
+                      <div className="border-t-2 border-pink-400 my-4"></div>
+                      <p className="text-lg mb-4">
+                        Bros and brides unite! Combined parties are where disco cruises absolutely SHINE. Why? The multi-group dynamic! You've got 100 people on board – other bach parties, bachelorette squads, birthday crews. The guys vibe with guys, girls connect with girls, everyone mingles, and suddenly your party of 18 becomes part of something legendary. On a private boat? You're just... 18 people on a boat. Same faces the whole time. The disco cruise creates those 'remember when we met those people' moments. Plus, having a professional DJ read the mixed crowd and a photographer capturing the combined chaos? That's $1,600 in value you can't recreate. This is THE move for combined parties!
+                      </p>
+                      <div className="bg-white dark:bg-gray-900 rounded-lg p-4 mb-4">
+                        <h4 className="font-bold text-xl mb-3 flex items-center gap-2">
+                          <DollarSign className="w-5 h-5 text-pink-600" />
+                          💰 DISCO ADVANTAGE FOR COMBINED PARTIES:
+                        </h4>
+                        <p className="mb-3">The multi-group atmosphere makes combined parties MAGICAL!</p>
+                        <div className="space-y-2">
+                          <p className="font-bold">To match the disco experience on a private boat:</p>
+                          <p>Private Base: $1,923.75</p>
+                          <p>+ Hire DJ (who can read mixed crowds): $600.00</p>
+                          <p>+ Photographer (for combined group shots): $800.00</p>
+                          <p>+ Party Supplies: $200.00</p>
+                          <div className="border-t border-gray-400 my-2"></div>
+                          <p className="font-bold text-xl text-red-600">Real Cost: $3,523.75 (That's $1,330 MORE than disco!)</p>
+                        </div>
+                      </div>
+                      <p className="text-lg font-bold flex items-center gap-2">
+                        <Heart className="w-5 h-5 text-pink-600" />
+                        ❤️‍🔥 PLUS: The multi-group party energy is PRICELESS for combined parties. Meeting other mixed groups creates the most memorable experiences!
+                      </p>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </Tabs>
+
+            <div className="mt-12 text-center">
+              <Button
+                size="lg"
+                onClick={handleBookNow}
+                className="bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-bold text-2xl px-16 py-8"
+                data-testid="button-pricing-cta"
+              >
+                <Trophy className="mr-3 h-7 w-7" />
+                Book the Best Value Now!
+                <ArrowRight className="ml-3 h-7 w-7" />
+              </Button>
+              <p className="text-gray-600 dark:text-gray-400 mt-4">
+                All calculations include tax & gratuity • Saturday premium rates shown
               </p>
             </div>
           </div>
