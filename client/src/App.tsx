@@ -65,6 +65,7 @@ import MediaLibrary from "./pages/admin/MediaLibrary";
 import BachelorParty from "./pages/BachelorParty";
 import BacheloretteParty from "./pages/BacheloretteParty";
 import CombinedBachelorBachelorette from "./pages/CombinedBachelorBachelorette";
+import ATXDiscoCruise from "./pages/ATXDiscoCruise";
 import PrivateCruises from "./pages/PrivateCruises";
 import CorporateEvents from "./pages/CorporateEvents";
 import BirthdayParties from "./pages/BirthdayParties";
@@ -114,6 +115,7 @@ function Router() {
       <Route path="/bachelor-party-austin" component={BachelorParty} />
       <Route path="/bachelorette-party-austin" component={BacheloretteParty} />
       <Route path="/combined-bachelor-bachelorette-austin" component={CombinedBachelorBachelorette} />
+      <Route path="/atx-disco-cruise" component={ATXDiscoCruise} />
       <Route path="/private-cruises" component={PrivateCruises} />
       <Route path="/corporate-events" component={CorporateEvents} />
       <Route path="/birthday-parties" component={BirthdayParties} />
