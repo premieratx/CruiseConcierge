@@ -1,0 +1,255 @@
+# ATX Party Cruise Quote Builder - Complete Business Rules & Pricing Guide
+
+## BOAT FLEET & CAPACITY
+
+**Day Tripper**
+- Capacity: Up to 14 guests
+- Best for: Small intimate groups
+
+**Meeseeks / The Irony**
+- Capacity: 15-30 guests
+- Best for: Medium-sized groups
+
+**Clever Girl**
+- Capacity: 31-50+ guests
+- Best for: Large parties and events
+
+**Boat Recommendation Logic:**
+- 1-14 guests → Day Tripper
+- 15-30 guests → Meeseeks or The Irony
+- 31+ guests → Clever Girl
+
+---
+
+## PRIVATE CRUISE PRICING
+
+### Hourly Rates by Day & Guest Count
+
+**Monday - Thursday:**
+- 1-14 guests: $200/hour
+- 15-25 guests: $250/hour
+- 26-30 guests: $250/hour + $50/hour additional crew fee
+- 31-50 guests: $300/hour
+- 51+ guests: $300/hour + $100/hour additional crew fee
+
+**Friday:**
+- 1-14 guests: $225/hour
+- 15-25 guests: $250/hour
+- 26-30 guests: $250/hour + $50/hour additional crew fee
+- 31-50 guests: $300/hour
+- 51+ guests: $300/hour + $100/hour additional crew fee
+
+**Saturday:**
+- 1-14 guests: $350/hour
+- 15-25 guests: $375/hour
+- 26-30 guests: $375/hour + $50/hour additional crew fee
+- 31-50 guests: $400/hour
+- 51+ guests: $400/hour + $100/hour additional crew fee
+
+**Sunday:**
+- 1-14 guests: $225/hour
+- 15-25 guests: $250/hour
+- 26-30 guests: $250/hour + $50/hour additional crew fee
+- 31-50 guests: $300/hour
+- 51+ guests: $300/hour + $100/hour additional crew fee
+
+### Additional Fees & Taxes
+- **Tax:** 8.25% on subtotal
+- **Gratuity:** 20% on subtotal (mandatory)
+- **Additional Crew Fee:** Applied when guest count requires extra crew (see rates above)
+
+---
+
+## PRIVATE CRUISE SCHEDULES
+
+**Monday - Thursday:**
+- 3-hour and 4-hour slots available
+- Slots start every 30 minutes from 10:00 AM
+- All cruises must end by 8:30 PM
+- Last 3-hour slot: 5:30 PM start
+- Last 4-hour slot: 4:30 PM start
+
+**Friday:**
+- Two fixed 4-hour slots:
+  - 12:00 PM - 4:00 PM
+  - 4:30 PM - 8:30 PM
+
+**Saturday:**
+- Two fixed 4-hour slots:
+  - 11:00 AM - 3:00 PM
+  - 3:30 PM - 7:30 PM
+
+**Sunday:**
+- Two fixed 4-hour slots:
+  - 11:00 AM - 3:00 PM
+  - 3:30 PM - 7:30 PM
+
+---
+
+## PRIVATE CRUISE PACKAGES
+
+**Standard Private Cruise** (Included in base price)
+- Private boat exclusively for your group
+- Professional captain and crew
+- Sound system with Bluetooth
+- Coolers and ice provided
+- Swimming and floating time
+- Custom itinerary
+
+**Standard Essentials Package** (Add-on pricing)
+- 1-14 guests: +$100
+- 15-30 guests: +$150
+- 31+ guests: +$200
+- Includes: Premium floats, party supplies, enhanced amenities
+
+**Ultimate Disco Party Package** (Add-on pricing)
+- 1-14 guests: +$250
+- 15-30 guests: +$300
+- 31+ guests: +$350
+- Includes: Everything in Essentials + DJ equipment, disco lights, premium party setup
+
+---
+
+## DISCO CRUISE (SHARED EXPERIENCE)
+
+### Schedule & Availability
+- **Season:** March through October only
+- **Days:** Friday and Saturday only
+- **Capacity:** 100 passengers total per cruise
+
+**Friday Schedule:**
+- 12:00 PM - 4:00 PM (4 hours)
+
+**Saturday Schedule:**
+- 11:00 AM - 3:00 PM (4 hours)
+- 3:30 PM - 7:30 PM (4 hours)
+
+### Disco Cruise Pricing
+**Per-Person Ticket Pricing (NOT per hour):**
+
+**Basic Bach Package - $85/person**
+- GIANT 25-ft Inflatable Unicorn Float
+- Incredible DJ Spinning All Day
+- Pro Photographer & Free Photos
+- 3 Giant Lily Pad Floats
+- Cups, Koozies, Bubbles, Name Tags
+- Shared Community Coolers with Ice
+- BYOB - Bring Your Own Beverages
+- Ice Water, Cups, Koozies provided
+
+**Disco Queen Package - $95/person**
+- Everything in Basic Bach Package PLUS:
+- Private Cooler with Ice & Storage Bin
+- Reserved Spot for Your Group
+- Disco Ball Cup & Bubble Gun for Bride
+- Disco Visor & Disco Ball Necklace for Groom
+- Complimentary Direct-to-Boat Alcohol & Lunch Delivery
+- 25% Discount on Round-Trip Transportation
+- $50-$100 Voucher for Airbnb Booze Delivery
+
+**Super Sparkle Platinum Disco Package - $105/person**
+- Everything in Disco Queen Package PLUS:
+- Personal Unicorn Float for Bride or Groom
+- Mimosa Setup with Champagne Flutes, 3 Juices & Chambong
+- $100 Voucher for Airbnb Concierge Services
+- Towel Service & SPF-50 Spray Sunscreen
+- Nothing to Carry - Cooler Pre-Stocked with Your Drinks
+
+### Disco Cruise Tax & Fees
+- **Tax:** 8.25% on ticket subtotal
+- **Gratuity:** 20% on ticket subtotal
+- **Total per ticket** = (Package Price × Ticket Count) + Tax + Gratuity
+
+---
+
+## DEPOSIT & PAYMENT RULES
+
+### Deposit Requirements Based on Booking Timeline
+
+**14+ Days Before Event:**
+- Deposit: 25% of total
+- Remaining balance due: 14 days before event date
+
+**Less Than 14 Days Before Event:**
+- Deposit: 50% of total
+- Remaining balance due: 3 days after booking
+
+### Payment Methods
+- All payments processed through Stripe
+- Credit/Debit cards accepted
+- Deposit secures the booking
+- Promo codes can be applied at checkout
+
+---
+
+## PROMO CODE SYSTEM
+- Promo codes can be percentage-based or fixed dollar amount
+- Applied before deposit calculation
+- Can be experience-specific (Disco only, Private only, or both)
+- Usage limits and expiration dates enforced
+- Code validation happens at checkout
+
+---
+
+## BOOKING FLOW LOGIC
+
+1. **Party Type Selection:** User selects Bachelorette/Bachelor Party or Other Event
+2. **Guest Count:** User enters number of guests
+3. **Date Selection:** User picks event date
+4. **Lead Capture:** Name, email, phone collected (creates lead in system)
+5. **Cruise Selection Display:**
+   - If Bach Party + Weekend + Disco Season → Show both Disco and Private options side-by-side
+   - If weekday or off-season → Show Private Cruise options only
+   - Display real-time availability for selected date
+6. **Time Slot Selection:** User chooses from available time slots
+7. **Package Selection:** User selects package tier
+8. **Checkout:** Stripe payment processing with deposit calculation
+9. **Confirmation:** Booking created, time slot capacity updated, notifications sent
+
+---
+
+## KEY BUSINESS RULES
+
+1. **Time slots are LIVE** - once booked, capacity decreases in real-time
+2. **Private cruises book the ENTIRE boat** - capacity decreases to 0 when booked
+3. **Disco cruises are per-person** - capacity decreases by ticket count
+4. **Conflicting time slots auto-blocked** - 30-minute buffer before/after private bookings
+5. **Abandoned bookings tracked** - System logs incomplete checkout attempts for follow-up
+6. **All times in Central Time (CST/CDT)** - Automatic DST handling
+7. **Saturday is premium pricing** - Significantly higher rates reflect peak demand
+8. **Disco cruises are Bach Party focus** - Marketing emphasizes bachelorette/bachelor groups
+
+---
+
+## CALCULATION EXAMPLES
+
+**Example 1: Private Cruise**
+- Date: Saturday
+- Guests: 20
+- Duration: 4 hours
+- Package: Standard Essentials
+
+Calculation:
+- Base Rate: $375/hour × 4 hours = $1,500
+- Package Add-on: $150
+- Subtotal: $1,650
+- Tax (8.25%): $136.13
+- Gratuity (20%): $330
+- **Total: $2,116.13**
+- Deposit (25% if 14+ days out): $529.03
+
+**Example 2: Disco Cruise**
+- Date: Saturday, 11 AM slot
+- Package: Disco Queen
+- Tickets: 12
+
+Calculation:
+- Ticket Price: $95 × 12 = $1,140
+- Tax (8.25%): $94.05
+- Gratuity (20%): $228
+- **Total: $1,462.05**
+- Deposit (25% if 14+ days out): $365.51
+
+---
+
+Use this guide to ensure accurate quotes, proper boat recommendations, correct pricing calculations, and adherence to all scheduling and capacity rules.
