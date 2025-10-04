@@ -24,7 +24,7 @@ import {
   Leaf, Check, AlertCircle, DollarSign, Timer, CreditCard, 
   CloudRain, HelpCircle, Anchor, Droplets, Waves, Info, 
   TrendingUp, Package, Plane, Wine, PartyPopper as ConfettiIcon,
-  X, Eye
+  X, Eye, Smile
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
