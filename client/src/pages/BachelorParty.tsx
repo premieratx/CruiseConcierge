@@ -1820,6 +1820,76 @@ export default function BachelorParty() {
         </div>
       </div>
 
+      {/* Related Services Section */}
+      <section className="py-20 bg-gray-50 dark:bg-gray-900 pb-32">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-4 text-gray-900 dark:text-white">
+              EXPLORE MORE AUSTIN PARTY CRUISE OPTIONS
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Check out our other Lake Travis party boat experiences perfect for any celebration
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <Link href="/bachelorette-party-austin" data-testid="link-bachelorette-from-bachelor">
+              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Bachelorette Party Austin</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">Sister service - ATX Disco Cruise bachelorette party boats on Lake Travis</p>
+                </CardHeader>
+              </Card>
+            </Link>
+
+            <Link href="/combined-bachelor-bachelorette-austin" data-testid="link-combined-from-bachelor">
+              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Combined Bachelor & Bachelorette</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">Party together on our Lake Travis party boats - perfect for couples</p>
+                </CardHeader>
+              </Card>
+            </Link>
+
+            <Link href="/private-cruises" data-testid="link-private-from-bachelor">
+              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Private Austin Cruises</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">Exclusive private boat charters on Lake Travis for bachelor groups</p>
+                </CardHeader>
+              </Card>
+            </Link>
+
+            <Link href="/gallery" data-testid="link-gallery-from-bachelor">
+              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Photo Gallery</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">See real bachelor party photos from our Austin boat cruises</p>
+                </CardHeader>
+              </Card>
+            </Link>
+
+            <Link href="/contact" data-testid="link-contact-from-bachelor">
+              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Contact Us</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">Get a custom quote for your bachelor party boat experience</p>
+                </CardHeader>
+              </Card>
+            </Link>
+
+            <Link href="/" data-testid="link-home-from-bachelor">
+              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Back to Home</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">Explore all our party cruise options and services</p>
+                </CardHeader>
+              </Card>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <Footer />
     </div>

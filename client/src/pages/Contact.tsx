@@ -364,6 +364,76 @@ export default function Contact() {
         </div>
       </section>
 
+      {/* Explore Our Services Section */}
+      <section className="py-20 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-4 text-gray-900 dark:text-white">
+              EXPLORE OUR LAKE TRAVIS EXPERIENCES
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+              Check out our Austin party boat options before you book
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+            <Link href="/bachelor-party-austin" data-testid="link-bachelor-party-contact">
+              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Bachelor Party Boat Austin</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">Ultimate bachelor party cruises on Lake Travis with everything included</p>
+                </CardHeader>
+              </Card>
+            </Link>
+
+            <Link href="/bachelorette-party-austin" data-testid="link-bachelorette-party-contact">
+              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Bachelorette Austin Cruise</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">Premier bachelorette party boats - Our specialty since 2009</p>
+                </CardHeader>
+              </Card>
+            </Link>
+
+            <Link href="/party-boat-lake-travis" data-testid="link-party-boat-contact">
+              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Lake Travis Party Boats</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">Premium Austin party boats for unforgettable celebrations</p>
+                </CardHeader>
+              </Card>
+            </Link>
+
+            <Link href="/private-cruises" data-testid="link-private-cruises-contact">
+              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Private Boat Rentals Austin</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">Exclusive private Lake Travis cruises for your group</p>
+                </CardHeader>
+              </Card>
+            </Link>
+
+            <Link href="/" data-testid="link-home-contact">
+              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">View All Services</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">Explore our complete party cruise lineup and packages</p>
+                </CardHeader>
+              </Card>
+            </Link>
+
+            <Link href="/gallery" data-testid="link-gallery-contact">
+              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Photo Gallery</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">See real photos from our Austin party boat cruises</p>
+                </CardHeader>
+              </Card>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </div>
   );

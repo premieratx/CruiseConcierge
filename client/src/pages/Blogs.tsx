@@ -479,6 +479,76 @@ export default function Blogs() {
         </div>
       </div>
 
+      {/* Related Services Section */}
+      <section className="py-20 bg-gradient-to-br from-brand-blue to-blue-700">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-4 text-white">
+              READY TO BOOK YOUR CRUISE?
+            </h2>
+            <p className="text-lg text-blue-100 max-w-2xl mx-auto">
+              Explore our Austin party boat experiences and book your Lake Travis adventure today
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-8">
+            <Link href="/bachelor-party-austin" data-testid="link-bachelor-party-blogs">
+              <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Bachelor Party Boat Austin</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">Epic bachelor party cruises on Lake Travis with DJ, photographer, and premium service</p>
+                </CardHeader>
+              </Card>
+            </Link>
+
+            <Link href="/bachelorette-party-austin" data-testid="link-bachelorette-party-blogs">
+              <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Bachelorette Party Austin</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">Austin's #1 bachelorette party boat cruise since 2009 - ATX Disco Cruise</p>
+                </CardHeader>
+              </Card>
+            </Link>
+
+            <Link href="/party-boat-lake-travis" data-testid="link-party-boat-blogs">
+              <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Party Boat Lake Travis</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">Premier Lake Travis party boats perfect for any celebration or event</p>
+                </CardHeader>
+              </Card>
+            </Link>
+
+            <Link href="/private-cruises" data-testid="link-private-cruises-blogs">
+              <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Private Austin Boat Charters</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">Exclusive private boat rentals on Lake Travis for your special event</p>
+                </CardHeader>
+              </Card>
+            </Link>
+
+            <Link href="/" data-testid="link-home-blogs">
+              <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Back to Home</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">Explore all our Lake Travis party cruise options and services</p>
+                </CardHeader>
+              </Card>
+            </Link>
+
+            <Link href="/contact" data-testid="link-contact-blogs">
+              <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-brand-yellow">
+                <CardHeader>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Contact Us</CardTitle>
+                  <p className="text-gray-600 dark:text-gray-400">Get a custom quote for your Austin party boat experience</p>
+                </CardHeader>
+              </Card>
+            </Link>
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </>
   );
