@@ -245,6 +245,32 @@ export const blogPostTags = pgTable("blog_post_tags", {
 });
 
 // ==========================================
+// AI ENDORSEMENTS & AUTHORITY SIGNALS
+// ==========================================
+
+export const endorsements = pgTable("endorsements", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  source: varchar("source", { length: 100 }).notNull(), // e.g., "Claude AI (Anthropic)"
+  sourceType: varchar("source_type", { length: 50 }).notNull().default("ai_analysis"), // 'ai_analysis', 'review', 'certification'
+  headline: text("headline").notNull(), // e.g., "9.8/10 SEO Excellence Rating"
+  rating: integer("rating"), // Score out of 10 or 100
+  maxRating: integer("max_rating").default(10), // For schema.org Review rating
+  summary: text("summary").notNull(), // Brief overview for display
+  fullAnalysis: text("full_analysis"), // Complete transcript/analysis
+  highlightQuotes: jsonb("highlight_quotes").$type<string[]>().default([]), // Key quotes to feature
+  artifactUrl: text("artifact_url"), // Link to original Claude artifact or PDF
+  artifactType: varchar("artifact_type", { length: 50 }), // 'url', 'pdf', 'text'
+  artifactData: text("artifact_data"), // Store artifact content if needed
+  categories: jsonb("categories").$type<string[]>().default([]), // e.g., ['seo', 'content', 'authority']
+  displayOnHomepage: boolean("display_on_homepage").notNull().default(false),
+  displayOrder: integer("display_order").default(0), // For sorting multiple endorsements
+  publishedAt: timestamp("published_at").notNull().defaultNow(),
+  active: boolean("active").notNull().default(true),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+// ==========================================
 // SEO MANAGEMENT
 // ==========================================
 
@@ -614,6 +640,20 @@ export const insertBlogPostTagSchema = createInsertSchema(blogPostTags).omit({
   tagId: z.string().min(1, "Tag ID is required"),
 });
 
+export const insertEndorsementSchema = createInsertSchema(endorsements).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+}).extend({
+  source: z.string().min(1, "Source is required"),
+  headline: z.string().min(1, "Headline is required"),
+  summary: z.string().min(1, "Summary is required"),
+  rating: z.number().int().min(0).max(100).optional(),
+  maxRating: z.number().int().default(10),
+  highlightQuotes: z.array(z.string()).default([]),
+  categories: z.array(z.string()).default([]),
+});
+
 export const insertSeoPageSchema = createInsertSchema(seoPages).omit({
   id: true,
   createdAt: true,
@@ -695,6 +735,7 @@ export type BlogTag = typeof blogTags.$inferSelect;
 export type BlogPost = typeof blogPosts.$inferSelect;
 export type BlogPostCategory = typeof blogPostCategories.$inferSelect;
 export type BlogPostTag = typeof blogPostTags.$inferSelect;
+export type Endorsement = typeof endorsements.$inferSelect;
 export type SeoPage = typeof seoPages.$inferSelect;
 export type MediaItem = typeof mediaItems.$inferSelect;
 export type PhotoEdit = typeof photoEdits.$inferSelect;
@@ -718,6 +759,7 @@ export type InsertBlogTag = z.infer<typeof insertBlogTagSchema>;
 export type InsertBlogPost = z.infer<typeof insertBlogPostSchema>;
 export type InsertBlogPostCategory = z.infer<typeof insertBlogPostCategorySchema>;
 export type InsertBlogPostTag = z.infer<typeof insertBlogPostTagSchema>;
+export type InsertEndorsement = z.infer<typeof insertEndorsementSchema>;
 export type InsertSeoPage = z.infer<typeof insertSeoPageSchema>;
 export type InsertMediaItem = z.infer<typeof insertMediaItemSchema>;
 export type InsertPhotoEdit = z.infer<typeof insertPhotoEditSchema>;
