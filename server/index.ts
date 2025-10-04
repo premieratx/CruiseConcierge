@@ -98,6 +98,18 @@ app.use('/q/', (req, res, next) => {
 
   // Sitemap route - must be registered before Vite to avoid catch-all interference
   const Database = (await import("@replit/database")).default;
+  
+  // Utility to unwrap Replit DB responses
+  const unwrapDbResponse = (response: any): any => {
+    if (Array.isArray(response) || response === null || response === undefined) {
+      return response;
+    }
+    if (response && typeof response === 'object' && 'value' in response) {
+      return unwrapDbResponse(response.value);
+    }
+    return response;
+  };
+  
   app.get('/sitemap.xml', async (req: Request, res: Response) => {
     try {
       const replitDb = new Database();
@@ -105,7 +117,9 @@ app.use('/q/', (req, res, next) => {
         ? `https://${process.env.REPLIT_DEV_DOMAIN}` 
         : 'https://premierpartycruises.com';
       
-      const posts = await replitDb.get("index:posts") || [];
+      // Get post slugs from Replit DB and unwrap response
+      const postsIndexRaw = await replitDb.get("index:posts");
+      const slugs = unwrapDbResponse(postsIndexRaw) || [];
       const now = new Date().toISOString();
       
       const staticPages = [
@@ -119,9 +133,10 @@ app.use('/q/', (req, res, next) => {
         { url: '/contact', lastmod: now, changefreq: 'monthly', priority: 0.5 }
       ];
       
-      const blogPages = posts.map((post: any) => ({
-        url: `/blogs/${post.slug}`,
-        lastmod: post.updatedAt || post.publishedAt || post.createdAt || now,
+      // Map slugs to blog pages
+      const blogPages = slugs.map((slug: string) => ({
+        url: `/blogs/${slug}`,
+        lastmod: now,
         changefreq: 'monthly',
         priority: 0.7
       }));

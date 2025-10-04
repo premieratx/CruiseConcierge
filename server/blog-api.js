@@ -47,6 +47,23 @@ const getRequireAdminAuth = async () => {
 const db = new Database();
 export const blogRouter = express.Router();
 
+// Utility: Unwrap Replit DB responses (handles single, double, or no wrapping)
+function unwrapDbResponse(response) {
+  // If it's already an array or null/undefined, return as-is
+  if (Array.isArray(response) || response === null || response === undefined) {
+    return response;
+  }
+  
+  // If it's an object with a 'value' property, recursively unwrap
+  if (response && typeof response === 'object' && 'value' in response) {
+    return unwrapDbResponse(response.value);
+  }
+  
+  // If we get here and it's an object but not wrapped, return as-is
+  // (this handles the case where individual posts are returned directly)
+  return response;
+}
+
 // Import storage for PostgreSQL blog data
 let storage = null;
 const getStorage = async () => {
@@ -88,14 +105,14 @@ blogRouter.get("/public/posts", async (req, res) => {
     } = req.query;
 
     const postsIndexRaw = await db.get("index:posts");
-    let slugs = Array.isArray(postsIndexRaw) ? postsIndexRaw : (postsIndexRaw?.value || []);
+    let slugs = unwrapDbResponse(postsIndexRaw) || [];
     
     // Filter by featured status
     if (featured === 'true') {
       const matches = [];
       for (const s of slugs) {
         const postRaw = await db.get(`post:${s}`);
-        const post = postRaw?.value || postRaw;
+        const post = unwrapDbResponse(postRaw);
         if (post?.featured === true && post?.status === "published") {
           matches.push(s);
         }
@@ -108,7 +125,7 @@ blogRouter.get("/public/posts", async (req, res) => {
       const matches = [];
       for (const s of slugs) {
         const postRaw = await db.get(`post:${s}`);
-        const post = postRaw?.value || postRaw;
+        const post = unwrapDbResponse(postRaw);
         if (post?.categories?.some(c => c.slug === categorySlug)) {
           matches.push(s);
         }
@@ -121,7 +138,7 @@ blogRouter.get("/public/posts", async (req, res) => {
       const matches = [];
       for (const s of slugs) {
         const postRaw = await db.get(`post:${s}`);
-        const post = postRaw?.value || postRaw;
+        const post = unwrapDbResponse(postRaw);
         if (post?.tags?.some(t => t.slug === tagSlug)) {
           matches.push(s);
         }
@@ -135,7 +152,7 @@ blogRouter.get("/public/posts", async (req, res) => {
       const matches = [];
       for (const s of slugs) {
         const postRaw = await db.get(`post:${s}`);
-        const post = postRaw?.value || postRaw;
+        const post = unwrapDbResponse(postRaw);
         if (post && (
           post.title?.toLowerCase().includes(q) ||
           post.excerpt?.toLowerCase().includes(q) ||
@@ -156,7 +173,7 @@ blogRouter.get("/public/posts", async (req, res) => {
     // Load posts
     const postsRaw = await Promise.all(paginatedSlugs.map(s => db.get(`post:${s}`)));
     const posts = postsRaw
-      .map(raw => raw?.value || raw)
+      .map(raw => unwrapDbResponse(raw))
       .filter(p => p && p.status === "published");
 
     return res.json({ posts, total });
@@ -171,16 +188,7 @@ blogRouter.get("/public/posts/:slug", async (req, res) => {
   try {
     const slug = req.params.slug;
     const postRaw = await db.get(`post:${slug}`);
-    
-    // Handle double-wrapped response
-    let post = null;
-    if (postRaw?.value?.value) {
-      post = postRaw.value.value;
-    } else if (postRaw?.value) {
-      post = postRaw.value;
-    } else {
-      post = postRaw;
-    }
+    const post = unwrapDbResponse(postRaw);
     
     if (!post || post.status !== "published") {
       return res.status(404).json({ error: "Not found" });
@@ -191,30 +199,12 @@ blogRouter.get("/public/posts/:slug", async (req, res) => {
     if (post.categories && post.categories.length > 0) {
       const primaryCategorySlug = post.categories[0].slug;
       const postsIndexRaw = await db.get("index:posts");
-      
-      // Handle double-wrapped response for index
-      let slugs = [];
-      if (Array.isArray(postsIndexRaw)) {
-        slugs = postsIndexRaw;
-      } else if (postsIndexRaw?.value?.value && Array.isArray(postsIndexRaw.value.value)) {
-        slugs = postsIndexRaw.value.value;
-      } else if (postsIndexRaw?.value && Array.isArray(postsIndexRaw.value)) {
-        slugs = postsIndexRaw.value;
-      }
+      const slugs = unwrapDbResponse(postsIndexRaw) || [];
       
       for (const s of slugs) {
         if (s === slug || relatedPosts.length >= 3) continue;
         const relatedPostRaw = await db.get(`post:${s}`);
-        
-        // Handle double-wrapped response for individual posts
-        let relatedPost = null;
-        if (relatedPostRaw?.value?.value) {
-          relatedPost = relatedPostRaw.value.value;
-        } else if (relatedPostRaw?.value) {
-          relatedPost = relatedPostRaw.value;
-        } else {
-          relatedPost = relatedPostRaw;
-        }
+        const relatedPost = unwrapDbResponse(relatedPostRaw);
         
         if (relatedPost?.status === "published" && 
             relatedPost?.categories?.some(c => c.slug === primaryCategorySlug)) {
@@ -241,17 +231,17 @@ blogRouter.get("/public/categories", async (_req, res) => {
   try {
     // Collect categories from all posts
     const postsIndexRaw = await db.get("index:posts");
-    const slugs = Array.isArray(postsIndexRaw) ? postsIndexRaw : (postsIndexRaw?.value || []);
+    const slugs = unwrapDbResponse(postsIndexRaw) || [];
     const catSlugsSet = new Set();
     
     for (const s of slugs) {
       const postRaw = await db.get(`post:${s}`);
-      const post = postRaw?.value || postRaw;
+      const post = unwrapDbResponse(postRaw);
       (post?.categories || []).forEach(c => catSlugsSet.add(c.slug));
     }
     
     const categoriesRaw = await Promise.all([...catSlugsSet].map(cs => db.get(`category:${cs}`)));
-    const categories = categoriesRaw.map(raw => raw?.value || raw).filter(Boolean);
+    const categories = categoriesRaw.map(raw => unwrapDbResponse(raw)).filter(Boolean);
     res.json(categories);
   } catch (e) {
     console.error("Blog categories fetch error:", e);
@@ -264,17 +254,17 @@ blogRouter.get("/public/tags", async (_req, res) => {
   try {
     // Collect tags from all posts
     const postsIndexRaw = await db.get("index:posts");
-    const slugs = Array.isArray(postsIndexRaw) ? postsIndexRaw : (postsIndexRaw?.value || []);
+    const slugs = unwrapDbResponse(postsIndexRaw) || [];
     const tagSlugsSet = new Set();
     
     for (const s of slugs) {
       const postRaw = await db.get(`post:${s}`);
-      const post = postRaw?.value || postRaw;
+      const post = unwrapDbResponse(postRaw);
       (post?.tags || []).forEach(t => tagSlugsSet.add(t.slug));
     }
     
     const tagsRaw = await Promise.all([...tagSlugsSet].map(ts => db.get(`tag:${ts}`)));
-    const tags = tagsRaw.map(raw => raw?.value || raw).filter(Boolean);
+    const tags = tagsRaw.map(raw => unwrapDbResponse(raw)).filter(Boolean);
     res.json(tags);
   } catch (e) {
     console.error("Blog tags fetch error:", e);
@@ -288,13 +278,13 @@ blogRouter.get("/health", async (_req, res) => {
   try {
     // Get WordPress data from Replit DB
     const postsIndexRaw = await db.get("index:posts");
-    const wpPostSlugs = Array.isArray(postsIndexRaw) ? postsIndexRaw : (postsIndexRaw?.value || []);
+    const wpPostSlugs = unwrapDbResponse(postsIndexRaw) || [];
     
     // Count WordPress posts by status
     const wpCounts = { total: 0, published: 0, draft: 0 };
     for (const slug of wpPostSlugs) {
       const postRaw = await db.get(`post:${slug}`);
-      const post = postRaw?.value || postRaw;
+      const post = unwrapDbResponse(postRaw);
       if (post) {
         wpCounts.total++;
         if (post.status === 'published') wpCounts.published++;
@@ -419,7 +409,7 @@ blogRouter.get("/management", async (req, res, next) => {
     let wordpressPosts = [];
     try {
       const postsIndexRaw = await db.get("index:posts");
-      const slugs = Array.isArray(postsIndexRaw) ? postsIndexRaw : (postsIndexRaw?.value || []);
+      const slugs = unwrapDbResponse(postsIndexRaw) || [];
       
       // Apply filters for WordPress posts
       let filteredSlugs = slugs;
@@ -429,7 +419,7 @@ blogRouter.get("/management", async (req, res, next) => {
         const matches = [];
         for (const s of filteredSlugs) {
           const postRaw = await db.get(`post:${s}`);
-          const post = postRaw?.value || postRaw;
+          const post = unwrapDbResponse(postRaw);
           if (post && post.status === status) matches.push(s);
         }
         filteredSlugs = matches;
@@ -441,7 +431,7 @@ blogRouter.get("/management", async (req, res, next) => {
         const matches = [];
         for (const s of filteredSlugs) {
           const postRaw = await db.get(`post:${s}`);
-          const post = postRaw?.value || postRaw;
+          const post = unwrapDbResponse(postRaw);
           if (post && (
             post.title?.toLowerCase().includes(q) ||
             post.excerpt?.toLowerCase().includes(q) ||
@@ -455,7 +445,7 @@ blogRouter.get("/management", async (req, res, next) => {
 
       // Load WordPress posts
       const wpPostsRaw = await Promise.all(filteredSlugs.map(s => db.get(`post:${s}`)));
-      const wpPosts = wpPostsRaw.map(raw => raw?.value || raw).filter(Boolean);
+      const wpPosts = wpPostsRaw.map(raw => unwrapDbResponse(raw)).filter(Boolean);
       wordpressPosts = wpPosts.map(post => ({
         ...post,
         source: 'wordpress',
@@ -547,8 +537,8 @@ blogRouter.get("/management", async (req, res, next) => {
       const wpTagsRaw = await Promise.all([...wpTagSlugsSet].map(ts => db.get(`tag:${ts}`)));
       
       // Handle Replit DB response format and filter out nulls
-      wordpressCategories = wpCategoriesRaw.map(raw => raw?.value || raw).filter(Boolean);
-      wordpressTags = wpTagsRaw.map(raw => raw?.value || raw).filter(Boolean);
+      wordpressCategories = wpCategoriesRaw.map(raw => unwrapDbResponse(raw)).filter(Boolean);
+      wordpressTags = wpTagsRaw.map(raw => unwrapDbResponse(raw)).filter(Boolean);
       
       // WordPress authors (simplified)
       const uniqueAuthors = new Set();
