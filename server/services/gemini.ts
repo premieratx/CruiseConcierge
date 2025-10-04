@@ -180,3 +180,23 @@ export async function findBestPhotosForSection(photos: any[], sectionType: strin
   const result = await response.text;
   return JSON.parse(result || "[]");
 }
+
+export async function generateBlogContent(prompt: string): Promise<string> {
+  try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: [{
+        role: 'user',
+        parts: [{
+          text: prompt
+        }]
+      }]
+    });
+
+    const result = await response.text;
+    return result || "";
+  } catch (error) {
+    console.error('Blog content generation failed:', error);
+    throw error;
+  }
+}

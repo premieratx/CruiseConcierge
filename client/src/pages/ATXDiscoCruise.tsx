@@ -14,6 +14,7 @@ import SEOHead, { generateFAQSchema } from '@/components/SEOHead';
 import { DISCO_PRICING } from '@shared/constants';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import DiscoVsPrivateComparison from '@/components/DiscoVsPrivateComparison';
+import DiscoVsPrivateValueCalculator from '@/components/DiscoVsPrivateValueCalculator';
 import { 
   Users, Clock, Star, Calendar, MapPin, Ship, Phone,
   ArrowRight, CheckCircle, Sparkles, Crown, Music, 
@@ -22,7 +23,8 @@ import {
   Gift, Disc3, Volume2, Mic, Utensils, GlassWater, UserCheck, 
   Leaf, Check, AlertCircle, DollarSign, Timer, CreditCard, 
   CloudRain, HelpCircle, Anchor, Droplets, Waves, Info, 
-  TrendingUp, Package, Plane, Wine, PartyPopper as ConfettiIcon
+  TrendingUp, Package, Plane, Wine, PartyPopper as ConfettiIcon,
+  X, Eye
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
@@ -918,6 +920,482 @@ export default function ATXDiscoCruise() {
           </div>
         </motion.section>
 
+        {/* Comprehensive Why You Should Book ATX Disco Cruise Section */}
+        <section className="py-20 bg-gradient-to-br from-purple-900 via-pink-900 to-orange-900 text-white">
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="text-center mb-16"
+            >
+              <Badge className="mb-6 bg-gradient-to-r from-yellow-400 to-orange-500 text-black text-xl px-8 py-3 font-bold">
+                <Sparkles className="w-6 h-6 mr-2 inline" /> Why Book ATX Disco Cruise
+              </Badge>
+              <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-6">
+                Why You Should Book the <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">ATX Disco Cruise</span>
+              </h2>
+              <p className="text-2xl md:text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500 mb-4">
+                SHOW UP & GET DOWN!!
+              </p>
+              <p className="text-xl text-white/90 max-w-4xl mx-auto">
+                The country's ONLY all-inclusive multi-group bachelor/bachelorette party cruise. Here's why thousands of groups from across America choose us every year.
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={staggerChildren}
+              className="max-w-7xl mx-auto"
+            >
+              <Accordion type="multiple" className="space-y-4">
+                {/* Benefit 1: Show Up & Get Down */}
+                <AccordionItem value="item-1" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
+                  <AccordionTrigger className="text-xl font-bold hover:text-yellow-400" data-testid="accordion-showup-disco">
+                    <div className="flex items-center gap-3">
+                      <Zap className="h-6 w-6 text-yellow-400" />
+                      <span>Just SHOW UP & GET DOWN! Everything's Included!</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/90 text-lg pt-4">
+                    <p className="mb-3">Literally just show up with your alcohol and PARTY! We provide absolutely everything else:</p>
+                    <ul className="space-y-2 ml-6">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                        <span>Professional DJ playing your favorite hits all day long</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                        <span>Professional photographer capturing every epic moment</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                        <span>Private cooler with ice already set up for your group</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                        <span>Mimosa supplies (juice & fresh fruit - just add champagne!)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                        <span>Giant lily pad floats for the ultimate Instagram moment</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                        <span>Bubbles, koozies, name tags, cups - all the party supplies</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                        <span>Ice water stations to keep everyone hydrated</span>
+                      </li>
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+
+                {/* Benefit 2: Best Weekend Ever */}
+                <AccordionItem value="item-2" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
+                  <AccordionTrigger className="text-xl font-bold hover:text-yellow-400" data-testid="accordion-best-weekend-disco">
+                    <div className="flex items-center gap-3">
+                      <Trophy className="h-6 w-6 text-yellow-400" />
+                      <span>The BEST Weekend of Their Life!</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/90 text-lg pt-4">
+                    <p>This isn't just another boat rental - it's a LEGENDARY experience that will be talked about for years! Your group will remember this as the most epic day of the entire bachelor/bachelorette party weekend. With professional entertainment, amazing vibes, and the energy of multiple parties celebrating together, this is THE highlight that makes your Austin party unforgettable.</p>
+                  </AccordionContent>
+                </AccordionItem>
+
+                {/* Benefit 3: Highlight Every Time */}
+                <AccordionItem value="item-3" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
+                  <AccordionTrigger className="text-xl font-bold hover:text-yellow-400" data-testid="accordion-highlight-disco">
+                    <div className="flex items-center gap-3">
+                      <Star className="h-6 w-6 text-yellow-400 fill-current" />
+                      <span>It's the Highlight of The Weekend, EVERY. DAMN. TIME.</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/90 text-lg pt-4">
+                    <p>Don't just take our word for it - after hosting thousands of parties, we can confidently say this is THE most fun they've had in years. The combination of the beautiful lake, professional DJ, amazing energy from multiple groups, and 4 full hours of non-stop partying creates an experience that consistently tops every other party activity. Your crew will be talking about this for decades!</p>
+                  </AccordionContent>
+                </AccordionItem>
+
+                {/* Benefit 4: Turnkey Convenience */}
+                <AccordionItem value="item-4" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
+                  <AccordionTrigger className="text-xl font-bold hover:text-yellow-400" data-testid="accordion-turnkey-disco">
+                    <div className="flex items-center gap-3">
+                      <Heart className="h-6 w-6 text-yellow-400" />
+                      <span>You've Got Enough to Worry About! We Handle Everything!</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/90 text-lg pt-4">
+                    <p className="mb-3">Planning a party is stressful enough. Don't deal with:</p>
+                    <ul className="space-y-2 ml-6 mb-3">
+                      <li className="flex items-start gap-2">
+                        <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
+                        <span>Renting and hauling coolers, ice, cups, and party supplies</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
+                        <span>Coordinating a DJ or music setup</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
+                        <span>Finding and paying a photographer</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
+                        <span>Buying floats and water toys</span>
+                      </li>
+                    </ul>
+                    <p className="font-bold text-yellow-400">Everything is ready when you arrive - just bring your booze and GET DOWN!</p>
+                  </AccordionContent>
+                </AccordionItem>
+
+                {/* Benefit 5: Multi-Group Party */}
+                <AccordionItem value="item-5" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
+                  <AccordionTrigger className="text-xl font-bold hover:text-yellow-400" data-testid="accordion-multi-group-disco">
+                    <div className="flex items-center gap-3">
+                      <Users className="h-6 w-6 text-yellow-400" />
+                      <span>Party With Other Bachelor & Bachelorette Parties from All Over America!</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/90 text-lg pt-4">
+                    <p className="mb-3">This is what makes the ATX Disco Cruise TRULY unique - you're not alone on the boat! We host multiple bachelor AND bachelorette parties from across the country, all celebrating together:</p>
+                    <ul className="space-y-2 ml-6">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                        <span>Meet groups from California, New York, Florida, and everywhere in between</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                        <span>Everyone's there for the SAME REASON - to celebrate and go CRAZY!</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                        <span>The energy is ELECTRIC when everyone's celebrating together</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                        <span>Make friends, exchange stories, and create a party atmosphere that's UNMATCHED</span>
+                      </li>
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+
+                {/* Benefit 6: Best Value */}
+                <AccordionItem value="item-6" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
+                  <AccordionTrigger className="text-xl font-bold hover:text-yellow-400" data-testid="accordion-value-disco">
+                    <div className="flex items-center gap-3">
+                      <DollarSign className="h-6 w-6 text-yellow-400" />
+                      <span>Cheaper Per Person Than a Private Cruise (Most of the Time!)</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/90 text-lg pt-4">
+                    <p className="mb-3">For smaller groups (under 15 people), the ATX Disco Cruise is ALWAYS the better deal:</p>
+                    <div className="bg-black/30 rounded-lg p-4 mb-3">
+                      <p className="font-bold text-yellow-400 mb-2">Private Boat Math:</p>
+                      <p>$2,000 private rental ÷ 10 people = $200/person (and you still need to buy supplies!)</p>
+                    </div>
+                    <div className="bg-green-900/30 rounded-lg p-4">
+                      <p className="font-bold text-green-400 mb-2">Disco Cruise Math:</p>
+                      <p>$95/person ALL-INCLUSIVE with DJ, photographer, supplies, and MORE!</p>
+                    </div>
+                    <p className="mt-3 font-bold">You get WAY more value for WAY less money!</p>
+                  </AccordionContent>
+                </AccordionItem>
+
+                {/* Benefit 7: Disco Attire */}
+                <AccordionItem value="item-7" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
+                  <AccordionTrigger className="text-xl font-bold hover:text-yellow-400" data-testid="accordion-disco-attire-disco">
+                    <div className="flex items-center gap-3">
+                      <Sparkles className="h-6 w-6 text-yellow-400" />
+                      <span>Dress Up In Your Finest Disco Attire!</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/90 text-lg pt-4">
+                    <p className="mb-3">While it's not required, we STRONGLY encourage dressing up in disco attire! Think:</p>
+                    <ul className="space-y-2 ml-6 mb-3">
+                      <li>• Sequins, bell-bottoms, and platform shoes</li>
+                      <li>• Funky sunglasses and afro wigs</li>
+                      <li>• Glitter everything!</li>
+                      <li>• Go full Saturday Night Fever/Studio 54!</li>
+                    </ul>
+                    <p className="font-bold text-yellow-400">The groups that dress up have 10X MORE FUN and get AMAZING photos!</p>
+                  </AccordionContent>
+                </AccordionItem>
+
+                {/* Benefit 8: People Watching */}
+                <AccordionItem value="item-8" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
+                  <AccordionTrigger className="text-xl font-bold hover:text-yellow-400" data-testid="accordion-people-watching-disco">
+                    <div className="flex items-center gap-3">
+                      <Eye className="h-6 w-6 text-yellow-400" />
+                      <span>Watch Everyone Celebrate & Go Nuts - Best People Watching on Earth!</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/90 text-lg pt-4">
+                    <p>Seeing 3-4 different bachelor and bachelorette parties all going wild at the same time is PRICELESS entertainment in itself! Watch groups in crazy costumes, see different celebration styles from across America, witness epic dance-offs, and be part of the most energetic party atmosphere you've ever experienced. It's a show within a party within a cruise!</p>
+                  </AccordionContent>
+                </AccordionItem>
+
+                {/* Benefit 9: Nothing Compares */}
+                <AccordionItem value="item-9" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
+                  <AccordionTrigger className="text-xl font-bold hover:text-yellow-400" data-testid="accordion-nothing-compares-disco">
+                    <div className="flex items-center gap-3">
+                      <Award className="h-6 w-6 text-yellow-400" />
+                      <span>Nothing Else Compares - We're Miles Ahead!</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/90 text-lg pt-4">
+                    <p className="mb-3">We've analyzed every party option in Austin and across America:</p>
+                    <ul className="space-y-2 ml-6 mb-3">
+                      <li className="flex items-start gap-2">
+                        <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
+                        <span>Pontoon boat rentals: Tiny, basic, 2 hours max, bring everything yourself</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
+                        <span>Party buses: Cramped, just driving around, no swimming or water fun</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
+                        <span>Bar crawls: Expensive drinks, dealing with crowds, no unique experience</span>
+                      </li>
+                    </ul>
+                    <p className="font-bold text-yellow-400">The ATX Disco Cruise is in a league of its own - nothing else offers this combination of value, fun, and unique experience!</p>
+                  </AccordionContent>
+                </AccordionItem>
+
+                {/* Benefit 10: Proven Track Record */}
+                <AccordionItem value="item-10" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
+                  <AccordionTrigger className="text-xl font-bold hover:text-yellow-400" data-testid="accordion-track-record-disco">
+                    <div className="flex items-center gap-3">
+                      <Shield className="h-6 w-6 text-yellow-400" />
+                      <span>You're In Good Hands - 14 Years, ZERO Incidents!</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/90 text-lg pt-4">
+                    <p className="mb-3">Safety and fun go hand-in-hand with Premier Party Cruises:</p>
+                    <ul className="space-y-2 ml-6">
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                        <span>14+ years of operating parties on Lake Travis</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                        <span>ZERO safety incidents - perfect track record</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                        <span>Professional, experienced crew who know how to throw a party safely</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                        <span>Thousands of 5-star reviews from satisfied groups</span>
+                      </li>
+                    </ul>
+                  </AccordionContent>
+                </AccordionItem>
+
+                {/* Benefit 11: Split Payment */}
+                <AccordionItem value="item-11" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
+                  <AccordionTrigger className="text-xl font-bold hover:text-yellow-400" data-testid="accordion-split-payment-disco">
+                    <div className="flex items-center gap-3">
+                      <CreditCard className="h-6 w-6 text-yellow-400" />
+                      <span>Split Payment With Your Group - Easy as 1-2-3!</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/90 text-lg pt-4">
+                    <p className="mb-3">No more chasing people down for Venmo payments! Our split payment option makes it EASY:</p>
+                    <div className="space-y-3 ml-6">
+                      <div className="flex items-start gap-3">
+                        <div className="bg-yellow-400 text-black rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">1</div>
+                        <p>Share the payment link with your group</p>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="bg-yellow-400 text-black rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">2</div>
+                        <p>Everyone pays their own share directly</p>
+                      </div>
+                      <div className="flex items-start gap-3">
+                        <div className="bg-yellow-400 text-black rounded-full w-8 h-8 flex items-center justify-center font-bold flex-shrink-0">3</div>
+                        <p>No awkward money conversations or fronting thousands of dollars!</p>
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+
+                {/* Benefit 12: Stress-Free Booking */}
+                <AccordionItem value="item-12" className="bg-white/10 backdrop-blur-sm rounded-xl border border-white/20 px-6">
+                  <AccordionTrigger className="text-xl font-bold hover:text-yellow-400" data-testid="accordion-stress-free-disco">
+                    <div className="flex items-center gap-3">
+                      <CheckCircle className="h-6 w-6 text-yellow-400" />
+                      <span>Stress-Free Booking Process - But Don't Sleep On It!</span>
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-white/90 text-lg pt-4">
+                    <div className="space-y-4">
+                      <div>
+                        <p className="font-bold text-yellow-400 mb-2">Super Easy to Book:</p>
+                        <ul className="space-y-2 ml-6">
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                            <span>Quick online checkout in minutes</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                            <span>48-hour full refund window if plans change</span>
+                          </li>
+                          <li className="flex items-start gap-2">
+                            <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
+                            <span>Can easily add more people after booking</span>
+                          </li>
+                        </ul>
+                      </div>
+                      <div className="bg-red-900/50 border-2 border-red-500 rounded-lg p-4">
+                        <p className="font-bold text-red-300 mb-2">⚠️ BUT DON'T WAIT TOO LONG!</p>
+                        <p>We book up SOLID at least a month in advance! Most weekends sell out 4-6 weeks early. Book NOW to secure your spot!</p>
+                      </div>
+                    </div>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
+
+              <div className="text-center mt-12">
+                <Button
+                  size="lg"
+                  onClick={handleBookNow}
+                  className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-black font-bold text-2xl px-16 py-8"
+                  data-testid="button-why-book-cta-disco"
+                >
+                  <Sparkles className="mr-3 h-7 w-7" />
+                  Book Your ATX Disco Cruise Now!
+                  <ArrowRight className="ml-3 h-7 w-7" />
+                </Button>
+                <p className="text-white/80 mt-4">Weekends sell out 4-6 weeks in advance - don't miss out!</p>
+              </div>
+            </motion.div>
+          </div>
+        </section>
+
+        {/* The Lemonade Disco - Weather Guarantee Section */}
+        <section className="py-20 bg-gradient-to-br from-yellow-400 via-orange-400 to-pink-400">
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="max-w-5xl mx-auto"
+            >
+              <Card className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-2xl border-4 border-white">
+                <CardHeader className="text-center pb-6">
+                  <div className="flex items-center justify-center gap-4 mb-4">
+                    <CloudRain className="h-12 w-12 text-blue-600" />
+                    <Sun className="h-16 w-16 text-yellow-500" />
+                    <Smile className="h-12 w-12 text-orange-600" />
+                  </div>
+                  <CardTitle className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                    The <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-orange-600">Lemonade Disco</span>
+                  </CardTitle>
+                  <CardDescription className="text-xl font-semibold text-gray-700 dark:text-gray-300">
+                    If The Weather Gives Us Lemons, We Make Lemonade! :)
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-6">
+                  <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 rounded-xl p-6 border-2 border-blue-200 dark:border-blue-800">
+                    <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
+                      <Shield className="h-7 w-7 text-blue-600" />
+                      Your 100% Weather Guarantee
+                    </h3>
+                    <p className="text-lg mb-4">
+                      We're the ONLY party cruise company in America with a comprehensive weather backup plan. If severe weather makes it unsafe to cruise, we automatically switch to our land-based party - The Lemonade Disco!
+                    </p>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="bg-green-50 dark:bg-green-950/30 rounded-xl p-6 border-2 border-green-300 dark:border-green-800">
+                      <h4 className="text-xl font-bold mb-3 flex items-center gap-2">
+                        <CheckCircle className="h-6 w-6 text-green-600" />
+                        What's Included in Lemonade Disco:
+                      </h4>
+                      <ul className="space-y-2">
+                        <li className="flex items-start gap-2">
+                          <Utensils className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                          <span>Full fajita or BBQ buffet (your choice!)</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Wine className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                          <span>Drinks provided for the group</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Music className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                          <span>Same professional DJ keeping the party going</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Camera className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                          <span>Professional photographer still capturing memories</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <PartyPopper className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                          <span>Same multi-group party atmosphere indoors</span>
+                        </li>
+                      </ul>
+                    </div>
+
+                    <div className="bg-purple-50 dark:bg-purple-950/30 rounded-xl p-6 border-2 border-purple-300 dark:border-purple-800">
+                      <h4 className="text-xl font-bold mb-3 flex items-center gap-2">
+                        <Heart className="h-6 w-6 text-purple-600" />
+                        Why This Matters:
+                      </h4>
+                      <ul className="space-y-3">
+                        <li className="flex items-start gap-2">
+                          <Plane className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
+                          <span>Perfect peace of mind for out-of-town groups</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Calendar className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
+                          <span>Your party happens NO MATTER WHAT</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <Smile className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
+                          <span>Often ends up being just as fun (sometimes even MORE!)</span>
+                        </li>
+                        <li className="flex items-start gap-2">
+                          <DollarSign className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
+                          <span>No additional cost - included in your package!</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                  <div className="bg-gradient-to-r from-orange-100 to-pink-100 dark:from-orange-950/30 dark:to-pink-950/30 rounded-xl p-6 border-2 border-orange-300 dark:border-orange-700 text-center">
+                    <p className="text-lg font-semibold mb-2">
+                      <AlertCircle className="h-6 w-6 inline mr-2 text-orange-600" />
+                      When Does Lemonade Disco Happen?
+                    </p>
+                    <p className="text-gray-700 dark:text-gray-300">
+                      Only if there's a <strong>complete rain-out</strong> with severe weather making it unsafe to be on the water. 
+                      Light rain? We still cruise! We've got covered areas and the party keeps going. 
+                      But if it's genuinely dangerous weather, we've got you covered with the Lemonade Disco!
+                    </p>
+                  </div>
+
+                  <div className="text-center pt-4">
+                    <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 mb-3">
+                      Book With Confidence - Your Party WILL Happen!
+                    </p>
+                    <p className="text-gray-600 dark:text-gray-400">
+                      No other party experience in America offers this level of weather protection. 
+                      That's just one more reason why we're #1!
+                    </p>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </section>
+
         {/* What's Included Section */}
         <motion.section 
           initial="hidden"
@@ -998,7 +1476,7 @@ export default function ATXDiscoCruise() {
           </div>
         </motion.section>
 
-        {/* Value Comparison Section */}
+        {/* Comprehensive Value Comparison Section */}
         <motion.section 
           initial="hidden"
           whileInView="visible"
@@ -1007,8 +1485,182 @@ export default function ATXDiscoCruise() {
           className="py-20 px-4 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-900/10 dark:to-blue-900/10"
           data-testid="section-value-comparison"
         >
-          <div className="max-w-6xl mx-auto">
-            <DiscoVsPrivateComparison />
+          <div className="max-w-7xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
+              <DollarSign className="w-12 h-12 inline mr-3 text-green-600" />
+              The Math Doesn't Lie: Disco Cruise Wins
+            </h2>
+            <p className="text-xl text-center text-gray-600 dark:text-gray-300 mb-12">
+              See exactly how much you save with the ATX Disco Cruise for any group size
+            </p>
+            <DiscoVsPrivateValueCalculator />
+          </div>
+        </motion.section>
+
+        {/* The Cost of NOT Booking - Emotional Impact Section */}
+        <motion.section 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="py-20 px-4 bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/20 dark:to-orange-900/20"
+          data-testid="section-cost-of-not-booking"
+        >
+          <div className="max-w-4xl mx-auto">
+            <h2 className="text-4xl md:text-5xl font-bold text-center mb-6 text-red-600 dark:text-red-400">
+              <AlertCircle className="w-12 h-12 inline mr-3" />
+              The Hidden Cost of Booking a Private Cruise Instead
+            </h2>
+            <p className="text-xl text-center text-gray-700 dark:text-gray-300 mb-12">
+              It's not just about the money you'll spend - it's about what you'll miss
+            </p>
+            
+            <div className="grid md:grid-cols-2 gap-6 mb-12">
+              <Card className="border-red-200 dark:border-red-800">
+                <CardHeader>
+                  <CardTitle className="text-red-600 dark:text-red-400">Financial Loss</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <X className="w-5 h-5 text-red-500 mt-1 flex-shrink-0" />
+                    <p className="text-sm">Pay $500-$1,500+ MORE for a private cruise with less included</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <X className="w-5 h-5 text-red-500 mt-1 flex-shrink-0" />
+                    <p className="text-sm">Spend hours planning, shopping, and coordinating (time = money)</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <X className="w-5 h-5 text-red-500 mt-1 flex-shrink-0" />
+                    <p className="text-sm">Pay separately for DJ ($600) and photographer ($800) - if they even fit on the boat</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <X className="w-5 h-5 text-red-500 mt-1 flex-shrink-0" />
+                    <p className="text-sm">Buy all party supplies yourself ($200-300) - and probably forget something</p>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="border-red-200 dark:border-red-800">
+                <CardHeader>
+                  <CardTitle className="text-red-600 dark:text-red-400">Experience Loss (Priceless)</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-start gap-3">
+                    <X className="w-5 h-5 text-red-500 mt-1 flex-shrink-0" />
+                    <p className="text-sm">Miss the legendary multi-group party atmosphere everyone talks about</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <X className="w-5 h-5 text-red-500 mt-1 flex-shrink-0" />
+                    <p className="text-sm">No chance to meet bachelor/bachelorette parties from across America</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <X className="w-5 h-5 text-red-500 mt-1 flex-shrink-0" />
+                    <p className="text-sm">Just your group on an empty boat instead of an epic celebration</p>
+                  </div>
+                  <div className="flex items-start gap-3">
+                    <X className="w-5 h-5 text-red-500 mt-1 flex-shrink-0" />
+                    <p className="text-sm">Lifelong FOMO: "Why didn't we do the disco cruise like everyone else?"</p>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
+
+            <Card className="bg-orange-50 dark:bg-orange-900/20 border-orange-500">
+              <CardContent className="pt-6">
+                <h3 className="text-2xl font-bold text-center mb-4">
+                  🚨 The REAL Cost: Regret
+                </h3>
+                <p className="text-center text-lg mb-4">
+                  "We're having our bach party in Austin this summer. What should we do?"
+                </p>
+                <p className="text-center text-xl font-bold mb-4">
+                  Everyone: "OMG the disco cruise is LEGENDARY!"
+                </p>
+                <p className="text-center text-lg">
+                  You: "We... we didn't book it. We got a private boat instead..."
+                </p>
+                <p className="text-center text-2xl font-bold text-red-600 dark:text-red-400 mt-6">
+                  Don't let that be you. 😭
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </motion.section>
+
+        {/* The Tragedy - Emotional Appeal Section */}
+        <motion.section 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="py-20 px-4 bg-gradient-to-br from-purple-900 via-pink-900 to-red-900 text-white"
+          data-testid="section-the-tragedy"
+        >
+          <div className="max-w-4xl mx-auto text-center">
+            <h2 className="text-4xl md:text-6xl font-bold mb-8">
+              Don't Be That Person Who Hears About It After
+            </h2>
+            
+            <div className="space-y-6 text-lg md:text-xl mb-12">
+              <p className="leading-relaxed">
+                Every single weekend, we hear the same heartbreaking story from groups on other boats:
+              </p>
+              
+              <Card className="bg-white/10 border-white/20">
+                <CardContent className="pt-6">
+                  <p className="text-2xl font-semibold italic mb-4">
+                    "We heard about the disco cruise from another group on the lake!"
+                  </p>
+                  <p className="text-xl italic">
+                    "Why didn't we book this?! This looks SO much better than our private boat!"
+                  </p>
+                </CardContent>
+              </Card>
+
+              <p className="leading-relaxed">
+                They watch from their quiet, empty boat as the disco cruise passes by - music pumping, 
+                people dancing, multiple groups celebrating together, pure joy and energy.
+              </p>
+
+              <p className="leading-relaxed text-2xl font-bold">
+                They realize they chose wrong. But it's too late.
+              </p>
+            </div>
+
+            <div className="bg-yellow-500/20 border-2 border-yellow-500 rounded-lg p-8 mb-12">
+              <h3 className="text-3xl font-bold mb-4">This is THE Experience That Defines Austin Bach Parties</h3>
+              <p className="text-xl leading-relaxed">
+                When people plan bach parties in Austin, the ATX Disco Cruise is THE thing everyone recommends. 
+                It's the difference between a good weekend and a LEGENDARY weekend. It's the story people tell 
+                for years. It's the experience that makes Austin a top-tier bach party destination.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <p className="text-2xl font-bold">
+                Miss it and you'll hear about it from EVERY other group who did it.
+              </p>
+              <p className="text-3xl font-bold text-yellow-400">
+                Book it and be the hero who gave them the BEST DAY EVER.
+              </p>
+            </div>
+
+            <div className="mt-12">
+              <Link href="/quote-builder">
+                <Button 
+                  size="lg" 
+                  className="bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 text-black font-bold text-xl px-12 py-8 h-auto"
+                  data-testid="button-tragedy-cta"
+                >
+                  <Sparkles className="w-6 h-6 mr-3" />
+                  Book the Legendary Disco Cruise Now
+                  <ArrowRight className="w-6 h-6 ml-3" />
+                </Button>
+              </Link>
+              <p className="mt-4 text-sm text-white/80">
+                48-hour full refund policy • Split payments available • Weather guaranteed
+              </p>
+            </div>
           </div>
         </motion.section>
 
