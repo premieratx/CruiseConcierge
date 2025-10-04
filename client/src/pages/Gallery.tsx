@@ -343,6 +343,12 @@ export default function Gallery() {
   
   const heroImages = [heroImage1, heroImage2, heroImage3];
   
+  const heroAltTexts = [
+    'Bachelor party Austin celebration on Lake Travis party boat with group celebrating',
+    'ATX DISCO CRUISE Premier Party Cruises flagship party boat on Lake Travis Austin',
+    'Lake Travis party boat dancing scene with guests enjoying Austin cruise experience'
+  ];
+  
   // Auto-rotate hero images
   useEffect(() => {
     const interval = setInterval(() => {
@@ -416,7 +422,7 @@ export default function Gallery() {
             >
               <img
                 src={heroImages[currentHeroImage]}
-                alt="Premier Party Cruises Gallery"
+                alt={heroAltTexts[currentHeroImage]}
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
