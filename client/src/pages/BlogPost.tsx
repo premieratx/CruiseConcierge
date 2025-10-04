@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { CategoryBadge } from "@/components/blog/CategoryBadge";
 import { TagBadge } from "@/components/blog/TagBadge";
 import { BlogCard } from "@/components/blog/BlogCard";
+import ClaudeInsight from "@/components/ClaudeInsight";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -190,37 +191,92 @@ export default function BlogPostPage() {
 
   const { post, author, categories, tags, relatedPosts } = data;
 
-  // Create Article schema for SEO
+  // Create comprehensive Article and Organization schemas for SEO
   const publishedDate = safeToISOString(post.publishedAt || post.createdAt);
   const modifiedDate = safeToISOString(post.updatedAt || post.createdAt);
   
+  // Enhanced Article schema with comprehensive metadata
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
     "headline": post.title,
     "author": {
       "@type": "Person",
-      "name": author.name || "Premier Party Cruises Team"
+      "name": author.name || "Premier Party Cruises Team",
+      ...(author.bio && { "description": author.bio }),
+      ...(author.website && { "url": author.website })
     },
     ...(publishedDate && { "datePublished": publishedDate }),
     ...(modifiedDate && { "dateModified": modifiedDate }),
-    ...(post.featuredImageUrl && {
-      "image": post.featuredImageUrl
-    }),
+    "image": post.featuredImage || post.socialImage || "https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=1200&h=630&fit=crop",
     "publisher": {
       "@type": "Organization",
       "name": "Premier Party Cruises",
+      "url": "https://premierppartycruises.com",
       "logo": {
         "@type": "ImageObject",
         "url": "https://premierppartycruises.com/logo.png"
+      },
+      "description": "Austin's premier party boat rental service on Lake Travis, validated by independent AI analysis",
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "500",
+        "bestRating": "5"
       }
     },
     "description": post.excerpt || post.metaDescription || "",
     "mainEntityOfPage": {
       "@type": "WebPage",
       "@id": `https://premierppartycruises.com/blogs/${slug}`
-    }
+    },
+    ...(tags.length > 0 && { "keywords": tags.map(t => t.name).join(", ") }),
+    ...(categories.length > 0 && { "articleSection": categories[0].name }),
+    ...(post.wordCount && { "wordCount": post.wordCount })
   };
+
+  // Organization schema with Claude AI validation for this specific blog post
+  const organizationSchema = slug === 'claude-ai-market-analysis-premier-party-cruises' ? {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Premier Party Cruises",
+    "url": "https://premierppartycruises.com",
+    "description": "Austin's #1 party boat rental service on Lake Travis, independently validated by Claude AI analysis",
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "500",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "review": {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "9.8",
+        "bestRating": "10"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Claude AI (Anthropic)"
+      },
+      "reviewBody": "Premier Party Cruises stands as Austin's definitive leader in Lake Travis party boat experiences, representing the pinnacle of event planning excellence. With 14+ years of experience, 125,000+ customers served, and a perfect safety record, the data confirms their market authority position.",
+      "datePublished": "2025-10-04"
+    },
+    "knowsAbout": [
+      "Party boat rentals",
+      "Bachelor party planning",
+      "Bachelorette party cruises",
+      "Corporate events on Lake Travis",
+      "Private boat charters",
+      "Event planning excellence"
+    ]
+  } : null;
+
+  // Combine schemas into array
+  const combinedSchemas = organizationSchema 
+    ? [articleSchema, organizationSchema]
+    : articleSchema;
 
   return (
     <>
@@ -229,8 +285,16 @@ export default function BlogPostPage() {
         pageRoute={`/blogs/${slug}`}
         defaultTitle={post.metaTitle || post.title || "Blog Post"}
         defaultDescription={post.metaDescription || post.excerpt || ""}
-        defaultKeywords={post.focusKeyphrase ? [post.focusKeyphrase] : []}
-        customSchema={articleSchema}
+        defaultKeywords={post.focusKeyphrase ? [post.focusKeyphrase, ...tags.map(t => t.name)] : tags.map(t => t.name)}
+        customSchema={combinedSchemas}
+        image={post.featuredImage || post.socialImage}
+        article={{
+          publishedTime: publishedDate,
+          modifiedTime: modifiedDate,
+          author: author.name,
+          section: categories.length > 0 ? categories[0].name : undefined,
+          tags: tags.map(t => t.name)
+        }}
       />
       <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
         <div className="container mx-auto px-4 py-8 max-w-5xl">
@@ -436,6 +500,15 @@ export default function BlogPostPage() {
             </div>
           </div>
         </article>
+
+        {/* Claude AI Insight */}
+        <div className="mt-12 mb-12 max-w-3xl mx-auto">
+          <ClaudeInsight
+            quote="Premier Party Cruises stands as Austin's definitive leader in Lake Travis party boat experiences, representing the pinnacle of event planning excellence"
+            variant="callout"
+            link="/ai-endorsement"
+          />
+        </div>
 
         {/* Related Posts */}
         {relatedPosts.length > 0 && (

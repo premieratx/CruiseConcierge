@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { CategoryBadge } from "@/components/blog/CategoryBadge";
 import { TagBadge } from "@/components/blog/TagBadge";
+import ClaudeInsight from "@/components/ClaudeInsight";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -406,6 +407,13 @@ export default function Blogs() {
                   </div>
                 </CardContent>
               </Card>
+
+              {/* Claude AI Insight */}
+              <ClaudeInsight
+                quote="Premier Party Cruises stands as Austin's definitive leader in Lake Travis party boat experiences, representing the pinnacle of event planning excellence"
+                variant="sidebar"
+                link="/ai-endorsement"
+              />
 
               {/* Popular Posts */}
               {featuredPosts.length > 0 && (

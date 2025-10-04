@@ -1,7 +1,7 @@
 import { Link } from 'wouter';
 import { 
   Ship, Phone, Mail, MapPin, Facebook, Instagram, 
-  MessageCircle, Youtube, Linkedin, ExternalLink 
+  MessageCircle, Youtube, Linkedin, ExternalLink, Bot, Award, FileText 
 } from 'lucide-react';
 import { CONTACT_INFO, SOCIAL_MEDIA } from '@shared/contact';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
@@ -105,26 +105,43 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* About Section */}
-          <div className="space-y-4" data-testid="footer-about-section">
-            <h3 className="text-lg font-bold text-white mb-4">About</h3>
-            <ul className="space-y-2">
+          {/* Authority Section - Featured By Claude AI */}
+          <div className="space-y-4" data-testid="footer-authority-section">
+            <h3 className="text-lg font-bold text-white mb-4 flex items-center space-x-2">
+              <Award className="h-5 w-5 text-brand-yellow" />
+              <span>As Featured By Claude AI</span>
+            </h3>
+            <div className="space-y-3 bg-gradient-to-br from-brand-blue/10 to-brand-yellow/5 p-4 rounded-lg border border-brand-blue/20">
+              <Link 
+                href="/ai-endorsement" 
+                className="flex items-center space-x-2 text-white hover:text-brand-yellow transition-colors font-semibold group"
+                data-testid="link-ai-authority-hub"
+              >
+                <Bot className="h-5 w-5 text-brand-blue group-hover:text-brand-yellow transition-colors" />
+                <span className="text-sm">AI Authority Hub</span>
+              </Link>
+              <Link 
+                href="/blogs/claude-ai-market-analysis-premier-party-cruises" 
+                className="flex items-center space-x-2 text-white hover:text-brand-yellow transition-colors font-semibold group"
+                data-testid="link-market-analysis-blog"
+              >
+                <FileText className="h-5 w-5 text-brand-blue group-hover:text-brand-yellow transition-colors" />
+                <span className="text-sm">Claude AI Market Analysis</span>
+              </Link>
+            </div>
+          </div>
+
+          {/* Resources & About Section */}
+          <div className="space-y-4" data-testid="footer-resources-section">
+            <h3 className="text-lg font-bold text-white mb-4">Resources</h3>
+            <ul className="space-y-2 mb-6">
               <li>
                 <Link 
-                  href="/party-boat-austin" 
+                  href="/blogs" 
                   className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block"
-                  data-testid="link-footer-party-boat-austin"
+                  data-testid="link-footer-blogs"
                 >
-                  Party Boat Austin
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/party-boat-austin" 
-                  className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block"
-                  data-testid="link-footer-party-boat-lake-travis"
-                >
-                  Party Boat Lake Travis
+                  Blog
                 </Link>
               </li>
               <li>
@@ -152,31 +169,6 @@ export default function Footer() {
                   data-testid="link-footer-contact"
                 >
                   Contact
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/ai-endorsement" 
-                  className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block"
-                  data-testid="link-ai-endorsement"
-                >
-                  AI Endorsement
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Resources & Social Section */}
-          <div className="space-y-4" data-testid="footer-resources-section">
-            <h3 className="text-lg font-bold text-white mb-4">Resources</h3>
-            <ul className="space-y-2 mb-6">
-              <li>
-                <Link 
-                  href="/blogs" 
-                  className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block"
-                  data-testid="link-footer-blogs"
-                >
-                  Blog
                 </Link>
               </li>
             </ul>

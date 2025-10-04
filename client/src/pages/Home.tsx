@@ -1204,6 +1204,129 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Claude AI Comprehensive Market Analysis Section */}
+      <section className="py-20 bg-gradient-to-br from-blue-50 via-purple-50 to-indigo-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-gray-950" data-testid="section-market-analysis">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            className="max-w-6xl mx-auto"
+          >
+            <Card className="border-2 border-primary/30 bg-gradient-to-br from-white via-blue-50/50 to-purple-50/50 dark:from-gray-800 dark:via-gray-800/90 dark:to-gray-900 shadow-2xl overflow-hidden">
+              <CardContent className="p-8 md:p-12">
+                {/* Header with Icon */}
+                <div className="flex flex-col md:flex-row items-center gap-6 mb-8">
+                  <div className="flex-shrink-0">
+                    <div className="relative">
+                      <div className="bg-gradient-to-br from-primary to-purple-600 rounded-2xl p-4 shadow-lg">
+                        <Bot className="w-12 h-12 md:w-16 md:h-16 text-white" data-testid="icon-market-analysis-bot" />
+                      </div>
+                      <Award className="w-8 h-8 text-yellow-500 absolute -bottom-2 -right-2 bg-white dark:bg-gray-800 rounded-full p-1 shadow-lg" data-testid="icon-market-analysis-award" />
+                    </div>
+                  </div>
+                  
+                  <div className="flex-grow text-center md:text-left">
+                    <Badge className="mb-4 bg-gradient-to-r from-primary to-purple-600 text-white px-4 py-1.5 text-sm font-bold" data-testid="badge-comprehensive-analysis">
+                      Comprehensive Market Analysis
+                    </Badge>
+                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-2 leading-tight" data-testid="text-analysis-title">
+                      Validated by Claude AI: Austin's Premier Party Boat Authority
+                    </h2>
+                    <p className="text-base md:text-lg text-gray-600 dark:text-gray-300">
+                      Independent AI analysis confirms our market leadership
+                    </p>
+                  </div>
+                </div>
+
+                {/* Pull Quotes Grid */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.1 }}
+                    className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border-l-4 border-primary"
+                    data-testid="card-quote-1"
+                  >
+                    <Quote className="h-8 w-8 text-primary mb-3" />
+                    <p className="text-gray-800 dark:text-gray-200 font-semibold text-lg leading-relaxed italic">
+                      "Austin's definitive leader in Lake Travis party boat experiences"
+                    </p>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.2 }}
+                    className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border-l-4 border-purple-600"
+                    data-testid="card-quote-2"
+                  >
+                    <Quote className="h-8 w-8 text-purple-600 mb-3" />
+                    <p className="text-gray-800 dark:text-gray-200 font-semibold text-lg leading-relaxed italic">
+                      "14+ years of operational expertise, over 125,000 satisfied customers"
+                    </p>
+                  </motion.div>
+
+                  <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    transition={{ delay: 0.3 }}
+                    className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border-l-4 border-indigo-600"
+                    data-testid="card-quote-3"
+                  >
+                    <Quote className="h-8 w-8 text-indigo-600 mb-3" />
+                    <p className="text-gray-800 dark:text-gray-200 font-semibold text-lg leading-relaxed italic">
+                      "The ONLY integrated alcohol delivery and party boat service in Austin"
+                    </p>
+                  </motion.div>
+                </div>
+
+                {/* CTA Buttons */}
+                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-4">
+                  <Link href="/ai-endorsement">
+                    <Button 
+                      variant="default"
+                      size="lg"
+                      className="bg-gradient-to-r from-primary to-purple-600 hover:from-primary/90 hover:to-purple-700 text-white font-bold px-8 py-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+                      data-testid="button-view-ai-endorsement"
+                    >
+                      <Award className="mr-2 h-5 w-5" />
+                      View AI Endorsement
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
+                  
+                  <Link href="/blogs/claude-ai-market-analysis-premier-party-cruises">
+                    <Button 
+                      variant="outline"
+                      size="lg"
+                      className="border-2 border-primary text-primary hover:bg-primary hover:text-white font-bold px-8 py-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+                      data-testid="button-read-report"
+                    >
+                      <BookOpen className="mr-2 h-5 w-5" />
+                      Read Full Report
+                      <ExternalLink className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
+                </div>
+
+                {/* Trust Indicator */}
+                <div className="mt-6 text-center">
+                  <p className="text-sm text-gray-500 dark:text-gray-400 flex items-center justify-center gap-2">
+                    <Shield className="h-4 w-4" />
+                    Independent third-party AI analysis • Comprehensive market research
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Photo Gallery Section */}
       <section className="py-24 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-6">

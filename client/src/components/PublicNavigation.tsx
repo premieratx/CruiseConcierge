@@ -18,7 +18,8 @@ import {
   Menu, X, Ship, Calendar, MessageSquare, Phone, 
   Users, Camera, Heart, ArrowRight, Star,
   Building, Cake, ChevronDown, GraduationCap,
-  Trophy, Crown, Sparkles, Wine, Music, Gift
+  Trophy, Crown, Sparkles, Wine, Music, Gift,
+  Bot, Award, TrendingUp
 } from 'lucide-react';
 
 // Type definitions
@@ -172,6 +173,27 @@ const navigationItems: NavigationItem[] = [
     icon: Star
   },
   {
+    title: 'Authority',
+    href: '/ai-endorsement',
+    icon: Bot,
+    badge: 'Featured',
+    hasDropdown: true,
+    dropdownItems: [
+      {
+        title: 'AI Endorsements',
+        href: '/ai-endorsement',
+        description: 'Claude AI analysis & recommendations',
+        icon: Award
+      },
+      {
+        title: 'Market Analysis',
+        href: '/blogs/claude-ai-market-analysis-premier-party-cruises',
+        description: 'AI-powered market insights',
+        icon: TrendingUp
+      }
+    ]
+  },
+  {
     title: 'Contact',
     href: '/contact',
     icon: Phone
@@ -248,10 +270,11 @@ export default function PublicNavigation() {
                     <NavigationMenuItem key={item.href}>
                       <NavigationMenuTrigger className={cn(
                         "flex items-center space-x-1 px-2 lg:px-3 py-2 font-semibold text-sm",
-                        location.startsWith('/private-cruises') || 
+                        (location.startsWith('/private-cruises') || 
                         location.startsWith('/corporate-events') ||
                         location.startsWith('/birthday-parties') ||
-                        location.startsWith('/wedding-parties')
+                        location.startsWith('/wedding-parties') ||
+                        (item.title === 'Authority' && (location.startsWith('/ai-endorsement') || location.includes('/claude-ai-market-analysis'))))
                           ? "text-brand-blue"
                           : "text-gray-700 dark:text-gray-300"
                       )}>
@@ -271,13 +294,18 @@ export default function PublicNavigation() {
                               );
                             } else if (isLink(dropdownItem)) {
                               const Icon = dropdownItem.icon;
+                              const getTestId = () => {
+                                if (dropdownItem.title === 'AI Endorsements') return 'nav-ai-authority';
+                                if (dropdownItem.title === 'Market Analysis') return 'nav-market-analysis';
+                                return `link-dropdown-${safeSlug(dropdownItem.title)}`;
+                              };
                               return (
                                 <li key={dropdownItem.href}>
                                   <NavigationMenuLink asChild>
                                     <Link
                                       href={dropdownItem.href}
                                       className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                                      data-testid={`link-dropdown-${safeSlug(dropdownItem.title)}`}
+                                      data-testid={getTestId()}
                                     >
                                       <div className="flex items-center space-x-2">
                                         <Icon className="h-4 w-4 text-brand-blue" />
@@ -408,6 +436,11 @@ export default function PublicNavigation() {
                                   );
                                 } else if (isLink(dropdownItem)) {
                                   const Icon = dropdownItem.icon;
+                                  const getMobileTestId = () => {
+                                    if (dropdownItem.title === 'AI Endorsements') return 'nav-ai-authority';
+                                    if (dropdownItem.title === 'Market Analysis') return 'nav-market-analysis';
+                                    return `link-mobile-${safeSlug(dropdownItem.title)}`;
+                                  };
                                   return (
                                     <Link
                                       key={dropdownItem.href}
@@ -419,7 +452,7 @@ export default function PublicNavigation() {
                                           ? "text-brand-blue bg-brand-blue/10 border-l-4 border-brand-blue"
                                           : "text-gray-700 dark:text-gray-300 hover:text-brand-blue hover:bg-brand-blue/5"
                                       )}
-                                      data-testid={`link-mobile-${safeSlug(dropdownItem.title)}`}
+                                      data-testid={getMobileTestId()}
                                     >
                                       <Icon className="h-5 w-5" />
                                       <span className="flex-1" data-editable data-editable-id={`mobile-dropdown-${safeSlug(dropdownItem.title)}`}>{dropdownItem.title}</span>

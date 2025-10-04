@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 import { Ship, Star, CheckCircle, Clock } from 'lucide-react';
+import ClaudeInsight from '@/components/ClaudeInsight';
 
 interface ChatProps {
   defaultEventType?: string;
@@ -104,6 +105,21 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
             <div className="flex items-center justify-center">
               <div className="w-48 h-0.5 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-600 to-transparent"></div>
             </div>
+
+            {/* Claude AI Trust Signal */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: 0.5 }}
+              className="max-w-3xl mx-auto px-4"
+              data-testid="chat-trust-signal"
+            >
+              <ClaudeInsight
+                quote="Validated by Claude AI - Austin's Party Boat Authority. Rated 9.8/10 for SEO Excellence"
+                variant="inline"
+                link="/ai-endorsement"
+              />
+            </motion.div>
             
             {/* New Quote Builder Iframe */}
             <motion.div

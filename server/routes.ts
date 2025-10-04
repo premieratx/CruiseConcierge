@@ -1901,6 +1901,47 @@ ${JSON.stringify(articleSchema, null, 2)}
   // SEO MANAGEMENT ROUTES
   // ==========================================
   
+  // Public endpoint: Get SEO meta data for a specific page route
+  app.get('/api/seo/meta/:pageRoute(*)', async (req, res) => {
+    try {
+      const pageRoute = decodeURIComponent(req.params.pageRoute);
+      const storage = await getStorage();
+      const seoPage = await storage.getSeoPage(pageRoute);
+      
+      if (!seoPage) {
+        // Return 404 but don't error - SEOHead will use defaults
+        return res.status(404).json({ error: 'SEO page not found' });
+      }
+      
+      // Map database fields to SEOHead expected format
+      const seoData = {
+        metaTitle: seoPage.metaTitle,
+        metaDescription: seoPage.metaDescription,
+        metaKeywords: seoPage.metaKeywords || [],
+        openGraphTitle: seoPage.openGraphTitle,
+        openGraphDescription: seoPage.openGraphDescription,
+        openGraphImage: seoPage.openGraphImage,
+        openGraphType: seoPage.openGraphType,
+        twitterTitle: seoPage.twitterTitle,
+        twitterDescription: seoPage.twitterDescription,
+        twitterImage: seoPage.twitterImage,
+        twitterCard: seoPage.twitterCard,
+        canonicalUrl: seoPage.canonicalUrl,
+        robotsDirective: seoPage.robotsDirective,
+        schemaMarkup: seoPage.schemaMarkup
+      };
+      
+      res.json(seoData);
+    } catch (error) {
+      console.error('Error fetching SEO meta data:', error);
+      // Return 500 but SEOHead will use defaults
+      res.status(500).json({ 
+        error: 'Failed to fetch SEO meta data',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+  
   // Get all SEO pages
   app.get('/api/seo/pages', requireAdmin, async (req, res) => {
     try {
