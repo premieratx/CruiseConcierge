@@ -154,6 +154,15 @@ export default function Footer() {
                   Contact
                 </Link>
               </li>
+              <li>
+                <Link 
+                  href="/ai-endorsement" 
+                  className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block"
+                  data-testid="link-ai-endorsement"
+                >
+                  AI Endorsement
+                </Link>
+              </li>
             </ul>
           </div>
 

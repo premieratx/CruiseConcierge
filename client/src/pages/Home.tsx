@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useQuery } from '@tanstack/react-query';
 import PublicNavigation from '@/components/PublicNavigation';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -19,7 +20,7 @@ import {
   MessageCircle, Instagram, Facebook, Twitter, Quote, ChevronRight,
   Navigation, Compass, LifeBuoy, Zap, Target, TrendingUp, Play,
   ExternalLink, BookOpen, Headphones, Car, Wine, Camera as CameraIcon,
-  UserCheck, MessageSquare, X, Eye, Image
+  UserCheck, MessageSquare, X, Eye, Image, Bot
 } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
@@ -296,6 +297,11 @@ export default function Home() {
     message: ''
   });
   const { toast } = useToast();
+
+  // Fetch homepage endorsements
+  const { data: endorsements } = useQuery<Endorsement[]>({
+    queryKey: ['/api/endorsements/homepage'],
+  });
 
   const heroImages = [heroImage1, heroImage2, heroImage3];
   const galleryImages = [galleryImage1, galleryImage2, galleryImage3, heroImage1, heroImage2, heroImage3];
@@ -681,6 +687,85 @@ export default function Home() {
           </div>
         </motion.div>
       </section>
+
+      {/* AI Endorsement Trust Badge */}
+      {endorsements && endorsements.length > 0 && (
+        <section className="py-12 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={fadeInUp}
+              className="max-w-4xl mx-auto"
+            >
+              <Link href="/ai-endorsement">
+                <Card 
+                  className="border-primary/20 bg-gradient-to-br from-primary/5 to-background hover:shadow-2xl transition-all duration-300 cursor-pointer group"
+                  data-testid="badge-ai-endorsement"
+                >
+                  <CardContent className="p-8">
+                    <div className="flex flex-col md:flex-row items-center gap-6">
+                      {/* AI Icon */}
+                      <div className="flex-shrink-0">
+                        <div className="relative">
+                          <Bot className="w-16 h-16 text-primary group-hover:scale-110 transition-transform" />
+                          <CheckCircle className="w-6 h-6 text-green-500 absolute -bottom-1 -right-1 bg-white dark:bg-gray-900 rounded-full" />
+                        </div>
+                      </div>
+
+                      {/* Rating & Info */}
+                      <div className="flex-grow text-center md:text-left">
+                        <div className="flex items-center justify-center md:justify-start gap-3 mb-2">
+                          <div className="text-4xl md:text-5xl font-bold text-primary" data-testid="text-ai-rating">
+                            {endorsements[0].rating}/{endorsements[0].maxRating || 10}
+                          </div>
+                          <div className="flex items-center gap-1">
+                            {Array.from({ length: 5 }).map((_, i) => (
+                              <Star 
+                                key={i} 
+                                className={cn(
+                                  "w-5 h-5",
+                                  i < Math.floor((endorsements[0].rating / (endorsements[0].maxRating || 10)) * 5) 
+                                    ? "fill-yellow-400 text-yellow-400" 
+                                    : "text-gray-300"
+                                )}
+                                data-testid={`icon-star-${i + 1}`}
+                              />
+                            ))}
+                          </div>
+                        </div>
+                        <div className="text-xl font-semibold mb-1" data-testid="text-ai-headline">
+                          {endorsements[0].headline}
+                        </div>
+                        <div className="text-sm text-muted-foreground flex items-center justify-center md:justify-start gap-2">
+                          <Badge variant="secondary" className="font-medium" data-testid="badge-ai-source">
+                            {endorsements[0].source}
+                          </Badge>
+                          <span>•</span>
+                          <span>Verified AI Analysis</span>
+                        </div>
+                      </div>
+
+                      {/* CTA Arrow */}
+                      <div className="flex-shrink-0">
+                        <Button 
+                          variant="ghost" 
+                          size="icon"
+                          className="rounded-full group-hover:bg-primary group-hover:text-primary-foreground transition-colors"
+                          data-testid="button-view-ai-endorsement"
+                        >
+                          <ArrowRight className="h-6 w-6" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            </motion.div>
+          </div>
+        </section>
+      )}
 
       {/* Build My Quote Now Section */}
       <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
