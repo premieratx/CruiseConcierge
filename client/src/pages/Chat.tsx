@@ -24,7 +24,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       {/* Main Content Area */}
-      <div className="flex-1 flex items-start justify-center pt-4 px-4 pb-4">
+      <div className="flex-1 flex items-start justify-center pt-4 pb-4">
         <div className="w-full max-w-6xl">
           <motion.div
             key="intro"
@@ -112,7 +112,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
               transition={{ delay: 0.5, duration: 0.5 }}
               className="w-full"
             >
-              <div className="w-full max-w-6xl mx-auto px-4">
+              <div className="w-full max-w-6xl mx-auto">
                 <iframe 
                   src="https://ppc-quote-builder.lovable.app/"
                   title="Premier Party Cruises Quote Builder"
