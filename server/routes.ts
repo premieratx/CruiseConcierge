@@ -32,7 +32,7 @@ let wisprFlowService: any = null;
 let generateQuoteDescription: any = null;
 let openaiService: any = null;
 type LeadWebhookPayload = any;
-import { insertContactSchema, insertProjectSchema, insertChatMessageSchema, insertAdminChatSessionSchema, insertAdminChatMessageSchema, insertUserSchema, insertInviteSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, insertContentBlockSchema, endorsements, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation, type AdminChatSession, type AdminChatMessage, type Endorsement } from "@shared/schema";
+import { insertContactSchema, insertProjectSchema, insertChatMessageSchema, insertAdminChatSessionSchema, insertAdminChatMessageSchema, insertUserSchema, insertInviteSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, insertContentBlockSchema, insertPromptsLibrarySchema, endorsements, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation, type AdminChatSession, type AdminChatMessage, type Endorsement } from "@shared/schema";
 import { calculateServerPricing, type ServerPricingRequest } from './serverPricing';
 import { PRICING_DEFAULTS } from "@shared/constants";
 import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate, getTimeSlotById } from "@shared/timeSlots";
@@ -2510,6 +2510,58 @@ ${JSON.stringify(articleSchema, null, 2)}
         error: 'Failed to create blog post',
         message: error instanceof Error ? error.message : 'Unknown error'
       });
+    }
+  });
+
+  // ==========================================
+  // PROMPTS LIBRARY API ROUTES
+  // ==========================================
+
+  app.post('/api/prompts-library', requireAdmin, async (req, res) => {
+    try {
+      const validatedData = insertPromptsLibrarySchema.parse(req.body);
+      const result = await storage.savePromptLibrary(validatedData);
+      res.json(result);
+    } catch (error: any) {
+      console.error('Error saving prompts library:', error);
+      res.status(400).json({ error: error.message });
+    }
+  });
+
+  app.get('/api/prompts-library', requireAdmin, async (req, res) => {
+    try {
+      const results = await storage.getAllPromptLibraries();
+      res.json(results);
+    } catch (error: any) {
+      console.error('Error getting all prompts libraries:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.get('/api/prompts-library/:name', requireAdmin, async (req, res) => {
+    try {
+      const result = await storage.getPromptLibrary(req.params.name);
+      if (!result) {
+        return res.status(404).json({ error: 'Prompts library entry not found' });
+      }
+      res.json(result);
+    } catch (error: any) {
+      console.error('Error getting prompts library:', error);
+      res.status(500).json({ error: error.message });
+    }
+  });
+
+  app.put('/api/prompts-library/:id', requireAdmin, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      if (isNaN(id)) {
+        return res.status(400).json({ error: 'Invalid ID' });
+      }
+      const result = await storage.updatePromptLibrary(id, req.body);
+      res.json(result);
+    } catch (error: any) {
+      console.error('Error updating prompts library:', error);
+      res.status(500).json({ error: error.message });
     }
   });
 

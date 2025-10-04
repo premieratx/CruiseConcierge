@@ -1,4 +1,4 @@
-import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type User, type InsertUser, type Invite, type InsertInvite, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AdminChatSession, type InsertAdminChatSession, type AdminChatMessage, type InsertAdminChatMessage, type AvailabilitySlot, type InsertAvailabilitySlot, type SystemBlockout, type InsertSystemBlockout, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, type MediaItem, type InsertMediaItem, type ContentBlock, type InsertContentBlock, type SelectAgentChatSession, type InsertAgentChatSession, type SelectAgentChatMessage, type InsertAgentChatMessage, type MasterAvailabilityRule, type InsertMasterAvailabilityRule, type HolidayException, type InsertHolidayException, type SpecialPricingRule, type InsertSpecialPricingRule, type BlackoutDate, type InsertBlackoutDate, boats, products, users, invites, adminChatSessions, adminChatMessages, pricingSettings, affiliates, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, seoPages, mediaItems, contentBlocks } from "@shared/schema";
+import { type Contact, type InsertContact, type Project, type InsertProject, type Boat, type InsertBoat, type Product, type InsertProduct, type User, type InsertUser, type Invite, type InsertInvite, type Quote, type InsertQuote, type Invoice, type Payment, type ChatMessage, type InsertChatMessage, type AdminChatSession, type InsertAdminChatSession, type AdminChatMessage, type InsertAdminChatMessage, type AvailabilitySlot, type InsertAvailabilitySlot, type SystemBlockout, type InsertSystemBlockout, type QuoteTemplate, type InsertQuoteTemplate, type TemplateRule, type InsertTemplateRule, type DiscountRule, type InsertDiscountRule, type PricingSettings, type InsertPricingSettings, type PricingPreview, type PricingAdjustment, type InsertPricingAdjustment, type Affiliate, type InsertAffiliate, type PaymentSchedule, type DiscountCondition, type DayOfWeekMultipliers, type SeasonalAdjustment, type Booking, type InsertBooking, type DiscoSlot, type InsertDiscoSlot, type Timeframe, type InsertTimeframe, type EmailTemplate, type InsertEmailTemplate, type MasterTemplate, type InsertMasterTemplate, type QuoteItem, type RadioSection, type TemplateVisual, type RuleCondition, type RuleAction, type TemplateComponent, type AdminCalendarSlot, type AdminBookingInfo, type BatchSlotOperation, type AdminCalendarFilters, type ComprehensiveAdminBooking, type RecurringPattern, type PartialLead, type InsertPartialLead, type PartialLeadFilters, type SmsAuthToken, type InsertSmsAuthToken, type CustomerSession, type InsertCustomerSession, type PortalActivityLog, type InsertPortalActivityLog, type PhoneRateLimit, type CustomerVerificationAttempts, type QuoteAnalytics, type InsertQuoteAnalytics, type FileSend, type InsertFileSend, type EmailTracking, type InsertEmailTracking, type CustomerLifecycle, type InsertCustomerLifecycle, type CustomerActivity, type InsertCustomerActivity, type CustomerProfile, type LifecycleStage, type ActivityType, type SlotHold, type InsertSlotHold, type NormalizedSlot, type BlogPost, type InsertBlogPost, type BlogAuthor, type InsertBlogAuthor, type BlogCategory, type InsertBlogCategory, type BlogTag, type InsertBlogTag, type BlogPostCategory, type InsertBlogPostCategory, type BlogPostTag, type InsertBlogPostTag, type BlogComment, type InsertBlogComment, type BlogAnalytics, type InsertBlogAnalytics, type SeoPage, type InsertSeoPage, type SeoAuditLog, type InsertSeoAuditLog, type SeoCompetitor, type InsertSeoCompetitor, type SeoSettings, type InsertSeoSettings, type SEOAnalysisResult, type SEOOptimizationRequest, type SEOBulkOperation, type SEOIssue, type HeadingStructure, type WebhookNotification, type InsertWebhookNotification, type Media, type InsertMedia, type MediaItem, type InsertMediaItem, type ContentBlock, type InsertContentBlock, type PromptsLibrary, type InsertPromptsLibrary, type SelectAgentChatSession, type InsertAgentChatSession, type SelectAgentChatMessage, type InsertAgentChatMessage, type MasterAvailabilityRule, type InsertMasterAvailabilityRule, type HolidayException, type InsertHolidayException, type SpecialPricingRule, type InsertSpecialPricingRule, type BlackoutDate, type InsertBlackoutDate, boats, products, users, invites, adminChatSessions, adminChatMessages, pricingSettings, affiliates, blogPosts, blogAuthors, blogCategories, blogTags, blogPostCategories, blogPostTags, seoPages, mediaItems, contentBlocks, promptsLibrary } from "@shared/schema";
 import { db } from "./db";
 import { eq, and, gte, lte, desc, asc, isNull, isNotNull, or, inArray, sql, count, sum, between } from "drizzle-orm";
 import { randomUUID } from "crypto";
@@ -813,6 +813,12 @@ export interface IStorage {
   createContentBlockFromTemplate(templateId: string, route: string, key: string): Promise<ContentBlock>;
   
   // ===== END CONTENT BLOCKS OPERATIONS =====
+
+  // Prompts Library
+  savePromptLibrary(data: InsertPromptsLibrary): Promise<PromptsLibrary>;
+  getPromptLibrary(name: string): Promise<PromptsLibrary | undefined>;
+  getAllPromptLibraries(): Promise<PromptsLibrary[]>;
+  updatePromptLibrary(id: number, data: Partial<PromptsLibrary>): Promise<PromptsLibrary>;
 
   // ===== VERIFICATION AND TESTING OPERATIONS =====
   // Automated verification to prove production readiness
@@ -5812,6 +5818,42 @@ Crawl-delay: 1`;
   }
 
   // ===== END CONTENT BLOCKS OPERATIONS =====
+
+  // ===== PROMPTS LIBRARY OPERATIONS =====
+
+  async savePromptLibrary(data: InsertPromptsLibrary): Promise<PromptsLibrary> {
+    const [result] = await db.insert(promptsLibrary)
+      .values(data)
+      .returning();
+    return result;
+  }
+
+  async getPromptLibrary(name: string): Promise<PromptsLibrary | undefined> {
+    const [result] = await db.select()
+      .from(promptsLibrary)
+      .where(eq(promptsLibrary.name, name))
+      .limit(1);
+    return result;
+  }
+
+  async getAllPromptLibraries(): Promise<PromptsLibrary[]> {
+    return await db.select()
+      .from(promptsLibrary)
+      .orderBy(desc(promptsLibrary.createdAt));
+  }
+
+  async updatePromptLibrary(id: number, data: Partial<PromptsLibrary>): Promise<PromptsLibrary> {
+    const [result] = await db.update(promptsLibrary)
+      .set({
+        ...data,
+        updatedAt: new Date()
+      })
+      .where(eq(promptsLibrary.id, id))
+      .returning();
+    return result;
+  }
+
+  // ===== END PROMPTS LIBRARY OPERATIONS =====
 
   // ===== VERIFICATION AND TESTING OPERATIONS =====
   // Automated verification to prove production readiness

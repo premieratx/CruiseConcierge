@@ -434,6 +434,21 @@ export const contentBlocks = pgTable('content_blocks', {
 });
 
 // ==========================================
+// PROMPTS LIBRARY
+// ==========================================
+
+export const promptsLibrary = pgTable('prompts_library', {
+  id: serial('id').primaryKey(),
+  name: varchar('name', { length: 255 }).notNull().unique(),
+  category: varchar('category', { length: 100 }).notNull(),
+  content: text('content').notNull(),
+  version: varchar('version', { length: 50 }).default('1.0'),
+  createdAt: timestamp('created_at').defaultNow(),
+  updatedAt: timestamp('updated_at').defaultNow(),
+  isActive: boolean('is_active').default(true)
+});
+
+// ==========================================
 // TYPE DEFINITIONS
 // ==========================================
 
@@ -717,6 +732,18 @@ export const insertContentBlockSchema = createInsertSchema(contentBlocks).omit({
   updatedBy: z.string().optional(),
 });
 
+export const insertPromptsLibrarySchema = createInsertSchema(promptsLibrary).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+}).extend({
+  name: z.string().min(1, "Name is required"),
+  category: z.string().min(1, "Category is required"),
+  content: z.string().min(1, "Content is required"),
+  version: z.string().default('1.0'),
+  isActive: z.boolean().default(true),
+});
+
 // ==========================================
 // SELECT TYPES
 // ==========================================
@@ -740,6 +767,7 @@ export type SeoPage = typeof seoPages.$inferSelect;
 export type MediaItem = typeof mediaItems.$inferSelect;
 export type PhotoEdit = typeof photoEdits.$inferSelect;
 export type ContentBlock = typeof contentBlocks.$inferSelect;
+export type PromptsLibrary = typeof promptsLibrary.$inferSelect;
 
 // ==========================================
 // INSERT TYPES
@@ -764,3 +792,4 @@ export type InsertSeoPage = z.infer<typeof insertSeoPageSchema>;
 export type InsertMediaItem = z.infer<typeof insertMediaItemSchema>;
 export type InsertPhotoEdit = z.infer<typeof insertPhotoEditSchema>;
 export type InsertContentBlock = z.infer<typeof insertContentBlockSchema>;
+export type InsertPromptsLibrary = z.infer<typeof insertPromptsLibrarySchema>;
