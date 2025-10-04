@@ -4,6 +4,9 @@ import { setupVite, serveStatic, log } from "./vite";
 import { setupEmbedRouting, hasEmbedBuild } from "./embedServer";
 import { blogRouter } from "./blog-api.js";
 import { setupAuth } from "./auth";
+import Database from "@replit/database";
+import fs from "fs";
+import path from "path";
 
 const app = express();
 

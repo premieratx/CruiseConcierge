@@ -569,6 +569,145 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Note: setupAuth is called in server/index.ts before registerRoutes
   
   // ==========================================
+  // BLOG POST SERVER-SIDE RENDERING FOR SEO
+  // ==========================================
+  
+  // Blog post SSR route - MUST be before Vite to inject unique Article schemas
+  app.get('/blogs/:slug', async (req, res, next) => {
+    try {
+      // Only handle GET requests for HTML (not API requests)
+      if (req.method !== 'GET' || req.headers.accept?.includes('application/json')) {
+        return next();
+      }
+      
+      console.log(`🔍 [Blog SSR Route] Hit! Slug: ${req.params.slug}, Method: ${req.method}, Accept: ${req.headers.accept}`);
+      
+      const { slug } = req.params;
+      
+      // Try PostgreSQL first
+      let post = await storageInstance.getBlogPostBySlug(slug);
+      let isWordPress = false;
+      
+      // If not found in PostgreSQL, try Replit DB for WordPress posts
+      if (!post || post.status !== 'published') {
+        console.log(`🔍 [Blog SSR] Post not found in PostgreSQL, checking Replit DB for WordPress post: ${slug}`);
+        
+        const Database = (await import("@replit/database")).default;
+        const replitDb = new Database();
+        
+        const postData = await replitDb.get(`post:${slug}`);
+        
+        if (postData) {
+          // Unwrap Replit DB response (handles single, double, or no wrapping)
+          const unwrapDbResponse = (response: any): any => {
+            if (Array.isArray(response) || response === null || response === undefined) {
+              return response;
+            }
+            if (response && typeof response === 'object' && 'value' in response) {
+              return unwrapDbResponse(response.value);
+            }
+            return response;
+          };
+          
+          const unwrapped = unwrapDbResponse(postData);
+          
+          if (unwrapped && unwrapped.status === 'published') {
+            // Map WordPress post data to expected structure
+            post = {
+              title: unwrapped.title,
+              metaTitle: unwrapped.metaTitle || unwrapped.title,
+              metaDescription: unwrapped.metaDescription || unwrapped.excerpt,
+              excerpt: unwrapped.excerpt,
+              content: unwrapped.content,
+              publishedAt: unwrapped.publishedAt || unwrapped.date,
+              updatedAt: unwrapped.updatedAt || unwrapped.modified,
+              createdAt: unwrapped.publishedAt || unwrapped.date,
+              featuredImageUrl: unwrapped.featuredImage || unwrapped.featuredImageUrl,
+              author: unwrapped.author || { name: "Premier Party Cruises Team" },
+              status: 'published'
+            };
+            isWordPress = true;
+            console.log(`✅ [Blog SSR] Found WordPress post in Replit DB: ${post.title}`);
+          }
+        }
+      } else {
+        console.log(`✅ [Blog SSR] Found PostgreSQL post: ${post.title}`);
+      }
+      
+      // If post still not found, let Vite handle it
+      if (!post) {
+        console.log(`❌ [Blog SSR] Post not found in either PostgreSQL or Replit DB: ${slug}`);
+        return next();
+      }
+      
+      // Generate unique Article schema for this blog post (works for both sources)
+      const articleSchema = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        "headline": post.title || "",
+        "description": post.metaDescription || post.excerpt || "",
+        "author": {
+          "@type": "Person",
+          "name": post.author?.name || "Premier Party Cruises Team"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "name": "Premier Party Cruises",
+          "logo": {
+            "@type": "ImageObject",
+            "url": "https://premierpartycruises.com/logo.png"
+          }
+        },
+        "datePublished": post.publishedAt ? new Date(post.publishedAt).toISOString() : new Date(post.createdAt).toISOString(),
+        "dateModified": post.updatedAt ? new Date(post.updatedAt).toISOString() : new Date(post.createdAt).toISOString(),
+        ...(post.featuredImageUrl && {
+          "image": post.featuredImageUrl
+        }),
+        "mainEntityOfPage": {
+          "@type": "WebPage",
+          "@id": `https://premierpartycruises.com/blogs/${slug}`
+        }
+      };
+      
+      // Read index.html template
+      const fs = await import('fs');
+      const htmlPath = path.join(process.cwd(), 'client', 'index.html');
+      let html = await fs.promises.readFile(htmlPath, 'utf-8');
+      
+      // Inject unique Article schema before </head>
+      const schemaScript = `
+    <!-- Article Schema for SEO (Server-Side Injected) -->
+    <script type="application/ld+json">
+${JSON.stringify(articleSchema, null, 2)}
+    </script>`;
+      
+      html = html.replace('</head>', `${schemaScript}\n  </head>`);
+      
+      // Update meta tags with post-specific data
+      const metaTitle = post.metaTitle || post.title || "Blog Post";
+      const metaDescription = post.metaDescription || post.excerpt || "";
+      
+      html = html.replace(
+        /<title>.*?<\/title>/,
+        `<title>${metaTitle} | Premier Party Cruises</title>`
+      );
+      html = html.replace(
+        /<meta name="description" content=".*?"\/>/,
+        `<meta name="description" content="${metaDescription}"/>`
+      );
+      
+      const sourceLabel = isWordPress ? 'WordPress/Replit DB' : 'PostgreSQL';
+      console.log(`✅ [Blog SSR] Injected unique Article schema for: ${post.title || slug} (source: ${sourceLabel})`);
+      
+      // Send modified HTML
+      res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
+    } catch (error) {
+      console.error('❌ [Blog SSR] Error:', error);
+      next(); // Fall back to Vite on error
+    }
+  });
+  
+  // ==========================================
   // AUTHENTICATION ROUTES
   // ==========================================
   
