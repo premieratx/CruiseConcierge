@@ -663,7 +663,7 @@ export default function Home() {
 
       {/* Build My Quote Now Section */}
       <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-0 md:px-6">
           <motion.div
             initial="hidden"
             whileInView="visible"
@@ -721,12 +721,12 @@ export default function Home() {
                 transition={{ duration: 0.5, ease: "easeInOut" }}
                 className="mt-12 overflow-hidden"
               >
-                <div className="max-w-6xl mx-auto">
+                <div className="w-full md:max-w-6xl mx-auto">
                   <motion.div
                     initial={{ y: 20, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ delay: 0.2, duration: 0.4 }}
-                    className="bg-white rounded-2xl shadow-2xl overflow-hidden"
+                    className="bg-white rounded-none md:rounded-2xl shadow-2xl overflow-hidden"
                   >
                     <iframe 
                       src="https://ppc-quote-builder.lovable.app/"
