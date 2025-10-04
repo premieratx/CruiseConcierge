@@ -10,7 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@shared/formatters';
-import SEOHead, { generateFAQSchema } from '@/components/SEOHead';
+import SEOHead, { generateFAQSchema, generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { DISCO_PRICING } from '@shared/constants';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
@@ -425,7 +425,28 @@ export default function BachelorParty() {
         defaultDescription="The Ultimate Bachelor Party Cruise Experience! Join the ONLY all-inclusive boat party in Austin exclusively for bach parties. Professional DJ, photographer, and everything included. Book now - sells out 4-6 weeks early!"
         defaultKeywords={['Austin bachelor party', 'Lake Travis bachelor party', 'ATX Disco Cruise', 'bachelor party boat Austin']}
         schemaType="event"
-        customSchema={[eventSchema, productSchema, generateFAQSchema(faqItems)]}
+        customSchema={[
+          generateComprehensiveLocalBusinessSchema({
+            pageDescription: "Austin's #1 bachelor party boat cruise on Lake Travis! ATX Disco Cruise offers all-inclusive bachelor party packages with DJ, photographer, and premium amenities. 14+ years experience, 125,000+ customers served.",
+            additionalServices: [
+              {
+                name: "Bachelor Party Boat Cruises",
+                description: "Ultimate bachelor party experience on Lake Travis with ATX DISCO CRUISE - all-inclusive packages with DJ and photographer"
+              },
+              {
+                name: "ATX Disco Cruise Bachelor Packages",
+                description: "Exclusive bachelor party packages: Basic Bach, Disco King, and Platinum - professional entertainment included"
+              },
+              {
+                name: "Austin Bachelor Party Planning",
+                description: "Complete bachelor party planning services on Lake Travis with expert coordination"
+              }
+            ]
+          }),
+          eventSchema,
+          productSchema,
+          generateFAQSchema(faqItems)
+        ]}
       />
       <PublicNavigation />
       

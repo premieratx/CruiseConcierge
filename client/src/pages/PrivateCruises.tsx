@@ -19,7 +19,7 @@ import {
   Package, Gift, Heart, Crown, Anchor, PartyPopper, ArrowRight, X
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import SEOHead from '@/components/SEOHead';
+import SEOHead, { generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
 import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
@@ -327,7 +327,31 @@ export default function PrivateCruises() {
           'private yacht rental austin'
         ]}
         schemaType="service"
-        customSchema={[serviceSchema, productSchema]}
+        customSchema={[
+          generateComprehensiveLocalBusinessSchema({
+            pageDescription: "Exclusive private boat charters on Lake Travis, Austin. 14-75 person capacity boats with professional crews. Perfect for corporate events, weddings, birthdays & all celebrations. 14+ years experience.",
+            additionalServices: [
+              {
+                name: "Private Boat Charter Lake Travis",
+                description: "Exclusive private boat charters on Lake Travis - 14 to 75 person capacity with professional captains"
+              },
+              {
+                name: "Custom Private Cruises",
+                description: "Fully customized private cruises for weddings, birthdays, corporate events, and special celebrations"
+              },
+              {
+                name: "Corporate Boat Charters",
+                description: "Professional corporate boat charters for team building and client entertainment on Lake Travis"
+              },
+              {
+                name: "Wedding Boat Rentals",
+                description: "Elegant wedding party boat rentals on Lake Travis for unforgettable celebrations"
+              }
+            ]
+          }),
+          serviceSchema,
+          productSchema
+        ]}
       />
       <PublicNavigation />
       

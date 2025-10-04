@@ -535,3 +535,105 @@ export function generateBusinessSchema() {
     ]
   };
 }
+
+// Export utility function for comprehensive LocalBusiness schema with customization options
+export function generateComprehensiveLocalBusinessSchema(options?: {
+  focusService?: string;
+  additionalServices?: Array<{ name: string; description: string }>;
+  pageDescription?: string;
+}) {
+  const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com';
+  
+  const defaultServices = [
+    {
+      name: "Bachelor Party Boat Rental",
+      description: "Ultimate bachelor party experience on Lake Travis with ATX DISCO CRUISE"
+    },
+    {
+      name: "Bachelorette Party Boat Rental",
+      description: "Unforgettable bachelorette party cruises on Lake Travis with ATX DISCO CRUISE"
+    },
+    {
+      name: "Corporate Event Boat Rental",
+      description: "Professional corporate team building and client entertainment on Lake Travis"
+    },
+    {
+      name: "Private Cruise Rental",
+      description: "Customized private cruises for any celebration on Lake Travis"
+    }
+  ];
+
+  const services = options?.additionalServices || defaultServices;
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "Premier Party Cruises",
+    "image": `${baseUrl}/PPC Logo LARGE_1757881944449.png`,
+    "description": options?.pageDescription || "Austin's premier party boat rental service on Lake Travis. Specializing in bachelor parties, bachelorette parties, corporate events, and private cruises. 14+ years experience, 125,000+ customers served.",
+    "url": baseUrl,
+    "telephone": "(512) 488-5892",
+    "priceRange": "$$",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "Anderson Mill Marina",
+      "addressLocality": "Austin",
+      "addressRegion": "TX",
+      "postalCode": "78750",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": "30.4508",
+      "longitude": "-97.8567"
+    },
+    "areaServed": {
+      "@type": "City",
+      "name": "Austin"
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "09:00",
+        "closes": "21:00"
+      }
+    ],
+    "sameAs": [
+      "https://www.facebook.com/premierpartycruises",
+      "https://www.instagram.com/premierpartycruises"
+    ],
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.9",
+      "reviewCount": "500"
+    },
+    "slogan": "Austin's #1 Party Boat Experience",
+    "founder": {
+      "@type": "Person",
+      "name": "Premier Party Cruises Team"
+    },
+    "foundingDate": "2010",
+    "numberOfEmployees": "20",
+    "knowsAbout": [
+      "Party Boat Rentals",
+      "Bachelor Parties",
+      "Bachelorette Parties",
+      "Corporate Events",
+      "Lake Travis Cruises",
+      "ATX DISCO CRUISE"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Party Boat Services",
+      "itemListElement": services.map(service => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": service.name,
+          "description": service.description
+        }
+      }))
+    }
+  };
+}

@@ -10,7 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@shared/formatters';
-import SEOHead, { generateFAQSchema } from '@/components/SEOHead';
+import SEOHead, { generateFAQSchema, generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { DISCO_PRICING } from '@shared/constants';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
@@ -449,7 +449,28 @@ export default function BacheloretteParty() {
         defaultDescription="The Ultimate Bachelorette Party Cruise Experience! Join the ONLY all-inclusive boat party in Austin exclusively for bach parties. Bride cruises FREE! Professional DJ, photographer, and everything included. Book now!"
         defaultKeywords={['Austin bachelorette party', 'Lake Travis bachelorette party', 'ATX Disco Cruise', 'bachelorette party boat Austin']}
         schemaType="event"
-        customSchema={[eventSchema, productSchema, generateFAQSchema(faqItems)]}
+        customSchema={[
+          generateComprehensiveLocalBusinessSchema({
+            pageDescription: "Austin's #1 bachelorette party boat cruise on Lake Travis! ATX Disco Cruise offers all-inclusive bachelorette packages with DJ, photographer, and Bride cruises FREE. Our specialty since 2009!",
+            additionalServices: [
+              {
+                name: "Bachelorette Party Boat Cruises",
+                description: "Unforgettable bachelorette party cruises on Lake Travis with ATX DISCO CRUISE - Bride cruises FREE on select packages"
+              },
+              {
+                name: "ATX Disco Cruise Bachelorette Packages",
+                description: "Exclusive bachelorette packages: Basic Bach, Disco Queen, and Platinum - professional DJ and photographer included"
+              },
+              {
+                name: "Austin Bachelorette Party Planning",
+                description: "Complete bachelorette party planning services on Lake Travis - our specialty since 2009"
+              }
+            ]
+          }),
+          eventSchema,
+          productSchema,
+          generateFAQSchema(faqItems)
+        ]}
       />
       <PublicNavigation />
       

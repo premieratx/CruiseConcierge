@@ -23,7 +23,7 @@ import {
 } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
-import SEOHead, { generateFAQSchema } from '@/components/SEOHead';
+import SEOHead, { generateFAQSchema, generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
 import { DiscoVsPrivateComparison, QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
@@ -452,7 +452,12 @@ export default function Home() {
         defaultDescription="Austin's #1 party boat on Lake Travis! Perfect for bachelorette parties, bachelor parties & corporate events. Book your Austin boat party today! (512) 488-5892"
         defaultKeywords={['party boat Austin', 'bachelorette party Austin', 'Austin boat rental', 'Lake Travis party boat', 'bachelor party Austin']}
         schemaType="organization"
-        customSchema={generateFAQSchema(faqData)}
+        customSchema={[
+          generateComprehensiveLocalBusinessSchema({
+            pageDescription: "Austin's premier party boat rental service on Lake Travis. Specializing in bachelor parties, bachelorette parties, corporate events, and private cruises. 14+ years experience, 125,000+ customers served."
+          }),
+          generateFAQSchema(faqData)
+        ]}
       />
       <PublicNavigation />
       {/* Hero Section */}

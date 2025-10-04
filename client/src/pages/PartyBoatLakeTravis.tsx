@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useToast } from '@/hooks/use-toast';
-import SEOHead, { generateFAQSchema } from '@/components/SEOHead';
+import SEOHead, { generateFAQSchema, generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { 
   Ship, Users, Star, MapPin, Clock, DollarSign, Shield, Trophy, 
@@ -277,7 +277,31 @@ export default function PartyBoatLakeTravis() {
         defaultDescription="Looking for a party boat on Lake Travis? Premier Party Cruises offers the best Lake Travis boat rentals near Austin. Book your Lake Travis party cruise today!"
         defaultKeywords={['party boat Lake Travis', 'Lake Travis party boat', 'Lake Travis boat rental', 'party boat rental Lake Travis', 'Lake Travis party cruise']}
         schemaType="service"
-        customSchema={[serviceSchema, faqSchema]}
+        customSchema={[
+          generateComprehensiveLocalBusinessSchema({
+            pageDescription: "Premier Lake Travis party boat rentals in Austin, TX. Experience the best Lake Travis cruises with professional captains and premium party boats. 14+ years serving Austin with 125,000+ happy customers.",
+            additionalServices: [
+              {
+                name: "Lake Travis Party Boat Rentals",
+                description: "Professional party boat rentals on Lake Travis with experienced captains and premium boats"
+              },
+              {
+                name: "Lake Travis Cruises",
+                description: "Scenic Lake Travis cruises for all occasions - bachelor parties, bachelorette parties, and celebrations"
+              },
+              {
+                name: "Austin Boat Rentals",
+                description: "Premium boat rentals near Austin on beautiful Lake Travis"
+              },
+              {
+                name: "Lake Travis Events",
+                description: "Customized Lake Travis boat party experiences and event cruises"
+              }
+            ]
+          }),
+          serviceSchema,
+          faqSchema
+        ]}
       />
 
       <PublicNavigation />

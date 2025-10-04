@@ -10,7 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@shared/formatters';
-import SEOHead from '@/components/SEOHead';
+import SEOHead, { generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { DISCO_PRICING } from '@shared/constants';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
@@ -449,7 +449,27 @@ export default function CombinedBachelorBachelorette() {
         defaultDescription="Plan the ultimate combined bachelor and bachelorette party on Lake Travis! Private boats & disco cruises perfect for guys and girls celebrating together. Austin's best party boats."
         defaultKeywords={['combined bachelor bachelorette party Austin', 'Lake Travis combined party', 'bachelor bachelorette party together', 'Austin group party cruise']}
         schemaType="event"
-        customSchema={[eventSchema, productSchema]}
+        customSchema={[
+          generateComprehensiveLocalBusinessSchema({
+            pageDescription: "Austin's best combined bachelor and bachelorette party cruises on Lake Travis! Celebrate together with private boats or ATX Disco Cruise. Perfect for couples who want to party with both sides.",
+            additionalServices: [
+              {
+                name: "Combined Bachelor Bachelorette Party Cruises",
+                description: "Ultimate combined party experiences on Lake Travis - celebrate with guys and girls together"
+              },
+              {
+                name: "Group Party Boat Rentals",
+                description: "Large group party boats perfect for combined bachelor and bachelorette celebrations"
+              },
+              {
+                name: "Joint Celebration Packages",
+                description: "Customized packages for combined bachelor and bachelorette parties with flexible options"
+              }
+            ]
+          }),
+          eventSchema,
+          productSchema
+        ]}
       />
       <PublicNavigation />
       
