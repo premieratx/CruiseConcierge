@@ -230,34 +230,24 @@ export default function PublicNavigation() {
             {/* Logo */}
             <Link 
               href="/"
-              className="flex items-center space-x-2 group"
+              className="flex items-center group"
               data-testid="link-home-logo"
             >
-              <div className="relative">
-                <img 
-                  src={logoPath} 
-                  alt="Premier Party Cruises" 
-                  className="h-10 w-auto transition-transform duration-300 group-hover:scale-105"
-                />
-              </div>
-              <div className="hidden sm:block">
-                <div className="text-base lg:text-lg font-heading font-bold text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="header-logo-title">
-                  PREMIER PARTY CRUISES
-                </div>
-                <div className="text-xs text-brand-blue font-semibold tracking-widest" data-editable data-editable-id="header-logo-tagline">
-                  AUSTIN'S ORIGINAL LAKE PARTY
-                </div>
-              </div>
+              <img 
+                src={logoPath} 
+                alt="Premier Party Cruises" 
+                className="h-12 lg:h-14 w-auto transition-transform duration-300 group-hover:scale-105"
+              />
             </Link>
 
             {/* Desktop Navigation */}
             <NavigationMenu className="hidden lg:block">
-              <NavigationMenuList className="flex items-center space-x-1">
+              <NavigationMenuList className="flex items-center space-x-0">
                 {navigationItems.map((item) => (
                   item.hasDropdown ? (
                     <NavigationMenuItem key={item.href}>
                       <NavigationMenuTrigger className={cn(
-                        "flex items-center space-x-2 px-2 lg:px-4 py-2 font-semibold text-sm lg:text-base",
+                        "flex items-center space-x-1 px-2 lg:px-3 py-2 font-semibold text-sm",
                         location.startsWith('/private-cruises') || 
                         location.startsWith('/corporate-events') ||
                         location.startsWith('/birthday-parties') ||
@@ -312,7 +302,7 @@ export default function PublicNavigation() {
                         href={item.href}
                         className={cn(
                           navigationMenuTriggerStyle(),
-                          "flex items-center space-x-2 font-semibold text-sm lg:text-base px-2 lg:px-4",
+                          "flex items-center space-x-1 font-semibold text-sm px-2 lg:px-3",
                           location === item.href
                             ? "text-brand-blue bg-brand-blue/10"
                             : "text-gray-700 dark:text-gray-300"
@@ -338,21 +328,21 @@ export default function PublicNavigation() {
               <Button
                 variant="outline"
                 onClick={handleGetQuote}
-                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 md:px-4 lg:px-6 py-2 tracking-wide text-sm lg:text-base"
+                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold px-3 lg:px-4 py-2 tracking-wide text-sm whitespace-nowrap"
                 data-testid="button-header-get-quote"
               >
-                <MessageSquare className="mr-2 h-4 w-4" />
+                <MessageSquare className="mr-1.5 h-4 w-4" />
                 <span data-editable data-editable-id="header-get-quote-button">GET QUOTE</span>
               </Button>
               
               <Button
                 onClick={handleBookNow}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-3 md:px-4 lg:px-6 py-2 tracking-wide shadow-lg hover:shadow-xl transition-all duration-300 text-sm lg:text-base"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-3 lg:px-4 py-2 tracking-wide shadow-lg hover:shadow-xl transition-all duration-300 text-sm whitespace-nowrap"
                 data-testid="button-header-book-now"
               >
-                <Calendar className="mr-2 h-4 w-4" />
+                <Calendar className="mr-1.5 h-4 w-4" />
                 <span data-editable data-editable-id="header-book-now-button">BOOK NOW</span>
-                <ArrowRight className="ml-2 h-4 w-4" />
+                <ArrowRight className="ml-1.5 h-4 w-4" />
               </Button>
             </div>
 
