@@ -19,7 +19,7 @@ import {
   ArrowRight, CheckCircle, Sparkles, Wine, Shield,
   Star, MessageSquare, Award, Quote, ChevronRight,
   Ship, Anchor, Sun, Info, TrendingUp, Utensils,
-  Building, Handshake, Crown, Diamond, GlassWater, X
+  Building, Handshake, Crown, Diamond, GlassWater, X, Trophy
 } from 'lucide-react';
 
 // Hero and gallery images
