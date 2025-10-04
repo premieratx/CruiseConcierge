@@ -255,6 +255,9 @@ export default function SEOHead({
   // Determine final schema (custom > SEO data > fallback)
   const finalSchema = customSchema || seoData?.schemaMarkup || fallbackSchema;
 
+  // Convert finalSchema to array for consistent handling
+  const schemaArray = Array.isArray(finalSchema) ? finalSchema : [finalSchema];
+
   // Generate breadcrumb schema for navigation
   const breadcrumbSchema = {
     "@context": "https://schema.org",
@@ -316,12 +319,14 @@ export default function SEOHead({
       <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       <meta name="format-detection" content="telephone=no" />
       
-      {/* Structured Data */}
-      {finalSchema && (
-        <script type="application/ld+json">
-          {JSON.stringify(finalSchema, null, 2)}
-        </script>
-      )}
+      {/* Structured Data - Render each schema in separate script tag */}
+      {schemaArray.map((schema, index) => (
+        schema && (
+          <script key={`schema-${index}`} type="application/ld+json">
+            {JSON.stringify(schema, null, 2)}
+          </script>
+        )
+      ))}
       
       {/* Breadcrumb Structured Data */}
       {breadcrumbSchema.itemListElement.length > 1 && (
