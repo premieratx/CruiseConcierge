@@ -179,6 +179,35 @@ export default function BlogPostPage() {
 
   const { post, author, categories, tags, relatedPosts } = data;
 
+  // Create Article schema for SEO
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": post.title,
+    "author": {
+      "@type": "Person",
+      "name": author.name || "Premier Party Cruises Team"
+    },
+    "datePublished": post.publishedAt ? new Date(post.publishedAt).toISOString() : new Date(post.createdAt).toISOString(),
+    "dateModified": post.updatedAt ? new Date(post.updatedAt).toISOString() : new Date(post.createdAt).toISOString(),
+    ...(post.featuredImageUrl && {
+      "image": post.featuredImageUrl
+    }),
+    "publisher": {
+      "@type": "Organization",
+      "name": "Premier Party Cruises",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://premierppartycruises.com/logo.png"
+      }
+    },
+    "description": post.excerpt || post.metaDescription || "",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": `https://premierppartycruises.com/blogs/${slug}`
+    }
+  };
+
   return (
     <>
       <PublicNavigation />
@@ -187,6 +216,7 @@ export default function BlogPostPage() {
         defaultTitle={post.metaTitle || post.title || "Blog Post"}
         defaultDescription={post.metaDescription || post.excerpt || ""}
         defaultKeywords={post.focusKeyphrase ? [post.focusKeyphrase] : []}
+        customSchema={articleSchema}
       />
       <div className="min-h-screen bg-background">
         <div className="container mx-auto px-4 py-8">

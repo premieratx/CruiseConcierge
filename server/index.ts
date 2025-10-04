@@ -96,6 +96,56 @@ app.use('/q/', (req, res, next) => {
   
   const server = await registerRoutes(app);
 
+  // Sitemap route - must be registered before Vite to avoid catch-all interference
+  const Database = (await import("@replit/database")).default;
+  app.get('/sitemap.xml', async (req: Request, res: Response) => {
+    try {
+      const replitDb = new Database();
+      const baseUrl = process.env.REPLIT_DEV_DOMAIN 
+        ? `https://${process.env.REPLIT_DEV_DOMAIN}` 
+        : 'https://premierpartycruises.com';
+      
+      const posts = await replitDb.get("index:posts") || [];
+      const now = new Date().toISOString();
+      
+      const staticPages = [
+        { url: '/', lastmod: now, changefreq: 'weekly', priority: 1.0 },
+        { url: '/party-boat-lake-travis', lastmod: now, changefreq: 'weekly', priority: 0.9 },
+        { url: '/bachelor-party-austin', lastmod: now, changefreq: 'weekly', priority: 0.9 },
+        { url: '/bachelorette-party-austin', lastmod: now, changefreq: 'weekly', priority: 0.9 },
+        { url: '/gallery', lastmod: now, changefreq: 'monthly', priority: 0.7 },
+        { url: '/blogs', lastmod: now, changefreq: 'daily', priority: 0.8 },
+        { url: '/chat', lastmod: now, changefreq: 'monthly', priority: 0.6 },
+        { url: '/contact', lastmod: now, changefreq: 'monthly', priority: 0.5 }
+      ];
+      
+      const blogPages = posts.map((post: any) => ({
+        url: `/blogs/${post.slug}`,
+        lastmod: post.updatedAt || post.publishedAt || post.createdAt || now,
+        changefreq: 'monthly',
+        priority: 0.7
+      }));
+      
+      const urls = [...staticPages, ...blogPages];
+      
+      const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${urls.map(page => `  <url>
+    <loc>${baseUrl}${page.url}</loc>
+    <lastmod>${page.lastmod.split('T')[0]}</lastmod>
+    <changefreq>${page.changefreq}</changefreq>
+    <priority>${page.priority.toFixed(1)}</priority>
+  </url>`).join('\n')}
+</urlset>`;
+      
+      res.setHeader('Content-Type', 'application/xml; charset=UTF-8');
+      res.send(xml);
+    } catch (error) {
+      console.error('Error generating sitemap:', error);
+      res.status(500).send('Error generating sitemap');
+    }
+  });
+
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";

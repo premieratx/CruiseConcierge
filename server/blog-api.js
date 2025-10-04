@@ -171,7 +171,16 @@ blogRouter.get("/public/posts/:slug", async (req, res) => {
   try {
     const slug = req.params.slug;
     const postRaw = await db.get(`post:${slug}`);
-    const post = postRaw?.value || postRaw;
+    
+    // Handle double-wrapped response
+    let post = null;
+    if (postRaw?.value?.value) {
+      post = postRaw.value.value;
+    } else if (postRaw?.value) {
+      post = postRaw.value;
+    } else {
+      post = postRaw;
+    }
     
     if (!post || post.status !== "published") {
       return res.status(404).json({ error: "Not found" });
@@ -182,12 +191,31 @@ blogRouter.get("/public/posts/:slug", async (req, res) => {
     if (post.categories && post.categories.length > 0) {
       const primaryCategorySlug = post.categories[0].slug;
       const postsIndexRaw = await db.get("index:posts");
-      const slugs = Array.isArray(postsIndexRaw) ? postsIndexRaw : (postsIndexRaw?.value || []);
+      
+      // Handle double-wrapped response for index
+      let slugs = [];
+      if (Array.isArray(postsIndexRaw)) {
+        slugs = postsIndexRaw;
+      } else if (postsIndexRaw?.value?.value && Array.isArray(postsIndexRaw.value.value)) {
+        slugs = postsIndexRaw.value.value;
+      } else if (postsIndexRaw?.value && Array.isArray(postsIndexRaw.value)) {
+        slugs = postsIndexRaw.value;
+      }
       
       for (const s of slugs) {
         if (s === slug || relatedPosts.length >= 3) continue;
         const relatedPostRaw = await db.get(`post:${s}`);
-        const relatedPost = relatedPostRaw?.value || relatedPostRaw;
+        
+        // Handle double-wrapped response for individual posts
+        let relatedPost = null;
+        if (relatedPostRaw?.value?.value) {
+          relatedPost = relatedPostRaw.value.value;
+        } else if (relatedPostRaw?.value) {
+          relatedPost = relatedPostRaw.value;
+        } else {
+          relatedPost = relatedPostRaw;
+        }
+        
         if (relatedPost?.status === "published" && 
             relatedPost?.categories?.some(c => c.slug === primaryCategorySlug)) {
           relatedPosts.push(relatedPost);

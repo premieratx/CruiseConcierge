@@ -1935,6 +1935,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // ==========================================
   // MEDIA LIBRARY ROUTES
   // ==========================================
+  // Note: Sitemap route moved to server/index.ts for proper routing priority
   
   // Configure multer for file uploads
   const upload = multer({ 

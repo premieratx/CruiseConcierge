@@ -23,7 +23,7 @@ import {
 } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
-import SEOHead from '@/components/SEOHead';
+import SEOHead, { generateFAQSchema } from '@/components/SEOHead';
 import { DiscoVsPrivateComparison, QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
@@ -158,6 +158,34 @@ const whyChooseUs = [
     icon: Wine,
     title: 'Party On Delivery',
     description: 'Direct-to-boat alcohol delivery through our sister company Party On Delivery! Order online, they deliver 50 feet from your boat.'
+  }
+];
+
+// General FAQs about party boat services
+const faqData = [
+  {
+    question: 'What types of party boat services do you offer in Austin?',
+    answer: 'We offer two main types of party boat experiences on Lake Travis: Private Charters (exclusive boat rentals for your group with boats holding 14-75 people) and ATX Disco Cruises (shared party boat experiences with professional DJ and photographer starting at $85/person). Both include professional captains, premium sound systems, coolers with ice, and depart from Anderson Mill Marina.'
+  },
+  {
+    question: 'How much does a party boat rental cost in Austin?',
+    answer: 'Austin party boat pricing varies by experience type. Private charters start at $275/hour for our 14-person boat with 4-hour minimums. ATX Disco Cruise packages start at $85/person for Basic Bach, $95/person for Disco Queen/King, and $105/person for Platinum packages. Weekend rates are higher than weekday rates. Contact us for exact pricing for your specific date and group size.'
+  },
+  {
+    question: 'Where do Austin party boats depart from?',
+    answer: 'All Premier Party Cruises depart from Anderson Mill Marina located at 13993 FM2769, Leander, TX 78641 on Lake Travis. The marina is conveniently located just 30 minutes from downtown Austin, making it easily accessible for guests from Austin, Lakeway, Bee Cave, and Cedar Park. Free parking is available at the marina.'
+  },
+  {
+    question: 'What\'s included in your party boat services?',
+    answer: 'Every party boat cruise includes: professional Coast Guard certified captain and crew, premium Bluetooth sound system, large coolers with ice, all required safety equipment, fuel, and access to Lake Travis\'s most scenic coves and beaches. ATX Disco Cruises also include professional DJ, photographer, party favors, and reserved seating areas. Optional add-ons include lily pads, alcohol delivery, and transportation services.'
+  },
+  {
+    question: 'Can we bring our own alcohol on the party boat?',
+    answer: 'Yes! All our party boats are BYOB (Bring Your Own Booze). We provide large coolers with ice for your beverages. For added convenience, we partner with Party On Delivery - our sister company that delivers alcohol directly to your boat at the marina. You can order online and they deliver everything 50 feet from your boat, so you don\'t have to carry anything!'
+  },
+  {
+    question: 'How far in advance should we book our Austin party boat?',
+    answer: 'We recommend booking 4-6 weeks in advance, especially for weekend dates and during peak season (April-September). ATX Disco Cruises for bachelorette and bachelor parties sell out the fastest. Private charters for corporate events and large groups should be booked 6-8 weeks ahead. Last-minute bookings (1-2 weeks) may be available on weekdays.'
   }
 ];
 
@@ -424,6 +452,7 @@ export default function Home() {
         defaultDescription="Austin's #1 party boat on Lake Travis! Perfect for bachelorette parties, bachelor parties & corporate events. Book your Austin boat party today! (512) 488-5892"
         defaultKeywords={['party boat Austin', 'bachelorette party Austin', 'Austin boat rental', 'Lake Travis party boat', 'bachelor party Austin']}
         schemaType="organization"
+        customSchema={generateFAQSchema(faqData)}
       />
       <PublicNavigation />
       {/* Hero Section */}
