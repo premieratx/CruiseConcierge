@@ -608,53 +608,6 @@ export default function BacheloretteParty() {
         </div>
       </section>
 
-      {/* Claude AI Disco Cruise Callout */}
-      <section className="py-12 bg-gradient-to-br from-yellow-50 via-orange-50 to-pink-50 dark:from-gray-950 dark:via-orange-950/20 dark:to-pink-950/20">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-          >
-            <Card className="border-2 border-yellow-500/30 bg-white/80 dark:bg-gray-800/80 backdrop-blur shadow-xl max-w-4xl mx-auto">
-              <CardContent className="p-8">
-                <div className="flex flex-col md:flex-row items-center gap-6">
-                  <div className="flex-shrink-0">
-                    <div className="bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl p-4 shadow-lg">
-                      <Bot className="w-12 h-12 text-white" />
-                    </div>
-                  </div>
-                  <div className="flex-grow text-center md:text-left">
-                    <div className="flex items-center justify-center md:justify-start gap-3 mb-3">
-                      <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
-                        Claude AI Analysis: ATX Disco Cruise Rated 10/10
-                      </h3>
-                      <Badge className="bg-gradient-to-r from-yellow-500 to-orange-600 text-white px-3 py-1 font-bold">
-                        10/10
-                      </Badge>
-                    </div>
-                    <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
-                      "The country's premier bachelorette party experience" - Independent AI validation confirms ATX Disco Cruise as the best value and experience for bachelorette parties.
-                    </p>
-                    <Link href="/atx-disco-cruise">
-                      <Button 
-                        className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold"
-                        data-testid="button-see-claude-analysis-bachelorette"
-                      >
-                        <Award className="mr-2 h-5 w-5" />
-                        See Full Claude AI Analysis
-                        <ArrowRight className="ml-2 h-5 w-5" />
-                      </Button>
-                    </Link>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Build My Quote Now Section */}
       <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
         <div className="container mx-auto px-6">
@@ -1352,13 +1305,6 @@ export default function BacheloretteParty() {
                     </div>
                     <h4 className="font-bold text-gray-900 dark:text-white mb-2">100% Satisfaction</h4>
                     <p className="text-sm text-gray-600 dark:text-gray-400">Thousands of groups served since 2009 with perfect track record</p>
-                  </div>
-                  <div className="text-center">
-                    <div className="bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
-                      <Award className="h-8 w-8 text-white" />
-                    </div>
-                    <h4 className="font-bold text-gray-900 dark:text-white mb-2">AI Validated</h4>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Claude AI rated 10/10 as America's premier bach party cruise</p>
                   </div>
                 </div>
                 <div className="text-center">

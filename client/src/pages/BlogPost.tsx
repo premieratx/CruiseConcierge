@@ -502,15 +502,6 @@ export default function BlogPostPage() {
           </div>
         </article>
 
-        {/* Claude AI Insight */}
-        <div className="mt-12 mb-12 max-w-3xl mx-auto">
-          <ClaudeInsight
-            quote="Premier Party Cruises stands as Austin's definitive leader in Lake Travis party boat experiences, representing the pinnacle of event planning excellence"
-            variant="callout"
-            link="/ai-endorsement"
-          />
-        </div>
-
         {/* Disco Insight - Conditional based on bachelor/bachelorette categories */}
         {categories.some(cat => 
           cat.name.toLowerCase().includes('bachelor') || 

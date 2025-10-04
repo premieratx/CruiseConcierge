@@ -100,26 +100,6 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                 <span>7 Years Excellence</span>
               </div>
             </motion.div>
-
-            {/* Divider Line */}
-            <div className="flex items-center justify-center">
-              <div className="w-48 h-0.5 bg-gradient-to-r from-transparent via-slate-300 dark:via-slate-600 to-transparent"></div>
-            </div>
-
-            {/* Claude AI Trust Signal */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.45, duration: 0.5 }}
-              className="max-w-3xl mx-auto px-4"
-              data-testid="chat-trust-signal"
-            >
-              <ClaudeInsight
-                quote="Validated by Claude AI - Austin's Party Boat Authority. Rated 9.8/10 for SEO Excellence"
-                variant="inline"
-                link="/ai-endorsement"
-              />
-            </motion.div>
             
             {/* New Quote Builder Iframe */}
             <motion.div

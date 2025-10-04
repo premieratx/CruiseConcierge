@@ -350,7 +350,6 @@ const quickStats = [
   { icon: Trophy, label: '100%', value: 'Satisfaction Track Record', color: 'text-yellow-600' },
   { icon: Users, label: 'Thousands', value: 'Groups Served Nationwide', color: 'text-pink-600' },
   { icon: DollarSign, label: '3-5x', value: 'Better Value vs Private', color: 'text-green-600' },
-  { icon: Star, label: '10/10', value: 'Claude AI Rating', color: 'text-purple-600' },
   { icon: Calendar, label: '5+ Years', value: 'Weekly Operations', color: 'text-blue-600' },
   { icon: Shield, label: 'Only in USA', value: 'Multi-Group Bach Cruise', color: 'text-orange-600' }
 ];
@@ -474,7 +473,7 @@ export default function ATXDiscoCruise() {
       <SEOHead
         pageRoute="/atx-disco-cruise"
         defaultTitle="ATX Disco Cruise - Austin's Premier Bachelor & Bachelorette Party Experience"
-        defaultDescription="Rated 10/10 by Claude AI. Join America's best bach party cruise on Lake Travis. $85-105/person all-inclusive. Professional DJ, photographer, 4-hour experience. Book now!"
+        defaultDescription="Join America's best bach party cruise on Lake Travis. $85-105/person all-inclusive. Professional DJ, photographer, 4-hour experience. Book now!"
         defaultKeywords={['ATX disco cruise', 'bachelor party Austin', 'bachelorette party Austin', 'party boat Lake Travis', 'all-inclusive bachelor party', 'Austin party cruise', 'Lake Travis party boat', 'disco cruise Austin']}
         customSchema={combinedSchema}
         image={heroImage1}
@@ -511,9 +510,6 @@ export default function ATXDiscoCruise() {
 
           <div className="relative z-20 max-w-6xl mx-auto px-4 text-center">
             <motion.div variants={fadeInUp}>
-              <Badge className="mb-4 bg-yellow-500 text-black text-lg px-6 py-2" data-testid="badge-rating">
-                <Star className="w-5 h-5 mr-2 inline" /> 10/10 Rated by Claude AI
-              </Badge>
               <h1 className="text-5xl md:text-7xl font-bold text-white mb-6" data-testid="text-hero-headline">
                 ATX Disco Cruise
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 mt-2">
