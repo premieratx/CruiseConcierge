@@ -106,8 +106,8 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Authority Section - Featured By Claude AI */}
-          <div className="space-y-4" data-testid="footer-authority-section">
+          {/* Authority Section - Featured By Claude AI - HIDDEN */}
+          {/* <div className="space-y-4" data-testid="footer-authority-section">
             <h3 className="text-lg font-bold text-white mb-4 flex items-center space-x-2">
               <Award className="h-5 w-5 text-brand-yellow" />
               <span>As Featured By Claude AI</span>
@@ -130,7 +130,7 @@ export default function Footer() {
                 <span className="text-sm">Claude AI Market Analysis</span>
               </Link>
             </div>
-          </div>
+          </div> */}
 
           {/* Resources & About Section */}
           <div className="space-y-4" data-testid="footer-resources-section">
