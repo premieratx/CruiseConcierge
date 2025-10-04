@@ -1262,29 +1262,33 @@ export const NAVIGATION_LABELS = {
  * Based on actual pricing data provided by user
  */
 export const PRIVATE_CRUISE_FINAL_PRICES = {
-  // Monday-Thursday final prices (Standard package)
+  // Monday-Thursday BASE prices (Standard package, 4-hour cruise)
+  // Rate: 1-14: $200/hr, 15-25: $250/hr, 31-50: $300/hr
+  // These are BASE prices - tax (8.25%) and gratuity (20%) will be added by calculator
   MON_THU: {
-    14: 105000, // $1,050.00 for ≤14 people
-    25: 118100, // $1,181.00 for ≤25 people  
-    50: 131300, // $1,313.00 for ≤50 people
+    14: 80000, // $200/hr × 4hrs = $800 base
+    25: 100000, // $250/hr × 4hrs = $1,000 base
+    50: 120000, // $300/hr × 4hrs = $1,200 base
   },
-  // Friday final prices (Standard package)
+  // Friday BASE prices (Standard package, 4-hour cruise)
+  // Rate: 1-14: $225/hr, 15-25: $250/hr, 31-50: $300/hr
   FRIDAY: {
-    14: 118100, // $1,181.00 for ≤14 people
-    25: 131300, // $1,313.00 for ≤25 people
-    50: 144400, // $1,444.00 for ≤50 people
+    14: 90000, // $225/hr × 4hrs = $900 base
+    25: 100000, // $250/hr × 4hrs = $1,000 base
+    50: 120000, // $300/hr × 4hrs = $1,200 base
   },
-  // Saturday final prices (Standard package)
+  // Saturday BASE prices (Standard package, 4-hour cruise) - PREMIUM PRICING
+  // Rate: 1-14: $350/hr, 15-25: $375/hr, 31-50: $400/hr
   SATURDAY: {
-    14: 183800, // $1,838.00 for ≤14 people
-    25: 196900, // $1,969.00 for ≤25 people
-    50: 210000, // $2,100.00 for ≤50 people
+    14: 140000, // $350/hr × 4hrs = $1,400 base
+    25: 150000, // $375/hr × 4hrs = $1,500 base
+    50: 160000, // $400/hr × 4hrs = $1,600 base
   },
-  // Sunday final prices (Standard package)
+  // Sunday BASE prices (Standard package) - same as Monday-Thursday
   SUNDAY: {
-    14: 131300, // $1,313.00 for ≤14 people
-    25: 144400, // $1,444.00 for ≤25 people
-    50: 157500, // $1,575.00 for ≤50 people
+    14: 80000, // $200/hr × 4hrs = $800 base
+    25: 100000, // $250/hr × 4hrs = $1,000 base
+    50: 120000, // $300/hr × 4hrs = $1,200 base
   }
 } as const;
 

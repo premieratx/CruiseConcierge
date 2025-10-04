@@ -179,27 +179,6 @@ const navigationItems: NavigationItem[] = [
     icon: Star
   },
   {
-    title: 'Authority',
-    href: '/ai-endorsement',
-    icon: Bot,
-    badge: 'Featured',
-    hasDropdown: true,
-    dropdownItems: [
-      {
-        title: 'AI Endorsements',
-        href: '/ai-endorsement',
-        description: 'Claude AI analysis & recommendations',
-        icon: Award
-      },
-      {
-        title: 'Market Analysis',
-        href: '/blogs/claude-ai-market-analysis-premier-party-cruises',
-        description: 'AI-powered market insights',
-        icon: TrendingUp
-      }
-    ]
-  },
-  {
     title: 'Contact',
     href: '/contact',
     icon: Phone

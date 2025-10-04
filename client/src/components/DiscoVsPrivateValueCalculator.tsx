@@ -143,7 +143,7 @@ function calculateGroupComparison(groupSize: number): GroupSizeComparison {
   };
 }
 
-const GROUP_SIZES = [6, 10, 14, 16, 18, 20, 22, 25];
+const GROUP_SIZES = [4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 25];
 
 export default function DiscoVsPrivateValueCalculator() {
   const [selectedSize, setSelectedSize] = useState<number>(14);
@@ -153,17 +153,17 @@ export default function DiscoVsPrivateValueCalculator() {
   const boatTier = getBoatTier(selectedSize);
   
   return (
-    <div className="w-full space-y-8" data-testid="disco-vs-private-calculator">
+    <div className="w-full space-y-3 md:space-y-4" data-testid="disco-vs-private-calculator">
       {/* Group Size Selector */}
-      <div className="space-y-4">
-        <h3 className="text-2xl font-bold text-center">Choose Your Group Size</h3>
-        <div className="grid grid-cols-4 md:grid-cols-8 gap-2">
+      <div className="space-y-2">
+        <h3 className="text-lg md:text-xl font-bold text-center">Choose Your Group Size</h3>
+        <div className="grid grid-cols-5 md:grid-cols-11 gap-1.5 md:gap-2">
           {GROUP_SIZES.map(size => (
             <Button
               key={size}
               variant={selectedSize === size ? 'default' : 'outline'}
               onClick={() => setSelectedSize(size)}
-              className="w-full"
+              className="w-full h-8 md:h-10 text-sm md:text-base px-2"
               data-testid={`group-size-${size}`}
             >
               {size}
@@ -173,10 +173,11 @@ export default function DiscoVsPrivateValueCalculator() {
       </div>
 
       {/* Day Selector */}
-      <div className="flex justify-center gap-4">
+      <div className="flex justify-center gap-3">
         <Button
           variant={selectedDay === 'friday' ? 'default' : 'outline'}
           onClick={() => setSelectedDay('friday')}
+          className="h-9"
           data-testid="day-friday"
         >
           Friday
@@ -184,6 +185,7 @@ export default function DiscoVsPrivateValueCalculator() {
         <Button
           variant={selectedDay === 'saturday' ? 'default' : 'outline'}
           onClick={() => setSelectedDay('saturday')}
+          className="h-9"
           data-testid="day-saturday"
         >
           Saturday

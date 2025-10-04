@@ -361,14 +361,6 @@ export default function ATXDiscoCruise() {
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const heroImages = [heroImage1, heroImage2, heroImage3];
 
-  const { data: endorsements } = useQuery<any[]>({
-    queryKey: ['/api/endorsements'],
-  });
-
-  const discoEndorsement = endorsements?.find(e => 
-    e.categories?.includes('disco_cruise') || e.categories?.includes('general')
-  );
-
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
@@ -469,31 +461,13 @@ export default function ATXDiscoCruise() {
     }
   };
 
-  const reviewSchema = discoEndorsement ? {
-    "@context": "https://schema.org",
-    "@type": "Review",
-    "itemReviewed": {
-      "@type": "Service",
-      "name": "ATX Disco Cruise"
-    },
-    "author": {
-      "@type": "Organization",
-      "name": discoEndorsement.source
-    },
-    "reviewRating": {
-      "@type": "Rating",
-      "ratingValue": discoEndorsement.rating?.toString() || "10",
-      "bestRating": discoEndorsement.maxRating?.toString() || "10"
-    },
-    "reviewBody": discoEndorsement.summary
-  } : null;
 
   const faqSchema = generateFAQSchema(faqItems.map(faq => ({
     question: faq.question,
     answer: faq.answer
   })));
 
-  const combinedSchema = [eventSchema, serviceSchema, reviewSchema, faqSchema].filter(Boolean);
+  const combinedSchema = [eventSchema, serviceSchema, faqSchema].filter(Boolean);
 
   return (
     <>
@@ -602,53 +576,6 @@ export default function ATXDiscoCruise() {
           </div>
         </motion.section>
 
-        {/* Claude AI Endorsement Section */}
-        {discoEndorsement && (
-          <motion.section 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            className="py-16 px-4"
-            data-testid="section-endorsement"
-          >
-            <div className="max-w-5xl mx-auto">
-              <Card className="border-4 border-yellow-400 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20">
-                <CardHeader>
-                  <div className="flex items-center gap-3 mb-4">
-                    <Award className="w-10 h-10 text-yellow-600" />
-                    <div>
-                      <CardTitle className="text-2xl" data-testid="text-endorsement-source">
-                        {discoEndorsement.source} Endorsement
-                      </CardTitle>
-                      <div className="flex items-center gap-2 mt-1">
-                        {[...Array(discoEndorsement.rating || 10)].map((_, i) => (
-                          <Star key={i} className="w-5 h-5 fill-yellow-500 text-yellow-500" />
-                        ))}
-                        <span className="text-lg font-bold ml-2" data-testid="text-endorsement-rating">
-                          {discoEndorsement.rating || 10}/{discoEndorsement.maxRating || 10}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                  <CardDescription className="text-lg" data-testid="text-endorsement-headline">
-                    {discoEndorsement.headline}
-                  </CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-700 dark:text-gray-300 mb-4" data-testid="text-endorsement-summary">
-                    {discoEndorsement.summary}
-                  </p>
-                  <Link href="/ai-endorsement">
-                    <Button variant="outline" className="border-yellow-600 text-yellow-700 hover:bg-yellow-50" data-testid="link-full-analysis">
-                      Read Full AI Analysis <ArrowRight className="ml-2 w-4 h-4" />
-                    </Button>
-                  </Link>
-                </CardContent>
-              </Card>
-            </div>
-          </motion.section>
-        )}
 
         {/* National Leadership & Market Impact Section */}
         <motion.section 
@@ -1483,15 +1410,15 @@ export default function ATXDiscoCruise() {
           whileInView="visible"
           viewport={{ once: true }}
           variants={fadeInUp}
-          className="py-20 px-4 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-900/10 dark:to-blue-900/10"
+          className="py-8 md:py-12 px-4 bg-gradient-to-br from-green-50 to-blue-50 dark:from-green-900/10 dark:to-blue-900/10"
           data-testid="section-value-comparison"
         >
           <div className="max-w-7xl mx-auto">
-            <h2 className="text-4xl md:text-5xl font-bold text-center mb-4">
-              <DollarSign className="w-12 h-12 inline mr-3 text-green-600" />
+            <h2 className="text-2xl md:text-3xl font-bold text-center mb-2">
+              <DollarSign className="w-8 h-8 inline mr-2 text-green-600" />
               The Math Doesn't Lie: Disco Cruise Wins
             </h2>
-            <p className="text-xl text-center text-gray-600 dark:text-gray-300 mb-12">
+            <p className="text-base md:text-lg text-center text-gray-600 dark:text-gray-300 mb-4 md:mb-6">
               See exactly how much you save with the ATX Disco Cruise for any group size
             </p>
             <DiscoVsPrivateValueCalculator />

@@ -379,6 +379,49 @@ export default function AIEndorsement() {
         </div>
       </motion.section>
 
+      {/* Claude AI Endorsement Yellow Box */}
+      {endorsements.length > 0 && (
+        <motion.section 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="py-16 px-4"
+          data-testid="section-endorsement-highlight"
+        >
+          <div className="max-w-5xl mx-auto">
+            <Card className="border-4 border-yellow-400 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-900/20 dark:to-orange-900/20">
+              <CardHeader>
+                <div className="flex items-center gap-3 mb-4">
+                  <Award className="w-10 h-10 text-yellow-600" />
+                  <div>
+                    <CardTitle className="text-2xl" data-testid="text-endorsement-source">
+                      {endorsements[0].source} Endorsement
+                    </CardTitle>
+                    <div className="flex items-center gap-2 mt-1">
+                      {[...Array(endorsements[0].rating || 10)].map((_, i) => (
+                        <Star key={i} className="w-5 h-5 fill-yellow-500 text-yellow-500" />
+                      ))}
+                      <span className="text-lg font-bold ml-2" data-testid="text-endorsement-rating">
+                        {endorsements[0].rating || 10}/{endorsements[0].maxRating || 10}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <CardDescription className="text-lg" data-testid="text-endorsement-headline">
+                  {endorsements[0].headline}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-700 dark:text-gray-300 mb-4" data-testid="text-endorsement-summary">
+                  {endorsements[0].summary}
+                </p>
+              </CardContent>
+            </Card>
+          </div>
+        </motion.section>
+      )}
+
       {/* Overview Section - Both Endorsements Side by Side */}
       <motion.section
         initial="hidden"
