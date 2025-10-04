@@ -28,14 +28,8 @@ export async function analyzePhotoForContent(imagePath: string) {
       }
     `;
 
-    const model = ai.getGenerativeModel({ 
+    const response = await ai.models.generateContent({
       model: "gemini-2.5-flash",
-      generationConfig: {
-        responseMimeType: "application/json"
-      }
-    });
-
-    const response = await model.generateContent({
       contents: [{
         role: 'user',
         parts: [{
@@ -46,10 +40,13 @@ export async function analyzePhotoForContent(imagePath: string) {
         }, {
           text: analysisPrompt
         }]
-      }]
+      }],
+      config: {
+        responseMimeType: "application/json"
+      }
     });
 
-    const result = await response.response.text();
+    const result = await response.text;
     return JSON.parse(result || "{}");
   } catch (error) {
     console.error('Photo analysis failed:', error);
@@ -74,11 +71,8 @@ export async function editPhotoWithNanoBanana(
       custom: editPrompt
     };
 
-    const model = ai.getGenerativeModel({ 
-      model: "gemini-2.0-flash-exp" // Correct model for image editing
-    });
-
-    const response = await model.generateContent({
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash-exp", // Correct model for image editing
       contents: [{
         role: 'user',
         parts: [{
@@ -92,7 +86,7 @@ export async function editPhotoWithNanoBanana(
       }]
     });
 
-    const result = await response.response;
+    const result = response;
     
     // Check for image data in response
     const candidates = result.candidates;
@@ -124,11 +118,8 @@ export async function editPhotoWithNanoBanana(
 // Generate new image with Nano Banana
 export async function generateImageWithNanoBanana(prompt: string) {
   try {
-    const model = ai.getGenerativeModel({ 
-      model: "gemini-2.0-flash-exp" // Correct model for image generation
-    });
-
-    const response = await model.generateContent({
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash-exp", // Correct model for image generation
       contents: [{
         role: 'user',
         parts: [{
@@ -137,7 +128,7 @@ export async function generateImageWithNanoBanana(prompt: string) {
       }]
     });
 
-    const result = await response.response;
+    const result = response;
     const candidates = result.candidates;
     
     if (!candidates || candidates.length === 0) {
@@ -173,22 +164,19 @@ export async function findBestPhotosForSection(photos: any[], sectionType: strin
     Return JSON array of photo IDs ranked by relevance: ["id1", "id2", "id3", "id4", "id5", "id6"]
   `;
   
-  const model = ai.getGenerativeModel({ 
+  const response = await ai.models.generateContent({
     model: "gemini-2.5-flash",
-    generationConfig: { 
-      responseMimeType: "application/json" 
-    }
-  });
-  
-  const response = await model.generateContent({
     contents: [{
       role: 'user',
       parts: [{
         text: prompt
       }]
-    }]
+    }],
+    config: {
+      responseMimeType: "application/json"
+    }
   });
   
-  const result = await response.response.text();
+  const result = await response.text;
   return JSON.parse(result || "[]");
 }
