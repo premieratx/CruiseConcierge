@@ -74,6 +74,7 @@ import Contact from "./pages/Contact";
 import TestimonialsFaq from "./pages/TestimonialsFaq";
 import PartyBoatAustin from "./pages/PartyBoatAustin";
 import PartyBoatLakeTravis from "./pages/PartyBoatLakeTravis";
+import AIEndorsement from "./pages/AIEndorsement";
 
 // Wedding Experience Pages
 import RehearsalDinner from "./pages/RehearsalDinner";
@@ -122,6 +123,7 @@ function Router() {
       <Route path="/gallery" component={Gallery} />
       <Route path="/contact" component={Contact} />
       <Route path="/testimonials-faq" component={TestimonialsFaq} />
+      <Route path="/ai-endorsement" component={AIEndorsement} />
       
       {/* Wedding Experience Pages */}
       <Route path="/rehearsal-dinner" component={RehearsalDinner} />
