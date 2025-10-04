@@ -3,6 +3,7 @@ import { createServer, type Server } from "http";
 import Stripe from "stripe";
 import path from "path";
 import { db } from "./db";
+import { eq, desc, and } from "drizzle-orm";
 import passport from "passport";
 import { setupAuth, PasswordService } from "./auth";
 import { requireAuth, requireAdmin } from "./middleware/auth";
@@ -31,7 +32,7 @@ let wisprFlowService: any = null;
 let generateQuoteDescription: any = null;
 let openaiService: any = null;
 type LeadWebhookPayload = any;
-import { insertContactSchema, insertProjectSchema, insertChatMessageSchema, insertAdminChatSessionSchema, insertAdminChatMessageSchema, insertUserSchema, insertInviteSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, insertContentBlockSchema, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation, type AdminChatSession, type AdminChatMessage } from "@shared/schema";
+import { insertContactSchema, insertProjectSchema, insertChatMessageSchema, insertAdminChatSessionSchema, insertAdminChatMessageSchema, insertUserSchema, insertInviteSchema, insertQuoteTemplateSchema, insertTemplateRuleSchema, insertDiscountRuleSchema, insertPricingSettingsSchema, insertPricingAdjustmentSchema, insertProductSchema, insertAffiliateSchema, insertDiscoSlotSchema, insertTimeframeSchema, insertSmsAuthTokenSchema, insertCustomerSessionSchema, insertPortalActivityLogSchema, insertPartialLeadSchema, insertBlogPostSchema, insertBlogAuthorSchema, insertBlogCategorySchema, insertBlogTagSchema, insertBlogCommentSchema, insertBlogAnalyticsSchema, insertSeoPageSchema, insertSeoCompetitorSchema, insertContentBlockSchema, endorsements, type LeadData, type LeadUpdateData, type CreateLeadRequest, type PartialLeadFilters, type SEOOptimizationRequest, type SEOBulkOperation, type AdminChatSession, type AdminChatMessage, type Endorsement } from "@shared/schema";
 import { calculateServerPricing, type ServerPricingRequest } from './serverPricing';
 import { PRICING_DEFAULTS } from "@shared/constants";
 import { getPrivateTimeSlotsForDate, getDiscoTimeSlotsForDate, parseTimeToDate, getTimeSlotById } from "@shared/timeSlots";
@@ -2066,6 +2067,47 @@ ${JSON.stringify(articleSchema, null, 2)}
       console.error('Error bulk optimizing SEO pages:', error);
       res.status(500).json({ 
         error: 'Failed to bulk optimize SEO pages',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // ==========================================
+  // ENDORSEMENTS ROUTES
+  // ==========================================
+  
+  // Get all active endorsements ordered by display_order
+  app.get("/api/endorsements", async (req, res) => {
+    try {
+      const results = await db.query.endorsements.findMany({
+        where: eq(endorsements.active, true),
+        orderBy: [desc(endorsements.displayOrder)]
+      });
+      res.json(results);
+    } catch (error) {
+      console.error('Error fetching endorsements:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch endorsements',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Get homepage endorsements
+  app.get("/api/endorsements/homepage", async (req, res) => {
+    try {
+      const results = await db.query.endorsements.findMany({
+        where: and(
+          eq(endorsements.active, true),
+          eq(endorsements.displayOnHomepage, true)
+        ),
+        orderBy: [desc(endorsements.displayOrder)]
+      });
+      res.json(results);
+    } catch (error) {
+      console.error('Error fetching homepage endorsements:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch homepage endorsements',
         message: error instanceof Error ? error.message : 'Unknown error'
       });
     }
