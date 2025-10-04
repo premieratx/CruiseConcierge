@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
@@ -284,6 +284,8 @@ export default function Home() {
   const [quickPricingGroupSize, setQuickPricingGroupSize] = useState(20);
   const [quickPricingDayOfWeek, setQuickPricingDayOfWeek] = useState(6); // Saturday
   const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
+  const [iframeHeight, setIframeHeight] = useState(3000); // Very large height to prevent any internal scrolling
+  const iframeRef = useRef<HTMLIFrameElement>(null);
   const [contactForm, setContactForm] = useState({
     name: '',
     email: '',
@@ -306,12 +308,18 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
-  // Listen for quote builder completion
+  // Listen for quote builder messages (height changes and completion)
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       // Verify origin for security
       if (event.origin !== 'https://ppc-quote-builder.lovable.app') {
         return;
+      }
+      
+      // Handle iframe height changes for dynamic resizing
+      if (event.data && event.data.type === 'resize' && event.data.height) {
+        const newHeight = Math.max(event.data.height + 100, 1200); // Add padding, minimum 1200px
+        setIframeHeight(newHeight);
       }
       
       // Handle quote submission completion
@@ -329,6 +337,19 @@ export default function Home() {
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
   }, [navigate, toast]);
+
+  // Adjust iframe height based on viewport for optimal display
+  useEffect(() => {
+    const updateHeight = () => {
+      // Set height to 2x viewport height to ensure no scrolling needed
+      const viewportHeight = window.innerHeight;
+      setIframeHeight(Math.max(viewportHeight * 2, 3000));
+    };
+
+    updateHeight();
+    window.addEventListener('resize', updateHeight);
+    return () => window.removeEventListener('resize', updateHeight);
+  }, []);
 
   // Update page title for SEO
   useEffect(() => {
@@ -729,14 +750,16 @@ export default function Home() {
                     className="bg-white rounded-none md:rounded-2xl shadow-2xl overflow-hidden"
                   >
                     <iframe 
+                      ref={iframeRef}
                       src="https://ppc-quote-builder.lovable.app/"
                       title="Build Your Quote - Premier Party Cruises"
                       className="w-full"
                       style={{ 
-                        minHeight: '800px',
-                        height: '80vh',
-                        border: 'none'
+                        height: `${iframeHeight}px`,
+                        border: 'none',
+                        overflow: 'hidden'
                       }}
+                      scrolling="no"
                       allow="payment; geolocation"
                       allowFullScreen
                       data-testid="iframe-quote-builder"
