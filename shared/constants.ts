@@ -1373,14 +1373,21 @@ export function getPrivateCruiseDayType(dayOfWeek: number): keyof typeof PRIVATE
  * Calculates disco cruise total cost for a group
  * @param groupSize Number of people
  * @param packageType Disco package type
- * @returns Total cost in cents or null if not available
+ * @returns Total cost in cents including tax and gratuity
  */
 export function calculateDiscoPrice(
   groupSize: number, 
   packageType: keyof typeof DISCO_AVAILABILITY.PACKAGES
 ): number {
   const pricePerPerson = DISCO_AVAILABILITY.PACKAGES[packageType].pricePerPerson;
-  return pricePerPerson * groupSize;
+  const subtotal = pricePerPerson * groupSize;
+  
+  // APPLY TAX AND GRATUITY
+  const tax = Math.floor(subtotal * (PRICING_DEFAULTS.TAX_RATE_BASIS_POINTS / 10000)); // 8.25%
+  const gratuity = Math.floor(subtotal * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100)); // 20%
+  const total = subtotal + tax + gratuity;
+  
+  return total; // Return TOTAL including tax and gratuity, not just subtotal
 }
 
 /**
@@ -1388,7 +1395,7 @@ export function calculateDiscoPrice(
  * @param groupSize Number of people
  * @param dayOfWeek Day of week (0=Sunday, 1=Monday, ..., 6=Saturday) 
  * @param packageType Private package type (standard/essentials/ultimate)
- * @returns Cost breakdown object
+ * @returns Cost breakdown object including tax and gratuity
  */
 export function calculatePrivatePrice(
   groupSize: number, 
@@ -1397,6 +1404,9 @@ export function calculatePrivatePrice(
 ): {
   basePrice: number;
   addOnCost: number;
+  subtotal: number;
+  tax: number;
+  gratuity: number;
   totalPrice: number;
   capacityTier: 14 | 25 | 50;
   dayType: string;
@@ -1414,15 +1424,23 @@ export function calculatePrivatePrice(
     addOnCost = Math.floor(basePrice * 0.40); // ~40% for ultimate
   }
   
-  const totalPrice = basePrice + addOnCost;
+  const subtotal = basePrice + addOnCost;
+  
+  // APPLY TAX AND GRATUITY
+  const tax = Math.floor(subtotal * (PRICING_DEFAULTS.TAX_RATE_BASIS_POINTS / 10000)); // 8.25%
+  const gratuity = Math.floor(subtotal * (PRICING_DEFAULTS.GRATUITY_PERCENT / 100)); // 20%
+  const totalPrice = subtotal + tax + gratuity;
   
   return {
     basePrice,
     addOnCost,
-    totalPrice,
+    subtotal,
+    tax,
+    gratuity,
+    totalPrice, // Now includes tax and gratuity
     capacityTier,
     dayType,
-    perPersonCost: Math.floor(totalPrice / groupSize)
+    perPersonCost: Math.floor(totalPrice / groupSize) // Per person based on TOTAL
   };
 }
 
@@ -1469,10 +1487,11 @@ export function compareDiscoVsPrivate(
   const discoAvailable = isDiscoAvailableOnDay(dayOfWeek);
   
   // Calculate disco pricing if available
+  const discoTotalCost = discoAvailable ? calculateDiscoPrice(groupSize, discoPackage) : null;
   const discoOption = {
     available: discoAvailable,
-    totalCost: discoAvailable ? calculateDiscoPrice(groupSize, discoPackage) : null,
-    costPerPerson: discoAvailable ? DISCO_AVAILABILITY.PACKAGES[discoPackage].pricePerPerson : null,
+    totalCost: discoTotalCost,
+    costPerPerson: discoTotalCost ? Math.floor(discoTotalCost / groupSize) : null,
     packageName: DISCO_AVAILABILITY.PACKAGES[discoPackage].name,
     description: DISCO_AVAILABILITY.PACKAGES[discoPackage].description
   };

@@ -7,6 +7,7 @@ import { CategoryBadge } from "@/components/blog/CategoryBadge";
 import { TagBadge } from "@/components/blog/TagBadge";
 import { BlogCard } from "@/components/blog/BlogCard";
 import ClaudeInsight from "@/components/ClaudeInsight";
+import DiscoInsight from "@/components/DiscoInsight";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
@@ -509,6 +510,17 @@ export default function BlogPostPage() {
             link="/ai-endorsement"
           />
         </div>
+
+        {/* Disco Insight - Conditional based on bachelor/bachelorette categories */}
+        {categories.some(cat => 
+          cat.name.toLowerCase().includes('bachelor') || 
+          cat.name.toLowerCase().includes('bachelorette') ||
+          cat.name.toLowerCase().includes('party')
+        ) && (
+          <div className="mt-8 mb-12 max-w-3xl mx-auto">
+            <DiscoInsight variant="default" showCTA={true} />
+          </div>
+        )}
 
         {/* Related Posts */}
         {relatedPosts.length > 0 && (

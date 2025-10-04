@@ -19,7 +19,7 @@ import {
   Users, Camera, Heart, ArrowRight, Star,
   Building, Cake, ChevronDown, GraduationCap,
   Trophy, Crown, Sparkles, Wine, Music, Gift,
-  Bot, Award, TrendingUp
+  Bot, Award, TrendingUp, Disc3
 } from 'lucide-react';
 
 // Type definitions
@@ -88,6 +88,12 @@ const navigationItems: NavigationItem[] = [
     icon: Ship,
     hasDropdown: true,
     dropdownItems: [
+      {
+        title: '⭐ ATX Disco Cruise',
+        href: '/atx-disco-cruise',
+        description: 'All-Inclusive Bach Party Cruise • Most Popular',
+        icon: Disc3
+      },
       {
         title: 'All Private Cruises',
         href: '/private-cruises',

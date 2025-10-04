@@ -7,6 +7,7 @@ import { BlogCard } from "@/components/blog/BlogCard";
 import { CategoryBadge } from "@/components/blog/CategoryBadge";
 import { TagBadge } from "@/components/blog/TagBadge";
 import ClaudeInsight from "@/components/ClaudeInsight";
+import DiscoInsight from "@/components/DiscoInsight";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -414,6 +415,9 @@ export default function Blogs() {
                 variant="sidebar"
                 link="/ai-endorsement"
               />
+
+              {/* Disco Insight */}
+              <DiscoInsight variant="compact" showCTA={true} />
 
               {/* Popular Posts */}
               {featuredPosts.length > 0 && (

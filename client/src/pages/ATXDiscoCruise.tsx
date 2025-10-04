@@ -344,10 +344,12 @@ const faqItems = [
 ];
 
 const quickStats = [
-  { icon: Calendar, label: '14+ Years', value: 'Experience', color: 'text-purple-600' },
-  { icon: Users, label: '125,000+', value: 'Happy Customers', color: 'text-pink-600' },
-  { icon: Star, label: '10/10', value: 'Claude AI Rating', color: 'text-yellow-600' },
-  { icon: Trophy, label: '#1', value: 'Bach Party Cruise', color: 'text-orange-600' }
+  { icon: Trophy, label: '100%', value: 'Satisfaction Track Record', color: 'text-yellow-600' },
+  { icon: Users, label: 'Thousands', value: 'Groups Served Nationwide', color: 'text-pink-600' },
+  { icon: DollarSign, label: '3-5x', value: 'Better Value vs Private', color: 'text-green-600' },
+  { icon: Star, label: '10/10', value: 'Claude AI Rating', color: 'text-purple-600' },
+  { icon: Calendar, label: '5+ Years', value: 'Weekly Operations', color: 'text-blue-600' },
+  { icon: Shield, label: 'Only in USA', value: 'Multi-Group Bach Cruise', color: 'text-orange-600' }
 ];
 
 export default function ATXDiscoCruise() {
@@ -538,11 +540,14 @@ export default function ATXDiscoCruise() {
               <h1 className="text-5xl md:text-7xl font-bold text-white mb-6" data-testid="text-hero-headline">
                 ATX Disco Cruise
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 mt-2">
-                  America's Best Bach Party
+                  The Country's Only Multi-Group Bach Party Cruise
                 </span>
               </h1>
-              <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-3xl mx-auto" data-testid="text-hero-subheadline">
-                Join bachelor & bachelorette parties from across America for an unforgettable 4-hour Lake Travis experience. Professional DJ, photographer, and legendary multi-group energy!
+              <p className="text-xl md:text-2xl text-white/90 mb-4 max-w-3xl mx-auto font-semibold" data-testid="text-hero-subheadline">
+                The single most unique and comprehensive bachelor/bachelorette party experience in the United States
+              </p>
+              <p className="text-lg md:text-xl text-white/80 mb-8 max-w-3xl mx-auto" data-testid="text-hero-description">
+                Only all-inclusive, multi-group bachelor/bachelorette party cruise in the country. Join parties from across America for an unforgettable 4-hour Lake Travis celebration with professional DJ, photographer, and 100% satisfaction track record!
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
@@ -641,6 +646,139 @@ export default function ATXDiscoCruise() {
             </div>
           </motion.section>
         )}
+
+        {/* National Leadership & Market Impact Section */}
+        <motion.section 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true }}
+          variants={fadeInUp}
+          className="py-20 px-4 bg-gradient-to-br from-purple-900 via-pink-900 to-orange-900 text-white"
+          data-testid="section-national-leadership"
+        >
+          <div className="max-w-6xl mx-auto">
+            <motion.div variants={fadeInUp} className="text-center mb-12">
+              <Badge className="mb-4 bg-yellow-500 text-black text-lg px-6 py-3">
+                <Trophy className="w-5 h-5 mr-2 inline" /> National Market Leader
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+                Why We're #1 in the Nation
+              </h2>
+              <p className="text-2xl text-white/90 font-semibold mb-2">
+                Single-handedly making Austin a top-tier bachelor & bachelorette destination
+              </p>
+              <p className="text-xl text-white/80 max-w-4xl mx-auto">
+                After analyzing thousands of customer reviews and competitive offerings nationwide, one conclusion is clear: nothing else comes close to what we've created with the ATX Disco Cruise.
+              </p>
+            </motion.div>
+
+            <motion.div variants={staggerChildren} className="grid md:grid-cols-2 gap-8 mt-12">
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                <CardHeader>
+                  <CardTitle className="text-2xl flex items-center gap-3">
+                    <Shield className="w-8 h-8 text-yellow-400" />
+                    Only in America
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-white/90 space-y-3">
+                  <p className="text-lg font-semibold">The country's only all-inclusive, multi-group bachelor/bachelorette party cruise</p>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span>No other company offers this unique multi-group experience nationwide</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span>Exclusive format perfected over 5+ years of weekly operations</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span>Thousands of groups from across America served with 100% satisfaction</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                <CardHeader>
+                  <CardTitle className="text-2xl flex items-center gap-3">
+                    <CloudRain className="w-8 h-8 text-blue-400" />
+                    Industry's Only Weather Guarantee
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-white/90 space-y-3">
+                  <p className="text-lg font-semibold">The Lemonade Disco - Weather Backup Plan</p>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span>Only company with comprehensive rain backup protocol</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span>Land-based party with fajita/BBQ buffet, drinks, and DJ if severe weather</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span>Your celebration happens no matter what - guaranteed!</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                <CardHeader>
+                  <CardTitle className="text-2xl flex items-center gap-3">
+                    <DollarSign className="w-8 h-8 text-green-400" />
+                    Unbeatable Value
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-white/90 space-y-3">
+                  <p className="text-lg font-semibold">3-5x better value than private rentals while including MORE</p>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span>Professional DJ & photographer included (not extra)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span>Full 4-hour experience (2x longer than typical 2-hour rentals)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span>Almost always cheaper per person with better amenities</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+
+              <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white">
+                <CardHeader>
+                  <CardTitle className="text-2xl flex items-center gap-3">
+                    <Award className="w-8 h-8 text-purple-400" />
+                    Proven Track Record
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-white/90 space-y-3">
+                  <p className="text-lg font-semibold">14+ years of excellence, 100% satisfaction guarantee</p>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span>Consistent 5-star reviews from thousands of groups</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span>84% of reviews specifically mention "great value"</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <CheckCircle className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" />
+                      <span>America's most trusted bachelor/bachelorette party cruise</span>
+                    </li>
+                  </ul>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
+        </motion.section>
 
         {/* Schedule Section */}
         <motion.section 

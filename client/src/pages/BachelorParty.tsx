@@ -566,6 +566,53 @@ export default function BachelorParty() {
         </div>
       </section>
 
+      {/* Claude AI Disco Cruise Callout */}
+      <section className="py-12 bg-gradient-to-br from-yellow-50 via-orange-50 to-pink-50 dark:from-gray-950 dark:via-orange-950/20 dark:to-pink-950/20">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+          >
+            <Card className="border-2 border-yellow-500/30 bg-white/80 dark:bg-gray-800/80 backdrop-blur shadow-xl max-w-4xl mx-auto">
+              <CardContent className="p-8">
+                <div className="flex flex-col md:flex-row items-center gap-6">
+                  <div className="flex-shrink-0">
+                    <div className="bg-gradient-to-br from-yellow-500 to-orange-600 rounded-2xl p-4 shadow-lg">
+                      <Bot className="w-12 h-12 text-white" />
+                    </div>
+                  </div>
+                  <div className="flex-grow text-center md:text-left">
+                    <div className="flex items-center justify-center md:justify-start gap-3 mb-3">
+                      <h3 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
+                        Claude AI Analysis: ATX Disco Cruise Rated 10/10
+                      </h3>
+                      <Badge className="bg-gradient-to-r from-yellow-500 to-orange-600 text-white px-3 py-1 font-bold">
+                        10/10
+                      </Badge>
+                    </div>
+                    <p className="text-lg text-gray-700 dark:text-gray-300 mb-4">
+                      "The country's premier bachelor party experience" - Independent AI validation confirms ATX Disco Cruise as the best value and experience for bachelor parties.
+                    </p>
+                    <Link href="/atx-disco-cruise">
+                      <Button 
+                        className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold"
+                        data-testid="button-see-claude-analysis-bachelor"
+                      >
+                        <Award className="mr-2 h-5 w-5" />
+                        See Full Claude AI Analysis
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </Button>
+                    </Link>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+      </section>
+
       {/* Build My Quote Now Section */}
       <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
         <div className="container mx-auto px-6">
@@ -1173,6 +1220,32 @@ export default function BachelorParty() {
                   Disco Cruise vs Private Cruise
                 </h2>
                 
+                {/* Claude AI Comparison Highlight */}
+                <Card className="mb-8 border-2 border-yellow-500/30 bg-gradient-to-br from-yellow-50 via-orange-50 to-pink-50 dark:from-yellow-950/20 dark:via-orange-950/20 dark:to-pink-950/20">
+                  <CardContent className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <Badge className="bg-gradient-to-r from-yellow-500 to-orange-600 text-white px-3 py-1 font-bold">
+                        Claude AI Insight
+                      </Badge>
+                      <h3 className="text-xl font-bold text-gray-900 dark:text-white">
+                        Value Comparison: 3-5x Better Value
+                      </h3>
+                    </div>
+                    <p className="text-lg text-gray-700 dark:text-gray-300 mb-3">
+                      <strong>ATX Disco Cruise:</strong> $85-105/person all-inclusive with DJ, photographer, and entertainment vs <strong>Private Rental:</strong> $260-440/person for basic boat only
+                    </p>
+                    <Link href="/atx-disco-cruise">
+                      <Button 
+                        variant="outline"
+                        className="border-yellow-500 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-500 hover:text-white"
+                      >
+                        See Detailed Analysis
+                        <ArrowRight className="ml-2 h-4 w-4" />
+                      </Button>
+                    </Link>
+                  </CardContent>
+                </Card>
+                
                 <div className="grid lg:grid-cols-2 gap-8">
                   {/* Disco Cruise */}
                   <Card className="border-2 border-brand-yellow">
@@ -1300,6 +1373,56 @@ export default function BachelorParty() {
 
             {/* FAQs Tab */}
             <TabsContent value="faq" className="mt-8">
+              {/* Why Choose ATX Disco Cruise Section */}
+              <div className="mb-12 bg-gradient-to-br from-yellow-50 via-orange-50 to-pink-50 dark:from-gray-950 dark:via-orange-950/20 dark:to-pink-950/20 rounded-2xl p-8">
+                <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">
+                  Why Choose ATX Disco Cruise?
+                </h2>
+                <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                  <div className="text-center">
+                    <div className="bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                      <Star className="h-8 w-8 text-white" />
+                    </div>
+                    <h4 className="font-bold text-gray-900 dark:text-white mb-2">Unbeatable Value</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">3-5x better value than private rentals with all entertainment included</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                      <Users className="h-8 w-8 text-white" />
+                    </div>
+                    <h4 className="font-bold text-gray-900 dark:text-white mb-2">Multi-Group Energy</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Meet other bachelor parties from across the country for epic vibes</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                      <Trophy className="h-8 w-8 text-white" />
+                    </div>
+                    <h4 className="font-bold text-gray-900 dark:text-white mb-2">100% Satisfaction</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Thousands of groups served since 2009 with perfect track record</p>
+                  </div>
+                  <div className="text-center">
+                    <div className="bg-gradient-to-br from-yellow-500 to-orange-600 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-3">
+                      <Award className="h-8 w-8 text-white" />
+                    </div>
+                    <h4 className="font-bold text-gray-900 dark:text-white mb-2">AI Validated</h4>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Claude AI rated 10/10 as America's premier bach party cruise</p>
+                  </div>
+                </div>
+                <div className="text-center">
+                  <Link href="/atx-disco-cruise">
+                    <Button 
+                      size="lg"
+                      className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold"
+                      data-testid="button-why-choose-disco"
+                    >
+                      <Sparkles className="mr-2 h-5 w-5" />
+                      Explore ATX Disco Cruise
+                      <ArrowRight className="ml-2 h-5 w-5" />
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+
               <div className="max-w-3xl mx-auto">
                 <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelor-faq-title">
                   Frequently Asked Questions

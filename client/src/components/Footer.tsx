@@ -59,6 +59,16 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <Link 
+                  href="/atx-disco-cruise" 
+                  className="text-white hover:text-brand-yellow transition-colors text-sm block font-semibold flex items-center space-x-2 bg-gradient-to-r from-yellow-500/20 to-orange-500/20 p-2 rounded-lg border border-yellow-500/30"
+                  data-testid="link-footer-disco-cruises"
+                >
+                  <span className="text-yellow-400">⭐</span>
+                  <span>ATX Disco Cruise - Featured</span>
+                </Link>
+              </li>
+              <li>
+                <Link 
                   href="/bachelor-party-austin" 
                   className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block"
                   data-testid="link-footer-bachelor-party"
@@ -91,15 +101,6 @@ export default function Footer() {
                   data-testid="link-footer-private-cruises"
                 >
                   Private Cruises
-                </Link>
-              </li>
-              <li>
-                <Link 
-                  href="/party-boat-austin" 
-                  className="text-gray-300 hover:text-brand-yellow transition-colors text-sm block"
-                  data-testid="link-footer-disco-cruises"
-                >
-                  ATX Disco Cruises
                 </Link>
               </li>
             </ul>
