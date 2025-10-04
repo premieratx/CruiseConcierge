@@ -32,6 +32,14 @@ The quote builder functionality is integrated via an external Lovable applicatio
 ### UI/UX Decisions
 The system features a progressive booking flow and intuitive admin dashboards. Design uses Tailwind CSS and shadcn/ui. UI improvements include optimized column order for comparisons, display of hourly/per-person rates, and detailed quote emails/SMS.
 
+**ATX Disco Cruise Comparison Section (Oct 2025):**
+- Disco vs Private pricing calculator with comprehensive group sizes (4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 25)
+- Compressed vertical spacing for single-viewport display on desktop
+- Accurate pricing calculations: base rates + 8.25% tax + 20% gratuity
+- Quick reference table for easy comparison
+- Yellow Claude AI endorsement box moved to dedicated AI Authority Hub page
+- Navigation streamlined: Authority link removed from top menu, retained in footer "As Featured By Claude AI" section
+
 ### Technical Implementations
 - **AI Chatbot**: Utilizes OpenRouter API for progressive booking interactions.
 - **Booking Flow**: Guides users through event type, date, group size, time slot, and package selection.
