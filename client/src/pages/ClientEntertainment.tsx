@@ -13,7 +13,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { formatCurrency } from '@shared/formatters';
-import SEOHead, { generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
+import SEOHead, { generateComprehensiveLocalBusinessSchema, generateFAQSchema } from '@/components/SEOHead';
 import { 
   Briefcase, Users, Calendar, MapPin, Clock, Phone,
   ArrowRight, CheckCircle, Sparkles, Wine, Shield,
@@ -235,6 +235,8 @@ export default function ClientEntertainment() {
     navigate('/chat?eventType=client-entertainment&action=book');
   };
 
+  const faqSchema = generateFAQSchema(faqItems);
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead 
@@ -248,27 +250,30 @@ export default function ClientEntertainment() {
           'client appreciation events',
           'luxury corporate cruise austin'
         ]}
-        customSchema={generateComprehensiveLocalBusinessSchema({
-          pageDescription: "Premier client entertainment and corporate event cruises on Lake Travis, Austin. Luxury boat charters with gourmet dining and premium service to impress your most important clients. 14+ years experience.",
-          additionalServices: [
-            {
-              name: "Client Entertainment Cruises",
-              description: "Luxury Lake Travis cruises designed to impress and entertain your most important clients"
-            },
-            {
-              name: "Corporate Event Boat Rentals",
-              description: "Professional corporate team building and client entertainment on premium Lake Travis boats"
-            },
-            {
-              name: "Business Entertainment Services",
-              description: "Complete corporate entertainment packages with gourmet dining and premium bar service"
-            },
-            {
-              name: "Client Appreciation Events",
-              description: "Exclusive client appreciation events on Lake Travis - elevate your business relationships"
-            }
-          ]
-        })}
+        customSchema={[
+          generateComprehensiveLocalBusinessSchema({
+            pageDescription: "Premier client entertainment and corporate event cruises on Lake Travis, Austin. Luxury boat charters with gourmet dining and premium service to impress your most important clients. 14+ years experience.",
+            additionalServices: [
+              {
+                name: "Client Entertainment Cruises",
+                description: "Luxury Lake Travis cruises designed to impress and entertain your most important clients"
+              },
+              {
+                name: "Corporate Event Boat Rentals",
+                description: "Professional corporate team building and client entertainment on premium Lake Travis boats"
+              },
+              {
+                name: "Business Entertainment Services",
+                description: "Complete corporate entertainment packages with gourmet dining and premium bar service"
+              },
+              {
+                name: "Client Appreciation Events",
+                description: "Exclusive client appreciation events on Lake Travis - elevate your business relationships"
+              }
+            ]
+          }),
+          faqSchema
+        ]}
       />
 
       <PublicNavigation />

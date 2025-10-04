@@ -19,7 +19,7 @@ import {
   Package, Gift, Heart, Crown, Anchor, PartyPopper, ArrowRight, X
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import SEOHead, { generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
+import SEOHead, { generateComprehensiveLocalBusinessSchema, generateFAQSchema } from '@/components/SEOHead';
 import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
@@ -310,6 +310,8 @@ export default function PrivateCruises() {
     }
   };
 
+  const faqSchema = generateFAQSchema(faqData);
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead 
@@ -350,7 +352,8 @@ export default function PrivateCruises() {
             ]
           }),
           serviceSchema,
-          productSchema
+          productSchema,
+          faqSchema
         ]}
       />
       <PublicNavigation />

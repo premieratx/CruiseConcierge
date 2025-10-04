@@ -10,7 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@shared/formatters';
-import SEOHead, { generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
+import SEOHead, { generateComprehensiveLocalBusinessSchema, generateFAQSchema } from '@/components/SEOHead';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { DISCO_PRICING } from '@shared/constants';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
@@ -441,6 +441,8 @@ export default function CombinedBachelorBachelorette() {
     }
   };
 
+  const faqSchema = generateFAQSchema(faqItems);
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead
@@ -468,7 +470,8 @@ export default function CombinedBachelorBachelorette() {
             ]
           }),
           eventSchema,
-          productSchema
+          productSchema,
+          faqSchema
         ]}
       />
       <PublicNavigation />
