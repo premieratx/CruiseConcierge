@@ -245,13 +245,13 @@ export default function Blogs() {
                   variants={containerVariants}
                   initial="hidden"
                   animate="visible"
-                  className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
+                  className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
                 >
                   {Array.from({ length: 6 }).map((_, i) => (
                     <motion.div key={i} variants={itemVariants} className="space-y-3">
-                      <Skeleton className="h-48 w-full" />
-                      <Skeleton className="h-4 w-3/4" />
-                      <Skeleton className="h-3 w-1/2" />
+                      <Skeleton className="h-56 w-full rounded-xl" />
+                      <Skeleton className="h-5 w-3/4" />
+                      <Skeleton className="h-4 w-1/2" />
                     </motion.div>
                   ))}
                 </motion.div>
@@ -262,12 +262,12 @@ export default function Blogs() {
                 <>
                   {/* Results Summary */}
                   <div className="mb-6">
-                    <p className="text-gray-600 dark:text-gray-300" data-testid="text-results-summary">
+                    <p className="text-sm font-medium text-gray-600 dark:text-gray-400" data-testid="text-results-summary">
                       {data.total === 0 ? (
                         "No posts found"
                       ) : (
                         <>
-                          Showing {((currentPage - 1) * postsPerPage) + 1} to {Math.min(currentPage * postsPerPage, data.total)} of {data.total} posts
+                          Showing {((currentPage - 1) * postsPerPage) + 1}-{Math.min(currentPage * postsPerPage, data.total)} of {data.total} posts
                         </>
                       )}
                     </p>
@@ -277,25 +277,25 @@ export default function Blogs() {
                     <motion.div
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
-                      className="text-center py-12"
+                      className="text-center py-20"
                     >
-                      <p className="text-xl text-gray-500 dark:text-gray-400">No blog posts found.</p>
-                      <p className="text-gray-400 dark:text-gray-500 mt-2">Try adjusting your search or filters.</p>
+                      <p className="text-2xl font-semibold text-gray-500 dark:text-gray-400">No blog posts found</p>
+                      <p className="text-gray-400 dark:text-gray-500 mt-2">Try adjusting your search or filters</p>
                     </motion.div>
                   ) : (
                     <motion.div
                       variants={containerVariants}
                       initial="hidden"
                       animate="visible"
-                      className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 2xl:grid-cols-6"
+                      className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
                     >
-                      {data.posts.map((post, index) => (
+                      {data.posts.map((post) => (
                         <motion.article
                           key={post.id}
                           variants={itemVariants}
                           whileHover={{ 
-                            scale: 1.05,
-                            transition: { duration: 0.2 }
+                            y: -8,
+                            transition: { duration: 0.3 }
                           }}
                           data-testid={`card-blog-post-${post.id}`}
                         >
@@ -304,6 +304,7 @@ export default function Blogs() {
                             author={post.author}
                             categories={post.categories}
                             showExcerpt={true}
+                            className="h-full"
                           />
                         </motion.article>
                       ))}

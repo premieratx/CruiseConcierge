@@ -79,6 +79,17 @@ export default function BlogPostPage() {
     }
   };
 
+  const safeToISOString = (date: Date | string | null | undefined): string | undefined => {
+    if (!date) return undefined;
+    try {
+      const dateObj = new Date(date);
+      if (isNaN(dateObj.getTime())) return undefined;
+      return dateObj.toISOString();
+    } catch {
+      return undefined;
+    }
+  };
+
   const calculateReadingTime = (content: string, wordCount?: number) => {
     if (wordCount) return Math.ceil(wordCount / 200);
     const words = content.replace(/<[^>]*>/g, '').split(/\s+/).length;
@@ -180,6 +191,9 @@ export default function BlogPostPage() {
   const { post, author, categories, tags, relatedPosts } = data;
 
   // Create Article schema for SEO
+  const publishedDate = safeToISOString(post.publishedAt || post.createdAt);
+  const modifiedDate = safeToISOString(post.updatedAt || post.createdAt);
+  
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -188,8 +202,8 @@ export default function BlogPostPage() {
       "@type": "Person",
       "name": author.name || "Premier Party Cruises Team"
     },
-    "datePublished": post.publishedAt ? new Date(post.publishedAt).toISOString() : new Date(post.createdAt).toISOString(),
-    "dateModified": post.updatedAt ? new Date(post.updatedAt).toISOString() : new Date(post.createdAt).toISOString(),
+    ...(publishedDate && { "datePublished": publishedDate }),
+    ...(modifiedDate && { "dateModified": modifiedDate }),
     ...(post.featuredImageUrl && {
       "image": post.featuredImageUrl
     }),
@@ -218,24 +232,24 @@ export default function BlogPostPage() {
         defaultKeywords={post.focusKeyphrase ? [post.focusKeyphrase] : []}
         customSchema={articleSchema}
       />
-      <div className="min-h-screen bg-background">
-        <div className="container mx-auto px-4 py-8">
+      <div className="min-h-screen bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
+        <div className="container mx-auto px-4 py-8 max-w-5xl">
         {/* Breadcrumb */}
-        <div className="mb-6">
+        <div className="mb-8">
           <Link href="/blogs">
-            <Button variant="ghost" size="sm" data-testid="button-back-blog">
+            <Button variant="ghost" size="sm" className="hover:bg-gray-100 dark:hover:bg-gray-800" data-testid="button-back-blog">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Back to Blog
             </Button>
           </Link>
         </div>
 
-        <article className="max-w-4xl mx-auto">
+        <article className="bg-white dark:bg-gray-900 rounded-2xl shadow-xl overflow-hidden">
           {/* Post Header */}
-          <header className="mb-8">
+          <header className="px-6 md:px-12 pt-8 md:pt-12 pb-6">
             {/* Categories */}
             {categories.length > 0 && (
-              <div className="flex flex-wrap gap-2 mb-4">
+              <div className="flex flex-wrap gap-2 mb-6">
                 {categories.map((category) => (
                   <CategoryBadge key={category.id} category={category} />
                 ))}
@@ -243,67 +257,67 @@ export default function BlogPostPage() {
             )}
 
             {/* Title */}
-            <h1 className="text-2xl md:text-3xl lg:text-5xl font-bold text-gray-900 dark:text-white mb-4" data-testid="title-blog-post">
+            <h1 className="text-3xl md:text-4xl lg:text-5xl font-extrabold text-gray-900 dark:text-white mb-6 leading-tight" data-testid="title-blog-post">
               {post.title}
             </h1>
 
             {/* Excerpt */}
             {post.excerpt && (
-              <p className="text-xl text-gray-600 dark:text-gray-300 mb-6" data-testid="excerpt-blog-post">
+              <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 mb-8 leading-relaxed" data-testid="excerpt-blog-post">
                 {post.excerpt}
               </p>
             )}
 
             {/* Meta Information */}
-            <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 dark:text-gray-300">
+            <div className="flex flex-wrap items-center gap-3 md:gap-4 text-sm text-gray-500 dark:text-gray-400 border-t border-b border-gray-200 dark:border-gray-700 py-4">
               {/* Author */}
               <Link href={`/blogs/author/${author.id}`}>
-                <div className="flex items-center gap-2 hover:text-primary transition-colors" data-testid="link-author">
-                  <Avatar className="h-8 w-8">
+                <div className="flex items-center gap-2 hover:text-brand-blue transition-colors" data-testid="link-author">
+                  <Avatar className="h-9 w-9 ring-2 ring-gray-200 dark:ring-gray-700">
                     <AvatarImage src={author.avatarUrl || ""} alt={author.name} />
-                    <AvatarFallback>
+                    <AvatarFallback className="bg-brand-blue text-white font-semibold">
                       {author.name.split(' ').map(n => n[0]).join('')}
                     </AvatarFallback>
                   </Avatar>
-                  <span>{author.name}</span>
+                  <span className="font-medium">{author.name}</span>
                 </div>
               </Link>
 
-              <Separator orientation="vertical" className="h-4" />
+              <Separator orientation="vertical" className="h-5 bg-gray-300 dark:bg-gray-600" />
 
               {/* Published Date */}
-              <div className="flex items-center gap-1">
-                <Calendar className="h-4 w-4" />
+              <div className="flex items-center gap-1.5">
+                <Calendar className="h-4 w-4 text-gray-400" />
                 <span data-testid="date-published">{formatDate(post.publishedAt || post.createdAt)}</span>
               </div>
 
               {/* Reading Time */}
               {post.readingTime && (
                 <>
-                  <Separator orientation="vertical" className="h-4" />
-                  <div className="flex items-center gap-1">
-                    <Clock className="h-4 w-4" />
+                  <Separator orientation="vertical" className="h-5 bg-gray-300 dark:bg-gray-600" />
+                  <div className="flex items-center gap-1.5">
+                    <Clock className="h-4 w-4 text-gray-400" />
                     <span data-testid="reading-time">{post.readingTime} min read</span>
                   </div>
                 </>
               )}
 
               {/* View Count */}
-              <Separator orientation="vertical" className="h-4" />
-              <div className="flex items-center gap-1">
-                <Eye className="h-4 w-4" />
+              <Separator orientation="vertical" className="h-5 bg-gray-300 dark:bg-gray-600" />
+              <div className="flex items-center gap-1.5">
+                <Eye className="h-4 w-4 text-gray-400" />
                 <span data-testid="view-count">{post.viewCount || 0} views</span>
               </div>
-
             </div>
 
             {/* Social Share Buttons */}
-            <div className="flex items-center gap-2 mt-6">
-              <span className="text-sm text-gray-600 dark:text-gray-300 mr-2">Share:</span>
+            <div className="flex flex-wrap items-center gap-2 mt-6">
+              <span className="text-sm font-medium text-gray-700 dark:text-gray-300 mr-1">Share:</span>
               <Button
                 variant="outline"
                 size="sm"
                 onClick={shareToFacebook}
+                className="hover:bg-blue-50 hover:text-blue-600 hover:border-blue-600 dark:hover:bg-blue-950 transition-colors"
                 data-testid="button-share-facebook"
               >
                 <Facebook className="h-4 w-4 mr-1" />
@@ -313,6 +327,7 @@ export default function BlogPostPage() {
                 variant="outline"
                 size="sm"
                 onClick={shareToTwitter}
+                className="hover:bg-sky-50 hover:text-sky-600 hover:border-sky-600 dark:hover:bg-sky-950 transition-colors"
                 data-testid="button-share-twitter"
               >
                 <Twitter className="h-4 w-4 mr-1" />
@@ -322,6 +337,7 @@ export default function BlogPostPage() {
                 variant="outline"
                 size="sm"
                 onClick={shareToLinkedIn}
+                className="hover:bg-blue-50 hover:text-blue-700 hover:border-blue-700 dark:hover:bg-blue-950 transition-colors"
                 data-testid="button-share-linkedin"
               >
                 <Linkedin className="h-4 w-4 mr-1" />
@@ -331,17 +347,17 @@ export default function BlogPostPage() {
           </header>
 
           {/* Featured Image */}
-          <div className="mb-8">
+          <div className="mb-0">
             {post.featuredImage ? (
               <img
                 src={post.featuredImage}
                 alt={post.featuredImageAlt || post.title}
-                className="w-full h-auto rounded-lg shadow-lg"
+                className="w-full h-auto object-cover max-h-[500px]"
                 data-testid="img-featured"
               />
             ) : (
               <div 
-                className="w-full h-64 md:h-96 rounded-lg bg-gradient-to-br from-brand-blue to-blue-600 flex items-center justify-center"
+                className="w-full h-64 md:h-80 bg-gradient-to-br from-brand-blue to-blue-600 flex items-center justify-center"
                 data-testid="img-featured-placeholder"
               >
                 <div className="text-white text-center px-4">
@@ -354,15 +370,24 @@ export default function BlogPostPage() {
 
           {/* Post Content */}
           <div 
-            className="prose prose-lg dark:prose-invert max-w-none mb-8"
+            className="prose prose-lg dark:prose-invert max-w-none px-6 md:px-12 py-10 md:py-12 
+            prose-headings:font-bold prose-headings:text-gray-900 dark:prose-headings:text-white
+            prose-h1:text-4xl prose-h2:text-3xl prose-h2:mt-12 prose-h2:mb-6 
+            prose-h3:text-2xl prose-h3:mt-8 prose-h3:mb-4
+            prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6
+            prose-a:text-brand-blue prose-a:no-underline hover:prose-a:underline
+            prose-strong:text-gray-900 dark:prose-strong:text-white prose-strong:font-semibold
+            prose-ul:my-6 prose-ol:my-6 prose-li:my-2
+            prose-blockquote:border-l-4 prose-blockquote:border-brand-blue prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-600 dark:prose-blockquote:text-gray-400
+            prose-img:rounded-lg prose-img:shadow-md prose-img:my-8"
             dangerouslySetInnerHTML={{ __html: post.content }}
             data-testid="content-blog-post"
           />
 
           {/* Tags */}
           {tags.length > 0 && (
-            <div className="mb-8">
-              <h3 className="text-lg font-semibold mb-3">Tags</h3>
+            <div className="px-6 md:px-12 pb-8">
+              <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white">Tags</h3>
               <div className="flex flex-wrap gap-2">
                 {tags.map((tag) => (
                   <TagBadge key={tag.id} tag={tag} />
@@ -371,27 +396,27 @@ export default function BlogPostPage() {
             </div>
           )}
 
-          <Separator className="my-8" />
+          <Separator className="mx-6 md:mx-12" />
 
           {/* Author Bio */}
-          <div className="mb-8">
-            <div className="flex items-start gap-4 p-6 bg-gray-50 dark:bg-gray-800 rounded-lg">
-              <Avatar className="h-16 w-16">
+          <div className="px-6 md:px-12 py-8">
+            <div className="flex items-start gap-4 p-6 bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 rounded-xl border border-gray-200 dark:border-gray-700">
+              <Avatar className="h-16 w-16 ring-4 ring-white dark:ring-gray-800">
                 <AvatarImage src={author.avatarUrl || ""} alt={author.name} />
-                <AvatarFallback className="text-lg">
+                <AvatarFallback className="text-lg bg-brand-blue text-white font-bold">
                   {author.name.split(' ').map(n => n[0]).join('')}
                 </AvatarFallback>
               </Avatar>
               <div className="flex-1">
-                <h3 className="text-xl font-semibold mb-2" data-testid="name-author">{author.name}</h3>
+                <h3 className="text-xl font-bold mb-2 text-gray-900 dark:text-white" data-testid="name-author">{author.name}</h3>
                 {author.bio && (
-                  <p className="text-gray-600 dark:text-gray-300 mb-3" data-testid="bio-author">
+                  <p className="text-gray-600 dark:text-gray-300 mb-4 leading-relaxed" data-testid="bio-author">
                     {author.bio}
                   </p>
                 )}
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3">
                   <Link href={`/blogs/author/${author.id}`}>
-                    <Button variant="outline" size="sm" data-testid="button-view-author">
+                    <Button variant="default" size="sm" className="bg-brand-blue hover:bg-blue-700" data-testid="button-view-author">
                       View Profile
                     </Button>
                   </Link>
@@ -400,10 +425,10 @@ export default function BlogPostPage() {
                       href={author.website} 
                       target="_blank" 
                       rel="noopener noreferrer"
-                      className="text-primary hover:underline"
+                      className="text-brand-blue hover:underline font-medium transition-colors"
                       data-testid="link-author-website"
                     >
-                      Website
+                      Visit Website
                     </a>
                   )}
                 </div>
@@ -415,7 +440,7 @@ export default function BlogPostPage() {
         {/* Related Posts */}
         {relatedPosts.length > 0 && (
           <section className="mt-12 mb-12">
-            <h2 className="text-2xl font-bold mb-6" data-testid="title-related-posts">Related Posts</h2>
+            <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white" data-testid="title-related-posts">You May Also Like</h2>
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {relatedPosts.map((relatedPost) => (
                 <BlogCard

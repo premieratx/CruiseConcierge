@@ -84,8 +84,8 @@ export function BlogCard({
           )}
         </div>
         
-        <Link href={`/blog/${post.slug}`}>
-          <h3 className="text-xl font-semibold line-clamp-2 hover:text-primary transition-colors cursor-pointer" data-testid={`title-post-${post.id}`}>
+        <Link href={`/blogs/${post.slug}`}>
+          <h3 className="text-lg font-bold line-clamp-2 hover:text-brand-blue transition-colors cursor-pointer" data-testid={`title-post-${post.id}`}>
             {post.title}
           </h3>
         </Link>
@@ -93,14 +93,14 @@ export function BlogCard({
 
       {showExcerpt && post.excerpt && (
         <CardContent className="pt-0">
-          <p className="text-muted-foreground line-clamp-3" data-testid={`excerpt-${post.id}`}>
+          <p className="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 leading-relaxed" data-testid={`excerpt-${post.id}`}>
             {post.excerpt}
           </p>
         </CardContent>
       )}
 
-      <CardFooter className="flex items-center justify-between pt-4">
-        <div className="flex items-center gap-4 text-sm text-muted-foreground">
+      <CardFooter className="flex items-center justify-between pt-4 border-t border-gray-100 dark:border-gray-800">
+        <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
           <div className="flex items-center gap-1">
             <Eye className="h-4 w-4" />
             <span data-testid={`views-${post.id}`}>{post.viewCount || 0}</span>
@@ -111,8 +111,8 @@ export function BlogCard({
           </div>
         </div>
         
-        <Link href={`/blog/${post.slug}`}>
-          <Button variant="outline" size="sm" data-testid={`button-read-${post.id}`}>
+        <Link href={`/blogs/${post.slug}`}>
+          <Button variant="default" size="sm" className="bg-brand-blue hover:bg-blue-700" data-testid={`button-read-${post.id}`}>
             Read More
           </Button>
         </Link>
