@@ -221,6 +221,49 @@ export default function PartyBoatLakeTravis() {
 
   const faqSchema = generateFAQSchema(faqData);
 
+  const eventSchema = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "ATX DISCO CRUISE - Lake Travis Party Boat Experience",
+    "description": "Experience the ultimate party boat on Lake Travis! ATX DISCO CRUISE offers the best Lake Travis party boat experience featuring professional DJ, photographer, disco dance floor, and premium sound system for bachelor parties, bachelorette parties, and celebrations.",
+    "startDate": "2025-10-11T14:00:00-05:00",
+    "endDate": "2025-10-11T21:00:00-05:00",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+      "@type": "Place",
+      "name": "Anderson Mill Marina - Lake Travis",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "13993 FM2769",
+        "addressLocality": "Leander",
+        "addressRegion": "TX",
+        "postalCode": "78641",
+        "addressCountry": "US"
+      }
+    },
+    "organizer": {
+      "@type": "Organization",
+      "name": "Premier Party Cruises",
+      "url": "https://premierpartycruises.com",
+      "telephone": "(512) 488-5892"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://premierpartycruises.com/party-boat-lake-travis",
+      "price": "85.00",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2025-01-01",
+      "description": "Lake Travis party boat packages starting at $85/person with professional entertainment"
+    },
+    "performer": {
+      "@type": "Organization",
+      "name": "Premier Party Cruises"
+    },
+    "image": "https://premierpartycruises.com/assets/atx-disco-cruise-party.jpg"
+  };
+
   const serviceSchema = {
     "@context": "https://schema.org",
     "@type": "Service",
@@ -299,6 +342,7 @@ export default function PartyBoatLakeTravis() {
               }
             ]
           }),
+          eventSchema,
           serviceSchema,
           faqSchema
         ]}

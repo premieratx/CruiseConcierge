@@ -377,23 +377,44 @@ export default function BacheloretteParty() {
   const eventSchema = {
     "@context": "https://schema.org",
     "@type": "Event",
-    "name": "ATX Disco Cruise - Bachelorette Party",
-    "description": "The Ultimate Bachelorette Party Cruise Experience on Lake Travis with professional DJ, photographer, and bride cruises free",
+    "name": "ATX DISCO CRUISE - Bachelorette Party Boat Experience",
+    "description": "Austin's #1 rated bachelorette party boat experience. The ATX DISCO CRUISE is the ultimate bachelorette party on Lake Travis featuring professional DJ, photographer, disco dance floor, premium sound system, and bride cruises FREE exclusively for bachelorette parties.",
+    "startDate": "2025-10-11T14:00:00-05:00",
+    "endDate": "2025-10-11T21:00:00-05:00",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+      "@type": "Place",
+      "name": "Anderson Mill Marina - Lake Travis",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "13993 FM2769",
+        "addressLocality": "Leander",
+        "addressRegion": "TX",
+        "postalCode": "78641",
+        "addressCountry": "US"
+      }
+    },
     "organizer": {
       "@type": "Organization",
       "name": "Premier Party Cruises",
-      "url": "https://premierppartycruises.com"
+      "url": "https://premierpartycruises.com",
+      "telephone": "(512) 488-5892"
     },
-    "location": {
-      "@type": "Place",
-      "name": "Lake Travis",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Austin",
-        "addressRegion": "TX",
-        "addressCountry": "US"
-      }
-    }
+    "offers": {
+      "@type": "Offer",
+      "url": "https://premierpartycruises.com/bachelorette-party-austin",
+      "price": "85.00",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2025-01-01",
+      "description": "ATX DISCO CRUISE bachelorette party packages starting at $85/person - Bride cruises FREE with Disco Queen and Platinum packages"
+    },
+    "performer": {
+      "@type": "Organization",
+      "name": "Premier Party Cruises"
+    },
+    "image": "https://premierpartycruises.com/assets/atx-disco-cruise-party.jpg"
   };
 
   const productSchema = {

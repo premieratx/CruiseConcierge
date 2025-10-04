@@ -377,23 +377,44 @@ export default function CombinedBachelorBachelorette() {
   const eventSchema = {
     "@context": "https://schema.org",
     "@type": "Event",
-    "name": "Combined Bachelor & Bachelorette Party - Lake Travis",
-    "description": "The ultimate combined bachelor and bachelorette party experience on Lake Travis with guys and girls celebrating together. Professional DJ, photographer, and couple cruises free",
+    "name": "ATX DISCO CRUISE - Combined Bachelor & Bachelorette Party Boat Experience",
+    "description": "The ultimate combined bachelor and bachelorette party experience on Lake Travis! ATX DISCO CRUISE brings guys and girls together for an unforgettable celebration with professional DJ, photographer, disco dance floor, and both bride & groom cruise FREE on select packages.",
+    "startDate": "2025-10-11T14:00:00-05:00",
+    "endDate": "2025-10-11T21:00:00-05:00",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+      "@type": "Place",
+      "name": "Anderson Mill Marina - Lake Travis",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "13993 FM2769",
+        "addressLocality": "Leander",
+        "addressRegion": "TX",
+        "postalCode": "78641",
+        "addressCountry": "US"
+      }
+    },
     "organizer": {
       "@type": "Organization",
       "name": "Premier Party Cruises",
-      "url": "https://premierppartycruises.com"
+      "url": "https://premierpartycruises.com",
+      "telephone": "(512) 488-5892"
     },
-    "location": {
-      "@type": "Place",
-      "name": "Lake Travis",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Austin",
-        "addressRegion": "TX",
-        "addressCountry": "US"
-      }
-    }
+    "offers": {
+      "@type": "Offer",
+      "url": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin",
+      "price": "85.00",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2025-01-01",
+      "description": "ATX DISCO CRUISE combined party packages starting at $85/person - Bride & Groom cruise FREE with Party Squad and Ultimate Celebration packages"
+    },
+    "performer": {
+      "@type": "Organization",
+      "name": "Premier Party Cruises"
+    },
+    "image": "https://premierpartycruises.com/assets/atx-disco-cruise-party.jpg"
   };
 
   const productSchema = {

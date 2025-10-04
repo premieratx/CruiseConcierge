@@ -444,6 +444,49 @@ export default function Home() {
     });
   };
 
+  const eventSchema = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "name": "ATX DISCO CRUISE - Austin's Premier Party Boat Experience",
+    "description": "Austin's #1 rated party boat experience on Lake Travis. The ATX DISCO CRUISE features professional DJ, photographer, disco dance floor, premium sound system, and unforgettable party atmosphere for bachelor parties, bachelorette parties, and celebrations.",
+    "startDate": "2025-10-11T14:00:00-05:00",
+    "endDate": "2025-10-11T21:00:00-05:00",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+      "@type": "Place",
+      "name": "Anderson Mill Marina - Lake Travis",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "13993 FM2769",
+        "addressLocality": "Leander",
+        "addressRegion": "TX",
+        "postalCode": "78641",
+        "addressCountry": "US"
+      }
+    },
+    "organizer": {
+      "@type": "Organization",
+      "name": "Premier Party Cruises",
+      "url": "https://premierpartycruises.com",
+      "telephone": "(512) 488-5892"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://premierpartycruises.com/chat",
+      "price": "85.00",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2025-01-01",
+      "description": "ATX DISCO CRUISE party packages starting at $85/person with professional DJ and photographer"
+    },
+    "performer": {
+      "@type": "Organization",
+      "name": "Premier Party Cruises"
+    },
+    "image": "https://premierpartycruises.com/assets/atx-disco-cruise-party.jpg"
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead
@@ -456,6 +499,7 @@ export default function Home() {
           generateComprehensiveLocalBusinessSchema({
             pageDescription: "Austin's premier party boat rental service on Lake Travis. Specializing in bachelor parties, bachelorette parties, corporate events, and private cruises. 14+ years experience, 125,000+ customers served."
           }),
+          eventSchema,
           generateFAQSchema(faqData)
         ]}
       />

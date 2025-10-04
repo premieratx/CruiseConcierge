@@ -353,23 +353,44 @@ export default function BachelorParty() {
   const eventSchema = {
     "@context": "https://schema.org",
     "@type": "Event",
-    "name": "ATX Disco Cruise - Bachelor Party",
-    "description": "The Ultimate Bachelor Party Cruise Experience on Lake Travis with professional DJ, photographer, and all-inclusive packages",
+    "name": "ATX DISCO CRUISE - Bachelor Party Boat Experience",
+    "description": "Austin's #1 rated bachelor party boat experience. The ATX DISCO CRUISE is the ultimate bachelor party on Lake Travis featuring professional DJ, photographer, disco dance floor, premium sound system, and unforgettable party atmosphere exclusively for bachelor parties.",
+    "startDate": "2025-10-11T14:00:00-05:00",
+    "endDate": "2025-10-11T21:00:00-05:00",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": {
+      "@type": "Place",
+      "name": "Anderson Mill Marina - Lake Travis",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "13993 FM2769",
+        "addressLocality": "Leander",
+        "addressRegion": "TX",
+        "postalCode": "78641",
+        "addressCountry": "US"
+      }
+    },
     "organizer": {
       "@type": "Organization",
       "name": "Premier Party Cruises",
-      "url": "https://premierppartycruises.com"
+      "url": "https://premierpartycruises.com",
+      "telephone": "(512) 488-5892"
     },
-    "location": {
-      "@type": "Place",
-      "name": "Lake Travis",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Austin",
-        "addressRegion": "TX",
-        "addressCountry": "US"
-      }
-    }
+    "offers": {
+      "@type": "Offer",
+      "url": "https://premierpartycruises.com/bachelor-party-austin",
+      "price": "85.00",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "validFrom": "2025-01-01",
+      "description": "ATX DISCO CRUISE bachelor party packages starting at $85/person with professional DJ and photographer"
+    },
+    "performer": {
+      "@type": "Organization",
+      "name": "Premier Party Cruises"
+    },
+    "image": "https://premierpartycruises.com/assets/atx-disco-cruise-party.jpg"
   };
 
   const productSchema = {
