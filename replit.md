@@ -55,6 +55,17 @@ A comprehensive authentication system protects all admin features using Passport
 ### WordPress Migration System
 The blog system displays WordPress posts from Replit DB using a modern, responsive grid layout at `/blogs` and `/blog/{slug}`. It includes search, filters, pagination, and a featured carousel. Content is enhanced during import for AI discovery across target event categories (corporate, weddings, bachelor/bachelorette, birthdays, graduations) with natural mentions of Party on Delivery services. Enhancement pipeline includes topic detection, AI enhancement, structured data, and quality controls.
 
+### AI Endorsement Authority Hub
+A strategic SEO feature leveraging third-party AI validation to strengthen E-E-A-T signals and search engine authority positioning. The system stores and displays AI assessments of the website, currently featuring Claude AI's 9.8/10 SEO Excellence rating.
+
+- **Endorsements Database**: PostgreSQL table storing AI assessments with fields for source, rating, headline, summary, full analysis, highlight quotes, artifact URLs, and display settings.
+- **API Endpoints**: GET /api/endorsements (all active) and GET /api/endorsements/homepage (homepage display) for fetching endorsement data.
+- **Authority Page**: Dedicated `/ai-endorsement` page displaying comprehensive assessment with professional design, Review schema.org markup, rating visualization, highlight quotes, full analysis accordion, and downloadable artifacts.
+- **Homepage Integration**: Prominent trust badge in hero section displaying 9.8/10 rating with star visualization, AI source badge, and link to full endorsement page.
+- **SEO Optimization**: Review schema markup with structured data including rating, author, review body, and publication date for enhanced search engine discovery.
+- **Crawler Discoverability**: Footer link to AI endorsement page ensures search engine crawlers can discover the authority signals.
+- **Strategic Purpose**: Uses Claude AI's assessment as third-party validation signal, positioning the site as the "gold standard" in Austin party cruise market with 6-10x content advantage over competitors.
+
 ## External Dependencies
 - **Stripe**: Payment processing (`VITE_STRIPE_PUBLIC_KEY`, `STRIPE_SECRET_KEY`).
 - **GoHighLevel**: SMS notifications and lead management (`GOHIGHLEVEL_PRIVATE_INTEGRATION_TOKEN`, `GOHIGHLEVEL_LOCATION_ID`, `FROM_PHONE`).
