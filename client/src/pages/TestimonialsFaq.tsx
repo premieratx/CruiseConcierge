@@ -789,7 +789,7 @@ export default function TestimonialsFaq() {
   const filteredFaqs = useMemo(() => {
     if (!searchQuery.trim()) return faqCategories;
 
-    const filtered: typeof faqCategories = {};
+    const filtered: Partial<typeof faqCategories> = {};
     Object.entries(faqCategories).forEach(([key, category]) => {
       const matchingFaqs = category.faqs.filter(faq =>
         faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||

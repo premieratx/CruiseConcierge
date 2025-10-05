@@ -212,7 +212,7 @@ export default function SEOHead({
 
       // Add article-specific schema
       if (article) {
-        const articleSchema = {
+        const articleSchema: Record<string, any> = {
           "@context": "https://schema.org",
           "@type": "Article",
           "headline": title,
