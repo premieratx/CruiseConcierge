@@ -164,6 +164,34 @@ ${urls.map(page => `  <url>
     }
   });
 
+  app.get('/robots.txt', async (req: Request, res: Response) => {
+    try {
+      const baseUrl = process.env.REPLIT_DEV_DOMAIN 
+        ? `https://${process.env.REPLIT_DEV_DOMAIN}` 
+        : 'https://premierpartycruises.com';
+      
+      const robotsTxt = `User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: ${baseUrl}/sitemap.xml
+
+# Disallow admin areas
+Disallow: /admin/
+Disallow: /api/
+Disallow: /dashboard/
+
+# Crawl-delay for politeness
+Crawl-delay: 1`;
+      
+      res.setHeader('Content-Type', 'text/plain; charset=UTF-8');
+      res.send(robotsTxt);
+    } catch (error) {
+      console.error('Error generating robots.txt:', error);
+      res.status(500).send('Error generating robots.txt');
+    }
+  });
+
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
