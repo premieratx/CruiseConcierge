@@ -480,9 +480,9 @@ const ScrollingReviewsHero = () => {
             <Sparkles className="w-3 h-3 mr-1" />
             <span data-editable data-editable-id="scrolling-hero-badge-text">30+ Amazing Reviews</span>
           </Badge>
-          <h2 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4" data-editable data-editable-id="scrolling-hero-heading">
-            WHAT OUR CUSTOMERS SAY
-          </h2>
+          <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold mb-2 md:mb-4" data-editable data-editable-id="scrolling-hero-heading">
+            Customer Reviews & Testimonials
+          </h1>
           <p className="text-sm md:text-lg text-muted-foreground max-w-2xl mx-auto" data-editable data-editable-id="scrolling-hero-subheading">
             Join thousands of happy customers who've experienced unforgettable moments on Lake Travis
           </p>
