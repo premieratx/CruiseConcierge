@@ -1347,97 +1347,317 @@ export default function TestimonialsFaq() {
                       {/* Pricing Tables for Pricing Tab */}
                       {key === 'pricing' && (
                       <div className="mb-12 space-y-8">
-                        {/* Private Cruise Pricing Table */}
+                        {/* Private Cruise Packages and Pricing */}
                         <Card className="bg-white dark:bg-gray-800 border-2 border-brand-blue/20">
                           <CardHeader className="text-center">
                             <CardTitle className="flex items-center justify-center text-2xl font-bold text-gray-900 dark:text-white">
                               <Ship className="h-6 w-6 mr-3 text-brand-blue" />
-                              <span data-editable data-editable-id="pricing-table-private-title">Private Cruise Hourly Rates</span>
+                              <span data-editable data-editable-id="pricing-table-private-title">Private Cruise Packages and Pricing</span>
                             </CardTitle>
                             <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="pricing-table-private-desc">
                               Exclusive boat charter with captain, crew, and all amenities included
                             </p>
                           </CardHeader>
                           <CardContent>
-                            <div className="overflow-x-auto">
-                              <table className="w-full text-sm" data-testid="table-private-cruise-pricing">
-                                <thead>
-                                  <tr className="border-b border-gray-200 dark:border-gray-700">
-                                    <th className="text-left py-3 px-4 font-semibold text-gray-900 dark:text-white" data-editable data-editable-id="pricing-header-capacity">Boat Capacity</th>
-                                    <th className="text-center py-3 px-4 font-semibold text-gray-900 dark:text-white"><span data-editable data-editable-id="pricing-header-weekday">Monday-Thursday</span><br /><span className="text-xs font-normal text-gray-500" data-editable data-editable-id="pricing-header-weekday-hours">(3 hours)</span></th>
-                                    <th className="text-center py-3 px-4 font-semibold text-gray-900 dark:text-white"><span data-editable data-editable-id="pricing-header-weekend">Friday-Sunday</span><br /><span className="text-xs font-normal text-gray-500" data-editable data-editable-id="pricing-header-weekend-hours">(4 hours)</span></th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                                    <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Up to 14 guests</td>
-                                    <td className="text-center py-4 px-4">
-                                      <div className="text-lg font-bold text-brand-blue">$400/hour</div>
-                                      <div className="text-sm text-gray-500">$1,200 total</div>
-                                    </td>
-                                    <td className="text-center py-4 px-4">
-                                      <div className="text-lg font-bold text-brand-blue">$500/hour</div>
-                                      <div className="text-sm text-gray-500">$2,000 total</div>
-                                    </td>
-                                  </tr>
-                                  <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                                    <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Up to 25 guests</td>
-                                    <td className="text-center py-4 px-4">
-                                      <div className="text-lg font-bold text-brand-blue">$450/hour</div>
-                                      <div className="text-sm text-gray-500">$1,350 total</div>
-                                    </td>
-                                    <td className="text-center py-4 px-4">
-                                      <div className="text-lg font-bold text-brand-blue">$550/hour</div>
-                                      <div className="text-sm text-gray-500">$2,200 total</div>
-                                    </td>
-                                  </tr>
-                                  <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                                    <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Up to 30 guests</td>
-                                    <td className="text-center py-4 px-4">
-                                      <div className="text-lg font-bold text-brand-blue">$500/hour</div>
-                                      <div className="text-sm text-gray-500">$1,500 total</div>
-                                    </td>
-                                    <td className="text-center py-4 px-4">
-                                      <div className="text-lg font-bold text-brand-blue">$600/hour</div>
-                                      <div className="text-sm text-gray-500">$2,400 total</div>
-                                    </td>
-                                  </tr>
-                                  <tr className="border-b border-gray-100 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                                    <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Up to 50 guests</td>
-                                    <td className="text-center py-4 px-4">
-                                      <div className="text-lg font-bold text-brand-blue">$550/hour</div>
-                                      <div className="text-sm text-gray-500">$1,650 total</div>
-                                    </td>
-                                    <td className="text-center py-4 px-4">
-                                      <div className="text-lg font-bold text-brand-blue">$650/hour</div>
-                                      <div className="text-sm text-gray-500">$2,600 total</div>
-                                    </td>
-                                  </tr>
-                                  <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
-                                    <td className="py-4 px-4 font-medium text-gray-900 dark:text-white">Up to 75 guests</td>
-                                    <td className="text-center py-4 px-4">
-                                      <div className="text-lg font-bold text-brand-blue">$600/hour</div>
-                                      <div className="text-sm text-gray-500">$1,800 total</div>
-                                    </td>
-                                    <td className="text-center py-4 px-4">
-                                      <div className="text-lg font-bold text-brand-blue">$700/hour</div>
-                                      <div className="text-sm text-gray-500">$2,800 total</div>
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </div>
+                            <Tabs defaultValue="14" className="w-full">
+                              <TabsList className="grid w-full grid-cols-5 mb-6">
+                                <TabsTrigger value="14" data-testid="pricing-tab-14">Up to 14</TabsTrigger>
+                                <TabsTrigger value="25" data-testid="pricing-tab-25">Up to 25</TabsTrigger>
+                                <TabsTrigger value="30" data-testid="pricing-tab-30">Up to 30</TabsTrigger>
+                                <TabsTrigger value="50" data-testid="pricing-tab-50">Up to 50</TabsTrigger>
+                                <TabsTrigger value="75" data-testid="pricing-tab-75">Up to 75</TabsTrigger>
+                              </TabsList>
+
+                              {/* 14 Person Pricing */}
+                              <TabsContent value="14" className="space-y-4">
+                                <h3 className="text-lg font-bold text-center text-gray-900 dark:text-white mb-4">1-14 Guests Pricing</h3>
+                                <div className="overflow-x-auto">
+                                  <table className="w-full text-xs sm:text-sm border-collapse">
+                                    <thead>
+                                      <tr className="border-b-2 border-gray-300 dark:border-gray-600">
+                                        <th className="text-left py-3 px-2 font-semibold text-gray-900 dark:text-white">Day</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-gray-900 dark:text-white">Duration</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-gray-900 dark:text-white">Hourly Rate</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-brand-blue">Standard</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-purple-600">Essentials</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-yellow-600">Ultimate</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr className="border-b border-gray-200 dark:border-gray-700">
+                                        <td className="py-3 px-2 font-medium">Mon-Thu</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$200/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$1,050</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$1,150</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$1,300</td>
+                                      </tr>
+                                      <tr className="border-b border-gray-200 dark:border-gray-700">
+                                        <td className="py-3 px-2 font-medium">Friday</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$250/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$1,181</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$1,281</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$1,431</td>
+                                      </tr>
+                                      <tr className="border-b border-gray-200 dark:border-gray-700">
+                                        <td className="py-3 px-2 font-medium">Saturday</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$300/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$1,838</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$1,938</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$2,088</td>
+                                      </tr>
+                                      <tr>
+                                        <td className="py-3 px-2 font-medium">Sunday</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$300/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$1,313</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$1,413</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$1,563</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">All prices include tax and gratuity. 3-hour option available Monday-Thursday.</p>
+                              </TabsContent>
+
+                              {/* 25 Person Pricing */}
+                              <TabsContent value="25" className="space-y-4">
+                                <h3 className="text-lg font-bold text-center text-gray-900 dark:text-white mb-4">15-25 Guests Pricing</h3>
+                                <div className="overflow-x-auto">
+                                  <table className="w-full text-xs sm:text-sm border-collapse">
+                                    <thead>
+                                      <tr className="border-b-2 border-gray-300 dark:border-gray-600">
+                                        <th className="text-left py-3 px-2 font-semibold text-gray-900 dark:text-white">Day</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-gray-900 dark:text-white">Duration</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-gray-900 dark:text-white">Hourly Rate</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-brand-blue">Standard</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-purple-600">Essentials</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-yellow-600">Ultimate</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr className="border-b border-gray-200 dark:border-gray-700">
+                                        <td className="py-3 px-2 font-medium">Mon-Thu</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$250/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$1,181</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$1,331</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$1,481</td>
+                                      </tr>
+                                      <tr className="border-b border-gray-200 dark:border-gray-700">
+                                        <td className="py-3 px-2 font-medium">Friday</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$300/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$1,313</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$1,463</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$1,613</td>
+                                      </tr>
+                                      <tr className="border-b border-gray-200 dark:border-gray-700">
+                                        <td className="py-3 px-2 font-medium">Saturday</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$350/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$1,969</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$2,119</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$2,269</td>
+                                      </tr>
+                                      <tr>
+                                        <td className="py-3 px-2 font-medium">Sunday</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$350/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$1,444</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$1,594</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$1,744</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">All prices include tax and gratuity. 3-hour option available Monday-Thursday.</p>
+                              </TabsContent>
+
+                              {/* 30 Person Pricing */}
+                              <TabsContent value="30" className="space-y-4">
+                                <h3 className="text-lg font-bold text-center text-gray-900 dark:text-white mb-4">26-30 Guests Pricing</h3>
+                                <div className="overflow-x-auto">
+                                  <table className="w-full text-xs sm:text-sm border-collapse">
+                                    <thead>
+                                      <tr className="border-b-2 border-gray-300 dark:border-gray-600">
+                                        <th className="text-left py-3 px-2 font-semibold text-gray-900 dark:text-white">Day</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-gray-900 dark:text-white">Duration</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-gray-900 dark:text-white">Hourly Rate</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-brand-blue">Standard</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-purple-600">Essentials</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-yellow-600">Ultimate</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr className="border-b border-gray-200 dark:border-gray-700">
+                                        <td className="py-3 px-2 font-medium">Mon-Thu</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$250/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$1,381</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$1,531</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$1,681</td>
+                                      </tr>
+                                      <tr className="border-b border-gray-200 dark:border-gray-700">
+                                        <td className="py-3 px-2 font-medium">Friday</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$300/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$1,513</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$1,663</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$1,813</td>
+                                      </tr>
+                                      <tr className="border-b border-gray-200 dark:border-gray-700">
+                                        <td className="py-3 px-2 font-medium">Saturday</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$350/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$2,169</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$2,319</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$2,469</td>
+                                      </tr>
+                                      <tr>
+                                        <td className="py-3 px-2 font-medium">Sunday</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$350/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$1,644</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$1,794</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$1,944</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">All prices include tax, gratuity, and $200 extra crew fee. 3-hour option available Monday-Thursday.</p>
+                              </TabsContent>
+
+                              {/* 50 Person Pricing */}
+                              <TabsContent value="50" className="space-y-4">
+                                <h3 className="text-lg font-bold text-center text-gray-900 dark:text-white mb-4">31-50 Guests Pricing</h3>
+                                <div className="overflow-x-auto">
+                                  <table className="w-full text-xs sm:text-sm border-collapse">
+                                    <thead>
+                                      <tr className="border-b-2 border-gray-300 dark:border-gray-600">
+                                        <th className="text-left py-3 px-2 font-semibold text-gray-900 dark:text-white">Day</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-gray-900 dark:text-white">Duration</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-gray-900 dark:text-white">Hourly Rate</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-brand-blue">Standard</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-purple-600">Essentials</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-yellow-600">Ultimate</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr className="border-b border-gray-200 dark:border-gray-700">
+                                        <td className="py-3 px-2 font-medium">Mon-Thu</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$300/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$1,313</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$1,513</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$1,663</td>
+                                      </tr>
+                                      <tr className="border-b border-gray-200 dark:border-gray-700">
+                                        <td className="py-3 px-2 font-medium">Friday</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$350/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$1,444</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$1,644</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$1,794</td>
+                                      </tr>
+                                      <tr className="border-b border-gray-200 dark:border-gray-700">
+                                        <td className="py-3 px-2 font-medium">Saturday</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$400/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$2,100</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$2,300</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$2,450</td>
+                                      </tr>
+                                      <tr>
+                                        <td className="py-3 px-2 font-medium">Sunday</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$400/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$1,575</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$1,775</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$1,925</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">All prices include tax and gratuity. 3-hour option available Monday-Thursday.</p>
+                              </TabsContent>
+
+                              {/* 75 Person Pricing */}
+                              <TabsContent value="75" className="space-y-4">
+                                <h3 className="text-lg font-bold text-center text-gray-900 dark:text-white mb-4">51-75 Guests Pricing</h3>
+                                <div className="overflow-x-auto">
+                                  <table className="w-full text-xs sm:text-sm border-collapse">
+                                    <thead>
+                                      <tr className="border-b-2 border-gray-300 dark:border-gray-600">
+                                        <th className="text-left py-3 px-2 font-semibold text-gray-900 dark:text-white">Day</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-gray-900 dark:text-white">Duration</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-gray-900 dark:text-white">Hourly Rate</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-brand-blue">Standard</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-purple-600">Essentials</th>
+                                        <th className="text-center py-3 px-2 font-semibold text-yellow-600">Ultimate</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody>
+                                      <tr className="border-b border-gray-200 dark:border-gray-700">
+                                        <td className="py-3 px-2 font-medium">Mon-Thu</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$300/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$1,613</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$1,813</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$1,963</td>
+                                      </tr>
+                                      <tr className="border-b border-gray-200 dark:border-gray-700">
+                                        <td className="py-3 px-2 font-medium">Friday</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$350/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$1,744</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$1,944</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$2,094</td>
+                                      </tr>
+                                      <tr className="border-b border-gray-200 dark:border-gray-700">
+                                        <td className="py-3 px-2 font-medium">Saturday</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$400/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$2,400</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$2,600</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$2,750</td>
+                                      </tr>
+                                      <tr>
+                                        <td className="py-3 px-2 font-medium">Sunday</td>
+                                        <td className="text-center py-3 px-2">4 hours</td>
+                                        <td className="text-center py-3 px-2">$400/hr</td>
+                                        <td className="text-center py-3 px-2 font-bold text-brand-blue">$1,875</td>
+                                        <td className="text-center py-3 px-2 font-bold text-purple-600">$2,075</td>
+                                        <td className="text-center py-3 px-2 font-bold text-yellow-600">$2,225</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                </div>
+                                <p className="text-xs text-gray-600 dark:text-gray-400 mt-2">All prices include tax, gratuity, and $300 extra crew fee. 3-hour option available Monday-Thursday.</p>
+                              </TabsContent>
+                            </Tabs>
+                            
                             <div className="mt-6 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
                               <h4 className="font-semibold text-gray-900 dark:text-white mb-2 flex items-center">
                                 <Calculator className="h-4 w-4 mr-2 text-brand-blue" />
-                                <span data-editable data-editable-id="pricing-fees-heading">Additional Fees</span>
+                                <span data-editable data-editable-id="pricing-package-details">Package Details</span>
                               </h4>
-                              <ul className="text-sm text-gray-600 dark:text-gray-300 space-y-1">
-                                <li data-editable data-editable-id="pricing-fee-crew">• <strong>Extra Crew Fee:</strong> $200 for groups with more than 20 people</li>
-                                <li data-editable data-editable-id="pricing-fee-tax">• <strong>Tax:</strong> 8.25% applied to subtotal (base cost + crew fee)</li>
-                                <li data-editable data-editable-id="pricing-fee-gratuity">• <strong>Gratuity:</strong> 20% applied to subtotal (recommended)</li>
-                                <li data-editable data-editable-id="pricing-fee-deposit">• <strong>Deposit:</strong> 25% if booked 30+ days ahead, 100% if within 30 days</li>
-                              </ul>
+                              <div className="grid md:grid-cols-3 gap-4 text-sm text-gray-600 dark:text-gray-300">
+                                <div>
+                                  <p className="font-bold text-brand-blue mb-1">Standard Package</p>
+                                  <p className="text-xs">Captain, crew, fuel, coolers, sound system, safety equipment</p>
+                                </div>
+                                <div>
+                                  <p className="font-bold text-purple-600 mb-1">Essentials Package (+$100-$200)</p>
+                                  <p className="text-xs">Everything in Standard + ice, water dispenser, cups, setup table</p>
+                                </div>
+                                <div>
+                                  <p className="font-bold text-yellow-600 mb-1">Ultimate Package (+$250-$350)</p>
+                                  <p className="text-xs">Everything in Essentials + lily pad, floats, disco balls, party supplies</p>
+                                </div>
+                              </div>
                             </div>
                           </CardContent>
                         </Card>
