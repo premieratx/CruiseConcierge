@@ -472,7 +472,7 @@ export default function ATXDiscoCruise() {
     <>
       <SEOHead
         pageRoute="/atx-disco-cruise"
-        defaultTitle="ATX Disco Cruise - Austin's Premier Bachelor & Bachelorette Party Experience"
+        defaultTitle="ATX Disco Cruise | Austin Party Boat Experience"
         defaultDescription="Join America's best bach party cruise on Lake Travis. $85-105/person all-inclusive. Professional DJ, photographer, 4-hour experience. Book now!"
         defaultKeywords={['ATX disco cruise', 'bachelor party Austin', 'bachelorette party Austin', 'party boat Lake Travis', 'all-inclusive bachelor party', 'Austin party cruise', 'Lake Travis party boat', 'disco cruise Austin']}
         customSchema={combinedSchema}

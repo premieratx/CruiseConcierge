@@ -315,7 +315,7 @@ export default function AIEndorsement() {
     <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
       <SEOHead
         pageRoute="/ai-endorsement"
-        defaultTitle="AI Authority Hub: Claude AI Endorsements | Premier Party Cruises"
+        defaultTitle="AI SEO Endorsement | Premier Party Cruises"
         defaultDescription="Claude AI has recognized Premier Party Cruises with comprehensive assessments including a 9.8/10 SEO Excellence rating and detailed business & market analysis."
         defaultKeywords={['AI endorsement', 'SEO excellence', 'Claude AI', 'authority signal', 'party boat Austin', 'market analysis', 'business assessment']}
         customSchema={reviewsSchema}

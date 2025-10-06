@@ -280,7 +280,7 @@ export default function BirthdayParties() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead 
         pageRoute="/birthday-parties"
-        defaultTitle="Birthday Party Cruises Lake Travis | Make Your Birthday Legendary"
+        defaultTitle="Birthday Party Boat | Lake Travis Austin"
         defaultDescription="Unforgettable birthday cruises on Lake Travis. Birthday VIP cruises FREE with groups! Perfect for 21st, 30th, 40th, 50th birthdays. Decorations included. Book your birthday cruise today!"
         defaultKeywords={[
           'birthday cruise austin',

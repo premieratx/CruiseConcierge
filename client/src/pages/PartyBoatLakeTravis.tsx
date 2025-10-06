@@ -316,7 +316,7 @@ export default function PartyBoatLakeTravis() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
       <SEOHead
         pageRoute="/party-boat-lake-travis"
-        defaultTitle="Party Boat Lake Travis | Austin's Best Lake Cruises | Premier Party Cruises"
+        defaultTitle="Party Boat Lake Travis | Austin Lake Cruises"
         defaultDescription="Looking for a party boat on Lake Travis? Premier Party Cruises offers the best Lake Travis boat rentals near Austin. Book your Lake Travis party cruise today!"
         defaultKeywords={['party boat Lake Travis', 'Lake Travis party boat', 'Lake Travis boat rental', 'party boat rental Lake Travis', 'Lake Travis party cruise']}
         schemaType="service"

@@ -518,7 +518,7 @@ export default function Home() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead
         pageRoute="/"
-        defaultTitle="Party Boat Austin | Lake Travis Bachelorette Cruises | Premier Party Cruises"
+        defaultTitle="Party Boat Austin | Lake Travis Cruises"
         defaultDescription="Austin's #1 party boat on Lake Travis! Perfect for bachelorette parties, bachelor parties & corporate events. Book your Austin boat party today! (512) 488-5892"
         defaultKeywords={['party boat Austin', 'bachelorette party Austin', 'Austin boat rental', 'Lake Travis party boat', 'bachelor party Austin']}
         schemaType="organization"

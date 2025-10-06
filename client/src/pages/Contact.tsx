@@ -71,7 +71,7 @@ export default function Contact() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead 
         pageRoute="/contact"
-        defaultTitle="Contact Us - Premier Party Cruises Austin | (512) 488-5892"
+        defaultTitle="Contact | Book Lake Travis Cruise | Premier Party"
         defaultDescription="Contact Premier Party Cruises for Austin Lake Travis boat rentals. Call (512) 488-5892 or fill out our form for bachelor parties, corporate events, and private charters."
         defaultKeywords={[
           'contact premier party cruises',

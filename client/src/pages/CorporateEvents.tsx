@@ -318,7 +318,7 @@ export default function CorporateEvents() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead 
         pageRoute="/corporate-events"
-        defaultTitle="Corporate Event Cruises Lake Travis | Team Building & Client Entertainment"
+        defaultTitle="Corporate Events Lake Travis | Team Building Cruises"
         defaultDescription="Professional corporate cruises on Lake Travis. Perfect for team building, client entertainment, and company celebrations. Tax-deductible business expense. Book your corporate event today!"
         defaultKeywords={[
           'corporate cruise austin',
