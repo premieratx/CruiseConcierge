@@ -1329,7 +1329,11 @@ export default function TestimonialsFaq() {
 
                 {Object.entries(filteredFaqs).map(([key, category]) => (
                   <TabsContent key={key} value={key}>
-                    <motion.div variants={fadeInUp}>
+                    <motion.div 
+                      initial="hidden"
+                      animate="visible"
+                      variants={fadeInUp}
+                    >
                       <div className="mb-6">
                         <h3 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
                           <category.icon className="h-6 w-6 mr-3 text-brand-blue" />
