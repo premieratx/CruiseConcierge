@@ -1311,36 +1311,37 @@ export default function TestimonialsFaq() {
             variants={staggerChildren}
             className="max-w-5xl mx-auto"
           >
-            <Tabs defaultValue="booking" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 mb-8">
+            {Object.keys(filteredFaqs).length > 0 ? (
+              <Tabs defaultValue={Object.keys(filteredFaqs)[0]} className="w-full">
+                <TabsList className="grid w-full grid-cols-3 lg:grid-cols-6 mb-8">
+                  {Object.entries(filteredFaqs).map(([key, category]) => (
+                    <TabsTrigger 
+                      key={key} 
+                      value={key} 
+                      className="flex items-center space-x-2 text-xs lg:text-sm"
+                      data-testid={`tab-${key}`}
+                    >
+                      <category.icon className="h-4 w-4" />
+                      <span className="hidden sm:inline" data-editable data-editable-id={`faq-tab-${key}`}>{category.title}</span>
+                    </TabsTrigger>
+                  ))}
+                </TabsList>
+
                 {Object.entries(filteredFaqs).map(([key, category]) => (
-                  <TabsTrigger 
-                    key={key} 
-                    value={key} 
-                    className="flex items-center space-x-2 text-xs lg:text-sm"
-                    data-testid={`tab-${key}`}
-                  >
-                    <category.icon className="h-4 w-4" />
-                    <span className="hidden sm:inline" data-editable data-editable-id={`faq-tab-${key}`}>{category.title}</span>
-                  </TabsTrigger>
-                ))}
-              </TabsList>
+                  <TabsContent key={key} value={key}>
+                    <motion.div variants={fadeInUp}>
+                      <div className="mb-6">
+                        <h3 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
+                          <category.icon className="h-6 w-6 mr-3 text-brand-blue" />
+                          <span data-editable data-editable-id={`faq-category-title-${key}`}>{category.title}</span>
+                        </h3>
+                        <p className="text-gray-600 dark:text-gray-300 mt-2" data-editable data-editable-id={`faq-category-desc-${key}`}>
+                          Everything you need to know about {category.title.toLowerCase()}.
+                        </p>
+                      </div>
 
-              {Object.entries(filteredFaqs).map(([key, category]) => (
-                <TabsContent key={key} value={key}>
-                  <motion.div variants={fadeInUp}>
-                    <div className="mb-6">
-                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white flex items-center">
-                        <category.icon className="h-6 w-6 mr-3 text-brand-blue" />
-                        <span data-editable data-editable-id={`faq-category-title-${key}`}>{category.title}</span>
-                      </h3>
-                      <p className="text-gray-600 dark:text-gray-300 mt-2" data-editable data-editable-id={`faq-category-desc-${key}`}>
-                        Everything you need to know about {category.title.toLowerCase()}.
-                      </p>
-                    </div>
-
-                    {/* Pricing Tables for Pricing Tab */}
-                    {key === 'pricing' && (
+                      {/* Pricing Tables for Pricing Tab */}
+                      {key === 'pricing' && (
                       <div className="mb-12 space-y-8">
                         {/* Private Cruise Pricing Table */}
                         <Card className="bg-white dark:bg-gray-800 border-2 border-brand-blue/20">
@@ -1496,27 +1497,38 @@ export default function TestimonialsFaq() {
                       </div>
                     )}
 
-                    <Accordion type="single" collapsible className="space-y-4">
-                      {category.faqs.map((faq, faqIndex) => (
-                        <AccordionItem 
-                          key={faqIndex} 
-                          value={`${key}-${faqIndex}`}
-                          className="bg-gray-50 dark:bg-gray-800 rounded-lg px-6 border-none"
-                          data-testid={`faq-item-${key}-${faqIndex}`}
-                        >
-                          <AccordionTrigger className="text-left font-semibold text-gray-900 dark:text-white hover:text-brand-blue transition-colors duration-200" data-editable data-editable-id={`faq-question-${key}-${faqIndex}`}>
-                            {faq.question}
-                          </AccordionTrigger>
-                          <AccordionContent className="text-gray-600 dark:text-gray-300 leading-relaxed pt-2" data-editable data-editable-id={`faq-answer-${key}-${faqIndex}`}>
-                            {faq.answer}
-                          </AccordionContent>
-                        </AccordionItem>
-                      ))}
-                    </Accordion>
-                  </motion.div>
-                </TabsContent>
-              ))}
-            </Tabs>
+                      <Accordion type="single" collapsible className="space-y-4">
+                        {category.faqs.map((faq, faqIndex) => (
+                          <AccordionItem 
+                            key={faqIndex} 
+                            value={`${key}-${faqIndex}`}
+                            className="bg-gray-50 dark:bg-gray-800 rounded-lg px-6 border-none"
+                            data-testid={`faq-item-${key}-${faqIndex}`}
+                          >
+                            <AccordionTrigger className="text-left font-semibold text-gray-900 dark:text-white hover:text-brand-blue transition-colors duration-200" data-editable data-editable-id={`faq-question-${key}-${faqIndex}`}>
+                              {faq.question}
+                            </AccordionTrigger>
+                            <AccordionContent className="text-gray-600 dark:text-gray-300 leading-relaxed pt-2" data-editable data-editable-id={`faq-answer-${key}-${faqIndex}`}>
+                              {faq.answer}
+                            </AccordionContent>
+                          </AccordionItem>
+                        ))}
+                      </Accordion>
+                    </motion.div>
+                  </TabsContent>
+                ))}
+              </Tabs>
+            ) : (
+              <div className="text-center py-16">
+                <Search className="h-16 w-16 text-gray-300 mx-auto mb-4" />
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                  No FAQs found
+                </h3>
+                <p className="text-gray-600 dark:text-gray-400">
+                  Try adjusting your search query to find what you're looking for
+                </p>
+              </div>
+            )}
           </motion.div>
 
           {/* Contact Section for Unanswered Questions */}
