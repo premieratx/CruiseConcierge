@@ -7,11 +7,23 @@ import { setupAuth } from "./auth";
 import Database from "@replit/database";
 import fs from "fs";
 import path from "path";
+import compression from "compression";
 
 const app = express();
 
 // Configure trust proxy for correct IP detection behind reverse proxy/CDN
 app.set('trust proxy', true);
+
+// Enable gzip compression for all responses
+app.use(compression({
+  filter: (req, res) => {
+    if (req.headers['x-no-compression']) {
+      return false;
+    }
+    return compression.filter(req, res);
+  },
+  level: 6
+}));
 
 app.use(express.json({ limit: '5mb' }));
 app.use(express.urlencoded({ extended: false, limit: '5mb' }));
