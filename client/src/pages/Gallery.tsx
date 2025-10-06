@@ -449,7 +449,7 @@ export default function Gallery() {
             </motion.div>
             
             <h1 className="text-2xl md:text-4xl lg:text-6xl font-heading font-bold mb-6" data-editable data-editable-id="gallery-hero-title">
-              GALLERY
+              Gallery
             </h1>
             
             <motion.div
@@ -540,7 +540,7 @@ export default function Gallery() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="photo-gallery-title">
-              PHOTO GALLERY
+              Photo Gallery
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8" data-editable data-editable-id="photo-gallery-description">
               Browse our collection of professional photos showcasing the Premier Party Cruises experience
@@ -589,7 +589,7 @@ export default function Gallery() {
             transition={{ duration: 0.6 }}
           >
             <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="video-gallery-title">
-              VIDEO GALLERY
+              Video Gallery
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-editable data-editable-id="video-gallery-description">
               Watch the action unfold - experience the energy and excitement of our cruises

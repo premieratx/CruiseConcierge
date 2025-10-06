@@ -115,7 +115,7 @@ export default function Contact() {
           <div className="max-w-4xl mx-auto text-center">
             <MessageSquare className="h-20 w-20 text-brand-blue mx-auto mb-8" />
             <h1 className="text-5xl md:text-7xl font-heading font-bold mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="h1-contact-us">
-              CONTACT US
+              Contact Us
             </h1>
             <p className="text-xl md:text-2xl mb-12 text-gray-600 dark:text-gray-300" data-editable data-editable-id="p-contact-tagline">
               Ready to plan your Lake Travis adventure? Let's make it happen!
@@ -131,7 +131,7 @@ export default function Contact() {
             {/* Contact Information */}
             <div>
               <h2 className="text-4xl font-heading font-bold mb-8 text-gray-900 dark:text-white" data-editable data-editable-id="h2-get-in-touch">
-                GET IN TOUCH
+                Get in Touch
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 mb-12" data-editable data-editable-id="p-contact-description">
                 Premier Party Cruises has been Austin's original Lake Travis party cruise company for over 14 years. 
