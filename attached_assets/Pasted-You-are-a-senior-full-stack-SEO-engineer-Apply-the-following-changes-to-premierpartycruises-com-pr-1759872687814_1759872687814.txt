@@ -1,0 +1,269 @@
+You are a senior full-stack SEO engineer. Apply the following changes to premierpartycruises.com (production). Implement in a feature branch and open a PR with full changelog + validator links.
+
+0) Prep
+
+Create branch: feat/seo-ai-visibility-2025-10.
+
+Detect stack (WordPress vs Next.js). Document detection in PR.
+
+Crawl up to 2,000 URLs to confirm existence/status of:
+
+/
+
+/bachelor-party-austin
+
+/bachelorette-party-austin
+
+/private-cruises
+
+/atx-disco-cruise
+
+/team-building, /client-entertainment, /company-milestone, /welcome-party, /after-party, /rehearsal-dinner, /milestone-birthday, /sweet-16, /graduation-party
+
+Blog bases /blog/* and /blogs/*
+
+Drafts /home-draft/, /bachelorette-party-austin-draft/
+
+Snapshot: robots.txt, sitemap, canonicals, CWV (Lighthouse).
+
+1) Canonicals & Redirects
+
+Add self-referential canonical on every page.
+
+Standardize blogs to /blog/ only. Add 301 from /blogs/* → /blog/*. Update internal links.
+
+Remove or 410 draft pages:
+
+/home-draft/
+
+/bachelorette-party-austin-draft/
+
+2) Robots & Sitemap
+
+robots.txt should contain:
+
+User-agent: *
+Disallow:
+Sitemap: https://premierpartycruises.com/sitemap.xml
+
+
+Sitemap:
+
+Include only indexable, 200 pages.
+
+Do not mass-stamp lastmod; only update when content changes.
+
+If >500 URLs, create sitemap index with /sitemap-pages.xml and /sitemap-blog.xml.
+
+3) Structured Data (JSON-LD)
+
+Inject JSON-LD in <head> server-side. Use these verbatim.
+
+3.1 Sitewide (Organization + LocalBusiness)
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":["Organization","LocalBusiness"],
+  "@id":"https://premierpartycruises.com#org",
+  "name":"Premier Party Cruises",
+  "url":"https://premierpartycruises.com",
+  "logo":"https://premierpartycruises.com/wp-content/uploads/ppc-logo.png",
+  "telephone":"+1-512-765-9999",
+  "address":{
+    "@type":"PostalAddress",
+    "streetAddress":"1701 N FM 620, Anderson Mill Marina",
+    "addressLocality":"Austin",
+    "addressRegion":"TX",
+    "postalCode":"78734",
+    "addressCountry":"US"
+  },
+  "sameAs":[
+    "https://www.instagram.com/premierpartycruises",
+    "https://www.facebook.com/premierpartycruises",
+    "https://www.tiktok.com/@premierpartycruises",
+    "https://www.tripadvisor.com/Profile/PremierPartyCruises"
+  ]
+}
+</script>
+
+3.2 BreadcrumbList (interior pages)
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"BreadcrumbList",
+  "itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://premierpartycruises.com/"},
+    {"@type":"ListItem","position":2,"name":"Bachelorette Party","item":"https://premierpartycruises.com/bachelorette-party-austin"},
+    {"@type":"ListItem","position":3,"name":"ATX Disco Cruise"}
+  ]
+}
+</script>
+
+3.3 Service (Private Cruises)
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Service",
+  "serviceType":"Private Party Boat Charter",
+  "provider":{"@id":"https://premierpartycruises.com#org"},
+  "areaServed":{"@type":"AdministrativeArea","name":"Austin, TX"},
+  "hasOfferCatalog":{
+    "@type":"OfferCatalog",
+    "name":"Private Cruise Packages",
+    "itemListElement":[
+      {
+        "@type":"Offer",
+        "name":"Private Cruise – up to 20 guests",
+        "priceSpecification":{"@type":"PriceSpecification","priceCurrency":"USD","price":"900"},
+        "url":"https://premierpartycruises.com/private-cruises#20pax"
+      },
+      {
+        "@type":"Offer",
+        "name":"Private Cruise – up to 50 guests",
+        "priceSpecification":{"@type":"PriceSpecification","priceCurrency":"USD","price":"2100"},
+        "url":"https://premierpartycruises.com/private-cruises#50pax"
+      }
+    ]
+  }
+}
+</script>
+
+3.4 Event (ATX Disco Cruise)
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"Event",
+  "name":"ATX Disco Cruise",
+  "startDate":"2025-10-18T18:00:00-05:00",
+  "endDate":"2025-10-18T21:00:00-05:00",
+  "eventAttendanceMode":"https://schema.org/OfflineEventAttendanceMode",
+  "eventStatus":"https://schema.org/EventScheduled",
+  "location":{
+    "@type":"Place",
+    "name":"Anderson Mill Marina",
+    "address":{"@type":"PostalAddress","addressLocality":"Austin","addressRegion":"TX","addressCountry":"US"}
+  },
+  "organizer":{"@id":"https://premierpartycruises.com#org"},
+  "image":["https://premierpartycruises.com/wp-content/uploads/disco-hero.jpg"],
+  "offers":{
+    "@type":"Offer",
+    "priceCurrency":"USD",
+    "price":"85",
+    "url":"https://premierpartycruises.com/atx-disco-cruise#tickets",
+    "availability":"https://schema.org/InStock"
+  },
+  "description":"Ticketed disco cruise on Lake Travis designed for bachelor and bachelorette groups."
+}
+</script>
+
+3.5 FAQPage (FAQ page + accordions)
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"FAQPage",
+  "mainEntity":[
+    {
+      "@type":"Question",
+      "name":"What can we bring on the boat?",
+      "acceptedAnswer":{"@type":"Answer","text":"You may bring snacks, non-glass beverages, and decorations. Glass containers are not allowed."}
+    },
+    {
+      "@type":"Question",
+      "name":"Do you allow DJs or photographers?",
+      "acceptedAnswer":{"@type":"Answer","text":"Yes, you may bring your own DJ or photographer, or book ours as an add-on."}
+    }
+  ]
+}
+</script>
+
+3.6 ImageObject (hero images)
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"ImageObject",
+  "contentUrl":"https://premierpartycruises.com/wp-content/uploads/bachelorette-hero.jpg",
+  "caption":"Bachelorette party on Lake Travis aboard Premier Party Cruises",
+  "author":{"@id":"https://premierpartycruises.com#org"},
+  "uploadDate":"2025-09-15"
+}
+</script>
+
+4) Internal Linking
+
+Add a Related Links block near footer on all money pages (Bachelor, Bachelorette, Private, Disco, Corporate):
+
+Pricing & What’s Included → /private-cruises#pricing
+
+FAQs → /testimonials-faq
+
+Safety Guidelines → /blog/lake-travis-boat-safety-essential-guidelines-for-safe-party-cruises
+
+Seasonal Itineraries → link to 2–4 relevant monthly guides
+
+Gallery → /gallery
+
+Also add one contextual link in first 300 words of each page.
+
+5) Performance & CWV
+
+Convert hero images to WebP/AVIF, preload first LCP hero.
+
+Add width/height to all images.
+
+loading="lazy" for below-the-fold.
+
+Defer chat widget & booking widget scripts until DOMContentLoaded.
+
+6) QA & Validation
+
+Must pass before PR merge:
+
+All sitemap URLs = 200 + indexable.
+
+/blogs/* → /blog/* redirect works.
+
+Drafts return 410 or noindex.
+
+Canonicals show correct self-reference.
+
+All schema passes Rich Results test:
+
+Org/LocalBusiness
+
+BreadcrumbList
+
+Service (Private)
+
+Event (Disco)
+
+FAQPage
+
+ImageObject
+
+robots.txt includes sitemap, no unintended disallows.
+
+Lighthouse: LCP ≤ 2.5s desktop, ≤ 3.5s mobile.
+
+Internal Related Links block present on money pages.
+
+7) Deliverables
+
+PR titled: SEO + AI Visibility Overhaul (canonicals, redirects, schema, sitemap, CWV)
+
+PR description includes:
+
+Stack detection
+
+Redirect rules added
+
+Files edited
+
+Schema snippets inserted
+
+Validator links/screenshots
+
+Lighthouse before/after
+
+Any TODOs (e.g., real ticket dates/prices update)
+
+⚡ Execute all steps, commit in logical chunks, and open PR with detailed changelog + screenshots/validator links.
