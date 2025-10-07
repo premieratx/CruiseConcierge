@@ -1,22 +1,25 @@
-import { useState } from "react";
+import { useState, lazy, Suspense } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { motion } from "framer-motion";
 import PublicNavigation from "@/components/PublicNavigation";
 import Footer from "@/components/Footer";
 import { BlogCard } from "@/components/blog/BlogCard";
-import { CategoryBadge } from "@/components/blog/CategoryBadge";
-import { TagBadge } from "@/components/blog/TagBadge";
-import ClaudeInsight from "@/components/ClaudeInsight";
-import DiscoInsight from "@/components/DiscoInsight";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { ChevronLeft, ChevronRight, Search, TrendingUp, Tag, FolderOpen } from "lucide-react";
+import ChevronLeft from "lucide-react/dist/esm/icons/chevron-left";
+import ChevronRight from "lucide-react/dist/esm/icons/chevron-right";
+import Search from "lucide-react/dist/esm/icons/search";
+import TrendingUp from "lucide-react/dist/esm/icons/trending-up";
+import Tag from "lucide-react/dist/esm/icons/tag";
+import FolderOpen from "lucide-react/dist/esm/icons/folder-open";
 import { BlogPost, BlogAuthor, BlogCategory, BlogTag } from "@shared/schema";
 import SEOHead from "@/components/SEOHead";
 import { Link } from "wouter";
+
+const ClaudeInsight = lazy(() => import("@/components/ClaudeInsight"));
+const DiscoInsight = lazy(() => import("@/components/DiscoInsight"));
 
 interface BlogPostsResponse {
   posts: (BlogPost & {
@@ -102,25 +105,6 @@ export default function Blogs() {
   const tags = tagsData || [];
   const featuredPosts = featuredPostsData?.posts || [];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1
-      }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.5 }
-    }
-  };
-
   if (error) {
     return (
       <>
@@ -158,36 +142,27 @@ export default function Blogs() {
       
       <div className="min-h-screen bg-background">
         {/* Hero Section */}
-        <motion.section
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6 }}
-          className="bg-gradient-to-br from-brand-blue to-blue-600 text-white py-16 md:py-24"
+        <section
+          className="bg-gradient-to-br from-brand-blue to-blue-600 text-white py-16 md:py-24 animate-in fade-in slide-in-from-top-4 duration-500"
           data-testid="section-hero"
         >
           <div className="container mx-auto px-4">
             <div className="max-w-4xl mx-auto text-center">
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-                className="text-2xl md:text-3xl lg:text-5xl font-bold mb-4"
+              <h1
+                className="text-2xl md:text-3xl lg:text-5xl font-bold mb-4 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-150"
                 data-testid="title-hero"
               >
                 Austin Party Boat Blog
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4, duration: 0.6 }}
-                className="text-xl md:text-2xl text-blue-100"
+              </h1>
+              <p
+                className="text-xl md:text-2xl text-blue-100 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-300"
                 data-testid="subtitle-hero"
               >
                 Expert tips, guides, and stories for planning the ultimate Lake Travis party experience
-              </motion.p>
+              </p>
             </div>
           </div>
-        </motion.section>
+        </section>
 
         {/* Main Content */}
         <div className="container mx-auto px-4 py-12">
@@ -195,12 +170,7 @@ export default function Blogs() {
             {/* Main Content Area */}
             <div className="lg:col-span-3">
               {/* Search Bar */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.5 }}
-                className="mb-8"
-              >
+              <div className="mb-8 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-500">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-5 w-5" />
                   <Input
@@ -212,7 +182,7 @@ export default function Blogs() {
                     data-testid="input-search"
                   />
                 </div>
-              </motion.div>
+              </div>
 
               {/* Filter Pills */}
               <div className="flex flex-wrap gap-2 mb-8">
@@ -243,20 +213,15 @@ export default function Blogs() {
 
               {/* Loading State */}
               {isLoading && (
-                <motion.div
-                  variants={containerVariants}
-                  initial="hidden"
-                  animate="visible"
-                  className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-                >
+                <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
                   {Array.from({ length: 6 }).map((_, i) => (
-                    <motion.div key={i} variants={itemVariants} className="space-y-3">
+                    <div key={i} className="space-y-3 animate-in fade-in duration-300" style={{ animationDelay: `${i * 100}ms` }}>
                       <Skeleton className="h-56 w-full rounded-xl" />
                       <Skeleton className="h-5 w-3/4" />
                       <Skeleton className="h-4 w-1/2" />
-                    </motion.div>
+                    </div>
                   ))}
-                </motion.div>
+                </div>
               )}
 
               {/* Blog Posts Grid */}
@@ -276,29 +241,17 @@ export default function Blogs() {
                   </div>
 
                   {data.posts.length === 0 ? (
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      className="text-center py-20"
-                    >
+                    <div className="text-center py-20 animate-in fade-in duration-500">
                       <p className="text-2xl font-semibold text-gray-500 dark:text-gray-400">No blog posts found</p>
                       <p className="text-gray-400 dark:text-gray-500 mt-2">Try adjusting your search or filters</p>
-                    </motion.div>
+                    </div>
                   ) : (
-                    <motion.div
-                      variants={containerVariants}
-                      initial="hidden"
-                      animate="visible"
-                      className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
-                    >
-                      {data.posts.map((post) => (
-                        <motion.article
+                    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+                      {data.posts.map((post, index) => (
+                        <article
                           key={post.id}
-                          variants={itemVariants}
-                          whileHover={{ 
-                            y: -8,
-                            transition: { duration: 0.3 }
-                          }}
+                          className="animate-in fade-in slide-in-from-bottom-4 duration-500 hover:-translate-y-2 transition-transform"
+                          style={{ animationDelay: `${index * 100}ms` }}
                           data-testid={`card-blog-post-${post.id}`}
                         >
                           <BlogCard
@@ -308,19 +261,15 @@ export default function Blogs() {
                             showExcerpt={true}
                             className="h-full"
                           />
-                        </motion.article>
+                        </article>
                       ))}
-                    </motion.div>
+                    </div>
                   )}
 
                   {/* Pagination */}
                   {totalPages > 1 && (
-                    <motion.div
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: 0.8, duration: 0.5 }}
-                      className="mt-12 flex items-center justify-center gap-2"
-                    >
+                    <div className="mt-12 flex items-center justify-center gap-2 animate-in fade-in slide-in-from-bottom-4 duration-500 delay-700">
+                    
                       <Button
                         variant="outline"
                         size="sm"
@@ -369,19 +318,14 @@ export default function Blogs() {
                         Next
                         <ChevronRight className="h-4 w-4 ml-1" />
                       </Button>
-                    </motion.div>
+                    </div>
                   )}
                 </>
               )}
             </div>
 
             {/* Sidebar */}
-            <motion.aside
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.8, duration: 0.6 }}
-              className="lg:col-span-1 space-y-6"
-            >
+            <aside className="lg:col-span-1 space-y-6 animate-in fade-in slide-in-from-right-4 duration-500 delay-700">
               {/* Categories */}
               <Card data-testid="card-categories">
                 <CardHeader>
@@ -410,14 +354,18 @@ export default function Blogs() {
               </Card>
 
               {/* Claude AI Insight */}
-              <ClaudeInsight
-                quote="Premier Party Cruises stands as Austin's definitive leader in Lake Travis party boat experiences, representing the pinnacle of event planning excellence"
-                variant="sidebar"
-                link="/ai-endorsement"
-              />
+              <Suspense fallback={<Skeleton className="h-48 w-full" />}>
+                <ClaudeInsight
+                  quote="Premier Party Cruises stands as Austin's definitive leader in Lake Travis party boat experiences, representing the pinnacle of event planning excellence"
+                  variant="sidebar"
+                  link="/ai-endorsement"
+                />
+              </Suspense>
 
               {/* Disco Insight */}
-              <DiscoInsight variant="compact" showCTA={true} />
+              <Suspense fallback={<Skeleton className="h-48 w-full" />}>
+                <DiscoInsight variant="compact" showCTA={true} />
+              </Suspense>
 
               {/* Popular Posts */}
               {featuredPosts.length > 0 && (
@@ -486,7 +434,7 @@ export default function Blogs() {
                   </CardContent>
                 </Card>
               )}
-            </motion.aside>
+            </aside>
           </div>
         </div>
       </div>

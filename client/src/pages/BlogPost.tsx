@@ -1,25 +1,32 @@
 import { useParams } from "wouter";
-import { useEffect } from "react";
+import { useEffect, lazy, Suspense } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import PublicNavigation from "@/components/PublicNavigation";
 import Footer from "@/components/Footer";
 import { CategoryBadge } from "@/components/blog/CategoryBadge";
 import { TagBadge } from "@/components/blog/TagBadge";
 import { BlogCard } from "@/components/blog/BlogCard";
-import ClaudeInsight from "@/components/ClaudeInsight";
-import DiscoInsight from "@/components/DiscoInsight";
 import { Button } from "@/components/ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Calendar, Clock, Eye, Share2, MessageCircle, User, ArrowLeft, Facebook, Twitter, Linkedin } from "lucide-react";
+import Calendar from "lucide-react/dist/esm/icons/calendar";
+import Clock from "lucide-react/dist/esm/icons/clock";
+import Eye from "lucide-react/dist/esm/icons/eye";
+import Share2 from "lucide-react/dist/esm/icons/share-2";
+import ArrowLeft from "lucide-react/dist/esm/icons/arrow-left";
+import Facebook from "lucide-react/dist/esm/icons/facebook";
+import Twitter from "lucide-react/dist/esm/icons/twitter";
+import Linkedin from "lucide-react/dist/esm/icons/linkedin";
 import { Link } from "wouter";
 import { BlogPost, BlogAuthor, BlogCategory, BlogTag } from "@shared/schema";
 import { useToast } from "@/hooks/use-toast";
 import SEOHead from "@/components/SEOHead";
 import { format } from "date-fns";
+
+const DiscoInsight = lazy(() => import("@/components/DiscoInsight"));
 
 interface BlogPostData {
   post: BlogPost;
@@ -509,7 +516,9 @@ export default function BlogPostPage() {
           cat.name.toLowerCase().includes('party')
         ) && (
           <div className="mt-8 mb-12 max-w-3xl mx-auto">
-            <DiscoInsight variant="default" showCTA={true} />
+            <Suspense fallback={<Skeleton className="h-64 w-full" />}>
+              <DiscoInsight variant="default" showCTA={true} />
+            </Suspense>
           </div>
         )}
 

@@ -4344,6 +4344,28 @@ export class DatabaseStorage implements IStorage {
         )
       );
     }
+    
+    // Filter by category - join with blogPostCategories
+    if (filters?.categoryId) {
+      conditions.push(
+        sql`EXISTS (
+          SELECT 1 FROM ${blogPostCategories} 
+          WHERE ${blogPostCategories.postId} = ${blogPosts.id} 
+          AND ${blogPostCategories.categoryId} = ${filters.categoryId}
+        )`
+      );
+    }
+    
+    // Filter by tag - join with blogPostTags
+    if (filters?.tagId) {
+      conditions.push(
+        sql`EXISTS (
+          SELECT 1 FROM ${blogPostTags} 
+          WHERE ${blogPostTags.postId} = ${blogPosts.id} 
+          AND ${blogPostTags.tagId} = ${filters.tagId}
+        )`
+      );
+    }
 
     if (conditions.length > 0) {
       query = query.where(and(...conditions));

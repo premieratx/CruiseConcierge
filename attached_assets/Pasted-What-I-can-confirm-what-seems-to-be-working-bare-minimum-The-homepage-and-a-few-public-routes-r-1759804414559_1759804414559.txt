@@ -1,0 +1,108 @@
+What I can confirm + what seems to be working (bare minimum)
+
+The homepage and a few public routes return HTML content (metadata, header, initial content). For example, the homepage has a title, meta description, visible copy, etc. 
+Premier Party Cruises
+
+Some pages (e.g. /bachelorette-party-austin) have visible HTML content in the initial payload, indicating at least some content is server-sent or static. 
+Premier Party Cruises
+
+The site has a /faq/ page which is publicly accessible (though as we saw earlier, the FAQ Q&A content likely is filled via JavaScript) 
+Premier Party Cruises
+
+So Google can crawl some content, but likely not all, and many pages’ “main meat” content (FAQs, full paragraphs, lists) may not be visible to crawlers unless rendered.
+
+Major SEO / visibility / performance issues I see or infer
+
+Here’s a breakdown of problems you likely have (based on your symptoms + what I observed) and how they hamper SEO / AI visibility.
+
+Problem	Why it's hurting SEO / visibility / user experience	Evidence / inference
+Client-side-only rendering (no SSR / static HTML with full content)	Search bots might see only a skeleton HTML with little text. That means your rich content (FAQs, service descriptions, etc.) might not get indexed or recognized.	The FAQ Q&As are invisible in raw HTML fetches. Also many pages appear blank or minimal when fetched without JS.
+Slow page speed / heavy JS / large bundle size	Google and users penalize slow sites. If your core content loads late (after JS), scores will drop.	You mentioned page speed is bad. Also SPAs tend to bundle all JS unless optimized.
+Missing or poorly implemented structured data (JSON-LD, schema.org)	Without FAQ or structured schema markup, you lose eligibility for rich results and easier content parsing by search engines.	I saw an FAQ page but no visible JSON-LD in the HTML source (in the non-rendered fetch).
+No server-rendered FAQ text in HTML	Even if the UI shows FAQs, if that text is injected later, bots may miss it.	The scrapes didn’t pick up the Q&A content.
+Potential duplicate / thin content or templated pages	If many service pages re-use similar copy (e.g. “We host party on Lake Travis…”), Google may see them as low-value / thin pages.	
+Poor mobile / Core Web Vitals issues	If layout shifts, large images, render-blocking JS occur, your scores suffer.	
+Late or deferred loading of images, CSS, fonts	If critical assets are delayed, content rendering is slow, which hurts indexing and UX.	
+Missing canonical / meta tags or misconfiguration	Some pages may lack unique meta titles, descriptions, or canonical tags, causing confusion or poor indexing.	
+Internal linking / crawl paths are weak for JS routes	If some pages are only accessible via JS navigation and aren’t in the sitemap / static links, bots may not reach them.	
+Robots.txt or noindex / accidental blocking	It’s possible some routes or endpoints are accidentally disallowed from bots or use meta tags that hide them.	
+No sitemap or dynamic sitemap issues	If your sitemap doesn’t include all SPA routes or dynamic routes, bots won’t discover them reliably.	
+How to test whether Google is seeing your content
+
+Here are steps you (or your developer) can do to verify:
+
+Google Search Console – URL Inspection
+
+Input a specific service page (e.g. /atx-disco-cruise) and check “View Crawled Page / HTML”. See if the FAQ content or service paragraphs appear in the source.
+
+Use “Test Live URL” to force fetch + render.
+
+Fetch as Google / Mobile-Friendly Test
+
+Use the Google Mobile-Friendly Test tool. It will show you what Google sees after rendering. If major sections are missing there, that’s a red flag.
+
+Fetch the raw HTML (curl)
+
+curl or “view source” in the browser before JavaScript runs. See what text is present.
+
+Lighthouse / PageSpeed Insights
+
+Run on critical pages. Look at metrics like First Contentful Paint, Time to Interactive, Largest Contentful Paint, Layout Shift, etc.
+
+Check the sitemap / robots.txt
+
+Ensure your dynamic routes are included in the sitemap. Check robots.txt for disallowed rules.
+
+Check for structured data (in source HTML)
+
+View page source and search for <script type="application/ld+json">. Do you see FAQPage, WebPage, etc.?
+
+Recommendations: What you and your dev should do next
+
+Here’s a prioritized plan to fix visibility and SEO:
+
+1. Make key content server-rendered / pre-rendered
+
+For each service route (e.g. /private-cruises, /atx-disco-cruise, etc.), render the full HTML (text, FAQ, headings) on the server or via static generation. Never rely on client-side JS alone for content that Google must index.
+
+If you use React/Vite SPA, add a prerender step or a headless renderer that outputs static HTML for known routes.
+
+2. Add structured data (FAQPage, etc.) in the HTML
+
+As soon as the page loads (in HTML), include the FAQPage JSON-LD block with all Q&A pairs.
+
+Also include WebPage schema, Organization schema, BreadcrumbList, etc.
+
+3. Optimize performance / bundle size
+
+Code-split your JS so pages only load what they need.
+
+Use lazy loading / loading="lazy" for images not in view.
+
+Compress and optimize images.
+
+Minimize render-blocking CSS/JS.
+
+Use caching, CDN, HTTP/2, etc.
+
+4. Ensure every route is crawlable
+
+Create a static sitemap including all service pages.
+
+In your navigation and footers, include direct (HTML) links to all key pages (so crawlers can see them without JS).
+
+Avoid hiding routes behind menus that require JS to expand.
+
+5. Verify meta tags / unique titles, descriptions
+
+Each page should have its own <title> and <meta name="description">.
+
+Use headings (H1, H2) meaningfully; don’t duplicate across pages too heavily.
+
+6. Test & monitor
+
+After changes, re-submit your sitemap in Google Search Console.
+
+Use URL Inspection to verify the rendered content is visible.
+
+Monitor indexing, traffic, and whether FAQ rich snippets begin to appear.
