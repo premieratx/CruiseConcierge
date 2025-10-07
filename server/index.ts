@@ -195,26 +195,17 @@ app.use((req, res, next) => {
         { url: '/graduation-party', lastmod: now, changefreq: 'weekly', priority: 0.8 },
         { url: '/testimonials-faq', lastmod: now, changefreq: 'monthly', priority: 0.7 },
         { url: '/contact', lastmod: now, changefreq: 'monthly', priority: 0.7 },
-        // Blog listing pages
-        { url: '/blogs', lastmod: now, changefreq: 'daily', priority: 0.8 },
-        { url: '/blog', lastmod: now, changefreq: 'daily', priority: 0.8 }
+        // Blog listing page (canonical URL)
+        { url: '/blogs', lastmod: now, changefreq: 'daily', priority: 0.8 }
       ];
       
-      // Map blog posts to sitemap entries using BOTH /blog/ and /blogs/ URL formats for maximum SEO coverage
-      const blogPages = blogPosts.flatMap((post: any) => [
-        {
-          url: `/blog/${post.slug}`,
-          lastmod: post.publishedAt ? new Date(post.publishedAt).toISOString() : now,
-          changefreq: 'monthly',
-          priority: 0.7
-        },
-        {
-          url: `/blogs/${post.slug}`,
-          lastmod: post.publishedAt ? new Date(post.publishedAt).toISOString() : now,
-          changefreq: 'monthly',
-          priority: 0.7
-        }
-      ]);
+      // Map blog posts to sitemap entries - ONLY /blogs/ format to avoid duplicate content
+      const blogPages = blogPosts.map((post: any) => ({
+        url: `/blogs/${post.slug}`,
+        lastmod: post.publishedAt ? new Date(post.publishedAt).toISOString() : now,
+        changefreq: 'monthly',
+        priority: 0.7
+      }));
       
       const urls = [...staticPages, ...blogPages];
       
