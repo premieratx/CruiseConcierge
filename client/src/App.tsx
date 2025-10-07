@@ -10,103 +10,114 @@ import { lazy, Suspense, useEffect } from "react";
 import { AuthProvider } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/lib/protected-route";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+// Critical routes - regular imports for instant loading
 import Home from "./pages/Home";
 import AuthPage from "./pages/AuthPage";
-import Dashboard from "./pages/Dashboard";
-import Chat from "./pages/Chat";
-import QuoteBuilderEmbed from "./pages/QuoteBuilderEmbed";
-import QuoteBuilder from "./pages/QuoteBuilder";
-import QuoteEditor from "./pages/QuoteEditor";
-import PartialLeads from "./pages/PartialLeads";
-import CustomerProfile from "./pages/CustomerProfile";
-import Projects from "./pages/Projects";
-import Templates from "./pages/Templates";
-import Products from "./pages/Products";
-import Discounts from "./pages/Discounts";
-import Affiliates from "./pages/Affiliates";
-import Documentation from "./pages/Documentation";
-import QuoteViewer from "./pages/QuoteViewer";
-import Settings from "./pages/Settings";
-import BookingFlow from "./pages/BookingFlow";
-import BookingSuccess from "./pages/BookingSuccess";
 import NotFound from "@/pages/not-found";
 
-// Blog Pages
-import Blog from "./pages/Blog";
-import Blogs from "./pages/Blogs";
-import BlogPost from "./pages/BlogPost";
-import BlogCategory from "./pages/BlogCategory";
-import BlogTag from "./pages/BlogTag";
-import BlogAuthor from "./pages/BlogAuthor";
+// Lazy-loaded routes for code splitting
+const Dashboard = lazy(() => import("./pages/Dashboard"));
+const Chat = lazy(() => import("./pages/Chat"));
+const QuoteBuilderEmbed = lazy(() => import("./pages/QuoteBuilderEmbed"));
+const QuoteBuilder = lazy(() => import("./pages/QuoteBuilder"));
+const QuoteEditor = lazy(() => import("./pages/QuoteEditor"));
+const PartialLeads = lazy(() => import("./pages/PartialLeads"));
+const CustomerProfile = lazy(() => import("./pages/CustomerProfile"));
+const Projects = lazy(() => import("./pages/Projects"));
+const Templates = lazy(() => import("./pages/Templates"));
+const Products = lazy(() => import("./pages/Products"));
+const Discounts = lazy(() => import("./pages/Discounts"));
+const Affiliates = lazy(() => import("./pages/Affiliates"));
+const Documentation = lazy(() => import("./pages/Documentation"));
+const QuoteViewer = lazy(() => import("./pages/QuoteViewer"));
+const Settings = lazy(() => import("./pages/Settings"));
+const BookingFlow = lazy(() => import("./pages/BookingFlow"));
+const BookingSuccess = lazy(() => import("./pages/BookingSuccess"));
 
-// Admin Blog Pages
-import BlogManagement from "./pages/admin/BlogManagement";
-import BlogPostEditor from "./pages/admin/BlogPostEditor";
+// Blog Pages - Lazy loaded
+const Blog = lazy(() => import("./pages/Blog"));
+const Blogs = lazy(() => import("./pages/Blogs"));
+const BlogPost = lazy(() => import("./pages/BlogPost"));
+const BlogCategory = lazy(() => import("./pages/BlogCategory"));
+const BlogTag = lazy(() => import("./pages/BlogTag"));
+const BlogAuthor = lazy(() => import("./pages/BlogAuthor"));
 
-// Admin SEO Pages
-import SEOManagement from "./pages/admin/SEOManagement";
+// Admin Blog Pages - Lazy loaded
+const BlogManagement = lazy(() => import("./pages/admin/BlogManagement"));
+const BlogPostEditor = lazy(() => import("./pages/admin/BlogPostEditor"));
 
-// Admin Pricing Pages
-import Pricing from "./pages/admin/Pricing";
-import PricingRules from "./pages/admin/PricingRules";
+// Admin SEO Pages - Lazy loaded
+const SEOManagement = lazy(() => import("./pages/admin/SEOManagement"));
 
-// Admin AI Assistant
-import AIAssistant from "./pages/admin/AIAssistant";
+// Admin Pricing Pages - Lazy loaded
+const Pricing = lazy(() => import("./pages/admin/Pricing"));
+const PricingRules = lazy(() => import("./pages/admin/PricingRules"));
 
-// Admin Agent Chat
-import AgentChat from "./pages/admin/AgentChat";
+// Admin AI Assistant - Lazy loaded
+const AIAssistant = lazy(() => import("./pages/admin/AIAssistant"));
 
-// Admin Inventory Management
-import InventoryManagement from "./pages/admin/InventoryManagement";
+// Admin Agent Chat - Lazy loaded
+const AgentChat = lazy(() => import("./pages/admin/AgentChat"));
 
-// Admin Media Library
-import MediaLibrary from "./pages/admin/MediaLibrary";
+// Admin Inventory Management - Lazy loaded
+const InventoryManagement = lazy(() => import("./pages/admin/InventoryManagement"));
 
-// Landing Pages
-import BachelorParty from "./pages/BachelorParty";
-import BacheloretteParty from "./pages/BacheloretteParty";
-import CombinedBachelorBachelorette from "./pages/CombinedBachelorBachelorette";
-import ATXDiscoCruise from "./pages/ATXDiscoCruise";
-import PrivateCruises from "./pages/PrivateCruises";
-import CorporateEvents from "./pages/CorporateEvents";
-import BirthdayParties from "./pages/BirthdayParties";
-import WeddingParties from "./pages/WeddingParties";
-import Gallery from "./pages/Gallery";
-import Contact from "./pages/Contact";
-import TestimonialsFaq from "./pages/TestimonialsFaq";
-import PartyBoatAustin from "./pages/PartyBoatAustin";
-import PartyBoatLakeTravis from "./pages/PartyBoatLakeTravis";
-import AIEndorsement from "./pages/AIEndorsement";
+// Admin Media Library - Lazy loaded
+const MediaLibrary = lazy(() => import("./pages/admin/MediaLibrary"));
 
-// Wedding Experience Pages
-import RehearsalDinner from "./pages/RehearsalDinner";
-import WelcomeParty from "./pages/WelcomeParty";
-import AfterParty from "./pages/AfterParty";
+// Landing Pages - Lazy loaded
+const BachelorParty = lazy(() => import("./pages/BachelorParty"));
+const BacheloretteParty = lazy(() => import("./pages/BacheloretteParty"));
+const CombinedBachelorBachelorette = lazy(() => import("./pages/CombinedBachelorBachelorette"));
+const ATXDiscoCruise = lazy(() => import("./pages/ATXDiscoCruise"));
+const PrivateCruises = lazy(() => import("./pages/PrivateCruises"));
+const CorporateEvents = lazy(() => import("./pages/CorporateEvents"));
+const BirthdayParties = lazy(() => import("./pages/BirthdayParties"));
+const WeddingParties = lazy(() => import("./pages/WeddingParties"));
+const Gallery = lazy(() => import("./pages/Gallery"));
+const Contact = lazy(() => import("./pages/Contact"));
+const TestimonialsFaq = lazy(() => import("./pages/TestimonialsFaq"));
+const PartyBoatAustin = lazy(() => import("./pages/PartyBoatAustin"));
+const PartyBoatLakeTravis = lazy(() => import("./pages/PartyBoatLakeTravis"));
+const AIEndorsement = lazy(() => import("./pages/AIEndorsement"));
 
-// Corporate Experience Pages
-import TeamBuilding from "./pages/TeamBuilding";
-import ClientEntertainment from "./pages/ClientEntertainment";
-import CompanyMilestone from "./pages/CompanyMilestone";
+// Wedding Experience Pages - Lazy loaded
+const RehearsalDinner = lazy(() => import("./pages/RehearsalDinner"));
+const WelcomeParty = lazy(() => import("./pages/WelcomeParty"));
+const AfterParty = lazy(() => import("./pages/AfterParty"));
 
-// Birthday Experience Pages
-import MilestoneBirthday from "./pages/MilestoneBirthday";
-import Sweet16 from "./pages/Sweet16";
+// Corporate Experience Pages - Lazy loaded
+const TeamBuilding = lazy(() => import("./pages/TeamBuilding"));
+const ClientEntertainment = lazy(() => import("./pages/ClientEntertainment"));
+const CompanyMilestone = lazy(() => import("./pages/CompanyMilestone"));
 
-// Special Event Pages
-import GraduationParty from "./pages/GraduationParty";
+// Birthday Experience Pages - Lazy loaded
+const MilestoneBirthday = lazy(() => import("./pages/MilestoneBirthday"));
+const Sweet16 = lazy(() => import("./pages/Sweet16"));
 
-// Customer Portal Pages
-import PortalLogin from "./pages/PortalLogin";
-import PortalVerify from "./pages/PortalVerify";
-import PortalDashboard from "./pages/PortalDashboard";
-import PortalProfile from "./pages/PortalProfile";
+// Special Event Pages - Lazy loaded
+const GraduationParty = lazy(() => import("./pages/GraduationParty"));
+
+// Customer Portal Pages - Lazy loaded
+const PortalLogin = lazy(() => import("./pages/PortalLogin"));
+const PortalVerify = lazy(() => import("./pages/PortalVerify"));
+const PortalDashboard = lazy(() => import("./pages/PortalDashboard"));
+const PortalProfile = lazy(() => import("./pages/PortalProfile"));
 
 
 function Router() {
   return (
-    <Switch>
-      {/* Public Homepage */}
-      <Route path="/" component={Home} />
+    <Suspense fallback={
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary mx-auto mb-4"></div>
+          <p className="text-muted-foreground">Loading...</p>
+        </div>
+      </div>
+    }>
+      <Switch>
+        {/* Public Homepage */}
+        <Route path="/" component={Home} />
       
       {/* Authentication */}
       <Route path="/auth" component={AuthPage} />
@@ -309,7 +320,8 @@ function Router() {
       
       {/* 404 Fallback */}
       <Route component={NotFound} />
-    </Switch>
+      </Switch>
+    </Suspense>
   );
 }
 
