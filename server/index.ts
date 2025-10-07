@@ -114,9 +114,8 @@ app.use('/q/', (req, res, next) => {
   // Sitemap route - must be registered before Vite to avoid catch-all interference
   app.get('/sitemap.xml', async (req: Request, res: Response) => {
     try {
-      const baseUrl = process.env.REPLIT_DEV_DOMAIN 
-        ? `https://${process.env.REPLIT_DEV_DOMAIN}` 
-        : 'https://premierpartycruises.com';
+      // ALWAYS use production domain for sitemap
+      const baseUrl = 'https://premierpartycruises.com';
       
       // Get published blog posts from PostgreSQL
       const blogPostsResult = await storage.getBlogPosts({ 
@@ -180,9 +179,8 @@ ${urls.map(page => `  <url>
 
   app.get('/robots.txt', async (req: Request, res: Response) => {
     try {
-      const baseUrl = process.env.REPLIT_DEV_DOMAIN 
-        ? `https://${process.env.REPLIT_DEV_DOMAIN}` 
-        : 'https://premierpartycruises.com';
+      // ALWAYS use production domain for robots.txt
+      const baseUrl = 'https://premierpartycruises.com';
       
       const robotsTxt = `User-agent: *
 Allow: /
