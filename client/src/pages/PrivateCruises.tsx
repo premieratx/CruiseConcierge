@@ -21,6 +21,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import SEOHead, { generateComprehensiveLocalBusinessSchema, generateFAQSchema } from '@/components/SEOHead';
 import Footer from '@/components/Footer';
+import RelatedLinks from '@/components/RelatedLinks';
 import { formatCurrency } from '@shared/formatters';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
@@ -388,7 +389,7 @@ export default function PrivateCruises() {
             >
               <span className="text-brand-blue font-bold">Choose Your Perfect Package.</span> From basic cruising to ultimate party experiences, 
               we handle all the setup so you can focus on making memories. Professional crew, premium amenities, 
-              and everything scaled perfectly for your group size.
+              and everything scaled perfectly for your group size. Looking for something more budget-friendly? Check out <Link href="/atx-disco-cruise" className="text-brand-yellow hover:underline font-semibold">our ATX Disco Cruise</Link> option!
             </motion.p>
             
             <motion.div 
@@ -2008,6 +2009,15 @@ export default function PrivateCruises() {
           }
         })
       }} />
+
+      {/* Related Links */}
+      <RelatedLinks 
+        blogLinks={[
+          { title: 'Complete Private Cruise Planning Guide', href: '/blogs/lake-travis-private-cruise-planning-guide' },
+          { title: 'Choosing the Right Boat Size', href: '/blogs/choosing-boat-size-private-cruise' },
+          { title: 'Private Cruise vs Disco Cruise', href: '/blogs/private-vs-disco-cruise-comparison' }
+        ]}
+      />
 
       {/* Footer */}
       <Footer />

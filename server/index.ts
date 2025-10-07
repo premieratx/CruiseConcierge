@@ -267,6 +267,26 @@ Crawl-delay: 1`;
   // Add guard to prevent embed routing from intercepting API calls
   const embedConfigured = setupEmbedRouting(app);
   
+  // 301 redirects from /blog to /blogs (canonical URL)
+  // These MUST come before SSR middleware to intercept requests
+  app.get('/blog/:slug', (req, res) => {
+    res.redirect(301, `/blogs/${req.params.slug}`);
+  });
+
+  app.get('/blog', (req, res) => {
+    res.redirect(301, '/blogs');
+  });
+  
+  // 410 Gone status for removed draft pages
+  // These MUST come before SSR middleware to intercept requests
+  app.get(['/home-draft', '/home-draft/'], (req, res) => {
+    res.status(410).send('This page has been removed');
+  });
+
+  app.get(['/bachelorette-party-austin-draft', '/bachelorette-party-austin-draft/'], (req, res) => {
+    res.status(410).send('This page has been removed');
+  });
+  
   // SSR middleware for SEO - must come BEFORE Vite middleware
   // This allows crawlers to see H1 tags, content, and unique meta tags
   // CRITICAL: This runs in BOTH development AND production for proper SEO

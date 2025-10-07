@@ -29,6 +29,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
+import RelatedLinks from '@/components/RelatedLinks';
 
 import heroImage1 from '@assets/atx-disco-cruise-party.webp';
 import heroImage2 from '@assets/dancing-party-scene.webp';
@@ -524,7 +525,7 @@ export default function ATXDiscoCruise() {
                 The single most unique and comprehensive bachelor/bachelorette party experience in the United States
               </p>
               <p className="text-lg md:text-xl text-white/80 mb-8 max-w-3xl mx-auto" data-testid="text-hero-description">
-                Only all-inclusive, multi-group bachelor/bachelorette party cruise in the country. Join parties from across America for an unforgettable 4-hour Lake Travis celebration with professional DJ, photographer, and 100% satisfaction track record!
+                Only all-inclusive, multi-group bachelor/bachelorette party cruise in the country. Join parties from across America for an unforgettable 4-hour Lake Travis celebration with professional DJ, photographer, and 100% satisfaction track record! Need a larger private celebration? Explore <Link href="/private-cruises" className="text-brand-yellow hover:underline font-semibold">our private cruises</Link> for exclusive group experiences.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Button 
@@ -2655,6 +2656,15 @@ export default function ATXDiscoCruise() {
             ]
           })
         }} />
+
+        {/* Related Links */}
+        <RelatedLinks 
+          blogLinks={[
+            { title: 'ATX Disco Cruise Complete Guide', href: '/blogs/atx-disco-cruise-ultimate-guide' },
+            { title: 'What to Expect on the Disco Cruise', href: '/blogs/atx-disco-cruise-experience' },
+            { title: 'Bachelor vs Bachelorette Party Tips', href: '/blogs/bachelor-bachelorette-party-tips' }
+          ]}
+        />
 
         <Footer />
       </div>

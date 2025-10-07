@@ -676,14 +676,46 @@ export async function registerRoutes(app: Express): Promise<Server> {
       const htmlPath = path.join(process.cwd(), 'client', 'index.html');
       let html = await fs.promises.readFile(htmlPath, 'utf-8');
       
+      // Generate BreadcrumbList schema for blog post (interior page)
+      const postTitle = post.title || "";
+      const breadcrumbName = postTitle.replace(/\s*\|\s*Premier Party Cruises.*$/i, '').trim();
+      
+      const breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "Home",
+            "item": "https://premierpartycruises.com/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": breadcrumbName,
+            "item": `https://premierpartycruises.com/blogs/${slug}`
+          }
+        ]
+      };
+      
       // Inject unique Article schema before </head>
       const schemaScript = `
     <!-- Article Schema for SEO (Server-Side Injected) -->
     <script type="application/ld+json">
 ${JSON.stringify(articleSchema, null, 2)}
+    </script>
+    <!-- BreadcrumbList Schema for SEO (Server-Side Injected) -->
+    <script type="application/ld+json">
+${JSON.stringify(breadcrumbSchema, null, 2)}
     </script>`;
       
-      html = html.replace('</head>', `${schemaScript}\n  </head>`);
+      // Inject canonical tag (always use /blogs/ format for blog posts)
+      const canonicalUrl = `https://premierpartycruises.com/blogs/${slug}`;
+      const canonicalTag = `  <link rel="canonical" href="${canonicalUrl}" />`;
+      
+      // Inject both schemas and canonical tag before </head>
+      html = html.replace('</head>', `${schemaScript}\n${canonicalTag}\n  </head>`);
       
       // Update meta tags with post-specific data
       const metaTitle = post.metaTitle || post.title || "Blog Post";

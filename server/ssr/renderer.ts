@@ -10,6 +10,178 @@ const __dirname = path.dirname(__filename);
 let cachedTemplate: string | null = null;
 const templatePath = path.resolve(__dirname, '../../client/index.html');
 
+// Organization + LocalBusiness schema markup (sitewide)
+const ORGANIZATION_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": ["Organization", "LocalBusiness"],
+  "@id": "https://premierpartycruises.com#org",
+  "name": "Premier Party Cruises",
+  "url": "https://premierpartycruises.com",
+  "logo": "https://premierpartycruises.com/wp-content/uploads/ppc-logo.png",
+  "telephone": "+1-512-765-9999",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "1701 N FM 620, Anderson Mill Marina",
+    "addressLocality": "Austin",
+    "addressRegion": "TX",
+    "postalCode": "78734",
+    "addressCountry": "US"
+  },
+  "sameAs": [
+    "https://www.instagram.com/premierpartycruises",
+    "https://www.facebook.com/premierpartycruises",
+    "https://www.tiktok.com/@premierpartycruises",
+    "https://www.tripadvisor.com/Profile/PremierPartyCruises"
+  ]
+};
+
+// Service schema for Private Cruises page
+// Note: Using generic price ranges to avoid outdated pricing in search results
+const SERVICE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Private Party Boat Charter",
+  "provider": { "@id": "https://premierpartycruises.com#org" },
+  "areaServed": { "@type": "AdministrativeArea", "name": "Austin, TX" },
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Private Cruise Packages",
+    "itemListElement": [
+      {
+        "@type": "Offer",
+        "name": "Private Cruise – Small Groups (up to 20 guests)",
+        "url": "https://premierpartycruises.com/private-cruises#20pax"
+      },
+      {
+        "@type": "Offer",
+        "name": "Private Cruise – Medium Groups (up to 50 guests)",
+        "url": "https://premierpartycruises.com/private-cruises#50pax"
+      },
+      {
+        "@type": "Offer",
+        "name": "Private Cruise – Large Groups (up to 75+ guests)",
+        "url": "https://premierpartycruises.com/private-cruises#75pax"
+      }
+    ]
+  }
+};
+
+// Event schema for ATX Disco Cruise page
+// Note: Removed hard-coded dates to avoid outdated information in search results
+const EVENT_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "ATX Disco Cruise",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "Place",
+    "name": "Anderson Mill Marina",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX",
+      "addressCountry": "US"
+    }
+  },
+  "organizer": { "@id": "https://premierpartycruises.com#org" },
+  "image": ["https://premierpartycruises.com/wp-content/uploads/disco-hero.jpg"],
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "price": "85",
+    "url": "https://premierpartycruises.com/atx-disco-cruise#tickets",
+    "availability": "https://schema.org/InStock"
+  },
+  "description": "Ticketed disco cruise on Lake Travis designed for bachelor and bachelorette groups."
+};
+
+// FAQPage schema for Testimonials-FAQ page
+const FAQ_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What can we bring on the boat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You may bring snacks, non-glass beverages, and decorations. Glass containers are not allowed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you allow DJs or photographers?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, you may bring your own DJ or photographer, or book ours as an add-on."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is your cancellation policy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We offer flexible cancellation options. Contact us at least 48 hours in advance for rescheduling or refunds."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many people can fit on your boats?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our boats range from 14 to 75+ passengers depending on the vessel and event type."
+      }
+    }
+  ]
+};
+
+// NOTE: Server-side hero image preload removed due to Vite asset fingerprinting
+// 
+// PROBLEM: In production builds, Vite fingerprints images imported with @assets/... to /assets/<hash>.webp
+// The server cannot predict these hashed paths without access to Vite's manifest at runtime.
+// Server-side preload links with /attached_assets/... paths result in 404s and double downloads.
+//
+// SOLUTION: Let React components handle image loading naturally. Modern browsers are efficient
+// at prioritizing visible images, and other optimizations (lazy loading, responsive images) remain intact.
+
+// Generate BreadcrumbList schema for interior pages
+function generateBreadcrumbSchema(pathname: string, h1: string): object | null {
+  // Don't generate breadcrumbs for homepage
+  if (pathname === '/') {
+    return null;
+  }
+  
+  // Extract page name from h1, removing any suffixes like "| Premier Party Cruises"
+  let pageName = h1;
+  
+  // Remove common suffixes
+  pageName = pageName.replace(/\s*\|\s*Premier Party Cruises.*$/i, '');
+  pageName = pageName.trim();
+  
+  // Build breadcrumb list
+  const breadcrumbList = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "Home",
+        "item": "https://premierpartycruises.com/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": pageName,
+        "item": `https://premierpartycruises.com${pathname}`
+      }
+    ]
+  };
+  
+  return breadcrumbList;
+}
+
 // Get template with caching
 async function getTemplate(): Promise<string> {
   if (!cachedTemplate) {
@@ -155,16 +327,14 @@ function shouldUseSSR(url: string): boolean {
     return true;
   }
   
-  // Check blog routes (both /blog/ and /blogs/)
-  if (pathname.startsWith('/blog/') && pathname.length > 6) {
-    return true;
-  }
+  // IMPORTANT: Do NOT handle /blog routes - they redirect to /blogs with 301
+  // Only handle /blogs/ routes (canonical URLs)
   if (pathname.startsWith('/blogs/') && pathname.length > 7) {
     return true;
   }
   
-  // Check main blog listing page
-  if (pathname === '/blogs' || pathname === '/blog') {
+  // Check main blog listing page (only /blogs, not /blog which redirects)
+  if (pathname === '/blogs') {
     return true;
   }
   
@@ -198,7 +368,7 @@ async function fetchBlogPost(slug: string) {
 }
 
 // Render page to HTML string (Simplified SSR for SEO)
-async function renderPage(url: string): Promise<string> {
+async function renderPage(url: string, req: Request): Promise<string> {
   try {
     // Get cached template (avoids disk I/O on every request)
     let template = await getTemplate();
@@ -209,15 +379,9 @@ async function renderPage(url: string): Promise<string> {
     let metaTitle = '';
     let metaDescription = '';
     
-    // Check if it's a blog post (handle both /blog/ and /blogs/)
-    if (pathname.startsWith('/blog/') || pathname.startsWith('/blogs/')) {
-      // Extract clean slug from either /blog/{slug} or /blogs/{slug}
-      let slug = '';
-      if (pathname.startsWith('/blogs/')) {
-        slug = pathname.slice('/blogs/'.length);
-      } else if (pathname.startsWith('/blog/')) {
-        slug = pathname.slice('/blog/'.length);
-      }
+    // Check if it's a blog post (only /blogs/ - /blog/ redirects to /blogs/)
+    if (pathname.startsWith('/blogs/')) {
+      const slug = pathname.slice('/blogs/'.length);
       const blogData = await fetchBlogPost(slug);
       
       if (blogData && blogData.post) {
@@ -226,8 +390,8 @@ async function renderPage(url: string): Promise<string> {
         metaTitle = `${blogData.post.title} | Premier Party Cruises Blog`;
         metaDescription = blogData.post.metaDescription || blogData.post.excerpt || content;
       }
-    } else if (pathname === '/blogs' || pathname === '/blog') {
-      // Main blog listing page
+    } else if (pathname === '/blogs') {
+      // Main blog listing page (canonical URL)
       h1 = 'Austin Party Boat Blog | Bachelor & Bachelorette Party Tips | Premier Party Cruises';
       content = 'Expert tips for planning bachelor and bachelorette parties in Austin. Lake Travis party boat guides, itineraries, and Austin party planning advice.';
       metaTitle = h1;
@@ -281,6 +445,56 @@ async function renderPage(url: string): Promise<string> {
       );
     }
     
+    // Generate breadcrumb schema for interior pages
+    const breadcrumbSchema = generateBreadcrumbSchema(pathname, h1);
+    
+    // Build schema scripts - Organization schema always present
+    let schemaScripts = `  <script type="application/ld+json">
+${JSON.stringify(ORGANIZATION_SCHEMA, null, 2)}
+  </script>`;
+    
+    // Add breadcrumb schema if it exists (interior pages only)
+    if (breadcrumbSchema) {
+      schemaScripts += `
+  <script type="application/ld+json">
+${JSON.stringify(breadcrumbSchema, null, 2)}
+  </script>`;
+    }
+    
+    // Add Service schema for Private Cruises page only
+    if (pathname === '/private-cruises') {
+      schemaScripts += `
+  <script type="application/ld+json">
+${JSON.stringify(SERVICE_SCHEMA, null, 2)}
+  </script>`;
+    }
+    
+    // Add Event schema for ATX Disco Cruise page only
+    if (pathname === '/atx-disco-cruise') {
+      schemaScripts += `
+  <script type="application/ld+json">
+${JSON.stringify(EVENT_SCHEMA, null, 2)}
+  </script>`;
+    }
+    
+    // Add FAQPage schema for Testimonials-FAQ page only
+    if (pathname === '/testimonials-faq') {
+      schemaScripts += `
+  <script type="application/ld+json">
+${JSON.stringify(FAQ_SCHEMA, null, 2)}
+  </script>`;
+    }
+    
+    // Inject canonical tag and schemas
+    // Derive canonical URL from request host/protocol instead of hard-coding
+    const protocol = req.secure ? 'https' : 'http';
+    const host = req.get('host') || 'premierpartycruises.com';
+    const canonicalUrl = `${protocol}://${host}${pathname}`;
+    
+    const headInjection = `  <link rel="canonical" href="${canonicalUrl}" />\n${schemaScripts}\n  </head>`;
+    
+    template = template.replace('</head>', headInjection);
+    
     // Inject H1 and content into the root div for crawlers
     const ssrContent = `
       <div id="root">
@@ -328,7 +542,7 @@ export function ssrMiddleware() {
     
     try {
       console.log(`[SSR] Rendering: ${req.url}`);
-      const html = await renderPage(req.url);
+      const html = await renderPage(req.url, req);
       res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
     } catch (error) {
       console.error(`[SSR] Error rendering ${req.url}:`, error);

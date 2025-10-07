@@ -23,29 +23,68 @@ export function GoogleAnalytics() {
       return;
     }
 
-    // Load Google Analytics script
-    const script1 = document.createElement('script');
-    script1.async = true;
-    script1.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
-    document.head.appendChild(script1);
+    // Track appended scripts for cleanup
+    let script1: HTMLScriptElement | null = null;
+    let script2: HTMLScriptElement | null = null;
+    let isLoaded = false;
 
-    const script2 = document.createElement('script');
-    script2.innerHTML = `
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', '${GA_MEASUREMENT_ID}', {
-        page_path: window.location.pathname,
-        send_page_view: true
-      });
-    `;
-    document.head.appendChild(script2);
+    // Defer Google Analytics loading until browser is idle to improve mobile performance
+    const loadAnalytics = () => {
+      isLoaded = true;
+      
+      // Load Google Analytics script
+      script1 = document.createElement('script');
+      script1.async = true;
+      script1.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+      document.head.appendChild(script1);
 
-    return () => {
-      // Cleanup on unmount
-      if (script1.parentNode) script1.parentNode.removeChild(script1);
-      if (script2.parentNode) script2.parentNode.removeChild(script2);
+      script2 = document.createElement('script');
+      script2.innerHTML = `
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '${GA_MEASUREMENT_ID}', {
+          page_path: window.location.pathname,
+          send_page_view: true
+        });
+      `;
+      document.head.appendChild(script2);
     };
+
+    // Use requestIdleCallback to defer analytics loading until browser is idle
+    // Falls back to setTimeout for browsers that don't support requestIdleCallback
+    let timeoutId: number;
+    if ('requestIdleCallback' in window) {
+      const idleId = requestIdleCallback(loadAnalytics, { timeout: 2000 });
+      return () => {
+        cancelIdleCallback(idleId);
+        
+        // Cleanup appended scripts if component unmounts
+        if (isLoaded) {
+          if (script1 && script1.parentNode) {
+            script1.parentNode.removeChild(script1);
+          }
+          if (script2 && script2.parentNode) {
+            script2.parentNode.removeChild(script2);
+          }
+        }
+      };
+    } else {
+      timeoutId = window.setTimeout(loadAnalytics, 1);
+      return () => {
+        clearTimeout(timeoutId);
+        
+        // Cleanup appended scripts if component unmounts
+        if (isLoaded) {
+          if (script1 && script1.parentNode) {
+            script1.parentNode.removeChild(script1);
+          }
+          if (script2 && script2.parentNode) {
+            script2.parentNode.removeChild(script2);
+          }
+        }
+      };
+    }
   }, [GA_MEASUREMENT_ID]);
 
   // Track page views on route change

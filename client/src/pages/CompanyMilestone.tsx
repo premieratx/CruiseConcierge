@@ -3,6 +3,7 @@ import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
+import RelatedLinks from '@/components/RelatedLinks';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -281,6 +282,8 @@ export default function CompanyMilestone() {
                 src={heroImage1} 
                 alt="Company Celebration Party Boat Austin milestone event on Lake Travis" 
                 className="w-full h-full object-cover"
+                loading="eager"
+                fetchpriority="high"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />
             </div>
@@ -317,7 +320,7 @@ export default function CompanyMilestone() {
               variants={fadeInUp}
             >
               Mark your company's greatest achievements with an unforgettable 
-              celebration on Lake Travis that your team will never forget.
+              celebration on Lake Travis that your team will never forget. For large-scale milestone events, check out <Link href="/private-cruises" className="text-brand-yellow hover:underline font-semibold">our private cruise options</Link> with complete customization.
             </motion.p>
 
             <motion.div 
@@ -1039,6 +1042,15 @@ export default function CompanyMilestone() {
           }))
         })
       }} />
+
+      {/* Related Links */}
+      <RelatedLinks 
+        blogLinks={[
+          { title: 'Celebrating Company Milestones', href: '/blogs/company-milestone-celebration-ideas' },
+          { title: 'Planning Corporate Anniversary Events', href: '/blogs/corporate-anniversary-planning' },
+          { title: 'IPO Celebration Ideas', href: '/blogs/ipo-celebration-austin' }
+        ]}
+      />
 
       <Footer />
     </div>

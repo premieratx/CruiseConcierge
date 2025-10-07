@@ -433,6 +433,7 @@ export default function BlogPostPage() {
                 src={post.featuredImage}
                 alt={post.featuredImageAlt || post.title}
                 className="w-full h-auto object-cover max-h-[500px]"
+                loading="lazy"
                 data-testid="img-featured"
               />
             ) : (

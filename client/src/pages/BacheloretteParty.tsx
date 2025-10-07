@@ -30,6 +30,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
+import RelatedLinks from '@/components/RelatedLinks';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -765,7 +766,7 @@ export default function BacheloretteParty() {
                       <Trophy className="h-6 w-6 text-pink-500 mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-semibold" data-editable data-editable-id="bachelorette-feature-1-title">The ONLY All-Inclusive Boat Party in Austin!</p>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-feature-1-description">The ONLY joint party in the country EXCLUSIVELY for Bach parties - this IS our specialty!</p>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelorette-feature-1-description">Experience <Link href="/atx-disco-cruise" className="text-pink-600 hover:underline font-semibold">our ATX Disco Cruise</Link>, the ONLY joint party in the country EXCLUSIVELY for Bach parties - this IS our specialty!</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
@@ -1387,6 +1388,7 @@ export default function BacheloretteParty() {
                             src={photo.src}
                             alt={photo.alt}
                             className="rounded-lg w-full h-64 object-cover"
+                            loading="lazy"
                             data-testid={`photo-gallery-${photo.id}`}
                           />
                         </div>
@@ -2623,6 +2625,15 @@ export default function BacheloretteParty() {
           }
         })
       }} />
+
+      {/* Related Links */}
+      <RelatedLinks 
+        blogLinks={[
+          { title: 'Ultimate Bachelorette Party Planning Guide', href: '/blogs/austin-bachelorette-party-planning-guide' },
+          { title: 'Best Lake Travis Party Ideas', href: '/blogs/lake-travis-bachelorette-party-ideas' },
+          { title: 'Bachelorette Weekend Itinerary', href: '/blogs/austin-bachelorette-weekend-itinerary' }
+        ]}
+      />
 
       {/* Footer */}
       <Footer />

@@ -29,6 +29,7 @@ import {
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
+import RelatedLinks from '@/components/RelatedLinks';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -689,7 +690,7 @@ export default function BachelorParty() {
                       <Trophy className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-semibold" data-editable data-editable-id="bachelor-overview-feature-1-title">The ONLY All-Inclusive Boat Party in Austin!</p>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-feature-1-desc">The ONLY joint party in the country EXCLUSIVELY for Bach parties - unique experience you can't get anywhere else!</p>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-feature-1-desc">Experience <Link href="/atx-disco-cruise" className="text-brand-blue hover:underline font-semibold">our ATX Disco Cruise</Link>, the ONLY joint party in the country EXCLUSIVELY for Bach parties - unique experience you can't get anywhere else!</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
@@ -1303,6 +1304,7 @@ export default function BachelorParty() {
                             src={photo.src}
                             alt={photo.alt}
                             className="rounded-lg w-full h-64 object-cover"
+                            loading="lazy"
                             data-testid={`photo-gallery-${photo.id}`}
                           />
                         </div>
@@ -2504,6 +2506,15 @@ export default function BachelorParty() {
           }
         })
       }} />
+
+      {/* Related Links */}
+      <RelatedLinks 
+        blogLinks={[
+          { title: 'Ultimate Guide to Austin Bachelor Parties', href: '/blogs/austin-bachelor-party-planning-guide' },
+          { title: 'Top Lake Travis Activities for Groups', href: '/blogs/lake-travis-group-activities' },
+          { title: 'Planning the Perfect Weekend', href: '/blogs/bachelor-party-weekend-austin' }
+        ]}
+      />
 
       {/* Footer */}
       <Footer />

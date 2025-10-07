@@ -3,6 +3,7 @@ import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
+import RelatedLinks from '@/components/RelatedLinks';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -294,6 +295,8 @@ export default function ClientEntertainment() {
                 src={heroImage1} 
                 alt="Client Entertainment Party Boat Austin cruise on Lake Travis" 
                 className="w-full h-full object-cover"
+                loading="eager"
+                fetchpriority="high"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />
             </div>
@@ -330,7 +333,7 @@ export default function ClientEntertainment() {
               variants={fadeInUp}
             >
               Create unforgettable experiences that strengthen relationships and 
-              close deals on Austin's beautiful Lake Travis.
+              close deals on Austin's beautiful Lake Travis. Explore <Link href="/private-cruises" className="text-brand-yellow hover:underline font-semibold">our private cruise packages</Link> for exclusive, high-end client entertainment experiences.
             </motion.p>
 
             <motion.div 
@@ -1131,6 +1134,15 @@ export default function ClientEntertainment() {
           }))
         })
       }} />
+
+      {/* Related Links */}
+      <RelatedLinks 
+        blogLinks={[
+          { title: 'Client Entertainment Best Practices', href: '/blogs/client-entertainment-ideas-austin' },
+          { title: 'Luxury Corporate Events Guide', href: '/blogs/luxury-corporate-events-lake-travis' },
+          { title: 'Impress Your Clients', href: '/blogs/impressive-client-appreciation-events' }
+        ]}
+      />
 
       <Footer />
     </div>

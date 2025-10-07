@@ -3,6 +3,7 @@ import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
+import RelatedLinks from '@/components/RelatedLinks';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
@@ -268,6 +269,8 @@ export default function TeamBuilding() {
                 src={heroImage1} 
                 alt="Team Building Party Boat Austin cruise on Lake Travis" 
                 className="w-full h-full object-cover"
+                loading="eager"
+                fetchpriority="high"
               />
               <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />
             </div>
@@ -304,7 +307,7 @@ export default function TeamBuilding() {
               variants={fadeInUp}
             >
               Transform your team with interactive challenges, professional facilitation, 
-              and unforgettable experiences on Lake Travis.
+              and unforgettable experiences on Lake Travis. For larger corporate gatherings, consider <Link href="/private-cruises" className="text-brand-yellow hover:underline font-semibold">our private cruise options</Link> for exclusive team events.
             </motion.p>
 
             <motion.div 
@@ -1024,6 +1027,15 @@ export default function TeamBuilding() {
           }))
         })
       }} />
+
+      {/* Related Links */}
+      <RelatedLinks 
+        blogLinks={[
+          { title: 'Effective Corporate Team Building', href: '/blogs/corporate-team-building-lake-travis' },
+          { title: 'Planning a Team Retreat', href: '/blogs/planning-team-retreat-austin' },
+          { title: 'Team Building Activity Ideas', href: '/blogs/team-building-activities-lake-travis' }
+        ]}
+      />
 
       <Footer />
     </div>
