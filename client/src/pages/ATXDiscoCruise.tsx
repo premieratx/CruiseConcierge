@@ -2483,7 +2483,7 @@ export default function ATXDiscoCruise() {
 
         {/* SEO-Optimized Hidden Content for Search Engines */}
         <div className="sr-only" itemScope itemType="https://schema.org/Event">
-          <h1 itemProp="name">ATX Disco Cruise - Lake Travis Party Cruise</h1>
+          <h2 itemProp="name">ATX Disco Cruise - Lake Travis Party Cruise</h2>
           <p itemProp="description">
             The ATX Disco Cruise is Austin's premier bachelorette party cruise and Lake Travis party experience. 
             Join bachelor and bachelorette parties from across the country for an unforgettable 4-hour cruise 

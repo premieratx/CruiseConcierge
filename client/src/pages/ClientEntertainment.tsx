@@ -930,7 +930,7 @@ export default function ClientEntertainment() {
 
       {/* SEO-Optimized Hidden Content for Search Engines */}
       <div className="sr-only" itemScope itemType="https://schema.org/Service">
-        <h1 itemProp="name">Client Entertainment Corporate Events Austin Lake Travis</h1>
+        <h2 itemProp="name">Client Entertainment Corporate Events Austin Lake Travis</h2>
         <p itemProp="description">
           Premier Party Cruises specializes in client entertainment on Lake Travis in Austin, Texas. 
           Impress your most important clients with unforgettable experiences on the water. Our luxury 

@@ -838,7 +838,7 @@ export default function CompanyMilestone() {
 
       {/* SEO-Optimized Hidden Content for Search Engines */}
       <div className="sr-only" itemScope itemType="https://schema.org/Service">
-        <h1 itemProp="name">Company Milestone Corporate Events Austin Lake Travis</h1>
+        <h2 itemProp="name">Company Milestone Corporate Events Austin Lake Travis</h2>
         <p itemProp="description">
           Premier Party Cruises creates unforgettable company milestone celebrations on Lake Travis in Austin, Texas. 
           Celebrate your business achievements in style with luxury boat cruises designed for success. From IPOs and 

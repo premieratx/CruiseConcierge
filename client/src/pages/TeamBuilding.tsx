@@ -825,7 +825,7 @@ export default function TeamBuilding() {
 
       {/* SEO-Optimized Hidden Content for Search Engines */}
       <div className="sr-only" itemScope itemType="https://schema.org/Service">
-        <h1 itemProp="name">Team Building Corporate Events Austin Lake Travis</h1>
+        <h2 itemProp="name">Team Building Corporate Events Austin Lake Travis</h2>
         <p itemProp="description">
           Premier Party Cruises offers exceptional team building experiences on Lake Travis in Austin, Texas. 
           Our corporate team building cruises provide the perfect environment for strengthening team bonds, 
