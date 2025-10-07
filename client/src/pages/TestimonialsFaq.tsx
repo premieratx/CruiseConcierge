@@ -1793,6 +1793,97 @@ export default function TestimonialsFaq() {
         </div>
       </section>
 
+      {/* SEO-Optimized Hidden Content for Search Engines */}
+      <div className="sr-only" itemScope itemType="https://schema.org/FAQPage">
+        {/* All FAQ Content for Crawlers */}
+        {Object.entries(faqCategories).map(([key, category]) => (
+          <div key={`seo-${key}`}>
+            <h2>{category.title}</h2>
+            {category.faqs && category.faqs.map((faq, index) => (
+              <div key={`seo-faq-${key}-${index}`} itemScope itemProp="mainEntity" itemType="https://schema.org/Question">
+                <h3 itemProp="name">{faq.question}</h3>
+                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <div itemProp="text">{faq.answer}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        ))}
+        
+        {/* Pricing Content for Crawlers */}
+        <h2>Private Cruise Packages and Pricing</h2>
+        <div itemScope itemType="https://schema.org/Service">
+          <h3 itemProp="name">1-14 Guests Pricing</h3>
+          <p>Monday-Thursday: Standard $1,050, Essentials $1,150, Ultimate $1,300</p>
+          <p>Friday: Standard $1,181, Essentials $1,281, Ultimate $1,431</p>
+          <p>Saturday: Standard $1,838, Essentials $1,938, Ultimate $2,088</p>
+          <p>Sunday: Standard $1,313, Essentials $1,413, Ultimate $1,563</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Service">
+          <h3 itemProp="name">15-25 Guests Pricing</h3>
+          <p>Monday-Thursday: Standard $1,181, Essentials $1,331, Ultimate $1,481</p>
+          <p>Friday: Standard $1,313, Essentials $1,463, Ultimate $1,613</p>
+          <p>Saturday: Standard $1,969, Essentials $2,119, Ultimate $2,269</p>
+          <p>Sunday: Standard $1,444, Essentials $1,594, Ultimate $1,744</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Service">
+          <h3 itemProp="name">26-30 Guests Pricing</h3>
+          <p>Monday-Thursday: Standard $1,381, Essentials $1,531, Ultimate $1,681</p>
+          <p>Friday: Standard $1,513, Essentials $1,663, Ultimate $1,813</p>
+          <p>Saturday: Standard $2,169, Essentials $2,319, Ultimate $2,469</p>
+          <p>Sunday: Standard $1,644, Essentials $1,794, Ultimate $1,944</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Service">
+          <h3 itemProp="name">31-50 Guests Pricing</h3>
+          <p>Monday-Thursday: Standard $1,313, Essentials $1,513, Ultimate $1,663</p>
+          <p>Friday: Standard $1,444, Essentials $1,644, Ultimate $1,794</p>
+          <p>Saturday: Standard $2,100, Essentials $2,300, Ultimate $2,450</p>
+          <p>Sunday: Standard $1,575, Essentials $1,775, Ultimate $1,925</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Service">
+          <h3 itemProp="name">51-75 Guests Pricing</h3>
+          <p>Monday-Thursday: Standard $1,613, Essentials $1,813, Ultimate $1,963</p>
+          <p>Friday: Standard $1,744, Essentials $1,944, Ultimate $2,094</p>
+          <p>Saturday: Standard $2,400, Essentials $2,600, Ultimate $2,750</p>
+          <p>Sunday: Standard $1,875, Essentials $2,075, Ultimate $2,225</p>
+        </div>
+        
+        <h2>ATX Disco Cruise Packages</h2>
+        <div itemScope itemType="https://schema.org/Service">
+          <h3 itemProp="name">Basic Package</h3>
+          <meta itemProp="price" content="85" />
+          <p itemProp="description">$85 per person - 4-hour party cruise with DJ and dance floor</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Service">
+          <h3 itemProp="name">Disco Queen Package</h3>
+          <meta itemProp="price" content="95" />
+          <p itemProp="description">$95 per person - VIP experience with premium amenities</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Service">
+          <h3 itemProp="name">Super Sparkle Platinum Disco</h3>
+          <meta itemProp="price" content="105" />
+          <p itemProp="description">$105 per person - Ultimate disco experience with all extras</p>
+        </div>
+      </div>
+
+      {/* JSON-LD Structured Data for FAQs */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": Object.entries(faqCategories).flatMap(([key, category]) =>
+            (category.faqs || []).map(faq => ({
+              "@type": "Question",
+              "name": faq.question,
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": faq.answer
+              }
+            }))
+          )
+        })
+      }} />
+
       {/* Video Modal */}
       <VideoModal
         isOpen={isVideoModalOpen}
