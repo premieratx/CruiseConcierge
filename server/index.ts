@@ -217,6 +217,13 @@ Crawl-delay: 1`;
   // Add guard to prevent embed routing from intercepting API calls
   const embedConfigured = setupEmbedRouting(app);
   
+  // SSR middleware for SEO - must come BEFORE Vite middleware
+  // This allows crawlers to see H1 tags, content, and unique meta tags
+  // CRITICAL: This runs in BOTH development AND production for proper SEO
+  const { ssrMiddleware } = await import('./ssr/renderer');
+  app.use(ssrMiddleware());
+  log("SSR middleware enabled for marketing/blog pages", "ssr");
+  
   // importantly only setup vite in development and after
   // setting up all the other routes so the catch-all route
   // doesn't interfere with the other routes
