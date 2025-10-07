@@ -4,7 +4,7 @@ import {
   MessageCircle, Youtube, Linkedin, ExternalLink, Bot, Award, FileText 
 } from 'lucide-react';
 import { CONTACT_INFO, SOCIAL_MEDIA } from '@shared/contact';
-import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
+import logoPath from '@assets/PPC-Logo-LARGE.webp';
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();

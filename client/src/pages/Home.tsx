@@ -12,7 +12,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
-import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
+import logoPath from '@assets/PPC-Logo-LARGE.webp';
 import { 
   Ship, Users, Clock, DollarSign, Star, Calendar, Phone, Mail, MapPin,
   ArrowRight, CheckCircle, Sparkles, Crown, Music, Anchor, Waves,
@@ -47,13 +47,13 @@ import {
   HOURLY_RATES
 } from '@shared/constants';
 
-// Hero and gallery images - Real photos from live website
-import heroImage1 from '@assets/bachelor-party-group-guys.jpg';
-import heroImage2 from '@assets/atx-disco-cruise-party.jpg';
-import heroImage3 from '@assets/dancing-party-scene.jpg';
-import galleryImage1 from '@assets/day-tripper-14-person-boat.jpg';
-import galleryImage2 from '@assets/meeseeks-25-person-boat.jpg';
-import galleryImage3 from '@assets/clever-girl-50-person-boat.jpg';
+// Hero and gallery images - Optimized WebP format for fast loading
+import heroImage1 from '@assets/bachelor-party-group-guys.webp';
+import heroImage2 from '@assets/atx-disco-cruise-party.webp';
+import heroImage3 from '@assets/dancing-party-scene.webp';
+import galleryImage1 from '@assets/day-tripper-14-person-boat.webp';
+import galleryImage2 from '@assets/meeseeks-25-person-boat.webp';
+import galleryImage3 from '@assets/clever-girl-50-person-boat.webp';
 
 // Animation variants
 const fadeInUp = {

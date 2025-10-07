@@ -30,13 +30,13 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
 
-import heroImage1 from '@assets/atx-disco-cruise-party.jpg';
-import heroImage2 from '@assets/dancing-party-scene.jpg';
-import heroImage3 from '@assets/bachelor-party-group-guys.jpg';
-import galleryImage1 from '@assets/party-atmosphere-1.jpg';
-import galleryImage2 from '@assets/party-atmosphere-2.jpg';
-import galleryImage3 from '@assets/party-atmosphere-3.jpg';
-import floatImage from '@assets/giant-unicorn-float.jpg';
+import heroImage1 from '@assets/atx-disco-cruise-party.webp';
+import heroImage2 from '@assets/dancing-party-scene.webp';
+import heroImage3 from '@assets/bachelor-party-group-guys.webp';
+import galleryImage1 from '@assets/party-atmosphere-1.webp';
+import galleryImage2 from '@assets/party-atmosphere-2.webp';
+import galleryImage3 from '@assets/party-atmosphere-3.webp';
+import floatImage from '@assets/giant-unicorn-float.webp';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },

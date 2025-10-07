@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { motion } from "framer-motion";
-import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
+import logoPath from '@assets/PPC-Logo-LARGE.webp';
 import { 
   CheckCircle, Calendar, Users, Ship, Clock, Mail, Phone, 
   DollarSign, MapPin, Star, Download, Share2, ArrowRight,

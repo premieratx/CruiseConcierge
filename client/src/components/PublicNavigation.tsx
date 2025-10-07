@@ -13,7 +13,7 @@ import {
   navigationMenuTriggerStyle
 } from '@/components/ui/navigation-menu';
 import { cn } from '@/lib/utils';
-import logoPath from '@assets/PPC logo 2023_1758097465959.png';
+import logoPath from '@assets/PPC-logo-2023.webp';
 import { 
   Menu, X, Ship, Calendar, MessageSquare, Phone, 
   Users, Camera, Heart, ArrowRight, Star,

@@ -22,10 +22,10 @@ import {
 import SEOHead from '@/components/SEOHead';
 
 // Import images for testimonials
-import galleryImage1 from '@assets/party-atmosphere-1.jpg';
-import galleryImage2 from '@assets/party-atmosphere-2.jpg';
-import galleryImage3 from '@assets/party-atmosphere-3.jpg';
-import heroImage1 from '@assets/bachelor-party-group-guys.jpg';
+import galleryImage1 from '@assets/party-atmosphere-1.webp';
+import galleryImage2 from '@assets/party-atmosphere-2.webp';
+import galleryImage3 from '@assets/party-atmosphere-3.webp';
+import heroImage1 from '@assets/bachelor-party-group-guys.webp';
 
 // Animation variants
 const fadeInUp = {

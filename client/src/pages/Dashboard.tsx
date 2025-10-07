@@ -9,7 +9,7 @@ import { IntegrationStatus } from "@/components/IntegrationStatus";
 import Navigation from "@/components/Navigation";
 import { apiRequest } from "@/lib/queryClient";
 import { useLocation } from "wouter";
-import logoPath from "@assets/PPC Logo LARGE_1757881944449.png";
+import logoPath from "@assets/PPC-Logo-LARGE.webp";
 import { useRealtimeBookings } from "@/hooks/useRealtimeBookings";
 import { format } from "date-fns";
 import { 

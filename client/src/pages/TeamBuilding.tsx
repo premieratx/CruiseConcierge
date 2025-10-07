@@ -23,12 +23,12 @@ import {
 } from 'lucide-react';
 
 // Hero and gallery images
-import heroImage1 from '@assets/bachelor-party-group-guys.jpg';
-import heroImage2 from '@assets/day-tripper-14-person-boat.jpg';
-import heroImage3 from '@assets/meeseeks-25-person-boat.jpg';
-import galleryImage1 from '@assets/party-atmosphere-1.jpg';
-import galleryImage2 from '@assets/party-atmosphere-2.jpg';
-import galleryImage3 from '@assets/party-atmosphere-3.jpg';
+import heroImage1 from '@assets/bachelor-party-group-guys.webp';
+import heroImage2 from '@assets/day-tripper-14-person-boat.webp';
+import heroImage3 from '@assets/meeseeks-25-person-boat.webp';
+import galleryImage1 from '@assets/party-atmosphere-1.webp';
+import galleryImage2 from '@assets/party-atmosphere-2.webp';
+import galleryImage3 from '@assets/party-atmosphere-3.webp';
 
 // Animation variants
 const fadeInUp = {
