@@ -515,7 +515,7 @@ export default function BacheloretteParty() {
                 width={1920}
                 height={1080}
                 loading="eager"
-                fetchpriority="high"
+                fetchPriority="high"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
             </motion.div>

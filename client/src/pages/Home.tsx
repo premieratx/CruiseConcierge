@@ -552,7 +552,7 @@ export default function Home() {
                 width={1920}
                 height={1080}
                 loading="eager"
-                fetchpriority="high"
+                fetchPriority="high"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
             </motion.div>
@@ -574,7 +574,7 @@ export default function Home() {
                 alt="Party Boat Austin - Premier Party Cruises on Lake Travis" 
                 className="h-20 md:h-24 mx-auto mb-6"
                 loading="eager"
-                fetchpriority="high"
+                fetchPriority="high"
                 data-testid="img-hero-logo"
               />
             </motion.div>
