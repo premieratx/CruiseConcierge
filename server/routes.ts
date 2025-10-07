@@ -573,8 +573,9 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // BLOG POST SERVER-SIDE RENDERING FOR SEO
   // ==========================================
   
-  // Blog post SSR route - MUST be before Vite to inject unique Article schemas
-  app.get('/blogs/:slug', async (req, res, next) => {
+  // Blog post SSR routes - MUST be before Vite to inject unique Article schemas
+  // Handle BOTH /blog/:slug and /blogs/:slug for maximum SEO coverage
+  const blogSSRHandler = async (req: any, res: any, next: any) => {
     try {
       // Only handle GET requests for HTML (not API requests)
       if (req.method !== 'GET' || req.headers.accept?.includes('application/json')) {
@@ -697,8 +698,20 @@ ${JSON.stringify(articleSchema, null, 2)}
         `<meta name="description" content="${metaDescription}"/>`
       );
       
+      // Inject H1 and content for SEO (crawlers need visible text, not just meta tags)
+      const h1Content = post.title || "";
+      const bodyContent = post.excerpt || post.content?.substring(0, 300) || "";
+      
+      // Replace empty root div with server-rendered content for SEO
+      const ssrContent = `<div id="root">
+        <h1>${h1Content}</h1>
+        <p>${bodyContent}</p>
+      </div>`;
+      
+      html = html.replace(/<div id="root"><\/div>/, ssrContent);
+      
       const sourceLabel = isWordPress ? 'WordPress/Replit DB' : 'PostgreSQL';
-      console.log(`✅ [Blog SSR] Injected unique Article schema for: ${post.title || slug} (source: ${sourceLabel})`);
+      console.log(`✅ [Blog SSR] Injected unique Article schema + H1 for: ${post.title || slug} (source: ${sourceLabel})`);
       
       // Send modified HTML
       res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
@@ -706,7 +719,11 @@ ${JSON.stringify(articleSchema, null, 2)}
       console.error('❌ [Blog SSR] Error:', error);
       next(); // Fall back to Vite on error
     }
-  });
+  };
+  
+  // Register the same SSR handler for BOTH URL formats
+  app.get('/blog/:slug', blogSSRHandler);
+  app.get('/blogs/:slug', blogSSRHandler);
   
   // ==========================================
   // AUTHENTICATION ROUTES

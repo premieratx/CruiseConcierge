@@ -155,8 +155,16 @@ function shouldUseSSR(url: string): boolean {
     return true;
   }
   
-  // Check blog routes
+  // Check blog routes (both /blog/ and /blogs/)
   if (pathname.startsWith('/blog/') && pathname.length > 6) {
+    return true;
+  }
+  if (pathname.startsWith('/blogs/') && pathname.length > 7) {
+    return true;
+  }
+  
+  // Check main blog listing page
+  if (pathname === '/blogs' || pathname === '/blog') {
     return true;
   }
   
@@ -201,9 +209,15 @@ async function renderPage(url: string): Promise<string> {
     let metaTitle = '';
     let metaDescription = '';
     
-    // Check if it's a blog post
-    if (pathname.startsWith('/blog/')) {
-      const slug = pathname.replace('/blog/', '');
+    // Check if it's a blog post (handle both /blog/ and /blogs/)
+    if (pathname.startsWith('/blog/') || pathname.startsWith('/blogs/')) {
+      // Extract clean slug from either /blog/{slug} or /blogs/{slug}
+      let slug = '';
+      if (pathname.startsWith('/blogs/')) {
+        slug = pathname.slice('/blogs/'.length);
+      } else if (pathname.startsWith('/blog/')) {
+        slug = pathname.slice('/blog/'.length);
+      }
       const blogData = await fetchBlogPost(slug);
       
       if (blogData && blogData.post) {
@@ -212,6 +226,12 @@ async function renderPage(url: string): Promise<string> {
         metaTitle = `${blogData.post.title} | Premier Party Cruises Blog`;
         metaDescription = blogData.post.metaDescription || blogData.post.excerpt || content;
       }
+    } else if (pathname === '/blogs' || pathname === '/blog') {
+      // Main blog listing page
+      h1 = 'Austin Party Boat Blog | Bachelor & Bachelorette Party Tips | Premier Party Cruises';
+      content = 'Expert tips for planning bachelor and bachelorette parties in Austin. Lake Travis party boat guides, itineraries, and Austin party planning advice.';
+      metaTitle = h1;
+      metaDescription = content;
     } else {
       // Use predefined metadata for marketing pages
       const pageData = PAGE_METADATA[pathname];

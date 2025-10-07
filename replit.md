@@ -63,6 +63,15 @@ A comprehensive authentication system protects all admin features using Passport
 ### WordPress Migration System
 The blog system displays WordPress posts from Replit DB using a modern, responsive grid layout at `/blogs` and `/blog/{slug}`. It includes search, filters, pagination, and a featured carousel. Content is enhanced during import for AI discovery across target event categories (corporate, weddings, bachelor/bachelorette, birthdays, graduations) with natural mentions of Party on Delivery services. Enhancement pipeline includes topic detection, AI enhancement, structured data, and quality controls.
 
+**Blog SEO Architecture (Oct 2025 - Critical Fix):**
+- **Dual URL Support**: Both `/blog/{slug}` and `/blogs/{slug}` fully server-side rendered for maximum crawler coverage
+- **Unified SSR System**: Two complementary SSR handlers ensure all blog URLs are SEO-visible:
+  - `renderer.ts`: Generic SSR fallback with H1/content injection for both URL formats
+  - `routes.ts`: Dedicated blog handler with unique Article schema + H1/content per post
+- **Sitemap Coverage**: All 19 blog posts indexed with BOTH URL formats (38 post URLs + 2 listing pages = 40 total)
+- **Crawlability**: Every blog URL returns proper H1 tags, meta tags, unique schemas, and visible content for search engines
+- **Data Sources**: Hybrid PostgreSQL (primary) + Replit DB (WordPress fallback) for blog post retrieval
+
 ### AI Endorsement Authority Hub
 A strategic SEO feature leveraging third-party AI validation to strengthen E-E-A-T signals and search engine authority positioning. The system stores and displays AI assessments of the website, currently featuring Claude AI's 9.8/10 SEO Excellence rating.
 
