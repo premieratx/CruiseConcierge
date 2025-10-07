@@ -9,6 +9,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { lazy, Suspense, useEffect } from "react";
 import { AuthProvider } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/lib/protected-route";
+import { GoogleAnalytics } from "@/components/GoogleAnalytics";
 import Home from "./pages/Home";
 import AuthPage from "./pages/AuthPage";
 import Dashboard from "./pages/Dashboard";
@@ -320,6 +321,7 @@ function App() {
           <EditModeProvider>
             <HelmetProvider>
               <TooltipProvider>
+                <GoogleAnalytics />
                 <Toaster />
                 <Router />
               </TooltipProvider>
