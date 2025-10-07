@@ -1779,7 +1779,7 @@ export default function Home() {
 
       {/* SEO-Optimized Hidden Content for Search Engines */}
       <div className="sr-only" itemScope itemType="https://schema.org/LocalBusiness">
-        <h1 itemProp="name">Premier Party Cruises - Austin Party Boat Lake Travis Rentals</h1>
+        <h2 itemProp="name">Premier Party Cruises - Austin Party Boat Lake Travis Rentals</h2>
         
         {/* Business Information */}
         <div itemProp="description">

@@ -139,7 +139,7 @@ export default function Blog() {
       <PublicNavigation />
       <SEOHead 
         pageRoute="/blogs"
-        defaultTitle="Blog - Party Perfect Cruises | Lake Travis Boat Tours & Events"
+        defaultTitle="Blog - Premier Party Cruises | Lake Travis Boat Tours & Events"
         defaultDescription="Discover the latest news, tips, and stories from Lake Travis. Read about boat tours, party planning, lake activities, and exclusive cruise experiences on Austin's premier waterway."
         defaultKeywords={["Lake Travis blog", "Austin boat tours", "party planning tips", "lake activities", "cruise stories", "Lake Travis events"]}
       />
