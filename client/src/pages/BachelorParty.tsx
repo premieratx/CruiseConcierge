@@ -410,7 +410,7 @@ export default function BachelorParty() {
         "price": "85.00",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": "https://premierppartycruises.com/bachelor-party",
+        "url": "https://premierpartycruises.com/bachelor-party-austin",
         "priceValidUntil": "2025-12-31"
       },
       {
@@ -419,7 +419,7 @@ export default function BachelorParty() {
         "price": "95.00",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": "https://premierppartycruises.com/bachelor-party",
+        "url": "https://premierpartycruises.com/bachelor-party-austin",
         "priceValidUntil": "2025-12-31"
       },
       {
@@ -428,7 +428,7 @@ export default function BachelorParty() {
         "price": "105.00",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": "https://premierppartycruises.com/bachelor-party",
+        "url": "https://premierpartycruises.com/bachelor-party-austin",
         "priceValidUntil": "2025-12-31"
       }
     ],

@@ -434,7 +434,7 @@ export default function BacheloretteParty() {
         "price": "85.00",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": "https://premierppartycruises.com/bachelorette-party",
+        "url": "https://premierpartycruises.com/bachelorette-party-austin",
         "priceValidUntil": "2025-12-31"
       },
       {
@@ -443,7 +443,7 @@ export default function BacheloretteParty() {
         "price": "95.00",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": "https://premierppartycruises.com/bachelorette-party",
+        "url": "https://premierpartycruises.com/bachelorette-party-austin",
         "priceValidUntil": "2025-12-31"
       },
       {
@@ -452,7 +452,7 @@ export default function BacheloretteParty() {
         "price": "105.00",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": "https://premierppartycruises.com/bachelorette-party",
+        "url": "https://premierpartycruises.com/bachelorette-party-austin",
         "priceValidUntil": "2025-12-31"
       }
     ],

@@ -433,7 +433,7 @@ export default function CombinedBachelorBachelorette() {
         "price": "85.00",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": "https://premierppartycruises.com/combined-bachelor-bachelorette",
+        "url": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin",
         "priceValidUntil": "2025-12-31"
       },
       {
@@ -442,7 +442,7 @@ export default function CombinedBachelorBachelorette() {
         "price": "95.00",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": "https://premierppartycruises.com/combined-bachelor-bachelorette",
+        "url": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin",
         "priceValidUntil": "2025-12-31"
       },
       {
@@ -451,7 +451,7 @@ export default function CombinedBachelorBachelorette() {
         "price": "105.00",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": "https://premierppartycruises.com/combined-bachelor-bachelorette",
+        "url": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin",
         "priceValidUntil": "2025-12-31"
       }
     ],

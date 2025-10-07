@@ -4843,7 +4843,7 @@ export class DatabaseStorage implements IStorage {
   // Technical SEO
   async generateSitemap(): Promise<string> {
     const pages = await this.getSeoPages();
-    const baseUrl = 'https://premierppartycruises.com';
+    const baseUrl = 'https://premierpartycruises.com';
     
     const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
@@ -4899,7 +4899,7 @@ ${pages.map(page => `  <url>
   }
 
   async generateRobotsTxt(): Promise<string> {
-    const baseUrl = 'https://premierppartycruises.com';
+    const baseUrl = 'https://premierpartycruises.com';
     
     return `User-agent: *
 Allow: /
@@ -5109,7 +5109,7 @@ Crawl-delay: 1`;
       "@type": "LocalBusiness",
       "name": "Premier Party Cruises",
       "description": "Austin's premier boat rental and party cruise experience on Lake Travis",
-      "url": "https://premierppartycruises.com",
+      "url": "https://premierpartycruises.com",
       "telephone": "+1-512-488-5892",
       "address": {
         "@type": "PostalAddress",
@@ -5140,15 +5140,15 @@ Crawl-delay: 1`;
         "geoRadius": "50"
       },
       "sameAs": [
-        "https://www.facebook.com/premierppartycruises",
-        "https://www.instagram.com/premierppartycruises",
-        "https://www.youtube.com/premierppartycruises"
+        "https://www.facebook.com/premierpartycruises",
+        "https://www.instagram.com/premierpartycruises",
+        "https://www.youtube.com/premierpartycruises"
       ]
     };
   }
 
   async generatePageSchema(pageRoute: string, pageType: 'webpage' | 'service' | 'event'): Promise<Record<string, any>> {
-    const baseUrl = 'https://premierppartycruises.com';
+    const baseUrl = 'https://premierpartycruises.com';
     const seoPage = await this.getSeoPage(pageRoute);
     
     const baseSchema = {

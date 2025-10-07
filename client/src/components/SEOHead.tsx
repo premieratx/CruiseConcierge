@@ -187,7 +187,7 @@ export default function SEOHead({
   // Generate default structured data based on page type and content
   useEffect(() => {
     const generateDefaultSchema = () => {
-      const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://premierppartycruises.com';
+      const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com';
       
       const defaultSchemas: Record<string, any> = {
         organization: generateEnhancedOrganizationSchema(),
@@ -404,7 +404,7 @@ function generateBreadcrumbItems(pageRoute: string) {
     "@type": "ListItem",
     "position": 1,
     "name": "Home",
-    "item": typeof window !== 'undefined' ? window.location.origin : 'https://premierppartycruises.com'
+    "item": typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com'
   });
   
   let currentPath = '';
@@ -416,7 +416,7 @@ function generateBreadcrumbItems(pageRoute: string) {
       "@type": "ListItem",
       "position": index + 2,
       "name": name,
-      "item": `${typeof window !== 'undefined' ? window.location.origin : 'https://premierppartycruises.com'}${currentPath}`
+      "item": `${typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com'}${currentPath}`
     });
   });
   
@@ -468,7 +468,7 @@ export function generateBusinessSchema() {
     "name": "Premier Party Cruises",
     "alternateName": "PPC Austin",
     "description": "Austin's premier boat rental and party cruise experience on Lake Travis. We specialize in private charters, disco cruises, bachelor parties, and corporate events.",
-    "url": "https://premierppartycruises.com",
+    "url": "https://premierpartycruises.com",
     "telephone": "+1-512-488-5892",
     "email": "clientservices@premierpartycruises.com",
     "address": {
@@ -512,8 +512,8 @@ export function generateBusinessSchema() {
     "currenciesAccepted": "USD",
     "paymentAccepted": "Cash, Credit Card, Bank Transfer",
     "sameAs": [
-      "https://www.facebook.com/premierppartycruises",
-      "https://www.instagram.com/premierppartycruises",
+      "https://www.facebook.com/premierpartycruises",
+      "https://www.instagram.com/premierpartycruises",
       "https://www.twitter.com/ppcaustin"
     ],
     "hasOfferCatalog": {

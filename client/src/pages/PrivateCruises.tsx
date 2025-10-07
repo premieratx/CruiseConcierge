@@ -249,7 +249,7 @@ export default function PrivateCruises() {
     "provider": {
       "@type": "LocalBusiness",
       "name": "Premier Party Cruises",
-      "url": "https://premierppartycruises.com",
+      "url": "https://premierpartycruises.com",
       "telephone": "+1-512-488-5892",
       "address": {
         "@type": "PostalAddress",
@@ -279,7 +279,7 @@ export default function PrivateCruises() {
         "highPrice": "450.00",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": "https://premierppartycruises.com/private-cruises",
+        "url": "https://premierpartycruises.com/private-cruises",
         "priceValidUntil": "2025-12-31"
       },
       {
@@ -289,7 +289,7 @@ export default function PrivateCruises() {
         "highPrice": "600.00",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": "https://premierppartycruises.com/private-cruises",
+        "url": "https://premierpartycruises.com/private-cruises",
         "priceValidUntil": "2025-12-31"
       },
       {
@@ -299,7 +299,7 @@ export default function PrivateCruises() {
         "highPrice": "850.00",
         "priceCurrency": "USD",
         "availability": "https://schema.org/InStock",
-        "url": "https://premierppartycruises.com/private-cruises",
+        "url": "https://premierpartycruises.com/private-cruises",
         "priceValidUntil": "2025-12-31"
       }
     ],
@@ -1804,7 +1804,7 @@ export default function PrivateCruises() {
           "provider": {
             "@type": "LocalBusiness",
             "name": "Premier Party Cruises",
-            "url": "https://premierppartycruises.com",
+            "url": "https://premierpartycruises.com",
             "telephone": "+1-512-488-5892",
             "address": {
               "@type": "PostalAddress",
