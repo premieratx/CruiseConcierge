@@ -243,7 +243,7 @@ export default function RehearsalDinner() {
       <SEOHead 
         pageRoute="/rehearsal-dinner"
         defaultTitle="Rehearsal Dinner Cruises Lake Travis | Premier Party Cruises"
-        defaultDescription="Create an unforgettable rehearsal dinner on Lake Travis. Elegant sunset cruises with dinner service for 30-75 guests. Perfect pre-wedding celebration on the water."
+        defaultDescription="Unforgettable Lake Travis rehearsal dinners. Elegant sunset cruises with dinner service for 30-75 guests. Perfect pre-wedding event!"
         defaultKeywords={[
           'rehearsal dinner cruise austin',
           'lake travis rehearsal dinner',

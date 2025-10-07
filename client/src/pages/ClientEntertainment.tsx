@@ -242,7 +242,7 @@ export default function ClientEntertainment() {
       <SEOHead 
         pageRoute="/client-entertainment"
         defaultTitle="Client Entertainment Cruises | Corporate Events | Lake Travis"
-        defaultDescription="Impress your most important clients with luxury Lake Travis cruises. Gourmet dining, premium bar service, and unforgettable experiences. Elevate your client relationships."
+        defaultDescription="Luxury Lake Travis client entertainment cruises. Gourmet dining, premium bar service & unforgettable experiences that impress."
         defaultKeywords={[
           'client entertainment austin',
           'corporate client cruise',

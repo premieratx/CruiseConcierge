@@ -317,7 +317,7 @@ export default function PrivateCruises() {
       <SEOHead 
         pageRoute="/private-cruises"
         defaultTitle="Private Boat Rentals | Lake Travis Austin"
-        defaultDescription="Exclusive private boat charters on Lake Travis. 14-75 person capacity boats with professional crews. Perfect for corporate events, weddings, birthdays & celebrations. Book your private cruise today!"
+        defaultDescription="Private Lake Travis boat charters for 14-75 guests. Professional crews, perfect for events, weddings & celebrations. Book today!"
         defaultKeywords={[
           'private cruise austin',
           'boat rental lake travis',

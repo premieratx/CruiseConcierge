@@ -112,46 +112,48 @@ app.use('/q/', (req, res, next) => {
   const server = await registerRoutes(app);
 
   // Sitemap route - must be registered before Vite to avoid catch-all interference
-  const Database = (await import("@replit/database")).default;
-  
-  // Utility to unwrap Replit DB responses
-  const unwrapDbResponse = (response: any): any => {
-    if (Array.isArray(response) || response === null || response === undefined) {
-      return response;
-    }
-    if (response && typeof response === 'object' && 'value' in response) {
-      return unwrapDbResponse(response.value);
-    }
-    return response;
-  };
-  
   app.get('/sitemap.xml', async (req: Request, res: Response) => {
     try {
-      const replitDb = new Database();
       const baseUrl = process.env.REPLIT_DEV_DOMAIN 
         ? `https://${process.env.REPLIT_DEV_DOMAIN}` 
         : 'https://premierpartycruises.com';
       
-      // Get post slugs from Replit DB and unwrap response
-      const postsIndexRaw = await replitDb.get("index:posts");
-      const slugs = unwrapDbResponse(postsIndexRaw) || [];
+      // Get published blog posts from PostgreSQL
+      const blogPostsResult = await storage.getBlogPosts({ 
+        status: 'published',
+        limit: 100 
+      });
+      
+      // Handle different return formats from getBlogPosts
+      const blogPosts = Array.isArray(blogPostsResult) ? blogPostsResult : 
+                       (blogPostsResult?.posts ? blogPostsResult.posts : []);
+      
       const now = new Date().toISOString();
       
+      // All 16 main pages as specified in requirements
       const staticPages = [
         { url: '/', lastmod: now, changefreq: 'weekly', priority: 1.0 },
-        { url: '/party-boat-lake-travis', lastmod: now, changefreq: 'weekly', priority: 0.9 },
         { url: '/bachelor-party-austin', lastmod: now, changefreq: 'weekly', priority: 0.9 },
         { url: '/bachelorette-party-austin', lastmod: now, changefreq: 'weekly', priority: 0.9 },
-        { url: '/gallery', lastmod: now, changefreq: 'monthly', priority: 0.7 },
-        { url: '/blogs', lastmod: now, changefreq: 'daily', priority: 0.8 },
-        { url: '/chat', lastmod: now, changefreq: 'monthly', priority: 0.6 },
-        { url: '/contact', lastmod: now, changefreq: 'monthly', priority: 0.5 }
+        { url: '/private-cruises', lastmod: now, changefreq: 'weekly', priority: 0.9 },
+        { url: '/atx-disco-cruise', lastmod: now, changefreq: 'weekly', priority: 0.9 },
+        { url: '/team-building', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/client-entertainment', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/company-milestone', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/welcome-party', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/after-party', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/rehearsal-dinner', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/milestone-birthday', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/sweet-16', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/graduation-party', lastmod: now, changefreq: 'weekly', priority: 0.8 },
+        { url: '/testimonials-faq', lastmod: now, changefreq: 'monthly', priority: 0.7 },
+        { url: '/contact', lastmod: now, changefreq: 'monthly', priority: 0.7 }
       ];
       
-      // Map slugs to blog pages
-      const blogPages = slugs.map((slug: string) => ({
-        url: `/blogs/${slug}`,
-        lastmod: now,
+      // Map blog posts to sitemap entries using /blog/[slug] format
+      const blogPages = blogPosts.map((post: any) => ({
+        url: `/blog/${post.slug}`,
+        lastmod: post.publishedAt ? new Date(post.publishedAt).toISOString() : now,
         changefreq: 'monthly',
         priority: 0.7
       }));

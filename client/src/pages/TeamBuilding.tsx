@@ -240,7 +240,7 @@ export default function TeamBuilding() {
       <SEOHead 
         pageRoute="/team-building"
         defaultTitle="Corporate Team Building Cruises | Lake Travis | Austin"
-        defaultDescription="Transform your team with Lake Travis team building cruises. Interactive challenges, professional facilitation, and unforgettable experiences. Build stronger teams on the water."
+        defaultDescription="Lake Travis team building cruises with interactive challenges & professional facilitation. Transform your team on the water!"
         defaultKeywords={[
           'corporate team building austin',
           'lake travis team building',

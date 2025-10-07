@@ -253,7 +253,7 @@ export default function Sweet16() {
       <SEOHead 
         pageRoute="/sweet-16"
         defaultTitle="Sweet 16 Birthday Cruises | Lake Travis | Austin TX"
-        defaultDescription="Unforgettable Sweet 16 birthday cruises on Lake Travis. Instagram-worthy celebrations with DJ, decorations, and teen-friendly fun. Make her 16th birthday magical!"
+        defaultDescription="Instagram-worthy Sweet 16 Lake Travis cruises! DJ, decorations & teen-friendly fun. Make her 16th birthday magical on the water!"
         defaultKeywords={[
           'sweet 16 cruise austin',
           'sweet sixteen party lake travis',

@@ -252,7 +252,7 @@ export default function AfterParty() {
       <SEOHead 
         pageRoute="/after-party"
         defaultTitle="Wedding After Party Cruises | Lake Travis | Premier Party Cruises"
-        defaultDescription="Keep your wedding celebration going with an epic after party cruise on Lake Travis. Late night cruises with DJ, dancing, and midnight champagne. The perfect wedding finale!"
+        defaultDescription="Epic wedding after party cruises on Lake Travis! Late night DJ, dancing & midnight champagne. The perfect celebration finale!"
         defaultKeywords={[
           'wedding after party cruise',
           'lake travis after party',

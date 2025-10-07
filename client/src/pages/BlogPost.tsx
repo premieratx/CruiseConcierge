@@ -203,10 +203,17 @@ export default function BlogPostPage() {
   const publishedDate = safeToISOString(post.publishedAt || post.createdAt);
   const modifiedDate = safeToISOString(post.updatedAt || post.createdAt);
   
-  // Enhanced Article schema with comprehensive metadata
+  // Extract article body (first 300 chars of content without HTML tags, or use excerpt)
+  const getArticleBody = () => {
+    if (post.excerpt) return post.excerpt;
+    const plainText = post.content.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+    return plainText.substring(0, 300) + (plainText.length > 300 ? '...' : '');
+  };
+
+  // Enhanced BlogPosting schema with comprehensive metadata
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
     "headline": post.title,
     "author": {
       "@type": "Person",
@@ -220,10 +227,10 @@ export default function BlogPostPage() {
     "publisher": {
       "@type": "Organization",
       "name": "Premier Party Cruises",
-      "url": "https://premierppartycruises.com",
+      "url": "https://premierpartycruises.com",
       "logo": {
         "@type": "ImageObject",
-        "url": "https://premierppartycruises.com/logo.png"
+        "url": "https://premierpartycruises.com/PPC%20Logo%20LARGE_1757881944449.png"
       },
       "description": "Austin's premier party boat rental service on Lake Travis, validated by independent AI analysis",
       "aggregateRating": {
@@ -234,9 +241,10 @@ export default function BlogPostPage() {
       }
     },
     "description": post.excerpt || post.metaDescription || "",
+    "articleBody": getArticleBody(),
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": `https://premierppartycruises.com/blogs/${slug}`
+      "@id": `https://premierpartycruises.com/blog/${slug}`
     },
     ...(tags.length > 0 && { "keywords": tags.map(t => t.name).join(", ") }),
     ...(categories.length > 0 && { "articleSection": categories[0].name }),
@@ -248,7 +256,7 @@ export default function BlogPostPage() {
     "@context": "https://schema.org",
     "@type": "Organization",
     "name": "Premier Party Cruises",
-    "url": "https://premierppartycruises.com",
+    "url": "https://premierpartycruises.com",
     "description": "Austin's #1 party boat rental service on Lake Travis, independently validated by Claude AI analysis",
     "aggregateRating": {
       "@type": "AggregateRating",
@@ -290,7 +298,7 @@ export default function BlogPostPage() {
     <>
       <PublicNavigation />
       <SEOHead 
-        pageRoute={`/blogs/${slug}`}
+        pageRoute={`/blog/${slug}`}
         defaultTitle={post.metaTitle || post.title || "Blog Post"}
         defaultDescription={post.metaDescription || post.excerpt || ""}
         defaultKeywords={post.focusKeyphrase ? [post.focusKeyphrase, ...tags.map(t => t.name)] : tags.map(t => t.name)}
