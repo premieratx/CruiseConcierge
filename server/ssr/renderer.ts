@@ -2,6 +2,7 @@ import { Request, Response, NextFunction } from "express";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { resolveAsset } from "../utils/viteManifest";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -136,14 +137,59 @@ const FAQ_SCHEMA = {
   ]
 };
 
-// NOTE: Server-side hero image preload removed due to Vite asset fingerprinting
-// 
-// PROBLEM: In production builds, Vite fingerprints images imported with @assets/... to /assets/<hash>.webp
-// The server cannot predict these hashed paths without access to Vite's manifest at runtime.
-// Server-side preload links with /attached_assets/... paths result in 404s and double downloads.
-//
-// SOLUTION: Let React components handle image loading naturally. Modern browsers are efficient
-// at prioritizing visible images, and other optimizations (lazy loading, responsive images) remain intact.
+// Hero images map for LCP optimization via preload tags
+// Maps route pathname to hero image path (production fingerprinting handled via manifest)
+const HERO_IMAGES: Record<string, string> = {
+  '/': '/attached_assets/bachelor-party-group-guys.webp',
+  '/bachelor-party-austin': '/attached_assets/bachelor-party-group-guys.webp',
+  '/bachelorette-party-austin': '/attached_assets/bachelor-party-group-guys.webp',
+  '/atx-disco-cruise': '/attached_assets/atx-disco-cruise-party.webp',
+  '/private-cruises': '/attached_assets/bachelor-party-group-guys.webp',
+  '/team-building': '/attached_assets/bachelor-party-group-guys.webp',
+  '/client-entertainment': '/attached_assets/bachelor-party-group-guys.webp',
+  '/company-milestone': '/attached_assets/bachelor-party-group-guys.webp',
+  '/welcome-party': '/attached_assets/bachelor-party-group-guys.webp',
+  '/after-party': '/attached_assets/bachelor-party-group-guys.webp',
+  '/rehearsal-dinner': '/attached_assets/bachelor-party-group-guys.webp',
+  '/milestone-birthday': '/attached_assets/bachelor-party-group-guys.webp',
+  '/sweet-16': '/attached_assets/bachelor-party-group-guys.webp',
+  '/graduation-party': '/attached_assets/bachelor-party-group-guys.webp',
+  '/party-boat-austin': '/attached_assets/bachelor-party-group-guys.webp',
+  '/party-boat-lake-travis': '/attached_assets/bachelor-party-group-guys.webp',
+  '/corporate-events': '/attached_assets/bachelor-party-group-guys.webp',
+  '/birthday-parties': '/attached_assets/bachelor-party-group-guys.webp',
+  '/wedding-parties': '/attached_assets/bachelor-party-group-guys.webp',
+  '/combined-bachelor-bachelorette-austin': '/attached_assets/bachelor-party-group-guys.webp',
+};
+
+/**
+ * Generate hero image preload tag for production builds
+ * Uses Vite manifest to resolve fingerprinted asset paths
+ * @param pathname - Route pathname
+ * @returns HTML preload link tag or empty string
+ */
+function generateHeroPreloadTags(pathname: string): string {
+  // Only preload in production (manifest only exists in production)
+  if (process.env.NODE_ENV !== 'production') {
+    return '';
+  }
+  
+  // Get hero image for this route
+  const heroImage = HERO_IMAGES[pathname];
+  if (!heroImage) {
+    return '';
+  }
+  
+  // Resolve to fingerprinted path via manifest
+  const hashedPath = resolveAsset(heroImage);
+  if (!hashedPath) {
+    // Manifest lookup failed - skip preload gracefully
+    return '';
+  }
+  
+  // Generate preload tag with high fetch priority for LCP optimization
+  return `<link rel="preload" as="image" href="${hashedPath}" fetchpriority="high" />`;
+}
 
 // Generate BreadcrumbList schema for interior pages
 function generateBreadcrumbSchema(pathname: string, h1: string): object | null {
