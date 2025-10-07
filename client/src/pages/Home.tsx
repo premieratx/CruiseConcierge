@@ -552,7 +552,7 @@ export default function Home() {
                 width={1920}
                 height={1080}
                 loading="eager"
-                fetchPriority="high"
+                fetchpriority="high"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
             </motion.div>
@@ -574,7 +574,7 @@ export default function Home() {
                 alt="Party Boat Austin - Premier Party Cruises on Lake Travis" 
                 className="h-20 md:h-24 mx-auto mb-6"
                 loading="eager"
-                fetchPriority="high"
+                fetchpriority="high"
                 data-testid="img-hero-logo"
               />
             </motion.div>
@@ -665,7 +665,7 @@ export default function Home() {
                 size="lg"
                 variant="outline"
                 onClick={() => handleGetQuote()}
-                className="border-3 border-white text-white hover:bg-white hover:text-black font-bold text-xl px-12 py-6 rounded-2xl backdrop-blur-sm tracking-wide bg-[#07c0ff]"
+                className="border-3 border-white text-black hover:bg-white hover:text-black font-bold text-xl px-12 py-6 rounded-2xl backdrop-blur-sm tracking-wide bg-brand-yellow shadow-2xl"
                 data-testid="button-hero-get-quote"
               >
                 <MessageSquare className="mr-3 h-6 w-6" />
@@ -843,6 +843,8 @@ export default function Home() {
                       src={service.image} 
                       alt={service.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      loading="lazy"
+                      decoding="async"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent group-hover:from-black/60" />
                     <service.icon className="absolute bottom-4 right-4 h-8 w-8 text-white" />
@@ -966,6 +968,8 @@ export default function Home() {
                         src={image}
                         alt={`${selectedService.title} gallery ${index + 1}`}
                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                        loading="lazy"
+                        decoding="async"
                       />
                       <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
                       <div className="absolute bottom-2 right-2 bg-black/70 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -1169,7 +1173,7 @@ export default function Home() {
                     data-testid="benefit-duration"
                   >
                     <Clock className="h-10 w-10 text-yellow-600 mx-auto mb-3" />
-                    <h4 className="font-bold text-gray-900 dark:text-white mb-1">4-Hour Experience</h4>
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-1">4-Hour Experience</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400">Full party cruise</p>
                   </motion.div>
 
@@ -1182,7 +1186,7 @@ export default function Home() {
                     data-testid="benefit-inclusions"
                   >
                     <Music className="h-10 w-10 text-yellow-600 mx-auto mb-3" />
-                    <h4 className="font-bold text-gray-900 dark:text-white mb-1">DJ + Photographer</h4>
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-1">DJ + Photographer</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400">All included</p>
                   </motion.div>
 
@@ -1195,7 +1199,7 @@ export default function Home() {
                     data-testid="benefit-pricing"
                   >
                     <DollarSign className="h-10 w-10 text-yellow-600 mx-auto mb-3" />
-                    <h4 className="font-bold text-gray-900 dark:text-white mb-1">$85-105/Person</h4>
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-1">$85-105/Person</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400">Best value</p>
                   </motion.div>
 
@@ -1208,7 +1212,7 @@ export default function Home() {
                     data-testid="benefit-multi-group"
                   >
                     <Users className="h-10 w-10 text-yellow-600 mx-auto mb-3" />
-                    <h4 className="font-bold text-gray-900 dark:text-white mb-1">Multi-Group Energy</h4>
+                    <h3 className="font-bold text-gray-900 dark:text-white mb-1">Multi-Group Energy</h3>
                     <p className="text-sm text-gray-600 dark:text-gray-400">Electric atmosphere</p>
                   </motion.div>
                 </div>
@@ -1671,6 +1675,8 @@ export default function Home() {
                 className="w-full h-auto max-h-[80vh] object-contain rounded-xl"
                 width={1200}
                 height={800}
+                loading="lazy"
+                decoding="async"
               />
               <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
                 {selectedImageIndex + 1} / {galleryImages.length}

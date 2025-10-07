@@ -507,7 +507,7 @@ export default function ATXDiscoCruise() {
                 width={1920}
                 height={1080}
                 loading="eager"
-                fetchPriority="high"
+                fetchpriority="high"
               />
             </motion.div>
           </AnimatePresence>

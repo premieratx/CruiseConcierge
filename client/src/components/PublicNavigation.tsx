@@ -367,6 +367,7 @@ export default function PublicNavigation() {
                   size="sm"
                   className="lg:hidden p-2"
                   data-testid="button-mobile-menu"
+                  aria-label="Open mobile navigation menu"
                 >
                   <Menu className="h-6 w-6" />
                 </Button>

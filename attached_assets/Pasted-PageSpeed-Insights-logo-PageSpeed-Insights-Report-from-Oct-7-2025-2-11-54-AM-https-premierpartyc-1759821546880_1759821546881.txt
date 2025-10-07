@@ -1,0 +1,235 @@
+PageSpeed Insights logo
+PageSpeed Insights
+Report from Oct 7, 2025, 2:11:54 AM
+https://premierpartycruises.com/
+Enter a valid URL
+
+
+smartphone
+Mobile
+
+computer
+Desktop
+
+Discover what your real users are experiencing
+No Data
+
+Diagnose performance issues
+65
+Performance
+84
+Accessibility
+96
+Best Practices
+100
+SEO
+65
+FCP
++3
+LCP
++1
+TBT
++29
+CLS
++25
+SI
++6
+Performance
+Values are estimated and may vary. The performance score is calculated directly from these metrics.See calculator.
+0–49
+50–89
+90–100
+Final Screenshot
+
+Metrics
+Collapse view
+First Contentful Paint
+3.6 s
+First Contentful Paint marks the time at which the first text or image is painted. Learn more about the First Contentful Paint metric.
+Largest Contentful Paint
+7.2 s
+Largest Contentful Paint marks the time at which the largest text or image is painted. Learn more about the Largest Contentful Paint metric
+Total Blocking Time
+120 ms
+Sum of all time periods between FCP and Time to Interactive, when task length exceeded 50ms, expressed in milliseconds. Learn more about the Total Blocking Time metric.
+Cumulative Layout Shift
+0
+Cumulative Layout Shift measures the movement of visible elements within the viewport. Learn more about the Cumulative Layout Shift metric.
+Speed Index
+5.1 s
+Speed Index shows how quickly the contents of a page are visibly populated. Learn more about the Speed Index metric.
+Captured at Oct 7, 2025, 2:11 AM CDT
+Emulated Moto G Power with Lighthouse 12.8.2
+Single page session
+Initial page load
+Slow 4G throttling
+Using HeadlessChromium 137.0.7151.119 with lr
+View Treemap
+Screenshot
+Screenshot
+Screenshot
+Screenshot
+Screenshot
+Screenshot
+Screenshot
+Screenshot
+Later this year, insights will replace performance audits. Learn more and provide feedback here.
+Go back to audits
+Show audits relevant to:
+
+All
+
+FCP
+
+LCP
+
+TBT
+Insights
+Render blocking requests Est savings of 1,050 ms
+Requests are blocking the page's initial render, which may delay LCP. Deferring or inlining can move these network requests out of the critical path.LCPFCP
+URL
+Transfer Size
+Duration
+premierpartycruises.com 1st party
+26.3 KiB	480 ms
+/assets/index-B2lNWI6r.css(premierpartycruises.com)
+26.3 KiB
+480 ms
+Google Fonts cdn 
+1.7 KiB	480 ms
+/css2?family=…(fonts.googleapis.com)
+1.7 KiB
+480 ms
+Improve image delivery Est savings of 747 KiB
+Forced reflow
+A forced reflow occurs when JavaScript queries geometric properties (such as offsetWidth) after styles have been invalidated by a change to the DOM state. This can result in poor performance. Learn more about forced reflows and possible mitigations.
+Top function call
+Total reflow time
+/assets/index-DvfVa_R0.js:39:1876(premierpartycruises.com)
+147 ms
+Source
+Total reflow time
+/assets/index-DvfVa_R0.js:442:18006(premierpartycruises.com)
+147 ms
+/gtag/js?id=G-GL3D7NEFVT:890:14(www.googletagmanager.com)
+43 ms
+LCP request discovery
+Optimize LCP by making the LCP image discoverable from the HTML immediately, and avoiding lazy-loadingLCP
+lazy load not applied
+fetchpriority=high applied
+Request is discoverable in initial document
+Party boat on Lake Travis Austin - Premier Party Cruises with guests celebratin…
+<img src="/assets/bachelor-party-group-guys-ZmRSFQB_.webp" alt="Party boat on Lake Travis Austin - Premier Party Cruises with guests celeb…" class="w-full h-full object-cover" width="1920" height="1080" loading="eager" fetchpriority="high">
+Network dependency tree
+Optimize DOM size
+LCP breakdown
+3rd parties
+These insights are also available in the Chrome DevTools Performance Panel - record a trace to view more detailed information.
+Diagnostics
+Defer offscreen images Est savings of 239 KiB
+Reduce unused JavaScript Est savings of 129 KiB
+Reduce unused CSS Est savings of 23 KiB
+Avoid long main-thread tasks 5 long tasks found
+More information about the performance of your application. These numbers don't directly affect the Performance score.
+Passed audits (18)
+Show
+84
+Accessibility
+These checks highlight opportunities to improve the accessibility of your web app. Automatic detection can only detect a subset of issues and does not guarantee the accessibility of your web app, so manual testing is also encouraged.
+Names and labels
+Buttons do not have an accessible name
+When a button doesn't have an accessible name, screen readers announce it as "button", making it unusable for users who rely on screen readers. Learn how to make buttons more accessible.
+Failing Elements
+header.fixed > div.container > div.flex > button.inline-flex
+<button class="inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm fo…" data-testid="button-mobile-menu" type="button" aria-haspopup="dialog" aria-expanded="false" aria-controls="radix-:r8:" data-state="closed">
+These are opportunities to improve the semantics of the controls in your application. This may enhance the experience for users of assistive technology, like a screen reader.
+Best practices
+[user-scalable="no"] is used in the <meta name="viewport"> element or the [maximum-scale] attribute is less than 5.
+Disabling zooming is problematic for users with low vision who rely on screen magnification to properly see the contents of a web page. Learn more about the viewport meta tag.
+Failing Elements
+head > meta
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+These items highlight common accessibility best practices.
+Contrast
+Background and foreground colors do not have a sufficient contrast ratio.
+Low-contrast text is difficult or impossible for many users to read. Learn how to provide sufficient color contrast.
+Failing Elements
+GET FREE QUOTE
+<span data-editable="true" data-editable-id="hero-cta-quote" contenteditable="false">
+GET FREE QUOTE
+<button class="inline-flex items-center justify-center gap-2 whitespace-nowrap ring-offse…" data-testid="button-hero-get-quote">
+These are opportunities to improve the legibility of your content.
+Navigation
+Heading elements are not in a sequentially-descending order
+Properly ordered headings that do not skip levels convey the semantic structure of the page, making it easier to navigate and understand when using assistive technologies. Learn more about heading order.
+Failing Elements
+4-Hour Experience
+<h4 class="font-bold text-gray-900 dark:text-white mb-1">
+These are opportunities to improve keyboard navigation in your application.
+Additional items to manually check (10)
+Show
+These items address areas which an automated testing tool cannot cover. Learn more in our guide on conducting an accessibility review.
+Passed audits (22)
+Show
+Not applicable (31)
+Show
+96
+Best Practices
+General
+Browser errors were logged to the console
+Errors logged to the console indicate unresolved problems. They can come from network request failures and other browser concerns. Learn more about this errors in console diagnostic audit
+Source
+Description
+premierpartycruises.com 1st party
+/api/user:1:0(premierpartycruises.com)
+Failed to load resource: the server responded with a status of 401 (Unauthorized)
+Missing source maps for large first-party JavaScript
+Trust and Safety
+Ensure CSP is effective against XSS attacks
+Use a strong HSTS policy
+Ensure proper origin isolation with COOP
+Mitigate clickjacking with XFO or CSP
+Mitigate DOM-based XSS with Trusted Types
+Passed audits (13)
+Show
+Not applicable (2)
+Show
+100
+SEO
+These checks ensure that your page is following basic search engine optimization advice. There are many additional factors Lighthouse does not score here that may affect your search ranking, including performance on Core Web Vitals. Learn more about Google Search Essentials.
+Additional items to manually check (1)
+Hide
+Structured data is valid
+Run these additional validators on your site to check additional SEO best practices.
+Passed audits (10)
+Hide
+Page isn’t blocked from indexing
+Document has a <title> element
+Document has a meta description
+Page has successful HTTP status code
+Links have descriptive text
+Links are crawlable
+robots.txt is valid
+Image elements have [alt] attributes
+Document has a valid hreflang
+Document has a valid rel=canonical
+More on PageSpeed Insights
+What's new
+Documentation
+Learn about Web Performance
+Ask questions on Stack Overflow
+Mailing list
+Related Content
+Updates
+Web Fundamentals
+Case Studies
+Podcasts
+Connect
+Twitter
+Youtube
+Google Developers Logo
+Chrome
+Firebase
+All products
+Terms and Privacy Policy
+For details, see the Google Developers Site Policies.

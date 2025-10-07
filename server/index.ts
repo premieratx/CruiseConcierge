@@ -100,6 +100,54 @@ app.use('/q/', (req, res, next) => {
   next();
 });
 
+// Add comprehensive security headers for all non-embed routes
+app.use((req, res, next) => {
+  // Skip if embed or quote routes (they have their own CSP)
+  if (req.path.startsWith('/embed') || req.path.startsWith('/q/')) {
+    return next();
+  }
+
+  // HSTS - Force HTTPS for 1 year (only set in production)
+  if (process.env.NODE_ENV === 'production') {
+    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+  }
+
+  // Prevent MIME type sniffing
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+
+  // Clickjacking protection - prevent framing except on same origin
+  res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+
+  // Referrer policy - send origin for cross-origin requests
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+
+  // Permissions policy - restrict sensitive features
+  res.setHeader('Permissions-Policy', 
+    'geolocation=(), microphone=(), camera=(), payment=()'
+  );
+
+  // Cross-Origin-Opener-Policy - isolate browsing context
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
+
+  // Content Security Policy - protect against XSS
+  // Note: 'unsafe-inline' and 'unsafe-eval' needed for React/Vite development
+  const cspDirectives = [
+    "default-src 'self'",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://fonts.googleapis.com",
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "font-src 'self' https://fonts.gstatic.com data:",
+    "img-src 'self' data: https: blob:",
+    "connect-src 'self' https://www.google-analytics.com https://analytics.google.com wss: ws:",
+    "frame-ancestors 'self'",
+    "base-uri 'self'",
+    "form-action 'self'"
+  ].join('; ');
+  
+  res.setHeader('Content-Security-Policy', cspDirectives);
+
+  next();
+});
+
 (async () => {
   // Blog routes - register public blog API routes
   app.use("/api/blog", blogRouter);
