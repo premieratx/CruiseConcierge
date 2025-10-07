@@ -823,6 +823,208 @@ export default function TeamBuilding() {
         </div>
       </section>
 
+      {/* SEO-Optimized Hidden Content for Search Engines */}
+      <div className="sr-only" itemScope itemType="https://schema.org/Service">
+        <h1 itemProp="name">Team Building Corporate Events Austin Lake Travis</h1>
+        <p itemProp="description">
+          Premier Party Cruises offers exceptional team building experiences on Lake Travis in Austin, Texas. 
+          Our corporate team building cruises provide the perfect environment for strengthening team bonds, 
+          improving communication, and boosting morale through engaging activities on the water. Professional 
+          facilitators, customizable programs, and beautiful Lake Travis scenery create unforgettable team experiences.
+        </p>
+        
+        <h2>Team Building Services Austin</h2>
+        <p>
+          Professional team building activities on Lake Travis including problem-solving challenges, 
+          communication exercises, trust-building activities, leadership development, and collaborative games. 
+          Customizable programs designed to meet your company's specific goals and team dynamics.
+        </p>
+        
+        <h2>Private Cruise Pricing for Corporate Groups</h2>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">14 Guest Team Building Package</h3>
+          <meta itemProp="priceCurrency" content="USD" />
+          <p>Starting at <span itemProp="price">$200</span> per hour for groups up to 14 people</p>
+          <p itemProp="description">Ideal for small team retreats and executive groups</p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">15-25 Guest Team Building Package</h3>
+          <meta itemProp="priceCurrency" content="USD" />
+          <p>Starting at <span itemProp="price">$250</span> per hour for groups of 15-25 people</p>
+          <p itemProp="description">Perfect for department team building events</p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">26-30 Guest Team Building Package</h3>
+          <meta itemProp="priceCurrency" content="USD" />
+          <p>Starting at <span itemProp="price">$300</span> per hour for groups of 26-30 people</p>
+          <p itemProp="description">Great for mid-size team events</p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">31-50 Guest Team Building Package</h3>
+          <meta itemProp="priceCurrency" content="USD" />
+          <p>Starting at <span itemProp="price">$350</span> per hour for groups of 31-50 people</p>
+          <p itemProp="description">Ideal for company-wide team building</p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">51-75 Guest Team Building Package</h3>
+          <meta itemProp="priceCurrency" content="USD" />
+          <p>Starting at <span itemProp="price">$400</span> per hour for groups of 51-75 people</p>
+          <p itemProp="description">Perfect for large corporate events</p>
+        </div>
+        
+        <h2>Team Building Features</h2>
+        <ul>
+          <li>Professional team building facilitators and activity coordinators</li>
+          <li>Customizable programs tailored to your company goals</li>
+          <li>Trust-building and communication exercises on the water</li>
+          <li>Problem-solving challenges and collaborative games</li>
+          <li>Leadership development activities</li>
+          <li>Customizable catering options from Austin's best caterers</li>
+          <li>Professional sound system for presentations and announcements</li>
+          <li>Climate-controlled spaces and outdoor deck areas</li>
+          <li>Beautiful Lake Travis scenery for team photos</li>
+          <li>Experienced captain and professional crew</li>
+        </ul>
+        
+        <h2>Keywords: Team Building Austin, Corporate Events Lake Travis, Team Activities Boat Cruise</h2>
+        <p>
+          team building Austin, corporate team building Lake Travis, team building activities Austin, 
+          corporate events Austin, team retreat Lake Travis, company team building Austin Texas, 
+          corporate boat cruise Austin, team bonding activities Lake Travis, corporate party boat Austin, 
+          team building cruise Austin, Lake Travis corporate events, Austin team activities boat, 
+          corporate team retreat Austin, team building boat rental Austin, company outing Lake Travis
+        </p>
+        
+        <h2>Fleet Options for Team Building</h2>
+        <div itemScope itemType="https://schema.org/Product">
+          <h3 itemProp="name">Day Tripper - 14 Person Boat</h3>
+          <p itemProp="description">
+            Perfect for executive teams and small group retreats. Intimate setting with premium amenities, 
+            ideal for focused team building sessions and strategic planning meetings on the water.
+          </p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Product">
+          <h3 itemProp="name">Me Seeks the Irony - 25 Person Boat</h3>
+          <p itemProp="description">
+            Ideal for department team building. Spacious deck areas for activities, comfortable seating, 
+            and perfect size for interactive team challenges and group bonding exercises.
+          </p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Product">
+          <h3 itemProp="name">Clever Girl - 50 Person Boat</h3>
+          <p itemProp="description">
+            Our flagship vessel for large corporate team building events. Multiple deck levels, 
+            presentation areas, and ample space for team activities, competitions, and company-wide gatherings.
+          </p>
+        </div>
+      </div>
+
+      {/* JSON-LD Structured Data */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "serviceType": "Corporate Team Building Events",
+          "provider": {
+            "@type": "LocalBusiness",
+            "name": "Premier Party Cruises",
+            "image": "https://premierpartycruises.com/logo.png",
+            "@id": "https://premierpartycruises.com",
+            "url": "https://premierpartycruises.com",
+            "telephone": "(512) 488-5892",
+            "priceRange": "$200-$400 per hour",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Lake Travis",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "postalCode": "78734",
+              "addressCountry": "US"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 30.3894,
+              "longitude": -97.9322
+            },
+            "openingHoursSpecification": [{
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+              "opens": "09:00",
+              "closes": "21:00"
+            }],
+            "sameAs": [
+              "https://www.facebook.com/premierpartycruises",
+              "https://www.instagram.com/premierpartycruises"
+            ]
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "Austin",
+            "sameAs": "https://en.wikipedia.org/wiki/Austin,_Texas"
+          },
+          "description": "Professional team building experiences on Lake Travis in Austin, Texas. Customizable corporate events with activities, facilitators, and premium boat rentals for teams of 14-75 people.",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "14 Guest Team Building Package",
+              "price": "200",
+              "priceCurrency": "USD",
+              "description": "Small team retreats and executive groups up to 14 people"
+            },
+            {
+              "@type": "Offer",
+              "name": "15-25 Guest Team Building Package",
+              "price": "250",
+              "priceCurrency": "USD",
+              "description": "Department team building for 15-25 people"
+            },
+            {
+              "@type": "Offer",
+              "name": "26-30 Guest Team Building Package",
+              "price": "300",
+              "priceCurrency": "USD",
+              "description": "Mid-size team events for 26-30 people"
+            },
+            {
+              "@type": "Offer",
+              "name": "31-50 Guest Team Building Package",
+              "price": "350",
+              "priceCurrency": "USD",
+              "description": "Company-wide team building for 31-50 people"
+            },
+            {
+              "@type": "Offer",
+              "name": "51-75 Guest Team Building Package",
+              "price": "400",
+              "priceCurrency": "USD",
+              "description": "Large corporate events for 51-75 people"
+            }
+          ]
+        })
+      }} />
+
+      {/* FAQ Schema */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqItems.map(faq => ({
+            "@type": "Question",
+            "name": faq.question,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": faq.answer
+            }
+          }))
+        })
+      }} />
+
       <Footer />
     </div>
   );

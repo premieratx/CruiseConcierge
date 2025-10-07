@@ -434,6 +434,226 @@ export default function Contact() {
         </div>
       </section>
 
+      {/* SEO-Optimized Hidden Content for Search Engines */}
+      <div className="sr-only" itemScope itemType="https://schema.org/LocalBusiness">
+        {/* Business Information */}
+        <h2 itemProp="name">Premier Party Cruises</h2>
+        <div itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+          <p>
+            <span itemProp="streetAddress">Anderson Mill Marina</span>,
+            <span itemProp="addressLocality">Lake Travis</span>,
+            <span itemProp="addressRegion">Austin</span>,
+            <span itemProp="addressRegion">TX</span>
+            <span itemProp="addressCountry">United States</span>
+          </p>
+        </div>
+        
+        {/* Contact Information */}
+        <div itemProp="contactPoint" itemScope itemType="https://schema.org/ContactPoint">
+          <p itemProp="telephone">(512) 488-5892</p>
+          <p itemProp="email">clientservices@premierpartycruises.com</p>
+          <meta itemProp="contactType" content="customer service" />
+          <meta itemProp="availableLanguage" content="English" />
+        </div>
+        
+        {/* Geographic Coordinates */}
+        <div itemProp="geo" itemScope itemType="https://schema.org/GeoCoordinates">
+          <meta itemProp="latitude" content="30.4025" />
+          <meta itemProp="longitude" content="-97.8475" />
+        </div>
+        
+        {/* Services Offered */}
+        <h3>Services Offered</h3>
+        <div itemProp="makesOffer" itemScope itemType="https://schema.org/Offer">
+          <p itemProp="name">Private Cruises</p>
+          <p itemProp="description">Custom private boat charters on Lake Travis for groups of 14-75 people. Perfect for bachelor parties, bachelorette parties, birthdays, corporate events, and special celebrations.</p>
+        </div>
+        <div itemProp="makesOffer" itemScope itemType="https://schema.org/Offer">
+          <p itemProp="name">ATX Disco Cruises</p>
+          <p itemProp="description">Friday and Saturday evening party cruises featuring DJ, dance floor, and disco atmosphere on Lake Travis. Open to the public with packages starting at $85 per person.</p>
+        </div>
+        <div itemProp="makesOffer" itemScope itemType="https://schema.org/Offer">
+          <p itemProp="name">Corporate Events</p>
+          <p itemProp="description">Professional corporate event cruises for team building, client entertainment, and company celebrations. Custom packages available for groups of all sizes.</p>
+        </div>
+        <div itemProp="makesOffer" itemScope itemType="https://schema.org/Offer">
+          <p itemProp="name">Bachelor Parties</p>
+          <p itemProp="description">Ultimate bachelor party boat experiences on Lake Travis with premium sound systems, water activities, and party atmosphere.</p>
+        </div>
+        <div itemProp="makesOffer" itemScope itemType="https://schema.org/Offer">
+          <p itemProp="name">Bachelorette Parties</p>
+          <p itemProp="description">Premier bachelorette party cruises with customizable packages, decorations, music, and unforgettable Lake Travis experiences.</p>
+        </div>
+        
+        {/* Service Areas */}
+        <h3>Service Areas</h3>
+        <div itemProp="areaServed" itemScope itemType="https://schema.org/City">
+          <p itemProp="name">Austin, TX</p>
+        </div>
+        <div itemProp="areaServed" itemScope itemType="https://schema.org/City">
+          <p itemProp="name">Lakeway, TX</p>
+        </div>
+        <div itemProp="areaServed" itemScope itemType="https://schema.org/City">
+          <p itemProp="name">Bee Cave, TX</p>
+        </div>
+        <div itemProp="areaServed" itemScope itemType="https://schema.org/City">
+          <p itemProp="name">Cedar Park, TX</p>
+        </div>
+        <div itemProp="areaServed" itemScope itemType="https://schema.org/City">
+          <p itemProp="name">Leander, TX</p>
+        </div>
+        
+        {/* Business Hours */}
+        <p itemProp="openingHours" content="Mo-Su 09:00-20:00">Available 9 AM - 8 PM Daily</p>
+        
+        {/* Additional Details */}
+        <p itemProp="description">Premier Party Cruises is Austin's original Lake Travis party cruise company, serving the area since 2009. We specialize in private boat charters, disco cruises, bachelor and bachelorette parties, corporate events, and special celebrations on beautiful Lake Travis.</p>
+        <meta itemProp="priceRange" content="$$-$$$" />
+        <meta itemProp="url" content="https://premierpartycruises.com" />
+      </div>
+
+      {/* JSON-LD Structured Data for LocalBusiness */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "name": "Premier Party Cruises",
+          "description": "Austin's original Lake Travis party cruise company specializing in private boat charters, disco cruises, bachelor and bachelorette parties, and corporate events since 2009.",
+          "url": "https://premierpartycruises.com",
+          "telephone": "+1-512-488-5892",
+          "email": "clientservices@premierpartycruises.com",
+          "priceRange": "$$-$$$",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "Anderson Mill Marina",
+            "addressLocality": "Lake Travis, Austin",
+            "addressRegion": "TX",
+            "addressCountry": "US"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "30.4025",
+            "longitude": "-97.8475"
+          },
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+1-512-488-5892",
+            "contactType": "customer service",
+            "email": "clientservices@premierpartycruises.com",
+            "availableLanguage": "English",
+            "areaServed": [
+              "Austin, TX",
+              "Lakeway, TX", 
+              "Bee Cave, TX",
+              "Cedar Park, TX",
+              "Leander, TX"
+            ]
+          },
+          "areaServed": [
+            {
+              "@type": "City",
+              "name": "Austin",
+              "containedInPlace": {
+                "@type": "State",
+                "name": "Texas"
+              }
+            },
+            {
+              "@type": "City", 
+              "name": "Lakeway",
+              "containedInPlace": {
+                "@type": "State",
+                "name": "Texas"
+              }
+            },
+            {
+              "@type": "City",
+              "name": "Bee Cave", 
+              "containedInPlace": {
+                "@type": "State",
+                "name": "Texas"
+              }
+            },
+            {
+              "@type": "City",
+              "name": "Cedar Park",
+              "containedInPlace": {
+                "@type": "State",
+                "name": "Texas"
+              }
+            },
+            {
+              "@type": "City",
+              "name": "Leander",
+              "containedInPlace": {
+                "@type": "State",
+                "name": "Texas"
+              }
+            }
+          ],
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Monday",
+              "Tuesday", 
+              "Wednesday",
+              "Thursday",
+              "Friday",
+              "Saturday",
+              "Sunday"
+            ],
+            "opens": "09:00",
+            "closes": "20:00"
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Party Cruise Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Private Cruises",
+                  "description": "Custom private boat charters on Lake Travis for groups of 14-75 people"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "ATX Disco Cruises",
+                  "description": "Friday and Saturday evening party cruises with DJ and dance floor"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Corporate Events",
+                  "description": "Professional corporate event cruises for team building and celebrations"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Bachelor Parties",
+                  "description": "Ultimate bachelor party boat experiences on Lake Travis"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Bachelorette Parties",
+                  "description": "Premier bachelorette party cruises with customizable packages"
+                }
+              }
+            ]
+          }
+        })
+      }} />
+
       <Footer />
     </div>
   );

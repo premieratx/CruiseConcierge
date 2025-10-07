@@ -850,6 +850,129 @@ export default function AfterParty() {
         </div>
       </section>
 
+      {/* SEO-Optimized Hidden Content for Search Engines */}
+      <div className="sr-only" itemScope itemType="https://schema.org/Service">
+        <h2>Wedding After Party Cruise Austin - Lake Travis Late Night Celebration</h2>
+        <p itemProp="description">
+          Epic wedding after party cruises on Lake Travis. Keep the celebration going with DJ, dancing, and midnight festivities. 
+          Late-night boat parties for newlyweds and guests from 14-75 capacity. Perfect wedding reception finale.
+        </p>
+        
+        {/* Pricing Content for Crawlers */}
+        <h3>After Party Private Cruise Pricing - All Guest Capacities</h3>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">1-14 Guests After Party Pricing</h4>
+          <p>Monday-Thursday: Standard $1,050, Essentials $1,150, Ultimate $1,300</p>
+          <p>Friday: Standard $1,181, Essentials $1,281, Ultimate $1,431</p>
+          <p>Saturday: Standard $1,838, Essentials $1,938, Ultimate $2,088</p>
+          <p>Sunday: Standard $1,313, Essentials $1,413, Ultimate $1,563</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">15-25 Guests Late Night Party Pricing</h4>
+          <p>Monday-Thursday: Standard $1,181, Essentials $1,331, Ultimate $1,481</p>
+          <p>Friday: Standard $1,313, Essentials $1,463, Ultimate $1,613</p>
+          <p>Saturday: Standard $1,969, Essentials $2,119, Ultimate $2,269</p>
+          <p>Sunday: Standard $1,444, Essentials $1,594, Ultimate $1,744</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">26-30 Guests After Party Pricing</h4>
+          <p>Monday-Thursday: Standard $1,381, Essentials $1,531, Ultimate $1,681</p>
+          <p>Friday: Standard $1,513, Essentials $1,663, Ultimate $1,813</p>
+          <p>Saturday: Standard $2,169, Essentials $2,319, Ultimate $2,469</p>
+          <p>Sunday: Standard $1,644, Essentials $1,794, Ultimate $1,944</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">31-50 Guests Wedding After Party Pricing</h4>
+          <p>Monday-Thursday: Standard $1,313, Essentials $1,513, Ultimate $1,663</p>
+          <p>Friday: Standard $1,444, Essentials $1,644, Ultimate $1,794</p>
+          <p>Saturday: Standard $2,100, Essentials $2,300, Ultimate $2,450</p>
+          <p>Sunday: Standard $1,575, Essentials $1,775, Ultimate $1,925</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">51-75 Guests Large After Party Pricing</h4>
+          <p>Monday-Thursday: Standard $1,613, Essentials $1,813, Ultimate $1,963</p>
+          <p>Friday: Standard $1,744, Essentials $1,944, Ultimate $2,094</p>
+          <p>Saturday: Standard $2,400, Essentials $2,600, Ultimate $2,750</p>
+          <p>Sunday: Standard $1,875, Essentials $2,075, Ultimate $2,225</p>
+        </div>
+        
+        <h3>After Party Features and Entertainment</h3>
+        <ul>
+          <li>Wedding after party late night cruise on Lake Travis</li>
+          <li>Professional DJ and dance floor setup</li>
+          <li>Premium sound and lighting for nighttime atmosphere</li>
+          <li>Midnight champagne toast service</li>
+          <li>Late night food and snack options</li>
+          <li>VIP area for newlyweds</li>
+          <li>Professional crew for late night celebrations</li>
+          <li>Party lighting and LED effects</li>
+          <li>Transportation coordination from wedding venue</li>
+          <li>Sparkler send-off supplies available</li>
+        </ul>
+        
+        <h3>Austin After Party Cruise Keywords</h3>
+        <p>after party Austin, wedding after party cruise Lake Travis, late night boat party Austin, reception after party lake, 
+        wedding finale cruise Austin, Lake Travis late night party boat, Austin wedding after celebration, midnight cruise Lake Travis, 
+        post-reception boat party, wedding send off cruise Austin, Lake Travis nighttime wedding party, Austin wedding continuation cruise</p>
+        
+        <h3>Fleet Options for After Parties</h3>
+        <p>Day Tripper (14 guests), Meeseeks (25 guests), Tito (30 guests), Clever Girl (50 guests), Millennium Falcon (75 guests)</p>
+      </div>
+
+      {/* JSON-LD Structured Data */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Wedding After Party Cruise Austin",
+          "description": "Epic wedding after party cruises on Lake Travis. Keep the celebration going with DJ, dancing, and midnight festivities for the perfect wedding finale.",
+          "provider": {
+            "@type": "LocalBusiness",
+            "name": "Premier Party Cruises",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "addressCountry": "US"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "30.3895",
+              "longitude": "-97.8686"
+            },
+            "telephone": "(512) 488-5892",
+            "priceRange": "$1,050-$2,750"
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "Austin, TX"
+          },
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "After Party Standard Package",
+              "price": "1050",
+              "priceCurrency": "USD",
+              "description": "4-hour late night after party cruise for 1-14 guests"
+            },
+            {
+              "@type": "Offer",
+              "name": "After Party Essentials Package",
+              "price": "1150",
+              "priceCurrency": "USD",
+              "description": "4-hour after party with amenities for 1-14 guests"
+            },
+            {
+              "@type": "Offer",
+              "name": "After Party Ultimate Package",
+              "price": "1300",
+              "priceCurrency": "USD",
+              "description": "4-hour ultimate after party with DJ and entertainment for 1-14 guests"
+            }
+          ]
+        })
+      }} />
+
       <Footer />
     </div>
   );

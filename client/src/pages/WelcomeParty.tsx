@@ -823,6 +823,128 @@ export default function WelcomeParty() {
         </div>
       </section>
 
+      {/* SEO-Optimized Hidden Content for Search Engines */}
+      <div className="sr-only" itemScope itemType="https://schema.org/Service">
+        <h2>Welcome Party Cruise Austin - Lake Travis Wedding Guest Reception</h2>
+        <p itemProp="description">
+          Premier welcome party cruises on Lake Travis for wedding guests. Perfect for greeting out-of-town visitors with 
+          Texas BBQ, live music, and stunning lake views. Wedding weekend kick-off celebrations from 14-75 guests.
+        </p>
+        
+        {/* Pricing Content for Crawlers */}
+        <h3>Welcome Party Private Cruise Pricing - All Guest Capacities</h3>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">1-14 Guests Welcome Party Pricing</h4>
+          <p>Monday-Thursday: Standard $1,050, Essentials $1,150, Ultimate $1,300</p>
+          <p>Friday: Standard $1,181, Essentials $1,281, Ultimate $1,431</p>
+          <p>Saturday: Standard $1,838, Essentials $1,938, Ultimate $2,088</p>
+          <p>Sunday: Standard $1,313, Essentials $1,413, Ultimate $1,563</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">15-25 Guests Welcome Reception Pricing</h4>
+          <p>Monday-Thursday: Standard $1,181, Essentials $1,331, Ultimate $1,481</p>
+          <p>Friday: Standard $1,313, Essentials $1,463, Ultimate $1,613</p>
+          <p>Saturday: Standard $1,969, Essentials $2,119, Ultimate $2,269</p>
+          <p>Sunday: Standard $1,444, Essentials $1,594, Ultimate $1,744</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">26-30 Guests Welcome Party Pricing</h4>
+          <p>Monday-Thursday: Standard $1,381, Essentials $1,531, Ultimate $1,681</p>
+          <p>Friday: Standard $1,513, Essentials $1,663, Ultimate $1,813</p>
+          <p>Saturday: Standard $2,169, Essentials $2,319, Ultimate $2,469</p>
+          <p>Sunday: Standard $1,644, Essentials $1,794, Ultimate $1,944</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">31-50 Guests Wedding Welcome Cruise Pricing</h4>
+          <p>Monday-Thursday: Standard $1,313, Essentials $1,513, Ultimate $1,663</p>
+          <p>Friday: Standard $1,444, Essentials $1,644, Ultimate $1,794</p>
+          <p>Saturday: Standard $2,100, Essentials $2,300, Ultimate $2,450</p>
+          <p>Sunday: Standard $1,575, Essentials $1,775, Ultimate $1,925</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">51-75 Guests Large Welcome Party Pricing</h4>
+          <p>Monday-Thursday: Standard $1,613, Essentials $1,813, Ultimate $1,963</p>
+          <p>Friday: Standard $1,744, Essentials $1,944, Ultimate $2,094</p>
+          <p>Saturday: Standard $2,400, Essentials $2,600, Ultimate $2,750</p>
+          <p>Sunday: Standard $1,875, Essentials $2,075, Ultimate $2,225</p>
+        </div>
+        
+        <h3>Welcome Party Features and Amenities</h3>
+        <ul>
+          <li>Out-of-town wedding guest welcome reception on Lake Travis</li>
+          <li>Texas BBQ and authentic cuisine catering options</li>
+          <li>Live music and entertainment for wedding guests</li>
+          <li>Professional crew and captain included</li>
+          <li>Premium sound system for speeches and toasts</li>
+          <li>Sunset timing available for photo opportunities</li>
+          <li>Transportation coordination from hotels</li>
+          <li>Customizable decorations to match wedding theme</li>
+          <li>Full bar service with craft beverage options</li>
+        </ul>
+        
+        <h3>Austin Welcome Party Cruise Keywords</h3>
+        <p>welcome party Austin, wedding welcome cruise Lake Travis, out of town guest reception, wedding weekend kickoff Austin, 
+        Lake Travis welcome party boat, Austin wedding guest cruise, welcome reception on water, Texas wedding welcome event, 
+        Lake Travis wedding weekend, Austin wedding hospitality cruise, wedding guest welcome boat rental, Lake Travis private welcome party</p>
+        
+        <h3>Fleet Options for Welcome Parties</h3>
+        <p>Day Tripper (14 guests), Meeseeks (25 guests), Tito (30 guests), Clever Girl (50 guests), Millennium Falcon (75 guests)</p>
+      </div>
+
+      {/* JSON-LD Structured Data */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Welcome Party Cruise Austin",
+          "description": "Premium welcome party cruises on Lake Travis for wedding guests. Perfect for greeting out-of-town visitors with Texas BBQ, live music, and stunning lake views.",
+          "provider": {
+            "@type": "LocalBusiness",
+            "name": "Premier Party Cruises",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "addressCountry": "US"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "30.3895",
+              "longitude": "-97.8686"
+            },
+            "telephone": "(512) 488-5892",
+            "priceRange": "$1,050-$2,750"
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "Austin, TX"
+          },
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "Welcome Party Standard Package",
+              "price": "1050",
+              "priceCurrency": "USD",
+              "description": "4-hour welcome party cruise for 1-14 guests"
+            },
+            {
+              "@type": "Offer",
+              "name": "Welcome Party Essentials Package",
+              "price": "1150",
+              "priceCurrency": "USD",
+              "description": "4-hour welcome reception with amenities for 1-14 guests"
+            },
+            {
+              "@type": "Offer",
+              "name": "Welcome Party Ultimate Package",
+              "price": "1300",
+              "priceCurrency": "USD",
+              "description": "4-hour luxury welcome party with full entertainment for 1-14 guests"
+            }
+          ]
+        })
+      }} />
+
       <Footer />
     </div>
   );

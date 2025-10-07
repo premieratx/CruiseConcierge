@@ -486,8 +486,12 @@ export default function BachelorParty() {
             >
               <img 
                 src={heroImages[currentHeroImage]}
-                alt="Bachelor Party Austin ATX Disco Cruise on Lake Travis Party Boat"
+                alt="Bachelor party Austin cruise on Lake Travis - ATX Disco party boat with DJ and entertainment"
                 className="w-full h-full object-cover"
+                width={1920}
+                height={1080}
+                loading="eager"
+                fetchpriority="high"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
             </motion.div>
@@ -2345,6 +2349,161 @@ export default function BachelorParty() {
           </div>
         </div>
       </section>
+
+      {/* SEO-Optimized Hidden Crawlable Content for Search Engines */}
+      <div className="sr-only" itemScope itemType="https://schema.org/Service">
+        <h2>Bachelor Party Austin - Lake Travis Party Boat Packages</h2>
+        
+        {/* ATX Disco Cruise Packages */}
+        <div itemScope itemType="https://schema.org/Service">
+          <h3 itemProp="name">Basic Bach Package - Bachelor Party Austin</h3>
+          <meta itemProp="price" content="85.00" />
+          <meta itemProp="priceCurrency" content="USD" />
+          <p itemProp="description">$85 per person bachelor party Austin package on Lake Travis party boat. Join the BEST Party on Lake Travis, Exclusively for Bach Parties! BYOB, throw your drinks in a shared cooler with ice. Alcohol Delivery and Lunch Delivery Available. ALWAYS Cheaper than a Private Cruise. If you're trying to keep it cheap, this is your move for your bachelor party Austin celebration!</p>
+          <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
+            <meta itemProp="price" content="85.00" />
+            <meta itemProp="priceCurrency" content="USD" />
+            <link itemProp="availability" href="https://schema.org/InStock" />
+            <link itemProp="url" href="https://premierpartycruises.com/bachelor-party-austin" />
+          </div>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Service">
+          <h3 itemProp="name">Disco King Package - Bachelor Party Lake Travis</h3>
+          <meta itemProp="price" content="95.00" />
+          <meta itemProp="priceCurrency" content="USD" />
+          <p itemProp="description">$95 per person Disco King bachelor party package on Lake Travis party boat Austin. Private Cooler with Ice and Storage Bin for Your Group. Reserved Spot for Your Group. Disco Visor and Disco Ball Necklace for the Groom. Complimentary Direct-to-Boat Alcohol and Lunch Delivery. 25% Discount on Round-Trip Transportation. $50-$100 Voucher for Airbnb Booze Delivery. Most Popular bachelor party Austin package!</p>
+          <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
+            <meta itemProp="price" content="95.00" />
+            <meta itemProp="priceCurrency" content="USD" />
+            <link itemProp="availability" href="https://schema.org/InStock" />
+            <link itemProp="url" href="https://premierpartycruises.com/bachelor-party-austin" />
+          </div>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Service">
+          <h3 itemProp="name">Super Sparkle Platinum Disco - Ultimate Bachelor Party Austin</h3>
+          <meta itemProp="price" content="105.00" />
+          <meta itemProp="priceCurrency" content="USD" />
+          <p itemProp="description">$105 per person Platinum bachelor party Lake Travis package. Everything in the Disco King Package. Personal Unicorn Float for the Groom. Mimosa Setup with Champagne Flutes, 3 Juices, and a Chambong! $100 Voucher for Airbnb Concierge Services. Towel Service and SPF-50 Spray Sunscreen Provided. Nothing to Carry, Cooler Stocked with drinks When You Arrive! Ultimate all-inclusive Austin bachelor party luxury on Lake Travis party boat.</p>
+          <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
+            <meta itemProp="price" content="105.00" />
+            <meta itemProp="priceCurrency" content="USD" />
+            <link itemProp="availability" href="https://schema.org/InStock" />
+            <link itemProp="url" href="https://premierpartycruises.com/bachelor-party-austin" />
+          </div>
+        </div>
+        
+        {/* What's Included - Bachelor Party Austin */}
+        <h3>What's Included in Every Bachelor Party Austin Package</h3>
+        <ul>
+          <li>Professional DJ Playing your favorites ALL DAY - bachelor party starts when you arrive on Lake Travis party boat</li>
+          <li>Professional Photographer - Capture every epic bachelor party Austin moment with high-quality photos sent after</li>
+          <li>Private Cooler with Ice - Your bachelor group's own cooler, fully stocked with ice on Lake Travis</li>
+          <li>Mimosa Supplies - Juice, fresh fruit - just add champagne for your bachelor party Austin</li>
+          <li>Multiple Lily Pad Floats - 3 huge 6x20' floats to lounge in style on Lake Travis party boat</li>
+          <li>Party Supplies - Cups, koozies, name tags, bubbles - all included for bachelor party Austin!</li>
+          <li>Ice Water Stations - Stay hydrated with unlimited ice water on Lake Travis</li>
+          <li>Clean Restroom - Full restroom facilities on board our bachelor party boat</li>
+          <li>Plenty of Shade - Covered areas to escape the Texas sun during your Lake Travis bachelor party</li>
+        </ul>
+        
+        {/* Private Cruise Options for Bachelor Party Austin */}
+        <h3>Private Bachelor Party Cruises on Lake Travis</h3>
+        <div itemScope itemType="https://schema.org/Service">
+          <h4 itemProp="name">Private Bachelor Party Cruise 14 Guests - Lake Travis</h4>
+          <p itemProp="description">Private bachelor party boat for up to 14 guests on Lake Travis. Monday-Thursday from $1,050, Friday from $1,181, Saturday from $1,838, Sunday from $1,313. Exclusive private charter for your bachelor party Austin group.</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Service">
+          <h4 itemProp="name">Private Bachelor Party Cruise 25 Guests - Lake Travis Party Boat</h4>
+          <p itemProp="description">Private Lake Travis party boat for 15-25 bachelor party guests. Monday-Thursday from $1,181, Friday from $1,313, Saturday from $1,969, Sunday from $1,444. Perfect size for bachelor party Austin celebrations.</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Service">
+          <h4 itemProp="name">Private Bachelor Party Cruise 30 Guests - Austin Party Boat</h4>
+          <p itemProp="description">Lake Travis bachelor party boat for 26-30 guests. Monday-Thursday from $1,381, Friday from $1,513, Saturday from $2,169, Sunday from $1,644. Ideal for larger bachelor party Austin groups.</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Service">
+          <h4 itemProp="name">Private Bachelor Party Cruise 50 Guests - Large Lake Travis Boat</h4>
+          <p itemProp="description">Large bachelor party boat Lake Travis for 31-50 guests. Monday-Thursday from $1,313, Friday from $1,444, Saturday from $2,100, Sunday from $1,575. Spacious Lake Travis party boat for big bachelor party Austin celebrations.</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Service">
+          <h4 itemProp="name">Private Bachelor Party Cruise 75 Guests - Mega Lake Travis Party Boat</h4>
+          <p itemProp="description">Mega bachelor party boat on Lake Travis for 51-75 guests. Monday-Thursday from $1,613, Friday from $1,744, Saturday from $2,400, Sunday from $1,875. Largest Lake Travis party boat option for massive bachelor party Austin events.</p>
+        </div>
+        
+        {/* Keywords Integration */}
+        <p>Looking for the ultimate bachelor party Austin experience? Our Lake Travis party boat cruises offer the best bachelor party packages in Austin. Whether you choose our affordable ATX Disco Cruise bachelor party or a private Lake Travis bachelor party boat charter, we guarantee an unforgettable celebration. Book your bachelor party Austin today on our premier Lake Travis party boat!</p>
+      </div>
+
+      {/* JSON-LD Structured Data for Bachelor Party Services */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "serviceType": "Bachelor Party Boat Cruises",
+          "provider": {
+            "@type": "LocalBusiness",
+            "name": "Premier Party Cruises",
+            "description": "Austin's #1 bachelor party boat experience on Lake Travis",
+            "url": "https://premierpartycruises.com",
+            "telephone": "(512) 488-5892",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "13993 FM2769",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "postalCode": "78641",
+              "addressCountry": "US"
+            },
+            "areaServed": {
+              "@type": "City",
+              "name": "Austin"
+            }
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Bachelor Party Packages Austin",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Basic Bach Package - Bachelor Party Austin",
+                  "description": "Join the BEST Party on Lake Travis, Exclusively for Bach Parties! BYOB bachelor party boat experience"
+                },
+                "price": "85.00",
+                "priceCurrency": "USD",
+                "availability": "https://schema.org/InStock",
+                "url": "https://premierpartycruises.com/bachelor-party-austin"
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Disco King Package - Bachelor Party Lake Travis",
+                  "description": "Private cooler, reserved spot, and premium bachelor party amenities on Lake Travis"
+                },
+                "price": "95.00",
+                "priceCurrency": "USD",
+                "availability": "https://schema.org/InStock",
+                "url": "https://premierpartycruises.com/bachelor-party-austin"
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Super Sparkle Platinum Disco - Ultimate Bachelor Party",
+                  "description": "All-inclusive VIP bachelor party boat experience on Lake Travis with unicorn float and full amenities"
+                },
+                "price": "105.00",
+                "priceCurrency": "USD",
+                "availability": "https://schema.org/InStock",
+                "url": "https://premierpartycruises.com/bachelor-party-austin"
+              }
+            ]
+          }
+        })
+      }} />
 
       {/* Footer */}
       <Footer />

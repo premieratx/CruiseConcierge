@@ -856,6 +856,130 @@ export default function Sweet16() {
         </div>
       </section>
 
+      {/* Hidden SEO Content - Crawlable but not visible */}
+      <div className="sr-only" itemScope itemType="https://schema.org/Service">
+        <h2>Sweet 16 Party Cruise Austin - Lake Travis Sweet Sixteen Birthday Boat Rental</h2>
+        <p itemProp="description">
+          Unforgettable Sweet 16 birthday party cruises on Lake Travis. Instagram-worthy celebrations with DJ, decorations, teen-friendly fun, 
+          and magical moments for her special day. Sweet Sixteen boat rentals from 14-75 guests with professional supervision.
+        </p>
+        
+        {/* Pricing Content for Crawlers */}
+        <h3>Sweet 16 Birthday Private Cruise Pricing - All Guest Capacities</h3>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">1-14 Guests Sweet 16 Pricing</h4>
+          <p>Monday-Thursday: Standard $800, Essentials $900, Ultimate $1,000</p>
+          <p>Friday: Standard $900, Essentials $1,000, Ultimate $1,100</p>
+          <p>Saturday: Standard $1,400, Essentials $1,500, Ultimate $1,600</p>
+          <p>Sunday: Standard $1,000, Essentials $1,100, Ultimate $1,200</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">15-25 Guests Sweet 16 Pricing</h4>
+          <p>Monday-Thursday: Standard $900, Essentials $1,050, Ultimate $1,200</p>
+          <p>Friday: Standard $1,000, Essentials $1,150, Ultimate $1,300</p>
+          <p>Saturday: Standard $1,500, Essentials $1,650, Ultimate $1,800</p>
+          <p>Sunday: Standard $1,100, Essentials $1,250, Ultimate $1,400</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">26-30 Guests Sweet 16 Pricing</h4>
+          <p>Monday-Thursday: Standard $1,050, Essentials $1,200, Ultimate $1,350</p>
+          <p>Friday: Standard $1,150, Essentials $1,300, Ultimate $1,450</p>
+          <p>Saturday: Standard $1,650, Essentials $1,800, Ultimate $1,950</p>
+          <p>Sunday: Standard $1,250, Essentials $1,400, Ultimate $1,550</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">31-50 Guests Sweet 16 Cruise Pricing</h4>
+          <p>Monday-Thursday: Standard $1,000, Essentials $1,200, Ultimate $1,350</p>
+          <p>Friday: Standard $1,100, Essentials $1,300, Ultimate $1,450</p>
+          <p>Saturday: Standard $1,600, Essentials $1,800, Ultimate $1,950</p>
+          <p>Sunday: Standard $1,200, Essentials $1,400, Ultimate $1,550</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">51-75 Guests Large Sweet 16 Pricing</h4>
+          <p>Monday-Thursday: Standard $1,300, Essentials $1,500, Ultimate $1,650</p>
+          <p>Friday: Standard $1,400, Essentials $1,600, Ultimate $1,750</p>
+          <p>Saturday: Standard $1,900, Essentials $2,100, Ultimate $2,250</p>
+          <p>Sunday: Standard $1,500, Essentials $1,700, Ultimate $1,850</p>
+        </div>
+        
+        <h3>Sweet 16 Party Features and Amenities</h3>
+        <ul>
+          <li>Sweet 16 party boat cruise on Lake Travis Austin</li>
+          <li>Teen-friendly supervised celebration environment</li>
+          <li>Instagram-worthy photo setups and decorations</li>
+          <li>DJ with age-appropriate music and playlists</li>
+          <li>Pink, gold, and sparkly themed decorations</li>
+          <li>Mocktail bar with fancy non-alcoholic drinks</li>
+          <li>Professional crew and safety supervision</li>
+          <li>Premium sound system for dancing</li>
+          <li>Swimming and water activities</li>
+          <li>Birthday cake service and celebration coordination</li>
+          <li>Photo props and TikTok-ready backdrops</li>
+        </ul>
+        
+        <h3>Austin Sweet 16 Cruise Keywords</h3>
+        <p>sweet 16 Lake Travis, sweet sixteen party boat Austin, 16th birthday cruise Lake Travis, teen birthday party boat Austin, 
+        sweet 16 celebration Austin, Lake Travis sweet 16 party, Austin sweet sixteen cruise, birthday boat rental Lake Travis teens, 
+        sweet 16 yacht party Austin, Lake Travis teen birthday, private sweet 16 boat rental Austin, Instagram sweet 16 party Lake Travis</p>
+        
+        <h3>Fleet Options for Sweet 16 Parties</h3>
+        <p>Day Tripper (14 guests), Meeseeks (25 guests), Tito (30 guests), Clever Girl (50 guests), Millennium Falcon (75 guests)</p>
+      </div>
+
+      {/* JSON-LD Structured Data */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Sweet 16 Party Cruise Austin",
+          "description": "Unforgettable Sweet 16 birthday party cruises on Lake Travis. Instagram-worthy celebrations with DJ, decorations, and teen-friendly fun.",
+          "provider": {
+            "@type": "LocalBusiness",
+            "name": "Premier Party Cruises",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "addressCountry": "US"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "30.3895",
+              "longitude": "-97.8686"
+            },
+            "telephone": "(512) 488-5892",
+            "priceRange": "$800-$2,250"
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "Austin, TX"
+          },
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "Sweet 16 Standard Package",
+              "price": "800",
+              "priceCurrency": "USD",
+              "description": "4-hour sweet 16 cruise for 1-14 guests"
+            },
+            {
+              "@type": "Offer",
+              "name": "Sweet 16 Essentials Package",
+              "price": "900",
+              "priceCurrency": "USD",
+              "description": "4-hour sweet 16 party with amenities for 1-14 guests"
+            },
+            {
+              "@type": "Offer",
+              "name": "Sweet 16 Ultimate Package",
+              "price": "1000",
+              "priceCurrency": "USD",
+              "description": "4-hour luxury sweet 16 celebration with full entertainment for 1-14 guests"
+            }
+          ]
+        })
+      }} />
+
       <Footer />
     </div>
   );

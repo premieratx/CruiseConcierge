@@ -57,20 +57,132 @@ export default function SEOHead({
     enabled: !!pageRoute,
   });
 
+  // Helper function to ensure absolute URLs
+  const ensureAbsoluteUrl = (url: string): string => {
+    if (!url) return '';
+    if (url.startsWith('http://') || url.startsWith('https://')) return url;
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com';
+    return `${baseUrl}${url.startsWith('/') ? url : `/${url}`}`;
+  };
+
   // Prepare the SEO values (SEO data takes precedence over defaults)
   const title = seoData?.metaTitle || defaultTitle;
   const description = seoData?.metaDescription || defaultDescription;
   const keywords = seoData?.metaKeywords || defaultKeywords;
   const ogTitle = seoData?.openGraphTitle || title;
   const ogDescription = seoData?.openGraphDescription || description;
-  const ogImage = seoData?.openGraphImage || image || '/og-default.jpg';
+  const ogImage = ensureAbsoluteUrl(seoData?.openGraphImage || image || '/og-default.jpg');
   const ogType = seoData?.openGraphType || (article ? 'article' : 'website');
   const twitterTitle = seoData?.twitterTitle || ogTitle;
   const twitterDescription = seoData?.twitterDescription || ogDescription;
-  const twitterImage = seoData?.twitterImage || ogImage;
+  const twitterImage = ensureAbsoluteUrl(seoData?.twitterImage || image || '/og-default.jpg');
   const twitterCard = seoData?.twitterCard || 'summary_large_image';
   const canonical = seoData?.canonicalUrl || `${typeof window !== 'undefined' ? window.location.origin : ''}${pageRoute}`;
   const robots = seoData?.robotsDirective || 'index, follow';
+
+  // Generate site-wide schemas that appear on every page
+  const generateWebSiteSchema = () => {
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com';
+    return {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "Premier Party Cruises",
+      "url": baseUrl,
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": `${baseUrl}/search?q={search_term_string}`,
+        "query-input": "required name=search_term_string"
+      }
+    };
+  };
+
+  const generateEnhancedOrganizationSchema = () => {
+    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com';
+    return {
+      "@context": "https://schema.org",
+      "@type": "LocalBusiness",
+      "name": "Premier Party Cruises",
+      "image": ensureAbsoluteUrl("/PPC Logo LARGE_1757881944449.png"),
+      "logo": ensureAbsoluteUrl("/PPC Logo LARGE_1757881944449.png"),
+      "description": "Austin's premier boat rental and party cruise experience on Lake Travis",
+      "url": baseUrl,
+      "telephone": "+1-512-488-5892",
+      "email": "clientservices@premierpartycruises.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "13993 FM2769",
+        "addressLocality": "Austin",
+        "addressRegion": "TX",
+        "postalCode": "78641",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "30.3879",
+        "longitude": "-97.9723"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.9",
+        "reviewCount": "130",
+        "bestRating": "5",
+        "worstRating": "1"
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+          "opens": "09:00",
+          "closes": "21:00"
+        }
+      ],
+      "serviceArea": {
+        "@type": "GeoCircle",
+        "geoMidpoint": {
+          "@type": "GeoCoordinates",
+          "latitude": "30.3879",
+          "longitude": "-97.9723"
+        },
+        "geoRadius": "100"
+      },
+      "priceRange": "$$-$$$",
+      "sameAs": [
+        "https://www.instagram.com/premierpartycruises",
+        "https://www.facebook.com/premierpartycruises",
+        "https://www.tiktok.com/@premierpartycruises"
+      ],
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Boat Rental Services",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Private Charters",
+              "description": "Exclusive boat rental with professional crew, perfect for intimate celebrations to large corporate events"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Disco Cruises",
+              "description": "ATX Disco Cruise party boat experience with DJ and professional entertainment on Lake Travis"
+            }
+          },
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Bachelorette Packages",
+              "description": "Specialized bachelorette party packages including Basic Bach, Disco Queen, and Platinum options with bride cruises free"
+            }
+          }
+        ]
+      }
+    };
+  };
 
   // Generate default structured data based on page type and content
   useEffect(() => {
@@ -78,82 +190,7 @@ export default function SEOHead({
       const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://premierppartycruises.com';
       
       const defaultSchemas: Record<string, any> = {
-        organization: {
-          "@context": "https://schema.org",
-          "@type": "LocalBusiness",
-          "name": "Premier Party Cruises",
-          "description": "Austin's premier boat rental and party cruise experience on Lake Travis",
-          "url": baseUrl,
-          "telephone": "+1-512-488-5892",
-          "address": {
-            "@type": "PostalAddress",
-            "streetAddress": "13993 FM2769",
-            "addressLocality": "Austin",
-            "addressRegion": "TX",
-            "postalCode": "78641",
-            "addressCountry": "US"
-          },
-          "geo": {
-            "@type": "GeoCoordinates",
-            "latitude": "30.3879",
-            "longitude": "-97.9723"
-          },
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": "4.9",
-            "reviewCount": "130",
-            "bestRating": "5",
-            "worstRating": "1"
-          },
-          "openingHoursSpecification": [
-            {
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-              "opens": "09:00",
-              "closes": "21:00"
-            }
-          ],
-          "serviceArea": {
-            "@type": "GeoCircle",
-            "geoMidpoint": {
-              "@type": "GeoCoordinates",
-              "latitude": "30.3879",
-              "longitude": "-97.9723"
-            },
-            "geoRadius": "100"
-          },
-          "priceRange": "$$-$$$",
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Boat Rental Services",
-            "itemListElement": [
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Private Charters",
-                  "description": "Exclusive boat rental with professional crew, perfect for intimate celebrations to large corporate events"
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Disco Cruises",
-                  "description": "ATX Disco Cruise party boat experience with DJ and professional entertainment on Lake Travis"
-                }
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Bachelorette Packages",
-                  "description": "Specialized bachelorette party packages including Basic Bach, Disco Queen, and Platinum options with bride cruises free"
-                }
-              }
-            ]
-          }
-        },
+        organization: generateEnhancedOrganizationSchema(),
         webpage: {
           "@context": "https://schema.org",
           "@type": "WebPage",
@@ -252,11 +289,18 @@ export default function SEOHead({
     generateDefaultSchema();
   }, [pageRoute, title, description, canonical, schemaType, article]);
 
-  // Determine final schema (custom > SEO data > fallback)
-  const finalSchema = customSchema || seoData?.schemaMarkup || fallbackSchema;
+  // Determine page-specific schema (custom > SEO data > fallback)
+  const pageSpecificSchema = customSchema || seoData?.schemaMarkup || fallbackSchema;
 
-  // Convert finalSchema to array for consistent handling
-  const schemaArray = Array.isArray(finalSchema) ? finalSchema : [finalSchema];
+  // Build comprehensive schema array with site-wide schemas on every page
+  const siteWideSchemas = [
+    generateWebSiteSchema(),
+    generateEnhancedOrganizationSchema()
+  ];
+
+  // Convert pageSpecificSchema to array and combine with site-wide schemas
+  const pageSchemaArray = Array.isArray(pageSpecificSchema) ? pageSpecificSchema : [pageSpecificSchema];
+  const schemaArray = [...siteWideSchemas, ...pageSchemaArray];
 
   // Generate breadcrumb schema for navigation
   const breadcrumbSchema = {
@@ -280,6 +324,8 @@ export default function SEOHead({
       <meta property="og:title" content={ogTitle} />
       <meta property="og:description" content={ogDescription} />
       <meta property="og:image" content={ogImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content={`${ogTitle} - Premier Party Cruises`} />
       <meta property="og:site_name" content="Premier Party Cruises" />
       <meta property="og:locale" content="en_US" />
@@ -307,6 +353,7 @@ export default function SEOHead({
       
       {/* Twitter */}
       <meta name="twitter:card" content={twitterCard} />
+      <meta name="twitter:site" content="@premierpartycruises" />
       <meta name="twitter:url" content={canonical} />
       <meta name="twitter:title" content={twitterTitle} />
       <meta name="twitter:description" content={twitterDescription} />

@@ -836,6 +836,210 @@ export default function CompanyMilestone() {
         </div>
       </section>
 
+      {/* SEO-Optimized Hidden Content for Search Engines */}
+      <div className="sr-only" itemScope itemType="https://schema.org/Service">
+        <h1 itemProp="name">Company Milestone Corporate Events Austin Lake Travis</h1>
+        <p itemProp="description">
+          Premier Party Cruises creates unforgettable company milestone celebrations on Lake Travis in Austin, Texas. 
+          Celebrate your business achievements in style with luxury boat cruises designed for success. From IPOs and 
+          funding rounds to anniversaries and major contract wins, our professional team helps you commemorate important 
+          milestones with memorable experiences that inspire and motivate your team. Custom branding, professional 
+          photography, awards ceremonies, and Lake Travis beauty create the perfect celebration atmosphere.
+        </p>
+        
+        <h2>Company Milestone Celebration Services Austin</h2>
+        <p>
+          Professional milestone celebration experiences on Lake Travis including achievement recognition ceremonies, 
+          executive speeches and presentations, professional photography and videography, custom company branding, 
+          commemorative items, awards ceremonies, gourmet catering, and celebration decorations. Perfect for IPOs, 
+          funding rounds, anniversaries, product launches, major contract wins, and company achievements.
+        </p>
+        
+        <h2>Private Cruise Pricing for Corporate Groups</h2>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">14 Guest Milestone Celebration Package</h3>
+          <meta itemProp="priceCurrency" content="USD" />
+          <p>Starting at <span itemProp="price">$200</span> per hour for groups up to 14 people</p>
+          <p itemProp="description">Intimate executive milestone celebrations and leadership recognition</p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">15-25 Guest Milestone Celebration Package</h3>
+          <meta itemProp="priceCurrency" content="USD" />
+          <p>Starting at <span itemProp="price">$250</span> per hour for groups of 15-25 people</p>
+          <p itemProp="description">Perfect for department achievements and team success celebrations</p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">26-30 Guest Milestone Celebration Package</h3>
+          <meta itemProp="priceCurrency" content="USD" />
+          <p>Starting at <span itemProp="price">$300</span> per hour for groups of 26-30 people</p>
+          <p itemProp="description">Great for mid-size company celebrations and recognitions</p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">31-50 Guest Milestone Celebration Package</h3>
+          <meta itemProp="priceCurrency" content="USD" />
+          <p>Starting at <span itemProp="price">$350</span> per hour for groups of 31-50 people</p>
+          <p itemProp="description">Ideal for company-wide achievement celebrations</p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">51-75 Guest Milestone Celebration Package</h3>
+          <meta itemProp="priceCurrency" content="USD" />
+          <p>Starting at <span itemProp="price">$400</span> per hour for groups of 51-75 people</p>
+          <p itemProp="description">Perfect for major company milestone celebrations</p>
+        </div>
+        
+        <h2>Company Milestone Features</h2>
+        <ul>
+          <li>Achievement-focused celebration planning and coordination</li>
+          <li>Professional platform for executive speeches and presentations</li>
+          <li>Professional photography and videography for marketing</li>
+          <li>Custom company branding throughout the boat experience</li>
+          <li>Celebration setup with decorations and atmosphere</li>
+          <li>Awards ceremony setup and coordination</li>
+          <li>Commemorative items and lasting mementos</li>
+          <li>Customizable catering for celebration dining</li>
+          <li>VIP treatment making team members feel valued</li>
+          <li>Experienced captain and professional crew</li>
+        </ul>
+        
+        <h2>Keywords: Company Milestone Austin, Corporate Events Lake Travis, Business Celebration Boat Cruise</h2>
+        <p>
+          company milestone Austin, corporate milestone celebration Lake Travis, business achievement cruise Austin, 
+          company anniversary Lake Travis, corporate celebration Austin Texas, IPO celebration boat Austin, 
+          company success event Lake Travis, corporate achievement party Austin, business milestone cruise Austin, 
+          company celebration boat Lake Travis, corporate anniversary Austin, Austin milestone events boat, 
+          business success celebration Austin, company achievement cruise Lake Travis, corporate milestone boat Austin
+        </p>
+        
+        <h2>Fleet Options for Company Milestones</h2>
+        <div itemScope itemType="https://schema.org/Product">
+          <h3 itemProp="name">Day Tripper - 14 Person Boat</h3>
+          <p itemProp="description">
+            Perfect for executive milestone celebrations and leadership recognition. Intimate luxury setting ideal 
+            for celebrating major achievements with key stakeholders and celebrating success in style.
+          </p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Product">
+          <h3 itemProp="name">Me Seeks the Irony - 25 Person Boat</h3>
+          <p itemProp="description">
+            Ideal for department achievements and team success celebrations. Comfortable space for awards ceremonies, 
+            presentations, and team recognition events on the beautiful Lake Travis waters.
+          </p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Product">
+          <h3 itemProp="name">Clever Girl - 50 Person Boat</h3>
+          <p itemProp="description">
+            Our flagship vessel for major company milestones. Multiple levels for celebrations, presentation areas 
+            for speeches and awards, professional amenities, and capacity for company-wide achievement celebrations.
+          </p>
+        </div>
+      </div>
+
+      {/* JSON-LD Structured Data */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "serviceType": "Corporate Milestone Celebration Events",
+          "provider": {
+            "@type": "LocalBusiness",
+            "name": "Premier Party Cruises",
+            "image": "https://premierpartycruises.com/logo.png",
+            "@id": "https://premierpartycruises.com",
+            "url": "https://premierpartycruises.com",
+            "telephone": "(512) 488-5892",
+            "priceRange": "$200-$400 per hour",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Lake Travis",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "postalCode": "78734",
+              "addressCountry": "US"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 30.3894,
+              "longitude": -97.9322
+            },
+            "openingHoursSpecification": [{
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+              "opens": "09:00",
+              "closes": "21:00"
+            }],
+            "sameAs": [
+              "https://www.facebook.com/premierpartycruises",
+              "https://www.instagram.com/premierpartycruises"
+            ]
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "Austin",
+            "sameAs": "https://en.wikipedia.org/wiki/Austin,_Texas"
+          },
+          "description": "Professional company milestone celebration experiences on Lake Travis in Austin, Texas. Celebrate business achievements with custom boat events, presentations, branding, and premium service for groups of 14-75 people.",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "14 Guest Milestone Celebration Package",
+              "price": "200",
+              "priceCurrency": "USD",
+              "description": "Executive milestone celebrations and leadership recognition up to 14 people"
+            },
+            {
+              "@type": "Offer",
+              "name": "15-25 Guest Milestone Celebration Package",
+              "price": "250",
+              "priceCurrency": "USD",
+              "description": "Department achievements and team celebrations for 15-25 people"
+            },
+            {
+              "@type": "Offer",
+              "name": "26-30 Guest Milestone Celebration Package",
+              "price": "300",
+              "priceCurrency": "USD",
+              "description": "Mid-size company celebrations for 26-30 people"
+            },
+            {
+              "@type": "Offer",
+              "name": "31-50 Guest Milestone Celebration Package",
+              "price": "350",
+              "priceCurrency": "USD",
+              "description": "Company-wide achievement celebrations for 31-50 people"
+            },
+            {
+              "@type": "Offer",
+              "name": "51-75 Guest Milestone Celebration Package",
+              "price": "400",
+              "priceCurrency": "USD",
+              "description": "Major company milestone celebrations for 51-75 people"
+            }
+          ]
+        })
+      }} />
+
+      {/* FAQ Schema */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqItems.map(faq => ({
+            "@type": "Question",
+            "name": faq.question,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": faq.answer
+            }
+          }))
+        })
+      }} />
+
       <Footer />
     </div>
   );

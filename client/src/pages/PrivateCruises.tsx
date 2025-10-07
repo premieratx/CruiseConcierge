@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import ExperienceCards from '@/components/ExperienceCards';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
@@ -1566,6 +1566,448 @@ export default function PrivateCruises() {
           </div>
         </div>
       </section>
+
+      {/* SEO-Optimized Hidden Content for Search Engines */}
+      <div className="sr-only" itemScope itemType="https://schema.org/Service">
+        <h2>Private Cruise Charter Packages and Pricing - Lake Travis Austin</h2>
+        
+        {/* Fleet Information */}
+        <div itemScope itemType="https://schema.org/Product">
+          <h3 itemProp="name">{BOATS.DAY_TRIPPER.displayName} - 14 Person Boat</h3>
+          <p itemProp="description">{BOATS.DAY_TRIPPER.description}. Perfect for intimate gatherings and small celebrations on Lake Travis.</p>
+          <meta itemProp="category" content="Boat Charter" />
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Product">
+          <h3 itemProp="name">{BOATS.ME_SEEKS_THE_IRONY.displayName} - 25-30 Person Boat</h3>
+          <p itemProp="description">{BOATS.ME_SEEKS_THE_IRONY.description}. Ideal for medium-sized celebrations and corporate events on Lake Travis.</p>
+          <meta itemProp="category" content="Boat Charter" />
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Product">
+          <h3 itemProp="name">{BOATS.CLEVER_GIRL.displayName} - 50-75 Person Boat</h3>
+          <p itemProp="description">{BOATS.CLEVER_GIRL.description}. Premium vessel for large celebrations, weddings, and corporate events on Lake Travis.</p>
+          <meta itemProp="category" content="Boat Charter" />
+        </div>
+
+        {/* 14-Person Capacity Tier Pricing */}
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">14-Person Private Cruise Packages</h3>
+          
+          <div itemScope itemType="https://schema.org/Offer">
+            <h4 itemProp="name">Standard 4-Hour Cruise (14 guests)</h4>
+            <p itemProp="description">{PRIVATE_CRUISE_PACKAGES[14].packages.standard.description}</p>
+            <p>Monday-Thursday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.MON_THU)}>{formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.MON_THU)}</span></p>
+            <p>Friday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.FRIDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.FRIDAY)}</span></p>
+            <p>Saturday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.SATURDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.SATURDAY)}</span></p>
+            <p>Sunday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.SUNDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.SUNDAY)}</span></p>
+            <meta itemProp="priceCurrency" content="USD" />
+            <p>Includes: {PRIVATE_CRUISE_PACKAGES[14].packages.standard.inclusions.join(', ')}</p>
+          </div>
+          
+          <div itemScope itemType="https://schema.org/Offer">
+            <h4 itemProp="name">Essentials Package (14 guests)</h4>
+            <p itemProp="description">{PRIVATE_CRUISE_PACKAGES[14].packages.essentials.description}</p>
+            <p>Monday-Thursday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.essentials.totalPrices.MON_THU)}>{formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.essentials.totalPrices.MON_THU)}</span></p>
+            <p>Friday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.essentials.totalPrices.FRIDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.essentials.totalPrices.FRIDAY)}</span></p>
+            <p>Saturday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.essentials.totalPrices.SATURDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.essentials.totalPrices.SATURDAY)}</span></p>
+            <p>Sunday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.essentials.totalPrices.SUNDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.essentials.totalPrices.SUNDAY)}</span></p>
+            <meta itemProp="priceCurrency" content="USD" />
+            <p>Includes: {PRIVATE_CRUISE_PACKAGES[14].packages.essentials.inclusions.join(', ')}</p>
+          </div>
+          
+          <div itemScope itemType="https://schema.org/Offer">
+            <h4 itemProp="name">Ultimate Disco Party Package (14 guests)</h4>
+            <p itemProp="description">{PRIVATE_CRUISE_PACKAGES[14].packages.ultimate.description}</p>
+            <p>Monday-Thursday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.ultimate.totalPrices.MON_THU)}>{formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.ultimate.totalPrices.MON_THU)}</span></p>
+            <p>Friday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.ultimate.totalPrices.FRIDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.ultimate.totalPrices.FRIDAY)}</span></p>
+            <p>Saturday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.ultimate.totalPrices.SATURDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.ultimate.totalPrices.SATURDAY)}</span></p>
+            <p>Sunday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.ultimate.totalPrices.SUNDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[14].packages.ultimate.totalPrices.SUNDAY)}</span></p>
+            <meta itemProp="priceCurrency" content="USD" />
+            <p>Includes: {PRIVATE_CRUISE_PACKAGES[14].packages.ultimate.inclusions.join(', ')}</p>
+          </div>
+        </div>
+
+        {/* 25-Person Capacity Tier Pricing */}
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">25-Person Private Cruise Packages</h3>
+          
+          <div itemScope itemType="https://schema.org/Offer">
+            <h4 itemProp="name">Standard 4-Hour Cruise (25 guests)</h4>
+            <p itemProp="description">{PRIVATE_CRUISE_PACKAGES[25].packages.standard.description}</p>
+            <p>Monday-Thursday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.standard.totalPrices.MON_THU)}>{formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.standard.totalPrices.MON_THU)}</span></p>
+            <p>Friday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.standard.totalPrices.FRIDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.standard.totalPrices.FRIDAY)}</span></p>
+            <p>Saturday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.standard.totalPrices.SATURDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.standard.totalPrices.SATURDAY)}</span></p>
+            <p>Sunday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.standard.totalPrices.SUNDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.standard.totalPrices.SUNDAY)}</span></p>
+            <meta itemProp="priceCurrency" content="USD" />
+            <p>Includes: {PRIVATE_CRUISE_PACKAGES[25].packages.standard.inclusions.join(', ')}</p>
+          </div>
+          
+          <div itemScope itemType="https://schema.org/Offer">
+            <h4 itemProp="name">Essentials Package (25 guests)</h4>
+            <p itemProp="description">{PRIVATE_CRUISE_PACKAGES[25].packages.essentials.description}</p>
+            <p>Monday-Thursday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.essentials.totalPrices.MON_THU)}>{formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.essentials.totalPrices.MON_THU)}</span></p>
+            <p>Friday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.essentials.totalPrices.FRIDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.essentials.totalPrices.FRIDAY)}</span></p>
+            <p>Saturday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.essentials.totalPrices.SATURDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.essentials.totalPrices.SATURDAY)}</span></p>
+            <p>Sunday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.essentials.totalPrices.SUNDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.essentials.totalPrices.SUNDAY)}</span></p>
+            <meta itemProp="priceCurrency" content="USD" />
+            <p>Includes: {PRIVATE_CRUISE_PACKAGES[25].packages.essentials.inclusions.join(', ')}</p>
+          </div>
+          
+          <div itemScope itemType="https://schema.org/Offer">
+            <h4 itemProp="name">Ultimate Disco Party Package (25 guests)</h4>
+            <p itemProp="description">{PRIVATE_CRUISE_PACKAGES[25].packages.ultimate.description}</p>
+            <p>Monday-Thursday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.ultimate.totalPrices.MON_THU)}>{formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.ultimate.totalPrices.MON_THU)}</span></p>
+            <p>Friday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.ultimate.totalPrices.FRIDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.ultimate.totalPrices.FRIDAY)}</span></p>
+            <p>Saturday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.ultimate.totalPrices.SATURDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.ultimate.totalPrices.SATURDAY)}</span></p>
+            <p>Sunday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.ultimate.totalPrices.SUNDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[25].packages.ultimate.totalPrices.SUNDAY)}</span></p>
+            <meta itemProp="priceCurrency" content="USD" />
+            <p>Includes: {PRIVATE_CRUISE_PACKAGES[25].packages.ultimate.inclusions.join(', ')}</p>
+          </div>
+        </div>
+
+        {/* 30-Person Capacity Tier Pricing */}
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">30-Person Private Cruise Packages (Extra Crew Required)</h3>
+          
+          <div itemScope itemType="https://schema.org/Offer">
+            <h4 itemProp="name">Standard 4-Hour Cruise (30 guests)</h4>
+            <p itemProp="description">{PRIVATE_CRUISE_PACKAGES[30].packages.standard.description} - Includes ${CREW_FEES.HOURLY_RATES.SMALL_BOAT_EXTRA / 100}/hour extra crew fee for enhanced service and safety.</p>
+            <p>Monday-Thursday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.standard.totalPrices.MON_THU)}>{formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.standard.totalPrices.MON_THU)}</span></p>
+            <p>Friday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.standard.totalPrices.FRIDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.standard.totalPrices.FRIDAY)}</span></p>
+            <p>Saturday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.standard.totalPrices.SATURDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.standard.totalPrices.SATURDAY)}</span></p>
+            <p>Sunday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.standard.totalPrices.SUNDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.standard.totalPrices.SUNDAY)}</span></p>
+            <meta itemProp="priceCurrency" content="USD" />
+            <p>Includes: {PRIVATE_CRUISE_PACKAGES[30].packages.standard.inclusions.join(', ')}</p>
+          </div>
+          
+          <div itemScope itemType="https://schema.org/Offer">
+            <h4 itemProp="name">Essentials Package (30 guests)</h4>
+            <p itemProp="description">{PRIVATE_CRUISE_PACKAGES[30].packages.essentials.description}</p>
+            <p>Monday-Thursday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.essentials.totalPrices.MON_THU)}>{formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.essentials.totalPrices.MON_THU)}</span></p>
+            <p>Friday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.essentials.totalPrices.FRIDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.essentials.totalPrices.FRIDAY)}</span></p>
+            <p>Saturday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.essentials.totalPrices.SATURDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.essentials.totalPrices.SATURDAY)}</span></p>
+            <p>Sunday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.essentials.totalPrices.SUNDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.essentials.totalPrices.SUNDAY)}</span></p>
+            <meta itemProp="priceCurrency" content="USD" />
+            <p>Includes: {PRIVATE_CRUISE_PACKAGES[30].packages.essentials.inclusions.join(', ')}</p>
+          </div>
+          
+          <div itemScope itemType="https://schema.org/Offer">
+            <h4 itemProp="name">Ultimate Disco Party Package (30 guests)</h4>
+            <p itemProp="description">{PRIVATE_CRUISE_PACKAGES[30].packages.ultimate.description}</p>
+            <p>Monday-Thursday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.ultimate.totalPrices.MON_THU)}>{formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.ultimate.totalPrices.MON_THU)}</span></p>
+            <p>Friday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.ultimate.totalPrices.FRIDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.ultimate.totalPrices.FRIDAY)}</span></p>
+            <p>Saturday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.ultimate.totalPrices.SATURDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.ultimate.totalPrices.SATURDAY)}</span></p>
+            <p>Sunday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.ultimate.totalPrices.SUNDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[30].packages.ultimate.totalPrices.SUNDAY)}</span></p>
+            <meta itemProp="priceCurrency" content="USD" />
+            <p>Includes: {PRIVATE_CRUISE_PACKAGES[30].packages.ultimate.inclusions.join(', ')}</p>
+          </div>
+        </div>
+
+        {/* 50-Person Capacity Tier Pricing */}
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">50-Person Private Cruise Packages</h3>
+          
+          <div itemScope itemType="https://schema.org/Offer">
+            <h4 itemProp="name">Standard 4-Hour Cruise (50 guests)</h4>
+            <p itemProp="description">{PRIVATE_CRUISE_PACKAGES[50].packages.standard.description}</p>
+            <p>Monday-Thursday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.standard.totalPrices.MON_THU)}>{formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.standard.totalPrices.MON_THU)}</span></p>
+            <p>Friday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.standard.totalPrices.FRIDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.standard.totalPrices.FRIDAY)}</span></p>
+            <p>Saturday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.standard.totalPrices.SATURDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.standard.totalPrices.SATURDAY)}</span></p>
+            <p>Sunday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.standard.totalPrices.SUNDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.standard.totalPrices.SUNDAY)}</span></p>
+            <meta itemProp="priceCurrency" content="USD" />
+            <p>Includes: {PRIVATE_CRUISE_PACKAGES[50].packages.standard.inclusions.join(', ')}</p>
+          </div>
+          
+          <div itemScope itemType="https://schema.org/Offer">
+            <h4 itemProp="name">Essentials Package (50 guests)</h4>
+            <p itemProp="description">{PRIVATE_CRUISE_PACKAGES[50].packages.essentials.description}</p>
+            <p>Monday-Thursday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.essentials.totalPrices.MON_THU)}>{formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.essentials.totalPrices.MON_THU)}</span></p>
+            <p>Friday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.essentials.totalPrices.FRIDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.essentials.totalPrices.FRIDAY)}</span></p>
+            <p>Saturday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.essentials.totalPrices.SATURDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.essentials.totalPrices.SATURDAY)}</span></p>
+            <p>Sunday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.essentials.totalPrices.SUNDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.essentials.totalPrices.SUNDAY)}</span></p>
+            <meta itemProp="priceCurrency" content="USD" />
+            <p>Includes: {PRIVATE_CRUISE_PACKAGES[50].packages.essentials.inclusions.join(', ')}</p>
+          </div>
+          
+          <div itemScope itemType="https://schema.org/Offer">
+            <h4 itemProp="name">Ultimate Disco Party Package (50 guests)</h4>
+            <p itemProp="description">{PRIVATE_CRUISE_PACKAGES[50].packages.ultimate.description}</p>
+            <p>Monday-Thursday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.ultimate.totalPrices.MON_THU)}>{formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.ultimate.totalPrices.MON_THU)}</span></p>
+            <p>Friday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.ultimate.totalPrices.FRIDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.ultimate.totalPrices.FRIDAY)}</span></p>
+            <p>Saturday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.ultimate.totalPrices.SATURDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.ultimate.totalPrices.SATURDAY)}</span></p>
+            <p>Sunday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.ultimate.totalPrices.SUNDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[50].packages.ultimate.totalPrices.SUNDAY)}</span></p>
+            <meta itemProp="priceCurrency" content="USD" />
+            <p>Includes: {PRIVATE_CRUISE_PACKAGES[50].packages.ultimate.inclusions.join(', ')}</p>
+          </div>
+        </div>
+
+        {/* 75-Person Capacity Tier Pricing */}
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">75-Person Private Cruise Packages (Extra Crew Required)</h3>
+          
+          <div itemScope itemType="https://schema.org/Offer">
+            <h4 itemProp="name">Standard 4-Hour Cruise (75 guests)</h4>
+            <p itemProp="description">{PRIVATE_CRUISE_PACKAGES[75].packages.standard.description} - Includes ${CREW_FEES.HOURLY_RATES.LARGE_BOAT_EXTRA / 100}/hour extra crew fee for enhanced service and safety.</p>
+            <p>Monday-Thursday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.standard.totalPrices.MON_THU)}>{formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.standard.totalPrices.MON_THU)}</span></p>
+            <p>Friday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.standard.totalPrices.FRIDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.standard.totalPrices.FRIDAY)}</span></p>
+            <p>Saturday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.standard.totalPrices.SATURDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.standard.totalPrices.SATURDAY)}</span></p>
+            <p>Sunday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.standard.totalPrices.SUNDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.standard.totalPrices.SUNDAY)}</span></p>
+            <meta itemProp="priceCurrency" content="USD" />
+            <p>Includes: {PRIVATE_CRUISE_PACKAGES[75].packages.standard.inclusions.join(', ')}</p>
+          </div>
+          
+          <div itemScope itemType="https://schema.org/Offer">
+            <h4 itemProp="name">Essentials Package (75 guests)</h4>
+            <p itemProp="description">{PRIVATE_CRUISE_PACKAGES[75].packages.essentials.description}</p>
+            <p>Monday-Thursday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.essentials.totalPrices.MON_THU)}>{formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.essentials.totalPrices.MON_THU)}</span></p>
+            <p>Friday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.essentials.totalPrices.FRIDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.essentials.totalPrices.FRIDAY)}</span></p>
+            <p>Saturday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.essentials.totalPrices.SATURDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.essentials.totalPrices.SATURDAY)}</span></p>
+            <p>Sunday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.essentials.totalPrices.SUNDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.essentials.totalPrices.SUNDAY)}</span></p>
+            <meta itemProp="priceCurrency" content="USD" />
+            <p>Includes: {PRIVATE_CRUISE_PACKAGES[75].packages.essentials.inclusions.join(', ')}</p>
+          </div>
+          
+          <div itemScope itemType="https://schema.org/Offer">
+            <h4 itemProp="name">Ultimate Disco Party Package (75 guests)</h4>
+            <p itemProp="description">{PRIVATE_CRUISE_PACKAGES[75].packages.ultimate.description}</p>
+            <p>Monday-Thursday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.ultimate.totalPrices.MON_THU)}>{formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.ultimate.totalPrices.MON_THU)}</span></p>
+            <p>Friday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.ultimate.totalPrices.FRIDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.ultimate.totalPrices.FRIDAY)}</span></p>
+            <p>Saturday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.ultimate.totalPrices.SATURDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.ultimate.totalPrices.SATURDAY)}</span></p>
+            <p>Sunday: <span itemProp="price" content={formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.ultimate.totalPrices.SUNDAY)}>{formatCurrency(PRIVATE_CRUISE_PRICING[75].packages.ultimate.totalPrices.SUNDAY)}</span></p>
+            <meta itemProp="priceCurrency" content="USD" />
+            <p>Includes: {PRIVATE_CRUISE_PACKAGES[75].packages.ultimate.inclusions.join(', ')}</p>
+          </div>
+        </div>
+
+        {/* Additional Service Information */}
+        <h2>Private Boat Charter Services - Lake Travis Austin TX</h2>
+        <p>Premier Party Cruises offers exclusive private boat charters on Lake Travis, Austin, Texas. Our fleet includes the {BOATS.DAY_TRIPPER.displayName} (14-person capacity), {BOATS.ME_SEEKS_THE_IRONY.displayName} (25-30 person capacity), and {BOATS.CLEVER_GIRL.displayName} (50-75 person capacity). Each boat features professional Coast Guard certified captains, premium Bluetooth sound systems, clean restroom facilities, and ample seating areas with sun and shade options.</p>
+        
+        <h3>Package Options</h3>
+        <p>Standard Package: Essential cruise experience with professional crew, premium sound system, coolers, and all basic amenities. Perfect for those who want to bring their own refreshments.</p>
+        <p>Essentials Package: Everything from Standard plus pre-stocked ice coolers, fresh water dispenser, setup tables, and cups. Ideal for hassle-free entertaining.</p>
+        <p>Ultimate Disco Party Package: Complete all-inclusive experience with giant lily pad floats, specialty floats, disco atmosphere, party supplies, champagne service, sun protection, and complete tableware. The ultimate celebration package.</p>
+        
+        <h3>Service Areas</h3>
+        <p>Lake Travis private boat rentals, Austin boat charter services, corporate event cruises, wedding party boats, birthday celebration cruises, bachelor and bachelorette party boats, team building cruises, anniversary celebrations, Lake Travis boat tours, private yacht rental Austin.</p>
+      </div>
+
+      {/* JSON-LD Structured Data for Private Cruise Services */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "serviceType": "Private Boat Charter",
+          "name": "Private Cruise Charter - Lake Travis",
+          "description": "Exclusive private boat charters on Lake Travis with professional crews, premium amenities, and flexible capacity options for any celebration or corporate event.",
+          "provider": {
+            "@type": "LocalBusiness",
+            "name": "Premier Party Cruises",
+            "url": "https://premierppartycruises.com",
+            "telephone": "+1-512-488-5892",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "addressCountry": "US"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "30.3889",
+              "longitude": "-97.8767"
+            },
+            "priceRange": "$1,050 - $2,750",
+            "aggregateRating": {
+              "@type": "AggregateRating",
+              "ratingValue": "5.0",
+              "reviewCount": "125000"
+            }
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "Austin",
+            "@id": "https://en.wikipedia.org/wiki/Austin,_Texas"
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Private Cruise Packages",
+            "itemListElement": [
+              // 14-Person Packages
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "14-Person Standard Private Cruise",
+                  "description": PRIVATE_CRUISE_PACKAGES[14].packages.standard.description
+                },
+                "priceSpecification": [
+                  {
+                    "@type": "PriceSpecification",
+                    "price": (PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.MON_THU / 100).toFixed(2),
+                    "priceCurrency": "USD",
+                    "name": "Monday-Thursday Rate"
+                  },
+                  {
+                    "@type": "PriceSpecification",
+                    "price": (PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.FRIDAY / 100).toFixed(2),
+                    "priceCurrency": "USD",
+                    "name": "Friday Rate"
+                  },
+                  {
+                    "@type": "PriceSpecification",
+                    "price": (PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.SATURDAY / 100).toFixed(2),
+                    "priceCurrency": "USD",
+                    "name": "Saturday Rate"
+                  },
+                  {
+                    "@type": "PriceSpecification",
+                    "price": (PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.SUNDAY / 100).toFixed(2),
+                    "priceCurrency": "USD",
+                    "name": "Sunday Rate"
+                  }
+                ]
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "14-Person Essentials Private Cruise",
+                  "description": PRIVATE_CRUISE_PACKAGES[14].packages.essentials.description
+                },
+                "priceSpecification": [
+                  {
+                    "@type": "PriceSpecification",
+                    "price": (PRIVATE_CRUISE_PRICING[14].packages.essentials.totalPrices.MON_THU / 100).toFixed(2),
+                    "priceCurrency": "USD",
+                    "name": "Monday-Thursday Rate"
+                  },
+                  {
+                    "@type": "PriceSpecification",
+                    "price": (PRIVATE_CRUISE_PRICING[14].packages.essentials.totalPrices.SATURDAY / 100).toFixed(2),
+                    "priceCurrency": "USD",
+                    "name": "Saturday Rate"
+                  }
+                ]
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "14-Person Ultimate Disco Party Package",
+                  "description": PRIVATE_CRUISE_PACKAGES[14].packages.ultimate.description
+                },
+                "priceSpecification": [
+                  {
+                    "@type": "PriceSpecification",
+                    "price": (PRIVATE_CRUISE_PRICING[14].packages.ultimate.totalPrices.MON_THU / 100).toFixed(2),
+                    "priceCurrency": "USD",
+                    "name": "Monday-Thursday Rate"
+                  },
+                  {
+                    "@type": "PriceSpecification",
+                    "price": (PRIVATE_CRUISE_PRICING[14].packages.ultimate.totalPrices.SATURDAY / 100).toFixed(2),
+                    "priceCurrency": "USD",
+                    "name": "Saturday Rate"
+                  }
+                ]
+              },
+              // 25-Person Packages
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "25-Person Standard Private Cruise",
+                  "description": PRIVATE_CRUISE_PACKAGES[25].packages.standard.description
+                },
+                "priceSpecification": [
+                  {
+                    "@type": "PriceSpecification",
+                    "price": (PRIVATE_CRUISE_PRICING[25].packages.standard.totalPrices.MON_THU / 100).toFixed(2),
+                    "priceCurrency": "USD",
+                    "name": "Monday-Thursday Rate"
+                  },
+                  {
+                    "@type": "PriceSpecification",
+                    "price": (PRIVATE_CRUISE_PRICING[25].packages.standard.totalPrices.SATURDAY / 100).toFixed(2),
+                    "priceCurrency": "USD",
+                    "name": "Saturday Rate"
+                  }
+                ]
+              },
+              // 30-Person Packages
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "30-Person Standard Private Cruise",
+                  "description": PRIVATE_CRUISE_PACKAGES[30].packages.standard.description
+                },
+                "priceSpecification": [
+                  {
+                    "@type": "PriceSpecification",
+                    "price": (PRIVATE_CRUISE_PRICING[30].packages.standard.totalPrices.MON_THU / 100).toFixed(2),
+                    "priceCurrency": "USD",
+                    "name": "Monday-Thursday Rate"
+                  },
+                  {
+                    "@type": "PriceSpecification",
+                    "price": (PRIVATE_CRUISE_PRICING[30].packages.standard.totalPrices.SATURDAY / 100).toFixed(2),
+                    "priceCurrency": "USD",
+                    "name": "Saturday Rate"
+                  }
+                ]
+              },
+              // 50-Person Packages
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "50-Person Standard Private Cruise",
+                  "description": PRIVATE_CRUISE_PACKAGES[50].packages.standard.description
+                },
+                "priceSpecification": [
+                  {
+                    "@type": "PriceSpecification",
+                    "price": (PRIVATE_CRUISE_PRICING[50].packages.standard.totalPrices.MON_THU / 100).toFixed(2),
+                    "priceCurrency": "USD",
+                    "name": "Monday-Thursday Rate"
+                  },
+                  {
+                    "@type": "PriceSpecification",
+                    "price": (PRIVATE_CRUISE_PRICING[50].packages.standard.totalPrices.SATURDAY / 100).toFixed(2),
+                    "priceCurrency": "USD",
+                    "name": "Saturday Rate"
+                  }
+                ]
+              },
+              // 75-Person Packages
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "75-Person Standard Private Cruise",
+                  "description": PRIVATE_CRUISE_PACKAGES[75].packages.standard.description
+                },
+                "priceSpecification": [
+                  {
+                    "@type": "PriceSpecification",
+                    "price": (PRIVATE_CRUISE_PRICING[75].packages.standard.totalPrices.MON_THU / 100).toFixed(2),
+                    "priceCurrency": "USD",
+                    "name": "Monday-Thursday Rate"
+                  },
+                  {
+                    "@type": "PriceSpecification",
+                    "price": (PRIVATE_CRUISE_PRICING[75].packages.standard.totalPrices.SATURDAY / 100).toFixed(2),
+                    "priceCurrency": "USD",
+                    "name": "Saturday Rate"
+                  }
+                ]
+              }
+            ]
+          }
+        })
+      }} />
 
       {/* Footer */}
       <Footer />

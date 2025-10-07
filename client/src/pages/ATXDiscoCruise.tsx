@@ -502,8 +502,12 @@ export default function ATXDiscoCruise() {
               <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 via-pink-900/70 to-orange-900/80 z-10" />
               <img 
                 src={heroImages[currentHeroImage]} 
-                alt="ATX Disco Cruise party atmosphere on Lake Travis"
+                alt="ATX Disco Cruise party boat on Lake Travis Austin - Bachelor and bachelorette party atmosphere with DJ and dancing"
                 className="w-full h-full object-cover"
+                width={1920}
+                height={1080}
+                loading="eager"
+                fetchpriority="high"
               />
             </motion.div>
           </AnimatePresence>
@@ -2476,6 +2480,181 @@ export default function ATXDiscoCruise() {
             </p>
           </div>
         </motion.section>
+
+        {/* SEO-Optimized Hidden Content for Search Engines */}
+        <div className="sr-only" itemScope itemType="https://schema.org/Event">
+          <h1 itemProp="name">ATX Disco Cruise - Lake Travis Party Cruise</h1>
+          <p itemProp="description">
+            The ATX Disco Cruise is Austin's premier bachelorette party cruise and Lake Travis party experience. 
+            Join bachelor and bachelorette parties from across the country for an unforgettable 4-hour cruise 
+            on beautiful Lake Travis. Professional DJ, photographer, giant floats, and the ultimate party atmosphere.
+          </p>
+          
+          <div itemProp="location" itemScope itemType="https://schema.org/Place">
+            <span itemProp="name">Lake Travis, Austin, Texas</span>
+            <div itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+              <span itemProp="addressLocality">Austin</span>,
+              <span itemProp="addressRegion">TX</span>
+            </div>
+          </div>
+
+          <h2>ATX Disco Cruise Event Details</h2>
+          <p>4-hour party cruise on Lake Travis with professional DJ and photographer</p>
+          <p>BYOB options with shared coolers and ice provided</p>
+          <p>Giant unicorn floats and party supplies included</p>
+          <p>Perfect for bachelorette party Austin celebrations</p>
+          <p>Meet bachelor and bachelorette parties from across America</p>
+          <p>Anderson Mill Marina departure location</p>
+          
+          <h2>ATX Disco Cruise Packages and Pricing</h2>
+          
+          <div itemScope itemType="https://schema.org/Offer">
+            <h3 itemProp="name">Basic Bach Package</h3>
+            <meta itemProp="price" content="85" />
+            <meta itemProp="priceCurrency" content="USD" />
+            <p itemProp="description">$85 per person - Join the BEST Party on Lake Travis, Exclusively for Bach Parties!</p>
+            <p>BYOB & Keep it Cheap - ALWAYS Cheaper than a Private Cruise</p>
+            <ul>
+              <li>Full 4-hour Lake Travis cruise experience</li>
+              <li>Professional DJ entertainment all day</li>
+              <li>Professional photographer capturing memories</li>
+              <li>Digital photo delivery after the event</li>
+              <li>Giant unicorn float access</li>
+              <li>Multi-group party atmosphere</li>
+              <li>BYOB with shared coolers & ice</li>
+              <li>Alcohol delivery & lunch delivery available</li>
+            </ul>
+          </div>
+
+          <div itemScope itemType="https://schema.org/Offer">
+            <h3 itemProp="name">Disco Queen Package</h3>
+            <meta itemProp="price" content="95" />
+            <meta itemProp="priceCurrency" content="USD" />
+            <p itemProp="description">$95 per person - Enhanced party experience with premium perks and VIP treatment</p>
+            <p>Private Cooler & Reserved Spot for Your Group</p>
+            <ul>
+              <li>Everything in Basic Bach Package</li>
+              <li>Private cooler with ice & storage bin for your group</li>
+              <li>Reserved spot for your group on the boat</li>
+              <li>Disco ball cup & bubble gun for guest of honor</li>
+              <li>Complimentary direct-to-boat alcohol & lunch delivery</li>
+              <li>25% discount on round-trip transportation</li>
+              <li>$50-$100 voucher for Airbnb booze delivery</li>
+              <li>Premium positioning on the boat</li>
+            </ul>
+          </div>
+
+          <div itemScope itemType="https://schema.org/Offer">
+            <h3 itemProp="name">Super Sparkle Platinum Disco Package</h3>
+            <meta itemProp="price" content="105" />
+            <meta itemProp="priceCurrency" content="USD" />
+            <p itemProp="description">$105 per person - Ultimate all-inclusive party experience with maximum celebration</p>
+            <p>Nothing to Carry, Cooler Stocked When You Arrive!</p>
+            <ul>
+              <li>Everything in Disco Queen Package</li>
+              <li>Personal unicorn float for guest of honor</li>
+              <li>Mimosa setup with champagne flutes, 3 juices & chambong</li>
+              <li>$100 voucher for Airbnb concierge services</li>
+              <li>Towel service & SPF-50 spray sunscreen provided</li>
+              <li>Nothing to carry - cooler pre-stocked with drinks</li>
+              <li>VIP treatment throughout the cruise</li>
+              <li>Extended photo coverage & exclusive surprises</li>
+            </ul>
+          </div>
+
+          <h2>Lake Travis Party Cruise Keywords</h2>
+          <p>ATX Disco Cruise, Lake Travis party cruise, bachelorette party Austin, bachelor party Austin, 
+             Austin party boat, Lake Travis bachelor party, Lake Travis bachelorette party, Austin boat party, 
+             party cruise Austin, disco cruise Lake Travis, Austin bachelorette cruise, Lake Travis party boat</p>
+        </div>
+
+        {/* JSON-LD Structured Data for Event */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Event",
+            "name": "ATX Disco Cruise",
+            "description": "Austin's premier bachelorette party cruise on Lake Travis. 4-hour party experience with professional DJ, photographer, and multi-group celebration atmosphere. BYOB options available.",
+            "image": "https://premierpartycruises.com/assets/atx-disco-cruise-party.jpg",
+            "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+            "eventStatus": "https://schema.org/EventScheduled",
+            "location": {
+              "@type": "Place",
+              "name": "Anderson Mill Marina, Lake Travis",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Austin",
+                "addressRegion": "TX",
+                "addressCountry": "US"
+              }
+            },
+            "offers": [
+              {
+                "@type": "Offer",
+                "name": "Basic Bach Package",
+                "price": "85",
+                "priceCurrency": "USD",
+                "description": "Full 4-hour Lake Travis cruise with DJ, photographer, and giant floats",
+                "availability": "https://schema.org/InStock",
+                "validFrom": "2024-01-01"
+              },
+              {
+                "@type": "Offer",
+                "name": "Disco Queen Package",
+                "price": "95",
+                "priceCurrency": "USD",
+                "description": "Enhanced experience with private cooler, reserved spot, and VIP perks",
+                "availability": "https://schema.org/InStock",
+                "validFrom": "2024-01-01"
+              },
+              {
+                "@type": "Offer",
+                "name": "Super Sparkle Platinum Disco",
+                "price": "105",
+                "priceCurrency": "USD",
+                "description": "Ultimate all-inclusive VIP experience with personal float and premium amenities",
+                "availability": "https://schema.org/InStock",
+                "validFrom": "2024-01-01"
+              }
+            ],
+            "performer": {
+              "@type": "Organization",
+              "name": "Premier Party Cruises"
+            },
+            "organizer": {
+              "@type": "Organization",
+              "name": "Premier Party Cruises",
+              "url": "https://premierpartycruises.com"
+            }
+          })
+        }} />
+
+        {/* JSON-LD Structured Data for LocalBusiness */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "Premier Party Cruises - ATX Disco Cruise",
+            "image": "https://premierpartycruises.com/assets/atx-disco-cruise-party.jpg",
+            "description": "Premier bachelorette party cruises on Lake Travis. ATX Disco Cruise features professional DJ, photographer, giant floats, and the ultimate party atmosphere for bachelor and bachelorette celebrations.",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "addressCountry": "US"
+            },
+            "telephone": "+1-512-488-5892",
+            "url": "https://premierpartycruises.com/atx-disco-cruise",
+            "priceRange": "$85-$105",
+            "servesCuisine": "Party Cruises",
+            "paymentAccepted": "Cash, Credit Card, Debit Card",
+            "openingHours": "Mo-Su 09:00-21:00",
+            "sameAs": [
+              "https://www.facebook.com/premierpartycruises",
+              "https://www.instagram.com/premierpartycruises"
+            ]
+          })
+        }} />
 
         <Footer />
       </div>

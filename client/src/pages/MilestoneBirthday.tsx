@@ -863,6 +863,130 @@ export default function MilestoneBirthday() {
         </div>
       </section>
 
+      {/* Hidden SEO Content - Crawlable but not visible */}
+      <div className="sr-only" itemScope itemType="https://schema.org/Service">
+        <h2>Milestone Birthday Party Cruise Austin - Lake Travis Birthday Boat Rental</h2>
+        <p itemProp="description">
+          Premier milestone birthday party cruises on Lake Travis for 21st, 30th, 40th, 50th, 60th birthdays and beyond. 
+          Celebrate age milestones with private boat parties, DJ, decorations, and stunning lake views. Birthday boat rentals from 14-75 guests.
+        </p>
+        
+        {/* Pricing Content for Crawlers */}
+        <h3>Milestone Birthday Private Cruise Pricing - All Guest Capacities</h3>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">1-14 Guests Milestone Birthday Pricing</h4>
+          <p>Monday-Thursday: Standard $800, Essentials $900, Ultimate $1,000</p>
+          <p>Friday: Standard $900, Essentials $1,000, Ultimate $1,100</p>
+          <p>Saturday: Standard $1,400, Essentials $1,500, Ultimate $1,600</p>
+          <p>Sunday: Standard $1,000, Essentials $1,100, Ultimate $1,200</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">15-25 Guests Milestone Birthday Pricing</h4>
+          <p>Monday-Thursday: Standard $900, Essentials $1,050, Ultimate $1,200</p>
+          <p>Friday: Standard $1,000, Essentials $1,150, Ultimate $1,300</p>
+          <p>Saturday: Standard $1,500, Essentials $1,650, Ultimate $1,800</p>
+          <p>Sunday: Standard $1,100, Essentials $1,250, Ultimate $1,400</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">26-30 Guests Milestone Birthday Pricing</h4>
+          <p>Monday-Thursday: Standard $1,050, Essentials $1,200, Ultimate $1,350</p>
+          <p>Friday: Standard $1,150, Essentials $1,300, Ultimate $1,450</p>
+          <p>Saturday: Standard $1,650, Essentials $1,800, Ultimate $1,950</p>
+          <p>Sunday: Standard $1,250, Essentials $1,400, Ultimate $1,550</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">31-50 Guests Milestone Birthday Cruise Pricing</h4>
+          <p>Monday-Thursday: Standard $1,000, Essentials $1,200, Ultimate $1,350</p>
+          <p>Friday: Standard $1,100, Essentials $1,300, Ultimate $1,450</p>
+          <p>Saturday: Standard $1,600, Essentials $1,800, Ultimate $1,950</p>
+          <p>Sunday: Standard $1,200, Essentials $1,400, Ultimate $1,550</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">51-75 Guests Large Milestone Birthday Pricing</h4>
+          <p>Monday-Thursday: Standard $1,300, Essentials $1,500, Ultimate $1,650</p>
+          <p>Friday: Standard $1,400, Essentials $1,600, Ultimate $1,750</p>
+          <p>Saturday: Standard $1,900, Essentials $2,100, Ultimate $2,250</p>
+          <p>Sunday: Standard $1,500, Essentials $1,700, Ultimate $1,850</p>
+        </div>
+        
+        <h3>Milestone Birthday Party Features and Amenities</h3>
+        <ul>
+          <li>21st birthday party boat cruise on Lake Travis</li>
+          <li>30th birthday celebration with DJ and dancing</li>
+          <li>40th birthday milestone party on private yacht</li>
+          <li>50th birthday cruise with catering and bar service</li>
+          <li>60th birthday celebration boat rental Austin</li>
+          <li>Age-specific decorations and themed party supplies</li>
+          <li>Professional crew and captain included</li>
+          <li>Premium sound system and entertainment options</li>
+          <li>Sunset timing available for milestone photos</li>
+          <li>Full bar service with champagne toasts</li>
+          <li>Cake service and birthday celebration coordination</li>
+        </ul>
+        
+        <h3>Austin Milestone Birthday Cruise Keywords</h3>
+        <p>milestone birthday Austin, 21st birthday party boat Lake Travis, 30th birthday cruise Austin, 40th birthday party boat, 
+        50th birthday Lake Travis celebration, 60th birthday cruise Austin, birthday boat rental Lake Travis, Austin birthday party cruise, 
+        milestone party boat Austin, Lake Travis birthday charter, private birthday boat rental Austin, birthday yacht rental Lake Travis</p>
+        
+        <h3>Fleet Options for Milestone Birthday Parties</h3>
+        <p>Day Tripper (14 guests), Meeseeks (25 guests), Tito (30 guests), Clever Girl (50 guests), Millennium Falcon (75 guests)</p>
+      </div>
+
+      {/* JSON-LD Structured Data */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Milestone Birthday Party Cruise Austin",
+          "description": "Premier milestone birthday party cruises on Lake Travis for 21st, 30th, 40th, 50th, 60th birthdays and beyond. Private boat parties with DJ, decorations, and lake views.",
+          "provider": {
+            "@type": "LocalBusiness",
+            "name": "Premier Party Cruises",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "addressCountry": "US"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "30.3895",
+              "longitude": "-97.8686"
+            },
+            "telephone": "(512) 488-5892",
+            "priceRange": "$800-$2,250"
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "Austin, TX"
+          },
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "Milestone Birthday Standard Package",
+              "price": "800",
+              "priceCurrency": "USD",
+              "description": "4-hour milestone birthday cruise for 1-14 guests"
+            },
+            {
+              "@type": "Offer",
+              "name": "Milestone Birthday Essentials Package",
+              "price": "900",
+              "priceCurrency": "USD",
+              "description": "4-hour birthday party with amenities for 1-14 guests"
+            },
+            {
+              "@type": "Offer",
+              "name": "Milestone Birthday Ultimate Package",
+              "price": "1000",
+              "priceCurrency": "USD",
+              "description": "4-hour luxury birthday celebration with full entertainment for 1-14 guests"
+            }
+          ]
+        })
+      }} />
+
       <Footer />
     </div>
   );

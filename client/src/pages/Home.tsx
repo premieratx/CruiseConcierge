@@ -25,6 +25,7 @@ import {
 import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead, { generateFAQSchema, generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
+import { Endorsement } from '@shared/schema';
 import { DiscoVsPrivateComparison, QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
@@ -546,8 +547,12 @@ export default function Home() {
             >
               <img 
                 src={heroImages[currentHeroImage]}
-                alt="Party Boat Austin cruising on Lake Travis with guests celebrating"
+                alt="Party boat on Lake Travis Austin - Premier Party Cruises with guests celebrating bachelor and bachelorette parties"
                 className="w-full h-full object-cover"
+                width={1920}
+                height={1080}
+                loading="eager"
+                fetchpriority="high"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
             </motion.div>
@@ -568,6 +573,10 @@ export default function Home() {
                 src={logoPath} 
                 alt="Party Boat Austin - Premier Party Cruises on Lake Travis" 
                 className="h-20 md:h-24 mx-auto mb-6"
+                width={400}
+                height={96}
+                loading="eager"
+                fetchpriority="high"
                 data-testid="img-hero-logo"
               />
             </motion.div>
@@ -906,7 +915,7 @@ export default function Home() {
                         data-testid={`button-service-${service.id}`}
                       >
                         <span data-editable data-editable-id={`service-${service.id}-cta-button`}>
-                          {service.specialPage ? 'LEARN MORE' : service.id === 'private' ? 'BOOK PRIVATE CRUISE' : service.id === 'disco' ? 'BOOK DISCO CRUISE' : 'GET QUOTE'}
+                          {service.id === 'private' ? 'BOOK PRIVATE CRUISE' : service.id === 'disco' ? 'BOOK DISCO CRUISE' : 'GET QUOTE'}
                         </span>
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
@@ -1030,7 +1039,7 @@ export default function Home() {
                         data-testid={`button-lightbox-book-${selectedService.id}`}
                       >
                         <Calendar className="mr-2 h-5 w-5" />
-                        <span data-editable data-editable-id={`lightbox-${selectedService.id}-book-button`}>{selectedService.specialPage ? 'Learn More' : 'Book Now'}</span>
+                        <span data-editable data-editable-id={`lightbox-${selectedService.id}-book-button`}>Book Now</span>
                         <ArrowRight className="ml-2 h-5 w-5" />
                       </Button>
                     </div>
@@ -1334,6 +1343,9 @@ export default function Home() {
                     src={image}
                     alt={altTexts[index]}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    width={600}
+                    height={600}
+                    loading="lazy"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
                     <Play className="h-12 w-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -1659,6 +1671,8 @@ export default function Home() {
                   "Party Boat Austin guests dancing and celebrating on Lake Travis"
                 ][selectedImageIndex]}
                 className="w-full h-auto max-h-[80vh] object-contain rounded-xl"
+                width={1200}
+                height={800}
               />
               <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
                 {selectedImageIndex + 1} / {galleryImages.length}
@@ -1764,6 +1778,355 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {/* SEO-Optimized Hidden Content for Search Engines */}
+      <div className="sr-only" itemScope itemType="https://schema.org/LocalBusiness">
+        <h1 itemProp="name">Premier Party Cruises - Austin Party Boat Lake Travis Rentals</h1>
+        
+        {/* Business Information */}
+        <div itemProp="description">
+          <p>Premier Party Cruises is Austin's premier party boat rental company on Lake Travis, serving over 100,000 happy customers since 2009. We specialize in bachelorette parties, bachelor parties, corporate events, and private boat charters with professional captains and crew.</p>
+        </div>
+        
+        {/* Location & Contact */}
+        <div itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+          <span itemProp="streetAddress">13993 FM2769, Anderson Mill Marina</span>
+          <span itemProp="addressLocality">Austin</span>
+          <span itemProp="addressRegion">TX</span>
+          <span itemProp="postalCode">78641</span>
+        </div>
+        <span itemProp="telephone">(512) 488-5892</span>
+        <span itemProp="email">clientservices@premierpartycruises.com</span>
+        
+        {/* Service Areas */}
+        <h2>Service Areas</h2>
+        <p>Lake Travis Austin TX, Lakeway, Bee Cave, Cedar Park, Leander, Anderson Mill Marina</p>
+        
+        {/* Key Services */}
+        <h2>Our Party Boat Services</h2>
+        <div itemScope itemType="https://schema.org/Service">
+          <h3 itemProp="name">Private Charters - Exclusive Austin Boat Rentals</h3>
+          <p itemProp="description">
+            Private party boat charters on Lake Travis with exclusive boat rental for your group. Choose from our fleet of premium boats: Day Tripper 14-person boat, Me Seeks the Irony 25-person boat, or flagship Clever Girl 50-person boat with giant Texas flag and 14 disco balls.
+          </p>
+          <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
+            <meta itemProp="priceCurrency" content="USD" />
+            <span itemProp="price">262</span>
+            <span itemProp="priceSpecification">per hour (4-hour minimum)</span>
+          </div>
+          <h4>Private Charter Features & Benefits:</h4>
+          <ul>
+            <li>Professional licensed Coast Guard certified captains and crew</li>
+            <li>Premium Bluetooth sound systems for your playlist</li>
+            <li>Large coolers with ice included</li>
+            <li>Lily pads and floaties available (additional $60)</li>
+            <li>BYOB - Bring Your Own Booze allowed</li>
+            <li>Party On Delivery - alcohol delivery directly to boat</li>
+            <li>Clean restroom facilities onboard</li>
+            <li>Fuel and safety equipment included</li>
+            <li>Devil's Cove and scenic Lake Travis locations</li>
+          </ul>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Service">
+          <h3 itemProp="name">Bachelorette Party Austin - ATX Disco Cruise</h3>
+          <p itemProp="description">
+            Austin's #1 bachelorette party experience since 2009! Join our famous ATX Disco Cruise or book a private charter. Professional DJ, photographer, party favors, decorations, and VIP treatment for the bride. Perfect for bachelorette parties and bachelor parties on Lake Travis.
+          </p>
+          <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
+            <meta itemProp="priceCurrency" content="USD" />
+            <span itemProp="lowPrice">85</span>
+            <span itemProp="highPrice">105</span>
+            <span itemProp="priceSpecification">per person</span>
+          </div>
+          <h4>Bachelorette Party Features:</h4>
+          <ul>
+            <li>Basic Bach package - $85 per person</li>
+            <li>Disco Queen package - $95 per person (most popular)</li>
+            <li>Platinum package - $105 per person (ultimate experience)</li>
+            <li>Professional DJ and dance floor</li>
+            <li>On-board professional photographer</li>
+            <li>Party favors and decorations included</li>
+            <li>VIP treatment for bride-to-be</li>
+            <li>Friday and Saturday evening cruises</li>
+            <li>4-hour party cruise on Lake Travis</li>
+            <li>Meet other bachelorette groups</li>
+          </ul>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Service">
+          <h3 itemProp="name">Bachelor Party Austin - Lake Travis Party Boat</h3>
+          <p itemProp="description">
+            Epic bachelor party boat cruises on Lake Travis with ATX Disco Cruise or private charter options. Professional DJ, photographer, and Austin's best party atmosphere for the groom's celebration.
+          </p>
+          <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
+            <meta itemProp="priceCurrency" content="USD" />
+            <span itemProp="lowPrice">85</span>
+            <span itemProp="highPrice">105</span>
+            <span itemProp="priceSpecification">per person for disco cruise</span>
+          </div>
+          <h4>Bachelor Party Features:</h4>
+          <ul>
+            <li>ATX Disco Cruise packages available</li>
+            <li>Private charter options for larger groups</li>
+            <li>Professional DJ and party music</li>
+            <li>BYOB - bring your own alcohol</li>
+            <li>Party On Delivery service available</li>
+            <li>Lake Travis scenic locations</li>
+            <li>Photography services included</li>
+            <li>Professional crew and captains</li>
+          </ul>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Service">
+          <h3 itemProp="name">Corporate Events - Austin Team Building on Lake Travis</h3>
+          <p itemProp="description">
+            Premium corporate event experiences on Lake Travis. Perfect for team building, client entertainment, company celebrations, and executive retreats aboard our flagship boats with professional service.
+          </p>
+          <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
+            <meta itemProp="priceCurrency" content="USD" />
+            <span itemProp="price">300</span>
+            <span itemProp="priceSpecification">per hour (4-hour minimum for groups 31-50)</span>
+          </div>
+          <h4>Corporate Event Features:</h4>
+          <ul>
+            <li>Flagship Clever Girl 50-person boat available</li>
+            <li>Professional business atmosphere and service</li>
+            <li>Customizable catering options</li>
+            <li>Team building activities on water</li>
+            <li>Transportation partnerships available</li>
+            <li>Client entertainment packages</li>
+            <li>Executive retreat setting</li>
+            <li>Conference and presentation capabilities</li>
+          </ul>
+        </div>
+        
+        {/* Fleet Details */}
+        <h2>Premier Austin Party Boat Fleet</h2>
+        <div itemScope itemType="https://schema.org/Product">
+          <h3 itemProp="name">Day Tripper - 14 Person Party Boat</h3>
+          <p itemProp="description">
+            Intimate 14-person party boat perfect for small celebrations and private groups on Lake Travis. Features professional captain, premium sound system, coolers with ice, and comfortable seating.
+          </p>
+          <span itemProp="capacity">14 passengers</span>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Product">
+          <h3 itemProp="name">Me Seeks the Irony - 25 Person Party Boat</h3>
+          <p itemProp="description">
+            Popular 25-person party boat (seating for 18-25 guests) ideal for medium-sized celebrations on Lake Travis. Premium amenities, professional crew, and excellent sound system for the perfect Austin party boat experience.
+          </p>
+          <span itemProp="capacity">25 passengers (18-25 seating)</span>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Product">
+          <h3 itemProp="name">Clever Girl - 50 Person Flagship Party Boat</h3>
+          <p itemProp="description">
+            Flagship 50-person party boat (seating for 35-50 guests) featuring giant Texas flag and 14 disco balls. Austin's premiere party boat for large celebrations, corporate events, and unforgettable Lake Travis experiences.
+          </p>
+          <span itemProp="capacity">50 passengers (35-50 seating)</span>
+          <span itemProp="feature">Giant Texas flag, 14 disco balls, premium sound system</span>
+        </div>
+        
+        {/* Pricing Information */}
+        <h2>Austin Party Boat Rental Pricing</h2>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3>Private Charter Hourly Rates</h3>
+          <p>14-person boat: Starting at $262/hour (Monday-Thursday), $314/hour (Friday-Sunday)</p>
+          <p>25-person boat: Starting at $275/hour (Monday-Thursday), $327/hour (Friday-Sunday)</p>
+          <p>50-person boat: Starting at $300/hour (Monday-Thursday), $350/hour (Friday-Sunday)</p>
+          <p>All private charters have a 4-hour minimum. Includes captain, crew, fuel, coolers with ice, sound system, and safety equipment.</p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3>ATX Disco Cruise Packages</h3>
+          <p>Basic Bach Package: $85 per person - 4-hour party cruise with DJ and dance floor</p>
+          <p>Disco Queen Package: $95 per person - Most popular! VIP experience with premium amenities</p>
+          <p>Platinum Package: $105 per person - Ultimate disco experience with all extras</p>
+          <p>Friday and Saturday evening cruises. Includes professional DJ, photographer, party favors, and Lake Travis experience.</p>
+        </div>
+        
+        {/* Keywords and Search Terms */}
+        <h2>Lake Travis Party Boat Services</h2>
+        <p>
+          Austin party boat, Lake Travis boat rental, party boat Austin, Austin bachelorette party, 
+          bachelor party Austin, Lake Travis party cruise, Austin boat rental, party boat Lake Travis, 
+          bachelorette party boat Austin, Austin disco cruise, Lake Travis cruises, corporate events Austin, 
+          team building Lake Travis, Austin boat charter, party boat rental Austin, Lake Travis party boat, 
+          Austin TX party boat, Anderson Mill Marina, Devil's Cove Austin, Lake Travis bachelorette, 
+          Austin bachelor party boat, private boat charter Austin, ATX Disco Cruise, Premier Party Cruises
+        </p>
+        
+        {/* Why Choose Us */}
+        <h2>Why Choose Premier Party Cruises</h2>
+        <ul>
+          <li>15+ Years Experience - Austin's longest-running party cruise company since 2009</li>
+          <li>100,000+ Happy Customers - Over 100,000 guests served with 5-star service</li>
+          <li>Perfect Safety Record - Coast Guard certified captains and pristine safety record</li>
+          <li>Premier Fleet - Four awesome boats with Austin's nicest party boat amenities</li>
+          <li>Professional DJ & Photography - On-board entertainment and memory capture</li>
+          <li>Party On Delivery - Direct-to-boat alcohol delivery service</li>
+          <li>Anderson Mill Marina Location - Convenient Lake Travis access 30 minutes from downtown Austin</li>
+        </ul>
+      </div>
+
+      {/* JSON-LD Structured Data for LocalBusiness and Services */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "LocalBusiness",
+          "@id": "https://premierpartycruises.com",
+          "name": "Premier Party Cruises",
+          "image": "https://premierpartycruises.com/assets/PPC_Logo_LARGE.png",
+          "description": "Austin's premier party boat rental company on Lake Travis since 2009. Specializing in bachelorette parties, bachelor parties, corporate events, and private charters with 100,000+ happy customers.",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "13993 FM2769, Anderson Mill Marina",
+            "addressLocality": "Austin",
+            "addressRegion": "TX",
+            "postalCode": "78641",
+            "addressCountry": "US"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": "30.4515",
+            "longitude": "-97.9267"
+          },
+          "url": "https://premierpartycruises.com",
+          "telephone": "(512) 488-5892",
+          "email": "clientservices@premierpartycruises.com",
+          "priceRange": "$85-$400",
+          "openingHoursSpecification": [
+            {
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+              "opens": "09:00",
+              "closes": "22:00"
+            }
+          ],
+          "areaServed": [
+            {
+              "@type": "City",
+              "name": "Austin"
+            },
+            {
+              "@type": "City", 
+              "name": "Lakeway"
+            },
+            {
+              "@type": "City",
+              "name": "Bee Cave"
+            },
+            {
+              "@type": "City",
+              "name": "Cedar Park"
+            },
+            {
+              "@type": "City",
+              "name": "Leander"
+            }
+          ],
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5",
+            "reviewCount": "100000"
+          },
+          "hasOfferCatalog": {
+            "@type": "OfferCatalog",
+            "name": "Party Boat Services",
+            "itemListElement": [
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Private Charter Boat Rental",
+                  "description": "Exclusive private boat charters on Lake Travis with professional captain, crew, and premium amenities. Fleet includes 14-person, 25-person, and 50-person boats.",
+                  "provider": {
+                    "@type": "LocalBusiness",
+                    "name": "Premier Party Cruises"
+                  },
+                  "areaServed": "Austin, TX"
+                },
+                "price": "262.00",
+                "priceCurrency": "USD",
+                "priceSpecification": {
+                  "@type": "UnitPriceSpecification",
+                  "price": "262.00",
+                  "priceCurrency": "USD",
+                  "unitText": "per hour"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "ATX Disco Cruise - Bachelorette Party",
+                  "description": "Austin's #1 bachelorette party experience with professional DJ, photographer, party favors, and Lake Travis cruise. Three package levels available.",
+                  "provider": {
+                    "@type": "LocalBusiness",
+                    "name": "Premier Party Cruises"
+                  },
+                  "areaServed": "Austin, TX"
+                },
+                "price": "85.00",
+                "priceCurrency": "USD",
+                "priceSpecification": {
+                  "@type": "UnitPriceSpecification",
+                  "price": "85.00",
+                  "priceCurrency": "USD",
+                  "unitText": "per person",
+                  "referenceQuantity": {
+                    "@type": "QuantitativeValue",
+                    "value": "1"
+                  }
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "ATX Disco Cruise - Bachelor Party",
+                  "description": "Epic bachelor party boat cruise on Lake Travis with DJ, photographer, and party atmosphere. Public disco cruise or private charter options.",
+                  "provider": {
+                    "@type": "LocalBusiness",
+                    "name": "Premier Party Cruises"
+                  },
+                  "areaServed": "Austin, TX"
+                },
+                "price": "85.00",
+                "priceCurrency": "USD",
+                "priceSpecification": {
+                  "@type": "UnitPriceSpecification",
+                  "price": "85.00",
+                  "priceCurrency": "USD",
+                  "unitText": "per person"
+                }
+              },
+              {
+                "@type": "Offer",
+                "itemOffered": {
+                  "@type": "Service",
+                  "name": "Corporate Events & Team Building",
+                  "description": "Premium corporate event experiences on Lake Travis with flagship boats, professional service, and customizable catering for team building and client entertainment.",
+                  "provider": {
+                    "@type": "LocalBusiness",
+                    "name": "Premier Party Cruises"
+                  },
+                  "areaServed": "Austin, TX"
+                },
+                "price": "300.00",
+                "priceCurrency": "USD",
+                "priceSpecification": {
+                  "@type": "UnitPriceSpecification",
+                  "price": "300.00",
+                  "priceCurrency": "USD",
+                  "unitText": "per hour"
+                }
+              }
+            ]
+          }
+        })
+      }} />
 
       {/* Footer */}
       <Footer />

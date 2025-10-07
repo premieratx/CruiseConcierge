@@ -928,6 +928,210 @@ export default function ClientEntertainment() {
         </div>
       </section>
 
+      {/* SEO-Optimized Hidden Content for Search Engines */}
+      <div className="sr-only" itemScope itemType="https://schema.org/Service">
+        <h1 itemProp="name">Client Entertainment Corporate Events Austin Lake Travis</h1>
+        <p itemProp="description">
+          Premier Party Cruises specializes in client entertainment on Lake Travis in Austin, Texas. 
+          Impress your most important clients with unforgettable experiences on the water. Our luxury 
+          boat cruises provide the perfect setting for relationship building, deal closing, and client 
+          appreciation. Professional white-glove service, gourmet catering, and stunning Lake Travis 
+          views create lasting positive impressions that strengthen business partnerships.
+        </p>
+        
+        <h2>Client Entertainment Services Austin</h2>
+        <p>
+          VIP client entertainment experiences on Lake Travis including gourmet catering, premium bar service, 
+          professional networking layouts, scenic routes showcasing Austin's beauty, company branding options, 
+          and white-glove service. Create memorable experiences that set you apart from competitors and 
+          strengthen client relationships through unique Lake Travis boat experiences.
+        </p>
+        
+        <h2>Private Cruise Pricing for Corporate Groups</h2>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">14 Guest Client Entertainment Package</h3>
+          <meta itemProp="priceCurrency" content="USD" />
+          <p>Starting at <span itemProp="price">$200</span> per hour for groups up to 14 people</p>
+          <p itemProp="description">Intimate VIP client experiences and executive entertaining</p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">15-25 Guest Client Entertainment Package</h3>
+          <meta itemProp="priceCurrency" content="USD" />
+          <p>Starting at <span itemProp="price">$250</span> per hour for groups of 15-25 people</p>
+          <p itemProp="description">Perfect for client appreciation events and networking</p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">26-30 Guest Client Entertainment Package</h3>
+          <meta itemProp="priceCurrency" content="USD" />
+          <p>Starting at <span itemProp="price">$300</span> per hour for groups of 26-30 people</p>
+          <p itemProp="description">Great for client mixers and business development</p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">31-50 Guest Client Entertainment Package</h3>
+          <meta itemProp="priceCurrency" content="USD" />
+          <p>Starting at <span itemProp="price">$350</span> per hour for groups of 31-50 people</p>
+          <p itemProp="description">Ideal for major client events and industry networking</p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Offer">
+          <h3 itemProp="name">51-75 Guest Client Entertainment Package</h3>
+          <meta itemProp="priceCurrency" content="USD" />
+          <p>Starting at <span itemProp="price">$400</span> per hour for groups of 51-75 people</p>
+          <p itemProp="description">Perfect for large client appreciation events</p>
+        </div>
+        
+        <h2>Client Entertainment Features</h2>
+        <ul>
+          <li>Premium bar service with top-shelf spirits and fine wines</li>
+          <li>Gourmet catering from Austin's best caterers</li>
+          <li>Professional networking layout designed for business conversations</li>
+          <li>Scenic routes showcasing Lake Travis and Austin beauty</li>
+          <li>Custom company branding and signage options</li>
+          <li>White-glove service from professional staff</li>
+          <li>VIP treatment to impress your most important clients</li>
+          <li>Full amenities for comfort and luxury</li>
+          <li>Customizable presentations and announcements</li>
+          <li>Experienced captain and professional crew</li>
+        </ul>
+        
+        <h2>Keywords: Client Entertainment Austin, Corporate Events Lake Travis, Business Boat Cruise</h2>
+        <p>
+          client entertainment Austin, corporate client events Lake Travis, client entertainment boat cruise, 
+          business entertainment Austin, client appreciation Lake Travis, corporate hospitality Austin Texas, 
+          VIP client events boat Austin, business development Lake Travis, corporate party boat Austin, 
+          client networking cruise Austin, Lake Travis corporate entertainment, Austin client events boat, 
+          business relationship building Austin, client appreciation cruise Austin, corporate boat rental Austin
+        </p>
+        
+        <h2>Fleet Options for Client Entertainment</h2>
+        <div itemScope itemType="https://schema.org/Product">
+          <h3 itemProp="name">Day Tripper - 14 Person Boat</h3>
+          <p itemProp="description">
+            Perfect for VIP client entertainment and executive hosting. Intimate luxury setting with premium 
+            amenities, ideal for confidential business discussions and high-level relationship building.
+          </p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Product">
+          <h3 itemProp="name">Me Seeks the Irony - 25 Person Boat</h3>
+          <p itemProp="description">
+            Ideal for client appreciation events. Spacious layout for networking, comfortable seating for 
+            conversations, and perfect size for intimate yet impressive business entertainment.
+          </p>
+        </div>
+        
+        <div itemScope itemType="https://schema.org/Product">
+          <h3 itemProp="name">Clever Girl - 50 Person Boat</h3>
+          <p itemProp="description">
+            Our flagship vessel for major client events. Multiple deck levels for mingling, presentation 
+            areas for announcements, and luxury amenities that demonstrate your commitment to excellence.
+          </p>
+        </div>
+      </div>
+
+      {/* JSON-LD Structured Data */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "serviceType": "Corporate Client Entertainment Events",
+          "provider": {
+            "@type": "LocalBusiness",
+            "name": "Premier Party Cruises",
+            "image": "https://premierpartycruises.com/logo.png",
+            "@id": "https://premierpartycruises.com",
+            "url": "https://premierpartycruises.com",
+            "telephone": "(512) 488-5892",
+            "priceRange": "$200-$400 per hour",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Lake Travis",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "postalCode": "78734",
+              "addressCountry": "US"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 30.3894,
+              "longitude": -97.9322
+            },
+            "openingHoursSpecification": [{
+              "@type": "OpeningHoursSpecification",
+              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+              "opens": "09:00",
+              "closes": "21:00"
+            }],
+            "sameAs": [
+              "https://www.facebook.com/premierpartycruises",
+              "https://www.instagram.com/premierpartycruises"
+            ]
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "Austin",
+            "sameAs": "https://en.wikipedia.org/wiki/Austin,_Texas"
+          },
+          "description": "VIP client entertainment experiences on Lake Travis in Austin, Texas. Luxury boat cruises with gourmet catering, premium service, and white-glove hospitality for groups of 14-75 people.",
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "14 Guest Client Entertainment Package",
+              "price": "200",
+              "priceCurrency": "USD",
+              "description": "VIP client experiences and executive entertaining up to 14 people"
+            },
+            {
+              "@type": "Offer",
+              "name": "15-25 Guest Client Entertainment Package",
+              "price": "250",
+              "priceCurrency": "USD",
+              "description": "Client appreciation and networking for 15-25 people"
+            },
+            {
+              "@type": "Offer",
+              "name": "26-30 Guest Client Entertainment Package",
+              "price": "300",
+              "priceCurrency": "USD",
+              "description": "Client mixers and business development for 26-30 people"
+            },
+            {
+              "@type": "Offer",
+              "name": "31-50 Guest Client Entertainment Package",
+              "price": "350",
+              "priceCurrency": "USD",
+              "description": "Major client events and industry networking for 31-50 people"
+            },
+            {
+              "@type": "Offer",
+              "name": "51-75 Guest Client Entertainment Package",
+              "price": "400",
+              "priceCurrency": "USD",
+              "description": "Large client appreciation events for 51-75 people"
+            }
+          ]
+        })
+      }} />
+
+      {/* FAQ Schema */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": faqItems.map(faq => ({
+            "@type": "Question",
+            "name": faq.question,
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": faq.answer
+            }
+          }))
+        })
+      }} />
+
       <Footer />
     </div>
   );

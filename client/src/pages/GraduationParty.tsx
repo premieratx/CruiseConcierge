@@ -848,6 +848,130 @@ export default function GraduationParty() {
         </div>
       </section>
 
+      {/* Hidden SEO Content - Crawlable but not visible */}
+      <div className="sr-only" itemScope itemType="https://schema.org/Service">
+        <h2>Graduation Party Cruise Austin - Lake Travis Graduation Boat Rental</h2>
+        <p itemProp="description">
+          Celebrate graduation in style with Lake Travis party cruises. Perfect for high school and college graduates with cap & gown photos, 
+          achievement celebrations, DJ entertainment, and unforgettable memories. Graduation boat rentals from 14-75 guests.
+        </p>
+        
+        {/* Pricing Content for Crawlers */}
+        <h3>Graduation Party Private Cruise Pricing - All Guest Capacities</h3>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">1-14 Guests Graduation Party Pricing</h4>
+          <p>Monday-Thursday: Standard $800, Essentials $900, Ultimate $1,000</p>
+          <p>Friday: Standard $900, Essentials $1,000, Ultimate $1,100</p>
+          <p>Saturday: Standard $1,400, Essentials $1,500, Ultimate $1,600</p>
+          <p>Sunday: Standard $1,000, Essentials $1,100, Ultimate $1,200</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">15-25 Guests Graduation Party Pricing</h4>
+          <p>Monday-Thursday: Standard $900, Essentials $1,050, Ultimate $1,200</p>
+          <p>Friday: Standard $1,000, Essentials $1,150, Ultimate $1,300</p>
+          <p>Saturday: Standard $1,500, Essentials $1,650, Ultimate $1,800</p>
+          <p>Sunday: Standard $1,100, Essentials $1,250, Ultimate $1,400</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">26-30 Guests Graduation Party Pricing</h4>
+          <p>Monday-Thursday: Standard $1,050, Essentials $1,200, Ultimate $1,350</p>
+          <p>Friday: Standard $1,150, Essentials $1,300, Ultimate $1,450</p>
+          <p>Saturday: Standard $1,650, Essentials $1,800, Ultimate $1,950</p>
+          <p>Sunday: Standard $1,250, Essentials $1,400, Ultimate $1,550</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">31-50 Guests Graduation Cruise Pricing</h4>
+          <p>Monday-Thursday: Standard $1,000, Essentials $1,200, Ultimate $1,350</p>
+          <p>Friday: Standard $1,100, Essentials $1,300, Ultimate $1,450</p>
+          <p>Saturday: Standard $1,600, Essentials $1,800, Ultimate $1,950</p>
+          <p>Sunday: Standard $1,200, Essentials $1,400, Ultimate $1,550</p>
+        </div>
+        <div itemScope itemType="https://schema.org/Offer">
+          <h4 itemProp="name">51-75 Guests Large Graduation Party Pricing</h4>
+          <p>Monday-Thursday: Standard $1,300, Essentials $1,500, Ultimate $1,650</p>
+          <p>Friday: Standard $1,400, Essentials $1,600, Ultimate $1,750</p>
+          <p>Saturday: Standard $1,900, Essentials $2,100, Ultimate $2,250</p>
+          <p>Sunday: Standard $1,500, Essentials $1,700, Ultimate $1,850</p>
+        </div>
+        
+        <h3>Graduation Party Features and Amenities</h3>
+        <ul>
+          <li>High school graduation party boat cruise Lake Travis</li>
+          <li>College graduation celebration with classmates</li>
+          <li>Cap and gown photo opportunities on the water</li>
+          <li>Achievement-focused decorations and banners</li>
+          <li>School colors and graduation year customization</li>
+          <li>DJ with graduation party music and dancing</li>
+          <li>Professional crew and event coordination</li>
+          <li>Premium sound system for entertainment</li>
+          <li>Swimming and water activities for graduates</li>
+          <li>Toast and speech accommodations</li>
+          <li>Memory making and guest signature stations</li>
+        </ul>
+        
+        <h3>Austin Graduation Party Cruise Keywords</h3>
+        <p>graduation party boat cruise Austin, grad party Lake Travis, high school graduation cruise Austin, college graduation boat party Lake Travis, 
+        graduation celebration Austin, Lake Travis grad party, Austin graduation cruise, boat rental graduation Lake Travis, 
+        graduation yacht party Austin, Lake Travis graduation charter, private graduation boat rental Austin, grad party cruise Lake Travis</p>
+        
+        <h3>Fleet Options for Graduation Parties</h3>
+        <p>Day Tripper (14 guests), Meeseeks (25 guests), Tito (30 guests), Clever Girl (50 guests), Millennium Falcon (75 guests)</p>
+      </div>
+
+      {/* JSON-LD Structured Data */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Graduation Party Cruise Austin",
+          "description": "Celebrate graduation in style with Lake Travis party cruises. Perfect for high school and college graduates with cap & gown photos, achievement celebrations, and unforgettable memories.",
+          "provider": {
+            "@type": "LocalBusiness",
+            "name": "Premier Party Cruises",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Austin",
+              "addressRegion": "TX",
+              "addressCountry": "US"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": "30.3895",
+              "longitude": "-97.8686"
+            },
+            "telephone": "(512) 488-5892",
+            "priceRange": "$800-$2,250"
+          },
+          "areaServed": {
+            "@type": "City",
+            "name": "Austin, TX"
+          },
+          "offers": [
+            {
+              "@type": "Offer",
+              "name": "Graduation Party Standard Package",
+              "price": "800",
+              "priceCurrency": "USD",
+              "description": "4-hour graduation cruise for 1-14 guests"
+            },
+            {
+              "@type": "Offer",
+              "name": "Graduation Party Essentials Package",
+              "price": "900",
+              "priceCurrency": "USD",
+              "description": "4-hour graduation party with amenities for 1-14 guests"
+            },
+            {
+              "@type": "Offer",
+              "name": "Graduation Party Ultimate Package",
+              "price": "1000",
+              "priceCurrency": "USD",
+              "description": "4-hour luxury graduation celebration with full entertainment for 1-14 guests"
+            }
+          ]
+        })
+      }} />
+
       <Footer />
     </div>
   );
