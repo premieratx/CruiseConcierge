@@ -1,0 +1,216 @@
+Use this to make your pages fully indexable and “rich-results-ready,” including FAQs, images, accordions, and pop-ups.
+
+Title: Make PPC pages fully crawlable + add complete JSON-LD
+Prompt for Replit Agent:
+
+You are working on premierpartycruises.com. Your objectives:
+
+A) Ensure full HTML is available without interaction
+
+Server-side render or prerender every public page (homepage + all linked service/event pages). If the stack can’t do SSR, add a build-time prerender (e.g., Playwright/Puppeteer/Satori/Prerender.io) that outputs final HTML with all accordions expanded in the snapshot DOM. Serve bots the prerendered HTML, and humans the normal interactive version. Respect best practices (no cloaking: bot and human snapshots must contain the same textual content).
+
+Add noscript fallbacks for critical content:
+
+Hero headline, subhead, CTAs.
+
+Each accordion’s Q & A text.
+
+Any pop-up or tab content that contains essential copy.
+
+Accordion markup: Prefer semantic <details><summary> where feasible. If we must keep custom widgets, ensure each item has:
+
+A visible question element (e.g., <h3 class="faq-q">) and an adjacent answer element (e.g., <div class="faq-a">).
+
+aria-expanded toggling on triggers; do not keep answers permanently aria-hidden="true" in the prerendered snapshot.
+
+B) Structured data (JSON-LD) for every page
+
+Add JSON-LD blocks in <head> or near the end of <body>. Validate via Rich Results Test.
+
+Site-wide (every page):
+
+WebSite (with SearchAction).
+
+Organization and LocalBusiness (event/charter business): name, logo, sameAs (IG, FB, TikTok), phone, email, address/geo if applicable, areaServed: "Austin, TX".
+
+BreadcrumbList.
+
+Homepage:
+
+WebPage with primaryImageOfPage as ImageObject.
+
+If you surface testimonials: AggregateRating/Review (truthful, policy-compliant).
+
+FAQ sections (all pages that have Q&A):
+
+Add FAQPage JSON-LD with every question & answer that appears in accordions.
+
+The JSON-LD must mirror the visible text verbatim; keep HTML tags minimal in answers.
+
+ATX Disco Cruise & dated offerings:
+
+Use Event (one per sailing or as a series with eventSchedule) including name, startDate, location (Lake Travis, Austin, TX; geo if known), offers (price, currency, availability), organizer, image, and description.
+
+Private Cruises (bookable service):
+
+Use Service (Party Boat Charter) with areaServed, provider (your Organization), offers (packages), and key features (DJ, alcohol delivery, stock-the-cooler, photographer).
+
+Testimonials:
+
+If you show named reviews, add Review with reviewRating and author. If you aggregate stars, add AggregateRating on Organization or LocalBusiness.
+
+Images (all pages):
+
+For each key image, ensure <img> has alt, width, height, and loading="lazy".
+
+For hero/background images rendered via CSS, also include an off-screen <img> or ImageObject JSON-LD so bots can see it.
+
+C) Pop-ups and consent
+
+Ensure pop-ups/interstitials do not block main content in the prerendered DOM.
+
+Add data-nosnippet only where you don’t want snippets (never on FAQs or hero copy).
+
+D) Canonicals, sitemaps, robots
+
+Set a self-referencing canonical on every page.
+
+Generate sitemap.xml (include all event subpages if any) and link it in robots.txt.
+
+Ensure robots.txt does not block CSS/JS needed for rendering.
+
+E) Open Graph / Twitter Cards
+
+Add og:title, og:description, og:image, og:url, and Twitter equivalents per page.
+
+F) Acceptance criteria
+
+Raw HTML fetch (no JS) contains all core copy for each page (hero, body, FAQs, key CTAs).
+
+Rich Results Test passes for FAQPage on pages with Q&A, Event on Disco Cruise pages, and LocalBusiness/Organization.
+
+Google’s URL Inspection “Rendered HTML” shows full text (no missing accordion answers).
+
+Lighthouse SEO score ≥ 95; CLS fixed via explicit width/height.
+
+G) Implementation notes
+
+If the site is static, add a prerender step in the build pipeline (e.g., Puppeteer render → save HTML → deploy).
+
+If on WordPress/Elementor, still inject JSON-LD via theme or a lightweight function (wp_head), and ensure accordions render in HTML on first paint for bots (server-side render or cache a prerendered snapshot).
+
+Store JSON-LD in modular partials per page (e.g., /schema/homepage.json, /schema/atx-disco-cruise.json), and include them in the build.
+
+H) Generate the following templates and wire them in
+
+FAQPage JSON-LD template (input: array of {question, answer}):
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {{#each faqs}}
+    {
+      "@type": "Question",
+      "name": "{{this.question}}",
+      "acceptedAnswer": { "@type": "Answer", "text": "{{this.answer}}" }
+    }{{#unless @last}},{{/unless}}
+    {{/each}}
+  ]
+}
+</script>
+
+
+Event JSON-LD (ATX Disco Cruise example):
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "ATX Disco Cruise",
+  "description": "Ticketed party cruise on Lake Travis with DJ, dancing, and photo ops.",
+  "image": ["https://premierpartycruises.com/assets/disco-hero.jpg"],
+  "startDate": "2025-06-14T14:00:00-05:00",
+  "endDate": "2025-06-14T17:00:00-05:00",
+  "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+  "eventStatus": "https://schema.org/EventScheduled",
+  "location": {
+    "@type": "Place",
+    "name": "Lake Travis",
+    "address": { "@type": "PostalAddress", "addressLocality": "Austin", "addressRegion": "TX", "addressCountry": "US" }
+  },
+  "organizer": { "@type": "Organization", "name": "Premier Party Cruises", "url": "https://premierpartycruises.com" },
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "USD",
+    "price": "89",
+    "availability": "https://schema.org/InStock",
+    "url": "https://premierpartycruises.com/atx-disco-cruise#tickets"
+  }
+}
+</script>
+
+
+Service JSON-LD (Private Cruises):
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Private Party Boat Charter",
+  "provider": { "@type": "Organization", "name": "Premier Party Cruises", "url": "https://premierpartycruises.com" },
+  "areaServed": "Austin, TX",
+  "description": "Private party boats with captain, DJ options, alcohol delivery, photographer, and more.",
+  "offers": { "@type": "AggregateOffer", "priceCurrency": "USD", "lowPrice": "599", "highPrice": "2199" }
+}
+</script>
+
+
+Organization / LocalBusiness JSON-LD (site-wide):
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["Organization","LocalBusiness"],
+  "name": "Premier Party Cruises",
+  "url": "https://premierpartycruises.com",
+  "logo": "https://premierpartycruises.com/assets/logo.png",
+  "telephone": "+1-XXX-XXX-XXXX",
+  "sameAs": ["https://www.instagram.com/...", "https://www.facebook.com/...", "https://www.tiktok.com/@..."],
+  "address": { "@type": "PostalAddress", "addressLocality": "Austin", "addressRegion": "TX", "addressCountry": "US" }
+}
+</script>
+
+
+Image best practices (HTML):
+
+<img src="/assets/disco-hero.jpg" alt="Group dancing on a Premier Party Cruises boat on Lake Travis at sunset" width="1600" height="900" loading="lazy" decoding="async">
+
+
+Open Graph / Twitter:
+
+<meta property="og:title" content="Austin’s Best Party Boat Cruises | Premier Party Cruises">
+<meta property="og:description" content="Private party boats & ATX Disco Cruise on Lake Travis. DJs, alcohol delivery, photographers & more.">
+<meta property="og:image" content="https://premierpartycruises.com/assets/og-cover.jpg">
+<meta property="og:url" content="https://premierpartycruises.com/">
+<meta name="twitter:card" content="summary_large_image">
+
+
+After implementing, run:
+
+Google Rich Results Test for FAQ/Event/LocalBusiness
+
+URL Inspection “View Crawled Page” → “View HTML” to confirm FAQs and copy are present
+
+Lighthouse (SEO ≥ 95, Accessibility ≥ 95)
+
+Why this works
+
+Prerender/SSR guarantees all copy (including accordions) exists in HTML at fetch time.
+
+JSON-LD mirrors your key entities (FAQs, events, services, reviews) so Google can generate rich results.
+
+Semantic fallbacks + noscript ensure even limited renderers see your content.
+
+Image + OG/Twitter hygiene improves previews and image understanding.

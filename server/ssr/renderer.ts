@@ -3,6 +3,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { resolveAsset } from "../utils/viteManifest";
+import { PAGE_CONTENT, PageContent, PageSection } from './pageContent';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -71,6 +72,27 @@ const ORGANIZATION_SCHEMA = {
     "ratingValue": "5.0",
     "bestRating": "5",
     "ratingCount": 420
+  }
+};
+
+// WebSite schema with SearchAction for site-wide search functionality
+const WEBSITE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "@id": "https://premierpartycruises.com/#website",
+  "url": "https://premierpartycruises.com/",
+  "name": "Premier Party Cruises",
+  "description": "Austin's premier party boat cruises and private charters on Lake Travis",
+  "publisher": {
+    "@id": "https://premierpartycruises.com/#organization"
+  },
+  "potentialAction": {
+    "@type": "SearchAction",
+    "target": {
+      "@type": "EntryPoint",
+      "urlTemplate": "https://premierpartycruises.com/search?q={search_term_string}"
+    },
+    "query-input": "required name=search_term_string"
   }
 };
 
@@ -316,6 +338,86 @@ const FAQ_SCHEMA = {
   ]
 };
 
+// FAQPage schema for Bachelor Party page
+const BACHELOR_FAQ_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does a bachelor party boat cost in Austin?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bachelor party boat rentals start at $85 per person for our ATX Disco Cruise packages, or from $195/hour for private charters with a 4-hour minimum. Packages include DJ, photographer, floats, and all amenities."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's included in bachelor party boat packages?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Packages include professional DJ, photographer, giant floats, lily pads, disco dance floor, party supplies, mixers, ice water, restroom facilities, BYOB friendly setup with coolers and ice, and professional crew."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we bring alcohol on the bachelor party boat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! We are BYOB friendly. Bring your own alcohol, and we provide coolers with ice. We also offer alcohol delivery services directly to the boat for your convenience. All guests must be 21+ with valid ID."
+      }
+    }
+  ]
+};
+
+// FAQPage schema for Bachelorette Party page
+const BACHELORETTE_FAQ_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does the bride cruise free on bachelorette party boats?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! The bride cruises FREE on our Disco Queen and Super Sparkle Platinum packages with 16+ paying guests. This is our special thank you for choosing Premier Party Cruises for your bachelorette celebration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What bachelorette party packages do you offer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We offer three bachelorette packages: Basic Bach ($85/person), Disco Queen ($95/person with bride free for 16+), and Super Sparkle Platinum ($105/person with bride free for 16+). All include DJ, photographer, floats, and full amenities."
+      }
+    }
+  ]
+};
+
+// FAQPage schema for Private Cruises page
+const PRIVATE_CRUISES_FAQ_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How much does a private boat rental cost on Lake Travis?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Private boat rentals start at $195 per hour with a 4-hour minimum. Pricing varies by boat size (14-50 guests), day of week, and duration. Contact us for custom quotes for your specific event needs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What boats are available for private charters?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Choose from Day Tripper (14 guests), Me Seeks the Irony (18-25 guests), or flagship Clever Girl (30-50 guests with 14 disco balls and giant Texas flag). All include licensed captains, premium sound, and coolers with ice."
+      }
+    }
+  ]
+};
+
 // Boat Product Schemas for Fleet
 const DAY_TRIPPER_PRODUCT_SCHEMA = {
   "@context": "https://schema.org",
@@ -498,6 +600,58 @@ button {
   transition: all 0.2s;
 }
 `.trim();
+
+/**
+ * Generate complete HTML from PageContent structure
+ * Renders all headings, paragraphs, and lists in semantic HTML
+ */
+function renderPageContent(content: PageContent): string {
+  let html = `
+    <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto; font-family: system-ui, sans-serif;">
+      <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1.5rem; color: #000; line-height: 1.2;">${content.h1}</h1>
+      <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${content.introduction}</p>
+  `;
+  
+  // Render each section
+  content.sections.forEach(section => {
+    html += `
+      <section style="margin-bottom: 2.5rem;">
+        <h2 style="font-size: 2rem; font-weight: 600; margin-bottom: 1rem; color: #000;">${section.heading}</h2>
+    `;
+    
+    // Render paragraphs
+    section.paragraphs.forEach(para => {
+      html += `<p style="font-size: 1rem; line-height: 1.75; color: #4B5563; margin-bottom: 1rem;">${para}</p>\n`;
+    });
+    
+    // Render lists if present
+    if (section.lists) {
+      section.lists.forEach(list => {
+        if (list.title) {
+          html += `<h3 style="font-size: 1.25rem; font-weight: 600; margin-top: 1.5rem; margin-bottom: 0.75rem; color: #111827;">${list.title}</h3>\n`;
+        }
+        html += '<ul style="list-style-type: disc; margin-left: 1.5rem; margin-bottom: 1rem;">\n';
+        list.items.forEach(item => {
+          html += `  <li style="font-size: 1rem; line-height: 1.75; color: #4B5563; margin-bottom: 0.5rem;">${item}</li>\n`;
+        });
+        html += '</ul>\n';
+      });
+    }
+    
+    html += '</section>\n';
+  });
+  
+  html += `
+      <noscript>
+        <p style="background: #FEF2F2; border: 2px solid #DC2626; padding: 1rem; margin-top: 2rem; border-radius: 0.5rem; color: #991B1B; font-weight: 600;">
+          Please enable JavaScript to view the full interactive experience and booking options.
+        </p>
+      </noscript>
+    </div>
+  `;
+  
+  return html;
+}
 
 // Preconnect URLs for external resources to establish early connections
 const PRECONNECT_URLS = [
@@ -911,6 +1065,12 @@ async function renderPage(url: string, req: Request): Promise<string> {
 ${JSON.stringify(ORGANIZATION_SCHEMA, null, 2)}
   </script>`;
     
+    // Add WebSite schema on all pages
+    schemaScripts += `
+  <script type="application/ld+json">
+${JSON.stringify(WEBSITE_SCHEMA, null, 2)}
+  </script>`;
+    
     // Add boat Product schemas for Homepage only (fleet showcase)
     if (pathname === '/') {
       schemaScripts += `
@@ -981,6 +1141,30 @@ ${JSON.stringify(FAQ_SCHEMA, null, 2)}
   </script>`;
     }
     
+    // Add FAQPage schema for Bachelor Party page
+    if (pathname === '/bachelor-party-austin') {
+      schemaScripts += `
+  <script type="application/ld+json">
+${JSON.stringify(BACHELOR_FAQ_SCHEMA, null, 2)}
+  </script>`;
+    }
+
+    // Add FAQPage schema for Bachelorette Party page
+    if (pathname === '/bachelorette-party-austin') {
+      schemaScripts += `
+  <script type="application/ld+json">
+${JSON.stringify(BACHELORETTE_FAQ_SCHEMA, null, 2)}
+  </script>`;
+    }
+
+    // Add FAQPage schema for Private Cruises page
+    if (pathname === '/private-cruises') {
+      schemaScripts += `
+  <script type="application/ld+json">
+${JSON.stringify(PRIVATE_CRUISES_FAQ_SCHEMA, null, 2)}
+  </script>`;
+    }
+    
     // Inject preconnect tags EARLY in head (right after viewport) for optimal performance
     const preconnectTags = generatePreconnectTags();
     template = template.replace(
@@ -1015,9 +1199,16 @@ ${JSON.stringify(FAQ_SCHEMA, null, 2)}
     
     template = template.replace('</head>', headInjection);
     
-    // Inject H1 and visible content into the root div for crawlers and SEO tools
-    // Content is visible in initial HTML, then React hydrates over it
-    const ssrContent = `
+    // Inject full page content for crawlers
+    const pageContent = PAGE_CONTENT[pathname];
+    let ssrContent;
+
+    if (pageContent) {
+      // Render full content from database
+      ssrContent = `<div id="root">${renderPageContent(pageContent)}</div>`;
+    } else {
+      // Fallback to basic H1/description for pages not in database
+      ssrContent = `
       <div id="root">
         <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
           <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
@@ -1027,6 +1218,7 @@ ${JSON.stringify(FAQ_SCHEMA, null, 2)}
           </noscript>
         </div>
       </div>`;
+    }
     
     template = template.replace(
       '<div id="root"></div>',
