@@ -494,110 +494,40 @@ const CLEVER_GIRL_PRODUCT_SCHEMA = {
   }
 };
 
-// Critical CSS for above-the-fold rendering (< 14KB for optimal FCP)
-// Includes: CSS variables, base styles, fonts, navigation, hero layout
+// Critical CSS for above-the-fold rendering (< 5KB for optimal mobile FCP)
+// Only essential styles for hero and navigation
 const CRITICAL_CSS = `
-:root {
-  --background: hsl(0 0% 100%);
-  --foreground: hsl(0 0% 0%);
-  --primary: hsl(208 100% 50%);
-  --primary-foreground: hsl(0 0% 100%);
-  --secondary: hsl(51 100% 50%);
-  --secondary-foreground: hsl(0 0% 0%);
-  --brand-blue: hsl(208 100% 50%);
-  --brand-blue-dark: hsl(208 100% 40%);
-  --brand-yellow: hsl(51 100% 50%);
-  --brand-black: hsl(0 0% 0%);
-  --brand-white: hsl(0 0% 100%);
-  --font-sans: "DM Sans", "Inter", system-ui, sans-serif;
-  --font-heading: "Bebas Neue", "Oswald", system-ui, sans-serif;
+:root{--primary:hsl(208 100% 50%);--secondary:hsl(51 100% 50%);--background:#fff;--foreground:#000}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:"DM Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased;background:#fff;color:#000;line-height:1.5}
+h1,h2,h3{font-family:"Bebas Neue",system-ui,sans-serif;font-weight:700;letter-spacing:0.1em}
+h1{font-size:clamp(1.5rem,4vw,3.5rem);line-height:1.2}
+.relative{position:relative}
+.absolute{position:absolute}
+.inset-0{top:0;right:0;bottom:0;left:0}
+.z-0{z-index:0}
+.z-10{z-index:10}
+.w-full{width:100%}
+.h-full{height:100%}
+.min-h-screen{min-height:100vh}
+.object-cover{object-fit:cover}
+.text-white{color:#fff}
+.text-center{text-align:center}
+.mx-auto{margin-left:auto;margin-right:auto}
+.container{width:100%;max-width:1280px;margin:0 auto;padding:0 1rem}
+.flex{display:flex}
+.items-center{align-items:center}
+.justify-center{justify-content:center}
+.overflow-hidden{overflow:hidden}
+.bg-gradient-to-r{background-image:linear-gradient(to right,var(--tw-gradient-stops))}
+@media(min-width:768px){
+  h1{font-size:clamp(2.5rem,5vw,3.5rem)}
+  .md\\:text-2xl{font-size:1.5rem}
+  .md\\:text-4xl{font-size:2.25rem}
+  .md\\:h-24{height:6rem}
 }
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
-  background: var(--background);
-  color: var(--foreground);
-  line-height: 1.5;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  letter-spacing: 0.25em;
-}
-
-h1 {
-  font-size: clamp(2.5rem, 5vw, 4rem);
-  letter-spacing: 0.3em;
-}
-
-button {
-  font-weight: 700;
-  letter-spacing: 0.1em;
-}
-
-@font-face {
-  font-family: 'DM Sans';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('DM Sans'), local('DMSans-Regular');
-}
-
-@font-face {
-  font-family: 'Bebas Neue';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
-  src: local('Bebas Neue'), local('BebasNeue-Regular');
-}
-
-.nav-container {
-  position: sticky;
-  top: 0;
-  z-index: 50;
-  background: white;
-  border-bottom: 1px solid #e5e7eb;
-}
-
-.hero-section {
-  position: relative;
-  min-height: 70vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.container {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 0 1rem;
-}
-
-.btn-primary {
-  background: var(--brand-blue);
-  color: white;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  padding: 1rem 2rem;
-  transition: all 0.2s;
-}
-
-.btn-secondary {
-  background: var(--brand-yellow);
-  color: black;
-  font-weight: 700;
-  letter-spacing: 0.15em;
-  padding: 1rem 2rem;
-  transition: all 0.2s;
+@media(min-width:1024px){
+  .lg\\:text-6xl{font-size:3.75rem}
 }
 `.trim();
 

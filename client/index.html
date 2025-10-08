@@ -29,11 +29,21 @@
     <link rel="icon" type="image/png" href="/favicon.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     
-    <!-- Preload critical LCP image for faster loading -->
-    <link rel="preload" as="image" href="/assets/bachelor-party-group-guys-ZmRSFQB_.webp" fetchpriority="high" />
-    
+    <!-- Critical resource hints for faster loading -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    
+    <!-- Preload critical LCP images with responsive sizes -->
+    <link rel="preload" as="image" href="/assets/bachelor-party-group-guys-ZmRSFQB_.webp" 
+          imagesrcset="/assets/bachelor-party-group-guys-ZmRSFQB_.webp 1920w"
+          imagesizes="100vw" 
+          fetchpriority="high" type="image/webp" />
+    
+    <!-- Preload critical font files directly for faster text rendering -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/dmsans/v15/rP2Cp2ywxg089UriASitCBimC3YU-CnE6Q.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/bebasneu/v16/JTUSjIg69CK48gW7PXoo9WdhyyTh89ZNpQ.woff2" as="font" type="font/woff2" crossorigin>
+    
     <!-- Load fonts asynchronously to avoid render blocking -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Bebas+Neue&family=Oswald:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Bebas+Neue&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet"></noscript>

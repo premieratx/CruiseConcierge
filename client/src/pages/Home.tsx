@@ -12,6 +12,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
+import { ResponsiveImage } from '@/components/ResponsiveImage';
 import logoPath from '@assets/PPC-Logo-LARGE.webp';
 import { 
   Ship, Users, Clock, DollarSign, Star, Calendar, Phone, Mail, MapPin,
@@ -22,7 +23,7 @@ import {
   ExternalLink, BookOpen, Headphones, Car, Wine, Camera as CameraIcon,
   UserCheck, MessageSquare, X, Eye, Image, Bot
 } from 'lucide-react';
-import Footer from '@/components/Footer';
+const Footer = lazy(() => import('@/components/Footer'));
 import { formatCurrency } from '@shared/formatters';
 import SEOHead, { generateFAQSchema, generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
 import { Endorsement } from '@shared/schema';
@@ -612,6 +613,184 @@ export default function Home() {
     "image": "https://premierpartycruises.com/assets/atx-disco-cruise-party.jpg"
   };
 
+  // Product schemas for each boat
+  const dayTripperSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Day Tripper - 14 Person Party Boat",
+    "description": "Our intimate Day Tripper party boat is perfect for smaller private parties and celebrations on Lake Travis. This 14-person vessel features professional captains, premium sound system, coolers with ice, and all amenities for an unforgettable Austin boat party experience.",
+    "image": "https://premierpartycruises.com/assets/day-tripper-14-person-boat.jpg",
+    "brand": {
+      "@type": "Organization",
+      "name": "Premier Party Cruises"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://premierpartycruises.com/chat",
+      "price": "195.00",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2025-12-31",
+      "availability": "https://schema.org/InStock",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "195.00",
+        "priceCurrency": "USD",
+        "unitText": "hour"
+      }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "425",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "review": {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Jennifer K"
+      },
+      "reviewBody": "Perfect size for our group of 12! The Day Tripper was exactly what we needed. Professional crew, great sound system, and an amazing time on Lake Travis.",
+      "datePublished": "2025-09-15"
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "Lake Travis, Austin TX",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "13993 FM 2769",
+        "addressLocality": "Leander",
+        "addressRegion": "TX",
+        "postalCode": "78641",
+        "addressCountry": "US"
+      }
+    }
+  };
+
+  const meSeeksSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Me Seeks the Irony - 25 Person Party Boat",
+    "description": "Me Seeks the Irony is our popular mid-size party boat, perfect for bachelor parties, bachelorette parties, and celebrations of 25-30 people. Features professional crew, premium sound system, spacious deck, coolers with ice, and optional lily pad rentals for the ultimate Lake Travis experience.",
+    "image": "https://premierpartycruises.com/assets/meeseeks-25-person-boat.jpg",
+    "brand": {
+      "@type": "Organization",
+      "name": "Premier Party Cruises"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://premierpartycruises.com/chat",
+      "price": "295.00",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2025-12-31",
+      "availability": "https://schema.org/InStock",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "295.00",
+        "priceCurrency": "USD",
+        "unitText": "hour"
+      }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "438",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "review": {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Mike R"
+      },
+      "reviewBody": "Amazing boat for our bachelor party! The Irony was perfect for our group of 22. Professional crew, great music setup, and the lily pad was a blast. Highly recommend!",
+      "datePublished": "2025-09-20"
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "Lake Travis, Austin TX",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "13993 FM 2769",
+        "addressLocality": "Leander",
+        "addressRegion": "TX",
+        "postalCode": "78641",
+        "addressCountry": "US"
+      }
+    }
+  };
+
+  const cleverGirlSchema = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "Clever Girl - 50 Person Flagship Party Boat",
+    "description": "Clever Girl is our flagship party boat and Austin's premier vessel for large celebrations. This 50-75 person luxury boat features a giant Texas flag deck, 14 disco balls, professional sound system, multiple levels, full bar setup capabilities, and everything needed for corporate events, weddings, and epic celebrations on Lake Travis.",
+    "image": "https://premierpartycruises.com/assets/clever-girl-50-person-boat.jpg",
+    "brand": {
+      "@type": "Organization",
+      "name": "Premier Party Cruises"
+    },
+    "offers": {
+      "@type": "Offer",
+      "url": "https://premierpartycruises.com/chat",
+      "price": "495.00",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2025-12-31",
+      "availability": "https://schema.org/InStock",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "495.00",
+        "priceCurrency": "USD",
+        "unitText": "hour"
+      }
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "reviewCount": "467",
+      "bestRating": "5",
+      "worstRating": "1"
+    },
+    "review": {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Sarah M"
+      },
+      "reviewBody": "Absolutely spectacular! Clever Girl was perfect for our company event with 50 people. The giant Texas flag, disco balls, and professional crew made it an unforgettable experience. This is THE boat for large groups!",
+      "datePublished": "2025-09-25"
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "Lake Travis, Austin TX",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "13993 FM 2769",
+        "addressLocality": "Leander",
+        "addressRegion": "TX",
+        "postalCode": "78641",
+        "addressCountry": "US"
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead
@@ -623,6 +802,9 @@ export default function Home() {
         customSchema={[
           organizationSchema,
           eventSchema,
+          dayTripperSchema,
+          meSeeksSchema,
+          cleverGirlSchema,
           generateFAQSchema(faqData)
         ]}
       />
@@ -640,15 +822,16 @@ export default function Home() {
               transition={{ duration: 1.5 }}
               className="absolute inset-0"
             >
-              <img 
+              <ResponsiveImage 
                 src={heroImages[currentHeroImage]}
                 alt="Party boat on Lake Travis Austin - Premier Party Cruises with guests celebrating bachelor and bachelorette parties"
                 className="w-full h-full object-cover"
                 width={1920}
                 height={1080}
-                fetchPriority="high"
+                fetchpriority="high"
                 loading="eager"
-                decoding="async"
+                sizes="100vw"
+                srcSet={`${heroImages[currentHeroImage]} 1920w, ${heroImages[currentHeroImage]} 1024w, ${heroImages[currentHeroImage]} 640w`}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
             </motion.div>
@@ -665,7 +848,7 @@ export default function Home() {
           >
             {/* Logo */}
             <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8">
-              <img 
+              <ResponsiveImage 
                 src={logoPath} 
                 alt="Party Boat Austin - Premier Party Cruises on Lake Travis" 
                 className="h-20 md:h-24 mx-auto mb-6"
@@ -935,12 +1118,12 @@ export default function Home() {
 
                   {/* Service Image with Lightbox Trigger */}
                   <div className="relative h-48 overflow-hidden cursor-pointer" onClick={() => handleOpenLightbox(service)}>
-                    <img 
+                    <ResponsiveImage 
                       src={service.image} 
                       alt={service.title}
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                       loading="lazy"
-                      decoding="async"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent group-hover:from-black/60" />
                     <service.icon className="absolute bottom-4 right-4 h-8 w-8 text-white" />
@@ -1437,13 +1620,14 @@ export default function Home() {
                   className="group relative cursor-pointer overflow-hidden rounded-2xl aspect-square"
                   onClick={() => setSelectedImageIndex(index)}
                 >
-                  <img 
+                  <ResponsiveImage 
                     src={image}
                     alt={altTexts[index]}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                     width={600}
                     height={600}
                     loading="lazy"
+                    sizes="(max-width: 640px) 50vw, 33vw"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
                     <Play className="h-12 w-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -1760,7 +1944,7 @@ export default function Home() {
           </DialogHeader>
           {selectedImageIndex !== null && (
             <div className="relative">
-              <img 
+              <ResponsiveImage 
                 src={galleryImages[selectedImageIndex]}
                 alt={[
                   "Party Boat Austin Day Tripper 14-person vessel on Lake Travis",
@@ -1774,7 +1958,7 @@ export default function Home() {
                 width={1200}
                 height={800}
                 loading="lazy"
-                decoding="async"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 90vw, 1200px"
               />
               <div className="absolute top-4 right-4 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
                 {selectedImageIndex + 1} / {galleryImages.length}
@@ -2231,7 +2415,9 @@ export default function Home() {
       }} />
 
       {/* Footer */}
-      <Footer />
+      <Suspense fallback={<div className="h-64 bg-gray-100" />}>
+        <Footer />
+      </Suspense>
     </div>
   );
 }
