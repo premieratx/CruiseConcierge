@@ -1,3 +1,4 @@
+import React from 'react';
 import { motion } from 'framer-motion';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 import { Ship, Star, CheckCircle, Clock } from 'lucide-react';
@@ -22,10 +23,21 @@ const fadeInUp = {
 };
 
 export default function Chat({ defaultEventType }: ChatProps = {}) {
+  // Ensure page loads at top and prevent any scrolling
+  React.useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+    // Lock body scroll when this component mounts
+    document.body.style.overflow = 'hidden';
+    return () => {
+      // Restore scroll when component unmounts
+      document.body.style.overflow = '';
+    };
+  }, []);
+
   return (
-    <div className="flex flex-col min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
+    <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 overflow-hidden">
       {/* Main Content Area */}
-      <div className="flex-1 flex items-start justify-center pt-4 pb-4">
+      <div className="h-full flex flex-col items-center justify-start pt-4 pb-4 overflow-y-auto">
         <div className="w-full max-w-6xl">
           <motion.div
             key="intro"
@@ -106,20 +118,23 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.5 }}
-              className="w-full"
+              className="w-full mb-8"
             >
-              <div className="w-full max-w-6xl mx-auto">
+              <div className="w-full max-w-6xl mx-auto overflow-hidden rounded-xl shadow-2xl">
                 <iframe 
                   src="https://ppc-quote-builder.lovable.app/"
                   title="Premier Party Cruises Quote Builder"
-                  className="w-full rounded-xl shadow-2xl"
+                  className="w-full"
                   style={{ 
                     minHeight: '800px',
                     height: '80vh',
-                    border: 'none'
+                    maxHeight: '900px',
+                    border: 'none',
+                    display: 'block'
                   }}
                   allow="payment; geolocation"
                   allowFullScreen
+                  scrolling="no"
                 />
               </div>
             </motion.div>
