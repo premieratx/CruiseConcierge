@@ -1204,30 +1204,73 @@ ${JSON.stringify(PRIVATE_CRUISES_FAQ_SCHEMA, null, 2)}
     let ssrContent;
 
     if (pageContent) {
-      // Render full content from database - hidden when React loads via noscript + CSS
+      // Render full content - ALWAYS visible for SEO crawlers
       ssrContent = `
       <style>
-        /* Show SSR content by default (for crawlers without JS) */
-        #ssr-fallback { display: block; }
-        /* Hide SSR content when JavaScript loads (for users with React) */
-        #ssr-fallback.hidden { display: none !important; }
-        /* Ensure React root takes full height */
-        #root { min-height: 100vh; }
+        /* SSR content for SEO - positioned off-screen but still crawlable */
+        #ssr-fallback { 
+          position: absolute;
+          left: -9999px;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          /* Keep content readable for screen readers and crawlers */
+        }
+        /* Ensure React root takes full viewport */
+        #root { 
+          min-height: 100vh;
+          position: relative;
+          z-index: 1;
+        }
+        /* For users without JavaScript, show the SSR content normally */
       </style>
+      <noscript>
+        <style>
+          #ssr-fallback { 
+            position: static !important;
+            left: auto !important;
+            width: auto !important;
+            height: auto !important;
+            overflow: visible !important;
+          }
+          #root { display: none !important; }
+        </style>
+      </noscript>
       <div id="root"></div>
-      <div id="ssr-fallback">${renderPageContent(pageContent)}</div>
-      <noscript><style>#ssr-fallback { display: block !important; }</style></noscript>`;
+      <div id="ssr-fallback">${renderPageContent(pageContent)}</div>`;
     } else {
       // Fallback to basic H1/description for pages not in database
       ssrContent = `
       <style>
-        /* Show SSR content by default (for crawlers without JS) */
-        #ssr-fallback { display: block; }
-        /* Hide SSR content when JavaScript loads */
-        #ssr-fallback.hidden { display: none !important; }
-        /* Ensure React root takes full height */
-        #root { min-height: 100vh; }
+        /* SSR content for SEO - positioned off-screen but still crawlable */
+        #ssr-fallback { 
+          position: absolute;
+          left: -9999px;
+          width: 1px;
+          height: 1px;
+          overflow: hidden;
+          /* Keep content readable for screen readers and crawlers */
+        }
+        /* Ensure React root takes full viewport */
+        #root { 
+          min-height: 100vh;
+          position: relative;
+          z-index: 1;
+        }
+        /* For users without JavaScript, show the SSR content normally */
       </style>
+      <noscript>
+        <style>
+          #ssr-fallback { 
+            position: static !important;
+            left: auto !important;
+            width: auto !important;
+            height: auto !important;
+            overflow: visible !important;
+          }
+          #root { display: none !important; }
+        </style>
+      </noscript>
       <div id="root"></div>
       <div id="ssr-fallback">
         <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
@@ -1237,8 +1280,7 @@ ${JSON.stringify(PRIVATE_CRUISES_FAQ_SCHEMA, null, 2)}
             <p style="color: #DC2626; font-weight: 600;">Please enable JavaScript to view the full interactive experience.</p>
           </noscript>
         </div>
-      </div>
-      <noscript><style>#ssr-fallback { display: block !important; }</style></noscript>`;
+      </div>`;
     }
     
     template = template.replace(

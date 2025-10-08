@@ -2,10 +2,8 @@ import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
 
-// Hide SSR fallback content when React loads
-const ssrFallback = document.getElementById("ssr-fallback");
-if (ssrFallback) {
-  ssrFallback.classList.add("hidden");
-}
+// DO NOT hide SSR content - let it remain visible for SEO crawlers
+// React app renders in #root div, SSR content in #ssr-fallback div
+// Both can coexist without issues
 
 createRoot(document.getElementById("root")!).render(<App />);
