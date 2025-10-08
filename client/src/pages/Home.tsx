@@ -29,6 +29,7 @@ import { Endorsement } from '@shared/schema';
 import { DiscoVsPrivateComparison, QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
+import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import { 
   calculatePackagePricing, 
   getCapacityTier, 
@@ -55,7 +56,7 @@ import galleryImage1 from '@assets/day-tripper-14-person-boat.webp';
 import galleryImage2 from '@assets/meeseeks-25-person-boat.webp';
 import galleryImage3 from '@assets/clever-girl-50-person-boat.webp';
 
-// Animation variants
+// Animation variants - Optimized to prevent layout thrashing
 const fadeInUp = {
   hidden: { opacity: 0, y: 40 },
   visible: { 
@@ -80,6 +81,26 @@ const scaleIn = {
     scale: 1,
     transition: { duration: 0.5, ease: "easeOut" }
   }
+};
+
+// Performance-optimized: No animations (used when reducedMotion is true)
+const noAnimation = {
+  hidden: { opacity: 1 },
+  visible: { opacity: 1 }
+};
+
+// Helper function to get optimized animation props
+const getAnimationProps = (reducedMotion: boolean, variants: any) => {
+  if (reducedMotion) {
+    return {
+      initial: undefined,
+      animate: undefined,
+      variants: undefined,
+      whileInView: undefined,
+      viewport: undefined
+    };
+  }
+  return { variants };
 };
 
 // Content data
@@ -279,6 +300,7 @@ const capacityPricingExamples = [
 export default function Home() {
   const [, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
+  const reducedMotion = useReducedMotion();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
   const [showLightbox, setShowLightbox] = useState(false);
@@ -562,13 +584,13 @@ export default function Home() {
         {/* Hero Content */}
         <div className="relative z-10 container mx-auto px-6 text-white">
           <motion.div
-            initial="hidden"
-            animate="visible"
-            variants={staggerChildren}
+            initial={reducedMotion ? false : "hidden"}
+            animate={reducedMotion ? false : "visible"}
+            variants={reducedMotion ? undefined : staggerChildren}
             className="max-w-5xl mx-auto text-center"
           >
             {/* Logo */}
-            <motion.div variants={fadeInUp} className="mb-8">
+            <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8">
               <img 
                 src={logoPath} 
                 alt="Party Boat Austin - Premier Party Cruises on Lake Travis" 
@@ -580,7 +602,7 @@ export default function Home() {
             </motion.div>
 
             {/* Main Headline */}
-            <motion.div variants={fadeInUp} className="mb-8">
+            <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8">
               <h1 className="text-2xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 leading-tight tracking-wider" data-editable data-editable-id="hero-title">
                 Austin's Premier Party Boat Experience on Lake Travis
               </h1>
@@ -588,7 +610,7 @@ export default function Home() {
 
             {/* Subheadline with Pricing Value Proposition */}
             <motion.p 
-              variants={fadeInUp}
+              variants={reducedMotion ? undefined : fadeInUp}
               className="text-xl md:text-2xl mb-8 text-gray-100 max-w-4xl mx-auto leading-relaxed font-light"
               data-editable data-editable-id="hero-description"
             >
@@ -598,7 +620,7 @@ export default function Home() {
 
             {/* Pricing Value Proposition */}
             <motion.div 
-              variants={fadeInUp}
+              variants={reducedMotion ? undefined : fadeInUp}
               className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 max-w-3xl mx-auto mb-12 border border-white/20"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
@@ -624,7 +646,7 @@ export default function Home() {
 
             {/* Key Features with Pricing */}
             <motion.div 
-              variants={fadeInUp}
+              variants={reducedMotion ? undefined : fadeInUp}
               className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12 max-w-5xl mx-auto"
             >
               <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
@@ -647,7 +669,7 @@ export default function Home() {
 
             {/* CTA Buttons */}
             <motion.div 
-              variants={fadeInUp}
+              variants={reducedMotion ? undefined : fadeInUp}
               className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-12"
             >
               <Button
@@ -678,9 +700,9 @@ export default function Home() {
         {/* Scroll Indicator */}
         <motion.div 
           className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 2, duration: 1 }}
+          initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+          animate={reducedMotion ? false : { opacity: 1, y: 0 }}
+          transition={reducedMotion ? undefined : { delay: 2, duration: 1 }}
         >
           <div className="flex flex-col items-center cursor-pointer" onClick={() => scrollToSection('services')}>
             <span className="text-sm mb-3 font-medium tracking-wide" data-editable data-editable-id="scroll-indicator-text">DISCOVER MORE</span>
@@ -1427,13 +1449,13 @@ export default function Home() {
       <section className="py-24 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-6">
           <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerChildren}
+            initial={reducedMotion ? false : "hidden"}
+            whileInView={reducedMotion ? undefined : "visible"}
+            viewport={reducedMotion ? undefined : { once: true, margin: "-100px" }}
+            variants={reducedMotion ? undefined : staggerChildren}
             className="text-center mb-16"
           >
-            <motion.div variants={fadeInUp}>
+            <motion.div variants={reducedMotion ? undefined : fadeInUp}>
               <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="contact-main-title">
                 READY TO
               </h2>
@@ -1449,10 +1471,10 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
             {/* Contact Form */}
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
-              variants={fadeInUp}
+              initial={reducedMotion ? false : "hidden"}
+              whileInView={reducedMotion ? undefined : "visible"}
+              viewport={reducedMotion ? undefined : { once: true, margin: "-50px" }}
+              variants={reducedMotion ? undefined : fadeInUp}
             >
               <Card className="border-2 border-gray-200 dark:border-gray-700 shadow-xl">
                 <CardHeader>
@@ -1584,10 +1606,10 @@ export default function Home() {
 
             {/* Contact Info & Quick Actions */}
             <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true, margin: "-50px" }}
-              variants={fadeInUp}
+              initial={reducedMotion ? false : "hidden"}
+              whileInView={reducedMotion ? undefined : "visible"}
+              viewport={reducedMotion ? undefined : { once: true, margin: "-50px" }}
+              variants={reducedMotion ? undefined : fadeInUp}
               className="space-y-8"
             >
               {/* Quick Book Button */}

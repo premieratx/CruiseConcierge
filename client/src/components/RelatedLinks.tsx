@@ -2,6 +2,7 @@ import { Link } from 'wouter';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ExternalLink, FileText, Shield, Image, BookOpen } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useReducedMotion } from '@/hooks/use-reduced-motion';
 
 interface BlogLink {
   title: string;
@@ -49,14 +50,16 @@ const standardLinks = [
 ];
 
 export default function RelatedLinks({ blogLinks = [] }: RelatedLinksProps) {
+  const reducedMotion = useReducedMotion();
+  
   return (
     <section className="py-16 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
       <div className="container mx-auto px-6">
         <motion.div
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
+          initial={reducedMotion ? false : "hidden"}
+          whileInView={reducedMotion ? undefined : "visible"}
+          viewport={reducedMotion ? undefined : { once: true }}
+          variants={reducedMotion ? undefined : fadeInUp}
           className="max-w-6xl mx-auto"
         >
           <h2 className="text-3xl md:text-4xl font-bold font-heading text-center mb-3">
@@ -70,10 +73,10 @@ export default function RelatedLinks({ blogLinks = [] }: RelatedLinksProps) {
             {standardLinks.map((link, index) => (
               <motion.div
                 key={link.href}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
+                initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+                whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={reducedMotion ? undefined : { once: true }}
+                transition={reducedMotion ? undefined : { delay: index * 0.1 }}
               >
                 <Link href={link.href}>
                   <a className="block h-full group" data-testid={`link-related-${link.title.toLowerCase().replace(/[^a-z]+/g, '-')}`}>
@@ -102,10 +105,10 @@ export default function RelatedLinks({ blogLinks = [] }: RelatedLinksProps) {
 
           {blogLinks.length > 0 && (
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.4 }}
+              initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+              whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+              viewport={reducedMotion ? undefined : { once: true }}
+              transition={reducedMotion ? undefined : { delay: 0.4 }}
             >
               <h3 className="text-2xl font-bold font-heading mb-6 text-center">
                 Helpful Articles

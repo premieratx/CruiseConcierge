@@ -12,6 +12,7 @@ import { cn } from '@/lib/utils';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead, { generateFAQSchema, generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
+import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import { DISCO_PRICING } from '@shared/constants';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import DiscoVsPrivateValueCalculator from '@/components/DiscoVsPrivateValueCalculator';
@@ -336,6 +337,7 @@ const galleryPhotos = [
 export default function BacheloretteParty() {
   const [, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
+  const reducedMotion = useReducedMotion();
   const { toast } = useToast();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const [activeTab, setActiveTab] = useState('overview');
@@ -617,10 +619,10 @@ export default function BacheloretteParty() {
       <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
         <div className="container mx-auto px-6">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
+            initial={reducedMotion ? false : "hidden"}
+            whileInView={reducedMotion ? undefined : "visible"}
+            viewport={reducedMotion ? undefined : { once: true }}
+            variants={reducedMotion ? undefined : fadeInUp}
             className="text-center"
           >
             <h2 
@@ -705,10 +707,10 @@ export default function BacheloretteParty() {
       <section className="py-8 bg-gradient-to-r from-blue-600 to-purple-600">
         <div className="container mx-auto px-6">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+            whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+            viewport={reducedMotion ? undefined : { once: true }}
+            transition={reducedMotion ? undefined : { duration: 0.6 }}
             className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 border border-white/20"
           >
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
@@ -1482,10 +1484,10 @@ export default function BacheloretteParty() {
       <section className="py-20 bg-gradient-to-br from-purple-900 via-pink-900 to-orange-900 text-white">
         <div className="container mx-auto px-6">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
+            initial={reducedMotion ? false : "hidden"}
+            whileInView={reducedMotion ? undefined : "visible"}
+            viewport={reducedMotion ? undefined : { once: true }}
+            variants={reducedMotion ? undefined : fadeInUp}
             className="text-center mb-16"
           >
             <Badge className="mb-6 bg-pink-400 text-white text-xl px-8 py-3 font-bold">
@@ -1503,10 +1505,10 @@ export default function BacheloretteParty() {
           </motion.div>
 
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerChildren}
+            initial={reducedMotion ? false : "hidden"}
+            whileInView={reducedMotion ? undefined : "visible"}
+            viewport={reducedMotion ? undefined : { once: true }}
+            variants={reducedMotion ? undefined : staggerChildren}
             className="max-w-7xl mx-auto"
           >
             <Accordion type="multiple" className="space-y-4">
@@ -1867,10 +1869,10 @@ export default function BacheloretteParty() {
       <section className="py-20 bg-gradient-to-br from-yellow-400 via-orange-400 to-pink-400">
         <div className="container mx-auto px-6">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
+            initial={reducedMotion ? false : "hidden"}
+            whileInView={reducedMotion ? undefined : "visible"}
+            viewport={reducedMotion ? undefined : { once: true }}
+            variants={reducedMotion ? undefined : fadeInUp}
             className="max-w-5xl mx-auto"
           >
             <Card className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-2xl border-4 border-white">
@@ -1987,10 +1989,10 @@ export default function BacheloretteParty() {
       <section className="py-20 bg-gradient-to-br from-pink-600 via-purple-700 to-pink-800">
         <div className="container mx-auto px-6">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
+            initial={reducedMotion ? false : "hidden"}
+            whileInView={reducedMotion ? undefined : "visible"}
+            viewport={reducedMotion ? undefined : { once: true }}
+            variants={reducedMotion ? undefined : fadeInUp}
             className="text-center mb-16"
           >
             <h2 
@@ -2005,10 +2007,10 @@ export default function BacheloretteParty() {
           </motion.div>
 
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={staggerChildren}
+            initial={reducedMotion ? false : "hidden"}
+            whileInView={reducedMotion ? undefined : "visible"}
+            viewport={reducedMotion ? undefined : { once: true }}
+            variants={reducedMotion ? undefined : staggerChildren}
             className="grid md:grid-cols-2 gap-8 max-w-7xl mx-auto"
           >
             {/* Reason 1 */}
@@ -2253,10 +2255,10 @@ export default function BacheloretteParty() {
           </motion.div>
 
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
+            initial={reducedMotion ? false : "hidden"}
+            whileInView={reducedMotion ? undefined : "visible"}
+            viewport={reducedMotion ? undefined : { once: true }}
+            variants={reducedMotion ? undefined : fadeInUp}
             className="text-center mt-12"
           >
             <Button
@@ -2276,10 +2278,10 @@ export default function BacheloretteParty() {
       <section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
         <div className="container mx-auto px-6">
           <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
+            initial={reducedMotion ? false : "hidden"}
+            whileInView={reducedMotion ? undefined : "visible"}
+            viewport={reducedMotion ? undefined : { once: true }}
+            variants={reducedMotion ? undefined : fadeInUp}
             className="text-center mb-12"
           >
             <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold font-heading mb-4">

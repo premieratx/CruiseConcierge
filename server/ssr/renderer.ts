@@ -137,6 +137,14 @@ const FAQ_SCHEMA = {
   ]
 };
 
+// Preconnect URLs for external resources to establish early connections
+const PRECONNECT_URLS = [
+  'https://fonts.googleapis.com',
+  'https://fonts.gstatic.com',
+  'https://www.googletagmanager.com',
+  'https://www.google-analytics.com'
+];
+
 // Hero images map for LCP optimization via preload tags
 // Maps route pathname to hero image path (production fingerprinting handled via manifest)
 const HERO_IMAGES: Record<string, string> = {
@@ -189,6 +197,18 @@ function generateHeroPreloadTags(pathname: string): string {
   
   // Generate preload tag with high fetch priority for LCP optimization
   return `<link rel="preload" as="image" href="${hashedPath}" fetchpriority="high" />`;
+}
+
+/**
+ * Generate preconnect and dns-prefetch tags for external domains
+ * Establishes early connections to external resources for improved performance
+ * @returns HTML preconnect and dns-prefetch link tags
+ */
+function generatePreconnectTags(): string {
+  return PRECONNECT_URLS.map(url => `
+    <link rel="dns-prefetch" href="${url}" />
+    <link rel="preconnect" href="${url}" crossorigin />`
+  ).join('');
 }
 
 // Generate BreadcrumbList schema for interior pages
@@ -531,7 +551,14 @@ ${JSON.stringify(FAQ_SCHEMA, null, 2)}
   </script>`;
     }
     
-    // Inject canonical tag and schemas
+    // Inject preconnect tags EARLY in head (right after viewport) for optimal performance
+    const preconnectTags = generatePreconnectTags();
+    template = template.replace(
+      '<meta name="viewport" content="width=device-width, initial-scale=1.0" />',
+      `<meta name="viewport" content="width=device-width, initial-scale=1.0" />${preconnectTags}`
+    );
+    
+    // Inject canonical tag and schemas at end of head
     // Derive canonical URL from request host/protocol instead of hard-coding
     const protocol = req.secure ? 'https' : 'http';
     const host = req.get('host') || 'premierpartycruises.com';

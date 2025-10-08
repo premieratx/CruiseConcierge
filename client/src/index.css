@@ -658,3 +658,111 @@
 .animate-bounce-horizontal {
   animation: bounce-horizontal 1.5s ease-in-out infinite;
 }
+
+/* ============================================
+   PERFORMANCE OPTIMIZATIONS
+   Fix forced reflows and layout thrashing
+   ============================================ */
+
+/* Optimize Framer Motion animations */
+.motion-optimize {
+  will-change: transform, opacity;
+  transform: translateZ(0); /* Force GPU acceleration */
+  backface-visibility: hidden;
+}
+
+/* Cards that animate in */
+.card-animate {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+
+/* Buttons and interactive elements */
+button, 
+.button,
+[role="button"] {
+  will-change: transform;
+  transform: translateZ(0);
+}
+
+/* Hero sections and large animated containers */
+.hero-animate,
+.section-animate {
+  will-change: transform, opacity;
+  contain: layout; /* Limit layout recalculations */
+}
+
+/* Carousel and slider optimizations */
+.carousel-item,
+.slider-item {
+  will-change: transform;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+/* Remove will-change after animations complete */
+.animation-complete {
+  will-change: auto;
+}
+
+/* Mobile-specific optimizations - disable heavy animations */
+@media (max-width: 767px) {
+  /* Reduce motion on mobile by default */
+  .motion-reduce-mobile * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  
+  /* Disable will-change on mobile to reduce memory usage */
+  .motion-optimize,
+  .card-animate,
+  .hero-animate,
+  .section-animate {
+    will-change: auto;
+  }
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  
+  /* Disable all will-change when reduced motion is preferred */
+  .motion-optimize,
+  .card-animate,
+  .hero-animate,
+  .section-animate,
+  .carousel-item,
+  .slider-item {
+    will-change: auto;
+  }
+}
+
+/* GPU acceleration for transforms */
+.gpu-accelerate {
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  perspective: 1000px;
+}
+
+/* Contain paint to prevent unnecessary repaints */
+.contain-paint {
+  contain: paint;
+}
+
+/* Contain layout to prevent layout thrashing */
+.contain-layout {
+  contain: layout;
+}
+
+/* Full containment for isolated components */
+.contain-strict {
+  contain: strict;
+}

@@ -10,12 +10,15 @@ import { lazy, Suspense, useEffect } from "react";
 import { AuthProvider } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/lib/protected-route";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
-// Critical routes - regular imports for instant loading
-import Home from "./pages/Home";
-import AuthPage from "./pages/AuthPage";
-import NotFound from "@/pages/not-found";
 
-// Lazy-loaded routes for code splitting
+// Home eagerly loaded for optimal LCP performance
+import Home from "./pages/Home";
+
+// All other routes lazy-loaded for optimal code splitting
+const AuthPage = lazy(() => import("./pages/AuthPage"));
+const NotFound = lazy(() => import("@/pages/not-found"));
+
+// Additional lazy-loaded routes
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Chat = lazy(() => import("./pages/Chat"));
 const QuoteBuilderEmbed = lazy(() => import("./pages/QuoteBuilderEmbed"));

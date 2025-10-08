@@ -14,6 +14,9 @@ const app = express();
 // Configure trust proxy for correct IP detection behind reverse proxy/CDN
 app.set('trust proxy', true);
 
+// Enable strong ETags for smart caching
+app.set('etag', 'strong');
+
 // Enable gzip compression for all responses
 app.use(compression({
   filter: (req, res) => {
@@ -285,6 +288,38 @@ Crawl-delay: 1`;
 
   app.get(['/bachelorette-party-austin-draft', '/bachelorette-party-austin-draft/'], (req, res) => {
     res.status(410).send('This page has been removed');
+  });
+  
+  // Static asset caching middleware - MUST be before SSR and static file serving
+  app.use((req, res, next) => {
+    const path = req.path;
+    
+    // Cache static assets aggressively (hashed files are immutable)
+    if (path.match(/\.(js|css|png|jpg|jpeg|gif|webp|avif|svg|woff|woff2|ttf|eot|ico|json)$/)) {
+      // Check if file has hash (e.g., index-abc123.js)
+      const hasHash = path.match(/-[a-zA-Z0-9]{8,}\.(js|css|png|jpg|jpeg|gif|webp|avif|svg|woff|woff2)$/);
+      
+      if (hasHash) {
+        // Immutable hashed assets - cache for 1 year
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+      } else {
+        // Non-hashed assets - cache for 1 week
+        res.setHeader('Cache-Control', 'public, max-age=604800');
+      }
+      
+      // Font caching - ensure CORS for fonts
+      if (path.match(/\.(woff|woff2|ttf|eot|otf)$/)) {
+        res.setHeader('Access-Control-Allow-Origin', '*');
+      }
+      
+      // Add Vary header for compression
+      res.setHeader('Vary', 'Accept-Encoding');
+    } else if (!path.startsWith('/api') && !path.startsWith('/embed')) {
+      // HTML and dynamic content - no cache but allow revalidation
+      res.setHeader('Cache-Control', 'public, max-age=0, must-revalidate');
+    }
+    
+    next();
   });
   
   // SSR middleware for SEO - must come BEFORE Vite middleware
