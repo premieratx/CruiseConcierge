@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
+import { ClientOnly } from '@/components/ClientOnly';
 import Footer from '@/components/Footer';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import Chat from '@/pages/Chat';
@@ -294,7 +295,7 @@ export default function BirthdayParties() {
         ]}
         schemaType="service"
       />
-      <PublicNavigation />
+      <ClientOnly><PublicNavigation /></ClientOnly>
       
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">

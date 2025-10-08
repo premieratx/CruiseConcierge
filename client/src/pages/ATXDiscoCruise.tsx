@@ -379,7 +379,7 @@ export default function ATXDiscoCruise() {
 
           <div className="relative z-20 max-w-6xl mx-auto px-4 text-center flex-grow flex items-center">
             <motion.div variants={fadeInUp}>
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6" data-testid="text-hero-headline">
+              <h1 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6" data-testid="text-hero-headline">
                 ATX Disco Cruise
                 <span className="block text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-pink-400 to-purple-400 mt-2">
                   The Country's Only Multi-Group Bach Party Cruise
@@ -395,7 +395,7 @@ export default function ATXDiscoCruise() {
                 <Button 
                   size="lg" 
                   onClick={handleBookNow}
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-base sm:text-lg px-6 sm:px-8 py-6"
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-base sm:text-lg px-6 sm:px-8 py-6 min-h-[3.5rem] sm:min-h-[4rem]"
                   data-testid="button-book-now"
                 >
                   Book Your Spot Now <ArrowRight className="ml-2" />
@@ -404,7 +404,7 @@ export default function ATXDiscoCruise() {
                   size="lg" 
                   variant="outline"
                   onClick={() => navigate('/contact')}
-                  className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 text-base sm:text-lg px-6 sm:px-8 py-6"
+                  className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 text-base sm:text-lg px-6 sm:px-8 py-6 min-h-[3.5rem] sm:min-h-[4rem]"
                   data-testid="button-learn-more"
                 >
                   <Phone className="mr-2" /> Talk to an Expert

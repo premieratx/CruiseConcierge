@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
+import { ClientOnly } from '@/components/ClientOnly';
 import Footer from '@/components/Footer';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { Button } from '@/components/ui/button';
@@ -287,7 +288,7 @@ export default function MilestoneBirthday() {
         ]}
       />
 
-      <PublicNavigation />
+      <ClientOnly><PublicNavigation /></ClientOnly>
 
       {/* Hero Section with Crossfade */}
       <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">

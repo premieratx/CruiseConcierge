@@ -1245,6 +1245,18 @@ export function ssrMiddleware() {
     try {
       console.log(`[SSR] Rendering: ${req.url}`);
       const html = await renderPage(req.url, req);
+      
+      // Remove any X-Frame-Options header and set CSP to allow iframe embedding from booking subdomain only
+      res.removeHeader('X-Frame-Options');
+      res.setHeader('Content-Security-Policy', 
+        "frame-ancestors 'self' https://booking.premierpartycruises.com https://*.premierpartycruises.com; " +
+        "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https: blob:; " +
+        "connect-src 'self' https: wss: ws:; " +
+        "img-src 'self' data: https: blob:; " +
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; " +
+        "style-src 'self' 'unsafe-inline' https:;"
+      );
+      
       res.status(200).set({ 'Content-Type': 'text/html' }).send(html);
     } catch (error) {
       console.error(`[SSR] Error rendering ${req.url}:`, error);

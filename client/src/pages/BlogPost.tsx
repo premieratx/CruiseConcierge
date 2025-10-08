@@ -2,6 +2,7 @@ import { useParams } from "wouter";
 import { useEffect, lazy, Suspense } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import PublicNavigation from "@/components/PublicNavigation";
+import { ClientOnly } from '@/components/ClientOnly';
 import Footer from "@/components/Footer";
 import { CategoryBadge } from "@/components/blog/CategoryBadge";
 import { TagBadge } from "@/components/blog/TagBadge";
@@ -148,7 +149,7 @@ export default function BlogPostPage() {
   if (error) {
     return (
       <>
-        <PublicNavigation />
+        <ClientOnly><PublicNavigation /></ClientOnly>
         <div className="min-h-screen bg-background">
           <div className="container mx-auto px-4 py-8">
             <Alert variant="destructive">
@@ -174,7 +175,7 @@ export default function BlogPostPage() {
   if (isLoading) {
     return (
       <>
-        <PublicNavigation />
+        <ClientOnly><PublicNavigation /></ClientOnly>
         <div className="min-h-screen bg-background">
           <div className="container mx-auto px-4 py-8">
             <div className="max-w-4xl mx-auto">
@@ -296,7 +297,7 @@ export default function BlogPostPage() {
 
   return (
     <>
-      <PublicNavigation />
+      <ClientOnly><PublicNavigation /></ClientOnly>
       <SEOHead 
         pageRoute={`/blog/${slug}`}
         defaultTitle={post.metaTitle || post.title || "Blog Post"}

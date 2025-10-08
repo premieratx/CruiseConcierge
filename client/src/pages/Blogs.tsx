@@ -1,6 +1,7 @@
 import { useState, lazy, Suspense } from "react";
 import { useQuery } from "@tanstack/react-query";
 import PublicNavigation from "@/components/PublicNavigation";
+import { ClientOnly } from '@/components/ClientOnly';
 import Footer from "@/components/Footer";
 import { BlogCard } from "@/components/blog/BlogCard";
 import { Button } from "@/components/ui/button";
@@ -108,7 +109,7 @@ export default function Blogs() {
   if (error) {
     return (
       <>
-        <PublicNavigation />
+        <ClientOnly><PublicNavigation /></ClientOnly>
         <div className="min-h-screen bg-background">
           <div className="container mx-auto px-4 py-8">
             <Alert variant="destructive">
@@ -125,7 +126,7 @@ export default function Blogs() {
 
   return (
     <>
-      <PublicNavigation />
+      <ClientOnly><PublicNavigation /></ClientOnly>
       <SEOHead 
         pageRoute="/blogs"
         defaultTitle="Austin Party Boat Blog | Bachelor & Bachelorette Party Tips | Premier Party Cruises"

@@ -72,18 +72,25 @@ app.use((req, res, next) => {
   next();
 });
 
-// NO iframe restrictions - allow all embedding
-
-// NO iframe restrictions - allow all embedding
-
-// NO iframe restrictions - allow all embedding
-
-// REMOVED: Restrictive security headers that blocked iframe embedding
-// User has intentional cross-domain iframes (booking.premierpartycruises.com embedded on premierpartycruises.com)
-// NO X-Frame-Options or frame-ancestors restrictions applied
-// This allows all embedded content to work in production as intended
-
 (async () => {
+  // Allow iframe embedding from all domains (especially booking.premierpartycruises.com)
+  app.use((req, res, next) => {
+    // Remove any X-Frame-Options header
+    res.removeHeader('X-Frame-Options');
+    
+    // Set CSP to allow embedding from booking subdomain only
+    res.setHeader('Content-Security-Policy', 
+      "frame-ancestors 'self' https://booking.premierpartycruises.com https://*.premierpartycruises.com; " +
+      "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https: blob:; " +
+      "connect-src 'self' https: wss: ws:; " +
+      "img-src 'self' data: https: blob:; " +
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; " +
+      "style-src 'self' 'unsafe-inline' https:;"
+    );
+    
+    next();
+  });
+  
   // Blog routes - register public blog API routes
   app.use("/api/blog", blogRouter);
   

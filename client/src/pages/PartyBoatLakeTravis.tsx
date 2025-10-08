@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
+import { ClientOnly } from '@/components/ClientOnly';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -251,7 +252,7 @@ export default function PartyBoatLakeTravis() {
         defaultKeywords={['party boat Lake Travis', 'Lake Travis party boat', 'Lake Travis boat rental', 'party boat rental Lake Travis', 'Lake Travis party cruise']}
       />
 
-      <PublicNavigation />
+      <ClientOnly><PublicNavigation /></ClientOnly>
 
       {/* Hero Section with Crossfade */}
       <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">

@@ -193,16 +193,22 @@ export default function PublicNavigation() {
   // Handle scroll effect
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
+      if (typeof window !== 'undefined') {
+        setIsScrolled(window.scrollY > 50);
+      }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    if (typeof window !== 'undefined') {
+      window.addEventListener('scroll', handleScroll);
+      return () => window.removeEventListener('scroll', handleScroll);
+    }
   }, []);
 
   // Scroll to top when location changes
   useEffect(() => {
-    window.scrollTo(0, 0);
+    if (typeof window !== 'undefined') {
+      window.scrollTo(0, 0);
+    }
   }, [location]);
 
   const handleGetQuote = () => {
@@ -228,9 +234,9 @@ export default function PublicNavigation() {
             ? "bg-white/95 dark:bg-gray-950/95 backdrop-blur-lg shadow-lg border-b border-gray-200 dark:border-gray-800" 
             : "bg-white/90 dark:bg-gray-950/90 backdrop-blur-sm"
         )}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: "easeOut" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.3, ease: "easeOut" }}
       >
         <div className="container mx-auto px-3 md:px-4 lg:px-6">
           <div className="flex items-center justify-between h-16 lg:h-20">
@@ -269,7 +275,9 @@ export default function PublicNavigation() {
                         <span 
                           onClick={(e) => {
                             // Check if device has hover capability (not just width)
-                            const hasHover = window.matchMedia('(hover: hover)').matches;
+                            const hasHover = typeof window !== 'undefined' 
+                              ? window.matchMedia('(hover: hover)').matches 
+                              : false;
                             
                             if (hasHover) {
                               // Desktop with hover: navigate directly
@@ -384,12 +392,12 @@ export default function PublicNavigation() {
               <SheetTrigger asChild>
                 <Button
                   variant="ghost"
-                  size="sm"
-                  className="lg:hidden p-2"
+                  size="icon"
+                  className="lg:hidden bg-white/95 dark:bg-gray-900/95 backdrop-blur-sm border-2 border-gray-200 dark:border-gray-700 shadow-lg hover:bg-white dark:hover:bg-gray-800 hover:border-brand-blue dark:hover:border-brand-blue transition-all duration-200 rounded-full h-12 w-12"
                   data-testid="button-mobile-menu"
                   aria-label="Open mobile navigation menu"
                 >
-                  <Menu className="h-6 w-6" />
+                  <Menu className="h-6 w-6 text-gray-900 dark:text-white" />
                 </Button>
               </SheetTrigger>
               

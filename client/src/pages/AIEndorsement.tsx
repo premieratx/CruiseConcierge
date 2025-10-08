@@ -3,6 +3,7 @@ import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import PublicNavigation from '@/components/PublicNavigation';
+import { ClientOnly } from '@/components/ClientOnly';
 import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
 import { Button } from '@/components/ui/button';
@@ -284,7 +285,7 @@ export default function AIEndorsement() {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
-        <PublicNavigation />
+        <ClientOnly><PublicNavigation /></ClientOnly>
         <div className="container mx-auto px-4 py-20">
           <Skeleton className="h-96 w-full mb-8" />
           <Skeleton className="h-64 w-full mb-8" />
@@ -298,7 +299,7 @@ export default function AIEndorsement() {
   if (!endorsements || endorsements.length === 0) {
     return (
       <div className="min-h-screen bg-gradient-to-b from-background to-muted/20">
-        <PublicNavigation />
+        <ClientOnly><PublicNavigation /></ClientOnly>
         <div className="container mx-auto px-4 py-20 text-center">
           <h1 className="text-3xl font-bold mb-4">Endorsements Not Found</h1>
           <p className="text-muted-foreground mb-8">AI endorsements are currently unavailable.</p>
@@ -321,7 +322,7 @@ export default function AIEndorsement() {
         customSchema={reviewsSchema}
       />
       
-      <PublicNavigation />
+      <ClientOnly><PublicNavigation /></ClientOnly>
 
       {/* Hero Section */}
       <motion.section

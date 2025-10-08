@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
+import { ClientOnly } from '@/components/ClientOnly';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -245,7 +246,7 @@ export default function PartyBoatAustin() {
         defaultKeywords={['party boat Austin', 'Austin party boat rental', 'Lake Travis party boat', 'party boat rental Austin', 'Austin boat party', 'Lake Travis boat rental', 'Austin bachelorette boat', 'Austin bachelor party boat']}
       />
 
-      <PublicNavigation />
+      <ClientOnly><PublicNavigation /></ClientOnly>
 
       <motion.section 
         className="relative h-[600px] flex items-center justify-center overflow-hidden"

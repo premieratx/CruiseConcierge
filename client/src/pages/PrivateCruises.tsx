@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
+import { ClientOnly } from '@/components/ClientOnly';
 import ExperienceCards from '@/components/ExperienceCards';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -264,7 +265,7 @@ export default function PrivateCruises() {
           'private yacht rental austin'
         ]}
       />
-      <PublicNavigation />
+      <ClientOnly><PublicNavigation /></ClientOnly>
       
       {/* Hero Section with Crossfade */}
       <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">
@@ -394,7 +395,7 @@ export default function PrivateCruises() {
             className="text-center"
           >
             <h2 
-              className="text-5xl md:text-6xl font-heading font-bold mb-6 text-white tracking-wider"
+              className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 text-white tracking-wider px-4"
               data-editable 
               data-editable-id="quote-builder-heading"
             >
