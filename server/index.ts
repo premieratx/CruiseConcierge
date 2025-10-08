@@ -202,6 +202,14 @@ Crawl-delay: 1`;
   // Add guard to prevent embed routing from intercepting API calls
   const embedConfigured = setupEmbedRouting(app);
   
+  // Block admin pages from search engines with X-Robots-Tag header
+  app.use((req, res, next) => {
+    if (req.path.startsWith('/admin') || req.path.startsWith('/dashboard') || req.path.startsWith('/login')) {
+      res.setHeader('X-Robots-Tag', 'noindex, nofollow');
+    }
+    next();
+  });
+
   // 301 redirects from /blog to /blogs (canonical URL)
   // These MUST come before SSR middleware to intercept requests
   app.get('/blog/:slug', (req, res) => {

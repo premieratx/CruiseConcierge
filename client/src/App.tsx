@@ -207,15 +207,10 @@ function Router() {
         }}
       </Route>
       
-      {/* Admin Dashboard Routes */}
-      <Route path="/dashboard" component={Dashboard} />
-      <Route path="/admin" component={Dashboard} />
+      {/* Public Quote Builder (Chat) - No auth required */}
       <Route path="/chat">
         <Chat />
       </Route>
-      <Route path="/customers/:id" component={CustomerProfile} />
-      <Route path="/partial-leads" component={PartialLeads} />
-      <Route path="/projects" component={Projects} />
       
       {/* Public quote-builder redirects to /chat */}
       <Route path="/quote-builder" component={() => {
@@ -226,53 +221,210 @@ function Router() {
         return null;
       }} />
       
-      {/* Admin Quote Builder */}
-      <Route path="/admin/quote-builder" component={QuoteBuilder} />
-      <Route path="/quotes/new" component={QuoteBuilder} />
-      <Route path="/quotes/:id" component={QuoteBuilder} />
-      <Route path="/quotes/:id/edit" component={QuoteEditor} />
-      <Route path="/templates" component={Templates} />
-      <Route path="/products" component={Products} />
-      <Route path="/discounts" component={Discounts} />
-      <Route path="/affiliates" component={Affiliates} />
-      <Route path="/documentation" component={Documentation} />
-      <Route path="/settings" component={Settings} />
+      {/* Admin Dashboard Routes - LOGIN REQUIRED */}
+      <Route path="/dashboard">
+        <ProtectedRoute>
+          <Dashboard />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin">
+        <ProtectedRoute>
+          <Dashboard />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/customers/:id">
+        {(params) => (
+          <ProtectedRoute>
+            <CustomerProfile params={params} />
+          </ProtectedRoute>
+        )}
+      </Route>
+      <Route path="/partial-leads">
+        <ProtectedRoute>
+          <PartialLeads />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/projects">
+        <ProtectedRoute>
+          <Projects />
+        </ProtectedRoute>
+      </Route>
       
-      {/* Admin Blog Routes */}
-      <Route path="/admin/blogs" component={BlogManagement} />
-      <Route path="/admin/blogs/posts" component={BlogManagement} />
-      <Route path="/admin/blogs/posts/new" component={BlogPostEditor} />
-      <Route path="/admin/blogs/posts/:id/edit" component={BlogPostEditor} />
-      <Route path="/admin/blogs/categories" component={BlogManagement} />
-      <Route path="/admin/blogs/categories/new" component={BlogManagement} />
-      <Route path="/admin/blogs/categories/:id/edit" component={BlogManagement} />
-      <Route path="/admin/blogs/tags" component={BlogManagement} />
-      <Route path="/admin/blogs/tags/new" component={BlogManagement} />
-      <Route path="/admin/blogs/tags/:id/edit" component={BlogManagement} />
-      <Route path="/admin/blogs/authors" component={BlogManagement} />
-      <Route path="/admin/blogs/authors/new" component={BlogManagement} />
-      <Route path="/admin/blogs/authors/:id/edit" component={BlogManagement} />
+      {/* Admin Quote Builder - LOGIN REQUIRED */}
+      <Route path="/admin/quote-builder">
+        <ProtectedRoute>
+          <QuoteBuilder />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/quotes/new">
+        <ProtectedRoute>
+          <QuoteBuilder />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/quotes/:id">
+        <ProtectedRoute>
+          <QuoteBuilder />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/quotes/:id/edit">
+        <ProtectedRoute>
+          <QuoteEditor />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/templates">
+        <ProtectedRoute>
+          <Templates />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/products">
+        <ProtectedRoute>
+          <Products />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/discounts">
+        <ProtectedRoute>
+          <Discounts />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/affiliates">
+        <ProtectedRoute>
+          <Affiliates />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/documentation">
+        <ProtectedRoute>
+          <Documentation />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/settings">
+        <ProtectedRoute>
+          <Settings />
+        </ProtectedRoute>
+      </Route>
       
-      {/* Admin SEO Routes */}
-      <Route path="/admin/seo" component={SEOManagement} />
+      {/* Admin Blog Routes - LOGIN REQUIRED */}
+      <Route path="/admin/blogs">
+        <ProtectedRoute>
+          <BlogManagement />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/blogs/posts">
+        <ProtectedRoute>
+          <BlogManagement />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/blogs/posts/new">
+        <ProtectedRoute>
+          <BlogPostEditor />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/blogs/posts/:id/edit">
+        <ProtectedRoute>
+          <BlogPostEditor />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/blogs/categories">
+        <ProtectedRoute>
+          <BlogManagement />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/blogs/categories/new">
+        <ProtectedRoute>
+          <BlogManagement />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/blogs/categories/:id/edit">
+        <ProtectedRoute>
+          <BlogManagement />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/blogs/tags">
+        <ProtectedRoute>
+          <BlogManagement />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/blogs/tags/new">
+        <ProtectedRoute>
+          <BlogManagement />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/blogs/tags/:id/edit">
+        <ProtectedRoute>
+          <BlogManagement />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/blogs/authors">
+        <ProtectedRoute>
+          <BlogManagement />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/blogs/authors/new">
+        <ProtectedRoute>
+          <BlogManagement />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/blogs/authors/:id/edit">
+        <ProtectedRoute>
+          <BlogManagement />
+        </ProtectedRoute>
+      </Route>
       
-      {/* Admin Pricing Routes */}
-      <Route path="/admin/pricing" component={Pricing} />
-      <Route path="/admin/pricing-rules" component={PricingRules} />
+      {/* Admin SEO Routes - LOGIN REQUIRED */}
+      <Route path="/admin/seo">
+        <ProtectedRoute>
+          <SEOManagement />
+        </ProtectedRoute>
+      </Route>
       
-      {/* Admin AI Assistant */}
-      <Route path="/admin/ai-assistant" component={AIAssistant} />
+      {/* Admin Pricing Routes - LOGIN REQUIRED */}
+      <Route path="/admin/pricing">
+        <ProtectedRoute>
+          <Pricing />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/pricing-rules">
+        <ProtectedRoute>
+          <PricingRules />
+        </ProtectedRoute>
+      </Route>
       
-      {/* Admin Agent Chat */}
-      <Route path="/admin/agent-chat" component={AgentChat} />
+      {/* Admin AI Assistant - LOGIN REQUIRED */}
+      <Route path="/admin/ai-assistant">
+        <ProtectedRoute>
+          <AIAssistant />
+        </ProtectedRoute>
+      </Route>
       
-      {/* Admin Inventory Management */}
-      <Route path="/admin/inventory" component={InventoryManagement} />
+      {/* Admin Agent Chat - LOGIN REQUIRED */}
+      <Route path="/admin/agent-chat">
+        <ProtectedRoute>
+          <AgentChat />
+        </ProtectedRoute>
+      </Route>
       
-      {/* AI Media Library */}
-      <Route path="/admin/media" component={MediaLibrary} />
-      <Route path="/admin/faq-review" component={FAQReview} />
-      <Route path="/admin/business-summary" component={BusinessSummary} />
+      {/* Admin Inventory Management - LOGIN REQUIRED */}
+      <Route path="/admin/inventory">
+        <ProtectedRoute>
+          <InventoryManagement />
+        </ProtectedRoute>
+      </Route>
+      
+      {/* Admin Media & Tools - LOGIN REQUIRED */}
+      <Route path="/admin/media">
+        <ProtectedRoute>
+          <MediaLibrary />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/faq-review">
+        <ProtectedRoute>
+          <FAQReview />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/business-summary">
+        <ProtectedRoute>
+          <BusinessSummary />
+        </ProtectedRoute>
+      </Route>
       
       {/* Public Media Library */}
       <Route path="/media">
@@ -284,24 +436,28 @@ function Router() {
         </Suspense>
       </Route>
       
-      {/* Content Blocks Management */}
+      {/* Admin Content Blocks - LOGIN REQUIRED */}
       <Route path="/admin/content-blocks">
-        <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading...</div>}>
-          {(() => {
-            const ContentBlocksManagement = lazy(() => import('./pages/admin/ContentBlocksManagement'));
-            return <ContentBlocksManagement />;
-          })()}
-        </Suspense>
+        <ProtectedRoute>
+          <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading...</div>}>
+            {(() => {
+              const ContentBlocksManagement = lazy(() => import('./pages/admin/ContentBlocksManagement'));
+              return <ContentBlocksManagement />;
+            })()}
+          </Suspense>
+        </ProtectedRoute>
       </Route>
       
-      {/* Demo Content Page */}
+      {/* Demo Content Page - LOGIN REQUIRED */}
       <Route path="/demo-content">
-        <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading...</div>}>
-          {(() => {
-            const DemoContentPage = lazy(() => import('./pages/DemoContentPage'));
-            return <DemoContentPage />;
-          })()}
-        </Suspense>
+        <ProtectedRoute>
+          <Suspense fallback={<div className="flex items-center justify-center h-screen">Loading...</div>}>
+            {(() => {
+              const DemoContentPage = lazy(() => import('./pages/DemoContentPage'));
+              return <DemoContentPage />;
+            })()}
+          </Suspense>
+        </ProtectedRoute>
       </Route>
       
       {/* Public Blog Routes - Specific routes must come before generic ones */}
