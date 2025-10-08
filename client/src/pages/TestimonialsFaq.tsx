@@ -983,6 +983,15 @@ export default function TestimonialsFaq() {
             </motion.div>
           </div>
         </div>
+        
+        {/* Bottom Feature Bar */}
+        <div className="absolute bottom-0 left-0 right-0 z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
+          <div className="container mx-auto">
+            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
+              <span className="text-brand-blue">125,000+ Happy Customers</span> • 5-Star Reviews • <span className="text-brand-blue">Austin's #1 Rated</span>
+            </p>
+          </div>
+        </div>
       </motion.section>
 
       {/* Featured Testimonials */}

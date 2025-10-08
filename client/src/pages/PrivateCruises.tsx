@@ -19,6 +19,7 @@ import {
   Package, Gift, Heart, Crown, Anchor, PartyPopper, ArrowRight, X
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import SEOHead from '@/components/SEOHead';
 import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
@@ -207,8 +208,20 @@ const faqData = [
 export default function PrivateCruises() {
   const [location, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
+  const reducedMotion = useReducedMotion();
   const { toast } = useToast();
   const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
+  const [currentHeroImage, setCurrentHeroImage] = useState(0);
+  const heroImages = [heroImage1, heroImage2, heroImage3];
+
+  useEffect(() => {
+    if (reducedMotion) return; // Skip animation for reduced motion
+    
+    const interval = setInterval(() => {
+      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [reducedMotion]);
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -253,37 +266,62 @@ export default function PrivateCruises() {
       />
       <PublicNavigation />
       
-      {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center bg-gradient-to-br from-marine-50 to-blue-50 dark:from-gray-900 dark:to-gray-800 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-brand-blue/20 to-brand-yellow/20 dark:from-brand-blue/10 dark:to-brand-yellow/10" />
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <motion.div 
-            className="max-w-5xl mx-auto"
+      {/* Hero Section with Crossfade */}
+      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">
+        {/* Image Background with Smooth Crossfade */}
+        <div className="absolute inset-0 z-0">
+          {heroImages.map((image, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: index === currentHeroImage ? 1 : 0 }}
+              transition={{ duration: reducedMotion ? 0 : 0.8, ease: "easeInOut" }}
+              className="absolute inset-0"
+              style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
+            >
+              <img 
+                src={image}
+                alt="Private cruise Lake Travis - Premier party boat with professional crew and premium amenities"
+                className="w-full h-full object-cover"
+                width={1920}
+                height={1080}
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchpriority={index === 0 ? "high" : "low"}
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Main Hero Content */}
+        <div className="relative z-10 container mx-auto px-6 text-white text-center flex-grow flex items-center">
+          <motion.div
             initial="hidden"
             animate="visible"
             variants={staggerChildren}
+            className="max-w-5xl mx-auto w-full"
           >
             <motion.div variants={fadeInUp} className="mb-8">
-              <Ship className="h-20 w-20 text-brand-blue mx-auto mb-8" />
+              <Ship className="h-20 w-20 text-brand-yellow mx-auto mb-8" />
             </motion.div>
             
             <motion.h1 
               variants={fadeInUp}
-              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-bold mb-8 text-gray-900 dark:text-white leading-tight"
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-bold mb-8 leading-tight"
               data-editable data-editable-id="private-hero-title"
             >
               EVERYTHING SET UP
-              <span className="block text-brand-blue">WHEN YOU ARRIVE</span>
+              <span className="block text-brand-yellow">WHEN YOU ARRIVE</span>
             </motion.h1>
             
             <motion.p 
               variants={fadeInUp}
-              className="text-xl md:text-2xl mb-12 text-gray-600 dark:text-gray-300 max-w-4xl mx-auto leading-relaxed"
+              className="text-xl md:text-2xl mb-12 text-gray-100 max-w-4xl mx-auto leading-relaxed"
               data-editable data-editable-id="private-hero-subtitle"
             >
-              <span className="text-brand-blue font-bold">Choose Your Perfect Package.</span> From basic cruising to ultimate party experiences, 
+              <span className="text-brand-yellow font-bold">Choose Your Perfect Package.</span> From basic cruising to ultimate party experiences, 
               we handle all the setup so you can focus on making memories. Professional crew, premium amenities, 
-              and everything scaled perfectly for your group size. Looking for something more budget-friendly? Check out our ATX Disco Cruise option!
+              and everything scaled perfectly for your group size.
             </motion.p>
             
             <motion.div 
@@ -306,7 +344,7 @@ export default function PrivateCruises() {
                 size="lg"
                 variant="outline"
                 onClick={handleGetQuote}
-                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 transition-all duration-300 hover:scale-105 whitespace-normal min-h-[3.5rem] sm:min-h-[4rem]"
+                className="border-white text-white hover:bg-white hover:text-black font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 transition-all duration-300 hover:scale-105 whitespace-normal min-h-[3.5rem] sm:min-h-[4rem]"
                 data-testid="button-get-instant-quote"
               >
                 <MessageSquare className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
@@ -326,20 +364,22 @@ export default function PrivateCruises() {
                 { icon: Wine, text: 'Alcohol Delivery', subtext: 'Convenient party planning' }
               ].map((item, index) => (
                 <div key={index} className="flex flex-col items-center p-4">
-                  <item.icon className="h-10 w-10 sm:h-12 sm:w-12 text-brand-blue mb-3 sm:mb-4 flex-shrink-0" />
-                  <div className="font-bold text-sm sm:text-base text-gray-900 dark:text-white mb-2">{item.text}</div>
-                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">{item.subtext}</div>
+                  <item.icon className="h-10 w-10 sm:h-12 sm:w-12 text-brand-yellow mb-3 sm:mb-4 flex-shrink-0" />
+                  <div className="font-bold text-sm sm:text-base mb-2">{item.text}</div>
+                  <div className="text-xs sm:text-sm text-gray-200">{item.subtext}</div>
                 </div>
               ))}
             </motion.div>
           </motion.div>
         </div>
-        
-        {/* Floating elements for visual interest */}
-        <div className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-brand-yellow rounded-full animate-ping opacity-30" style={{animationDelay: '0s'}} />
-          <div className="absolute top-3/4 right-1/3 w-1 h-1 bg-brand-blue rounded-full animate-ping opacity-40" style={{animationDelay: '1s'}} />
-          <div className="absolute bottom-1/4 left-1/3 w-3 h-3 bg-brand-yellow rounded-full animate-ping opacity-20" style={{animationDelay: '2s'}} />
+
+        {/* Bottom Feature Bar */}
+        <div className="relative z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
+          <div className="container mx-auto">
+            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
+              <span className="text-brand-blue">14-75 Guests</span> • Professional Crew • <span className="text-brand-blue">Everything Ready</span>
+            </p>
+          </div>
         </div>
       </section>
 

@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
+import { useReducedMotion } from '@/hooks/use-reduced-motion';
 
 // Import gallery images - Real photos from live website
 import heroImage1 from '@assets/bachelor-party-group-guys.jpg';
@@ -334,6 +335,7 @@ const stats = [
 export default function Gallery() {
   const [, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
+  const reducedMotion = useReducedMotion();
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [lightboxOpen, setLightboxOpen] = useState(false);
   const [lightboxIndex, setLightboxIndex] = useState(0);
@@ -351,11 +353,13 @@ export default function Gallery() {
   
   // Auto-rotate hero images
   useEffect(() => {
+    if (reducedMotion) return; // Skip animation for reduced motion
+    
     const interval = setInterval(() => {
       setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, [heroImages.length]);
+  }, [heroImages.length, reducedMotion]);
 
   const handleImageClick = (image: any, index: number) => {
     const filteredImages = selectedCategory === 'All' 
@@ -418,7 +422,7 @@ export default function Gallery() {
               initial={{ opacity: 0, scale: 1.1 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 1 }}
+              transition={{ duration: reducedMotion ? 0 : 1 }}
             >
               <img
                 src={heroImages[currentHeroImage]}
@@ -519,9 +523,18 @@ export default function Gallery() {
           </motion.div>
         </div>
 
+        {/* Bottom Feature Bar */}
+        <div className="absolute bottom-0 left-0 right-0 z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
+          <div className="container mx-auto">
+            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
+              <span className="text-brand-blue">1000+ Photos</span> • Real Celebrations • <span className="text-brand-blue">Experience Lake Travis Magic</span>
+            </p>
+          </div>
+        </div>
+
         {/* Scroll indicator */}
         <motion.div
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white"
+          className="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-white"
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
         >

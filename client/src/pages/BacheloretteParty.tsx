@@ -340,11 +340,13 @@ export default function BacheloretteParty() {
   const heroImages = [heroImage2, heroImage3, galleryImage1];
 
   useEffect(() => {
+    if (reducedMotion) return; // Skip animation for reduced motion
+    
     const interval = setInterval(() => {
       setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [reducedMotion]);
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -392,7 +394,7 @@ export default function BacheloretteParty() {
               key={index}
               initial={{ opacity: 0 }}
               animate={{ opacity: index === currentHeroImage ? 1 : 0 }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
+              transition={{ duration: reducedMotion ? 0 : 0.8, ease: "easeInOut" }}
               className="absolute inset-0"
               style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
             >

@@ -97,6 +97,15 @@ export default function Contact() {
             </p>
           </div>
         </div>
+        
+        {/* Bottom Feature Bar */}
+        <div className="absolute bottom-0 left-0 right-0 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
+          <div className="container mx-auto">
+            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
+              <span className="text-brand-blue">Call (512) 488-5892</span> • Instant Quotes • <span className="text-brand-blue">Book Your Cruise Today</span>
+            </p>
+          </div>
+        </div>
       </section>
 
       {/* Contact Section */}

@@ -21,6 +21,7 @@ import {
   Mic, Crown, Award, Quote, ChevronRight, Ship,
   Anchor, Sun, Info, TrendingUp, GlassWater, Heart, X
 } from 'lucide-react';
+import { useReducedMotion } from '@/hooks/use-reduced-motion';
 
 // Hero and gallery images
 import heroImage1 from '@assets/dancing-party-scene.jpg';
@@ -236,8 +237,20 @@ const testimonials = [
 export default function AfterParty() {
   const [location, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
+  const reducedMotion = useReducedMotion();
   const [selectedPackage, setSelectedPackage] = useState('premium_celebration');
   const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
+  const [currentHeroImage, setCurrentHeroImage] = useState(0);
+  const heroImages = [heroImage1, heroImage2, heroImage3];
+
+  useEffect(() => {
+    if (reducedMotion) return; // Skip animation for reduced motion
+    
+    const interval = setInterval(() => {
+      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [reducedMotion]);
 
   const handleGetQuote = () => {
     navigate('/chat?eventType=after-party');
@@ -264,32 +277,37 @@ export default function AfterParty() {
 
       <PublicNavigation />
 
-      {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-20">
-        {/* Background Image */}
-        <AnimatePresence mode="wait">
-          <motion.div 
-            className="absolute inset-0 z-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-          >
-            <div className="relative w-full h-full">
+      {/* Hero Section with Crossfade */}
+      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">
+        {/* Image Background with Smooth Crossfade */}
+        <div className="absolute inset-0 z-0">
+          {heroImages.map((image, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: index === currentHeroImage ? 1 : 0 }}
+              transition={{ duration: reducedMotion ? 0 : 0.8, ease: "easeInOut" }}
+              className="absolute inset-0"
+              style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
+            >
               <img 
-                src={heroImage1} 
-                alt="After Party Boat Austin wedding cruise on Lake Travis After Party" 
+                src={image}
+                alt="After Party Boat Austin wedding cruise on Lake Travis After Party"
                 className="w-full h-full object-cover"
+                width={1920}
+                height={1080}
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchpriority={index === 0 ? "high" : "low"}
               />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/40 to-black/60" />
-            </div>
-          </motion.div>
-        </AnimatePresence>
+              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+            </motion.div>
+          ))}
+        </div>
 
-        {/* Hero Content */}
-        <div className="relative z-10 container mx-auto px-6">
+        {/* Main Hero Content */}
+        <div className="relative z-10 container mx-auto px-6 text-white flex-grow flex items-center">
           <motion.div 
-            className="max-w-4xl mx-auto text-center text-white"
+            className="max-w-4xl mx-auto text-center w-full"
             variants={staggerChildren}
             initial="hidden"
             animate="visible"
@@ -380,6 +398,15 @@ export default function AfterParty() {
               </div>
             </motion.div>
           </motion.div>
+        </div>
+
+        {/* Bottom Feature Bar */}
+        <div className="relative z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
+          <div className="container mx-auto">
+            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
+              <span className="text-brand-blue">Late Night Magic</span> • DJ & Dancing • <span className="text-brand-blue">Keep Celebrating</span>
+            </p>
+          </div>
         </div>
       </section>
 

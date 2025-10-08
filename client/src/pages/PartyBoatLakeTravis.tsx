@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'wouter';
 import { motion } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
@@ -8,6 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useToast } from '@/hooks/use-toast';
+import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import SEOHead from '@/components/SEOHead';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { 
@@ -225,11 +226,21 @@ const lakeTravisTestimonials = [
 ];
 
 export default function PartyBoatLakeTravis() {
+  const reducedMotion = useReducedMotion();
   const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const { toast } = useToast();
 
   const heroImages = [heroImage1, heroImage2, heroImage3];
+
+  useEffect(() => {
+    if (reducedMotion) return; // Skip animation for reduced motion
+    
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [reducedMotion]);
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
@@ -242,20 +253,37 @@ export default function PartyBoatLakeTravis() {
 
       <PublicNavigation />
 
-      {/* Hero Section */}
-      <section className="relative pt-20 pb-32 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600 to-purple-700 opacity-90" />
-        <div 
-          className="absolute inset-0 bg-cover bg-center transition-opacity duration-1000"
-          style={{ 
-            backgroundImage: `url(${heroImages[currentImageIndex]})`,
-            opacity: 0.3
-          }}
-        />
+      {/* Hero Section with Crossfade */}
+      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">
+        {/* Image Background with Smooth Crossfade */}
+        <div className="absolute inset-0 z-0">
+          {heroImages.map((image, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: index === currentImageIndex ? 1 : 0 }}
+              transition={{ duration: reducedMotion ? 0 : 0.8, ease: "easeInOut" }}
+              className="absolute inset-0"
+              style={{ pointerEvents: index === currentImageIndex ? 'auto' : 'none' }}
+            >
+              <img 
+                src={image}
+                alt="Party Boat Lake Travis - Premier Austin cruises on crystal clear water"
+                className="w-full h-full object-cover"
+                width={1920}
+                height={1080}
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchpriority={index === 0 ? "high" : "low"}
+              />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+            </motion.div>
+          ))}
+        </div>
         
-        <div className="container mx-auto px-4 relative z-10">
+        {/* Main Hero Content */}
+        <div className="relative z-10 container mx-auto px-4 text-white flex-grow flex items-center">
           <motion.div 
-            className="max-w-4xl mx-auto text-center text-white"
+            className="max-w-4xl mx-auto text-center w-full"
             initial="hidden"
             animate="visible"
             variants={fadeInUp}
@@ -280,7 +308,7 @@ export default function PartyBoatLakeTravis() {
             >
               <Button 
                 size="lg" 
-                className="bg-white text-blue-600 hover:bg-blue-50 text-lg px-8 py-6"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-8 py-6"
                 asChild
                 data-testid="button-book-lake-travis"
               >
@@ -292,7 +320,7 @@ export default function PartyBoatLakeTravis() {
               <Button 
                 size="lg" 
                 variant="outline" 
-                className="border-2 border-white text-white hover:bg-white hover:text-blue-600 text-lg px-8 py-6"
+                className="border-white text-white hover:bg-white hover:text-black text-lg px-8 py-6"
                 onClick={() => setShowQuoteBuilder(true)}
                 data-testid="button-quote-lake-travis"
               >
@@ -319,6 +347,15 @@ export default function PartyBoatLakeTravis() {
               </div>
             </motion.div>
           </motion.div>
+        </div>
+
+        {/* Bottom Feature Bar */}
+        <div className="relative z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
+          <div className="container mx-auto">
+            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
+              <span className="text-brand-blue">Clearest Water in Texas</span> • 270 Miles of Shoreline • <span className="text-brand-blue">Year-Round 70° Water</span>
+            </p>
+          </div>
         </div>
       </section>
 

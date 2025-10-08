@@ -28,6 +28,7 @@ import {
   Plane, Wine
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import Footer from '@/components/Footer';
 
 // Hero and gallery images
@@ -329,6 +330,7 @@ const galleryPhotos = [
 export default function CombinedBachelorBachelorette() {
   const [, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
+  const reducedMotion = useReducedMotion();
   const { toast } = useToast();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const [activeTab, setActiveTab] = useState('overview');
@@ -336,11 +338,13 @@ export default function CombinedBachelorBachelorette() {
   const heroImages = [heroImage2, heroImage3, galleryImage1];
 
   useEffect(() => {
+    if (reducedMotion) return; // Skip animation for reduced motion
+    
     const interval = setInterval(() => {
       setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [reducedMotion]);
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
@@ -388,7 +392,7 @@ export default function CombinedBachelorBachelorette() {
               key={index}
               initial={{ opacity: 0 }}
               animate={{ opacity: index === currentHeroImage ? 1 : 0 }}
-              transition={{ duration: 0.8, ease: "easeInOut" }}
+              transition={{ duration: reducedMotion ? 0 : 0.8, ease: "easeInOut" }}
               className="absolute inset-0"
               style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
             >

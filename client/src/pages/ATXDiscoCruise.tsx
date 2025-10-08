@@ -28,6 +28,7 @@ import {
   X, Eye, Smile, XCircle
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
 
@@ -312,16 +313,19 @@ const quickStats = [
 
 export default function ATXDiscoCruise() {
   const [, navigate] = useLocation();
+  const reducedMotion = useReducedMotion();
   const { toast } = useToast();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const heroImages = [heroImage1, heroImage2, heroImage3];
 
   useEffect(() => {
+    if (reducedMotion) return; // Skip animation for reduced motion
+    
     const interval = setInterval(() => {
       setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
+  }, [reducedMotion]);
 
   const handleBookNow = () => {
     navigate('/booking-flow?cruise=disco');
@@ -355,7 +359,7 @@ export default function ATXDiscoCruise() {
                 key={index}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: index === currentHeroImage ? 1 : 0 }}
-                transition={{ duration: 0.8, ease: "easeInOut" }}
+                transition={{ duration: reducedMotion ? 0 : 0.8, ease: "easeInOut" }}
                 className="absolute inset-0"
                 style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
               >
