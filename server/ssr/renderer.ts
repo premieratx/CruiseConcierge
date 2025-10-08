@@ -886,7 +886,12 @@ function shouldUseSSR(url: string): boolean {
 // Fetch SEO metadata from API
 async function fetchSEOMetadata(url: string) {
   try {
-    const response = await fetch(`http://localhost:5000/api/seo/meta/${encodeURIComponent(url)}`);
+    // CRITICAL FIX: Use localhost with PORT from environment
+    // SSR runs server-side, so it needs full URL to call its own API
+    const port = process.env.PORT || '5000';
+    const baseUrl = `http://localhost:${port}`;
+    
+    const response = await fetch(`${baseUrl}/api/seo/meta/${encodeURIComponent(url)}`);
     if (response.ok) {
       return await response.json();
     }
@@ -899,7 +904,9 @@ async function fetchSEOMetadata(url: string) {
 // Fetch blog post data
 async function fetchBlogPost(slug: string) {
   try {
-    const response = await fetch(`http://localhost:5000/api/blog/public/posts/${slug}`);
+    // CRITICAL FIX: Use PORT from environment, not hardcoded 5000
+    const port = process.env.PORT || '5000';
+    const response = await fetch(`http://localhost:${port}/api/blog/public/posts/${slug}`);
     if (response.ok) {
       return await response.json();
     }

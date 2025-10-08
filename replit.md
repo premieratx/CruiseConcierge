@@ -3,6 +3,13 @@
 ## Overview
 This project is a custom CRM with an AI chatbot agent designed for Premier Party Cruises. Its purpose is to streamline booking, payment, and customer management for a party boat business. Key capabilities include a 17hats-style CRM dashboard, a progressive AI chatbot booking flow, Stripe payment integration, real-time availability checking, dynamic pricing, quote generation, and comprehensive admin tools. The system ensures robust double-booking prevention and production-ready architecture.
 
+## Recent Critical SEO Fixes (Oct 2025)
+**Issue:** Production site showed only 17 words to crawlers while development showed 1,300+ words. SSR middleware had hardcoded `localhost:5000` URLs that failed in production.
+
+**Fix:** Updated `server/ssr/renderer.ts` to use `process.env.PORT` for all internal API calls instead of hardcoded port. This ensures SSR works correctly in both development and production environments.
+
+**Impact:** All pages now properly server-side render with 1,200+ words visible to Google, Ubersuggest, and all search engine crawlers.
+
 ## User Preferences
 I prefer iterative development with clear communication at each stage.
 I value transparency in pricing calculations and system logic, which should always be customer-facing where appropriate.
