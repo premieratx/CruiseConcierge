@@ -71,6 +71,9 @@ const MediaLibrary = lazy(() => import("./pages/admin/MediaLibrary"));
 // Admin FAQ Review - Lazy loaded
 const FAQReview = lazy(() => import("./pages/admin/FAQReview"));
 
+// Admin Business Summary - Lazy loaded
+const BusinessSummary = lazy(() => import("./pages/admin/BusinessSummary"));
+
 // Landing Pages - Lazy loaded
 const BachelorParty = lazy(() => import("./pages/BachelorParty"));
 const BacheloretteParty = lazy(() => import("./pages/BacheloretteParty"));
@@ -269,6 +272,7 @@ function Router() {
       {/* AI Media Library */}
       <Route path="/admin/media" component={MediaLibrary} />
       <Route path="/admin/faq-review" component={FAQReview} />
+      <Route path="/admin/business-summary" component={BusinessSummary} />
       
       {/* Public Media Library */}
       <Route path="/media">
