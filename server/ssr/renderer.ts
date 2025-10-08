@@ -1015,14 +1015,17 @@ ${JSON.stringify(FAQ_SCHEMA, null, 2)}
     
     template = template.replace('</head>', headInjection);
     
-    // Inject H1 and content into the root div for crawlers
+    // Inject H1 and visible content into the root div for crawlers and SEO tools
+    // Content is visible in initial HTML, then React hydrates over it
     const ssrContent = `
       <div id="root">
-        <div style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0);">
-          <h1>${h1}</h1>
-          <p>${content}</p>
+        <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
+          <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
+          <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${content}</p>
+          <noscript>
+            <p style="color: #DC2626; font-weight: 600;">Please enable JavaScript to view the full interactive experience.</p>
+          </noscript>
         </div>
-        <div id="app"></div>
       </div>`;
     
     template = template.replace(
