@@ -261,20 +261,14 @@ Crawl-delay: 1`;
     }
     await setupVite(app, server);
   } else {
-    // CRITICAL FIX: Wrap serveStatic to prevent catch-all from bypassing SSR
-    // serveStatic has a catch-all that serves index.html, which bypasses SSR middleware
-    // We need to intercept routes that SSR should handle BEFORE the catch-all
-    
-    const distPath = path.resolve(import.meta.dirname, "public");
+    // CRITICAL FIX: Use process.cwd() instead of import.meta.dirname 
+    // because import.meta.dirname doesn't work correctly in bundled production code
+    const distPath = path.resolve(process.cwd(), "dist/public");
     
     // Serve static files (assets, not HTML)
     app.use(express.static(distPath));
     
-    // SSR catch-all must come BEFORE the index.html catch-all
-    // This is already set up above at line 250, so the static index.html 
-    // catch-all will only be reached if SSR doesn't handle the route
-    
-    // Fallback to index.html for SPA routes (but SSR middleware above handles marketing pages first)
+    // Fallback to index.html for SPA routes (SSR middleware above handles marketing pages first)
     app.use("*", (_req, res) => {
       res.sendFile(path.resolve(distPath, "index.html"));
     });
