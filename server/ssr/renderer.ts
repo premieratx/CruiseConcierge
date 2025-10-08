@@ -1177,6 +1177,24 @@ ${JSON.stringify(PRIVATE_CRUISES_FAQ_SCHEMA, null, 2)}
   }
 }
 
+// Valid SPA routes that should be handled by React Router (not SSR)
+const VALID_SPA_ROUTES = [
+  '/chat',
+  '/admin',
+  '/admin/leads',
+  '/admin/calendar',
+  '/admin/bookings',
+  '/admin/quotes',
+  '/admin/settings',
+  '/admin/analytics',
+  '/admin/seo',
+  '/admin/seo/pages',
+  '/admin/seo/overview',
+  '/admin/blog',
+  '/admin/users',
+  '/login',
+];
+
 // SSR middleware
 export function ssrMiddleware() {
   return async (req: Request, res: Response, next: NextFunction) => {
@@ -1195,9 +1213,18 @@ export function ssrMiddleware() {
       return next();
     }
     
+    const pathname = req.url.split('?')[0];
+    
+    // Check if this is a valid SPA route - let React handle it
+    if (VALID_SPA_ROUTES.some(route => pathname.startsWith(route))) {
+      return next();
+    }
+    
     // Check if this route should use SSR
     if (!shouldUseSSR(req.url)) {
-      return next();
+      // Unknown route - return 404 instead of falling through
+      console.log(`[SSR] 404 - Unknown route: ${req.url}`);
+      return res.status(404).send('404 - Page Not Found');
     }
     
     try {
