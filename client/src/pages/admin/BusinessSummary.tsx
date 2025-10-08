@@ -360,10 +360,11 @@ export default function BusinessSummary() {
 
                 <div className="bg-muted/50 p-4 rounded-lg">
                   <h4 className="font-semibold mb-2">Disco Cruise Schedule</h4>
+                  <p className="text-xs text-muted-foreground mb-2">Exclusively for bachelor and bachelorette groups</p>
                   <ul className="text-sm space-y-1">
-                    <li>• <strong>Friday:</strong> 7:00 PM departure</li>
-                    <li>• <strong>Saturday:</strong> 7:00 PM departure</li>
-                    <li>• <strong>Sunday:</strong> 3:00 PM departure</li>
+                    <li>• <strong>Friday:</strong> 12:00 PM - 4:00 PM</li>
+                    <li>• <strong>Saturday:</strong> 11:00 AM - 3:00 PM</li>
+                    <li>• <strong>Saturday:</strong> 3:30 PM - 7:30 PM</li>
                   </ul>
                 </div>
               </div>
