@@ -23,15 +23,9 @@ const fadeInUp = {
 };
 
 export default function Chat({ defaultEventType }: ChatProps = {}) {
-  // Ensure page loads at top and prevent any scrolling
+  // Ensure page loads at top
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
-    // Lock body scroll when this component mounts
-    document.body.style.overflow = 'hidden';
-    return () => {
-      // Restore scroll when component unmounts
-      document.body.style.overflow = '';
-    };
   }, []);
 
   // Dynamic height adjustment for iframe based on postMessage
@@ -50,9 +44,9 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
   }, []);
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950 overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
       {/* Main Content Area */}
-      <div className="h-full flex flex-col items-center justify-start pt-4 pb-4 overflow-y-auto">
+      <div className="flex flex-col items-center justify-start pt-4 pb-12">
         <div className="w-full max-w-6xl">
           <motion.div
             key="intro"
@@ -141,7 +135,7 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                   title="Premier Party Cruises Quote Builder"
                   className="w-full"
                   style={{ 
-                    minHeight: '1600px',
+                    minHeight: '2400px',
                     height: 'auto',
                     maxHeight: 'none',
                     border: 'none',
