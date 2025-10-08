@@ -11,10 +11,11 @@ const __dirname = path.dirname(__filename);
 // Cache template at module level to avoid repeated disk I/O
 let cachedTemplate: string | null = null;
 // CRITICAL FIX: Use correct path for production vs development
+// In production, use process.cwd() because __dirname is different in bundled code
 const isDevelopment = process.env.NODE_ENV === 'development';
 const templatePath = isDevelopment 
   ? path.resolve(__dirname, '../../client/index.html')
-  : path.resolve(__dirname, '../../dist/public/index.html');
+  : path.resolve(process.cwd(), 'dist/public/index.html');
 
 // Organization + LocalBusiness schema markup (sitewide) - CORRECTED DATA
 const ORGANIZATION_SCHEMA = {
