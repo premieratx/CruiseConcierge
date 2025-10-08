@@ -269,9 +269,7 @@ export default function MediaLibrary() {
 
         const response = await fetch('/api/media/admin-upload', {
           method: 'POST',
-          headers: {
-            'Authorization': 'Bearer admin-dev-token'
-          },
+          credentials: 'include', // Use session cookie for auth
           body: formData
         });
 
