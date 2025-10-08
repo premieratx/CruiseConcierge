@@ -1950,10 +1950,21 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
   // SEO MANAGEMENT ROUTES
   // ==========================================
   
+  // In-memory cache for SEO data (expires every 5 minutes)
+  const seoCache = new Map<string, { data: any; timestamp: number }>();
+  const SEO_CACHE_TTL = 5 * 60 * 1000; // 5 minutes
+  
   // Public endpoint: Get SEO meta data for a specific page route
   app.get('/api/seo/meta/:pageRoute(*)', async (req, res) => {
     try {
       const pageRoute = decodeURIComponent(req.params.pageRoute);
+      
+      // Check cache first
+      const cached = seoCache.get(pageRoute);
+      if (cached && Date.now() - cached.timestamp < SEO_CACHE_TTL) {
+        return res.json(cached.data);
+      }
+      
       const storage = await getStorage();
       const seoPage = await storage.getSeoPage(pageRoute);
       
@@ -1979,6 +1990,9 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         robotsDirective: seoPage.robotsDirective,
         schemaMarkup: seoPage.schemaMarkup
       };
+      
+      // Cache the result
+      seoCache.set(pageRoute, { data: seoData, timestamp: Date.now() });
       
       res.json(seoData);
     } catch (error) {
