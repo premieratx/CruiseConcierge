@@ -603,23 +603,23 @@ export default function Home() {
             {/* Key Features with Pricing */}
             <motion.div 
               variants={reducedMotion ? undefined : fadeInUp}
-              className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12 max-w-5xl mx-auto"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-12 max-w-5xl mx-auto"
             >
-              <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <MapPin className="h-6 w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-lg" data-editable data-editable-id="hero-badge-marina">Anderson Mill Marina</span>
+              <div className="flex items-center justify-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-4">
+                <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-brand-yellow flex-shrink-0" />
+                <span className="font-semibold text-sm sm:text-base md:text-lg" data-editable data-editable-id="hero-badge-marina">Anderson Mill Marina</span>
               </div>
-              <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <Users className="h-6 w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-lg" data-editable data-editable-id="hero-badge-boats">4 Awesome Boats</span>
+              <div className="flex items-center justify-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-4">
+                <Users className="h-5 w-5 sm:h-6 sm:w-6 text-brand-yellow flex-shrink-0" />
+                <span className="font-semibold text-sm sm:text-base md:text-lg" data-editable data-editable-id="hero-badge-boats">4 Awesome Boats</span>
               </div>
-              <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <DollarSign className="h-6 w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-lg" data-editable data-editable-id="hero-badge-pricing">From $${HOURLY_RATES.MON_THU[14] / 100} per hour</span>
+              <div className="flex items-center justify-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-4">
+                <DollarSign className="h-5 w-5 sm:h-6 sm:w-6 text-brand-yellow flex-shrink-0" />
+                <span className="font-semibold text-sm sm:text-base md:text-lg whitespace-nowrap" data-editable data-editable-id="hero-badge-pricing">From $${HOURLY_RATES.MON_THU[14] / 100} per hour</span>
               </div>
-              <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
-                <Clock className="h-6 w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-lg" data-editable data-editable-id="hero-badge-disco">ATX Disco Fri/Sat</span>
+              <div className="flex items-center justify-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-4">
+                <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-brand-yellow flex-shrink-0" />
+                <span className="font-semibold text-sm sm:text-base md:text-lg" data-editable data-editable-id="hero-badge-disco">ATX Disco Fri/Sat</span>
               </div>
             </motion.div>
 
@@ -631,22 +631,22 @@ export default function Home() {
               <Button
                 size="lg"
                 onClick={() => handleBookNow()}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-xl px-12 py-6 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide whitespace-normal min-h-[3.5rem] sm:min-h-[4rem]"
                 data-testid="button-hero-book-now"
               >
-                <Calendar className="mr-3 h-6 w-6" />
-                <span data-editable data-editable-id="hero-cta-book">BOOK YOUR CRUISE</span>
-                <ArrowRight className="ml-3 h-6 w-6" />
+                <Calendar className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
+                <span data-editable data-editable-id="hero-cta-book" className="text-center">BOOK YOUR CRUISE</span>
+                <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
               </Button>
               
               <Button
                 size="lg"
                 variant="outline"
                 onClick={() => handleGetQuote()}
-                className="border-3 border-white text-black hover:bg-white hover:text-black font-bold text-xl px-12 py-6 rounded-2xl backdrop-blur-sm tracking-wide bg-brand-yellow shadow-2xl"
+                className="border-3 border-white text-black hover:bg-white hover:text-black font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 rounded-2xl backdrop-blur-sm tracking-wide bg-brand-yellow shadow-2xl whitespace-normal min-h-[3.5rem] sm:min-h-[4rem]"
                 data-testid="button-hero-get-quote"
               >
-                <MessageSquare className="mr-3 h-6 w-6" />
+                <MessageSquare className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
                 <span data-editable data-editable-id="hero-cta-quote">GET FREE QUOTE</span>
               </Button>
             </motion.div>
@@ -702,12 +702,12 @@ export default function Home() {
               <Button
                 size="lg"
                 onClick={() => setShowQuoteBuilder(true)}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base md:text-lg lg:text-xl px-6 md:px-12 lg:px-16 py-3 md:py-6 lg:py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg md:text-xl lg:text-2xl px-6 sm:px-10 md:px-12 lg:px-16 py-4 sm:py-5 md:py-6 lg:py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide whitespace-normal min-h-[3.5rem] sm:min-h-[4rem]"
                 data-testid="button-build-quote"
               >
-                <Sparkles className="mr-2 md:mr-3 h-5 md:h-7 w-5 md:w-7" />
-                <span data-editable data-editable-id="quote-builder-button">Start Building Your Quote</span>
-                <ArrowRight className="ml-2 md:ml-3 h-5 md:h-7 w-5 md:w-7" />
+                <Sparkles className="mr-2 sm:mr-2 md:mr-3 h-5 sm:h-6 md:h-7 w-5 sm:w-6 md:w-7 flex-shrink-0" />
+                <span data-editable data-editable-id="quote-builder-button" className="text-center leading-tight">Start Building Your Quote</span>
+                <ArrowRight className="ml-2 sm:ml-2 md:ml-3 h-5 sm:h-6 md:h-7 w-5 sm:w-6 md:w-7 flex-shrink-0" />
               </Button>
             ) : (
               <Button
@@ -1246,12 +1246,12 @@ export default function Home() {
                     <Button 
                       variant="default"
                       size="lg"
-                      className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold px-10 py-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+                      className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-4 sm:py-5 md:py-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 whitespace-normal min-h-[3rem] sm:min-h-[3.5rem]"
                       data-testid="button-explore-disco"
                     >
-                      <Sparkles className="mr-2 h-5 w-5" />
-                      Explore ATX Disco Cruise
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      <Sparkles className="mr-2 h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+                      <span className="text-center leading-tight">Explore ATX Disco Cruise</span>
+                      <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
                     </Button>
                   </Link>
                   
@@ -1259,12 +1259,12 @@ export default function Home() {
                     <Button 
                       variant="outline"
                       size="lg"
-                      className="border-2 border-yellow-500 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-500 hover:text-white font-bold px-10 py-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300"
+                      className="border-2 border-yellow-500 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-500 hover:text-white font-bold text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-4 sm:py-5 md:py-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 whitespace-normal min-h-[3rem] sm:min-h-[3.5rem]"
                       data-testid="button-book-cruise"
                     >
-                      <Calendar className="mr-2 h-5 w-5" />
-                      Book Your Cruise
-                      <ArrowRight className="ml-2 h-5 w-5" />
+                      <Calendar className="mr-2 h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+                      <span className="text-center">Book Your Cruise</span>
+                      <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
                     </Button>
                   </Link>
                 </div>

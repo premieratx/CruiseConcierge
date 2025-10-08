@@ -435,11 +435,11 @@ export default function BachelorParty() {
               <Button
                 size="lg"
                 onClick={() => handleGetQuote()}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-xl px-8 py-6"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 py-4 sm:py-5 md:py-6 whitespace-normal min-h-[3.5rem] sm:min-h-[4rem]"
                 data-testid="button-hero-book-now-bachelor"
               >
-                <Calendar className="mr-2 h-6 w-6" />
-                BOOK NOW - Be the Hero!
+                <Calendar className="mr-2 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
+                <span className="text-center leading-tight">BOOK NOW - Be the Hero!</span>
               </Button>
               
               <Button
@@ -493,12 +493,12 @@ export default function BachelorParty() {
               <Button
                 size="lg"
                 onClick={() => setShowQuoteBuilder(true)}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-2xl px-16 py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg md:text-xl lg:text-2xl px-6 sm:px-10 md:px-14 lg:px-16 py-4 sm:py-5 md:py-6 lg:py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide whitespace-normal min-h-[3.5rem] sm:min-h-[4rem]"
                 data-testid="button-build-quote"
               >
-                <Sparkles className="mr-3 h-7 w-7" />
-                <span data-editable data-editable-id="quote-builder-button">Start Building Your Quote</span>
-                <ArrowRight className="ml-3 h-7 w-7" />
+                <Sparkles className="mr-2 sm:mr-2 md:mr-3 h-5 sm:h-6 md:h-7 w-5 sm:w-6 md:w-7 flex-shrink-0" />
+                <span data-editable data-editable-id="quote-builder-button" className="text-center leading-tight">Start Building Your Quote</span>
+                <ArrowRight className="ml-2 sm:ml-2 md:ml-3 h-5 sm:h-6 md:h-7 w-5 sm:w-6 md:w-7 flex-shrink-0" />
               </Button>
             ) : (
               <Button
@@ -556,7 +556,7 @@ export default function BachelorParty() {
       <section className="py-16 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-            <TabsList className="grid w-full grid-cols-3 lg:grid-cols-7 gap-2 h-auto p-1">
+            <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2 h-auto p-1">
               <TabsTrigger value="overview" data-testid="tab-overview"><span data-editable data-editable-id="bachelor-tab-overview">Overview</span></TabsTrigger>
               <TabsTrigger value="included" data-testid="tab-included"><span data-editable data-editable-id="bachelor-tab-included">What's Included</span></TabsTrigger>
               <TabsTrigger value="packages" data-testid="tab-packages"><span data-editable data-editable-id="bachelor-tab-packages">Packages</span></TabsTrigger>
@@ -1079,12 +1079,12 @@ export default function BachelorParty() {
                   <Button
                     size="lg"
                     onClick={() => handleGetQuote()}
-                    className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-xl px-8 py-6 h-auto"
+                    className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 py-4 sm:py-5 md:py-6 h-auto whitespace-normal min-h-[3.5rem] sm:min-h-[4rem]"
                     data-testid="button-compare-book-bachelor"
                   >
-                    <Sparkles className="w-6 h-6 mr-3" />
-                    Book the Best Bachelor Party Experience
-                    <ArrowRight className="w-6 h-6 ml-3" />
+                    <Sparkles className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 flex-shrink-0" />
+                    <span className="text-center leading-tight">Book the Best Bachelor Party Experience</span>
+                    <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6 ml-2 sm:ml-3 flex-shrink-0" />
                   </Button>
                 </div>
               </div>

@@ -269,7 +269,7 @@ export default function PrivateCruises() {
             
             <motion.h1 
               variants={fadeInUp}
-              className="text-5xl md:text-7xl lg:text-8xl font-heading font-bold mb-8 text-gray-900 dark:text-white"
+              className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl font-heading font-bold mb-8 text-gray-900 dark:text-white leading-tight"
               data-editable data-editable-id="private-hero-title"
             >
               EVERYTHING SET UP
@@ -288,17 +288,17 @@ export default function PrivateCruises() {
             
             <motion.div 
               variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-6 justify-center mb-20"
+              className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center mb-20"
             >
               <Button
                 size="lg"
                 asChild
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-xl px-12 py-6 transition-all duration-300 hover:scale-105"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 transition-all duration-300 hover:scale-105 whitespace-normal min-h-[3.5rem] sm:min-h-[4rem]"
                 data-testid="button-book-private-cruise"
               >
-                <Link href="/chat">
-                  <Calendar className="mr-3 h-6 w-6" />
-                  BOOK YOUR PRIVATE CRUISE
+                <Link href="/chat" className="flex items-center justify-center">
+                  <Calendar className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
+                  <span className="text-center leading-tight">BOOK YOUR PRIVATE CRUISE</span>
                 </Link>
               </Button>
               
@@ -306,18 +306,18 @@ export default function PrivateCruises() {
                 size="lg"
                 variant="outline"
                 onClick={handleGetQuote}
-                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold text-xl px-12 py-6 transition-all duration-300 hover:scale-105"
+                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 transition-all duration-300 hover:scale-105 whitespace-normal min-h-[3.5rem] sm:min-h-[4rem]"
                 data-testid="button-get-instant-quote"
               >
-                <MessageSquare className="mr-3 h-6 w-6" />
-                GET INSTANT QUOTE
+                <MessageSquare className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
+                <span className="text-center leading-tight">GET INSTANT QUOTE</span>
               </Button>
             </motion.div>
 
             {/* Key selling points */}
             <motion.div 
               variants={fadeInUp}
-              className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto text-center"
+              className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 max-w-4xl mx-auto text-center"
             >
               {[
                 { icon: Package, text: '3 Package Levels', subtext: 'Standard • Essentials • Ultimate' },
@@ -325,10 +325,10 @@ export default function PrivateCruises() {
                 { icon: Clock, text: 'No Setup Required', subtext: 'Everything ready when you arrive' },
                 { icon: Wine, text: 'Alcohol Delivery', subtext: 'Convenient party planning' }
               ].map((item, index) => (
-                <div key={index} className="flex flex-col items-center">
-                  <item.icon className="h-12 w-12 text-brand-blue mb-4" />
-                  <div className="font-bold text-gray-900 dark:text-white mb-2">{item.text}</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-300">{item.subtext}</div>
+                <div key={index} className="flex flex-col items-center p-4">
+                  <item.icon className="h-10 w-10 sm:h-12 sm:w-12 text-brand-blue mb-3 sm:mb-4 flex-shrink-0" />
+                  <div className="font-bold text-sm sm:text-base text-gray-900 dark:text-white mb-2">{item.text}</div>
+                  <div className="text-xs sm:text-sm text-gray-600 dark:text-gray-300">{item.subtext}</div>
                 </div>
               ))}
             </motion.div>
@@ -372,12 +372,12 @@ export default function PrivateCruises() {
               <Button
                 size="lg"
                 onClick={() => setShowQuoteBuilder(true)}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-2xl px-16 py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg md:text-xl lg:text-2xl px-6 sm:px-10 md:px-14 lg:px-16 py-4 sm:py-5 md:py-6 lg:py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide whitespace-normal min-h-[3.5rem] sm:min-h-[4rem]"
                 data-testid="button-build-quote"
               >
-                <Sparkles className="mr-3 h-7 w-7" />
-                <span data-editable data-editable-id="quote-builder-button">Start Building Your Quote</span>
-                <ArrowRight className="ml-3 h-7 w-7" />
+                <Sparkles className="mr-2 sm:mr-2 md:mr-3 h-5 sm:h-6 md:h-7 w-5 sm:w-6 md:w-7 flex-shrink-0" />
+                <span data-editable data-editable-id="quote-builder-button" className="text-center leading-tight">Start Building Your Quote</span>
+                <ArrowRight className="ml-2 sm:ml-2 md:ml-3 h-5 sm:h-6 md:h-7 w-5 sm:w-6 md:w-7 flex-shrink-0" />
               </Button>
             ) : (
               <Button
@@ -478,7 +478,7 @@ export default function PrivateCruises() {
               {/* Sticky Tab Navigation */}
               <div className="sticky top-16 z-40 bg-white/95 dark:bg-gray-950/95 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700 py-6 mb-8">
                 <div className="container mx-auto px-6">
-                  <TabsList className="grid w-full grid-cols-5 gap-2 lg:max-w-5xl lg:mx-auto bg-transparent p-0">
+                  <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-2 lg:max-w-5xl lg:mx-auto bg-transparent p-0">
                     <TabsTrigger 
                       value="experiences" 
                       className="flex flex-col items-center gap-2 py-4 px-3 text-sm rounded-lg border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 hover:border-brand-blue/50 hover:shadow-md transition-all duration-200 data-[state=active]:border-brand-blue data-[state=active]:bg-brand-blue data-[state=active]:text-white data-[state=active]:shadow-lg data-[state=active]:scale-105"
