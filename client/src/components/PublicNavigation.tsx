@@ -186,7 +186,10 @@ const navigationItems: NavigationItem[] = [
 ];
 
 export default function PublicNavigation() {
-  const [location, navigate] = useLocation();
+  // SSR-safe location hook - use guard for browser-only wouter hook
+  const locationData = typeof window !== 'undefined' ? useLocation() : ['/', () => {}];
+  const [location, navigate] = locationData as [string, (to: string) => void];
+  
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
