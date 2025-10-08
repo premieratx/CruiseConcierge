@@ -429,6 +429,8 @@ const DAY_TRIPPER_PRODUCT_SCHEMA = {
   "@type": "Product",
   "name": "Day Tripper - 14 Person Party Boat",
   "description": "Intimate 14-person party boat perfect for small celebrations and private groups on Lake Travis. Features professional captain, premium sound system, coolers with ice, and comfortable seating.",
+  "image": "https://premierpartycruises.com/media/schema/day-tripper-boat.jpg",
+  "url": "https://premierpartycruises.com/",
   "brand": {
     "@type": "Brand",
     "name": "Premier Party Cruises"
@@ -454,6 +456,8 @@ const ME_SEEKS_THE_IRONY_PRODUCT_SCHEMA = {
   "@type": "Product",
   "name": "Me Seeks the Irony - 25 Person Party Boat",
   "description": "Popular 25-person (18-25 seating) party boat ideal for medium-sized celebrations on Lake Travis. Premium amenities, professional crew, and excellent entertainment capabilities.",
+  "image": "https://premierpartycruises.com/media/schema/me-seeks-irony-boat.jpg",
+  "url": "https://premierpartycruises.com/",
   "brand": {
     "@type": "Brand",
     "name": "Premier Party Cruises"
@@ -479,6 +483,8 @@ const CLEVER_GIRL_PRODUCT_SCHEMA = {
   "@type": "Product",
   "name": "Clever Girl - 50 Person Flagship Party Boat",
   "description": "Flagship 50-person party boat featuring 14 disco balls, giant Texas flag, and premium entertainment setup. Perfect for large celebrations, corporate events, and unforgettable Lake Travis parties.",
+  "image": "https://premierpartycruises.com/media/schema/clever-girl-boat.jpg",
+  "url": "https://premierpartycruises.com/",
   "brand": {
     "@type": "Brand",
     "name": "Premier Party Cruises"
