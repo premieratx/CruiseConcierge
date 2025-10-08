@@ -9,7 +9,7 @@ import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
-import SEOHead, { generateFAQSchema } from '@/components/SEOHead';
+import SEOHead from '@/components/SEOHead';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { 
   Ship, Users, Star, MapPin, Clock, DollarSign, Shield, Trophy, 
@@ -236,55 +236,6 @@ export default function PartyBoatAustin() {
     return () => window.removeEventListener('message', handleMessage);
   }, [navigate, toast]);
 
-  const faqSchema = generateFAQSchema(faqData);
-
-  const serviceSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Party Boat Austin - Lake Travis Boat Rentals",
-    "description": "Premier party boat rentals in Austin, Texas on Lake Travis. Specializing in bachelorette parties, bachelor parties, and corporate events with professional crew and newest fleet.",
-    "provider": {
-      "@type": "LocalBusiness",
-      "name": "Premier Party Cruises",
-      "telephone": "+1-512-488-5892",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "13993 FM2769",
-        "addressLocality": "Austin",
-        "addressRegion": "TX",
-        "postalCode": "78641",
-        "addressCountry": "US"
-      }
-    },
-    "serviceType": "Party Boat Rental",
-    "areaServed": {
-      "@type": "City",
-      "name": "Austin",
-      "@id": "https://en.wikipedia.org/wiki/Austin,_Texas"
-    },
-    "availableChannel": {
-      "@type": "ServiceChannel",
-      "serviceLocation": {
-        "@type": "Place",
-        "name": "Anderson Mill Marina - Lake Travis",
-        "address": {
-          "@type": "PostalAddress",
-          "streetAddress": "13993 FM2769",
-          "addressLocality": "Leander",
-          "addressRegion": "TX",
-          "postalCode": "78641"
-        }
-      }
-    },
-    "offers": {
-      "@type": "AggregateOffer",
-      "priceCurrency": "USD",
-      "lowPrice": HOURLY_RATES.MON_THU[14] / 100,
-      "highPrice": HOURLY_RATES.SAT_SUN[75] / 100,
-      "offerCount": "3"
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead
@@ -292,8 +243,6 @@ export default function PartyBoatAustin() {
         defaultTitle="Party Boat Austin | Premier Lake Travis"
         defaultDescription="Best party boats in Austin since 2009. Bachelor parties, corporate events, private charters. 15+ years experience. Book today!"
         defaultKeywords={['party boat Austin', 'Austin party boat rental', 'Lake Travis party boat', 'party boat rental Austin', 'Austin boat party', 'Lake Travis boat rental', 'Austin bachelorette boat', 'Austin bachelor party boat']}
-        schemaType="service"
-        customSchema={[serviceSchema, faqSchema]}
       />
 
       <PublicNavigation />

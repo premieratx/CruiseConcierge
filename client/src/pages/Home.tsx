@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
-import SEOHead, { generateFAQSchema, generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
+import SEOHead from '@/components/SEOHead';
 import { Endorsement } from '@shared/schema';
 import { QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
@@ -498,299 +498,6 @@ export default function Home() {
     });
   };
 
-  const organizationSchema = {
-    "@context": "https://schema.org",
-    "@type": ["Organization", "LocalBusiness"],
-    "@id": "https://premierpartycruises.com/#organization",
-    "name": "Premier Party Cruises",
-    "legalName": "B Hill Entertainment LLC",
-    "url": "https://premierpartycruises.com/",
-    "logo": "https://premierpartycruises.com/media/schema/ppc-logo.png",
-    "image": [
-      "https://premierpartycruises.com/media/schema/hero-boat-1.jpg",
-      "https://premierpartycruises.com/media/schema/hero-boat-2.jpg",
-      "https://premierpartycruises.com/media/schema/disco-dance-floor.jpg",
-      "https://premierpartycruises.com/media/schema/group-swimming-lilypad.jpg"
-    ],
-    "description": "Austin's original Lake Travis party boat company offering private cruises, the ATX Disco Cruise, and full-service planning for bachelor/bachelorette, corporate, birthday, and family events.",
-    "foundingDate": "2009",
-    "sameAs": [
-      "https://www.instagram.com/premierpartycruises",
-      "https://www.tiktok.com/@premierpartycruisesatx",
-      "https://www.facebook.com/premierpartycruises",
-      "https://share.google/oLFqmN5TGvXpnlX6i"
-    ],
-    "address": {
-      "@type": "PostalAddress",
-      "streetAddress": "13993 FM 2769",
-      "addressLocality": "Leander",
-      "addressRegion": "TX",
-      "postalCode": "78641",
-      "addressCountry": "US"
-    },
-    "geo": {
-      "@type": "GeoCoordinates",
-      "latitude": 30.432167,
-      "longitude": -97.881167
-    },
-    "contactPoint": [
-      {
-        "@type": "ContactPoint",
-        "contactType": "customer support",
-        "telephone": "+1-512-488-5892",
-        "email": "clientservices@premierpartycruises.com",
-        "availableLanguage": ["en", "es"]
-      }
-    ],
-    "openingHoursSpecification": [
-      {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-        "opens": "09:00",
-        "closes": "21:00"
-      }
-    ],
-    "areaServed": ["Austin TX", "Texas", "United States"],
-    "priceRange": "$$",
-    "aggregateRating": [
-      {
-        "@type": "AggregateRating",
-        "ratingValue": "5.0",
-        "bestRating": "5",
-        "ratingCount": 300,
-        "name": "Google"
-      },
-      {
-        "@type": "AggregateRating",
-        "ratingValue": "5.0",
-        "bestRating": "5",
-        "ratingCount": 120,
-        "name": "Yelp"
-      }
-    ]
-  };
-
-  const eventSchema = {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "ATX DISCO CRUISE - Austin's Premier Party Boat Experience",
-    "description": "Austin's #1 rated party boat experience on Lake Travis. The ATX DISCO CRUISE features professional DJ, photographer, disco dance floor, premium sound system, and unforgettable party atmosphere for bachelor parties, bachelorette parties, and celebrations.",
-    "startDate": "2025-10-11T14:00:00-05:00",
-    "endDate": "2025-10-11T21:00:00-05:00",
-    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "location": {
-      "@type": "Place",
-      "name": "Anderson Mill Marina - Lake Travis",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "13993 FM2769",
-        "addressLocality": "Leander",
-        "addressRegion": "TX",
-        "postalCode": "78641",
-        "addressCountry": "US"
-      }
-    },
-    "organizer": {
-      "@type": "Organization",
-      "name": "Premier Party Cruises",
-      "url": "https://premierpartycruises.com",
-      "telephone": "(512) 488-5892"
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://premierpartycruises.com/chat",
-      "price": "85.00",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock",
-      "validFrom": "2025-01-01",
-      "description": "ATX DISCO CRUISE party packages starting at $85/person with professional DJ and photographer"
-    },
-    "performer": {
-      "@type": "Organization",
-      "name": "Premier Party Cruises"
-    },
-    "image": "https://premierpartycruises.com/assets/atx-disco-cruise-party.jpg"
-  };
-
-  // Product schemas for each boat
-  const dayTripperSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Day Tripper - 14 Person Party Boat",
-    "description": "Our intimate Day Tripper party boat is perfect for smaller private parties and celebrations on Lake Travis. This 14-person vessel features professional captains, premium sound system, coolers with ice, and all amenities for an unforgettable Austin boat party experience.",
-    "image": "https://premierpartycruises.com/assets/day-tripper-14-person-boat.jpg",
-    "brand": {
-      "@type": "Organization",
-      "name": "Premier Party Cruises"
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://premierpartycruises.com/chat",
-      "price": "195.00",
-      "priceCurrency": "USD",
-      "priceValidUntil": "2025-12-31",
-      "availability": "https://schema.org/InStock",
-      "priceSpecification": {
-        "@type": "UnitPriceSpecification",
-        "price": "195.00",
-        "priceCurrency": "USD",
-        "unitText": "hour"
-      }
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5.0",
-      "reviewCount": "425",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
-    "review": {
-      "@type": "Review",
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": "5",
-        "bestRating": "5"
-      },
-      "author": {
-        "@type": "Person",
-        "name": "Jennifer K"
-      },
-      "reviewBody": "Perfect size for our group of 12! The Day Tripper was exactly what we needed. Professional crew, great sound system, and an amazing time on Lake Travis.",
-      "datePublished": "2025-09-15"
-    },
-    "areaServed": {
-      "@type": "Place",
-      "name": "Lake Travis, Austin TX",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "13993 FM 2769",
-        "addressLocality": "Leander",
-        "addressRegion": "TX",
-        "postalCode": "78641",
-        "addressCountry": "US"
-      }
-    }
-  };
-
-  const meSeeksSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Me Seeks the Irony - 25 Person Party Boat",
-    "description": "Me Seeks the Irony is our popular mid-size party boat, perfect for bachelor parties, bachelorette parties, and celebrations of 25-30 people. Features professional crew, premium sound system, spacious deck, coolers with ice, and optional lily pad rentals for the ultimate Lake Travis experience.",
-    "image": "https://premierpartycruises.com/assets/meeseeks-25-person-boat.jpg",
-    "brand": {
-      "@type": "Organization",
-      "name": "Premier Party Cruises"
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://premierpartycruises.com/chat",
-      "price": "295.00",
-      "priceCurrency": "USD",
-      "priceValidUntil": "2025-12-31",
-      "availability": "https://schema.org/InStock",
-      "priceSpecification": {
-        "@type": "UnitPriceSpecification",
-        "price": "295.00",
-        "priceCurrency": "USD",
-        "unitText": "hour"
-      }
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5.0",
-      "reviewCount": "438",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
-    "review": {
-      "@type": "Review",
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": "5",
-        "bestRating": "5"
-      },
-      "author": {
-        "@type": "Person",
-        "name": "Mike R"
-      },
-      "reviewBody": "Amazing boat for our bachelor party! The Irony was perfect for our group of 22. Professional crew, great music setup, and the lily pad was a blast. Highly recommend!",
-      "datePublished": "2025-09-20"
-    },
-    "areaServed": {
-      "@type": "Place",
-      "name": "Lake Travis, Austin TX",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "13993 FM 2769",
-        "addressLocality": "Leander",
-        "addressRegion": "TX",
-        "postalCode": "78641",
-        "addressCountry": "US"
-      }
-    }
-  };
-
-  const cleverGirlSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Clever Girl - 50 Person Flagship Party Boat",
-    "description": "Clever Girl is our flagship party boat and Austin's premier vessel for large celebrations. This 50-75 person luxury boat features a giant Texas flag deck, 14 disco balls, professional sound system, multiple levels, full bar setup capabilities, and everything needed for corporate events, weddings, and epic celebrations on Lake Travis.",
-    "image": "https://premierpartycruises.com/assets/clever-girl-50-person-boat.jpg",
-    "brand": {
-      "@type": "Organization",
-      "name": "Premier Party Cruises"
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://premierpartycruises.com/chat",
-      "price": "495.00",
-      "priceCurrency": "USD",
-      "priceValidUntil": "2025-12-31",
-      "availability": "https://schema.org/InStock",
-      "priceSpecification": {
-        "@type": "UnitPriceSpecification",
-        "price": "495.00",
-        "priceCurrency": "USD",
-        "unitText": "hour"
-      }
-    },
-    "aggregateRating": {
-      "@type": "AggregateRating",
-      "ratingValue": "5.0",
-      "reviewCount": "467",
-      "bestRating": "5",
-      "worstRating": "1"
-    },
-    "review": {
-      "@type": "Review",
-      "reviewRating": {
-        "@type": "Rating",
-        "ratingValue": "5",
-        "bestRating": "5"
-      },
-      "author": {
-        "@type": "Person",
-        "name": "Sarah M"
-      },
-      "reviewBody": "Absolutely spectacular! Clever Girl was perfect for our company event with 50 people. The giant Texas flag, disco balls, and professional crew made it an unforgettable experience. This is THE boat for large groups!",
-      "datePublished": "2025-09-25"
-    },
-    "areaServed": {
-      "@type": "Place",
-      "name": "Lake Travis, Austin TX",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "13993 FM 2769",
-        "addressLocality": "Leander",
-        "addressRegion": "TX",
-        "postalCode": "78641",
-        "addressCountry": "US"
-      }
-    }
-  };
-
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead
@@ -799,14 +506,131 @@ export default function Home() {
         defaultDescription="Lake Travis party boats since 2009. ATX Disco Cruise, bachelor parties, private charters. 100K+ guests. Call (512) 488-5892."
         defaultKeywords={['party boat Austin', 'bachelorette party Austin', 'Austin boat rental', 'Lake Travis party boat', 'bachelor party Austin']}
         schemaType="organization"
-        customSchema={[
-          organizationSchema,
-          eventSchema,
-          dayTripperSchema,
-          meSeeksSchema,
-          cleverGirlSchema,
-          generateFAQSchema(faqData)
-        ]}
+      />
+      <PublicNavigation />
+      {/* Hero Section */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Background with rotating images */}
+        <div className="absolute inset-0 z-0">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={currentHeroImage}
+              initial={{ opacity: 0, scale: 1.05 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 1.5 }}
+              className="absolute inset-0"
+            >
+              <ResponsiveImage 
+                src={heroImages[currentHeroImage]}
+                alt="Party boat on Lake Travis Austin - Premier Party Cruises with guests celebrating bachelor and bachelorette parties"
+                className="w-full h-full object-cover"
+                width={1920}
+                height={1080}
+                fetchpriority="high"
+                loading="eager"
+                sizes="100vw"
+                srcSet={`${heroImages[currentHeroImage]} 1920w, ${heroImages[currentHeroImage]} 1024w, ${heroImages[currentHeroImage]} 640w`}
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
+            </motion.div>
+          </AnimatePresence>
+        </div>
+
+        {/* Hero Content */}
+        <div className="relative z-10 container mx-auto px-6 text-white">
+          <motion.div
+            initial={reducedMotion ? false : "hidden"}
+            animate={reducedMotion ? false : "visible"}
+            variants={reducedMotion ? undefined : staggerChildren}
+            className="max-w-5xl mx-auto text-center"
+          >
+            {/* Logo */}
+            <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8">
+              <ResponsiveImage 
+                src={logoPath} 
+                alt="Party Boat Austin - Premier Party Cruises on Lake Travis" 
+                className="h-20 md:h-24 mx-auto mb-6"
+                loading="eager"
+                fetchpriority="high"
+                data-testid="img-hero-logo"
+              />
+            </motion.div>
+
+            {/* Main Headline */}
+            <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8">
+              <h1 className="text-2xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 leading-tight tracking-wider" data-editable data-editable-id="hero-title">
+                Austin's Premier Party Boat Experience on Lake Travis
+              </h1>
+            </motion.div>
+
+            {/* Subheadline with Pricing Value Proposition */}
+            <motion.p 
+              variants={reducedMotion ? undefined : fadeInUp}
+              className="text-xl md:text-2xl mb-8 text-gray-100 max-w-4xl mx-auto leading-relaxed font-light"
+              data-editable data-editable-id="hero-description"
+            >
+              Experience Austin's ultimate Lake Travis adventure with the most trusted party cruise company since 2009. 
+              From intimate 14-person cruises on "Day Tripper" to epic 75-person celebrations on flagship "Clever Girl" - we create unforgettable memories.
+            </motion.p>
+
+            {/* Pricing Value Proposition */}
+            <motion.div 
+              variants={reducedMotion ? undefined : fadeInUp}
+              className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 max-w-3xl mx-auto mb-12 border border-white/20"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
+                <div>
+                  <div className="text-brand-yellow text-sm font-bold mb-2" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM</div>
+                  <div className="text-3xl font-bold text-white mb-1" data-editable data-editable-id="pricing-overlay-private-price">
+                    $${HOURLY_RATES.MON_THU[14] / 100} per hour
+                  </div>
+                  <div className="text-sm text-gray-200" data-editable data-editable-id="pricing-overlay-private-subtitle">Weekdays • 14+ people</div>
+                </div>
+                <div>
+                  <div className="text-brand-yellow text-sm font-bold mb-2" data-editable data-editable-id="pricing-overlay-disco-label">DISCO CRUISES</div>
+                  <div className="text-3xl font-bold text-white mb-1" data-editable data-editable-id="pricing-overlay-disco-price">
+                    ${pricingHighlights[1].weekdayFrom}/person
+                  </div>
+                  <div className="text-sm text-gray-200" data-editable data-editable-id="pricing-overlay-disco-subtitle">Friday & Saturday</div>
+                </div>
+              </div>
+              <div className="text-center mt-4 text-sm text-brand-yellow font-medium" data-editable data-editable-id="pricing-overlay-tagline">
+                ✨ Transparent pricing • No hidden fees • Best value guaranteed
+              </div>
+            </motion.div>
+
+            {/* Key Features with Pricing */}
+            <motion.div 
+              variants={reducedMotion ? undefined : fadeInUp}
+              className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-12 max-w-5xl mx-auto"
+            >
+              <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <MapPin className="h-6 w-6 text-brand-yellow flex-shrink-0" />
+                <span className="font-semibold text-lg" data-editable data-editable-id="hero-badge-marina">Anderson Mill Marina</span>
+              </div>
+              <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <Users className="h-6 w-6 text-brand-yellow flex-shrink-0" />
+                <span className="font-semibold text-lg" data-editable data-editable-id="hero-badge-boats">4 Awesome Boats</span>
+              </div>
+              <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <DollarSign className="h-6 w-6 text-brand-yellow flex-shrink-0" />
+                <span className="font-semibold text-lg" data-editable data-editable-id="hero-badge-pricing">From $${HOURLY_RATES.MON_THU[14] / 100} per hour</span>
+              </div>
+              <div className="flex items-center justify-center space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-4">
+                <Clock className="h-6 w-6 text-brand-yellow flex-shrink-0" />
+                <span className="font-semibold text-lg" data-editable data-editable-id="hero-badge-disco">ATX Disco Fri/Sat</span>
+              </div>
+            </motion.div>
+
+
+  return (
+    <div className="min-h-screen bg-white dark:bg-gray-950">
+      <SEOHead
+        pageRoute="/"
+        defaultTitle="Party Boat Austin | Premier Party Cruises"
+        defaultDescription="Lake Travis party boats since 2009. ATX Disco Cruise, bachelor parties, private charters. 100K+ guests. Call (512) 488-5892."
+        defaultKeywords={['party boat Austin', 'bachelorette party Austin', 'Austin boat rental', 'Lake Travis party boat', 'bachelor party Austin']}
       />
       <PublicNavigation />
       {/* Hero Section */}

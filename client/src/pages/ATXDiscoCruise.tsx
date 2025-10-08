@@ -11,7 +11,7 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@shared/formatters';
-import SEOHead, { generateFAQSchema } from '@/components/SEOHead';
+import SEOHead from '@/components/SEOHead';
 import { DISCO_PRICING } from '@shared/constants';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import DiscoVsPrivateComparison from '@/components/DiscoVsPrivateComparison';
@@ -327,102 +327,6 @@ export default function ATXDiscoCruise() {
     navigate('/booking-flow?cruise=disco');
   };
 
-  const eventSchema = {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "ATX Disco Cruise - Bachelor & Bachelorette Party Experience",
-    "description": "America's premier bachelor and bachelorette party cruise experience on Lake Travis. Professional DJ, photographer, 4-hour party with multi-group energy.",
-    "image": heroImage1,
-    "startDate": new Date().toISOString(),
-    "endDate": new Date(Date.now() + 4 * 60 * 60 * 1000).toISOString(),
-    "eventStatus": "https://schema.org/EventScheduled",
-    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-    "location": {
-      "@type": "Place",
-      "name": "Anderson Mill Marina",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "13993 FM 2769",
-        "addressLocality": "Leander",
-        "addressRegion": "TX",
-        "postalCode": "78641",
-        "addressCountry": "US"
-      }
-    },
-    "offers": [
-      {
-        "@type": "Offer",
-        "name": "Basic Bach Package",
-        "price": "85",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": typeof window !== 'undefined' ? `${window.location.origin}/atx-disco-cruise` : '',
-        "validFrom": new Date().toISOString()
-      },
-      {
-        "@type": "Offer",
-        "name": "Disco Queen Package",
-        "price": "95",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": typeof window !== 'undefined' ? `${window.location.origin}/atx-disco-cruise` : '',
-        "validFrom": new Date().toISOString()
-      },
-      {
-        "@type": "Offer",
-        "name": "Super Sparkle Platinum Disco",
-        "price": "105",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": typeof window !== 'undefined' ? `${window.location.origin}/atx-disco-cruise` : '',
-        "validFrom": new Date().toISOString()
-      }
-    ],
-    "organizer": {
-      "@type": "Organization",
-      "name": "Premier Party Cruises",
-      "url": typeof window !== 'undefined' ? window.location.origin : ''
-    },
-    "performer": {
-      "@type": "PerformingGroup",
-      "name": "Professional DJ & Photographer Team"
-    }
-  };
-
-  const serviceSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "serviceType": "Bachelor & Bachelorette Party Cruise",
-    "provider": {
-      "@type": "Organization",
-      "name": "Premier Party Cruises",
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "10",
-        "bestRating": "10",
-        "ratingCount": "1000"
-      }
-    },
-    "areaServed": {
-      "@type": "City",
-      "name": "Austin",
-      "state": "TX"
-    },
-    "offers": {
-      "@type": "AggregateOffer",
-      "lowPrice": "85",
-      "highPrice": "105",
-      "priceCurrency": "USD"
-    }
-  };
-
-
-  const faqSchema = generateFAQSchema(faqItems.map(faq => ({
-    question: faq.question,
-    answer: faq.answer
-  })));
-
-  const combinedSchema = [eventSchema, serviceSchema, faqSchema].filter(Boolean);
 
   return (
     <>
@@ -431,7 +335,6 @@ export default function ATXDiscoCruise() {
         defaultTitle="ATX Disco Cruise | Premier Lake Travis"
         defaultDescription="Austin's exclusive bach party cruise. $85-105/person all-inclusive. DJ, photographer, 4-hour party. Fridays & Saturdays!"
         defaultKeywords={['ATX disco cruise', 'bachelor party Austin', 'bachelorette party Austin', 'party boat Lake Travis', 'all-inclusive bachelor party', 'Austin party cruise', 'Lake Travis party boat', 'disco cruise Austin']}
-        customSchema={combinedSchema}
         image={heroImage1}
       />
 

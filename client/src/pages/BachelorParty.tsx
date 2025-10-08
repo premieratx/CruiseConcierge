@@ -10,7 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@shared/formatters';
-import SEOHead, { generateFAQSchema, generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
+import SEOHead from '@/components/SEOHead';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import { DISCO_PRICING } from '@shared/constants';
@@ -354,94 +354,6 @@ export default function BachelorParty() {
     navigate(`/chat?${params.toString()}`);
   };
 
-  const eventSchema = {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "ATX DISCO CRUISE - Bachelor Party Boat Experience",
-    "description": "Austin's #1 rated bachelor party boat experience. The ATX DISCO CRUISE is the ultimate bachelor party on Lake Travis featuring professional DJ, photographer, disco dance floor, premium sound system, and unforgettable party atmosphere exclusively for bachelor parties.",
-    "startDate": "2025-10-11T14:00:00-05:00",
-    "endDate": "2025-10-11T21:00:00-05:00",
-    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "location": {
-      "@type": "Place",
-      "name": "Anderson Mill Marina - Lake Travis",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "13993 FM2769",
-        "addressLocality": "Leander",
-        "addressRegion": "TX",
-        "postalCode": "78641",
-        "addressCountry": "US"
-      }
-    },
-    "organizer": {
-      "@type": "Organization",
-      "name": "Premier Party Cruises",
-      "url": "https://premierpartycruises.com",
-      "telephone": "(512) 488-5892"
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://premierpartycruises.com/bachelor-party-austin",
-      "price": "85.00",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock",
-      "validFrom": "2025-01-01",
-      "description": "ATX DISCO CRUISE bachelor party packages starting at $85/person with professional DJ and photographer"
-    },
-    "performer": {
-      "@type": "Organization",
-      "name": "Premier Party Cruises"
-    },
-    "image": "https://premierpartycruises.com/assets/atx-disco-cruise-party.jpg"
-  };
-
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "ATX Disco Cruise - Bachelor Party Package",
-    "description": "Join Austin's best party on Lake Travis with DJ, photographer, and open bar options. Exclusively for bachelor parties with professional entertainment and amenities included.",
-    "brand": {
-      "@type": "Brand",
-      "name": "Premier Party Cruises"
-    },
-    "offers": [
-      {
-        "@type": "Offer",
-        "name": "Basic Bach Package",
-        "price": "85.00",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": "https://premierpartycruises.com/bachelor-party-austin",
-        "priceValidUntil": "2025-12-31"
-      },
-      {
-        "@type": "Offer",
-        "name": "Disco King Package",
-        "price": "95.00",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": "https://premierpartycruises.com/bachelor-party-austin",
-        "priceValidUntil": "2025-12-31"
-      },
-      {
-        "@type": "Offer",
-        "name": "Super Sparkle Platinum Package",
-        "price": "105.00",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": "https://premierpartycruises.com/bachelor-party-austin",
-        "priceValidUntil": "2025-12-31"
-      }
-    ],
-    "category": "Event Services",
-    "areaServed": {
-      "@type": "City",
-      "name": "Austin"
-    }
-  };
-
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead
@@ -450,28 +362,6 @@ export default function BachelorParty() {
         defaultDescription="Lake Travis bachelor party cruises. ATX Disco with DJ & photographer. Groom cruises FREE. From $85/person. Book now!"
         defaultKeywords={['Austin bachelor party', 'Lake Travis bachelor party', 'ATX Disco Cruise', 'bachelor party boat Austin']}
         schemaType="event"
-        customSchema={[
-          generateComprehensiveLocalBusinessSchema({
-            pageDescription: "Austin's #1 bachelor party boat cruise on Lake Travis! ATX Disco Cruise offers all-inclusive bachelor party packages with DJ, photographer, and premium amenities. 14+ years experience, 125,000+ customers served.",
-            additionalServices: [
-              {
-                name: "Bachelor Party Boat Cruises",
-                description: "Ultimate bachelor party experience on Lake Travis with ATX DISCO CRUISE - all-inclusive packages with DJ and photographer"
-              },
-              {
-                name: "ATX Disco Cruise Bachelor Packages",
-                description: "Exclusive bachelor party packages: Basic Bach, Disco King, and Platinum - professional entertainment included"
-              },
-              {
-                name: "Austin Bachelor Party Planning",
-                description: "Complete bachelor party planning services on Lake Travis with expert coordination"
-              }
-            ]
-          }),
-          eventSchema,
-          productSchema,
-          generateFAQSchema(faqItems)
-        ]}
       />
       <PublicNavigation />
       

@@ -10,7 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@shared/formatters';
-import SEOHead, { generateComprehensiveLocalBusinessSchema, generateFAQSchema } from '@/components/SEOHead';
+import SEOHead from '@/components/SEOHead';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { DISCO_PRICING } from '@shared/constants';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
@@ -369,96 +369,6 @@ export default function CombinedBachelorBachelorette() {
     navigate(`/chat?${params.toString()}`);
   };
 
-  const eventSchema = {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "ATX DISCO CRUISE - Combined Bachelor & Bachelorette Party Boat Experience",
-    "description": "The ultimate combined bachelor and bachelorette party experience on Lake Travis! ATX DISCO CRUISE brings guys and girls together for an unforgettable celebration with professional DJ, photographer, disco dance floor, and both bride & groom cruise FREE on select packages.",
-    "startDate": "2025-10-11T14:00:00-05:00",
-    "endDate": "2025-10-11T21:00:00-05:00",
-    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "location": {
-      "@type": "Place",
-      "name": "Anderson Mill Marina - Lake Travis",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "13993 FM2769",
-        "addressLocality": "Leander",
-        "addressRegion": "TX",
-        "postalCode": "78641",
-        "addressCountry": "US"
-      }
-    },
-    "organizer": {
-      "@type": "Organization",
-      "name": "Premier Party Cruises",
-      "url": "https://premierpartycruises.com",
-      "telephone": "(512) 488-5892"
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin",
-      "price": "85.00",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock",
-      "validFrom": "2025-01-01",
-      "description": "ATX DISCO CRUISE combined party packages starting at $85/person - Bride & Groom cruise FREE with Party Squad and Ultimate Celebration packages"
-    },
-    "performer": {
-      "@type": "Organization",
-      "name": "Premier Party Cruises"
-    },
-    "image": "https://premierpartycruises.com/assets/atx-disco-cruise-party.jpg"
-  };
-
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Combined Bachelor & Bachelorette Party Package - Lake Travis",
-    "description": "Plan the ultimate combined bachelor and bachelorette party on Lake Travis! Private boats & disco cruises perfect for guys and girls celebrating together. Both bride and groom cruise free on select packages.",
-    "brand": {
-      "@type": "Brand",
-      "name": "Premier Party Cruises"
-    },
-    "offers": [
-      {
-        "@type": "Offer",
-        "name": "Basic Combined Package",
-        "price": "85.00",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin",
-        "priceValidUntil": "2025-12-31"
-      },
-      {
-        "@type": "Offer",
-        "name": "Party Squad Package",
-        "price": "95.00",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin",
-        "priceValidUntil": "2025-12-31"
-      },
-      {
-        "@type": "Offer",
-        "name": "Ultimate Celebration Package",
-        "price": "105.00",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin",
-        "priceValidUntil": "2025-12-31"
-      }
-    ],
-    "category": "Event Services",
-    "areaServed": {
-      "@type": "City",
-      "name": "Austin"
-    }
-  };
-
-  const faqSchema = generateFAQSchema(faqItems);
-
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead
@@ -467,28 +377,6 @@ export default function CombinedBachelorBachelorette() {
         defaultDescription="Combined bachelor & bachelorette parties on Lake Travis! Private boats & disco cruises for groups celebrating together."
         defaultKeywords={['combined bachelor bachelorette party Austin', 'Lake Travis combined party', 'bachelor bachelorette party together', 'Austin group party cruise']}
         schemaType="event"
-        customSchema={[
-          generateComprehensiveLocalBusinessSchema({
-            pageDescription: "Austin's best combined bachelor and bachelorette party cruises on Lake Travis! Celebrate together with private boats or ATX Disco Cruise. Perfect for couples who want to party with both sides.",
-            additionalServices: [
-              {
-                name: "Combined Bachelor Bachelorette Party Cruises",
-                description: "Ultimate combined party experiences on Lake Travis - celebrate with guys and girls together"
-              },
-              {
-                name: "Group Party Boat Rentals",
-                description: "Large group party boats perfect for combined bachelor and bachelorette celebrations"
-              },
-              {
-                name: "Joint Celebration Packages",
-                description: "Customized packages for combined bachelor and bachelorette parties with flexible options"
-              }
-            ]
-          }),
-          eventSchema,
-          productSchema,
-          faqSchema
-        ]}
       />
       <PublicNavigation />
       

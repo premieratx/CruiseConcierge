@@ -81,31 +81,6 @@ export default function Contact() {
           '512-488-5892'
         ]}
         schemaType="organization"
-        customSchema={{
-          "@context": "https://schema.org",
-          "@type": "ContactPage",
-          "name": "Contact Premier Party Cruises",
-          "description": "Contact information and inquiry form for Premier Party Cruises",
-          "mainEntity": {
-            "@type": "LocalBusiness",
-            "name": "Premier Party Cruises",
-            "telephone": "+1-512-488-5892",
-            "email": "clientservices@premierpartycruises.com",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Austin",
-              "addressRegion": "TX",
-              "addressCountry": "US"
-            },
-            "contactPoint": {
-              "@type": "ContactPoint",
-              "telephone": "+1-512-488-5892",
-              "contactType": "customer service",
-              "availableLanguage": "English",
-              "areaServed": "Austin, TX"
-            }
-          }
-        }}
       />
       <PublicNavigation />
       

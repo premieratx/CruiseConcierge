@@ -10,7 +10,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@shared/formatters';
-import SEOHead, { generateFAQSchema, generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
+import SEOHead from '@/components/SEOHead';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import { DISCO_PRICING } from '@shared/constants';
@@ -373,94 +373,6 @@ export default function BacheloretteParty() {
     navigate(`/chat?${params.toString()}`);
   };
 
-  const eventSchema = {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "ATX DISCO CRUISE - Bachelorette Party Boat Experience",
-    "description": "Austin's #1 rated bachelorette party boat experience. The ATX DISCO CRUISE is the ultimate bachelorette party on Lake Travis featuring professional DJ, photographer, disco dance floor, premium sound system, and bride cruises FREE exclusively for bachelorette parties.",
-    "startDate": "2025-10-11T14:00:00-05:00",
-    "endDate": "2025-10-11T21:00:00-05:00",
-    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "location": {
-      "@type": "Place",
-      "name": "Anderson Mill Marina - Lake Travis",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "13993 FM2769",
-        "addressLocality": "Leander",
-        "addressRegion": "TX",
-        "postalCode": "78641",
-        "addressCountry": "US"
-      }
-    },
-    "organizer": {
-      "@type": "Organization",
-      "name": "Premier Party Cruises",
-      "url": "https://premierpartycruises.com",
-      "telephone": "(512) 488-5892"
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://premierpartycruises.com/bachelorette-party-austin",
-      "price": "85.00",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock",
-      "validFrom": "2025-01-01",
-      "description": "ATX DISCO CRUISE bachelorette party packages starting at $85/person - Bride cruises FREE with Disco Queen and Platinum packages"
-    },
-    "performer": {
-      "@type": "Organization",
-      "name": "Premier Party Cruises"
-    },
-    "image": "https://premierpartycruises.com/assets/atx-disco-cruise-party.jpg"
-  };
-
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "ATX Disco Cruise - Bachelorette Party Package",
-    "description": "Join Austin's best bachelorette party on Lake Travis with DJ, photographer, and bride cruises free. Exclusively for bachelorette parties with professional entertainment and amenities included.",
-    "brand": {
-      "@type": "Brand",
-      "name": "Premier Party Cruises"
-    },
-    "offers": [
-      {
-        "@type": "Offer",
-        "name": "Basic Bachelorette Package",
-        "price": "85.00",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": "https://premierpartycruises.com/bachelorette-party-austin",
-        "priceValidUntil": "2025-12-31"
-      },
-      {
-        "@type": "Offer",
-        "name": "Disco Queen Package",
-        "price": "95.00",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": "https://premierpartycruises.com/bachelorette-party-austin",
-        "priceValidUntil": "2025-12-31"
-      },
-      {
-        "@type": "Offer",
-        "name": "Super Sparkle Platinum Package",
-        "price": "105.00",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": "https://premierpartycruises.com/bachelorette-party-austin",
-        "priceValidUntil": "2025-12-31"
-      }
-    ],
-    "category": "Event Services",
-    "areaServed": {
-      "@type": "City",
-      "name": "Austin"
-    }
-  };
-
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead
@@ -469,28 +381,6 @@ export default function BacheloretteParty() {
         defaultDescription="Lake Travis bachelorette cruises. Bride cruises FREE! ATX Disco with DJ & photographer. From $85/person. Book today!"
         defaultKeywords={['Austin bachelorette party', 'Lake Travis bachelorette party', 'ATX Disco Cruise', 'bachelorette party boat Austin']}
         schemaType="event"
-        customSchema={[
-          generateComprehensiveLocalBusinessSchema({
-            pageDescription: "Austin's #1 bachelorette party boat cruise on Lake Travis! ATX Disco Cruise offers all-inclusive bachelorette packages with DJ, photographer, and Bride cruises FREE. Our specialty since 2009!",
-            additionalServices: [
-              {
-                name: "Bachelorette Party Boat Cruises",
-                description: "Unforgettable bachelorette party cruises on Lake Travis with ATX DISCO CRUISE - Bride cruises FREE on select packages"
-              },
-              {
-                name: "ATX Disco Cruise Bachelorette Packages",
-                description: "Exclusive bachelorette packages: Basic Bach, Disco Queen, and Platinum - professional DJ and photographer included"
-              },
-              {
-                name: "Austin Bachelorette Party Planning",
-                description: "Complete bachelorette party planning services on Lake Travis - our specialty since 2009"
-              }
-            ]
-          }),
-          eventSchema,
-          productSchema,
-          generateFAQSchema(faqItems)
-        ]}
       />
       <PublicNavigation />
       
