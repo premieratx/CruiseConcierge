@@ -726,18 +726,18 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         `<title>${metaTitle} | Premier Party Cruises</title>`
       );
       html = html.replace(
-        /<meta name="description" content=".*?"\/>/,
-        `<meta name="description" content="${metaDescription}"/>`
+        /<meta name="description" content=".*?"\s*\/>/,
+        `<meta name="description" content="${metaDescription}" />`
       );
       
-      // Inject H1 and content for SEO (crawlers need visible text, not just meta tags)
+      // Inject H1 and FULL content for SEO (crawlers need visible text, not just meta tags)
       const h1Content = post.title || "";
-      const bodyContent = post.excerpt || post.content?.substring(0, 300) || "";
+      const bodyContent = post.content || post.excerpt || "";
       
       // Replace empty root div with server-rendered content for SEO
       const ssrContent = `<div id="root">
         <h1>${h1Content}</h1>
-        <p>${bodyContent}</p>
+        <div>${bodyContent}</div>
       </div>`;
       
       html = html.replace(/<div id="root"><\/div>/, ssrContent);

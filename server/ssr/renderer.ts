@@ -940,9 +940,14 @@ async function renderPage(url: string, req: Request): Promise<string> {
       
       if (blogData && blogData.post) {
         h1 = blogData.post.title;
-        content = blogData.post.excerpt || blogData.post.content?.substring(0, 300) || '';
+        // CRITICAL FIX: Inject FULL blog content for SEO (not just excerpt)
+        content = blogData.post.content || blogData.post.excerpt || '';
         metaTitle = `${blogData.post.title} | Premier Party Cruises Blog`;
-        metaDescription = blogData.post.metaDescription || blogData.post.excerpt || content;
+        // Generate unique meta description from content if not set
+        const uniqueDescription = blogData.post.metaDescription || 
+                                  blogData.post.excerpt || 
+                                  (blogData.post.content ? blogData.post.content.substring(0, 160) : '');
+        metaDescription = uniqueDescription;
       }
     } else if (pathname === '/blogs') {
       // Main blog listing page (canonical URL)

@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { useToast } from '@/hooks/use-toast';
-import SEOHead, { generateFAQSchema, generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
+import SEOHead from '@/components/SEOHead';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { 
   Ship, Users, Star, MapPin, Clock, DollarSign, Shield, Trophy, 
@@ -231,99 +231,6 @@ export default function PartyBoatLakeTravis() {
 
   const heroImages = [heroImage1, heroImage2, heroImage3];
 
-  const faqSchema = generateFAQSchema(faqData);
-
-  const eventSchema = {
-    "@context": "https://schema.org",
-    "@type": "Event",
-    "name": "ATX DISCO CRUISE - Lake Travis Party Boat Experience",
-    "description": "Experience the ultimate party boat on Lake Travis! ATX DISCO CRUISE offers the best Lake Travis party boat experience featuring professional DJ, photographer, disco dance floor, and premium sound system for bachelor parties, bachelorette parties, and celebrations.",
-    "startDate": "2025-10-11T14:00:00-05:00",
-    "endDate": "2025-10-11T21:00:00-05:00",
-    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "location": {
-      "@type": "Place",
-      "name": "Anderson Mill Marina - Lake Travis",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "13993 FM2769",
-        "addressLocality": "Leander",
-        "addressRegion": "TX",
-        "postalCode": "78641",
-        "addressCountry": "US"
-      }
-    },
-    "organizer": {
-      "@type": "Organization",
-      "name": "Premier Party Cruises",
-      "url": "https://premierpartycruises.com",
-      "telephone": "(512) 488-5892"
-    },
-    "offers": {
-      "@type": "Offer",
-      "url": "https://premierpartycruises.com/party-boat-lake-travis",
-      "price": "85.00",
-      "priceCurrency": "USD",
-      "availability": "https://schema.org/InStock",
-      "validFrom": "2025-01-01",
-      "description": "Lake Travis party boat packages starting at $85/person with professional entertainment"
-    },
-    "performer": {
-      "@type": "Organization",
-      "name": "Premier Party Cruises"
-    },
-    "image": "https://premierpartycruises.com/assets/atx-disco-cruise-party.jpg"
-  };
-
-  const serviceSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Party Boat Lake Travis",
-    "description": "Premier party boat rentals and cruises on Lake Travis near Austin, Texas. Professional captains, modern fleet, and unforgettable Lake Travis experiences.",
-    "provider": {
-      "@type": "LocalBusiness",
-      "name": "Premier Party Cruises",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "13993 FM2769",
-        "addressLocality": "Austin",
-        "addressRegion": "TX",
-        "postalCode": "78641"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "30.3879",
-        "longitude": "-97.9723"
-      }
-    },
-    "serviceType": "Party Boat Rental on Lake Travis",
-    "areaServed": {
-      "@type": "Place",
-      "name": "Lake Travis, Austin, Lakeway, Bee Cave, Cedar Park, TX"
-    },
-    "hasOfferCatalog": {
-      "@type": "OfferCatalog",
-      "name": "Lake Travis Party Boat Services",
-      "itemListElement": [
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Lake Travis Private Charters"
-          }
-        },
-        {
-          "@type": "Offer",
-          "itemOffered": {
-            "@type": "Service",
-            "name": "Lake Travis Disco Cruises"
-          }
-        }
-      ]
-    }
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
       <SEOHead
@@ -331,33 +238,6 @@ export default function PartyBoatLakeTravis() {
         defaultTitle="Party Boat Lake Travis | Austin Cruises"
         defaultDescription="Premier Lake Travis party boats. Crystal clear water, 270 miles of shoreline. ATX Disco & private charters. 100K+ happy guests!"
         defaultKeywords={['party boat Lake Travis', 'Lake Travis party boat', 'Lake Travis boat rental', 'party boat rental Lake Travis', 'Lake Travis party cruise']}
-        schemaType="service"
-        customSchema={[
-          generateComprehensiveLocalBusinessSchema({
-            pageDescription: "Premier Lake Travis party boat rentals in Austin, TX. Experience the best Lake Travis cruises with professional captains and premium party boats. 14+ years serving Austin with 125,000+ happy customers.",
-            additionalServices: [
-              {
-                name: "Lake Travis Party Boat Rentals",
-                description: "Professional party boat rentals on Lake Travis with experienced captains and premium boats"
-              },
-              {
-                name: "Lake Travis Cruises",
-                description: "Scenic Lake Travis cruises for all occasions - bachelor parties, bachelorette parties, and celebrations"
-              },
-              {
-                name: "Austin Boat Rentals",
-                description: "Premium boat rentals near Austin on beautiful Lake Travis"
-              },
-              {
-                name: "Lake Travis Events",
-                description: "Customized Lake Travis boat party experiences and event cruises"
-              }
-            ]
-          }),
-          eventSchema,
-          serviceSchema,
-          faqSchema
-        ]}
       />
 
       <PublicNavigation />

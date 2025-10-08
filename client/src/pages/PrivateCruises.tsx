@@ -19,7 +19,7 @@ import {
   Package, Gift, Heart, Crown, Anchor, PartyPopper, ArrowRight, X
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
-import SEOHead, { generateComprehensiveLocalBusinessSchema, generateFAQSchema } from '@/components/SEOHead';
+import SEOHead from '@/components/SEOHead';
 import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
 import { formatCurrency } from '@shared/formatters';
@@ -234,77 +234,6 @@ export default function PrivateCruises() {
     navigate('/chat?cruiseType=private');
   };
 
-  const serviceSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    "name": "Private Cruise Charters",
-    "description": "Exclusive private boat charters on Lake Travis with professional crews and premium amenities",
-    "provider": {
-      "@type": "LocalBusiness",
-      "name": "Premier Party Cruises",
-      "url": "https://premierpartycruises.com",
-      "telephone": "+1-512-488-5892",
-      "address": {
-        "@type": "PostalAddress",
-        "addressLocality": "Austin",
-        "addressRegion": "TX",
-        "addressCountry": "US"
-      }
-    },
-    "areaServed": "Lake Travis, Austin, Texas",
-    "serviceType": "Private Boat Charter"
-  };
-
-  const productSchema = {
-    "@context": "https://schema.org",
-    "@type": "Product",
-    "name": "Private Cruise Charter - Lake Travis",
-    "description": "Exclusive private boat charters on Lake Travis with professional crews, premium amenities, and flexible capacity options for any celebration or corporate event.",
-    "brand": {
-      "@type": "Brand",
-      "name": "Premier Party Cruises"
-    },
-    "offers": [
-      {
-        "@type": "AggregateOffer",
-        "name": "14-Person Boat Charter",
-        "lowPrice": "320.00",
-        "highPrice": "450.00",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": "https://premierpartycruises.com/private-cruises",
-        "priceValidUntil": "2025-12-31"
-      },
-      {
-        "@type": "AggregateOffer",
-        "name": "25-30 Person Boat Charter",
-        "lowPrice": "400.00",
-        "highPrice": "600.00",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": "https://premierpartycruises.com/private-cruises",
-        "priceValidUntil": "2025-12-31"
-      },
-      {
-        "@type": "AggregateOffer",
-        "name": "50+ Person Boat Charter",
-        "lowPrice": "600.00",
-        "highPrice": "850.00",
-        "priceCurrency": "USD",
-        "availability": "https://schema.org/InStock",
-        "url": "https://premierpartycruises.com/private-cruises",
-        "priceValidUntil": "2025-12-31"
-      }
-    ],
-    "category": "Event Services",
-    "areaServed": {
-      "@type": "City",
-      "name": "Austin"
-    }
-  };
-
-  const faqSchema = generateFAQSchema(faqData);
-
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead 
@@ -320,33 +249,6 @@ export default function PrivateCruises() {
           'corporate boat rental austin',
           'wedding boat charter lake travis',
           'private yacht rental austin'
-        ]}
-        schemaType="service"
-        customSchema={[
-          generateComprehensiveLocalBusinessSchema({
-            pageDescription: "Exclusive private boat charters on Lake Travis, Austin. 14-75 person capacity boats with professional crews. Perfect for corporate events, weddings, birthdays & all celebrations. 14+ years experience.",
-            additionalServices: [
-              {
-                name: "Private Boat Charter Lake Travis",
-                description: "Exclusive private boat charters on Lake Travis - 14 to 75 person capacity with professional captains"
-              },
-              {
-                name: "Custom Private Cruises",
-                description: "Fully customized private cruises for weddings, birthdays, corporate events, and special celebrations"
-              },
-              {
-                name: "Corporate Boat Charters",
-                description: "Professional corporate boat charters for team building and client entertainment on Lake Travis"
-              },
-              {
-                name: "Wedding Boat Rentals",
-                description: "Elegant wedding party boat rentals on Lake Travis for unforgettable celebrations"
-              }
-            ]
-          }),
-          serviceSchema,
-          productSchema,
-          faqSchema
         ]}
       />
       <PublicNavigation />
