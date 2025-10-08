@@ -1208,6 +1208,15 @@ export function ssrMiddleware() {
       return next();
     }
     
+    // Skip Vite dev assets (CRITICAL for development mode)
+    if (req.path.startsWith('/src/') || 
+        req.path.startsWith('/@vite/') || 
+        req.path.startsWith('/@id/') ||
+        req.path.startsWith('/@fs/') ||
+        req.path.startsWith('/node_modules/')) {
+      return next();
+    }
+    
     // Skip static files
     if (req.path.match(/\.(js|css|png|jpg|jpeg|gif|svg|ico|woff|woff2|ttf|eot)$/)) {
       return next();
@@ -1222,9 +1231,8 @@ export function ssrMiddleware() {
     
     // Check if this route should use SSR
     if (!shouldUseSSR(req.url)) {
-      // Unknown route - return 404 instead of falling through
-      console.log(`[SSR] 404 - Unknown route: ${req.url}`);
-      return res.status(404).send('404 - Page Not Found');
+      // Unknown route - pass to next middleware (Vite will handle or 404)
+      return next();
     }
     
     try {
