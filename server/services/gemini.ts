@@ -72,7 +72,7 @@ export async function editPhotoWithNanoBanana(
     };
 
     const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash-exp", // Correct model for image editing
+      model: "gemini-2.5-flash-image", // Correct model for image editing (Nano Banana)
       contents: [{
         role: 'user',
         parts: [{
@@ -119,7 +119,7 @@ export async function editPhotoWithNanoBanana(
 export async function generateImageWithNanoBanana(prompt: string) {
   try {
     const response = await ai.models.generateContent({
-      model: "gemini-2.0-flash-exp", // Correct model for image generation
+      model: "gemini-2.5-flash-image", // Correct model for image generation (Nano Banana)
       contents: [{
         role: 'user',
         parts: [{
