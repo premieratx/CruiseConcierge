@@ -2238,7 +2238,7 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
       const mediaService = await getMediaLibraryService();
       const result = await mediaService.getMediaLibrary(1, 1000, filter as string);
       
-      res.json({ items: result.items || [] });
+      res.json({ items: result || [] });
     } catch (error) {
       console.error('Error fetching media library:', error);
       res.status(500).json({ 
