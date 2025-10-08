@@ -1199,25 +1199,40 @@ ${JSON.stringify(PRIVATE_CRUISES_FAQ_SCHEMA, null, 2)}
     
     template = template.replace('</head>', headInjection);
     
-    // Inject full page content for crawlers (hidden from JS users, visible to crawlers)
+    // Inject full page content for crawlers (hidden from JS users via CSS, visible to crawlers)
     const pageContent = PAGE_CONTENT[pathname];
     let ssrContent;
 
     if (pageContent) {
-      // Render full content from database - hidden when JS loads
+      // Render full content from database - hidden when React hydrates
       ssrContent = `
-      <div id="root"></div>
-      <div id="ssr-fallback" class="ssr-only">${renderPageContent(pageContent)}</div>
+      <style>
+        /* Hide SSR content when JavaScript is enabled */
+        .js-enabled #ssr-fallback { display: none !important; }
+        /* Ensure React root is always visible */
+        #root { min-height: 100vh; }
+      </style>
       <script>
-        // Hide SSR content as soon as JS loads (for users)
-        // Crawlers without JS will still see the content
-        document.getElementById('ssr-fallback').style.display = 'none';
-      </script>`;
+        // Add class to indicate JS is enabled (hides SSR content via CSS)
+        document.documentElement.classList.add('js-enabled');
+      </script>
+      <div id="root"></div>
+      <div id="ssr-fallback">${renderPageContent(pageContent)}</div>`;
     } else {
       // Fallback to basic H1/description for pages not in database
       ssrContent = `
+      <style>
+        /* Hide SSR content when JavaScript is enabled */
+        .js-enabled #ssr-fallback { display: none !important; }
+        /* Ensure React root is always visible */
+        #root { min-height: 100vh; }
+      </style>
+      <script>
+        // Add class to indicate JS is enabled
+        document.documentElement.classList.add('js-enabled');
+      </script>
       <div id="root"></div>
-      <div id="ssr-fallback" class="ssr-only">
+      <div id="ssr-fallback">
         <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
           <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
           <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${content}</p>
@@ -1225,11 +1240,7 @@ ${JSON.stringify(PRIVATE_CRUISES_FAQ_SCHEMA, null, 2)}
             <p style="color: #DC2626; font-weight: 600;">Please enable JavaScript to view the full interactive experience.</p>
           </noscript>
         </div>
-      </div>
-      <script>
-        // Hide SSR content as soon as JS loads
-        document.getElementById('ssr-fallback').style.display = 'none';
-      </script>`;
+      </div>`;
     }
     
     template = template.replace(
