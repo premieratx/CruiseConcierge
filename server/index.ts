@@ -61,135 +61,16 @@ app.use((req, res, next) => {
   next();
 });
 
-// Add iframe embedding headers for embed routes
-app.use('/embed', (req, res, next) => {
-  // Remove X-Frame-Options to allow iframe embedding
-  res.removeHeader('X-Frame-Options');
-  
-  // Set CSP to allow embedding from any origin for embed routes
-  // In production, you should limit this to specific domains
-  res.setHeader('Content-Security-Policy', 
-    "frame-ancestors 'self' *; " +
-    "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https:; " +
-    "connect-src 'self' https: wss: ws:; " +
-    "img-src 'self' data: https:; " +
-    "style-src 'self' 'unsafe-inline' https:; " +
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:;"
-  );
-  
-  // Additional headers for iframe compatibility
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('Referrer-Policy', 'origin-when-cross-origin');
-  
-  next();
-});
+// NO iframe restrictions - allow all embedding
 
-// CRITICAL: Allow /chat route to be embedded in ANY iframe (no restrictions)
-// This is needed for Quote Builder widget and other embedded booking flows
-app.use('/chat', (req, res, next) => {
-  // Completely permissive CSP - allow embedding from ANY domain
-  res.setHeader('Content-Security-Policy', 
-    "frame-ancestors *; " +
-    "default-src * 'unsafe-inline' 'unsafe-eval' data: blob:; " +
-    "script-src * 'unsafe-inline' 'unsafe-eval'; " +
-    "style-src * 'unsafe-inline'; " +
-    "img-src * data: blob:; " +
-    "connect-src * wss: ws:; " +
-    "font-src * data:; " +
-    "media-src * blob:; " +
-    "object-src *; " +
-    "frame-src *;"
-  );
-  
-  // DO NOT set X-Frame-Options - this allows iframe embedding from any domain
-  res.removeHeader('X-Frame-Options');
-  
-  // Basic security headers that don't affect embedding
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('Referrer-Policy', 'no-referrer-when-downgrade');
-  
-  next();
-});
+// NO iframe restrictions - allow all embedding
 
-// Add CSP headers for quote pages to allow inline styles
-app.use('/q/', (req, res, next) => {
-  // Set permissive CSP to allow inline styles for quote pages
-  res.setHeader('Content-Security-Policy', 
-    "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https:; " +
-    "connect-src 'self' https: wss: ws:; " +
-    "img-src 'self' data: https: blob:; " +
-    "style-src 'self' 'unsafe-inline' https:; " +
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; " +
-    "frame-ancestors 'self';"
-  );
-  
-  // Additional headers for compatibility
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-  res.setHeader('Referrer-Policy', 'origin-when-cross-origin');
-  
-  next();
-});
+// NO iframe restrictions - allow all embedding
 
-// Add security headers for non-embeddable routes only
-app.use((req, res, next) => {
-  // CRITICAL: Skip ALL security restrictions for routes that need iframe embedding
-  // This includes: /chat (Quote Builder), /embed (widgets), /q/ (quote pages)
-  if (req.path.startsWith('/embed') || req.path.startsWith('/q/') || req.path.startsWith('/chat')) {
-    return next();
-  }
-
-  // Apply security headers ONLY to regular marketing pages (not widgets/embeds)
-  
-  // HSTS - Force HTTPS for 1 year (only set in production)
-  if (process.env.NODE_ENV === 'production') {
-    res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
-  }
-
-  // Prevent MIME type sniffing
-  res.setHeader('X-Content-Type-Options', 'nosniff');
-
-  // Referrer policy - send origin for cross-origin requests
-  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-
-  // Permissions policy - restrict sensitive features
-  res.setHeader('Permissions-Policy', 
-    'geolocation=(), microphone=(), camera=(), payment=()'
-  );
-
-  // Cross-Origin-Opener-Policy - isolate browsing context
-  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
-
-  // Content Security Policy for marketing pages
-  // Allow Replit preview domains for iframe embedding during development
-  const frameAncestors = process.env.REPLIT_DEV_DOMAIN 
-    ? `'self' https://*.replit.dev https://*.replit.app https://*.replit.com` 
-    : `'self'`;
-  
-  const cspDirectives = [
-    "default-src 'self'",
-    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://fonts.googleapis.com",
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-    "font-src 'self' https://fonts.gstatic.com data:",
-    "img-src 'self' data: https: blob:",
-    "connect-src 'self' https://www.google-analytics.com https://analytics.google.com wss: ws:",
-    `frame-ancestors ${frameAncestors}`,
-    "base-uri 'self'",
-    "form-action 'self'"
-  ].join('; ');
-  
-  res.setHeader('Content-Security-Policy', cspDirectives);
-  
-  // Allow Replit preview in development, SAMEORIGIN in production
-  if (process.env.REPLIT_DEV_DOMAIN) {
-    // In development, allow Replit preview iframe
-    res.removeHeader('X-Frame-Options');
-  } else {
-    // In production, prevent clickjacking
-    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-  }
-
-  next();
-});
+// REMOVED: Restrictive security headers that blocked iframe embedding
+// User has intentional cross-domain iframes (booking.premierpartycruises.com embedded on premierpartycruises.com)
+// NO X-Frame-Options or frame-ancestors restrictions applied
+// This allows all embedded content to work in production as intended
 
 (async () => {
   // Blog routes - register public blog API routes
