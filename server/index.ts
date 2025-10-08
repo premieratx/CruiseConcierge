@@ -17,6 +17,17 @@ app.set('trust proxy', true);
 // Enable strong ETags for smart caching
 app.set('etag', 'strong');
 
+// WWW redirect - redirect www.premierpartycruises.com to premierpartycruises.com (SEO best practice)
+app.use((req, res, next) => {
+  const host = req.get('host');
+  if (host && host.startsWith('www.')) {
+    const newHost = host.replace('www.', '');
+    const protocol = req.secure || req.get('x-forwarded-proto') === 'https' ? 'https' : 'http';
+    return res.redirect(301, `${protocol}://${newHost}${req.originalUrl}`);
+  }
+  next();
+});
+
 // Enable gzip compression for all responses
 app.use(compression({
   filter: (req, res) => {
