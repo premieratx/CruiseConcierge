@@ -261,7 +261,26 @@ Crawl-delay: 1`;
     }
     await setupVite(app, server);
   } else {
-    serveStatic(app);
+    // CRITICAL FIX: Don't use serveStatic as it has a catch-all route that bypasses SSR!
+    // Instead, serve static assets directly but let SSR handle HTML pages
+    const distPath = path.resolve(process.cwd(), "dist");
+    
+    // Serve static assets (JS, CSS, images, etc) - but NOT HTML!
+    app.use(express.static(distPath, {
+      // Don't serve index.html for directories - let SSR handle it
+      index: false,
+      // Only serve actual files that exist
+      fallthrough: true,
+      // Set proper cache headers for assets
+      setHeaders: (res, path) => {
+        if (path.match(/\.(js|css|png|jpg|jpeg|gif|webp|svg|woff|woff2)$/)) {
+          res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
+        }
+      }
+    }));
+    
+    // NO CATCH-ALL ROUTE! Let SSR middleware handle all HTML pages
+    log("Production static assets configured WITHOUT catch-all (SSR handles HTML)", "production");
   }
 
   // ALWAYS serve the app on the port specified in the environment variable PORT
