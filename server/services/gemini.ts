@@ -200,3 +200,42 @@ export async function generateBlogContent(prompt: string): Promise<string> {
     throw error;
   }
 }
+
+export async function formatBlogPost(content: string, title: string): Promise<string> {
+  try {
+    const prompt = `You are an expert content formatter specializing in blog posts. Format the following blog post content for optimal SEO and visual appearance.
+
+Title: ${title}
+
+Requirements:
+- Use proper semantic HTML (h2 for main sections, h3 for subsections, p for paragraphs)
+- Create clear heading hierarchy for SEO
+- Center important callouts or quotes using appropriate tags
+- Add bullet points (ul/li) or numbered lists (ol/li) where appropriate
+- Ensure paragraphs have good spacing (each p tag is distinct)
+- Use <blockquote> for quotes or important information
+- Keep all existing links (<a>) and images (<img>) intact
+- Return ONLY the formatted HTML content, no explanations
+
+Original Content:
+${content}
+
+Return the formatted HTML:`;
+
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: [{
+        role: 'user',
+        parts: [{
+          text: prompt
+        }]
+      }]
+    });
+
+    const result = await response.text;
+    return result || content; // Return original content if formatting fails
+  } catch (error) {
+    console.error('Blog post formatting failed:', error);
+    throw error;
+  }
+}

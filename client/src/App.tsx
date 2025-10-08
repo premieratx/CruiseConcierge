@@ -48,6 +48,7 @@ const BlogAuthor = lazy(() => import("./pages/BlogAuthor"));
 // Admin Blog Pages - Lazy loaded
 const BlogManagement = lazy(() => import("./pages/admin/BlogManagement"));
 const BlogPostEditor = lazy(() => import("./pages/admin/BlogPostEditor"));
+const BlogFormatter = lazy(() => import("./pages/admin/BlogFormatter"));
 
 // Admin SEO Pages - Lazy loaded
 const SEOManagement = lazy(() => import("./pages/admin/SEOManagement"));
@@ -378,6 +379,11 @@ function Router() {
       <Route path="/admin/blogs/authors/:id/edit">
         <ProtectedRoute>
           <BlogManagement />
+        </ProtectedRoute>
+      </Route>
+      <Route path="/admin/blog-formatter">
+        <ProtectedRoute>
+          <BlogFormatter />
         </ProtectedRoute>
       </Route>
       

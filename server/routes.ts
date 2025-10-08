@@ -42,6 +42,7 @@ import { randomUUID, randomInt } from "crypto";
 import multer from 'multer';
 import slugify from 'slugify';
 import Database from "@replit/database";
+import { formatBlogPost } from './services/gemini';
 
 // Slug utility functions
 function generateSlugFromText(text: string): string {
@@ -2571,6 +2572,165 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
       }
       res.status(500).json({ 
         error: 'Failed to create blog post',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // HTML Sanitization configuration for blog content
+  const sanitizeOptions = {
+    allowedTags: ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'br', 'ul', 'ol', 'li', 'a', 'img', 'blockquote', 'strong', 'em', 'code', 'pre', 'span', 'div'],
+    allowedAttributes: {
+      'a': ['href', 'title', 'target', 'rel'],
+      'img': ['src', 'alt', 'title', 'width', 'height'],
+      '*': ['class']
+    },
+    allowedSchemes: ['http', 'https', 'mailto'],
+    allowedSchemesByTag: {
+      img: ['http', 'https', 'data']
+    }
+  };
+
+  // Sanitize and validate HTML content
+  function sanitizeAndValidateHtml(content: string, title: string): { 
+    sanitized: string; 
+    isValid: boolean; 
+    warnings: string[] 
+  } {
+    const warnings: string[] = [];
+    
+    // Sanitize HTML to remove dangerous tags and attributes
+    const sanitized = sanitizeHtml(content, sanitizeOptions);
+    
+    // Check if content was modified by sanitization (potential XSS attempt)
+    if (sanitized !== content) {
+      warnings.push('Content was sanitized - potentially dangerous HTML was removed');
+      console.warn(`⚠️ Content sanitized for post "${title}"`);
+    }
+    
+    // Validate minimum content length
+    const textContent = sanitized.replace(/<[^>]*>/g, '').trim();
+    if (textContent.length < 50) {
+      warnings.push('Content is too short (less than 50 characters)');
+      return { sanitized, isValid: false, warnings };
+    }
+    
+    // Validate HTML structure (basic check)
+    const openTags = (sanitized.match(/<(?!\/)[^>]+>/g) || []).length;
+    const closeTags = (sanitized.match(/<\/[^>]+>/g) || []).length;
+    const selfClosingTags = (sanitized.match(/<[^>]+\/>/g) || []).length;
+    
+    if (openTags !== closeTags + selfClosingTags) {
+      warnings.push('HTML structure may be malformed');
+    }
+    
+    return { sanitized, isValid: true, warnings };
+  }
+
+  // Format all blog posts with Gemini AI (admin only)
+  app.post('/api/blog/admin/format-all-posts', requireAdmin, async (req, res) => {
+    try {
+      const storage = await getStorage();
+      const { limit, dryRun = false } = req.body; // Optional limit for testing and dry-run mode
+      
+      // Fetch all published blog posts
+      const posts = await storage.getAllBlogPosts({ 
+        status: 'published',
+        limit: limit || 1000 
+      });
+      
+      const results = {
+        processed: 0,
+        errors: 0,
+        dryRun,
+        details: [] as Array<{ 
+          id: string; 
+          title: string; 
+          status: 'success' | 'error'; 
+          message?: string;
+          preview?: {
+            original: string;
+            formatted: string;
+            sanitized: string;
+            warnings: string[];
+          }
+        }>
+      };
+      
+      const mode = dryRun ? 'DRY RUN' : 'LIVE';
+      console.log(`Starting ${mode} format of ${posts.length} published blog posts with Gemini AI...`);
+      
+      // Process each post
+      for (const post of posts) {
+        try {
+          console.log(`[${mode}] Formatting post: ${post.title} (${post.id})`);
+          
+          // Call Gemini to format the content
+          const formattedContent = await formatBlogPost(post.content, post.title);
+          
+          // SECURITY: Sanitize and validate the formatted content
+          const { sanitized, isValid, warnings } = sanitizeAndValidateHtml(formattedContent, post.title);
+          
+          if (!isValid) {
+            throw new Error(`Validation failed: ${warnings.join(', ')}`);
+          }
+          
+          // Log warnings if content was sanitized
+          if (warnings.length > 0) {
+            console.warn(`⚠️ Warnings for post "${post.title}":`, warnings);
+          }
+          
+          // In dry-run mode, return preview without saving
+          if (dryRun) {
+            results.details.push({
+              id: post.id,
+              title: post.title,
+              status: 'success',
+              preview: {
+                original: post.content.substring(0, 500) + (post.content.length > 500 ? '...' : ''),
+                formatted: formattedContent.substring(0, 500) + (formattedContent.length > 500 ? '...' : ''),
+                sanitized: sanitized.substring(0, 500) + (sanitized.length > 500 ? '...' : ''),
+                warnings
+              }
+            });
+            results.processed++;
+            console.log(`✅ [DRY RUN] Preview generated for post: ${post.title}`);
+          } else {
+            // Update the post with sanitized formatted content
+            await storage.updateBlogPost(post.id, {
+              content: sanitized,
+              updatedAt: new Date()
+            });
+            
+            results.processed++;
+            results.details.push({
+              id: post.id,
+              title: post.title,
+              status: 'success',
+              message: warnings.length > 0 ? `Sanitized: ${warnings.join(', ')}` : undefined
+            });
+            
+            console.log(`✅ Successfully formatted and sanitized post: ${post.title}`);
+          }
+        } catch (error: any) {
+          results.errors++;
+          results.details.push({
+            id: post.id,
+            title: post.title,
+            status: 'error',
+            message: error.message || 'Unknown error'
+          });
+          
+          console.error(`❌ Error formatting post ${post.title}:`, error);
+        }
+      }
+      
+      console.log(`[${mode}] Blog formatting complete: ${results.processed} processed, ${results.errors} errors`);
+      res.json(results);
+    } catch (error: any) {
+      console.error('Error in format-all-posts:', error);
+      res.status(500).json({ 
+        error: 'Failed to format blog posts',
         message: error instanceof Error ? error.message : 'Unknown error'
       });
     }
