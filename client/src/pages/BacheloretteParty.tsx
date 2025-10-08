@@ -2558,68 +2558,42 @@ export default function BacheloretteParty() {
         __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Service",
-          "serviceType": "Bachelorette Party Boat Cruises",
+          "@id": "https://premierpartycruises.com/bachelorette-party-austin/#service",
+          "name": "Bachelorette Party Boat Cruises on Lake Travis",
           "provider": {
-            "@type": "LocalBusiness",
-            "name": "Premier Party Cruises",
-            "description": "Austin's #1 bachelorette party boat experience on Lake Travis - Bride cruises FREE on select packages!",
-            "url": "https://premierpartycruises.com",
-            "telephone": "(512) 488-5892",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "13993 FM2769",
-              "addressLocality": "Austin",
-              "addressRegion": "TX",
-              "postalCode": "78641",
-              "addressCountry": "US"
-            },
-            "areaServed": {
-              "@type": "City",
-              "name": "Austin"
-            }
+            "@id": "https://premierpartycruises.com/#organization"
           },
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Bachelorette Party Packages Austin",
-            "itemListElement": [
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Basic Bach Package - Bachelorette Party Austin",
-                  "description": "Join the BEST Party on Lake Travis, Exclusively for Bach Parties! BYOB bachelorette party boat experience"
-                },
-                "price": "85.00",
-                "priceCurrency": "USD",
-                "availability": "https://schema.org/InStock",
-                "url": "https://premierpartycruises.com/bachelorette-party-austin"
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Disco Queen Package - Bachelorette Party Lake Travis",
-                  "description": "Private cooler, reserved spot, BRIDE CRUISES FREE, and premium bachelorette party amenities on Lake Travis"
-                },
-                "price": "95.00",
-                "priceCurrency": "USD",
-                "availability": "https://schema.org/InStock",
-                "url": "https://premierpartycruises.com/bachelorette-party-austin"
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Super Sparkle Platinum Disco - Ultimate Bachelorette Party",
-                  "description": "All-inclusive VIP bachelorette party boat experience on Lake Travis with BRIDE CRUISES FREE, unicorn float, and full amenities"
-                },
-                "price": "105.00",
-                "priceCurrency": "USD",
-                "availability": "https://schema.org/InStock",
-                "url": "https://premierpartycruises.com/bachelorette-party-austin"
-              }
-            ]
-          }
+          "areaServed": ["Austin TX", "Texas", "United States"],
+          "description": "Exclusive bachelorette party cruises on Lake Travis featuring ATX Disco Cruise packages with BYOB options, professional DJ, professional photographer, giant floats, and Bride cruises FREE on select packages. Austin's premier bachelorette party boat experience - our specialty since 2009!",
+          "offers": [
+            {
+              "@type": "Offer",
+              "priceCurrency": "USD",
+              "price": "85.00",
+              "name": "Basic Bach Package",
+              "description": "Join the BEST Party on Lake Travis, Exclusively for Bach Parties! BYOB, shared cooler with ice, alcohol and lunch delivery available. ALWAYS cheaper than a private cruise.",
+              "url": "https://premierpartycruises.com/bachelorette-party-austin",
+              "availability": "https://schema.org/InStock"
+            },
+            {
+              "@type": "Offer",
+              "priceCurrency": "USD",
+              "price": "95.00",
+              "name": "Disco Queen Package",
+              "description": "BRIDE CRUISES FREE! Private Cooler with Ice & Storage Bin for Your Group. Reserved Spot. Disco Ball Cup & Bubble Gun for the Bride. Complimentary Direct-to-Boat Alcohol & Lunch Delivery. 25% Discount on Round-Trip Transportation.",
+              "url": "https://premierpartycruises.com/bachelorette-party-austin",
+              "availability": "https://schema.org/InStock"
+            },
+            {
+              "@type": "Offer",
+              "priceCurrency": "USD",
+              "price": "105.00",
+              "name": "Super Sparkle Platinum Disco",
+              "description": "BRIDE CRUISES FREE! Everything in Disco Queen Package. Personal Unicorn Float for the Bride. Mimosa Setup with Champagne Flutes, 3 Juices & Chambong. $100 Voucher for Airbnb Concierge Services. Towel Service & SPF-50 Spray Sunscreen. Nothing to Carry, Cooler Stocked When You Arrive!",
+              "url": "https://premierpartycruises.com/bachelorette-party-austin",
+              "availability": "https://schema.org/InStock"
+            }
+          ]
         })
       }} />
 

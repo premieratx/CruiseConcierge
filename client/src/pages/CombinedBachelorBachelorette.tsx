@@ -1954,6 +1954,50 @@ export default function CombinedBachelorBachelorette() {
         </div>
       </section>
 
+      {/* JSON-LD Structured Data for Combined Bachelor/Bachelorette Party Services */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "@id": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin/#service",
+          "name": "Combined Bachelor/Bachelorette Party Cruises on Lake Travis",
+          "provider": {
+            "@id": "https://premierpartycruises.com/#organization"
+          },
+          "areaServed": ["Austin TX", "Texas", "United States"],
+          "description": "Joint bachelor/bachelorette party celebrations on Lake Travis with flexible group options. Celebrate together with ATX Disco Cruise or private charter options featuring professional DJ, photographer, and both bride & groom cruise FREE on select packages. The modern way to celebrate - all your friends, one unforgettable party.",
+          "offers": [
+            {
+              "@type": "Offer",
+              "priceCurrency": "USD",
+              "price": "85.00",
+              "name": "Basic Combined Package",
+              "description": "Join the ultimate party cruise with friends from both sides! BYOB, shared cooler with ice for everyone. Alcohol & food delivery available to the boat. ALWAYS more affordable than separate parties.",
+              "url": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin",
+              "availability": "https://schema.org/InStock"
+            },
+            {
+              "@type": "Offer",
+              "priceCurrency": "USD",
+              "price": "95.00",
+              "name": "Party Squad Package",
+              "description": "Both Bride & Groom can cruise FREE! Private Cooler with Ice & Storage for Your Entire Group. Reserved Spot for Your Combined Party. Special Celebration Items for the Happy Couple. Complimentary Direct-to-Boat Alcohol & Food Delivery. 25% Discount on Round-Trip Transportation.",
+              "url": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin",
+              "availability": "https://schema.org/InStock"
+            },
+            {
+              "@type": "Offer",
+              "priceCurrency": "USD",
+              "price": "105.00",
+              "name": "Ultimate Celebration Package",
+              "description": "Both Bride & Groom cruise FREE! Everything in Party Squad Package. Premium Party Floats for the Entire Group. Mixology Setup with Champagne, Juices & Party Supplies. $100 Voucher for Airbnb Concierge Services. Towel Service & SPF-50 Spray Sunscreen for Everyone. Completely Turnkey - Cooler Stocked, Everything Ready!",
+              "url": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin",
+              "availability": "https://schema.org/InStock"
+            }
+          ]
+        })
+      }} />
+
       {/* Footer */}
       <Footer />
     </div>

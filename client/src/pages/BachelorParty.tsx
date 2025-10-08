@@ -2444,68 +2444,42 @@ export default function BachelorParty() {
         __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Service",
-          "serviceType": "Bachelor Party Boat Cruises",
+          "@id": "https://premierpartycruises.com/bachelor-party-austin/#service",
+          "name": "Bachelor Party Boat Cruises on Lake Travis",
           "provider": {
-            "@type": "LocalBusiness",
-            "name": "Premier Party Cruises",
-            "description": "Austin's #1 bachelor party boat experience on Lake Travis",
-            "url": "https://premierpartycruises.com",
-            "telephone": "(512) 488-5892",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "13993 FM2769",
-              "addressLocality": "Austin",
-              "addressRegion": "TX",
-              "postalCode": "78641",
-              "addressCountry": "US"
-            },
-            "areaServed": {
-              "@type": "City",
-              "name": "Austin"
-            }
+            "@id": "https://premierpartycruises.com/#organization"
           },
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Bachelor Party Packages Austin",
-            "itemListElement": [
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Basic Bach Package - Bachelor Party Austin",
-                  "description": "Join the BEST Party on Lake Travis, Exclusively for Bach Parties! BYOB bachelor party boat experience"
-                },
-                "price": "85.00",
-                "priceCurrency": "USD",
-                "availability": "https://schema.org/InStock",
-                "url": "https://premierpartycruises.com/bachelor-party-austin"
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Disco King Package - Bachelor Party Lake Travis",
-                  "description": "Private cooler, reserved spot, and premium bachelor party amenities on Lake Travis"
-                },
-                "price": "95.00",
-                "priceCurrency": "USD",
-                "availability": "https://schema.org/InStock",
-                "url": "https://premierpartycruises.com/bachelor-party-austin"
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "Super Sparkle Platinum Disco - Ultimate Bachelor Party",
-                  "description": "All-inclusive VIP bachelor party boat experience on Lake Travis with unicorn float and full amenities"
-                },
-                "price": "105.00",
-                "priceCurrency": "USD",
-                "availability": "https://schema.org/InStock",
-                "url": "https://premierpartycruises.com/bachelor-party-austin"
-              }
-            ]
-          }
+          "areaServed": ["Austin TX", "Texas", "United States"],
+          "description": "Exclusive bachelor party cruises on Lake Travis featuring ATX Disco Cruise packages with BYOB options, professional DJ, professional photographer, giant floats, and all-inclusive party amenities. Austin's premier bachelor party boat experience.",
+          "offers": [
+            {
+              "@type": "Offer",
+              "priceCurrency": "USD",
+              "price": "85.00",
+              "name": "Basic Bach Package",
+              "description": "Join the BEST Party on Lake Travis, Exclusively for Bach Parties! BYOB, shared cooler with ice, alcohol and lunch delivery available. ALWAYS cheaper than a private cruise.",
+              "url": "https://premierpartycruises.com/bachelor-party-austin",
+              "availability": "https://schema.org/InStock"
+            },
+            {
+              "@type": "Offer",
+              "priceCurrency": "USD",
+              "price": "95.00",
+              "name": "Disco King Package",
+              "description": "Private Cooler with Ice & Storage Bin for Your Group. Reserved Spot. Disco Visor & Disco Ball Necklace for the Groom. Complimentary Direct-to-Boat Alcohol & Lunch Delivery. 25% Discount on Round-Trip Transportation.",
+              "url": "https://premierpartycruises.com/bachelor-party-austin",
+              "availability": "https://schema.org/InStock"
+            },
+            {
+              "@type": "Offer",
+              "priceCurrency": "USD",
+              "price": "105.00",
+              "name": "Super Sparkle Platinum Disco",
+              "description": "Everything in Disco King Package. Personal Unicorn Float for the Groom. Mimosa Setup with Champagne Flutes, 3 Juices & Chambong. $100 Voucher for Airbnb Concierge Services. Towel Service & SPF-50 Spray Sunscreen. Nothing to Carry, Cooler Stocked When You Arrive!",
+              "url": "https://premierpartycruises.com/bachelor-party-austin",
+              "availability": "https://schema.org/InStock"
+            }
+          ]
         })
       }} />
 

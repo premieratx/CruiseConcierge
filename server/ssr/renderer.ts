@@ -175,6 +175,117 @@ const EVENT_SCHEMA = {
   ]
 };
 
+// Bachelor Party Service Schema
+const BACHELOR_PARTY_SERVICE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://premierpartycruises.com/bachelor-party-austin/#service",
+  "name": "Bachelor Party Boat Cruises on Lake Travis",
+  "provider": { "@id": "https://premierpartycruises.com/#organization" },
+  "areaServed": ["Austin TX", "Texas", "United States"],
+  "description": "Exclusive bachelor party cruises on Lake Travis with BYOB, professional DJ, photographer, and all-inclusive packages. Join the best party boat experience for bachelor groups.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "85.00",
+      "name": "Basic Bach Package",
+      "url": "https://premierpartycruises.com/bachelor-party-austin",
+      "availability": "https://schema.org/InStock"
+    },
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "95.00",
+      "name": "Disco King Package",
+      "url": "https://premierpartycruises.com/bachelor-party-austin",
+      "availability": "https://schema.org/InStock"
+    },
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "105.00",
+      "name": "Super Sparkle Platinum Disco",
+      "url": "https://premierpartycruises.com/bachelor-party-austin",
+      "availability": "https://schema.org/InStock"
+    }
+  ]
+};
+
+// Bachelorette Party Service Schema
+const BACHELORETTE_PARTY_SERVICE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://premierpartycruises.com/bachelorette-party-austin/#service",
+  "name": "Bachelorette Party Boat Cruises on Lake Travis",
+  "provider": { "@id": "https://premierpartycruises.com/#organization" },
+  "areaServed": ["Austin TX", "Texas", "United States"],
+  "description": "Exclusive bachelorette party cruises on Lake Travis with BYOB, professional DJ, photographer, and VIP packages. Bride cruises free on select packages.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "85.00",
+      "name": "Basic Bach Package",
+      "url": "https://premierpartycruises.com/bachelorette-party-austin",
+      "availability": "https://schema.org/InStock"
+    },
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "95.00",
+      "name": "Disco Queen Package",
+      "url": "https://premierpartycruises.com/bachelorette-party-austin",
+      "availability": "https://schema.org/InStock"
+    },
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "105.00",
+      "name": "Super Sparkle Platinum Disco",
+      "url": "https://premierpartycruises.com/bachelorette-party-austin",
+      "availability": "https://schema.org/InStock"
+    }
+  ]
+};
+
+// Combined Bachelor/Bachelorette Service Schema
+const COMBINED_BACH_SERVICE_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin/#service",
+  "name": "Combined Bachelor/Bachelorette Party Cruises on Lake Travis",
+  "provider": { "@id": "https://premierpartycruises.com/#organization" },
+  "areaServed": ["Austin TX", "Texas", "United States"],
+  "description": "Joint bachelor/bachelorette party celebrations on Lake Travis. Flexible group options for couples who want to celebrate together with all their friends.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "85.00",
+      "name": "Basic Combined Package",
+      "url": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin",
+      "availability": "https://schema.org/InStock"
+    },
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "95.00",
+      "name": "Party Squad Package",
+      "url": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin",
+      "availability": "https://schema.org/InStock"
+    },
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "105.00",
+      "name": "Ultimate Celebration Package",
+      "url": "https://premierpartycruises.com/combined-bachelor-bachelorette-austin",
+      "availability": "https://schema.org/InStock"
+    }
+  ]
+};
+
 // FAQPage schema for Testimonials-FAQ page
 const FAQ_SCHEMA = {
   "@context": "https://schema.org",
@@ -618,6 +729,30 @@ ${JSON.stringify(SERVICE_SCHEMA, null, 2)}
       schemaScripts += `
   <script type="application/ld+json">
 ${JSON.stringify(EVENT_SCHEMA, null, 2)}
+  </script>`;
+    }
+    
+    // Add Bachelor Party Service schema
+    if (pathname === '/bachelor-party-austin') {
+      schemaScripts += `
+  <script type="application/ld+json">
+${JSON.stringify(BACHELOR_PARTY_SERVICE_SCHEMA, null, 2)}
+  </script>`;
+    }
+    
+    // Add Bachelorette Party Service schema
+    if (pathname === '/bachelorette-party-austin') {
+      schemaScripts += `
+  <script type="application/ld+json">
+${JSON.stringify(BACHELORETTE_PARTY_SERVICE_SCHEMA, null, 2)}
+  </script>`;
+    }
+    
+    // Add Combined Bachelor/Bachelorette Service schema
+    if (pathname === '/combined-bachelor-bachelorette-austin') {
+      schemaScripts += `
+  <script type="application/ld+json">
+${JSON.stringify(COMBINED_BACH_SERVICE_SCHEMA, null, 2)}
   </script>`;
     }
     
