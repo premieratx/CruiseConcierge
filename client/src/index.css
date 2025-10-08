@@ -2,6 +2,37 @@
 @tailwind components;
 @tailwind utilities;
 
+/* PRODUCTION-SAFE SSR: Hide SSR content only after React successfully hydrates */
+/* This ensures fallback content stays visible if React fails to load */
+#root[data-hydrated="true"] ~ .ssr-content {
+  display: none !important;
+}
+
+/* Min-height for #root to prevent layout shift during hydration */
+#root {
+  min-height: 600px;
+  contain: layout style paint;
+}
+
+/* CRITICAL CLS FIX: Font loading optimization with size-adjust to prevent layout shift */
+@font-face {
+  font-family: 'DM Sans Fallback';
+  src: local('Arial');
+  size-adjust: 105%; /* Adjust to match DM Sans metrics */
+  ascent-override: 92%;
+  descent-override: 24%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Bebas Neue Fallback';
+  src: local('Arial Black');
+  size-adjust: 85%; /* Adjust to match Bebas Neue metrics */
+  ascent-override: 95%;
+  descent-override: 5%;
+  line-gap-override: 0%;
+}
+
 /* Content Blocks Edit Mode Styles */
 .edit-mode {
   /* Global edit mode indicator */
@@ -85,11 +116,11 @@
   --sidebar-accent-foreground: hsl(208 100% 50%);
   --sidebar-border: hsl(220 15% 85%);
   --sidebar-ring: hsl(208 100% 50%);
-  --font-sans: "DM Sans", "Inter", system-ui, sans-serif;
+  --font-sans: "DM Sans", "DM Sans Fallback", "Inter", system-ui, sans-serif;
   --font-serif: Georgia, serif;
   --font-mono: Menlo, monospace;
-  --font-heading: "Bebas Neue", "Oswald", system-ui, sans-serif;
-  --font-caps: "Bebas Neue", "Oswald", system-ui, sans-serif;
+  --font-heading: "Bebas Neue", "Bebas Neue Fallback", "Oswald", system-ui, sans-serif;
+  --font-caps: "Bebas Neue", "Bebas Neue Fallback", "Oswald", system-ui, sans-serif;
   --radius: 12px;
   --shadow-2xs: 0px 2px 0px 0px hsl(220 90% 55% / 0.00);
   --shadow-xs: 0px 2px 0px 0px hsl(220 90% 55% / 0.00);
@@ -201,8 +232,19 @@
     @apply border-border;
   }
 
+  /* CRITICAL CLS FIX: Ensure stable body dimensions */
   body {
     @apply font-sans antialiased bg-background text-foreground;
+    min-height: 100vh;
+    /* Prevent layout shift during font loading */
+    font-display: swap;
+  }
+  
+  /* CRITICAL CLS FIX: Ensure #root has stable dimensions during hydration */
+  #root {
+    min-height: 100vh;
+    /* Prevent content from shifting during React hydration */
+    contain: layout style paint;
   }
   
   h1, h2, h3, h4, h5, h6 {

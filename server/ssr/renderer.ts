@@ -1152,20 +1152,21 @@ ${JSON.stringify(PRIVATE_CRUISES_FAQ_SCHEMA, null, 2)}
     
     template = template.replace('</head>', headInjection);
     
-    // Inject full page content for crawlers (hidden from React users via CSS, visible to crawlers)
+    // PRODUCTION-SAFE SSR: Keep SSR content visible until React hydrates successfully
+    // SSR content stays visible if React fails to load (resilient fallback)
     const pageContent = PAGE_CONTENT[pathname];
     let ssrContent;
 
     if (pageContent) {
-      // JUST SHOW THE FUCKING CONTENT - NO HIDING!
+      // Inject both root div and SSR content (SSR visible until React sets data-hydrated)
       ssrContent = `
       <div id="root"></div>
       ${renderPageContent(pageContent)}`;
     } else {
-      // SIMPLE FALLBACK - NO HIDING!
+      // Simple fallback with SSR content
       ssrContent = `
       <div id="root"></div>
-      <div style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
+      <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
         <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
         <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${content}</p>
       </div>`;
