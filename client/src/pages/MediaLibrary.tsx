@@ -251,7 +251,7 @@ export default function MediaLibrary() {
   }, [toast]);
 
   // Handle edit form submission
-  const handleEditSubmit = useCallback((e: React.FormEvent) => {
+  const handleEditSubmit = useCallback((e: FormEvent) => {
     e.preventDefault();
     if (!editingMedia) return;
     

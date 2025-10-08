@@ -58,18 +58,18 @@ export default function PhotoCard({
   const [isLiked, setIsLiked] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
-  const handleLike = (e: React.MouseEvent) => {
+  const handleLike = (e: MouseEvent) => {
     e.stopPropagation();
     setIsLiked(!isLiked);
     onLike?.();
   };
 
-  const handleShare = (e: React.MouseEvent) => {
+  const handleShare = (e: MouseEvent) => {
     e.stopPropagation();
     onShare?.();
   };
 
-  const handleDownload = (e: React.MouseEvent) => {
+  const handleDownload = (e: MouseEvent) => {
     e.stopPropagation();
     onDownload?.();
   };

@@ -81,7 +81,7 @@ export default function PortalProfile() {
     }
   });
 
-  const handleSaveProfile = (e: React.FormEvent) => {
+  const handleSaveProfile = (e: FormEvent) => {
     e.preventDefault();
     
     if (!formData.name.trim()) {

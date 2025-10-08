@@ -7,7 +7,7 @@ interface SEOHeadProps {
   defaultTitle?: string;
   defaultDescription?: string;
   defaultKeywords?: string[];
-  children?: React.ReactNode;
+  children?: ReactNode;
   schemaType?: 'webpage' | 'service' | 'event' | 'organization';
   customSchema?: Record<string, any> | Record<string, any>[];
   image?: string;

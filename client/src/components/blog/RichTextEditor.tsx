@@ -154,7 +154,7 @@ export function RichTextEditor({
   };
 
   // Handle file input change
-  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
       // Validate file type and size

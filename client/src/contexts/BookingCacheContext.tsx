@@ -111,7 +111,7 @@ const DEFAULT_SELECTIONS: BookingSelections = {
 const AVAILABILITY_TTL = 5 * 60 * 1000; // 5 minutes
 const STATIC_DATA_VERSION = 'v1.0';
 
-export function BookingCacheProvider({ children }: { children: React.ReactNode }) {
+export function BookingCacheProvider({ children }: { children: ReactNode }) {
   const queryClient = useQueryClient();
   
   // Core state

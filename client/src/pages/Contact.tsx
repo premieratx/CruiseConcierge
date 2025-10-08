@@ -28,7 +28,7 @@ export default function Contact() {
   });
   const { toast } = useToast();
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     
     if (!contactForm.name || !contactForm.email || !contactForm.phone) {

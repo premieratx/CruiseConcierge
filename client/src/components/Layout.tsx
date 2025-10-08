@@ -2,7 +2,7 @@ import Navigation from './Navigation';
 import { useLocation } from 'wouter';
 
 interface LayoutProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export default function Layout({ children }: LayoutProps) {

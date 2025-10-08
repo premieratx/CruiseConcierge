@@ -8,7 +8,7 @@ interface Category {
   id: string;
   label: string;
   count: number;
-  icon?: React.ComponentType<{ className?: string }>;
+  icon?: ComponentType<{ className?: string }>;
   description?: string;
 }
 

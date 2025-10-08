@@ -30,14 +30,14 @@ export default function PortalLogin() {
     return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
   };
 
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
     const formatted = formatPhoneNumber(e.target.value);
     if (formatted.length <= 14) { // Limit to formatted phone length
       setPhoneNumber(formatted);
     }
   };
 
-  const handleRequestCode = async (e: React.FormEvent) => {
+  const handleRequestCode = async (e: FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setError("");

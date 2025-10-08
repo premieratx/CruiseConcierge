@@ -177,7 +177,7 @@ export function EmbeddedQuoteBuilder({ pageContext, className }: EmbeddedQuoteBu
     }
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent) => {
+  const handleKeyPress = (e: KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault();
       sendMessage();

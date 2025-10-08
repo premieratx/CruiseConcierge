@@ -214,7 +214,7 @@ export function ContactInfoModal({
   };
 
   // Format the phone number as user types
-  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     // Allow digits, spaces, dashes, parentheses, and plus sign
     const formatted = value.replace(/[^\d\s\-\(\)\+]/g, '');

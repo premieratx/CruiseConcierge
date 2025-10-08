@@ -170,7 +170,7 @@ export function ImportButton({ onImportComplete }: ImportButtonProps) {
     },
   });
   
-  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
     
