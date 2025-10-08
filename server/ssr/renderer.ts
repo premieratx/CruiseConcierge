@@ -1134,82 +1134,17 @@ ${JSON.stringify(PRIVATE_CRUISES_FAQ_SCHEMA, null, 2)}
     let ssrContent;
 
     if (pageContent) {
-      // Render full content - ALWAYS visible for SEO crawlers
+      // JUST SHOW THE FUCKING CONTENT - NO HIDING!
       ssrContent = `
-      <style>
-        /* SSR content for SEO - positioned off-screen but still crawlable */
-        #ssr-fallback { 
-          position: absolute;
-          left: -9999px;
-          width: 1px;
-          height: 1px;
-          overflow: hidden;
-          /* Keep content readable for screen readers and crawlers */
-        }
-        /* Ensure React root takes full viewport */
-        #root { 
-          min-height: 100vh;
-          position: relative;
-          z-index: 1;
-        }
-        /* For users without JavaScript, show the SSR content normally */
-      </style>
-      <noscript>
-        <style>
-          #ssr-fallback { 
-            position: static !important;
-            left: auto !important;
-            width: auto !important;
-            height: auto !important;
-            overflow: visible !important;
-          }
-          #root { display: none !important; }
-        </style>
-      </noscript>
       <div id="root"></div>
-      <div id="ssr-fallback">${renderPageContent(pageContent)}</div>`;
+      ${renderPageContent(pageContent)}`;
     } else {
-      // Fallback to basic H1/description for pages not in database
+      // SIMPLE FALLBACK - NO HIDING!
       ssrContent = `
-      <style>
-        /* SSR content for SEO - positioned off-screen but still crawlable */
-        #ssr-fallback { 
-          position: absolute;
-          left: -9999px;
-          width: 1px;
-          height: 1px;
-          overflow: hidden;
-          /* Keep content readable for screen readers and crawlers */
-        }
-        /* Ensure React root takes full viewport */
-        #root { 
-          min-height: 100vh;
-          position: relative;
-          z-index: 1;
-        }
-        /* For users without JavaScript, show the SSR content normally */
-      </style>
-      <noscript>
-        <style>
-          #ssr-fallback { 
-            position: static !important;
-            left: auto !important;
-            width: auto !important;
-            height: auto !important;
-            overflow: visible !important;
-          }
-          #root { display: none !important; }
-        </style>
-      </noscript>
       <div id="root"></div>
-      <div id="ssr-fallback">
-        <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
-          <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
-          <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${content}</p>
-          <noscript>
-            <p style="color: #DC2626; font-weight: 600;">Please enable JavaScript to view the full interactive experience.</p>
-          </noscript>
-        </div>
+      <div style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
+        <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
+        <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${content}</p>
       </div>`;
     }
     
