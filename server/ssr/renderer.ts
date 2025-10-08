@@ -11,28 +11,76 @@ const __dirname = path.dirname(__filename);
 let cachedTemplate: string | null = null;
 const templatePath = path.resolve(__dirname, '../../client/index.html');
 
-// Organization + LocalBusiness schema markup (sitewide)
+// Organization + LocalBusiness schema markup (sitewide) - CORRECTED DATA
 const ORGANIZATION_SCHEMA = {
   "@context": "https://schema.org",
   "@type": ["Organization", "LocalBusiness"],
-  "@id": "https://premierpartycruises.com#org",
+  "@id": "https://premierpartycruises.com/#organization",
   "name": "Premier Party Cruises",
-  "url": "https://premierpartycruises.com",
-  "logo": "https://premierpartycruises.com/wp-content/uploads/ppc-logo.png",
-  "telephone": "+1-512-765-9999",
-  "address": {
-    "@type": "PostalAddress",
-    "streetAddress": "1701 N FM 620, Anderson Mill Marina",
-    "addressLocality": "Austin",
-    "addressRegion": "TX",
-    "postalCode": "78734",
-    "addressCountry": "US"
-  },
+  "legalName": "B Hill Entertainment LLC",
+  "url": "https://premierpartycruises.com/",
+  "logo": "https://premierpartycruises.com/media/schema/ppc-logo.png",
+  "image": [
+    "https://premierpartycruises.com/media/schema/hero-boat-1.jpg",
+    "https://premierpartycruises.com/media/schema/hero-boat-2.jpg",
+    "https://premierpartycruises.com/media/schema/disco-dance-floor.jpg",
+    "https://premierpartycruises.com/media/schema/group-swimming-lilypad.jpg"
+  ],
+  "description": "Austin's original Lake Travis party boat company offering private cruises, the ATX Disco Cruise, and full-service planning for bachelor/bachelorette, corporate, birthday, and family events.",
+  "foundingDate": "2009",
   "sameAs": [
     "https://www.instagram.com/premierpartycruises",
+    "https://www.tiktok.com/@premierpartycruisesatx",
     "https://www.facebook.com/premierpartycruises",
-    "https://www.tiktok.com/@premierpartycruises",
-    "https://www.tripadvisor.com/Profile/PremierPartyCruises"
+    "https://share.google/oLFqmN5TGvXpnlX6i"
+  ],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "13993 FM 2769",
+    "addressLocality": "Leander",
+    "addressRegion": "TX",
+    "postalCode": "78641",
+    "addressCountry": "US"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 30.432167,
+    "longitude": -97.881167
+  },
+  "contactPoint": [
+    {
+      "@type": "ContactPoint",
+      "contactType": "customer support",
+      "telephone": "+1-512-488-5892",
+      "email": "clientservices@premierpartycruises.com",
+      "availableLanguage": ["en", "es"]
+    }
+  ],
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+      "opens": "09:00",
+      "closes": "21:00"
+    }
+  ],
+  "areaServed": ["Austin TX", "Texas", "United States"],
+  "priceRange": "$$",
+  "aggregateRating": [
+    {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "bestRating": "5",
+      "ratingCount": 300,
+      "name": "Google"
+    },
+    {
+      "@type": "AggregateRating",
+      "ratingValue": "5.0",
+      "bestRating": "5",
+      "ratingCount": 120,
+      "name": "Yelp"
+    }
   ]
 };
 
@@ -42,7 +90,7 @@ const SERVICE_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Service",
   "serviceType": "Private Party Boat Charter",
-  "provider": { "@id": "https://premierpartycruises.com#org" },
+  "provider": { "@id": "https://premierpartycruises.com/#organization" },
   "areaServed": { "@type": "AdministrativeArea", "name": "Austin, TX" },
   "hasOfferCatalog": {
     "@type": "OfferCatalog",
@@ -67,34 +115,64 @@ const SERVICE_SCHEMA = {
   }
 };
 
-// Event schema for ATX Disco Cruise page
-// Note: Removed hard-coded dates to avoid outdated information in search results
+// Event schema for ATX Disco Cruise page - CORRECTED DATA
 const EVENT_SCHEMA = {
   "@context": "https://schema.org",
   "@type": "Event",
+  "@id": "https://premierpartycruises.com/atx-disco-cruise/#event",
   "name": "ATX Disco Cruise",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
   "eventStatus": "https://schema.org/EventScheduled",
+  "maximumAttendeeCapacity": 100,
   "location": {
     "@type": "Place",
     "name": "Anderson Mill Marina",
     "address": {
       "@type": "PostalAddress",
-      "addressLocality": "Austin",
+      "streetAddress": "13993 FM 2769",
+      "addressLocality": "Leander",
       "addressRegion": "TX",
+      "postalCode": "78641",
       "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 30.432167,
+      "longitude": -97.881167
     }
   },
-  "organizer": { "@id": "https://premierpartycruises.com#org" },
-  "image": ["https://premierpartycruises.com/wp-content/uploads/disco-hero.jpg"],
-  "offers": {
-    "@type": "Offer",
-    "priceCurrency": "USD",
-    "price": "85",
-    "url": "https://premierpartycruises.com/atx-disco-cruise#tickets",
-    "availability": "https://schema.org/InStock"
+  "organizer": {
+    "@id": "https://premierpartycruises.com/#organization"
   },
-  "description": "Ticketed disco cruise on Lake Travis designed for bachelor and bachelorette groups."
+  "image": [
+    "https://premierpartycruises.com/media/schema/disco-dance-floor.jpg"
+  ],
+  "offers": [
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "85.00",
+      "category": "Basic Batch",
+      "url": "https://premierpartycruises.com/atx-disco-cruise",
+      "availability": "https://schema.org/InStock"
+    },
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "95.00",
+      "category": "Disco Queen/King",
+      "url": "https://premierpartycruises.com/atx-disco-cruise",
+      "availability": "https://schema.org/InStock"
+    },
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "105.00",
+      "category": "Super Sparkle Platinum",
+      "url": "https://premierpartycruises.com/atx-disco-cruise",
+      "availability": "https://schema.org/InStock"
+    }
+  ]
 };
 
 // FAQPage schema for Testimonials-FAQ page
