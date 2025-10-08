@@ -174,9 +174,9 @@ export default function BusinessSummary() {
               <div>
                 <h3 className="font-semibold mb-2">Disco Cruise Packages</h3>
                 <ul className="space-y-1 text-sm">
-                  <li>• <strong>Basic ($85/person):</strong> DJ, dancing, party atmosphere</li>
-                  <li>• <strong>Disco Queen ($95/person):</strong> Basic + priority boarding, party favors</li>
-                  <li>• <strong>Super Sparkle Platinum ($105/person):</strong> Disco Queen + professional photos, premium experience</li>
+                  <li>• <strong>BASIC PACKAGE ($85/person):</strong> Professional DJ, 4-hour cruise, party atmosphere, shared coolers, all amenities</li>
+                  <li>• <strong>DISCO QUEEN PACKAGE ($95/person):</strong> Everything in Basic + priority boarding, party favors, special recognition</li>
+                  <li>• <strong>SUPER SPARKLE PLATINUM DISCO PACKAGE ($105/person):</strong> Everything in Disco Queen + professional photographer, premium favors, VIP treatment</li>
                 </ul>
               </div>
               <div>
@@ -315,7 +315,7 @@ export default function BusinessSummary() {
               <div className="space-y-6">
                 <div className="border-b pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-bold">Basic Package</h3>
+                    <h3 className="font-bold">BASIC PACKAGE</h3>
                     <Badge className="text-lg">${DISCO_PRICING.basic / 100}/person</Badge>
                   </div>
                   <p className="text-sm text-muted-foreground mb-3">Essential disco experience</p>
@@ -330,7 +330,7 @@ export default function BusinessSummary() {
 
                 <div className="border-b pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-bold">Disco Queen Package</h3>
+                    <h3 className="font-bold">DISCO QUEEN PACKAGE</h3>
                     <Badge className="text-lg">${DISCO_PRICING.disco_queen / 100}/person</Badge>
                   </div>
                   <p className="text-sm text-muted-foreground mb-3">VIP disco experience</p>
@@ -345,7 +345,7 @@ export default function BusinessSummary() {
 
                 <div className="border-b pb-4">
                   <div className="flex items-center justify-between mb-2">
-                    <h3 className="font-bold">Super Sparkle Platinum Disco Package</h3>
+                    <h3 className="font-bold">SUPER SPARKLE PLATINUM DISCO PACKAGE</h3>
                     <Badge className="text-lg">${DISCO_PRICING.platinum / 100}/person</Badge>
                   </div>
                   <p className="text-sm text-muted-foreground mb-3">Ultimate disco experience</p>
