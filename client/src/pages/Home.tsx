@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, lazy, Suspense } from 'react';
 import { Link, useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useQuery } from '@tanstack/react-query';
@@ -26,10 +26,13 @@ import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead, { generateFAQSchema, generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
 import { Endorsement } from '@shared/schema';
-import { DiscoVsPrivateComparison, QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
+import { QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
-import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
+
+// Lazy load heavy components to improve FCP
+const DiscoVsPrivateComparison = lazy(() => import('@/components/DiscoVsPrivateComparison').then(mod => ({ default: mod.DiscoVsPrivateComparison })));
+const PartyPlanningChecklist = lazy(() => import('@/components/PartyPlanningChecklist'));
 import { 
   calculatePackagePricing, 
   getCapacityTier, 
@@ -643,8 +646,9 @@ export default function Home() {
                 className="w-full h-full object-cover"
                 width={1920}
                 height={1080}
+                fetchPriority="high"
                 loading="eager"
-                fetchpriority="high"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
             </motion.div>
@@ -1513,7 +1517,9 @@ export default function Home() {
         </div>
       </section>
 
-      <PartyPlanningChecklist partyType="Lake Travis Party" eventType="celebration" />
+      <Suspense fallback={<div className="py-12"></div>}>
+        <PartyPlanningChecklist partyType="Lake Travis Party" eventType="celebration" />
+      </Suspense>
 
       {/* Contact & CTA Section */}
       <section className="py-24 bg-white dark:bg-gray-950">
