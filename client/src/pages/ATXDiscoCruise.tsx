@@ -346,32 +346,34 @@ export default function ATXDiscoCruise() {
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
-          className="relative h-[70vh] flex items-center justify-center overflow-hidden"
+          className="relative h-[70vh] flex flex-col justify-center overflow-hidden"
           data-testid="section-hero"
         >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentHeroImage}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1 }}
-              className="absolute inset-0"
-            >
-              <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 via-pink-900/70 to-orange-900/80 z-10" />
-              <img 
-                src={heroImages[currentHeroImage]} 
-                alt="ATX Disco Cruise party boat on Lake Travis Austin - Bachelor and bachelorette party atmosphere with DJ and dancing"
-                className="w-full h-full object-cover"
-                width={1920}
-                height={1080}
-                loading="eager"
-                fetchpriority="high"
-              />
-            </motion.div>
-          </AnimatePresence>
+          <div className="absolute inset-0 z-0">
+            {heroImages.map((image, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: index === currentHeroImage ? 1 : 0 }}
+                transition={{ duration: 0.8, ease: "easeInOut" }}
+                className="absolute inset-0"
+                style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-purple-900/80 via-pink-900/70 to-orange-900/80 z-10" />
+                <img 
+                  src={image} 
+                  alt="ATX Disco Cruise party boat on Lake Travis Austin - Bachelor and bachelorette party atmosphere with DJ and dancing"
+                  className="w-full h-full object-cover"
+                  width={1920}
+                  height={1080}
+                  loading={index === 0 ? "eager" : "lazy"}
+                  fetchpriority={index === 0 ? "high" : "low"}
+                />
+              </motion.div>
+            ))}
+          </div>
 
-          <div className="relative z-20 max-w-6xl mx-auto px-4 text-center">
+          <div className="relative z-20 max-w-6xl mx-auto px-4 text-center flex-grow flex items-center">
             <motion.div variants={fadeInUp}>
               <h1 className="text-5xl md:text-7xl font-bold text-white mb-6" data-testid="text-hero-headline">
                 ATX Disco Cruise
@@ -406,31 +408,13 @@ export default function ATXDiscoCruise() {
               </div>
             </motion.div>
           </div>
-        </motion.section>
 
-        {/* Quick Stats Bar */}
-        <motion.section 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={staggerChildren}
-          className="bg-gradient-to-r from-purple-600 via-pink-600 to-orange-600 py-8"
-          data-testid="section-stats"
-        >
-          <div className="max-w-7xl mx-auto px-4">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-              {quickStats.map((stat, idx) => (
-                <motion.div 
-                  key={idx} 
-                  variants={fadeInUp}
-                  className="text-center text-white"
-                  data-testid={`stat-${idx}`}
-                >
-                  <stat.icon className={`w-8 h-8 mx-auto mb-2 ${stat.color} filter brightness-200`} />
-                  <div className="text-2xl font-bold">{stat.label}</div>
-                  <div className="text-sm opacity-90">{stat.value}</div>
-                </motion.div>
-              ))}
+          {/* Bottom Feature Bar */}
+          <div className="relative z-30 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
+            <div className="container mx-auto">
+              <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
+                🎉 <span className="text-purple-600">All-Inclusive</span> • Professional DJ & Photographer • <span className="text-pink-600">Fridays & Saturdays</span> 🎉
+              </p>
             </div>
           </div>
         </motion.section>

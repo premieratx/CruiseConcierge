@@ -365,38 +365,40 @@ export default function BachelorParty() {
       />
       <PublicNavigation />
       
-      {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+      {/* Hero Section with Crossfade */}
+      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">
+        {/* Image Background with Smooth Crossfade */}
         <div className="absolute inset-0 z-0">
-          <AnimatePresence mode="wait">
+          {heroImages.map((image, index) => (
             <motion.div
-              key={currentHeroImage}
+              key={index}
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 2 }}
+              animate={{ opacity: index === currentHeroImage ? 1 : 0 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
               className="absolute inset-0"
+              style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
             >
               <img 
-                src={heroImages[currentHeroImage]}
+                src={image}
                 alt="Bachelor party Austin cruise on Lake Travis - ATX Disco party boat with DJ and entertainment"
                 className="w-full h-full object-cover"
                 width={1920}
                 height={1080}
-                loading="eager"
-                fetchpriority="high"
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchpriority={index === 0 ? "high" : "low"}
               />
-              <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
             </motion.div>
-          </AnimatePresence>
+          ))}
         </div>
 
-        <div className="relative z-10 container mx-auto px-6 text-white text-center">
+        {/* Main Hero Content */}
+        <div className="relative z-10 container mx-auto px-6 text-white text-center flex-grow flex items-center">
           <motion.div
             initial="hidden"
             animate="visible"
             variants={staggerChildren}
-            className="max-w-5xl mx-auto"
+            className="max-w-5xl mx-auto w-full"
           >
             <motion.h1 
               variants={fadeInUp}
@@ -430,7 +432,7 @@ export default function BachelorParty() {
 
             <motion.div 
               variants={fadeInUp}
-              className="flex flex-col sm:flex-row gap-4 justify-center mb-12"
+              className="flex flex-col sm:flex-row gap-4 justify-center"
             >
               <Button
                 size="lg"
@@ -453,14 +455,16 @@ export default function BachelorParty() {
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </motion.div>
-
-            <motion.p 
-              variants={fadeInUp}
-              className="mt-6 text-lg"
-            >
-              Just <span className="text-brand-yellow font-bold">SHOW UP & GET DOWN</span> - Everything Included!
-            </motion.p>
           </motion.div>
+        </div>
+
+        {/* Bottom Feature Bar */}
+        <div className="relative z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
+          <div className="container mx-auto">
+            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
+              Just <span className="text-brand-blue">SHOW UP & GET DOWN</span> - Everything Included!
+            </p>
+          </div>
         </div>
       </section>
 

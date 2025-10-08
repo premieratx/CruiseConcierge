@@ -509,36 +509,36 @@ export default function Home() {
       />
       <PublicNavigation />
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background with rotating images */}
+      <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+        {/* Background with smooth crossfade */}
         <div className="absolute inset-0 z-0">
-          <AnimatePresence mode="wait">
+          {heroImages.map((image, index) => (
             <motion.div
-              key={currentHeroImage}
-              initial={{ opacity: 0, scale: 1.05 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: 1.5 }}
+              key={index}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: index === currentHeroImage ? 1 : 0 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
               className="absolute inset-0"
+              style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
             >
               <ResponsiveImage 
-                src={heroImages[currentHeroImage]}
+                src={image}
                 alt="Party boat on Lake Travis Austin - Premier Party Cruises with guests celebrating bachelor and bachelorette parties"
                 className="w-full h-full object-cover"
                 width={1920}
                 height={1080}
-                fetchpriority="high"
-                loading="eager"
+                fetchpriority={index === 0 ? "high" : "low"}
+                loading={index === 0 ? "eager" : "lazy"}
                 sizes="100vw"
-                srcSet={`${heroImages[currentHeroImage]} 1920w, ${heroImages[currentHeroImage]} 1024w, ${heroImages[currentHeroImage]} 640w`}
+                srcSet={`${image} 1920w, ${image} 1024w, ${image} 640w`}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/40 to-transparent" />
             </motion.div>
-          </AnimatePresence>
+          ))}
         </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 container mx-auto px-6 text-white">
+        <div className="relative z-10 container mx-auto px-6 text-white flex-grow flex items-center">
           <motion.div
             initial={reducedMotion ? false : "hidden"}
             animate={reducedMotion ? false : "visible"}
@@ -653,24 +653,14 @@ export default function Home() {
           </motion.div>
         </div>
 
-        {/* Scroll Indicator */}
-        <motion.div 
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 text-white"
-          initial={reducedMotion ? false : { opacity: 0, y: 20 }}
-          animate={reducedMotion ? false : { opacity: 1, y: 0 }}
-          transition={reducedMotion ? undefined : { delay: 2, duration: 1 }}
-        >
-          <div className="flex flex-col items-center cursor-pointer" onClick={() => scrollToSection('services')}>
-            <span className="text-sm mb-3 font-medium tracking-wide" data-editable data-editable-id="scroll-indicator-text">DISCOVER MORE</span>
-            <motion.div 
-              className="w-6 h-12 border-2 border-white rounded-full flex justify-center"
-              animate={{ y: [0, 5, 0] }}
-              transition={{ repeat: Infinity, duration: 2 }}
-            >
-              <div className="w-1 h-4 bg-white rounded-full mt-2" />
-            </motion.div>
+        {/* Bottom Feature Bar */}
+        <div className="relative z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
+          <div className="container mx-auto">
+            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
+              ✨ <span className="text-brand-blue">Transparent Pricing</span> • No Hidden Fees • <span className="text-brand-blue">Best Value</span> Guaranteed ✨
+            </p>
           </div>
-        </motion.div>
+        </div>
       </section>
 
       {/* Build My Quote Now Section */}

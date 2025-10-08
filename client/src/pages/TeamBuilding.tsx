@@ -254,31 +254,23 @@ export default function TeamBuilding() {
       <PublicNavigation />
 
       {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden pt-20">
+      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden pt-20">
         {/* Background Image */}
-        <AnimatePresence mode="wait">
-          <motion.div 
-            className="absolute inset-0 z-0"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-          >
-            <div className="relative w-full h-full">
-              <img 
-                src={heroImage1} 
-                alt="Team Building Party Boat Austin cruise on Lake Travis" 
-                className="w-full h-full object-cover"
-                loading="eager"
-                fetchpriority="high"
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />
-            </div>
-          </motion.div>
-        </AnimatePresence>
+        <div className="absolute inset-0 z-0">
+          <div className="relative w-full h-full">
+            <img 
+              src={heroImage1} 
+              alt="Team Building Party Boat Austin cruise on Lake Travis" 
+              className="w-full h-full object-cover"
+              loading="eager"
+              fetchpriority="high"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50" />
+          </div>
+        </div>
 
         {/* Hero Content */}
-        <div className="relative z-10 container mx-auto px-6">
+        <div className="relative z-10 container mx-auto px-6 flex-grow flex items-center">
           <motion.div 
             className="max-w-4xl mx-auto text-center text-white"
             variants={staggerChildren}
@@ -356,6 +348,15 @@ export default function TeamBuilding() {
               </div>
             </motion.div>
           </motion.div>
+        </div>
+
+        {/* Bottom Feature Bar */}
+        <div className="relative z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
+          <div className="container mx-auto">
+            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
+              🎯 <span className="text-brand-blue">Build Stronger Teams</span> • Interactive Challenges • <span className="text-brand-blue">Professional Facilitation</span> 🎯
+            </p>
+          </div>
         </div>
       </section>
 

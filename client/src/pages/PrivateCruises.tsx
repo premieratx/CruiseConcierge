@@ -138,7 +138,7 @@ const whyChooseUs = [
   {
     icon: Target,
     title: 'Custom Experiences',
-    description: 'Tailored packages for any celebration - <Link href="/corporate-events" className="text-primary hover:underline">corporate events</Link>, weddings, <Link href="/birthday-parties" className="text-primary hover:underline">birthday parties</Link>, anniversaries.'
+    description: 'Tailored packages for any celebration - corporate events, weddings, birthday parties, anniversaries.'
   }
 ];
 
@@ -159,7 +159,7 @@ const testimonials = [
     name: 'Michael & Jennifer Chen',
     role: 'Newlyweds',
     rating: 5,
-    text: 'Our wedding reception cruise on <Link href="/party-boat-lake-travis" className="text-primary hover:underline">Lake Travis</Link> was magical. The sunset views, professional service, and attention to detail made our special day perfect. Worth every penny!',
+    text: 'Our wedding reception cruise on Lake Travis was magical. The sunset views, professional service, and attention to detail made our special day perfect. Worth every penny!',
     event: 'Wedding Reception',
     groupSize: 75,
     image: '/testimonials/chen.jpg'
@@ -283,7 +283,7 @@ export default function PrivateCruises() {
             >
               <span className="text-brand-blue font-bold">Choose Your Perfect Package.</span> From basic cruising to ultimate party experiences, 
               we handle all the setup so you can focus on making memories. Professional crew, premium amenities, 
-              and everything scaled perfectly for your group size. Looking for something more budget-friendly? Check out <Link href="/atx-disco-cruise" className="text-brand-yellow hover:underline font-semibold">our ATX Disco Cruise</Link> option!
+              and everything scaled perfectly for your group size. Looking for something more budget-friendly? Check out our ATX Disco Cruise option!
             </motion.p>
             
             <motion.div 

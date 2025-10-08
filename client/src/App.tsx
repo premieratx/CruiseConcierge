@@ -115,6 +115,18 @@ const PortalProfile = lazy(() => import("./pages/PortalProfile"));
 
 
 function Router() {
+  const [location] = useLocation();
+
+  // Force page reload on back/forward navigation
+  useEffect(() => {
+    const handlePopState = () => {
+      window.location.reload();
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
   return (
     <Suspense fallback={
       <div className="flex items-center justify-center h-screen">

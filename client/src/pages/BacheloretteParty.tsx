@@ -385,32 +385,32 @@ export default function BacheloretteParty() {
       <PublicNavigation />
       
       {/* Hero Section */}
-      <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
-          <AnimatePresence mode="wait">
+          {heroImages.map((image, index) => (
             <motion.div
-              key={currentHeroImage}
+              key={index}
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 2 }}
+              animate={{ opacity: index === currentHeroImage ? 1 : 0 }}
+              transition={{ duration: 0.8, ease: "easeInOut" }}
               className="absolute inset-0"
+              style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
             >
               <img 
-                src={heroImages[currentHeroImage]}
+                src={image}
                 alt="Bachelorette party Austin cruise on Lake Travis - ATX Disco party boat with DJ, photographer and bride celebrations"
                 className="w-full h-full object-cover"
                 width={1920}
                 height={1080}
-                loading="eager"
-                fetchpriority="high"
+                loading={index === 0 ? "eager" : "lazy"}
+                fetchpriority={index === 0 ? "high" : "low"}
               />
               <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
             </motion.div>
-          </AnimatePresence>
+          ))}
         </div>
 
-        <div className="relative z-10 container mx-auto px-6 text-white text-center">
+        <div className="relative z-10 container mx-auto px-6 text-white text-center flex-grow flex items-center">
           <motion.div
             initial="hidden"
             animate="visible"
@@ -497,6 +497,15 @@ export default function BacheloretteParty() {
               <span data-editable data-editable-id="bachelorette-hero-tagline">Just <span className="text-pink-400 font-bold">SHOW UP & GET DOWN</span> - Everything Included!</span>
             </motion.p>
           </motion.div>
+        </div>
+
+        {/* Bottom Feature Bar */}
+        <div className="relative z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
+          <div className="container mx-auto">
+            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
+              💕 <span className="text-pink-500">Bride Cruises FREE</span> • All-Inclusive • <span className="text-pink-500">Unforgettable Memories</span> 💕
+            </p>
+          </div>
         </div>
       </section>
 

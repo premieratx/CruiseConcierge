@@ -253,18 +253,38 @@ export default function PublicNavigation() {
                 {navigationItems.map((item) => (
                   item.hasDropdown ? (
                     <NavigationMenuItem key={item.href}>
-                      <NavigationMenuTrigger className={cn(
-                        "flex items-center space-x-1 px-2 lg:px-3 py-2 font-semibold text-sm",
-                        (location.startsWith('/private-cruises') || 
-                        location.startsWith('/corporate-events') ||
-                        location.startsWith('/birthday-parties') ||
-                        location.startsWith('/wedding-parties') ||
-                        (item.title === 'Authority' && (location.startsWith('/ai-endorsement') || location.includes('/claude-ai-market-analysis'))))
-                          ? "text-brand-blue"
-                          : "text-gray-700 dark:text-gray-300"
-                      )}>
+                      <NavigationMenuTrigger 
+                        className={cn(
+                          "flex items-center space-x-1 px-2 lg:px-3 py-2 font-semibold text-sm",
+                          (location.startsWith('/private-cruises') || 
+                          location.startsWith('/corporate-events') ||
+                          location.startsWith('/birthday-parties') ||
+                          location.startsWith('/wedding-parties') ||
+                          (item.title === 'Authority' && (location.startsWith('/ai-endorsement') || location.includes('/claude-ai-market-analysis'))))
+                            ? "text-brand-blue"
+                            : "text-gray-700 dark:text-gray-300"
+                        )}
+                      >
                         <item.icon className="h-4 w-4" />
-                        <span data-editable data-editable-id={`nav-dropdown-${safeSlug(item.title)}`}>{item.title}</span>
+                        <span 
+                          onClick={(e) => {
+                            // Check if device has hover capability (not just width)
+                            const hasHover = window.matchMedia('(hover: hover)').matches;
+                            
+                            if (hasHover) {
+                              // Desktop with hover: navigate directly
+                              e.preventDefault();
+                              e.stopPropagation();
+                              navigate(item.href);
+                            }
+                            // Touch devices (no hover): let trigger handle dropdown naturally
+                          }}
+                          className="cursor-pointer"
+                          data-editable 
+                          data-editable-id={`nav-dropdown-${safeSlug(item.title)}`}
+                        >
+                          {item.title}
+                        </span>
                       </NavigationMenuTrigger>
                       <NavigationMenuContent>
                         <ul className="grid w-[600px] gap-2 p-4 md:w-[700px] md:grid-cols-2">
