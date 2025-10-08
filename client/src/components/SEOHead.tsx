@@ -48,8 +48,6 @@ export default function SEOHead({
   image,
   article
 }: SEOHeadProps) {
-  const [fallbackSchema, setFallbackSchema] = useState<Record<string, any>>({});
-
   // Fetch SEO data for this page route
   const { data: seoData, isLoading } = useQuery<SEOData>({
     queryKey: [`/api/seo/meta/${encodeURIComponent(pageRoute)}`],
@@ -80,234 +78,9 @@ export default function SEOHead({
   const canonical = seoData?.canonicalUrl || `${typeof window !== 'undefined' ? window.location.origin : ''}${pageRoute}`;
   const robots = seoData?.robotsDirective || 'index, follow';
 
-  // Generate site-wide schemas that appear on every page
-  const generateWebSiteSchema = () => {
-    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com';
-    return {
-      "@context": "https://schema.org",
-      "@type": "WebSite",
-      "name": "Premier Party Cruises",
-      "url": baseUrl,
-      "potentialAction": {
-        "@type": "SearchAction",
-        "target": `${baseUrl}/search?q={search_term_string}`,
-        "query-input": "required name=search_term_string"
-      }
-    };
-  };
-
-  const generateEnhancedOrganizationSchema = () => {
-    const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com';
-    return {
-      "@context": "https://schema.org",
-      "@type": "LocalBusiness",
-      "name": "Premier Party Cruises",
-      "image": ensureAbsoluteUrl("/PPC Logo LARGE_1757881944449.png"),
-      "logo": ensureAbsoluteUrl("/PPC Logo LARGE_1757881944449.png"),
-      "description": "Austin's premier boat rental and party cruise experience on Lake Travis",
-      "url": baseUrl,
-      "telephone": "+1-512-488-5892",
-      "email": "clientservices@premierpartycruises.com",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "13993 FM2769",
-        "addressLocality": "Austin",
-        "addressRegion": "TX",
-        "postalCode": "78641",
-        "addressCountry": "US"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": "30.3879",
-        "longitude": "-97.9723"
-      },
-      "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "4.9",
-        "reviewCount": "130",
-        "bestRating": "5",
-        "worstRating": "1"
-      },
-      "openingHoursSpecification": [
-        {
-          "@type": "OpeningHoursSpecification",
-          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-          "opens": "09:00",
-          "closes": "21:00"
-        }
-      ],
-      "serviceArea": {
-        "@type": "GeoCircle",
-        "geoMidpoint": {
-          "@type": "GeoCoordinates",
-          "latitude": "30.3879",
-          "longitude": "-97.9723"
-        },
-        "geoRadius": "100"
-      },
-      "priceRange": "$$-$$$",
-      "sameAs": [
-        "https://www.instagram.com/premierpartycruises",
-        "https://www.facebook.com/premierpartycruises",
-        "https://www.tiktok.com/@premierpartycruises"
-      ],
-      "hasOfferCatalog": {
-        "@type": "OfferCatalog",
-        "name": "Boat Rental Services",
-        "itemListElement": [
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Private Charters",
-              "description": "Exclusive boat rental with professional crew, perfect for intimate celebrations to large corporate events"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Disco Cruises",
-              "description": "ATX Disco Cruise party boat experience with DJ and professional entertainment on Lake Travis"
-            }
-          },
-          {
-            "@type": "Offer",
-            "itemOffered": {
-              "@type": "Service",
-              "name": "Bachelorette Packages",
-              "description": "Specialized bachelorette party packages including Basic Bach, Disco Queen, and Platinum options with bride cruises free"
-            }
-          }
-        ]
-      }
-    };
-  };
-
-  // Generate default structured data based on page type and content
-  useEffect(() => {
-    const generateDefaultSchema = () => {
-      const baseUrl = typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com';
-      
-      const defaultSchemas: Record<string, any> = {
-        organization: generateEnhancedOrganizationSchema(),
-        webpage: {
-          "@context": "https://schema.org",
-          "@type": "WebPage",
-          "name": title,
-          "description": description,
-          "url": canonical,
-          "isPartOf": {
-            "@type": "WebSite",
-            "name": "Premier Party Cruises",
-            "url": baseUrl
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "Premier Party Cruises",
-            "url": baseUrl
-          }
-        },
-        service: {
-          "@context": "https://schema.org",
-          "@type": "Service",
-          "name": title,
-          "description": description,
-          "provider": {
-            "@type": "LocalBusiness",
-            "name": "Premier Party Cruises",
-            "url": baseUrl
-          },
-          "serviceType": "Boat Rental",
-          "areaServed": {
-            "@type": "Place",
-            "name": "Lake Travis, Austin, TX"
-          }
-        },
-        event: {
-          "@context": "https://schema.org",
-          "@type": "Event",
-          "name": title,
-          "description": description,
-          "organizer": {
-            "@type": "Organization",
-            "name": "Premier Party Cruises",
-            "url": baseUrl
-          },
-          "location": {
-            "@type": "Place",
-            "name": "Lake Travis",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Austin",
-              "addressRegion": "TX",
-              "addressCountry": "US"
-            }
-          }
-        }
-      };
-
-      // Add article-specific schema
-      if (article) {
-        const articleSchema: Record<string, any> = {
-          "@context": "https://schema.org",
-          "@type": "Article",
-          "headline": title,
-          "description": description,
-          "url": canonical,
-          "datePublished": article.publishedTime,
-          "dateModified": article.modifiedTime || article.publishedTime,
-          "author": {
-            "@type": "Person",
-            "name": article.author || "Premier Party Cruises"
-          },
-          "publisher": {
-            "@type": "Organization",
-            "name": "Premier Party Cruises",
-            "url": baseUrl
-          },
-          "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": canonical
-          }
-        };
-
-        if (article.section) {
-          articleSchema["articleSection"] = article.section;
-        }
-
-        if (article.tags && article.tags.length > 0) {
-          articleSchema["keywords"] = article.tags.join(", ");
-        }
-
-        setFallbackSchema(articleSchema);
-      } else {
-        setFallbackSchema(defaultSchemas[schemaType] || defaultSchemas.webpage);
-      }
-    };
-
-    generateDefaultSchema();
-  }, [pageRoute, title, description, canonical, schemaType, article]);
-
-  // Determine page-specific schema (custom > SEO data > fallback)
-  const pageSpecificSchema = customSchema || seoData?.schemaMarkup || fallbackSchema;
-
-  // Build comprehensive schema array with site-wide schemas on every page
-  const siteWideSchemas = [
-    generateWebSiteSchema(),
-    generateEnhancedOrganizationSchema()
-  ];
-
-  // Convert pageSpecificSchema to array and combine with site-wide schemas
-  const pageSchemaArray = Array.isArray(pageSpecificSchema) ? pageSpecificSchema : [pageSpecificSchema];
-  const schemaArray = [...siteWideSchemas, ...pageSchemaArray];
-
-  // Generate breadcrumb schema for navigation
-  const breadcrumbSchema = {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": generateBreadcrumbItems(pageRoute)
-  };
+  // SCHEMAS REMOVED: SSR already provides all schema markup on every page
+  // This component now only handles meta tags, OG tags, and Twitter cards
+  // All structured data (Organization, Website, Service, FAQ, etc.) is injected via SSR for SEO
 
   return (
     <Helmet>
@@ -373,21 +146,7 @@ export default function SEOHead({
       <meta name="apple-mobile-web-app-status-bar-style" content="default" />
       <meta name="format-detection" content="telephone=no" />
       
-      {/* Structured Data - Render each schema in separate script tag */}
-      {schemaArray.map((schema, index) => (
-        schema && (
-          <script key={`schema-${index}`} type="application/ld+json">
-            {JSON.stringify(schema, null, 2)}
-          </script>
-        )
-      ))}
-      
-      {/* Breadcrumb Structured Data */}
-      {breadcrumbSchema.itemListElement.length > 1 && (
-        <script type="application/ld+json">
-          {JSON.stringify(breadcrumbSchema, null, 2)}
-        </script>
-      )}
+      {/* NO SCHEMAS HERE - All structured data is provided by SSR for SEO */}
       
       {/* Additional custom head elements */}
       {children}
@@ -395,55 +154,10 @@ export default function SEOHead({
   );
 }
 
-function generateBreadcrumbItems(pageRoute: string) {
-  const pathSegments = pageRoute.split('/').filter(Boolean);
-  const items = [];
-  
-  // Always include home
-  items.push({
-    "@type": "ListItem",
-    "position": 1,
-    "name": "Home",
-    "item": typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com'
-  });
-  
-  let currentPath = '';
-  pathSegments.forEach((segment, index) => {
-    currentPath += `/${segment}`;
-    const name = formatPageName(segment);
-    
-    items.push({
-      "@type": "ListItem",
-      "position": index + 2,
-      "name": name,
-      "item": `${typeof window !== 'undefined' ? window.location.origin : 'https://premierpartycruises.com'}${currentPath}`
-    });
-  });
-  
-  return items;
-}
+// DEPRECATED: These helper functions are kept for backward compatibility only
+// SSR now handles ALL schema generation - do not use these in new code
 
-function formatPageName(segment: string): string {
-  const nameMap: Record<string, string> = {
-    'bachelor-party': 'Bachelor Party Cruises',
-    'bachelorette-party': 'Bachelorette Party Cruises',
-    'private-cruises': 'Private Cruises',
-    'contact': 'Contact Us',
-    'gallery': 'Gallery',
-    'blog': 'Blog',
-    'about': 'About Us',
-    'pricing': 'Pricing',
-    'booking': 'Book Now',
-    'admin': 'Admin Dashboard'
-  };
-  
-  return nameMap[segment] || segment
-    .split('-')
-    .map(word => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-}
-
-// Export utility function for generating FAQ schema
+// Export utility function for generating FAQ schema (DEPRECATED - SSR handles this)
 export function generateFAQSchema(faqItems: Array<{ question: string; answer: string }>) {
   return {
     "@context": "https://schema.org",
