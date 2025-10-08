@@ -252,8 +252,8 @@ export default function Sweet16() {
     <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white dark:from-gray-950 dark:to-gray-900">
       <SEOHead 
         pageRoute="/sweet-16"
-        defaultTitle="Sweet 16 Birthday Cruises | Lake Travis | Austin TX"
-        defaultDescription="Instagram-worthy Sweet 16 Lake Travis cruises! DJ, decorations & teen-friendly fun. Make her 16th birthday magical on the water!"
+        defaultTitle="Sweet 16 Cruises | Lake Travis Austin"
+        defaultDescription="Instagram-worthy Sweet 16 cruises on Lake Travis! DJ, decorations, teen-friendly fun. Make her 16th birthday magical!"
         defaultKeywords={[
           'sweet 16 cruise austin',
           'sweet sixteen party lake travis',

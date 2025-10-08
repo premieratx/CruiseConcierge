@@ -323,7 +323,7 @@ export default function WeddingParties() {
       <SEOHead 
         pageRoute="/wedding-parties"
         defaultTitle="Wedding Party Boat | Lake Travis Austin"
-        defaultDescription="Elegant wedding cruises on Lake Travis. Perfect for rehearsal dinners, welcome parties, and after parties. Professional service, sunset views, champagne toasts. Create unforgettable wedding memories!"
+        defaultDescription="Lake Travis wedding cruises. Rehearsal dinners, welcome parties, after parties. Sunset views, champagne toasts. Book now!"
         defaultKeywords={[
           'wedding cruise austin',
           'rehearsal dinner lake travis',

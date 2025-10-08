@@ -465,8 +465,8 @@ export default function BacheloretteParty() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead
         pageRoute="/bachelorette-party-austin"
-        defaultTitle="Bachelorette Party Boat Austin | Lake Travis"
-        defaultDescription="Austin's #1 bachelorette party cruise! Bride cruises FREE with all-inclusive packages. DJ, photographer & more included. Book now!"
+        defaultTitle="Bachelorette Party Boat | Premier Austin"
+        defaultDescription="Lake Travis bachelorette cruises. Bride cruises FREE! ATX Disco with DJ & photographer. From $85/person. Book today!"
         defaultKeywords={['Austin bachelorette party', 'Lake Travis bachelorette party', 'ATX Disco Cruise', 'bachelorette party boat Austin']}
         schemaType="event"
         customSchema={[

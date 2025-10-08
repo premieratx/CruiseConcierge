@@ -239,8 +239,8 @@ export default function WelcomeParty() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead 
         pageRoute="/welcome-party"
-        defaultTitle="Wedding Welcome Party Cruises | Lake Travis | Premier Party Cruises"
-        defaultDescription="Welcome wedding guests with Lake Travis cruises featuring Texas BBQ, live music & Austin hospitality. Perfect wedding weekend start!"
+        defaultTitle="Wedding Welcome Party | Lake Travis"
+        defaultDescription="Welcome wedding guests on Lake Travis! Texas BBQ, live music, Austin hospitality. Perfect way to start your wedding weekend!"
         defaultKeywords={[
           'wedding welcome party cruise',
           'lake travis welcome reception',

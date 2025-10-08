@@ -391,8 +391,8 @@ export default function Gallery() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead 
         pageRoute="/gallery"
-        defaultTitle="Gallery | Lake Travis Party Boat Photos"
-        defaultDescription="Explore our stunning photo gallery showcasing Premier Party Cruises fleet, party scenes, and beautiful Lake Travis views. See real celebrations and book your Austin boat rental experience."
+        defaultTitle="Gallery | Premier Party Cruises Photos"
+        defaultDescription="View stunning Lake Travis party boat photos. Real celebrations, fleet tours, bachelor parties. See the fun before you book!"
         defaultKeywords={[
           'premier party cruises photos',
           'lake travis boat rental gallery', 

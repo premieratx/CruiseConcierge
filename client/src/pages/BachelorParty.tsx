@@ -446,8 +446,8 @@ export default function BachelorParty() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead
         pageRoute="/bachelor-party-austin"
-        defaultTitle="Bachelor Party Boat Austin | Lake Travis Cruises"
-        defaultDescription="Ultimate Austin bachelor party cruise! All-inclusive boat party with DJ, photographer & more. Sells out 4-6 weeks early. Book now!"
+        defaultTitle="Bachelor Party Boat | Premier Austin"
+        defaultDescription="Lake Travis bachelor party cruises. ATX Disco with DJ & photographer. Groom cruises FREE. From $85/person. Book now!"
         defaultKeywords={['Austin bachelor party', 'Lake Travis bachelor party', 'ATX Disco Cruise', 'bachelor party boat Austin']}
         schemaType="event"
         customSchema={[

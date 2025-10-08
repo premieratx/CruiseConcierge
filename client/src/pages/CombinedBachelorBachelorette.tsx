@@ -463,8 +463,8 @@ export default function CombinedBachelorBachelorette() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead
         pageRoute="/combined-bachelor-bachelorette"
-        defaultTitle="Combined Bachelor Bachelorette Party Austin | Lake Travis Boat Parties"
-        defaultDescription="Plan the ultimate combined bachelor and bachelorette party on Lake Travis! Private boats & disco cruises perfect for guys and girls celebrating together. Austin's best party boats."
+        defaultTitle="Combined Bach Party | Premier Austin"
+        defaultDescription="Combined bachelor & bachelorette parties on Lake Travis! Private boats & disco cruises for groups celebrating together."
         defaultKeywords={['combined bachelor bachelorette party Austin', 'Lake Travis combined party', 'bachelor bachelorette party together', 'Austin group party cruise']}
         schemaType="event"
         customSchema={[

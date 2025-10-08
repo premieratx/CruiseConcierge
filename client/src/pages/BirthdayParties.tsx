@@ -281,7 +281,7 @@ export default function BirthdayParties() {
       <SEOHead 
         pageRoute="/birthday-parties"
         defaultTitle="Birthday Party Boat | Lake Travis Austin"
-        defaultDescription="Unforgettable birthday cruises on Lake Travis. Birthday VIP cruises FREE with groups! Perfect for 21st, 30th, 40th, 50th birthdays. Decorations included. Book your birthday cruise today!"
+        defaultDescription="Lake Travis birthday cruises. VIP cruises FREE! Perfect for milestone birthdays. Decorations included. Book today!"
         defaultKeywords={[
           'birthday cruise austin',
           'birthday party boat lake travis',

@@ -263,8 +263,8 @@ export default function MilestoneBirthday() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead 
         pageRoute="/milestone-birthday"
-        defaultTitle="Milestone Birthday Party Cruises | Lake Travis | Austin"
-        defaultDescription="Celebrate milestone birthdays on Lake Travis! 21st, 30th, 40th, 50th+ parties with decorations, photos & unforgettable memories."
+        defaultTitle="Milestone Birthday | Lake Travis Cruises"
+        defaultDescription="Celebrate 21st, 30th, 40th, 50th birthdays on Lake Travis! Decorations, photos, party packages. Make milestone memories!"
         defaultKeywords={[
           'milestone birthday cruise austin',
           '30th birthday party lake travis',

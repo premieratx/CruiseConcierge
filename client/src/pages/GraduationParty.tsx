@@ -254,8 +254,8 @@ export default function GraduationParty() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead 
         pageRoute="/graduation-party"
-        defaultTitle="Graduation Party Cruises | Lake Travis | Austin TX"
-        defaultDescription="Celebrate graduation on Lake Travis! Perfect for high school & college grads. Cap & gown photos, celebrations & memories!"
+        defaultTitle="Graduation Party Cruises | Lake Travis"
+        defaultDescription="Celebrate graduation on Lake Travis! High school & college parties. Cap & gown photos, DJ, unforgettable memories!"
         defaultKeywords={[
           'graduation party cruise austin',
           'grad party lake travis',

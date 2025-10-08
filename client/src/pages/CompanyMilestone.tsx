@@ -253,8 +253,8 @@ export default function CompanyMilestone() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead 
         pageRoute="/company-milestone"
-        defaultTitle="Company Milestone Celebrations | Corporate Events | Lake Travis"
-        defaultDescription="Celebrate your company's achievements with unforgettable Lake Travis cruises. Perfect for IPOs, anniversaries, and major wins. Make your milestone memorable."
+        defaultTitle="Company Milestones | Lake Travis Cruises"
+        defaultDescription="Celebrate IPOs, anniversaries & major wins on Lake Travis. Team recognition cruises that inspire. 200+ milestones celebrated!"
         defaultKeywords={[
           'company milestone celebration',
           'corporate anniversary cruise',
