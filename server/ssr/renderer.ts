@@ -1199,38 +1199,35 @@ ${JSON.stringify(PRIVATE_CRUISES_FAQ_SCHEMA, null, 2)}
     
     template = template.replace('</head>', headInjection);
     
-    // Inject full page content for crawlers (hidden from JS users via CSS, visible to crawlers)
+    // Inject full page content for crawlers (hidden from React users via CSS, visible to crawlers)
     const pageContent = PAGE_CONTENT[pathname];
     let ssrContent;
 
     if (pageContent) {
-      // Render full content from database - hidden when React hydrates
+      // Render full content from database - hidden when React loads via noscript + CSS
       ssrContent = `
       <style>
-        /* Hide SSR content when JavaScript is enabled */
-        .js-enabled #ssr-fallback { display: none !important; }
-        /* Ensure React root is always visible */
+        /* Show SSR content by default (for crawlers without JS) */
+        #ssr-fallback { display: block; }
+        /* Hide SSR content when JavaScript loads (for users with React) */
+        #ssr-fallback.hidden { display: none !important; }
+        /* Ensure React root takes full height */
         #root { min-height: 100vh; }
       </style>
-      <script>
-        // Add class to indicate JS is enabled (hides SSR content via CSS)
-        document.documentElement.classList.add('js-enabled');
-      </script>
       <div id="root"></div>
-      <div id="ssr-fallback">${renderPageContent(pageContent)}</div>`;
+      <div id="ssr-fallback">${renderPageContent(pageContent)}</div>
+      <noscript><style>#ssr-fallback { display: block !important; }</style></noscript>`;
     } else {
       // Fallback to basic H1/description for pages not in database
       ssrContent = `
       <style>
-        /* Hide SSR content when JavaScript is enabled */
-        .js-enabled #ssr-fallback { display: none !important; }
-        /* Ensure React root is always visible */
+        /* Show SSR content by default (for crawlers without JS) */
+        #ssr-fallback { display: block; }
+        /* Hide SSR content when JavaScript loads */
+        #ssr-fallback.hidden { display: none !important; }
+        /* Ensure React root takes full height */
         #root { min-height: 100vh; }
       </style>
-      <script>
-        // Add class to indicate JS is enabled
-        document.documentElement.classList.add('js-enabled');
-      </script>
       <div id="root"></div>
       <div id="ssr-fallback">
         <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
@@ -1240,7 +1237,8 @@ ${JSON.stringify(PRIVATE_CRUISES_FAQ_SCHEMA, null, 2)}
             <p style="color: #DC2626; font-weight: 600;">Please enable JavaScript to view the full interactive experience.</p>
           </noscript>
         </div>
-      </div>`;
+      </div>
+      <noscript><style>#ssr-fallback { display: block !important; }</style></noscript>`;
     }
     
     template = template.replace(
