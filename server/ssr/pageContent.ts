@@ -1768,5 +1768,168 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         ]
       }
     ]
+  },
+  '/contact': {
+    h1: 'Contact Premier Party Cruises - Lake Travis Boat Rentals Austin',
+    introduction: 'Ready to plan your Lake Travis adventure? Contact Premier Party Cruises, Austin\'s premier boat rental and party cruise company. Call us at (512) 488-5892 or email clientservices@premierpartycruises.com for immediate assistance with your party boat booking.',
+    sections: [
+      {
+        heading: 'Get in Touch with Premier Party Cruises',
+        paragraphs: [
+          'Premier Party Cruises is here to make your Lake Travis celebration unforgettable. Whether you\'re planning a bachelor party, bachelorette party, corporate event, birthday celebration, or just a fun day on the water, our experienced team is ready to help you create the perfect experience.',
+          'Located at 13993 FM 2769, Leander, TX 78641, we\'ve been serving the Austin area and Lake Travis for over 14 years. With our fleet of premium party boats and professional crew, we ensure every cruise is safe, fun, and memorable.'
+        ],
+        lists: [
+          {
+            title: 'Contact Information',
+            items: [
+              'Phone: (512) 488-5892 - Call or text anytime!',
+              'Email: clientservices@premierpartycruises.com',
+              'Address: 13993 FM 2769, Leander, TX 78641',
+              'Hours: Monday-Sunday, 9:00 AM - 9:00 PM',
+              'Response Time: Usually within 1 hour during business hours',
+              'Emergency Contact: Available for day-of cruise issues'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Why Contact Premier Party Cruises',
+        paragraphs: [
+          'When you reach out to Premier Party Cruises, you\'re connecting with Austin\'s most experienced Lake Travis party boat company. Our team has helped over 125,000 customers create unforgettable memories on the water. We pride ourselves on exceptional customer service, transparent pricing, and creating customized experiences that exceed expectations.',
+          'Our booking specialists are Lake Travis experts who can help you choose the perfect boat, select the ideal package, recommend the best times to cruise, and coordinate all the details for your special event. We handle everything from small intimate gatherings to large corporate events and multi-boat celebrations.'
+        ],
+        lists: [
+          {
+            title: 'How We Can Help You',
+            items: [
+              'Instant quotes and availability for any date',
+              'Expert recommendations for boat and package selection',
+              'Custom packages tailored to your specific needs',
+              'Group discounts for large parties',
+              'Transportation coordination assistance',
+              'Catering and bar service recommendations',
+              'Special celebration add-ons (decorations, photographers, DJs)',
+              'Weather contingency planning',
+              'Same-day booking when available',
+              'Flexible payment options and plans'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Booking Your Lake Travis Party Cruise',
+        paragraphs: [
+          'Booking with Premier Party Cruises is easy and flexible. You can start your quote online, call us directly, or send an email with your party details. We offer instant booking confirmation, secure payment processing, and comprehensive booking support from initial inquiry through your cruise date.',
+          'Our online booking system allows you to check real-time availability, select your preferred boat and package, customize your experience with add-ons, and receive instant confirmation. For those who prefer personal service, our booking specialists are available by phone seven days a week.'
+        ],
+        lists: [
+          {
+            title: 'What to Have Ready When You Contact Us',
+            items: [
+              'Preferred cruise date (and backup dates if flexible)',
+              'Approximate number of guests',
+              'Type of celebration (bachelor, bachelorette, birthday, corporate)',
+              'Preferred cruise duration (4-hour minimum)',
+              'Budget range for planning purposes',
+              'Any special requests or requirements',
+              'Transportation needs from Austin',
+              'Interest in add-on services (DJ, photographer, catering)'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Customer Service Excellence',
+        paragraphs: [
+          'At Premier Party Cruises, customer service is our top priority. From your first contact through your cruise and beyond, we\'re committed to providing exceptional service. Our team responds quickly to inquiries, provides detailed information about all options, and works within your budget to create the perfect experience.',
+          'We maintain a 5-star rating across all review platforms because we genuinely care about each customer\'s experience. Our team goes above and beyond to accommodate special requests, handle last-minute changes, and ensure every detail is perfect for your Lake Travis celebration.'
+        ],
+        lists: [
+          {
+            title: 'Our Service Commitments',
+            items: [
+              'Response to all inquiries within 1 hour during business hours',
+              'Transparent, all-inclusive pricing with no hidden fees',
+              'Flexible cancellation and rescheduling policies',
+              'Weather monitoring and proactive communication',
+              'Day-of cruise support and coordination',
+              'Post-cruise follow-up to ensure satisfaction',
+              'Assistance with group logistics and planning',
+              'Bilingual support available (English and Spanish)'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions When Contacting Us',
+        paragraphs: [
+          'When you contact Premier Party Cruises, our team is prepared to answer all your questions about Lake Travis boat rentals, party packages, pricing, and logistics. Here are some of the most common questions we help customers with every day.',
+          'Don\'t hesitate to ask us anything - no question is too small or too complicated. Our experienced team has handled thousands of events and can provide expert guidance on everything from boat selection to party planning to Lake Travis navigation.'
+        ],
+        lists: [
+          {
+            title: 'Common Questions We Answer',
+            items: [
+              'What\'s the difference between private charters and disco cruises?',
+              'How much does it cost to rent a party boat?',
+              'What\'s included in each package?',
+              'Can we bring our own food and drinks?',
+              'Is alcohol allowed on the boats?',
+              'What happens if weather is bad?',
+              'How far in advance should we book?',
+              'Do you offer group discounts?',
+              'Can we customize our cruise route?',
+              'What safety measures are in place?',
+              'Is transportation available from Austin?',
+              'Can we bring our own DJ or decorations?'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Connect on Social Media',
+        paragraphs: [
+          'Follow Premier Party Cruises on social media for the latest updates, special offers, and amazing photos from recent cruises. We love sharing the fun and excitement of Lake Travis with our community. Tag us in your photos and use #PremierPartyCruises to be featured!',
+          'Our social media channels are also great for getting quick answers to questions, seeing real customer experiences, and finding inspiration for your own Lake Travis celebration. Join thousands of happy customers who follow us for Lake Travis party boat updates and exclusive deals.'
+        ],
+        lists: [
+          {
+            title: 'Find Us On Social Media',
+            items: [
+              'Instagram: @premierpartycruises - Daily cruise photos and stories',
+              'Facebook: Premier Party Cruises - Updates, events, and reviews',
+              'TikTok: @premierpartycruisesatx - Fun videos from the lake',
+              'YouTube: Premier Party Cruises - Virtual boat tours and highlights',
+              'Google Business: Read reviews and see photos',
+              'Yelp: Check out detailed customer experiences',
+              'TripAdvisor: #1 rated Lake Travis boat rental'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Visit Us at Lake Travis',
+        paragraphs: [
+          'Premier Party Cruises operates from prime Lake Travis locations with easy access from Austin. Our main office at 13993 FM 2769 in Leander is just 30 minutes from downtown Austin. We depart from multiple marinas around Lake Travis to provide convenient access for all our customers.',
+          'Whether you\'re coming from Austin, Round Rock, Cedar Park, or anywhere in Central Texas, we\'re easily accessible via major highways. Our team can provide detailed directions, parking information, and even arrange transportation from your location to ensure a smooth start to your Lake Travis adventure.'
+        ],
+        lists: [
+          {
+            title: 'Location and Directions',
+            items: [
+              'Main Office: 13993 FM 2769, Leander, TX 78641',
+              'Just 30 minutes from downtown Austin',
+              'Easy access from Highway 183 and FM 1431',
+              'Multiple departure locations on Lake Travis',
+              'Free parking available at all marina locations',
+              'Rideshare and transportation services available',
+              'GPS coordinates: 30.432167, -97.881167',
+              'Look for Premier Party Cruises flags and signs'
+            ]
+          }
+        ]
+      }
+    ]
   }
 };

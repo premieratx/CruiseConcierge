@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef, useContext, useMemo, useCallback, forwardRef, createContext, type ReactNode, type ComponentProps } from "react"
+import { useState, useEffect, useRef, useContext, useMemo, useCallback, forwardRef, createContext } from "react"
+import type { ReactNode, ComponentProps, ComponentPropsWithoutRef } from "react"
 import { Slot } from "@radix-ui/react-slot"
 import { ChevronRight, MoreHorizontal } from "lucide-react"
 

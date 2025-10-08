@@ -1,6 +1,7 @@
 "use client"
 
-import { useState, useEffect, useRef, useContext, useMemo, useCallback, forwardRef, createContext, type HTMLAttributes } from "react"
+import { useState, useEffect, useRef, useContext, useMemo, useCallback, forwardRef, createContext } from "react"
+import type { HTMLAttributes, ElementRef, ComponentPropsWithoutRef } from "react"
 import * as DialogPrimitive from "@radix-ui/react-dialog"
 import { X } from "lucide-react"
 

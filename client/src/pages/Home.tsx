@@ -23,7 +23,7 @@ import {
   ExternalLink, BookOpen, Headphones, Car, Wine, Camera as CameraIcon,
   UserCheck, MessageSquare, X, Eye, Image, Bot
 } from 'lucide-react';
-const Footer = lazy(() => import('@/components/Footer'));
+import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead, { generateFAQSchema, generateComprehensiveLocalBusinessSchema } from '@/components/SEOHead';
 import { Endorsement } from '@shared/schema';
@@ -2415,9 +2415,7 @@ export default function Home() {
       }} />
 
       {/* Footer */}
-      <Suspense fallback={<div className="h-64 bg-gray-100" />}>
-        <Footer />
-      </Suspense>
+      <Footer />
     </div>
   );
 }

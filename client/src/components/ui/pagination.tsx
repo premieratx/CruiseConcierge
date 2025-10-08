@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef, useContext, useMemo, useCallback, forwardRef, createContext, type ComponentProps } from "react"
+import { useState, useEffect, useRef, useContext, useMemo, useCallback, forwardRef, createContext } from "react"
+import type { ComponentProps } from "react"
 import { ChevronLeft, ChevronRight, MoreHorizontal } from "lucide-react"
 
 import { cn } from "@/lib/utils"
