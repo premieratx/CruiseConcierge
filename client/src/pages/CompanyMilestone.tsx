@@ -177,7 +177,7 @@ const whatsIncluded = [
 const faqItems = [
   {
     id: 'included',
-    question: 'What's included?',
+    question: "What's included?",
     answer: 'Licensed, experienced captain & crew, premium Bluetooth sound, coolers with ice, restrooms, sun & shade seating, and safety equipment.'
   },
   {
@@ -193,12 +193,12 @@ const faqItems = [
   {
     id: 'cancellation',
     question: 'What\'s your cancellation policy?',
-    answer: '48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain's discretion. Pro-rated refunds if weather shortens the cruise.'
+    answer: "48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain's discretion. Pro-rated refunds if weather shortens the cruise."
   },
   {
     id: 'swimming',
     question: 'Is swimming allowed?',
-    answer: 'Yes, when conditions are safe and at the captain's discretion. Life jackets required in the water.'
+    answer: "Yes, when conditions are safe and at the captain's discretion. Life jackets required in the water."
   },
   {
     id: 'life-jackets',
@@ -1051,6 +1051,26 @@ export default function CompanyMilestone() {
           { title: 'IPO Celebration Ideas', href: '/blogs/ipo-celebration-austin' }
         ]}
       />
+
+      
+      {/* JSON-LD Structured Data - Service Schema */}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{
+        __html: JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "Service",
+                    "@id": "https://premierpartycruises.com/company-milestone/#service",
+                    "name": "Private Cruise — Company Milestones",
+                    "provider": {
+                              "@id": "https://premierpartycruises.com/#organization"
+                    },
+                    "areaServed": [
+                              "Austin TX",
+                              "Texas",
+                              "United States"
+                    ],
+                    "description": "Private 3–4 hour cruise with licensed, experienced captain & crew, premium Bluetooth sound, coolers, restrooms, sun & shade seating. Choose Essentials or Ultimate Disco Party package add‑ons."
+          })
+      }} />
 
       <Footer />
     </div>

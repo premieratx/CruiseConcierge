@@ -201,7 +201,7 @@ const faqItems = [
   {
     id: 'private-or-disco',
     question: 'Disco or private cruise?',
-    answer: 'Under 30: disco. 30+: private. We'll help you choose.'
+    answer: "Under 30: disco. 30+: private. We'll help you choose."
   },
   {
     id: 'split-payment',

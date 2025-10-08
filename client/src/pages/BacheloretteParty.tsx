@@ -194,7 +194,7 @@ const faqItems = [
   {
     id: 'refund-policy',
     question: 'Do you offer a refund window after booking?',
-    answer: 'Yes—48 hours after booking for a full refund. After that, weather rules apply at captain's discretion.'
+    answer: "Yes—48 hours after booking for a full refund. After that, weather rules apply at captain's discretion."
   },
   {
     id: 'split-payment',

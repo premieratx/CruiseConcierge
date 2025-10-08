@@ -179,7 +179,7 @@ const testimonials = [
 // FAQ data with corrected content
 const faqData = [
   {
-    question: 'What's included?',
+    question: "What's included?",
     answer: 'Licensed, experienced captain & crew, premium Bluetooth sound, coolers with ice, restrooms, sun & shade seating, and safety equipment.'
   },
   {
@@ -192,11 +192,11 @@ const faqData = [
   },
   {
     question: 'What\'s your cancellation policy?',
-    answer: '48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain's discretion. Pro-rated refunds if weather shortens the cruise.'
+    answer: "48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain's discretion. Pro-rated refunds if weather shortens the cruise."
   },
   {
     question: 'Is swimming allowed?',
-    answer: 'Yes, when conditions are safe and at the captain's discretion. Life jackets required in the water.'
+    answer: "Yes, when conditions are safe and at the captain's discretion. Life jackets required in the water."
   },
   {
     question: 'What about life jackets?',
@@ -1786,220 +1786,93 @@ export default function PrivateCruises() {
         <p>Lake Travis private boat rentals, Austin boat charter services, corporate event cruises, wedding party boats, birthday celebration cruises, bachelor and bachelorette party boats, team building cruises, anniversary celebrations, Lake Travis boat tours, private yacht rental Austin.</p>
       </div>
 
-      {/* JSON-LD Structured Data for Private Cruise Services */}
+      
+      {/* JSON-LD Structured Data - Service Schema */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "Service",
-          "serviceType": "Private Boat Charter",
-          "name": "Private Cruise Charter - Lake Travis",
-          "description": "Exclusive private boat charters on Lake Travis with professional crews, premium amenities, and flexible capacity options for any celebration or corporate event.",
-          "provider": {
-            "@type": "LocalBusiness",
-            "name": "Premier Party Cruises",
-            "url": "https://premierpartycruises.com",
-            "telephone": "+1-512-488-5892",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Austin",
-              "addressRegion": "TX",
-              "addressCountry": "US"
-            },
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": "30.3889",
-              "longitude": "-97.8767"
-            },
-            "priceRange": "$1,050 - $2,750",
-            "aggregateRating": {
-              "@type": "AggregateRating",
-              "ratingValue": "5.0",
-              "reviewCount": "125000"
-            }
-          },
-          "areaServed": {
-            "@type": "City",
-            "name": "Austin",
-            "@id": "https://en.wikipedia.org/wiki/Austin,_Texas"
-          },
-          "hasOfferCatalog": {
-            "@type": "OfferCatalog",
-            "name": "Private Cruise Packages",
-            "itemListElement": [
-              // 14-Person Packages
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "14-Person Standard Private Cruise",
-                  "description": PRIVATE_CRUISE_PACKAGES[14].packages.standard.description
-                },
-                "priceSpecification": [
-                  {
-                    "@type": "PriceSpecification",
-                    "price": (PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.MON_THU / 100).toFixed(2),
-                    "priceCurrency": "USD",
-                    "name": "Monday-Thursday Rate"
-                  },
-                  {
-                    "@type": "PriceSpecification",
-                    "price": (PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.FRIDAY / 100).toFixed(2),
-                    "priceCurrency": "USD",
-                    "name": "Friday Rate"
-                  },
-                  {
-                    "@type": "PriceSpecification",
-                    "price": (PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.SATURDAY / 100).toFixed(2),
-                    "priceCurrency": "USD",
-                    "name": "Saturday Rate"
-                  },
-                  {
-                    "@type": "PriceSpecification",
-                    "price": (PRIVATE_CRUISE_PRICING[14].packages.standard.totalPrices.SUNDAY / 100).toFixed(2),
-                    "priceCurrency": "USD",
-                    "name": "Sunday Rate"
-                  }
-                ]
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "14-Person Essentials Private Cruise",
-                  "description": PRIVATE_CRUISE_PACKAGES[14].packages.essentials.description
-                },
-                "priceSpecification": [
-                  {
-                    "@type": "PriceSpecification",
-                    "price": (PRIVATE_CRUISE_PRICING[14].packages.essentials.totalPrices.MON_THU / 100).toFixed(2),
-                    "priceCurrency": "USD",
-                    "name": "Monday-Thursday Rate"
-                  },
-                  {
-                    "@type": "PriceSpecification",
-                    "price": (PRIVATE_CRUISE_PRICING[14].packages.essentials.totalPrices.SATURDAY / 100).toFixed(2),
-                    "priceCurrency": "USD",
-                    "name": "Saturday Rate"
-                  }
-                ]
-              },
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "14-Person Ultimate Disco Party Package",
-                  "description": PRIVATE_CRUISE_PACKAGES[14].packages.ultimate.description
-                },
-                "priceSpecification": [
-                  {
-                    "@type": "PriceSpecification",
-                    "price": (PRIVATE_CRUISE_PRICING[14].packages.ultimate.totalPrices.MON_THU / 100).toFixed(2),
-                    "priceCurrency": "USD",
-                    "name": "Monday-Thursday Rate"
-                  },
-                  {
-                    "@type": "PriceSpecification",
-                    "price": (PRIVATE_CRUISE_PRICING[14].packages.ultimate.totalPrices.SATURDAY / 100).toFixed(2),
-                    "priceCurrency": "USD",
-                    "name": "Saturday Rate"
-                  }
-                ]
-              },
-              // 25-Person Packages
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "25-Person Standard Private Cruise",
-                  "description": PRIVATE_CRUISE_PACKAGES[25].packages.standard.description
-                },
-                "priceSpecification": [
-                  {
-                    "@type": "PriceSpecification",
-                    "price": (PRIVATE_CRUISE_PRICING[25].packages.standard.totalPrices.MON_THU / 100).toFixed(2),
-                    "priceCurrency": "USD",
-                    "name": "Monday-Thursday Rate"
-                  },
-                  {
-                    "@type": "PriceSpecification",
-                    "price": (PRIVATE_CRUISE_PRICING[25].packages.standard.totalPrices.SATURDAY / 100).toFixed(2),
-                    "priceCurrency": "USD",
-                    "name": "Saturday Rate"
-                  }
-                ]
-              },
-              // 30-Person Packages
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "30-Person Standard Private Cruise",
-                  "description": PRIVATE_CRUISE_PACKAGES[30].packages.standard.description
-                },
-                "priceSpecification": [
-                  {
-                    "@type": "PriceSpecification",
-                    "price": (PRIVATE_CRUISE_PRICING[30].packages.standard.totalPrices.MON_THU / 100).toFixed(2),
-                    "priceCurrency": "USD",
-                    "name": "Monday-Thursday Rate"
-                  },
-                  {
-                    "@type": "PriceSpecification",
-                    "price": (PRIVATE_CRUISE_PRICING[30].packages.standard.totalPrices.SATURDAY / 100).toFixed(2),
-                    "priceCurrency": "USD",
-                    "name": "Saturday Rate"
-                  }
-                ]
-              },
-              // 50-Person Packages
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "50-Person Standard Private Cruise",
-                  "description": PRIVATE_CRUISE_PACKAGES[50].packages.standard.description
-                },
-                "priceSpecification": [
-                  {
-                    "@type": "PriceSpecification",
-                    "price": (PRIVATE_CRUISE_PRICING[50].packages.standard.totalPrices.MON_THU / 100).toFixed(2),
-                    "priceCurrency": "USD",
-                    "name": "Monday-Thursday Rate"
-                  },
-                  {
-                    "@type": "PriceSpecification",
-                    "price": (PRIVATE_CRUISE_PRICING[50].packages.standard.totalPrices.SATURDAY / 100).toFixed(2),
-                    "priceCurrency": "USD",
-                    "name": "Saturday Rate"
-                  }
-                ]
-              },
-              // 75-Person Packages
-              {
-                "@type": "Offer",
-                "itemOffered": {
-                  "@type": "Service",
-                  "name": "75-Person Standard Private Cruise",
-                  "description": PRIVATE_CRUISE_PACKAGES[75].packages.standard.description
-                },
-                "priceSpecification": [
-                  {
-                    "@type": "PriceSpecification",
-                    "price": (PRIVATE_CRUISE_PRICING[75].packages.standard.totalPrices.MON_THU / 100).toFixed(2),
-                    "priceCurrency": "USD",
-                    "name": "Monday-Thursday Rate"
-                  },
-                  {
-                    "@type": "PriceSpecification",
-                    "price": (PRIVATE_CRUISE_PRICING[75].packages.standard.totalPrices.SATURDAY / 100).toFixed(2),
-                    "priceCurrency": "USD",
-                    "name": "Saturday Rate"
-                  }
-                ]
-              }
-            ]
-          }
-        })
+                    "@context": "https://schema.org",
+                    "@type": "Service",
+                    "@id": "https://premierpartycruises.com/private-cruises/#service",
+                    "name": "Private Party Boat Charters on Lake Travis",
+                    "provider": {
+                              "@id": "https://premierpartycruises.com/#organization"
+                    },
+                    "areaServed": [
+                              "Austin TX",
+                              "Texas",
+                              "United States"
+                    ],
+                    "description": "Private 3–4 hour charters with licensed, experienced captain & crew, premium Bluetooth sound, coolers, restrooms, sun & shade seating. Adult life jackets provided; infant/child jackets must be brought by guests.",
+                    "offers": [
+                              {
+                                        "@type": "Offer",
+                                        "priceCurrency": "USD",
+                                        "price": "200.00",
+                                        "priceSpecification": {
+                                                  "@type": "PriceSpecification",
+                                                  "minPrice": 200
+                                        },
+                                        "url": "https://premierpartycruises.com/private-cruises",
+                                        "availability": "https://schema.org/InStock",
+                                        "name": "Base hourly (from)"
+                              },
+                              {
+                                        "@type": "Offer",
+                                        "priceCurrency": "USD",
+                                        "price": "100.00",
+                                        "url": "https://premierpartycruises.com/private-cruises",
+                                        "name": "Essentials Add‑On (14p)"
+                              },
+                              {
+                                        "@type": "Offer",
+                                        "priceCurrency": "USD",
+                                        "price": "150.00",
+                                        "url": "https://premierpartycruises.com/private-cruises",
+                                        "name": "Essentials Add‑On (25–30p)"
+                              },
+                              {
+                                        "@type": "Offer",
+                                        "priceCurrency": "USD",
+                                        "price": "200.00",
+                                        "url": "https://premierpartycruises.com/private-cruises",
+                                        "name": "Essentials Add‑On (50–75p)"
+                              },
+                              {
+                                        "@type": "Offer",
+                                        "priceCurrency": "USD",
+                                        "price": "250.00",
+                                        "url": "https://premierpartycruises.com/private-cruises",
+                                        "name": "Ultimate Disco Party (14p)"
+                              },
+                              {
+                                        "@type": "Offer",
+                                        "priceCurrency": "USD",
+                                        "price": "300.00",
+                                        "url": "https://premierpartycruises.com/private-cruises",
+                                        "name": "Ultimate Disco Party (25–30p)"
+                              },
+                              {
+                                        "@type": "Offer",
+                                        "priceCurrency": "USD",
+                                        "price": "350.00",
+                                        "url": "https://premierpartycruises.com/private-cruises",
+                                        "name": "Ultimate Disco Party (50–75p)"
+                              },
+                              {
+                                        "@type": "Offer",
+                                        "priceCurrency": "USD",
+                                        "price": "50.00",
+                                        "url": "https://premierpartycruises.com/private-cruises",
+                                        "name": "Lily Pad Add‑On"
+                              }
+                    ],
+                    "aggregateRating": {
+                              "@type": "AggregateRating",
+                              "ratingValue": "5.0",
+                              "bestRating": "5",
+                              "ratingCount": 300
+                    }
+          })
       }} />
 
       {/* Related Links */}
