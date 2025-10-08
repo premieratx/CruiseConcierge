@@ -374,7 +374,7 @@ export default function WeddingParties() {
             <Button
               onClick={handleGetQuote}
               size="lg"
-              className="bg-white hover:bg-gray-100 text-black font-bold px-8 py-6 text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
+              className="bg-white hover:bg-gray-100 text-black font-bold px-6 sm:px-8 py-6 text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300"
               data-testid="button-hero-get-quote"
             >
               <Heart className="mr-2 h-5 w-5 text-red-500" />
@@ -385,7 +385,7 @@ export default function WeddingParties() {
               onClick={() => navigate('/chat?eventType=wedding')}
               size="lg"
               variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-black font-bold px-8 py-6 text-lg"
+              className="border-2 border-white text-white hover:bg-white hover:text-black font-bold px-6 sm:px-8 py-6 text-base sm:text-lg"
               data-testid="button-hero-view-packages"
             >
               <Gem className="mr-2 h-5 w-5" />

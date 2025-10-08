@@ -270,7 +270,7 @@ export default function Contact() {
                     <Button
                       type="submit"
                       size="lg"
-                      className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg py-6"
+                      className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg py-6"
                       data-testid="button-send-message"
                     >
                       <Send className="mr-3 h-5 w-5" />

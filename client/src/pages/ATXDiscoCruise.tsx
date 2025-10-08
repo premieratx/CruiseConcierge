@@ -389,7 +389,7 @@ export default function ATXDiscoCruise() {
                 <Button 
                   size="lg" 
                   onClick={handleBookNow}
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-lg px-8 py-6"
+                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white text-base sm:text-lg px-6 sm:px-8 py-6"
                   data-testid="button-book-now"
                 >
                   Book Your Spot Now <ArrowRight className="ml-2" />
@@ -398,7 +398,7 @@ export default function ATXDiscoCruise() {
                   size="lg" 
                   variant="outline"
                   onClick={() => navigate('/contact')}
-                  className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 text-lg px-8 py-6"
+                  className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 text-base sm:text-lg px-6 sm:px-8 py-6"
                   data-testid="button-learn-more"
                 >
                   <Phone className="mr-2" /> Talk to an Expert

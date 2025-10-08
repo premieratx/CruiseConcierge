@@ -940,7 +940,7 @@ export default function TestimonialsFaq() {
         <div className="container mx-auto px-4 md:px-6 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div variants={fadeInUp} className="mb-8">
-              <Badge className="bg-brand-yellow text-black font-bold px-6 py-2 text-lg">
+              <Badge className="bg-brand-yellow text-black font-bold px-4 sm:px-6 py-2 text-base sm:text-lg">
                 125,000+ Happy Customers
               </Badge>
             </motion.div>

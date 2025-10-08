@@ -317,7 +317,7 @@ export default function TeamBuilding() {
               <Button
                 size="lg"
                 onClick={handleGetQuote}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-8 py-6 shadow-xl"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg px-6 sm:px-8 py-6 shadow-xl"
                 data-testid="button-hero-get-quote"
               >
                 <MessageSquare className="mr-2 h-5 w-5" />
@@ -329,7 +329,7 @@ export default function TeamBuilding() {
                 size="lg"
                 variant="outline"
                 onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-lg px-8 py-6"
+                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-base sm:text-lg px-6 sm:px-8 py-6"
                 data-testid="button-hero-view-packages"
               >
                 View Packages
@@ -388,19 +388,19 @@ export default function TeamBuilding() {
               <Button
                 size="lg"
                 onClick={() => setShowQuoteBuilder(true)}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-2xl px-16 py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg sm:text-xl md:text-2xl px-8 sm:px-12 md:px-16 py-6 sm:py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide"
                 data-testid="button-build-quote"
               >
-                <Sparkles className="mr-3 h-7 w-7" />
+                <Sparkles className="mr-2 sm:mr-3 h-5 sm:h-7 w-5 sm:w-7" />
                 <span data-editable data-editable-id="quote-builder-button">Start Building Your Quote</span>
-                <ArrowRight className="ml-3 h-7 w-7" />
+                <ArrowRight className="ml-2 sm:ml-3 h-5 sm:h-7 w-5 sm:w-7" />
               </Button>
             ) : (
               <Button
                 size="lg"
                 variant="outline"
                 onClick={() => setShowQuoteBuilder(false)}
-                className="border-3 border-white text-white hover:bg-white hover:text-black font-bold text-lg px-12 py-6 rounded-2xl backdrop-blur-sm mb-8"
+                className="border-3 border-white text-white hover:bg-white hover:text-black font-bold text-base sm:text-lg px-8 sm:px-12 py-6 rounded-2xl backdrop-blur-sm mb-8"
                 data-testid="button-hide-quote"
               >
                 <X className="mr-2 h-5 w-5" />

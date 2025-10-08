@@ -458,7 +458,7 @@ export default function Gallery() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <Badge className="bg-brand-yellow text-black font-bold text-lg px-6 py-2 mb-4" data-editable data-editable-id="gallery-hero-badge">
+              <Badge className="bg-brand-yellow text-black font-bold text-sm sm:text-base md:text-lg px-4 sm:px-6 py-2 mb-4" data-editable data-editable-id="gallery-hero-badge">
                 1000+ PHOTOS & VIDEOS
               </Badge>
               <p className="text-xl md:text-2xl lg:text-3xl mb-4 max-w-4xl mx-auto font-light leading-relaxed" data-editable data-editable-id="gallery-hero-description">
@@ -478,12 +478,12 @@ export default function Gallery() {
               <Button
                 size="lg"
                 onClick={() => navigate('/chat')}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-xl px-12 py-6 shadow-2xl hover:shadow-3xl transition-all duration-300"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg md:text-xl px-8 sm:px-12 py-6 shadow-2xl hover:shadow-3xl transition-all duration-300"
                 data-testid="button-book-now"
               >
-                <Calendar className="mr-3 h-6 w-6" />
+                <Calendar className="mr-2 sm:mr-3 h-5 sm:h-6 w-5 sm:w-6" />
                 <span data-editable data-editable-id="gallery-book-button">BOOK YOUR CRUISE</span>
-                <ArrowRight className="ml-3 h-6 w-6" />
+                <ArrowRight className="ml-2 sm:ml-3 h-5 sm:h-6 w-5 sm:w-6" />
               </Button>
               
               <Button
@@ -493,10 +493,10 @@ export default function Gallery() {
                   const videoSection = document.getElementById('videos');
                   videoSection?.scrollIntoView({ behavior: 'smooth' });
                 }}
-                className="border-2 border-white text-white hover:bg-white hover:text-black font-bold text-xl px-12 py-6 backdrop-blur-sm bg-white/10"
+                className="border-2 border-white text-white hover:bg-white hover:text-black font-bold text-base sm:text-lg md:text-xl px-8 sm:px-12 py-6 backdrop-blur-sm bg-white/10"
                 data-testid="button-video-gallery"
               >
-                <Play className="mr-3 h-6 w-6" />
+                <Play className="mr-2 sm:mr-3 h-5 sm:h-6 w-5 sm:w-6" />
                 <span data-editable data-editable-id="gallery-video-button">WATCH VIDEOS</span>
               </Button>
             </motion.div>

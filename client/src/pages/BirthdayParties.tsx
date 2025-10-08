@@ -343,7 +343,7 @@ export default function BirthdayParties() {
             <Button
               onClick={handleGetQuote}
               size="lg"
-              className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-8 py-6 text-lg shadow-xl hover:shadow-2xl transition-all duration-300 animate-pulse"
+              className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-6 sm:px-8 py-6 text-base sm:text-lg shadow-xl hover:shadow-2xl transition-all duration-300 animate-pulse"
               data-testid="button-hero-get-quote"
             >
               <Cake className="mr-2 h-5 w-5" />
@@ -354,7 +354,7 @@ export default function BirthdayParties() {
               onClick={() => navigate('/chat?eventType=birthday')}
               size="lg"
               variant="outline"
-              className="border-2 border-white text-white hover:bg-white hover:text-black font-bold px-8 py-6 text-lg"
+              className="border-2 border-white text-white hover:bg-white hover:text-black font-bold px-6 sm:px-8 py-6 text-base sm:text-lg"
               data-testid="button-hero-view-packages"
             >
               <Gift className="mr-2 h-5 w-5" />
@@ -409,19 +409,19 @@ export default function BirthdayParties() {
               <Button
                 size="lg"
                 onClick={() => setShowQuoteBuilder(true)}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-2xl px-16 py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide"
+                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg sm:text-xl md:text-2xl px-8 sm:px-12 md:px-16 py-6 sm:py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide"
                 data-testid="button-build-quote"
               >
-                <Sparkles className="mr-3 h-7 w-7" />
+                <Sparkles className="mr-2 sm:mr-3 h-5 sm:h-7 w-5 sm:w-7" />
                 <span data-editable data-editable-id="quote-builder-button">Start Building Your Quote</span>
-                <ArrowRight className="ml-3 h-7 w-7" />
+                <ArrowRight className="ml-2 sm:ml-3 h-5 sm:h-7 w-5 sm:w-7" />
               </Button>
             ) : (
               <Button
                 size="lg"
                 variant="outline"
                 onClick={() => setShowQuoteBuilder(false)}
-                className="border-3 border-white text-white hover:bg-white hover:text-black font-bold text-lg px-12 py-6 rounded-2xl backdrop-blur-sm mb-8"
+                className="border-3 border-white text-white hover:bg-white hover:text-black font-bold text-base sm:text-lg px-8 sm:px-12 py-6 rounded-2xl backdrop-blur-sm mb-8"
                 data-testid="button-hide-quote"
               >
                 <X className="mr-2 h-5 w-5" />
@@ -472,14 +472,14 @@ export default function BirthdayParties() {
       <section className="py-16 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-6">
           <Tabs defaultValue="overview" className="space-y-8">
-            <TabsList className="grid w-full grid-cols-4 lg:grid-cols-7 bg-white dark:bg-gray-800 p-1 rounded-xl shadow-lg">
-              <TabsTrigger value="overview" className="font-semibold">Overview</TabsTrigger>
-              <TabsTrigger value="packages" className="font-semibold">Packages</TabsTrigger>
-              <TabsTrigger value="included" className="font-semibold">What's Included</TabsTrigger>
-              <TabsTrigger value="pricing" className="font-semibold">Pricing</TabsTrigger>
-              <TabsTrigger value="faqs" className="font-semibold">FAQs</TabsTrigger>
-              <TabsTrigger value="photos" className="font-semibold">Photos</TabsTrigger>
-              <TabsTrigger value="testimonials" className="font-semibold">Testimonials</TabsTrigger>
+            <TabsList className="grid w-full grid-cols-2 md:grid-cols-4 lg:grid-cols-7 bg-white dark:bg-gray-800 p-1 rounded-xl shadow-lg">
+              <TabsTrigger value="overview" className="font-semibold text-xs sm:text-sm">Overview</TabsTrigger>
+              <TabsTrigger value="packages" className="font-semibold text-xs sm:text-sm">Packages</TabsTrigger>
+              <TabsTrigger value="included" className="font-semibold text-xs sm:text-sm">What's Included</TabsTrigger>
+              <TabsTrigger value="pricing" className="font-semibold text-xs sm:text-sm">Pricing</TabsTrigger>
+              <TabsTrigger value="faqs" className="font-semibold text-xs sm:text-sm">FAQs</TabsTrigger>
+              <TabsTrigger value="photos" className="font-semibold text-xs sm:text-sm">Photos</TabsTrigger>
+              <TabsTrigger value="testimonials" className="font-semibold text-xs sm:text-sm">Testimonials</TabsTrigger>
             </TabsList>
 
             {/* Overview Tab */}
