@@ -159,7 +159,12 @@ app.use((req, res, next) => {
   // Cross-Origin-Opener-Policy - isolate browsing context
   res.setHeader('Cross-Origin-Opener-Policy', 'same-origin-allow-popups');
 
-  // Content Security Policy for marketing pages only (NOT for embeddable widgets)
+  // Content Security Policy for marketing pages
+  // Allow Replit preview domains for iframe embedding during development
+  const frameAncestors = process.env.REPLIT_DEV_DOMAIN 
+    ? `'self' https://*.replit.dev https://*.replit.app https://*.replit.com` 
+    : `'self'`;
+  
   const cspDirectives = [
     "default-src 'self'",
     "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com https://fonts.googleapis.com",
@@ -167,15 +172,21 @@ app.use((req, res, next) => {
     "font-src 'self' https://fonts.gstatic.com data:",
     "img-src 'self' data: https: blob:",
     "connect-src 'self' https://www.google-analytics.com https://analytics.google.com wss: ws:",
-    "frame-ancestors 'self'",
+    `frame-ancestors ${frameAncestors}`,
     "base-uri 'self'",
     "form-action 'self'"
   ].join('; ');
   
   res.setHeader('Content-Security-Policy', cspDirectives);
   
-  // NOTE: X-Frame-Options NOT set here - widgets need to be embeddable
-  // If individual routes need clickjacking protection, they should set it themselves
+  // Allow Replit preview in development, SAMEORIGIN in production
+  if (process.env.REPLIT_DEV_DOMAIN) {
+    // In development, allow Replit preview iframe
+    res.removeHeader('X-Frame-Options');
+  } else {
+    // In production, prevent clickjacking
+    res.setHeader('X-Frame-Options', 'SAMEORIGIN');
+  }
 
   next();
 });
