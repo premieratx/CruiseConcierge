@@ -1199,17 +1199,25 @@ ${JSON.stringify(PRIVATE_CRUISES_FAQ_SCHEMA, null, 2)}
     
     template = template.replace('</head>', headInjection);
     
-    // Inject full page content for crawlers
+    // Inject full page content for crawlers (hidden from JS users, visible to crawlers)
     const pageContent = PAGE_CONTENT[pathname];
     let ssrContent;
 
     if (pageContent) {
-      // Render full content from database
-      ssrContent = `<div id="root">${renderPageContent(pageContent)}</div>`;
+      // Render full content from database - hidden when JS loads
+      ssrContent = `
+      <div id="root"></div>
+      <div id="ssr-fallback" class="ssr-only">${renderPageContent(pageContent)}</div>
+      <script>
+        // Hide SSR content as soon as JS loads (for users)
+        // Crawlers without JS will still see the content
+        document.getElementById('ssr-fallback').style.display = 'none';
+      </script>`;
     } else {
       // Fallback to basic H1/description for pages not in database
       ssrContent = `
-      <div id="root">
+      <div id="root"></div>
+      <div id="ssr-fallback" class="ssr-only">
         <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
           <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
           <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${content}</p>
@@ -1217,7 +1225,11 @@ ${JSON.stringify(PRIVATE_CRUISES_FAQ_SCHEMA, null, 2)}
             <p style="color: #DC2626; font-weight: 600;">Please enable JavaScript to view the full interactive experience.</p>
           </noscript>
         </div>
-      </div>`;
+      </div>
+      <script>
+        // Hide SSR content as soon as JS loads
+        document.getElementById('ssr-fallback').style.display = 'none';
+      </script>`;
     }
     
     template = template.replace(
