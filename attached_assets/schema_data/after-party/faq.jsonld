@@ -1,0 +1,46 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Typical start time?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "9\u201311 PM depending on your reception schedule."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Music?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Bring your playlist or ask about DJ add\u2011on."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Late night food?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Great with sliders, pizza, tacos, or dessert bars."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Dress code?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Casual party attire encouraged."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Transportation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We can recommend shuttle partners."
+      }
+    }
+  ]
+}

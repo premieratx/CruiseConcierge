@@ -1,0 +1,46 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is there supervision?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Professional crew maintains a safe, supervised environment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Parents onboard?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Optional\u2014teens with a few chaperones is common."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Food & drinks?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Teen\u2011friendly snacks and mocktails are popular."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Music?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Clean versions of current hits; custom playlists welcome."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Activities?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Dancing, photos, swimming (conditions permitting)."
+      }
+    }
+  ]
+}

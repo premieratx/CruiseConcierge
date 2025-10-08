@@ -174,37 +174,37 @@ const whatsIncluded = [
   }
 ];
 
-// FAQs
+// FAQs - corrected content
 const faqItems = [
   {
-    id: 'timing',
-    question: 'When should we schedule a graduation party cruise?',
-    answer: 'Most graduation cruises happen within 1-2 weeks after graduation ceremonies. Popular times are late May through early June for high school and May for college. Book early as this is our busiest season for grad parties!'
+    id: 'included',
+    question: 'What's included?',
+    answer: 'Licensed, experienced captain & crew, premium Bluetooth sound, coolers with ice, restrooms, sun & shade seating, and safety equipment.'
   },
   {
-    id: 'combined',
-    question: 'Can we combine multiple graduates in one party?',
-    answer: 'Absolutely! Joint graduation parties are very popular and cost-effective. We can customize decorations for multiple schools/graduates. Many friend groups combine their celebrations for one epic party.'
+    id: 'food-drinks',
+    question: 'Can we bring food and drinks?',
+    answer: 'Yes. BYOB (21+), cans/plastic only; bring snacks or meals. We provide coolers with ice and cups.'
   },
   {
-    id: 'decorations',
-    question: 'Can we use school colors and graduation themes?',
-    answer: 'Yes! We love customizing with school colors, mascots, and graduation year. Bring banners, signs, or photos. Popular additions include photo displays showing the graduate\'s journey from kindergarten to graduation.'
+    id: 'deposits-payments',
+    question: 'How do deposits and payments work?',
+    answer: '25% deposit if >30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.'
   },
   {
-    id: 'ages',
-    question: 'Do you accommodate both high school and college graduations?',
-    answer: 'Yes! We tailor the experience to the age group. High school grads (17-18) have supervised, alcohol-free celebrations with mocktails. College grads (21+) can have bar service. Mixed age groups are handled appropriately.'
+    id: 'cancellation',
+    question: 'What\'s your cancellation policy?',
+    answer: '48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain's discretion. Pro-rated refunds if weather shortens the cruise.'
   },
   {
-    id: 'activities',
-    question: 'What activities work best for graduation parties?',
-    answer: 'Swimming, dancing, photo sessions, superlatives/awards, toasts and speeches, and future predictions games are all popular. For high school grads, we focus on fun activities. College grads often prefer more socializing time.'
+    id: 'swimming',
+    question: 'Is swimming allowed?',
+    answer: 'Yes, when conditions are safe and at the captain's discretion. Life jackets required in the water.'
   },
   {
-    id: 'gifts',
-    question: 'How do guests handle graduation gifts?',
-    answer: 'We have a designated gift table area. Many grads request "cards only" for the cruise and handle larger gifts separately. We can also coordinate gift card boxes or money trees as requested.'
+    id: 'life-jackets',
+    question: 'What about life jackets?',
+    answer: 'Adult life jackets are provided. Infant/child life jackets must be brought by guests.'
   }
 ];
 

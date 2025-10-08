@@ -1,0 +1,54 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What\u2019s included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Licensed, experienced captain & crew, premium Bluetooth sound, coolers with ice, restrooms, sun & shade seating, and safety equipment."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we bring food and drinks?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. BYOB (21+), cans/plastic only; bring snacks or meals. We provide coolers with ice and cups."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do deposits and payments work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "25% deposit if >30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What\u2019s your cancellation policy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain\u2019s discretion. Pro\u2011rated refunds if weather shortens the cruise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is swimming allowed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, when conditions are safe and at the captain\u2019s discretion. Life jackets required in the water."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What about life jackets?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Adult life jackets are provided. Infant/child life jackets must be brought by guests."
+      }
+    }
+  ]
+}

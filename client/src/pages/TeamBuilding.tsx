@@ -160,37 +160,37 @@ const whatsIncluded = [
   }
 ];
 
-// FAQs
+// FAQs - corrected content
 const faqItems = [
   {
-    id: 'activities',
-    question: 'What types of team building activities do you offer?',
-    answer: 'We offer a variety of activities including problem-solving challenges, communication exercises, trust-building activities, scavenger hunts, team competitions, and leadership development exercises. All activities can be customized to your team\'s goals and company culture.'
+    id: 'included',
+    question: 'What's included?',
+    answer: 'Licensed, experienced captain & crew, premium Bluetooth sound, coolers with ice, restrooms, sun & shade seating, and safety equipment.'
   },
   {
-    id: 'facilitator',
-    question: 'Do you provide a team building facilitator?',
-    answer: 'Yes! Our Enhanced and Executive packages include professional facilitators who specialize in corporate team development. They\'ll guide your team through activities, ensure engagement, and help achieve your specific team building objectives.'
+    id: 'food-drinks',
+    question: 'Can we bring food and drinks?',
+    answer: 'Yes. BYOB (21+), cans/plastic only; bring snacks or meals. We provide coolers with ice and cups.'
   },
   {
-    id: 'customization',
-    question: 'Can activities be customized to our company goals?',
-    answer: 'Absolutely! We work with you to understand your team dynamics and objectives. Whether you\'re focusing on communication, leadership, innovation, or just team bonding, we\'ll tailor activities to meet your specific needs.'
+    id: 'deposits-payments',
+    question: 'How do deposits and payments work?',
+    answer: '25% deposit if >30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.'
   },
   {
-    id: 'catering',
-    question: 'What catering options are available?',
-    answer: 'We offer various catering options from casual BBQ to gourmet meals. Popular choices include breakfast tacos, lunch buffets, or evening appetizers. We can also arrange team cooking challenges as part of the experience.'
+    id: 'cancellation',
+    question: 'What\'s your cancellation policy?',
+    answer: '48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain's discretion. Pro-rated refunds if weather shortens the cruise.'
   },
   {
-    id: 'size',
-    question: 'What\'s the ideal group size for team building?',
-    answer: 'We accommodate teams from 15-75 people. Smaller groups (15-30) allow for more intimate activities, while larger groups can be divided into teams for competitions. We\'ll recommend the best boat and format for your group size.'
+    id: 'swimming',
+    question: 'Is swimming allowed?',
+    answer: 'Yes, when conditions are safe and at the captain's discretion. Life jackets required in the water.'
   },
   {
-    id: 'results',
-    question: 'How do we measure team building success?',
-    answer: 'With our Executive package, we provide pre and post-event assessments, participant feedback, and a comprehensive report. We also offer follow-up consultation to help maintain momentum from the team building experience.'
+    id: 'life-jackets',
+    question: 'What about life jackets?',
+    answer: 'Adult life jackets are provided. Infant/child life jackets must be brought by guests.'
   }
 ];
 

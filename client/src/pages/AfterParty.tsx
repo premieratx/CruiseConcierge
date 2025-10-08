@@ -171,37 +171,37 @@ const whatsIncluded = [
   }
 ];
 
-// FAQs
+// FAQs - corrected content
 const faqItems = [
   {
-    id: 'timing',
-    question: 'What time do after party cruises typically start?',
-    answer: 'Most after party cruises begin between 9-11 PM, perfectly timed for when your reception winds down. We can customize the timing to match your wedding schedule. Late night cruises run until 1-2 AM.'
+    id: 'included',
+    question: 'What's included?',
+    answer: 'Licensed, experienced captain & crew, premium Bluetooth sound, coolers with ice, restrooms, sun & shade seating, and safety equipment.'
   },
   {
-    id: 'transportation',
-    question: 'How do guests get from the reception to the boat?',
-    answer: 'We recommend arranging shuttle buses from your reception venue to the marina. This ensures safe transportation and keeps the party energy going. Many couples use the same transportation service from their wedding.'
+    id: 'food-drinks',
+    question: 'Can we bring food and drinks?',
+    answer: 'Yes. BYOB (21+), cans/plastic only; bring snacks or meals. We provide coolers with ice and cups.'
   },
   {
-    id: 'music',
-    question: 'Can we continue with our wedding DJ or band?',
-    answer: 'We can work with your wedding DJ if they\'re available, or provide one of our professional party DJs who specialize in keeping the energy high. Either way, you control the playlist and vibe.'
+    id: 'deposits-payments',
+    question: 'How do deposits and payments work?',
+    answer: '25% deposit if >30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.'
   },
   {
-    id: 'food',
-    question: 'What food options work best for after parties?',
-    answer: 'Late night snacks are perfect - think sliders, pizza, tacos, or dessert bars. We also offer coffee and energy drinks to keep the party going. Full catering is available but lighter options are most popular.'
+    id: 'cancellation',
+    question: 'What\'s your cancellation policy?',
+    answer: '48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain's discretion. Pro-rated refunds if weather shortens the cruise.'
   },
   {
-    id: 'dress-code',
-    question: 'What should guests wear?',
-    answer: 'Most guests change into comfortable party attire after the reception. We recommend bringing a change of clothes or at least comfortable shoes. The vibe is more relaxed than the formal reception.'
+    id: 'swimming',
+    question: 'Is swimming allowed?',
+    answer: 'Yes, when conditions are safe and at the captain's discretion. Life jackets required in the water.'
   },
   {
-    id: 'capacity',
-    question: 'Do all wedding guests usually attend the after party?',
-    answer: 'Typically 30-60% of wedding guests continue to the after party. It\'s usually the younger crowd and closest friends. This creates a more intimate, high-energy celebration to cap off your special day.'
+    id: 'life-jackets',
+    question: 'What about life jackets?',
+    answer: 'Adult life jackets are provided. Infant/child life jackets must be brought by guests.'
   }
 ];
 

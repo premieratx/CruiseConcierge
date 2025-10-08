@@ -1,0 +1,15 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://premierpartycruises.com/client-entertainment/#service",
+  "name": "Private Cruise \u2014 Client Entertainment",
+  "provider": {
+    "@id": "https://premierpartycruises.com/#organization"
+  },
+  "areaServed": [
+    "Austin TX",
+    "Texas",
+    "United States"
+  ],
+  "description": "Private 3\u20134 hour cruise with licensed, experienced captain & crew, premium Bluetooth sound, coolers, restrooms, sun & shade seating. Choose Essentials or Ultimate Disco Party package add\u2011ons."
+}

@@ -1,0 +1,46 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What\u2019s included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Licensed, experienced captain & crew, Bluetooth sound, coolers with ice, safety gear, fuel, and lake access."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where do boats depart?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does it cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Private charters from $200/hour; ATX Disco Cruise from $85/person."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we bring alcohol?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes\u2014BYOB (21+), cans/plastic only; coolers and ice provided."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far ahead to book?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "2\u20134+ weeks for peak weekends; earlier for large groups."
+      }
+    }
+  ]
+}

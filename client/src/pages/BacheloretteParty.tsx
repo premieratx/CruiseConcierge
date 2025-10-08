@@ -189,52 +189,47 @@ const whatsIncluded = [
   }
 ];
 
-// FAQs with PDF content
+// FAQs with corrected content
 const faqItems = [
   {
     id: 'refund-policy',
-    question: 'What is your refund policy?',
-    answer: 'We offer a 48-hour full refund window after booking. This gives you time to coordinate with your girls and make sure everyone is on board. After 48 hours, deposits become non-refundable but can be transferred to another date with advance notice.'
+    question: 'Do you offer a refund window after booking?',
+    answer: 'Yes—48 hours after booking for a full refund. After that, weather rules apply at captain's discretion.'
   },
   {
     id: 'split-payment',
-    question: 'Can we split the payment between the girls?',
-    answer: 'Absolutely! We offer split payment options at checkout. Each bridesmaid can pay their portion directly, making it easy to manage group bookings. The MOH doesn\'t have to front the entire cost!'
+    question: 'Can we split payments between the girls?',
+    answer: 'Yes. Split payment options are available at checkout.'
   },
   {
     id: 'attire',
     question: 'Is disco attire required?',
-    answer: 'Disco attire is encouraged but not required! Many bachelorette groups love coordinating disco outfits - it makes for AMAZING photos and adds to the fun vibe. But come as you are - the most important thing is celebrating the bride!'
+    answer: 'Encouraged but not required; many groups coordinate outfits.'
   },
   {
     id: 'weather-policy',
-    question: 'What happens if there\'s bad weather?',
-    answer: 'We cruise rain or shine - the boat has cover available! For severe weather (lightning, high winds), we have the "Lemonade Disco" backup plan: a land party with fajita/BBQ buffet and drinks. You\'ll still have an epic bachelorette party, just on dry land!'
+    question: 'What happens in bad weather?',
+    answer: 'Rain or shine. For severe weather, we move to Lemonade Disco (land venue).'
   },
   {
     id: 'add-people',
     question: 'Can we add more girls after booking?',
-    answer: 'Yes! You can easily add 1-2 more bridesmaids after booking, subject to availability. Just contact us as soon as you know, and we\'ll add them to your reservation. The earlier you let us know, the better!'
-  },
-  {
-    id: 'bride-free',
-    question: 'Does the bride really cruise free?',
-    answer: 'YES! With our Disco Queen and Platinum packages, the bride cruises absolutely FREE! It\'s our way of making sure she has the best bachelorette party ever. Just book 8+ paying guests on either package and she\'s covered!'
+    answer: 'Yes, usually 1–2 if availability allows—contact us ASAP.'
   },
   {
     id: 'group-discounts',
     question: 'Do you offer group discounts?',
-    answer: 'Yes! Groups of 10+ people receive special discounted rates. The bigger your bridal squad, the better the deal. Contact us for specific pricing for your group size.'
+    answer: 'Yes for larger groups—contact us for details.'
   },
   {
     id: 'alcohol-policy',
-    question: 'What\'s your alcohol policy?',
-    answer: 'BYOB - bring your own bubbly! We provide private coolers with ice for each group. We also partner with local alcohol delivery services who can deliver champagne and rosé directly to the boat. We handle everything else!'
+    question: 'What\'s the alcohol policy?',
+    answer: 'BYOB for 21+; cans/plastic only; coolers with ice and cups provided.'
   },
   {
     id: 'booking-timeline',
     question: 'How far in advance should we book?',
-    answer: 'Book as early as possible! Most weekends sell out 4-6 weeks in advance, and we\'re usually booked SOLID at least a month ahead. Spring & summer bachelorette season books up even faster. Don\'t wait - secure your date now!'
+    answer: 'Peak weekends sell out 4–6 weeks in advance; book early.'
   }
 ];
 

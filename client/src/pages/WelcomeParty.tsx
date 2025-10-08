@@ -159,37 +159,37 @@ const whatsIncluded = [
   }
 ];
 
-// FAQs
+// FAQs - corrected content
 const faqItems = [
   {
-    id: 'timing',
-    question: 'When should we schedule the welcome party cruise?',
-    answer: 'Most couples schedule their welcome party the day before the wedding, either as an afternoon or early evening cruise. This gives out-of-town guests a chance to meet everyone before the big day while keeping the schedule relaxed.'
+    id: 'included',
+    question: 'What's included?',
+    answer: 'Licensed, experienced captain & crew, premium Bluetooth sound, coolers with ice, restrooms, sun & shade seating, and safety equipment.'
   },
   {
-    id: 'food',
-    question: 'What food options work best for welcome parties?',
-    answer: 'Texas BBQ and Fajita bars are our most popular choices - they\'re casual, delicious, and give guests a true Austin experience. We can also arrange lighter appetizers or full dinner service based on your preferences.'
+    id: 'food-drinks',
+    question: 'Can we bring food and drinks?',
+    answer: 'Yes. BYOB (21+), cans/plastic only; bring snacks or meals. We provide coolers with ice and cups.'
   },
   {
-    id: 'music',
-    question: 'What entertainment options do you recommend?',
-    answer: 'For welcome parties, we recommend either acoustic musicians for a relaxed vibe or a small band for more energy. The music creates atmosphere while still allowing guests to mingle and chat comfortably.'
+    id: 'deposits-payments',
+    question: 'How do deposits and payments work?',
+    answer: '25% deposit if >30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.'
   },
   {
-    id: 'transportation',
-    question: 'How do guests get to the boat?',
-    answer: 'We have ample parking at the marina, and many couples arrange shuttle buses from hotels. This makes it easy for out-of-town guests and creates a fun group arrival experience.'
+    id: 'cancellation',
+    question: 'What\'s your cancellation policy?',
+    answer: '48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain's discretion. Pro-rated refunds if weather shortens the cruise.'
   },
   {
-    id: 'weather',
-    question: 'What if the weather doesn\'t cooperate?',
-    answer: 'Our boats have covered areas for sun or light rain protection. For severe weather, we can reschedule or arrange an alternative waterfront venue. We monitor conditions closely and communicate any concerns early.'
+    id: 'swimming',
+    question: 'Is swimming allowed?',
+    answer: 'Yes, when conditions are safe and at the captain's discretion. Life jackets required in the water.'
   },
   {
-    id: 'customization',
-    question: 'Can we customize the party to match our wedding theme?',
-    answer: 'Absolutely! We love helping couples create cohesive wedding weekends. From decorations to menu choices, we\'ll work with you to ensure the welcome party perfectly complements your wedding style.'
+    id: 'life-jackets',
+    question: 'What about life jackets?',
+    answer: 'Adult life jackets are provided. Infant/child life jackets must be brought by guests.'
   }
 ];
 

@@ -1,0 +1,46 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Which milestones do you host?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "21st, 30th, 40th, 50th, 60th and beyond."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Surprise party support?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes\u2014crew coordinates timing for the reveal."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Decorations?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Basic d\u00e9cor supported; bring custom items if desired."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Cakes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Welcome\u2014crew assists with service."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Activities by age?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We adapt vibe and activities to the group."
+      }
+    }
+  ]
+}

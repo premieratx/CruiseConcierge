@@ -1,0 +1,46 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What milestones do you host?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "IPOs, funding, anniversaries, launches, awards, big wins."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we brand the experience?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes\u2014custom signage and d\u00e9cor supported."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Awards and speeches?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes\u2014PA system and great backdrops for photos."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Timing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Typically within 2\u20134 weeks of the achievement."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Media usage?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Photo/video packages available for marketing content."
+      }
+    }
+  ]
+}

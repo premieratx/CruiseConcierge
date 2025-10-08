@@ -1,0 +1,70 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Do you offer a refund window after booking?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes\u201448 hours after booking for a full refund. After that, weather rules apply at captain\u2019s discretion."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we split payments between the girls?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes. Split payment options are available at checkout."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is disco attire required?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Encouraged but not required; many groups coordinate outfits."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens in bad weather?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rain or shine. For severe weather, we move to Lemonade Disco (land venue)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we add more girls after booking?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, usually 1\u20132 if availability allows\u2014contact us ASAP."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer group discounts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes for larger groups\u2014contact us for details."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What\u2019s the alcohol policy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BYOB for 21+; cans/plastic only; coolers with ice and cups provided."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance should we book?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Peak weekends sell out 4\u20136 weeks in advance; book early."
+      }
+    }
+  ]
+}

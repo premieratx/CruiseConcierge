@@ -1,0 +1,84 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://premierpartycruises.com/private-cruises/#service",
+  "name": "Private Party Boat Charters on Lake Travis",
+  "provider": {
+    "@id": "https://premierpartycruises.com/#organization"
+  },
+  "areaServed": [
+    "Austin TX",
+    "Texas",
+    "United States"
+  ],
+  "description": "Private 3\u20134 hour charters with licensed, experienced captain & crew, premium Bluetooth sound, coolers, restrooms, sun & shade seating. Adult life jackets provided; infant/child jackets must be brought by guests.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "200.00",
+      "priceSpecification": {
+        "@type": "PriceSpecification",
+        "minPrice": 200
+      },
+      "url": "https://premierpartycruises.com/private-cruises",
+      "availability": "https://schema.org/InStock",
+      "name": "Base hourly (from)"
+    },
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "100.00",
+      "url": "https://premierpartycruises.com/private-cruises",
+      "name": "Essentials Add\u2011On (14p)"
+    },
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "150.00",
+      "url": "https://premierpartycruises.com/private-cruises",
+      "name": "Essentials Add\u2011On (25\u201330p)"
+    },
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "200.00",
+      "url": "https://premierpartycruises.com/private-cruises",
+      "name": "Essentials Add\u2011On (50\u201375p)"
+    },
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "250.00",
+      "url": "https://premierpartycruises.com/private-cruises",
+      "name": "Ultimate Disco Party (14p)"
+    },
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "300.00",
+      "url": "https://premierpartycruises.com/private-cruises",
+      "name": "Ultimate Disco Party (25\u201330p)"
+    },
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "350.00",
+      "url": "https://premierpartycruises.com/private-cruises",
+      "name": "Ultimate Disco Party (50\u201375p)"
+    },
+    {
+      "@type": "Offer",
+      "priceCurrency": "USD",
+      "price": "50.00",
+      "url": "https://premierpartycruises.com/private-cruises",
+      "name": "Lily Pad Add\u2011On"
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "bestRating": "5",
+    "ratingCount": 300
+  }
+}

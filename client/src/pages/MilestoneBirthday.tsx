@@ -182,37 +182,37 @@ const whatsIncluded = [
   }
 ];
 
-// FAQs
+// FAQs - corrected content
 const faqItems = [
   {
-    id: 'ages',
-    question: 'What milestone birthdays do you typically celebrate?',
-    answer: 'We specialize in all milestone birthdays - 21st, 30th, 40th, 50th, 60th, and beyond! Each milestone gets special touches: 21st parties often feature celebratory toasts, 30th and 40th focus on fun themes, while 50th and beyond emphasize elegance and nostalgia.'
+    id: 'included',
+    question: 'What's included?',
+    answer: 'Licensed, experienced captain & crew, premium Bluetooth sound, coolers with ice, restrooms, sun & shade seating, and safety equipment.'
   },
   {
-    id: 'surprise',
-    question: 'Can you help coordinate a surprise party?',
-    answer: 'Absolutely! We\'re experts at surprise parties. We\'ll work with your designated planner, coordinate arrival timing, help with distraction plans, and ensure the birthday person is genuinely surprised. Our crew is discreet and professional.'
+    id: 'food-drinks',
+    question: 'Can we bring food and drinks?',
+    answer: 'Yes. BYOB (21+), cans/plastic only; bring snacks or meals. We provide coolers with ice and cups.'
   },
   {
-    id: 'decorations',
-    question: 'What decorations are included vs. what can we bring?',
-    answer: 'We provide basic birthday banners, balloons, and table settings. You\'re welcome to bring custom decorations, photo displays, or themed items. Popular additions include decade-specific decorations, photo timelines, and personalized banners.'
+    id: 'deposits-payments',
+    question: 'How do deposits and payments work?',
+    answer: '25% deposit if >30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.'
   },
   {
-    id: 'cake',
-    question: 'Can we bring our own birthday cake?',
-    answer: 'Yes! We have a dedicated cake table with all serving supplies. We can also connect you with local bakeries who deliver to the marina. Our crew will handle cake service and coordinate the perfect moment for singing and candles.'
+    id: 'cancellation',
+    question: 'What\'s your cancellation policy?',
+    answer: '48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain's discretion. Pro-rated refunds if weather shortens the cruise.'
   },
   {
-    id: 'activities',
-    question: 'What activities work well for different age groups?',
-    answer: 'For 21st-30th: dancing, swimming, party games. For 40th-50th: mix of relaxation and celebration. For 60th+: scenic cruising, storytelling, nostalgic music. We customize activities based on your group\'s preferences and energy level.'
+    id: 'swimming',
+    question: 'Is swimming allowed?',
+    answer: 'Yes, when conditions are safe and at the captain's discretion. Life jackets required in the water.'
   },
   {
-    id: 'gifts',
-    question: 'How do guests handle bringing gifts on a boat?',
-    answer: 'We have a designated gift table area. Many groups opt for a gift opening on land and cards-only on the boat. We can also arrange gift transportation back to vehicles after the cruise.'
+    id: 'life-jackets',
+    question: 'What about life jackets?',
+    answer: 'Adult life jackets are provided. Infant/child life jackets must be brought by guests.'
   }
 ];
 

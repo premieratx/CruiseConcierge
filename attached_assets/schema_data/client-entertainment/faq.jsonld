@@ -1,0 +1,46 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is this a private experience?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes\u2014private charter with your own boat and crew."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Bar and food options?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BYOB (21+) and bring food; we can suggest catering partners."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Best time of day?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sunset cruises are popular; midday works well for business hours."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Privacy for discussions?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes\u2014private spaces and layout allow for quiet areas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Weather policy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rain or shine; severe weather adjustments at captain\u2019s discretion."
+      }
+    }
+  ]
+}

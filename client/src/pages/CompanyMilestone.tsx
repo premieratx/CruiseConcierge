@@ -173,37 +173,37 @@ const whatsIncluded = [
   }
 ];
 
-// FAQs
+// FAQs - corrected content
 const faqItems = [
   {
-    id: 'occasions',
-    question: 'What types of milestones do companies celebrate?',
-    answer: 'Common celebrations include IPOs, major funding rounds, company anniversaries (5, 10, 25 years), achieving revenue goals, successful product launches, mergers and acquisitions, awards and recognitions, and major contract wins.'
+    id: 'included',
+    question: 'What's included?',
+    answer: 'Licensed, experienced captain & crew, premium Bluetooth sound, coolers with ice, restrooms, sun & shade seating, and safety equipment.'
   },
   {
-    id: 'customization',
-    question: 'How can we customize the celebration to our achievement?',
-    answer: 'We\'ll work with you to create a themed experience. This includes custom signage, specific decorations, branded materials, tailored menu selections, and even coordinating with your marketing team for photo/video content that aligns with your announcement strategy.'
+    id: 'food-drinks',
+    question: 'Can we bring food and drinks?',
+    answer: 'Yes. BYOB (21+), cans/plastic only; bring snacks or meals. We provide coolers with ice and cups.'
   },
   {
-    id: 'awards',
-    question: 'Can we hold an awards ceremony on the boat?',
-    answer: 'Absolutely! We have dedicated spaces perfect for presentations, with PA systems for speeches and awards. Many companies use the sunset as a backdrop for award photos, creating memorable moments for recipients.'
+    id: 'deposits-payments',
+    question: 'How do deposits and payments work?',
+    answer: '25% deposit if >30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.'
   },
   {
-    id: 'timing',
-    question: 'When should we schedule our milestone celebration?',
-    answer: 'Most companies celebrate within 2-4 weeks of the achievement while excitement is high. Afternoon cruises work well for all-hands celebrations, while evening cruises create a more formal atmosphere for executive teams.'
+    id: 'cancellation',
+    question: 'What\'s your cancellation policy?',
+    answer: '48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain's discretion. Pro-rated refunds if weather shortens the cruise.'
   },
   {
-    id: 'media',
-    question: 'Can we use photos/videos for company marketing?',
-    answer: 'Yes! With our professional photography/videography packages, you\'ll receive high-quality content perfect for social media, press releases, and internal communications. We can coordinate with your marketing team on specific shots needed.'
+    id: 'swimming',
+    question: 'Is swimming allowed?',
+    answer: 'Yes, when conditions are safe and at the captain's discretion. Life jackets required in the water.'
   },
   {
-    id: 'size',
-    question: 'What if our entire company won\'t fit on one boat?',
-    answer: 'For larger companies, we can arrange multiple boats departing together, or schedule department rotations throughout the day. Some companies also choose to celebrate with their core team or top performers as a special recognition.'
+    id: 'life-jackets',
+    question: 'What about life jackets?',
+    answer: 'Adult life jackets are provided. Infant/child life jackets must be brought by guests.'
   }
 ];
 

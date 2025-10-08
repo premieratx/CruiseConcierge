@@ -1,0 +1,62 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the ATX Disco Cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A shared 4\u2011hour party boat for bachelor/bachelorette groups with pro DJ and photographer, BYOB, floats, and multi\u2011group energy."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When does it run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Fridays 12\u20134 PM and Saturdays 11\u20133 PM or 3:30\u20137:30 PM from March to October."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much are tickets?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "$85 Basic, $95 Queen/King, $105 Platinum."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What\u2019s the alcohol policy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BYOB for 21+; cans/plastic only; coolers with ice and cups provided."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens in bad weather?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rain or shine. For severe weather, we move the party to Lemonade Disco (land venue)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When do we get photos?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Professional photos are delivered digitally within 2\u20133 weeks after your cruise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where do we meet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641. Arrive 15\u201320 minutes early; free parking available."
+      }
+    }
+  ]
+}

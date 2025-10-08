@@ -267,83 +267,38 @@ const testimonials = [
 const faqItems = [
   {
     id: 'what-is-atx-disco',
-    question: 'What exactly is the ATX Disco Cruise?',
-    answer: "The ATX Disco Cruise is America's premier bachelor and bachelorette party cruise experience! It's a shared party boat on Lake Travis where multiple bach parties from across the country come together for an epic 4-hour celebration with a professional DJ, photographer, and unforgettable multi-group energy."
+    question: 'What is the ATX Disco Cruise?',
+    answer: 'A shared 4-hour party boat for bachelor/bachelorette groups with pro DJ and photographer, BYOB, floats, and multi-group energy.'
   },
   {
-    id: 'refund-policy',
-    question: 'What is your refund policy?',
-    answer: 'We offer a 48-hour full refund window after booking. After 48 hours, deposits become non-refundable but can be transferred to another date with advance notice. Weather cancellations include the Lemonade Disco backup option or full refund.'
+    id: 'when-does-it-run',
+    question: 'When does it run?',
+    answer: 'Fridays 12–4 PM and Saturdays 11–3 PM or 3:30–7:30 PM from March to October.'
   },
   {
-    id: 'split-payment',
-    question: 'Can we split the payment between multiple people?',
-    answer: 'Absolutely! We offer split payment options at checkout. Each person can pay their portion directly, making it easy to manage group bookings. The organizer doesn\'t have to front the entire cost.'
+    id: 'ticket-prices',
+    question: 'How much are tickets?',
+    answer: '$85 Basic, $95 Queen/King, $105 Platinum.'
   },
   {
     id: 'weather-policy',
-    question: 'What happens if there\'s bad weather?',
-    answer: 'We cruise rain or shine - the boat has covered areas! For severe weather (lightning, high winds), we activate the "Lemonade Disco" - a land-based party with fajita/BBQ buffet, drinks, and DJ. You still get an epic party, just on dry land!'
-  },
-  {
-    id: 'add-people',
-    question: 'Can we add people after booking?',
-    answer: 'Yes! You can add 1-2 people after booking, subject to availability. Contact us as soon as you know and we\'ll add them to your reservation. The earlier you let us know, the better we can accommodate.'
-  },
-  {
-    id: 'group-size',
-    question: 'What if we have a large group?',
-    answer: 'Perfect! Groups of all sizes are welcome. The boat holds up to 100 people total across all bach parties. Larger groups get better positioning and recognition. Book early to secure your spot!'
+    question: 'What happens in bad weather?',
+    answer: 'Rain or shine. For severe weather, we move the party to Lemonade Disco (land venue).'
   },
   {
     id: 'alcohol-policy',
-    question: 'What\'s your alcohol policy?',
-    answer: 'BYOB - bring your own beverages! We provide coolers with ice (private coolers for Queen/Platinum packages). We also partner with delivery services who can bring alcohol directly to the boat. Just bring what you want to drink!'
-  },
-  {
-    id: 'booking-timeline',
-    question: 'How far in advance should we book?',
-    answer: 'Book as early as possible! Peak weekends (March-October) sell out 4-6 weeks in advance. Summer Saturdays often book 2+ months ahead. Secure your date now to avoid disappointment!'
-  },
-  {
-    id: 'what-to-bring',
-    question: 'What should we bring?',
-    answer: 'Bring: Your drinks (BYOB), sunscreen, sunglasses, swimwear, towel, and your party energy! Platinum package includes most supplies. Basic package - bring cups, ice, and anything else you need.'
-  },
-  {
-    id: 'schedule',
-    question: 'When does the ATX Disco Cruise run?',
-    answer: 'Friday: 12:00 PM - 4:00 PM ($85/person) • Saturday: 11:00 AM - 3:00 PM ($95/person) • Saturday: 3:30 PM - 7:30 PM ($95/person). Available year-round, weather permitting.'
+    question: 'What\'s the alcohol policy?',
+    answer: 'BYOB for 21+; cans/plastic only; coolers with ice and cups provided.'
   },
   {
     id: 'photos',
-    question: 'When do we get our photos?',
-    answer: 'Professional photos are delivered digitally within 48-72 hours after your cruise via email or download link. You\'ll receive high-quality images of all the epic moments captured by our photographer!'
+    question: 'When do we get photos?',
+    answer: 'Professional photos are delivered digitally within 2–3 weeks after your cruise.'
   },
   {
     id: 'parking',
-    question: 'Where do we park and meet?',
-    answer: 'Meet at Anderson Mill Marina on Lake Travis (13619 FM 2769, Austin, TX 78730). Free parking available. Arrive 15-20 minutes early for check-in. Transportation packages available with discount!'
-  },
-  {
-    id: 'dress-code',
-    question: 'Is there a dress code?',
-    answer: 'No formal dress code! Many groups do fun themes (disco, nautical, matching outfits) which makes for amazing photos. Bring swimwear for the floats. Most important: be comfortable and ready to party!'
-  },
-  {
-    id: 'other-parties',
-    question: 'Will there be other bach parties on the boat?',
-    answer: 'YES - that\'s the magic! You\'ll meet 3-8 other bach parties from across America (Texas, California, Chicago, etc.). The multi-group energy creates an unforgettable experience. Everyone\'s celebrating, the vibe is electric!'
-  },
-  {
-    id: 'food',
-    question: 'Is food included?',
-    answer: 'Food is not included, but lunch delivery is available! Local restaurants deliver directly to the boat. Or bring your own snacks/meals. Queen & Platinum packages include delivery coordination assistance.'
-  },
-  {
-    id: 'age-limit',
-    question: 'Is there an age limit?',
-    answer: 'Must be 21+ to consume alcohol. All guests welcome, but this is a party cruise atmosphere best suited for adults. Valid ID required for alcohol consumption.'
+    question: 'Where do we meet?',
+    answer: 'Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641. Arrive 15–20 minutes early; free parking available.'
   }
 ];
 
@@ -384,13 +339,13 @@ export default function ATXDiscoCruise() {
     "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
     "location": {
       "@type": "Place",
-      "name": "Anderson Mill Marina, Lake Travis",
+      "name": "Anderson Mill Marina",
       "address": {
         "@type": "PostalAddress",
-        "streetAddress": "13619 FM 2769",
-        "addressLocality": "Austin",
+        "streetAddress": "13993 FM 2769",
+        "addressLocality": "Leander",
         "addressRegion": "TX",
-        "postalCode": "78730",
+        "postalCode": "78641",
         "addressCountry": "US"
       }
     },

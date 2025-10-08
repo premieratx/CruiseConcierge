@@ -494,6 +494,78 @@ export default function Home() {
     });
   };
 
+  const organizationSchema = {
+    "@context": "https://schema.org",
+    "@type": ["Organization", "LocalBusiness"],
+    "@id": "https://premierpartycruises.com/#organization",
+    "name": "Premier Party Cruises",
+    "legalName": "B Hill Entertainment LLC",
+    "url": "https://premierpartycruises.com/",
+    "logo": "https://premierpartycruises.com/media/schema/ppc-logo.png",
+    "image": [
+      "https://premierpartycruises.com/media/schema/hero-boat-1.jpg",
+      "https://premierpartycruises.com/media/schema/hero-boat-2.jpg",
+      "https://premierpartycruises.com/media/schema/disco-dance-floor.jpg",
+      "https://premierpartycruises.com/media/schema/group-swimming-lilypad.jpg"
+    ],
+    "description": "Austin's original Lake Travis party boat company offering private cruises, the ATX Disco Cruise, and full-service planning for bachelor/bachelorette, corporate, birthday, and family events.",
+    "foundingDate": "2009",
+    "sameAs": [
+      "https://www.instagram.com/premierpartycruises",
+      "https://www.tiktok.com/@premierpartycruisesatx",
+      "https://www.facebook.com/premierpartycruises",
+      "https://share.google/oLFqmN5TGvXpnlX6i"
+    ],
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "13993 FM 2769",
+      "addressLocality": "Leander",
+      "addressRegion": "TX",
+      "postalCode": "78641",
+      "addressCountry": "US"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 30.432167,
+      "longitude": -97.881167
+    },
+    "contactPoint": [
+      {
+        "@type": "ContactPoint",
+        "contactType": "customer support",
+        "telephone": "+1-512-488-5892",
+        "email": "clientservices@premierpartycruises.com",
+        "availableLanguage": ["en", "es"]
+      }
+    ],
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "09:00",
+        "closes": "21:00"
+      }
+    ],
+    "areaServed": ["Austin TX", "Texas", "United States"],
+    "priceRange": "$$",
+    "aggregateRating": [
+      {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "bestRating": "5",
+        "ratingCount": 300,
+        "name": "Google"
+      },
+      {
+        "@type": "AggregateRating",
+        "ratingValue": "5.0",
+        "bestRating": "5",
+        "ratingCount": 120,
+        "name": "Yelp"
+      }
+    ]
+  };
+
   const eventSchema = {
     "@context": "https://schema.org",
     "@type": "Event",
@@ -546,9 +618,7 @@ export default function Home() {
         defaultKeywords={['party boat Austin', 'bachelorette party Austin', 'Austin boat rental', 'Lake Travis party boat', 'bachelor party Austin']}
         schemaType="organization"
         customSchema={[
-          generateComprehensiveLocalBusinessSchema({
-            pageDescription: "Austin's premier party boat rental service on Lake Travis. Specializing in bachelor parties, bachelorette parties, corporate events, and private cruises. 14+ years experience, 125,000+ customers served."
-          }),
+          organizationSchema,
           eventSchema,
           generateFAQSchema(faqData)
         ]}

@@ -162,37 +162,37 @@ const whatsIncluded = [
   }
 ];
 
-// Rehearsal dinner specific FAQs
+// Rehearsal dinner specific FAQs - corrected content
 const faqItems = [
   {
-    id: 'catering',
-    question: 'Do you provide catering for rehearsal dinners?',
-    answer: 'While we don\'t provide catering directly, we work with Austin\'s best catering partners who specialize in boat events. We\'ll connect you with trusted vendors and our crew will assist with all setup and service during your cruise.'
+    id: 'included',
+    question: 'What's included?',
+    answer: 'Licensed, experienced captain & crew, premium Bluetooth sound, coolers with ice, restrooms, sun & shade seating, and safety equipment.'
   },
   {
-    id: 'timing',
-    question: 'What time should we schedule our rehearsal dinner cruise?',
-    answer: 'We recommend starting 2 hours before sunset for the best experience. This gives you daylight for boarding and mingling, sunset for dinner and photos, and twilight for speeches and toasts. Our team will help you choose the perfect timing based on your wedding date.'
+    id: 'food-drinks',
+    question: 'Can we bring food and drinks?',
+    answer: 'Yes. BYOB (21+), cans/plastic only; bring snacks or meals. We provide coolers with ice and cups.'
   },
   {
-    id: 'speeches',
-    question: 'How do speeches and toasts work on the boat?',
-    answer: 'We provide a wireless microphone system perfect for speeches. The boat has designated areas ideal for toasts with everyone able to see and hear. Many couples do speeches during sunset for the most romantic backdrop.'
+    id: 'deposits-payments',
+    question: 'How do deposits and payments work?',
+    answer: '25% deposit if >30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.'
   },
   {
-    id: 'decorations',
-    question: 'Can we decorate the boat for our rehearsal dinner?',
-    answer: 'Absolutely! We encourage personalizing the space. Our crew arrives early to help with setup. We can accommodate flowers, signs, photos, and lighting. We\'ll work with your wedding planner or help you DIY.'
+    id: 'cancellation',
+    question: 'What\'s your cancellation policy?',
+    answer: '48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain's discretion. Pro-rated refunds if weather shortens the cruise.'
   },
   {
-    id: 'backup-weather',
-    question: 'What\'s the backup plan for bad weather?',
-    answer: 'The yacht has covered areas for light rain. For severe weather, we\'ll work with you to reschedule or we can arrange an indoor waterfront venue. We monitor weather closely and communicate any concerns 48 hours before your event.'
+    id: 'swimming',
+    question: 'Is swimming allowed?',
+    answer: 'Yes, when conditions are safe and at the captain's discretion. Life jackets required in the water.'
   },
   {
-    id: 'parking',
-    question: 'Is there parking for all our guests?',
-    answer: 'Yes! We have ample free parking at the marina. We can also arrange shuttle service from your hotel or venue. Many couples use this as a gathering point before heading to the rehearsal dinner cruise together.'
+    id: 'life-jackets',
+    question: 'What about life jackets?',
+    answer: 'Adult life jackets are provided. Infant/child life jackets must be brought by guests.'
   }
 ];
 

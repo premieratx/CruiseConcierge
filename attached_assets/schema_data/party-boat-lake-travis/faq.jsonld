@@ -1,0 +1,46 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why Lake Travis?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Clear water, scenic coves, limestone cliffs, and great swimming."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where do boats depart?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Pricing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Private charters from $200/hour; Disco from $85/person."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What\u2019s included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Captain & crew, Bluetooth sound, coolers with ice, safety gear, fuel."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Best time of year?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Peak April\u2013September; great conditions in spring/fall too."
+      }
+    }
+  ]
+}

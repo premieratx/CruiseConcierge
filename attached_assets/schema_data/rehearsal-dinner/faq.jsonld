@@ -1,0 +1,46 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "When should we start?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "About two hours before sunset for boarding, photos, and toasts."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we decorate?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes\u2014crew can assist with setup; coordinate with your planner."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Microphone for speeches?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes\u2014wireless mic available."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Weather backup?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Reschedule or alternate venue for severe weather; covered areas for light rain."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Parking?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Free parking at Anderson Mill Marina."
+      }
+    }
+  ]
+}

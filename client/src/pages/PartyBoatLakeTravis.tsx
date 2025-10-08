@@ -63,23 +63,35 @@ const scaleIn = {
 const faqData = [
   {
     question: 'What makes Lake Travis the best party boat location?',
-    answer: 'Lake Travis is renowned for having the clearest water in Texas with over 270 miles of pristine shoreline and countless secluded coves perfect for swimming and partying. The lake maintains a constant 70-degree water temperature year-round, making it ideal for Lake Travis party boat adventures any season. With crystal clear water, dramatic limestone cliffs, and protected coves, Lake Travis offers the most scenic and enjoyable party boat experience in Central Texas.'
+    answer: 'Clearest water in Texas, 270+ miles of shoreline, year-round 70° water temp, secluded coves.'
   },
   {
-    question: 'How much does a Lake Travis party boat rental cost?',
-    answer: `Lake Travis party boat rental prices vary by boat size and day. Private Lake Travis charters start at $${HOURLY_RATES.MON_THU[14] / 100}/hour for our 14-person boat on weekdays with 4-hour minimums. Our Lake Travis ATX Disco Cruise packages start at $${DISCO_PRICING.basic / 100} per person and include DJ, photographer, and party favors. Weekend and holiday Lake Travis party boat rates are higher. Contact us for exact Lake Travis pricing for your event.`
+    question: 'How much does a Lake Travis party boat cost?',
+    answer: `Private: $${HOURLY_RATES.MON_THU[14] / 100}/hr (weekdays), 4-hour minimum. ATX Disco Cruise: $${DISCO_PRICING.basic / 100}+ per person.`
   },
   {
-    question: 'Where do Lake Travis party boats depart from?',
-    answer: 'Our Lake Travis party boats depart from Anderson Mill Marina, located at 13993 FM2769, Leander, TX 78641 on the northwest side of Lake Travis. The marina is conveniently just 30 minutes from downtown Austin, making it easily accessible for Lake Travis party boat guests from Austin, Lakeway, Bee Cave, and Cedar Park. Free parking is available at the Lake Travis marina.'
+    question: 'Where do Lake Travis party boats depart?',
+    answer: 'Anderson Mill Marina: 13993 FM 2769, Leander, TX 78641 (30 min from downtown Austin).'
   },
   {
-    question: 'What\'s included in a Lake Travis party boat rental?',
-    answer: 'Every Lake Travis party boat rental includes: professional Coast Guard certified captain and crew familiar with Lake Travis waters, premium Bluetooth sound system, large coolers with ice, all safety equipment, fuel, and cruising Lake Travis\'s most scenic coves and beaches. Optional Lake Travis add-ons include lily pads and floaties for swimming, professional DJ services, photographer, catering coordination, and decorations for special Lake Travis events.'
+    question: 'What\'s included in Lake Travis party boat rentals?',
+    answer: 'Licensed captain & crew, premium Bluetooth sound, coolers/ice, safety equipment, fuel.'
   },
   {
-    question: 'What\'s the best time of year for Lake Travis?',
-    answer: 'Lake Travis party boats operate year-round with the lake maintaining comfortable water temperatures even in winter. Peak Lake Travis season runs April through September with warm weather and calm waters. However, fall and spring offer beautiful Lake Travis conditions with fewer crowds. Lake Travis water levels are typically best March through October, making these ideal months for your Lake Travis party boat experience.'
+    question: 'Best Lake Travis swimming spots?',
+    answer: 'Devil's Cove, Starnes Island, Paradise Cove—secluded, crystal-clear water for swimming.'
+  },
+  {
+    question: 'Best time of year for Lake Travis?',
+    answer: 'Peak: April–September. Year-round water 70°; March–October best water levels.'
+  },
+  {
+    question: 'Lake Travis vs. other Texas lakes?',
+    answer: 'Clearest water, deepest lake, most scenic cliffs, safest for party boats—unmatched in Texas.'
+  },
+  {
+    question: 'How long is a Lake Travis cruise?',
+    answer: '4-hour minimum on private charters; ATX Disco Cruise is 4 hours (Fridays & Saturdays).'
   }
 ];
 

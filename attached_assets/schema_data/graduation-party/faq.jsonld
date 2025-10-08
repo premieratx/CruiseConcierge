@@ -1,0 +1,46 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "When do most grad cruises happen?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Late May to early June for high school; May for college."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can multiple graduates celebrate together?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes\u2014joint parties are common."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Themes and school colors?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes\u2014bring banners and d\u00e9cor; crew can assist."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Teen vs. college celebrations?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We tailor to age\u2014mocktails for teens, BYOB for 21+ groups."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Activities onboard?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Swimming, dancing, photos, and lake cruising."
+      }
+    }
+  ]
+}

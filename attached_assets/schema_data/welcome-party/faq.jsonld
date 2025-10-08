@@ -1,0 +1,46 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "When to schedule?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Day before the wedding\u2014afternoon or early evening."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Food options?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Texas BBQ, fajitas, or appetizers are popular."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Entertainment?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Acoustic musician or small band works great."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Getting to the boat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Ample parking; shuttles are common for hotel groups."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Weather?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Covered areas for light rain; reschedule for severe weather."
+      }
+    }
+  ]
+}

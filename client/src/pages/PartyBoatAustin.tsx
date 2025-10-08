@@ -62,24 +62,36 @@ const scaleIn = {
 
 const faqData = [
   {
-    question: 'What makes Premier the best party boat in Austin?',
-    answer: 'Premier Party Cruises has been Austin\'s #1 party boat company since 2009 with over 100,000 happy customers. We offer the newest fleet on Lake Travis, professional Coast Guard certified captains, perfect safety record, premium sound systems, and unmatched local expertise. Our party boats depart from Anderson Mill Marina and cruise the most beautiful parts of Lake Travis, just 30 minutes from downtown Austin.'
+    question: 'What makes Premier Party Cruises Austin\'s best?',
+    answer: '14+ years in Austin, 125,000+ happy customers, perfect safety record.'
   },
   {
-    question: 'How much does a party boat rental cost in Austin?',
-    answer: `Party boat rental prices in Austin vary by boat size and day of week. Private charters start at $${HOURLY_RATES.MON_THU[14] / 100}/hour for our 14-person boat on weekdays, with 4-hour minimums. Our ATX Disco Cruise party boat packages start at $${DISCO_PRICING.basic / 100} per person and include DJ, photographer, and party favors. Weekend and holiday rates are higher. Contact us for exact pricing for your Austin party boat rental.`
+    question: 'How much does a party boat cost in Austin?',
+    answer: `Private charters: $${HOURLY_RATES.MON_THU[14] / 100}/hr (weekdays), 4-hour minimum. ATX Disco Cruise: $${DISCO_PRICING.basic / 100}+ per person.`
   },
   {
-    question: 'Where do Austin party boats depart from?',
-    answer: 'Our Austin party boats depart from Anderson Mill Marina, located at 13993 FM2769, Leander, TX 78641 on Lake Travis. The marina is conveniently located just 30 minutes from downtown Austin, making it easily accessible for Austin party boat guests coming from all parts of the city. Free parking is available at the marina.'
+    question: 'Where do Austin party boats depart?',
+    answer: 'Anderson Mill Marina: 13993 FM 2769, Leander, TX 78641 (30 min from downtown Austin).'
   },
   {
-    question: 'What\'s included in an Austin party boat rental?',
-    answer: 'Every Austin party boat rental includes: professional Coast Guard certified captain and crew, premium Bluetooth sound system, large coolers with ice, all safety equipment, fuel, and cruising Lake Travis\'s most scenic areas. Optional add-ons include lily pads and floaties for swimming, professional DJ services, photographer, catering coordination, and decorations for special events.'
+    question: 'What\'s included in Austin party boat rentals?',
+    answer: 'Licensed captain & crew, premium Bluetooth sound, coolers/ice, safety equipment, fuel.'
   },
   {
-    question: 'How far in advance should I book a party boat in Austin?',
-    answer: 'For weekend Austin party boat rentals, especially during peak season (April-September), we recommend booking 2-4 weeks in advance. <Link href="/bachelorette-party-austin" className="text-primary hover:underline">Bachelorette parties</Link> and <Link href="/corporate-events" className="text-primary hover:underline">corporate events</Link> on <Link href="/party-boat-lake-travis" className="text-primary hover:underline">Lake Travis</Link> should book even earlier. Weekday party boat rentals in Austin typically have more availability and can often be booked with shorter notice. Contact us to check real-time availability.'
+    question: 'Best Austin neighborhoods to visit?',
+    answer: 'South Congress, East 6th Street, Rainey Street, Red River District—all within 30 min of departure.'
+  },
+  {
+    question: 'How far in advance to book Austin party boats?',
+    answer: 'Peak season: 2–4 weeks for weekends. Weekdays: often available on short notice.'
+  },
+  {
+    question: 'What Austin events pair well with party boats?',
+    answer: 'SXSW, ACL Fest, F1 weekends, UT football games, bachelorette/bachelor parties.'
+  },
+  {
+    question: 'Transportation from Austin to Lake Travis?',
+    answer: 'We partner with shuttle services for groups. Free parking at Anderson Mill Marina.'
   }
 ];
 

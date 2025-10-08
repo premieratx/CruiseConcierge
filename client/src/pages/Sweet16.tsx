@@ -172,37 +172,37 @@ const whatsIncluded = [
   }
 ];
 
-// FAQs
+// FAQs - corrected content
 const faqItems = [
   {
-    id: 'supervision',
-    question: 'What supervision is provided for teen parties?',
-    answer: 'Our professional crew maintains a safe, supervised environment throughout the cruise. We have clear safety rules, designated swimming areas with supervision, and maintain appropriate music and atmosphere for teens. Parents are welcome to attend or can feel confident leaving their teens in our care.'
+    id: 'included',
+    question: 'What's included?',
+    answer: 'Licensed, experienced captain & crew, premium Bluetooth sound, coolers with ice, restrooms, sun & shade seating, and safety equipment.'
   },
   {
-    id: 'parents',
-    question: 'Can parents attend or is it teens only?',
-    answer: 'That\'s entirely up to you! Many Sweet 16s have a mix of teens with a few parents/chaperones on board. Some prefer teens-only with parents just for drop-off/pickup. We accommodate either format and ensure appropriate supervision regardless.'
+    id: 'food-drinks',
+    question: 'Can we bring food and drinks?',
+    answer: 'Yes. BYOB (21+), cans/plastic only; bring snacks or meals. We provide coolers with ice and cups.'
   },
   {
-    id: 'food',
-    question: 'What food and drink options work best for Sweet 16s?',
-    answer: 'Popular options include pizza, sliders, tacos, fruit platters, and dessert bars. For drinks, we create fancy mocktails, smoothies, sodas, and juices. Everything is presented beautifully for those important Instagram moments!'
+    id: 'deposits-payments',
+    question: 'How do deposits and payments work?',
+    answer: '25% deposit if >30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.'
   },
   {
-    id: 'music',
-    question: 'What kind of music is appropriate?',
-    answer: 'Our DJs specialize in teen parties with current pop hits, clean versions of popular songs, and dance favorites. The birthday girl can provide a playlist or our DJ will read the room. All music is age-appropriate and parent-approved.'
+    id: 'cancellation',
+    question: 'What\'s your cancellation policy?',
+    answer: '48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain's discretion. Pro-rated refunds if weather shortens the cruise.'
   },
   {
-    id: 'activities',
-    question: 'What activities do teens enjoy on the cruise?',
-    answer: 'Dancing is always popular! Plus swimming, photo sessions, TikTok video creation, mocktail making, and scenic cruising. We can also arrange games, contests, or special surprises based on the birthday girl\'s interests.'
+    id: 'swimming',
+    question: 'Is swimming allowed?',
+    answer: 'Yes, when conditions are safe and at the captain's discretion. Life jackets required in the water.'
   },
   {
-    id: 'themes',
-    question: 'Can we have a themed Sweet 16?',
-    answer: 'Absolutely! Popular themes include Enchanted Garden, Hollywood Glam, Tropical Paradise, or Disco Dreams. We\'ll help coordinate decorations, props, and even suggest dress codes to match your theme perfectly.'
+    id: 'life-jackets',
+    question: 'What about life jackets?',
+    answer: 'Adult life jackets are provided. Infant/child life jackets must be brought by guests.'
   }
 ];
 

@@ -176,39 +176,31 @@ const testimonials = [
   }
 ];
 
-// FAQ data
+// FAQ data with corrected content
 const faqData = [
   {
-    question: 'How far in advance should I book my private cruise?',
-    answer: 'We recommend booking 2-4 weeks in advance for weekend dates, especially during peak season (April-September). Weekday cruises typically have more availability and can often be booked with shorter notice.'
+    question: 'What's included?',
+    answer: 'Licensed, experienced captain & crew, premium Bluetooth sound, coolers with ice, restrooms, sun & shade seating, and safety equipment.'
   },
   {
-    question: 'What\'s included in the private cruise price?',
-    answer: 'All private cruises include: professional Coast Guard certified captain, fuel, coolers with ice, premium sound system with Bluetooth connectivity, safety equipment, and basic amenities. Food, beverages, and extra crew (if needed) are additional.'
-  },
-  {
-    question: 'Can we bring our own food and drinks?',
-    answer: 'Absolutely! You can bring your own food, snacks, and beverages (including alcohol for guests 21+). We provide coolers and ice. We can also connect you with preferred catering partners for full-service dining.'
-  },
-  {
-    question: 'What happens if the weather is bad?',
-    answer: 'Safety is our top priority. If weather conditions are unsafe, we\'ll work with you to reschedule your cruise to another date. We monitor weather closely and will contact you 24-48 hours before your cruise if conditions look questionable.'
-  },
-  {
-    question: 'Do you provide decorations for special events?',
-    answer: 'We can accommodate basic decorations and help coordinate with local vendors for more elaborate setups. Many clients bring their own decorations, and our crew is happy to help with setup before departure.'
-  },
-  {
-    question: 'What are your cancellation policies?',
-    answer: 'Cancellations more than 14 days prior receive full refund. 7-14 days prior: 50% refund. Less than 7 days: no refund except for unsafe weather conditions. We offer date changes based on availability.'
+    question: 'Can we bring food and drinks?',
+    answer: 'Yes. BYOB (21+), cans/plastic only; bring snacks or meals. We provide coolers with ice and cups.'
   },
   {
     question: 'How do deposits and payments work?',
-    answer: 'If booking more than 30 days out, we require a 25% deposit to secure your date. The balance is due 30 days before your cruise. If booking within 30 days, full payment is required upfront.'
+    answer: '25% deposit if >30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.'
   },
   {
-    question: 'Can swimming be included in our private cruise?',
-    answer: 'Yes! Lake Travis offers great swimming opportunities. We can anchor in swimming areas and provide ladder access. We recommend bringing water shoes and sunscreen. Swimming is always at your own risk.'
+    question: 'What\'s your cancellation policy?',
+    answer: '48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain's discretion. Pro-rated refunds if weather shortens the cruise.'
+  },
+  {
+    question: 'Is swimming allowed?',
+    answer: 'Yes, when conditions are safe and at the captain's discretion. Life jackets required in the water.'
+  },
+  {
+    question: 'What about life jackets?',
+    answer: 'Adult life jackets are provided. Infant/child life jackets must be brought by guests.'
   }
 ];
 

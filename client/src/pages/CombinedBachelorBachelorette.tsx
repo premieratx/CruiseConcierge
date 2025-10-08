@@ -186,52 +186,47 @@ const whatsIncluded = [
   }
 ];
 
-// FAQs for combined parties
+// FAQs for combined parties - corrected content
 const faqItems = [
   {
     id: 'what-is-combined',
-    question: 'What is a combined bachelor/bachelorette party?',
-    answer: 'It\'s the modern trend of celebrating together! Instead of splitting up, the bride and groom\'s friend groups join forces for one epic party. It\'s perfect for couples whose friends already know each other or want everyone to bond before the wedding. More fun, less planning, and one unforgettable experience!'
+    question: 'What is a combined bach party?',
+    answer: 'Both parties celebrate together. Saves time & money, and everyone bonds before the wedding.'
   },
   {
     id: 'group-size',
-    question: 'How many people can you accommodate for a combined party?',
-    answer: 'We excel at larger groups! Our Disco Cruises can handle 20-40+ people comfortably, and for even bigger combined celebrations, we offer private boats up to 75 people. The bigger the group, the better the party - and we have the boats to make it happen!'
+    question: 'How many people can you fit?',
+    answer: 'Disco cruise handles 20–40+; private boats hold up to 75.'
   },
   {
     id: 'private-or-disco',
-    question: 'Should we book a private cruise or join the Disco Cruise?',
-    answer: 'Great question! For groups under 30 people, the Disco Cruise is usually the best value and vibe. For 30+, or if you want complete control of the boat, go private. We can help you decide based on your group size, budget, and party style. Both options are AMAZING for combined parties!'
+    question: 'Disco or private cruise?',
+    answer: 'Under 30: disco. 30+: private. We'll help you choose.'
   },
   {
     id: 'split-payment',
-    question: 'Can we split costs between the bride and groom\'s sides?',
-    answer: 'Absolutely! We make it easy to split payments however you want - by side, by person, or any way that works for your group. Everyone can pay their portion directly at checkout. No awkward Venmo requests needed!'
+    question: 'Can we split payments?',
+    answer: 'Yes—split payment options available at checkout.'
   },
   {
     id: 'different-preferences',
-    question: 'What if guys want different things than girls?',
-    answer: 'We\'ve got you covered! Our boats have multiple zones - some people can chill on floats, others can dance with the DJ, some can lounge in the shade. BYOB means everyone brings what they like. There\'s something for everyone, and that\'s what makes combined parties so fun!'
+    question: 'What if guys & girls want different things?',
+    answer: 'Plenty of zones: floats, DJ, lounge. BYOB keeps it flexible.'
   },
   {
     id: 'couple-free',
-    question: 'Do the bride and groom really cruise free?',
-    answer: 'YES! With our Party Squad and Ultimate packages, BOTH the bride and groom can cruise FREE when you book 16+ paying guests. It\'s our way of celebrating the happy couple - they get to enjoy the party without the cost!'
+    question: 'Do the bride & groom cruise free?',
+    answer: 'Yes, with Party Squad or Ultimate Package (16+ paying guests).'
   },
   {
     id: 'activities',
-    question: 'What activities work best for mixed groups?',
-    answer: 'Everything! The DJ keeps the energy high, giant floats are a hit with everyone, swimming and lounging on the water is universal fun. We\'ve seen countless combined parties where guys and girls all have an absolute blast together. The shared celebration creates amazing memories!'
-  },
-  {
-    id: 'weather-policy',
-    question: 'What happens if there\'s bad weather?',
-    answer: 'We cruise rain or shine - the boat has covered areas! For severe weather (lightning, high winds), we have backup plans including our "Lemonade Party" option with food and drinks on land. Your combined celebration will still be epic, just adjusted for safety!'
+    question: 'Best activities for mixed groups?',
+    answer: 'DJ, floats, swimming—universal fun for everyone.'
   },
   {
     id: 'booking-timeline',
-    question: 'How far in advance should we book?',
-    answer: 'Book as early as possible! Combined parties are trending hard, and larger group dates fill up 6-8 weeks out. Weekend slots go especially fast. Lock in your date now to ensure everyone can celebrate together!'
+    question: 'How far in advance to book?',
+    answer: 'Book 6–8 weeks early; weekends fill fast.'
   }
 ];
 

@@ -1,0 +1,54 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is a combined bachelor/bachelorette party?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "One celebration for both friend groups\u2014shared fun with everyone together."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should we book Private or join the Disco Cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Under ~30 guests: Disco is typically best value. 30+ or full control: Private."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we split costs between sides?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes\u2014split payment options available at checkout."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What activities work for mixed groups?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "DJ\u2011driven dancing, floats, swimming and chill zones\u2014something for everyone."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens in bad weather?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rain or shine. For severe weather, we move to Lemonade Disco (land venue)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance should we book?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Large combined groups often book 6\u20138 weeks in advance."
+      }
+    }
+  ]
+}

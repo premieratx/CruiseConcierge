@@ -160,37 +160,37 @@ const whatsIncluded = [
   }
 ];
 
-// FAQs
+// FAQs - corrected content
 const faqItems = [
   {
-    id: 'impression',
-    question: 'How does a cruise help with client relationships?',
-    answer: 'A Lake Travis cruise provides a unique, memorable experience that sets you apart from typical dinners or golf outings. The relaxed atmosphere facilitates better conversations, the scenery impresses, and clients appreciate the special effort, strengthening business relationships.'
+    id: 'included',
+    question: 'What's included?',
+    answer: 'Licensed, experienced captain & crew, premium Bluetooth sound, coolers with ice, restrooms, sun & shade seating, and safety equipment.'
   },
   {
-    id: 'catering',
-    question: 'What catering options work best for client entertainment?',
-    answer: 'We recommend gourmet appetizer stations for mingling or seated dinners for formal occasions. Popular choices include surf & turf, sushi stations, or Austin BBQ with an upscale twist. All dietary restrictions can be accommodated.'
+    id: 'food-drinks',
+    question: 'Can we bring food and drinks?',
+    answer: 'Yes. BYOB (21+), cans/plastic only; bring snacks or meals. We provide coolers with ice and cups.'
   },
   {
-    id: 'bar',
-    question: 'What bar service is included?',
-    answer: 'Our Premium and Platinum packages include full bar setup with professional bartenders. We offer premium spirits, fine wines, craft beers, and signature cocktails. Non-alcoholic options are always available for all guests.'
+    id: 'deposits-payments',
+    question: 'How do deposits and payments work?',
+    answer: '25% deposit if >30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.'
   },
   {
-    id: 'timing',
-    question: 'What\'s the best time for client entertainment cruises?',
-    answer: 'Sunset cruises (5-8 PM) are most popular, offering beautiful views and transitioning from day to evening. Lunch cruises (11 AM-2 PM) work well for business hours, while evening cruises create a special event atmosphere.'
+    id: 'cancellation',
+    question: 'What\'s your cancellation policy?',
+    answer: '48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain's discretion. Pro-rated refunds if weather shortens the cruise.'
   },
   {
-    id: 'privacy',
-    question: 'Will we have privacy for business discussions?',
-    answer: 'Absolutely. All client entertainment cruises are private charters. You have the entire boat to yourselves with discrete, professional crew. The layout includes quiet areas perfect for confidential conversations.'
+    id: 'swimming',
+    question: 'Is swimming allowed?',
+    answer: 'Yes, when conditions are safe and at the captain's discretion. Life jackets required in the water.'
   },
   {
-    id: 'customization',
-    question: 'Can we customize the experience for our industry?',
-    answer: 'Yes! We regularly customize experiences for tech companies, law firms, financial services, and more. From menu selections to entertainment choices, we\'ll tailor everything to match your company culture and client expectations.'
+    id: 'life-jackets',
+    question: 'What about life jackets?',
+    answer: 'Adult life jackets are provided. Infant/child life jackets must be brought by guests.'
   }
 ];
 
