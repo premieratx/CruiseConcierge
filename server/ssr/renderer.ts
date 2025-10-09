@@ -903,13 +903,24 @@ async function fetchSEOMetadata(url: string) {
     const baseUrl = `http://localhost:${port}`;
     
     const response = await fetch(`${baseUrl}/api/seo/meta/${encodeURIComponent(url)}`);
-    if (response.ok) {
-      return await response.json();
+    if (!response.ok) {
+      const errorText = await response.text().catch(() => 'Unknown error');
+      console.error(`SEO metadata fetch failed: ${response.status} ${response.statusText}`, {
+        url,
+        baseUrl,
+        errorText: errorText.substring(0, 200)
+      });
+      return null;
     }
-  } catch (error) {
-    console.error('Failed to fetch SEO metadata:', error);
+    return await response.json();
+  } catch (error: any) {
+    console.error('Failed to fetch SEO metadata:', {
+      error: error.message,
+      url,
+      stack: error.stack?.substring(0, 200)
+    });
+    return null;
   }
-  return null;
 }
 
 // Fetch blog post data
@@ -918,13 +929,24 @@ async function fetchBlogPost(slug: string) {
     // CRITICAL FIX: Use PORT from environment, not hardcoded 5000
     const port = process.env.PORT || '5000';
     const response = await fetch(`http://localhost:${port}/api/blog/public/posts/${slug}`);
-    if (response.ok) {
-      return await response.json();
+    if (!response.ok) {
+      const errorText = await response.text().catch(() => 'Unknown error');
+      console.error(`Blog post fetch failed: ${response.status} ${response.statusText}`, {
+        slug,
+        port,
+        errorText: errorText.substring(0, 200)
+      });
+      return null;
     }
-  } catch (error) {
-    console.error('Failed to fetch blog post:', error);
+    return await response.json();
+  } catch (error: any) {
+    console.error('Failed to fetch blog post:', {
+      error: error.message,
+      slug,
+      stack: error.stack?.substring(0, 200)
+    });
+    return null;
   }
-  return null;
 }
 
 // Render page to HTML string (Simplified SSR for SEO)

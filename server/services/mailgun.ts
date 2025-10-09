@@ -62,8 +62,8 @@ class MailgunService implements EmailService {
     }
 
     try {
-      console.log('Mailgun sending email to:', options.to);
-      console.log('Using domain:', this.domain);
+      console.log('📧 Mailgun sending email to:', options.to);
+      console.log('   Using domain:', this.domain);
       
       const formData = new FormData();
       formData.append('from', options.from || this.from);
@@ -86,18 +86,31 @@ class MailgunService implements EmailService {
       });
 
       if (!response.ok) {
-        const error = await response.text();
-        console.error('Mailgun error:', response.status, error);
-        console.error('Failed URL was:', `${this.baseUrl}/${this.domain}/messages`);
-        console.error('Domain value:', this.domain);
-        console.error('Note: MAILGUN_DOMAIN should be your domain name (e.g., mg.yoursite.com), not the API URL');
+        const errorText = await response.text().catch(() => 'Unable to read error response');
+        console.error('❌ Mailgun API error:', {
+          status: response.status,
+          statusText: response.statusText,
+          url: `${this.baseUrl}/${this.domain}/messages`,
+          domain: this.domain,
+          recipient: options.to,
+          subject: options.subject,
+          errorText: errorText.substring(0, 200)
+        });
+        console.error('💡 Note: MAILGUN_DOMAIN should be your domain name (e.g., mg.yoursite.com), not the API URL');
         return false;
       }
 
-      console.log('Email sent successfully via Mailgun to:', options.to);
+      console.log('✅ Email sent successfully via Mailgun to:', options.to);
       return true;
-    } catch (error) {
-      console.error('Failed to send email via Mailgun:', error);
+    } catch (error: any) {
+      console.error('❌ Failed to send email via Mailgun:', {
+        error: error.message,
+        recipient: options.to,
+        subject: options.subject,
+        domain: this.domain,
+        baseUrl: this.baseUrl,
+        stack: error.stack?.substring(0, 200)
+      });
       return false;
     }
   }
