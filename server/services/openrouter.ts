@@ -61,14 +61,6 @@ class OpenRouterService implements ChatService {
       });
 
       if (!response.ok) {
-        const errorText = await response.text().catch(() => 'Unable to read error response');
-        console.error('❌ OpenRouter API error:', {
-          status: response.status,
-          statusText: response.statusText,
-          model: this.model,
-          messageCount: messages.length,
-          errorText: errorText.substring(0, 200)
-        });
         throw new Error(`OpenRouter API error: ${response.statusText}`);
       }
 
@@ -84,14 +76,8 @@ class OpenRouterService implements ChatService {
         extractedData,
         suggestedActions,
       };
-    } catch (error: any) {
-      console.error('❌ OpenRouter API error:', {
-        error: error.message,
-        model: this.model,
-        messageCount: messages.length,
-        stack: error.stack?.substring(0, 200)
-      });
-      console.log('🔄 Falling back to mock response');
+    } catch (error) {
+      console.error('OpenRouter API error:', error);
       return this.getMockResponse(messages);
     }
   }

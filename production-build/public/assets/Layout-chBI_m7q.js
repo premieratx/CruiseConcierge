@@ -1,1 +1,0 @@
-import{u as o,j as a}from"./index-DK4MvCT6.js";import{N as i}from"./Navigation-BtZpcB6h.js";function m({children:t}){const[s]=o(),n=s==="/leads"?"pt-28":"pt-16";return a.jsxs("div",{className:"min-h-screen bg-background",children:[a.jsx(i,{}),a.jsx("main",{className:`${n} transition-all duration-200`,"data-testid":"main-content",children:t})]})}export{m as L};

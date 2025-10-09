@@ -778,7 +778,7 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
     content: 'Experience the ultimate party cruise on Lake Travis. Private charters, disco cruises, bachelor parties, bachelorette parties, and corporate events. Book your Austin boat rental today!'
   },
   '/bachelor-party-austin': {
-    h1: 'Austin Bachelor Party Boat | Lake Travis Cruises',
+    h1: 'Austin Bachelor Party Boat Rentals | Private Lake Travis Cruises',
     content: 'Plan the perfect bachelor party on Lake Travis with our private boat rentals. Custom packages, professional crew, and unforgettable experiences for your celebration.'
   },
   '/bachelorette-party-austin': {
@@ -903,24 +903,13 @@ async function fetchSEOMetadata(url: string) {
     const baseUrl = `http://localhost:${port}`;
     
     const response = await fetch(`${baseUrl}/api/seo/meta/${encodeURIComponent(url)}`);
-    if (!response.ok) {
-      const errorText = await response.text().catch(() => 'Unknown error');
-      console.error(`SEO metadata fetch failed: ${response.status} ${response.statusText}`, {
-        url,
-        baseUrl,
-        errorText: errorText.substring(0, 200)
-      });
-      return null;
+    if (response.ok) {
+      return await response.json();
     }
-    return await response.json();
-  } catch (error: any) {
-    console.error('Failed to fetch SEO metadata:', {
-      error: error.message,
-      url,
-      stack: error.stack?.substring(0, 200)
-    });
-    return null;
+  } catch (error) {
+    console.error('Failed to fetch SEO metadata:', error);
   }
+  return null;
 }
 
 // Fetch blog post data
@@ -929,24 +918,13 @@ async function fetchBlogPost(slug: string) {
     // CRITICAL FIX: Use PORT from environment, not hardcoded 5000
     const port = process.env.PORT || '5000';
     const response = await fetch(`http://localhost:${port}/api/blog/public/posts/${slug}`);
-    if (!response.ok) {
-      const errorText = await response.text().catch(() => 'Unknown error');
-      console.error(`Blog post fetch failed: ${response.status} ${response.statusText}`, {
-        slug,
-        port,
-        errorText: errorText.substring(0, 200)
-      });
-      return null;
+    if (response.ok) {
+      return await response.json();
     }
-    return await response.json();
-  } catch (error: any) {
-    console.error('Failed to fetch blog post:', {
-      error: error.message,
-      slug,
-      stack: error.stack?.substring(0, 200)
-    });
-    return null;
+  } catch (error) {
+    console.error('Failed to fetch blog post:', error);
   }
+  return null;
 }
 
 // Render page to HTML string (Simplified SSR for SEO)
@@ -1174,23 +1152,23 @@ ${JSON.stringify(PRIVATE_CRUISES_FAQ_SCHEMA, null, 2)}
     
     template = template.replace('</head>', headInjection);
     
-    // PRODUCTION-SAFE SSR: Put SSR content INSIDE #root for React hydration
-    // React expects to hydrate content that's inside the root div
+    // PRODUCTION-SAFE SSR: Keep SSR content visible until React hydrates successfully
+    // SSR content stays visible if React fails to load (resilient fallback)
     const pageContent = PAGE_CONTENT[pathname];
     let ssrContent;
 
     if (pageContent) {
-      // Inject SSR content INSIDE root div for proper React hydration
+      // Inject both root div and SSR content (SSR visible until React sets data-hydrated)
       ssrContent = `
-      <div id="root">${renderPageContent(pageContent)}</div>`;
+      <div id="root"></div>
+      ${renderPageContent(pageContent)}`;
     } else {
-      // Simple fallback with SSR content INSIDE root
+      // Simple fallback with SSR content
       ssrContent = `
-      <div id="root">
-        <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
-          <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
-          <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${content}</p>
-        </div>
+      <div id="root"></div>
+      <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
+        <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
+        <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${content}</p>
       </div>`;
     }
     
@@ -1227,9 +1205,15 @@ const VALID_SPA_ROUTES = [
 // SSR middleware
 export function ssrMiddleware() {
   return async (req: Request, res: Response, next: NextFunction) => {
-    // DISABLED: SSR was causing production issues
-    // React app handles all SEO via React Helmet
-    return next();
+    // Skip non-GET requests
+    if (req.method !== 'GET') {
+      return next();
+    }
+    
+    // Skip API routes
+    if (req.path.startsWith('/api') || req.path.startsWith('/embed')) {
+      return next();
+    }
     
     // Skip Vite dev assets (CRITICAL for development mode)
     if (req.path.startsWith('/src/') || 

@@ -67,16 +67,9 @@ export class WisprFlowService {
       });
 
       if (!response.ok) {
-        const errorText = await response.text().catch(() => 'Unable to read error response');
-        console.error('❌ Wispr Flow API error:', {
-          status: response.status,
-          statusText: response.statusText,
-          endpoint: this.apiEndpoint,
-          model: options.model || 'whisper-large-v3',
-          language: options.language || 'en',
-          errorText: errorText.substring(0, 200)
-        });
-        throw new Error(`Wispr Flow API error: ${response.status} - ${errorText.substring(0, 100)}`);
+        const errorText = await response.text();
+        console.error('Wispr Flow API error:', response.status, errorText);
+        throw new Error(`Wispr Flow API error: ${response.status} - ${errorText}`);
       }
 
       const result = await response.json();
@@ -90,11 +83,7 @@ export class WisprFlowService {
       };
 
     } catch (error: any) {
-      console.error('❌ Wispr Flow transcription failed:', {
-        error: error.message,
-        endpoint: this.apiEndpoint,
-        stack: error.stack?.substring(0, 200)
-      });
+      console.error('❌ Wispr Flow transcription failed:', error);
       throw new Error(`Transcription failed: ${error.message}`);
     }
   }

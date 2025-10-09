@@ -78,28 +78,26 @@ export default function RelatedLinks({ blogLinks = [] }: RelatedLinksProps) {
                 viewport={reducedMotion ? undefined : { once: true }}
                 transition={reducedMotion ? undefined : { delay: index * 0.1 }}
               >
-                <Link 
-                  href={link.href} 
-                  className="block h-full group" 
-                  data-testid={`link-related-${link.title.toLowerCase().replace(/[^a-z]+/g, '-')}`}
-                >
-                  <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-2 hover:border-brand-blue">
-                    <CardContent className="p-6">
-                      <div className="flex items-start space-x-4">
-                        <div className="w-12 h-12 bg-brand-blue/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-brand-blue/20 transition-colors">
-                          <link.icon className="h-6 w-6 text-brand-blue" />
+                <Link href={link.href}>
+                  <a className="block h-full group" data-testid={`link-related-${link.title.toLowerCase().replace(/[^a-z]+/g, '-')}`}>
+                    <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border-2 hover:border-brand-blue">
+                      <CardContent className="p-6">
+                        <div className="flex items-start space-x-4">
+                          <div className="w-12 h-12 bg-brand-blue/10 rounded-lg flex items-center justify-center flex-shrink-0 group-hover:bg-brand-blue/20 transition-colors">
+                            <link.icon className="h-6 w-6 text-brand-blue" />
+                          </div>
+                          <div className="flex-1">
+                            <h3 className="font-bold text-lg mb-1 group-hover:text-brand-blue transition-colors">
+                              {link.title}
+                            </h3>
+                            <p className="text-sm text-gray-600 dark:text-gray-400">
+                              {link.description}
+                            </p>
+                          </div>
                         </div>
-                        <div className="flex-1">
-                          <h3 className="font-bold text-lg mb-1 group-hover:text-brand-blue transition-colors">
-                            {link.title}
-                          </h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">
-                            {link.description}
-                          </p>
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
+                      </CardContent>
+                    </Card>
+                  </a>
                 </Link>
               </motion.div>
             ))}
@@ -117,24 +115,21 @@ export default function RelatedLinks({ blogLinks = [] }: RelatedLinksProps) {
               </h3>
               <div className="grid md:grid-cols-3 gap-6">
                 {blogLinks.map((blog, index) => (
-                  <Link 
-                    key={blog.href} 
-                    href={blog.href}
-                    className="block group" 
-                    data-testid={`link-blog-${index}`}
-                  >
-                    <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border hover:border-brand-yellow">
-                      <CardContent className="p-6">
-                        <div className="flex items-start space-x-3">
-                          <BookOpen className="h-5 w-5 text-brand-yellow mt-1 flex-shrink-0" />
-                          <div>
-                            <h4 className="font-semibold group-hover:text-brand-blue transition-colors">
-                              {blog.title}
-                            </h4>
+                  <Link key={blog.href} href={blog.href}>
+                    <a className="block group" data-testid={`link-blog-${index}`}>
+                      <Card className="h-full hover:shadow-lg transition-all duration-300 hover:-translate-y-1 border hover:border-brand-yellow">
+                        <CardContent className="p-6">
+                          <div className="flex items-start space-x-3">
+                            <BookOpen className="h-5 w-5 text-brand-yellow mt-1 flex-shrink-0" />
+                            <div>
+                              <h4 className="font-semibold group-hover:text-brand-blue transition-colors">
+                                {blog.title}
+                              </h4>
+                            </div>
                           </div>
-                        </div>
-                      </CardContent>
-                    </Card>
+                        </CardContent>
+                      </Card>
+                    </a>
                   </Link>
                 ))}
               </div>

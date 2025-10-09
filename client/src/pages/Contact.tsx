@@ -1,5 +1,4 @@
-import { useState, FormEvent, ChangeEvent } from 'react';
-import { Link } from 'wouter';
+import { useState } from 'react';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';

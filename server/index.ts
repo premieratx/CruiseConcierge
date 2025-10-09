@@ -8,43 +8,6 @@ import Database from "@replit/database";
 import fs from "fs";
 import path from "path";
 import compression from "compression";
-import { errorMonitoringService } from "./services/errorMonitoring";
-
-// Prevent server crashes from unhandled errors
-process.on('uncaughtException', (error: Error) => {
-  console.error('💥 UNCAUGHT EXCEPTION - Server would have crashed:', error);
-  console.error('Stack:', error.stack);
-  
-  // Send CRITICAL alert for uncaught exceptions (process-level errors)
-  errorMonitoringService.sendAlert({
-    error,
-    severity: 'CRITICAL',
-    context: 'Uncaught Exception - Process-level error'
-  }).catch(err => {
-    console.error('Failed to send error monitoring alert:', err);
-  });
-  
-  // Don't exit - keep server running
-});
-
-process.on('unhandledRejection', (reason: any, promise: Promise<any>) => {
-  console.error('💥 UNHANDLED REJECTION - Server would have crashed:', reason);
-  console.error('Promise:', promise);
-  
-  // Convert reason to Error if it isn't already
-  const error = reason instanceof Error ? reason : new Error(String(reason));
-  
-  // Send CRITICAL alert for unhandled rejections (process-level errors)
-  errorMonitoringService.sendAlert({
-    error,
-    severity: 'CRITICAL',
-    context: 'Unhandled Promise Rejection - Process-level error'
-  }).catch(err => {
-    console.error('Failed to send error monitoring alert:', err);
-  });
-  
-  // Don't exit - keep server running
-});
 
 const app = express();
 
@@ -237,32 +200,8 @@ Crawl-delay: 1`;
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
 
-    // Log the error with full details
-    console.error('❌ Express Error Handler:', {
-      message: err.message,
-      status,
-      stack: err.stack,
-      path: _req.path,
-      method: _req.method
-    });
-
-    // Send ERROR alert for request-level errors (Email only)
-    // Only send for 500-level errors to avoid alert spam from 4xx errors
-    if (status >= 500) {
-      errorMonitoringService.sendAlert({
-        error: err,
-        severity: 'ERROR',
-        request: _req,
-        context: 'Express Error Handler - Request-level error'
-      }).catch(alertErr => {
-        console.error('Failed to send error monitoring alert:', alertErr);
-      });
-    }
-
-    // Send error response to client
     res.status(status).json({ message });
-    
-    // NEVER throw the error - just log it and keep the server running
+    throw err;
   });
 
   // Setup embed production routing first (if available)
@@ -348,42 +287,16 @@ Crawl-delay: 1`;
     }
     await setupVite(app, server);
   } else {
-    // CRITICAL FIX: Try multiple paths to find the production build
-    // because dist/ might be hidden by .replit configuration
-    const possiblePaths = [
-      path.resolve(process.cwd(), "production-build/public"),  // Primary: copied build files
-      path.resolve(process.cwd(), "deploy/public"),            // Backup: secondary copy
-      path.resolve(process.cwd(), "public-dist/public"),       // Symlink option 1
-      path.resolve(process.cwd(), "build-output/public"),      // Symlink option 2
-      path.resolve(process.cwd(), "dist/public")               // Original (might be hidden)
-    ];
-    
-    // Find the first existing path
-    let publicPath = null;
-    for (const tryPath of possiblePaths) {
-      if (fs.existsSync(tryPath)) {
-        publicPath = tryPath;
-        console.log(`✅ Found production build at: ${tryPath}`);
-        break;
-      }
-    }
-    
-    if (!publicPath) {
-      console.error("❌ No production build found! Tried:", possiblePaths);
-      publicPath = path.resolve(process.cwd(), "dist/public"); // Fallback to original
-    }
+    // CRITICAL FIX: Use process.cwd() instead of import.meta.dirname 
+    // because import.meta.dirname doesn't work correctly in bundled production code
+    const distPath = path.resolve(process.cwd(), "dist/public");
     
     // Serve static files (assets, not HTML)
-    app.use(express.static(publicPath));
+    app.use(express.static(distPath));
     
     // Fallback to index.html for SPA routes (SSR middleware above handles marketing pages first)
     app.use("*", (_req, res) => {
-      const indexPath = path.resolve(publicPath, "index.html");
-      if (fs.existsSync(indexPath)) {
-        res.sendFile(indexPath);
-      } else {
-        res.status(404).send("Production build not found. Please run: npm run build");
-      }
+      res.sendFile(path.resolve(distPath, "index.html"));
     });
   }
 
