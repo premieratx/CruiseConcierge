@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- FALLBACK SEO TAGS (overridden by React Helmet) -->
+    <title>Premier Party Cruises - Austin Lake Travis Boat Rentals & Party Cruises</title>
+    <meta name="description" content="Austin's premier boat rental and party cruise experience on Lake Travis. Private charters, disco cruises, bachelor parties, bachelorette parties, and corporate events since 2009." />
+    <meta name="keywords" content="Austin boat rental, Lake Travis cruises, party boat Austin, bachelor party boat, bachelorette party Austin, corporate events, private charter" />
+
+    <!-- Open Graph Fallback -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://premierpartycruises.com" />
+    <meta property="og:title" content="Premier Party Cruises - Austin Lake Travis Party Boats" />
+    <meta property="og:description" content="Austin's premier boat rental and party cruise experience on Lake Travis. Private charters, disco cruises, bachelor parties, and corporate events." />
+    <meta property="og:image" content="https://premierpartycruises.com/og-default.jpg" />
+    <meta property="og:site_name" content="Premier Party Cruises" />
+
+    <!-- Twitter Card Fallback -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Premier Party Cruises - Austin Lake Travis Party Boats" />
+    <meta name="twitter:description" content="Austin's premier boat rental and party cruise experience on Lake Travis." />
+    <meta name="twitter:image" content="https://premierpartycruises.com/og-default.jpg" />
+
+    <!-- FAQ Schema and other structured data injected by React Helmet per page for unique SEO -->
+
+    <!-- Branding & Theme -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    
+    <!-- Critical resource hints for faster loading -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    
+    <!-- Preload critical LCP images with responsive sizes -->
+    <link rel="preload" as="image" href="/assets/bachelor-party-group-guys-ZmRSFQB_.webp" 
+          imagesrcset="/assets/bachelor-party-group-guys-ZmRSFQB_.webp 1920w"
+          imagesizes="100vw" 
+          fetchpriority="high" type="image/webp" />
+    
+    <!-- Preload critical font files directly for faster text rendering -->
+    <link rel="preload" href="https://fonts.gstatic.com/s/dmsans/v15/rP2Cp2ywxg089UriASitCBimC3YU-CnE6Q.woff2" as="font" type="font/woff2" crossorigin>
+    <link rel="preload" href="https://fonts.gstatic.com/s/bebasneu/v16/JTUSjIg69CK48gW7PXoo9WdhyyTh89ZNpQ.woff2" as="font" type="font/woff2" crossorigin>
+    
+    <!-- CRITICAL CLS FIX: Load fonts with display=swap to prevent layout shift -->
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Bebas+Neue&family=Oswald:wght@400;600;700&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Inter:wght@400;500;600&family=Bebas+Neue&family=Oswald:wght@400;600;700&display=swap" rel="stylesheet"></noscript>
+    
+    <!-- Inline critical CSS for instant layout stability (prevents CLS) -->
+    <style>
+      /* Critical layout stability - applied immediately before any content renders */
+      html, body {
+        margin: 0;
+        padding: 0;
+        min-height: 100vh;
+      }
+      
+      #root {
+        min-height: 100vh;
+        /* Prevent layout shift during hydration */
+        contain: layout style paint;
+      }
+      
+      /* SSR content will be hidden by inline script after this */
+      .ssr-content {
+        /* Visible to crawlers until JS loads */
+      }
+    </style>
+    <script type="module" crossorigin src="/assets/index-DK4MvCT6.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-BioLVSdw.css">
+  </head>
+  <body>
+    <div id="root"></div>
+    <!-- CRITICAL: Set up React Fast Refresh stubs BEFORE any modules load -->
+    <script>
+      // Synchronously set up React Fast Refresh stub functions
+      // These will be replaced by the real implementations when Vite loads
+      window.__vite_plugin_react_preamble_installed__ = true;
+      window.$RefreshReg$ = () => {};
+      window.$RefreshSig$ = () => (type) => type;
+    </script>
+    
+    <!-- Conditionally disable Vite overlay and runtime error modal for embed routes -->
+  </body>
+</html>

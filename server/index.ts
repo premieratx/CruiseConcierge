@@ -348,16 +348,42 @@ Crawl-delay: 1`;
     }
     await setupVite(app, server);
   } else {
-    // CRITICAL FIX: Use process.cwd() instead of import.meta.dirname 
-    // because import.meta.dirname doesn't work correctly in bundled production code
-    const distPath = path.resolve(process.cwd(), "dist/public");
+    // CRITICAL FIX: Try multiple paths to find the production build
+    // because dist/ might be hidden by .replit configuration
+    const possiblePaths = [
+      path.resolve(process.cwd(), "production-build/public"),  // Primary: copied build files
+      path.resolve(process.cwd(), "deploy/public"),            // Backup: secondary copy
+      path.resolve(process.cwd(), "public-dist/public"),       // Symlink option 1
+      path.resolve(process.cwd(), "build-output/public"),      // Symlink option 2
+      path.resolve(process.cwd(), "dist/public")               // Original (might be hidden)
+    ];
+    
+    // Find the first existing path
+    let publicPath = null;
+    for (const tryPath of possiblePaths) {
+      if (fs.existsSync(tryPath)) {
+        publicPath = tryPath;
+        console.log(`✅ Found production build at: ${tryPath}`);
+        break;
+      }
+    }
+    
+    if (!publicPath) {
+      console.error("❌ No production build found! Tried:", possiblePaths);
+      publicPath = path.resolve(process.cwd(), "dist/public"); // Fallback to original
+    }
     
     // Serve static files (assets, not HTML)
-    app.use(express.static(distPath));
+    app.use(express.static(publicPath));
     
     // Fallback to index.html for SPA routes (SSR middleware above handles marketing pages first)
     app.use("*", (_req, res) => {
-      res.sendFile(path.resolve(distPath, "index.html"));
+      const indexPath = path.resolve(publicPath, "index.html");
+      if (fs.existsSync(indexPath)) {
+        res.sendFile(indexPath);
+      } else {
+        res.status(404).send("Production build not found. Please run: npm run build");
+      }
     });
   }
 
