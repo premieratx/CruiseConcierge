@@ -12,9 +12,28 @@ export interface ErrorAlertOptions {
 }
 
 class ErrorMonitoringService {
-  private ownerPhone = '5125767975';
-  private ownerEmail = 'ppcaustin@gmail.com';
+  private ownerPhone: string;
+  private ownerEmail: string;
   private websiteUrl = 'premierpartycruises.com';
+
+  constructor() {
+    // Use environment variables with fallback defaults
+    this.ownerPhone = process.env.ERROR_ALERT_PHONE || '5125767975';
+    this.ownerEmail = process.env.ERROR_ALERT_EMAIL || 'ppcaustin@gmail.com';
+
+    // Log warnings if using default fallback values
+    if (!process.env.ERROR_ALERT_PHONE) {
+      console.warn('⚠️ ERROR_ALERT_PHONE not set, using default value: 5125767975');
+    }
+    if (!process.env.ERROR_ALERT_EMAIL) {
+      console.warn('⚠️ ERROR_ALERT_EMAIL not set, using default value: ppcaustin@gmail.com');
+    }
+
+    // Log configuration status on startup
+    console.log('📧 Error Monitoring Service initialized:');
+    console.log(`   Phone: ${this.ownerPhone} ${process.env.ERROR_ALERT_PHONE ? '(from env)' : '(default)'}`);
+    console.log(`   Email: ${this.ownerEmail} ${process.env.ERROR_ALERT_EMAIL ? '(from env)' : '(default)'}`);
+  }
 
   /**
    * Send error alert via SMS and/or Email based on severity
@@ -362,6 +381,25 @@ Action Required: Please investigate this error immediately and take appropriate 
    */
   isConfigured(): boolean {
     return goHighLevelService.isConfigured() || mailgunService.isConfigured();
+  }
+
+  /**
+   * Check if environment variables are set for owner contact info
+   */
+  isContactConfigured(): boolean {
+    return !!(process.env.ERROR_ALERT_PHONE && process.env.ERROR_ALERT_EMAIL);
+  }
+
+  /**
+   * Get owner contact information with source indication
+   */
+  getContactInfo() {
+    return {
+      phone: this.ownerPhone,
+      email: this.ownerEmail,
+      phoneSource: process.env.ERROR_ALERT_PHONE ? 'environment' : 'default',
+      emailSource: process.env.ERROR_ALERT_EMAIL ? 'environment' : 'default'
+    };
   }
 }
 

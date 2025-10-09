@@ -600,14 +600,20 @@ export async function registerRoutes(app: Express): Promise<Server> {
         context: 'Test Alert - Manually triggered for testing error monitoring system'
       });
       
+      // Get contact info with source indication
+      const contactInfo = errorMonitoringService.getContactInfo();
+      
       res.json({
         success: true,
         message: `Test ${severity} alert sent successfully`,
         severity,
         isConfigured: errorMonitoringService.isConfigured(),
+        isContactConfigured: errorMonitoringService.isContactConfigured(),
         owner: {
-          phone: '5125767975',
-          email: 'ppcaustin@gmail.com'
+          phone: contactInfo.phone,
+          phoneSource: contactInfo.phoneSource,
+          email: contactInfo.email,
+          emailSource: contactInfo.emailSource
         }
       });
     } catch (error: any) {
