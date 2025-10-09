@@ -21,7 +21,7 @@ import {
   Star, MessageSquare, Crown, Quote, ChevronRight,
   Ship, Anchor, Sun, Info, TrendingUp, PartyPopper,
   Building, Mic, GlassWater, Gift, Camera, Rocket, X, Briefcase,
-  DollarSign, BarChart3, Champagne, Cake, Video, Palette,
+  DollarSign, BarChart3, Wine, Cake, Video, Palette,
   Mountain, Heart, Target, Zap, FileText, Flame, CreditCard
 } from 'lucide-react';
 
@@ -211,7 +211,7 @@ const milestonePackages = [
 const celebrationElements = [
   {
     category: 'Champagne & Beverage Service',
-    icon: Champagne,
+    icon: Wine,
     color: 'from-yellow-500 to-amber-600',
     options: [
       {
