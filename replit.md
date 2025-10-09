@@ -53,6 +53,20 @@ A strategic SEO feature leveraging third-party AI validation to strengthen E-E-A
 ### Schema & FAQ Comprehensive Update
 A complete overhaul of all structured data markup and FAQ content across the website using corrected JSONLD source files. This includes updated business information, Organization, Event, Service, and FAQ Schema markups across 28 files, ensuring accurate SEO and enhanced search engine visibility. SSR schema integration is updated in `server/ssr/renderer.ts` and React components for immediate crawler visibility.
 
+### Production Error Monitoring & Crash Prevention
+A comprehensive error monitoring and crash prevention system ensures 24/7 uptime for the live business website. The system includes:
+- **Process-Level Error Handlers**: Catches uncaught exceptions and unhandled promise rejections to prevent server crashes
+- **Enhanced Error Handling**: All external API calls (object storage, SSR rendering, Mailgun, OpenRouter, Wispr) wrapped in try-catch blocks with graceful degradation
+- **Automated Alert System**: 
+  - CRITICAL errors trigger SMS + Email alerts to owner (5125767975, ppcaustin@gmail.com)
+  - ERROR severity triggers Email alerts only
+  - Alerts include full error context, stack traces, request info, and timestamps
+- **Express Error Handler Fix**: Removed crash-causing `throw err;` statement that was killing the server
+- **Configuration**: Alert recipients configurable via ERROR_ALERT_PHONE and ERROR_ALERT_EMAIL environment variables
+- **Test Endpoint**: POST /api/test-error-alert for testing alert delivery
+
+This system prevents the production outages that occurred when the Express error handler would crash the entire Node.js process, causing 7+ minute downtimes during Autoscale restarts.
+
 ## External Dependencies
 - **Stripe**: Payment processing.
 - **GoHighLevel**: SMS notifications and lead management.
