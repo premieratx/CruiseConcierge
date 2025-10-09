@@ -43,6 +43,8 @@ import multer from 'multer';
 import slugify from 'slugify';
 import Database from "@replit/database";
 import { formatBlogPost } from './services/gemini';
+import axios from 'axios';
+import FormData from 'form-data';
 
 // Slug utility functions
 function generateSlugFromText(text: string): string {
@@ -1867,6 +1869,107 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         message: error.message || 'Unknown error',
         success: false
       });
+    }
+  });
+
+  // ==========================================
+  // GOHIGHLEVEL FORM SUBMISSION PROXY
+  // ==========================================
+  
+  // Zod schema for GoHighLevel form submission
+  const ghlFormSubmissionSchema = z.object({
+    formId: z.string().min(1, 'Form ID is required'),
+    name: z.string().min(1, 'Name is required'),
+    email: z.string().email('Valid email is required'),
+    phone: z.string().min(1, 'Phone is required')
+  });
+
+  app.post('/api/ghl-form-submit', async (req, res) => {
+    try {
+      console.log('🎯 GoHighLevel Form Submission - Starting...');
+      
+      // Validate request body
+      const validationResult = ghlFormSubmissionSchema.safeParse(req.body);
+      if (!validationResult.success) {
+        console.error('❌ Validation failed:', validationResult.error.flatten());
+        return res.status(400).json({ 
+          success: false,
+          error: 'Invalid request data',
+          details: validationResult.error.flatten()
+        });
+      }
+
+      const { formId, name, email, phone } = validationResult.data;
+
+      console.log('📋 Form submission data:', { formId, name, email, phone });
+
+      // Create FormData object for GoHighLevel API
+      const formData = new FormData();
+      const data = { formId, name, email, phone };
+      formData.append('formData', JSON.stringify(data));
+
+      console.log('📤 Sending to GoHighLevel API...');
+
+      // Submit to GoHighLevel
+      const ghlResponse = await axios.post(
+        'https://backend.leadconnectorhq.com/forms/submit',
+        formData,
+        {
+          headers: {
+            ...formData.getHeaders()
+          },
+          timeout: 10000 // 10 second timeout
+        }
+      );
+
+      console.log('✅ GoHighLevel API Response:', {
+        status: ghlResponse.status,
+        statusText: ghlResponse.statusText
+      });
+
+      // Success response
+      return res.status(200).json({
+        success: true,
+        message: 'Contact created successfully'
+      });
+
+    } catch (error: any) {
+      console.error('💥 GoHighLevel Form Submission - Error:', error);
+
+      // Handle axios errors
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        console.error('❌ GHL API Error Response:', {
+          status: error.response.status,
+          statusText: error.response.statusText,
+          data: error.response.data
+        });
+
+        return res.status(error.response.status).json({
+          success: false,
+          error: 'GoHighLevel API error',
+          message: error.response.data?.message || 'Failed to submit form to GoHighLevel'
+        });
+      } else if (error.request) {
+        // The request was made but no response was received
+        console.error('❌ No response from GHL API:', error.message);
+        
+        return res.status(503).json({
+          success: false,
+          error: 'Service unavailable',
+          message: 'Unable to reach GoHighLevel API'
+        });
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        console.error('❌ Request setup error:', error.message);
+        
+        return res.status(500).json({
+          success: false,
+          error: 'Internal server error',
+          message: 'Failed to process form submission'
+        });
+      }
     }
   });
 
