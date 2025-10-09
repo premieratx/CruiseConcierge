@@ -24,7 +24,7 @@ import {
   ChefHat, Wifi, Target, Headphones, Check, Sparkles,
   Waves, Wine, Umbrella, Music, ArrowRight, Camera,
   Crown, Anchor, Presentation, Zap, ChevronRight,
-  DollarSign, Smile, Gem, CheckCircle, X
+  DollarSign, Smile, Gem, CheckCircle, X, Ship
 } from 'lucide-react';
 
 // Hero and gallery images - reuse from other pages
