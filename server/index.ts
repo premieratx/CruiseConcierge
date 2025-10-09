@@ -9,6 +9,19 @@ import fs from "fs";
 import path from "path";
 import compression from "compression";
 
+// Prevent server crashes from unhandled errors
+process.on('uncaughtException', (error: Error) => {
+  console.error('💥 UNCAUGHT EXCEPTION - Server would have crashed:', error);
+  console.error('Stack:', error.stack);
+  // Don't exit - keep server running
+});
+
+process.on('unhandledRejection', (reason: any, promise: Promise<any>) => {
+  console.error('💥 UNHANDLED REJECTION - Server would have crashed:', reason);
+  console.error('Promise:', promise);
+  // Don't exit - keep server running
+});
+
 const app = express();
 
 // Configure trust proxy for correct IP detection behind reverse proxy/CDN
@@ -200,8 +213,19 @@ Crawl-delay: 1`;
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
 
+    // Log the error with full details
+    console.error('❌ Express Error Handler:', {
+      message: err.message,
+      status,
+      stack: err.stack,
+      path: _req.path,
+      method: _req.method
+    });
+
+    // Send error response to client
     res.status(status).json({ message });
-    throw err;
+    
+    // NEVER throw the error - just log it and keep the server running
   });
 
   // Setup embed production routing first (if available)
