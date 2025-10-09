@@ -14,19 +14,7 @@ import "./index.css";
 
 const rootElement = document.getElementById("root")!;
 
-// Check if we have SSR content to hydrate (production) or need client-side render (development)
-const isProduction = import.meta.env.PROD;
-
-if (isProduction) {
-  // Production: Hydrate the SSR content
-  hydrateRoot(rootElement, <App />);
-} else {
-  // Development: Client-side render only (no SSR to avoid hydration conflicts)
-  createRoot(rootElement).render(<App />);
-}
-
-// Mark hydration complete - this triggers CSS rule: #root[data-hydrated="true"] ~ .ssr-content { display: none }
-// Use requestAnimationFrame to ensure React has rendered before hiding SSR content
-requestAnimationFrame(() => {
-  rootElement.setAttribute('data-hydrated', 'true');
-});
+// CRITICAL FIX: Always use createRoot (no SSR/hydration)
+// SSR was causing hydration mismatches and breaking the app
+// React app has SEO built-in via React Helmet - no SSR needed
+createRoot(rootElement).render(<App />);

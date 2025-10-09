@@ -1227,11 +1227,11 @@ const VALID_SPA_ROUTES = [
 // SSR middleware
 export function ssrMiddleware() {
   return async (req: Request, res: Response, next: NextFunction) => {
-    // CRITICAL: Skip SSR entirely in development mode to avoid hydration conflicts
-    // Development uses client-side rendering only. Production uses SSR for SEO.
-    if (process.env.NODE_ENV === 'development') {
-      return next();
-    }
+    // CRITICAL FIX: DISABLE SSR COMPLETELY
+    // The SSR was rendering static HTML which caused hydration mismatches
+    // React app has SEO built-in via React Helmet - no SSR needed
+    // This fixes the "just HTML" issue on production
+    return next();
     
     // Skip non-GET requests
     if (req.method !== 'GET') {
