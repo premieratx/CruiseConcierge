@@ -1,11 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
-import { Ship, Star, CheckCircle, Clock, Gift, Calendar, Mail, Phone } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { useToast } from '@/hooks/use-toast';
+import { Ship, Star, CheckCircle, Clock, Gift, Calendar } from 'lucide-react';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 60 },
@@ -21,22 +17,7 @@ const fadeInUp = {
   }
 };
 
-interface FriendReferral {
-  name: string;
-  email: string;
-  phone: string;
-}
-
 export default function GoldenTicket() {
-  const { toast } = useToast();
-  const [referrals, setReferrals] = useState<FriendReferral[]>([
-    { name: '', email: '', phone: '' },
-    { name: '', email: '', phone: '' },
-    { name: '', email: '', phone: '' },
-    { name: '', email: '', phone: '' },
-    { name: '', email: '', phone: '' }
-  ]);
-
   // Ensure page loads at top
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
@@ -57,30 +38,17 @@ export default function GoldenTicket() {
     return () => window.removeEventListener('message', handleMessage);
   }, []);
 
-  const handleReferralChange = (index: number, field: keyof FriendReferral, value: string) => {
-    const updated = [...referrals];
-    updated[index] = { ...updated[index], [field]: value };
-    setReferrals(updated);
-  };
-
-  const handleShareReferrals = async () => {
-    const filledReferrals = referrals.filter(r => r.email || r.phone);
+  // Load GoHighLevel form embed script
+  React.useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://events.premierpartycruises.com/js/form_embed.js';
+    script.async = true;
+    document.body.appendChild(script);
     
-    if (filledReferrals.length === 0) {
-      toast({
-        title: "No Referrals",
-        description: "Please enter at least one friend's email or phone number.",
-        variant: "destructive"
-      });
-      return;
-    }
-
-    // TODO: Implement referral sharing logic
-    toast({
-      title: "Referrals Submitted!",
-      description: `You've shared the Golden Ticket with ${filledReferrals.length} friend${filledReferrals.length > 1 ? 's' : ''}!`,
-    });
-  };
+    return () => {
+      document.body.removeChild(script);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-amber-50 dark:from-slate-950 dark:via-slate-900 dark:to-slate-950">
@@ -217,71 +185,115 @@ export default function GoldenTicket() {
                 </p>
               </div>
 
-              <div className="space-y-6">
-                {referrals.map((referral, index) => (
-                  <div 
-                    key={index} 
-                    className="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 bg-slate-50 dark:bg-slate-900 rounded-lg"
-                  >
-                    <div className="space-y-2">
-                      <Label htmlFor={`name-${index}`} className="text-slate-700 dark:text-slate-300">
-                        Friend #{index + 1} Name
-                      </Label>
-                      <Input
-                        id={`name-${index}`}
-                        type="text"
-                        placeholder="John Doe"
-                        value={referral.name}
-                        onChange={(e) => handleReferralChange(index, 'name', e.target.value)}
-                        className="bg-white dark:bg-slate-800"
-                        data-testid={`input-friend-name-${index + 1}`}
-                      />
-                    </div>
+              <div className="space-y-8">
+                {/* Friend #1 Form */}
+                <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">Friend #1</h3>
+                  <iframe
+                    src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
+                    style={{ width: '100%', height: '456px', border: 'none', borderRadius: '3px' }}
+                    id="inline-w33cn0pBz1fFbTC0Hrnh-1"
+                    data-layout='{"id":"INLINE"}'
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="Golden Ticket Form to Friends"
+                    data-height="456"
+                    data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-1"
+                    data-form-id="w33cn0pBz1fFbTC0Hrnh"
+                    title="Golden Ticket Form to Friends - Friend 1"
+                  />
+                </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor={`email-${index}`} className="text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                        <Mail className="h-4 w-4" />
-                        Email Address
-                      </Label>
-                      <Input
-                        id={`email-${index}`}
-                        type="email"
-                        placeholder="friend@example.com"
-                        value={referral.email}
-                        onChange={(e) => handleReferralChange(index, 'email', e.target.value)}
-                        className="bg-white dark:bg-slate-800"
-                        data-testid={`input-friend-email-${index + 1}`}
-                      />
-                    </div>
+                {/* Friend #2 Form */}
+                <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">Friend #2</h3>
+                  <iframe
+                    src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
+                    style={{ width: '100%', height: '456px', border: 'none', borderRadius: '3px' }}
+                    id="inline-w33cn0pBz1fFbTC0Hrnh-2"
+                    data-layout='{"id":"INLINE"}'
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="Golden Ticket Form to Friends"
+                    data-height="456"
+                    data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-2"
+                    data-form-id="w33cn0pBz1fFbTC0Hrnh"
+                    title="Golden Ticket Form to Friends - Friend 2"
+                  />
+                </div>
 
-                    <div className="space-y-2">
-                      <Label htmlFor={`phone-${index}`} className="text-slate-700 dark:text-slate-300 flex items-center gap-2">
-                        <Phone className="h-4 w-4" />
-                        Phone Number
-                      </Label>
-                      <Input
-                        id={`phone-${index}`}
-                        type="tel"
-                        placeholder="(555) 123-4567"
-                        value={referral.phone}
-                        onChange={(e) => handleReferralChange(index, 'phone', e.target.value)}
-                        className="bg-white dark:bg-slate-800"
-                        data-testid={`input-friend-phone-${index + 1}`}
-                      />
-                    </div>
-                  </div>
-                ))}
+                {/* Friend #3 Form */}
+                <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">Friend #3</h3>
+                  <iframe
+                    src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
+                    style={{ width: '100%', height: '456px', border: 'none', borderRadius: '3px' }}
+                    id="inline-w33cn0pBz1fFbTC0Hrnh-3"
+                    data-layout='{"id":"INLINE"}'
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="Golden Ticket Form to Friends"
+                    data-height="456"
+                    data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-3"
+                    data-form-id="w33cn0pBz1fFbTC0Hrnh"
+                    title="Golden Ticket Form to Friends - Friend 3"
+                  />
+                </div>
 
-                <div className="flex justify-center pt-4">
-                  <Button
-                    onClick={handleShareReferrals}
-                    size="lg"
-                    className="bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white font-bold text-lg px-8 py-6"
-                    data-testid="button-share-referrals"
-                  >
-                    <Gift className="mr-2 h-5 w-5" />
-                    Share Gift Cards with Friends
-                  </Button>
+                {/* Friend #4 Form */}
+                <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">Friend #4</h3>
+                  <iframe
+                    src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
+                    style={{ width: '100%', height: '456px', border: 'none', borderRadius: '3px' }}
+                    id="inline-w33cn0pBz1fFbTC0Hrnh-4"
+                    data-layout='{"id":"INLINE"}'
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="Golden Ticket Form to Friends"
+                    data-height="456"
+                    data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-4"
+                    data-form-id="w33cn0pBz1fFbTC0Hrnh"
+                    title="Golden Ticket Form to Friends - Friend 4"
+                  />
+                </div>
+
+                {/* Friend #5 Form */}
+                <div className="p-4 bg-slate-50 dark:bg-slate-900 rounded-lg">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">Friend #5</h3>
+                  <iframe
+                    src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
+                    style={{ width: '100%', height: '456px', border: 'none', borderRadius: '3px' }}
+                    id="inline-w33cn0pBz1fFbTC0Hrnh-5"
+                    data-layout='{"id":"INLINE"}'
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="Golden Ticket Form to Friends"
+                    data-height="456"
+                    data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-5"
+                    data-form-id="w33cn0pBz1fFbTC0Hrnh"
+                    title="Golden Ticket Form to Friends - Friend 5"
+                  />
                 </div>
               </div>
             </motion.div>
