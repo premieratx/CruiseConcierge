@@ -234,6 +234,10 @@ export default function MediaLibrary() {
   const [uploadedFiles, setUploadedFiles] = useState<FileList | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   
+  // Media viewer state
+  const [viewerMedia, setViewerMedia] = useState<MediaItem | null>(null);
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
+  
   // Bulk operations state
   const [selectedItems, setSelectedItems] = useState<Set<string>>(new Set());
   const [isBulkMode, setIsBulkMode] = useState(false);
@@ -714,7 +718,14 @@ export default function MediaLibrary() {
                     </div>
                   </div>
                 )}
-                <div className="relative overflow-hidden rounded-t-lg">
+                <div 
+                  className="relative overflow-hidden rounded-t-lg cursor-pointer"
+                  onClick={() => {
+                    setViewerMedia(item);
+                    setIsViewerOpen(true);
+                  }}
+                  data-testid={`thumbnail-${item.id}`}
+                >
                   {item.fileType.includes('video') ? (
                     <div className="h-48 bg-gray-100 flex items-center justify-center">
                       <Video className="h-12 w-12 text-gray-400" />
@@ -881,6 +892,86 @@ export default function MediaLibrary() {
           }}
           onPublish={publishItems}
         />
+
+        {/* Media Viewer Modal */}
+        {viewerMedia && (
+          <Dialog open={isViewerOpen} onOpenChange={setIsViewerOpen}>
+            <DialogContent className="max-w-4xl max-h-[90vh]">
+              <DialogHeader>
+                <DialogTitle className="flex items-center justify-between">
+                  <span className="truncate">{viewerMedia.originalName || viewerMedia.filename}</span>
+                  <div className="flex gap-2">
+                    <Button
+                      size="sm"
+                      variant="outline"
+                      onClick={() => window.open(getMediaViewUrl(viewerMedia.id), '_blank')}
+                      data-testid="button-download-media"
+                    >
+                      <Download className="h-4 w-4 mr-2" />
+                      Download
+                    </Button>
+                  </div>
+                </DialogTitle>
+              </DialogHeader>
+              
+              <div className="relative w-full flex items-center justify-center bg-gray-50 rounded-lg overflow-hidden">
+                {viewerMedia.fileType.includes('video') ? (
+                  <video
+                    src={getMediaViewUrl(viewerMedia.id)}
+                    controls
+                    autoPlay
+                    className="max-w-full max-h-[70vh] rounded"
+                    data-testid="video-player"
+                  >
+                    Your browser does not support video playback.
+                  </video>
+                ) : (
+                  <img
+                    src={getMediaViewUrl(viewerMedia.id)}
+                    alt={viewerMedia.originalName || viewerMedia.filename}
+                    className="max-w-full max-h-[70vh] object-contain rounded"
+                    data-testid="full-size-image"
+                  />
+                )}
+              </div>
+              
+              <div className="space-y-2 text-sm text-gray-600">
+                <div className="flex justify-between">
+                  <span>Type:</span>
+                  <span className="font-medium capitalize">{viewerMedia.fileType.replace('_', ' ')}</span>
+                </div>
+                {viewerMedia.fileSize && (
+                  <div className="flex justify-between">
+                    <span>Size:</span>
+                    <span className="font-medium">{(viewerMedia.fileSize / 1024 / 1024).toFixed(2)} MB</span>
+                  </div>
+                )}
+                <div className="flex justify-between">
+                  <span>Uploaded:</span>
+                  <span className="font-medium">{new Date(viewerMedia.uploadDate).toLocaleString()}</span>
+                </div>
+                {viewerMedia.qualityScore && (
+                  <div className="flex justify-between">
+                    <span>Quality Score:</span>
+                    <span className="font-medium">{viewerMedia.qualityScore}/10</span>
+                  </div>
+                )}
+                {viewerMedia.autoTags && viewerMedia.autoTags.length > 0 && (
+                  <div className="flex justify-between items-start">
+                    <span>Tags:</span>
+                    <div className="flex flex-wrap gap-1 max-w-xs justify-end">
+                      {viewerMedia.autoTags.map((tag) => (
+                        <Badge key={tag} variant="secondary" className="text-xs">
+                          {tag}
+                        </Badge>
+                      ))}
+                    </div>
+                  </div>
+                )}
+              </div>
+            </DialogContent>
+          </Dialog>
+        )}
       </div>
     </div>
   );

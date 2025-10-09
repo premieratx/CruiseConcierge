@@ -237,6 +237,21 @@ export class ObjectStorageService {
       requestedPermission: requestedPermission ?? ObjectPermission.READ,
     });
   }
+
+  // Gets a signed URL for viewing/downloading an object entity.
+  async getSignedUrl(objectPath: string, ttlSec: number = 3600): Promise<string> {
+    const objectFile = await this.getObjectEntityFile(objectPath);
+    
+    const bucketName = objectFile.bucket.name;
+    const objectName = objectFile.name;
+    
+    return signObjectURL({
+      bucketName,
+      objectName,
+      method: "GET",
+      ttlSec,
+    });
+  }
 }
 
 function parseObjectPath(path: string): {
