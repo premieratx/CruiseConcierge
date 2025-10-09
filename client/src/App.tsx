@@ -21,6 +21,7 @@ const NotFound = lazy(() => import("@/pages/not-found"));
 // Additional lazy-loaded routes
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Chat = lazy(() => import("./pages/Chat"));
+const GoldenTicket = lazy(() => import("./pages/GoldenTicket"));
 const QuoteBuilderEmbed = lazy(() => import("./pages/QuoteBuilderEmbed"));
 const QuoteBuilder = lazy(() => import("./pages/QuoteBuilder"));
 const QuoteEditor = lazy(() => import("./pages/QuoteEditor"));
@@ -223,6 +224,11 @@ function Router() {
       {/* Public Quote Builder (Chat) - No auth required */}
       <Route path="/chat">
         <Chat />
+      </Route>
+      
+      {/* Golden Ticket Promotion Page - No auth required */}
+      <Route path="/golden-ticket">
+        <GoldenTicket />
       </Route>
       
       {/* Public quote-builder redirects to /chat */}
