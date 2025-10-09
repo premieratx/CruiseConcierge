@@ -778,7 +778,7 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
     content: 'Experience the ultimate party cruise on Lake Travis. Private charters, disco cruises, bachelor parties, bachelorette parties, and corporate events. Book your Austin boat rental today!'
   },
   '/bachelor-party-austin': {
-    h1: 'Austin Bachelor Party Boat Rentals | Private Lake Travis Cruises',
+    h1: 'Austin Bachelor Party Boat | Lake Travis Cruises',
     content: 'Plan the perfect bachelor party on Lake Travis with our private boat rentals. Custom packages, professional crew, and unforgettable experiences for your celebration.'
   },
   '/bachelorette-party-austin': {
