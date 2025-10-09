@@ -4,6 +4,7 @@ if (typeof window !== 'undefined') {
   (window as any).__vite_plugin_react_preamble_installed__ = true;
 }
 
+import React from "react";
 import { createRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
