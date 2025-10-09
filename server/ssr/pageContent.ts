@@ -1931,5 +1931,147 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         ]
       }
     ]
+  },
+  '/gallery': {
+    h1: 'Gallery - Premier Party Cruises Austin Lake Travis Photos & Videos',
+    introduction: 'Explore our stunning collection of photos and videos from real Premier Party Cruises events on Lake Travis. See bachelor parties, bachelorette parties, corporate events, ATX Disco Cruises, and all the amazing celebrations on Austin\'s premier party boats.',
+    sections: [
+      {
+        heading: 'Real Photos from Lake Travis Party Cruises',
+        paragraphs: [
+          'Browse through thousands of authentic photos from actual Premier Party Cruises events. Our gallery showcases the excitement, beauty, and unforgettable moments that happen daily on Lake Travis. From epic bachelor parties to elegant corporate events, see why we\'re Austin\'s #1 rated party boat company.',
+          'All photos are taken by our professional photographers or shared by happy customers. We capture the energy of ATX Disco Cruises, the elegance of wedding celebrations, the excitement of bachelor and bachelorette parties, and the natural beauty of Lake Travis sunsets.'
+        ],
+        lists: [
+          {
+            title: 'Photo Categories',
+            items: [
+              'Bachelor Party celebrations with the guys',
+              'Bachelorette Party fun with the bride tribe',
+              'ATX Disco Cruise dance floor action',
+              'Corporate events and team building',
+              'Birthday party celebrations',
+              'Wedding parties and rehearsal dinners',
+              'Lake Travis scenic sunset views',
+              'Fleet showcase - Day Tripper, Me Seeks, Clever Girl',
+              'Summer fun with lily pads and floats',
+              'Party atmosphere and group celebrations'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Premier Party Cruises Fleet Gallery',
+        paragraphs: [
+          'Take a virtual tour of our premium party boat fleet. Each vessel is meticulously maintained and equipped with state-of-the-art sound systems, comfortable seating, and all the amenities for an incredible Lake Travis experience.',
+          'From our intimate 14-person Day Tripper to our flagship 75-person Clever Girl with 14 disco balls and a giant Texas flag, see why our boats are the newest and nicest on Lake Travis.'
+        ],
+        lists: [
+          {
+            title: 'Our Premium Fleet',
+            items: [
+              'Day Tripper - 14 person luxury pontoon boat',
+              'Me Seeks the Irony - 25 person party boat',
+              'Clever Girl - 50-75 person flagship vessel',
+              'Professional sound systems on every boat',
+              'Lily pads and floating mats included',
+              'Coolers with ice provided',
+              'Clean restroom facilities',
+              'Safety equipment and licensed captains'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'ATX Disco Cruise Photo Highlights',
+        paragraphs: [
+          'Experience the magic of our famous ATX Disco Cruise through stunning photography. See multiple bachelor and bachelorette groups coming together for the ultimate Lake Travis party with professional DJs, photographers, and non-stop entertainment.',
+          'Our Disco Cruise photos capture the energy of the dance floor, the fun of giant unicorn floats, the beauty of Lake Travis, and the joy of celebrations. Every cruise is professionally photographed with digital copies provided to all guests.'
+        ],
+        lists: [
+          {
+            title: 'Disco Cruise Moments',
+            items: [
+              'Dance floor action with live DJ',
+              'Giant unicorn float adventures',
+              'Group photos with Lake Travis backdrop',
+              'Swimming and lily pad relaxation',
+              'Sunset golden hour photography',
+              'Bachelor and bachelorette group shots',
+              'Party games and competitions',
+              'Professional photography included'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Customer Celebration Photos',
+        paragraphs: [
+          'See real celebrations from our amazing customers! These authentic photos showcase the variety of events we host on Lake Travis - from intimate gatherings to massive multi-boat parties. Every photo tells a story of unforgettable memories made with Premier Party Cruises.',
+          'Our customers love sharing their experiences, and we\'re proud to showcase their celebrations. Tag us @premierpartycruises on Instagram or use #PremierPartyCruises to be featured in our gallery!'
+        ],
+        lists: [
+          {
+            title: 'Celebration Types Featured',
+            items: [
+              'Bachelor parties living their best life',
+              'Bachelorette parties with the bride tribe',
+              'Corporate team building success stories',
+              'Milestone birthday celebrations',
+              'Family reunions on the water',
+              'Graduation parties',
+              'Anniversary celebrations',
+              'Surprise proposals on Lake Travis',
+              'Holiday parties and special events'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Lake Travis Scenic Beauty',
+        paragraphs: [
+          'Lake Travis provides the perfect backdrop for your celebration. Our gallery showcases the natural beauty of the Texas Hill Country, crystal-clear waters, dramatic cliffs, and spectacular sunsets that make every cruise memorable.',
+          'From sunrise to sunset, Lake Travis offers constantly changing scenery. Our photos capture the golden hours, blue skies, starlit evenings, and the unique beauty that makes Lake Travis one of the most beautiful lakes in Texas.'
+        ],
+        lists: [
+          {
+            title: 'Scenic Highlights',
+            items: [
+              'Stunning Lake Travis sunset views',
+              'Crystal clear swimming spots',
+              'Dramatic cliff formations',
+              'Hidden coves and peaceful inlets',
+              'Austin skyline views from the water',
+              'Wildlife sightings - birds and fish',
+              'Full moon cruises',
+              'Golden hour photography opportunities'
+            ]
+          }
+        ]
+      },
+      {
+        heading: 'Video Gallery Highlights',
+        paragraphs: [
+          'Watch our video gallery to experience the energy and excitement of Premier Party Cruises. From boat tours to event highlights, our videos give you an immersive look at what makes us Austin\'s premier party boat company.',
+          'See testimonials from happy customers, virtual boat tours, ATX Disco Cruise highlights, and get inspired for your own Lake Travis adventure. All videos are available on our YouTube channel @premierpartycruises.'
+        ],
+        lists: [
+          {
+            title: 'Featured Videos',
+            items: [
+              'Virtual boat tours of our entire fleet',
+              'ATX Disco Cruise highlight reels',
+              'Customer testimonials and reviews',
+              'Bachelor party celebration videos',
+              'Bachelorette party fun compilations',
+              'Lake Travis scenic drone footage',
+              'Safety and orientation videos',
+              'Seasonal event highlights',
+              'Behind the scenes with our crew'
+            ]
+          }
+        ]
+      }
+    ]
   }
 };
