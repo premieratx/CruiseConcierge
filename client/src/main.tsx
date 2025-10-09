@@ -4,17 +4,26 @@ if (typeof window !== 'undefined') {
   (window as any).__vite_plugin_react_preamble_installed__ = true;
 }
 
-import { createRoot } from "react-dom/client";
+import { createRoot, hydrateRoot } from "react-dom/client";
 import App from "./App";
 import "./index.css";
 
-// PRODUCTION-SAFE HYDRATION: Set data-hydrated attribute AFTER React successfully mounts
-// This triggers CSS to hide SSR fallback content only when React is ready
-// If React fails to load, SSR content stays visible (resilient fallback)
+// CRITICAL: Use different rendering based on environment
+// - Development: createRoot().render() for client-side rendering (no SSR hydration conflicts)
+// - Production: hydrateRoot() to hydrate SSR HTML for SEO
 
 const rootElement = document.getElementById("root")!;
 
-createRoot(rootElement).render(<App />);
+// Check if we have SSR content to hydrate (production) or need client-side render (development)
+const isProduction = import.meta.env.PROD;
+
+if (isProduction) {
+  // Production: Hydrate the SSR content
+  hydrateRoot(rootElement, <App />);
+} else {
+  // Development: Client-side render only (no SSR to avoid hydration conflicts)
+  createRoot(rootElement).render(<App />);
+}
 
 // Mark hydration complete - this triggers CSS rule: #root[data-hydrated="true"] ~ .ssr-content { display: none }
 // Use requestAnimationFrame to ensure React has rendered before hiding SSR content
