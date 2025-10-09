@@ -71,12 +71,19 @@
   </head>
   <body>
     <div id="root"></div>
+    <!-- CRITICAL: Set up React Fast Refresh stubs BEFORE any modules load -->
+    <script>
+      // Synchronously set up React Fast Refresh stub functions
+      // These will be replaced by the real implementations when Vite loads
+      window.__vite_plugin_react_preamble_installed__ = true;
+      window.$RefreshReg$ = () => {};
+      window.$RefreshSig$ = () => (type) => type;
+    </script>
+    <script type="module" src="/@vite/client"></script>
+    
     <!-- Conditionally disable Vite overlay and runtime error modal for embed routes -->
     <script type="module">
       if (location.pathname.startsWith('/embed/')) {
-        // Disable Vite's built-in overlay
-        import('/@vite/client?overlay=false');
-        
         // Disable runtime error overlay by intercepting error handlers
         // This prevents the @replit/vite-plugin-runtime-error-modal from showing overlays
         const originalError = window.onerror;

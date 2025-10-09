@@ -1174,23 +1174,23 @@ ${JSON.stringify(PRIVATE_CRUISES_FAQ_SCHEMA, null, 2)}
     
     template = template.replace('</head>', headInjection);
     
-    // PRODUCTION-SAFE SSR: Keep SSR content visible until React hydrates successfully
-    // SSR content stays visible if React fails to load (resilient fallback)
+    // PRODUCTION-SAFE SSR: Put SSR content INSIDE #root for React hydration
+    // React expects to hydrate content that's inside the root div
     const pageContent = PAGE_CONTENT[pathname];
     let ssrContent;
 
     if (pageContent) {
-      // Inject both root div and SSR content (SSR visible until React sets data-hydrated)
+      // Inject SSR content INSIDE root div for proper React hydration
       ssrContent = `
-      <div id="root"></div>
-      ${renderPageContent(pageContent)}`;
+      <div id="root">${renderPageContent(pageContent)}</div>`;
     } else {
-      // Simple fallback with SSR content
+      // Simple fallback with SSR content INSIDE root
       ssrContent = `
-      <div id="root"></div>
-      <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
-        <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
-        <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${content}</p>
+      <div id="root">
+        <div class="ssr-content" style="padding: 2rem; max-width: 1200px; margin: 0 auto;">
+          <h1 style="font-size: 2.5rem; font-weight: bold; margin-bottom: 1rem; color: #000;">${h1}</h1>
+          <p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${content}</p>
+        </div>
       </div>`;
     }
     
@@ -1209,6 +1209,7 @@ ${JSON.stringify(PRIVATE_CRUISES_FAQ_SCHEMA, null, 2)}
 // Valid SPA routes that should be handled by React Router (not SSR)
 const VALID_SPA_ROUTES = [
   '/chat',
+  '/private-cruises', // Temporarily disabled SSR due to hydration issues
   '/admin',
   '/admin/leads',
   '/admin/calendar',

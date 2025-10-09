@@ -29,6 +29,7 @@ import { useInlineEdit } from '@/hooks/useInlineEdit';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { 
   PRIVATE_CRUISE_PACKAGES, 
+  PRIVATE_CRUISE_PRICING,
   PRIVATE_CAPACITY_TIERS, 
   PACKAGE_COMPARISON_FEATURES,
   BOATS,
