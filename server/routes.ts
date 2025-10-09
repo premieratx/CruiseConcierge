@@ -571,6 +571,56 @@ export async function registerRoutes(app: Express): Promise<Server> {
   // Note: setupAuth is called in server/index.ts before registerRoutes
   
   // ==========================================
+  // ERROR MONITORING TEST ENDPOINT
+  // ==========================================
+  
+  // Test endpoint to trigger error monitoring alerts
+  app.post('/api/test-error-alert', async (req, res) => {
+    try {
+      const { severity = 'CRITICAL' } = req.body;
+      
+      // Lazy load error monitoring service
+      const { errorMonitoringService } = await import('./services/errorMonitoring');
+      
+      // Create a test error
+      const testError = new Error('This is a test error from the error monitoring system');
+      testError.name = 'TestError';
+      testError.stack = `TestError: This is a test error from the error monitoring system
+    at /api/test-error-alert (server/routes.ts:XXX:XX)
+    at Layer.handle [as handle_request] (express/lib/router/layer.js:XXX:X)
+    at next (express/lib/router/route.js:XXX:X)
+    at Route.dispatch (express/lib/router/route.js:XXX:X)
+    at Layer.handle [as handle_request] (express/lib/router/layer.js:XXX:X)`;
+      
+      // Send the alert
+      await errorMonitoringService.sendAlert({
+        error: testError,
+        severity: severity === 'CRITICAL' ? 'CRITICAL' : 'ERROR',
+        request: req,
+        context: 'Test Alert - Manually triggered for testing error monitoring system'
+      });
+      
+      res.json({
+        success: true,
+        message: `Test ${severity} alert sent successfully`,
+        severity,
+        isConfigured: errorMonitoringService.isConfigured(),
+        owner: {
+          phone: '5125767975',
+          email: 'ppcaustin@gmail.com'
+        }
+      });
+    } catch (error: any) {
+      console.error('Error sending test alert:', error);
+      res.status(500).json({
+        success: false,
+        message: 'Failed to send test alert',
+        error: error.message
+      });
+    }
+  });
+  
+  // ==========================================
   // BLOG POST SERVER-SIDE RENDERING FOR SEO
   // ==========================================
   

@@ -8,17 +8,41 @@ import Database from "@replit/database";
 import fs from "fs";
 import path from "path";
 import compression from "compression";
+import { errorMonitoringService } from "./services/errorMonitoring";
 
 // Prevent server crashes from unhandled errors
 process.on('uncaughtException', (error: Error) => {
   console.error('💥 UNCAUGHT EXCEPTION - Server would have crashed:', error);
   console.error('Stack:', error.stack);
+  
+  // Send CRITICAL alert for uncaught exceptions (process-level errors)
+  errorMonitoringService.sendAlert({
+    error,
+    severity: 'CRITICAL',
+    context: 'Uncaught Exception - Process-level error'
+  }).catch(err => {
+    console.error('Failed to send error monitoring alert:', err);
+  });
+  
   // Don't exit - keep server running
 });
 
 process.on('unhandledRejection', (reason: any, promise: Promise<any>) => {
   console.error('💥 UNHANDLED REJECTION - Server would have crashed:', reason);
   console.error('Promise:', promise);
+  
+  // Convert reason to Error if it isn't already
+  const error = reason instanceof Error ? reason : new Error(String(reason));
+  
+  // Send CRITICAL alert for unhandled rejections (process-level errors)
+  errorMonitoringService.sendAlert({
+    error,
+    severity: 'CRITICAL',
+    context: 'Unhandled Promise Rejection - Process-level error'
+  }).catch(err => {
+    console.error('Failed to send error monitoring alert:', err);
+  });
+  
   // Don't exit - keep server running
 });
 
@@ -221,6 +245,19 @@ Crawl-delay: 1`;
       path: _req.path,
       method: _req.method
     });
+
+    // Send ERROR alert for request-level errors (Email only)
+    // Only send for 500-level errors to avoid alert spam from 4xx errors
+    if (status >= 500) {
+      errorMonitoringService.sendAlert({
+        error: err,
+        severity: 'ERROR',
+        request: _req,
+        context: 'Express Error Handler - Request-level error'
+      }).catch(alertErr => {
+        console.error('Failed to send error monitoring alert:', alertErr);
+      });
+    }
 
     // Send error response to client
     res.status(status).json({ message });
