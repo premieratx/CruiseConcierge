@@ -1227,15 +1227,9 @@ const VALID_SPA_ROUTES = [
 // SSR middleware
 export function ssrMiddleware() {
   return async (req: Request, res: Response, next: NextFunction) => {
-    // Skip non-GET requests
-    if (req.method !== 'GET') {
-      return next();
-    }
-    
-    // Skip API routes
-    if (req.path.startsWith('/api') || req.path.startsWith('/embed')) {
-      return next();
-    }
+    // DISABLED: SSR was causing production issues
+    // React app handles all SEO via React Helmet
+    return next();
     
     // Skip Vite dev assets (CRITICAL for development mode)
     if (req.path.startsWith('/src/') || 
