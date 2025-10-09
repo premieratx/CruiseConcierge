@@ -1209,10 +1209,6 @@ ${JSON.stringify(PRIVATE_CRUISES_FAQ_SCHEMA, null, 2)}
 // Valid SPA routes that should be handled by React Router (not SSR)
 const VALID_SPA_ROUTES = [
   '/chat',
-  '/private-cruises', // Temporarily disabled SSR due to hydration issues
-  '/birthday-parties', // Temporarily disabled SSR due to hydration issues
-  '/contact', // Temporarily disabled SSR due to hydration issues
-  '/gallery', // Temporarily disabled SSR due to hydration issues
   '/admin',
   '/admin/leads',
   '/admin/calendar',
