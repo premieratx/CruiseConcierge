@@ -805,7 +805,7 @@ async function getTemplate(): Promise<string> {
 
 // SSR routes that should be server-rendered
 const SSR_ROUTES = [
-  '/',
+  // '/', // Removed from SSR - uses React components with interactive navigation
   '/bachelor-party-austin',
   '/bachelorette-party-austin',
   '/atx-disco-cruise',
