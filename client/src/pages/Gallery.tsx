@@ -24,19 +24,19 @@ import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import heroImage1 from '@assets/bachelor-party-group-guys.jpg';
 import heroImage2 from '@assets/atx-disco-cruise-party.jpg';
 import heroImage3 from '@assets/dancing-party-scene.jpg';
-import galleryImage1 from '@assets/party-atmosphere-1.jpg';
-import galleryImage2 from '@assets/party-atmosphere-2.jpg';
-import galleryImage3 from '@assets/party-atmosphere-3.jpg';
+import galleryImage1 from '@assets/@capitalcityshots-1_1760072938922.jpg';
+import galleryImage2 from '@assets/@capitalcityshots-2_1760072938923.jpg';
+import galleryImage3 from '@assets/@capitalcityshots-3_1760072938923.jpg';
 import galleryImage4 from '@assets/day-tripper-14-person-boat.jpg';
-import galleryImage5 from '@assets/meeseeks-25-person-boat.jpg';
+import galleryImage5 from '@assets/@capitalcityshots-5_1760072938923.jpg';
 import galleryImage6 from '@assets/clever-girl-50-person-boat.jpg';
 import galleryImage7 from '@assets/bachelor-party-group-guys.jpg';
 import galleryImage8 from '@assets/giant-unicorn-float.jpg';
 import galleryImage9 from '@assets/atx-disco-cruise-party.jpg';
 import galleryImage10 from '@assets/dancing-party-scene.jpg';
-import galleryImage11 from '@assets/party-atmosphere-1.jpg';
-import galleryImage12 from '@assets/party-atmosphere-2.jpg';
-import galleryImage13 from '@assets/party-atmosphere-3.jpg';
+import galleryImage11 from '@assets/@capitalcityshots-10_1760073205050.jpg';
+import galleryImage12 from '@assets/@capitalcityshots-11_1760073205050.jpg';
+import galleryImage13 from '@assets/@capitalcityshots-13_1760073115406.jpg';
 import galleryImage14 from '@assets/day-tripper-14-person-boat.jpg';
 
 // Comprehensive Gallery data structure - ALL real Premier Party Cruises photos
