@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
@@ -82,11 +82,15 @@ export default function Gallery() {
       if (!response.ok) return [];
       const data = await response.json();
       return data.items || [];
-    },
-    onSuccess: (data) => {
-      setFilteredPhotos(data);
     }
   });
+
+  // Set initial filtered photos when data loads
+  useEffect(() => {
+    if (photos.length > 0) {
+      setFilteredPhotos(photos);
+    }
+  }, [photos.length]);
 
   const filterByCategory = (categoryId: string) => {
     setSelectedCategory(categoryId);

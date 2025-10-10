@@ -2352,7 +2352,8 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
       const { section } = req.query;
       
       const storage = await getStorage();
-      const allItems = await storage.listMedia();
+      const result = await storage.listMedia();
+      const allItems = result.media || [];
       
       // Filter by status=published
       let publishedItems = allItems.filter((item: any) => item.status === 'published');
