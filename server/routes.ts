@@ -2346,6 +2346,47 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     }
   });
 
+  // Get published media items (PUBLIC - for gallery page)
+  app.get('/api/media/published', async (req, res) => {
+    try {
+      const { section } = req.query;
+      
+      const storage = await getStorage();
+      const allItems = await storage.listMedia();
+      
+      // Filter by status=published
+      let publishedItems = allItems.filter((item: any) => item.status === 'published');
+      
+      // If section specified, filter by published locations
+      if (section) {
+        publishedItems = publishedItems.filter((item: any) => {
+          const locations = item.publishedLocations;
+          if (!locations) return false;
+          if (typeof locations === 'string') {
+            return locations.includes(section as string);
+          }
+          if (Array.isArray(locations)) {
+            return locations.some((loc: any) => {
+              if (typeof loc === 'string') return loc === section;
+              if (typeof loc === 'object' && loc.section) return loc.section === section;
+              return false;
+            });
+          }
+          return false;
+        });
+      }
+      
+      res.json({ items: publishedItems });
+    } catch (error) {
+      console.error('Error fetching published media:', error);
+      res.status(500).json({ 
+        error: 'Failed to fetch published media',
+        message: error instanceof Error ? error.message : 'Unknown error',
+        items: []
+      });
+    }
+  });
+
   // Upload media file (admin)
   app.post('/api/media/admin-upload', requireAdmin, upload.single('file'), async (req, res) => {
     try {
