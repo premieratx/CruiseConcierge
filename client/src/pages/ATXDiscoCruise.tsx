@@ -557,59 +557,6 @@ export default function ATXDiscoCruise() {
           </div>
         </motion.section>
 
-        {/* Schedule Section */}
-        <motion.section 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={fadeInUp}
-          className="py-16 px-4 bg-white/50 dark:bg-gray-800/50"
-          data-testid="section-schedule"
-        >
-          <div className="max-w-5xl mx-auto">
-            <h2 className="text-4xl font-bold text-center mb-12" data-testid="text-schedule-headline">
-              <Calendar className="w-10 h-10 inline mr-3 text-purple-600" />
-              Weekly Schedule
-            </h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              <Card className="text-center hover:shadow-xl transition-shadow" data-testid="card-schedule-friday">
-                <CardHeader>
-                  <CardTitle className="text-2xl">Friday</CardTitle>
-                  <CardDescription className="text-lg font-semibold">12:00 PM - 4:00 PM</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-4xl font-bold text-purple-600 mb-2">$85</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">per person</div>
-                </CardContent>
-              </Card>
-              <Card className="text-center hover:shadow-xl transition-shadow border-2 border-pink-500" data-testid="card-schedule-saturday-morning">
-                <CardHeader>
-                  <Badge className="mb-2 bg-pink-500">Most Popular</Badge>
-                  <CardTitle className="text-2xl">Saturday Morning</CardTitle>
-                  <CardDescription className="text-lg font-semibold">11:00 AM - 3:00 PM</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-4xl font-bold text-pink-600 mb-2">$95</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">per person</div>
-                </CardContent>
-              </Card>
-              <Card className="text-center hover:shadow-xl transition-shadow" data-testid="card-schedule-saturday-afternoon">
-                <CardHeader>
-                  <CardTitle className="text-2xl">Saturday Afternoon</CardTitle>
-                  <CardDescription className="text-lg font-semibold">3:30 PM - 7:30 PM</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-4xl font-bold text-orange-600 mb-2">$95</div>
-                  <div className="text-sm text-gray-600 dark:text-gray-400">per person</div>
-                </CardContent>
-              </Card>
-            </div>
-            <p className="text-center mt-6 text-gray-600 dark:text-gray-400" data-testid="text-schedule-note">
-              Available year-round • Weather permitting
-            </p>
-          </div>
-        </motion.section>
-
         {/* Packages Section */}
         <motion.section 
           initial="hidden"
