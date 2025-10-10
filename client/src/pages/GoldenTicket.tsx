@@ -392,141 +392,156 @@ export default function GoldenTicket() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.5 }}
-              className="bg-white dark:bg-slate-800 p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700"
+              className="bg-white dark:bg-slate-800 p-4 md:p-8 rounded-2xl shadow-xl border border-slate-200 dark:border-slate-700"
             >
-              <div className="text-center mb-8">
-                <h2 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+              <div className="text-center mb-6 md:mb-8">
+                <h2 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2">
                   Share the Golden Ticket! 🎁
                 </h2>
-                <p className="text-slate-600 dark:text-slate-400">
+                <p className="text-sm md:text-base text-slate-600 dark:text-slate-400">
                   Enter your friends' details below to send them their $300 gift cards
                 </p>
               </div>
 
-              <div className="space-y-6">
+              <div className="space-y-4 md:space-y-6">
                 {/* Friend #1 Form */}
-                <div className="p-6 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
-                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Gift className="h-5 w-5 text-yellow-500" />
+                <div className="p-3 md:p-6 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <h3 className="text-base md:text-lg font-semibold text-slate-900 dark:text-white mb-3 md:mb-4 flex items-center gap-2">
+                    <Gift className="h-4 w-4 md:h-5 md:w-5 text-yellow-500" />
                     Friend #1
                   </h3>
-                  <iframe
-                    src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
-                    style={{ width: '100%', height: '456px', border: 'none', borderRadius: '3px' }}
-                    id="inline-w33cn0pBz1fFbTC0Hrnh-1"
-                    data-layout='{"id":"INLINE"}'
-                    data-trigger-type="alwaysShow"
-                    data-trigger-value=""
-                    data-activation-type="alwaysActivated"
-                    data-activation-value=""
-                    data-deactivation-type="neverDeactivate"
-                    data-deactivation-value=""
-                    data-form-name="Golden Ticket Form to Friends"
-                    data-height="456"
-                    data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-1"
-                    data-form-id="w33cn0pBz1fFbTC0Hrnh"
-                    title="Golden Ticket Form to Friends - Friend 1"
-                  />
+                  <div className="scale-95 md:scale-100 origin-top">
+                    <iframe
+                      src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
+                      style={{ width: '100%', height: '400px', border: 'none', borderRadius: '3px' }}
+                      className="md:h-[456px]"
+                      id="inline-w33cn0pBz1fFbTC0Hrnh-1"
+                      data-layout='{"id":"INLINE"}'
+                      data-trigger-type="alwaysShow"
+                      data-trigger-value=""
+                      data-activation-type="alwaysActivated"
+                      data-activation-value=""
+                      data-deactivation-type="neverDeactivate"
+                      data-deactivation-value=""
+                      data-form-name="Golden Ticket Form to Friends"
+                      data-height="456"
+                      data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-1"
+                      data-form-id="w33cn0pBz1fFbTC0Hrnh"
+                      title="Golden Ticket Form to Friends - Friend 1"
+                    />
+                  </div>
                 </div>
 
                 {/* Friend #2 Form */}
-                <div className="p-6 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
-                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Gift className="h-5 w-5 text-yellow-500" />
+                <div className="p-3 md:p-6 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <h3 className="text-base md:text-lg font-semibold text-slate-900 dark:text-white mb-3 md:mb-4 flex items-center gap-2">
+                    <Gift className="h-4 w-4 md:h-5 md:w-5 text-yellow-500" />
                     Friend #2
                   </h3>
-                  <iframe
-                    src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
-                    style={{ width: '100%', height: '456px', border: 'none', borderRadius: '3px' }}
-                    id="inline-w33cn0pBz1fFbTC0Hrnh-2"
-                    data-layout='{"id":"INLINE"}'
-                    data-trigger-type="alwaysShow"
-                    data-trigger-value=""
-                    data-activation-type="alwaysActivated"
-                    data-activation-value=""
-                    data-deactivation-type="neverDeactivate"
-                    data-deactivation-value=""
-                    data-form-name="Golden Ticket Form to Friends"
-                    data-height="456"
-                    data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-2"
-                    data-form-id="w33cn0pBz1fFbTC0Hrnh"
-                    title="Golden Ticket Form to Friends - Friend 2"
-                  />
+                  <div className="scale-95 md:scale-100 origin-top">
+                    <iframe
+                      src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
+                      style={{ width: '100%', height: '400px', border: 'none', borderRadius: '3px' }}
+                      className="md:h-[456px]"
+                      id="inline-w33cn0pBz1fFbTC0Hrnh-2"
+                      data-layout='{"id":"INLINE"}'
+                      data-trigger-type="alwaysShow"
+                      data-trigger-value=""
+                      data-activation-type="alwaysActivated"
+                      data-activation-value=""
+                      data-deactivation-type="neverDeactivate"
+                      data-deactivation-value=""
+                      data-form-name="Golden Ticket Form to Friends"
+                      data-height="456"
+                      data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-2"
+                      data-form-id="w33cn0pBz1fFbTC0Hrnh"
+                      title="Golden Ticket Form to Friends - Friend 2"
+                    />
+                  </div>
                 </div>
 
                 {/* Friend #3 Form */}
-                <div className="p-6 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
-                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Gift className="h-5 w-5 text-yellow-500" />
+                <div className="p-3 md:p-6 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <h3 className="text-base md:text-lg font-semibold text-slate-900 dark:text-white mb-3 md:mb-4 flex items-center gap-2">
+                    <Gift className="h-4 w-4 md:h-5 md:w-5 text-yellow-500" />
                     Friend #3
                   </h3>
-                  <iframe
-                    src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
-                    style={{ width: '100%', height: '456px', border: 'none', borderRadius: '3px' }}
-                    id="inline-w33cn0pBz1fFbTC0Hrnh-3"
-                    data-layout='{"id":"INLINE"}'
-                    data-trigger-type="alwaysShow"
-                    data-trigger-value=""
-                    data-activation-type="alwaysActivated"
-                    data-activation-value=""
-                    data-deactivation-type="neverDeactivate"
-                    data-deactivation-value=""
-                    data-form-name="Golden Ticket Form to Friends"
-                    data-height="456"
-                    data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-3"
-                    data-form-id="w33cn0pBz1fFbTC0Hrnh"
-                    title="Golden Ticket Form to Friends - Friend 3"
-                  />
+                  <div className="scale-95 md:scale-100 origin-top">
+                    <iframe
+                      src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
+                      style={{ width: '100%', height: '400px', border: 'none', borderRadius: '3px' }}
+                      className="md:h-[456px]"
+                      id="inline-w33cn0pBz1fFbTC0Hrnh-3"
+                      data-layout='{"id":"INLINE"}'
+                      data-trigger-type="alwaysShow"
+                      data-trigger-value=""
+                      data-activation-type="alwaysActivated"
+                      data-activation-value=""
+                      data-deactivation-type="neverDeactivate"
+                      data-deactivation-value=""
+                      data-form-name="Golden Ticket Form to Friends"
+                      data-height="456"
+                      data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-3"
+                      data-form-id="w33cn0pBz1fFbTC0Hrnh"
+                      title="Golden Ticket Form to Friends - Friend 3"
+                    />
+                  </div>
                 </div>
 
                 {/* Friend #4 Form */}
-                <div className="p-6 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
-                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Gift className="h-5 w-5 text-yellow-500" />
+                <div className="p-3 md:p-6 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <h3 className="text-base md:text-lg font-semibold text-slate-900 dark:text-white mb-3 md:mb-4 flex items-center gap-2">
+                    <Gift className="h-4 w-4 md:h-5 md:w-5 text-yellow-500" />
                     Friend #4
                   </h3>
-                  <iframe
-                    src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
-                    style={{ width: '100%', height: '456px', border: 'none', borderRadius: '3px' }}
-                    id="inline-w33cn0pBz1fFbTC0Hrnh-4"
-                    data-layout='{"id":"INLINE"}'
-                    data-trigger-type="alwaysShow"
-                    data-trigger-value=""
-                    data-activation-type="alwaysActivated"
-                    data-activation-value=""
-                    data-deactivation-type="neverDeactivate"
-                    data-deactivation-value=""
-                    data-form-name="Golden Ticket Form to Friends"
-                    data-height="456"
-                    data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-4"
-                    data-form-id="w33cn0pBz1fFbTC0Hrnh"
-                    title="Golden Ticket Form to Friends - Friend 4"
-                  />
+                  <div className="scale-95 md:scale-100 origin-top">
+                    <iframe
+                      src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
+                      style={{ width: '100%', height: '400px', border: 'none', borderRadius: '3px' }}
+                      className="md:h-[456px]"
+                      id="inline-w33cn0pBz1fFbTC0Hrnh-4"
+                      data-layout='{"id":"INLINE"}'
+                      data-trigger-type="alwaysShow"
+                      data-trigger-value=""
+                      data-activation-type="alwaysActivated"
+                      data-activation-value=""
+                      data-deactivation-type="neverDeactivate"
+                      data-deactivation-value=""
+                      data-form-name="Golden Ticket Form to Friends"
+                      data-height="456"
+                      data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-4"
+                      data-form-id="w33cn0pBz1fFbTC0Hrnh"
+                      title="Golden Ticket Form to Friends - Friend 4"
+                    />
+                  </div>
                 </div>
 
                 {/* Friend #5 Form */}
-                <div className="p-6 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
-                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                    <Gift className="h-5 w-5 text-yellow-500" />
+                <div className="p-3 md:p-6 bg-slate-50 dark:bg-slate-900 rounded-lg border border-slate-200 dark:border-slate-700">
+                  <h3 className="text-base md:text-lg font-semibold text-slate-900 dark:text-white mb-3 md:mb-4 flex items-center gap-2">
+                    <Gift className="h-4 w-4 md:h-5 md:w-5 text-yellow-500" />
                     Friend #5
                   </h3>
-                  <iframe
-                    src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
-                    style={{ width: '100%', height: '456px', border: 'none', borderRadius: '3px' }}
-                    id="inline-w33cn0pBz1fFbTC0Hrnh-5"
-                    data-layout='{"id":"INLINE"}'
-                    data-trigger-type="alwaysShow"
-                    data-trigger-value=""
-                    data-activation-type="alwaysActivated"
-                    data-activation-value=""
-                    data-deactivation-type="neverDeactivate"
-                    data-deactivation-value=""
-                    data-form-name="Golden Ticket Form to Friends"
-                    data-height="456"
-                    data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-5"
-                    data-form-id="w33cn0pBz1fFbTC0Hrnh"
-                    title="Golden Ticket Form to Friends - Friend 5"
-                  />
+                  <div className="scale-95 md:scale-100 origin-top">
+                    <iframe
+                      src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
+                      style={{ width: '100%', height: '400px', border: 'none', borderRadius: '3px' }}
+                      className="md:h-[456px]"
+                      id="inline-w33cn0pBz1fFbTC0Hrnh-5"
+                      data-layout='{"id":"INLINE"}'
+                      data-trigger-type="alwaysShow"
+                      data-trigger-value=""
+                      data-activation-type="alwaysActivated"
+                      data-activation-value=""
+                      data-deactivation-type="neverDeactivate"
+                      data-deactivation-value=""
+                      data-form-name="Golden Ticket Form to Friends"
+                      data-height="456"
+                      data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-5"
+                      data-form-id="w33cn0pBz1fFbTC0Hrnh"
+                      title="Golden Ticket Form to Friends - Friend 5"
+                    />
+                  </div>
                 </div>
               </div>
             </motion.div>
