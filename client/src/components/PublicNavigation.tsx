@@ -274,15 +274,9 @@ export default function PublicNavigation() {
                             ? "text-brand-blue"
                             : "text-gray-700 dark:text-gray-300"
                         )}
-                        onClick={(e) => {
-                          // Prevent navigation on click - force users to use dropdown
-                          e.preventDefault();
-                          e.stopPropagation();
-                        }}
                       >
                         <item.icon className="h-4 w-4" />
                         <span 
-                          className="pointer-events-none"
                           data-editable 
                           data-editable-id={`nav-dropdown-${safeSlug(item.title)}`}
                         >
