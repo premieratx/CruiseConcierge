@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import { ClientOnly } from '@/components/ClientOnly';
 import ExperienceCards from '@/components/ExperienceCards';
+import BoatName from '@/components/BoatName';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -534,7 +535,7 @@ export default function PrivateCruises() {
                     >
                       <Ship className="h-5 w-5" />
                       <span className="font-bold">Up to 14</span>
-                      <span className="text-xs opacity-80">Day Tripper</span>
+                      <span className="text-xs opacity-80"><BoatName boatId="DAY_TRIPPER" className="text-current no-underline hover:underline" /></span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="25" 
@@ -542,7 +543,7 @@ export default function PrivateCruises() {
                     >
                       <Ship className="h-5 w-5" />
                       <span className="font-bold">15-30 People</span>
-                      <span className="text-xs opacity-80">Me Seeks The Irony</span>
+                      <span className="text-xs opacity-80"><BoatName boatId="ME_SEEKS_THE_IRONY" className="text-current no-underline hover:underline" /></span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="50" 
@@ -550,7 +551,7 @@ export default function PrivateCruises() {
                     >
                       <Ship className="h-5 w-5" />
                       <span className="font-bold">31-75 People</span>
-                      <span className="text-xs opacity-80">Clever Girl</span>
+                      <span className="text-xs opacity-80"><BoatName boatId="CLEVER_GIRL" className="text-current no-underline hover:underline" /></span>
                     </TabsTrigger>
                     <TabsTrigger 
                       value="disco" 
