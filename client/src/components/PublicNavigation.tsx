@@ -273,24 +273,15 @@ export default function PublicNavigation() {
                             ? "text-brand-blue"
                             : "text-gray-700 dark:text-gray-300"
                         )}
+                        onClick={(e) => {
+                          // Prevent navigation on click - force users to use dropdown
+                          e.preventDefault();
+                          e.stopPropagation();
+                        }}
                       >
                         <item.icon className="h-4 w-4" />
                         <span 
-                          onClick={(e) => {
-                            // Check if device has hover capability (not just width)
-                            const hasHover = typeof window !== 'undefined' 
-                              ? window.matchMedia('(hover: hover)').matches 
-                              : false;
-                            
-                            if (hasHover) {
-                              // Desktop with hover: navigate directly
-                              e.preventDefault();
-                              e.stopPropagation();
-                              navigate(item.href);
-                            }
-                            // Touch devices (no hover): let trigger handle dropdown naturally
-                          }}
-                          className="cursor-pointer"
+                          className="pointer-events-none"
                           data-editable 
                           data-editable-id={`nav-dropdown-${safeSlug(item.title)}`}
                         >
