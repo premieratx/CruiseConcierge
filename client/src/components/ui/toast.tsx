@@ -5,9 +5,6 @@ import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
-// Force React preamble detection for Vite
-;(<></>)
-
 const ToastProvider = ToastPrimitives.Provider
 
 const ToastViewport = React.forwardRef<
