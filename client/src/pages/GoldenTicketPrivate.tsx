@@ -287,48 +287,30 @@ export default function GoldenTicketPrivate() {
               </div>
             </motion.div>
             
-            {/* Presentation & Video Section */}
+            {/* Presentation Section */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.48, duration: 0.5 }}
               className="w-full mb-8"
             >
-              <div className="grid md:grid-cols-2 gap-6">
-                {/* Left Column: Gamma Presentation */}
-                <div className="w-full">
-                  <a 
-                    href="https://gamma.app/docs/Austins-Premier-Bachelor-Bachelorette-Party-Experience-v9da225x03y1173" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="block text-center mb-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors"
-                    data-testid="link-presentation-fullsize"
-                  >
-                    📖 Click to view presentation in full size
-                  </a>
-                  <iframe 
-                    src="https://gamma.app/embed/v9da225x03y1173" 
-                    style={{ width: '100%', maxWidth: '100%', height: '450px' }}
-                    allow="fullscreen" 
-                    title="Austin's Premier Bachelor & Bachelorette Party Experience"
-                    className="rounded-lg shadow-xl"
-                    data-testid="iframe-gamma-presentation"
-                  />
-                </div>
-                
-                {/* Right Column: YouTube Video */}
-                <div className="w-full">
-                  <iframe 
-                    src="https://www.youtube.com/embed/vxy8JM5TMmA"
-                    style={{ width: '100%', height: '450px' }}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                    title="Premier Party Cruises Video"
-                    className="rounded-lg shadow-xl"
-                    data-testid="iframe-youtube-video"
-                  />
-                </div>
-              </div>
+              <a 
+                href="https://gamma.app/docs/vtbx5l9gki6o5mn" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="block text-center mb-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors"
+                data-testid="link-presentation-fullsize"
+              >
+                📖 Click to view presentation in full size
+              </a>
+              <iframe 
+                src="https://gamma.app/embed/vtbx5l9gki6o5mn" 
+                style={{ width: '700px', maxWidth: '100%', height: '450px' }}
+                allow="fullscreen" 
+                title="Premier Party Cruises"
+                className="rounded-lg shadow-xl mx-auto block"
+                data-testid="iframe-gamma-presentation"
+              />
             </motion.div>
             
             {/* Quote Builder Iframe */}
