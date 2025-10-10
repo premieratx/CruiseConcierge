@@ -1686,41 +1686,49 @@ export default function BacheloretteParty() {
                 <AccordionTrigger className="text-xl font-bold hover:text-pink-400" data-testid="accordion-showup-bachelorette">
                   <div className="flex items-center gap-3">
                     <Zap className="h-6 w-6 text-pink-400" />
-                    <span>Just SHOW UP & GET DOWN! Everything's Included!</span>
+                    <span>ZERO Planning Required - It's ALL Set Up For You!</span>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="text-white/90 text-lg pt-4">
-                  <p className="mb-3">Literally just show up with your champagne and PARTY! We provide absolutely everything else:</p>
+                  <div className="bg-pink-900/40 border-2 border-pink-400 rounded-lg p-4 mb-4">
+                    <p className="font-bold text-pink-300 text-xl mb-2">🎉 LITERALLY NOTHING TO PLAN, NOTHING TO CARRY! 🎉</p>
+                    <p className="text-lg">Just order champagne delivery, SHOW UP, and GET DOWN! Everything else is 100% handled.</p>
+                  </div>
+                  <p className="mb-3 font-semibold">The ONLY party cruise in America that's TRULY all-inclusive. We provide absolutely everything:</p>
                   <ul className="space-y-2 ml-6">
                     <li className="flex items-start gap-2">
                       <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Professional DJ playing your favorite hits all day long</span>
+                      <span><strong>Professional DJ</strong> playing your favorite hits all day long</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Professional photographer capturing every fabulous moment</span>
+                      <span><strong>Professional photographer</strong> capturing every fabulous moment</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Private cooler with ice already set up for your bride tribe</span>
+                      <span><strong>Private cooler with ice</strong> already set up for your bride tribe</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Mimosa supplies (juice & fresh fruit - just add champagne!)</span>
+                      <span><strong>Mimosa supplies</strong> (juice & fresh fruit - just add champagne!)</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Giant lily pad floats for the ultimate Instagram moment</span>
+                      <span><strong>Giant lily pad floats</strong> for the ultimate Instagram moment</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Bubbles, koozies, name tags, cups - all the party supplies</span>
+                      <span><strong>All party supplies</strong> - bubbles, koozies, name tags, cups, everything!</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <CheckCircle className="w-5 h-5 text-green-400 mt-1 flex-shrink-0" />
-                      <span>Ice water stations to keep everyone hydrated</span>
+                      <span><strong>Ice water stations</strong> to keep everyone hydrated</span>
                     </li>
                   </ul>
+                  <div className="bg-green-900/40 border-2 border-green-400 rounded-lg p-4 mt-4">
+                    <p className="font-bold text-green-300">✨ NO shopping trips. NO coordinating. NO hauling supplies. NO stress!</p>
+                    <p className="mt-2">Everything is waiting for you on the boat. You literally can't find an easier bachelorette party activity in America!</p>
+                  </div>
                 </AccordionContent>
               </AccordionItem>
 
@@ -1755,30 +1763,48 @@ export default function BacheloretteParty() {
                 <AccordionTrigger className="text-xl font-bold hover:text-pink-400" data-testid="accordion-turnkey-bachelorette">
                   <div className="flex items-center gap-3">
                     <Heart className="h-6 w-6 text-pink-400" />
-                    <span>You've Got Enough to Worry About! We Handle Everything!</span>
+                    <span>Stop Stressing! Planning Is 100% Done For You!</span>
                   </div>
                 </AccordionTrigger>
                 <AccordionContent className="text-white/90 text-lg pt-4">
-                  <p className="mb-3">Planning a bachelorette party is stressful enough. Don't deal with:</p>
-                  <ul className="space-y-2 ml-6 mb-3">
+                  <div className="bg-red-900/40 border-2 border-red-400 rounded-lg p-4 mb-4">
+                    <p className="font-bold text-red-300 text-lg mb-2">❌ DON'T BE THE STRESSED-OUT MOH!</p>
+                    <p>Other bachelorette party activities require HOURS of planning, shopping, coordinating, and hauling. Not us!</p>
+                  </div>
+                  <p className="mb-3 font-semibold">With the ATX Disco Cruise, you skip ALL of this nightmare:</p>
+                  <ul className="space-y-2 ml-6 mb-4">
                     <li className="flex items-start gap-2">
                       <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
-                      <span>Renting and hauling coolers, ice, cups, and party supplies</span>
+                      <span><strong>NO</strong> renting and hauling coolers, ice, cups, and party supplies</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
-                      <span>Coordinating a DJ or music setup</span>
+                      <span><strong>NO</strong> coordinating a DJ or music setup</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
-                      <span>Finding and paying a photographer</span>
+                      <span><strong>NO</strong> finding and paying a photographer</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
-                      <span>Buying floats and water toys</span>
+                      <span><strong>NO</strong> buying floats and water toys</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
+                      <span><strong>NO</strong> decorating or setting anything up</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <X className="w-5 h-5 text-red-400 mt-1 flex-shrink-0" />
+                      <span><strong>NO</strong> cleanup or packing up at the end</span>
                     </li>
                   </ul>
-                  <p className="font-bold text-pink-400">Everything is ready when you arrive - just bring your champagne and GET DOWN!</p>
+                  <div className="bg-pink-900/50 border-2 border-pink-400 rounded-lg p-4">
+                    <p className="font-bold text-pink-300 text-xl mb-2">✅ YOUR ONLY JOB:</p>
+                    <p className="text-lg mb-2">1. Order champagne delivery (we'll send you the link!)</p>
+                    <p className="text-lg mb-2">2. Show up at the marina</p>
+                    <p className="text-lg">3. PARTY FOR 4 HOURS STRAIGHT!</p>
+                    <p className="mt-3 font-bold text-white">Everything else is 100% done for you. This is THE easiest bachelorette party activity you'll find anywhere in America!</p>
+                  </div>
                 </AccordionContent>
               </AccordionItem>
 
