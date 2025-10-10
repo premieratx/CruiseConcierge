@@ -32,6 +32,7 @@ The system features a progressive booking flow and intuitive admin dashboards. D
 - **Inventory Management**: Real-time availability with robust boat-specific time slot system and database-level unique constraints to prevent double-bookings.
 - **Payment Processing**: Stripe for hosted checkouts, supporting deposit and full payments with server-side pricing validation.
 - **Quote Generation**: Automated detailed quotes for private and disco cruises delivered via email.
+- **Golden Ticket Referral System**: Uses GoHighLevel iframe embeds (5 forms) on `/golden-ticket` page for friend referrals, creating contacts directly in GoHighLevel with reCAPTCHA protection.
 
 ### System Design Choices
 - **Frontend**: React + TypeScript + Vite.
