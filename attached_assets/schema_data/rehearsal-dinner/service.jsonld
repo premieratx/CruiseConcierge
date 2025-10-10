@@ -2,7 +2,7 @@
   "@context": "https://schema.org",
   "@type": "Service",
   "@id": "https://premierpartycruises.com/rehearsal-dinner/#service",
-  "name": "Private Cruise \u2014 Rehearsal Dinners",
+  "name": "Private Cruise — Rehearsal Dinners",
   "provider": {
     "@id": "https://premierpartycruises.com/#organization"
   },
@@ -11,5 +11,5 @@
     "Texas",
     "United States"
   ],
-  "description": "Private 3\u20134 hour cruise with licensed, experienced captain & crew, premium Bluetooth sound, coolers, restrooms, sun & shade seating. Choose Essentials or Ultimate Disco Party package add\u2011ons."
+  "description": "Make your wedding rehearsal dinner unforgettable on Lake Travis! Private boat cruises perfect for 14-50 guests with elegant lakeside setting and professional service. Your rehearsal dinner sets the tone for your wedding weekend. A Lake Travis cruise provides the perfect intimate setting for family and wedding party to gather, toast, and celebrate together before the big day. Professional captain and crew, premium sound system for toasts and speeches, flexible catering coordination with Austin's finest restaurants, BYOB or full bar service available, sunset timing for romantic atmosphere, complete privacy for your wedding party, beautiful Lake Travis backdrop for photos, comfortable seating with elegant ambiance. Choose from three boats: Day Tripper (14 guests, $195/hr), Me Seeks the Irony (25 guests, $295/hr), Clever Girl (50 guests, $495/hr). Packages: Standard (basic cruise), Essentials (+$100-200/hr with catering coordination), Ultimate (+$250-350/hr with full setup). Perfect 2-4 hour format, typically 6pm-9pm for sunset views. Book 6-8 weeks in advance."
 }

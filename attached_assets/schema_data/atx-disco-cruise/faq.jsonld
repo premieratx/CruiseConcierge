@@ -7,7 +7,7 @@
       "name": "What is the ATX Disco Cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "A shared 4\u2011hour party boat for bachelor/bachelorette groups with pro DJ and photographer, BYOB, floats, and multi\u2011group energy."
+        "text": "A shared 4-hour party boat for bachelor/bachelorette groups with pro DJ and photographer, BYOB, floats, and multi-group energy."
       }
     },
     {
@@ -15,7 +15,7 @@
       "name": "When does it run?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Fridays 12\u20134 PM and Saturdays 11\u20133 PM or 3:30\u20137:30 PM from March to October."
+        "text": "Fridays 12–4 PM and Saturdays 11–3 PM or 3:30–7:30 PM from March to October."
       }
     },
     {
@@ -28,7 +28,15 @@
     },
     {
       "@type": "Question",
-      "name": "What\u2019s the alcohol policy?",
+      "name": "What happens in bad weather?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rain or shine. For severe weather, we move the party to Lemonade Disco land venue."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the alcohol policy?",
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "BYOB for 21+; cans/plastic only; coolers with ice and cups provided."
@@ -36,18 +44,10 @@
     },
     {
       "@type": "Question",
-      "name": "What happens in bad weather?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Rain or shine. For severe weather, we move the party to Lemonade Disco (land venue)."
-      }
-    },
-    {
-      "@type": "Question",
       "name": "When do we get photos?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Professional photos are delivered digitally within 2\u20133 weeks after your cruise."
+        "text": "Professional photos delivered digitally within 2–3 weeks after your cruise."
       }
     },
     {
@@ -55,7 +55,39 @@
       "name": "Where do we meet?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641. Arrive 15\u201320 minutes early; free parking available."
+        "text": "Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641. Arrive 15–20 minutes early; free parking available."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many people can join?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Disco cruises handle 20-40+ guests per group, up to 100 total capacity."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we bring food?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, bring your own or we can coordinate delivery right to the boat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is swimming allowed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, when conditions are safe at captain's discretion. Life jackets required in water, provided for adults."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does bride/groom cruise free?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! On Disco Queen and Platinum packages with 16+ paying guests, bride OR groom cruises absolutely FREE."
       }
     }
   ]

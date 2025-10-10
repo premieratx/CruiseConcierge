@@ -4,42 +4,98 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What milestones do you host?",
+      "name": "What types of milestones do you celebrate?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "IPOs, funding, anniversaries, launches, awards, big wins."
+        "text": "We celebrate all types of company milestones including company anniversaries (5, 10, 25+ years in business), IPO and funding round successes, revenue milestone achievements, major client wins and deal closings, product launch celebrations, expansion and office openings, industry award recognitions and honors, executive retirement celebrations, merger and acquisition celebrations, and record-breaking quarter or year achievements. Whatever your company's significant achievement, we create memorable celebrations worthy of the accomplishment."
       }
     },
     {
       "@type": "Question",
-      "name": "Can we brand the experience?",
+      "name": "How many people can attend?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes\u2014custom signage and d\u00e9cor supported."
+        "text": "We accommodate 14-75+ guests for milestone celebrations. Our Day Tripper boat is perfect for intimate executive team celebrations (14 guests), Me Seeks the Irony suits department-level celebrations (25 guests), and Clever Girl can host entire company celebrations (50-75 guests). For larger organizations, we can coordinate multiple boats to ensure your entire team can participate in the milestone celebration."
       }
     },
     {
       "@type": "Question",
-      "name": "Awards and speeches?",
+      "name": "Can we customize the celebration?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes\u2014PA system and great backdrops for photos."
+        "text": "Absolutely! We offer complete customization including timing, route, activities, catering, and special touches to reflect the significance of your milestone. Popular elements include champagne toasts to commemorate achievements, catered gourmet meals, professional photography to capture memories, awards presentations and recognition ceremonies, team recognition moments, and celebratory decorations that match your company branding. Every detail is tailored to your vision."
       }
     },
     {
       "@type": "Question",
-      "name": "Timing?",
+      "name": "Do you provide professional photography?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Typically within 2\u20134 weeks of the achievement."
+        "text": "Yes! Professional photography services are available to capture your milestone celebration memories. Our photographers understand corporate events and can provide both candid shots and formal group photos. These images are perfect for internal communications, social media, annual reports, and preserving the special moments of your company's achievement."
       }
     },
     {
       "@type": "Question",
-      "name": "Media usage?",
+      "name": "Can we do speeches and presentations?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Photo/video packages available for marketing content."
+        "text": "Yes! Our premium sound system is available for speeches, announcements, and presentations. The boat provides excellent natural backdrops for award ceremonies and recognition moments. Many companies use the cruise to present achievement awards, share company updates, recognize team members, and make important announcements in a memorable setting that energizes and inspires the team."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's included in milestone packages?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every milestone cruise includes a Coast Guard certified captain, professional crew experienced in corporate events, premium sound system, customizable route planning, dedicated event coordination, and complete logistics management. The Essentials package adds professional catering coordination and enhanced amenities. The Ultimate package includes full party setup with decorations, premium bar service, and white-glove service—highly recommended for milestone celebrations to maximize the special atmosphere."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a milestone celebration cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Milestone celebrations start at $195/hour for our Day Tripper boat. The Essentials package adds $100-200/hour, and the Ultimate package (recommended for milestones) adds $250-350/hour. Volume discounts are available for larger groups. Additional crew fees apply for groups over 26 guests ($50/hour for 26-30 guests, $100/hour for 51-75 guests). We provide detailed custom proposals that reflect the scale and significance of your milestone."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we combine with team building?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Many companies combine milestone celebrations with team building activities, creating an experience that's both celebratory and purposeful. This approach maximizes the value of bringing your team together—honoring achievements while also strengthening team bonds and communication. We can structure activities that align with both celebration and team development objectives."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance should we book?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We recommend booking 6-8 weeks in advance for milestone events to ensure availability on your preferred date. For major milestones during peak season (spring and fall) or when specific timing is critical to your celebration, even earlier booking is advisable. We understand milestone timing can sometimes be unpredictable and will work to accommodate last-minute celebrations when possible."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where do we depart?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Milestone celebrations depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. The marina offers ample free parking for your entire team and is conveniently located approximately 30 minutes from downtown Austin. The professional marina setting provides an impressive venue for beginning your milestone celebration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What makes this special for milestones?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lake Travis creates a relaxed yet special atmosphere perfect for honoring company success. The shared experience on the water reinforces company culture and creates memories that last far beyond the event itself. The celebration becomes a story that gets retold, strengthening team identity and pride. Complete customization ensures the celebration reflects the true significance of your achievement, making it a worthy commemoration of your company's hard work and success."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you handle event logistics?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Our experienced event team handles all logistics including catering coordination with your chosen vendors, detailed timeline management, setup and decoration, audio-visual needs, and day-of coordination. You focus entirely on celebrating your achievement and enjoying time with your team while we ensure every detail runs perfectly. Our track record of hundreds of successful corporate events means you can trust us to execute flawlessly."
       }
     }
   ]

@@ -4,66 +4,122 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Do you offer a refund window after booking?",
+      "name": "What is the ATX Disco Cruise for bachelor parties?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes\u201448 hours after booking for a full refund. After that, weather rules apply at captain\u2019s discretion."
+        "text": "The ATX Disco Cruise is Austin's premier shared party boat experience for bachelor parties on Lake Travis. You'll enjoy a full 4-hour cruise with a professional DJ spinning all day, a professional photographer capturing epic moments, BYOB setup with coolers and ice, giant lily pad floats, and an electric party atmosphere with other bachelor groups. We offer three packages starting at $85, with the most popular Disco King at $95 and the Super Sparkle Platinum at $105 per person."
       }
     },
     {
       "@type": "Question",
-      "name": "Can we split payments?",
+      "name": "How much are bachelor party packages?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Split payment options are available at checkout."
+        "text": "We offer three bachelor party packages: Basic Bach at $85 per person includes all essentials; Disco King at $95 per person is our most popular package with premium perks and the groom cruises FREE with 16+ paying guests; and Super Sparkle Platinum at $105 per person includes VIP treatment, exclusive amenities, and the groom cruises FREE with 16+ paying guests. All packages include professional DJ, photographer, digital photos, floats, and party supplies."
       }
     },
     {
       "@type": "Question",
-      "name": "Is disco attire required?",
+      "name": "Does the groom cruise free?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Encouraged but not required."
+        "text": "YES! The groom cruises absolutely FREE on both our Disco King and Super Sparkle Platinum packages when you have 16 or more paying guests. This makes it incredibly affordable for bachelor parties and ensures the groom celebrates in style without paying a dime. It's one of the best values for bachelor parties in Austin."
       }
     },
     {
       "@type": "Question",
-      "name": "What happens in bad weather?",
+      "name": "What's included on every bachelor party cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Rain or shine. For severe weather, we move to Lemonade Disco (land venue)."
+        "text": "Every bachelor party cruise includes a professional DJ playing all day long, a professional photographer capturing your celebration with digital photos provided after the cruise, private cooler space with ice for your drinks, mimosa supplies to start the party right, giant lily pad floats for floating fun, party supplies and decorations, ice water stations to stay hydrated, clean restrooms onboard, shaded areas for breaks from the sun, and an incredible party atmosphere with other bachelor groups creating an unforgettable energy on the water."
       }
     },
     {
       "@type": "Question",
-      "name": "Can we add people after booking?",
+      "name": "Can we bring our own alcohol?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, usually 1\u20132 if availability allows\u2014contact us ASAP."
+        "text": "Yes! BYOB is encouraged for all guests 21 and over with valid ID. We provide coolers and ice for your beverages. For safety reasons, only cans and plastic containers are allowed—no glass bottles. This keeps costs down and lets you bring exactly what your group wants to drink."
       }
     },
     {
       "@type": "Question",
-      "name": "Do you offer group discounts?",
+      "name": "How many people can join our bachelor party?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes for larger groups\u2014contact us for details."
+        "text": "Our Disco cruises easily handle groups of 20-40+ guests per bachelor party, making them perfect for medium to large celebrations. If you have a smaller or larger group, we also offer private boats that accommodate anywhere from 14 to 75 guests with complete exclusivity for your party."
       }
     },
     {
       "@type": "Question",
-      "name": "What\u2019s the alcohol policy?",
+      "name": "What about food on the cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "BYOB for 21+; cans/plastic only; coolers with ice and cups provided."
+        "text": "You're welcome to bring your own food onboard, or we can coordinate delivery right to the boat for you. Popular options include pizza, tacos, and catering from local Austin favorites. We handle all the logistics to make sure your food arrives fresh and on time so you can focus on celebrating."
       }
     },
     {
       "@type": "Question",
-      "name": "How far in advance should we book?",
+      "name": "Is swimming allowed during the cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Peak weekends sell out 4\u20136 weeks in advance; book early."
+        "text": "Yes! Swimming is allowed when water conditions are safe at the captain's discretion. Life jackets are required for all swimmers and are provided for adults at no additional charge. It's one of the highlights of the cruise—jumping off the boat and floating on our giant lily pads on beautiful Lake Travis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance should we book our bachelor party?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Weekend dates typically fill up 6-8 weeks in advance, especially during peak season (April-September). We strongly recommend booking as soon as possible to secure your preferred date and time slot. Don't wait until the last minute—the best dates go fast for bachelor parties in Austin."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When does the ATX Disco Cruise run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The ATX Disco Cruise operates from March through October. Friday cruises run from 12:00 PM to 4:00 PM. Saturday cruises offer two time slots: 11:00 AM to 3:00 PM or 3:30 PM to 7:30 PM. Each cruise is a full 4 hours of non-stop party fun on Lake Travis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where do we meet for the cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We depart from Anderson Mill Marina located at 13993 FM 2769, Leander, TX 78641. Free parking is available at the marina. Please arrive 15-20 minutes before your scheduled departure time for check-in and boarding. The marina is about 30 minutes from downtown Austin."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the weather policy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We cruise rain or shine! The boats have covered areas to keep you comfortable in light rain. In the rare case of severe weather that makes it unsafe to be on the water, we'll move your party to our backup land venue, Lemonade Disco, so your celebration continues no matter what."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When do we get our photos from the cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your professional photos are delivered digitally within 2-3 weeks after your cruise. You'll receive a link to download all high-resolution images from your bachelor party celebration. Our photographers capture hundreds of shots throughout the day so you'll have amazing memories to share."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we do a private boat instead of the Disco Cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! We offer private boat rentals ranging from $195 to $495 per hour depending on boat size and amenities. Private boats accommodate 14-75 guests and provide complete exclusivity for your bachelor party. You'll have the entire boat to yourselves with a dedicated captain and crew."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why choose ATX Disco Cruise over a private boat rental?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The ATX Disco Cruise offers 3-5x better value than private rentals. You get a full 4-hour experience (vs. typical 2-hour private rentals), professional DJ and photographer included in the price, better amenities and party atmosphere, and it's always more affordable per person. Plus, the energy of partying with other bachelor groups creates an unforgettable vibe you can't get on a private boat. For most groups under 30 people, the Disco Cruise is the clear winner."
       }
     }
   ]

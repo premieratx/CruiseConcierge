@@ -4,42 +4,82 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Typical start time?",
+      "name": "What time should a wedding after party cruise start?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "9\u201311 PM depending on your reception schedule."
+        "text": "After party cruises typically start 10pm-11pm, timing perfectly with most wedding reception endings. Popular schedules are 10pm-1am or 11pm-2am, giving the couple and close friends 2-3 hours to continue celebrating. Coordinate with your reception venue's end time - plan the boat departure 30-45 minutes after your reception concludes to allow transportation from venue to marina. Late-night cruises under the stars create magical memories."
       }
     },
     {
       "@type": "Question",
-      "name": "Music?",
+      "name": "What's included in a wedding after party cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Bring your playlist or ask about DJ add\u2011on."
+        "text": "After party cruises include professional crew experienced with late-night events, premium sound system with Bluetooth, party lighting and disco balls for dance vibes, swimming access (weather permitting), BYOB cooler service, comfortable seating, and climate-controlled restrooms. The Ultimate Party package (+$250-350/hr) is recommended, adding premium party amenities, floats, enhanced lighting, and full entertainment setup for the best after party experience."
       }
     },
     {
       "@type": "Question",
-      "name": "Late night food?",
+      "name": "Is swimming allowed during late-night after party cruises?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Great with sliders, pizza, tacos, or dessert bars."
+        "text": "Yes! Weather and lake conditions permitting, swimming and floating under the stars is a highlight of after party cruises. We provide floats and water toys. Many newlyweds love jumping in the lake in wedding attire for epic photos. Safety lights and crew supervision ensure safe late-night swimming. Note that swimming availability depends on weather, water temperature, and captain's discretion for safety."
       }
     },
     {
       "@type": "Question",
-      "name": "Dress code?",
+      "name": "What is the alcohol policy for wedding after parties?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Casual party attire encouraged."
+        "text": "After party cruises are BYOB (bring your own beer, wine, champagne, and spirits). Many couples bring leftover alcohol from the reception. We provide ice, coolers, cups, and openers. After parties tend to be more casual with signature cocktails, champagne toasts, and craft beer. Arrange bar service through recommended vendors if you prefer professional bartending. Responsible consumption is required - crew may limit service if needed for safety."
       }
     },
     {
       "@type": "Question",
-      "name": "Transportation?",
+      "name": "What group size works best for after party cruises?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We can recommend shuttle partners."
+        "text": "After parties typically host 14-50+ of your closest friends and family - those who want to keep celebrating after the reception ends. Day Tripper (14 guests) creates intimate vibes for the wedding party, Me Seeks the Irony (25 guests) accommodates close friends and family, and Clever Girl (50+ guests) handles bigger after party groups. Most couples invite 20-30 people who truly want to party late into the night."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a wedding after party cruise cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "After party pricing depends on boat and package. Base rates: Day Tripper $195/hr (14 guests), Me Seeks the Irony $295/hr (25 guests), Clever Girl $495/hr (50+ guests). We highly recommend the Ultimate Party package (+$250-350/hr) for the full after party experience with premium lighting, floats, sound, and party setup. Most 2-3 hour after parties cost $890-$2,535 total. It's worth every penny for unforgettable memories!"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do we coordinate the after party with our wedding reception?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Book your after party cruise when you confirm your wedding venue, ensuring availability for your date. Share departure time and marina location with your photographer for any late-night photos. Arrange shuttle transportation from reception venue to Anderson Mill Marina (30 minutes from Austin). Include after party details on your wedding website so invited guests know the plan. We coordinate timing and logistics to ensure seamless transition from reception to boat."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance should we book the wedding after party?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Book your after party cruise when you book your wedding venue to secure your date. Peak wedding season (April-October) and Saturday night slots fill quickly, often 3-6 months in advance. If you've already set your wedding date, book the after party cruise as soon as possible. Last-minute bookings are occasionally available but not guaranteed, especially for popular dates and larger boats."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What makes an after party cruise special compared to hotel after parties?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lake Travis after party cruises offer privacy, adventure, and unique memories impossible at hotel bars. Dance under stars, swim in the lake, enjoy uninterrupted celebration without hotel noise restrictions or last calls. The bride and groom can actually party (not just host) in this relaxed setting. It's Instagram-worthy, quintessentially Austin, and creates stories guests talk about for years. Often rated as more fun than the reception itself!"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where does the after party cruise depart from?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "After party cruises depart from Anderson Mill Marina on Lake Travis, 30 minutes from downtown Austin. Coordinate transportation for your guests - shuttle services, rideshare, or designated drivers work well. Free parking is available for those driving themselves. We provide exact marina location and parking details with your booking confirmation. The marina is well-lit and safe for late-night arrivals."
       }
     }
   ]

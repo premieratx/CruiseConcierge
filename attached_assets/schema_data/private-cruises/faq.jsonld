@@ -4,10 +4,18 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What\u2019s included?",
+      "name": "What boats are available?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Licensed, experienced captain & crew, premium Bluetooth sound, coolers with ice, restrooms, sun & shade seating, and safety equipment."
+        "text": "We offer three exceptional vessels: Day Tripper (14-person boat) perfect for intimate groups and small birthday parties, featuring a licensed captain, premium sound, coolers with ice, and comfortable seating, starting at $195/hour with a 4-hour minimum. Me Seeks the Irony (25-person boat) is our most popular choice for medium groups of 18-25 guests, ideal for bachelor and bachelorette parties, featuring professional captain and crew, premium Bluetooth sound, and large coolers with ice, starting at $295/hour with a 4-hour minimum. Clever Girl (50-person flagship) is our spectacular flagship vessel featuring 14 disco balls and a giant Texas flag, accommodating 30-50 guests with professional crew and premium amenities, starting at $495/hour with a 4-hour minimum, perfect for corporate events and large celebrations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's included in each package?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Standard Package includes professional captain and crew, large coolers (bring your own ice), premium Bluetooth sound system, clean restroom facilities, sun and shade seating, and is fully BYOB friendly (cans/plastic only). Essentials Package (+$100-200/hour based on boat) includes everything from Standard PLUS coolers pre-stocked with ice, 5-gallon insulated water dispenser, solo cups and ice water, 6-foot folding table for food, and vendor coordination for catering. Ultimate Package (+$250-350/hour based on boat) includes everything from Essentials PLUS giant lily pad float, guest of honor float (unicorn or ring), disco ball cups, bubble guns and bubble wands, champagne flutes and fruit juices, SPF-50 spray sunscreen, plates, plasticware, paper towels, and full party atmosphere setup."
       }
     },
     {
@@ -15,7 +23,31 @@
       "name": "Can we bring food and drinks?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. BYOB (21+), cans/plastic only; bring snacks or meals. We provide coolers with ice and cups."
+        "text": "Yes! We are fully BYOB friendly (21+ with valid ID required). You can bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers only - no glass allowed for safety. Feel free to bring snacks, meals, or coordinate catering with our help. We provide large coolers and cups. With our Essentials Package, coolers come pre-stocked with ice, and with the Ultimate Package, we also include champagne flutes, plates, plasticware, and a 6-foot folding table for your food setup."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How does pricing work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We believe in transparent, straightforward pricing with no hidden fees. Your base cost is calculated simply: Hourly rate × Duration = Base cost. Day Tripper starts at $195/hour, Me Seeks the Irony starts at $295/hour, and Clever Girl starts at $495/hour (all with 4-hour minimums). Package upgrades are added per hour: Essentials Package adds $100-200/hour depending on boat size, Ultimate Package adds $250-350/hour depending on boat size. Additional crew fees apply for larger groups: $50/hour for 26-30 guests, $100/hour for 51-75 guests. We add 8.25% tax to the total, and a 20% gratuity for the crew is suggested but not required."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What are the crew fees?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Additional crew fees apply based on your party size to ensure exceptional service and safety. For groups of 26-30 guests, an additional crew member is required at $50/hour. For larger groups of 51-75 guests, additional crew support is required at $100/hour. These fees ensure you have adequate professional staff to manage your event safely and provide the best experience for all guests."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance should we book?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We recommend booking as early as possible, especially for weekend dates. Popular weekend dates typically fill up 6-8 weeks in advance, particularly during peak season (April-September). For weekday bookings or off-peak times, you may have more flexibility. If you're planning a special event like a bachelor/bachelorette party, corporate event, or milestone birthday, we suggest reaching out 2-3 months ahead to secure your preferred date and boat."
       }
     },
     {
@@ -28,10 +60,10 @@
     },
     {
       "@type": "Question",
-      "name": "What\u2019s your cancellation policy?",
+      "name": "What's your cancellation policy?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain\u2019s discretion. Pro\u2011rated refunds if weather shortens the cruise."
+        "text": "48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain's discretion. Pro‑rated refunds if weather shortens the cruise."
       }
     },
     {
@@ -39,7 +71,7 @@
       "name": "Is swimming allowed?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, when conditions are safe and at the captain\u2019s discretion. Life jackets required in the water."
+        "text": "Yes, when conditions are safe and at the captain's discretion. Life jackets required in the water."
       }
     },
     {
@@ -48,6 +80,14 @@
       "acceptedAnswer": {
         "@type": "Answer",
         "text": "Adult life jackets are provided. Infant/child life jackets must be brought by guests."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we customize our route?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely! You have complete control over your Lake Travis experience. Work with your captain to customize your route, timing, and activities. Want to anchor at a quiet cove for swimming? Prefer to cruise around Devil's Cove and see the party scene? Looking for scenic spots for photos? Your captain will work with you to create the perfect itinerary for your group. We can also help coordinate with local vendors for catering, photography, or other services to make your event exactly what you envision."
       }
     }
   ]

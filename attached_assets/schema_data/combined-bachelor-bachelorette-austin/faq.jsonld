@@ -4,50 +4,98 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "What is a combined bachelor/bachelorette party?",
+      "name": "What is a combined bachelor/bachelorette party cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "One celebration for both friend groups\u2014shared fun with everyone together."
+        "text": "A combined bachelor/bachelorette party is a modern celebration where the bride AND groom party together on Lake Travis with all their friends and family. It's one epic celebration instead of two separate parties. On our Party Squad and Ultimate Celebration packages, BOTH the bride AND groom cruise absolutely FREE with 16 or more paying guests. It's the perfect way to bring everyone together before the big day!"
       }
     },
     {
       "@type": "Question",
-      "name": "Should we book Private or join the Disco Cruise?",
+      "name": "How much are combined party packages?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Under ~30 guests: Disco is typically best value. 30+ or full control: Private."
+        "text": "We offer three combined bachelor/bachelorette packages: Basic Combined at $85 per person includes all the essentials for a great party; Party Squad at $95 per person is our most popular package where BOTH bride AND groom cruise FREE with 16+ paying guests; and Ultimate Celebration at $105 per person includes premium perks, VIP treatment, and BOTH bride AND groom cruise FREE with 16+ paying guests. All packages include professional DJ, photographer, and digital photos."
       }
     },
     {
       "@type": "Question",
-      "name": "Can we split costs between sides?",
+      "name": "Do both bride AND groom cruise free?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes\u2014split payment options available at checkout."
+        "text": "YES! On both our Party Squad and Ultimate Celebration packages, when you have 16 or more paying guests, BOTH the bride AND groom cruise absolutely FREE. That's incredible value—two people celebrating for free while everyone enjoys an unforgettable Lake Travis party experience together. It's one of the best deals for combined celebrations in Austin!"
       }
     },
     {
       "@type": "Question",
-      "name": "What activities work for mixed groups?",
+      "name": "What's included in all combined party packages?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "DJ\u2011driven dancing, floats, swimming and chill zones\u2014something for everyone."
+        "text": "Every combined party package includes a professional DJ playing music everyone loves, professional photographer capturing epic group photos of the bride, groom, and all your friends together, private cooler space for your group's beverages, party supplies including mixers, cups, and ice, multiple giant lily pad floats that everyone can enjoy, all celebration essentials and decorations, ice water stations throughout the boat, clean restrooms onboard, shaded lounge areas for relaxing, and an amazing party atmosphere with other combined celebration groups creating unforgettable energy."
       }
     },
     {
       "@type": "Question",
-      "name": "What happens in bad weather?",
+      "name": "Why celebrate together instead of separately?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Rain or shine. For severe weather, we move to Lemonade Disco (land venue)."
+        "text": "Celebrating together saves time and saves money—no need to coordinate two separate parties! Everyone bonds before the wedding as friends from both sides get to know each other in a fun, relaxed environment. It's better value than paying for two separate parties, and the activities—DJ, floats, swimming, dancing—are things everyone loves regardless of which side they're on. Plus, you get to celebrate this special moment together as a couple with all your favorite people!"
       }
     },
     {
       "@type": "Question",
-      "name": "How far in advance should we book?",
+      "name": "How many people can join our combined party?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Large combined groups often book 6\u20138 weeks in advance."
+        "text": "Our Disco cruises easily handle groups of 20-40+ guests per combined party, making them perfect for bringing both friend groups together. If you have a larger celebration or want complete exclusivity, we also offer private boats that accommodate up to 75 guests with the entire vessel dedicated to your combined bachelor/bachelorette party."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should we do disco cruise or private cruise for our combined party?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Under 30 people, the disco cruise is perfect—great value, amazing atmosphere, and all the amenities you need. For 30+ people or if you want total control and exclusivity, consider a private boat. We're happy to help you choose the best option based on your group size, budget, and preferences. Just reach out and we'll guide you to the perfect choice!"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we split payments between different people?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Split payment options are available at checkout, making it easy for your group to coordinate and share costs. This is especially helpful for combined parties where friends from both the bride's and groom's sides want to contribute. It makes the whole booking process simple and stress-free."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if guys and girls want different things during the party?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No problem at all! The boat has plenty of different zones to suit everyone's vibe—float areas for lounging and swimming, DJ area for dancing and partying, and shaded lounge spots for chilling and chatting. With BYOB, everyone can bring their preferred drinks. There's truly something for everyone, and that's what makes combined parties so much fun—everyone finds their groove!"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we bring alcohol to the combined party?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! BYOB is encouraged for all guests 21 and over with valid ID. Only cans and plastic containers are allowed for safety (no glass bottles). We provide coolers and ice for your beverages so everyone can enjoy their favorite drinks throughout the cruise. This flexibility keeps costs down and ensures everyone's happy!"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When and where does the combined party cruise meet?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We operate from March through October. Friday cruises run from 12:00 PM to 4:00 PM. Saturday cruises offer two time slots: 11:00 AM to 3:00 PM or 3:30 PM to 7:30 PM. We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. Free parking is available for all guests. Please arrive 15-20 minutes before your scheduled departure time for check-in and boarding."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When do we get our photos from the combined party?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your professional photos are delivered digitally 2-3 weeks after your cruise. You'll receive a secure link to download all high-resolution images capturing the bride, groom, and all your friends celebrating together. Our photographers capture hundreds of moments throughout the day so you'll have amazing memories of your combined celebration to share and cherish forever!"
       }
     }
   ]

@@ -4,42 +4,82 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "When do most grad cruises happen?",
+      "name": "Do you host both high school and college graduation parties?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Late May to early June for high school; May for college."
+        "text": "Yes! We celebrate both high school and college graduations with customized experiences for each. High school graduations (May-June) often include friends and family together with age-appropriate activities and supervision. College graduations tend to be more adult-oriented with 21+ celebrations, BYOB, and less structured party formats. Both create unforgettable send-offs before the next life chapter. We tailor music, activities, and atmosphere to match the graduate's age and celebration style."
       }
     },
     {
       "@type": "Question",
-      "name": "Can multiple graduates celebrate together?",
+      "name": "What group size works best for graduation parties combining friends and family?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes\u2014joint parties are common."
+        "text": "Graduation cruises accommodate 14-75 guests, perfect for combining friends and family. Day Tripper (14 guests) suits intimate celebrations, Me Seeks the Irony (25 guests) fits typical grad party size with close friends plus parents and grandparents, and Clever Girl (50-75 guests) handles large celebrations with extended family and friend groups. Most graduation parties host 30-50 people, balancing the graduate's friends with proud family members who want to celebrate this achievement."
       }
     },
     {
       "@type": "Question",
-      "name": "Themes and school colors?",
+      "name": "When is graduation party season and how early should we book?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes\u2014bring banners and d\u00e9cor; crew can assist."
+        "text": "High school graduation season runs late May through early June; college graduations peak in May. This is our busiest season! Book 8-12 weeks in advance minimum - many families book 3-4 months ahead for preferred weekend dates. May and early June weekends fill first, especially Saturday afternoons and evenings. If your graduate's ceremony is on a popular date, book immediately upon knowing the date. Weekday graduation parties often have better availability."
       }
     },
     {
       "@type": "Question",
-      "name": "Teen vs. college celebrations?",
+      "name": "What's included in a graduation party cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We tailor to age\u2014mocktails for teens, BYOB for 21+ groups."
+        "text": "All graduation cruises include professional captain and crew, premium sound system for graduate's playlist, swimming and floating access (weather permitting, perfect for summer celebrations), comfortable seating with sun and shade areas, climate-controlled restrooms, and space for speeches and toasts. The beautiful Lake Travis setting provides photo opportunities with the graduate and creates lasting memories with friends and family during this milestone achievement."
       }
     },
     {
       "@type": "Question",
-      "name": "Activities onboard?",
+      "name": "Is there space for graduation speeches and toasts?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Swimming, dancing, photos, and lake cruising."
+        "text": "Absolutely! Graduation cruises are perfect for heartfelt speeches and toasts. We provide wireless microphone for parents, teachers, and friends to share memories and congratulations. The boat's open layout allows everyone to gather for these special moments. Many families do formal toasts, share childhood stories, or present gifts to the graduate. The intimate boat setting creates meaningful atmosphere for these proud parent moments and graduate recognition."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we customize decorations with school colors and graduation themes?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Graduation parties can be fully customized with school colors, graduation themes, banners, balloons, and personalized decorations. Bring your school's colors for coordinated setup. Popular additions include photo displays of the graduate, 'Congrats Grad' banners, college logo decorations, and class year balloons. Crew assists with decoration setup when you book Essentials or Ultimate packages. Coordinate your decoration plans with our team at least one week before the cruise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a graduation party cruise cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Graduation party pricing varies by boat and package. Base rates: Day Tripper $195/hr (14 guests), Me Seeks the Irony $295/hr (25 guests), Clever Girl $495/hr (50-75 guests). Standard package covers basic cruise; Essentials (+$100-200/hr) adds party coordination and setup; Ultimate (+$250-350/hr) includes complete party package with enhanced amenities. Most 2-4 hour graduation parties cost $590-$3,380 total depending on guest count and package selection."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is swimming available for graduation parties?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Swimming and floating are popular graduation party activities, especially for May-June celebrations when Lake Travis weather is perfect. We provide floats and water toys. Graduates and friends love jumping in for group photos and cooling off in the Texas heat. Swimming is weather and safety dependent - captain makes final decision based on conditions. Life jackets available for all swimmers. It's a quintessential Texas summer graduation celebration!"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What catering options work for graduation parties?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Graduation parties often feature the graduate's favorite foods! Popular options include BBQ catering, taco bars, pizza, burger and hot dog buffets, or upscale appetizers for more formal celebrations. We coordinate delivery and setup with Austin caterers. Bring your own catering or use our recommended vendors. Don't forget graduation cake! The Essentials package (+$100-200/hr) includes full catering coordination and crew assistance with food service and cleanup."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should graduation parties be scheduled?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Schedule graduation parties after the ceremony - typically same evening or following day. Popular timing: 3pm-7pm for afternoon celebrations with swimming and sunset photos, or 5pm-9pm for evening parties with dinner and golden hour. Many families coordinate with multiple graduation ceremonies and parties that weekend. Weekday graduations often celebrate the following weekend. Consider graduate's preferences - some want to party immediately, others prefer next-day celebrations after ceremony excitement settles."
       }
     }
   ]

@@ -11,7 +11,7 @@
     "Texas",
     "United States"
   ],
-  "description": "Private 3\u20134 hour charters with licensed, experienced captain & crew, premium Bluetooth sound, coolers, restrooms, sun & shade seating. Adult life jackets provided; infant/child jackets must be brought by guests.",
+  "description": "Experience unforgettable private party boat charters on beautiful Lake Travis with Premier Party Cruises. Our exclusive fleet features three exceptional vessels designed for every occasion: Day Tripper (14-person boat) is perfect for intimate gatherings, small birthday parties, and close-knit groups, featuring a licensed captain, premium sound system, coolers with ice, and comfortable seating starting at $195/hour with a 4-hour minimum. Me Seeks the Irony (25-person boat) is our most popular choice for medium groups of 18-25 guests, ideal for bachelor and bachelorette parties, featuring professional captain and crew, premium Bluetooth sound, large coolers with ice, starting at $295/hour with a 4-hour minimum. Clever Girl (50-person flagship) is our spectacular flagship vessel featuring 14 disco balls and a giant Texas flag, accommodating 30-50 guests with professional crew and premium amenities, starting at $495/hour with a 4-hour minimum, perfect for corporate events and large celebrations. Choose from three customizable packages: Standard Package includes professional captain and crew, large coolers (bring your own ice), premium Bluetooth sound system, clean restroom facilities, sun and shade seating, fully BYOB friendly (cans/plastic only, 21+ with ID). Essentials Package adds $100-200/hour based on boat size and includes everything from Standard PLUS coolers pre-stocked with ice, 5-gallon insulated water dispenser, solo cups and ice water, 6-foot folding table for food, and vendor coordination for catering. Ultimate Package adds $250-350/hour based on boat size and includes everything from Essentials PLUS giant lily pad float, guest of honor float (unicorn or ring), disco ball cups, bubble guns and bubble wands, champagne flutes and fruit juices, SPF-50 spray sunscreen, plates, plasticware, paper towels, and full party atmosphere setup. Perfect for weddings, corporate events, birthdays, and any special celebration. Enjoy customizable routes on Lake Travis with complete control over your experience. Transparent pricing with hourly rate × duration = base cost, no hidden fees. Additional crew fees apply: $50/hour for 26-30 guests, $100/hour for 51-75 guests. 8.25% tax added, suggested 20% gratuity. Flexible payment options: 25% deposit if booking 30+ days out with full payment due 30 days before cruise date. Adult life jackets provided; infant/child jackets must be brought by guests.",
   "offers": [
     {
       "@type": "Offer",
@@ -30,21 +30,21 @@
       "priceCurrency": "USD",
       "price": "100.00",
       "url": "https://premierpartycruises.com/private-cruises",
-      "name": "Essentials Add\u2011On (14p)"
+      "name": "Essentials Add‑On (14p)"
     },
     {
       "@type": "Offer",
       "priceCurrency": "USD",
       "price": "150.00",
       "url": "https://premierpartycruises.com/private-cruises",
-      "name": "Essentials Add\u2011On (25\u201330p)"
+      "name": "Essentials Add‑On (25–30p)"
     },
     {
       "@type": "Offer",
       "priceCurrency": "USD",
       "price": "200.00",
       "url": "https://premierpartycruises.com/private-cruises",
-      "name": "Essentials Add\u2011On (50\u201375p)"
+      "name": "Essentials Add‑On (50–75p)"
     },
     {
       "@type": "Offer",
@@ -58,21 +58,21 @@
       "priceCurrency": "USD",
       "price": "300.00",
       "url": "https://premierpartycruises.com/private-cruises",
-      "name": "Ultimate Disco Party (25\u201330p)"
+      "name": "Ultimate Disco Party (25–30p)"
     },
     {
       "@type": "Offer",
       "priceCurrency": "USD",
       "price": "350.00",
       "url": "https://premierpartycruises.com/private-cruises",
-      "name": "Ultimate Disco Party (50\u201375p)"
+      "name": "Ultimate Disco Party (50–75p)"
     },
     {
       "@type": "Offer",
       "priceCurrency": "USD",
       "price": "50.00",
       "url": "https://premierpartycruises.com/private-cruises",
-      "name": "Lily Pad Add\u2011On"
+      "name": "Lily Pad Add‑On"
     }
   ],
   "aggregateRating": {

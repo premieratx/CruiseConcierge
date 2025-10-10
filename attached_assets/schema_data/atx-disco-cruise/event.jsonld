@@ -3,6 +3,7 @@
   "@type": "Event",
   "@id": "https://premierpartycruises.com/atx-disco-cruise/#event",
   "name": "ATX Disco Cruise",
+  "description": "Join the BEST party on Lake Travis! Austin's exclusive ATX Disco Cruise features professional DJ entertainment, professional photographer, disco dance floor, giant floats, and incredible party atmosphere. Perfect for bachelor and bachelorette parties celebrating together. Every disco cruise includes professional entertainment, photo delivery, party supplies, and an unforgettable experience with multiple groups celebrating together. BYOB friendly with full cooler service. Three package levels available to fit any budget and celebration style. Operating Fridays 12-4 PM and Saturdays 11-3 PM or 3:30-7:30 PM from March to October. America's only multi-group bachelor/bachelorette party cruise experience. What's Included on Every Cruise: Professional DJ playing favorites ALL DAY, professional photographer for epic moments, digital photo delivery 2-3 weeks after cruise, giant unicorn floats and lily pads, party supplies including cups, koozies and decorations, ice water stations throughout cruise, clean restroom facilities on board, plenty of shaded lounge areas, and multi-group energy and party atmosphere that creates an unforgettable celebration experience.",
   "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
   "eventStatus": "https://schema.org/EventScheduled",
   "maximumAttendeeCapacity": 100,
@@ -34,7 +35,9 @@
       "@type": "Offer",
       "priceCurrency": "USD",
       "price": "85.00",
+      "name": "Basic Bach Package",
       "category": "Basic Batch",
+      "description": "Full 4-hour Lake Travis cruise, professional DJ entertainment all day, professional photographer capturing memories, digital photo delivery after event, giant unicorn float access, multi-group party atmosphere, BYOB with shared coolers and ice, alcohol delivery and lunch delivery available",
       "url": "https://premierpartycruises.com/atx-disco-cruise",
       "availability": "https://schema.org/InStock"
     },
@@ -42,7 +45,9 @@
       "@type": "Offer",
       "priceCurrency": "USD",
       "price": "95.00",
+      "name": "Disco Queen/King Package (Most Popular)",
       "category": "Disco Queen/King",
+      "description": "Everything in Basic Bach PLUS private cooler with ice and storage bin for your group, reserved spot for your group on the boat, disco ball cup and bubble gun for guest of honor, complimentary direct-to-boat alcohol and lunch delivery, 25% discount on round-trip transportation, $50-$100 voucher for Airbnb booze delivery, premium positioning on the boat. BRIDE/GROOM CRUISES FREE with 16+ paying guests!",
       "url": "https://premierpartycruises.com/atx-disco-cruise",
       "availability": "https://schema.org/InStock"
     },
@@ -50,7 +55,9 @@
       "@type": "Offer",
       "priceCurrency": "USD",
       "price": "105.00",
+      "name": "Super Sparkle Platinum Disco Package",
       "category": "Super Sparkle Platinum",
+      "description": "Everything in Disco Queen PLUS personal unicorn float for guest of honor, mimosa setup with champagne flutes, 3 juices and chambong, $100 voucher for Airbnb concierge services, towel service and SPF-50 spray sunscreen provided, cooler pre-stocked with drinks when you arrive, VIP treatment throughout cruise, extended photo coverage and exclusive surprises",
       "url": "https://premierpartycruises.com/atx-disco-cruise",
       "availability": "https://schema.org/InStock"
     }

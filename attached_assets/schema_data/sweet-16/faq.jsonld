@@ -4,42 +4,82 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is there supervision?",
+      "name": "What are the age requirements for Sweet 16 party cruises?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Professional crew maintains a safe, supervised environment."
+        "text": "Sweet 16 cruises are designed for teenagers celebrating their 16th birthday with friends aged 13-18. At least one parent or adult chaperone (21+) must be onboard. We recommend 2-3 adult chaperones for larger parties to ensure proper supervision. Parents can participate fully or remain low-key while teens celebrate. All guests must follow boat safety rules and crew instructions regardless of age."
       }
     },
     {
       "@type": "Question",
-      "name": "Parents onboard?",
+      "name": "How is the Sweet 16 party supervised?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Optional\u2014teens with a few chaperones is common."
+        "text": "Professional captain and crew maintain constant supervision and safety oversight throughout the cruise. Parents/chaperones provide additional supervision based on your preference. Our crew is trained in teen party management, ensuring age-appropriate fun while maintaining safety standards. Life jackets are available and required for swimming. The boat environment is controlled and secure, with crew monitoring all activities. This combination creates safe, supervised fun parents trust."
       }
     },
     {
       "@type": "Question",
-      "name": "Food & drinks?",
+      "name": "What's included in a Sweet 16 party cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Teen\u2011friendly snacks and mocktails are popular."
+        "text": "All Sweet 16 cruises include licensed captain and professional crew, premium Bluetooth sound system for teen playlists, swimming and floating access (weather permitting), comfortable seating, climate-controlled restrooms, and ice/coolers. Upgrade to Essentials package (+$100-200/hr) for party setup assistance, or Ultimate package (+$250-350/hr) for complete party experience with giant floats, decorations, water toys, and premium entertainment setup."
       }
     },
     {
       "@type": "Question",
-      "name": "Music?",
+      "name": "Is swimming safe during Sweet 16 parties?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Clean versions of current hits; custom playlists welcome."
+        "text": "Yes, swimming is safe with proper precautions. All swimmers must wear provided life jackets. Crew monitors water activities and weather conditions constantly. Parents/chaperones supervise teen swimmers in the water. Swimming occurs in designated safe areas of Lake Travis with crew oversight. We provide floats and water toys for added fun. If weather or water conditions are unsafe, the captain will restrict swimming for everyone's safety."
       }
     },
     {
       "@type": "Question",
-      "name": "Activities?",
+      "name": "What music and entertainment options are available?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Dancing, photos, swimming (conditions permitting)."
+        "text": "Sweet 16 parties feature premium Bluetooth sound systems for streaming teen playlists. The birthday girl can be DJ with her own Spotify or Apple Music. We recommend clean versions of current hits for all-ages appropriate content. Ultimate package includes enhanced sound and party lighting for dance vibes. Many Sweet 16s feature dancing on deck, TikTok videos, group photos, and swimming - all the ingredients for Instagram-worthy birthday content!"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What group size is ideal for Sweet 16 parties?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sweet 16 cruises accommodate 14-50 guests. Day Tripper (14 guests) suits intimate celebrations with closest friends, Me Seeks the Irony (25 guests) works for typical friend groups plus a few family members, and Clever Girl (50+ guests) handles big celebrations with extended friend groups and family. Most Sweet 16s host 20-30 people including friends, siblings, and parents. Remember to include chaperones in your count."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a Sweet 16 party cruise cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sweet 16 pricing varies by boat size and package. Base rates: Day Tripper $195/hr (14 guests), Me Seeks the Irony $295/hr (25 guests), Clever Girl $495/hr (50+ guests). Standard package includes basic party; Essentials (+$100-200/hr) adds party setup and coordination; Ultimate (+$250-350/hr) includes floats, decorations, water toys, and premium party package. Most 3-4 hour Sweet 16 parties range from $585-$3,380 depending on boat and package."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the best timing for a Sweet 16 cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Sweet 16 cruises typically run 3-4 hours for the complete party experience. Popular timing is 2pm-6pm for afternoon fun with swimming, or 4pm-8pm to catch sunset for photos. Summer parties often start earlier to maximize swimming time. Consider the birthday girl's preferences - afternoon parties work for active, outdoorsy groups while sunset timing creates more elegant, photo-focused celebrations. Weekend dates book fastest."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we bring birthday cake and food for the Sweet 16?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely! Sweet 16 cruises welcome birthday cakes, cupcakes, and teen-friendly snacks. Crew provides table space for cake cutting and serving. Popular options include decorated sheet cakes, trendy cupcake towers, or dessert bars. Bring snacks like pizza, sliders, chips and queso, or fruit trays. Beverages: sodas, mocktails, water bottles, energy drinks for teens; adults may BYOB. We provide ice, coolers, plates, cups, and utensils."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance should we book a Sweet 16 cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Book Sweet 16 cruises 8-12 weeks in advance, especially for summer birthdays (May-August) when demand is highest. Weekend dates and holiday periods fill quickly. Spring break and summer weekends often book 3-4 months ahead. If your daughter's birthday falls during peak season, book as early as possible. Last-minute bookings are occasionally available for weekday parties or off-peak months, but advance planning ensures your preferred date and boat."
       }
     }
   ]

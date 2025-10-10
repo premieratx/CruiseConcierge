@@ -4,42 +4,82 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "When should we start?",
+      "name": "What is the ideal group size for a rehearsal dinner cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "About two hours before sunset for boarding, photos, and toasts."
+        "text": "Rehearsal dinner cruises typically accommodate 14-50 guests depending on your wedding party size. Day Tripper (14 guests) works for intimate wedding parties, Me Seeks the Irony (25 guests) suits medium groups with immediate family, and Clever Girl (50 guests) accommodates larger wedding parties plus extended family. Most rehearsal dinners have 20-30 guests including wedding party, parents, grandparents, and siblings."
       }
     },
     {
       "@type": "Question",
-      "name": "Can we decorate?",
+      "name": "What catering options are available for rehearsal dinners?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes\u2014crew can assist with setup; coordinate with your planner."
+        "text": "We coordinate with Austin's finest restaurants and caterers for your rehearsal dinner. Popular options include upscale BBQ from Salt Lick or County Line, elegant plated dinners, family-style Italian, or customized menus from local Austin favorites. Our Essentials package (+$100-200/hr) includes full catering coordination, setup assistance, and serving support. You can also bring your own catering with advance notice."
       }
     },
     {
       "@type": "Question",
-      "name": "Microphone for speeches?",
+      "name": "What is the best timing for a sunset rehearsal dinner cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes\u2014wireless mic available."
+        "text": "For maximum romance, book your rehearsal dinner to depart 2 hours before sunset. This allows time for boarding, welcome drinks, photos during golden hour, dinner service, and toasts at sunset over Lake Travis. Typical timing is 6pm-9pm in summer months, 5pm-8pm in winter. The 2-4 hour format is perfect for the complete rehearsal dinner experience with stunning sunset backdrop."
       }
     },
     {
       "@type": "Question",
-      "name": "Weather backup?",
+      "name": "What are the alcohol and beverage service options?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Reschedule or alternate venue for severe weather; covered areas for light rain."
+        "text": "Rehearsal dinner cruises are BYOB - bring your own wine, champagne, and beer. We provide ice, coolers, cups, and bottle openers. Alternatively, arrange full bar service through our recommended vendors with beer, wine, champagne, and signature cocktails. Many rehearsal dinners feature champagne toasts, wine with dinner, and craft beers for more casual moments."
       }
     },
     {
       "@type": "Question",
-      "name": "Parking?",
+      "name": "How much does a rehearsal dinner cruise cost?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Free parking at Anderson Mill Marina."
+        "text": "Pricing depends on boat size and package. Base hourly rates: Day Tripper $195/hr (14 guests), Me Seeks the Irony $295/hr (25 guests), Clever Girl $495/hr (50 guests). Add Essentials package (+$100-200/hr) for catering coordination, or Ultimate package (+$250-350/hr) for complete setup with decorations, premium sound, and full service. Typical 3-hour rehearsal dinner ranges from $585-$2,535 total depending on boat and package selection."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance should we book our rehearsal dinner cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Book 6-8 weeks in advance to secure your preferred date and boat, especially for peak wedding season (April-October) and Friday evening rehearsals. Popular sunset time slots book quickly. If your wedding is during peak season or on a holiday weekend, consider booking 10-12 weeks ahead. Last-minute bookings (2-3 weeks out) are sometimes available for weekday rehearsals."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's included in the rehearsal dinner cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All cruises include licensed captain and professional crew, premium Bluetooth sound system for toasts and speeches, climate-controlled restrooms, comfortable seating for all guests, sun and shade areas, ice and coolers for beverages, and a beautiful Lake Travis backdrop. Upgrade packages add catering coordination, table setup, decorations, wireless microphone for speeches, and premium party amenities."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we customize the decorations and setup?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely! Rehearsal dinners can be fully customized with your wedding colors, floral arrangements, table settings, and personal touches. Our crew assists with setup when you book Essentials or Ultimate packages. Many couples bring wedding photos, custom banners, string lights, and centerpieces. Coordinate decoration plans with our team at least one week before your cruise for best results."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is there time for photography during the rehearsal dinner?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Lake Travis provides stunning backdrop for rehearsal dinner photos. Golden hour (before sunset) offers perfect lighting for family portraits, wedding party photos, and candid moments. The boat has multiple photo-worthy spots including bow seating area, upper deck, and sunset views. Many couples hire their wedding photographer for 1-2 hours to capture these special pre-wedding memories with family."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where do we depart from for the rehearsal dinner cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Rehearsal dinner cruises depart from Anderson Mill Marina on Lake Travis, just 30 minutes from downtown Austin. The marina offers ample free parking, easy boat access, and is convenient for guests staying in Austin, Lakeway, or the Hill Country. We provide detailed directions and parking instructions with your booking confirmation. The location is easily accessible for out-of-town wedding guests."
       }
     }
   ]

@@ -4,42 +4,82 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "When to schedule?",
+      "name": "Why is a cruise perfect for welcoming out-of-town wedding guests?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Day before the wedding\u2014afternoon or early evening."
+        "text": "A Lake Travis cruise gives out-of-town guests an authentic Austin experience while providing the perfect icebreaker setting. The relaxed boat atmosphere encourages mingling as guests from both families meet before the formal wedding. The casual environment, beautiful lake views, and unique Austin experience create memorable first impressions and help guests bond naturally. It's more engaging than a hotel reception and showcases what makes Austin special."
       }
     },
     {
       "@type": "Question",
-      "name": "Food options?",
+      "name": "What group capacity works best for wedding welcome parties?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Texas BBQ, fajitas, or appetizers are popular."
+        "text": "Welcome party cruises accommodate 14-75 guests across our fleet. Day Tripper (14 guests) suits intimate destination weddings, Me Seeks the Irony (25 guests) works for small to medium guest lists, and Clever Girl (50-75 guests) handles larger extended families. Most welcome parties host 30-50 guests including out-of-town family, bridal party, and close friends arriving early for the weekend celebration."
       }
     },
     {
       "@type": "Question",
-      "name": "Entertainment?",
+      "name": "Should welcome parties be casual or more formal?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Acoustic musician or small band works great."
+        "text": "Welcome parties work best as casual, relaxed affairs - think resort casual or smart casual attire. This creates a comfortable icebreaker atmosphere before the formal wedding events. Many couples opt for a laid-back vibe with lawn games, casual appetizers, and mingling rather than structured seating. The boat setting naturally encourages this casual elegance while still feeling special and intentional."
       }
     },
     {
       "@type": "Question",
-      "name": "Getting to the boat?",
+      "name": "What's the ideal timing for a welcome party cruise?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Ample parking; shuttles are common for hotel groups."
+        "text": "Welcome parties typically run 2-3 hours, scheduled the evening before the wedding. Popular timing is 5pm-8pm or 6pm-9pm, allowing guests to arrive from travel, check into hotels, and join refreshed. Evening cruises offer beautiful sunset views and cooler temperatures. Avoid late nights since guests need rest before wedding day activities. Some couples add welcome parties on Thursday for Friday weddings when many guests arrive early."
       }
     },
     {
       "@type": "Question",
-      "name": "Weather?",
+      "name": "What catering options work for welcome party cruises?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Covered areas for light rain; reschedule for severe weather."
+        "text": "Welcome parties often feature casual, shareable Austin favorites: BBQ sliders, taco bars, queso and chips, or appetizer spreads. We coordinate with local caterers to deliver and setup before boarding. Popular options include Salt Lick BBQ, Torchy's Tacos, or elevated appetizers from Austin catering companies. The Essentials package (+$100-200/hr) includes full catering coordination and serving assistance for seamless service."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's included in the welcome party cruise package?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "All welcome party cruises include professional captain and crew, premium Bluetooth sound system for announcements and background music, comfortable seating with sun and shade areas, climate-controlled restrooms, and ice/coolers for BYOB beverages. The relaxed atmosphere and Lake Travis scenery provide the perfect backdrop for guests to mix, mingle, and take photos while enjoying the Austin experience."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a wedding welcome party cruise cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Welcome party pricing varies by boat size and package. Base rates: Day Tripper $195/hr (14 guests), Me Seeks the Irony $295/hr (25 guests), Clever Girl $495/hr (50-75 guests). Standard package includes basic cruise; add Essentials (+$100-200/hr) for catering coordination; or Ultimate (+$250-350/hr) for premium setup with decorations and full service. Most 2-3 hour welcome parties range from $590-$2,535 depending on size and package."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance should we book the welcome party?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Book your welcome party cruise 6-8 weeks before your wedding date to ensure availability, especially during peak wedding season (April-October). Since welcome parties typically occur on Thursday or Friday evenings, securing your date early is important as these time slots book quickly. If planning a holiday weekend wedding, book 10-12 weeks in advance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What activities or format works best for welcome parties?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Welcome parties thrive with unstructured, casual mingling. Provide light background music for atmosphere, serve passed appetizers or buffet-style food, and let guests naturally interact. Some couples do brief welcome toasts or introductions. The boat layout encourages organic conversation as guests move between seating areas. Weather permitting, floating and swimming add interactive fun for adventurous guests."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where does the welcome party cruise depart from?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Welcome party cruises depart from Anderson Mill Marina on Lake Travis, approximately 30 minutes from downtown Austin. The convenient location works well for guests staying in Austin, Lakeway, Cedar Park, or Hill Country areas. Free parking is available, and the marina is easy to find with provided directions. Many couples arrange shuttle service from hotel blocks to ensure all out-of-town guests can attend comfortably."
       }
     }
   ]

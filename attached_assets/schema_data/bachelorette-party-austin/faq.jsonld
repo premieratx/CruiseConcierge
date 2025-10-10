@@ -4,66 +4,122 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Do you offer a refund window after booking?",
+      "name": "What is the ATX Disco Cruise for bachelorette parties?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes\u201448 hours after booking for a full refund. After that, weather rules apply at captain\u2019s discretion."
+        "text": "The ATX Disco Cruise is Austin's specialty bachelorette party cruise on Lake Travis, designed specifically for celebrating brides-to-be. Enjoy a full 4-hour experience with a professional DJ, professional photographer capturing all your amazing moments, giant lily pad floats, and an incredible party atmosphere with other bachelorette groups. Our packages range from $85 to $105 per person, with options that include special bride perks and VIP treatment."
       }
     },
     {
       "@type": "Question",
-      "name": "Can we split payments between the girls?",
+      "name": "How much are bachelorette party packages?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes. Split payment options are available at checkout."
+        "text": "We offer three bachelorette party packages: Basic Bach at $85 per person includes all essentials; Disco Queen at $95 per person is our most popular package with the bride cruising FREE with 16+ paying guests; and Super Sparkle Platinum at $105 per person includes VIP treatment, personal unicorn float for the bride, mimosa setup, and the bride cruises FREE with 16+ paying guests. All packages include professional DJ, photographer, and digital photos."
       }
     },
     {
       "@type": "Question",
-      "name": "Is disco attire required?",
+      "name": "Does the bride cruise free?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Encouraged but not required; many groups coordinate outfits."
+        "text": "YES! The bride cruises absolutely FREE on both our Disco Queen and Super Sparkle Platinum packages when you have 16 or more paying guests. This is one of the best bachelorette party values in Austin—the bride celebrates without spending a dime while everyone enjoys an unforgettable Lake Travis experience."
       }
     },
     {
       "@type": "Question",
-      "name": "What happens in bad weather?",
+      "name": "What's in the Disco Queen package?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Rain or shine. For severe weather, we move to Lemonade Disco (land venue)."
+        "text": "The Disco Queen package includes everything in Basic Bach PLUS private cooler with ice for your group, reserved spot on the boat, disco ball cup and bubble gun for the bride, complimentary alcohol and lunch delivery coordination, 25% discount on transportation services, $50-$100 Airbnb voucher for your group, and the BRIDE CRUISES FREE with 16 or more paying guests. It's our most popular package for bachelorette parties!"
       }
     },
     {
       "@type": "Question",
-      "name": "Can we add more girls after booking?",
+      "name": "What's in the Super Sparkle Platinum package?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes, usually 1\u20132 if availability allows\u2014contact us ASAP."
+        "text": "The Super Sparkle Platinum package includes everything in Disco Queen PLUS a personal unicorn float exclusively for the bride, complete mimosa setup with champagne flutes, juices, and chambong for fun photos, $100 Airbnb concierge voucher, towel service for your group, SPF-50 sunscreen provided, cooler pre-stocked and ready on arrival, VIP treatment throughout your cruise, and the BRIDE CRUISES FREE with 16 or more paying guests. It's the ultimate bachelorette experience on Lake Travis!"
       }
     },
     {
       "@type": "Question",
-      "name": "Do you offer group discounts?",
+      "name": "What's included for all bachelorette cruises?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes for larger groups\u2014contact us for details."
+        "text": "Every bachelorette cruise includes a professional DJ playing your favorite songs all day, professional photographer capturing Instagram-worthy moments with digital photos delivered after your cruise, giant lily pad floats for lounging on the water, party supplies including cups, koozies, and decorations, ice water stations throughout the boat, clean restrooms onboard, shaded areas for breaks from the sun, and an amazing party atmosphere with other bachelorette groups that creates an unforgettable celebration energy."
       }
     },
     {
       "@type": "Question",
-      "name": "What\u2019s the alcohol policy?",
+      "name": "Can we bring our own drinks?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "BYOB for 21+; cans/plastic only; coolers with ice and cups provided."
+        "text": "Yes! BYOB is encouraged for all guests 21 and over with valid ID. Only cans and plastic containers are allowed for safety (no glass). We provide coolers and ice for your beverages. Full cooler service is also available with our premium packages, so you can focus on having fun while we handle the setup."
       }
     },
     {
       "@type": "Question",
-      "name": "How far in advance should we book?",
+      "name": "How many people can we bring to our bachelorette party?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Peak weekends sell out 4\u20136 weeks in advance; book early."
+        "text": "Our Disco cruises easily handle groups of 20-40+ guests per bachelorette party, with up to 100 people total on the boat. This makes them perfect for medium to large celebrations. If you have a smaller intimate group or need complete exclusivity, we also offer private boats that accommodate 14-75 guests with the entire vessel to yourselves."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What about food on the cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You're welcome to bring your own food and snacks onboard, or we can coordinate delivery directly to the boat for you. We handle all the logistics including timing and location, so your food arrives fresh and ready. Many groups love this option for hassle-free catering during their bachelorette celebration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When does the ATX Disco Cruise run?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The ATX Disco Cruise operates from March through October, perfect for Austin's warm weather season. Friday cruises run from 12:00 PM to 4:00 PM. Saturday cruises offer two time slots: 11:00 AM to 3:00 PM or 3:30 PM to 7:30 PM. Each cruise is a full 4 hours of non-stop bachelorette party fun on beautiful Lake Travis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where do we meet for the cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We depart from Anderson Mill Marina located at 13993 FM 2769, Leander, TX 78641. Free parking is available at the marina for all guests. Please arrive 15-20 minutes before your scheduled departure time for check-in, boarding, and to get settled. The marina is conveniently located about 30 minutes from downtown Austin."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is swimming allowed during the cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Swimming is allowed when water conditions are safe at the captain's discretion. Life jackets are required for all swimmers and are provided for adults at no additional charge. Swimming and floating on our giant lily pads is one of the most popular activities—perfect for photos and creating unforgettable bachelorette memories on Lake Travis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When do we get our photos from the cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Your professional photos are delivered digitally 2-3 weeks after your bachelorette cruise. You'll receive a secure link to download all high-resolution images from your celebration. Our photographers capture hundreds of candid moments, group shots, and special bride moments throughout the day so you'll have amazing photos to cherish and share forever."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far ahead should we book our bachelorette party?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Weekend dates typically fill up 6-8 weeks in advance, especially during peak bachelorette season from April through September. We strongly recommend booking as soon as your group confirms the date to secure your preferred time slot. Popular Saturdays book out fast, so don't wait—reserve your spot early for the best availability!"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is the ATX Disco Cruise better than a private boat rental?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The ATX Disco Cruise is more affordable per person than private rentals, includes a professional DJ and photographer in the price (huge value-adds), offers a longer 4-hour experience compared to typical 2-hour private rentals, provides better overall value with superior amenities, and creates an amazing party atmosphere by meeting other bachelorette groups on the water. Plus, the energy and fun of multiple bachelorette parties celebrating together is truly unforgettable!"
       }
     }
   ]

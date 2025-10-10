@@ -4,42 +4,82 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Is this a private experience?",
+      "name": "What client entertainment formats do you offer?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes\u2014private charter with your own boat and crew."
+        "text": "We offer fully customizable client entertainment formats based on your business objectives. Popular options include lunch cruises (11am-2pm) for daytime client meetings, afternoon outings (2pm-5pm) for relaxed networking, and sunset cocktail cruises (6pm-9pm) for impressive evening entertainment. Each format can be tailored to your specific relationship-building goals and client preferences."
       }
     },
     {
       "@type": "Question",
-      "name": "Bar and food options?",
+      "name": "How many clients can we bring?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "BYOB (21+) and bring food; we can suggest catering partners."
+        "text": "We accommodate 14-50 guests for client entertainment events. Our Day Tripper boat hosts intimate groups of 14 guests at $195/hour, Me Seeks the Irony accommodates 25 guests at $295/hour, and our flagship Clever Girl hosts up to 50 guests at $495/hour. We can help you select the ideal boat size for your client group and entertainment objectives."
       }
     },
     {
       "@type": "Question",
-      "name": "Best time of day?",
+      "name": "Can we bring catering?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Sunset cruises are popular; midday works well for business hours."
+        "text": "Yes! We coordinate seamlessly with your preferred caterer or restaurant to provide upscale meal service for your clients. Whether you want appetizers, full meals, or desserts, we'll ensure professional delivery and elegant presentation. Full bar setups are available to provide premium beverage service, or you can bring your own selections."
       }
     },
     {
       "@type": "Question",
-      "name": "Privacy for discussions?",
+      "name": "Do you provide AV for presentations?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes\u2014private spaces and layout allow for quiet areas."
+        "text": "Yes! Our premium sound system is available for presentations, announcements, or background music. Whether you need to deliver a brief product presentation or simply want to set the mood with curated playlists, we have the audio capabilities. Many clients choose to keep the experience purely social, and we accommodate either approach seamlessly."
       }
     },
     {
       "@type": "Question",
-      "name": "Weather policy?",
+      "name": "What's included in the service?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Rain or shine; severe weather adjustments at captain\u2019s discretion."
+        "text": "Every client entertainment cruise includes a Coast Guard certified captain, professional crew trained in corporate hospitality, premium amenities throughout the boat, discreet and attentive service, flexible routing to showcase Lake Travis beauty, and complete attention to every detail. Our team ensures your clients feel valued and impressed from boarding to departure."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How formal is the atmosphere?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We strike the right balance of professionalism and relaxation—impressive without being overly formal. The atmosphere is upscale and refined, perfect for relationship building and meaningful business conversations, yet relaxed enough for clients to genuinely enjoy themselves. This unique setting helps facilitate authentic connections that traditional conference rooms and restaurants simply can't match."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance should we book?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We recommend booking 4-6 weeks in advance for optimal availability, especially if you have specific dates or times in mind. For sunset cruises during peak season (spring and fall), earlier booking ensures you secure your preferred date. Last-minute bookings may be accommodated based on availability."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the pricing?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Client entertainment cruises start at $295/hour for our 25-guest Me Seeks the Irony boat, and $495/hour for our 50-guest flagship Clever Girl. The Ultimate package is recommended for maximum client impression, adding premium amenities and services. Additional crew fees may apply for larger groups. We provide detailed pricing proposals tailored to your specific event needs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where do we depart?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Client entertainment cruises depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. The marina is conveniently located approximately 30 minutes from downtown Austin with ample free parking for your clients. The professional marina setting provides an impressive start to your client experience."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why choose a Lake Travis cruise for clients?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A Lake Travis cruise offers a unique Austin experience that clients won't forget. The private, exclusive setting facilitates genuine conversation and relationship building. You'll have quality one-on-one time with clients away from office distractions in a memorable setting that truly stands out. The intimate boat environment creates connections that conference rooms, restaurants, and traditional venues simply cannot match, leaving a lasting positive impression of both your company and Austin's natural beauty."
       }
     }
   ]

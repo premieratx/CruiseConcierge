@@ -4,42 +4,82 @@
   "mainEntity": [
     {
       "@type": "Question",
-      "name": "Which milestones do you host?",
+      "name": "Which milestone birthdays do you celebrate?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "21st, 30th, 40th, 50th, 60th and beyond."
+        "text": "We celebrate all milestone birthdays: 21st (finally legal!), 30th (new decade), 40th (fabulous at forty), 50th (golden celebration), 60th, 70th, 80th and beyond! Each milestone deserves unique celebration reflecting the honoree's personality and life stage. Whether turning 30 with friends or celebrating 70 with family, Lake Travis cruises create perfect atmosphere for honoring life's special moments. We customize every detail to match the milestone and birthday honoree's vision."
       }
     },
     {
       "@type": "Question",
-      "name": "Surprise party support?",
+      "name": "What group size is ideal for milestone birthday cruises?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Yes\u2014crew coordinates timing for the reveal."
+        "text": "Milestone birthday cruises accommodate 14-75 guests depending on celebration style. Day Tripper (14 guests) creates intimate gatherings with closest friends and family, Me Seeks the Irony (25 guests) suits most milestone celebrations with friend groups and family, and Clever Girl (50-75 guests) handles big bash celebrations with extended circle. Most milestone birthdays host 25-40 people - the special people who've been part of the birthday honoree's journey."
       }
     },
     {
       "@type": "Question",
-      "name": "Decorations?",
+      "name": "Can you help coordinate surprise birthday parties?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Basic d\u00e9cor supported; bring custom items if desired."
+        "text": "Yes! We love surprise parties and coordinate timing perfectly for the big reveal. Work with our team to plan guest arrival before the birthday honoree. We'll position the boat for maximum surprise impact, have crew ready with cameras, and help coordinate the 'surprise!' moment. Many surprise parties have guests already onboard when honoree arrives, or coordinate reveals at scenic spots on the lake. Share your surprise vision - we'll make it unforgettable!"
       }
     },
     {
       "@type": "Question",
-      "name": "Cakes?",
+      "name": "What's included in milestone birthday cruises?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Welcome\u2014crew assists with service."
+        "text": "All milestone birthday cruises include professional captain and crew, premium sound system for birthday playlists and speeches, comfortable seating with beautiful lake views, climate-controlled restrooms, ice and coolers for BYOB, and flexible format for mingling and celebrating. The intimate boat setting creates special atmosphere for toasts, speeches, and meaningful moments with the people who matter most. Perfect backdrop for honoring the birthday honoree's life and achievements."
       }
     },
     {
       "@type": "Question",
-      "name": "Activities by age?",
+      "name": "What catering and birthday cake options are available?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "We adapt vibe and activities to the group."
+        "text": "Milestone birthdays deserve special catering! Options include upscale appetizers, seated dinners, BBQ feasts, or the honoree's favorite cuisines. We coordinate with Austin's finest caterers for delivery and setup. Birthday cakes are welcome - crew provides space for cake cutting ceremony and serving. Many celebrations feature elegant sheet cakes, cupcake towers, or specialty desserts. Essentials package (+$100-200/hr) includes full catering coordination and setup assistance."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you provide champagne service for milestone birthdays?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Milestone birthdays are perfect for champagne toasts! Cruises are BYOB - bring your favorite champagne, wine, and spirits. We provide ice, coolers, champagne flutes (bring your own or use our cups), and crew assistance with serving. Many celebrations feature champagne toasts during sunset or cake cutting. Alternatively, arrange full bar service with bartender through our recommended vendors for signature cocktails and professional champagne service throughout the celebration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does a milestone birthday cruise cost?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Milestone birthday pricing depends on boat size and package level. Base rates: Day Tripper $195/hr (14 guests), Me Seeks the Irony $295/hr (25 guests), Clever Girl $495/hr (50-75 guests). Standard package covers basic cruise; Essentials (+$100-200/hr) adds coordination and setup; Ultimate (+$250-350/hr recommended for milestones) includes complete premium experience with enhanced amenities. Most 3-4 hour milestone celebrations cost $885-$3,380 depending on guest count and desired package."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the best timing for milestone birthday cruises?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Milestone birthdays typically run 3-4 hours for complete celebration experience. Popular timing includes sunset cruises (2-3 hours before sunset) for romantic atmosphere and photos, afternoon parties (2pm-6pm) for swimming and activities, or evening celebrations (6pm-10pm) for dinner and toasts. Consider the honoree's preferences and guest demographics. Older milestone birthdays (60+) often prefer earlier timing; younger celebrations (21st, 30th) may go later with party vibes."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we customize decorations and themes for milestone birthdays?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely! Milestone birthdays can be fully customized with themes, colors, and personalized decorations. Popular themes include 'Cheers to 50 Years,' '40 and Fabulous,' 'Golden at 60,' or decade-themed parties (80s, 90s nostalgia). Bring banners, photos, balloons, table settings, and personal touches. Crew assists with decoration setup when you book Essentials or Ultimate packages. Coordinate your vision with our team for seamless execution."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance should we book milestone birthday cruises?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Book milestone birthday cruises 6-8 weeks in advance to secure your preferred date and boat. Summer birthdays (May-September) require earlier booking, often 10-12 weeks ahead, as this is peak season. Weekend dates fill fastest, especially Saturday evenings. If planning a surprise party, book as soon as you know the date to ensure availability. Last-minute bookings are sometimes possible for weekday celebrations, but advance planning guarantees the perfect milestone celebration setup."
       }
     }
   ]
