@@ -1,395 +1,53 @@
-import { useState, useEffect } from 'react';
-import { useLocation } from 'wouter';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
-import Lightbox from '@/components/Lightbox';
-import VideoModal from '@/components/VideoModal';
-import ImageGrid from '@/components/ImageGrid';
-import CategoryFilter from '@/components/CategoryFilter';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { 
-  Camera, Calendar, MessageSquare, Play, ExternalLink, Star, 
-  Users, Ship, Sparkles, Crown, ArrowRight, Instagram, 
-  Heart, Eye, Share2, ChevronDown, Video
-} from 'lucide-react';
-import { cn } from '@/lib/utils';
-import { useInlineEdit } from '@/hooks/useInlineEdit';
-import { useReducedMotion } from '@/hooks/use-reduced-motion';
+import { Card } from '@/components/ui/card';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Camera, Calendar, ArrowRight, X, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useLocation } from 'wouter';
 
-// Import gallery images - Real photos from live website (using images with webp versions)
-import heroImage1 from '@assets/bachelor-party-group-guys.jpg';
-import heroImage2 from '@assets/atx-disco-cruise-party.jpg';
-import heroImage3 from '@assets/dancing-party-scene.jpg';
-import galleryImage1 from '@assets/bachelor-party-group-guys.jpg';
-import galleryImage2 from '@assets/atx-disco-cruise-party.jpg';
-import galleryImage3 from '@assets/dancing-party-scene.jpg';
-import galleryImage4 from '@assets/day-tripper-14-person-boat.jpg';
-import galleryImage5 from '@assets/clever-girl-50-person-boat.jpg';
-import galleryImage6 from '@assets/giant-unicorn-float.jpg';
-import galleryImage7 from '@assets/bachelor-party-group-guys.jpg';
-import galleryImage8 from '@assets/atx-disco-cruise-party.jpg';
-import galleryImage9 from '@assets/dancing-party-scene.jpg';
-import galleryImage10 from '@assets/day-tripper-14-person-boat.jpg';
-import galleryImage11 from '@assets/clever-girl-50-person-boat.jpg';
-import galleryImage12 from '@assets/giant-unicorn-float.jpg';
-import galleryImage13 from '@assets/bachelor-party-group-guys.jpg';
-import galleryImage14 from '@assets/atx-disco-cruise-party.jpg';
-
-// Comprehensive Gallery data structure - ALL real Premier Party Cruises photos
-const galleryImages = [
-  {
-    id: 'bachelor-party-group',
-    src: heroImage1,
-    alt: 'Epic Bachelor Party Austin on Party Boat Lake Travis - Group Celebrating',
-    title: 'Bachelor Party Austin Celebration on Party Boat Lake Travis',
-    description: 'Group of guys having the time of their lives on Premier Party Cruises - the perfect Austin bachelor party experience',
-    category: 'Bachelor Parties',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2025-01-15',
-    likes: 1847,
-    views: 12930,
-    tags: ['bachelor', 'party', 'guys', 'celebration', 'austin']
-  },
-  {
-    id: 'flagship-disco',
-    src: heroImage2,
-    alt: 'ATX Disco Cruise - Austin\'s Premier Party Boat Experience',
-    title: 'ATX Disco Cruise - Party Boat Austin Flagship Experience',
-    description: 'The ultimate Austin party cruise experience with state-of-the-art sound, lighting, and premium amenities on Lake Travis',
-    category: 'Featured',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2025-01-15',
-    likes: 1247,
-    views: 8930,
-    tags: ['flagship', 'disco', 'atx', 'premium', 'weekend']
-  },
-  {
-    id: 'fleet-1',
-    src: galleryImage1,
-    alt: 'Party Boat Austin - Premier Luxury Fleet on Lake Travis',
-    title: 'Day Tripper - 14 Person Party Boat Austin',
-    description: 'Perfect for intimate groups wanting a premium Lake Travis experience',
-    category: 'Fleet',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2024-08-15',
-    likes: 245,
-    views: 1520,
-    tags: ['boat', 'fleet', '14-person', 'intimate']
-  },
-  {
-    id: 'party-1',
-    src: galleryImage2,
-    alt: 'Epic Bachelor Party Austin celebration on Party Boat Lake Travis',
-    title: 'Bachelor Party Austin Bliss on Lake Travis',
-    description: 'Unforgettable bachelor party with DJ, drinks, and Lake Travis views',
-    category: 'Parties',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2024-07-22',
-    likes: 387,
-    views: 2840,
-    tags: ['bachelor', 'party', 'celebration', 'dancing']
-  },
-  {
-    id: 'scenery-1',
-    src: galleryImage3,
-    alt: 'Stunning Lake Travis sunset Party Boat Austin cruise views',
-    title: 'Golden Hour Magic on Lake Travis',
-    description: 'Breathtaking sunset views from our premium cruises on Lake Travis',
-    category: 'Scenery',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2024-09-03',
-    likes: 892,
-    views: 4250,
-    tags: ['sunset', 'scenic', 'beautiful', 'lake']
-  },
-  {
-    id: 'events-1',
-    src: heroImage1,
-    alt: 'Corporate event on Party Boat Lake Travis - Austin party cruise',
-    title: 'Corporate Team Building - Party Boat Austin',
-    description: 'Professional corporate events with stunning lake views and team activities',
-    category: 'Events',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2024-06-18',
-    likes: 156,
-    views: 980,
-    tags: ['corporate', 'teambuilding', 'professional', 'event']
-  },
-  {
-    id: 'fleet-2',
-    src: galleryImage4,
-    alt: 'Meeseeks - 25 Person Party Boat Austin on Lake Travis',
-    title: 'Meeseeks - 25 Person Party Boat Lake Travis',
-    description: 'Mid-size luxury with premium sound system and spacious deck',
-    category: 'Fleet',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2024-08-10',
-    likes: 198,
-    views: 1340,
-    tags: ['boat', 'fleet', '25-person', 'luxury']
-  },
-  {
-    id: 'celebrations-1',
-    src: galleryImage5,
-    alt: 'Bachelorette Party Austin celebration on Party Boat Lake Travis',
-    title: 'Bachelorette Party Austin Weekend on Lake Travis',
-    description: 'Perfect girls getaway with champagne, music, and lake fun',
-    category: 'Celebrations',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2024-08-25',
-    likes: 542,
-    views: 3200,
-    tags: ['bachelorette', 'girls', 'celebration', 'champagne']
-  },
-  {
-    id: 'scenery-2',
-    src: galleryImage6,
-    alt: 'Crystal clear Lake Travis waters - Party Boat Austin destination',
-    title: 'Crystal Waters on Lake Travis',
-    description: 'The pristine beauty of Lake Travis - perfect for swimming and relaxation',
-    category: 'Scenery',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2024-07-15',
-    likes: 421,
-    views: 2100,
-    tags: ['water', 'clear', 'swimming', 'peaceful']
-  },
-  {
-    id: 'parties-2',
-    src: galleryImage7,
-    alt: 'ATX Disco Cruise - Party Boat Austin atmosphere on Lake Travis',
-    title: 'ATX Disco Cruise - Party Boat Lake Travis',
-    description: 'Austin\'s hottest floating dance party every weekend',
-    category: 'Parties',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2024-09-07',
-    likes: 678,
-    views: 4560,
-    tags: ['disco', 'dance', 'party', 'weekend']
-  },
-  {
-    id: 'fleet-3',
-    src: galleryImage8,
-    alt: 'Big Papa - 50 Person Party Boat Austin on Lake Travis',
-    title: 'Big Papa - 50 Person Party Boat Lake Travis',
-    description: 'Our flagship vessel for large celebrations and corporate events',
-    category: 'Fleet',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2024-08-05',
-    likes: 312,
-    views: 1890,
-    tags: ['yacht', 'fleet', '50-person', 'flagship']
-  },
-  {
-    id: 'celebrations-2',
-    src: heroImage2,
-    alt: 'Anniversary celebration on Party Boat Austin - Lake Travis cruise',
-    title: 'Anniversary Celebration - Party Boat Lake Travis',
-    description: 'Romantic anniversary cruise with sunset views and champagne',
-    category: 'Celebrations',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2024-06-30',
-    likes: 289,
-    views: 1650,
-    tags: ['anniversary', 'romantic', 'sunset', 'champagne']
-  },
-  {
-    id: 'events-2',
-    src: galleryImage9,
-    alt: 'Wedding party on Party Boat Lake Travis - Austin celebration',
-    title: 'Wedding Celebration - Party Boat Austin',
-    description: 'Magical wedding celebrations with Lake Travis as your backdrop',
-    category: 'Events',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2024-05-20',
-    likes: 456,
-    views: 2890,
-    tags: ['wedding', 'celebration', 'magical', 'romantic']
-  },
-  {
-    id: 'scenery-3',
-    src: galleryImage10,
-    alt: 'Austin skyline from Party Boat Lake Travis cruise',
-    title: 'Austin Skyline Views from Lake Travis',
-    description: 'Stunning views of the Austin skyline from Lake Travis waters',
-    category: 'Scenery',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2024-08-20',
-    likes: 634,
-    views: 3450,
-    tags: ['austin', 'skyline', 'cityscape', 'views']
-  },
-  {
-    id: 'party-atmosphere-1',
-    src: galleryImage11,
-    alt: 'High-energy party atmosphere on Party Boat Austin - Lake Travis',
-    title: 'Electric Party Vibes - Party Boat Austin',
-    description: 'Experience the electric atmosphere of our weekend party cruises',
-    category: 'Parties',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2024-08-28',
-    likes: 789,
-    views: 4120,
-    tags: ['party', 'energy', 'dancing', 'music']
-  },
-  {
-    id: 'sunset-cruise-1',
-    src: galleryImage12,
-    alt: 'Romantic sunset cruise on Party Boat Austin - Lake Travis',
-    title: 'Sunset Magic on Lake Travis',
-    description: 'Breathtaking sunset cruises perfect for romantic evenings and special occasions',
-    category: 'Scenery',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2024-07-30',
-    likes: 892,
-    views: 5260,
-    tags: ['sunset', 'romantic', 'golden-hour', 'couples']
-  },
-  {
-    id: 'lake-activities-1',
-    src: galleryImage13,
-    alt: 'Water activities and swimming on Lake Travis - Party Boat Austin',
-    title: 'Lake Travis Adventures - Party Boat Austin',
-    description: 'Swimming, water sports, and lake activities in crystal clear Lake Travis waters',
-    category: 'Activities',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2024-08-12',
-    likes: 456,
-    views: 2890,
-    tags: ['swimming', 'water-sports', 'activities', 'adventure']
-  },
-  {
-    id: 'group-celebration-1',
-    src: galleryImage14,
-    alt: 'Large group celebration on Party Boat Austin - Lake Travis',
-    title: 'Group Celebrations - Party Boat Lake Travis',
-    description: 'Perfect venue for large group celebrations, corporate events, and milestone parties',
-    category: 'Events',
-    location: 'Lake Travis, Austin',
-    photographer: 'Premier Party Cruises',
-    date: '2024-09-05',
-    likes: 567,
-    views: 3240,
-    tags: ['groups', 'celebration', 'corporate', 'milestone']
-  }
-];
-
-const categories = [
-  { id: 'All', label: 'All Photos', count: galleryImages.length },
-  { id: 'Featured', label: 'Featured', count: galleryImages.filter(img => img.category === 'Featured').length },
-  { id: 'Fleet', label: 'Our Fleet', count: galleryImages.filter(img => img.category === 'Fleet').length },
-  { id: 'Parties', label: 'Party Life', count: galleryImages.filter(img => img.category === 'Parties').length },
-  { id: 'Scenery', label: 'Lake Views', count: galleryImages.filter(img => img.category === 'Scenery').length },
-  { id: 'Events', label: 'Special Events', count: galleryImages.filter(img => img.category === 'Events').length },
-  { id: 'Celebrations', label: 'Celebrations', count: galleryImages.filter(img => img.category === 'Celebrations').length },
-  { id: 'Activities', label: 'Activities', count: galleryImages.filter(img => img.category === 'Activities').length }
-];
-
-const featuredVideos = [
-  {
-    id: 'promo-1',
-    title: 'Premier Party Cruises Experience',
-    description: 'See what makes Austin\'s premier party cruise experience unforgettable',
-    thumbnail: heroImage3,
-    videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', // Placeholder
-    category: 'Promotional'
-  },
-  {
-    id: 'testimonial-1',
-    title: 'Customer Testimonials',
-    description: 'Real stories from our happy customers',
-    thumbnail: galleryImage11,
-    videoUrl: 'https://vimeo.com/123456789', // Placeholder
-    category: 'Testimonials'
-  }
-];
-
-const stats = [
-  { label: '14+ Years', value: 'Experience', icon: Star },
-  { label: '125K+', value: 'Happy Customers', icon: Users },
-  { label: '5-Star', value: 'Safety Record', icon: Ship },
-  { label: '1000+', value: 'Photos & Videos', icon: Camera }
-];
+interface MediaItem {
+  id: string;
+  filename: string;
+  originalName: string;
+  fileType: 'photo' | 'video' | 'edited_photo' | 'generated_video';
+  filePath: string;
+  uploadDate: string;
+  autoTags?: string[];
+  manualTags?: string[];
+}
 
 export default function Gallery() {
   const [, navigate] = useLocation();
-  const { isEditMode } = useInlineEdit();
-  const reducedMotion = useReducedMotion();
-  const [selectedCategory, setSelectedCategory] = useState('All');
   const [lightboxOpen, setLightboxOpen] = useState(false);
-  const [lightboxIndex, setLightboxIndex] = useState(0);
-  const [videoModalOpen, setVideoModalOpen] = useState(false);
-  const [selectedVideo, setSelectedVideo] = useState<typeof featuredVideos[0] | null>(null);
-  const [currentHeroImage, setCurrentHeroImage] = useState(0);
-  
-  const heroImages = [heroImage1, heroImage2, heroImage3];
-  
-  const heroAltTexts = [
-    'Bachelor party Austin celebration on Lake Travis party boat with group celebrating',
-    'ATX DISCO CRUISE Premier Party Cruises flagship party boat on Lake Travis Austin',
-    'Lake Travis party boat dancing scene with guests enjoying Austin cruise experience'
-  ];
-  
-  // Auto-rotate hero images
-  useEffect(() => {
-    if (reducedMotion) return; // Skip animation for reduced motion
-    
-    const interval = setInterval(() => {
-      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [heroImages.length, reducedMotion]);
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const handleImageClick = (image: any, index: number) => {
-    const filteredImages = selectedCategory === 'All' 
-      ? galleryImages 
-      : galleryImages.filter(img => img.category === selectedCategory);
-    
-    const actualIndex = filteredImages.findIndex(img => img.id === image.id);
-    setLightboxIndex(actualIndex);
+  // Fetch published gallery photos from media library
+  const { data: photos = [], isLoading } = useQuery<MediaItem[]>({
+    queryKey: ['/api/media/published'],
+    queryFn: async () => {
+      const response = await fetch('/api/media/published?section=gallery');
+      if (!response.ok) return [];
+      const data = await response.json();
+      return data.items || [];
+    }
+  });
+
+  const openLightbox = (index: number) => {
+    setSelectedIndex(index);
     setLightboxOpen(true);
   };
 
-  const handleVideoClick = (video: typeof featuredVideos[0]) => {
-    setSelectedVideo(video);
-    setVideoModalOpen(true);
+  const nextImage = () => {
+    setSelectedIndex((prev) => (prev + 1) % photos.length);
   };
 
-  const filteredImages = selectedCategory === 'All' 
-    ? galleryImages 
-    : galleryImages.filter(img => img.category === selectedCategory);
-
-  const lightboxImages = filteredImages.map(img => ({
-    id: img.id,
-    src: img.src,
-    alt: img.alt,
-    title: img.title,
-    description: img.description,
-    category: img.category,
-    photographer: img.photographer,
-    location: img.location
-  }));
+  const prevImage = () => {
+    setSelectedIndex((prev) => (prev - 1 + photos.length) % photos.length);
+  };
 
   return (
     <div className="min-h-screen bg-white dark:bg-gray-950">
@@ -406,400 +64,159 @@ export default function Gallery() {
           'party cruise pictures'
         ]}
         schemaType="webpage"
-        image={heroImage1}
       />
       
       <PublicNavigation />
       
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        {/* Background Image Carousel */}
-        <div className="absolute inset-0">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={currentHeroImage}
-              className="absolute inset-0"
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.95 }}
-              transition={{ duration: reducedMotion ? 0 : 1 }}
+      <section className="relative bg-gradient-to-br from-brand-blue to-blue-700 py-24">
+        <div className="container mx-auto px-6 text-center text-white">
+          <Camera className="h-16 w-16 mx-auto mb-6 text-brand-yellow" />
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6">
+            Photo Gallery
+          </h1>
+          <p className="text-xl md:text-2xl mb-4 max-w-3xl mx-auto">
+            Experience the magic of <span className="text-brand-yellow font-bold">Lake Travis</span>
+          </p>
+          <p className="text-lg text-gray-200 max-w-2xl mx-auto mb-8">
+            Real moments from real celebrations. See why we're Austin's premier party cruise experience.
+          </p>
+          
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              size="lg"
+              onClick={() => navigate('/chat')}
+              className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-12 py-6"
+              data-testid="button-book-cruise"
             >
-              <img
-                src={heroImages[currentHeroImage]}
-                alt={heroAltTexts[currentHeroImage]}
-                className="w-full h-full object-cover"
-              />
-              <div className="absolute inset-0 bg-black/40 backdrop-blur-[2px]" />
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Content */}
-        <div className="relative z-10 container mx-auto px-6 text-center text-white">
-          <motion.div
-            className="max-w-5xl mx-auto"
-            initial={{ opacity: 0, y: 50 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-          >
-            <motion.div
-              className="flex items-center justify-center gap-3 mb-6"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-            >
-              <Camera className="h-16 w-16 text-brand-yellow" />
-              <Video className="h-12 w-12 text-brand-blue" />
-            </motion.div>
-            
-            <h1 className="text-2xl md:text-4xl lg:text-6xl font-heading font-bold mb-6" data-editable data-editable-id="gallery-hero-title">
-              Gallery
-            </h1>
-            
-            <motion.div
-              className="mb-8"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              <Badge className="bg-brand-yellow text-black font-bold text-sm sm:text-base md:text-lg px-4 sm:px-6 py-2 mb-4" data-editable data-editable-id="gallery-hero-badge">
-                1000+ PHOTOS & VIDEOS
-              </Badge>
-              <p className="text-xl md:text-2xl lg:text-3xl mb-4 max-w-4xl mx-auto font-light leading-relaxed" data-editable data-editable-id="gallery-hero-description">
-                Experience the magic of <span className="text-brand-yellow font-bold">Lake Travis</span>
-              </p>
-              <p className="text-lg md:text-xl text-gray-200 max-w-3xl mx-auto" data-editable data-editable-id="gallery-hero-subtitle">
-                Real moments from real celebrations. See why we're Austin's premier party cruise experience.
-              </p>
-            </motion.div>
-            
-            <motion.div
-              className="flex flex-col sm:flex-row gap-6 justify-center mb-12"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-            >
-              <Button
-                size="lg"
-                onClick={() => navigate('/chat')}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg md:text-xl px-8 sm:px-12 py-6 shadow-2xl hover:shadow-3xl transition-all duration-300"
-                data-testid="button-book-now"
-              >
-                <Calendar className="mr-2 sm:mr-3 h-5 sm:h-6 w-5 sm:w-6" />
-                <span data-editable data-editable-id="gallery-book-button">BOOK YOUR CRUISE</span>
-                <ArrowRight className="ml-2 sm:ml-3 h-5 sm:h-6 w-5 sm:w-6" />
-              </Button>
-              
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={() => {
-                  const videoSection = document.getElementById('videos');
-                  videoSection?.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="border-2 border-white text-white hover:bg-white hover:text-black font-bold text-base sm:text-lg md:text-xl px-8 sm:px-12 py-6 backdrop-blur-sm bg-white/10"
-                data-testid="button-video-gallery"
-              >
-                <Play className="mr-2 sm:mr-3 h-5 sm:h-6 w-5 sm:w-6" />
-                <span data-editable data-editable-id="gallery-video-button">WATCH VIDEOS</span>
-              </Button>
-            </motion.div>
-
-            {/* Stats */}
-            <motion.div
-              className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto"
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-            >
-              {stats.map((stat, index) => (
-                <div key={index} className="text-center">
-                  <stat.icon className="h-8 w-8 mx-auto mb-2 text-brand-yellow" />
-                  <div className="text-2xl md:text-3xl font-bold" data-editable data-editable-id={`gallery-stat-${index}-label`}>{stat.label}</div>
-                  <div className="text-sm text-gray-300" data-editable data-editable-id={`gallery-stat-${index}-value`}>{stat.value}</div>
-                </div>
-              ))}
-            </motion.div>
-          </motion.div>
-        </div>
-
-        {/* Bottom Feature Bar */}
-        <div className="absolute bottom-0 left-0 right-0 z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
-          <div className="container mx-auto">
-            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
-              <span className="text-brand-blue">1000+ Photos</span> • Real Celebrations • <span className="text-brand-blue">Experience Lake Travis Magic</span>
-            </p>
+              <Calendar className="mr-3 h-6 w-6" />
+              BOOK YOUR CRUISE
+              <ArrowRight className="ml-3 h-6 w-6" />
+            </Button>
           </div>
         </div>
-
-        {/* Scroll indicator */}
-        <motion.div
-          className="absolute bottom-20 left-1/2 transform -translate-x-1/2 text-white"
-          animate={{ y: [0, 10, 0] }}
-          transition={{ duration: 2, repeat: Infinity }}
-        >
-          <ChevronDown className="h-8 w-8" />
-        </motion.div>
       </section>
 
-      {/* Photo Gallery Section */}
+      {/* Photo Grid Section */}
       <section className="py-20 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-6">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="photo-gallery-title">
-              Photo Gallery
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-4 text-gray-900 dark:text-white">
+              Our Gallery
             </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto mb-8" data-editable data-editable-id="photo-gallery-description">
-              Browse our collection of professional photos showcasing the Premier Party Cruises experience
+            <p className="text-xl text-gray-600 dark:text-gray-300">
+              {isLoading ? 'Loading photos...' : `${photos.length} Photos`}
             </p>
+          </div>
 
-            {/* Category Filter */}
-            <CategoryFilter
-              categories={categories}
-              selectedCategory={selectedCategory}
-              onCategoryChange={setSelectedCategory}
-              variant="pills"
-              className="justify-center"
-            />
-          </motion.div>
-
-          {/* Image Grid */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
-            <ImageGrid
-              images={galleryImages}
-              categories={categories.filter(cat => cat.id !== 'All').map(cat => cat.id)}
-              selectedCategory={selectedCategory}
-              onCategoryChange={setSelectedCategory}
-              onImageClick={handleImageClick}
-              showSearch={true}
-              showSort={true}
-              showLayoutToggle={true}
-              itemsPerPage={12}
-            />
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Video Gallery Section */}
-      <section id="videos" className="py-20 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
-          <motion.div
-            className="text-center mb-16"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="video-gallery-title">
-              Video Gallery
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto" data-editable data-editable-id="video-gallery-description">
-              Watch the action unfold - experience the energy and excitement of our cruises
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            {featuredVideos.map((video, index) => (
-              <motion.div
-                key={video.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
-              >
-                <Card 
-                  className="group cursor-pointer hover:shadow-2xl transition-all duration-300 overflow-hidden"
-                  onClick={() => handleVideoClick(video)}
-                  data-testid={`video-card-${video.id}`}
+          {isLoading ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {[...Array(6)].map((_, i) => (
+                <div key={i} className="aspect-video bg-gray-200 dark:bg-gray-800 animate-pulse rounded-lg" />
+              ))}
+            </div>
+          ) : photos.length === 0 ? (
+            <Card className="p-12 text-center">
+              <Camera className="h-16 w-16 mx-auto mb-4 text-gray-400" />
+              <p className="text-xl text-gray-600 dark:text-gray-400 mb-4">
+                No photos published yet
+              </p>
+              <p className="text-gray-500">
+                Check back soon for amazing photos from our cruises!
+              </p>
+            </Card>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {photos.map((photo, index) => (
+                <Card
+                  key={photo.id}
+                  className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300"
+                  onClick={() => openLightbox(index)}
+                  data-testid={`gallery-photo-${index}`}
                 >
-                  <div className="relative aspect-video overflow-hidden">
-                    <img 
-                      src={video.thumbnail} 
-                      alt={video.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  <div className="aspect-video relative overflow-hidden bg-gray-100 dark:bg-gray-800">
+                    <img
+                      src={photo.filePath}
+                      alt={photo.originalName}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                      loading="lazy"
                     />
-                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-all duration-300 flex items-center justify-center">
-                      <div className="bg-brand-yellow text-black rounded-full p-6 group-hover:scale-110 transition-transform duration-300">
-                        <Play className="h-8 w-8 ml-1" />
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <Camera className="h-12 w-12 text-white" />
+                    </div>
+                  </div>
+                  {photo.manualTags && photo.manualTags.length > 0 && (
+                    <div className="p-4">
+                      <div className="flex flex-wrap gap-2">
+                        {photo.manualTags.slice(0, 3).map((tag, i) => (
+                          <span key={i} className="text-xs bg-brand-blue/10 text-brand-blue px-2 py-1 rounded">
+                            {tag}
+                          </span>
+                        ))}
                       </div>
                     </div>
-                    <Badge className="absolute top-4 left-4 bg-black/70 text-white" data-editable data-editable-id={`video-${video.id}-category`}>
-                      {video.category}
-                    </Badge>
-                  </div>
-                  <CardHeader>
-                    <CardTitle className="text-xl font-bold" data-editable data-editable-id={`video-${video.id}-title`}>{video.title}</CardTitle>
-                    <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id={`video-${video.id}-description`}>{video.description}</p>
-                  </CardHeader>
+                  )}
                 </Card>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Social Media Integration */}
-      <section className="py-20 bg-gradient-to-br from-brand-blue to-blue-600 text-white">
-        <div className="container mx-auto px-6 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-          >
-            <h2 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-6" data-editable data-editable-id="social-section-title">
-              FOLLOW THE ADVENTURE
-            </h2>
-            <p className="text-xl mb-12 max-w-3xl mx-auto" data-editable data-editable-id="social-section-description">
-              Stay connected with us on social media for daily updates, behind-the-scenes content, and the latest cruise adventures
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-2 border-white text-white hover:bg-white hover:text-brand-blue font-bold px-8 py-4"
-                data-testid="button-follow-instagram"
-              >
-                <Instagram className="mr-3 h-6 w-6" />
-                <span data-editable data-editable-id="gallery-instagram-button">FOLLOW ON INSTAGRAM</span>
-                <ExternalLink className="ml-3 h-4 w-4" />
-              </Button>
-              
-              <Button
-                size="lg"
-                onClick={() => navigate('/chat')}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold px-8 py-4"
-                data-testid="button-book-from-gallery"
-              >
-                <Calendar className="mr-3 h-6 w-6" />
-                <span data-editable data-editable-id="gallery-book-experience-button">BOOK YOUR EXPERIENCE</span>
-                <ArrowRight className="ml-3 h-6 w-6" />
-              </Button>
+              ))}
             </div>
-          </motion.div>
+          )}
         </div>
       </section>
 
       {/* Lightbox */}
-      <Lightbox
-        images={lightboxImages}
-        isOpen={lightboxOpen}
-        currentIndex={lightboxIndex}
-        onClose={() => setLightboxOpen(false)}
-        onNext={() => setLightboxIndex((prev) => (prev + 1) % lightboxImages.length)}
-        onPrevious={() => setLightboxIndex((prev) => (prev - 1 + lightboxImages.length) % lightboxImages.length)}
-      />
-
-      {/* Video Modal */}
-      <VideoModal
-        isOpen={videoModalOpen}
-        onClose={() => setVideoModalOpen(false)}
-        videoUrl={selectedVideo?.videoUrl || ''}
-        title={selectedVideo?.title}
-        description={selectedVideo?.description}
-        thumbnail={selectedVideo?.thumbnail}
-      />
-
-      {/* Explore Our Services Section */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900">
-        <div className="container mx-auto px-6">
-          <motion.div
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+      <Dialog open={lightboxOpen} onOpenChange={setLightboxOpen}>
+        <DialogContent className="max-w-7xl w-full p-0 bg-black">
+          <button
+            onClick={() => setLightboxOpen(false)}
+            className="absolute top-4 right-4 z-50 p-2 bg-black/50 hover:bg-black/70 rounded-full text-white transition-colors"
+            data-testid="button-close-lightbox"
           >
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-4 text-gray-900 dark:text-white">
-              EXPLORE OUR CRUISE EXPERIENCES
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              From bachelor parties to private cruises, discover the perfect Lake Travis party boat experience
-            </p>
-          </motion.div>
+            <X className="h-6 w-6" />
+          </button>
+          
+          {photos.length > 0 && (
+            <>
+              <div className="relative w-full h-[80vh] flex items-center justify-center">
+                <img
+                  src={photos[selectedIndex]?.filePath}
+                  alt={photos[selectedIndex]?.originalName}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <Link href="/bachelor-party-austin" data-testid="link-bachelor-party">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Bachelor Party Austin</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Epic bachelor party boat cruises on Lake Travis with DJ and photographer</p>
-                </CardHeader>
-              </Card>
-            </Link>
+              {photos.length > 1 && (
+                <>
+                  <button
+                    onClick={prevImage}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 hover:bg-black/70 rounded-full text-white transition-colors"
+                    data-testid="button-prev-photo"
+                  >
+                    <ChevronLeft className="h-8 w-8" />
+                  </button>
+                  <button
+                    onClick={nextImage}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 p-3 bg-black/50 hover:bg-black/70 rounded-full text-white transition-colors"
+                    data-testid="button-next-photo"
+                  >
+                    <ChevronRight className="h-8 w-8" />
+                  </button>
+                </>
+              )}
 
-            <Link href="/bachelorette-party-austin" data-testid="link-bachelorette-party">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Bachelorette Party Austin</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Austin's #1 bachelorette party boat experience since 2009</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/combined-bachelor-bachelorette-austin" data-testid="link-combined-party">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Combined Bachelor & Bachelorette</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Perfect for couples wanting to party together on Lake Travis</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/party-boat-lake-travis" data-testid="link-party-boat">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Party Boat Lake Travis</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Premium Austin party boats for unforgettable Lake Travis celebrations</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/private-cruises" data-testid="link-private-cruises">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Private Cruises</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Exclusive private boat charters for your special celebration</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/blogs" data-testid="link-blogs">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Cruise Blog & Tips</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Expert guides and planning tips for your Lake Travis adventure</p>
-                </CardHeader>
-              </Card>
-            </Link>
-          </div>
-
-          <div className="text-center mt-12">
-            <Link href="/contact" data-testid="link-contact-from-gallery">
-              <Button
-                size="lg"
-                className="bg-brand-blue hover:bg-brand-blue/90 text-white font-bold px-10 py-4"
-              >
-                <MessageSquare className="mr-3 h-6 w-6" />
-                Contact Us to Book
-                <ArrowRight className="ml-3 h-6 w-6" />
-              </Button>
-            </Link>
-          </div>
-        </div>
-      </section>
+              <div className="absolute bottom-0 left-0 right-0 bg-black/70 text-white p-4">
+                <p className="text-center">
+                  {selectedIndex + 1} / {photos.length}
+                </p>
+                {photos[selectedIndex]?.originalName && (
+                  <p className="text-center text-sm text-gray-300 mt-1">
+                    {photos[selectedIndex].originalName}
+                  </p>
+                )}
+              </div>
+            </>
+          )}
+        </DialogContent>
+      </Dialog>
 
       <Footer />
     </div>
