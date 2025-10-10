@@ -32,15 +32,18 @@ The system features a progressive booking flow and intuitive admin dashboards. D
 - **Inventory Management**: Real-time availability with robust boat-specific time slot system and database-level unique constraints to prevent double-bookings.
 - **Payment Processing**: Stripe for hosted checkouts, supporting deposit and full payments with server-side pricing validation.
 - **Quote Generation**: Automated detailed quotes for private and disco cruises delivered via email.
-- **Golden Ticket Referral System**: Promotional landing page at `/golden-ticket` featuring:
-  - Detailed offer presentation with time-sensitive discounts ($300/$200/$100 based on booking date)
-  - Universal benefits for all bookings (Party On Delivery services, Airbnb voucher, weekend packages, transportation discounts)
-  - Private Cruise perks (FREE lily pad + Essentials package + 10 disco ball cups)
-  - Disco Cruise perks (disco ball cups for whole group)
-  - Bachelor/bachelorette party information highlighting Disco Crew option
-  - Two-column media section: Gamma presentation (left) and YouTube promotional video (right)
-  - Integrated quote builder from booking.premierpartycruises.com with auto-resize functionality
-  - 5 GoHighLevel iframe forms for friend referrals with reCAPTCHA protection
+- **Golden Ticket Referral System**: Two promotional landing pages for different cruise types:
+  - **General Page** (`/golden-ticket`): Shows both Private and Disco Cruise offers
+  - **Private-Only Page** (`/golden-ticket-private`): Focuses exclusively on Private Cruise benefits
+  - Both pages feature:
+    - Detailed offer presentation with time-sensitive discounts ($300/$200/$100 based on booking date)
+    - Universal benefits for all bookings (Party On Delivery services, Airbnb voucher, weekend packages, transportation discounts)
+    - Private Cruise perks (FREE lily pad + Essentials package + 10 disco ball cups)
+    - Disco Cruise perks (disco ball cups for whole group) - only on general page
+    - Bachelor/bachelorette party information (Disco Crew for general, Private Cruise for private-only)
+    - Two-column media section: Gamma presentation (left) and YouTube promotional video (right)
+    - Integrated quote builder from booking.premierpartycruises.com with auto-resize functionality
+    - 5 GoHighLevel iframe forms for friend referrals with reCAPTCHA protection
 
 ### System Design Choices
 - **Frontend**: React + TypeScript + Vite.
