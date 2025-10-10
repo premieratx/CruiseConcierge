@@ -22,6 +22,7 @@ const NotFound = lazy(() => import("@/pages/not-found"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Chat = lazy(() => import("./pages/Chat"));
 const GoldenTicket = lazy(() => import("./pages/GoldenTicket"));
+const GoldenTicketPrivate = lazy(() => import("./pages/GoldenTicketPrivate"));
 const QuoteBuilderEmbed = lazy(() => import("./pages/QuoteBuilderEmbed"));
 const QuoteBuilder = lazy(() => import("./pages/QuoteBuilder"));
 const QuoteEditor = lazy(() => import("./pages/QuoteEditor"));
@@ -229,6 +230,11 @@ function Router() {
       {/* Golden Ticket Promotion Page - No auth required */}
       <Route path="/golden-ticket">
         <GoldenTicket />
+      </Route>
+      
+      {/* Golden Ticket Private Groups Page - No auth required */}
+      <Route path="/golden-ticket-private">
+        <GoldenTicketPrivate />
       </Route>
       
       {/* Public quote-builder redirects to /chat */}
