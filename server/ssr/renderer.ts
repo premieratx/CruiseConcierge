@@ -4,6 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { resolveAsset } from "../utils/viteManifest";
 import { PAGE_CONTENT, PageContent, PageSection } from './pageContent';
+import { getSchemaForRoute, generateArticleSchema, isBlogPostRoute } from '../schemaLoader';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -99,6 +100,65 @@ const WEBSITE_SCHEMA = {
     },
     "query-input": "required name=search_term_string"
   }
+};
+
+// Review Collection schema for Testimonials page (enhances AggregateRating visibility)
+const TESTIMONIALS_REVIEW_SCHEMA = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "itemListElement": [
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Sarah Thompson"
+      },
+      "reviewBody": "Premier Party Cruises made our bachelorette party absolutely perfect! The captain and crew were professional, the boat was immaculate, and the Lake Travis views were breathtaking.",
+      "datePublished": "2024-08-15",
+      "itemReviewed": {
+        "@id": "https://premierpartycruises.com/#organization"
+      }
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Michael Rodriguez"
+      },
+      "reviewBody": "Best bachelor party decision we made! The crew went above and beyond to make sure we had an epic time. Great music, perfect weather, and memories that will last a lifetime.",
+      "datePublished": "2024-07-22",
+      "itemReviewed": {
+        "@id": "https://premierpartycruises.com/#organization"
+      }
+    },
+    {
+      "@type": "Review",
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": "5",
+        "bestRating": "5"
+      },
+      "author": {
+        "@type": "Person",
+        "name": "Jennifer Martinez"
+      },
+      "reviewBody": "Corporate team building event was a huge success! The crew was professional, the boat was perfect for our group of 40, and everyone had an amazing experience on Lake Travis.",
+      "datePublished": "2024-06-10",
+      "itemReviewed": {
+        "@id": "https://premierpartycruises.com/#organization"
+      }
+    }
+  ]
 };
 
 // Service schema for Private Cruises page
@@ -938,11 +998,12 @@ async function renderPage(url: string, req: Request): Promise<string> {
     let content = '';
     let metaTitle = '';
     let metaDescription = '';
+    let blogData: any = null;
     
     // Check if it's a blog post (only /blogs/ - /blog/ redirects to /blogs/)
     if (pathname.startsWith('/blogs/')) {
       const slug = pathname.slice('/blogs/'.length);
-      const blogData = await fetchBlogPost(slug);
+      blogData = await fetchBlogPost(slug);
       
       if (blogData && blogData.post) {
         h1 = blogData.post.title;
@@ -1013,12 +1074,12 @@ async function renderPage(url: string, req: Request): Promise<string> {
     // Generate breadcrumb schema for interior pages
     const breadcrumbSchema = generateBreadcrumbSchema(pathname, h1);
     
-    // Build schema scripts - Organization schema always present
+    // Build schema scripts - Organization schema always present (sitewide)
     let schemaScripts = `  <script type="application/ld+json">
 ${JSON.stringify(ORGANIZATION_SCHEMA, null, 2)}
   </script>`;
     
-    // Add WebSite schema on all pages
+    // Add WebSite schema on all pages (sitewide)
     schemaScripts += `
   <script type="application/ld+json">
 ${JSON.stringify(WEBSITE_SCHEMA, null, 2)}
@@ -1046,75 +1107,40 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
   </script>`;
     }
     
-    // Add Service schema for Private Cruises page only
-    if (pathname === '/private-cruises') {
+    // Dynamically load schemas for the current route from schema files
+    const routeSchemas = getSchemaForRoute(pathname);
+    if (routeSchemas && routeSchemas.length > 0) {
+      routeSchemas.forEach(schema => {
+        schemaScripts += `
+  <script type="application/ld+json">
+${JSON.stringify(schema, null, 2)}
+  </script>`;
+      });
+    }
+    
+    // Add Article schema for blog posts (excluding list/category/author pages)
+    if (isBlogPostRoute(pathname) && blogData && blogData.post) {
+      const articleSchema = generateArticleSchema({
+        title: blogData.post.title,
+        slug: blogData.post.slug,
+        excerpt: blogData.post.excerpt,
+        content: blogData.post.content,
+        featuredImage: blogData.post.featuredImage,
+        publishedAt: blogData.post.publishedAt,
+        author: blogData.post.author
+      });
+      
       schemaScripts += `
   <script type="application/ld+json">
-${JSON.stringify(SERVICE_SCHEMA, null, 2)}
+${JSON.stringify(articleSchema, null, 2)}
   </script>`;
     }
     
-    // Add Event schema for ATX Disco Cruise page only
-    if (pathname === '/atx-disco-cruise') {
-      schemaScripts += `
-  <script type="application/ld+json">
-${JSON.stringify(EVENT_SCHEMA, null, 2)}
-  </script>`;
-    }
-    
-    // Add Bachelor Party Service schema
-    if (pathname === '/bachelor-party-austin') {
-      schemaScripts += `
-  <script type="application/ld+json">
-${JSON.stringify(BACHELOR_PARTY_SERVICE_SCHEMA, null, 2)}
-  </script>`;
-    }
-    
-    // Add Bachelorette Party Service schema
-    if (pathname === '/bachelorette-party-austin') {
-      schemaScripts += `
-  <script type="application/ld+json">
-${JSON.stringify(BACHELORETTE_PARTY_SERVICE_SCHEMA, null, 2)}
-  </script>`;
-    }
-    
-    // Add Combined Bachelor/Bachelorette Service schema
-    if (pathname === '/combined-bachelor-bachelorette-austin') {
-      schemaScripts += `
-  <script type="application/ld+json">
-${JSON.stringify(COMBINED_BACH_SERVICE_SCHEMA, null, 2)}
-  </script>`;
-    }
-    
-    // Add FAQPage schema for Testimonials-FAQ page only
+    // Add Review schema for Testimonials page (enhances AggregateRating in rich results)
     if (pathname === '/testimonials-faq') {
       schemaScripts += `
   <script type="application/ld+json">
-${JSON.stringify(FAQ_SCHEMA, null, 2)}
-  </script>`;
-    }
-    
-    // Add FAQPage schema for Bachelor Party page
-    if (pathname === '/bachelor-party-austin') {
-      schemaScripts += `
-  <script type="application/ld+json">
-${JSON.stringify(BACHELOR_FAQ_SCHEMA, null, 2)}
-  </script>`;
-    }
-
-    // Add FAQPage schema for Bachelorette Party page
-    if (pathname === '/bachelorette-party-austin') {
-      schemaScripts += `
-  <script type="application/ld+json">
-${JSON.stringify(BACHELORETTE_FAQ_SCHEMA, null, 2)}
-  </script>`;
-    }
-
-    // Add FAQPage schema for Private Cruises page
-    if (pathname === '/private-cruises') {
-      schemaScripts += `
-  <script type="application/ld+json">
-${JSON.stringify(PRIVATE_CRUISES_FAQ_SCHEMA, null, 2)}
+${JSON.stringify(TESTIMONIALS_REVIEW_SCHEMA, null, 2)}
   </script>`;
     }
     

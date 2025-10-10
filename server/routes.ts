@@ -651,23 +651,17 @@ export async function registerRoutes(app: Express): Promise<Server> {
         "@type": "Article",
         "headline": post.title || "",
         "description": post.metaDescription || post.excerpt || "",
+        "image": post.featuredImageUrl || post.featuredImage || "https://premierpartycruises.com/media/schema/hero-boat-1.jpg",
         "author": {
           "@type": "Person",
           "name": post.author?.name || "Premier Party Cruises Team"
         },
         "publisher": {
-          "@type": "Organization",
-          "name": "Premier Party Cruises",
-          "logo": {
-            "@type": "ImageObject",
-            "url": "https://premierpartycruises.com/logo.png"
-          }
+          "@id": "https://premierpartycruises.com/#organization"
         },
         "datePublished": post.publishedAt ? new Date(post.publishedAt).toISOString() : new Date(post.createdAt).toISOString(),
         "dateModified": post.updatedAt ? new Date(post.updatedAt).toISOString() : new Date(post.createdAt).toISOString(),
-        ...(post.featuredImageUrl && {
-          "image": post.featuredImageUrl
-        }),
+        "url": `https://premierpartycruises.com/blogs/${slug}`,
         "mainEntityOfPage": {
           "@type": "WebPage",
           "@id": `https://premierpartycruises.com/blogs/${slug}`
