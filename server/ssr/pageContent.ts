@@ -519,20 +519,40 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
       {
         heading: 'Our Private Boat Fleet',
         paragraphs: [
-          'Choose from our fleet of premium party boats: "Day Tripper" (14 people), "Me Seeks the Irony" (18-25 people), or flagship "Clever Girl" (30-50 people) with giant Texas flag and 14 disco balls. Every private charter includes licensed captains, premium Bluetooth sound systems, large coolers with ice, and all the amenities for an unforgettable celebration.',
-          'Perfect for weddings, corporate events, birthdays, and any special celebration. Starting at $195 per hour with a 4-hour minimum. Fully customizable packages to match your event needs.'
+          'Choose the perfect boat for your group size and celebration style:'
         ],
         lists: [
           {
-            title: 'Private Charter Features',
+            title: 'Day Tripper - 14 Person Boat',
             items: [
-              'Licensed captains & professional crew',
-              'Premium Bluetooth sound systems',
-              'Large coolers with ice provided',
-              'Lily pads & floaties available',
-              'BYOB friendly (21+ with ID)',
-              'Customizable routes on Lake Travis',
-              'Perfect for groups of 14-75 guests'
+              'Perfect for intimate groups up to 14 guests',
+              'Licensed captain and premium sound system',
+              'Coolers with ice provided',
+              'Comfortable seating with sun and shade',
+              'Starting at $200/hour (4-hour minimum)',
+              'Ideal for small birthday parties and gatherings'
+            ]
+          },
+          {
+            title: 'Meeseeks and The Irony - 25 Person Boat',
+            items: [
+              'Popular choice for medium groups (18-25 guests)',
+              'Professional captain and crew',
+              'Premium Bluetooth sound system',
+              'Large coolers with ice',
+              'Starting at $225/hour (4-hour minimum)',
+              'Perfect for bachelor/bachelorette parties'
+            ]
+          },
+          {
+            title: 'Clever Girl - 50 Person Flagship',
+            items: [
+              'Flagship boat with 14 disco balls',
+              'Giant Texas flag display',
+              'Accommodates 30-50 guests',
+              'Professional crew and premium amenities',
+              'Starting at $250/hour (4-hour minimum)',
+              'Ideal for corporate events and large celebrations'
             ]
           }
         ]
