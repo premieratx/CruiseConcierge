@@ -13,8 +13,6 @@ interface RouteSchemaMapping {
 
 const ROUTE_TO_SCHEMA_MAPPING: RouteSchemaMapping = {
   '/': [
-    'homepage/organization.jsonld',
-    'homepage/website.jsonld',
     'homepage/faq.jsonld',
     'homepage/service-private.jsonld',
     'homepage/service-disco.jsonld'

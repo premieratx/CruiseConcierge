@@ -282,15 +282,10 @@ Crawl-delay: 1`;
   // SSR middleware for SEO - must come BEFORE Vite middleware
   // This allows crawlers to see H1 tags, content, and unique meta tags
   // CRITICAL: This runs in BOTH development AND production for proper SEO
+  // Also handles schema injection for ALL pages (both SSR and non-SSR)
   const { ssrMiddleware } = await import('./ssr/renderer');
   app.use(ssrMiddleware());
-  log("SSR middleware enabled for marketing/blog pages", "ssr");
-  
-  // Schema injection middleware for React-rendered pages (homepage, etc.)
-  // Injects schema markup into React pages that aren't in SSR_ROUTES
-  const { schemaInjectionMiddleware } = await import('./schemaInjectionMiddleware');
-  app.use(schemaInjectionMiddleware);
-  log("Schema injection middleware enabled for React pages", "schema");
+  log("SSR middleware enabled for marketing/blog pages + schema injection for all routes", "ssr");
   
   // Serve attached_assets folder as static files
   // MUST come before Vite middleware to prevent catch-all route from intercepting

@@ -1262,8 +1262,41 @@ export function ssrMiddleware() {
       return next();
     }
     
+    // Check if we have schemas for this route (even if not SSR)
+    const schemas = getSchemaForRoute(pathname);
+    
     // Check if this route should use SSR
     if (!shouldUseSSR(req.url)) {
+      // If we have schemas but no SSR, inject schemas only
+      if (schemas.length > 0) {
+        try {
+          console.log(`[Schema-Only] Injecting ${schemas.length} schemas for: ${pathname}`);
+          let template = await getTemplate();
+          
+          // Add sitewide schemas (Organization + WebSite)
+          let schemaScripts = `  <script type="application/ld+json">
+${JSON.stringify(ORGANIZATION_SCHEMA, null, 2)}
+  </script>
+  <script type="application/ld+json">
+${JSON.stringify(WEBSITE_SCHEMA, null, 2)}
+  </script>`;
+          
+          // Add route-specific schemas
+          schemas.forEach(schema => {
+            schemaScripts += `
+  <script type="application/ld+json">
+${JSON.stringify(schema, null, 2)}
+  </script>`;
+          });
+          
+          // Inject schemas before </head>
+          template = template.replace('</head>', `\n${schemaScripts}\n  </head>`);
+          
+          return res.status(200).set({ 'Content-Type': 'text/html' }).send(template);
+        } catch (error) {
+          console.error(`[Schema-Only] Error injecting schemas for ${pathname}:`, error);
+        }
+      }
       // Unknown route - pass to next middleware (Vite will handle or 404)
       return next();
     }
