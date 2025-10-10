@@ -1,0 +1,86 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://premierpartycruises.com/#private-charters",
+  "name": "Private Party Boat Charters on Lake Travis",
+  "serviceType": "Private Boat Charter",
+  "provider": {
+    "@id": "https://premierpartycruises.com/#organization"
+  },
+  "areaServed": [
+    "Austin TX",
+    "Lake Travis",
+    "Texas",
+    "United States"
+  ],
+  "description": "Choose from our fleet of premium party boats for your exclusive celebration: Day Tripper (14 people), Meeseeks and The Irony (18-25 people), or flagship Clever Girl (30-50 people) with giant Texas flag and 14 disco balls. Every private charter includes licensed captains, premium Bluetooth sound systems, large coolers with ice, and all the amenities for an unforgettable celebration. Perfect for weddings, corporate events, birthdays, and any special celebration. Starting at $200 per hour with a 4-hour minimum. Fully customizable packages to match your event needs.",
+  "offers": {
+    "@type": "AggregateOffer",
+    "priceCurrency": "USD",
+    "lowPrice": "200",
+    "highPrice": "250",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "200.00",
+      "priceCurrency": "USD",
+      "unitText": "per hour"
+    },
+    "availability": "https://schema.org/InStock",
+    "url": "https://premierpartycruises.com/private-cruises"
+  },
+  "itemOffered": [
+    {
+      "@type": "Product",
+      "name": "Day Tripper - 14 Person Boat",
+      "description": "Intimate 14-person party boat perfect for small celebrations",
+      "offers": {
+        "@type": "Offer",
+        "price": "200",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "Product",
+      "name": "Meeseeks and The Irony - 25 Person Boat",
+      "description": "Popular mid-size boat for groups of 18-25 guests",
+      "offers": {
+        "@type": "Offer",
+        "price": "225",
+        "priceCurrency": "USD"
+      }
+    },
+    {
+      "@type": "Product",
+      "name": "Clever Girl - 50 Person Flagship",
+      "description": "Flagship vessel with 14 disco balls and giant Texas flag for 30-50 guests",
+      "offers": {
+        "@type": "Offer",
+        "price": "250",
+        "priceCurrency": "USD"
+      }
+    }
+  ],
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Minimum Duration",
+      "value": "4 hours"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "BYOB Friendly",
+      "value": "Yes (21+ with ID)"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Licensed Captains",
+      "value": "Coast Guard Certified"
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "bestRating": "5",
+    "ratingCount": 420
+  }
+}

@@ -286,6 +286,12 @@ Crawl-delay: 1`;
   app.use(ssrMiddleware());
   log("SSR middleware enabled for marketing/blog pages", "ssr");
   
+  // Schema injection middleware for React-rendered pages (homepage, etc.)
+  // Injects schema markup into React pages that aren't in SSR_ROUTES
+  const { schemaInjectionMiddleware } = await import('./schemaInjectionMiddleware');
+  app.use(schemaInjectionMiddleware);
+  log("Schema injection middleware enabled for React pages", "schema");
+  
   // Serve attached_assets folder as static files
   // MUST come before Vite middleware to prevent catch-all route from intercepting
   const attachedAssetsPath = path.resolve(process.cwd(), "attached_assets");
