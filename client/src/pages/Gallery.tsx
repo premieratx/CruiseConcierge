@@ -258,41 +258,173 @@ export default function Gallery() {
             Browse by Category
           </h2>
 
-          {/* Our Fleet */}
+          {/* Our Fleet - Organized by Boat */}
           {photos.filter(p => p.manualTags?.some(tag => ['boats', 'fleet'].includes(tag))).length > 0 && (
             <div className="mb-12">
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center gap-3 mb-6">
                 <Ship className="h-6 w-6 text-brand-blue" />
                 <h3 className="text-2xl font-heading font-bold text-gray-900 dark:text-white">Our Fleet</h3>
               </div>
-              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-                {photos.filter(p => p.manualTags?.some(tag => ['boats', 'fleet'].includes(tag))).map((photo, idx) => (
-                  <Card
-                    key={photo.id}
-                    className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0"
-                    onClick={() => {
-                      const filtered = photos.filter(p => p.manualTags?.some(tag => ['boats', 'fleet'].includes(tag)));
-                      setFilteredPhotos(filtered);
-                      setSelectedIndex(idx);
-                      setLightboxOpen(true);
-                    }}
-                  >
-                    <div className="aspect-square relative overflow-hidden">
-                      <img
-                        src={photo.filePath}
-                        alt={photo.originalName}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
-                        loading="lazy"
-                      />
-                    </div>
-                    <div className="p-2">
-                      <p className="text-xs font-medium text-gray-700 dark:text-gray-300 truncate">
-                        {photo.originalName.replace(/\.(jpg|jpeg|png|webp)/i, '')}
-                      </p>
-                    </div>
-                  </Card>
-                ))}
-              </div>
+
+              {/* The Irony */}
+              {photos.filter(p => p.manualTags?.includes('the_irony')).length > 0 && (
+                <div className="mb-8">
+                  <h4 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-3">
+                    The Irony <span className="text-sm font-normal text-gray-500">(Turquoise canopy)</span>
+                  </h4>
+                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    {photos.filter(p => p.manualTags?.includes('the_irony')).map((photo, idx) => (
+                      <Card
+                        key={photo.id}
+                        className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0"
+                        onClick={() => {
+                          const filtered = photos.filter(p => p.manualTags?.includes('the_irony'));
+                          setFilteredPhotos(filtered);
+                          setSelectedIndex(idx);
+                          setLightboxOpen(true);
+                        }}
+                      >
+                        <div className="aspect-square relative overflow-hidden">
+                          <img
+                            src={photo.filePath}
+                            alt={photo.originalName}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            loading="lazy"
+                          />
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Clever Girl */}
+              {photos.filter(p => p.manualTags?.includes('clever_girl')).length > 0 && (
+                <div className="mb-8">
+                  <h4 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-3">
+                    Clever Girl <span className="text-sm font-normal text-gray-500">(50+ capacity, 10 disco balls, Texas flag)</span>
+                  </h4>
+                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    {photos.filter(p => p.manualTags?.includes('clever_girl')).map((photo, idx) => (
+                      <Card
+                        key={photo.id}
+                        className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0"
+                        onClick={() => {
+                          const filtered = photos.filter(p => p.manualTags?.includes('clever_girl'));
+                          setFilteredPhotos(filtered);
+                          setSelectedIndex(idx);
+                          setLightboxOpen(true);
+                        }}
+                      >
+                        <div className="aspect-square relative overflow-hidden">
+                          <img
+                            src={photo.filePath}
+                            alt={photo.originalName}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            loading="lazy"
+                          />
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Meeseeks */}
+              {photos.filter(p => p.manualTags?.includes('meeseeks')).length > 0 && (
+                <div className="mb-8">
+                  <h4 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-3">
+                    Meeseeks <span className="text-sm font-normal text-gray-500">(Blue canopy, chairs on deck)</span>
+                  </h4>
+                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    {photos.filter(p => p.manualTags?.includes('meeseeks')).map((photo, idx) => (
+                      <Card
+                        key={photo.id}
+                        className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0"
+                        onClick={() => {
+                          const filtered = photos.filter(p => p.manualTags?.includes('meeseeks'));
+                          setFilteredPhotos(filtered);
+                          setSelectedIndex(idx);
+                          setLightboxOpen(true);
+                        }}
+                      >
+                        <div className="aspect-square relative overflow-hidden">
+                          <img
+                            src={photo.filePath}
+                            alt={photo.originalName}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            loading="lazy"
+                          />
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Daytripper */}
+              {photos.filter(p => p.manualTags?.includes('daytripper')).length > 0 && (
+                <div className="mb-8">
+                  <h4 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-3">
+                    Daytripper <span className="text-sm font-normal text-gray-500">(14-person capacity)</span>
+                  </h4>
+                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    {photos.filter(p => p.manualTags?.includes('daytripper')).map((photo, idx) => (
+                      <Card
+                        key={photo.id}
+                        className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0"
+                        onClick={() => {
+                          const filtered = photos.filter(p => p.manualTags?.includes('daytripper'));
+                          setFilteredPhotos(filtered);
+                          setSelectedIndex(idx);
+                          setLightboxOpen(true);
+                        }}
+                      >
+                        <div className="aspect-square relative overflow-hidden">
+                          <img
+                            src={photo.filePath}
+                            alt={photo.originalName}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            loading="lazy"
+                          />
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Fleet Photos (mixed boats) */}
+              {photos.filter(p => p.manualTags?.includes('fleet') && !p.manualTags?.some(tag => ['the_irony', 'clever_girl', 'meeseeks', 'daytripper'].includes(tag))).length > 0 && (
+                <div className="mb-8">
+                  <h4 className="text-xl font-bold text-gray-800 dark:text-gray-200 mb-3">
+                    Fleet Photos
+                  </h4>
+                  <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+                    {photos.filter(p => p.manualTags?.includes('fleet') && !p.manualTags?.some(tag => ['the_irony', 'clever_girl', 'meeseeks', 'daytripper'].includes(tag))).map((photo, idx) => (
+                      <Card
+                        key={photo.id}
+                        className="group cursor-pointer overflow-hidden hover:shadow-xl transition-all duration-300 p-0"
+                        onClick={() => {
+                          const filtered = photos.filter(p => p.manualTags?.includes('fleet'));
+                          setFilteredPhotos(filtered);
+                          setSelectedIndex(idx);
+                          setLightboxOpen(true);
+                        }}
+                      >
+                        <div className="aspect-square relative overflow-hidden">
+                          <img
+                            src={photo.filePath}
+                            alt={photo.originalName}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                            loading="lazy"
+                          />
+                        </div>
+                      </Card>
+                    ))}
+                  </div>
+                </div>
+              )}
             </div>
           )}
 

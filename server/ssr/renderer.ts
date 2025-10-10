@@ -821,7 +821,7 @@ const SSR_ROUTES = [
   '/graduation-party',
   '/testimonials-faq',
   '/contact',
-  '/gallery',
+  // '/gallery', // Removed from SSR - uses React component for dynamic photo browsing
   '/party-boat-austin',
   '/party-boat-lake-travis',
   '/corporate-events',
