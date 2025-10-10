@@ -269,6 +269,16 @@ Crawl-delay: 1`;
     next();
   });
   
+  // CRITICAL: Explicit route handling for /private-cruises and /gallery
+  // These routes must be handled by SSR middleware, ensure they're not cached incorrectly
+  app.use(['/private-cruises', '/gallery'], (req, res, next) => {
+    // Force no-cache for these specific pages to ensure fresh SSR rendering
+    res.setHeader('Cache-Control', 'no-cache, no-store, must-revalidate');
+    res.setHeader('Pragma', 'no-cache');
+    res.setHeader('Expires', '0');
+    next();
+  });
+  
   // SSR middleware for SEO - must come BEFORE Vite middleware
   // This allows crawlers to see H1 tags, content, and unique meta tags
   // CRITICAL: This runs in BOTH development AND production for proper SEO

@@ -1269,7 +1269,8 @@ export function ssrMiddleware() {
     }
     
     try {
-      console.log(`[SSR] Rendering: ${req.url}`);
+      const pathname = req.url.split('?')[0];
+      console.log(`[SSR] Rendering: ${req.url}${pathname === '/private-cruises' || pathname === '/gallery' ? ' (CRITICAL ROUTE)' : ''}`);
       const html = await renderPage(req.url, req);
       
       // Remove any X-Frame-Options header and set CSP to allow iframe embedding from booking subdomain only
