@@ -1,154 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
-import { Ship, Star, CheckCircle, Clock, Gift, Calendar, UserPlus, Mail, Phone, Loader2 } from 'lucide-react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { useToast } from '@/hooks/use-toast';
-
-// Zod schema for friend referral form
-const friendReferralSchema = z.object({
-  fullName: z.string().min(2, 'Name must be at least 2 characters').max(100, 'Name is too long'),
-  email: z.string().email('Please enter a valid email address'),
-  phone: z.string().min(10, 'Phone number must be at least 10 digits').max(15, 'Phone number is too long'),
-});
-
-type FriendReferralFormData = z.infer<typeof friendReferralSchema>;
-
-// Individual Friend Referral Form Component
-interface FriendReferralFormProps {
-  friendNumber: number;
-}
-
-const FriendReferralForm: React.FC<FriendReferralFormProps> = ({ friendNumber }) => {
-  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
-  const { toast } = useToast();
-
-  const form = useForm<FriendReferralFormData>({
-    resolver: zodResolver(friendReferralSchema),
-    defaultValues: {
-      fullName: '',
-      email: '',
-      phone: '',
-    },
-  });
-
-  const onSubmit = async (data: FriendReferralFormData) => {
-    setStatus('loading');
-    
-    // Simulate API call with console.log
-    console.log(`Friend #${friendNumber} Referral:`, data);
-    
-    // Simulate delay
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
-    setStatus('success');
-    
-    toast({
-      title: 'Success!',
-      description: `Gift card sent to ${data.fullName}!`,
-    });
-    
-    // Reset form after success
-    form.reset();
-    
-    // Reset status after 3 seconds
-    setTimeout(() => setStatus('idle'), 3000);
-  };
-
-  return (
-    <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="fullName"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-slate-700 dark:text-slate-300">Full Name</FormLabel>
-              <FormControl>
-                <div className="relative">
-                  <UserPlus className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
-                  <Input
-                    placeholder="Enter friend's full name"
-                    className="pl-10"
-                    disabled={status === 'loading' || status === 'success'}
-                    data-testid={`input-fullname-friend-${friendNumber}`}
-                    {...field}
-                  />
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-slate-700 dark:text-slate-300">Email</FormLabel>
-              <FormControl>
-                <div className="relative">
-                  <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
-                  <Input
-                    type="email"
-                    placeholder="friend@example.com"
-                    className="pl-10"
-                    disabled={status === 'loading' || status === 'success'}
-                    data-testid={`input-email-friend-${friendNumber}`}
-                    {...field}
-                  />
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="phone"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel className="text-slate-700 dark:text-slate-300">Phone Number</FormLabel>
-              <FormControl>
-                <div className="relative">
-                  <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-slate-400" />
-                  <Input
-                    type="tel"
-                    placeholder="(512) 555-0123"
-                    className="pl-10"
-                    disabled={status === 'loading' || status === 'success'}
-                    data-testid={`input-phone-friend-${friendNumber}`}
-                    {...field}
-                  />
-                </div>
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Button
-          type="submit"
-          className="w-full bg-gradient-to-r from-yellow-500 to-amber-500 hover:from-yellow-600 hover:to-amber-600 text-white font-semibold"
-          disabled={status === 'loading' || status === 'success'}
-          data-testid={`button-submit-friend-${friendNumber}`}
-        >
-          {status === 'loading' && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-          {status === 'success' && <CheckCircle className="mr-2 h-4 w-4" />}
-          {status === 'idle' && <Gift className="mr-2 h-4 w-4" />}
-          {status === 'loading' ? 'Sending...' : status === 'success' ? 'Sent!' : 'Send $300 Gift Card'}
-        </Button>
-      </form>
-    </Form>
-  );
-};
+import { Ship, Star, CheckCircle, Clock, Gift, Calendar } from 'lucide-react';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 60 },
@@ -168,6 +21,20 @@ export default function GoldenTicket() {
   // Ensure page loads at top
   React.useEffect(() => {
     window.scrollTo({ top: 0, behavior: 'instant' });
+  }, []);
+
+  // Load GoHighLevel form script
+  React.useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://events.premierpartycruises.com/js/form_embed.js';
+    script.async = true;
+    document.body.appendChild(script);
+    
+    return () => {
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
+    };
   }, []);
 
   // Dynamic height adjustment for iframe based on postMessage
@@ -327,7 +194,23 @@ export default function GoldenTicket() {
                     <Gift className="h-5 w-5 text-yellow-500" />
                     Friend #1
                   </h3>
-                  <FriendReferralForm friendNumber={1} />
+                  <iframe
+                    src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
+                    style={{ width: '100%', height: '456px', border: 'none', borderRadius: '3px' }}
+                    id="inline-w33cn0pBz1fFbTC0Hrnh-1"
+                    data-layout='{"id":"INLINE"}'
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="Golden Ticket Form to Friends"
+                    data-height="456"
+                    data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-1"
+                    data-form-id="w33cn0pBz1fFbTC0Hrnh"
+                    title="Golden Ticket Form to Friends - Friend 1"
+                  />
                 </div>
 
                 {/* Friend #2 Form */}
@@ -336,7 +219,23 @@ export default function GoldenTicket() {
                     <Gift className="h-5 w-5 text-yellow-500" />
                     Friend #2
                   </h3>
-                  <FriendReferralForm friendNumber={2} />
+                  <iframe
+                    src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
+                    style={{ width: '100%', height: '456px', border: 'none', borderRadius: '3px' }}
+                    id="inline-w33cn0pBz1fFbTC0Hrnh-2"
+                    data-layout='{"id":"INLINE"}'
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="Golden Ticket Form to Friends"
+                    data-height="456"
+                    data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-2"
+                    data-form-id="w33cn0pBz1fFbTC0Hrnh"
+                    title="Golden Ticket Form to Friends - Friend 2"
+                  />
                 </div>
 
                 {/* Friend #3 Form */}
@@ -345,7 +244,23 @@ export default function GoldenTicket() {
                     <Gift className="h-5 w-5 text-yellow-500" />
                     Friend #3
                   </h3>
-                  <FriendReferralForm friendNumber={3} />
+                  <iframe
+                    src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
+                    style={{ width: '100%', height: '456px', border: 'none', borderRadius: '3px' }}
+                    id="inline-w33cn0pBz1fFbTC0Hrnh-3"
+                    data-layout='{"id":"INLINE"}'
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="Golden Ticket Form to Friends"
+                    data-height="456"
+                    data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-3"
+                    data-form-id="w33cn0pBz1fFbTC0Hrnh"
+                    title="Golden Ticket Form to Friends - Friend 3"
+                  />
                 </div>
 
                 {/* Friend #4 Form */}
@@ -354,7 +269,23 @@ export default function GoldenTicket() {
                     <Gift className="h-5 w-5 text-yellow-500" />
                     Friend #4
                   </h3>
-                  <FriendReferralForm friendNumber={4} />
+                  <iframe
+                    src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
+                    style={{ width: '100%', height: '456px', border: 'none', borderRadius: '3px' }}
+                    id="inline-w33cn0pBz1fFbTC0Hrnh-4"
+                    data-layout='{"id":"INLINE"}'
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="Golden Ticket Form to Friends"
+                    data-height="456"
+                    data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-4"
+                    data-form-id="w33cn0pBz1fFbTC0Hrnh"
+                    title="Golden Ticket Form to Friends - Friend 4"
+                  />
                 </div>
 
                 {/* Friend #5 Form */}
@@ -363,7 +294,23 @@ export default function GoldenTicket() {
                     <Gift className="h-5 w-5 text-yellow-500" />
                     Friend #5
                   </h3>
-                  <FriendReferralForm friendNumber={5} />
+                  <iframe
+                    src="https://events.premierpartycruises.com/widget/form/w33cn0pBz1fFbTC0Hrnh"
+                    style={{ width: '100%', height: '456px', border: 'none', borderRadius: '3px' }}
+                    id="inline-w33cn0pBz1fFbTC0Hrnh-5"
+                    data-layout='{"id":"INLINE"}'
+                    data-trigger-type="alwaysShow"
+                    data-trigger-value=""
+                    data-activation-type="alwaysActivated"
+                    data-activation-value=""
+                    data-deactivation-type="neverDeactivate"
+                    data-deactivation-value=""
+                    data-form-name="Golden Ticket Form to Friends"
+                    data-height="456"
+                    data-layout-iframe-id="inline-w33cn0pBz1fFbTC0Hrnh-5"
+                    data-form-id="w33cn0pBz1fFbTC0Hrnh"
+                    title="Golden Ticket Form to Friends - Friend 5"
+                  />
                 </div>
               </div>
             </motion.div>
