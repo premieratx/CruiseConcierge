@@ -809,7 +809,7 @@ const SSR_ROUTES = [
   '/bachelor-party-austin',
   '/bachelorette-party-austin',
   '/atx-disco-cruise',
-  '/private-cruises',
+  // '/private-cruises', // Removed from SSR - uses React component with interactive tabs
   '/team-building',
   '/client-entertainment',
   '/company-milestone',
