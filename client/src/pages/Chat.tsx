@@ -28,13 +28,16 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
-  // Dynamic height adjustment for iframe based on postMessage
+  // Dynamic height adjustment for iframe with max constraint
   React.useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       if (event.origin === 'https://ppc-quote-builder.lovable.app' && event.data.height) {
         const iframe = document.querySelector('iframe[title="Premier Party Cruises Quote Builder"]') as HTMLIFrameElement;
         if (iframe) {
-          iframe.style.height = `${event.data.height}px`;
+          // Cap the height to prevent infinite expansion - max 3000px to limit blank space
+          const maxHeight = 3000;
+          const newHeight = Math.min(event.data.height, maxHeight);
+          iframe.style.height = `${newHeight}px`;
         }
       }
     };
@@ -135,9 +138,8 @@ export default function Chat({ defaultEventType }: ChatProps = {}) {
                   title="Premier Party Cruises Quote Builder"
                   className="w-full"
                   style={{ 
-                    minHeight: '2400px',
-                    height: 'auto',
-                    maxHeight: 'none',
+                    height: '1800px',
+                    maxHeight: '3000px',
                     border: 'none',
                     display: 'block'
                   }}
