@@ -10,6 +10,7 @@ import { lazy, Suspense, useEffect } from "react";
 import { AuthProvider } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/lib/protected-route";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
+import { ErrorBoundary } from "@/components/ErrorBoundary";
 
 // Home eagerly loaded for optimal LCP performance
 import Home from "./pages/Home";
@@ -532,7 +533,9 @@ function App() {
               <TooltipProvider>
                 <GoogleAnalytics />
                 <Toaster />
-                <Router />
+                <ErrorBoundary>
+                  <Router />
+                </ErrorBoundary>
               </TooltipProvider>
             </HelmetProvider>
           </EditModeProvider>

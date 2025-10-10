@@ -215,12 +215,13 @@ export default function PublicNavigation() {
   }, [location]);
 
   const handleGetQuote = () => {
-    // Navigate to the customer chatbot quote flow
-    navigate('/chat');
+    // Force full page reload navigation
+    window.location.href = '/chat';
   };
 
   const handleBookNow = () => {
-    navigate('/chat');
+    // Force full page reload navigation
+    window.location.href = '/chat';
   };
 
   const closeMobileMenu = () => {
@@ -244,7 +245,7 @@ export default function PublicNavigation() {
         <div className="container mx-auto px-3 md:px-4 lg:px-6">
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
-            <Link 
+            <a 
               href="/"
               className="flex items-center group"
               data-testid="link-home-logo"
@@ -254,7 +255,7 @@ export default function PublicNavigation() {
                 alt="Premier Party Cruises" 
                 className="h-12 lg:h-14 w-auto transition-transform duration-300 group-hover:scale-105"
               />
-            </Link>
+            </a>
 
             {/* Desktop Navigation */}
             <NavigationMenu className="hidden lg:block">
@@ -309,7 +310,7 @@ export default function PublicNavigation() {
                               return (
                                 <li key={dropdownItem.href}>
                                   <NavigationMenuLink asChild>
-                                    <Link
+                                    <a
                                       href={dropdownItem.href}
                                       className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
                                       data-testid={getTestId()}
@@ -321,7 +322,7 @@ export default function PublicNavigation() {
                                       <p className="line-clamp-2 text-sm leading-snug text-muted-foreground" data-editable data-editable-id={`nav-dropdown-${safeSlug(dropdownItem.title)}-description`}>
                                         {dropdownItem.description}
                                       </p>
-                                    </Link>
+                                    </a>
                                   </NavigationMenuLink>
                                 </li>
                               );
@@ -333,7 +334,7 @@ export default function PublicNavigation() {
                     </NavigationMenuItem>
                   ) : (
                     <NavigationMenuItem key={item.href}>
-                      <Link
+                      <a
                         href={item.href}
                         className={cn(
                           navigationMenuTriggerStyle(),
@@ -351,7 +352,7 @@ export default function PublicNavigation() {
                             {item.badge}
                           </span>
                         )}
-                      </Link>
+                      </a>
                     </NavigationMenuItem>
                   )
                 ))}
@@ -450,7 +451,7 @@ export default function PublicNavigation() {
                                     return `link-mobile-${safeSlug(dropdownItem.title)}`;
                                   };
                                   return (
-                                    <Link
+                                    <a
                                       key={dropdownItem.href}
                                       href={dropdownItem.href}
                                       onClick={closeMobileMenu}
@@ -465,14 +466,14 @@ export default function PublicNavigation() {
                                       <Icon className="h-5 w-5" />
                                       <span className="flex-1" data-editable data-editable-id={`mobile-dropdown-${safeSlug(dropdownItem.title)}`}>{dropdownItem.title}</span>
                                       <ArrowRight className="h-4 w-4 opacity-50" />
-                                    </Link>
+                                    </a>
                                   );
                                 }
                                 return null;
                               })}
                             </>
                           ) : (
-                            <Link
+                            <a
                               href={item.href}
                               onClick={closeMobileMenu}
                               className={cn(
@@ -491,7 +492,7 @@ export default function PublicNavigation() {
                                 </span>
                               )}
                               <ArrowRight className="h-4 w-4 opacity-50" />
-                            </Link>
+                            </a>
                           )}
                         </div>
                       ))}
