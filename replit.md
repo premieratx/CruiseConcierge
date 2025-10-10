@@ -38,6 +38,7 @@ The system features a progressive booking flow and intuitive admin dashboards. D
   - Private Cruise perks (FREE lily pad + Essentials package + 10 disco ball cups)
   - Disco Cruise perks (disco ball cups for whole group)
   - Bachelor/bachelorette party information highlighting Disco Crew option
+  - Two-column media section: Gamma presentation (left) and YouTube promotional video (right)
   - Integrated quote builder from booking.premierpartycruises.com with auto-resize functionality
   - 5 GoHighLevel iframe forms for friend referrals with reCAPTCHA protection
 

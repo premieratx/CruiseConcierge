@@ -309,6 +309,41 @@ export default function GoldenTicket() {
               </div>
             </motion.div>
             
+            {/* Presentation & Video Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.48, duration: 0.5 }}
+              className="w-full mb-8"
+            >
+              <div className="grid md:grid-cols-2 gap-6">
+                {/* Left Column: Gamma Presentation */}
+                <div className="w-full">
+                  <iframe 
+                    src="https://gamma.app/embed/v9da225x03y1173" 
+                    style={{ width: '100%', maxWidth: '100%', height: '450px' }}
+                    allow="fullscreen" 
+                    title="Austin's Premier Bachelor & Bachelorette Party Experience"
+                    className="rounded-lg shadow-xl"
+                    data-testid="iframe-gamma-presentation"
+                  />
+                </div>
+                
+                {/* Right Column: YouTube Video */}
+                <div className="w-full">
+                  <iframe 
+                    src="https://www.youtube.com/embed/vxy8JM5TMmA"
+                    style={{ width: '100%', height: '450px' }}
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    allowFullScreen
+                    title="Premier Party Cruises Video"
+                    className="rounded-lg shadow-xl"
+                    data-testid="iframe-youtube-video"
+                  />
+                </div>
+              </div>
+            </motion.div>
+            
             {/* Quote Builder Iframe */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
