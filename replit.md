@@ -68,9 +68,12 @@ A strategic SEO feature leveraging third-party AI validation to strengthen E-E-A
 A dynamic schema markup system with COMPREHENSIVE content enrichment achieving maximum AI and search engine optimization:
 
 #### Implementation
+- **Unified Schema Injection** (`server/ssr/renderer.ts`): SSR middleware handles schema injection for ALL routes (both SSR and non-SSR pages)
 - **Dynamic Schema Loader** (`server/schemaLoader.ts`): Automatically loads all 28 schema files from `attached_assets/schema_data/`
 - **Route-based Loading**: Maps routes to appropriate schemas (e.g., `/team-building` → FAQ + Service schemas)
-- **100+ Schema Instances**: Deployed across all pages for maximum visibility
+- **Sitewide Schemas**: Organization + WebSite schemas injected on every page via hardcoded constants
+- **Schema-Only Injection**: Non-SSR pages (like homepage) get schemas without SSR content, preserving React functionality while ensuring SEO visibility
+- **100+ Schema Instances**: Deployed across all pages for maximum visibility (5-7 schemas per page)
 - **Fully Enriched Content**: All schemas expanded with 200-250+ word descriptions, comprehensive pricing charts, detailed FAQs (10-15 questions per page), fleet information, package breakdowns, and booking details
 
 #### Schema Types Deployed
