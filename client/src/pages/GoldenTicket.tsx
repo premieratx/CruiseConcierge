@@ -37,23 +37,24 @@ export default function GoldenTicket() {
     };
   }, []);
 
-  // Dynamic height adjustment for new quote builder iframe
+  // Dynamic height adjustment for new quote builder iframe - DISABLED to prevent expansion
   React.useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
       if (event.origin !== 'https://booking.premierpartycruises.com') return;
       
-      if (event.data.type === 'quote-builder-resize') {
-        const iframe = document.getElementById('quote-widget-iframe') as HTMLIFrameElement;
-        const container = document.getElementById('quote-widget-container') as HTMLDivElement;
-        if (iframe && event.data.height) {
-          const newHeight = Math.min(Math.max(event.data.height + 50, 1200), 2000);
-          iframe.style.transition = 'height 0.3s ease-in-out';
-          iframe.style.height = `${newHeight}px`;
-          if (container) {
-            container.style.minHeight = `${newHeight}px`;
-          }
-        }
-      }
+      // Disabled auto-resize to keep iframe at fixed height matching photo slideshow
+      // if (event.data.type === 'quote-builder-resize') {
+      //   const iframe = document.getElementById('quote-widget-iframe') as HTMLIFrameElement;
+      //   const container = document.getElementById('quote-widget-container') as HTMLDivElement;
+      //   if (iframe && event.data.height) {
+      //     const newHeight = Math.min(Math.max(event.data.height + 50, 650), 700);
+      //     iframe.style.transition = 'height 0.3s ease-in-out';
+      //     iframe.style.height = `${newHeight}px`;
+      //     if (container) {
+      //       container.style.minHeight = `${newHeight}px`;
+      //     }
+      //   }
+      // }
     };
     
     window.addEventListener('message', handleMessage);
@@ -363,20 +364,22 @@ export default function GoldenTicket() {
               <div 
                 id="quote-widget-container" 
                 className="w-full relative"
-                style={{ minHeight: '1200px', margin: '2rem 0' }}
+                style={{ minHeight: '700px', margin: '2rem 0' }}
               >
                 <iframe 
                   id="quote-widget-iframe"
                   title="Get Your Quote - Premier Party Cruises"
                   className="w-full"
                   style={{ 
-                    height: '1200px',
+                    height: '700px',
+                    maxHeight: '700px',
                     border: 'none',
                     display: 'block',
                     borderRadius: '8px',
                     boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
                     position: 'relative',
-                    zIndex: 1
+                    zIndex: 1,
+                    overflow: 'hidden'
                   }}
                   allow="payment"
                   data-testid="iframe-quote-builder"
