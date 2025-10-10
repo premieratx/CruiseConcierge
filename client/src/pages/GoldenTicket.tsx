@@ -46,7 +46,7 @@ export default function GoldenTicket() {
         const iframe = document.getElementById('quote-widget-iframe') as HTMLIFrameElement;
         const container = document.getElementById('quote-widget-container') as HTMLDivElement;
         if (iframe && event.data.height) {
-          const newHeight = Math.max(event.data.height + 50, 1200);
+          const newHeight = Math.min(Math.max(event.data.height + 50, 1200), 2000);
           iframe.style.transition = 'height 0.3s ease-in-out';
           iframe.style.height = `${newHeight}px`;
           if (container) {
