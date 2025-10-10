@@ -10,19 +10,18 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { cn } from '@/lib/utils';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
-import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { 
   Users, Clock, Star, Calendar, MapPin, Ship, Phone,
   ArrowRight, CheckCircle, Sparkles, Crown, Music, 
   Heart, Camera, PartyPopper, Sun, Trophy, Shield, Award,
   MessageCircle, Quote, 
-  Zap, Target, Play,
-  MessageSquare, Ticket, Gift, Volume2, 
+  Zap, Target, Play, Gift,
+  MessageSquare, Ticket, Volume2, 
   Mic, Utensils, GlassWater, UserCheck, Leaf, Check,
   AlertCircle, DollarSign, Timer, CreditCard, CloudRain, 
   HelpCircle, Anchor, Droplets, Waves, Info, TrendingUp,
   Gem, Flower, CircleDot, Smile, X, Package,
-  Plane, Wine, Eye, Bot, Briefcase, Building2, Cake, GraduationCap, PartyPopperIcon
+  Plane, Wine, Eye, Bot, Briefcase, Building2, Cake, GraduationCap
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
@@ -293,7 +292,6 @@ const privateCruiseTypes = [
 export default function PrivateCruises() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
-  const { EditWrapper, isEditing } = useInlineEdit();
 
   const handleGetQuote = () => {
     setLocation('/booking.premierpartycruises.com');
@@ -323,14 +321,14 @@ export default function PrivateCruises() {
               PRIVATE BOAT CHARTERS
             </Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-blue-600 via-yellow-500 to-purple-600 bg-clip-text text-transparent">
-              <EditWrapper id="hero-title">
+              
                 Your Private Boat. Your Rules. Your Lake Travis Adventure.
-              </EditWrapper>
+              
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-8">
-              <EditWrapper id="hero-subtitle">
+              
                 Exclusive boat charters for 6-50+ guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake.
-              </EditWrapper>
+              
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-8">
@@ -443,14 +441,14 @@ export default function PrivateCruises() {
             <TabsContent value="overview" className="mt-8">
               <div className="max-w-6xl mx-auto">
                 <h2 className="text-3xl md:text-4xl font-black text-center mb-4 text-gray-900 dark:text-white">
-                  <EditWrapper id="overview-title">
+                  
                     Why Choose a Private Cruise?
-                  </EditWrapper>
+                  
                 </h2>
                 <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-12">
-                  <EditWrapper id="overview-subtitle">
+                  
                     Your own private boat on Lake Travis - perfect for any celebration
-                  </EditWrapper>
+                  
                 </p>
 
                 {/* What's Included Grid */}
@@ -494,14 +492,14 @@ export default function PrivateCruises() {
             <TabsContent value="packages" className="mt-8">
               <div className="max-w-6xl mx-auto">
                 <h2 className="text-3xl md:text-4xl font-black text-center mb-4 text-gray-900 dark:text-white">
-                  <EditWrapper id="packages-title">
+                  
                     Choose Your Package Level
-                  </EditWrapper>
+                  
                 </h2>
                 <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-12">
-                  <EditWrapper id="packages-subtitle">
+                  
                     From basic charter to full VIP - customize your Lake Travis experience
-                  </EditWrapper>
+                  
                 </p>
 
                 <div className="grid md:grid-cols-3 gap-8 mb-12">
@@ -637,14 +635,14 @@ export default function PrivateCruises() {
             <TabsContent value="fleet" className="mt-8">
               <div className="max-w-6xl mx-auto">
                 <h2 className="text-3xl md:text-4xl font-black text-center mb-4 text-gray-900 dark:text-white">
-                  <EditWrapper id="fleet-title">
+                  
                     Choose Your Boat
-                  </EditWrapper>
+                  
                 </h2>
                 <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-12">
-                  <EditWrapper id="fleet-subtitle">
+                  
                     Three boats, all pristine - pick the perfect size for your group
-                  </EditWrapper>
+                  
                 </p>
 
                 <div className="grid md:grid-cols-3 gap-8">
@@ -693,14 +691,14 @@ export default function PrivateCruises() {
             <TabsContent value="faq" className="mt-8">
               <div className="max-w-4xl mx-auto">
                 <h2 className="text-3xl md:text-4xl font-black text-center mb-4 text-gray-900 dark:text-white">
-                  <EditWrapper id="faq-title">
+                  
                     Frequently Asked Questions
-                  </EditWrapper>
+                  
                 </h2>
                 <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-12">
-                  <EditWrapper id="faq-subtitle">
+                  
                     Everything you need to know about private boat charters
-                  </EditWrapper>
+                  
                 </p>
 
                 <Accordion type="single" collapsible className="w-full">
@@ -737,14 +735,14 @@ export default function PrivateCruises() {
       <section className="py-16 px-4 bg-gray-50 dark:bg-gray-900">
         <div className="max-w-7xl mx-auto">
           <h2 className="text-3xl md:text-4xl font-black text-center mb-4 text-gray-900 dark:text-white">
-            <EditWrapper id="cruise-types-title">
+            
               Popular Private Cruise Events
-            </EditWrapper>
+            
           </h2>
           <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-12">
-            <EditWrapper id="cruise-types-subtitle">
+            
               Explore different types of private cruises we specialize in
-            </EditWrapper>
+            
           </p>
 
           <div className="grid md:grid-cols-3 gap-6">
@@ -777,14 +775,14 @@ export default function PrivateCruises() {
       <section className="py-20 px-4 bg-gradient-to-r from-blue-600 via-purple-600 to-yellow-500">
         <div className="max-w-4xl mx-auto text-center">
           <h2 className="text-3xl md:text-4xl font-black text-white mb-6">
-            <EditWrapper id="cta-title">
+            
               Ready to Book Your Private Cruise?
-            </EditWrapper>
+            
           </h2>
           <p className="text-xl text-white/90 mb-8">
-            <EditWrapper id="cta-subtitle">
+            
               Get your custom quote in minutes. Choose your boat, package, and perfect date on Lake Travis.
-            </EditWrapper>
+            
           </p>
           <Button
             size="lg"
