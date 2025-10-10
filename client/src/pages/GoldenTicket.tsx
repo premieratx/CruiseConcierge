@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
-import { Ship, Star, CheckCircle, Clock, Gift, Calendar } from 'lucide-react';
+import { Ship, Star, CheckCircle, Clock, Gift, Calendar, DollarSign, Tag, Package, Truck, Sparkles, Users, AlertCircle, Crown } from 'lucide-react';
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 60 },
@@ -37,19 +37,37 @@ export default function GoldenTicket() {
     };
   }, []);
 
-  // Dynamic height adjustment for iframe based on postMessage
+  // Dynamic height adjustment for new quote builder iframe
   React.useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.origin === 'https://ppc-quote-builder.lovable.app' && event.data.height) {
-        const iframe = document.querySelector('iframe[title="Premier Party Cruises Quote Builder"]') as HTMLIFrameElement;
-        if (iframe) {
-          iframe.style.height = `${event.data.height}px`;
+      if (event.origin !== 'https://booking.premierpartycruises.com') return;
+      
+      if (event.data.type === 'quote-builder-resize') {
+        const iframe = document.getElementById('quote-widget-iframe') as HTMLIFrameElement;
+        const container = document.getElementById('quote-widget-container') as HTMLDivElement;
+        if (iframe && event.data.height) {
+          const newHeight = Math.max(event.data.height + 50, 1200);
+          iframe.style.transition = 'height 0.3s ease-in-out';
+          iframe.style.height = `${newHeight}px`;
+          if (container) {
+            container.style.minHeight = `${newHeight}px`;
+          }
         }
       }
     };
     
     window.addEventListener('message', handleMessage);
     return () => window.removeEventListener('message', handleMessage);
+  }, []);
+
+  // Set iframe src with source tracking
+  React.useEffect(() => {
+    const iframe = document.getElementById('quote-widget-iframe') as HTMLIFrameElement;
+    if (iframe && !iframe.src) {
+      const currentUrl = encodeURIComponent(window.location.href);
+      const baseUrl = 'https://booking.premierpartycruises.com/';
+      iframe.src = `${baseUrl}?sourceUrl=${currentUrl}&sourceType=embedded_quote_builder`;
+    }
   }, []);
 
   return (
@@ -144,6 +162,153 @@ export default function GoldenTicket() {
               </div>
             </motion.div>
             
+            {/* Offer Details Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.45, duration: 0.5 }}
+              className="space-y-6"
+            >
+              <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900 dark:text-white mb-6">
+                Your Golden Ticket Benefits
+              </h2>
+              
+              {/* Section 1: Universal Benefits */}
+              <div className="bg-gradient-to-br from-amber-50 to-yellow-50 dark:from-slate-800 dark:to-slate-900 p-6 md:p-8 rounded-2xl shadow-xl border-2 border-amber-300 dark:border-amber-700">
+                <div className="flex items-center gap-3 mb-6">
+                  <Crown className="h-8 w-8 text-amber-600 dark:text-amber-400" />
+                  <h3 className="text-2xl md:text-3xl font-bold text-amber-900 dark:text-amber-100">
+                    Universal Benefits (Everyone Gets These!)
+                  </h3>
+                </div>
+                
+                <div className="grid md:grid-cols-2 gap-4">
+                  {/* Time-Sensitive Discounts */}
+                  <div className="bg-gradient-to-r from-red-600 to-red-700 text-white p-5 rounded-xl shadow-lg">
+                    <div className="flex items-start gap-3">
+                      <AlertCircle className="h-6 w-6 flex-shrink-0 mt-1" />
+                      <div>
+                        <h4 className="font-bold text-lg mb-2">⏰ Time-Sensitive Discounts</h4>
+                        <ul className="space-y-1 text-sm">
+                          <li className="font-semibold">💰 $300 OFF by Sunday 10/12</li>
+                          <li className="font-semibold">💰 $200 OFF by Wednesday 10/15</li>
+                          <li className="font-semibold">💰 $100 OFF by end of October</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Free Services */}
+                  <div className="bg-white dark:bg-slate-700 p-5 rounded-xl shadow-lg border border-amber-200 dark:border-amber-600">
+                    <div className="flex items-start gap-3">
+                      <Package className="h-6 w-6 text-blue-600 dark:text-blue-400 flex-shrink-0 mt-1" />
+                      <div>
+                        <h4 className="font-bold text-lg mb-2 text-slate-900 dark:text-white">🆓 Free Stock the Cooler</h4>
+                        <p className="text-sm text-slate-600 dark:text-slate-300">Free service from Party On Delivery</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Vouchers */}
+                  <div className="bg-white dark:bg-slate-700 p-5 rounded-xl shadow-lg border border-amber-200 dark:border-amber-600">
+                    <div className="flex items-start gap-3">
+                      <Gift className="h-6 w-6 text-green-600 dark:text-green-400 flex-shrink-0 mt-1" />
+                      <div>
+                        <h4 className="font-bold text-lg mb-2 text-slate-900 dark:text-white">🎁 $50 Airbnb Alcohol Voucher</h4>
+                        <p className="text-sm text-slate-600 dark:text-slate-300">From Party On Delivery</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  <div className="bg-white dark:bg-slate-700 p-5 rounded-xl shadow-lg border border-amber-200 dark:border-amber-600">
+                    <div className="flex items-start gap-3">
+                      <Tag className="h-6 w-6 text-purple-600 dark:text-purple-400 flex-shrink-0 mt-1" />
+                      <div>
+                        <h4 className="font-bold text-lg mb-2 text-slate-900 dark:text-white">🎫 $300-$500 Weekend Voucher</h4>
+                        <p className="text-sm text-slate-600 dark:text-slate-300">For full weekend packages</p>
+                      </div>
+                    </div>
+                  </div>
+                  
+                  {/* Transportation Discount */}
+                  <div className="bg-white dark:bg-slate-700 p-5 rounded-xl shadow-lg border border-amber-200 dark:border-amber-600 md:col-span-2">
+                    <div className="flex items-start gap-3">
+                      <Truck className="h-6 w-6 text-orange-600 dark:text-orange-400 flex-shrink-0 mt-1" />
+                      <div>
+                        <h4 className="font-bold text-lg mb-2 text-slate-900 dark:text-white">🚐 25% Off Round-Trip Transportation</h4>
+                        <p className="text-sm text-slate-600 dark:text-slate-300">Save on getting to and from the marina</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Section 2: Private Cruise Perks */}
+              <div className="bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-slate-800 dark:to-slate-900 p-6 md:p-8 rounded-2xl shadow-xl border-2 border-blue-300 dark:border-blue-700">
+                <div className="flex items-center gap-3 mb-4">
+                  <Ship className="h-7 w-7 text-blue-600 dark:text-blue-400" />
+                  <h3 className="text-2xl md:text-3xl font-bold text-blue-900 dark:text-blue-100">
+                    Private Cruise Perks
+                  </h3>
+                </div>
+                
+                <div className="bg-white dark:bg-slate-700 p-5 rounded-xl mb-4">
+                  <p className="text-slate-600 dark:text-slate-300 mb-2">
+                    ✅ <strong>All Universal Benefits above</strong> PLUS:
+                  </p>
+                  <div className="flex items-start gap-3 bg-gradient-to-r from-green-100 to-emerald-100 dark:from-green-900/30 dark:to-emerald-900/30 p-4 rounded-lg">
+                    <Sparkles className="h-6 w-6 text-green-600 dark:text-green-400 flex-shrink-0 mt-1" />
+                    <div>
+                      <h4 className="font-bold text-lg text-green-900 dark:text-green-100">🆓 FREE Upgrade Package</h4>
+                      <ul className="text-sm text-green-800 dark:text-green-200 mt-2 space-y-1">
+                        <li>• Lily pad float</li>
+                        <li>• Essentials package</li>
+                        <li>• 10 disco ball cups</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Section 3: Disco Cruise Perks */}
+              <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-slate-800 dark:to-slate-900 p-6 md:p-8 rounded-2xl shadow-xl border-2 border-purple-300 dark:border-purple-700">
+                <div className="flex items-center gap-3 mb-4">
+                  <Sparkles className="h-7 w-7 text-purple-600 dark:text-purple-400" />
+                  <h3 className="text-2xl md:text-3xl font-bold text-purple-900 dark:text-purple-100">
+                    Disco Cruise Perks
+                  </h3>
+                </div>
+                
+                <div className="bg-white dark:bg-slate-700 p-5 rounded-xl">
+                  <p className="text-slate-600 dark:text-slate-300 mb-2">
+                    ✅ <strong>All Universal Benefits above</strong> PLUS:
+                  </p>
+                  <div className="flex items-start gap-3 bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 p-4 rounded-lg">
+                    <Gift className="h-6 w-6 text-purple-600 dark:text-purple-400 flex-shrink-0 mt-1" />
+                    <div>
+                      <h4 className="font-bold text-lg text-purple-900 dark:text-purple-100">✨ Disco ball cups for the whole group!</h4>
+                      <p className="text-sm text-purple-800 dark:text-purple-200 mt-1">Everyone gets their own disco ball cup to keep the party vibes going!</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              {/* Section 4: Bachelor/Bachelorette Note */}
+              <div className="bg-gradient-to-r from-pink-500 via-rose-500 to-red-500 p-6 md:p-8 rounded-2xl shadow-xl text-white">
+                <div className="flex items-start gap-4">
+                  <Users className="h-8 w-8 flex-shrink-0 mt-1" />
+                  <div>
+                    <h3 className="text-2xl md:text-3xl font-bold mb-3">
+                      💍 Bachelor/Bachelorette Parties
+                    </h3>
+                    <p className="text-lg md:text-xl font-medium">
+                      Planning a bachelor or bachelorette party? Book a Disco Cruise and add the <strong>Disco Crew option</strong> for the ultimate party experience! 🎉
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+            
             {/* Quote Builder Iframe */}
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -151,21 +316,25 @@ export default function GoldenTicket() {
               transition={{ delay: 0.5, duration: 0.5 }}
               className="w-full mb-8"
             >
-              <div className="w-full max-w-6xl mx-auto overflow-hidden rounded-xl shadow-2xl">
+              <div 
+                id="quote-widget-container" 
+                className="w-full relative"
+                style={{ minHeight: '1200px', margin: '2rem 0' }}
+              >
                 <iframe 
-                  src="https://ppc-quote-builder.lovable.app/"
-                  title="Premier Party Cruises Quote Builder"
+                  id="quote-widget-iframe"
+                  title="Get Your Quote - Premier Party Cruises"
                   className="w-full"
                   style={{ 
-                    minHeight: '2400px',
-                    height: 'auto',
-                    maxHeight: 'none',
+                    height: '1200px',
                     border: 'none',
-                    display: 'block'
+                    display: 'block',
+                    borderRadius: '8px',
+                    boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
+                    position: 'relative',
+                    zIndex: 1
                   }}
-                  allow="payment; geolocation"
-                  allowFullScreen
-                  scrolling="auto"
+                  allow="payment"
                   data-testid="iframe-quote-builder"
                 />
               </div>
