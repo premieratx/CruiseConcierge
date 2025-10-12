@@ -805,7 +805,8 @@ async function getTemplate(): Promise<string> {
 
 // SSR routes that should be server-rendered
 const SSR_ROUTES = [
-  // '/', // Removed from SSR - uses React components with interactive navigation
+  '/', // CRITICAL: Homepage needs SSR for Google crawlers to see content (SEO requirement)
+  '/blogs', // CRITICAL: Blog listing page needs SSR for SEO visibility
   '/bachelor-party-austin',
   '/bachelorette-party-austin',
   '/atx-disco-cruise',
