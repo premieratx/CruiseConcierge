@@ -1118,30 +1118,20 @@ async function renderPage(url: string, req: Request): Promise<string> {
     // Generate breadcrumb schema for interior pages
     const breadcrumbSchema = generateBreadcrumbSchema(pathname, h1);
     
-    // Build schema scripts - Organization schema always present (sitewide)
-    let schemaScripts = `  <script type="application/ld+json">
+    // Build schema scripts - Organization schema on all pages EXCEPT homepage (homepage loads from organization.jsonld file)
+    let schemaScripts = '';
+    
+    if (pathname !== '/') {
+      schemaScripts = `  <script type="application/ld+json">
 ${JSON.stringify(ORGANIZATION_SCHEMA, null, 2)}
   </script>`;
+    }
     
     // Add WebSite schema on all pages (sitewide)
     schemaScripts += `
   <script type="application/ld+json">
 ${JSON.stringify(WEBSITE_SCHEMA, null, 2)}
   </script>`;
-    
-    // Add boat Product schemas for Homepage only (fleet showcase)
-    if (pathname === '/') {
-      schemaScripts += `
-  <script type="application/ld+json">
-${JSON.stringify(DAY_TRIPPER_PRODUCT_SCHEMA, null, 2)}
-  </script>
-  <script type="application/ld+json">
-${JSON.stringify(ME_SEEKS_THE_IRONY_PRODUCT_SCHEMA, null, 2)}
-  </script>
-  <script type="application/ld+json">
-${JSON.stringify(CLEVER_GIRL_PRODUCT_SCHEMA, null, 2)}
-  </script>`;
-    }
     
     // Add breadcrumb schema if it exists (interior pages only)
     if (breadcrumbSchema) {
@@ -1317,11 +1307,16 @@ export function ssrMiddleware() {
           console.log(`[Schema-Only] Injecting ${schemas.length} schemas for: ${pathname}`);
           let template = await getTemplate();
           
-          // Add sitewide schemas (Organization + WebSite)
-          let schemaScripts = `  <script type="application/ld+json">
+          // Add sitewide schemas (Organization on non-homepage pages + WebSite)
+          let schemaScripts = '';
+          
+          if (pathname !== '/') {
+            schemaScripts = `  <script type="application/ld+json">
 ${JSON.stringify(ORGANIZATION_SCHEMA, null, 2)}
-  </script>
-  <script type="application/ld+json">
+  </script>`;
+          }
+          
+          schemaScripts += `  <script type="application/ld+json">
 ${JSON.stringify(WEBSITE_SCHEMA, null, 2)}
   </script>`;
           
