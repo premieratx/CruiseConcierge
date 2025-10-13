@@ -804,8 +804,10 @@ async function getTemplate(): Promise<string> {
 }
 
 // SSR routes that should be server-rendered
+// CRITICAL: ALL marketing pages MUST be in SSR for SEO visibility
+// DO NOT REMOVE PAGES FROM THIS LIST - SEO visibility is the top priority
 const SSR_ROUTES = [
-  // '/', // Removed from SSR - React-heavy page with animations, uses schema-only injection
+  '/', // REQUIRED FOR SEO - Homepage MUST be server-rendered for search engine visibility
   '/blogs', // REQUIRED FOR SEO - Must have SSR for search engines to see blog listing content
   '/bachelor-party-austin',
   '/bachelorette-party-austin',

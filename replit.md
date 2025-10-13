@@ -45,11 +45,14 @@ The system features a progressive booking flow and intuitive admin dashboards. D
     - **Schema Types Deployed**: Organization + LocalBusiness, WebSite, FAQPage (17 pages), Service (11 pages), Event (ATX Disco Cruise), Article (70+ blog posts), Review (testimonials), Product (homepage), BreadcrumbList.
     - **Content Enrichment**: All schemas are expanded with 200-250+ word descriptions, comprehensive pricing charts, detailed FAQs (10-15 questions per page), fleet information, package breakdowns, and booking details for pages like Private Cruises, ATX Disco Cruise, Bachelor/Bachelorette Parties, Corporate Events, Wedding Events, and Birthday Events.
     - **Critical SEO Requirements**: Schema markup and SEO visibility must remain intact. Protected components include `server/ssr/renderer.ts`, `server/schemaLoader.ts`, `attached_assets/schema_data/` (with specific pricing and content quality requirements), and Sitemap & Robots.txt. Verification includes 4-7 schema instances per page (5 for homepage), passing Google Rich Results Test, and JS-independent schema visibility.
-    - **CRITICAL SSR Configuration (DO NOT MODIFY)**: 
-      - **Homepage (/)**: MUST NOT be in SSR_ROUTES - uses schema-only injection for fast React loading (adding to SSR causes audit score drops and slow page loads)
-      - **/blogs**: MUST be in SSR_ROUTES - required for search engines to see blog content (1,000+ words visible)
-      - **Performance vs SEO Balance**: Homepage optimized for speed with React + schemas, /blogs optimized for SEO with full SSR
-      - **Never change these configurations without explicit user approval**
+    - **CRITICAL SSR Configuration (PERMANENT - DO NOT MODIFY)**: 
+      - **ALL MARKETING PAGES MUST BE IN SSR_ROUTES** - This is non-negotiable for SEO visibility
+      - **Homepage (/)**: MUST be in SSR_ROUTES - Full HTML content required for search engines (3,700+ words visible)
+      - **/blogs**: MUST be in SSR_ROUTES - Required for search engines to see blog content (1,000+ words visible)
+      - **All event pages**: MUST be in SSR_ROUTES - Full content visible to crawlers
+      - **Rule**: SEO visibility is MORE important than page load speed. NEVER remove pages from SSR for "performance optimization"
+      - **Schema-only injection DOES NOT WORK** - Search engines need full HTML body content, not just schemas
+      - **Never change these configurations under any circumstances**
 
 ## External Dependencies
 - **Stripe**: Payment processing.
