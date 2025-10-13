@@ -73,6 +73,7 @@ export default function Gallery() {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [filteredPhotos, setFilteredPhotos] = useState<MediaItem[]>([]);
+  const [brokenImageIds, setBrokenImageIds] = useState<Set<string>>(new Set());
 
   // Fetch published gallery photos from media library
   const { data: photos = [], isLoading } = useQuery<MediaItem[]>({
@@ -85,23 +86,25 @@ export default function Gallery() {
     }
   });
 
-  // Set initial filtered photos when data loads
+  // Set initial filtered photos when data loads, filtering out broken images
   useEffect(() => {
     if (photos.length > 0) {
-      setFilteredPhotos(photos);
+      const validPhotos = photos.filter(p => !brokenImageIds.has(p.id));
+      setFilteredPhotos(validPhotos);
     }
-  }, [photos.length]);
+  }, [photos.length, brokenImageIds]);
 
   const filterByCategory = (categoryId: string) => {
     setSelectedCategory(categoryId);
+    const validPhotos = photos.filter(p => !brokenImageIds.has(p.id));
     if (categoryId === 'all') {
-      setFilteredPhotos(photos);
+      setFilteredPhotos(validPhotos);
     } else if (categoryId === 'videos') {
-      setFilteredPhotos(photos.filter(p => p.fileType === 'video' || p.fileType === 'generated_video'));
+      setFilteredPhotos(validPhotos.filter(p => p.fileType === 'video' || p.fileType === 'generated_video'));
     } else {
       const category = categories.find(c => c.id === categoryId);
       if (category) {
-        setFilteredPhotos(photos.filter(p => 
+        setFilteredPhotos(validPhotos.filter(p => 
           p.manualTags?.some(tag => category.tags.includes(tag))
         ));
       }
@@ -122,11 +125,17 @@ export default function Gallery() {
   };
 
   const getCategoryCount = (categoryId: string) => {
-    if (categoryId === 'all') return photos.length;
-    if (categoryId === 'videos') return photos.filter(p => p.fileType === 'video' || p.fileType === 'generated_video').length;
+    const validPhotos = photos.filter(p => !brokenImageIds.has(p.id));
+    if (categoryId === 'all') return validPhotos.length;
+    if (categoryId === 'videos') return validPhotos.filter(p => p.fileType === 'video' || p.fileType === 'generated_video').length;
     const category = categories.find(c => c.id === categoryId);
     if (!category) return 0;
-    return photos.filter(p => p.manualTags?.some(tag => category.tags.includes(tag))).length;
+    return validPhotos.filter(p => p.manualTags?.some(tag => category.tags.includes(tag))).length;
+  };
+
+  const handleImageError = (photoId: string) => {
+    console.warn(`Failed to load image: ${photoId}`);
+    setBrokenImageIds(prev => new Set([...prev, photoId]));
   };
 
   return (
@@ -237,6 +246,7 @@ export default function Gallery() {
                           alt={photo.originalName}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                           loading="lazy"
+                          onError={() => handleImageError(photo.id)}
                         />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                           <Camera className="h-6 w-6 text-white" />
