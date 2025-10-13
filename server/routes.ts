@@ -1131,6 +1131,122 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
   });
   
   // ==========================================
+  // UPTIME MONITORING ENDPOINTS
+  // ==========================================
+  
+  // Get uptime monitoring summary from UptimeRobot
+  app.get('/api/admin/uptime/summary', requireAdmin, async (req, res) => {
+    try {
+      const { uptimeRobotService } = await import('./services/uptimerobot');
+      const summary = await uptimeRobotService.getUptimeSummary();
+      res.json(summary);
+    } catch (error: any) {
+      console.error('❌ Failed to fetch uptime summary:', error.message);
+      res.status(500).json({ 
+        error: 'Failed to fetch uptime data', 
+        message: error.message,
+        totalMonitors: 0,
+        upMonitors: 0,
+        downMonitors: 0,
+        pausedMonitors: 0,
+        averageUptime: 0,
+        monitors: []
+      });
+    }
+  });
+  
+  // Get all monitors from UptimeRobot
+  app.get('/api/admin/uptime/monitors', requireAdmin, async (req, res) => {
+    try {
+      const { uptimeRobotService } = await import('./services/uptimerobot');
+      const monitors = await uptimeRobotService.getMonitors({
+        logs: true,
+        responseTimes: true,
+        customUptimeRatio: '1-7-30'
+      });
+      res.json({ monitors });
+    } catch (error: any) {
+      console.error('❌ Failed to fetch monitors:', error.message);
+      res.status(500).json({ error: 'Failed to fetch monitors', monitors: [] });
+    }
+  });
+  
+  // Send test SMS alert via GoHighLevel
+  app.post('/api/admin/uptime/test-sms', requireAdmin, async (req, res) => {
+    try {
+      const { phoneNumber, message } = req.body;
+      
+      if (!phoneNumber) {
+        return res.status(400).json({ error: 'Phone number is required' });
+      }
+      
+      if (!goHighLevelService) {
+        const { goHighLevelService: ghlService } = await import('./services/gohighlevel');
+        goHighLevelService = ghlService;
+      }
+      
+      const testMessage = message || '🚨 UPTIME ALERT TEST: This is a test message from your Premier Party Cruises uptime monitoring system. If you receive this, SMS alerts are working correctly! ✅';
+      
+      const result = await goHighLevelService.send({
+        to: phoneNumber,
+        body: testMessage
+      });
+      
+      console.log('✅ Test SMS sent successfully to', phoneNumber);
+      res.json({ 
+        success: true, 
+        message: 'Test SMS sent successfully',
+        sentTo: phoneNumber
+      });
+    } catch (error: any) {
+      console.error('❌ Failed to send test SMS:', error.message);
+      res.status(500).json({ 
+        success: false,
+        error: 'Failed to send test SMS', 
+        message: error.message 
+      });
+    }
+  });
+  
+  // Send downtime alert SMS
+  app.post('/api/admin/uptime/alert', requireAdmin, async (req, res) => {
+    try {
+      const { monitorName, monitorUrl, status, responseTime, phoneNumber } = req.body;
+      
+      if (!phoneNumber) {
+        return res.status(400).json({ error: 'Phone number is required' });
+      }
+      
+      if (!goHighLevelService) {
+        const { goHighLevelService: ghlService } = await import('./services/gohighlevel');
+        goHighLevelService = ghlService;
+      }
+      
+      const alertMessage = status === 'down' 
+        ? `🚨 SITE DOWN ALERT!\n\n${monitorName} (${monitorUrl}) is currently DOWN.\n\nCheck immediately: https://uptimerobot.com/dashboard`
+        : `✅ SITE RECOVERED!\n\n${monitorName} (${monitorUrl}) is back UP.\n\nResponse time: ${responseTime}ms`;
+      
+      await goHighLevelService.send({
+        to: phoneNumber,
+        body: alertMessage
+      });
+      
+      console.log(`✅ Uptime alert sent to ${phoneNumber}: ${status}`);
+      res.json({ 
+        success: true, 
+        message: 'Alert SMS sent successfully' 
+      });
+    } catch (error: any) {
+      console.error('❌ Failed to send alert SMS:', error.message);
+      res.status(500).json({ 
+        success: false,
+        error: 'Failed to send alert SMS', 
+        message: error.message 
+      });
+    }
+  });
+  
+  // ==========================================
   // PRICING VERIFICATION ENDPOINTS
   // ==========================================
   
