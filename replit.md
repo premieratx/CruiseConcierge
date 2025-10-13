@@ -45,6 +45,11 @@ The system features a progressive booking flow and intuitive admin dashboards. D
     - **Schema Types Deployed**: Organization + LocalBusiness, WebSite, FAQPage (17 pages), Service (11 pages), Event (ATX Disco Cruise), Article (70+ blog posts), Review (testimonials), Product (homepage), BreadcrumbList.
     - **Content Enrichment**: All schemas are expanded with 200-250+ word descriptions, comprehensive pricing charts, detailed FAQs (10-15 questions per page), fleet information, package breakdowns, and booking details for pages like Private Cruises, ATX Disco Cruise, Bachelor/Bachelorette Parties, Corporate Events, Wedding Events, and Birthday Events.
     - **Critical SEO Requirements**: Schema markup and SEO visibility must remain intact. Protected components include `server/ssr/renderer.ts`, `server/schemaLoader.ts`, `attached_assets/schema_data/` (with specific pricing and content quality requirements), and Sitemap & Robots.txt. Verification includes 4-7 schema instances per page (5 for homepage), passing Google Rich Results Test, and JS-independent schema visibility.
+    - **CRITICAL SSR Configuration (DO NOT MODIFY)**: 
+      - **Homepage (/)**: MUST NOT be in SSR_ROUTES - uses schema-only injection for fast React loading (adding to SSR causes audit score drops and slow page loads)
+      - **/blogs**: MUST be in SSR_ROUTES - required for search engines to see blog content (1,000+ words visible)
+      - **Performance vs SEO Balance**: Homepage optimized for speed with React + schemas, /blogs optimized for SEO with full SSR
+      - **Never change these configurations without explicit user approval**
 
 ## External Dependencies
 - **Stripe**: Payment processing.
