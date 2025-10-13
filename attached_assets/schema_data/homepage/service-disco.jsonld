@@ -64,11 +64,5 @@
       "name": "Bride/Groom Free",
       "value": "Yes - On Disco Queen/King & Platinum packages with 16+ guests"
     }
-  ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5.0",
-    "bestRating": "5",
-    "ratingCount": 420
-  }
+  ]
 }

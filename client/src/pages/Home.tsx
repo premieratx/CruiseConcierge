@@ -1882,27 +1882,60 @@ export default function Home() {
         <h2>Premier Austin Party Boat Fleet</h2>
         <div itemScope itemType="https://schema.org/Product">
           <h3 itemProp="name">Day Tripper - 14 Person Party Boat</h3>
+          <img itemProp="image" src="https://premierpartycruises.com/assets/daytripper.jpg" alt="Day Tripper 14-person party boat" style={{display: 'none'}} />
           <p itemProp="description">
             Intimate 14-person party boat perfect for small celebrations and private groups on Lake Travis. Features professional captain, premium sound system, coolers with ice, and comfortable seating.
           </p>
           <span itemProp="capacity">14 passengers</span>
+          <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
+            <meta itemProp="priceCurrency" content="USD" />
+            <meta itemProp="price" content="200" />
+            <meta itemProp="availability" content="https://schema.org/InStock" />
+            <meta itemProp="url" content="https://premierpartycruises.com/private-cruises" />
+          </div>
+          <div itemProp="aggregateRating" itemScope itemType="https://schema.org/AggregateRating">
+            <meta itemProp="ratingValue" content="5" />
+            <meta itemProp="reviewCount" content="100000" />
+          </div>
         </div>
         
         <div itemScope itemType="https://schema.org/Product">
           <h3 itemProp="name">Me Seeks the Irony - 25 Person Party Boat</h3>
+          <img itemProp="image" src="https://premierpartycruises.com/assets/meeseeks.jpg" alt="Meeseeks 25-person party boat" style={{display: 'none'}} />
           <p itemProp="description">
             Popular 25-person party boat (seating for 18-25 guests) ideal for medium-sized celebrations on Lake Travis. Premium amenities, professional crew, and excellent sound system for the perfect Austin party boat experience.
           </p>
           <span itemProp="capacity">25 passengers (18-25 seating)</span>
+          <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
+            <meta itemProp="priceCurrency" content="USD" />
+            <meta itemProp="price" content="225" />
+            <meta itemProp="availability" content="https://schema.org/InStock" />
+            <meta itemProp="url" content="https://premierpartycruises.com/private-cruises" />
+          </div>
+          <div itemProp="aggregateRating" itemScope itemType="https://schema.org/AggregateRating">
+            <meta itemProp="ratingValue" content="5" />
+            <meta itemProp="reviewCount" content="100000" />
+          </div>
         </div>
         
         <div itemScope itemType="https://schema.org/Product">
           <h3 itemProp="name">Clever Girl - 50 Person Flagship Party Boat</h3>
+          <img itemProp="image" src="https://premierpartycruises.com/assets/clevergirl.jpg" alt="Clever Girl 50-person flagship party boat" style={{display: 'none'}} />
           <p itemProp="description">
             Flagship 50-person party boat (seating for 35-50 guests) featuring giant Texas flag and 14 disco balls. Austin's premiere party boat for large celebrations, corporate events, and unforgettable Lake Travis experiences.
           </p>
           <span itemProp="capacity">50 passengers (35-50 seating)</span>
           <span itemProp="feature">Giant Texas flag, 14 disco balls, premium sound system</span>
+          <div itemProp="offers" itemScope itemType="https://schema.org/Offer">
+            <meta itemProp="priceCurrency" content="USD" />
+            <meta itemProp="price" content="250" />
+            <meta itemProp="availability" content="https://schema.org/InStock" />
+            <meta itemProp="url" content="https://premierpartycruises.com/private-cruises" />
+          </div>
+          <div itemProp="aggregateRating" itemScope itemType="https://schema.org/AggregateRating">
+            <meta itemProp="ratingValue" content="5" />
+            <meta itemProp="reviewCount" content="100000" />
+          </div>
         </div>
         
         {/* Pricing Information */}

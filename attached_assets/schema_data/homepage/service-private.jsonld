@@ -76,11 +76,5 @@
       "name": "Licensed Captains",
       "value": "Coast Guard Certified"
     }
-  ],
-  "aggregateRating": {
-    "@type": "AggregateRating",
-    "ratingValue": "5.0",
-    "bestRating": "5",
-    "ratingCount": 420
-  }
+  ]
 }
