@@ -20,6 +20,7 @@
       "name": "Basic Bach Package - Bachelorette Party",
       "price": "85.00",
       "priceCurrency": "USD",
+      "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/bachelorette-party-austin",
       "description": "Essential bachelorette party package includes professional DJ, photographer with digital photos, BYOB cooler space with ice, giant lily pad floats, party supplies, and 4-hour Lake Travis cruise"
@@ -29,6 +30,7 @@
       "name": "Disco Queen Package - Bachelorette Party",
       "price": "95.00",
       "priceCurrency": "USD",
+      "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/bachelorette-party-austin",
       "description": "Most popular bachelorette package! Includes all Basic Bach amenities PLUS private cooler with ice, reserved boat spot, disco ball cup and bubble gun for bride, alcohol delivery coordination, 25% transportation discount, Airbnb voucher, and BRIDE CRUISES FREE with 16+ paying guests"
@@ -38,6 +40,7 @@
       "name": "Super Sparkle Platinum Package - Bachelorette Party",
       "price": "105.00",
       "priceCurrency": "USD",
+      "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/bachelorette-party-austin",
       "description": "Ultimate VIP bachelorette experience! Includes all Disco Queen amenities PLUS personal unicorn float for bride, complete mimosa setup with champagne flutes and chambong, $100 Airbnb voucher, towel service, SPF-50 sunscreen, pre-stocked cooler, VIP treatment, and BRIDE CRUISES FREE with 16+ paying guests"
@@ -53,6 +56,7 @@
         "priceCurrency": "USD",
         "unitText": "HOUR"
       },
+      "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/bachelorette-party-austin",
       "description": "Intimate private bachelorette party boat for up to 14 guests with complete exclusivity, professional captain, premium sound system, 4-hour minimum"
@@ -68,6 +72,7 @@
         "priceCurrency": "USD",
         "unitText": "HOUR"
       },
+      "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/bachelorette-party-austin",
       "description": "Most popular private bachelorette boat for 18-25 guests with professional crew, premium amenities, complete exclusivity, 4-hour minimum"
@@ -83,6 +88,7 @@
         "priceCurrency": "USD",
         "unitText": "HOUR"
       },
+      "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/bachelorette-party-austin",
       "description": "Spectacular flagship vessel for large bachelorette parties 30-50 guests featuring 14 disco balls, giant Texas flag, professional crew, 4-hour minimum"

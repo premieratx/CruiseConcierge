@@ -25,6 +25,7 @@
       "priceCurrency": "USD",
       "unitText": "per hour"
     },
+    "priceValidUntil": "2099-12-31",
     "availability": "https://schema.org/InStock",
     "url": "https://premierpartycruises.com/private-cruises"
   },
@@ -36,7 +37,8 @@
       "offers": {
         "@type": "Offer",
         "price": "200",
-        "priceCurrency": "USD"
+        "priceCurrency": "USD",
+        "priceValidUntil": "2099-12-31"
       }
     },
     {
@@ -46,7 +48,8 @@
       "offers": {
         "@type": "Offer",
         "price": "225",
-        "priceCurrency": "USD"
+        "priceCurrency": "USD",
+        "priceValidUntil": "2099-12-31"
       }
     },
     {
@@ -56,7 +59,8 @@
       "offers": {
         "@type": "Offer",
         "price": "250",
-        "priceCurrency": "USD"
+        "priceCurrency": "USD",
+        "priceValidUntil": "2099-12-31"
       }
     }
   ],

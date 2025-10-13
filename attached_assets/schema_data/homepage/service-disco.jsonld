@@ -20,6 +20,7 @@
       "name": "Basic Bach Package",
       "price": "85.00",
       "priceCurrency": "USD",
+      "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/atx-disco-cruise",
       "description": "Includes all cruise amenities, DJ, photographer, and party atmosphere"
@@ -29,6 +30,7 @@
       "name": "Disco Queen/King Package",
       "price": "95.00",
       "priceCurrency": "USD",
+      "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/atx-disco-cruise",
       "description": "Enhanced package with bride/groom FREE for 16+ guests, plus all amenities"
@@ -38,6 +40,7 @@
       "name": "Super Sparkle Platinum Package",
       "price": "105.00",
       "priceCurrency": "USD",
+      "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/atx-disco-cruise",
       "description": "Premium package with bride/groom FREE for 16+ guests, VIP treatment, and all amenities"

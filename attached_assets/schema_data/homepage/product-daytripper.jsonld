@@ -20,6 +20,7 @@
       "priceCurrency": "USD",
       "unitText": "per hour"
     },
+    "priceValidUntil": "2099-12-31",
     "availability": "https://schema.org/InStock",
     "seller": {
       "@id": "https://premierpartycruises.com/#organization"

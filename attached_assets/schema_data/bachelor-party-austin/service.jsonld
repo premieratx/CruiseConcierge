@@ -20,6 +20,7 @@
       "name": "Basic Bach Package - Bachelor Party",
       "price": "85.00",
       "priceCurrency": "USD",
+      "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/bachelor-party-austin",
       "description": "Essential bachelor party package includes professional DJ, photographer with digital photos, BYOB cooler space with ice, giant lily pad floats, party supplies, and 4-hour Lake Travis cruise"
@@ -29,6 +30,7 @@
       "name": "Disco King Package - Bachelor Party",
       "price": "95.00",
       "priceCurrency": "USD",
+      "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/bachelor-party-austin",
       "description": "Most popular bachelor package! Includes all Basic Bach amenities PLUS private cooler with ice, reserved boat spot, disco ball cup for groom, alcohol delivery coordination, 25% transportation discount, Airbnb voucher, and GROOM CRUISES FREE with 16+ paying guests"
@@ -38,6 +40,7 @@
       "name": "Super Sparkle Platinum Package - Bachelor Party",
       "price": "105.00",
       "priceCurrency": "USD",
+      "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/bachelor-party-austin",
       "description": "Ultimate VIP bachelor experience! Includes all Disco King amenities PLUS personal float for groom, complete drink setup, $100 Airbnb voucher, towel service, SPF-50 sunscreen, pre-stocked cooler, VIP treatment, and GROOM CRUISES FREE with 16+ paying guests"
@@ -53,6 +56,7 @@
         "priceCurrency": "USD",
         "unitText": "HOUR"
       },
+      "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/bachelor-party-austin",
       "description": "Intimate private bachelor party boat for up to 14 guests with complete exclusivity, professional captain, premium sound system, 4-hour minimum"
@@ -68,6 +72,7 @@
         "priceCurrency": "USD",
         "unitText": "HOUR"
       },
+      "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/bachelor-party-austin",
       "description": "Most popular private bachelor boat for 18-25 guests with professional crew, premium amenities, complete exclusivity, 4-hour minimum"
@@ -83,6 +88,7 @@
         "priceCurrency": "USD",
         "unitText": "HOUR"
       },
+      "priceValidUntil": "2099-12-31",
       "availability": "https://schema.org/InStock",
       "url": "https://premierpartycruises.com/bachelor-party-austin",
       "description": "Spectacular flagship vessel for large bachelor parties 30-50 guests featuring 14 disco balls, giant Texas flag, professional crew, 4-hour minimum"
