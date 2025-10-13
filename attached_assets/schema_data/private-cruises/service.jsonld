@@ -16,7 +16,6 @@
     {
       "@type": "Offer",
       "priceCurrency": "USD",
-      "price": "200.00",
       "priceSpecification": {
         "@type": "PriceSpecification",
         "minPrice": 200

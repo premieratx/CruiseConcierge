@@ -19,12 +19,6 @@
     "priceCurrency": "USD",
     "lowPrice": "200",
     "highPrice": "250",
-    "priceSpecification": {
-      "@type": "UnitPriceSpecification",
-      "price": "200.00",
-      "priceCurrency": "USD",
-      "unitText": "per hour"
-    },
     "priceValidUntil": "2099-12-31",
     "availability": "https://schema.org/InStock",
     "url": "https://premierpartycruises.com/private-cruises"
