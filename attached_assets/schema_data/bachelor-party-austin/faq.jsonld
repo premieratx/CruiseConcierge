@@ -121,6 +121,38 @@
         "@type": "Answer",
         "text": "The ATX Disco Cruise offers 3-5x better value than private rentals. You get a full 4-hour experience (vs. typical 2-hour private rentals), professional DJ and photographer included in the price, better amenities and party atmosphere, and it's always more affordable per person. Plus, the energy of partying with other bachelor groups creates an unforgettable vibe you can't get on a private boat. For most groups under 30 people, the Disco Cruise is the clear winner."
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we bring our own alcohol on Lake Travis bachelor party boats?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! BYOB is encouraged on all Lake Travis bachelor party boats for guests 21 and over with valid ID. We provide coolers and ice for your beverages on every cruise. For safety reasons, only cans and plastic containers are allowed—no glass bottles. This BYOB policy keeps costs down while letting you bring exactly what your bachelor party wants to drink on Lake Travis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many people can join a Lake Travis bachelor party cruise?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our Lake Travis bachelor party cruises accommodate groups of all sizes. The ATX Disco Cruise easily handles 20-40+ guests per bachelor party, with up to 100 people total on the boat. For smaller or larger groups seeking complete privacy, our private Lake Travis boats accommodate 14-75 guests with the entire vessel exclusively for your bachelor party celebration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance should we book our Austin bachelor party boat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Book your Austin bachelor party boat 6-8 weeks in advance for weekend dates, especially during peak season (April-September). The best Lake Travis bachelor party dates fill up fast, particularly Saturdays. We strongly recommend securing your Austin bachelor party boat as soon as your group confirms the date to guarantee your preferred time slot on Lake Travis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's included in the ATX Disco Cruise bachelor package?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The ATX Disco Cruise bachelor package includes everything for an epic Lake Travis celebration: professional DJ playing all day, professional photographer with digital photo delivery, BYOB cooler setup with ice, giant lily pad floats, party supplies and decorations, mimosa supplies, ice water stations, clean restrooms, shaded areas, and an incredible party atmosphere. Plus, the groom cruises FREE on Disco King and Super Sparkle Platinum packages with 16+ paying guests!"
+      }
     }
   ]
 }

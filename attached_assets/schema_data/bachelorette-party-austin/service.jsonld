@@ -1,0 +1,129 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://premierpartycruises.com/bachelorette-party-austin/#service",
+  "name": "Lake Travis Bachelorette Party Boat Cruises in Austin",
+  "serviceType": "Bachelorette Party Boat Experience",
+  "provider": {
+    "@id": "https://premierpartycruises.com/#organization"
+  },
+  "areaServed": [
+    "Austin TX",
+    "Lake Travis",
+    "Texas",
+    "United States"
+  ],
+  "description": "Celebrate with the ultimate Lake Travis bachelorette party boat cruise in Austin at Premier Party Cruises. Our ATX Disco Cruise offers three fabulous packages designed for bachelorette celebrations: Basic Bach at $85 per person includes professional DJ, photographer, and all party essentials; Disco Queen at $95 per person is our most popular package with the bride cruising FREE with 16+ guests; Super Sparkle Platinum at $105 per person includes VIP treatment, personal unicorn float, mimosa setup, and the bride cruises FREE with 16+ guests. Every bachelorette party cruise features a 4-hour Lake Travis experience with professional DJ, professional photographer capturing Instagram-worthy moments, BYOB cooler setup with ice, giant lily pad floats, party decorations, and an amazing party atmosphere with other bachelorette groups. Perfect for groups of 20-40+ guests. Also available: private boat rentals for intimate celebrations ranging from 14-75 person capacity.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Basic Bach Package - Bachelorette Party",
+      "price": "85.00",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/bachelorette-party-austin",
+      "description": "Essential bachelorette party package includes professional DJ, photographer with digital photos, BYOB cooler space with ice, giant lily pad floats, party supplies, and 4-hour Lake Travis cruise"
+    },
+    {
+      "@type": "Offer",
+      "name": "Disco Queen Package - Bachelorette Party",
+      "price": "95.00",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/bachelorette-party-austin",
+      "description": "Most popular bachelorette package! Includes all Basic Bach amenities PLUS private cooler with ice, reserved boat spot, disco ball cup and bubble gun for bride, alcohol delivery coordination, 25% transportation discount, Airbnb voucher, and BRIDE CRUISES FREE with 16+ paying guests"
+    },
+    {
+      "@type": "Offer",
+      "name": "Super Sparkle Platinum Package - Bachelorette Party",
+      "price": "105.00",
+      "priceCurrency": "USD",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/bachelorette-party-austin",
+      "description": "Ultimate VIP bachelorette experience! Includes all Disco Queen amenities PLUS personal unicorn float for bride, complete mimosa setup with champagne flutes and chambong, $100 Airbnb voucher, towel service, SPF-50 sunscreen, pre-stocked cooler, VIP treatment, and BRIDE CRUISES FREE with 16+ paying guests"
+    },
+    {
+      "@type": "Offer",
+      "name": "Private Bachelorette Party Boat - 14 Person",
+      "price": "200.00",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "200.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/bachelorette-party-austin",
+      "description": "Intimate private bachelorette party boat for up to 14 guests with complete exclusivity, professional captain, premium sound system, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Private Bachelorette Party Boat - 25 Person",
+      "price": "225.00",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "225.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/bachelorette-party-austin",
+      "description": "Most popular private bachelorette boat for 18-25 guests with professional crew, premium amenities, complete exclusivity, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Private Bachelorette Party Boat - 50 Person Flagship",
+      "price": "250.00",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "250.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/bachelorette-party-austin",
+      "description": "Spectacular flagship vessel for large bachelorette parties 30-50 guests featuring 14 disco balls, giant Texas flag, professional crew, 4-hour minimum"
+    }
+  ],
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Professional DJ",
+      "value": "Included on all ATX Disco Cruise packages"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Professional Photographer",
+      "value": "Included with digital photo delivery"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Bride Cruises Free",
+      "value": "On Disco Queen & Platinum packages with 16+ guests"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "BYOB Policy",
+      "value": "Cans and plastic containers allowed (21+ with ID)"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Group Size",
+      "value": "20-40+ guests on Disco Cruise, 14-75 on private boats"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Special Bride Perks",
+      "value": "Unicorn float, mimosa setup, VIP treatment on premium packages"
+    }
+  ],
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "bestRating": "5",
+    "ratingCount": 300
+  }
+}

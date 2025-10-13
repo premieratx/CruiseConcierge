@@ -17,6 +17,13 @@
   ],
   "description": "Austin\u2019s original Lake Travis party boat company offering private cruises, the ATX Disco Cruise, and full\u2011service planning for bachelor/bachelorette, corporate, birthday, and family events.",
   "foundingDate": "2009",
+  "slogan": "Creating the perfect party cruise experience on Lake Travis",
+  "founder": {
+    "@type": "Person",
+    "name": "Brian Hill",
+    "alumniOf": "University of Texas at Austin",
+    "jobTitle": "Owner & Experience Optimization Engineer"
+  },
   "sameAs": [
     "https://www.instagram.com/premierpartycruises",
     "https://www.tiktok.com/@premierpartycruisesatx",

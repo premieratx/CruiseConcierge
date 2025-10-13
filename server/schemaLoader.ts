@@ -13,6 +13,8 @@ interface RouteSchemaMapping {
 
 const ROUTE_TO_SCHEMA_MAPPING: RouteSchemaMapping = {
   '/': [
+    'homepage/organization.jsonld',
+    'homepage/reviews.jsonld',
     'homepage/faq.jsonld',
     'homepage/service-private.jsonld',
     'homepage/service-disco.jsonld',
@@ -31,8 +33,8 @@ const ROUTE_TO_SCHEMA_MAPPING: RouteSchemaMapping = {
   '/milestone-birthday': ['milestone-birthday/faq.jsonld', 'milestone-birthday/service.jsonld'],
   '/atx-disco-cruise': ['atx-disco-cruise/event.jsonld', 'atx-disco-cruise/faq.jsonld'],
   '/private-cruises': ['private-cruises/faq.jsonld', 'private-cruises/service.jsonld'],
-  '/bachelor-party-austin': ['bachelor-party-austin/faq.jsonld'],
-  '/bachelorette-party-austin': ['bachelorette-party-austin/faq.jsonld'],
+  '/bachelor-party-austin': ['bachelor-party-austin/faq.jsonld', 'bachelor-party-austin/service.jsonld'],
+  '/bachelorette-party-austin': ['bachelorette-party-austin/faq.jsonld', 'bachelorette-party-austin/service.jsonld'],
   '/combined-bachelor-bachelorette-austin': ['combined-bachelor-bachelorette-austin/faq.jsonld'],
   '/party-boat-austin': ['party-boat-austin/faq.jsonld'],
   '/party-boat-lake-travis': ['party-boat-lake-travis/faq.jsonld'],

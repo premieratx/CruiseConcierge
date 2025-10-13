@@ -121,6 +121,38 @@
         "@type": "Answer",
         "text": "The ATX Disco Cruise is more affordable per person than private rentals, includes a professional DJ and photographer in the price (huge value-adds), offers a longer 4-hour experience compared to typical 2-hour private rentals, provides better overall value with superior amenities, and creates an amazing party atmosphere by meeting other bachelorette groups on the water. Plus, the energy and fun of multiple bachelorette parties celebrating together is truly unforgettable!"
       }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we bring alcohol on Lake Travis bachelorette party boats?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! BYOB is encouraged on all Lake Travis bachelorette party boats for guests 21 and over with valid ID. We provide coolers and ice for your beverages on every cruise. For safety, only cans and plastic containers are allowed—no glass bottles. This BYOB policy on Lake Travis keeps costs down while giving your bachelorette party complete control over your drink selections."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the best bachelorette party boat size for our group?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The best bachelorette party boat size depends on your group. The ATX Disco Cruise accommodates 20-40+ guests per bachelorette party, perfect for medium to large groups wanting a shared party atmosphere. For intimate groups or complete privacy, our private Lake Travis boats range from 14-person (perfect for 8-12 guests) to 50-person boats (ideal for 30-45 guests), ensuring the perfect bachelorette party boat size for your celebration."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When should we book our Lake Travis bachelorette party?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Book your Lake Travis bachelorette party 6-8 weeks in advance for weekend dates, especially during peak bachelorette season (April-September). Saturday time slots fill up fastest. Secure your Lake Travis bachelorette party as soon as your group confirms the date to guarantee your preferred cruise time and ensure the bride cruises free on eligible packages with 16+ guests."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What comes with the bachelorette party packages?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Our bachelorette party packages include everything for an unforgettable Lake Travis celebration: professional DJ, professional photographer with digital photos, BYOB cooler setup with ice, giant lily pad floats, party decorations and supplies, ice water stations, clean restrooms, and shaded areas. Upgraded packages add bride-specific perks like personal unicorn floats, mimosa setups, VIP treatment, and the bride cruises FREE with 16+ paying guests on Disco Queen and Super Sparkle Platinum!"
+      }
     }
   ]
 }
