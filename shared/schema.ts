@@ -122,6 +122,37 @@ export const pricingSettings = pgTable("pricing_settings", {
 });
 
 // ==========================================
+// UPTIME MONITORING
+// ==========================================
+
+export const uptimeMonitors = pgTable("uptime_monitors", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  monitorId: varchar("monitor_id").notNull().unique(), // UptimeRobot monitor ID
+  friendlyName: text("friendly_name").notNull(),
+  url: text("url").notNull(),
+  type: varchar("type").notNull(), // 'http', 'https', 'ping', etc
+  status: integer("status").notNull(), // 0=paused, 1=not checked yet, 2=up, 8=seems down, 9=down
+  uptimeRatio: text("uptime_ratio"), // last 24h uptime percentage
+  responseTime: integer("response_time"), // average response time in ms
+  lastCheck: timestamp("last_check"),
+  lastDowntime: timestamp("last_downtime"),
+  alertsSent: integer("alerts_sent").default(0),
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+  updatedAt: timestamp("updated_at").notNull().defaultNow(),
+});
+
+export const uptimeAlerts = pgTable("uptime_alerts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  monitorId: varchar("monitor_id").notNull().references(() => uptimeMonitors.monitorId),
+  alertType: varchar("alert_type").notNull(), // 'down', 'up', 'slow'
+  message: text("message").notNull(),
+  smsSent: boolean("sms_sent").default(false),
+  smsDeliveredAt: timestamp("sms_delivered_at"),
+  responseTime: integer("response_time"), // response time when alert was triggered
+  createdAt: timestamp("created_at").notNull().defaultNow(),
+});
+
+// ==========================================
 // AFFILIATES
 // ==========================================
 
