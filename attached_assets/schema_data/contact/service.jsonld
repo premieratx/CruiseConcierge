@@ -1,0 +1,157 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://premierpartycruises.com/contact/#service",
+  "name": "Lake Travis Party Boat Rentals & Charter Services",
+  "serviceType": "Party Boat Rental and Charter Service",
+  "provider": {
+    "@id": "https://premierpartycruises.com/#organization"
+  },
+  "areaServed": [
+    "Austin TX",
+    "Lake Travis",
+    "Central Texas",
+    "Texas",
+    "United States"
+  ],
+  "description": "Premier Party Cruises offers comprehensive Lake Travis party boat rentals and charter services in Austin. With 14+ years of experience and over 125,000 satisfied customers, we provide private charters, ATX Disco Cruises, and full-service event planning for bachelor parties, bachelorette parties, corporate events, birthdays, weddings, and all celebrations. Our fleet includes three premium boats (14-75 person capacity) with professional captains, complete party packages, and exceptional customer service. We handle everything from booking to execution, making your Lake Travis party cruise effortless and unforgettable.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Day Tripper - Intimate Private Charter (14 Guests)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "195.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/contact",
+      "description": "Perfect for intimate gatherings up to 14 guests. Includes professional captain, premium Bluetooth sound system, restroom, seating areas, safety equipment. 4-hour minimum. Ideal for small bachelor parties, family outings, or couples celebrations."
+    },
+    {
+      "@type": "Offer",
+      "name": "Meeseeks/The Irony - Mid-Size Charter (25 Guests)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "295.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/contact",
+      "description": "Most popular boat size for 18-25 guests. Perfect balance of space and value. Includes professional captain & crew, premium amenities, complete privacy. 4-hour minimum. Great for bachelorette parties, corporate team building, birthday celebrations."
+    },
+    {
+      "@type": "Offer",
+      "name": "Clever Girl - Flagship Vessel (50 Guests)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "495.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/contact",
+      "description": "Spectacular flagship for large events 30-50 guests featuring 14 disco balls, giant Texas flag, spacious decks, premium sound system, professional crew. 4-hour minimum. Perfect for corporate events, large bachelor/bachelorette parties, wedding celebrations."
+    },
+    {
+      "@type": "Offer",
+      "name": "ATX Disco Cruise - Basic Bach Package",
+      "price": "85.00",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/contact",
+      "description": "Shared party cruise experience with professional DJ, photographer with digital photos, BYOB cooler space with ice, giant lily pad floats, party supplies, and 4-hour Lake Travis cruise. Join other bachelor/bachelorette groups for epic party atmosphere."
+    },
+    {
+      "@type": "Offer",
+      "name": "ATX Disco Cruise - Disco King Package",
+      "price": "95.00",
+      "priceCurrency": "USD",
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/contact",
+      "description": "Most popular disco cruise package! Includes all Basic Bach amenities PLUS private cooler with ice, reserved boat spot, disco ball cup, alcohol delivery coordination, 25% transportation discount, Airbnb voucher. GROOM/BRIDE CRUISES FREE with 16+ paying guests!"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package Upgrade",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "150.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/contact",
+      "description": "Upgrade any private charter with Essentials Package. Adds: Large coolers with ice, solo cups, extended floating time, giant lily pads, enhanced amenities. Popular upgrade for bachelor/bachelorette parties and celebrations. +$100-200/hour depending on boat size."
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package Upgrade",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "300.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/contact",
+      "description": "Premium VIP experience! Includes all Essentials amenities PLUS: Premium sound system, professional decorations, VIP service, priority scheduling, enhanced floating equipment, premium bar setup, towel service. The ultimate Lake Travis celebration. +$250-350/hour depending on boat size."
+    }
+  ],
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Experience",
+      "value": "14+ years on Lake Travis with 125,000+ satisfied customers"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Safety Record",
+      "value": "Perfect safety record with Coast Guard certified captains"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Fleet Size",
+      "value": "3 premium boats accommodating 14-75 guests"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Customer Rating",
+      "value": "5-star rating across all review platforms"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Booking Flexibility",
+      "value": "Same-day booking available, flexible payment plans"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Service Hours",
+      "value": "Monday-Sunday 9:00 AM - 9:00 PM"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Response Time",
+      "value": "Usually within 1 hour during business hours"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Languages",
+      "value": "Bilingual support (English and Spanish)"
+    }
+  ]
+}

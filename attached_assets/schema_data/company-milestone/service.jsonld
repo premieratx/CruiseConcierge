@@ -11,5 +11,142 @@
     "Texas",
     "United States"
   ],
-  "description": "Celebrate company milestones in style on Lake Travis! Perfect for anniversaries, IPOs, major wins, and achievement celebrations. Private boat experiences for teams of 14-75 with professional service and unforgettable memories. Company milestones deserve exceptional celebrations! Whether celebrating 10 years in business, closing a major deal, hitting revenue targets, or going public, a Lake Travis cruise provides the perfect venue for honoring achievements. Our milestone celebration cruises create shared memories that reinforce company culture and celebrate success with your entire team. From intimate executive cruises to full-company celebrations, we scale to your needs. We've hosted celebrations for every type of company milestone: company anniversary celebrations (5, 10, 25+ years), IPO and funding round successes, revenue milestone achievements, major client wins and deal closings, product launch celebrations, expansion and office openings, award recognitions and industry honors, retirement celebrations for executives, merger and acquisition celebrations, record-breaking quarter or year celebrations. Your milestone celebration should reflect the significance of the achievement. We offer complete customization: timing, route, activities, catering, and special touches. Popular elements include champagne toasts, catered meals, professional photography, awards presentations, team recognition, and celebratory decorations. Sound system available for speeches and announcements. Many companies combine the celebration with team building activities, making it both fun and purposeful. The Lake Travis setting creates a relaxed yet special atmosphere for honoring success. We understand the importance of milestone events. Our experienced team handles all logistics, from catering coordination to timeline management. You focus on celebrating while we ensure everything runs perfectly. Fleet options accommodate any group size: 14 guests (executive team) to 75+ (entire company). Ultimate package recommended for milestone celebrations to maximize the special feel. Book 6-8 weeks in advance for milestone events. Pricing starts at $200/hour, with volume discounts available for larger groups."
+  "description": "Celebrate company milestones in style on Lake Travis! Perfect for anniversaries, IPOs, major wins, and achievement celebrations. Private boat experiences for teams of 14-75 with professional service and unforgettable memories. Company milestones deserve exceptional celebrations! Whether celebrating 10 years in business, closing a major deal, hitting revenue targets, or going public, a Lake Travis cruise provides the perfect venue for honoring achievements. Our milestone celebration cruises create shared memories that reinforce company culture and celebrate success with your entire team. From intimate executive cruises to full-company celebrations, we scale to your needs. We've hosted celebrations for every type of company milestone: company anniversary celebrations (5, 10, 25+ years), IPO and funding round successes, revenue milestone achievements, major client wins and deal closings, product launch celebrations, expansion and office openings, award recognitions and industry honors, retirement celebrations for executives, merger and acquisition celebrations, record-breaking quarter or year celebrations. Your milestone celebration should reflect the significance of the achievement. We offer complete customization: timing, route, activities, catering, and special touches. Popular elements include champagne toasts, catered meals, professional photography, awards presentations, team recognition, and celebratory decorations. Sound system available for speeches and announcements. Many companies combine the celebration with team building activities, making it both fun and purposeful. The Lake Travis setting creates a relaxed yet special atmosphere for honoring success. We understand the importance of milestone events. Our experienced team handles all logistics, from catering coordination to timeline management. You focus on celebrating while we ensure everything runs perfectly. Fleet options accommodate any group size: 14 guests (executive team) to 75+ (entire company). Ultimate package recommended for milestone celebrations to maximize the special feel. Book 6-8 weeks in advance for milestone events. Pricing starts at $200/hour, with volume discounts available for larger groups.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "195.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/company-milestone",
+      "description": "Intimate milestone celebration cruise for up to 14 guests with professional captain, premium sound system, champagne toast setup, 4-hour minimum, perfect for executive team celebrations"
+    },
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "295.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/company-milestone",
+      "description": "Most popular milestone celebration boat for 18-25 guests with professional crew, premium amenities, celebration atmosphere, complete privacy, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "495.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/company-milestone",
+      "description": "Flagship vessel for major company milestones 30-50 guests featuring 14 disco balls, giant Texas flag, professional crew, celebration setup, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "345.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/company-milestone",
+      "description": "Enhanced milestone celebration with all Basic amenities PLUS catering coordination, celebratory decorations, awards ceremony setup, branded materials display, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "445.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/company-milestone",
+      "description": "Premium milestone celebration cruise with all Basic amenities PLUS catering coordination, celebratory decorations, awards ceremony setup, branded materials display, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "645.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/company-milestone",
+      "description": "Premium flagship milestone celebration with all Basic amenities PLUS catering coordination, celebratory decorations, awards ceremony setup, branded materials display, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "495.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/company-milestone",
+      "description": "Ultimate VIP milestone celebration with all Essentials amenities PLUS complete gourmet catering, professional photographer, videographer, custom awards presentation, premium champagne service, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "595.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/company-milestone",
+      "description": "Ultimate VIP milestone celebration cruise with all Essentials amenities PLUS complete gourmet catering, professional photographer, videographer, custom awards presentation, premium champagne service, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "795.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/company-milestone",
+      "description": "Ultimate VIP flagship milestone celebration with all Essentials amenities PLUS complete gourmet catering, professional photographer, videographer, custom awards presentation, premium champagne service, 4-hour minimum"
+    }
+  ]
 }

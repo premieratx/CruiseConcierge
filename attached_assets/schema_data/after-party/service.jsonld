@@ -11,5 +11,142 @@
     "Texas",
     "United States"
   ],
-  "description": "Keep the celebration going with a Lake Travis wedding after party cruise! Perfect for couples and guests who aren't ready for the night to end. Private boats for 14-50+ guests with party atmosphere and late-night fun. Your wedding reception ends but the party doesn't have to! A Lake Travis after party cruise is the perfect way to extend your celebration with close friends and family. Let loose, dance, swim, and create unforgettable memories as a newly married couple. Professional crew for late-night cruises, premium sound system and disco balls for party vibes, swimming and floating under the stars (weather permitting), BYOB with cooler service, relaxed party atmosphere, continue the celebration your way, often more fun than the reception itself, perfect for the bride and groom to actually party, late-night food delivery coordination available. Fleet options: Day Tripper (intimate 14 guests, $195/hr), Me Seeks the Irony (25 guests party, $295/hr), Clever Girl (big after party 50+ guests, $495/hr). Popular timing: 10pm-1am or 11pm-2am. Packages include Ultimate Party recommended for full experience (+$250-350/hr). Book with your wedding venue date to secure availability."
+  "description": "Keep the celebration going with a Lake Travis wedding after party cruise! Perfect for couples and guests who aren't ready for the night to end. Private boats for 14-50+ guests with party atmosphere and late-night fun. Your wedding reception ends but the party doesn't have to! A Lake Travis after party cruise is the perfect way to extend your celebration with close friends and family. Let loose, dance, swim, and create unforgettable memories as a newly married couple. Professional crew for late-night cruises, premium sound system and disco balls for party vibes, swimming and floating under the stars (weather permitting), BYOB with cooler service, relaxed party atmosphere, continue the celebration your way, often more fun than the reception itself, perfect for the bride and groom to actually party, late-night food delivery coordination available. Fleet options: Day Tripper (intimate 14 guests, $195/hr), Me Seeks the Irony (25 guests party, $295/hr), Clever Girl (big after party 50+ guests, $495/hr). Popular timing: 10pm-1am or 11pm-2am. Packages include Ultimate Party recommended for full experience (+$250-350/hr). Book with your wedding venue date to secure availability.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "195.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/after-party",
+      "description": "Intimate wedding after party cruise for up to 14 guests with professional captain, premium sound system, late-night party vibes, 4-hour minimum, perfect for close friends"
+    },
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "295.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/after-party",
+      "description": "Most popular after party boat for 18-25 guests with professional crew, premium amenities, party atmosphere, disco balls, complete privacy, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "495.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/after-party",
+      "description": "Flagship vessel for epic wedding after parties 30-50 guests featuring 14 disco balls, giant Texas flag, professional crew, ultimate party atmosphere, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "345.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/after-party",
+      "description": "Enhanced after party with all Basic amenities PLUS late-night food coordination, premium cooler setup, party supplies, special lighting, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "445.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/after-party",
+      "description": "Premium after party cruise with all Basic amenities PLUS late-night food coordination, premium cooler setup, party supplies, special lighting, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "645.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/after-party",
+      "description": "Premium flagship after party with all Basic amenities PLUS late-night food coordination, premium cooler setup, party supplies, special lighting, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "495.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/after-party",
+      "description": "Ultimate VIP after party with all Essentials amenities PLUS complete late-night catering, professional photographer, DJ equipment, premium bar setup, full party package, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "595.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/after-party",
+      "description": "Ultimate VIP after party cruise with all Essentials amenities PLUS complete late-night catering, professional photographer, DJ equipment, premium bar setup, full party package, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "795.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/after-party",
+      "description": "Ultimate VIP flagship after party with all Essentials amenities PLUS complete late-night catering, professional photographer, DJ equipment, premium bar setup, full party package, 4-hour minimum"
+    }
+  ]
 }

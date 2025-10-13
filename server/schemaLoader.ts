@@ -38,6 +38,7 @@ const ROUTE_TO_SCHEMA_MAPPING: RouteSchemaMapping = {
   '/party-boat-austin': ['party-boat-austin/faq.jsonld'],
   '/party-boat-lake-travis': ['party-boat-lake-travis/faq.jsonld'],
   '/testimonials-faq': ['testimonials-faq/faq.jsonld'],
+  '/contact': ['contact/faq.jsonld', 'contact/service.jsonld'],
 };
 
 const schemaCache: Map<string, object> = new Map();

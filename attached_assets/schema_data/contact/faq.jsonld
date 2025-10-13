@@ -1,0 +1,102 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What's the difference between private charters and disco cruises?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Private charters provide complete exclusivity with your own boat, captain, and crew for your specific group (14-75 guests). You control the schedule, route, and activities. ATX Disco Cruises are shared party experiences with professional DJ, photographer, multiple bachelor/bachelorette groups, and a vibrant party atmosphere. Private charters start at $195/hour with 4-hour minimum. Disco cruises are per-person pricing starting at $85."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much does it cost to rent a party boat?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Private party boat rentals range from $195/hour (14-person Day Tripper) to $495/hour (50-person Clever Girl flagship). Most cruises are 4-6 hours. Package upgrades add $100-350/hour. ATX Disco Cruise per-person pricing: $85 Basic Bach, $95 Disco King (most popular), $105 Super Sparkle Platinum. All prices include captain, crew, sound system, and basic amenities. Additional costs: crew fees for larger groups, catering/bar service, special add-ons."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's included in each package?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Basic Package: Captain & crew, Bluetooth sound system, restroom, seating areas, safety equipment. Essentials Package (+$100-200/hr): Adds coolers with ice, solo cups, extended floating time, lily pads. Ultimate Package (+$250-350/hr): Adds premium sound, decorations, enhanced amenities, priority scheduling, VIP service. ATX Disco Cruise includes: professional DJ, photographer with digital photos, BYOB setup, giant lily pads, party supplies, 4-hour cruise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we bring our own food and drinks?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! You can bring your own food and beverages. BYOB allowed for guests 21+ with valid ID. Use cans and plastic containers only (no glass). Popular options: pizza, tacos, BBQ, or upscale catering - we can coordinate delivery to the boat. We provide coolers and ice (package dependent). Solo cups provided on Essentials/Ultimate packages. Many customers bring full meals, snacks, birthday cakes, and full bar setups."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is alcohol allowed on the boats?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, alcohol is permitted for guests 21+ with valid ID. BYOB policy - bring your own beer, wine, seltzers, and cocktails in cans or plastic bottles (no glass). We provide coolers and ice to keep drinks cold. Alcohol delivery services can meet us at the dock with advance coordination. Our crew monitors responsible consumption to ensure everyone's safety. Underage drinking is strictly prohibited - we check IDs."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What happens if weather is bad?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Safety is our top priority. Captain determines if conditions are safe based on weather, wind, and water conditions. Unsafe weather = full refund or reschedule to another date at no charge. If weather deteriorates during cruise, we return early with pro-rated refund for unused time. We monitor weather closely and communicate proactively. 48-hour full refund window after booking. Most Lake Travis weather is perfect - cancellations are rare!"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How far in advance should we book?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Weekend dates: book 6-8 weeks in advance. Peak season (April-September): book 8-12 weeks early for best selection. Weekdays: 2-4 weeks usually sufficient. Popular dates fill fast: holidays, graduation season, summer Saturdays. Last-minute availability sometimes possible - call to check. Early booking ensures your preferred date, boat, and time slot. We recommend booking ASAP once your date is confirmed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Do you offer group discounts?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! We offer group discounts for large parties and corporate clients. Volume discounts available for booking multiple boats. Multi-event discounts for wedding weekends (welcome party, rehearsal, after-party). Corporate packages for regular team building events. Special pricing for non-profit organizations. Groom/bride cruises FREE on Disco King and Super Sparkle Platinum packages with 16+ paying guests. Contact us with your group size and needs for custom pricing."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we customize our cruise route?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Absolutely! Private charters can customize your Lake Travis route and activities. Popular options: Devil's Cove (party cove), Hippie Hollow areas, beautiful coves for swimming, scenic cruising along shoreline, sunset viewing spots. Your captain knows all the best locations and makes recommendations based on your group's preferences, weather conditions, and lake traffic. We can accommodate special requests like proposal spots or photo locations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What safety measures are in place?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Safety is paramount at Premier Party Cruises. Coast Guard certified captains with extensive Lake Travis experience. All boats inspected and maintained to highest standards. Life jackets provided for all passengers (required when swimming). First aid kits and safety equipment on every boat. Crew trained in emergency procedures. Weather monitoring throughout your cruise. 14+ years with perfect safety record. Radio communication with shore support. Experienced crew monitors guest wellbeing throughout the cruise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is transportation available from Austin?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! We partner with transportation providers for convenient Austin to Lake Travis service. Party bus and shuttle options available for groups. Rideshare services (Uber/Lyft) available to/from Lake Travis (30 minutes from downtown Austin). We provide pickup/dropoff coordination and timing. ATX Disco Cruise packages include transportation discount vouchers. Our team can recommend reliable providers and help coordinate logistics. Free parking available at all our marina locations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can we bring our own DJ or decorations?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Private charters allow you to bring your own DJ, decorations, photographers, or entertainers. We have Bluetooth sound systems for your DJ's equipment. Decorations welcome - balloons, banners, custom setups (no permanent attachments). Many customers bring professional photographers/videographers to capture their events. Our crew assists with setup and ensures everything is secured safely. Ultimate package includes enhanced decorations. Coordinate special requests when booking."
+      }
+    }
+  ]
+}

@@ -11,5 +11,142 @@
     "Texas",
     "United States"
   ],
-  "description": "Celebrate your graduate in style on Lake Travis! Perfect graduation party cruises for high school or college grads with 14-75 guests, professional service, and unforgettable memories. Your graduate worked hard for this achievement - celebrate with a Lake Travis cruise they'll never forget! Whether high school or college graduation, a boat party brings friends and family together for the perfect send-off before the next chapter. Professional captain and crew, premium sound for graduate's playlist, swimming and floating for summer celebrations, BYOB for adult guests, space for speeches and toasts, photo opportunities with graduate, customizable party decorations in school colors, accommodate friends AND family together, relaxed celebration atmosphere, creates lasting memories with classmates. Fleet accommodates all sizes: Day Tripper (14 guests intimate, $195/hr), Me Seeks the Irony (25 guests, $295/hr), Clever Girl (50-75 guests big celebration, $495/hr). Popular timing: May-June graduation season, 2-4 hour formats. Packages: Standard cruise, Essentials (+$100-200/hr with party coordination), Ultimate (+$250-350/hr with complete party setup). Book early - graduation season fills 8-12 weeks in advance."
+  "description": "Celebrate your graduate in style on Lake Travis! Perfect graduation party cruises for high school or college grads with 14-75 guests, professional service, and unforgettable memories. Your graduate worked hard for this achievement - celebrate with a Lake Travis cruise they'll never forget! Whether high school or college graduation, a boat party brings friends and family together for the perfect send-off before the next chapter. Professional captain and crew, premium sound for graduate's playlist, swimming and floating for summer celebrations, BYOB for adult guests, space for speeches and toasts, photo opportunities with graduate, customizable party decorations in school colors, accommodate friends AND family together, relaxed celebration atmosphere, creates lasting memories with classmates. Fleet accommodates all sizes: Day Tripper (14 guests intimate, $195/hr), Me Seeks the Irony (25 guests, $295/hr), Clever Girl (50-75 guests big celebration, $495/hr). Popular timing: May-June graduation season, 2-4 hour formats. Packages: Standard cruise, Essentials (+$100-200/hr with party coordination), Ultimate (+$250-350/hr with complete party setup). Book early - graduation season fills 8-12 weeks in advance.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "195.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/graduation-party",
+      "description": "Intimate graduation party cruise for up to 14 guests with professional captain, premium sound for playlists, celebration atmosphere, 4-hour minimum, perfect for close friends and family"
+    },
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "295.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/graduation-party",
+      "description": "Most popular graduation party boat for 18-25 guests with professional crew, premium amenities, celebration setup, complete privacy, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "495.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/graduation-party",
+      "description": "Flagship vessel for big graduation celebrations 30-50 guests featuring 14 disco balls, giant Texas flag, professional crew, perfect for friends and family, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "345.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/graduation-party",
+      "description": "Enhanced graduation party with all Basic amenities PLUS catering coordination, decorations in school colors, speech and toast setup, photo coordination, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "445.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/graduation-party",
+      "description": "Premium graduation party cruise with all Basic amenities PLUS catering coordination, decorations in school colors, speech and toast setup, photo coordination, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "645.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/graduation-party",
+      "description": "Premium flagship graduation party with all Basic amenities PLUS catering coordination, decorations in school colors, speech and toast setup, photo coordination, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "495.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/graduation-party",
+      "description": "Ultimate VIP graduation party with all Essentials amenities PLUS complete catering service, professional photographer, custom graduation theme, premium decorations, gift packages for graduate, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "595.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/graduation-party",
+      "description": "Ultimate VIP graduation party cruise with all Essentials amenities PLUS complete catering service, professional photographer, custom graduation theme, premium decorations, gift packages for graduate, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "795.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/graduation-party",
+      "description": "Ultimate VIP flagship graduation party with all Essentials amenities PLUS complete catering service, professional photographer, custom graduation theme, premium decorations, gift packages for graduate, 4-hour minimum"
+    }
+  ]
 }

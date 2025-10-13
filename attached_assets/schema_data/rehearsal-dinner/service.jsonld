@@ -11,5 +11,142 @@
     "Texas",
     "United States"
   ],
-  "description": "Make your wedding rehearsal dinner unforgettable on Lake Travis! Private boat cruises perfect for 14-50 guests with elegant lakeside setting and professional service. Your rehearsal dinner sets the tone for your wedding weekend. A Lake Travis cruise provides the perfect intimate setting for family and wedding party to gather, toast, and celebrate together before the big day. Professional captain and crew, premium sound system for toasts and speeches, flexible catering coordination with Austin's finest restaurants, BYOB or full bar service available, sunset timing for romantic atmosphere, complete privacy for your wedding party, beautiful Lake Travis backdrop for photos, comfortable seating with elegant ambiance. Choose from three boats: Day Tripper (14 guests, $195/hr), Me Seeks the Irony (25 guests, $295/hr), Clever Girl (50 guests, $495/hr). Packages: Standard (basic cruise), Essentials (+$100-200/hr with catering coordination), Ultimate (+$250-350/hr with full setup). Perfect 2-4 hour format, typically 6pm-9pm for sunset views. Book 6-8 weeks in advance."
+  "description": "Make your wedding rehearsal dinner unforgettable on Lake Travis! Private boat cruises perfect for 14-50 guests with elegant lakeside setting and professional service. Your rehearsal dinner sets the tone for your wedding weekend. A Lake Travis cruise provides the perfect intimate setting for family and wedding party to gather, toast, and celebrate together before the big day. Professional captain and crew, premium sound system for toasts and speeches, flexible catering coordination with Austin's finest restaurants, BYOB or full bar service available, sunset timing for romantic atmosphere, complete privacy for your wedding party, beautiful Lake Travis backdrop for photos, comfortable seating with elegant ambiance. Choose from three boats: Day Tripper (14 guests, $195/hr), Me Seeks the Irony (25 guests, $295/hr), Clever Girl (50 guests, $495/hr). Packages: Standard (basic cruise), Essentials (+$100-200/hr with catering coordination), Ultimate (+$250-350/hr with full setup). Perfect 2-4 hour format, typically 6pm-9pm for sunset views. Book 6-8 weeks in advance.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "195.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/rehearsal-dinner",
+      "description": "Intimate rehearsal dinner cruise for up to 14 guests with professional captain, premium sound for toasts, romantic sunset timing, 4-hour minimum, perfect for small wedding parties"
+    },
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "295.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/rehearsal-dinner",
+      "description": "Most popular rehearsal dinner boat for 18-25 guests with professional crew, premium amenities, elegant atmosphere, complete privacy, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "495.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/rehearsal-dinner",
+      "description": "Flagship vessel for grand rehearsal dinners 30-50 guests featuring 14 disco balls, giant Texas flag, professional crew, elegant wedding setting, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "345.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/rehearsal-dinner",
+      "description": "Enhanced rehearsal dinner with all Basic amenities PLUS upscale catering coordination, premium table settings, wedding decorations, toast coordination, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "445.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/rehearsal-dinner",
+      "description": "Premium rehearsal dinner cruise with all Basic amenities PLUS upscale catering coordination, premium table settings, wedding decorations, toast coordination, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "645.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/rehearsal-dinner",
+      "description": "Premium flagship rehearsal dinner with all Basic amenities PLUS upscale catering coordination, premium table settings, wedding decorations, toast coordination, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "495.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/rehearsal-dinner",
+      "description": "Ultimate VIP rehearsal dinner with all Essentials amenities PLUS complete gourmet catering service, professional photographer, floral arrangements, premium wine service, white-glove service, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "595.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/rehearsal-dinner",
+      "description": "Ultimate VIP rehearsal dinner cruise with all Essentials amenities PLUS complete gourmet catering service, professional photographer, floral arrangements, premium wine service, white-glove service, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "795.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/rehearsal-dinner",
+      "description": "Ultimate VIP flagship rehearsal dinner with all Essentials amenities PLUS complete gourmet catering service, professional photographer, floral arrangements, premium wine service, white-glove service, 4-hour minimum"
+    }
+  ]
 }

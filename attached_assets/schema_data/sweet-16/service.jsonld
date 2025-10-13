@@ -11,5 +11,142 @@
     "Texas",
     "United States"
   ],
-  "description": "Make her Sweet 16 absolutely unforgettable on Lake Travis! Private boat parties for 14-50 guests with DJ-quality sound, floats, and age-appropriate celebration. Every girl dreams of the perfect Sweet 16, and a Lake Travis cruise delivers beyond expectations! Give your daughter and her friends an exclusive party boat experience with swimming, floating, dancing, and memories that last a lifetime. Age-appropriate supervised fun, professional captain and crew, premium Bluetooth sound for teen music playlists, giant floats and water toys, swimming and floating (parent supervision available), BYOB for adults, soft drinks and snacks for teens, customizable party decorations, photo opportunities everywhere, safe and monitored environment, perfect Instagram moments, space for cake cutting and presents. Fleet choices: Day Tripper (14 friends, $195/hr), Me Seeks the Irony (25 guests, $295/hr), Clever Girl (50+ guests big party, $495/hr). Popular 3-4 hour format. Packages: Standard (basic party), Essentials (+$100-200/hr with party setup), Ultimate (+$250-350/hr with full party package including floats, decorations, party supplies). Book 8-12 weeks ahead for summer dates."
+  "description": "Make her Sweet 16 absolutely unforgettable on Lake Travis! Private boat parties for 14-50 guests with DJ-quality sound, floats, and age-appropriate celebration. Every girl dreams of the perfect Sweet 16, and a Lake Travis cruise delivers beyond expectations! Give your daughter and her friends an exclusive party boat experience with swimming, floating, dancing, and memories that last a lifetime. Age-appropriate supervised fun, professional captain and crew, premium Bluetooth sound for teen music playlists, giant floats and water toys, swimming and floating (parent supervision available), BYOB for adults, soft drinks and snacks for teens, customizable party decorations, photo opportunities everywhere, safe and monitored environment, perfect Instagram moments, space for cake cutting and presents. Fleet choices: Day Tripper (14 friends, $195/hr), Me Seeks the Irony (25 guests, $295/hr), Clever Girl (50+ guests big party, $495/hr). Popular 3-4 hour format. Packages: Standard (basic party), Essentials (+$100-200/hr with party setup), Ultimate (+$250-350/hr with full party package including floats, decorations, party supplies). Book 8-12 weeks ahead for summer dates.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "195.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/sweet-16",
+      "description": "Intimate Sweet 16 party cruise for up to 14 guests with professional captain, premium sound for teen playlists, swimming and floating, 4-hour minimum, perfect for close friends"
+    },
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "295.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/sweet-16",
+      "description": "Most popular Sweet 16 party boat for 18-25 guests with professional crew, premium amenities, age-appropriate fun, complete privacy, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "495.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/sweet-16",
+      "description": "Flagship vessel for epic Sweet 16 celebrations 30-50 guests featuring 14 disco balls, giant Texas flag, professional crew, ultimate teen party, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "345.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/sweet-16",
+      "description": "Enhanced Sweet 16 party with all Basic amenities PLUS party decorations, giant floats and water toys, snack and beverage setup, cake cutting coordination, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "445.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/sweet-16",
+      "description": "Premium Sweet 16 party cruise with all Basic amenities PLUS party decorations, giant floats and water toys, snack and beverage setup, cake cutting coordination, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "645.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/sweet-16",
+      "description": "Premium flagship Sweet 16 party with all Basic amenities PLUS party decorations, giant floats and water toys, snack and beverage setup, cake cutting coordination, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "495.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/sweet-16",
+      "description": "Ultimate VIP Sweet 16 party with all Essentials amenities PLUS complete catering service, professional photographer, custom party theme, premium decorations, gift bags for guests, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "595.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/sweet-16",
+      "description": "Ultimate VIP Sweet 16 party cruise with all Essentials amenities PLUS complete catering service, professional photographer, custom party theme, premium decorations, gift bags for guests, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "795.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/sweet-16",
+      "description": "Ultimate VIP flagship Sweet 16 party with all Essentials amenities PLUS complete catering service, professional photographer, custom party theme, premium decorations, gift bags for guests, 4-hour minimum"
+    }
+  ]
 }

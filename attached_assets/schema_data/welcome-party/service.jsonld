@@ -11,5 +11,142 @@
     "Texas",
     "United States"
   ],
-  "description": "Welcome out-of-town guests with an unforgettable Lake Travis cruise! Perfect for wedding welcome parties with 14-75 guests, professional service, and Austin hospitality. Start your wedding weekend in style with a Lake Travis welcome party cruise! Give your out-of-town guests an authentic Austin experience while bringing everyone together before your big day. The relaxed boat setting helps guests from both sides meet and bond, creating a warm, inclusive atmosphere for your celebration. Professional captain and crew, premium Bluetooth sound for announcements and music, flexible format for mingling and introductions, BYOB or bar service available, large capacity for extended families, Austin skyline and lake views, perfect icebreaker activity, casual yet memorable experience, catering coordination available. Fleet accommodates all sizes: Day Tripper (14 guests, $195/hr), Me Seeks the Irony (25 guests, $295/hr), Clever Girl (50-75 guests, $495/hr). Popular format: 2-3 hour evening cruise. Packages: Standard cruise, Essentials (+$100-200/hr), Ultimate (+$250-350/hr). Book 6-8 weeks ahead for wedding weekend dates."
+  "description": "Welcome out-of-town guests with an unforgettable Lake Travis cruise! Perfect for wedding welcome parties with 14-75 guests, professional service, and Austin hospitality. Start your wedding weekend in style with a Lake Travis welcome party cruise! Give your out-of-town guests an authentic Austin experience while bringing everyone together before your big day. The relaxed boat setting helps guests from both sides meet and bond, creating a warm, inclusive atmosphere for your celebration. Professional captain and crew, premium Bluetooth sound for announcements and music, flexible format for mingling and introductions, BYOB or bar service available, large capacity for extended families, Austin skyline and lake views, perfect icebreaker activity, casual yet memorable experience, catering coordination available. Fleet accommodates all sizes: Day Tripper (14 guests, $195/hr), Me Seeks the Irony (25 guests, $295/hr), Clever Girl (50-75 guests, $495/hr). Popular format: 2-3 hour evening cruise. Packages: Standard cruise, Essentials (+$100-200/hr), Ultimate (+$250-350/hr). Book 6-8 weeks ahead for wedding weekend dates.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "195.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/welcome-party",
+      "description": "Intimate wedding welcome party cruise for up to 14 guests with professional captain, premium sound for music, perfect icebreaker setting, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "295.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/welcome-party",
+      "description": "Most popular welcome party boat for 18-25 guests with professional crew, premium amenities, friendly atmosphere, complete privacy, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "495.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/welcome-party",
+      "description": "Flagship vessel for large wedding welcome parties 30-50 guests featuring 14 disco balls, giant Texas flag, professional crew, perfect for extended families, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "345.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/welcome-party",
+      "description": "Enhanced welcome party with all Basic amenities PLUS catering coordination, welcome decorations, icebreaker activity coordination, refreshment service, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "445.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/welcome-party",
+      "description": "Premium welcome party cruise with all Basic amenities PLUS catering coordination, welcome decorations, icebreaker activity coordination, refreshment service, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "645.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/welcome-party",
+      "description": "Premium flagship welcome party with all Basic amenities PLUS catering coordination, welcome decorations, icebreaker activity coordination, refreshment service, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "495.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/welcome-party",
+      "description": "Ultimate VIP welcome party with all Essentials amenities PLUS complete catering service, professional photographer, welcome gift bags, premium beverage service, full event coordination, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "595.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/welcome-party",
+      "description": "Ultimate VIP welcome party cruise with all Essentials amenities PLUS complete catering service, professional photographer, welcome gift bags, premium beverage service, full event coordination, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "795.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/welcome-party",
+      "description": "Ultimate VIP flagship welcome party with all Essentials amenities PLUS complete catering service, professional photographer, welcome gift bags, premium beverage service, full event coordination, 4-hour minimum"
+    }
+  ]
 }

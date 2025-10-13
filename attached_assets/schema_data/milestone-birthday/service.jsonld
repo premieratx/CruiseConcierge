@@ -11,5 +11,142 @@
     "Texas",
     "United States"
   ],
-  "description": "Celebrate milestone birthdays in unforgettable style on Lake Travis! Perfect for 30th, 40th, 50th, 60th+ birthdays with 14-75 guests, professional service, and memories to last a lifetime. Milestone birthdays deserve exceptional celebrations! Whether turning 30, 40, 50, 60, or beyond, a Lake Travis cruise creates the perfect atmosphere to honor life's special moments with the people who matter most. Professional captain and crew, premium sound for birthday playlists and speeches, flexible format for mingling and celebrating, surprise-friendly - we'll help coordinate, champagne toasts and celebration moments, photo opportunities with birthday honoree, customizable party decorations and themes, swimming and floating (weather permitting), BYOB or full bar service, catered meals coordination, combines elegance with fun, creates unforgettable memories. Fleet for all celebration sizes: Day Tripper (14 guests intimate, $195/hr), Me Seeks the Irony (25 guests, $295/hr), Clever Girl (50-75 guests big celebration, $495/hr). Popular formats: 3-4 hours, often sunset timing for special atmosphere. Packages: Standard cruise, Essentials (+$100-200/hr), Ultimate (+$250-350/hr recommended for milestones). Book 6-8 weeks in advance, earlier for summer birthdays."
+  "description": "Celebrate milestone birthdays in unforgettable style on Lake Travis! Perfect for 30th, 40th, 50th, 60th+ birthdays with 14-75 guests, professional service, and memories to last a lifetime. Milestone birthdays deserve exceptional celebrations! Whether turning 30, 40, 50, 60, or beyond, a Lake Travis cruise creates the perfect atmosphere to honor life's special moments with the people who matter most. Professional captain and crew, premium sound for birthday playlists and speeches, flexible format for mingling and celebrating, surprise-friendly - we'll help coordinate, champagne toasts and celebration moments, photo opportunities with birthday honoree, customizable party decorations and themes, swimming and floating (weather permitting), BYOB or full bar service, catered meals coordination, combines elegance with fun, creates unforgettable memories. Fleet for all celebration sizes: Day Tripper (14 guests intimate, $195/hr), Me Seeks the Irony (25 guests, $295/hr), Clever Girl (50-75 guests big celebration, $495/hr). Popular formats: 3-4 hours, often sunset timing for special atmosphere. Packages: Standard cruise, Essentials (+$100-200/hr), Ultimate (+$250-350/hr recommended for milestones). Book 6-8 weeks in advance, earlier for summer birthdays.",
+  "offers": [
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "195.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/milestone-birthday",
+      "description": "Intimate milestone birthday cruise for up to 14 guests with professional captain, premium sound for music and toasts, celebration atmosphere, 4-hour minimum, perfect for close friends"
+    },
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "295.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/milestone-birthday",
+      "description": "Most popular milestone birthday boat for 18-25 guests with professional crew, premium amenities, celebration setup, complete privacy, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Basic Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "495.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/milestone-birthday",
+      "description": "Flagship vessel for grand milestone birthdays 30-50 guests featuring 14 disco balls, giant Texas flag, professional crew, spectacular celebration setting, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "345.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/milestone-birthday",
+      "description": "Enhanced milestone birthday with all Basic amenities PLUS catering coordination, birthday decorations and theme, champagne toast setup, celebration coordination, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "445.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/milestone-birthday",
+      "description": "Premium milestone birthday cruise with all Basic amenities PLUS catering coordination, birthday decorations and theme, champagne toast setup, celebration coordination, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Essentials Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "645.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/milestone-birthday",
+      "description": "Premium flagship milestone birthday with all Basic amenities PLUS catering coordination, birthday decorations and theme, champagne toast setup, celebration coordination, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Day Tripper (14 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "495.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/milestone-birthday",
+      "description": "Ultimate VIP milestone birthday with all Essentials amenities PLUS complete gourmet catering, professional photographer, custom birthday cake, premium champagne service, full celebration package, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Meeseeks/The Irony (25 Person Boat)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "595.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/milestone-birthday",
+      "description": "Ultimate VIP milestone birthday cruise with all Essentials amenities PLUS complete gourmet catering, professional photographer, custom birthday cake, premium champagne service, full celebration package, 4-hour minimum"
+    },
+    {
+      "@type": "Offer",
+      "name": "Ultimate Package - Clever Girl (50 Person Flagship)",
+      "priceCurrency": "USD",
+      "priceSpecification": {
+        "@type": "UnitPriceSpecification",
+        "price": "795.00",
+        "priceCurrency": "USD",
+        "unitText": "HOUR"
+      },
+      "priceValidUntil": "2099-12-31",
+      "availability": "https://schema.org/InStock",
+      "url": "https://premierpartycruises.com/milestone-birthday",
+      "description": "Ultimate VIP flagship milestone birthday with all Essentials amenities PLUS complete gourmet catering, professional photographer, custom birthday cake, premium champagne service, full celebration package, 4-hour minimum"
+    }
+  ]
 }
