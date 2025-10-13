@@ -16,8 +16,9 @@ import {
   TrendingUp, Calendar, LayoutDashboard, FileText, 
   MessageCircle, Save, Ship, Users, BarChart3, Anchor,
   Bell, BellOff, Wifi, WifiOff, Check, X, Quote,
-  DollarSign, UserPlus, Activity
+  DollarSign, UserPlus, Activity, Globe
 } from "lucide-react";
+import UptimeMonitoring from "@/pages/admin/UptimeMonitoring";
 
 export default function Dashboard() {
   const { toast } = useToast();
@@ -159,7 +160,7 @@ export default function Dashboard() {
       {/* Main Dashboard Content */}
       <div className="container mx-auto px-4 py-6">
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="overview" className="flex items-center gap-2">
               <LayoutDashboard className="h-4 w-4" />
               Overview
@@ -171,6 +172,10 @@ export default function Dashboard() {
             <TabsTrigger value="calendar" className="flex items-center gap-2">
               <Calendar className="h-4 w-4" />
               Calendar
+            </TabsTrigger>
+            <TabsTrigger value="uptime" className="flex items-center gap-2" data-testid="tab-uptime">
+              <Globe className="h-4 w-4" />
+              Uptime
             </TabsTrigger>
           </TabsList>
 
@@ -372,6 +377,10 @@ export default function Dashboard() {
                 <p className="text-muted-foreground">Calendar management will be available after Lovable migration</p>
               </CardContent>
             </Card>
+          </TabsContent>
+
+          <TabsContent value="uptime" className="space-y-6" data-testid="tab-content-uptime">
+            <UptimeMonitoring />
           </TabsContent>
         </Tabs>
       </div>
