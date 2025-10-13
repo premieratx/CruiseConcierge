@@ -1,0 +1,51 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "@id": "https://premierpartycruises.com/#product-clevergirl",
+  "name": "Clever Girl - 50 Person Flagship Party Boat",
+  "image": "https://premierpartycruises.com/assets/clevergirl.jpg",
+  "description": "Flagship 50-person party boat (seating for 35-50 guests) featuring giant Texas flag and 14 disco balls. Austin's premiere party boat for large celebrations, corporate events, and unforgettable Lake Travis experiences.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Premier Party Cruises"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://premierpartycruises.com/private-cruises",
+    "priceCurrency": "USD",
+    "price": "250",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "250.00",
+      "priceCurrency": "USD",
+      "unitText": "per hour"
+    },
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@id": "https://premierpartycruises.com/#organization"
+    }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "bestRating": "5",
+    "reviewCount": "100000"
+  },
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Capacity",
+      "value": "50 passengers (35-50 seating)"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Features",
+      "value": "Giant Texas flag, 14 disco balls, premium sound system"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Minimum Duration",
+      "value": "4 hours"
+    }
+  ]
+}

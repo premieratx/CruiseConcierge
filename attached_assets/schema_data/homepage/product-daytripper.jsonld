@@ -1,0 +1,46 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "@id": "https://premierpartycruises.com/#product-daytripper",
+  "name": "Day Tripper - 14 Person Party Boat",
+  "image": "https://premierpartycruises.com/assets/daytripper.jpg",
+  "description": "Intimate 14-person party boat perfect for small celebrations and private groups on Lake Travis. Features professional captain, premium sound system, coolers with ice, and comfortable seating.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Premier Party Cruises"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://premierpartycruises.com/private-cruises",
+    "priceCurrency": "USD",
+    "price": "200",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "200.00",
+      "priceCurrency": "USD",
+      "unitText": "per hour"
+    },
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@id": "https://premierpartycruises.com/#organization"
+    }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "bestRating": "5",
+    "reviewCount": "100000"
+  },
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Capacity",
+      "value": "14 passengers"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Minimum Duration",
+      "value": "4 hours"
+    }
+  ]
+}

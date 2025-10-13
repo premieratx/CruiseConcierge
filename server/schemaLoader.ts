@@ -15,7 +15,10 @@ const ROUTE_TO_SCHEMA_MAPPING: RouteSchemaMapping = {
   '/': [
     'homepage/faq.jsonld',
     'homepage/service-private.jsonld',
-    'homepage/service-disco.jsonld'
+    'homepage/service-disco.jsonld',
+    'homepage/product-daytripper.jsonld',
+    'homepage/product-meeseeks.jsonld',
+    'homepage/product-clevergirl.jsonld'
   ],
   '/team-building': ['team-building/faq.jsonld', 'team-building/service.jsonld'],
   '/client-entertainment': ['client-entertainment/faq.jsonld', 'client-entertainment/service.jsonld'],

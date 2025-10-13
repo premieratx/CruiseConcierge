@@ -1,0 +1,46 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "@id": "https://premierpartycruises.com/#product-meeseeks",
+  "name": "Meeseeks and The Irony - 25 Person Party Boat",
+  "image": "https://premierpartycruises.com/assets/meeseeks.jpg",
+  "description": "Popular 25-person party boat (seating for 18-25 guests) ideal for medium-sized celebrations on Lake Travis. Premium amenities, professional crew, and excellent sound system for the perfect Austin party boat experience.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Premier Party Cruises"
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://premierpartycruises.com/private-cruises",
+    "priceCurrency": "USD",
+    "price": "225",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "225.00",
+      "priceCurrency": "USD",
+      "unitText": "per hour"
+    },
+    "availability": "https://schema.org/InStock",
+    "seller": {
+      "@id": "https://premierpartycruises.com/#organization"
+    }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "bestRating": "5",
+    "reviewCount": "100000"
+  },
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Capacity",
+      "value": "25 passengers (18-25 seating)"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Minimum Duration",
+      "value": "4 hours"
+    }
+  ]
+}
