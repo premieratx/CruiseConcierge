@@ -23,7 +23,7 @@ import {
   CollapsibleTrigger,
 } from '@/components/ui/collapsible';
 import { cn } from '@/lib/utils';
-import logoPath from '@assets/PPC-logo-2023.webp';
+import logoPath from '@assets/PPC-Logo-48x48.webp';
 import { 
   Ship, Calendar, MessageSquare, Phone, 
   Users, Camera, Heart, ArrowRight, Star,

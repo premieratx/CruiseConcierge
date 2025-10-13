@@ -250,8 +250,8 @@ Crawl-delay: 1`;
         // Immutable hashed assets - cache for 1 year
         res.setHeader('Cache-Control', 'public, max-age=31536000, immutable');
       } else {
-        // Non-hashed assets - cache for 1 week
-        res.setHeader('Cache-Control', 'public, max-age=604800');
+        // Non-hashed assets - cache for 1 year (PageSpeed optimization)
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
       }
       
       // Font caching - ensure CORS for fonts
@@ -291,7 +291,7 @@ Crawl-delay: 1`;
   // MUST come before Vite middleware to prevent catch-all route from intercepting
   const attachedAssetsPath = path.resolve(process.cwd(), "attached_assets");
   app.use('/attached_assets', express.static(attachedAssetsPath, {
-    maxAge: '1w',
+    maxAge: '1y',
     etag: true
   }));
   log("Serving attached_assets from: " + attachedAssetsPath, "static");
