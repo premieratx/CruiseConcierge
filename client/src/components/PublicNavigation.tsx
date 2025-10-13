@@ -11,6 +11,17 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle
 } from '@/components/ui/navigation-menu';
+import {
+  Sheet,
+  SheetContent,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/sheet';
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from '@/components/ui/collapsible';
 import { cn } from '@/lib/utils';
 import logoPath from '@assets/PPC-logo-2023.webp';
 import { 
@@ -18,7 +29,7 @@ import {
   Users, Camera, Heart, ArrowRight, Star,
   Building, GraduationCap,
   Trophy, Crown, Sparkles, Wine, Music, Gift,
-  Disc3
+  Disc3, Menu, ChevronDown
 } from 'lucide-react';
 
 // Type definitions
@@ -196,6 +207,7 @@ export default function PublicNavigation() {
   const [location, navigate] = locationData as [string, (to: string) => void];
   
   const [isScrolled, setIsScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Handle scroll effect
   useEffect(() => {
@@ -256,6 +268,16 @@ export default function PublicNavigation() {
                 className="h-12 lg:h-14 w-auto transition-transform duration-300 group-hover:scale-105"
               />
             </a>
+
+            {/* Mobile Hamburger Menu Button */}
+            <button
+              onClick={() => setMobileMenuOpen(true)}
+              className="lg:hidden p-2 text-gray-700 dark:text-gray-300 hover:text-brand-blue transition-colors"
+              data-testid="button-mobile-menu-toggle"
+              aria-label="Open menu"
+            >
+              <Menu className="h-6 w-6" />
+            </button>
 
             {/* Desktop Navigation */}
             <NavigationMenu className="hidden lg:block">
@@ -499,6 +521,122 @@ export default function PublicNavigation() {
 
       {/* Bottom spacer for mobile bottom nav */}
       <div className="h-16 lg:hidden" />
+
+      {/* Mobile Menu Sheet */}
+      <Sheet open={mobileMenuOpen} onOpenChange={setMobileMenuOpen}>
+        <SheetContent side="left" className="w-[300px] sm:w-[350px] overflow-y-auto">
+          <SheetHeader>
+            <SheetTitle>Menu</SheetTitle>
+          </SheetHeader>
+          
+          <nav className="mt-6 space-y-1" data-testid="mobile-menu-nav">
+            {navigationItems.map((item) => {
+              const ItemIcon = item.icon;
+              
+              if (item.hasDropdown) {
+                return (
+                  <Collapsible key={item.href} className="space-y-1">
+                    <CollapsibleTrigger 
+                      className="flex items-center justify-between w-full px-3 py-3 text-left rounded-lg hover:bg-accent transition-colors group"
+                      data-testid={`button-mobile-menu-${safeSlug(item.title)}`}
+                    >
+                      <div className="flex items-center space-x-3">
+                        <ItemIcon className="h-5 w-5 text-brand-blue" />
+                        <span className="font-semibold text-sm">{item.title}</span>
+                      </div>
+                      <ChevronDown className="h-4 w-4 transition-transform group-data-[state=open]:rotate-180" />
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="pl-6 space-y-1">
+                      {item.dropdownItems?.map((dropdownItem, index) => {
+                        if (isSection(dropdownItem)) {
+                          return (
+                            <div 
+                              key={`section-${index}`} 
+                              className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider px-3 pt-3 pb-1"
+                            >
+                              {dropdownItem.section}
+                            </div>
+                          );
+                        } else if (isLink(dropdownItem)) {
+                          const DropdownIcon = dropdownItem.icon;
+                          return (
+                            <a
+                              key={dropdownItem.href}
+                              href={dropdownItem.href}
+                              onClick={() => setMobileMenuOpen(false)}
+                              className="flex items-start space-x-2 px-3 py-2 rounded-md hover:bg-accent transition-colors"
+                              data-testid={`link-mobile-menu-${safeSlug(dropdownItem.title)}`}
+                            >
+                              <DropdownIcon className="h-4 w-4 text-brand-blue mt-0.5 flex-shrink-0" />
+                              <div className="flex-1 min-w-0">
+                                <div className="text-sm font-medium">{dropdownItem.title}</div>
+                                <div className="text-xs text-muted-foreground line-clamp-1">{dropdownItem.description}</div>
+                              </div>
+                            </a>
+                          );
+                        }
+                        return null;
+                      })}
+                    </CollapsibleContent>
+                  </Collapsible>
+                );
+              } else {
+                return (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={cn(
+                      "flex items-center space-x-3 px-3 py-3 rounded-lg transition-colors",
+                      location === item.href
+                        ? "bg-brand-blue/10 text-brand-blue"
+                        : "hover:bg-accent"
+                    )}
+                    data-testid={`link-mobile-menu-${safeSlug(item.title)}`}
+                  >
+                    <ItemIcon className="h-5 w-5 text-brand-blue" />
+                    <span className="font-semibold text-sm">{item.title}</span>
+                    {item.badge && (
+                      <span className="ml-auto px-2 py-1 text-xs font-bold bg-brand-yellow text-black rounded-full">
+                        {item.badge}
+                      </span>
+                    )}
+                  </a>
+                );
+              }
+            })}
+          </nav>
+
+          {/* CTA Buttons in Mobile Menu */}
+          <div className="mt-6 space-y-3 border-t pt-6">
+            <Button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                handleGetQuote();
+              }}
+              variant="outline"
+              className="w-full border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white font-bold"
+              data-testid="button-mobile-menu-get-quote"
+            >
+              <MessageSquare className="mr-2 h-4 w-4" />
+              GET QUOTE
+            </Button>
+            
+            <Button
+              onClick={() => {
+                setMobileMenuOpen(false);
+                handleBookNow();
+              }}
+              className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold"
+              data-testid="button-mobile-menu-book-now"
+            >
+              <Calendar className="mr-2 h-4 w-4" />
+              BOOK NOW
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Button>
+          </div>
+        </SheetContent>
+      </Sheet>
     </>
   );
 }
