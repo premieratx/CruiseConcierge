@@ -1,0 +1,54 @@
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What's Included?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Every Premier Party Cruises booking includes: Licensed, experienced captain & crew, Premium Bluetooth sound system, Large coolers with ice (Essentials/Ultimate packages), Clean restroom facilities, Sun and shade seating areas, Safety equipment and life jackets, and Professional service throughout your cruise."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can We Bring Food and Drinks?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! You can BYOB for guests 21+ with valid ID. We require cans and plastic containers only (no glass). You're welcome to bring snacks, meals, or coordinate catering delivery. We provide coolers and ice (package dependent), and solo cups on Essentials/Ultimate packages. Popular options include pizza, tacos, BBQ, or upscale catering."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How Do Deposits and Payments Work?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For bookings more than 30 days out: 25% deposit required with balance due 30 days prior to cruise date. If booking within 30 days: 50% deposit due with remainder due within 72 hours. We accept credit card, debit card, or bank transfer. Flexible payment plans are available for large groups."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's Your Cancellation Policy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "We offer a 48-hour full refund window after booking. After 48 hours, cancellations are weather-dependent at captain's discretion. Unsafe weather conditions result in full refund or reschedule option. Pro-rated refunds apply if weather shortens your cruise. We provide flexible rescheduling when possible because we want you to have a great experience safely!"
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Swimming Allowed?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes! Swimming is allowed when conditions are safe, at captain's discretion based on weather, water conditions, and traffic. Life jackets are required in the water, and we provide adult life jackets. Please bring infant/child life jackets if needed. Lily pads and floats are available depending on your package."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How Far in Advance Should We Book?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "For weekend dates, book 6-8 weeks in advance. During peak season (April-September), book 8-12 weeks early. Weekdays typically require 2-4 weeks notice. Last-minute availability is sometimes possible, but popular dates (holidays, graduation season) fill fastest. Book early for the best boat and time selection!"
+      }
+    }
+  ]
+}
