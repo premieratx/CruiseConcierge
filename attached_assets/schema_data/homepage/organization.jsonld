@@ -77,20 +77,10 @@
     "United States"
   ],
   "priceRange": "$$",
-  "aggregateRating": [
-    {
-      "@type": "AggregateRating",
-      "ratingValue": "5.0",
-      "bestRating": "5",
-      "ratingCount": 300,
-      "name": "Google"
-    },
-    {
-      "@type": "AggregateRating",
-      "ratingValue": "5.0",
-      "bestRating": "5",
-      "ratingCount": 120,
-      "name": "Yelp"
-    }
-  ]
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "5.0",
+    "bestRating": "5",
+    "ratingCount": 420
+  }
 }

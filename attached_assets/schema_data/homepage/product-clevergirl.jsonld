@@ -24,7 +24,7 @@
     "@type": "AggregateRating",
     "ratingValue": "5.0",
     "bestRating": "5",
-    "reviewCount": "100000"
+    "reviewCount": 100000
   },
   "additionalProperty": [
     {
