@@ -222,7 +222,7 @@ export default function Gallery() {
                     {photo.fileType === 'video' || photo.fileType === 'generated_video' ? (
                       <>
                         <video
-                          src={photo.filePath}
+                          src={`/api/media/view/${photo.id}`}
                           className="w-full h-full object-cover"
                           muted
                         />
@@ -233,7 +233,7 @@ export default function Gallery() {
                     ) : (
                       <>
                         <img
-                          src={photo.filePath}
+                          src={`/api/media/view/${photo.id}`}
                           alt={photo.originalName}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                           loading="lazy"
@@ -286,7 +286,7 @@ export default function Gallery() {
                       >
                         <div className="aspect-square relative overflow-hidden">
                           <img
-                            src={photo.filePath}
+                            src={`/api/media/view/${photo.id}`}
                             alt={photo.originalName}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             loading="lazy"
@@ -318,7 +318,7 @@ export default function Gallery() {
                       >
                         <div className="aspect-square relative overflow-hidden">
                           <img
-                            src={photo.filePath}
+                            src={`/api/media/view/${photo.id}`}
                             alt={photo.originalName}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             loading="lazy"
@@ -350,7 +350,7 @@ export default function Gallery() {
                       >
                         <div className="aspect-square relative overflow-hidden">
                           <img
-                            src={photo.filePath}
+                            src={`/api/media/view/${photo.id}`}
                             alt={photo.originalName}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             loading="lazy"
@@ -382,7 +382,7 @@ export default function Gallery() {
                       >
                         <div className="aspect-square relative overflow-hidden">
                           <img
-                            src={photo.filePath}
+                            src={`/api/media/view/${photo.id}`}
                             alt={photo.originalName}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             loading="lazy"
@@ -414,7 +414,7 @@ export default function Gallery() {
                       >
                         <div className="aspect-square relative overflow-hidden">
                           <img
-                            src={photo.filePath}
+                            src={`/api/media/view/${photo.id}`}
                             alt={photo.originalName}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             loading="lazy"
@@ -449,7 +449,7 @@ export default function Gallery() {
                   >
                     <div className="aspect-square relative overflow-hidden">
                       <img
-                        src={photo.filePath}
+                        src={`/api/media/view/${photo.id}`}
                         alt={photo.originalName}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         loading="lazy"
@@ -482,7 +482,7 @@ export default function Gallery() {
                   >
                     <div className="aspect-square relative overflow-hidden">
                       <img
-                        src={photo.filePath}
+                        src={`/api/media/view/${photo.id}`}
                         alt={photo.originalName}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         loading="lazy"
@@ -515,7 +515,7 @@ export default function Gallery() {
                   >
                     <div className="aspect-video relative overflow-hidden bg-gray-900">
                       <video
-                        src={photo.filePath}
+                        src={`/api/media/view/${photo.id}`}
                         className="w-full h-full object-cover"
                         muted
                       />
@@ -560,14 +560,14 @@ export default function Gallery() {
               <div className="relative w-full h-[80vh] flex items-center justify-center">
                 {filteredPhotos[selectedIndex].fileType === 'video' || filteredPhotos[selectedIndex].fileType === 'generated_video' ? (
                   <video
-                    src={filteredPhotos[selectedIndex].filePath}
+                    src={`/api/media/view/${filteredPhotos[selectedIndex].id}`}
                     className="max-w-full max-h-full object-contain"
                     controls
                     autoPlay
                   />
                 ) : (
                   <img
-                    src={filteredPhotos[selectedIndex].filePath}
+                    src={`/api/media/view/${filteredPhotos[selectedIndex].id}`}
                     alt={filteredPhotos[selectedIndex].originalName}
                     className="max-w-full max-h-full object-contain"
                   />

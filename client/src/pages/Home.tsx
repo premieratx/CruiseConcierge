@@ -1038,13 +1038,13 @@ export default function Home() {
             className="text-center mb-20"
           >
             <motion.div variants={fadeInUp}>
-              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="why-choose-main-title">
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-4 text-gray-900 dark:text-white tracking-wide" data-editable data-editable-id="why-choose-main-title">
                 WHY CHOOSE
               </h2>
-              <h3 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-8 text-brand-yellow tracking-wider" data-editable data-editable-id="why-choose-subtitle">
+              <h3 className="text-xl md:text-2xl lg:text-3xl font-heading font-bold mb-6 text-brand-yellow tracking-wide" data-editable data-editable-id="why-choose-subtitle">
                 PREMIER PARTY CRUISES
               </h3>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="why-choose-description">
+              <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="why-choose-description">
                 Austin's most trusted party cruise company with unmatched experience, safety, and service.
               </p>
             </motion.div>
