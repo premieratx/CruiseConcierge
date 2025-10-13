@@ -5,6 +5,7 @@ import { fileURLToPath } from "url";
 import { resolveAsset } from "../utils/viteManifest";
 import { PAGE_CONTENT, PageContent, PageSection } from './pageContent';
 import { getSchemaForRoute, generateArticleSchema, isBlogPostRoute } from '../schemaLoader';
+import { storage } from '../storage';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -1022,9 +1023,49 @@ async function renderPage(url: string, req: Request): Promise<string> {
     } else if (pathname === '/blogs') {
       // Main blog listing page (canonical URL)
       h1 = 'Austin Party Boat Blog | Bachelor & Bachelorette Party Tips | Premier Party Cruises';
-      content = 'Expert tips for planning bachelor and bachelorette parties in Austin. Lake Travis party boat guides, itineraries, and Austin party planning advice.';
+      const intro = 'Expert tips for planning bachelor and bachelorette parties in Austin. Lake Travis party boat guides, itineraries, and Austin party planning advice.';
       metaTitle = h1;
-      metaDescription = content;
+      metaDescription = intro;
+      
+      // Fetch blog posts for SEO visibility
+      try {
+        const blogPosts = await storage.getBlogPosts({ 
+          status: 'published', 
+          limit: 20, 
+          offset: 0,
+          sortBy: 'publishedAt',
+          sortOrder: 'desc'
+        });
+        
+        // Build blog listing HTML for SEO crawlers
+        let blogListingHTML = `<p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${intro}</p>`;
+        
+        if (blogPosts && blogPosts.posts && blogPosts.posts.length > 0) {
+          blogListingHTML += '<div style="display: grid; gap: 1.5rem; margin-top: 2rem;">';
+          
+          blogPosts.posts.forEach((post: any) => {
+            const publishDate = post.publishedAt ? new Date(post.publishedAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }) : '';
+            const categoryName = post.categories && post.categories.length > 0 ? post.categories[0].name : '';
+            
+            blogListingHTML += `
+              <article style="border-bottom: 1px solid #e5e7eb; padding-bottom: 1.5rem;">
+                <h2 style="font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem;">
+                  <a href="/blogs/${post.slug}" style="color: #1e40af; text-decoration: none;">${post.title}</a>
+                </h2>
+                ${categoryName ? `<span style="display: inline-block; background: #dbeafe; color: #1e40af; padding: 0.25rem 0.75rem; border-radius: 0.375rem; font-size: 0.875rem; margin-bottom: 0.5rem;">${categoryName}</span>` : ''}
+                <p style="color: #6b7280; margin-bottom: 0.75rem;">${post.excerpt || ''}</p>
+                ${publishDate ? `<time style="color: #9ca3af; font-size: 0.875rem;">${publishDate}</time>` : ''}
+              </article>`;
+          });
+          
+          blogListingHTML += '</div>';
+        }
+        
+        content = blogListingHTML;
+      } catch (error) {
+        console.error('Failed to fetch blog posts for SSR:', error);
+        content = `<p style="font-size: 1.125rem; line-height: 1.75; color: #374151; margin-bottom: 2rem;">${intro}</p>`;
+      }
     } else {
       // Use predefined metadata for marketing pages
       const pageData = PAGE_METADATA[pathname];
