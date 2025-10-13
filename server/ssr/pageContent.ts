@@ -112,6 +112,19 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             ]
           }
         ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What types of party boat rentals do you offer? We offer two main types of party boat experiences: Private Charters (exclusive boat rental for your group of 14-75 guests, starting at $200/hour with 4-hour minimum) and the ATX Disco Cruise (join other groups on our signature party cruise with DJ, photographer, and all amenities included, $85-$105 per person). Perfect for bachelor parties, bachelorette parties, corporate events, birthdays, weddings, and any special celebration.',
+          'How much does it cost to rent a party boat on Lake Travis? Private charters start at $200 per hour with a 4-hour minimum. We have three boats available: Day Tripper (14 people), Meeseeks and The Irony (18-25 people), and Clever Girl (30-50 people with 14 disco balls). ATX Disco Cruise packages range from $85-$105 per person and include professional DJ, photographer, floats, and all amenities.',
+          'Can we bring food and drinks on the boat? Yes! All cruises are fully BYOB friendly (21+ with valid ID required). You can bring your own beer, wine, seltzers, and non-alcoholic beverages in cans or plastic containers - no glass allowed for safety. We provide large coolers with ice. You can also bring snacks and meals, or we can coordinate alcohol delivery directly to the boat for your convenience.',
+          'Does the bride or groom cruise free? Yes! The bride or groom cruises FREE on our Disco Queen/King and Super Sparkle Platinum packages when you have 16+ paying guests. This is our special thank you for choosing Premier Party Cruises for your bachelor or bachelorette party celebration.',
+          'Where do you depart from on Lake Travis? We depart from Anderson Mill Marina at 13993 FM 2769, Leander, TX 78641. We\'re the closest marina to downtown Austin, approximately 30 minutes away, making us convenient for all your guests.',
+          'What\'s included with the ATX Disco Cruise? Every ATX Disco Cruise includes a professional DJ playing all day, professional photographer with photo delivery, giant unicorn floats, multiple lily pad floats, disco dance floor, party supplies and mixers, ice water stations, clean restroom facilities, and an unforgettable party atmosphere with multiple bachelor and bachelorette groups celebrating together.',
+          'What makes Premier Party Cruises different from other Lake Travis boat rentals? With 14+ years of experience and over 125,000 satisfied customers, we are Austin\'s longest-running and most trusted party cruise company. We maintain a perfect safety record with Coast Guard certified captains, operate the newest fleet in Austin, and provide full-service experiences with professional crew and premium sound systems. We\'re the only company offering the signature ATX Disco Cruise party experience.',
+          'Can you accommodate corporate events and team building activities? Absolutely! We specialize in corporate events and team building on Lake Travis. Our fleet accommodates groups from 14 to 75+ guests with professional service and premium amenities. Customizable packages include catering coordination, AV equipment, and dedicated event planning to ensure your corporate event is a complete success.'
+        ]
       }
     ]
   },
@@ -509,6 +522,19 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             ]
           }
         ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What is the ATX Disco Cruise? A shared 4-hour party boat for bachelor/bachelorette groups with pro DJ and photographer, BYOB, floats, and multi-group energy.',
+          'When does it run? Fridays 12–4 PM and Saturdays 11–3 PM or 3:30–7:30 PM from March to October.',
+          'How much are tickets? $85 Basic, $95 Queen/King, $105 Platinum.',
+          'What happens in bad weather? Rain or shine. For severe weather, we move the party to Lemonade Disco land venue.',
+          'What\'s the alcohol policy? BYOB for 21+; cans/plastic only; coolers with ice and cups provided.',
+          'When do we get photos? Professional photos delivered digitally within 2–3 weeks after your cruise.',
+          'Where do we meet? Anderson Mill Marina, 13993 FM 2769, Leander, TX 78641. Arrive 15–20 minutes early; free parking available.',
+          'Does bride/groom cruise free? Yes! On Disco Queen and Platinum packages with 16+ paying guests, bride OR groom cruises absolutely FREE.'
+        ]
       }
     ]
   },
@@ -649,6 +675,19 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
             ]
           }
         ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What boats are available? We offer three exceptional vessels: Day Tripper (14-person boat) perfect for intimate groups starting at $200/hour with a 4-hour minimum. Meeseeks and The Irony (25-person boat) is our most popular choice for medium groups of 18-25 guests, starting at $225/hour. Clever Girl (50-person flagship) features 14 disco balls and a giant Texas flag, starting at $250/hour, perfect for corporate events.',
+          'What\'s included in each package? Standard Package includes professional captain and crew, large coolers (bring your own ice), premium Bluetooth sound system, clean restroom facilities, and sun/shade seating. Essentials Package adds coolers pre-stocked with ice, water dispenser, solo cups, 6-foot folding table, and catering coordination. Ultimate Package adds giant lily pad float, guest of honor float, disco ball cups, bubble guns, champagne flutes, SPF-50 sunscreen, plates, and full party setup.',
+          'Can we bring food and drinks? Yes! We are fully BYOB friendly (21+ with valid ID required). Bring your own beer, wine, seltzers in cans or plastic containers - no glass. We provide large coolers and cups. With Essentials Package, coolers come pre-stocked with ice. Ultimate Package includes champagne flutes, plates, plasticware, and a 6-foot table for food setup.',
+          'How does pricing work? Base cost is Hourly rate × Duration. Day Tripper $200/hour, Meeseeks $225/hour, Clever Girl $250/hour (4-hour minimums). Essentials Package adds $100-200/hour, Ultimate adds $250-350/hour. Additional crew fees: $50/hour for 26-30 guests, $100/hour for 51-75 guests. Plus 8.25% tax and suggested 20% gratuity.',
+          'How far in advance should we book? Popular weekend dates fill 6-8 weeks in advance, especially during peak season (April-September). For special events like bachelor/bachelorette parties, corporate events, or milestone birthdays, we suggest booking 2-3 months ahead to secure your preferred date and boat.',
+          'How do deposits and payments work? 25% deposit if >30 days out (balance due 30 days prior). If booking within 30 days, 50% deposit due and remainder within 72 hours.',
+          'What\'s your cancellation policy? 48-hour full refund window after booking. After that, cancellations are weather-dependent at the captain\'s discretion. Pro-rated refunds if weather shortens the cruise.',
+          'Can we customize our route? Absolutely! You have complete control over your Lake Travis experience. Work with your captain to customize your route, timing, and activities. Want to anchor at a quiet cove for swimming? Prefer to cruise around Devil\'s Cove? Your captain will work with you to create the perfect itinerary for your group.'
+        ]
       }
     ]
   },
@@ -738,6 +777,18 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'BYOB friendly, or we can coordinate catering and beverage delivery. Many couples arrange for late-night tacos, pizza, or other favorites to be delivered right to the boat.',
           'Book early as after-party cruises are extremely popular, especially for weekend weddings. We\'ll work with your timeline to create the perfect celebration finale.'
         ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What time should a wedding after party cruise start? After party cruises typically start 10pm-11pm, timing perfectly with most wedding reception endings. Popular schedules are 10pm-1am or 11pm-2am, giving the couple and close friends 2-3 hours to continue celebrating.',
+          'What\'s included in a wedding after party cruise? After party cruises include professional crew experienced with late-night events, premium sound system with Bluetooth, party lighting and disco balls for dance vibes, swimming access (weather permitting), BYOB cooler service, comfortable seating, and climate-controlled restrooms.',
+          'Is swimming allowed during late-night after party cruises? Yes! Weather and lake conditions permitting, swimming and floating under the stars is a highlight of after party cruises. We provide floats and water toys. Many newlyweds love jumping in the lake in wedding attire for epic photos.',
+          'What is the alcohol policy for wedding after parties? After party cruises are BYOB (bring your own beer, wine, champagne, and spirits). Many couples bring leftover alcohol from the reception. We provide ice, coolers, cups, and openers.',
+          'What group size works best for after party cruises? After parties typically host 14-50+ of your closest friends and family - those who want to keep celebrating after the reception ends. Most couples invite 20-30 people who truly want to party late into the night.',
+          'How much does a wedding after party cruise cost? After party pricing depends on boat and package. Base rates: Day Tripper $195/hr (14 guests), Me Seeks the Irony $295/hr (25 guests), Clever Girl $495/hr (50+ guests). Most 2-3 hour after parties cost $890-$2,535 total.',
+          'How far in advance should we book the wedding after party? Book your after party cruise when you book your wedding venue to secure your date. Peak wedding season (April-October) and Saturday night slots fill quickly, often 3-6 months in advance.'
+        ]
       }
     ]
   },
@@ -786,6 +837,18 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Out-of-town guests consistently rate welcome party cruises as a highlight of the wedding weekend. It\'s relaxed, fun, uniquely Austin, and gives everyone quality time together before the busy wedding day.',
           'Many couples use this time for toasts, sharing stories, and building excitement for the wedding. The intimate boat setting creates natural conversation and connection that traditional welcome dinners can\'t match.'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'Why is a cruise perfect for welcoming out-of-town wedding guests? A Lake Travis cruise gives out-of-town guests an authentic Austin experience while providing the perfect icebreaker setting. The relaxed boat atmosphere encourages mingling as guests from both families meet before the formal wedding.',
+          'What group capacity works best for wedding welcome parties? Welcome party cruises accommodate 14-75 guests across our fleet. Most welcome parties host 30-50 guests including out-of-town family, bridal party, and close friends arriving early for the weekend celebration.',
+          'Should welcome parties be casual or more formal? Welcome parties work best as casual, relaxed affairs - think resort casual or smart casual attire. This creates a comfortable icebreaker atmosphere before the formal wedding events.',
+          'What\'s the ideal timing for a welcome party cruise? Welcome parties typically run 2-3 hours, scheduled the evening before the wedding. Popular timing is 5pm-8pm or 6pm-9pm, allowing guests to arrive from travel, check into hotels, and join refreshed.',
+          'What catering options work for welcome party cruises? Welcome parties often feature casual, shareable Austin favorites: BBQ sliders, taco bars, queso and chips, or appetizer spreads. The Essentials package includes full catering coordination and serving assistance.',
+          'How much does a wedding welcome party cruise cost? Welcome party pricing varies by boat size and package. Most 2-3 hour welcome parties range from $590-$2,535 depending on size and package.',
+          'Where does the welcome party cruise depart from? Welcome party cruises depart from Anderson Mill Marina on Lake Travis, approximately 30 minutes from downtown Austin. Free parking is available, and many couples arrange shuttle service from hotel blocks.'
         ]
       }
     ]
@@ -836,6 +899,18 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
         paragraphs: [
           'Many couples use the rehearsal dinner cruise for heartfelt toasts, sharing stories, and quality time with their wedding party. The intimate boat setting creates a relaxed yet elegant atmosphere that traditional venues can\'t replicate.',
           'Your guests will remember this unique experience long after the wedding. It sets the perfect tone for your big day and gives everyone special memories on beautiful Lake Travis.'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What is the ideal group size for a rehearsal dinner cruise? Rehearsal dinner cruises typically accommodate 14-50 guests depending on your wedding party size. Most rehearsal dinners have 20-30 guests including wedding party, parents, grandparents, and siblings.',
+          'What catering options are available for rehearsal dinners? We coordinate with Austin\'s finest restaurants and caterers for your rehearsal dinner. Popular options include upscale BBQ from Salt Lick or County Line, elegant plated dinners, family-style Italian, or customized menus from local Austin favorites.',
+          'What is the best timing for a sunset rehearsal dinner cruise? For maximum romance, book your rehearsal dinner to depart 2 hours before sunset. This allows time for boarding, welcome drinks, photos during golden hour, dinner service, and toasts at sunset over Lake Travis.',
+          'What are the alcohol and beverage service options? Rehearsal dinner cruises are BYOB - bring your own wine, champagne, and beer. We provide ice, coolers, cups, and bottle openers. Many rehearsal dinners feature champagne toasts, wine with dinner, and craft beers.',
+          'How much does a rehearsal dinner cruise cost? Pricing depends on boat size and package. Typical 3-hour rehearsal dinner ranges from $585-$2,535 total depending on boat and package selection.',
+          'How far in advance should we book our rehearsal dinner cruise? Book 6-8 weeks in advance to secure your preferred date and boat, especially for peak wedding season (April-October) and Friday evening rehearsals.',
+          'Where do we depart from for the rehearsal dinner cruise? Rehearsal dinner cruises depart from Anderson Mill Marina on Lake Travis, just 30 minutes from downtown Austin. The marina offers ample free parking and is easily accessible for out-of-town wedding guests.'
         ]
       }
     ]
@@ -888,6 +963,18 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Popular formats include half-day morning cruises, afternoon sessions, or full-day team building retreats. We\'ll work with your schedule and objectives to create the perfect experience.',
           'Pricing starts at $195/hour with package upgrades available. Volume discounts for regular corporate clients. Book early as team building dates fill quickly, especially in spring and fall.'
         ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'Do you provide team building activities? Yes! We offer both structured and relaxed formats based on your team building goals. Activities include icebreaker activities on the water, problem-solving challenges and games, team communication exercises, relaxed networking and bonding time, and swimming and floating. Professional facilitation is available, and we can create custom activities tailored to your specific objectives.',
+          'What group sizes can you host? We accommodate 14-75 guests across our three-boat fleet. Day Tripper hosts 14 guests, Meeseeks and The Irony accommodates 25 guests, and Clever Girl can host 50+ guests. For larger groups, we can coordinate multiple boats. Volume discounts are available for regular corporate clients.',
+          'Can we bring catering? Yes! You can bring your own catering, or we\'ll coordinate with your preferred caterer or restaurant to ensure seamless delivery and setup. Full bar setups are available, or you can bring your own beverages (BYOB for guests 21+).',
+          'How much does team building cost? Team building cruises start at $200/hour for our Day Tripper boat. Most team building events run 3-6 hours. Package upgrades include Essentials (+$100-200/hour) and Ultimate (+$250-350/hour) with additional amenities. Volume discounts are available for companies booking multiple team building events.',
+          'Where do we depart? All team building cruises depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. Free parking is available for all guests. The marina is conveniently located about 30 minutes from downtown Austin.',
+          'How far in advance should we book? Team building dates fill quickly, especially during spring and fall months when weather is ideal. We recommend booking 6-8 weeks in advance to secure your preferred date and boat.',
+          'What makes Lake Travis ideal for team building? Lake Travis provides the perfect team building environment—away from office distractions in a relaxed outdoor setting where teams naturally open up and connect on a personal level. Many companies report enhanced communication, collaboration, and team cohesion after Lake Travis team building cruises.'
+        ]
       }
     ]
   },
@@ -939,6 +1026,17 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'We\'ve hosted hundreds of corporate client events with perfect track record. Your clients will leave impressed with both your company and their Lake Travis experience. It\'s an investment in relationships that pays dividends.',
           'Pricing starts at $295/hour for medium boats (25 guests) up to $495/hour for our flagship (50 guests). Ultimate package recommended for maximum client impression. Book 4-6 weeks in advance for best availability.'
         ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What client entertainment formats do you offer? We offer fully customizable client entertainment formats based on your business objectives. Popular options include lunch cruises (11am-2pm) for daytime client meetings, afternoon outings (2pm-5pm) for relaxed networking, and sunset cocktail cruises (6pm-9pm) for impressive evening entertainment.',
+          'How many clients can we bring? We accommodate 14-50 guests for client entertainment events. Our Day Tripper boat hosts intimate groups of 14 guests at $200/hour, Meeseeks and The Irony accommodates 25 guests at $225/hour, and our flagship Clever Girl hosts up to 50 guests at $250/hour.',
+          'Can we bring catering? Yes! We coordinate seamlessly with your preferred caterer or restaurant to provide upscale meal service for your clients. Whether you want appetizers, full meals, or desserts, we\'ll ensure professional delivery and elegant presentation.',
+          'Do you provide AV for presentations? Yes! Our premium sound system is available for presentations, announcements, or background music. Many clients choose to keep the experience purely social, and we accommodate either approach seamlessly.',
+          'How far in advance should we book? We recommend booking 4-6 weeks in advance for optimal availability, especially if you have specific dates or times in mind. For sunset cruises during peak season (spring and fall), earlier booking ensures you secure your preferred date.',
+          'Why choose a Lake Travis cruise for clients? A Lake Travis cruise offers a unique Austin experience that clients won\'t forget. The private, exclusive setting facilitates genuine conversation and relationship building away from office distractions in a memorable setting that truly stands out.'
+        ]
       }
     ]
   },
@@ -989,6 +1087,18 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'We understand the importance of milestone events. Our experienced team handles all logistics, from catering coordination to timeline management. You focus on celebrating while we ensure everything runs perfectly.',
           'Fleet options accommodate any group size: 14 guests (executive team) to 75+ (entire company). Ultimate package recommended for milestone celebrations to maximize the special feel.',
           'Book 6-8 weeks in advance for milestone events. Pricing starts at $195/hour, with volume discounts available for larger groups. We\'ll create a celebration worthy of your achievement!'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What types of milestones do you celebrate? We celebrate all types of company milestones including company anniversaries (5, 10, 25+ years), IPO and funding round successes, revenue milestone achievements, major client wins and deal closings, product launch celebrations, expansion and office openings, and industry award recognitions.',
+          'How many people can attend? We accommodate 14-75+ guests for milestone celebrations. Our Day Tripper boat is perfect for intimate executive team celebrations (14 guests), Meeseeks and The Irony suits department-level celebrations (25 guests), and Clever Girl can host entire company celebrations (50-75 guests).',
+          'Can we customize the celebration? Absolutely! We offer complete customization including timing, route, activities, catering, and special touches to reflect the significance of your milestone. Popular elements include champagne toasts, catered gourmet meals, professional photography, awards presentations, and celebratory decorations.',
+          'Do you provide professional photography? Yes! Professional photography services are available to capture your milestone celebration memories. Our photographers understand corporate events and can provide both candid shots and formal group photos.',
+          'Can we do speeches and presentations? Yes! Our premium sound system is available for speeches, announcements, and presentations. Many companies use the cruise to present achievement awards, share company updates, recognize team members, and make important announcements.',
+          'How much does a milestone celebration cost? Milestone celebrations start at $200/hour for our Day Tripper boat. The Essentials package adds $100-200/hour, and the Ultimate package (recommended for milestones) adds $250-350/hour. Volume discounts are available for larger groups.',
+          'Where do we depart? Milestone celebrations depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. The marina offers ample free parking for your entire team and is conveniently located approximately 30 minutes from downtown Austin.'
         ]
       }
     ]
@@ -1126,6 +1236,18 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Pricing starts at $195/hour for intimate graduations (14 guests) to $495/hour for big class celebrations (50+ guests). Ultimate package recommended for maximum celebration vibes.',
           'We\'ve hosted hundreds of graduation parties - it\'s one of our favorite celebrations! The pride, excitement, and joy of graduates and families creates incredible energy on the water.'
         ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What group size works for graduation parties? Graduation cruises accommodate 14-75 guests depending on celebration style. Day Tripper (14 guests) works for intimate family celebrations, Me Seeks the Irony (25 guests) suits typical graduation parties with close friends and family, and Clever Girl (50-75 guests) handles larger class celebrations and combined graduation parties.',
+          'Can we bring graduation decorations? Absolutely! Graduation parties can be fully customized with school colors, banners, balloons, and celebratory decorations. The crew assists with setup when you book Essentials or Ultimate packages. Many families bring photos, diplomas for display, and class memorabilia.',
+          'Do you accommodate both family and friend groups? Yes! Graduation cruises are perfect for combined celebrations with both family members who traveled for the ceremony and the graduate\'s friend group. The boat setting provides natural spaces for both groups to celebrate together and separately.',
+          'Can we bring food and cake? Absolutely! We coordinate with your preferred caterer or restaurant for delivery. Popular choices include pizza, BBQ, tacos, or upscale catering. Birthday-style graduation cakes are welcome - our crew provides space and service for cake cutting ceremony.',
+          'What\'s the best timing for graduation parties? Most graduation parties run 3-4 hours in late afternoon or evening (4pm-8pm or 6pm-10pm). May and June weekend dates book 6-8 weeks in advance, so reserve early! Consider the ceremony schedule and travel plans of out-of-town family.',
+          'Is alcohol allowed at graduation parties? BYOB is allowed for guests 21+ with valid ID. Many graduation parties are family-friendly with non-alcoholic beverages. We provide coolers, ice, cups, and openers. Responsible consumption required with crew discretion.',
+          'How much does a graduation party cruise cost? Graduation party pricing depends on boat size. Day Tripper starts at $195/hour (14 guests), Me Seeks the Irony at $295/hour (25 guests), Clever Girl at $495/hour (50-75 guests). Ultimate package (+$250-350/hr) recommended for full graduation celebration experience. Most 3-4 hour parties range from $585-$3,380 total.'
+        ]
       }
     ]
   },
@@ -1180,6 +1302,18 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Catering options include pizza delivery, taco catering, or favorite teen foods. Non-alcoholic beverages and mocktails available. Birthday cake service coordinated.',
           'Book 6-8 weeks in advance for weekend dates, especially during summer and spring. Pricing starts at $295/hour with Ultimate package at $545/hour. Worth every penny for an unforgettable Sweet 16!',
           'This is the Sweet 16 story they\'ll tell forever. Friends still talking about it years later. Instagram-worthy, memory-making, absolutely epic Lake Travis Sweet 16!'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What are the age requirements for Sweet 16 party cruises? Sweet 16 cruises are designed for teenagers celebrating their 16th birthday with friends aged 13-18. At least one parent or adult chaperone (21+) must be onboard. We recommend 2-3 adult chaperones for larger parties to ensure proper supervision.',
+          'How is the Sweet 16 party supervised? Professional captain and crew maintain constant supervision and safety oversight throughout the cruise. Parents/chaperones provide additional supervision based on your preference. Life jackets are available and required for swimming.',
+          'What\'s included in a Sweet 16 party cruise? All Sweet 16 cruises include licensed captain and professional crew, premium Bluetooth sound system for teen playlists, swimming and floating access (weather permitting), comfortable seating, climate-controlled restrooms, and ice/coolers. Ultimate package (+$250-350/hr) adds giant floats, decorations, water toys, and premium entertainment setup.',
+          'Is swimming safe during Sweet 16 parties? Yes, swimming is safe with proper precautions. All swimmers must wear provided life jackets. Crew monitors water activities and weather conditions constantly. Swimming occurs in designated safe areas of Lake Travis with crew oversight.',
+          'What music and entertainment options are available? Sweet 16 parties feature premium Bluetooth sound systems for streaming teen playlists. The birthday girl can be DJ with her own Spotify or Apple Music. Ultimate package includes enhanced sound and party lighting for dance vibes.',
+          'What group size is ideal for Sweet 16 parties? Sweet 16 cruises accommodate 14-50 guests. Day Tripper (14 guests) suits intimate celebrations with closest friends, Me Seeks the Irony (25 guests) works for typical friend groups plus a few family members, and Clever Girl (50+ guests) handles big celebrations.',
+          'How much does a Sweet 16 party cruise cost? Sweet 16 pricing varies by boat size and package. Base rates: Day Tripper $195/hr (14 guests), Me Seeks the Irony $295/hr (25 guests), Clever Girl $495/hr (50+ guests). Ultimate (+$250-350/hr) includes floats, decorations, water toys, and premium party package. Most 3-4 hour Sweet 16 parties range from $585-$3,380.'
         ]
       }
     ]
@@ -1251,6 +1385,18 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Many groups do sunset timing for incredible photos and romantic ambiance. The golden hour light on Lake Travis creates magical birthday celebration moments.',
           'Pricing starts at $195/hour for intimate celebrations (14 guests) to $495/hour for large milestone parties (50+ guests). Most milestone celebrations run 4 hours including cruise, meal, toasts, and celebration.',
           'Book 6-8 weeks in advance for weekend dates. We\'ll coordinate every detail - catering, decorations, special surprises - to make this milestone birthday absolutely perfect!'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'Which milestone birthdays do you celebrate? We celebrate all milestone birthdays: 21st (finally legal!), 30th (new decade), 40th (fabulous at forty), 50th (golden celebration), 60th, 70th, 80th and beyond! Each milestone deserves unique celebration reflecting the honoree\'s personality and life stage.',
+          'What group size is ideal for milestone birthday cruises? Milestone birthday cruises accommodate 14-75 guests depending on celebration style. Day Tripper (14 guests) creates intimate gatherings with closest friends and family, Me Seeks the Irony (25 guests) suits most milestone celebrations, and Clever Girl (50-75 guests) handles big bash celebrations.',
+          'Can you help coordinate surprise birthday parties? Yes! We love surprise parties and coordinate timing perfectly for the big reveal. Work with our team to plan guest arrival before the birthday honoree. We\'ll position the boat for maximum surprise impact and help coordinate the \'surprise!\' moment.',
+          'What catering and birthday cake options are available? Milestone birthdays deserve special catering! Options include upscale appetizers, seated dinners, BBQ feasts, or the honoree\'s favorite cuisines. We coordinate with Austin\'s finest caterers for delivery and setup. Birthday cakes are welcome - crew provides space for cake cutting ceremony.',
+          'Do you provide champagne service for milestone birthdays? Milestone birthdays are perfect for champagne toasts! Cruises are BYOB - bring your favorite champagne, wine, and spirits. We provide ice, coolers, champagne flutes, and crew assistance with serving.',
+          'How much does a milestone birthday cruise cost? Milestone birthday pricing depends on boat size and package level. Base rates: Day Tripper $195/hr (14 guests), Me Seeks the Irony $295/hr (25 guests), Clever Girl $495/hr (50-75 guests). Ultimate (+$250-350/hr recommended for milestones) includes complete premium experience. Most 3-4 hour milestone celebrations cost $885-$3,380.',
+          'What\'s the best timing for milestone birthday cruises? Milestone birthdays typically run 3-4 hours for complete celebration experience. Popular timing includes sunset cruises for romantic atmosphere, afternoon parties for swimming and activities, or evening celebrations for dinner and toasts.'
         ]
       }
     ]
@@ -1340,6 +1486,18 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Our professional crew handles everything - navigation, safety, setup - while you enjoy the ultimate Austin party experience. BYOB friendly, so bring your favorite drinks. Catering coordination available for food.',
           'Whether you choose the high-energy ATX Disco Cruise or exclusive private boat rental, you\'re guaranteed an unforgettable Austin party boat experience on Lake Travis!',
           'Book your Austin party boat today! Weekend dates fill 6-8 weeks in advance. Don\'t miss out on the best party boat experience Austin has to offer!'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What\'s the difference between ATX Disco Cruise and private boat rental? ATX Disco Cruise is a multi-group shared party cruise with professional DJ, photographer, and disco dance floor at $85-105/person. Private boat rentals are exclusively your group with complete customization starting at $195/hour. Disco Cruise is budget-friendly and high-energy; private boats offer exclusivity and control.',
+          'How many people can party boats accommodate in Austin? We accommodate 14-75 guests for private boats. Day Tripper hosts 14 guests, Meeseeks and The Irony accommodates 25 guests, and Clever Girl can host 50-75 guests. Disco Cruise welcomes groups of 6-20+ per group, with multiple groups sharing the boat.',
+          'What\'s included with Austin party boats? All cruises include Coast Guard certified captain and professional crew, premium Bluetooth sound systems, life jackets and safety equipment, coolers with ice, clean restroom facilities, and sun/shade seating areas. Private boats offer complete BYOB service; Disco Cruise includes DJ and photographer.',
+          'Where do Austin party boats depart from? All cruises depart from Anderson Mill Marina on Lake Travis, located at 13993 FM 2769, Leander, TX 78641. The marina is approximately 30 minutes from downtown Austin with ample free parking for all guests.',
+          'Can we bring our own food and drinks on Austin party boats? Yes! BYOB is allowed for guests 21+ with valid ID (cans and plastic containers only). We provide coolers and ice. You can bring your own food or we can coordinate catering delivery. Many groups order pizza, BBQ, tacos, or other Austin favorites delivered right to the boat.',
+          'How far in advance should we book Austin party boats? Book 6-8 weeks in advance for weekend dates, especially during peak season (April-October). Weekday bookings can be made with less advance notice. Popular dates like bachelor/bachelorette parties and summer weekends fill earliest.',
+          'What makes Lake Travis the best Austin party boat destination? Lake Travis offers beautiful clear blue water perfect for swimming, stunning Hill Country scenery, year-round perfect weather, Instagram-worthy sunset views, and professional party atmosphere. Located just 20 miles from downtown Austin with easy access.'
         ]
       }
     ]
@@ -1435,6 +1593,18 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
           'Book 6-8 weeks in advance for weekend dates, especially during peak season (April-September). Weekday availability is better with less advance notice needed.',
           'Pricing: Private boats start at $195/hour (4-hour minimum). Disco Cruise packages $85-$105 per person. Best value for Lake Travis party boats, guaranteed!',
           'Ready to experience the best party boat on Lake Travis? Book now and create memories that last forever!'
+        ]
+      },
+      {
+        heading: 'Frequently Asked Questions',
+        paragraphs: [
+          'What are the party boat options on Lake Travis? Lake Travis offers two main options: Private boat rentals (exclusive boat for your group, 14-75 capacity, starting $195/hour) and ATX Disco Cruise (multi-group party with DJ and photographer, $85-105/person). Private boats offer exclusivity; Disco Cruise is more affordable with high-energy atmosphere.',
+          'How many people can Lake Travis party boats hold? Private boats accommodate 14-75 guests depending on vessel. Day Tripper holds 14 guests, Meeseeks and The Irony holds 25 guests, and Clever Girl accommodates 50-75 guests. Disco Cruise welcomes multiple groups of 6-20+ per group.',
+          'Can we bring our own alcohol on Lake Travis party boats? Yes! All Lake Travis party boats are BYOB friendly for guests 21+ with valid ID. Cans and plastic containers only (no glass). We provide coolers, ice, cups, and openers. Responsible consumption is required.',
+          'What\'s included with Lake Travis party boats? All boats include Coast Guard certified captain, professional crew, premium Bluetooth sound system, coolers with ice (select packages), safety equipment and life jackets, clean restroom facilities, comfortable seating with sun and shade areas, and swimming platform access.',
+          'Where do Lake Travis party boats depart from? All cruises depart from Anderson Mill Marina, located at 13993 FM 2769, Leander, TX 78641. Free parking available for all guests. The marina is approximately 30 minutes from downtown Austin with easy access from Austin, Round Rock, and Cedar Park.',
+          'How far in advance should we book? Book 6-8 weeks in advance for weekend dates, especially during peak season (April-September). Summer weekends and popular dates book earliest. Weekday availability is better with less advance notice needed.',
+          'What makes Lake Travis the best for party boats? Lake Travis offers beautiful clear blue water perfect for swimming, stunning Hill Country scenery, perfect year-round weather, Instagram-worthy sunset views, multiple party coves and spots, professional marina facilities, and legendary party atmosphere. It\'s Central Texas\' premier party destination!'
         ]
       }
     ]
