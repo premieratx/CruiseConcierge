@@ -3,7 +3,12 @@
   "@type": "Product",
   "@id": "https://premierpartycruises.com/#product-daytripper",
   "name": "Day Tripper - 14 Person Party Boat",
-  "image": "https://premierpartycruises.com/assets/daytripper.jpg",
+  "sku": "PPC-DAYTRIPPER-14",
+  "image": [
+    "https://premierpartycruises.com/assets/daytripper.jpg",
+    "https://premierpartycruises.com/assets/daytripper-deck.jpg",
+    "https://premierpartycruises.com/assets/daytripper-interior.jpg"
+  ],
   "description": "Intimate 14-person party boat perfect for small celebrations and private groups on Lake Travis. Features professional captain, premium sound system, coolers with ice, and comfortable seating.",
   "brand": {
     "@type": "Brand",
@@ -16,8 +21,45 @@
     "price": "200",
     "priceValidUntil": "2099-12-31",
     "availability": "https://schema.org/InStock",
+    "itemCondition": "https://schema.org/NewCondition",
     "seller": {
       "@id": "https://premierpartycruises.com/#organization"
+    },
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "applicableCountry": "US",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+      "merchantReturnDays": 30,
+      "returnMethod": "https://schema.org/ReturnByMail",
+      "returnFees": "https://schema.org/FreeReturn"
+    },
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingDestination": {
+        "@type": "DefinedRegion",
+        "addressCountry": "US",
+        "addressRegion": "TX"
+      },
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 0,
+          "maxValue": 1,
+          "unitCode": "DAY"
+        },
+        "transitTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 0,
+          "maxValue": 0,
+          "unitCode": "DAY"
+        }
+      },
+      "shippingRate": {
+        "@type": "MonetaryAmount",
+        "value": "0",
+        "currency": "USD"
+      }
     }
   },
   "aggregateRating": {

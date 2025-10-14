@@ -3,7 +3,12 @@
   "@type": "Product",
   "@id": "https://premierpartycruises.com/#product-meeseeks",
   "name": "Meeseeks and The Irony - 25 Person Party Boat",
-  "image": "https://premierpartycruises.com/assets/meeseeks.jpg",
+  "sku": "PPC-MEESEEKS-25",
+  "image": [
+    "https://premierpartycruises.com/assets/meeseeks.jpg",
+    "https://premierpartycruises.com/assets/meeseeks-deck.jpg",
+    "https://premierpartycruises.com/assets/meeseeks-crew.jpg"
+  ],
   "description": "Popular 25-person party boat (seating for 18-25 guests) ideal for medium-sized celebrations on Lake Travis. Premium amenities, professional crew, and excellent sound system for the perfect Austin party boat experience.",
   "brand": {
     "@type": "Brand",
@@ -16,8 +21,45 @@
     "price": "225",
     "priceValidUntil": "2099-12-31",
     "availability": "https://schema.org/InStock",
+    "itemCondition": "https://schema.org/NewCondition",
     "seller": {
       "@id": "https://premierpartycruises.com/#organization"
+    },
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "applicableCountry": "US",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+      "merchantReturnDays": 30,
+      "returnMethod": "https://schema.org/ReturnByMail",
+      "returnFees": "https://schema.org/FreeReturn"
+    },
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingDestination": {
+        "@type": "DefinedRegion",
+        "addressCountry": "US",
+        "addressRegion": "TX"
+      },
+      "deliveryTime": {
+        "@type": "ShippingDeliveryTime",
+        "handlingTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 0,
+          "maxValue": 1,
+          "unitCode": "DAY"
+        },
+        "transitTime": {
+          "@type": "QuantitativeValue",
+          "minValue": 0,
+          "maxValue": 0,
+          "unitCode": "DAY"
+        }
+      },
+      "shippingRate": {
+        "@type": "MonetaryAmount",
+        "value": "0",
+        "currency": "USD"
+      }
     }
   },
   "aggregateRating": {
