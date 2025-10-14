@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef, useContext, useMemo, useCallback, forwardRef, createContext } from "react"
+import { forwardRef } from "react"
+import type { ElementRef, ComponentPropsWithoutRef } from "react"
 import * as NavigationMenuPrimitive from "@radix-ui/react-navigation-menu"
 import { cva } from "class-variance-authority"
 import { ChevronDown } from "lucide-react"
@@ -12,7 +13,7 @@ const NavigationMenu = forwardRef<
   <NavigationMenuPrimitive.Root
     ref={ref}
     className={cn(
-      "relative z-10 flex max-w-max flex-1 items-center justify-center",
+      "relative z-[60] flex max-w-max flex-1 items-center justify-center",
       className
     )}
     {...props}
