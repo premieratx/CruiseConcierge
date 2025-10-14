@@ -1940,7 +1940,7 @@ export const PAGE_CONTENT: Record<string, PageContent> = {
     ]
   },
   '/contact': {
-    h1: 'Contact Premier Party Cruises - Lake Travis Boat Rentals Austin',
+    h1: 'Contact Premier Party Cruises - Lake Travis Austin',
     introduction: 'Ready to plan your Lake Travis adventure? Contact Premier Party Cruises, Austin\'s premier boat rental and party cruise company. Call us at (512) 488-5892 or email clientservices@premierpartycruises.com for immediate assistance with your party boat booking.',
     sections: [
       {
