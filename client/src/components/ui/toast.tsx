@@ -5,6 +5,7 @@ import { X } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
+// Toast UI component for notifications
 const ToastProvider = ToastPrimitives.Provider
 
 const ToastViewport = forwardRef<
