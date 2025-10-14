@@ -716,21 +716,29 @@ export const HOURLY_RATES = {
     50: 30000,  // $300/hour - Clever Girl
     75: 30000,  // $300/hour - Clever Girl (same as 50p + crew fee)
   },
-  // Capacity-based rates for Friday (4 hours)
-  FRIDAY: {
+  // Capacity-based rates for Friday & Sunday (4 hours) - SAME PRICE
+  FRI_SUN: {
     14: 25000,  // $250/hour - Day Tripper
     25: 30000,  // $300/hour - Me Seeks The Irony
     30: 30000,  // $300/hour - Me Seeks The Irony (same as 25p + crew fee)
     50: 35000,  // $350/hour - Clever Girl
     75: 35000,  // $350/hour - Clever Girl (same as 50p + crew fee)
   },
-  // Capacity-based rates for Saturday-Sunday (4 hours)
-  SAT_SUN: {
+  // Capacity-based rates for Saturday only (4 hours) - PREMIUM PRICING
+  SATURDAY: {
     14: 30000,  // $300/hour - Day Tripper
     25: 35000,  // $350/hour - Me Seeks The Irony
     30: 35000,  // $350/hour - Me Seeks The Irony (same as 25p + crew fee)
     50: 40000,  // $400/hour - Clever Girl
     75: 40000,  // $400/hour - Clever Girl (same as 50p + crew fee)
+  },
+  // Legacy alias - Friday kept for backward compatibility
+  FRIDAY: {
+    14: 25000,  // $250/hour - Day Tripper
+    25: 30000,  // $300/hour - Me Seeks The Irony
+    30: 30000,  // $300/hour - Me Seeks The Irony (same as 25p + crew fee)
+    50: 35000,  // $350/hour - Clever Girl
+    75: 35000,  // $350/hour - Clever Girl (same as 50p + crew fee)
   },
   // Legacy aliases for backward compatibility
   WEEKDAY: {

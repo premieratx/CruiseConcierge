@@ -492,15 +492,15 @@ export default function PartyBoatAustin() {
                   <div className="space-y-4">
                     <div>
                       <p className="text-sm text-gray-600">14-Person Boat</p>
-                      <p className="text-2xl font-bold text-blue-600">${HOURLY_RATES.MON_THU[14] / 100}-${HOURLY_RATES.SAT_SUN[14] / 100}/hr</p>
+                      <p className="text-2xl font-bold text-blue-600">${HOURLY_RATES.MON_THU[14] / 100}-${HOURLY_RATES.SATURDAY[14] / 100}/hr</p>
                     </div>
                     <div>
                       <p className="text-sm text-gray-600">25-30 Person Boat</p>
-                      <p className="text-2xl font-bold text-blue-600">${HOURLY_RATES.MON_THU[25] / 100}-${HOURLY_RATES.SAT_SUN[25] / 100}/hr</p>
+                      <p className="text-2xl font-bold text-blue-600">${HOURLY_RATES.MON_THU[25] / 100}-${HOURLY_RATES.SATURDAY[25] / 100}/hr</p>
                     </div>
                     <div>
                       <p className="text-sm text-gray-600">50-75 Person Boat</p>
-                      <p className="text-2xl font-bold text-blue-600">${HOURLY_RATES.MON_THU[50] / 100}-${HOURLY_RATES.SAT_SUN[50] / 100}/hr</p>
+                      <p className="text-2xl font-bold text-blue-600">${HOURLY_RATES.MON_THU[50] / 100}-${HOURLY_RATES.SATURDAY[50] / 100}/hr</p>
                     </div>
                     <p className="text-sm text-gray-500 pt-4">4-hour minimum. Weekday-Weekend rates shown.</p>
                   </div>

@@ -405,11 +405,11 @@ export default function BusinessSummary() {
                 <div>
                   <h3 className="font-semibold mb-3">Saturday - Sunday</h3>
                   <div className="grid grid-cols-5 gap-4">
-                    <div><p className="text-xs text-muted-foreground">14-person</p><p className="font-bold">${HOURLY_RATES.SAT_SUN[14] / 100}/hr</p></div>
-                    <div><p className="text-xs text-muted-foreground">25-person</p><p className="font-bold">${HOURLY_RATES.SAT_SUN[25] / 100}/hr</p></div>
-                    <div><p className="text-xs text-muted-foreground">30-person</p><p className="font-bold">${HOURLY_RATES.SAT_SUN[30] / 100}/hr</p></div>
-                    <div><p className="text-xs text-muted-foreground">50-person</p><p className="font-bold">${HOURLY_RATES.SAT_SUN[50] / 100}/hr</p></div>
-                    <div><p className="text-xs text-muted-foreground">75-person</p><p className="font-bold">${HOURLY_RATES.SAT_SUN[75] / 100}/hr</p></div>
+                    <div><p className="text-xs text-muted-foreground">14-person</p><p className="font-bold">${HOURLY_RATES.SATURDAY[14] / 100}/hr</p></div>
+                    <div><p className="text-xs text-muted-foreground">25-person</p><p className="font-bold">${HOURLY_RATES.SATURDAY[25] / 100}/hr</p></div>
+                    <div><p className="text-xs text-muted-foreground">30-person</p><p className="font-bold">${HOURLY_RATES.SATURDAY[30] / 100}/hr</p></div>
+                    <div><p className="text-xs text-muted-foreground">50-person</p><p className="font-bold">${HOURLY_RATES.SATURDAY[50] / 100}/hr</p></div>
+                    <div><p className="text-xs text-muted-foreground">75-person</p><p className="font-bold">${HOURLY_RATES.SATURDAY[75] / 100}/hr</p></div>
                   </div>
                 </div>
               </div>

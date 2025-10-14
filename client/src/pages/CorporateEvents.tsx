@@ -725,7 +725,7 @@ export default function CorporateEvents() {
                       </td>
                       <td className="p-4 text-center">{formatCurrency(HOURLY_RATES.MON_THU[14])}/hour</td>
                       <td className="p-4 text-center">{formatCurrency(HOURLY_RATES.FRIDAY[14])}/hour</td>
-                      <td className="p-4 text-center">{formatCurrency(HOURLY_RATES.SAT_SUN[14])}/hour</td>
+                      <td className="p-4 text-center">{formatCurrency(HOURLY_RATES.SATURDAY[14])}/hour</td>
                     </tr>
                     <tr className="border-b dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700/50">
                       <td className="p-4">
@@ -737,7 +737,7 @@ export default function CorporateEvents() {
                       </td>
                       <td className="p-4 text-center">{formatCurrency(HOURLY_RATES.MON_THU[25])}/hour</td>
                       <td className="p-4 text-center">{formatCurrency(HOURLY_RATES.FRIDAY[25])}/hour</td>
-                      <td className="p-4 text-center">{formatCurrency(HOURLY_RATES.SAT_SUN[25])}/hour</td>
+                      <td className="p-4 text-center">{formatCurrency(HOURLY_RATES.SATURDAY[25])}/hour</td>
                     </tr>
                     <tr className="hover:bg-gray-50 dark:hover:bg-gray-700/50">
                       <td className="p-4">
@@ -749,7 +749,7 @@ export default function CorporateEvents() {
                       </td>
                       <td className="p-4 text-center">{formatCurrency(HOURLY_RATES.MON_THU[50])}/hour</td>
                       <td className="p-4 text-center">{formatCurrency(HOURLY_RATES.FRIDAY[50])}/hour</td>
-                      <td className="p-4 text-center">{formatCurrency(HOURLY_RATES.SAT_SUN[50])}/hour</td>
+                      <td className="p-4 text-center">{formatCurrency(HOURLY_RATES.SATURDAY[50])}/hour</td>
                     </tr>
                   </tbody>
                 </table>
