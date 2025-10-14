@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { createContext, useContext, useState, ReactNode } from 'react';
 
 interface EditModeContextType {
   isEditMode: boolean;
@@ -10,10 +10,10 @@ const EditModeContext = createContext<EditModeContextType | undefined>(undefined
 export function EditModeProvider({ children }: { children: ReactNode }) {
   const [isEditMode, setIsEditMode] = useState(false);
 
-  return React.createElement(
-    EditModeContext.Provider,
-    { value: { isEditMode, setIsEditMode } },
-    children
+  return (
+    <EditModeContext.Provider value={{ isEditMode, setIsEditMode }}>
+      {children}
+    </EditModeContext.Provider>
   );
 }
 
