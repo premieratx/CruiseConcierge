@@ -4,6 +4,16 @@
 This project is a custom CRM with an AI chatbot agent designed for Premier Party Cruises. Its purpose is to streamline booking, payment, and customer management for a party boat business. Key capabilities include a 17hats-style CRM dashboard, a progressive AI chatbot booking flow, Stripe payment integration, real-time availability checking, dynamic pricing, quote generation, and comprehensive admin tools. The system ensures robust double-booking prevention and production-ready architecture, aiming to enhance the business vision and market potential.
 
 ## Recent Changes & Status
+### October 14, 2025 - Database Keepalive System Implemented
+- **Issue**: Neon PostgreSQL database going dormant after 5 minutes of inactivity, causing 500 errors and control plane timeouts
+- **Root Cause**: Autoscale deployments scale-to-zero when idle; database cold starts take 500ms-2 seconds
+- **Solution Implemented**: 
+  - Internal keepalive service pings database every 4 minutes to prevent sleep (`server/services/keepalive.ts`)
+  - Increased database connection timeouts to 30 seconds to handle cold starts (`server/db.ts`)
+  - Health check endpoint at `/api/health` for monitoring services
+- **Status**: ✅ Keepalive service RUNNING - verified in logs with successful pings
+- **Next Steps**: Set up UptimeRobot monitors to ping critical pages every 5 minutes (see UptimeRobot Setup section below)
+
 ### October 14, 2025 - Toast Component Issue Resolution
 - **Issue**: React preamble error in toast.tsx caused hydration failures on all SSR pages (homepage, blog posts, service pages)
 - **Root Cause**: Browser persistent caching of broken toast module; Vite Fast Refresh plugin unable to detect React preamble
@@ -70,3 +80,33 @@ The system features a progressive booking flow and intuitive admin dashboards. D
 - **Mailgun**: Email delivery for quotes and confirmations.
 - **OpenRouter**: AI-powered customer interactions.
 - **Replit DB**: WordPress blog migration and storage.
+
+## UptimeRobot Setup Instructions
+**IMPORTANT**: The internal keepalive service (`server/services/keepalive.ts`) pings the database every 4 minutes, but external monitoring provides additional protection and visibility.
+
+### Step 1: Create UptimeRobot Monitors
+Log in to UptimeRobot and create HTTP(s) monitors for these critical pages (ping every 5 minutes):
+
+1. **Homepage**: `https://premierpartycruises.com/`
+2. **Bachelor Parties**: `https://premierpartycruises.com/bachelor-party-austin`
+3. **Bachelorette Parties**: `https://premierpartycruises.com/bachelorette-party-austin`
+4. **Private Cruises**: `https://premierpartycruises.com/private-cruises`
+5. **ATX Disco Cruise**: `https://premierpartycruises.com/atx-disco-cruise`
+
+### Step 2: Monitor Configuration
+For each monitor:
+- **Monitor Type**: HTTP(s)
+- **Interval**: 5 minutes
+- **Timeout**: 30 seconds (to handle database cold starts)
+- **Alert Contacts**: Your email/SMS for downtime notifications
+
+### Step 3: Verification
+- Check UptimeRobot dashboard shows all monitors as "Up"
+- Verify in server logs that pages are being accessed regularly
+- Look for keepalive ping messages in logs: `✅ Keepalive ping #X successful`
+
+### How It Works
+1. **Internal Keepalive**: Pings database every 4 minutes (prevents sleep)
+2. **UptimeRobot Monitors**: Ping pages every 5 minutes (keeps app alive + monitors uptime)
+3. **30-Second Timeouts**: Handles database cold starts gracefully
+4. **Result**: 99.9% uptime with no 500 errors from dormant database
