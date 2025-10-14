@@ -5,7 +5,8 @@ import { QueryClientProvider } from "@tanstack/react-query";
 // import { Toaster } from "@/components/ui/toaster";
 // TEMPORARY: TooltipProvider disabled to fix React preamble error - will re-enable after cache clears
 // import { TooltipProvider } from "@/components/ui/tooltip";
-import { BookingCacheProvider } from "@/contexts/BookingCacheContext";
+// TEMPORARY: BookingCacheProvider disabled to fix React preamble error
+// import { BookingCacheProvider } from "@/contexts/BookingCacheContext";
 import { EditModeProvider } from "@/contexts/EditModeContext";
 import { HelmetProvider } from "react-helmet-async";
 import { lazy, Suspense, useEffect } from "react";
@@ -529,7 +530,8 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <BookingCacheProvider>
+        {/* TEMPORARY: BookingCacheProvider disabled to fix React preamble error */}
+        {/* <BookingCacheProvider> */}
           <EditModeProvider>
             <HelmetProvider>
               {/* TEMPORARY: TooltipProvider disabled to fix React preamble error */}
@@ -543,7 +545,7 @@ function App() {
               {/* </TooltipProvider> */}
             </HelmetProvider>
           </EditModeProvider>
-        </BookingCacheProvider>
+        {/* </BookingCacheProvider> */}
       </AuthProvider>
     </QueryClientProvider>
   );

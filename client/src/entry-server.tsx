@@ -3,7 +3,8 @@ import { Router } from "wouter";
 import { HelmetProvider } from "react-helmet-async";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { queryClient } from "./lib/queryClient.ts";
-import { BookingCacheProvider } from "./contexts/BookingCacheContext.tsx";
+// TEMPORARY: BookingCacheProvider disabled to fix React preamble error
+// import { BookingCacheProvider } from "./contexts/BookingCacheContext.tsx";
 import { EditModeProvider } from "./contexts/EditModeContext.tsx";
 import { AuthProvider } from "./hooks/use-auth.tsx";
 import App from "./App.tsx";
@@ -31,11 +32,12 @@ export function render(url: string) {
       <QueryClientProvider client={queryClient}>
         <AuthProvider>
           <EditModeProvider>
-            <BookingCacheProvider>
+            {/* TEMPORARY: BookingCacheProvider disabled to fix React preamble error */}
+            {/* <BookingCacheProvider> */}
               <Router hook={staticLocationHook(url)}>
                 <App />
               </Router>
-            </BookingCacheProvider>
+            {/* </BookingCacheProvider> */}
           </EditModeProvider>
         </AuthProvider>
       </QueryClientProvider>
