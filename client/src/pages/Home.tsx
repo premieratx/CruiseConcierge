@@ -585,7 +585,7 @@ export default function Home() {
                 <div>
                   <div className="text-brand-yellow text-sm font-bold mb-2" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM</div>
                   <div className="text-3xl font-bold text-white mb-1" data-editable data-editable-id="pricing-overlay-private-price">
-                    $${HOURLY_RATES.MON_THU[14] / 100} per hour
+                    ${HOURLY_RATES.MON_THU[14] / 100} per hour
                   </div>
                   <div className="text-sm text-gray-200" data-editable data-editable-id="pricing-overlay-private-subtitle">Weekdays • 14+ people</div>
                 </div>
@@ -617,7 +617,7 @@ export default function Home() {
               </div>
               <div className="flex items-center justify-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-4">
                 <DollarSign className="h-5 w-5 sm:h-6 sm:w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-sm sm:text-base md:text-lg whitespace-nowrap" data-editable data-editable-id="hero-badge-pricing">From $${HOURLY_RATES.MON_THU[14] / 100} per hour</span>
+                <span className="font-semibold text-sm sm:text-base md:text-lg whitespace-nowrap" data-editable data-editable-id="hero-badge-pricing">From ${HOURLY_RATES.MON_THU[14] / 100} per hour</span>
               </div>
               <div className="flex items-center justify-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-4">
                 <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-brand-yellow flex-shrink-0" />
