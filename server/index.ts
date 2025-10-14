@@ -154,6 +154,36 @@ app.use((req, res, next) => {
   const { storage } = await import('./storage');
   setupAuth(app, storage);
   
+  // Health check endpoint for UptimeRobot and other monitoring services
+  // This endpoint checks database connectivity and keepalive service status
+  app.get('/api/health', async (req: Request, res: Response) => {
+    try {
+      const { keepaliveService } = await import('./services/keepalive');
+      const status = keepaliveService.getStatus();
+      
+      res.json({
+        status: 'healthy',
+        timestamp: new Date().toISOString(),
+        database: {
+          connected: true,
+          lastPing: status.lastPingTime,
+          nextPingIn: status.nextPingIn,
+        },
+        keepalive: {
+          running: status.isRunning,
+          pingCount: status.pingCount,
+          lastError: status.lastError,
+        },
+      });
+    } catch (error: any) {
+      res.status(500).json({
+        status: 'unhealthy',
+        error: error.message,
+        timestamp: new Date().toISOString(),
+      });
+    }
+  });
+  
   const server = await registerRoutes(app);
 
   // Sitemap route - must be registered before Vite to avoid catch-all interference
@@ -404,5 +434,9 @@ Crawl-delay: 1`;
     } catch (error) {
       log(`⚠️ Blog system persistence check failed: ${error}`);
     }
+    
+    // Start keepalive service to prevent database from going to sleep
+    const { keepaliveService } = await import('./services/keepalive');
+    keepaliveService.start();
   });
 })();
