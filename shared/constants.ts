@@ -781,8 +781,8 @@ export const DISCO_PRICING = {
 
 /**
  * Private Cruise Pricing Structure
- * Comprehensive pricing data extracted from user-provided screenshots
- * Includes Standard, Essentials, and Ultimate packages for all capacity tiers
+ * Comprehensive pricing data with recalculated totals based on new formula:
+ * Total = (baseRate×4 + packageFee + crewFee) + tax(8.25% on subtotal) + gratuity(20% on base only)
  */
 export const PRIVATE_CRUISE_PRICING = {
   // 14-Person Capacity Tier
@@ -799,33 +799,33 @@ export const PRIVATE_CRUISE_PRICING = {
         name: 'Standard 4-Hour Cruise',
         description: 'Essential cruise experience with professional crew and premium amenities',
         addOn: 0, // Base package - no additional cost
-        totalPrices: { // Total prices including tax and gratuity from task specification
-          MON_THU: 105000,  // $1,050 total (from $800 base)
-          FRIDAY: 118100,   // $1,181 total (from $900 base)  
-          SATURDAY: 183800, // $1,838 total (from $1,400 base)
-          SUNDAY: 131300,   // $1,313 total (from $1,000 base)
+        totalPrices: {
+          MON_THU: 102600,  // Base:$800, Tax:$66, Gratuity:$160 = $1,026
+          FRIDAY: 128250,   // Base:$1,000, Tax:$82.50, Gratuity:$200 = $1,282.50
+          SATURDAY: 153900, // Base:$1,200, Tax:$99, Gratuity:$240 = $1,539
+          SUNDAY: 153900,   // Base:$1,200, Tax:$99, Gratuity:$240 = $1,539
         }
       },
       essentials: {
         name: '4-Hour Cruise w/Essentials Package',
         description: 'Complete convenience package with refreshments and setup',
-        addOn: 10000, // +$100 
-        totalPrices: { // Standard totals + $100
-          MON_THU: 115000,  // $1,150 total  
-          FRIDAY: 128100,   // $1,281 total
-          SATURDAY: 193800, // $1,938 total
-          SUNDAY: 141300,   // $1,413 total
+        addOn: 40000, // +$400 total
+        totalPrices: {
+          MON_THU: 145900,  // Base:$800+$400, Tax:$99, Gratuity:$160 = $1,459
+          FRIDAY: 171550,   // Base:$1,000+$400, Tax:$115.50, Gratuity:$200 = $1,715.50
+          SATURDAY: 197200, // Base:$1,200+$400, Tax:$132, Gratuity:$240 = $1,972
+          SUNDAY: 197200,   // Base:$1,200+$400, Tax:$132, Gratuity:$240 = $1,972
         }
       },
       ultimate: {
         name: 'Ultimate Disco Party Package',
         description: 'Complete party experience with entertainment and disco atmosphere',
-        addOn: 25000, // +$250
-        totalPrices: { // Standard totals + $250  
-          MON_THU: 130000,  // $1,300 total
-          FRIDAY: 143100,   // $1,431 total
-          SATURDAY: 208800, // $2,088 total
-          SUNDAY: 156300,   // $1,563 total
+        addOn: 100000, // +$1,000 total
+        totalPrices: {
+          MON_THU: 210850,  // Base:$800+$1,000, Tax:$148.50, Gratuity:$160 = $2,108.50
+          FRIDAY: 236500,   // Base:$1,000+$1,000, Tax:$165, Gratuity:$200 = $2,365
+          SATURDAY: 262150, // Base:$1,200+$1,000, Tax:$181.50, Gratuity:$240 = $2,621.50
+          SUNDAY: 262150,   // Base:$1,200+$1,000, Tax:$181.50, Gratuity:$240 = $2,621.50
         }
       }
     }
@@ -835,43 +835,43 @@ export const PRIVATE_CRUISE_PRICING = {
   25: {
     capacity: 25,
     baseHourlyRates: {
-      MON_THU: 25000,  // $250/hr
-      FRIDAY: 30000,   // $300/hr
-      SATURDAY: 35000, // $350/hr  
-      SUNDAY: 35000,   // $350/hr
+      MON_THU: 22500,  // $225/hr (updated from $250)
+      FRIDAY: 27000,   // $270/hr (1.2x multiplier)
+      SATURDAY: 31500, // $315/hr (1.4x multiplier)
+      SUNDAY: 31500,   // $315/hr (1.4x multiplier)
     },
     packages: {
       standard: {
         name: 'Standard 4-Hour Cruise',
         description: 'Professional cruise experience with premium amenities for medium groups',
         addOn: 0, // Base package
-        totalPrices: { // Total prices including tax and gratuity from task specification
-          MON_THU: 118100,  // $1,181 total (from $900 base)
-          FRIDAY: 131300,   // $1,313 total (from $1,000 base)
-          SATURDAY: 196900, // $1,969 total (from $1,500 base)  
-          SUNDAY: 144400,   // $1,444 total (from $1,100 base)
+        totalPrices: {
+          MON_THU: 115425,  // Base:$900, Tax:$74.25, Gratuity:$180 = $1,154.25
+          FRIDAY: 138510,   // Base:$1,080, Tax:$89.10, Gratuity:$216 = $1,385.10
+          SATURDAY: 161595, // Base:$1,260, Tax:$103.95, Gratuity:$252 = $1,615.95
+          SUNDAY: 161595,   // Base:$1,260, Tax:$103.95, Gratuity:$252 = $1,615.95
         }
       },
       essentials: {
         name: '4-Hour Cruise w/Essentials Package', 
         description: 'Enhanced cruise experience with refreshments for group entertaining',
-        addOn: 15000, // +$150
-        totalPrices: { // Standard totals + $150
-          MON_THU: 133100,  // $1,331 total
-          FRIDAY: 146300,   // $1,463 total
-          SATURDAY: 211900, // $2,119 total
-          SUNDAY: 159400,   // $1,594 total
+        addOn: 40000, // +$400 total
+        totalPrices: {
+          MON_THU: 158725,  // Base:$900+$400, Tax:$107.25, Gratuity:$180 = $1,587.25
+          FRIDAY: 181810,   // Base:$1,080+$400, Tax:$122.10, Gratuity:$216 = $1,818.10
+          SATURDAY: 204895, // Base:$1,260+$400, Tax:$136.95, Gratuity:$252 = $2,048.95
+          SUNDAY: 204895,   // Base:$1,260+$400, Tax:$136.95, Gratuity:$252 = $2,048.95
         }
       },
       ultimate: {
         name: 'Ultimate Disco Party Package',
         description: 'Ultimate party package with dual entertainment floats and disco atmosphere',
-        addOn: 30000, // +$300
-        totalPrices: { // Standard totals + $300
-          MON_THU: 148100,  // $1,481 total  
-          FRIDAY: 161300,   // $1,613 total
-          SATURDAY: 226900, // $2,269 total
-          SUNDAY: 174400,   // $1,744 total
+        addOn: 100000, // +$1,000 total
+        totalPrices: {
+          MON_THU: 223675,  // Base:$900+$1,000, Tax:$156.75, Gratuity:$180 = $2,236.75
+          FRIDAY: 246760,   // Base:$1,080+$1,000, Tax:$171.60, Gratuity:$216 = $2,467.60
+          SATURDAY: 269845, // Base:$1,260+$1,000, Tax:$186.45, Gratuity:$252 = $2,698.45
+          SUNDAY: 269845,   // Base:$1,260+$1,000, Tax:$186.45, Gratuity:$252 = $2,698.45
         }
       }
     }
@@ -881,10 +881,10 @@ export const PRIVATE_CRUISE_PRICING = {
   30: {
     capacity: 30,
     baseHourlyRates: {
-      MON_THU: 25000,  // $250/hr (same as 25p)
-      FRIDAY: 30000,   // $300/hr (same as 25p)
-      SATURDAY: 35000, // $350/hr (same as 25p)
-      SUNDAY: 35000,   // $350/hr (same as 25p)
+      MON_THU: 22500,  // $225/hr (same as 25p)
+      FRIDAY: 27000,   // $270/hr (same as 25p)
+      SATURDAY: 31500, // $315/hr (same as 25p)
+      SUNDAY: 31500,   // $315/hr (same as 25p)
     },
     crewFeePerHour: 5000, // +$50/hr = +$200 for 4hr cruise
     packages: {
@@ -892,33 +892,33 @@ export const PRIVATE_CRUISE_PRICING = {
         name: 'Standard 4-Hour Cruise',
         description: 'Professional cruise experience with enhanced capacity for larger groups',
         addOn: 0, // Base package
-        totalPrices: { // 25p totals + $200 crew fee
-          MON_THU: 138100,  // $1,381 total ($1,181 + $200)
-          FRIDAY: 151300,   // $1,513 total ($1,313 + $200) 
-          SATURDAY: 216900, // $2,169 total ($1,969 + $200)
-          SUNDAY: 164400,   // $1,644 total ($1,444 + $200)
+        totalPrices: {
+          MON_THU: 137075,  // Base:$900+Crew:$200, Tax:$90.75, Gratuity:$180 = $1,370.75
+          FRIDAY: 160160,   // Base:$1,080+Crew:$200, Tax:$105.60, Gratuity:$216 = $1,601.60
+          SATURDAY: 183245, // Base:$1,260+Crew:$200, Tax:$120.45, Gratuity:$252 = $1,832.45
+          SUNDAY: 183245,   // Base:$1,260+Crew:$200, Tax:$120.45, Gratuity:$252 = $1,832.45
         }
       },
       essentials: {
         name: '4-Hour Cruise w/Essentials Package',
         description: 'Enhanced cruise experience with refreshments for large group entertaining',
-        addOn: 15000, // +$150
-        totalPrices: { // Standard totals + $150
-          MON_THU: 153100,  // $1,531 total
-          FRIDAY: 166300,   // $1,663 total
-          SATURDAY: 231900, // $2,319 total  
-          SUNDAY: 179400,   // $1,794 total
+        addOn: 40000, // +$400 total
+        totalPrices: {
+          MON_THU: 180375,  // Base:$900+$400+Crew:$200, Tax:$123.75, Gratuity:$180 = $1,803.75
+          FRIDAY: 203460,   // Base:$1,080+$400+Crew:$200, Tax:$138.60, Gratuity:$216 = $2,034.60
+          SATURDAY: 226545, // Base:$1,260+$400+Crew:$200, Tax:$153.45, Gratuity:$252 = $2,265.45
+          SUNDAY: 226545,   // Base:$1,260+$400+Crew:$200, Tax:$153.45, Gratuity:$252 = $2,265.45
         }
       },
       ultimate: {
         name: 'Ultimate Disco Party Package',
         description: 'Ultimate party package for enhanced capacity with dual entertainment',
-        addOn: 30000, // +$300
-        totalPrices: { // Standard totals + $300
-          MON_THU: 168100,  // $1,681 total
-          FRIDAY: 181300,   // $1,813 total
-          SATURDAY: 246900, // $2,469 total
-          SUNDAY: 194400,   // $1,944 total
+        addOn: 100000, // +$1,000 total
+        totalPrices: {
+          MON_THU: 245325,  // Base:$900+$1,000+Crew:$200, Tax:$173.25, Gratuity:$180 = $2,453.25
+          FRIDAY: 268410,   // Base:$1,080+$1,000+Crew:$200, Tax:$188.10, Gratuity:$216 = $2,684.10
+          SATURDAY: 291495, // Base:$1,260+$1,000+Crew:$200, Tax:$202.95, Gratuity:$252 = $2,914.95
+          SUNDAY: 291495,   // Base:$1,260+$1,000+Crew:$200, Tax:$202.95, Gratuity:$252 = $2,914.95
         }
       }
     }
@@ -938,33 +938,33 @@ export const PRIVATE_CRUISE_PRICING = {
         name: 'Standard 4-Hour Cruise',
         description: 'Premium cruise experience with enhanced amenities for large celebrations',
         addOn: 0, // Base package
-        totalPrices: { // Total prices including tax and gratuity from task specification
-          MON_THU: 131300,  // $1,313 total (from $1,000 base)
-          FRIDAY: 144400,   // $1,444 total (from $1,100 base)
-          SATURDAY: 210000, // $2,100 total (from $1,600 base)
-          SUNDAY: 157500,   // $1,575 total (from $1,200 base)
+        totalPrices: {
+          MON_THU: 153900,  // Base:$1,200, Tax:$99, Gratuity:$240 = $1,539
+          FRIDAY: 179550,   // Base:$1,400, Tax:$115.50, Gratuity:$280 = $1,795.50
+          SATURDAY: 205200, // Base:$1,600, Tax:$132, Gratuity:$320 = $2,052
+          SUNDAY: 205200,   // Base:$1,600, Tax:$132, Gratuity:$320 = $2,052
         }
       },
       essentials: {
         name: '4-Hour Cruise w/Essentials Package',
         description: 'Premium cruise with enhanced refreshment service for large-scale entertaining',
-        addOn: 20000, // +$200
-        totalPrices: { // Standard totals + $200
-          MON_THU: 151300,  // $1,513 total
-          FRIDAY: 164400,   // $1,644 total
-          SATURDAY: 230000, // $2,300 total
-          SUNDAY: 177500,   // $1,775 total
+        addOn: 40000, // +$400 total
+        totalPrices: {
+          MON_THU: 197200,  // Base:$1,200+$400, Tax:$132, Gratuity:$240 = $1,972
+          FRIDAY: 222850,   // Base:$1,400+$400, Tax:$148.50, Gratuity:$280 = $2,228.50
+          SATURDAY: 248500, // Base:$1,600+$400, Tax:$165, Gratuity:$320 = $2,485
+          SUNDAY: 248500,   // Base:$1,600+$400, Tax:$165, Gratuity:$320 = $2,485
         }
       },
       ultimate: {
         name: 'Ultimate Disco Party Package',
         description: 'Ultimate large-scale party with triple entertainment floats and spectacular atmosphere',
-        addOn: 35000, // +$350
-        totalPrices: { // Standard totals + $350
-          MON_THU: 166300,  // $1,663 total
-          FRIDAY: 179400,   // $1,794 total
-          SATURDAY: 245000, // $2,450 total
-          SUNDAY: 192500,   // $1,925 total
+        addOn: 100000, // +$1,000 total
+        totalPrices: {
+          MON_THU: 262150,  // Base:$1,200+$1,000, Tax:$181.50, Gratuity:$240 = $2,621.50
+          FRIDAY: 287800,   // Base:$1,400+$1,000, Tax:$198, Gratuity:$280 = $2,878
+          SATURDAY: 313450, // Base:$1,600+$1,000, Tax:$214.50, Gratuity:$320 = $3,134.50
+          SUNDAY: 313450,   // Base:$1,600+$1,000, Tax:$214.50, Gratuity:$320 = $3,134.50
         }
       }
     }
@@ -979,39 +979,39 @@ export const PRIVATE_CRUISE_PRICING = {
       SATURDAY: 40000, // $400/hr (same as 50p)
       SUNDAY: 40000,   // $400/hr (same as 50p)
     },
-    crewFeePerHour: 7500, // +$75/hr = +$300 for 4hr cruise
+    crewFeePerHour: 10000, // +$100/hr = +$400 for 4hr cruise (updated to match CREW_FEES constant)
     packages: {
       standard: {
         name: 'Standard 4-Hour Cruise',
         description: 'Maximum capacity cruise experience for the grandest celebrations',
         addOn: 0, // Base package  
-        totalPrices: { // 50p totals + $300 crew fee
-          MON_THU: 161300,  // $1,613 total ($1,313 + $300)
-          FRIDAY: 174400,   // $1,744 total ($1,444 + $300)
-          SATURDAY: 240000, // $2,400 total ($2,100 + $300)
-          SUNDAY: 187500,   // $1,875 total ($1,575 + $300)
+        totalPrices: {
+          MON_THU: 197200,  // Base:$1,200+Crew:$400, Tax:$132, Gratuity:$240 = $1,972
+          FRIDAY: 222850,   // Base:$1,400+Crew:$400, Tax:$148.50, Gratuity:$280 = $2,228.50
+          SATURDAY: 248500, // Base:$1,600+Crew:$400, Tax:$165, Gratuity:$320 = $2,485
+          SUNDAY: 248500,   // Base:$1,600+Crew:$400, Tax:$165, Gratuity:$320 = $2,485
         }
       },
       essentials: {
         name: '4-Hour Cruise w/Essentials Package',
         description: 'Maximum capacity cruise with ultimate refreshment service',
-        addOn: 20000, // +$200
-        totalPrices: { // Standard totals + $200
-          MON_THU: 181300,  // $1,813 total
-          FRIDAY: 194400,   // $1,944 total
-          SATURDAY: 260000, // $2,600 total
-          SUNDAY: 207500,   // $2,075 total
+        addOn: 40000, // +$400 total
+        totalPrices: {
+          MON_THU: 240500,  // Base:$1,200+$400+Crew:$400, Tax:$165, Gratuity:$240 = $2,405
+          FRIDAY: 266150,   // Base:$1,400+$400+Crew:$400, Tax:$181.50, Gratuity:$280 = $2,661.50
+          SATURDAY: 291800, // Base:$1,600+$400+Crew:$400, Tax:$198, Gratuity:$320 = $2,918
+          SUNDAY: 291800,   // Base:$1,600+$400+Crew:$400, Tax:$198, Gratuity:$320 = $2,918
         }
       },
       ultimate: {
         name: 'Ultimate Disco Party Package',
         description: 'Maximum all-inclusive grand celebration experience',
-        addOn: 35000, // +$350
-        totalPrices: { // Standard totals + $350
-          MON_THU: 196300,  // $1,963 total
-          FRIDAY: 209400,   // $2,094 total
-          SATURDAY: 275000, // $2,750 total
-          SUNDAY: 222500,   // $2,225 total
+        addOn: 100000, // +$1,000 total
+        totalPrices: {
+          MON_THU: 305450,  // Base:$1,200+$1,000+Crew:$400, Tax:$214.50, Gratuity:$240 = $3,054.50
+          FRIDAY: 331100,   // Base:$1,400+$1,000+Crew:$400, Tax:$231, Gratuity:$280 = $3,311
+          SATURDAY: 356750, // Base:$1,600+$1,000+Crew:$400, Tax:$247.50, Gratuity:$320 = $3,567.50
+          SUNDAY: 356750,   // Base:$1,600+$1,000+Crew:$400, Tax:$247.50, Gratuity:$320 = $3,567.50
         }
       }
     }

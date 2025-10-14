@@ -40,19 +40,17 @@ const privateCruisePackages = [
   {
     id: 'standard',
     name: 'Standard Package',
-    hourlyRate: { dayTripper: 195, meeseeks: 295, cleverGirl: 495 },
-    description: 'Your private boat charter on Lake Travis',
+    hourlyRate: { dayTripper: 200, meeseeks: 225, cleverGirl: 300 },
+    description: 'Basic cruise experience',
     subtitle: 'The boat, the captain, and the lake - ready for your event',
     features: [
-      'Private boat exclusively for your group',
-      'USCG licensed Captain & Crew',
-      'Cooler with ice included',
-      'Bluetooth sound system - play YOUR music',
-      'Ice water stations',
+      'Professional captain and crew',
+      'Large coolers (bring your own ice)',
+      'Premium Bluetooth sound system',
       'Clean restroom facilities',
-      'Covered shade areas',
-      'Flexible departure times',
-      'BYOB friendly'
+      'Sun and shade seating areas',
+      'BYOB friendly (cans/plastic only)',
+      'Basic cruise experience'
     ],
     popular: false,
     icon: Ship,
@@ -62,18 +60,17 @@ const privateCruisePackages = [
   {
     id: 'essentials',
     name: 'Essentials Package',
-    hourlyUpgrade: { dayTripper: 100, meeseeks: 150, cleverGirl: 200 },
-    description: 'Add the fun extras to make your cruise special',
-    subtitle: 'Standard Package + Party Essentials',
+    hourlyUpgrade: 100,
+    description: 'Enhanced convenience',
+    subtitle: 'Everything from Standard Package + Enhanced Convenience',
     features: [
-      'Everything in Standard Package',
-      'Giant lily pad float (6x20\' floating lounge)',
-      'Premium party cups for everyone',
-      'Bubble guns & party favors',
-      'Waterproof Bluetooth speaker upgrade',
-      'Photo ops & Instagram moments',
-      'Party planning assistance',
-      'Extended cooler service'
+      'Everything from Standard Package',
+      'Coolers pre-stocked with ice',
+      '5-gallon insulated water dispenser',
+      'Solo cups and ice water',
+      '6-foot folding table for food',
+      'Vendor coordination for catering',
+      'Enhanced convenience'
     ],
     popular: true,
     icon: Sparkles,
@@ -83,19 +80,19 @@ const privateCruisePackages = [
   {
     id: 'ultimate',
     name: 'Ultimate Package',
-    hourlyUpgrade: { dayTripper: 250, meeseeks: 300, cleverGirl: 350 },
-    description: 'Full VIP treatment with everything included',
-    subtitle: 'Essentials Package + Ultimate Luxury',
+    hourlyUpgrade: 250,
+    description: 'Full party atmosphere setup',
+    subtitle: 'Everything from Essentials Package + Full Party Atmosphere',
     features: [
-      'Everything in Essentials Package',
-      'TWO giant lily pad floats',
-      'Professional photographer (2 hours)',
-      'Premium decorations setup',
-      'Personalized event coordination',
-      'Champagne & mimosa setup',
-      'Towel service & SPF sunscreen',
-      'VIP concierge planning',
-      'Custom playlist curation'
+      'Everything from Essentials Package',
+      'Giant lily pad float',
+      'Guest of honor float (unicorn or ring)',
+      'Disco ball cups for party vibes',
+      'Bubble guns and bubble wands',
+      'Champagne flutes and fruit juices',
+      'SPF-50 spray sunscreen',
+      'Plates, plasticware, paper towels',
+      'Full party atmosphere setup'
     ],
     popular: false,
     icon: Crown,
@@ -108,24 +105,24 @@ const privateCruisePackages = [
 const fleetOptions = [
   {
     name: 'Day Tripper',
-    capacity: '6-14 guests',
-    baseRate: 195,
+    capacity: 'Up to 14 guests',
+    baseRate: 200,
     image: heroImage3,
-    features: ['Intimate groups', 'Covered seating', 'Perfect for families']
+    features: ['Licensed captain and premium sound system', 'Coolers with ice provided', 'Comfortable seating with sun and shade', '4-hour minimum', 'Ideal for small birthday parties and gatherings']
   },
   {
-    name: 'Me Seeks the Irony',
-    capacity: '15-25 guests',
-    baseRate: 295,
+    name: 'Meeseeks & The Irony',
+    capacity: '15-30 guests',
+    baseRate: 225,
     image: heroImage2,
-    features: ['Mid-size groups', 'Dance floor', 'Great for parties']
+    features: ['Professional captain and crew', 'Premium Bluetooth sound system', 'Large coolers with ice', '4-hour minimum', 'Perfect for bachelor/bachelorette parties']
   },
   {
     name: 'Clever Girl',
-    capacity: '26-50+ guests',
-    baseRate: 495,
+    capacity: '30-75 guests',
+    baseRate: 300,
     image: heroImage1,
-    features: ['Large groups', 'Multiple levels', 'Corporate events']
+    features: ['Flagship boat with 14 disco balls', 'Giant Texas flag display', 'Professional crew and premium amenities', '4-hour minimum', 'Ideal for corporate events and large celebrations']
   }
 ];
 
@@ -183,22 +180,22 @@ const faqItems = [
   {
     id: 'pricing',
     question: 'How does private cruise pricing work?',
-    answer: 'Private cruises are charged hourly based on the boat size. Day Tripper (6-14 guests) starts at $195/hr, Me Seeks the Irony (15-25 guests) at $295/hr, and Clever Girl (26-50+ guests) at $495/hr. Add Essentials Package for $100-$200/hr or Ultimate Package for $250-$350/hr more. 3-4 hour minimum required.'
+    answer: 'Private cruises are charged hourly based on the boat size. Day Tripper (up to 14 guests) starts at $200/hr, Meeseeks & The Irony (15-30 guests) at $225/hr, and Clever Girl (30-75 guests) at $300/hr. Add Essentials Package for $100/hr or Ultimate Package for $250/hr more. 4-hour minimum required.'
   },
   {
     id: 'minimum',
     question: 'What is the minimum booking time?',
-    answer: '3-4 hour minimum depending on the day and season. Most groups book 3-4 hours for a perfect Lake Travis experience.'
+    answer: '4-hour minimum required for all private cruises. Most groups book 4 hours for a perfect Lake Travis experience.'
   },
   {
     id: 'crew-fees',
     question: 'Are there additional crew fees?',
-    answer: 'Groups over 25 guests require additional crew ($150-200 per crew member). Gratuity for captain and crew is 15-20% and not included in base pricing.'
+    answer: 'Additional crew fees apply for larger groups: $50/hour for 26-30 guests, $100/hour for 51-75 guests. 8.25% tax added. Suggested 20% gratuity for exceptional service.'
   },
   {
     id: 'deposit',
     question: 'How much is the deposit?',
-    answer: '50% deposit required to reserve your date. Remaining balance due 7 days before your cruise.'
+    answer: '25% deposit required if booking more than 30 days out. Full payment required if booking within 30 days of cruise date. Flexible payment options available.'
   },
   {
     id: 'cancellation',
@@ -208,7 +205,7 @@ const faqItems = [
   {
     id: 'bring',
     question: 'What can we bring on board?',
-    answer: 'Bring your own beverages (BYOB), food, decorations, and party supplies. We provide cooler with ice, cups, and standard amenities.'
+    answer: 'Bring your own beverages (BYOB - cans/plastic only), food, decorations, and party supplies. Standard Package requires you to bring your own ice; Essentials and Ultimate packages include ice.'
   },
   {
     id: 'weather',
@@ -301,7 +298,7 @@ export default function PrivateCruises() {
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
       <SEOHead 
         title="Private Boat Cruises Lake Travis Austin | Premier Party Cruises"
-        description="Book exclusive private boat charters on Lake Travis Austin. USCG licensed captains, flexible schedules, BYOB friendly. Perfect for corporate events, weddings, birthdays. Starting at $195/hr."
+        description="Book exclusive private boat charters on Lake Travis Austin. USCG licensed captains, flexible schedules, BYOB friendly. Perfect for corporate events, weddings, birthdays. Starting at $200/hr."
         path="/private-cruises"
       />
       
@@ -327,7 +324,7 @@ export default function PrivateCruises() {
             </h1>
             <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-8">
               
-                Exclusive boat charters for 6-50+ guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake.
+                Exclusive boat charters for 14-75 guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake.
               
             </p>
 
@@ -359,7 +356,7 @@ export default function PrivateCruises() {
               </div>
               <div className="flex items-center gap-2">
                 <Users className="h-5 w-5 text-blue-600" />
-                <span>6-50+ Guests</span>
+                <span>14-75 Guests</span>
               </div>
               <div className="flex items-center gap-2">
                 <Clock className="h-5 w-5 text-blue-600" />
@@ -543,14 +540,14 @@ export default function PrivateCruises() {
                                 ${pkg.hourlyRate?.dayTripper}/hr
                               </div>
                               <div className="text-sm text-gray-500 mt-2">
-                                Day Tripper (6-14 guests)
+                                Day Tripper (up to 14 guests)
                               </div>
                             </>
                           ) : (
                             <>
                               <div className="text-sm font-bold text-gray-600 dark:text-gray-400 mb-2">Add per hour</div>
                               <div className="text-4xl font-black text-gray-900 dark:text-white">
-                                +${pkg.hourlyUpgrade?.dayTripper}
+                                +${pkg.hourlyUpgrade}
                               </div>
                               <div className="text-sm text-gray-500 mt-2">
                                 Upgrade from Standard
@@ -593,39 +590,53 @@ export default function PrivateCruises() {
                 </div>
 
                 {/* Pricing Info */}
-                <div className="bg-gradient-to-r from-blue-50 to-yellow-50 dark:from-blue-950/30 dark:to-yellow-950/30 border-2 border-blue-300 dark:border-blue-800 rounded-xl p-8">
+                <div className="bg-gradient-to-r from-blue-50 to-yellow-50 dark:from-blue-950/30 dark:to-yellow-950/30 border-2 border-blue-300 dark:border-blue-800 rounded-xl p-8 mb-8">
                   <h3 className="text-xl font-black text-gray-900 dark:text-white mb-4 flex items-center gap-2">
                     <Info className="h-6 w-6 text-blue-600" />
                     Package Pricing by Boat Size
                   </h3>
                   <div className="grid md:grid-cols-3 gap-6 text-sm">
                     <div>
-                      <h4 className="font-bold text-blue-600 dark:text-blue-400 mb-2">Day Tripper (6-14 guests)</h4>
+                      <h4 className="font-bold text-blue-600 dark:text-blue-400 mb-2">Day Tripper (up to 14 guests)</h4>
                       <ul className="space-y-1 text-gray-700 dark:text-gray-300">
-                        <li>• Standard: $195/hr</li>
+                        <li>• Standard: $200/hr</li>
                         <li>• Essentials: +$100/hr</li>
                         <li>• Ultimate: +$250/hr</li>
                       </ul>
                     </div>
                     <div>
-                      <h4 className="font-bold text-yellow-600 dark:text-yellow-400 mb-2">Me Seeks (15-25 guests)</h4>
+                      <h4 className="font-bold text-yellow-600 dark:text-yellow-400 mb-2">Meeseeks & The Irony (15-30 guests)</h4>
                       <ul className="space-y-1 text-gray-700 dark:text-gray-300">
-                        <li>• Standard: $295/hr</li>
-                        <li>• Essentials: +$150/hr</li>
-                        <li>• Ultimate: +$300/hr</li>
+                        <li>• Standard: $225/hr</li>
+                        <li>• Essentials: +$100/hr</li>
+                        <li>• Ultimate: +$250/hr</li>
                       </ul>
                     </div>
                     <div>
-                      <h4 className="font-bold text-purple-600 dark:text-purple-400 mb-2">Clever Girl (26-50+ guests)</h4>
+                      <h4 className="font-bold text-purple-600 dark:text-purple-400 mb-2">Clever Girl (30-75 guests)</h4>
                       <ul className="space-y-1 text-gray-700 dark:text-gray-300">
-                        <li>• Standard: $495/hr</li>
-                        <li>• Essentials: +$200/hr</li>
-                        <li>• Ultimate: +$350/hr</li>
+                        <li>• Standard: $300/hr</li>
+                        <li>• Essentials: +$100/hr</li>
+                        <li>• Ultimate: +$250/hr</li>
                       </ul>
                     </div>
                   </div>
                   <p className="text-xs text-gray-600 dark:text-gray-400 mt-4">
-                    * 3-4 hour minimum. Groups over 25 require additional crew ($150-200). Gratuity 15-20% not included.
+                    * 4-hour minimum. Additional crew fees: $50/hr for 26-30 guests, $100/hr for 51-75 guests. 8.25% tax added. Suggested 20% gratuity.
+                  </p>
+                </div>
+
+                {/* Transparent Pricing Section */}
+                <div className="bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-950/30 dark:to-blue-950/30 border-2 border-green-300 dark:border-green-800 rounded-xl p-8">
+                  <h3 className="text-xl font-black text-gray-900 dark:text-white mb-4 flex items-center gap-2">
+                    <DollarSign className="h-6 w-6 text-green-600" />
+                    Transparent Pricing
+                  </h3>
+                  <p className="text-gray-700 dark:text-gray-300 mb-4">
+                    Our pricing is simple and transparent. <strong>Hourly rate × duration = base cost</strong>. No hidden fees or surprise charges. Additional crew fees apply for larger groups: $50/hour for 26-30 guests, $100/hour for 51-75 guests. 8.25% tax added. Suggested 20% gratuity for exceptional service.
+                  </p>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    25% deposit required if booking more than 30 days out. Full payment required if booking within 30 days of cruise date. Flexible payment options available.
                   </p>
                 </div>
               </div>
