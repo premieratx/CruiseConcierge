@@ -35,12 +35,44 @@ const generateElementId = (element: HTMLElement, index: number): string => {
   const textContent = element.textContent?.trim() || '';
   const firstWords = textContent.split(' ').slice(0, 3).join('-').toLowerCase()
     .replace(/[^a-z0-9-]/g, '');
-  
+
   if (firstWords) {
     return `${tagName}-${firstWords}`;
   }
-  
+
   return `${tagName}-${index}`;
+};
+
+// Add safer selector generation
+const getSelector = (element: HTMLElement): string => {
+  try {
+    if (element.id) return `#${element.id}`;
+
+    const path: string[] = [];
+    let current: HTMLElement | null = element;
+    let depth = 0;
+    const maxDepth = 10; // Prevent infinite loops
+
+    while (current && current !== document.body && depth < maxDepth) {
+      let selector = current.tagName.toLowerCase();
+
+      if (current.className && typeof current.className === 'string') {
+        const classes = current.className.trim().split(/\s+/).filter(c => c && !c.includes('['));
+        if (classes.length > 0) {
+          selector += '.' + classes.join('.');
+        }
+      }
+
+      path.unshift(selector);
+      current = current.parentElement;
+      depth++;
+    }
+
+    return path.join(' > ');
+  } catch (error) {
+    console.error('Error generating selector:', error);
+    return 'body';
+  }
 };
 
 export const useInlineEdit = () => {
@@ -53,27 +85,28 @@ export const useInlineEdit = () => {
   const badgeRef = useRef<HTMLDivElement | null>(null);
   const [editableCount, setEditableCount] = useState(0);
   const currentPage = getPageName(location);
+  const [selectedElement, setSelectedElement] = useState<string | null>(null);
 
   // Load saved content on mount
   const loadSavedContent = useCallback(() => {
     const editableElements = document.querySelectorAll('[data-editable]') as NodeListOf<EditableElement>;
-    
+
     editableElements.forEach((element, index) => {
       const elementId = element.getAttribute('data-editable-id') || 
                        element.getAttribute('id') || 
                        generateElementId(element, index);
-      
+
       const storageKey = `content_${location}_${elementId}`;
       const savedContent = localStorage.getItem(storageKey);
-      
+
       if (savedContent) {
         element.__originalContent = element.textContent || '';
         element.textContent = savedContent;
       }
-      
+
       element.__elementId = elementId;
     });
-    
+
     setEditableCount(editableElements.length);
   }, [location]);
 
@@ -81,11 +114,11 @@ export const useInlineEdit = () => {
   const saveContent = useCallback((element: EditableElement) => {
     const elementId = element.__elementId;
     const content = element.textContent || '';
-    
+
     if (elementId && content.trim()) {
       const storageKey = `content_${location}_${elementId}`;
       localStorage.setItem(storageKey, content);
-      
+
       // Show saved toast
       toast({
         title: "Saved!",
@@ -102,7 +135,7 @@ export const useInlineEdit = () => {
     element.style.outline = 'none';
     element.style.transition = 'all 0.3s ease';
     element.style.borderRadius = '4px';
-    
+
     // Add hover effect
     const handleMouseEnter = () => {
       if (isEditMode) {
@@ -111,13 +144,13 @@ export const useInlineEdit = () => {
         element.style.transform = 'scale(1.01)';
       }
     };
-    
+
     const handleMouseLeave = () => {
       element.style.backgroundColor = '';
       element.style.boxShadow = '';
       element.style.transform = '';
     };
-    
+
     // Handle editing
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Enter' && !e.shiftKey) {
@@ -125,27 +158,27 @@ export const useInlineEdit = () => {
         element.blur();
       }
     };
-    
+
     const handleBlur = () => {
       saveContent(element);
       element.style.backgroundColor = '';
       element.style.boxShadow = '';
       element.style.transform = '';
     };
-    
+
     const handleFocus = () => {
       if (isEditMode) {
         element.style.backgroundColor = 'rgba(255, 235, 59, 0.35)';
         element.style.boxShadow = '0 0 0 3px rgba(255, 235, 59, 0.7)';
       }
     };
-    
+
     element.addEventListener('mouseenter', handleMouseEnter);
     element.addEventListener('mouseleave', handleMouseLeave);
     element.addEventListener('keydown', handleKeyDown);
     element.addEventListener('blur', handleBlur);
     element.addEventListener('focus', handleFocus);
-    
+
     // Store cleanup functions
     (element as any).__cleanup = () => {
       element.removeEventListener('mouseenter', handleMouseEnter);
@@ -154,7 +187,7 @@ export const useInlineEdit = () => {
       element.removeEventListener('blur', handleBlur);
       element.removeEventListener('focus', handleFocus);
     };
-    
+
     editableElementsRef.current.add(element);
   }, [isEditMode, saveContent]);
 
@@ -165,13 +198,13 @@ export const useInlineEdit = () => {
     element.style.backgroundColor = '';
     element.style.boxShadow = '';
     element.style.transform = '';
-    
+
     // Cleanup listeners
     if ((element as any).__cleanup) {
       (element as any).__cleanup();
       delete (element as any).__cleanup;
     }
-    
+
     editableElementsRef.current.delete(element);
   }, []);
 
@@ -185,7 +218,7 @@ export const useInlineEdit = () => {
       });
       return;
     }
-    
+
     setIsEditMode(prev => {
       const newState = !prev;
       if (newState) {
@@ -208,10 +241,10 @@ export const useInlineEdit = () => {
   // Setup editable elements
   const setupEditableElements = useCallback(() => {
     const editableElements = document.querySelectorAll('[data-editable]') as NodeListOf<EditableElement>;
-    
+
     // Update count
     setEditableCount(editableElements.length);
-    
+
     if (isEditMode) {
       editableElements.forEach((element, index) => {
         // Ensure element has an ID
@@ -230,7 +263,7 @@ export const useInlineEdit = () => {
   // Create floating badge
   const createBadge = useCallback(() => {
     if (badgeRef.current) return;
-    
+
     const badge = document.createElement('div');
     badge.className = 'fixed bottom-4 right-4 z-[9999] px-5 py-3 rounded-xl shadow-2xl transition-all duration-500 backdrop-blur-md';
     // Hide badge completely when edit mode is off
@@ -282,10 +315,10 @@ export const useInlineEdit = () => {
         `}
       </div>
     `;
-    
+
     document.body.appendChild(badge);
     badgeRef.current = badge;
-    
+
     // Animate in
     badge.style.transform = 'translateY(120%)';
     badge.style.opacity = '0';
@@ -298,7 +331,7 @@ export const useInlineEdit = () => {
   // Update badge
   const updateBadge = useCallback(() => {
     if (!badgeRef.current) return;
-    
+
     // Hide badge completely when edit mode is off
     badgeRef.current.style.display = isEditMode ? 'block' : 'none';
     badgeRef.current.style.backgroundColor = isEditMode 
@@ -353,7 +386,7 @@ export const useInlineEdit = () => {
         toggleEditMode();
       }
     };
-    
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [toggleEditMode]);
@@ -364,7 +397,7 @@ export const useInlineEdit = () => {
     const timer = setTimeout(() => {
       setupEditableElements();
     }, 100);
-    
+
     return () => {
       clearTimeout(timer);
       // Cleanup all editable elements
@@ -376,13 +409,13 @@ export const useInlineEdit = () => {
   // Load saved content on mount and setup elements when location changes
   useEffect(() => {
     loadSavedContent();
-    
+
     // Force setup elements after location change if in edit mode
     if (isEditMode) {
       const timer = setTimeout(() => {
         setupEditableElements();
       }, 200);
-      
+
       return () => clearTimeout(timer);
     }
   }, [loadSavedContent, location, isEditMode, setupEditableElements]);
@@ -399,7 +432,7 @@ export const useInlineEdit = () => {
         badgeRef.current = null;
       }
     }
-    
+
     return () => {
       // Remove badge on unmount
       if (badgeRef.current) {
@@ -412,22 +445,38 @@ export const useInlineEdit = () => {
   // Watch for DOM changes to handle dynamically added elements
   useEffect(() => {
     if (!isEditMode) return;
-    
+
     const observer = new MutationObserver(() => {
       setupEditableElements();
     });
-    
+
     observer.observe(document.body, {
       childList: true,
       subtree: true
     });
-    
+
     return () => observer.disconnect();
   }, [isEditMode, setupEditableElements]);
+
+  // Add error handling for visual selector
+  const handleClick = (e: MouseEvent) => {
+    if (!isEditMode) return;
+
+    try {
+      const target = e.target as HTMLElement;
+      const selector = getSelector(target);
+      setSelectedElement(selector);
+    } catch (error) {
+      console.warn('Failed to execute visual selector:', error);
+      setSelectedElement(null);
+    }
+  };
 
   return {
     isEditMode,
     toggleEditMode,
-    canEdit
+    canEdit,
+    selectedElement,
+    handleClick,
   };
 };
