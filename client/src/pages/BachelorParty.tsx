@@ -68,14 +68,15 @@ const discoPackages = [
     name: 'Basic Bach Package',
     price: DISCO_PRICING.basic / 100,
     originalPrice: null,
-    description: 'Join the BEST Party on Lake Travis, Exclusively for Bach Parties!',
+    description: 'Join the ultimate bachelor party cruise',
     subtitle: 'BYOB & Keep it Cheap - ALWAYS Cheaper than a Private Cruise',
     features: [
-      'Join the BEST Party on Lake Travis, Exclusively for Bach Parties!',
-      'BYOB, throw your drinks in a shared cooler w/ice',
-      'Alcohol Delivery & Lunch Delivery Available',
-      'ALWAYS Cheaper than a Private Cruise',
-      'If you\'re trying to keep it cheap, this is your move!'
+      'Join the ultimate bachelor party cruise',
+      'BYOB with shared cooler and ice',
+      'Alcohol & food delivery available',
+      'Professional DJ and photographer',
+      'Giant floats and party atmosphere',
+      'Always cheaper than private cruises'
     ],
     popular: false,
     icon: Disc3,
@@ -89,12 +90,13 @@ const discoPackages = [
     description: 'Enhanced bachelor party experience with premium perks',
     subtitle: 'Private Cooler & Reserved Spot for Your Group',
     features: [
-      'Private Cooler w/Ice & Storage Bin for Your Group',
-      'Reserved Spot for Your Group',
-      'Disco Visor & Disco Ball Necklace for the Groom',
-      'Complimentary Direct-to-Boat Alcohol & Lunch Delivery',
-      '25% Discount on Round-Trip Transportation',
-      '$50-$100 Voucher for Airbnb Booze Delivery'
+      'Private cooler with ice for your group',
+      'Reserved spot on the boat',
+      'Disco visor & ball necklace for groom',
+      'Complimentary alcohol & lunch delivery',
+      '25% discount on transportation',
+      '$50-$100 Airbnb delivery voucher',
+      'Everything from Basic Bach'
     ],
     popular: true,
     icon: Crown,
@@ -102,18 +104,18 @@ const discoPackages = [
   },
   {
     id: 'platinum',
-    name: 'Super Sparkle Platinum Disco',
+    name: 'Super Sparkle Platinum',
     price: DISCO_PRICING.platinum / 100,
     originalPrice: 125,
     description: 'Ultimate all-inclusive Austin bachelor party luxury',
     subtitle: 'Nothing to Carry, Cooler Stocked w/drinks When You Arrive!',
     features: [
-      'Everything in the Disco King Package',
-      'Personal Unicorn Float for the Groom',
-      'Mimosa Setup w/Champagne Flutes, 3 Juices, & a Chambong!',
-      '$100 Voucher for Airbnb Concierge Services',
-      'Towel Service & SPF-50 Spray Sunscreen Provided',
-      'Nothing to Carry, Cooler Stocked w/drinks When You Arrive!'
+      'Personal unicorn float for the groom',
+      'Mimosa setup with fruit juice & champagne flutes',
+      '$100 Airbnb concierge voucher',
+      'Towel service & SPF-50 sunscreen',
+      'Cooler pre-stocked when you arrive',
+      'Everything from Disco King'
     ],
     popular: false,
     icon: Trophy,
@@ -126,47 +128,57 @@ const whatsIncluded = [
   {
     icon: Music,
     title: 'Professional DJ',
-    description: 'Playing your favorites ALL DAY - party starts when you arrive!'
+    description: 'Playing your favorites all day'
   },
   {
     icon: Camera,
     title: 'Professional Photographer',
-    description: 'Capture every epic moment with high-quality photos sent after'
+    description: 'Capturing epic moments'
+  },
+  {
+    icon: Camera,
+    title: 'Digital Photo Delivery',
+    description: 'After the event'
   },
   {
     icon: Anchor,
     title: 'Private Cooler with Ice',
-    description: 'Your group\'s own cooler, fully stocked with ice'
+    description: 'For your group'
   },
   {
     icon: GlassWater,
     title: 'Mimosa Supplies',
-    description: 'Juice, fresh fruit - just add champagne!'
+    description: 'With juice and fruit'
   },
   {
     icon: Waves,
-    title: 'Multiple Lily Pad Floats',
-    description: '3 huge 6x20\' floats to lounge in style on the water'
+    title: 'Multiple Giant Lily Pad Floats',
+    description: '6x20 feet'
   },
   {
     icon: Gift,
     title: 'Party Supplies',
-    description: 'Cups, koozies, name tags, bubbles - all included!'
+    description: 'Including cups and koozies'
   },
   {
     icon: Droplets,
     title: 'Ice Water Stations',
-    description: 'Stay hydrated with unlimited ice water'
+    description: 'For hydration'
   },
   {
     icon: Shield,
-    title: 'Clean Restroom',
-    description: 'Full restroom facilities on board'
+    title: 'Clean Restroom Facilities',
+    description: 'On board'
   },
   {
     icon: Sun,
-    title: 'Plenty of Shade',
-    description: 'Covered areas to escape the Texas sun'
+    title: 'Shaded Areas',
+    description: 'To escape the sun'
+  },
+  {
+    icon: Users,
+    title: 'Party Atmosphere',
+    description: 'With other bachelor groups'
   }
 ];
 

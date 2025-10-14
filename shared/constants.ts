@@ -539,22 +539,22 @@ export const PRICING_DEFAULTS = {
 
 /**
  * Private Cruise Package Flat Fees (in cents)
- * Applied as one-time fees, NOT per hour
+ * Applied as total fees for 4-hour cruise (+$100/hour for Essentials, +$250/hour for Ultimate)
  */
 export const PACKAGE_FLAT_FEES = {
   ESSENTIALS: {
-    14: 10000,  // $100 flat fee for 14-person boat
-    25: 15000,  // $150 flat fee for 25-person boat
-    30: 15000,  // $150 flat fee for 25-person boat (26-30 uses same boat)
-    50: 20000,  // $200 flat fee for 50-person boat
-    75: 20000   // $200 flat fee for 50-person boat (51-75 uses same boat)
+    14: 40000,  // $400 total fee ($100/hour × 4 hours)
+    25: 40000,  // $400 total fee ($100/hour × 4 hours)
+    30: 40000,  // $400 total fee ($100/hour × 4 hours)
+    50: 40000,  // $400 total fee ($100/hour × 4 hours)
+    75: 40000   // $400 total fee ($100/hour × 4 hours)
   },
   ULTIMATE: {
-    14: 25000,  // $250 flat fee for 14-person boat
-    25: 30000,  // $300 flat fee for 25-person boat
-    30: 30000,  // $300 flat fee for 25-person boat (26-30 uses same boat)
-    50: 35000,  // $350 flat fee for 50-person boat
-    75: 35000   // $350 flat fee for 50-person boat (51-75 uses same boat)
+    14: 100000,  // $1,000 total fee ($250/hour × 4 hours)
+    25: 100000,  // $1,000 total fee ($250/hour × 4 hours)
+    30: 100000,  // $1,000 total fee ($250/hour × 4 hours)
+    50: 100000,  // $1,000 total fee ($250/hour × 4 hours)
+    75: 100000   // $1,000 total fee ($250/hour × 4 hours)
   }
 } as const;
 
@@ -711,8 +711,8 @@ export const HOURLY_RATES = {
   // Capacity-based rates for Monday-Thursday (4 hours)
   MON_THU: {
     14: 20000,  // $200/hour - Day Tripper
-    25: 25000,  // $250/hour - Me Seeks The Irony
-    30: 25000,  // $250/hour - Me Seeks The Irony (same as 25p + crew fee)
+    25: 22500,  // $225/hour - Me Seeks The Irony
+    30: 22500,  // $225/hour - Me Seeks The Irony (same as 25p + crew fee)
     50: 30000,  // $300/hour - Clever Girl
     75: 30000,  // $300/hour - Clever Girl (same as 50p + crew fee)
   },
@@ -743,8 +743,8 @@ export const HOURLY_RATES = {
   // Legacy aliases for backward compatibility
   WEEKDAY: {
     14: 20000,  // $200/hour - Day Tripper (Mon-Thu rate)
-    25: 25000,  // $250/hour - Me Seeks The Irony
-    30: 25000,  // $250/hour - Me Seeks The Irony
+    25: 22500,  // $225/hour - Me Seeks The Irony
+    30: 22500,  // $225/hour - Me Seeks The Irony
     50: 30000,  // $300/hour - Clever Girl
     75: 30000,  // $300/hour - Clever Girl
   },

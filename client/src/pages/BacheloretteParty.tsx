@@ -82,14 +82,15 @@ const bachelorettePackages = [
     name: 'Basic Bach Package',
     price: DISCO_PRICING.basic / 100,
     originalPrice: null,
-    description: 'Join the BEST Party on Lake Travis, Exclusively for Bach Parties!',
-    subtitle: 'BYOB & Keep it Cheap - ALWAYS Cheaper than a Private Cruise',
+    description: 'Join the BEST bachelorette party on Lake Travis',
+    subtitle: 'Most affordable option for bachelorette groups',
     features: [
-      'Join the BEST Party on Lake Travis, Exclusively for Bach Parties!',
-      'BYOB, throw your drinks in a shared cooler w/ice',
-      'Alcohol Delivery & Lunch Delivery Available',
-      'ALWAYS Cheaper than a Private Cruise',
-      'If you\'re trying to keep it cheap, this is your move!'
+      'Join the BEST bachelorette party on Lake Travis',
+      'BYOB with shared cooler and ice',
+      'Alcohol & food delivery available',
+      'Professional DJ and photographer included',
+      'Giant floats and party atmosphere',
+      'Most affordable option for bachelorette groups'
     ],
     popular: false,
     icon: Disc3,
@@ -101,16 +102,16 @@ const bachelorettePackages = [
     name: 'Disco Queen Package',
     price: DISCO_PRICING.disco_queen / 100,
     originalPrice: 125,
-    description: 'Our signature bachelorette party experience - That Happens to be Our Specialty!',
-    subtitle: 'Private Cooler & Reserved Spot for Your Group',
+    description: 'Our signature bachelorette party experience - Most Popular!',
+    subtitle: 'Private cooler with ice for your group',
     features: [
-      '🎉 Bride Cruises FREE with this package!',
-      'Private Cooler w/Ice & Storage Bin for Your Group',
-      'Reserved Spot for Your Group',
-      'Disco Ball Cup & Bubble Gun for the Bride',
-      'Complimentary Direct-to-Boat Alcohol & Lunch Delivery',
-      '25% Discount on Round-Trip Transportation',
-      '$50-$100 Voucher for Airbnb Booze Delivery'
+      '🎉 BRIDE CRUISES FREE with this package!',
+      'Private cooler with ice for your group',
+      'Reserved spot for your bachelorette crew',
+      'Disco ball cup & bubble gun for bride',
+      'Complimentary alcohol & lunch delivery',
+      '25% discount on round-trip transportation',
+      '$50-$100 Airbnb delivery voucher'
     ],
     popular: true,
     icon: Crown,
@@ -119,19 +120,19 @@ const bachelorettePackages = [
   },
   {
     id: 'platinum_bride',
-    name: 'Super Sparkle Platinum Disco',
+    name: 'Super Sparkle Platinum',
     price: DISCO_PRICING.platinum / 100,
     originalPrice: 140,
-    description: 'Ultimate all-inclusive Austin bachelorette party luxury',
-    subtitle: 'Nothing to Carry, Cooler Stocked w/drinks When You Arrive!',
+    description: 'Ultimate all-inclusive bachelorette party luxury',
+    subtitle: 'Cooler pre-stocked with drinks on arrival',
     features: [
-      '🎉 Bride Cruises FREE with this package!',
-      'Everything in the Disco Queen Package',
-      'Personal Unicorn Float for the Bride',
-      'Mimosa Setup w/Champagne Flutes, 3 Juices, & a Chambong!',
-      '$100 Voucher for Airbnb Concierge Services',
-      'Towel Service & SPF-50 Spray Sunscreen Provided',
-      'Nothing to Carry, Cooler Stocked w/drinks When You Arrive!'
+      '🎉 BRIDE CRUISES FREE with this package!',
+      'Personal unicorn float for the bride',
+      'Mimosa setup with flutes, juices & chambong',
+      '$100 Airbnb concierge services voucher',
+      'Towel service & SPF-50 spray sunscreen',
+      'Cooler pre-stocked with drinks on arrival',
+      'Everything from Disco Queen Package'
     ],
     popular: false,
     icon: Trophy,
@@ -145,47 +146,52 @@ const whatsIncluded = [
   {
     icon: Music,
     title: 'Professional DJ',
-    description: 'Playing your favorites ALL DAY - party starts when you arrive!'
+    description: 'Playing bachelorette favorites all day'
   },
   {
     icon: Camera,
     title: 'Professional Photographer',
-    description: 'Capture every magical moment with Instagram-worthy photos'
+    description: 'Capturing every moment'
   },
   {
     icon: Anchor,
-    title: 'Private Cooler with Ice',
-    description: 'Your group\'s own cooler, fully stocked with ice'
+    title: 'Private Cooler Space',
+    description: 'Private cooler space for your group'
   },
   {
     icon: GlassWater,
     title: 'Mimosa Supplies',
-    description: 'Juice, fresh fruit - just add champagne!'
+    description: 'Mimosa supplies with champagne flutes'
   },
   {
     icon: Waves,
-    title: 'Multiple Lily Pad Floats',
-    description: '3 huge 6x20\' floats to lounge in style on the water'
+    title: 'Giant Lily Pad Floats',
+    description: 'Multiple 6x20\' giant lily pad floats'
   },
   {
     icon: Gift,
     title: 'Party Supplies',
-    description: 'Cups, koozies, name tags, bubbles - all included!'
+    description: 'Cups, koozies, decorations'
   },
   {
     icon: Droplets,
     title: 'Ice Water Stations',
-    description: 'Stay hydrated with unlimited ice water'
+    description: 'Ice water stations throughout the cruise'
   },
   {
     icon: Shield,
-    title: 'Clean Restroom',
-    description: 'Full restroom facilities on board'
+    title: 'Clean Restroom Facilities',
+    description: 'Clean restroom facilities on board'
   },
   {
     icon: Sun,
-    title: 'Plenty of Shade',
-    description: 'Covered areas to escape the Texas sun'
+    title: 'Shaded Lounge Areas',
+    description: 'Shaded lounge areas'
+  },
+  {
+    icon: Users,
+    title: 'Party Atmosphere',
+    description: 'Party atmosphere with other bachelorette groups'
   }
 ];
 
@@ -990,8 +996,8 @@ export default function BacheloretteParty() {
                         </div>
                         <div className="px-6 py-6 text-center">
                           <h3 className="text-lg font-bold text-blue-600 dark:text-blue-400 mb-2">Private Cruise</h3>
-                          <p className="text-3xl font-bold text-gray-900 dark:text-white">$195-$495</p>
-                          <p className="text-sm text-gray-600 dark:text-gray-400">per hour (3-4 hr minimum)</p>
+                          <p className="text-3xl font-bold text-gray-900 dark:text-white">Starting at $200/hour</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">(3-4 hr minimum)</p>
                           <p className="text-xs text-gray-500 mt-2">Best for groups of 6-75</p>
                         </div>
                       </div>
