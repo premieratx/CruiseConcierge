@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 import type { ReactNode } from 'react';
 
+// Edit mode context for managing edit state
 interface EditModeContextType {
   isEditMode: boolean;
   setIsEditMode: (value: boolean) => void;
