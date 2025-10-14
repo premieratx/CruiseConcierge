@@ -73,14 +73,14 @@ app.use((req, res, next) => {
 });
 
 (async () => {
-  // Allow iframe embedding from all domains (especially booking.premierpartycruises.com)
+  // Allow iframe embedding from all domains (especially booking.premierpartycruises.com and Replit preview)
   app.use((req, res, next) => {
     // Remove any X-Frame-Options header
     res.removeHeader('X-Frame-Options');
     
-    // Set CSP to allow embedding from booking subdomain only
+    // Set CSP to allow embedding from booking subdomain, Replit preview, and production domains
     res.setHeader('Content-Security-Policy', 
-      "frame-ancestors 'self' https://booking.premierpartycruises.com https://*.premierpartycruises.com; " +
+      "frame-ancestors 'self' https://booking.premierpartycruises.com https://*.premierpartycruises.com https://*.replit.dev https://*.repl.co; " +
       "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https: blob:; " +
       "connect-src 'self' https: wss: ws:; " +
       "img-src 'self' data: https: blob:; " +
