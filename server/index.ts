@@ -17,6 +17,52 @@ app.set('trust proxy', true);
 // Enable strong ETags for smart caching
 app.set('etag', 'strong');
 
+// PREVIEW FIX: Detect Replit preview iframe and disable caching to fix React hydration
+app.use((req, res, next) => {
+  // Check if request is from Replit preview iframe
+  const host = req.get('host') || '';
+  const referer = req.get('referer') || '';
+  const userAgent = req.get('user-agent') || '';
+  
+  // More aggressive detection of preview environment
+  const isReplitPreview = host.includes('replit.dev') || 
+                          host.includes('repl.co') || 
+                          referer.includes('replit.com') ||
+                          referer.includes('replit.dev') ||
+                          userAgent.includes('Replit');
+  
+  if (isReplitPreview) {
+    // Log for debugging
+    console.log(`[PREVIEW CACHE FIX] Detected preview request for: ${req.path}`);
+    
+    // Disable caching for ALL assets in preview mode
+    if (req.path.startsWith('/src/') || req.path.includes('.tsx') || req.path.includes('.ts') || req.path.includes('.jsx')) {
+      res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
+      res.set('Pragma', 'no-cache');
+      res.set('Expires', '0');
+      res.removeHeader('ETag');
+      res.removeHeader('Last-Modified');
+      
+      // Add cache-busting query param to responses
+      const originalSend = res.send;
+      res.send = function(data) {
+        if (typeof data === 'string' && data.includes('import')) {
+          // Add timestamp to all import statements
+          data = data.replace(/from\s+["']([^"']+)["']/g, (match, path) => {
+            if (!path.includes('?')) {
+              return `from "${path}?t=${Date.now()}"`;
+            }
+            return match;
+          });
+        }
+        return originalSend.call(this, data);
+      };
+    }
+  }
+  
+  next();
+});
+
 // WWW redirect - redirect www.premierpartycruises.com to premierpartycruises.com (SEO best practice)
 app.use((req, res, next) => {
   const host = req.get('host');

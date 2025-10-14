@@ -1,5 +1,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 
+// EditMode context for inline editing functionality - cache bust fix
 interface EditModeContextType {
   isEditMode: boolean;
   setEditMode: (enabled: boolean) => void;
