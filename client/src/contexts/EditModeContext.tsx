@@ -1,25 +1,25 @@
-import { createContext, useContext, useState } from 'react';
-import type { ReactNode } from 'react';
+import { createContext, useContext, useState, type ReactNode } from 'react';
 
-// Edit mode context for managing edit state
-interface EditModeContextType {
+// Edit mode context interface
+type EditModeContextType = {
   isEditMode: boolean;
   setIsEditMode: (value: boolean) => void;
-}
+};
 
+// Create the context with undefined as default
 const EditModeContext = createContext<EditModeContextType | undefined>(undefined);
 
-export function EditModeProvider({ children }: { children: ReactNode }) {
-  const [isEditMode, setIsEditMode] = useState(false);
+// Provider component
+function EditModeProvider({ children }: { children: ReactNode }) {
+  const [isEditMode, setIsEditMode] = useState<boolean>(false);
 
-  return (
-    <EditModeContext.Provider value={{ isEditMode, setIsEditMode }}>
-      {children}
-    </EditModeContext.Provider>
-  );
+  const value = { isEditMode, setIsEditMode };
+
+  return <EditModeContext.Provider value={value}>{children}</EditModeContext.Provider>;
 }
 
-export function useEditMode() {
+// Custom hook to use the context
+function useEditMode(): EditModeContextType {
   const context = useContext(EditModeContext);
   if (context === undefined) {
     throw new Error('useEditMode must be used within an EditModeProvider');
@@ -27,9 +27,10 @@ export function useEditMode() {
   return context;
 }
 
-export function useContentBlockEditor(route: string, key: string) {
+// Content block editor hook
+function useContentBlockEditor(route: string, key: string) {
   const [pendingChanges, setPendingChanges] = useState<any>({});
-  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState<boolean>(false);
 
   const updateBlock = (updates: any) => {
     setPendingChanges((prev: any) => ({ ...prev, ...updates }));
@@ -48,3 +49,5 @@ export function useContentBlockEditor(route: string, key: string) {
     resetChanges
   };
 }
+
+export { EditModeProvider, useEditMode, useContentBlockEditor };
