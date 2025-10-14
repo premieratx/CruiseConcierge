@@ -1,7 +1,8 @@
 import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { Toaster } from "@/components/ui/toaster";
+// TEMPORARY: Toaster disabled to fix React preamble error - will re-enable after cache clears
+// import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { BookingCacheProvider } from "@/contexts/BookingCacheContext";
 import { EditModeProvider } from "@/contexts/EditModeContext";
@@ -532,7 +533,8 @@ function App() {
             <HelmetProvider>
               <TooltipProvider>
                 <GoogleAnalytics />
-                <Toaster />
+                {/* TEMPORARY: Toaster disabled to fix React preamble error */}
+                {/* <Toaster /> */}
                 <ErrorBoundary>
                   <Router />
                 </ErrorBoundary>

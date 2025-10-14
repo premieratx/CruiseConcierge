@@ -3,6 +3,15 @@
 ## Overview
 This project is a custom CRM with an AI chatbot agent designed for Premier Party Cruises. Its purpose is to streamline booking, payment, and customer management for a party boat business. Key capabilities include a 17hats-style CRM dashboard, a progressive AI chatbot booking flow, Stripe payment integration, real-time availability checking, dynamic pricing, quote generation, and comprehensive admin tools. The system ensures robust double-booking prevention and production-ready architecture, aiming to enhance the business vision and market potential.
 
+## Recent Changes & Status
+### October 14, 2025 - Toast Component Issue Resolution
+- **Issue**: React preamble error in toast.tsx caused hydration failures on all SSR pages (homepage, blog posts, service pages)
+- **Root Cause**: Browser persistent caching of broken toast module; Vite Fast Refresh plugin unable to detect React preamble
+- **Temporary Solution**: Toaster component disabled in App.tsx (lines 4 and 540) to allow homepage and SSR pages to load
+- **Impact**: Toast notifications currently disabled; all other functionality working normally
+- **Status**: Homepage, blog posts, and all SSR pages now loading successfully
+- **Next Steps**: Re-enable Toaster after browser caches clear or implement lazy-loading pattern for toast component
+
 ## User Preferences
 I prefer iterative development with clear communication at each stage.
 I value transparency in pricing calculations and system logic, which should always be customer-facing where appropriate.
