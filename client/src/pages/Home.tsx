@@ -1942,9 +1942,9 @@ export default function Home() {
         <h2>Austin Party Boat Rental Pricing</h2>
         <div itemScope itemType="https://schema.org/Offer">
           <h3>Private Charter Hourly Rates</h3>
-          <p>14-person boat: Starting at $262/hour (Monday-Thursday), $314/hour (Friday-Sunday)</p>
-          <p>25-person boat: Starting at $275/hour (Monday-Thursday), $327/hour (Friday-Sunday)</p>
-          <p>50-person boat: Starting at $300/hour (Monday-Thursday), $350/hour (Friday-Sunday)</p>
+          <p>Day Tripper (14 guests): Starting at $200/hour (Monday-Thursday), $250/hour (Friday-Sunday)</p>
+          <p>Meeseeks & The Irony (15-30 guests): Starting at $225/hour (Monday-Thursday), $300/hour (Friday-Sunday)</p>
+          <p>Clever Girl (30-75 guests): Starting at $300/hour (Monday-Thursday), $350/hour (Friday-Sunday)</p>
           <p>All private charters have a 4-hour minimum. Includes captain, crew, fuel, coolers with ice, sound system, and safety equipment.</p>
         </div>
         
