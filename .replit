@@ -42,11 +42,11 @@ waitForPort = 5000
 [[workflows.workflow]]
 name = "Development Server"
 author = 45952069
-mode = "parallel"
+mode = "sequential"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Start application"
+args = "Development Server"
 
 [[ports]]
 localPort = 5000

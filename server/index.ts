@@ -35,8 +35,17 @@ app.use((req, res, next) => {
     // Log for debugging
     console.log(`[PREVIEW CACHE FIX] Detected preview request for: ${req.path}`);
     
-    // Disable caching for ALL assets in preview mode
-    if (req.path.startsWith('/src/') || req.path.includes('.tsx') || req.path.includes('.ts') || req.path.includes('.jsx')) {
+    // Disable caching for ALL assets in preview mode - especially Vite internal modules
+    const isViteModule = req.path.startsWith('/src/') || 
+                         req.path.startsWith('/@vite/') || 
+                         req.path.startsWith('/@react-refresh') ||
+                         req.path.startsWith('/@fs/') ||
+                         req.path.includes('.tsx') || 
+                         req.path.includes('.ts') || 
+                         req.path.includes('.jsx') ||
+                         req.path.includes('.js');
+    
+    if (isViteModule) {
       res.set('Cache-Control', 'no-store, no-cache, must-revalidate, private');
       res.set('Pragma', 'no-cache');
       res.set('Expires', '0');
