@@ -25,3 +25,26 @@ export function useEditMode() {
   }
   return context;
 }
+
+// Content block editor hook for managing content block edits
+export function useContentBlockEditor(route: string, key: string) {
+  const [pendingChanges, setPendingChanges] = useState<any>({});
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+
+  const updateBlock = (updates: any) => {
+    setPendingChanges((prev: any) => ({ ...prev, ...updates }));
+    setHasUnsavedChanges(true);
+  };
+
+  const resetChanges = () => {
+    setPendingChanges({});
+    setHasUnsavedChanges(false);
+  };
+
+  return {
+    pendingChanges,
+    updateBlock,
+    hasUnsavedChanges,
+    resetChanges
+  };
+}
