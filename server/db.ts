@@ -11,5 +11,11 @@ if (!process.env.DATABASE_URL) {
   );
 }
 
-export const pool = new Pool({ connectionString: process.env.DATABASE_URL });
+// Configure connection with generous timeouts for Neon cold starts (scale-to-zero)
+export const pool = new Pool({ 
+  connectionString: process.env.DATABASE_URL,
+  connectionTimeoutMillis: 30000, // 30 seconds to handle database wake-up
+  idleTimeoutMillis: 30000,        // Keep connections alive for 30 seconds
+  max: 10,                         // Maximum pool size
+});
 export const db = drizzle({ client: pool, schema });
