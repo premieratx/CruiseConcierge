@@ -18,6 +18,7 @@ PORT = "5000"
 integrations = ["javascript_stripe:1.0.0", "javascript_mem_db:1.0.0", "javascript_sendgrid:1.0.0", "javascript_openai:1.0.0", "javascript_database:1.0.0", "javascript_gemini:1.0.0", "javascript_object_storage:1.0.0"]
 
 [workflows]
+runButton = "Development Server"
 
 [[workflows.workflow]]
 name = "Project"
@@ -37,6 +38,15 @@ mode = "parallel"
 task = "shell.exec"
 args = "npm run dev"
 waitForPort = 5000
+
+[[workflows.workflow]]
+name = "Development Server"
+author = 45952069
+mode = "sequential"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "npm run dev"
 
 [[ports]]
 localPort = 5000
