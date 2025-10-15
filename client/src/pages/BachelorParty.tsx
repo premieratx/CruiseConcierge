@@ -809,42 +809,192 @@ export default function BachelorParty() {
                 <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-8" data-editable data-editable-id="bachelor-included-subtitle">
                   Just SHOW UP & GET DOWN - We handle everything else
                 </p>
-                
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
-                  {whatsIncluded.map((item, index) => (
-                    <motion.div
-                      key={index}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6"
-                    >
-                      <div className="flex items-start space-x-4">
-                        <div className="p-3 bg-brand-yellow/20 rounded-full">
-                          <item.icon className="h-6 w-6 text-brand-yellow" />
+
+                {/* Disco vs Private Comparison Sub-Tabs */}
+                <Tabs defaultValue="comparison" className="w-full mb-8">
+                  <TabsList className="grid w-full grid-cols-2 mb-8">
+                    <TabsTrigger value="comparison" data-testid="tab-disco-vs-private">Disco vs Private</TabsTrigger>
+                    <TabsTrigger value="disco-details" data-testid="tab-disco-details">Disco Details</TabsTrigger>
+                  </TabsList>
+
+                  {/* Comparison Grid */}
+                  <TabsContent value="comparison">
+                    <div className="bg-white dark:bg-gray-900 rounded-xl border-2 border-gray-200 dark:border-gray-800 overflow-hidden">
+                      <div className="overflow-x-auto">
+                        <table className="w-full">
+                          <thead className="bg-gray-100 dark:bg-gray-800">
+                            <tr>
+                              <th className="px-6 py-4 text-left text-sm font-bold text-gray-900 dark:text-white">
+                                What's Included
+                              </th>
+                              <th className="px-6 py-4 text-center text-sm font-bold text-purple-600 dark:text-purple-400">
+                                <div className="flex items-center justify-center gap-2">
+                                  <Disc3 className="h-5 w-5" />
+                                  Disco Cruise
+                                </div>
+                              </th>
+                              <th className="px-6 py-4 text-center text-sm font-bold text-blue-600 dark:text-blue-400">
+                                <div className="flex items-center justify-center gap-2">
+                                  <Ship className="h-5 w-5" />
+                                  Private Cruise
+                                </div>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                            <tr>
+                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Professional DJ</td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                              <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                            </tr>
+                            <tr>
+                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Professional Photographer</td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                              <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                            </tr>
+                            <tr>
+                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Private Cooler with Ice</td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                            </tr>
+                            <tr>
+                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Party Supplies (Cups, Koozies, Name Tags)</td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                              <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                            </tr>
+                            <tr>
+                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Multiple Lily Pad Floats (3 huge 6x20')</td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                              <td className="px-6 py-4 text-center text-xs text-gray-500">Add-on: $100/hr</td>
+                            </tr>
+                            <tr>
+                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Ice Water Stations</td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                            </tr>
+                            <tr>
+                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Clean Restroom Facilities</td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                            </tr>
+                            <tr>
+                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Plenty of Shade Coverage</td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                            </tr>
+                            <tr>
+                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Private Boat Charter (Entire Boat for Your Group)</td>
+                              <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                            </tr>
+                            <tr>
+                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Captain & Crew Included</td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                            </tr>
+                            <tr>
+                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Custom Playlist & Music Control</td>
+                              <td className="px-6 py-4 text-center text-xs text-gray-500">DJ Curated</td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                            </tr>
+                            <tr>
+                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Flexible Departure Times</td>
+                              <td className="px-6 py-4 text-center text-xs text-gray-500">Set Schedule</td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                            </tr>
+                            <tr>
+                              <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Bring Your Own Decorations</td>
+                              <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                              <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+
+                      {/* Price Range Comparison */}
+                      <div className="grid md:grid-cols-2 divide-x divide-gray-200 dark:divide-gray-700 bg-gray-50 dark:bg-gray-800">
+                        <div className="px-6 py-6 text-center">
+                          <h3 className="text-lg font-bold text-purple-600 dark:text-purple-400 mb-2">Disco Cruise</h3>
+                          <p className="text-3xl font-bold text-gray-900 dark:text-white">$85-$105</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">per person (4 hours)</p>
+                          <p className="text-xs text-gray-500 mt-2">Best for groups of 10-50</p>
                         </div>
-                        <div>
-                          <h3 className="font-semibold text-lg mb-2" data-editable data-editable-id={`bachelor-included-${index}-title`}>{item.title}</h3>
-                          <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed" data-editable data-editable-id={`bachelor-included-${index}-desc`}>{item.description}</p>
+                        <div className="px-6 py-6 text-center">
+                          <h3 className="text-lg font-bold text-blue-600 dark:text-blue-400 mb-2">Private Cruise</h3>
+                          <p className="text-3xl font-bold text-gray-900 dark:text-white">Starting at $200/hour</p>
+                          <p className="text-sm text-gray-600 dark:text-gray-400">(3-4 hr minimum)</p>
+                          <p className="text-xs text-gray-500 mt-2">Best for groups of 6-75</p>
                         </div>
                       </div>
-                    </motion.div>
-                  ))}
-                </div>
+                    </div>
 
-                <div className="bg-brand-blue/10 border-2 border-brand-blue rounded-xl p-6 text-center">
-                  <h3 className="text-xl font-bold mb-4" data-editable data-editable-id="bachelor-included-unicorn-title">Plus the BIGGEST Unicorn Float in the Country!</h3>
-                  <p className="text-gray-600 dark:text-gray-400 mb-4" data-editable data-editable-id="bachelor-included-unicorn-desc">
-                    Our GIANT 25-ft Inflatable Unicorn Float is Instagram-worthy and unforgettable
-                  </p>
-                  <Button
-                    onClick={() => handleGetQuote()}
-                    className="bg-brand-blue hover:bg-brand-blue/90 text-white"
-                    data-testid="button-included-book-bachelor"
-                  >
-                    <span data-editable data-editable-id="bachelor-included-reserve-button">Reserve Your Date Now</span>
-                  </Button>
-                </div>
+                    <div className="mt-6 bg-blue-50 dark:bg-blue-950/30 border-2 border-blue-300 dark:border-blue-800 rounded-xl p-6">
+                      <h3 className="text-lg font-bold text-blue-900 dark:text-blue-300 mb-3 flex items-center gap-2">
+                        <Info className="h-5 w-5" />
+                        Which is Right for You?
+                      </h3>
+                      <div className="grid md:grid-cols-2 gap-4 text-sm">
+                        <div>
+                          <h4 className="font-semibold text-purple-700 dark:text-purple-400 mb-2">Choose Disco Cruise if you want:</h4>
+                          <ul className="space-y-1 text-gray-700 dark:text-gray-300">
+                            <li>• Professional DJ & Photographer included</li>
+                            <li>• All party supplies & amenities provided</li>
+                            <li>• Best value per person pricing</li>
+                            <li>• Meet bachelor parties from all over</li>
+                          </ul>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-blue-700 dark:text-blue-400 mb-2">Choose Private Cruise if you want:</h4>
+                          <ul className="space-y-1 text-gray-700 dark:text-gray-300">
+                            <li>• Entire boat to yourself</li>
+                            <li>• Full control over music & schedule</li>
+                            <li>• Bring your own decorations</li>
+                            <li>• Flexible departure times</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </TabsContent>
+
+                  {/* Disco Details Tab */}
+                  <TabsContent value="disco-details">
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
+                      {whatsIncluded.map((item, index) => (
+                        <motion.div
+                          key={index}
+                          initial={{ opacity: 0, y: 20 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ delay: index * 0.1 }}
+                          className="bg-gray-50 dark:bg-gray-900 rounded-lg p-6"
+                        >
+                          <div className="flex items-start space-x-4">
+                            <div className="p-3 bg-brand-yellow/20 rounded-full">
+                              <item.icon className="h-6 w-6 text-brand-yellow" />
+                            </div>
+                            <div>
+                              <h3 className="font-semibold text-lg mb-2" data-editable data-editable-id={`bachelor-included-item-${index}-title`}>{item.title}</h3>
+                              <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed" data-editable data-editable-id={`bachelor-included-item-${index}-description`}>{item.description}</p>
+                            </div>
+                          </div>
+                        </motion.div>
+                      ))}
+                    </div>
+
+                    <div className="bg-brand-blue/10 border-2 border-brand-blue rounded-xl p-6 text-center">
+                      <h3 className="text-xl font-bold mb-4" data-editable data-editable-id="bachelor-included-unicorn-title">Plus the BIGGEST Unicorn Float in the Country!</h3>
+                      <p className="text-gray-600 dark:text-gray-400 mb-4" data-editable data-editable-id="bachelor-included-unicorn-desc">
+                        Our GIANT 25-ft Inflatable Unicorn Float is Instagram-worthy and unforgettable
+                      </p>
+                      <Button
+                        onClick={() => handleGetQuote()}
+                        className="bg-brand-blue hover:bg-brand-blue/90 text-white"
+                        data-testid="button-included-book-bachelor"
+                      >
+                        <span data-editable data-editable-id="bachelor-included-reserve-button">Reserve Your Date Now</span>
+                      </Button>
+                    </div>
+                  </TabsContent>
+                </Tabs>
               </div>
             </TabsContent>
 
