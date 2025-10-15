@@ -202,7 +202,16 @@ const faqItems = [
   {
     id: 'weather-policy',
     question: 'What happens in bad weather?',
-    answer: 'Rain or shine. For severe weather, we move to Lemonade Disco (land venue).'
+    answer: 'Rain or shine. For severe weather, we move to Lemonade Disco (land venue).',
+    answerJsx: (
+      <>
+        Rain or shine. For severe weather, we move to{' '}
+        <a href="#lemonade-disco" className="text-brand-blue hover:underline font-semibold">
+          Lemonade Disco
+        </a>{' '}
+        (land venue).
+      </>
+    )
   },
   {
     id: 'add-people',
@@ -1322,7 +1331,9 @@ export default function BachelorParty() {
                         <span data-editable data-editable-id={`bachelor-faq-${item.id}-question`}>{item.question}</span>
                       </AccordionTrigger>
                       <AccordionContent className="text-gray-600 dark:text-gray-400">
-                        <span data-editable data-editable-id={`bachelor-faq-${item.id}-answer`}>{item.answer}</span>
+                        <span data-editable data-editable-id={`bachelor-faq-${item.id}-answer`}>
+                          {(item as any).answerJsx || item.answer}
+                        </span>
                       </AccordionContent>
                     </AccordionItem>
                   ))}
