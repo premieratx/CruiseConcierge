@@ -2555,9 +2555,9 @@ export default function BachelorParty() {
       {/* Related Links */}
       <RelatedLinks 
         blogLinks={[
-          { title: 'Ultimate Guide to Austin Bachelor Parties', href: '/blogs/austin-bachelor-party-planning-guide' },
-          { title: 'Top Lake Travis Activities for Groups', href: '/blogs/lake-travis-group-activities' },
-          { title: 'Planning the Perfect Weekend', href: '/blogs/bachelor-party-weekend-austin' }
+          { title: 'Lake Travis Bachelor Party Boat Rentals: The Ultimate Guide', href: '/blogs/lake-travis-bachelor-party-boat-rentals-the-ultimate-guide-to-epic-celebrations' },
+          { title: 'Creative Lake Travis Boat Party Themes', href: '/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations' },
+          { title: 'Perfect Itinerary for a Bachelor Party in Austin', href: '/blogs/perfect-bachelor-party-itinerary-austin' }
         ]}
       />
 

@@ -2699,9 +2699,9 @@ export default function BacheloretteParty() {
       {/* Related Links */}
       <RelatedLinks 
         blogLinks={[
-          { title: 'Ultimate Bachelorette Party Planning Guide', href: '/blogs/austin-bachelorette-party-planning-guide' },
-          { title: 'Best Lake Travis Party Ideas', href: '/blogs/lake-travis-bachelorette-party-ideas' },
-          { title: 'Bachelorette Weekend Itinerary', href: '/blogs/austin-bachelorette-weekend-itinerary' }
+          { title: 'How to Throw a Great Bachelorette Party in Austin', href: '/blogs/how-to-throw-great-bachelorette-party-austin' },
+          { title: 'Creative Lake Travis Boat Party Themes', href: '/blogs/creative-lake-travis-boat-party-themes-unique-ideas-for-memorable-celebrations' },
+          { title: 'Must-Haves for the Perfect Austin Bachelorette Weekend', href: '/blogs/must-haves-for-the-perfect-austin-bachelorette-weekend' }
         ]}
       />
 
