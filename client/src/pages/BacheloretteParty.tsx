@@ -1537,124 +1537,6 @@ export default function BacheloretteParty() {
         </div>
       </section>
 
-      {/* The Lemonade Disco - Weather Guarantee Section */}
-      <section className="py-20 bg-gradient-to-br from-yellow-400 via-orange-400 to-pink-400">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={reducedMotion ? false : "hidden"}
-            whileInView={reducedMotion ? undefined : "visible"}
-            viewport={reducedMotion ? undefined : { once: true }}
-            variants={reducedMotion ? undefined : fadeInUp}
-            className="max-w-5xl mx-auto"
-          >
-            <Card className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-2xl border-4 border-white">
-              <CardHeader className="text-center pb-6">
-                <div className="flex items-center justify-center gap-4 mb-4">
-                  <CloudRain className="h-12 w-12 text-blue-600" />
-                  <Sun className="h-16 w-16 text-yellow-500" />
-                  <Smile className="h-12 w-12 text-orange-600" />
-                </div>
-                <CardTitle className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
-                  The <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-pink-600">Lemonade Disco</span>
-                </CardTitle>
-                <CardDescription className="text-xl font-semibold text-gray-700 dark:text-gray-300">
-                  If The Weather Gives Us Lemons, We Make Lemonade! :)
-                </CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 rounded-xl p-6 border-2 border-blue-200 dark:border-blue-800">
-                  <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
-                    <Shield className="h-7 w-7 text-blue-600" />
-                    Your 100% Weather Guarantee
-                  </h3>
-                  <p className="text-lg mb-4">
-                    We're the ONLY party cruise company in America with a comprehensive weather backup plan. If severe weather makes it unsafe to cruise, we automatically switch to our land-based party - The Lemonade Disco!
-                  </p>
-                </div>
-
-                <div className="grid md:grid-cols-2 gap-6">
-                  <div className="bg-green-50 dark:bg-green-950/30 rounded-xl p-6 border-2 border-green-300 dark:border-green-800">
-                    <h4 className="text-xl font-bold mb-3 flex items-center gap-2">
-                      <CheckCircle className="h-6 w-6 text-green-600" />
-                      What's Included in Lemonade Disco:
-                    </h4>
-                    <ul className="space-y-2">
-                      <li className="flex items-start gap-2">
-                        <Utensils className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
-                        <span>Full fajita or BBQ buffet (your choice!)</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Wine className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
-                        <span>Drinks provided for the bride tribe</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Music className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
-                        <span>Same professional DJ keeping the party going</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Camera className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
-                        <span>Professional photographer still capturing memories</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <PartyPopper className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
-                        <span>Same multi-group party atmosphere indoors</span>
-                      </li>
-                    </ul>
-                  </div>
-
-                  <div className="bg-purple-50 dark:bg-purple-950/30 rounded-xl p-6 border-2 border-purple-300 dark:border-purple-800">
-                    <h4 className="text-xl font-bold mb-3 flex items-center gap-2">
-                      <Heart className="h-6 w-6 text-purple-600" />
-                      Why This Matters:
-                    </h4>
-                    <ul className="space-y-3">
-                      <li className="flex items-start gap-2">
-                        <Plane className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
-                        <span>Perfect peace of mind for out-of-town bride tribes</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Calendar className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
-                        <span>Your bachelorette party happens NO MATTER WHAT</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <Smile className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
-                        <span>Often ends up being just as fun (sometimes even MORE!)</span>
-                      </li>
-                      <li className="flex items-start gap-2">
-                        <DollarSign className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
-                        <span>No additional cost - included in your package!</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-
-                <div className="bg-gradient-to-r from-orange-100 to-pink-100 dark:from-orange-950/30 dark:to-pink-950/30 rounded-xl p-6 border-2 border-orange-300 dark:border-orange-700 text-center">
-                  <p className="text-lg font-semibold mb-2">
-                    <AlertCircle className="h-6 w-6 inline mr-2 text-orange-600" />
-                    When Does Lemonade Disco Happen?
-                  </p>
-                  <p className="text-gray-700 dark:text-gray-300">
-                    Only if there's a <strong>complete rain-out</strong> with severe weather making it unsafe to be on the water. 
-                    Light rain? We still cruise! We've got covered areas and the party keeps going. 
-                    But if it's genuinely dangerous weather, we've got you covered with the Lemonade Disco!
-                  </p>
-                </div>
-
-                <div className="text-center pt-4">
-                  <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 mb-3">
-                    Book With Confidence - Your Party WILL Happen!
-                  </p>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    No other bachelorette party experience in America offers this level of weather protection. 
-                    That's just one more reason why we're #1!
-                  </p>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Comprehensive Why You Should Book ATX Disco Cruise Section */}
       <section className="py-20 bg-gradient-to-br from-purple-900 via-pink-900 to-orange-900 text-white">
         <div className="container mx-auto px-6">
@@ -2485,6 +2367,124 @@ export default function BacheloretteParty() {
           </div>
         </div>
       </div>
+
+      {/* The Lemonade Disco - Weather Guarantee Section */}
+      <section id="lemonade-disco" className="py-20 bg-gradient-to-br from-yellow-400 via-orange-400 to-pink-400">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={reducedMotion ? false : "hidden"}
+            whileInView={reducedMotion ? undefined : "visible"}
+            viewport={reducedMotion ? undefined : { once: true }}
+            variants={reducedMotion ? undefined : fadeInUp}
+            className="max-w-5xl mx-auto"
+          >
+            <Card className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-2xl border-4 border-white">
+              <CardHeader className="text-center pb-6">
+                <div className="flex items-center justify-center gap-4 mb-4">
+                  <CloudRain className="h-12 w-12 text-blue-600" />
+                  <Sun className="h-16 w-16 text-yellow-500" />
+                  <Smile className="h-12 w-12 text-orange-600" />
+                </div>
+                <CardTitle className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                  The <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-pink-600">Lemonade Disco</span>
+                </CardTitle>
+                <CardDescription className="text-xl font-semibold text-gray-700 dark:text-gray-300">
+                  If The Weather Gives Us Lemons, We Make Lemonade! :)
+                </CardDescription>
+              </CardHeader>
+              <CardContent className="space-y-6">
+                <div className="bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950/30 dark:to-purple-950/30 rounded-xl p-6 border-2 border-blue-200 dark:border-blue-800">
+                  <h3 className="text-2xl font-bold mb-4 flex items-center gap-3">
+                    <Shield className="h-7 w-7 text-blue-600" />
+                    Your 100% Weather Guarantee
+                  </h3>
+                  <p className="text-lg mb-4">
+                    We're the ONLY party cruise company in America with a comprehensive weather backup plan. If severe weather makes it unsafe to cruise, we automatically switch to our land-based party - The Lemonade Disco!
+                  </p>
+                </div>
+
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div className="bg-green-50 dark:bg-green-950/30 rounded-xl p-6 border-2 border-green-300 dark:border-green-800">
+                    <h4 className="text-xl font-bold mb-3 flex items-center gap-2">
+                      <CheckCircle className="h-6 w-6 text-green-600" />
+                      What's Included in Lemonade Disco:
+                    </h4>
+                    <ul className="space-y-2">
+                      <li className="flex items-start gap-2">
+                        <Utensils className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                        <span>Full fajita or BBQ buffet (your choice!)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Wine className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                        <span>Drinks provided for the bride tribe</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Music className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                        <span>Same professional DJ keeping the party going</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Camera className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                        <span>Professional photographer still capturing memories</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <PartyPopper className="h-5 w-5 text-green-600 mt-1 flex-shrink-0" />
+                        <span>Same multi-group party atmosphere indoors</span>
+                      </li>
+                    </ul>
+                  </div>
+
+                  <div className="bg-purple-50 dark:bg-purple-950/30 rounded-xl p-6 border-2 border-purple-300 dark:border-purple-800">
+                    <h4 className="text-xl font-bold mb-3 flex items-center gap-2">
+                      <Heart className="h-6 w-6 text-purple-600" />
+                      Why This Matters:
+                    </h4>
+                    <ul className="space-y-3">
+                      <li className="flex items-start gap-2">
+                        <Plane className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
+                        <span>Perfect peace of mind for out-of-town bride tribes</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Calendar className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
+                        <span>Your bachelorette party happens NO MATTER WHAT</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Smile className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
+                        <span>Often ends up being just as fun (sometimes even MORE!)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <DollarSign className="h-5 w-5 text-purple-600 mt-1 flex-shrink-0" />
+                        <span>No additional cost - included in your package!</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div className="bg-gradient-to-r from-orange-100 to-pink-100 dark:from-orange-950/30 dark:to-pink-950/30 rounded-xl p-6 border-2 border-orange-300 dark:border-orange-700 text-center">
+                  <p className="text-lg font-semibold mb-2">
+                    <AlertCircle className="h-6 w-6 inline mr-2 text-orange-600" />
+                    When Does Lemonade Disco Happen?
+                  </p>
+                  <p className="text-gray-700 dark:text-gray-300">
+                    Only if there's a <strong>complete rain-out</strong> with severe weather making it unsafe to be on the water. 
+                    Light rain? We still cruise! We've got covered areas and the party keeps going. 
+                    But if it's genuinely dangerous weather, we've got you covered with the Lemonade Disco!
+                  </p>
+                </div>
+
+                <div className="text-center pt-4">
+                  <p className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-600 mb-3">
+                    Book With Confidence - Your Party WILL Happen!
+                  </p>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    No other bachelorette party experience in America offers this level of weather protection. 
+                    That's just one more reason why we're #1!
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Related Services Section */}
       <section className="py-20 bg-gray-50 dark:bg-gray-900 pb-32">
