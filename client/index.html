@@ -71,6 +71,27 @@
   </head>
   <body>
     <div id="root"></div>
+    
+    <!-- PREVIEW FIX: Force hard reload if React preamble error detected -->
+    <script>
+      // Detect React preamble errors and force cache clear
+      const originalError = window.onerror;
+      window.onerror = function(message, source, lineno, colno, error) {
+        if (message && message.includes && message.includes("can't detect preamble")) {
+          console.warn('[CACHE FIX] React preamble error detected - forcing hard reload to clear cache...');
+          // Use location.replace instead of reload to avoid reload loop
+          if (!sessionStorage.getItem('preamble_reload_attempted')) {
+            sessionStorage.setItem('preamble_reload_attempted', '1');
+            location.reload(true); // Hard reload bypasses cache
+          } else {
+            console.error('[CACHE FIX] Preamble reload already attempted. Please manually clear browser cache (Ctrl+Shift+R or Cmd+Shift+R)');
+          }
+          return true;
+        }
+        return originalError ? originalError.apply(this, arguments) : false;
+      };
+    </script>
+    
     <!-- Conditionally disable Vite overlay and runtime error modal for embed routes -->
     <script type="module">
       if (location.pathname.startsWith('/embed/')) {
