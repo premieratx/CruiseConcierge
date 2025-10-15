@@ -1,4 +1,5 @@
 import { useState, FormEvent } from 'react';
+import { useLocation } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
@@ -17,6 +18,7 @@ import {
 
 export default function Contact() {
   const { isEditMode } = useInlineEdit();
+  const [, navigate] = useLocation();
   const [contactForm, setContactForm] = useState({
     name: '',
     email: '',
@@ -41,27 +43,82 @@ export default function Contact() {
     }
 
     try {
-      console.log('Contact form submitted:', contactForm);
-      
-      toast({
-        title: "Message Sent!",
-        description: "We'll get back to you within 24 hours with more information.",
-        variant: "default"
+      // Split name into first and last name
+      const nameParts = contactForm.name.trim().split(' ');
+      const firstName = nameParts[0] || '';
+      const lastName = nameParts.slice(1).join(' ') || nameParts[0] || '';
+
+      // Create a minimal lead in the backend before redirecting
+      const leadPayload = {
+        contactInfo: {
+          firstName,
+          lastName,
+          email: contactForm.email,
+          phone: contactForm.phone
+        },
+        eventDetails: {
+          eventType: contactForm.eventType || 'general',
+          groupSize: contactForm.groupSize ? parseInt(contactForm.groupSize) : undefined,
+          eventDate: contactForm.eventDate || undefined,
+          message: contactForm.message || undefined
+        },
+        selectionDetails: {
+          cruiseType: contactForm.eventType === 'bachelor' ? 'bachelor' : 
+                      contactForm.eventType === 'bachelorette' ? 'bachelorette' : 'private'
+        }
+      };
+
+      // Submit to backend
+      const response = await fetch('/api/leads/quote-builder', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(leadPayload)
       });
 
-      setContactForm({
-        name: '',
-        email: '',
-        phone: '',
-        eventType: '',
-        groupSize: '',
-        eventDate: '',
-        message: ''
-      });
-    } catch (error) {
+      if (!response.ok) {
+        throw new Error('Failed to save contact information');
+      }
+
+      // Show success message
       toast({
-        title: "Something went wrong",
-        description: `Please try again or call us directly at ${CONTACT_INFO.phoneFormatted}`,
+        title: "Contact Information Saved!",
+        description: "Redirecting to quote builder...",
+      });
+
+      // Get the lead ID from response
+      const responseData = await response.json();
+      const leadId = responseData.leadId || responseData.id;
+
+      // Redirect to quote builder with pre-filled data including message
+      const params = new URLSearchParams({
+        type: contactForm.eventType || 'general',
+        name: contactForm.name,
+        email: contactForm.email,
+        phone: contactForm.phone,
+      });
+      
+      if (contactForm.groupSize) {
+        params.set('groupSize', contactForm.groupSize);
+      }
+      if (contactForm.eventDate) {
+        params.set('eventDate', contactForm.eventDate);
+      }
+      if (contactForm.message) {
+        params.set('message', contactForm.message);
+      }
+      if (leadId) {
+        params.set('leadId', leadId);
+      }
+
+      setTimeout(() => {
+        navigate(`/chat?${params.toString()}`);
+      }, 800);
+      
+    } catch (error) {
+      console.error('Contact form error:', error);
+      toast({
+        title: "Error saving contact information",
+        description: `Please call us at ${CONTACT_INFO.phoneFormatted} or try again.`,
         variant: "destructive"
       });
     }
