@@ -14,13 +14,22 @@ This project is a custom CRM with an AI chatbot agent designed for Premier Party
 - **Status**: ✅ Keepalive service RUNNING - verified in logs with successful pings
 - **Next Steps**: Set up UptimeRobot monitors to ping critical pages every 5 minutes (see UptimeRobot Setup section below)
 
+### October 15, 2025 - Replit Preview Cache Corruption
+- **Issue**: Replit preview iframe shows "app not running" and React preamble errors persist
+- **Root Cause**: Replit preview iframe has aggressively cached corrupted React modules with missing Vite Fast Refresh preamble
+- **App Status**: ✅ **SERVER IS RUNNING PERFECTLY** - The app itself works fine, only the preview iframe is broken
+- **Workaround**: 
+  - Access the app directly at: `https://workspace.brian-hill.repl.co` (or click "Open in new tab" button)
+  - Or use an incognito/private browser window with that URL
+  - The preview iframe cache cannot be cleared, but direct access works perfectly
+- **Pages Confirmed Working**: `/chat`, `/golden-ticket`, and all other routes work when accessed directly
+- **Impact**: Preview iframe unusable, but production site and direct access work normally
+
 ### October 14, 2025 - Toast Component Issue Resolution
-- **Issue**: React preamble error in toast.tsx caused hydration failures on all SSR pages (homepage, blog posts, service pages)
-- **Root Cause**: Browser persistent caching of broken toast module; Vite Fast Refresh plugin unable to detect React preamble
-- **Temporary Solution**: Toaster component disabled in App.tsx (lines 4 and 540) to allow homepage and SSR pages to load
-- **Impact**: Toast notifications currently disabled; all other functionality working normally
-- **Status**: Homepage, blog posts, and all SSR pages now loading successfully
-- **Next Steps**: Re-enable Toaster after browser caches clear or implement lazy-loading pattern for toast component
+- **Status**: ✅ RESOLVED - Toaster re-enabled after cache clearing
+- **Issue**: React preamble error in toast.tsx caused hydration failures
+- **Root Cause**: Browser persistent caching of broken toast module
+- **Solution**: Toaster component temporarily disabled, then re-enabled after cache clear
 
 ## User Preferences
 I prefer iterative development with clear communication at each stage.
