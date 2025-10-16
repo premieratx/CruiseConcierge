@@ -2,6 +2,7 @@ import { Link } from 'wouter';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
+import Breadcrumb from '@/components/Breadcrumb';
 import FAQ, { FAQCategory, generateFAQSchema } from '@/components/FAQ';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
@@ -324,6 +325,7 @@ export default function Faq() {
       />
       
       <PublicNavigation />
+      <Breadcrumb />
       
       <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
         {/* Hero Section */}

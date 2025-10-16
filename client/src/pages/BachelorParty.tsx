@@ -31,6 +31,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
+import Breadcrumb from '@/components/Breadcrumb';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -387,6 +388,7 @@ export default function BachelorParty() {
         schemaType="event"
       />
       <PublicNavigation />
+      <Breadcrumb />
       
       {/* Hero Section with Crossfade */}
       <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">

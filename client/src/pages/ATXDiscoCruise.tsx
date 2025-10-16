@@ -32,6 +32,7 @@ import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
+import Breadcrumb from '@/components/Breadcrumb';
 
 import heroImage1 from '@assets/atx-disco-cruise-party.webp';
 import heroImage2 from '@assets/dancing-party-scene.webp';
@@ -345,6 +346,7 @@ export default function ATXDiscoCruise() {
 
       <div className="min-h-screen bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 dark:from-gray-900 dark:via-purple-900/20 dark:to-pink-900/20">
         <PublicNavigation />
+        <Breadcrumb />
 
         {/* Hero Section */}
         <motion.section 

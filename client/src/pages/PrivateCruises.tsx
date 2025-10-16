@@ -27,6 +27,7 @@ import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
+import Breadcrumb from '@/components/Breadcrumb';
 
 // Hero images
 import heroImage1 from '@assets/clever-girl-50-person-boat.webp';
@@ -304,6 +305,7 @@ export default function PrivateCruises() {
       />
       
       <PublicNavigation />
+      <Breadcrumb />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-20 px-4 overflow-hidden">

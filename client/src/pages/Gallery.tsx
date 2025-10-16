@@ -3,6 +3,7 @@ import { useQuery } from '@tanstack/react-query';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import SEOHead from '@/components/SEOHead';
+import Breadcrumb from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -158,6 +159,7 @@ export default function Gallery() {
       />
       
       <PublicNavigation />
+      <Breadcrumb />
       
       {/* Compact Hero Section - 1/3 height */}
       <section className="relative bg-gradient-to-br from-brand-blue to-blue-700 py-8">

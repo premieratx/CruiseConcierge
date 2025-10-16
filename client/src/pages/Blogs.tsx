@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import PublicNavigation from "@/components/PublicNavigation";
 import { ClientOnly } from '@/components/ClientOnly';
 import Footer from "@/components/Footer";
+import Breadcrumb from '@/components/Breadcrumb';
 import { BlogCard } from "@/components/blog/BlogCard";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -127,6 +128,7 @@ export default function Blogs() {
   return (
     <>
       <ClientOnly><PublicNavigation /></ClientOnly>
+      <Breadcrumb />
       <SEOHead 
         pageRoute="/blogs"
         defaultTitle="Austin Party Boat Blog | Bachelor & Bachelorette Party Tips"

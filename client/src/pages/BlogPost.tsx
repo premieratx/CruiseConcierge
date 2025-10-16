@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import PublicNavigation from "@/components/PublicNavigation";
 import { ClientOnly } from '@/components/ClientOnly';
 import Footer from "@/components/Footer";
+import Breadcrumb from '@/components/Breadcrumb';
 import { CategoryBadge } from "@/components/blog/CategoryBadge";
 import { TagBadge } from "@/components/blog/TagBadge";
 import { BlogCard } from "@/components/blog/BlogCard";
@@ -305,6 +306,13 @@ export default function BlogPostPage() {
   return (
     <>
       <ClientOnly><PublicNavigation /></ClientOnly>
+      <Breadcrumb 
+        customSegments={data ? [
+          { label: 'Home', href: '/' },
+          { label: 'Blog', href: '/blogs' },
+          { label: data.post.title, current: true }
+        ] : undefined}
+      />
       <SEOHead 
         pageRoute={`/blog/${slug}`}
         defaultTitle={(post.metaTitle || post.title || "Blog Post").replace(/\s*\|\s*Premier Party Cruises.*$/i, '')}

@@ -33,6 +33,7 @@ import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
+import Breadcrumb from '@/components/Breadcrumb';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -401,6 +402,7 @@ export default function BacheloretteParty() {
         schemaType="event"
       />
       <PublicNavigation />
+      <Breadcrumb />
       
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">

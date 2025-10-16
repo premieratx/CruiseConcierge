@@ -5,6 +5,7 @@ import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
+import Breadcrumb from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -252,6 +253,7 @@ export default function TeamBuilding() {
       />
 
       <PublicNavigation />
+      <Breadcrumb />
 
       {/* Hero Section */}
       <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden pt-20">

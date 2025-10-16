@@ -5,6 +5,7 @@ import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import Chat from '@/pages/Chat';
+import Breadcrumb from '@/components/Breadcrumb';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -337,6 +338,7 @@ export default function WeddingParties() {
         schemaType="service"
       />
       <PublicNavigation />
+      <Breadcrumb />
       
       {/* Hero Section */}
       <section className="relative min-h-[70vh] flex items-center justify-center overflow-hidden">
