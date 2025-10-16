@@ -211,6 +211,13 @@ export default function BlogPostPage() {
     return plainText.substring(0, 300) + (plainText.length > 300 ? '...' : '');
   };
 
+  // Strip the first H1 tag from content to prevent double titles
+  const getProcessedContent = () => {
+    // Remove first H1 tag and its content (to avoid double title)
+    // Use multiline-safe regex with dotall flag simulation
+    return post.content.replace(/<h1[^>]*>[\s\S]*?<\/h1>/i, '').trim();
+  };
+
   // Enhanced BlogPosting schema with comprehensive metadata
   const articleSchema = {
     "@context": "https://schema.org",
@@ -462,7 +469,7 @@ export default function BlogPostPage() {
             prose-ul:my-6 prose-ol:my-6 prose-li:my-2
             prose-blockquote:border-l-4 prose-blockquote:border-brand-blue prose-blockquote:pl-6 prose-blockquote:italic prose-blockquote:text-gray-600 dark:prose-blockquote:text-gray-400
             prose-img:rounded-lg prose-img:shadow-md prose-img:my-8"
-            dangerouslySetInnerHTML={{ __html: post.content }}
+            dangerouslySetInnerHTML={{ __html: getProcessedContent() }}
             data-testid="content-blog-post"
           />
 

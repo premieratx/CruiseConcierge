@@ -1,0 +1,48 @@
+{
+  "internalPages": {
+    "homepage": {
+      "url": "https://premierpartycruises.com/",
+      "keywords": ["party boat austin", "premier party cruises", "lake travis cruises", "austin boat rental", "party boat rental"]
+    },
+    "privateCruises": {
+      "url": "https://premierpartycruises.com/private-cruises",
+      "keywords": ["private cruise", "private charter", "private boat rental", "exclusive cruise", "private party boat"]
+    },
+    "bacheloretteParty": {
+      "url": "https://premierpartycruises.com/bachelorette-party-austin",
+      "keywords": ["bachelorette party", "bachelorette cruise", "austin bachelorette", "bachelorette boat", "bride party"]
+    },
+    "bachelorParty": {
+      "url": "https://premierpartycruises.com/bachelor-party-austin",
+      "keywords": ["bachelor party", "bachelor cruise", "austin bachelor", "bachelor boat", "groom party", "guys party"]
+    },
+    "discoCruise": {
+      "url": "https://premierpartycruises.com/atx-disco-cruise",
+      "keywords": ["atx disco cruise", "disco cruise", "friday night cruise", "saturday night cruise", "disco party boat"]
+    },
+    "corporateEvents": {
+      "url": "https://premierpartycruises.com/corporate-events",
+      "keywords": ["corporate event", "team building", "corporate party", "business event", "company outing"]
+    },
+    "gallery": {
+      "url": "https://premierpartycruises.com/gallery",
+      "keywords": ["photo gallery", "party photos", "cruise photos", "boat party pictures"]
+    },
+    "pricing": {
+      "url": "https://premierpartycruises.com/pricing",
+      "keywords": ["pricing", "rates", "cost", "how much", "boat rental price"]
+    },
+    "chat": {
+      "url": "https://premierpartycruises.com/chat",
+      "keywords": ["book now", "get quote", "reserve", "booking", "make reservation"]
+    },
+    "blogs": {
+      "url": "https://premierpartycruises.com/blogs",
+      "keywords": ["blog", "party planning tips", "event ideas", "cruise guide"]
+    },
+    "partyOnDelivery": {
+      "url": "https://partyondelivery.com",
+      "keywords": ["alcohol delivery", "party on delivery", "liquor delivery", "drink delivery", "beverage delivery", "spirits delivery"]
+    }
+  }
+}
