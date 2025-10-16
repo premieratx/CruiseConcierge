@@ -529,16 +529,12 @@ export default function PricingBreakdown() {
                 </CardHeader>
                 <CardContent>
                   <div className="grid md:grid-cols-3 gap-6">
-                    {BOATS.map((boat) => (
+                    {Object.values(BOATS).map((boat) => (
                       <div key={boat.id} className="space-y-2 p-4 border rounded-lg">
-                        <h3 className="font-semibold text-lg">{boat.name}</h3>
+                        <h3 className="font-semibold text-lg">{boat.displayName || boat.name}</h3>
                         <div className="flex items-center gap-2 text-sm text-gray-600">
                           <Users className="h-4 w-4" />
                           <span>Capacity: {boat.capacity} people</span>
-                        </div>
-                        <div className="flex items-center gap-2 text-sm text-gray-600">
-                          <Clock className="h-4 w-4" />
-                          <span>Min: {boat.minHours} hours</span>
                         </div>
                         <p className="text-sm text-gray-600 mt-2">{boat.description}</p>
                       </div>

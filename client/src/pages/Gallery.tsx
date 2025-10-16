@@ -247,7 +247,7 @@ export default function Gallery() {
                       <>
                         <img
                           src={`/api/media/view/${photo.id}`}
-                          alt={photo.originalName}
+                          alt={photo.altText || photo.originalName}
                           className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                           loading="lazy"
                           onError={() => handleImageError(photo.id)}
@@ -301,7 +301,7 @@ export default function Gallery() {
                         <div className="aspect-square relative overflow-hidden">
                           <img
                             src={`/api/media/view/${photo.id}`}
-                            alt={photo.originalName}
+                            alt={photo.altText || photo.originalName}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             loading="lazy"
                           />
@@ -333,7 +333,7 @@ export default function Gallery() {
                         <div className="aspect-square relative overflow-hidden">
                           <img
                             src={`/api/media/view/${photo.id}`}
-                            alt={photo.originalName}
+                            alt={photo.altText || photo.originalName}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             loading="lazy"
                           />
@@ -365,7 +365,7 @@ export default function Gallery() {
                         <div className="aspect-square relative overflow-hidden">
                           <img
                             src={`/api/media/view/${photo.id}`}
-                            alt={photo.originalName}
+                            alt={photo.altText || photo.originalName}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             loading="lazy"
                           />
@@ -397,7 +397,7 @@ export default function Gallery() {
                         <div className="aspect-square relative overflow-hidden">
                           <img
                             src={`/api/media/view/${photo.id}`}
-                            alt={photo.originalName}
+                            alt={photo.altText || photo.originalName}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             loading="lazy"
                           />
@@ -429,7 +429,7 @@ export default function Gallery() {
                         <div className="aspect-square relative overflow-hidden">
                           <img
                             src={`/api/media/view/${photo.id}`}
-                            alt={photo.originalName}
+                            alt={photo.altText || photo.originalName}
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                             loading="lazy"
                           />
@@ -464,7 +464,7 @@ export default function Gallery() {
                     <div className="aspect-square relative overflow-hidden">
                       <img
                         src={`/api/media/view/${photo.id}`}
-                        alt={photo.originalName}
+                        alt={(photo as any).altText || photo.originalName}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         loading="lazy"
                       />
@@ -497,7 +497,7 @@ export default function Gallery() {
                     <div className="aspect-square relative overflow-hidden">
                       <img
                         src={`/api/media/view/${photo.id}`}
-                        alt={photo.originalName}
+                        alt={(photo as any).altText || photo.originalName}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                         loading="lazy"
                       />
