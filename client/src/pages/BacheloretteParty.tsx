@@ -34,6 +34,7 @@ import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 import Breadcrumb from '@/components/Breadcrumb';
+import { FeaturedSnippet } from '@/components/FeaturedSnippet';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -655,6 +656,37 @@ export default function BacheloretteParty() {
               </Button>
             </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* Featured Snippets Section */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* What to do for a bachelorette party in Austin? */}
+            <FeaturedSnippet
+              question="What to do for a bachelorette party in Austin?"
+              listItems={[
+                "Book an ATX Disco Cruise on Lake Travis with DJ and photographer",
+                "Visit Rainey Street or 6th Street for nightlife",
+                "Take a wine tour in Texas Hill Country",
+                "Enjoy brunch at popular spots like Josephine House",
+                "Get pampered at a spa like Milk + Honey",
+                "Take dance classes or do a private yoga session",
+                "Shop South Congress boutiques and take Instagram photos"
+              ]}
+              format="list"
+              schemaType="FAQ"
+            />
+            
+            {/* How many people fit on a bachelorette party boat? */}
+            <FeaturedSnippet
+              question="How many people fit on a bachelorette party boat?"
+              answer="Bachelorette party boats on Lake Travis accommodate different group sizes. The ATX Disco Cruise holds up to 50 people total. For private charters, Day Tripper fits 14 guests, Meeseeks accommodates 15-30 people, and flagship Clever Girl can host 30-75 guests for larger celebrations."
+              format="paragraph"
+              schemaType="FAQ"
+            />
+          </div>
         </div>
       </section>
 

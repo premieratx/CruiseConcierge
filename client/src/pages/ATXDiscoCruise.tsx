@@ -33,6 +33,7 @@ import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 import Breadcrumb from '@/components/Breadcrumb';
+import { FeaturedSnippet } from '@/components/FeaturedSnippet';
 
 import heroImage1 from '@assets/atx-disco-cruise-party.webp';
 import heroImage2 from '@assets/dancing-party-scene.webp';
@@ -644,6 +645,38 @@ export default function ATXDiscoCruise() {
             </div>
           </div>
         </motion.section>
+
+        {/* Featured Snippets Section */}
+        <section className="py-16 bg-gray-50 dark:bg-gray-900">
+          <div className="container mx-auto px-6 max-w-5xl">
+            <div className="grid md:grid-cols-2 gap-8">
+              {/* What is the ATX Disco Cruise? */}
+              <FeaturedSnippet
+                question="What is the ATX Disco Cruise?"
+                answer="The ATX Disco Cruise is Austin's exclusive 4-hour party boat experience on Lake Travis for bachelor and bachelorette parties. It features professional DJ entertainment, photography, giant floats, and brings together multiple celebration groups for an epic shared party atmosphere at $85-125 per person."
+                format="paragraph"
+                schemaType="FAQ"
+              />
+              
+              {/* What's included in the disco cruise? */}
+              <FeaturedSnippet
+                question="What's included in the disco cruise?"
+                listItems={[
+                  "Professional DJ playing music for 4 hours",
+                  "Professional photographer with digital photo delivery",
+                  "Giant unicorn float and lily pad floats",
+                  "BYOB with coolers and ice provided",
+                  "Ice water stations for hydration",
+                  "Party supplies including cups and koozies",
+                  "Clean restroom facilities on board",
+                  "Covered shade areas"
+                ]}
+                format="list"
+                schemaType="FAQ"
+              />
+            </div>
+          </div>
+        </section>
 
         {/* Comprehensive Why You Should Book ATX Disco Cruise Section */}
         <section className="py-20 bg-gradient-to-br from-purple-900 via-pink-900 to-orange-900 text-white">

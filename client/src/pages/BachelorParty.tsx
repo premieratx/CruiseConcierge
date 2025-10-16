@@ -32,6 +32,7 @@ import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
 import Breadcrumb from '@/components/Breadcrumb';
+import { FeaturedSnippet, FeaturedSnippetHowTo } from '@/components/FeaturedSnippet';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -584,6 +585,36 @@ export default function BachelorParty() {
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
+      </section>
+
+      {/* Featured Snippets Section */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* What is a bachelor party boat cruise? */}
+            <FeaturedSnippet
+              question="What is a bachelor party boat cruise?"
+              answer="A bachelor party boat cruise is a 4-hour celebration on Lake Travis where bachelor groups enjoy professional DJ entertainment, swimming, BYOB drinks, and party with other bachelor groups. These cruises feature giant floats, photography, and create unforgettable memories for the groom and crew."
+              format="paragraph"
+              schemaType="FAQ"
+            />
+            
+            {/* How to plan a bachelor party on Lake Travis */}
+            <FeaturedSnippetHowTo
+              title="How to plan a bachelor party on Lake Travis?"
+              description="Follow these steps to plan the perfect bachelor party on Lake Travis:"
+              steps={[
+                "Book your cruise 4-6 weeks in advance to secure your date",
+                "Choose between ATX Disco Cruise ($85-125/person) or Private Charter ($200-400/hour)",
+                "Select your package level (Basic, Disco King, or Platinum)",
+                "Pre-order alcohol delivery through Party on Delivery",
+                "Arrange round-trip transportation with 25% discount",
+                "Check-in at Anderson Mill Marina at 11:30 AM on cruise day",
+                "Bring swimsuits, sunglasses, and get ready to party!"
+              ]}
+            />
+          </div>
         </div>
       </section>
 

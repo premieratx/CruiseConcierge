@@ -71,6 +71,7 @@ import { QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
+import { FeaturedSnippet } from '@/components/FeaturedSnippet';
 
 // Lazy load heavy components to improve FCP
 const DiscoVsPrivateComparison = lazy(() => import('@/components/DiscoVsPrivateComparison').then(mod => ({ default: mod.DiscoVsPrivateComparison })));
@@ -941,6 +942,19 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Featured Snippet: What is a party boat cruise? */}
+      <section className="py-16 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <FeaturedSnippet
+            question="What is a party boat cruise?"
+            answer="A party boat cruise is a chartered boat experience on Lake Travis where groups celebrate special occasions like bachelor parties, birthdays, and corporate events. These cruises offer music, swimming, BYOB options, and stunning lake views for 2-4 hours with professional captains and crew."
+            format="paragraph"
+            schemaType="FAQ"
+            className="mb-12"
+          />
+        </div>
+      </section>
+
       {/* CRITICAL: Lightbox Photo Gallery for Experience Cards */}
       <Dialog open={showLightbox} onOpenChange={setShowLightbox}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -1545,6 +1559,25 @@ export default function Home() {
               ariaLabel="Comparison of Premier Party Cruises boat fleet"
             />
           </motion.div>
+        </div>
+      </section>
+
+      {/* Featured Snippet: How much does it cost to rent a boat in Austin? */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-6 max-w-4xl">
+          <FeaturedSnippet
+            question="How much does it cost to rent a boat in Austin?"
+            tableData={[
+              { label: "ATX Disco Cruise", value: "$85-$125 per person", highlighted: true },
+              { label: "Day Tripper (14 guests)", value: "$200 per hour" },
+              { label: "Meeseeks (25 guests)", value: "$225 per hour" },
+              { label: "Clever Girl (75 guests)", value: "$300 per hour" },
+              { label: "Minimum Booking", value: "4 hours required" },
+              { label: "Peak Season", value: "May-September higher rates" }
+            ]}
+            format="table"
+            schemaType="FAQ"
+          />
         </div>
       </section>
 

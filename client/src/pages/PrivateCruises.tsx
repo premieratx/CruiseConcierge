@@ -28,6 +28,7 @@ import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 import Breadcrumb from '@/components/Breadcrumb';
+import { FeaturedSnippet } from '@/components/FeaturedSnippet';
 
 // Hero images
 import heroImage1 from '@assets/clever-girl-50-person-boat.webp';
@@ -398,6 +399,45 @@ export default function PrivateCruises() {
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* Featured Snippets Section */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-6 max-w-5xl">
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* How to rent a private boat on Lake Travis? */}
+            <FeaturedSnippet
+              question="How to rent a private boat on Lake Travis?"
+              listItems={[
+                "Choose your boat size (14-75 guests) and date",
+                "Select your package level (Standard, Essentials, Premium, or VIP)",
+                "Request a quote online or call (512) 537-2323",
+                "Confirm availability and receive your booking agreement",
+                "Pay the 50% deposit to secure your date",
+                "Plan your BYOB menu and activities",
+                "Board at Hurst Harbor Marina for your cruise"
+              ]}
+              format="list"
+              numbered={true}
+              schemaType="HowTo"
+            />
+            
+            {/* Private boat rental prices Austin */}
+            <FeaturedSnippet
+              question="Private boat rental prices Austin"
+              tableData={{
+                headers: ["Boat Size", "Hourly Rate", "Best For"],
+                rows: [
+                  ["Day Tripper (14)", "$200-275/hr", "Intimate gatherings"],
+                  ["Meeseeks (15-30)", "$225-375/hr", "Birthday parties"],
+                  ["Clever Girl (30-75)", "$300-475/hr", "Large events"]
+                ]
+              }}
+              format="table"
+              schemaType="FAQ"
             />
           </div>
         </div>
