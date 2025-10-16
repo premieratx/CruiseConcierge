@@ -1,15 +1,10 @@
 import { defineConfig } from "vite";
-import react from "@vitejs/plugin-react";
 import path from "path";
 
-// Production-only config - React plugin with NO Refresh
+// TEST CONFIG - NO REACT PLUGIN AT ALL
 export default defineConfig({
   plugins: [
-    react({
-      // CRITICAL: Disable React Refresh for production
-      jsxRuntime: 'automatic',
-      fastRefresh: false,  // This should disable it!
-    }),
+    // NOTHING - let's see what happens
   ],
   resolve: {
     alias: {
@@ -22,12 +17,5 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist/public"),
     emptyOutDir: true,
-    minify: true,
-  },
-  server: {
-    fs: {
-      strict: true,
-      deny: ["**/.*"],
-    },
   },
 });
