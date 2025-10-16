@@ -377,6 +377,7 @@ export const mediaItems = pgTable('media_items', {
   id: varchar('id', { length: 255 }).primaryKey().default(sql`gen_random_uuid()`),
   filename: varchar('filename', { length: 500 }).notNull(),
   originalName: varchar('original_name', { length: 500 }),
+  altText: varchar('alt_text', { length: 500 }), // SEO-friendly image alt text
   fileType: varchar('file_type', { length: 50 }).notNull(), // 'photo', 'video', 'generated_video', 'edited_photo'
   filePath: varchar('file_path', { length: 1000 }).notNull(),
   fileSize: integer('file_size'),
