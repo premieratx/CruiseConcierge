@@ -2760,7 +2760,8 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         
         const contentType = contentTypes[ext] || 'application/octet-stream';
         res.setHeader('Content-Type', contentType);
-        res.setHeader('Cache-Control', 'public, max-age=31536000'); // Cache for 1 year
+        res.setHeader('Cache-Control', 'public, max-age=31536000, immutable'); // Cache for 1 year
+        res.setHeader('Vary', 'Accept-Encoding');
         
         // Stream the file (using validated path)
         const fileStream = createReadStream(requestedPath);
