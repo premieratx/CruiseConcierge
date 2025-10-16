@@ -12,7 +12,7 @@ import SEOHead from '@/components/SEOHead';
 import { 
   DollarSign, Crown, Disc3, Ship, Users, Clock, 
   CheckCircle, Star, Sparkles, Package, Calculator,
-  TrendingUp, ArrowRight
+  TrendingUp, ArrowRight, Trophy, Gift, Check, X
 } from 'lucide-react';
 import Footer from '@/components/Footer';
 import { PricingTable2 } from '@/components/PricingTable2';
@@ -316,7 +316,7 @@ export default function PricingBreakdown() {
 
               {/* DiscoVsPrivateComparison Widget */}
               <div className="mb-8">
-                <DiscoVsPrivateComparison2 />
+                <DiscoVsPrivateComparison2 groupSize={15} dayOfWeek={6} />
               </div>
 
               {/* Quick Price Reference */}
