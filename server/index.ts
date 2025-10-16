@@ -429,7 +429,7 @@ Crawl-delay: 1`;
   // This prevents unhandled errors from crashing the entire application
   app.use((err: any, req: Request, res: Response, next: NextFunction) => {
     // Log the error for debugging
-    console.error('[ERROR HANDLER]', {
+    console.error('[ERROR HANDLER] Caught error that would have crashed the app:', {
       message: err.message,
       stack: err.stack,
       path: req.path,
@@ -439,7 +439,7 @@ Crawl-delay: 1`;
     
     // Don't send error if response already sent
     if (res.headersSent) {
-      return next(err);
+      return; // Exit without calling next - prevents duplicate sends
     }
     
     // Send graceful error response instead of crashing
@@ -449,6 +449,8 @@ Crawl-delay: 1`;
       path: req.path,
       timestamp: new Date().toISOString()
     });
+    
+    // DO NOT throw or call next(err) - this would turn it back into uncaughtException
   });
 
   // ALWAYS serve the app on the port specified in the environment variable PORT
