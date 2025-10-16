@@ -1066,6 +1066,3 @@ export function QuoteBuilder({ projectId, templateId, groupSize = 25, onQuoteCha
     </div>
   );
 }
-                <SelectContent>
-                  {projects.map((project) => (
-                    <SelectItem key={project.id} value={project.id}>
