@@ -79,9 +79,8 @@ const featuredTestimonials = [
     groupSize: 15,
     date: 'July 2024',
     image: galleryImage2,
-    badge: 'Video Available',
-    isVideo: true,
-    videoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ'
+    badge: 'Top Rated',
+    isVideo: false
   },
   {
     id: 'featured-3',
@@ -1053,7 +1052,7 @@ export default function TestimonialsFaq() {
                           className={cn(
                             "font-semibold",
                             testimonial.badge === 'Featured' && "bg-brand-yellow/10 text-brand-yellow border-brand-yellow/20",
-                            testimonial.badge === 'Video Available' && "bg-red-50 text-red-600 border-red-200",
+                            testimonial.badge === 'Top Rated' && "bg-green-50 text-green-600 border-green-200",
                             testimonial.badge === 'Corporate' && "bg-blue-50 text-blue-600 border-blue-200"
                           )}
                           data-editable
