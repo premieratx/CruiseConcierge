@@ -11,6 +11,26 @@ import compression from "compression";
 
 const app = express();
 
+// CRITICAL: Process-level error handlers prevent complete app crashes
+// These catch errors that would otherwise terminate the entire Node.js process
+process.on('uncaughtException', (error: Error) => {
+  console.error('[UNCAUGHT EXCEPTION] Application would have crashed:', {
+    message: error.message,
+    stack: error.stack,
+    timestamp: new Date().toISOString()
+  });
+  // Don't exit - keep the app running
+});
+
+process.on('unhandledRejection', (reason: any, promise: Promise<any>) => {
+  console.error('[UNHANDLED REJECTION] Promise rejection caught:', {
+    reason: reason?.message || reason,
+    stack: reason?.stack,
+    timestamp: new Date().toISOString()
+  });
+  // Don't exit - keep the app running
+});
+
 // Configure trust proxy for correct IP detection behind reverse proxy/CDN
 app.set('trust proxy', true);
 
