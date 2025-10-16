@@ -1204,14 +1204,14 @@ ${JSON.stringify(TESTIMONIALS_REVIEW_SCHEMA, null, 2)}
     const host = req.get('host') || 'premierpartycruises.com';
     const canonicalUrl = `${protocol}://${host}${pathname}`;
     
-    // Build head injection with critical CSS and React Refresh preamble
-    const reactPreamble = `  <script type="module">
+    // Build head injection with critical CSS and React Refresh preamble (dev only)
+    const reactPreamble = isDevelopment ? `  <script type="module">
 import RefreshRuntime from "/@react-refresh"
 RefreshRuntime.injectIntoGlobalHook(window)
 window.$RefreshReg$ = () => {}
 window.$RefreshSig$ = () => (type) => type
 window.__vite_plugin_react_preamble_installed__ = true
-</script>`;
+</script>` : '';
     
     const headInjection = [
       reactPreamble,
