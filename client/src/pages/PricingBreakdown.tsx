@@ -215,9 +215,15 @@ const discoVsPrivateComparison: ComparisonRow[] = [
 ];
 
 const comparisonColumns: ComparisonColumn[] = [
-  { key: 'feature', label: 'Feature', align: 'left' },
-  { key: 'disco', label: 'ATX Disco Cruise', align: 'center', highlight: true },
-  { key: 'private', label: 'Private Cruise', align: 'center' }
+  { 
+    id: 'disco', 
+    title: 'ATX Disco Cruise',
+    recommended: true
+  },
+  { 
+    id: 'private', 
+    title: 'Private Cruise'
+  }
 ];
 
 export default function PricingBreakdown() {
@@ -300,7 +306,7 @@ export default function PricingBreakdown() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <ComparisonTable 
+                  <ComparisonTable2 
                     columns={comparisonColumns}
                     rows={discoVsPrivateComparison}
                     data-testid="comparison-disco-private"
@@ -310,7 +316,7 @@ export default function PricingBreakdown() {
 
               {/* DiscoVsPrivateComparison Widget */}
               <div className="mb-8">
-                <DiscoVsPrivateComparison />
+                <DiscoVsPrivateComparison2 />
               </div>
 
               {/* Quick Price Reference */}
@@ -447,7 +453,7 @@ export default function PricingBreakdown() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <PricingTable type="disco" />
+                  <PricingTable2 variant="disco" />
                 </CardContent>
               </Card>
             </motion.div>
@@ -523,7 +529,7 @@ export default function PricingBreakdown() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <PricingTable type="private" />
+                  <PricingTable2 variant="private" />
                 </CardContent>
               </Card>
 
@@ -568,7 +574,7 @@ export default function PricingBreakdown() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <DiscoVsPrivateValueCalculator />
+                  <DiscoVsPrivateValueCalculator2 />
                 </CardContent>
               </Card>
 
