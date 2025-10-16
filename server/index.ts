@@ -405,6 +405,32 @@ Crawl-delay: 1`;
     });
   }
 
+  // CRITICAL: Global error handler middleware - MUST be after all routes
+  // This prevents unhandled errors from crashing the entire application
+  app.use((err: any, req: Request, res: Response, next: NextFunction) => {
+    // Log the error for debugging
+    console.error('[ERROR HANDLER]', {
+      message: err.message,
+      stack: err.stack,
+      path: req.path,
+      method: req.method,
+      timestamp: new Date().toISOString()
+    });
+    
+    // Don't send error if response already sent
+    if (res.headersSent) {
+      return next(err);
+    }
+    
+    // Send graceful error response instead of crashing
+    res.status(err.status || 500).json({
+      error: 'Internal server error',
+      message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong',
+      path: req.path,
+      timestamp: new Date().toISOString()
+    });
+  });
+
   // ALWAYS serve the app on the port specified in the environment variable PORT
   // Other ports are firewalled. Default to 5000 if not specified.
   // this serves both the API and the client.
