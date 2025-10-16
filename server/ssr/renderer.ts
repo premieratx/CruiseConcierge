@@ -14,7 +14,9 @@ const __dirname = path.dirname(__filename);
 let cachedTemplate: string | null = null;
 // CRITICAL FIX: Use correct path for production vs development
 // In production, use process.cwd() because __dirname is different in bundled code
-const isDevelopment = process.env.NODE_ENV === 'development';
+// Check if production build exists to auto-detect mode (fallback if NODE_ENV not set correctly)
+const productionBuildExists = fs.existsSync(path.resolve(process.cwd(), 'dist/public/index.html'));
+const isDevelopment = process.env.NODE_ENV === 'development' || !productionBuildExists;
 const templatePath = isDevelopment 
   ? path.resolve(__dirname, '../../client/index.html')
   : path.resolve(process.cwd(), 'dist/public/index.html');
