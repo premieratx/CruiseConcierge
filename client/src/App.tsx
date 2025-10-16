@@ -114,6 +114,7 @@ const Sweet16 = lazy(() => import("./pages/Sweet16"));
 
 // Special Event Pages - Lazy loaded
 const GraduationParty = lazy(() => import("./pages/GraduationParty"));
+const Faq = lazy(() => import("./pages/Faq"));
 
 // Customer Portal Pages - Lazy loaded
 const PortalLogin = lazy(() => import("./pages/PortalLogin"));
@@ -184,6 +185,7 @@ function Router() {
       
       {/* Special Event Pages */}
       <Route path="/graduation-party" component={GraduationParty} />
+      <Route path="/faq" component={Faq} />
       
       {/* Public Booking - Commented out, using /chat instead */}
       {/* <Route path="/calendar" component={PublicCalendar} /> */}
