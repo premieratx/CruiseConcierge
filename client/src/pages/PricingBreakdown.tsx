@@ -103,7 +103,9 @@ const privateCruisePackages = [
   {
     id: 'standard',
     name: 'Standard Private Cruise',
-    price: 200,
+    price: 800,
+    baseHourlyRate: 200,
+    addOnFee: 0,
     description: 'Essential cruise experience',
     features: [
       'Amazing, experienced captain',
@@ -114,12 +116,14 @@ const privateCruisePackages = [
       'Plenty of sun & shade areas'
     ],
     icon: Ship,
-    badge: '$200/hour - 4-hour minimum = $800'
+    badge: '$200/hour × 4 hours = $800'
   },
   {
     id: 'essentials',
     name: 'Private Plus Essentials',
-    price: 225,
+    price: 900,
+    baseHourlyRate: 200,
+    addOnFee: 100,
     description: 'Complete convenience package',
     features: [
       'Everything from Standard Cruise',
@@ -135,7 +139,9 @@ const privateCruisePackages = [
   {
     id: 'ultimate',
     name: 'Private with Ultimate Package',
-    price: 250,
+    price: 1050,
+    baseHourlyRate: 200,
+    addOnFee: 250,
     description: 'Complete party experience',
     features: [
       'Everything from Essentials Package',
@@ -148,7 +154,7 @@ const privateCruisePackages = [
       '3 disco balls installed for party atmosphere'
     ],
     icon: Star,
-    badge: '$250/hour - 4-hour minimum = $1,000'
+    badge: '$800 base + $250 package = $1,050'
   }
 ];
 
