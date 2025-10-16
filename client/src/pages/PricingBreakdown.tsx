@@ -15,10 +15,10 @@ import {
   TrendingUp, ArrowRight
 } from 'lucide-react';
 import Footer from '@/components/Footer';
-import { PricingTable } from '@/components/PricingTable';
-import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
-import DiscoVsPrivateComparison from '@/components/DiscoVsPrivateComparison';
-import DiscoVsPrivateValueCalculator from '@/components/DiscoVsPrivateValueCalculator';
+import { PricingTable2 } from '@/components/PricingTable2';
+import { ComparisonTable2, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable2';
+import DiscoVsPrivateComparison2 from '@/components/DiscoVsPrivateComparison2';
+import DiscoVsPrivateValueCalculator2 from '@/components/DiscoVsPrivateValueCalculator2';
 import Breadcrumb from '@/components/Breadcrumb';
 import { DISCO_PRICING, PRIVATE_CRUISE_PRICING, BOATS } from '@shared/constants';
 
@@ -158,51 +158,59 @@ const privateCruisePackages = [
 const discoVsPrivateComparison: ComparisonRow[] = [
   {
     feature: 'Cost per Person',
-    disco: '$65-$95',
-    private: '$150-$400+',
-    winner: 'disco'
+    values: [
+      { text: '$65-$95', highlight: true },
+      '$150-$400+'
+    ]
   },
   {
     feature: 'Group Size',
-    disco: 'Any size (individual tickets)',
-    private: 'Minimum group required',
-    winner: 'disco'
+    values: [
+      { text: 'Any size (individual tickets)', highlight: true },
+      'Minimum group required'
+    ]
   },
   {
     feature: 'Privacy',
-    disco: 'Shared with other groups',
-    private: 'Completely private boat',
-    winner: 'private'
+    values: [
+      'Shared with other groups',
+      { text: 'Completely private boat', highlight: true }
+    ]
   },
   {
     feature: 'DJ & Entertainment',
-    disco: 'Professional DJ included',
-    private: 'Optional add-on',
-    winner: 'disco'
+    values: [
+      { text: 'Professional DJ included', highlight: true },
+      'Optional add-on'
+    ]
   },
   {
     feature: 'Photographer',
-    disco: 'Professional photos included',
-    private: 'Optional add-on',
-    winner: 'disco'
+    values: [
+      { text: 'Professional photos included', highlight: true },
+      'Optional add-on'
+    ]
   },
   {
     feature: 'Flexibility',
-    disco: 'Fixed schedule',
-    private: 'Choose your time',
-    winner: 'private'
+    values: [
+      'Fixed schedule',
+      { text: 'Choose your time', highlight: true }
+    ]
   },
   {
     feature: 'Party Atmosphere',
-    disco: 'High energy, multi-group',
-    private: 'Customizable to your group',
-    winner: 'tie'
+    values: [
+      'High energy, multi-group',
+      'Customizable to your group'
+    ]
   },
   {
     feature: 'Best For',
-    disco: 'Bachelor/Bachelorette parties',
-    private: 'Corporate events, families',
-    winner: 'tie'
+    values: [
+      'Bachelor/Bachelorette parties',
+      'Corporate events, families'
+    ]
   }
 ];
 
