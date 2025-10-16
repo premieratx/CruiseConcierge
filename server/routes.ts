@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import Stripe from "stripe";
 import path from "path";
+import { createReadStream, existsSync, statSync } from "fs";
 import { db } from "./db";
 import { eq, desc, and } from "drizzle-orm";
 import passport from "passport";
@@ -2504,7 +2505,7 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
     }
   });
 
-  // Upload media file (admin)
+  // Upload media file (admin) - single file
   app.post('/api/media/admin-upload', requireAdmin, upload.single('file'), async (req, res) => {
     try {
       if (!req.file) {
@@ -2519,6 +2520,46 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
       console.error('Error uploading media:', error);
       res.status(500).json({ 
         error: 'Failed to upload media',
+        message: error instanceof Error ? error.message : 'Unknown error'
+      });
+    }
+  });
+
+  // Bulk upload media files (admin) - multiple files at once
+  app.post('/api/media/bulk-upload', requireAdmin, upload.array('files', 50), async (req, res) => {
+    try {
+      if (!req.files || !Array.isArray(req.files) || req.files.length === 0) {
+        return res.status(400).json({ error: 'No files provided' });
+      }
+      
+      const mediaService = await getMediaLibraryService();
+      const results = [];
+      const errors = [];
+      
+      // Upload each file
+      for (const file of req.files) {
+        try {
+          const result = await mediaService.uploadMedia(file, 'admin');
+          results.push(result);
+        } catch (error) {
+          console.error(`Error uploading file ${file.originalname}:`, error);
+          errors.push({
+            filename: file.originalname,
+            error: error instanceof Error ? error.message : 'Unknown error'
+          });
+        }
+      }
+      
+      res.json({ 
+        success: results.length,
+        failed: errors.length,
+        uploaded: results,
+        errors: errors
+      });
+    } catch (error) {
+      console.error('Error in bulk upload:', error);
+      res.status(500).json({ 
+        error: 'Failed to process bulk upload',
         message: error instanceof Error ? error.message : 'Unknown error'
       });
     }
@@ -2670,7 +2711,72 @@ ${JSON.stringify(breadcrumbSchema, null, 2)}
         return res.status(404).json({ error: 'Media item not found' });
       }
       
-      // Get object storage service
+      // Check if file is in local attached_assets folder
+      if (mediaItem.filePath.startsWith('/attached_assets/') || mediaItem.filePath.startsWith('attached_assets/')) {
+        // Serve from local filesystem with path traversal protection
+        const assetsRoot = path.resolve(import.meta.dirname, '..', 'attached_assets');
+        const requestedPath = path.resolve(import.meta.dirname, '..', mediaItem.filePath.replace(/^\//, ''));
+        
+        // Security check: Ensure resolved path is within attached_assets directory
+        // Use path.relative to detect attempts to escape the directory
+        const relativePath = path.relative(assetsRoot, requestedPath);
+        const isInsideRoot = relativePath && 
+                            relativePath !== '.' && 
+                            !relativePath.startsWith('..') && 
+                            !path.isAbsolute(relativePath);
+        
+        if (!isInsideRoot) {
+          console.warn(`[SECURITY] Path traversal attempt blocked: ${mediaItem.filePath} (resolved to: ${requestedPath})`);
+          return res.status(403).json({ error: 'Access denied: Path outside allowed directory' });
+        }
+        
+        if (!existsSync(requestedPath)) {
+          return res.status(404).json({ error: 'Media file not found on filesystem' });
+        }
+        
+        // Additional security: Ensure it's a file, not a directory
+        try {
+          const stats = statSync(requestedPath);
+          if (!stats.isFile()) {
+            console.warn(`[SECURITY] Directory access attempt blocked: ${mediaItem.filePath}`);
+            return res.status(403).json({ error: 'Access denied: Not a file' });
+          }
+        } catch (error) {
+          return res.status(404).json({ error: 'Media file not found' });
+        }
+        
+        // Set appropriate content type
+        const ext = path.extname(requestedPath).toLowerCase();
+        const contentTypes: Record<string, string> = {
+          '.jpg': 'image/jpeg',
+          '.jpeg': 'image/jpeg',
+          '.png': 'image/png',
+          '.gif': 'image/gif',
+          '.webp': 'image/webp',
+          '.mp4': 'video/mp4',
+          '.mov': 'video/quicktime',
+          '.avi': 'video/x-msvideo'
+        };
+        
+        const contentType = contentTypes[ext] || 'application/octet-stream';
+        res.setHeader('Content-Type', contentType);
+        res.setHeader('Cache-Control', 'public, max-age=31536000'); // Cache for 1 year
+        
+        // Stream the file (using validated path)
+        const fileStream = createReadStream(requestedPath);
+        fileStream.pipe(res);
+        
+        fileStream.on('error', (error) => {
+          console.error('Error streaming file:', error);
+          if (!res.headersSent) {
+            res.status(500).json({ error: 'Failed to stream media file' });
+          }
+        });
+        
+        return;
+      }
+      
+      // File is in Object Storage - get signed URL
       const ObjectStorageServiceClass = await getObjectStorageService();
       if (!ObjectStorageServiceClass) {
         return res.status(500).json({ error: 'Object storage not available' });

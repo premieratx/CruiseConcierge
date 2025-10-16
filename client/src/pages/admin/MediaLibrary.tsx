@@ -260,33 +260,50 @@ export default function MediaLibrary() {
     }
   });
 
-  // Upload files
+  // Upload files - using bulk upload endpoint for efficiency
   const uploadFiles = async () => {
     if (!uploadedFiles || uploadedFiles.length === 0) return;
     
     setIsUploading(true);
     try {
-      const uploadPromises = Array.from(uploadedFiles).map(async (file) => {
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('userId', 'admin');
-
-        const response = await fetch('/api/media/admin-upload', {
-          method: 'POST',
-          credentials: 'include', // Use session cookie for auth
-          body: formData
-        });
-
-        if (!response.ok) throw new Error('Upload failed');
-        return response.json();
+      // Use bulk upload endpoint for multiple files
+      const formData = new FormData();
+      Array.from(uploadedFiles).forEach((file) => {
+        formData.append('files', file);
       });
 
-      await Promise.all(uploadPromises);
+      const response = await fetch('/api/media/bulk-upload', {
+        method: 'POST',
+        credentials: 'include',
+        body: formData
+      });
+
+      if (!response.ok) {
+        const error = await response.json();
+        throw new Error(error.message || 'Bulk upload failed');
+      }
+
+      const result = await response.json();
       
-      toast({
-        title: "Upload Successful!",
-        description: `Uploaded ${uploadedFiles.length} file(s). AI analysis in progress...`,
-      });
+      // Show results
+      const successCount = result.success || 0;
+      const failedCount = result.failed || 0;
+      
+      if (successCount > 0) {
+        toast({
+          title: "Upload Successful!",
+          description: `Uploaded ${successCount} file(s) successfully${failedCount > 0 ? `. ${failedCount} failed.` : '. AI analysis in progress...'}`,
+        });
+      }
+      
+      if (failedCount === uploadedFiles.length) {
+        // All failed
+        toast({
+          title: "Upload Failed",
+          description: `All ${failedCount} file(s) failed to upload.`,
+          variant: "destructive",
+        });
+      }
       
       queryClient.invalidateQueries({ queryKey: ['/api/media/library'] });
       setUploadedFiles(null);
