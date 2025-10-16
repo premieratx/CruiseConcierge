@@ -34,6 +34,7 @@ import RelatedLinks from '@/components/RelatedLinks';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 import Breadcrumb from '@/components/Breadcrumb';
 import { FeaturedSnippet } from '@/components/FeaturedSnippet';
+import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
 
 import heroImage1 from '@assets/atx-disco-cruise-party.webp';
 import heroImage2 from '@assets/dancing-party-scene.webp';
@@ -426,6 +427,41 @@ export default function ATXDiscoCruise() {
             </div>
           </div>
         </motion.section>
+
+        {/* Quick Answer Boxes Section */}
+        <section className="py-12 bg-white dark:bg-gray-950">
+          <div className="container mx-auto px-6">
+            <QuickAnswerBoxGroup
+              title="Quick Answers About ATX Disco Cruise"
+              boxes={[
+                {
+                  id: 'food-included',
+                  question: 'Is food included?',
+                  answer: 'Food not included but we make it easy! Pre-order lunch delivery direct to the boat through Party on Delivery. Many groups order tacos, pizzas, or sandwiches delivered right to the marina. Snacks and chips are welcome aboard.',
+                  keywords: ['food', 'lunch delivery', 'Party on Delivery', 'tacos'],
+                  icon: Utensils,
+                  relatedLink: {
+                    href: '#packages',
+                    text: 'View package options'
+                  }
+                },
+                {
+                  id: 'music-type',
+                  question: 'What kind of music is played?',
+                  answer: 'Professional DJ plays crowd-pleasing hits all day! Mix of current top 40, throwback classics, hip-hop, country, and party anthems. DJ takes requests and reads the crowd perfectly. The dance floor energy is incredible with everyone singing along.',
+                  keywords: ['DJ', 'music', 'top 40', 'requests', 'dance floor'],
+                  icon: Music,
+                  relatedLink: {
+                    href: '#whats-included',
+                    text: 'See what\'s included'
+                  }
+                }
+              ]}
+              columns={2}
+              className="max-w-5xl mx-auto"
+            />
+          </div>
+        </section>
 
 
         {/* National Leadership & Market Impact Section */}

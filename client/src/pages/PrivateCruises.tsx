@@ -29,6 +29,7 @@ import RelatedLinks from '@/components/RelatedLinks';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 import Breadcrumb from '@/components/Breadcrumb';
 import { FeaturedSnippet } from '@/components/FeaturedSnippet';
+import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
 
 // Hero images
 import heroImage1 from '@assets/clever-girl-50-person-boat.webp';
@@ -401,6 +402,41 @@ export default function PrivateCruises() {
               transition={{ delay: 0.4 }}
             />
           </div>
+        </div>
+      </section>
+
+      {/* Quick Answer Boxes Section */}
+      <section className="py-12 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <QuickAnswerBoxGroup
+            title="Quick Answers About Private Cruises"
+            boxes={[
+              {
+                id: 'customize-route',
+                question: 'Can we customize our route?',
+                answer: 'Yes! Work with captain to create your perfect route on Lake Travis. Choose specific coves for swimming, scenic spots for photos, or party areas with other boats. Your captain knows all the best spots and will customize based on weather and your preferences.',
+                keywords: ['customize', 'route', 'captain', 'Lake Travis', 'coves'],
+                icon: MapPin,
+                relatedLink: {
+                  href: '#fleet',
+                  text: 'View our fleet options'
+                }
+              },
+              {
+                id: 'life-jackets',
+                question: 'Are life jackets provided?',
+                answer: 'Yes, USCG approved life jackets provided for all guests in various sizes including children and adults. Safety is our top priority with certified captains ensuring proper safety equipment. Life jackets available but not required while seated. Swimming areas supervised by experienced crew.',
+                keywords: ['USCG', 'life jackets', 'safety', 'certified captains'],
+                icon: LifeBuoy,
+                relatedLink: {
+                  href: '/faq#safety',
+                  text: 'Learn about safety measures'
+                }
+              }
+            ]}
+            columns={2}
+            className="max-w-5xl mx-auto"
+          />
         </div>
       </section>
 

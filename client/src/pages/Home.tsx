@@ -72,6 +72,7 @@ import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 import { FeaturedSnippet } from '@/components/FeaturedSnippet';
+import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
 
 // Lazy load heavy components to improve FCP
 const DiscoVsPrivateComparison = lazy(() => import('@/components/DiscoVsPrivateComparison').then(mod => ({ default: mod.DiscoVsPrivateComparison })));
@@ -709,6 +710,52 @@ export default function Home() {
               ✨ <span className="text-brand-blue">Transparent Pricing</span> • No Hidden Fees • <span className="text-brand-blue">Best Value</span> Guaranteed ✨
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Quick Answer Boxes Section */}
+      <section className="py-12 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-6">
+          <QuickAnswerBoxGroup
+            title="Quick Answers About Lake Travis"
+            boxes={[
+              {
+                id: 'parties-good',
+                question: 'Is Lake Travis good for parties?',
+                answer: 'Yes! Lake Travis offers the perfect setting for unforgettable parties with crystal-clear waters, scenic coves, and year-round sunshine. Our party boats feature premium sound systems, spacious decks, and professional crews ensuring safe, memorable celebrations on Austin\'s premier lake destination.',
+                keywords: ['Lake Travis', 'parties', 'party boats', 'Austin'],
+                icon: PartyPopper,
+                relatedLink: {
+                  href: '#services',
+                  text: 'View our party packages'
+                }
+              },
+              {
+                id: 'alcohol-allowed',
+                question: 'Can you bring alcohol on Lake Travis boats?',
+                answer: 'Yes, BYOB is allowed on all our Lake Travis cruises! Bring your favorite beverages - we provide large coolers with ice, cups, and all necessary supplies. Our crews help with loading/unloading, and we can arrange alcohol delivery directly to the boat for your convenience.',
+                keywords: ['BYOB', 'alcohol', 'coolers', 'Lake Travis'],
+                icon: Wine,
+                relatedLink: {
+                  href: '/faq',
+                  text: 'See all FAQs'
+                }
+              },
+              {
+                id: 'distance-austin',
+                question: 'How far is Lake Travis from downtown Austin?',
+                answer: 'Lake Travis is 30-45 minutes from downtown Austin, located northwest of the city. We depart from Anderson Mill Marina (20 minutes closer than other marinas), making it convenient for locals and visitors. Round-trip transportation available from downtown hotels and Airbnbs.',
+                keywords: ['downtown Austin', 'Anderson Mill Marina', 'transportation'],
+                icon: MapPin,
+                relatedLink: {
+                  href: '/contact',
+                  text: 'Get directions'
+                }
+              }
+            ]}
+            columns={3}
+            className="max-w-7xl mx-auto"
+          />
         </div>
       </section>
 

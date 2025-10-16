@@ -33,6 +33,7 @@ import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
 import Breadcrumb from '@/components/Breadcrumb';
 import { FeaturedSnippet, FeaturedSnippetHowTo } from '@/components/FeaturedSnippet';
+import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -497,6 +498,41 @@ export default function BachelorParty() {
               Just <span className="text-brand-blue">SHOW UP & GET DOWN</span> - Everything Included!
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Quick Answer Boxes Section */}
+      <section className="py-12 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-6">
+          <QuickAnswerBoxGroup
+            title="Quick Answers for Bachelor Parties"
+            boxes={[
+              {
+                id: 'start-time',
+                question: 'What time do bachelor party cruises start?',
+                answer: 'Multiple daily departures available: Morning cruises at 10 AM, popular noon departures at 12 PM, and afternoon cruises at 2 PM. Private charters offer flexible start times from 9 AM to sunset, perfect for customizing your bachelor party schedule.',
+                keywords: ['departures', 'morning', 'noon', 'afternoon', 'private charters'],
+                icon: Clock,
+                relatedLink: {
+                  href: '#packages',
+                  text: 'View packages and times'
+                }
+              },
+              {
+                id: 'cooler-allowed',
+                question: 'Can we bring a cooler on the boat?',
+                answer: 'Yes! All boats have large coolers with ice provided. BYOB is encouraged - bring your favorite beverages and we\'ll keep them cold. For disco cruises, higher packages include private coolers. Private charters always include dedicated cooler space for your group.',
+                keywords: ['cooler', 'BYOB', 'ice', 'beverages'],
+                icon: Package,
+                relatedLink: {
+                  href: '/faq',
+                  text: 'See all FAQs'
+                }
+              }
+            ]}
+            columns={2}
+            className="max-w-5xl mx-auto"
+          />
         </div>
       </section>
 

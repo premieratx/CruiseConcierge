@@ -35,6 +35,7 @@ import RelatedLinks from '@/components/RelatedLinks';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 import Breadcrumb from '@/components/Breadcrumb';
 import { FeaturedSnippet } from '@/components/FeaturedSnippet';
+import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -533,6 +534,41 @@ export default function BacheloretteParty() {
               💕 <span className="text-pink-500">Bride Cruises FREE</span> • All-Inclusive • <span className="text-pink-500">Unforgettable Memories</span> 💕
             </p>
           </div>
+        </div>
+      </section>
+
+      {/* Quick Answer Boxes Section */}
+      <section className="py-12 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-6">
+          <QuickAnswerBoxGroup
+            title="Quick Answers for Bachelorette Parties"
+            boxes={[
+              {
+                id: 'decorations-provided',
+                question: 'Do you provide decorations?',
+                answer: 'Basic decorations included with all packages! We provide disco ball cups, bubble guns, and party supplies. Higher packages include personalized items for the bride and premium decorations. You\'re welcome to bring additional custom decorations to personalize your celebration.',
+                keywords: ['decorations', 'disco ball cups', 'bubble guns', 'bride'],
+                icon: Sparkles,
+                relatedLink: {
+                  href: '#whats-included',
+                  text: 'See what\'s included'
+                }
+              },
+              {
+                id: 'bathroom-available',
+                question: 'Is there a bathroom on the boat?',
+                answer: 'Yes, all boats have clean, private restroom facilities onboard for your comfort. Our boats are equipped with flushing toilets and handwashing stations. The restrooms are maintained throughout the cruise and stocked with necessary supplies.',
+                keywords: ['bathroom', 'restroom', 'facilities', 'comfort'],
+                icon: Shield,
+                relatedLink: {
+                  href: '/faq',
+                  text: 'View all FAQs'
+                }
+              }
+            ]}
+            columns={2}
+            className="max-w-5xl mx-auto"
+          />
         </div>
       </section>
 
