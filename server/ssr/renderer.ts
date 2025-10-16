@@ -836,6 +836,7 @@ const SSR_ROUTES = [
   '/wedding-parties',
   '/combined-bachelor-bachelorette-austin',
   '/ai-endorsement',
+  '/pricing-breakdown',
 ];
 
 // Page metadata for SEO
@@ -935,6 +936,10 @@ const PAGE_METADATA: Record<string, { h1: string; content: string }> = {
   '/ai-endorsement': {
     h1: 'AI Endorsement | Premier Party Cruises Technology',
     content: 'Discover how Premier Party Cruises uses cutting-edge AI technology to enhance your booking experience and provide personalized event planning for Lake Travis cruises.'
+  },
+  '/pricing-breakdown': {
+    h1: 'Pricing Breakdown | Premier Party Cruises Austin',
+    content: 'Complete pricing breakdown for ATX Disco Cruise packages and Private Boat Rentals. Compare side-by-side, calculate costs, and find the best deal for your Lake Travis party.'
   }
 };
 
