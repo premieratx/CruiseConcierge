@@ -166,7 +166,7 @@ export const PRIVATE_CRUISE_PACKAGES = {
     packages: {
       standard: {
         id: 'standard-14',
-        name: 'Standard 4-Hour Cruise',
+        name: 'Standard Private Cruise',
         tagline: 'Essential cruise experience',
         description: 'Everything you need for a perfect private cruise experience with professional crew and premium amenities',
         valueProposition: 'Hassle-free cruising with all the essentials included',
@@ -183,7 +183,7 @@ export const PRIVATE_CRUISE_PACKAGES = {
       },
       essentials: {
         id: 'essentials-14',
-        name: '4-Hour Cruise w/Essentials Package',
+        name: 'Private Plus Essentials',
         tagline: 'Complete convenience package',
         description: 'All standard features plus essential refreshments and setup - perfect for worry-free entertaining',
         valueProposition: 'Complete hosting solution with refreshments and setup included',
@@ -195,23 +195,23 @@ export const PRIVATE_CRUISE_PACKAGES = {
           '6-ft folding table for food & drinks'
         ],
         highlights: ['Pre-stocked coolers', 'Fresh water included', 'Setup table provided'],
-        ideal_for: ['Worry-free hosting', 'Food & drink service', 'Convenience-focused events']
+        ideal_for: ['Worry-free hosting', 'Food & drink service', 'Convenience-focused events'],
+        mostPopular: true
       },
       ultimate: {
         id: 'ultimate-14',
-        name: 'Ultimate Disco Party Package',
+        name: 'Private with Ultimate Package',
         tagline: 'Complete party experience',
         description: 'The full party package with entertainment, refreshments, and disco vibes - everything for an unforgettable celebration',
         valueProposition: 'All-inclusive party experience with entertainment and party supplies',
         inclusions: [
           'Everything from Essentials Package',
           '6x20\' giant lily pad float',
-          'Unicorn or ring float for the guest of honor',
+          'Unicorn or ring float for guest of honor',
           '5 disco ball cups & 30 additional solo cups',
           'Bubble gun & 3 bubble wands for fun',
           '20 champagne flutes & 3 fruit juices',
           '2 bottles SPF-50 spray sunscreen',
-          '20 plates, plasticware, & paper towels',
           '3 disco balls installed for party atmosphere'
         ],
         highlights: ['Giant lily pad float', 'Disco party atmosphere', 'Complete entertainment package'],
@@ -796,7 +796,7 @@ export const PRIVATE_CRUISE_PRICING = {
     },
     packages: {
       standard: {
-        name: 'Standard 4-Hour Cruise',
+        name: 'Standard Private Cruise',
         description: 'Essential cruise experience with professional crew and premium amenities',
         addOn: 0, // Base package - no additional cost
         totalPrices: {
@@ -807,25 +807,26 @@ export const PRIVATE_CRUISE_PRICING = {
         }
       },
       essentials: {
-        name: '4-Hour Cruise w/Essentials Package',
+        name: 'Private Plus Essentials',
         description: 'Complete convenience package with refreshments and setup',
-        addOn: 40000, // +$400 total
+        addOn: 10000, // +$100 total ($25/hr × 4 hours)
         totalPrices: {
-          MON_THU: 145900,  // Base:$800+$400, Tax:$99, Gratuity:$160 = $1,459
-          FRIDAY: 171550,   // Base:$1,000+$400, Tax:$115.50, Gratuity:$200 = $1,715.50
-          SATURDAY: 197200, // Base:$1,200+$400, Tax:$132, Gratuity:$240 = $1,972
-          SUNDAY: 197200,   // Base:$1,200+$400, Tax:$132, Gratuity:$240 = $1,972
-        }
+          MON_THU: 110850,  // Base:$800+$100, Tax:$74.25, Gratuity:$160 = $1,134.25
+          FRIDAY: 136500,   // Base:$1,000+$100, Tax:$90.75, Gratuity:$200 = $1,390.75
+          SATURDAY: 162150, // Base:$1,200+$100, Tax:$107.25, Gratuity:$240 = $1,547.25
+          SUNDAY: 162150,   // Base:$1,200+$100, Tax:$107.25, Gratuity:$240 = $1,547.25
+        },
+        mostPopular: true
       },
       ultimate: {
-        name: 'Ultimate Disco Party Package',
+        name: 'Private with Ultimate Package',
         description: 'Complete party experience with entertainment and disco atmosphere',
-        addOn: 100000, // +$1,000 total
+        addOn: 20000, // +$200 total ($50/hr × 4 hours)
         totalPrices: {
-          MON_THU: 210850,  // Base:$800+$1,000, Tax:$148.50, Gratuity:$160 = $2,108.50
-          FRIDAY: 236500,   // Base:$1,000+$1,000, Tax:$165, Gratuity:$200 = $2,365
-          SATURDAY: 262150, // Base:$1,200+$1,000, Tax:$181.50, Gratuity:$240 = $2,621.50
-          SUNDAY: 262150,   // Base:$1,200+$1,000, Tax:$181.50, Gratuity:$240 = $2,621.50
+          MON_THU: 119100,  // Base:$800+$200, Tax:$82.50, Gratuity:$160 = $1,242.50
+          FRIDAY: 144750,   // Base:$1,000+$200, Tax:$99, Gratuity:$200 = $1,499
+          SATURDAY: 170400, // Base:$1,200+$200, Tax:$115.50, Gratuity:$240 = $1,555.50
+          SUNDAY: 170400,   // Base:$1,200+$200, Tax:$115.50, Gratuity:$240 = $1,555.50
         }
       }
     }
