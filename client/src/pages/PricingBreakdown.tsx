@@ -668,6 +668,477 @@ export default function PricingBreakdown() {
             </CardContent>
           </Card>
         </motion.div>
+
+        {/* Separator */}
+        <div className="my-16 border-t-4 border-gray-300"></div>
+
+        {/* Additional Pricing Charts from Bachelorette Page */}
+        <motion.div
+          initial="hidden"
+          animate="visible"
+          variants={fadeInUp}
+          className="space-y-12"
+        >
+          <div className="text-center">
+            <h2 className="text-3xl font-bold mb-4 text-gray-900">
+              All Bachelorette Pricing Charts
+            </h2>
+            <p className="text-lg text-gray-600">
+              Every pricing comparison from our Bachelorette page in one place
+            </p>
+          </div>
+
+          {/* 1. Bachelorette Package Comparison Table */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Bachelorette Package Comparison</CardTitle>
+              <CardDescription>
+                Compare our three bachelorette party packages side-by-side
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <ComparisonTable2
+                columns={[
+                  {
+                    id: 'basic',
+                    title: 'Basic Bach Package',
+                    subtitle: 'Budget-friendly fun',
+                    badge: { text: 'Great Value', variant: 'outline' }
+                  },
+                  {
+                    id: 'disco_queen',
+                    title: 'Disco Queen Package',
+                    subtitle: 'Most Popular Choice',
+                    recommended: true,
+                    badge: { text: 'Bride Cruises FREE!', variant: 'default' }
+                  },
+                  {
+                    id: 'platinum',
+                    title: 'Platinum Package',
+                    subtitle: 'All-inclusive luxury'
+                  }
+                ]}
+                rows={[
+                  {
+                    feature: 'Price per Person',
+                    values: [
+                      '$85',
+                      { text: '$95', highlight: true },
+                      '$125'
+                    ]
+                  },
+                  {
+                    feature: 'Duration',
+                    values: ['4 hours', '4 hours', '4 hours']
+                  },
+                  {
+                    feature: 'Professional DJ',
+                    values: [true, true, true]
+                  },
+                  {
+                    feature: 'Professional Photographer',
+                    values: [true, true, true]
+                  },
+                  {
+                    feature: 'Giant Unicorn Float',
+                    values: [true, true, true]
+                  },
+                  {
+                    feature: 'Cooler Service',
+                    values: ['Shared cooler', 'Private cooler for group', 'Pre-stocked cooler']
+                  },
+                  {
+                    feature: 'Special Perks',
+                    values: [
+                      'BYOB',
+                      'Disco cups & bubble gun',
+                      'Mimosa bar setup'
+                    ]
+                  },
+                  {
+                    feature: 'Food/Drink Delivery',
+                    values: ['Available', 'Complimentary', 'Complimentary + $100 voucher']
+                  },
+                  {
+                    feature: 'Transportation Discount',
+                    values: [false, '25% off', '25% off']
+                  },
+                  {
+                    feature: 'Best For',
+                    values: [
+                      'Budget-conscious groups',
+                      { text: 'Groups of 8-20', highlight: true },
+                      'VIP experience seekers'
+                    ]
+                  }
+                ]}
+              />
+            </CardContent>
+          </Card>
+
+          {/* 2. Large Disco vs Private Features Table */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Disco Cruise vs Private Cruise: What's Included</CardTitle>
+              <CardDescription>
+                Detailed feature comparison between our two cruise types
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="overflow-x-auto">
+                <table className="w-full">
+                  <thead className="bg-gray-100 dark:bg-gray-800">
+                    <tr>
+                      <th className="px-6 py-4 text-left text-sm font-bold text-gray-900 dark:text-white">
+                        What's Included
+                      </th>
+                      <th className="px-6 py-4 text-center text-sm font-bold text-purple-600 dark:text-purple-400">
+                        <div className="flex items-center justify-center gap-2">
+                          <Disc3 className="h-5 w-5" />
+                          Disco Cruise
+                        </div>
+                      </th>
+                      <th className="px-6 py-4 text-center text-sm font-bold text-blue-600 dark:text-blue-400">
+                        <div className="flex items-center justify-center gap-2">
+                          <Ship className="h-5 w-5" />
+                          Private Cruise
+                        </div>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                    <tr>
+                      <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Professional DJ</td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                      <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Professional Photographer</td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                      <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Private Cooler with Ice</td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Mimosa Supplies (Juice, Fruit, Champagne Flutes)</td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                      <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Multiple Lily Pad Floats (3 huge 6x20')</td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                      <td className="px-6 py-4 text-center text-xs text-gray-500">Add-on: $100/hr</td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Party Supplies (Cups, Koozies, Name Tags, Bubbles)</td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                      <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Ice Water Stations</td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Clean Restroom Facilities</td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Plenty of Shade Coverage</td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Private Boat Charter (Entire Boat for Your Group)</td>
+                      <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Captain & Crew Included</td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Custom Playlist & Music Control</td>
+                      <td className="px-6 py-4 text-center text-xs text-gray-500">DJ Curated</td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Flexible Departure Times</td>
+                      <td className="px-6 py-4 text-center text-xs text-gray-500">Set Schedule</td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                    <tr>
+                      <td className="px-6 py-4 text-sm text-gray-900 dark:text-gray-300">Bring Your Own Decorations</td>
+                      <td className="px-6 py-4 text-center"><X className="h-5 w-5 text-gray-400 mx-auto" /></td>
+                      <td className="px-6 py-4 text-center"><Check className="h-5 w-5 text-green-500 mx-auto" /></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+
+              {/* Price Range Comparison */}
+              <div className="grid md:grid-cols-2 divide-x divide-gray-200 dark:divide-gray-700 bg-gray-50 dark:bg-gray-800 mt-6">
+                <div className="px-6 py-6 text-center">
+                  <h3 className="text-lg font-bold text-purple-600 dark:text-purple-400 mb-2">Disco Cruise</h3>
+                  <p className="text-3xl font-bold text-gray-900 dark:text-white">$85-$105</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">per person (4 hours)</p>
+                  <p className="text-xs text-gray-500 mt-2">Best for groups of 10-50</p>
+                </div>
+                <div className="px-6 py-6 text-center">
+                  <h3 className="text-lg font-bold text-blue-600 dark:text-blue-400 mb-2">Private Cruise</h3>
+                  <p className="text-3xl font-bold text-gray-900 dark:text-white">Starting at $200/hour</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">(3-4 hr minimum)</p>
+                  <p className="text-xs text-gray-500 mt-2">Best for groups of 6-75</p>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* 3. Bachelorette Disco Package Cards */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Bachelorette Disco Cruise Packages</CardTitle>
+              <CardDescription>
+                Three package tiers for bachelorette parties - Bride cruises FREE with Disco Queen & Platinum!
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-3 gap-6">
+                {/* Basic Bach Package */}
+                <div className="border-2 rounded-lg p-6 space-y-4">
+                  <div className="text-center">
+                    <Disc3 className="h-12 w-12 mx-auto text-pink-500 mb-4" />
+                    <h3 className="text-2xl font-bold mb-2">Basic Bach Package</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                      Budget-friendly fun
+                    </p>
+                    <div className="text-3xl font-bold mb-2">$85/person</div>
+                    <div className="text-lg text-green-600 font-semibold">$109 with tax & tip</div>
+                  </div>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Join the BEST bachelorette party on Lake Travis</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>BYOB with shared cooler and ice</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Professional DJ and photographer included</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Giant floats and party atmosphere</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Disco Queen Package */}
+                <div className="border-4 border-pink-400 rounded-lg p-6 space-y-4 relative shadow-xl">
+                  <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-pink-500 text-white">
+                    MOST POPULAR
+                  </Badge>
+                  <Badge className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white text-xs">
+                    BRIDE FREE!
+                  </Badge>
+                  <div className="text-center mt-4">
+                    <Crown className="h-12 w-12 mx-auto text-pink-500 mb-4" />
+                    <h3 className="text-2xl font-bold mb-2">Disco Queen Package</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                      Most Popular Choice
+                    </p>
+                    <div className="text-3xl font-bold mb-2">$95/person</div>
+                    <div className="text-lg text-green-600 font-semibold">$122 with tax & tip</div>
+                    <div className="text-sm text-gray-400 line-through">was $125</div>
+                  </div>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>🎉 BRIDE CRUISES FREE with this package!</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Private cooler with ice for your group</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Disco ball cup & bubble gun for bride</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Complimentary alcohol & lunch delivery</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>25% discount on round-trip transportation</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Platinum Package */}
+                <div className="border-2 rounded-lg p-6 space-y-4">
+                  <Badge className="absolute -top-8 left-1/2 transform -translate-x-1/2 bg-purple-600 text-white text-xs">
+                    BRIDE FREE!
+                  </Badge>
+                  <div className="text-center mt-4">
+                    <Trophy className="h-12 w-12 mx-auto text-pink-500 mb-4" />
+                    <h3 className="text-2xl font-bold mb-2">Super Sparkle Platinum</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                      All-inclusive luxury
+                    </p>
+                    <div className="text-3xl font-bold mb-2">$125/person</div>
+                    <div className="text-lg text-green-600 font-semibold">$135 with tax & tip</div>
+                    <div className="text-sm text-gray-400 line-through">was $140</div>
+                  </div>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>🎉 BRIDE CRUISES FREE with this package!</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Personal unicorn float for the bride</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Mimosa setup with flutes, juices & chambong</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Cooler pre-stocked with drinks on arrival</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Everything from Disco Queen Package</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* 4. Bachelorette Private Package Cards */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Private Cruise Options for Bachelorette Parties</CardTitle>
+              <CardDescription>
+                Want your own private boat? Choose from our three package tiers - all 4-hour cruises on our 14-person boat
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="grid md:grid-cols-3 gap-6">
+                {/* Standard Private Cruise */}
+                <div className="border-2 rounded-lg p-6 space-y-4">
+                  <div className="text-center">
+                    <Package className="h-12 w-12 mx-auto text-blue-600 mb-4" />
+                    <h3 className="text-2xl font-bold mb-2">Standard Private Cruise</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                      Essential cruise experience
+                    </p>
+                    <div className="text-3xl font-bold mb-2">$200/hour</div>
+                    <div className="text-sm text-gray-500">4-hour minimum = $800</div>
+                  </div>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Amazing, experienced captain</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>2 large empty coolers (bring your own ice & drinks)</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Premium Bluetooth speaker system</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Clean restroom facilities</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Comfortable seating for 14 guests</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Private Plus Essentials */}
+                <div className="border-4 border-yellow-400 rounded-lg p-6 space-y-4 shadow-lg">
+                  <Badge className="mb-2">MOST POPULAR</Badge>
+                  <div className="text-center">
+                    <Gift className="h-12 w-12 mx-auto text-blue-600 mb-4" />
+                    <h3 className="text-2xl font-bold mb-2">Private Plus Essentials</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                      Complete convenience package
+                    </p>
+                    <div className="text-3xl font-bold mb-2">$225/hour</div>
+                    <div className="text-sm text-gray-500">4-hour minimum = $900</div>
+                  </div>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span className="font-semibold">Everything from Standard Cruise</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Insulated 5-gallon dispenser with ice water</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>15 gallons of fresh water & 30 solo cups</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Coolers pre-stocked with 40lbs of ice</span>
+                    </li>
+                  </ul>
+                </div>
+
+                {/* Private with Ultimate Package */}
+                <div className="border-2 rounded-lg p-6 space-y-4">
+                  <div className="text-center">
+                    <Crown className="h-12 w-12 mx-auto text-blue-600 mb-4" />
+                    <h3 className="text-2xl font-bold mb-2">Private with Ultimate Package</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
+                      Complete party experience
+                    </p>
+                    <div className="text-3xl font-bold mb-2">$250/hour</div>
+                    <div className="text-sm text-gray-500">4-hour minimum = $1,000</div>
+                  </div>
+                  <ul className="space-y-2 text-sm">
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span className="font-semibold">Everything from Essentials Package</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>6x20' giant lily pad float</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>Unicorn or ring float for guest of honor</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>5 disco ball cups & bubble gun</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <Check className="h-4 w-4 text-green-500 mt-0.5" />
+                      <span>20 champagne flutes & 3 fruit juices</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </motion.div>
       </div>
 
       <Footer />
