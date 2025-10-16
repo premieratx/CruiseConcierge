@@ -128,7 +128,7 @@ export default function Contact() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead 
         pageRoute="/contact"
-        defaultTitle="Contact Us | Premier Party Cruises"
+        defaultTitle="Contact Us"
         defaultDescription="Book Lake Travis party boats. Call (512) 488-5892. Bachelor parties, corporate events, private charters. Instant quotes available."
         defaultKeywords={[
           'contact premier party cruises',

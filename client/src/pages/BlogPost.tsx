@@ -300,7 +300,7 @@ export default function BlogPostPage() {
       <ClientOnly><PublicNavigation /></ClientOnly>
       <SEOHead 
         pageRoute={`/blog/${slug}`}
-        defaultTitle={post.metaTitle || post.title || "Blog Post"}
+        defaultTitle={(post.metaTitle || post.title || "Blog Post").replace(/\s*\|\s*Premier Party Cruises.*$/i, '')}
         defaultDescription={post.metaDescription || post.excerpt || ""}
         defaultKeywords={post.focusKeyphrase ? [post.focusKeyphrase, ...tags.map(t => t.name)] : tags.map(t => t.name)}
         customSchema={combinedSchemas}

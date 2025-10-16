@@ -297,9 +297,9 @@ export default function PrivateCruises() {
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-800">
       <SEOHead 
-        title="Private Boat Cruises Lake Travis Austin | Premier Party Cruises"
-        description="Book exclusive private boat charters on Lake Travis Austin. USCG licensed captains, flexible schedules, BYOB friendly. Perfect for corporate events, weddings, birthdays. Starting at $200/hr."
-        path="/private-cruises"
+        pageRoute="/private-cruises"
+        defaultTitle="Private Boat Cruises Lake Travis Austin"
+        defaultDescription="Book exclusive private boat charters on Lake Travis Austin. USCG licensed captains, flexible schedules, BYOB friendly. Perfect for corporate events, weddings, birthdays. Starting at $200/hr."
       />
       
       <PublicNavigation />

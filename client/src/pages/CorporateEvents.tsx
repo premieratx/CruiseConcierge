@@ -319,7 +319,7 @@ export default function CorporateEvents() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead 
         pageRoute="/corporate-events"
-        defaultTitle="Corporate Events | Premier Party Cruises"
+        defaultTitle="Corporate Events"
         defaultDescription="Lake Travis corporate cruises. Team building, client entertainment, company celebrations. Tax-deductible. Call (512) 488-5892."
         defaultKeywords={[
           'corporate cruise austin',

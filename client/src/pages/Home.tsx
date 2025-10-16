@@ -504,7 +504,7 @@ export default function Home() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead
         pageRoute="/"
-        defaultTitle="Party Boat Austin | Premier Party Cruises"
+        defaultTitle="Party Boat Austin"
         defaultDescription="Lake Travis party boats since 2009. ATX Disco Cruise, bachelor parties, private charters. 100K+ guests. Call (512) 488-5892."
         defaultKeywords={['party boat Austin', 'bachelorette party Austin', 'Austin boat rental', 'Lake Travis party boat', 'bachelor party Austin']}
         schemaType="organization"

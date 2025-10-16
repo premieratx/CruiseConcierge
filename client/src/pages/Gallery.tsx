@@ -142,7 +142,7 @@ export default function Gallery() {
     <div className="min-h-screen bg-white dark:bg-gray-950">
       <SEOHead 
         pageRoute="/gallery"
-        defaultTitle="Gallery | Premier Party Cruises Photos"
+        defaultTitle="Gallery"
         defaultDescription="View stunning Lake Travis party boat photos. Real celebrations, fleet tours, bachelor parties. See the fun before you book!"
         defaultKeywords={[
           'premier party cruises photos',
