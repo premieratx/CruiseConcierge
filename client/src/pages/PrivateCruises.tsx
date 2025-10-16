@@ -32,6 +32,8 @@ import { FeaturedSnippet } from '@/components/FeaturedSnippet';
 import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
 import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
+import { WhatToBring } from '@/components/WhatToBring';
+import { PricingTable } from '@/components/PricingTable';
 
 // Hero images
 import heroImage1 from '@assets/clever-girl-50-person-boat.webp';
@@ -1054,6 +1056,18 @@ export default function PrivateCruises() {
             Get Your Custom Quote Now
             <ArrowRight className="ml-3 h-6 w-6" />
           </Button>
+        </div>
+      </section>
+
+      {/* What to Bring Section */}
+      <section className="py-20 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <WhatToBring
+            variant="private"
+            title="What to Bring on Your Private Cruise"
+            description="Everything you need for a perfect custom celebration on Lake Travis"
+            className="max-w-7xl mx-auto"
+          />
         </div>
       </section>
 

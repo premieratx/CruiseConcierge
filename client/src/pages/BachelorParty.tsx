@@ -36,6 +36,8 @@ import { FeaturedSnippet, FeaturedSnippetHowTo } from '@/components/FeaturedSnip
 import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
 import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
+import { WhatToBring } from '@/components/WhatToBring';
+import { PricingTable } from '@/components/PricingTable';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -1092,14 +1094,26 @@ export default function BachelorParty() {
                   <TabsTrigger value="private" data-testid="tab-private-packages">Private Cruise Packages</TabsTrigger>
                 </TabsList>
 
-                {/* Existing Disco Packages Content */}
+                {/* Enhanced Disco Packages with Pricing Table */}
                 <TabsContent value="disco">
-                  <div className="max-w-6xl mx-auto">
+                  <div className="max-w-7xl mx-auto">
                     <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelor-packages-title">
                       Choose Your Bachelor Party Package
                     </h2>
                     
-                    <div className="grid md:grid-cols-3 gap-6 mb-8">
+                    {/* Use PricingTable for Disco packages */}
+                    <PricingTable
+                      packages={discoPackages.map(pkg => ({
+                        ...pkg,
+                        ctaLink: '/book'
+                      }))}
+                      variant="disco"
+                      showTaxAndGratuity={true}
+                      showDeposit={true}
+                    />
+
+                    {/* Keep the original display hidden for backward compatibility */}
+                    <div className="hidden">
                       {discoPackages.map((pkg) => (
                         <Card 
                           key={pkg.id} 
@@ -1174,15 +1188,25 @@ export default function BachelorParty() {
                   </div>
                 </TabsContent>
 
-                {/* New Private Packages Content */}
+                {/* Enhanced Private Packages with Pricing Table */}
                 <TabsContent value="private">
-                  <div className="max-w-6xl mx-auto">
+                  <div className="max-w-7xl mx-auto">
                     <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4">
-                      Private Cruise Options for Bach Parties
+                      Private Cruise Options for Bachelor Parties
                     </h3>
                     <p className="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
-                      Want your own private boat? Choose from our three package tiers - all 4-hour cruises on our 14-person boat.
+                      Want your own private boat? Choose from our three package tiers - all 4-hour cruises starting from $200/hour.
                     </p>
+
+                    {/* Use PricingTable for Private packages */}
+                    <PricingTable
+                      variant="private"
+                      dayType="weekend"
+                      groupSize={20}
+                      duration={4}
+                      showTaxAndGratuity={true}
+                      showDeposit={true}
+                    />
 
                     <div className="grid md:grid-cols-3 gap-8">
                       {/* Standard Package - $200/hr */}
@@ -1895,6 +1919,25 @@ export default function BachelorParty() {
               </Button>
               <p className="text-white/80 mt-4">Weekends sell out 4-6 weeks in advance - don't miss out!</p>
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* What to Bring Section */}
+      <section className="py-20 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={reducedMotion ? false : "hidden"}
+            whileInView={reducedMotion ? undefined : "visible"}
+            viewport={reducedMotion ? undefined : { once: true }}
+            variants={reducedMotion ? undefined : fadeInUp}
+          >
+            <WhatToBring
+              variant="bachelor"
+              title="What to Bring on Your Bachelor Party Cruise"
+              description="Everything you need for the perfect day on Lake Travis"
+              className="max-w-7xl mx-auto"
+            />
           </motion.div>
         </div>
       </section>

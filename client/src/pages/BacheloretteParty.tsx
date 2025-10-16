@@ -38,6 +38,8 @@ import { FeaturedSnippet } from '@/components/FeaturedSnippet';
 import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
 import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
+import { WhatToBring } from '@/components/WhatToBring';
+import { PricingTable } from '@/components/PricingTable';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -2132,6 +2134,25 @@ export default function BacheloretteParty() {
               </Button>
               <p className="text-white/80 mt-4">Weekends sell out 4-6 weeks in advance - don't miss out!</p>
             </div>
+          </motion.div>
+        </div>
+      </section>
+
+      {/* What to Bring Section */}
+      <section className="py-20 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial={reducedMotion ? false : "hidden"}
+            whileInView={reducedMotion ? undefined : "visible"}
+            viewport={reducedMotion ? undefined : { once: true }}
+            variants={reducedMotion ? undefined : fadeInUp}
+          >
+            <WhatToBring
+              variant="bachelorette"
+              title="What to Bring on Your Bachelorette Party Cruise"
+              description="Everything you need for an amazing day celebrating on Lake Travis"
+              className="max-w-7xl mx-auto"
+            />
           </motion.div>
         </div>
       </section>

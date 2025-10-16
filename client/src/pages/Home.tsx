@@ -65,6 +65,7 @@ import Image from 'lucide-react/dist/esm/icons/image';
 import Bot from 'lucide-react/dist/esm/icons/bot';
 import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
+import { PricingTable } from '@/components/PricingTable';
 import SEOHead from '@/components/SEOHead';
 import { Endorsement } from '@shared/schema';
 import { QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
@@ -2440,6 +2441,225 @@ export default function Home() {
           }
         })
       }} />
+
+      {/* Comprehensive Pricing Section */}
+      <section className="py-24 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerChildren}
+            className="text-center mb-16"
+          >
+            <motion.div variants={fadeInUp}>
+              <Badge className="mb-4" variant="secondary">
+                <DollarSign className="w-4 h-4 mr-1" />
+                Transparent Pricing
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+                Compare All Our Services
+              </h2>
+              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+                Find the perfect Lake Travis cruise for your budget and group size
+              </p>
+            </motion.div>
+          </motion.div>
+
+          {/* Overview Pricing Comparison */}
+          <motion.div
+            variants={fadeInUp}
+            className="mb-16"
+          >
+            <PricingTable
+              title="All Services Overview"
+              items={[
+                {
+                  name: 'ATX Disco Cruise',
+                  basePrice: 85,
+                  pricingType: 'person',
+                  description: 'Public party cruises with DJ and dancing',
+                  features: [
+                    'Per-person tickets',
+                    'DJ and dance floor',
+                    'Cash bar available',
+                    '21+ only',
+                    'Singles and groups welcome'
+                  ],
+                  capacity: 'Up to 100 guests',
+                  duration: '3 hours',
+                  priceNote: '$85-105 per person',
+                  ctaText: 'View Schedule',
+                  ctaHref: '/atx-disco-cruise'
+                },
+                {
+                  name: 'Bachelor/Bachelorette',
+                  basePrice: 800,
+                  pricingType: 'package',
+                  description: 'Private parties for celebrations',
+                  features: [
+                    '4-hour minimum',
+                    'Private boat',
+                    'BYOB allowed',
+                    'Custom decorations',
+                    'Party packages available'
+                  ],
+                  capacity: '14-50 guests',
+                  duration: '4+ hours',
+                  priceNote: 'Starting at $800',
+                  ctaText: 'Plan Your Party',
+                  ctaHref: '/bachelor-party',
+                  isPopular: true
+                },
+                {
+                  name: 'Private Cruises',
+                  basePrice: 200,
+                  pricingType: 'hour',
+                  description: 'Fully customizable private charters',
+                  features: [
+                    'Hourly rates',
+                    'Choose your boat',
+                    'Flexible duration',
+                    'All occasions',
+                    'Catering available'
+                  ],
+                  capacity: '14-50 guests',
+                  duration: '4+ hours',
+                  priceNote: '$200-300/hour',
+                  ctaText: 'Customize Cruise',
+                  ctaHref: '/private-cruises'
+                },
+                {
+                  name: 'Corporate Events',
+                  basePrice: 225,
+                  pricingType: 'hour',
+                  description: 'Team building and client entertainment',
+                  features: [
+                    'Professional atmosphere',
+                    'Team building activities',
+                    'Presentation setup',
+                    'Catering options',
+                    'Tax deductible'
+                  ],
+                  capacity: '14-50 guests',
+                  duration: '4+ hours',
+                  priceNote: 'Starting at $225/hr',
+                  ctaText: 'Book Corporate',
+                  ctaHref: '/corporate-events'
+                }
+              ]}
+            />
+          </motion.div>
+
+          {/* Group Size Pricing */}
+          <motion.div
+            variants={fadeInUp}
+            className="mb-16"
+          >
+            <h3 className="text-3xl font-bold text-center mb-8">
+              Private Cruise Pricing by Boat Size
+            </h3>
+            <PricingTable
+              title=""
+              items={[
+                {
+                  name: 'Day Tripper',
+                  basePrice: 800,
+                  pricingType: 'package',
+                  description: 'Perfect for small groups',
+                  features: [
+                    'Up to 14 guests',
+                    '$200/hour',
+                    '4-hour minimum',
+                    'Intimate setting',
+                    'Easy to customize'
+                  ],
+                  capacity: '14 guests max',
+                  duration: '4 hours minimum',
+                  priceNote: '4 hours: $800',
+                  ctaText: 'Book Day Tripper',
+                  ctaHref: '/private-cruises'
+                },
+                {
+                  name: 'Meeseeks',
+                  basePrice: 900,
+                  pricingType: 'package',
+                  description: 'Great for medium groups',
+                  features: [
+                    'Up to 25 guests',
+                    '$225/hour',
+                    '4-hour minimum',
+                    'More deck space',
+                    'Enhanced sound system'
+                  ],
+                  capacity: '25 guests max',
+                  duration: '4 hours minimum',
+                  priceNote: '4 hours: $900',
+                  ctaText: 'Book Meeseeks',
+                  ctaHref: '/private-cruises',
+                  isPopular: true
+                },
+                {
+                  name: 'Clever Girl',
+                  basePrice: 1200,
+                  pricingType: 'package',
+                  description: 'Ideal for large celebrations',
+                  features: [
+                    'Up to 50 guests',
+                    '$300/hour',
+                    '4-hour minimum',
+                    'Multiple decks',
+                    'Premium amenities'
+                  ],
+                  capacity: '50 guests max',
+                  duration: '4 hours minimum',
+                  priceNote: '4 hours: $1,200',
+                  ctaText: 'Book Clever Girl',
+                  ctaHref: '/private-cruises'
+                }
+              ]}
+            />
+          </motion.div>
+
+          {/* Peak vs Off-Peak Pricing Note */}
+          <motion.div
+            variants={fadeInUp}
+            className="text-center p-8 bg-gray-50 dark:bg-gray-900 rounded-xl"
+          >
+            <h3 className="text-2xl font-bold mb-4">
+              Seasonal Pricing Information
+            </h3>
+            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
+              <div className="text-left">
+                <h4 className="font-semibold mb-2 flex items-center">
+                  <Sun className="w-5 h-5 mr-2 text-yellow-500" />
+                  Peak Season (May - September)
+                </h4>
+                <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                  <li>• Weekend rates may be 20% higher</li>
+                  <li>• Holidays have premium pricing</li>
+                  <li>• Book 2-3 weeks in advance</li>
+                </ul>
+              </div>
+              <div className="text-left">
+                <h4 className="font-semibold mb-2 flex items-center">
+                  <Sparkles className="w-5 h-5 mr-2 text-blue-500" />
+                  Off-Peak Season (October - April)
+                </h4>
+                <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
+                  <li>• Standard rates apply</li>
+                  <li>• More availability</li>
+                  <li>• Weather permitting</li>
+                </ul>
+              </div>
+            </div>
+            <p className="mt-6 text-sm text-gray-500 dark:text-gray-400">
+              All prices subject to 8.25% tax and 20% recommended gratuity. 
+              50% deposit required to secure booking.
+            </p>
+          </motion.div>
+        </div>
+      </section>
 
       {/* Related Services Section */}
       <RelatedServicesSection currentPath="/" />

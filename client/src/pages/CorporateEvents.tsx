@@ -30,6 +30,8 @@ import {
   CheckCircle, X
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
+import { WhatToBring } from '@/components/WhatToBring';
+import { PricingTable } from '@/components/PricingTable';
 
 // Hero and gallery images - reuse from other pages
 import heroImage1 from '@assets/clever-girl-50-person-boat.jpg';
@@ -941,6 +943,25 @@ export default function CorporateEvents() {
               </div>
             </TabsContent>
           </Tabs>
+        </div>
+      </section>
+
+      {/* What to Bring Section */}
+      <section className="py-20 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            variants={fadeInUp}
+          >
+            <WhatToBring
+              variant="corporate"
+              title="What to Bring on Your Corporate Cruise"
+              description="Everything you need for a successful team building event on the water"
+              className="max-w-7xl mx-auto"
+            />
+          </motion.div>
         </div>
       </section>
 

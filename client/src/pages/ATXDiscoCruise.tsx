@@ -37,6 +37,8 @@ import { FeaturedSnippet } from '@/components/FeaturedSnippet';
 import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
 import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
+import { WhatToBring } from '@/components/WhatToBring';
+import { PricingTable } from '@/components/PricingTable';
 
 import heroImage1 from '@assets/atx-disco-cruise-party.webp';
 import heroImage2 from '@assets/dancing-party-scene.webp';
@@ -2612,6 +2614,25 @@ export default function ATXDiscoCruise() {
             ]
           })
         }} />
+
+        {/* What to Bring Section */}
+        <section className="py-20 bg-white dark:bg-gray-950">
+          <div className="container mx-auto px-6">
+            <motion.div
+              initial={reducedMotion ? false : "hidden"}
+              whileInView={reducedMotion ? undefined : "visible"}
+              viewport={reducedMotion ? undefined : { once: true }}
+              variants={reducedMotion ? undefined : fadeInUp}
+            >
+              <WhatToBring
+                variant="disco"
+                title="What to Bring on the ATX Disco Cruise"
+                description="Everything you need for the ultimate party on Lake Travis"
+                className="max-w-7xl mx-auto"
+              />
+            </motion.div>
+          </div>
+        </section>
 
         {/* Related Services Section */}
         <RelatedServicesSection currentPath="/atx-disco-cruise" />
