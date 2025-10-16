@@ -2,13 +2,15 @@ import { db } from '../db';
 import { sql } from 'drizzle-orm';
 
 /**
- * Keepalive Service - Prevents Neon database from going to sleep
+ * Keepalive Service - Prevents Neon database AND application from going dormant
  * 
  * Neon databases on free/scale-to-zero plans go dormant after ~5 minutes of inactivity.
  * This service pings the database every 4 minutes to keep it active and prevent:
  * - Cold start delays (500ms-2s)
  * - Control plane timeout errors
  * - 500 errors on production pages
+ * 
+ * Additionally pings the application's own health endpoint to prevent Replit autoscale sleep.
  */
 export class KeepaliveService {
   private intervalId: NodeJS.Timeout | null = null;
@@ -17,6 +19,7 @@ export class KeepaliveService {
   private pingCount = 0;
   private lastPingTime: Date | null = null;
   private lastError: Error | null = null;
+  private appPingCount = 0;
 
   /**
    * Start the keepalive service
