@@ -425,12 +425,18 @@ export default function BachelorParty() {
           >
             <motion.h1 
               variants={fadeInUp}
-              className="text-2xl md:text-4xl lg:text-6xl font-bold mb-6"
+              className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6"
               data-editable data-editable-id="bachelor-hero-title"
             >
-              The Ultimate Bachelor Party<br/>
-              <span className="text-brand-yellow">Cruise Experience</span>
+              Austin Bachelor Party Boat Rentals
             </motion.h1>
+            
+            <motion.div
+              variants={fadeInUp}
+              className="text-2xl md:text-3xl text-brand-yellow font-semibold mb-6"
+            >
+              Lake Travis Ultimate Cruise Experience
+            </motion.div>
             
             <motion.p 
               variants={fadeInUp}

@@ -604,9 +604,12 @@ export default function Home() {
 
             {/* Main Headline */}
             <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8">
-              <h1 className="text-2xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 leading-tight tracking-wider" data-editable data-editable-id="hero-title">
-                Austin's Premier Party Boat Experience on Lake Travis
+              <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 leading-tight tracking-wider" data-editable data-editable-id="hero-title">
+                Premier Party Cruises
               </h1>
+              <p className="text-xl md:text-2xl lg:text-3xl text-brand-yellow font-semibold" data-editable data-editable-id="hero-tagline">
+                Austin's Ultimate Lake Travis Party Boat Experience Since 2009
+              </p>
             </motion.div>
 
             {/* Subheadline with Pricing Value Proposition */}
@@ -809,12 +812,9 @@ export default function Home() {
             className="text-center mb-20"
           >
             <motion.div variants={fadeInUp}>
-              <h2 className="text-3xl md:text-5xl lg:text-7xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="services-main-title">
-                CHOOSE YOUR
+              <h2 className="text-3xl md:text-5xl lg:text-7xl font-heading font-bold mb-8 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="services-main-title">
+                Choose Your Perfect Experience
               </h2>
-              <h3 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-8 text-brand-blue tracking-wider" data-editable data-editable-id="services-subtitle">
-                PERFECT EXPERIENCE
-              </h3>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="services-description">
                 From intimate celebrations to epic disco parties, we have the perfect cruise experience 
                 for every group size and occasion.
@@ -1081,12 +1081,9 @@ export default function Home() {
             className="text-center mb-20"
           >
             <motion.div variants={fadeInUp}>
-              <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-4 text-gray-900 dark:text-white tracking-wide" data-editable data-editable-id="why-choose-main-title">
-                WHY CHOOSE
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wide" data-editable data-editable-id="why-choose-main-title">
+                Why Choose Premier Party Cruises
               </h2>
-              <h3 className="text-xl md:text-2xl lg:text-3xl font-heading font-bold mb-6 text-brand-yellow tracking-wide" data-editable data-editable-id="why-choose-subtitle">
-                PREMIER PARTY CRUISES
-              </h3>
               <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="why-choose-description">
                 Austin's most trusted party cruise company with unmatched experience, safety, and service.
               </p>
@@ -1320,12 +1317,9 @@ export default function Home() {
             className="text-center mb-16"
           >
             <motion.div variants={fadeInUp}>
-              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="gallery-main-title">
-                EXPERIENCE THE
+              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-8 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="gallery-main-title">
+                Experience the Premier Difference
               </h2>
-              <h3 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-8 text-brand-blue tracking-wider" data-editable data-editable-id="gallery-subtitle">
-                PREMIER DIFFERENCE
-              </h3>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="gallery-description">
                 See why 125,000+ customers choose Premier Party Cruises for their unforgettable Lake Travis experience.
               </p>
@@ -1384,12 +1378,9 @@ export default function Home() {
             className="text-center mb-16"
           >
             <motion.div variants={fadeInUp}>
-              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider">
-                COMPARE YOUR OPTIONS
+              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-8 text-gray-900 dark:text-white tracking-wider">
+                Compare Your Options
               </h2>
-              <h3 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-8 text-brand-blue tracking-wider">
-                FIND YOUR PERFECT CRUISE
-              </h3>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12">
                 Compare our cruise options and boat fleet to find the perfect fit for your celebration
               </p>
@@ -1568,12 +1559,9 @@ export default function Home() {
             className="text-center mb-16"
           >
             <motion.div variants={fadeInUp}>
-              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 tracking-wider" data-editable data-editable-id="testimonials-main-title">
-                WHAT OUR
+              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-8 tracking-wider" data-editable data-editable-id="testimonials-main-title">
+                What Our Customers Say
               </h2>
-              <h3 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-8 text-brand-yellow tracking-wider" data-editable data-editable-id="testimonials-subtitle">
-                CUSTOMERS SAY
-              </h3>
               <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="testimonials-description">
                 Don't just take our word for it - see what makes us Austin's most trusted party cruise company.
               </p>
@@ -1634,12 +1622,9 @@ export default function Home() {
             className="text-center mb-16"
           >
             <motion.div variants={reducedMotion ? undefined : fadeInUp}>
-              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="contact-main-title">
-                READY TO
+              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-8 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="contact-main-title">
+                Ready to Set Sail?
               </h2>
-              <h3 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-8 text-brand-yellow tracking-wider" data-editable data-editable-id="contact-subtitle">
-                SET SAIL?
-              </h3>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12" data-editable data-editable-id="contact-description">
                 Contact us today for a free quote and let's start planning your unforgettable Lake Travis adventure.
               </p>

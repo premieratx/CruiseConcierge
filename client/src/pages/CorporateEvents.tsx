@@ -355,11 +355,12 @@ export default function CorporateEvents() {
           <Badge className="mb-4 bg-brand-blue text-white px-4 py-2 text-sm font-bold">
             PROFESSIONAL CORPORATE CRUISES
           </Badge>
-          <h1 className="text-5xl md:text-7xl font-heading font-black mb-6 tracking-tight" data-editable data-editable-id="h1-corporate-hero">
-            IMPRESS CLIENTS.<br />
-            REWARD YOUR TEAM.<br />
-            <span className="text-brand-yellow">ELEVATE YOUR BUSINESS.</span>
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-black mb-6 tracking-tight" data-editable data-editable-id="h1-corporate-hero">
+            Corporate Event Cruises
           </h1>
+          <p className="text-2xl md:text-3xl text-brand-yellow font-semibold mb-4" data-editable data-editable-id="corporate-hero-tagline">
+            IMPRESS CLIENTS. REWARD YOUR TEAM. ELEVATE YOUR BUSINESS.
+          </p>
           <p className="text-xl md:text-2xl mb-8 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="p-corporate-tagline">
             Tax-deductible business entertainment • Professional service • Unforgettable experiences
           </p>

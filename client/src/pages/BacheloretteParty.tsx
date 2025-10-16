@@ -437,12 +437,18 @@ export default function BacheloretteParty() {
           >
             <motion.h1 
               variants={fadeInUp}
-              className="text-2xl md:text-4xl lg:text-6xl font-bold mb-6"
+              className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6"
               data-editable data-editable-id="bachelorette-hero-title"
             >
-              Austin Bachelorette Party Boat<br/>
-              <span className="text-pink-400">The Ultimate Lake Travis Experience</span>
+              Austin Bachelorette Party Cruises
             </motion.h1>
+            
+            <motion.div
+              variants={fadeInUp}
+              className="text-2xl md:text-3xl text-pink-400 font-semibold mb-6"
+            >
+              The Ultimate Lake Travis Experience
+            </motion.div>
             
             <motion.p 
               variants={fadeInUp}

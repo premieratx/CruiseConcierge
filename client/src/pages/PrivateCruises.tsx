@@ -319,10 +319,11 @@ export default function PrivateCruises() {
               PRIVATE BOAT CHARTERS
             </Badge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-black mb-6 bg-gradient-to-r from-blue-600 via-yellow-500 to-purple-600 bg-clip-text text-transparent">
-              
-                Your Private Boat. Your Rules. Your Lake Travis Adventure.
-              
+              Private Boat Rentals Austin
             </h1>
+            <p className="text-2xl md:text-3xl text-gray-800 dark:text-gray-200 mb-4">
+              Your Private Boat. Your Rules. Your Lake Travis Adventure.
+            </p>
             <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-8">
               
                 Exclusive boat charters for 14-75 guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake.

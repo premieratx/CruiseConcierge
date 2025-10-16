@@ -147,7 +147,7 @@ export default function Contact() {
           <div className="max-w-4xl mx-auto text-center">
             <MessageSquare className="h-20 w-20 text-brand-blue mx-auto mb-8" />
             <h1 className="text-5xl md:text-7xl font-heading font-bold mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="h1-contact-us">
-              Contact Premier Party Cruises - Lake Travis Austin
+              Contact Premier Party Cruises
             </h1>
             <p className="text-xl md:text-2xl mb-12 text-gray-600 dark:text-gray-300" data-editable data-editable-id="p-contact-tagline">
               Ready to plan your Lake Travis adventure? Let's make it happen!
