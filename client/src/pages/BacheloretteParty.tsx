@@ -32,6 +32,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
+import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -1084,10 +1085,104 @@ export default function BacheloretteParty() {
 
             {/* Packages Tab */}
             <TabsContent value="packages" className="mt-8">
+              {/* Package Comparison Table */}
+              <div className="mb-12">
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4">
+                  Compare Bachelorette Packages
+                </h2>
+                <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-8">
+                  Find the perfect package for your bride tribe celebration
+                </p>
+                
+                <div className="max-w-6xl mx-auto">
+                  <ComparisonTable
+                    columns={[
+                      {
+                        id: 'basic',
+                        title: 'Basic Bach Package',
+                        subtitle: 'Budget-friendly fun',
+                        badge: { text: 'Great Value', variant: 'outline' }
+                      },
+                      {
+                        id: 'disco_queen',
+                        title: 'Disco Queen Package',
+                        subtitle: 'Most Popular Choice',
+                        recommended: true,
+                        badge: { text: 'Bride Cruises FREE!', variant: 'default' }
+                      },
+                      {
+                        id: 'platinum',
+                        title: 'Platinum Package',
+                        subtitle: 'All-inclusive luxury'
+                      }
+                    ]}
+                    rows={[
+                      {
+                        feature: 'Price per Person',
+                        values: [
+                          '$85',
+                          { text: '$95', highlight: true },
+                          '$125'
+                        ]
+                      },
+                      {
+                        feature: 'Duration',
+                        values: ['4 hours', '4 hours', '4 hours']
+                      },
+                      {
+                        feature: 'Professional DJ',
+                        values: [true, true, true]
+                      },
+                      {
+                        feature: 'Professional Photographer',
+                        values: [true, true, true]
+                      },
+                      {
+                        feature: 'Giant Unicorn Float',
+                        values: [true, true, true]
+                      },
+                      {
+                        feature: 'Cooler Service',
+                        values: ['Shared cooler', 'Private cooler for group', 'Pre-stocked cooler']
+                      },
+                      {
+                        feature: 'Special Perks',
+                        values: [
+                          'BYOB',
+                          'Disco cups & bubble gun',
+                          'Mimosa bar setup'
+                        ]
+                      },
+                      {
+                        feature: 'Food/Drink Delivery',
+                        values: ['Available', 'Complimentary', 'Complimentary + $100 voucher']
+                      },
+                      {
+                        feature: 'Transportation Discount',
+                        values: [false, '25% off', '25% off']
+                      },
+                      {
+                        feature: 'Best For',
+                        values: [
+                          'Budget-conscious groups',
+                          { text: 'Groups of 8-20', highlight: true },
+                          'VIP experience seekers'
+                        ]
+                      }
+                    ]}
+                    caption="Bachelorette Package Comparison - ATX Disco Cruise"
+                    summary="Compare our three bachelorette party packages to find the perfect fit for your bride tribe celebration on Lake Travis"
+                    mobileView="cards"
+                    schemaType="Service"
+                    ariaLabel="Comparison of ATX Disco Cruise bachelorette party packages"
+                  />
+                </div>
+              </div>
+
               <Tabs defaultValue="disco" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 mb-8">
-                  <TabsTrigger value="disco" data-testid="tab-disco-packages">Disco Cruise Packages</TabsTrigger>
-                  <TabsTrigger value="private" data-testid="tab-private-packages">Private Cruise Packages</TabsTrigger>
+                  <TabsTrigger value="disco" data-testid="tab-disco-packages">Disco Cruise Package Details</TabsTrigger>
+                  <TabsTrigger value="private" data-testid="tab-private-packages">Private Cruise Options</TabsTrigger>
                 </TabsList>
 
                 {/* Existing Disco Packages Content */}

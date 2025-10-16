@@ -70,6 +70,7 @@ import { Endorsement } from '@shared/schema';
 import { QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
+import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 
 // Lazy load heavy components to improve FCP
 const DiscoVsPrivateComparison = lazy(() => import('@/components/DiscoVsPrivateComparison').then(mod => ({ default: mod.DiscoVsPrivateComparison })));
@@ -1369,6 +1370,190 @@ export default function Home() {
               );
             })}
           </div>
+        </div>
+      </section>
+
+      {/* Comparison Tables Section */}
+      <section className="py-24 bg-white dark:bg-gray-800">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={staggerChildren}
+            className="text-center mb-16"
+          >
+            <motion.div variants={fadeInUp}>
+              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wider">
+                COMPARE YOUR OPTIONS
+              </h2>
+              <h3 className="text-2xl md:text-3xl lg:text-5xl font-heading font-bold mb-8 text-brand-blue tracking-wider">
+                FIND YOUR PERFECT CRUISE
+              </h3>
+              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12">
+                Compare our cruise options and boat fleet to find the perfect fit for your celebration
+              </p>
+            </motion.div>
+          </motion.div>
+
+          {/* Disco vs Private Comparison */}
+          <motion.div 
+            variants={fadeInUp}
+            className="mb-16 max-w-5xl mx-auto"
+          >
+            <h3 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">
+              ATX Disco Cruise vs Private Charter
+            </h3>
+            <ComparisonTable
+              columns={[
+                {
+                  id: 'disco',
+                  title: 'ATX Disco Cruise',
+                  subtitle: 'Multi-group party experience',
+                  recommended: true,
+                  badge: { text: 'Best Value', variant: 'default' }
+                },
+                {
+                  id: 'private',
+                  title: 'Private Charter',
+                  subtitle: 'Exclusive boat rental'
+                }
+              ]}
+              rows={[
+                {
+                  feature: 'Price Range',
+                  values: [
+                    { text: '$85-$125 per person', highlight: true },
+                    '$200-$400+ per hour'
+                  ]
+                },
+                {
+                  feature: 'Group Size',
+                  values: ['8-30 people typical', '1-75 people']
+                },
+                {
+                  feature: 'Duration',
+                  values: ['4 hours fixed', '4+ hours flexible']
+                },
+                {
+                  feature: 'Professional DJ',
+                  values: [true, false]
+                },
+                {
+                  feature: 'Professional Photographer',
+                  values: [true, false]
+                },
+                {
+                  feature: 'Food Options',
+                  values: ['Delivery available', 'Bring your own']
+                },
+                {
+                  feature: 'Customization',
+                  values: ['Limited', 'Full control']
+                },
+                {
+                  feature: 'Best For',
+                  values: ['Bach parties, social groups', 'Any private event']
+                },
+                {
+                  feature: 'Booking Type',
+                  values: ['Per person tickets', 'Charter entire boat']
+                },
+                {
+                  feature: 'Availability',
+                  values: ['Fri, Sat, Sun only', '7 days a week']
+                }
+              ]}
+              caption="ATX Disco Cruise vs Private Charter Comparison"
+              summary="Compare the features and benefits of our ATX Disco Cruise public party experience versus a private charter boat rental on Lake Travis"
+              mobileView="cards"
+              schemaType="Service"
+              ariaLabel="Comparison of ATX Disco Cruise and Private Charter options"
+              highlightBest={true}
+            />
+          </motion.div>
+
+          {/* Fleet Comparison */}
+          <motion.div 
+            variants={fadeInUp}
+            className="max-w-7xl mx-auto"
+          >
+            <h3 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">
+              Our Lake Travis Fleet
+            </h3>
+            <ComparisonTable
+              columns={[
+                {
+                  id: 'daytripper',
+                  title: 'Day Tripper',
+                  subtitle: 'Intimate cruiser'
+                },
+                {
+                  id: 'meeseeks',
+                  title: 'Meeseeks',
+                  subtitle: 'Party favorite',
+                  recommended: true,
+                  badge: { text: 'Most Popular', variant: 'default' }
+                },
+                {
+                  id: 'clevergirl',
+                  title: 'Clever Girl',
+                  subtitle: 'Flagship vessel'
+                },
+                {
+                  id: 'irony',
+                  title: 'The Irony',
+                  subtitle: 'Comfort cruiser'
+                }
+              ]}
+              rows={[
+                {
+                  feature: 'Capacity',
+                  values: ['Up to 14 guests', '15-25 guests', '30-75 guests', '15-30 guests']
+                },
+                {
+                  feature: 'Boat Size',
+                  values: ['Intimate', 'Medium', 'Flagship Large', 'Medium Plus']
+                },
+                {
+                  feature: 'Amenities',
+                  values: [
+                    'Sound system, coolers',
+                    'Premium sound, spacious',
+                    '14 disco balls, Texas flag',
+                    'Dual decks, comfort seating'
+                  ]
+                },
+                {
+                  feature: 'Best For',
+                  values: [
+                    'Small birthdays, dates',
+                    'Bach parties, friends',
+                    'Corporate, large groups',
+                    'Mixed groups, comfort'
+                  ]
+                },
+                {
+                  feature: 'Hourly Rate',
+                  values: [
+                    { text: '$200/hr', highlight: true },
+                    '$225/hr',
+                    '$300/hr',
+                    '$225/hr'
+                  ]
+                },
+                {
+                  feature: 'Marina',
+                  values: ['Anderson Mill', 'Anderson Mill', 'Anderson Mill', 'Anderson Mill']
+                }
+              ]}
+              caption="Premier Party Cruises Fleet Comparison"
+              summary="Compare our four Lake Travis party boats to find the perfect vessel for your group size and celebration type"
+              mobileView="scroll"
+              schemaType="Product"
+              ariaLabel="Comparison of Premier Party Cruises boat fleet"
+            />
+          </motion.div>
         </div>
       </section>
 

@@ -31,6 +31,7 @@ import { useToast } from '@/hooks/use-toast';
 import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
+import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 
 import heroImage1 from '@assets/atx-disco-cruise-party.webp';
 import heroImage2 from '@assets/dancing-party-scene.webp';
@@ -1215,6 +1216,95 @@ export default function ATXDiscoCruise() {
             <p className="text-base md:text-lg text-center text-gray-600 dark:text-gray-300 mb-4 md:mb-6">
               See exactly how much you save with the ATX Disco Cruise for any group size
             </p>
+            
+            {/* Detailed Comparison Table */}
+            <div className="mb-12">
+              <ComparisonTable
+                columns={[
+                  {
+                    id: 'disco',
+                    title: 'ATX Disco Cruise',
+                    subtitle: 'Multi-group party experience',
+                    recommended: true,
+                    badge: { text: 'Best Value', variant: 'default' }
+                  },
+                  {
+                    id: 'private',
+                    title: 'Private Charter',
+                    subtitle: 'Your group only'
+                  }
+                ]}
+                rows={[
+                  {
+                    feature: 'Price per Person',
+                    values: [
+                      { text: '$85-$125', highlight: true },
+                      '$175-$450'
+                    ]
+                  },
+                  {
+                    feature: 'Professional DJ',
+                    values: [
+                      { text: 'Included', highlight: true },
+                      'Extra $600-800'
+                    ]
+                  },
+                  {
+                    feature: 'Professional Photographer',
+                    values: [
+                      { text: 'Included', highlight: true },
+                      'Extra $800-1000'
+                    ]
+                  },
+                  {
+                    feature: 'Party Atmosphere',
+                    values: [
+                      { text: 'Multiple bach groups', highlight: true },
+                      'Just your group'
+                    ]
+                  },
+                  {
+                    feature: 'Giant Float Included',
+                    values: [true, 'Extra $150-200']
+                  },
+                  {
+                    feature: 'Party Supplies',
+                    values: [
+                      { text: 'All included', highlight: true },
+                      'You buy & bring'
+                    ]
+                  },
+                  {
+                    feature: 'Food/Drink Delivery',
+                    values: ['Free service', 'You arrange']
+                  },
+                  {
+                    feature: 'Minimum People',
+                    values: ['No minimum', '8-14 minimum']
+                  },
+                  {
+                    feature: 'Planning Required',
+                    values: [
+                      { text: 'Zero - just show up', highlight: true },
+                      'Hours of prep'
+                    ]
+                  },
+                  {
+                    feature: 'Total Value',
+                    values: [
+                      { text: '$350+ per person', highlight: true },
+                      '$200 per person'
+                    ]
+                  }
+                ]}
+                caption="ATX Disco Cruise vs Private Charter Comparison"
+                summary="Compare the all-inclusive ATX Disco Cruise with traditional private boat charters on Lake Travis"
+                mobileView="cards"
+                schemaType="Service"
+                ariaLabel="Comparison of ATX Disco Cruise vs Private Charter options"
+              />
+            </div>
+            
             <DiscoVsPrivateValueCalculator />
           </div>
         </motion.section>

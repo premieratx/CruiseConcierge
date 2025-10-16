@@ -26,6 +26,7 @@ import {
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
+import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 
 // Hero images
 import heroImage1 from '@assets/clever-girl-50-person-boat.webp';
@@ -498,6 +499,174 @@ export default function PrivateCruises() {
                     From basic charter to full VIP - customize your Lake Travis experience
                   
                 </p>
+
+                {/* Private vs Disco Comparison */}
+                <div className="mb-12">
+                  <h3 className="text-2xl font-bold text-center mb-8">Why Choose Private Charter?</h3>
+                  <ComparisonTable
+                    columns={[
+                      {
+                        id: 'private',
+                        title: 'Private Charter',
+                        subtitle: 'Your exclusive experience',
+                        recommended: true,
+                        badge: { text: 'Total Control', variant: 'default' }
+                      },
+                      {
+                        id: 'disco',
+                        title: 'ATX Disco Cruise',
+                        subtitle: 'Multi-group party'
+                      }
+                    ]}
+                    rows={[
+                      {
+                        feature: 'Boat Exclusivity',
+                        values: [
+                          { text: 'Entire boat to yourself', highlight: true },
+                          'Share with other groups'
+                        ]
+                      },
+                      {
+                        feature: 'Music Control',
+                        values: [
+                          { text: 'Your playlist all day', highlight: true },
+                          'DJ plays for everyone'
+                        ]
+                      },
+                      {
+                        feature: 'Schedule Flexibility',
+                        values: [
+                          { text: 'Choose any time', highlight: true },
+                          'Fixed departures only'
+                        ]
+                      },
+                      {
+                        feature: 'Route Customization',
+                        values: [
+                          { text: 'Captain follows your wishes', highlight: true },
+                          'Preset route'
+                        ]
+                      },
+                      {
+                        feature: 'Privacy',
+                        values: [
+                          { text: '100% private', highlight: true },
+                          'Meet other groups'
+                        ]
+                      },
+                      {
+                        feature: 'Decoration Options',
+                        values: [
+                          { text: 'Decorate as you wish', highlight: true },
+                          'Pre-decorated'
+                        ]
+                      },
+                      {
+                        feature: 'Food & Catering',
+                        values: [
+                          { text: 'Bring any food/catering', highlight: true },
+                          'Snacks only'
+                        ]
+                      },
+                      {
+                        feature: 'Best For',
+                        values: [
+                          { text: 'Corporate, family, custom events', highlight: true },
+                          'Bach parties only'
+                        ]
+                      },
+                      {
+                        feature: 'Group Size',
+                        values: [
+                          { text: 'Perfect fit for any size', highlight: true },
+                          '8-50 people'
+                        ]
+                      }
+                    ]}
+                    caption="Private Charter vs ATX Disco Cruise Comparison"
+                    summary="Compare the benefits of a private charter versus the multi-group ATX Disco Cruise experience"
+                    mobileView="cards"
+                    schemaType="Service"
+                    ariaLabel="Comparison of Private Charter vs ATX Disco Cruise options"
+                  />
+                </div>
+
+                {/* Package Comparison Table */}
+                <div className="mb-12">
+                  <h3 className="text-2xl font-bold text-center mb-8">Compare Private Cruise Packages</h3>
+                  <ComparisonTable
+                    columns={[
+                      {
+                        id: 'standard',
+                        title: 'Standard Package',
+                        subtitle: 'Essential cruise experience'
+                      },
+                      {
+                        id: 'essentials',
+                        title: 'Essentials Package',
+                        subtitle: 'Enhanced convenience',
+                        recommended: true,
+                        badge: { text: 'Most Popular', variant: 'default' }
+                      },
+                      {
+                        id: 'ultimate',
+                        title: 'Ultimate Package',
+                        subtitle: 'Complete VIP experience'
+                      }
+                    ]}
+                    rows={[
+                      {
+                        feature: 'Hourly Rate (14-person boat)',
+                        values: ['$200/hr', { text: '$300/hr', highlight: true }, '$400/hr']
+                      },
+                      {
+                        feature: '4-Hour Total',
+                        values: ['$800', { text: '$1,200', highlight: true }, '$1,600']
+                      },
+                      {
+                        feature: 'Captain & Crew',
+                        values: [true, true, true]
+                      },
+                      {
+                        feature: 'Coolers Provided',
+                        values: ['Empty coolers', { text: 'Pre-iced coolers', highlight: true }, { text: 'Pre-iced coolers', highlight: true }]
+                      },
+                      {
+                        feature: 'Water Service',
+                        values: ['BYOB', { text: '15 gallons + dispenser', highlight: true }, { text: '15 gallons + dispenser', highlight: true }]
+                      },
+                      {
+                        feature: 'Party Supplies',
+                        values: [false, 'Cups & table', { text: 'Full party setup', highlight: true }]
+                      },
+                      {
+                        feature: 'Giant Float',
+                        values: [false, false, { text: '20ft lily pad', highlight: true }]
+                      },
+                      {
+                        feature: 'Champagne Setup',
+                        values: [false, false, { text: '20 flutes + juices', highlight: true }]
+                      },
+                      {
+                        feature: 'Fun Extras',
+                        values: [false, false, { text: 'Bubble guns & disco balls', highlight: true }]
+                      },
+                      {
+                        feature: 'Best For',
+                        values: [
+                          'Budget-conscious groups',
+                          { text: 'Most bookings', highlight: true },
+                          'Premium experiences'
+                        ]
+                      }
+                    ]}
+                    caption="Private Cruise Package Comparison"
+                    summary="Compare our three private cruise package options to find the perfect level of service for your Lake Travis event"
+                    mobileView="cards"
+                    schemaType="Service"
+                    ariaLabel="Comparison of Private Cruise package options"
+                  />
+                </div>
 
                 <div className="grid md:grid-cols-3 gap-8 mb-12">
                   {privateCruisePackages.map((pkg) => (
