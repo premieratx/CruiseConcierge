@@ -34,6 +34,7 @@ import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/compone
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 import { WhatToBring } from '@/components/WhatToBring';
 import { PricingTable } from '@/components/PricingTable';
+import AIOptimizedSection from '@/components/AIOptimizedSection';
 
 // Hero images
 import heroImage1 from '@assets/clever-girl-50-person-boat.webp';
@@ -1067,6 +1068,186 @@ export default function PrivateCruises() {
             title="What to Bring on Your Private Cruise"
             description="Everything you need for a perfect custom celebration on Lake Travis"
             className="max-w-7xl mx-auto"
+          />
+        </div>
+      </section>
+
+      {/* AI-Optimized Customization & Booking Section */}
+      <section className="py-16 bg-gradient-to-br from-blue-50 via-teal-50 to-green-50 dark:from-gray-900 dark:via-teal-950/20 dark:to-green-950/20">
+        <div className="container mx-auto px-6">
+          <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-8">
+            {/* Customization Options Menu */}
+            <AIOptimizedSection
+              type="list"
+              title="Customization Options Menu"
+              description="Make your private cruise uniquely yours"
+              data={[
+                {
+                  title: "Food & Catering",
+                  description: "BBQ catering from local vendors, Custom birthday cakes, Pizza delivery to the boat, Charcuterie boards, Taco bar setup",
+                  icon: <Utensils className="w-5 h-5" />,
+                  badge: "Popular"
+                },
+                {
+                  title: "Entertainment Add-Ons",
+                  description: "Live DJ services ($300-$500), Professional photographer ($250), Karaoke equipment ($150), Water sports gear rental, Custom playlist setup",
+                  icon: <Music className="w-5 h-5" />,
+                  badge: "Enhance"
+                },
+                {
+                  title: "Decoration Packages",
+                  description: "Birthday banners and balloons, Wedding/anniversary themes, Corporate branding setup, Holiday decorations, Custom signage",
+                  icon: <PartyPopper className="w-5 h-5" />,
+                  badge: "Festive"
+                },
+                {
+                  title: "Beverage Services",
+                  description: "Pre-stocked bar setup, Mimosa bar ingredients, Craft beer selection, Wine and champagne service, Signature cocktail mixers",
+                  icon: <Wine className="w-5 h-5" />,
+                  badge: "Premium"
+                }
+              ]}
+            />
+            
+            {/* Ideal For Categorized List */}
+            <AIOptimizedSection
+              type="list"
+              title="Private Cruises Ideal For"
+              description="Perfect for these special occasions"
+              data={[
+                {
+                  title: "Corporate Events",
+                  description: "Team building activities, Client entertainment, Holiday parties, Product launches, Executive retreats on Lake Travis",
+                  icon: <Briefcase className="w-5 h-5" />,
+                  badge: "Professional"
+                },
+                {
+                  title: "Milestone Birthdays",
+                  description: "30th, 40th, 50th celebrations, Sweet 16 parties, Quinceañeras, Surprise parties, Multi-generation family gatherings",
+                  icon: <Cake className="w-5 h-5" />,
+                  badge: "Celebrate"
+                },
+                {
+                  title: "Reunions & Gatherings",
+                  description: "High school reunions, College friend meetups, Family reunions, Military homecomings, Anniversary celebrations",
+                  icon: <Users className="w-5 h-5" />,
+                  badge: "Reconnect",
+                  highlighted: true
+                },
+                {
+                  title: "Academic Celebrations",
+                  description: "Graduation parties, Prom groups, Greek life events, Sports team celebrations, Academic achievement parties",
+                  icon: <GraduationCap className="w-5 h-5" />,
+                  badge: "Achievement"
+                }
+              ]}
+            />
+            
+            {/* Booking Process Steps */}
+            <AIOptimizedSection
+              type="timeline"
+              title="Easy Booking Process"
+              description="From inquiry to cruise in 5 simple steps"
+              data={[
+                {
+                  time: "Step 1",
+                  title: "Submit Inquiry",
+                  description: "Fill out online form with date, group size, and event type. Receive quote within 24 hours. Multiple boat options presented.",
+                  icon: <MessageSquare className="w-4 h-4 text-white" />,
+                  duration: "24 hours"
+                },
+                {
+                  time: "Step 2",
+                  title: "Choose Your Package",
+                  description: "Select boat and package tier (Standard, Essentials, or Ultimate). Add any customization options. Review total pricing.",
+                  icon: <Package className="w-4 h-4 text-white" />,
+                  duration: "Customize"
+                },
+                {
+                  time: "Step 3",
+                  title: "Secure Your Date",
+                  description: "Pay 50% deposit to lock in reservation. Receive confirmation and receipt. Captain assigned to your cruise.",
+                  icon: <CreditCard className="w-4 h-4 text-white" />,
+                  duration: "Confirmed"
+                },
+                {
+                  time: "Step 4",
+                  title: "Final Details",
+                  description: "Confirm headcount 1 week before. Arrange any catering or add-ons. Pay remaining balance.",
+                  icon: <CheckCircle className="w-4 h-4 text-white" />,
+                  duration: "1 week out"
+                },
+                {
+                  time: "Step 5",
+                  title: "Cruise Day",
+                  description: "Arrive at Anderson Mill Marina. Meet your captain and board. Enjoy your private Lake Travis cruise!",
+                  icon: <Ship className="w-4 h-4 text-white" />,
+                  duration: "Party time!"
+                }
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* AI-Optimized Boat Specifications Section */}
+      <section className="py-16 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <AIOptimizedSection
+            type="statistics"
+            title="Our Private Cruise Fleet Specifications"
+            description="Choose the perfect boat for your group size and event"
+            data={[
+              {
+                value: "Day Tripper",
+                label: "14 Guests • $200/hr",
+                icon: <Ship className="w-8 h-8" />,
+                itemProp: "boatCapacity"
+              },
+              {
+                value: "Meeseeks",
+                label: "25 Guests • $225/hr",
+                icon: <Ship className="w-8 h-8" />,
+                itemProp: "boatCapacity"
+              },
+              {
+                value: "The Irony",
+                label: "30 Guests • $250/hr",
+                icon: <Ship className="w-8 h-8" />,
+                itemProp: "boatCapacity"
+              },
+              {
+                value: "Clever Girl",
+                label: "50 Guests • $300/hr",
+                icon: <Ship className="w-8 h-8" />,
+                itemProp: "boatCapacity"
+              },
+              {
+                value: "4 Hours",
+                label: "Minimum Booking",
+                icon: <Clock className="w-8 h-8" />,
+                itemProp: "minimumDuration"
+              }
+            ]}
+            className="max-w-6xl mx-auto"
+            schemaType="Product"
+            structuredData={{
+              "@context": "https://schema.org",
+              "@type": "Product",
+              "name": "Private Boat Cruise Lake Travis",
+              "description": "Private boat rentals on Lake Travis, Austin Texas",
+              "offers": {
+                "@type": "AggregateOffer",
+                "priceCurrency": "USD",
+                "lowPrice": "200",
+                "highPrice": "300",
+                "offerCount": "4"
+              },
+              "brand": {
+                "@type": "Brand",
+                "name": "Premier Party Cruises"
+              }
+            }}
           />
         </div>
       </section>

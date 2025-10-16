@@ -26,7 +26,7 @@ import {
   Mic, Utensils, GlassWater, UserCheck, Leaf, Check,
   AlertCircle, DollarSign, Timer, CreditCard, CloudRain, 
   HelpCircle, Anchor, Droplets, Waves, Info, TrendingUp, X, Package,
-  Plane, Wine, Eye, Smile
+  Plane, Wine, Eye, Smile, Navigation
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
@@ -38,6 +38,7 @@ import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/compone
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 import { WhatToBring } from '@/components/WhatToBring';
 import { PricingTable } from '@/components/PricingTable';
+import AIOptimizedSection from '@/components/AIOptimizedSection';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -1939,6 +1940,155 @@ export default function BachelorParty() {
               className="max-w-7xl mx-auto"
             />
           </motion.div>
+        </div>
+      </section>
+
+      {/* AI-Optimized Event Timeline Section */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+            {/* Event Timeline */}
+            <AIOptimizedSection
+              type="timeline"
+              title="Your Bachelor Party Day Timeline"
+              description="What to expect on your Lake Travis bachelor party cruise"
+              data={[
+                {
+                  time: "11:45 AM",
+                  title: "Arrival at Anderson Mill Marina",
+                  description: "Check in at the dock, meet your captain, load coolers onto the boat. Free parking available. Bachelor party groups gather and get ready.",
+                  icon: <MapPin className="w-4 h-4 text-white" />,
+                  duration: "15 min"
+                },
+                {
+                  time: "12:00 PM",
+                  title: "Boarding & Departure",
+                  description: "Board your chosen boat (ATX Disco or private charter), safety briefing from captain, music starts playing, cruise begins on Lake Travis.",
+                  icon: <Ship className="w-4 h-4 text-white" />,
+                  duration: "15 min"
+                },
+                {
+                  time: "12:30 PM",
+                  title: "Party at Popular Coves",
+                  description: "Anchor at Devil's Cove or similar spots, swimming and floating on lily pads, DJ playing (Disco cruise), drinks flowing, bachelor party games.",
+                  icon: <Anchor className="w-4 h-4 text-white" />,
+                  duration: "2.5 hours"
+                },
+                {
+                  time: "3:00 PM",
+                  title: "Scenic Cruise & Photos",
+                  description: "Cruise scenic parts of Lake Travis, group photos with the groom, more swimming stops if requested, enjoying the Texas sun and views.",
+                  icon: <Camera className="w-4 h-4 text-white" />,
+                  duration: "45 min"
+                },
+                {
+                  time: "4:00 PM",
+                  title: "Return to Marina",
+                  description: "Head back to Anderson Mill Marina, last songs and celebrations, dock and disembark, continue the party in Austin!",
+                  icon: <Navigation className="w-4 h-4 text-white" />,
+                  duration: "15 min"
+                }
+              ]}
+            />
+            
+            {/* Group Size Guide */}
+            <AIOptimizedSection
+              type="list"
+              title="Bachelor Party Group Size Guide"
+              description="Choose the perfect boat for your crew size"
+              data={[
+                {
+                  title: "Intimate Groups (8-12 guys)",
+                  description: "Perfect for close friends. Book Day Tripper private boat or join ATX Disco Cruise. Tight-knit vibe, everyone knows each other, easier coordination.",
+                  icon: <Users className="w-5 h-5" />,
+                  badge: "Close Friends"
+                },
+                {
+                  title: "Standard Bachelor Parties (13-25 guys)",
+                  description: "Most common size. Book Meeseeks or Irony private boats, or multiple Disco Cruise tickets. Great party energy, mix of friend groups, perfect for bachelor celebrations.",
+                  icon: <Users className="w-5 h-5" />,
+                  badge: "Most Popular",
+                  highlighted: true
+                },
+                {
+                  title: "Large Celebrations (26-50 guys)",
+                  description: "Big bachelor blowouts! Book Clever Girl (75 capacity) or combine boats. Epic party atmosphere, multiple friend groups, unforgettable experience.",
+                  icon: <Users className="w-5 h-5" />,
+                  badge: "Go Big"
+                },
+                {
+                  title: "Mega Groups (50+ guys)",
+                  description: "Combine bachelor/bachelorette parties or book multiple boats. Contact us for custom packages. Ultimate Lake Travis takeover!",
+                  icon: <Users className="w-5 h-5" />,
+                  badge: "Custom Package"
+                }
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* AI-Optimized Success Metrics Section */}
+      <section className="py-16 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <AIOptimizedSection
+            type="statistics"
+            title="Bachelor Party Success by the Numbers"
+            description="Why Austin bachelor parties choose Premier Party Cruises"
+            data={[
+              {
+                value: "10,000+",
+                label: "Bachelor Parties Hosted",
+                icon: <Crown className="w-8 h-8" />,
+                itemProp: "numberOfBachelorParties"
+              },
+              {
+                value: "100%",
+                label: "Satisfaction Rate",
+                icon: <Trophy className="w-8 h-8" />,
+                itemProp: "satisfactionRate"
+              },
+              {
+                value: "4 Hours",
+                label: "Of Epic Celebration",
+                icon: <Clock className="w-8 h-8" />,
+                itemProp: "duration"
+              },
+              {
+                value: "$95",
+                label: "Average Per Person",
+                icon: <DollarSign className="w-8 h-8" />,
+                itemProp: "averagePrice"
+              },
+              {
+                value: "5 Stars",
+                label: "Average Bachelor Review",
+                icon: <Star className="w-8 h-8" />,
+                itemProp: "rating"
+              }
+            ]}
+            className="max-w-6xl mx-auto"
+            schemaType="Event"
+            structuredData={{
+              "@context": "https://schema.org",
+              "@type": "Event",
+              "name": "Austin Bachelor Party Boat Cruise",
+              "description": "Bachelor party boat cruises on Lake Travis, Austin Texas",
+              "location": {
+                "@type": "Place",
+                "name": "Lake Travis",
+                "address": {
+                  "@type": "PostalAddress",
+                  "addressLocality": "Austin",
+                  "addressRegion": "Texas"
+                }
+              },
+              "organizer": {
+                "@type": "Organization",
+                "name": "Premier Party Cruises"
+              }
+            }}
+          />
         </div>
       </section>
 

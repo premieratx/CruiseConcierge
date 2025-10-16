@@ -63,6 +63,8 @@ import X from 'lucide-react/dist/esm/icons/x';
 import Eye from 'lucide-react/dist/esm/icons/eye';
 import Image from 'lucide-react/dist/esm/icons/image';
 import Bot from 'lucide-react/dist/esm/icons/bot';
+import Snowflake from 'lucide-react/dist/esm/icons/snowflake';
+import Leaf from 'lucide-react/dist/esm/icons/leaf';
 import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
 import { PricingTable } from '@/components/PricingTable';
@@ -76,6 +78,7 @@ import { FeaturedSnippet } from '@/components/FeaturedSnippet';
 import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
 import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
+import AIOptimizedSection from '@/components/AIOptimizedSection';
 
 // Lazy load heavy components to improve FCP
 const DiscoVsPrivateComparison = lazy(() => import('@/components/DiscoVsPrivateComparison').then(mod => ({ default: mod.DiscoVsPrivateComparison })));
@@ -1138,6 +1141,109 @@ export default function Home() {
         </DialogContent>
       </Dialog>
 
+      {/* AI-Optimized By The Numbers Section */}
+      <section className="py-20 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20">
+        <div className="container mx-auto px-6">
+          <AIOptimizedSection
+            type="statistics"
+            title="Premier Party Cruises By The Numbers"
+            description="Trusted by thousands of customers in Austin, Texas (ATX) and Lake Travis area since 2009"
+            data={[
+              { 
+                value: "125,000+", 
+                label: "Happy Customers", 
+                icon: <Users className="w-8 h-8" />,
+                itemProp: "numberOfCustomers"
+              },
+              { 
+                value: "14+", 
+                label: "Years in Business", 
+                icon: <Trophy className="w-8 h-8" />,
+                itemProp: "yearsFounded"
+              },
+              { 
+                value: "4", 
+                label: "Premium Boats", 
+                icon: <Ship className="w-8 h-8" />,
+                itemProp: "numberOfBoats"
+              },
+              { 
+                value: "75", 
+                label: "Max Capacity", 
+                icon: <Users className="w-8 h-8" />,
+                itemProp: "maxCapacity"
+              },
+              { 
+                value: "4.9/5", 
+                label: "Average Rating", 
+                icon: <Star className="w-8 h-8" />,
+                itemProp: "ratingValue"
+              }
+            ]}
+            className="max-w-6xl mx-auto"
+            schemaType="Organization"
+            structuredData={{
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "name": "Premier Party Cruises",
+              "description": "Austin's premier party boat rental company on Lake Travis",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Austin",
+                "addressRegion": "Texas",
+                "postalCode": "78641"
+              },
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.9",
+                "ratingCount": "125000"
+              }
+            }}
+          />
+        </div>
+      </section>
+
+      {/* Structured Services Overview - AI Optimized */}
+      <section className="py-16 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <AIOptimizedSection
+            type="list"
+            title="Our Services Overview - Lake Travis Party Boats"
+            description="Choose from our comprehensive range of party boat services on Lake Travis, Austin Texas"
+            data={[
+              {
+                title: "ATX Disco Cruise - Multi-Group Party Experience",
+                description: "Join other bachelor and bachelorette parties for a 4-hour cruise with professional DJ, photographer, and all-inclusive amenities. Perfect for groups of 8-30 people looking for the best value at $85-125 per person.",
+                icon: <Music className="w-6 h-6" />,
+                badge: "Best Value",
+                highlighted: true
+              },
+              {
+                title: "Private Boat Charters - Exclusive Rentals",
+                description: "Rent an entire boat exclusively for your group. Choose from Day Tripper (14 people), Meeseeks (25 people), or Clever Girl (75 people). Starting at $200/hour with 4-hour minimum.",
+                icon: <Ship className="w-6 h-6" />
+              },
+              {
+                title: "Bachelor Party Packages - Austin's #1 Choice",
+                description: "Specialized bachelor party experiences with party favors, VIP treatment, and optional transportation. Available as ATX Disco Cruise or private charter options.",
+                icon: <Crown className="w-6 h-6" />
+              },
+              {
+                title: "Bachelorette Party Cruises - Celebrate in Style",
+                description: "Premium bachelorette party packages with mimosa supplies, decorations, and professional photography. Bride cruises free with Disco Queen and Platinum packages.",
+                icon: <Heart className="w-6 h-6" />
+              },
+              {
+                title: "Corporate Events - Professional Lake Travis Experiences",
+                description: "Team building and client entertainment on our flagship boats. Professional service, customizable catering, and capacity up to 75 guests.",
+                icon: <Users className="w-6 h-6" />
+              }
+            ]}
+            className="max-w-5xl mx-auto mb-12"
+          />
+        </div>
+      </section>
+
       {/* Why Choose Us Section */}
       <section className="py-24 bg-white dark:bg-gray-950">
         <div className="container mx-auto px-6">
@@ -1702,6 +1808,135 @@ export default function Home() {
       <Suspense fallback={<div className="py-12"></div>}>
         <PartyPlanningChecklist partyType="Lake Travis Party" eventType="celebration" />
       </Suspense>
+
+      {/* AI-Optimized Temporal/Seasonal Content */}
+      <section className="py-16 bg-gray-50 dark:bg-gray-900">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+            {/* Best Times to Book */}
+            <AIOptimizedSection
+              type="timeline"
+              title="Best Times to Book Your Lake Travis Cruise"
+              description="Plan your party boat experience with our seasonal guide"
+              data={[
+                {
+                  time: "Spring (March-May)",
+                  title: "Peak Season Begins",
+                  description: "Perfect weather, temperatures 75-85°F. Book 6-8 weeks in advance. Popular for bachelor/bachelorette parties.",
+                  icon: <Sun className="w-4 h-4 text-white" />,
+                  duration: "High Demand"
+                },
+                {
+                  time: "Summer (June-August)",
+                  title: "Peak Summer Season",
+                  description: "Hot weather 85-100°F, lake is busiest. Book 8+ weeks ahead. Sunset cruises popular (7:30-8:30pm start).",
+                  icon: <Sun className="w-4 h-4 text-white" />,
+                  duration: "Highest Demand"
+                },
+                {
+                  time: "Fall (September-November)",
+                  title: "Perfect Weather Returns",
+                  description: "Ideal temperatures 70-85°F. Book 4-6 weeks ahead. Great for corporate events and birthdays.",
+                  icon: <Leaf className="w-4 h-4 text-white" />,
+                  duration: "Moderate Demand"
+                },
+                {
+                  time: "Winter (December-February)",
+                  title: "Off-Season Value",
+                  description: "Cooler 50-70°F, best rates available. Book 2-3 weeks ahead. Perfect for smaller private groups.",
+                  icon: <Snowflake className="w-4 h-4 text-white" />,
+                  duration: "Low Season"
+                }
+              ]}
+            />
+
+            {/* Peak vs Off-Peak Pricing */}
+            <AIOptimizedSection
+              type="list"
+              title="Peak vs Off-Peak Pricing Guide"
+              description="Understand our seasonal pricing for better planning"
+              data={[
+                {
+                  title: "Peak Season (May-September)",
+                  description: "Weekend rates apply Friday-Sunday. Private charters start at $300/hour. ATX Disco Cruise at full price ($85-125/person).",
+                  icon: <TrendingUp className="w-5 h-5" />,
+                  badge: "Higher Rates"
+                },
+                {
+                  title: "Shoulder Season (March-April, October)",
+                  description: "Moderate pricing with good availability. Save 10-15% on weekday bookings. Perfect weather conditions.",
+                  icon: <Calendar className="w-5 h-5" />
+                },
+                {
+                  title: "Off-Peak Season (November-February)",
+                  description: "Best value pricing, save up to 20%. Weekday rates often apply to weekends. More flexibility with booking times.",
+                  icon: <DollarSign className="w-5 h-5" />,
+                  badge: "Best Value"
+                },
+                {
+                  title: "Holiday Weekends",
+                  description: "Premium rates apply for Memorial Day, July 4th, Labor Day. Book 10-12 weeks in advance. Expect 20-30% higher rates.",
+                  icon: <Star className="w-5 h-5" />
+                }
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* AI-Optimized Conversational Q&A Content */}
+      <section className="py-16 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <AIOptimizedSection
+            type="qa"
+            title="You Asked, We Answer - Lake Travis Party Boat FAQs"
+            description="Natural language answers to your common questions about party boat rentals in Austin"
+            data={[
+              {
+                question: "What should you bring on a Lake Travis party boat?",
+                answer: "You should bring your own alcohol (we're BYOB), towels, sunscreen, and snacks. We provide coolers with ice, cups, and Bluetooth speakers. For ATX Disco Cruises, just bring your drinks - we handle everything else including party supplies and music. Don't forget your ID and swimsuit!",
+                category: "What to Bring"
+              },
+              {
+                question: "How does your party boat rental process work?",
+                answer: "First, you check availability for your date online. Then you choose between our ATX Disco Cruise (shared party) or a private charter. You'll pay a deposit to secure your booking, receive confirmation via email, and show up at Anderson Mill Marina on Lake Travis 15 minutes before departure. Your captain handles everything else!",
+                category: "Booking Process"
+              },
+              {
+                question: "What happens if it rains on your scheduled cruise date?",
+                answer: "Your safety is our priority. Light rain? We cruise! Heavy storms or lightning? Your captain will reschedule at no charge or provide a full refund. We monitor weather closely and contact you 24 hours before if conditions look questionable. Austin weather can change quickly, so we're flexible.",
+                category: "Weather Policy"
+              },
+              {
+                question: "Can you swim from your party boats?",
+                answer: "Yes! You can swim at designated swimming areas on Lake Travis. We anchor at popular coves like Devil's Cove where you can jump off the boat and enjoy the water. We provide lily pads for floating. Your captain knows the best spots based on conditions that day.",
+                category: "Swimming"
+              },
+              {
+                question: "How many people fit on your boats?",
+                answer: "Your group size determines which boat: Day Tripper holds up to 14 people (perfect for intimate gatherings), Meeseeks accommodates 25 people (ideal for birthday parties), and our flagship Clever Girl holds up to 75 people (great for large corporate events or weddings). ATX Disco Cruises combine multiple groups on larger boats.",
+                category: "Capacity"
+              }
+            ]}
+            className="max-w-4xl mx-auto"
+          />
+        </div>
+      </section>
+
+      {/* AI-Optimized Location & Entity Recognition Section */}
+      <section className="py-16 bg-gradient-to-br from-blue-50 to-green-50 dark:from-blue-950/20 dark:to-green-950/20">
+        <div className="container mx-auto px-6">
+          <AIOptimizedSection
+            type="definition"
+            data={{
+              term: "Premier Party Cruises - Austin's Original Party Boat Company",
+              definition: "Premier Party Cruises is a party boat rental company operating on Lake Travis in Austin, Texas (often referred to as ATX). Founded in 2009, we specialize in bachelor parties, bachelorette parties, birthday celebrations, and corporate events. Our fleet includes four boats departing from Anderson Mill Marina in Leander, Texas, just 30 minutes northwest of downtown Austin.",
+              context: "Lake Travis is a 65-mile long reservoir on the Colorado River, known as Austin's playground for water activities. The lake offers 270+ miles of shoreline and is the most visited freshwater recreation area in Texas."
+            }}
+            className="max-w-4xl mx-auto"
+          />
+        </div>
+      </section>
 
       {/* Contact & CTA Section */}
       <section className="py-24 bg-white dark:bg-gray-950">

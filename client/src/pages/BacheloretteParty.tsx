@@ -40,6 +40,7 @@ import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/compone
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 import { WhatToBring } from '@/components/WhatToBring';
 import { PricingTable } from '@/components/PricingTable';
+import AIOptimizedSection from '@/components/AIOptimizedSection';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -2154,6 +2155,129 @@ export default function BacheloretteParty() {
               className="max-w-7xl mx-auto"
             />
           </motion.div>
+        </div>
+      </section>
+
+      {/* AI-Optimized Package Comparison & Instagram Moments Section */}
+      <section className="py-16 bg-gradient-to-br from-pink-50 via-purple-50 to-yellow-50 dark:from-gray-900 dark:via-purple-950/20 dark:to-yellow-950/20">
+        <div className="container mx-auto px-6">
+          <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
+            {/* Package Comparison at a Glance */}
+            <AIOptimizedSection
+              type="list"
+              title="Package Comparison at a Glance"
+              description="Quick comparison of ATX Disco Cruise bachelorette packages"
+              data={[
+                {
+                  title: "Basic Bach Package ($95)",
+                  description: "• Join the party cruise\n• BYOB with shared cooler\n• DJ & photographer included\n• Giant floats available\n• Perfect for budget-conscious groups",
+                  icon: <Sparkles className="w-5 h-5" />,
+                  badge: "Budget-Friendly"
+                },
+                {
+                  title: "Disco Queen Package ($105)",
+                  description: "• BRIDE CRUISES FREE!\n• Private cooler with ice\n• Reserved group spot\n• Disco accessories for bride\n• 25% off transportation\n• $50-$100 delivery voucher",
+                  icon: <Crown className="w-5 h-5" />,
+                  badge: "Most Popular",
+                  highlighted: true
+                },
+                {
+                  title: "Super Sparkle Platinum ($115)",
+                  description: "• Everything from Disco Queen\n• Personal unicorn float for bride\n• Mimosa bar setup included\n• Pre-stocked cooler on arrival\n• Towel service & sunscreen\n• $100 concierge voucher",
+                  icon: <Gem className="w-5 h-5" />,
+                  badge: "VIP Treatment"
+                },
+                {
+                  title: "Private Boat Options",
+                  description: "• Starting at $800 (4 hours)\n• Exclusive boat for your group\n• Choose from 3 boat sizes\n• Customizable experience\n• Perfect for 12-50 guests",
+                  icon: <Ship className="w-5 h-5" />,
+                  badge: "Total Privacy"
+                }
+              ]}
+            />
+            
+            {/* Instagram-worthy Moments Section */}
+            <AIOptimizedSection
+              type="list"
+              title="Instagram-worthy Photo Moments"
+              description="Capture these must-have shots for the bride's special day"
+              data={[
+                {
+                  title: "Golden Hour Group Shot",
+                  description: "The whole squad on the boat deck with Lake Travis sunset behind you. Best lighting 6-8 PM for that perfect glow. Professional photographer captures this automatically.",
+                  icon: <Sun className="w-5 h-5" />,
+                  badge: "Best Lighting"
+                },
+                {
+                  title: "Floating Unicorn Moment",
+                  description: "Bride on the giant unicorn float with bridesmaids surrounding her in the water. Crystal clear lake water makes for stunning shots. Available with Platinum package.",
+                  icon: <Heart className="w-5 h-5" />,
+                  badge: "Viral Worthy"
+                },
+                {
+                  title: "Champagne Toast on Deck",
+                  description: "Mimosa bar setup with matching disco cups, Texas Hill Country views in background. Perfect for stories and feed posts. Include hashtag #ATXDiscoCruise.",
+                  icon: <Wine className="w-5 h-5" />,
+                  badge: "Classic Shot"
+                },
+                {
+                  title: "Dance Floor Action Shots",
+                  description: "DJ spinning while everyone dances in disco attire. Multi-colored party atmosphere with other bachelorette groups. Candid moments that capture the energy.",
+                  icon: <Music className="w-5 h-5" />,
+                  badge: "Party Vibes"
+                }
+              ]}
+            />
+          </div>
+        </div>
+      </section>
+
+      {/* AI-Optimized Planning Checklist Timeline */}
+      <section className="py-16 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <AIOptimizedSection
+            type="timeline"
+            title="Bachelorette Party Planning Timeline"
+            description="Your step-by-step guide to planning the perfect Lake Travis bachelorette party"
+            data={[
+              {
+                time: "8 Weeks Before",
+                title: "Initial Planning Phase",
+                description: "Lock in your date and headcount. Book your ATX Disco Cruise or private boat (peak season fills up fast!). Create group chat and collect payments. Reserve Austin accommodations.",
+                icon: <Calendar className="w-4 h-4 text-white" />,
+                duration: "Critical"
+              },
+              {
+                time: "4 Weeks Before",
+                title: "Finalize Details",
+                description: "Choose your package level (Basic, Disco Queen, or Platinum). Order matching outfits or disco attire. Book transportation to/from marina. Plan pre/post cruise activities.",
+                icon: <CheckCircle className="w-4 h-4 text-white" />,
+                duration: "Important"
+              },
+              {
+                time: "2 Weeks Before",
+                title: "Final Preparations",
+                description: "Confirm final headcount with Premier Party Cruises. Use delivery vouchers for alcohol/food orders. Create playlist requests for DJ. Check weather forecast.",
+                icon: <Sparkles className="w-4 h-4 text-white" />,
+                duration: "Finalize"
+              },
+              {
+                time: "1 Week Before",
+                title: "Last-Minute Tasks",
+                description: "Send reminder to all attendees with marina address. Assign cooler/supplies responsibility. Confirm transportation pickup times. Download venue's app for photos.",
+                icon: <MessageSquare className="w-4 h-4 text-white" />,
+                duration: "Confirm"
+              },
+              {
+                time: "Day Of",
+                title: "Party Day Checklist",
+                description: "Arrive 15 min early to Anderson Mill Marina. Bring IDs, sunscreen, and party attitude. Don't forget the bride's special accessories! Have payment ready for add-ons.",
+                icon: <PartyPopper className="w-4 h-4 text-white" />,
+                duration: "Celebrate!"
+              }
+            ]}
+            className="max-w-4xl mx-auto"
+          />
         </div>
       </section>
 
