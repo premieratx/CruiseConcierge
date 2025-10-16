@@ -13,7 +13,7 @@ interface TableRow {
 
 interface FeaturedSnippetProps {
   question: string;
-  answer?: string; // For paragraph format
+  answer?: string | React.ReactNode; // For paragraph format - can be string or JSX
   listItems?: string[]; // For list format
   tableData?: TableRow[]; // For table format
   format: FeaturedSnippetFormat;
@@ -81,8 +81,14 @@ export function FeaturedSnippet({
         <CardContent className="pt-0">
           {format === 'paragraph' && answer && (
             <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
-              <strong className="text-gray-900 dark:text-gray-100">{answer.split('.')[0]}.</strong>
-              {answer.substring(answer.indexOf('.') + 1)}
+              {typeof answer === 'string' ? (
+                <>
+                  <strong className="text-gray-900 dark:text-gray-100">{answer.split('.')[0]}.</strong>
+                  {answer.substring(answer.indexOf('.') + 1)}
+                </>
+              ) : (
+                answer
+              )}
             </p>
           )}
 

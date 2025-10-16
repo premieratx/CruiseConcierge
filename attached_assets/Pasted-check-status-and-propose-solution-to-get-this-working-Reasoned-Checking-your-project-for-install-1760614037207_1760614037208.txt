@@ -1,0 +1,86 @@
+check status and propose solution to get this working
+
+
+
+
+Reasoned
+Checking your project for installed extensions and functions to confirm whether http (net.http_post) and pg_cron are available.
+
+
+Ran list_extensions
+
+Reasoned
+Current status
+I attempted to check your project’s installed extensions and Edge Functions, but I don’t have permission to run the diagnostic tools for your organization. This is an org-level setting. Without that, I can’t directly verify whether the http (net.http_post) and pg_cron extensions are installed.
+
+Given your error (“schema net does not exist”), your database currently does not have the http extension installed (or it failed to load).
+
+Proposed path to get this working
+Option A — Use the Dashboard Scheduler (recommended, no http/pg_cron needed)
+
+This avoids database extensions entirely and is the simplest/most reliable approach.
+Steps:
+
+Go to Dashboard > Edge Functions.
+Select your function: process-due-installments.
+Open Schedules and click Add schedule.
+Set to run daily at 12:00 UTC (or your desired time).
+Save. You’re done—no secrets in the database, and no http/pg_cron required.
+This should work immediately and is the preferred production setup.
+
+Option B — Enable the http extension and keep the hardened SQL path Only do this if you specifically need DB-initiated HTTP calls.
+
+Try installing http again Run these in SQL Editor:
+SQL Query
+
+
+
+create extension if not exists http;
+select extname, extversion from pg_extension where extname = 'http';
+select nspname from pg_namespace where nspname = 'net';
+
+If the extension creates the net schema, you’ll see it in the results.
+If installation fails
+Your project/region/plan may not support the http extension. In that case, switch to Option A (Dashboard Scheduler).
+If installation succeeds
+Re-test your function:
+SQL Query
+
+
+
+select app_private.call_process_due_installments();
+
+If it succeeds, your pg_cron job (if you created it) will work too.
+Option C — If you also need pg_cron from Postgres
+
+If you want scheduling from inside Postgres, you’ll also need pg_cron enabled:
+SQL Query
+
+
+
+create extension if not exists pg_cron;
+select extname, extversion from pg_extension where extname = 'pg_cron';
+
+If it fails to install, use the Dashboard Scheduler instead of pg_cron.
+Minimal fallback: direct function test via HTTP
+To confirm your Edge Function itself is healthy:
+
+Use curl or your browser to make a POST to: https://tgambsdjfwgoohkqopns.supabase.co/functions/v1/process-due-installments
+Include Authorization: Bearer in headers for a privileged call, or test with an anon key if your function allows public access (not recommended).
+Example curl (do not paste your key here publicly):
+
+SQL Query
+
+
+
+curl -i -X POST \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_SERVICE_ROLE_KEY" \
+  https://tgambsdjfwgoohkqopns.supabase.co/functions/v1/process-due-installments
+
+Next steps I recommend
+Prefer Option A: set up the Dashboard schedule now to get it working.
+If you still want the hardened SQL approach, try installing http and let me know:
+The result of create extension http
+Whether the net schema appears
+If tool access can be granted, I can re-run checks and finalize the setup for you.

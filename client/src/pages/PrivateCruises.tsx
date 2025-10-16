@@ -21,7 +21,7 @@ import {
   AlertCircle, DollarSign, Timer, CreditCard, CloudRain, 
   HelpCircle, Anchor, Droplets, Waves, Info, TrendingUp,
   Gem, Flower, CircleDot, Smile, X, Package,
-  Plane, Wine, Eye, Bot, Briefcase, Building2, Cake, GraduationCap
+  Plane, Wine, Eye, Bot, Briefcase, Building2, Cake, GraduationCap, LifeBuoy
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
@@ -469,14 +469,11 @@ export default function PrivateCruises() {
             {/* Private boat rental prices Austin */}
             <FeaturedSnippet
               question="Private boat rental prices Austin"
-              tableData={{
-                headers: ["Boat Size", "Hourly Rate", "Best For"],
-                rows: [
-                  ["Day Tripper (14)", "$200-275/hr", "Intimate gatherings"],
-                  ["Meeseeks (15-30)", "$225-375/hr", "Birthday parties"],
-                  ["Clever Girl (30-75)", "$300-475/hr", "Large events"]
-                ]
-              }}
+              tableData={[
+                { label: "Day Tripper (14)", value: "$200-275/hr - Intimate gatherings" },
+                { label: "Meeseeks (15-30)", value: "$225-375/hr - Birthday parties" },
+                { label: "Clever Girl (30-75)", value: "$300-475/hr - Large events" }
+              ]}
               format="table"
               schemaType="FAQ"
             />

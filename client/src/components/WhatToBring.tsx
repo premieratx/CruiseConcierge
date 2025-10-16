@@ -18,7 +18,7 @@ import {
   Heart,
   AlertTriangle,
   Waves,
-  Sunglasses,
+  Glasses,
   ShoppingBag,
   DollarSign,
   Footprints,
@@ -58,7 +58,7 @@ const generalCategories: WhatToBringCategory[] = [
       { icon: Shield, text: 'Valid ID (21+ only)', required: true },
       { icon: Sun, text: 'Sunscreen SPF 30+', required: true },
       { icon: Waves, text: 'Swimsuit & towel', required: true },
-      { icon: Sunglasses, text: 'Sunglasses', required: true },
+      { icon: Glasses, text: 'Sunglasses', required: true },
       { icon: Shirt, text: 'Change of clothes' }
     ]
   },
@@ -119,7 +119,7 @@ const discoCategories: WhatToBringCategory[] = [
     color: 'text-yellow-600',
     items: [
       { icon: Sun, text: 'Sunscreen SPF 30+', required: true },
-      { icon: Sunglasses, text: 'Sunglasses', required: true },
+      { icon: Glasses, text: 'Sunglasses', required: true },
       { icon: Shirt, text: 'Cover-up or hat' },
       { icon: Waves, text: 'Swimsuit & towel' }
     ]

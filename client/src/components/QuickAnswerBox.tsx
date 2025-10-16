@@ -112,7 +112,7 @@ export function QuickAnswerBox({
             {question}
           </h3>
           {/* Show brief preview when collapsed on mobile */}
-          {!isOpen && (
+          {!isOpen && typeof answer === 'string' && (
             <p className="sm:hidden mt-1 text-xs text-gray-600 dark:text-gray-400 line-clamp-1">
               {answer.substring(0, 50)}...
             </p>
@@ -144,7 +144,7 @@ export function QuickAnswerBox({
               <div className="text-sm sm:text-base text-gray-700 dark:text-gray-300 leading-relaxed space-y-2">
                 {answerJsx || (
                   <p>
-                    {answer.split(' ').map((word, i) => {
+                    {typeof answer === 'string' ? answer.split(' ').map((word, i) => {
                       const isKeyword = keywords.some(kw => 
                         word.toLowerCase().includes(kw.toLowerCase())
                       );
@@ -160,7 +160,7 @@ export function QuickAnswerBox({
                           {' '}
                         </span>
                       );
-                    })}
+                    }) : answer}
                   </p>
                 )}
               </div>
