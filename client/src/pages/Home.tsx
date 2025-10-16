@@ -73,6 +73,8 @@ import { useReducedMotion } from '@/hooks/use-reduced-motion';
 import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/components/ComparisonTable';
 import { FeaturedSnippet } from '@/components/FeaturedSnippet';
 import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
+import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
+import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 
 // Lazy load heavy components to improve FCP
 const DiscoVsPrivateComparison = lazy(() => import('@/components/DiscoVsPrivateComparison').then(mod => ({ default: mod.DiscoVsPrivateComparison })));
@@ -171,7 +173,11 @@ const services = [
     id: 'bachelor',
     title: 'Bachelorette Parties',
     subtitle: 'Our specialty since 2009',
-    description: 'Austin\'s premier bachelorette party experience! Join the ATX Disco Cruise or book a private charter. Professional DJ, photographer, and everything needed for an unforgettable celebration.',
+    description: (
+      <>
+        Austin's premier bachelorette party experience! Join the <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">ATX Disco Cruise</InternalLinkHighlight> or book a <InternalLinkHighlight href="/private-cruises" title="Private Charter">private charter</InternalLinkHighlight>. Professional DJ, photographer, and everything needed for an unforgettable celebration.
+      </>
+    ),
     features: ['Basic Bach, Disco Queen, or Platinum packages', 'Professional DJ & photographer', 'Party favors & decorations', 'Priority booking & VIP treatment'],
     startingPrice: `$${DISCO_PRICING.basic / 100}`,
     priceNote: 'per person',
@@ -1224,7 +1230,7 @@ export default function Home() {
                 Claude AI 10/10 Validation
               </Badge>
               <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wide" data-testid="text-atx-title">
-                Experience America's #1 Bachelor & Bachelorette Party Cruise
+                Experience America's #1 <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Party Cruises">Bachelor</InternalLinkHighlight> & <InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Party Cruises">Bachelorette Party</InternalLinkHighlight> Cruise
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
                 The only all-inclusive, multi-group party cruise on Lake Travis
@@ -1384,6 +1390,11 @@ export default function Home() {
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="gallery-description">
                 See why 125,000+ customers choose Premier Party Cruises for their unforgettable Lake Travis experience.
               </p>
+              <div className="mt-8">
+                <InternalLinkHighlightWithArrow href="/gallery" title="View Our Fleet" className="text-lg">
+                  View Our Fleet
+                </InternalLinkHighlightWithArrow>
+              </div>
             </motion.div>
           </motion.div>
 
@@ -2429,6 +2440,9 @@ export default function Home() {
           }
         })
       }} />
+
+      {/* Related Services Section */}
+      <RelatedServicesSection currentPath="/" />
 
       {/* Footer */}
       <Footer />

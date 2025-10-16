@@ -36,6 +36,8 @@ import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/co
 import Breadcrumb from '@/components/Breadcrumb';
 import { FeaturedSnippet } from '@/components/FeaturedSnippet';
 import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
+import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
+import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -718,7 +720,11 @@ export default function BacheloretteParty() {
             {/* How many people fit on a bachelorette party boat? */}
             <FeaturedSnippet
               question="How many people fit on a bachelorette party boat?"
-              answer="Bachelorette party boats on Lake Travis accommodate different group sizes. The ATX Disco Cruise holds up to 50 people total. For private charters, Day Tripper fits 14 guests, Meeseeks accommodates 15-30 people, and flagship Clever Girl can host 30-75 guests for larger celebrations."
+              answer={
+                <>
+                  Bachelorette party boats on Lake Travis accommodate different group sizes. The <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">ATX Disco Cruise</InternalLinkHighlight> holds up to 50 people total. For <InternalLinkHighlight href="/private-cruises" title="Private Charter Cruises">intimate celebrations with private charters</InternalLinkHighlight>, Day Tripper fits 14 guests, Meeseeks accommodates 15-30 people, and flagship Clever Girl can host 30-75 guests for larger celebrations. <InternalLinkHighlightWithArrow href="/gallery" title="View Our Fleet">See our boats</InternalLinkHighlightWithArrow>
+                </>
+              }
               format="paragraph"
               schemaType="FAQ"
             />
@@ -2866,6 +2872,9 @@ export default function BacheloretteParty() {
           ]
         })
       }} />
+
+      {/* Related Services Section */}
+      <RelatedServicesSection currentPath="/bachelorette-party-austin" />
 
       {/* Related Links */}
       <RelatedLinks 

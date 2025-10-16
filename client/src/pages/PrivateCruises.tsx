@@ -30,6 +30,8 @@ import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/co
 import Breadcrumb from '@/components/Breadcrumb';
 import { FeaturedSnippet } from '@/components/FeaturedSnippet';
 import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
+import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
+import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 
 // Hero images
 import heroImage1 from '@assets/clever-girl-50-person-boat.webp';
@@ -330,7 +332,7 @@ export default function PrivateCruises() {
             </p>
             <p className="text-xl md:text-2xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-8">
               
-                Exclusive boat charters for 14-75 guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake.
+                Exclusive boat charters for 14-75 guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake. Perfect for <InternalLinkHighlight href="/corporate-events" title="Corporate Events">corporate events</InternalLinkHighlight>, <InternalLinkHighlight href="/corporate-events" title="Special Occasions">weddings & birthdays</InternalLinkHighlight>. Looking for a <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">party atmosphere</InternalLinkHighlight>? Check out our disco cruise!
               
             </p>
 
@@ -900,7 +902,7 @@ export default function PrivateCruises() {
                 </h2>
                 <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-12">
                   
-                    Three boats, all pristine - pick the perfect size for your group
+                    Three boats, all pristine - pick the perfect size for your group. <InternalLinkHighlightWithArrow href="/gallery" title="View Our Fleet Gallery">See all boat photos</InternalLinkHighlightWithArrow>
                   
                 </p>
 
@@ -1054,6 +1056,9 @@ export default function PrivateCruises() {
           </Button>
         </div>
       </section>
+
+      {/* Related Services Section */}
+      <RelatedServicesSection currentPath="/private-cruises" />
 
       {/* Related Links */}
       <RelatedLinks 

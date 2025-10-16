@@ -34,6 +34,8 @@ import RelatedLinks from '@/components/RelatedLinks';
 import Breadcrumb from '@/components/Breadcrumb';
 import { FeaturedSnippet, FeaturedSnippetHowTo } from '@/components/FeaturedSnippet';
 import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
+import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
+import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -691,7 +693,7 @@ export default function BachelorParty() {
                       <Users className="h-6 w-6 text-brand-yellow mt-1 flex-shrink-0" />
                       <div>
                         <p className="font-semibold" data-editable data-editable-id="bachelor-overview-feature-2-title">Meet Bachelor Parties from All Over the Country!</p>
-                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-feature-2-desc">The energy is AMAZING - everyone celebrating the same occasion! Make friends & create priceless memories!</p>
+                        <p className="text-gray-600 dark:text-gray-400" data-editable data-editable-id="bachelor-overview-feature-2-desc">The energy is AMAZING - everyone celebrating the same occasion! Make friends & create priceless memories! Planning a <InternalLinkHighlight href="/bachelorette-party-austin" title="Combined Bachelor & Bachelorette Parties">combined bachelor & bachelorette party</InternalLinkHighlight>? Even better!</p>
                       </div>
                     </div>
                     <div className="flex items-start space-x-3">
@@ -1420,15 +1422,16 @@ export default function BachelorParty() {
                     <p className="text-sm text-gray-600 dark:text-gray-400 mb-4" data-editable data-editable-id="bachelor-faq-help-desc">
                       Our team is here to help make your bachelor party perfect!
                     </p>
-                    <Button
-                      onClick={() => handleGetQuote()}
-                      variant="outline"
-                      className="border-brand-yellow text-brand-yellow hover:bg-brand-yellow hover:text-black"
-                      data-testid="button-faq-contact"
-                    >
-                      <MessageCircle className="mr-2 h-4 w-4" />
-                      <span data-editable data-editable-id="bachelor-faq-chat-button">Chat with Us</span>
-                    </Button>
+                    <Link href="/contact">
+                      <Button
+                        variant="outline"
+                        className="border-brand-yellow text-brand-yellow hover:bg-brand-yellow hover:text-black"
+                        data-testid="button-faq-contact"
+                      >
+                        <MessageCircle className="mr-2 h-4 w-4" />
+                        <span data-editable data-editable-id="bachelor-faq-chat-button">Chat with Us for Custom Packages</span>
+                      </Button>
+                    </Link>
                   </CardContent>
                 </Card>
               </div>
@@ -2626,6 +2629,9 @@ export default function BachelorParty() {
           ]
         })
       }} />
+
+      {/* Related Services Section */}
+      <RelatedServicesSection currentPath="/bachelor-party-austin" />
 
       {/* Related Links */}
       <RelatedLinks 

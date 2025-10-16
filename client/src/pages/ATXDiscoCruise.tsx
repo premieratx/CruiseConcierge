@@ -35,6 +35,8 @@ import { ComparisonTable, type ComparisonColumn, type ComparisonRow } from '@/co
 import Breadcrumb from '@/components/Breadcrumb';
 import { FeaturedSnippet } from '@/components/FeaturedSnippet';
 import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox';
+import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
+import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 
 import heroImage1 from '@assets/atx-disco-cruise-party.webp';
 import heroImage2 from '@assets/dancing-party-scene.webp';
@@ -482,7 +484,7 @@ export default function ATXDiscoCruise() {
                 Why We're #1 in the Nation
               </h2>
               <p className="text-2xl text-white/90 font-semibold mb-2">
-                Single-handedly making Austin a top-tier bachelor & bachelorette destination
+                Single-handedly making Austin a top-tier <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Party Cruises">bachelor</InternalLinkHighlight> & <InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Party Cruises">bachelorette</InternalLinkHighlight> destination
               </p>
               <p className="text-xl text-white/80 max-w-4xl mx-auto">
                 After analyzing thousands of customer reviews and competitive offerings nationwide, one conclusion is clear: nothing else comes close to what we've created with the ATX Disco Cruise.
@@ -734,7 +736,7 @@ export default function ATXDiscoCruise() {
                 SHOW UP & GET DOWN!!
               </p>
               <p className="text-xl text-white/90 max-w-4xl mx-auto">
-                The country's ONLY all-inclusive multi-group bachelor/bachelorette party cruise. Here's why thousands of groups from across America choose us every year.
+                The country's ONLY all-inclusive multi-group <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Party Cruises">bachelor</InternalLinkHighlight>/<InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Party Cruises">bachelorette</InternalLinkHighlight> party cruise. Here's why thousands of groups from across America choose us every year. <InternalLinkHighlightWithArrow href="/gallery" title="View Our Fleet">See our boats in action</InternalLinkHighlightWithArrow>
               </p>
             </motion.div>
 
@@ -2610,6 +2612,9 @@ export default function ATXDiscoCruise() {
             ]
           })
         }} />
+
+        {/* Related Services Section */}
+        <RelatedServicesSection currentPath="/atx-disco-cruise" />
 
         {/* Related Links */}
         <RelatedLinks 
