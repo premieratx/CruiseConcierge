@@ -125,6 +125,10 @@
   ],
   "aggregateRating": {
     "@type": "AggregateRating",
+    "itemReviewed": {
+      "@type": "Service",
+      "name": "Lake Travis Bachelorette Party Boat Cruises in Austin"
+    },
     "ratingValue": "5.0",
     "bestRating": "5",
     "reviewCount": 300

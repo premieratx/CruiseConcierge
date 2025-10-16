@@ -84,6 +84,10 @@
   ],
   "aggregateRating": {
     "@type": "AggregateRating",
+    "itemReviewed": {
+      "@type": "Service",
+      "name": "Private Party Boat Charters on Lake Travis"
+    },
     "ratingValue": "5.0",
     "bestRating": "5",
     "reviewCount": 300
