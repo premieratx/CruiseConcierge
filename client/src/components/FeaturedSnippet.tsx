@@ -39,12 +39,21 @@ export function FeaturedSnippet({
     if (!schemaType) return null;
 
     if (schemaType === 'FAQ') {
+      // Extract text from answer - handle both string and JSX
+      let answerText = '';
+      if (typeof answer === 'string') {
+        answerText = answer;
+      } else if (listItems) {
+        answerText = listItems.join(' ');
+      }
+      // For JSX answers, we skip schema or use a placeholder
+      
       return {
         "@type": "Question",
         "name": question,
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": answer || listItems?.join(' ') || ''
+          "text": answerText || question // Use question as fallback if answer is JSX
         }
       };
     }
