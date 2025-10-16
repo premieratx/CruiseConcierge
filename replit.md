@@ -22,7 +22,10 @@ The system features a progressive booking flow and intuitive admin dashboards. D
 - **AI Chatbot**: Utilizes OpenRouter API for progressive booking interactions.
 - **Booking Flow**: Guides users through event type, date, group size, time slot, and package selection.
 - **Admin Dashboard**: Tools for lead management, calendar-based booking, quote generation, and booking records.
-- **Dynamic Pricing**: Calculates hourly rates, crew fees, taxes, gratuity, and deposits with transparent breakdowns.
+- **Dynamic Pricing**: Calculates hourly rates, crew fees, taxes, gratuity, and deposits with transparent breakdowns. **CRITICAL**: Private cruise package add-ons (Essentials and Ultimate) are FLAT FEES per cruise, not hourly rates:
+  - 14-person boats: Essentials +$100, Ultimate +$250
+  - 25-person boats: Essentials +$150, Ultimate +$300
+  - 50-person boats: Essentials +$200, Ultimate +$350
 - **Inventory Management**: Real-time availability with robust boat-specific time slot system and database-level unique constraints to prevent double-bookings.
 - **Payment Processing**: Stripe for hosted checkouts, supporting deposit and full payments with server-side pricing validation.
 - **Quote Generation**: Automated detailed quotes for private and disco cruises delivered via email.
