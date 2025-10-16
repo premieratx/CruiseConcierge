@@ -257,21 +257,27 @@ function PrivateCruisePricingTable({
   
   // Determine boat and base rate based on group size
   const getBoatInfo = () => {
-    if (groupSize <= 14) return { boat: 'Day Tripper', baseRate: 200 };
-    if (groupSize <= 30) return { boat: 'Me Seeks The Irony', baseRate: 225 };
-    return { boat: 'Clever Girl', baseRate: 300 };
+    if (groupSize <= 14) return { boat: 'Day Tripper', baseRate: 200, tier: 14 as const };
+    if (groupSize <= 30) return { boat: 'Me Seeks The Irony', baseRate: 225, tier: 25 as const };
+    return { boat: 'Clever Girl', baseRate: 300, tier: 50 as const };
   };
   
-  const { boat, baseRate } = getBoatInfo();
+  const { boat, baseRate, tier } = getBoatInfo();
   const weekendMultiplier = dayType === 'saturday' ? 1.5 : dayType === 'weekend' ? 1.25 : 1;
   const adjustedRate = baseRate * weekendMultiplier;
   const baseCost = adjustedRate * duration * 100; // Convert to cents
   
-  // Add package fees
+  // Add package fees (FLAT fees per cruise, not hourly)
+  const packageFeesByTier = {
+    14: { essentials: 10000, ultimate: 25000 },  // $100, $250
+    25: { essentials: 15000, ultimate: 30000 },  // $150, $300
+    50: { essentials: 20000, ultimate: 35000 }   // $200, $350
+  };
+  
   const packageFees = {
     standard: 0,
-    essentials: 10000 * duration, // $100/hour
-    ultimate: 25000 * duration // $250/hour
+    essentials: packageFeesByTier[tier].essentials,  // Flat fee per cruise
+    ultimate: packageFeesByTier[tier].ultimate       // Flat fee per cruise
   };
   
   // Add crew fees if needed

@@ -1429,12 +1429,18 @@ export function calculatePrivatePrice(
   const dayType = getPrivateCruiseDayType(dayOfWeek);
   const basePrice = PRIVATE_CRUISE_FINAL_PRICES[dayType][capacityTier];
   
-  // Add-on costs for Essentials and Ultimate packages
+  // Add-on costs: FLAT fees per cruise (not percentage-based)
+  const flatAddOnFees = {
+    14: { essentials: 10000, ultimate: 25000 },  // $100, $250
+    25: { essentials: 15000, ultimate: 30000 },  // $150, $300
+    50: { essentials: 20000, ultimate: 35000 }   // $200, $350
+  };
+  
   let addOnCost = 0;
   if (packageType === 'essentials') {
-    addOnCost = Math.floor(basePrice * 0.20); // ~20% for essentials
+    addOnCost = flatAddOnFees[capacityTier].essentials;
   } else if (packageType === 'ultimate') {
-    addOnCost = Math.floor(basePrice * 0.40); // ~40% for ultimate
+    addOnCost = flatAddOnFees[capacityTier].ultimate;
   }
   
   const subtotal = basePrice + addOnCost;
