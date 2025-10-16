@@ -13,51 +13,58 @@
     "Texas",
     "United States"
   ],
-  "description": "Choose from our fleet of premium party boats for your exclusive celebration: Day Tripper (14 people), Meeseeks and The Irony (18-25 people), or flagship Clever Girl (30-50 people) with giant Texas flag and 14 disco balls. Every private charter includes licensed captains, premium Bluetooth sound systems, large coolers with ice, and all the amenities for an unforgettable celebration. Perfect for weddings, corporate events, birthdays, and any special celebration. Starting at $200 per hour with a 4-hour minimum. Fully customizable packages to match your event needs.",
+  "description": "Choose from our fleet of premium party boats for your exclusive celebration: Day Tripper (14 people), Meeseeks (18-25 people), or flagship Clever Girl (30-50 people) with giant Texas flag and 14 disco balls. Every private charter includes licensed captains, premium Bluetooth sound systems, large coolers with ice, and all the amenities for an unforgettable celebration. Perfect for weddings, corporate events, birthdays, and any special celebration. Pricing from $200-$350 per hour with a 4-hour minimum. Fully customizable packages to match your event needs.",
   "offers": {
     "@type": "AggregateOffer",
     "priceCurrency": "USD",
     "lowPrice": "200",
-    "highPrice": "250",
+    "highPrice": "350",
     "priceValidUntil": "2099-12-31",
     "availability": "https://schema.org/InStock",
-    "url": "https://premierpartycruises.com/private-cruises"
+    "url": "https://premierpartycruises.com/chat"
   },
-  "itemOffered": [
-    {
-      "@type": "Product",
-      "name": "Day Tripper - 14 Person Boat",
-      "description": "Intimate 14-person party boat perfect for small celebrations",
-      "offers": {
-        "@type": "Offer",
-        "price": "200",
-        "priceCurrency": "USD",
-        "priceValidUntil": "2099-12-31"
+  "hasOfferCatalog": {
+    "@type": "OfferCatalog",
+    "name": "Party Boat Fleet",
+    "itemListElement": [
+      {
+        "@type": "OfferCatalog",
+        "name": "Day Tripper - 14 Person Boat",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@id": "https://premierpartycruises.com/#service-daytripper"
+            }
+          }
+        ]
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Meeseeks - 25 Person Boat",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@id": "https://premierpartycruises.com/#service-meeseeks"
+            }
+          }
+        ]
+      },
+      {
+        "@type": "OfferCatalog",
+        "name": "Clever Girl - 50 Person Flagship",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@id": "https://premierpartycruises.com/#service-clevergirl"
+            }
+          }
+        ]
       }
-    },
-    {
-      "@type": "Product",
-      "name": "Meeseeks and The Irony - 25 Person Boat",
-      "description": "Popular mid-size boat for groups of 18-25 guests",
-      "offers": {
-        "@type": "Offer",
-        "price": "225",
-        "priceCurrency": "USD",
-        "priceValidUntil": "2099-12-31"
-      }
-    },
-    {
-      "@type": "Product",
-      "name": "Clever Girl - 50 Person Flagship",
-      "description": "Flagship vessel with 14 disco balls and giant Texas flag for 30-50 guests",
-      "offers": {
-        "@type": "Offer",
-        "price": "250",
-        "priceCurrency": "USD",
-        "priceValidUntil": "2099-12-31"
-      }
-    }
-  ],
+    ]
+  },
   "additionalProperty": [
     {
       "@type": "PropertyValue",

@@ -1,0 +1,60 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://premierpartycruises.com/#service-daytripper",
+  "name": "Day Tripper - 14 Person Party Boat Charter",
+  "serviceType": "Boat Charter Service",
+  "description": "Intimate 14-person party boat perfect for small celebrations and private groups on Lake Travis. Features professional captain, premium sound system, coolers with ice, and comfortable seating for up to 14 passengers.",
+  "provider": {
+    "@id": "https://premierpartycruises.com/#organization"
+  },
+  "areaServed": {
+    "@type": "GeoCircle",
+    "@id": "https://premierpartycruises.com/#service-area",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": 30.432167,
+      "longitude": -97.881167
+    },
+    "geoRadius": "50 miles",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX",
+      "addressCountry": "US"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://premierpartycruises.com/chat",
+    "priceCurrency": "USD",
+    "price": "200.00",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "200.00",
+      "priceCurrency": "USD",
+      "unitText": "per hour"
+    },
+    "availability": "https://schema.org/InStock",
+    "validFrom": "2024-01-01"
+  },
+  "termsOfService": "https://premierpartycruises.com/terms",
+  "category": "Party Boat Charter",
+  "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceUrl": "https://premierpartycruises.com/chat",
+    "servicePhone": "+1-512-488-5892"
+  },
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Capacity",
+      "value": "14 passengers"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Minimum Duration",
+      "value": "4 hours"
+    }
+  ]
+}

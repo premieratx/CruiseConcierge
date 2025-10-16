@@ -1,0 +1,60 @@
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "@id": "https://premierpartycruises.com/#service-meeseeks",
+  "name": "Meeseeks - 25 Person Party Boat Charter",
+  "serviceType": "Boat Charter Service",
+  "description": "Mid-sized 25-person party boat ideal for medium celebrations and group outings on Lake Travis. Features professional captain, premium sound system, coolers with ice, and spacious deck for up to 25 passengers.",
+  "provider": {
+    "@id": "https://premierpartycruises.com/#organization"
+  },
+  "areaServed": {
+    "@type": "GeoCircle",
+    "@id": "https://premierpartycruises.com/#service-area",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": 30.432167,
+      "longitude": -97.881167
+    },
+    "geoRadius": "50 miles",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Austin",
+      "addressRegion": "TX",
+      "addressCountry": "US"
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "url": "https://premierpartycruises.com/chat",
+    "priceCurrency": "USD",
+    "price": "250.00",
+    "priceSpecification": {
+      "@type": "UnitPriceSpecification",
+      "price": "250.00",
+      "priceCurrency": "USD",
+      "unitText": "per hour"
+    },
+    "availability": "https://schema.org/InStock",
+    "validFrom": "2024-01-01"
+  },
+  "termsOfService": "https://premierpartycruises.com/terms",
+  "category": "Party Boat Charter",
+  "availableChannel": {
+    "@type": "ServiceChannel",
+    "serviceUrl": "https://premierpartycruises.com/chat",
+    "servicePhone": "+1-512-488-5892"
+  },
+  "additionalProperty": [
+    {
+      "@type": "PropertyValue",
+      "name": "Capacity",
+      "value": "25 passengers"
+    },
+    {
+      "@type": "PropertyValue",
+      "name": "Minimum Duration",
+      "value": "4 hours"
+    }
+  ]
+}
