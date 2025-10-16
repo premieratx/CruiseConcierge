@@ -98,59 +98,57 @@ const discoPackages = [
   }
 ];
 
-// Private Cruise Packages (simplified from actual pricing)
+// Private Cruise Packages - 14-person boat (from constants)
 const privateCruisePackages = [
   {
     id: 'standard',
-    name: 'Standard Package',
-    price: 150,
-    description: 'Essential private cruise experience',
+    name: 'Standard Private Cruise',
+    price: 200,
+    description: 'Essential cruise experience',
     features: [
-      'Private boat rental (4-6 hours)',
-      'USCG certified captain & crew',
-      'Fuel and standard operation',
-      'Sound system & Bluetooth',
-      'Safety equipment included',
-      'Coolers and ice provided',
-      'Up to boat capacity passengers'
+      'Amazing, experienced captain',
+      '2 large empty coolers (bring your own ice & drinks)',
+      'Premium Bluetooth speaker system',
+      'Clean restroom facilities',
+      'Comfortable seating for 14 guests',
+      'Plenty of sun & shade areas'
     ],
     icon: Ship,
-    badge: 'Essential'
+    badge: '$200/hour - 4-hour minimum = $800'
   },
   {
-    id: 'premium',
-    name: 'Premium Package',
-    price: 200,
-    description: 'Enhanced private cruise with extras',
+    id: 'essentials',
+    name: 'Private Plus Essentials',
+    price: 225,
+    description: 'Complete convenience package',
     features: [
-      'Everything in Standard Package',
-      'Extended cruise time options',
-      'Premium sound system upgrade',
-      'Floating mat & water toys',
-      'Decorations setup included',
-      'Photo service available',
-      'Flexible departure times'
+      'Everything from Standard Cruise',
+      'Insulated 5-gallon dispenser with ice water',
+      '15 gallons of fresh water & 30 solo cups',
+      'Coolers pre-stocked with 40lbs of ice',
+      '6-ft folding table for food & drinks'
     ],
     popular: true,
     icon: Crown,
-    badge: 'Most Popular'
+    badge: 'MOST POPULAR'
   },
   {
-    id: 'luxury',
-    name: 'Luxury Package',
-    price: 300,
-    description: 'Ultimate private cruise luxury',
+    id: 'ultimate',
+    name: 'Private with Ultimate Package',
+    price: 250,
+    description: 'Complete party experience',
     features: [
-      'Everything in Premium Package',
-      'Largest boat availability',
-      'Professional photographer',
-      'Catered food & beverage options',
-      'Custom itinerary planning',
-      'Premium decorations & setup',
-      'White-glove service'
+      'Everything from Essentials Package',
+      '6x20\' giant lily pad float',
+      'Unicorn or ring float for guest of honor',
+      '5 disco ball cups & 30 additional solo cups',
+      'Bubble gun & 3 bubble wands for fun',
+      '20 champagne flutes & 3 fruit juices',
+      '2 bottles SPF-50 spray sunscreen',
+      '3 disco balls installed for party atmosphere'
     ],
     icon: Star,
-    badge: 'VIP Experience'
+    badge: '$250/hour - 4-hour minimum = $1,000'
   }
 ];
 
@@ -518,6 +516,9 @@ export default function PricingBreakdown() {
                     );
                   })}
                 </div>
+                <p className="text-center text-sm text-gray-600 mt-6">
+                  All prices shown are base hourly rates. Tax, gratuity, and any add-ons are additional.
+                </p>
               </div>
 
               {/* Private Pricing Table */}
