@@ -33,6 +33,11 @@ The system features a progressive booking flow and intuitive admin dashboards. D
 - **WordPress Migration System**: Displays WordPress posts from Replit DB using a modern, responsive grid layout, with search, filters, pagination, and a featured carousel.
 - **AI Endorsement Authority Hub**: Leverages third-party AI validation stored in PostgreSQL, displayed via API endpoints, a dedicated `/ai-endorsement` page with Review schema.org, and a trust badge on the homepage.
 - **Database Keepalive System**: An internal service pings the database every 4 minutes to prevent it from going dormant, coupled with increased database connection timeouts to handle cold starts.
+- **Crash Prevention Architecture**: Multi-layer error handling system ensures the application NEVER crashes:
+  - Process-level handlers catch uncaught exceptions and unhandled promise rejections
+  - Global error middleware prevents 500 errors from crashing Express
+  - Health check endpoint (/api/health) monitored by UptimeRobot for 24/7 availability
+  - Pre-publish TypeScript validation (npm run check) prevents broken code deployment
 
 ### System Design Choices
 - **Frontend**: React + TypeScript + Vite.
