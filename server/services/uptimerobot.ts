@@ -189,6 +189,97 @@ export class UptimeRobotService {
     };
     return types[type] || 'Unknown';
   }
+
+  // Create a new monitor
+  async createMonitor(config: {
+    friendlyName: string;
+    url: string;
+    type?: number; // Default: 1 (HTTP(s))
+    interval?: number; // Check interval in seconds (default: 300 = 5 minutes)
+    alertContacts?: string; // Alert contact IDs separated by dash (-)
+  }): Promise<UptimeRobotMonitor> {
+    if (!this.apiKey) {
+      throw new Error('UptimeRobot API key not configured');
+    }
+
+    try {
+      const params: any = {
+        api_key: this.apiKey,
+        format: 'json',
+        friendly_name: config.friendlyName,
+        url: config.url,
+        type: config.type || 1, // Default to HTTP(s)
+        interval: config.interval || 300, // Default to 5 minutes
+      };
+
+      if (config.alertContacts) {
+        params.alert_contacts = config.alertContacts;
+      }
+
+      const response = await axios.post(
+        `${this.baseUrl}/newMonitor`,
+        new URLSearchParams(params).toString(),
+        {
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            'Cache-Control': 'no-cache',
+          },
+        }
+      );
+
+      if (response.data.stat !== 'ok') {
+        throw new Error(`UptimeRobot API error: ${JSON.stringify(response.data)}`);
+      }
+
+      console.log(`✅ UptimeRobot monitor created: ${config.friendlyName}`);
+      return response.data.monitor;
+    } catch (error: any) {
+      console.error('❌ Failed to create UptimeRobot monitor:', error.message);
+      throw error;
+    }
+  }
+
+  // Ensure a monitor exists for a URL (creates if not exists)
+  async ensureMonitor(config: {
+    friendlyName: string;
+    url: string;
+    type?: number;
+    interval?: number;
+  }): Promise<UptimeRobotMonitor> {
+    const monitors = await this.getMonitors();
+    const existing = monitors.find(m => m.url === config.url);
+
+    if (existing) {
+      console.log(`✅ UptimeRobot monitor already exists: ${existing.friendly_name} (${existing.url})`);
+      return existing;
+    }
+
+    console.log(`🆕 Creating UptimeRobot monitor for: ${config.url}`);
+    return await this.createMonitor(config);
+  }
+
+  // Setup production monitoring (called on server startup)
+  async setupProductionMonitoring(): Promise<void> {
+    if (!this.apiKey) {
+      console.warn('⚠️ Skipping UptimeRobot setup - API key not configured');
+      return;
+    }
+
+    try {
+      const productionUrl = 'https://premierpartycruises.com/api/health';
+      
+      await this.ensureMonitor({
+        friendlyName: 'Premier Party Cruises - Production Health',
+        url: productionUrl,
+        type: 1, // HTTP(s)
+        interval: 300, // Check every 5 minutes (keeps site alive)
+      });
+
+      console.log('🏓 UptimeRobot monitoring active - pinging production every 5 minutes');
+    } catch (error: any) {
+      console.error('❌ Failed to setup UptimeRobot monitoring:', error.message);
+    }
+  }
 }
 
 // Export singleton instance

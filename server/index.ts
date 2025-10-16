@@ -486,5 +486,10 @@ Crawl-delay: 1`;
     // Start keepalive service to prevent database from going to sleep
     const { keepaliveService } = await import('./services/keepalive');
     keepaliveService.start();
+    
+    // Setup UptimeRobot monitoring to ping production site every 5 minutes
+    // This keeps the published site alive and alerts if it goes down
+    const { uptimeRobotService } = await import('./services/uptimerobot');
+    await uptimeRobotService.setupProductionMonitoring();
   });
 })();
