@@ -724,52 +724,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Quick Answer Boxes Section */}
-      <section className="py-12 bg-white dark:bg-gray-900">
-        <div className="container mx-auto px-6">
-          <QuickAnswerBoxGroup
-            title="Quick Answers About Lake Travis"
-            boxes={[
-              {
-                id: 'parties-good',
-                question: 'Is Lake Travis good for parties?',
-                answer: 'Yes! Lake Travis offers the perfect setting for unforgettable parties with crystal-clear waters, scenic coves, and year-round sunshine. Our party boats feature premium sound systems, spacious decks, and professional crews ensuring safe, memorable celebrations on Austin\'s premier lake destination.',
-                keywords: ['Lake Travis', 'parties', 'party boats', 'Austin'],
-                icon: PartyPopper,
-                relatedLink: {
-                  href: '#services',
-                  text: 'View our party packages'
-                }
-              },
-              {
-                id: 'alcohol-allowed',
-                question: 'Can you bring alcohol on Lake Travis boats?',
-                answer: 'Yes, BYOB is allowed on all our Lake Travis cruises! Bring your favorite beverages - we provide large coolers with ice, cups, and all necessary supplies. Our crews help with loading/unloading, and we can arrange alcohol delivery directly to the boat for your convenience.',
-                keywords: ['BYOB', 'alcohol', 'coolers', 'Lake Travis'],
-                icon: Wine,
-                relatedLink: {
-                  href: '/faq',
-                  text: 'See all FAQs'
-                }
-              },
-              {
-                id: 'distance-austin',
-                question: 'How far is Lake Travis from downtown Austin?',
-                answer: 'Lake Travis is 30-45 minutes from downtown Austin, located northwest of the city. We depart from Anderson Mill Marina (20 minutes closer than other marinas), making it convenient for locals and visitors. Round-trip transportation available from downtown hotels and Airbnbs.',
-                keywords: ['downtown Austin', 'Anderson Mill Marina', 'transportation'],
-                icon: MapPin,
-                relatedLink: {
-                  href: '/contact',
-                  text: 'Get directions'
-                }
-              }
-            ]}
-            columns={3}
-            className="max-w-7xl mx-auto"
-          />
-        </div>
-      </section>
-
       {/* Build My Quote Now Section */}
       <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
         <div className="container mx-auto px-0 md:px-6">
@@ -1757,7 +1711,7 @@ export default function Home() {
               },
               {
                 question: "What happens if it rains on your scheduled cruise date?",
-                answer: "Your safety is our priority. Light rain? We cruise! Heavy storms or lightning? Your captain will reschedule at no charge or provide a full refund. We monitor weather closely and contact you 24 hours before if conditions look questionable. Austin weather can change quickly, so we're flexible.",
+                answer: "For Private Cruises: Your captain can reschedule or cancel at their discretion. If any cruise time is lost, a prorated refund will be applied. For ATX Disco Cruises: You have 48 hours after booking to cancel for a refund. After 48 hours, no refunds are available. If weather conditions are unsafe (determined day-of by captain and management), we offer the Lemonade Disco as a backup indoor party option.",
                 category: "Weather Policy"
               },
               {
@@ -2751,6 +2705,52 @@ export default function Home() {
 
       {/* Related Services Section */}
       <RelatedServicesSection currentPath="/" />
+
+      {/* Quick Answer Boxes Section */}
+      <section className="py-12 bg-white dark:bg-gray-900">
+        <div className="container mx-auto px-6">
+          <QuickAnswerBoxGroup
+            title="Quick Answers About Lake Travis"
+            boxes={[
+              {
+                id: 'parties-good',
+                question: 'Is Lake Travis good for parties?',
+                answer: 'Yes! Lake Travis offers the perfect setting for unforgettable parties with crystal-clear waters, scenic coves, and year-round sunshine. Our party boats feature premium sound systems, spacious decks, and professional crews ensuring safe, memorable celebrations on Austin\'s premier lake destination.',
+                keywords: ['Lake Travis', 'parties', 'party boats', 'Austin'],
+                icon: PartyPopper,
+                relatedLink: {
+                  href: '#services',
+                  text: 'View our party packages'
+                }
+              },
+              {
+                id: 'alcohol-allowed',
+                question: 'Can you bring alcohol on Lake Travis boats?',
+                answer: 'Yes, BYOB is allowed on all our Lake Travis cruises! Bring your favorite beverages - we provide large coolers with ice, cups, and all necessary supplies. Our crews help with loading/unloading, and we can arrange alcohol delivery directly to the boat for your convenience.',
+                keywords: ['BYOB', 'alcohol', 'coolers', 'Lake Travis'],
+                icon: Wine,
+                relatedLink: {
+                  href: '/faq',
+                  text: 'See all FAQs'
+                }
+              },
+              {
+                id: 'distance-austin',
+                question: 'How far is Lake Travis from downtown Austin?',
+                answer: 'Lake Travis is 30-45 minutes from downtown Austin, located northwest of the city. We depart from Anderson Mill Marina (20 minutes closer than other marinas), making it convenient for locals and visitors. Round-trip transportation available from downtown hotels and Airbnbs.',
+                keywords: ['downtown Austin', 'Anderson Mill Marina', 'transportation'],
+                icon: MapPin,
+                relatedLink: {
+                  href: '/contact',
+                  text: 'Get directions'
+                }
+              }
+            ]}
+            columns={3}
+            className="max-w-7xl mx-auto"
+          />
+        </div>
+      </section>
 
       {/* Footer */}
       <Footer />

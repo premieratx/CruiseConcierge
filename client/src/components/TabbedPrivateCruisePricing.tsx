@@ -103,7 +103,7 @@ export function TabbedPrivateCruisePricing({
       maxGuests: 30,
       baseHourly: HOURLY_RATES[dayType][25],
       crewFee: 0, // Don't pre-add crew fee
-      crewFeeNote: `+${formatCurrency(CREW_FEES.HOURLY_RATES.SMALL_BOAT_EXTRA / 100)}/hr crew fee for 26-30 guests`,
+      crewFeeNote: `+${formatCurrency(CREW_FEES.HOURLY_RATES.SMALL_BOAT_EXTRA)}/hr crew fee for 26-30 guests`,
       description: 'Ideal for medium-sized celebrations and group events'
     },
     '50': {
@@ -112,7 +112,7 @@ export function TabbedPrivateCruisePricing({
       maxGuests: 75,
       baseHourly: HOURLY_RATES[dayType][50],
       crewFee: 0, // Don't pre-add crew fee
-      crewFeeNote: `+${formatCurrency(CREW_FEES.HOURLY_RATES.LARGE_BOAT_EXTRA / 100)}/hr crew fee for 51-75 guests`,
+      crewFeeNote: `+${formatCurrency(CREW_FEES.HOURLY_RATES.LARGE_BOAT_EXTRA)}/hr crew fee for 51-75 guests`,
       description: 'Our largest vessel for grand celebrations and corporate events'
     }
   };
@@ -180,7 +180,7 @@ export function TabbedPrivateCruisePricing({
                   </div>
                 </div>
                 <Badge variant="outline" className="text-base px-4 py-2" data-testid="base-rate">
-                  {formatCurrency(boat.baseHourly / 100)}/hour
+                  {formatCurrency(boat.baseHourly)}/hour
                 </Badge>
               </div>
             </CardContent>
@@ -212,7 +212,7 @@ export function TabbedPrivateCruisePricing({
                     
                     <div className="mt-4">
                       <div className="text-3xl font-bold text-primary" data-testid={`total-${pkg.id}`}>
-                        {formatCurrency(pricing.total / 100)}
+                        {formatCurrency(pricing.total)}
                       </div>
                       <p className="text-xs text-gray-500">Total for {duration} hours</p>
                     </div>
@@ -231,16 +231,16 @@ export function TabbedPrivateCruisePricing({
                     {/* Pricing Breakdown */}
                     <div className="border-t pt-4 space-y-2 text-sm">
                       <div className="flex justify-between">
-                        <span>Base ({duration}hrs @ {formatCurrency(boat.baseHourly / 100)}/hr):</span>
+                        <span>Base ({duration}hrs @ {formatCurrency(boat.baseHourly)}/hr):</span>
                         <span className="font-medium" data-testid={`base-cost-${pkg.id}`}>
-                          {formatCurrency(pricing.baseCost / 100)}
+                          {formatCurrency(pricing.baseCost)}
                         </span>
                       </div>
                       {pricing.packageFee > 0 && (
                         <div className="flex justify-between">
                           <span>Package Add-on:</span>
                           <span className="font-medium" data-testid={`package-fee-${pkg.id}`}>
-                            {formatCurrency(pricing.packageFee / 100)}
+                            {formatCurrency(pricing.packageFee)}
                           </span>
                         </div>
                       )}
@@ -248,17 +248,17 @@ export function TabbedPrivateCruisePricing({
                         <div className="flex justify-between">
                           <span>Extra Crew:</span>
                           <span className="font-medium" data-testid={`crew-fee-${pkg.id}`}>
-                            {formatCurrency(pricing.crewFee / 100)}
+                            {formatCurrency(pricing.crewFee)}
                           </span>
                         </div>
                       )}
                       <div className="flex justify-between text-gray-600">
                         <span>Tax (8.25%):</span>
-                        <span>{formatCurrency(pricing.tax / 100)}</span>
+                        <span>{formatCurrency(pricing.tax)}</span>
                       </div>
                       <div className="flex justify-between text-gray-600">
                         <span>Gratuity (20%):</span>
-                        <span>{formatCurrency(pricing.gratuity / 100)}</span>
+                        <span>{formatCurrency(pricing.gratuity)}</span>
                       </div>
                     </div>
                     
