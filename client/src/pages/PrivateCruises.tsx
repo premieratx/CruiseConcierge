@@ -36,6 +36,7 @@ import { WhatToBring } from '@/components/WhatToBring';
 import { PricingTable } from '@/components/PricingTable';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { ScrollReveal } from '@/components/ScrollReveal';
+import { SectionReveal } from '@/components/SectionReveal';
 
 // Hero images
 import heroImage1 from '@assets/clever-girl-50-person-boat.webp';
@@ -977,190 +978,375 @@ export default function PrivateCruises() {
         </div>
       </section>
 
-      {/* AI-Optimized Customization & Booking Section */}
-      <section className="py-24 bg-blue-50/30">
-        <div className="container mx-auto px-6">
-          <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-10">
-            <ScrollReveal delay={0}>
-              <AIOptimizedSection
-                type="list"
-                title="Customization Options Menu"
-                description="Make your private cruise uniquely yours"
-                data={[
-                  {
-                    title: "Food & Catering",
-                    description: "BBQ catering from local vendors, Custom birthday cakes, Pizza delivery to the boat, Charcuterie boards, Taco bar setup",
-                    icon: <Utensils className="w-5 h-5" />,
-                    badge: "Popular"
-                  },
-                  {
-                    title: "Entertainment Add-Ons",
-                    description: "Live DJ services ($300-$500), Professional photographer ($250), Karaoke equipment ($150), Water sports gear rental, Custom playlist setup",
-                    icon: <Music className="w-5 h-5" />,
-                    badge: "Enhance"
-                  },
-                  {
-                    title: "Decoration Packages",
-                    description: "Birthday banners and balloons, Wedding/anniversary themes, Corporate branding setup, Holiday decorations, Custom signage",
-                    icon: <PartyPopper className="w-5 h-5" />,
-                    badge: "Festive"
-                  },
-                  {
-                    title: "Beverage Services",
-                    description: "Pre-stocked bar setup, Mimosa bar ingredients, Craft beer selection, Wine and champagne service, Signature cocktail mixers",
-                    icon: <Wine className="w-5 h-5" />,
-                    badge: "Premium"
-                  }
-                ]}
-              />
-            </ScrollReveal>
-            
-            <ScrollReveal delay={0.1}>
-              <AIOptimizedSection
-                type="list"
-                title="Private Cruises Ideal For"
-                description="Perfect for these special occasions"
-                data={[
-                  {
-                    title: "Corporate Events",
-                    description: "Team building activities, Client entertainment, Holiday parties, Product launches, Executive retreats on Lake Travis",
-                    icon: <Briefcase className="w-5 h-5" />,
-                    badge: "Professional"
-                  },
-                  {
-                    title: "Milestone Birthdays",
-                    description: "30th, 40th, 50th celebrations, Sweet 16 parties, Quinceañeras, Surprise parties, Multi-generation family gatherings",
-                    icon: <Cake className="w-5 h-5" />,
-                    badge: "Celebrate"
-                  },
-                  {
-                    title: "Reunions & Gatherings",
-                    description: "High school reunions, College friend meetups, Family reunions, Military homecomings, Anniversary celebrations",
-                    icon: <Users className="w-5 h-5" />,
-                    badge: "Reconnect",
-                    highlighted: true
-                  },
-                  {
-                    title: "Academic Celebrations",
-                    description: "Graduation parties, Prom groups, Greek life events, Sports team celebrations, Academic achievement parties",
-                    icon: <GraduationCap className="w-5 h-5" />,
-                    badge: "Achievement"
-                  }
-                ]}
-              />
-            </ScrollReveal>
-            
-            <ScrollReveal delay={0.2}>
-              <AIOptimizedSection
-                type="timeline"
-                title="Easy Booking Process"
-                description="From inquiry to cruise in 5 simple steps"
-                data={[
-                  {
-                    time: "Step 1",
-                    title: "Submit Inquiry",
-                    description: "Fill out online form with date, group size, and event type. Receive quote within 24 hours. Multiple boat options presented.",
-                    icon: <MessageSquare className="w-4 h-4 text-white" />,
-                    duration: "24 hours"
-                  },
-                  {
-                    time: "Step 2",
-                    title: "Choose Your Package",
-                    description: "Select boat and package tier (Standard, Essentials, or Ultimate). Add any customization options. Review total pricing.",
-                    icon: <Package className="w-4 h-4 text-white" />,
-                    duration: "Customize"
-                  },
-                  {
-                    time: "Step 3",
-                    title: "Secure Your Date",
-                    description: "Pay 50% deposit to lock in reservation. Receive confirmation and receipt. Captain assigned to your cruise.",
-                    icon: <CreditCard className="w-4 h-4 text-white" />,
-                    duration: "Confirmed"
-                  },
-                  {
-                    time: "Step 4",
-                    title: "Final Details",
-                    description: "Confirm headcount 1 week before. Arrange any catering or add-ons. Pay remaining balance.",
-                    icon: <CheckCircle className="w-4 h-4 text-white" />,
-                    duration: "1 week out"
-                  },
-                  {
-                    time: "Step 5",
-                    title: "Cruise Day",
-                    description: "Arrive at Anderson Mill Marina. Meet your captain and board. Enjoy your private Lake Travis cruise!",
-                    icon: <Ship className="w-4 h-4 text-white" />,
-                    duration: "Party time!"
-                  }
-                ]}
-              />
-            </ScrollReveal>
-          </div>
-        </div>
-      </section>
+      {/* Customization Options Section */}
+      <SectionReveal>
+        <section className="py-24 bg-blue-50/30">
+          <div className="container mx-auto px-6">
+            <div className="max-w-7xl mx-auto">
+              <div className="relative mb-16">
+                <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">02</div>
+                <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900">
+                  Customize Your Experience
+                </h2>
+                <p className="text-center text-base text-gray-700 max-w-3xl mx-auto">
+                  Add-ons and upgrades to make your cruise unforgettable
+                </p>
+              </div>
 
-      {/* AI-Optimized Boat Specifications Section */}
-      <section className="py-24 bg-white">
-        <div className="container mx-auto px-6">
-          <ScrollReveal>
-            <AIOptimizedSection
-              type="statistics"
-              title="Our Private Cruise Fleet Specifications"
-              description="Choose the perfect boat for your group size and event"
-              data={[
-                {
-                  value: "Day Tripper",
-                  label: "14 Guests • $200/hr",
-                  icon: <Ship className="w-8 h-8" />,
-                  itemProp: "boatCapacity"
-                },
-                {
-                  value: "Meeseeks",
-                  label: "25 Guests • $225/hr",
-                  icon: <Ship className="w-8 h-8" />,
-                  itemProp: "boatCapacity"
-                },
-                {
-                  value: "The Irony",
-                  label: "30 Guests • $250/hr",
-                  icon: <Ship className="w-8 h-8" />,
-                  itemProp: "boatCapacity"
-                },
-                {
-                  value: "Clever Girl",
-                  label: "50 Guests • $300/hr",
-                  icon: <Ship className="w-8 h-8" />,
-                  itemProp: "boatCapacity"
-                },
-                {
-                  value: "4 Hours",
-                  label: "Minimum Booking",
-                  icon: <Clock className="w-8 h-8" />,
-                  itemProp: "minimumDuration"
-                }
-              ]}
-              className="max-w-6xl mx-auto"
-              schemaType="Product"
-              structuredData={{
-                "@context": "https://schema.org",
-                "@type": "Product",
-                "name": "Private Boat Cruise Lake Travis",
-                "description": "Private boat rentals on Lake Travis, Austin Texas",
-                "offers": {
-                  "@type": "AggregateOffer",
-                  "priceCurrency": "USD",
-                  "lowPrice": "200",
-                  "highPrice": "300",
-                  "offerCount": "4"
-                },
-                "brand": {
-                  "@type": "Brand",
-                  "name": "Premier Party Cruises"
-                }
-              }}
-            />
-          </ScrollReveal>
-        </div>
-      </section>
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
+                  <CardHeader className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-blue-100 rounded-lg">
+                        <Utensils className="h-6 w-6 text-blue-600" />
+                      </div>
+                      <CardTitle className="text-xl font-semibold text-gray-900">Food & Catering</CardTitle>
+                    </div>
+                    <ul className="space-y-2 text-base text-gray-700">
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
+                        <span>BBQ catering from local vendors</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
+                        <span>Custom birthday cakes</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
+                        <span>Pizza delivery to boat</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
+                        <span>Charcuterie boards</span>
+                      </li>
+                    </ul>
+                  </CardHeader>
+                </Card>
+
+                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
+                  <CardHeader className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-purple-100 rounded-lg">
+                        <Music className="h-6 w-6 text-purple-600" />
+                      </div>
+                      <CardTitle className="text-xl font-semibold text-gray-900">Entertainment</CardTitle>
+                    </div>
+                    <ul className="space-y-2 text-base text-gray-700">
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <span>Live DJ services ($300-$500)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <span>Professional photographer ($250)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <span>Karaoke equipment ($150)</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <span>Custom playlist setup</span>
+                      </li>
+                    </ul>
+                  </CardHeader>
+                </Card>
+
+                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
+                  <CardHeader className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-pink-100 rounded-lg">
+                        <PartyPopper className="h-6 w-6 text-pink-600" />
+                      </div>
+                      <CardTitle className="text-xl font-semibold text-gray-900">Decorations</CardTitle>
+                    </div>
+                    <ul className="space-y-2 text-base text-gray-700">
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-pink-600 shrink-0 mt-0.5" />
+                        <span>Birthday banners & balloons</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-pink-600 shrink-0 mt-0.5" />
+                        <span>Wedding/anniversary themes</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-pink-600 shrink-0 mt-0.5" />
+                        <span>Corporate branding setup</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-pink-600 shrink-0 mt-0.5" />
+                        <span>Custom signage</span>
+                      </li>
+                    </ul>
+                  </CardHeader>
+                </Card>
+
+                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
+                  <CardHeader className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-yellow-100 rounded-lg">
+                        <Wine className="h-6 w-6 text-yellow-600" />
+                      </div>
+                      <CardTitle className="text-xl font-semibold text-gray-900">Beverages</CardTitle>
+                    </div>
+                    <ul className="space-y-2 text-base text-gray-700">
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-yellow-600 shrink-0 mt-0.5" />
+                        <span>Pre-stocked bar setup</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-yellow-600 shrink-0 mt-0.5" />
+                        <span>Mimosa bar ingredients</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-yellow-600 shrink-0 mt-0.5" />
+                        <span>Craft beer selection</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-yellow-600 shrink-0 mt-0.5" />
+                        <span>Signature cocktail mixers</span>
+                      </li>
+                    </ul>
+                  </CardHeader>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* Perfect For Section */}
+      <SectionReveal>
+        <section className="py-24 bg-white">
+          <div className="container mx-auto px-6">
+            <div className="max-w-7xl mx-auto">
+              <div className="relative mb-16">
+                <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">03</div>
+                <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900">
+                  Perfect For Any Occasion
+                </h2>
+                <p className="text-center text-base text-gray-700 max-w-3xl mx-auto">
+                  From corporate events to milestone celebrations
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
+                  <CardHeader className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-blue-100 rounded-lg">
+                        <Briefcase className="h-6 w-6 text-blue-600" />
+                      </div>
+                      <CardTitle className="text-xl font-semibold text-gray-900">Corporate Events</CardTitle>
+                    </div>
+                    <ul className="space-y-2 text-base text-gray-700">
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
+                        <span>Team building activities</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
+                        <span>Client entertainment</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
+                        <span>Holiday parties</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
+                        <span>Executive retreats</span>
+                      </li>
+                    </ul>
+                  </CardHeader>
+                </Card>
+
+                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
+                  <CardHeader className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-pink-100 rounded-lg">
+                        <Heart className="h-6 w-6 text-pink-600" />
+                      </div>
+                      <CardTitle className="text-xl font-semibold text-gray-900">Weddings</CardTitle>
+                    </div>
+                    <ul className="space-y-2 text-base text-gray-700">
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-pink-600 shrink-0 mt-0.5" />
+                        <span>Rehearsal dinners</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-pink-600 shrink-0 mt-0.5" />
+                        <span>Welcome parties</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-pink-600 shrink-0 mt-0.5" />
+                        <span>After parties</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-pink-600 shrink-0 mt-0.5" />
+                        <span>Anniversary celebrations</span>
+                      </li>
+                    </ul>
+                  </CardHeader>
+                </Card>
+
+                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
+                  <CardHeader className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-purple-100 rounded-lg">
+                        <Cake className="h-6 w-6 text-purple-600" />
+                      </div>
+                      <CardTitle className="text-xl font-semibold text-gray-900">Birthdays</CardTitle>
+                    </div>
+                    <ul className="space-y-2 text-base text-gray-700">
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <span>30th, 40th, 50th celebrations</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <span>Sweet 16 parties</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <span>Surprise parties</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-purple-600 shrink-0 mt-0.5" />
+                        <span>Family gatherings</span>
+                      </li>
+                    </ul>
+                  </CardHeader>
+                </Card>
+
+                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
+                  <CardHeader className="p-6">
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="p-3 bg-green-100 rounded-lg">
+                        <Users className="h-6 w-6 text-green-600" />
+                      </div>
+                      <CardTitle className="text-xl font-semibold text-gray-900">Reunions</CardTitle>
+                    </div>
+                    <ul className="space-y-2 text-base text-gray-700">
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-green-600 shrink-0 mt-0.5" />
+                        <span>High school reunions</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-green-600 shrink-0 mt-0.5" />
+                        <span>College friend meetups</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-green-600 shrink-0 mt-0.5" />
+                        <span>Family reunions</span>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Check className="h-5 w-5 text-green-600 shrink-0 mt-0.5" />
+                        <span>Military homecomings</span>
+                      </li>
+                    </ul>
+                  </CardHeader>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* How It Works Section */}
+      <SectionReveal>
+        <section className="py-24 bg-blue-50/30">
+          <div className="container mx-auto px-6">
+            <div className="max-w-7xl mx-auto">
+              <div className="relative mb-16">
+                <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">04</div>
+                <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900">
+                  Simple Booking Process
+                </h2>
+                <p className="text-center text-base text-gray-700 max-w-3xl mx-auto">
+                  From inquiry to cruise in 5 easy steps
+                </p>
+              </div>
+
+              <div className="grid md:grid-cols-5 gap-6">
+                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
+                  <CardHeader className="p-6 text-center">
+                    <div className="mx-auto mb-4 w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                      <span className="text-2xl font-bold text-blue-600">1</span>
+                    </div>
+                    <div className="mx-auto mb-4 p-3 bg-blue-50 rounded-lg inline-block">
+                      <MessageSquare className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <CardTitle className="text-xl font-semibold text-gray-900 mb-3">Submit Inquiry</CardTitle>
+                    <p className="text-base text-gray-700">
+                      Fill out our online form with your date, group size, and event type
+                    </p>
+                  </CardHeader>
+                </Card>
+
+                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
+                  <CardHeader className="p-6 text-center">
+                    <div className="mx-auto mb-4 w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center">
+                      <span className="text-2xl font-bold text-purple-600">2</span>
+                    </div>
+                    <div className="mx-auto mb-4 p-3 bg-purple-50 rounded-lg inline-block">
+                      <Package className="h-6 w-6 text-purple-600" />
+                    </div>
+                    <CardTitle className="text-xl font-semibold text-gray-900 mb-3">Choose Package</CardTitle>
+                    <p className="text-base text-gray-700">
+                      Select your boat and package tier with any customizations
+                    </p>
+                  </CardHeader>
+                </Card>
+
+                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
+                  <CardHeader className="p-6 text-center">
+                    <div className="mx-auto mb-4 w-16 h-16 bg-pink-100 rounded-full flex items-center justify-center">
+                      <span className="text-2xl font-bold text-pink-600">3</span>
+                    </div>
+                    <div className="mx-auto mb-4 p-3 bg-pink-50 rounded-lg inline-block">
+                      <CreditCard className="h-6 w-6 text-pink-600" />
+                    </div>
+                    <CardTitle className="text-xl font-semibold text-gray-900 mb-3">Secure Date</CardTitle>
+                    <p className="text-base text-gray-700">
+                      Pay your deposit to lock in your reservation
+                    </p>
+                  </CardHeader>
+                </Card>
+
+                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
+                  <CardHeader className="p-6 text-center">
+                    <div className="mx-auto mb-4 w-16 h-16 bg-green-100 rounded-full flex items-center justify-center">
+                      <span className="text-2xl font-bold text-green-600">4</span>
+                    </div>
+                    <div className="mx-auto mb-4 p-3 bg-green-50 rounded-lg inline-block">
+                      <CheckCircle className="h-6 w-6 text-green-600" />
+                    </div>
+                    <CardTitle className="text-xl font-semibold text-gray-900 mb-3">Final Details</CardTitle>
+                    <p className="text-base text-gray-700">
+                      Confirm headcount and arrange add-ons one week before
+                    </p>
+                  </CardHeader>
+                </Card>
+
+                <Card className="bg-white border-gray-200 rounded-xl hover:border-blue-500 transition-all">
+                  <CardHeader className="p-6 text-center">
+                    <div className="mx-auto mb-4 w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center">
+                      <span className="text-2xl font-bold text-yellow-600">5</span>
+                    </div>
+                    <div className="mx-auto mb-4 p-3 bg-yellow-50 rounded-lg inline-block">
+                      <Ship className="h-6 w-6 text-yellow-600" />
+                    </div>
+                    <CardTitle className="text-xl font-semibold text-gray-900 mb-3">Cruise Day</CardTitle>
+                    <p className="text-base text-gray-700">
+                      Arrive at the marina and enjoy your perfect Lake Travis cruise!
+                    </p>
+                  </CardHeader>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
 
       {/* Related Services Section */}
       <RelatedServicesSection currentPath="/private-cruises" />
