@@ -79,8 +79,7 @@ const BOAT_DATA: Record<string, BoatDetails> = {
       'Professional sound system',
       'Large cooler storage',
       'Perfect for 15-30 guests',
-    ],
-    pricing: '$295/hour'
+    ]
   },
   'DAY_TRIPPER': {
     name: 'Day Tripper',
@@ -102,8 +101,7 @@ const BOAT_DATA: Record<string, BoatDetails> = {
       'Professional captain included',
       'Cooler storage available',
       'Perfect for small celebrations',
-    ],
-    pricing: '$195/hour'
+    ]
   },
   'CLEVER_GIRL': {
     name: 'Clever Girl',
@@ -127,8 +125,7 @@ const BOAT_DATA: Record<string, BoatDetails> = {
       'Multiple seating levels',
       'Professional crew included',
       'Perfect for weddings & large events',
-    ],
-    pricing: '$495/hour'
+    ]
   },
 };
 
@@ -258,7 +255,7 @@ export default function BoatDetailsModal({ boatId, isOpen, onClose }: BoatDetail
               <Ship className="h-8 w-8 text-brand-blue" />
               <div>
                 <div className="text-sm text-gray-600 dark:text-gray-400">Pricing</div>
-                <div className="text-lg font-bold">{boat.pricing}</div>
+                <div className="text-sm font-medium text-gray-700 dark:text-gray-300">Varies by day - see quote builder</div>
               </div>
             </div>
           </div>
