@@ -1352,64 +1352,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Bachelor/Bachelorette & ATX Disco Cruise - Consolidated Section */}
-      <section className="py-16 bg-gradient-to-br from-yellow-50 via-orange-50 to-pink-50 dark:from-gray-950 dark:via-orange-950/20 dark:to-pink-950/20" data-testid="section-atx-disco-cruise">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            className="max-w-5xl mx-auto"
-          >
-            <Card className="border-2 border-yellow-500/30 bg-white/80 dark:bg-gray-800/80 backdrop-blur shadow-2xl overflow-hidden">
-              <CardContent className="p-8">
-                <div className="text-center mb-8">
-                  <h2 className="text-2xl md:text-3xl font-heading font-bold mb-3 text-gray-900 dark:text-white">
-                    <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Party">Bachelor</InternalLinkHighlight> & <InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Party">Bachelorette Parties</InternalLinkHighlight>
-                  </h2>
-                  <p className="text-gray-600 dark:text-gray-300 text-lg mb-6">
-                    Austin's #1 Party Cruise Since 2009 - Join the ATX Disco Cruise!
-                  </p>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                  <div className="text-center p-4 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950/20 dark:to-orange-950/20 rounded-xl">
-                    <DollarSign className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
-                    <h3 className="font-bold text-gray-900 dark:text-white">$85-105/Person</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">3 Package Options</p>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950/20 dark:to-orange-950/20 rounded-xl">
-                    <Music className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
-                    <h3 className="font-bold text-gray-900 dark:text-white">DJ + Photographer</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Included</p>
-                  </div>
-                  <div className="text-center p-4 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950/20 dark:to-orange-950/20 rounded-xl">
-                    <Users className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
-                    <h3 className="font-bold text-gray-900 dark:text-white">Multi-Group Party</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Electric vibe</p>
-                  </div>
-                </div>
-
-                <div className="flex justify-center">
-                  <Link href="/atx-disco-cruise">
-                    <Button 
-                      size="lg"
-                      className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold px-8 py-4 rounded-xl"
-                      data-testid="button-explore-disco"
-                    >
-                      <Sparkles className="mr-2 h-5 w-5" />
-                      Explore ATX Disco Cruise
-                      <ArrowRight className="ml-2 h-5 w-5" />
-                    </Button>
-                  </Link>
-                </div>
-              </CardContent>
-            </Card>
-          </motion.div>
-        </div>
-      </section>
-
       {/* Photo Gallery Section */}
       <section className="py-24 bg-gray-50 dark:bg-gray-900">
         <div className="container mx-auto px-6">
