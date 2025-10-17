@@ -326,8 +326,8 @@ export default function PrivateCruises() {
         <div className="max-w-7xl mx-auto relative z-10">
           <ScrollReveal delay={0}>
             <div className="text-center mb-16">
-              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm px-6 py-2 border-0">
-                PRIVATE BOAT CHARTERS
+              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm px-6 py-2 border-0 font-sans tracking-wider font-bold uppercase">
+                Private Boat Charters
               </Badge>
               <h1 className="text-5xl font-bold font-playfair mb-8 text-gray-900 leading-tight">
                 Private Boat Rentals Austin
@@ -685,8 +685,13 @@ export default function PrivateCruises() {
                           "relative overflow-hidden bg-white border-2 transition-all duration-300 hover:scale-105 hover:shadow-xl min-h-[500px]",
                           pkg.popular ? 'border-purple-500 shadow-lg shadow-purple-200' : 'border-gray-200 hover:border-blue-500'
                         )}>
-                          {pkg.popular && (
-                            <div className="absolute top-0 right-0 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-6 py-2 text-sm font-bold">
+                          {pkg.badge && (
+                            <div className={cn(
+                              "absolute top-0 right-0 text-white px-4 py-2 text-sm font-sans tracking-wider font-bold uppercase",
+                              pkg.color === 'blue' && 'bg-gradient-to-r from-blue-500 to-blue-600',
+                              pkg.color === 'yellow' && 'bg-gradient-to-r from-yellow-500 to-yellow-600',
+                              pkg.color === 'purple' && 'bg-gradient-to-r from-purple-500 to-purple-600'
+                            )}>
                               {pkg.badge}
                             </div>
                           )}
