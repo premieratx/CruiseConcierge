@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'wouter';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Fragment } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { 
   Breadcrumb as BreadcrumbNav,
@@ -140,26 +140,28 @@ export default function Breadcrumb({ customSegments, hideOnMobile = false, class
         <div className="container mx-auto max-w-7xl">
           <BreadcrumbList className="flex-wrap">
             {segments.map((segment, index) => (
-              <BreadcrumbItem key={index}>
-                {segment.current ? (
-                  <BreadcrumbPage className="text-gray-700 dark:text-gray-300 font-medium">
-                    {segment.label}
-                  </BreadcrumbPage>
-                ) : segment.href ? (
-                  <BreadcrumbLink asChild>
-                    <Link 
-                      href={segment.href}
-                      className="text-primary hover:text-primary-dark transition-colors inline-flex items-center gap-1"
-                    >
-                      {index === 0 && <Home className="w-4 h-4" />}
-                      <span>{segment.label}</span>
-                    </Link>
-                  </BreadcrumbLink>
-                ) : (
-                  <span className="text-gray-600 dark:text-gray-400">{segment.label}</span>
-                )}
+              <Fragment key={index}>
+                <BreadcrumbItem>
+                  {segment.current ? (
+                    <BreadcrumbPage className="text-gray-700 dark:text-gray-300 font-medium">
+                      {segment.label}
+                    </BreadcrumbPage>
+                  ) : segment.href ? (
+                    <BreadcrumbLink asChild>
+                      <Link 
+                        href={segment.href}
+                        className="text-primary hover:text-primary-dark transition-colors inline-flex items-center gap-1"
+                      >
+                        {index === 0 && <Home className="w-4 h-4" />}
+                        <span>{segment.label}</span>
+                      </Link>
+                    </BreadcrumbLink>
+                  ) : (
+                    <span className="text-gray-600 dark:text-gray-400">{segment.label}</span>
+                  )}
+                </BreadcrumbItem>
                 {index < segments.length - 1 && <BreadcrumbSeparator />}
-              </BreadcrumbItem>
+              </Fragment>
             ))}
           </BreadcrumbList>
         </div>

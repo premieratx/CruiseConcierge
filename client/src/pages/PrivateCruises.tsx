@@ -308,7 +308,7 @@ export default function PrivateCruises() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-900">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead 
         pageRoute="/private-cruises"
         defaultTitle="Private Boat Cruises Lake Travis Austin"
@@ -319,22 +319,22 @@ export default function PrivateCruises() {
       <Breadcrumb />
 
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 px-4 overflow-hidden bg-gradient-to-br from-gray-900 via-blue-950 to-purple-950">
-        <div className="absolute inset-0 bg-gradient-to-br from-blue-600/20 via-purple-600/20 to-pink-600/20"></div>
+      <section className="relative pt-32 pb-24 px-4 overflow-hidden bg-gradient-to-br from-blue-100 via-white to-yellow-50">
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-200/30 via-purple-100/30 to-yellow-100/30"></div>
         
         <div className="max-w-7xl mx-auto relative z-10">
           <ScrollReveal delay={0}>
             <div className="text-center mb-16">
-              <Badge className="mb-6 bg-gradient-to-r from-blue-500 to-purple-500 text-white text-sm px-6 py-2 border-0">
+              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-sm px-6 py-2 border-0">
                 PRIVATE BOAT CHARTERS
               </Badge>
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-black mb-8 bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent leading-tight">
+              <h1 className="text-5xl font-bold font-playfair mb-8 text-gray-900 leading-tight">
                 Private Boat Rentals Austin
               </h1>
-              <p className="text-3xl md:text-4xl text-gray-100 mb-6 font-bold">
+              <p className="text-xl text-gray-900 mb-6 font-semibold">
                 Your Private Boat. Your Rules. Your Lake Travis Adventure.
               </p>
-              <p className="text-xl md:text-2xl text-gray-300 max-w-4xl mx-auto mb-10 leading-relaxed">
+              <p className="text-base text-gray-700 max-w-4xl mx-auto mb-10 leading-relaxed">
                 Exclusive boat charters for 14-75 guests. BYOB friendly. Choose your schedule, play your music, create your perfect day on the lake. Perfect for <InternalLinkHighlight href="/corporate-events" title="Corporate Events">corporate events</InternalLinkHighlight>, <InternalLinkHighlight href="/corporate-events" title="Special Occasions">weddings & birthdays</InternalLinkHighlight>. Looking for a <InternalLinkHighlight href="/atx-disco-cruise" title="ATX Disco Cruise">party atmosphere</InternalLinkHighlight>? Check out our disco cruise!
               </p>
 
@@ -359,22 +359,22 @@ export default function PrivateCruises() {
                 </Button>
               </div>
 
-              <div className="flex flex-wrap justify-center gap-8 text-base text-gray-400">
+              <div className="flex flex-wrap justify-center gap-8 text-base text-gray-700">
                 <div className="flex items-center gap-3">
-                  <Ship className="h-6 w-6 text-blue-400" />
-                  <span className="text-gray-300">Private Charter</span>
+                  <Ship className="h-6 w-6 text-blue-600" />
+                  <span className="text-gray-900 font-medium">Private Charter</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Users className="h-6 w-6 text-purple-400" />
-                  <span className="text-gray-300">14-75 Guests</span>
+                  <Users className="h-6 w-6 text-purple-600" />
+                  <span className="text-gray-900 font-medium">14-75 Guests</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Clock className="h-6 w-6 text-pink-400" />
-                  <span className="text-gray-300">Flexible Schedule</span>
+                  <Clock className="h-6 w-6 text-yellow-600" />
+                  <span className="text-gray-900 font-medium">Flexible Schedule</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Wine className="h-6 w-6 text-blue-400" />
-                  <span className="text-gray-300">BYOB Friendly</span>
+                  <Wine className="h-6 w-6 text-blue-600" />
+                  <span className="text-gray-900 font-medium">BYOB Friendly</span>
                 </div>
               </div>
             </div>
@@ -408,7 +408,7 @@ export default function PrivateCruises() {
       </section>
 
       {/* Quick Answer Boxes Section */}
-      <section className="py-20 bg-gray-800">
+      <section className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <ScrollReveal>
             <QuickAnswerBoxGroup
@@ -445,7 +445,7 @@ export default function PrivateCruises() {
       </section>
 
       {/* Featured Snippets Section */}
-      <section className="py-24 bg-gray-900">
+      <section className="py-24 bg-blue-50/30">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="grid md:grid-cols-2 gap-10">
             <ScrollReveal delay={0}>
@@ -483,11 +483,11 @@ export default function PrivateCruises() {
       </section>
 
       {/* Main Content Tabs */}
-      <section className="py-24 px-4 bg-gray-800" id="packages">
+      <section className="py-24 px-4 bg-white" id="packages">
         <div className="max-w-7xl mx-auto">
           <ScrollReveal>
             <Tabs defaultValue="overview" className="w-full">
-              <TabsList className="grid w-full grid-cols-4 mb-16 bg-gray-900 p-2 rounded-2xl h-auto border border-gray-700">
+              <TabsList className="grid w-full grid-cols-4 mb-16 bg-blue-50 p-2 rounded-2xl h-auto border border-gray-200">
                 <TabsTrigger 
                   value="overview" 
                   className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-600 data-[state=active]:to-blue-700 data-[state=active]:text-white font-bold text-lg py-4 rounded-xl transition-all"
@@ -523,11 +523,11 @@ export default function PrivateCruises() {
                 <div className="max-w-6xl mx-auto">
                   <ScrollReveal delay={0}>
                     <div className="relative mb-16">
-                      <div className="absolute -left-12 top-0 text-8xl font-black text-blue-500/20">01</div>
-                      <h2 className="text-4xl md:text-5xl font-black text-center mb-6 text-white">
+                      <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">01</div>
+                      <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900">
                         Why Choose a Private Cruise?
                       </h2>
-                      <p className="text-center text-xl text-gray-400 mb-16">
+                      <p className="text-center text-xl text-gray-700 mb-16">
                         Your own private boat on Lake Travis - perfect for any celebration
                       </p>
                     </div>
@@ -537,14 +537,14 @@ export default function PrivateCruises() {
                   <div className="grid md:grid-cols-3 gap-8 mb-16">
                     {whatsIncluded.map((item, index) => (
                       <ScrollReveal key={index} delay={index * 0.1}>
-                        <div className="bg-gray-900 rounded-2xl p-8 shadow-2xl border border-gray-700 hover:border-blue-500/50 transition-all group">
+                        <div className="bg-white rounded-2xl p-6 shadow-lg border border-gray-200 hover:border-blue-500 transition-all group min-h-[180px]">
                           <div className="flex items-start space-x-4">
-                            <div className="p-4 bg-blue-500/20 rounded-xl group-hover:scale-110 transition-transform">
-                              <item.icon className="h-8 w-8 text-blue-400" />
+                            <div className="p-4 bg-blue-100 rounded-xl group-hover:scale-110 transition-transform">
+                              <item.icon className="h-8 w-8 text-blue-600" />
                             </div>
                             <div>
-                              <h3 className="font-black text-xl mb-3 text-white">{item.title}</h3>
-                              <p className="text-base text-gray-400">{item.description}</p>
+                              <h3 className="font-semibold text-xl mb-3 text-gray-900">{item.title}</h3>
+                              <p className="text-base text-gray-700">{item.description}</p>
                             </div>
                           </div>
                         </div>
@@ -573,11 +573,11 @@ export default function PrivateCruises() {
                 <div className="max-w-6xl mx-auto">
                   <ScrollReveal delay={0}>
                     <div className="relative mb-16">
-                      <div className="absolute -left-12 top-0 text-8xl font-black text-purple-500/20">02</div>
-                      <h2 className="text-4xl md:text-5xl font-black text-center mb-6 text-white">
+                      <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">02</div>
+                      <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900">
                         Choose Your Package Level
                       </h2>
-                      <p className="text-center text-xl text-gray-400 mb-16">
+                      <p className="text-center text-xl text-gray-700 mb-16">
                         From basic charter to full VIP - customize your Lake Travis experience
                       </p>
                     </div>
@@ -586,7 +586,7 @@ export default function PrivateCruises() {
                   {/* Private vs Disco Comparison */}
                   <ScrollReveal delay={0.1}>
                     <div className="mb-16">
-                      <h3 className="text-3xl font-bold text-center mb-12 text-white">Why Choose Private Charter?</h3>
+                      <h3 className="text-2xl font-semibold text-center mb-12 text-gray-900">Why Choose Private Charter?</h3>
                       <ComparisonTable
                         columns={[
                           {
@@ -681,31 +681,31 @@ export default function PrivateCruises() {
                     {privateCruisePackages.map((pkg, index) => (
                       <ScrollReveal key={pkg.id} delay={index * 0.15}>
                         <Card className={cn(
-                          "relative overflow-hidden bg-gray-900 border-2 transition-all duration-300 hover:scale-105 hover:shadow-2xl h-full",
-                          pkg.popular ? 'border-purple-500 shadow-2xl shadow-purple-500/30' : 'border-gray-700 hover:border-blue-500/50'
+                          "relative overflow-hidden bg-white border-2 transition-all duration-300 hover:scale-105 hover:shadow-xl min-h-[500px]",
+                          pkg.popular ? 'border-purple-500 shadow-lg shadow-purple-200' : 'border-gray-200 hover:border-blue-500'
                         )}>
                           {pkg.popular && (
-                            <div className="absolute top-0 right-0 bg-gradient-to-r from-purple-600 to-pink-600 text-white px-6 py-2 text-sm font-bold">
+                            <div className="absolute top-0 right-0 bg-gradient-to-r from-yellow-500 to-yellow-600 text-white px-6 py-2 text-sm font-bold">
                               {pkg.badge}
                             </div>
                           )}
-                          <CardHeader className="pb-6">
+                          <CardHeader className="pb-6 p-6">
                             <div className="flex items-center gap-4 mb-4">
-                              <div className="p-4 bg-gradient-to-br from-blue-500/20 to-purple-500/20 rounded-xl">
-                                <pkg.icon className="h-10 w-10 text-blue-400" />
+                              <div className="p-4 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl">
+                                <pkg.icon className="h-10 w-10 text-blue-600" />
                               </div>
                               <div>
-                                <CardTitle className="text-2xl font-black text-white">{pkg.name}</CardTitle>
-                                <p className="text-sm text-gray-400 mt-1">{pkg.description}</p>
+                                <CardTitle className="text-xl font-semibold text-gray-900">{pkg.name}</CardTitle>
+                                <p className="text-sm text-gray-700 mt-1">{pkg.description}</p>
                               </div>
                             </div>
-                            <p className="text-gray-300 text-base">{pkg.subtitle}</p>
+                            <p className="text-gray-700 text-base">{pkg.subtitle}</p>
                           </CardHeader>
-                          <CardContent>
+                          <CardContent className="p-6">
                             <ul className="space-y-3">
                               {pkg.features.map((feature, idx) => (
-                                <li key={idx} className="flex items-start gap-3 text-gray-300">
-                                  <CheckCircle className="h-5 w-5 text-green-400 shrink-0 mt-0.5" />
+                                <li key={idx} className="flex items-start gap-3 text-gray-700">
+                                  <CheckCircle className="h-5 w-5 text-green-600 shrink-0 mt-0.5" />
                                   <span className="text-sm">{feature}</span>
                                 </li>
                               ))}
@@ -783,11 +783,11 @@ export default function PrivateCruises() {
                 <div className="max-w-6xl mx-auto">
                   <ScrollReveal delay={0}>
                     <div className="relative mb-16">
-                      <div className="absolute -left-12 top-0 text-8xl font-black text-pink-500/20">03</div>
-                      <h2 className="text-4xl md:text-5xl font-black text-center mb-6 text-white">
+                      <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">03</div>
+                      <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900">
                         Our Premium Fleet
                       </h2>
-                      <p className="text-center text-xl text-gray-400 mb-16">
+                      <p className="text-center text-xl text-gray-700 mb-16">
                         Choose the perfect vessel for your group size and celebration
                       </p>
                     </div>
@@ -796,7 +796,7 @@ export default function PrivateCruises() {
                   <div className="grid md:grid-cols-3 gap-8">
                     {fleetOptions.map((boat, index) => (
                       <ScrollReveal key={index} delay={index * 0.15}>
-                        <Card className="overflow-hidden bg-gray-900 border-2 border-gray-700 hover:border-blue-500/50 transition-all hover:scale-105 hover:shadow-2xl group">
+                        <Card className="overflow-hidden bg-white border-2 border-gray-200 hover:border-blue-500 transition-all hover:scale-105 hover:shadow-xl group min-h-[450px]">
                           <div className="relative h-64 overflow-hidden">
                             <img 
                               src={boat.image} 
@@ -805,21 +805,21 @@ export default function PrivateCruises() {
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent"></div>
                             <div className="absolute bottom-4 left-4 right-4">
-                              <h3 className="text-2xl font-black text-white mb-1">{boat.name}</h3>
-                              <p className="text-blue-400 font-bold">{boat.capacity}</p>
+                              <h3 className="text-2xl font-bold text-white mb-1">{boat.name}</h3>
+                              <p className="text-blue-200 font-semibold">{boat.capacity}</p>
                             </div>
                           </div>
                           <CardContent className="p-6">
                             <div className="mb-6">
-                              <div className="text-3xl font-black text-white mb-1">
-                                ${boat.baseRate}<span className="text-xl text-gray-400">/hour</span>
+                              <div className="text-3xl font-bold text-gray-900 mb-1">
+                                ${boat.baseRate}<span className="text-xl text-gray-700">/hour</span>
                               </div>
-                              <p className="text-sm text-gray-400">4-hour minimum</p>
+                              <p className="text-sm text-gray-700">4-hour minimum</p>
                             </div>
                             <ul className="space-y-3 mb-6">
                               {boat.features.map((feature, idx) => (
-                                <li key={idx} className="flex items-start gap-3 text-gray-300">
-                                  <CheckCircle className="h-5 w-5 text-blue-400 shrink-0 mt-0.5" />
+                                <li key={idx} className="flex items-start gap-3 text-gray-700">
+                                  <CheckCircle className="h-5 w-5 text-blue-600 shrink-0 mt-0.5" />
                                   <span className="text-sm">{feature}</span>
                                 </li>
                               ))}
@@ -845,11 +845,11 @@ export default function PrivateCruises() {
                 <div className="max-w-4xl mx-auto">
                   <ScrollReveal delay={0}>
                     <div className="relative mb-16">
-                      <div className="absolute -left-12 top-0 text-8xl font-black text-green-500/20">04</div>
-                      <h2 className="text-4xl md:text-5xl font-black text-center mb-6 text-white">
+                      <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">04</div>
+                      <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900">
                         Frequently Asked Questions
                       </h2>
-                      <p className="text-center text-xl text-gray-400 mb-16">
+                      <p className="text-center text-xl text-gray-700 mb-16">
                         Everything you need to know about private cruises
                       </p>
                     </div>
@@ -861,16 +861,16 @@ export default function PrivateCruises() {
                         <AccordionItem 
                           key={item.id} 
                           value={item.id}
-                          className="bg-gray-900 border border-gray-700 rounded-xl px-6 hover:border-blue-500/50 transition-all"
+                          className="bg-white border border-gray-200 rounded-xl px-6 hover:border-blue-500 transition-all"
                         >
                           <AccordionTrigger 
-                            className="text-lg font-bold text-white hover:text-blue-400 py-6"
+                            className="text-lg font-semibold text-gray-900 hover:text-blue-600 py-6"
                             data-testid={`faq-trigger-${item.id}`}
                           >
                             {item.question}
                           </AccordionTrigger>
                           <AccordionContent 
-                            className="text-gray-300 pb-6 text-base leading-relaxed"
+                            className="text-gray-700 pb-6 text-base leading-relaxed"
                             data-testid={`faq-content-${item.id}`}
                           >
                             {item.answer}
@@ -901,13 +901,13 @@ export default function PrivateCruises() {
       </section>
 
       {/* Types of Private Cruises Section */}
-      <section className="py-24 px-4 bg-gray-900">
+      <section className="py-24 px-4 bg-blue-50/30">
         <div className="max-w-7xl mx-auto">
           <ScrollReveal delay={0}>
-            <h2 className="text-4xl md:text-5xl font-black text-center mb-6 text-white">
+            <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900">
               Popular Private Cruise Events
             </h2>
-            <p className="text-center text-xl text-gray-400 mb-16">
+            <p className="text-center text-xl text-gray-700 mb-16">
               Explore different types of private cruises we specialize in
             </p>
           </ScrollReveal>
@@ -916,17 +916,17 @@ export default function PrivateCruises() {
             {privateCruiseTypes.map((type, index) => (
               <ScrollReveal key={index} delay={index * 0.1}>
                 <Link href={type.href} data-testid={type.testId}>
-                  <Card className="hover:shadow-2xl transition-all duration-300 cursor-pointer h-full border-2 border-gray-700 hover:border-blue-500 bg-gray-800 group hover:scale-105">
-                    <CardHeader>
+                  <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-gray-200 hover:border-blue-500 bg-white group hover:scale-105">
+                    <CardHeader className="p-6">
                       <div className="flex items-start gap-4">
-                        <div className="p-4 bg-blue-500/20 rounded-xl group-hover:scale-110 transition-transform">
-                          <type.icon className="h-10 w-10 text-blue-400" />
+                        <div className="p-4 bg-blue-100 rounded-xl group-hover:scale-110 transition-transform">
+                          <type.icon className="h-10 w-10 text-blue-600" />
                         </div>
                         <div className="flex-1">
-                          <CardTitle className="text-xl font-black text-white group-hover:text-blue-400 transition-colors">
+                          <CardTitle className="text-lg font-semibold text-gray-900 group-hover:text-blue-600 transition-colors">
                             {type.title}
                           </CardTitle>
-                          <p className="text-gray-400 text-sm mt-2">
+                          <p className="text-gray-700 text-sm mt-2">
                             {type.description}
                           </p>
                         </div>
@@ -942,12 +942,12 @@ export default function PrivateCruises() {
 
       {/* CTA Section */}
       <ScrollReveal delay={0}>
-        <section className="py-24 px-4 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600">
+        <section className="py-24 px-4 bg-gradient-to-r from-blue-600 via-purple-600 to-purple-700">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-8">
+            <h2 className="text-4xl font-bold font-playfair text-white mb-8">
               Ready to Book Your Private Cruise?
             </h2>
-            <p className="text-2xl text-white/90 mb-10">
+            <p className="text-xl text-white/95 mb-10">
               Get your custom quote in minutes. Choose your boat, package, and perfect date on Lake Travis.
             </p>
             <Button
@@ -964,7 +964,7 @@ export default function PrivateCruises() {
       </ScrollReveal>
 
       {/* What to Bring Section */}
-      <section className="py-24 bg-gray-800">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <ScrollReveal>
             <WhatToBring
@@ -978,7 +978,7 @@ export default function PrivateCruises() {
       </section>
 
       {/* AI-Optimized Customization & Booking Section */}
-      <section className="py-24 bg-gradient-to-br from-gray-900 via-blue-950/30 to-purple-950/30">
+      <section className="py-24 bg-blue-50/30">
         <div className="container mx-auto px-6">
           <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-10">
             <ScrollReveal delay={0}>
@@ -1099,7 +1099,7 @@ export default function PrivateCruises() {
       </section>
 
       {/* AI-Optimized Boat Specifications Section */}
-      <section className="py-24 bg-gray-800">
+      <section className="py-24 bg-white">
         <div className="container mx-auto px-6">
           <ScrollReveal>
             <AIOptimizedSection

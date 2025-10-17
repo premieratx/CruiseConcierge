@@ -92,6 +92,7 @@ export default {
         serif: ["var(--font-serif)"],
         mono: ["var(--font-mono)"],
         heading: ["var(--font-heading)"],
+        playfair: ['Playfair Display', 'serif'],
       },
       keyframes: {
         "accordion-down": {
