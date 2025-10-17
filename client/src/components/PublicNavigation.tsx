@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useLocation } from 'wouter';
-import { motion } from 'framer-motion';
 import { Button } from '@/components/ui/button';
 import { 
   NavigationMenu,
@@ -243,16 +242,13 @@ export default function PublicNavigation() {
   return (
     <>
       {/* Sticky Header */}
-      <motion.header 
+      <header 
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300 overflow-visible",
           isScrolled 
             ? "bg-white/95 dark:bg-gray-950/95 backdrop-blur-lg shadow-lg border-b border-gray-200 dark:border-gray-800" 
             : "bg-white/90 dark:bg-gray-950/90 backdrop-blur-sm"
         )}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
       >
         <div className="container mx-auto px-3 md:px-4 lg:px-6 overflow-visible">
           <div className="flex items-center justify-between h-16 lg:h-20 overflow-visible">
@@ -400,7 +396,7 @@ export default function PublicNavigation() {
 
           </div>
         </div>
-      </motion.header>
+      </header>
 
       {/* Spacer to prevent content from hiding behind fixed header */}
       <div className="h-16 lg:h-20" />
