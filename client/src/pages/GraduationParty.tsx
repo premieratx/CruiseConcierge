@@ -16,6 +16,7 @@ import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { formatCurrency } from '@shared/formatters';
 import { HOURLY_RATES, PRICING_DEFAULTS } from '@shared/constants';
 import SEOHead from '@/components/SEOHead';
+import { SectionReveal } from '@/components/SectionReveal';
 import { 
   GraduationCap, Users, Calendar, MapPin, Clock, Phone,
   ArrowRight, CheckCircle, Sparkles, Trophy, Shield,
@@ -265,7 +266,7 @@ export default function GraduationParty() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead 
         pageRoute="/graduation-party"
         defaultTitle="Graduation Party Cruises | Lake Travis"
@@ -317,7 +318,7 @@ export default function GraduationParty() {
             animate="visible"
           >
             <motion.div variants={fadeInUp}>
-              <Badge className="mb-4 px-4 py-2 text-lg bg-white/20 backdrop-blur-sm border-white/30">
+              <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-white/20 backdrop-blur-sm border-white/30">
                 <GraduationCap className="mr-2 h-5 w-5" />
                 Celebrate Your Achievement
               </Badge>
@@ -334,17 +335,14 @@ export default function GraduationParty() {
             </motion.div>
 
             <motion.h1 
-              className="text-5xl md:text-7xl font-bold font-heading mb-6"
+              className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center"
               variants={fadeInUp}
             >
-              Graduation
-              <span className="block text-3xl md:text-5xl mt-2 text-brand-yellow">
-                Party Cruises
-              </span>
+              Graduation Party Cruises
             </motion.h1>
 
             <motion.p 
-              className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto"
+              className="text-xl md:text-2xl text-base mb-8 text-white/90 max-w-3xl mx-auto text-center"
               variants={fadeInUp}
             >
               You did it! Celebrate your graduation milestone with an unforgettable 
@@ -358,7 +356,7 @@ export default function GraduationParty() {
               <Button
                 size="lg"
                 onClick={handleGetQuote}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-8 py-6 shadow-xl"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-base sm:text-lg px-8 py-6 shadow-xl"
                 data-testid="button-hero-get-quote"
               >
                 <MessageSquare className="mr-2 h-5 w-5" />
@@ -370,7 +368,7 @@ export default function GraduationParty() {
                 size="lg"
                 variant="outline"
                 onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-lg px-8 py-6"
+                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-base sm:text-lg px-8 py-6"
                 data-testid="button-hero-view-packages"
               >
                 View Packages
@@ -384,15 +382,15 @@ export default function GraduationParty() {
               variants={fadeInUp}
             >
               <div className="text-center">
-                <div className="text-3xl font-bold text-brand-yellow">500+</div>
+                <div className="text-3xl font-bold text-pink-400">500+</div>
                 <div className="text-sm text-white/80">Grad Parties</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-brand-yellow">HS & College</div>
+                <div className="text-3xl font-bold text-pink-400">HS & College</div>
                 <div className="text-sm text-white/80">All Levels</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-brand-yellow">5.0★</div>
+                <div className="text-3xl font-bold text-pink-400">5.0★</div>
                 <div className="text-sm text-white/80">Graduate Rating</div>
               </div>
             </motion.div>
@@ -400,39 +398,26 @@ export default function GraduationParty() {
         </div>
 
         {/* Bottom Feature Bar */}
-        <div className="relative z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
-          <div className="container mx-auto">
-            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
-              <span className="text-brand-blue">HS & College</span> • Cap & Gown Photos • <span className="text-brand-blue">Unforgettable Send-Off</span>
+        <div className="relative z-20 w-full bg-white/90 backdrop-blur-sm py-4 px-6">
+          <div className="max-w-7xl mx-auto">
+            <p className="text-center text-gray-900 text-base md:text-lg font-semibold">
+              <span className="text-purple-600">HS & College</span> • Cap & Gown Photos • <span className="text-purple-600">Unforgettable Send-Off</span>
             </p>
           </div>
         </div>
       </section>
 
       {/* Build My Quote Now Section */}
-      <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            className="text-center"
-          >
-            <h2 
-              className="text-5xl md:text-6xl font-heading font-bold mb-6 text-white tracking-wider"
-              data-editable 
-              data-editable-id="quote-builder-heading"
-            >
-              BUILD MY QUOTE NOW
-            </h2>
-            <p 
-              className="text-xl text-white/90 mb-8 max-w-2xl mx-auto"
-              data-editable 
-              data-editable-id="quote-builder-subheading"
-            >
-              Get instant pricing for your <Link href="/party-boat-lake-travis" className="text-primary hover:underline">Lake Travis</Link> celebration in minutes
-            </p>
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-r from-purple-600 to-pink-600">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center">
+              <h2 className="text-5xl md:text-6xl font-playfair font-bold mb-6 text-white text-center tracking-wider">
+                BUILD MY QUOTE NOW
+              </h2>
+              <p className="text-xl text-base text-white/90 mb-8 max-w-2xl mx-auto text-center">
+                Get instant pricing for your graduation celebration in minutes
+              </p>
             
             {!showQuoteBuilder ? (
               <Button

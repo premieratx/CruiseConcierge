@@ -1,28 +1,26 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'wouter';
+import { useState } from 'react';
+import { useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import Footer from '@/components/Footer';
 import RelatedLinks from '@/components/RelatedLinks';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
-import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
+import { SectionReveal } from '@/components/SectionReveal';
 import { 
   Briefcase, Users, Calendar, MapPin, Clock, Phone,
   ArrowRight, CheckCircle, Sparkles, Wine, Shield,
   Star, MessageSquare, Award, Quote, ChevronRight,
-  Ship, Anchor, Sun, Info, TrendingUp, Utensils,
+  Ship, Anchor, Sun, Info, Utensils,
   Building, Handshake, Crown, Diamond, GlassWater, X, Trophy
 } from 'lucide-react';
-import { useReducedMotion } from '@/hooks/use-reduced-motion';
 
 // Hero and gallery images
 import heroImage1 from '@assets/clever-girl-50-person-boat.webp';
@@ -32,25 +30,6 @@ import galleryImage1 from '@assets/party-atmosphere-1.webp';
 import galleryImage2 from '@assets/party-atmosphere-2.webp';
 import galleryImage3 from '@assets/party-atmosphere-3.webp';
 
-// Animation variants
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
-  }
-};
-
-const staggerChildren = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
-};
-
-// Client Entertainment packages
 const clientPackages = [
   {
     id: 'standard',
@@ -112,7 +91,6 @@ const clientPackages = [
   }
 ];
 
-// What's included
 const whatsIncluded = [
   {
     icon: Wine,
@@ -161,7 +139,6 @@ const whatsIncluded = [
   }
 ];
 
-// FAQs - corrected content
 const faqItems = [
   {
     id: 'included',
@@ -195,7 +172,6 @@ const faqItems = [
   }
 ];
 
-// Testimonials
 const testimonials = [
   {
     id: 1,
@@ -226,20 +202,8 @@ const testimonials = [
 export default function ClientEntertainment() {
   const [location, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
-  const reducedMotion = useReducedMotion();
-  const [selectedPackage, setSelectedPackage] = useState('premium');
+  const [selectedPackage, setSelectedPackage] = useState('essentials');
   const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
-  const [currentHeroImage, setCurrentHeroImage] = useState(0);
-  const heroImages = [heroImage1, heroImage2, heroImage3];
-
-  useEffect(() => {
-    if (reducedMotion) return; // Skip animation for reduced motion
-    
-    const interval = setInterval(() => {
-      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [reducedMotion]);
 
   const handleGetQuote = () => {
     navigate('/chat?eventType=client-entertainment');
@@ -250,7 +214,7 @@ export default function ClientEntertainment() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead 
         pageRoute="/client-entertainment"
         defaultTitle="Client Entertainment | Premier Cruises"
@@ -266,74 +230,42 @@ export default function ClientEntertainment() {
 
       <PublicNavigation />
 
-      {/* Hero Section with Crossfade */}
-      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">
-        {/* Image Background with Smooth Crossfade */}
+      {/* Hero Section */}
+      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden pt-20">
         <div className="absolute inset-0 z-0">
-          {heroImages.map((image, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: index === currentHeroImage ? 1 : 0 }}
-              transition={{ duration: reducedMotion ? 0 : 0.8, ease: "easeInOut" }}
-              className="absolute inset-0"
-              style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
-            >
-              <img 
-                src={image}
-                alt="Client Entertainment Party Boat Austin cruise on Lake Travis - Professional corporate events"
-                className="w-full h-full object-cover"
-                width={1920}
-                height={1080}
-                loading={index === 0 ? "eager" : "lazy"}
-                fetchpriority={index === 0 ? "high" : "low"}
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-            </motion.div>
-          ))}
+          <div className="relative w-full h-full">
+            <img 
+              src={heroImage1}
+              alt="Client Entertainment Party Boat Austin cruise on Lake Travis - Professional corporate events"
+              className="w-full h-full object-cover"
+              loading="eager"
+              fetchpriority="high"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+          </div>
         </div>
 
-        {/* Main Hero Content */}
-        <div className="relative z-10 container mx-auto px-6 text-white flex-grow flex items-center">
-          <motion.div 
-            className="max-w-4xl mx-auto text-center w-full"
-            variants={staggerChildren}
-            initial="hidden"
-            animate="visible"
-          >
-            <motion.div variants={fadeInUp}>
-              <Badge className="mb-4 px-4 py-2 text-lg bg-white/20 backdrop-blur-sm border-white/30">
-                <Diamond className="mr-2 h-5 w-5" />
-                Impress Your Most Important Clients
-              </Badge>
-            </motion.div>
+        <div className="relative z-10 max-w-7xl mx-auto px-6 flex-grow flex items-center w-full">
+          <div className="max-w-4xl mx-auto text-center text-white w-full">
+            <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-white/20 backdrop-blur-sm border-white/30">
+              <Diamond className="mr-2 h-5 w-5" />
+              Impress Your Most Important Clients
+            </Badge>
 
-            <motion.h1 
-              className="text-5xl md:text-7xl font-bold font-heading mb-6"
-              variants={fadeInUp}
-            >
-              Client Entertainment
-              <span className="block text-3xl md:text-5xl mt-2 text-brand-yellow">
-                Cruises
-              </span>
-            </motion.h1>
+            <h1 className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center">
+              Client Entertainment Cruises
+            </h1>
 
-            <motion.p 
-              className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto"
-              variants={fadeInUp}
-            >
+            <p className="text-xl md:text-2xl text-base mb-8 text-white/90 max-w-3xl mx-auto text-center">
               Create unforgettable experiences that strengthen relationships and 
-              close deals on Austin's beautiful Lake Travis.
-            </motion.p>
+              close deals on Austin's beautiful Lake Travis
+            </p>
 
-            <motion.div 
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-              variants={fadeInUp}
-            >
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
                 onClick={handleGetQuote}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-8 py-6 shadow-xl"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base sm:text-lg px-8 py-6 shadow-xl"
                 data-testid="button-hero-get-quote"
               >
                 <MessageSquare className="mr-2 h-5 w-5" />
@@ -345,112 +277,87 @@ export default function ClientEntertainment() {
                 size="lg"
                 variant="outline"
                 onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-lg px-8 py-6"
+                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-base sm:text-lg px-8 py-6"
                 data-testid="button-hero-view-packages"
               >
                 View Packages
                 <ChevronRight className="ml-2 h-5 w-5" />
               </Button>
-            </motion.div>
+            </div>
 
-            {/* Quick Stats */}
-            <motion.div 
-              className="grid grid-cols-3 gap-8 mt-12 max-w-2xl mx-auto"
-              variants={fadeInUp}
-            >
+            <div className="grid grid-cols-3 gap-8 mt-12 max-w-2xl mx-auto">
               <div className="text-center">
-                <div className="text-3xl font-bold text-brand-yellow">300+</div>
+                <div className="text-3xl font-bold text-blue-400">300+</div>
                 <div className="text-sm text-white/80">Corporate Events</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-brand-yellow">Fortune 500</div>
+                <div className="text-3xl font-bold text-blue-400">Fortune 500</div>
                 <div className="text-sm text-white/80">Clients Served</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-brand-yellow">5.0★</div>
+                <div className="text-3xl font-bold text-blue-400">5.0★</div>
                 <div className="text-sm text-white/80">Client Rating</div>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
 
-        {/* Bottom Feature Bar */}
-        <div className="relative z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
-          <div className="container mx-auto">
-            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
-              <span className="text-brand-blue">Impress & Close Deals</span> • Professional Service • <span className="text-brand-blue">Fortune 500 Trusted</span>
+        <div className="relative z-20 w-full bg-white/90 backdrop-blur-sm py-4 px-6">
+          <div className="max-w-7xl mx-auto">
+            <p className="text-center text-gray-900 text-base md:text-lg font-semibold">
+              <span className="text-blue-600">Impress & Close Deals</span> • Professional Service • <span className="text-blue-600">Fortune 500 Trusted</span>
             </p>
           </div>
         </div>
       </section>
 
-      {/* Build My Quote Now Section */}
-      <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            className="text-center"
-          >
-            <h2 
-              className="text-5xl md:text-6xl font-heading font-bold mb-6 text-white tracking-wider"
-              data-editable 
-              data-editable-id="quote-builder-heading"
-            >
-              BUILD MY QUOTE NOW
-            </h2>
-            <p 
-              className="text-xl text-white/90 mb-8 max-w-2xl mx-auto"
-              data-editable 
-              data-editable-id="quote-builder-subheading"
-            >
-              Get instant pricing for your Lake Travis celebration in minutes
-            </p>
-            
-            {!showQuoteBuilder ? (
-              <Button
-                size="lg"
-                onClick={() => setShowQuoteBuilder(true)}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-2xl px-16 py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide"
-                data-testid="button-build-quote"
-              >
-                <Sparkles className="mr-3 h-7 w-7" />
-                <span data-editable data-editable-id="quote-builder-button">Start Building Your Quote</span>
-                <ArrowRight className="ml-3 h-7 w-7" />
-              </Button>
-            ) : (
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={() => setShowQuoteBuilder(false)}
-                className="border-3 border-white text-white hover:bg-white hover:text-black font-bold text-lg px-12 py-6 rounded-2xl backdrop-blur-sm mb-8"
-                data-testid="button-hide-quote"
-              >
-                <X className="mr-2 h-5 w-5" />
-                <span data-editable data-editable-id="quote-builder-hide-button">Hide Quote Builder</span>
-              </Button>
-            )}
-          </motion.div>
+      {/* Build My Quote Section */}
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-r from-blue-600 to-purple-600">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center">
+              <h2 className="text-5xl md:text-6xl font-playfair font-bold mb-6 text-white text-center tracking-wider">
+                BUILD MY QUOTE NOW
+              </h2>
+              <p className="text-xl text-base text-white/90 mb-8 max-w-2xl mx-auto text-center">
+                Get instant pricing for your client entertainment event in minutes
+              </p>
+              
+              {!showQuoteBuilder ? (
+                <Button
+                  size="lg"
+                  onClick={() => setShowQuoteBuilder(true)}
+                  className="bg-white hover:bg-gray-100 text-blue-600 font-bold text-lg sm:text-xl px-12 py-8 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
+                  data-testid="button-build-quote"
+                >
+                  <Sparkles className="mr-3 h-6 w-6" />
+                  Start Building Your Quote
+                  <ArrowRight className="ml-3 h-6 w-6" />
+                </Button>
+              ) : (
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={() => setShowQuoteBuilder(false)}
+                  className="border-3 border-white text-white hover:bg-white hover:text-blue-600 font-bold text-base px-12 py-6 rounded-xl backdrop-blur-sm mb-8"
+                  data-testid="button-hide-quote"
+                >
+                  <X className="mr-2 h-5 w-5" />
+                  Hide Quote Builder
+                </Button>
+              )}
+            </div>
 
-          {/* Expandable Quote Builder Iframe */}
-          <AnimatePresence>
-            {showQuoteBuilder && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="mt-12 overflow-hidden"
-              >
-                <div className="max-w-7xl mx-auto">
-                  <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2, duration: 0.4 }}
-                    className="bg-white rounded-2xl shadow-2xl overflow-hidden"
-                  >
+            <AnimatePresence>
+              {showQuoteBuilder && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="mt-12 overflow-hidden"
+                >
+                  <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
                     <iframe 
                       src="https://ppc-quote-builder.lovable.app/"
                       title="Build Your Quote - Premier Party Cruises"
@@ -464,65 +371,54 @@ export default function ClientEntertainment() {
                       allowFullScreen
                       data-testid="iframe-quote-builder"
                     />
-                  </motion.div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </section>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </section>
+      </SectionReveal>
 
       {/* Packages Section */}
-      <section id="packages" className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
-              Client Entertainment Packages
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Choose the perfect level of luxury for your client events. 
-              All packages include professional service and stunning lake views.
-            </p>
-          </motion.div>
+      <SectionReveal>
+        <section id="packages" className="py-24 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
+                Client Entertainment Packages
+              </h2>
+              <p className="text-xl text-base text-gray-600 max-w-3xl mx-auto text-center">
+                Choose the perfect level of luxury for your client events. 
+                All packages include professional service and stunning lake views.
+              </p>
+            </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {clientPackages.map((pkg, index) => (
-              <motion.div
-                key={pkg.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Card className={cn(
-                  "relative h-full hover:shadow-2xl transition-all duration-300",
-                  pkg.popular && "border-2 border-brand-yellow shadow-xl scale-105"
+            <div className="grid md:grid-cols-3 gap-8">
+              {clientPackages.map((pkg) => (
+                <Card key={pkg.id} className={cn(
+                  "relative h-full hover:shadow-2xl transition-all duration-300 rounded-xl",
+                  pkg.popular && "border-2 border-blue-600 shadow-xl scale-105"
                 )}>
                   {pkg.popular && (
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                      <Badge className="bg-brand-yellow text-black font-bold px-4 py-1">
+                      <Badge className="bg-blue-600 text-white font-bold font-sans tracking-wider px-4 py-1">
                         MOST POPULAR
                       </Badge>
                     </div>
                   )}
 
                   <CardHeader className="text-center pb-6">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-brand-blue/10 rounded-full flex items-center justify-center">
-                      <pkg.icon className="h-8 w-8 text-brand-blue" />
+                    <div className="w-16 h-16 mx-auto mb-4 bg-blue-100 rounded-full flex items-center justify-center">
+                      <pkg.icon className="h-8 w-8 text-blue-600" />
                     </div>
-                    <CardTitle className="text-2xl font-bold">{pkg.name}</CardTitle>
+                    <CardTitle className="text-2xl font-bold text-center">{pkg.name}</CardTitle>
                     
-                    <div className="mt-4">
-                      <div className="text-4xl font-bold text-brand-blue">
+                    <div className="mt-4 text-center">
+                      <div className="text-4xl font-bold text-blue-600">
                         ${pkg.basePrice}<span className="text-lg font-normal">/hr</span>
                       </div>
                       {pkg.addOnPrice && (
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                        <p className="text-sm text-gray-600 mt-1">
                           +${pkg.addOnPrice}/hr from base
                         </p>
                       )}
@@ -531,7 +427,7 @@ export default function ClientEntertainment() {
                   </CardHeader>
 
                   <CardContent>
-                    <p className="text-gray-600 dark:text-gray-400 mb-6">
+                    <p className="text-gray-600 text-base mb-6 text-center">
                       {pkg.description}
                     </p>
 
@@ -539,7 +435,7 @@ export default function ClientEntertainment() {
                       {pkg.features.map((feature, idx) => (
                         <li key={idx} className="flex items-start">
                           <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="text-sm">{feature}</span>
+                          <span className="text-sm text-base">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -555,613 +451,253 @@ export default function ClientEntertainment() {
                     </Button>
                   </CardContent>
                 </Card>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </SectionReveal>
 
       {/* What's Included */}
-      <section className="py-20 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
-              Creating Exceptional Client Experiences
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
-              Every detail designed to impress and build relationships
-            </p>
-          </motion.div>
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
+                Premium Client Experience
+              </h2>
+              <p className="text-xl text-base text-gray-600 text-center">
+                Everything needed to impress and close deals
+              </p>
+            </div>
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {whatsIncluded.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="flex items-start p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
-              >
-                <div className="w-12 h-12 bg-brand-blue/10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                  <item.icon className="h-6 w-6 text-brand-blue" />
+            <div className="grid md:grid-cols-3 gap-6">
+              {whatsIncluded.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-start p-6 rounded-xl hover:bg-white hover:shadow-lg transition-all"
+                >
+                  <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                    <item.icon className="h-6 w-6 text-blue-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-base mb-1">{item.title}</h3>
+                    <p className="text-sm text-base text-gray-600">{item.description}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-bold mb-1">{item.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
-                </div>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </SectionReveal>
 
       {/* Testimonials */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
-              Client Success Stories
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
-              See how companies strengthen client relationships on the water
-            </p>
-          </motion.div>
+      <SectionReveal>
+        <section className="py-24 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
+                Client Success Stories
+              </h2>
+              <p className="text-xl text-base text-gray-600 text-center">
+                See how businesses impress their most important clients
+              </p>
+            </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Card className="h-full">
+            <div className="grid md:grid-cols-3 gap-8">
+              {testimonials.map((testimonial) => (
+                <Card key={testimonial.id} className="h-full rounded-xl">
                   <CardContent className="pt-6">
-                    <div className="flex mb-4">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-brand-yellow text-brand-yellow" />
+                    <div className="flex items-center mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
                       ))}
                     </div>
-                    
-                    <Quote className="h-8 w-8 text-brand-blue/20 mb-2" />
-                    
-                    <p className="text-gray-600 dark:text-gray-400 mb-6 italic">
-                      "{testimonial.text}"
-                    </p>
-
+                    <Quote className="h-8 w-8 text-blue-600 mb-4" />
+                    <p className="text-gray-700 text-base mb-6">{testimonial.text}</p>
                     <div className="border-t pt-4">
-                      <p className="font-bold">{testimonial.name}</p>
-                      <p className="text-sm text-gray-500">{testimonial.role}</p>
+                      <p className="font-bold text-base">{testimonial.name}</p>
+                      <p className="text-sm text-gray-600">{testimonial.role}</p>
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </SectionReveal>
 
-      {/* FAQs */}
-      <section className="py-20 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
-              Client Entertainment FAQs
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
-              Everything you need to know about hosting clients on Lake Travis
-            </p>
-          </motion.div>
+      {/* Photo Gallery */}
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
+                Professional Event Gallery
+              </h2>
+              <p className="text-xl text-base text-gray-600 text-center">
+                See the luxury client experience
+              </p>
+            </div>
 
-          <div className="max-w-3xl mx-auto">
+            <Carousel className="w-full max-w-5xl mx-auto">
+              <CarouselContent>
+                {[galleryImage1, galleryImage2, galleryImage3, heroImage2, heroImage3].map((img, index) => (
+                  <CarouselItem key={index}>
+                    <div className="p-1">
+                      <Card className="rounded-xl overflow-hidden">
+                        <img
+                          src={img}
+                          alt={`Client Entertainment Gallery ${index + 1}`}
+                          className="w-full h-[500px] object-cover"
+                          loading="lazy"
+                        />
+                      </Card>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* FAQ Section */}
+      <SectionReveal>
+        <section className="py-24 bg-white">
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-xl text-base text-gray-600 text-center">
+                Everything you need to know about client entertainment cruises
+              </p>
+            </div>
+
             <Accordion type="single" collapsible className="w-full">
-              {faqItems.map((item, index) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                >
-                  <AccordionItem value={item.id} className="mb-4">
-                    <AccordionTrigger className="text-left hover:no-underline">
-                      <div className="flex items-start">
-                        <Info className="h-5 w-5 text-brand-blue mr-3 mt-0.5 flex-shrink-0" />
-                        <span className="font-semibold">{item.question}</span>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="pt-2 pb-4 pl-8">
-                      <p className="text-gray-600 dark:text-gray-400">{item.answer}</p>
-                    </AccordionContent>
-                  </AccordionItem>
-                </motion.div>
+              {faqItems.map((faq) => (
+                <AccordionItem key={faq.id} value={faq.id}>
+                  <AccordionTrigger className="text-left font-bold text-base">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-base text-gray-600">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
               ))}
             </Accordion>
           </div>
-        </div>
-      </section>
+        </section>
+      </SectionReveal>
 
-      {/* Party Planning Checklist */}
-      <PartyPlanningChecklist 
-        partyType="Client Entertainment Event"
-        eventType="client entertainment event"
-      />
+      {/* Planning Checklist */}
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <PartyPlanningChecklist 
+              eventType="Client Entertainment"
+              checklistItems={[
+                'Choose your client entertainment package',
+                'Select date and time for client event',
+                'Determine guest count and VIP attendees',
+                'Coordinate gourmet catering options',
+                'Plan premium bar service',
+                'Arrange company branding and signage',
+                'Send professional invitations to clients',
+                'Coordinate transportation logistics',
+                'Review event timeline with captain'
+              ]}
+            />
+          </div>
+        </section>
+      </SectionReveal>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-brand-blue to-blue-600">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            className="text-center text-white"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">
-              Elevate Your Client Relationships
+      {/* Final CTA */}
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-r from-blue-600 to-purple-600">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-6 text-white text-center">
+              Ready to Impress Your Clients?
             </h2>
-            <p className="text-xl mb-8 text-white/90 max-w-3xl mx-auto">
-              Create memorable experiences that strengthen partnerships and drive business success. 
-              Let us help you impress your most important clients.
+            <p className="text-xl text-base text-white/90 mb-8 text-center">
+              Start planning your unforgettable client entertainment experience today
             </p>
-            
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
                 onClick={handleGetQuote}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-8 py-6 shadow-xl"
-                data-testid="button-cta-get-quote"
+                className="bg-white hover:bg-gray-100 text-blue-600 font-bold text-lg px-8 py-6"
+                data-testid="button-final-cta"
               >
                 <MessageSquare className="mr-2 h-5 w-5" />
-                Get Custom Quote
+                Get Your Quote
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-
               <Button
                 size="lg"
                 variant="outline"
-                onClick={() => navigate('/contact')}
-                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-lg px-8 py-6"
-                data-testid="button-cta-contact"
+                asChild
+                className="border-white text-white hover:bg-white hover:text-blue-600 font-bold text-lg px-8 py-6"
+                data-testid="button-call-now"
               >
-                <Phone className="mr-2 h-5 w-5" />
-                Call Us: 512-488-5892
+                <a href="tel:+15124000323">
+                  <Phone className="mr-2 h-5 w-5" />
+                  Call (512) 400-0323
+                </a>
               </Button>
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Related Experiences Section */}
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
-              Related Corporate Experiences
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Explore our full range of corporate event solutions on Lake Travis.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <Link href="/team-building">
-                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-brand-blue">
-                  <CardHeader>
-                    <div className="w-16 h-16 mx-auto mb-4 bg-brand-blue/10 rounded-full flex items-center justify-center">
-                      <Users className="h-8 w-8 text-brand-blue" />
-                    </div>
-                    <CardTitle className="text-2xl text-center">Team Building</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 dark:text-gray-400 text-center">
-                      Build stronger teams on Lake Travis
-                    </p>
-                    <Button className="w-full mt-4" variant="outline">
-                      Explore Team Building
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Link>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              <Link href="/company-milestone">
-                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-purple-500">
-                  <CardHeader>
-                    <div className="w-16 h-16 mx-auto mb-4 bg-purple-500/10 rounded-full flex items-center justify-center">
-                      <Trophy className="h-8 w-8 text-purple-500" />
-                    </div>
-                    <CardTitle className="text-2xl text-center">Company Milestone</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 dark:text-gray-400 text-center">
-                      Celebrate business milestones
-                    </p>
-                    <Button className="w-full mt-4" variant="outline">
-                      Explore Company Milestones
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Link>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              <Link href="/corporate-events">
-                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-green-500">
-                  <CardHeader>
-                    <div className="w-16 h-16 mx-auto mb-4 bg-green-500/10 rounded-full flex items-center justify-center">
-                      <Building className="h-8 w-8 text-green-500" />
-                    </div>
-                    <CardTitle className="text-2xl text-center">Corporate Events</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 dark:text-gray-400 text-center">
-                      Corporate event planning resources
-                    </p>
-                    <Button className="w-full mt-4" variant="outline">
-                      View All Corporate Events
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Link>
-            </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
+      </SectionReveal>
 
-      {/* Related Services Section */}
-      <section className="py-20 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-4 text-gray-900 dark:text-white">
-              MORE AUSTIN PARTY BOAT SERVICES
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
-              Discover our other Lake Travis cruise experiences
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            <Link href="/party-boat-lake-travis" data-testid="link-party-boat-from-client">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-green-500">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Lake Travis Party Boats</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Premier Austin party boats for celebrations on Lake Travis</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/private-cruises" data-testid="link-private-from-client">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-green-500">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Private Austin Charters</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Exclusive private boat rentals on Lake Travis</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/bachelor-party-austin" data-testid="link-bachelor-from-client">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-green-500">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Bachelor Party Austin</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Epic bachelor party cruises on Lake Travis</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/bachelorette-party-austin" data-testid="link-bachelorette-from-client">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-green-500">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Bachelorette Party Austin</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Premier bachelorette cruises - Our specialty since 2009</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/gallery" data-testid="link-gallery-from-client">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-green-500">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Photo Gallery</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">See our Lake Travis corporate event photos</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/contact" data-testid="link-contact-from-client">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-green-500">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">Contact Us</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">Get your corporate event quote today</p>
-                </CardHeader>
-              </Card>
-            </Link>
-
-            <Link href="/" data-testid="link-home-from-client">
-              <Card className="hover:shadow-xl transition-all duration-300 cursor-pointer h-full border-2 border-transparent hover:border-green-500">
-                <CardHeader>
-                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white">All Services</CardTitle>
-                  <p className="text-gray-600 dark:text-gray-400">View all our party cruise options</p>
-                </CardHeader>
-              </Card>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* SEO-Optimized Hidden Content for Search Engines */}
-      <div className="sr-only" itemScope itemType="https://schema.org/Service">
-        <h2 itemProp="name">Client Entertainment Corporate Events Austin Lake Travis</h2>
-        <p itemProp="description">
-          Premier Party Cruises specializes in client entertainment on Lake Travis in Austin, Texas. 
-          Impress your most important clients with unforgettable experiences on the water. Our luxury 
-          boat cruises provide the perfect setting for relationship building, deal closing, and client 
-          appreciation. Professional white-glove service, gourmet catering, and stunning Lake Travis 
-          views create lasting positive impressions that strengthen business partnerships.
-        </p>
-        
-        <h2>Client Entertainment Services Austin</h2>
-        <p>
-          VIP client entertainment experiences on Lake Travis including gourmet catering, premium bar service, 
-          professional networking layouts, scenic routes showcasing Austin's beauty, company branding options, 
-          and white-glove service. Create memorable experiences that set you apart from competitors and 
-          strengthen client relationships through unique Lake Travis boat experiences.
-        </p>
-        
-        <h2>Private Cruise Pricing for Corporate Groups</h2>
-        <div itemScope itemType="https://schema.org/Offer">
-          <h3 itemProp="name">14 Guest Client Entertainment Package</h3>
-          <meta itemProp="priceCurrency" content="USD" />
-          <p>Starting at <span itemProp="price">$200</span> per hour for groups up to 14 people</p>
-          <p itemProp="description">Intimate VIP client experiences and executive entertaining</p>
-        </div>
-        
-        <div itemScope itemType="https://schema.org/Offer">
-          <h3 itemProp="name">15-25 Guest Client Entertainment Package</h3>
-          <meta itemProp="priceCurrency" content="USD" />
-          <p>Starting at <span itemProp="price">$250</span> per hour for groups of 15-25 people</p>
-          <p itemProp="description">Perfect for client appreciation events and networking</p>
-        </div>
-        
-        <div itemScope itemType="https://schema.org/Offer">
-          <h3 itemProp="name">26-30 Guest Client Entertainment Package</h3>
-          <meta itemProp="priceCurrency" content="USD" />
-          <p>Starting at <span itemProp="price">$300</span> per hour for groups of 26-30 people</p>
-          <p itemProp="description">Great for client mixers and business development</p>
-        </div>
-        
-        <div itemScope itemType="https://schema.org/Offer">
-          <h3 itemProp="name">31-50 Guest Client Entertainment Package</h3>
-          <meta itemProp="priceCurrency" content="USD" />
-          <p>Starting at <span itemProp="price">$350</span> per hour for groups of 31-50 people</p>
-          <p itemProp="description">Ideal for major client events and industry networking</p>
-        </div>
-        
-        <div itemScope itemType="https://schema.org/Offer">
-          <h3 itemProp="name">51-75 Guest Client Entertainment Package</h3>
-          <meta itemProp="priceCurrency" content="USD" />
-          <p>Starting at <span itemProp="price">$400</span> per hour for groups of 51-75 people</p>
-          <p itemProp="description">Perfect for large client appreciation events</p>
-        </div>
-        
-        <h2>Client Entertainment Features</h2>
-        <ul>
-          <li>Premium bar service with top-shelf spirits and fine wines</li>
-          <li>Gourmet catering from Austin's best caterers</li>
-          <li>Professional networking layout designed for business conversations</li>
-          <li>Scenic routes showcasing Lake Travis and Austin beauty</li>
-          <li>Custom company branding and signage options</li>
-          <li>White-glove service from professional staff</li>
-          <li>VIP treatment to impress your most important clients</li>
-          <li>Full amenities for comfort and luxury</li>
-          <li>Customizable presentations and announcements</li>
-          <li>Experienced captain and professional crew</li>
-        </ul>
-        
-        <h2>Keywords: Client Entertainment Austin, Corporate Events Lake Travis, Business Boat Cruise</h2>
-        <p>
-          client entertainment Austin, corporate client events Lake Travis, client entertainment boat cruise, 
-          business entertainment Austin, client appreciation Lake Travis, corporate hospitality Austin Texas, 
-          VIP client events boat Austin, business development Lake Travis, corporate party boat Austin, 
-          client networking cruise Austin, Lake Travis corporate entertainment, Austin client events boat, 
-          business relationship building Austin, client appreciation cruise Austin, corporate boat rental Austin
-        </p>
-        
-        <h2>Fleet Options for Client Entertainment</h2>
-        <div itemScope itemType="https://schema.org/Product">
-          <h3 itemProp="name">Day Tripper - 14 Person Boat</h3>
-          <p itemProp="description">
-            Perfect for VIP client entertainment and executive hosting. Intimate luxury setting with premium 
-            amenities, ideal for confidential business discussions and high-level relationship building.
-          </p>
-        </div>
-        
-        <div itemScope itemType="https://schema.org/Product">
-          <h3 itemProp="name">Me Seeks the Irony - 25 Person Boat</h3>
-          <p itemProp="description">
-            Ideal for client appreciation events. Spacious layout for networking, comfortable seating for 
-            conversations, and perfect size for intimate yet impressive business entertainment.
-          </p>
-        </div>
-        
-        <div itemScope itemType="https://schema.org/Product">
-          <h3 itemProp="name">Clever Girl - 50 Person Boat</h3>
-          <p itemProp="description">
-            Our flagship vessel for major client events. Multiple deck levels for mingling, presentation 
-            areas for announcements, and luxury amenities that demonstrate your commitment to excellence.
-          </p>
-        </div>
-      </div>
-
-      {/* JSON-LD Structured Data */}
+      {/* Service Schema */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "Service",
-          "serviceType": "Corporate Client Entertainment Events",
+          "name": "Client Entertainment Cruises on Lake Travis",
           "provider": {
             "@type": "LocalBusiness",
             "name": "Premier Party Cruises",
-            "image": "https://premierpartycruises.com/logo.png",
-            "@id": "https://premierpartycruises.com",
-            "url": "https://premierpartycruises.com",
-            "telephone": "(512) 488-5892",
-            "priceRange": "$200-$400 per hour",
-            "address": {
-              "@type": "PostalAddress",
-              "streetAddress": "Lake Travis",
-              "addressLocality": "Austin",
-              "addressRegion": "TX",
-              "postalCode": "78734",
-              "addressCountry": "US"
-            },
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": 30.3894,
-              "longitude": -97.9322
-            },
-            "openingHoursSpecification": [{
-              "@type": "OpeningHoursSpecification",
-              "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
-              "opens": "09:00",
-              "closes": "21:00"
-            }],
-            "sameAs": [
-              "https://www.facebook.com/premierpartycruises",
-              "https://www.instagram.com/premierpartycruises"
-            ]
+            "telephone": "+1-512-400-0323"
           },
-          "areaServed": {
-            "@type": "City",
-            "name": "Austin",
-            "sameAs": "https://en.wikipedia.org/wiki/Austin,_Texas"
-          },
-          "description": "VIP client entertainment experiences on Lake Travis in Austin, Texas. Luxury boat cruises with gourmet catering, premium service, and white-glove hospitality for groups of 14-75 people.",
+          "areaServed": "Austin, TX",
+          "description": "Premium client entertainment cruises on Lake Travis. Impress clients with luxury boat rentals, gourmet catering, and professional service for business events.",
           "offers": [
             {
               "@type": "Offer",
               "name": "14 Guest Client Entertainment Package",
               "price": "200",
               "priceCurrency": "USD",
-              "description": "VIP client experiences and executive entertaining up to 14 people"
+              "description": "Small client groups up to 14 people"
             },
             {
               "@type": "Offer",
               "name": "15-25 Guest Client Entertainment Package",
               "price": "250",
               "priceCurrency": "USD",
-              "description": "Client appreciation and networking for 15-25 people"
+              "description": "Medium client entertainment for 15-25 people"
             },
             {
               "@type": "Offer",
-              "name": "26-30 Guest Client Entertainment Package",
+              "name": "26-50 Guest Client Entertainment Package",
               "price": "300",
               "priceCurrency": "USD",
-              "description": "Client mixers and business development for 26-30 people"
-            },
-            {
-              "@type": "Offer",
-              "name": "31-50 Guest Client Entertainment Package",
-              "price": "350",
-              "priceCurrency": "USD",
-              "description": "Major client events and industry networking for 31-50 people"
-            },
-            {
-              "@type": "Offer",
-              "name": "51-75 Guest Client Entertainment Package",
-              "price": "400",
-              "priceCurrency": "USD",
-              "description": "Large client appreciation events for 51-75 people"
+              "description": "Large client events for 26-50 people"
             }
           ]
         })
       }} />
 
-      {/* FAQ Schema */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          "mainEntity": faqItems.map(faq => ({
-            "@type": "Question",
-            "name": faq.question,
-            "acceptedAnswer": {
-              "@type": "Answer",
-              "text": faq.answer
-            }
-          }))
-        })
-      }} />
-
-      {/* Related Links */}
       <RelatedLinks 
         blogLinks={[
-          { title: 'Client Entertainment Best Practices', href: '/blogs/client-entertainment-ideas-austin' },
-          { title: 'Luxury Corporate Events Guide', href: '/blogs/luxury-corporate-events-lake-travis' },
-          { title: 'Impress Your Clients', href: '/blogs/impressive-client-appreciation-events' }
+          { title: 'Client Entertainment Best Practices', href: '/blogs/client-entertainment-best-practices' },
+          { title: 'Corporate Event Planning Guide', href: '/blogs/corporate-event-planning-austin' },
+          { title: 'Lake Travis Corporate Events', href: '/blogs/lake-travis-corporate-events' }
         ]}
       />
-
-      
-      {/* JSON-LD Structured Data - Service Schema */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-                    "@context": "https://schema.org",
-                    "@type": "Service",
-                    "@id": "https://premierpartycruises.com/client-entertainment/#service",
-                    "name": "Private Cruise — Client Entertainment",
-                    "provider": {
-                              "@id": "https://premierpartycruises.com/#organization"
-                    },
-                    "areaServed": [
-                              "Austin TX",
-                              "Texas",
-                              "United States"
-                    ],
-                    "description": "Private 3–4 hour cruise with licensed, experienced captain & crew, premium Bluetooth sound, coolers, restrooms, sun & shade seating. Choose Essentials or Ultimate Disco Party package add‑ons."
-          })
-      }} />
 
       <Footer />
     </div>

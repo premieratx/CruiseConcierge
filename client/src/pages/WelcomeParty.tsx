@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
+import { SectionReveal } from '@/components/SectionReveal';
 import { 
   PartyPopper, Users, Calendar, MapPin, Clock, Phone,
   ArrowRight, CheckCircle, Sparkles, Music, Utensils,
@@ -249,7 +250,7 @@ export default function WelcomeParty() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead 
         pageRoute="/welcome-party"
         defaultTitle="Wedding Welcome Party | Lake Travis"
@@ -301,24 +302,21 @@ export default function WelcomeParty() {
             animate="visible"
           >
             <motion.div variants={fadeInUp}>
-              <Badge className="mb-4 px-4 py-2 text-lg bg-white/20 backdrop-blur-sm border-white/30">
+              <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-white/20 backdrop-blur-sm border-white/30">
                 <Plane className="mr-2 h-5 w-5" />
                 Welcome Your Wedding Guests in Style
               </Badge>
             </motion.div>
 
             <motion.h1 
-              className="text-5xl md:text-7xl font-bold font-heading mb-6"
+              className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center"
               variants={fadeInUp}
             >
-              Welcome Party
-              <span className="block text-3xl md:text-5xl mt-2 text-brand-yellow">
-                Cruises
-              </span>
+              Welcome Party Cruises
             </motion.h1>
 
             <motion.p 
-              className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto"
+              className="text-xl md:text-2xl text-base mb-8 text-white/90 max-w-3xl mx-auto text-center"
               variants={fadeInUp}
             >
               Kick off your wedding weekend with an unforgettable Lake Travis cruise. 
@@ -332,7 +330,7 @@ export default function WelcomeParty() {
               <Button
                 size="lg"
                 onClick={handleGetQuote}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-8 py-6 shadow-xl"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-base sm:text-lg px-8 py-6 shadow-xl"
                 data-testid="button-hero-get-quote"
               >
                 <MessageSquare className="mr-2 h-5 w-5" />
@@ -344,7 +342,7 @@ export default function WelcomeParty() {
                 size="lg"
                 variant="outline"
                 onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-lg px-8 py-6"
+                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-base sm:text-lg px-8 py-6"
                 data-testid="button-hero-view-packages"
               >
                 View Packages
@@ -358,15 +356,15 @@ export default function WelcomeParty() {
               variants={fadeInUp}
             >
               <div className="text-center">
-                <div className="text-3xl font-bold text-brand-yellow">400+</div>
+                <div className="text-3xl font-bold text-pink-400">400+</div>
                 <div className="text-sm text-white/80">Welcome Parties</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-brand-yellow">25-75</div>
+                <div className="text-3xl font-bold text-pink-400">25-75</div>
                 <div className="text-sm text-white/80">Guest Capacity</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-brand-yellow">5.0★</div>
+                <div className="text-3xl font-bold text-pink-400">5.0★</div>
                 <div className="text-sm text-white/80">Guest Rating</div>
               </div>
             </motion.div>
@@ -374,10 +372,10 @@ export default function WelcomeParty() {
         </div>
 
         {/* Bottom Feature Bar */}
-        <div className="relative z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
-          <div className="container mx-auto">
-            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
-              <span className="text-brand-blue">Welcome Guests</span> • Texas Hospitality • <span className="text-brand-blue">Wedding Weekend Kickoff</span>
+        <div className="relative z-20 w-full bg-white/90 backdrop-blur-sm py-4 px-6">
+          <div className="max-w-7xl mx-auto">
+            <p className="text-center text-gray-900 text-base md:text-lg font-semibold">
+              <span className="text-purple-600">Welcome Guests</span> • Texas Hospitality • <span className="text-purple-600">Wedding Weekend Kickoff</span>
             </p>
           </div>
         </div>

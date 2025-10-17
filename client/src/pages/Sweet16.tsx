@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
+import { SectionReveal } from '@/components/SectionReveal';
 import { 
   Sparkles, Users, Calendar, MapPin, Clock, Phone,
   ArrowRight, CheckCircle, Star, Camera, Music,
@@ -262,7 +263,7 @@ export default function Sweet16() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50 to-white dark:from-gray-950 dark:to-gray-900">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead 
         pageRoute="/sweet-16"
         defaultTitle="Sweet 16 Cruises | Lake Travis Austin"
@@ -334,24 +335,21 @@ export default function Sweet16() {
             animate="visible"
           >
             <motion.div variants={fadeInUp}>
-              <Badge className="mb-4 px-4 py-2 text-lg bg-pink-500/30 backdrop-blur-sm border-pink-300">
+              <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-white/20 backdrop-blur-sm border-white/30">
                 <Sparkles className="mr-2 h-5 w-5" />
                 Make Her 16th Birthday Magical
               </Badge>
             </motion.div>
 
             <motion.h1 
-              className="text-5xl md:text-7xl font-bold font-heading mb-6"
+              className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center"
               variants={fadeInUp}
             >
-              Sweet 16
-              <span className="block text-3xl md:text-5xl mt-2 text-pink-300">
-                Birthday Cruises
-              </span>
+              Sweet 16 Birthday Cruises
             </motion.h1>
 
             <motion.p 
-              className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto"
+              className="text-xl md:text-2xl text-base mb-8 text-white/90 max-w-3xl mx-auto text-center"
               variants={fadeInUp}
             >
               Celebrate this milestone birthday with an unforgettable Lake Travis cruise. 
@@ -365,7 +363,7 @@ export default function Sweet16() {
               <Button
                 size="lg"
                 onClick={handleGetQuote}
-                className="bg-pink-400 hover:bg-pink-500 text-white font-bold text-lg px-8 py-6 shadow-xl"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-base sm:text-lg px-8 py-6 shadow-xl"
                 data-testid="button-hero-get-quote"
               >
                 <MessageSquare className="mr-2 h-5 w-5" />
@@ -377,7 +375,7 @@ export default function Sweet16() {
                 size="lg"
                 variant="outline"
                 onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-lg px-8 py-6"
+                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-base sm:text-lg px-8 py-6"
                 data-testid="button-hero-view-packages"
               >
                 View Packages
@@ -391,15 +389,15 @@ export default function Sweet16() {
               variants={fadeInUp}
             >
               <div className="text-center">
-                <div className="text-3xl font-bold text-pink-300">200+</div>
+                <div className="text-3xl font-bold text-pink-400">200+</div>
                 <div className="text-sm text-white/80">Sweet 16s</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-pink-300">25-75</div>
+                <div className="text-3xl font-bold text-pink-400">25-75</div>
                 <div className="text-sm text-white/80">Guest Capacity</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-pink-300">5.0★</div>
+                <div className="text-3xl font-bold text-pink-400">5.0★</div>
                 <div className="text-sm text-white/80">Parent Rating</div>
               </div>
             </motion.div>
@@ -407,10 +405,10 @@ export default function Sweet16() {
         </div>
 
         {/* Bottom Feature Bar */}
-        <div className="relative z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
-          <div className="container mx-auto">
-            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
-              <span className="text-pink-500">Instagram-Worthy</span> • Teen-Friendly Fun • <span className="text-pink-500">Unforgettable Memories</span>
+        <div className="relative z-20 w-full bg-white/90 backdrop-blur-sm py-4 px-6">
+          <div className="max-w-7xl mx-auto">
+            <p className="text-center text-gray-900 text-base md:text-lg font-semibold">
+              <span className="text-purple-600">Instagram-Worthy</span> • Teen-Friendly Fun • <span className="text-purple-600">Unforgettable Memories</span>
             </p>
           </div>
         </div>

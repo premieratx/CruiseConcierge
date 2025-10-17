@@ -80,6 +80,7 @@ import { QuickAnswerBox, QuickAnswerBoxGroup } from '@/components/QuickAnswerBox
 import { InternalLinkHighlight, InternalLinkHighlightWithArrow } from '@/components/InternalLinkHighlight';
 import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
+import { SectionReveal } from '@/components/SectionReveal';
 
 // Lazy load heavy components to improve FCP
 const DiscoVsPrivateComparison = lazy(() => import('@/components/DiscoVsPrivateComparison').then(mod => ({ default: mod.DiscoVsPrivateComparison })));
@@ -557,7 +558,7 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white dark:bg-gray-950">
       <SEOHead
         pageRoute="/"
         defaultTitle="Party Boat Austin"
@@ -617,10 +618,10 @@ export default function Home() {
 
             {/* Main Headline */}
             <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8">
-              <h1 className="text-3xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 leading-tight tracking-wider" data-editable data-editable-id="hero-title">
+              <h1 className="text-5xl font-bold font-playfair mb-6 leading-tight" data-editable data-editable-id="hero-title">
                 Premier Party Cruises
               </h1>
-              <p className="text-xl md:text-2xl lg:text-3xl text-brand-yellow font-semibold" data-editable data-editable-id="hero-tagline">
+              <p className="text-xl text-brand-yellow font-semibold" data-editable data-editable-id="hero-tagline">
                 Austin's Ultimate Lake Travis Party Boat Experience Since 2009
               </p>
             </motion.div>
@@ -628,7 +629,7 @@ export default function Home() {
             {/* Subheadline with Pricing Value Proposition */}
             <motion.p 
               variants={reducedMotion ? undefined : fadeInUp}
-              className="text-xl md:text-2xl mb-8 text-gray-100 max-w-4xl mx-auto leading-relaxed font-light"
+              className="text-base mb-8 text-gray-100 max-w-4xl mx-auto leading-relaxed"
               data-editable data-editable-id="hero-description"
             >
               Experience Austin's ultimate Lake Travis adventure with the most trusted party cruise company since 2009. 
@@ -638,25 +639,25 @@ export default function Home() {
             {/* Pricing Value Proposition */}
             <motion.div 
               variants={reducedMotion ? undefined : fadeInUp}
-              className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 max-w-3xl mx-auto mb-12 border border-white/20"
+              className="bg-white border border-gray-200 rounded-xl p-6 max-w-3xl mx-auto mb-12"
             >
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-center">
                 <div>
-                  <div className="text-brand-yellow text-sm font-bold mb-2" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM</div>
-                  <div className="text-3xl font-bold text-white mb-1" data-editable data-editable-id="pricing-overlay-private-price">
+                  <div className="font-sans tracking-wider font-bold uppercase text-sm text-blue-600 mb-2" data-editable data-editable-id="pricing-overlay-private-label">PRIVATE CRUISES FROM</div>
+                  <div className="text-3xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-private-price">
                     ${HOURLY_RATES.MON_THU[14] / 100} per hour
                   </div>
-                  <div className="text-sm text-gray-200" data-editable data-editable-id="pricing-overlay-private-subtitle">Weekdays • 14+ people</div>
+                  <div className="text-sm text-gray-700" data-editable data-editable-id="pricing-overlay-private-subtitle">Weekdays • 14+ people</div>
                 </div>
                 <div>
-                  <div className="text-brand-yellow text-sm font-bold mb-2" data-editable data-editable-id="pricing-overlay-disco-label">DISCO CRUISES</div>
-                  <div className="text-3xl font-bold text-white mb-1" data-editable data-editable-id="pricing-overlay-disco-price">
+                  <div className="font-sans tracking-wider font-bold uppercase text-sm text-blue-600 mb-2" data-editable data-editable-id="pricing-overlay-disco-label">DISCO CRUISES</div>
+                  <div className="text-3xl font-bold text-gray-900 mb-1" data-editable data-editable-id="pricing-overlay-disco-price">
                     ${pricingHighlights[1].weekdayFrom}/person
                   </div>
-                  <div className="text-sm text-gray-200" data-editable data-editable-id="pricing-overlay-disco-subtitle">Friday & Saturday</div>
+                  <div className="text-sm text-gray-700" data-editable data-editable-id="pricing-overlay-disco-subtitle">Friday & Saturday</div>
                 </div>
               </div>
-              <div className="text-center mt-4 text-sm text-brand-yellow font-medium" data-editable data-editable-id="pricing-overlay-tagline">
+              <div className="text-center mt-4 text-sm text-blue-600 font-medium" data-editable data-editable-id="pricing-overlay-tagline">
                 ✨ Transparent pricing • No hidden fees • Best value guaranteed
               </div>
             </motion.div>
@@ -668,19 +669,19 @@ export default function Home() {
             >
               <div className="flex items-center justify-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-4">
                 <MapPin className="h-5 w-5 sm:h-6 sm:w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-sm sm:text-base md:text-lg" data-editable data-editable-id="hero-badge-marina">Anderson Mill Marina</span>
+                <span className="font-sans tracking-wider font-bold uppercase text-sm" data-editable data-editable-id="hero-badge-marina">Anderson Mill Marina</span>
               </div>
               <div className="flex items-center justify-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-4">
                 <Users className="h-5 w-5 sm:h-6 sm:w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-sm sm:text-base md:text-lg" data-editable data-editable-id="hero-badge-boats">4 Awesome Boats</span>
+                <span className="font-sans tracking-wider font-bold uppercase text-sm" data-editable data-editable-id="hero-badge-boats">4 Awesome Boats</span>
               </div>
               <div className="flex items-center justify-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-4">
                 <DollarSign className="h-5 w-5 sm:h-6 sm:w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-sm sm:text-base md:text-lg whitespace-nowrap" data-editable data-editable-id="hero-badge-pricing">From ${HOURLY_RATES.MON_THU[14] / 100} per hour</span>
+                <span className="font-sans tracking-wider font-bold uppercase text-sm whitespace-nowrap" data-editable data-editable-id="hero-badge-pricing">From ${HOURLY_RATES.MON_THU[14] / 100} per hour</span>
               </div>
               <div className="flex items-center justify-center space-x-2 sm:space-x-3 bg-white/10 backdrop-blur-sm rounded-2xl p-3 sm:p-4">
                 <Clock className="h-5 w-5 sm:h-6 sm:w-6 text-brand-yellow flex-shrink-0" />
-                <span className="font-semibold text-sm sm:text-base md:text-lg" data-editable data-editable-id="hero-badge-disco">ATX Disco Fri/Sat</span>
+                <span className="font-sans tracking-wider font-bold uppercase text-sm" data-editable data-editable-id="hero-badge-disco">ATX Disco Fri/Sat</span>
               </div>
             </motion.div>
 
@@ -692,22 +693,22 @@ export default function Home() {
               <Button
                 size="lg"
                 onClick={() => handleBookNow()}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide whitespace-normal min-h-[3.5rem] sm:min-h-[4rem]"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-8 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
                 data-testid="button-hero-book-now"
               >
-                <Calendar className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
-                <span data-editable data-editable-id="hero-cta-book" className="text-center">BOOK YOUR CRUISE</span>
-                <ArrowRight className="ml-2 sm:ml-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
+                <Calendar className="mr-3 h-6 w-6 flex-shrink-0" />
+                <span data-editable data-editable-id="hero-cta-book">BOOK YOUR CRUISE</span>
+                <ArrowRight className="ml-3 h-6 w-6 flex-shrink-0" />
               </Button>
               
               <Button
                 size="lg"
                 variant="outline"
                 onClick={() => handleGetQuote()}
-                className="border-3 border-white text-black hover:bg-white hover:text-black font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 md:px-12 py-4 sm:py-5 md:py-6 rounded-2xl backdrop-blur-sm tracking-wide bg-brand-yellow shadow-2xl whitespace-normal min-h-[3.5rem] sm:min-h-[4rem]"
+                className="border-2 border-white text-white hover:bg-white hover:text-gray-900 font-bold text-xl px-12 py-8 rounded-xl backdrop-blur-sm"
                 data-testid="button-hero-get-quote"
               >
-                <MessageSquare className="mr-2 sm:mr-3 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
+                <MessageSquare className="mr-3 h-6 w-6 flex-shrink-0" />
                 <span data-editable data-editable-id="hero-cta-quote">GET FREE QUOTE</span>
               </Button>
             </motion.div>
@@ -717,7 +718,7 @@ export default function Home() {
         {/* Bottom Feature Bar */}
         <div className="relative z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
           <div className="container mx-auto">
-            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
+            <p className="text-center text-gray-900 dark:text-white text-base font-semibold">
               ✨ <span className="text-brand-blue">Transparent Pricing</span> • No Hidden Fees • <span className="text-brand-blue">Best Value</span> Guaranteed ✨
             </p>
           </div>
@@ -735,7 +736,7 @@ export default function Home() {
             className="text-center"
           >
             <h2 
-              className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 text-white tracking-wider"
+              className="text-3xl font-semibold font-playfair text-center mb-6 text-white"
               data-editable 
               data-editable-id="quote-builder-heading"
             >
@@ -815,25 +816,19 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-24 bg-gray-50 dark:bg-gray-900">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerChildren}
-            className="text-center mb-20"
-          >
-            <motion.div variants={fadeInUp}>
-              <h2 className="text-3xl md:text-5xl lg:text-7xl font-heading font-bold mb-8 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="services-main-title">
+      <SectionReveal>
+        <section id="services" className="py-24 bg-white dark:bg-gray-900 relative">
+          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">01</div>
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="services-main-title">
                 Choose Your Perfect Experience
               </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="services-description">
+              <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto" data-editable data-editable-id="services-description">
                 From intimate celebrations to epic disco parties, we have the perfect cruise experience 
                 for every group size and occasion.
               </p>
-            </motion.div>
-          </motion.div>
+            </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {services.map((service, index) => (
@@ -850,14 +845,12 @@ export default function Home() {
                 )}
               >
                 <Card className={cn(
-                  "h-full transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer overflow-hidden border-2",
-                  service.popular 
-                    ? "border-brand-blue shadow-xl" 
-                    : "border-gray-200 dark:border-gray-700 hover:border-brand-blue/50"
+                  "h-full bg-white rounded-xl p-6 border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all cursor-pointer overflow-hidden",
+                  service.popular && "shadow-xl"
                 )}>
                   {service.badge && (
                     <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 z-10">
-                      <Badge className="bg-brand-blue text-white px-6 py-2 text-sm font-bold rounded-full shadow-lg">
+                      <Badge className="bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm rounded-full shadow-lg border-0">
                         <span data-editable data-editable-id={`service-${service.id}-badge`}>{service.badge}</span>
                       </Badge>
                     </div>
@@ -888,14 +881,14 @@ export default function Home() {
                   </div>
                   
                   <CardHeader className="text-center pb-4">
-                    <CardTitle className="text-2xl md:text-3xl font-bold mb-2 tracking-wide" data-editable data-editable-id={`service-${service.id}-title`}>{service.title}</CardTitle>
-                    <CardDescription className="text-lg md:text-xl font-semibold text-brand-blue" data-editable data-editable-id={`service-${service.id}-subtitle`}>
+                    <CardTitle className="text-xl font-semibold mb-2" data-editable data-editable-id={`service-${service.id}-title`}>{service.title}</CardTitle>
+                    <CardDescription className="font-sans tracking-wider font-bold uppercase text-sm text-blue-600" data-editable data-editable-id={`service-${service.id}-subtitle`}>
                       {service.subtitle}
                     </CardDescription>
                   </CardHeader>
                   
                   <CardContent className="space-y-6">
-                    <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 leading-relaxed" data-editable data-editable-id={`service-${service.id}-description`}>
+                    <p className="text-base text-gray-700 dark:text-gray-300" data-editable data-editable-id={`service-${service.id}-description`}>
                       {service.description}
                     </p>
                     
@@ -909,8 +902,8 @@ export default function Home() {
                     </div>
 
                     <div className="text-center pt-4">
-                      <div className="text-base text-gray-500 mb-2 font-semibold" data-editable data-editable-id={`service-${service.id}-price-label`}>Starting from</div>
-                      <div className="text-2xl md:text-3xl lg:text-5xl font-black text-gray-900 dark:text-white mb-4" data-editable data-editable-id={`service-${service.id}-price`}>
+                      <div className="text-sm text-gray-500 mb-2" data-editable data-editable-id={`service-${service.id}-price-label`}>Starting from</div>
+                      <div className="text-3xl font-bold text-gray-900 dark:text-white mb-2" data-editable data-editable-id={`service-${service.id}-price`}>
                         {service.startingPrice}
                       </div>
                       <div className="text-sm text-gray-600 dark:text-gray-400 mb-4" data-editable data-editable-id={`service-${service.id}-price-note`}>
@@ -918,7 +911,7 @@ export default function Home() {
                       </div>
                       
                       <Button 
-                        className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white font-bold py-3 rounded-xl tracking-wide"
+                        className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-3 rounded-xl"
                         onClick={() => {
                           // Handle specific service booking with package context
                           switch(service.id) {
@@ -951,8 +944,9 @@ export default function Home() {
               </motion.div>
             ))}
           </div>
-        </div>
-      </section>
+          </div>
+        </section>
+      </SectionReveal>
 
       {/* Featured Snippet: What is a party boat cruise? */}
       <section className="py-16 bg-white dark:bg-gray-950">
@@ -982,7 +976,7 @@ export default function Home() {
                     </Badge>
                   )}
                 </DialogTitle>
-                <DialogDescription className="text-lg text-gray-600 dark:text-gray-300" data-editable data-editable-id={`lightbox-${selectedService.id}-subtitle`}>
+                <DialogDescription className="text-base text-gray-600 dark:text-gray-300" data-editable data-editable-id={`lightbox-${selectedService.id}-subtitle`}>
                   {selectedService.subtitle}
                 </DialogDescription>
               </DialogHeader>
@@ -1023,7 +1017,7 @@ export default function Home() {
                   <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white" data-editable data-editable-id={`lightbox-${selectedService.id}-details-title`}>
                     Experience Details
                   </h3>
-                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-lg" data-editable data-editable-id={`lightbox-${selectedService.id}-detailed-description`}>
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed text-base" data-editable data-editable-id={`lightbox-${selectedService.id}-detailed-description`}>
                     {selectedService.detailedDescription}
                   </p>
                 </div>
@@ -1056,7 +1050,7 @@ export default function Home() {
                   <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
                     <div>
                       <div className="text-sm text-gray-500 mb-1" data-editable data-editable-id={`lightbox-${selectedService.id}-pricing-label`}>Starting from</div>
-                      <div className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white">
+                      <div className="text-3xl font-bold text-gray-900 dark:text-white">
                         {selectedService.startingPrice}
                       </div>
                       <div className="text-sm text-gray-600 dark:text-gray-400 mt-1" data-editable data-editable-id={`lightbox-${selectedService.id}-pricing-note`}>
@@ -1076,7 +1070,7 @@ export default function Home() {
                       
                       <Button 
                         onClick={handleLightboxBookNow}
-                        className="bg-brand-blue hover:bg-brand-blue/90 text-white px-8 py-3 text-lg font-bold"
+                        className="bg-brand-blue hover:bg-brand-blue/90 text-white px-8 py-3 text-base font-bold"
                         data-testid={`button-lightbox-book-${selectedService.id}`}
                       >
                         <Calendar className="mr-2 h-5 w-5" />
@@ -1200,204 +1194,168 @@ export default function Home() {
       </section>
 
       {/* Why Choose Us Section */}
-      <section className="py-24 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerChildren}
-            className="text-center mb-20"
-          >
-            <motion.div variants={fadeInUp}>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wide" data-editable data-editable-id="why-choose-main-title">
+      <SectionReveal>
+        <section className="py-24 bg-blue-50/30 dark:bg-gray-950 relative">
+          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">02</div>
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="why-choose-main-title">
                 Why Choose Premier Party Cruises
               </h2>
-              <p className="text-base md:text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="why-choose-description">
+              <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto" data-editable data-editable-id="why-choose-description">
                 Austin's most trusted party cruise company with unmatched experience, safety, and service.
               </p>
-            </motion.div>
-          </motion.div>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {whyChooseUs.map((item, index) => (
-              <motion.div
-                key={index}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-                variants={fadeInUp}
-                transition={{ delay: index * 0.1 }}
-                className="text-center group"
-              >
-                <div className="bg-gradient-to-br from-brand-blue to-brand-blue/80 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                  <item.icon className="h-8 w-8 text-white" />
-                </div>
-                <h3 className="text-xl font-bold mb-4 text-gray-900 dark:text-white tracking-wide" data-editable data-editable-id={`why-choose-item-${index}-title`}>
-                  {item.title}
-                </h3>
-                <p className="text-gray-600 dark:text-gray-300 leading-relaxed" data-editable data-editable-id={`why-choose-item-${index}-description`}>
-                  {item.description}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* Stats Section */}
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerChildren}
-            className="mt-20"
-          >
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-              {stats.map((stat, index) => (
-                <motion.div 
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {whyChooseUs.map((item, index) => (
+                <div
                   key={index}
-                  variants={scaleIn}
-                  className="text-center group"
-                  data-testid={`stat-${index}`}
+                  className="text-center bg-white rounded-xl p-6 border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all min-h-[250px] flex flex-col"
                 >
-                  <div className="bg-brand-yellow/10 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-yellow/20 transition-colors duration-300">
-                    <stat.icon className="h-8 w-8 text-brand-blue" />
+                  <div className="p-4 bg-blue-100 rounded-xl w-16 h-16 flex items-center justify-center mx-auto mb-6">
+                    <item.icon className="h-8 w-8 text-blue-600" />
                   </div>
-                  <div className="text-2xl md:text-3xl lg:text-4xl font-bold mb-2 text-gray-900 dark:text-white" data-editable data-editable-id={`stat-${index}-value`}>
-                    {stat.value}
-                  </div>
-                  <div className="text-gray-600 dark:text-gray-300 font-medium tracking-wide" data-editable data-editable-id={`stat-${index}-label`}>
-                    {stat.label}
-                  </div>
-                </motion.div>
+                  <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white" data-editable data-editable-id={`why-choose-item-${index}-title`}>
+                    {item.title}
+                  </h3>
+                  <p className="text-base text-gray-700 dark:text-gray-300 flex-grow" data-editable data-editable-id={`why-choose-item-${index}-description`}>
+                    {item.description}
+                  </p>
+                </div>
               ))}
             </div>
-          </motion.div>
-        </div>
-      </section>
+
+            {/* Stats Section */}
+            <div className="mt-16">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
+                {stats.map((stat, index) => (
+                  <div 
+                    key={index}
+                    className="text-center"
+                    data-testid={`stat-${index}`}
+                  >
+                    <div className="p-4 bg-blue-100 rounded-xl w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                      <stat.icon className="h-8 w-8 text-blue-600" />
+                    </div>
+                    <div className="text-3xl font-bold mb-2 text-gray-900 dark:text-white" data-editable data-editable-id={`stat-${index}-value`}>
+                      {stat.value}
+                    </div>
+                    <div className="text-base text-gray-700 dark:text-gray-300 font-medium" data-editable data-editable-id={`stat-${index}-label`}>
+                      {stat.label}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
 
       {/* Private Cruises - Detailed Pricing Section */}
-      <section className="py-24 bg-white dark:bg-gray-950" data-testid="section-private-cruises">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={fadeInUp}
-            className="max-w-7xl mx-auto"
-          >
-            {/* Header */}
-            <div className="text-center mb-16">
-              <Badge className="mb-6 bg-brand-blue text-white px-6 py-2 text-base font-bold">
-                <Ship className="h-4 w-4 mr-2 inline" />
-                Private Cruises
-              </Badge>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wide">
-                Your Boat, Your Way - Private Cruise Pricing
-              </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                Choose your boat size and package level. Transparent pricing with no hidden fees.
-              </p>
+      <SectionReveal>
+        <section className="py-24 bg-white dark:bg-gray-950 relative" data-testid="section-private-cruises">
+          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">03</div>
+          <div className="container mx-auto px-6">
+            <div className="max-w-7xl mx-auto">
+              {/* Header */}
+              <div className="text-center mb-16">
+                <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                  <Ship className="h-4 w-4 mr-2 inline" />
+                  Private Cruises
+                </Badge>
+                <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white">
+                  Your Boat, Your Way - Private Cruise Pricing
+                </h2>
+                <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
+                  Choose your boat size and package level. Transparent pricing with no hidden fees.
+                </p>
+              </div>
+
+              {/* Import and render the new tabbed pricing component */}
+              <TabbedPrivateCruisePricing dayType="SATURDAY" duration={4} />
+
             </div>
-
-            {/* Import and render the new tabbed pricing component */}
-            <TabbedPrivateCruisePricing dayType="SATURDAY" duration={4} />
-
-          </motion.div>
-        </div>
-      </section>
+          </div>
+        </section>
+      </SectionReveal>
 
       {/* Photo Gallery Section */}
-      <section className="py-24 bg-gray-50 dark:bg-gray-900">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerChildren}
-            className="text-center mb-16"
-          >
-            <motion.div variants={fadeInUp}>
-              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-8 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="gallery-main-title">
+      <SectionReveal>
+        <section className="py-24 bg-blue-50/30 dark:bg-gray-900 relative">
+          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">04</div>
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="gallery-main-title">
                 Experience the Premier Difference
               </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="gallery-description">
+              <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-6" data-editable data-editable-id="gallery-description">
                 See why 125,000+ customers choose Premier Party Cruises for their unforgettable Lake Travis experience.
               </p>
-              <div className="mt-8">
-                <InternalLinkHighlightWithArrow href="/gallery" title="View Our Fleet" className="text-lg">
+              <div className="mt-6">
+                <InternalLinkHighlightWithArrow href="/gallery" title="View Our Fleet" className="text-base">
                   View Our Fleet
                 </InternalLinkHighlightWithArrow>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 max-w-6xl mx-auto">
-            {galleryImages.map((image, index) => {
-              const altTexts = [
-                "Party Boat Austin Day Tripper 14-person vessel on Lake Travis",
-                "Party Boat Lake Travis Meeseeks 25-person charter boat",
-                "Party Boat Austin Clever Girl 50-person flagship on Lake Travis",
-                "Bachelor Party Austin celebration on Party Boat Lake Travis",
-                "Bachelorette Party Austin celebration on Party Boat Lake Travis",
-                "Party Boat Austin guests dancing and celebrating on Lake Travis"
-              ];
-              
-              return (
-                <motion.div
-                  key={index}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true, margin: "-50px" }}
-                  variants={scaleIn}
-                  transition={{ delay: index * 0.1 }}
-                  className="group relative cursor-pointer overflow-hidden rounded-2xl aspect-square"
-                  onClick={() => setSelectedImageIndex(index)}
-                >
-                  <ResponsiveImage 
-                    src={image}
-                    alt={altTexts[index]}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                    width={600}
-                    height={600}
-                    loading="lazy"
-                    sizes="(max-width: 640px) 50vw, 33vw"
-                  />
-                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
-                    <Play className="h-12 w-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-6 max-w-6xl mx-auto">
+              {galleryImages.map((image, index) => {
+                const altTexts = [
+                  "Party Boat Austin Day Tripper 14-person vessel on Lake Travis",
+                  "Party Boat Lake Travis Meeseeks 25-person charter boat",
+                  "Party Boat Austin Clever Girl 50-person flagship on Lake Travis",
+                  "Bachelor Party Austin celebration on Party Boat Lake Travis",
+                  "Bachelorette Party Austin celebration on Party Boat Lake Travis",
+                  "Party Boat Austin guests dancing and celebrating on Lake Travis"
+                ];
+                
+                return (
+                  <div
+                    key={index}
+                    className="group relative cursor-pointer overflow-hidden rounded-xl aspect-square border border-gray-200 hover:border-blue-500 hover:shadow-lg transition-all"
+                    onClick={() => setSelectedImageIndex(index)}
+                  >
+                    <ResponsiveImage 
+                      src={image}
+                      alt={altTexts[index]}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      width={600}
+                      height={600}
+                      loading="lazy"
+                      sizes="(max-width: 640px) 50vw, 33vw"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-300 flex items-center justify-center">
+                      <Play className="h-12 w-12 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
                   </div>
-                </motion.div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </SectionReveal>
 
       {/* Comparison Tables Section */}
-      <section className="py-24 bg-white dark:bg-gray-800">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerChildren}
-            className="text-center mb-16"
-          >
-            <motion.div variants={fadeInUp}>
-              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-8 text-gray-900 dark:text-white tracking-wider">
+      <SectionReveal>
+        <section className="py-24 bg-white dark:bg-gray-800 relative">
+          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">05</div>
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white">
                 Compare Your Options
               </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12">
+              <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-12">
                 Compare our cruise options and boat fleet to find the perfect fit for your celebration
               </p>
-            </motion.div>
-          </motion.div>
+            </div>
 
           {/* Disco vs Private Comparison */}
           <motion.div 
             variants={fadeInUp}
             className="mb-16 max-w-5xl mx-auto"
           >
-            <h3 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">
+            <h3 className="text-xl font-semibold mb-6 text-center text-gray-900 dark:text-white">
               ATX Disco Cruise vs Private Charter
             </h3>
             <ComparisonTable
@@ -1474,7 +1432,7 @@ export default function Home() {
             variants={fadeInUp}
             className="max-w-7xl mx-auto"
           >
-            <h3 className="text-2xl font-bold mb-6 text-center text-gray-900 dark:text-white">
+            <h3 className="text-xl font-semibold mb-6 text-center text-gray-900 dark:text-white">
               Our Lake Travis Fleet
             </h3>
             <ComparisonTable
@@ -1550,67 +1508,56 @@ export default function Home() {
               ariaLabel="Comparison of Premier Party Cruises boat fleet"
             />
           </motion.div>
-        </div>
-      </section>
+          </div>
+        </section>
+      </SectionReveal>
 
       {/* Testimonials Section */}
-      <section className="py-24 bg-gradient-to-br from-brand-blue to-brand-blue/90 text-white">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerChildren}
-            className="text-center mb-16"
-          >
-            <motion.div variants={fadeInUp}>
-              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-8 tracking-wider" data-editable data-editable-id="testimonials-main-title">
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-br from-blue-600 to-purple-600 text-white relative">
+          <div className="absolute top-4 right-4 text-6xl font-black text-white opacity-10">06</div>
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-white" data-editable data-editable-id="testimonials-main-title">
                 What Our Customers Say
               </h2>
-              <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="testimonials-description">
+              <p className="text-base text-blue-100 max-w-3xl mx-auto" data-editable data-editable-id="testimonials-description">
                 Don't just take our word for it - see what makes us Austin's most trusted party cruise company.
               </p>
-            </motion.div>
-          </motion.div>
+            </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.id}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: "-50px" }}
-                variants={fadeInUp}
-                transition={{ delay: index * 0.2 }}
-              >
-                <Card className="h-full bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 transition-all duration-300">
-                  <CardHeader className="text-center pb-4">
-                    <div className="text-3xl md:text-4xl mb-4">{testimonial.avatar}</div>
-                    <div className="flex justify-center mb-4">
-                      {[...Array(testimonial.rating)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 text-brand-yellow fill-current" />
-                      ))}
-                    </div>
-                    <CardTitle className="text-lg font-bold">
-                      <span data-editable data-editable-id={`testimonial-${testimonial.id}-name`}>{testimonial.name}</span>
-                    </CardTitle>
-                    <CardDescription className="text-blue-200 font-medium">
-                      <span data-editable data-editable-id={`testimonial-${testimonial.id}-role`}>{testimonial.role}</span>
-                    </CardDescription>
-                  </CardHeader>
-                  
-                  <CardContent>
-                    <Quote className="h-6 w-6 text-brand-yellow mb-4 mx-auto" />
-                    <p className="text-white/90 leading-relaxed italic text-center" data-editable data-editable-id={`testimonial-${testimonial.id}-text`}>
-                      "{testimonial.text}"
-                    </p>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+              {testimonials.map((testimonial, index) => (
+                <div key={testimonial.id}>
+                  <Card className="h-full bg-white/10 backdrop-blur-sm border-white/20 text-white hover:bg-white/20 transition-all">
+                    <CardHeader className="text-center pb-4">
+                      <div className="text-3xl mb-4">{testimonial.avatar}</div>
+                      <div className="flex justify-center mb-4">
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
+                        ))}
+                      </div>
+                      <CardTitle className="text-xl font-semibold">
+                        <span data-editable data-editable-id={`testimonial-${testimonial.id}-name`}>{testimonial.name}</span>
+                      </CardTitle>
+                      <CardDescription className="text-base text-blue-200">
+                        <span data-editable data-editable-id={`testimonial-${testimonial.id}-role`}>{testimonial.role}</span>
+                      </CardDescription>
+                    </CardHeader>
+                    
+                    <CardContent>
+                      <Quote className="h-6 w-6 text-yellow-400 mb-4 mx-auto" />
+                      <p className="text-base text-white/90 italic text-center" data-editable data-editable-id={`testimonial-${testimonial.id}-text`}>
+                        "{testimonial.text}"
+                      </p>
+                    </CardContent>
+                  </Card>
+                </div>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </SectionReveal>
 
       <Suspense fallback={<div className="py-12"></div>}>
         <PartyPlanningChecklist partyType="Lake Travis Party" eventType="celebration" />
@@ -1746,24 +1693,18 @@ export default function Home() {
       </section>
 
       {/* Contact & CTA Section */}
-      <section className="py-24 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            initial={reducedMotion ? false : "hidden"}
-            whileInView={reducedMotion ? undefined : "visible"}
-            viewport={reducedMotion ? undefined : { once: true, margin: "-100px" }}
-            variants={reducedMotion ? undefined : staggerChildren}
-            className="text-center mb-16"
-          >
-            <motion.div variants={reducedMotion ? undefined : fadeInUp}>
-              <h2 className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-8 text-gray-900 dark:text-white tracking-wider" data-editable data-editable-id="contact-main-title">
+      <SectionReveal>
+        <section className="py-24 bg-blue-50/30 dark:bg-gray-950 relative">
+          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">07</div>
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="contact-main-title">
                 Ready to Set Sail?
               </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12" data-editable data-editable-id="contact-description">
+              <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto mb-12" data-editable data-editable-id="contact-description">
                 Contact us today for a free quote and let's start planning your unforgettable Lake Travis adventure.
               </p>
-            </motion.div>
-          </motion.div>
+            </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 max-w-6xl mx-auto">
             {/* Contact Form */}
@@ -1890,7 +1831,7 @@ export default function Home() {
                     
                     <Button 
                       type="submit"
-                      className="w-full bg-brand-blue hover:bg-brand-blue/90 text-white font-bold py-4 text-lg rounded-xl tracking-wide"
+                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold py-4 text-base rounded-xl"
                       data-testid="button-contact-submit"
                     >
                       <Mail className="mr-3 h-5 w-5" />
@@ -1913,14 +1854,14 @@ export default function Home() {
               <Card className="border-2 border-brand-yellow bg-gradient-to-br from-brand-yellow/10 to-brand-yellow/5">
                 <CardContent className="p-8 text-center">
                   <Calendar className="h-12 w-12 text-brand-yellow mx-auto mb-4" />
-                  <h3 className="text-2xl font-bold mb-4 tracking-wide" data-editable data-editable-id="quick-book-title">Book Online Now</h3>
+                  <h3 className="text-xl font-semibold mb-4 tracking-wide" data-editable data-editable-id="quick-book-title">Book Online Now</h3>
                   <p className="text-gray-600 dark:text-gray-300 mb-6 leading-relaxed" data-editable data-editable-id="quick-book-description">
                     See our real-time availability and book your perfect cruise date instantly.
                   </p>
                   <Button 
                     onClick={() => navigate('/chat?type=general')}
                     size="lg"
-                    className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold py-4 text-lg rounded-xl tracking-wide"
+                    className="w-full bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold py-4 text-base rounded-xl tracking-wide"
                     data-testid="button-quick-book"
                   >
                     <span data-editable data-editable-id="quick-book-button">VIEW AVAILABILITY</span>
@@ -1935,7 +1876,7 @@ export default function Home() {
                   <CardContent className="p-6 flex items-center space-x-4">
                     <Phone className="h-8 w-8 text-brand-blue flex-shrink-0" />
                     <div>
-                      <h4 className="font-bold text-lg tracking-wide" data-editable data-editable-id="contact-phone-title">Call Us</h4>
+                      <h4 className="font-bold text-base tracking-wide" data-editable data-editable-id="contact-phone-title">Call Us</h4>
                       <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="contact-phone-number">(512) 488-5892</p>
                       <p className="text-sm text-gray-500" data-editable data-editable-id="contact-phone-note">Available 7 days a week</p>
                     </div>
@@ -1946,7 +1887,7 @@ export default function Home() {
                   <CardContent className="p-6 flex items-center space-x-4">
                     <Mail className="h-8 w-8 text-brand-blue flex-shrink-0" />
                     <div>
-                      <h4 className="font-bold text-lg tracking-wide" data-editable data-editable-id="contact-email-title">Email Us</h4>
+                      <h4 className="font-bold text-base tracking-wide" data-editable data-editable-id="contact-email-title">Email Us</h4>
                       <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="contact-email-address">clientservices@premierpartycruises.com</p>
                       <p className="text-sm text-gray-500" data-editable data-editable-id="contact-email-note">Response within 24 hours</p>
                     </div>
@@ -1957,7 +1898,7 @@ export default function Home() {
                   <CardContent className="p-6 flex items-center space-x-4">
                     <MapPin className="h-8 w-8 text-brand-blue flex-shrink-0" />
                     <div>
-                      <h4 className="font-bold text-lg tracking-wide" data-editable data-editable-id="contact-location-title">Lake Travis</h4>
+                      <h4 className="font-bold text-base tracking-wide" data-editable data-editable-id="contact-location-title">Lake Travis</h4>
                       <p className="text-gray-600 dark:text-gray-300" data-editable data-editable-id="contact-location-city">Austin, Texas</p>
                       <p className="text-sm text-gray-500" data-editable data-editable-id="contact-location-note">Austin, Texas</p>
                     </div>
@@ -1967,8 +1908,9 @@ export default function Home() {
 
             </motion.div>
           </div>
-        </div>
-      </section>
+          </div>
+        </section>
+      </SectionReveal>
 
       {/* Image Lightbox Dialog */}
       <Dialog open={selectedImageIndex !== null} onOpenChange={() => setSelectedImageIndex(null)}>
@@ -2006,13 +1948,13 @@ export default function Home() {
       </Dialog>
 
       {/* Quick Links Section */}
-      <section className="py-20 bg-gradient-to-br from-brand-blue to-blue-700">
+      <section className="py-20 bg-gradient-to-br from-blue-600 to-purple-600">
         <div className="container mx-auto px-6">
           <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-4 text-white">
-              EXPLORE ALL OUR AUSTIN PARTY BOAT SERVICES
+            <h2 className="text-3xl font-semibold font-playfair text-center mb-4 text-white">
+              Explore All Our Austin Party Boat Services
             </h2>
-            <p className="text-lg text-blue-100 max-w-2xl mx-auto">
+            <p className="text-base text-blue-100 max-w-2xl mx-auto">
               Discover the perfect Lake Travis party cruise for your celebration
             </p>
           </div>
@@ -2499,7 +2441,7 @@ export default function Home() {
                 <DollarSign className="w-4 h-4 mr-1" />
                 Transparent Pricing
               </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold mb-4">
+              <h2 className="text-3xl font-semibold font-playfair text-center mb-4">
                 Compare All Our Services
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
@@ -2598,7 +2540,7 @@ export default function Home() {
             variants={fadeInUp}
             className="mb-16"
           >
-            <h3 className="text-3xl font-bold text-center mb-8">
+            <h3 className="text-xl font-semibold text-center mb-8">
               Private Cruise Pricing by Boat Size
             </h3>
             <PricingTable
@@ -2668,7 +2610,7 @@ export default function Home() {
             variants={fadeInUp}
             className="text-center p-8 bg-gray-50 dark:bg-gray-900 rounded-xl"
           >
-            <h3 className="text-2xl font-bold mb-4">
+            <h3 className="text-xl font-semibold mb-4">
               Seasonal Pricing Information
             </h3>
             <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">

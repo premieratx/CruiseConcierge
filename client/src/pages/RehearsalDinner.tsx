@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
 import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
+import { SectionReveal } from '@/components/SectionReveal';
 import { 
   Sunset, Heart, Users, Calendar, MapPin, Clock, Phone,
   ArrowRight, CheckCircle, Sparkles, Camera, Wine, 
@@ -252,7 +253,7 @@ export default function RehearsalDinner() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead 
         pageRoute="/rehearsal-dinner"
         defaultTitle="Rehearsal Dinner Cruises | Lake Travis"
@@ -304,24 +305,21 @@ export default function RehearsalDinner() {
             animate="visible"
           >
             <motion.div variants={fadeInUp}>
-              <Badge className="mb-4 px-4 py-2 text-lg bg-white/20 backdrop-blur-sm border-white/30">
+              <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-white/20 backdrop-blur-sm border-white/30">
                 <Sunset className="mr-2 h-5 w-5" />
                 Elegant Pre-Wedding Celebrations
               </Badge>
             </motion.div>
 
             <motion.h1 
-              className="text-5xl md:text-7xl font-bold font-heading mb-6"
+              className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center"
               variants={fadeInUp}
             >
-              Rehearsal Dinner
-              <span className="block text-3xl md:text-5xl mt-2 text-brand-yellow">
-                on Lake Travis
-              </span>
+              Rehearsal Dinner on Lake Travis
             </motion.h1>
 
             <motion.p 
-              className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto"
+              className="text-xl md:text-2xl text-base mb-8 text-white/90 max-w-3xl mx-auto text-center"
               variants={fadeInUp}
             >
               Create an unforgettable evening before your big day with an elegant sunset cruise, 
@@ -335,7 +333,7 @@ export default function RehearsalDinner() {
               <Button
                 size="lg"
                 onClick={handleGetQuote}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-8 py-6 shadow-xl"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-base sm:text-lg px-8 py-6 shadow-xl"
                 data-testid="button-hero-get-quote"
               >
                 <MessageSquare className="mr-2 h-5 w-5" />
@@ -347,7 +345,7 @@ export default function RehearsalDinner() {
                 size="lg"
                 variant="outline"
                 onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-lg px-8 py-6"
+                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-base sm:text-lg px-8 py-6"
                 data-testid="button-hero-view-packages"
               >
                 View Packages
@@ -361,15 +359,15 @@ export default function RehearsalDinner() {
               variants={fadeInUp}
             >
               <div className="text-center">
-                <div className="text-3xl font-bold text-brand-yellow">500+</div>
+                <div className="text-3xl font-bold text-pink-400">500+</div>
                 <div className="text-sm text-white/80">Rehearsal Dinners</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-brand-yellow">30-75</div>
+                <div className="text-3xl font-bold text-pink-400">30-75</div>
                 <div className="text-sm text-white/80">Guest Capacity</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-brand-yellow">5.0★</div>
+                <div className="text-3xl font-bold text-pink-400">5.0★</div>
                 <div className="text-sm text-white/80">Average Rating</div>
               </div>
             </motion.div>
@@ -377,10 +375,10 @@ export default function RehearsalDinner() {
         </div>
 
         {/* Bottom Feature Bar */}
-        <div className="relative z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
-          <div className="container mx-auto">
-            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
-              <span className="text-brand-blue">Sunset Views</span> • Gourmet Dining • <span className="text-brand-blue">Elegant Celebrations</span>
+        <div className="relative z-20 w-full bg-white/90 backdrop-blur-sm py-4 px-6">
+          <div className="max-w-7xl mx-auto">
+            <p className="text-center text-gray-900 text-base md:text-lg font-semibold">
+              <span className="text-purple-600">Sunset Views</span> • Gourmet Dining • <span className="text-purple-600">Elegant Celebrations</span>
             </p>
           </div>
         </div>

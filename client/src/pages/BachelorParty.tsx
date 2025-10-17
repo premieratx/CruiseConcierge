@@ -39,6 +39,8 @@ import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 import { WhatToBring } from '@/components/WhatToBring';
 import { PricingTable } from '@/components/PricingTable';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
+import { SectionReveal } from '@/components/SectionReveal';
+import { ScrollReveal } from '@/components/ScrollReveal';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -386,7 +388,7 @@ export default function BachelorParty() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead
         pageRoute="/bachelor-party-austin"
         defaultTitle="Bachelor Party Boat | Premier Austin"
@@ -398,7 +400,7 @@ export default function BachelorParty() {
       <Breadcrumb />
       
       {/* Hero Section with Crossfade */}
-      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">
+      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
         {/* Image Background with Smooth Crossfade */}
         <div className="absolute inset-0 z-0">
           {heroImages.map((image, index) => (
@@ -425,16 +427,25 @@ export default function BachelorParty() {
         </div>
 
         {/* Main Hero Content */}
-        <div className="relative z-10 container mx-auto px-6 text-white text-center flex-grow flex items-center">
+        <div className="relative z-10 max-w-7xl mx-auto px-6 text-white text-center flex-grow flex items-center w-full">
           <motion.div
             initial="hidden"
             animate="visible"
             variants={staggerChildren}
             className="max-w-5xl mx-auto w-full"
           >
+            <motion.div
+              variants={fadeInUp}
+              className="mb-4"
+            >
+              <Badge className="font-sans tracking-wider font-bold uppercase text-sm bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2">
+                Premier Lake Travis Experience
+              </Badge>
+            </motion.div>
+            
             <motion.h1 
               variants={fadeInUp}
-              className="text-3xl md:text-5xl lg:text-6xl font-bold mb-6"
+              className="text-5xl font-bold font-playfair mb-6 text-center"
               data-editable data-editable-id="bachelor-hero-title"
             >
               Austin Bachelor Party Boat Rentals
@@ -442,18 +453,18 @@ export default function BachelorParty() {
             
             <motion.div
               variants={fadeInUp}
-              className="text-2xl md:text-3xl text-brand-yellow font-semibold mb-6"
+              className="text-2xl text-brand-yellow font-semibold mb-6"
             >
               Lake Travis Ultimate Cruise Experience
             </motion.div>
             
             <motion.p 
               variants={fadeInUp}
-              className="text-xl md:text-2xl mb-8 text-gray-100"
+              className="text-xl mb-8 text-gray-100"
               data-editable data-editable-id="bachelor-hero-subtitle"
             >
               Exclusively for Bachelorette & Bachelor Parties<br/>
-              <span className="text-lg">The Highlight of Your Weekend Every. Damn. Time.</span>
+              <span className="text-base">The Highlight of Your Weekend Every. Damn. Time.</span>
             </motion.p>
 
             {/* Scarcity Banner */}
@@ -463,7 +474,7 @@ export default function BachelorParty() {
             >
               <div className="flex items-center justify-center space-x-2">
                 <AlertCircle className="h-6 w-6 animate-pulse" />
-                <span className="font-bold text-lg">Most weekends sell out 4-6 weeks early!</span>
+                <span className="font-bold text-base">Most weekends sell out 4-6 weeks early!</span>
               </div>
               <p className="text-sm mt-2">Books up SOLID at least a month in advance</p>
             </motion.div>
@@ -475,10 +486,10 @@ export default function BachelorParty() {
               <Button
                 size="lg"
                 onClick={() => handleGetQuote()}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg md:text-xl px-6 sm:px-8 py-4 sm:py-5 md:py-6 whitespace-normal min-h-[3.5rem] sm:min-h-[4rem]"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base px-8 py-6 whitespace-normal min-h-[3.5rem]"
                 data-testid="button-hero-book-now-bachelor"
               >
-                <Calendar className="mr-2 h-5 w-5 sm:h-6 sm:w-6 flex-shrink-0" />
+                <Calendar className="mr-2 h-5 w-5 flex-shrink-0" />
                 <span className="text-center leading-tight">BOOK NOW - Be the Hero!</span>
               </Button>
               
@@ -497,9 +508,9 @@ export default function BachelorParty() {
         </div>
 
         {/* Bottom Feature Bar */}
-        <div className="relative z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
-          <div className="container mx-auto">
-            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
+        <div className="relative z-20 w-full bg-white/90 backdrop-blur-sm py-4 px-6">
+          <div className="max-w-7xl mx-auto">
+            <p className="text-center text-gray-900 text-base font-semibold">
               Just <span className="text-brand-blue">SHOW UP & GET DOWN</span> - Everything Included!
             </p>
           </div>
@@ -507,8 +518,9 @@ export default function BachelorParty() {
       </section>
 
       {/* Quick Answer Boxes Section */}
-      <section className="py-12 bg-gray-50 dark:bg-gray-900">
-        <div className="container mx-auto px-6">
+      <SectionReveal>
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
           <QuickAnswerBoxGroup
             title="Quick Answers for Bachelor Parties"
             boxes={[
@@ -538,26 +550,22 @@ export default function BachelorParty() {
             columns={2}
             className="max-w-5xl mx-auto"
           />
-        </div>
-      </section>
+          </div>
+        </section>
+      </SectionReveal>
 
       {/* Build My Quote Now Section */}
-      <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={reducedMotion ? false : "hidden"}
-            whileInView={reducedMotion ? undefined : "visible"}
-            viewport={reducedMotion ? undefined : { once: true }}
-            variants={reducedMotion ? undefined : fadeInUp}
-            className="text-center"
-          >
-            <h2 
-              className="text-3xl md:text-4xl lg:text-6xl font-heading font-bold mb-6 text-white tracking-wider"
-              data-editable 
-              data-editable-id="quote-builder-heading"
-            >
-              BUILD MY QUOTE NOW
-            </h2>
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center">
+              <h2 
+                className="text-3xl font-semibold font-playfair text-center mb-6 text-white"
+                data-editable 
+                data-editable-id="quote-builder-heading"
+              >
+                BUILD MY QUOTE NOW
+              </h2>
             <p 
               className="text-xl text-white/90 mb-8 max-w-2xl mx-auto"
               data-editable 
@@ -570,12 +578,12 @@ export default function BachelorParty() {
               <Button
                 size="lg"
                 onClick={() => setShowQuoteBuilder(true)}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-base sm:text-lg md:text-xl lg:text-2xl px-6 sm:px-10 md:px-14 lg:px-16 py-4 sm:py-5 md:py-6 lg:py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide whitespace-normal min-h-[3.5rem] sm:min-h-[4rem]"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-base px-8 py-6 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300 whitespace-normal min-h-[3.5rem]"
                 data-testid="button-build-quote"
               >
-                <Sparkles className="mr-2 sm:mr-2 md:mr-3 h-5 sm:h-6 md:h-7 w-5 sm:w-6 md:w-7 flex-shrink-0" />
+                <Sparkles className="mr-2 h-5 w-5 flex-shrink-0" />
                 <span data-editable data-editable-id="quote-builder-button" className="text-center leading-tight">Start Building Your Quote</span>
-                <ArrowRight className="ml-2 sm:ml-2 md:ml-3 h-5 sm:h-6 md:h-7 w-5 sm:w-6 md:w-7 flex-shrink-0" />
+                <ArrowRight className="ml-2 h-5 w-5 flex-shrink-0" />
               </Button>
             ) : (
               <Button
@@ -626,12 +634,14 @@ export default function BachelorParty() {
               </motion.div>
             )}
           </AnimatePresence>
-        </div>
-      </section>
+          </div>
+        </section>
+      </SectionReveal>
 
       {/* Featured Snippets Section */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-900">
-        <div className="container mx-auto px-6 max-w-5xl">
+      <SectionReveal>
+        <section className="py-20 bg-blue-50/30">
+          <div className="max-w-7xl mx-auto px-6">
           <div className="grid md:grid-cols-2 gap-8">
             {/* What is a bachelor party boat cruise? */}
             <FeaturedSnippet
@@ -656,12 +666,13 @@ export default function BachelorParty() {
               ]}
             />
           </div>
-        </div>
-      </section>
+        </section>
+      </SectionReveal>
 
       {/* Main Content Tabs */}
-      <section className="py-16 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
+      <SectionReveal>
+        <section className="py-20 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2 h-auto p-1">
               <TabsTrigger value="overview" data-testid="tab-overview"><span data-editable data-editable-id="bachelor-tab-overview">Overview</span></TabsTrigger>
@@ -676,7 +687,7 @@ export default function BachelorParty() {
             {/* Overview Tab */}
             <TabsContent value="overview" className="mt-8">
               <div className="max-w-4xl mx-auto">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelor-overview-main-heading">
+                <h2 className="text-3xl font-semibold font-playfair text-center mb-8" data-editable data-editable-id="bachelor-overview-main-heading">
                   Show Your Groom the <span className="text-brand-yellow">BEST Weekend</span> of His Life!
                 </h2>
                 
@@ -725,7 +736,7 @@ export default function BachelorParty() {
 
                 {/* Your Disco Day Experience */}
                 <div className="mb-10">
-                  <h3 className="text-2xl md:text-3xl font-bold text-center mb-6" data-editable data-editable-id="bachelor-timeline-title">
+                  <h3 className="text-3xl font-semibold font-playfair text-center mb-6" data-editable data-editable-id="bachelor-timeline-title">
                     Your <span className="text-brand-yellow">Disco Day Experience</span>
                   </h3>
                   <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-8" data-editable data-editable-id="bachelor-timeline-subtitle">
@@ -875,7 +886,7 @@ export default function BachelorParty() {
                   <Button
                     size="lg"
                     onClick={() => handleGetQuote()}
-                    className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold"
                     data-testid="button-overview-book-bachelor"
                   >
                     <span data-editable data-editable-id="bachelor-overview-book-button">Book Your Bachelor Party Now</span>
@@ -892,7 +903,7 @@ export default function BachelorParty() {
             {/* What's Included Tab */}
             <TabsContent value="included" className="mt-8">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4" data-editable data-editable-id="bachelor-included-title">
+                <h2 className="text-3xl font-semibold font-playfair text-center mb-4" data-editable data-editable-id="bachelor-included-title">
                   EVERYTHING Included but Alcohol!
                 </h2>
                 <p className="text-center text-lg text-gray-600 dark:text-gray-400 mb-8" data-editable data-editable-id="bachelor-included-subtitle">
@@ -1098,7 +1109,7 @@ export default function BachelorParty() {
                 {/* Enhanced Disco Packages with Pricing Table */}
                 <TabsContent value="disco">
                   <div className="max-w-7xl mx-auto">
-                    <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelor-packages-title">
+                    <h2 className="text-3xl font-semibold font-playfair text-center mb-8" data-editable data-editable-id="bachelor-packages-title">
                       Choose Your Bachelor Party Package
                     </h2>
                     
@@ -1192,7 +1203,7 @@ export default function BachelorParty() {
                 {/* Enhanced Private Packages with Pricing Table */}
                 <TabsContent value="private">
                   <div className="max-w-7xl mx-auto">
-                    <h3 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4">
+                    <h3 className="text-3xl font-semibold font-playfair text-center mb-4">
                       Private Cruise Options for Bachelor Parties
                     </h3>
                     <p className="text-center text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto">
@@ -1346,8 +1357,8 @@ export default function BachelorParty() {
             {/* Compare Tab - Comprehensive Value Calculator */}
             <TabsContent value="compare" className="mt-8">
               <div className="max-w-7xl mx-auto">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-4" data-editable data-editable-id="bachelor-compare-title">
-                  <DollarSign className="w-10 h-10 inline mr-3 text-green-600" />
+                <h2 className="text-3xl font-semibold font-playfair text-center mb-4" data-editable data-editable-id="bachelor-compare-title">
+                  <DollarSign className="w-8 h-8 inline mr-3 text-green-600" />
                   The Math Doesn't Lie: Disco Cruise Wins for Guys' Weekend
                 </h2>
                 <p className="text-xl text-center text-gray-600 dark:text-gray-300 mb-12">
@@ -1372,8 +1383,8 @@ export default function BachelorParty() {
             {/* FAQs Tab */}
             <TabsContent value="faq" className="mt-8">
               {/* Why Choose ATX Disco Cruise Section */}
-              <div className="mb-12 bg-gradient-to-br from-yellow-50 via-orange-50 to-pink-50 dark:from-gray-950 dark:via-orange-950/20 dark:to-pink-950/20 rounded-2xl p-8">
-                <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 text-gray-900 dark:text-white">
+              <div className="mb-12 bg-gradient-to-br from-yellow-50 via-orange-50 to-pink-50 rounded-2xl p-8">
+                <h2 className="text-3xl font-semibold font-playfair text-center mb-8 text-gray-900">
                   Why Choose ATX Disco Cruise?
                 </h2>
                 <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -1465,7 +1476,7 @@ export default function BachelorParty() {
             {/* Photos Tab */}
             <TabsContent value="photos" className="mt-8">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelor-photos-title">
+                <h2 className="text-3xl font-semibold font-playfair text-center mb-8" data-editable data-editable-id="bachelor-photos-title">
                   Bachelor Party Vibes & Photos
                 </h2>
                 
@@ -1507,7 +1518,7 @@ export default function BachelorParty() {
             {/* Testimonials Tab */}
             <TabsContent value="testimonials" className="mt-8">
               <div className="max-w-6xl mx-auto">
-                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-center mb-8" data-editable data-editable-id="bachelor-testimonials-title">
+                <h2 className="text-3xl font-semibold font-playfair text-center mb-8" data-editable data-editable-id="bachelor-testimonials-title">
                   What Grooms Are Saying
                 </h2>
                 
@@ -1554,7 +1565,7 @@ export default function BachelorParty() {
                   <Button
                     size="lg"
                     onClick={() => handleGetQuote()}
-                    className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold"
+                    className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold"
                     data-testid="button-testimonials-book-bachelor"
                   >
                     <span data-editable data-editable-id="bachelor-testimonials-success-button">Be the Next Success Story</span>
@@ -1563,11 +1574,13 @@ export default function BachelorParty() {
               </div>
             </TabsContent>
           </Tabs>
-        </div>
-      </section>
+          </div>
+        </section>
+      </SectionReveal>
 
       {/* Comprehensive Why You Should Book ATX Disco Cruise Section */}
-      <section className="py-20 bg-gradient-to-br from-purple-900 via-pink-900 to-orange-900 text-white">
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-br from-purple-900 via-pink-900 to-orange-900 text-white">
         <div className="container mx-auto px-6">
           <motion.div
             initial={reducedMotion ? false : "hidden"}
@@ -1576,10 +1589,10 @@ export default function BachelorParty() {
             variants={reducedMotion ? undefined : fadeInUp}
             className="text-center mb-16"
           >
-            <Badge className="mb-6 bg-brand-yellow text-black text-xl px-8 py-3 font-bold">
-              <Sparkles className="w-6 h-6 mr-2 inline" /> ATX Disco Cruise
+            <Badge className="mb-6 font-sans tracking-wider font-bold uppercase text-sm bg-brand-yellow text-black px-8 py-3">
+              <Sparkles className="w-5 h-5 mr-2 inline" /> ATX Disco Cruise
             </Badge>
-            <h2 className="text-3xl md:text-4xl lg:text-6xl font-bold mb-6">
+            <h2 className="text-3xl font-semibold font-playfair text-center mb-6">
               Why You Should Book the <span className="text-brand-yellow">ATX Disco Cruise</span>
             </h2>
             <p className="text-2xl md:text-3xl font-bold text-brand-yellow mb-4">
@@ -1911,40 +1924,37 @@ export default function BachelorParty() {
               <Button
                 size="lg"
                 onClick={() => handleGetQuote()}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-2xl px-16 py-8"
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-6"
                 data-testid="button-why-book-cta-bachelor"
               >
-                <Sparkles className="mr-3 h-7 w-7" />
+                <Sparkles className="mr-3 h-6 w-6" />
                 Book Your ATX Disco Cruise Now!
-                <ArrowRight className="ml-3 h-7 w-7" />
+                <ArrowRight className="ml-3 h-6 w-6" />
               </Button>
               <p className="text-white/80 mt-4">Weekends sell out 4-6 weeks in advance - don't miss out!</p>
             </div>
           </motion.div>
         </div>
-      </section>
+        </section>
+      </SectionReveal>
 
       {/* What to Bring Section */}
-      <section className="py-20 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial={reducedMotion ? false : "hidden"}
-            whileInView={reducedMotion ? undefined : "visible"}
-            viewport={reducedMotion ? undefined : { once: true }}
-            variants={reducedMotion ? undefined : fadeInUp}
-          >
+      <SectionReveal>
+        <section className="py-20 bg-blue-50/30">
+          <div className="max-w-7xl mx-auto px-6">
             <WhatToBring
               variant="bachelor"
               title="What to Bring on Your Bachelor Party Cruise"
               description="Everything you need for the perfect day on Lake Travis"
               className="max-w-7xl mx-auto"
             />
-          </motion.div>
-        </div>
-      </section>
+          </div>
+        </section>
+      </SectionReveal>
 
       {/* AI-Optimized Event Timeline Section */}
-      <section className="py-16 bg-gray-50 dark:bg-gray-900">
+      <SectionReveal>
+        <section className="py-20 bg-white">
         <div className="container mx-auto px-6">
           <div className="max-w-6xl mx-auto grid md:grid-cols-2 gap-8">
             {/* Event Timeline */}
@@ -2090,12 +2100,14 @@ export default function BachelorParty() {
             }}
           />
         </div>
-      </section>
+        </section>
+      </SectionReveal>
 
       <PartyPlanningChecklist partyType="Bachelor Party" eventType="bachelor celebration" />
 
       {/* 10 Reasons Why Austin Section */}
-      <section className="py-20 bg-gradient-to-br from-brand-blue via-blue-700 to-purple-800">
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-br from-brand-blue via-blue-700 to-purple-800">
         <div className="container mx-auto px-6">
           <motion.div
             initial={reducedMotion ? false : "hidden"}
@@ -2105,7 +2117,7 @@ export default function BachelorParty() {
             className="text-center mb-16"
           >
             <h2 
-              className="text-2xl md:text-3xl lg:text-5xl font-bold text-white mb-6"
+              className="text-3xl font-semibold font-playfair text-center text-white mb-6"
               data-testid="heading-austin-reasons-bachelor"
             >
               10 Reasons Why Austin is the Best Place for Bachelor Parties
@@ -2373,7 +2385,7 @@ export default function BachelorParty() {
             <Button
               size="lg"
               onClick={() => handleGetQuote()}
-              className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-xl px-12 py-6"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold text-xl px-12 py-6"
               data-testid="button-austin-reasons-book-bachelor"
             >
               <Calendar className="mr-2 h-6 w-6" />
@@ -2381,10 +2393,12 @@ export default function BachelorParty() {
             </Button>
           </motion.div>
         </div>
-      </section>
+        </section>
+      </SectionReveal>
 
       {/* Related Experiences Section */}
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
+      <SectionReveal>
+        <section className="py-24 bg-blue-50/30">
         <div className="container mx-auto px-6">
           <motion.div
             initial={reducedMotion ? false : "hidden"}
@@ -2393,7 +2407,7 @@ export default function BachelorParty() {
             variants={reducedMotion ? undefined : fadeInUp}
             className="text-center mb-12"
           >
-            <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold font-heading mb-4">
+            <h2 className="text-3xl font-semibold font-playfair text-center mb-4">
               Related Austin Party Experiences
             </h2>
             <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
@@ -2484,7 +2498,8 @@ export default function BachelorParty() {
             </motion.div>
           </div>
         </div>
-      </section>
+        </section>
+      </SectionReveal>
 
       {/* Sticky CTA Footer */}
       <div className="fixed bottom-0 left-0 right-0 bg-white dark:bg-gray-900 border-t shadow-lg z-40 py-4">
@@ -2496,7 +2511,7 @@ export default function BachelorParty() {
             </div>
             <Button
               onClick={() => handleGetQuote()}
-              className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold"
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-bold"
               data-testid="button-sticky-book-bachelor"
             >
               <span data-editable data-editable-id="bachelor-sticky-footer-button">Book Bachelor Party Now</span>
@@ -2523,7 +2538,7 @@ export default function BachelorParty() {
                   <Sun className="h-16 w-16 text-yellow-500" />
                   <Smile className="h-12 w-12 text-orange-600" />
                 </div>
-                <CardTitle className="text-3xl md:text-4xl lg:text-5xl font-bold mb-4">
+                <CardTitle className="text-3xl font-semibold font-playfair mb-4">
                   The <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-600 to-orange-600">Lemonade Disco</span>
                 </CardTitle>
                 <CardDescription className="text-xl font-semibold text-gray-700 dark:text-gray-300">
@@ -2625,12 +2640,13 @@ export default function BachelorParty() {
       </section>
 
       {/* Related Services Section */}
-      <section className="py-20 bg-gray-50 dark:bg-gray-900 pb-32">
-        <div className="container mx-auto px-6">
-          <div className="text-center mb-12">
-            <h2 className="text-2xl md:text-3xl lg:text-4xl font-heading font-bold mb-4 text-gray-900 dark:text-white">
-              EXPLORE MORE AUSTIN PARTY CRUISE OPTIONS
-            </h2>
+      <SectionReveal>
+        <section className="py-24 bg-blue-50/30 pb-32">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-semibold font-playfair text-center mb-4 text-gray-900">
+                EXPLORE MORE AUSTIN PARTY CRUISE OPTIONS
+              </h2>
             <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
               Check out our other Lake Travis party boat experiences perfect for any celebration
             </p>
@@ -2692,7 +2708,8 @@ export default function BachelorParty() {
             </Link>
           </div>
         </div>
-      </section>
+        </section>
+      </SectionReveal>
 
       {/* SEO-Optimized Hidden Crawlable Content for Search Engines */}
       <div className="sr-only" itemScope itemType="https://schema.org/Service">

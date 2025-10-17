@@ -1,28 +1,26 @@
-import { useState, useEffect } from 'react';
-import { Link, useLocation } from 'wouter';
+import { useState } from 'react';
+import { useLocation } from 'wouter';
 import { motion, AnimatePresence } from 'framer-motion';
 import PublicNavigation from '@/components/PublicNavigation';
 import { ClientOnly } from '@/components/ClientOnly';
 import Footer from '@/components/Footer';
 import PartyPlanningChecklist from '@/components/PartyPlanningChecklist';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { cn } from '@/lib/utils';
 import { useInlineEdit } from '@/hooks/useInlineEdit';
-import { formatCurrency } from '@shared/formatters';
 import SEOHead from '@/components/SEOHead';
+import { SectionReveal } from '@/components/SectionReveal';
 import { 
   Moon, PartyPopper, Users, Calendar, MapPin, Clock, Phone,
   ArrowRight, CheckCircle, Sparkles, Music, Wine,
   Star, Shield, Gift, MessageSquare, Volume2, Disc3,
-  Mic, Crown, Award, Quote, ChevronRight, Ship,
-  Anchor, Sun, Info, TrendingUp, GlassWater, Heart, X
+  Mic, Crown, Award, Quote, ChevronRight,
+  Anchor, Sun, Info, GlassWater, Heart, X
 } from 'lucide-react';
-import { useReducedMotion } from '@/hooks/use-reduced-motion';
 
 // Hero and gallery images
 import heroImage1 from '@assets/dancing-party-scene.jpg';
@@ -32,37 +30,6 @@ import galleryImage1 from '@assets/party-atmosphere-1.jpg';
 import galleryImage2 from '@assets/party-atmosphere-2.jpg';
 import galleryImage3 from '@assets/giant-unicorn-float.jpg';
 
-// Animation variants
-const fadeInUp = {
-  hidden: { opacity: 0, y: 40 },
-  visible: { 
-    opacity: 1, 
-    y: 0,
-    transition: { duration: 0.6, ease: "easeOut" }
-  }
-};
-
-const staggerChildren = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
-};
-
-const pulse = {
-  hidden: { scale: 1 },
-  visible: { 
-    scale: [1, 1.05, 1],
-    transition: { 
-      duration: 2, 
-      repeat: Infinity, 
-      ease: "easeInOut" 
-    }
-  }
-};
-
-// After Party packages
 const afterPartyPackages = [
   {
     id: 'standard',
@@ -124,7 +91,6 @@ const afterPartyPackages = [
   }
 ];
 
-// What's included
 const whatsIncluded = [
   {
     icon: Moon,
@@ -173,7 +139,6 @@ const whatsIncluded = [
   }
 ];
 
-// FAQs - corrected content
 const faqItems = [
   {
     id: 'included',
@@ -207,7 +172,6 @@ const faqItems = [
   }
 ];
 
-// Testimonials
 const testimonials = [
   {
     id: 1,
@@ -238,20 +202,8 @@ const testimonials = [
 export default function AfterParty() {
   const [location, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
-  const reducedMotion = useReducedMotion();
-  const [selectedPackage, setSelectedPackage] = useState('premium_celebration');
+  const [selectedPackage, setSelectedPackage] = useState('essentials');
   const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
-  const [currentHeroImage, setCurrentHeroImage] = useState(0);
-  const heroImages = [heroImage1, heroImage2, heroImage3];
-
-  useEffect(() => {
-    if (reducedMotion) return; // Skip animation for reduced motion
-    
-    const interval = setInterval(() => {
-      setCurrentHeroImage((prev) => (prev + 1) % heroImages.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [reducedMotion]);
 
   const handleGetQuote = () => {
     navigate('/chat?eventType=after-party');
@@ -262,7 +214,7 @@ export default function AfterParty() {
   };
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-950">
+    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead 
         pageRoute="/after-party"
         defaultTitle="Wedding After Party | Lake Travis Cruises"
@@ -278,74 +230,42 @@ export default function AfterParty() {
 
       <ClientOnly><PublicNavigation /></ClientOnly>
 
-      {/* Hero Section with Crossfade */}
-      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden">
-        {/* Image Background with Smooth Crossfade */}
+      {/* Hero Section */}
+      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden pt-20">
         <div className="absolute inset-0 z-0">
-          {heroImages.map((image, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: index === currentHeroImage ? 1 : 0 }}
-              transition={{ duration: reducedMotion ? 0 : 0.8, ease: "easeInOut" }}
-              className="absolute inset-0"
-              style={{ pointerEvents: index === currentHeroImage ? 'auto' : 'none' }}
-            >
-              <img 
-                src={image}
-                alt="After Party Boat Austin wedding cruise on Lake Travis After Party"
-                className="w-full h-full object-cover"
-                width={1920}
-                height={1080}
-                loading={index === 0 ? "eager" : "lazy"}
-                fetchpriority={index === 0 ? "high" : "low"}
-              />
-              <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-            </motion.div>
-          ))}
+          <div className="relative w-full h-full">
+            <img 
+              src={heroImage1}
+              alt="After Party Boat Austin wedding cruise on Lake Travis After Party"
+              className="w-full h-full object-cover"
+              loading="eager"
+              fetchpriority="high"
+            />
+            <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+          </div>
         </div>
 
-        {/* Main Hero Content */}
-        <div className="relative z-10 container mx-auto px-6 text-white flex-grow flex items-center">
-          <motion.div 
-            className="max-w-4xl mx-auto text-center w-full"
-            variants={staggerChildren}
-            initial="hidden"
-            animate="visible"
-          >
-            <motion.div variants={fadeInUp}>
-              <Badge className="mb-4 px-4 py-2 text-lg bg-white/20 backdrop-blur-sm border-white/30">
-                <Moon className="mr-2 h-5 w-5" />
-                Keep the Celebration Going
-              </Badge>
-            </motion.div>
+        <div className="relative z-10 max-w-7xl mx-auto px-6 flex-grow flex items-center w-full">
+          <div className="max-w-4xl mx-auto text-center text-white w-full">
+            <Badge className="mb-6 px-6 py-3 text-base font-sans tracking-wider bg-white/20 backdrop-blur-sm border-white/30">
+              <Moon className="mr-2 h-5 w-5" />
+              Keep the Celebration Going
+            </Badge>
 
-            <motion.h1 
-              className="text-5xl md:text-7xl font-bold font-heading mb-6"
-              variants={fadeInUp}
-            >
-              Wedding
-              <span className="block text-3xl md:text-5xl mt-2 text-brand-yellow">
-                After Party Cruises
-              </span>
-            </motion.h1>
+            <h1 className="text-5xl md:text-7xl font-playfair font-bold mb-6 text-center">
+              Wedding After Party Cruises
+            </h1>
 
-            <motion.p 
-              className="text-xl md:text-2xl mb-8 text-white/90 max-w-3xl mx-auto"
-              variants={fadeInUp}
-            >
+            <p className="text-xl md:text-2xl text-base mb-8 text-white/90 max-w-3xl mx-auto text-center">
               Don't let the best night of your life end! Continue celebrating with 
-              your closest friends on an epic late-night Lake Travis cruise.
-            </motion.p>
+              your closest friends on an epic late-night Lake Travis cruise
+            </p>
 
-            <motion.div 
-              className="flex flex-col sm:flex-row gap-4 justify-center"
-              variants={fadeInUp}
-            >
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
                 onClick={handleGetQuote}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-8 py-6 shadow-xl"
+                className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-bold text-base sm:text-lg px-8 py-6 shadow-xl"
                 data-testid="button-hero-get-quote"
               >
                 <MessageSquare className="mr-2 h-5 w-5" />
@@ -357,127 +277,87 @@ export default function AfterParty() {
                 size="lg"
                 variant="outline"
                 onClick={() => document.getElementById('packages')?.scrollIntoView({ behavior: 'smooth' })}
-                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-lg px-8 py-6"
+                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-base sm:text-lg px-8 py-6"
                 data-testid="button-hero-view-packages"
               >
                 View Packages
                 <ChevronRight className="ml-2 h-5 w-5" />
               </Button>
-            </motion.div>
+            </div>
 
-            {/* Quick Stats */}
-            <motion.div 
-              className="grid grid-cols-3 gap-8 mt-12 max-w-2xl mx-auto"
-              variants={fadeInUp}
-            >
+            <div className="grid grid-cols-3 gap-8 mt-12 max-w-2xl mx-auto">
               <div className="text-center">
-                <motion.div 
-                  className="text-3xl font-bold text-brand-yellow"
-                  variants={pulse}
-                >
-                  300+
-                </motion.div>
+                <div className="text-3xl font-bold text-pink-400">300+</div>
                 <div className="text-sm text-white/80">Epic After Parties</div>
               </div>
               <div className="text-center">
-                <motion.div 
-                  className="text-3xl font-bold text-brand-yellow"
-                  variants={pulse}
-                >
-                  10PM-2AM
-                </motion.div>
+                <div className="text-3xl font-bold text-pink-400">10PM-2AM</div>
                 <div className="text-sm text-white/80">Late Night Hours</div>
               </div>
               <div className="text-center">
-                <motion.div 
-                  className="text-3xl font-bold text-brand-yellow"
-                  variants={pulse}
-                >
-                  5.0★
-                </motion.div>
+                <div className="text-3xl font-bold text-pink-400">5.0★</div>
                 <div className="text-sm text-white/80">Party Rating</div>
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
 
-        {/* Bottom Feature Bar */}
-        <div className="relative z-20 w-full bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm py-4 px-6">
-          <div className="container mx-auto">
-            <p className="text-center text-gray-900 dark:text-white text-base md:text-lg font-semibold">
-              <span className="text-brand-blue">Late Night Magic</span> • DJ & Dancing • <span className="text-brand-blue">Keep Celebrating</span>
+        <div className="relative z-20 w-full bg-white/90 backdrop-blur-sm py-4 px-6">
+          <div className="max-w-7xl mx-auto">
+            <p className="text-center text-gray-900 text-base md:text-lg font-semibold">
+              <span className="text-purple-600">Late Night Magic</span> • DJ & Dancing • <span className="text-purple-600">Keep Celebrating</span>
             </p>
           </div>
         </div>
       </section>
 
-      {/* Build My Quote Now Section */}
-      <section className="py-16 bg-gradient-to-br from-brand-blue via-purple-600 to-blue-700">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            className="text-center"
-          >
-            <h2 
-              className="text-5xl md:text-6xl font-heading font-bold mb-6 text-white tracking-wider"
-              data-editable 
-              data-editable-id="quote-builder-heading"
-            >
-              BUILD MY QUOTE NOW
-            </h2>
-            <p 
-              className="text-xl text-white/90 mb-8 max-w-2xl mx-auto"
-              data-editable 
-              data-editable-id="quote-builder-subheading"
-            >
-              Get instant pricing for your Lake Travis celebration in minutes
-            </p>
-            
-            {!showQuoteBuilder ? (
-              <Button
-                size="lg"
-                onClick={() => setShowQuoteBuilder(true)}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-2xl px-16 py-8 rounded-2xl shadow-2xl transform hover:scale-105 transition-all duration-300 tracking-wide"
-                data-testid="button-build-quote"
-              >
-                <Sparkles className="mr-3 h-7 w-7" />
-                <span data-editable data-editable-id="quote-builder-button">Start Building Your Quote</span>
-                <ArrowRight className="ml-3 h-7 w-7" />
-              </Button>
-            ) : (
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={() => setShowQuoteBuilder(false)}
-                className="border-3 border-white text-white hover:bg-white hover:text-black font-bold text-lg px-12 py-6 rounded-2xl backdrop-blur-sm mb-8"
-                data-testid="button-hide-quote"
-              >
-                <X className="mr-2 h-5 w-5" />
-                <span data-editable data-editable-id="quote-builder-hide-button">Hide Quote Builder</span>
-              </Button>
-            )}
-          </motion.div>
+      {/* Build My Quote Section */}
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-r from-purple-600 to-pink-600">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center">
+              <h2 className="text-5xl md:text-6xl font-playfair font-bold mb-6 text-white text-center tracking-wider">
+                BUILD MY QUOTE NOW
+              </h2>
+              <p className="text-xl text-base text-white/90 mb-8 max-w-2xl mx-auto text-center">
+                Get instant pricing for your after party celebration in minutes
+              </p>
+              
+              {!showQuoteBuilder ? (
+                <Button
+                  size="lg"
+                  onClick={() => setShowQuoteBuilder(true)}
+                  className="bg-white hover:bg-gray-100 text-purple-600 font-bold text-lg sm:text-xl px-12 py-8 rounded-xl shadow-2xl transform hover:scale-105 transition-all duration-300"
+                  data-testid="button-build-quote"
+                >
+                  <Sparkles className="mr-3 h-6 w-6" />
+                  Start Building Your Quote
+                  <ArrowRight className="ml-3 h-6 w-6" />
+                </Button>
+              ) : (
+                <Button
+                  size="lg"
+                  variant="outline"
+                  onClick={() => setShowQuoteBuilder(false)}
+                  className="border-3 border-white text-white hover:bg-white hover:text-purple-600 font-bold text-base px-12 py-6 rounded-xl backdrop-blur-sm mb-8"
+                  data-testid="button-hide-quote"
+                >
+                  <X className="mr-2 h-5 w-5" />
+                  Hide Quote Builder
+                </Button>
+              )}
+            </div>
 
-          {/* Expandable Quote Builder Iframe */}
-          <AnimatePresence>
-            {showQuoteBuilder && (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: 'auto' }}
-                exit={{ opacity: 0, height: 0 }}
-                transition={{ duration: 0.5, ease: "easeInOut" }}
-                className="mt-12 overflow-hidden"
-              >
-                <div className="max-w-7xl mx-auto">
-                  <motion.div
-                    initial={{ y: 20, opacity: 0 }}
-                    animate={{ y: 0, opacity: 1 }}
-                    transition={{ delay: 0.2, duration: 0.4 }}
-                    className="bg-white rounded-2xl shadow-2xl overflow-hidden"
-                  >
+            <AnimatePresence>
+              {showQuoteBuilder && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.5, ease: "easeInOut" }}
+                  className="mt-12 overflow-hidden"
+                >
+                  <div className="bg-white rounded-xl shadow-2xl overflow-hidden">
                     <iframe 
                       src="https://ppc-quote-builder.lovable.app/"
                       title="Build Your Quote - Premier Party Cruises"
@@ -491,65 +371,54 @@ export default function AfterParty() {
                       allowFullScreen
                       data-testid="iframe-quote-builder"
                     />
-                  </motion.div>
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-        </div>
-      </section>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+        </section>
+      </SectionReveal>
 
       {/* Packages Section */}
-      <section id="packages" className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
-              After Party Packages
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Choose your perfect late-night celebration package. 
-              Keep the party going with DJ, dancing, and midnight festivities.
-            </p>
-          </motion.div>
+      <SectionReveal>
+        <section id="packages" className="py-24 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
+                After Party Packages
+              </h2>
+              <p className="text-xl text-base text-gray-600 max-w-3xl mx-auto text-center">
+                Choose your perfect late-night celebration package. 
+                Keep the party going with DJ, dancing, and midnight festivities.
+              </p>
+            </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {afterPartyPackages.map((pkg, index) => (
-              <motion.div
-                key={pkg.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Card className={cn(
-                  "relative h-full hover:shadow-2xl transition-all duration-300",
-                  pkg.popular && "border-2 border-brand-yellow shadow-xl scale-105"
+            <div className="grid md:grid-cols-3 gap-8">
+              {afterPartyPackages.map((pkg) => (
+                <Card key={pkg.id} className={cn(
+                  "relative h-full hover:shadow-2xl transition-all duration-300 rounded-xl",
+                  pkg.popular && "border-2 border-purple-600 shadow-xl scale-105"
                 )}>
                   {pkg.popular && (
                     <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
-                      <Badge className="bg-brand-yellow text-black font-bold px-4 py-1">
+                      <Badge className="bg-purple-600 text-white font-bold font-sans tracking-wider px-4 py-1">
                         MOST POPULAR
                       </Badge>
                     </div>
                   )}
 
                   <CardHeader className="text-center pb-6">
-                    <div className="w-16 h-16 mx-auto mb-4 bg-brand-blue/10 rounded-full flex items-center justify-center">
-                      <pkg.icon className="h-8 w-8 text-brand-blue" />
+                    <div className="w-16 h-16 mx-auto mb-4 bg-purple-100 rounded-full flex items-center justify-center">
+                      <pkg.icon className="h-8 w-8 text-purple-600" />
                     </div>
-                    <CardTitle className="text-2xl font-bold">{pkg.name}</CardTitle>
+                    <CardTitle className="text-2xl font-bold text-center">{pkg.name}</CardTitle>
                     
-                    <div className="mt-4">
-                      <div className="text-4xl font-bold text-brand-blue">
+                    <div className="mt-4 text-center">
+                      <div className="text-4xl font-bold text-purple-600">
                         ${pkg.basePrice}<span className="text-lg font-normal">/hr</span>
                       </div>
                       {pkg.addOnPrice && (
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                        <p className="text-sm text-gray-600 mt-1">
                           +${pkg.addOnPrice}/hr from base
                         </p>
                       )}
@@ -558,7 +427,7 @@ export default function AfterParty() {
                   </CardHeader>
 
                   <CardContent>
-                    <p className="text-gray-600 dark:text-gray-400 mb-6">
+                    <p className="text-gray-600 text-base mb-6 text-center">
                       {pkg.description}
                     </p>
 
@@ -566,7 +435,7 @@ export default function AfterParty() {
                       {pkg.features.map((feature, idx) => (
                         <li key={idx} className="flex items-start">
                           <CheckCircle className="h-5 w-5 text-green-500 mr-2 mt-0.5 flex-shrink-0" />
-                          <span className="text-sm">{feature}</span>
+                          <span className="text-sm text-base">{feature}</span>
                         </li>
                       ))}
                     </ul>
@@ -582,372 +451,208 @@ export default function AfterParty() {
                     </Button>
                   </CardContent>
                 </Card>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </SectionReveal>
 
       {/* What's Included */}
-      <section className="py-20 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
-              Everything for an Epic After Party
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
-              All the ingredients for an unforgettable late-night celebration
-            </p>
-          </motion.div>
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
+                Everything for an Epic After Party
+              </h2>
+              <p className="text-xl text-base text-gray-600 text-center">
+                All the ingredients for an unforgettable late-night celebration
+              </p>
+            </div>
 
-          <div className="grid md:grid-cols-3 gap-6 max-w-6xl mx-auto">
-            {whatsIncluded.map((item, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="flex items-start p-4 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-900 transition-colors"
-              >
-                <div className="w-12 h-12 bg-brand-blue/10 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                  <item.icon className="h-6 w-6 text-brand-blue" />
+            <div className="grid md:grid-cols-3 gap-6">
+              {whatsIncluded.map((item, index) => (
+                <div
+                  key={index}
+                  className="flex items-start p-6 rounded-xl hover:bg-white hover:shadow-lg transition-all"
+                >
+                  <div className="w-12 h-12 bg-purple-100 rounded-xl flex items-center justify-center mr-4 flex-shrink-0">
+                    <item.icon className="h-6 w-6 text-purple-600" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-base mb-1">{item.title}</h3>
+                    <p className="text-sm text-base text-gray-600">{item.description}</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="font-bold mb-1">{item.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
-                </div>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </SectionReveal>
 
       {/* Testimonials */}
-      <section className="py-20 bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-gray-950">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
-              After Party Memories
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
-              Hear from couples who kept the party going
-            </p>
-          </motion.div>
+      <SectionReveal>
+        <section className="py-24 bg-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
+                Epic After Party Stories
+              </h2>
+              <p className="text-xl text-base text-gray-600 text-center">
+                Hear from couples who kept the celebration going
+              </p>
+            </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            {testimonials.map((testimonial, index) => (
-              <motion.div
-                key={testimonial.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-              >
-                <Card className="h-full">
+            <div className="grid md:grid-cols-3 gap-8">
+              {testimonials.map((testimonial) => (
+                <Card key={testimonial.id} className="h-full rounded-xl">
                   <CardContent className="pt-6">
-                    <div className="flex mb-4">
-                      {[...Array(5)].map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-brand-yellow text-brand-yellow" />
+                    <div className="flex items-center mb-4">
+                      {[...Array(testimonial.rating)].map((_, i) => (
+                        <Star key={i} className="h-5 w-5 text-yellow-400 fill-current" />
                       ))}
                     </div>
-                    
-                    <Quote className="h-8 w-8 text-brand-blue/20 mb-2" />
-                    
-                    <p className="text-gray-600 dark:text-gray-400 mb-6 italic">
-                      "{testimonial.text}"
-                    </p>
-
+                    <Quote className="h-8 w-8 text-purple-600 mb-4" />
+                    <p className="text-gray-700 text-base mb-6">{testimonial.text}</p>
                     <div className="border-t pt-4">
-                      <p className="font-bold">{testimonial.name}</p>
-                      <p className="text-sm text-gray-500">{testimonial.role}</p>
+                      <p className="font-bold text-base">{testimonial.name}</p>
+                      <p className="text-sm text-gray-600">{testimonial.role}</p>
                     </div>
                   </CardContent>
                 </Card>
-              </motion.div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      </SectionReveal>
 
-      {/* FAQs */}
-      <section className="py-20 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            className="text-center mb-12"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
-              After Party FAQs
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400">
-              Everything you need to know about wedding after party cruises
-            </p>
-          </motion.div>
+      {/* Photo Gallery */}
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
+                Late Night Celebration Photos
+              </h2>
+              <p className="text-xl text-base text-gray-600 text-center">
+                The party doesn't stop when the sun goes down
+              </p>
+            </div>
 
-          <div className="max-w-3xl mx-auto">
+            <Carousel className="w-full max-w-5xl mx-auto">
+              <CarouselContent>
+                {[galleryImage1, galleryImage2, galleryImage3, heroImage2, heroImage3].map((img, index) => (
+                  <CarouselItem key={index}>
+                    <div className="p-1">
+                      <Card className="rounded-xl overflow-hidden">
+                        <img
+                          src={img}
+                          alt={`After Party Gallery ${index + 1}`}
+                          className="w-full h-[500px] object-cover"
+                          loading="lazy"
+                        />
+                      </Card>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* FAQ Section */}
+      <SectionReveal>
+        <section className="py-24 bg-white">
+          <div className="max-w-4xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-4 text-center">
+                Frequently Asked Questions
+              </h2>
+              <p className="text-xl text-base text-gray-600 text-center">
+                Everything you need to know about after party cruises
+              </p>
+            </div>
+
             <Accordion type="single" collapsible className="w-full">
-              {faqItems.map((item, index) => (
-                <motion.div
-                  key={item.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                >
-                  <AccordionItem value={item.id} className="mb-4">
-                    <AccordionTrigger className="text-left hover:no-underline">
-                      <div className="flex items-start">
-                        <Info className="h-5 w-5 text-brand-blue mr-3 mt-0.5 flex-shrink-0" />
-                        <span className="font-semibold">{item.question}</span>
-                      </div>
-                    </AccordionTrigger>
-                    <AccordionContent className="pt-2 pb-4 pl-8">
-                      <p className="text-gray-600 dark:text-gray-400">{item.answer}</p>
-                    </AccordionContent>
-                  </AccordionItem>
-                </motion.div>
+              {faqItems.map((faq) => (
+                <AccordionItem key={faq.id} value={faq.id}>
+                  <AccordionTrigger className="text-left font-bold text-base">
+                    {faq.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-base text-gray-600">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
               ))}
             </Accordion>
           </div>
-        </div>
-      </section>
+        </section>
+      </SectionReveal>
 
-      {/* Party Planning Checklist */}
-      <PartyPlanningChecklist 
-        partyType="Wedding After Party"
-        eventType="after party"
-      />
+      {/* Planning Checklist */}
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <PartyPlanningChecklist 
+              eventType="Wedding After Party"
+              checklistItems={[
+                'Choose your after party cruise package',
+                'Select date and late-night time slot',
+                'Determine guest count for after party',
+                'Coordinate DJ and music preferences',
+                'Plan late night snacks and drinks',
+                'Arrange transportation from venue',
+                'Share after party details with guests',
+                'Prepare send-off supplies',
+                'Review timing with reception coordinator'
+              ]}
+            />
+          </div>
+        </section>
+      </SectionReveal>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-brand-blue to-blue-600">
-        <div className="container mx-auto px-6">
-          <motion.div 
-            className="text-center text-white"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-6">
-              Don't Let Your Wedding Night End!
+      {/* Final CTA */}
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-r from-purple-600 to-pink-600">
+          <div className="max-w-4xl mx-auto px-6 text-center">
+            <h2 className="text-3xl md:text-4xl font-playfair font-bold mb-6 text-white text-center">
+              Ready to Keep the Party Going?
             </h2>
-            <p className="text-xl mb-8 text-white/90 max-w-3xl mx-auto">
-              Keep celebrating with your closest friends on an unforgettable 
-              late-night cruise. Let's plan your perfect after party!
+            <p className="text-xl text-base text-white/90 mb-8 text-center">
+              Start planning your unforgettable after party experience today
             </p>
-            
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button
                 size="lg"
                 onClick={handleGetQuote}
-                className="bg-brand-yellow hover:bg-brand-yellow/90 text-black font-bold text-lg px-8 py-6 shadow-xl"
-                data-testid="button-cta-get-quote"
+                className="bg-white hover:bg-gray-100 text-purple-600 font-bold text-lg px-8 py-6"
+                data-testid="button-final-cta"
               >
                 <MessageSquare className="mr-2 h-5 w-5" />
-                Start Planning
+                Get Your Quote
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
-
               <Button
                 size="lg"
                 variant="outline"
-                onClick={() => navigate('/contact')}
-                className="bg-white/10 backdrop-blur-sm text-white border-white/30 hover:bg-white/20 font-bold text-lg px-8 py-6"
-                data-testid="button-cta-contact"
+                asChild
+                className="border-white text-white hover:bg-white hover:text-purple-600 font-bold text-lg px-8 py-6"
+                data-testid="button-call-now"
               >
-                <Phone className="mr-2 h-5 w-5" />
-                Call Us: 512-488-5892
+                <a href="tel:+15124000323">
+                  <Phone className="mr-2 h-5 w-5" />
+                  Call (512) 400-0323
+                </a>
               </Button>
             </div>
-          </motion.div>
-        </div>
-      </section>
-
-      {/* Related Experiences Section */}
-      <section className="py-20 bg-gradient-to-b from-white to-gray-50 dark:from-gray-950 dark:to-gray-900">
-        <div className="container mx-auto px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={fadeInUp}
-            className="text-center mb-12"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold font-heading mb-4">
-              Related Wedding Experiences
-            </h2>
-            <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-              Explore our full range of wedding event experiences on Lake Travis.
-            </p>
-          </motion.div>
-
-          <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 }}
-            >
-              <Link href="/rehearsal-dinner">
-                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-brand-blue">
-                  <CardHeader>
-                    <div className="w-16 h-16 mx-auto mb-4 bg-brand-blue/10 rounded-full flex items-center justify-center">
-                      <Utensils className="h-8 w-8 text-brand-blue" />
-                    </div>
-                    <CardTitle className="text-2xl text-center">Rehearsal Dinner</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 dark:text-gray-400 text-center">
-                      Pre-wedding rehearsal dinners
-                    </p>
-                    <Button className="w-full mt-4" variant="outline">
-                      Explore Rehearsal Dinners
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Link>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2 }}
-            >
-              <Link href="/welcome-party">
-                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-purple-500">
-                  <CardHeader>
-                    <div className="w-16 h-16 mx-auto mb-4 bg-purple-500/10 rounded-full flex items-center justify-center">
-                      <PartyPopper className="h-8 w-8 text-purple-500" />
-                    </div>
-                    <CardTitle className="text-2xl text-center">Welcome Party</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 dark:text-gray-400 text-center">
-                      Welcome party events
-                    </p>
-                    <Button className="w-full mt-4" variant="outline">
-                      Explore Welcome Parties
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Link>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-            >
-              <Link href="/wedding-parties">
-                <Card className="h-full hover:shadow-2xl transition-all duration-300 cursor-pointer border-2 hover:border-pink-500">
-                  <CardHeader>
-                    <div className="w-16 h-16 mx-auto mb-4 bg-pink-500/10 rounded-full flex items-center justify-center">
-                      <Heart className="h-8 w-8 text-pink-500" />
-                    </div>
-                    <CardTitle className="text-2xl text-center">Wedding Parties</CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-600 dark:text-gray-400 text-center">
-                      Wedding party resources
-                    </p>
-                    <Button className="w-full mt-4" variant="outline">
-                      View All Wedding Events
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Button>
-                  </CardContent>
-                </Card>
-              </Link>
-            </motion.div>
           </div>
-        </div>
-      </section>
+        </section>
+      </SectionReveal>
 
-      {/* SEO-Optimized Hidden Content for Search Engines */}
-      <div className="sr-only" itemScope itemType="https://schema.org/Service">
-        <h2>Wedding After Party Cruise Austin - Lake Travis Late Night Celebration</h2>
-        <p itemProp="description">
-          Epic wedding after party cruises on Lake Travis. Keep the celebration going with DJ, dancing, and midnight festivities. 
-          Late-night boat parties for newlyweds and guests from 14-75 capacity. Perfect wedding reception finale.
-        </p>
-        
-        {/* Pricing Content for Crawlers */}
-        <h3>After Party Private Cruise Pricing - All Guest Capacities</h3>
-        <div itemScope itemType="https://schema.org/Offer">
-          <h4 itemProp="name">1-14 Guests After Party Pricing</h4>
-          <p>Monday-Thursday: Standard $1,050, Essentials $1,150, Ultimate $1,300</p>
-          <p>Friday: Standard $1,181, Essentials $1,281, Ultimate $1,431</p>
-          <p>Saturday: Standard $1,838, Essentials $1,938, Ultimate $2,088</p>
-          <p>Sunday: Standard $1,313, Essentials $1,413, Ultimate $1,563</p>
-        </div>
-        <div itemScope itemType="https://schema.org/Offer">
-          <h4 itemProp="name">15-25 Guests Late Night Party Pricing</h4>
-          <p>Monday-Thursday: Standard $1,181, Essentials $1,331, Ultimate $1,481</p>
-          <p>Friday: Standard $1,313, Essentials $1,463, Ultimate $1,613</p>
-          <p>Saturday: Standard $1,969, Essentials $2,119, Ultimate $2,269</p>
-          <p>Sunday: Standard $1,444, Essentials $1,594, Ultimate $1,744</p>
-        </div>
-        <div itemScope itemType="https://schema.org/Offer">
-          <h4 itemProp="name">26-30 Guests After Party Pricing</h4>
-          <p>Monday-Thursday: Standard $1,381, Essentials $1,531, Ultimate $1,681</p>
-          <p>Friday: Standard $1,513, Essentials $1,663, Ultimate $1,813</p>
-          <p>Saturday: Standard $2,169, Essentials $2,319, Ultimate $2,469</p>
-          <p>Sunday: Standard $1,644, Essentials $1,794, Ultimate $1,944</p>
-        </div>
-        <div itemScope itemType="https://schema.org/Offer">
-          <h4 itemProp="name">31-50 Guests Wedding After Party Pricing</h4>
-          <p>Monday-Thursday: Standard $1,313, Essentials $1,513, Ultimate $1,663</p>
-          <p>Friday: Standard $1,444, Essentials $1,644, Ultimate $1,794</p>
-          <p>Saturday: Standard $2,100, Essentials $2,300, Ultimate $2,450</p>
-          <p>Sunday: Standard $1,575, Essentials $1,775, Ultimate $1,925</p>
-        </div>
-        <div itemScope itemType="https://schema.org/Offer">
-          <h4 itemProp="name">51-75 Guests Large After Party Pricing</h4>
-          <p>Monday-Thursday: Standard $1,613, Essentials $1,813, Ultimate $1,963</p>
-          <p>Friday: Standard $1,744, Essentials $1,944, Ultimate $2,094</p>
-          <p>Saturday: Standard $2,400, Essentials $2,600, Ultimate $2,750</p>
-          <p>Sunday: Standard $1,875, Essentials $2,075, Ultimate $2,225</p>
-        </div>
-        
-        <h3>After Party Features and Entertainment</h3>
-        <ul>
-          <li>Wedding after party late night cruise on Lake Travis</li>
-          <li>Professional DJ and dance floor setup</li>
-          <li>Premium sound and lighting for nighttime atmosphere</li>
-          <li>Midnight champagne toast service</li>
-          <li>Late night food and snack options</li>
-          <li>VIP area for newlyweds</li>
-          <li>Professional crew for late night celebrations</li>
-          <li>Party lighting and LED effects</li>
-          <li>Transportation coordination from wedding venue</li>
-          <li>Sparkler send-off supplies available</li>
-        </ul>
-        
-        <h3>Austin After Party Cruise Keywords</h3>
-        <p>after party Austin, wedding after party cruise Lake Travis, late night boat party Austin, reception after party lake, 
-        wedding finale cruise Austin, Lake Travis late night party boat, Austin wedding after celebration, midnight cruise Lake Travis, 
-        post-reception boat party, wedding send off cruise Austin, Lake Travis nighttime wedding party, Austin wedding continuation cruise</p>
-        
-        <h3>Fleet Options for After Parties</h3>
-        <p>Day Tripper (14 guests), Meeseeks (25 guests), Tito (30 guests), Clever Girl (50 guests), Millennium Falcon (75 guests)</p>
-      </div>
-
-      {/* JSON-LD Structured Data */}
+      {/* Service Schema */}
       <script type="application/ld+json" dangerouslySetInnerHTML={{
         __html: JSON.stringify({
           "@context": "https://schema.org",
@@ -957,24 +662,10 @@ export default function AfterParty() {
           "provider": {
             "@type": "LocalBusiness",
             "name": "Premier Party Cruises",
-            "address": {
-              "@type": "PostalAddress",
-              "addressLocality": "Austin",
-              "addressRegion": "TX",
-              "addressCountry": "US"
-            },
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": "30.3895",
-              "longitude": "-97.8686"
-            },
             "telephone": "(512) 488-5892",
             "priceRange": "$1,050-$2,750"
           },
-          "areaServed": {
-            "@type": "City",
-            "name": "Austin, TX"
-          },
+          "areaServed": "Austin, TX",
           "offers": [
             {
               "@type": "Offer",
@@ -999,26 +690,6 @@ export default function AfterParty() {
             }
           ]
         })
-      }} />
-
-      
-      {/* JSON-LD Structured Data - Service Schema */}
-      <script type="application/ld+json" dangerouslySetInnerHTML={{
-        __html: JSON.stringify({
-                    "@context": "https://schema.org",
-                    "@type": "Service",
-                    "@id": "https://premierpartycruises.com/after-party/#service",
-                    "name": "Private Cruise — Wedding After Parties",
-                    "provider": {
-                              "@id": "https://premierpartycruises.com/#organization"
-                    },
-                    "areaServed": [
-                              "Austin TX",
-                              "Texas",
-                              "United States"
-                    ],
-                    "description": "Private 3–4 hour cruise with licensed, experienced captain & crew, premium Bluetooth sound, coolers, restrooms, sun & shade seating. Choose Essentials or Ultimate Disco Party package add‑ons."
-          })
       }} />
 
       <Footer />
