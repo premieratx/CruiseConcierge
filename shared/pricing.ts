@@ -194,10 +194,9 @@ export function calculateSimpleDiscoPricing(
 
 /**
  * Day type enumeration for pricing tiers
- * FRI_SUN: Friday and Sunday have the same pricing
- * SATURDAY: Saturday has premium pricing
+ * Updated to handle separate Friday and Sunday pricing
  */
-export type DayType = 'MON_THU' | 'FRI_SUN' | 'SATURDAY';
+export type DayType = 'MON_THU' | 'FRIDAY' | 'SATURDAY' | 'SUNDAY';
 
 /**
  * Capacity tier type for group size mapping
@@ -206,7 +205,7 @@ export type CapacityTier = 14 | 25 | 30 | 50 | 75;
 
 /**
  * Determines the pricing day type based on the day of the week
- * Friday and Sunday have the same pricing, Saturday is premium
+ * Each day type now has its own pricing tier
  * @param date Date object to check
  * @returns DayType for pricing calculations
  */
@@ -216,12 +215,15 @@ export function getDayType(date: Date): DayType {
   if (dayOfWeek >= 1 && dayOfWeek <= 4) {
     // Monday (1) through Thursday (4)
     return 'MON_THU';
-  } else if (dayOfWeek === 5 || dayOfWeek === 0) {
-    // Friday (5) and Sunday (0) - SAME PRICING
-    return 'FRI_SUN';
-  } else {
+  } else if (dayOfWeek === 5) {
+    // Friday (5)
+    return 'FRIDAY';
+  } else if (dayOfWeek === 6) {
     // Saturday (6) - PREMIUM PRICING
     return 'SATURDAY';
+  } else {
+    // Sunday (0)
+    return 'SUNDAY';
   }
 }
 

@@ -44,12 +44,15 @@ import galleryImage1 from '@assets/party-atmosphere-1.webp';
 import galleryImage2 from '@assets/party-atmosphere-2.webp';
 import galleryImage3 from '@assets/party-atmosphere-3.webp';
 
-// Private Cruise Package Tiers
+// Private Cruise Package Tiers - UPDATED PRICING
+// Import from constants for accurate pricing
+import { HOURLY_RATES, PACKAGE_FLAT_FEES, CREW_FEES } from '@shared/constants';
+
 const privateCruisePackages = [
   {
     id: 'standard',
     name: 'Standard Package',
-    hourlyRate: { dayTripper: 200, meeseeks: 225, cleverGirl: 300 },
+    flatFee: { 14: 0, 25: 0, 30: 0, 50: 0, 75: 0 }, // No package fee for standard
     description: 'Basic cruise experience',
     subtitle: 'The boat, the captain, and the lake - ready for your event',
     features: [
@@ -69,7 +72,7 @@ const privateCruisePackages = [
   {
     id: 'essentials',
     name: 'Essentials Package',
-    hourlyUpgrade: 100,
+    flatFee: PACKAGE_FLAT_FEES.ESSENTIALS, // $100-$200 flat fee depending on group size
     description: 'Enhanced convenience',
     subtitle: 'Everything from Standard Package + Enhanced Convenience',
     features: [
@@ -89,7 +92,7 @@ const privateCruisePackages = [
   {
     id: 'ultimate',
     name: 'Ultimate Package',
-    hourlyUpgrade: 250,
+    flatFee: PACKAGE_FLAT_FEES.ULTIMATE, // $250-$350 flat fee depending on group size
     description: 'Full party atmosphere setup',
     subtitle: 'Everything from Essentials Package + Full Party Atmosphere',
     features: [

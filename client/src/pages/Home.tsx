@@ -68,6 +68,7 @@ import Leaf from 'lucide-react/dist/esm/icons/leaf';
 import Footer from '@/components/Footer';
 import { formatCurrency } from '@shared/formatters';
 import { PricingTable } from '@/components/PricingTable';
+import { TabbedPrivateCruisePricing } from '@/components/TabbedPrivateCruisePricing';
 import SEOHead from '@/components/SEOHead';
 import { Endorsement } from '@shared/schema';
 import { QuickDealHighlight } from '@/components/DiscoVsPrivateComparison';
@@ -1320,157 +1321,86 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ATX Disco Cruise Callout Section */}
-      <section className="py-24 bg-gradient-to-br from-yellow-50 via-orange-50 to-pink-50 dark:from-gray-950 dark:via-orange-950/20 dark:to-pink-950/20" data-testid="section-atx-disco-cruise">
+      {/* Private Cruises - Detailed Pricing Section */}
+      <section className="py-24 bg-white dark:bg-gray-950" data-testid="section-private-cruises">
         <div className="container mx-auto px-6">
           <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
             variants={fadeInUp}
-            className="max-w-6xl mx-auto"
+            className="max-w-7xl mx-auto"
           >
-            {/* Header with Badge */}
-            <div className="text-center mb-12">
-              <Badge className="mb-6 bg-gradient-to-r from-yellow-500 to-orange-600 text-white px-6 py-2 text-base font-bold" data-testid="badge-atx-featured">
-                <Star className="h-4 w-4 mr-2 inline" />
-                Claude AI 10/10 Validation
+            {/* Header */}
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-brand-blue text-white px-6 py-2 text-base font-bold">
+                <Ship className="h-4 w-4 mr-2 inline" />
+                Private Cruises
               </Badge>
-              <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wide" data-testid="text-atx-title">
-                Experience America's #1 <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Party Cruises">Bachelor</InternalLinkHighlight> & <InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Party Cruises">Bachelorette Party</InternalLinkHighlight> Cruise
+              <h2 className="text-3xl md:text-4xl lg:text-5xl font-heading font-bold mb-6 text-gray-900 dark:text-white tracking-wide">
+                Your Boat, Your Way - Private Cruise Pricing
               </h2>
               <p className="text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
-                The only all-inclusive, multi-group party cruise on Lake Travis
+                Choose your boat size and package level. Transparent pricing with no hidden fees.
               </p>
             </div>
 
+            {/* Import and render the new tabbed pricing component */}
+            <TabbedPrivateCruisePricing dayType="SATURDAY" duration={4} />
+
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Bachelor/Bachelorette & ATX Disco Cruise - Consolidated Section */}
+      <section className="py-16 bg-gradient-to-br from-yellow-50 via-orange-50 to-pink-50 dark:from-gray-950 dark:via-orange-950/20 dark:to-pink-950/20" data-testid="section-atx-disco-cruise">
+        <div className="container mx-auto px-6">
+          <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            variants={fadeInUp}
+            className="max-w-5xl mx-auto"
+          >
             <Card className="border-2 border-yellow-500/30 bg-white/80 dark:bg-gray-800/80 backdrop-blur shadow-2xl overflow-hidden">
-              <CardContent className="p-8 md:p-12">
-                {/* Key Benefits Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 }}
-                    className="text-center p-4 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950/20 dark:to-orange-950/20 rounded-xl"
-                    data-testid="benefit-duration"
-                  >
-                    <Clock className="h-10 w-10 text-yellow-600 mx-auto mb-3" />
-                    <h3 className="font-bold text-gray-900 dark:text-white mb-1">4-Hour Experience</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Full party cruise</p>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 }}
-                    className="text-center p-4 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950/20 dark:to-orange-950/20 rounded-xl"
-                    data-testid="benefit-inclusions"
-                  >
-                    <Music className="h-10 w-10 text-yellow-600 mx-auto mb-3" />
-                    <h3 className="font-bold text-gray-900 dark:text-white mb-1">DJ + Photographer</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">All included</p>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 }}
-                    className="text-center p-4 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950/20 dark:to-orange-950/20 rounded-xl"
-                    data-testid="benefit-pricing"
-                  >
-                    <DollarSign className="h-10 w-10 text-yellow-600 mx-auto mb-3" />
-                    <h3 className="font-bold text-gray-900 dark:text-white mb-1">$85-105/Person</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Best value</p>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.4 }}
-                    className="text-center p-4 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950/20 dark:to-orange-950/20 rounded-xl"
-                    data-testid="benefit-multi-group"
-                  >
-                    <Users className="h-10 w-10 text-yellow-600 mx-auto mb-3" />
-                    <h3 className="font-bold text-gray-900 dark:text-white mb-1">Multi-Group Energy</h3>
-                    <p className="text-sm text-gray-600 dark:text-gray-400">Electric atmosphere</p>
-                  </motion.div>
+              <CardContent className="p-8">
+                <div className="text-center mb-8">
+                  <h2 className="text-2xl md:text-3xl font-heading font-bold mb-3 text-gray-900 dark:text-white">
+                    <InternalLinkHighlight href="/bachelor-party-austin" title="Bachelor Party">Bachelor</InternalLinkHighlight> & <InternalLinkHighlight href="/bachelorette-party-austin" title="Bachelorette Party">Bachelorette Parties</InternalLinkHighlight>
+                  </h2>
+                  <p className="text-gray-600 dark:text-gray-300 text-lg mb-6">
+                    Austin's #1 Party Cruise Since 2009 - Join the ATX Disco Cruise!
+                  </p>
                 </div>
 
-                {/* Claude AI Highlight Quotes */}
-                <div className="space-y-4 mb-10">
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.1 }}
-                    className="flex gap-4 items-start bg-gradient-to-r from-yellow-100/50 to-orange-100/50 dark:from-yellow-950/30 dark:to-orange-950/30 rounded-xl p-4 border-l-4 border-yellow-500"
-                    data-testid="quote-unique"
-                  >
-                    <Quote className="h-6 w-6 text-yellow-600 flex-shrink-0 mt-1" />
-                    <p className="text-gray-800 dark:text-gray-200 font-semibold italic leading-relaxed">
-                      "The country's only all-inclusive, multi-group bachelor/bachelorette party cruise"
-                    </p>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.2 }}
-                    className="flex gap-4 items-start bg-gradient-to-r from-yellow-100/50 to-orange-100/50 dark:from-yellow-950/30 dark:to-orange-950/30 rounded-xl p-4 border-l-4 border-orange-500"
-                    data-testid="quote-value"
-                  >
-                    <Quote className="h-6 w-6 text-orange-600 flex-shrink-0 mt-1" />
-                    <p className="text-gray-800 dark:text-gray-200 font-semibold italic leading-relaxed">
-                      "3-5x better value than private rentals with professional entertainment included"
-                    </p>
-                  </motion.div>
-
-                  <motion.div
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 }}
-                    className="flex gap-4 items-start bg-gradient-to-r from-yellow-100/50 to-orange-100/50 dark:from-yellow-950/30 dark:to-orange-950/30 rounded-xl p-4 border-l-4 border-pink-500"
-                    data-testid="quote-satisfaction"
-                  >
-                    <Quote className="h-6 w-6 text-pink-600 flex-shrink-0 mt-1" />
-                    <p className="text-gray-800 dark:text-gray-200 font-semibold italic leading-relaxed">
-                      "100% satisfaction track record with thousands of groups served since 2009"
-                    </p>
-                  </motion.div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                  <div className="text-center p-4 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950/20 dark:to-orange-950/20 rounded-xl">
+                    <DollarSign className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
+                    <h3 className="font-bold text-gray-900 dark:text-white">$85-105/Person</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">3 Package Options</p>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950/20 dark:to-orange-950/20 rounded-xl">
+                    <Music className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
+                    <h3 className="font-bold text-gray-900 dark:text-white">DJ + Photographer</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Included</p>
+                  </div>
+                  <div className="text-center p-4 bg-gradient-to-br from-yellow-50 to-orange-50 dark:from-yellow-950/20 dark:to-orange-950/20 rounded-xl">
+                    <Users className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
+                    <h3 className="font-bold text-gray-900 dark:text-white">Multi-Group Party</h3>
+                    <p className="text-sm text-gray-600 dark:text-gray-400">Electric vibe</p>
+                  </div>
                 </div>
 
-                {/* Dual CTAs */}
-                <div className="flex flex-col sm:flex-row gap-4 justify-center items-center pt-6 border-t border-gray-200 dark:border-gray-700">
+                <div className="flex justify-center">
                   <Link href="/atx-disco-cruise">
                     <Button 
-                      variant="default"
                       size="lg"
-                      className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-4 sm:py-5 md:py-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 whitespace-normal min-h-[3rem] sm:min-h-[3.5rem]"
+                      className="bg-gradient-to-r from-yellow-500 to-orange-600 hover:from-yellow-600 hover:to-orange-700 text-white font-bold px-8 py-4 rounded-xl"
                       data-testid="button-explore-disco"
                     >
-                      <Sparkles className="mr-2 h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
-                      <span className="text-center leading-tight">Explore ATX Disco Cruise</span>
-                      <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
-                    </Button>
-                  </Link>
-                  
-                  <Link href="/chat">
-                    <Button 
-                      variant="outline"
-                      size="lg"
-                      className="border-2 border-yellow-500 text-yellow-700 dark:text-yellow-400 hover:bg-yellow-500 hover:text-white font-bold text-sm sm:text-base md:text-lg px-6 sm:px-8 md:px-10 py-4 sm:py-5 md:py-6 rounded-xl shadow-lg transform hover:scale-105 transition-all duration-300 whitespace-normal min-h-[3rem] sm:min-h-[3.5rem]"
-                      data-testid="button-book-cruise"
-                    >
-                      <Calendar className="mr-2 h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
-                      <span className="text-center">Book Your Cruise</span>
-                      <ArrowRight className="ml-2 h-4 w-4 sm:h-5 sm:w-5 flex-shrink-0" />
+                      <Sparkles className="mr-2 h-5 w-5" />
+                      Explore ATX Disco Cruise
+                      <ArrowRight className="ml-2 h-5 w-5" />
                     </Button>
                   </Link>
                 </div>
