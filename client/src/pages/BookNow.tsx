@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import Footer from '@/components/Footer';
 
 export default function BookNow() {
   const [activeTab, setActiveTab] = useState('14p');
@@ -121,6 +122,8 @@ export default function BookNow() {
 
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 }
