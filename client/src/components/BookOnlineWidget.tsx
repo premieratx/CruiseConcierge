@@ -174,73 +174,103 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
               </div>
             )}
 
-            {/* Xola Embedded Checkout Widgets - Using your exact embed code */}
-            <div className="bg-white rounded-xl shadow-2xl overflow-hidden relative" style={{ minHeight: '600px' }}>
-              {/* 14-Person Boat */}
-              <div className={activeTab === '14p' ? 'relative z-10' : 'absolute inset-0 opacity-0 pointer-events-none'}>
-                <div 
-                  className="xola-embedded-checkout" 
-                  data-seller="64c43a70daa3e618b7229ddf" 
-                  data-version="2" 
-                  data-experience="64c7d0012c2afc7d8d70e285"
-                  data-testid="widget-14p"
-                />
-              </div>
+            {/* Xola Direct Link Buttons - Opens Xola checkout in new window */}
+            <div className="bg-white rounded-xl shadow-2xl overflow-hidden p-12" style={{ minHeight: '600px' }}>
+              {activeTab === '14p' && (
+                <div className="text-center space-y-6">
+                  <h3 className="text-2xl font-bold">Book Your 14-Person Boat</h3>
+                  <p className="text-gray-600">Select your date and complete your booking</p>
+                  <a
+                    href={`https://premierpartycruises.xola.com/experiences/${xolaConfig.experiences['14p']}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-brand-blue text-white px-8 py-4 rounded-lg text-lg font-bold hover:bg-blue-700 transition"
+                    data-testid="button-14p"
+                  >
+                    Continue to Booking →
+                  </a>
+                </div>
+              )}
 
-              {/* 25-Person Boat */}
-              <div className={activeTab === '25p' ? 'relative z-10' : 'absolute inset-0 opacity-0 pointer-events-none'}>
-                <div 
-                  className="xola-embedded-checkout" 
-                  data-seller="64c43a70daa3e618b7229ddf" 
-                  data-version="2" 
-                  data-experience="64c7d2b74e1de53cee29395e"
-                  data-testid="widget-25p"
-                />
-              </div>
+              {activeTab === '25p' && (
+                <div className="text-center space-y-6">
+                  <h3 className="text-2xl font-bold">Book Your 25-Person Boat</h3>
+                  <p className="text-gray-600">Select your date and complete your booking</p>
+                  <a
+                    href={`https://premierpartycruises.xola.com/experiences/${xolaConfig.experiences['25p']}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-brand-blue text-white px-8 py-4 rounded-lg text-lg font-bold hover:bg-blue-700 transition"
+                    data-testid="button-25p"
+                  >
+                    Continue to Booking →
+                  </a>
+                </div>
+              )}
 
-              {/* 50-Person Boat */}
-              <div className={activeTab === '50p' ? 'relative z-10' : 'absolute inset-0 opacity-0 pointer-events-none'}>
-                <div 
-                  className="xola-embedded-checkout" 
-                  data-seller="64c43a70daa3e618b7229ddf" 
-                  data-version="2" 
-                  data-experience="64c7d2ca4e1de53cee2939be"
-                  data-testid="widget-50p"
-                />
-              </div>
+              {activeTab === '50p' && (
+                <div className="text-center space-y-6">
+                  <h3 className="text-2xl font-bold">Book Your 50-Person Boat</h3>
+                  <p className="text-gray-600">Select your date and complete your booking</p>
+                  <a
+                    href={`https://premierpartycruises.xola.com/experiences/${xolaConfig.experiences['50p']}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-brand-blue text-white px-8 py-4 rounded-lg text-lg font-bold hover:bg-blue-700 transition"
+                    data-testid="button-50p"
+                  >
+                    Continue to Booking →
+                  </a>
+                </div>
+              )}
 
-              {/* Basic Bach Package */}
-              <div className={activeTab === 'disco' && activeDiscoPackage === 'basic-bach' ? 'relative z-10' : 'absolute inset-0 opacity-0 pointer-events-none'}>
-                <div 
-                  className="xola-embedded-checkout" 
-                  data-seller="64c43a70daa3e618b7229ddf" 
-                  data-version="2" 
-                  data-experience="64c7d3284e1de53cee293ad0"
-                  data-testid="widget-disco-basic"
-                />
-              </div>
+              {activeTab === 'disco' && activeDiscoPackage === 'basic-bach' && (
+                <div className="text-center space-y-6">
+                  <h3 className="text-2xl font-bold">Book Basic Bach Package</h3>
+                  <p className="text-gray-600">Select your date and complete your booking</p>
+                  <a
+                    href={`https://premierpartycruises.xola.com/experiences/${xolaConfig.experiences['basic-bach']}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-brand-blue text-white px-8 py-4 rounded-lg text-lg font-bold hover:bg-blue-700 transition"
+                    data-testid="button-disco-basic"
+                  >
+                    Continue to Booking →
+                  </a>
+                </div>
+              )}
 
-              {/* Disco Queen Package */}
-              <div className={activeTab === 'disco' && activeDiscoPackage === 'disco-queen' ? 'relative z-10' : 'absolute inset-0 opacity-0 pointer-events-none'}>
-                <div 
-                  className="xola-embedded-checkout" 
-                  data-seller="64c43a70daa3e618b7229ddf" 
-                  data-version="2" 
-                  data-experience="64c7d34c4e1de53cee293b3d"
-                  data-testid="widget-disco-queen"
-                />
-              </div>
+              {activeTab === 'disco' && activeDiscoPackage === 'disco-queen' && (
+                <div className="text-center space-y-6">
+                  <h3 className="text-2xl font-bold">Book Disco Queen Package</h3>
+                  <p className="text-gray-600">Select your date and complete your booking</p>
+                  <a
+                    href={`https://premierpartycruises.xola.com/experiences/${xolaConfig.experiences['disco-queen']}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-brand-blue text-white px-8 py-4 rounded-lg text-lg font-bold hover:bg-blue-700 transition"
+                    data-testid="button-disco-queen"
+                  >
+                    Continue to Booking →
+                  </a>
+                </div>
+              )}
 
-              {/* Super Sparkle Platinum */}
-              <div className={activeTab === 'disco' && activeDiscoPackage === 'super-sparkle' ? 'relative z-10' : 'absolute inset-0 opacity-0 pointer-events-none'}>
-                <div 
-                  className="xola-embedded-checkout" 
-                  data-seller="64c43a70daa3e618b7229ddf" 
-                  data-version="2" 
-                  data-experience="64c7d3774e1de53cee293bb7"
-                  data-testid="widget-disco-sparkle"
-                />
-              </div>
+              {activeTab === 'disco' && activeDiscoPackage === 'super-sparkle' && (
+                <div className="text-center space-y-6">
+                  <h3 className="text-2xl font-bold">Book Super Sparkle Platinum</h3>
+                  <p className="text-gray-600">Select your date and complete your booking</p>
+                  <a
+                    href={`https://premierpartycruises.xola.com/experiences/${xolaConfig.experiences['super-sparkle']}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-block bg-brand-blue text-white px-8 py-4 rounded-lg text-lg font-bold hover:bg-blue-700 transition"
+                    data-testid="button-disco-sparkle"
+                  >
+                    Continue to Booking →
+                  </a>
+                </div>
+              )}
             </div>
           </div>
 
