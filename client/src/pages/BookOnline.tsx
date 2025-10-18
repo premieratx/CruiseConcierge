@@ -70,7 +70,7 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
     experiences: {
       '14p': '64c7d0012c2afc7d8d70e285', // Day Tripper 14-person boat
       '25p': '64c7d2b74e1de53cee29395e', // Meeseeks 25-person boat
-      '50p': '64c7d0012c2afc7d8d70e285', // TODO: Replace with actual 50p experience ID
+      '50p': '64c7d4f01be574411500cf62', // Clever Girl 50-person boat
       'disco': '64c7d0012c2afc7d8d70e285', // TODO: Replace with actual Disco Cruise experience ID
     }
   };
