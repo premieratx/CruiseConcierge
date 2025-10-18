@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xola Widget Test - Premier Party Cruises</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .widget-container {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            min-height: 600px;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Xola Widget Test - 14 Person Boat</h1>
+    <div class="widget-container">
+        <div class="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d0012c2afc7d8d70e285"></div>
+    </div>
+
+    <script type="text/javascript">
+        (function() {
+            var co = document.createElement("script");
+            co.type = "text/javascript";
+            co.async = true;
+            co.src = "https://xola.com/checkout.js";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(co, s);
+        })();
+    </script>
+</body>
+</html>
