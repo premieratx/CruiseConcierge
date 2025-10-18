@@ -44,20 +44,8 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
       document.head.appendChild(preconnectLink);
     }
 
-    // Load Xola embed script if not already loaded
-    if (document.querySelector('script[src*="64c43a70daa3e618b7229ddf.xola.com/checkout/embed"]')) {
-      setXolaLoaded(true);
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.src = 'https://64c43a70daa3e618b7229ddf.xola.com/checkout/embed.js';
-    script.async = true;
-    script.onload = () => {
-      setXolaLoaded(true);
-      console.log('✅ Xola embed script loaded');
-    };
-    document.body.appendChild(script);
+    // Xola script loads from index.html - mark as ready
+    setXolaLoaded(true);
   }, []);
 
   // Xola experience IDs

@@ -26,21 +26,9 @@ export default function BookOnlinePopUp({ defaultBoatType = '14p' }: BookOnlineP
     window.scrollTo({ top: 0, behavior: 'instant' });
   }, []);
 
-  // Load Xola embed script if not already loaded
+  // Xola script loads from index.html - mark as ready
   useEffect(() => {
-    if (document.querySelector('script[src*="64c43a70daa3e618b7229ddf.xola.com/checkout/embed"]')) {
-      setXolaLoaded(true);
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.src = 'https://64c43a70daa3e618b7229ddf.xola.com/checkout/embed.js';
-    script.async = true;
-    script.onload = () => {
-      setXolaLoaded(true);
-      console.log('✅ Xola embed script loaded');
-    };
-    document.body.appendChild(script);
+    setXolaLoaded(true);
   }, []);
 
   // Xola experience IDs

@@ -573,25 +573,8 @@ function Router() {
 }
 
 function App() {
-  const [xolaReady, setXolaReady] = useState(false);
-
-  // Load Xola embed script globally
-  useEffect(() => {
-    // Check if script already exists
-    if (document.querySelector('script[src*="64c43a70daa3e618b7229ddf.xola.com/checkout/embed"]')) {
-      setXolaReady(true);
-      return;
-    }
-
-    const script = document.createElement('script');
-    script.src = 'https://64c43a70daa3e618b7229ddf.xola.com/checkout/embed.js';
-    script.async = true;
-    script.onload = () => {
-      setXolaReady(true);
-      console.log('✅ Xola embed script loaded');
-    };
-    document.body.appendChild(script);
-  }, []);
+  // Xola script loads from index.html - always ready
+  const [xolaReady] = useState(true);
 
   return (
     <QueryClientProvider client={queryClient}>
