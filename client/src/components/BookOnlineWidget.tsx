@@ -220,8 +220,8 @@ export default function BookOnlineWidget({ defaultBoatType = '14p', preloaded = 
 
             {/* Widget Container */}
             <div className="bg-white rounded-xl shadow-2xl overflow-hidden" style={{ minHeight: '600px' }}>
-              {/* 14p Widget - Visible initially for Xola init, then toggled */}
-              <div style={{ display: !xolaLoaded || activeTab === '14p' ? 'block' : 'none' }}>
+              {/* 14p Widget - Always in DOM, visibility controlled */}
+              <div style={{ display: activeTab === '14p' ? 'block' : 'none' }}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
@@ -232,8 +232,8 @@ export default function BookOnlineWidget({ defaultBoatType = '14p', preloaded = 
                 />
               </div>
 
-              {/* 25p Widget - Visible initially for Xola init, then toggled */}
-              <div style={{ display: !xolaLoaded || activeTab === '25p' ? 'block' : 'none' }}>
+              {/* 25p Widget - Always in DOM, visibility controlled */}
+              <div style={{ display: activeTab === '25p' ? 'block' : 'none' }}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
@@ -244,8 +244,8 @@ export default function BookOnlineWidget({ defaultBoatType = '14p', preloaded = 
                 />
               </div>
 
-              {/* 50p Widget - Visible initially for Xola init, then toggled */}
-              <div style={{ display: !xolaLoaded || activeTab === '50p' ? 'block' : 'none' }}>
+              {/* 50p Widget - Always in DOM, visibility controlled */}
+              <div style={{ display: activeTab === '50p' ? 'block' : 'none' }}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
@@ -256,8 +256,8 @@ export default function BookOnlineWidget({ defaultBoatType = '14p', preloaded = 
                 />
               </div>
 
-              {/* Basic Bach Package - Visible initially for Xola init, then toggled */}
-              <div style={{ display: !xolaLoaded || (activeTab === 'disco' && activeDiscoPackage === 'basic-bach') ? 'block' : 'none' }}>
+              {/* Basic Bach Package - Always in DOM, visibility controlled */}
+              <div style={{ display: activeTab === 'disco' && activeDiscoPackage === 'basic-bach' ? 'block' : 'none' }}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
@@ -268,8 +268,8 @@ export default function BookOnlineWidget({ defaultBoatType = '14p', preloaded = 
                 />
               </div>
 
-              {/* Disco Queen Package - Visible initially for Xola init, then toggled */}
-              <div style={{ display: !xolaLoaded || (activeTab === 'disco' && activeDiscoPackage === 'disco-queen') ? 'block' : 'none' }}>
+              {/* Disco Queen Package - Always in DOM, visibility controlled */}
+              <div style={{ display: activeTab === 'disco' && activeDiscoPackage === 'disco-queen' ? 'block' : 'none' }}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
@@ -280,8 +280,8 @@ export default function BookOnlineWidget({ defaultBoatType = '14p', preloaded = 
                 />
               </div>
 
-              {/* Super Sparkle Platinum - Visible initially for Xola init, then toggled */}
-              <div style={{ display: !xolaLoaded || (activeTab === 'disco' && activeDiscoPackage === 'super-sparkle') ? 'block' : 'none' }}>
+              {/* Super Sparkle Platinum - Always in DOM, visibility controlled */}
+              <div style={{ display: activeTab === 'disco' && activeDiscoPackage === 'super-sparkle' ? 'block' : 'none' }}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
@@ -294,17 +294,6 @@ export default function BookOnlineWidget({ defaultBoatType = '14p', preloaded = 
             </div>
           </div>
 
-          {/* Loading State - Non-blocking */}
-          {!xolaLoaded && (
-            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-10 pointer-events-none">
-              <div className="bg-white rounded-2xl p-8 shadow-2xl pointer-events-auto">
-                <div className="flex flex-col items-center gap-4">
-                  <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-                  <p className="text-lg font-semibold text-gray-700">Loading booking system...</p>
-                </div>
-              </div>
-            </div>
-          )}
         </motion.div>
       </div>
     </div>
