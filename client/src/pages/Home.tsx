@@ -10,6 +10,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { PersistentModal } from '@/components/ui/persistent-modal';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { LazyImage } from '@/components/LazyImage';
@@ -2870,38 +2871,13 @@ export default function Home() {
       {/* Footer */}
       <Footer />
 
-      {/* Book Online Widget - Permanently rendered (hidden when not in modal) to prevent dormancy */}
-      <div 
-        style={{ 
-          display: showBookingModal ? 'none' : 'block',
-          position: 'absolute', 
-          left: '-9999px', 
-          top: '0',
-          visibility: 'hidden',
-          pointerEvents: 'none'
-        }}
+      {/* Book Online Modal - Permanently rendered (visibility toggled) to prevent widget unmounting */}
+      <PersistentModal
+        open={showBookingModal}
+        onClose={() => setShowBookingModal(false)}
       >
         <BookOnlineWidget />
-      </div>
-
-      {/* Book Online Modal - Shows the same permanently-rendered widget */}
-      <Dialog open={showBookingModal} onOpenChange={setShowBookingModal} modal={true}>
-        <DialogContent 
-          className="max-w-[100vw] md:max-w-[95vw] w-full border-4 border-black max-h-[95vh] flex flex-col overflow-hidden p-0"
-          onEscapeKeyDown={(e) => {
-            e.preventDefault();
-            setShowBookingModal(false);
-          }}
-        >
-          <DialogTitle className="sr-only">Book Your Cruise Online</DialogTitle>
-          <DialogDescription className="sr-only">
-            Select from our available boat cruises and packages to book your Lake Travis party boat experience
-          </DialogDescription>
-          <div className="flex-1 overflow-y-auto" tabIndex={0}>
-            {showBookingModal && <BookOnlineWidget />}
-          </div>
-        </DialogContent>
-      </Dialog>
+      </PersistentModal>
     </div>
   );
 }
