@@ -82,6 +82,7 @@ import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { SectionReveal } from '@/components/SectionReveal';
 import { VideoTestimonials } from '@/components/VideoTestimonials';
+import BookOnlineWidget from '@/components/BookOnlineWidget';
 
 // Lazy load heavy components to improve FCP
 const DiscoVsPrivateComparison = lazy(() => import('@/components/DiscoVsPrivateComparison').then(mod => ({ default: mod.DiscoVsPrivateComparison })));
@@ -372,6 +373,7 @@ export default function Home() {
   const [quickPricingGroupSize, setQuickPricingGroupSize] = useState(20);
   const [quickPricingDayOfWeek, setQuickPricingDayOfWeek] = useState(6); // Saturday
   const [showQuoteBuilder, setShowQuoteBuilder] = useState(false);
+  const [showBookingModal, setShowBookingModal] = useState(false);
   const [iframeHeight, setIframeHeight] = useState(3000); // Very large height to prevent any internal scrolling
   const iframeRef = useRef<HTMLIFrameElement>(null);
   const [contactForm, setContactForm] = useState({
@@ -465,11 +467,7 @@ export default function Home() {
   }, []);
 
   const handleBookNow = (packageType?: string, eventType?: string) => {
-    if (packageType && eventType) {
-      navigate(`/chat?package=${packageType}&type=${eventType}`);
-    } else {
-      navigate('/chat?type=general');
-    }
+    setShowBookingModal(true);
   };
 
   const handleGetQuote = (packageType?: string, eventType?: string) => {
@@ -2850,6 +2848,13 @@ export default function Home() {
 
       {/* Footer */}
       <Footer />
+
+      {/* Book Online Modal */}
+      <Dialog open={showBookingModal} onOpenChange={setShowBookingModal}>
+        <DialogContent className="max-w-[100vw] md:max-w-[95vw] w-full p-0 border-4 border-black overflow-hidden max-h-[95vh]">
+          <BookOnlineWidget />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
