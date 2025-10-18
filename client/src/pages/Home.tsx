@@ -618,11 +618,11 @@ export default function Home() {
 
             {/* Main Headline */}
             <motion.div variants={reducedMotion ? undefined : fadeInUp} className="mb-8">
-              <h1 className="text-5xl font-bold font-playfair mb-6 leading-tight" data-editable data-editable-id="hero-title">
-                Premier Party Cruises
+              <h1 className="text-6xl md:text-7xl font-bold font-playfair mb-6 leading-tight" data-editable data-editable-id="hero-title">
+                Austin Party Boat Rentals on Lake Travis
               </h1>
-              <p className="text-xl text-brand-yellow font-semibold" data-editable data-editable-id="hero-tagline">
-                Austin's Ultimate Lake Travis Party Boat Experience Since 2009
+              <p className="text-xl md:text-2xl text-brand-yellow font-semibold leading-relaxed" data-editable data-editable-id="hero-tagline">
+                Premier Party Cruises - Austin's Ultimate Lake Travis Experience Since 2009
               </p>
             </motion.div>
 
@@ -948,18 +948,148 @@ export default function Home() {
         </section>
       </SectionReveal>
 
-      {/* Featured Snippet: What is a party boat cruise? */}
-      <section className="py-16 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6 max-w-4xl">
-          <FeaturedSnippet
-            question="What is a party boat cruise?"
-            answer="A party boat cruise is a chartered boat experience on Lake Travis where groups celebrate special occasions like bachelor parties, birthdays, and corporate events. These cruises offer music, swimming, BYOB options, and stunning lake views for 2-4 hours with professional captains and crew."
-            format="paragraph"
-            schemaType="FAQ"
-            className="mb-12"
-          />
-        </div>
-      </section>
+      {/* Pricing & Packages Section - MOVED UP FOR PROMINENCE */}
+      <SectionReveal>
+        <section className="py-20 bg-gradient-to-br from-blue-50 to-purple-50 dark:from-gray-900 dark:to-gray-950 relative" id="pricing">
+          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-20">02</div>
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <DollarSign className="h-4 w-4 mr-2 inline" />
+                Transparent Pricing
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white leading-tight">
+                Pricing & Packages
+              </h2>
+              <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed">
+                Find the perfect Lake Travis cruise for your budget and group size - transparent pricing with no hidden fees
+              </p>
+            </div>
+
+            {/* Private Cruise Detailed Pricing */}
+            <div className="mb-20">
+              <div className="text-center mb-12">
+                <Badge className="mb-4 bg-white text-brand-blue px-4 py-2 font-semibold">
+                  <Ship className="h-4 w-4 mr-2 inline" />
+                  Private Cruises
+                </Badge>
+                <h3 className="text-3xl font-semibold font-playfair mb-4 text-gray-900 dark:text-white">
+                  Your Boat, Your Way - Private Cruise Pricing
+                </h3>
+                <p className="text-base text-gray-700 dark:text-gray-300 max-w-2xl mx-auto leading-relaxed">
+                  Choose your boat size and package level. All packages include professional captain, crew, premium sound system, and coolers with ice.
+                </p>
+              </div>
+              <TabbedPrivateCruisePricing dayType="SATURDAY" duration={4} />
+            </div>
+
+            {/* All Services Overview Comparison */}
+            <div className="mb-16">
+              <h3 className="text-3xl font-semibold font-playfair text-center mb-8 text-gray-900 dark:text-white">
+                Compare All Our Services
+              </h3>
+              <PricingTable
+                title="All Services Overview"
+                items={[
+                  {
+                    name: 'ATX Disco Cruise',
+                    basePrice: 85,
+                    pricingType: 'person',
+                    description: 'Public party cruises with DJ and dancing',
+                    features: [
+                      'Per-person tickets',
+                      'DJ and dance floor',
+                      'Professional photographer',
+                      'Party favors included',
+                      'Friday & Saturday cruises'
+                    ],
+                    capacity: 'Groups of 8-30',
+                    duration: '4 hours',
+                    priceNote: '$85-105 per person',
+                    ctaText: 'View Disco Packages',
+                    ctaHref: '/atx-disco-cruise'
+                  },
+                  {
+                    name: 'Private Cruises',
+                    basePrice: 200,
+                    pricingType: 'hour',
+                    description: 'Exclusive boat rental for your group',
+                    features: [
+                      '4-hour minimum',
+                      'Choose your boat (14-75 capacity)',
+                      'BYOB allowed',
+                      'Customizable packages',
+                      '7 days a week'
+                    ],
+                    capacity: '14-75 guests',
+                    duration: '4+ hours',
+                    priceNote: '$200-350/hour',
+                    ctaText: 'Book Private Charter',
+                    ctaHref: '/private-cruises',
+                    isPopular: true
+                  },
+                  {
+                    name: 'Corporate Events',
+                    basePrice: 225,
+                    pricingType: 'hour',
+                    description: 'Professional team building on water',
+                    features: [
+                      'Professional atmosphere',
+                      'Team building activities',
+                      'Catering partnerships',
+                      'Presentation setup available',
+                      'Tax deductible'
+                    ],
+                    capacity: '14-75 guests',
+                    duration: '4+ hours',
+                    priceNote: 'Starting at $225/hr',
+                    ctaText: 'Plan Corporate Event',
+                    ctaHref: '/client-entertainment'
+                  }
+                ]}
+              />
+            </div>
+
+            {/* Seasonal Pricing Note */}
+            <div className="text-center p-8 bg-white dark:bg-gray-800 rounded-2xl shadow-lg max-w-4xl mx-auto">
+              <h3 className="text-xl font-semibold mb-6 text-gray-900 dark:text-white">
+                Pricing Information
+              </h3>
+              <div className="grid md:grid-cols-2 gap-6 mb-6">
+                <div className="text-left">
+                  <h4 className="font-semibold mb-3 flex items-center text-gray-900 dark:text-white">
+                    <Sun className="w-5 h-5 mr-2 text-yellow-500" />
+                    Peak Season (May - September)
+                  </h4>
+                  <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2 leading-relaxed">
+                    <li>• Weekend rates 20-25% higher</li>
+                    <li>• Holiday premium pricing</li>
+                    <li>• Book 4-6 weeks in advance</li>
+                  </ul>
+                </div>
+                <div className="text-left">
+                  <h4 className="font-semibold mb-3 flex items-center text-gray-900 dark:text-white">
+                    <Sparkles className="w-5 h-5 mr-2 text-blue-500" />
+                    Off-Peak Season (October - April)
+                  </h4>
+                  <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-2 leading-relaxed">
+                    <li>• Standard weekday rates</li>
+                    <li>• More availability</li>
+                    <li>• Best value deals</li>
+                  </ul>
+                </div>
+              </div>
+              <div className="border-t border-gray-200 dark:border-gray-700 pt-6">
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                  All prices subject to 8.25% tax. 20% gratuity recommended. 50% deposit required to secure booking.
+                  <br />
+                  <span className="font-semibold text-brand-blue">✨ Price Match Guarantee - Best Value on Lake Travis Guaranteed</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
 
       {/* CRITICAL: Lightbox Photo Gallery for Experience Cards */}
       <Dialog open={showLightbox} onOpenChange={setShowLightbox}>
@@ -1090,120 +1220,257 @@ export default function Home() {
         </DialogContent>
       </Dialog>
 
-      {/* AI-Optimized By The Numbers Section */}
-      <section className="py-20 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20">
-        <div className="container mx-auto px-6">
-          <AIOptimizedSection
-            type="statistics"
-            title="Premier Party Cruises By The Numbers"
-            description="Trusted by thousands of customers in Austin, Texas (ATX) and Lake Travis area since 2009"
-            data={[
-              { 
-                value: "125,000+", 
-                label: "Happy Customers", 
-                icon: <Users className="w-8 h-8" />,
-                itemProp: "numberOfCustomers"
-              },
-              { 
-                value: "14+", 
-                label: "Years in Business", 
-                icon: <Trophy className="w-8 h-8" />,
-                itemProp: "yearsFounded"
-              },
-              { 
-                value: "4", 
-                label: "Premium Boats", 
-                icon: <Ship className="w-8 h-8" />,
-                itemProp: "numberOfBoats"
-              },
-              { 
-                value: "75", 
-                label: "Max Capacity", 
-                icon: <Users className="w-8 h-8" />,
-                itemProp: "maxCapacity"
-              },
-              { 
-                value: "4.9/5", 
-                label: "Average Rating", 
-                icon: <Star className="w-8 h-8" />,
-                itemProp: "ratingValue"
-              }
-            ]}
-            className="max-w-6xl mx-auto"
-            schemaType="Organization"
-            structuredData={{
-              "@context": "https://schema.org",
-              "@type": "LocalBusiness",
-              "name": "Premier Party Cruises",
-              "description": "Austin's premier party boat rental company on Lake Travis",
-              "address": {
-                "@type": "PostalAddress",
-                "addressLocality": "Austin",
-                "addressRegion": "Texas",
-                "postalCode": "78641"
-              },
-              "aggregateRating": {
-                "@type": "AggregateRating",
-                "ratingValue": "4.9",
-                "ratingCount": "125000"
-              }
-            }}
-          />
-        </div>
-      </section>
-
-      {/* Structured Services Overview - AI Optimized */}
-      <section className="py-16 bg-white dark:bg-gray-950">
-        <div className="container mx-auto px-6">
-          <AIOptimizedSection
-            type="list"
-            title="Our Services Overview - Lake Travis Party Boats"
-            description="Choose from our comprehensive range of party boat services on Lake Travis, Austin Texas"
-            data={[
-              {
-                title: "ATX Disco Cruise - Multi-Group Party Experience",
-                description: "Join other bachelor and bachelorette parties for a 4-hour cruise with professional DJ, photographer, and all-inclusive amenities. Perfect for groups of 8-30 people looking for the best value at $85-125 per person.",
-                icon: <Music className="w-6 h-6" />,
-                badge: "Best Value",
-                highlighted: true
-              },
-              {
-                title: "Private Boat Charters - Exclusive Rentals",
-                description: "Rent an entire boat exclusively for your group. Choose from Day Tripper (14 people), Meeseeks (25 people), or Clever Girl (75 people). Starting at $200/hour with 4-hour minimum.",
-                icon: <Ship className="w-6 h-6" />
-              },
-              {
-                title: "Bachelor Party Packages - Austin's #1 Choice",
-                description: "Specialized bachelor party experiences with party favors, VIP treatment, and optional transportation. Available as ATX Disco Cruise or private charter options.",
-                icon: <Crown className="w-6 h-6" />
-              },
-              {
-                title: "Bachelorette Party Cruises - Celebrate in Style",
-                description: "Premium bachelorette party packages with mimosa supplies, decorations, and professional photography. Bride cruises free with Disco Queen and Platinum packages.",
-                icon: <Heart className="w-6 h-6" />
-              },
-              {
-                title: "Corporate Events - Professional Lake Travis Experiences",
-                description: "Team building and client entertainment on our flagship boats. Professional service, customizable catering, and capacity up to 75 guests.",
-                icon: <Users className="w-6 h-6" />
-              }
-            ]}
-            className="max-w-5xl mx-auto mb-12"
-          />
-        </div>
-      </section>
-
-      {/* Why Choose Us Section */}
+      {/* Availability & Booking Section */}
       <SectionReveal>
-        <section className="py-24 bg-blue-50/30 dark:bg-gray-950 relative">
-          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">02</div>
+        <section className="py-20 bg-gradient-to-br from-blue-50 via-white to-blue-50 dark:from-gray-900 dark:via-gray-950 dark:to-gray-900 relative">
+          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-20">03</div>
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
-              <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="why-choose-main-title">
-                Why Choose Premier Party Cruises
+              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Calendar className="h-4 w-4 mr-2 inline" />
+                Availability & Booking
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white leading-tight" data-editable data-editable-id="availability-main-title">
+                When Can You Book?
               </h2>
-              <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto" data-editable data-editable-id="why-choose-description">
-                Austin's most trusted party cruise company with unmatched experience, safety, and service.
+              <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="availability-description">
+                We operate year-round on Lake Travis with flexible scheduling to fit your celebration
+              </p>
+            </div>
+
+            {/* Main Availability Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-12 max-w-7xl mx-auto">
+              {/* 7 Days a Week */}
+              <Card className="border-2 border-blue-200 dark:border-blue-900 hover:border-blue-400 dark:hover:border-blue-700 transition-all hover:shadow-xl bg-white dark:bg-gray-800">
+                <CardHeader className="text-center pb-4">
+                  <div className="mx-auto mb-4 p-4 bg-blue-100 dark:bg-blue-900 rounded-full w-16 h-16 flex items-center justify-center">
+                    <Calendar className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white" data-editable data-editable-id="availability-card-1-title">
+                    7 Days a Week
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed" data-editable data-editable-id="availability-card-1-description">
+                    Private charters available every day of the week, year-round on Lake Travis
+                  </p>
+                </CardContent>
+              </Card>
+
+              {/* Peak Season */}
+              <Card className="border-2 border-orange-200 dark:border-orange-900 hover:border-orange-400 dark:hover:border-orange-700 transition-all hover:shadow-xl bg-gradient-to-br from-orange-50 to-white dark:from-gray-800 dark:to-gray-800">
+                <CardHeader className="text-center pb-4">
+                  <div className="mx-auto mb-4 p-4 bg-orange-100 dark:bg-orange-900 rounded-full w-16 h-16 flex items-center justify-center">
+                    <Sun className="h-8 w-8 text-orange-600 dark:text-orange-400" />
+                  </div>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white" data-editable data-editable-id="availability-card-2-title">
+                    Peak Season
+                  </CardTitle>
+                  <CardDescription className="font-semibold" data-editable data-editable-id="availability-card-2-subtitle">
+                    May - September
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3" data-editable data-editable-id="availability-card-2-description">
+                    High demand season - book 2-4 weeks in advance
+                  </p>
+                  <Badge variant="secondary" className="bg-orange-100 dark:bg-orange-900 text-orange-700 dark:text-orange-300">
+                    Book Early
+                  </Badge>
+                </CardContent>
+              </Card>
+
+              {/* Off Season */}
+              <Card className="border-2 border-blue-200 dark:border-blue-900 hover:border-blue-400 dark:hover:border-blue-700 transition-all hover:shadow-xl bg-gradient-to-br from-blue-50 to-white dark:from-gray-800 dark:to-gray-800">
+                <CardHeader className="text-center pb-4">
+                  <div className="mx-auto mb-4 p-4 bg-blue-100 dark:bg-blue-900 rounded-full w-16 h-16 flex items-center justify-center">
+                    <Snowflake className="h-8 w-8 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white" data-editable data-editable-id="availability-card-3-title">
+                    Off-Peak Season
+                  </CardTitle>
+                  <CardDescription className="font-semibold" data-editable data-editable-id="availability-card-3-subtitle">
+                    October - April
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3" data-editable data-editable-id="availability-card-3-description">
+                    More flexible scheduling and last-minute availability
+                  </p>
+                  <Badge variant="secondary" className="bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300">
+                    Best Value
+                  </Badge>
+                </CardContent>
+              </Card>
+
+              {/* ATX Disco Cruise Schedule */}
+              <Card className="border-2 border-purple-200 dark:border-purple-900 hover:border-purple-400 dark:hover:border-purple-700 transition-all hover:shadow-xl bg-gradient-to-br from-purple-50 to-white dark:from-gray-800 dark:to-gray-800">
+                <CardHeader className="text-center pb-4">
+                  <div className="mx-auto mb-4 p-4 bg-purple-100 dark:bg-purple-900 rounded-full w-16 h-16 flex items-center justify-center">
+                    <Music className="h-8 w-8 text-purple-600 dark:text-purple-400" />
+                  </div>
+                  <CardTitle className="text-xl font-bold text-gray-900 dark:text-white" data-editable data-editable-id="availability-card-4-title">
+                    ATX Disco Cruise
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="text-center">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-3" data-editable data-editable-id="availability-card-4-description">
+                    Every Saturday 12pm-4pm during peak season
+                  </p>
+                  <Badge variant="secondary" className="bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300">
+                    Weekly Event
+                  </Badge>
+                </CardContent>
+              </Card>
+            </div>
+
+            {/* Time Slots Section */}
+            <div className="max-w-5xl mx-auto mb-12">
+              <h3 className="text-2xl md:text-3xl font-semibold font-playfair text-center mb-8 text-gray-900 dark:text-white" data-editable data-editable-id="availability-timeslots-title">
+                Available Time Slots
+              </h3>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Morning Cruises */}
+                <Card className="border border-gray-200 dark:border-gray-700 hover:border-blue-400 dark:hover:border-blue-600 transition-all hover:shadow-lg bg-white dark:bg-gray-800">
+                  <CardHeader className="text-center">
+                    <div className="mx-auto mb-3 p-3 bg-yellow-100 dark:bg-yellow-900 rounded-full w-14 h-14 flex items-center justify-center">
+                      <Sun className="h-7 w-7 text-yellow-600 dark:text-yellow-400" />
+                    </div>
+                    <CardTitle className="text-lg font-bold text-gray-900 dark:text-white" data-editable data-editable-id="timeslot-morning-title">
+                      Morning Cruises
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-center">
+                    <p className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-2">9am - 1pm</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400" data-editable data-editable-id="timeslot-morning-description">
+                      Perfect for early risers and calm waters
+                    </p>
+                  </CardContent>
+                </Card>
+
+                {/* Afternoon Cruises */}
+                <Card className="border-2 border-blue-300 dark:border-blue-700 hover:border-blue-500 dark:hover:border-blue-500 transition-all hover:shadow-lg bg-white dark:bg-gray-800">
+                  <CardHeader className="text-center">
+                    <div className="mx-auto mb-3 p-3 bg-blue-100 dark:bg-blue-900 rounded-full w-14 h-14 flex items-center justify-center">
+                      <Clock className="h-7 w-7 text-blue-600 dark:text-blue-400" />
+                    </div>
+                    <CardTitle className="text-lg font-bold text-gray-900 dark:text-white" data-editable data-editable-id="timeslot-afternoon-title">
+                      Afternoon Cruises
+                    </CardTitle>
+                    <Badge className="mt-2 bg-blue-600 text-white">Most Popular</Badge>
+                  </CardHeader>
+                  <CardContent className="text-center">
+                    <p className="text-2xl font-bold text-blue-600 dark:text-blue-400 mb-2">2pm - 6pm</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400" data-editable data-editable-id="timeslot-afternoon-description">
+                      Peak party time on Lake Travis
+                    </p>
+                  </CardContent>
+                </Card>
+
+                {/* Evening Cruises */}
+                <Card className="border border-gray-200 dark:border-gray-700 hover:border-purple-400 dark:hover:border-purple-600 transition-all hover:shadow-lg bg-white dark:bg-gray-800">
+                  <CardHeader className="text-center">
+                    <div className="mx-auto mb-3 p-3 bg-purple-100 dark:bg-purple-900 rounded-full w-14 h-14 flex items-center justify-center">
+                      <Waves className="h-7 w-7 text-purple-600 dark:text-purple-400" />
+                    </div>
+                    <CardTitle className="text-lg font-bold text-gray-900 dark:text-white" data-editable data-editable-id="timeslot-evening-title">
+                      Evening Cruises
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent className="text-center">
+                    <p className="text-2xl font-bold text-purple-600 dark:text-purple-400 mb-2">7pm - 11pm</p>
+                    <p className="text-sm text-gray-600 dark:text-gray-400" data-editable data-editable-id="timeslot-evening-description">
+                      Sunset views and night celebrations
+                    </p>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+
+            {/* Booking Timeline */}
+            <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700">
+              <h3 className="text-2xl font-semibold text-center mb-8 text-gray-900 dark:text-white" data-editable data-editable-id="booking-timeline-title">
+                How Far in Advance Should You Book?
+              </h3>
+              <div className="space-y-6">
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-red-100 dark:bg-red-900 rounded-full flex items-center justify-center">
+                    <Target className="h-6 w-6 text-red-600 dark:text-red-400" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white" data-editable data-editable-id="booking-timeline-1-title">
+                      Bachelorette & Bachelor Parties
+                    </h4>
+                    <p className="text-gray-700 dark:text-gray-300" data-editable data-editable-id="booking-timeline-1-description">
+                      Book 4-6 weeks in advance, especially for ATX Disco Cruises on weekends during peak season
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-blue-100 dark:bg-blue-900 rounded-full flex items-center justify-center">
+                    <Users className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white" data-editable data-editable-id="booking-timeline-2-title">
+                      Large Groups & Corporate Events
+                    </h4>
+                    <p className="text-gray-700 dark:text-gray-300" data-editable data-editable-id="booking-timeline-2-description">
+                      Book 6-8 weeks ahead for groups of 30+ or corporate events requiring our flagship boats
+                    </p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="flex-shrink-0 w-12 h-12 bg-green-100 dark:bg-green-900 rounded-full flex items-center justify-center">
+                    <Zap className="h-6 w-6 text-green-600 dark:text-green-400" />
+                  </div>
+                  <div className="flex-1">
+                    <h4 className="font-bold text-lg mb-2 text-gray-900 dark:text-white" data-editable data-editable-id="booking-timeline-3-title">
+                      Last-Minute Bookings
+                    </h4>
+                    <p className="text-gray-700 dark:text-gray-300" data-editable data-editable-id="booking-timeline-3-description">
+                      Weekday cruises during off-peak season may be available with 1-2 weeks notice - call us to check!
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* CTA Section */}
+            <div className="text-center mt-12">
+              <Button
+                size="lg"
+                onClick={() => handleBookNow()}
+                className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white px-8 py-6 text-lg font-bold shadow-lg hover:shadow-xl transition-all"
+                data-testid="button-check-availability"
+              >
+                <Calendar className="mr-2 h-6 w-6" />
+                Check Availability & Book Now
+                <ArrowRight className="ml-2 h-6 w-6" />
+              </Button>
+              <p className="mt-4 text-gray-600 dark:text-gray-400">
+                <Phone className="inline h-4 w-4 mr-1" />
+                Or call us at <a href="tel:5124885892" className="font-bold text-blue-600 dark:text-blue-400 hover:underline">(512) 488-5892</a>
+              </p>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* Benefits of Booking with Premier Section */}
+      <SectionReveal>
+        <section className="py-20 bg-gradient-to-br from-blue-50 to-white dark:from-gray-950 dark:to-gray-900 relative">
+          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-20">04</div>
+          <div className="container mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
+                <Award className="h-4 w-4 mr-2 inline" />
+                Why Book With Us
+              </Badge>
+              <h2 className="text-4xl md:text-5xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white leading-tight" data-editable data-editable-id="why-choose-main-title">
+                Benefits of Booking with Premier
+              </h2>
+              <p className="text-lg md:text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto leading-relaxed" data-editable data-editable-id="why-choose-description">
+                Austin's most trusted party cruise company with unmatched experience, safety, and service since 2009
               </p>
             </div>
 
@@ -1252,38 +1519,10 @@ export default function Home() {
         </section>
       </SectionReveal>
 
-      {/* Private Cruises - Detailed Pricing Section */}
-      <SectionReveal>
-        <section className="py-24 bg-white dark:bg-gray-950 relative" data-testid="section-private-cruises">
-          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">03</div>
-          <div className="container mx-auto px-6">
-            <div className="max-w-7xl mx-auto">
-              {/* Header */}
-              <div className="text-center mb-16">
-                <Badge className="mb-6 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-6 py-2 font-sans tracking-wider font-bold uppercase text-sm border-0">
-                  <Ship className="h-4 w-4 mr-2 inline" />
-                  Private Cruises
-                </Badge>
-                <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white">
-                  Your Boat, Your Way - Private Cruise Pricing
-                </h2>
-                <p className="text-base text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-                  Choose your boat size and package level. Transparent pricing with no hidden fees.
-                </p>
-              </div>
-
-              {/* Import and render the new tabbed pricing component */}
-              <TabbedPrivateCruisePricing dayType="SATURDAY" duration={4} />
-
-            </div>
-          </div>
-        </section>
-      </SectionReveal>
-
       {/* Photo Gallery Section */}
       <SectionReveal>
         <section className="py-24 bg-blue-50/30 dark:bg-gray-900 relative">
-          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">04</div>
+          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">05</div>
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white" data-editable data-editable-id="gallery-main-title">
@@ -1339,7 +1578,7 @@ export default function Home() {
       {/* Comparison Tables Section */}
       <SectionReveal>
         <section className="py-24 bg-white dark:bg-gray-800 relative">
-          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">05</div>
+          <div className="absolute top-4 right-4 text-6xl font-black text-blue-200 opacity-30">06</div>
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-gray-900 dark:text-white">
@@ -1515,7 +1754,7 @@ export default function Home() {
       {/* Testimonials Section */}
       <SectionReveal>
         <section className="py-24 bg-gradient-to-br from-blue-600 to-purple-600 text-white relative">
-          <div className="absolute top-4 right-4 text-6xl font-black text-white opacity-10">06</div>
+          <div className="absolute top-4 right-4 text-6xl font-black text-white opacity-10">07</div>
           <div className="container mx-auto px-6">
             <div className="text-center mb-16">
               <h2 className="text-3xl font-semibold font-playfair text-center mb-6 text-white" data-editable data-editable-id="testimonials-main-title">
@@ -1672,21 +1911,6 @@ export default function Home() {
                 category: "Capacity"
               }
             ]}
-            className="max-w-4xl mx-auto"
-          />
-        </div>
-      </section>
-
-      {/* AI-Optimized Location & Entity Recognition Section */}
-      <section className="py-16 bg-gradient-to-br from-blue-50 to-green-50 dark:from-blue-950/20 dark:to-green-950/20">
-        <div className="container mx-auto px-6">
-          <AIOptimizedSection
-            type="definition"
-            data={{
-              term: "Premier Party Cruises - Austin's Original Party Boat Company",
-              definition: "Premier Party Cruises is a party boat rental company operating on Lake Travis in Austin, Texas (often referred to as ATX). Founded in 2009, we specialize in bachelor parties, bachelorette parties, birthday celebrations, and corporate events. Our fleet includes four boats departing from Anderson Mill Marina in Leander, Texas, just 30 minutes northwest of downtown Austin.",
-              context: "Lake Travis is a 65-mile long reservoir on the Colorado River, known as Austin's playground for water activities. The lake offers 270+ miles of shoreline and is the most visited freshwater recreation area in Texas."
-            }}
             className="max-w-4xl mx-auto"
           />
         </div>
@@ -2426,222 +2650,123 @@ export default function Home() {
         })
       }} />
 
-      {/* Comprehensive Pricing Section */}
-      <section className="py-24 bg-white dark:bg-gray-950">
+      {/* ========== SEO-OPTIMIZED CONTENT SECTION (FOR SEARCH ENGINES) ========== */}
+      
+      {/* AI-Optimized By The Numbers Section */}
+      <section className="py-20 bg-gradient-to-br from-purple-50 to-blue-50 dark:from-purple-950/20 dark:to-blue-950/20">
         <div className="container mx-auto px-6">
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, margin: "-100px" }}
-            variants={staggerChildren}
-            className="text-center mb-16"
-          >
-            <motion.div variants={fadeInUp}>
-              <Badge className="mb-4" variant="secondary">
-                <DollarSign className="w-4 h-4 mr-1" />
-                Transparent Pricing
-              </Badge>
-              <h2 className="text-3xl font-semibold font-playfair text-center mb-4">
-                Compare All Our Services
-              </h2>
-              <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                Find the perfect Lake Travis cruise for your budget and group size
-              </p>
-            </motion.div>
-          </motion.div>
+          <AIOptimizedSection
+            type="statistics"
+            title="Premier Party Cruises By The Numbers"
+            description="Trusted by thousands of customers in Austin, Texas (ATX) and Lake Travis area since 2009"
+            data={[
+              { 
+                value: "125,000+", 
+                label: "Happy Customers", 
+                icon: <Users className="w-8 h-8" />,
+                itemProp: "numberOfCustomers"
+              },
+              { 
+                value: "14+", 
+                label: "Years in Business", 
+                icon: <Trophy className="w-8 h-8" />,
+                itemProp: "yearsFounded"
+              },
+              { 
+                value: "4", 
+                label: "Premium Boats", 
+                icon: <Ship className="w-8 h-8" />,
+                itemProp: "numberOfBoats"
+              },
+              { 
+                value: "75", 
+                label: "Max Capacity", 
+                icon: <Users className="w-8 h-8" />,
+                itemProp: "maxCapacity"
+              },
+              { 
+                value: "4.9/5", 
+                label: "Average Rating", 
+                icon: <Star className="w-8 h-8" />,
+                itemProp: "ratingValue"
+              }
+            ]}
+            className="max-w-6xl mx-auto"
+            schemaType="Organization"
+            structuredData={{
+              "@context": "https://schema.org",
+              "@type": "LocalBusiness",
+              "name": "Premier Party Cruises",
+              "description": "Austin's premier party boat rental company on Lake Travis",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Austin",
+                "addressRegion": "Texas",
+                "postalCode": "78641"
+              },
+              "aggregateRating": {
+                "@type": "AggregateRating",
+                "ratingValue": "4.9",
+                "ratingCount": "125000"
+              }
+            }}
+          />
+        </div>
+      </section>
 
-          {/* Overview Pricing Comparison */}
-          <motion.div
-            variants={fadeInUp}
-            className="mb-16"
-          >
-            <PricingTable
-              title="All Services Overview"
-              items={[
-                {
-                  name: 'ATX Disco Cruise',
-                  basePrice: 85,
-                  pricingType: 'person',
-                  description: 'Public party cruises with DJ and dancing',
-                  features: [
-                    'Per-person tickets',
-                    'DJ and dance floor',
-                    'Cash bar available',
-                    '21+ only',
-                    'Singles and groups welcome'
-                  ],
-                  capacity: 'Up to 100 guests',
-                  duration: '3 hours',
-                  priceNote: '$85-105 per person',
-                  ctaText: 'View Schedule',
-                  ctaHref: '/atx-disco-cruise'
-                },
-                {
-                  name: 'Bachelor/Bachelorette',
-                  basePrice: 800,
-                  pricingType: 'package',
-                  description: 'Private parties for celebrations',
-                  features: [
-                    '4-hour minimum',
-                    'Private boat',
-                    'BYOB allowed',
-                    'Custom decorations',
-                    'Party packages available'
-                  ],
-                  capacity: '14-50 guests',
-                  duration: '4+ hours',
-                  priceNote: 'Starting at $800',
-                  ctaText: 'Plan Your Party',
-                  ctaHref: '/bachelor-party',
-                  isPopular: true
-                },
-                {
-                  name: 'Private Cruises',
-                  basePrice: 200,
-                  pricingType: 'hour',
-                  description: 'Fully customizable private charters',
-                  features: [
-                    'Hourly rates',
-                    'Choose your boat',
-                    'Flexible duration',
-                    'All occasions',
-                    'Catering available'
-                  ],
-                  capacity: '14-50 guests',
-                  duration: '4+ hours',
-                  priceNote: '$200-300/hour',
-                  ctaText: 'Customize Cruise',
-                  ctaHref: '/private-cruises'
-                },
-                {
-                  name: 'Corporate Events',
-                  basePrice: 225,
-                  pricingType: 'hour',
-                  description: 'Team building and client entertainment',
-                  features: [
-                    'Professional atmosphere',
-                    'Team building activities',
-                    'Presentation setup',
-                    'Catering options',
-                    'Tax deductible'
-                  ],
-                  capacity: '14-50 guests',
-                  duration: '4+ hours',
-                  priceNote: 'Starting at $225/hr',
-                  ctaText: 'Book Corporate',
-                  ctaHref: '/corporate-events'
-                }
-              ]}
-            />
-          </motion.div>
+      {/* Structured Services Overview - AI Optimized */}
+      <section className="py-16 bg-white dark:bg-gray-950">
+        <div className="container mx-auto px-6">
+          <AIOptimizedSection
+            type="list"
+            title="Our Services Overview - Lake Travis Party Boats"
+            description="Choose from our comprehensive range of party boat services on Lake Travis, Austin Texas"
+            data={[
+              {
+                title: "ATX Disco Cruise - Multi-Group Party Experience",
+                description: "Join other bachelor and bachelorette parties for a 4-hour cruise with professional DJ, photographer, and all-inclusive amenities. Perfect for groups of 8-30 people looking for the best value at $85-125 per person.",
+                icon: <Music className="w-6 h-6" />,
+                badge: "Best Value",
+                highlighted: true
+              },
+              {
+                title: "Private Boat Charters - Exclusive Rentals",
+                description: "Rent an entire boat exclusively for your group. Choose from Day Tripper (14 people), Meeseeks (25 people), or Clever Girl (75 people). Starting at $200/hour with 4-hour minimum.",
+                icon: <Ship className="w-6 h-6" />
+              },
+              {
+                title: "Bachelor Party Packages - Austin's #1 Choice",
+                description: "Specialized bachelor party experiences with party favors, VIP treatment, and optional transportation. Available as ATX Disco Cruise or private charter options.",
+                icon: <Crown className="w-6 h-6" />
+              },
+              {
+                title: "Bachelorette Party Cruises - Celebrate in Style",
+                description: "Premium bachelorette party packages with mimosa supplies, decorations, and professional photography. Bride cruises free with Disco Queen and Platinum packages.",
+                icon: <Heart className="w-6 h-6" />
+              },
+              {
+                title: "Corporate Events - Professional Lake Travis Experiences",
+                description: "Team building and client entertainment on our flagship boats. Professional service, customizable catering, and capacity up to 75 guests.",
+                icon: <Users className="w-6 h-6" />
+              }
+            ]}
+            className="max-w-5xl mx-auto mb-12"
+          />
+        </div>
+      </section>
 
-          {/* Group Size Pricing */}
-          <motion.div
-            variants={fadeInUp}
-            className="mb-16"
-          >
-            <h3 className="text-xl font-semibold text-center mb-8">
-              Private Cruise Pricing by Boat Size
-            </h3>
-            <PricingTable
-              title=""
-              items={[
-                {
-                  name: 'Day Tripper',
-                  basePrice: 800,
-                  pricingType: 'package',
-                  description: 'Perfect for small groups',
-                  features: [
-                    'Up to 14 guests',
-                    '$200/hour',
-                    '4-hour minimum',
-                    'Intimate setting',
-                    'Easy to customize'
-                  ],
-                  capacity: '14 guests max',
-                  duration: '4 hours minimum',
-                  priceNote: '4 hours: $800',
-                  ctaText: 'Book Day Tripper',
-                  ctaHref: '/private-cruises'
-                },
-                {
-                  name: 'Meeseeks',
-                  basePrice: 900,
-                  pricingType: 'package',
-                  description: 'Great for medium groups',
-                  features: [
-                    'Up to 25 guests',
-                    '$225/hour',
-                    '4-hour minimum',
-                    'More deck space',
-                    'Enhanced sound system'
-                  ],
-                  capacity: '25 guests max',
-                  duration: '4 hours minimum',
-                  priceNote: '4 hours: $900',
-                  ctaText: 'Book Meeseeks',
-                  ctaHref: '/private-cruises',
-                  isPopular: true
-                },
-                {
-                  name: 'Clever Girl',
-                  basePrice: 1200,
-                  pricingType: 'package',
-                  description: 'Ideal for large celebrations',
-                  features: [
-                    'Up to 50 guests',
-                    '$300/hour',
-                    '4-hour minimum',
-                    'Multiple decks',
-                    'Premium amenities'
-                  ],
-                  capacity: '50 guests max',
-                  duration: '4 hours minimum',
-                  priceNote: '4 hours: $1,200',
-                  ctaText: 'Book Clever Girl',
-                  ctaHref: '/private-cruises'
-                }
-              ]}
-            />
-          </motion.div>
-
-          {/* Peak vs Off-Peak Pricing Note */}
-          <motion.div
-            variants={fadeInUp}
-            className="text-center p-8 bg-gray-50 dark:bg-gray-900 rounded-xl"
-          >
-            <h3 className="text-xl font-semibold mb-4">
-              Seasonal Pricing Information
-            </h3>
-            <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-              <div className="text-left">
-                <h4 className="font-semibold mb-2 flex items-center">
-                  <Sun className="w-5 h-5 mr-2 text-yellow-500" />
-                  Peak Season (May - September)
-                </h4>
-                <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                  <li>• Weekend rates may be 20% higher</li>
-                  <li>• Holidays have premium pricing</li>
-                  <li>• Book 2-3 weeks in advance</li>
-                </ul>
-              </div>
-              <div className="text-left">
-                <h4 className="font-semibold mb-2 flex items-center">
-                  <Sparkles className="w-5 h-5 mr-2 text-blue-500" />
-                  Off-Peak Season (October - April)
-                </h4>
-                <ul className="text-sm text-gray-600 dark:text-gray-400 space-y-1">
-                  <li>• Standard rates apply</li>
-                  <li>• More availability</li>
-                  <li>• Weather permitting</li>
-                </ul>
-              </div>
-            </div>
-            <p className="mt-6 text-sm text-gray-500 dark:text-gray-400">
-              All prices subject to 8.25% tax and 20% recommended gratuity. 
-              50% deposit required to secure booking.
-            </p>
-          </motion.div>
+      {/* AI-Optimized Location & Entity Recognition Section */}
+      <section className="py-16 bg-gradient-to-br from-blue-50 to-green-50 dark:from-blue-950/20 dark:to-green-950/20">
+        <div className="container mx-auto px-6">
+          <AIOptimizedSection
+            type="definition"
+            data={{
+              term: "Premier Party Cruises - Austin's Original Party Boat Company",
+              definition: "Premier Party Cruises is a party boat rental company operating on Lake Travis in Austin, Texas (often referred to as ATX). Founded in 2009, we specialize in bachelor parties, bachelorette parties, birthday celebrations, and corporate events. Our fleet includes four boats departing from Anderson Mill Marina in Leander, Texas, just 30 minutes northwest of downtown Austin.",
+              context: "Lake Travis is a 65-mile long reservoir on the Colorado River, known as Austin's playground for water activities. The lake offers 270+ miles of shoreline and is the most visited freshwater recreation area in Texas."
+            }}
+            className="max-w-4xl mx-auto"
+          />
         </div>
       </section>
 
