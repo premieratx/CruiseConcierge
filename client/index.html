@@ -164,7 +164,18 @@
         });
       }
     </script>
-    <!-- Xola script loaded dynamically by React component -->
+    <!-- Xola Checkout Script - CRITICAL: Load before React so widgets can initialize -->
+    <script>
+      (function() {
+        var co = document.createElement("script");
+        co.type = "text/javascript";
+        co.async = true;
+        co.src = "https://xola.com/checkout.js";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(co, s);
+      })();
+    </script>
+    
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

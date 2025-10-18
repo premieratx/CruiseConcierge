@@ -1,20 +1,8 @@
-import { useState, useEffect } from 'react';
-import Footer from '@/components/Footer';
+import { useState } from 'react';
 
 export default function BookNow() {
   const [activeTab, setActiveTab] = useState('14p');
   const [discoTab, setDiscoTab] = useState('super-sparkle');
-  const [scriptLoaded, setScriptLoaded] = useState(false);
-
-  // Load Xola script - EXACTLY like test page
-  useEffect(() => {
-    const co = document.createElement("script");
-    co.type = "text/javascript";
-    co.async = true;
-    co.src = "https://xola.com/checkout.js";
-    const s = document.getElementsByTagName("script")[0];
-    s.parentNode?.insertBefore(co, s);
-  }, []);
 
   const tabs = [
     { id: '14p', name: '14-Person Boat' },
@@ -108,8 +96,6 @@ export default function BookNow() {
 
         </div>
       </div>
-
-      <Footer />
     </div>
   );
 }
