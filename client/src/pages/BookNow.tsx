@@ -6,29 +6,15 @@ export default function BookNow() {
   const [discoTab, setDiscoTab] = useState('super-sparkle');
   const [scriptLoaded, setScriptLoaded] = useState(false);
 
-  // Load Xola script
+  // Load Xola script - EXACTLY like test page
   useEffect(() => {
-    const script = document.createElement('script');
-    script.src = 'https://xola.com/checkout.js';
-    script.async = true;
-    script.onload = () => {
-      setScriptLoaded(true);
-    };
-    document.head.appendChild(script);
+    const co = document.createElement("script");
+    co.type = "text/javascript";
+    co.async = true;
+    co.src = "https://xola.com/checkout.js";
+    const s = document.getElementsByTagName("script")[0];
+    s.parentNode?.insertBefore(co, s);
   }, []);
-
-  // Reinitialize Xola when tabs change
-  useEffect(() => {
-    if (scriptLoaded && window.XolaCheckout) {
-      setTimeout(() => {
-        try {
-          window.XolaCheckout.init();
-        } catch (e) {
-          console.log('Xola init:', e);
-        }
-      }, 300);
-    }
-  }, [activeTab, discoTab, scriptLoaded]);
 
   const tabs = [
     { id: '14p', name: '14-Person Boat' },
@@ -89,36 +75,36 @@ export default function BookNow() {
           </div>
         )}
 
-        {/* Widget Container */}
+        {/* Widget Container - ALL divs exist, use CSS to show/hide */}
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-2xl p-8" style={{ minHeight: '600px' }}>
           
           {/* 14-Person Boat */}
-          {activeTab === '14p' && (
+          <div style={{ display: activeTab === '14p' ? 'block' : 'none' }}>
             <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d0012c2afc7d8d70e285"></div>
-          )}
+          </div>
 
           {/* 25-Person Boat */}
-          {activeTab === '25p' && (
+          <div style={{ display: activeTab === '25p' ? 'block' : 'none' }}>
             <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d2b74e1de53cee29395e"></div>
-          )}
+          </div>
 
           {/* 50-Person Boat */}
-          {activeTab === '50p' && (
+          <div style={{ display: activeTab === '50p' ? 'block' : 'none' }}>
             <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d4f01be574411500cf62"></div>
-          )}
+          </div>
 
           {/* Disco Packages */}
-          {activeTab === 'disco' && discoTab === 'basic-bach' && (
+          <div style={{ display: activeTab === 'disco' && discoTab === 'basic-bach' ? 'block' : 'none' }}>
             <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676fe4a7ff119f53c4063c1b"></div>
-          )}
+          </div>
 
-          {activeTab === 'disco' && discoTab === 'disco-queen' && (
+          <div style={{ display: activeTab === 'disco' && discoTab === 'disco-queen' ? 'block' : 'none' }}>
             <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0bc68ff6dfb29009b5ad"></div>
-          )}
+          </div>
 
-          {activeTab === 'disco' && discoTab === 'super-sparkle' && (
+          <div style={{ display: activeTab === 'disco' && discoTab === 'super-sparkle' ? 'block' : 'none' }}>
             <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0ceaa3744b05ae09e9de"></div>
-          )}
+          </div>
 
         </div>
       </div>
