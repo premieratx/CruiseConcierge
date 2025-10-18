@@ -18,6 +18,16 @@ All time slot definitions and availability must be identical across all customer
 ### UI/UX Decisions
 The system features a progressive booking flow and intuitive admin dashboards. Design uses Tailwind CSS and shadcn/ui, with a focus on optimized comparisons, clear rate displays, and detailed quote emails/SMS. A specific ATX Disco Cruise comparison section is implemented with accurate pricing calculations.
 
+**UX Enhancement Components (October 2025)**:
+- **TableOfContents**: Sticky sidebar navigation on desktop, mobile drawer on mobile. Smooth scroll-to-section with active highlighting. Integrated into Bachelor, Bachelorette, ATX Disco Cruise, and Private Cruises pages.
+- **StickyCTA**: Sticky mobile CTA bottom bar that appears on scroll, with dual action buttons for booking and calling.
+- **LazyImage**: Intersection Observer-based lazy loading for images with blur-up placeholder effect.
+- **CollapsibleSection**: SSR-safe responsive accordion component. Always open on desktop, collapsible on mobile.
+- **VideoTestimonials**: YouTube video testimonial grid with modal playback, ratings, and social proof.
+- **TransportationGuide**: Comprehensive transportation and lodging guide for out-of-town visitors with tabs, hotel recommendations, and ride-share discounts.
+- **Route Redirects**: Added legacy route redirects (/bachelor-party, /bachelorette-party, /combined-parties-austin) to prevent 404 errors and improve SEO.
+- **Corporate Events Enhancement**: Added ROI metrics section (95% morale improvement, 78% retention increase), 6 corporate testimonials from named companies, 4 detailed case studies, and expanded tax deductibility information.
+
 ### Technical Implementations
 - **AI Chatbot**: Utilizes OpenRouter API for progressive booking interactions.
 - **Booking Flow**: Guides users through event type, date, group size, time slot, and package selection.
