@@ -45,7 +45,7 @@ export function PersistentModal({ open, onClose, children, className = '' }: Per
 
       {/* Modal Content - always rendered, never unmounts */}
       <div 
-        className={`fixed inset-0 z-50 flex items-center justify-center p-4 transition-opacity duration-200 ${className}`}
+        className={`fixed inset-0 z-[60] flex items-center justify-center p-4 transition-opacity duration-200 ${className}`}
         style={{
           opacity: open ? 1 : 0,
           pointerEvents: open ? 'auto' : 'none',
