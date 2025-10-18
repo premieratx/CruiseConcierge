@@ -2867,6 +2867,16 @@ export default function Home() {
         </div>
       </section>
 
+      {/* XOLA WIDGET TEST - 14 Person Boat */}
+      <section className="py-16 bg-gray-100">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl font-bold text-center mb-8">Test: 14-Person Boat Widget</h2>
+          <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
+            <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d0012c2afc7d8d70e285"></div>
+          </div>
+        </div>
+      </section>
+
       {/* Footer */}
       <Footer />
 
