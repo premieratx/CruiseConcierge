@@ -153,14 +153,16 @@ app.use((req, res, next) => {
     // Remove any X-Frame-Options header
     res.removeHeader('X-Frame-Options');
     
-    // Set CSP to allow embedding from booking subdomain, Replit preview, and production domains
+    // Set CSP to allow embedding from booking subdomain, Replit preview, production domains, and Xola
     res.setHeader('Content-Security-Policy', 
       "frame-ancestors 'self' https://booking.premierpartycruises.com https://*.premierpartycruises.com https://*.replit.dev https://*.repl.co; " +
       "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https: blob:; " +
       "connect-src 'self' https: wss: ws:; " +
       "img-src 'self' data: https: blob:; " +
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https:; " +
-      "style-src 'self' 'unsafe-inline' https:;"
+      "font-src 'self' data: https:; " +
+      "frame-src 'self' https://xola.com https://*.xola.com https://botcdn.xola.com; " +
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https: https://xola.com https://*.xola.com https://botcdn.xola.com; " +
+      "style-src 'self' 'unsafe-inline' https: https://xola.com https://*.xola.com https://botcdn.xola.com;"
     );
     
     next();

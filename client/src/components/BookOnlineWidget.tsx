@@ -21,44 +21,8 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
   const [activeDiscoPackage, setActiveDiscoPackage] = useState<string>('super-sparkle');
   const [mountKey, setMountKey] = useState(0);
 
-  // Load Xola script dynamically and initialize
-  useEffect(() => {
-    // Check if script already exists
-    const existingScript = document.querySelector('script[src*="xola.com"]');
-    
-    if (!existingScript) {
-      console.log('📦 Loading Xola script...');
-      const script = document.createElement('script');
-      script.src = 'https://64c43a70daa3e618b7229ddf.xola.com/checkout/embed.js';
-      script.async = true;
-      
-      script.onload = () => {
-        console.log('✅ Xola script loaded');
-        if (window.Xola && window.Xola.checkout && window.Xola.checkout.renderAll) {
-          console.log('🎯 Rendering Xola widgets');
-          window.Xola.checkout.renderAll();
-        }
-      };
-      
-      script.onerror = () => {
-        console.error('❌ Failed to load Xola script');
-      };
-      
-      document.body.appendChild(script);
-    } else {
-      console.log('🔄 Xola script already loaded, re-rendering widgets');
-      const tryRender = () => {
-        if (window.Xola && window.Xola.checkout && window.Xola.checkout.renderAll) {
-          console.log('🎯 Rendering Xola widgets');
-          window.Xola.checkout.renderAll();
-        } else {
-          console.log('⏳ Waiting for Xola to be ready...');
-          setTimeout(tryRender, 100);
-        }
-      };
-      tryRender();
-    }
-  }, []);
+  // checkout.js (loaded in Footer) automatically finds and renders all .xola-embedded-checkout divs
+  // No manual initialization needed
 
   // Xola experience IDs
   const xolaConfig = {
