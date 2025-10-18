@@ -597,7 +597,7 @@ export default function BachelorParty() {
                 <span data-editable data-editable-id="quote-builder-hide-button">Hide Quote Builder</span>
               </Button>
             )}
-          </motion.div>
+          </div>
 
           {/* Expandable Quote Builder Iframe */}
           <AnimatePresence>
