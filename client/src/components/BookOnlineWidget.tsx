@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import logoPath from '@assets/PPC Logo LARGE_1757881944449.png';
 import { Ship, Star, CheckCircle, Clock } from 'lucide-react';
@@ -19,23 +19,6 @@ const fadeInUp = {
 export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnlineWidgetProps) {
   const [activeTab, setActiveTab] = useState<string>(defaultBoatType);
   const [activeDiscoPackage, setActiveDiscoPackage] = useState<string>('super-sparkle');
-  const [mountKey, setMountKey] = useState(0);
-
-  // checkout.js (loaded in Footer) automatically finds and renders all .xola-embedded-checkout divs
-  // No manual initialization needed
-
-  // Xola experience IDs
-  const xolaConfig = {
-    seller: '64c43a70daa3e618b7229ddf',
-    experiences: {
-      '14p': '64c7d0012c2afc7d8d70e285',
-      '25p': '64c7d2b74e1de53cee29395e',
-      '50p': '64c7d4f01be574411500cf62',
-      'basic-bach': '676fe4a7ff119f53c4063c1b',
-      'disco-queen': '676f0bc68ff6dfb29009b5ad',
-      'super-sparkle': '676f0ceaa3744b05ae09e9de',
-    }
-  };
 
   return (
     <div className="bg-gradient-to-br from-blue-50 via-white to-yellow-50">
@@ -123,21 +106,20 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
               </button>
               <button
                 onClick={() => setActiveTab('disco')}
-                className={`flex-1 min-w-[90px] md:min-w-[140px] px-2 py-1.5 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-semibold transition-all flex flex-col items-center justify-center ${
+                className={`flex-1 min-w-[90px] md:min-w-[140px] px-2 py-1.5 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-semibold transition-all ${
                   activeTab === 'disco'
-                    ? 'bg-blue-600 text-white shadow-lg'
+                    ? 'bg-purple-600 text-white shadow-lg'
                     : 'bg-white text-gray-700 hover:bg-gray-50 shadow'
                 }`}
                 data-testid="tab-disco"
               >
-                <span>ATX</span>
-                <span>Disco Cruise</span>
+                ATX Disco Cruise
               </button>
             </div>
 
             {/* Disco Package Sub-tabs */}
             {activeTab === 'disco' && (
-              <div className="flex flex-wrap gap-2 md:gap-3">
+              <div className="flex flex-wrap gap-2 md:gap-3 pl-0 md:pl-4">
                 <button
                   onClick={() => setActiveDiscoPackage('basic-bach')}
                   className={`flex-1 min-w-[100px] md:min-w-[160px] px-2 py-1.5 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-semibold transition-all ${
@@ -174,18 +156,49 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
               </div>
             )}
 
-            {/* Xola Embedded Checkout - START WITH JUST 14P */}
+            {/* BLANK CONTENT AREAS - READY FOR YOUR EMBED CODES */}
             <div className="bg-white rounded-xl shadow-2xl overflow-hidden" style={{ minHeight: '600px' }}>
-              {activeTab === '14p' && (
-                <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d0012c2afc7d8d70e285"></div>
-              )}
               
-              {activeTab !== '14p' && (
-                <div className="p-12 text-center text-gray-500">
-                  <p>Other boats coming soon...</p>
-                  <p className="text-sm mt-2">Currently testing 14-Person boat widget</p>
+              {/* 14-Person Boat */}
+              {activeTab === '14p' && (
+                <div className="p-8" data-testid="content-14p">
+                  {/* YOUR 14-PERSON BOAT EMBED CODE GOES HERE */}
                 </div>
               )}
+
+              {/* 25-Person Boat */}
+              {activeTab === '25p' && (
+                <div className="p-8" data-testid="content-25p">
+                  {/* YOUR 25-PERSON BOAT EMBED CODE GOES HERE */}
+                </div>
+              )}
+
+              {/* 50-Person Boat */}
+              {activeTab === '50p' && (
+                <div className="p-8" data-testid="content-50p">
+                  {/* YOUR 50-PERSON BOAT EMBED CODE GOES HERE */}
+                </div>
+              )}
+
+              {/* Disco Packages */}
+              {activeTab === 'disco' && activeDiscoPackage === 'basic-bach' && (
+                <div className="p-8" data-testid="content-disco-basic">
+                  {/* YOUR BASIC BACH PACKAGE EMBED CODE GOES HERE */}
+                </div>
+              )}
+
+              {activeTab === 'disco' && activeDiscoPackage === 'disco-queen' && (
+                <div className="p-8" data-testid="content-disco-queen">
+                  {/* YOUR DISCO QUEEN PACKAGE EMBED CODE GOES HERE */}
+                </div>
+              )}
+
+              {activeTab === 'disco' && activeDiscoPackage === 'super-sparkle' && (
+                <div className="p-8" data-testid="content-disco-sparkle">
+                  {/* YOUR SUPER SPARKLE PLATINUM EMBED CODE GOES HERE */}
+                </div>
+              )}
+
             </div>
           </div>
 
@@ -193,13 +206,4 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
       </div>
     </div>
   );
-}
-
-// Type declaration for Xola
-declare global {
-  interface Window {
-    XolaCheckout?: {
-      init: () => void;
-    };
-  }
 }
