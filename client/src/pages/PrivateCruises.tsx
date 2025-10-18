@@ -21,7 +21,7 @@ import {
   AlertCircle, DollarSign, Timer, CreditCard, CloudRain, 
   HelpCircle, Anchor, Droplets, Waves, Info, TrendingUp,
   Gem, Flower, CircleDot, Smile, X, Package,
-  Plane, Wine, Eye, Bot, Briefcase, Building2, Cake, GraduationCap, LifeBuoy
+  Plane, Wine, Eye, Bot, Briefcase, Building2, Cake, GraduationCap, LifeBuoy, Snowflake
 } from 'lucide-react';
 import { useToast } from '@/hooks/use-toast';
 import Footer from '@/components/Footer';
