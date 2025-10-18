@@ -19,6 +19,28 @@ const fadeInUp = {
 export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnlineWidgetProps) {
   const [activeTab, setActiveTab] = useState<string>(defaultBoatType);
   const [activeDiscoPackage, setActiveDiscoPackage] = useState<string>('super-sparkle');
+  const [mountKey, setMountKey] = useState(0);
+
+  // Force Xola re-initialization on mount and remount
+  useEffect(() => {
+    const initXola = () => {
+      if (window.XolaCheckout) {
+        // Force complete re-initialization
+        window.XolaCheckout.init();
+        console.log('✅ Xola widgets initialized');
+      } else {
+        // Retry if Xola isn't ready yet
+        setTimeout(initXola, 100);
+      }
+    };
+    
+    initXola();
+    
+    // Increment mount key to force re-render on next mount
+    return () => {
+      setMountKey(prev => prev + 1);
+    };
+  }, []);
 
   // Re-initialize Xola widgets when tab changes
   useEffect(() => {

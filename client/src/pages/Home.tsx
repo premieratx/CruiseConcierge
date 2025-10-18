@@ -10,7 +10,6 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
-import { PersistentModal } from '@/components/ui/persistent-modal';
 import { cn } from '@/lib/utils';
 import { useToast } from '@/hooks/use-toast';
 import { LazyImage } from '@/components/LazyImage';
@@ -2871,13 +2870,16 @@ export default function Home() {
       {/* Footer */}
       <Footer />
 
-      {/* Book Online Modal - Permanently rendered (visibility toggled) to prevent widget unmounting */}
-      <PersistentModal
-        open={showBookingModal}
-        onClose={() => setShowBookingModal(false)}
-      >
-        <BookOnlineWidget />
-      </PersistentModal>
+      {/* Book Online Modal */}
+      <Dialog open={showBookingModal} onOpenChange={setShowBookingModal}>
+        <DialogContent className="max-w-[100vw] md:max-w-[95vw] w-full border-4 border-black max-h-[95vh] flex flex-col overflow-hidden p-0">
+          <DialogTitle className="sr-only">Book Your Cruise Online</DialogTitle>
+          <DialogDescription className="sr-only">
+            Choose from our fleet of private cruises or disco cruise packages and reserve your spot on Lake Travis
+          </DialogDescription>
+          <BookOnlineWidget />
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
