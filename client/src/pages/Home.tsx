@@ -2868,12 +2868,12 @@ export default function Home() {
 
       {/* Book Online Modal */}
       <Dialog open={showBookingModal} onOpenChange={setShowBookingModal}>
-        <DialogContent className="max-w-[100vw] md:max-w-[95vw] w-full p-0 border-4 border-black max-h-[95vh] overflow-hidden">
+        <DialogContent className="max-w-[100vw] md:max-w-[95vw] w-full border-4 border-black max-h-[95vh] flex flex-col overflow-hidden p-0">
           <DialogTitle className="sr-only">Book Your Cruise Online</DialogTitle>
           <DialogDescription className="sr-only">
             Select from our available boat cruises and packages to book your Lake Travis party boat experience
           </DialogDescription>
-          <div className="overflow-y-auto max-h-[95vh]">
+          <div className="flex-1 overflow-y-auto">
             <BookOnlineWidget />
           </div>
         </DialogContent>
