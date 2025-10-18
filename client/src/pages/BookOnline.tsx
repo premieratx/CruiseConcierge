@@ -103,7 +103,7 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
               </div>
               <div className="flex items-center gap-2 text-slate-700">
                 <Star className="h-5 w-5 text-yellow-500" />
-                <span>500+ 5-Star Reviews</span>
+                <span>300+ 5-Star Reviews</span>
               </div>
               <div className="flex items-center gap-2 text-slate-700">
                 <CheckCircle className="h-5 w-5 text-green-500" />
@@ -111,7 +111,7 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
               </div>
               <div className="flex items-center gap-2 text-slate-700">
                 <Clock className="h-5 w-5 text-purple-600" />
-                <span>7 Years Excellence</span>
+                <span>15 Years Excellence</span>
               </div>
             </div>
           </div>
@@ -155,14 +155,15 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
               </button>
               <button
                 onClick={() => setActiveTab('disco')}
-                className={`flex-1 min-w-[140px] px-6 py-3 rounded-lg font-semibold transition-all ${
+                className={`flex-1 min-w-[140px] px-6 py-3 rounded-lg font-semibold transition-all flex flex-col items-center justify-center ${
                   activeTab === 'disco'
                     ? 'bg-blue-600 text-white shadow-lg'
                     : 'bg-white text-gray-700 hover:bg-gray-50 shadow'
                 }`}
                 data-testid="tab-disco"
               >
-                Disco Cruise
+                <span>ATX</span>
+                <span>Disco Cruise</span>
               </button>
             </div>
 
