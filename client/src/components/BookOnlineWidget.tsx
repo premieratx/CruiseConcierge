@@ -294,10 +294,10 @@ export default function BookOnlineWidget({ defaultBoatType = '14p', preloaded = 
             </div>
           </div>
 
-          {/* Loading State */}
+          {/* Loading State - Non-blocking */}
           {!xolaLoaded && (
-            <div className="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
-              <div className="bg-white rounded-2xl p-8 shadow-2xl">
+            <div className="absolute inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-10 pointer-events-none">
+              <div className="bg-white rounded-2xl p-8 shadow-2xl pointer-events-auto">
                 <div className="flex flex-col items-center gap-4">
                   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
                   <p className="text-lg font-semibold text-gray-700">Loading booking system...</p>

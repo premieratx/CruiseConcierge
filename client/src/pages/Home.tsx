@@ -496,20 +496,23 @@ export default function Home() {
     }
   }, []);
 
-  // Handle Escape key to close booking modal
+  // Handle Escape key to close booking modal - High priority handler
   useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && showBookingModal) {
+        e.preventDefault();
+        e.stopPropagation();
         setShowBookingModal(false);
       }
     };
 
     if (showBookingModal) {
-      document.addEventListener('keydown', handleEscape);
+      // Use capture phase to catch event before Radix
+      document.addEventListener('keydown', handleEscape, true);
     }
 
     return () => {
-      document.removeEventListener('keydown', handleEscape);
+      document.removeEventListener('keydown', handleEscape, true);
     };
   }, [showBookingModal]);
 
@@ -2897,13 +2900,19 @@ export default function Home() {
       <Footer />
 
       {/* Book Online Modal */}
-      <Dialog open={showBookingModal} onOpenChange={setShowBookingModal}>
-        <DialogContent className="max-w-[100vw] md:max-w-[95vw] w-full border-4 border-black max-h-[95vh] flex flex-col overflow-hidden p-0">
+      <Dialog open={showBookingModal} onOpenChange={setShowBookingModal} modal={true}>
+        <DialogContent 
+          className="max-w-[100vw] md:max-w-[95vw] w-full border-4 border-black max-h-[95vh] flex flex-col overflow-hidden p-0"
+          onEscapeKeyDown={(e) => {
+            e.preventDefault();
+            setShowBookingModal(false);
+          }}
+        >
           <DialogTitle className="sr-only">Book Your Cruise Online</DialogTitle>
           <DialogDescription className="sr-only">
             Select from our available boat cruises and packages to book your Lake Travis party boat experience
           </DialogDescription>
-          <div className="flex-1 overflow-y-auto">
+          <div className="flex-1 overflow-y-auto" tabIndex={0}>
             <BookOnlineWidget preloaded={xolaPreloaded} />
           </div>
         </DialogContent>
