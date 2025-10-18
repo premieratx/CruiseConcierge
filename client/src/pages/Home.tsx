@@ -370,10 +370,12 @@ export default function Home() {
   const reducedMotion = useReducedMotion();
   const [currentHeroImage, setCurrentHeroImage] = useState(0);
   const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
-  const xolaTestRef = useRef<HTMLDivElement>(null);
+  const xolaBookingRef = useRef<HTMLDivElement>(null);
+  const [activeXolaTab, setActiveXolaTab] = useState('14p');
+  const [discoTab, setDiscoTab] = useState('super-sparkle');
   
-  // Initialize Xola widget on home page test section
-  useXolaEmbed(xolaTestRef, []);
+  // Initialize Xola widget for booking section
+  useXolaEmbed(xolaBookingRef, [activeXolaTab, discoTab]);
   const [showLightbox, setShowLightbox] = useState(false);
   const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null);
   const [quickPricingGroupSize, setQuickPricingGroupSize] = useState(20);
@@ -2768,17 +2770,87 @@ export default function Home() {
         </div>
       </section>
 
-      {/* XOLA WIDGET TEST - 14 Person Boat */}
-      <section className="py-16 bg-gray-100">
+      {/* XOLA BOOKING WIDGETS - All Boats */}
+      <section className="py-16 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-600">
         <div className="container mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-8">Test: 14-Person Boat Widget</h2>
-          <div ref={xolaTestRef} className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8">
-            <div 
-              className="xola-embedded-checkout" 
-              data-seller="64c43a70daa3e618b7229ddf" 
-              data-version="2" 
-              data-experience="64c7d0012c2afc7d8d70e285"
-            ></div>
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-4 text-white">Book Your Cruise Online</h2>
+          <p className="text-xl text-center mb-8 text-white/90">Select your boat and reserve your spot on Lake Travis</p>
+          
+          {/* Main Tabs */}
+          <div className="flex flex-wrap gap-2 justify-center mb-6">
+            {[
+              { id: '14p', name: '14-Person Boat', icon: '🚤' },
+              { id: '25p', name: '25-Person Boat', icon: '⛵' },
+              { id: '50p', name: '50-Person Boat', icon: '🛥️' },
+              { id: 'disco', name: 'ATX Disco Cruises', icon: '✨' }
+            ].map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveXolaTab(tab.id)}
+                className={`px-6 py-3 rounded-lg font-semibold transition-all ${
+                  activeXolaTab === tab.id
+                    ? 'bg-white text-blue-600 shadow-xl scale-105'
+                    : 'bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm'
+                }`}
+                data-testid={`xola-tab-${tab.id}`}
+              >
+                <span className="mr-2">{tab.icon}</span>
+                {tab.name}
+              </button>
+            ))}
+          </div>
+
+          {/* Disco Sub-tabs */}
+          {activeXolaTab === 'disco' && (
+            <div className="flex flex-wrap gap-2 justify-center mb-6">
+              {[
+                { id: 'basic-bach', name: 'Basic Bach', price: '$85' },
+                { id: 'disco-queen', name: 'Disco Queen', price: '$105' },
+                { id: 'super-sparkle', name: 'Super Sparkle Platinum', price: '$125' }
+              ].map(tab => (
+                <button
+                  key={tab.id}
+                  onClick={() => setDiscoTab(tab.id)}
+                  className={`px-5 py-2 rounded-lg font-medium transition-all ${
+                    discoTab === tab.id
+                      ? 'bg-yellow-400 text-purple-900 shadow-lg'
+                      : 'bg-white/20 text-white hover:bg-white/30 backdrop-blur-sm'
+                  }`}
+                  data-testid={`disco-tab-${tab.id}`}
+                >
+                  {tab.name} <span className="text-sm ml-1">({tab.price})</span>
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Widget Container */}
+          <div ref={xolaBookingRef} className="max-w-5xl mx-auto bg-white rounded-2xl shadow-2xl p-8" style={{ minHeight: '700px' }}>
+            
+            {activeXolaTab === '14p' && (
+              <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d0012c2afc7d8d70e285"></div>
+            )}
+
+            {activeXolaTab === '25p' && (
+              <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d2b74e1de53cee29395e"></div>
+            )}
+
+            {activeXolaTab === '50p' && (
+              <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d4f01be574411500cf62"></div>
+            )}
+
+            {activeXolaTab === 'disco' && discoTab === 'basic-bach' && (
+              <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676fe4a7ff119f53c4063c1b"></div>
+            )}
+
+            {activeXolaTab === 'disco' && discoTab === 'disco-queen' && (
+              <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0bc68ff6dfb29009b5ad"></div>
+            )}
+
+            {activeXolaTab === 'disco' && discoTab === 'super-sparkle' && (
+              <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0ceaa3744b05ae09e9de"></div>
+            )}
+
           </div>
         </div>
       </section>
