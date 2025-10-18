@@ -176,11 +176,11 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
               </div>
             )}
 
-            {/* Widget Container - Direct iframes load instantly, no script dependencies */}
+            {/* Widget Container - Direct iframes with CORRECT seller domain */}
             <div className="bg-white rounded-xl shadow-2xl overflow-hidden" style={{ minHeight: '600px' }}>
               {activeTab === '14p' && (
                 <iframe
-                  src={`https://premierpartycruises.xola.com/checkout?experience=${xolaConfig.experiences['14p']}`}
+                  src={`https://${xolaConfig.seller}.xola.com/checkout?experience=${xolaConfig.experiences['14p']}`}
                   width="100%"
                   height="600"
                   frameBorder="0"
@@ -192,7 +192,7 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
 
               {activeTab === '25p' && (
                 <iframe
-                  src={`https://premierpartycruises.xola.com/checkout?experience=${xolaConfig.experiences['25p']}`}
+                  src={`https://${xolaConfig.seller}.xola.com/checkout?experience=${xolaConfig.experiences['25p']}`}
                   width="100%"
                   height="600"
                   frameBorder="0"
@@ -204,7 +204,7 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
 
               {activeTab === '50p' && (
                 <iframe
-                  src={`https://premierpartycruises.xola.com/checkout?experience=${xolaConfig.experiences['50p']}`}
+                  src={`https://${xolaConfig.seller}.xola.com/checkout?experience=${xolaConfig.experiences['50p']}`}
                   width="100%"
                   height="600"
                   frameBorder="0"
@@ -216,7 +216,7 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
 
               {activeTab === 'disco' && activeDiscoPackage === 'basic-bach' && (
                 <iframe
-                  src={`https://premierpartycruises.xola.com/checkout?experience=${xolaConfig.experiences['basic-bach']}`}
+                  src={`https://${xolaConfig.seller}.xola.com/checkout?experience=${xolaConfig.experiences['basic-bach']}`}
                   width="100%"
                   height="600"
                   frameBorder="0"
@@ -228,7 +228,7 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
 
               {activeTab === 'disco' && activeDiscoPackage === 'disco-queen' && (
                 <iframe
-                  src={`https://premierpartycruises.xola.com/checkout?experience=${xolaConfig.experiences['disco-queen']}`}
+                  src={`https://${xolaConfig.seller}.xola.com/checkout?experience=${xolaConfig.experiences['disco-queen']}`}
                   width="100%"
                   height="600"
                   frameBorder="0"
@@ -240,7 +240,7 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
 
               {activeTab === 'disco' && activeDiscoPackage === 'super-sparkle' && (
                 <iframe
-                  src={`https://premierpartycruises.xola.com/checkout?experience=${xolaConfig.experiences['super-sparkle']}`}
+                  src={`https://${xolaConfig.seller}.xola.com/checkout?experience=${xolaConfig.experiences['super-sparkle']}`}
                   width="100%"
                   height="600"
                   frameBorder="0"
