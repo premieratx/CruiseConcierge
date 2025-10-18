@@ -218,10 +218,10 @@ export default function BookOnlineWidget({ defaultBoatType = '14p', preloaded = 
               </div>
             )}
 
-            {/* Widget Container */}
-            <div className="bg-white rounded-xl shadow-2xl overflow-hidden" style={{ minHeight: '600px' }}>
-              {/* 14p Widget - Always in DOM, visibility controlled */}
-              <div style={{ display: activeTab === '14p' ? 'block' : 'none' }}>
+            {/* Widget Container - All widgets always visible for Xola init, active one shown via z-index */}
+            <div className="bg-white rounded-xl shadow-2xl overflow-hidden relative" style={{ minHeight: '600px' }}>
+              {/* 14p Widget */}
+              <div className={`w-full ${activeTab === '14p' ? 'relative z-10' : 'absolute inset-0 z-0 opacity-0 pointer-events-none'}`}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
@@ -232,8 +232,8 @@ export default function BookOnlineWidget({ defaultBoatType = '14p', preloaded = 
                 />
               </div>
 
-              {/* 25p Widget - Always in DOM, visibility controlled */}
-              <div style={{ display: activeTab === '25p' ? 'block' : 'none' }}>
+              {/* 25p Widget */}
+              <div className={`w-full ${activeTab === '25p' ? 'relative z-10' : 'absolute inset-0 z-0 opacity-0 pointer-events-none'}`}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
@@ -244,8 +244,8 @@ export default function BookOnlineWidget({ defaultBoatType = '14p', preloaded = 
                 />
               </div>
 
-              {/* 50p Widget - Always in DOM, visibility controlled */}
-              <div style={{ display: activeTab === '50p' ? 'block' : 'none' }}>
+              {/* 50p Widget */}
+              <div className={`w-full ${activeTab === '50p' ? 'relative z-10' : 'absolute inset-0 z-0 opacity-0 pointer-events-none'}`}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
@@ -256,8 +256,8 @@ export default function BookOnlineWidget({ defaultBoatType = '14p', preloaded = 
                 />
               </div>
 
-              {/* Basic Bach Package - Always in DOM, visibility controlled */}
-              <div style={{ display: activeTab === 'disco' && activeDiscoPackage === 'basic-bach' ? 'block' : 'none' }}>
+              {/* Basic Bach Package */}
+              <div className={`w-full ${activeTab === 'disco' && activeDiscoPackage === 'basic-bach' ? 'relative z-10' : 'absolute inset-0 z-0 opacity-0 pointer-events-none'}`}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
@@ -268,8 +268,8 @@ export default function BookOnlineWidget({ defaultBoatType = '14p', preloaded = 
                 />
               </div>
 
-              {/* Disco Queen Package - Always in DOM, visibility controlled */}
-              <div style={{ display: activeTab === 'disco' && activeDiscoPackage === 'disco-queen' ? 'block' : 'none' }}>
+              {/* Disco Queen Package */}
+              <div className={`w-full ${activeTab === 'disco' && activeDiscoPackage === 'disco-queen' ? 'relative z-10' : 'absolute inset-0 z-0 opacity-0 pointer-events-none'}`}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
@@ -280,8 +280,8 @@ export default function BookOnlineWidget({ defaultBoatType = '14p', preloaded = 
                 />
               </div>
 
-              {/* Super Sparkle Platinum - Always in DOM, visibility controlled */}
-              <div style={{ display: activeTab === 'disco' && activeDiscoPackage === 'super-sparkle' ? 'block' : 'none' }}>
+              {/* Super Sparkle Platinum */}
+              <div className={`w-full ${activeTab === 'disco' && activeDiscoPackage === 'super-sparkle' ? 'relative z-10' : 'absolute inset-0 z-0 opacity-0 pointer-events-none'}`}>
                 <div
                   className="xola-embedded-checkout"
                   data-seller={xolaConfig.seller}
