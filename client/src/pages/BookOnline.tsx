@@ -18,7 +18,7 @@ const fadeInUp = {
 
 export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps) {
   const [activeTab, setActiveTab] = useState<string>(defaultBoatType);
-  const [activeDiscoPackage, setActiveDiscoPackage] = useState<string>('basic-bach');
+  const [activeDiscoPackage, setActiveDiscoPackage] = useState<string>('super-sparkle');
   const [xolaLoaded, setXolaLoaded] = useState(false);
 
   // Ensure page loads at top
@@ -243,43 +243,41 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
                 />
               </div>
 
-              {/* Disco Packages */}
-              {activeTab === 'disco' && (
-                <>
-                  <div style={{ display: activeDiscoPackage === 'basic-bach' ? 'block' : 'none' }}>
-                    <div
-                      className="xola-embedded-checkout"
-                      data-seller={xolaConfig.seller}
-                      data-version="2"
-                      data-experience={xolaConfig.experiences['basic-bach']}
-                      style={{ minHeight: '600px' }}
-                      data-testid="widget-disco-basic"
-                    />
-                  </div>
+              {/* Basic Bach Package - Always in DOM, toggled with CSS */}
+              <div style={{ display: activeTab === 'disco' && activeDiscoPackage === 'basic-bach' ? 'block' : 'none' }}>
+                <div
+                  className="xola-embedded-checkout"
+                  data-seller={xolaConfig.seller}
+                  data-version="2"
+                  data-experience={xolaConfig.experiences['basic-bach']}
+                  style={{ minHeight: '600px' }}
+                  data-testid="widget-disco-basic"
+                />
+              </div>
 
-                  <div style={{ display: activeDiscoPackage === 'disco-queen' ? 'block' : 'none' }}>
-                    <div
-                      className="xola-embedded-checkout"
-                      data-seller={xolaConfig.seller}
-                      data-version="2"
-                      data-experience={xolaConfig.experiences['disco-queen']}
-                      style={{ minHeight: '600px' }}
-                      data-testid="widget-disco-queen"
-                    />
-                  </div>
+              {/* Disco Queen Package - Always in DOM, toggled with CSS */}
+              <div style={{ display: activeTab === 'disco' && activeDiscoPackage === 'disco-queen' ? 'block' : 'none' }}>
+                <div
+                  className="xola-embedded-checkout"
+                  data-seller={xolaConfig.seller}
+                  data-version="2"
+                  data-experience={xolaConfig.experiences['disco-queen']}
+                  style={{ minHeight: '600px' }}
+                  data-testid="widget-disco-queen"
+                />
+              </div>
 
-                  <div style={{ display: activeDiscoPackage === 'super-sparkle' ? 'block' : 'none' }}>
-                    <div
-                      className="xola-embedded-checkout"
-                      data-seller={xolaConfig.seller}
-                      data-version="2"
-                      data-experience={xolaConfig.experiences['super-sparkle']}
-                      style={{ minHeight: '600px' }}
-                      data-testid="widget-disco-sparkle"
-                    />
-                  </div>
-                </>
-              )}
+              {/* Super Sparkle Platinum - Always in DOM, toggled with CSS */}
+              <div style={{ display: activeTab === 'disco' && activeDiscoPackage === 'super-sparkle' ? 'block' : 'none' }}>
+                <div
+                  className="xola-embedded-checkout"
+                  data-seller={xolaConfig.seller}
+                  data-version="2"
+                  data-experience={xolaConfig.experiences['super-sparkle']}
+                  style={{ minHeight: '600px' }}
+                  data-testid="widget-disco-sparkle"
+                />
+              </div>
             </div>
           </div>
 
