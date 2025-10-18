@@ -70,14 +70,11 @@ export default function BookOnlinePopUp({ defaultBoatType = '14p' }: BookOnlineP
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 flex items-center justify-center p-8">
-      {/* Container wrapper with black border and 75% scale */}
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50 flex items-center justify-center p-4 md:p-8">
+      {/* Container wrapper with black border - 95% width mobile, 85% width desktop */}
       <div 
-        className="border-4 border-black bg-white rounded-lg overflow-auto" 
+        className="border-4 border-black bg-white rounded-lg overflow-auto w-[95%] md:w-[85%]" 
         style={{ 
-          transform: 'scale(0.75)',
-          transformOrigin: 'center',
-          maxWidth: '95vw',
           maxHeight: '95vh'
         }}
         data-testid="popup-container"
