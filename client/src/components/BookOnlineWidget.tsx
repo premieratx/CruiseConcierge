@@ -5,7 +5,6 @@ import { Ship, Star, CheckCircle, Clock } from 'lucide-react';
 
 interface BookOnlineWidgetProps {
   defaultBoatType?: '14p' | '25p' | '50p' | 'disco';
-  preloaded?: boolean;
 }
 
 const fadeInUp = {
@@ -17,34 +16,26 @@ const fadeInUp = {
   }
 };
 
-export default function BookOnlineWidget({ defaultBoatType = '14p', preloaded = false }: BookOnlineWidgetProps) {
+export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnlineWidgetProps) {
   const [activeTab, setActiveTab] = useState<string>(defaultBoatType);
   const [activeDiscoPackage, setActiveDiscoPackage] = useState<string>('super-sparkle');
-  const [xolaLoaded, setXolaLoaded] = useState(preloaded);
+  const [xolaLoaded, setXolaLoaded] = useState(false);
 
-  // Initialize Xola if already preloaded, otherwise load script
+  // Load Xola script and initialize
   useEffect(() => {
-    if (preloaded) {
+    // Check if script already exists
+    const existingScript = document.querySelector('script[src*="xola.com/checkout"]');
+    
+    if (existingScript) {
+      // Script exists, just initialize
       setXolaLoaded(true);
       if (window.XolaCheckout) {
-        // Initialize immediately if preloaded
-        setTimeout(() => {
-          window.XolaCheckout.init();
-          console.log('✅ Xola initialized from preload');
-        }, 100);
+        setTimeout(() => window.XolaCheckout.init(), 100);
       }
       return;
     }
 
-    // Fallback: Load script if not preloaded
-    if (document.querySelector('script[src*="xola.com/checkout"]')) {
-      setXolaLoaded(true);
-      if (window.XolaCheckout) {
-        window.XolaCheckout.init();
-      }
-      return;
-    }
-
+    // Load Xola checkout script
     const script = document.createElement('script');
     script.src = 'https://xola.com/checkout.js';
     script.async = true;
@@ -54,19 +45,20 @@ export default function BookOnlineWidget({ defaultBoatType = '14p', preloaded = 
         if (window.XolaCheckout) {
           window.XolaCheckout.init();
         }
-      }, 300);
+      }, 200);
     };
     document.body.appendChild(script);
-  }, [preloaded]);
+  }, []);
 
   // Re-initialize Xola widgets when tab changes
   useEffect(() => {
     if (xolaLoaded && window.XolaCheckout) {
       setTimeout(() => {
+        console.log('🔄 Reinitializing Xola for tab change');
         window.XolaCheckout.init();
-      }, 300);
+      }, 100);
     }
-  }, [activeTab, activeDiscoPackage, xolaLoaded]);
+  }, [activeTab, activeDiscoPackage]);
 
   // Xola experience IDs
   const xolaConfig = {
