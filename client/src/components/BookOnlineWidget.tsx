@@ -21,9 +21,43 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
   const [activeDiscoPackage, setActiveDiscoPackage] = useState<string>('super-sparkle');
   const [mountKey, setMountKey] = useState(0);
 
-  // Direct iframes - no external script dependencies
+  // Load Xola script dynamically and initialize
   useEffect(() => {
-    console.log('✅ Xola iframe widgets ready');
+    // Check if script already exists
+    const existingScript = document.querySelector('script[src*="xola.com"]');
+    
+    if (!existingScript) {
+      console.log('📦 Loading Xola script...');
+      const script = document.createElement('script');
+      script.src = 'https://64c43a70daa3e618b7229ddf.xola.com/checkout/embed.js';
+      script.async = true;
+      
+      script.onload = () => {
+        console.log('✅ Xola script loaded');
+        if (window.Xola && window.Xola.checkout && window.Xola.checkout.renderAll) {
+          console.log('🎯 Rendering Xola widgets');
+          window.Xola.checkout.renderAll();
+        }
+      };
+      
+      script.onerror = () => {
+        console.error('❌ Failed to load Xola script');
+      };
+      
+      document.body.appendChild(script);
+    } else {
+      console.log('🔄 Xola script already loaded, re-rendering widgets');
+      const tryRender = () => {
+        if (window.Xola && window.Xola.checkout && window.Xola.checkout.renderAll) {
+          console.log('🎯 Rendering Xola widgets');
+          window.Xola.checkout.renderAll();
+        } else {
+          console.log('⏳ Waiting for Xola to be ready...');
+          setTimeout(tryRender, 100);
+        }
+      };
+      tryRender();
+    }
   }, []);
 
   // Xola experience IDs
@@ -176,79 +210,73 @@ export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnline
               </div>
             )}
 
-            {/* Widget Container - Direct iframes with CORRECT seller domain */}
-            <div className="bg-white rounded-xl shadow-2xl overflow-hidden" style={{ minHeight: '600px' }}>
-              {activeTab === '14p' && (
-                <iframe
-                  src={`https://${xolaConfig.seller}.xola.com/checkout?experience=${xolaConfig.experiences['14p']}`}
-                  width="100%"
-                  height="600"
-                  frameBorder="0"
+            {/* Xola Embedded Checkout Widgets - Using your exact embed code */}
+            <div className="bg-white rounded-xl shadow-2xl overflow-hidden relative" style={{ minHeight: '600px' }}>
+              {/* 14-Person Boat */}
+              <div className={activeTab === '14p' ? 'relative z-10' : 'absolute inset-0 opacity-0 pointer-events-none'}>
+                <div 
+                  className="xola-embedded-checkout" 
+                  data-seller="64c43a70daa3e618b7229ddf" 
+                  data-version="2" 
+                  data-experience="64c7d0012c2afc7d8d70e285"
                   data-testid="widget-14p"
-                  title="Book 14-Person Boat"
-                  style={{ border: 'none', minHeight: '600px' }}
                 />
-              )}
+              </div>
 
-              {activeTab === '25p' && (
-                <iframe
-                  src={`https://${xolaConfig.seller}.xola.com/checkout?experience=${xolaConfig.experiences['25p']}`}
-                  width="100%"
-                  height="600"
-                  frameBorder="0"
+              {/* 25-Person Boat */}
+              <div className={activeTab === '25p' ? 'relative z-10' : 'absolute inset-0 opacity-0 pointer-events-none'}>
+                <div 
+                  className="xola-embedded-checkout" 
+                  data-seller="64c43a70daa3e618b7229ddf" 
+                  data-version="2" 
+                  data-experience="64c7d2b74e1de53cee29395e"
                   data-testid="widget-25p"
-                  title="Book 25-Person Boat"
-                  style={{ border: 'none', minHeight: '600px' }}
                 />
-              )}
+              </div>
 
-              {activeTab === '50p' && (
-                <iframe
-                  src={`https://${xolaConfig.seller}.xola.com/checkout?experience=${xolaConfig.experiences['50p']}`}
-                  width="100%"
-                  height="600"
-                  frameBorder="0"
+              {/* 50-Person Boat */}
+              <div className={activeTab === '50p' ? 'relative z-10' : 'absolute inset-0 opacity-0 pointer-events-none'}>
+                <div 
+                  className="xola-embedded-checkout" 
+                  data-seller="64c43a70daa3e618b7229ddf" 
+                  data-version="2" 
+                  data-experience="64c7d2ca4e1de53cee2939be"
                   data-testid="widget-50p"
-                  title="Book 50-Person Boat"
-                  style={{ border: 'none', minHeight: '600px' }}
                 />
-              )}
+              </div>
 
-              {activeTab === 'disco' && activeDiscoPackage === 'basic-bach' && (
-                <iframe
-                  src={`https://${xolaConfig.seller}.xola.com/checkout?experience=${xolaConfig.experiences['basic-bach']}`}
-                  width="100%"
-                  height="600"
-                  frameBorder="0"
+              {/* Basic Bach Package */}
+              <div className={activeTab === 'disco' && activeDiscoPackage === 'basic-bach' ? 'relative z-10' : 'absolute inset-0 opacity-0 pointer-events-none'}>
+                <div 
+                  className="xola-embedded-checkout" 
+                  data-seller="64c43a70daa3e618b7229ddf" 
+                  data-version="2" 
+                  data-experience="64c7d3284e1de53cee293ad0"
                   data-testid="widget-disco-basic"
-                  title="Book Basic Bach Package"
-                  style={{ border: 'none', minHeight: '600px' }}
                 />
-              )}
+              </div>
 
-              {activeTab === 'disco' && activeDiscoPackage === 'disco-queen' && (
-                <iframe
-                  src={`https://${xolaConfig.seller}.xola.com/checkout?experience=${xolaConfig.experiences['disco-queen']}`}
-                  width="100%"
-                  height="600"
-                  frameBorder="0"
+              {/* Disco Queen Package */}
+              <div className={activeTab === 'disco' && activeDiscoPackage === 'disco-queen' ? 'relative z-10' : 'absolute inset-0 opacity-0 pointer-events-none'}>
+                <div 
+                  className="xola-embedded-checkout" 
+                  data-seller="64c43a70daa3e618b7229ddf" 
+                  data-version="2" 
+                  data-experience="64c7d34c4e1de53cee293b3d"
                   data-testid="widget-disco-queen"
-                  title="Book Disco Queen Package"
-                  style={{ border: 'none', minHeight: '600px' }}
                 />
-              )}
+              </div>
 
-              {activeTab === 'disco' && activeDiscoPackage === 'super-sparkle' && (
-                <iframe
-                  src={`https://${xolaConfig.seller}.xola.com/checkout?experience=${xolaConfig.experiences['super-sparkle']}`}
-                  width="100%"
-                  height="600"
-                  frameBorder="0"
+              {/* Super Sparkle Platinum */}
+              <div className={activeTab === 'disco' && activeDiscoPackage === 'super-sparkle' ? 'relative z-10' : 'absolute inset-0 opacity-0 pointer-events-none'}>
+                <div 
+                  className="xola-embedded-checkout" 
+                  data-seller="64c43a70daa3e618b7229ddf" 
+                  data-version="2" 
+                  data-experience="64c7d3774e1de53cee293bb7"
                   data-testid="widget-disco-sparkle"
-                  title="Book Super Sparkle Platinum"
-                  style={{ border: 'none', minHeight: '600px' }}
                 />
-              )}
+              </div>
             </div>
           </div>
 
