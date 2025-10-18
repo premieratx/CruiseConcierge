@@ -63,36 +63,44 @@ export default function BookNow() {
           </div>
         )}
 
-        {/* Widget Container - ALL divs exist, use CSS to show/hide */}
+        {/* Widget Container - Raw HTML injection */}
         <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-2xl p-8" style={{ minHeight: '600px' }}>
           
-          {/* 14-Person Boat */}
-          <div style={{ display: activeTab === '14p' ? 'block' : 'none' }}>
-            <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d0012c2afc7d8d70e285"></div>
-          </div>
+          {activeTab === '14p' && (
+            <div dangerouslySetInnerHTML={{__html: `
+              <div class="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d0012c2afc7d8d70e285"></div>
+            `}} />
+          )}
 
-          {/* 25-Person Boat */}
-          <div style={{ display: activeTab === '25p' ? 'block' : 'none' }}>
-            <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d2b74e1de53cee29395e"></div>
-          </div>
+          {activeTab === '25p' && (
+            <div dangerouslySetInnerHTML={{__html: `
+              <div class="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d2b74e1de53cee29395e"></div>
+            `}} />
+          )}
 
-          {/* 50-Person Boat */}
-          <div style={{ display: activeTab === '50p' ? 'block' : 'none' }}>
-            <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d4f01be574411500cf62"></div>
-          </div>
+          {activeTab === '50p' && (
+            <div dangerouslySetInnerHTML={{__html: `
+              <div class="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d4f01be574411500cf62"></div>
+            `}} />
+          )}
 
-          {/* Disco Packages */}
-          <div style={{ display: activeTab === 'disco' && discoTab === 'basic-bach' ? 'block' : 'none' }}>
-            <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676fe4a7ff119f53c4063c1b"></div>
-          </div>
+          {activeTab === 'disco' && discoTab === 'basic-bach' && (
+            <div dangerouslySetInnerHTML={{__html: `
+              <div class="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676fe4a7ff119f53c4063c1b"></div>
+            `}} />
+          )}
 
-          <div style={{ display: activeTab === 'disco' && discoTab === 'disco-queen' ? 'block' : 'none' }}>
-            <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0bc68ff6dfb29009b5ad"></div>
-          </div>
+          {activeTab === 'disco' && discoTab === 'disco-queen' && (
+            <div dangerouslySetInnerHTML={{__html: `
+              <div class="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0bc68ff6dfb29009b5ad"></div>
+            `}} />
+          )}
 
-          <div style={{ display: activeTab === 'disco' && discoTab === 'super-sparkle' ? 'block' : 'none' }}>
-            <div className="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0ceaa3744b05ae09e9de"></div>
-          </div>
+          {activeTab === 'disco' && discoTab === 'super-sparkle' && (
+            <div dangerouslySetInnerHTML={{__html: `
+              <div class="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0ceaa3744b05ae09e9de"></div>
+            `}} />
+          )}
 
         </div>
       </div>
