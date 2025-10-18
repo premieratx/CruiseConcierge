@@ -28,6 +28,7 @@ const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Chat = lazy(() => import("./pages/Chat"));
 const BookOnline = lazy(() => import("./pages/BookOnline"));
 const BookOnlinePopUp = lazy(() => import("./pages/BookOnlinePopUp"));
+const BookNow = lazy(() => import("./pages/BookNow"));
 const GoldenTicket = lazy(() => import("./pages/GoldenTicket"));
 const GoldenTicketPrivate = lazy(() => import("./pages/GoldenTicketPrivate"));
 const QuoteBuilderEmbed = lazy(() => import("./pages/QuoteBuilderEmbed"));
@@ -275,6 +276,11 @@ function Router() {
       {/* Book Online Pop-Up with Xola Widgets - No auth required */}
       <Route path="/book-online-popup">
         <BookOnlinePopUp />
+      </Route>
+      
+      {/* Book Now - FRESH Xola Integration - No auth required */}
+      <Route path="/book-now">
+        <BookNow />
       </Route>
       
       {/* Golden Ticket Promotion Page - No auth required */}
