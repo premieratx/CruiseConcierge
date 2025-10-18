@@ -44,38 +44,23 @@ export default function BookOnline({ defaultBoatType = '14p' }: BookOnlineProps)
       document.head.appendChild(preconnectLink);
     }
 
-    // Load Xola checkout script
-    if (document.querySelector('script[src*="xola.com/checkout"]')) {
+    // Load Xola BUTTON script (opens in lightbox - more reliable)
+    if (document.querySelector('script[data-id="xola-checkout"]')) {
       setXolaLoaded(true);
-      if (window.XolaCheckout) {
-        setTimeout(() => window.XolaCheckout.init(), 100);
-      }
       return;
     }
 
     const script = document.createElement('script');
     script.src = 'https://xola.com/checkout.js';
+    script.setAttribute('data-seller', '64c43a70daa3e618b7229ddf');
+    script.setAttribute('data-id', 'xola-checkout');
     script.async = true;
     script.onload = () => {
-      setTimeout(() => {
-        setXolaLoaded(true);
-        if (window.XolaCheckout) {
-          window.XolaCheckout.init();
-        }
-        console.log('✅ Xola loaded on BookOnline page');
-      }, 200);
+      setXolaLoaded(true);
+      console.log('✅ Xola button script loaded on BookOnline page');
     };
     document.body.appendChild(script);
   }, []);
-
-  // Re-initialize Xola widgets when tab changes
-  useEffect(() => {
-    if (xolaLoaded && window.XolaCheckout) {
-      setTimeout(() => {
-        window.XolaCheckout.init();
-      }, 300);
-    }
-  }, [activeTab, activeDiscoPackage, xolaLoaded]);
 
   // Xola experience IDs
   const xolaConfig = {
