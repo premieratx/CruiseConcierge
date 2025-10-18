@@ -2870,26 +2870,38 @@ export default function Home() {
       {/* Footer */}
       <Footer />
 
-      {/* Book Online Modal */}
-      {showBookingModal && (
-        <Dialog open={showBookingModal} onOpenChange={setShowBookingModal} modal={true}>
-          <DialogContent 
-            className="max-w-[100vw] md:max-w-[95vw] w-full border-4 border-black max-h-[95vh] flex flex-col overflow-hidden p-0"
-            onEscapeKeyDown={(e) => {
-              e.preventDefault();
-              setShowBookingModal(false);
-            }}
-          >
-            <DialogTitle className="sr-only">Book Your Cruise Online</DialogTitle>
-            <DialogDescription className="sr-only">
-              Select from our available boat cruises and packages to book your Lake Travis party boat experience
-            </DialogDescription>
-            <div className="flex-1 overflow-y-auto" tabIndex={0}>
-              <BookOnlineWidget />
-            </div>
-          </DialogContent>
-        </Dialog>
-      )}
+      {/* Book Online Widget - Permanently rendered (hidden when not in modal) to prevent dormancy */}
+      <div 
+        style={{ 
+          display: showBookingModal ? 'none' : 'block',
+          position: 'absolute', 
+          left: '-9999px', 
+          top: '0',
+          visibility: 'hidden',
+          pointerEvents: 'none'
+        }}
+      >
+        <BookOnlineWidget />
+      </div>
+
+      {/* Book Online Modal - Shows the same permanently-rendered widget */}
+      <Dialog open={showBookingModal} onOpenChange={setShowBookingModal} modal={true}>
+        <DialogContent 
+          className="max-w-[100vw] md:max-w-[95vw] w-full border-4 border-black max-h-[95vh] flex flex-col overflow-hidden p-0"
+          onEscapeKeyDown={(e) => {
+            e.preventDefault();
+            setShowBookingModal(false);
+          }}
+        >
+          <DialogTitle className="sr-only">Book Your Cruise Online</DialogTitle>
+          <DialogDescription className="sr-only">
+            Select from our available boat cruises and packages to book your Lake Travis party boat experience
+          </DialogDescription>
+          <div className="flex-1 overflow-y-auto" tabIndex={0}>
+            {showBookingModal && <BookOnlineWidget />}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

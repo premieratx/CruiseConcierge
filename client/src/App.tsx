@@ -10,7 +10,7 @@ import { QueryClientProvider } from "@tanstack/react-query";
 // TEMPORARY: EditModeProvider disabled to fix React preamble error - will re-enable after cache clears
 // import { EditModeProvider } from "@/contexts/EditModeContext";
 import { HelmetProvider } from "react-helmet-async";
-import { lazy, Suspense, useEffect } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { AuthProvider } from "@/hooks/use-auth";
 import { ProtectedRoute } from "@/lib/protected-route";
 import { GoogleAnalytics } from "@/components/GoogleAnalytics";
@@ -573,6 +573,46 @@ function Router() {
 }
 
 function App() {
+  const [xolaReady, setXolaReady] = useState(false);
+
+  // Load Xola checkout script globally on app startup
+  useEffect(() => {
+    // Check if script already exists
+    if (document.querySelector('script[src*="xola.com/checkout"]')) {
+      // Script already loaded, wait for XolaCheckout to be ready
+      const checkReady = () => {
+        if (window.XolaCheckout) {
+          setXolaReady(true);
+          window.XolaCheckout.init();
+          console.log('✅ Xola ready (script already loaded)');
+        } else {
+          setTimeout(checkReady, 100);
+        }
+      };
+      checkReady();
+      return;
+    }
+
+    // Load Xola checkout script
+    const script = document.createElement('script');
+    script.src = 'https://xola.com/checkout.js';
+    script.async = true;
+    script.onload = () => {
+      // Wait for XolaCheckout to be available
+      const checkReady = () => {
+        if (window.XolaCheckout) {
+          setXolaReady(true);
+          window.XolaCheckout.init();
+          console.log('✅ Xola ready and initialized globally');
+        } else {
+          setTimeout(checkReady, 100);
+        }
+      };
+      checkReady();
+    };
+    document.body.appendChild(script);
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>

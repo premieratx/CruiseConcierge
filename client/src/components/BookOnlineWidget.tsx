@@ -19,42 +19,11 @@ const fadeInUp = {
 export default function BookOnlineWidget({ defaultBoatType = '14p' }: BookOnlineWidgetProps) {
   const [activeTab, setActiveTab] = useState<string>(defaultBoatType);
   const [activeDiscoPackage, setActiveDiscoPackage] = useState<string>('super-sparkle');
-  const [xolaLoaded, setXolaLoaded] = useState(false);
-
-  // Load Xola script and initialize
-  useEffect(() => {
-    // Check if script already exists
-    const existingScript = document.querySelector('script[src*="xola.com/checkout"]');
-    
-    if (existingScript) {
-      // Script exists, just initialize
-      setXolaLoaded(true);
-      if (window.XolaCheckout) {
-        setTimeout(() => window.XolaCheckout.init(), 100);
-      }
-      return;
-    }
-
-    // Load Xola checkout script
-    const script = document.createElement('script');
-    script.src = 'https://xola.com/checkout.js';
-    script.async = true;
-    script.onload = () => {
-      setTimeout(() => {
-        setXolaLoaded(true);
-        if (window.XolaCheckout) {
-          window.XolaCheckout.init();
-        }
-      }, 200);
-    };
-    document.body.appendChild(script);
-  }, []);
 
   // Re-initialize Xola widgets when tab changes
   useEffect(() => {
-    if (xolaLoaded && window.XolaCheckout) {
+    if (window.XolaCheckout) {
       setTimeout(() => {
-        console.log('🔄 Reinitializing Xola for tab change');
         window.XolaCheckout.init();
       }, 100);
     }
