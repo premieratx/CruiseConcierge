@@ -666,6 +666,7 @@ export default function BachelorParty() {
               ]}
             />
           </div>
+          </div>
         </section>
       </SectionReveal>
 
