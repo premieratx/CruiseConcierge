@@ -41,6 +41,8 @@ import { PricingTable } from '@/components/PricingTable';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { SectionReveal } from '@/components/SectionReveal';
 import { ScrollReveal } from '@/components/ScrollReveal';
+import { TableOfContents } from '@/components/TableOfContents';
+import { StickyCTA } from '@/components/StickyCTA';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -341,6 +343,23 @@ const galleryPhotos = [
   { id: 8, src: heroImage2, alt: 'Austin Bachelor Party Boat atmosphere on Lake Travis' }
 ];
 
+// Table of Contents sections
+const tocSections = [
+  { id: 'hero', title: 'Hero', icon: <Sparkles className="h-4 w-4" /> },
+  { id: 'quick-answers', title: 'Quick Answers', icon: <MessageCircle className="h-4 w-4" /> },
+  { id: 'quote-builder', title: 'Quote Builder', icon: <DollarSign className="h-4 w-4" /> },
+  { id: 'overview', title: 'Overview', icon: <Eye className="h-4 w-4" /> },
+  { id: 'whats-included', title: "What's Included", icon: <CheckCircle className="h-4 w-4" /> },
+  { id: 'packages', title: 'Packages', icon: <Package className="h-4 w-4" /> },
+  { id: 'compare', title: 'Compare', icon: <TrendingUp className="h-4 w-4" /> },
+  { id: 'faqs', title: 'FAQs', icon: <HelpCircle className="h-4 w-4" /> },
+  { id: 'photos', title: 'Photos', icon: <Camera className="h-4 w-4" /> },
+  { id: 'testimonials', title: 'Testimonials', icon: <Quote className="h-4 w-4" /> },
+  { id: 'why-disco', title: 'Why Choose Disco', icon: <Crown className="h-4 w-4" /> },
+  { id: 'what-to-bring', title: 'What to Bring', icon: <Ticket className="h-4 w-4" /> },
+  { id: 'weather-guarantee', title: 'Weather Guarantee', icon: <CloudRain className="h-4 w-4" /> }
+];
+
 export default function BachelorParty() {
   const [, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
@@ -387,6 +406,17 @@ export default function BachelorParty() {
     navigate(`/chat?${params.toString()}`);
   };
 
+  // Sticky CTA configuration
+  const stickyCTA = (
+    <StickyCTA
+      primaryText="Get Free Quote"
+      primaryAction={() => handleGetQuote()}
+      secondaryText="Call Now"
+      secondaryHref="tel:+15127705050"
+      showOnDesktop={false}
+    />
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead
@@ -400,7 +430,7 @@ export default function BachelorParty() {
       <Breadcrumb />
       
       {/* Hero Section with Crossfade */}
-      <section className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
+      <section id="hero" className="relative min-h-[80vh] flex flex-col justify-center overflow-hidden bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900">
         {/* Image Background with Smooth Crossfade */}
         <div className="absolute inset-0 z-0">
           {heroImages.map((image, index) => (
@@ -519,7 +549,7 @@ export default function BachelorParty() {
 
       {/* Quick Answer Boxes Section */}
       <SectionReveal>
-        <section className="py-20 bg-white">
+        <section id="quick-answers" className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-6">
           <QuickAnswerBoxGroup
             title="Quick Answers for Bachelor Parties"
@@ -556,7 +586,7 @@ export default function BachelorParty() {
 
       {/* Build My Quote Now Section */}
       <SectionReveal>
-        <section className="py-24 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700">
+        <section id="quote-builder" className="py-24 bg-gradient-to-br from-blue-600 via-purple-600 to-indigo-700">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center">
               <h2 
@@ -674,6 +704,9 @@ export default function BachelorParty() {
       <SectionReveal>
         <section className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-6">
+          {/* Grid layout for content with TOC sidebar */}
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
+            <div className="w-full">
           <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
             <TabsList className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-2 h-auto p-1">
               <TabsTrigger value="overview" data-testid="tab-overview"><span data-editable data-editable-id="bachelor-tab-overview">Overview</span></TabsTrigger>
@@ -686,7 +719,7 @@ export default function BachelorParty() {
             </TabsList>
 
             {/* Overview Tab */}
-            <TabsContent value="overview" className="mt-8">
+            <TabsContent value="overview" className="mt-8" id="overview">
               <div className="max-w-4xl mx-auto">
                 <h2 className="text-3xl font-semibold font-playfair text-center mb-8" data-editable data-editable-id="bachelor-overview-main-heading">
                   Show Your Groom the <span className="text-brand-yellow">BEST Weekend</span> of His Life!
@@ -902,7 +935,7 @@ export default function BachelorParty() {
             </TabsContent>
 
             {/* What's Included Tab */}
-            <TabsContent value="included" className="mt-8">
+            <TabsContent value="included" className="mt-8" id="whats-included">
               <div className="max-w-6xl mx-auto">
                 <h2 className="text-3xl font-semibold font-playfair text-center mb-4" data-editable data-editable-id="bachelor-included-title">
                   EVERYTHING Included but Alcohol!
@@ -1100,7 +1133,7 @@ export default function BachelorParty() {
             </TabsContent>
 
             {/* Packages Tab */}
-            <TabsContent value="packages" className="mt-8">
+            <TabsContent value="packages" className="mt-8" id="packages">
               <Tabs defaultValue="disco" className="w-full">
                 <TabsList className="grid w-full grid-cols-2 mb-8">
                   <TabsTrigger value="disco" data-testid="tab-disco-packages">Disco Cruise Packages</TabsTrigger>
@@ -1356,7 +1389,7 @@ export default function BachelorParty() {
             </TabsContent>
 
             {/* Compare Tab - Comprehensive Value Calculator */}
-            <TabsContent value="compare" className="mt-8">
+            <TabsContent value="compare" className="mt-8" id="compare">
               <div className="max-w-7xl mx-auto">
                 <h2 className="text-3xl font-semibold font-playfair text-center mb-4" data-editable data-editable-id="bachelor-compare-title">
                   <DollarSign className="w-8 h-8 inline mr-3 text-green-600" />
@@ -1382,9 +1415,9 @@ export default function BachelorParty() {
             </TabsContent>
 
             {/* FAQs Tab */}
-            <TabsContent value="faq" className="mt-8">
+            <TabsContent value="faq" className="mt-8" id="faqs">
               {/* Why Choose ATX Disco Cruise Section */}
-              <div className="mb-12 bg-gradient-to-br from-yellow-50 via-orange-50 to-pink-50 rounded-2xl p-8">
+              <div id="why-disco" className="mb-12 bg-gradient-to-br from-yellow-50 via-orange-50 to-pink-50 rounded-2xl p-8">
                 <h2 className="text-3xl font-semibold font-playfair text-center mb-8 text-gray-900">
                   Why Choose ATX Disco Cruise?
                 </h2>
@@ -1475,7 +1508,7 @@ export default function BachelorParty() {
             </TabsContent>
 
             {/* Photos Tab */}
-            <TabsContent value="photos" className="mt-8">
+            <TabsContent value="photos" className="mt-8" id="photos">
               <div className="max-w-6xl mx-auto">
                 <h2 className="text-3xl font-semibold font-playfair text-center mb-8" data-editable data-editable-id="bachelor-photos-title">
                   Bachelor Party Vibes & Photos
@@ -1517,7 +1550,7 @@ export default function BachelorParty() {
             </TabsContent>
 
             {/* Testimonials Tab */}
-            <TabsContent value="testimonials" className="mt-8">
+            <TabsContent value="testimonials" className="mt-8" id="testimonials">
               <div className="max-w-6xl mx-auto">
                 <h2 className="text-3xl font-semibold font-playfair text-center mb-8" data-editable data-editable-id="bachelor-testimonials-title">
                   What Grooms Are Saying
@@ -1575,6 +1608,11 @@ export default function BachelorParty() {
               </div>
             </TabsContent>
           </Tabs>
+            </div>
+            
+            {/* Table of Contents Sidebar */}
+            <TableOfContents sections={tocSections} />
+          </div>
           </div>
         </section>
       </SectionReveal>
@@ -1941,7 +1979,7 @@ export default function BachelorParty() {
 
       {/* What to Bring Section */}
       <SectionReveal>
-        <section className="py-20 bg-blue-50/30">
+        <section id="what-to-bring" className="py-20 bg-blue-50/30">
           <div className="max-w-7xl mx-auto px-6">
             <WhatToBring
               variant="bachelor"
@@ -2523,7 +2561,7 @@ export default function BachelorParty() {
       </div>
 
       {/* The Lemonade Disco - Weather Guarantee Section */}
-      <section id="lemonade-disco" className="py-20 bg-gradient-to-br from-yellow-400 via-orange-400 to-pink-400">
+      <section id="weather-guarantee" className="py-20 bg-gradient-to-br from-yellow-400 via-orange-400 to-pink-400">
         <div className="container mx-auto px-6">
           <motion.div
             initial={reducedMotion ? false : "hidden"}
@@ -2852,6 +2890,9 @@ export default function BachelorParty() {
           { title: 'Perfect Itinerary for a Bachelor Party in Austin', href: '/blogs/perfect-bachelor-party-itinerary-austin' }
         ]}
       />
+
+      {/* Sticky CTA */}
+      {stickyCTA}
 
       {/* Footer */}
       <Footer />

@@ -41,6 +41,8 @@ import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 import { WhatToBring } from '@/components/WhatToBring';
 import { PricingTable } from '@/components/PricingTable';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
+import { TableOfContents } from '@/components/TableOfContents';
+import { StickyCTA } from '@/components/StickyCTA';
 
 import heroImage1 from '@assets/atx-disco-cruise-party.webp';
 import heroImage2 from '@assets/dancing-party-scene.webp';
@@ -321,6 +323,19 @@ const quickStats = [
   { icon: Shield, label: 'Only in USA', value: 'Multi-Group Bach Cruise', color: 'text-orange-600' }
 ];
 
+// Table of Contents sections
+const tocSections = [
+  { id: 'hero', title: 'Overview', icon: <Sparkles className="h-4 w-4" /> },
+  { id: 'quick-answers', title: 'Quick Answers', icon: <MessageCircle className="h-4 w-4" /> },
+  { id: 'packages', title: 'Packages & Pricing', icon: <Package className="h-4 w-4" /> },
+  { id: 'whats-included', title: "What's Included", icon: <CheckCircle className="h-4 w-4" /> },
+  { id: 'experience', title: '4-Hour Experience', icon: <Clock className="h-4 w-4" /> },
+  { id: 'testimonials', title: 'Reviews & Testimonials', icon: <Quote className="h-4 w-4" /> },
+  { id: 'faqs', title: 'FAQs', icon: <HelpCircle className="h-4 w-4" /> },
+  { id: 'what-to-bring', title: 'What to Bring', icon: <Ticket className="h-4 w-4" /> },
+  { id: 'final-cta', title: 'Book Now', icon: <Calendar className="h-4 w-4" /> }
+];
+
 export default function ATXDiscoCruise() {
   const [, navigate] = useLocation();
   const reducedMotion = useReducedMotion();
@@ -358,6 +373,7 @@ export default function ATXDiscoCruise() {
 
         {/* Hero Section */}
         <motion.section 
+          id="hero"
           initial="hidden"
           animate="visible"
           variants={fadeInUp}
@@ -433,9 +449,12 @@ export default function ATXDiscoCruise() {
           </div>
         </motion.section>
 
+        {/* Table of Contents */}
+        <TableOfContents sections={tocSections} />
+
         {/* Quick Answer Boxes Section */}
         <SectionReveal>
-          <section className="py-24 bg-white dark:bg-gray-950">
+          <section id="quick-answers" className="py-24 bg-white dark:bg-gray-950">
             <div className="max-w-7xl mx-auto px-6">
               <QuickAnswerBoxGroup
                 title="Quick Answers About ATX Disco Cruise"
@@ -586,7 +605,7 @@ export default function ATXDiscoCruise() {
 
         {/* 4-Hour Experience Timeline */}
         <SectionReveal>
-          <section className="py-24 px-6 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900" data-testid="section-experience">
+          <section id="experience" className="py-24 px-6 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900" data-testid="section-experience">
             <div className="max-w-7xl mx-auto">
               <div className="text-center mb-16">
                 <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-4 text-center" data-testid="text-experience-headline">
@@ -638,7 +657,7 @@ export default function ATXDiscoCruise() {
 
         {/* Testimonials Section */}
         <SectionReveal>
-          <section className="py-24 px-6 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950" data-testid="section-testimonials">
+          <section id="testimonials" className="py-24 px-6 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950" data-testid="section-testimonials">
             <div className="max-w-7xl mx-auto">
               <h2 className="font-playfair text-3xl md:text-4xl font-bold text-center mb-16" data-testid="text-testimonials-headline">
                 <Quote className="w-10 h-10 inline mr-3 text-purple-600" />
@@ -680,7 +699,7 @@ export default function ATXDiscoCruise() {
 
         {/* FAQ Section */}
         <SectionReveal>
-          <section className="py-24 px-6 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900" data-testid="section-faq">
+          <section id="faqs" className="py-24 px-6 bg-gradient-to-b from-white to-blue-50 dark:from-gray-950 dark:to-gray-900" data-testid="section-faq">
             <div className="max-w-7xl mx-auto">
               <h2 className="font-playfair text-3xl md:text-4xl font-bold text-center mb-16" data-testid="text-faq-headline">
                 <HelpCircle className="w-10 h-10 inline mr-3 text-purple-600" />
@@ -706,7 +725,7 @@ export default function ATXDiscoCruise() {
 
         {/* Final CTA Section */}
         <SectionReveal>
-          <section className="py-24 px-6 bg-gradient-to-r from-purple-600 to-pink-600" data-testid="section-final-cta">
+          <section id="final-cta" className="py-24 px-6 bg-gradient-to-r from-purple-600 to-pink-600" data-testid="section-final-cta">
             <div className="max-w-7xl mx-auto text-center text-white">
               <h2 className="font-playfair text-3xl md:text-4xl font-bold mb-6 text-center" data-testid="text-final-cta-headline">
                 Ready for America's Best Bach Party?
@@ -918,7 +937,7 @@ export default function ATXDiscoCruise() {
 
         {/* What to Bring Section */}
         <SectionReveal>
-          <section className="py-24 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
+          <section id="what-to-bring" className="py-24 bg-gradient-to-b from-blue-50 to-white dark:from-gray-900 dark:to-gray-950">
             <div className="max-w-7xl mx-auto px-6">
               <WhatToBring
                 variant="disco"
@@ -940,6 +959,15 @@ export default function ATXDiscoCruise() {
             { title: 'What to Expect on the Disco Cruise', href: '/blogs/atx-disco-cruise-experience' },
             { title: 'Bachelor vs Bachelorette Party Tips', href: '/blogs/bachelor-bachelorette-party-tips' }
           ]}
+        />
+
+        {/* Sticky CTA */}
+        <StickyCTA
+          primaryText="Book Your Cruise"
+          primaryAction={handleBookNow}
+          secondaryText="Call Now"
+          secondaryHref="tel:+15127705050"
+          showOnDesktop={false}
         />
 
         <Footer />

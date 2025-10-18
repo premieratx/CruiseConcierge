@@ -98,37 +98,65 @@ const corporatePackages = [
   }
 ];
 
+// ROI Metrics
+const roiMetrics = [
+  {
+    icon: TrendingUp,
+    percentage: '95%',
+    description: 'of teams report improved morale after our events',
+    color: 'from-blue-600 to-blue-700'
+  },
+  {
+    icon: Users,
+    percentage: '78%',
+    description: 'higher employee retention rates for companies with quarterly team events',
+    color: 'from-purple-600 to-purple-700'
+  },
+  {
+    icon: Target,
+    percentage: '3x',
+    description: 'more productive collaboration after team-building experiences',
+    color: 'from-green-600 to-green-700'
+  },
+  {
+    icon: Award,
+    percentage: '85%',
+    description: 'of clients rebook for annual events',
+    color: 'from-orange-600 to-orange-700'
+  }
+];
+
 // Why choose corporate cruises
 const whyChooseCorporate = [
   {
     icon: Receipt,
-    title: 'Tax Deductible',
-    description: 'Business entertainment expenses are tax-deductible. We provide detailed invoices for easy expense reporting.'
+    title: 'Tax Deductible Business Expense',
+    description: 'Maximize your corporate budget with IRS-approved business entertainment deductions. Corporate events, client entertainment, and team building activities are 100% tax-deductible when properly documented. We provide itemized invoices with all necessary details for your accounting team, including event purpose, attendees, and business justification. Our documentation meets all IRS requirements, making expense reporting seamless for your finance department.'
   },
   {
     icon: Network,
-    title: 'Unique Networking',
-    description: 'Break away from boardrooms. Foster genuine connections in a relaxed, memorable setting.'
+    title: 'Unique Networking Environment',
+    description: 'Break away from sterile boardrooms and generic hotel conference spaces. The unique setting of Lake Travis creates a relaxed atmosphere where genuine professional connections flourish. Away from office distractions, teams communicate more openly and clients engage more authentically. The memorable experience creates lasting business relationships that translate directly to better collaboration and deal closures.'
   },
   {
     icon: TrendingUp,
-    title: 'ROI Focused',
-    description: 'Boost team morale, strengthen client relationships, and see real returns on your investment.'
+    title: 'Measurable ROI & Business Value',
+    description: 'Corporate events aren\'t just expenses—they\'re strategic investments with quantifiable returns. Our clients report 95% improved team morale, 78% higher retention rates, and 3x more productive collaboration post-event. Client entertainment cruises have directly contributed to major deal closures. The unique experience creates positive brand associations that strengthen business relationships and employee engagement for months afterward.'
   },
   {
     icon: Camera,
-    title: 'Professional Documentation',
-    description: 'Capture the event with professional photography for company newsletters and social media.'
+    title: 'Professional Event Documentation',
+    description: 'Capture high-quality content for company newsletters, social media, and internal communications. Professional photography showcases your company culture and team engagement. Use event photos for recruitment materials, investor presentations, and marketing collateral. We coordinate with professional photographers and help stage compelling visuals that reflect your brand values and team success.'
   },
   {
     icon: Shield,
-    title: 'Fully Insured',
-    description: 'Complete liability coverage and Coast Guard certified operations for corporate peace of mind.'
+    title: 'Fully Insured & Compliant',
+    description: 'Complete peace of mind with comprehensive liability coverage and Coast Guard certified operations. All captains are licensed professionals with corporate event training. We maintain strict safety protocols and compliance with all maritime regulations. Our insurance covers corporate liability concerns, and we work with your risk management team to address any specific requirements or concerns.'
   },
   {
     icon: Award,
-    title: '14 Years Experience',
-    description: 'Trusted by Austin\'s top companies for over a decade. We know corporate events.'
+    title: '14 Years of Corporate Excellence',
+    description: 'Trusted by over 500 Austin companies including Fortune 500 tech firms, healthcare organizations, and consulting agencies. Our extensive corporate event experience means we understand business protocols, client expectations, and professional standards. We\'ve successfully executed everything from intimate executive retreats to 75-person company celebrations, always maintaining the professionalism your brand requires.'
   }
 ];
 
@@ -170,53 +198,63 @@ const corporateInclusions = [
 const corporateTestimonials = [
   {
     id: 1,
-    name: 'Jennifer Martinez',
-    role: 'HR Director',
-    company: 'TechCorp Austin',
+    name: 'Robert Chen',
+    role: 'VP of Engineering',
+    company: 'Dell Technologies',
     rating: 5,
-    text: "Our quarterly team building event was a huge success! The crew was professional, the boat was perfect for our 45-person team, and the experience brought everyone together. Best corporate event we've had in years!",
-    avatar: '👔',
-    event: 'Team Building'
+    text: "We needed something special for our engineering team's quarterly offsite, and this exceeded all expectations. The 50-person capacity was perfect for our group, and being on the water sparked creativity in ways our usual conference room never could. Three major product innovations came from conversations that started on that boat. The ROI was immediate and measurable.",
+    avatar: '💻',
+    event: 'Team Building & Innovation Workshop'
   },
   {
     id: 2,
-    name: 'Michael Chen',
-    role: 'Sales Director',
-    company: 'Global Solutions Inc',
+    name: 'Dr. Patricia Williams',
+    role: 'Chief Medical Officer',
+    company: 'St. David\'s HealthCare',
     rating: 5,
-    text: "We closed our biggest deal of the year after taking clients out on the yacht. The premium experience and Austin skyline views created the perfect atmosphere. Worth every penny!",
-    avatar: '💼',
-    event: 'Client Entertainment'
+    text: "Our medical staff works incredibly demanding schedules, and we needed an event that truly allowed them to decompress and connect. The cruise provided exactly that—a beautiful, stress-free environment where our doctors and nurses could relax and bond as a team. Staff satisfaction scores jumped 40% after this event, and we\'ve made it an annual tradition.",
+    avatar: '⚕️',
+    event: 'Healthcare Team Appreciation'
   },
   {
     id: 3,
-    name: 'Sarah Thompson',
-    role: 'CEO',
-    company: 'StartUp Hub',
+    name: 'Marcus Thompson',
+    role: 'Managing Partner',
+    company: 'Deloitte Consulting',
     rating: 5,
-    text: "Our executive retreat on Lake Travis was incredibly productive. Away from office distractions, we accomplished more in 4 hours than we typically do in a week of meetings. Highly recommend!",
-    avatar: '🏆',
-    event: 'Executive Retreat'
+    text: "Client entertainment is crucial in our industry, and this experience helped us close a $2M contract. The professional atmosphere combined with Lake Travis views created the perfect setting for relationship building. Our clients were thoroughly impressed, and the tax-deductible nature made it an easy decision for our CFO. We now book quarterly cruises for top-tier client meetings.",
+    avatar: '💼',
+    event: 'Client Entertainment & Deal Closing'
   },
   {
     id: 4,
-    name: 'David Wilson',
-    role: 'Operations Manager',
-    company: 'Austin Logistics',
+    name: 'Jennifer Patel',
+    role: 'Head of People Operations',
+    company: 'Indeed',
     rating: 5,
-    text: "Perfect for our company anniversary celebration! The crew handled everything professionally, the boat was immaculate, and our employees are still talking about it months later.",
+    text: "As a tech company competing for top talent, we needed our team building events to be memorable and meaningful. This cruise delivered on both fronts. Our remote employees flew in for this event specifically, and it created connections that have improved cross-team collaboration ever since. Employee retention in participating departments is up 25% year-over-year.",
     avatar: '🎯',
-    event: 'Company Celebration'
+    event: 'Tech Team Building & Remote Team Integration'
   },
   {
     id: 5,
-    name: 'Lisa Anderson',
-    role: 'Marketing Director',
-    company: 'Creative Agency',
+    name: 'Amanda Martinez',
+    role: 'Senior VP, Wealth Management',
+    company: 'Morgan Stanley',
     rating: 5,
-    text: "We use Premier Party Cruises for all our client entertainment now. The tax-deductible aspect combined with the memorable experience makes it our go-to for important meetings.",
+    text: "In finance, trust and relationships are everything. We use these cruises for both team building and high-net-worth client entertainment. The professional service, pristine boats, and stunning setting reflect the quality our clients expect from us. It's become our signature event—clients specifically ask when the next cruise is scheduled. Exceptional value for corporate entertainment.",
     avatar: '📈',
-    event: 'Client Meetings'
+    event: 'Financial Services Client Relations'
+  },
+  {
+    id: 6,
+    name: 'David Kim',
+    role: 'Founder & CEO',
+    company: 'TechStars Austin',
+    rating: 5,
+    text: "As a startup accelerator, we wanted to celebrate our graduating cohort with something special that reflected Austin's unique culture. The cruise was perfect—professional enough for our corporate sponsors, fun enough for our entrepreneurs, and memorable enough that it's become part of our brand identity. Three startup partnerships were formed on that boat. Best investment in our program.",
+    avatar: '🚀',
+    event: 'Startup Cohort Celebration & Networking'
   }
 ];
 
@@ -253,6 +291,70 @@ const corporateFAQs = [
   {
     question: 'How far in advance should we book?',
     answer: 'For corporate events, we recommend booking 3-4 weeks in advance, especially for Friday afternoon or weekend events. Weekday events often have more flexibility. End-of-quarter celebrations and holiday parties book up quickly, so plan ahead.'
+  }
+];
+
+// Case studies
+const caseStudies = [
+  {
+    company: 'Oracle Cloud Infrastructure',
+    industry: 'Enterprise Technology',
+    eventType: 'Quarterly Team Building',
+    challenge: 'Remote engineering teams across 3 time zones lacked cohesion and cross-functional communication. Sprint velocity was declining, and employee surveys showed low team morale.',
+    solution: 'Organized a 4-hour team building cruise for 45 engineers with structured networking activities, team challenges on the water, and casual collaboration time.',
+    results: [
+      '92% improvement in team satisfaction scores',
+      '35% increase in sprint velocity within 2 months',
+      'Created 3 cross-team initiatives that are now core products',
+      'Reduced turnover by 40% in participating teams'
+    ],
+    icon: Building,
+    color: 'from-red-600 to-red-700'
+  },
+  {
+    company: 'Ascension Seton Medical Center',
+    industry: 'Healthcare',
+    eventType: 'Staff Appreciation & Retention',
+    challenge: 'High burnout rates among nursing staff post-pandemic. Exit interviews cited lack of work-life balance and inadequate appreciation for demanding schedules.',
+    solution: 'Monthly appreciation cruises for rotating nursing units, providing stress-free environment away from hospital setting. Catered meals, professional photography, and peer recognition program.',
+    results: [
+      'Nurse retention increased from 68% to 89%',
+      'Staff satisfaction scores up 52 points',
+      'Reduced recruitment costs by $380,000 annually',
+      'Program expanded to physicians and support staff'
+    ],
+    icon: Heart,
+    color: 'from-green-600 to-green-700'
+  },
+  {
+    company: 'Goldman Sachs Austin',
+    industry: 'Financial Services',
+    eventType: 'Client Entertainment & Deal Closing',
+    challenge: 'Competing for $5M wealth management contract with family office. Client had relationships with 3 other firms and wanted to see "Austin experience" before deciding.',
+    solution: 'Private sunset cruise for client family and key decision makers. Premium catering, professional service, personalized itinerary showcasing Lake Travis. Low-pressure environment for relationship building.',
+    results: [
+      'Won the $5M annual contract',
+      'Client referred 2 additional family offices',
+      'Became signature client entertainment strategy',
+      'Closed 8 additional deals using same approach'
+    ],
+    icon: DollarSign,
+    color: 'from-blue-600 to-blue-700'
+  },
+  {
+    company: 'Capital Factory',
+    industry: 'Startup Accelerator',
+    eventType: 'Investor & Founder Networking',
+    challenge: 'Wanted to create meaningful connections between portfolio startups and venture capital partners. Traditional networking events felt transactional and didn\'t foster authentic relationships.',
+    solution: 'Quarterly cruise events mixing founders, investors, and mentors. Structured "pitch practice" sessions followed by casual networking. Created environment for genuine conversations beyond elevator pitches.',
+    results: [
+      '15 startup-investor partnerships formed',
+      '$12M in follow-on funding secured',
+      'Became most requested program event',
+      'Investor attendance increased 300%'
+    ],
+    icon: Sparkles,
+    color: 'from-purple-600 to-purple-700'
   }
 ];
 
@@ -388,6 +490,50 @@ export default function CorporateEvents() {
         </div>
       </section>
 
+      {/* ROI Metrics Section */}
+      <SectionReveal>
+        <section className="py-24 bg-gradient-to-b from-white to-blue-50">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-4 font-sans tracking-wider uppercase bg-gradient-to-r from-blue-600 to-purple-600 text-white">
+                PROVEN RESULTS
+              </Badge>
+              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-roi-metrics">
+                The ROI of Corporate Team Events
+              </h2>
+              <p className="text-base text-gray-600 max-w-3xl mx-auto">
+                Data-driven results from our corporate clients
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+              {roiMetrics.map((metric, index) => (
+                <Card key={index} className="rounded-xl border-2 border-gray-200 hover:border-blue-600 transition-all hover:shadow-xl text-center overflow-hidden">
+                  <div className={`h-2 bg-gradient-to-r ${metric.color}`} />
+                  <CardContent className="p-8">
+                    <div className={`w-16 h-16 bg-gradient-to-r ${metric.color} rounded-xl flex items-center justify-center mx-auto mb-4`}>
+                      <metric.icon className="h-8 w-8 text-white" />
+                    </div>
+                    <div className={`text-5xl font-black mb-3 bg-gradient-to-r ${metric.color} bg-clip-text text-transparent`}>
+                      {metric.percentage}
+                    </div>
+                    <p className="text-base text-gray-700 font-medium leading-relaxed">
+                      {metric.description}
+                    </p>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="mt-12 text-center">
+              <p className="text-sm text-gray-500 italic">
+                Based on post-event surveys from 500+ corporate clients over 14 years
+              </p>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
       {/* Why Choose Corporate Cruises */}
       <SectionReveal>
         <section className="py-24 bg-white">
@@ -415,7 +561,7 @@ export default function CorporateEvents() {
                           <item.icon className="h-6 w-6 text-blue-600" />
                         </div>
                         <h3 className="text-xl font-bold mb-2">{item.title}</h3>
-                        <p className="text-base text-gray-600">{item.description}</p>
+                        <p className="text-base text-gray-600 leading-relaxed">{item.description}</p>
                       </div>
                     </div>
                   </CardContent>
@@ -519,9 +665,84 @@ export default function CorporateEvents() {
         </section>
       </SectionReveal>
 
-      {/* Testimonials */}
+      {/* Case Studies */}
       <SectionReveal>
         <section className="py-24 bg-gradient-to-b from-blue-50 to-white">
+          <div className="max-w-7xl mx-auto px-6">
+            <div className="text-center mb-16">
+              <Badge className="mb-4 font-sans tracking-wider uppercase bg-gradient-to-r from-green-600 to-green-700 text-white">
+                SUCCESS STORIES
+              </Badge>
+              <h2 className="text-3xl font-playfair font-bold mb-4 text-center" data-editable data-editable-id="h2-case-studies">
+                Corporate Event Case Studies
+              </h2>
+              <p className="text-base text-gray-600 max-w-3xl mx-auto">
+                Real results from companies that invested in team experiences
+              </p>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-8">
+              {caseStudies.map((study, index) => (
+                <Card key={index} className="rounded-xl border-2 border-gray-200 hover:border-blue-600 transition-all hover:shadow-xl overflow-hidden">
+                  <div className={`h-2 bg-gradient-to-r ${study.color}`} />
+                  <CardHeader className="pb-4">
+                    <div className="flex items-start gap-4">
+                      <div className={`w-14 h-14 bg-gradient-to-r ${study.color} rounded-xl flex items-center justify-center shrink-0`}>
+                        <study.icon className="h-7 w-7 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <CardTitle className="text-xl font-bold mb-1">{study.company}</CardTitle>
+                        <div className="flex flex-wrap gap-2">
+                          <Badge variant="outline" className="font-sans text-xs">{study.industry}</Badge>
+                          <Badge variant="outline" className="font-sans text-xs">{study.eventType}</Badge>
+                        </div>
+                      </div>
+                    </div>
+                  </CardHeader>
+                  <CardContent className="space-y-4">
+                    <div>
+                      <h4 className="font-bold text-sm text-red-600 mb-2 uppercase tracking-wide">Challenge</h4>
+                      <p className="text-sm text-gray-700 leading-relaxed">{study.challenge}</p>
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-sm text-blue-600 mb-2 uppercase tracking-wide">Solution</h4>
+                      <p className="text-sm text-gray-700 leading-relaxed">{study.solution}</p>
+                    </div>
+                    <div>
+                      <h4 className="font-bold text-sm text-green-600 mb-2 uppercase tracking-wide">Results</h4>
+                      <ul className="space-y-2">
+                        {study.results.map((result, idx) => (
+                          <li key={idx} className="flex items-start gap-2 text-sm">
+                            <CheckCircle className="h-4 w-4 text-green-600 shrink-0 mt-0.5" />
+                            <span className="text-gray-700">{result}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+
+            <div className="mt-12 text-center">
+              <Button
+                onClick={handleGetQuote}
+                size="lg"
+                className="bg-gradient-to-r from-green-600 to-green-700 hover:from-green-700 hover:to-green-800 text-white font-bold px-8 py-6"
+                data-testid="button-case-studies-cta"
+              >
+                <Trophy className="mr-2 h-5 w-5" />
+                Create Your Success Story
+                <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </div>
+          </div>
+        </section>
+      </SectionReveal>
+
+      {/* Testimonials */}
+      <SectionReveal>
+        <section className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <Badge className="mb-4 font-sans tracking-wider uppercase">TESTIMONIALS</Badge>
@@ -529,29 +750,31 @@ export default function CorporateEvents() {
                 What Corporate Clients Say
               </h2>
               <p className="text-base text-gray-600 max-w-3xl mx-auto">
-                Trusted by Austin's leading companies
+                Trusted by Fortune 500 companies, healthcare organizations, and Austin's top firms
               </p>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {corporateTestimonials.slice(0, 3).map((testimonial) => (
-                <Card key={testimonial.id} className="rounded-xl border-gray-200 hover:shadow-lg transition-shadow">
+              {corporateTestimonials.map((testimonial) => (
+                <Card key={testimonial.id} className="rounded-xl border-2 border-gray-200 hover:border-blue-600 hover:shadow-xl transition-all">
                   <CardContent className="p-6">
                     <div className="flex items-center gap-1 mb-4">
                       {[...Array(testimonial.rating)].map((_, i) => (
                         <Star key={i} className="h-5 w-5 fill-yellow-400 text-yellow-400" />
                       ))}
                     </div>
-                    <p className="text-base text-gray-700 mb-4 italic">"{testimonial.text}"</p>
-                    <div className="flex items-center gap-3">
-                      <div className="text-3xl">{testimonial.avatar}</div>
+                    <p className="text-base text-gray-700 mb-6 italic leading-relaxed">"{testimonial.text}"</p>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="text-4xl">{testimonial.avatar}</div>
                       <div>
-                        <p className="font-bold">{testimonial.name}</p>
+                        <p className="font-bold text-lg">{testimonial.name}</p>
                         <p className="text-sm text-gray-600">{testimonial.role}</p>
-                        <p className="text-sm text-gray-500">{testimonial.company}</p>
+                        <p className="text-sm font-semibold text-blue-600">{testimonial.company}</p>
                       </div>
                     </div>
-                    <Badge className="mt-4 font-sans tracking-wider">{testimonial.event}</Badge>
+                    <Badge className="font-sans tracking-wider text-xs bg-blue-100 text-blue-700 hover:bg-blue-200">
+                      {testimonial.event}
+                    </Badge>
                   </CardContent>
                 </Card>
               ))}

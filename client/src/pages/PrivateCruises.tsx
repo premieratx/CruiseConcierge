@@ -37,6 +37,8 @@ import { PricingTable } from '@/components/PricingTable';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
 import { ScrollReveal } from '@/components/ScrollReveal';
 import { SectionReveal } from '@/components/SectionReveal';
+import { TableOfContents } from '@/components/TableOfContents';
+import { StickyCTA } from '@/components/StickyCTA';
 
 // Hero images
 import heroImage1 from '@assets/clever-girl-50-person-boat.webp';
@@ -300,6 +302,17 @@ const privateCruiseTypes = [
   }
 ];
 
+// Table of Contents sections
+const tocSections = [
+  { id: 'quick-answers', title: 'Quick Answers', icon: <MessageCircle className="h-4 w-4" /> },
+  { id: 'featured-snippets', title: 'Featured Info', icon: <Info className="h-4 w-4" /> },
+  { id: 'packages', title: 'Packages & Fleet', icon: <Package className="h-4 w-4" /> },
+  { id: 'what-to-bring', title: 'What to Bring', icon: <Ticket className="h-4 w-4" /> },
+  { id: 'customization', title: 'Customization', icon: <Sparkles className="h-4 w-4" /> },
+  { id: 'occasions', title: 'Perfect For', icon: <Heart className="h-4 w-4" /> },
+  { id: 'booking-process', title: 'Booking Process', icon: <CheckCircle className="h-4 w-4" /> }
+];
+
 export default function PrivateCruises() {
   const [, setLocation] = useLocation();
   const { toast } = useToast();
@@ -409,7 +422,7 @@ export default function PrivateCruises() {
       </section>
 
       {/* Quick Answer Boxes Section */}
-      <section className="py-20 bg-white">
+      <section className="py-20 bg-white" id="quick-answers">
         <div className="container mx-auto px-6">
           <ScrollReveal>
             <QuickAnswerBoxGroup
@@ -446,7 +459,7 @@ export default function PrivateCruises() {
       </section>
 
       {/* Featured Snippets Section */}
-      <section className="py-24 bg-blue-50/30">
+      <section className="py-24 bg-blue-50/30" id="featured-snippets">
         <div className="container mx-auto px-6 max-w-5xl">
           <div className="grid md:grid-cols-2 gap-10">
             <ScrollReveal delay={0}>
@@ -486,6 +499,8 @@ export default function PrivateCruises() {
       {/* Main Content Tabs */}
       <section className="py-24 px-4 bg-white" id="packages">
         <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-8">
+            <div className="w-full">
           <ScrollReveal>
             <Tabs defaultValue="overview" className="w-full">
               <TabsList className="grid w-full grid-cols-4 mb-16 bg-blue-50 p-2 rounded-2xl h-auto border border-gray-200">
@@ -903,6 +918,11 @@ export default function PrivateCruises() {
               </TabsContent>
             </Tabs>
           </ScrollReveal>
+            </div>
+
+            {/* Table of Contents Sidebar */}
+            <TableOfContents sections={tocSections} />
+          </div>
         </div>
       </section>
 
@@ -970,7 +990,7 @@ export default function PrivateCruises() {
       </ScrollReveal>
 
       {/* What to Bring Section */}
-      <section className="py-24 bg-white">
+      <section className="py-24 bg-white" id="what-to-bring">
         <div className="container mx-auto px-6">
           <ScrollReveal>
             <WhatToBring
@@ -985,7 +1005,7 @@ export default function PrivateCruises() {
 
       {/* Customization Options Section */}
       <SectionReveal>
-        <section className="py-24 bg-blue-50/30">
+        <section className="py-24 bg-blue-50/30" id="customization">
           <div className="container mx-auto px-6">
             <div className="max-w-7xl mx-auto">
               <div className="relative mb-16">
@@ -1122,7 +1142,7 @@ export default function PrivateCruises() {
 
       {/* Perfect For Section */}
       <SectionReveal>
-        <section className="py-24 bg-white">
+        <section className="py-24 bg-white" id="occasions">
           <div className="container mx-auto px-6">
             <div className="max-w-7xl mx-auto">
               <div className="relative mb-16">
@@ -1259,7 +1279,7 @@ export default function PrivateCruises() {
 
       {/* How It Works Section */}
       <SectionReveal>
-        <section className="py-24 bg-blue-50/30">
+        <section className="py-24 bg-blue-50/30" id="booking-process">
           <div className="container mx-auto px-6">
             <div className="max-w-7xl mx-auto">
               <div className="relative mb-16">
@@ -1363,6 +1383,15 @@ export default function PrivateCruises() {
           { title: 'Lake Travis Event Ideas', href: '/blogs/lake-travis-event-ideas' },
           { title: 'Corporate Event Planning', href: '/blogs/corporate-event-planning-austin' }
         ]}
+      />
+
+      {/* Sticky CTA */}
+      <StickyCTA
+        primaryText="Get Free Quote"
+        primaryAction={() => handleGetQuote()}
+        secondaryText="Call Now"
+        secondaryHref="tel:+15127705050"
+        showOnDesktop={false}
       />
 
       <Footer />

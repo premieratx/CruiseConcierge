@@ -43,6 +43,8 @@ import { RelatedServicesSection } from '@/components/RelatedServicesSection';
 import { WhatToBring } from '@/components/WhatToBring';
 import { PricingTable } from '@/components/PricingTable';
 import AIOptimizedSection from '@/components/AIOptimizedSection';
+import { TableOfContents } from '@/components/TableOfContents';
+import { StickyCTA } from '@/components/StickyCTA';
 
 // Hero and gallery images
 import heroImage1 from '@assets/bachelor-party-group-guys.webp';
@@ -325,6 +327,19 @@ const galleryPhotos = [
   { id: 8, src: boatImage2, alt: 'Austin Bachelorette Party Boat Meeseeks on Lake Travis' }
 ];
 
+// Table of Contents sections
+const tocSections = [
+  { id: 'hero', title: 'Hero', icon: <Sparkles className="h-4 w-4" /> },
+  { id: 'quick-answers', title: 'Quick Answers', icon: <MessageCircle className="h-4 w-4" /> },
+  { id: 'packages', title: 'Packages', icon: <Package className="h-4 w-4" /> },
+  { id: 'whats-included', title: "What's Included", icon: <CheckCircle className="h-4 w-4" /> },
+  { id: 'testimonials', title: 'Testimonials', icon: <Quote className="h-4 w-4" /> },
+  { id: 'photos', title: 'Photos', icon: <Camera className="h-4 w-4" /> },
+  { id: 'faqs', title: 'FAQs', icon: <HelpCircle className="h-4 w-4" /> },
+  { id: 'what-to-bring', title: 'What to Bring', icon: <Ticket className="h-4 w-4" /> },
+  { id: 'planning-timeline', title: 'Planning Timeline', icon: <Calendar className="h-4 w-4" /> }
+];
+
 export default function BacheloretteParty() {
   const [, navigate] = useLocation();
   const { isEditMode } = useInlineEdit();
@@ -371,6 +386,17 @@ export default function BacheloretteParty() {
     navigate(`/chat?${params.toString()}`);
   };
 
+  // Sticky CTA configuration
+  const stickyCTA = (
+    <StickyCTA
+      primaryText="Get Free Quote"
+      primaryAction={() => handleGetQuote()}
+      secondaryText="Call Now"
+      secondaryHref="tel:+15127705050"
+      showOnDesktop={false}
+    />
+  );
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
       <SEOHead
@@ -384,7 +410,7 @@ export default function BacheloretteParty() {
       <Breadcrumb />
       
       {/* Hero Section */}
-      <section className="relative pt-32 pb-24 px-4 overflow-hidden bg-gradient-to-br from-pink-100 via-white to-purple-50">
+      <section id="hero" className="relative pt-32 pb-24 px-4 overflow-hidden bg-gradient-to-br from-pink-100 via-white to-purple-50">
         <div className="absolute inset-0 bg-gradient-to-br from-pink-200/30 via-purple-100/30 to-blue-100/30"></div>
         
         <div className="max-w-7xl mx-auto relative z-10">
@@ -475,7 +501,7 @@ export default function BacheloretteParty() {
 
       {/* Quick Answer Boxes Section */}
       <SectionReveal>
-        <section className="py-20 bg-white">
+        <section id="quick-answers" className="py-20 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <QuickAnswerBoxGroup
               title="Quick Answers for Bachelorette Parties"
@@ -512,7 +538,7 @@ export default function BacheloretteParty() {
 
       {/* Packages Section */}
       <SectionReveal>
-        <section className="py-24 bg-blue-50/30">
+        <section id="packages" className="py-24 bg-blue-50/30">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-pink-200 opacity-30 absolute -mt-12">01</span>
@@ -612,7 +638,7 @@ export default function BacheloretteParty() {
 
       {/* What's Included Section */}
       <SectionReveal>
-        <section className="py-24 bg-white">
+        <section id="whats-included" className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-pink-200 opacity-30 absolute -mt-12">02</span>
@@ -661,7 +687,7 @@ export default function BacheloretteParty() {
 
       {/* Testimonials Section */}
       <SectionReveal>
-        <section className="py-24 bg-blue-50/30">
+        <section id="testimonials" className="py-24 bg-blue-50/30">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-pink-200 opacity-30 absolute -mt-12">03</span>
@@ -705,7 +731,7 @@ export default function BacheloretteParty() {
 
       {/* Photo Gallery Section */}
       <SectionReveal>
-        <section className="py-24 bg-white">
+        <section id="photos" className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-pink-200 opacity-30 absolute -mt-12">04</span>
@@ -736,7 +762,7 @@ export default function BacheloretteParty() {
 
       {/* FAQ Section */}
       <SectionReveal>
-        <section className="py-24 bg-blue-50/30">
+        <section id="faqs" className="py-24 bg-blue-50/30">
           <div className="max-w-7xl mx-auto px-6">
             <div className="text-center mb-16">
               <span className="text-6xl font-black text-pink-200 opacity-30 absolute -mt-12">05</span>
@@ -772,7 +798,7 @@ export default function BacheloretteParty() {
 
       {/* What to Bring Section */}
       <SectionReveal>
-        <section className="py-24 bg-white">
+        <section id="what-to-bring" className="py-24 bg-white">
           <div className="max-w-7xl mx-auto px-6">
             <WhatToBring
               variant="bachelorette"
@@ -786,7 +812,7 @@ export default function BacheloretteParty() {
 
       {/* Planning Checklist */}
       <SectionReveal>
-        <section className="py-24 bg-blue-50/30">
+        <section id="planning-timeline" className="py-24 bg-blue-50/30">
           <div className="max-w-7xl mx-auto px-6">
             <AIOptimizedSection
               type="timeline"
@@ -862,6 +888,9 @@ export default function BacheloretteParty() {
         </section>
       </SectionReveal>
 
+      {/* Table of Contents */}
+      <TableOfContents sections={tocSections} />
+
       <PartyPlanningChecklist partyType="Bachelorette Party" eventType="bachelorette celebration" />
       
       <RelatedLinks
@@ -873,6 +902,9 @@ export default function BacheloretteParty() {
           { href: '/team-building', label: 'Team Building Events', description: 'Corporate events on Lake Travis' },
         ]}
       />
+
+      {/* Sticky CTA */}
+      {stickyCTA}
 
       <Footer />
     </div>

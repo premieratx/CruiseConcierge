@@ -159,6 +159,35 @@ function Router() {
       <Route path="/bachelorette-party-austin" component={BacheloretteParty} />
       <Route path="/combined-bachelor-bachelorette-austin" component={CombinedBachelorBachelorette} />
       <Route path="/atx-disco-cruise" component={ATXDiscoCruise} />
+      
+      {/* Legacy URL Redirects - SEO & User Experience */}
+      <Route path="/bachelor-party">
+        {() => {
+          const [, navigate] = useLocation();
+          useEffect(() => {
+            navigate('/bachelor-party-austin', { replace: true });
+          }, [navigate]);
+          return null;
+        }}
+      </Route>
+      <Route path="/bachelorette-party">
+        {() => {
+          const [, navigate] = useLocation();
+          useEffect(() => {
+            navigate('/bachelorette-party-austin', { replace: true });
+          }, [navigate]);
+          return null;
+        }}
+      </Route>
+      <Route path="/combined-parties-austin">
+        {() => {
+          const [, navigate] = useLocation();
+          useEffect(() => {
+            navigate('/combined-bachelor-bachelorette-austin', { replace: true });
+          }, [navigate]);
+          return null;
+        }}
+      </Route>
       <Route path="/private-cruises" component={PrivateCruises} />
       <Route path="/corporate-events" component={CorporateEvents} />
       <Route path="/birthday-parties" component={BirthdayParties} />
