@@ -17,6 +17,14 @@ export default function BookNow() {
     { id: 'super-sparkle', name: 'Super Sparkle Platinum' }
   ];
 
+  // Determine which widget URL to show
+  let widgetUrl = '';
+  if (activeTab === 'disco') {
+    widgetUrl = `/widgets/${discoTab}.html`;
+  } else {
+    widgetUrl = `/widgets/${activeTab}.html`;
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-yellow-50">
       <div className="container mx-auto px-4 py-12">
@@ -63,53 +71,20 @@ export default function BookNow() {
           </div>
         )}
 
-        {/* Widget Container - Raw HTML injection */}
-        <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-2xl p-8" style={{ minHeight: '600px' }}>
-          
-          {activeTab === '14p' && (
-            <div dangerouslySetInnerHTML={{__html: `
-              <div class="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d0012c2afc7d8d70e285"></div>
-            `}} />
-          )}
-
-          {activeTab === '25p' && (
-            <div dangerouslySetInnerHTML={{__html: `
-              <div class="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d2b74e1de53cee29395e"></div>
-            `}} />
-          )}
-
-          {activeTab === '50p' && (
-            <div dangerouslySetInnerHTML={{__html: `
-              <div class="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="64c7d4f01be574411500cf62"></div>
-            `}} />
-          )}
-
-          {activeTab === 'disco' && discoTab === 'basic-bach' && (
-            <div dangerouslySetInnerHTML={{__html: `
-              <div class="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676fe4a7ff119f53c4063c1b"></div>
-            `}} />
-          )}
-
-          {activeTab === 'disco' && discoTab === 'disco-queen' && (
-            <div dangerouslySetInnerHTML={{__html: `
-              <div class="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0bc68ff6dfb29009b5ad"></div>
-            `}} />
-          )}
-
-          {activeTab === 'disco' && discoTab === 'super-sparkle' && (
-            <div dangerouslySetInnerHTML={{__html: `
-              <div class="xola-embedded-checkout" data-seller="64c43a70daa3e618b7229ddf" data-version="2" data-experience="676f0ceaa3744b05ae09e9de"></div>
-            `}} />
-          )}
-
+        {/* Widget iframe */}
+        <div className="max-w-5xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
+          <iframe
+            key={widgetUrl}
+            src={widgetUrl}
+            style={{
+              width: '100%',
+              minHeight: '700px',
+              border: 'none'
+            }}
+            title="Booking Widget"
+          />
         </div>
       </div>
     </div>
   );
-}
-
-declare global {
-  interface Window {
-    XolaCheckout?: any;
-  }
 }
