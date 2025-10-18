@@ -126,12 +126,12 @@ export default function BookOnlinePopUp({ defaultBoatType = '14p' }: BookOnlineP
               </div>
 
               {/* Main Tabs */}
-              <div className="space-y-6">
+              <div className="space-y-2 md:space-y-6">
                 {/* Tab Buttons */}
-                <div className="flex flex-wrap gap-3">
+                <div className="flex flex-wrap gap-2 md:gap-3">
                   <button
                     onClick={() => setActiveTab('14p')}
-                    className={`flex-1 min-w-[140px] px-6 py-3 rounded-lg font-semibold transition-all ${
+                    className={`flex-1 min-w-[90px] md:min-w-[140px] px-2 py-1.5 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-semibold transition-all ${
                       activeTab === '14p'
                         ? 'bg-blue-600 text-white shadow-lg'
                         : 'bg-white text-gray-700 hover:bg-gray-50 shadow'
@@ -142,7 +142,7 @@ export default function BookOnlinePopUp({ defaultBoatType = '14p' }: BookOnlineP
                   </button>
                   <button
                     onClick={() => setActiveTab('25p')}
-                    className={`flex-1 min-w-[140px] px-6 py-3 rounded-lg font-semibold transition-all ${
+                    className={`flex-1 min-w-[90px] md:min-w-[140px] px-2 py-1.5 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-semibold transition-all ${
                       activeTab === '25p'
                         ? 'bg-blue-600 text-white shadow-lg'
                         : 'bg-white text-gray-700 hover:bg-gray-50 shadow'
@@ -153,7 +153,7 @@ export default function BookOnlinePopUp({ defaultBoatType = '14p' }: BookOnlineP
                   </button>
                   <button
                     onClick={() => setActiveTab('50p')}
-                    className={`flex-1 min-w-[140px] px-6 py-3 rounded-lg font-semibold transition-all ${
+                    className={`flex-1 min-w-[90px] md:min-w-[140px] px-2 py-1.5 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-semibold transition-all ${
                       activeTab === '50p'
                         ? 'bg-blue-600 text-white shadow-lg'
                         : 'bg-white text-gray-700 hover:bg-gray-50 shadow'
@@ -164,7 +164,7 @@ export default function BookOnlinePopUp({ defaultBoatType = '14p' }: BookOnlineP
                   </button>
                   <button
                     onClick={() => setActiveTab('disco')}
-                    className={`flex-1 min-w-[140px] px-6 py-3 rounded-lg font-semibold transition-all flex flex-col items-center justify-center ${
+                    className={`flex-1 min-w-[90px] md:min-w-[140px] px-2 py-1.5 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-semibold transition-all flex flex-col items-center justify-center ${
                       activeTab === 'disco'
                         ? 'bg-blue-600 text-white shadow-lg'
                         : 'bg-white text-gray-700 hover:bg-gray-50 shadow'
@@ -178,10 +178,10 @@ export default function BookOnlinePopUp({ defaultBoatType = '14p' }: BookOnlineP
 
                 {/* Disco Package Sub-tabs */}
                 {activeTab === 'disco' && (
-                  <div className="flex flex-wrap gap-3">
+                  <div className="flex flex-wrap gap-2 md:gap-3">
                     <button
                       onClick={() => setActiveDiscoPackage('basic-bach')}
-                      className={`flex-1 min-w-[160px] px-6 py-3 rounded-lg font-semibold transition-all ${
+                      className={`flex-1 min-w-[100px] md:min-w-[160px] px-2 py-1.5 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-semibold transition-all ${
                         activeDiscoPackage === 'basic-bach'
                           ? 'bg-purple-600 text-white shadow-lg'
                           : 'bg-purple-100 text-purple-700 hover:bg-purple-200 shadow'
@@ -192,7 +192,7 @@ export default function BookOnlinePopUp({ defaultBoatType = '14p' }: BookOnlineP
                     </button>
                     <button
                       onClick={() => setActiveDiscoPackage('disco-queen')}
-                      className={`flex-1 min-w-[160px] px-6 py-3 rounded-lg font-semibold transition-all ${
+                      className={`flex-1 min-w-[100px] md:min-w-[160px] px-2 py-1.5 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-semibold transition-all ${
                         activeDiscoPackage === 'disco-queen'
                           ? 'bg-purple-600 text-white shadow-lg'
                           : 'bg-purple-100 text-purple-700 hover:bg-purple-200 shadow'
@@ -203,7 +203,7 @@ export default function BookOnlinePopUp({ defaultBoatType = '14p' }: BookOnlineP
                     </button>
                     <button
                       onClick={() => setActiveDiscoPackage('super-sparkle')}
-                      className={`flex-1 min-w-[160px] px-6 py-3 rounded-lg font-semibold transition-all ${
+                      className={`flex-1 min-w-[100px] md:min-w-[160px] px-2 py-1.5 md:px-6 md:py-3 rounded-lg text-sm md:text-base font-semibold transition-all ${
                         activeDiscoPackage === 'super-sparkle'
                           ? 'bg-purple-600 text-white shadow-lg'
                           : 'bg-purple-100 text-purple-700 hover:bg-purple-200 shadow'
