@@ -157,12 +157,12 @@ app.use((req, res, next) => {
     res.setHeader('Content-Security-Policy', 
       "frame-ancestors 'self' https://booking.premierpartycruises.com https://*.premierpartycruises.com https://*.replit.dev https://*.repl.co; " +
       "default-src 'self' 'unsafe-inline' 'unsafe-eval' data: https: blob:; " +
-      "connect-src 'self' https: wss: ws:; " +
+      "connect-src 'self' https: wss: ws: https://xola.com https://*.xola.com https://checkout.xola.com; " +
       "img-src 'self' data: https: blob:; " +
       "font-src 'self' data: https:; " +
-      "frame-src 'self' https://xola.com https://*.xola.com https://botcdn.xola.com; " +
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https: https://xola.com https://*.xola.com https://botcdn.xola.com; " +
-      "style-src 'self' 'unsafe-inline' https: https://xola.com https://*.xola.com https://botcdn.xola.com;"
+      "frame-src 'self' https://xola.com https://*.xola.com https://checkout.xola.com https://botcdn.xola.com; " +
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https: https://xola.com https://*.xola.com https://checkout.xola.com; " +
+      "style-src 'self' 'unsafe-inline' https: https://xola.com https://*.xola.com https://checkout.xola.com;"
     );
     
     next();
